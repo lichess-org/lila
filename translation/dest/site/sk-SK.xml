@@ -394,6 +394,8 @@
   <string name="apply">Odoslať</string>
   <string name="save">Uložiť</string>
   <string name="leaderboard">Rebríček</string>
+  <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
+  <string name="gameAsGIF">Uložiť ako GIF</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
@@ -482,6 +484,8 @@
   <string name="tournamentIsStarting">Turnaj sa začína</string>
   <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
+  <string name="pause">Pozastaviť</string>
+  <string name="resume">Pokračovať</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
   <string name="berserkRate">Miera besnenia</string>
@@ -506,7 +510,6 @@
   <string name="profileCompletion">Úplnosť profilu: %s</string>
   <string name="xRating">%s hodnotenie</string>
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
-  <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
@@ -626,6 +629,7 @@
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
+  <string name="error.unknown">Neplatná hodnota</string>
   <string name="error.required">Povinné pole</string>
   <string name="error.email">Táto emailová adresa je neplatná</string>
   <string name="error.email_acceptable">Táto emailová adresa nie je akceptovateľná. Ešte raz ju prosím skontrolujte a skúste zadať znova.</string>
@@ -936,6 +940,7 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="cancelSimul">Zrušiť simultánku</string>
   <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
+  <string name="simulFeatured">Zobraziť na %s</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>

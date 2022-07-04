@@ -37,7 +37,9 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(impli
                     )
                   )
                 ),
-                UnwindField("round")
+                UnwindField("round"),
+                Skip(offset),
+                Limit(length)
               )
             }
             .map { docs =>

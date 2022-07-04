@@ -344,6 +344,8 @@
   <string name="apply">Pas toe</string>
   <string name="save">Stoor</string>
   <string name="leaderboard">Leierbord</string>
+  <string name="screenshotCurrentPosition">Neem \'n skermfoto van die huidige posisie</string>
+  <string name="gameAsGIF">Spel as \'n GIF</string>
   <string name="pasteTheFenStringHere">Plak die FEN string hier</string>
   <string name="pasteThePgnStringHere">Plak die PGN string hier</string>
   <string name="orUploadPgnFile">Of laai ‘n PGN-lêer op</string>
@@ -423,6 +425,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tournamentIsStarting">Toernooi gaan nou begin</string>
   <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
   <string name="standByX">Op jou merke, %s, plaas tans spelers, maak gereed!</string>
+  <string name="pause">Onderbreek</string>
+  <string name="resume">Hervat</string>
   <string name="youArePlaying">Jy speel nou!</string>
   <string name="winRate">Wen koers</string>
   <string name="berserkRate">Beserk koers</string>
@@ -447,7 +451,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="profileCompletion">Profiel voltooiing: %s</string>
   <string name="xRating">%s gradering</string>
   <string name="ifNoneLeaveEmpty">As geen, los oop</string>
-  <string name="gameCompletionRate">Spel voltooings koers: %s</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Verander profiel</string>
   <string name="firstName">Noem naam</string>
@@ -561,6 +564,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="community">Gemeenskap</string>
   <string name="tools">Gereedskap</string>
   <string name="increment">Inkrement</string>
+  <string name="error.unknown">Ongeldige waarde</string>
   <string name="error.required">Dié veld word vereis</string>
   <string name="error.email">Hierdie epos adres is ongeldig</string>
   <string name="error.email_acceptable">Hierdie e-pos adres is nie aanvaarbaar nie. Maak seker dis reg en probeer weer.</string>

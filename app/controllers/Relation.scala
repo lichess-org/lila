@@ -11,6 +11,7 @@ import lila.relation.Related
 import lila.relation.RelationStream._
 import lila.user.{ User => UserModel }
 import views._
+import lila.common.config
 
 final class Relation(
     env: Env,
@@ -121,7 +122,7 @@ final class Relation(
 
   def following(username: String, page: Int) =
     Open { implicit ctx =>
-      Reasonable(page, 20) {
+      Reasonable(page, config.Max(20)) {
         OptionFuResult(env.user.repo named username) { user =>
           RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
             negotiate(
@@ -142,7 +143,7 @@ final class Relation(
       negotiate(
         html = notFound,
         api = _ =>
-          Reasonable(page, 20) {
+          Reasonable(page, config.Max(20)) {
             RelatedPager(api.followersPaginatorAdapter(UserModel normalize username), page) flatMap { pag =>
               Ok(jsonRelatedPaginator(pag)).fuccess
             }
@@ -174,7 +175,7 @@ final class Relation(
 
   def blocks(page: Int) =
     Auth { implicit ctx => me =>
-      Reasonable(page, 20) {
+      Reasonable(page, config.Max(20)) {
         RelatedPager(api.blockingPaginatorAdapter(me.id), page) map { pag =>
           html.relation.bits.blocks(me, pag)
         }

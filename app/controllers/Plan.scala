@@ -78,7 +78,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     } yield Ok(
       html.plan.index(
         stripePublicKey = env.plan.stripePublicKey,
-        payPalPublicKey = env.plan.payPalCheckoutSetting.get() option env.plan.payPalPublicKey,
+        payPalPublicKey = env.plan.payPalPublicKey,
         email = email,
         patron = patron,
         recentIds = recentIds,

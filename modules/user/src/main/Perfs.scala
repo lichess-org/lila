@@ -132,25 +132,24 @@ case class Perfs(
 
   def apply(key: String): Option[Perf] = perfsMap get key
 
-  def apply(perfType: PerfType): Perf =
-    perfType match {
-      case PerfType.Standard       => standard
-      case PerfType.UltraBullet    => ultraBullet
-      case PerfType.Bullet         => bullet
-      case PerfType.Blitz          => blitz
-      case PerfType.Rapid          => rapid
-      case PerfType.Classical      => classical
-      case PerfType.Correspondence => correspondence
-      case PerfType.Chess960       => chess960
-      case PerfType.KingOfTheHill  => kingOfTheHill
-      case PerfType.ThreeCheck     => threeCheck
-      case PerfType.Antichess      => antichess
-      case PerfType.Atomic         => atomic
-      case PerfType.Horde          => horde
-      case PerfType.RacingKings    => racingKings
-      case PerfType.Crazyhouse     => crazyhouse
-      case PerfType.Puzzle         => puzzle
-    }
+  def apply(perfType: PerfType): Perf = perfType match {
+    case PerfType.Standard       => standard
+    case PerfType.UltraBullet    => ultraBullet
+    case PerfType.Bullet         => bullet
+    case PerfType.Blitz          => blitz
+    case PerfType.Rapid          => rapid
+    case PerfType.Classical      => classical
+    case PerfType.Correspondence => correspondence
+    case PerfType.Chess960       => chess960
+    case PerfType.KingOfTheHill  => kingOfTheHill
+    case PerfType.ThreeCheck     => threeCheck
+    case PerfType.Antichess      => antichess
+    case PerfType.Atomic         => atomic
+    case PerfType.Horde          => horde
+    case PerfType.RacingKings    => racingKings
+    case PerfType.Crazyhouse     => crazyhouse
+    case PerfType.Puzzle         => puzzle
+  }
 
   def inShort =
     perfs map { case (name, perf) =>

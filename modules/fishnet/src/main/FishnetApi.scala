@@ -66,7 +66,7 @@ final class FishnetApi(
         .sort(
           $doc(
             "sender.system" -> 1, // user requests first, then lichess auto analysis
-            "createdAt"     -> 1 // oldest requests first
+            "createdAt"     -> 1  // oldest requests first
           )
         )
         .one[Work.Analysis]
@@ -98,7 +98,7 @@ final class FishnetApi(
                 }
               } recoverWith { case e: Exception =>
                 Monitor.failure(work, client, e)
-                repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
+                repo.updateOrGiveUpAnalysis(work, _.invalid) >> fufail(e)
               }
             case partial: PartialAnalysis =>
               {

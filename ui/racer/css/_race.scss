@@ -15,7 +15,7 @@ $c-bg-position-y: 2px;
   &__tracks {
     position: absolute;
     top: 0;
-    left: 0;
+    #{$start-direction}: 0;
   }
 
   &::before {
@@ -49,7 +49,7 @@ $c-bg-position-y: 2px;
     position: relative;
     height: $track-height;
     z-index: 1;
-    margin-right: 140px;
+    margin-#{$end-direction}: 140px;
   }
 
   &__score {
@@ -59,10 +59,10 @@ $c-bg-position-y: 2px;
     justify-content: flex-end;
     position: absolute;
     top: 0;
-    right: -140px;
+    #{$end-direction}: -140px;
     color: #bbb;
     width: 3.8ch;
-    padding-right: 0.8ch;
+    padding-#{$end-direction}: 0.8ch;
     padding-top: 0.2em;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
@@ -87,7 +87,7 @@ $c-bg-position-y: 2px;
     transition: transform 4s;
 
     &__name {
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
       white-space: nowrap;
     }
 
@@ -108,17 +108,10 @@ $c-bg-position-y: 2px;
         &::before {
           content: 'A';
           position: absolute;
-          left: -0.9em;
+          #{$start-direction}: -0.9em;
           bottom: 0.3em;
           font-size: 0.4em;
           animation: boost 0.1s ease-in infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          &::before {
-            animation: none;
-            transform: translateX(0%);
-            opacity: 1;
-          }
         }
       }
     }
@@ -131,7 +124,7 @@ $c-bg-position-y: 2px;
       }
     }
     .utitle {
-      margin-right: 0.6ch;
+      margin-#{$end-direction}: 0.6ch;
     }
   }
 }

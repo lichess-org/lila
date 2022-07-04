@@ -17,18 +17,10 @@ export const ids = {
   variantEnd: 60,
 };
 
-export function started(data: GameData): boolean {
-  return data.game.status.id >= ids.started;
-}
+export const started = (data: GameData): boolean => data.game.status.id >= ids.started;
 
-export function finished(data: GameData): boolean {
-  return data.game.status.id >= ids.mate;
-}
+export const finished = (data: GameData): boolean => data.game.status.id >= ids.mate;
 
-export function aborted(data: GameData): boolean {
-  return data.game.status.id === ids.aborted;
-}
+export const aborted = (data: GameData): boolean => data.game.status.id === ids.aborted;
 
-export function playing(data: GameData): boolean {
-  return started(data) && !finished(data) && !aborted(data);
-}
+export const playing = (data: GameData): boolean => started(data) && !finished(data) && !aborted(data);

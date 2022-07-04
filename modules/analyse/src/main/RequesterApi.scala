@@ -10,7 +10,7 @@ import lila.user.User
 
 final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val formatter = format.DateTimeFormat.forPattern("yyyy-MM-dd")
+  private val formatter = format.DateTimeFormat forPattern "yyyy-MM-dd"
 
   def add(requester: User.ID, ownGame: Boolean): Funit =
     coll.update

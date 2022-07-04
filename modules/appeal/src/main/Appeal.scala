@@ -71,7 +71,8 @@ object Appeal {
 
   case class WithUser(appeal: Appeal, user: User)
 
-  val maxLength = 1000
+  val maxLength       = 1100
+  val maxLengthClient = 1000
 
   import play.api.data._
   import play.api.data.Forms._

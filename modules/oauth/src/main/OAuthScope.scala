@@ -30,6 +30,10 @@ object OAuthScope {
     case object Write extends OAuthScope("tournament:write", "Create, update and join tournaments")
   }
 
+  object Racer {
+    case object Write extends OAuthScope("racer:write", "Create and join puzzle races")
+  }
+
   object Puzzle {
     case object Read extends OAuthScope("puzzle:read", "Read puzzle activity")
   }
@@ -76,6 +80,7 @@ object OAuthScope {
     Study.Read,
     Study.Write,
     Tournament.Write,
+    Racer.Write,
     Puzzle.Read,
     Team.Read,
     Team.Write,

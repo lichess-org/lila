@@ -488,6 +488,8 @@
   <string name="tournamentIsStarting">Turnir se začenja</string>
   <string name="tournamentPairingsAreNowClosed">Pari turnirja so zaključeni.</string>
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
+  <string name="pause">Premor</string>
+  <string name="resume">Nadaljuj</string>
   <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Delež zmag</string>
   <string name="berserkRate">Delež divjanja</string>
@@ -512,7 +514,6 @@
   <string name="profileCompletion">Profil zaključen: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Če ni, pustite prazno</string>
-  <string name="gameCompletionRate">Delež zaključenih iger: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
@@ -631,6 +632,7 @@
   <string name="community">Skupnost</string>
   <string name="tools">Orodja</string>
   <string name="increment">Dodatek</string>
+  <string name="error.unknown">Neveljavna vrednost</string>
   <string name="error.required">To polje je obvezno</string>
   <string name="error.email">E-poštni naslov ni veljaven</string>
   <string name="error.email_acceptable">Elektronski naslov ni sprejemljiv. Prosim, preverite ga in poskusite ponovno.</string>

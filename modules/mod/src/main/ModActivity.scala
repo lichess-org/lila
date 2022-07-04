@@ -38,10 +38,12 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
     ).buildAsyncFuture((compute _).tupled)
   }
 
+  private val maxDocs = 10_1000
+
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
       .aggregateList(
-        maxDocs = 10_000,
+        maxDocs = maxDocs,
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
@@ -80,7 +82,8 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               )
             )
           ),
-          Sort(Descending("_id.0"))
+          Sort(Descending("_id.0")),
+          Limit(maxDocs)
         )
       }
       .map { docs =>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">baru saja</string>
+  <string name="rightNow">sekarang</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="other">%s detik yang lalu</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">%s menit yang lalu</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s jam yang lalu</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">%s hari yang lalu</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s minggu yang lalu</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">%s bulan yang lalu</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s tahun yang lalu</item>
+  </plurals>
+</resources>

@@ -9,7 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength">강도</string>
+  <string name="strength">난이도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="chat">채팅</string>
   <string name="resign">기권</string>
@@ -87,6 +87,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
   </plurals>
+  <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\" 수치</string>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openingExplorer">오프닝 탐색기</string>
@@ -94,6 +95,9 @@
   <string name="xOpeningExplorer">%s 오프닝 탐색기</string>
   <string name="winPreventedBy50MoveRule">50수 규칙에 의하여 승리가 불가능합니다.</string>
   <string name="lossSavedBy50MoveRule">50수 규칙에 의하여 패배가 불가능합니다.</string>
+  <string name="winOr50MovesByPriorMistake">승리 혹은 이전의 실수로 인한 50수 규칙 무승부</string>
+  <string name="lossOr50MovesByPriorMistake">패배 혹은 이전의 실수로 인한 50수 규칙 무승부</string>
+  <string name="unknownDueToRounding">DTZ 수치의 반올림 때문에 추천된 테이블베이스 라인을 따라야만 승리 및 패배가 보장됩니다.</string>
   <string name="allSet">모든 설정 완료!</string>
   <string name="importPgn">PGN 가져오기</string>
   <string name="delete">삭제</string>
@@ -101,18 +105,18 @@
   <string name="replayMode">게임 다시보기</string>
   <string name="realtimeReplay">실시간</string>
   <string name="byCPL">평가치변화</string>
-  <string name="openStudy">연구를 열기</string>
+  <string name="openStudy">연구를 시작하기</string>
   <string name="enable">활성화</string>
-  <string name="bestMoveArrow">화살표로 최상의 수 표시하기</string>
-  <string name="evaluationGauge">평가치를 표시</string>
-  <string name="multipleLines">해석 라인 수</string>
-  <string name="cpus">CPU 갯수</string>
+  <string name="bestMoveArrow">최선의 수 화살표</string>
+  <string name="evaluationGauge">평가치 게이지</string>
+  <string name="multipleLines">다중 분석 수</string>
+  <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
-  <string name="infiniteAnalysis">무한분석</string>
-  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
+  <string name="infiniteAnalysis">무한 분석</string>
+  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">심각한 실수</string>
   <string name="mistake">실수</string>
-  <string name="inaccuracy">잘못된 판단</string>
+  <string name="inaccuracy">사소한 실수</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
@@ -318,6 +322,8 @@
   <string name="apply">적용</string>
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
+  <string name="screenshotCurrentPosition">스크린샷 찍기</string>
+  <string name="gameAsGIF">GIF로 저장하기</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
@@ -391,6 +397,8 @@
   <string name="tournamentIsStarting">토너먼트가 곧 시작됩니다</string>
   <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 종료되었습니다.</string>
   <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
+  <string name="pause">일시 중지</string>
+  <string name="resume">재개</string>
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="berserkRate">버서크율</string>
@@ -415,7 +423,6 @@
   <string name="profileCompletion">프로필 완성도: %s</string>
   <string name="xRating">레이팅: %s</string>
   <string name="ifNoneLeaveEmpty">없으면 무시하세요</string>
-  <string name="gameCompletionRate">끝까지 플레이한 게임: %s</string>
   <string name="profile">프로필</string>
   <string name="editProfile">프로필 수정</string>
   <string name="firstName">이름</string>
@@ -467,6 +474,7 @@
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
+  <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
@@ -525,6 +533,7 @@
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
+  <string name="error.unknown">잘못된 값</string>
   <string name="error.required">필수 기입 사항입니다.</string>
   <string name="error.email">이메일 주소가 유효하지 않습니다</string>
   <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
@@ -535,6 +544,7 @@
   <string name="error.min">최소 %s자 이어야 합니다.</string>
   <string name="error.max">최대 %s자 이어야 합니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
+  <string name="ifRegistered">가입된 사람만</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
@@ -852,4 +862,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="until">까지</string>
   <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
   <string name="switchSides">색 바꾸기</string>
+  <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
 </resources>

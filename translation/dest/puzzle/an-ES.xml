@@ -13,6 +13,7 @@
   <string name="specialMoves">Movimientos especials</string>
   <string name="didYouLikeThisPuzzle">Te fa goyo este problema?</string>
   <string name="voteToLoadNextOne">Vota pa cargar lo siguient!</string>
+  <string name="yourPuzzleRatingWillNotChange">La tuya puntuación de problemas no cambiará. Tiene en cuenta que los problemas no son pas una competición. La puntuación nomás indica los problemas que mas s\'asimilan a las tuyas habilidatz.</string>
   <string name="findTheBestMoveForWhite">Troba lo millor movimiento pa las blancas.</string>
   <string name="findTheBestMoveForBlack">Troba lo millor movimiento pa las negras.</string>
   <string name="toGetPersonalizedPuzzles">Pa aconseguir problemas personalizaus:</string>
@@ -44,6 +45,10 @@
   </plurals>
   <string name="harder">Dificil</string>
   <string name="hardest">Lo mas dificil</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Un punto per dencima tuya puntuación de problemas</item>
+    <item quantity="other">%s puntos per dencima d\'a tuya puntuación de problemas</item>
+  </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Anyadir belatro tema</string>
   <string name="jumpToNextPuzzleImmediately">Pasar immediatament a lo siguient problema</string>
@@ -65,4 +70,17 @@
   <string name="fromMyGamesNone">No i hai problemas de las tuyas partidas en a base de datos, pero Lichess te quiere muito igual.
 Chuga partidas rapidas y clasica pa tener mas opcions de que anyadamos un problemas tuyo.</string>
   <string name="fromXGamesFound">S\'ha trobau %1$s problemas de %2$s partidas</string>
+  <string name="puzzleDashboardDescription">Entrena, analisa, millora</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s chugau</item>
+    <item quantity="other">%s chugaus</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s a repetir</item>
+    <item quantity="other">%s a repetir</item>
+  </plurals>
+  <string name="percentSolved">%s resueltos</string>
+  <string name="noPuzzlesToShow">No i hai cosa a amostrar, fe bell problema primero!</string>
+  <string name="improvementAreasDescription">Entrena estes temas pa optimizar lo tuyo progreso!</string>
+  <string name="strengthDescription">Estos son los temas en que yes millor</string>
 </resources>

@@ -9,6 +9,8 @@
   <string name="postBody">Corpo</string>
   <string name="drafts">Rascunhos</string>
   <string name="published">Publicado</string>
+  <string name="createBlogDiscussion">Permitir comentários</string>
+  <string name="createBlogDiscussionHelp">Será criado um tópico do fórum para que as pessoas comentem em sua publicação</string>
   <string name="publishOnYourBlog">Publicar no seu blog</string>
   <string name="publishHelp">Se ativado, a postagem será listada no seu blog. Senão, ficará privada, e salva como rascunho</string>
   <plurals name="publishedNbBlogPosts">

@@ -24,7 +24,7 @@ object side {
       val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
         dataIcon := perfType.iconChar,
-        title := perfType.desc,
+        title    := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
           "active" -> active.has(perfType)

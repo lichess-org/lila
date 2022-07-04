@@ -1,6 +1,7 @@
 import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
+import { renderColorForm } from './side';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
@@ -11,8 +12,22 @@ export default function theme(ctrl: Controller): MaybeVNode {
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   return ctrl.streak
     ? null
+    : ctrl.vm.isDaily
+    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', h('h2', 'Daily Puzzle'))
     : h('div.puzzle__side__theme', [
-        h('a', { attrs: { href: '/training/themes' } }, h('h2', ['« ', t.name])),
+        h(
+          'a',
+          { attrs: { href: `/training/${t.isOpening ? 'openings' : 'themes'}` } },
+          h(
+            'h2',
+            {
+              class: {
+                long: t.name.length > 20,
+              },
+            },
+            ['« ', t.name]
+          )
+        ),
         h('p', [
           t.desc,
           t.chapter &&
@@ -28,7 +43,11 @@ export default function theme(ctrl: Controller): MaybeVNode {
               [' ', ctrl.trans.noarg('example')]
             ),
         ]),
-        showEditor ? h('div.puzzle__themes', editor(ctrl)) : null,
+        showEditor
+          ? h('div.puzzle__themes', editor(ctrl))
+          : !data.replay && !ctrl.streak && t.isOpening
+          ? renderColorForm(ctrl)
+          : null,
       ]);
 }
 

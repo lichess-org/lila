@@ -348,6 +348,8 @@
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Ledertabell</string>
+  <string name="screenshotCurrentPosition">Skjermbilde av stillingen</string>
+  <string name="gameAsGIF">Parti som gif</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">Turneringen begynner</string>
   <string name="tournamentPairingsAreNowClosed">Oppsettet av turneringen er nå lukket.</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Fortsett</string>
   <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Seierprosent</string>
   <string name="berserkRate">Berserkprosent</string>
@@ -450,7 +454,6 @@
   <string name="profileCompletion">Profil fullført: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Hvis ingen, la stå tom</string>
-  <string name="gameCompletionRate">Prosent fullførte partier: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>
@@ -564,6 +567,7 @@
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
+  <string name="error.unknown">Ugyldig verdi</string>
   <string name="error.required">Dette feltet er påkrevet</string>
   <string name="error.email">Denne e-postadressen er ugyldig</string>
   <string name="error.email_acceptable">Denne e-postadressen godtas ikke. Dobbeltsjekk den og prøv på nytt.</string>

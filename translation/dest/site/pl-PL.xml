@@ -400,6 +400,8 @@
   <string name="apply">Zastosuj</string>
   <string name="save">Zapisz</string>
   <string name="leaderboard">Najlepsi gracze</string>
+  <string name="screenshotCurrentPosition">Zrzut ekranu aktualnej pozycji</string>
+  <string name="gameAsGIF">Zapisz jako GIF</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
   <string name="orUploadPgnFile">lub wgraj plik PGN</string>
@@ -488,6 +490,8 @@
   <string name="tournamentIsStarting">Rozpoczęcie turnieju</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
+  <string name="pause">Pauza</string>
+  <string name="resume">Wznów</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Współczynnik zwycięstw</string>
   <string name="berserkRate">Berserków</string>
@@ -512,7 +516,6 @@
   <string name="profileCompletion">Kompletność profilu: %s</string>
   <string name="xRating">ranking %s</string>
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
-  <string name="gameCompletionRate">Ukończonych partii: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
@@ -632,6 +635,7 @@
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
   <string name="increment">Czas dodawany</string>
+  <string name="error.unknown">Nieprawidłowa wartość</string>
   <string name="error.required">To pole jest wymagane</string>
   <string name="error.email">Ten adres e-mail jest nieprawidłowy</string>
   <string name="error.email_acceptable">Ten adres e-mail jest niedopuszczalny. Sprawdź go i spróbuj ponownie.</string>

@@ -9,6 +9,8 @@
   <string name="postBody">Асноўны тэкст допісу</string>
   <string name="drafts">Чарнавыя допісы</string>
   <string name="published">Апублікаваны</string>
+  <string name="createBlogDiscussion">Уключыць каментары</string>
+  <string name="createBlogDiscussionHelp">Будзе створаны тэма на форуме, каб людзі маглі каментаваць ваш допіс</string>
   <string name="publishOnYourBlog">Апублікаваць у блогу</string>
   <string name="publishHelp">Калі абрана, то допіс будзе адлюстроўвацца ў вашым блогу. Калі не, то застанецца прыватным у вашых чарнавіках</string>
   <plurals name="publishedNbBlogPosts">

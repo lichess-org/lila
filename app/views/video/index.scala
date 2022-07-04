@@ -23,7 +23,7 @@ object index {
           title = s"${tagString}free, carefully curated chess videos",
           description =
             s"${videos.nbResults} curated chess videos${if (tagString.nonEmpty) " matching the tags " + tagString
-            else " • "}free for all",
+              else " • "}free for all",
           url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
         )
         .some,

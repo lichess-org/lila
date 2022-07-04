@@ -13,4 +13,5 @@ private object Stacking {
   case object ChallengeCreate extends Stacking("challengeCreate", "You have $[notif_count] new challenges")
   case object ChallengeAccept
       extends Stacking("challengeAccept", "$[notif_count] players accepted your challenges")
+  case object TourSoon extends Stacking("tourSoon", "$[notif_count] tournaments are starting")
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Налады</string>
-  <string name="gameDisplay">Дызайн</string>
+  <string name="display">Адлюстроўваць</string>
+  <string name="privacy">Прыватнасць</string>
   <string name="pieceAnimation">Анімацыя фігур</string>
   <string name="materialDifference">Паказваць розніцу ў фігурах</string>
   <string name="boardHighlights">Падсвечваць апошні ход і шах</string>
@@ -31,7 +32,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Ход на апярэджанне (падчас ходу суперніка)</string>
   <string name="takebacksWithOpponentApproval">Скасаванні ходу (са згоды суперніка)</string>
   <string name="inCasualGamesOnly">Толькі ў таварыскіх гульнях</string>
-  <string name="promoteToQueenAutomatically">Аўтаматычна пераўтвараць пешку ў фярзя</string>
+  <string name="promoteToQueenAutomatically">Аўтаматычна пераўтвараць пешку ў ферзя</string>
   <string name="explainPromoteToQueenAutomatically">Зацісніце клавішу &lt;ctrl&gt; пад час пераўтварэння, каб часова адключыць аўта-пераўтварэнне</string>
   <string name="whenPremoving">Пры ходзе на апярэджанне</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>

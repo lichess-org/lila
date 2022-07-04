@@ -27,8 +27,8 @@ object login {
         postForm(
           cls := "form3",
           action := s"${routes.Auth.authenticate}${referrer.?? { ref =>
-            s"?referrer=${urlencode(ref)}"
-          }}"
+              s"?referrer=${urlencode(ref)}"
+            }}"
         )(
           div(cls := "one-factor")(
             form3.globalError(form),

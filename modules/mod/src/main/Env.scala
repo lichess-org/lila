@@ -101,17 +101,12 @@ final class Env(
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis).unit
     },
-    "garbageCollect" -> {
-      case lila.hub.actorApi.security.GCImmediateSb(userId) =>
-        reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
-          reportApi.getLichessMod foreach { mod =>
-            api.setTroll(mod, sus, value = true)
-          }
+    "garbageCollect" -> { case lila.hub.actorApi.security.GCImmediateSb(userId) =>
+      reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
+        reportApi.getLichessMod foreach { mod =>
+          api.setTroll(mod, sus, value = true)
         }
-      case lila.hub.actorApi.security.GarbageCollect(userId) =>
-        reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
-          api.garbageCollect(sus) >> publicChat.deleteAll(sus)
-        }
+      }
     },
     "deletePublicChats" -> { case lila.hub.actorApi.security.DeletePublicChats(userId) =>
       publicChat.deleteAll(userId).unit

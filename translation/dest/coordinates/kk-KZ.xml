@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">\"Шахмат тілін\" біліп жүрсеңіз, шахмат білетін досыңызбен әңгіме құру оңай болады.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Координатты танитын болсаңыз, ойынды тиімді түрде талдауға қабілетті боласыз.</string>
   <string name="aSquareNameAppears">Тақтада координат шыққанда, оған сәйкес шаршыны таңдауыңыз керек. 30 секунд ішінде шамаңыз келгенше көбірек шаршы табыңыз!</string>
+  <string name="aSquareIsHighlighted">Тақтадағы шаршы жанып тұрғанда, координатын жазуыңыз керек (мысалы, \"e4\"). Жалпы 30 секунд ішінде барынша көп шаршыларды анықтаңыз!</string>
   <string name="startTraining">Жаттығуды бастау</string>
+  <string name="findSquare">Шаршыны табу</string>
+  <string name="nameSquare">Шаршы атауы</string>
 </resources>

@@ -66,6 +66,7 @@ Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</strin
   <string name="xOrY">%1$s vai %2$s</string>
   <string name="decideHowMuch">Izlemiet, cik jums Lichess ir vērts:</string>
   <string name="stopPayments">Noņemt kredītkarti un beigt maksājumus:</string>
+  <string name="stopPaymentsPayPal">Atcelt PayPal abonementu un pārtraukt maksājumus:</string>
   <string name="noLongerSupport">Vairāk neatbalstīt Lichess</string>
   <string name="viewOthers">Skatīt citus Lichess Sponsorus</string>
   <string name="date">Datums</string>

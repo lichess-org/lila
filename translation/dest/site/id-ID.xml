@@ -319,6 +319,8 @@
   <string name="apply">Terapkan</string>
   <string name="save">Simpan</string>
   <string name="leaderboard">Peringkat Terbaik</string>
+  <string name="screenshotCurrentPosition">Foto posisi saat ini</string>
+  <string name="gameAsGIF">Simpan sebagai GIF</string>
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat berkas PGN</string>
@@ -392,6 +394,8 @@
   <string name="tournamentIsStarting">Turnamen sudah dimulai</string>
   <string name="tournamentPairingsAreNowClosed">Pairing pemain sudah ditutup.</string>
   <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
+  <string name="pause">Jeda</string>
+  <string name="resume">Lanjutkan</string>
   <string name="youArePlaying">Anda bermain!</string>
   <string name="winRate">Rating kemenangan</string>
   <string name="berserkRate">Rating berserk</string>
@@ -416,7 +420,6 @@
   <string name="profileCompletion">Kelengkapan profil %s</string>
   <string name="xRating">peringkat %s</string>
   <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
-  <string name="gameCompletionRate">Tingkat penyelesaian permainan: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
   <string name="firstName">Nama depan</string>
@@ -527,6 +530,7 @@
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Kenaikan</string>
+  <string name="error.unknown">Nilai tidak valid</string>
   <string name="error.required">Isian di sini diperlukan</string>
   <string name="error.email">Alamat e-mail ini tidak valid</string>
   <string name="error.email_acceptable">Alamat e-mail ini tidak dapat diterma. Pastikan kembali e-mail Anda, lalu coba lagi.</string>
@@ -537,6 +541,7 @@
   <string name="error.min">Harus lebih besar atau sama dengan %s</string>
   <string name="error.max">Harus kurang atau sama dengan %s</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
+  <string name="ifRegistered">Telah terdaftar</string>
   <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
   <string name="menu">Menu</string>
@@ -851,5 +856,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
   <string name="since">Sejak</string>
   <string name="until">Hingga</string>
+  <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>
   <string name="switchSides">Tukar Sisi</string>
+  <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
 </resources>

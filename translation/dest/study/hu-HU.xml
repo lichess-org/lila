@@ -76,6 +76,7 @@
   <string name="studyNotFound">Tanulmány nem található</string>
   <string name="editChapter">Fejezet szerkesztése</string>
   <string name="newChapter">Új fejezet</string>
+  <string name="importFromChapterX">Importálás innen: %s</string>
   <string name="orientation">Szemszög</string>
   <string name="analysisMode">Elemzés típusa</string>
   <string name="pinnedChapterComment">Rögzített megjegyzés</string>

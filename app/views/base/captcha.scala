@@ -34,7 +34,7 @@ object captcha {
               chess.Color.fromWhite(captcha.white)
             ) {
               div(
-                dataMoves := safeJsonValue(Json.toJson(captcha.moves)),
+                dataMoves    := safeJsonValue(Json.toJson(captcha.moves)),
                 dataPlayable := 1
               )
             }

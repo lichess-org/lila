@@ -49,7 +49,7 @@ $mq-not-col3: $mq-not-small;
     }
 
     .timeline {
-      margin-left: 0;
+      margin-#{$start-direction}: 0;
     }
   }
 

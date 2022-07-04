@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Նախընտրություններ</string>
-  <string name="gameDisplay">Խաղի ցուցադրում</string>
+  <string name="display">Ցուցադրել</string>
+  <string name="privacy">Գաղտնիություն</string>
   <string name="pieceAnimation">Խաղաքարերի ձևավորում</string>
   <string name="materialDifference">Ցուցադրել նյութական առավելությունը</string>
   <string name="boardHighlights">Խաղատախտակի բնութագիր (Վերջին քայլը եւ շախ)</string>

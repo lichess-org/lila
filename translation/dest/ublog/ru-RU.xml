@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xBlog">Блог %s</string>
-  <string name="newPost">Новая заметка</string>
+  <string name="newPost">Новое сообщение в блоге</string>
   <string name="editYourBlogPost">Редактировать запись в блоге</string>
   <string name="saveDraft">Сохранить черновик</string>
   <string name="postTitle">Название записи</string>
@@ -9,6 +9,8 @@
   <string name="postBody">Весь текст записи</string>
   <string name="drafts">Черновики</string>
   <string name="published">Опубликовано</string>
+  <string name="createBlogDiscussion">Включить комментарии</string>
+  <string name="createBlogDiscussionHelp">Тема форума будет создана с возможностью оставлять комментарии в ней</string>
   <string name="publishOnYourBlog">Опубликовать в вашем блоге</string>
   <string name="publishHelp">Если отмечено, сообщение будет отображаться в вашем блоге. В противном случае оно будет приватным, в ваших черновиках сообщений</string>
   <plurals name="publishedNbBlogPosts">

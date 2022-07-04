@@ -12,6 +12,7 @@
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नई कक्षा</string>
   <string name="closeClass">बंद कक्षा</string>
+  <string name="removedByX">%s द्वारा हटाया गया</string>
   <string name="reopen">फिर से खोलना</string>
   <string name="removeStudent">छात्र को हटाओ</string>
   <string name="removedStudents">हटा दिया</string>
@@ -45,6 +46,7 @@
   <string name="createDesc2">किसी ईमेल पते की आवश्यकता नहीं है। एक पासवर्ड उत्पन्न किया जाएगा, और आपको इसे छात्रो भेजना होगा, इससे वे लॉगिन कर सकते है।</string>
   <string name="createDesc3">महत्वपूर्ण: एक छात्र के पास कई खाते नहीं होने चाहिए।</string>
   <string name="createDesc4">यदि उनके पास पहले से ही एक है, तो आमंत्रित फ़ॉर्म का उपयोग करें।</string>
+  <string name="createStudentWarning">केवल वास्तविक छात्रों के लिए खाते बनाएं। इसका उपयोग अपने लिए एकाधिक खाते बनाने के लिए न करें। आपको प्रतिबंधित कर दिया जाएगा।</string>
   <string name="lichessUsername">लिचेस उपयोगकर्ता नाम</string>
   <string name="generateANewUsername">एक नया उपयोगकर्ता नाम बनाएँ</string>
   <string name="welcomeToClass">आपकी कक्षा में आपका स्वागत है:%s
@@ -68,6 +70,7 @@
   <string name="closeStudent">खातें को बंद करें</string>
   <string name="closeTheAccount">छात्र खाता हमेशा के लिए बंद करें।</string>
   <string name="closeDesc1">छात्र इस खाते का उपयोग फिर कभी नहीं कर पायेगा। बंद करना स्थायी है। सुनिश्चित करें कि छात्र समझता है और सहमत है।</string>
+  <string name="closeDesc2">आप इसके बजाय छात्र को खाते पर नियंत्रण दे सकते हैं, ताकि वे इसका उपयोग करना जारी रख सकें।</string>
   <string name="teachers">शिक्षक</string>
   <plurals name="nbTeachers">
     <item quantity="one">शिक्षक</item>
@@ -86,6 +89,9 @@
   <string name="variantXOverLastY">%1$s अंतिम %2$s पर</string>
   <string name="winrate">जीत दर</string>
   <string name="na">N/A</string>
+  <string name="overview">विहंगावलोकन</string>
+  <string name="news">खबर</string>
+  <string name="classNews">कक्षा की खबर</string>
   <string name="editNews">समाचार संपादित करें</string>
   <string name="notifyAllStudents">सभी छात्रों को सूचित करें</string>
   <string name="nothingHere">अभी तक यहाँ कुछ भी नहीं है</string>
@@ -93,4 +99,12 @@
   <string name="newsEdit2">शीर्ष पर हाल की खबर जोड़ें। पिछली खबरों को डिलीट न करें।</string>
   <string name="newsEdit3">अलग खबरें ---
 यह एक क्षैतिज रेखा प्रदर्शित करेगा।</string>
+  <string name="invite">आमंत्रण</string>
+  <string name="youHaveBeenInvitedByX">%s द्वारा आपको आमंत्रित किया गया है</string>
+  <string name="youAcceptedThisInvitation">आपने यह आमंत्रण स्वीकार कर लिया है।</string>
+  <string name="youDeclinedThisInvitation">आपने इस आमंत्रण को अस्वीकार कर दिया।</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">अथवा</string>
+  <string name="createMultipleAccounts">एक साथ अनेक Lichess खाते बनाएँ</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">आप %s छात्रों के नामों की सूची से एक से अधिक Lichess खाते बनाने के लिए भी कर सकते हैं।</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">इस फॉर्म का उपयोग करें</string>
 </resources>

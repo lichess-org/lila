@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period }
@@ -16,8 +17,8 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   private val dateTimeStyle = "MS"
   private val dateStyle     = "M-"
 
-  private val dateTimeFormatters = mutable.AnyRefMap.empty[String, DateTimeFormatter]
-  private val dateFormatters     = mutable.AnyRefMap.empty[String, DateTimeFormatter]
+  private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
+  private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
@@ -25,15 +26,15 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   private val englishDateTimeFormatter = DateTimeFormat forStyle dateTimeStyle
 
   private def dateTimeFormatter(implicit lang: Lang): DateTimeFormatter =
-    dateTimeFormatters.getOrElseUpdate(
+    dateTimeFormatters.computeIfAbsent(
       lang.code,
-      DateTimeFormat forStyle dateTimeStyle withLocale lang.toLocale
+      _ => DateTimeFormat.forStyle(dateTimeStyle).withLocale(lang.toLocale)
     )
 
   private def dateFormatter(implicit lang: Lang): DateTimeFormatter =
-    dateFormatters.getOrElseUpdate(
+    dateFormatters.computeIfAbsent(
       lang.code,
-      DateTimeFormat forStyle dateStyle withLocale lang.toLocale
+      _ => DateTimeFormat.forStyle(dateStyle).withLocale(lang.toLocale)
     )
 
   def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit lang: Lang): String =

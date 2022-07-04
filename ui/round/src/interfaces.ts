@@ -16,6 +16,9 @@ export interface Untyped {
 }
 
 export interface NvuiPlugin {
+  submitMove?: (submitStoredPremove?: boolean) => void;
+  playPremove: (ctrl: RoundController) => void;
+  premoveInput: string;
   render(ctrl: RoundController): VNode;
 }
 

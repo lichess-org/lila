@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation, History }
+import chess.{ Board, Castles, Clock, Color => ChessColor, Game => ChessGame, History, Situation }
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -12,7 +12,7 @@ import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
-import lila.i18n.{ I18nKeys => trans, defaultLang }
+import lila.i18n.{ defaultLang, I18nKeys => trans }
 
 final private class Rematcher(
     gameRepo: GameRepo,

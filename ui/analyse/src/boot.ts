@@ -15,3 +15,22 @@ export default function (cfg: AnalyseOpts) {
   cfg.socketSend = lichess.socket.send;
   const analyse = start(cfg);
 }
+
+function startUserAnalysis(cfg: any) {
+  cfg.$side = $('.analyse__side').clone();
+  startAnalyse(cfg);
+}
+
+function startAnalyse(cfg: any) {
+  lichess.socket = new lichess.StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
+    receive: (t: string, d: any) => analyse.socketReceive(t, d),
+  });
+  cfg.socketSend = lichess.socket.send;
+  const analyse = start(cfg);
+}
+
+lichess.load.then(() => {
+  const li: any = lichess;
+  if (li.userAnalysis) startUserAnalysis(li.userAnalysis);
+  else if (li.study || li.practice || li.relay) startAnalyse(li.study || li.practice || li.relay);
+});

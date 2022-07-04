@@ -13,12 +13,10 @@ object contact {
   import trans.contact._
   import views.html.base.navTree._
 
-  private lazy val contactEmailBase64 = lila.common.String.base64.encode(contactEmailInClear)
-
-  def contactEmailLinkEmpty =
-    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)
-  def contactEmailLink(implicit ctx: Context) =
-    contactEmailLinkEmpty(trans.clickToRevealEmailAddress())
+  def contactEmailLinkEmpty(email: String = contactEmailInClear) =
+    a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
+  def contactEmailLink(email: String = contactEmailInClear)(implicit ctx: Context) =
+    contactEmailLinkEmpty(email)(trans.clickToRevealEmailAddress())
 
   private def reopenLeaf(prefix: String)(implicit ctx: Context) =
     Leaf(
@@ -222,7 +220,7 @@ object contact {
               "security",
               "Security vulnerability",
               frag(
-                p("Please report security issues to ", contactEmailLink),
+                p("Please report security issues to ", contactEmailLink()),
                 p(
                   "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
                   "Note that we do not currently pay cash bounties."
@@ -252,6 +250,17 @@ object contact {
                 p("If you found a new bug, you may report it:"),
                 howToReportBugs
               )
+            )
+          )
+        ),
+        Leaf(
+          "broadcast",
+          "I want to broadcast a tournament",
+          frag(
+            p(a(href := routes.RelayTour.help)("Learn how to make your own broadcasts on Lichess"), "."),
+            p(
+              "You can also contact the broadcast team about official broadcasts. ",
+              sendEmailAt(contactEmailLink("broadcast@lichess.org"))
             )
           )
         ),
@@ -334,7 +343,7 @@ object contact {
                 ),
                 p(
                   "Then send us an email at ",
-                  contactEmailLink,
+                  contactEmailLink(),
                   " to request the definitive erasure of all data linked to the account."
                 )
               )
@@ -352,7 +361,7 @@ object contact {
               "contact-other",
               noneOfTheAbove(),
               frag(
-                p(sendEmailAt(contactEmailLink)),
+                p(sendEmailAt(contactEmailLink())),
                 p(explainYourRequest())
               )
             )

@@ -4,7 +4,7 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.Future
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.libs.json.{ JsError, JsObject }
 
 trait LilaTypes {
@@ -32,17 +32,17 @@ trait LilaTypes {
   val fuTrue                          = fuccess(true)
   val fuFalse                         = fuccess(false)
 
-  implicit val fUnitZero: Zero[Fu[Unit]]       = Zero.instance(funit)
-  implicit val fBooleanZero: Zero[Fu[Boolean]] = Zero.instance(fuFalse)
+  implicit val fUnitZero: Zero[Fu[Unit]]       = Zero(funit)
+  implicit val fBooleanZero: Zero[Fu[Boolean]] = Zero(fuFalse)
 
   implicit def fuZero[A](implicit az: Zero[A]) =
     new Zero[Fu[A]] {
       def zero = fuccess(az.zero)
     }
 
-  implicit val durationZero: Zero[Duration] = Zero.instance(Duration.Zero)
-  implicit val jsObjectZero                 = Zero.instance(JsObject(Seq.empty))
-  implicit val jsResultZero                 = Zero.instance(JsError(Seq.empty))
+  implicit val durationZero: Zero[Duration] = Zero(Duration.Zero)
+  implicit val jsObjectZero                 = Zero(JsObject(Seq.empty))
+  implicit val jsResultZero                 = Zero(JsError(Seq.empty))
 
   implicit val dateTimeOrdering: Ordering[DateTime] = Ordering.fromLessThan(_ isBefore _)
 }

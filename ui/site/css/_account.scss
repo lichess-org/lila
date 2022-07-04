@@ -19,7 +19,7 @@
 
   .current {
     color: $c-brag;
-    margin-left: 1em;
+    margin-#{$start-direction}: 1em;
     font-weight: bold;
   }
 
@@ -84,12 +84,12 @@
       margin: 1rem 0;
 
       label {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
         cursor: pointer;
       }
       em {
         @extend %roboto;
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
         color: $c-font-dimmer;
       }
     }
@@ -101,7 +101,7 @@
 
     i {
       font-size: 45px;
-      margin-right: 15px;
+      margin-#{$end-direction}: 15px;
     }
 
     code {
@@ -139,13 +139,13 @@
       white-space: nowrap;
 
       &::after {
-        margin-left: 1em;
+        margin-#{$start-direction}: 1em;
         content: '';
         display: inline-block;
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to right, fade-out($c-accent, 0.5), $c-bg-box 80%);
+        background: linear-gradient(to $end-direction, fade-out($c-accent, 0.5), $c-bg-box 80%);
       }
     }
   }

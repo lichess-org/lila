@@ -4,12 +4,16 @@ import { Tab } from './interfaces';
 export function study(ctrl: AnalyseCtrl) {
   if (!ctrl.study?.data.chapter.gamebook)
     lichess.loadScript('javascripts/study/tour.js').then(() => {
-      window.lichess['studyTour']({
+      window.lichess.studyTour({
         userId: ctrl.opts.userId,
         isContrib: ctrl.study!.members.canContribute(),
         isOwner: ctrl.study!.members.isOwner(),
         setTab: (tab: Tab) => {
           ctrl.study!.vm.tab(tab);
+          ctrl.redraw();
+        },
+        closeActionMenu: () => {
+          ctrl.actionMenu.open = false;
           ctrl.redraw();
         },
       });
@@ -18,7 +22,7 @@ export function study(ctrl: AnalyseCtrl) {
 
 export function chapter(setTab: (tab: string) => void) {
   lichess.loadScript('javascripts/study/tour-chapter.js').then(() => {
-    window.lichess['studyTourChapter']({
+    window.lichess.studyTourChapter({
       setTab,
     });
   });

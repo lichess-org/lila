@@ -9,6 +9,8 @@
   <string name="postBody">Įrašo tekstas</string>
   <string name="drafts">Juodraščiai</string>
   <string name="published">Paskelbta</string>
+  <string name="createBlogDiscussion">Įjungti komentarus</string>
+  <string name="createBlogDiscussionHelp">Bus sukurta tema forume, joje žmonės galės komentuoti po jūsų pranešimu</string>
   <string name="publishOnYourBlog">Skelbti savo tinklaraštyje</string>
   <string name="publishHelp">Jei pažymeta - įrašas patalpintas jūsų tinklaraštyje. Jei ne - įrašas privatus ir matomas tarp juodraščių</string>
   <plurals name="publishedNbBlogPosts">

@@ -30,6 +30,7 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     enabled: opts.alwaysEnabled || !lichess.storage.get('nochat'),
     placeholderKey: 'talkInChat',
     loading: false,
+    autofocus: false,
     timeout: opts.timeout,
     writeable: opts.writeable,
   };
@@ -147,16 +148,8 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     allTabs,
     setTab(t: Tab) {
       vm.tab = t;
+      vm.autofocus = true;
       tabStorage.set(t);
-      // It's a lame way to do it. Give me a break.
-      if (t === 'discussion')
-        lichess.requestIdleCallback(
-          () =>
-            $('.mchat__say').each(function (this: HTMLElement) {
-              this.focus();
-            }),
-          500
-        );
       redraw();
     },
     moderation: () => moderation,

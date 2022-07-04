@@ -23,6 +23,7 @@ object jsI18n {
       trans.cancel,
       trans.chat,
       addNewChapter,
+      importFromChapterX,
       addMembers,
       inviteToTheStudy,
       pleaseOnlyInvitePeopleYouKnow,

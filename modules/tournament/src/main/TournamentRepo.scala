@@ -34,6 +34,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
+  def exists(id: Tournament.ID): Fu[Boolean]          = coll.exists($id(id))
 
   def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
@@ -224,6 +225,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .batchSize(1)
       .cursor[Tournament]()
 
+  private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[Tournament.ID]) =
+    coll
+      .find(createdSelect ++ $doc("nbPlayers" $gt 0, "startsAt" $gt from $lt to, "_id" $nin notIds))
+      .cursor[Tournament]()
+      .list(5)
+
   private def scheduledStillWorthEntering: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect) dmap {
       _.filter(_.isStillWorthEntering)
@@ -241,7 +248,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
           case Daily                      => 1 * 60
           case _                          => 30
         }
-        if (tour.variant.exotic) base / 3 else base
+        if (tour.variant.exotic && schedule.freq != Unique) base / 3 else base
       }
     }
 

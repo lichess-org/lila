@@ -32,7 +32,7 @@
   }
 
   .keys {
-    padding-right: 1em;
+    padding-#{$end-direction}: 1em;
     text-align: right;
     white-space: nowrap;
   }
@@ -42,14 +42,14 @@
   }
 
   or {
-    margin-left: 0.2em;
+    margin-#{$start-direction}: 0.2em;
     opacity: 0.5;
   }
 
   kbd {
     display: inline-block;
     padding: 4px 5px;
-    margin-left: 3px;
+    margin-#{$start-direction}: 3px;
     font-family: monospace;
     line-height: 10px;
     color: #444;

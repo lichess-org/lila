@@ -9,6 +9,8 @@
   <string name="postBody">Μορφή ανάρτησης</string>
   <string name="drafts">Προσχέδιο</string>
   <string name="published">Αναρτήθηκε</string>
+  <string name="createBlogDiscussion">Ενεργοποίηση σχολίων</string>
+  <string name="createBlogDiscussionHelp">Θα δημιουργηθεί ένα θέμα στο φόρουμ για να σχολιάσουν τα άτομα στη δημοσίευσή σας</string>
   <string name="publishOnYourBlog">Δημοσίευση στο ιστολόγιό σας</string>
   <string name="publishHelp">Εάν επιλεχθεί, τότε η δημοσίευση θα υπάρχει στο ιστολόγιό σας. Εάν όχι, θα είναι ιδιωτική, στις προσχέδιες αναρτήσεις σας</string>
   <plurals name="publishedNbBlogPosts">

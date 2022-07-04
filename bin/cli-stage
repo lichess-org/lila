@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-COMMAND=$*
-PASSWORD=$LILA_CLI_PASSWORD
-
-curl -d "password=$PASSWORD&command=$COMMAND" https://lichess.dev/cli

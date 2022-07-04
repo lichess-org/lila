@@ -75,7 +75,8 @@ final class Env(
     "msgUnread",
     "challenge",
     "corresAlarm",
-    "offerEventCorres"
+    "offerEventCorres",
+    "tourSoon"
   ) {
     case lila.game.actorApi.FinishGame(game, _, _) =>
       logUnit { pushApi finish game }
@@ -93,5 +94,7 @@ final class Env(
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       logUnit { pushApi corresAlarm pov }
+    case t: lila.hub.actorApi.push.TourSoon =>
+      logUnit { pushApi tourSoon t }
   }
 }

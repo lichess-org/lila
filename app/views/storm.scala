@@ -21,12 +21,12 @@ object storm {
         jsModule("storm"),
         embedJsUnsafeLoadThen(
           s"""LichessStorm.start(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "pref" -> pref,
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )})"""
+              Json.obj(
+                "data" -> data,
+                "pref" -> pref,
+                "i18n" -> i18nJsObject(i18nKeys)
+              )
+            )})"""
         )
       ),
       title = "Puzzle Storm",
@@ -35,7 +35,7 @@ object storm {
       chessground = false
     ) {
       main(
-        div(cls := "storm storm-app storm--play")(
+        div(cls   := "storm storm-app storm--play")(
           div(cls := "storm__board main-board"),
           div(cls := "storm__side")
         ),

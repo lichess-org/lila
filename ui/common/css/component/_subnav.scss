@@ -54,7 +54,7 @@
         position: absolute;
         height: 98%;
         top: 1%;
-        right: -1px;
+        #{$end-direction}: -1px;
 
         @include transition(all, 0.25s);
 

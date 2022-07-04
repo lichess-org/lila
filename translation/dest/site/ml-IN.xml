@@ -441,7 +441,6 @@
   <string name="profileCompletion">പ്രൊഫൈൽ പൂർത്തിയാക്കൽ: %s</string>
   <string name="xRating">%s റേറ്റിംഗ്</string>
   <string name="ifNoneLeaveEmpty">ഒന്നുമില്ലെങ്കിൽ ഒഴിവാക്കിയിടുക</string>
-  <string name="gameCompletionRate">ഗെയിം പൂർത്തിയാക്കാൻ നിരക്ക്: %s</string>
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
   <string name="firstName">നൽകിയ പേര്</string>

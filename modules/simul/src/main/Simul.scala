@@ -3,7 +3,7 @@ package lila.simul
 import chess.Color
 import chess.format.FEN
 import chess.variant.Variant
-import chess.{ Speed }
+import chess.Speed
 import org.joda.time.DateTime
 
 import lila.rating.PerfType

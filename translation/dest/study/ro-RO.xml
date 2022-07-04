@@ -79,6 +79,7 @@
   <string name="studyNotFound">Studiul nu a fost găsit</string>
   <string name="editChapter">Editează capitolul</string>
   <string name="newChapter">Capitol nou</string>
+  <string name="importFromChapterX">Importă din %s</string>
   <string name="orientation">Orientare</string>
   <string name="analysisMode">Tip de analiză</string>
   <string name="pinnedChapterComment">Comentariu fixat</string>

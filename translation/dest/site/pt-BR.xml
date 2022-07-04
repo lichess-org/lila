@@ -146,7 +146,7 @@
   <string name="currentGames">Partidas atuais</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
-    <item quantity="other">%s Partidas</item>
+    <item quantity="other">%s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Favoritos</item>
@@ -348,6 +348,8 @@
   <string name="apply">Aplicar</string>
   <string name="save">Salvar</string>
   <string name="leaderboard">Classificação</string>
+  <string name="screenshotCurrentPosition">Captura de tela da posição atual</string>
+  <string name="gameAsGIF">Salvar a partida como GIF</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou suba um arquivo PGN</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
   <string name="standByX">%s, aguarde: o pareamento está em andamento, prepare-se!</string>
+  <string name="pause">Pausar</string>
+  <string name="resume">Procurar jogadores</string>
   <string name="youArePlaying">Você está no jogo!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>
@@ -450,7 +454,6 @@
   <string name="profileCompletion">Conclusão do perfil: %s</string>
   <string name="xRating">Classificação %s</string>
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
-  <string name="gameCompletionRate">Percentagem de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
@@ -564,6 +567,7 @@
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown">Inválido</string>
   <string name="error.required">Este campo deve ser preenchido</string>
   <string name="error.email">Este endereço de e-mail é inválido</string>
   <string name="error.email_acceptable">Este endereço de email não é válido. Verifique e tente novamente.</string>

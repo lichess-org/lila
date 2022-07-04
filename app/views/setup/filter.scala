@@ -9,8 +9,6 @@ import lila.rating.RatingRange
 
 object filter {
 
-  import bits._
-
   def apply(form: Form[_])(implicit ctx: Context) =
     frag(
       st.form(novalidate)(
@@ -54,18 +52,18 @@ object filter {
                     form3.hidden(field),
                     input(
                       name := s"${field.name}_range_min",
-                      tpe := "range",
-                      cls := "range rating-range__min",
-                      min := RatingRange.min,
-                      max := RatingRange.max
+                      tpe  := "range",
+                      cls  := "range rating-range__min",
+                      min  := RatingRange.min,
+                      max  := RatingRange.max
                     ),
                     "/",
                     input(
                       name := s"${field.name}_range_max",
-                      tpe := "range",
-                      cls := "range rating-range__max",
-                      min := RatingRange.min,
-                      max := RatingRange.max
+                      tpe  := "range",
+                      cls  := "range rating-range__max",
+                      min  := RatingRange.min,
+                      max  := RatingRange.max
                     )
                   )
                 }
@@ -105,9 +103,9 @@ object filter {
   ) =
     label(title := hint)(
       input(
-        tpe := "checkbox",
-        cls := "regular-checkbox",
-        name := s"${form(key).name}[$index]",
+        tpe      := "checkbox",
+        cls      := "regular-checkbox",
+        name     := s"${form(key).name}[$index]",
         st.value := value,
         checks(value) option checked
       ),

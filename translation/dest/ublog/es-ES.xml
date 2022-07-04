@@ -9,6 +9,8 @@
   <string name="postBody">Contenido de la entrada</string>
   <string name="drafts">Borradores</string>
   <string name="published">Publicado</string>
+  <string name="createBlogDiscussion">Habilitar comentarios</string>
+  <string name="createBlogDiscussionHelp">Se creará un tema del foro para que la gente comente en tu publicación</string>
   <string name="publishOnYourBlog">Publicar en tu blog</string>
   <string name="publishHelp">Si está marcado, la entrada aparecerá en tu blog. Si no, será privada en tus borradores</string>
   <plurals name="publishedNbBlogPosts">

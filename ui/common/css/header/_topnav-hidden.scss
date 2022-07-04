@@ -3,13 +3,13 @@
     display: block;
     position: absolute;
     top: -9999px;
-    left: -9999px;
+    #{$start-direction}: -9999px;
   }
 
   .hbg {
     position: absolute;
     top: 0;
-    left: 0;
+    #{$start-direction}: 0;
     width: $site-header-height;
     height: $site-header-height;
     cursor: pointer;
@@ -34,10 +34,10 @@
       }
 
       top: 50%;
-      left: 8.5px;
+      #{$start-direction}: 8.5px;
 
       @include breakpoint($mq-site-header-tall) {
-        left: 13px;
+        #{$start-direction}: 13px;
       }
 
       transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
@@ -98,9 +98,9 @@
     position: fixed;
     top: $site-header-height;
     bottom: 0;
-    left: 0;
+    #{$start-direction}: 0;
     background: $c-bg-high;
-    transform: translateX(calc(-100% - 10px));
+    transform: translateX(calc(-100% * #{$transform-direction} - 10px * #{$transform-direction}));
 
     @include transition(transform, 200ms);
 
@@ -132,7 +132,7 @@
 
       > a {
         font-size: 1.2em;
-        padding-left: 1.2rem;
+        padding-#{$start-direction}: 1.2rem;
         font-weight: bold;
         display: block;
       }
@@ -146,7 +146,7 @@
         flex-flow: column;
 
         a {
-          padding-left: 2.4rem;
+          padding-#{$start-direction}: 2.4rem;
         }
       }
 
@@ -173,6 +173,6 @@
     /* awkwardly make up for the disappearance of the scroll bar */
     /* actually don't, since on mobile devices the scrool bar
      * has no width, and that menu is mainly for mobile. */
-    // padding-right: 15px;
+    // padding-#{$end-direction}: 15px;
   }
 }

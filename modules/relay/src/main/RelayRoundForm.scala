@@ -57,7 +57,7 @@ object RelayRoundForm {
     for {
       url <- Try(URL.parse(source)).toOption
       if url.scheme == "http" || url.scheme == "https"
-      host <- Option(url.host).map(_.toString)
+      host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)
       if !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
@@ -68,7 +68,9 @@ object RelayRoundForm {
   private val blocklist = List(
     "localhost",
     "127.0.0.1",
-    "::1",
+    "0.0.0.0",
+    "[::1]",
+    "[::]",
     "twitch.tv",
     "twitch.com",
     "youtube.com",

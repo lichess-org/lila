@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">ngay bây giờ</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="other">trong %s giây</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="other">trong %s phút</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="other">trong %s giờ</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="other">trong %s ngày</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="other">trong %s tuần</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="other">trong %s tháng</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="other">trong %s năm</item>
+  </plurals>
+  <string name="rightNow">ngay bây giờ</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="other">%s giây trước</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">%s phút trước</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s giờ trước</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">%s ngày trước</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s tuần trước</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">%s tháng trước</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s năm trước</item>
+  </plurals>
+</resources>

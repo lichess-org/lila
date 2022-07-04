@@ -64,6 +64,7 @@
   <string name="xOrY">%1$s ή %2$s</string>
   <string name="decideHowMuch">Αποφασίστε πόσο αξίζει το Lichess για εσάς:</string>
   <string name="stopPayments">Αφαίρεση της πιστωτικής κάρτας και παύση πληρωμών:</string>
+  <string name="stopPaymentsPayPal">Ακύρωση συνδρομής PayPal και διακοπή πληρωμών:</string>
   <string name="noLongerSupport">Διακοπή υποστήριξης του Lichess</string>
   <string name="viewOthers">Προβολή άλλων Υποστηρικτών Lichess</string>
   <string name="date">Ημερομηνία</string>

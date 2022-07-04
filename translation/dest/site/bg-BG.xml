@@ -348,6 +348,8 @@
   <string name="apply">Приложи</string>
   <string name="save">Запази</string>
   <string name="leaderboard">Водещи играчи</string>
+  <string name="screenshotCurrentPosition">Снимай тази позиция</string>
+  <string name="gameAsGIF">Запази като GIF</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>
@@ -427,6 +429,8 @@
   <string name="tournamentIsStarting">Турнирът започва</string>
   <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
+  <string name="pause">Пауза</string>
+  <string name="resume">Възобновяване</string>
   <string name="youArePlaying">Играете!</string>
   <string name="winRate">Успеваемост</string>
   <string name="berserkRate">Берсерк коефициент</string>
@@ -451,7 +455,6 @@
   <string name="profileCompletion">Завършеност на профила: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="ifNoneLeaveEmpty">При липса оставете празно</string>
-  <string name="gameCompletionRate">Завършени игри: %s</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Редактирай профила</string>
   <string name="firstName">Име</string>
@@ -565,6 +568,7 @@
   <string name="community">Общност</string>
   <string name="tools">Инструменти</string>
   <string name="increment">Прибавяне</string>
+  <string name="error.unknown">Невалидна стойност</string>
   <string name="error.required">Това поле е задължително</string>
   <string name="error.email">Този имейл адрес е невалиден</string>
   <string name="error.email_acceptable">Този имейл адрес е неприемлив. Моля проверете дали сте го въвели правилно и опитайте отново.</string>
@@ -575,6 +579,7 @@
   <string name="error.min">Трябва да е минимум %s</string>
   <string name="error.max">Трябва да е максимум %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
+  <string name="ifRegistered">Ако са регистрирани</string>
   <string name="onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
   <string name="menu">Меню</string>
@@ -895,4 +900,5 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>
   <string name="switchSides">Смени страната</string>
+  <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
 </resources>

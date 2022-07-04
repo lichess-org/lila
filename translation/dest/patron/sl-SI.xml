@@ -67,6 +67,7 @@ Ali pa %s.</string>
   <string name="xOrY">%1$s ali %2$s</string>
   <string name="decideHowMuch">Odločite se, koliko vam je Lichess vreden:</string>
   <string name="stopPayments">Umaknite kreditno kartico in ustavite plačila:</string>
+  <string name="stopPaymentsPayPal">Prekličite naročnino na PayPal in ustavite plačila:</string>
   <string name="noLongerSupport">Ni več podpore Lichess</string>
   <string name="viewOthers">Ogled drugih Lichess pokroviteljev</string>
   <string name="date">Datum</string>

@@ -7,13 +7,14 @@ import scala.util.chaining._
 
 import lila.user.User
 import org.joda.time.Days
+import lila.common.Markdown
 
 case class Team(
     _id: Team.ID, // also the url slug
     name: String,
     password: Option[String],
-    description: String,
-    descPrivate: Option[String],
+    description: Markdown,
+    descPrivate: Option[Markdown],
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
@@ -101,8 +102,8 @@ object Team {
       id: String,
       name: String,
       password: Option[String],
-      description: String,
-      descPrivate: Option[String],
+      description: Markdown,
+      descPrivate: Option[Markdown],
       open: Boolean,
       createdBy: User
   ): Team =
@@ -126,7 +127,7 @@ object Team {
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.lengthIs > (name.lengthIs / 2)) slug else randomId()
+      if (slug.lengthIs > (name.length / 2)) slug else randomId()
     }
 
   private[team] def randomId() = lila.common.ThreadLocalRandom nextString 8

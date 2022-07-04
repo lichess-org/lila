@@ -6,11 +6,7 @@ import io.lettuce.core._
 import play.api.Configuration
 
 @Module
-final class Env(
-    appConfig: Configuration,
-    shutdown: CoordinatedShutdown,
-    notification: lila.hub.actors.Notification
-)(implicit
+final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(implicit
     ec: scala.concurrent.ExecutionContext,
     akka: ActorSystem
 ) {

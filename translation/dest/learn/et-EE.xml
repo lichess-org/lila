@@ -28,7 +28,7 @@ Vajad mõlemat!</string>
   <string name="bishopComplete">Õnnitlused! Te valdate nüüd oda.</string>
   <string name="theQueen">Lipp</string>
   <string name="queenCombinesRookAndBishop">Lipp = vanker + oda</string>
-  <string name="queenIntro">Kõige tugevam malend astub mängu. Tema majesteet kuninganna!</string>
+  <string name="queenIntro">Kõige tugevam malend astub mängu. Lehvitage vastu lipule!</string>
   <string name="queenComplete">Õnnitlused! Kuningannal pole sulle saladusi.</string>
   <string name="theKing">Kuningas</string>
   <string name="theMostImportantPiece">Kõige tähtsam malend</string>
@@ -38,7 +38,7 @@ Vajad mõlemat!</string>
   <string name="kingComplete">Sa oskad nüüd juhatajat juhtida!</string>
   <string name="theKnight">Ratsu</string>
   <string name="itMovesInAnLShape">Ta liigub L-kujuliselt</string>
-  <string name="knightIntro">Siin on sulle väljakutse. Ratsu on väga... kaval malend.</string>
+  <string name="knightIntro">Siin on teile väljakutse. Ratsu on... viguriga vigur.</string>
   <string name="knightsHaveAFancyWay">Ratsudel on huvitav komme
 ringi hüpata!</string>
   <string name="knightsCanJumpOverObstacles">Ratsud suudavad malenditest üle hüpata!
@@ -67,7 +67,7 @@ Muundada pole tarvus.</string>
   <string name="fundamentals">Põhialused</string>
   <string name="capture">Löömine</string>
   <string name="takeTheEnemyPieces">Löö vastase malendid</string>
-  <string name="captureIntro">Tuvasta vastase kaitseta malendid, ning löö nad!</string>
+  <string name="captureIntro">Tuvasta vastase kaitseta malendid ning löö nad!</string>
   <string name="takeTheBlackPieces">Löö vastase malendid!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Löö vastase malendid!
 Ära kaota enda omi.</string>
@@ -85,7 +85,7 @@ kuid sul on võimalik kaitsta!</string>
   <string name="combat">Võitlus</string>
   <string name="captureAndDefendPieces">Löö ning kaitse malendeid</string>
   <string name="combatIntro">Hea mängija oskab rünnata ja kaitsta üheaegselt!</string>
-  <string name="combatComplete">Õnnitlused! Tead kuidas võidelda malenditega!</string>
+  <string name="combatComplete">Õnnitlused! Oskate võidelda malenditega!</string>
   <string name="checkInOne">Tuli ühe käiguga</string>
   <string name="attackTheOpponentsKing">Ründa vastase kuningat</string>
   <string name="checkInOneIntro">Et anda tuld vastasele, ründa nende kuningat. Nad peavad seda kaitsma!</string>
@@ -116,7 +116,7 @@ et seda ei saa kaitsta!</string>
   <string name="howTheGameStarts">Kuidas mäng algab</string>
   <string name="boardSetupIntro">Kaks sõjaväge seisavad vastamisi, ole valmis lahinguks.</string>
   <string name="thisIsTheInitialPosition">See on iga malemängu 
-esialgne positsioon! 
+esialgne seis! 
 Tee käik, et jätkata.</string>
   <string name="firstPlaceTheRooks">Kõigepealt paigalda vankrid! 
 Nad lähevad nurkadesse.</string>
@@ -135,23 +135,26 @@ Tee käik, et jätkata.</string>
   <string name="theSpecialKingMove">Kuninga eriline käik</string>
   <string name="castlingIntro">Too oma kuningas turvalisse kohta, ja kasuta oma vankreid rünnakuks!</string>
   <string name="castleKingSide">Liiguta oma kuningat kahe ruudu võrra,
-et vangerdada kuninga poolele!</string>
+et vangerdada kuningatiivale!</string>
   <string name="castleQueenSide">Liiguta oma kuningat kahe ruudu võrra, 
-et vangerdada lipu poolele!</string>
-  <string name="theKnightIsInTheWay">Rüütel on tulekul! 
-Liiguta seda lossi kuninga poolele.</string>
-  <string name="castleKingSideMovePiecesFirst">Lossi kuninga poolel! 
-Sa pead kõigepealt tükid eest ära koristama.</string>
-  <string name="castleQueenSideMovePiecesFirst">Lossi kuninganna poolel! 
-Sa pead kõigepealt tükid eest ära koristama.</string>
-  <string name="youCannotCastleIfMoved">Sa ei saa enne lossi kui kuningas on juba liikunud või ratsanikud on juva liikunud.</string>
-  <string name="youCannotCastleIfAttacked">Sa ei saa lossi kui 
-kuningat rünnatakse teepeal. 
-Blokeeri ruut, siis mine lossi!</string>
-  <string name="findAWayToCastleKingSide">Leia tee 
-lossi kuninga poolele!</string>
-  <string name="findAWayToCastleQueenSide">Leia tee lossi kuninganna poolele!</string>
-  <string name="castlingComplete">Palju õnne! Sa peaks peaaegu alati vangerdama.</string>
+et vangerdada liputiivale!</string>
+  <string name="theKnightIsInTheWay">Ratsu on teel ees!
+Liiguta teda, siis vangerda kuningatiivale.</string>
+  <string name="castleKingSideMovePiecesFirst">Vangerda kuningatiivale!
+Sa pead kõigepealt malendid eest ära koristama.</string>
+  <string name="castleQueenSideMovePiecesFirst">Vangerda liputiivale!
+Sa pead kõigepealt malendid eest ära koristama.</string>
+  <string name="youCannotCastleIfMoved">Sa ei saa vangerdada
+siis kui kuningas või ratsud
+on juba käinud.</string>
+  <string name="youCannotCastleIfAttacked">Sa ei saa vangerdada siis kui
+kuningas läbib tule all olevat välja.
+Blokeeri tuli, siis vangerda!</string>
+  <string name="findAWayToCastleKingSide">Leidke viis, kuidas
+vangerdada kuningatiivale!</string>
+  <string name="findAWayToCastleQueenSide">Leidke viis, kuidas
+vangerdada liputiivale!</string>
+  <string name="castlingComplete">Õnnitlused! Te peaksite peaaegu alati vangerdama mängus.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Eriline etturi liigutus</string>
   <string name="enPassantIntro">Kui vastase ettur on liikunud kahe ruudu võrra, siis sa saad seda kui ühe ruuduna võtta.</string>
@@ -173,20 +176,26 @@ kui sinu ettur on 5. real.</string>
 - Must ei ole tules.</string>
   <string name="stalemateComplete">Õnnitlused! Parem on olla patis kui matis!</string>
   <string name="advanced">Edasijõudnud</string>
-  <string name="pieceValue">Viguri väärtus</string>
-  <string name="evaluatePieceStrength">Hinda viguri tugevust</string>
-  <string name="pieceValueIntro">Vigurid suurema liikuvusega on väärtuslikumad!
+  <string name="pieceValue">Malendi väärtus</string>
+  <string name="evaluatePieceStrength">Hinda malendi tugevust</string>
+  <string name="pieceValueIntro">Malendid suurema liikuvusega on väärtuslikumad!
 Lipp = 9
 Vanker = 5
 Oda = 3
 Ratsu = 3
 Ettur = 1
 Kuningas on hindamatu! Sellest ilma jäämine on võrdne kaotusega.</string>
-  <string name="queenOverBishop">Löö vigur
-kõrgeima väärtusega!
+  <string name="queenOverBishop">Löö kõrgeima
+väärtusega malend!
 Lipp &gt; Oda</string>
-  <string name="takeThePieceWithTheHighestValue">Löö vigur
-kõrgeima väärtusega!</string>
+  <string name="pieceValueExchange">Löö kõige väärtuslikum malend!
+Ära vaheta kõrgema väärtusega
+malendit vähem väärtusliku eest.</string>
+  <string name="pieceValueLegal">Löö kõige väärtuslikum malend!
+Tehke kindlaks et käik
+oleks reeglipärane!</string>
+  <string name="takeThePieceWithTheHighestValue">Löö kõrgeima
+väärtusega malend!</string>
   <string name="pieceValueComplete">Õnnitlused! Sa tead vigurite väärtust!
 Lipp = 9
 Vanker = 5
@@ -200,7 +209,7 @@ Ettur = 1</string>
 kahe käiguga!</string>
   <string name="checkInTwoComplete">Õnnitlused! Andsid vastasele tuld, sundides teda ohule reageerima!</string>
   <string name="whatNext">Mis edasi?</string>
-  <string name="youKnowHowToPlayChess">Sa oskad mängida malet, õnnitlused! Kas sa tahad saada tugevaks mängijaks?</string>
+  <string name="youKnowHowToPlayChess">Sa oskad mängida malet, õnnitlused! Kas sa tahad saada tugevamaks mängijaks?</string>
   <string name="register">Registreeru</string>
   <string name="getAFreeLichessAccount">Lichess konto loomine on tasuta</string>
   <string name="practice">Harjuta</string>
@@ -222,11 +231,12 @@ kahe käiguga!</string>
   <string name="outstanding">Uskumatu!</string>
   <string name="wayToGo">Väga hea!</string>
   <string name="yesYesYes">Jah, jah, jah!</string>
-  <string name="youreGoodAtThis">Sa oled hea selles!</string>
+  <string name="youreGoodAtThis">Sa oled selles hea!</string>
   <string name="nailedIt">Fantastiline.</string>
   <string name="rightOn">Just nii!</string>
   <string name="stageXComplete">Osa %s läbitud</string>
   <string name="next">Järgmine</string>
+  <string name="nextX">Järgmine: %s</string>
   <string name="backToMenu">Tagasi menüüsse</string>
   <string name="puzzleFailed">Kukkusid läbi!</string>
   <string name="retry">Uuesti</string>

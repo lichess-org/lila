@@ -400,14 +400,16 @@
   <string name="apply">Сохранить</string>
   <string name="save">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
+  <string name="screenshotCurrentPosition">Сделать снимок этой позиции</string>
+  <string name="gameAsGIF">Партия в формате GIF</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="toStudy">Студия</string>
-  <string name="importGame">Импортировать игру</string>
-  <string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
+  <string name="importGame">Импортировать партию</string>
+  <string name="importGameExplanation">Вставьте запись партии в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
     <item quantity="few">%s импортированные</item>
@@ -488,6 +490,8 @@
   <string name="tournamentIsStarting">Турнир начинается</string>
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира завершена.</string>
   <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
+  <string name="pause">Приостановить</string>
+  <string name="resume">Возобновить</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
   <string name="berserkRate">Берсерк</string>
@@ -512,7 +516,6 @@
   <string name="profileCompletion">Профиль заполнен на %s</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
-  <string name="gameCompletionRate">Завершённых игр: %s</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>
@@ -632,6 +635,7 @@
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
+  <string name="error.unknown">Неверное значение</string>
   <string name="error.required">Это обязательное поле</string>
   <string name="error.email">Неверный адрес электронной почты</string>
   <string name="error.email_acceptable">Этот адрес электронной почты недопустим. Проверьте его и повторите попытку.</string>

@@ -59,7 +59,7 @@
   <string name="intermezzoDescription">Tā vietā lai izspēlētu sagaidīto gājienu, vispirms iestarpiniet citu gājienu, kas radīs neatliekamus draudus, par kuriem pretiniekam būs jārūpējas. Pazīstams arī kā \"Zwischenzug\" vai kā gājiens \"pa vidu\".</string>
   <string name="knightEndgame">Zirdziņu beigu spēle</string>
   <string name="knightEndgameDescription">Beigu spēle, kurā iesaistīti tikai zirdziņi un bandinieki.</string>
-  <string name="long">Gara puzle</string>
+  <string name="long">Garš uzdevums</string>
   <string name="longDescription">Trīs gājieni līdz uzvarai.</string>
   <string name="master">Meistaru spēles</string>
   <string name="masterDescription">Puzles no spēlēm, ko spēlējuši spēlētāji ar tituliem.</string>
@@ -79,8 +79,8 @@
   <string name="mateIn5Description">Izdomājiet garu gājienu virkni, kas beidzas ar matu.</string>
   <string name="middlegame">Vidusspēle</string>
   <string name="middlegameDescription">Spēles otrā posma taktika.</string>
-  <string name="oneMove">Viena gājiena puzle</string>
-  <string name="oneMoveDescription">Puzle, kas ilgst tikai vienu gājienu.</string>
+  <string name="oneMove">Viena gājiena uzdevums</string>
+  <string name="oneMoveDescription">Uzdevums, kas ilgst tikai vienu gājienu.</string>
   <string name="opening">Atklātne</string>
   <string name="openingDescription">Atklātnes posma taktika.</string>
   <string name="pawnEndgame">Bandinieku beigu spēle</string>
@@ -101,19 +101,19 @@
   <string name="rookEndgameDescription">Beigu spēle, kurā iesaistīti tikai torņi un bandinieki.</string>
   <string name="sacrifice">Upuris</string>
   <string name="sacrificeDescription">Stratēģija, kurā īstermiņā atdod materiālu, lai atkal iegūtu pārsvaru pēc piespiestu gājienu virknes.</string>
-  <string name="short">Īsa puzle</string>
+  <string name="short">Īss uzdevums</string>
   <string name="shortDescription">Divi gājieni līdz uzvarai.</string>
   <string name="skewer">Iesms</string>
   <string name="skewerDescription">Šis motīvs iesaista augstas vērtības figūru, kurai jāizkustās, lai izvairītos no uzbrukuma, atļaujot vai nu uzbrukumu mazākas vērtības figūrai, kas atrodas aiz tās, vai arī šīs figūras nosišanu – pretējais piespraušanai.</string>
   <string name="smotheredMate">Smacējošais mats</string>
   <string name="smotheredMateDescription">Zirdziņa pieteikts mats karalim, kas nevar kustēties dēļ paša figūrām, kas to ielenkušas (nosmacējušas).</string>
   <string name="superGM">Super-Lielmeistaru spēles</string>
-  <string name="superGMDescription">Puzles no labāko pasaules spēlētāju spēlēm.</string>
+  <string name="superGMDescription">Uzdevumi no labāko pasaules spēlētāju spēlēm.</string>
   <string name="trappedPiece">Iesprostota figūra</string>
   <string name="trappedPieceDescription">Figūra nevar izbēgt nosišanu, jo ierobežoti tās gājieni.</string>
   <string name="underPromotion">Pieticīga paaugstināšana</string>
   <string name="underPromotionDescription">Paaugstināšana par zirdziņu, laidni vai torni.</string>
-  <string name="veryLong">Ļoti gara puzle</string>
+  <string name="veryLong">Ļoti garš uzdevums</string>
   <string name="veryLongDescription">Vismaz četri gājieni līdz uzvarai.</string>
   <string name="xRayAttack">Rentgena uzbrukums</string>
   <string name="xRayAttackDescription">Figūra uzbrūk vai apsargā lauciņu caur pretinieka figūru.</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">Veselīgs sajaukums</string>
   <string name="healthyMixDescription">Mazliet no visa kā. Nezināsiet, ko sagaidīt, tāpēc paliksiet gatavs jebkam! Tieši kā īstās spēlēs.</string>
   <string name="playerGames">Spēlētāja spēles</string>
-  <string name="playerGamesDescription">Meklējiet puzles no jūsu vai cita spēlētāja spēlēm.</string>
-  <string name="puzzleDownloadInformation">Šīs puzles ir publiski pieejamas, un tās var lejupielādēt no %s.</string>
+  <string name="playerGamesDescription">Meklējiet uzdevumus, kas radīti no jūsu vai cita spēlētāja spēlēm.</string>
+  <string name="puzzleDownloadInformation">Šie uzdevumi ir neaizsargājami darbi, un tos var lejupielādēt lapā %s.</string>
 </resources>

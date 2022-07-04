@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="createBlogDiscussion">Aktivera kommentarer</string>
+  <string name="createBlogDiscussionHelp">Ett forum kommer att skapas för personer att kommentera ditt inlägg</string>
+  <string name="publishOnYourBlog">Publicera på din blogg</string>
+</resources>

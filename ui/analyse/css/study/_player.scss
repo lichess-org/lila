@@ -24,7 +24,7 @@ $player-height: 1.6rem;
   @extend %flex-between-nowrap, %metal, %box-shadow;
 
   position: absolute;
-  right: 0;
+  #{$end-direction}: 0;
   font-weight: bold;
   width: var(--cg-width, 100%);
   height: $player-height;
@@ -56,9 +56,9 @@ $player-height: 1.6rem;
 
   .result {
     flex: 0 0 auto;
-    margin-left: 0.8em;
-    padding-right: 0.8em;
-    border-right: $border;
+    margin-#{$start-direction}: 0.8em;
+    padding-#{$end-direction}: 0.8em;
+    border-#{$end-direction}: $border;
   }
 
   .analyse__clock {
@@ -66,7 +66,8 @@ $player-height: 1.6rem;
 
     height: 100%;
     font-size: 1.2em;
-    padding: 0 0.8em 0 0.4em;
+    @include padding-direction(0, 0.8em, 0, 0.4em);
+
     border-radius: 0 4px 0 0;
     box-shadow: none;
   }
@@ -82,7 +83,7 @@ $player-height: 1.6rem;
   }
 
   .info {
-    margin-left: 10px;
+    margin-#{$start-direction}: 10px;
     display: flex;
     overflow: hidden;
 
@@ -95,12 +96,12 @@ $player-height: 1.6rem;
   }
 
   .name {
-    margin-left: 0.5ch;
+    margin-#{$start-direction}: 0.5ch;
     flex: 3;
   }
 
   .elo {
-    margin-left: 0.5em;
+    margin-#{$start-direction}: 0.5em;
     font-weight: normal;
   }
 }
@@ -113,7 +114,7 @@ $player-height: 1.6rem;
     height: 20px;
 
     &.pawn {
-      margin-left: -10px;
+      margin-#{$start-direction}: -10px;
     }
   }
 

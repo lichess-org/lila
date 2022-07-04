@@ -55,14 +55,14 @@ function renderPalantir(ctrl: Ctrl) {
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
   return [
-    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, [
+    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, { attrs: { role: 'tablist' } }, [
       ...ctrl.allTabs.map(t => renderTab(ctrl, t, active)),
       renderPalantir(ctrl),
     ]),
     h(
       'div.mchat__content.' + active,
       active === 'note' && ctrl.note
-        ? [noteView(ctrl.note)]
+        ? [noteView(ctrl.note, ctrl.vm.autofocus)]
         : ctrl.plugin && active === ctrl.plugin.tab.key
         ? [ctrl.plugin.view()]
         : discussionView(ctrl)
@@ -70,16 +70,16 @@ function normalView(ctrl: Ctrl) {
   ];
 }
 
-function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
-  return h(
+const renderTab = (ctrl: Ctrl, tab: Tab, active: Tab) =>
+  h(
     'div.mchat__tab.' + tab,
     {
+      attrs: { role: 'tab' },
       class: { 'mchat__tab-active': tab === active },
       hook: bind('click', () => ctrl.setTab(tab)),
     },
     tabName(ctrl, tab)
   );
-}
 
 function tabName(ctrl: Ctrl, tab: Tab) {
   if (tab === 'discussion')

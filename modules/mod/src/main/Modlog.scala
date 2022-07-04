@@ -9,7 +9,8 @@ case class Modlog(
     user: Option[String],
     action: String,
     details: Option[String] = None,
-    date: DateTime = DateTime.now
+    date: DateTime = DateTime.now,
+    index: Option[String] = None
 ) {
 
   def isLichess = mod == lila.user.User.lichessId
@@ -18,6 +19,8 @@ case class Modlog(
   def notableZulip = notable && !isLichess
 
   def gameId = details.ifTrue(action == Modlog.cheatDetected).??(_.split(' ').lift(1))
+
+  def indexAs(i: String) = copy(index = i.some)
 
   def showAction =
     action match {
@@ -143,4 +146,10 @@ object Modlog {
   val teamEdit            = "teamEdit"
   val appealPost          = "appealPost"
   val setKidMode          = "setKidMode"
+
+  private val explainRegex = """^[\w-]{3,}: (.+)$""".r
+  def explain(e: Modlog) = (e.index has "team") ?? ~e.details match {
+    case explainRegex(explain) => explain.some
+    case _                     => none
+  }
 }

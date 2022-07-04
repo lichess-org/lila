@@ -7,10 +7,8 @@ import scala.util.Try
 
 private[plan] object JsonHandlers {
 
-  implicit val CurrencyReads = Reads.of[String].flatMapResult { code =>
-    Try(Currency getInstance code.toUpperCase).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
-  }
-  implicit val CountryReads = Reads.of[String].map(Country)
+  implicit val CurrencyReads = lila.common.Json.tryRead(code => Try(Currency getInstance code.toUpperCase))
+  implicit val CountryReads  = Reads.of[String].map(Country)
 
   object stripe {
     implicit val SubscriptionIdReads = Reads.of[String].map(StripeSubscriptionId)
@@ -63,5 +61,7 @@ private[plan] object JsonHandlers {
     implicit val EventReads               = Json.reads[PayPalEvent]
     implicit val PlanReads                = Json.reads[PayPalPlan]
     implicit val CaptureReads             = Json.reads[PayPalCapture]
+    implicit val SaleAmountReads          = Json.reads[PayPalSaleAmount]
+    implicit val SaleReads                = Json.reads[PayPalSale]
   }
 }

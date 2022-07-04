@@ -52,13 +52,14 @@
   </plurals>
   <string name="example">Example</string>
   <string name="addAnotherTheme">Add another theme</string>
+  <string name="nextPuzzle">Next puzzle</string>
   <string name="jumpToNextPuzzleImmediately">Jump to next puzzle immediately</string>
   <string name="puzzleDashboard">Puzzle Dashboard</string>
   <string name="improvementAreas">Improvement areas</string>
   <string name="strengths">Strengths</string>
   <string name="history">Puzzle history</string>
   <string name="solved">solved</string>
-  <string name="failed">failed</string>
+  <string name="failed">incorrect</string>
   <string name="streakDescription">Solve progressively harder puzzles and build a win streak. There is no clock, so take your time. One wrong move, and it's game over! But you can skip one move per session.</string>
   <string name="yourStreakX">Your streak: %s</string>
   <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>

@@ -8,6 +8,7 @@ import lila.app._
 import lila.common.HTTPRequest
 import lila.racer.RacerPlayer
 import lila.racer.RacerRace
+import play.api.libs.json.Json
 
 final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
 
@@ -24,6 +25,19 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
         Redirect(routes.Racer.show(raceId.value))
       }
     }
+
+  def apiCreate = Scoped(_.Racer.Write) { implicit req => me =>
+    me.noBot ?? {
+      env.racer.api.createAndJoin(RacerPlayer.Id.User(me.id)) map { raceId =>
+        JsonOk(
+          Json.obj(
+            "id"  -> raceId.value,
+            "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
+          )
+        )
+      }
+    }
+  }
 
   def show(id: String) =
     WithPlayerId { implicit ctx => playerId =>

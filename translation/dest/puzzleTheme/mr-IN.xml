@@ -73,4 +73,7 @@
   <string name="mateIn2Description">दोन चालीत मात द्या.</string>
   <string name="mateIn3">तीन चालीत मात</string>
   <string name="mateIn3Description">तीन चालीत मात द्या.</string>
+  <string name="mateIn4">4 चालीत मात</string>
+  <string name="mateIn4Description">चार चालीत मात द्या.</string>
+  <string name="mateIn5">5 किंवा अधिक चालीत मात</string>
 </resources>

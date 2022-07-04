@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Gioca contro un amico</string>
+  <string name="playWithAFriend">Gioca con un amico</string>
   <string name="playWithTheMachine">Gioca contro il computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
@@ -348,6 +348,8 @@
   <string name="apply">Applica</string>
   <string name="save">Salva</string>
   <string name="leaderboard">Classifica</string>
+  <string name="screenshotCurrentPosition">Salva la schermata corrente</string>
+  <string name="gameAsGIF">Salva la partita come GIF</string>
   <string name="pasteTheFenStringHere">Incolla qui la stringa FEN</string>
   <string name="pasteThePgnStringHere">Incolla qui il testo PGN</string>
   <string name="orUploadPgnFile">O carica un file PGN</string>
@@ -427,6 +429,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tournamentIsStarting">Sta per iniziare il torneo</string>
   <string name="tournamentPairingsAreNowClosed">Gli accoppiamenti del torneo sono ora chiusi.</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Riprendi</string>
   <string name="youArePlaying">Stai giocando!</string>
   <string name="winRate">Percentuale di vittorie</string>
   <string name="berserkRate">Percentuale Berserk</string>
@@ -451,7 +455,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="profileCompletion">Completamento del profilo: %s</string>
   <string name="xRating">%s punteggio</string>
   <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
-  <string name="gameCompletionRate">Percentuale di partite finite: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
@@ -565,6 +568,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="community">Community</string>
   <string name="tools">Strumenti</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown">Valore non valido</string>
   <string name="error.required">Questo campo è obbligatorio</string>
   <string name="error.email">Questo indirizzo email non è valido</string>
   <string name="error.email_acceptable">Questo indirizzo email non è valido. Per favore ricontrollalo e riprova.</string>

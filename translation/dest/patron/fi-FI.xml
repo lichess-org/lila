@@ -63,6 +63,7 @@ Tai voit %s.</string>
   <string name="xOrY">%1$s tai %2$s</string>
   <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
+  <string name="stopPaymentsPayPal">Peruuta PayPal-tilaus ja pysäytä maksut:</string>
   <string name="noLongerSupport">Ei enempää tukea Lichessille</string>
   <string name="viewOthers">Katso muita Lichessin tukijoita</string>
   <string name="date">Pvm</string>

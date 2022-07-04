@@ -7,7 +7,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.insight.{ Dimension, Metric }
+import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env) {
 
@@ -33,7 +33,7 @@ final class Insight(env: Env) extends LilaController(env) {
       open = implicit ctx =>
         Accessible(username) { user =>
           render.async {
-            case Accepts.Html() => doPath(user, Metric.MeanCpl.key, Dimension.Perf.key, "")
+            case Accepts.Html() => doPath(user, InsightMetric.MeanCpl.key, InsightDimension.Perf.key, "")
             case Accepts.Json() => jsonStatus(user)
           }
         },
@@ -43,7 +43,7 @@ final class Insight(env: Env) extends LilaController(env) {
 
   def path(username: String, metric: String, dimension: String, filters: String) =
     Open { implicit ctx =>
-      Accessible(username) { doPath(_, metric, dimension, filters) }
+      Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
     }
 
   private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(implicit
@@ -62,7 +62,7 @@ final class Insight(env: Env) extends LilaController(env) {
             u = user,
             cache = cache,
             prefId = prefId,
-            ui = env.insight.jsonView.ui(cache.ecos, asMod = isGranted(_.ViewBlurs)),
+            ui = env.insight.jsonView.ui(cache.families, cache.openings, asMod = isGranted(_.ViewBlurs)),
             question = env.insight.jsonView.question(metric, dimension, filters),
             stale = s == Stale
           )

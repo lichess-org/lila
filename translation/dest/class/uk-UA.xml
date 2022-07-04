@@ -46,7 +46,7 @@
   <string name="createDesc2">Не потрібна електронна адреса. Пароль буде згенерований і вам треба надіслати його учневі, щоб він міг увійти в систему.</string>
   <string name="createDesc3">Важливо: учень не повинен мати кілька облікових записів.</string>
   <string name="createDesc4">Якщо у них вже є такий, натомість використовуйте форму запрошення.</string>
-  <string name="createStudentWarning">Створюйте облікові записи для реальних учнів. Не використовуйте це, щоб зробити кілька облікових записів для себе. Ви будете заблоковані.</string>
+  <string name="createStudentWarning">Створюйте облікові записи лише для реальних учнів. Не створюйте кілька облікових записів для себе. Ви будете заблоковані.</string>
   <string name="lichessUsername">Ім\'я користувача Lichess</string>
   <string name="generateANewUsername">Створити нове ім\'я користувача</string>
   <string name="welcomeToClass">Ласкаво просимо до вашого уроку: %s.
@@ -59,7 +59,7 @@
     <item quantity="many">%s запрошень в очікуванні</item>
     <item quantity="other">%s запрошень в очікуванні</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">Видимий лише вчителям класу</string>
+  <string name="onlyVisibleToTeachers">Видимий лише для вчителів класу</string>
   <string name="lastActiveDate">Активний</string>
   <string name="managed">Керований</string>
   <string name="thisStudentAccountIsManaged">Обліковий запис цього учня є керованим</string>

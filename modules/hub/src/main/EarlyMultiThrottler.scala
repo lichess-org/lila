@@ -6,10 +6,8 @@ import scala.concurrent.ExecutionContext
 
 import lila.log.Logger
 
-/** Runs the work then waits cooldown
-  * only runs once at a time per id.
-  * Guarantees that work is ran as early as possible.
-  * Also saves work and runs it after cooldown.
+/** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran as early as
+  * possible. Also saves work and runs it after cooldown.
   */
 final class EarlyMultiThrottler(logger: Logger)(implicit ec: ExecutionContext, system: ActorSystem) {
 

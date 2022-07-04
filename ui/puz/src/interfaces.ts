@@ -2,6 +2,19 @@ import type { Clock } from './clock';
 import type { Combo } from './combo';
 import type CurrentPuzzle from './current';
 
+export interface PuzCtrl {
+  run: Run;
+  vm: PuzVm;
+  toggleFilterSlow: () => void;
+  toggleFilterFailed: () => void;
+  trans: Trans;
+}
+
+export interface PuzVm {
+  filterFailed: boolean;
+  filterSlow: boolean;
+}
+
 export interface PuzPrefs {
   coords: Prefs.Coords;
   is3d: boolean;

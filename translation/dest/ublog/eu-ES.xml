@@ -9,6 +9,8 @@
   <string name="postBody">Sarreraren testu luzea</string>
   <string name="drafts">Zirriborroak</string>
   <string name="published">Argitaratuta</string>
+  <string name="createBlogDiscussion">Aktibatu erantzunak</string>
+  <string name="createBlogDiscussionHelp">Foroko hari berri bat irekiko da zure sarreraren inguruan komentarioak egiteko</string>
   <string name="publishOnYourBlog">Argitaratu zure blogean</string>
   <string name="publishHelp">Aukeratuta badago, sarrera zure blogean agertuko da. Bestela pribatua izango da eta zirriborroen zerrendan egongo da</string>
   <plurals name="publishedNbBlogPosts">

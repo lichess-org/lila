@@ -348,6 +348,8 @@
   <string name="apply">Submit</string>
   <string name="save">Save</string>
   <string name="leaderboard">Leaderboard</string>
+  <string name="screenshotCurrentPosition">Screenshot current position</string>
+  <string name="gameAsGIF">Game as GIF</string>
   <string name="pasteTheFenStringHere">Paste the FEN text here</string>
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
   <string name="orUploadPgnFile">Or upload a PGN file</string>
@@ -427,6 +429,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentIsStarting">The tournament is starting</string>
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Resume</string>
   <string name="youArePlaying">You are playing!</string>
   <string name="winRate">Win rate</string>
   <string name="berserkRate">Berserk rate</string>
@@ -564,6 +568,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
+  <string name="error.unknown">Invalid value</string>
   <string name="error.required">This field is required</string>
   <string name="error.email">This email address is invalid</string>
   <string name="error.email_acceptable">This email address is not acceptable. Please double-check it, and try again.</string>

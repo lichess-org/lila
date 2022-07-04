@@ -9,6 +9,8 @@
   <string name="postBody">Indlæggets hovedtekst</string>
   <string name="drafts">Udkast</string>
   <string name="published">Publiceret</string>
+  <string name="createBlogDiscussion">Slå kommentarer til</string>
+  <string name="createBlogDiscussionHelp">Der vil blive oprettet et forumemne, hvor folk kan kommentere på dit indlæg</string>
   <string name="publishOnYourBlog">Publicér på din blog</string>
   <string name="publishHelp">Hvis markeret, vil indlægget blive vist på din blog. Hvis ikke, vil det være privat i dine udkast</string>
   <plurals name="publishedNbBlogPosts">

@@ -83,6 +83,8 @@ export default class RoundController {
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
+  keyboardHelp: boolean = location.hash === '#keyboard';
+
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
@@ -255,7 +257,7 @@ export default class RoundController {
     else this.redraw();
   };
 
-  userJumpPlyCount = (plyCount: Ply) => this.userJump(this.ply + plyCount);
+  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
@@ -484,7 +486,8 @@ export default class RoundController {
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (!this.chessground.playPremove() && !this.playPredrop()) {
+        if (this.nvui) this.nvui.playPremove(this);
+        else if (!this.chessground.playPremove() && !this.playPredrop()) {
           this.promotion.cancel();
           this.showYourMoveNotification();
         }
@@ -571,31 +574,30 @@ export default class RoundController {
     speech.status(this);
   };
 
-  challengeRematch = (): void => {
-    xhr.challengeRematch(this.data.game.id).then(() => {
-      lichess.pubsub.emit('challenge-app.open');
-      if (lichess.once('rematch-challenge'))
-        setTimeout(() => {
-          lichess.hopscotch(function () {
-            window.hopscotch
-              .configure({
-                i18n: { doneBtn: 'OK, got it' },
-              })
-              .startTour({
-                id: 'rematch-challenge',
-                showPrevButton: true,
-                steps: [
-                  {
-                    title: 'Challenged to a rematch',
-                    content: 'Your opponent is offline, but they can accept this challenge later!',
-                    target: '#challenge-app',
-                    placement: 'bottom',
-                  },
-                ],
-              });
-          });
-        }, 1000);
-    });
+  challengeRematch = async () => {
+    await xhr.challengeRematch(this.data.game.id);
+    lichess.pubsub.emit('challenge-app.open');
+    if (lichess.once('rematch-challenge'))
+      setTimeout(() => {
+        lichess.hopscotch(function () {
+          window.hopscotch
+            .configure({
+              i18n: { doneBtn: 'OK, got it' },
+            })
+            .startTour({
+              id: 'rematch-challenge',
+              showPrevButton: true,
+              steps: [
+                {
+                  title: 'Challenged to a rematch',
+                  content: 'Your opponent is offline, but they can accept this challenge later!',
+                  target: '#challenge-app',
+                  placement: 'bottom',
+                },
+              ],
+            });
+        });
+      }, 1000);
   };
 
   private makeCorrespondenceClock = (): void => {
@@ -764,22 +766,14 @@ export default class RoundController {
 
         if (d.crazyhouse) crazyInit(this);
 
-        window.addEventListener('beforeunload', e => {
-          const d = this.data;
-          if (
-            lichess.unload.expected ||
-            this.nvui ||
-            !game.playable(d) ||
-            !d.clock ||
-            d.opponent.ai ||
-            this.isSimulHost()
-          )
-            return;
-          this.socket.send('bye2');
-          const msg = 'There is a game in progress!';
-          (e || window.event).returnValue = msg;
-          return msg;
-        });
+        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
+          window.addEventListener('beforeunload', e => {
+            if (lichess.unload.expected || !this.isPlaying()) return;
+            this.socket.send('bye2');
+            const msg = 'There is a game in progress!';
+            (e || window.event).returnValue = msg;
+            return msg;
+          });
 
         if (!this.nvui && d.pref.submitMove) {
           window.Mousetrap.bind('esc', () => {

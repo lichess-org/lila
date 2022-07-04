@@ -2,16 +2,16 @@ package lila.game
 
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{
-  CheckCount,
-  Color,
-  Clock,
-  White,
   Black,
-  Status,
-  Mode,
-  UnmovedRooks,
+  CheckCount,
+  Clock,
+  Color,
+  Game => ChessGame,
   History => ChessHistory,
-  Game => ChessGame
+  Mode,
+  Status,
+  UnmovedRooks,
+  White
 }
 import chess.format.FEN
 import org.joda.time.DateTime

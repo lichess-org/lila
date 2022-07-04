@@ -14,7 +14,7 @@ import lila.rating.{ Perf, PerfType }
 
 final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import User.{ userBSONHandler, ID, BSONFields => F }
+  import User.{ userBSONHandler, BSONFields => F, ID }
   import Title.titleBsonHandler
   import UserMark.markBsonHandler
 
@@ -80,6 +80,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def enabledById(id: ID): Fu[Option[User]] =
     User.noGhost(id) ?? coll.one[User](enabledSelect ++ $id(id))
+
+  def enabledByName(name: String): Fu[Option[User]] = enabledById(User normalize name)
 
   def isEnabled(id: ID): Fu[Boolean] =
     User.noGhost(id) ?? coll.exists(enabledSelect ++ $id(id))
@@ -347,8 +349,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   /** Filters out invalid usernames and returns the IDs for those usernames
     *
-    * @param usernames Usernames to filter out the non-existent usernames from, and return the IDs for
-    * @return A list of IDs for the usernames that were given that were valid
+    * @param usernames
+    *   Usernames to filter out the non-existent usernames from, and return the IDs for
+    * @return
+    *   A list of IDs for the usernames that were given that were valid
     */
   def existingUsernameIds(usernames: Set[String]): Fu[List[User.ID]] =
     coll.primitive[String]($inIds(usernames.map(normalize)), F.id)
@@ -603,13 +607,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(s"${F.perfs}.${perfType.key}" -> true).some
       )
       .cursor[Bdoc]()
-      .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]())
+      .list()
       .map {
-        _.view
-          .map { doc =>
-            ~doc.getAsOpt[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
-          }
-          .to(Map)
+        _.view.map { doc =>
+          ~doc.getAsOpt[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
+        }.toMap
       }
 
   def setSeenAt(id: ID): Unit =

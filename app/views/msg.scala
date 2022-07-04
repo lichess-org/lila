@@ -16,11 +16,11 @@ object msg {
         jsModule("msg"),
         embedJsUnsafeLoadThen(
           s"""LichessMsg(${safeJsonValue(
-            Json.obj(
-              "data" -> json,
-              "i18n" -> jsI18n
-            )
-          )})"""
+              Json.obj(
+                "data" -> json,
+                "i18n" -> jsI18n
+              )
+            )})"""
         )
       ),
       title = "Lichess Inbox"

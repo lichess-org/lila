@@ -42,7 +42,7 @@ object bits {
         trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
         ")"
       ),
-      table(cls := "slist")(
+      table(cls := "slist slist-pad")(
         tbody(
           if (sugs.nonEmpty) sugs.map { r =>
             tr(
@@ -76,7 +76,7 @@ object bits {
     }
 
   private def pagTable(pager: Paginator[Related], call: Call)(implicit ctx: Context) =
-    table(cls := "slist")(
+    table(cls := "slist slist-pad")(
       if (pager.nbResults > 0)
         tbody(cls := "infinite-scroll")(
           pager.currentPageResults.map { r =>

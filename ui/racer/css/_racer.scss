@@ -11,14 +11,15 @@
   display: grid;
   grid-row-gap: $block-gap;
   grid-column-gap: $block-gap;
-  grid-template-areas: 'board' 'race' 'side';
+  grid-template-areas: 'board' 'race' 'side' 'history';
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
     grid-template-rows: auto fit-content(0);
     grid-template-areas:
-      'board side'
-      'race  race';
+      'board  side'
+      'race   race'
+      'history history';
   }
 
   &__started {

@@ -91,6 +91,7 @@ Sınıfa erişim linki burada.</string>
   <string name="na">Mevcut değil</string>
   <string name="overview">Genel Bakış</string>
   <string name="news">Haberler</string>
+  <string name="classNews">Sınıf haberleri</string>
   <string name="editNews">Haberleri düzenle</string>
   <string name="notifyAllStudents">Bütün öğrencilere haber ver</string>
   <string name="nothingHere">Henüz bir şey yok.</string>
@@ -98,6 +99,19 @@ Sınıfa erişim linki burada.</string>
   <string name="newsEdit2">Yeni haberleri en üstte göster. Eski haberleri silme.</string>
   <string name="newsEdit3">Haberleri şununla ayırın ---
 Bu yatay bir çizgi oluşturacaktır.</string>
+  <string name="invite">Davet Et</string>
+  <string name="youHaveBeenInvitedByX">%s tarafından davet edildiniz.</string>
   <string name="youAcceptedThisInvitation">Bu daveti kabul ettiniz.</string>
   <string name="youDeclinedThisInvitation">Bu daveti reddettiniz.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">veya</string>
+  <string name="createMultipleAccounts">Çoklu Lichess hesabı oluşturun</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Ayrıca %s öğrenci isimlerini içeren bir listeyle birden çok Lichess hesabı oluşturabilirsiniz.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">bu formu kullanarak</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Bir sınıfta en fazla %1$s öğrenci olabilir. Daha fazla öğrenci eklemek istiyorsanız %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">yeni sınıflar oluşturun</string>
+  <string name="studentsRealNamesOnePerLine">Öğrencilerin gerçek ismi, her satır için bir kişi</string>
+  <string name="xisNowAStudentOfTheClass">%s artık sınıfın bir öğrencisi</string>
+  <string name="anInvitationHasBeenSentToX">%s adlı oyuncuya davet gönderildi</string>
+  <string name="xAlreadyHasAPendingInvitation">%s adlı oyuncuya zaten bir davet gönderdiniz</string>
+  <string name="xIsAKidAccountWarning">%1$s adlı oyuncu çocuk hesabı kullandığı için mesajlarınızı alamaz. Oyuncuya bağlantıyı kendiniz göndermelisiniz: %2$s</string>
 </resources>

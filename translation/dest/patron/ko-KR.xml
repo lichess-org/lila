@@ -15,6 +15,7 @@
   <string name="thankYou">기부해 주셔서 감사합니다!</string>
   <string name="youHaveLifetime">당신은 평생 후원 계정입니다. 엄청나네요!</string>
   <string name="patronUntil">당신은 %s까지 후원 계정입니다.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">갱신하지 않는다면 당신의 계정은 일반 계정으로 전환될 것입니다.</string>
   <string name="weAreNonProfit">우리는 비영리 단체입니다. 모두가 세계적 수준의 무료 체스 플랫폼을 이용할 수 있어야 한다고 믿기 때문입니다.</string>
   <string name="weRelyOnSupport">우리는 이를 가능하게 하기 위해 여러분과 같은 사람들의 지원에 의존합니다. Lichess를 즐긴다면 기부하고 후원자가 되어 지원해주세요!</string>
   <string name="lifetime">평생</string>
@@ -61,6 +62,7 @@
   <string name="xOrY">%1$s 또는 %2$s</string>
   <string name="decideHowMuch">Lichess의 가치를 결정해주세요:</string>
   <string name="stopPayments">신용카드를 취소하고 지불을 중지:</string>
+  <string name="stopPaymentsPayPal">PayPal 구독을 중지하고 결제를 멈추세요:</string>
   <string name="noLongerSupport">더 이상 Lichess를 지원하지 않습니다</string>
   <string name="viewOthers">다른 Lichess 후원자 보기</string>
   <string name="date">날짜</string>

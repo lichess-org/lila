@@ -30,7 +30,7 @@ object index {
         h1(advancedSearch()),
         st.form(
           noFollow,
-          cls := "box__pad search__form",
+          cls    := "box__pad search__form",
           action := s"${routes.Search.index()}#results",
           method := "GET"
         )(dataReqs)(

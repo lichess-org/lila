@@ -348,6 +348,8 @@
   <string name="apply">Aplicar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Tabela de liderança</string>
+  <string name="screenshotCurrentPosition">Posição atual da captura de ecrã</string>
+  <string name="gameAsGIF">Jogo como GIF</string>
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou enviar um ficheiro PGN</string>
@@ -427,6 +429,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Continuar</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa de partidas no modo frenético</string>
@@ -451,7 +455,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="profileCompletion">Perfil completo: %s</string>
   <string name="xRating">Pontuação %s</string>
   <string name="ifNoneLeaveEmpty">Se não existir, deixa em branco</string>
-  <string name="gameCompletionRate">Taxa de conclusão de partidas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar o perfil</string>
   <string name="firstName">Nome próprio</string>
@@ -565,6 +568,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown">Valor inválido</string>
   <string name="error.required">Este campo tem de ser preenchido</string>
   <string name="error.email">Este endereço de e-mail é inválido</string>
   <string name="error.email_acceptable">Este endereço de e-mail não é aceitável. Por favor verifica-o e tenta outra vez.</string>

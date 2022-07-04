@@ -1,6 +1,6 @@
 package lila.game
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scala.util.Success
 
 case class Blurs(bits: Long) extends AnyVal {
@@ -24,7 +24,7 @@ case class Blurs(bits: Long) extends AnyVal {
 
 object Blurs {
 
-  implicit val blursZero = Zero.instance(Blurs(0L))
+  implicit val blursZero = Zero(Blurs(0L))
 
   import reactivemongo.api.bson._
 

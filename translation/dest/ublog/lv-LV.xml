@@ -9,6 +9,8 @@
   <string name="postBody">Ieraksta teksts</string>
   <string name="drafts">Melnraksti</string>
   <string name="published">Publicēts</string>
+  <string name="createBlogDiscussion">Iespējot komentārus</string>
+  <string name="createBlogDiscussionHelp">Tiks izveidots foruma ieraksts, lai citi varētu komentēt</string>
   <string name="publishOnYourBlog">Publicēt savā blogā</string>
   <string name="publishHelp">Ieraksts tiks parādīts blogā tikai, ja šis lauciņš būs atzīmēts. Pretējā gadījumā tas paliks privāts jūsu melnrakstos</string>
   <plurals name="publishedNbBlogPosts">

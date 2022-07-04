@@ -16,6 +16,6 @@ export function success(): void {
   lichess.sound.say('Success!');
 }
 
-function withSpeech(f: (speech: LichessSpeech) => void): void {
+const withSpeech = (f: (speech: LichessSpeech) => void): void => {
   if (window.LichessSpeech) f(window.LichessSpeech);
-}
+};

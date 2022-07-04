@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 
 import lila.user.User
 import lila.common.String.html.unescapeHtml
+import lila.common.String.removeMultibyteSymbols
 
 trait Stream {
   def serviceName: String
@@ -15,7 +16,9 @@ trait Stream {
   def twitch                       = serviceName == "twitch"
   def youTube                      = serviceName == "youTube"
 
-  lazy val lang: String = status match {
+  lazy val cleanStatus = removeMultibyteSymbols(status).trim
+
+  lazy val lang: String = cleanStatus match {
     case Stream.LangRegex(code) => code.toLowerCase
     case _                      => "en"
   }
@@ -82,6 +85,20 @@ object Stream {
 
     case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
   }
+
+  def toJson(stream: Stream) = Json.obj(
+    "stream" -> Json.obj(
+      "service" -> stream.serviceName,
+      "status"  -> stream.status,
+      "lang"    -> stream.lang
+    ),
+    "streamer" -> Json
+      .obj("name" -> stream.streamer.name.value)
+      .add("headline" -> stream.streamer.headline.map(_.value))
+      .add("description" -> stream.streamer.description.map(_.value))
+      .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
+      .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
+  )
 
   private val LangRegex = """\[(\w\w)\]""".r.unanchored
 }

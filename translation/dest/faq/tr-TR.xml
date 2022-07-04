@@ -28,6 +28,8 @@
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
   <string name="youCannotApply">Moderatörleri başvuru ile seçmiyoruz. İyi bir moderatör olacağını düşündüğümüz kişiler ile doğrudan iletişime geçeriz.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyunlar normal satrançtan farklı mıdır?</string>
+  <string name="pleaseReadFairPlayPage">Daha fazla bilgi için lütfen %s okuyun</string>
+  <string name="fairPlayPage">adil oyun sayfamızı</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer bir zaman kontrolleri nasıl belirleniyor?</string>

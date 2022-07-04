@@ -39,12 +39,12 @@ object declinedRequest {
                   td(momentFromNow(request.date)),
                   td(cls := "process")(
                     postForm(
-                      cls := "process-request",
+                      cls    := "process-request",
                       action := routes.Team.requestProcess(request.id)
                     )(
                       input(
-                        tpe := "hidden",
-                        name := "url",
+                        tpe   := "hidden",
+                        name  := "url",
                         value := routes.Team.declinedRequests(team.id, requests.currentPage)
                       ),
                       button(name := "process", cls := "button button-green", value := "accept")(

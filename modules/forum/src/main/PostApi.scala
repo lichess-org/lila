@@ -197,7 +197,7 @@ final class PostApi(
 
   def categsForUser(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
     for {
-      categs <- categRepo withTeams teams
+      categs <- categRepo visibleWithTeams teams
       views <- categs.map { categ =>
         get(categ lastPostId forUser) map { topicPost =>
           CategView(

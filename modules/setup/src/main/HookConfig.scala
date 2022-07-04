@@ -103,7 +103,9 @@ case class HookConfig(
       mode = game.mode
     )
 
-  def withRatingRange(str: Option[String]) = copy(ratingRange = RatingRange orDefault str)
+  def withRatingRange(ratingRange: String) = copy(ratingRange = RatingRange orDefault ratingRange)
+  def withRatingRange(rating: Option[Int], deltaMin: Option[String], deltaMax: Option[String]) =
+    copy(ratingRange = RatingRange orDefault (rating, deltaMin, deltaMax))
 }
 
 object HookConfig extends BaseHumanConfig {

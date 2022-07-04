@@ -31,7 +31,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
     coll.insert.one(c) >> c.challengerUser.?? { challenger =>
       createdByChallengerId()(challenger.id).flatMap {
         case challenges if challenges.sizeIs <= maxOutgoing => funit
-        case challenges                                     => challenges.drop(maxOutgoing).map(_.id).map(remove).sequenceFu.void
+        case challenges => challenges.drop(maxOutgoing).map(_.id).map(remove).sequenceFu.void
       }
     }
 
@@ -81,7 +81,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       )
     ))
 
-  def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
+  private[challenge] def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
     case Some(prev) if prev.rematchOf.exists(c.rematchOf.has) => funit
     case Some(prev) if prev.id == c.id                        => funit
     case Some(prev)                                           => cancel(prev) >> insert(c)

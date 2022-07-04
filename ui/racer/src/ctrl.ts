@@ -55,6 +55,8 @@ export default class RacerCtrl {
     };
     this.vm = {
       alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
+      filterFailed: false,
+      filterSlow: false,
     };
     this.countdown = new Countdown(
       this.run.clock,
@@ -85,7 +87,6 @@ export default class RacerCtrl {
     $('#zentog').on('click', this.toggleZen);
     setInterval(this.redraw, 1000);
     setTimeout(this.hotkeys, 1000);
-    // this.simulate();
   }
 
   serverUpdate = (data: UpdatableData) => {
@@ -93,6 +94,7 @@ export default class RacerCtrl {
     this.boost.setPlayers(data.players);
     if (data.startsIn && this.status() == 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
+      this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
       else this.run.clock.start();
     }
@@ -131,6 +133,7 @@ export default class RacerCtrl {
       : undefined;
 
   end = (): void => {
+    this.pushToHistory(false); // add last unsolved puzzle
     this.setGround();
     this.redraw();
     sound.end();
@@ -180,7 +183,7 @@ export default class RacerCtrl {
         }
         this.socketSend('racerScore', this.localScore);
         if (puzzle.isOver()) {
-          if (!this.incPuzzle()) this.end();
+          if (!this.incPuzzle(true)) this.end();
         } else {
           puzzle.moveIndex++;
           captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
@@ -191,7 +194,7 @@ export default class RacerCtrl {
         this.run.errors++;
         this.run.combo.reset();
         if (this.run.clock.flag()) this.end();
-        else if (!this.incPuzzle()) this.end();
+        else if (!this.incPuzzle(false)) this.end();
       }
       this.redraw();
       this.redrawQuick();
@@ -217,7 +220,8 @@ export default class RacerCtrl {
 
   private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 
-  private incPuzzle = (): boolean => {
+  private incPuzzle = (win: boolean): boolean => {
+    this.pushToHistory(win);
     const index = this.run.current.index;
     if (index < this.data.puzzles.length - 1) {
       this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
@@ -225,6 +229,13 @@ export default class RacerCtrl {
     }
     return false;
   };
+
+  private pushToHistory = (win: boolean) =>
+    this.run.history.push({
+      puzzle: this.data.puzzles[this.run.current.index],
+      win,
+      millis: getNow() - this.run.current.startAt,
+    });
 
   withGround: WithGround = f => {
     const g = this.ground();
@@ -234,6 +245,16 @@ export default class RacerCtrl {
   flip = () => {
     this.flipped = !this.flipped;
     this.withGround(g => g.toggleOrientation());
+    this.redraw();
+  };
+
+  toggleFilterSlow = () => {
+    this.vm.filterSlow = !this.vm.filterSlow;
+    this.redraw();
+  };
+
+  toggleFilterFailed = () => {
+    this.vm.filterFailed = !this.vm.filterFailed;
     this.redraw();
   };
 

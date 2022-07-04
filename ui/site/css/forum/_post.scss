@@ -14,13 +14,13 @@
       color: $c-font-dim;
       font-weight: bold;
       font-size: 1.1em;
-      margin-right: 1rem;
+      margin-#{$end-direction}: 1rem;
     }
 
     a.author--op {
       @extend %box-radius;
       padding: 0.2em;
-      padding-right: 0.8em;
+      padding-#{$end-direction}: 0.8em;
       background: mix($c-primary, $c-bg-box, 12%);
     }
 
@@ -32,7 +32,7 @@
     }
 
     time {
-      margin-right: 1em;
+      margin-#{$end-direction}: 1em;
     }
 
     .delete {
@@ -60,7 +60,7 @@
     }
 
     &.postip {
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       max-width: 50vw;
       overflow: hidden;
       display: none;
@@ -119,8 +119,8 @@
     }
 
     blockquote {
-      padding-left: 0.5em;
-      border-left: 0.3em solid;
+      padding-#{$start-direction}: 0.5em;
+      border-#{$start-direction}: 0.3em solid;
       margin: 0.3em;
     }
   }
@@ -131,7 +131,7 @@
   }
 
   .edit-buttons a {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 
   .edit-post-form {

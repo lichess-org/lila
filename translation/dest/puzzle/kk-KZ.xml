@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Мысал</string>
   <string name="addAnotherTheme">Басқа тақырып қосу</string>
+  <string name="nextPuzzle">Келесі жұмбақ</string>
   <string name="jumpToNextPuzzleImmediately">Келесі жұмбаққа бірден өту</string>
   <string name="puzzleDashboard">Жұмбақ басқару</string>
   <string name="improvementAreas">Жетілдіру бағыты</string>

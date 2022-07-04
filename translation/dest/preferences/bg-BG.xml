@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Предпочитания</string>
-  <string name="gameDisplay">Проява</string>
   <string name="pieceAnimation">Движение на фигурите</string>
   <string name="materialDifference">Разлика в притежанието</string>
   <string name="boardHighlights">Осветяване на дъската (последен ход и шах)</string>

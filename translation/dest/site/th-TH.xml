@@ -404,7 +404,6 @@
   <string name="profileCompletion">ความสมบูรณ์ของโปรไฟล์: %s</string>
   <string name="xRating">ระดับคะแนน %s</string>
   <string name="ifNoneLeaveEmpty">ถ้าไม่มี, จงเว้นว่าง</string>
-  <string name="gameCompletionRate">อัตราความสมบูรณ์ของเกม: %s</string>
   <string name="profile">ข้อมูลประจำตัว</string>
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
   <string name="firstName">ชื่อจริง</string>

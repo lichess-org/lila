@@ -77,26 +77,25 @@ export default function () {
       booted = true;
       const $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
-      loadModule('notify').then(
-        () =>
-          (instance = window.LichessNotify($el.empty()[0], {
-            data,
-            incoming,
-            isVisible: () => isVisible(selector),
-            setCount(nb: number) {
-              $toggle.find('span').data('count', nb);
-            },
-            show() {
-              if (!isVisible(selector)) $toggle.trigger('click');
-            },
-            setNotified() {
-              lichess.socket.send('notified');
-            },
-            pulse() {
-              $toggle.addClass('pulse');
-            },
-          }))
-      );
+      loadModule('notify').then(() => {
+        instance = window.LichessNotify($el.empty()[0], {
+          data,
+          incoming,
+          isVisible: () => isVisible(selector),
+          setCount(nb: number) {
+            $toggle.find('span').data('count', nb);
+          },
+          show() {
+            if (!isVisible(selector)) $toggle.trigger('click');
+          },
+          setNotified() {
+            lichess.socket.send('notified');
+          },
+          pulse() {
+            $toggle.addClass('pulse');
+          },
+        });
+      });
     };
 
     $toggle

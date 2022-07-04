@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferoj</string>
-  <string name="gameDisplay">Aspekto de ludoj</string>
+  <string name="privacy">Privateco</string>
   <string name="pieceAnimation">Animacio de ŝakpecoj</string>
   <string name="materialDifference">Materiala diferenco</string>
   <string name="boardHighlights">Emfazaj aperoj sur tabulo (lasta movo kaj ŝakoj)</string>
@@ -24,7 +24,7 @@
   <string name="giveMoreTime">Doni pli da tempo</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Luda konduto</string>
   <string name="howDoYouMovePieces">Kiel movi pecojn?</string>
-  <string name="clickTwoSquares">Klaki du kampojn</string>
+  <string name="clickTwoSquares">Klaku du kvadratojn</string>
   <string name="dragPiece">Ŝovi pecon</string>
   <string name="bothClicksAndDrag">Ambaŭ</string>
   <string name="premovesPlayingDuringOpponentTurn">Antaŭmovoj (ludi dum la vico de kontraŭulo)</string>
@@ -39,7 +39,7 @@
   <string name="correspondenceAndUnlimited">Korespondado kaj senlima</string>
   <string name="confirmResignationAndDrawOffers">Konfirmi proponojn de resignoj kaj egalvenkoj</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Aroka metodo</string>
-  <string name="castleByMovingTwoSquares">Movi reĝon je du kampoj</string>
+  <string name="castleByMovingTwoSquares">Movi reĝon je du kvadratoj</string>
   <string name="castleByMovingOntoTheRook">Movi reĝon sur la turon</string>
   <string name="inputMovesWithTheKeyboard">Enigi movojn per klavaro</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Montri per sagoj nur validajn movojn</string>

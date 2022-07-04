@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">жаңа ғана</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="one">%s секундта</item>
+    <item quantity="other">%s секундта</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s минутта</item>
+    <item quantity="other">%s минутта</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s сағатта</item>
+    <item quantity="other">%s сағатта</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s күннен кейін</item>
+    <item quantity="other">%s күннен кейін</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s аптадан кейін</item>
+    <item quantity="other">%s аптадан кейін</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s айдан кейін</item>
+    <item quantity="other">%s айдан кейін</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s жылдан кейін</item>
+    <item quantity="other">%s жылдан кейін</item>
+  </plurals>
+  <string name="rightNow">дәл қазір</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s секунд бұрын</item>
+    <item quantity="other">%s секунд бұрын</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s минут бұрын</item>
+    <item quantity="other">%s минут бұрын</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s сағат бұрын</item>
+    <item quantity="other">%s сағат бұрын</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s күн бұрын</item>
+    <item quantity="other">%s күн бұрын</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s апта бұрын</item>
+    <item quantity="other">%s апта бұрын</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s ай бұрын</item>
+    <item quantity="other">%s ай бұрын</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s жыл бұрын</item>
+    <item quantity="other">%s жыл бұрын</item>
+  </plurals>
+</resources>

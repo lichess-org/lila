@@ -88,6 +88,7 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
   <string name="ownerUniqueTrophies">這個獎杯在 Lichess 的歷史上是獨一無二的，除了 %1$s 之外沒有人曾經擁有它。</string>
   <string name="aHourlyBulletTournament">一場小時制Bullet模式錦標賽</string>
+  <string name="goldenZeeExplanation">當時，ZugAddict己經直播了兩個小時，但他仍未能在1+0的棋局中擊敗第八級人工智能。Thibault吿訴他，如果他能在直播上成功擊敗人工智能，便會獲得一個獨特的奬盃。一個小時後，他粉碎了Stockfish， Thibault也兌現了承諾。</string>
   <string name="lichessRatings">Lichess 評分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
   <string name="ratingSystemUsedByLichess">評分是使用 Mark Glickman 開發的 Glicko-2 評分方法計算的。這是一種非常流行的評分方法，並且被大量國際象棋組織使用(FIDE 是一個值得注意的反面例子，因為他們仍然使用過時的 Elo 評分系統)。

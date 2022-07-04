@@ -2,7 +2,7 @@ package lila.app
 
 package ui
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scalatags.Text.all._
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
@@ -147,7 +147,7 @@ trait ScalatagsExtensions {
   }
 
   val emptyFrag: Frag                   = new RawFrag("")
-  implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
+  implicit val LilaFragZero: Zero[Frag] = Zero(emptyFrag)
 
   val targetBlank: Modifier = (t: Builder) => {
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted

@@ -66,6 +66,7 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="xOrY">%1$s veya %2$s</string>
   <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
   <string name="stopPayments">Kredi kartınızı geri çekin ve ödemeleri durdurun:</string>
+  <string name="stopPaymentsPayPal">PayPal aboneliğini iptal et ve ödemeleri durdur:</string>
   <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
   <string name="viewOthers">Diğer Lichess Destekçilerini gör</string>
   <string name="date">Tarih</string>

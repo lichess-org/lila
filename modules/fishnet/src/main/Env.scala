@@ -97,8 +97,6 @@ final class Env(
 
   lazy val awaiter = wire[FishnetAwaiter]
 
-  lazy val aiPerfApi = wire[AiPerfApi]
-
   wire[Cleaner]
 
   // api actor

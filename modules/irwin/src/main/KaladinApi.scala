@@ -17,7 +17,7 @@ import lila.report.Mod
 import lila.report.ModId
 import lila.report.Report
 import lila.report.Reporter
-import lila.report.{ Suspect }
+import lila.report.Suspect
 import lila.tournament.Tournament
 import lila.tournament.TournamentTop
 import lila.user.Holder
@@ -92,6 +92,7 @@ final class KaladinApi(
       coll
         .find($doc("response.at" $exists true, "response.read" $ne true))
         .sort($doc("response.at" -> 1))
+        .hint(coll hint "response.at_1_response.read_1")
         .cursor[KaladinUser]()
         .list(50)
         .flatMap { docs =>

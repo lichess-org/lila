@@ -117,19 +117,19 @@
   <string name="castling">Рокада</string>
   <string name="theSpecialKingMove">Специалните ходове на царя</string>
   <string name="castlingIntro">Защитете царя си, и пригответе топа си за атака!</string>
-  <string name="castleKingSide">Преместете царя си с две полета за царска рокада!</string>
-  <string name="castleQueenSide">Преместете царя си с две полета за дамска рокада!</string>
-  <string name="theKnightIsInTheWay">Конят пречи! Преместете го, след което направете царска рокада.</string>
-  <string name="castleKingSideMovePiecesFirst">Направете царска рокада!
-Първо трябва да разместите някои от фигурите.</string>
-  <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
-Първо трябва да разместите някои от фигурите.</string>
+  <string name="castleKingSide">Преместете царя си с две полета за малка рокада!</string>
+  <string name="castleQueenSide">Преместете царя си с две полета за голяма рокада!</string>
+  <string name="theKnightIsInTheWay">Конят пречи! Преместете го, след което направете малка рокада.</string>
+  <string name="castleKingSideMovePiecesFirst">Направете малка рокада!
+Първо трябва да преместите някои от фигурите.</string>
+  <string name="castleQueenSideMovePiecesFirst">Направете голяма рокада!
+Първо трябва да преместите някои от фигурите.</string>
   <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
   <string name="youCannotCastleIfAttacked">Не можете да направите рокада, ако царят Ви е под шах. Първо блокада, после рокада!</string>
   <string name="findAWayToCastleKingSide">Намерете начин да
-направите царска рокада!</string>
+направите малка рокада!</string>
   <string name="findAWayToCastleQueenSide">Намерете начин да
-направите дамска рокада!</string>
+направите голяма рокада!</string>
   <string name="castlingComplete">Поздравления! Добре е да правите рокада в почти всяка игра.</string>
   <string name="enPassant">Ан пасан</string>
   <string name="theSpecialPawnMove">Специалният ход на пешката</string>

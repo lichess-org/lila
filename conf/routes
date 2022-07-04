@@ -66,6 +66,7 @@ GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: String
 GET   /@/:username/blog/new            controllers.Ublog.form(username: String)
 GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: String)
 POST  /ublog/new                       controllers.Ublog.create
+GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: String)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: String)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: String)
 POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: String)
@@ -120,8 +121,10 @@ POST  /training/coordinate/score       controllers.Coordinate.score
 GET   /training                        controllers.Puzzle.home
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
+GET   /training/help                   controllers.Puzzle.help
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
 GET   /training/themes                 controllers.Puzzle.themes
+GET   /training/openings               controllers.Puzzle.openings(order: String ?= "popular")
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[String] ?= None, page: Int ?= 1)
 GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path: String = "home")
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String)
@@ -133,13 +136,14 @@ POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
 GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
 POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
-GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
-GET   /training/:theme/$id<\w{5}>      controllers.Puzzle.showWithTheme(theme: String, id: String)
+GET   /training/:angleOrId             controllers.Puzzle.show(angleOrId: String)
+GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle: String, id: String)
 POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
+POST  /training/color/:theme           controllers.Puzzle.setColor(theme: String)
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
@@ -154,12 +158,14 @@ GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(usernam
 # Puzzle Racer
 GET   /racer                            controllers.Racer.home
 POST  /racer                            controllers.Racer.create
+POST  /api/racer                        controllers.Racer.apiCreate
 GET   /racer/:id                        controllers.Racer.show(id: String)
 GET   /racer/:id/rematch                controllers.Racer.rematch(id: String)
 POST  /racer/lobby                      controllers.Racer.lobby
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
+GET   /analysis/external               controllers.UserAnalysis.external
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
@@ -292,6 +298,7 @@ POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId:
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: String)
+GET   /round/help                                controllers.Round.help
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home
@@ -385,6 +392,7 @@ POST  /team/:id/kick                          controllers.Team.kick(id: String)
 POST  /team/:id/kick/:user                    controllers.Team.kickUser(id: String, user: String)
 GET   /team/:id/leaders                       controllers.Team.leadersForm(id: String)
 POST  /team/:id/leaders                       controllers.Team.leaders(id: String)
+GET   /team/:id/members                       controllers.Team.members(id: String, page: Int ?= 1)
 POST  /team/:id/close                         controllers.Team.close(id: String)
 POST  /team/:id/disable                       controllers.Team.disable(id: String)
 GET   /team/:id/tournaments                   controllers.Team.tournaments(id: String)
@@ -411,6 +419,7 @@ GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
+GET   /export/gif/*fen                                        controllers.Export.fenThumbnail(fen: String, color: String ?= "white", lastMove: Option[String], variant: Option[String])
 
 # Fishnet
 GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/lichess-org/fishnet")
@@ -426,11 +435,8 @@ GET   /account/preferences/:categ             controllers.Pref.form(categ: Strin
 POST  /account/preferences                    controllers.Pref.formApply
 
 # Setup
-GET   /setup/ai                        controllers.Setup.aiForm
 POST  /setup/ai                        controllers.Setup.ai
-GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
-GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
@@ -649,7 +655,7 @@ POST  /appeal/:username/snooze/:dur    controllers.Appeal.snooze(username: Strin
 POST  /appeal/:username/send-to-zulip  controllers.Appeal.sendToZulip(username: String)
 
 # Stats
-GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String)
+GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String, username: Option[String] ?= None)
 
 # API
 GET   /api                             controllers.Api.index
@@ -765,6 +771,15 @@ POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: St
 GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
 
+GET   /tutor                           controllers.Tutor.home()
+GET   /tutor/:username                 controllers.Tutor.user(username: String)
+POST  /tutor/:username/refresh         controllers.Tutor.refresh(username: String)
+GET   /tutor/:username/:perf           controllers.Tutor.perf(username: String, perf: String)
+GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: String, perf: String)
+GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: String, perf: String, color: String, opening: String)
+GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: String, perf: String)
+GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: String, perf: String)
+
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize
 POST   /oauth                          controllers.OAuth.legacyTokenApply
@@ -814,7 +829,7 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /terms-of-service                controllers.Page.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.Page.menuBookmark(bookmark: String)
+GET   /$bookmark<privacy|thanks|about|ads|changelog|nft> controllers.Page.menuBookmark(bookmark: String)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source

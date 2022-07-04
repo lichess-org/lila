@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Tilføj et andet tema</string>
+  <string name="nextPuzzle">Næste opgave</string>
   <string name="jumpToNextPuzzleImmediately">Spring straks videre til næste opgave</string>
   <string name="puzzleDashboard">Opgave-kontrolpanel</string>
   <string name="improvementAreas">Forbedringsområder</string>

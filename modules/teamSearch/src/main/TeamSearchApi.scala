@@ -26,7 +26,7 @@ final class TeamSearchApi(
   private def toDoc(team: Team) =
     Json.obj(
       Fields.name        -> team.name,
-      Fields.description -> team.description.take(10000),
+      Fields.description -> team.description.value.take(10000),
       Fields.nbMembers   -> team.nbMembers
     )
 

@@ -24,7 +24,7 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
     coll.exists(selectId(teamId, userId))
 
   def add(teamId: Team.ID, userId: User.ID): Funit =
-    coll.insert.one(Member.make(team = teamId, user = userId)).void
+    coll.insert.one(TeamMember.make(team = teamId, user = userId)).void
 
   def remove(teamId: Team.ID, userId: User.ID): Fu[WriteResult] =
     coll.delete.one(selectId(teamId, userId))
@@ -34,7 +34,7 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
 
   def filterUserIdsInTeam(teamId: Team.ID, userIds: Set[User.ID]): Fu[Set[User.ID]] =
     userIds.nonEmpty ??
-      coll.distinctEasy[User.ID, Set]("user", $inIds(userIds.map { Member.makeId(teamId, _) }))
+      coll.distinctEasy[User.ID, Set]("user", $inIds(userIds.map { TeamMember.makeId(teamId, _) }))
 
   def isSubscribed(team: Team, user: User): Fu[Boolean] =
     !coll.exists(selectId(team.id, user.id) ++ $doc("unsub" -> true))
@@ -49,6 +49,6 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
       .void
 
   def teamQuery(teamId: Team.ID)                         = $doc("team" -> teamId)
-  private def selectId(teamId: Team.ID, userId: User.ID) = $id(Member.makeId(teamId, userId))
+  private def selectId(teamId: Team.ID, userId: User.ID) = $id(TeamMember.makeId(teamId, userId))
   private def userQuery(userId: User.ID)                 = $doc("user" -> userId)
 }

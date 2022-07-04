@@ -20,12 +20,10 @@ final class JsonView(
 
   def apply(
       puzzle: Puzzle,
-      theme: Option[PuzzleTheme],
+      angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay],
       user: Option[User]
-  )(implicit
-      lang: Lang
-  ): Fu[JsObject] = {
+  )(implicit lang: Lang): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
@@ -40,17 +38,18 @@ final class JsonView(
         .add("replay" -> replay.map(replayJson))
         .add(
           "theme",
-          theme.map { t =>
+          angle.map { a =>
             Json
               .obj(
-                "key" -> t.key,
+                "key" -> a.key,
                 "name" -> {
-                  if (t == PuzzleTheme.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
-                  else t.name.txt()
+                  if (a == PuzzleAngle.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
+                  else a.name.txt()
                 },
-                "desc" -> t.description.txt()
+                "desc" -> a.description.txt()
               )
-              .add("chapter" -> PuzzleTheme.studyChapterIds.get(t.key))
+              .add("chapter" -> a.asTheme.flatMap(PuzzleTheme.studyChapterIds.get))
+              .add("isOpening" -> a.asTheme.isEmpty)
           }
         )
     }

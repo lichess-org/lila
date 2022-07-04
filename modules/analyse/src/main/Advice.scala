@@ -38,8 +38,8 @@ sealed trait Advice {
 object Advice {
 
   sealed abstract class Judgement(val glyph: Glyph, val name: String) {
-    override def toString = name
-    def isBlunder         = this == Judgement.Blunder
+    override def toString  = name
+    def isMistakeOrBlunder = this == Judgement.Mistake || this == Judgement.Blunder
   }
   object Judgement {
     object Inaccuracy extends Judgement(Glyph.MoveAssessment.dubious, "Inaccuracy")
@@ -59,8 +59,6 @@ private[analyse] case class CpAdvice(
 
 private[analyse] object CpAdvice {
 
-  private def cpWinningChances(cp: Double): Double = 2 / (1 + Math.exp(-0.004 * cp)) - 1
-
   private val winningChanceJudgements = List(
     .3 -> Advice.Judgement.Blunder,
     .2 -> Advice.Judgement.Mistake,
@@ -69,10 +67,10 @@ private[analyse] object CpAdvice {
 
   def apply(prev: Info, info: Info): Option[CpAdvice] =
     for {
-      cp     <- prev.cp map (_.ceiled.centipawns)
-      infoCp <- info.cp map (_.ceiled.centipawns)
-      prevWinningChances    = cpWinningChances(cp)
-      currentWinningChances = cpWinningChances(infoCp)
+      cp     <- prev.cp
+      infoCp <- info.cp
+      prevWinningChances    = WinPercent.winningChances(cp)
+      currentWinningChances = WinPercent.winningChances(infoCp)
       delta = (currentWinningChances - prevWinningChances) pipe { d =>
         info.color.fold(-d, d)
       }

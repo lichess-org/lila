@@ -435,7 +435,6 @@
   <string name="profileCompletion">پروفائل کی تکمیل: %s</string>
   <string name="xRating">%s ریٹنگ</string>
   <string name="ifNoneLeaveEmpty">اگر کوئی نہیں تو خالی چھوڑ دیں</string>
-  <string name="gameCompletionRate">بازیاں مکمل کرنے کی شرح: %s</string>
   <string name="profile">اکاؤنٹ</string>
   <string name="editProfile">اکاؤنٹ میں ترمیم کریں</string>
   <string name="firstName">پہلا نام</string>

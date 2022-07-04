@@ -433,7 +433,7 @@ final class Study(
 
   def pgn(id: String) =
     Open { implicit ctx =>
-      PgnRateLimitPerIp(ctx.ip) {
+      PgnRateLimitPerIp(ctx.ip, msg = id) {
         OptionFuResult(env.study.api byId id) { study =>
           CanView(study, ctx.me) {
             doPgn(study, ctx.req).fuccess
@@ -445,7 +445,7 @@ final class Study(
   def apiPgn(id: String) = AnonOrScoped(_.Study.Read) { req => me =>
     env.study.api.byId(id).map {
       _.fold(NotFound(jsonError("Study not found"))) { study =>
-        PgnRateLimitPerIp(HTTPRequest ipAddress req) {
+        PgnRateLimitPerIp(HTTPRequest ipAddress req, msg = id) {
           CanView(study, me) {
             doPgn(study, req)
           }(privateUnauthorizedJson, privateForbiddenJson)
@@ -486,7 +486,8 @@ final class Study(
       me: Option[lila.user.User],
       req: RequestHeader
   ) = {
-    val userId = lila.user.User normalize username
+    val name   = if (username == "me") me.fold("me")(_.username) else username
+    val userId = lila.user.User normalize name
     val flags  = requestPgnFlags(req)
     val isMe   = me.exists(_.id == userId)
     apiC
@@ -499,7 +500,7 @@ final class Study(
           )
       } { source =>
         Ok.chunked(source)
-          .pipe(asAttachmentStream(s"${username}-${if (isMe) "all" else "public"}-studies.pgn"))
+          .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
           .as(pgnContentType)
       }
       .fuccess

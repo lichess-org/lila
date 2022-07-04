@@ -94,7 +94,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 export const renderNextChapter = (ctrl: AnalyseCtrl) =>
-  !ctrl.embed && ctrl.study?.hasNextChapter()
+  !ctrl.embed && !ctrl.opts.relay && ctrl.study?.hasNextChapter()
     ? h(
         'button.next.text',
         {
@@ -190,20 +190,19 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
-  return h('button.fbt', {
+const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
+  h('button.fbt', {
     class: { disabled: !enabled },
     attrs: { 'data-act': effect, 'data-icon': icon },
   });
-}
 
-function dataAct(e: Event): string | null {
+const dataAct = (e: Event): string | null => {
   const target = e.target as HTMLElement;
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-}
+};
 
 function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
-  const repeat = function () {
+  const repeat = () => {
     control[action](ctrl);
     ctrl.redraw();
     delay = Math.max(100, delay - delay / 15);
@@ -221,6 +220,16 @@ function controls(ctrl: AnalyseCtrl) {
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
     noarg = ctrl.trans.noarg;
+  let iconFirst = '';
+  let iconPrev = '';
+  let iconNext = '';
+  let iconLast = '';
+  if (document.dir == 'rtl') {
+    iconLast = '';
+    iconNext = '';
+    iconPrev = '';
+    iconFirst = '';
+  }
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -235,6 +244,8 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
+            else if (action === 'analysis' && ctrl.studyPractice)
+              window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
           },
           ctrl.redraw
         );
@@ -247,12 +258,10 @@ function controls(ctrl: AnalyseCtrl) {
             'div.features',
             ctrl.studyPractice
               ? [
-                  h('a.fbt', {
+                  h('button.fbt', {
                     attrs: {
                       title: noarg('analysis'),
-                      target: '_blank',
-                      rel: 'noopener',
-                      href: ctrl.studyPractice.analysisUrl(),
+                      'data-act': 'analysis',
                       'data-icon': '',
                     },
                   }),
@@ -285,10 +294,10 @@ function controls(ctrl: AnalyseCtrl) {
                 ]
           ),
       h('div.jumps', [
-        jumpButton('', 'first', canJumpPrev),
-        jumpButton('', 'prev', canJumpPrev),
-        jumpButton('', 'next', canJumpNext),
-        jumpButton('', 'last', canJumpNext),
+        jumpButton(iconFirst, 'first', canJumpPrev),
+        jumpButton(iconPrev, 'prev', canJumpPrev),
+        jumpButton(iconNext, 'next', canJumpNext),
+        jumpButton(iconLast, 'last', canJumpNext),
       ]),
       ctrl.studyPractice
         ? h('div.noop')
@@ -310,24 +319,23 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   }
 }
 
-function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
-  return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
-}
+const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
+  cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-function analysisDisabled(ctrl: AnalyseCtrl): MaybeVNode {
-  if (!ctrl.ceval.possible || !ctrl.ceval.allowed()) return;
-  return h('div.comp-off__hint', [
-    h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
-    h(
-      'button',
-      {
-        hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
-        attrs: { type: 'button' },
-      },
-      ctrl.trans.noarg('enable')
-    ),
-  ]);
-}
+const analysisDisabled = (ctrl: AnalyseCtrl): MaybeVNode =>
+  ctrl.ceval.possible && ctrl.ceval.allowed()
+    ? h('div.comp-off__hint', [
+        h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
+        h(
+          'button',
+          {
+            hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
+            attrs: { type: 'button' },
+          },
+          ctrl.trans.noarg('enable')
+        ),
+      ])
+    : undefined;
 
 export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
   const cgState = ctrl.chessground?.state,
@@ -343,9 +351,8 @@ export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
   );
 }
 
-function renderPlayerStrip(cls: string, materialDiff: VNode, clock?: VNode): VNode {
-  return h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
-}
+const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
+  h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   if (ctrl.embed) return;
@@ -380,6 +387,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     {
       hook: {
         insert: vn => {
+          const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
           if (!!playerBars != $('body').hasClass('header-margin')) {
             requestAnimationFrame(() => {
@@ -387,7 +395,16 @@ export default function (ctrl: AnalyseCtrl): VNode {
               ctrl.redraw();
             });
           }
-          gridHacks.start(vn.elm as HTMLElement);
+          if (ctrl.opts.chat) {
+            const chatEl = document.createElement('section');
+            chatEl.classList.add('mchat');
+            elm.appendChild(chatEl);
+            const chatOpts = ctrl.opts.chat;
+            chatOpts.instance?.then(c => c.destroy());
+            chatOpts.parseMoves = true;
+            chatOpts.instance = lichess.makeChat(chatOpts);
+          }
+          gridHacks.start(elm);
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);
@@ -504,15 +521,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
                 ]
           ),
       study && study.relay && relayManager(study.relay),
-      ctrl.opts.chat &&
-        h('section.mchat', {
-          hook: onInsert(_ => {
-            const chatOpts = ctrl.opts.chat;
-            chatOpts.instance?.then(c => c.destroy());
-            chatOpts.parseMoves = true;
-            chatOpts.instance = lichess.makeChat(chatOpts);
-          }),
-        }),
       ctrl.embed
         ? null
         : h('div.chat__members.none', {

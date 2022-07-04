@@ -36,10 +36,10 @@ import { bind, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
+import { ops } from 'tree';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
-const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
@@ -85,7 +85,7 @@ export default function (redraw: Redraw) {
                 'aria-live': 'off',
               },
             },
-            renderMainline(ctrl.mainline, ctrl.path, style)
+            renderCurrentLine(ctrl, style)
           ),
           ...(!ctrl.studyPractice
             ? [
@@ -164,7 +164,7 @@ export default function (redraw: Redraw) {
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                   $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
                   $buttons.on('keypress', positionJumpHandler());
-                  $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                  $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
                 },
               },
             },
@@ -246,6 +246,15 @@ export default function (redraw: Redraw) {
       ]);
     },
   };
+}
+
+function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNode)[] {
+  if (ctrl.path.length === 0) {
+    return renderMainline(ctrl.mainline, ctrl.path, style);
+  } else {
+    const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
+    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style);
+  }
 }
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {

@@ -76,6 +76,7 @@
   <string name="studyNotFound">Azterlana ez da aurkitu</string>
   <string name="editChapter">Kapitulua aldatu</string>
   <string name="newChapter">Kapitulu berria</string>
+  <string name="importFromChapterX">Inportatu %s kapitulotik</string>
   <string name="orientation">Kokapena</string>
   <string name="analysisMode">Analisi modua</string>
   <string name="pinnedChapterComment">Kapituluaren iltzatutako iruzkina</string>

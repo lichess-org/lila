@@ -1,10 +1,10 @@
 package lila.base
 
 import akka.actor.ActorSystem
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext => EC, Future, Await }
+import scala.concurrent.{ Await, ExecutionContext => EC, Future }
 import scala.util.Try
 
 import lila.common.Chronometer

@@ -54,6 +54,7 @@
   </plurals>
   <string name="example">Exemplu</string>
   <string name="addAnotherTheme">Adăugați o altă temă</string>
+  <string name="nextPuzzle">Puzzle-ul următor</string>
   <string name="jumpToNextPuzzleImmediately">Sari imediat la problema următoare</string>
   <string name="puzzleDashboard">Panoul de control pentru probleme de șah</string>
   <string name="improvementAreas">Zone de îmbunătățit</string>

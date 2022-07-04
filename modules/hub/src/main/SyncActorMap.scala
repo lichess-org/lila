@@ -24,7 +24,6 @@ final class SyncActorMap[T <: SyncActor](
 
   private[this] val actors: LoadingCache[String, T] =
     lila.common.LilaCache.scaffeine
-      .recordStats()
       .expireAfterAccess(accessTimeout)
       .removalListener((id: String, actor: T, cause: RemovalCause) => actor.stop())
       .build[String, T](mkActor)

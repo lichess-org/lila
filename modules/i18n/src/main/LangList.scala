@@ -17,11 +17,11 @@ object LangList {
     Lang("br", "FR")  -> "brezhoneg",
     Lang("bs", "BA")  -> "bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
+    Lang("co", "FR")  -> "corsu",
     Lang("cs", "CZ")  -> "čeština",
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
     Lang("cy", "GB")  -> "Cymraeg",
     Lang("da", "DK")  -> "Dansk",
-    Lang("de", "CH")  -> "Schwizerdütsch",
     Lang("de", "DE")  -> "Deutsch",
     Lang("el", "GR")  -> "Ελληνικά",
     Lang("en", "US")  -> "English (US)",
@@ -38,6 +38,7 @@ object LangList {
     Lang("ga", "IE")  -> "Gaeilge",
     Lang("gd", "GB")  -> "Gàidhlig",
     Lang("gl", "ES")  -> "Galego",
+    Lang("gsw", "CH") -> "Schwizerdütsch",
     Lang("gu", "IN")  -> "ગુજરાતી",
     Lang("he", "IL")  -> "עִבְרִית",
     Lang("hi", "IN")  -> "हिन्दी, हिंदी",
@@ -142,4 +143,19 @@ object LangList {
     }
     .toList
     .sortBy(_._1)
+
+  private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
+
+  def isRTL(lang: Lang): Boolean =
+    rtlCache.getOrElseUpdate(
+      lang,
+      lang.locale
+        .getDisplayName(lang.locale)
+        .headOption
+        .map(_.getDirectionality)
+        .exists { dir =>
+          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
+          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
+        }
+    )
 }

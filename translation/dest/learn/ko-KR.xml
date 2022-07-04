@@ -214,6 +214,7 @@
   <string name="rightOn">맞습니다!</string>
   <string name="stageXComplete">%s번 퍼즐 완료</string>
   <string name="next">다음</string>
+  <string name="nextX">다음: %s</string>
   <string name="backToMenu">메뉴로 돌아가기</string>
   <string name="puzzleFailed">잘못된 수입니다</string>
   <string name="retry">다시하기</string>

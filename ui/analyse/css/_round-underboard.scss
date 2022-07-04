@@ -11,10 +11,9 @@ $col2-panel-height: 240px;
 
     justify-content: center;
     align-items: flex-start;
-    border-top: 2px solid $c-border;
 
     > span {
-      @extend %roboto, %box-radius-bottom;
+      @extend %roboto, %box-radius-top, %page-text;
 
       flex: 1 1 0;
       text-align: center;
@@ -23,29 +22,13 @@ $col2-panel-height: 240px;
       cursor: pointer;
       position: relative;
 
-      @include transition(color, 0.25s);
-
-      &::after {
-        content: '';
-        background: fade-out($c-accent, 0.4);
-        height: 2px;
-        position: absolute;
-        width: 96%;
-        left: 2%;
-        top: -2px;
-
-        @include transition(all, 0.25s);
-
-        transform: scale(0);
+      &:hover {
+        background: mix($c-bg-page, #888, 88%);
       }
 
-      &.active,
-      &:hover::after {
-        transform: scale(1);
-      }
-
+      border-bottom: 1px solid $c-border;
       &.active {
-        color: $c-accent;
+        border-color: $c-accent;
       }
     }
 
@@ -80,25 +63,28 @@ $col2-panel-height: 240px;
     }
   }
 
-  .computer-analysis,
   .ctable {
     align-items: center;
     justify-content: center;
-    position: relative;
 
     &.active {
       display: flex;
     }
   }
 
+  .computer-analysis {
+    position: relative;
+  }
   .future-game-analysis {
     text-align: center;
+    margin-top: 2em;
   }
 
   .fen-pgn {
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
+    padding-top: 0.5em;
 
     > div {
       @extend %flex-center-nowrap;
@@ -111,29 +97,22 @@ $col2-panel-height: 240px;
       font-family: monospace;
     }
 
-    strong {
+    strong,
+    a {
       display: inline-block;
-      margin-right: 1em;
-    }
-
-    .pgn-options {
-      div {
-        @extend %flex-wrap;
-      }
-
-      a {
-        flex: 0 0 50%;
-        line-height: 1.6em;
-      }
+      margin-#{$end-direction}: 1em;
     }
   }
 
   &__fen {
     width: 100%;
+  }
+
+  input.like-text {
     border: 0;
     background: none;
     padding: 0.3em;
-    margin-right: 0.5em;
+    margin-#{$end-direction}: 0.5em;
   }
 }
 
@@ -156,9 +135,10 @@ $col2-panel-height: 240px;
   font-size: 0.9em;
   position: absolute;
   top: 91px;
-  left: -1px;
+  #{$start-direction}: -1px;
   background: $c-bg-box;
-  padding: 7px 10px 7px 0;
+  @include padding-direction(7px, 10px, 7px, 0);
+
   line-height: 20px;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -168,14 +148,14 @@ $col2-panel-height: 240px;
   span {
     @extend %nowrap-hidden;
 
-    margin-left: 7px;
+    margin-#{$start-direction}: 7px;
     opacity: 1;
     transition: 0.5s;
     width: 100px;
     display: block;
 
     .analyse__underboard:hover & {
-      margin-left: 0;
+      margin-#{$start-direction}: 0;
       width: 0;
       opacity: 0;
     }
@@ -185,6 +165,6 @@ $col2-panel-height: 240px;
     width: 32px;
     height: 32px;
     display: inline-block;
-    margin-left: 10px;
+    margin-#{$start-direction}: 10px;
   }
 }

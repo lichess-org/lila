@@ -60,6 +60,9 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
       .add("hasMaxRating", tour.conditions.maxRating.isDefined) // BC
       .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
       .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
+      .add("minRatedGames", tour.conditions.nbRatedGame)
+      .add("onlyTitled", tour.conditions.titled.isDefined)
+      .add("teamMember", tour.conditions.teamMember.map(_.teamId))
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(positionJson))
       .add("schedule", tour.schedule map scheduleJson)

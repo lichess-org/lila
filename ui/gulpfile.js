@@ -11,6 +11,7 @@ const filter = require('gulp-filter');
 const fs = require('fs');
 const glob = require('glob');
 
+const dirs = ['ltr', 'rtl'];
 const themes = ['light', 'dark', 'transp'];
 
 const sassOptions = {
@@ -76,15 +77,21 @@ function createThemedBuilds(cb) {
   glob(buildsGlob, {}, (err, files) => {
     files
       .filter(file => file.match(/\/_.+\.scss$/))
+      .filter(file => !file.match(/\/_.+\.abstract\.scss$/))
       .forEach(file => {
-        themes.forEach(theme => {
-          const themed = file.replace(/\/_(.+)\.scss$/, `/$1.${theme}.scss`);
-          if (!fs.existsSync(themed)) {
-            const buildName = file.replace(/.+\/_(.+)\.scss$/, '$1');
-            const code = `@import '../../../common/css/theme/${theme}';\n@import '${buildName}';\n`;
-            console.log(`Create missing SCSS themed build: ${themed}`);
-            fs.writeFileSync(themed, code);
-          }
+        dirs.forEach(dir => {
+          themes.forEach(theme => {
+            const themed = file.replace(/\/_(.+)\.scss$/, `/$1.${dir}.${theme}.scss`);
+            if (!fs.existsSync(themed)) {
+              const buildName = file.replace(/.+\/_(.+)\.scss$/, '$1');
+              const code =
+                `@import '../../../common/css/dir/${dir}';\n` +
+                `@import '../../../common/css/theme/${theme}';\n` +
+                `@import '${buildName}';\n`;
+              console.log(`Create missing SCSS themed build: ${themed}`);
+              fs.writeFileSync(themed, code);
+            }
+          });
         });
       });
     cb();

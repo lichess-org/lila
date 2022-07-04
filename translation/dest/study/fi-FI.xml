@@ -64,7 +64,7 @@
   <string name="chapterPgn">Luvun PGN</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
-  <string name="currentChapterUrl">Nykyisen luvun URL</string>
+  <string name="currentChapterUrl">Tämän luvun URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Voit upottaa tämän foorumiin liittämällä</string>
   <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
   <string name="startAtX">Aloita siirrosta %s</string>
@@ -76,6 +76,7 @@
   <string name="studyNotFound">Tutkielmaa ei löydy</string>
   <string name="editChapter">Muokkaa lukua</string>
   <string name="newChapter">Uusi luku</string>
+  <string name="importFromChapterX">Tuo luvusta %s</string>
   <string name="orientation">Suunta</string>
   <string name="analysisMode">Analyysitila</string>
   <string name="pinnedChapterComment">Kiinnitetty lukukommentti</string>

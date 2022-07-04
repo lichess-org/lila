@@ -5,7 +5,7 @@
       width: 12.5%;
       height: 12.5%;
       top: 0;
-      left: 0;
+      #{$start-direction}: 0;
       background-size: cover;
       z-index: 2;
 
@@ -42,7 +42,7 @@
     }
 
     &.d3 piece {
-      left: 0;
+      #{$start-direction}: 0;
       top: 0;
       background-size: cover;
       background-position: 0 67%;

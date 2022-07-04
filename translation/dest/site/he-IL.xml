@@ -400,6 +400,8 @@
   <string name="apply">תיישם</string>
   <string name="save">שמור</string>
   <string name="leaderboard">טבלת השחקנים המובילים</string>
+  <string name="screenshotCurrentPosition">צלם את העמדה הנוכחית</string>
+  <string name="gameAsGIF">משחק בתור GIF</string>
   <string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
   <string name="orUploadPgnFile">או העלה קובץ PGN</string>
@@ -488,6 +490,8 @@
   <string name="tournamentIsStarting">הטורניר מתחיל</string>
   <string name="tournamentPairingsAreNowClosed">התאמת זוגות בטורניר הסתיימה.</string>
   <string name="standByX">%s, נא המתן, מתאימים זוגות, היה מוכן!</string>
+  <string name="pause">השהה</string>
+  <string name="resume">המשך</string>
   <string name="youArePlaying">אתה משחק!</string>
   <string name="winRate">שיעור זכיה</string>
   <string name="berserkRate">אחוז המשחקים באטרף</string>
@@ -512,7 +516,6 @@
   <string name="profileCompletion">השלמת הפרופיל: %s</string>
   <string name="xRating">דירוג %s</string>
   <string name="ifNoneLeaveEmpty">אם אין, השאר ריק</string>
-  <string name="gameCompletionRate">אחוזי השלמת משחקים: %s</string>
   <string name="profile">פרופיל</string>
   <string name="editProfile">ערוך פרופיל</string>
   <string name="firstName">שם פרטי</string>
@@ -635,6 +638,7 @@
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
   <string name="increment">שניות למהלך</string>
+  <string name="error.unknown">ערך לא תקין</string>
   <string name="error.required">שדה חובה</string>
   <string name="error.email">כתובת דוא״ל זו אינה תקינה</string>
   <string name="error.email_acceptable">כתובת דוא״ל זו אינה קבילה. אנא בדוק שנית ונסה שוב.</string>
@@ -645,6 +649,7 @@
   <string name="error.min">לפחות %s</string>
   <string name="error.max">%s או פחות</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
+  <string name="ifRegistered">אם רשום</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>

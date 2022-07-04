@@ -10,6 +10,8 @@ final class Analyser(
     analysisRepo: AnalysisRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  import AnalyseBsonHandlers._
+
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo byGame game
 
@@ -21,8 +23,8 @@ final class Analyser(
         gameRepo game analysis.id flatMap {
           _ ?? { prev =>
             val game = prev.setAnalysed
-            gameRepo.setAnalysed(game.id)
-            analysisRepo.save(analysis) >>
+            gameRepo.setAnalysed(game.id) >>
+              analysisRepo.save(analysis) >>
               sendAnalysisProgress(analysis, complete = true) >>- {
                 Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
                 Bus.publish(InsertGame(game), "gameSearchInsert")

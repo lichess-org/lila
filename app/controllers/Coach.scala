@@ -4,7 +4,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachPager }
+import lila.coach.{ Coach => CoachModel, CoachPager, CoachProfileForm }
 import views._
 import lila.user.Countries
 
@@ -38,7 +38,7 @@ final class Coach(env: Env) extends LilaController(env) {
             studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
             posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
             reviews  <- api.reviews.approvedByCoach(c.coach)
-            myReview <- ctx.me.?? { api.reviews.mine(_, c.coach) }
+            myReview <- ctx.me.?? { api.reviews.find(_, c.coach) }
           } yield {
             lila.mon.coach.pageView.profile(c.coach.id.value).increment()
             Ok(html.coach.show(c, reviews, studies, posts, myReview))

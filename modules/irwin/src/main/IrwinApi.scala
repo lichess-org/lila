@@ -38,14 +38,21 @@ final class IrwinApi(
 
   object reports {
 
-    def insert(report: IrwinReport) =
-      reportColl.update.one($id(report._id), report, upsert = true) >>
-        markOrReport(report) >>
-        notification(report) >>-
-        lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
+    def insert(data: IrwinReport) = for {
+      prev <- get(data.userId)
+      report = prev.fold(data)(_ add data)
+      _ <- reportColl.update.one($id(report._id), report, upsert = true)
+      _ <- markOrReport(report)
+    } yield {
+      notification(report)
+      lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
+    }
 
     def get(user: User): Fu[Option[IrwinReport]] =
-      reportColl.find($id(user.id)).one[IrwinReport]
+      get(user.id)
+
+    def get(userId: User.ID): Fu[Option[IrwinReport]] =
+      reportColl.byId[IrwinReport](userId)
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] =
       get(user) flatMap {

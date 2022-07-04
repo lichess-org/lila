@@ -70,8 +70,8 @@ final class Game(
     AnonOrScoped() { req => me => handleExport(username, me, req, oauth = me.isDefined) }
 
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
-    env.user.repo enabledNamed username flatMap {
-      _ ?? { user =>
+    env.user.repo named username flatMap {
+      _.filter(u => u.enabled || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
         WithVs(req) { vs =>
           val finished = getBoolOpt("finished", req) | true
@@ -86,7 +86,7 @@ final class Game(
             perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
-            flags = requestPgnFlags(req, extended = false).copy(literate = false),
+            flags = requestPgnFlags(req, extended = false),
             sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
             perSecond = MaxPerSecond(me match {
               case Some(m) if m.id == "openingexplorer" => env.apiExplorerGamesPerSecond.get()

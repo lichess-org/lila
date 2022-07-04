@@ -62,6 +62,20 @@ object Form {
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
+  def id(size: Int, fixed: Option[String])(exists: String => Fu[Boolean]) = {
+    val field = text(minLength = size, maxLength = size)
+      .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r matches id)
+    fixed match {
+      case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
+      case None =>
+        import scala.concurrent.duration._
+        field.verifying(
+          "This ID is already in use",
+          id => !exists(id).await(1 second, "tour crud unique ID")
+        )
+    }
+  }
+
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   // trims and removes garbage chars before validation
@@ -115,9 +129,9 @@ object Form {
   }
 
   object mustNotContainLichess {
-    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
+    private val regex = "(?iu)l[iıi̇][cс]h[eе]s".r
     def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
-      if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
+      if (regex.find(t) && !verifiedUser)
         V.Invalid(V.ValidationError("Must not contain \"lichess\""))
       else V.Valid
     }
@@ -150,6 +164,13 @@ object Form {
       new Formatter[A] {
         def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
         def unbind(key: String, value: A)                = stringFormat.unbind(key, from(value))
+      }
+    def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] =
+      new Formatter[A] {
+        def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { str =>
+          to(str) toRight Seq(FormError(key, s"Invalid value: $str", Nil))
+        }
+        def unbind(key: String, value: A) = stringFormat.unbind(key, from(value))
       }
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] =
       new Formatter[A] {
@@ -191,6 +212,32 @@ object Form {
         else fen
       }
   }
+
+  object url {
+    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+    private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
+    implicit val urlFormat = new Formatter[URL] {
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { url =>
+        Try(URL.parse(parser, url)).fold(
+          err => Left(Seq(FormError(key, s"Invalid URL: $err", Nil))),
+          Right(_)
+        )
+      }
+      def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
+    }
+    val field = of[URL]
+  }
+
+  implicit val variantFormat =
+    formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
+
+  object strings {
+    def separator(sep: String) = of[List[String]](
+      formatter.stringFormatter[List[String]](_ mkString sep, _.split(sep).toList)
+    )
+  }
+
+  def toMarkdown(m: Mapping[String]): Mapping[Markdown] = m.transform[Markdown](Markdown.apply, _.value)
 
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(

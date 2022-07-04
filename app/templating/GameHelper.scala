@@ -1,14 +1,14 @@
 package lila.app
 package templating
 
-import chess.{ Status => S, Color, Black, White, Clock, Mode }
+import chess.{ Black, Clock, Color, Mode, Status => S, White }
 import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
-import lila.i18n.{ I18nKeys => trans, defaultLang }
+import lila.i18n.{ defaultLang, I18nKeys => trans }
 import lila.user.Title
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
@@ -129,9 +129,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match {
-            case (Some(level), _) => aiNameFrag(level, withRating && ctx.pref.showRatings)
+            case (Some(level), _) => aiNameFrag(level)
             case (_, Some(name))  => name
-            case _                => trans.anonymous.txt()
+            case _                => trans.anonymous()
           },
           player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
           statusIcon
@@ -139,7 +139,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case Some(user) =>
         frag(
           (if (link) a else span)(
-            cls := userClass(user.id, cssClass, withOnline),
+            cls  := userClass(user.id, cssClass, withOnline),
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
@@ -148,7 +148,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
               frag(" ", showRatingDiff(d))
             },
             engine option span(
-              cls := "tos_violation",
+              cls   := "tos_violation",
               title := trans.thisAccountViolatedTos.txt()
             )
           ),
@@ -238,24 +238,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def gameLink(pov: Pov)(implicit ctx: Context): String = gameLink(pov.game, pov.color)
 
-  def challengeTitle(c: lila.challenge.Challenge)(implicit lang: Lang) = {
+  def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: Context) = {
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(trans.anonymous.txt()) { reg =>
-      s"${titleNameOrId(reg.id)} (${reg.rating.show})"
+      s"${titleNameOrId(reg.id)}${ctx.pref.showRatings ?? s" (${reg.rating.show})"}"
     }
     val players =
       if (c.isOpen) "Open challenge"
       else
         c.destUser.fold(s"Challenge from $challenger") { dest =>
-          s"$challenger challenges ${titleNameOrId(dest.id)} (${dest.rating.show})"
+          s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings ?? s" (${dest.rating.show})"}"
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
   }
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit lang: Lang) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit ctx: Context) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

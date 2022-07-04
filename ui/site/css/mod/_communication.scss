@@ -9,14 +9,14 @@
   }
 
   .user-link {
-    margin-left: -0.5em;
+    margin-#{$start-direction}: -0.5em;
   }
 
   .actions {
     @extend %flex-center;
 
     .priv {
-      margin-left: 1em;
+      margin-#{$start-direction}: 1em;
       font-weight: normal;
     }
   }

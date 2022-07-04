@@ -47,8 +47,8 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   return undefined;
 }
 
-function roundsTable(relay: RelayCtrl): VNode {
-  return h('div.relay-tour__text__schedule', [
+const roundsTable = (relay: RelayCtrl): VNode =>
+  h('div.relay-tour__text__schedule', [
     h('h2', 'Schedule'),
     h(
       'table.slist.slist-invert',
@@ -73,7 +73,6 @@ function roundsTable(relay: RelayCtrl): VNode {
       )
     ),
   ]);
-}
 
 const roundStateIcon = (round: RelayRound) =>
   round.ongoing
@@ -87,7 +86,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
   const relay = ctrl.relay!;
   return h(
     'div.study__relay__rounds',
-    relay!.data.rounds
+    relay.data.rounds
       .map(round =>
         h(
           'div',

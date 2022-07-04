@@ -220,9 +220,9 @@
     <item quantity="other">Rangs tiek atjaunots ik pēc %s minūtēm</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="zero">%s puzles</item>
-    <item quantity="one">%s puzle</item>
-    <item quantity="other">%s puzles</item>
+    <item quantity="zero">%s uzdevumi</item>
+    <item quantity="one">%s uzdevums</item>
+    <item quantity="other">%s uzdevumi</item>
   </plurals>
   <string name="gamesPlayed">Izspēlētās spēles</string>
   <plurals name="nbGamesWithYou">
@@ -374,6 +374,8 @@
   <string name="apply">Apstiprināt</string>
   <string name="save">Saglabāt</string>
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
+  <string name="screenshotCurrentPosition">Uzņemt pašreizējās pozīcijas attēlu</string>
+  <string name="gameAsGIF">Spēle GIF formātā</string>
   <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
   <string name="orUploadPgnFile">Augšuplādēt PGN datni</string>
@@ -457,6 +459,8 @@
   <string name="tournamentIsStarting">Turnīrs sākas</string>
   <string name="tournamentPairingsAreNowClosed">Turnīra pārošana ir beigusies.</string>
   <string name="standByX">Lūdzu, uzgaidiet, %s, sapāro spēlētājus, esiet gatavs!</string>
+  <string name="pause">Pauzēt</string>
+  <string name="resume">Atsākt</string>
   <string name="youArePlaying">Jūs spēlējat!</string>
   <string name="winRate">Uzvaru attiecība</string>
   <string name="berserkRate">Dullo spēļu biežums</string>
@@ -481,7 +485,6 @@
   <string name="profileCompletion">Profils aizpildīts: %s</string>
   <string name="xRating">%s reitings</string>
   <string name="ifNoneLeaveEmpty">Ja nav piešķirts, atstājiet tukšu</string>
-  <string name="gameCompletionRate">Pabeigto spēļu attiecība: %s</string>
   <string name="profile">Profils</string>
   <string name="editProfile">Labot profilu</string>
   <string name="firstName">Vārds</string>
@@ -598,6 +601,7 @@
   <string name="community">Kopiena</string>
   <string name="tools">Rīki</string>
   <string name="increment">Pieaugums</string>
+  <string name="error.unknown">Nederīga vērtība</string>
   <string name="error.required">Šis lauks ir obligāts</string>
   <string name="error.email">Šī e-pasta adrese nav derīga</string>
   <string name="error.email_acceptable">Šī e-pasta adrese nav pieņemama. Lūdzu pārbaudiet to un mēģiniet vēlreiz.</string>

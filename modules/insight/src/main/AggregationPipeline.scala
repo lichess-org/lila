@@ -4,10 +4,25 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.user.User
+import lila.common.config
 
-final private class AggregationPipeline(store: Storage)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class AggregationPipeline(store: InsightStorage)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
+  import InsightStorage._
 
-  def aggregate[X](question: Question[X], user: User): Fu[List[Bdoc]] =
+  val maxGames = config.Max(10_000)
+
+  def gameMatcher(filters: List[Filter[_]]) = combineDocs(filters.collect {
+    case f if f.dimension.isInGame => f.matcher
+  })
+
+  def aggregate[X](
+      question: Question[X],
+      target: Either[User, Question.Peers],
+      withPovs: Boolean,
+      nbGames: config.Max = maxGames
+  ): Fu[List[Bdoc]] =
     store.coll {
       _.aggregateList(
         maxDocs = Int.MaxValue,
@@ -15,21 +30,28 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
       ) { implicit framework =>
         import framework._
         import question.{ dimension, filters, metric }
-
-        import lila.insight.{ Dimension => D, Metric => M }
+        import lila.insight.{ InsightDimension => D, InsightMetric => M }
         import InsightEntry.{ BSONFields => F }
-        import Storage._
 
-        val sampleGames    = Sample(10_000)
-        val sampleMoves    = Sample(200_000).some
+        val limitGames     = Limit(nbGames.value)
+        val sortDate       = target.isLeft ?? List(Sort(Descending(F.date)))
+        val limitMoves     = Limit((200_000 / maxGames.value.toDouble * nbGames.value).toInt).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
         def limit(nb: Int) = Limit(nb).some
 
-        val regroupStacked = GroupField("_id.dimension")(
-          "nb"    -> SumField("v"),
-          "ids"   -> FirstField("ids"),
-          "stack" -> Push($doc("metric" -> "$_id.metric", "v" -> "$v"))
+        def groupOptions(identifiers: pack.Value)(ops: (String, Option[GroupFunction])*) =
+          Group(identifiers)(ops.collect { case (k, Some(f)) => k -> f }: _*)
+        def groupFieldOptions(idField: String)(ops: (String, Option[GroupFunction])*) =
+          GroupField(idField)(ops.collect { case (k, Some(f)) => k -> f }: _*)
+        def bucketAutoOptions(groupBy: pack.Value, buckets: Int, granularity: Option[String])(
+            output: (String, Option[GroupFunction])*
+        ) = BucketAuto(groupBy, buckets, granularity)(output.collect { case (k, Some(f)) => k -> f }: _*)
+
+        val regroupStacked = groupFieldOptions("_id.dimension")(
+          "nb"    -> SumField("v").some,
+          "ids"   -> withPovs.option(FirstField("ids")),
+          "stack" -> Push($doc("metric" -> "$_id.metric", "v" -> "$v")).some
         )
 
         lazy val movetimeIdDispatcher =
@@ -92,59 +114,73 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 )
               )
             }
-        def dimensionGroupId(dim: Dimension[_]): BSONValue =
+        lazy val timePressureIdDispatcher =
+          TimePressureRange.all.tail.reverse.foldLeft[BSONValue](BSONInteger(TimePressureRange.TPR5.id)) {
+            case (acc, tp) =>
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$lt" -> $arr("$" + F.moves("s"), tp.permils)),
+                  tp.id - 1,
+                  acc
+                )
+              )
+          }
+        def dimensionGroupId(dim: InsightDimension[_]): BSONValue =
           dim match {
-            case Dimension.MovetimeRange => movetimeIdDispatcher
-            case Dimension.CplRange      => cplIdDispatcher
-            case Dimension.MaterialRange => materialIdDispatcher
-            case Dimension.EvalRange     => evalIdDispatcher
-            case Dimension.TimeVariance  => timeVarianceIdDispatcher
-            case d                       => BSONString("$" + d.dbKey)
+            case InsightDimension.MovetimeRange     => movetimeIdDispatcher
+            case InsightDimension.CplRange          => cplIdDispatcher
+            case InsightDimension.MaterialRange     => materialIdDispatcher
+            case InsightDimension.EvalRange         => evalIdDispatcher
+            case InsightDimension.TimeVariance      => timeVarianceIdDispatcher
+            case InsightDimension.TimePressureRange => timePressureIdDispatcher
+            case d                                  => BSONString("$" + d.dbKey)
           }
         sealed trait Grouping
         object Grouping {
           object Group                                                            extends Grouping
           case class BucketAuto(buckets: Int, granularity: Option[String] = None) extends Grouping
         }
-        def dimensionGrouping(dim: Dimension[_]): Grouping =
+        def dimensionGrouping(dim: InsightDimension[_]): Grouping =
           dim match {
             case D.Date => Grouping.BucketAuto(buckets = 12)
             case _      => Grouping.Group
           }
 
-        val gameIdsSlice       = $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
-        val includeSomeGameIds = AddFields(gameIdsSlice)
-        val toPercent          = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
+        val gameIdsSlice       = withPovs option $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
+        val includeSomeGameIds = gameIdsSlice map AddFields.apply
+        val addGameId          = withPovs option AddFieldToSet("_id")
+        val ratioToPercent     = $doc("v" -> $doc("$multiply" -> $arr(100, "$v")))
+        val perMilToPercent    = $doc("v" -> $doc("$divide" -> $arr("$v", 10)))
 
-        def group(d: Dimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
+        def group(d: InsightDimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
           List(dimensionGrouping(d) match {
             case Grouping.Group =>
-              Group(dimensionGroupId(d))(
-                "v"   -> f,
-                "nb"  -> SumAll,
-                "ids" -> AddFieldToSet("_id")
+              groupOptions(dimensionGroupId(d))(
+                "v"   -> f.some,
+                "nb"  -> SumAll.some,
+                "ids" -> addGameId
               )
             case Grouping.BucketAuto(buckets, granularity) =>
-              BucketAuto(dimensionGroupId(d), buckets, granularity)(
-                "v"   -> f,
-                "nb"  -> SumAll,
-                "ids" -> AddFieldToSet("_id") // AddFieldToSet crashes mongodb 3.4.1 server
+              bucketAutoOptions(dimensionGroupId(d), buckets, granularity)(
+                "v"   -> f.some,
+                "nb"  -> SumAll.some,
+                "ids" -> addGameId
               )
-          }) map { Option(_) }
+          }) map some
 
-        def groupMulti(d: Dimension[_], metricDbKey: String): List[Option[PipelineOperator]] =
-          (dimensionGrouping(d) match {
+        def groupMulti(d: InsightDimension[_], metricDbKey: String): List[Option[PipelineOperator]] =
+          dimensionGrouping(d) ap {
             case Grouping.Group =>
-              List[PipelineOperator](
-                Group($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
-                  "v"   -> SumAll,
-                  "ids" -> AddFieldToSet("_id")
-                ),
-                regroupStacked,
+              List(
+                groupOptions($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
+                  "v"   -> SumAll.some,
+                  "ids" -> addGameId
+                ).some,
+                regroupStacked.some,
                 includeSomeGameIds
-              )
+              ).flatten
             case Grouping.BucketAuto(buckets, granularity) =>
-              List[PipelineOperator](
+              List(
                 BucketAuto(dimensionGroupId(d), buckets, granularity)(
                   "doc" -> Push(
                     $doc(
@@ -152,31 +188,35 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                       "metric" -> s"$$$metricDbKey"
                     )
                   )
-                ),
-                UnwindField("doc"),
-                Group($doc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
-                  "v"   -> SumAll,
-                  "ids" -> AddFieldToSet("doc.id")
-                ),
-                regroupStacked,
+                ).some,
+                UnwindField("doc").some,
+                groupOptions($doc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
+                  "v"   -> SumAll.some,
+                  "ids" -> addGameId
+                ).some,
+                regroupStacked.some,
                 includeSomeGameIds,
-                Sort(Ascending("_id.min"))
-              )
-          }) map { Option(_) }
+                Sort(Ascending("_id.min")).some
+              ).flatten
+          } map some
 
-        val gameMatcher = combineDocs(question.filters.collect {
-          case f if f.dimension.isInGame => f.matcher
-        })
+        val fieldExistsMatcher: Bdoc = dimension.some
+          .filter(InsightDimension.optionalDimensions.contains)
+          .filter(dim => !question.filters.exists(_.dimension == dim))
+          .?? { dim => $doc(dim.dbKey $exists true) }
 
         def matchMoves(extraMatcher: Bdoc = $empty): Option[PipelineOperator] =
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
-          } ::: (dimension match {
+          } ::: dimension.ap {
             case D.TimeVariance => List($doc(F.moves("v") $exists true))
             case D.CplRange     => List($doc(F.moves("c") $exists true))
             case D.EvalRange    => List($doc(F.moves("e") $exists true))
             case _              => List.empty[Bdoc]
-          })).some.filterNot(_.isEmpty) map Match.apply
+          } ::: metric.ap {
+            case InsightMetric.MeanAccuracy => List($doc(F.moves("a") $exists true))
+            case _                   => List.empty[Bdoc]
+          }).some.filterNot(_.isEmpty) map Match.apply
 
         def projectForMove: Option[PipelineOperator] =
           Project(BSONDocument({
@@ -186,110 +226,174 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
           }.distinct.map(_ -> BSONBoolean(true)))).some
 
         val pipeline = Match(
-          selectUserId(user.id) ++
-            gameMatcher ++
-            (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
-            (Metric.requiresAnalysis(metric) || Dimension.requiresAnalysis(dimension))
+          target.fold(u => selectUserId(u.id), selectPeers) ++
+            gameMatcher(question.filters) ++
+            fieldExistsMatcher ++
+            (InsightMetric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++
-            (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
+            (InsightMetric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension)).?? {
               $doc(F.provisional $ne true)
             }
-        ) -> /* sortDate :: */ {
-          sampleGames :: ((metric match {
+        ) -> {
+          sortDate ::: limitGames :: (metric.ap {
             case M.MeanCpl =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves(),
-                sampleMoves
+                limitMoves
               ) :::
                 group(dimension, AvgField(F.moves("c"))) :::
-                List(includeSomeGameIds.some)
+                List(includeSomeGameIds)
             case M.CplBucket =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves(),
-                sampleMoves,
+                limitMoves,
                 AddFields($doc("cplBucket" -> cplIdDispatcher)).some
               ) :::
                 groupMulti(dimension, "cplBucket")
+            // case M.MeanAccuracy => // power mean
+            //   List(
+            //     projectForMove,
+            //     unwindMoves,
+            //     matchMoves(),
+            //     limitMoves,
+            //     AddFields(
+            //       $doc("pow" -> $doc("$pow" -> $arr($doc("$subtract" -> $arr(1000, "$m.a")), 3)))
+            //     ).some
+            //   ) :::
+            //     group(dimension, SumField("pow")) :::
+            //     List(
+            //       AddFields(
+            //         $doc(
+            //           "v" -> $doc(
+            //             "$divide" -> $arr(
+            //               $doc(
+            //                 "$subtract" -> $arr(
+            //                   1000,
+            //                   $doc("$pow" -> $arr($doc("$divide" -> $arr("$v", "$nb")), 1 / 3d))
+            //                 )
+            //               ),
+            //               10
+            //             )
+            //           )
+            //         )
+            //       ).some,
+            //       includeSomeGameIds
+            //     )
+            case M.MeanAccuracy => // harmonic mean
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves(),
+                limitMoves,
+                AddFields(
+                  $doc("step" -> $doc("$divide" -> $arr(1, $doc("$max" -> $arr(1, "$m.a")))))
+                ).some
+              ) :::
+                group(dimension, SumField("step")) :::
+                List(
+                  AddFields(
+                    $doc(
+                      "v" ->
+                        $doc(
+                          "$divide" -> $arr($doc("$divide" -> $arr("$nb", "$v")), 10)
+                        )
+                    )
+                  ).some,
+                  includeSomeGameIds
+                )
             case M.Material =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves(),
-                sampleMoves
+                limitMoves
               ) :::
                 group(dimension, AvgField(F.moves("i"))) :::
-                List(includeSomeGameIds.some)
-            case M.Opportunism =>
+                List(includeSomeGameIds)
+            case M.Awareness =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves($doc(F.moves("o") $exists true)),
-                sampleMoves
+                limitMoves
               ) :::
-                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
-                List(AddFields(gameIdsSlice ++ toPercent).some)
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
+                List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.Luck =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves($doc(F.moves("l") $exists true)),
-                sampleMoves
+                limitMoves
               ) :::
-                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
-                List(AddFields(gameIdsSlice ++ toPercent).some)
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
+                List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
+            case M.TimePressure =>
+              List(
+                projectForMove,
+                unwindMoves,
+                limitMoves
+              ) :::
+                group(dimension, AvgField(F.moves("s"))) :::
+                List(AddFields(~gameIdsSlice ++ perMilToPercent).some)
             case M.Blurs =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves(),
-                sampleMoves
+                limitMoves
               ) :::
-                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("b"), 1, 0)))) :::
-                List(AddFields(gameIdsSlice ++ toPercent).some)
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("b"), 1, 0)))) :::
+                List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.NbMoves =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves(),
-                sampleMoves
+                limitMoves
               ) :::
                 group(dimension, SumAll) :::
                 List(
                   Project(
                     $doc(
                       "v"   -> true,
-                      "ids" -> true,
+                      "ids" -> withPovs,
                       "nb"  -> $doc("$size" -> "$ids")
                     )
                   ).some,
-                  AddFields(
-                    $doc("v" -> $doc("$divide" -> $arr("$v", "$nb"))) ++
-                      gameIdsSlice
-                  ).some
+                  AddFields($doc("v" -> $doc("$divide" -> $arr("$v", "$nb"))) ++ ~gameIdsSlice).some
                 )
             case M.Movetime =>
               List(
                 projectForMove,
                 unwindMoves,
                 matchMoves(),
-                sampleMoves
+                limitMoves
               ) :::
-                group(
-                  dimension,
-                  GroupFunction(
-                    "$avg",
-                    $doc("$divide" -> $arr("$" + F.moves("t"), 10))
-                  )
-                ) :::
-                List(includeSomeGameIds.some)
+                group(dimension, GroupFunction("$avg", $doc("$divide" -> $arr(s"$$${F.moves("t")}", 10)))) :::
+                List(includeSomeGameIds)
             case M.RatingDiff =>
-              group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds.some)
+              group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds)
+            case M.Performance =>
+              group(
+                dimension,
+                Avg(
+                  $doc(
+                    "$avg" -> $doc(
+                      "$add" -> $arr(
+                        "$or",
+                        $doc("$multiply" -> $arr(500, $doc("$subtract" -> $arr(2, "$r"))))
+                      )
+                    )
+                  )
+                )
+              ) ::: List(includeSomeGameIds)
             case M.OpponentRating =>
-              group(dimension, AvgField(F.opponentRating)) ::: List(includeSomeGameIds.some)
+              group(dimension, AvgField(F.opponentRating)) ::: List(includeSomeGameIds)
             case M.Result =>
               groupMulti(dimension, F.result)
             case M.Termination =>
@@ -299,7 +403,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 projectForMove,
                 unwindMoves,
                 matchMoves(),
-                sampleMoves
+                limitMoves
               ) :::
                 groupMulti(dimension, F.moves("r"))
             case M.TimeVariance =>
@@ -307,7 +411,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 projectForMove,
                 unwindMoves,
                 matchMoves($doc(F.moves("v") $exists true)),
-                sampleMoves
+                limitMoves
               ) :::
                 group(
                   dimension,
@@ -316,11 +420,11 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                     $doc("$divide" -> $arr("$" + F.moves("v"), TimeVariance.intFactor))
                   )
                 ) :::
-                List(includeSomeGameIds.some)
-          }) ::: (dimension match {
-            case D.Opening => List(sortNb, limit(12))
-            case _         => Nil
-          })).flatten
+                List(includeSomeGameIds)
+          } ::: dimension.ap {
+            case D.OpeningVariation | D.OpeningFamily => List(sortNb, limit(12))
+            case _                                    => Nil
+          }).flatten
         }
         pipeline
       }

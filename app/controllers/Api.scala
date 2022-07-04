@@ -9,8 +9,7 @@ import scala.util.chaining._
 import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.common.LightUser
+import lila.common.{ HTTPRequest, IpAddress, LightUser }
 
 final class Api(
     env: Env,
@@ -44,8 +43,13 @@ final class Api(
     }
 
   def user(name: String) =
-    CookieBasedApiRequest { ctx =>
-      userApi.extended(name, ctx.me, userWithFollows(ctx.req)) map toApiResult
+    CookieBasedApiRequest { implicit ctx =>
+      userApi.extended(
+        name,
+        ctx.me,
+        withFollows = userWithFollows(ctx.req),
+        withTrophies = getBool("trophies")
+      ) map toApiResult
     }
 
   private[controllers] def userWithFollows(req: RequestHeader) =
@@ -220,7 +224,7 @@ final class Api(
     }
 
   def tournamentGames(id: String) =
-    Action.async { req =>
+    AnonOrScoped() { req => me =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
           val onlyUserId = get("player", req) map lila.user.User.normalize
@@ -228,7 +232,7 @@ final class Api(
             tournamentId = tour.id,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
-            perSecond = MaxPerSecond(20)
+            perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportByTournament(config, onlyUserId)
@@ -291,14 +295,14 @@ final class Api(
     }
 
   def swissGames(id: String) =
-    Action.async { req =>
+    AnonOrScoped() { req => me =>
       env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
         _ ?? { swiss =>
           val config = GameApiV2.BySwissConfig(
             swissId = swiss.id,
             format = GameApiV2.Format byRequest req,
             flags = gameC.requestPgnFlags(req, extended = false),
-            perSecond = MaxPerSecond(20)
+            perSecond = MaxPerSecond(20 + me.isDefined ?? 10)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportBySwiss(config)
@@ -432,7 +436,7 @@ final class Api(
     result match {
       case Limited          => rateLimitedJson
       case ClientError(msg) => BadRequest(jsonError(msg))
-      case NoData           => NotFound
+      case NoData           => notFoundJsonSync()
       case Custom(result)   => result
       case Done             => jsonOkResult
       case Data(json)       => JsonOk(json)
@@ -444,7 +448,7 @@ final class Api(
   def addKeepAlive(source: Source[JsValue, _]): Source[Option[JsValue], _] =
     source
       .map(some)
-      .keepAlive(60.seconds, () => none) // play's idleTimeout = 75s
+      .keepAlive(50.seconds, () => none) // play's idleTimeout = 75s
 
   def sourceToNdJson(source: Source[JsValue, _]): Result =
     sourceToNdJsonString {

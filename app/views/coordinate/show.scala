@@ -21,8 +21,8 @@ object show {
         jsModule("coordinateTrainer"),
         embedJsUnsafeLoadThen(
           s"""LichessCoordinateTrainer(document.getElementById('trainer'), ${safeJsonValue(
-            bits.coordinateConfig(scoreOption)
-          )});"""
+              bits.coordinateConfig(scoreOption)
+            )});"""
         )
       ),
       openGraph = lila.app.ui
@@ -37,7 +37,7 @@ object show {
       playing = true
     )(
       main(id := "trainer")(
-        div(cls := "trainer")(
+        div(cls   := "trainer")(
           div(cls := "side"),
           div(cls := "main-board")(chessgroundBoard),
           div(cls := "table"),

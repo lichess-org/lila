@@ -27,9 +27,10 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
     : undefined;
 }
 
-function logSuccess(e: LogEvent) {
-  return [e.moves ? h('strong', '' + e.moves) : e.moves, ` new move${e.moves > 1 ? 's' : ''}`];
-}
+const logSuccess = (e: LogEvent) => [
+  e.moves ? h('strong', '' + e.moves) : e.moves,
+  ` new move${e.moves > 1 ? 's' : ''}`,
+];
 
 function renderLog(ctrl: RelayCtrl) {
   const dateFormatter = getDateFormatter();
@@ -88,8 +89,8 @@ function stateOn(ctrl: RelayCtrl) {
   );
 }
 
-function stateOff(ctrl: RelayCtrl) {
-  return h(
+const stateOff = (ctrl: RelayCtrl) =>
+  h(
     'div.state.off.clickable',
     {
       hook: bind('click', _ => ctrl.setSync(true)),
@@ -97,7 +98,6 @@ function stateOff(ctrl: RelayCtrl) {
     },
     [h('div.fat', 'Click to connect')]
   );
-}
 
 let cachedDateFormatter: (date: Date) => string;
 
@@ -112,9 +112,7 @@ function getDateFormatter(): (date: Date) => string {
             minute: 'numeric',
             second: 'numeric',
           }).format
-        : function (d) {
-            return d.toLocaleString();
-          };
+        : d => d.toLocaleString();
 
   return cachedDateFormatter;
 }

@@ -22,8 +22,8 @@ final private class FishnetLimiter(
     }
 
   private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 60,
-    duration = 20 hours,
+    credits = 120,
+    duration = 1 day,
     key = "request_analysis.ip"
   )
 

@@ -8,18 +8,18 @@
 
   div {
     display: inline-block;
-    margin-left: 10px;
+    margin-#{$start-direction}: 10px;
   }
 
   mpiece {
-    margin-left: -10px;
+    margin-#{$start-direction}: -10px;
     width: 32px;
     height: 32px;
     background-size: cover;
     display: inline-block;
 
     &.pawn {
-      margin-left: -15px;
+      margin-#{$start-direction}: -15px;
     }
   }
 
@@ -31,16 +31,16 @@
 
   @include breakpoint($mq-col1) {
     height: $col1-mat-height;
-    margin-left: 3vmin;
+    margin-#{$start-direction}: 3vmin;
 
     div {
-      margin-left: 8px;
+      margin-#{$start-direction}: 8px;
     }
 
     mpiece {
       width: $col1-mat-height * 3/4;
       height: $col1-mat-height * 3/4;
-      margin-left: -8px !important;
+      margin-#{$start-direction}: -8px !important;
     }
   }
 }

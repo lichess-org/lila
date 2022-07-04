@@ -19,7 +19,7 @@
       overflow: hidden;
 
       &:last-child {
-        margin-left: 20px;
+        margin-#{$start-direction}: 20px;
       }
     }
 

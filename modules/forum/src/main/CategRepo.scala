@@ -9,11 +9,11 @@ final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCon
 
   def bySlug(slug: String) = coll.byId[Categ](slug)
 
-  def withTeams(teams: Iterable[String]): Fu[List[Categ]] =
+  def visibleWithTeams(teams: Iterable[String]): Fu[List[Categ]] =
     coll
       .find(
         $or(
-          "team" $exists false,
+          $doc("hidden" $ne true, "team" $exists false),
           $doc("team" $in teams)
         )
       )

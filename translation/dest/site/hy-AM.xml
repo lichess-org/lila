@@ -347,6 +347,8 @@
   <string name="apply">Կիրառել</string>
   <string name="save">Պահպանել</string>
   <string name="leaderboard">Առաջատարներ</string>
+  <string name="screenshotCurrentPosition">Ստանալ այս դիրքի սքրինշոթը</string>
+  <string name="gameAsGIF">Պարտիան GIF ձևաչափով</string>
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
   <string name="orUploadPgnFile">Կամ վերբեռնեք PGN ֆայլը</string>
@@ -425,6 +427,8 @@
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
   <string name="tournamentPairingsAreNowClosed">Մրցաշարի վիճակահանությունն ավարտված է։</string>
   <string name="standByX">Խնդրում ենք սպասել %s, տեղի է ունենում վիճակահանություն։ Պատրա՛ստ եղեք։</string>
+  <string name="pause">Դադար</string>
+  <string name="resume">Շարունակել</string>
   <string name="youArePlaying">Դուք խաղում եք։</string>
   <string name="winRate">Հաղթանակի տոկոս</string>
   <string name="berserkRate">Բերսերկի տոկոս</string>
@@ -449,7 +453,6 @@
   <string name="profileCompletion">Մասնակցային էջը լրացված է %s-ով</string>
   <string name="xRating">%s վարկանիշ</string>
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
-  <string name="gameCompletionRate">Ավարտված պարտիաներ` %s</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
   <string name="firstName">Անուն</string>
@@ -555,6 +558,7 @@
   <string name="community">Համայնք</string>
   <string name="tools">Գործիքներ</string>
   <string name="increment">Ավելացում</string>
+  <string name="error.unknown">Սխալ արժեք</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Էլ. փոստի այս հասցեն սխալ է:</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
@@ -766,17 +770,25 @@
   <string name="important">Կարևոր</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Օգտատիրոջ խարդախ կամ անպարկեշտ պահվածքը ծանուցելու համար %1$s</string>
   <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
+  <string name="thisTopicIsArchived">Այս թեման տեղափոխվել է արխիվ, և այն այլևս հնարավոր չէ մեկնաբանել։</string>
   <string name="teamNamedX">%1$s թիմ</string>
   <string name="subscribe">Բաժանորդագրվել</string>
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
   <string name="xMentionedYouInY">%1$s-ը հիշատակել է Ձեզ  «%2$s»-ում։</string>
   <string name="invitedYouToX">Հրավիրել է Ձեզ «%1$s»։</string>
+  <string name="newPendingReview">Նոր հավակնորդ</string>
+  <string name="lostAgainstTOSViolator">Դուք պարտվել եք նրան, ով խախտել է Lichess-ի օգտվողի համաձայնագիրը</string>
+  <string name="refundXpointsTimeControlY">Վերադարձ. %1$s %2$s վարկանիշային միավոր</string>
+  <string name="timeAlmostUp">Ժամանակը գրեթե սպառվել է</string>
+  <string name="clickToRevealEmailAddress">[Սեղմեք՝ էլեկտրոնային փոստի հասցեն բացելու համար]</string>
   <string name="download">Ներբեռնել</string>
   <string name="welcome">Բարի՜ գալուստ։</string>
   <string name="lichessPatronInfo">Lichess-ը բարեգործական կազմակերպություն է, որը տրամադրում է բաց նախնական կոդով ազատ և անվճար ծրագրային ապահովում։
 Օպերացիոն բոլոր ծախսերը, մշակումները և կոնտենտը ֆինանսավորվում են բացառապես օգտատերերի նվիրաբերությունների հաշվին։</string>
   <string name="coachManager">Մարզիչների համար</string>
   <string name="streamerManager">Սթրիմերների համար</string>
+  <string name="cancelTournament">Չեղարկել մրցաշարը</string>
+  <string name="tournDescription">Մրցաշարի նկարագրությունը</string>
   <string name="noRestriction">Առանց սահմանափակումների</string>
   <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
   <string name="minimumRating">Նվազագույն վարկանիշ</string>

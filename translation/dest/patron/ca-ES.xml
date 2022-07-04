@@ -64,6 +64,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="xOrY">%1$s o %2$s</string>
   <string name="decideHowMuch">Decideix quant val Lichess per a tu:</string>
   <string name="stopPayments">Retira la targeta de crèdit i atura els pagaments:</string>
+  <string name="stopPaymentsPayPal">Cancel·lar subscripció de PayPal i aturar els pagaments:</string>
   <string name="noLongerSupport">Ja no dónes suport a Lichess</string>
   <string name="viewOthers">Veure altres Patrons de Lichess</string>
   <string name="date">Data</string>

@@ -24,10 +24,10 @@ object dailyPuzzleSlackApp {
             href := "https://slack.com/oauth/v2/authorize?client_id=17688987239.964622027363&scope=commands,incoming-webhook"
           )(
             img(
-              alt := "Add to Slack",
+              alt     := "Add to Slack",
               heightA := 40,
-              widthA := 139,
-              src := assetUrl("images/add-to-slack.png")
+              widthA  := 139,
+              src     := assetUrl("images/add-to-slack.png")
             )
           ),
           h2("Summary"),

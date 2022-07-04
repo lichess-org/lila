@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Indstillinger</string>
-  <string name="gameDisplay">Skakspillets udseende</string>
+  <string name="display">Udseende</string>
+  <string name="privacy">Privatliv</string>
   <string name="pieceAnimation">Animation af brikkerne</string>
   <string name="materialDifference">Materialeforskel</string>
   <string name="boardHighlights">Fremhævninger på brættet (af sidste træk og skak)</string>

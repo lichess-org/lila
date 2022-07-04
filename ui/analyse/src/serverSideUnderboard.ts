@@ -3,7 +3,7 @@ import type Highcharts from 'highcharts';
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './util';
 import modal from 'common/modal';
-import { textRaw as xhrTextRaw } from 'common/xhr';
+import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 interface HighchartsHTMLElement extends HTMLElement {
@@ -25,8 +25,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
+    gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
+    positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement,
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
-  let lastFen: string;
+  let lastInputHash: string;
 
   if (!window.LichessAnalyseNvui) {
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
@@ -38,9 +40,16 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
     lichess.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
       const $chart = $('#acpl-chart');
-      if (fen && fen !== lastFen) {
+      const nextInputHash = `${fen}${ctrl.bottomColor()}`;
+      if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
-        lastFen = fen;
+        positionGifLink.href = xhrUrl(`/export/gif/${fen.replace(/ /g, '_')}`, {
+          color: ctrl.bottomColor(),
+          lastMove: ctrl.node.uci,
+          variant: ctrl.data.game.variant.key,
+        });
+        gameGifLink.pathname = `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`;
+        lastInputHash = nextInputHash;
       }
       if ($chart.length) {
         const chart = ($chart[0] as HighchartsHTMLElement).highcharts as PlyChart;
@@ -71,7 +80,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const chartLoader = () =>
-    `<div id="acpl-chart-loader"><span>Stockfish 14.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
+    `<div id="acpl-chart-loader"><span>Stockfish 15<br>server analysis</span>${lichess.spinnerHtml}</div>`;
 
   function startAdvantageChart() {
     if (window.LichessChartGame?.acpl.update || window.LichessAnalyseNvui) return;

@@ -65,14 +65,14 @@ object Chart {
     def xAxis(implicit lang: Lang) =
       Xaxis(
         name = dimension.name,
-        categories = clusters.map(_.x).map(Dimension.valueJson(dimension)),
-        dataType = Dimension dataTypeOf dimension
+        categories = clusters.map(_.x).map(InsightDimension.valueJson(dimension)),
+        dataType = InsightDimension dataTypeOf dimension
       )
 
     def sizeSerie =
       Serie(
         name = metric.per.tellNumber,
-        dataType = Metric.DataType.Count.name,
+        dataType = InsightMetric.DataType.Count.name,
         stack = none,
         data = clusters.map(_.size.toDouble)
       )
@@ -132,7 +132,7 @@ object Chart {
       question = JsonQuestion fromQuestion question,
       xAxis = xAxis,
       valueYaxis = Yaxis(metric.name, metric.dataType.name),
-      sizeYaxis = Yaxis(metric.per.tellNumber, Metric.DataType.Count.name),
+      sizeYaxis = Yaxis(metric.per.tellNumber, InsightMetric.DataType.Count.name),
       series = sortedSeries,
       sizeSerie = sizeSerie,
       games = games

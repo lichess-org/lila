@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api._
 
 import lila.common.config.BaseUrl
-import lila.common.EmailAddress
+import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl._
 import lila.msg.MsgApi
 import lila.security.Permission
@@ -30,7 +30,7 @@ final class ClasApi(
 
     def byId(id: Clas.Id) = coll.byId[Clas](id.value)
 
-    def of(teacher: User): Fu[List[Clas]] =
+    def of(teacher: User, closed: Boolean = false): Fu[List[Clas]] =
       coll
         .find($doc("teachers" -> teacher.id))
         .sort($doc("archived" -> 1, "viewedAt" -> -1))
@@ -59,7 +59,7 @@ final class ClasApi(
       }
     }
 
-    def updateWall(clas: Clas, text: String): Funit =
+    def updateWall(clas: Clas, text: Markdown): Funit =
       coll.updateField($id(clas.id), "wall", text).void
 
     def getAndView(id: Clas.Id, teacher: User): Fu[Option[Clas]] =
@@ -296,7 +296,7 @@ final class ClasApi(
           orig = teacherId,
           dest = student.id,
           text = s"""${lila.i18n.I18nKeys.clas.welcomeToClass
-            .txt(clas.name)(student.realLang | lila.i18n.defaultLang)}
+              .txt(clas.name)(student.realLang | lila.i18n.defaultLang)}
 
 $baseUrl/class/${clas.id}
 

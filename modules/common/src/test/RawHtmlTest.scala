@@ -128,12 +128,48 @@ class RawHtmlTest extends Specification {
       addLinks(noUrl) must_== noUrl  // eq
       addLinks(noUrl) must be(noUrl) // instance eq - fails in scala 2.13
     }
+
+    "remove tracking tags" in {
+      val url   = "example.com?UTM_CAMPAIGN=spy&utm_source=4everEVIL"
+      val clean = "example.com/"
+      addLinks(
+        url
+      ) must_== s"""<a rel="nofollow noopener noreferrer" href="https://$clean" target="_blank">$clean</a>"""
+    }
+  }
+
+  "tracking parameters" should {
+    "be removed" in {
+      removeUrlTrackingParameters("example.com?utm_campaign=spy&utm_source=evil") must_== "example.com"
+      removeUrlTrackingParameters("example.com?UTM_CAMPAIGN=spy&utm_source=4everEVIL") must_== "example.com"
+      removeUrlTrackingParameters(
+        "example.com?UTM_CAMPAIGN=spy&amp;utm_source=4everEVIL"
+      ) must_== "example.com"
+      removeUrlTrackingParameters("example.com?gclid=spy") must_== "example.com"
+      removeUrlTrackingParameters("example.com?notutm_a=ok") must_== "example.com?notutm_a=ok"
+    }
+    "preserve other params" in {
+      removeUrlTrackingParameters(
+        "example.com?foo=42&utm_campaign=spy&bar=yay&utm_source=evil"
+      ) must_== "example.com?foo=42&bar=yay"
+    }
   }
 
   "markdown links" should {
+
     "add http links" in {
       val md = "[Example](http://example.com)"
-      justMarkdownLinks(md) must_== """<a href="http://example.com">Example</a>"""
+      justMarkdownLinks(
+        md
+      ) must_== """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
+    }
+
+    "handle $ in link content" in {
+      val md =
+        "[$$$ test 9$ prize](https://lichess.org/tournament)"
+      justMarkdownLinks(
+        md
+      ) must_== """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
     }
 
     "only allow safe protocols" in {
@@ -147,6 +183,13 @@ class RawHtmlTest extends Specification {
 
     "not escape html" in {
       justMarkdownLinks("&") must_== "&"
+    }
+
+    "remove tracking tags" in {
+      val md = "[Example](http://example.com?utm_campaign=spy&utm_source=evil)"
+      justMarkdownLinks(
+        md
+      ) must_== """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>"""
     }
   }
 

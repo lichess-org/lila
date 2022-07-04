@@ -12,6 +12,7 @@
   <string name="teachersX">Ուսուցիչներ՝ %s</string>
   <string name="newClass">Նոր խումբ</string>
   <string name="closeClass">Փակել խումբը</string>
+  <string name="removedByX">Հեռացված է %s օգտատիրոջ կողմից</string>
   <string name="reopen">Վերաբացել</string>
   <string name="removeStudent">Հեռացնել աշակերտին</string>
   <string name="removedStudents">Հեռացված է</string>
@@ -23,6 +24,7 @@
   <string name="visibleByBothStudentsAndTeachers">Երևում է ինչպես մարզչին, այնպես էլ խմբի աշակերտներին</string>
   <string name="teachersOfTheClass">Խմբի մարզիչները</string>
   <string name="addLichessUsernames">Ավելացրեք Lichess-ի օգտատերերի անունները` նրանց որպես մարզիչ հրավիրելու համար։ Ամեն տողում` մեկին։</string>
+  <string name="invitedToXByY">Հրավերը %1$s ստացված է %2$sից</string>
   <string name="createStudentWarning">Ստեղծեք մասնակցային հաշիվներ միայն իրական աշակերտների համար։ Այդ հնարավորությունը մի՛ օգտագործեք անձնական նպատակներով մասնակցային հաշիվներ ստեղծելու համար, այլապես կարգելափակվեք։</string>
   <string name="news">Նորություններ</string>
 </resources>

@@ -20,7 +20,7 @@ object widgets {
       val fromPlayer  = user flatMap g.player
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
-        a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
+        a(cls        := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(
           views.html.board.bits.mini(Pov(g, firstPlayer))(span)
         ),
@@ -142,22 +142,16 @@ object widgets {
         )
       } getOrElse {
         player.aiLevel map { level =>
-          frag(
-            span(aiName(level, withRating = false)),
-            ctx.pref.showRatings option frag(
-              br,
-              aiRating(level)
-            )
-          )
+          span(aiNameFrag(level))
         } getOrElse {
-          (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
+          player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
             frag(
               span(name),
               rating.map { r =>
                 frag(br, r)
               }
             )
-          })
+          }
         }
       }
     )

@@ -14,6 +14,7 @@
   <string name="goodIntroduction">hea sissejuhatus</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
   <string name="threefoldRepetitionLowerCase">kolmekordne kordus</string>
+  <string name="noUpperCaseDot">Ei.</string>
   <string name="canIChangeMyUsername">Kas ma saan muuta oma kasutajanime?</string>
   <string name="usernamesCannotBeChanged">Ei, kasutajanime ei või muuta praktilistel ja tehnoloogilistel põhjustel. Kasutajanimed kajastuvad liiga mitmes kohas: andmebaasid, ekspordid, logid ja inimeste meeltes. Võimalik on muuta tähtede suurust ühe korra.</string>
   <string name="lichessRatings">Lichess reitingud</string>

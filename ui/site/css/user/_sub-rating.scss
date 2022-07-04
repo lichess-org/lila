@@ -2,7 +2,8 @@
   a {
     @extend %box-radius-left, %flex-center-nowrap, %page-text;
 
-    padding: 0.7em $block-gap 0.7em 0.4em;
+    @include padding-direction(0.7em, $block-gap, 0.7em, 0.4em);
+
     white-space: nowrap;
 
     @include transition;
@@ -14,7 +15,7 @@
     &::before {
       font-size: 3em;
       opacity: 0.5;
-      margin-right: 0.2em;
+      margin-#{$end-direction}: 0.2em;
 
       @include transition;
     }
@@ -44,7 +45,7 @@
 
       @extend %flex-column;
 
-      margin-right: 0.5em;
+      margin-#{$end-direction}: 0.5em;
     }
 
     rating span,
@@ -131,7 +132,7 @@
 
       > span {
         flex: 0 0 auto;
-        margin-right: 0;
+        margin-#{$end-direction}: 0;
       }
 
       strong {

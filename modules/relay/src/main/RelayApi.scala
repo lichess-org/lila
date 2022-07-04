@@ -2,7 +2,7 @@ package lila.relay
 
 import akka.stream.scaladsl.Source
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.libs.json._
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
@@ -110,7 +110,8 @@ final class RelayApi(
               )
             )
           ),
-          UnwindField("round")
+          UnwindField("round"),
+          Limit(20)
         )
       }
       .map { docs =>
@@ -123,22 +124,20 @@ final class RelayApi(
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 
-  private[relay] def toSync: Fu[List[RelayRound.WithTour]] =
-    fetchWithTours(
-      $doc(
-        "sync.until" $exists true,
-        "sync.nextAt" $lt DateTime.now
-      ),
-      20
-    )
-
-  def fetchWithTours(query: Bdoc, maxDocs: Int, readPreference: ReadPreference = ReadPreference.primary) =
+  private[relay] def toSync(official: Boolean, maxDocs: Int = 30) =
     roundRepo.coll
-      .aggregateList(maxDocs, readPreference) { framework =>
+      .aggregateList(maxDocs, ReadPreference.primary) { framework =>
         import framework._
-        Match(query) -> List(
+        Match(
+          $doc(
+            "sync.until" $exists true,
+            "sync.nextAt" $lt DateTime.now
+          )
+        ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
-          UnwindField("tour")
+          UnwindField("tour"),
+          Sort(Descending("tour.tier")),
+          Limit(maxDocs)
         )
       }
       .map(_ flatMap readRoundWithTour)

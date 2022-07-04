@@ -55,7 +55,7 @@
     }
   }
 
-  background: $c-bg-high;
+  background: $c-bg-zebra;
   justify-content: center;
 
   &:not(.after) {
@@ -70,7 +70,7 @@
   .no-square {
     flex: 0 0 64px;
     height: 64px;
-    margin-right: 10px;
+    margin-#{$end-direction}: 10px;
   }
 
   .is3d & div.no-square {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">உங்கள் lichess.org கணக்கை உறுதிசெய்க, %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">உங்கள் Lichess கண்க்கை செயல்படுத்த இந்த இணைப்பை கிளிக் செய்க:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">உங்கள் Lichess கணக்கை செயல்படுத்த இந்த இணைப்பை கிளிக் செய்க:</string>
   <string name="emailConfirm_ignore">நீங்கள் Lichess உடன் பதிவு செய்யவில்லை என்றால், இந்த மின்னஞ்சலை கவலையின்றி புறக்கணிக்கலாம்.</string>
   <string name="passwordReset_subject">உங்கள் lichess.org கடவுச்சொல்லை மீட்டமைக்க, %s</string>
   <string name="passwordReset_intro">உங்கள் கணக்கிற்கான கடவுச்சொல்லை மீட்டமைக்க எங்களுக்கு கோரிக்கை வந்துள்ளது.</string>
@@ -12,9 +12,9 @@
   <string name="welcome_subject">Lichess.org க்கு வருக, %s</string>
   <string name="welcome_text">https://lichess.org இல் உங்கள் கணக்கை வெற்றிகரமாக உருவாக்கியுள்ளீர்கள்.
 இதோ உங்கள் சுயவிவரப் பக்கம்: %1$s. நீங்கள் அதை %2$s இல் தனிப்பயனாக்கலாம்.
-விளையாடி மகிழுங்கள், உங்கள் துண்டுகள் என்றைக்கும் எதிரியின் ராஜாவிற்க்கு வழிவகுக்கட்டும்!</string>
+விளையாடி மகிழுங்கள், உங்கள் காய்கள் எப்பொழுதும் எதிரியின் ராஜாவை நோக்கி செல்லட்டும்!</string>
   <string name="logInToLichess">lichess.org க்குள் உள் நுளை, %s</string>
   <string name="common_orPaste">(கிளிக் செயல்படவில்லையா? அதை உங்கள் உலாவியில் ஒட்ட முயற்சிக்கவும்!)</string>
-  <string name="common_note">இது உங்கள் %s பயன்பாட்டின் தொடர்பான சேவை மின்னஞ்சல்.</string>
+  <string name="common_note">இது உங்கள் %s பயன்பாட்டிற்கு தொடர்பான சேவை மின்னஞ்சல்.</string>
   <string name="common_contact">எங்களை தொடர்பு கொள்ள, %s ஐப் பயன்படுத்தவும்.</string>
 </resources>

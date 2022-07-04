@@ -9,6 +9,8 @@
   <string name="postBody">Текст допису</string>
   <string name="drafts">Чернетки</string>
   <string name="published">Опубліковано</string>
+  <string name="createBlogDiscussion">Увімкнути коментарі</string>
+  <string name="createBlogDiscussionHelp">Тема форуму буде створена для того, щоб коментувати ваш допис</string>
   <string name="publishOnYourBlog">Опублікувати у вашому блозі</string>
   <string name="publishHelp">Якщо відмічено, цей допис буде опубліковано у вашому блозі. У іншому разі він буде приватним, у вашій чернетці дописів</string>
   <plurals name="publishedNbBlogPosts">

@@ -27,7 +27,7 @@ final class ChallengeMaker(
       }
     }
 
-  def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
+  private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov.ofUserId(game, challenger.id) ?? { pov =>
       pov.opponent.userId ?? userRepo.byId flatMap {
         _ ?? { dest =>

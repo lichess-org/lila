@@ -22,13 +22,10 @@ export const renderGlyph = (glyph: Tree.Glyph): VNode =>
 
 const renderEval = (e: string): VNode => h('eval', e.replace('-', '−'));
 
-export function renderIndexText(ply: Ply, withDots?: boolean): string {
-  return plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : '');
-}
+export const renderIndexText = (ply: Ply, withDots?: boolean): string =>
+  plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : '');
 
-export function renderIndex(ply: Ply, withDots?: boolean): VNode {
-  return h('index', renderIndexText(ply, withDots));
-}
+export const renderIndex = (ply: Ply, withDots?: boolean): VNode => h('index', renderIndexText(ply, withDots));
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
@@ -42,7 +39,5 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   return nodes;
 }
 
-export function renderIndexAndMove(ctx: Ctx, node: Tree.Node): VNode[] | undefined {
-  if (!node.san) return; // initial position
-  return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node)];
-}
+export const renderIndexAndMove = (ctx: Ctx, node: Tree.Node): VNode[] | undefined =>
+  node.san ? [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node)] : undefined;

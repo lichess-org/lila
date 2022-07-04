@@ -40,9 +40,6 @@ final class Env(
 
   private def hcaptchaPublicConfig = config.hcaptcha.public
 
-  def hcaptcha[A](form: play.api.data.Form[A]) =
-    HcaptchaForm(form, config.hcaptcha.public)
-
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
     scheduler = scheduler
@@ -52,7 +49,7 @@ final class Env(
 
   lazy val hcaptcha: Hcaptcha =
     if (config.hcaptcha.enabled) wire[HcaptchaReal]
-    else HcaptchaSkip
+    else wire[HcaptchaSkip]
 
   lazy val forms = wire[SecurityForm]
 
@@ -140,7 +137,7 @@ final class Env(
   lazy val promotion = wire[PromotionApi]
 
   if (config.disposableEmail.enabled) {
-    scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh())
+    scheduler.scheduleOnce(33 seconds)(disposableEmailDomain.refresh())
     scheduler.scheduleWithFixedDelay(
       config.disposableEmail.refreshDelay,
       config.disposableEmail.refreshDelay
@@ -152,7 +149,7 @@ final class Env(
   lazy val tor: Tor = wire[Tor]
 
   if (config.tor.enabled) {
-    scheduler.scheduleOnce(31 seconds)(tor.refresh.unit)
+    scheduler.scheduleOnce(44 seconds)(tor.refresh.unit)
     scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) { () =>
       tor.refresh flatMap firewall.unblockIps
       ()
@@ -165,5 +162,5 @@ final class Env(
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
-  def cli = wire[Cli]
+  lazy val cli = wire[Cli]
 }

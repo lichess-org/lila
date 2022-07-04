@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="mistake">Qagh</string>
+  <string name="blunder">Qagh\'a\'</string>
   <string name="blackIsWinning">QaplI\' QujwI\' qIj</string>
 </resources>

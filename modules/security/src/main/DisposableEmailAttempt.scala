@@ -33,7 +33,6 @@ final class DisposableEmailAttempt(
   } {
     val id      = User normalize username
     val attempt = Attempt(id, email, ip)
-    byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt)
     byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
   }
 

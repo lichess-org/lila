@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Seçenekler</string>
-  <string name="gameDisplay">Oyun görünümü</string>
+  <string name="display">Görünüm</string>
+  <string name="privacy">Gizlilik</string>
   <string name="pieceAnimation">Hamle animasyonu</string>
   <string name="materialDifference">Taş farkı</string>
   <string name="boardHighlights">Tahta uyarıları (son hamle ve şah çekme)</string>
@@ -32,7 +33,7 @@
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="inCasualGamesOnly">Sadece puansız oyunlarda</string>
   <string name="promoteToQueenAutomatically">Geçer piyonu otomatik olarak Vezir\'e terfi et</string>
-  <string name="explainPromoteToQueenAutomatically">Otomatik terfiyi geçici olarak devre dışı bırakmak için terfi ettirmeden önce &lt;ctrl&gt; tuşunu basılı tutun</string>
+  <string name="explainPromoteToQueenAutomatically">Otomatik terfiyi geçici olarak devre dışı bırakmak için terfi sırasında &lt;ctrl&gt; tuşunu basılı tutun</string>
   <string name="whenPremoving">Ön hamlelerde</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>

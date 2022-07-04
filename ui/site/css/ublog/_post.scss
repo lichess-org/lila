@@ -26,7 +26,7 @@
     &__disclaimer {
       color: $c-font-dimmer;
       font-size: 0.9rem;
-      margin-left: -0.5rem;
+      margin-#{$start-direction}: -0.5rem;
       vertical-align: top;
     }
   }
@@ -55,20 +55,20 @@
     }
   }
   &__tier {
-    margin-left: 1em;
+    margin-#{$start-direction}: 1em;
   }
   &__like {
     font-weight: bold;
     cursor: pointer;
     &::before {
-      margin-right: 0.4em;
+      margin-#{$end-direction}: 0.4em;
       content: '';
     }
     &.ublog-post__like--liked::before {
       content: '';
     }
     &--mini {
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       color: $c-font;
       transition: 0.3s;
       &:hover {
@@ -76,6 +76,10 @@
         color: $c-red;
       }
     }
+  }
+  &__discuss {
+    width: 100%;
+    margin-bottom: 4rem;
   }
   &__views {
     white-space: nowrap;

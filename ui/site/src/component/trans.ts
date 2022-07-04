@@ -20,7 +20,7 @@ function list<T>(str: string, args: T[]): Array<string | T> {
   return segments;
 }
 
-export default function (i18n: I18nDict) {
+export const trans = (i18n: I18nDict) => {
   const trans: Trans = (key: I18nKey, ...args: Array<string | number>) => {
     const str = i18n[key];
     return str ? format(str, args) : key;
@@ -42,4 +42,6 @@ export default function (i18n: I18nDict) {
     return str ? list(str, args) : [key];
   };
   return trans;
-}
+};
+
+export const siteTrans = trans(lichess.siteI18n);

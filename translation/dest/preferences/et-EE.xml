@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Sätted</string>
-  <string name="gameDisplay">Mängu välimus</string>
   <string name="pieceAnimation">malendite liikumine</string>
   <string name="materialDifference">Materjal erinevus</string>
   <string name="boardHighlights">Laual rõhutatakse (viimast käiku ja tuld)</string>

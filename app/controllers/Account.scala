@@ -11,7 +11,8 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ User => UserModel, TotpSecret, Holder }
+import lila.user.{ Holder, TotpSecret, User => UserModel }
+import lila.i18n.I18nLangPicker
 
 final class Account(
     env: Env,
@@ -101,7 +102,12 @@ final class Account(
 
   def apiMe =
     Scoped() { req => me =>
-      env.api.userApi.extended(me, me.some, withFollows = apiC.userWithFollows(req)) dmap { JsonOk(_) }
+      env.api.userApi.extended(
+        me,
+        me.some,
+        withFollows = apiC.userWithFollows(req),
+        withTrophies = false
+      )(I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying =
@@ -396,12 +402,14 @@ final class Account(
   private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(implicit
       ctx: Context
   ) =
-    html.account.reopen.form(form.foldLeft(env.security.forms.reopen)(_ withForm _), msg)
+    env.security.forms.reopen map { baseForm =>
+      html.account.reopen.form(form.foldLeft(baseForm)(_ withForm _), msg)
+    }
 
   def reopen =
     Open { implicit ctx =>
       auth.RedirectToProfileIfLoggedIn {
-        Ok(renderReopen(none, none)).fuccess
+        renderReopen(none, none) map { Ok(_) }
       }
     }
 
@@ -410,26 +418,28 @@ final class Account(
       implicit val req = ctx.body
       env.security.hcaptcha.verify() flatMap { captcha =>
         if (captcha.ok)
-          env.security.forms.reopen.form
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(renderReopen(err.some, none)).fuccess,
-              data =>
-                env.security.reopen
-                  .prepare(data.username, data.realEmail, env.mod.logApi.closedByMod) flatMap {
-                  case Left((code, msg)) =>
-                    lila.mon.user.auth.reopenRequest(code).increment()
-                    BadRequest(renderReopen(none, msg.some)).fuccess
-                  case Right(user) =>
-                    auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
-                      lila.mon.user.auth.reopenRequest("success").increment()
-                      env.security.reopen.send(user, data.realEmail) inject Redirect(
-                        routes.Account.reopenSent(data.realEmail.value)
-                      )
-                    }(rateLimitedFu)
-                }
-            )
-        else BadRequest(renderReopen(none, none)).fuccess
+          env.security.forms.reopen flatMap {
+            _.form
+              .bindFromRequest()
+              .fold(
+                err => renderReopen(err.some, none) map { BadRequest(_) },
+                data =>
+                  env.security.reopen
+                    .prepare(data.username, data.realEmail, env.mod.logApi.closedByMod) flatMap {
+                    case Left((code, msg)) =>
+                      lila.mon.user.auth.reopenRequest(code).increment()
+                      renderReopen(none, msg.some) map { BadRequest(_) }
+                    case Right(user) =>
+                      auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
+                        lila.mon.user.auth.reopenRequest("success").increment()
+                        env.security.reopen.send(user, data.realEmail) inject Redirect(
+                          routes.Account.reopenSent(data.realEmail.value)
+                        )
+                      }(rateLimitedFu)
+                  }
+              )
+          }
+        else renderReopen(none, none) map { BadRequest(_) }
       }
     }
 

@@ -51,14 +51,14 @@ public class StringUtils {
                 case '<': case '>': case '&': case '"': case '\'':
                   final StringBuilder sb = new StringBuilder(end + 20);
                   sb.append(s, 0, i);
-                  escapeHtmlRaw(sb, sArr, i, end);
+                  escapeHtmlRawInPlace(sb, sArr, i, end);
                   return sb.toString();
             }
         }
         return s;
     }
 
-    public static void escapeHtmlRaw(final StringBuilder sb, final char[] sArr,
+    public static void escapeHtmlRawInPlace(final StringBuilder sb, final char[] sArr,
         int start, final int end) {
 
         for (int i = start; i < end; i++) {

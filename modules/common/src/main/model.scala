@@ -15,8 +15,8 @@ case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiV
 case class AssetVersion(value: String) extends AnyVal with StringValue
 
 object AssetVersion {
-  var current = random
-  def change() = { current = random }
+  var current        = random
+  def change()       = { current = random }
   private def random = AssetVersion(SecureRandom nextString 6)
 }
 
@@ -44,65 +44,6 @@ object IpAddress {
   }
   def from(str: String): Option[IpAddress] = parse(str).toOption
   def unchecked(str: String): IpAddress    = parse(str).get
-}
-
-case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
-
-case class EmailAddress(value: String) extends AnyVal with StringValue {
-  def conceal =
-    value split '@' match {
-      case Array(user, domain) => s"${user take 3}*****@$domain"
-      case _                   => value
-    }
-
-  def normalize =
-    NormalizedEmailAddress {
-      // changing normalization requires database migration!
-      val lower = value.toLowerCase
-      lower.split('@') match {
-        case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
-          val normalizedName = name
-            .replace(".", "")  // remove all dots
-            .takeWhile('+' !=) // skip everything after the first '+'
-          if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
-        case _ => lower
-      }
-    }
-
-  def domain: Option[Domain] =
-    value split '@' match {
-      case Array(_, domain) => Domain from domain.toLowerCase
-      case _                => none
-    }
-
-  def similarTo(other: EmailAddress) = normalize == other.normalize
-
-  def isNoReply  = EmailAddress isNoReply value
-  def isSendable = !isNoReply
-
-  // safer logs
-  override def toString = "EmailAddress(****)"
-}
-
-object EmailAddress {
-
-  private val regex =
-    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
-
-  // adding normalized domains requires database migration!
-  private val gmailLikeNormalizedDomains =
-    Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
-
-  def isValid(str: String) =
-    str.sizeIs < 320 &&
-      regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
-
-  def from(str: String): Option[EmailAddress] =
-    isValid(str) option EmailAddress(str)
-
-  private def isNoReply(str: String) = str.startsWith("noreply.") && str.endsWith("@lichess.org")
-
-  val clasIdRegex = """^noreply\.class\.(\w{8})\.[\w-]+@lichess\.org""".r
 }
 
 case class Domain private (value: String) extends AnyVal with StringValue {
@@ -133,9 +74,6 @@ object Domain {
 case class Strings(value: List[String]) extends AnyVal
 case class UserIds(value: List[String]) extends AnyVal
 case class Ints(value: List[Int])       extends AnyVal
-
-case class Every(value: FiniteDuration)  extends AnyVal
-case class AtMost(value: FiniteDuration) extends AnyVal
 
 case class Template(value: String) extends AnyVal
 

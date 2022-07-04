@@ -9,6 +9,7 @@
   <string name="postBody">Nội dung bài viết</string>
   <string name="drafts">Nháp</string>
   <string name="published">Đã đăng</string>
+  <string name="createBlogDiscussion">Bật bình luận</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="other">Đã đăng %s bài</item>
   </plurals>

@@ -436,7 +436,6 @@
   <string name="profileCompletion">Profil tamamlama: %s</string>
   <string name="xRating">%s reytinqi</string>
   <string name="ifNoneLeaveEmpty">Əgər yoxdursa, boş qoyun</string>
-  <string name="gameCompletionRate">Oyun tamamlama əmsalı: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili redaktə et</string>
   <string name="firstName">Ad</string>

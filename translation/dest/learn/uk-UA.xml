@@ -41,7 +41,7 @@
   <string name="thePawn">Пішак</string>
   <string name="itMovesForwardOnly">Ходить лише вперед</string>
   <string name="pawnIntro">Пішаки слабкі, але мають великий потенціал.</string>
-  <string name="pawnsMoveOneSquareOnly">Пішаки ходять тільки на одну клітинку вперед. Але досягнувши іншого кінця дошки, вони перетворюються на сильну фігуру!</string>
+  <string name="pawnsMoveOneSquareOnly">Пішаки ходять лише на одне поле вперед. Але досягнувши іншого кінця дошки, вони перетворюються на сильну фігуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У більшості випадку пішака краще перетворити на ферзя. Але іноді перетворення в коня може бути вигідніше!</string>
   <string name="pawnsMoveForward">Пішаки рухаються вперед, але б\'ють по діагоналях!</string>
   <string name="captureThenPromote">Побийте, потім перетворіться!</string>

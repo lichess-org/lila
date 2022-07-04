@@ -82,6 +82,7 @@
   <string name="studyNotFound">Студия не найдена</string>
   <string name="editChapter">Редактировать главу</string>
   <string name="newChapter">Новая глава</string>
+  <string name="importFromChapterX">Импорт из %s</string>
   <string name="orientation">Ориентация</string>
   <string name="analysisMode">Режим анализа</string>
   <string name="pinnedChapterComment">Закреплённый комментарий главы</string>

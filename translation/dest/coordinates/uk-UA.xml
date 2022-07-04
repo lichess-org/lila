@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">Це спрощує розмову з друзями-шахістами, бо Ви обидва розумієте «мову шахів».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Ви можете більш ефективно аналізувати ігри, якщо вам не потрібно шукати координати.</string>
   <string name="aSquareNameAppears">Назви координат з\'являються на дошці, де ви повинні натиснути на конкретне пола. У вас є 30 секунд, щоб вказати якомога більше квадратів!</string>
+  <string name="aSquareIsHighlighted">На шахівниці підсвічуються поля, координати яких вам треба ввести (наприклад, \"е4\"). У вас є 30 секунд, щоб відмітити якомога більше полів!</string>
   <string name="startTraining">Розпочати тренування</string>
+  <string name="findSquare">Знайти поле</string>
+  <string name="nameSquare">Назва поля</string>
 </resources>

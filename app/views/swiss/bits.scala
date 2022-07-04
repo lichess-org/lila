@@ -16,11 +16,11 @@ object bits {
   def link(swissId: Swiss.Id, name: String): Frag =
     a(
       dataIcon := "",
-      cls := "text",
-      href := routes.Swiss.show(swissId.value).url
+      cls      := "text",
+      href     := routes.Swiss.show(swissId.value).url
     )(name)
 
-  def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"
+  def idToName(id: Swiss.Id): String = env.swiss.getName sync id getOrElse "Tournament"
   def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
 
   def notFound()(implicit ctx: Context) =
@@ -82,7 +82,7 @@ object bits {
     }
 
   def homepageSpotlight(s: Swiss)(implicit ctx: Context) =
-    a(href := routes.Swiss.show(s.id.value), cls := "tour-spotlight little")(
+    a(href                     := routes.Swiss.show(s.id.value), cls := "tour-spotlight little")(
       iconTag(iconChar(s))(cls := "img icon"),
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),

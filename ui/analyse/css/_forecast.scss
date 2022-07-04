@@ -28,8 +28,9 @@
   .entry {
     @extend %flex-center-nowrap;
 
-    padding: 0.7em 0.1em 0.7em 0.6em;
-    margin-left: -0.1em;
+    @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
+
+    margin-#{$start-direction}: -0.1em;
 
     @include transition;
 
@@ -37,7 +38,7 @@
     border-bottom: $border;
 
     &::before {
-      margin-left: -0.6em;
+      margin-#{$start-direction}: -0.6em;
       opacity: 0.4;
     }
 
@@ -46,7 +47,7 @@
       @extend %button-none;
 
       position: absolute;
-      right: 8px;
+      #{$end-direction}: 8px;
       width: 1.5em;
       height: 1.5em;
       line-height: 1;
@@ -55,7 +56,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-right: 0.5px;
+      padding-#{$end-direction}: 0.5px;
 
       @include transition;
 
@@ -133,7 +134,7 @@
 
   sans > * {
     display: inline-block;
-    margin-right: 0.2em;
+    margin-#{$end-direction}: 0.2em;
   }
 
   .add sans {

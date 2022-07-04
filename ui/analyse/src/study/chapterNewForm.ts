@@ -73,11 +73,13 @@ export function ctrl(
   }
 
   function open() {
+    lichess.pubsub.emit('tour.stop');
     vm.open = true;
     loadVariants();
     vm.initial(false);
   }
   function close() {
+    lichess.pubsub.emit('tour.stop');
     vm.open = false;
   }
 
@@ -118,21 +120,22 @@ export function ctrl(
 }
 
 export function view(ctrl: StudyChapterNewFormCtrl): VNode {
-  const trans = ctrl.root.trans;
+  const trans = ctrl.root.trans,
+    study = ctrl.root.study!;
   const activeTab = ctrl.vm.tab();
   const makeTab = function (key: string, name: string, title: string) {
     return h(
       'span.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { title },
+        attrs: { role: 'tab', title },
         hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
       },
       name
     );
   };
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
-  const currentChapter = ctrl.root.study!.data.chapter;
+  const currentChapter = study.data.chapter;
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
@@ -201,7 +204,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               }),
             }),
           ]),
-          h('div.tabs-horiz', [
+          h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
             makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
@@ -291,6 +294,17 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 h('textarea#chapter-pgn.form-control', {
                   attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
+                h(
+                  'a.button.button-empty',
+                  {
+                    hook: bind('click', () => {
+                      xhr
+                        .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
+                        .then(pgnData => $('#chapter-pgn').val(pgnData));
+                    }),
+                  },
+                  trans('importFromChapterX', study.currentChapter().name)
+                ),
                 window.FileReader
                   ? h('input#chapter-pgn-file.form-control', {
                       attrs: {
@@ -326,7 +340,15 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   attrs: { disabled: gameOrPgn },
                 },
                 gameOrPgn
-                  ? [h('option', noarg('automatic'))]
+                  ? [
+                      h(
+                        'option',
+                        {
+                          attrs: { value: 'standard' },
+                        },
+                        noarg('automatic')
+                      ),
+                    ]
                   : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
               ),
             ]),

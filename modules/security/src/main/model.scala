@@ -39,10 +39,10 @@ case class IpAndFp(ip: IpAddress, fp: Option[String], user: User.ID)
 
 case class HcaptchaPublicConfig(key: String, enabled: Boolean)
 
-case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig) {
-  def enabled                    = config.enabled
+case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean) {
+  def enabled                    = config.enabled && !skip
   def apply(key: String)         = form(key)
-  def withForm[B](form: Form[B]) = HcaptchaForm(form, config)
+  def withForm[B](form: Form[B]) = HcaptchaForm(form, config, skip)
 }
 
 case class LameNameCheck(value: Boolean) extends AnyVal

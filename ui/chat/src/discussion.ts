@@ -24,7 +24,7 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
     hasMod = !!ctrl.moderation();
   const vnodes = [
     h(
-      'ol.mchat__messages.chat-v-' + ctrl.data.domVersion,
+      `ol.mchat__messages.chat-v-${ctrl.data.domVersion}${hasMod ? '.as-mod' : ''}`,
       {
         attrs: {
           role: 'log',
@@ -94,7 +94,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
     chatEl.value = previousText;
     chatEl.focus();
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
-  }
+  } else if (ctrl.vm.autofocus) chatEl.focus();
 
   chatEl.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== 'Enter') return;
@@ -211,18 +211,24 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
   const userId = line.u?.toLowerCase();
 
+  const myUserId = ctrl.data.userId;
+  const mentioned =
+    !!myUserId &&
+    !!line.t.match(enhance.userPattern)?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
+
   return h(
     'li',
     {
       class: {
-        me: userId === ctrl.data.userId,
+        me: userId === myUserId,
         host: userId === ctrl.data.hostId,
+        mentioned,
       },
     },
     ctrl.moderation()
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          ctrl.data.userId && line.u && ctrl.data.userId != line.u
+          myUserId && line.u && myUserId != line.u
             ? h('i.flag', {
                 attrs: {
                   'data-icon': '',

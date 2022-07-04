@@ -37,6 +37,7 @@ final class JsonView(
 )(implicit ec: ExecutionContext) {
 
   import JsonView._
+  import Condition.JSONHandlers._
 
   def apply(
       tour: Tournament,
@@ -73,8 +74,8 @@ final class JsonView(
         (me, myInfo) match {
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
-          case (Some(user), Some(_))                       => verify.rejoin(tour.conditions, user, getUserTeamIds) map some
-          case (Some(user), None)                          => verify(tour.conditions, user, getUserTeamIds) map some
+          case (Some(user), Some(_)) => verify.rejoin(tour.conditions, user, getUserTeamIds) map some
+          case (Some(user), None)    => verify(tour.conditions, user, getUserTeamIds) map some
         }
       }
       stats       <- statsApi(tour)
@@ -103,7 +104,8 @@ final class JsonView(
             "minutes"   -> tour.minutes,
             "perf"      -> tour.perfType,
             "clock"     -> tour.clock,
-            "variant"   -> tour.variant.key
+            "variant"   -> tour.variant.key,
+            "rated"     -> tour.isRated
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
@@ -122,12 +124,18 @@ final class JsonView(
               .obj(
                 "teams" -> JsObject(battle.sortedTeamIds.map { id =>
                   id -> JsString(getTeamName(id).getOrElse(id))
-                })
+                }),
+                "nbLeaders" -> battle.nbLeaders
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted))
           })
           .add("description" -> tour.description)
           .add("myUsername" -> me.map(_.username))
+          .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
+          .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
+          .add("minRatedGames", tour.conditions.nbRatedGame)
+          .add("onlyTitled", tour.conditions.titled.isDefined)
+          .add("teamMember", tour.conditions.teamMember.map(_.teamId))
       }
 
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
@@ -283,10 +291,10 @@ final class JsonView(
         "id"          -> game.id,
         "fen"         -> chess.format.Forsyth.boardAndColor(game.situation),
         "orientation" -> game.naturalOrientation.name,
-        "color"       -> game.naturalOrientation.name, // app BC https://github.com/lichess-org/lila/issues/7195
-        "lastMove"    -> ~game.lastMoveKeys,
-        "white"       -> ofPlayer(featured.white, game player chess.White),
-        "black"       -> ofPlayer(featured.black, game player chess.Black)
+        "color"    -> game.naturalOrientation.name, // app BC https://github.com/lichess-org/lila/issues/7195
+        "lastMove" -> ~game.lastMoveKeys,
+        "white"    -> ofPlayer(featured.white, game player chess.White),
+        "black"    -> ofPlayer(featured.black, game player chess.Black)
       )
       .add(
         // not named `clock` to avoid conflict with lichobile

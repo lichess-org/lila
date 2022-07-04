@@ -9,13 +9,13 @@ import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
-import { Chess } from 'chessops/chess';
+import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { defer } from 'common/defer';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, propWithEffect } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
@@ -23,6 +23,8 @@ import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
+import { fromNodeList } from 'tree/dist/path';
+import { last } from 'tree/dist/ops';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -85,6 +87,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           chessground: cg,
           sendMove: playUserMove,
           redraw: this.redraw,
+          userJumpPlyDelta,
         },
         { fen: this.vm.node.fen }
       );
@@ -111,12 +114,16 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
+    vm.isDaily = location.href.endsWith('/daily');
 
     setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
-    setTimeout(() => {
-      jump(initialPath);
-      redraw();
-    }, 500);
+    setTimeout(
+      () => {
+        jump(initialPath);
+        redraw();
+      },
+      opts.pref.animation.duration > 0 ? 500 : 0
+    );
 
     // just to delay button display
     vm.canViewSolution = false;
@@ -206,7 +213,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function sendMoveAt(path: Tree.Path, pos: Chess, move: Move): void {
-    move = pos.normalizeMove(move);
+    move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode(
@@ -445,6 +452,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     speech.node(vm.node, true);
   }
 
+  function userJumpPlyDelta(plyDelta: Ply) {
+    // ensure we are jumping to a valid ply
+    let maxValidPly = vm.mainline.length - 1;
+    if (last(vm.mainline)?.puzzle == 'fail' && vm.mode != 'view') maxValidPly -= 1;
+    const newPly = Math.min(Math.max(vm.node.ply + plyDelta, 0), maxValidPly);
+    userJump(fromNodeList(vm.mainline.slice(0, newPly + 1)));
+  }
+
   function viewSolution(): void {
     sendResult(false);
     vm.mode = 'view';
@@ -516,6 +531,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (uci) playUci(uci);
   }
 
+  const keyboardHelp = propWithEffect(location.hash === '#keyboard', redraw);
   keyboard({
     vm,
     userJump,
@@ -527,6 +543,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flip,
     flipped: () => flipped,
     nextPuzzle,
+    keyboardHelp,
   });
 
   // If the page loads while being hidden (like when changing settings),
@@ -556,6 +573,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     ground,
     makeCgOpts,
     keyboardMove,
+    keyboardHelp,
     userJump,
     viewSolution,
     nextPuzzle,
@@ -563,7 +581,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     voteTheme,
     getCeval,
     pref: opts.pref,
-    difficulty: opts.difficulty,
+    settings: opts.settings,
     trans: lichess.trans(opts.i18n),
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),

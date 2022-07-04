@@ -4,19 +4,35 @@ import akka.actor._
 import chess.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 import scala.util.chaining._
+
+import lila.common.{ LilaScheduler, LilaStream }
 
 final private class TournamentScheduler(
     api: TournamentApi,
     tournamentRepo: TournamentRepo
-) extends Actor {
+)(implicit ec: ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
 
   import Schedule.Freq._
   import Schedule.Speed._
   import Schedule.Plan
   import chess.variant._
 
-  implicit def ec = context.dispatcher
+  LilaScheduler(_.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
+    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
+      try {
+        val newTourns = allWithConflicts(DateTime.now).map(_.build)
+        val pruned    = pruneConflicts(dbScheds, newTourns)
+        tournamentRepo.insert(pruned).logFailure(logger)
+      } catch {
+        case e: org.joda.time.IllegalInstantException =>
+          logger.error(s"failed to schedule all: ${e.getMessage}")
+          funit
+      }
+    }
+  }
 
   /* Month plan:
    * First week: Shield standard tournaments
@@ -91,7 +107,8 @@ final private class TournamentScheduler(
                 description = s"""
 We've had $yo great chess years together!
 
-Thank you all, you rock!"""
+Thank you all, you rock!""",
+                homepageHours = 24.some
               ).some
             )
           }
@@ -151,7 +168,8 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(THURSDAY)  -> RacingKings,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Antichess,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> Atomic,
-            month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde
+            month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde,
+            month.lastWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
           ).flatMap { case (day, variant) =>
             at(day, 19) map { date =>
               Schedule(
@@ -508,27 +526,6 @@ Thank you all, you rock!"""
         logger.error(s"failed to schedule one: ${e.getMessage}")
         None
     }
-
-  def receive = {
-
-    case TournamentScheduler.ScheduleNow =>
-      tournamentRepo.scheduledUnfinished dforeach { tourneys =>
-        self ! ScheduleNowWith(tourneys)
-      }
-
-    case ScheduleNowWith(dbScheds) =>
-      try {
-        val newTourns = allWithConflicts(DateTime.now).map(_.build)
-        val pruned    = pruneConflicts(dbScheds, newTourns)
-        tournamentRepo
-          .insert(pruned)
-          .logFailure(logger)
-          .unit
-      } catch {
-        case e: org.joda.time.IllegalInstantException =>
-          logger.error(s"failed to schedule all: ${e.getMessage}")
-      }
-  }
 }
 
 private object TournamentScheduler {

@@ -3,17 +3,18 @@ package templating
 
 import java.text.NumberFormat
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
 import play.api.i18n.Lang
 import scala.collection.mutable
 
 trait NumberHelper { self: I18nHelper =>
 
-  private val formatters = mutable.AnyRefMap.empty[String, NumberFormat]
+  private val formatters = new ConcurrentHashMap[String, NumberFormat]
 
   private def formatter(implicit lang: Lang): NumberFormat =
-    formatters.getOrElseUpdate(
+    formatters.computeIfAbsent(
       lang.language,
-      NumberFormat getInstance new Locale(lang.language)
+      _ => NumberFormat.getInstance(lang.toLocale)
     )
 
   def showMillis(millis: Int)(implicit lang: Lang) = formatter.format((millis / 100).toDouble / 10)

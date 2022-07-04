@@ -18,6 +18,15 @@ lichess.studyTour = function (study) {
         },
       };
     };
+
+    var closeActionMenu = function () {
+      return {
+        'before-show': function () {
+          study.closeActionMenu();
+        },
+      };
+    };
+
     var tour = new Shepherd.Tour({
       defaults: {
         classes: theme,
@@ -40,6 +49,7 @@ lichess.studyTour = function (study) {
         title: 'Shared and saved',
         text: 'Other members can see your moves in real time!<br>' + 'Plus, everything is saved forever.',
         attachTo: 'main.analyse .areplay left',
+        when: closeActionMenu(),
       },
       {
         title: 'Study members',
@@ -113,5 +123,11 @@ lichess.studyTour = function (study) {
         tour.addStep(s.title, s);
       });
     tour.start();
+
+    lichess.pubsub.on('tour.stop', tour.cancel);
+
+    Shepherd.once('inactive', _ => {
+      lichess.pubsub.off('tour.stop', tour.cancel);
+    });
   });
 };

@@ -4,7 +4,7 @@ import chess.Color.{ Black, White }
 import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame }
+import chess.{ Castles, Centis, CheckCount, Clock, Color, Game => ChessGame, Mode, MoveOrDrop, Speed, Status }
 import org.joda.time.DateTime
 
 import lila.common.Sequence
@@ -643,6 +643,8 @@ object Game {
   case class PlayerId(value: String) extends AnyVal with StringValue
 
   case class WithInitialFen(game: Game, fen: Option[FEN])
+
+  case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
 
   val syntheticId = "synthetic"
 

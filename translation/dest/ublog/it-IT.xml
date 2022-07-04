@@ -9,6 +9,8 @@
   <string name="postBody">Corpo del post</string>
   <string name="drafts">Bozze</string>
   <string name="published">Pubblicato</string>
+  <string name="createBlogDiscussion">Abilita i commenti</string>
+  <string name="createBlogDiscussionHelp">Sarà creato un argomento del forum per consentire alle persone di commentare il tuo post</string>
   <string name="publishOnYourBlog">Pubblica sul tuo blog</string>
   <string name="publishHelp">Se spuntato, questo post sarà elencato sul tuo blog. Altrimenti, sarà privato, nelle bozze dei tuoi post</string>
   <plurals name="publishedNbBlogPosts">

@@ -17,15 +17,16 @@ final class EmailChange(
   import Mailer.html._
 
   def send(user: User, email: EmailAddress): Funit =
-    tokener make TokenPayload(user.id, email).some flatMap { token =>
-      lila.mon.email.send.change.increment()
-      implicit val lang = user.realLang | lila.i18n.defaultLang
-      val url           = s"$baseUrl/account/email/confirm/$token"
-      lila.log("auth").info(s"Change email URL ${user.username} $email $url")
-      mailer send Mailer.Message(
-        to = email,
-        subject = trans.emailChange_subject.txt(user.username),
-        text = Mailer.txt.addServiceNote(s"""
+    !email.looksLikeFakeEmail ?? {
+      tokener make TokenPayload(user.id, email).some flatMap { token =>
+        lila.mon.email.send.change.increment()
+        implicit val lang = user.realLang | lila.i18n.defaultLang
+        val url           = s"$baseUrl/account/email/confirm/$token"
+        lila.log("auth").info(s"Change email URL ${user.username} $email $url")
+        mailer send Mailer.Message(
+          to = email,
+          subject = trans.emailChange_subject.txt(user.username),
+          text = Mailer.txt.addServiceNote(s"""
 ${trans.emailChange_intro.txt()}
 ${trans.emailChange_click.txt()}
 
@@ -33,13 +34,14 @@ $url
 
 ${trans.common_orPaste.txt()}
 """),
-        htmlBody = emailMessage(
-          pDesc(trans.emailChange_intro()),
-          p(trans.emailChange_click()),
-          potentialAction(metaName("Change email address"), Mailer.html.url(url)),
-          serviceNote
-        ).some
-      )
+          htmlBody = emailMessage(
+            pDesc(trans.emailChange_intro()),
+            p(trans.emailChange_click()),
+            potentialAction(metaName("Change email address"), Mailer.html.url(url)),
+            serviceNote
+          ).some
+        )
+      }
     }
 
   // also returns the previous email address

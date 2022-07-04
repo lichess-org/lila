@@ -9,6 +9,7 @@
   <string name="postBody">文章內容</string>
   <string name="drafts">草稿箱</string>
   <string name="published">已發布</string>
+  <string name="createBlogDiscussion">啟用留言</string>
   <string name="publishOnYourBlog">在網誌上發布</string>
   <string name="publishHelp">如果被選中，文章將列於您的網誌上。如果未選擇，它將是私密的，在您的草稿箱中</string>
   <plurals name="publishedNbBlogPosts">

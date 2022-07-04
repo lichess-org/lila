@@ -52,6 +52,7 @@
 במקרים נדירים זה יכול להיות קשה להכריע באופן אוטומטי (קווים מאולצים, מבצרים). כברירת מחדל אנחנו תמיד עומדים לצד השחקן שלא נגמר לו הזמן.
 
 שים לב שניתן יהיה לעשות מט עם פרש או רץ יחיד אם ליריב יש כלי או חייל שיכול לחסום את המלך.</string>
+  <string name="fideHandbookX">מפרט חוקי פיד״ה סעיף %s</string>
   <string name="discoveringEnPassant">למה רגלי יכול לאכול רגלי אחר כאשר הוא כבר עבר? (אגב הילוכו)</string>
   <string name="explainingEnPassant">זהו מסע חוקי הידוע בכינויו \"דרך/אגב הילוכו. הערך הויקיפדי נותן %1$s. 
 
@@ -70,6 +71,7 @@
   <string name="positions">עמדות</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
   <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s את ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
+  <string name="configure">קביעת תצורה</string>
   <string name="accounts">חשבונות</string>
   <string name="titlesAvailableOnLichess">איזה תארים יש בLichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess מכיר בכל דרגות FIDE למשחק על גבי לוח, כמו גם %1$s. הנה רשימה של דרגות FIDE:</string>
@@ -78,7 +80,9 @@
 אימות כשחקן בעל התואר בליצ\'ס נותן גישה לשחק בטורנירי זירה לשחקנים מוכתרים.
 
 לבסוף יש תואר כבוד %2$s.</string>
+  <string name="asWellAsManyNMtitles">תארי אמן של מדינות רבות</string>
   <string name="verificationForm">טופס אימות</string>
+  <string name="canIbecomeLM">האם אני יכול לקבל את דרגת ״אמן ליצ׳ס״ (LM)?</string>
   <string name="noUpperCaseDot">לא.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">הדרגה הלא רשמית הזו היא לשם כבוד וקיימת ב-Lichess בלבד. 
 
@@ -91,23 +95,43 @@
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
   <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים ודוחות. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
   <string name="uniqueTrophies">גביעים ייחודיים</string>
+  <string name="ownerUniqueTrophies">הגביע הזה הוא ייחודי בהיסטוריה של ליצ׳ס, אף אחד מלבד %1$s לא יזכה בו.</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
   <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
   <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
+  <string name="ratingSystemUsedByLichess">הדירוג מחושב באמצעות שיטת Glicko-2 שפותחה על ידי מארק גליקמן. זו שיטת דירוג מאוד פופולארית שגופי שחמט רבים עושים בה שימוש (FIDE היא יוצאת מן הכלל ומשתמשת בשיטת Elo).
+
+שיטות גליקו מסתמכות על מקדמי וודאות. כששחקן נרשם לליצ׳ס, דירוגו יכול לנוע בין 500 ל־2500 ברמת וודאות של 95 אחוזים, כאשר הדירוג ההתחלתי הוא 1500. בתחילה מקדם הוודאות הוא נמוך, ולכן משחק בודד יכול לשנות את הדירוג אף במאות נקודות. אולם ככל שנצברים משחקים הוודאות עולה והשינוי ממשחק למשחק קטן.
+
+נקודה נוספת הדורשת הבהרה היא שככל שעובר זמן מבלי שהשחקן היה פעיל רמת הוודאות קטנה ולכן שוב יגדל השינוי בדירוג ממשחק למשחק. זאת, כדי שהדירוג יהיה מותאם לשינוי ביכולתו של השחקן לאורך זמן.</string>
   <string name="whatIsProvisionalRating">מדוע מופיע סימן שאלה (?) ליד הדירוג שלי?</string>
   <string name="provisionalRatingExplanation">משמעות סימן השאלה היא שהדירוג זמני. הסיבות לכך כוללות:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">השחקן לא השלים מספיק משחקים מדורגים נגד %1$s בקטגוריית הדירוג.</string>
   <string name="similarOpponents">יריבים ברמה דומה</string>
   <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">באופן קונקרטי, הדירוג זמני אם הסטייה שלו גדולה מ-110. זוהי רמת הוודאות שלנו באשר לדירוגך. כלל שהסטייה יותר נמוכה, דירוגך יציב יותר.</string>
   <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
+  <string name="inOrderToAppearsYouMust">כדי להעפיל ל%1$s עליך:</string>
   <string name="ratingLeaderboards">טבלת הדירוג</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">לשחק לפחות 30 משחקים מדורגים בקטגוריית הדירוג</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">לשחק בקטגוריית דירוג זו לפחות משחק מדורג אחד בשבוע האחרון</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">להיות בעל סטייה בדירוג הנמוכה מ-%1$s בשח סטנדרטי ונמוכה מ-%2$s בגרסאות אחרות</string>
   <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">הדרישה השנייה היא כדי שרק שחקנים פעילים יופיעו בטבלאות האלופים.</string>
+  <string name="whyAreRatingHigher">מדוע הדירוגים באתר גבוהים בהשוואה לארגונים ואתרים אחרים כגון FIDE, USCF ו-ICC?</string>
+  <string name="whyAreRatingHigherExplanation">אין זה נכון לחשוב על דירוג כמספר מוחלט או להשוות אותו למקביליו בארגונים אחרים. לארגונים שונים שחקנים ברמות שונות ושיטות שונות לקביעת הדירוג (Elo, Glicko-2, Glicko או גרסאות שלהן). לגורמים האלה השפעה מכרעת על הדירוג.
+
+עדיף לחשוב על דירוג כמונח יחסי. לכל אוכלוסיית שחקנים בארגון או אתר מסוים, הדירוג ינבא מי ינצח, יפסיד או ישיג תיקו, ובאיזו תדירות. להגיד: ״הדירוג שלי הוא X״ זה חסר משמעות כל עוד אין שחקנים אחרים אליהם הדירוג מושווה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
+  <string name="enableZenMode">הפעל את מצב זן ב-%1$s או על ידי הקשה על %2$s במהלך משחק.</string>
   <string name="displayPreferences">הגדרות תצוגה</string>
   <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא מצדך או מצדנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
   <string name="howToThreeDots">כיצד...</string>
+  <string name="enableDisableNotificationPopUps">הפעל או חסום התראות קופצות?</string>
+  <string name="viewSiteInformationPopUp">צפה בחלון הקופץ המכיל מידע על האתר</string>
   <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
 לחץ על סמל הנעילה שליד כתובת lichess.org בסרגל הכתובות של הדפדפן שלך.

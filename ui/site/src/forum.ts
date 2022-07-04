@@ -58,6 +58,8 @@ lichess.load.then(() => {
       ($form[0] as HTMLFormElement).reset();
     });
 
+  const quoted = new Set<string>();
+
   $('.quote.button').on('click', function (this: HTMLButtonElement) {
     const $post = $(this).closest('.forum-post'),
       authorUsername = $post.find('.author').attr('href')?.substring(3),
@@ -73,8 +75,11 @@ lichess.load.then(() => {
       .map(line => '> ' + line)
       .join('\n');
     quote = `${author} said in ${anchor}:\n${quote}\n`;
-    response.value =
-      response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
+    if (!quoted.has(quote)) {
+      quoted.add(quote);
+      response.value =
+        response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
+    }
   });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {

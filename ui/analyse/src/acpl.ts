@@ -14,14 +14,10 @@ interface Advice {
   symbol: string;
 }
 
-function renderRatingDiff(rd: number | undefined): VNode | undefined {
-  if (rd === 0) return h('span', '±0');
-  if (rd && rd > 0) return h('good', '+' + rd);
-  if (rd && rd < 0) return h('bad', '−' + -rd);
-  return;
-}
+const renderRatingDiff = (rd: number | undefined): VNode | undefined =>
+  rd === 0 ? h('span', '±0') : rd && rd > 0 ? h('good', '+' + rd) : rd && rd < 0 ? h('bad', '−' + -rd) : undefined;
 
-function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
+const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
   const p = game.getPlayer(ctrl.data, color);
   if (p.user)
     return h(
@@ -38,7 +34,7 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
       (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
       'Anonymous'
   );
-}
+};
 
 const advices: Advice[] = [
   { kind: 'inaccuracy', i18n: 'nbInaccuracies', symbol: '?!' },
@@ -53,17 +49,14 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => {
       const nb: number = d.analysis![color][a.kind];
+      const style = nb ? `.symbol.${a.kind}` : '';
       const attrs: VNodeData = nb
         ? {
             'data-color': color,
             'data-symbol': a.symbol,
           }
         : {};
-      return h(
-        `div.advice-summary__mistake${nb ? '.symbol' : ''}`,
-        { attrs },
-        ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb))
-      );
+      return h(`div.advice-summary__error${style}`, { attrs }, ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb)));
     }),
     h('div.advice-summary__acpl', [
       h('strong', '' + (defined(acpl) ? acpl : '?')),

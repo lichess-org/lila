@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Izdariet gājienu, lai sāktu</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Visās puzlēs spēlējat ar baltajiem</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Visās puzlēs spēlējat ar melnajiem</string>
-  <string name="puzzlesSolved">atrisinātās puzles</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Visos uzdevumos spēlējat ar baltajiem</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Visos uzdevumos spēlējat ar melnajiem</string>
+  <string name="puzzlesSolved">atrisināti uzdevumi</string>
   <string name="newDailyHighscore">Jauns dienas labākais rezultāts!</string>
   <string name="newWeeklyHighscore">Jauns nedēļas labākais rezultāts!</string>
   <string name="newMonthlyHighscore">Jauns mēneša labākais rezultāts!</string>
@@ -28,7 +28,7 @@
   <string name="time">Laiks</string>
   <string name="timePerMove">Laiks uz gājienu</string>
   <string name="highestSolved">Labākais atrisinātais</string>
-  <string name="puzzlesPlayed">Izspēlētas puzles</string>
+  <string name="puzzlesPlayed">Izspēlētie uzdevumi</string>
   <string name="newRun">Spēlēt vēl (taustiņš: atstarpe)</string>
   <string name="endRun">Beigt spēli (ievadīšanas taustiņš)</string>
   <string name="highscores">Labākie rezultāti</string>
@@ -52,8 +52,8 @@
   <string name="skip">izlaist</string>
   <string name="skipHelp">Varat izlaist vienu gājienu katrās sacīkstēs:</string>
   <string name="skipExplanation">Izlaist gājienu, lai paturētu kombināciju! Darbojas tikai vienreiz katrās sacensībās.</string>
-  <string name="failedPuzzles">Zaudētās puzles</string>
-  <string name="slowPuzzles">Lēni atrisinātās</string>
+  <string name="failedPuzzles">Neizdevušies uzdevumi</string>
+  <string name="slowPuzzles">Lēni atrisinātie</string>
   <string name="thisWeek">Šonedēļ</string>
   <string name="thisMonth">Šomēnes</string>
   <string name="allTime">Visa laika</string>

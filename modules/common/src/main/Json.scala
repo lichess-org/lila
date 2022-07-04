@@ -35,6 +35,24 @@ object Json {
       }
     )
 
+  def stringRead[O](from: String => O): Reads[O] = Reads.of[String] map from
+
+  def optRead[O](from: String => Option[O]): Reads[O] = Reads.of[String].flatMapResult { str =>
+    from(str).fold[JsResult[O]](JsError(s"Invalid value: $str"))(JsSuccess(_))
+  }
+  def optFormat[O](from: String => Option[O], to: O => String): Format[O] = Format[O](
+    optRead(from),
+    Writes(o => JsString(to(o)))
+  )
+
+  def tryRead[O](from: String => scala.util.Try[O]): Reads[O] = Reads.of[String].flatMapResult { code =>
+    from(code).fold(err => JsError(err.getMessage), JsSuccess(_))
+  }
+  def tryFormat[O](from: String => scala.util.Try[O], to: O => String): Format[O] = Format[O](
+    tryRead(from),
+    Writes[O](o => JsString(to(o)))
+  )
+
   implicit val centisReads = Reads.of[Int] map chess.Centis.apply
 
   implicit val jodaWrites = Writes[DateTime] { time =>
@@ -45,7 +63,8 @@ object Json {
     JsString(c.name)
   }
 
-  implicit val fenFormat: Format[FEN] = stringIsoFormat[FEN](Iso.fenIso)
+  implicit val fenFormat: Format[FEN]           = stringIsoFormat[FEN](Iso.fenIso)
+  implicit val markdownFormat: Format[Markdown] = stringIsoFormat[Markdown](Iso.markdownIso)
 
   implicit val uciReads: Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")

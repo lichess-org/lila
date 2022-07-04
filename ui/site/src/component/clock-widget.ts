@@ -1,43 +1,45 @@
-import widget from './widget';
+import * as data from 'common/data';
 
 interface Opts {
   pause?: boolean;
   time: number;
 }
 
-export default function loadClockWidget() {
-  widget('clock', {
-    _create: function () {
-      this.target = this.options.time * 1000 + Date.now();
-      if (!this.options.pause) this.interval = setInterval(this.render.bind(this), 1000);
-      this.render();
-    },
-
-    set: function (opts: Opts) {
-      this.options = opts;
-      this.target = this.options.time * 1000 + Date.now();
-      this.render();
-      clearInterval(this.interval);
-      if (!opts.pause) this.interval = setInterval(this.render.bind(this), 1000);
-    },
-
-    render: function () {
-      if (document.body.contains(this.element[0])) {
-        this.element.text(this.formatMs(this.target - Date.now()));
-        this.element.toggleClass('clock--run', !this.options.pause);
-      } else clearInterval(this.interval);
-    },
-
-    pad(x: number) {
-      return (x < 10 ? '0' : '') + x;
-    },
-
-    formatMs: function (msTime: number) {
-      const date = new Date(Math.max(0, msTime + 500)),
-        hours = date.getUTCHours(),
-        minutes = date.getUTCMinutes(),
-        seconds = date.getUTCSeconds();
-      return hours > 0 ? hours + ':' + this.pad(minutes) + ':' + this.pad(seconds) : minutes + ':' + this.pad(seconds);
-    },
-  });
+export default function (el: HTMLElement, opts: Opts) {
+  const instance = data.get(el, 'clock') as ClockWidget;
+  if (instance) instance.set(opts);
+  else data.set(el, 'clock', new ClockWidget(el, opts));
 }
+
+class ClockWidget {
+  target: number;
+  interval: number;
+  constructor(readonly el: HTMLElement, private opts: Opts) {
+    this.target = opts.time * 1000 + Date.now();
+    if (!opts.pause) this.interval = setInterval(this.render, 1000);
+    this.render();
+  }
+  set = (opts: Opts) => {
+    this.opts = opts;
+    this.target = opts.time * 1000 + Date.now();
+    this.render();
+    clearInterval(this.interval);
+    if (!opts.pause) this.interval = setInterval(this.render, 1000);
+  };
+  private render = () => {
+    if (document.body.contains(this.el)) {
+      this.el.textContent = formatMs(this.target - Date.now());
+      this.el.classList.toggle('clock--run', !this.opts.pause);
+    } else clearInterval(this.interval);
+  };
+}
+
+const formatMs = (msTime: number) => {
+  const date = new Date(Math.max(0, msTime + 500)),
+    hours = date.getUTCHours(),
+    minutes = date.getUTCMinutes(),
+    seconds = date.getUTCSeconds();
+  return hours > 0 ? hours + ':' + pad(minutes) + ':' + pad(seconds) : minutes + ':' + pad(seconds);
+};
+
+const pad = (x: number) => (x < 10 ? '0' : '') + x;

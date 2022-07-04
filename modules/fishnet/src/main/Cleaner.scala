@@ -36,11 +36,12 @@ final private class Cleaner(
       }
       .take(200)
       .mapAsyncUnordered(4) { ana =>
-        repo.updateOrGiveUpAnalysis(ana.timeout) >>-
-          logger.info(s"Timeout analysis $ana") >>-
+        repo.updateOrGiveUpAnalysis(ana, _.timeout) >>- {
+          logger.info(s"Timeout analysis $ana")
           ana.acquired.foreach { ack =>
             Monitor.timeout(ack.userId)
           }
+        }
       }
       .toMat(Sink.ignore)(Keep.right)
       .run()

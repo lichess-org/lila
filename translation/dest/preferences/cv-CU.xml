@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Ӗнерлев</string>
-  <string name="gameDisplay">Вӑйӑ курӑнни</string>
   <string name="pieceAnimation">Кӗлетке хусканӑвӗ</string>
   <string name="materialDifference">Материаллӑ уйрӑмлӑх</string>
   <string name="boardHighlights">Утӑм ҫути (кайранхи утӑм тата шах туни)</string>

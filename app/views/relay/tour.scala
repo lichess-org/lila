@@ -30,7 +30,7 @@ object tour {
           st.section(
             active.map { tr =>
               div(cls := s"relay-widget relay-widget--active ${tierClass(tr.tour)}", dataIcon := "")(
-                a(cls := "overlay", href := tr.path),
+                a(cls := "overlay", href                                                      := tr.path),
                 div(
                   h2(tr.tour.name),
                   div(cls := "relay-widget__info")(
@@ -49,7 +49,7 @@ object tour {
           st.section(cls := "infinite-scroll")(
             pager.currentPageResults map { rt =>
               div(cls := s"relay-widget ${tierClass(rt.tour)} paginated", dataIcon := "")(
-                a(cls := "overlay", href := rt.path),
+                a(cls := "overlay", href                                           := rt.path),
                 div(
                   h2(rt.tour.name),
                   div(cls := "relay-widget__info")(

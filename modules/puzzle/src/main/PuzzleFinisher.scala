@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import cats.implicits._
-import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
+import org.goochjs.glicko2.{ GameRatingPeriodResults, Rating, RatingCalculator }
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.util.chaining._
@@ -32,7 +32,7 @@ final private[puzzle] class PuzzleFinisher(
 
   def apply(
       id: Puzzle.Id,
-      theme: PuzzleTheme.Key,
+      angle: PuzzleAngle,
       user: User,
       result: Result,
       mode: Mode
@@ -80,7 +80,7 @@ final private[puzzle] class PuzzleFinisher(
                   updateRatings(userRating, puzzleRating, result.glicko)
                   val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
                     .puzzle(
-                      theme,
+                      angle,
                       result,
                       puzzle.glicko -> Glicko(
                         rating = puzzleRating.getRating
@@ -105,12 +105,12 @@ final private[puzzle] class PuzzleFinisher(
                     user.perfs.puzzle
                       .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe { p =>
                       p.copy(glicko =
-                        ponder.player(theme, result, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
+                        ponder.player(angle, result, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
                       )
                     }
                   (round, newPuzzleGlicko, userPerf)
               }
-              api.round.upsert(round, theme) zip
+              api.round.upsert(round, angle) zip
                 colls.puzzle {
                   _.update
                     .one(
@@ -165,26 +165,28 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.castling
     ).map(_.key)
 
-    private def weightOf(theme: PuzzleTheme.Key, result: Result) =
-      if (theme == PuzzleTheme.mix.key) 1
-      else if (isObvious(theme)) {
-        if (result.win) 0.2f else 0.6f
-      } else if (isHinting(theme)) {
-        if (result.win) 0.3f else 0.7f
-      } else {
-        if (result.win) 0.7f else 0.8f
+    private def weightOf(angle: PuzzleAngle, result: Result) =
+      angle.asTheme.fold(1f) { theme =>
+        if (theme == PuzzleTheme.mix.key) 1
+        else if (isObvious(theme)) {
+          if (result.win) 0.2f else 0.6f
+        } else if (isHinting(theme)) {
+          if (result.win) 0.3f else 0.7f
+        } else {
+          if (result.win) 0.7f else 0.8f
+        }
       }
 
-    def player(theme: PuzzleTheme.Key, result: Result, glicko: (Glicko, Glicko), puzzle: Glicko) = {
+    def player(angle: PuzzleAngle, result: Result, glicko: (Glicko, Glicko), puzzle: Glicko) = {
       val provisionalPuzzle = puzzle.provisional ?? {
         if (result.win) -0.2f else -0.7f
       }
-      glicko._1.average(glicko._2, (weightOf(theme, result) + provisionalPuzzle) atLeast 0.1f)
+      glicko._1.average(glicko._2, (weightOf(angle, result) + provisionalPuzzle) atLeast 0.1f)
     }
 
-    def puzzle(theme: PuzzleTheme.Key, result: Result, glicko: (Glicko, Glicko), player: Glicko) =
+    def puzzle(angle: PuzzleAngle, result: Result, glicko: (Glicko, Glicko), player: Glicko) =
       if (player.clueless) glicko._1
-      else glicko._1.average(glicko._2, weightOf(theme, result))
+      else glicko._1.average(glicko._2, weightOf(angle, result))
   }
 
   private val VOLATILITY = Glicko.default.volatility
@@ -195,11 +197,11 @@ final private[puzzle] class PuzzleFinisher(
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
-    val results = new RatingPeriodResults()
+    val results = new GameRatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(u1, u2)
-      case Glicko.Result.Win  => results.addResult(u1, u2)
-      case Glicko.Result.Loss => results.addResult(u2, u1)
+      case Glicko.Result.Win  => results.addWin(u1, u2)
+      case Glicko.Result.Loss => results.addWin(u2, u1)
     }
     try {
       calculator.updateRatings(results)

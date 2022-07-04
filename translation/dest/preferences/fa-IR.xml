@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">تنظیمات عملکرد</string>
-  <string name="gameDisplay">بازی نشان داده شد</string>
+  <string name="display">صفحه نمایش</string>
+  <string name="privacy">امنیت و حریم شخصی</string>
   <string name="pieceAnimation">حرکت مهره ها</string>
   <string name="materialDifference">تفاوت مهره ها</string>
   <string name="boardHighlights">نشان دادن اتفاقات صفحه(حرکت قبلی و کیش)</string>
@@ -17,6 +18,7 @@
 این یک تنظیمات بله/خیر است
 
 این تنظیمات به شما این اجازه را می دهد که انتخاب کنید که ریتینگ بازیکنان دیگر نشان داده شود یا نه. این تنظیمات برای این است که بعضی از بازیکنان، بازی خود را تحت تاثیر ریتینگ بقیه بازیکنان قرار می دهند</string>
+  <string name="explainShowPlayerRatings">این کار اجازه می دهد تمام امتیازها را از سایت پاک کنید، تا بتوانید روی شطرنج تمرکز کامل داشته باشید. بازی ها هنوز هم می توانند امتیازی باشند، فقط شما دیگر نمی توانید آن را ببینید.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
   <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
@@ -35,6 +37,7 @@
   <string name="takebacksWithOpponentApproval">پس گرفتن حرکت (با تایید حریف)</string>
   <string name="inCasualGamesOnly">در بازی های غیررسمی</string>
   <string name="promoteToQueenAutomatically">ترفیع کردن به وزیر به صورت خودکار</string>
+  <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
@@ -50,4 +53,5 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">گفتن \"بازی خوبی بود، خوب بازی کردی\" در هنگام باخت یا تساوی</string>
   <string name="yourPreferencesHaveBeenSaved">تغییرات شما ذخیره شده است</string>
   <string name="scrollOnTheBoardToReplayMoves">اسکرول کردن روی صفحه برای مشاهده مجدد حرکت‌ها</string>
+  <string name="correspondenceEmailNotification">ایمیل های روزانه که بازی های شبیه شما را به صورت لیست درمی‌آورند</string>
 </resources>

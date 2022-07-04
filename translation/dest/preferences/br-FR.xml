@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Dibaboù</string>
-  <string name="gameDisplay">Diskwel ar c\'hrogad</string>
   <string name="pieceAnimation">Mod da fiñval ar pezhioù</string>
   <string name="materialDifference">Diforc\'hioù a-fet dafar</string>
   <string name="boardHighlights">Gouleier evit sikour war an dablez (fiñvadenn ziwezhañ ha bec\'h d\'ar roue)</string>

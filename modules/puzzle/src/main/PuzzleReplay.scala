@@ -51,11 +51,13 @@ final class PuzzleReplayApi(
       }
     } getOrElse fuccess(None)
 
-  def onComplete(round: PuzzleRound, days: PuzzleDashboard.Days, theme: PuzzleTheme.Key): Funit =
-    replays.getIfPresent(round.userId) ?? {
-      _ map { replay =>
-        if (replay.days == days && replay.theme == theme)
-          replays.put(round.userId, fuccess(replay.step))
+  def onComplete(round: PuzzleRound, days: PuzzleDashboard.Days, angle: PuzzleAngle): Funit =
+    angle.asTheme ?? { theme =>
+      replays.getIfPresent(round.userId) ?? {
+        _ map { replay =>
+          if (replay.days == days && replay.theme == theme)
+            replays.put(round.userId, fuccess(replay.step))
+        }
       }
     }
 

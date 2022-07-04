@@ -9,5 +9,8 @@
   <string name="talkToYourChessFriends">היא מקלה על התקשורת עם חבריך לשחמט, בשמשה כשפת תקשורת המובנת לכולכם.</string>
   <string name="youCanAnalyseAGameMoreEffectively">האנליזה של משחקים היא יותר אפקטיבית כאשר איננו זקוקים לתת שמות למשבצות השונות.</string>
   <string name="aSquareNameAppears">בהנתן קואורדינטות משבצת, יש להקיש על המשבצת הנכונה. בוא נראה כמה משבצות תצליח להקיש ב-30 שניות!</string>
+  <string name="aSquareIsHighlighted">משבצת מודגשת על הלוח ועליך להקליד את הקורדינאטות (לדוגמה \"e4\"). יש לך 30 שניות לזהות נכונה כמה שיותר משבצות!</string>
   <string name="startTraining">התחל להתאמן</string>
+  <string name="findSquare">מצא משבצת</string>
+  <string name="nameSquare">תן שם למשבצת</string>
 </resources>

@@ -1,5 +1,6 @@
 package lila.puzzle
 
+import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -7,7 +8,8 @@ import lila.memo.CacheApi
 
 final private class PuzzleCountApi(
     colls: PuzzleColls,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    openingApi: PuzzleOpeningApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
@@ -16,9 +18,14 @@ final private class PuzzleCountApi(
   def byTheme(theme: PuzzleTheme.Key): Fu[Int] =
     countsByTheme dmap { _.getOrElse(theme, 0) }
 
+  def byAngle(angle: PuzzleAngle): Fu[Int] = angle match {
+    case PuzzleAngle.Theme(theme)    => byTheme(theme)
+    case PuzzleAngle.Opening(either) => openingApi.count(either)
+  }
+
   private val byThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
-      _.refreshAfterWrite(20 minutes)
+      _.refreshAfterWrite(1 day)
         .buildAsyncFuture { _ =>
           import Puzzle.BSONFields._
           colls.puzzle {

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Nastavenia</string>
-  <string name="gameDisplay">Zobrazenie partie</string>
+  <string name="display">Zobrazenie</string>
+  <string name="privacy">Súkromie</string>
   <string name="pieceAnimation">Animácia figúrok</string>
   <string name="materialDifference">Materiálny rozdiel</string>
   <string name="boardHighlights">Zvýraznenie šachovnice (posledný ťah a šach)</string>

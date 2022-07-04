@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Sửa giao diện</string>
-  <string name="gameDisplay">Hiển thị ván cờ</string>
   <string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
   <string name="materialDifference">Chênh lệch giá trị quân cờ</string>
   <string name="boardHighlights">Đánh dấu trên bàn cờ (nước đi mới nhất và nước chiếu)</string>

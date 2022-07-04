@@ -6,8 +6,6 @@ import announce from './component/announce';
 import agreement from './component/agreement';
 import exportLichessGlobals from './site.lichess.globals';
 import info from './component/info';
-import loadClockWidget from './component/clock-widget';
-import moduleLaunchers from './component/module-launchers';
 import OnlineFriends from './component/friends';
 import powertip from './component/powertip';
 import pubsub from './component/pubsub';
@@ -18,16 +16,14 @@ import watchers from './component/watchers';
 import { reload } from './component/reload';
 import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
+import { siteTrans } from './component/trans';
 import { trapFocus } from 'common/modal';
 
 exportLichessGlobals();
 lichess.info = info;
 
-loadClockWidget();
-
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');
-  moduleLaunchers();
 
   requestAnimationFrame(() => {
     miniBoard.initAll();
@@ -177,21 +173,24 @@ lichess.load.then(() => {
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
       if ($('#announce').length || $('body').data('tournament-id') == data.id) return;
       const url = '/tournament/' + data.id;
-      $('body')
-        .append(
-          '<div id="announce">' +
-            `<a data-icon="" class="text" href="${url}">${data.name}</a>` +
-            '<div class="actions">' +
-            `<a class="withdraw text" href="${url}/withdraw" data-icon="">Pause</a>` +
-            `<a class="text" href="${url}" data-icon="">Resume</a>` +
-            '</div></div>'
-        )
-        .find('#announce .withdraw')
-        .on('click', function (this: HTMLAnchorElement) {
-          xhr.text(this.href, { method: 'post' });
-          $('#announce').remove();
-          return false;
-        });
+      $('body').append(
+        $('<div id="announce">')
+          .append($('<a data-icon="" class="text">').attr('href', url).text(data.name))
+          .append(
+            $('<div class="actions">')
+              .append(
+                $('<a class="withdraw text" data-icon="">')
+                  .attr('href', url + '/withdraw')
+                  .text(siteTrans('pause'))
+                  .on('click', function (this: HTMLAnchorElement) {
+                    xhr.text(this.href, { method: 'post' });
+                    $('#announce').remove();
+                    return false;
+                  })
+              )
+              .append($('<a class="text" data-icon="">').attr('href', url).text(siteTrans('resume')))
+          )
+      );
     });
   }, 800);
 });

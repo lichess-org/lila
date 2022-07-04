@@ -43,7 +43,7 @@ final class PlaybanApi(
       else !userRepo.containsEngine(game.userIds)
     }
 
-  private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
+  private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
     (mode != Mode.Prod || Uptime.startedSinceMinutes(10)) ?? {
       blameable(game) flatMap { _ ?? f }
     }
@@ -128,8 +128,8 @@ final class PlaybanApi(
           game.clock
             .filter {
               _.remainingTime(loser.color) < Centis(1000) &&
-              game.turnOf(loser) &&
-              Status.Resign.is(status)
+                game.turnOf(loser) &&
+                Status.Resign.is(status)
             }
             .map { c =>
               (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
@@ -185,10 +185,18 @@ final class PlaybanApi(
       }.toMap
     }
 
+  def bans(userId: User.ID): Fu[Int] =
+    coll.aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+      import framework._
+      Match($id(userId) ++ $doc("b" $exists true)) -> List(
+        Project($doc("bans" -> $doc("$size" -> "$b")))
+      )
+    } map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
+
   def getRageSit(userId: User.ID) = rageSitCache get userId
 
   private val rageSitCache = cacheApi[User.ID, RageSit](32768, "playban.ragesit") {
-    _.expireAfterAccess(20 minutes)
+    _.expireAfterAccess(10 minutes)
       .buildAsyncFuture { userId =>
         coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty)
       }

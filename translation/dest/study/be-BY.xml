@@ -82,6 +82,7 @@
   <string name="studyNotFound">Навучанне не знойдзена</string>
   <string name="editChapter">Рэдагаваць раздзел</string>
   <string name="newChapter">Новы раздзел</string>
+  <string name="importFromChapterX">Імпартаваць з %s</string>
   <string name="orientation">Арыентацыя дошкі</string>
   <string name="analysisMode">Рэжым аналізу</string>
   <string name="pinnedChapterComment">Замацаваны каментар раздзелу</string>

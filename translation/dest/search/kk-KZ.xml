@@ -14,9 +14,9 @@
   <string name="loser">Жеңілген</string>
   <string name="from">Бастап</string>
   <string name="to">Дейін</string>
-  <string name="humanOrComputer">Осылардың бірі: қарсылас – адам не компьютер</string>
+  <string name="humanOrComputer">Қарсыласты таңдаңыз: адам не компьютер</string>
   <string name="aiLevel">Компьютер деңгейі</string>
-  <string name="source">Ойын түрі</string>
+  <string name="source">Іздеу жері</string>
   <string name="nbTurns">Жүрістер саны</string>
   <string name="result">Нәтиже</string>
   <string name="winnerColor">Жеңімпаз түсі</string>

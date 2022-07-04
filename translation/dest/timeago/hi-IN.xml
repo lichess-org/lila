@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">अभी-अभी</string>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s मिनट में</item>
+    <item quantity="other">%s मिनट में</item>
+  </plurals>
+</resources>

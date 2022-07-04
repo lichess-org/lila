@@ -7,6 +7,7 @@
     <item quantity="other">%s सदस्य</item>
   </plurals>
   <string name="allTeams">सभी समूह</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">नेता के दल</string>
   <string name="newTeam">नया समूह</string>
   <string name="myTeams">मेरे समूह</string>
   <string name="noTeamFound">कोई समूह नही मिला</string>
@@ -27,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">आपके सम्मिलित अनुरोध की समीक्षा टीम लीडर द्वारा की जाएगी।</string>
   <string name="beingReviewed">टीम लीडर द्वारा आपके सम्मिलित अनुरोध की समीक्षा की जा रही है।</string>
+  <string name="requestDeclined">आपके शामिल होने के अनुरोध को टीम लीडर ने अस्वीकार कर दिया।</string>
   <string name="subToTeamMessages">टीम संदेश स्वीकार करें</string>
   <string name="teamBattle">टीम युद्ध</string>
   <string name="teamBattleOverview">कई टीमों की लड़ाई, प्रत्येक खिलाड़ी अपनी टीम के लिए स्कोर करता है</string>
@@ -44,6 +46,7 @@
   <string name="leadersChat">नेताओं के चैट</string>
   <string name="closeTeam">टीम को बंद करें</string>
   <string name="closeTeamDescription">टीम को हमेशा के लिए बंद कर देता है।</string>
+  <string name="entryCode">टीम एंट्री कोड</string>
   <string name="incorrectEntryCode">अवैध प्रवेश कूट</string>
   <string name="teamAlreadyExists">यह टीम पहले से मौजूद है।</string>
   <string name="upcomingTourns">आगामी प्रतियोगिता</string>

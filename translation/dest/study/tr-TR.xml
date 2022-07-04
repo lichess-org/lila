@@ -76,6 +76,7 @@
   <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>
   <string name="editChapter">Bölümü düzenle</string>
   <string name="newChapter">Yeni bölüm</string>
+  <string name="importFromChapterX">%s çalışmasından içe aktar</string>
   <string name="orientation">Tahta yönü</string>
   <string name="analysisMode">Analiz modu</string>
   <string name="pinnedChapterComment">Bölüm üzerine yorumlar</string>

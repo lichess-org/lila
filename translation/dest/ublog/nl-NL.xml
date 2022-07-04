@@ -9,6 +9,8 @@
   <string name="postBody">Tekst</string>
   <string name="drafts">Concepten</string>
   <string name="published">Gepubliceerd</string>
+  <string name="createBlogDiscussion">Reacties toestaan</string>
+  <string name="createBlogDiscussionHelp">Een forumbericht zal worden gemaakt waar mensen kunnen reageren op je bericht</string>
   <string name="publishOnYourBlog">Publiceren op blog</string>
   <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
   <plurals name="publishedNbBlogPosts">

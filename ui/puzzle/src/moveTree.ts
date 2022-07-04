@@ -1,4 +1,4 @@
-import { Chess } from 'chessops/chess';
+import { Chess, normalizeMove } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { makeSquare, makeUci, parseUci } from 'chessops/util';
@@ -30,7 +30,7 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
   const pos = Chess.fromSetup(parseFen(initialNode.fen).unwrap()).unwrap();
   const fromPly = initialNode.ply;
   const nodes = solution.map((uci, i) => {
-    const move = pos.normalizeMove(parseUci(uci)!);
+    const move = normalizeMove(pos, parseUci(uci)!);
     const san = makeSan(pos, move);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);

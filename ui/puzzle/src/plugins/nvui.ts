@@ -35,7 +35,6 @@ import throttle from 'common/throttle';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
-const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
@@ -156,7 +155,7 @@ export default function (redraw: Redraw) {
                   )
                 );
                 $buttons.on('keypress', positionJumpHandler());
-                $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
               }),
             },
             renderBoard(
@@ -185,9 +184,7 @@ export default function (redraw: Redraw) {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          ...(!ctrl.getData().replay && !ctrl.streak && ctrl.difficulty
-            ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
-            : []),
+          ...(!ctrl.getData().replay && !ctrl.streak ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',

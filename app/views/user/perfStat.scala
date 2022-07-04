@@ -50,9 +50,9 @@ object perfStat {
             ),
             div(cls := "box__top__actions")(
               user.perfs(perfType).nb > 0 option a(
-                cls := "button button-empty text",
+                cls      := "button button-empty text",
                 dataIcon := perfType.iconChar,
-                href := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
+                href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
               )(viewTheGames())
             )
           ),
@@ -88,7 +88,7 @@ object perfStat {
           " ",
           span(
             title := notEnoughRatedGames.txt(),
-            cls := "details"
+            cls   := "details"
           )("(", provisional(), ")")
         ),
         ". ",
@@ -102,7 +102,9 @@ object perfStat {
             } else {
               trans.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
-                a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.User.ratingDistribution(perfType.key, u.username.some))(
+                  strong(percentile, "%")
+                ),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
             }

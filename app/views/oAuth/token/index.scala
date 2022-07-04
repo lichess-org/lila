@@ -16,7 +16,7 @@ object index {
       div(cls := "account oauth box")(
         div(cls := "box__top")(
           h1(title),
-          st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
+          st.form(cls        := "box-top__actions", action   := routes.OAuthToken.create)(
             submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "")
           )
         ),
@@ -46,7 +46,7 @@ object index {
           "."
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
-          div(cls := "box__pad brand")(
+          div(cls            := "box__pad brand")(
             iconTag("")(cls := "is-green"),
             div(
               p(
@@ -77,7 +77,7 @@ object index {
               td(cls := "action")(
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
-                    cls := "button button-red button-empty confirm",
+                    cls      := "button button-red button-empty confirm",
                     st.title := "Delete this access token"
                   )("Delete")
                 )

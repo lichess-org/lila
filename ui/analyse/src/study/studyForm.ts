@@ -100,7 +100,7 @@ export function ctrl(
 export function view(ctrl: StudyFormCtrl): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
-  const updateName = function (vnode: VNode, isUpdate: boolean) {
+  const updateName = (vnode: VNode, isUpdate: boolean) => {
     const el = vnode.elm as HTMLInputElement;
     if (!isUpdate && !el.value) {
       el.value = data.name;
@@ -199,7 +199,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               'div.form-group.form-half',
               select({
                 key: 'explorer',
-                name: ctrl.trans.noarg('openingExplorer'),
+                name: ctrl.trans.noarg('openingExplorerAndTablebase'),
                 choices: userSelectionChoices,
                 selected: data.settings.explorer,
               })

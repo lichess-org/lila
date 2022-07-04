@@ -2,18 +2,17 @@ package lila.common
 package paginator
 
 import cats.data.Validated
+import alleycats.Zero
 
 import lila.common.config.MaxPerPage
 
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
     val maxPerPage: MaxPerPage,
-    /** Returns the results for the current page.
-      * The result is cached.
+    /** Returns the results for the current page. The result is cached.
       */
     val currentPageResults: Seq[A],
-    /** Returns the number of results.
-      * The result is cached.
+    /** Returns the number of results. The result is cached.
       */
     val nbResults: Int
 ) {
@@ -33,8 +32,8 @@ final class Paginator[A] private[paginator] (
     if (maxPerPage.value > 0) (nbResults + maxPerPage.value - 1) / maxPerPage.value
     else 0
 
-  /** Returns whether we have to paginate or not.
-    * This is true if the number of results is higher than the max per page.
+  /** Returns whether we have to paginate or not. This is true if the number of results is higher than the max
+    * per page.
     */
   def hasToPaginate: Boolean = nbResults > maxPerPage.value
 
@@ -72,7 +71,7 @@ object Paginator {
 
   def empty[A]: Paginator[A] = new Paginator(0, MaxPerPage(0), Nil, 0)
 
-  implicit def zero[A] = ornicar.scalalib.Zero.instance(empty[A])
+  implicit def zero[A] = Zero(empty[A])
 
   def fromResults[A](
       currentPageResults: Seq[A],

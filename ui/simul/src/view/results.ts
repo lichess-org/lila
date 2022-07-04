@@ -8,7 +8,7 @@ export default function (ctrl: SimulCtrl) {
   return h('div.results', [
     h(
       'div',
-      trans(ctrl, 'nbPlaying', p => p.game.status < status.ids.mate)
+      trans(ctrl, 'nbPlaying', p => p.game.status < status.ids.aborted)
     ),
     h(
       'div',

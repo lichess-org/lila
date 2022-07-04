@@ -75,6 +75,7 @@
   <string name="studyNotFound">Studien kan inte hittas</string>
   <string name="editChapter">Redigera kapitel</string>
   <string name="newChapter">Nytt kapitel</string>
+  <string name="importFromChapterX">Importera från %s</string>
   <string name="orientation">Orientering</string>
   <string name="analysisMode">Analysläge</string>
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>

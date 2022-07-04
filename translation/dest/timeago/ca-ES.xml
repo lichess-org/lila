@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">ara mateix</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="one">en %s segons</item>
+    <item quantity="other">en %s segons</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">en %s minut</item>
+    <item quantity="other">en %s minuts</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">en %s hora</item>
+    <item quantity="other">en %s hores</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">en %s dia</item>
+    <item quantity="other">en %s dies</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">en %s setmana</item>
+    <item quantity="other">en %s setmanes</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">en %s mes</item>
+    <item quantity="other">en %s mesos</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">en %s any</item>
+    <item quantity="other">en %s anys</item>
+  </plurals>
+  <string name="rightNow">ara mateix</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">fa %s segon</item>
+    <item quantity="other">fa %s segons</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">fa %s minut</item>
+    <item quantity="other">fa %s minuts</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">fa %s hora</item>
+    <item quantity="other">fa %s hores</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">fa %s dia</item>
+    <item quantity="other">fa %s dies</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">fa %s setmana</item>
+    <item quantity="other">fa %s setmanes</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">fa %s mes</item>
+    <item quantity="other">fa %s mesos</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">fa %s any</item>
+    <item quantity="other">fa %s anys</item>
+  </plurals>
+</resources>

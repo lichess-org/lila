@@ -58,7 +58,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         parsed.variant,
-        resolveOrientation(data.realOrientation, parsed.root, parsed.tags)
+        resolveOrientation(data, parsed.root, parsed.tags)
       ),
       root = parsed.root,
       tags = parsed.tags,
@@ -69,16 +69,17 @@ final private class ChapterMaker(
       conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
     )
 
-  private def resolveOrientation(orientation: Orientation, root: Node.Root, tags: Tags = Tags.empty): Color =
-    orientation match {
+  private def resolveOrientation(data: Data, root: Node.Root, tags: Tags = Tags.empty): Color =
+    data.orientation match {
       case Orientation.Fixed(color)        => color
       case _ if tags.resultColor.isDefined => Color.white
+      case _ if data.isGamebook            => !root.lastMainlineNode.color
       case _                               => root.lastMainlineNode.color
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
-    val variant = data.variant.flatMap(Variant.apply) | Variant.default
-    (data.fen.filterNot(_.initial).flatMap { Forsyth.<<<@(variant, _) } match {
+    val variant = data.variant | Variant.default
+    val (root, isFromFen) = data.fen.filterNot(_.initial).flatMap { Forsyth.<<<@(variant, _) } match {
       case Some(sit) =>
         Node.Root(
           ply = sit.turns,
@@ -97,26 +98,24 @@ final private class ChapterMaker(
           crazyData = variant.crazyhouse option Crazyhouse.Data.init,
           children = Node.emptyChildren
         ) -> false
-    }) match {
-      case (root, isFromFen) =>
-        Chapter.make(
-          studyId = study.id,
-          name = data.name,
-          setup = Chapter.Setup(
-            none,
-            variant,
-            resolveOrientation(data.realOrientation, root),
-            fromFen = isFromFen option true
-          ),
-          root = root,
-          tags = Tags.empty,
-          order = order,
-          ownerId = userId,
-          practice = data.isPractice,
-          gamebook = data.isGamebook,
-          conceal = None
-        )
     }
+    Chapter.make(
+      studyId = study.id,
+      name = data.name,
+      setup = Chapter.Setup(
+        none,
+        variant,
+        resolveOrientation(data, root),
+        fromFen = isFromFen option true
+      ),
+      root = root,
+      tags = Tags.empty,
+      order = order,
+      ownerId = userId,
+      practice = data.isPractice,
+      gamebook = data.isGamebook,
+      conceal = data.isConceal option Chapter.Ply(root.ply)
+    )
   }
 
   private[study] def fromGame(
@@ -143,7 +142,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         !game.synthetic option game.id,
         game.variant,
-        data.realOrientation match {
+        data.orientation match {
           case Orientation.Auto         => Color.white
           case Orientation.Fixed(color) => color
         }
@@ -207,28 +206,28 @@ private[study] object ChapterMaker {
   }
 
   trait ChapterData {
-    def orientation: String
-    def mode: String
-    def realOrientation = Color.fromName(orientation).fold[Orientation](Orientation.Auto)(Orientation.Fixed)
-    def isPractice      = mode == Mode.Practice.key
-    def isGamebook      = mode == Mode.Gamebook.key
-    def isConceal       = mode == Mode.Conceal.key
+    def orientation: Orientation
+    def mode: ChapterMaker.Mode
+    def isPractice = mode == Mode.Practice
+    def isGamebook = mode == Mode.Gamebook
+    def isConceal  = mode == Mode.Conceal
   }
 
-  sealed trait Orientation
+  sealed abstract class Orientation(val key: String, val resolve: Option[Color])
   object Orientation {
-    case class Fixed(color: Color) extends Orientation
-    case object Auto               extends Orientation
+    case class Fixed(color: Color) extends Orientation(color.name, color.some)
+    case object Auto               extends Orientation("automatic", none)
+    def apply(str: String) = Color.fromName(str).fold[Orientation](Auto)(Fixed)
   }
 
   case class Data(
       name: Chapter.Name,
       game: Option[String] = None,
-      variant: Option[String] = None,
+      variant: Option[Variant] = None,
       fen: Option[FEN] = None,
       pgn: Option[String] = None,
-      orientation: String = "white", // can be "automatic"
-      mode: String = ChapterMaker.Mode.Normal.key,
+      orientation: Orientation = Orientation.Auto,
+      mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,
       initial: Boolean = false,
       isDefaultName: Boolean = true
   ) extends ChapterData {
@@ -246,8 +245,8 @@ private[study] object ChapterMaker {
   case class EditData(
       id: Chapter.Id,
       name: Chapter.Name,
-      orientation: String,
-      mode: String,
+      orientation: Orientation,
+      mode: ChapterMaker.Mode,
       description: String // boolean
   ) extends ChapterData {
     def hasDescription = description.nonEmpty

@@ -9,6 +9,8 @@
   <string name="postBody">Tekst</string>
   <string name="drafts">Utkast</string>
   <string name="published">Publisert</string>
+  <string name="createBlogDiscussion">Aktiver kommentarar</string>
+  <string name="createBlogDiscussionHelp">Der vil bli oppretta eit diskusjonstema i forumet der folk kan kommentera innlegga dine</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
   <string name="publishHelp">Kryss av om du vil syna innlegget på bloggen din. Om du ikkje gjer det vert dette eit privat utkast som ikkje andre kan lesa</string>
   <plurals name="publishedNbBlogPosts">

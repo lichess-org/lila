@@ -51,6 +51,7 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
+        ctrl.keyboardHelp ? keyboard.view(ctrl) : null,
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],

@@ -17,7 +17,7 @@ object games {
       moreJs = jsModule("tvGames")
     ) {
       main(
-        cls := "page-menu tv-games",
+        cls     := "page-menu tv-games",
         dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, "gameId", Nil)}"
       )(
         st.aside(cls := "page-menu__menu")(

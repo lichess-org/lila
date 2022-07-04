@@ -230,7 +230,7 @@ object PuzzleTheme {
 
   def find(key: String) = byLowerKey get key.toLowerCase
 
-  def findOrAny(key: String) = find(key) | mix
+  def findOrMix(key: String) = find(key) | mix
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
 

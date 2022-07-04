@@ -19,13 +19,13 @@
 
   ol,
   ul {
-    padding-left: 0.5em;
+    padding-#{$start-direction}: 0.5em;
   }
 
   li ol,
   li ul {
     margin: 0;
-    padding-left: 2em;
+    padding-#{$start-direction}: 2em;
   }
 
   ol > li {
@@ -121,7 +121,7 @@
 @mixin rendered-markdown--quote {
   blockquote {
     color: $c-font-dim;
-    border-left: 0.3em solid $c-font-dimmer;
-    padding-left: 1em;
+    border-#{$start-direction}: 0.3em solid $c-font-dimmer;
+    padding-#{$start-direction}: 1em;
   }
 }

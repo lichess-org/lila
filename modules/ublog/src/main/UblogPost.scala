@@ -5,17 +5,19 @@ import org.joda.time.DateTime
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 import play.api.i18n.Lang
+import lila.common.Markdown
 
 case class UblogPost(
     _id: UblogPost.Id,
     blog: UblogBlog.Id,
     title: String,
     intro: String,
-    markdown: String,
+    markdown: Markdown,
     language: Lang,
     image: Option[UblogImage],
     topics: List[UblogTopic],
     live: Boolean,
+    discuss: Option[Boolean],
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],

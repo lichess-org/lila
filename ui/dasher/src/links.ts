@@ -23,7 +23,7 @@ export default function (ctrl: DasherCtrl): VNode {
           h(
             'a.text',
             linkCfg(
-              '/account/preferences/game-display',
+              '/account/preferences/display',
               '',
               ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
             ),
@@ -101,8 +101,13 @@ const linkCfg = (href: string, icon: string, more?: Record<string, string>) => (
 });
 
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
+  let icon = ''; // >
+  if (document.dir == 'rtl') {
+    icon = ''; // <
+  }
+
   return {
     hook: bind('click', () => ctrl.setMode(m)),
-    attrs: { 'data-icon': '', type: 'button' },
+    attrs: { 'data-icon': icon, type: 'button' },
   };
 }

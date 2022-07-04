@@ -39,13 +39,13 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   private def fetchGames(user: lila.user.User, filter: Filter) = {
     val select = toDbSelect(filter) ++ lila.game.Query.finished
     filter.realSpeed
-      .fold(env.game.gameRepo.recentPovsByUserFromSecondary(user, nbGames, select)) { speed =>
+      .fold(env.game.gameRepo.recentPovsByUserFromSecondary(user, filter.nbGames, select)) { speed =>
         import akka.stream.scaladsl._
         env.game.gameRepo
           .recentGamesByUserFromSecondaryCursor(user, select)
           .documentSource(10_000)
           .filter(_.speed == speed)
-          .take(nbGames)
+          .take(filter.nbGames)
           .mapConcat { g => lila.game.Pov(g, user).toList }
           .toMat(Sink.seq)(Keep.right)
           .run()
@@ -107,13 +107,12 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
 
 object GameMod {
 
-  val nbGames = 100
-
   case class Filter(
       arena: Option[String],
       swiss: Option[String],
       speed: Option[String],
-      opponents: Option[String]
+      opponents: Option[String],
+      nbGamesOpt: Option[Int]
   ) {
     def opponentIds: List[lila.user.User.ID] =
       (~opponents)
@@ -127,9 +126,11 @@ object GameMod {
         .toList
         .distinct
     def realSpeed = speed.flatMap(k => chess.Speed.all.find(_.key == k))
+
+    def nbGames = nbGamesOpt | 100
   }
 
-  val emptyFilter = Filter(none, none, none, none)
+  val emptyFilter = Filter(none, none, none, none, none)
 
   def toDbSelect(filter: Filter): Bdoc =
     lila.game.Query.notSimul ++
@@ -148,10 +149,11 @@ object GameMod {
   val filterForm =
     Form(
       mapping(
-        "arena"     -> optional(nonEmptyText),
-        "swiss"     -> optional(nonEmptyText),
-        "speed"     -> optional(nonEmptyText),
-        "opponents" -> optional(nonEmptyText)
+        "arena"      -> optional(nonEmptyText),
+        "swiss"      -> optional(nonEmptyText),
+        "speed"      -> optional(nonEmptyText),
+        "opponents"  -> optional(nonEmptyText),
+        "nbGamesOpt" -> optional(number(min = 1, max = 500))
       )(Filter.apply)(Filter.unapply _)
     )
 

@@ -683,7 +683,7 @@ final class StudyApi(
                 case _                => chapter.conceal
               },
               setup = chapter.setup.copy(
-                orientation = data.realOrientation match {
+                orientation = data.orientation match {
                   case ChapterMaker.Orientation.Fixed(color) => color
                   case _                                     => chapter.setup.orientation
                 }
@@ -896,12 +896,12 @@ final class StudyApi(
   private def canActAsOwner(study: Study, userId: User.ID): Fu[Boolean] =
     fuccess(study isOwner userId) >>| studyRepo.isAdminMember(study, userId)
 
-  import ornicar.scalalib.Zero
+  import alleycats.Zero
   private def Contribute[A](userId: User.ID, study: Study)(f: => A)(implicit default: Zero[A]): A =
     if (study canContribute userId) f else default.zero
 
   // work around circular dependency
-  private var socket: Option[StudySocket] = None
+  private var socket: Option[StudySocket]           = None
   private[study] def registerSocket(s: StudySocket) = { socket = s.some }
   private def sendTo(studyId: Study.Id)(f: StudySocket => Study.Id => Unit): Unit =
     socket foreach { s =>

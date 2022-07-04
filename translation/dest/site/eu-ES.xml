@@ -348,6 +348,8 @@
   <string name="apply">Gorde</string>
   <string name="save">Gorde</string>
   <string name="leaderboard">Jokalaririk onenak</string>
+  <string name="screenshotCurrentPosition">Uneko posizioaren irudia</string>
+  <string name="gameAsGIF">Partida GIF gisa</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
   <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
@@ -426,6 +428,8 @@
   <string name="tournamentIsStarting">Txapelketa hasiko da</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
   <string name="standByX">Itxaron %s, jokalariak parekatzen, egon prest!</string>
+  <string name="pause">Gelditu</string>
+  <string name="resume">Berrekin</string>
   <string name="youArePlaying">Jokatzen ari zara!</string>
   <string name="winRate">Irabazien ratioa</string>
   <string name="berserkRate">Berserk ratioa</string>
@@ -450,7 +454,6 @@
   <string name="profileCompletion">Profilaren osaera: %s</string>
   <string name="xRating">%s sailkapena</string>
   <string name="ifNoneLeaveEmpty">Ez baduzu, hutsik utzi</string>
-  <string name="gameCompletionRate">Osorik jokatutako partida ratioa: %s</string>
   <string name="profile">Profila</string>
   <string name="editProfile">Nire profila editatu</string>
   <string name="firstName">Izena</string>
@@ -564,6 +567,7 @@
   <string name="community">Komunitatea</string>
   <string name="tools">Tresnak</string>
   <string name="increment">Gehikuntza</string>
+  <string name="error.unknown">Balioa ez da zuzena</string>
   <string name="error.required">Koadro hau betetzea nahitaezkoa da</string>
   <string name="error.email">Posta elektronikoa ez da zuzena</string>
   <string name="error.email_acceptable">Posta elektroniko hau ezin dugu onartu. Egiaztatu ezazu eta saiatu berriz.</string>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">刚刚</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="other">在 %s 秒内</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="other">在 %s 分钟内</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="other">在%s小时内</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="other">在 %s 天</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="other">在%s周内</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="other">在 %s 月内</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="other">在%s 年内</item>
+  </plurals>
+  <string name="rightNow">马上</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="other">%s 秒前</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">%s分钟前</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s小时前</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">%s 天前</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s 周前</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">%s 月前</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s年前</item>
+  </plurals>
+</resources>

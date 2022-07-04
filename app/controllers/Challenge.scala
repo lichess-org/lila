@@ -87,7 +87,7 @@ final class Challenge(
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.challenger match {
-      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => HTTPRequest sid ctx.req contains secret
+      case lila.challenge.Challenge.Challenger.Anonymous(secret) => HTTPRequest sid ctx.req contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
       case lila.challenge.Challenge.Challenger.Open                  => false
     }
@@ -134,7 +134,7 @@ final class Challenge(
           case Some(c) if c.accepted => tryRematch
           case Some(c) =>
             api.accept(c, me.some, none) map {
-              _.fold(BadRequest(_), _ => jsonOkResult)
+              _.fold(err => BadRequest(jsonError(err)), _ => jsonOkResult)
             }
         }
       }
@@ -311,56 +311,55 @@ final class Challenge(
       }
     }
 
-  def apiCreate(userId: String) =
+  def apiCreate(username: String) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      !me.is(userId) ?? env.setup.forms.api
+      !me.is(username) ?? env.setup.forms.api
         .user(me)
         .bindFromRequest()
         .fold(
           newJsonFormError,
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
-              env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
-                val cost = destUser match {
-                  case _ if me.isApiHog         => 0
-                  case None                     => 2
-                  case Some(dest) if dest.isBot => 1
-                  case _                        => 5
-                }
-                BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) 1 else 0) {
-                  ChallengeUserRateLimit(me.id, cost = cost) {
-                    val challenge = makeOauthChallenge(config, me, destUser)
-                    (destUser, config.acceptByToken) match {
-                      case (Some(dest), Some(strToken)) =>
-                        apiChallengeAccept(dest, challenge, strToken)(me, config.message)
-                      case _ =>
-                        destUser ?? { env.challenge.granter.isDenied(me.some, _, config.perfType) } flatMap {
-                          case Some(denied) =>
-                            BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
-                          case _ =>
-                            env.challenge.api create challenge map {
-                              case true =>
-                                val json = env.challenge.jsonView
-                                  .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                if (config.keepAliveStream)
-                                  apiC.sourceToNdJsonOption(
-                                    apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                  )
-                                else JsonOk(json)
-                              case false =>
-                                BadRequest(jsonError("Challenge not created"))
-                            }
-                        } map (_ as JSON)
-                    }
+              env.user.repo enabledByName username flatMap {
+                case None => JsonBadRequest(jsonError(s"No such user: $username")).fuccess
+                case Some(destUser) =>
+                  val cost = if (me.isApiHog) 0 else if (destUser.isBot) 1 else 5
+                  BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) 1 else 0) {
+                    ChallengeUserRateLimit(me.id, cost = cost) {
+                      val challenge = makeOauthChallenge(config, me, destUser)
+                      config.acceptByToken match {
+                        case Some(strToken) =>
+                          apiChallengeAccept(destUser, challenge, strToken)(me, config.message)
+                        case _ =>
+                          env.challenge.granter.isDenied(me.some, destUser, config.perfType) flatMap {
+                            case Some(denied) =>
+                              JsonBadRequest(
+                                jsonError(lila.challenge.ChallengeDenied.translated(denied))
+                              ).fuccess
+                            case _ =>
+                              env.challenge.api create challenge map {
+                                case true =>
+                                  val json = env.challenge.jsonView
+                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                                  if (config.keepAliveStream)
+                                    apiC.sourceToNdJsonOption(
+                                      apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                    )
+                                  else JsonOk(json)
+                                case false =>
+                                  JsonBadRequest(jsonError("Challenge not created"))
+                              }
+                          }
+                      }
+                    }(rateLimitedFu)
                   }(rateLimitedFu)
-                }(rateLimitedFu)
               }
             }(rateLimitedFu)
         )
     }
 
-  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: Option[UserModel]) = {
+  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) = {
     import lila.challenge.Challenge._
     val timeControl = TimeControl.make(config.clock, config.days)
     lila.challenge.Challenge
@@ -371,7 +370,7 @@ final class Challenge(
         mode = config.mode,
         color = config.color.name,
         challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
-        destUser = dest,
+        destUser = dest.some,
         rematchOf = none
       )
   }

@@ -15,9 +15,9 @@ object bits {
   def mselect(id: String, current: Frag, items: List[Frag]) =
     div(cls := "mselect")(
       input(
-        tpe := "checkbox",
-        cls := "mselect__toggle fullscreen-toggle",
-        st.id := s"mselect-$id",
+        tpe          := "checkbox",
+        cls          := "mselect__toggle fullscreen-toggle",
+        st.id        := s"mselect-$id",
         autocomplete := "off"
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
@@ -26,7 +26,7 @@ object bits {
     )
 
   lazy val stage = a(
-    href := "https://lichess.org",
+    href  := "https://lichess.org",
     style := """
 background: #7f1010;
 color: #fff;
@@ -61,14 +61,14 @@ z-index: 99;
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
     st.nav(cls := "pagination")(
       if (page > 1) a(href := url(page - 1), dataIcon := "")
-      else span(cls := "disabled", dataIcon := ""),
+      else span(cls        := "disabled", dataIcon    := ""),
       sliding(page, nbPages, 3, showPost = showPost).map {
         case None                 => raw(" &hellip; ")
         case Some(p) if p == page => span(cls := "current")(p)
         case Some(p)              => a(href := url(p))(p)
       },
-      if (page < nbPages) a(rel := "next", href := url(page + 1), dataIcon := "")
-      else span(cls := "disabled", dataIcon := "")
+      if (page < nbPages) a(rel := "next", href         := url(page + 1), dataIcon := "")
+      else span(cls             := "disabled", dataIcon := "")
     )
 
   private def sliding(pager: Paginator[_], length: Int, showPost: Boolean): List[Option[Int]] =

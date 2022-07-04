@@ -482,7 +482,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="profileCompletion">Profil je uređen %s</string>
   <string name="xRating">%s rejting</string>
   <string name="ifNoneLeaveEmpty">Nemaš rejting? Ostavi polje prazno</string>
-  <string name="gameCompletionRate">Stopa završavanja partija: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
@@ -609,6 +608,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.min">Mora biti veće ili jednako %s</string>
   <string name="error.max">Mora biti manje ili jednako %s</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
+  <string name="ifRegistered">Ako je registriran</string>
   <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Izbornik</string>
@@ -938,4 +938,5 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Promijeni strane</string>
+  <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
 </resources>

@@ -51,15 +51,16 @@
     padding: 0;
     background: mix($c-secondary, $c-bg-box, 30%);
     .ddloader {
-      padding-left: 7px;
+      padding-#{$start-direction}: 7px;
     }
     .active {
       @extend %flex-center-nowrap;
+      direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
       background: mix($c-secondary, $c-bg-box, 40%);
       strong {
-        margin-right: 0.5ch;
+        margin-#{$end-direction}: 0.5ch;
       }
       &.player {
         cursor: pointer;
@@ -71,7 +72,7 @@
     button {
       display: inline-block;
       padding: 0 0.5ch;
-      margin-left: 1px;
+      margin-#{$start-direction}: 1px;
       color: $c-font-dim;
       &:hover {
         color: $c-font-clear;
@@ -102,7 +103,7 @@
 
   td {
     cursor: pointer;
-    padding-left: 7px;
+    padding-#{$start-direction}: 7px;
   }
 
   .moves {
@@ -111,13 +112,13 @@
       font-size: 0.8rem;
       line-height: 1.8em;
       background: mix($c-secondary, $c-bg-box, 40%);
-      padding-left: 7px;
+      padding-#{$start-direction}: 7px;
     }
     td:first-child {
       @extend %san;
 
       line-height: 30px;
-      padding-left: 7px;
+      padding-#{$start-direction}: 7px;
     }
 
     td:nth-child(2) {
@@ -127,7 +128,7 @@
 
     td:last-child {
       width: 100%;
-      padding-right: 7px;
+      padding-#{$end-direction}: 7px;
     }
 
     tbody tr.sum {
@@ -202,7 +203,8 @@
     width: 100%;
 
     td {
-      padding: 5px 0 5px 7px;
+      @include padding-direction(5px, 0, 5px, 7px);
+
       max-width: 110px;
       &:nth-child(2) {
         max-width: none;
@@ -259,17 +261,17 @@
 
       font-size: 14px;
       line-height: 30px;
-      padding-left: 7px;
+      padding-#{$start-direction}: 7px;
     }
 
     td:last-child {
-      padding-right: 7px;
+      padding-#{$end-direction}: 7px;
       text-align: right;
     }
 
     result {
       padding: 3px 5px;
-      margin-left: 5px;
+      margin-#{$start-direction}: 5px;
       border-radius: 3px;
       font-size: 0.9em;
     }
@@ -278,7 +280,7 @@
   .toconf {
     position: absolute;
     top: 0;
-    right: 0;
+    #{$end-direction}: 0;
     cursor: pointer;
     display: block;
     font-size: 1.2em;

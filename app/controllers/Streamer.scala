@@ -50,17 +50,16 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
       }
   }
 
-  def live =
-    apiC.ApiRequest { _ =>
-      env.user.lightUserApi asyncMany env.streamer.liveStreamApi.userIds.toList dmap (_.flatten) map {
-        users =>
-          apiC.toApiResult {
-            users.map { u =>
-              lila.common.LightUser.lightUserWrites.writes(u)
-            }
-          }
+  def live = apiC.ApiRequest { _ =>
+    for {
+      s     <- env.streamer.liveStreamApi.all
+      users <- env.user.lightUserApi asyncManyFallback s.streams.map(_.streamer.userId)
+    } yield apiC.toApiResult {
+      (s.streams zip users).map { case (stream, user) =>
+        lila.common.LightUser.lightUserWrites.writes(user) ++ lila.streamer.Stream.toJson(stream)
       }
     }
+  }
 
   def show(username: String) =
     Open { implicit ctx =>
@@ -192,7 +191,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
 
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
     ctx.me.fold(notFound) { me =>
-      if (StreamerModel canApply me)
+      if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
           _.fold(Ok(html.streamer.bits.create).fuccess)(f)
         }

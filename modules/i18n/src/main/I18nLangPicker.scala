@@ -20,7 +20,8 @@ object I18nLangPicker {
     }
 
   def allFromRequestHeaders(req: RequestHeader): List[Lang] =
-    req.acceptLanguages.flatMap(findCloser).distinct.toList
+    (req.acceptLanguages.flatMap(findCloser) ++
+      req.acceptLanguages.flatMap(lang => ~byCountry.get(lang.country))).distinct.toList
 
   def byStr(str: String): Option[Lang] =
     Lang get str flatMap findCloser
@@ -37,6 +38,9 @@ object I18nLangPicker {
     LangList.all.keys.foldLeft(Map.empty[String, Lang]) { case (acc, lang) =>
       acc + (lang.language -> lang)
     } ++ LangList.defaultRegions
+
+  private val byCountry: Map[String, List[Lang]] =
+    LangList.all.keys.toList.groupBy(_.country)
 
   def findCloser(to: Lang): Option[Lang] =
     if (LangList.all.keySet contains to) Some(to)

@@ -5,12 +5,12 @@ on:
     paths:
       - '.github/workflows/translations.yml'
       - 'translation/**'
-      - 'bin/trans-lint.py'
+      - 'bin/trans-lint'
   pull_request:
     paths:
       - '.github/workflows/translations.yml'
       - 'translation/**'
-      - 'bin/trans-lint.py'
+      - 'bin/trans-lint'
 
 jobs:
   translations:
@@ -22,4 +22,4 @@ jobs:
       - name: Validate translation files
         run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
       - name: Lint translation files
-        run: ./bin/trans-lint.py translation/dest/*/*.xml
+        run: ./bin/trans-lint translation/dest/*/*.xml

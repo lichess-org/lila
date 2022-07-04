@@ -16,20 +16,21 @@ final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    storage: Storage
+    storage: InsightStorage
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 128, timeout = 2 minutes, name = "insightIndexer")
+    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 2 minutes, name = "insightIndexer")
 
   def all(user: User): Funit =
     workQueue {
       storage.fetchLast(user.id) flatMap {
-        case None    => fromScratch(user)
-        case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+        _.fold(fromScratch(user)) { e =>
+          computeFrom(user, e.date plusSeconds 1, e.number + 1)
+        }
       }
     }
 
@@ -54,7 +55,7 @@ final private class InsightIndexer(
       Query.notFromPosition ++
       Query.notHordeOrSincePawnsAreWhite
 
-  private val maxGames = 10 * 1000
+  private val maxGames = 10_000
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
@@ -88,7 +89,7 @@ final private class InsightIndexer(
         .via(LilaStream.collect)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
-        .grouped(100)
+        .grouped(100 atMost maxGames)
         .map(storage.bulkInsert)
         .toMat(Sink.ignore)(Keep.right)
         .run()

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="menu">HIDjolev</string>
+  <string name="play">Quj!</string>
   <string name="theRook">jem\'IH</string>
   <string name="theBishop">maqlegh</string>
   <string name="theQueen">be\' ta\'</string>
@@ -8,4 +10,6 @@
   <string name="theKnight">Sargh</string>
   <string name="thePawn">mang</string>
   <string name="itMovesForwardOnly">\'et neH jaH</string>
+  <string name="pawnPromotion">mang num</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">\'echlet Dop Dop SIch manglIj!</string>
 </resources>

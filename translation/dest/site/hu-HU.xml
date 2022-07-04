@@ -40,7 +40,7 @@
     <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva tied a győzelem.</item>
     <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
-  <string name="opponentLeftChoices">Úgy tűnik az ellenfél kilépett. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
+  <string name="opponentLeftChoices">Úgy tűnik, az ellenfél kilépett. Igényelhetsz győzelmet vagy döntetlent, esetleg várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
@@ -348,6 +348,8 @@
   <string name="apply">Mentés</string>
   <string name="save">Mentés</string>
   <string name="leaderboard">Ranglista</string>
+  <string name="screenshotCurrentPosition">Képernyőkép készítése a jelenlegi állásról</string>
+  <string name="gameAsGIF">Játszma GIF-ként</string>
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
   <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
@@ -450,7 +452,6 @@
   <string name="profileCompletion">Profil teljessége: %s</string>
   <string name="xRating">%s értékszám</string>
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
-  <string name="gameCompletionRate">Végigjátszott partik aránya: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
   <string name="firstName">Keresztnév</string>
@@ -574,6 +575,7 @@
   <string name="error.min">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
   <string name="error.max">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
+  <string name="ifRegistered">Csak regisztrált</string>
   <string name="onlyExistingConversations">Csak megkezdett csevegések</string>
   <string name="onlyFriends">Csak ismerősöktől</string>
   <string name="menu">Menü</string>

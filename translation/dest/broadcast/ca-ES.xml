@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Retransmissions</string>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
-  <string name="newBroadcast">Noves retransmissions en directe</string>
+  <string name="newBroadcast">Nova retransmissió en directe</string>
   <string name="addRound">Afegir una ronda</string>
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>

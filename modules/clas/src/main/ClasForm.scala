@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, toMarkdown }
 import lila.user.User
 
 final class ClasForm(
@@ -42,7 +42,7 @@ final class ClasForm(
         teachers = c.teachers.toList mkString "\n"
       )
 
-    def wall = Form(single("wall" -> text(maxLength = 100_000)))
+    def wall = Form(single("wall" -> toMarkdown(text(maxLength = 100_000))))
 
     def notifyText = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 300)))
   }

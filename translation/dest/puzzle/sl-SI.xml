@@ -57,6 +57,7 @@
   </plurals>
   <string name="example">Primer</string>
   <string name="addAnotherTheme">Dodaj novo temo</string>
+  <string name="nextPuzzle">Naslednja uganka</string>
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
   <string name="puzzleDashboard">Nadzorna plošča za uganke</string>
   <string name="improvementAreas">Področja izboljšav</string>

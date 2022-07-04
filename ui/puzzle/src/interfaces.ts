@@ -29,6 +29,7 @@ export interface KeyboardController {
   flip(): void;
   flipped(): boolean;
   nextPuzzle(): void;
+  keyboardHelp: Prop<boolean>;
 }
 
 export type ThemeKey = string;
@@ -36,8 +37,6 @@ export interface AllThemes {
   dynamic: ThemeKey[];
   static: Set<ThemeKey>;
 }
-
-export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
@@ -64,7 +63,7 @@ export interface Controller extends KeyboardController {
   vote(v: boolean): void;
   voteTheme(theme: ThemeKey, v: boolean): void;
   pref: PuzzlePrefs;
-  difficulty?: PuzzleDifficulty;
+  settings: PuzzleSettings;
   userMove(orig: Key, dest: Key): void;
   promotion: PromotionCtrl;
   autoNext: StoredBooleanProp;
@@ -110,13 +109,21 @@ export interface Vm {
   cgConfig: CgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;
+  isDaily: boolean;
+}
+
+export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';
+
+export interface PuzzleSettings {
+  difficulty: PuzzleDifficulty;
+  color?: Color;
 }
 
 export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: I18nDict;
-  difficulty?: PuzzleDifficulty;
+  settings: PuzzleSettings;
   themes?: {
     dynamic: string;
     static: string;
@@ -143,6 +150,7 @@ export interface Theme {
   name: string;
   desc: string;
   chapter?: string;
+  isOpening?: boolean;
 }
 
 export interface PuzzleData {

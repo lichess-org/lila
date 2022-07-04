@@ -16,6 +16,7 @@
   <string name="onetime">一次性</string>
   <string name="otherAmount">其他</string>
   <string name="withCreditCard">信用卡</string>
+  <string name="weAreSmallTeam">我們是個小團隊，你的支持能帶來巨大的影響！</string>
   <string name="whereMoneyGoes">我捐出的錢會到哪裡?</string>
   <string name="serversAndDeveloper">首先，強大的服務器。 然後我們會再付給全職開發者：%s，Lichess 的創始人。</string>
   <string name="costBreakdown">查看詳細的成本開支</string>
@@ -31,6 +32,9 @@
   <string name="noPatronFeatures">不會，因為 Lichess 不管對任何人都是永遠免費的。這是我們的承諾。
 不過贊助者們可以炫耀自己有超酷的個人資料圖示。</string>
   <string name="featuresComparison">查看詳細的功能比較</string>
+  <plurals name="patronForMonths">
+    <item quantity="other">%s個月的Lichess 贊助者</item>
+  </plurals>
   <string name="youSupportWith">你贊助lichess.org每個月 %s美元</string>
   <string name="tyvm">非常感謝您的幫助。</string>
   <string name="currentStatus">目前狀態</string>
@@ -44,6 +48,7 @@
   <string name="xOrY">%1$s 或 %2$s</string>
   <string name="decideHowMuch">決定 Lichess 對你來說有什麼價值：</string>
   <string name="stopPayments">提取您的信用卡並停止付款：</string>
+  <string name="stopPaymentsPayPal">取消PayPal 訂閱並停止付款</string>
   <string name="noLongerSupport">不再贊助 Lichess</string>
   <string name="viewOthers">查看其他 Lichess 贊助者</string>
   <string name="date">日期</string>

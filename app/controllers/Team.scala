@@ -13,7 +13,8 @@ import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
 import lila.memo.RateLimit
 import lila.team.{ Requesting, Team => TeamModel }
-import lila.user.{ User => UserModel, Holder }
+import lila.user.{ Holder, User => UserModel }
+import lila.common.config
 
 final class Team(
     env: Env,
@@ -48,6 +49,25 @@ final class Team(
       }
     }
 
+  def members(id: String, page: Int) =
+    Open { implicit ctx =>
+      Reasonable(page, config.Max(50)) {
+        OptionFuResult(api teamEnabled id) { team =>
+          val canSee =
+            fuccess(team.publicMembers || isGranted(_.ManageTeam)) >>| ctx.userId.?? {
+              api.belongsTo(team.id, _)
+            }
+          canSee flatMap {
+            case true =>
+              paginator.teamMembersWithDate(team, page) map {
+                html.team.members(team, _)
+              }
+            case false => authorizationFailed
+          }
+        }
+      }
+    }
+
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
       Reasonable(page) {
@@ -63,6 +83,7 @@ final class Team(
     for {
       info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
       members <- paginator.teamMembers(team, page)
+      log     <- (requestModView && isGranted(_.ManageTeam)).??(env.mod.logApi.teamLog(team.id))
       hasChat = canHaveChat(team, info, requestModView)
       chat <-
         hasChat ?? env.chat.api.userChat.cached
@@ -72,7 +93,7 @@ final class Team(
         info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
-    } yield html.team.show(team, members, info, chat, version, requestModView)
+    } yield html.team.show(team, members, info, chat, version, requestModView, log)
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
       implicit ctx: Context
@@ -188,21 +209,34 @@ final class Team(
     }
 
   def close(id: String) =
-    Secure(_.ManageTeam) { implicit ctx => me =>
+    SecureBody(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        api.delete(team) >>
-          env.mod.logApi.deleteTeam(me.id, team.id, team.name) inject
-          Redirect(routes.Team all 1).flashSuccess
+        implicit val body = ctx.body
+        forms.explain
+          .bindFromRequest()
+          .fold(
+            _ => funit,
+            explain =>
+              api.delete(team, me.user, explain) >>
+                env.mod.logApi.deleteTeam(me.id, team.id, explain)
+          ) inject Redirect(routes.Team all 1).flashSuccess
       }
     }
 
   def disable(id: String) =
-    Auth { implicit ctx => me =>
+    AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        api.toggleEnabled(team, me) >>
-          env.mod.logApi.disableTeam(me.id, team.id, team.name) inject
-          Redirect(routes.Team show id).flashSuccess
-      }
+        implicit val body = ctx.body
+        forms.explain
+          .bindFromRequest()
+          .fold(
+            _ => funit,
+            explain =>
+              api.toggleEnabled(team, me, explain) >> {
+                team.enabled ?? env.mod.logApi.disableTeam(me.id, team.id, explain)
+              }
+          )
+      } inject Redirect(routes.Team show id).flashSuccess
     }
 
   def form =
@@ -574,7 +608,7 @@ final class Team(
         msg =>
           Right {
             PmAllLimitPerTeam[RateLimit.Result](team.id, if (me.isVerifiedOrAdmin) 1 else pmAllCost) {
-              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
 You received this because you are subscribed to messages of the team $url."""

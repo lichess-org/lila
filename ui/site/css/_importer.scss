@@ -23,7 +23,7 @@ main.importer {
 
     .analyse > span {
       float: left;
-      margin-right: 10px;
+      margin-#{$end-direction}: 10px;
     }
 
     .analyse > label {
@@ -31,7 +31,7 @@ main.importer {
     }
 
     .upload input {
-      margin-left: 1em;
+      margin-#{$start-direction}: 1em;
     }
 
     button.submit {

@@ -17,6 +17,7 @@
   <string name="stalemate">இழுபறி</string>
   <string name="white">வெள்ளை</string>
   <string name="black">கருப்பு</string>
+  <string name="asWhite">வெள்ளைக் காய்களுடன்</string>
   <string name="randomColor">ஏதாவது ஒரு நிறம்</string>
   <string name="createAGame">ஆட்டமொன்றை உருவாக்கு</string>
   <string name="whiteIsVictorious">வெள்ளை வென்றது</string>

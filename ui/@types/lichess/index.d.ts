@@ -6,8 +6,8 @@ interface Lichess {
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
-  powertip: any;
-  widget: any;
+  powertip: LichessPowertip;
+  clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   loadCss(path: string): void;
@@ -34,6 +34,7 @@ interface Lichess {
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
 
+  siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
@@ -59,7 +60,6 @@ interface Lichess {
   };
 
   timeago(date: number | Date): string;
-  timeagoLocale(a: number, b: number, c: number): any;
   dateFormat: () => (date: Date) => string;
 
   // misc
@@ -79,6 +79,14 @@ type I18nKey = string;
 type RedirectTo = string | { url: string; cookie: Cookie };
 
 type UserComplete = (opts: UserCompleteOpts) => void;
+
+interface LichessPowertip {
+  watchMouse(): void;
+  manualGameIn(parent: HTMLElement): void;
+  manualGame(el: HTMLElement): void;
+  manualUser(el: HTMLElement): void;
+  manualUserIn(parent: HTMLElement): void;
+}
 
 interface UserCompleteOpts {
   input: HTMLInputElement;
@@ -280,6 +288,7 @@ interface Study {
   userId?: string | null;
   isContrib?: boolean;
   isOwner?: boolean;
+  closeActionMenu?(): void;
   setTab(tab: string): void;
 }
 
@@ -316,8 +325,10 @@ declare type VariantKey =
 declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
 
 declare type Perf =
+  | 'ultraBullet'
   | 'bullet'
   | 'blitz'
+  | 'rapid'
   | 'classical'
   | 'correspondence'
   | 'chess960'
@@ -488,7 +499,6 @@ interface CashStatic {
 
 interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
-  clock: any;
 }
 
 declare namespace PowerTip {

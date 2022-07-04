@@ -239,6 +239,13 @@ object Condition {
           "rating" -> r.rating
         )
       }
+
+    implicit val nbRatedGameConditionWrites: OWrites[Condition.NbRatedGame] =
+      OWrites[Condition.NbRatedGame] { r =>
+        Json
+          .obj("nb" -> r.nb)
+          .add("perf" -> r.perf.map(_.key))
+      }
   }
 
   object DataForm {

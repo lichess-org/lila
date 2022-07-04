@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Nastavitve</string>
-  <string name="gameDisplay">Prikaz igre</string>
   <string name="pieceAnimation">Animacija figur</string>
   <string name="materialDifference">Materialna prednost</string>
   <string name="boardHighlights">Osvetlitev šahovnice (zadnja poteza in kralj v šahu)</string>

@@ -24,14 +24,18 @@ object HTTPRequest {
       .get(HeaderNames.ACCEPT)
       .exists(_ startsWith "application/vnd.lichess.v")
 
-  private val appOrigins = Set(
+  private val appOrigins = List(
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios
-    "http://localhost",      // android
-    "http://localhost:8080"  // local dev
+    "http://localhost"       // android/dev/flutter
   )
 
-  def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
+  def appOrigin(req: RequestHeader): Option[String] =
+    origin(req) filter { reqOrigin =>
+      appOrigins exists { appOrigin =>
+        reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
+      }
+    }
 
   def isApi(req: RequestHeader)      = req.path startsWith "/api/"
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
@@ -74,11 +78,6 @@ object HTTPRequest {
 
   def isHuman(req: RequestHeader) = !isCrawler(req) && !isFishnet(req)
 
-  def isFacebookOrTwitterBot(req: RequestHeader) =
-    userAgent(req) ?? { ua =>
-      ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
-    }
-
   private[this] val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
@@ -116,11 +115,15 @@ object HTTPRequest {
     }
   }
 
-  private def isDataDump(req: RequestHeader)    = req.path == "/account/personal-data"
-  private def isAppeal(req: RequestHeader)      = req.path.startsWith("/appeal")
-  private def isStudyExport(req: RequestHeader) = "^/study/by/[^/]{2,}/export.pgn$".r matches req.path
+  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
+  private def isAppeal(req: RequestHeader)   = req.path.startsWith("/appeal")
+  private def isGameExport(req: RequestHeader) =
+    "^/@/[\\w-]{2,30}/download$".r.matches(req.path) || "^/(api/games/user|games/export)/[\\w-]{2,30}$".r
+      .matches(req.path)
+  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r matches req.path
 
-  def isClosedLoginPath(req: RequestHeader) = isDataDump(req) || isAppeal(req) || isStudyExport(req)
+  def isClosedLoginPath(req: RequestHeader) =
+    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers

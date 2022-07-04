@@ -9,6 +9,8 @@
   <string name="postBody">Corpo do artigo</string>
   <string name="drafts">Borradores</string>
   <string name="published">Publicado</string>
+  <string name="createBlogDiscussion">Activar comentarios</string>
+  <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
   <string name="publishHelp">Se está chequeado, o post será listado no teu blog. Se non, será privado, e estará nos teus borradores</string>
   <plurals name="publishedNbBlogPosts">

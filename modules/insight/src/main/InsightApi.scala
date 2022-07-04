@@ -1,11 +1,15 @@
 package lila.insight
 
+import org.joda.time.DateTime
+import reactivemongo.api.bson.BSONNull
+
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
-import org.joda.time.DateTime
+import lila.common.config
+import lila.common.Heapsort.implicits._
 
 final class InsightApi(
-    storage: Storage,
+    storage: InsightStorage,
     pipeline: AggregationPipeline,
     insightUserApi: InsightUserApi,
     gameRepo: GameRepo,
@@ -22,24 +26,31 @@ final class InsightApi(
         } inject u
       case None =>
         for {
-          count <- storage count user.id
-          ecos  <- storage ecos user.id
-          c = InsightUser.make(user.id, count, ecos)
+          count                <- storage count user.id
+          (families, openings) <- storage openings user.id
+          c = InsightUser.make(user.id, count, families, openings)
           _ <- insightUserApi save c
         } yield c
     }
 
-  def ask[X](question: Question[X], user: User): Fu[Answer[X]] =
+  def ask[X](question: Question[X], user: User, withPovs: Boolean = true): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, user)
+      .aggregate(question, Left(user), withPovs = withPovs)
       .flatMap { aggDocs =>
         val clusters = AggregationClusters(question, aggDocs)
-        val gameIds  = lila.common.ThreadLocalRandom.shuffle(clusters.flatMap(_.gameIds)) take 4
-        gameRepo.userPovsByGameIds(gameIds, user) map { povs =>
-          Answer(question, clusters, povs)
-        }
+        withPovs ?? {
+          gameRepo.userPovsByGameIds(clusters.flatMap(_.gameIds) botN 4, user)
+        } map { Answer(question, clusters, _) }
       }
-      .monSuccess(_.insight.request)
+      .monSuccess(_.insight.user)
+
+  def askPeers[X](question: Question[X], rating: MeanRating, nbGames: config.Max): Fu[Answer[X]] =
+    pipeline
+      .aggregate(question, Right(Question.Peers(rating)), withPovs = false, nbGames = nbGames)
+      .map { aggDocs =>
+        Answer(question, AggregationClusters(question, aggDocs), Nil)
+      }
+      .monSuccess(_.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =
     gameRepo lastFinishedRatedNotFromPosition user flatMap {
@@ -63,14 +74,14 @@ final class InsightApi(
       .map { pov =>
         pov.player.userId ?? { userId =>
           storage find InsightEntry.povToId(pov) flatMap {
-            _ ?? { old =>
-              indexer.update(g, userId, old)
-            }
+            _ ?? { indexer.update(g, userId, _) }
           }
         }
       }
       .sequenceFu
       .void
+
+  def coll = storage.coll
 }
 
 object InsightApi {

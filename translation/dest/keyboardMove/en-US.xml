@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="keyboardInputCommands">Keyboard input commands</string>
+  <string name="performAMove">Perform a move</string>
+  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Move piece from e2 to e4</string>
+  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Move knight to c3</string>
+  <string name="kingsideCastle">Kingside castle</string>
+  <string name="queensideCastle">Queenside castle</string>
+  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Promote c8 to queen</string>
+  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Drop a rook at b4 (Crazyhouse variant only)</string>
+  <string name="offerOrAcceptDraw">Offer or accept draw</string>
+  <string name="readOutClocks" comment="readOutClocks&#10;&#10;This is the help text for one of the possible keyboard commands. When this command is entered, the current clocks (player's remaining time) is read out loud. 'Read out' is used as a verb here.">Read out clocks</string>
+  <string name="otherCommands">Other commands</string>
+  <string name="tips">Tips</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">If the above move notation is unfamiliar, learn more here:</string>
+  <string name="includingAXToIndicateACapture">Including an \"x\" to indicate a capture is optional</string>
+  <string name="bothTheLetterOAndTheDigitZero">Both the letter \"o\" and the digit zero \"0\" can be used when castling</string>
+  <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">If it is legal to castle both ways, use enter to kingside castle</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">Capitalization only matters in ambiguous situations involving a bishop and the b-pawn</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">To premove, simply type the desired premove before it is your turn</string>
+</resources>

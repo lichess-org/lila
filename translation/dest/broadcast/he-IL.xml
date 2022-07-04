@@ -12,5 +12,17 @@
   <string name="tournamentName">שם הטורניר</string>
   <string name="tournamentDescription">תיאור הטורניר בקצרה</string>
   <string name="fullDescription">תיאור מלא של הטורניר</string>
+  <string name="fullDescriptionHelp">תיאור מפורט של הטורניר (אופציונאלי). %1$s זמין. אורך התיאור לא יעלה על %2$s תווים.</string>
+  <string name="sourceUrlOrGameIds">קישור למקור (URL) או מזהה המשחקים (IDs)</string>
+  <string name="sourceUrlHelp">הקישור שאנחנו בליצ׳ס נבדוק כדי לקלוט עדכונים ב-PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
+  <string name="gameIdsHelp">לחלופין, ניתן להזין עד 64 IDs של משחקי ליצ׳ס, מופרדים ברווחים.</string>
+  <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
+  <string name="startDateHelp">אופציונאלי, אם אתה יודע מתי האירוע צפוי להתחיל</string>
+  <string name="credits">תן קרדיט למקור</string>
+  <string name="resetRound">אפס את הסיבוב הזה</string>
+  <string name="deleteRound">מחק את הסיבוב הזה</string>
+  <string name="broadcastUrl">הקישור לשידור</string>
+  <string name="currentRoundUrl">הקישור לסבב הנוכחי</string>
+  <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
   <string name="downloadAllRounds">הורדת משחקים</string>
 </resources>

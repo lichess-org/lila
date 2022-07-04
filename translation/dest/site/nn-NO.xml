@@ -348,6 +348,8 @@
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Rangliste</string>
+  <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
+  <string name="gameAsGIF">Parti som GIF</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
@@ -427,6 +429,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentIsStarting">Turneringa startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Hald fram</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
   <string name="berserkRate">Berserkfrekvens</string>
@@ -451,7 +455,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="profileCompletion">Profil fullført: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lat stå tomt</string>
-  <string name="gameCompletionRate">Prosent fullførde parti: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profilen</string>
   <string name="firstName">Førenamn</string>
@@ -565,6 +568,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
+  <string name="error.unknown">Ugyldig verdi</string>
   <string name="error.required">Dette feltet er obligatorisk</string>
   <string name="error.email">E-postadressa er ikkje gyldig</string>
   <string name="error.email_acceptable">E-postadressa er ikkje akseptabel. Ver god og dobbeltsjekk den og prøv på nytt.</string>

@@ -1,6 +1,6 @@
 package controllers
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.json.Json
@@ -13,9 +13,9 @@ import lila.app._
 import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
-import lila.report.{ Suspect, Mod => AsMod }
+import lila.report.{ Mod => AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
-import lila.user.{ User => UserModel, Title, Holder }
+import lila.user.{ Holder, Title, User => UserModel }
 
 final class Mod(
     env: Env,
