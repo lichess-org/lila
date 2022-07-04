@@ -785,6 +785,10 @@
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
   <string name="xMentionedYouInY">%1$s-ը հիշատակել է Ձեզ  «%2$s»-ում։</string>
   <string name="invitedYouToX">Հրավիրել է Ձեզ «%1$s»։</string>
+  <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
+  <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
+  <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>
+  <string name="someoneReviewedYourCoachProfile">Ինչ-որ մեկը դիտել է Ձեր մարզչական պրոֆիլը։</string>
   <string name="newPendingReview">Նոր հավակնորդ</string>
   <string name="lostAgainstTOSViolator">Դուք պարտվել եք նրան, ով խախտել է Lichess-ի օգտվողի համաձայնագիրը</string>
   <string name="refundXpointsTimeControlY">Վերադարձ. %1$s %2$s վարկանիշային միավոր</string>
@@ -801,12 +805,25 @@
   <string name="noRestriction">Առանց սահմանափակումների</string>
   <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
   <string name="minimumRating">Նվազագույն վարկանիշ</string>
+  <string name="estimatedStart">Խաղաշարը սկսելու նախատեսվող ժամը</string>
   <string name="embedsAvailable">Ներդնելու համար տեղադրեք պարտիայի կամ ստուդիայի URL-հասցեն։</string>
+  <string name="inYourLocalTimezone">Ձեր ժամագոտում</string>
   <string name="tournChat">Մրցաշարի զրուցարան</string>
   <string name="noChat">Առանց զրուցարանի</string>
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
+  <string name="mouseTricks">Շարժումներ մկնիկով</string>
+  <string name="toggleLocalAnalysis">Միացնել համակարգչային վերլուծությունը</string>
+  <string name="playComputerMove">Անել լավագույն համակարգչային քայլը</string>
+  <string name="analysisOptions">Վերլուծության պարամետրերը</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
+  <string name="showHelpDialog">Ցույց տալ օգնությունը</string>
+  <string name="reopenYourAccount">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
+  <string name="closedAccountChangedMind">Եթե Դուք փակել եք Ձեր մասնակցային հաշիվը, բայց մտափոխվել եք, մեկ անգամ այն վերականգնելու հնարավորություն ունեք։</string>
+  <string name="onlyWorksOnce">Սա կաշխատի միայն մեկ անգամ։</string>
+  <string name="cantDoThisTwice">Եթե Դուք ևս մեկ անգամ փակեք Ձեր մասնակցային հաշիվը, այն վերաբացելու հնարավորություն այլևս չեք ունենա։</string>
+  <string name="emailAssociatedToaccount">Այս մասնակցային հաշվին կցված էլ. փոստի հասցեն։</string>
+  <string name="sentEmailWithLink">Ձեզ ուղարկել ենք հղումով նամակ։</string>
   <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>
   <string name="hangOn">Սպասե՛ք</string>
   <string name="gameInProgress">Դուք խաղի մեջ եք %s-ի հետ։</string>
@@ -817,4 +834,5 @@
   <string name="until">Մինչև</string>
   <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
   <string name="switchSides">Փոխել կողմը</string>
+  <string name="closingAccountWithdrawAppeal">Ձեր մասնակցային հաշվի փակումը կչեղարկի Ձեր դիմումը</string>
 </resources>
