@@ -14,12 +14,13 @@ import lila.tutor.TutorCompare.{ comparisonOrdering, AnyComparison }
 import lila.insight.Result
 import lila.common.config
 
+// for simplicity, all metrics should be positive: higher is better
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[TutorRatio],
-    globalTimePressure: TutorBothValueOptions[TimePressure],
+    globalTimePressure: TutorBothValueOptions[TimePressure], // not positive! #TODO (also probably pointless)
     // how low the clock is when losing - it's a good thing
     defeatTimePressure: TutorBothValueOptions[TimePressure],
     openings: Color.Map[TutorColorOpenings],
