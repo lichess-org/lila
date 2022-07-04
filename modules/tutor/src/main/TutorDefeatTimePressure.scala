@@ -5,8 +5,12 @@ import scala.concurrent.ExecutionContext
 
 import lila.insight._
 import lila.rating.PerfType
+import lila.common.config
 
 object TutorDefeatTimePressure {
+
+  val maxGames = config.Max(10_000)
+
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] = {
@@ -31,11 +35,11 @@ object TutorDefeatTimePressure {
         import framework._
         Match($doc(F.result -> Result.Loss.id, F.perf $in perfs) ++ select) -> List(
           sort option Sort(Descending(F.date)),
-          Limit(10_000).some,
+          Limit(maxGames.value).some,
           Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))).some,
           UnwindField(F.moves).some,
           Project($doc(F.perf -> true, "tp" -> s"$$${F.moves}.s")).some,
-          GroupField(F.perf)("tp" -> AvgField("tp"), "nb" -> SumAll).some
+          GroupField(F.perf)("tp" -> Avg($doc("$divide" -> $arr("$tp", 10))), "nb" -> SumAll).some
         ).flatten
       }
     }

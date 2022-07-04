@@ -20,11 +20,11 @@ case class TutorPerfReport(
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[TutorRatio],
     globalTimePressure: TutorBothValueOptions[TimePressure],
+    // how low the clock is when losing - it's a good thing
     defeatTimePressure: TutorBothValueOptions[TimePressure],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
-    // lossByFlag: TutorBothValueOptions[TutorRatio]
 ) {
   lazy val estimateTotalTime: Option[FiniteDuration] = (perf != PerfType.Correspondence) option stats.time * 2
 
