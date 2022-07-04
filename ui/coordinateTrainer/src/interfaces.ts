@@ -1,6 +1,6 @@
 export type ColorChoice = Color | 'random';
 
-export type TimeControlChoice = 'noTime' | 'thirtySeconds' | 'oneMinute';
+export type TimeControl = 'untimed' | 'thirtySeconds';
 
 export type Mode = 'findSquare' | 'nameSquare';
 
