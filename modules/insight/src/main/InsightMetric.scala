@@ -60,7 +60,7 @@ object InsightMetric {
         Move,
         Move,
         Percent,
-        """Accuracy of your moves. Higher is better."""
+        InsightDimension.AccuracyPercentRange.description
       )
 
   case object Movetime

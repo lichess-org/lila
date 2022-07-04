@@ -52,7 +52,7 @@ object BSONHandlers {
   )
   implicit val WinPercentEvalRangeBSONHandler = tryHandler[WinPercentRange](
     { case BSONInteger(v) => WinPercentRange.byId get v toTry s"Invalid Win% range $v" },
-    e => BSONInteger(e.id)
+    e => BSONInteger(e.winPercent)
   )
   implicit val TimePressureRangeBSONHandler = tryHandler[TimePressureRange](
     { case BSONInteger(v) => TimePressureRange.byId get v toTry s"Invalid time pressure range $v" },
@@ -75,6 +75,11 @@ object BSONHandlers {
   implicit val CplRangeBSONHandler = tryHandler[CplRange](
     { case BSONInteger(v) => CplRange.byId get v toTry s"Invalid CPL range $v" },
     e => BSONInteger(e.cpl)
+  )
+
+  implicit val AccuracyPercentRangeBSONHandler = tryHandler[AccuracyPercentRange](
+    { case BSONInteger(v) => AccuracyPercentRange.byId get v toTry s"Invalid Acc% range $v" },
+    a => BSONInteger(a.accuracyPercent)
   )
 
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]

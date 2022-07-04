@@ -76,6 +76,21 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               )
             )
           }
+        lazy val accuracyPercentIdDispatcher =
+          $doc(
+            "$multiply" -> $arr(
+              10,
+              $doc("$toInt" -> $arr($doc("$divide" -> $arr(s"$$${F.moves("a")}", 100))))
+            )
+          )
+        lazy val winPercentIdDispatcher =
+          $doc(
+            "$multiply" -> $arr(
+              10,
+              $doc("$toInt" -> $arr($doc("$divide" -> $arr(s"$$${F.moves("w")}", 100))))
+            )
+          )
+
         lazy val materialIdDispatcher = $doc(
           "$cond" -> $arr(
             $doc("$eq" -> $arr("$" + F.moves("i"), 0)),
@@ -98,16 +113,6 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               "$cond" -> $arr(
                 $doc("$lt" -> $arr("$" + F.moves("e"), ev.eval)),
                 ev.id,
-                acc
-              )
-            )
-          }
-        lazy val winPercentIdDispatcher =
-          WinPercentRange.all.init.foldLeft[BSONValue](BSONInteger(1)) { case (acc, ev) =>
-            $doc(
-              "$cond" -> $arr(
-                $doc("$gt" -> $arr("$" + F.moves("w"), ev.winPercent)),
-                ev.id + 1,
                 acc
               )
             )
@@ -137,14 +142,15 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           }
         def dimensionGroupId(dim: InsightDimension[_]): BSONValue =
           dim match {
-            case InsightDimension.MovetimeRange     => movetimeIdDispatcher
-            case InsightDimension.CplRange          => cplIdDispatcher
-            case InsightDimension.MaterialRange     => materialIdDispatcher
-            case InsightDimension.EvalRange         => evalIdDispatcher
-            case InsightDimension.WinPercentRange   => winPercentIdDispatcher
-            case InsightDimension.TimeVariance      => timeVarianceIdDispatcher
-            case InsightDimension.TimePressureRange => timePressureIdDispatcher
-            case d                                  => BSONString("$" + d.dbKey)
+            case InsightDimension.MovetimeRange        => movetimeIdDispatcher
+            case InsightDimension.CplRange             => cplIdDispatcher
+            case InsightDimension.AccuracyPercentRange => accuracyPercentIdDispatcher
+            case InsightDimension.MaterialRange        => materialIdDispatcher
+            case InsightDimension.EvalRange            => evalIdDispatcher
+            case InsightDimension.WinPercentRange      => winPercentIdDispatcher
+            case InsightDimension.TimeVariance         => timeVarianceIdDispatcher
+            case InsightDimension.TimePressureRange    => timePressureIdDispatcher
+            case d                                     => BSONString("$" + d.dbKey)
           }
         sealed trait Grouping
         object Grouping {
@@ -220,11 +226,12 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
           } ::: dimension.ap {
-            case D.TimeVariance    => List($doc(F.moves("v") $exists true))
-            case D.CplRange        => List($doc(F.moves("c") $exists true))
-            case D.EvalRange       => List($doc(F.moves("e") $exists true))
-            case D.WinPercentRange => List($doc(F.moves("w") $exists true))
-            case _                 => List.empty[Bdoc]
+            case D.TimeVariance         => List($doc(F.moves("v") $exists true))
+            case D.CplRange             => List($doc(F.moves("c") $exists true))
+            case D.AccuracyPercentRange => List($doc(F.moves("a") $exists true))
+            case D.EvalRange            => List($doc(F.moves("e") $exists true))
+            case D.WinPercentRange      => List($doc(F.moves("w") $exists true))
+            case _                      => List.empty[Bdoc]
           } ::: metric.ap {
             case InsightMetric.MeanAccuracy => List($doc(F.moves("a") $exists true))
             case _                          => List.empty[Bdoc]

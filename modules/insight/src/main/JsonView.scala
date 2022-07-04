@@ -60,12 +60,13 @@ final class JsonView {
           Json.toJson(D.MovetimeRange: InsightDimension[_]),
           Json.toJson(D.TimePressureRange: InsightDimension[_]),
           Json.toJson(D.MaterialRange: InsightDimension[_]),
+          Json.toJson(D.AccuracyPercentRange: InsightDimension[_]),
           Json.toJson(D.WinPercentRange: InsightDimension[_]),
-          Json.toJson(D.Phase: InsightDimension[_]),
-          Json.toJson(D.CplRange: InsightDimension[_])
+          Json.toJson(D.Phase: InsightDimension[_])
         ) ::: {
           asMod ?? List(
             Json.toJson(D.EvalRange: InsightDimension[_]),
+            Json.toJson(D.CplRange: InsightDimension[_]),
             Json.toJson(D.Blur: InsightDimension[_]),
             Json.toJson(D.TimeVariance: InsightDimension[_])
           )
