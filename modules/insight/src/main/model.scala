@@ -264,6 +264,20 @@ object EvalRange {
   )
 }
 
+sealed class WinPercentRange(val id: Int, val name: String, val winPercent: Int)
+object WinPercentRange {
+  val all: List[WinPercentRange] = (1 to 10).toList.map { id =>
+    new WinPercentRange(id, s"${(id - 1) * 10}% to ${id * 10}%", id * 100)
+  }
+  val byId = all map { p =>
+    (p.id, p)
+  } toMap
+  def toRange(wpr: WinPercentRange): (Int, Int) = (
+    byId.get(wpr.id - 1).fold(0)(_.winPercent),
+    wpr.winPercent
+  )
+}
+
 sealed abstract class TimePressureRange(val id: Int, val name: String, val permils: Int)
 object TimePressureRange {
   case object TPR1 extends TimePressureRange(1, "No time pressure", 0)

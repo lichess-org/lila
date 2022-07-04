@@ -11,6 +11,7 @@ import scalatags.Text.all._
 import lila.common.{ LilaOpening, LilaOpeningFamily }
 import lila.db.dsl._
 import lila.rating.PerfType
+import lila.analyse.WinPercent
 
 sealed abstract class InsightDimension[A: BSONHandler](
     val key: String,
@@ -213,6 +214,15 @@ object InsightDimension {
         "Stockfish evaluation of the position, relative to the player, in centipawns."
       )
 
+  case object WinPercentRange
+      extends InsightDimension[WinPercentRange](
+        "winPercent",
+        "Winning chances",
+        F.moves("w"),
+        Move,
+        "Chances to win a position, based on Stockfish evaluation. A.k.a. Win%"
+      )
+
   case object TimePressureRange
       extends InsightDimension[TimePressureRange](
         "timePressure",
@@ -247,6 +257,7 @@ object InsightDimension {
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
       case EvalRange               => lila.insight.EvalRange.all
+      case WinPercentRange         => lila.insight.WinPercentRange.all
       case TimePressureRange       => lila.insight.TimePressureRange.all
       case Blur                    => lila.insight.Blur.all
       case TimeVariance            => lila.insight.TimeVariance.all
@@ -271,6 +282,7 @@ object InsightDimension {
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
       case EvalRange               => key.toIntOption flatMap lila.insight.EvalRange.byId.get
+      case WinPercentRange         => key.toIntOption flatMap lila.insight.WinPercentRange.byId.get
       case TimePressureRange       => key.toIntOption flatMap lila.insight.TimePressureRange.byId.get
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
@@ -302,6 +314,7 @@ object InsightDimension {
       case QueenTrade              => v.id
       case MaterialRange           => v.id
       case EvalRange               => v.id
+      case WinPercentRange         => v.id
       case TimePressureRange       => v.id
       case Blur                    => v.id
       case TimeVariance            => v.id
@@ -326,6 +339,7 @@ object InsightDimension {
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
       case EvalRange               => JsString(v.name)
+      case WinPercentRange         => JsString(v.name)
       case TimePressureRange       => JsString(v.name)
       case Blur                    => JsString(v.name)
       case TimeVariance            => JsString(v.name)
@@ -377,6 +391,17 @@ object InsightDimension {
               }
             )
         }
+      case InsightDimension.WinPercentRange =>
+        selected match {
+          case Nil => $empty
+          case many =>
+            $doc(
+              "$or" -> many.map { range =>
+                val intRange = lila.insight.WinPercentRange.toRange(range)
+                $doc(d.dbKey $gt intRange._1 $lte intRange._2)
+              }
+            )
+        }
       case InsightDimension.TimeVariance =>
         selected match {
           case Nil => $empty
@@ -398,9 +423,10 @@ object InsightDimension {
 
   def requiresAnalysis(d: InsightDimension[_]) =
     d match {
-      case CplRange  => true
-      case EvalRange => true
-      case _         => false
+      case CplRange        => true
+      case EvalRange       => true
+      case WinPercentRange => true
+      case _               => false
     }
 
   def dataTypeOf[X](d: InsightDimension[X]): String =

@@ -102,6 +102,16 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               )
             )
           }
+        lazy val winPercentIdDispatcher =
+          WinPercentRange.all.init.foldLeft[BSONValue](BSONInteger(1)) { case (acc, ev) =>
+            $doc(
+              "$cond" -> $arr(
+                $doc("$gt" -> $arr("$" + F.moves("w"), ev.winPercent)),
+                ev.id + 1,
+                acc
+              )
+            )
+          }
         lazy val timeVarianceIdDispatcher =
           TimeVariance.all.reverse
             .drop(1)
@@ -131,6 +141,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             case InsightDimension.CplRange          => cplIdDispatcher
             case InsightDimension.MaterialRange     => materialIdDispatcher
             case InsightDimension.EvalRange         => evalIdDispatcher
+            case InsightDimension.WinPercentRange   => winPercentIdDispatcher
             case InsightDimension.TimeVariance      => timeVarianceIdDispatcher
             case InsightDimension.TimePressureRange => timePressureIdDispatcher
             case d                                  => BSONString("$" + d.dbKey)
@@ -209,13 +220,14 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
           } ::: dimension.ap {
-            case D.TimeVariance => List($doc(F.moves("v") $exists true))
-            case D.CplRange     => List($doc(F.moves("c") $exists true))
-            case D.EvalRange    => List($doc(F.moves("e") $exists true))
-            case _              => List.empty[Bdoc]
+            case D.TimeVariance    => List($doc(F.moves("v") $exists true))
+            case D.CplRange        => List($doc(F.moves("c") $exists true))
+            case D.EvalRange       => List($doc(F.moves("e") $exists true))
+            case D.WinPercentRange => List($doc(F.moves("w") $exists true))
+            case _                 => List.empty[Bdoc]
           } ::: metric.ap {
             case InsightMetric.MeanAccuracy => List($doc(F.moves("a") $exists true))
-            case _                   => List.empty[Bdoc]
+            case _                          => List.empty[Bdoc]
           }).some.filterNot(_.isEmpty) map Match.apply
 
         def projectForMove: Option[PipelineOperator] =
@@ -231,9 +243,10 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             fieldExistsMatcher ++
             (InsightMetric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
               .??($doc(F.analysed -> true)) ++
-            (InsightMetric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension)).?? {
-              $doc(F.provisional $ne true)
-            }
+            (InsightMetric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension))
+              .?? {
+                $doc(F.provisional $ne true)
+              }
         ) -> {
           sortDate ::: limitGames :: (metric.ap {
             case M.MeanCpl =>
