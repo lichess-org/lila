@@ -280,11 +280,11 @@ object WinPercentRange {
 
 sealed abstract class TimePressureRange(val id: Int, val name: String, val permils: Int)
 object TimePressureRange {
-  case object TPR1 extends TimePressureRange(1, "No time pressure", 0)
-  case object TPR2 extends TimePressureRange(2, "Light time pressure", 500)
-  case object TPR3 extends TimePressureRange(3, "Medium time pressure", 750)
-  case object TPR4 extends TimePressureRange(4, "Heavy time pressure", 900)
-  case object TPR5 extends TimePressureRange(5, "About to flag", 970)
+  case object TPR1 extends TimePressureRange(1, ">50% time left", 0)
+  case object TPR2 extends TimePressureRange(2, "25% to 50% time left", 500)
+  case object TPR3 extends TimePressureRange(3, "10% to 25% time left", 750)
+  case object TPR4 extends TimePressureRange(4, "3% to 10% time left", 900)
+  case object TPR5 extends TimePressureRange(5, "<3% time left", 970)
   val all: List[TimePressureRange] = List(TPR1, TPR2, TPR3, TPR4, TPR5)
   val byId = all map { p =>
     (p.id, p)
