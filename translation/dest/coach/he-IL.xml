@@ -3,7 +3,7 @@
   <string name="lichessCoaches">מאמנים ב-lichess</string>
   <string name="lichessCoach">מאמן ב-lichess</string>
   <string name="areYouCoach">האם אתה מאמן שחמט מעולה בדרגת %s?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">אמן או אמן בכיר</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">אמן לאומי או אחת מדרגות FIDE</string>
   <string name="confirmTitle">אשר את דרגתך כאן ואנו נסקור את בקשתך.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">שלח לנו אימייל בכתובת %s ואנו נסקור את בקשתך.</string>
   <string name="location">מיקום</string>
@@ -31,7 +31,7 @@
     <item quantity="other">ביקורות %s תלמידים</item>
   </plurals>
   <string name="thankYouForReview">תודה לך על הביקורת!</string>
-  <string name="xWillApproveIt">%s יאשר זאת בהקדם, או מנהל יסתכל על זה.</string>
-  <string name="reviewCoach">דרג את מאמן זה</string>
+  <string name="xWillApproveIt">%s יאשר זאת בהקדם, או שמנהל יסתכל על זה.</string>
+  <string name="reviewCoach">כתוב הערה על מאמן זה</string>
   <string name="describeExperienceWith">תאר את חוויית הלמידה שלך עם %s</string>
 </resources>
