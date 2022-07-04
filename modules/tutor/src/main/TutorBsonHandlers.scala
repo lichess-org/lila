@@ -66,8 +66,7 @@ private object TutorBsonHandlers {
 
   implicit val phaseHandler = Macros.handler[TutorPhase]
 
-  import TutorPerfReport.Flagging
-  implicit val flaggingHandler = Macros.handler[Flagging]
+  implicit val flaggingHandler = Macros.handler[TutorFlagging]
   // implicit val phasesHandler = Macros.handler[TutorPhases]
 
   // implicit val perfReportHandler = Macros.handler[TutorPerfReport]
