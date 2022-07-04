@@ -73,8 +73,8 @@ object bits extends Context.ToLang {
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lishogi-streamer-community")(
         "Streamer community"
       ),
-       */
       a(href := "/about")(downloadKit())
+      */
     )
 
   def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
