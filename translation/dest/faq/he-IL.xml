@@ -98,7 +98,7 @@
   <string name="ownerUniqueTrophies">הגביע הזה הוא ייחודי בהיסטוריה של ליצ׳ס, אף אחד מלבד %1$s לא יזכה בו.</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
   <string name="aHourlyBulletTournament">טורניר הקליע השעתי</string>
-  <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
+  <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שאם יצליח לעשות זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
   <string name="ratingSystemUsedByLichess">הדירוג מחושב באמצעות שיטת Glicko-2 שפותחה על ידי מארק גליקמן. זו שיטת דירוג מאוד פופולארית שגופי שחמט רבים עושים בה שימוש (FIDE היא יוצאת מן הכלל ומשתמשת בשיטת Elo).
@@ -110,9 +110,9 @@
   <string name="provisionalRatingExplanation">משמעות סימן השאלה היא שהדירוג זמני. הסיבות לכך כוללות:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">השחקן לא השלים מספיק משחקים מדורגים נגד %1$s בקטגוריית הדירוג.</string>
   <string name="similarOpponents">יריבים ברמה דומה</string>
-  <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
+  <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. כתלות במספר המשחקים ששיחקת, יתכן שכעבור שנה של חוסר פעילות הדירוג יהפוך שוב לזמני.</string>
   <string name="ratingDeviationMorethanOneHundredTen">באופן קונקרטי, הדירוג זמני אם הסטייה שלו גדולה מ-110. זוהי רמת הוודאות שלנו באשר לדירוגך. כלל שהסטייה יותר נמוכה, דירוגך יציב יותר.</string>
-  <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
+  <string name="howDoLeaderoardsWork">איך דירוג וטבלאות דירוג עובדים?</string>
   <string name="inOrderToAppearsYouMust">כדי להעפיל ל%1$s עליך:</string>
   <string name="ratingLeaderboards">טבלת הדירוג</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">לשחק לפחות 30 משחקים מדורגים בקטגוריית הדירוג</string>
@@ -128,7 +128,7 @@
   <string name="enableZenMode">הפעל את מצב זן ב-%1$s או על ידי הקשה על %2$s במהלך משחק.</string>
   <string name="displayPreferences">הגדרות תצוגה</string>
   <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא מצדך או מצדנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא אצלך או אצלנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
   <string name="howToThreeDots">כיצד...</string>
   <string name="enableDisableNotificationPopUps">הפעל או חסום התראות קופצות?</string>
   <string name="viewSiteInformationPopUp">צפה בחלון הקופץ המכיל מידע על האתר</string>
