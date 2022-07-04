@@ -33,6 +33,8 @@ case class TutorPerfReport(
     defeatTimePressure: TutorBothValueOptions[TimePressure],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase]
+    // flagging: TutorPerfReport.Flagging
+    // lossByFlag: TutorBothValueOptions[TutorRatio]
 ) {
   lazy val estimateTotalTime: Option[FiniteDuration] = (perf != PerfType.Correspondence) option stats.time * 2
 
@@ -88,6 +90,11 @@ case class TutorPerfReport(
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
 }
 
+object TutorPerfReport {
+
+  case class Flagging(win: TutorBothValueOptions[TutorRatio], loss: TutorBothValueOptions[TutorRatio])
+}
+
 private object TutorPerfs {
 
   import TutorBuilder._
@@ -107,6 +114,7 @@ private object TutorPerfs {
     awareness      <- answerManyPerfs(awarenessQuestion, users)
     pressure       <- answerManyPerfs(timePressureQuestion, users)
     defeatPressure <- computeDefeatTimePressure(users)
+    // flags          <- computeFlags(users)
     perfReports <- users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
@@ -120,6 +128,7 @@ private object TutorPerfs {
         defeatTimePressure = defeatPressure valueMetric user.perfType map TimePressure.fromPercent,
         openings,
         phases
+        // winByFlag = flags valueMetric user.perfType map TutorRatio.fromPercent
       )
     }.sequenceFu
 
@@ -166,4 +175,20 @@ private object TutorPerfs {
         .monSuccess(_.tutor.askPeer(question.monKey, "all"))
     } yield Answers(mine, peer)
   }
+
+  // private def computeFlags(
+  //     users: NonEmptyList[TutorUser]
+  // )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[TutorPerfReport.Flagging] = for {
+  //   mine <- insightApi
+  //     .ask(
+  //       Question(InsightDimension.Perf, InsightMetric.Result) filter TutorBuilder.perfsFilter(
+  //         users.toList.map(_.perfType)
+  //       ),
+  //       users.head.user,
+  //       withPovs = false
+  //     )
+  //     .map { answer =>
+  //       TutorBothValueOptions(
+  //     }
+  // } yield TutorPerfReport.Flagging(mine, mine) // TODO peers
 }
