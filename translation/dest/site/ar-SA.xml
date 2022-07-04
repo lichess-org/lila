@@ -444,11 +444,9 @@
   <string name="apply">قبول</string>
   <string name="save">حفظ</string>
   <string name="leaderboard">أفضل اللاعبين</string>
-  <string name="screenshotCurrentPosition">وضع لقطة الشاشة الحالي</string>
-  <string name="gameAsGIF">حفظ كصورة GIF</string>
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
-  <string name="orUploadPgnFile">أو تحميل ملف PGN</string>
+  <string name="orUploadPgnFile">أو حمل مِلف PGN</string>
   <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
   <string name="toStudy">دراسة</string>
@@ -544,6 +542,8 @@
   <string name="tournamentIsStarting">بدأت المسابقة</string>
   <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
   <string name="standByX">إستعد، يتم إزواج اللاعبين، تأهب يا %s!</string>
+  <string name="pause">الإيقاف المؤقت</string>
+  <string name="resume">استئناف</string>
   <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
   <string name="berserkRate">معدل المخاطرة</string>
@@ -624,6 +624,7 @@
   <string name="reportDescriptionHelp">الصق رابط المباراة (المباريات) واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. لا تقل فقط \"انهم يغشون\"، ولكن اشرح لنا سبب استنتاجك. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
   <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
   <string name="by">كتبها %s</string>
+  <string name="importedByX">استيراد \'%s\'</string>
   <string name="thisTopicIsNowClosed">هذا الموضوع مغلق الآن.</string>
   <string name="blog">المدونة</string>
   <string name="notes">ملاحظات</string>
