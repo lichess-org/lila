@@ -3,27 +3,27 @@
   <string name="faqAbbreviation">שאלות נפוצות</string>
   <string name="frequentlyAskedQuestions">שאלות נפוצות</string>
   <string name="whyIsLichessCalledLichess">למה ליצ\'ס נקרא ליצ\'ס?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">ליצ\'ס הוא שילוב של חי/אור/ליברה ושחמט. זה מבוטא %1$s.</string>
-  <string name="leechess">לי-צ\'ס</string>
-  <string name="hearItPronouncedBySpecialist">שמע אותו מבוטא על ידי מומחה.</string>
-  <string name="whyLiveLightLibre">בשידור חי, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7; קל וחומר על כך שליצ\'ס היא קוד פתוח ובלתי פוסק על ידי זבל קנייני שמצוי באתרים אחרים.</string>
-  <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של ליצ\'ס, %1$s מהווה li[chess in sca]la, שכן הרוב של ליצ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">ליצ׳ס הוא הלחם של Live, Light, Libre - חיים, אור וחופש; ו־Chess - שחמט. מבטאים זאת כך: %1$s.</string>
+  <string name="leechess">לִיצֶ\'ס </string>
+  <string name="hearItPronouncedBySpecialist">שמעו מומחה מבטא ״Lichess\".</string>
+  <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך שליצ\'ס הוא open source ולא פושה בו זבל מסחרי כמו באתרים אחרים.</string>
+  <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של ליצ\'ס, %1$s הוא קיצור של li[chess in sca]la, שכן רוב הקוד של ליצ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
   <string name="howCanIContributeToLichess">כיצד אוכל לתרום לליצ\'ס?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">ליצ\'ס מופעל על ידי תרומות מצד תומכים ומאמצי צוות מתנדבים.</string>
-  <string name="findMoreAndSeeHowHelp">תוכל למצוא עוד על %1$s (בנוסף ל%2$s). אם אתה מעוניין לעזור לליצ\'ס ע\"י נידוב זמנך וכישוריך, ישנן הרבה %3$s.</string>
+  <string name="findMoreAndSeeHowHelp">תוכל לקרוא עוד על %1$s (בנוסף ל%2$s). אם אתה מעוניין לעזור לליצ\'ס ע\"י נידוב זמנך וכישוריך, ישנן הרבה %3$s.</string>
   <string name="beingAPatron">להיות תומך</string>
   <string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
   <string name="otherWaysToHelp">דרכים אחרות לעזור</string>
   <string name="areThereWebsitesBasedOnLichess">האם ישנם אתרים המבוססים על ליצ\'ס?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">כן. ליצ\'ס אכן עורר השראה לאתרי קוד פתוח אחרים המשתמשים באתר שלנו %1$s, %2$s, או %3$s.</string>
-  <string name="fairPlay">שחק הגון</string>
+  <string name="fairPlay">משחק הוגן</string>
   <string name="whenAmIEligibleRatinRefund">מתי אני זכאי להחזר הדירוג האוטומטי מהפסד לרמאים?</string>
   <string name="ratingRefundExplanation">דקה לאחר סימון שחקן, 40 המשחקים האחרונים שדורגו ב -3 הימים האחרונים נלקחים. אם אתה היריב שלהם במשחקים ההם, איבדת דירוג (בגלל הפסד או תיקו), והדירוג שלך לא היה זמני, תקבל החזר דירוג. ההחזר מושבת על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
    (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל החזר או רק החזר חלקי.) ההחזר לעולם לא יעלה על 150 נקודות.</string>
   <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
   <string name="leavingGameWithoutResigningExplanation">אם יריבך מבטל/עוזב משחקים לעתים קרובות, הוא \"יושעה ממשחקים\", מה שאומר שנאסר עליו באופן זמני לשחק. זה לא מצוין באופן פומבי בפרופיל שלהם. אם התנהגות זו ממשיכה, אורך ההשעיה עולה - והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלהם.</string>
   <string name="howCanIBecomeModerator">איך אני יכול/ה להיות מנהל?</string>
-  <string name="youCannotApply">לא ניתן להגיש בקשה להיות עורך. אם אנו רואים מישהו שלדעתנו יהיה טוב כעורך, אנו ניצור עימו קשר ישירות.</string>
+  <string name="youCannotApply">לא ניתן להגיש בקשה להיות מנהל. אם אנו רואים מישהו שלדעתנו יהיה טוב כמנהל, אנו ניצור עימו קשר ישירות.</string>
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="pleaseReadFairPlayPage">לקבלת מידע נוסף, בבקשה קראו את ה-%s שלנו</string>
   <string name="fairPlayPage">עלון ההסבר על משחק הוגן</string>
@@ -53,51 +53,51 @@
 
 שים לב שניתן יהיה לעשות מט עם פרש או רץ יחיד אם ליריב יש כלי או חייל שיכול לחסום את המלך.</string>
   <string name="fideHandbookX">מפרט חוקי פיד״ה סעיף %s</string>
-  <string name="discoveringEnPassant">למה רגלי יכול לאכול רגלי אחר כאשר הוא כבר עבר? (אגב הילוכו)</string>
-  <string name="explainingEnPassant">זהו מסע חוקי הידוע בכינויו \"דרך/אגב הילוכו. הערך הויקיפדי נותן %1$s. 
+  <string name="discoveringEnPassant">למה רגלי יכול לאכול רגלי אחר כאשר הוא כבר עבר? (הכאה דרך הילוכו)</string>
+  <string name="explainingEnPassant">זהו מסע חוקי הידוע בכינויו \"הכאה דרך הילוכו״. הערך הויקיפדי נותן %1$s. 
 
-זה מוסבר בסעיף 3.7 ד\' של ה%2$s:
+זה מוסבר בסעיף 3.7 ד\' של %2$s:
 
-\"רגלי, התופס ערוגה באותה שורה ובטור סמוך שעליהם עומד רגלי יריב  שזה עתה התקדם שתי ערוגות במסע אחד מערוגתו המקורית, יכול להכות רגלי יריב זה כאילו זה האחרון נסע ערוגה אחת בלבד. הכאה זו הינה חוקית רק במסע הבא לאחר התקדמות זו והיא מכונה \"אגב הילוכו\".\"
+\"רגלי, התופס ערוגה באותה שורה ובטור סמוך שעליהם עומד רגלי יריב שזה עתה התקדם שתי ערוגות במסע אחד מערוגתו המקורית, יכול להכות רגלי יריב זה כאילו זה האחרון נסע ערוגה אחת בלבד. הכאה זו הינה חוקית רק במסע הבא לאחר התקדמות זו והיא מכונה \"דרך הילוכו\".
 
-ראה את ה%3$s במהלך זה בשביל קצת אימון.</string>
+ראה את %3$s במהלך זה בשביל קצת אימון.</string>
   <string name="goodIntroduction">הקדמה טובה</string>
   <string name="lichessTraining">אימון בליצ\'ס</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
   <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
   <string name="notRepeatedMoves">לא חזרנו על מהלכים, מדוע המשחק הסתיים בתיקו ע\"י חזרתיות?</string>
-  <string name="repeatedPositionsThatMatters">חזרה משולש מתיחסת ל%1$s, לא תורות. החזרות אינן חייבות להתקיים ברצף.</string>
+  <string name="repeatedPositionsThatMatters">חזרה משולש מתייחסת ל%1$s, לא תורות. החזרות אינן חייבות להתקיים ברצף.</string>
   <string name="positions">עמדות</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
   <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s את ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
-  <string name="configure">קביעת תצורה</string>
+  <string name="configure">לקבוע את תצורת</string>
   <string name="accounts">חשבונות</string>
-  <string name="titlesAvailableOnLichess">איזה תארים יש בLichess?</string>
+  <string name="titlesAvailableOnLichess">אילו תארים יש בLichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess מכיר בכל דרגות FIDE למשחק על גבי לוח, כמו גם %1$s. הנה רשימה של דרגות FIDE:</string>
-  <string name="showYourTitle">אם יש לך תואר OTB, תוכל להגיש בקשה להצגה בחשבונך על ידי מילוי ה-%1$s, כולל תמונה ברורה של מסמך/כרטיס מזהה וצילום סלפי שלך אוחז במסמך/כרטיס.
+  <string name="showYourTitle">אם יש לך תואר ממשחק על גבי לוח, תוכל להגיש בקשה להצגה בחשבונך על ידי מילוי %1$s, כולל תמונה ברורה של מסמך/כרטיס מזהה וצילום סלפי שלך אוחז במסמך/כרטיס.
 
-אימות כשחקן בעל התואר בליצ\'ס נותן גישה לשחק בטורנירי זירה לשחקנים מוכתרים.
+אימות כשחקן עם תואר בליצ\'ס נותן גישה לטורנירי זירה לשחקנים כאלה.
 
 לבסוף יש תואר כבוד %2$s.</string>
   <string name="asWellAsManyNMtitles">תארי אמן של מדינות רבות</string>
-  <string name="verificationForm">טופס אימות</string>
+  <string name="verificationForm">טופס האימות</string>
   <string name="canIbecomeLM">האם אני יכול לקבל את דרגת ״אמן ליצ׳ס״ (LM)?</string>
   <string name="noUpperCaseDot">לא.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">הדרגה הלא רשמית הזו היא לשם כבוד וקיימת ב-Lichess בלבד. 
 
-אנו מעניקים אותה לשחקנים ראויים לציון שמפגינים אזרחות טובה ב-Lichess, על פי שיקול דעתנו. אם הינך זכאי לדרגה זו, תקבל מאיתנו הודעה בנידון עם אפשרות לאשר או לדחות את ההצעה. 
+אנו מעניקים אותה לשחקנים ראויים לציון שמפגינים אזרחות טובה ב-Lichess, על פי שיקול דעתנו. אם אתה זכאי לדרגה זו, תקבל מאיתנו הודעה בנידון עם אפשרות לאשר או לדחות את ההצעה. 
 
 נא לא לבקש את דרגת LM.</string>
   <string name="whatUsernameCanIchoose">מה יכול להיות שם המשתמש שלי?</string>
-  <string name="usernamesNotOffensive">ככלל, על שמות משתמש לא להיות פוגעניים, להכיל תוכן שיווקי או להתחזות לאדם אחר. ניתן לקרוא עוד על ה-%1$s.</string>
+  <string name="usernamesNotOffensive">ככלל, על שמות משתמש לא להיות פוגעניים, להכיל תוכן שיווקי או להתחזות לאדם אחר. ניתן לקרוא עוד על ה%1$s.</string>
   <string name="guidelines">הנחיות</string>
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
   <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים ודוחות. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
   <string name="uniqueTrophies">גביעים ייחודיים</string>
   <string name="ownerUniqueTrophies">הגביע הזה הוא ייחודי בהיסטוריה של ליצ׳ס, אף אחד מלבד %1$s לא יזכה בו.</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
-  <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
+  <string name="aHourlyBulletTournament">טורניר הקליע השעתי</string>
   <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
