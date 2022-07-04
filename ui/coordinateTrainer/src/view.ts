@@ -4,7 +4,7 @@ import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import { ColorChoice, TimeControl, Mode, CoordModifier } from './interfaces';
 
-function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
+const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode => {
   const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
   return h(
     'div.scores',
@@ -29,7 +29,7 @@ function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
         : null
     )
   );
-}
+};
 
 const colors: [ColorChoice, string][] = [
   ['black', 'asBlack'],
@@ -42,7 +42,7 @@ const timeControls: [TimeControl, string][] = [
   ['thirtySeconds', '0:30'],
 ];
 
-function side(ctrl: CoordinateTrainerCtrl): VNode {
+const side = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans } = ctrl;
 
   const sideContent: MaybeVNode[] = [h('div.box', h('h1', trans('coordinates')))];
@@ -159,9 +159,9 @@ function side(ctrl: CoordinateTrainerCtrl): VNode {
   if (ctrl.isAuth && ctrl.hasModeScores()) sideContent.push(h('div.box', scoreCharts(ctrl)));
 
   return h('div.side', sideContent);
-}
+};
 
-function board(ctrl: CoordinateTrainerCtrl): VNode {
+const board = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.main-board', [
     ctrl.playing && ctrl.mode === 'findSquare'
       ? h(
@@ -189,9 +189,9 @@ function board(ctrl: CoordinateTrainerCtrl): VNode {
       : null,
     chessground(ctrl),
   ]);
-}
+};
 
-function explanation(ctrl: CoordinateTrainerCtrl): VNode {
+const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans } = ctrl;
   return h('div.explanation', [
     h('p', trans('knowingTheChessBoard')),
@@ -203,9 +203,9 @@ function explanation(ctrl: CoordinateTrainerCtrl): VNode {
     h('strong', trans(ctrl.mode)),
     h('p', trans(ctrl.mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted')),
   ]);
-}
+};
 
-function table(ctrl: CoordinateTrainerCtrl): VNode {
+const table = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.table', [
     ctrl.hasPlayed ? null : explanation(ctrl),
     ctrl.playing
@@ -218,16 +218,16 @@ function table(ctrl: CoordinateTrainerCtrl): VNode {
           ctrl.trans('startTraining')
         ),
   ]);
-}
+};
 
-function progress(ctrl: CoordinateTrainerCtrl): VNode {
+const progress = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h(
     'div.progress',
     ctrl.hasPlayed ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } }) : null
   );
-}
+};
 
-function coordinateInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
+const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
   const coordinateInput = [
     h(
       'div.keyboard-container',
@@ -278,10 +278,10 @@ function coordinateInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
         ctrl.coordinateInputMethod === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
       );
   return ctrl.mode === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput, inputMethodSwitcher]) : null;
-}
+};
 
-export default function (ctrl: CoordinateTrainerCtrl): VNode {
-  return h(
+const view = (ctrl: CoordinateTrainerCtrl): VNode =>
+  h(
     'div.trainer',
     {
       class: {
@@ -290,4 +290,5 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
     },
     [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), coordinateInput(ctrl)]
   );
-}
+
+export default view;
