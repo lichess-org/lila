@@ -2,28 +2,28 @@
 <resources>
   <string name="justNow">בדיוק עכשיו</string>
   <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
-    <item quantity="one">תוך שניה %s</item>
-    <item quantity="two">תוך %s שניות</item>
-    <item quantity="many">תוך %s שניות</item>
-    <item quantity="other">תוך %s שניות</item>
+    <item quantity="one">עוד שנייה</item>
+    <item quantity="two">עוד %s שניות</item>
+    <item quantity="many">עוד %s שניות</item>
+    <item quantity="other">עוד %s שניות</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">תוך %s דקות</item>
-    <item quantity="two">תוך %s דקה</item>
-    <item quantity="many">תוך %s דקה</item>
-    <item quantity="other">תוך %s דקות</item>
+    <item quantity="one">עוד דקה</item>
+    <item quantity="two">עוד %s דקות</item>
+    <item quantity="many">עוד %s דקות</item>
+    <item quantity="other">עוד %s דקות</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">תוך %s שעה</item>
-    <item quantity="two">תוך %s שעות</item>
-    <item quantity="many">תוך %s שעות</item>
-    <item quantity="other">תוך %s שעות</item>
+    <item quantity="one">עוד %s שעה</item>
+    <item quantity="two">עוד %s שעות</item>
+    <item quantity="many">עוד %s שעות</item>
+    <item quantity="other">עוד %s שעות</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">תוך %s יום</item>
-    <item quantity="two">תוך %s ימים</item>
-    <item quantity="many">תוך %s ימים</item>
-    <item quantity="other">תוך %s ימים</item>
+    <item quantity="one">עוד %s יום</item>
+    <item quantity="two">עוד %s ימים</item>
+    <item quantity="many">עוד %s ימים</item>
+    <item quantity="other">עוד %s ימים</item>
   </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">%s שבוע</item>
@@ -32,16 +32,16 @@
     <item quantity="other">בעוד כ %s שבועות</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">תוך %s חודש</item>
-    <item quantity="two">תוך %s חודשים</item>
-    <item quantity="many">תוך %s חודשים</item>
-    <item quantity="other">תוך %s חודשים</item>
+    <item quantity="one">עוד חודש %s</item>
+    <item quantity="two">עוד %s חודשים</item>
+    <item quantity="many">עוד %s חודשים</item>
+    <item quantity="other">עוד %s חודשים</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">תוך %s שנה</item>
-    <item quantity="two">תוך %s שנים</item>
-    <item quantity="many">תוך %s שנים</item>
-    <item quantity="other">תוך %s שנים</item>
+    <item quantity="one">עוד %s שנה</item>
+    <item quantity="two">עוד %s שנים</item>
+    <item quantity="many">עוד %s שנים</item>
+    <item quantity="other">עוד %s שנים</item>
   </plurals>
   <string name="rightNow">עכשיו</string>
   <plurals name="nbSecondsAgo">
