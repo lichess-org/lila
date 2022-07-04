@@ -99,11 +99,11 @@ private object TutorPerfs {
     awareness      <- answerManyPerfs(awarenessQuestion, users)
     pressure       <- answerManyPerfs(timePressureQuestion, users)
     defeatPressure <- TutorDefeatTimePressure compute users
-    flagging       <- TutorFlagging compute users
     perfReports <- users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
         phases   <- TutorPhases compute user
+        flagging <- TutorFlagging compute user
       } yield TutorPerfReport(
         user.perfType,
         user.perfStats,
@@ -113,10 +113,7 @@ private object TutorPerfs {
         defeatTimePressure = defeatPressure valueMetric user.perfType map TimePressure.fromPercent,
         openings,
         phases,
-        flagging = flagging.getOrElse(
-          user.perfType,
-          TutorFlagging(TutorBothValueOptions(none, none), TutorBothValueOptions(none, none))
-        )
+        flagging
       )
     }.sequenceFu
 
