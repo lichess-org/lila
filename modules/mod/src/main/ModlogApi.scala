@@ -191,12 +191,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       ) indexAs "team"
     }
 
-  def disableTeam(mod: User.ID, id: String, explain: String) =
+  def toggleTeam(mod: User.ID, id: String, closing: Boolean, explain: String) =
     add {
       Modlog(
         mod,
         none,
-        Modlog.disableTeam,
+        if (closing) Modlog.disableTeam else Modlog.enableTeam,
         details = s"$id: ${explain take 200}".some
       ) indexAs "team"
     }

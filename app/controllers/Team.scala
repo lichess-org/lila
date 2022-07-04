@@ -233,7 +233,7 @@ final class Team(
             _ => funit,
             explain =>
               api.toggleEnabled(team, me, explain) >> {
-                team.enabled ?? env.mod.logApi.disableTeam(me.id, team.id, explain)
+                env.mod.logApi.toggleTeam(me.id, team.id, team.enabled, explain)
               }
           )
       } inject Redirect(routes.Team show id).flashSuccess
