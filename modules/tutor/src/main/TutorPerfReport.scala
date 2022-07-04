@@ -80,7 +80,7 @@ case class TutorPerfReport(
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
 }
 
-private object TutorPerfs {
+private object TutorPerfReport {
 
   import TutorBuilder._
 

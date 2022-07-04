@@ -11,28 +11,42 @@ case class TutorFlagging(win: TutorBothValueOptions[TutorRatio], loss: TutorBoth
 
 object TutorFlagging {
 
+  val maxPeerGames = config.Max(10_000)
+
   private[tutor] def compute(
       user: TutorUser
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[TutorFlagging] = {
     val question = Question(InsightDimension.Result, InsightMetric.Termination) filter
-      Filter(InsightDimension.Termination, List(lila.insight.Termination.ClockFlag)) filter
       TutorBuilder.perfFilter(user.perfType)
-    def valueCountOf(answer: Answer[Result], result: Result) = answer.clusters.collectFirst {
-      case Cluster(res, _, nbGames, _) if res == result =>
-        ValueCount(TutorRatio(nbGames.toDouble / user.perfStats.totalNbGames), answer.totalSize)
-    }
     for {
-      mine <- insightApi.ask(question, user.user, withPovs = false)
-      peer <- insightApi.askPeers(question, user.perfStats.rating, nbGames = config.Max(5_000))
+      mine <- insightApi.ask(
+        question filter Filter(InsightDimension.Termination, List(lila.insight.Termination.ClockFlag)),
+        user.user,
+        withPovs = false
+      )
+      peer <- insightApi.askPeers(question, user.perfStats.rating, nbGames = maxPeerGames).thenPp
     } yield {
+      def valueCountOfMine(result: Result) =
+        mine.clusters.collectFirst {
+          case Cluster(res, _, nbGames, _) if res == result =>
+            ValueCount(TutorRatio(nbGames.toDouble / user.perfStats.totalNbGames), mine.totalSize)
+        }
+      def valueCountOfPeer(result: Result) =
+        peer.clusters.collectFirst {
+          case Cluster(res, Insight.Stacked(points), nbGames, _) if res == result =>
+            points.collectFirst {
+              case (name, point) if name == InsightMetric.MetricValueName(Termination.ClockFlag.name) =>
+                ValueCount(TutorRatio.fromPercent(point.y * nbGames / peer.totalSize), peer.totalSize)
+            }
+        }.flatten
       TutorFlagging(
         win = TutorBothValueOptions(
-          mine = valueCountOf(mine, Result.Win),
-          peer = valueCountOf(peer, Result.Win)
+          mine = valueCountOfMine(Result.Win),
+          peer = valueCountOfPeer(Result.Win)
         ),
         loss = TutorBothValueOptions(
-          mine = valueCountOf(mine, Result.Loss),
-          peer = valueCountOf(peer, Result.Loss)
+          mine = valueCountOfMine(Result.Loss),
+          peer = valueCountOfPeer(Result.Loss)
         )
       )
     }
