@@ -94,6 +94,17 @@ form.color {
   row-gap: 1em;
 }
 
+.back {
+  @extend %flex-column;
+  align-items: center;
+  margin-top: $block-gap;
+}
+
+.back-button {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
 .progress {
   @extend %box-radius;
   background-color: $c-bg-zebra;

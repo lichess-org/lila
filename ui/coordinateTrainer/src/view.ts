@@ -157,6 +157,19 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode => {
     );
   }
   if (ctrl.isAuth && ctrl.hasModeScores()) sideContent.push(h('div.box', scoreCharts(ctrl)));
+  if (ctrl.playing && ctrl.timeDisabled())
+    sideContent.push(
+      h(
+        'div.back',
+        h(
+          'a.back-button',
+          {
+            hook: bind('click', ctrl.stop),
+          },
+          `« ${trans('back')}`
+        )
+      )
+    );
 
   return h('div.side', sideContent);
 };

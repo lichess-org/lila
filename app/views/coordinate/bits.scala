@@ -39,6 +39,7 @@ object bits {
     trans.coordinates.findSquare,
     trans.coordinates.nameSquare,
     trans.storm.score,
+    trans.study.back,
     trans.time,
     trans.asWhite,
     trans.asBlack,
