@@ -444,8 +444,11 @@
   <string name="apply">قبول</string>
   <string name="save">حفظ</string>
   <string name="leaderboard">أفضل اللاعبين</string>
+  <string name="screenshotCurrentPosition">وضع لقطة الشاشة الحالي</string>
+  <string name="gameAsGIF">حفظ كصورة GIF</string>
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
+  <string name="orUploadPgnFile">أو تحميل ملف PGN</string>
   <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
   <string name="toStudy">دراسة</string>
