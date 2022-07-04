@@ -70,8 +70,14 @@ form.timeControl {
   }
 }
 
-form.mode .mode_option {
+.mode_option,
+.timeControl_option {
   width: 50%;
+}
+
+.timeControl_untimed {
+  font-size: 1.5em;
+  line-height: 1em;
 }
 
 form.color {
