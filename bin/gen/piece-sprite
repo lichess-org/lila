@@ -8,6 +8,8 @@ lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
+bidirectional = [['shogi_BnW', 'svg']]
+
 themes = [
   ['1Kanji_3D', 'svg'],
   ['2Kanji_3D', 'svg'],
@@ -32,8 +34,7 @@ themes = [
   ['Ryoko_1Kanji', 'svg'],
   ['Portella', 'png'],
   ['Portella_2Kanji', 'png'],
-  ['western', 'png'],
-  ['shogi_BnW', 'svg']
+  ['western', 'svg'],
 ]
 types = {
   'svg' => 'svg+xml;base64,',
@@ -60,6 +61,32 @@ stanRoles = {
   'UM' => 'horse'
 }
 
+def classesWithOrientation(color, role, flipped)
+  if flipped
+    if color == 'sente'
+      ".sg-wrap.orientation-gote piece.#{role}.gote,
+      .hand-bottom piece.#{role}.gote,
+      .spare-bottom piece.#{role}.gote"
+    else
+      ".sg-wrap.orientation-gote piece.#{role}.sente,
+      .hand-top piece.#{role}.sente,
+      .spare-top piece.#{role}.sente"
+    end
+  else
+    if color == 'sente'
+      "piece.#{role}.sente,
+      .sg-wrap.orientation-sente piece.#{role}.sente,
+      .hand-bottom piece.#{role}.sente,
+      .spare-bottom piece.#{role}.sente"
+    else
+      "piece.#{role}.gote,
+      .sg-wrap.orientation-sente piece.#{role}.gote,
+      .hand-top piece.#{role}.gote,
+      .spare-top piece.#{role}.gote"
+    end
+  end
+end
+
 def classes(color, role)
   if color == 'sente' # facing up
     if role == 'king'
@@ -73,8 +100,6 @@ def classes(color, role)
       .sg-wrap.orientation-sente piece.#{role}.sente,
       .sg-wrap.orientation-gote piece.#{role}.gote,
       .hand-bottom piece.#{role}.gote,
-      .e-hand-bottom piece.#{role}.gote,
-      #promotion-choice.top piece.#{role},
       .spare-bottom piece.#{role}.gote"
     end
   else # facing down
@@ -89,8 +114,6 @@ def classes(color, role)
       .sg-wrap.orientation-sente piece.#{role}.gote,
       .sg-wrap.orientation-gote piece.#{role}.sente,
       .hand-top piece.#{role},
-      .e-hand-top piece.#{role},
-      #promotion-choice.bottom piece.#{role},
       .spare-top piece.#{role}.sente"
     end
   end
@@ -117,6 +140,28 @@ themes.map { |theme|
   end
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
+bidirectional.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = ['-1', ''].map { |up|
+    colors.map { |color|
+      roles.map { |role|
+        piece = (color == 'sente' ? '0' : '1') + role + up
+        file = source_dir + name + '/' + piece + '.' + ext
+        File.open(file, 'r') do|image_file|
+          image = image_file.read
+          base64 = Base64.strict_encode64(image)
+          classesWithOrientation(color, stanRoles[role], up.length != 0) + ' {' +
+            "background-image:url('data:image/" + types[ext] + base64 + "')}"
+        end
+      }
+    }
+  }.flatten
+  if ext == 'png'
+    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+  end
+  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+}
 
 # external SVG
 themes.map { |theme|
@@ -129,5 +174,25 @@ themes.map { |theme|
         "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
     }
   }.flatten
+  if ext == 'png'
+    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+  end
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
+}
+bidirectional.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = ['-1', ''].map { |up|
+    colors.map { |color|
+      roles.map { |role|
+        piece = (color == 'sente' ? '0' : '1') + role + up
+        classesWithOrientation(color, stanRoles[role], up.length != 0) + ' {' +
+          "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"     
+      }
+    }
+  }.flatten
+  if ext == 'png'
+    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+  end
+  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
