@@ -18,6 +18,7 @@ object TutorDefeatClock {
     import lila.rating.BSONHandlers.perfTypeIdHandler
     import lila.insight.{ Insight, Cluster, Answer, InsightStorage, Point }
     import lila.insight.InsightEntry.{ BSONFields => F }
+    import lila.insight.BSONHandlers.clockPercentHandler
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
@@ -25,11 +26,11 @@ object TutorDefeatClock {
       List(Filter(InsightDimension.Perf, perfs))
     )
     def clusterParser(docs: List[Bdoc]) = for {
-      doc      <- docs
-      perf     <- doc.getAsOpt[PerfType]("_id")
-      pressure <- doc.double("tp")
-      size     <- doc.int("nb")
-    } yield Cluster(perf, Insight.Single(Point(pressure)), size, Nil)
+      doc          <- docs
+      perf         <- doc.getAsOpt[PerfType]("_id")
+      clockPercent <- doc.getAsOpt[ClockPercent]("cp")
+      size         <- doc.int("nb")
+    } yield Cluster(perf, Insight.Single(Point(clockPercent.value)), size, Nil)
     def aggregate(select: Bdoc, sort: Boolean) = insightApi.coll {
       _.aggregateList(maxDocs = Int.MaxValue) { implicit framework =>
         import framework._
@@ -38,8 +39,9 @@ object TutorDefeatClock {
           Limit(maxGames.value).some,
           Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))).some,
           UnwindField(F.moves).some,
-          Project($doc(F.perf -> true, "tp" -> s"$$${F.moves}.s")).some,
-          GroupField(F.perf)("tp" -> Avg($doc("$divide" -> $arr("$tp", 10))), "nb" -> SumAll).some
+          Project($doc(F.perf -> true, "cp" -> s"$$${F.moves}.s")).some,
+          GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll).some,
+          Project($doc(F.perf -> true, "cp" -> $doc("$toInt" -> "$cp"))).some
         ).flatten
       }
     }

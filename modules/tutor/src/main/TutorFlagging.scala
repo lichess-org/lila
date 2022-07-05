@@ -24,7 +24,7 @@ object TutorFlagging {
         user.user,
         withPovs = false
       )
-      peer <- insightApi.askPeers(question, user.perfStats.rating, nbGames = maxPeerGames).thenPp
+      peer <- insightApi.askPeers(question, user.perfStats.rating, nbGames = maxPeerGames)
     } yield {
       def valueCountOfMine(result: Result) =
         mine.clusters.collectFirst {
