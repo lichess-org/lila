@@ -55,7 +55,14 @@ final class JsonView {
       ),
       Categ(
         "Move",
-        List(
+        asMod.?? {
+          List(
+            Json.toJson(D.Blur: InsightDimension[_]),
+            Json.toJson(D.TimeVariance: InsightDimension[_]),
+            Json.toJson(D.EvalRange: InsightDimension[_]),
+            Json.toJson(D.CplRange: InsightDimension[_])
+          )
+        } ::: List(
           Json.toJson(D.PieceRole: InsightDimension[_]),
           Json.toJson(D.MovetimeRange: InsightDimension[_]),
           Json.toJson(D.ClockPercentRange: InsightDimension[_]),
@@ -63,14 +70,7 @@ final class JsonView {
           Json.toJson(D.AccuracyPercentRange: InsightDimension[_]),
           Json.toJson(D.WinPercentRange: InsightDimension[_]),
           Json.toJson(D.Phase: InsightDimension[_])
-        ) ::: {
-          asMod ?? List(
-            Json.toJson(D.EvalRange: InsightDimension[_]),
-            Json.toJson(D.CplRange: InsightDimension[_]),
-            Json.toJson(D.Blur: InsightDimension[_]),
-            Json.toJson(D.TimeVariance: InsightDimension[_])
-          )
-        }
+        )
       ),
       Categ(
         "Result",
@@ -90,18 +90,18 @@ final class JsonView {
       ),
       Categ(
         "Move",
-        List(
+        asMod.?? {
+          List(
+            Json.toJson(M.Blurs: InsightMetric),
+            Json.toJson(M.TimeVariance: InsightMetric)
+          )
+        } ::: List(
           Json.toJson(M.Movetime: InsightMetric),
           Json.toJson(M.ClockPercent: InsightMetric),
           Json.toJson(M.PieceRole: InsightMetric),
           Json.toJson(M.Material: InsightMetric),
           Json.toJson(M.NbMoves: InsightMetric)
-        ) ++ {
-          asMod ?? List(
-            Json.toJson(M.Blurs: InsightMetric),
-            Json.toJson(M.TimeVariance: InsightMetric)
-          )
-        }
+        )
       ),
       Categ(
         "Evaluation",
