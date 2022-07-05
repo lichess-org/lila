@@ -91,14 +91,12 @@ export default class {
   });
 
   makeUrl(dKey: string, mKey: string, filters: Filters) {
-    let url = [this.env.pageUrl, mKey, dKey].join('/');
-    const filtersStr = Object.keys(filters)
-      .map(function (filterKey) {
-        return filterKey + ':' + filters[filterKey].join(',');
-      })
+    const url = [this.env.pageUrl, mKey, dKey].join('/');
+    const filtersStr = Object.entries(filters)
+      .filter(([_, values]) => !!values)
+      .map(([name, values]) => name + ':' + values.join(','))
       .join('/');
-    if (filtersStr.length) url += '/' + filtersStr;
-    return url;
+    return filtersStr.length ? url + '/' + filtersStr : url;
   }
 
   makeCurrentUrl() {
@@ -141,7 +139,10 @@ export default class {
   setQuestion(q: Question) {
     this.vm.dimension = this.findDimension(q.dimension)!;
     this.vm.metric = this.findMetric(q.metric)!;
-    this.vm.filters = q.filters;
+    this.vm.filters = {
+      ...q.filters,
+      variant: this.vm.filters.variant || q.filters.variant,
+    };
     this.askQuestion();
     $(this.domElement).find('select.ms').multipleSelect('open');
     setTimeout(() => {
