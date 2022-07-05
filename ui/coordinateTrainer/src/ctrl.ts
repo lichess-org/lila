@@ -97,8 +97,8 @@ export default class CoordinateTrainerCtrl {
     if (this.mode === m) return;
     this.mode = m;
     this.saveMode();
-    this.updateCharts();
     this.redraw();
+    this.updateCharts();
   };
 
   saveMode = () => {
