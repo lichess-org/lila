@@ -10,7 +10,7 @@
   <string name="whyIsLilaCalledLila">Ähnlich ischs mit em Quällcode vu Lichess, %1$s, was für \"li[chess in sca]la\" staht. De Grossteil vu de Plattform isch ebe i dem %2$s gschribe worde. \"Scala\" isch e intuitivi Programmierschprach. Und näbebi bemerkt, isch es au offesichtlich, dass regi, verschpillti Fantasie mit gwürkt hät.</string>
   <string name="howCanIContributeToLichess">Wie chann ich zu Lichess öppis biiträge?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Schpände vu Gönner und vu Leischtige vu Freiwillige betribe und erhalte.</string>
-  <string name="findMoreAndSeeHowHelp">Du chasch meh drüber erfahre, wie du %1$s wirsch und du chasch au e %2$s aaluege. Und falls du Lichess, mit freiwilliger Arbet wottsch underschtütze, gits einigi %3$s.</string>
+  <string name="findMoreAndSeeHowHelp">Du chasch meh drüber erfahre, wie du %1$s wirsch und du chasch au e %2$s aluege. Und falls du Lichess, mit freiwilliger Arbet wottsch underschtütze, gits einigi %3$s.</string>
   <string name="beingAPatron">en Gönner</string>
   <string name="breakdownOfOurCosts">Ufschlüsselig vu euse Choschte</string>
   <string name="otherWaysToHelp">anderi Wäg z\'hälfe</string>
@@ -39,11 +39,11 @@ Zum Bischpiil berächnet sich die erwartete Schpiilduur vonere 5+3 Partie zu 5 �
   <string name="lichessSupportChessAnd">Lichess underschtützt Schtandardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvariantä</string>
   <string name="whatIsACPL">Was isch durchschnittlichä Hundertstelpuur-Verluscht (ACPL)?</string>
-  <string name="acplExplanation">De Centipuur isch im Schach es Maas, zum de Vorteil bemässe. 1 Centipuur entschpricht- oder isch 1 Hundertschtelpuur - also sind 100 Centipuure 1 ganze Puur. Die Wert schpilled während de Partie kei Rolle, sie sind aber im Computerschach es Mittel zum Stellige bewerte.
+  <string name="acplExplanation">De Centipur isch im Schach es Mass, zum de Vorteil bemässe. 1 Centipur entschpricht- oder isch 1 Hundertschtelpur - also sind 100 Centipure 1 ganze Pur. Die Wert schpilled während de Partie kei Rolle, sie sind aber im Computerschach es Mittel zum Stellige bewerte.
 
-De bescht, möglich Computerzug verlürt kein Hundertschtelpuur, schlächteri Züg bewürked aber e schlächteri Schtellig, was dänn in Centipuure gmässe wird.
+De bescht, möglich Computerzug verlürt kein Hundertschtelpur, schlächteri Züg bewürked aber e schlächteri Schtellig, was dänn in Centipure gmässe wird.
 
-De Wert chann als Indikator für d\'Schpiilqualität gnutzt werde: Je weniger Centipuure pro Zug verlore göhnd, umso besser isch d\'Schpiilstärchi.
+De Wert chann als Indikator für d\'Schpilqualität gnutzt werde: Je weniger Centipure pro Zug verlore göhnd, umso besser isch d\'Schpilstärchi.
 
 Computeranalyse werded bi Lichess vu \"Stockfish\" gmacht.</string>
   <string name="insufficientMaterial">Uf Ziit verlüürä, Remis und ungnüägänds Material</string>
@@ -58,7 +58,7 @@ Gib also acht druf, dass es möglich isch, nur mit Schpringer oder Läufer, es M
 
 \"En passant\" wird im Abschnitt 3.7 vu de %2$s beschribe.
 
-En Puur wo uf de 5. Reihe staht (Wiss Reihe 5. Schwarz Reihe 4) dörf en gägnerische Puur, wo mit 2 Züg, us sinere Afangsschtellig, a ihm verbi zieht und sich links oder rächts näbe ihn stellt, so schlah, wie wänn de \"Verbiziehendi\" nur 1 Fäld gfahre wär. De Sinn vu de Regle isch, dass sich en Puur, mit dere 2-Zug-Regle, nöd de Konfrontation entzieh chann.
+En Pur wo uf de 5. Reihe staht (Wiss Reihe 5. Schwarz Reihe 4) dörf en gägnerische Pur, wo mit 2 Züg, us sinere Afangsschtellig, a ihm verbi zieht und sich links oder rächts näbe ihn stellt, so schlah, wie wänn de \"Verbiziehendi\" nur 1 Fäld gfahre wär. De Sinn vu de Regle isch, dass sich en Pur, mit dere 2-Zug-Regle, nöd de Konfrontation entzieh chann.
 Wichtig isch, dass die Schlagart \"en passant\" nur diräkt nach dem Uswichversuech erlaubt isch. 
 
 Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
@@ -76,27 +76,27 @@ Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Weli Titäl gits uf Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess anärkännt alli FIDE-Titel, wo am Brätt gwunnä wordä sind, äbäso %1$s. Das isch ä Liischtä vo FIDE-Titäl:</string>
-  <string name="showYourTitle">Wänn du en OTB Titel häsch, chasch du beaaträge, dass er i dim Konto aazeigt wird, idem du das %1$s usfüllsch, mit eme scharfe Bild vu dim Pass oder diner Identitätscharte plus es Selfie vu dir, uf dem du dBeschtätigung vu dim Titel präsentiersch.
+  <string name="showYourTitle">Wänn du en OTB Titel häsch, chasch du beaträge, dass er i dim Konto azeigt wird, idem du das %1$s usfüllsch, mit eme scharfe Bild vu dim Pass oder dinere Identitätscharte plus es Selfie vu dir, uf dem du dBeschtätigung vu dim Titel präsentiersch.
 
 So e Titelbeschtätigung ermöglicht dir, bi Lichess a Titel Arena Events mitzschpille.
 
 Usserdem gits no en Ehretitel %2$s.</string>
-  <string name="asWellAsManyNMtitles">vili nationaali Meischtertitäl</string>
+  <string name="asWellAsManyNMtitles">vili nationali Meischtertitel</string>
   <string name="verificationForm">Verifikationsformular</string>
   <string name="canIbecomeLM">Chan ich dä Lichess Meischter (LM) Titel bechoo?</string>
   <string name="noUpperCaseDot">Leider nei.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">De Ehretitel isch inoffiziell und exischtiert nur bi Lichess.
 
-I sältene Fäll und nach eusem Ermässe, vergänd mir de Titel a bsunders bemerkenswerti Schpiller, wo gueti Mitglieder vu Lichess sind. Du chunnsch de \"LM-Titel\" nöd über, sondern de Titel gaht a dich. Wänn du dich defür qualifiziersch, chunnsch du vu eus e Nachricht über und du häsch d\'Wahl de Titel aazneh oder abzlehne. 
+I sältene Fäll und nach eusem Ermässe, vergänd mir de Titel a bsunders bemerkenswerti Schpiller, wo gueti Mitglieder vu Lichess sind. Du chunnsch de \"LM-Titel\" nöd über, sondern de Titel gaht a dich. Wänn du dich defür qualifiziersch, chunnsch du vu eus e Nachricht über und du häsch d\'Wahl de Titel azneh oder abzlehne. 
 
 Also verlang de Titel nöd.</string>
   <string name="whatUsernameCanIchoose">Wie chann min Benutzername lute?</string>
-  <string name="usernamesNotOffensive">Im Allgemeinä söttäd Nutzernämä nöd aaschtöössig, öpper anders imitiäränd oder Wärbig sii. Du chasch meh über d\'%1$s läsä.</string>
+  <string name="usernamesNotOffensive">Im Allgemeine sött en Nutzername nöd aschtössig, öpper imitierend oder Werbend si. Du chasch meh über d\'%1$s läse.</string>
   <string name="guidelines">Richtliniä</string>
   <string name="canIChangeMyUsername">Chann ich min Benutzername ändere?</string>
   <string name="usernamesCannotBeChanged">Leider nei, Benutzernäme chönd us technische und praktische Gründ nöd g\'änderet werde. Die Benutzernäme erschined a z\'vill Schtelle: Datebanke, Export, Logs und au im Chopf vu andere Lüt. mer chann aber eimal d\'Gross-/Chlischribig ändere.</string>
   <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
-  <string name="ownerUniqueTrophies">Diä Trophä\'ä isch einzigartig idä Gschicht vo Lichess, niemärt ussertäm %1$s wird si jemols haa.</string>
+  <string name="ownerUniqueTrophies">Die Trophäe isch einzigartig i de Gschicht vo Lichess, niemert usser em %1$s wird si jemals ha.</string>
   <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Partie vumene %s mit Berserk gschpillt- und gunne hät.</string>
   <string name="aHourlyBulletTournament">e schtündlichi Bullet Arena</string>
   <string name="goldenZeeExplanation">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
@@ -129,12 +129,12 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
 Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu \"absolute\" Wert): Innerhalb vu me Pool a Schpiller hälfed dir relativi Underschid ide Wertige debi abzschätze, wer ehner günnt/verlürt und wie oft öppe. Z\'säge \"Ich han e X-Wertig\" bedütet nüt, es sei dänn, es git anderi Schpiller, mit dene du dini Wertig verglichsch.</string>
   <string name="howToHideRatingWhilePlaying">Wie chann mer Wertige während em Schpiil usblände?</string>
   <string name="enableZenMode">Aktiviär dä Zen-Modus idä %1$s oder truck %2$s währänd dä Partii.</string>
-  <string name="displayPreferences">Aazeige-Iischtelligä</string>
+  <string name="displayPreferences">Azeige-Ischtellige</string>
   <string name="connexionLostCanIGetMyRatingBack">Ich han es Schpiil wäge Lag / Verbindigsunderbruch verlore. Chann ich mini Wertigspünkt zrugg verlange?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönnd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder Underbrüch verlore worde sind. Unabhängig devoo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Lichess Neustart chömmed, will bim Abefahre vum Syschtem werded alli Partie eifach abbroche und mer chann so unfair verlüre.</string>
   <string name="howToThreeDots">Wiä chan ich...</string>
   <string name="enableDisableNotificationPopUps">Benochrichtigungs-Popups aktiviärä oder deaktiviärä?</string>
-  <string name="viewSiteInformationPopUp">Siitäinformations-Popup aazeigä</string>
+  <string name="viewSiteInformationPopUp">Site Informations-Popup azeige</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benochrichtigungä versändä, zum Biischpiil wänn du am Zug bisch oder ä privati Nochricht becho häsch.
 
 Klick uf s\'Schlosssymbool näbäd dä lichess.org Adrässä idä URL-Liischtä vo dim Browser.
