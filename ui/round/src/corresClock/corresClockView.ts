@@ -43,7 +43,7 @@ export default function (
       el.innerHTML = formatClockTime(trans, millis);
     },
     isPlayer = ctrl.root.data.player.color === color,
-    direction = document.dir == 'rtl' && millis >= 86400 * 1000 ? 'rtl' : 'ltr';
+    direction = document.dir == 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
   return h(
     'div.rclock.rclock-correspondence.rclock-' + position,
     {
@@ -61,7 +61,7 @@ export default function (
           ])
         : null,
       h('div.time', {
-        attrs: { style: 'direction: ' + direction },
+        attrs: direction && { style: `direction: ${direction}` },
         hook: {
           insert: vnode => update(vnode.elm as HTMLElement),
           postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
