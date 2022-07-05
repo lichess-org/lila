@@ -15,13 +15,13 @@
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
     "@types/lishogi": "2.0.0",
-    "rollup": "^2.56.2",
-    "typescript": "^4.5.5"
+    "rollup": "^2",
+    "typescript": "^4"
   },
   "dependencies": {
     "common": "2.0.0",
     "date-fns": "^2.14.0",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^3.5.1"
   },
   "scripts": {
     "dev": "rollup --config",

@@ -15,11 +15,9 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/lishogi": "2.0.0",
-    "rollup": "^2.56.2",
-    "typescript": "^4.5.5"
-  },
-  "dependencies": {
-    "@types/webrtc": "^0.0.26"
+    "@types/webrtc": "^0.0.32",
+    "rollup": "^2",
+    "typescript": "^4"
   },
   "scripts": {
     "dev": "rollup --config",

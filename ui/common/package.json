@@ -17,10 +17,10 @@
   },
   "devDependencies": {
     "@types/lishogi": "2.0.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4"
   },
   "dependencies": {
-    "shogiground": "^0.5.3",
+    "shogiground": "^0.5.4",
     "shogiops": "^0.8.1"
   }
 }
