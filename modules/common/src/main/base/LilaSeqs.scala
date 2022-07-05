@@ -25,6 +25,7 @@ final class LilaList[A](private val list: List[A]) extends AnyVal {
   def tailSafe: List[A]         = tailOption getOrElse Nil
   def indexOption(a: A)         = Option(list indexOf a).filter(0 <=)
   def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
+  def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
 }
 
 final class LilaSeq[A](private val seq: Seq[A]) extends AnyVal {

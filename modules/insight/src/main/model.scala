@@ -24,9 +24,7 @@ case class InsightMove(
 )
 
 // time remaining on clock, accounting for increment via estimation
-case class ClockPercent private (value: Double) extends AnyVal {
-  def toInt = value.toInt
-}
+case class ClockPercent private (value: Double) extends AnyVal with Percent
 
 object ClockPercent {
   def apply(clock: Clock.Config, timeLeft: Centis) = new ClockPercent(

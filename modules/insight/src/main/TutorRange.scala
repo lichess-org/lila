@@ -166,7 +166,7 @@ object ClockPercentRange {
   )
   val byPercent = all.toList map { p => (p.bottom.toInt, p) } toMap
   def toRange(x: ClockPercentRange): (ClockPercent, ClockPercent) = (
-    all.toList.previous(x).fold(ClockPercent(0))(_.bottom),
-    x.bottom
+    x.bottom,
+    all.toList.next(x).fold(ClockPercent(100))(_.bottom)
   )
 }

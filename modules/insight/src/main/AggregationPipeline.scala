@@ -96,6 +96,18 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
             )
           )
 
+        def clockPercentDispatcher =
+          ClockPercentRange.all.tail
+            .foldLeft[BSONValue](BSONInteger(ClockPercentRange.all.head.bottom.toInt)) { case (acc, tp) =>
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$gte" -> $arr("$" + F.moves("s"), tp.bottom)),
+                  tp.bottom.toInt,
+                  acc
+                )
+              )
+            }
+
         lazy val materialIdDispatcher = $doc(
           "$cond" -> $arr(
             $doc("$eq" -> $arr("$" + F.moves("i"), 0)),
@@ -130,18 +142,6 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 "$cond" -> $arr(
                   $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
                   tvi.intFactored,
-                  acc
-                )
-              )
-            }
-        // #TODO rewrite dispatchers
-        def clockPercentDispatcher =
-          ClockPercentRange.all.init.reverse
-            .foldLeft[BSONValue](BSONInteger(ClockPercentRange.all.head.bottom.toInt)) { case (acc, tp) =>
-              $doc(
-                "$cond" -> $arr(
-                  $doc("$gt" -> $arr("$" + F.moves("s"), tp.bottom)),
-                  tp.bottom.toInt,
                   acc
                 )
               )

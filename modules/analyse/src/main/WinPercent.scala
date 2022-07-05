@@ -3,9 +3,7 @@ package lila.analyse
 import lila.tree.Eval
 
 // How likely one is to win a position, based on subjective Stockfish centipawns
-case class WinPercent(value: Double) extends AnyVal {
-  def toInt = Math.round(value).toInt
-}
+case class WinPercent(value: Double) extends AnyVal with Percent
 
 object WinPercent {
 

@@ -368,7 +368,7 @@ object InsightDimension {
         $doc(
           "$or" -> many.map(toRange).map {
             case (min, max) if min == fromPercent(0)   => $doc(d.dbKey $lt max)
-            case (min, max) if max == fromPercent(100) => $doc(d.dbKey $gt min) // hole at 90%? #TODO
+            case (min, max) if max == fromPercent(100) => $doc(d.dbKey $gte min) // hole at 90%? #TODO
             case (min, max)                            => $doc(d.dbKey $gte min $lt max)
           }
         )
