@@ -2,6 +2,7 @@ package lila.tutor
 
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
+import play.api.Mode
 import scala.concurrent.duration._
 
 import lila.common.{ LilaScheduler, Uptime }
@@ -16,7 +17,8 @@ final class TutorApi(
     cacheApi: CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
+    mode: Mode
 ) {
 
   import TutorBsonHandlers._
@@ -71,7 +73,7 @@ final class TutorApi(
     }
 
   private val cache = cacheApi[User.ID, Option[TutorFullReport]](256, "tutor.report") {
-    _.expireAfterAccess(5 minutes)
+    _.expireAfterAccess(if (mode == Mode.Prod) 5 minutes else 1 second)
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)
   }
