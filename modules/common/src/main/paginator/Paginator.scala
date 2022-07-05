@@ -93,9 +93,16 @@ object Paginator {
   )(implicit ec: scala.concurrent.ExecutionContext): Validated[String, Fu[Paginator[A]]] =
     if (currentPage < 1) Validated.invalid("Max per page must be greater than zero")
     else if (maxPerPage.value <= 0) Validated.invalid("Current page must be greater than zero")
-    else
-      Validated.valid(for {
-        results   <- adapter.slice((currentPage - 1) * maxPerPage.value, maxPerPage.value)
-        nbResults <- adapter.nbResults
-      } yield new Paginator(currentPage, maxPerPage, results, nbResults))
+    else {
+      Validated.valid(
+        adapter.nbResults flatMap { nbResults =>
+          val safePage = currentPage.min((nbResults + maxPerPage.value - 1) / maxPerPage.value)
+          // would rather let upstream code know the value they passed in was bad.
+          // unfortunately can't do that without completing nbResults, so ig it's on them to check after
+          adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value) map { results =>
+            new Paginator(safePage, maxPerPage, results, nbResults)
+          }
+        }
+      )
+    }
 }
