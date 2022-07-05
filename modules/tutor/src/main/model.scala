@@ -37,7 +37,8 @@ sealed abstract class TutorMetric[V](val metric: InsightMetric)
 
 object TutorMetric {
   case object GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
-  case object DefeatClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  // time used when losing ((100 - clockPercent) on last move)
+  case object ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
   case object Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
   case object Awareness   extends TutorMetric[TutorRatio](InsightMetric.Awareness)
   case object Performance extends TutorMetric[Rating](InsightMetric.Performance)

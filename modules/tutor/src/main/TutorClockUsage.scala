@@ -7,7 +7,7 @@ import lila.insight._
 import lila.rating.PerfType
 import lila.common.config
 
-object TutorDefeatClock {
+object TutorClockUsage {
 
   val maxGames = config.Max(10_000)
 
@@ -30,7 +30,7 @@ object TutorDefeatClock {
       perf         <- doc.getAsOpt[PerfType]("_id")
       clockPercent <- doc.getAsOpt[ClockPercent]("cp")
       size         <- doc.int("nb")
-    } yield Cluster(perf, Insight.Single(Point(clockPercent.value)), size, Nil)
+    } yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil)
     def aggregate(select: Bdoc, sort: Boolean) = insightApi.coll {
       _.aggregateList(maxDocs = Int.MaxValue) { implicit framework =>
         import framework._
@@ -41,7 +41,7 @@ object TutorDefeatClock {
           UnwindField(F.moves).some,
           Project($doc(F.perf -> true, "cp" -> s"$$${F.moves}.s")).some,
           GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll).some,
-          Project($doc(F.perf -> true, "cp" -> $doc("$toInt" -> "$cp"))).some
+          Project($doc(F.perf -> true, "nb" -> true, "cp" -> $doc("$toInt" -> "$cp"))).some
         ).flatten
       }
     }

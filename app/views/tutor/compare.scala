@@ -44,7 +44,7 @@ private object compare {
   private[tutor] def showMetric(comp: TutorCompare.AnyComparison): String =
     (comp.metric match {
       case TutorMetric.GlobalClock => "global speed"
-      case TutorMetric.DefeatClock => "unused time"
+      case TutorMetric.ClockUsage  => "clock usage"
       case metric                  => metric.metric.name.toLowerCase
     })
 

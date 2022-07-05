@@ -21,7 +21,7 @@ case class TutorPerfReport(
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[TutorRatio],
     globalClock: TutorBothValueOptions[ClockPercent],
-    defeatClock: TutorBothValueOptions[ClockPercent], // lower is better
+    clockUsage: TutorBothValueOptions[ClockPercent],
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
@@ -48,15 +48,15 @@ case class TutorPerfReport(
     List((perf, globalClock))
   )
 
-  lazy val defeatPressureCompare = TutorCompare[PerfType, ClockPercent](
+  lazy val timeUsageCompare = TutorCompare[PerfType, ClockPercent](
     InsightDimension.Perf,
-    TutorMetric.DefeatClock,
-    List((perf, defeatClock))
-  )(TutorNumber.clockPercentIsTutorNumber.reverseCompare)
+    TutorMetric.ClockUsage,
+    List((perf, clockUsage))
+  )
 
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
-  val timePressureCompares = List(globalPressureCompare, defeatPressureCompare)
+  val clockCompares = List(globalPressureCompare, timeUsageCompare)
 
   def openingCompares: List[TutorCompare[LilaOpeningFamily, _]] = openings.all.toList.flatMap { op =>
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare)
@@ -69,12 +69,12 @@ case class TutorPerfReport(
 
   val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons)) _
 
-  val timeHighlights = TutorCompare.mixedBag(timePressureCompares.flatMap(_.peerComparisons)) _
+  val timeHighlights = TutorCompare.mixedBag(clockCompares.flatMap(_.peerComparisons)) _
 
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
       phaseCompares.flatMap(_.peerComparisons) :::
-      timePressureCompares.flatMap(_.peerComparisons)
+      clockCompares.flatMap(_.peerComparisons)
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
     TutorRatio(fam.performance.mine.count, stats.nbGames(color))
@@ -98,7 +98,7 @@ private object TutorPerfReport {
     accuracy    <- answerManyPerfs(accuracyQuestion, users)
     awareness   <- answerManyPerfs(awarenessQuestion, users)
     globalClock <- answerManyPerfs(globalClockQuestion, users)
-    defeatClock <- TutorDefeatClock compute users
+    clockUsage  <- TutorClockUsage compute users
     perfReports <- users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
@@ -110,7 +110,7 @@ private object TutorPerfReport {
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
         awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
         globalClock = globalClock valueMetric user.perfType map ClockPercent.fromPercent,
-        defeatClock = defeatClock valueMetric user.perfType map ClockPercent.fromPercent,
+        clockUsage = clockUsage valueMetric user.perfType map ClockPercent.fromPercent,
         openings,
         phases,
         flagging
