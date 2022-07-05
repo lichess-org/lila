@@ -22,7 +22,7 @@
   <string name="clickToSolve">Zum Löse klicke</string>
   <string name="goodMove">Guete Zug</string>
   <string name="bestMove">Beschte Zug!</string>
-  <string name="keepGoing">Bliib draa…</string>
+  <string name="keepGoing">Blib dra…</string>
   <string name="puzzleSuccess">Korräkt!</string>
   <string name="puzzleComplete">Ufgab abgschlosse!</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
@@ -82,7 +82,7 @@ Schpill schnälli und klassischi Partie, so erhöht sich d\'Chance, dass au Ufga
     <item quantity="other">%s widerhole</item>
   </plurals>
   <string name="percentSolved">%s glöst</string>
-  <string name="noPuzzlesToShow">Es git no nüt zum zeige, lös zerscht es paar Ugabe!</string>
+  <string name="noPuzzlesToShow">Es git no nüt zum Zeige, lös zerscht es paar Ugabe!</string>
   <string name="improvementAreasDescription">Trainier mit dene Ufgabe und optimier din Fortschritt!</string>
   <string name="strengthDescription">Dini Leischtig isch am beschte i dene Theme</string>
 </resources>
