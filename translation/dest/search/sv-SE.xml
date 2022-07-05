@@ -29,4 +29,11 @@
   <string name="maxNumber">Maximalt antal</string>
   <string name="maxNumberExplanation">Det maximala antalet paartier att visa</string>
   <string name="include">Inkludera</string>
+  <string name="descending">Fallande ordning</string>
+  <string name="ascending">Stigande ordning</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s parti hittades</item>
+    <item quantity="other">%s partier hittade</item>
+  </plurals>
+  <string name="ratingExplanation">Genomsnittlig rating för båda spelarna</string>
 </resources>
