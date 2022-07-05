@@ -13,5 +13,5 @@
   <string name="twoFactorEnabled">Zwei-Faktor Authentifizierig isch aktiviert</string>
   <string name="twoFactorDisable">Du benötigsch dis Passwort und en Authentifizierigscode us dinere Authentifizierigs-App, zum die Zwei-Faktor-Authentifizierig z\'deaktiviere.
 Wänn du de Zuegang zu dim Authentifizierigscode verlürsch, muesch dis Passwort au per E-Mail zruggsetze.</string>
-  <string name="openTwoFactorApp">Öffnä uf dim Grät d\'App zur zweistufigä Authäntifiziärig, zum din Authäntifiziärigscode aaz\'zeigä und dini Identität z\'beschtätigä.</string>
+  <string name="openTwoFactorApp">Mach uf dim Grät d\'App für die zweischtufig Authentifizierig uf, det findsch din Authentifizierigscode, wo dini Identität beschtätigt.</string>
 </resources>
