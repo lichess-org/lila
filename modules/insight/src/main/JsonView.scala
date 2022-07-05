@@ -124,26 +124,15 @@ final class JsonView {
       )
     )
 
-    Json.obj(
-      "dimensionCategs" -> dimensionCategs,
-      "metricCategs"    -> metricCategs,
-      "presets"         -> { if (asMod) Preset.forMod else Preset.base }
-    )
+    Json
+      .obj(
+        "dimensionCategs" -> dimensionCategs,
+        "metricCategs"    -> metricCategs
+      )
+      .add("asMod" -> asMod)
   }
 
   private object writers {
-
-    implicit def presetWriter[X]: Writes[Preset] =
-      Writes { p =>
-        Json.obj(
-          "name"      -> p.name,
-          "dimension" -> p.question.dimension.key,
-          "metric"    -> p.question.metric.key,
-          "filters" -> JsObject(p.question.filters.map { case Filter(dimension, selected) =>
-            dimension.key -> JsArray(selected.map(InsightDimension.valueKey(dimension)).map(JsString.apply))
-          })
-        )
-      }
 
     implicit def dimensionWriter[X](implicit lang: Lang): Writes[InsightDimension[X]] =
       Writes { d =>
