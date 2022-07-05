@@ -18,6 +18,8 @@
   <string name="rule1">Inkludera nyckelordet \"lichess.org\" i din kanaltitel när du direktsänder från Lichess.</string>
   <string name="rule2">Ta bort sökordet när du inte sänder Lichess-saker.</string>
   <string name="rule3">Lichess kommer att upptäcka din sändning automatiskt och ge dig följande fördelar:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Läs vår %s för att säkerställa rent spel för alla under din videosändning.</string>
+  <string name="streamingFairplayFAQ">rent spel för videosändningar FAQ</string>
   <string name="perks">Fördelar med att direktsända med sökordet</string>
   <string name="perk1">Få en glödande mikrofon-ikon på din Lichess-profil.</string>
   <string name="perk2">Flyttas upp till toppen av listan på videokanaler.</string>
