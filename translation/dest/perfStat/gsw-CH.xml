@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">%s-Schtatischtike</string>
-  <string name="viewTheGames">Schpiil aazeige</string>
+  <string name="viewTheGames">Schpil azeige</string>
   <string name="provisional">provisorisch</string>
   <string name="notEnoughRatedGames">Nöd gnueg gwerteti Schpiil, für e verlässlichi Wertig z\'errächne.</string>
   <string name="progressOverLastXGames">Fortschritt über di letschte %s Schpiil:</string>
