@@ -20,9 +20,8 @@ case class TutorPerfReport(
     stats: InsightPerfStats,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[TutorRatio],
-    globalTimePressure: TutorBothValueOptions[TimePressure], // not positive! #TODO (also probably pointless)
-    // how low the clock is when losing - it's a good thing
-    defeatTimePressure: TutorBothValueOptions[TimePressure],
+    globalClock: TutorBothValueOptions[ClockPercent],
+    defeatClock: TutorBothValueOptions[ClockPercent], // lower is better
     openings: Color.Map[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
@@ -43,17 +42,17 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.awareness) }
   )
 
-  lazy val globalPressureCompare = TutorCompare[PerfType, TimePressure](
+  lazy val globalPressureCompare = TutorCompare[PerfType, ClockPercent](
     InsightDimension.Perf,
-    TutorMetric.GlobalTimePressure,
-    List((perf, globalTimePressure))
+    TutorMetric.GlobalClock,
+    List((perf, globalClock))
   )
 
-  lazy val defeatPressureCompare = TutorCompare[PerfType, TimePressure](
+  lazy val defeatPressureCompare = TutorCompare[PerfType, ClockPercent](
     InsightDimension.Perf,
-    TutorMetric.DefeatTimePressure,
-    List((perf, defeatTimePressure))
-  )(TutorNumber.pressureIsTutorNumber.reverseCompare)
+    TutorMetric.DefeatClock,
+    List((perf, defeatClock))
+  )(TutorNumber.clockPercentIsTutorNumber.reverseCompare)
 
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
@@ -87,19 +86,19 @@ private object TutorPerfReport {
 
   private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
-  private val timePressureQuestion = Question(
+  private val globalClockQuestion = Question(
     InsightDimension.Perf,
-    InsightMetric.TimePressure,
+    InsightMetric.ClockPercent,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
 
   def compute(
       users: NonEmptyList[TutorUser]
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[List[TutorPerfReport]] = for {
-    accuracy       <- answerManyPerfs(accuracyQuestion, users)
-    awareness      <- answerManyPerfs(awarenessQuestion, users)
-    pressure       <- answerManyPerfs(timePressureQuestion, users)
-    defeatPressure <- TutorDefeatTimePressure compute users
+    accuracy    <- answerManyPerfs(accuracyQuestion, users)
+    awareness   <- answerManyPerfs(awarenessQuestion, users)
+    globalClock <- answerManyPerfs(globalClockQuestion, users)
+    defeatClock <- TutorDefeatClock compute users
     perfReports <- users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
@@ -110,8 +109,8 @@ private object TutorPerfReport {
         user.perfStats,
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
         awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
-        globalTimePressure = pressure valueMetric user.perfType map TimePressure.fromPercent,
-        defeatTimePressure = defeatPressure valueMetric user.perfType map TimePressure.fromPercent,
+        globalClock = globalClock valueMetric user.perfType map ClockPercent.fromPercent,
+        defeatClock = defeatClock valueMetric user.perfType map ClockPercent.fromPercent,
         openings,
         phases,
         flagging

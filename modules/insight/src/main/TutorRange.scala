@@ -155,18 +155,18 @@ object WinPercentRange {
   def toRange(bottom: WinPercentRange) = (bottom.bottom, WinPercent(bottom.bottom.value + 10))
 }
 
-sealed class TimePressureRange(val name: String, val top: TimePressure)
-object TimePressureRange {
-  val all = NonEmptyList.of[TimePressureRange](
-    new TimePressureRange("≤3% time left", TimePressure fromPercent 3),
-    new TimePressureRange("3% to 10% time left", TimePressure fromPercent 10),
-    new TimePressureRange("10% to 25% time left", TimePressure fromPercent 25),
-    new TimePressureRange("25% to 50% time left", TimePressure fromPercent 50),
-    new TimePressureRange("≥50% time left", TimePressure fromPercent 100)
+sealed class ClockPercentRange(val name: String, val bottom: ClockPercent)
+object ClockPercentRange {
+  val all = NonEmptyList.of[ClockPercentRange](
+    new ClockPercentRange("≤3% time left", ClockPercent fromPercent 0),
+    new ClockPercentRange("3% to 10% time left", ClockPercent fromPercent 3),
+    new ClockPercentRange("10% to 25% time left", ClockPercent fromPercent 10),
+    new ClockPercentRange("25% to 50% time left", ClockPercent fromPercent 25),
+    new ClockPercentRange("≥50% time left", ClockPercent fromPercent 50)
   )
-  val byPercent = all.toList map { p => (p.top.percentInt, p) } toMap
-  def toRange(x: TimePressureRange): (TimePressure, TimePressure) = (
-    all.toList.previous(x).fold(TimePressure(0))(_.top),
-    x.top
+  val byPercent = all.toList map { p => (p.bottom.toInt, p) } toMap
+  def toRange(x: ClockPercentRange): (ClockPercent, ClockPercent) = (
+    all.toList.previous(x).fold(ClockPercent(0))(_.bottom),
+    x.bottom
   )
 }

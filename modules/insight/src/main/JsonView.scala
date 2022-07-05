@@ -58,7 +58,7 @@ final class JsonView {
         List(
           Json.toJson(D.PieceRole: InsightDimension[_]),
           Json.toJson(D.MovetimeRange: InsightDimension[_]),
-          Json.toJson(D.TimePressureRange: InsightDimension[_]),
+          Json.toJson(D.ClockPercentRange: InsightDimension[_]),
           Json.toJson(D.MaterialRange: InsightDimension[_]),
           Json.toJson(D.AccuracyPercentRange: InsightDimension[_]),
           Json.toJson(D.WinPercentRange: InsightDimension[_]),
@@ -92,7 +92,7 @@ final class JsonView {
         "Move",
         List(
           Json.toJson(M.Movetime: InsightMetric),
-          Json.toJson(M.TimePressure: InsightMetric),
+          Json.toJson(M.ClockPercent: InsightMetric),
           Json.toJson(M.PieceRole: InsightMetric),
           Json.toJson(M.Material: InsightMetric),
           Json.toJson(M.NbMoves: InsightMetric)

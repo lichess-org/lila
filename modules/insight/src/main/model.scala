@@ -10,7 +10,7 @@ case class MeanRating(value: Int) extends AnyVal
 case class InsightMove(
     phase: Phase,
     tenths: Int, // tenths of seconds spent thinking
-    timePressure: TimePressure,
+    clockPercent: ClockPercent,
     role: Role,
     eval: Option[Int],              // before the move was played, relative to player
     cpl: Option[Int],               // eval diff caused by the move, relative to player, mate ~= 10
@@ -23,18 +23,17 @@ case class InsightMove(
     timeCv: Option[Float] // time coefficient variation
 )
 
-// 0 (no pressure) to 1 (about to flag)
-case class TimePressure(value: Double) extends AnyVal {
-  def percent    = value * 100
-  def percentInt = percent.toInt
+// time remaining on clock, accounting for increment via estimation
+case class ClockPercent private (value: Double) extends AnyVal {
+  def toInt = value.toInt
 }
 
-object TimePressure {
-  def apply(clock: Clock.Config, timeLeft: Centis) = new TimePressure(
-    (1 - timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 1
+object ClockPercent {
+  def apply(clock: Clock.Config, timeLeft: Centis) = new ClockPercent(
+    (100 * timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 100
   )
-  def fromPercent(p: Double): TimePressure = TimePressure(p / 100)
-  def fromPercent(p: Int): TimePressure    = fromPercent(p.toDouble)
+  def fromPercent(p: Double) = ClockPercent(p)
+  def fromPercent(p: Int)    = ClockPercent(p.toDouble)
 }
 
 sealed abstract class Termination(val id: Int, val name: String)

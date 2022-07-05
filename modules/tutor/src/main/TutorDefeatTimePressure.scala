@@ -7,7 +7,7 @@ import lila.insight._
 import lila.rating.PerfType
 import lila.common.config
 
-object TutorDefeatTimePressure {
+object TutorDefeatClock {
 
   val maxGames = config.Max(10_000)
 
@@ -21,7 +21,7 @@ object TutorDefeatTimePressure {
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
-      InsightMetric.TimePressure,
+      InsightMetric.ClockPercent,
       List(Filter(InsightDimension.Perf, perfs))
     )
     def clusterParser(docs: List[Bdoc]) = for {

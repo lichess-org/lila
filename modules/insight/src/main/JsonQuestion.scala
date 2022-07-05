@@ -44,7 +44,7 @@ case class JsonQuestion(
                 case AccuracyPercentRange.key => build(AccuracyPercentRange)
                 case EvalRange.key            => build(EvalRange)
                 case WinPercentRange.key      => build(WinPercentRange)
-                case TimePressureRange.key    => build(TimePressureRange)
+                case ClockPercentRange.key    => build(ClockPercentRange)
                 case Blur.key                 => build(Blur)
                 case TimeVariance.key         => build(TimeVariance)
                 case _                        => none
@@ -73,7 +73,7 @@ case class JsonQuestion(
           case MaterialRange.key        => build(MaterialRange)
           case EvalRange.key            => build(EvalRange)
           case WinPercentRange.key      => build(WinPercentRange)
-          case TimePressureRange.key    => build(TimePressureRange)
+          case ClockPercentRange.key    => build(ClockPercentRange)
           case CplRange.key             => build(CplRange)
           case AccuracyPercentRange.key => build(AccuracyPercentRange)
           case Blur.key                 => build(Blur)

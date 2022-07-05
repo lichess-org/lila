@@ -233,13 +233,13 @@ object InsightDimension {
         "Chances to win a position, based on Stockfish evaluation. A.k.a. Win%"
       )
 
-  case object TimePressureRange
-      extends InsightDimension[TimePressureRange](
-        "timePressure",
+  case object ClockPercentRange
+      extends InsightDimension[ClockPercentRange](
+        "clockPercent",
         "Time pressure",
         F.moves("s"),
         Move,
-        "How close a player is to flagging while making a move. 0% = full time on the clock, 100% = flagging."
+        "Time left on the player clock, accounting for increment. 100% = full clock, 0% = flagging."
       )
 
   def requiresStableRating(d: InsightDimension[_]) =
@@ -269,7 +269,7 @@ object InsightDimension {
       case MaterialRange           => lila.insight.MaterialRange.all
       case EvalRange               => lila.insight.EvalRange.all
       case WinPercentRange         => lila.insight.WinPercentRange.all.toList
-      case TimePressureRange       => lila.insight.TimePressureRange.all.toList
+      case ClockPercentRange       => lila.insight.ClockPercentRange.all.toList
       case Blur                    => lila.insight.Blur.all
       case TimeVariance            => lila.insight.TimeVariance.all
     }
@@ -295,7 +295,7 @@ object InsightDimension {
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
       case EvalRange               => key.toIntOption flatMap lila.insight.EvalRange.byId.get
       case WinPercentRange         => key.toIntOption flatMap lila.insight.WinPercentRange.byPercent.get
-      case TimePressureRange       => key.toIntOption flatMap lila.insight.TimePressureRange.byPercent.get
+      case ClockPercentRange       => key.toIntOption flatMap lila.insight.ClockPercentRange.byPercent.get
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
     }
@@ -327,8 +327,8 @@ object InsightDimension {
       case QueenTrade              => v.id
       case MaterialRange           => v.id
       case EvalRange               => v.id
-      case WinPercentRange         => v.bottom
-      case TimePressureRange       => v.top.percentInt
+      case WinPercentRange         => v.bottom.toInt
+      case ClockPercentRange       => v.bottom.toInt
       case Blur                    => v.id
       case TimeVariance            => v.id
     }).toString
@@ -354,7 +354,7 @@ object InsightDimension {
       case MaterialRange           => JsString(v.name)
       case EvalRange               => JsString(v.name)
       case WinPercentRange         => JsString(v.name)
-      case TimePressureRange       => JsString(v.name)
+      case ClockPercentRange       => JsString(v.name)
       case Blur                    => JsString(v.name)
       case TimeVariance            => JsString(v.name)
     }
@@ -421,8 +421,8 @@ object InsightDimension {
         percentRange(lila.insight.WinPercentRange.toRange, WinPercent.fromPercent)
       case InsightDimension.AccuracyPercentRange =>
         percentRange(lila.insight.AccuracyPercentRange.toRange, AccuracyPercent.fromPercent)
-      case InsightDimension.TimePressureRange =>
-        percentRange(lila.insight.TimePressureRange.toRange, TimePressure.fromPercent)
+      case InsightDimension.ClockPercentRange =>
+        percentRange(lila.insight.ClockPercentRange.toRange, ClockPercent.fromPercent)
       case InsightDimension.TimeVariance =>
         selected match {
           case Nil => $empty
