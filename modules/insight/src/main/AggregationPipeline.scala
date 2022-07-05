@@ -10,6 +10,7 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
   import InsightStorage._
+  import BSONHandlers._
 
   val maxGames = config.Max(10_000)
 
@@ -129,17 +130,19 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
                 )
               )
             }
+        // #TODO rewrite dispatchers
         lazy val timePressureIdDispatcher =
-          TimePressureRange.all.tail.reverse.foldLeft[BSONValue](BSONInteger(TimePressureRange.TPR5.id)) {
-            case (acc, tp) =>
-              $doc(
-                "$cond" -> $arr(
-                  $doc("$lt" -> $arr("$" + F.moves("s"), tp.permils)),
-                  tp.id - 1,
-                  acc
+          TimePressureRange.all.init.reverse
+            .foldLeft[BSONValue](BSONInteger(TimePressureRange.TPR5.timePressure.percentInt)) {
+              case (acc, tp) =>
+                $doc(
+                  "$cond" -> $arr(
+                    $doc("$lt" -> $arr("$" + F.moves("s"), tp.timePressure)),
+                    tp.timePressure.percentInt,
+                    acc
+                  )
                 )
-              )
-          }
+            }
         def dimensionGroupId(dim: InsightDimension[_]): BSONValue =
           dim match {
             case InsightDimension.MovetimeRange        => movetimeIdDispatcher

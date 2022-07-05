@@ -54,9 +54,10 @@ object BSONHandlers {
     { case BSONInteger(v) => WinPercentRange.byId get v toTry s"Invalid Win% range $v" },
     e => BSONInteger(e.winPercent)
   )
+  // #TODO why this
   implicit val TimePressureRangeBSONHandler = tryHandler[TimePressureRange](
-    { case BSONInteger(v) => TimePressureRange.byId get v toTry s"Invalid time pressure range $v" },
-    e => BSONInteger(e.id)
+    { case BSONInteger(v) => TimePressureRange.byPercent get v toTry s"Invalid time pressure range $v" },
+    e => BSONInteger(e.timePressure.percentInt)
   )
   implicit val QueenTradeBSONHandler = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
 

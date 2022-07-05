@@ -294,7 +294,7 @@ object InsightDimension {
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
       case EvalRange               => key.toIntOption flatMap lila.insight.EvalRange.byId.get
       case WinPercentRange         => key.toIntOption flatMap lila.insight.WinPercentRange.byId.get
-      case TimePressureRange       => key.toIntOption flatMap lila.insight.TimePressureRange.byId.get
+      case TimePressureRange       => key.toIntOption flatMap lila.insight.TimePressureRange.byPercent.get
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
     }
@@ -327,7 +327,7 @@ object InsightDimension {
       case MaterialRange           => v.id
       case EvalRange               => v.id
       case WinPercentRange         => v.winPercent
-      case TimePressureRange       => v.id
+      case TimePressureRange       => v.timePressure.percentInt
       case Blur                    => v.id
       case TimeVariance            => v.id
     }).toString
@@ -360,8 +360,9 @@ object InsightDimension {
 
   def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc = {
     import cats.implicits._
-    def percentAsPerMilRange(toRange: X => (Int, Int)) =
-      selected match {
+    // #TODO per10k
+    def percentAsPerMilRange[V: BSONHandler](toRange: X => (V, V)) =
+      selected.pp match {
         case Nil => $empty
         case many =>
           $doc(
@@ -419,6 +420,8 @@ object InsightDimension {
       case InsightDimension.WinPercentRange => percentAsPerMilRange(lila.insight.WinPercentRange.toRange)
       case InsightDimension.AccuracyPercentRange =>
         percentAsPerMilRange(lila.insight.AccuracyPercentRange.toRange)
+      case InsightDimension.TimePressureRange =>
+        percentAsPerMilRange(lila.insight.TimePressureRange.toRange)
       case InsightDimension.TimeVariance =>
         selected match {
           case Nil => $empty
