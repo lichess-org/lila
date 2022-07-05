@@ -7,6 +7,7 @@
     <item quantity="other">%s medlemmar</item>
   </plurals>
   <string name="allTeams">Alla lag</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Ledarlag</string>
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mina lag</string>
   <string name="noTeamFound">Inget lag hittat</string>
@@ -27,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Din förfrågan om medlemskap kommer att granskas av lagledaren.</string>
   <string name="beingReviewed">Din förfrågan om medlemskap granskas av lagledaren.</string>
+  <string name="requestDeclined">Din begäran avvisades av en lagledare.</string>
   <string name="subToTeamMessages">Prenumerera på lagmeddelanden</string>
   <string name="teamBattle">Lagmatch</string>
   <string name="teamBattleOverview">En kamp mellan flera lag, varje spelare plockar poäng för sitt lag</string>
