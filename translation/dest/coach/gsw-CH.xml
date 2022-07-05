@@ -29,7 +29,7 @@
     <item quantity="other">%s Schüeler-Bewertige</item>
   </plurals>
   <string name="thankYouForReview">Danke für dini Bewertig!</string>
-  <string name="xWillApproveIt">%s wird das bald freischalte oder en Moderator wird\'s aaluege.</string>
+  <string name="xWillApproveIt">%s wird das bald freischalte oder en Moderator wird\'s aluege.</string>
   <string name="reviewCoach">De Trainer bewerte</string>
   <string name="describeExperienceWith">Beschrib dini Traningserfahrig mit %s</string>
 </resources>
