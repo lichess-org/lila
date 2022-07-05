@@ -12,6 +12,7 @@
   <string name="teachersX">Lärare: %s</string>
   <string name="newClass">Ny klass</string>
   <string name="closeClass">Stäng lektionen</string>
+  <string name="removedByX">Borttagen av %s</string>
   <string name="reopen">Öppna igen</string>
   <string name="removeStudent">Ta bort student</string>
   <string name="removedStudents">Borttagen</string>
@@ -88,10 +89,28 @@ Här är länken för att komma till klassen.</string>
   <string name="variantXOverLastY">%1$s under de senaste %2$s</string>
   <string name="winrate">Segerfrekvens</string>
   <string name="na">Ej tillämpbar</string>
+  <string name="overview">Översikt</string>
+  <string name="news">Nyheter</string>
+  <string name="classNews">Nyheter för klassen</string>
   <string name="editNews">Redigera nyheter</string>
   <string name="notifyAllStudents">Meddela alla studenter</string>
   <string name="nothingHere">Inget här, ännu.</string>
   <string name="newsEdit1">Alla klassnyheter i ett enda fält.</string>
   <string name="newsEdit2">Lägg till de senaste nyheterna högst upp. Ta inte bort tidigare nyheter.</string>
   <string name="newsEdit3">Separera nyheter med --- det kommer att visa en horisontell linje.</string>
+  <string name="invite">Bjud in</string>
+  <string name="youHaveBeenInvitedByX">Du har blivit inbjuden av %s.</string>
+  <string name="youAcceptedThisInvitation">Du accepterade denna inbjudan.</string>
+  <string name="youDeclinedThisInvitation">Du avböjde denna inbjudan.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eller</string>
+  <string name="createMultipleAccounts">Skapa flera Lichess-konton samtidigt</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du kan också %s för att skapa flera Lichess-konton från en lista med studentnamn.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">använd detta formulär</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Observera att en klass kan ha upp till %1$s elever. För att hantera fler elever, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">skapa fler klasser</string>
+  <string name="studentsRealNamesOnePerLine">Studenternas riktiga namn, en per rad</string>
+  <string name="xisNowAStudentOfTheClass">%s är nu student i klassen</string>
+  <string name="anInvitationHasBeenSentToX">En inbjudan har skickats till %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s har redan en väntande inbjudan</string>
+  <string name="xIsAKidAccountWarning">%1$s är ett barnkonto och kan inte ta emot ditt meddelande. Du måste ge dem en inbjudningslänk manuellt: %2$s</string>
 </resources>
