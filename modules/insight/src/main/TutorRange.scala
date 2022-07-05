@@ -1,5 +1,9 @@
 package lila.insight
 
+import cats.data.NonEmptyList
+
+import lila.analyse.{ AccuracyPercent, WinPercent }
+
 sealed abstract class RelativeStrength(val id: Int, val name: String)
 object RelativeStrength {
   case object MuchWeaker   extends RelativeStrength(10, "Much weaker")
@@ -109,16 +113,6 @@ object CplRange {
   val worse = all.last
 }
 
-final class AccuracyPercentRange(val name: String, val accuracyPercent: Int)
-object AccuracyPercentRange {
-  val all: List[AccuracyPercentRange] = (0 to 90 by 10).toList.map { pc =>
-    new AccuracyPercentRange(s"$pc% to ${pc + 10}%", pc)
-  }
-  val byId = all map { p => (p.accuracyPercent, p) } toMap
-  def toRange(apr: AccuracyPercentRange): (Int, Int) =
-    (apr.accuracyPercent * 10, (apr.accuracyPercent + 10) * 10)
-}
-
 sealed abstract class EvalRange(val id: Int, val name: String, val eval: Int)
 object EvalRange {
   case object Down5 extends EvalRange(1, "Less than -600", -600)
@@ -143,27 +137,36 @@ object EvalRange {
   )
 }
 
-final class WinPercentRange(val name: String, val winPercent: Int)
-object WinPercentRange {
-  val all: List[WinPercentRange] = (0 to 90 by 10).toList.map { pc =>
-    new WinPercentRange(s"$pc% to ${pc + 10}%", pc)
+final class AccuracyPercentRange(val name: String, val bottom: AccuracyPercent)
+object AccuracyPercentRange {
+  val all: NonEmptyList[AccuracyPercentRange] = (0 to 90 by 10).toList.toNel.get.map { pc =>
+    new AccuracyPercentRange(s"$pc% to ${pc + 10}%", AccuracyPercent(pc))
   }
-  val byId = all map { p => (p.winPercent, p) } toMap
-  def toRange(wpr: WinPercentRange): (Int, Int) =
-    (wpr.winPercent * 10, (wpr.winPercent + 10) * 10)
+  val byPercent                             = all.toList map { p => (p.bottom.toInt, p) } toMap
+  def toRange(bottom: AccuracyPercentRange) = (bottom.bottom, AccuracyPercent(bottom.bottom.value + 10))
 }
 
-sealed abstract class TimePressureRange(val name: String, val timePressure: TimePressure)
+final class WinPercentRange(val name: String, val bottom: WinPercent)
+object WinPercentRange {
+  val all: NonEmptyList[WinPercentRange] = (0 to 90 by 10).toList.toNel.get.map { pc =>
+    new WinPercentRange(s"$pc% to ${pc + 10}%", WinPercent(pc))
+  }
+  val byPercent                        = all.toList map { p => (p.bottom.toInt, p) } toMap
+  def toRange(bottom: WinPercentRange) = (bottom.bottom, WinPercent(bottom.bottom.value + 10))
+}
+
+sealed class TimePressureRange(val name: String, val top: TimePressure)
 object TimePressureRange {
-  case object TPR1 extends TimePressureRange("≤3% time left", TimePressure fromPercent 3)
-  case object TPR2 extends TimePressureRange("3% to 10% time left", TimePressure fromPercent 10)
-  case object TPR3 extends TimePressureRange("10% to 25% time left", TimePressure fromPercent 25)
-  case object TPR4 extends TimePressureRange("25% to 50% time left", TimePressure fromPercent 50)
-  case object TPR5 extends TimePressureRange("≥50% time left", TimePressure fromPercent 100)
-  val all: List[TimePressureRange] = List(TPR1, TPR2, TPR3, TPR4, TPR5)
-  val byPercent                    = all map { p => (p.timePressure.percentInt, p) } toMap
+  val all = NonEmptyList.of[TimePressureRange](
+    new TimePressureRange("≤3% time left", TimePressure fromPercent 3),
+    new TimePressureRange("3% to 10% time left", TimePressure fromPercent 10),
+    new TimePressureRange("10% to 25% time left", TimePressure fromPercent 25),
+    new TimePressureRange("25% to 50% time left", TimePressure fromPercent 50),
+    new TimePressureRange("≥50% time left", TimePressure fromPercent 100)
+  )
+  val byPercent = all.toList map { p => (p.top.percentInt, p) } toMap
   def toRange(x: TimePressureRange): (TimePressure, TimePressure) = (
-    all.previous(x).fold(TimePressure(0))(_.timePressure),
-    x.timePressure
+    all.toList.previous(x).fold(TimePressure(0))(_.top),
+    x.top
   )
 }

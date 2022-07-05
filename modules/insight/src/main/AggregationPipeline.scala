@@ -131,17 +131,16 @@ final private class AggregationPipeline(store: InsightStorage)(implicit
               )
             }
         // #TODO rewrite dispatchers
-        lazy val timePressureIdDispatcher =
+        def timePressureIdDispatcher =
           TimePressureRange.all.init.reverse
-            .foldLeft[BSONValue](BSONInteger(TimePressureRange.TPR5.timePressure.percentInt)) {
-              case (acc, tp) =>
-                $doc(
-                  "$cond" -> $arr(
-                    $doc("$lt" -> $arr("$" + F.moves("s"), tp.timePressure)),
-                    tp.timePressure.percentInt,
-                    acc
-                  )
+            .foldLeft[BSONValue](BSONInteger(TimePressureRange.all.last.top.percentInt)) { case (acc, tp) =>
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$lt" -> $arr("$" + F.moves("s"), tp.top)),
+                  tp.top.percentInt,
+                  acc
                 )
+              )
             }
         def dimensionGroupId(dim: InsightDimension[_]): BSONValue =
           dim match {

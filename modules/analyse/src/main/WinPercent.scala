@@ -19,6 +19,8 @@ object WinPercent {
     50 + 50 * winningChances(cp.ceiled)
   }
 
+  def fromPercent(int: Int) = WinPercent(int.toDouble)
+
   // [-1, +1]
   private[analyse] def winningChances(cp: Eval.Cp) = {
     2 / (1 + Math.exp(-0.004 * cp.value)) - 1

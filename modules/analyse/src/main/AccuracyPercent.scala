@@ -13,7 +13,9 @@ object AccuracyPercent {
 
   import WinPercent.BeforeAfter
 
-  val perfect = AccuracyPercent(100)
+  def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
+
+  val perfect = fromPercent(100)
 
   implicit val ordering = Ordering.by[AccuracyPercent, Double](_.value)
 

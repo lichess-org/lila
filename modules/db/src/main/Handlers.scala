@@ -182,4 +182,13 @@ trait Handlers {
         "increment" -> c.incrementSeconds
       )
   )
+
+  def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(implicit
+      keyHandler: BSONHandler[K]
+  ) = new BSONHandler[V] {
+    def readTry(bson: BSONValue) = keyHandler.readTry(bson) flatMap { k =>
+      mapping.get(k) toTry s"No such value in mapping: $k"
+    }
+    def writeTry(v: V) = keyHandler writeTry toKey(v)
+  }
 }
