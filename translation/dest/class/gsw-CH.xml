@@ -111,7 +111,7 @@ Es wird als horizontali Linie aazeigt.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">mach witeri Klasse</string>
   <string name="studentsRealNamesOnePerLine">Die richtige Näme vu de Schüeler, eine pro Ziile</string>
   <string name="xisNowAStudentOfTheClass">%s isch jetzt en Schüeler vu de Klass</string>
-  <string name="anInvitationHasBeenSentToX">An %s isch e Iiladig gsändet worde</string>
+  <string name="anInvitationHasBeenSentToX">An %s isch e Iladig gsändet worde</string>
   <string name="xAlreadyHasAPendingInvitation">%s hät bereits e usstehendi Iiladig</string>
   <string name="xIsAKidAccountWarning">%1$s isch es Chinder Konto, es chann dini Nachricht nöd empfange. Du muesch e Iiladigs URL manuell übermittle: %2$s</string>
 </resources>
