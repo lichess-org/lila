@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donera</string>
+  <string name="donateAsX">Donera som %s</string>
   <string name="lichessPatron">Lichess-donator</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli en Lichess Patron</string>
@@ -15,6 +16,7 @@
   <string name="thankYou">Tack för din gåva!</string>
   <string name="youHaveLifetime">Du har ett livstids Patron-konto. Det är ganska häftigt!</string>
   <string name="patronUntil">Du har ett Patron-konto till %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Om donationen inte förnyas kommer ditt konto sedan återgå till ett vanligt konto.</string>
   <string name="weAreNonProfit">Vi är en ideell förening eftersom vi anser att alla bör ha tillgång till en gratis schackplattform i världsklass.</string>
   <string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra detta möjligt. Om du tycker om att använda Lichess, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
   <string name="lifetime">Livstid</string>
@@ -62,6 +64,7 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="xOrY">%1$s eller %2$s</string>
   <string name="decideHowMuch">Bestäm hur mycket Lichess är värt för dig:</string>
   <string name="stopPayments">Dra tillbaka ditt kreditkort och stoppa betalningar:</string>
+  <string name="stopPaymentsPayPal">Avbryt PayPal-prenumerationen och stoppa betalningar:</string>
   <string name="noLongerSupport">Stöder inte längre Lichess</string>
   <string name="viewOthers">Visa andra Lichess-beskyddare</string>
   <string name="date">Datum</string>
