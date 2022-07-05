@@ -16,9 +16,9 @@ private object TutorBsonHandlers {
   import lila.rating.BSONHandlers.perfTypeIdHandler
   import lila.analyse.AnalyseBsonHandlers.accuracyPercentHandler
 
-  implicit val ratingHandler   = doubleAsIntHandler[Rating](_.value, Rating.apply, 10)
+  implicit val ratingHandler   = doubleAsIntHandler[Rating](_.value, Rating.apply, 100)
   implicit val durationHandler = lila.db.dsl.minutesHandler
-  implicit val ratioHandler    = doubleAsIntHandler[TutorRatio](_.value, TutorRatio.apply, 1000)
+  implicit val ratioHandler    = ratioAsIntHandler[TutorRatio](_.value, TutorRatio.apply)
 
   implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
     implicitly[BSONHandler[Map[String, A]]]

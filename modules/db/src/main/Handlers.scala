@@ -47,6 +47,10 @@ trait Handlers {
     doubleIsoHandler(Iso(from, to))
   def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
     intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
+  def percentAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
+    doubleAsIntHandler(to, from, 1000)
+  def ratioAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
+    doubleAsIntHandler(to, from, 100_000)
 
   def floatIsoHandler[A](implicit iso: FloatIso[A]): BSONHandler[A] =
     BSONFloatHandler.as[A](iso.from, iso.to)
