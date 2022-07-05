@@ -41,7 +41,7 @@ export type Filters = {
 export interface UI {
   dimensionCategs: Categ<Dimension>[];
   metricCategs: Categ<Metric>[];
-  presets: Preset[];
+  asMod?: boolean;
 }
 
 export interface Categ<T> {
@@ -49,7 +49,7 @@ export interface Categ<T> {
   items: T[];
 }
 
-interface Preset {
+export interface Preset {
   name: string;
   dimension: string;
   metric: string;
