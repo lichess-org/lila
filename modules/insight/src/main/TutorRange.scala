@@ -11,7 +11,7 @@ object RelativeStrength {
   case object Similar      extends RelativeStrength(30, "Similar")
   case object Stronger     extends RelativeStrength(40, "Stronger")
   case object MuchStronger extends RelativeStrength(50, "Much stronger")
-  val all = List(MuchWeaker, Weaker, Similar, Stronger, MuchStronger)
+  val all = List[RelativeStrength](MuchWeaker, Weaker, Similar, Stronger, MuchStronger)
   val byId = all map { p =>
     (p.id, p)
   } toMap
@@ -58,7 +58,7 @@ object MaterialRange {
   case object Up2   extends MaterialRange(7, "+1 to +3", 3)
   case object Up3   extends MaterialRange(8, "+3 to +6", 6)
   case object Up4   extends MaterialRange(9, "More than +6", Int.MaxValue)
-  val all                     = List(Down4, Down3, Down2, Down1, Equal, Up1, Up2, Up3, Up4)
+  val all                     = List[MaterialRange](Down4, Down3, Down2, Down1, Equal, Up1, Up2, Up3, Up4)
   def reversedButEqualAndLast = all.diff(List(Equal, Up4)).reverse
   val byId = all map { p =>
     (p.id, p)
@@ -126,7 +126,7 @@ object EvalRange {
   case object Up3   extends EvalRange(9, "+175 to +350", 350)
   case object Up4   extends EvalRange(10, "+350 to +600", 600)
   case object Up5   extends EvalRange(11, "More than +600", Int.MaxValue)
-  val all             = List(Down5, Down4, Down3, Down2, Down1, Equal, Up1, Up2, Up3, Up4, Up5)
+  val all             = List[EvalRange](Down5, Down4, Down3, Down2, Down1, Equal, Up1, Up2, Up3, Up4, Up5)
   def reversedButLast = all.init.reverse
   val byId = all map { p =>
     (p.id, p)

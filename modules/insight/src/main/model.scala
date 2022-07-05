@@ -46,7 +46,7 @@ object Termination {
   case object Stalemate   extends Termination(5, "Stalemate")
   case object Checkmate   extends Termination(6, "Checkmate")
 
-  val all = List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate)
+  val all = List[Termination](ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate)
   val byId = all map { p =>
     (p.id, p)
   } toMap
@@ -73,7 +73,7 @@ object Result {
   case object Win  extends Result(1, "Victory")
   case object Draw extends Result(2, "Draw")
   case object Loss extends Result(3, "Defeat")
-  val all = List(Win, Draw, Loss)
+  val all = List[Result](Win, Draw, Loss)
   val byId = all map { p =>
     (p.id, p)
   } toMap
@@ -85,7 +85,7 @@ object Phase {
   case object Opening extends Phase(1, "Opening")
   case object Middle  extends Phase(2, "Middlegame")
   case object End     extends Phase(3, "Endgame")
-  val all = List(Opening, Middle, End)
+  val all = List[Phase](Opening, Middle, End)
   val byId = all map { p =>
     (p.id, p)
   } toMap

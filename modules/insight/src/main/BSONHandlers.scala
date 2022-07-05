@@ -13,48 +13,23 @@ import lila.rating.PerfType
 
 object BSONHandlers {
 
-  implicit val RelativeStrengthBSONHandler = tryHandler[RelativeStrength](
-    { case BSONInteger(v) => RelativeStrength.byId get v toTry s"Invalid relative strength $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val ResultBSONHandler = tryHandler[Result](
-    { case BSONInteger(v) => Result.byId get v toTry s"Invalid result $v" },
-    e => BSONInteger(e.id)
-  )
-
-  implicit val PhaseBSONHandler = tryHandler[Phase](
-    { case BSONInteger(v) => Phase.byId get v toTry s"Invalid phase $v" },
-    e => BSONInteger(e.id)
-  )
   implicit val RoleBSONHandler = tryHandler[Role](
     { case BSONString(v) => Role.allByForsyth get v.head toTry s"Invalid role $v" },
     e => BSONString(e.forsyth.toString)
   )
-  implicit val TerminationBSONHandler = tryHandler[Termination](
-    { case BSONInteger(v) => Termination.byId get v toTry s"Invalid termination $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val MovetimeRangeBSONHandler = tryHandler[MovetimeRange](
-    { case BSONInteger(v) => MovetimeRange.byId get v toTry s"Invalid movetime range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val CastlingBSONHandler = tryHandler[Castling](
-    { case BSONInteger(v) => Castling.byId get v toTry s"Invalid Castling $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val MaterialRangeBSONHandler = tryHandler[MaterialRange](
-    { case BSONInteger(v) => MaterialRange.byId get v toTry s"Invalid material range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val EvalRangeBSONHandler = tryHandler[EvalRange](
-    { case BSONInteger(v) => EvalRange.byId get v toTry s"Invalid eval range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val WinPercentRangeReader      = valueMapHandler(WinPercentRange.byPercent)(_.bottom.toInt)
-  implicit val AccuracyPercentRangeReader = valueMapHandler(AccuracyPercentRange.byPercent)(_.bottom.toInt)
-  implicit val TimePressureRangeReader    = valueMapHandler(TimePressureRange.byPercent)(_.top.percentInt)
-
-  implicit val QueenTradeBSONHandler = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
+  implicit val RelativeStrengthBSONHandler = valueMapHandler(RelativeStrength.byId)(_.id)
+  implicit val ResultBSONHandler           = valueMapHandler(Result.byId)(_.id)
+  implicit val PhaseBSONHandler            = valueMapHandler(Phase.byId)(_.id)
+  implicit val TerminationBSONHandler      = valueMapHandler(Termination.byId)(_.id)
+  implicit val MovetimeRangeBSONHandler    = valueMapHandler(MovetimeRange.byId)(_.id)
+  implicit val CastlingBSONHandler         = valueMapHandler(Castling.byId)(_.id)
+  implicit val MaterialRangeBSONHandler    = valueMapHandler(MaterialRange.byId)(_.id)
+  implicit val EvalRangeBSONHandler        = valueMapHandler(EvalRange.byId)(_.id)
+  implicit val WinPercentRangeReader       = valueMapHandler(WinPercentRange.byPercent)(_.bottom.toInt)
+  implicit val AccuracyPercentRangeReader  = valueMapHandler(AccuracyPercentRange.byPercent)(_.bottom.toInt)
+  implicit val TimePressureRangeReader     = valueMapHandler(TimePressureRange.byPercent)(_.top.percentInt)
+  implicit val QueenTradeBSONHandler       = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
+  implicit val CplRangeBSONHandler         = valueMapHandler(CplRange.byId)(_.cpl)
 
   private val BSONBooleanNullHandler = quickHandler[Boolean](
     { case BSONBoolean(v) => v; case BSONNull => false },
@@ -66,11 +41,6 @@ object BSONHandlers {
   implicit val TimeVarianceBSONHandler = BSONIntegerHandler.as[TimeVariance](
     i => TimeVariance(i.toFloat / TimeVariance.intFactor),
     v => (v.id * TimeVariance.intFactor).toInt
-  )
-
-  implicit val CplRangeBSONHandler = tryHandler[CplRange](
-    { case BSONInteger(v) => CplRange.byId get v toTry s"Invalid CPL range $v" },
-    e => BSONInteger(e.cpl)
   )
 
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
