@@ -3,7 +3,7 @@
   <string name="challenges">Useforderige</string>
   <string name="challengeToPlay">Zunere Partii usefordere</string>
   <string name="challengeDeclined">Useforderig abglehnt</string>
-  <string name="challengeAccepted">Useforderig aangnaa!</string>
+  <string name="challengeAccepted">Useforderig agnah!</string>
   <string name="challengeCanceled">Useforderig zrugg\'zoge.</string>
   <string name="registerToSendChallenges">Bitte regischtier dich, zum Useforderige schicke.</string>
   <string name="youCannotChallengeX">Du chasch %s nöd usefordere.</string>
@@ -18,7 +18,7 @@
   <string name="declineTimeControl">Ich akzeptiere kei Schpiil, mit derä Bedänkziit.</string>
   <string name="declineRated">Bitte schick mir, anstell vu dem, e Forderig für es g\'wertets Spiel.</string>
   <string name="declineCasual">Bitte schick mir, anstell vu dem, e Forderig für es ung\'wertets Spiel.</string>
-  <string name="declineStandard">Ich nimme momentan kei Useforderige für anderi Schpiilvariante aa.</string>
+  <string name="declineStandard">Ich nimme momentan kei Useforderige für anderi Schpilvariante a.</string>
   <string name="declineVariant">Ich wott momentan die Variante nöd schpille.</string>
   <string name="declineNoBot">Ich akzeptiere kei Useforderige vu Bots.</string>
   <string name="declineOnlyBot">Ich akzeptiere nur Useforderige vu Bots.</string>
