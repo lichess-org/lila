@@ -10,7 +10,7 @@
   <string name="allStudies">All Schtudie</string>
   <string name="studiesCreatedByX">Vu %s erschtellte Schtudie</string>
   <string name="noneYet">No kei.</string>
-  <string name="hot">aagseit</string>
+  <string name="hot">agseit</string>
   <string name="dateAddedNewest">wänn zuegfüegt (neui)</string>
   <string name="dateAddedOldest">wänn zuegfüegt (älti)</string>
   <string name="recentlyUpdated">frisch aktualisiert</string>
@@ -47,9 +47,9 @@
   <string name="commentThisMove">Kommentier de Zug</string>
   <string name="annotateWithGlyphs">Mit Symbol kommentiere</string>
   <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel isch z\'churz zum analysiere.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Nur a Mitwürkendi - a dere Schtudie - chönd e Coputeranalyse aafordere.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Nur wer a dere Schtudie mit macht, chann e Coputeranalyse afordere.</string>
   <string name="getAFullComputerAnalysis">Erhalt e vollschtändigi serversitigi Computeranalyse vu de Hauptvariante.</string>
-  <string name="makeSureTheChapterIsComplete">Schtell sicher, dass das Kapitel vollschtändig isch. Die Analyse chann nur eimal aagforderet werde.</string>
+  <string name="makeSureTheChapterIsComplete">Schtell sicher, dass das Kapitel vollschtändig isch. Die Analyse chann nur eimal agforderet werde.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitglider gsehnd die glich Schtellig</string>
   <string name="shareChanges">Teil Änderige mit de Zueschauer und speicher sie uf em Server</string>
   <string name="playing">Laufend</string>
@@ -66,8 +66,8 @@
   <string name="studyUrl">Schtudie URL</string>
   <string name="currentChapterUrl">URL aktuells Kapitel</string>
   <string name="youCanPasteThisInTheForumToEmbed">Du chasch das, zum iibinde, im Forum oder i din Liches Blog iifüege</string>
-  <string name="startAtInitialPosition">Fang ab de Grundschtellig aa</string>
-  <string name="startAtX">Fang mit %s aa</string>
+  <string name="startAtInitialPosition">Fang ab de Grundschtellig a</string>
+  <string name="startAtX">Fang mit %s a</string>
   <string name="embedInYourWebsite">I dini Website iibinde</string>
   <string name="readMoreAboutEmbedding">Lies meh über s\'Iibinde</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Nu öffentlichi Schtudie chönd iibunde werde!</string>
@@ -79,9 +79,9 @@
   <string name="importFromChapterX">Importiers us %s</string>
   <string name="orientation">Orientierig</string>
   <string name="analysisMode">Analyse Modus</string>
-  <string name="pinnedChapterComment">Aaghänkte Kapitel Kommentar</string>
+  <string name="pinnedChapterComment">Aghänkte Kapitel Kommentar</string>
   <string name="saveChapter">Kapitel schpeichere</string>
-  <string name="clearAnnotations">Aamerkige lösche</string>
+  <string name="clearAnnotations">Amerkige lösche</string>
   <string name="clearVariations">Variante lösche</string>
   <string name="deleteChapter">Kapitel lösche</string>
   <string name="deleteThisChapter">Kapitel lösche? Das chann nöd rückgängig gmacht werde!</string>
@@ -93,13 +93,13 @@
   <string name="interactiveLesson">Interaktivi Üäbig</string>
   <string name="chapterX">Kapitäl %s</string>
   <string name="empty">Läär</string>
-  <string name="startFromInitialPosition">Vonärä Uusgangsschtellig aafoh</string>
+  <string name="startFromInitialPosition">Fang vu de Usgangsschtellig a</string>
   <string name="editor">Ändärä</string>
-  <string name="startFromCustomPosition">Vonärä benutzerdefiniärtä Schtellig aafoh</string>
+  <string name="startFromCustomPosition">Fang vunere benutzerdefinierte Schtellig a</string>
   <string name="loadAGameByUrl">Lad ä Partii mittäls URL</string>
   <string name="loadAPositionFromFen">Lad ä Partii mittäls FEN</string>
   <string name="loadAGameFromPgn">Lad ä Partii mittäls PGN</string>
-  <string name="automatic">Automaatisch</string>
+  <string name="automatic">Automatisch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
     <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
@@ -123,7 +123,7 @@
   <string name="enableSync">Sync aktiviärä</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Jawoll: Gliichligi Schtellig für alli</string>
   <string name="noLetPeopleBrowseFreely">Nei: Unabhängigi Navigation für alli</string>
-  <string name="pinnedStudyComment">Aapinntää Schtuudiäkommentar</string>
+  <string name="pinnedStudyComment">Agheftete Schtudiekommentar</string>
   <string name="start">Schtart</string>
   <string name="save">Schpeichärä</string>
   <string name="clearChat">Tschätt löschä</string>
@@ -150,7 +150,7 @@
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuärig</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklig</string>
   <string name="initiative">Initiativä</string>
-  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Aagriff</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Agriff</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Gägäschpiil</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Ziitnot</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mit Kompänsation</string>
