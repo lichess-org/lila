@@ -12,8 +12,8 @@
   <string name="lost2FA">Ich han de Zuegriff zu miim Zwei-Faktor-Code verloore</string>
   <string name="doPasswordReset">Setz dis Passwort zrugg, zum de zweit Faktor entferne</string>
   <string name="accountSupport">Ich bruuche Konto Underschtützig</string>
-  <string name="wantTitle">Ich wett, dass miin Titel uf Lichess aazeigt wird</string>
-  <string name="visitTitleConfirmation">Das din Titel im Profil zeigt wird und du dörfsch bi Arena Turnier für Schpiller mit Titel aaträte, muesch zerscht uf d\'Site für d\'Titelbeschtätigung</string>
+  <string name="wantTitle">Ich wett, dass min Titel uf Lichess azeigt wird</string>
+  <string name="visitTitleConfirmation">Das din Titel i dim Profil azeigt wird und dass du dörfsch bi Arena Turnier für Schpiller mit Titel aträte, muesch zerscht uf d\'Site für d\'Titelbeschtätigung</string>
   <string name="wantCloseAccount">Ich wott miis Konto schlüsse</string>
   <string name="closeYourAccount">Du chasch dis Konto uf dere Site schlüsse</string>
   <string name="doNotAskByEmail">Verlang nöd - per E-Mail - es Konto z\'schlüsse, mir mached das nöd.</string>
@@ -43,7 +43,7 @@
   <string name="calledEnPassant">Das nännt sich \"en passant\" und e Schachregle.</string>
   <string name="tryEnPassant">Probier das chliine, interaktive Schpiil und lern meh über \"en passant\".</string>
   <string name="illegalCastling">Unerlaubti oder unmöglichi Rochade</string>
-  <string name="castlingPrevented">E Rochade wird nur verhinderet, wänn de König über es aagriffes Fäld zieh will.</string>
+  <string name="castlingPrevented">E Rochade isch nur unmöglich, wänn de König über es agriffes Fäld zieh will.</string>
   <string name="castlingRules">Schtell sicher, dass du mit Rochade Regle vertraut bisch</string>
   <string name="tryCastling">Probier das chliine, interaktive Schpiil und lern meh über die \"Rochade\"</string>
   <string name="castlingImported">Wänn du es Schpil importiert häsch oder us ere beschtimmte Schtellig schtartisch, schtell sicher, dass du d\'Rächt für d\'Rochade richtig igschtellt häsch.</string>
@@ -72,5 +72,5 @@
   <string name="creditAppreciated">Erwähnig isch g\'wünscht, aber nöd notwändig.</string>
   <string name="noneOfTheAbove">Öppis anders</string>
   <string name="sendEmailAt">Schick eus e E-Mail a %s.</string>
-  <string name="explainYourRequest">Bitte erchlär dini Aafrag klar und dütlich. Nänn eus din Nutzername und alli Infos wo eus chönnd hälfe, dir z\'hälfe.</string>
+  <string name="explainYourRequest">Bitte erchlär dini Afrag klar und dütlich. Nänn eus din Nutzername und alli Infos wo eus chönnd hälfe, dir z\'hälfe.</string>
 </resources>
