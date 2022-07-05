@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Exempel</string>
   <string name="addAnotherTheme">Lägg till ett annat tema</string>
+  <string name="nextPuzzle">Nästa schackproblem</string>
   <string name="jumpToNextPuzzleImmediately">Hoppa till nästa schackproblem direkt</string>
   <string name="puzzleDashboard">Meny för schackproblem</string>
   <string name="improvementAreas">Förbättringsområden</string>
@@ -71,6 +72,14 @@
 Spela snabbschack och klassiska partier för att öka dina chanser att få ett av dina schackproblem tillagt!</string>
   <string name="fromXGamesFound">%1$s schackproblem hittade i %2$s partier</string>
   <string name="puzzleDashboardDescription">Träna, analysera, förbättra</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s spelad</item>
+    <item quantity="other">%s spelade</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s att spela om</item>
+    <item quantity="other">%s att spela om</item>
+  </plurals>
   <string name="percentSolved">%s lösta</string>
   <string name="noPuzzlesToShow">Ingenting att visa, gå och lös några problem först!</string>
   <string name="improvementAreasDescription">Öva på dessa för att optimera dina framsteg!</string>
