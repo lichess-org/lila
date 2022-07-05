@@ -14,7 +14,7 @@
   <string name="joinTeam">Tritt em Team bii</string>
   <string name="quitTeam">Team verloh</string>
   <string name="manuallyReviewAdmissionRequests">Bitrittsafrage manuell überprüefe</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Wänn die Option aktiviert isch, müend d\'Schpiller e Afrag schriie, um em Team bizträte - wo du chasch ablähne oder akzeptiere.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Wänn die Option aktiviert isch, müend d\'Schpiller e Afrag schribe, um em Team bizträte - wo du chasch ablähne oder akzeptiere.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
@@ -28,7 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Dini Bitrittsafrag wird bald vume Teamleiter prüeft.</string>
   <string name="beingReviewed">Dini Bitrittsanfrag wird grad vome Teamleiter überprüeft.</string>
-  <string name="requestDeclined">Dini Bitrittsafrag isch vume Teamleiter abglehnt worde.</string>
+  <string name="requestDeclined">Dini Bitrittsafrag isch vume Teamleiter abglähnt worde.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
   <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">En Kampf vu mehrere Teams, alli Schpiller sammled Pünkt für ihres Team</string>
@@ -50,6 +50,6 @@
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
   <string name="upcomingTourns">Kommendi Turnier</string>
   <string name="completedTourns">Beendeti Turnier</string>
-  <string name="declinedRequests">Abglehnti Aafrage</string>
+  <string name="declinedRequests">Abglähnti Afrage</string>
   <string name="joinLichessVariantTeam">Chumm is offizielli %s Team für Neuigkeite und Ereignis</string>
 </resources>
