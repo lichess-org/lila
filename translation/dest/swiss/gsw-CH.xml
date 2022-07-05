@@ -31,7 +31,7 @@
   <string name="tournStartDate">Turnier Schtartdatum</string>
   <string name="numberOfRounds">Azahl Runde</string>
   <string name="numberOfRoundsHelp">E ungradi Azahl Runde ermöglicht e optimali Farbeverteilig.</string>
-  <string name="roundInterval">Ziitabschtand zwüschet de Runde</string>
+  <string name="roundInterval">Zitabschtand zwüschet de Runde</string>
   <string name="forbiddenPairings">Verboteni Paarig</string>
   <string name="forbiddenPairingsHelp">Benutzernäme vu Schpiller wo nod gägenand schpille dörfed (z. B. Gschwüschter). Zwei Näme pro Ziile, trännt dur e Leerschtell.</string>
   <string name="newSwiss">Neus Turnier nach \"Schweizer System\"</string>
