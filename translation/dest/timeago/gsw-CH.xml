@@ -6,8 +6,8 @@
     <item quantity="other">i %s Sekunde</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">i %s Minute</item>
-    <item quantity="other">i %s Minute</item>
+    <item quantity="one">in %s Minute</item>
+    <item quantity="other">in %s Minute</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">i %s Schtund</item>
