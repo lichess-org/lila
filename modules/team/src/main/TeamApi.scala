@@ -218,7 +218,10 @@ final class TeamApi(
 
   private def doQuit(team: Team, userId: User.ID): Funit =
     memberRepo.remove(team.id, userId) map { res =>
-      if (res.n == 1) teamRepo.incMembers(team.id, -1)
+      if (res.n == 1) {
+        teamRepo.incMembers(team.id, -1)
+        if (team.leaders contains userId) teamRepo.setLeaders(team.id, team.leaders - userId)
+      }
       cached.invalidateTeamIds(userId)
     }
 

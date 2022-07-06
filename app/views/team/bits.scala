@@ -55,7 +55,8 @@ object bits {
   }
 
   private[team] def teamTr(t: Team)(implicit ctx: Context) = {
-    val isMine = isMyTeamSync(t.id)
+    val isMine       = isMyTeamSync(t.id)
+    val isOnlyLeader = ctx.userId.exists(Set(_) == t.leaders)
     tr(cls := "paginated")(
       td(cls := "subject")(
         a(
@@ -74,7 +75,11 @@ object bits {
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
         isMine option form(action := routes.Team.quit(t.id), method := "post")(
-          submitButton(cls := "button button-empty button-red button-thin confirm team__quit")(quitTeam.txt())
+          submitButton(
+            cls := s"button button-empty button-red button-thin team__quit ${if (isOnlyLeader) "alert-false"
+              else "confirm"}",
+            if (isOnlyLeader) title := showCantQuitError.txt() else emptyFrag
+          )(quitTeam.txt())
         )
       )
     )
