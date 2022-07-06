@@ -17,9 +17,9 @@
   <string name="rules">Streaming-Reglä</string>
   <string name="rule1">Füeg s\'Stichwort \"lichess.org\" i dim Streamtitel i und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess streamsch.</string>
   <string name="rule2">Entfern s\'Stichwort, wänn du grad nöd Lichess-bezoge streamsch.</string>
-  <string name="rule3">Lichess wird automatisch din Sttream erkänä und folgändi Zuäsatzdiänscht aktiviärä:</string>
+  <string name="rule3">Lichess wird automatisch din Stream erkänne und folgendi Zuesatzdienscht aktiviere:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lis eusi %s, um Fairplay für Alli, während dim Stream, z\'sichere.</string>
-  <string name="streamingFairplayFAQ">streamä Fairplay FAQ</string>
+  <string name="streamingFairplayFAQ">Stream Fairplay FAQ</string>
   <string name="perks">Vorteil fürs Streame mitem Schlüsselwort</string>
   <string name="perk1">Es git es flammends Streamer-Symbol i dis Lichess-Profil.</string>
   <string name="perk2">Wird ad Schpitze vu de Streamerlischte gsetzt.</string>
@@ -38,8 +38,8 @@ Wänn din Stream in Änglisch isch, muesch kei Schprachmarkierig bifüege.</stri
   <string name="youtubeChannel">Dini YouTube-Kanal-ID oder -URL</string>
   <string name="streamerName">Din Streamername uf Lichess</string>
   <plurals name="keepItShort">
-    <item quantity="one">Kurz fassen: Maximal %s Zeichen</item>
-    <item quantity="other">Kurz halten: Maximal %s Zeichen</item>
+    <item quantity="one">Churz fasse: Maximal %s Zeiche</item>
+    <item quantity="other">Churz fasse: Maximal %s Zeiche</item>
   </plurals>
   <string name="visibility">Sichtbar uf de Streamersite</string>
   <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
@@ -49,5 +49,5 @@ Wänn din Stream in Änglisch isch, muesch kei Schprachmarkierig bifüege.</stri
   <string name="xStreamerPicture">%s Streamerbild</string>
   <string name="changePicture">Ändere/Lösche dein Bild</string>
   <string name="uploadPicture">Lade ein Bild hoch</string>
-  <string name="maxSize">Maximale Größe: %s</string>
+  <string name="maxSize">Maximali Größi: %s</string>
 </resources>
