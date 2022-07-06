@@ -16,7 +16,7 @@
   <string name="xIsStreaming">%s streamt grad</string>
   <string name="rules">Streaming-Reglä</string>
   <string name="rule1">Füeg s\'Stichwort \"lichess.org\" i dim Streamtitel i und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess streamsch.</string>
-  <string name="rule2">Entfärn s\'Stichwort, wänn du grad nöd Lichess-bezogä streamsch.</string>
+  <string name="rule2">Entfern s\'Stichwort, wänn du grad nöd Lichess-bezoge streamsch.</string>
   <string name="rule3">Lichess wird automatisch din Sttream erkänä und folgändi Zuäsatzdiänscht aktiviärä:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lis eusi %s, um Fairplay für Alli, während dim Stream, z\'sichere.</string>
   <string name="streamingFairplayFAQ">streamä Fairplay FAQ</string>
