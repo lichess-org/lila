@@ -1,9 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
-
 // format: OFF
 object I18nKeys {
-
 val `playWithAFriend` = new I18nKey("playWithAFriend")
 val `playWithTheMachine` = new I18nKey("playWithTheMachine")
 val `toInviteSomeoneToPlayGiveThisUrl` = new I18nKey("toInviteSomeoneToPlayGiveThisUrl")
@@ -1608,6 +1606,7 @@ val `inCorrespondenceGames` = new I18nKey("preferences:inCorrespondenceGames")
 val `correspondenceAndUnlimited` = new I18nKey("preferences:correspondenceAndUnlimited")
 val `confirmResignationAndDrawOffers` = new I18nKey("preferences:confirmResignationAndDrawOffers")
 val `inputMovesWithTheKeyboard` = new I18nKey("preferences:inputMovesWithTheKeyboard")
+val `scrollOnTheBoardToReplayMoves` = new I18nKey("preferences:scrollOnTheBoardToReplayMoves")
 val `westernNotation` = new I18nKey("preferences:westernNotation")
 val `japaneseNotation` = new I18nKey("preferences:japaneseNotation")
 val `kitaoKawasakiNotation` = new I18nKey("preferences:kitaoKawasakiNotation")
