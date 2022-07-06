@@ -1,8 +1,9 @@
+$insight-header-height: 60px;
+
 #insight {
   > div {
     display: grid;
     grid-template-columns: minmax(280px, 15vw);
-    grid-template-rows: 60px;
     grid-template-areas: 'side head' 'side main';
     grid-gap: 0 $block-gap;
   }
@@ -85,13 +86,13 @@
 
     h2 {
       font-size: 2em;
-      line-height: 60px;
+      line-height: $insight-header-height;
     }
 
     h2::before {
       font-size: 42px;
       vertical-align: top;
-      line-height: 60px;
+      line-height: $insight-header-height;
       margin: 0 10px;
     }
 
@@ -129,7 +130,7 @@
   }
 
   .axis-form .ms-choice span {
-    line-height: 60px;
+    line-height: $insight-header-height;
     text-align: center;
   }
 
@@ -307,6 +308,9 @@
 
   .ms-drop {
     font-size: 0.9em;
+
+    max-height: calc(100vh - #{$site-header-height} - #{$insight-header-height});
+    overflow-y: auto;
 
     ul {
       padding: 0;

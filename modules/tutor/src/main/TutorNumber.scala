@@ -1,7 +1,7 @@
 package lila.tutor
 
 import lila.analyse.AccuracyPercent
-import lila.insight.TimePressure
+import lila.insight.ClockPercent
 import lila.common.Iso
 
 trait TutorNumber[V] {
@@ -13,6 +13,11 @@ trait TutorNumber[V] {
     } match {
       case (sum, total) => ValueCount(iso.from(if (total > 0) sum / total else 0), total)
     }
+  def reverseCompare = new TutorNumber[V] {
+    val iso                                                          = TutorNumber.this.iso
+    override def compare(a: V, b: V)                                 = TutorNumber.this.compare(b, a)
+    override def average(vs: Iterable[ValueCount[V]]): ValueCount[V] = TutorNumber.this.average(vs)
+  }
 }
 
 object TutorNumber {
@@ -30,14 +35,8 @@ object TutorNumber {
     val iso                                    = Iso.double[Rating](Rating.apply, _.value)
     override def compare(a: Rating, b: Rating) = ValueComparison((a.value - b.value) / 300)
   }
-  implicit val globalPressureIsTutorNumber = new TutorNumber[GlobalTimePressure] {
-    val iso =
-      Iso.double[GlobalTimePressure](p => GlobalTimePressure(TimePressure fromPercent p), _.value.percent)
-    override def compare(a: GlobalTimePressure, b: GlobalTimePressure) = ValueComparison(iso.to(b), iso.to(a))
-  }
-  implicit val defeatPressureIsTutorNumber = new TutorNumber[DefeatTimePressure] {
-    val iso =
-      Iso.double[DefeatTimePressure](p => DefeatTimePressure(TimePressure fromPercent p), _.value.percent)
-    override def compare(a: DefeatTimePressure, b: DefeatTimePressure) = ValueComparison(iso.to(b), iso.to(a))
+  implicit val clockPercentIsTutorNumber = new TutorNumber[ClockPercent] {
+    val iso = Iso.double[ClockPercent](ClockPercent.fromPercent, _.value)
+    override def compare(a: ClockPercent, b: ClockPercent) = ValueComparison(iso.to(b), iso.to(a))
   }
 }

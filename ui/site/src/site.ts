@@ -46,11 +46,10 @@ lichess.load.then(() => {
         this.select();
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
+        const showCheckmark = () => $(this).attr('data-icon', '');
         $('#' + $(this).data('rel')).each(function (this: HTMLInputElement) {
-          this.select();
+          navigator.clipboard.writeText(this.value).then(showCheckmark);
         });
-        document.execCommand('copy');
-        $(this).attr('data-icon', '');
       });
 
     $('body').on('click', 'a.relation-button', function (this: HTMLAnchorElement) {

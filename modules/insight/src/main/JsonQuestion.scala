@@ -11,7 +11,7 @@ case class JsonQuestion(
   def question: Option[Question[_]] = {
     import InsightDimension._
     for {
-      realMetric <- Metric.byKey get metric
+      realMetric <- InsightMetric.byKey get metric
       realFilters =
         filters
           .flatMap {
@@ -25,27 +25,29 @@ case class JsonQuestion(
                 ).some
 
               filterKey match {
-                case Period.key            => build(Period)
-                case Perf.key              => build(Perf)
-                case Phase.key             => build(Phase)
-                case Result.key            => build(Result)
-                case Termination.key       => build(Termination)
-                case Color.key             => build(Color)
-                case OpeningFamily.key     => build(OpeningFamily)
-                case OpeningVariation.key  => build(OpeningVariation)
-                case OpponentStrength.key  => build(OpponentStrength)
-                case PieceRole.key         => build(PieceRole)
-                case MovetimeRange.key     => build(MovetimeRange)
-                case MyCastling.key        => build(MyCastling)
-                case OpCastling.key        => build(OpCastling)
-                case QueenTrade.key        => build(QueenTrade)
-                case MaterialRange.key     => build(MaterialRange)
-                case CplRange.key          => build(CplRange)
-                case EvalRange.key         => build(EvalRange)
-                case TimePressureRange.key => build(TimePressureRange)
-                case Blur.key              => build(Blur)
-                case TimeVariance.key      => build(TimeVariance)
-                case _                     => none
+                case Period.key               => build(Period)
+                case Perf.key                 => build(Perf)
+                case Phase.key                => build(Phase)
+                case Result.key               => build(Result)
+                case Termination.key          => build(Termination)
+                case Color.key                => build(Color)
+                case OpeningFamily.key        => build(OpeningFamily)
+                case OpeningVariation.key     => build(OpeningVariation)
+                case OpponentStrength.key     => build(OpponentStrength)
+                case PieceRole.key            => build(PieceRole)
+                case MovetimeRange.key        => build(MovetimeRange)
+                case MyCastling.key           => build(MyCastling)
+                case OpCastling.key           => build(OpCastling)
+                case QueenTrade.key           => build(QueenTrade)
+                case MaterialRange.key        => build(MaterialRange)
+                case CplRange.key             => build(CplRange)
+                case AccuracyPercentRange.key => build(AccuracyPercentRange)
+                case EvalRange.key            => build(EvalRange)
+                case WinPercentRange.key      => build(WinPercentRange)
+                case ClockPercentRange.key    => build(ClockPercentRange)
+                case Blur.key                 => build(Blur)
+                case TimeVariance.key         => build(TimeVariance)
+                case _                        => none
               }
             }
           }
@@ -54,27 +56,29 @@ case class JsonQuestion(
       question <- {
         def build[X](dimension: InsightDimension[X]) = Question[X](dimension, realMetric, realFilters).some
         dimension match {
-          case Date.key              => build(Date)
-          case Perf.key              => build(Perf)
-          case Phase.key             => build(Phase)
-          case Result.key            => build(Result)
-          case Termination.key       => build(Termination)
-          case Color.key             => build(Color)
-          case OpeningFamily.key     => build(OpeningFamily)
-          case OpeningVariation.key  => build(OpeningVariation)
-          case OpponentStrength.key  => build(OpponentStrength)
-          case PieceRole.key         => build(PieceRole)
-          case MovetimeRange.key     => build(MovetimeRange)
-          case MyCastling.key        => build(MyCastling)
-          case OpCastling.key        => build(OpCastling)
-          case QueenTrade.key        => build(QueenTrade)
-          case MaterialRange.key     => build(MaterialRange)
-          case EvalRange.key         => build(EvalRange)
-          case TimePressureRange.key => build(TimePressureRange)
-          case CplRange.key          => build(CplRange)
-          case Blur.key              => build(Blur)
-          case TimeVariance.key      => build(TimeVariance)
-          case _                     => none
+          case Date.key                 => build(Date)
+          case Perf.key                 => build(Perf)
+          case Phase.key                => build(Phase)
+          case Result.key               => build(Result)
+          case Termination.key          => build(Termination)
+          case Color.key                => build(Color)
+          case OpeningFamily.key        => build(OpeningFamily)
+          case OpeningVariation.key     => build(OpeningVariation)
+          case OpponentStrength.key     => build(OpponentStrength)
+          case PieceRole.key            => build(PieceRole)
+          case MovetimeRange.key        => build(MovetimeRange)
+          case MyCastling.key           => build(MyCastling)
+          case OpCastling.key           => build(OpCastling)
+          case QueenTrade.key           => build(QueenTrade)
+          case MaterialRange.key        => build(MaterialRange)
+          case EvalRange.key            => build(EvalRange)
+          case WinPercentRange.key      => build(WinPercentRange)
+          case ClockPercentRange.key    => build(ClockPercentRange)
+          case CplRange.key             => build(CplRange)
+          case AccuracyPercentRange.key => build(AccuracyPercentRange)
+          case Blur.key                 => build(Blur)
+          case TimeVariance.key         => build(TimeVariance)
+          case _                        => none
         }
       }
     } yield question

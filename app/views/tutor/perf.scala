@@ -9,7 +9,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.Heapsort.implicits._
 import lila.tutor.TutorCompare.comparisonOrdering
-import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio }
+import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
 
 object perf {

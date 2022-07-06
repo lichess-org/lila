@@ -18,9 +18,9 @@ import lila.insight.{
   Insight,
   InsightApi,
   InsightDimension,
+  InsightMetric,
   InsightPerfStats,
   InsightPerfStatsApi,
-  Metric,
   Phase,
   Question
 }
@@ -75,7 +75,7 @@ final private class TutorBuilder(
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
-    perfs <- (tutorUsers.toNel ?? TutorPerfs.compute).monSuccess(_.tutor buildSegment "perf-reports")
+    perfs <- (tutorUsers.toNel ?? TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorFullReport(user.id, DateTime.now, perfs)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
@@ -158,9 +158,9 @@ private object TutorBuilder {
 
   case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]) {
 
-    def valueMetric(dim: Dim, myValue: Pair) = TutorMetric(myValue, peer.get(dim))
+    def valueMetric(dim: Dim, myValue: Pair) = TutorBothValues(myValue, peer.get(dim))
 
-    def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim), peer.get(dim))
+    def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
   }
 
   def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))

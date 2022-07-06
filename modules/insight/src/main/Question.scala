@@ -2,12 +2,12 @@ package lila.insight
 
 case class Question[X](
     dimension: InsightDimension[X],
-    metric: Metric,
+    metric: InsightMetric,
     filters: List[Filter[_]] = Nil
 ) {
   def filter(f: Filter[_]) = copy(filters = f :: filters)
 
-  def withMetric(m: Metric) = copy(metric = m)
+  def withMetric(m: InsightMetric) = copy(metric = m)
 
   def monKey = s"${dimension.key}_${metric.key}"
 }
