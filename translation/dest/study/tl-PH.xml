@@ -96,7 +96,7 @@
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Magsimula galing sa isang piling posisyon</string>
   <string name="loadAGameByUrl">Load games by URLs</string>
-  <string name="loadAPositionFromFen">Load a position from FEN</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Awtomatiko</string>
   <string name="urlOfTheGame">URL of the games, one per line</string>

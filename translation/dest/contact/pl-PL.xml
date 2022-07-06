@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Na serwerze discord Lishogi</string>
   <string name="howToReportBug">Opisz proszę jak wygląda błąd, czego się spodziewałeś zamiast tego i kroki do odtworzenia błędu.</string>
   <string name="illegalPawnCapture">Nielegalne bicie piona</string>
-  <string name="calledEnPassant">To „bicie w przelocie” i jest jedną z zasad szachów.</string>
   <string name="tryEnPassant">Wypróbuj tę małą interaktywną grę, aby dowiedzieć się więcej o \"biciu w przelocie\".</string>
   <string name="illegalCastling">Nielegalna lub niemożliwa roszada</string>
   <string name="castlingPrevented">Roszada jest zabroniona gdy król przechodzi przez kontrolowane pole.</string>
   <string name="castlingRules">Upewnij się, że rozumiesz reguły roszowania</string>
-  <string name="tryCastling">Wypróbuj tę małą interaktywną grę, aby poćwiczyć roszowanie</string>
   <string name="castlingImported">Jeśli zaimportowałeś grę lub rozpocząłeś ją z określonej pozycji, upewnij się, że poprawnie ustawiłeś prawa do roszowania.</string>
   <string name="insufficientMaterial">Niewystarczający materiał do zamatowania</string>
-  <string name="fideMate">Zgodnie z zasadami FIDE dotyczącymi szachów § 6.9, jeśli możliwy jest mat dowolną legalną sekwencją ruchów to partia nie jest remisowa</string>
-  <string name="knightMate">Można zamatować przeciwnika tylko skoczkiem lub gońcem, jeśli przeciwnik ma więcej niż tylko króla.</string>
   <string name="noRatingPoints">Nie przyznano punktów rankingowych</string>
   <string name="ratedGame">Upewnij się, że grałeś partię rankingową. Zwykłe gry nie mają wpływu na ranking graczy.</string>
   <string name="errorPage">Strona błędu</string>

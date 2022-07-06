@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">I Lishogi discord-serveren</string>
   <string name="howToReportBug">Beskriv venligst, hvordan problemet viser sig, hvad du havde forventet i stedet og de trin, der skal til for at genskabe problemet.</string>
   <string name="illegalPawnCapture">Ulovlig bondefangst</string>
-  <string name="calledEnPassant">Det kaldes for \"en passant\" og er en af skakreglerne.</string>
   <string name="tryEnPassant">Prøv dette lille interaktive spil for at lære mere om \"en passant\".</string>
   <string name="illegalCastling">Illegal eller umulig rokade</string>
   <string name="castlingPrevented">Rokade forhindres kun, hvis kongen passerer gennem et kontrolleret felt.</string>
   <string name="castlingRules">Vær sikker på, at du forstår reglerne for rokade</string>
-  <string name="tryCastling">Prøve dette lille interaktive spil for at øve rokade i skak</string>
   <string name="castlingImported">Sikr dig, at du har indstillet rokade-rettighederne korrekt, hvis du har importeret partiet eller startet det fra en position.</string>
   <string name="insufficientMaterial">Utilstrækkeligt materiale til at sætte mat</string>
-  <string name="fideMate">Ifølge FIDEs regler for skak §6.9, er et parti ikke remis, hvis en skakmat er mulig med en lovlig rækkefølge af træk</string>
-  <string name="knightMate">Det er muligt at sætte skakmat med blot en springer eller løber, hvis modstanderen har mere end en konge på brættet.</string>
   <string name="noRatingPoints">Ingen ratingpoint blev givet</string>
   <string name="ratedGame">Vær sikker på, at du spillede et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
   <string name="errorPage">Fejlside</string>

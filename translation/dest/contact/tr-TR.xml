@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">ve Lishogi Discord sunucusundan bize iletebilirsiniz</string>
   <string name="howToReportBug">Lütfen yazılım hatasını tarif edin. Hatayı yaşadığınızda ne ile karşılaşmayı bekliyordunuz ve hangi adımları izledikten sonra hata meydan geldi?</string>
   <string name="illegalPawnCapture">Kural dışı piyon hareketi</string>
-  <string name="calledEnPassant">Buna \"geçerken alma\" denir ve bu hareket satrancın kurallarından biridir.</string>
   <string name="tryEnPassant">\"Geçerken alma\" hakkında daha fazla bilgi edinmek için bu etkileşimli oyunu deneyin.</string>
   <string name="illegalCastling">Kural dışı rok atma</string>
   <string name="castlingPrevented">Şah yalnızca rakibin taşlarının tehdit ettiği bir kareden geçiyorsa rok engellenir.</string>
   <string name="castlingRules">Rok atma kurallarını tam olarak anladığınızdan emin olun</string>
-  <string name="tryCastling">Rok atma ile ilgili egzersiz yapmak için bu etkileşimli oyunu deneyin</string>
   <string name="castlingImported">Eğer maçı siteye kendiniz yüklediyseniz veya maça farklı bir pozisyondan başladıysanız rok atma ayarlarını doğru ayarladığınızdan emin olun.</string>
   <string name="insufficientMaterial">Rakibin mat edecek taşı olmamasına rağmen mağlup sayıldım</string>
-  <string name="fideMate">FIDE Satranç Kuralları 6.9 numaralı madde uyarınca, herhangi bir kurallı hamle dizisi sonucunda şah-mat ihtimali varsa maç berabere bitmez</string>
-  <string name="knightMate">Eğer rakipte şah dışında herhangi bir taş var ise, yalnızca at ve ya fil ile mat edilebilir.</string>
   <string name="noRatingPoints">Maçtan oyun puanı kazanmadım</string>
   <string name="ratedGame">Puanlı bir oyun oynadığınızdan emin olun. Puansız oyunlar oyun puanınızı etkilemez.</string>
   <string name="errorPage">Hata sayfası</string>

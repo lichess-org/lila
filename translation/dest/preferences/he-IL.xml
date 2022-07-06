@@ -4,21 +4,21 @@
 	<string name="gameDisplay">תצוגת המשחק</string>
 	<string name="pieceAnimation">אנימציית הכלים</string>
 	<string name="materialDifference">הבדל בחומר</string>
-	<string name="boardHighlights">הדגשת המשבצות בלוח: המהלך האחרון ושח</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">יעדי הכלים: מהלכים וקדם-מהלכים מותרים</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">קואורדינטות לוח (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">רשימת מהלכים במהלך המשחק</string>
-	<string name="pgnPieceNotation">תיאור המהלכים</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">מצב זן</string>
 	<string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
 	<string name="onlyOnInitialPosition">רק במצב ההתחלתי</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">עשיריות שניה</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">כאשר הזמן נותר קטן מעשר שניות</string>
-	<string name="horizontalGreenProgressBars">מדי התקדמות ירוקים אופקיים</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">השמע צליל כאשר הזמן נהיה קריטי</string>
 	<string name="giveMoreTime">תן עוד זמן</string>
 	<string name="gameBehavior">התנהגות המשחק</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">קדם-מהלכים: ביצוע מהלכים במהלך תורו של היריב</string>
 	<string name="takebacksWithOpponentApproval">החזרת המהלך האחרון: מותנה בהסכמת היריב</string>
 	<string name="inCasualGamesOnly">במשחקים ללא דירוג בלבד</string>
-	<string name="promoteToQueenAutomatically">הפוך למלכה באופן אוטומטי</string>
 	<string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר &lt; 30 שניות</string>
 	<string name="moveConfirmation">אישור מהלך</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">קלוט מהלכים באמצעות המקלדת</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">העדפותיך נשמרו</string>
 </resources>

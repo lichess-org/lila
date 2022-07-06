@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Lishogi Discord सर्वर में</string>
   <string name="howToReportBug">कृपया वर्णन करें कि बग कैसा दिखता है, इसके बजाय की आपको क्या होने की उम्मीद है, और बग को पुन: उत्पन्न करने के लिए कदम।</string>
   <string name="illegalPawnCapture">प्यादे की अवैध चाल</string>
-  <string name="calledEnPassant">इसे \"एन पासेंट\" कहा जाता है और यह शतरंज के नियमों में से एक है।</string>
   <string name="tryEnPassant">\"en passant\" के बारे में अधिक जानने के लिए इस छोटे से इंटरैक्टिव गेम को खेले।</string>
   <string name="illegalCastling">अवैध या असंभव कैसलिंग</string>
   <string name="castlingPrevented">यदि राजा एक नियंत्रित वर्ग से गुज़रता है, तो कास्टिंग को रोका जाता है।</string>
   <string name="castlingRules">सुनिश्चित करें कि आप कैसलिंग नियमों को समझते हैं</string>
-  <string name="tryCastling">शतरंज में कैसलिंग का अभ्यास करने के लिए इस छोटे से इंटरैक्टिव गेम को आज़माएं</string>
   <string name="castlingImported">यदि आपने गेम आयात किया है, या इसे एक स्थिति से शुरू किया है, तो सुनिश्चित करें कि आपने सही तरीके से कैसलिंग अधिकार निर्धारित किए हैं।</string>
   <string name="insufficientMaterial">मात के लिए शतरंज के मोहरे नहीं हैं</string>
-  <string name="fideMate">FIDE के शतरंज कानून §6.9 के अनुसार, अगर कोई चेकमेट चाल के किसी भी कानूनी अनुक्रम के साथ संभव है, तो खेल ड्रा नहीं है</string>
-  <string name="knightMate">केवल एक नाइट या बिशप के साथ मात करना संभव है अगर बोर्ड पर राजा के अलावा कोई और मोहरा मौजूद है।</string>
   <string name="noRatingPoints">कोई रेटिंग अंक प्रदान नहीं किया गया</string>
   <string name="ratedGame">सुनिश्चित करें कि आपने एक रेटेड गेम खेला है। आकस्मिक खेल खिलाड़ियों की रेटिंग को प्रभावित नहीं करते हैं।</string>
   <string name="errorPage">त्रुटि पृष्ठ</string>

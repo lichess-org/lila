@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">In die Lishogi Discord bediener</string>
   <string name="howToReportBug">Beskryf asseblief hoe die probleem hom voordoen, wat jy verwag om te gebeur teenoor wat eintlik gebeur en die stappe wat gevolg moet word om die probleem te veroorsaak.</string>
   <string name="illegalPawnCapture">Onwettige vat van \'n pion</string>
-  <string name="calledEnPassant">Dit word \"en passant\" genoem en is \'n skaakreël.</string>
   <string name="tryEnPassant">Probeer hierdie klein interaktiewe oefening om meer oor \"en passant\" te leer.</string>
   <string name="illegalCastling">Onwettige of ongeldige kastellering</string>
   <string name="castlingPrevented">Kastellering word net verhoed as die koning oor \'n beheerde blokkie beweeg.</string>
   <string name="castlingRules">Maak seker dat jy vertroud is met die reëls rakende kastellering</string>
-  <string name="tryCastling">Probeer hierdie interaktiewe spel om kastellering te oefen</string>
   <string name="castlingImported">As jy die spel ingevoer het, of dit van \'n opgestelde posisie af begin het, maak seker dat jy die kastelleringsregte reg geselekteer het.</string>
   <string name="insufficientMaterial">Onvoldoende skaakmat materiaal</string>
-  <string name="fideMate">Volgens die FIDE skaakreëls §6.9 is die wedstryd nie gelykop as daar \'n skaakmat moontlik is met enige wettige reeks skuiwe nie</string>
-  <string name="knightMate">Dit is moontlik om skaakmat te gee met net \'n ruiter of \'n loper as die opponent meer as \'n koning op die bord het.</string>
   <string name="noRatingPoints">Geen gradeeringspunte is toegeken nie</string>
   <string name="ratedGame">Maak seker dat jy \'n gegradeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
   <string name="errorPage">Foutblad</string>

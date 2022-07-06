@@ -21,12 +21,12 @@
 	<string name="aLinkToTheClassWillBeAdded">Một liên kết dẫn đến lớp sẽ được tự động thêm vào cuối tin nhắn, vì vậy bạn không cần phải đưa nó vào.</string>
 	<string name="className">Tên lớp</string>
 	<string name="classDescription">Mô tả lớp</string>
-	<string name="visibleByBothStudentsAndTeachers">Có thể được thấy bởi cả giáo viên và học viên của lớp</string>
+	<string name="visibleByBothStudentsAndTeachers">Hiển thị với cả giáo viên và học viên của lớp.</string>
 	<string name="teachersOfTheClass">Giáo viên của lớp</string>
 	<string name="addLishogiUsernames">Thêm tên người dùng Lishogi để mời họ làm giáo viên. Mỗi người một dòng.</string>
 	<string name="theyMustFirstApply">Trước hết, họ phải đăng kí để trở thành giáo viên của Lishogi.</string>
 	<string name="resetPassword">Đặt lại mật khẩu</string>
-	<string name="makeSureToCopy">Hãy chắc chắn sao chép hoặc ghi lại mật khẩu ngay bây giờ. Bạn sẽ không thể nhìn thấy nó một lần nữa!</string>
+	<string name="makeSureToCopy">Hãy nhớ sao chép hoặc ghi lại mật khẩu ngay bây giờ. Bạn sẽ không thể nhìn thấy nó một lần nữa!</string>
 	<string name="passwordX">Mật khẩu: %s</string>
 	<string name="generateANewPassword">Tạo mật khẩu mới cho học viên</string>
 	<string name="invitedToXByY">Đã mời %1$s bởi %2$s</string>

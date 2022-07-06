@@ -102,7 +102,7 @@
   <string name="editor">Edytor</string>
   <string name="startFromCustomPosition">Rozpocznij z ustawionej pozycji</string>
   <string name="loadAGameByUrl">Zaimportuj partię z linku</string>
-  <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Importuj partie z KIF</string>
   <string name="automatic">Automatycznie</string>
   <string name="urlOfTheGame">Link do partii</string>

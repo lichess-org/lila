@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Speluiterlijk</string>
 	<string name="pieceAnimation">Stukanimatie</string>
 	<string name="materialDifference">Materiaalverschil</string>
-	<string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Bestemming van het stuk (geldige zetten en premoves)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Bordcoördinaten (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
-	<string name="pgnPieceNotation">Stuknotatie in PGN</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Zen modus</string>
 	<string name="displayBoardResizeHandle">Toon wijzig bordformaat knop</string>
 	<string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Tienden van seconden</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Wanneer resterende tijd &lt; 10 seconden</string>
-	<string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
 	<string name="giveMoreTime">Meer tijd geven</string>
 	<string name="gameBehavior">Spelgedrag</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Vooraf-zetten (spelen tijdens beurt tegenstander)</string>
 	<string name="takebacksWithOpponentApproval">Terugnames (met goedkeuring van tegenstander)</string>
 	<string name="inCasualGamesOnly">Alleen bij partijen zonder rating</string>
-	<string name="promoteToQueenAutomatically">Automatisch promoveren tot dame</string>
 	<string name="whenPremoving">Bij vooraf-zetten</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
 	<string name="moveConfirmation">Zetbevestiging</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
 </resources>

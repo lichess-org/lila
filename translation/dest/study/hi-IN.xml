@@ -96,7 +96,7 @@
   <string name="editor">संपादक</string>
   <string name="startFromCustomPosition">कृत्रिम स्थिति से शुरू करें</string>
   <string name="loadAGameByUrl">URL द्वारा गेम लोड करें</string>
-  <string name="loadAPositionFromFen">FEN द्वारा स्थिति लोड करें</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">KIF से गेम लोड करें</string>
   <string name="automatic">स्वचालित</string>
   <string name="urlOfTheGame">खेल का URL, प्रति पंक्ति एक</string>

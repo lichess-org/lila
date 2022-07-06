@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Sur le serveur «discord» de Lishogi</string>
   <string name="howToReportBug">Veuillez décrire le bug, ce qui devrait se produire à la place et les étapes pour reproduire le bug.</string>
   <string name="illegalPawnCapture">Capture de pion illégale</string>
-  <string name="calledEnPassant">La «prise en passant» est l\'une des règles du jeu d\'échecs.</string>
   <string name="tryEnPassant">Essayez ce petit jeu interactif pour en savoir plus sur la «prise en passant».</string>
   <string name="illegalCastling">Roque impossible ou illégal</string>
   <string name="castlingPrevented">Impossible de roquer si le roi doit traverser une case contrôlée par l\'adversaire.</string>
   <string name="castlingRules">Assurez-vous de bien comprendre les règles du roque.</string>
-  <string name="tryCastling">Essayez ce petit jeu interactif pour apprendre les règles du roque.</string>
   <string name="castlingImported">Si vous importez une partie ou une position, assurez-vous que les règles du roque soient bien définies.</string>
   <string name="insufficientMaterial">Matériel insuffisant pour mater</string>
-  <string name="fideMate">Selon l\'article 6.9 des règles du jeu d\'échecs de la FIDE, s\'il existe une séquence de coups légaux qui amène à un mat, alors la partie ne peut être déclarée nulle</string>
-  <string name="knightMate">Il est possible de mater avec seulement un cavalier ou un fou si l\'adversaire possède d\'autres pièces que son roi.</string>
   <string name="noRatingPoints">Aucun point de cote attribué</string>
   <string name="ratedGame">Seules les parties classées sont prises en compte dans le calcul du classement. Les parties amicales ne sont pas comptées.</string>
   <string name="errorPage">Page d\'erreur</string>

@@ -102,7 +102,7 @@
   <string name="editor">Редактор</string>
   <string name="startFromCustomPosition">Почати з обраної позиції</string>
   <string name="loadAGameByUrl">Завантажте гру за URL-адресою</string>
-  <string name="loadAPositionFromFen">Завантажити позицію з FEN</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Автоматично</string>
   <string name="urlOfTheGame">URL-адреса гри</string>

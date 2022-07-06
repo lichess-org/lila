@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">На сервере Lishogi в Discord</string>
   <string name="howToReportBug">Пожалуйста, опишите, как выглядит ошибка, что вы ожидаете вместо нее, и шаги по ее воспроизведению.</string>
   <string name="illegalPawnCapture">Неправильное взятие пешки</string>
-  <string name="calledEnPassant">Это называется \"взятие на проходе\" и является одним из правил шахмат.</string>
   <string name="tryEnPassant">Попробуйте эту маленькую интерактивную игру, чтобы узнать больше о \"взятии на проходе\".</string>
   <string name="illegalCastling">Неправильная или невозможная рокировка</string>
   <string name="castlingPrevented">Рокировка запрещается только в том случае, если атакован король или площадь, через которую проходит король во время рокировки.</string>
   <string name="castlingRules">Убедитесь, что вы понимаете правила рокировки</string>
-  <string name="tryCastling">Попробуйте эту маленькую интерактивную игру, чтобы потренироваться рокировке в шахматах</string>
   <string name="castlingImported">Если вы импортировали игру или запустили ее с определенной позиции, убедитесь, что вы правильно установили права на рокировку.</string>
   <string name="insufficientMaterial">Недостаточное количество фигур для мата</string>
-  <string name="fideMate">Согласно статье 6.9 Правил шахмат FIDE, если мат возможен с любой правильной последовательностью ходов, то игра не считается ничейной</string>
-  <string name="knightMate">Например, можно поставить мат только конем или только слоном, если у соперника на доске есть больше чем король.</string>
   <string name="noRatingPoints">Не были начислены рейтинговые очки</string>
   <string name="ratedGame">Убедитесь, что вы играли рейтинговую игру. Пользовательские игры не влияют на рейтинг игроков.</string>
   <string name="errorPage">Сообщение об ошибке</string>

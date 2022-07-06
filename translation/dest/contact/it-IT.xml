@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Nel server Discord di Lishogi</string>
   <string name="howToReportBug">Descrivi come appare il bug, cosa ti aspettavi invece che accadesse e i passaggi per riprodurre il bug.</string>
   <string name="illegalPawnCapture">Cattura del pedone illegale</string>
-  <string name="calledEnPassant">Si chiama \"en passant\" ed è una delle regole degli scacchi.</string>
   <string name="tryEnPassant">Prova questo piccolo gioco interattivo per saperne di più su \"en passant\".</string>
   <string name="illegalCastling">Arrocco illegale o impossibile</string>
   <string name="castlingPrevented">L\'arrocco viene impedito solo se il re attraversa una casella controllata.</string>
   <string name="castlingRules">Assicurati di aver capito le regole dell\'arrocco</string>
-  <string name="tryCastling">Prova questo piccolo gioco interattivo per esercitarti ad arroccare negli scacchi</string>
   <string name="castlingImported">Se hai importato il gioco o lo hai iniziato da una posizione, assicurati di impostare correttamente i diritti di arrocco.</string>
   <string name="insufficientMaterial">Materiale insufficiente per dare scacco matto</string>
-  <string name="fideMate">Secondo le leggi FIDE degli scacchi §6.9, se uno scacco matto è possibile con una qualsiasi sequenza legale di mosse, allora il gioco non è patto</string>
-  <string name="knightMate">È possibile dare scacco matto con un solo cavallo o con un alfiere, se l\'avversario ha più di un re sulla scacchiera.</string>
   <string name="noRatingPoints">Nessun punteggio assegnato</string>
   <string name="ratedGame">Assicurati di aver giocato a un gioco classificato. Le partite occasionali non influenzano il rating dei giocatori.</string>
   <string name="errorPage">Pagina di errore</string>

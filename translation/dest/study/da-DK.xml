@@ -96,7 +96,7 @@
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Start fra brugerdefinerede position</string>
   <string name="loadAGameByUrl">Indlæs et parti fra URL</string>
-  <string name="loadAPositionFromFen">Indlæs en position fra FEN</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automatisk</string>
   <string name="urlOfTheGame">URL for partiet</string>

@@ -6,7 +6,7 @@
 	<string name="forkedFromLichess">Ang Lishogi ay isang open source na project galing sa lichess, ngunit dahil ito ay para sa paglalaro ng shogi, ito ay tinawag na lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Dahil ito ay galing sa Lichess. At ang Lichess ay tinawag na Lichess dahil ito ay isang combinasyon ng live/light/libre at chess. Ang Lishogi ay binibigkas nang ganito: %1$s.</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lishogi is open-source and unencumbered by proprietary junk that plagues other websites.</string>
+	<string name="whyLiveLightLibre">Live, dahil ang mga laro ay linalaro at pinapanood ng totoong oras 24/7, at libre para sa katotohanang ang Lishogi ay bukas-mapagkukunan at hindi nababalutan ng pagmamay-ari ng basura na nagpapahamak sa iba pang mga website.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">Paano ako makakapag-ambag sa Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Ang Lishogi ay napapagana ng mga donasyon galing sa mga patron at mga pagsisikap ng isang grupo ng mga volunteers.</string>

@@ -102,7 +102,7 @@
   <string name="editor">Tvůrce</string>
   <string name="startFromCustomPosition">Začít od vlastní pozice</string>
   <string name="loadAGameByUrl">Načíst hru podle URL</string>
-  <string name="loadAPositionFromFen">Načíst polohu z FEN</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automatický</string>
   <string name="urlOfTheGame">URL hry</string>

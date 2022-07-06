@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Game display</string>
 	<string name="pieceAnimation">Piece animation</string>
 	<string name="materialDifference">Material difference</string>
-	<string name="boardHighlights">Board highlights (last move and check)</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Board coordinates</string>
 	<string name="moveListWhilePlaying">Move list while playing</string>
-	<string name="pgnPieceNotation">Move notation</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Zen mode</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>
 	<string name="onlyOnInitialPosition">Only on initial position</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Tenths of seconds</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
-	<string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
 	<string name="giveMoreTime">Give more time</string>
 	<string name="gameBehavior">Game behaviour</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
 	<string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
 	<string name="inCasualGamesOnly">In casual games only</string>
-	<string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
 	<string name="whenPremoving">When premoving</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
 	<string name="moveConfirmation">Move confirmation</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
 </resources>

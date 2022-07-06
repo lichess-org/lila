@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">在 Lishogi Discord 服务器</string>
   <string name="howToReportBug">请描述错误的内容，意料的结果，和重复导致错误的步骤。</string>
   <string name="illegalPawnCapture">兵的异常吃法</string>
-  <string name="calledEnPassant">它被称为“吃过路兵”，是棋规之一。</string>
   <string name="tryEnPassant">玩这个迷你游戏来了解吃过路兵的规则。</string>
   <string name="illegalCastling">异常的王车易位</string>
   <string name="castlingPrevented">王车易位仅在国王所在，经过，或易位后的格被对方威胁时才被禁止。</string>
   <string name="castlingRules">请确认您了解王车易位的规则</string>
-  <string name="tryCastling">玩这个迷你游戏来了解王车易位</string>
   <string name="castlingImported">如果您导入了棋局或从制定局面开始棋局，请确保您正确地设置了王车易位的权利。</string>
   <string name="insufficientMaterial">战力不足</string>
-  <string name="fideMate">根据 FIDE 国际象棋规则 6.9 项，如果存在着终止于将死的合规着法顺序，棋局不能被判和。</string>
-  <string name="knightMate">如果单方不只剩单王，对方就可能以单马或单象将死。</string>
   <string name="noRatingPoints">未获得积分</string>
   <string name="ratedGame">请确保您参加过积分赛。非积分赛将不会影响选手的积分。</string>
   <string name="errorPage">错误页面</string>

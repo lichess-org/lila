@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Exibição do jogo</string>
 	<string name="pieceAnimation">Animação das peças</string>
 	<string name="materialDifference">Diferença material</string>
-	<string name="boardHighlights">Destacar casas do tabuleiro (último movimento e xeque)</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Destino das peças (movimentos válidos e antecipados)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Coordenadas do tabuleiro</string>
 	<string name="moveListWhilePlaying">Lista de movimentos</string>
-	<string name="pgnPieceNotation">Anotação de movimentos</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Modo Zen</string>
 	<string name="displayBoardResizeHandle">Mostrar o cursor de redimensionamento do tabuleiro</string>
 	<string name="onlyOnInitialPosition">Apenas na posição inicial</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Décimos de segundo</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo restante for menos do que 10 segundos</string>
-	<string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
 	<string name="giveMoreTime">Dê mais tempo</string>
 	<string name="gameBehavior">Funcionamento do jogo</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Jogadas antecipadas (jogadas durante a vez do adversário)</string>
 	<string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
 	<string name="inCasualGamesOnly">Somente em jogos casuais</string>
-	<string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
 	<string name="whenPremoving">Quando mover antecipadamente</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante for menos do que 30 segundos</string>
 	<string name="moveConfirmation">Confirmação de movimento</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Lançar movimentos com o teclado</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">As suas preferências foram guardadas.</string>
 </resources>

@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Zobrazení hry</string>
 	<string name="pieceAnimation">Animace figur</string>
 	<string name="materialDifference">Materiální rozdíl</string>
-	<string name="boardHighlights">Zvýraznění na šachovnici (poslední tah a šach)</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Možnosti figur (možné tahy a předtahy)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Souřadnice šachovnice (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Seznam tahů během hry</string>
-	<string name="pgnPieceNotation">Označení figur v notaci</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Zen mód</string>
 	<string name="displayBoardResizeHandle">Zobrazit tlačítko pro změnu velikosti šachovnice</string>
 	<string name="onlyOnInitialPosition">Jen v základním postavení</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Desetiny sekund</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Když zbývající čas &lt; 10 sekund</string>
-	<string name="horizontalGreenProgressBars">Vodorovný indikátor průběhu</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">Zvuk, když zbývá velmi málo času</string>
 	<string name="giveMoreTime">Přidej čas</string>
 	<string name="gameBehavior">Chování hry</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Předtahy (hraní během protivníkova tahu)</string>
 	<string name="takebacksWithOpponentApproval">Vrácení tahu (s protivníkovým souhlasem)</string>
 	<string name="inCasualGamesOnly">Pouze v hrách \"jen tak\"</string>
-	<string name="promoteToQueenAutomatically">Povýšit na dámu automaticky</string>
 	<string name="whenPremoving">Při předtahu</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Když zbývající čas &lt; 30 sekund</string>
 	<string name="moveConfirmation">Potvrzení tahu</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Zadávání tahů pomocí klávesnice</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
 </resources>

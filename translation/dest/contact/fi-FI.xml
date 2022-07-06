@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Lishogiin Discord-palvelimella</string>
   <string name="howToReportBug">Kuvaile bugin luonnetta. Mitä odotit tapahtuvaksi sen sijaan, ja miten bugin voi toistaa.</string>
   <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
-  <string name="calledEnPassant">Siirtoa kutsutaan ohestalyönniksi, ja se on osa shakin sääntöjä.</string>
   <string name="tryEnPassant">Opi lisää ohestalyönnistä kokeilemalla tätä pientä interaktiivista peliä.</string>
   <string name="illegalCastling">Laiton tai mahdoton linnoitus</string>
   <string name="castlingPrevented">Linnoitus on estetty vain, jos kuningas kulkisi vastustajan uhkaaman ruudun poikki.</string>
   <string name="castlingRules">Varmistu siitä, että ymmärrät linnoitussäännöt</string>
-  <string name="tryCastling">Harjoittele linnoittautumista tällä pienellä interaktiivisella pelillä</string>
   <string name="castlingImported">Jos olet tuonut pelin tai aloitit sen tietystä asemasta, varmistu että asetit linnoittautumisoikeudet oikein.</string>
   <string name="insufficientMaterial">Matitukseen riittämätön materiaali</string>
-  <string name="fideMate">FIDE:n shakkisääntöjen §6.9 mukaan jos shakkimatti on mahdollinen millä tahansa laillisella siirtosarjalla, peli ei ole tasapeli</string>
-  <string name="knightMate">On mahdollista matittaa pelkällä ratsulla ja lähetillä, jos vastustajalla on pelkkä kuningas laudalla.</string>
   <string name="noRatingPoints">Vahvuuslukupisteitä ei jaettu</string>
   <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
   <string name="errorPage">Virhesivu</string>

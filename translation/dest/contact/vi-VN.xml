@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Trong server discord Lishogi</string>
   <string name="howToReportBug">Xin vui lòng mô tả hiện tượng của bug, bạn đã mong muốn điều gì xảy ra, và các bước để tái hiện bug.</string>
   <string name="illegalPawnCapture">Nước ăn tốt không hợp lệ</string>
-  <string name="calledEnPassant">Đây được gọi là \"Bắt tốt qua đường\" và là một luật chơi của cờ vua.</string>
   <string name="tryEnPassant">Thử trò chơi tương tác nhỏ này để học thêm về \"Bắt tốt qua đường\".</string>
   <string name="illegalCastling">Nước nhập thành không hợp lệ hoặc không khả thi</string>
   <string name="castlingPrevented">Nhập thành chỉ bị cấm khi vua đi qua ô bị đối phương kiểm soát.</string>
   <string name="castlingRules">Hãy chắc việc bạn hiểu luật nhập thành</string>
-  <string name="tryCastling">Thử trò chơi tương tác nhỏ này để thực hành về nhập thành trong cờ vua</string>
   <string name="castlingImported">Nếu bạn nhập ván đấu, hoặc bắt đầu từ một vị trí ván đấu, đảm bảo rằng bạn đặt đúng quyền được nhập thành.</string>
   <string name="insufficientMaterial">Không đủ quân để chiếu hết</string>
-  <string name="fideMate">Theo Luật cờ vua của FIDE §6.9, nếu tình huống chiếu hết có thể xảy ra với bất kì thứ tự nước đi hợp lệ nào sau đó, ván cờ không được tính là hòa</string>
-  <string name="knightMate">Có thể xảy ra trường hợp chiếu hết chỉ với một quân mã hoặc một quân tượng, nếu đối thủ có nhiều hơn chỉ có vua trên bàn cờ.</string>
   <string name="noRatingPoints">Điểm xếp hạng không được tăng</string>
   <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ xếp hạng. Các ván đấu thường sẽ không ảnh hưởng đến hệ số của người chơi.</string>
   <string name="errorPage">Trang lỗi</string>

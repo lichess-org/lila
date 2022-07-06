@@ -96,7 +96,7 @@
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Comenzar desde una posición personalizada</string>
   <string name="loadAGameByUrl">Cargar una partida desde una URL</string>
-  <string name="loadAPositionFromFen">Cargar una posición vía código FEN</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automática</string>
   <string name="urlOfTheGame">URL de la partida</string>

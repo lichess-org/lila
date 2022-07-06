@@ -96,7 +96,7 @@
   <string name="editor">Editori</string>
   <string name="startFromCustomPosition">Aloita haluamastasi asemasta</string>
   <string name="loadAGameByUrl">Lataa peli URL:stä</string>
-  <string name="loadAPositionFromFen">Lataa asema FEN:istä</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automaattinen</string>
   <string name="urlOfTheGame">URL peliin</string>

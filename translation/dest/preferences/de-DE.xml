@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Spieldarstellung</string>
 	<string name="pieceAnimation">Figurenanimation</string>
 	<string name="materialDifference">Materialunterschied</string>
-	<string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
-	<string name="pgnPieceNotation">Zugnotation</string>
-	<string name="chessPieceSymbol">Shogifigurensymbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Zen-Modus</string>
 	<string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
 	<string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
-	<string name="blindfoldChess">Blind-Shogi (unsichtbare Figuren)</string>
-	<string name="chessClock">Shogi-Uhr</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Zehntelsekunden</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Wenn Restzeit &lt; 10 Sekunden</string>
-	<string name="horizontalGreenProgressBars">Horizontale grüne Fortschrittsbalken</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">Ton, wenn die Zeit knapp wird</string>
 	<string name="giveMoreTime">Mehr Zeit geben</string>
 	<string name="gameBehavior">Spielverhalten</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Vorauszüge (Premoves), während der Gegner am Zug ist</string>
 	<string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
 	<string name="inCasualGamesOnly">Nur in ungewerteten Partien</string>
-	<string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
 	<string name="whenPremoving">Bei Vorauszug</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
 	<string name="moveConfirmation">Zugbestätigung</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Deine Einstellungen wurden gespeichert.</string>
 </resources>

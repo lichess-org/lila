@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Opțiuni de afișare în joc</string>
 	<string name="pieceAnimation">Animația piesei</string>
 	<string name="materialDifference">Diferență de piese capturate</string>
-	<string name="boardHighlights">Evidențiază pe tablă (ultima mutare și șahul)</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Destinația piesei (mutări valide și premutări)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Coordonatele tablei (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
-	<string name="pgnPieceNotation">Notația mutării</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Modul Zen</string>
 	<string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
 	<string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Zecimi de secundă</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Când rămân mai puțin de 10 secunde</string>
-	<string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
 	<string name="giveMoreTime">Adaugă timp adversarului</string>
 	<string name="gameBehavior">Comportamentul din joc</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Mutare anticipată (mută pe timpul adversarului)</string>
 	<string name="takebacksWithOpponentApproval">Dă înapoi (cu aprobarea adversarului)</string>
 	<string name="inCasualGamesOnly">În jocuri amicale</string>
-	<string name="promoteToQueenAutomatically">Promovează automat in damă</string>
 	<string name="whenPremoving">În cazul mutărilor anticipate</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Cînd timpul rămas e mai scurt de 30 de secunde</string>
 	<string name="moveConfirmation">Confirmare mutare</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
 </resources>

@@ -14,7 +14,7 @@
 	<string name="toggleSound">切換音效</string>
 	<string name="chat">聊天室</string>
 	<string name="resign">投了</string>
-	<string name="checkmate">將死</string>
+	<string name="checkmate">詰死</string>
 	<string name="stalemate">逼和</string>
 	<string name="impasse">僵局</string>
 	<string name="white">後手</string>
@@ -312,9 +312,10 @@
 	<string name="save">儲存</string>
 	<string name="leaderboard">排行榜</string>
 	<string name="selectHandicap">選擇讓子</string>
-	<string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
+	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">自定義局面</string>
+	<string name="default">Default</string>
 	<string name="continueFromHere">從此處繼續</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">導入棋局</string>
@@ -326,7 +327,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAChessCaptcha">這是驗證碼。</string>
 	<string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
 	<string name="captcha.fail">請完成驗證。</string>
-	<string name="notACheckmate">沒有將死</string>
+	<string name="notACheckmate">沒有詰</string>
 	<string name="whiteCheckmatesInOneMove">後手一手詰</string>
 	<string name="blackCheckmatesInOneMove">先手一手詰</string>
 	<string name="retry">重試</string>
@@ -517,6 +518,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="slow">慢</string>
 	<string name="insideTheBoard">棋盤內</string>
 	<string name="outsideTheBoard">棋盤外</string>
+	<string name="edgeOfTheBoard">Edge of the board</string>
 	<string name="onSlowGames">慢棋時</string>
 	<string name="always">總是</string>
 	<string name="never">永不</string>
@@ -705,8 +707,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="light">亮</string>
 	<string name="dark">暗</string>
 	<string name="transparent">透明度</string>
+	<string name="customTheme">Custom theme</string>
 	<string name="backgroundImageUrl">背景圖片網址:</string>
-	<string name="boardGeometry">棋盤幾何性質</string>
+	<string name="backgroundColor">Background color:</string>
+	<string name="gridColor">Grid color:</string>
+	<string name="gridWidth">Grid width:</string>
+	<string name="board">Board</string>
+	<string name="grid">Grid</string>
+	<string name="gridSlim">Slim</string>
+	<string name="gridThick">Thick</string>
+	<string name="gridVeryThick">Very thick</string>
+	<string name="hands">Hands</string>
 	<string name="boardTheme">棋盤主題</string>
 	<string name="boardSize">棋盤大小</string>
 	<string name="pieceSet">棋子外觀設定</string>

@@ -93,7 +93,7 @@
   <string name="editor">編輯器</string>
   <string name="startFromCustomPosition">從指定的局面開始</string>
   <string name="loadAGameByUrl">透過連結讀取棋譜</string>
-  <string name="loadAPositionFromFen">透過FEN讀取局面</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">從 KIF 檔案載入棋局</string>
   <string name="automatic">自動</string>
   <string name="urlOfTheGame">棋局連結（一行一個）</string>

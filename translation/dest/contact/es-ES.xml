@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">En el servidor Discord de Lishogi</string>
   <string name="howToReportBug">Por favor, describe cómo se ve el error, qué esperabas que sucediera, y los pasos para reproducir el error.</string>
   <string name="illegalPawnCapture">Captura de peón ilegal</string>
-  <string name="calledEnPassant">Se llama captura al paso y es una de las reglas del ajedrez.</string>
   <string name="tryEnPassant">Prueba este pequeño juego interactivo para aprender más sobre la captura al paso.</string>
   <string name="illegalCastling">Enroque ilegal o imposible</string>
   <string name="castlingPrevented">El enroque está prohibido si el rey pasa por un cuadrado controlado.</string>
   <string name="castlingRules">Asegúrate de entender las reglas del enroque</string>
-  <string name="tryCastling">Prueba este pequeño juego interactivo para practicar el enroque en el ajedrez</string>
   <string name="castlingImported">Si has importado el juego, o lo iniciaste desde una posición, asegúrate de establecer correctamente los derechos del enroque.</string>
   <string name="insufficientMaterial">Material insuficiente para dar mate</string>
-  <string name="fideMate">Según las reglas FIDE §6.9, si un jaque mate es posible con cualquier secuencia legal de movimientos, entonces el juego no es un empate</string>
-  <string name="knightMate">Puedes hacer jaque mate con sólo un caballo o un alfil, si el oponente tiene más que un rey en el tablero.</string>
   <string name="noRatingPoints">No se han concedido puntos</string>
   <string name="ratedGame">Asegúrate de haber jugado una partida por puntuación. Las partidas amistosas no afectan a las puntuaciones de los jugadores.</string>
   <string name="errorPage">Página de error</string>

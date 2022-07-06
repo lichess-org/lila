@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">No servidor Lishogi Discord</string>
   <string name="howToReportBug">Por favor, descreve o aspeto do erro, o que esperavas que acontecesse, e os passos para reproduzir o erro.</string>
   <string name="illegalPawnCapture">Captura de peão ilegal</string>
-  <string name="calledEnPassant">Chama-se \"en passant\" e é uma das regras do xadrez.</string>
   <string name="tryEnPassant">Experimenta este pequeno jogo interativo para aprenderes mais sobre o \"en passant\".</string>
   <string name="illegalCastling">Roque ilegal ou impossível</string>
   <string name="castlingPrevented">O roque só é impedido se o rei passar por uma casa controlada.</string>
   <string name="castlingRules">Certifica-te que entendes as regras do roque</string>
-  <string name="tryCastling">Experimenta este pequeno jogo interativo para praticares o roque</string>
   <string name="castlingImported">Se importaste o jogo, ou começaste a partir de uma posição, certifica-te que definiste corretamente os direitos de roque.</string>
   <string name="insufficientMaterial">Material insuficiente para fazer xeque-mate</string>
-  <string name="fideMate">De acordo com as Leis do xadrez da FIDE §6.9, se um xeque-mate é possível com alguma sequência legal de movimentos, então o jogo não é um empate</string>
-  <string name="knightMate">É possível fazer xeque-mate apenas com um cavaleiro ou um bispo, se o adversário tiver mais do que um rei no tabuleiro.</string>
   <string name="noRatingPoints">Não foram atribuídos pontos</string>
   <string name="ratedGame">Certifica-te que jogaste uma partida a valer pontos. Jogos amigáveis não afetam as pontuações dos jogadores.</string>
   <string name="errorPage">Página de erro</string>

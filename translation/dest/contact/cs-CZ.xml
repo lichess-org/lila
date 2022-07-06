@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Na serveru Lishogi Discord</string>
   <string name="howToReportBug">Popište, jak vypadá chyba, co jste očekávali místo toho a kroky k reprodukci chyby.</string>
   <string name="illegalPawnCapture">Nepovolené braní pěšce</string>
-  <string name="calledEnPassant">Nazývá se to \"braní mimochodem\" a je to jedním z pravidel šachů.</string>
   <string name="tryEnPassant">Vyzkoušejte tuto malou interaktivní hru, abyste se dozvěděli více o \"braní mimochodem\".</string>
   <string name="illegalCastling">Nemožná rošáda nebo proti pravidlům</string>
   <string name="castlingPrevented">Rošádě je zabráněno pouze v případě, že král projde ovládané pole.</string>
   <string name="castlingRules">Ujistěte se, že rozumíte pravidlům pro rošádu</string>
-  <string name="tryCastling">Vyzkoušejte tuto malou interaktivní hru a procvičte si rošádu v šachu</string>
   <string name="castlingImported">Pokud jste importovali hru, nebo jste ji začali z pozice, ujistěte se, že jste správně nastavili práva pro rošádu.</string>
   <string name="insufficientMaterial">Nedostatečný materiál pro matování</string>
-  <string name="fideMate">Podle Šachových pravidel FIDE §6.9, pokud je šach-mat možný s jakoukoli posloupností tahů dle pravidel, pak hra není remízou</string>
-  <string name="knightMate">Je možné dát šach-mat jen s koněm nebo střelcem, pokud má soupeř na šachovnici více figur než jen krále.</string>
   <string name="noRatingPoints">Nebyly přiděleny žádné ratingové body</string>
   <string name="ratedGame">Ujistěte se, že jste hráli hodnocenou hru. Neformální hry neovlivňují hodnocení hráčů.</string>
   <string name="errorPage">Chybová stránka</string>

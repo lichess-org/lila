@@ -96,7 +96,7 @@
   <string name="editor">Επεξεργαστής</string>
   <string name="startFromCustomPosition">Έναρξη από τρέχουσα θέση</string>
   <string name="loadAGameByUrl">Φόρτωση παρτίδας με URL</string>
-  <string name="loadAPositionFromFen">Φόρτωση θέσης από FEN</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Αυτόματο</string>
   <string name="urlOfTheGame">URL παρτίδας</string>

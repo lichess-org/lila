@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Приказ игре</string>
 	<string name="pieceAnimation">Aнимација фигура</string>
 	<string name="materialDifference">Разлика у материјалу</string>
-	<string name="boardHighlights">Осветли последњи потез и шах</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Bажећи потези (важећи помаци и претпотези)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Листа потеза током партије</string>
-	<string name="pgnPieceNotation">Нотација</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">зен стање</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>
 	<string name="onlyOnInitialPosition">Само на почетку партије</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Десетинке</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Када имате &lt; 10 секунди</string>
-	<string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">Звук када преостане мало времена</string>
 	<string name="giveMoreTime">Додај још времена</string>
 	<string name="gameBehavior">Game behaviour</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Претпотез (игра се током противниковог потеза)</string>
 	<string name="takebacksWithOpponentApproval">Враћања потеза (са пристанком противника)</string>
 	<string name="inCasualGamesOnly">Само у неформалним партијама</string>
-	<string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
 	<string name="whenPremoving">Током претпотеза</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Када преостане &lt; 30 секунди</string>
 	<string name="moveConfirmation">Потврди потез</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Ваше преференце су сачуване.</string>
 </resources>

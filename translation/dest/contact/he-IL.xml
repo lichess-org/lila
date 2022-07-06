@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">בשרת הDiscord של ליצ\'ס</string>
   <string name="howToReportBug">אנא תאר כיצד ניראת התקלה, כיצד ציפית שיקרה במקום זאת, ואת הצעדים לשחזור התקלה.</string>
   <string name="illegalPawnCapture">אכילת חייל לא חוקית</string>
-  <string name="calledEnPassant">נקרא \"דרך הילוכו\" וזהו אחד החוקים של השחמט.</string>
   <string name="tryEnPassant">נסה את המשחק האינטראקטיבי הקטן הזה כדי ללמוד עוד על \"דרך הילוכו\".</string>
   <string name="illegalCastling">הצרחה לא חוקית או לא אפשרית</string>
   <string name="castlingPrevented">הצרחה מנועה זמנית אם המלך יצטרך לעבור דרך ערוגה מותקפת.</string>
   <string name="castlingRules">היה בטוח שהבנת את חוקי ההצרחה</string>
-  <string name="tryCastling">נסה את המשחקים האינטראקטיביים הקצרים האלו כדי ללמוד על הצרחה</string>
   <string name="castlingImported">אם ייבאת את המשחק, או התחלת אותו מעמדה, בדוק אם הגדרת את זכויות ההצרחה בצורה נכונה.</string>
   <string name="insufficientMaterial">אין מספיק כלים</string>
-  <string name="fideMate">על פי חוקי השחמט של פיד\"ה סעיף 6.9, אם מט אפשרי ברצף מהלכים חוקי כלשהו, אז המשחק אינו מהווה תיקו</string>
-  <string name="knightMate">אפשרי לבצע מט רק אם פרש או רץ, אם ליריב יש יותר ממלך על הלוח.</string>
   <string name="noRatingPoints">נקודות מד כושר לא הוענקו</string>
   <string name="ratedGame">בדוק אם שיחקת משחק מדורג. משחק לא מדורג לא משפיע על מד הכושר.</string>
   <string name="errorPage">שגיאה בדף</string>

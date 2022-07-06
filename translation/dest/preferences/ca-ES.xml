@@ -4,21 +4,21 @@
 	<string name="gameDisplay">Presentació del tauler</string>
 	<string name="pieceAnimation">Animació de les peces</string>
 	<string name="materialDifference">Diferència de material</string>
-	<string name="boardHighlights">Marcar caselles (últim moviment i escac)</string>
+	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
+	<string name="boardHighlightsCheck">Board highlights - check</string>
 	<string name="pieceDestinations">Destinacions de la peça (moviments vàlids i moviments anticipats)</string>
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Coordenades del tauler (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Llista de moviments durant la partida</string>
-	<string name="pgnPieceNotation">Notació de les jugades</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Mode Zen</string>
 	<string name="displayBoardResizeHandle">Mostrar canvi de tamany</string>
 	<string name="onlyOnInitialPosition">Només en posició inicial</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
+	<string name="shogiClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Dècimes de segon</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Quan restin menys de 10 segons</string>
-	<string name="horizontalGreenProgressBars">Barres horitzontals verdes de temps</string>
+	<string name="clockTickingStart">Clock should start ticking at</string>
 	<string name="soundWhenTimeGetsCritical">So quan quedi poc temps</string>
 	<string name="giveMoreTime">Donar més temps</string>
 	<string name="gameBehavior">Opcions de la partida</string>
@@ -29,7 +29,6 @@
 	<string name="premovesPlayingDuringOpponentTurn">Moviments anticipats (moure durant el torn de l\'oponent)</string>
 	<string name="takebacksWithOpponentApproval">Torna enrere (amb l\'aprovació de l\'oponent)</string>
 	<string name="inCasualGamesOnly">Només en els jocs amistosos</string>
-	<string name="promoteToQueenAutomatically">Corona la Dama automàticament</string>
 	<string name="whenPremoving">En moviments anticipats</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
 	<string name="moveConfirmation">Confirmació de moviment</string>
@@ -39,6 +38,6 @@
 	<string name="inputMovesWithTheKeyboard">Moure peces amb el teclat</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Les teves preferències s\'han desat.</string>
 </resources>

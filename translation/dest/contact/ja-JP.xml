@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Lishogi Discord サーバーで</string>
   <string name="howToReportBug">バグがどのようなもので、本来あるべき正しい動作と、そのバグの再現方法をお知らせください。</string>
   <string name="illegalPawnCapture">ポーンを変な風に取られた</string>
-  <string name="calledEnPassant">それは「アンパッサン」というルールです。</string>
   <string name="tryEnPassant">こちらのゲームでアンパッサンについて学んでください。</string>
   <string name="illegalCastling">不可能なキャスリングをされた</string>
   <string name="castlingPrevented">キャスリングできないのはキングが通過するマスに駒が利いている時です。</string>
   <string name="castlingRules">キャスリングのルールをよく確かめてください。</string>
-  <string name="tryCastling">こちらのゲームでキャスリングについて学んでください。</string>
   <string name="castlingImported">棋譜をインポートするか、ある局面からプレイを始めた場合は、キャスリングの権利を正しく設定したか確かめてください。</string>
   <string name="insufficientMaterial">戦力不足</string>
-  <string name="fideMate">FIDE の公式ルール 6.9 項によると、もしルールに従った手順によってメイトが可能ならば戦力不足でもドローになりません。</string>
-  <string name="knightMate">たとえばナイト 1 個やビショップ 1 個だけでも、相手にキング以外の駒が残っていればメイトの可能性があります。</string>
   <string name="noRatingPoints">勝ったのにレーティングが増えない</string>
   <string name="ratedGame">レート戦だったかどうか確かめてください。非レート戦ではレーティングは動きません。</string>
   <string name="errorPage">エラーページ</string>

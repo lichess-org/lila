@@ -45,16 +45,12 @@
   <string name="reportBugInDiscord">Στο discord σερβερ του Lishogi</string>
   <string name="howToReportBug">Περιγράψτε το σφάλμα, τι περιμένατε να συμβεί κανονικά, και τα βήματα για αναπαραγωγή του σφάλματος.</string>
   <string name="illegalPawnCapture">Μη νόμιμο κόψιμο πιονιού</string>
-  <string name="calledEnPassant">Ονομάζεται \"en passant\" και είναι ένας από τους κανόνες του σκακιού.</string>
   <string name="tryEnPassant">Δοκιμάστε την μικρή διαδραστική παρτίδα για να μάθετε περισσότερα για το \"en passant\".</string>
   <string name="illegalCastling">Μη νόμιμο ή αδύνατο ροκέ</string>
   <string name="castlingPrevented">Το ροκέ δεν επιτρέπεται αν ο βασιλιάς διέρχεται από επιτεθειμένο τετράγωνο.</string>
   <string name="castlingRules">Σιγουρευτείτε ότι καταλαβαίνετε τους κανόνες του ροκέ</string>
-  <string name="tryCastling">Δοκιμάστε αυτή τη διαδραστική παρτίδα για εξάσκηση στο ροκέ</string>
   <string name="castlingImported">Αν εισάγατε παρτίδα, ή την ξεκινήσατε από μια θέση, εξακριβώστε αν εισάγατε σωστά τα δικαιώματα για ροκέ.</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό για ματ</string>
-  <string name="fideMate">Σύμφωνα με το κανονισμό σκακιού §6.9 της FIDE, εάν το ματ είναι δυνατό με οποιαδήποτε σειρά νόμιμων κινήσεων, τότε η παρτίδα δεν είναι ισόπαλη</string>
-  <string name="knightMate">Είναι δυνατό το ματ με μόνο έναν ίππο ή αξιωματικό, εάν ο αντίπαλος έχει περισσότερα κομμάτια στη σκακιέρα από έναν βασιλιά.</string>
   <string name="noRatingPoints">Δεν προστέθηκαν βαθμοί αξιολόγησης</string>
   <string name="ratedGame">Σιγουρευτείτε ότι η παρτίδα ήταν με αξιολόγηση. Οι φιλικές παρτίδες δεν επηρεάζουν την αξιολόγηση των παικτών.</string>
   <string name="errorPage">Σελίδα λάθους</string>
