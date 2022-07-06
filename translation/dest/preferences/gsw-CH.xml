@@ -4,11 +4,11 @@
   <string name="display">Azeige</string>
   <string name="privacy">Privatsfähre</string>
   <string name="pieceAnimation">Figure Animation</string>
-  <string name="materialDifference">Materialunderschiid</string>
+  <string name="materialDifference">Materialunderschid</string>
   <string name="boardHighlights">Markierige ufem Brätt (letschte Zug und Schach)</string>
-  <string name="pieceDestinations">Ziilfälder markiere (gültigi Züg und Voruszüg)</string>
+  <string name="pieceDestinations">Zilfälder markiere (gültigi Züg und Voruszüg)</string>
   <string name="boardCoordinates">Brättkoordinate (A - H / 1 - 8)</string>
-  <string name="moveListWhilePlaying">Zugslischte während em Schpiil zeige</string>
+  <string name="moveListWhilePlaying">Zugslischte während em Schpil zeige</string>
   <string name="pgnPieceNotation">Zugsnotation</string>
   <string name="chessPieceSymbol">Schachfigure Symbol</string>
   <string name="pgnLetter">Buechstabe (K - Q - R - B - N)</string>
@@ -20,23 +20,23 @@
   <string name="blindfoldChess">Blindeschach (unsichtbari Figure)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zähntelsekunde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Bi Reschtziit &lt; 10 Sekunde</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Bi Reschtzit &lt; 10 Sekunde</string>
   <string name="horizontalGreenProgressBars">Horizontali grüeni Fortschrittsbalke</string>
-  <string name="soundWhenTimeGetsCritical">Warnig, bi wenig Ziit</string>
-  <string name="giveMoreTime">Gib meh Ziit</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpiilverhalte</string>
+  <string name="soundWhenTimeGetsCritical">Warnig, bi wenig Zit</string>
+  <string name="giveMoreTime">Gib meh Zit</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpilverhalte</string>
   <string name="howDoYouMovePieces">Wie wottsch Figure bewege?</string>
   <string name="clickTwoSquares">Klick Schtartfäld und Zielfäld</string>
   <string name="dragPiece">Figur mit Cursor zieh</string>
   <string name="bothClicksAndDrag">Beides</string>
   <string name="premovesPlayingDuringOpponentTurn">Voruszüg (Premoves), während de Gägner am Zug isch</string>
   <string name="takebacksWithOpponentApproval">Zugsrücknahm (mit Erlaubnis vom Gägner)</string>
-  <string name="inCasualGamesOnly">Nur bi ungwertete Schpiil</string>
+  <string name="inCasualGamesOnly">Nur bi ungwertete Schpil</string>
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Dame</string>
   <string name="explainPromoteToQueenAutomatically">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
   <string name="whenPremoving">Bim Voruszug</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal gliicher Stellig</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtziit &lt; 30 Sekunde</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Stellig</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtzit &lt; 30 Sekunde</string>
   <string name="moveConfirmation">Zugsbeschtätigung</string>
   <string name="inCorrespondenceGames">Bi Fernschach</string>
   <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
