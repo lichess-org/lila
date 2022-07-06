@@ -20,20 +20,24 @@ final class SwissStandingApi(
 
   import BsonHandlers._
 
+  private val perPage = 10
+
   private val pageCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
     .build[(Swiss.Id, Int), JsObject]()
 
-  def apply(swiss: Swiss, page: Int): Fu[JsObject] =
+  def apply(swiss: Swiss, forPage: Int): Fu[JsObject] = {
+    val page = forPage atMost Math.ceil(swiss.nbPlayers.toDouble / perPage).toInt atLeast 1
     fuccess(pageCache.getIfPresent(swiss.id -> page)) getOrElse {
       if (page == 1) first get swiss.id
       else compute(swiss, page)
     }
+  }
 
   def update(res: SwissScoring.Result): Funit =
     lightUserApi.asyncMany(res.leaderboard.map(_._1.userId)) map {
       _.zip(res.leaderboard).zipWithIndex
-        .grouped(10)
+        .grouped(perPage)
         .toList
         .foldLeft(0) { case (i, pagePlayers) =>
           val page = i + 1
@@ -73,7 +77,7 @@ final class SwissStandingApi(
 
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for {
-      rankedPlayers <- bestWithRankByPage(swiss.id, 10, page atLeast 1)
+      rankedPlayers <- bestWithRankByPage(swiss.id, perPage, page atLeast 1)
       pairings <- !swiss.isCreated ?? SwissPairing.fields { f =>
         colls.pairing
           .find($doc(f.swissId -> swiss.id, f.players $in rankedPlayers.map(_.player.userId)))
