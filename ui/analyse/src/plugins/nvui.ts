@@ -262,7 +262,6 @@ export default function (redraw: Redraw) {
     },
     bindKeys(ctrl: AnalyseController) {
       window.Mousetrap.bind('c', () => {
-        console.log(ctrl.node.ceval?.pvs);
         if (ctrl.threatMode()) {
           notify.set(`${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`);
         } else {
