@@ -13,7 +13,7 @@ import lila.user.User
 object home {
 
   def apply(full: TutorFullReport.Available, user: User)(implicit ctx: Context) =
-    bits.layout(full, menu = perf.menu(full, user, none))(
+    bits.layout(full, menu = menu(full, user, none))(
       cls := "tutor__home box",
       h1("Lichess Tutor"),
       if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
@@ -50,6 +50,18 @@ object home {
         full.report.perfs.toList map { perfReportCard(full.report, _, user) }
       )
     )
+
+  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(
+      implicit ctx: Context
+  ) = frag(
+    a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
+    full.report.perfs.map { p =>
+      a(
+        cls  := p.perf.key.active(report.??(_.perf.key)),
+        href := routes.Tutor.perf(user.username, p.perf.key)
+      )(p.perf.trans)
+    }
+  )
 
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(implicit
       ctx: Context

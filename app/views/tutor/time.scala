@@ -13,15 +13,7 @@ object time {
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
       ctx: Context
   ) =
-    bits.layout(
-      full,
-      menu = frag(
-        a(href := routes.Tutor.user(user.username))("Tutor"),
-        a(href := routes.Tutor.openings(user.username, report.perf.key))("Openings"),
-        a(href := routes.Tutor.time(user.username, report.perf.key), cls := "active")("Time management"),
-        a(href := routes.Tutor.phases(user.username, report.perf.key))("Game phases")
-      )
-    )(
+    bits.layout(full, menu = perf.menu(full, user, report))(
       cls := "tutor__time box",
       h1(
         a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
