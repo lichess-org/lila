@@ -127,7 +127,7 @@ def lint_string(ctx, dest, source, allow_missing=0):
         if source.count(placeholder) < 1:
             ctx.error(f"unexpected {placeholder}")
 
-    for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N"]:
+    for pattern in ["SFEN", "CSA", "USI"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
@@ -136,8 +136,8 @@ def lint_string(ctx, dest, source, allow_missing=0):
     if "%%" in source and "%%" not in dest:
         ctx.warning("missing %%")
 
-    if "PGN" in source and "PNG" in dest:
-        ctx.warning("PNG instead of PGN")
+    if "SFEN" in source and "FEN" in dest:
+        ctx.warning("FEN instead of SFEN")
 
     if "\n" not in source and "\n" in dest:
         ctx.notice("expected single line string")
