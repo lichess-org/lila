@@ -4,7 +4,7 @@ import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
-import { Redraw, AnalyseData } from '../interfaces';
+import { AnalyseData } from '../interfaces';
 import { Player } from 'game';
 import {
   renderSan,
@@ -44,8 +44,8 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (redraw: Redraw) {
-  const notify = new Notify(redraw),
+export default function (ctrl: AnalyseController) {
+  const notify = new Notify(ctrl.redraw),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
     prefixStyle = prefixSetting(),
@@ -57,8 +57,18 @@ export default function (redraw: Redraw) {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
+  window.Mousetrap.bind('c', () => {
+    if (ctrl.threatMode()) {
+      notify.set(`${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`);
+    } else {
+      const evs = ctrl.currentEvals(),
+        bestEv = cevalView.getBestEval(evs);
+      notify.set(`${evalInfo(bestEv)} ${depthInfo(ctrl, evs.client, !!evs.client?.cloud)}`);
+    }
+  });
+
   return {
-    render(ctrl: AnalyseController): VNode {
+    render(): VNode {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
@@ -96,7 +106,7 @@ export default function (redraw: Redraw) {
                     attrs: {
                       'aria-pressed': `${ctrl.explorer.enabled()}`,
                     },
-                    hook: bind('click', _ => ctrl.explorer.toggle(), redraw),
+                    hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
                   },
                   ctrl.trans.noarg('openingExplorerAndTablebase')
                 ),
@@ -259,17 +269,6 @@ export default function (redraw: Redraw) {
           ]),
         ]),
       ]);
-    },
-    bindKeys(ctrl: AnalyseController) {
-      window.Mousetrap.bind('c', () => {
-        if (ctrl.threatMode()) {
-          notify.set(`${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`);
-        } else {
-          const evs = ctrl.currentEvals(),
-            bestEv = cevalView.getBestEval(evs);
-          notify.set(`${evalInfo(bestEv)} ${depthInfo(ctrl, evs.client, !!evs.client?.cloud)}`);
-        }
-      });
     },
   };
 }
