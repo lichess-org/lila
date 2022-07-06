@@ -36,7 +36,7 @@ lishogi.movetimeChart = function (data, trans) {
               max = Math.max(y, max);
 
               var point = {
-                name: ply - plyOffset + '. ' + notation,
+                name: ply + plyOffset + '. ' + notation,
                 x: i,
                 y: color ? y : -y,
               };

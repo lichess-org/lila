@@ -29,7 +29,7 @@ lishogi.advantageChart = function (data, trans, el) {
               };
 
             var point = {
-              name: node.ply - plyOffset + '. ' + node.notation,
+              name: node.ply + plyOffset + '. ' + node.notation,
               y: 2 / (1 + Math.exp(-0.0007 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === '1') {
