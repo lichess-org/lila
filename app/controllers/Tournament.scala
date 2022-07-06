@@ -88,7 +88,6 @@ final class Tournament(
 
   def show(id: String) =
     Open { implicit ctx =>
-      val page = getInt("page")
       cachedTour(id) flatMap { tourOption =>
         def loadChat(tour: Tour, json: JsObject) =
           canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
@@ -105,7 +104,7 @@ final class Tournament(
                 version  <- env.tournament.version(tour.id)
                 json <- jsonView(
                   tour = tour,
-                  page = page,
+                  page = None,
                   me = ctx.me,
                   getUserTeamIds = getUserTeamIds,
                   getTeamName = env.team.getTeamName,
@@ -136,7 +135,7 @@ final class Tournament(
                   partial = getBool("partial")
                   json <- jsonView(
                     tour = tour,
-                    page = page,
+                    page = None,
                     me = ctx.me,
                     getUserTeamIds = getUserTeamIds,
                     getTeamName = env.team.getTeamName,
