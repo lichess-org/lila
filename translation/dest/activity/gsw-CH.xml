@@ -59,8 +59,8 @@
     <item quantity="other">Hät a %s Turnier teilgnah</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Hät Rang #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
-    <item quantity="other">Hät Rang #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
+    <item quantity="one">Hät Rang #%1$s (oberi %2$s%%) mit %3$s Schpil in %4$s erreicht</item>
+    <item quantity="other">Hät Rang #%1$s (oberi %2$s%%) mit %3$s Schpil in %4$s erreicht</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">Hät a %s Turnier nach \"Schweizer System\" teilgnah</item>
@@ -69,7 +69,7 @@
   <string name="rankedInSwissTournament">Hät Rang #%1$s im Turnier %2$s erreicht</string>
   <string name="signedUp">Hät sich bi lichess.org agmäldet</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Isch %s Team biiträte</item>
-    <item quantity="other">Isch %s Teams biiträte</item>
+    <item quantity="one">Isch %s Team biträte</item>
+    <item quantity="other">Isch %s Teams biträte</item>
   </plurals>
 </resources>
