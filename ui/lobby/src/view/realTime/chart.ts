@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import LobbyController from '../../ctrl';
 import { Hook } from '../../interfaces';
 import { bind, perfIcons } from '../util';

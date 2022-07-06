@@ -1,5 +1,4 @@
-import { h, thunk } from 'snabbdom';
-import { VNode, VNodeData } from 'snabbdom/vnode';
+import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { Ctrl, Line } from './interfaces';
 import * as spam from './spam';
 import * as enhance from './enhance';

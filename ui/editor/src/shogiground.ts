@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Config as SgConfig } from 'shogiground/config';
 import EditorCtrl from './ctrl';
 import { handRoles } from 'shogiops/variantUtil';

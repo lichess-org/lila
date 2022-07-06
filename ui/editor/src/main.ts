@@ -2,17 +2,12 @@ import { EditorData } from './interfaces';
 import EditorCtrl from './ctrl';
 import view from './view';
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-import props from 'snabbdom/modules/props';
-import eventlisteners from 'snabbdom/modules/eventlisteners';
+import { init, VNode, classModule, attributesModule, propsModule, eventListenersModule } from 'snabbdom';
 
 import { menuHover } from 'common/menuHover';
 import { Shogiground } from 'shogiground';
 
-const patch = init([klass, attributes, props, eventlisteners]);
+const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
 export default function LishogiEditor(element: HTMLElement, data: EditorData) {
   let vnode: VNode, ctrl: EditorCtrl;

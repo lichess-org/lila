@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
 import { userModInfo } from './xhr';
 import { userLink, spinner, bind } from './util';

@@ -1,10 +1,8 @@
-import { init } from 'snabbdom';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, classModule, attributesModule } from 'snabbdom';
 import { Shogiground } from 'shogiground';
 import { LobbyOpts, Tab } from './interfaces';
 
-export const patch = init([klass, attributes]);
+export const patch = init([classModule, attributesModule]);
 
 import makeCtrl from './ctrl';
 import view from './view/main';

@@ -1,8 +1,7 @@
 import afterView from './after';
 import { bind } from '../util';
 import { Controller, MaybeVNode } from '../interfaces';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 
 function viewSolution(ctrl: Controller): VNode {
   return h(

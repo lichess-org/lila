@@ -1,9 +1,8 @@
 import * as miniBoard from 'common/mini-board';
 import StormCtrl from '../ctrl';
 import { getNow, onInsert } from 'puz/util';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { numberSpread } from 'common/number';
-import { VNode } from 'snabbdom/vnode';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
 

@@ -1,7 +1,4 @@
-import { Attrs } from 'snabbdom/modules/attributes';
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
-import { VNode } from 'snabbdom/vnode';
+import { h, Attrs, Hooks, VNode } from 'snabbdom';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return onInsert(el =>

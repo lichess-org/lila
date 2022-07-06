@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { prop, Prop } from 'common';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';

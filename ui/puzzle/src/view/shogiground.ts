@@ -1,8 +1,7 @@
 import resizeHandle from 'common/resize';
 import { Config as SgConfig } from 'shogiground/config';
 import { Controller } from '../interfaces';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Role } from 'shogiops/types';
 import { pieceCanPromote, pieceInDeadZone, promote } from 'shogiops/variantUtil';
 import { parseSquare } from 'shogiops/util';

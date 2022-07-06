@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Pieces, files, ranks } from 'shogiground/types';
 import { allKeys } from 'shogiground/util';
 import { Setting, makeSetting } from './setting';

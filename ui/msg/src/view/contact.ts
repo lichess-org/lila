@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Contact, LastMsg } from '../interfaces';
 import MsgCtrl from '../ctrl';
 import { userName, userIcon, bindMobileMousedown } from './util';

@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { PresetCtrl } from './preset';
 import { Prop } from 'common';
 

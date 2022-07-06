@@ -6,14 +6,12 @@ import boot from './boot';
 import { Shogiground } from 'shogiground';
 import LishogiChat from 'chat';
 
-import { init } from 'snabbdom';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, classModule, attributesModule } from 'snabbdom';
 import { menuHover } from 'common/menuHover';
 
 menuHover();
 
-export const patch = init([klass, attributes]);
+export const patch = init([classModule, attributesModule]);
 
 export function start(opts: AnalyseOpts): AnalyseApi {
   opts.element = document.querySelector('main.analyse') as HTMLElement;

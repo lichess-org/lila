@@ -1,13 +1,10 @@
 import view from './view';
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
 import { Ctrl } from './interfaces';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export function app(element: HTMLElement, env: any) {
   // enrich tournaments

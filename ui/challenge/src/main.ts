@@ -1,15 +1,11 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { init, attributesModule, classModule, VNode } from 'snabbdom';
 
 import makeCtrl from './ctrl';
 import { loaded, loading } from './view';
 import { load } from './xhr';
 import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces';
 
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function LishogiChallenge(element: Element, opts: ChallengeOpts) {
   let vnode: VNode, ctrl: Ctrl;

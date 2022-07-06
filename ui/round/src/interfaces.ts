@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { GameData, Status } from 'game';
 import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';

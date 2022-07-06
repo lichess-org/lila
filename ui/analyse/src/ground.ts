@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Config as SgConfig } from 'shogiground/config';
 import * as sg from 'shogiground/types';
 import { DrawShape } from 'shogiground/draw';

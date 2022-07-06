@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';

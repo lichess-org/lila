@@ -1,5 +1,5 @@
+import { VNode } from 'snabbdom';
 import { Piece } from 'shogiops/types';
-import { VNode } from 'snabbdom/vnode';
 import { Clock } from './clock';
 import { Combo } from './combo';
 import CurrentPuzzle from './current';

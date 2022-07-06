@@ -1,6 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks';
+import { h, VNode, Hooks } from 'snabbdom';
 import { playable } from 'game';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';

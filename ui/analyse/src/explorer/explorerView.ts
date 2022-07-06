@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';

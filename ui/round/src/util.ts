@@ -1,6 +1,4 @@
-import { h } from 'snabbdom';
-import { VNodeData } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks';
+import { h, Hooks, VNodeData } from 'snabbdom';
 import * as sg from 'shogiground/types';
 import { Redraw } from './interfaces';
 import { parseSfen } from 'shogiops/sfen';

@@ -1,11 +1,9 @@
-import { init } from 'snabbdom';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, classModule, attributesModule } from 'snabbdom';
 import { Shogiground } from 'shogiground';
 import { TournamentOpts } from './interfaces';
 import LishogiChat from 'chat';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 import makeCtrl from './ctrl';
 import view from './view/main';

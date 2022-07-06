@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';

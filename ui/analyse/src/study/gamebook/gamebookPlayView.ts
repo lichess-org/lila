@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import GamebookPlayCtrl, { State } from './gamebookPlayCtrl';
 import { bind, dataIcon, iconTag, richHTML } from '../../util';
 import { toBlackWhite } from 'shogiops/util';

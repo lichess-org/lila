@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Shogiground } from 'shogiground';
 import { opposite } from 'shogiground/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';

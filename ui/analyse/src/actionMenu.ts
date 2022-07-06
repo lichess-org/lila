@@ -1,7 +1,5 @@
 import { empty } from 'common';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks';
+import { h, VNode, Hooks } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';

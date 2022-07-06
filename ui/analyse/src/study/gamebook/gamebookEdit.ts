@@ -1,6 +1,4 @@
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
-import { VNode } from 'snabbdom/vnode';
+import { h, Hooks, VNode } from 'snabbdom';
 import AnalyseCtrl from '../../ctrl';
 import { bind, iconTag } from '../../util';
 import { MaybeVNodes } from '../../interfaces';

@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
+import { h, Hooks } from 'snabbdom';
 import * as button from '../view/button';
 import { bind, justIcon } from '../util';
 import * as game from 'game';

@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import LearnCtrl from '../ctrl';
 import { Level } from '../interfaces';
 import congrats from './congrats';

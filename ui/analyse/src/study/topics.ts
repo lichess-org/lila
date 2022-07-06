@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import * as modal from '../modal';
 import { bind, bindSubmit, onInsert } from '../util';
 import { prop, Prop } from 'common';

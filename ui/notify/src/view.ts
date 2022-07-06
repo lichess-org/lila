@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Ctrl, NotifyData, Notification } from './interfaces';
 import { renderers } from './renderers';
 

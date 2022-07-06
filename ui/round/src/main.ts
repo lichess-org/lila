@@ -1,8 +1,5 @@
 import { Shogiground } from 'shogiground';
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
 import { RoundOpts } from './interfaces';
 import RoundController from './ctrl';
@@ -22,7 +19,7 @@ export interface RoundMain {
 }
 
 export function app(opts: RoundOpts): RoundApi {
-  const patch = init([klass, attributes]);
+  const patch = init([classModule, attributesModule]);
 
   let vnode: VNode, ctrl: RoundController;
 

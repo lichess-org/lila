@@ -2,18 +2,12 @@ import { LearnOpts } from './interfaces';
 import LearnCtrl from './ctrl';
 import view from './views/view';
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-import styles from 'snabbdom/modules/style';
-import props from 'snabbdom/modules/props';
-import eventlisteners from 'snabbdom/modules/eventlisteners';
+import { init, VNode, classModule, attributesModule, styleModule, propsModule, eventListenersModule } from 'snabbdom';
 
 import { menuHover } from 'common/menuHover';
 import { Shogiground } from 'shogiground';
 
-const patch = init([klass, attributes, styles, props, eventlisteners]);
+const patch = init([classModule, attributesModule, styleModule, propsModule, eventListenersModule]);
 
 export default function LishogiLearn(element: HTMLElement, opts: LearnOpts): void {
   let vnode: VNode, ctrl: LearnCtrl;

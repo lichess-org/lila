@@ -1,4 +1,4 @@
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 import { Puzzle } from './interfaces';
 import { parseSfen } from 'shogiops/sfen';
 import throttle from 'common/throttle';

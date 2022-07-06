@@ -1,6 +1,5 @@
 import { defined } from 'common';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Redraw } from './util';
 
 export interface PingData {

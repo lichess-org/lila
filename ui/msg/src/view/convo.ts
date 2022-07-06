@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Convo } from '../interfaces';
 import { userName, bindMobileMousedown } from './util';
 import renderMsgs from './msgs';

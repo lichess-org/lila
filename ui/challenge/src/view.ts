@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 
 export function loaded(ctrl: Ctrl): VNode {
@@ -163,8 +162,8 @@ function create(): VNode {
     attrs: {
       href: '/?any#friend',
       'data-icon': 'O',
+      title: 'Challenge someone',
     },
-    title: 'Challenge someone',
   });
 }
 

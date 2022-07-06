@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import LearnCtrl from '../ctrl';
 import home from './home';
 import lesson from './lesson';

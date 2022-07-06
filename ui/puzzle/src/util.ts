@@ -1,6 +1,6 @@
 import { squareFile, squareRank } from 'shogiops';
 import { isDrop, Move, Square } from 'shogiops/types';
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 
 export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'sente' : 'gote';

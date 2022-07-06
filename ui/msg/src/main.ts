@@ -1,15 +1,12 @@
 import view from './view/main';
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
 import { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
 import MsgCtrl from './ctrl';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function LishogiMsg(element: HTMLElement, opts: MsgOpts) {
   const appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);

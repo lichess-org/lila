@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Player, Status, Source, Clock } from 'game';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';

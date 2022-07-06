@@ -1,7 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks';
-import { Attrs } from 'snabbdom/modules/attributes';
+import { h, Attrs, VNode, Hooks } from 'snabbdom';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 

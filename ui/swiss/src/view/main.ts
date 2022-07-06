@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { spinner, dataIcon, bind, onInsert, numberRow } from './util';
 import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';

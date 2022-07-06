@@ -4,11 +4,9 @@ import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';
 import { loading, loaded } from './view';
 import { get } from './xhr';
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-const patch = init([klass, attributes]);
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
+
+const patch = init([classModule, attributesModule]);
 
 export default function LishogiDasher(element: Element, opts: DasherOpts) {
   let vnode: VNode, ctrl: DasherCtrl;

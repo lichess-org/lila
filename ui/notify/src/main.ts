@@ -1,14 +1,10 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { init, classModule, attributesModule, VNode } from 'snabbdom';
 
 import makeCtrl from './ctrl';
 import view from './view';
 import { NotifyOpts, Ctrl } from './interfaces';
 
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function LishogiNotify(element: Element, opts: NotifyOpts) {
   let vnode: VNode, ctrl: Ctrl;
