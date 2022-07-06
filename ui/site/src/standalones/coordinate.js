@@ -149,32 +149,6 @@ $(function () {
       else stop();
     };
 
-    function getShogiCoords(key) {
-      const fileMap = {
-        a: '9',
-        b: '8',
-        c: '7',
-        d: '6',
-        e: '5',
-        f: '4',
-        g: '3',
-        h: '2',
-        i: '1',
-      };
-      const rankMap = {
-        9: '1',
-        8: '2',
-        7: '3',
-        6: '4',
-        5: '5',
-        4: '6',
-        3: '7',
-        2: '8',
-        1: '9',
-      };
-      return fileMap[key[0]] + rankMap[key[1]];
-    }
-
     function codeCoords(key) {
       const rankMap1 = {
         1: '一',
@@ -226,7 +200,7 @@ $(function () {
         ground.set({
           events: {
             select: function (key) {
-              var hit = codeCoords(getShogiCoords(key)) == $coords[0].text();
+              var hit = codeCoords(key[0] + (key.charCodeAt(1) - 96).toString()) == $coords[0].text();
               if (hit) {
                 score++;
                 $score.text(score);
