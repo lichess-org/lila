@@ -218,6 +218,9 @@ sg-squares {
 }
 
 .doubutsu {
+  .orientation-gote sg-board {
+    background-image: url(../images/boards/doubutsu_flip.png);
+  }
   sg-squares {
     border-top: 2px dashed #bb645c;
     border-left: 2px dashed #bb645c;
@@ -230,6 +233,9 @@ sg-squares {
     }
   }
   @include breakpoint($mq-col2-uniboard) {
+    .orientation-gote sg-hand {
+      background-image: url(../images/boards/doubutsu_flip.png);
+    }
     sg-hand,
     &.coords-edge .main-board .sg-wrap {
       border: 2px dashed #bb645c;
