@@ -248,7 +248,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="rematchOfferSent">Agebot zur Revanche gsändet</string>
   <string name="rematchOfferAccepted">Revanche-Agebot aktzeptiert</string>
   <string name="rematchOfferCanceled">Revanche-Agebot zruggzoge</string>
-  <string name="rematchOfferDeclined">Revanche-Agebot abglehnt</string>
+  <string name="rematchOfferDeclined">Revanche-Agebot abglähnt</string>
   <string name="cancelRematchOffer">Revanche-Agebot zruggneh</string>
   <string name="viewRematch">Revanche aluege</string>
   <string name="confirmMove">Zug beschtätige</string>
@@ -290,7 +290,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">Em Gägner %s Sekundä gä</item>
   </plurals>
   <string name="thisAccountViolatedTos">Das Konto hät gäge d\'Lichess-Nutzigsbedingige verschtosse</string>
-  <string name="openingExplorerAndTablebase">Eröffnigsbuäch &amp; Tablebase</string>
+  <string name="openingExplorerAndTablebase">Eröffnigsbuech &amp; Tablebase</string>
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
   <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
@@ -298,7 +298,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="takebackPropositionAccepted">Zugsrücknahm akzeptiert</string>
   <string name="takebackPropositionCanceled">Zugsrücknahm zruggzoge</string>
   <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
-  <string name="bookmarkThisGame">Das Schiil mit Läsezeiche markiere</string>
+  <string name="bookmarkThisGame">Das Schpil mit eme Läsezeiche markiere</string>
   <string name="tournament">Turnier</string>
   <string name="tournaments">Turnier</string>
   <string name="tournamentPoints">Turnierpünkt</string>
@@ -367,7 +367,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug, 
 zum Bewise das du en Mänsch bisch.</string>
   <string name="captcha.fail">Bitte lös die Schach Ufgab.</string>
-  <string name="notACheckmate">Das isch keis Schachmatt</string>
+  <string name="notACheckmate">Das isch keis Matt</string>
   <string name="whiteCheckmatesInOneMove">Wiss setzt i eim Zug Matt</string>
   <string name="blackCheckmatesInOneMove">Schwarz setzt i eim Zug Matt</string>
   <string name="retry">Probiers nomal</string>
@@ -384,7 +384,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="unfollowX">%s nümme folge</string>
   <string name="block">Blockiärä</string>
   <string name="blocked">Blockiärt</string>
-  <string name="unblock">Nümä blockiärä</string>
+  <string name="unblock">Blockierig ufhebe</string>
   <string name="followsYou">Folgt dir</string>
   <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
@@ -452,7 +452,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="clearBoard">Brätt lösche</string>
   <string name="loadPosition">Schtellig lade</string>
   <string name="isPrivate">Privat</string>
-  <string name="reportXToModerators">Mäld %s dä Moderatorä</string>
+  <string name="reportXToModerators">Mäld %s de Moderatore</string>
   <string name="profileCompletion">Profil-Vollschtändigkeit: %s</string>
   <string name="xRating">%s Wertigszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
@@ -672,7 +672,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="downloadRaw">Download ohni Kommentär</string>
   <string name="downloadImported">Importierte Download</string>
   <string name="crosstable">Matchverlauf</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Übers Brätt scrolle laht s\'Schpiil vor- oder rückwärts laufe.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Übers Brätt scrolle laht s\'Schpil vor- oder rückwärts laufe.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
   <string name="analysisShapesHowTo">Mit Shift + Musklick - rächts oder links - chasch grüeni oder roti Chreis und Pfil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
