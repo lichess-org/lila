@@ -21,10 +21,10 @@
   <string name="ratingRefundExplanation">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Partie, vu de letschte 3 Tag aglueget. Wänn du i dene Partie under de Gägner gsi bisch und sich dini Wertig - will du verlore- oder Remis gschpillt häsch - verschlächteret hät und dini Wertig nöd erscht \"provisorisch\" gsi isch, chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dere Partie.
 (Wänn dini Wertig nach so Partie starch gschtige isch, gits möglicherwis kei Rückerschtattig oder nur en Teil.) E Rückerschtattig betreit nie meh als 150 Pünkt.</string>
   <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiller, wo eifach abhaued anstatt e Partie ufzgeh?</string>
-  <string name="leavingGameWithoutResigningExplanation">Falls dein Gegner häufig Partien abbricht/verlässt, erhält er einen \"Spiel-Bann\", was bedeutet, dass er temporär keine Partien mehr spielen kann. Dies wird nicht öffentlich auf der Profilseite vermerkt. Falls dieses Verhalten fortbesteht, wird die Länge des Spiel-Banns verlängert. Weitere dieser Vergehen können schließlich zur Schließung des Kontos führen.</string>
+  <string name="leavingGameWithoutResigningExplanation">Wänn din Gägner hüfig Partie abbricht/verlaht, chunnt er es \"Spil-Bann\" über, was bedütet, dass er e gwüssi Zit kei Partie meh schpille chann. Das wird nöd öffentlich uf de Profilsite vermerkt. Falls das Verhalte witer so blibt, wird d\'Dur vu dem Bann verlängeret. Witeri vu dene Verstöss chönnd zur Schlüssig vum Konto fühere.</string>
   <string name="howCanIBecomeModerator">Wie chann ich Moderator werde?</string>
   <string name="youCannotApply">Es isch nöd möglich sich als Moderator z\'bewerbe. Wänn mir öpper gsehnd, wo mir dänked, dass er en guete Moderator chönnt si, kontaktiered mir ihn diräkt.</string>
-  <string name="isCorrespondenceDifferent">Underscheidet sich Fernschach vo normalem Schach?</string>
+  <string name="isCorrespondenceDifferent">Was sind d\'Underschid vu Fernschach zu normalem Schach?</string>
   <string name="pleaseReadFairPlayPage">Meh Infos chasch uf eusere %s läse</string>
   <string name="fairPlayPage">\"Fairplay-Site\"</string>
   <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtaht de Hauptunderschid i de Regle für Fernschach darin, dass es Schachbuech erlaubt isch. D\'Verwändig vu Schachcoputer isch aber immer no verbote und füehrt zunere Markierig vom Konto wäge unerlaubter Computer-Underschtützig. Obwohl d\'ICCF d\'Verwändig vu Computer für Fernschachpartie erlaubt, isch es bi Lichess nöd gschtattet.</string>
@@ -76,14 +76,14 @@ Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Weli Titäl gits uf Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess anerkännt alli FIDE-Titel, wo am Brätt gwunne worde sind, ebeso %1$s. Das isch e Lischte vu FIDE-Titel:</string>
-  <string name="showYourTitle">Wänn du en OTB Titel häsch, chasch du beaträge, dass er i dim Konto azeigt wird, idem du das %1$s usfüllsch, mit eme scharfe Bild vu dim Pass oder dinere Identitätscharte plus es Selfie vu dir, uf dem du dBeschtätigung vu dim Titel präsentiersch.
+  <string name="showYourTitle">Wänn du en OTB Titel häsch, chasch du beaträge, dass er i dim Konto azeigt wird, idem du das %1$s usfüllsch, mit ere läserliche Kopie vu dim Pass oder dinere ID plus es Selfie vu dir, uf dem du d\'Beschtätigung vu dim Titel präsentiersch.
 
 So e Titelbeschtätigung ermöglicht dir, bi Lichess a Titel Arena Events mitzschpille.
 
 Usserdem gits no en Ehretitel %2$s.</string>
   <string name="asWellAsManyNMtitles">vili nationali Meischtertitel</string>
   <string name="verificationForm">Verifikationsformular</string>
-  <string name="canIbecomeLM">Chan ich dä Lichess Meischter (LM) Titel bechoo?</string>
+  <string name="canIbecomeLM">Chan ich de Lichess Meischter (LM) Titel übercho?</string>
   <string name="noUpperCaseDot">Leider nei.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">De Ehretitel isch inoffiziell und exischtiert nur bi Lichess.
 
