@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -37,6 +37,7 @@ import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
 import { ops } from 'tree';
+import { view as cevalView, renderEval, Eval } from 'ceval';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
@@ -147,6 +148,8 @@ export default function (redraw: Redraw) {
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
+          cevalView.renderCeval(ctrl),
+          cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
           h(
@@ -208,7 +211,20 @@ export default function (redraw: Redraw) {
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           h('h2', 'Keyboard shortcuts'),
-          h('p', ['Use arrow keys to navigate in the game.']),
+          h('p', [
+            'Use arrow keys to navigate in the game.',
+            h('br'),
+            'l: toggle local computer analysis',
+            h('br'),
+            'z: toggle all computer analysis',
+            h('br'),
+            'space: play best computer move',
+            h('br'),
+            'c: announce computer evaluation',
+            h('br'),
+            'x: show threat',
+            h('br'),
+          ]),
           h('h2', 'Board Mode commands'),
           h('p', [
             'Use these commands when focused on the board itself.',
@@ -244,7 +260,35 @@ export default function (redraw: Redraw) {
         ]),
       ]);
     },
+    bindKeys(ctrl: AnalyseController) {
+      window.Mousetrap.bind('c', () => {
+        console.log(ctrl.node.ceval?.pvs);
+        if (ctrl.threatMode()) {
+          notify.set(`${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`);
+        } else {
+          const evs = ctrl.currentEvals(),
+            bestEv = cevalView.getBestEval(evs);
+          notify.set(`${evalInfo(bestEv)} ${depthInfo(ctrl, evs.client, !!evs.client?.cloud)}`);
+        }
+      });
+    },
   };
+}
+
+function evalInfo(bestEv: Eval | undefined): string {
+  if (bestEv) {
+    if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
+    else if (defined(bestEv.mate)) return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
+  }
+  return '';
+}
+
+function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
+  if (!clientEv) return '';
+  const depth = clientEv.depth || 0;
+  return isCloud
+    ? ctrl.trans('depthX', depth) + ' Cloud'
+    : ctrl.trans('depthX', depth + '/' + Math.max(depth, clientEv.maxDepth || depth));
 }
 
 function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNode)[] {

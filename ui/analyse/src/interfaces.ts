@@ -16,6 +16,7 @@ export { Key, Piece } from 'chessground/types';
 
 export interface NvuiPlugin {
   render(ctrl: AnalyseController): VNode;
+  bindKeys(ctrl: AnalyseController): void;
 }
 
 export interface AnalyseApi {
