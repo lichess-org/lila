@@ -123,6 +123,7 @@ export default class CoordinateTrainerCtrl {
     if (this.timeControl === c) return;
     this.timeControl = c;
     lichess.storage.set('coordinateTrainer.timeControl', this.timeControl);
+    this.redraw();
   };
 
   timeDisabled = () => this.timeControl === 'untimed';

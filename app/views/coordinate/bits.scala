@@ -28,6 +28,8 @@ object bits {
   private val i18nKeys = List(
     trans.coordinates.aSquareIsHighlighted,
     trans.coordinates.aSquareNameAppears,
+    trans.coordinates.youHaveThirtySeconds,
+    trans.coordinates.goAsLongAsYouWant,
     trans.coordinates.averageScoreAsBlackX,
     trans.coordinates.averageScoreAsWhiteX,
     trans.coordinates.coordinates,
