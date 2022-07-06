@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Vorgruckte Puur</string>
-  <string name="advancedPawnDescription">En Puur isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
+  <string name="advancedPawnDescription">En Pur isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutz dini Chance, en entscheidende Vorteil z\'erlange. (200 Hundertstelpuure ≤ Bewertung ≤ 600 Hundertstelpuure)</string>
   <string name="anastasiaMate">Anastasia\'s Matt</string>
@@ -17,7 +17,7 @@
   <string name="bishopEndgame">Läufer Ändschpil</string>
   <string name="bishopEndgameDescription">Es Ändschpil, nur mit Läufer und Pure.</string>
   <string name="bodenMate">Boden Matt</string>
-  <string name="bodenMateDescription">Zwei agrifendi Läufer, uf sich chrüzende Diagonale, setzed de König matt, wo dur eigeni Figure behinderet wird.</string>
+  <string name="bodenMateDescription">Zwei Läufer, uf sich chrüzende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="castling">Rochade</string>
   <string name="castlingDescription">Bring de König in Sicherheit und schick de Turm in Agriff.</string>
   <string name="capturingDefender">Schlag de Verteidiger</string>
@@ -25,7 +25,7 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Find de gegnerisch Patzer und chumm zu vernichtendem Vorteil. (Bewertig ≥ 600 Hundertschtel-Puure)</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
-  <string name="doubleBishopMateDescription">Zwei agrifendi Läufer, uf näbenand liggende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
+  <string name="doubleBishopMateDescription">Zwei Läufer, uf näbenand ligende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schwalbeschwanz Matt</string>
   <string name="dovetailMateDescription">Mit de Dame - diräkt bim König - matt setze, wobi sini Fluchtfälder dur eigeni Figure verschtellt sind.</string>
   <string name="equality">Usglich</string>
@@ -52,7 +52,7 @@
   <string name="hangingPiece">Hängendi Figur</string>
   <string name="hangingPieceDescription">E Taktik wo e gägnerischi Figur zwenig oder gar nöd deckt isch und drum, mit Vorteil, gschlage werde cha.</string>
   <string name="hookMate">Hake Matt</string>
-  <string name="hookMateDescription">Schachmatt mit Turm, Schpringer und Puur und eim gägnerische Puur, wo em König d\'Flucht verschperrt.</string>
+  <string name="hookMateDescription">Schachmatt mit Turm, Schpringer und Pur und eim gägnerische Pur, wo em König d\'Flucht verschperrt.</string>
   <string name="interference">Störig</string>
   <string name="interferenceDescription">E Figur zwüsche 2 gägnerischi Figure stelle, um einere oder beide de Schutz znäh - z. B. en Schpringer uf es verteidigts Fäld, zwüsche 2 Türm, stelle.</string>
   <string name="intermezzo">Zwüschezug</string>
@@ -63,7 +63,7 @@
   <string name="longDescription">3 Züg zum Sieg.</string>
   <string name="master">Meischter Partie</string>
   <string name="masterDescription">Ufgabe us Partie vu Schpiller mit Titel.</string>
-  <string name="masterVsMaster">Partie: Meischter vs Meischter</string>
+  <string name="masterVsMaster">Meischter gäge Meischter Partie</string>
   <string name="masterVsMasterDescription">Ufgabe us Partie vu 2 Schpiller mit Titel.</string>
   <string name="mate">Schachmatt</string>
   <string name="mateDescription">Günn das Schpil mit Schtil.</string>
@@ -106,7 +106,7 @@
   <string name="skewer">Schpiess (Hinderschtellig)</string>
   <string name="skewerDescription">Bim \"Schpiess\" wird e Figur, wo vor ere Andere staht - oft wird sie au dezue zwunge, sich vor die Ander z\'schtelle - agriffe, so dass sie us em Wäg muess und ermöglicht, die Hinder z\'schlah. Quasi umgekehrti Fesslig.</string>
   <string name="smotheredMate">Erschtickigs Matt</string>
-  <string name="smotheredMateDescription">Es Schachmatt mit em Springer, wo sich de König nöd bewege cha, will er vu sine eigene Figuren umstellt, also vollkomme igschlosse, wird.</string>
+  <string name="smotheredMateDescription">Es Schachmatt mit em Springer, wo sich de König nöd bewege cha, will er vu sine eigene Figuren umstellt-, also vollkomme igschlosse, wird.</string>
   <string name="superGM">Super-Grossmeischter-Partie</string>
   <string name="superGMDescription">Ufgabe us Partie, vu de beschte Schpiller uf de Wält.</string>
   <string name="trappedPiece">G\'fangeni Figur</string>
