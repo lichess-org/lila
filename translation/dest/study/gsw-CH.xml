@@ -48,7 +48,7 @@
   <string name="annotateWithGlyphs">Mit Symbol kommentiere</string>
   <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel isch z\'churz zum analysiere.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur wer a dere Schtudie mit macht, chann e Coputeranalyse afordere.</string>
-  <string name="getAFullComputerAnalysis">Erhalt e vollschtändigi serversitigi Computeranalyse vu de Hauptvariante.</string>
+  <string name="getAFullComputerAnalysis">Erhalt e vollschtändigi, serversitigi Computeranalyse vu de Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Schtell sicher, dass das Kapitel vollschtändig isch. Die Analyse chann nur eimal agforderet werde.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitglider gsehnd die glich Schtellig</string>
   <string name="shareChanges">Teil Änderige mit de Zueschauer und speicher sie uf em Server</string>
@@ -88,7 +88,7 @@
   <string name="clearAllCommentsInThisChapter">Alli Kommentär, Symbol und Zeichnigsforme i dem Kapitel lösche?</string>
   <string name="rightUnderTheBoard">Diräkt underhalb vom Brätt</string>
   <string name="noPinnedComment">Kei</string>
-  <string name="normalAnalysis">Normali Analysä</string>
+  <string name="normalAnalysis">Normali Analyse</string>
   <string name="hideNextMoves">Nögschti Züg uusbländä</string>
   <string name="interactiveLesson">Interaktivi Üäbig</string>
   <string name="chapterX">Kapitäl %s</string>
@@ -115,8 +115,8 @@
   <string name="unlisted">Unglischtet</string>
   <string name="inviteOnly">Nur mit Iladig</string>
   <string name="allowCloning">Kloonä erlaubt</string>
-  <string name="nobody">Niämärt</string>
-  <string name="onlyMe">Numä ich</string>
+  <string name="nobody">Niemer</string>
+  <string name="onlyMe">Nur ich</string>
   <string name="contributors">Mitwirkändi</string>
   <string name="members">Mitglider</string>
   <string name="everyone">Alli</string>
@@ -127,11 +127,11 @@
   <string name="start">Schtart</string>
   <string name="save">Schpeichärä</string>
   <string name="clearChat">Tschätt löschä</string>
-  <string name="deleteTheStudyChatHistory">Tschättverlauf vodä Schtuudiä löschä? Das chan nümä rückgängig gmacht wärdä!</string>
+  <string name="deleteTheStudyChatHistory">Tschättverlauf vu de Schtudie lösche? Das chann nüme rückgängig gmacht werde!</string>
   <string name="deleteStudy">Schtuudiä löschä</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die ganz Schtudie lösche? Es git keis Zrugg! Gib zur Beschtätigung de Name vu de Schtudie i: %s</string>
   <string name="whereDoYouWantToStudyThat">Weli Schtuudiä wöttsch bruuchä?</string>
-  <string name="goodMove">Guätä Zug</string>
+  <string name="goodMove">Guete Zug</string>
   <string name="mistake">Fähler</string>
   <string name="brilliantMove">Briliantä Zug</string>
   <string name="blunder">Grobä Patzer</string>
@@ -139,7 +139,7 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Frogwürdigä Zug</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einzigä Zug</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
-  <string name="equalPosition">Uusglichäni Schtellig</string>
+  <string name="equalPosition">Usglicheni Schtellig</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
   <string name="whiteIsSlightlyBetter">Wiss schtaht es bitzli besser</string>
   <string name="blackIsSlightlyBetter">Schwarz schtaht es bitzli besser</string>
@@ -147,7 +147,7 @@
   <string name="blackIsBetter">Schwarz schtoht besser</string>
   <string name="whiteIsWinning">Wiss schtaht uf Gwünn</string>
   <string name="blackIsWinning">Schwarz schtoht uf Gwünn</string>
-  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuärig</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuerig</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklig</string>
   <string name="initiative">Initiativä</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Agriff</string>
