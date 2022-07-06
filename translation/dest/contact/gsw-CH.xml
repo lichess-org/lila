@@ -44,11 +44,11 @@
   <string name="tryEnPassant">Probier das chline, interaktive Schpil und lern meh über \"en passant\".</string>
   <string name="illegalCastling">Unerlaubti oder unmöglichi Rochade</string>
   <string name="castlingPrevented">E Rochade isch nur unmöglich, wänn de König über es agriffes Fäld zieh will.</string>
-  <string name="castlingRules">Schtell sicher, dass du mit Rochade Regle vertraut bisch</string>
+  <string name="castlingRules">Schtell sicher, dass du mit de Rochade Regle vertraut bisch</string>
   <string name="tryCastling">Probier das chline, interaktive Schpil und lern meh über die \"Rochade\"</string>
   <string name="castlingImported">Wänn du es Schpil importiert häsch oder us ere beschtimmte Schtellig schtartisch, schtell sicher, dass du d\'Rächt für d\'Rochade richtig igschtellt häsch.</string>
   <string name="insufficientMaterial">Nöd gnueg Material zum Matt setze</string>
-  <string name="fideMate">Nach de FIDE Schachregle §6.9 isch e Partie nöd Remis, wänn es Schachmatt, mit irgend einere, legale Zugsfolg, möglich isch</string>
+  <string name="fideMate">Nach de FIDE Schachregle §6.9 isch e Partie nöd Remis, wänn es Schachmatt mit irgend einere, legale Zugsfolg möglich isch</string>
   <string name="knightMate">Es isch möglich - nur mit Schpringer oder Läufer - es Schachmatt z\'erreiche, wänn de Gägner meh als nur de König uf em Brätt hät.</string>
   <string name="noRatingPoints">Es sind kei Wertigspünkt vergeh worde</string>
   <string name="ratedGame">Schpill gwerteti Partie. Ungwerteti Schpil verändered dini Wertig (Rating) nöd.</string>
