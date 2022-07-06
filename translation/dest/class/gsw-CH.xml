@@ -43,7 +43,7 @@ Passwort: %3$s</string>
   <string name="inviteDesc4">Schick nie unufgforderet Iladige an x-beliebigi Schpiller.</string>
   <string name="createANewLichessAccount">Erschtell es neus Lichess Konto</string>
   <string name="createDesc1">Wänn de Schüeler no keis Lichess Konto hät, chasch du da eis für ihn b\'schtelle.</string>
-  <string name="createDesc2">Es brucht kei E-Mail-Adrässe. Es wird es Passwort generiert, das muesch em Schüeler mitteile, dass er sich anmälde chann.</string>
+  <string name="createDesc2">Es brucht kei E-Mail-Adrässe. Es wird es Passwort generiert, das muesch em Schüeler mitteile, dass er sich amälde chann.</string>
   <string name="createDesc3">Wichtig: En Schüeler dörf nöd mehreri Konte bsitze.</string>
   <string name="createDesc4">Wänns bereits eis händ, dänn nimmsch s\'Iladigsformular.</string>
   <string name="createStudentWarning">Mach nur Konti für ächti Schüeler. Benutz es nöd zum (mehreri) eigeni Konti mache! Suscht wirsch du vu Lichess usgschlosse.</string>
@@ -66,9 +66,9 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="releaseTheAccount">Gib das Konto frei, dass es de Schüeler selbschtschtändig verwalte chann.</string>
   <string name="releaseDesc1">Es frei-gehs Konto cha nümme verwaltet werde. De Schüeler wird i de Lag si de Chindermodus abzschalte und sis Passwort sälber zrugg z\'setze.</string>
   <string name="releaseDesc2">De Schüeler blibt i de Klass, nachdem sis Konto frei-geh worde isch.</string>
-  <string name="realUniqueEmail">Reali, einmaligi E-Mail-Adrässe vum Schüeler. Mir schicked e Beschtätigungs Mail, mit Link, für d\'Freigab vum Konto.</string>
+  <string name="realUniqueEmail">Ächti, einmaligi E-Mail-Adrässe vum Schüeler. Mir schicked e Beschtätigungs-Mail, mit Link, für d\'Freigab vum Konto.</string>
   <string name="closeStudent">Benutzerkonto schlüsse</string>
-  <string name="closeTheAccount">Schüeler Konto duurhaft schlüsse.</string>
+  <string name="closeTheAccount">Schüeler Konto durhaft schlüsse.</string>
   <string name="closeDesc1">De Schüeler chann das Konto nie meh verwände. Die Schlüssig isch ändgültig. Schtell sicher, dass de Schüeler das verstaht und akzeptiert.</string>
   <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass er das witer benutze chann.</string>
   <string name="teachers">Lehrer</string>
