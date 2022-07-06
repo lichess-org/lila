@@ -8,7 +8,7 @@ final class Photographer(repo: ImageRepo, prefix: String) {
   private val uploadMaxBytes        = uploadMaxMb * 1024 * 1024
   private def pictureId(id: String) = s"$prefix:$id:picture"
 
-  def apply(id: String, uploaded: Photographer.Uploaded): Fu[DbImage] =
+  def apply(id: String, uploaded: Photographer.Uploaded, createdBy: String): Fu[DbImage] =
     if (uploaded.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
@@ -20,7 +20,8 @@ final class Photographer(repo: ImageRepo, prefix: String) {
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
         path = uploaded.ref.path,
-        size = uploaded.fileSize.toInt
+        size = uploaded.fileSize.toInt,
+        createdBy = createdBy
       )
 
       repo save image inject image

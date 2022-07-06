@@ -2,12 +2,12 @@ package controllers
 
 import play.api.libs.json._
 import scala.concurrent.duration._
+import views._
 
 import lila.app._
 import lila.common.config.Max
 import lila.common.HTTPRequest
 import lila.timeline.Entry.entryWrites
-import views._
 
 final class Timeline(env: Env) extends LilaController(env) {
 
@@ -15,21 +15,22 @@ final class Timeline(env: Env) extends LilaController(env) {
     Auth { implicit ctx => me =>
       negotiate(
         html =
-          if (HTTPRequest.isXhr(ctx.req))
-            env.timeline.entryApi
-              .userEntries(me.id, ctx.lang.code)
-              .logTimeIfGt(s"timeline site entries for ${me.id}", 10.seconds)
-              .map { html.timeline.entries(_) }
+          if (HTTPRequest isXhr ctx.req) for {
+            entries <- env.timeline.entryApi.userEntries(me.id, ctx.lang.code)
+            _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
+          } yield html.timeline.entries(entries)
           else
-            env.timeline.entryApi
-              .moreUserEntries(me.id, Max(30), ctx.lang.code)
-              .map { html.timeline.more(_) },
+            for {
+              entries <- env.timeline.entryApi.moreUserEntries(me.id, Max(30), ctx.lang.code)
+              _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
+            } yield html.timeline.more(entries),
         _ =>
-          env.timeline.entryApi
-            .moreUserEntries(me.id, Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get(), ctx.lang.code)
-            .map { es =>
-              Ok(Json.obj("entries" -> es))
-            }
+          for {
+            entries <- env.timeline.entryApi
+              .moreUserEntries(me.id, Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get(), ctx.lang.code)
+            users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
+            userMap = users.view.map { u => u.id -> u }.toMap
+          } yield Ok(Json.obj("entries" -> entries, "users" -> userMap))
       )
     }
 

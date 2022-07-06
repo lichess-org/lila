@@ -13,7 +13,8 @@ case class DbImage(
     name: String,
     contentType: Option[String],
     size: Int, // in bytes
-    createdAt: DateTime
+    createdAt: DateTime,
+    createdBy: Option[String]
 ) {
 
   def id = _id
@@ -23,7 +24,14 @@ case class DbImage(
 
 object DbImage {
 
-  def make(id: String, name: String, contentType: Option[String], path: Path, size: Int) = {
+  def make(
+      id: String,
+      name: String,
+      contentType: Option[String],
+      path: Path,
+      size: Int,
+      createdBy: String
+  ) = {
     import com.roundeights.hasher.Implicits._
     val data = Files.readAllBytes(path)
     DbImage(
@@ -33,7 +41,8 @@ object DbImage {
       name = name,
       contentType = contentType,
       size = size,
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
+      createdBy = createdBy.some
     )
   }
 

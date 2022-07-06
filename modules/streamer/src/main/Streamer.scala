@@ -50,7 +50,7 @@ object Streamer {
         lastGrantedAt = none
       ),
       picturePath = none,
-      name = Name(s"${user.title.??(t => s"$t ")}${user.realNameOrUsername}"),
+      name = Name(user.realNameOrUsername),
       headline = none,
       description = none,
       twitch = none,
@@ -121,9 +121,11 @@ object Streamer {
       }
   }
 
-  case class ModChange(list: Option[Boolean], tier: Option[Int])
+  case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
 
   val maxTier = 10
 
   val tierChoices = (0 to maxTier).map(t => t -> t.toString)
+
+  def canApply(u: User) = (u.count.game >= 15 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified
 }

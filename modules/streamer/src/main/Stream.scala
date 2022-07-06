@@ -83,5 +83,19 @@ object Stream {
     case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
   }
 
+  def toJson(stream: Stream) = Json.obj(
+    "stream" -> Json.obj(
+      "service" -> stream.serviceName,
+      "status"  -> stream.status,
+      "lang"    -> stream.lang
+    ),
+    "streamer" -> Json
+      .obj("name" -> stream.streamer.name.value)
+      .add("headline" -> stream.streamer.headline.map(_.value))
+      .add("description" -> stream.streamer.description.map(_.value))
+      .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
+      .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
+  )
+
   private val LangRegex = """\[(\w\w)\]""".r.unanchored
 }
