@@ -109,9 +109,11 @@ final class SwissTrf(
             ~_.flatMap(_.getAsOpt[List[User.ID]]("us"))
           }
           .map {
-            _.view.zipWithIndex.map { case (userId, index) =>
-              (userId, index + 1)
-            }.toMap
+            _.view.zipWithIndex
+              .map { case (userId, index) =>
+                (userId, index + 1)
+              }
+              .toMap
           }
       }
 

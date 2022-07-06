@@ -6,8 +6,7 @@ import scala.concurrent.duration.FiniteDuration
 // calls a function when a key expires
 final class ExpireCallbackMemo(ttl: FiniteDuration, callback: String => Unit)(implicit mode: play.api.Mode) {
 
-  private val cache: Cache[String, Boolean] = lila.memo.CacheApi
-    .scaffeine
+  private val cache: Cache[String, Boolean] = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(ttl)
     .removalListener((key: String, _: Boolean, _) => callback(key))
     .build[String, Boolean]()
