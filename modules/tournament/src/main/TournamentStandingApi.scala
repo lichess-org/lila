@@ -48,7 +48,7 @@ final class TournamentStandingApi(
       .map(JsArray(_))
 
   def apply(tour: Tournament, forPage: Int, withScores: Boolean): Fu[JsObject] = {
-    val page = forPage atLeast 1
+    val page = forPage atMost Math.ceil(tour.nbPlayers.toDouble / perPage).toInt atLeast 1
     if (page == 1) first get tour.id
     else if (page > 50 && tour.isCreated) createdCache.get(tour.id -> page)
     else compute(tour, page, withScores)
