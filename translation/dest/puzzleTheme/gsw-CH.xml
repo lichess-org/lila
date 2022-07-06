@@ -11,7 +11,7 @@
   <string name="attackingF2F7">Agriff uf f2 oder f7</string>
   <string name="attackingF2F7Description">En Agriff, wo sich uf d\'Pure uf f2 oder f7 konzentriert.</string>
   <string name="attraction">Aziehigschraft</string>
-  <string name="attractionDescription">En Tuusch oder es Opfer, wo e gägnerischi Figur uf es Fäld länkt oder zwingt, was dänn e Folgetaktik erlaubt.</string>
+  <string name="attractionDescription">En Tusch oder es Opfer, wo e gägnerischi Figur uf es Fäld länkt oder zwingt, was dänn e Folgetaktik ermöglicht.</string>
   <string name="backRankMate">Grundreihe Matt</string>
   <string name="backRankMateDescription">De König uf de Grundreihe matt setze, wänn er dur sini eigene Figure blockiert isch.</string>
   <string name="bishopEndgame">Läufer Ändschpil</string>
@@ -37,7 +37,7 @@
   <string name="defensiveMove">Verteidigungszug</string>
   <string name="defensiveMoveDescription">En gnaue Zug oder e Zugfolg, wo nötig isch, um kei Material oder Vorteil z\'verlüre.</string>
   <string name="deflection">Ablänkig</string>
-  <string name="deflectionDescription">En Zug, wo e gägnerischi Figur devoo ablänkt e Figur oder es wichtigs Fäld z\'schütze. Wird au als \"Überlaschtig\" bezeichnet.</string>
+  <string name="deflectionDescription">En Zug, wo e gägnerischi Figur devo ablänkt e Figur oder es wichtigs Fäld z\'schütze. Wird au als \"Überlaschtig\" bezeichnet.</string>
   <string name="discoveredAttack">Abzugsagriff</string>
   <string name="discoveredAttackDescription">Me nimmt (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wit weg stehendi, Figur (z. B. en Turm) blockiert hät, us em Wäg.</string>
   <string name="doubleCheck">Doppelschach</string>
