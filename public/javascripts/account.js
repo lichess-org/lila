@@ -9,10 +9,15 @@ $(function () {
       });
     return false;
   });
+  var smStorage = lishogi.storage.make('scrollMoves');
 
   $('form.autosubmit').each(function () {
     var $form = $(this);
-    $form.find('input').change(function () {
+    $form.find('input').on('change', function () {
+      if (this.name == 'behavior.scrollMoves') {
+        smStorage.set(this.value);
+        showSaved();
+      }
       const cfg = lishogi.formAjax($form);
       cfg.success = function () {
         $form.find('.saved').fadeIn();
@@ -21,4 +26,5 @@ $(function () {
       $.ajax(cfg);
     });
   });
+  $(`#irbehavior_scrollMoves_${smStorage.get() || 1}`).prop('checked', true);
 });

@@ -1,12 +1,9 @@
 import view from './view';
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import dragscroll from 'dragscroll';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 dragscroll; // required to include the dependency :( :( :(
 

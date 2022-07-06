@@ -4,11 +4,10 @@ import theme from './theme';
 import * as shogiground from './shogiground';
 import feedbackView from './feedback';
 import { Controller } from '../interfaces';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { onInsert, bind, bindMobileMousedown } from '../util';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import { VNode } from 'snabbdom/vnode';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -107,7 +106,10 @@ export default function (ctrl: Controller): VNode {
       h(
         'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
         {
-          hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
+          hook:
+            'ontouchstart' in window || window.lishogi.storage.get('scrollMoves') == '0'
+              ? undefined
+              : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
         },
         shogiground.renderBoard(ctrl)
       ),

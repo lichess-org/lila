@@ -139,7 +139,7 @@ object pref {
               false
             ),
             setting(
-              "scrollOnTheBoardToReplayMoves",
+              scrollOnTheBoardToReplayMoves(),
               radios(form("behavior.scrollMoves"), booleanChoices)
             )
           ),

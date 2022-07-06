@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { parseSfen } from 'shogiops/sfen';
 import * as shogiground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
@@ -380,7 +379,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
           addChapterId(study, 'div.analyse__board.main-board'),
           {
             hook:
-              window.lishogi.hasTouchEvents || ctrl.gamebookPlay()
+              window.lishogi.hasTouchEvents || ctrl.gamebookPlay() || window.lishogi.storage.get('scrollMoves') == '0'
                 ? undefined
                 : bind('wheel', (e: WheelEvent) => wheel(ctrl, e)),
           },

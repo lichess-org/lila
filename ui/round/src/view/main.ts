@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { renderTable } from './table';
 import * as shogiground from '../ground';
 import * as util from '../util';
@@ -30,9 +29,10 @@ export function main(ctrl: RoundController): VNode {
           h(
             'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
             {
-              hook: window.lishogi.hasTouchEvents
-                ? undefined
-                : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
+              hook:
+                window.lishogi.hasTouchEvents || window.lishogi.storage.get('scrollMoves') == '0'
+                  ? undefined
+                  : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
             },
             shogiground.renderBoard(ctrl)
           ),
