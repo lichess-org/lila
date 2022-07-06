@@ -803,10 +803,10 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="tryToWin">Probier jedes Spil z\'günne (oder mindeschtens es Remis z\'erreiche).</string>
   <string name="resignLostGames">Gib es verlores Schpil uf (lass nöd eifach d\'Uhr ablaufe).</string>
   <string name="temporaryInconvenience">Mir entschuldiged eus für die vorübergehende Unannehmlichkeite,</string>
-  <string name="wishYouGreatGames">und wünsched dir tolli Schpiil uf lichess.org.</string>
+  <string name="wishYouGreatGames">und wünsched dir tolli Schpil uf lichess.org.</string>
   <string name="thankYouForReading">Danke für’s Läse!</string>
-  <string name="lifetimeScore">Läbesziit Rekord</string>
-  <string name="currentMatchScore">Aktuelle Schpiilschtand</string>
+  <string name="lifetimeScore">Läbeszit Rekord</string>
+  <string name="currentMatchScore">Aktuelle Schpilschtand</string>
   <string name="agreementAssistance">Ich schtimme zue, dass ich zum Schpille, kei Hilfe nutze - wie z. B. Schach-Computer, Büecher, Datäbanke oder Drittpersone.</string>
   <string name="agreementNice">Ich schtimme zue, dass ich mit andere Schpiller immer reschpäktvoll umgang.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ich bi demit iverschtande, dass ich kei Mehrfachkonti mache (usser us de Gründ, wo i de %s ageh sind).</string>
@@ -823,24 +823,24 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="correspondenceDesc">Fernschach Partie: 1 oder mehreri Täg pro Zug</string>
   <string name="puzzleDesc">Schach-Taktik Trainer</string>
   <string name="important">Wichtig</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Dini Frag chönnt bereits %1$s beantwortet worde sii</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Dini Frag chönnt bereits %1$s beantwortet worde si</string>
   <string name="inTheFAQ">i de hüfig gschtellte Frage (FAQ)</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Zum en Nutzer wäge Betrug oder schlächtem Verhalte mälde, %1$s</string>
   <string name="useTheReportForm">benutz euses Mälde-Formular</string>
   <string name="toRequestSupport">Zum Hilf überchoo, %1$s</string>
   <string name="tryTheContactPage">probiers uf de Kontaktsite</string>
   <string name="thisTopicIsArchived">Das Thema isch archiviert und chann nüme beantwortet werde.</string>
-  <string name="joinTheTeamXToPost">Tritt %1$s bii, um i dem Forum Biiträg z\'schriibe</string>
+  <string name="joinTheTeamXToPost">Tritt %1$s bi, um i dem Forum Biträg z\'schribe</string>
   <string name="teamNamedX">%1$s Team</string>
   <string name="youCannotPostYetPlaySomeGames">Du chasch nonig im Forum schribe: Schpill zerscht no es paar Partie!</string>
   <string name="subscribe">Abonniere</string>
   <string name="unsubscribe">Abmälde</string>
   <string name="mentionedYouInX">hät dich in \"%1$s\" erwähnt.</string>
   <string name="xMentionedYouInY">%1$s hät dich in \"%2$s\" erwähnt.</string>
-  <string name="invitedYouToX">hät dich zu \"%1$s\" iiglade.</string>
-  <string name="xInvitedYouToY">%1$s hät dich zu \"%2$s\" iiglade.</string>
+  <string name="invitedYouToX">hät dich zu \"%1$s\" iglade.</string>
+  <string name="xInvitedYouToY">%1$s hät dich zu \"%2$s\" iglade.</string>
   <string name="youAreNowPartOfTeam">Du bisch jetzt es Mitglid vu dem Team.</string>
-  <string name="youHaveJoinedTeamX">Du bisch \"%1$s\" biiträte.</string>
+  <string name="youHaveJoinedTeamX">Du bisch \"%1$s\" biträte.</string>
   <string name="someoneYouReportedWasBanned">Öpper wo du gmäldet häsch, isch bannt worde</string>
   <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
   <string name="gameVsX">Partie gäge %1$s</string>
@@ -849,7 +849,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="newPendingReview">Neui usstehendi Überprüefig</string>
   <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'Lichess-Nutzigsbedingige verletzt hät</string>
   <string name="refundXpointsTimeControlY">Rückerschtattig: %1$s %2$s Wertigspünkt.</string>
-  <string name="timeAlmostUp">D\'Ziit isch fascht abgloffe!</string>
+  <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe azeige]</string>
   <string name="download">Abälade</string>
   <string name="welcome">Willkomme!</string>
@@ -861,29 +861,29 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="tournDescription">Turnier Beschribig</string>
   <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
   <string name="ratedFormHelp">Alli Partie sind gwertet
-und beiiflussed dini Wertig</string>
+und beiflussed dini Wertig</string>
   <string name="onlyMembersOfTeam">Nur Mitglider vum Team</string>
-  <string name="noRestriction">Kei Iischränkige</string>
+  <string name="noRestriction">Kei Ischränkige</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
   <string name="minimumRating">Minimali Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
   <string name="onlyTitled">Nur für Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel ha</string>
-  <string name="positionInputHelp">E gültigi FEN schtartet jedes Schpiil ab ere beschtimmte Schtellig. 
-Das funktioniert nur für Schtandardschpiil und nöd für Variante!
-Du chasch mit %s so e FEN-Schtelliig generiere und 
+  <string name="positionInputHelp">E gültigi FEN schtartet jedes Schpil ab ere beschtimmte Schtellig. 
+Das funktioniert nur für Schtandardschpil und nöd für Variante!
+Du chasch mit %s so e FEN-Schtellig generiere und 
 sie dänn im Fäld \"Afangsposition\" ifüege oder das 
-Fäld leer lah und all Schpiil normal schtarte.</string>
+Fäld leer lah und all Schpil normal schtarte.</string>
   <string name="cancelSimul">Simultanschach abbräche</string>
   <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
-  <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
+  <string name="estimatedStart">Vorussichtlichi Schtartzit</string>
   <string name="simulFeatured">Uf %s zeige</string>
   <string name="simulFeaturedHelp">Zeig allne uf %s dis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschribig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
   <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
-  <string name="embedsAvailable">Füeg zum Ibette e Spiil-URL oder e Schtudiekapitel-URL ii.</string>
-  <string name="inYourLocalTimezone">I dinere lokale Ziitzone</string>
+  <string name="embedsAvailable">Füeg zum Ibette e Spil-URL oder e Schtudiekapitel-URL i.</string>
+  <string name="inYourLocalTimezone">I dinere lokale Zitzone</string>
   <string name="tournChat">Turnier Chat</string>
   <string name="noChat">Kein Chat</string>
   <string name="onlyTeamLeaders">Nur Teamleiter</string>
@@ -910,7 +910,7 @@ Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="youCantStartNewGame">Du chasch kei neui Partie starte, bevor die no Laufendi nöd fertig gschpillt isch.</string>
   <string name="since">Sit</string>
   <string name="until">Bis</string>
-  <string name="lichessDbExplanation">Gwerteti Schpiil vu allne Lichess Schpiller</string>
+  <string name="lichessDbExplanation">Gwerteti Schpil vu allne Lichess Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
-  <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Iischpruch zrugg</string>
+  <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Ischpruch zrugg</string>
 </resources>
