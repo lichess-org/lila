@@ -91,8 +91,8 @@ object Paginator {
       currentPage: Int = 1,
       maxPerPage: MaxPerPage = MaxPerPage(10)
   )(implicit ec: scala.concurrent.ExecutionContext): Validated[String, Fu[Paginator[A]]] =
-    if (currentPage < 1) Validated.invalid("Max per page must be greater than zero")
-    else if (maxPerPage.value <= 0) Validated.invalid("Current page must be greater than zero")
+    if (currentPage < 1) Validated.invalid("Current page must be greater than zero")
+    else if (maxPerPage.value <= 0) Validated.invalid("Max per page must be greater than zero")
     else {
       Validated.valid(
         adapter.nbResults flatMap { nbResults =>
