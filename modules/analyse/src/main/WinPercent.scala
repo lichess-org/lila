@@ -21,7 +21,7 @@ object WinPercent {
 
   // [-1, +1]
   private[analyse] def winningChances(cp: Eval.Cp) = {
-    2 / (1 + Math.exp(-0.004 * cp.value)) - 1
+    2 / (1 + Math.exp(-0.00368208 * cp.value)) - 1
   } atLeast -1 atMost +1
 
   case class BeforeAfter(before: WinPercent, after: WinPercent)
