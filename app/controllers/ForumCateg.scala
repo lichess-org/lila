@@ -1,28 +1,24 @@
 package controllers
 
-import scala.concurrent.Future
 import lila.app._
 import views._
 import lila.common.config
-import lila.team.{ Fu, Team }
+import lila.team.Team
 
 final class ForumCateg(env: Env) extends LilaController(env) with ForumController {
-
-  private def filterHiddenForum(id: Team.ID): Fu[Option[String]] =
-    teamCache.forumAccess.get(id) map {
-      case a if a != Team.Access.NONE => Option(id)
-      case _                          => None
-    }
 
   def index =
     Open { implicit ctx =>
       pageHit
       NotForKids {
         for {
-          teamIds           <- ctx.userId ?? teamCache.teamIdsList
-          visibleTeamForums <- Future.sequence { teamIds map filterHiddenForum }
-          categs            <- postApi.categsForUser(visibleTeamForums flatten, ctx.me)
-          _                 <- env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
+          teamIds <- (ctx.userId ?? teamCache.teamIdsList).flatMap(
+            lila.common.Future.filter(_)(
+              teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
+            )
+          )
+          categs <- postApi.categsForUser(teamIds, ctx.me)
+          _      <- env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
         } yield html.forum.categ.index(categs)
       }
     }
