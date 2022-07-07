@@ -72,7 +72,7 @@
   <string name="variantLoss">Variante verlore</string>
   <string name="variantWin">Variante gwunne</string>
   <string name="insufficientMaterial">Nöd gnueg Material</string>
-  <string name="pawnMove">Puure-Zug</string>
+  <string name="pawnMove">Pure-Zug</string>
   <string name="capture">Schlag-Zug</string>
   <string name="close">Schlüsse</string>
   <string name="winning">Gwünnt</string>
@@ -635,7 +635,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Zit bis s\'Turnier afangt</string>
-  <string name="averageCentipawnLoss">Durchschnittlichi Verluscht vo Hundertstelpuure</string>
+  <string name="averageCentipawnLoss">Durchschnittlichi Verluscht vo Hundertstelpure</string>
   <string name="keyboardShortcuts">Diräkti Taschtebefehl</string>
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
