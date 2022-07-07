@@ -40,20 +40,20 @@ Bisch parat, ihn z\'kommandiere?</string>
   <string name="knightsCanJumpOverObstacles">Schpringer chönd über Hindernis gumpe! 
 Hüpf los und triff uf jede Stern!</string>
   <string name="knightComplete">Gratuliere, du beherrschisch jetzt au de Schpringer.</string>
-  <string name="thePawn">De Puur</string>
+  <string name="thePawn">De Pur</string>
   <string name="itMovesForwardOnly">Er chann sich nur vorwärts bewege</string>
-  <string name="pawnIntro">Puure sind schwach, aber sie händ vill Möglichkeite.</string>
+  <string name="pawnIntro">Pure sind schwach, aber sie händ vill Möglichkeite.</string>
   <string name="pawnsMoveOneSquareOnly">En Pur bewegt sich nur eis Fäld vorwärts. Aber wänn er die ander Site vom Brätt erreicht, dänn chann er sich in e stärcheri Figur umwandle!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch es s\'Bescht, e Dame z\'mache. 
 Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="pawnsMoveForward">Pure ziehnd vorwärts, aber schlah tüends diagonal!</string>
   <string name="captureThenPromote">Zerscht schlah und nachher umwandle!</string>
-  <string name="useAllThePawns">Benutz all Puure! Mer muess nöd Umwandle.</string>
+  <string name="useAllThePawns">Benutz all Pure! Mer muess nöd Umwandle.</string>
   <string name="aPawnOnTheSecondRank">En Pur dörf - bim 1. Zug - grad 2 Fälder vorwärts!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir all die Stern! 
 Umwandle muesch nöd.</string>
   <string name="pawnComplete">Gratuliere, au Puure sind keis Gheimnis meh für dich.</string>
-  <string name="pawnPromotion">Puure Umwandlig</string>
+  <string name="pawnPromotion">Pure Umwandlig</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Din Puur hät s\'Ändi vom Brätt erreicht!</string>
   <string name="itNowPromotesToAStrongerPiece">Er wandlet sich jetzt in e stärcheri Figur um.</string>
   <string name="selectThePieceYouWant">Wähl die Figur wo du wottsch!</string>
@@ -127,13 +127,13 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="findAWayToCastleQueenSide">Find en Wäg für die lang Rochade!</string>
   <string name="castlingComplete">Gratuliere, mer sött im Schach fascht immer e Rochade mache.</string>
   <string name="enPassant">En passant</string>
-  <string name="theSpecialPawnMove">De schpezielli Puurezug</string>
+  <string name="theSpecialPawnMove">De schpezielli Purezug</string>
   <string name="enPassantIntro">Isch en Pur 2 Fälder vorgschtosse, chann er gschlage werde, wie wänn er nur 1 Fäld gfahre wär.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät grad en Pur 2 Fälder vor gschobe!
 Schlag de Pur \"en passant\".</string>
-  <string name="enPassantOnlyWorksImmediately">\"En passant\" isch nur unmittelbar nach em Puurezug - über die erschte zwei Fälder - erlaubt.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" isch nur erlaubt, wänn de Puur wo schlaht, uf de 5. Reihe (Schwarz uf de 4. Reihe) staht.</string>
-  <string name="takeAllThePawnsEnPassant">Schlag jetzt jede Puur \"en passant\"!</string>
+  <string name="enPassantOnlyWorksImmediately">\"En passant\" isch nur unmittelbar nach em Purezug - über die erschte zwei Fälder - erlaubt.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" isch nur erlaubt, wänn de Pur wo schlaht, uf de 5. Reihe (Schwarz uf de 4. Reihe) staht.</string>
+  <string name="takeAllThePawnsEnPassant">Schlag jetzt jede Pur \"en passant\"!</string>
   <string name="enPassantComplete">Gratuliere, du weisch jetzt, wie me \"en passant\" schlaht.</string>
   <string name="stalemate">Patt Schtellig</string>
   <string name="theGameIsADraw">Es Schpil isch Remis (unentschide)</string>
