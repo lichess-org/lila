@@ -12,7 +12,7 @@ Es isch also möglich, während de Wartezit ime andere Tab z\'schpille.</string>
 Das wird dur e Flamme, bi de Punktzahl, azeigt. Doppleti Pünkt gits so lang, bis es Schpil verlore gaht oder Remis ändet. 
 Bischpil: 4 Sieg und dänn es Remis ergit 14 Pünkt ( 2 + 2 + 2x2 + 2x2 + 2x1 = 14 ) und ab dänn, wider normal.</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Klickt en Schpiller vor Schpiilbeginn uf \"Berserk\", dänn halbiert er sini Bedänkziit. 
+  <string name="berserkAnswer">Klickt en Schpiller vor Schpilbeginn uf \"Berserk\", dänn halbiert er sini Bedänkzit. 
 Wänn er das Schpil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
 
 Im Zitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. 
