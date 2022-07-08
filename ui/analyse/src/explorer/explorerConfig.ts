@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { Prop, prop } from 'common';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
-import { storedProp, storedJsonProp, StoredJsonProp, StoredProp } from 'common/storage';
+import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
@@ -58,20 +58,25 @@ export class ExplorerConfigCtrl {
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
       byDbData[db] = {
-        since: storedProp('explorer.since-2.' + db, (db === 'masters' ? minYear : minLichessYear) + '-01'),
-        until: storedProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
+        since: storedStringProp('explorer.since-2.' + db, (db === 'masters' ? minYear : minLichessYear) + '-01'),
+        until: storedStringProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
       };
     }
     this.data = {
       open: prop(false),
-      db: storedProp('explorer.db.' + variant, this.allDbs[0]),
+      db: storedProp<ExplorerDb>(
+        'explorer.db.' + variant,
+        this.allDbs[0],
+        str => str as ExplorerDb,
+        v => v
+      ),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {
         open: prop(false),
-        value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
+        value: storedStringProp('explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
       color: prop('white'),

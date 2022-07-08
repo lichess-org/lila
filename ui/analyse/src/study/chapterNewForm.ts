@@ -2,7 +2,7 @@ import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
 import { snabModal } from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
-import { storedProp, StoredProp } from 'common/storage';
+import { StoredProp, storedStringProp } from 'common/storage';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -58,7 +58,7 @@ export function ctrl(
     variants: [],
     open: false,
     initial: prop(false),
-    tab: storedProp('study.form.tab', 'init'),
+    tab: storedStringProp('study.form.tab', 'init'),
     editor: null,
     editorFen: prop(null),
     isDefaultName: true,
