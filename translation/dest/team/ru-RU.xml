@@ -14,6 +14,7 @@
   <string name="myTeams">Мои клубы</string>
   <string name="noTeamFound">Нет таких клубов</string>
   <string name="joinTeam">Вступить в клуб</string>
+  <string name="onlyLeaderLeavesTeam">Пожалуйста, добавьте нового руководителя клуба перед тем, как покинуть или закрыть клуб.</string>
   <string name="quitTeam">Покинуть клуб</string>
   <string name="manuallyReviewAdmissionRequests">Ручная проверка запросов на вступление</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Если отмечено, то кандидаты на вступление в команду должны написать запрос, который вы можете принять или отклонить.</string>
