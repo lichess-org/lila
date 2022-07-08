@@ -56,7 +56,8 @@
 }
 
 form.mode,
-form.color {
+form.color,
+form.timeControl {
   margin-top: $block-gap;
 
   i {
@@ -69,8 +70,14 @@ form.color {
   }
 }
 
-form.mode .mode_option {
+.mode_option,
+.timeControl_option {
   width: 50%;
+}
+
+.timeControl_untimed {
+  font-size: 1.5em;
+  line-height: 1em;
 }
 
 form.color {
@@ -91,6 +98,17 @@ form.color {
   display: flex;
   flex-direction: column;
   row-gap: 1em;
+}
+
+.back {
+  @extend %flex-column;
+  align-items: center;
+  margin-top: $block-gap;
+}
+
+.back-button {
+  font-size: 1.5em;
+  text-transform: uppercase;
 }
 
 .progress {
