@@ -459,12 +459,12 @@
   <string name="firstName">Атыңыз</string>
   <string name="lastName">Тегіңіз</string>
   <string name="biography">Өмірбаян</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ел немесе туы</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ел немесе ту</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
   <string name="inlineNotation">Біржолды хаттама</string>
-  <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
+  <string name="previouslyOnLichessTV">Личес ТВ-да көрсетілген</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
