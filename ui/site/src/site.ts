@@ -104,6 +104,10 @@ lichess.load.then(() => {
     $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
       return confirm(this.title || 'Confirm this action?');
     });
+    $('input.confirm, button.alert-false').on('click', function (this: HTMLElement) {
+      alert(this.title);
+      return false;
+    });
 
     $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
       const t = $(this).toggleClass('bookmarked');
