@@ -23,7 +23,7 @@ case class UserInfo(
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
-    teamIds: List[String],
+    teamIds: List[lila.team.Team.ID],
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean
@@ -118,7 +118,7 @@ object UserInfo {
       userCached: lila.user.Cached,
       isHostingSimul: lila.round.IsSimulHost,
       streamerApi: lila.streamer.StreamerApi,
-      teamCached: lila.team.Cached,
+      teamApi: lila.team.TeamApi,
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share,
       playbanApi: lila.playban.PlaybanApi
@@ -131,10 +131,7 @@ object UserInfo {
         ublogApi.userBlogPreviewFor(user, 3, ctx.me) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
         userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
-        teamCached
-          .teamIdsList(user.id)
-          .map(_.take(lila.team.Team.maxJoinCeiling))
-          .mon(_.user segment "teamIds") zip
+        teamApi.joinedTeamsOfUserAsSeenBy(user, ctx.me).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip

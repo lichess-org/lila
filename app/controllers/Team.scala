@@ -443,16 +443,27 @@ final class Team(
     AuthOrScoped(_.Team.Write)(
       auth = implicit ctx =>
         me =>
-          OptionFuResult(api.cancelRequest(id, me) orElse api.quit(id, me)) { team =>
-            negotiate(
-              html = Redirect(routes.Team.mine).flashSuccess.fuccess,
-              api = _ => jsonOkResult.fuccess
-            )
+          OptionFuResult(api team id) { team =>
+            if (team isOnlyLeader me.id)
+              negotiate(
+                html = Redirect(routes.Team.edit(team.id))
+                  .flashFailure(lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt())
+                  .fuccess,
+                api = _ => jsonOkResult.fuccess
+              )
+            else
+              api.cancelRequestOrQuit(team, me) >>
+                negotiate(
+                  html = Redirect(routes.Team.mine).flashSuccess.fuccess,
+                  api = _ => jsonOkResult.fuccess
+                )
           }(ctx),
       scoped = _ =>
         me =>
-          api.quit(id, me) flatMap {
-            _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
+          api team id flatMap {
+            _.fold(notFoundJson()) { team =>
+              api.cancelRequestOrQuit(team, me) inject jsonOkResult
+            }
           }
     )
 
