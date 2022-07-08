@@ -12,7 +12,7 @@
   <string name="myTeams">My teams</string>
   <string name="noTeamFound">No team found</string>
   <string name="joinTeam">Join team</string>
-  <string name="showCantQuitError">You must add a new leader to leave, or you may close the team in settings.</string>
+  <string name="onlyLeaderLeavesTeam">Please add a new team leader before leaving, or close the team.</string>
   <string name="quitTeam">Leave team</string>
   <string name="manuallyReviewAdmissionRequests">Manually review admission requests</string>
   <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to write a request to join the team, which you can decline or accept.</string>
