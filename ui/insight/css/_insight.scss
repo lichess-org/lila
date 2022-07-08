@@ -262,12 +262,8 @@ $insight-header-height: 60px;
         );
       }
 
-      :hover .ms-choice {
+      &:hover .ms-choice {
         background: mix($c-accent, $c-bg-box, 20%);
-      }
-
-      :has(li.selected) {
-        background: mix($c-link, $c-bg-box, 20%);
       }
     }
 
