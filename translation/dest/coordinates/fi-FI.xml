@@ -10,6 +10,8 @@
   <string name="youCanAnalyseAGameMoreEffectively">Peliä voi analysoida tehokkaammin, kun ei tarvitse haeskella ruutujen nimiä.</string>
   <string name="aSquareNameAppears">Ruudun nimi ilmestyy laudalle, ja sinun on klikattava sitä vastaavaa ruutua. Sinulla on 30 sekuntia aikaa tunnistaa niin monta ruutua kuin ehdit!</string>
   <string name="aSquareIsHighlighted">Laudalla valitaan vuorotellen eri ruutuja, ja tehtävänäsi on kirjoittaa kunkin ruudun koordinaatit (esim. \"e4\"). Yritä saada 30 sekunnin aikana mahdollisimman monta ruutua oikein!</string>
+  <string name="youHaveThirtySeconds">Sinulla on 30 sekuntia aikaa paikantaa niin monta ruutua kuin ehdit!</string>
+  <string name="goAsLongAsYouWant">Tee sitä kaikessa rauhassa, aikarajaa ei ole!</string>
   <string name="startTraining">Aloita harjoitus</string>
   <string name="findSquare">Etsi ruutu</string>
   <string name="nameSquare">Nimeä ruutu</string>
