@@ -86,8 +86,8 @@ public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
-- The other sounds in public/sound.
-- The other artwork in public/images.
+- The other sounds in public/sound
+- The other artwork in public/images
 
 ## External services
 
