@@ -44,10 +44,14 @@ final class JsonView(
 
   def api(simul: Simul): Fu[JsObject] =
     getLightUser(simul.hostId) map { lightHost =>
-      baseSimul(simul, lightHost) ++ Json.obj(
-        "nbApplicants" -> simul.applicants.size,
-        "nbPairings"   -> simul.pairings.size
-      )
+      baseSimul(simul, lightHost) ++ Json
+        .obj(
+          "nbApplicants" -> simul.applicants.size,
+          "nbPairings"   -> simul.pairings.size
+        )
+        .add("estimatedStartAt" -> simul.startedAt)
+        .add("startedAt" -> simul.startedAt)
+        .add("finishedAt" -> simul.finishedAt)
     }
 
   def api(simuls: List[Simul]): Fu[JsArray] =
