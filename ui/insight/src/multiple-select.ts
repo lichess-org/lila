@@ -124,7 +124,6 @@ export const registerMultipleSelect = () => {
       const that = this,
         $elm = $(elm),
         classes = $elm.attr('class') || '',
-        title = `title="${$elm.attr('title')}"`,
         multiple = this.options.multiple ? 'multiple' : '',
         type = this.options.single ? 'radio' : 'checkbox';
       let disabled: boolean;
@@ -137,7 +136,7 @@ export const registerMultipleSelect = () => {
         disabled = groupDisabled || $elm.prop('disabled');
         const $el = $(
           [
-            `<li class="${multiple} ${classes}" ${title} ${style}>`,
+            `<li class="${multiple} ${classes}" ${style}>`,
             `<label class="${disabled ? 'disabled' : ''}">`,
             `<input type="${type}" value="${lichess.escapeHtml(value)}" ${this.selectItemName} ${
               selected ? 'checked' : ''
