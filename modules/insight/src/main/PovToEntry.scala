@@ -71,9 +71,11 @@ final private class PovToEntry(
               movetimes = movetimes.toVector,
               clockStates = clockStates,
               advices = an.?? {
-                _.advices.view.map { a =>
-                  a.info.ply -> a
-                }.toMap
+                _.advices.view
+                  .map { a =>
+                    a.info.ply -> a
+                  }
+                  .toMap
               }
             )
           }
