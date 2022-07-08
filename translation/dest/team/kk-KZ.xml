@@ -12,6 +12,7 @@
   <string name="myTeams">Менің топтарым</string>
   <string name="noTeamFound">Ешбір топ табылмады</string>
   <string name="joinTeam">Топқа қосылу</string>
+  <string name="onlyLeaderLeavesTeam">Кетер алдында жаңа топ жетекшісін қосыңыз, не топты жабуыңыз керек.</string>
   <string name="quitTeam">Топтан шығу</string>
   <string name="manuallyReviewAdmissionRequests">Қабылдау туралы сұраныстарды жеке қарау</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Егер қосулы болса, ойыншылар топқа қосылу үшін сұраныс жазулары міндет. Ол сұранысты қабылдау не қабылдамауды сіз шешесіз.</string>
