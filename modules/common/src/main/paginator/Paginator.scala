@@ -94,14 +94,11 @@ object Paginator {
     if (currentPage < 1) Validated.invalid("Current page must be greater than zero")
     else if (maxPerPage.value <= 0) Validated.invalid("Max per page must be greater than zero")
     else
-      Validated.valid(
-        adapter.nbResults flatMap { nbResults =>
-          val safePage = 1 atLeast (currentPage atMost ((nbResults + maxPerPage.value - 1) / maxPerPage.value))
-          // would rather let upstream code know the value they passed in was bad.
-          // unfortunately can't do that without completing nbResults, so ig it's on them to check after
-          adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value) map { results =>
-            new Paginator(safePage, maxPerPage, results, nbResults)
-          }
-        }
-      )
+      Validated.valid(for {
+        nbResults <- adapter.nbResults
+        safePage = currentPage atLeast 1 atMost Math.ceil(nbResults.toDouble / maxPerPage.value).toInt
+        // would rather let upstream code know the value they passed in was bad.
+        // unfortunately can't do that without completing nbResults, so ig it's on them to check after
+        results <- adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value)
+      } yield new Paginator(safePage, maxPerPage, results, nbResults))
 }
