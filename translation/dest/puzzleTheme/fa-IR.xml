@@ -3,6 +3,7 @@
   <string name="advancedPawn">پیاده پیش رفته</string>
   <string name="advancedPawnDescription">یکی از پیاده های شما در زمین حریف پیشروی کرده است. شاید خطر ارتقا پیاده وجود داشته باشد.</string>
   <string name="advantage">برتری</string>
+  <string name="advantageDescription">از شانس خود برای بدست اوردن برتری قطعی استفاده کنید. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">مات آناستازیا</string>
   <string name="anastasiaMateDescription">یک اسب و یک رخ به همدیگر کمک میکنند تا شاه حریف را بین گوشه های زمین و یک مهره از حریف زندانی کنند.</string>
   <string name="arabianMate">مات عربی</string>
