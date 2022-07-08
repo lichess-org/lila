@@ -13,6 +13,7 @@
   <string name="myTeams">Manas komandas</string>
   <string name="noTeamFound">Neatrada nevienu komandu</string>
   <string name="joinTeam">Pievienoties komandai</string>
+  <string name="onlyLeaderLeavesTeam">Lūdzu, pievienojiet jaunu komandas vadītāju pirms pamešanas, vai arī slēdziet komandu.</string>
   <string name="quitTeam">Pamest komandu</string>
   <string name="manuallyReviewAdmissionRequests">Izskatīt katru pievienošanās pieprasījumu</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ja iespējosiet, spēlētājiem būs jāiesniedz pieprasījums pievienoties komandai, kuru jūs varat noraidīt vai pieņemt.</string>
