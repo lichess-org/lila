@@ -40,7 +40,7 @@ const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const modeExplanationText =
     trans(ctrl.mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted') +
     ' ' +
-    trans(ctrl.timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant');
+    trans(ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant');
   return h('div.explanation', [
     h('p', trans('knowingTheChessBoard')),
     h('ul', [
@@ -81,7 +81,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
       'div.keyboard-container',
       {
         class: {
-          hidden: ctrl.coordinateInputMethod === 'buttons',
+          hidden: ctrl.coordinateInputMethod() === 'buttons',
         },
       },
       [
@@ -96,7 +96,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
         ctrl.playing ? h('span', 'Enter the coordinate') : h('strong', 'Press <enter> to start'),
       ]
     ),
-    ctrl.coordinateInputMethod === 'buttons'
+    ctrl.coordinateInputMethod() === 'buttons'
       ? h(
           'div.files-ranks',
           'abcdefgh12345678'.split('').map((fileOrRank: string) =>
@@ -123,7 +123,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
     : h(
         'a',
         { on: { click: () => ctrl.toggleInputMethod() } },
-        ctrl.coordinateInputMethod === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
+        ctrl.coordinateInputMethod() === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
       );
   return ctrl.mode === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput, inputMethodSwitcher]) : null;
 };

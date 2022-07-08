@@ -52,7 +52,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               id: `coord_timeControl_${timeControl}`,
               name: 'timeControl',
               value: timeControl,
-              checked: timeControl === ctrl.timeControl,
+              checked: timeControl === ctrl.timeControl(),
             },
             on: {
               change: e => {
@@ -87,7 +87,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               id: `coord_color_${key}`,
               name: 'color',
               value: key,
-              checked: key === ctrl.colorChoice,
+              checked: key === ctrl.colorChoice(),
             },
             on: {
               change: e => {
