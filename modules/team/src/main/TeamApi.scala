@@ -209,12 +209,12 @@ final class TeamApi(
     }
 
   def quit(team: Team, userId: User.ID): Funit =
-    memberRepo.remove(team.id, userId) map { res =>
-      if (res.n == 1) {
-        teamRepo.incMembers(team.id, -1)
-        if (team.leaders contains userId) teamRepo.setLeaders(team.id, team.leaders - userId)
-      }
-      cached.invalidateTeamIds(userId)
+    memberRepo.remove(team.id, userId) flatMap { res =>
+      (res.n == 1) ?? {
+        teamRepo.incMembers(team.id, -1) >>
+          (team.leaders contains userId) ?? teamRepo.setLeaders(team.id, team.leaders - userId)
+      } >>-
+        cached.invalidateTeamIds(userId)
     }
 
   def quitAll(userId: User.ID): Fu[List[Team.ID]] =
