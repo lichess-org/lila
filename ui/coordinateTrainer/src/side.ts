@@ -36,7 +36,16 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(`label.mode_${mode}`, { attrs: { for: `coord_mode_${mode}` } }, ctrl.trans(mode)),
+          h(
+            `label.mode_${mode}`,
+            {
+              attrs: {
+                for: `coord_mode_${mode}`,
+                title: ctrl.trans(mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted'),
+              },
+            },
+            ctrl.trans(mode)
+          ),
         ])
       )
     ),
