@@ -36,7 +36,7 @@ export const registerMultipleSelect = () => {
       this.$label =
         this.$el.closest('label') ||
         (this.$el.attr('id') && $(`label[for="${this.$el.attr('id')?.replace(/:/g, '\\:')}"]`));
-      this.$parent = $(`<div class="ms-parent ${$el.attr('class') || ''}" title="${$el.attr('title')}"/>`);
+      this.$parent = $(`<div class="ms-parent ${$el.attr('class') || ''}"/>`);
       this.$choice = $(
         [
           '<button type="button" class="ms-choice">',
