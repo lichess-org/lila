@@ -75,7 +75,7 @@ final private class TutorBuilder(
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
-    perfs <- (tutorUsers.toNel ?? TutorPerfs.compute).monSuccess(_.tutor buildSegment "perf-reports")
+    perfs <- (tutorUsers.toNel ?? TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorFullReport(user.id, DateTime.now, perfs)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =

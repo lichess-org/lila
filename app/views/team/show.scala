@@ -195,7 +195,7 @@ object show {
           div(cls := "team-show__content__col2")(
             standardFlash(),
             log.nonEmpty option renderLog(log),
-            st.section(cls := "team-show__desc")(
+            (t.enabled || manageTeamEnabled) option st.section(cls := "team-show__desc")(
               bits.markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(

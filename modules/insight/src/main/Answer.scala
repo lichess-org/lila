@@ -6,7 +6,9 @@ case class Answer[X](
     question: Question[X],
     clusters: List[Cluster[X]],
     povs: List[Pov]
-)
+) {
+  def totalSize = clusters.map(_.size).sum
+}
 
 // a row per dimension value
 case class Cluster[X](
@@ -21,7 +23,7 @@ case class Cluster[X](
 
 sealed trait Insight
 object Insight {
-  case class Single(point: Point)                                   extends Insight
+  case class Single(point: Point)                                          extends Insight
   case class Stacked(points: List[(InsightMetric.MetricValueName, Point)]) extends Insight
 }
 

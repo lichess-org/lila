@@ -55,20 +55,22 @@ final class JsonView {
       ),
       Categ(
         "Move",
-        List(
+        asMod.?? {
+          List(
+            Json.toJson(D.Blur: InsightDimension[_]),
+            Json.toJson(D.TimeVariance: InsightDimension[_]),
+            Json.toJson(D.EvalRange: InsightDimension[_]),
+            Json.toJson(D.CplRange: InsightDimension[_])
+          )
+        } ::: List(
           Json.toJson(D.PieceRole: InsightDimension[_]),
           Json.toJson(D.MovetimeRange: InsightDimension[_]),
-          Json.toJson(D.TimePressureRange: InsightDimension[_]),
+          Json.toJson(D.ClockPercentRange: InsightDimension[_]),
           Json.toJson(D.MaterialRange: InsightDimension[_]),
-          Json.toJson(D.EvalRange: InsightDimension[_]),
-          Json.toJson(D.Phase: InsightDimension[_]),
-          Json.toJson(D.CplRange: InsightDimension[_])
-        ) ::: {
-          asMod ?? List(
-            Json.toJson(D.Blur: InsightDimension[_]),
-            Json.toJson(D.TimeVariance: InsightDimension[_])
-          )
-        }
+          Json.toJson(D.AccuracyPercentRange: InsightDimension[_]),
+          Json.toJson(D.WinPercentRange: InsightDimension[_]),
+          Json.toJson(D.Phase: InsightDimension[_])
+        )
       ),
       Categ(
         "Result",
@@ -88,18 +90,18 @@ final class JsonView {
       ),
       Categ(
         "Move",
-        List(
-          Json.toJson(M.Movetime: InsightMetric),
-          Json.toJson(M.TimePressure: InsightMetric),
-          Json.toJson(M.PieceRole: InsightMetric),
-          Json.toJson(M.Material: InsightMetric),
-          Json.toJson(M.NbMoves: InsightMetric)
-        ) ++ {
-          asMod ?? List(
+        asMod.?? {
+          List(
             Json.toJson(M.Blurs: InsightMetric),
             Json.toJson(M.TimeVariance: InsightMetric)
           )
-        }
+        } ::: List(
+          Json.toJson(M.Movetime: InsightMetric),
+          Json.toJson(M.ClockPercent: InsightMetric),
+          Json.toJson(M.PieceRole: InsightMetric),
+          Json.toJson(M.Material: InsightMetric),
+          Json.toJson(M.NbMoves: InsightMetric)
+        )
       ),
       Categ(
         "Evaluation",
@@ -122,26 +124,15 @@ final class JsonView {
       )
     )
 
-    Json.obj(
-      "dimensionCategs" -> dimensionCategs,
-      "metricCategs"    -> metricCategs,
-      "presets"         -> { if (asMod) Preset.forMod else Preset.base }
-    )
+    Json
+      .obj(
+        "dimensionCategs" -> dimensionCategs,
+        "metricCategs"    -> metricCategs
+      )
+      .add("asMod" -> asMod)
   }
 
   private object writers {
-
-    implicit def presetWriter[X]: Writes[Preset] =
-      Writes { p =>
-        Json.obj(
-          "name"      -> p.name,
-          "dimension" -> p.question.dimension.key,
-          "metric"    -> p.question.metric.key,
-          "filters" -> JsObject(p.question.filters.map { case Filter(dimension, selected) =>
-            dimension.key -> JsArray(selected.map(InsightDimension.valueKey(dimension)).map(JsString.apply))
-          })
-        )
-      }
 
     implicit def dimensionWriter[X](implicit lang: Lang): Writes[InsightDimension[X]] =
       Writes { d =>

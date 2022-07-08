@@ -42,6 +42,8 @@ case class Team(
 
   def passwordMatches(pw: String) =
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
+
+  def isOnlyLeader(userId: User.ID) = leaders == Set(userId)
 }
 
 object Team {

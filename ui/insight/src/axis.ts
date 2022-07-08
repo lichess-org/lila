@@ -8,7 +8,7 @@ const selectData = (onClick: (v: { value: string }) => void, getValue: () => str
     insert: vnode =>
       $(vnode.elm).multipleSelect({
         width: '200px',
-        maxHeight: '400px',
+        maxHeight: 400,
         single: true,
         onClick,
       }),

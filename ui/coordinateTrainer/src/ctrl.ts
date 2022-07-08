@@ -14,9 +14,9 @@ const newKey = (oldKey: Key | ''): Key => {
   return (files[Math.floor(Math.random() * files.length)] + rows[Math.floor(Math.random() * files.length)]) as Key;
 };
 
-const targetSvg = `
+const targetSvg = (target: 'current' | 'next'): string => `
 <g transform="translate(50, 50)">
-  <rect class="current-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
+  <rect class="${target}-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
 </g>
 `;
 
@@ -175,7 +175,10 @@ export default class CoordinateTrainerCtrl {
     this.nextKey = newKey(this.nextKey);
 
     if (this.mode === 'nameSquare')
-      this.chessground?.setShapes([{ orig: this.currentKey as Key, customSvg: targetSvg }]);
+      this.chessground?.setShapes([
+        { orig: this.currentKey as Key, customSvg: targetSvg('current') },
+        { orig: this.nextKey as Key, customSvg: targetSvg('next') },
+      ]);
 
     this.redraw();
   };
@@ -236,8 +239,11 @@ export default class CoordinateTrainerCtrl {
   handleWrong = () => {
     clearTimeout(this.wrongTimeout);
     this.wrong = true;
+    this.redraw();
+
     this.wrongTimeout = setTimeout(() => {
       this.wrong = false;
+      this.redraw();
     }, 500);
   };
 

@@ -3,9 +3,7 @@ package lila.analyse
 import lila.tree.Eval
 
 // How likely one is to win a position, based on subjective Stockfish centipawns
-case class WinPercent(value: Double) extends AnyVal {
-  def toInt = Math.round(value).toInt
-}
+case class WinPercent(value: Double) extends AnyVal with Percent
 
 object WinPercent {
 
@@ -14,14 +12,17 @@ object WinPercent {
 
   def fromMate(mate: Eval.Mate) = fromCentiPawns(Eval.Cp(Eval.Cp.CEILING * mate.signum))
 
+  // [0, 100]
   def fromCentiPawns(cp: Eval.Cp) = WinPercent {
     50 + 50 * winningChances(cp.ceiled)
   }
 
-  case class BeforeAfter(before: WinPercent, after: WinPercent)
+  def fromPercent(int: Int) = WinPercent(int.toDouble)
 
   // [-1, +1]
   private[analyse] def winningChances(cp: Eval.Cp) = {
     2 / (1 + Math.exp(-0.004 * cp.value)) - 1
   } atLeast -1 atMost +1
+
+  case class BeforeAfter(before: WinPercent, after: WinPercent)
 }

@@ -79,6 +79,8 @@ const theme = (function () {
   return t;
 })();
 
+const animation = false; //{ duration: 100 };
+
 function makeChart(el: HTMLElement, data: Chart) {
   const sizeSerie = {
     name: data.sizeSerie.name,
@@ -86,9 +88,7 @@ function makeChart(el: HTMLElement, data: Chart) {
     yAxis: 1,
     type: 'column',
     stack: 'size',
-    animation: {
-      duration: 300,
-    },
+    animation,
     color: 'rgba(120,120,120,0.2)',
   };
   const valueSeries = data.series.map(s => {
@@ -98,9 +98,7 @@ function makeChart(el: HTMLElement, data: Chart) {
       yAxis: 0,
       type: 'column',
       stack: s.stack,
-      // animation: {
-      //   duration: 300
-      // },
+      // animation,
       dataLabels: {
         enabled: true,
         format: s.stack ? '{point.percentage:.0f}%' : metricDataTypeFormat(s.dataType),
@@ -195,9 +193,7 @@ function makeChart(el: HTMLElement, data: Chart) {
     }),
     plotOptions: {
       column: {
-        animation: {
-          duration: 300,
-        },
+        animation,
         stacking: 'normal',
         dataLabels: {
           color: theme.text.strong,

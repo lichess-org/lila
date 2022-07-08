@@ -5,7 +5,7 @@ import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
-import lila.insight.{ InsightMetric, InsightPerfStats, MeanRating, TimePressure }
+import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats, MeanRating }
 import lila.rating.PerfType
 import lila.user.User
 import lila.analyse.AccuracyPercent
@@ -36,11 +36,12 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
 sealed abstract class TutorMetric[V](val metric: InsightMetric)
 
 object TutorMetric {
-  case object GlobalTimePressure extends TutorMetric[TimePressure](InsightMetric.TimePressure)
-  case object DefeatTimePressure extends TutorMetric[TimePressure](InsightMetric.TimePressure)
-  case object Accuracy           extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
-  case object Awareness          extends TutorMetric[TutorRatio](InsightMetric.Awareness)
-  case object Performance        extends TutorMetric[Rating](InsightMetric.Performance)
+  case object GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  // time used when losing ((100 - clockPercent) on last move)
+  case object ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  case object Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
+  case object Awareness   extends TutorMetric[TutorRatio](InsightMetric.Awareness)
+  case object Performance extends TutorMetric[Rating](InsightMetric.Performance)
 }
 
 case class TutorRatio(value: Double) extends AnyVal {

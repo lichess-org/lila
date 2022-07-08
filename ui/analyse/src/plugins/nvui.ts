@@ -192,11 +192,10 @@ export default function (redraw: Redraw) {
               insert: vnode => {
                 const root = $(vnode.elm as HTMLElement);
                 root.append($('.blind-content').removeClass('none'));
-                root.find('.copy-pgn').on('click', () => {
-                  (root.find('.game-pgn').attr('type', 'text')[0] as HTMLInputElement).select();
-                  document.execCommand('copy');
-                  root.find('.game-pgn').attr('type', 'hidden');
-                  notify.set('PGN copied into clipboard.');
+                root.find('.copy-pgn').on('click', function (this: HTMLElement) {
+                  navigator.clipboard.writeText($(this).data('pgn')).then(() => {
+                    notify.set('PGN copied into clipboard.');
+                  });
                 });
               },
             },

@@ -53,4 +53,9 @@ object LilaTypes extends LilaTypes {
     def value: String
     override def toString = value
   }
+
+  trait Percent extends Any {
+    def value: Double
+    def toInt = Math.round(value).toInt // round to closest
+  }
 }

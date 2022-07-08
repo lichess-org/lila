@@ -1,7 +1,7 @@
 package lila.tutor
 
 import lila.analyse.AccuracyPercent
-import lila.insight.TimePressure
+import lila.insight.ClockPercent
 import lila.common.Iso
 
 trait TutorNumber[V] {
@@ -35,8 +35,8 @@ object TutorNumber {
     val iso                                    = Iso.double[Rating](Rating.apply, _.value)
     override def compare(a: Rating, b: Rating) = ValueComparison((a.value - b.value) / 300)
   }
-  implicit val pressureIsTutorNumber = new TutorNumber[TimePressure] {
-    val iso = Iso.double[TimePressure](TimePressure.fromPercent, _.percent)
-    override def compare(a: TimePressure, b: TimePressure) = ValueComparison(iso.to(b), iso.to(a))
+  implicit val clockPercentIsTutorNumber = new TutorNumber[ClockPercent] {
+    val iso = Iso.double[ClockPercent](ClockPercent.fromPercent, _.value)
+    override def compare(a: ClockPercent, b: ClockPercent) = ValueComparison(iso.to(b), iso.to(a))
   }
 }
