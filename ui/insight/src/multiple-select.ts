@@ -321,6 +321,7 @@ export const registerMultipleSelect = () => {
       const selects = this.options.displayValues ? this.getSelects() : this.getSelects('text'),
         $span = this.$choice.find('span'),
         sl = selects.length;
+      this.$choice.toggleClass('selected', sl > 0);
       if (sl === 0) {
         $span.addClass('placeholder').html(this.options.placeholder!);
       } else if (this.options.allSelected && sl === this.$selectItems.length + this.$disableItems.length) {
