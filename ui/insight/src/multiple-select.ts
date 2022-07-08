@@ -129,19 +129,19 @@ export const registerMultipleSelect = () => {
         type = this.options.single ? 'radio' : 'checkbox';
       let disabled: boolean;
       if ($elm.is('option')) {
-        const value = $elm.val(),
+        const value = $elm.val() as string,
           text = that.options.textTemplate?.($elm) || '',
           selected = $elm.prop('selected'),
-          optionalStyle = this.options.styler?.(value as string),
+          optionalStyle = this.options.styler?.(value),
           style = optionalStyle ? `style="${optionalStyle}"` : '';
         disabled = groupDisabled || $elm.prop('disabled');
         const $el = $(
           [
             `<li class="${multiple} ${classes}" ${title} ${style}>`,
             `<label class="${disabled ? 'disabled' : ''}">`,
-            `<input type="${type}" value="${value}" ${this.selectItemName} ${selected ? 'checked' : ''} ${
-              disabled ? 'disabled' : ''
-            } ${group ? `data-group="${group}"` : ''}>`,
+            `<input type="${type}" value="${lichess.escapeHtml(value)}" ${this.selectItemName} ${
+              selected ? 'checked' : ''
+            } ${disabled ? 'disabled' : ''} ${group ? `data-group="${group}"` : ''}>`,
             text,
             '</label>',
             '</li>',
