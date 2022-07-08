@@ -67,6 +67,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             {
               attrs: {
                 for: `coord_timeControl_${timeControl}`,
+                title: ctrl.trans(timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'),
               },
             },
             timeControlLabel
