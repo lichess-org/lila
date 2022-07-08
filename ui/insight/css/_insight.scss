@@ -4,6 +4,7 @@ $insight-header-height: 60px;
   > div {
     display: grid;
     grid-template-columns: minmax(280px, 15vw);
+    grid-template-rows: $insight-header-height;
     grid-template-areas: 'side head' 'side main';
     grid-gap: 0 $block-gap;
   }
