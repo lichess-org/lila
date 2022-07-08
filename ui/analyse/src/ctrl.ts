@@ -35,7 +35,7 @@ import { parseFen } from 'chessops/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
-import { storedProp, StoredBooleanProp } from 'common/storage';
+import { storedBooleanProp } from 'common/storage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -87,10 +87,10 @@ export default class AnalyseCtrl {
   flipped = false;
   embed: boolean;
   showComments = true; // whether to display comments in the move tree
-  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
-  showGauge: StoredBooleanProp = storedProp('show-gauge', true);
-  showComputer: StoredBooleanProp = storedProp('show-computer', true);
-  showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', true);
+  showAutoShapes = storedBooleanProp('show-auto-shapes', true);
+  showGauge = storedBooleanProp('show-gauge', true);
+  showComputer = storedBooleanProp('show-computer', true);
+  showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -673,7 +673,7 @@ export default class AnalyseCtrl {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
         this.ceval.start(this.path, this.nodeList, this.threatMode());
-        this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
+        this.evalCache.fetch(this.path, this.ceval.multiPv());
       } else this.ceval.stop();
     }
   });
