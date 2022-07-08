@@ -287,9 +287,9 @@ export default class SetupController {
               .join('\n')
           : 'Invalid setup'
       );
-      if (response.status == 406) {
-        // 406 NOT_ACCEPTABLE restricts close modal behavior to user id challenges
-        // which will not be accepted.  see friend() in controllers/Setup.scala
+      if (response.status == 403) {
+        // 403 FORBIDDEN closes this modal because challenges to the recipient
+        // will not be accepted.  see friend() in controllers/Setup.scala
         this.closeModal();
       }
     } else if (redirected) {

@@ -87,8 +87,8 @@ final class Setup(
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = NotAcceptable(jsonError(message)).fuccess,
-                      // 406 tells setupCtrl.ts to close modal
+                      html = Forbidden(jsonError(message)).fuccess,
+                      // 403 tells setupCtrl.ts to close the setup modal
                       api = _ => BadRequest(jsonError(message)).fuccess
                     )
                   case None =>
