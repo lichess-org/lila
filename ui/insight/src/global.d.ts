@@ -6,9 +6,6 @@ interface Lichess {
 
 /* Type definitions for multiple-select.js */
 
-// multiple-select.js uses jquery, but typescript thinks $ is Cash, not jquery.
-// So as a hack, we extend the Cash interface knowing that at runtime, it will
-// actually be a jquery object.
 interface Cash {
   multipleSelect: MultipleSelect;
   multipleSelectDefaults: MultiSelectOpts;
