@@ -26,7 +26,6 @@ object insight {
       moreJs = frag(
         highchartsLatestTag,
         cashTag,
-        jsAt("javascripts/vendor/multiple-select.min.js"),
         jsModule("insight"),
         jsTag("insight-refresh.js"),
         embedJsUnsafeLoadThen(
