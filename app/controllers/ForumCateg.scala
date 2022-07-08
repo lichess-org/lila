@@ -12,11 +12,10 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       pageHit
       NotForKids {
         for {
-          teamIds <- (ctx.userId ?? teamCache.teamIdsList).flatMap(
-            lila.common.Future.filter(_)(
-              teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
-            )
-          )
+          allTeamIds <- ctx.userId ?? teamCache.teamIdsList
+          teamIds <- lila.common.Future.filter(allTeamIds) {
+            teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
+          }
           categs <- postApi.categsForUser(teamIds, ctx.me)
           _      <- env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
         } yield html.forum.categ.index(categs)
