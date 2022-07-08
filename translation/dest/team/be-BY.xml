@@ -14,6 +14,7 @@
   <string name="myTeams">Мае каманды</string>
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
+  <string name="onlyLeaderLeavesTeam">Калі ласка, абярыце новага лідара каманды перад сыходам, або зачыніце каманду.</string>
   <string name="quitTeam">Выйсці з каманды</string>
   <string name="manuallyReviewAdmissionRequests">Асабістая праверка запытаў на ўступ</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Калі абрана, гульцы будуць павінны напісаць запыт, каб далучыцца да каманды, яго можна будзе адхіліць або пацвердзіць.</string>
