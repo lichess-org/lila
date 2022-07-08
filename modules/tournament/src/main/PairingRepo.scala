@@ -71,9 +71,11 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       .cursor[Bdoc]()
       .list()
       .dmap {
-        _.view.flatMap { doc =>
-          ~doc.getAsOpt[List[User.ID]]("u").find(userId !=)
-        }.toSet
+        _.view
+          .flatMap { doc =>
+            ~doc.getAsOpt[List[User.ID]]("u").find(userId !=)
+          }
+          .toSet
       }
 
   def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[Tournament.ID]] =
@@ -107,14 +109,16 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
     coll
       .list[Pairing](selectTourUser(tourId, userId))
       .flatMap {
-        _.withFilter(_ notLostBy userId).map { p =>
-          coll.update.one(
-            $id(p.id),
-            $set(
-              "w" -> p.colorOf(userId).map(_.black)
+        _.withFilter(_ notLostBy userId)
+          .map { p =>
+            coll.update.one(
+              $id(p.id),
+              $set(
+                "w" -> p.colorOf(userId).map(_.black)
+              )
             )
-          )
-        }.sequenceFu
+          }
+          .sequenceFu
       }
       .void
 
@@ -135,11 +139,13 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         )
       }
       .map {
-        _.view.flatMap { doc =>
-          doc.getAsOpt[User.ID]("_id") flatMap { uid =>
-            doc.int("nb") map { uid -> _ }
+        _.view
+          .flatMap { doc =>
+            doc.getAsOpt[User.ID]("_id") flatMap { uid =>
+              doc.int("nb") map { uid -> _ }
+            }
           }
-        }.toMap
+          .toMap
       }
   }
 

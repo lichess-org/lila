@@ -49,9 +49,13 @@ final private[tv] class ChannelSyncActor(
       candidateIds.keys
         .map(proxyGame)
         .sequenceFu
-        .map(_.view.collect {
-          case Some(g) if channel isFresh g => g
-        }.toList)
+        .map(
+          _.view
+            .collect {
+              case Some(g) if channel isFresh g => g
+            }
+            .toList
+        )
         .foreach { candidates =>
           oneId ?? proxyGame foreach {
             case Some(current) if channel isFresh current =>
