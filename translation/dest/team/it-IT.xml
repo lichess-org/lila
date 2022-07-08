@@ -12,6 +12,7 @@
   <string name="myTeams">I miei gruppi</string>
   <string name="noTeamFound">Nessun gruppo trovato</string>
   <string name="joinTeam">Unisciti al gruppo</string>
+  <string name="onlyLeaderLeavesTeam">Prima di andartene scegli un nuovo capitano della squadra oppure elimina la squadra.</string>
   <string name="quitTeam">Abbandona il gruppo</string>
   <string name="manuallyReviewAdmissionRequests">Rivedi manualmente le richieste di ammissione</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Se selezionato, i giocatori dovranno scrivere una richiesta per unirsi alla squadra, che puoi rifiutare o accettare.</string>
