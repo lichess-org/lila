@@ -6,16 +6,19 @@ interface Lichess {
 
 /* Type definitions for multiple-select.js */
 
-// multiple-select.js uses jquery, but typescript thinks $ is Cash, not jquery.
-// So as a hack, we extend the Cash interface knowing that at runtime, it will
-// actually be a jquery object.
 interface Cash {
-  multipleSelect(method: 'getSelects'): string[];
-  multipleSelect(method: 'setSelects', values: string[]): void;
-  multipleSelect(
+  multipleSelect: MultipleSelect;
+  multipleSelectDefaults: MultiSelectOpts;
+  multipleSelectHover(fnOver: EventCallback, fnOut: EventCallback): Cash;
+}
+
+interface MultipleSelect {
+  (method: 'getSelects'): string[];
+  (method: 'setSelects', values: string[]): void;
+  (
     method: 'enable' | 'disable' | 'open' | 'close' | 'checkAll' | 'uncheckAll' | 'focus' | 'blur' | 'refresh' | 'close'
   ): void;
-  multipleSelect(option: MultiSelectOpts): void;
+  (option: MultiSelectOpts): void;
 }
 
 interface MultiSelectOpts {
@@ -27,13 +30,16 @@ interface MultiSelectOpts {
   minimumCountSelected?: number;
   ellipsis?: boolean;
   multiple?: boolean;
+  /** Unit: pixels */
   multipleWidth?: number;
   single?: boolean;
   filter?: boolean;
+  /** CSS string */
   width?: string;
-  dropWidth?: number;
-  maxHeight?: string;
-  container?: Element;
+  /** CSS string */
+  dropWidth?: string;
+  /** Unit: pixels */
+  maxHeight?: number;
   position?: string;
   keepOpen?: boolean;
   animate?: string;
@@ -46,16 +52,16 @@ interface MultiSelectOpts {
   allSelected?: string;
   countSelected?: string;
   noMatchesFound?: string;
-  styler?(): boolean;
-  textTemplate?($elm: Element): string;
-  labelTemplate?($elm: Element): string;
+  styler?(value?: string): string | null;
+  textTemplate?($elm: Cash): string;
+  labelTemplate?($elm: Cash): string | null;
   onOpen?(): any;
   onClose?(): any;
   onCheckAll?(): any;
   onUncheckAll?(): any;
   onFocus?(): any;
   onBlur?(): any;
-  onOptgroupClick?(): any;
+  onOptgroupClick?(view: { label: string; checked: boolean; children: EleLoose[]; instance: any }): any;
   onClick?(view: { label: string; value: string; checked: boolean; instance: any }): any;
-  onFilter?(): any;
+  onFilter?(text: string): any;
 }

@@ -91,11 +91,14 @@ object Paginator {
       currentPage: Int = 1,
       maxPerPage: MaxPerPage = MaxPerPage(10)
   )(implicit ec: scala.concurrent.ExecutionContext): Validated[String, Fu[Paginator[A]]] =
-    if (currentPage < 1) Validated.invalid("Max per page must be greater than zero")
-    else if (maxPerPage.value <= 0) Validated.invalid("Current page must be greater than zero")
+    if (currentPage < 1) Validated.invalid("Current page must be greater than zero")
+    else if (maxPerPage.value <= 0) Validated.invalid("Max per page must be greater than zero")
     else
       Validated.valid(for {
-        results   <- adapter.slice((currentPage - 1) * maxPerPage.value, maxPerPage.value)
         nbResults <- adapter.nbResults
-      } yield new Paginator(currentPage, maxPerPage, results, nbResults))
+        safePage = currentPage atLeast 1 atMost Math.ceil(nbResults.toDouble / maxPerPage.value).toInt
+        // would rather let upstream code know the value they passed in was bad.
+        // unfortunately can't do that without completing nbResults, so ig it's on them to check after
+        results <- adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value)
+      } yield new Paginator(safePage, maxPerPage, results, nbResults))
 }

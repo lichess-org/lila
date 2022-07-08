@@ -71,9 +71,11 @@ final private class PovToEntry(
               movetimes = movetimes.toVector,
               clockStates = clockStates,
               advices = an.?? {
-                _.advices.view.map { a =>
-                  a.info.ply -> a
-                }.toMap
+                _.advices.view
+                  .map { a =>
+                    a.info.ply -> a
+                  }
+                  .toMap
               }
             )
           }
@@ -149,7 +151,7 @@ final private class PovToEntry(
         InsightMove(
           phase = Phase.of(from.division, ply),
           tenths = movetime.roundTenths,
-          timePressure = TimePressure(from.clock, clock),
+          clockPercent = ClockPercent(from.clock, clock),
           role = role,
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,

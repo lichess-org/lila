@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tutor.{ Rating, TutorFullReport, TutorBothValueOptions, TutorNumber, ValueCount }
+import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
 import play.api.i18n.Lang
 
 object bits {

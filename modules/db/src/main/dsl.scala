@@ -80,9 +80,6 @@ trait dsl {
     $doc("$text" -> $doc("$search" -> term, f"$$language" -> lang))
   }
 
-  def $where(expr: String): Bdoc = {
-    $doc("$where" -> expr)
-  }
   // End of Top Level Evaluation Operators
   // **********************************************************************************************//
 
@@ -125,6 +122,13 @@ trait dsl {
 
   def $max(item: ElementProducer): Bdoc = {
     $doc("$max" -> $doc(item))
+  }
+
+  def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = {
+    $doc("$divide" -> $arr(a, b))
+  }
+  def $multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = {
+    $doc("$multiply" -> $arr(a, b))
   }
 
   // Helpers

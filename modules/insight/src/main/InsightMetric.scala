@@ -60,7 +60,7 @@ object InsightMetric {
         Move,
         Move,
         Percent,
-        """Accuracy of your moves. Higher is better."""
+        InsightDimension.AccuracyPercentRange.description
       )
 
   case object Movetime
@@ -184,15 +184,15 @@ object InsightMetric {
         InsightDimension.MaterialRange.description
       )
 
-  case object TimePressure
+  case object ClockPercent
       extends InsightMetric(
-        "timePressure",
+        "clockPercent",
         "Time pressure",
         F moves "s",
         Move,
         Move,
         Average,
-        InsightDimension.TimePressureRange.description
+        InsightDimension.ClockPercentRange.description
       )
 
   case object Blurs
@@ -222,7 +222,7 @@ object InsightMetric {
     CplBucket,
     MeanAccuracy,
     Movetime,
-    TimePressure,
+    ClockPercent,
     Result,
     Termination,
     Performance,

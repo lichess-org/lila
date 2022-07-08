@@ -5,15 +5,15 @@ import lila.tree.Eval
 import lila.tree.Eval.{ Cp, Mate }
 
 // Quality of a move, based on previous and next WinPercent
-case class AccuracyPercent private (value: Double) extends AnyVal {
-  def toInt = Math.round(value).toInt
-}
+case class AccuracyPercent private (value: Double) extends AnyVal with Percent
 
 object AccuracyPercent {
 
   import WinPercent.BeforeAfter
 
-  val perfect = AccuracyPercent(100)
+  def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
+
+  val perfect = fromPercent(100)
 
   implicit val ordering = Ordering.by[AccuracyPercent, Double](_.value)
 

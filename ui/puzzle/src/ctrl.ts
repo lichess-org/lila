@@ -327,6 +327,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function nextPuzzle(): void {
+    if (streak && vm.lastFeedback != 'win') return;
+
     ceval.stop();
     vm.next.promise.then(initiate).then(redraw);
 

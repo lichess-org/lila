@@ -673,11 +673,11 @@
   <string name="withFriends">Достармен</string>
   <string name="withEverybody">Бәрімен</string>
   <string name="kidMode">Балалық нұсқа</string>
-  <string name="kidModeExplanation">Бұл қауіпсіздік үшін жасалынды. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Балалар мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау мақсатында осы нұсқаны іске қосыңыз.</string>
+  <string name="kidModeExplanation">Бұл сақтық үшін. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Мақсатыңыз – бала мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау болса, осы нұсқаны іске қосыңыз.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
-  <string name="security">Қауіпсіздік</string>
+  <string name="security">Сақтық</string>
   <string name="sessions">Қосылулар</string>
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
