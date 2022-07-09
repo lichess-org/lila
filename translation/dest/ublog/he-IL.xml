@@ -30,7 +30,7 @@
   <string name="thisIsADraft">זוהי טיוטה</string>
   <string name="moreBlogPostsBy">עוד פוסטים מאת %s</string>
   <string name="noPostsInThisBlogYet">אין פוסטים בבלוג זה, לעת עתה...</string>
-  <string name="noDrafts">אין טיוטות. נדמה ששלחת את כל מה שהיית צריך.</string>
+  <string name="noDrafts">אין טיוטות להצגה.</string>
   <string name="latestBlogPosts">פוסטים אחרונים</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">צפה בפוסט אחד</item>
