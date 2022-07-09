@@ -176,3 +176,15 @@ form.color {
     font-weight: bold;
   }
 }
+
+.setting {
+  flex: 0 0 auto;
+  margin: $block-gap $block-gap 0 $block-gap;
+  display: flex;
+
+  label {
+    flex: 4 1 auto;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+}

@@ -2,6 +2,7 @@ import { h, VNode, VNodes } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import CoordinateTrainerCtrl from './ctrl';
 import { ColorChoice, TimeControl, Mode } from './interfaces';
+import { toggle } from 'common/toggle';
 
 const colors: [ColorChoice, string][] = [
   ['black', 'asBlack'],
@@ -26,17 +27,26 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               id: `coord_mode_${mode}`,
               name: 'mode',
               value: mode,
-              checked: mode === ctrl.mode,
+              checked: mode === ctrl.mode(),
             },
             on: {
               change: e => {
                 const target = e.target as HTMLInputElement;
-                ctrl.setMode(target.value as Mode);
+                ctrl.mode(target.value as Mode);
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(`label.mode_${mode}`, { attrs: { for: `coord_mode_${mode}` } }, ctrl.trans(mode)),
+          h(
+            `label.mode_${mode}`,
+            {
+              attrs: {
+                for: `coord_mode_${mode}`,
+                title: ctrl.trans(mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted'),
+              },
+            },
+            ctrl.trans(mode)
+          ),
         ])
       )
     ),
@@ -57,7 +67,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             on: {
               change: e => {
                 const target = e.target as HTMLInputElement;
-                ctrl.setTimeControl(target.value as TimeControl);
+                ctrl.timeControl(target.value as TimeControl);
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
@@ -92,7 +102,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             on: {
               change: e => {
                 const target = e.target as HTMLInputElement;
-                ctrl.setColorChoice(target.value as ColorChoice);
+                ctrl.colorChoice(target.value as ColorChoice);
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
@@ -120,8 +130,8 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
     h(
       'div.scores',
       [
-        ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode].white],
-        ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode].black],
+        ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode()].white],
+        ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode()].black],
       ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
         scoreList.length
           ? h('div.color-chart', [
@@ -163,6 +173,18 @@ const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
     )
   );
 
+const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
+  const { trans, redraw, showCoordinates, showPieces } = ctrl;
+  return h('div.settings', [
+    toggle(
+      { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
+      trans,
+      redraw
+    ),
+    toggle({ name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces }, trans, redraw),
+  ]);
+};
+
 const side = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.side', [
     h('div.box', h('h1', ctrl.trans('coordinates'))),
@@ -177,6 +199,7 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
           ctrl.hasPlayed ? scoreBox(ctrl) : null,
           ...configurationButtons(ctrl),
           ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
+          settings(ctrl),
         ]),
   ]);
 
