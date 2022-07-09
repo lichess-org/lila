@@ -101,7 +101,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
     h(
       'div.analyse__puzzle',
       h(
-        'a.button.text',
+        'a.button-link.text',
         {
           attrs: {
             'data-icon': '',
@@ -118,7 +118,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.studyPractice || ctrl.embed) return;
 
   if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
-    return h('div.analyse__round-training');
+    return h('div.analyse__round-training', puzzleLink(ctrl));
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
