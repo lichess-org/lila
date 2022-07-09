@@ -12,13 +12,13 @@
   </plurals>
   <string name="newPatrons">Neui Gönner</string>
   <string name="freeChess">Gratis Schach für alli - für immer!</string>
-  <string name="noAdsNoSubs">Kei Werbig, kei Abos - aber en open-source und Liideschaft.</string>
+  <string name="noAdsNoSubs">Kei Werbig, kei Abos - aber en open-source und Lideschaft.</string>
   <string name="thankYou">Danke für die Schpänd!</string>
   <string name="youHaveLifetime">Du häsch es läbelangs Gönnerkonto. Das isch grossartig!</string>
   <string name="patronUntil">Du häsch es Gönnerkonto bis %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Falls du nöd erneuere tuesch, wird dis Konto in es Regulärs umgwandlet.</string>
-  <string name="weAreNonProfit">Mir sind e \"Non-Profit-Organisation\", will mir glaubed, dass jede sött Zuegang zu ere gratis, \"Wältklass Schach Plattform\" haa.</string>
-  <string name="weRelyOnSupport">Mir sind uf d\'Underschtützig vu so Lüt wie du aagwise, zum das möglich z\'mache. Wänn dir Lichess g\'fallt, chasch du eus underschtütze, indem du schpändisch und so en Lichess Gönner wirsch!</string>
+  <string name="weAreNonProfit">Mir sind e \"Non-Profit-Organisation\", will mir glaubed, dass jede sött Zuegang zu ere gratis, \"Wältklass Schach Plattform\" ha.</string>
+  <string name="weRelyOnSupport">Mir sind uf d\'Underschtützig vu so Lüt wie du agwise, zum das möglich z\'mache. Wänn dir Lichess g\'fallt, chasch du eus underschtütze, indem du schpändisch und so en Lichess Gönner wirsch!</string>
   <string name="lifetime">Läbeslang</string>
   <string name="payLifetimeOnce">Zahl eimal %s und wird für immer en Lichess Gönner!</string>
   <string name="lifetimePatron">Läbeslange Lichess Gönner</string>
@@ -27,18 +27,18 @@
   <string name="onetime">Eimalig</string>
   <string name="singleDonation">Eimaligi Schpänd, wo dir en Gönner Flügel für 1 Monet verleiht.</string>
   <string name="otherAmount">Andere</string>
-  <string name="pleaseEnterAmountInX">Bitte gib en Betrag in %s ii</string>
+  <string name="pleaseEnterAmountInX">Bitte gib en Betrag in %s i</string>
   <string name="withCreditCard">Kreditcharte</string>
-  <string name="weAreSmallTeam">Mir sind es chliises Team, drum macht dini Underschtützig en riese Underschied!</string>
-  <string name="celebratedPatrons">Die g\'fiirete Gönner, wo Lichess möglich mached</string>
+  <string name="weAreSmallTeam">Mir sind es chlises Team, drum macht dini Underschtützig en riese Underschid!</string>
+  <string name="celebratedPatrons">Die g\'firete Gönner, wo Lichess möglich mached</string>
   <string name="whereMoneyGoes">Wohi flüsst das Gäld?</string>
-  <string name="serversAndDeveloper">Ganz zerscht i leischtigsstarchi Server. 
-Dänn zahled mir en Vollziit-Entwickler: %s, de Gründer vu Lichess.</string>
+  <string name="serversAndDeveloper">Ganz zerscht in leischtigsstarchi Server. 
+Dänn zahled mir en Vollzit-Entwickler: %s, de Gründer vu Lichess.</string>
   <string name="costBreakdown">Da die detailliert Choschte Uufteilig</string>
   <string name="officialNonProfit">Isch Lichess e offizielli Non-Profit-Organisation?</string>
   <string name="actOfCreation">Ja, da isch d\'Gründigsurkund (uf französisch)</string>
   <string name="changeMonthlySupport">Chann ich mini monetlichi Underschtützig ändere/chünde?</string>
-  <string name="changeOrContact">Ja - jederziit vu dere Site us oder
+  <string name="changeOrContact">Ja - jederzii vu dere Site us oder
 du chasch %s.</string>
   <string name="contactSupport">de Lichess Support kontaktiere</string>
   <string name="otherMethods">Anderi Schpändemöglichkeite?</string>
@@ -67,12 +67,12 @@ Aber en Lichess Gönner chann sich mit dem coole Flamme Icon sis Profil schmück
   <string name="stopPayments">Dini Kreditcharte zruggzieh und Zahlige beände:</string>
   <string name="stopPaymentsPayPal">De PayPal Uftrag anulliere und d\'Zahlige stoppe:</string>
   <string name="noLongerSupport">Lichess nöd witer underschtütze</string>
-  <string name="viewOthers">Lueg dir anderi Lichess Gönner aa</string>
+  <string name="viewOthers">Lueg dir anderi Lichess Gönner a</string>
   <string name="date">Datum</string>
   <string name="amount">Betrag</string>
-  <string name="transactionCompleted">Dini Transaktion isch erfolgrich gsii und e Schpändequittig isch dir per E-Mail zuegschickt worde.</string>
-  <string name="permanentPatron">Du häsch jetzt es duurhafts Gönner Konto.</string>
-  <string name="checkOutProfile">Lueg dir dini Profilsite aa!</string>
+  <string name="transactionCompleted">Dini Transaktion isch erfolgrich gsi und e Schpändequittig isch dir per E-Mail zuegschickt worde.</string>
+  <string name="permanentPatron">Du häsch jetzt es durhafts Gönner Konto.</string>
+  <string name="checkOutProfile">Lueg dir dini Profilsite a!</string>
   <string name="nowLifetime">Du bisch jetzt läbeslange Lichess Gönner!</string>
   <string name="nowOneMonth">Du bisch jetzt für 1 Monet Lichess Gönner!</string>
   <string name="downgradeNextMonth">Nach 1 Monet wird dir nüt meh berächnet und dis Lichess Konto wird wieder in es regulärs Gratis Konto umgwandlet.</string>

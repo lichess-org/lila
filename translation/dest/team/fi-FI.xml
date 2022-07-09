@@ -12,6 +12,7 @@
   <string name="myTeams">Omat joukkueet</string>
   <string name="noTeamFound">Joukkuetta ei löytynyt</string>
   <string name="joinTeam">Liity joukkueeseen</string>
+  <string name="onlyLeaderLeavesTeam">Määritä joukkueelle uusi johtaja, ennen kuin lähdet joukkueesta, tai sulje joukkue.</string>
   <string name="quitTeam">Lähde joukkueesta</string>
   <string name="manuallyReviewAdmissionRequests">Käy liittymispyynnöt yksitellen läpi</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jos valitset tämän, pelaajien tulee joukkueeseen liittyäkseen kirjoittaa liittymispyynnöt, jotka voit hylätä tai hyväksyä.</string>

@@ -38,6 +38,7 @@
   <string name="raceComplete">Loppet är klart!</string>
   <string name="spectating">Åskådar</string>
   <string name="joinTheRace">Gå med i loppet!</string>
+  <string name="startTheRace">Starta loppet</string>
   <string name="yourRankX">Din placering: %s</string>
   <string name="waitForRematch">Vänta på returmatch</string>
   <string name="nextRace">Nästa lopp</string>
@@ -49,4 +50,12 @@
   <string name="skip">skippa</string>
   <string name="skipHelp">Du kan skippa ett drag per lopp:</string>
   <string name="skipExplanation">Skippa detta drag för att bevara din kombo! Detta fungerar bara en gång per lopp.</string>
+  <string name="failedPuzzles">Ej lösta schackproblem</string>
+  <string name="slowPuzzles">Långsamma schackproblem</string>
+  <string name="thisWeek">Denna vecka</string>
+  <string name="thisMonth">Denna månad</string>
+  <string name="allTime">Genom alla tider</string>
+  <string name="clickToReload">Klicka för att ladda om</string>
+  <string name="thisRunHasExpired">Detta loppet har löpt ut!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Denna loppet har öppnats i en annan flik!</string>
 </resources>

@@ -12,6 +12,7 @@
   <string name="myTeams">Mijn teams</string>
   <string name="noTeamFound">Geen team gevonden</string>
   <string name="joinTeam">Word lid van het team</string>
+  <string name="onlyLeaderLeavesTeam">Voeg een nieuwe teamleider toe voordat je weggaat, of sluit het team.</string>
   <string name="quitTeam">Verlaat het team</string>
   <string name="manuallyReviewAdmissionRequests">Handmatig toelatingsverzoeken beoordelen</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Indien aangevinkt, moeten spelers schriftelijk verzoeken om lid te worden van het team. Dat verzoek kun je weigeren of accepteren.</string>

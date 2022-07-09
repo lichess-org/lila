@@ -5,7 +5,7 @@
   <string name="lichessPatron">Patró de Lichess</string>
   <string name="freeAccount">Compte gratuït</string>
   <string name="becomePatron">Fes-te patró de Lichess</string>
-  <string name="xBecamePatron">%s fes-te patró de Lichess</string>
+  <string name="xBecamePatron">%s s\'ha fet patró de Lichess</string>
   <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s és un patró Lichess per %2$s mes</item>
     <item quantity="other">%1$s és un patró Lichess per %2$s mesos</item>

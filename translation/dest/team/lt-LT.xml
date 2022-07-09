@@ -14,6 +14,7 @@
   <string name="myTeams">Mano komandos</string>
   <string name="noTeamFound">Nerasta jokia komanda</string>
   <string name="joinTeam">Stoti į komandą</string>
+  <string name="onlyLeaderLeavesTeam">Prieš palikdami ar uždarydami komandą pridėkite naują komandos vadovą.</string>
   <string name="quitTeam">Palikti komandą</string>
   <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jei pažymėta, norėdami patekti į komandą žaidėjai turės užpildyti prašymą. Šį prašymą galite priimti arba atmesti.</string>

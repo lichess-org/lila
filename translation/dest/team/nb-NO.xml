@@ -12,6 +12,7 @@
   <string name="myTeams">Mine lag</string>
   <string name="noTeamFound">Ingen lag funnet</string>
   <string name="joinTeam">Bli med i klanen</string>
+  <string name="onlyLeaderLeavesTeam">Legg til en ny lagleder før du forlater laget, eller legg ned laget.</string>
   <string name="quitTeam">Forlat klanen</string>
   <string name="manuallyReviewAdmissionRequests">Gå gjennom ønsker om å få bli med manuelt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Kryss av for å kreve at spillere må skrive et ønske om å få bli med på laget, som du avslår eller godtar.</string>

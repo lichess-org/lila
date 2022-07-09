@@ -444,8 +444,11 @@
   <string name="apply">قبول</string>
   <string name="save">حفظ</string>
   <string name="leaderboard">أفضل اللاعبين</string>
+  <string name="screenshotCurrentPosition">لقطة شاشة</string>
+  <string name="gameAsGIF">حفظ بصيغة GIF</string>
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
+  <string name="orUploadPgnFile">أو حمل مِلف PGN</string>
   <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
   <string name="toStudy">دراسة</string>
@@ -541,6 +544,8 @@
   <string name="tournamentIsStarting">بدأت المسابقة</string>
   <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
   <string name="standByX">إستعد، يتم إزواج اللاعبين، تأهب يا %s!</string>
+  <string name="pause">الإيقاف المؤقت</string>
+  <string name="resume">استئناف</string>
   <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
   <string name="berserkRate">معدل المخاطرة</string>
@@ -621,6 +626,7 @@
   <string name="reportDescriptionHelp">الصق رابط المباراة (المباريات) واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. لا تقل فقط \"انهم يغشون\"، ولكن اشرح لنا سبب استنتاجك. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
   <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
   <string name="by">كتبها %s</string>
+  <string name="importedByX">استيراد \'%s\'</string>
   <string name="thisTopicIsNowClosed">هذا الموضوع مغلق الآن.</string>
   <string name="blog">المدونة</string>
   <string name="notes">ملاحظات</string>
@@ -689,6 +695,7 @@
   <string name="community">المجتمع</string>
   <string name="tools">أدوات</string>
   <string name="increment">الزيادة</string>
+  <string name="error.unknown">بيانات خاطئة</string>
   <string name="error.required">هذة الخانة ضرورية</string>
   <string name="error.email">هذا البريد الإلكتروني غير صحبح</string>
   <string name="error.email_acceptable">هذا البريد الالكتروني غير مقبول. رجاءً تحقق منه مرة أخرى و حاول مرة ثانية.</string>
@@ -699,6 +706,7 @@
   <string name="error.min">يجب أن يكون أكبر أو يساوي ل %s</string>
   <string name="error.max">يجب أن يكون أقل أو يساوي %s</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
+  <string name="ifRegistered">قيد التسجيل</string>
   <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
@@ -944,6 +952,7 @@
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
   <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
   <string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">أوافق على أني لن أدخل بحسابات متعددة (إلا للأسباب المذكورة في %s).</string>
   <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
   <string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
   <string name="edit">تعديل</string>
@@ -1044,4 +1053,5 @@
   <string name="until">حتى</string>
   <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
   <string name="switchSides">تبديل جهة اللعب</string>
+  <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
 </resources>

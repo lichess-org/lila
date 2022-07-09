@@ -12,6 +12,7 @@
   <string name="myTeams">Meine Teams</string>
   <string name="noTeamFound">Kein Team gefunden</string>
   <string name="joinTeam">Tritt dem Team bei</string>
+  <string name="onlyLeaderLeavesTeam">Bevor du das Team verlässt, füge bitte einen neuen Teamleiter hinzu, oder schließe das Team.</string>
   <string name="quitTeam">Team verlassen</string>
   <string name="manuallyReviewAdmissionRequests">Beitrittsanfragen manuell überprüfen</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Wenn diese Option aktiviert ist, müssen Spieler eine Anfrage schreiben, um dem Team beizutreten, welche du ablehnen oder akzeptieren kannst.</string>

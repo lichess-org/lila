@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">זוז כדי להתחיל</string>
+  <string name="moveToStart">בצע מהלך כדי להתחיל</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">אתה משחק בלבן בכל החידות</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">אתה משחק בשחור בכל החידות</string>
   <string name="puzzlesSolved">חידות נפתרו</string>
@@ -8,30 +8,30 @@
   <string name="newWeeklyHighscore">שיא שבועי חדש!</string>
   <string name="newMonthlyHighscore">שיא חודשי חדש!</string>
   <string name="newAllTimeHighscore">שיא חדש בכל הזמנים!</string>
-  <string name="previousHighscoreWasX">שיא קודם היה %s</string>
+  <string name="previousHighscoreWasX">השיא הקודם היה %s</string>
   <string name="playAgain">שחק שוב</string>
-  <string name="highscoreX">הניקוד הגבוה%s</string>
+  <string name="highscoreX">הניקוד הגבוה ביותר: %s</string>
   <string name="score">ניקוד</string>
   <string name="moves">מהלכים</string>
   <string name="accuracy">דיוק</string>
   <string name="combo">רצף</string>
   <string name="time">זמן</string>
   <string name="timePerMove">זמן לכל מהלך</string>
-  <string name="highestSolved">הכי גבוה נשפתר</string>
+  <string name="highestSolved">הפאזל הכי קשה שנפתר</string>
   <string name="puzzlesPlayed">פאזלים ששוחקו</string>
   <string name="newRun">סיבוב חדש</string>
   <string name="endRun">סיים ריצה</string>
-  <string name="highscores">הניקודים הכי גבוהים</string>
+  <string name="highscores">שיאים</string>
   <string name="viewBestRuns">ראה את הריצות הכי טובות</string>
   <string name="bestRunOfDay">הריצה הטובה ביותר היום</string>
   <string name="runs">ריצות</string>
   <string name="getReady">התכונן!</string>
-  <string name="waitingForMorePlayers">מחכה לעוד שחקנים להצטרף...</string>
+  <string name="waitingForMorePlayers">מחכים שעוד שחקנים יצטרפו...</string>
   <string name="raceComplete">המירוץ הושלם!</string>
   <string name="spectating">צופה</string>
   <string name="joinTheRace">הצטרפו למירוץ!</string>
   <string name="startTheRace">התחל את המירוץ</string>
-  <string name="yourRankX">הדרגה שלך: %s</string>
+  <string name="yourRankX">המיקום שלך: %s</string>
   <string name="waitForRematch">המתן למשחק חוזר</string>
   <string name="nextRace">המירוץ הבא</string>
   <string name="joinRematch">הצטרף למשחק חוזר</string>
@@ -40,7 +40,7 @@
   <string name="joinPublicRace">הצטרפו למירוץ פומבי</string>
   <string name="raceYourFriends">התחרה עם חבריך</string>
   <string name="skip">דלג</string>
-  <string name="skipHelp">אתה יכול לדלג פעם אחת לכל מרוץ:</string>
+  <string name="skipHelp">אתה יכול לדלג על מסע פעם אחת בכל מרוץ:</string>
   <string name="skipExplanation">דלג על מהלך זה כדי לשמור על הקומבו שלך! עובד רק פעם אחת במירוץ.</string>
   <string name="failedPuzzles">פאזלים שנכשלת בפתרונם</string>
   <string name="slowPuzzles">פאזלים שהתעכבת בפתרונם</string>

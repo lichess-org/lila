@@ -3,11 +3,14 @@
   <string name="broadcasts">Sändningar</string>
   <string name="liveBroadcasts">Direktsända turneringar</string>
   <string name="newBroadcast">Ny direktsändning</string>
+  <string name="addRound">Lägg till en omgång</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommande</string>
   <string name="completed">Slutförda</string>
+  <string name="roundName">Omgångens namn</string>
   <string name="roundNumber">Omgångens nummer</string>
   <string name="tournamentName">Turneringens namn</string>
+  <string name="tournamentDescription">Kort beskrivning av turneringen</string>
   <string name="fullDescription">Fullständig beskrivning</string>
   <string name="fullDescriptionHelp">Valfri längre beskrivning av sändningen. %1$s är tillgänglig. Längden måste vara mindre än %2$s tecken.</string>
   <string name="sourceUrlOrGameIds">Käll-URL eller spel-ID:n</string>
@@ -16,7 +19,10 @@
   <string name="startDate">Startdatum i din egen tidszon</string>
   <string name="startDateHelp">Valfritt, om du vet när händelsen startar</string>
   <string name="credits">Kreditera källan</string>
+  <string name="resetRound">Återställ den här omgången</string>
+  <string name="deleteRound">Ta bort den här omgången</string>
   <string name="broadcastUrl">Länk till direktsändning (URL)</string>
   <string name="currentRoundUrl">Länk till aktuellt runda (URL)</string>
   <string name="currentGameUrl">Länk till aktuellt parti (URL)</string>
+  <string name="downloadAllRounds">Ladda ner alla omgångar</string>
 </resources>

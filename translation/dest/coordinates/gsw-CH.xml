@@ -10,14 +10,16 @@ isch e wichtigi Fähigkeit:</string>
 verwänded die algebraischi Notazion.</string>
   <string name="talkToYourChessFriends">Es machts eifacher mit Schachfründe z\'rede, 
 wänn alli die \"Schach-Schprach\" verschtöhnd.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Me chann es Schpiil effektiver analysiere, 
+  <string name="youCanAnalyseAGameMoreEffectively">Me chann es Schpil effektiver analysiere, 
 wänn me d\'Koordinate schnäll gseht.</string>
   <string name="aSquareNameAppears">Üebig: Uf em Brätt erschined Koordinate - z.B. c3 - und mer muess 
 ufs entschprächendi Fäld klicke. Pro Durchgang gits 30 Sekunde, 
 zum möglichscht vill Fälder richtig z\'erkänne!</string>
   <string name="aSquareIsHighlighted">Uf em Brätt wird es Fäld grüen umrandet und me muess, für 
-das Fäld die richtige Koordinate - wie z.B. \"e4\" - aageh. 
+das Fäld die richtige Koordinate - wie z.B. \"e4\" - ageh. 
 s\'Ziel isch - i 30 Sekunde - so vill wie möglich z\'benänne!</string>
+  <string name="youHaveThirtySeconds">Du häsch 30 Sekunde, zum soviel Fälder wie möglich, korrekt z\'bezeichne!</string>
+  <string name="goAsLongAsYouWant">Mach so lang wie du wottsch, es git keis Zitlimitt!</string>
   <string name="startTraining">Training schtarte</string>
   <string name="findSquare">Fäld finde</string>
   <string name="nameSquare">Fäld benänne</string>

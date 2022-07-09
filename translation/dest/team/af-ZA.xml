@@ -11,6 +11,7 @@
   <string name="myTeams">My spanne</string>
   <string name="noTeamFound">Geen span gevind nie</string>
   <string name="joinTeam">Sluit aan by die span</string>
+  <string name="onlyLeaderLeavesTeam">Nomineer asseblief \'n nuwe spanleier voordat jy gaan, of sluit die span af.</string>
   <string name="quitTeam">Verlaat die span</string>
   <string name="manuallyReviewAdmissionRequests">Gaan aansluit versoeke met die hand na</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Indien gemerk gaan spelers nodig hê om \'n versoek te skryf om by die span aan te sluit, wat jy kan afkeer of aanvaar.</string>

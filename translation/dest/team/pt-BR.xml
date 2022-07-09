@@ -12,6 +12,7 @@
   <string name="myTeams">Minhas equipes</string>
   <string name="noTeamFound">Nenhuma equipe encontrada</string>
   <string name="joinTeam">Juntar-se à equipe</string>
+  <string name="onlyLeaderLeavesTeam">Escolha um novo líder antes de sair da equipe, ou encerre a equipe.</string>
   <string name="quitTeam">Abandonar equipa</string>
   <string name="manuallyReviewAdmissionRequests">Rever pedidos de adesão manualmente</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Se marcado, os jogadores precisarão escrever um pedido para participar da equipe, que você pode recusar ou aceitar.</string>

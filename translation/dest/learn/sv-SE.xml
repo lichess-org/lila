@@ -188,6 +188,7 @@ Bonde = 1</string>
   <string name="rightOn">Rätt på!</string>
   <string name="stageXComplete">Nivå %s klar</string>
   <string name="next">Nästa</string>
+  <string name="nextX">Nästa: %s</string>
   <string name="backToMenu">Tillbaka till menyn</string>
   <string name="puzzleFailed">Felaktig lösning!</string>
   <string name="retry">Försök igen</string>

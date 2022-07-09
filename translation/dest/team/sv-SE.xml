@@ -7,10 +7,12 @@
     <item quantity="other">%s medlemmar</item>
   </plurals>
   <string name="allTeams">Alla lag</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lag ledda av dig</string>
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mina lag</string>
   <string name="noTeamFound">Inget lag hittat</string>
   <string name="joinTeam">Gå med i lag</string>
+  <string name="onlyLeaderLeavesTeam">Var god lägg till en ny lagledare innan du lämnar eller stäng laget.</string>
   <string name="quitTeam">Lämna lag</string>
   <string name="manuallyReviewAdmissionRequests">Granska antagningsförfrågningar manuellt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Om markerad behöver spelare skriva en förfrågning för att gå med i laget, som du kan avslå eller godkänna.</string>
@@ -27,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Din förfrågan om medlemskap kommer att granskas av lagledaren.</string>
   <string name="beingReviewed">Din förfrågan om medlemskap granskas av lagledaren.</string>
+  <string name="requestDeclined">Din begäran avvisades av en lagledare.</string>
   <string name="subToTeamMessages">Prenumerera på lagmeddelanden</string>
   <string name="teamBattle">Lagmatch</string>
   <string name="teamBattleOverview">En kamp mellan flera lag, varje spelare plockar poäng för sitt lag</string>
@@ -44,7 +47,12 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="leadersChat">Lagledarchatt</string>
   <string name="closeTeam">Avsluta lag</string>
   <string name="closeTeamDescription">Stänger laget för evigt.</string>
+  <string name="entryCode">Lagets inträdeskod</string>
+  <string name="entryCodeDescriptionForLeader">(Valfritt) En inträdeskod som nya medlemmar måste veta för att gå med i detta lag.</string>
+  <string name="incorrectEntryCode">Felaktig kod.</string>
   <string name="teamAlreadyExists">Det här lagnamnet finns redan.</string>
   <string name="upcomingTourns">Kommande turneringar</string>
   <string name="completedTourns">Avslutade turneringar</string>
+  <string name="declinedRequests">Avvisa förfrågningar</string>
+  <string name="joinLichessVariantTeam">Gå med i det officiella %s -laget för nyheter och evenemang</string>
 </resources>

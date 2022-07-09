@@ -183,6 +183,10 @@
     <item quantity="one">%s timme</item>
     <item quantity="other">%s timmar</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minuter</item>
+  </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistik</string>
@@ -348,6 +352,7 @@
   <string name="gameAsGIF">Spara som GIF</string>
   <string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
   <string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
+  <string name="orUploadPgnFile">Eller ladda upp en PGN-fil</string>
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="toStudy">Studera</string>
@@ -423,6 +428,8 @@
   <string name="tournamentIsStarting">Turneringen startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Fortsätt</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
   <string name="berserkRate">Berserkfrekvens</string>
@@ -455,6 +462,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagga</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
+  <string name="oneUrlPerLine">En URL per rad.</string>
   <string name="inlineNotation">Visa notation</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
   <string name="onlinePlayers">Inloggade spelare</string>
@@ -498,6 +506,7 @@
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
+  <string name="importedByX">Importerad av %s</string>
   <string name="thisTopicIsNowClosed">Det här ämnet är nu stängt.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Anteckningar</string>
@@ -558,6 +567,7 @@
   <string name="community">Gemenskap</string>
   <string name="tools">Verktyg</string>
   <string name="increment">Tidstillägg</string>
+  <string name="error.unknown">Ogiltigt värde</string>
   <string name="error.required">Detta fält är obligatoriskt</string>
   <string name="error.email">Den här e-postadressen är ogiltig</string>
   <string name="error.email_acceptable">Oacceptabel e-postadress. Var vänlig dubbelkolla den och försök igen.</string>
@@ -568,6 +578,7 @@
   <string name="error.min">Måste vara minst %s</string>
   <string name="error.max">Måste vara högst %s</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
+  <string name="ifRegistered">Om registrerad</string>
   <string name="onlyExistingConversations">Endast befintliga konversationer</string>
   <string name="onlyFriends">Bara vänner</string>
   <string name="menu">Meny</string>
@@ -789,6 +800,7 @@
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
   <string name="agreementAssistance">Jag lovar att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller annan person).</string>
   <string name="agreementNice">Jag lovar att jag alltid kommer att vara respektfull mot andra spelare.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Jag godkänner att jag inte kommer att skapa flera konton (förutom av de skäl som anges i %s).</string>
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
@@ -886,4 +898,9 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Ge upp partiet</string>
   <string name="youCantStartNewGame">Du kan inte starta ett nytt parti förräm detta är klart.</string>
+  <string name="since">Sedan</string>
+  <string name="until">Tills</string>
+  <string name="lichessDbExplanation">Rankade spel från alla Lichess spelare</string>
+  <string name="switchSides">Växla sida</string>
+  <string name="closingAccountWithdrawAppeal">Att avsluta ditt konto kommer att dra tillbaka ditt överklagande</string>
 </resources>

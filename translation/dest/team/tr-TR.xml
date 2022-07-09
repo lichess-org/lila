@@ -12,6 +12,7 @@
   <string name="myTeams">Takımlarım</string>
   <string name="noTeamFound">Takım bulunamadı</string>
   <string name="joinTeam">Takıma katıl</string>
+  <string name="onlyLeaderLeavesTeam">Takımdan ayrılmadan önce yeni bir takım lideri belirleyin veya takımı kapatın.</string>
   <string name="quitTeam">Takımdan ayrıl</string>
   <string name="manuallyReviewAdmissionRequests">Katılım başvuruları onayınızdan geçsin</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Şık işaretliyse, oyuncuların mesaj yazarak yapabileceği takıma katılım başvurusu onayınıza sunulacak.</string>

@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Hur kan jag bli moderator?</string>
   <string name="youCannotApply">Det går inte att ansöka om att bli moderator. Om vi ser någon som vi tror skulle vara bra som moderator, kommer vi att kontakta dem direkt.</string>
   <string name="isCorrespondenceDifferent">Är korrespondens annorlunda än vanlig schack?</string>
+  <string name="pleaseReadFairPlayPage">För mer information, läs vår %s</string>
+  <string name="fairPlayPage">sida om Rent Spel</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess är den största skillnaden i regler för korrespondensschack att en öppningsbok är tillåten. Användande av schackdatorer är fortfarande förbjudet och kommer att resultera i att man flaggas för datorstöd. Även om ICCF tillåter schackdatorer i korrespondens, så gör inte Lichess det.</string>
   <string name="gameplay">Spelet</string>
   <string name="howBulletBlitzEtcDecided">Hur bestäms Bullet, Blixt och andra tidskontroller?</string>
