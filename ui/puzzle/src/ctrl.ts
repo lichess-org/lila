@@ -22,7 +22,7 @@ import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/u
 import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
-import { storedProp } from 'common/storage';
+import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 
@@ -32,8 +32,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   } as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
   const hasStreak = !!opts.data.streak;
-  const autoNext = storedProp(`puzzle.autoNext${hasStreak ? '.streak' : ''}`, hasStreak);
-  const rated = storedProp('puzzle.rated', true);
+  const autoNext = storedBooleanProp(`puzzle.autoNext${hasStreak ? '.streak' : ''}`, hasStreak);
+  const rated = storedBooleanProp('puzzle.rated', true);
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
@@ -327,6 +327,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function nextPuzzle(): void {
+    if (streak && vm.lastFeedback != 'win') return;
+
     ceval.stop();
     vm.next.promise.then(initiate).then(redraw);
 

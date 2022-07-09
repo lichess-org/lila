@@ -2,127 +2,10 @@ import { h, VNode, VNodeStyle } from 'snabbdom';
 import { bind, MaybeVNode } from 'common/snabbdom';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
-import { ColorChoice, Mode, CoordModifier } from './interfaces';
+import { CoordModifier } from './interfaces';
+import side from './side';
 
-function scoreCharts(ctrl: CoordinateTrainerCtrl): VNode {
-  const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
-  return h(
-    'div.scores',
-    [
-      ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode].white],
-      ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode].black],
-    ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
-      scoreList.length
-        ? h('div.color-chart', [
-            h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
-            h('svg.sparkline', {
-              attrs: {
-                height: '80px',
-                'stroke-width': '3',
-                id: `${color}-sparkline`,
-              },
-              hook: {
-                insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color),
-              },
-            }),
-          ])
-        : null
-    )
-  );
-}
-
-const colors: [ColorChoice, string][] = [
-  ['black', 'asBlack'],
-  ['random', 'randomColor'],
-  ['white', 'asWhite'],
-];
-
-function side(ctrl: CoordinateTrainerCtrl): VNode {
-  const { trans } = ctrl;
-
-  const sideContent: MaybeVNode[] = [h('div.box', h('h1', trans('coordinates')))];
-  if (ctrl.playing || ctrl.hasPlayed) {
-    sideContent.push(
-      h('div.box.current-status', [h('h1', trans('score')), h('div.score', ctrl.score)]),
-      ctrl.playing
-        ? h('div.box.current-status', [
-            h('h1', trans('time')),
-            h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
-          ])
-        : null
-    );
-  }
-  if (!ctrl.playing) {
-    sideContent.push(
-      h('form.mode.buttons', [
-        h(
-          'group.radio',
-          ['findSquare', 'nameSquare'].map((mode: Mode) =>
-            h('div.mode_option', [
-              h('input', {
-                attrs: {
-                  type: 'radio',
-                  id: `coord_mode_${mode}`,
-                  name: 'mode',
-                  value: mode,
-                  checked: mode === ctrl.mode,
-                },
-                on: {
-                  change: e => {
-                    const target = e.target as HTMLInputElement;
-                    ctrl.setMode(target.value as Mode);
-                  },
-                  keyup: ctrl.onRadioInputKeyUp,
-                },
-              }),
-              h(`label.mode_${mode}`, { attrs: { for: `coord_mode_${mode}` } }, trans(mode)),
-            ])
-          )
-        ),
-      ]),
-      h('form.color.buttons', [
-        h(
-          'group.radio',
-          colors.map(([key, i18n]) =>
-            h('div', [
-              h('input', {
-                attrs: {
-                  type: 'radio',
-                  id: `coord_color_${key}`,
-                  name: 'color',
-                  value: key,
-                  checked: key === ctrl.colorChoice,
-                },
-                on: {
-                  change: e => {
-                    const target = e.target as HTMLInputElement;
-                    ctrl.setColorChoice(target.value as ColorChoice);
-                  },
-                  keyup: ctrl.onRadioInputKeyUp,
-                },
-              }),
-              h(
-                `label.color_${key}`,
-                {
-                  attrs: {
-                    for: `coord_color_${key}`,
-                    title: ctrl.trans.noarg(i18n),
-                  },
-                },
-                h('i')
-              ),
-            ])
-          )
-        ),
-      ])
-    );
-  }
-  if (ctrl.isAuth && ctrl.hasModeScores()) sideContent.push(h('div.box', scoreCharts(ctrl)));
-
-  return h('div.side', sideContent);
-}
-
-function board(ctrl: CoordinateTrainerCtrl): VNode {
+const board = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.main-board', [
     ctrl.playing && ctrl.mode === 'findSquare'
       ? h(
@@ -150,10 +33,14 @@ function board(ctrl: CoordinateTrainerCtrl): VNode {
       : null,
     chessground(ctrl),
   ]);
-}
+};
 
-function explanation(ctrl: CoordinateTrainerCtrl): VNode {
+const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans } = ctrl;
+  const modeExplanationText =
+    trans(ctrl.mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted') +
+    ' ' +
+    trans(ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant');
   return h('div.explanation', [
     h('p', trans('knowingTheChessBoard')),
     h('ul', [
@@ -162,11 +49,11 @@ function explanation(ctrl: CoordinateTrainerCtrl): VNode {
       h('li', trans('youCanAnalyseAGameMoreEffectively')),
     ]),
     h('strong', trans(ctrl.mode)),
-    h('p', trans(ctrl.mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted')),
+    h('p', modeExplanationText),
   ]);
-}
+};
 
-function table(ctrl: CoordinateTrainerCtrl): VNode {
+const table = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.table', [
     ctrl.hasPlayed ? null : explanation(ctrl),
     ctrl.playing
@@ -179,22 +66,22 @@ function table(ctrl: CoordinateTrainerCtrl): VNode {
           ctrl.trans('startTraining')
         ),
   ]);
-}
+};
 
-function progress(ctrl: CoordinateTrainerCtrl): VNode {
+const progress = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h(
     'div.progress',
     ctrl.hasPlayed ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } }) : null
   );
-}
+};
 
-function coordinateInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
+const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
   const coordinateInput = [
     h(
       'div.keyboard-container',
       {
         class: {
-          hidden: ctrl.coordinateInputMethod === 'buttons',
+          hidden: ctrl.coordinateInputMethod() === 'buttons',
         },
       },
       [
@@ -209,7 +96,7 @@ function coordinateInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
         ctrl.playing ? h('span', 'Enter the coordinate') : h('strong', 'Press <enter> to start'),
       ]
     ),
-    ctrl.coordinateInputMethod === 'buttons'
+    ctrl.coordinateInputMethod() === 'buttons'
       ? h(
           'div.files-ranks',
           'abcdefgh12345678'.split('').map((fileOrRank: string) =>
@@ -236,13 +123,13 @@ function coordinateInput(ctrl: CoordinateTrainerCtrl): MaybeVNode {
     : h(
         'a',
         { on: { click: () => ctrl.toggleInputMethod() } },
-        ctrl.coordinateInputMethod === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
+        ctrl.coordinateInputMethod() === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
       );
   return ctrl.mode === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput, inputMethodSwitcher]) : null;
-}
+};
 
-export default function (ctrl: CoordinateTrainerCtrl): VNode {
-  return h(
+const view = (ctrl: CoordinateTrainerCtrl): VNode =>
+  h(
     'div.trainer',
     {
       class: {
@@ -251,4 +138,5 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
     },
     [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), coordinateInput(ctrl)]
   );
-}
+
+export default view;

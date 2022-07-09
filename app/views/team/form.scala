@@ -44,6 +44,7 @@ object form {
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1("Edit team ", a(href := routes.Team.show(t.id))(t.name)),
+          standardFlash(),
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
               a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),

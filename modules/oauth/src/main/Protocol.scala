@@ -71,7 +71,9 @@ object Protocol {
     def clientOrigin: String = s"${value.scheme}://${~host}"
 
     def insecure =
-      value.scheme == "http" && !host.exists(h => List("localhost", "[::1]", "[::]", "127.0.0.1", "0.0.0.0").has(h))
+      value.scheme == "http" && !host.exists(h =>
+        List("localhost", "[::1]", "[::]", "127.0.0.1", "0.0.0.0").has(h)
+      )
 
     def withoutQuery: String = value.withQuery(null).toString
 
@@ -137,9 +139,9 @@ object Protocol {
     }
 
     abstract class InvalidRequest(val description: String) extends Error("invalid_request")
-    case object ClientIdRequired                           extends InvalidRequest("client_id required (choose any)")
-    case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
-    case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
+    case object ClientIdRequired    extends InvalidRequest("client_id required (choose any)")
+    case object RedirectUriRequired extends InvalidRequest("redirect_uri required")
+    case object RedirectUriInvalid  extends InvalidRequest("redirect_uri invalid")
     case object RedirectSchemeNotAllowed
         extends InvalidRequest(
           "exotic redirect_uri scheme not allowed (use reverse domain notation like com.example:// for custom applications)"

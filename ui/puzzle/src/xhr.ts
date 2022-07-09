@@ -3,13 +3,13 @@ import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
 import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
-import { StoredBooleanProp } from 'common/storage';
+import { StoredProp } from 'common/storage';
 
 export const complete = (
   puzzleId: string,
   theme: ThemeKey,
   win: boolean,
-  rated: StoredBooleanProp,
+  rated: StoredProp<boolean>,
   replay?: PuzzleReplay,
   streak?: PuzzleStreak
 ): Promise<PuzzleResult> =>
