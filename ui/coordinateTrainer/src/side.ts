@@ -2,7 +2,7 @@ import { h, VNode, VNodes } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import CoordinateTrainerCtrl from './ctrl';
 import { ColorChoice, TimeControl, Mode } from './interfaces';
-import { boolSetting } from './boolSetting';
+import { toggle } from 'common/toggle';
 
 const colors: [ColorChoice, string][] = [
   ['black', 'asBlack'],
@@ -176,12 +176,12 @@ const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans, redraw, showCoordinates, showPieces } = ctrl;
   return h('div.settings', [
-    boolSetting(
+    toggle(
       { name: 'Show coordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
       trans,
       redraw
     ),
-    boolSetting({ name: 'Show pieces', id: 'showPieces', checked: showPieces(), change: showPieces }, trans, redraw),
+    toggle({ name: 'Show pieces', id: 'showPieces', checked: showPieces(), change: showPieces }, trans, redraw),
   ]);
 };
 

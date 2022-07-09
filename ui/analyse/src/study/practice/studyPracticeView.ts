@@ -1,7 +1,7 @@
 import { bind, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, thunk, VNode } from 'snabbdom';
-import { boolSetting } from '../../boolSetting';
+import { toggle } from 'common/toggle';
 import { option, plural, richHTML } from '../../util';
 import { view as descView } from '../description';
 import { StudyCtrl } from '../interfaces';
@@ -95,7 +95,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
           h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
           pinned ? h('div.comment', { hook: richHTML(pinned) }) : null,
         ]),
-        boolSetting(
+        toggle(
           {
             name: 'Load next exercise immediately',
             id: 'autoNext',

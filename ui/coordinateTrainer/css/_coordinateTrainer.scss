@@ -187,22 +187,4 @@ form.color {
     cursor: pointer;
     white-space: nowrap;
   }
-
-  input[type='range'] {
-    flex: 1 4 auto;
-    padding-#{$start-direction}: 1em;
-    height: 1.6em;
-    width: 100%;
-    margin: 0 1ch;
-
-    &[min='0'] {
-      padding: 0;
-    }
-  }
-
-  .range_value {
-    flex: 0 0 auto;
-    display: block;
-    text-align: right;
-  }
 }

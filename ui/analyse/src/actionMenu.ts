@@ -3,7 +3,7 @@ import modal from 'common/modal';
 import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
 import { AutoplayDelay } from './autoplay';
-import { boolSetting, BoolSetting } from './boolSetting';
+import { toggle, ToggleSettings } from 'common/toggle';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
 import * as pgnExport from './pgnExport';
@@ -33,6 +33,8 @@ const cplSpeed: AutoplaySpeed = {
   name: 'byCPL',
   delay: 'cpl',
 };
+
+const ctrlToggle = (t: ToggleSettings, ctrl: AnalyseCtrl) => toggle(t, ctrl.trans, ctrl.redraw);
 
 function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
   const g = ctrl.data.game;
@@ -229,7 +231,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ceval && ceval.possible && ceval.allowed()
       ? ([h('h2', noarg('computerAnalysis'))] as MaybeVNodes)
           .concat([
-            ctrlBoolSetting(
+            ctrlToggle(
               {
                 name: 'enable',
                 title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
@@ -244,7 +246,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           .concat(
             ctrl.showComputer()
               ? [
-                  ctrlBoolSetting(
+                  ctrlToggle(
                     {
                       name: 'bestMoveArrow',
                       title: 'Hotkey: a',
@@ -254,7 +256,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ctrlBoolSetting(
+                  ctrlToggle(
                     {
                       name: 'evaluationGauge',
                       id: 'gauge',
@@ -263,7 +265,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ctrlBoolSetting(
+                  ctrlToggle(
                     {
                       name: 'Annotations on board',
                       title: 'Display analysis symbols on the board',
@@ -273,7 +275,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ctrlBoolSetting(
+                  ctrlToggle(
                     {
                       name: 'infiniteAnalysis',
                       title: 'removesTheDepthLimit',
@@ -284,7 +286,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     ctrl
                   ),
                   ceval.technology != 'external'
-                    ? ctrlBoolSetting(
+                    ? ctrlToggle(
                         {
                           name: 'Use NNUE',
                           title: ceval.supportsNnue
@@ -376,7 +378,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       : [];
 
   const notationConfig = [
-    ctrlBoolSetting(
+    ctrlToggle(
       {
         name: noarg('inlineNotation'),
         title: 'Shift+I',
@@ -429,8 +431,4 @@ export function view(ctrl: AnalyseCtrl): VNode {
           : null,
       ])
   );
-}
-
-function ctrlBoolSetting(o: BoolSetting, ctrl: AnalyseCtrl) {
-  return boolSetting(o, ctrl.trans, ctrl.redraw);
 }
