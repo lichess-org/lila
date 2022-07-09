@@ -21,7 +21,7 @@
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">צפייה אחת</item>
-    <item quantity="two">שתי צפיות</item>
+    <item quantity="two">%s צפיות</item>
     <item quantity="many">%s צפיות</item>
     <item quantity="other">%s צפיות</item>
   </plurals>
