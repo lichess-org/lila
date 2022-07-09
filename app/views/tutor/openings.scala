@@ -33,12 +33,11 @@ object openings {
         st.section(cls := "tutor__openings__color")(
           h2("Your most played ", color.name, " openings"),
           div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
-            div(cls := "tutor__openings__opening tutor-card tutor-overlaid")(
-              a(
-                href := routes.Tutor
-                  .opening(user.username, report.perf.key, color.name, fam.family.key.value),
-                cls := "tutor-overlay"
-              ),
+            div(
+              cls := "tutor__openings__opening tutor-card tutor-card--link",
+              dataHref := routes.Tutor
+                .opening(user.username, report.perf.key, color.name, fam.family.key.value)
+            )(
               div(cls := "tutor-card__top")(
                 div(cls := "no-square")(pieceTag(cls := s"pawn ${color.name}")),
                 div(cls := "tutor-card__top__title")(

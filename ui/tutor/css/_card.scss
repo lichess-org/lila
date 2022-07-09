@@ -19,6 +19,17 @@
     @extend %box-neat;
     background: $c-bg-zebra;
 
+    &--link {
+      position: relative;
+      outline: 3px solid mix($c-link, $c-bg-box, 30%);
+      cursor: pointer;
+      &:hover {
+        outline: 3px solid mix($c-link, $c-bg-box, 60%);
+        background: mix($c-link, $c-bg-zebra, 10%);
+        box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+      }
+    }
+
     &__top {
       @extend %flex-center-nowrap;
 
@@ -53,16 +64,6 @@
       display: block;
       text-align: right;
       margin-top: 1em;
-    }
-  }
-  &-link {
-    position: relative;
-    outline: 3px solid mix($c-link, $c-bg-box, 30%);
-    cursor: pointer;
-    &:hover {
-      outline: 3px solid mix($c-link, $c-bg-box, 60%);
-      background: mix($c-link, $c-bg-zebra, 10%);
-      box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
     }
   }
 }

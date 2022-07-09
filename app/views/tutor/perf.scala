@@ -68,11 +68,7 @@ object perf {
   )
 
   private def angleCard(url: Call, title: Frag)(content: Modifier*)(implicit ctx: Context) =
-    st.article(cls := "tutor__perf__angle tutor-card tutor-overlaid")(
-      a(
-        cls  := "tutor-overlay",
-        href := url
-      ),
+    st.article(cls := "tutor__perf__angle tutor-card tutor-card--link", dataHref := url)(
       div(cls := "tutor-card__top")(
         div(cls := "tutor-card__top__title tutor-card__top__title--pad")(
           h3(cls := "tutor-card__top__title__text")(title)
