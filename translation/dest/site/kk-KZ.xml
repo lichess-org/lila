@@ -700,7 +700,7 @@
   <string name="xHostsY">%1$s %2$s-ны бастады</string>
   <string name="xJoinsY">%1$s %2$s-ға қосылды</string>
   <string name="xLikesY">%1$s %2$s-ны ұнатады</string>
-  <string name="quickPairing">Дайын қалыптар</string>
+  <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
