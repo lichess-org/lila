@@ -7,6 +7,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import views.html.appeal.tree
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
@@ -136,16 +137,12 @@ object discussion {
 
   private def renderMark(suspect: User)(implicit ctx: Context) = {
     val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
-    val engineMenu = "Your account has been marked for illegal assistance in games"
-    val boostMenu = "Your account has been marked for rating manipulation"
-    val muteMenu = "Your account is muted"
-    val rankBanMenu = "Your account is excluded from leaderboards"
-    val cleanMenu = "Your account is not marked or restricted. You're all good!"
-    if (suspect.marks.engine || query.contains("engine")) engineMenu
-    else if (suspect.marks.boost || query.contains("boost")) boostMenu
-    else if (suspect.marks.troll || query.contains("shadowban")) muteMenu
-    else if (suspect.marks.rankban || query.contains("rankban")) rankBanMenu
-    else cleanMenu 
+    if (suspect.disabled || query.contains("alt")) tree.closedByModerators
+    else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
+    else if (suspect.marks.boost || query.contains("boost")) tree.boosterMarked
+    else if (suspect.marks.troll || query.contains("shadowban")) tree.accountMuted
+    else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
+    else tree.cleanAllGood
   }
 
   private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
