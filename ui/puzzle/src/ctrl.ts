@@ -45,7 +45,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     };
     streakFailStorage.listen(_ => failStreak(streak));
   }
-  const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id, hasStreak);
+  const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -314,7 +314,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     session.complete(data.puzzle.id, win);
     const res = await xhr.complete(
       data.puzzle.id,
-      data.theme.key,
+      data.angle.key,
       win,
       rated,
       data.replay,
@@ -341,7 +341,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.next.promise.then(initiate).then(redraw);
 
     if (!streak && !data.replay) {
-      const path = `/training/${data.theme.key}`;
+      const path = `/training/${data.angle.key}`;
       if (location.pathname != path) history.replaceState(null, '', path);
     }
   }

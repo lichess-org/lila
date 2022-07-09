@@ -7,7 +7,7 @@ const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
 export default function theme(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData(),
-    t = data.theme;
+    t = data.angle;
   const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   return ctrl.streak

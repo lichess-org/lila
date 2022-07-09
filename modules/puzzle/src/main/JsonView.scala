@@ -37,7 +37,7 @@ final class JsonView(
         .add("user" -> user.map(userJson))
         .add("replay" -> replay.map(replayJson))
         .add(
-          "theme",
+          "angle",
           angle.map { a =>
             Json
               .obj(

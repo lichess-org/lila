@@ -187,7 +187,7 @@ export function replay(ctrl: Controller): MaybeVNode {
           href: `/training/dashboard/${replay.days}`,
         },
       },
-      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles`]
+      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().angle.key)} puzzles`]
     ),
     h('div.puzzle__side__replay__bar', {
       attrs: {
@@ -256,7 +256,7 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
     'form.puzzle__side__config__difficulty',
     {
       attrs: {
-        action: `/training/difficulty/${ctrl.getData().theme.key}`,
+        action: `/training/difficulty/${ctrl.getData().angle.key}`,
         method: 'post',
       },
     },
@@ -307,7 +307,7 @@ export const renderColorForm = (ctrl: Controller): VNode =>
             `a.label.color-${key}${key === (ctrl.settings.color || 'random') ? '.active' : ''}`,
             {
               attrs: {
-                href: `/training/${ctrl.getData().theme.key}/${key}`,
+                href: `/training/${ctrl.getData().angle.key}/${key}`,
                 title: ctrl.trans.noarg(i18n),
               },
             },

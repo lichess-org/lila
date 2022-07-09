@@ -360,7 +360,7 @@ function renderReplay(ctrl: Controller): string {
   const replay = ctrl.getData().replay;
   if (!replay) return '';
   const i = replay.i + (ctrl.vm.mode === 'play' ? 0 : 1);
-  return `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles: ${i} of ${replay.of}`;
+  return `Replaying ${ctrl.trans.noarg(ctrl.getData().angle.key)} puzzles: ${i} of ${replay.of}`;
 }
 
 function playActions(ctrl: Controller): VNode {

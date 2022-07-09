@@ -145,7 +145,7 @@ export interface PuzzlePrefs {
   keyboardMove: boolean;
 }
 
-export interface Theme {
+export interface Angle {
   key: ThemeKey;
   name: string;
   desc: string;
@@ -155,7 +155,7 @@ export interface Theme {
 
 export interface PuzzleData {
   puzzle: Puzzle;
-  theme: Theme;
+  angle: Angle;
   game: PuzzleGame;
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
