@@ -179,7 +179,7 @@ form.color {
 
 .setting {
   flex: 0 0 auto;
-  margin-top: $block-gap;
+  margin: $block-gap $block-gap 0 $block-gap;
   display: flex;
 
   label {
