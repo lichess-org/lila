@@ -54,14 +54,13 @@ object bits {
       availability: TutorFullReport.Availability,
       menu: Frag,
       title: String = "Lichess Tutor",
-      pageSmall: Boolean = false,
-      moreJs: Frag = emptyFrag
+      pageSmall: Boolean = false
   )(
       content: Modifier*
   )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("tutor"),
-      moreJs = moreJs,
+      moreJs = jsModule("tutor"),
       title = "Lichess Tutor"
     ) {
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(

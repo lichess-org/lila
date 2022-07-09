@@ -71,6 +71,7 @@
     "ui/tournamentCalendar",
     "ui/tree",
     "ui/msg",
+    "ui/tutor",
     "ui/dgt",
     "ui/puz",
     "ui/storm",

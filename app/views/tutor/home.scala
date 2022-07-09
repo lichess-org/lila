@@ -66,11 +66,10 @@ object home {
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(implicit
       ctx: Context
   ) =
-    st.article(cls := "tutor__perfs__perf tutor-card tutor-overlaid")(
-      a(
-        cls  := "tutor-overlay",
-        href := routes.Tutor.perf(user.username, perfReport.perf.key)
-      ),
+    st.article(
+      cls      := "tutor__perfs__perf tutor-card tutor-card--link",
+      dataHref := routes.Tutor.perf(user.username, perfReport.perf.key)
+    )(
       div(cls := "tutor-card__top")(
         iconTag(perfReport.perf.iconChar),
         div(cls := "tutor-card__top__title")(

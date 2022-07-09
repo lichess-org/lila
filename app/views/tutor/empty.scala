@@ -26,12 +26,10 @@ object empty {
       TutorFullReport.Empty(in),
       menu = emptyFrag,
       title = "Lichess Tutor - Examining games...",
-      pageSmall = true,
-      moreJs = embedJsUnsafeLoadThen(
-        s"""setTimeout(lichess.reload, ${in.avgDuration.toMillis atMost 60_000 atLeast 10_000})"""
-      )
+      pageSmall = true
     )(
-      cls := "tutor__empty box",
+      data("eta") := (in.avgDuration.toMillis atMost 60_000 atLeast 10_000),
+      cls         := "tutor__empty tutor__queued box",
       h1("Lichess Tutor"),
       if (in.position == 1)
         bits.mascotSays(
