@@ -30,6 +30,9 @@ export function makeCtrl(
     members,
     spectators,
     toggle() {
+      if (!open()) {
+        lichess.pubsub.emit('tour.stop');
+      }
       open(!open());
     },
     invite(titleName: string) {
