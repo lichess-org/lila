@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">שחק עם חבר</string>
-  <string name="playWithTheMachine">שחק עם המחשב</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, תן את הכתובת הזאת</string>
+  <string name="playWithTheMachine">שחק נגד המחשב</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתף את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
   <string name="waiting">ממתין</string>
@@ -45,8 +45,8 @@
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
   <string name="forceResignation">טען שניצחת</string>
   <string name="forceDraw">הכרז תיקו</string>
-  <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
+  <string name="talkInChat">היו אדיבים ודברו בצ׳אט בצורה נאותה!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך.</string>
   <string name="whiteResigned">הלבן נכנע</string>
   <string name="blackResigned">השחור נכנע</string>
   <string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
@@ -601,7 +601,7 @@
   <string name="onSlowGames">במשחקים איטיים</string>
   <string name="always">תמיד</string>
   <string name="never">אף פעם</string>
-  <string name="xCompetesInY">%1$s משחק ב-%2$s</string>
+  <string name="xCompetesInY">%1$s מתחרה ב-%2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
   <string name="victoryVsYInZ">%1$s נגד %2$s
