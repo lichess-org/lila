@@ -1,3 +1,18 @@
+.analyse__puzzle {
+  .button {
+    @extend %flex-center;
+    text-transform: inherit;
+    text-align: $start-direction;
+    &::before {
+      font-size: 2.8em;
+    }
+  }
+}
+
+.analyse__acpl {
+  margin-bottom: $block-gap;
+}
+
 .advice-summary {
   @extend %flex-column;
 

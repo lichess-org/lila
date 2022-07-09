@@ -65,8 +65,8 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   ]);
 }
 
-function doRender(ctrl: AnalyseCtrl): VNode {
-  return h(
+const doRender = (ctrl: AnalyseCtrl): VNode =>
+  h(
     'div.advice-summary',
     {
       hook: {
@@ -93,18 +93,40 @@ function doRender(ctrl: AnalyseCtrl): VNode {
       playerTable(ctrl, 'black'),
     ]
   );
+
+export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
+  const puzzle = ctrl.data.puzzle;
+  return (
+    puzzle &&
+    h(
+      'div.analyse__puzzle',
+      h(
+        'a.button.text',
+        {
+          attrs: {
+            'data-icon': '',
+            href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
+          },
+        },
+        ['Recommended puzzle training', h('br'), puzzle.name]
+      )
+    )
+  );
 }
 
 export function render(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.studyPractice || ctrl.embed) return;
 
   if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
-    return h('div.analyse__acpl');
+    return h('div.analyse__round-training');
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
   let cacheKey = '' + buster + !!ctrl.retro;
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
-  return h('div.analyse__acpl', thunk('div.advice-summary', doRender, [ctrl, cacheKey]));
+  return h('div.analyse__round-training', [
+    h('div.analyse__acpl', thunk('div.advice-summary', doRender, [ctrl, cacheKey])),
+    puzzleLink(ctrl),
+  ]);
 }

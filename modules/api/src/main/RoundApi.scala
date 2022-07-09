@@ -236,11 +236,11 @@ final private[api] class RoundApi(
     json.add(
       "puzzle" -> opening
         .map {
-          case Left(p)  => (p.family.key.toString, p.count)
-          case Right(p) => (p.opening.key.toString, p.count)
+          case Left(p)  => (p.family.key.toString, p.family.name.value, p.count)
+          case Right(p) => (p.opening.key.toString, p.opening.name.value, p.count)
         }
-        .map { case (key, count) =>
-          Json.obj("key" -> key, "count" -> count)
+        .map { case (key, name, count) =>
+          Json.obj("key" -> key, "name" -> name, "count" -> count)
         }
     )
 
