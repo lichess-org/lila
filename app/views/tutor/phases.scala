@@ -33,8 +33,8 @@ object phases {
               )
             ),
             div(cls := "tutor-card__content")(
-              bits.peerComparison(concept.Accuracy, phase.accuracy),
-              bits.peerComparison(concept.TacticalAwareness, phase.accuracy)
+              bits.peerComparison(concept.accuracy, phase.accuracy),
+              bits.peerComparison(concept.tacticalAwareness, phase.accuracy)
             )
           )
         }

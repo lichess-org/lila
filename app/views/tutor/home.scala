@@ -89,11 +89,11 @@ object home {
         )
       ),
       div(cls := "tutor-card__content")(
-        bits.peerComparison(concept.Accuracy, perfReport.accuracy),
-        bits.peerComparison(concept.TacticalAwareness, perfReport.awareness),
-        bits.peerComparison(concept.Speed, perfReport.globalClock),
-        bits.peerComparison(concept.ClockFlagVictory, perfReport.flagging.win),
-        bits.peerComparison(concept.ClockTimeUsage, perfReport.clockUsage),
+        bits.peerComparison(concept.accuracy, perfReport.accuracy),
+        bits.peerComparison(concept.tacticalAwareness, perfReport.awareness),
+        bits.peerComparison(concept.speed, perfReport.globalClock),
+        bits.peerComparison(concept.clockFlagVictory, perfReport.flagging.win),
+        bits.peerComparison(concept.clockTimeUsage, perfReport.clockUsage),
         ul(perfReport.relevantComparisons.topN(3) map compare.show),
         bits.seeMore
       )

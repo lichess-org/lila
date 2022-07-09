@@ -24,9 +24,9 @@ object time {
         ul(report timeHighlights 5 map compare.show)
       ),
       div(cls := "tutor-card__content")(
-        bits.peerComparison(concept.Speed, report.globalClock),
-        bits.peerComparison(concept.ClockFlagVictory, report.flagging.win),
-        bits.peerComparison(concept.ClockTimeUsage, report.clockUsage)
+        bits.peerComparison(concept.speed, report.globalClock),
+        bits.peerComparison(concept.clockFlagVictory, report.flagging.win),
+        bits.peerComparison(concept.clockTimeUsage, report.clockUsage)
       )
     )
 }

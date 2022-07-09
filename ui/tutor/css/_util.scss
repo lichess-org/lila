@@ -4,4 +4,32 @@
       width: 20ch;
     }
   }
+
+  &__concept {
+    @extend %flex-center-nowrap;
+    position: relative;
+    i {
+      font-size: 0.8em;
+      margin-left: 1ch;
+      opacity: 0.5;
+    }
+    &:hover {
+      i {
+        opacity: 0.8;
+      }
+      &::after {
+        @extend %box-neat, %popup-shadow;
+        font-size: 1rem;
+        background: $c-bg-popup;
+        bottom: 100%;
+        content: attr(data-title);
+        display: block;
+        left: 0%;
+        padding: 0.8em 1.5em;
+        max-width: 300px;
+        position: absolute;
+        z-index: z('powertip');
+      }
+    }
+  }
 }
