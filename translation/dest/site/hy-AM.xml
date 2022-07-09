@@ -805,7 +805,12 @@
   <string name="noRestriction">Առանց սահմանափակումների</string>
   <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
   <string name="minimumRating">Նվազագույն վարկանիշ</string>
+  <string name="onlyTitled">Միայն տիտղոսավոր խաղացողներ</string>
+  <string name="onlyTitledHelp">Պահանջում է պաշտոնական տիտղոս մրցաշարին մասնակցելու համար</string>
+  <string name="cancelSimul">Չեղարկել խաղաշարը</string>
+  <string name="simulHostcolor">Խաղաշար անցկացնողի գույնը յուրաքանչյուր պարտիայում</string>
   <string name="estimatedStart">Խաղաշարը սկսելու նախատեսվող ժամը</string>
+  <string name="markdownAvailable">%s հասանելի է ընդլայնված ֆորմատավորման համար</string>
   <string name="embedsAvailable">Ներդնելու համար տեղադրեք պարտիայի կամ ստուդիայի URL-հասցեն։</string>
   <string name="inYourLocalTimezone">Ձեր ժամագոտում</string>
   <string name="tournChat">Մրցաշարի զրուցարան</string>
