@@ -12,6 +12,8 @@
   <string name="aSquareIsHighlighted">Una casella è evidenziata sulla scacchiera e devi inserire la coordinata (es. \"e4\"). Hai 30 secondi per identificare correttamente quante più caselle possibile!</string>
   <string name="youHaveThirtySeconds">Hai 30 secondi per identificare correttamente più coordinate possibili!</string>
   <string name="goAsLongAsYouWant">Continua fin quando vuoi, non c\'è alcun limite di tempo!</string>
+  <string name="showCoordinates">Mostra le coordinate</string>
+  <string name="showPieces">Mostra i pezzi</string>
   <string name="startTraining">Inizia l\'allenamento</string>
   <string name="findSquare">Trova la casella</string>
   <string name="nameSquare">Identifica la casella</string>
