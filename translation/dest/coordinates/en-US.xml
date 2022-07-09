@@ -10,6 +10,8 @@
   <string name="youCanAnalyseAGameMoreEffectively">You can analyze a game more effectively if you can quickly recognize coordinates.</string>
   <string name="aSquareNameAppears">A coordinate appears on the board and you must click on the corresponding square. You have 30 seconds to correctly map as many squares as possible!</string>
   <string name="aSquareIsHighlighted">A square is highlighted on the board and you must enter the coordinate (e.g. \"e4\"). You have 30 seconds to correctly map as many squares as possible!</string>
+  <string name="youHaveThirtySeconds">You have 30 seconds to correctly map as many squares as possible!</string>
+  <string name="goAsLongAsYouWant">Go as long as you want, there is no time limit!</string>
   <string name="startTraining">Start training</string>
   <string name="findSquare">Find square</string>
   <string name="nameSquare">Name square</string>
