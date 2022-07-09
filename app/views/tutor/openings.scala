@@ -21,14 +21,7 @@ object openings {
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
       ctx: Context
   ) =
-    bits.layout(
-      full,
-      menu = frag(
-        a(href := routes.Tutor.user(user.username))("Tutor"),
-        a(href := routes.Tutor.openings(user.username, report.perf.key), cls := "active")("Openings"),
-        a(href := routes.Tutor.phases(user.username, report.perf.key))("Game phases")
-      )
-    )(
+    bits.layout(full, menu = perf.menu(full, user, report, "openings"))(
       cls := "tutor__openings box box-pad",
       h1(
         a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
@@ -57,8 +50,8 @@ object openings {
                 )
               ),
               div(cls := "tutor-card__content")(
-                bits.peerComparison("Accuracy", fam.accuracy),
-                bits.peerComparison("Tactical Awareness", fam.awareness)
+                bits.peerComparison(concept.Accuracy, fam.accuracy),
+                bits.peerComparison(concept.TacticalAwareness, fam.awareness)
               )
             )
           })

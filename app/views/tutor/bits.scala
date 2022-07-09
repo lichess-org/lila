@@ -24,10 +24,12 @@ object bits {
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def peerComparison[A: TutorNumber](name: String, metric: TutorBothValueOptions[A])(implicit lang: Lang) =
+  def peerComparison[A: TutorNumber](concept: TutorConcept, metric: TutorBothValueOptions[A])(implicit
+      lang: Lang
+  ) =
     metric.mine map { mine =>
       div(cls := "tutor-comparison")(
-        h3(cls := "tutor-comparison__name")(name),
+        h3(cls := "tutor-comparison__name", title := concept.description)(concept.name),
         div(cls := "tutor-comparison__unit")(
           horizontalBarPercent(mine.some, "Yours", "mine")
         ),

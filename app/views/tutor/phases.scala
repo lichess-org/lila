@@ -14,14 +14,7 @@ object phases {
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
       ctx: Context
   ) =
-    bits.layout(
-      full,
-      menu = frag(
-        a(href := routes.Tutor.user(user.username))("Tutor"),
-        a(href := routes.Tutor.openings(user.username, report.perf.key))("Openings"),
-        a(href := routes.Tutor.phases(user.username, report.perf.key), cls := "active")("Game phases")
-      )
-    )(
+    bits.layout(full, menu = perf.menu(full, user, report, "phases"))(
       cls := "tutor__phases box",
       h1(
         a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
@@ -40,8 +33,8 @@ object phases {
               )
             ),
             div(cls := "tutor-card__content")(
-              bits.peerComparison("Accuracy", phase.accuracy),
-              bits.peerComparison("Tactical Awareness", phase.accuracy)
+              bits.peerComparison(concept.Accuracy, phase.accuracy),
+              bits.peerComparison(concept.TacticalAwareness, phase.accuracy)
             )
           )
         }
