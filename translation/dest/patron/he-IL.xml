@@ -6,6 +6,12 @@
   <string name="freeAccount">חשבון חינמי</string>
   <string name="becomePatron">הפוך לתומך של ליצ\'ס</string>
   <string name="xBecamePatron">%s הפך לתומך של ליצ\'ס</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s הוא תומך ליצ\'ס חודש %2$s</item>
+    <item quantity="two">%1$s הוא תומך ליצ׳ס %2$s חודשים</item>
+    <item quantity="many">%1$s הוא תומך ליצ׳ס %2$s חודשים</item>
+    <item quantity="other">%1$s הוא תומך ליצ\'ס %2$s חודשים</item>
+  </plurals>
   <string name="newPatrons">תומכים חדשים</string>
   <string name="freeChess">שחמט חינם לכולם, לעד!</string>
   <string name="noAdsNoSubs">ללא פרסומות, ללא מנוי - רק אופן-סורס ונלהבות.</string>

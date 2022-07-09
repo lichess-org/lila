@@ -10,6 +10,8 @@
   <string name="youCanAnalyseAGameMoreEffectively">האנליזה של משחקים היא יותר אפקטיבית כאשר איננו זקוקים לתת שמות למשבצות השונות.</string>
   <string name="aSquareNameAppears">בהנתן קואורדינטות משבצת, יש להקיש על המשבצת הנכונה. בוא נראה כמה משבצות תצליח להקיש ב-30 שניות!</string>
   <string name="aSquareIsHighlighted">משבצת מודגשת על הלוח ועליך להקליד את הקורדינאטות (לדוגמה \"e4\"). יש לך 30 שניות לזהות נכונה כמה שיותר משבצות!</string>
+  <string name="youHaveThirtySeconds">יש לך 30 שניות למקם נכונה כמה שיותר משבצות!</string>
+  <string name="goAsLongAsYouWant">פתור כפי יכולתך, אין מגבלת זמן!</string>
   <string name="startTraining">התחל להתאמן</string>
   <string name="findSquare">מצא משבצת</string>
   <string name="nameSquare">תן שם למשבצת</string>

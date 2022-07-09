@@ -677,7 +677,7 @@
   <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
-  <string name="security">Сақтық</string>
+  <string name="security">Қорғаныс</string>
   <string name="sessions">Қосылулар</string>
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>

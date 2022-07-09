@@ -10,6 +10,18 @@
   <string name="newAllTimeHighscore">שיא חדש בכל הזמנים!</string>
   <string name="previousHighscoreWasX">השיא הקודם היה %s</string>
   <string name="playAgain">שחק שוב</string>
+  <plurals name="xRuns">
+    <item quantity="one">ניסיון אחד</item>
+    <item quantity="two">%s ניסיונות</item>
+    <item quantity="many">%s ניסיונות</item>
+    <item quantity="other">%s נסיונות</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">שוחקה ריצה אחת של %2$s</item>
+    <item quantity="two">שוחקו %1$s ריצות של %2$s</item>
+    <item quantity="many">שוחקו %1$s ריצות של %2$s</item>
+    <item quantity="other">שוחקו %1$s ריצות של %2$s</item>
+  </plurals>
   <string name="highscoreX">הניקוד הגבוה ביותר: %s</string>
   <string name="score">ניקוד</string>
   <string name="moves">מהלכים</string>
