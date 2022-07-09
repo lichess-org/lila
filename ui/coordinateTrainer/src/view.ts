@@ -7,7 +7,7 @@ import side from './side';
 
 const board = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.main-board', [
-    ctrl.playing && ctrl.mode === 'findSquare'
+    ctrl.playing && ctrl.mode() === 'findSquare'
       ? h(
           'svg.coords-svg',
           { attrs: { viewBox: '0 0 100 100' } },
@@ -38,7 +38,7 @@ const board = (ctrl: CoordinateTrainerCtrl): VNode => {
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans } = ctrl;
   const modeExplanationText =
-    trans(ctrl.mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted') +
+    trans(ctrl.mode() === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted') +
     ' ' +
     trans(ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant');
   return h('div.explanation', [
@@ -48,7 +48,7 @@ const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
       h('li', trans('talkToYourChessFriends')),
       h('li', trans('youCanAnalyseAGameMoreEffectively')),
     ]),
-    h('strong', trans(ctrl.mode)),
+    h('strong', trans(ctrl.mode())),
     h('p', modeExplanationText),
   ]);
 };
@@ -125,7 +125,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
         { on: { click: () => ctrl.toggleInputMethod() } },
         ctrl.coordinateInputMethod() === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
       );
-  return ctrl.mode === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput, inputMethodSwitcher]) : null;
+  return ctrl.mode() === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput, inputMethodSwitcher]) : null;
 };
 
 const view = (ctrl: CoordinateTrainerCtrl): VNode =>
