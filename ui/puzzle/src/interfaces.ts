@@ -160,7 +160,6 @@ export interface PuzzleData {
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
   streak?: string;
-  player: { color: Color };
 }
 
 export interface PuzzleReplay {

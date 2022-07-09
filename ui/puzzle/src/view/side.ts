@@ -298,34 +298,16 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
 
 export const renderColorForm = (ctrl: Controller): VNode =>
   h(
-    'form.puzzle__side__config__color',
-    {
-      attrs: {
-        action: `/training/color/${ctrl.getData().theme.key}`,
-        method: 'post',
-      },
-    },
+    'div.puzzle__side__config__color',
     h(
       'group.radio',
       colors.map(([key, i18n]) =>
         h('div', [
-          h('input', {
-            attrs: {
-              type: 'radio',
-              id: `coord_color_${key}`,
-              name: 'color',
-              value: key,
-              checked: key === (ctrl.settings.color || 'random'),
-            },
-            hook: onInsert(elm =>
-              elm.addEventListener('change', () => ($('.puzzle__side__config__color')[0] as HTMLFormElement).submit())
-            ),
-          }),
           h(
-            `label.color-${key}`,
+            `a.label.color-${key}${key === (ctrl.settings.color || 'random') ? '.active' : ''}`,
             {
               attrs: {
-                for: `coord_color_${key}`,
+                href: `/training/${ctrl.getData().theme.key}/${key}`,
                 title: ctrl.trans.noarg(i18n),
               },
             },

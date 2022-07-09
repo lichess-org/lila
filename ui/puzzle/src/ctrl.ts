@@ -312,7 +312,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (vm.resultSent) return Promise.resolve();
     vm.resultSent = true;
     session.complete(data.puzzle.id, win);
-    const res = await xhr.complete(data.puzzle.id, data.theme.key, win, rated, data.replay, streak);
+    const res = await xhr.complete(
+      data.puzzle.id,
+      data.theme.key,
+      win,
+      rated,
+      data.replay,
+      streak,
+      opts.settings.color
+    );
     if (res.replayComplete && data.replay) return lichess.redirect(`/training/dashboard/${data.replay.days}`);
     if (res.next.user && data.user) {
       data.user.rating = res.next.user.rating;

@@ -137,14 +137,13 @@ GET   /training/new                    controllers.Puzzle.mobileBcNew
 GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
 POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
 GET   /training/:angleOrId             controllers.Puzzle.show(angleOrId: String)
-GET   /training/:opening/$color<white|black> controllers.Puzzle.openingAndColor(opening: String, color: String)
+GET   /training/:angle/$color<white|black|random> controllers.Puzzle.angleAndColor(angle: String, color: String)
 GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle: String, id: String)
 POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
-POST  /training/color/:theme           controllers.Puzzle.setColor(theme: String)
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak

@@ -154,7 +154,7 @@
       .color-black i {
         background-image: url(../piece/cburnett/bK.svg);
       }
-      group.radio input:checked + label {
+      .label.active {
         background: mix($c-bg-box, $c-primary, 50%);
       }
     }

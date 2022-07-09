@@ -13,7 +13,8 @@ group.radio {
     #{$start-direction}: -99999px;
   }
 
-  label {
+  label,
+  .label {
     @extend %metal, %flex-center;
 
     justify-content: center;

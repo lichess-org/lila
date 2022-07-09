@@ -1,5 +1,6 @@
 package controllers
 
+import chess.Color
 import play.api.data.Form
 import play.api.libs.json._
 import scala.util.chaining._
@@ -46,6 +47,7 @@ final class Puzzle(
   private def renderShow(
       puzzle: Puz,
       angle: PuzzleAngle,
+      color: Option[Color] = None,
       replay: Option[PuzzleReplay] = None
   )(implicit ctx: Context) =
     renderJson(puzzle, angle, replay) zip
@@ -53,7 +55,12 @@ final class Puzzle(
         EnableSharedArrayBuffer(
           Ok(
             views.html.puzzle
-              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), settings | PuzzleSettings.default)
+              .show(
+                puzzle,
+                json,
+                env.puzzle.jsonView.pref(ctx.pref),
+                settings | PuzzleSettings.default(color)
+              )
           )
         )
       }
@@ -89,10 +96,13 @@ final class Puzzle(
       }
     }
 
-  private def nextPuzzleForMe(angle: PuzzleAngle)(implicit ctx: Context): Fu[Puz] =
+  private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Color] = None)(implicit
+      ctx: Context
+  ): Fu[Puz] =
     ctx.me match {
-      case Some(me) => env.puzzle.selector.nextPuzzleFor(me, angle)
-      case None     => env.puzzle.anon.getOneFor(angle) orFail "Couldn't find a puzzle for anon!"
+      case Some(me) =>
+        env.puzzle.session.setAngleAndColor(me, angle, color) >> env.puzzle.selector.nextPuzzleFor(me, angle)
+      case None => env.puzzle.anon.getOneFor(angle, color) orFail "Couldn't find a puzzle for anon!"
     }
 
   def complete(angleStr: String, id: String) =
@@ -202,7 +212,7 @@ final class Puzzle(
                     env.puzzle.finisher.incPuzzlePlays(id)
                     if (mobileBc) fuccess(Json.obj("user" -> false))
                     else
-                      nextPuzzleForMe(angle) flatMap {
+                      nextPuzzleForMe(angle, data.color) flatMap {
                         renderJson(_, angle)
                       } map { json =>
                         Json.obj("next" -> json)
@@ -277,15 +287,6 @@ final class Puzzle(
       }
     }
 
-  def setColor(theme: String) =
-    AuthBody { implicit ctx => me =>
-      NoBot {
-        implicit val req = ctx.body
-        val color        = env.puzzle.forms.color.bindFromRequest().value
-        env.puzzle.session.setColor(me, color) inject Redirect(routes.Puzzle.show(theme))
-      }
-    }
-
   def themes = Open { implicit ctx =>
     env.puzzle.api.angles map { all =>
       Ok(views.html.puzzle.theme.list(all))
@@ -334,15 +335,12 @@ final class Puzzle(
     }
   }
 
-  def openingAndColor(opName: String, colName: String) = Open { implicit ctx =>
+  def angleAndColor(angleKey: String, colorKey: String) = Open { implicit ctx =>
     NoBot {
-      PuzzleAngle.findOpening(opName).fold(Redirect(routes.Puzzle.openings()).fuccess) { opening =>
-        ctx.me.?? { me =>
-          chess.Color.fromName(colName).?? { color =>
-            env.puzzle.session.setAngleAndColor(me, opening, color)
-          }
-        } >> nextPuzzleForMe(opening) flatMap {
-          renderShow(_, opening)
+      PuzzleAngle.find(angleKey).fold(Redirect(routes.Puzzle.openings()).fuccess) { angle =>
+        val color = Color fromName colorKey
+        nextPuzzleForMe(angle, color) flatMap {
+          renderShow(_, angle, color = color)
         }
       }
     }
@@ -406,7 +404,7 @@ final class Puzzle(
       val checkedDayOpt = PuzzleDashboard.getclosestDay(days)
       env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
         case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
-        case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay.some)
+        case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
       }
     }
 

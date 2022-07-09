@@ -4,6 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 
 import lila.common.Form.{ numberIn, stringIn }
+import chess.Color
 
 object PuzzleForm {
 
@@ -12,7 +13,8 @@ object PuzzleForm {
       rated: Boolean,
       replayDays: Option[Int],
       streakId: Option[String],
-      streakScore: Option[Int]
+      streakScore: Option[Int],
+      color: Option[Color]
   ) {
     def result         = Result(win)
     def streakPuzzleId = streakId flatMap Puzzle.toId
@@ -25,7 +27,8 @@ object PuzzleForm {
       "rated"       -> boolean,
       "replayDays"  -> optional(numberIn(PuzzleDashboard.dayChoices)),
       "streakId"    -> optional(nonEmptyText),
-      "streakScore" -> optional(number(min = 0, max = 250))
+      "streakScore" -> optional(number(min = 0, max = 250)),
+      "color"       -> optional(lila.common.Form.color.mapping)
     )(RoundData.apply)(RoundData.unapply)
   )
 
@@ -40,16 +43,13 @@ object PuzzleForm {
   val difficulty = Form(
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
   )
-  val color = Form(
-    single("color" -> lila.common.Form.color.mapping)
-  )
 
   object bc {
 
     val round = Form(
       mapping(
         "win" -> text
-      )(w => RoundData(win = w == "1" || w == "true", rated = true, none, none, none))(r => none)
+      )(w => RoundData(win = w == "1" || w == "true", rated = true, none, none, none, none))(r => none)
     )
 
     val vote = Form(

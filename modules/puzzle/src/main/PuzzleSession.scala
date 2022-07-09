@@ -24,6 +24,11 @@ private case class PuzzleSession(
 
   def brandNew = positionInPath == 0
 
+  def similarTo(other: PuzzleSession) =
+    path.angle == other.path.angle &&
+      settings.difficulty == other.settings.difficulty &&
+      settings.color == other.settings.color
+
   override def toString = s"$path:$positionInPath"
 }
 
@@ -32,7 +37,8 @@ case class PuzzleSettings(
     color: Option[Color]
 )
 object PuzzleSettings {
-  val default = PuzzleSettings(PuzzleDifficulty.default, none)
+  val default                       = PuzzleSettings(PuzzleDifficulty.default, none)
+  def default(color: Option[Color]) = PuzzleSettings(PuzzleDifficulty.default, color)
 }
 
 final class PuzzleSessionApi(
@@ -67,18 +73,13 @@ final class PuzzleSessionApi(
       )
     }
 
-  def setColor(user: User, color: Option[Color]): Funit =
+  def setAngleAndColor(user: User, angle: PuzzleAngle, color: Option[Color]): Funit =
     updateSession(user) { prev =>
       createSessionFor(
         user,
-        prev.map(_.path.angle) | PuzzleAngle.mix,
+        angle,
         PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
       )
-    }
-
-  def setAngleAndColor(user: User, angle: PuzzleAngle, color: Color): Funit =
-    updateSession(user) { prev =>
-      createSessionFor(user, angle, PuzzleSettings(PuzzleDifficulty.default, color.some))
     }
 
   private[puzzle] def set(user: User, session: PuzzleSession) = sessions.put(user.id, fuccess(session))
@@ -88,7 +89,9 @@ final class PuzzleSessionApi(
       .getIfPresent(user.id)
       .fold(fuccess(none[PuzzleSession]))(_ dmap some)
       .flatMap { prev =>
-        f(prev).tap { sessions.put(user.id, _) }.void
+        f(prev) map { next =>
+          if (!prev.exists(next.similarTo)) sessions.put(user.id, fuccess(next))
+        }
       }
 
   private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.session")(

@@ -11,7 +11,8 @@ export const complete = (
   win: boolean,
   rated: StoredProp<boolean>,
   replay?: PuzzleReplay,
-  streak?: PuzzleStreak
+  streak?: PuzzleStreak,
+  color?: Color
 ): Promise<PuzzleResult> =>
   xhr.json(`/training/complete/${theme}/${puzzleId}`, {
     method: 'POST',
@@ -20,6 +21,7 @@ export const complete = (
       ...(replay ? { replayDays: replay.days } : {}),
       ...(streak ? { streakId: streak.nextId(), streakScore: streak.data.index } : {}),
       rated: rated(),
+      color,
     }),
   });
 
