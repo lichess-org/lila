@@ -21,7 +21,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     Open { implicit ctx =>
       Reasonable(page, config.Max(20)) {
         for {
-          active <- (page == 1).??(env.relay.api.officialActive)
+          active <- (page == 1).??(env.relay.api.officialActive.get({}))
           pager  <- env.relay.pager.inactive(page)
         } yield Ok(html.relay.tour.index(active, pager))
       }

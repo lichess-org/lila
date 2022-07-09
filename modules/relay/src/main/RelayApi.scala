@@ -1,8 +1,8 @@
 package lila.relay
 
 import akka.stream.scaladsl.Source
-import org.joda.time.DateTime
 import alleycats.Zero
+import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
@@ -12,6 +12,7 @@ import scala.util.chaining._
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl._
+import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.user.User
 
@@ -22,7 +23,8 @@ final class RelayApi(
     studyRepo: StudyRepo,
     multiboard: StudyMultiBoard,
     jsonView: JsonView,
-    formatApi: RelayFormatApi
+    formatApi: RelayFormatApi,
+    cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BSONHandlers._
@@ -80,47 +82,51 @@ final class RelayApi(
       .sort($doc("startedAt" -> -1, "startsAt" -> -1))
       .one[RelayRound]
 
-  def officialActive: Fu[List[RelayTour.ActiveWithNextRound]] =
-    tourRepo.coll
-      .aggregateList(20) { framework =>
-        import framework._
-        Match(tourRepo.selectors.officialActive) -> List(
-          Sort(Descending("tier")),
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from" -> roundRepo.coll.name,
-                "as"   -> "round",
-                "let"  -> $doc("id" -> "$_id"),
-                "pipeline" -> $arr(
-                  $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc(
-                        "$and" -> $arr(
-                          $doc("$eq" -> $arr("$tourId", "$$id")),
-                          $doc("$eq" -> $arr("$finished", false))
+  val officialActive = cacheApi.unit[List[RelayTour.ActiveWithNextRound]] {
+    _.refreshAfterWrite(5 seconds)
+      .buildAsyncFuture { _ =>
+        tourRepo.coll
+          .aggregateList(30) { framework =>
+            import framework._
+            Match(tourRepo.selectors.officialActive) -> List(
+              Sort(Descending("tier")),
+              PipelineOperator(
+                $doc(
+                  "$lookup" -> $doc(
+                    "from" -> roundRepo.coll.name,
+                    "as"   -> "round",
+                    "let"  -> $doc("id" -> "$_id"),
+                    "pipeline" -> $arr(
+                      $doc(
+                        "$match" -> $doc(
+                          "$expr" -> $doc(
+                            "$and" -> $arr(
+                              $doc("$eq" -> $arr("$tourId", "$$id")),
+                              $doc("$eq" -> $arr("$finished", false))
+                            )
+                          )
                         )
-                      )
+                      ),
+                      $doc("$addFields" -> $doc("sync.log" -> $arr())),
+                      $doc("$sort"      -> roundRepo.sort.chrono),
+                      $doc("$limit"     -> 1)
                     )
-                  ),
-                  $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                  $doc("$sort"      -> roundRepo.sort.chrono),
-                  $doc("$limit"     -> 1)
+                  )
                 )
-              )
+              ),
+              UnwindField("round"),
+              Limit(30)
             )
-          ),
-          UnwindField("round"),
-          Limit(20)
-        )
+          }
+          .map { docs =>
+            for {
+              doc   <- docs
+              tour  <- doc.asOpt[RelayTour]
+              round <- doc.getAsOpt[RelayRound]("round")
+            } yield RelayTour.ActiveWithNextRound(tour, round)
+          }
       }
-      .map { docs =>
-        for {
-          doc   <- docs
-          tour  <- doc.asOpt[RelayTour]
-          round <- doc.getAsOpt[RelayRound]("round")
-        } yield RelayTour.ActiveWithNextRound(tour, round)
-      }
+  }
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 
