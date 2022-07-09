@@ -12,6 +12,7 @@
   <string name="myTeams">Իմ թիմերը</string>
   <string name="noTeamFound">Թիմ գտնված չէ</string>
   <string name="joinTeam">Միանալ թիմին</string>
+  <string name="onlyLeaderLeavesTeam">Խնդրում ենք ակումբը լքելուց կամ փակելուց առաջ ավելացնել ակումբի նոր ղեկավար։</string>
   <string name="quitTeam">Լքել թիմը</string>
   <string name="manuallyReviewAdmissionRequests">Մուտքի հայտերի ձեռքով ստուգում</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Եթե նշված է, ապա թիմի անդամ դառնալու թեկնածուները պետք է հայտ լրացնեն, որը Դուք կարող եք ընդունել կամ մերժել։</string>
