@@ -22,7 +22,8 @@
 
   &-result {
     color: $c-font;
-    padding: 0.4em 0 0.4em 0.4em;
+    @include padding-direction(0.4em, 0, 0.4em, 0.4em);
+
     display: block;
     cursor: pointer;
     text-align: left;

@@ -44,7 +44,7 @@
       &::before {
         @extend %data-icon;
 
-        margin-right: 0.2em;
+        margin-#{$end-direction}: 0.2em;
         content: '';
         color: $c-bad;
       }

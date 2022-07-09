@@ -72,7 +72,7 @@
     }
 
     li {
-      margin-left: 2em;
+      margin-#{$start-direction}: 2em;
 
       p {
         display: inline;

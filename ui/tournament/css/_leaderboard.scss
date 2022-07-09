@@ -10,7 +10,7 @@ $user-list-width: 35ch;
 
   &__item {
     background: $c-bg-box;
-    border-right: $border;
+    border-#{$end-direction}: $border;
   }
 
   h2 {
@@ -18,7 +18,7 @@ $user-list-width: 35ch;
 
     font-size: 1.45em;
     line-height: 2.5em;
-    padding-left: 0.8rem;
+    padding-#{$start-direction}: 0.8rem;
     text-transform: uppercase;
     margin: 0;
     white-space: nowrap;
@@ -36,7 +36,7 @@ $user-list-width: 35ch;
   li {
     @extend %flex-between;
 
-    padding: 1.2rem 1.2rem 1.2rem 0.5rem;
+    @include padding-direction(1.2rem, 1.2rem, 1.2rem, 0.5rem);
 
     &:nth-child(even) {
       background: $c-bg-zebra;
@@ -53,7 +53,7 @@ $user-list-width: 35ch;
 .tournament-shields {
   h2 {
     position: relative;
-    padding-left: 95px;
+    padding-#{$start-direction}: 95px;
     border-bottom: $border;
   }
 }
@@ -61,7 +61,7 @@ $user-list-width: 35ch;
 .shield-trophy {
   position: absolute;
   top: -11px;
-  left: 15px;
+  #{$start-direction}: 15px;
   width: 67px;
   height: 80px;
   background: img-url('trophy/shield-gold.png') no-repeat;
@@ -80,7 +80,7 @@ $user-list-width: 35ch;
   font-size: 1.1em;
 
   .shield-trophy {
-    left: calc(var(--box-padding) - 10px);
+    #{$start-direction}: calc(var(--box-padding) - 10px);
     transform: scale(0.7);
   }
 

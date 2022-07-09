@@ -75,7 +75,7 @@ textarea.form-control {
 }
 
 .form-check-input {
-  margin-right: 0.5rem;
+  margin-#{$end-direction}: 0.5rem;
 }
 
 .form-check .form-label {

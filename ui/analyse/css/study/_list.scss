@@ -60,6 +60,6 @@
     justify-content: center;
     font-size: 0.7em;
     color: $c-red;
-    margin-right: 0.7rem;
+    margin-#{$end-direction}: 0.7rem;
   }
 }

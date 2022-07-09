@@ -59,6 +59,6 @@
   }
 
   .content a {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 }

@@ -53,7 +53,7 @@
         @extend %page-link !optional;
 
         width: 100%;
-        text-align: left;
+        text-align: $start-direction;
       }
     }
   }

@@ -26,7 +26,7 @@
       list-style-type: none;
       font-size: 1.2em;
       line-height: 1.5em;
-      padding-left: 2em;
+      padding-#{$start-direction}: 2em;
     }
 
     li:before {

@@ -37,7 +37,7 @@
 
   .links button {
     width: 100%;
-    text-align: left;
+    text-align: $start-direction;
     border: 0;
     background: none;
   }
@@ -48,7 +48,7 @@
 
   .sub {
     &::before {
-      float: right;
+      float: $end-direction;
       font-size: 80%;
       margin-top: 0.25rem;
       color: $c-dasher;

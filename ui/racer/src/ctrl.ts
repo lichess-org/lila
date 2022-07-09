@@ -14,7 +14,7 @@ import { Run } from 'puz/interfaces';
 import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
-import { storedProp } from 'common/storage';
+import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 
 export default class RacerCtrl {
@@ -31,7 +31,7 @@ export default class RacerCtrl {
   countdown: Countdown;
   boost: Boost = new Boost();
   skipAvailable = true;
-  knowsSkip = storedProp('racer.skip', false);
+  knowsSkip = storedBooleanProp('racer.skip', false);
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
 

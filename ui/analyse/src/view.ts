@@ -94,7 +94,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 export const renderNextChapter = (ctrl: AnalyseCtrl) =>
-  !ctrl.embed && ctrl.study?.hasNextChapter()
+  !ctrl.embed && !ctrl.opts.relay && ctrl.study?.hasNextChapter()
     ? h(
         'button.next.text',
         {
@@ -220,6 +220,16 @@ function controls(ctrl: AnalyseCtrl) {
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
     noarg = ctrl.trans.noarg;
+  let iconFirst = '';
+  let iconPrev = '';
+  let iconNext = '';
+  let iconLast = '';
+  if (document.dir == 'rtl') {
+    iconLast = '';
+    iconNext = '';
+    iconPrev = '';
+    iconFirst = '';
+  }
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -284,10 +294,10 @@ function controls(ctrl: AnalyseCtrl) {
                 ]
           ),
       h('div.jumps', [
-        jumpButton('', 'first', canJumpPrev),
-        jumpButton('', 'prev', canJumpPrev),
-        jumpButton('', 'next', canJumpNext),
-        jumpButton('', 'last', canJumpNext),
+        jumpButton(iconFirst, 'first', canJumpPrev),
+        jumpButton(iconPrev, 'prev', canJumpPrev),
+        jumpButton(iconNext, 'next', canJumpNext),
+        jumpButton(iconLast, 'last', canJumpNext),
       ]),
       ctrl.studyPractice
         ? h('div.noop')

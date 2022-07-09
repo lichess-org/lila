@@ -9,7 +9,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.Heapsort.implicits._
 import lila.tutor.TutorCompare.comparisonOrdering
-import lila.tutor.{ TutorFullReport, TutorMetric, TutorMetricOption, TutorPerfReport, TutorRatio }
+import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
 
 object perf {
@@ -17,7 +17,7 @@ object perf {
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(implicit
       ctx: Context
   ) =
-    bits.layout(full, menu = menu(full, user, report.some))(
+    bits.layout(full, menu = menu(full, user, report))(
       cls := "tutor__perf box",
       h1(
         a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
@@ -32,22 +32,25 @@ object perf {
         )(
           ul(report openingHighlights 3 map compare.show)
         ),
+        angleCard(
+          routes.Tutor.time(user.username, report.perf.key),
+          frag(report.perf.trans, " time management")
+        )(
+          ul(report timeHighlights 3 map compare.show)
+        ),
         angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
           ul(report phaseHighlights 3 map compare.show)
         )
       )
     )
 
-  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(
-      implicit ctx: Context
+  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: TutorPerfReport)(implicit
+      ctx: Context
   ) = frag(
-    a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
-    full.report.perfs.map { p =>
-      a(
-        cls  := p.perf.key.active(report.??(_.perf.key)),
-        href := routes.Tutor.perf(user.username, p.perf.key)
-      )(p.perf.trans)
-    }
+    a(href := routes.Tutor.perf(user.username, report.perf.key))(report.perf.trans),
+    a(href := routes.Tutor.openings(user.username, report.perf.key))("Openings"),
+    a(href := routes.Tutor.time(user.username, report.perf.key), cls := "active")("Time management"),
+    a(href := routes.Tutor.phases(user.username, report.perf.key))("Game phases")
   )
 
   private def angleCard(url: Call, title: Frag)(content: Modifier*)(implicit ctx: Context) =

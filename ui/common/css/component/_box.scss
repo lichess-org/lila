@@ -41,10 +41,10 @@ $vp-max-width: 1200px;
       @extend %flex-wrap;
 
       /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-      margin-left: -1rem;
+      margin-#{$start-direction}: -1rem;
 
       > * {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
       }
 
       /* end of flex gutter hack */
@@ -54,7 +54,7 @@ $vp-max-width: 1200px;
       }
 
       > :not(:first-child) {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
       }
     }
   }

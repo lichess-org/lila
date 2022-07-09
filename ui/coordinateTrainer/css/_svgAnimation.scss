@@ -76,17 +76,23 @@ svg.coords-svg {
   }
 }
 
+rect.next-target {
+  stroke: #808080;
+}
+
 rect.current-target {
-  animation: shrinkIn 70ms linear;
+  animation: expandAndShrink 175ms linear;
   stroke: $c-secondary;
 }
-@keyframes shrinkIn {
-  from {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-  to {
+
+@keyframes expandAndShrink {
+  0% {
     transform: scale(1);
-    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
   }
 }

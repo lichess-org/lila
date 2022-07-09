@@ -43,7 +43,7 @@ $section-margin-more: 5vh;
 
       &__col1 {
         flex: 0 0 30%;
-        margin-right: var(--box-padding);
+        margin-#{$end-direction}: var(--box-padding);
       }
 
       &__col2 {
@@ -96,10 +96,6 @@ $section-margin-more: 5vh;
     }
 
     margin-bottom: $section-margin;
-
-    h2 {
-      font-size: 1em;
-    }
   }
 
   &__tour {
@@ -129,7 +125,7 @@ $section-margin-more: 5vh;
 
   .userlist > li,
   .userlist > div.paginated {
-    padding: 5px 0 5px 25px;
+    @include padding-direction(5px, 0, 5px, 25px);
   }
 
   &__forum {
@@ -184,7 +180,7 @@ $section-margin-more: 5vh;
       @extend %flex-center;
 
       label {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
         cursor: pointer;
       }
     }

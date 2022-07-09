@@ -73,6 +73,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="comparison">So sánh</string>
   <string name="numberOfGames">Số lượng trò chơi</string>
   <string name="pairingSystem">Hệ thống bắt cặp</string>
+  <string name="identicalForbidden">Bị cấm</string>
   <string name="pause">Tạm dừng</string>
   <string name="streaksAndBerserk">Streaks và Berserk</string>
 </resources>

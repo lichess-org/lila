@@ -13,7 +13,7 @@ import lila.user.User
 object home {
 
   def apply(full: TutorFullReport.Available, user: User)(implicit ctx: Context) =
-    bits.layout(full, menu = perf.menu(full, user, none))(
+    bits.layout(full, menu = menu(full, user, none))(
       cls := "tutor__home box",
       h1("Lichess Tutor"),
       if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
@@ -51,6 +51,18 @@ object home {
       )
     )
 
+  private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(
+      implicit ctx: Context
+  ) = frag(
+    a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
+    full.report.perfs.map { p =>
+      a(
+        cls  := p.perf.key.active(report.??(_.perf.key)),
+        href := routes.Tutor.perf(user.username, p.perf.key)
+      )(p.perf.trans)
+    }
+  )
+
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(implicit
       ctx: Context
   ) =
@@ -79,7 +91,9 @@ object home {
       div(cls := "tutor-card__content")(
         bits.peerComparison("Accuracy", perfReport.accuracy),
         bits.peerComparison("Tactical Awareness", perfReport.awareness),
-        bits.peerComparison("Time pressure", perfReport.timePressure),
+        bits.peerComparison("Speed", perfReport.globalClock),
+        bits.peerComparison("Clock flag victory", perfReport.flagging.win),
+        bits.peerComparison("Clock time usage", perfReport.clockUsage),
         ul(perfReport.relevantComparisons.topN(3) map compare.show),
         bits.seeMore
       )

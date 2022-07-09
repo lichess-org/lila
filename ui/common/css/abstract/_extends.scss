@@ -28,7 +28,7 @@
 
   draw {
     @extend %roboto;
-    margin-left: 1ch;
+    margin-#{$start-direction}: 1ch;
     font-weight: normal;
   }
 }
@@ -234,9 +234,9 @@
 %fullscreen-mask {
   position: fixed;
   top: 0;
-  left: 0;
+  #{$start-direction}: 0;
   bottom: 0;
-  right: 0;
+  #{$end-direction}: 0;
   background: $c-page-mask;
   z-index: z('fullscreen-mask');
 }
@@ -244,7 +244,7 @@
 %link-overlay {
   position: absolute;
   top: 0;
-  left: 0;
+  #{$start-direction}: 0;
   width: 100%;
   height: 100%;
   z-index: z('link-overlay');

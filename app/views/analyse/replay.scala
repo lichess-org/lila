@@ -49,7 +49,7 @@ object replay {
     val imageLinks = frag(
       a(
         dataIcon := "",
-        cls      := "text",
+        cls      := "text game-gif",
         targetBlank,
         href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
       )(trans.gameAsGIF()),
@@ -218,8 +218,7 @@ object replay {
           div(cls := "blind-content none")(
             h2("PGN downloads"),
             pgnLinks,
-            textarea(style := "opacity: 0.01; height: 0", tabindex := -1, cls := "game-pgn")(pgn),
-            button(cls := "copy-pgn", dataRel := "game-pgn")(
+            button(cls := "copy-pgn", attr("data-pgn") := pgn)(
               "Copy PGN to clipboard"
             )
           )

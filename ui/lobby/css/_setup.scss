@@ -61,7 +61,7 @@ $c-slider: $c-setup;
     }
 
     select {
-      margin-left: 0.8em;
+      margin-#{$start-direction}: 0.8em;
       font-weight: bold;
     }
   }
@@ -119,7 +119,7 @@ $c-slider: $c-setup;
     width: 100%;
     text-align: center;
     strong {
-      margin-right: 0.25em;
+      margin-#{$end-direction}: 0.25em;
     }
   }
 

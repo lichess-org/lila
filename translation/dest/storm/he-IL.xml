@@ -42,7 +42,12 @@
   <string name="skip">דלג</string>
   <string name="skipHelp">אתה יכול לדלג פעם אחת לכל מרוץ:</string>
   <string name="skipExplanation">דלג על מהלך זה כדי לשמור על הקומבו שלך! עובד רק פעם אחת במירוץ.</string>
+  <string name="failedPuzzles">פאזלים שנכשלת בפתרונם</string>
+  <string name="slowPuzzles">פאזלים שהתעכבת בפתרונם</string>
   <string name="thisWeek">השבוע</string>
   <string name="thisMonth">החודש</string>
   <string name="allTime">אי פעם</string>
+  <string name="clickToReload">לחץ כדי לטעון מחדש</string>
+  <string name="thisRunHasExpired">המרוץ הסתיים!</string>
+  <string name="thisRunWasOpenedInAnotherTab">המרוץ הזה נפתח בחלון אחר!</string>
 </resources>

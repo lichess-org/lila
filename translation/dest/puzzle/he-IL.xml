@@ -57,6 +57,7 @@
   </plurals>
   <string name="example">דוגמא</string>
   <string name="addAnotherTheme">הוסף נושא חדש</string>
+  <string name="nextPuzzle">הפאזל הבא</string>
   <string name="jumpToNextPuzzleImmediately">המשך לחידה הבאה באופן מיידי</string>
   <string name="puzzleDashboard">לוח בקרה</string>
   <string name="improvementAreas">תחומים לשיפור</string>

@@ -1,12 +1,12 @@
 package lila.tutor
 
 import lila.common.Heapsort.implicits._
-import lila.insight.{ InsightDimension, Metric }
+import lila.insight.{ InsightDimension, InsightMetric }
 
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
-    metric: Metric,
-    points: List[(D, TutorMetricOption[V])]
+    metric: TutorMetric[V],
+    points: List[(D, TutorBothValueOptions[V])]
 )(implicit number: TutorNumber[V]) {
   import TutorCompare._
   import TutorNumber._
@@ -15,7 +15,7 @@ case class TutorCompare[D, V](
 
   lazy val dimensionComparisons: List[AnyComparison] = {
     val myPoints: List[(D, ValueCount[V])] =
-      points.collect { case (dim, TutorMetricOption(Some(mine), _)) => dim -> mine }
+      points.collect { case (dim, TutorBothValueOptions(Some(mine), _)) => dim -> mine }
     for {
       (dim1, met1) <- myPoints.filter(_._2 relevantTo totalCountMine)
       avg = number.average(myPoints.filter(_._1 != dim1).map(_._2))
@@ -23,7 +23,7 @@ case class TutorCompare[D, V](
   }
 
   lazy val peerComparisons: List[AnyComparison] = points.collect {
-    case (dim, TutorMetricOption(Some(mine), Some(peer)))
+    case (dim, TutorBothValueOptions(Some(mine), Some(peer)))
         if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
       Comparison(dimensionType, dim, metric, mine, Peers(peer))
   }
@@ -36,7 +36,7 @@ object TutorCompare {
   case class Comparison[D, V](
       dimensionType: InsightDimension[D],
       dimension: D,
-      metric: Metric,
+      metric: TutorMetric[V],
       value: ValueCount[V],
       reference: Reference[V]
   )(implicit number: TutorNumber[V]) {

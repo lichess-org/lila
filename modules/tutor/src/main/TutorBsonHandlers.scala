@@ -16,10 +16,9 @@ private object TutorBsonHandlers {
   import lila.rating.BSONHandlers.perfTypeIdHandler
   import lila.analyse.AnalyseBsonHandlers.accuracyPercentHandler
 
-  implicit val ratingHandler   = doubleAsIntHandler[Rating](_.value, Rating.apply, 10)
+  implicit val ratingHandler   = doubleAsIntHandler[Rating](_.value, Rating.apply, 100)
   implicit val durationHandler = lila.db.dsl.minutesHandler
-  implicit val ratioHandler    = doubleAsIntHandler[TutorRatio](_.value, TutorRatio.apply, 1000)
-  implicit val pressureHandler = doubleAsIntHandler[TimePressure](_.value, TimePressure.apply, 1000)
+  implicit val ratioHandler    = ratioAsIntHandler[TutorRatio](_.value, TutorRatio.apply)
 
   implicit def colorMapHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
     implicitly[BSONHandler[Map[String, A]]]
@@ -44,19 +43,19 @@ private object TutorBsonHandlers {
   implicit def metricHandler[A](implicit
       handler: BSONHandler[A],
       ordering: Ordering[A]
-  ): BSONHandler[TutorMetric[A]] =
+  ): BSONHandler[TutorBothValues[A]] =
     implicitly[BSONHandler[List[Option[ValueCount[A]]]]]
-      .as[TutorMetric[A]](
-        list => TutorMetric(list(0).get, list.lift(1).flatten),
+      .as[TutorBothValues[A]](
+        list => TutorBothValues(list(0).get, list.lift(1).flatten),
         metric => List(metric.mine.some, metric.peer)
       )
 
   implicit def metricOptionHandler[A](implicit
       handler: BSONHandler[A],
       ordering: Ordering[A]
-  ): BSONHandler[TutorMetricOption[A]] =
-    implicitly[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorMetricOption[A]](
-      list => TutorMetricOption(list.lift(0).flatten, list.lift(1).flatten),
+  ): BSONHandler[TutorBothValueOptions[A]] =
+    implicitly[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorBothValueOptions[A]](
+      list => TutorBothValueOptions(list.lift(0).flatten, list.lift(1).flatten),
       metric => List(metric.mine, metric.peer)
     )
 
@@ -66,6 +65,8 @@ private object TutorBsonHandlers {
   // implicit val openingsHandler      = Macros.handler[Color.Map[TutorColorOpenings]]
 
   implicit val phaseHandler = Macros.handler[TutorPhase]
+
+  implicit val flaggingHandler = Macros.handler[TutorFlagging]
   // implicit val phasesHandler = Macros.handler[TutorPhases]
 
   // implicit val perfReportHandler = Macros.handler[TutorPerfReport]

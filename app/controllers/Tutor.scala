@@ -50,6 +50,11 @@ final class Tutor(env: Env) extends LilaController(env) {
       Ok(views.html.tutor.phases(report, perf, me)).fuccess
   }
 
+  def time(username: String, perf: String) = TutorPerfPage(username, perf) {
+    implicit ctx => me => report => perf =>
+      Ok(views.html.tutor.time(report, perf, me)).fuccess
+  }
+
   def refresh(username: String) = TutorPageAvailability(username) { ctx => user => availability =>
     env.tutor.api.request(user, availability) >> redirHome(user)
   }

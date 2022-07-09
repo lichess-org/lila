@@ -18,9 +18,9 @@ import lila.insight.{
   Insight,
   InsightApi,
   InsightDimension,
+  InsightMetric,
   InsightPerfStats,
   InsightPerfStatsApi,
-  Metric,
   Phase,
   Question
 }
@@ -75,12 +75,12 @@ final private class TutorBuilder(
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
-    perfs <- (tutorUsers.toNel ?? TutorPerfs.compute).monSuccess(_.tutor buildSegment "perf-reports")
+    perfs <- (tutorUsers.toNel ?? TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
   } yield TutorFullReport(user.id, DateTime.now, perfs)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
-      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(1))
+      user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(2))
     }
 
   private def hasFreshReport(user: User) = reportColl.exists(
@@ -104,21 +104,21 @@ private object TutorBuilder {
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
-  ) = insightApi
+  ): Fu[AnswerMine[Dim]] = insightApi
     .ask(question filter perfFilter(user.perfType), user.user, withPovs = false)
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key)) map AnswerMine.apply
 
   def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
-  ) = insightApi
+  ): Fu[AnswerPeer[Dim]] = insightApi
     .askPeers(question filter perfFilter(user.perfType), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key)) map AnswerPeer.apply
 
   def answerBoth[Dim](question: Question[Dim], user: TutorUser)(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
-  ) = for {
+  ): Fu[Answers[Dim]] = for {
     mine <- answerMine(question, user)
     peer <- answerPeer(question, user)
   } yield Answers(mine, peer)
@@ -126,7 +126,7 @@ private object TutorBuilder {
   def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(implicit
       insightApi: InsightApi,
       ec: ExecutionContext
-  ) = for {
+  ): Fu[Answers[Dim]] = for {
     mine <- insightApi
       .ask(
         question filter perfsFilter(tutorUsers.toList.map(_.perfType)),
@@ -158,9 +158,9 @@ private object TutorBuilder {
 
   case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]) {
 
-    def valueMetric(dim: Dim, myValue: Pair) = TutorMetric(myValue, peer.get(dim))
+    def valueMetric(dim: Dim, myValue: Pair) = TutorBothValues(myValue, peer.get(dim))
 
-    def valueMetric(dim: Dim) = TutorMetricOption(mine.get(dim), peer.get(dim))
+    def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
   }
 
   def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))

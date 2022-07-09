@@ -20,7 +20,7 @@
 
     justify-content: center;
     width: 2.4em;
-    margin-right: 0.1em;
+    margin-#{$end-direction}: 0.1em;
     transition: 2.5s;
   }
 
@@ -104,7 +104,7 @@
   m-config {
     @extend %flex-between;
 
-    padding: 0.4em 0.8em 1em 0.8em;
+    @include padding-direction(0.4em, 0.8em, 1em, 0.8em);
 
     .role {
       @extend %flex-center;
@@ -115,7 +115,7 @@
     }
 
     .switch {
-      margin-right: 0.5em;
+      margin-#{$end-direction}: 0.5em;
     }
   }
 }

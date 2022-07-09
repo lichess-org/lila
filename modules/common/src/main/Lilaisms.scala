@@ -21,6 +21,7 @@ trait Lilaisms
 
   type StringValue = lila.base.LilaTypes.StringValue
   type IntValue    = lila.base.LilaTypes.IntValue
+  type Percent     = lila.base.LilaTypes.Percent
 
   @inline implicit def toLilaFuture[A](f: Fu[A])               = new LilaFuture(f)
   @inline implicit def toLilaFutureBoolean(f: Fu[Boolean])     = new LilaFutureBoolean(f)

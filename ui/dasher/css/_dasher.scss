@@ -19,7 +19,7 @@
 
     signal {
       position: absolute;
-      right: 1rem;
+      #{$end-direction}: 1rem;
       top: 1rem;
       font-size: 1.7rem;
     }
@@ -75,13 +75,13 @@
     }
 
     .accepted {
-      border-left: 4px solid $c-dasher;
+      border-#{$start-direction}: 4px solid $c-dasher;
     }
 
     .current {
       background: $c-dasher !important;
       color: $c-dasher-over !important;
-      border-left: none;
+      border-#{$start-direction}: none;
     }
 
     .help {
@@ -120,7 +120,7 @@
       }
 
       &::before {
-        margin-right: 8px;
+        margin-#{$end-direction}: 8px;
         font-size: 19px;
         justify-content: center;
         align-items: center;

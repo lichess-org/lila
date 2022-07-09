@@ -1,5 +1,5 @@
 import { Prop, prop } from 'common';
-import { storedProp } from 'common/storage';
+import { storedBooleanProp } from 'common/storage';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';
@@ -50,7 +50,7 @@ export default class ExplorerCtrl {
 
   constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, allow: boolean) {
     this.allowed = prop(allow);
-    this.enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
+    this.enabled = root.embed ? prop(false) : storedBooleanProp('explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
     this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload);

@@ -10,7 +10,7 @@
 
       time {
         font-size: 1.5rem;
-        margin-right: 1ch;
+        margin-#{$end-direction}: 1ch;
       }
     }
 
@@ -51,7 +51,7 @@
     &::before {
       @extend %data-icon;
 
-      margin-right: 0.2em;
+      margin-#{$end-direction}: 0.2em;
     }
   }
 

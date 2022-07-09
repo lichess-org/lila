@@ -3,7 +3,7 @@ import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, S
 import { Result } from '@badrap/result';
 import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalWorkerOpts } from './worker';
 import { prop } from 'common';
-import { storedProp } from 'common/storage';
+import { storedBooleanProp, storedIntProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
@@ -39,13 +39,16 @@ function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly
 }
 
 function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
+  const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);
   switch (technology) {
     case 'asmjs':
       return 18;
     case 'wasm':
       return 20;
+    case 'external':
+      return 24 + extraDepth;
     default:
-      return 22 + Math.min(Math.max(threads - multiPv, 0), 6);
+      return 22 + extraDepth;
   }
 }
 
@@ -75,7 +78,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
-  const enableNnue = storedProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
+  const enableNnue = storedBooleanProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
 
   // check root position
   const rules = lichessRules(opts.variant.key);
@@ -138,8 +141,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
   };
 
-  const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
-  const infinite = storedProp('ceval.infinite', false);
+  const multiPv = storedIntProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
+  const infinite = storedBooleanProp('ceval.infinite', false);
   let curEval: Tree.LocalEval | null = null;
   const allowed = prop(true);
   const enabled = prop(opts.possible && analysable && allowed() && enabledAfterDisable());
@@ -166,8 +169,7 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   const curDepth = () => (curEval ? curEval.depth : 0);
 
-  const effectiveMaxDepth = () =>
-    isDeeper() || infinite() ? 99 : defaultDepth(technology, threads(), parseInt(multiPv()));
+  const effectiveMaxDepth = () => (isDeeper() || infinite() ? 99 : defaultDepth(technology, threads(), multiPv()));
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort(function (a, b) {
@@ -203,7 +205,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       path,
       ply: step.ply,
       maxDepth,
-      multiPv: parseInt(multiPv()),
+      multiPv: multiPv(),
       threatMode,
       emit(ev: Tree.LocalEval) {
         if (enabled()) onEmit(ev, work);

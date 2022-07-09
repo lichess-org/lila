@@ -7,7 +7,7 @@
 
   &__list {
     display: grid;
-    margin-left: var(--box-padding);
+    margin-#{$start-direction}: var(--box-padding);
     grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
 
     @include breakpoint($mq-not-xx-small) {
@@ -48,7 +48,7 @@
         display: none;
       }
 
-      padding-left: 1em;
+      padding-#{$start-direction}: 1em;
     }
 
     > span {
@@ -68,7 +68,7 @@
 
         color: $c-font-dimmer;
         font-size: 0.8em;
-        margin-left: 0.7ch;
+        margin-#{$start-direction}: 0.7ch;
         letter-spacing: -1px;
       }
     }

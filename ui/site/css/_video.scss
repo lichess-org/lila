@@ -4,7 +4,7 @@
 
     span {
       position: absolute;
-      left: 10px;
+      #{$start-direction}: 10px;
       top: 7px;
       font-size: 1.4em;
       opacity: 0.6;
@@ -86,7 +86,7 @@
     .duration {
       position: absolute;
       bottom: 1px;
-      right: 1px;
+      #{$end-direction}: 1px;
       z-index: 2;
       opacity: 1;
       padding: 0 5px;
@@ -98,7 +98,7 @@
 
       position: absolute;
       top: 5px;
-      left: 5px;
+      #{$start-direction}: 5px;
       z-index: 2;
       padding: 3px 5px;
       background: rgba(0, 0, 0, 0.7);
@@ -151,13 +151,13 @@
       .author {
         color: $c-font-dim;
         font-size: 1.5em;
-        margin-right: 15px;
+        margin-#{$end-direction}: 15px;
       }
 
       .tag {
         color: $c-font-dim;
         font-weight: bold;
-        margin-right: 5px;
+        margin-#{$end-direction}: 5px;
       }
 
       .author:hover,
@@ -182,7 +182,7 @@
       em {
         font-weight: bold;
         color: $c-font-dim;
-        margin-left: 1em;
+        margin-#{$start-direction}: 1em;
 
         @include breakpoint($mq-subnav-top) {
           display: none;
@@ -192,7 +192,7 @@
       &.full span::before {
         content: '+';
         font-size: 1.2em;
-        margin-right: 0.5em;
+        margin-#{$end-direction}: 0.5em;
         font-weight: bold;
       }
 

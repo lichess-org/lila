@@ -80,6 +80,8 @@ final class InsightApi(
       }
       .sequenceFu
       .void
+
+  def coll = storage.coll
 }
 
 object InsightApi {

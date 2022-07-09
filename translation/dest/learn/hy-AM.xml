@@ -91,8 +91,17 @@
   <string name="defeatTheOpponentsKing">Ջախջախեք մրցակցի արքան</string>
   <string name="mateInOneIntro">Դուք կհաղթեք, եթե ձեր մրցակիցը չկարողանա պաշտպանվել շախից։</string>
   <string name="attackYourOpponentsKing">Գրոհե՛ք մրցակցի արքային այնպես, որ նրան հնարավոր չլինի պաշտպանել։</string>
+  <string name="mateInOneComplete">Շնորհավորո՛ւմ ենք։ Հենց այսպես էլ Դուք կհաղթեք պարտիաներում։</string>
+  <string name="intermediate">Միջին մակարդակ</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
   <string name="howTheGameStarts">Շախմատային պարտիայի սկիզբը</string>
+  <string name="boardSetupIntro">Մարտի պատրաստ երկու բանակները հանդիպել են դեմ առ դեմ։</string>
+  <string name="thisIsTheInitialPosition">Սա շախմատի սկզբնական դիրքն է։ Շարունակելու համար կատարեք որևէ քայլ։</string>
+  <string name="firstPlaceTheRooks">Սկզբում տեղադրեք նավակները։ Նրանք գտնվում են անկյուններում։</string>
+  <string name="thenPlaceTheKnights">Այնուհետև տեղադրեք ձիերը։ Նրանք գտնվում են նավակների կողքին։</string>
+  <string name="placeTheBishops">Տեղադրեք փղերը։ Նրանց տեղը ձիերի կողքին է։</string>
+  <string name="placeTheQueen">Տեղադրեք թագուհին։ Նա սիրում է իր գույնը։</string>
+  <string name="placeTheKing">Տեղադրեք արքան։ Նա կանգնում է թագուհու կողքին։</string>
   <string name="enPassant">Կողանցիկ հարված</string>
   <string name="stalemate">Պատ</string>
   <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>

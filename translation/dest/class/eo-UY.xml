@@ -65,6 +65,7 @@ Jen la ligo por aliri la klason.</string>
   <string name="releaseDesc1">Liberigita konto ne povas esti administrata denove. La studento povos mem alternigi infanan reĝimon kaj restarigi pasvorton mem.</string>
   <string name="releaseDesc2">La studento restos en la klaso post kiam ilia konto estos liberigita.</string>
   <string name="realUniqueEmail">Reala, unika retpoŝtadreso de la studento. Ni sendos konfirman retpoŝton al ĝi, kun ligilo por liberigi la konton.</string>
+  <string name="closeStudent">Fermu konton</string>
   <string name="teachers">Instruistoj</string>
   <plurals name="nbTeachers">
     <item quantity="one">Instruisto</item>
@@ -90,4 +91,6 @@ Jen la ligo por aliri la klason.</string>
   <string name="newsEdit2">Aldonu la lastajn novaĵojn ĉe la supro. Ne forigu antaŭajn novaĵojn.</string>
   <string name="newsEdit3">Apartaj novaĵoj kun ---
 Ĝi aperos horizontala linio.</string>
+  <string name="youDeclinedThisInvitation">Vi malakceptis ĉi tiun inviton.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">aŭ</string>
 </resources>

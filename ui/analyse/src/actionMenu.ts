@@ -309,7 +309,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           max,
                           step: 1,
                         },
-                        hook: rangeConfig(() => parseInt(ceval!.multiPv()), ctrl.cevalSetMultiPv),
+                        hook: rangeConfig(() => ceval!.multiPv(), ctrl.cevalSetMultiPv),
                       }),
                       h('div.range_value', ceval.multiPv() + ' / ' + max),
                     ]);

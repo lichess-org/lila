@@ -8,6 +8,7 @@ import play.api.libs.json._
 import reactivemongo.api.bson._
 import scalatags.Text.all._
 
+import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpening, LilaOpeningFamily }
 import lila.db.dsl._
 import lila.rating.PerfType
@@ -31,6 +32,7 @@ object InsightDimension {
   import BSONHandlers._
   import InsightPosition._
   import InsightEntry.{ BSONFields => F }
+  import lila.analyse.AnalyseBsonHandlers._
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period
@@ -213,13 +215,31 @@ object InsightDimension {
         "Stockfish evaluation of the position, relative to the player, in centipawns."
       )
 
-  case object TimePressureRange
-      extends InsightDimension[TimePressureRange](
-        "timePressure",
+  case object AccuracyPercentRange
+      extends InsightDimension[AccuracyPercentRange](
+        "accuracy",
+        "Accuracy",
+        F.moves("a"),
+        Move,
+        """Accuracy of your moves. Higher is better."""
+      )
+
+  case object WinPercentRange
+      extends InsightDimension[WinPercentRange](
+        "winPercent",
+        "Winning chances",
+        F.moves("w"),
+        Move,
+        "Chances to win a position, based on Stockfish evaluation. A.k.a. Win%"
+      )
+
+  case object ClockPercentRange
+      extends InsightDimension[ClockPercentRange](
+        "clockPercent",
         "Time pressure",
         F.moves("s"),
         Move,
-        "How close a player is to flagging while making a move. 0% = full time on the clock, 100% = flagging."
+        "Time left on the player clock, accounting for increment. 100% = full clock, 0% = flagging."
       )
 
   def requiresStableRating(d: InsightDimension[_]) =
@@ -243,11 +263,13 @@ object InsightDimension {
       case PieceRole               => chess.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
       case CplRange                => lila.insight.CplRange.all
+      case AccuracyPercentRange    => lila.insight.AccuracyPercentRange.all.toList
       case MyCastling | OpCastling => lila.insight.Castling.all
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
       case EvalRange               => lila.insight.EvalRange.all
-      case TimePressureRange       => lila.insight.TimePressureRange.all
+      case WinPercentRange         => lila.insight.WinPercentRange.all.toList
+      case ClockPercentRange       => lila.insight.ClockPercentRange.all.toList
       case Blur                    => lila.insight.Blur.all
       case TimeVariance            => lila.insight.TimeVariance.all
     }
@@ -267,11 +289,13 @@ object InsightDimension {
       case PieceRole               => chess.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
       case CplRange                => key.toIntOption flatMap lila.insight.CplRange.byId.get
+      case AccuracyPercentRange    => key.toIntOption flatMap lila.insight.AccuracyPercentRange.byPercent.get
       case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
       case EvalRange               => key.toIntOption flatMap lila.insight.EvalRange.byId.get
-      case TimePressureRange       => key.toIntOption flatMap lila.insight.TimePressureRange.byId.get
+      case WinPercentRange         => key.toIntOption flatMap lila.insight.WinPercentRange.byPercent.get
+      case ClockPercentRange       => key.toIntOption flatMap lila.insight.ClockPercentRange.byPercent.get
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
     }
@@ -298,11 +322,13 @@ object InsightDimension {
       case PieceRole               => v.name
       case MovetimeRange           => v.id
       case CplRange                => v.cpl
+      case AccuracyPercentRange    => v.bottom.toInt
       case MyCastling | OpCastling => v.id
       case QueenTrade              => v.id
       case MaterialRange           => v.id
       case EvalRange               => v.id
-      case TimePressureRange       => v.id
+      case WinPercentRange         => v.bottom.toInt
+      case ClockPercentRange       => v.bottom.toInt
       case Blur                    => v.id
       case TimeVariance            => v.id
     }).toString
@@ -322,17 +348,31 @@ object InsightDimension {
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)
       case CplRange                => JsString(v.name)
+      case AccuracyPercentRange    => JsString(v.name)
       case MyCastling | OpCastling => JsString(v.name)
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
       case EvalRange               => JsString(v.name)
-      case TimePressureRange       => JsString(v.name)
+      case WinPercentRange         => JsString(v.name)
+      case ClockPercentRange       => JsString(v.name)
       case Blur                    => JsString(v.name)
       case TimeVariance            => JsString(v.name)
     }
 
   def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc = {
     import cats.implicits._
+
+    def percentRange[V: BSONWriter](toRange: X => (V, V), fromPercent: Int => V) = selected match {
+      case Nil => $empty
+      case many =>
+        $doc(
+          "$or" -> many.map(toRange).map {
+            case (min, max) if min == fromPercent(0)   => $doc(d.dbKey $lt max)
+            case (min, max) if max == fromPercent(100) => $doc(d.dbKey $gte min) // hole at 90%? #TODO
+            case (min, max)                            => $doc(d.dbKey $gte min $lt max)
+          }
+        )
+    }
     d match {
       case InsightDimension.MovetimeRange =>
         selected match {
@@ -377,6 +417,12 @@ object InsightDimension {
               }
             )
         }
+      case InsightDimension.WinPercentRange =>
+        percentRange(lila.insight.WinPercentRange.toRange, WinPercent.fromPercent)
+      case InsightDimension.AccuracyPercentRange =>
+        percentRange(lila.insight.AccuracyPercentRange.toRange, AccuracyPercent.fromPercent)
+      case InsightDimension.ClockPercentRange =>
+        percentRange(lila.insight.ClockPercentRange.toRange, ClockPercent.fromPercent)
       case InsightDimension.TimeVariance =>
         selected match {
           case Nil => $empty
@@ -398,9 +444,11 @@ object InsightDimension {
 
   def requiresAnalysis(d: InsightDimension[_]) =
     d match {
-      case CplRange  => true
-      case EvalRange => true
-      case _         => false
+      case CplRange             => true
+      case AccuracyPercentRange => true
+      case EvalRange            => true
+      case WinPercentRange      => true
+      case _                    => false
     }
 
   def dataTypeOf[X](d: InsightDimension[X]): String =

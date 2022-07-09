@@ -6,7 +6,7 @@ import lila.common.{ LilaOpening, LilaOpeningFamily }
 
 final class JsonView {
 
-  import lila.insight.{ InsightDimension => D, Metric => M }
+  import lila.insight.{ InsightDimension => D, InsightMetric => M }
   import writers._
 
   case class Categ(name: String, items: List[JsValue])
@@ -55,20 +55,22 @@ final class JsonView {
       ),
       Categ(
         "Move",
-        List(
+        asMod.?? {
+          List(
+            Json.toJson(D.Blur: InsightDimension[_]),
+            Json.toJson(D.TimeVariance: InsightDimension[_]),
+            Json.toJson(D.EvalRange: InsightDimension[_]),
+            Json.toJson(D.CplRange: InsightDimension[_])
+          )
+        } ::: List(
           Json.toJson(D.PieceRole: InsightDimension[_]),
           Json.toJson(D.MovetimeRange: InsightDimension[_]),
-          Json.toJson(D.TimePressureRange: InsightDimension[_]),
+          Json.toJson(D.ClockPercentRange: InsightDimension[_]),
           Json.toJson(D.MaterialRange: InsightDimension[_]),
-          Json.toJson(D.EvalRange: InsightDimension[_]),
-          Json.toJson(D.Phase: InsightDimension[_]),
-          Json.toJson(D.CplRange: InsightDimension[_])
-        ) ::: {
-          asMod ?? List(
-            Json.toJson(D.Blur: InsightDimension[_]),
-            Json.toJson(D.TimeVariance: InsightDimension[_])
-          )
-        }
+          Json.toJson(D.AccuracyPercentRange: InsightDimension[_]),
+          Json.toJson(D.WinPercentRange: InsightDimension[_]),
+          Json.toJson(D.Phase: InsightDimension[_])
+        )
       ),
       Categ(
         "Result",
@@ -83,65 +85,54 @@ final class JsonView {
       Categ(
         "Setup",
         List(
-          Json.toJson(M.OpponentRating: Metric)
+          Json.toJson(M.OpponentRating: InsightMetric)
         )
       ),
       Categ(
         "Move",
-        List(
-          Json.toJson(M.Movetime: Metric),
-          Json.toJson(M.TimePressure: Metric),
-          Json.toJson(M.PieceRole: Metric),
-          Json.toJson(M.Material: Metric),
-          Json.toJson(M.NbMoves: Metric)
-        ) ++ {
-          asMod ?? List(
-            Json.toJson(M.Blurs: Metric),
-            Json.toJson(M.TimeVariance: Metric)
+        asMod.?? {
+          List(
+            Json.toJson(M.Blurs: InsightMetric),
+            Json.toJson(M.TimeVariance: InsightMetric)
           )
-        }
+        } ::: List(
+          Json.toJson(M.Movetime: InsightMetric),
+          Json.toJson(M.ClockPercent: InsightMetric),
+          Json.toJson(M.PieceRole: InsightMetric),
+          Json.toJson(M.Material: InsightMetric),
+          Json.toJson(M.NbMoves: InsightMetric)
+        )
       ),
       Categ(
         "Evaluation",
         List(
-          Json.toJson(M.MeanAccuracy: Metric),
-          Json.toJson(M.MeanCpl: Metric),
-          Json.toJson(M.CplBucket: Metric),
-          Json.toJson(M.Awareness: Metric),
-          Json.toJson(M.Luck: Metric)
+          Json.toJson(M.MeanAccuracy: InsightMetric),
+          Json.toJson(M.MeanCpl: InsightMetric),
+          Json.toJson(M.CplBucket: InsightMetric),
+          Json.toJson(M.Awareness: InsightMetric),
+          Json.toJson(M.Luck: InsightMetric)
         )
       ),
       Categ(
         "Result",
         List(
-          Json.toJson(M.Termination: Metric),
-          Json.toJson(M.Result: Metric),
-          Json.toJson(M.Performance: Metric),
-          Json.toJson(M.RatingDiff: Metric)
+          Json.toJson(M.Termination: InsightMetric),
+          Json.toJson(M.Result: InsightMetric),
+          Json.toJson(M.Performance: InsightMetric),
+          Json.toJson(M.RatingDiff: InsightMetric)
         )
       )
     )
 
-    Json.obj(
-      "dimensionCategs" -> dimensionCategs,
-      "metricCategs"    -> metricCategs,
-      "presets"         -> { if (asMod) Preset.forMod else Preset.base }
-    )
+    Json
+      .obj(
+        "dimensionCategs" -> dimensionCategs,
+        "metricCategs"    -> metricCategs
+      )
+      .add("asMod" -> asMod)
   }
 
   private object writers {
-
-    implicit def presetWriter[X]: Writes[Preset] =
-      Writes { p =>
-        Json.obj(
-          "name"      -> p.name,
-          "dimension" -> p.question.dimension.key,
-          "metric"    -> p.question.metric.key,
-          "filters" -> JsObject(p.question.filters.map { case Filter(dimension, selected) =>
-            dimension.key -> JsArray(selected.map(InsightDimension.valueKey(dimension)).map(JsString.apply))
-          })
-        )
-      }
 
     implicit def dimensionWriter[X](implicit lang: Lang): Writes[InsightDimension[X]] =
       Writes { d =>
@@ -154,7 +145,7 @@ final class JsonView {
         )
       }
 
-    implicit val metricWriter: Writes[Metric] = Writes { m =>
+    implicit val metricWriter: Writes[InsightMetric] = Writes { m =>
       Json.obj(
         "key"         -> m.key,
         "name"        -> m.name,

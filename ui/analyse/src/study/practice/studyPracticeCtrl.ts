@@ -1,6 +1,6 @@
 import * as xhr from '../studyXhr';
 import { prop } from 'common';
-import { storedProp } from 'common/storage';
+import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
@@ -12,7 +12,7 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     nbMoves = prop(0),
     // null = ongoing, true = win, false = fail
     success = prop<boolean | null>(null),
-    autoNext = storedProp('practice-auto-next', true);
+    autoNext = storedBooleanProp('practice-auto-next', true);
 
   lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`, true);
   lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`, true);

@@ -43,7 +43,7 @@ import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
 import { Opening } from '../explorer/interfaces';
-import { storedProp, storedMap } from 'common/storage';
+import { storedMap, storedBooleanProp } from 'common/storage';
 import { opposite } from 'chessops/util';
 
 interface Handlers {
@@ -85,8 +85,8 @@ export default function (
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
-  const relayRecProp = storedProp('relay.rec', true);
-  const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => false);
+  const relayRecProp = storedBooleanProp('relay.rec', true);
+  const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
 
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;

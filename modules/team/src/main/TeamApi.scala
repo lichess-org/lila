@@ -104,6 +104,25 @@ final class TeamApi(
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
+  def joinedTeamsOfUserAsSeenBy(member: User, viewer: Option[User]): Fu[List[Team.ID]] =
+    cached
+      .teamIdsList(member.id)
+      .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
+      if (viewer.exists(_ is member)) fuccess(allIds)
+      else
+        allIds.nonEmpty ?? {
+          teamRepo.filterHideMembers(allIds) flatMap { hiddenIds =>
+            if (hiddenIds.isEmpty) fuccess(allIds)
+            else
+              viewer.map(_.id).fold(fuccess(Team.IdsStr.empty))(cached.teamIds) map { viewerTeamIds =>
+                allIds.filter { id =>
+                  !hiddenIds(id) || viewerTeamIds.contains(id)
+                }
+              }
+          }
+        }
+    }
+
   def countCreatedRecently(me: User): Fu[Int] =
     teamRepo.countCreatedSince(me.id, Period weeks 1)
 
@@ -162,11 +181,10 @@ final class TeamApi(
       }
     }
 
-  def cancelRequest(teamId: Team.ID, user: User): Fu[Option[Team]] =
-    teamRepo.coll.byId[Team](teamId) flatMap {
-      _ ?? { team =>
-        requestRepo.cancel(team.id, user) map (_ option team)
-      }
+  def cancelRequestOrQuit(team: Team, user: User): Funit =
+    requestRepo.cancel(team.id, user) flatMap {
+      case false => quit(team, user.id)
+      case true  => funit
     }
 
   def processRequest(team: Team, request: Request, decision: String): Funit = {
@@ -204,22 +222,18 @@ final class TeamApi(
       } recover lila.db.ignoreDuplicateKey
     }
 
-  def quit(teamId: Team.ID, me: User): Fu[Option[Team]] =
-    teamRepo.coll.byId[Team](teamId) flatMap {
-      _ ?? { team =>
-        doQuit(team, me.id) inject team.some
-      }
-    }
-
   def teamsOf(username: String) =
     cached.teamIdsList(User normalize username) flatMap {
       teamRepo.coll.byIds[Team](_, ReadPreference.secondaryPreferred)
     }
 
-  private def doQuit(team: Team, userId: User.ID): Funit =
-    memberRepo.remove(team.id, userId) map { res =>
-      if (res.n == 1) teamRepo.incMembers(team.id, -1)
-      cached.invalidateTeamIds(userId)
+  def quit(team: Team, userId: User.ID): Funit =
+    memberRepo.remove(team.id, userId) flatMap { res =>
+      (res.n == 1) ?? {
+        teamRepo.incMembers(team.id, -1) >>
+          (team.leaders contains userId) ?? teamRepo.setLeaders(team.id, team.leaders - userId)
+      } >>-
+        cached.invalidateTeamIds(userId)
     }
 
   def quitAll(userId: User.ID): Fu[List[Team.ID]] =
@@ -241,7 +255,7 @@ final class TeamApi(
     }
 
   def kick(team: Team, userId: User.ID, me: User): Funit =
-    doQuit(team, userId) >>
+    quit(team, userId) >>
       (!team.leaders(me.id)).?? {
         modLog.teamKick(me.id, userId, team.name)
       } >>-

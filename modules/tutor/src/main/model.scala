@@ -5,9 +5,10 @@ import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
-import lila.insight.InsightPerfStats
+import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats, MeanRating }
 import lila.rating.PerfType
 import lila.user.User
+import lila.analyse.AccuracyPercent
 
 case class Rating(value: Double) extends AnyVal
 object Rating {
@@ -20,16 +21,27 @@ case class ValueCount[V](value: V, count: Int) {
   def relevantTo(total: Int) = reliableEnough && count * 10 > total
 }
 
-case class TutorMetric[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]) {
-  def map[B: Ordering](f: A => B) = TutorMetric(mine map f, peer map (_ map f))
+case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]) {
+  def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer map (_ map f))
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
-  def toOption                    = TutorMetricOption(mine.some, peer)
+  def toOption                    = TutorBothValueOptions(mine.some, peer)
 }
-case class TutorMetricOption[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(implicit
+case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(implicit
     o: Ordering[A]
 ) {
-  def map[B: Ordering](f: A => B) = TutorMetricOption(mine map (_ map f), peer map (_ map f))
+  def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine map (_ map f), peer map (_ map f))
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
+}
+
+sealed abstract class TutorMetric[V](val metric: InsightMetric)
+
+object TutorMetric {
+  case object GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  // time used when losing ((100 - clockPercent) on last move)
+  case object ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  case object Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
+  case object Awareness   extends TutorMetric[TutorRatio](InsightMetric.Awareness)
+  case object Performance extends TutorMetric[Rating](InsightMetric.Performance)
 }
 
 case class TutorRatio(value: Double) extends AnyVal {
@@ -44,14 +56,6 @@ object TutorRatio {
 
   implicit val zero     = Zero(TutorRatio(0))
   implicit val ordering = Ordering.by[TutorRatio, Double](_.value)
-}
-
-case class TimePressure(value: Double) extends AnyVal {
-  def percent = value * 100
-}
-object TimePressure {
-  def fromPercent(p: Double): TimePressure = TimePressure(p / 100)
-  implicit val ordering                    = Ordering.by[TimePressure, Double](-_.value)
 }
 
 // value from -1 (worse) to +1 (best)

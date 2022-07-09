@@ -13,48 +13,23 @@ import lila.rating.PerfType
 
 object BSONHandlers {
 
-  implicit val RelativeStrengthBSONHandler = tryHandler[RelativeStrength](
-    { case BSONInteger(v) => RelativeStrength.byId get v toTry s"Invalid relative strength $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val ResultBSONHandler = tryHandler[Result](
-    { case BSONInteger(v) => Result.byId get v toTry s"Invalid result $v" },
-    e => BSONInteger(e.id)
-  )
-
-  implicit val PhaseBSONHandler = tryHandler[Phase](
-    { case BSONInteger(v) => Phase.byId get v toTry s"Invalid phase $v" },
-    e => BSONInteger(e.id)
-  )
   implicit val RoleBSONHandler = tryHandler[Role](
     { case BSONString(v) => Role.allByForsyth get v.head toTry s"Invalid role $v" },
     e => BSONString(e.forsyth.toString)
   )
-  implicit val TerminationBSONHandler = tryHandler[Termination](
-    { case BSONInteger(v) => Termination.byId get v toTry s"Invalid termination $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val MovetimeRangeBSONHandler = tryHandler[MovetimeRange](
-    { case BSONInteger(v) => MovetimeRange.byId get v toTry s"Invalid movetime range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val CastlingBSONHandler = tryHandler[Castling](
-    { case BSONInteger(v) => Castling.byId get v toTry s"Invalid Castling $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val MaterialRangeBSONHandler = tryHandler[MaterialRange](
-    { case BSONInteger(v) => MaterialRange.byId get v toTry s"Invalid material range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val EvalRangeBSONHandler = tryHandler[EvalRange](
-    { case BSONInteger(v) => EvalRange.byId get v toTry s"Invalid eval range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val TimePressureRangeBSONHandler = tryHandler[TimePressureRange](
-    { case BSONInteger(v) => TimePressureRange.byId get v toTry s"Invalid time pressure range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val QueenTradeBSONHandler = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
+  implicit val RelativeStrengthBSONHandler = valueMapHandler(RelativeStrength.byId)(_.id)
+  implicit val ResultBSONHandler           = valueMapHandler(Result.byId)(_.id)
+  implicit val PhaseBSONHandler            = valueMapHandler(Phase.byId)(_.id)
+  implicit val TerminationBSONHandler      = valueMapHandler(Termination.byId)(_.id)
+  implicit val MovetimeRangeBSONHandler    = valueMapHandler(MovetimeRange.byId)(_.id)
+  implicit val CastlingBSONHandler         = valueMapHandler(Castling.byId)(_.id)
+  implicit val MaterialRangeBSONHandler    = valueMapHandler(MaterialRange.byId)(_.id)
+  implicit val EvalRangeBSONHandler        = valueMapHandler(EvalRange.byId)(_.id)
+  implicit val WinPercentRangeReader       = valueMapHandler(WinPercentRange.byPercent)(_.bottom.toInt)
+  implicit val AccuracyPercentRangeReader  = valueMapHandler(AccuracyPercentRange.byPercent)(_.bottom.toInt)
+  implicit val ClockPercentRangeReader     = valueMapHandler(ClockPercentRange.byPercent)(_.bottom.toInt)
+  implicit val QueenTradeBSONHandler       = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
+  implicit val CplRangeBSONHandler         = valueMapHandler(CplRange.byId)(_.cpl)
 
   private val BSONBooleanNullHandler = quickHandler[Boolean](
     { case BSONBoolean(v) => v; case BSONNull => false },
@@ -68,21 +43,17 @@ object BSONHandlers {
     v => (v.id * TimeVariance.intFactor).toInt
   )
 
-  implicit val CplRangeBSONHandler = tryHandler[CplRange](
-    { case BSONInteger(v) => CplRange.byId get v toTry s"Invalid CPL range $v" },
-    e => BSONInteger(e.cpl)
-  )
-
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
   implicit val PeriodBSONHandler    = intAnyValHandler[Period](_.days, Period.apply)
-  implicit val timePressureHandler  = doubleAsIntHandler[TimePressure](_.value, TimePressure.apply, 1000)
+  implicit val clockPercentHandler: BSONHandler[ClockPercent] =
+    percentAsIntHandler[ClockPercent](_.value, ClockPercent.apply)
 
   implicit def MoveBSONHandler = new BSON[InsightMove] {
     def reads(r: BSON.Reader) =
       InsightMove(
         phase = r.get[Phase]("p"),
         tenths = r.get[Int]("t"),
-        timePressure = r.get[TimePressure]("s"),
+        clockPercent = r.get[ClockPercent]("s"),
         role = r.get[Role]("r"),
         eval = r.intO("e"),
         cpl = r.intO("c"),
@@ -98,7 +69,7 @@ object BSONHandlers {
       BSONDocument(
         "p" -> b.phase,
         "t" -> b.tenths,
-        "s" -> b.timePressure,
+        "s" -> b.clockPercent,
         "r" -> b.role,
         "e" -> b.eval,
         "c" -> b.cpl,
