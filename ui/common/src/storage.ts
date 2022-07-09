@@ -10,7 +10,8 @@ export function storedProp<V>(
   k: string,
   defaultValue: V,
   fromStr: (str: string) => V,
-  toStr: (v: V) => string
+  toStr: (v: V) => string,
+  effect?: (value: V) => void
 ): StoredProp<V> {
   const sk = 'analyse.' + k; // historical blunder
   let cached: V;
@@ -18,6 +19,7 @@ export function storedProp<V>(
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
       storage.set(sk, toStr(replacement));
+      if (defined(effect)) effect(replacement);
     } else if (!defined(cached)) {
       const str = storage.get(sk);
       cached = str === null ? defaultValue : fromStr(str);
@@ -26,28 +28,39 @@ export function storedProp<V>(
   };
 }
 
-export const storedStringProp = (k: string, defaultValue: string): StoredProp<string> =>
+export const storedStringProp = (
+  k: string,
+  defaultValue: string,
+  effect?: (value: string) => void
+): StoredProp<string> =>
   storedProp<string>(
     k,
     defaultValue,
     str => str,
-    v => v
+    v => v,
+    effect
   );
 
-export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<boolean> =>
+export const storedBooleanProp = (
+  k: string,
+  defaultValue: boolean,
+  effect?: (value: boolean) => void
+): StoredProp<boolean> =>
   storedProp<boolean>(
     k,
     defaultValue,
     str => str === 'true',
-    v => v.toString()
+    v => v.toString(),
+    effect
   );
 
-export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
+export const storedIntProp = (k: string, defaultValue: number, effect?: (value: number) => void): StoredProp<number> =>
   storedProp<number>(
     k,
     defaultValue,
     str => parseInt(str),
-    v => v + ''
+    v => v + '',
+    effect
   );
 
 export interface StoredJsonProp<V> {

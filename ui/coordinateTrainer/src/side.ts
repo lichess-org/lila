@@ -2,6 +2,7 @@ import { h, VNode, VNodes } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import CoordinateTrainerCtrl from './ctrl';
 import { ColorChoice, TimeControl, Mode } from './interfaces';
+import { boolSetting } from './boolSetting';
 
 const colors: [ColorChoice, string][] = [
   ['black', 'asBlack'],
@@ -172,6 +173,18 @@ const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
     )
   );
 
+const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
+  const { trans, redraw, showCoordinates, showPieces } = ctrl;
+  return h('div.settings', [
+    boolSetting(
+      { name: 'Show coordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
+      trans,
+      redraw
+    ),
+    boolSetting({ name: 'Show pieces', id: 'showPieces', checked: showPieces(), change: showPieces }, trans, redraw),
+  ]);
+};
+
 const side = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.side', [
     h('div.box', h('h1', ctrl.trans('coordinates'))),
@@ -186,6 +199,7 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
           ctrl.hasPlayed ? scoreBox(ctrl) : null,
           ...configurationButtons(ctrl),
           ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
+          settings(ctrl),
         ]),
   ]);
 

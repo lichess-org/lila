@@ -21,7 +21,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
   return {
     orientation: ctrl.orientation,
     blockTouchScroll: true,
-    coordinates: false,
+    coordinates: ctrl.showCoordinates(),
     addPieceZIndex: ctrl.config.is3d,
     movable: { free: false, color: undefined },
     drawable: { enabled: false },

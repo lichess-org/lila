@@ -1,7 +1,7 @@
 import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
-import { storedProp } from 'common/storage';
+import { storedBooleanProp, storedProp } from 'common/storage';
 import { Api as CgApi } from 'chessground/api';
 import { ColorChoice, TimeControl, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
 
@@ -45,6 +45,16 @@ export default class CoordinateTrainerCtrl {
     str => str as TimeControl,
     v => v
   );
+  onChangeShowCoordinates = (show: boolean) => {
+    this.chessground?.set({ coordinates: show });
+    this.chessground?.redrawAll();
+  };
+  showCoordinates = storedBooleanProp(
+    'coordinateTrainer.showCoordinates',
+    document.body.classList.contains('kid'),
+    this.onChangeShowCoordinates
+  );
+  showPieces = storedBooleanProp('coordinateTrainer.showPieces', true);
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
   isAuth: boolean;
