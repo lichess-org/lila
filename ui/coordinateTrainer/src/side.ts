@@ -27,12 +27,12 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               id: `coord_mode_${mode}`,
               name: 'mode',
               value: mode,
-              checked: mode === ctrl.mode,
+              checked: mode === ctrl.mode(),
             },
             on: {
               change: e => {
                 const target = e.target as HTMLInputElement;
-                ctrl.setMode(target.value as Mode);
+                ctrl.mode(target.value as Mode);
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
@@ -67,7 +67,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             on: {
               change: e => {
                 const target = e.target as HTMLInputElement;
-                ctrl.setTimeControl(target.value as TimeControl);
+                ctrl.timeControl(target.value as TimeControl);
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
@@ -102,7 +102,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             on: {
               change: e => {
                 const target = e.target as HTMLInputElement;
-                ctrl.setColorChoice(target.value as ColorChoice);
+                ctrl.colorChoice(target.value as ColorChoice);
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
@@ -130,8 +130,8 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
     h(
       'div.scores',
       [
-        ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode].white],
-        ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode].black],
+        ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode()].white],
+        ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode()].black],
       ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
         scoreList.length
           ? h('div.color-chart', [
