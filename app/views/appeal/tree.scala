@@ -14,10 +14,17 @@ object tree {
   import trans.contact.doNotMessageModerators
   import views.html.base.navTree._
 
+  val cleanAllGood = "Your account is not marked or restricted. You're all good!";
+  val engineMarked = "Your account is marked for illegal assistance in games.";
+  val boosterMarked = "Your account is marked for rating manipulation.";
+  val accountMuted = "Your account is muted.";
+  val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
+  val closedByModerators = "Your account was closed by moderators.";
+
   private def cleanMenu(implicit ctx: Context): Branch =
     Branch(
       "root",
-      "Your account is not marked or restricted. You're all good!",
+      cleanAllGood,
       List(
         Leaf(
           "clean-other-account",
@@ -66,7 +73,7 @@ object tree {
       "I deny having used outside assistance in my games."
     Branch(
       "root",
-      "Your account is marked for illegal assistance in games.",
+      engineMarked,
       List(
         Leaf(
           "engine-accept",
@@ -112,7 +119,7 @@ object tree {
       "I deny having manipulated my rating. I have never lost rated games on purpose, or played several games with someone who does."
     Branch(
       "root",
-      "Your account is marked for rating manipulation.",
+      boosterMarked,
       List(
         Leaf(
           "boost-accept",
@@ -145,7 +152,7 @@ object tree {
       "I have followed the communication guidelines"
     Branch(
       "root",
-      "Your account is muted.",
+      accountMuted,
       List(
         Leaf(
           "mute-accept",
@@ -183,7 +190,7 @@ object tree {
       "I deny having manipulated my account to get on the leaderboard."
     Branch(
       "root",
-      "Your account has been excluded from leaderboards.",
+      excludedFromLeaderboards,
       List(
         Leaf(
           "rankban-accept",
@@ -256,7 +263,7 @@ object tree {
   }
 
   private def altScreen(implicit ctx: Context) = div(cls := "leaf")(
-    h2("Your account was closed by moderators."),
+    h2(closedByModerators),
     div(cls := "content")(
       p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
       p(
