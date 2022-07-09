@@ -334,6 +334,20 @@ final class Puzzle(
     }
   }
 
+  def openingAndColor(opName: String, colName: String) = Open { implicit ctx =>
+    NoBot {
+      PuzzleAngle.findOpening(opName).fold(Redirect(routes.Puzzle.openings()).fuccess) { opening =>
+        ctx.me.?? { me =>
+          chess.Color.fromName(colName).?? { color =>
+            env.puzzle.session.setAngleAndColor(me, opening, color)
+          }
+        } >> nextPuzzleForMe(opening) flatMap {
+          renderShow(_, opening)
+        }
+      }
+    }
+  }
+
   def frame =
     Action.async { implicit req =>
       env.puzzle.daily.get map {

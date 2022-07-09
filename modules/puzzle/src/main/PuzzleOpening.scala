@@ -95,6 +95,17 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
         }
     }
 
+  def getClosestTo(
+      opening: FullOpening
+  ): Fu[Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]] =
+    LilaOpening(opening) ?? { lilaOp =>
+      collection map { coll =>
+        coll.openingMap.get(lilaOp.key).map(Right.apply) orElse {
+          coll.familyMap.get(lilaOp.family.key).map(Left.apply)
+        }
+      }
+    }
+
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache get {}
 

@@ -17,7 +17,7 @@ import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'tree';
-import { render as acplView } from './acpl';
+import { render as trainingView } from './roundTraining';
 import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
 import * as control from './control';
@@ -484,7 +484,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
             },
             study ? studyView.underboard(ctrl) : [inputs(ctrl)]
           ),
-      tour ? null : acplView(ctrl),
+      tour ? null : trainingView(ctrl),
       ctrl.embed
         ? null
         : ctrl.studyPractice

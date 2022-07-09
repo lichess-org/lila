@@ -24,6 +24,12 @@ export interface AnalyseApi {
   setChapter(id: string): void;
 }
 
+export interface OpeningPuzzle {
+  key: string;
+  name: string;
+  count: number;
+}
+
 // similar, but not identical, to game/GameData
 export interface AnalyseData {
   game: Game;
@@ -47,6 +53,7 @@ export interface AnalyseData {
   userTv?: {
     id: string;
   };
+  puzzle?: OpeningPuzzle;
 }
 
 export interface AnalysePref {

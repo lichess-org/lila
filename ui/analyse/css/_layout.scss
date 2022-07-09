@@ -47,8 +47,12 @@ body {
     }
   }
 
-  &__acpl {
-    grid-area: acpl;
+  &__round-training {
+    grid-area: round-training;
+  }
+
+  &__puzzle {
+    grid-area: puzzle;
   }
 
   .chat__members {
@@ -72,7 +76,7 @@ body {
     'controls'
     'tools'
     'side'
-    'acpl'
+    'round-training'
     'under'
     'chat'
     'uchat';
@@ -83,7 +87,7 @@ body {
     grid-template-areas:
       'board      gauge tools'
       'under      .     controls'
-      'under      .     acpl'
+      'under      .     round-training'
       'under      .     side'
       'chat       .     side'
       'uchat      .     side';
@@ -119,7 +123,7 @@ body {
       'side    . board gauge tools'
       'chat    . board gauge tools'
       'uchat   . under .     controls'
-      'uchat   . under .     acpl';
+      'uchat   . under .     round-training';
 
     &__side {
       margin-top: 0;

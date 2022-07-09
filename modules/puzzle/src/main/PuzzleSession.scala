@@ -76,6 +76,11 @@ final class PuzzleSessionApi(
       )
     }
 
+  def setAngleAndColor(user: User, angle: PuzzleAngle, color: Color): Funit =
+    updateSession(user) { prev =>
+      createSessionFor(user, angle, PuzzleSettings(PuzzleDifficulty.default, color.some))
+    }
+
   private[puzzle] def set(user: User, session: PuzzleSession) = sessions.put(user.id, fuccess(session))
 
   private def updateSession(user: User)(f: Option[PuzzleSession] => Fu[PuzzleSession]): Funit =

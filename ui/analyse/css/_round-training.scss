@@ -1,3 +1,15 @@
+.analyse__puzzle {
+  margin-top: $block-gap;
+  a {
+    @extend %flex-center-nowrap;
+    text-transform: inherit;
+    text-align: $start-direction;
+    &::before {
+      font-size: 2.8em;
+    }
+  }
+}
+
 .advice-summary {
   @extend %flex-column;
 

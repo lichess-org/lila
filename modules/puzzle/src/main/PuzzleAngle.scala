@@ -41,6 +41,9 @@ object PuzzleAngle {
       .orElse(LilaOpeningFamily.find(key).map(apply))
       .orElse(LilaOpening.find(key).map(apply))
 
+  def findOpening(key: String): Option[PuzzleAngle.Opening] =
+    find(key) collect { case opening: Opening => opening }
+
   val mix: PuzzleAngle = apply(PuzzleTheme.mix)
 
   def findOrMix(key: String): PuzzleAngle = find(key) | mix
