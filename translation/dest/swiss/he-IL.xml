@@ -7,6 +7,18 @@
     <item quantity="many">צפו בכל %s הסיבובים</item>
     <item quantity="other">צפו בכל %s הסיבובים</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">סבב %s</item>
+    <item quantity="two">%s סבבים</item>
+    <item quantity="many">%s סבבים</item>
+    <item quantity="other">%s סבבים</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">סיבוב אחד ליום</item>
+    <item quantity="two">סיבוב אחד כל %s ימים</item>
+    <item quantity="many">סיבוב אחד כל %s ימים</item>
+    <item quantity="other">סיבוב אחד כל %s ימים</item>
+  </plurals>
   <string name="roundsAreStartedManually">סבבים מתחילים באופן ידני</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">שנייה אחת בין סבבים</item>
@@ -22,6 +34,12 @@
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">מתחילים בעוד</string>
   <string name="nextRound">הסבב הבא</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">משחק נוכחי</item>
+    <item quantity="two">משחקים נוכחיים</item>
+    <item quantity="many">משחקים נוכחיים</item>
+    <item quantity="other">משחקים נוכחיים</item>
+  </plurals>
   <string name="tournStartDate">תאריך תחילת הטורניר</string>
   <string name="numberOfRounds">מספר סבבים</string>
   <string name="numberOfRoundsHelp">במקרה של מספר סבבים אי-זוגי חלוקת הצבעים תהיה אופטימלית.</string>
