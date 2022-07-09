@@ -54,7 +54,12 @@ export default class CoordinateTrainerCtrl {
     document.body.classList.contains('kid'),
     this.onChangeShowCoordinates
   );
-  showPieces = storedBooleanProp('coordinateTrainer.showPieces', true);
+  onChangeShowPieces = () => {
+    this.chessground?.set({ fen: this.boardFEN() });
+    this.chessground?.redrawAll();
+  };
+  showPieces = storedBooleanProp('coordinateTrainer.showPieces', true, this.onChangeShowPieces);
+  boardFEN = () => (this.showPieces() ? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' : '8/8/8/8/8/8/8/8');
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
   isAuth: boolean;

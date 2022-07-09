@@ -19,6 +19,7 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
 
 function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
   return {
+    fen: ctrl.boardFEN(),
     orientation: ctrl.orientation,
     blockTouchScroll: true,
     coordinates: ctrl.showCoordinates(),
