@@ -319,7 +319,7 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
   };
 }
 
-const shortCommands = ['p', 'scan'];
+const shortCommands = ['p', 's'];
 
 function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0]);
