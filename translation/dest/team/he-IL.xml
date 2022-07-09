@@ -14,6 +14,7 @@
   <string name="myTeams">הקבוצות שלי</string>
   <string name="noTeamFound">לא נמצאה קבוצה</string>
   <string name="joinTeam">הצטרף לקבוצה</string>
+  <string name="onlyLeaderLeavesTeam">אנא מנה מנהיג חדש לקבוצה טרם עזיבתך, או סגור את הקבוצה.</string>
   <string name="quitTeam">צא מהקבוצה</string>
   <string name="manuallyReviewAdmissionRequests">אשר מצטרפים לקבוצה באופן ידני</string>
   <string name="manuallyReviewAdmissionRequestsHelp">אם שדה זה סומן, שחקנים יצטרכו לכתוב בקשה להצטרפות לקבוצה, ואתה תוכל לאשר או לדחות אותה.</string>
