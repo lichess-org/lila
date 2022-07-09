@@ -40,6 +40,8 @@ object bits {
     trans.coordinates.youCanAnalyseAGameMoreEffectively,
     trans.coordinates.findSquare,
     trans.coordinates.nameSquare,
+    trans.coordinates.showCoordinates,
+    trans.coordinates.showPieces,
     trans.storm.score,
     trans.study.back,
     trans.time,

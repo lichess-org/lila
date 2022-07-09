@@ -177,11 +177,11 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans, redraw, showCoordinates, showPieces } = ctrl;
   return h('div.settings', [
     toggle(
-      { name: 'Show coordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
+      { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
       trans,
       redraw
     ),
-    toggle({ name: 'Show pieces', id: 'showPieces', checked: showPieces(), change: showPieces }, trans, redraw),
+    toggle({ name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces }, trans, redraw),
   ]);
 };
 
