@@ -97,7 +97,7 @@ object discussion {
       ),
       if (modData.isEmpty)
       h2(
-        renderMark(ctx.me.get)
+        ctx.me map renderMark
       ),
       modData map { m =>
         frag(
