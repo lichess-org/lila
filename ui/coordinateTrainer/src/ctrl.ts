@@ -4,6 +4,7 @@ import throttle from 'common/throttle';
 import { storedBooleanProp, storedProp } from 'common/storage';
 import { Api as CgApi } from 'chessground/api';
 import { ColorChoice, TimeControl, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
+import { withEffect } from 'common';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -49,16 +50,15 @@ export default class CoordinateTrainerCtrl {
     this.chessground?.set({ coordinates: show });
     this.chessground?.redrawAll();
   };
-  showCoordinates = storedBooleanProp(
-    'coordinateTrainer.showCoordinates',
-    document.body.classList.contains('kid'),
+  showCoordinates = withEffect<boolean>(
+    storedBooleanProp('coordinateTrainer.showCoordinates', document.body.classList.contains('kid')),
     this.onChangeShowCoordinates
   );
   onChangeShowPieces = () => {
     this.chessground?.set({ fen: this.boardFEN() });
     this.chessground?.redrawAll();
   };
-  showPieces = storedBooleanProp('coordinateTrainer.showPieces', true, this.onChangeShowPieces);
+  showPieces = withEffect<boolean>(storedBooleanProp('coordinateTrainer.showPieces', true), this.onChangeShowPieces);
   boardFEN = () => (this.showPieces() ? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' : '8/8/8/8/8/8/8/8');
   currentKey: Key | '' = 'a1';
   hasPlayed = false;

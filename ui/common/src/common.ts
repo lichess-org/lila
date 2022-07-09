@@ -15,21 +15,30 @@ export interface PropWithEffect<T> extends Prop<T> {}
 // like mithril prop but with type safety
 export const prop = <A>(initialValue: A): Prop<A> => {
   let value = initialValue;
-  const fun = function (v: A | undefined) {
+  return (v?: A) => {
     if (defined(v)) value = v;
     return value;
   };
-  return fun as Prop<A>;
 };
 
 export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): PropWithEffect<A> => {
   let value = initialValue;
-  const fun = function (v: A | undefined) {
+  return (v?: A) => {
     if (defined(v)) {
       value = v;
       effect(v);
     }
     return value;
   };
-  return fun as PropWithEffect<A>;
 };
+
+export const withEffect =
+  <T>(prop: Prop<T>, effect: (v: T) => void): PropWithEffect<T> =>
+  (v?: T) => {
+    let returnValue;
+    if (defined(v)) {
+      returnValue = prop(v);
+      effect(v);
+    } else returnValue = prop();
+    return returnValue;
+  };
