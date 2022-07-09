@@ -12,6 +12,7 @@
   <string name="myTeams">Моите отбори</string>
   <string name="noTeamFound">Не са намерени отбори</string>
   <string name="joinTeam">Присъедини се към отбора</string>
+  <string name="onlyLeaderLeavesTeam">Моля добавете нов лидер преди да напуснете или закрийте отбора.</string>
   <string name="quitTeam">Напусни отбора</string>
   <string name="manuallyReviewAdmissionRequests">Ръчно преглеждайте заявките за прием</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ако са отметнати, играчите ще трябва да напишат заявка за присъединяване към отбора, която можете да откажете или приемете.</string>
