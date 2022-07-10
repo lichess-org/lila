@@ -12,6 +12,8 @@
   <string name="aSquareIsHighlighted">Тақтадағы шаршы жанып тұрғанда, координатын жазуыңыз керек (мысалы, \"e4\"). Жалпы 30 секунд ішінде барынша көп шаршыларды анықтаңыз!</string>
   <string name="youHaveThirtySeconds">30 секунд ішінде барынша көп шаршыны анықтап табыңыз!</string>
   <string name="goAsLongAsYouWant">Асықпай жүрсеңіз болады, уақытта шектеу жоқ!</string>
+  <string name="showCoordinates">Координаттарды көрсету</string>
+  <string name="showPieces">Тастарды көрсету</string>
   <string name="startTraining">Жаттығуды бастау</string>
   <string name="findSquare">Шаршыны табу</string>
   <string name="nameSquare">Шаршы атауы</string>

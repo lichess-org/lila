@@ -12,6 +12,8 @@
   <string name="aSquareIsHighlighted">Musisz znaleźć współrzędne pola podświetlonego na szachownicy (np. \"e4\"). Masz 30 sekund, aby poprawnie wskazać jak najwięcej pól!</string>
   <string name="youHaveThirtySeconds">Masz 30 sekund, aby wskazać tak wiele pól jak to możliwe!</string>
   <string name="goAsLongAsYouWant">Próbuj tak długo, jak chcesz, nie ma limitu czasowego!</string>
+  <string name="showCoordinates">Pokaż współrzędne</string>
+  <string name="showPieces">Pokaż bierki</string>
   <string name="startTraining">Rozpocznij trening</string>
   <string name="findSquare">Znajdź pole</string>
   <string name="nameSquare">Nazwij pole</string>
