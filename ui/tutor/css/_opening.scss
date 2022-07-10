@@ -1,5 +1,6 @@
 .tutor {
   &__opening {
+    margin-bottom: $box-padding-vert;
     .slist tr td {
       font-weight: bold;
       &:last-child {

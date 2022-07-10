@@ -421,7 +421,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   padding-bottom: 3em;
 
   &__top {
-    padding: calc(5vh - 1rem) var(--box-padding);
+    padding: calc(#{$box-padding-vert} - 1rem) var(--box-padding);
     background: $c-bg-clas;
     margin-bottom: 3em;
 

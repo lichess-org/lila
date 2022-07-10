@@ -36,7 +36,7 @@ object opening {
         }
       )
     )(
-      cls := "tutor__opening box box-pad",
+      cls := "tutor__opening box",
       h1(
         a(
           href     := routes.Tutor.openings(user.username, perfReport.perf.key),
@@ -73,7 +73,7 @@ object opening {
         }
       ),
       div(
-        cls := "tutor-card__content"
+        cls := "box__pad"
       )(
         bits.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
         bits.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
