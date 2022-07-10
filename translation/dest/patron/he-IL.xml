@@ -7,10 +7,10 @@
   <string name="becomePatron">הפוך לתומך של ליצ\'ס</string>
   <string name="xBecamePatron">%s הפך לתומך של ליצ\'ס</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s הוא תומך ליצ\'ס חודש %2$s</item>
-    <item quantity="two">%1$s הוא תומך לִיצֶ\'ס%2$s חודשים</item>
-    <item quantity="many">%1$s הוא תומך לִיצֶ\'ס%2$s חודשים</item>
-    <item quantity="other">%1$s הוא תומך ליצ\'ס %2$s חודשים</item>
+    <item quantity="one">%1$s הוא תומך לִיצֶ\'ס חודש %2$s</item>
+    <item quantity="two">%1$s הוא תומך לִיצֶ\'ס %2$s חודשים</item>
+    <item quantity="many">%1$s הוא תומך לִיצֶ\'ס %2$s חודשים</item>
+    <item quantity="other">%1$s הוא תומך לִיצֶ\'ס %2$s חודשים</item>
   </plurals>
   <string name="newPatrons">תומכים חדשים</string>
   <string name="freeChess">שחמט חינם לכולם, לעד!</string>
@@ -20,7 +20,7 @@
   <string name="patronUntil">הפכת לתומך עד %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">אם לא יחודש מנוי התורם, חשבונכם ישוב להיות חשבון רגיל.</string>
   <string name="weAreNonProfit">אנחנו ארגון ללא מטרות רווח כי אנו מאמינים שלכולם צריכה להיות גישה לפלטפורמת שחמט חינמית ברמה עולמית.</string>
-  <string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך כדי לממש את החזון הזה. אם אתם נהנים מלִיצֶ\'סבבקשה שקלו לתרום לנו ולהפוך לתומכ/ת!</string>
+  <string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך כדי לממש את החזון הזה. אם אתם נהנים מלִיצֶ\'ס  בבקשה שקלו לתרום לנו ולהפוך לתומכ/ת!</string>
   <string name="lifetime">לכל החיים</string>
   <string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
   <string name="lifetimePatron">תומך לכל החיים</string>
@@ -32,12 +32,12 @@
   <string name="pleaseEnterAmountInX">בבקשה הכנס סכום ב%s</string>
   <string name="withCreditCard">כרטיס אשראי</string>
   <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
-  <string name="celebratedPatrons">התומכים המהוללים שהופכים את לִיצֶ\'סלאפשרי</string>
+  <string name="celebratedPatrons">התומכים המהוללים שהופכים את לִיצֶ\'ס לאפשרי</string>
   <string name="whereMoneyGoes">לאן הכסף הולך?</string>
   <string name="serversAndDeveloper">בראש ובראשונה, לשרתים חזקים.
-לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של ליצ\'ס.</string>
+לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של  לִיצֶ\'ס .</string>
   <string name="costBreakdown">ראה את מפרט ההוצאות הכלכליות</string>
-  <string name="officialNonProfit">האם ליצ\'ס הוא ארגון ללא מטרות רווח באופן רשמי?</string>
+  <string name="officialNonProfit">האם לִיצֶ\'ס הוא ארגון ללא מטרות רווח באופן רשמי?</string>
   <string name="actOfCreation">כן, הנה מסמך היצירה (בצרפתית)</string>
   <string name="changeMonthlySupport">האם אני יכול/ה לשנות/לבטל את התמיכה החודשית שלי?</string>
   <string name="changeOrContact">כן, בכל זמן נתון, מהעמוד הזה.
@@ -46,7 +46,7 @@
   <string name="otherMethods">האם יש אמצעים אחרים לתרום?</string>
   <string name="bankTransfers">אנחנו מקבלים גם העברות בנקאיות</string>
   <string name="patronFeatures">האם יש יתרונות ששמורים רק עבור תומכים?</string>
-  <string name="noPatronFeatures">לא, מכיוון שליצ\'ס חינמי לחלוטין, לנצח, לכולם. זאת הבטחה. 
+  <string name="noPatronFeatures">לא, מכיוון שלִיצֶ\'ס חינמי לחלוטין, לנצח, לכולם. זאת הבטחה. 
 מה שכן, תומכים מקבלים סמליל חדש ומגניב לפרופיל ויכולות רברוב.</string>
   <string name="featuresComparison">ראה את ההבדלים בין החשבונות</string>
   <plurals name="patronForMonths">
@@ -70,7 +70,7 @@
   <string name="stopPayments">משוך את כרטיס האשראי שלך ועצור את התשלומים:</string>
   <string name="stopPaymentsPayPal">בטל את מינוי הPayPal ועצור את התשלומים:</string>
   <string name="noLongerSupport">לא תומך יותר בליצ\'ס</string>
-  <string name="viewOthers">צפה בתומכי ליצ\'ס אחרים</string>
+  <string name="viewOthers">צפה בתומכי לִיצֶ\'ס אחרים</string>
   <string name="date">תאריך</string>
   <string name="amount">סכום</string>
   <string name="transactionCompleted">העסקה שלך הושלמה, וקבלה על התרומה שלך נשלחה אליך בדוא\"ל.</string>
