@@ -12,6 +12,7 @@
   <string name="myTeams">تیم‌ های من</string>
   <string name="noTeamFound">تیمی پیدا نشد</string>
   <string name="joinTeam">پیوستن به تیم</string>
+  <string name="onlyLeaderLeavesTeam">لطفا قبل از ترک تیم یک رهبر جدید اضافه کنید، یا تیم را ببندید.</string>
   <string name="quitTeam">خروج از تیم</string>
   <string name="manuallyReviewAdmissionRequests">درخواستهای پذیرش را به صورت شخصی و دستی بررسی کنید</string>
   <string name="manuallyReviewAdmissionRequestsHelp">اگر انتخاب شود، بازیکنان نیاز خواهند داشت تا برای پیوستن به تیم یک درخواست بنویسند، که شما می‌توانید آن را قبول یا رد نمایید.</string>
