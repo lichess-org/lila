@@ -32,6 +32,7 @@
   <string name="kingsideAttackDescription">حمله به شاه حریف زمانی که در جناه شاه قلعه رفته است.</string>
   <string name="clearance">پاکسازی</string>
   <string name="defensiveMove">حرکت تدافعی</string>
+  <string name="defensiveMoveDescription">حرکت یا دنباله ای از حرکات که برای جلوگیری از دست دادن مهره یا مزیت لازم است.</string>
   <string name="deflection">منحرف کردن</string>
   <string name="deflectionDescription">حرکتی که حواس مهره حریف را از وظیفه ای که دارد پرت کند (مانند نگهبانی از یک خانه). گاهی اوقات \"بارگذاری بیش از حد\" نیز نامیده می شود.</string>
   <string name="discoveredAttack">حمله برخاستی</string>
@@ -51,6 +52,7 @@
   <string name="hookMateDescription">مات با یک رخ، اسب و یک پیاده در برابر یک پیاده حریف برای محدود کردن راه های فرار شاه دشمن.</string>
   <string name="interference">چنگال</string>
   <string name="interferenceDescription">حرکت دادن یک مهره و حمله کردن به دو مهره هم زمان که بتوان یکی از مهره ها را گرفت، مانند حمله یک اسب به به دو تا رخ بصورت هم زمان.</string>
+  <string name="intermezzoDescription">به جای انجام حرکت مورد انتظار، ابتدا حرکت دیگری را وارد کنید که تهدیدی فوری است که حریف باید به آن پاسخ دهد. به عنوان \"Zwischenzug\" شناخته میشود.</string>
   <string name="knightEndgame">آخر بازی اسب</string>
   <string name="knightEndgameDescription">یک آخر بازی تنها با اسب ها و پیاده ها.</string>
   <string name="long">معمای طولانی</string>
