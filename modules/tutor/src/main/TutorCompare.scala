@@ -41,15 +41,15 @@ object TutorCompare {
       reference: Reference[V]
   )(implicit number: TutorNumber[V]) {
 
-    val comparison = number.compare(value.value, reference.value.value)
+    val grade = number.grade(value.value, reference.value.value)
 
-    val importance = comparison.value * math.sqrt(value.count)
+    val importance = grade.value * math.sqrt(value.count)
 
-    def better                          = comparison.better
-    def worse                           = comparison.worse
+    def better                          = grade.better
+    def worse                           = grade.worse
     def similarTo(other: AnyComparison) = other.dimensionType == dimensionType && other.metric == metric
 
-    override def toString = s"(${comparison.value}) $dimensionType $metric ${value.value} vs $reference"
+    override def toString = s"(${grade.value}) $dimensionType $metric ${value.value} vs $reference"
   }
 
   implicit val comparisonOrdering: Ordering[AnyComparison] =

@@ -554,7 +554,7 @@ export const registerMultipleSelect = () => {
     filter: false,
     width: undefined,
     dropWidth: undefined,
-    maxHeight: 250,
+    maxHeight: undefined,
     position: 'bottom',
     keepOpen: false,
     animate: 'none',

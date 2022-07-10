@@ -10,6 +10,7 @@
   <string name="youCanAnalyseAGameMoreEffectively">Ако разпознавате координатите бързо, ще можете да анализирате игрите по-ефективно.</string>
   <string name="aSquareNameAppears">Когато на дъската се появят координати, щракнете върху съответния квадрат. Имате 30 секунди да разпознаете колкото се може повече квадрата!</string>
   <string name="aSquareIsHighlighted">Когато на дъската се маркира квадрат, въведете координатите на маркирания квадрат. Имате 30 секунди да разпознаете колкото се може повече квадрата!</string>
+  <string name="youHaveThirtySeconds">Имате 30 секунди да намерите колкото се може повече полета!</string>
   <string name="goAsLongAsYouWant">Давайте до колкото си поискате, няма ограничение за време!</string>
   <string name="startTraining">Започни упражнението</string>
   <string name="findSquare">Намери полето</string>

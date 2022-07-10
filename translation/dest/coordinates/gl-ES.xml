@@ -12,6 +12,8 @@
   <string name="aSquareIsHighlighted">Un cadrado está destacado no taboleiro e debes introducir a coordenada (p.ex. \"e4\"). Tes 30 segundos para situar correctamente todos os cadrados que poidas!</string>
   <string name="youHaveThirtySeconds">Tes 30 segundos para marcar correctamente tantas casas do taboleiro como sexa posible!</string>
   <string name="goAsLongAsYouWant">Tes o tempo que queiras, non ha límite de tempo!</string>
+  <string name="showCoordinates">Ver coordenadas</string>
+  <string name="showPieces">Ver pezas</string>
   <string name="startTraining">Comezar adestramento</string>
   <string name="findSquare">Buscar cadrado</string>
   <string name="nameSquare">Nome do cadrado</string>

@@ -52,6 +52,13 @@ object download {
                 )(trans.download())
               )
             )
+          ),
+          br,
+          br,
+          p(style := "text-align: right")(
+            a(href := routes.Game.apiExportByUserImportedGames(user.username))(
+              "Or download imported games as PGN"
+            )
           )
         )
       )

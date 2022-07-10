@@ -131,6 +131,7 @@ export default class {
   }
 
   setFilter(dimensionKey: string, valueKeys: string[]) {
+    if (dimensionKey == 'period' && valueKeys[0] == '3650') valueKeys = []; // 10 years
     if (!valueKeys.length) delete this.vm.filters[dimensionKey];
     else this.vm.filters[dimensionKey] = valueKeys;
     this.askQuestion();

@@ -12,6 +12,8 @@
   <string name="aSquareIsHighlighted">Eit felt vert markert på brettet og du må deretter taste inn korrekt feltkoordinatet (til dømes \"e4\"). Oppgåva går ut på å korrekt markere så mange felt som du rekk på 30 sekund!</string>
   <string name="youHaveThirtySeconds">Du har 30 sekund på deg til å kartlegge så mange felt som mogleg!</string>
   <string name="goAsLongAsYouWant">Hald fram så lenge du vil, det er ingen tidsavgrensing!</string>
+  <string name="showCoordinates">Vis koordinatar</string>
+  <string name="showPieces">Vis brikker</string>
   <string name="startTraining">Start øvinga</string>
   <string name="findSquare">Finn felt</string>
   <string name="nameSquare">Oppgje feltet sitt namn</string>

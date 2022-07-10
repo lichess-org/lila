@@ -1,13 +1,14 @@
 package views.html.tutor
 
 import controllers.routes
+import play.api.i18n.Lang
 import play.api.libs.json._
+import scalatags.Text
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
-import play.api.i18n.Lang
 
 object bits {
 
@@ -24,14 +25,35 @@ object bits {
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def peerComparison[A: TutorNumber](c: TutorConcept, metric: TutorBothValueOptions[A])(implicit
-      lang: Lang
-  ) =
+  def peerComparison[A: TutorNumber](
+      c: TutorConcept,
+      metric: TutorBothValueOptions[A],
+      titleTag: Text.Tag = h3
+  )(implicit lang: Lang) =
     metric.mine map { mine =>
       div(cls := "tutor-comparison")(
-        h3(cls := "tutor-comparison__name")(concept.show(c)),
+        titleTag(cls := "tutor-comparison__name")(concept.show(c)),
         div(cls := "tutor-comparison__unit")(horizontalBarPercent(mine.some, "Yours", "mine")),
         div(cls := "tutor-comparison__unit")(horizontalBarPercent(metric.peer, "Peers", "peer"))
+      )
+    }
+
+  def peerGrade[A](
+      c: TutorConcept,
+      metricOptions: TutorBothValueOptions[A],
+      titleTag: Text.Tag = h3
+  )(implicit lang: Lang, number: TutorNumber[A]) =
+    metricOptions.asAvailable map { metric =>
+      val grade       = metric.grade
+      val minePercent = number.iso.to(metric.mine.value)
+      val peerPercent = number.iso.to(metric.peer.value)
+      div(cls := "tutor-grade")(
+        titleTag(cls := "tutor-grade__name")(concept.show(c)),
+        div(cls := "tutor-grade__visual", title := s"$minePercent% vs $peerPercent%")(
+          lila.tutor.Grade.Wording.list.map { gw =>
+            div(cls := (grade.wording > gw).option("lit"))
+          }
+        )
       )
     }
 

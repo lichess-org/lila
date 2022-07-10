@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
 import lila.insight.{ InsightDimension, Phase }
 import lila.rating.PerfType
-import lila.tutor.{ TutorCompare, TutorMetric, ValueComparison }
+import lila.tutor.{ TutorCompare, TutorMetric, Grade }
 
 private object compare {
 
@@ -23,7 +23,7 @@ private object compare {
       " in the ",
       strong(showDimension(comp.dimension)),
       " is ",
-      showQuality(comp.comparison),
+      showQuality(comp.grade),
       " ",
       comp.reference match {
         case TutorCompare.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
@@ -38,7 +38,7 @@ private object compare {
     case _                              => "others"
   }
 
-  private[tutor] def showQuality(quality: ValueComparison) =
+  private[tutor] def showQuality(quality: Grade) =
     (if (quality.better) goodTag else if (quality.worse) badTag else span)(quality.wording.value)
 
   private[tutor] def showMetric(comp: TutorCompare.AnyComparison): String =

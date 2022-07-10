@@ -14,34 +14,30 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
           $(vnode.elm).multipleSelect({
             placeholder: dimension.name,
             width: '100%',
-            maxHeight: 400,
             selectAll: false,
             filter: dimension.key === 'opening',
-            single: single,
+            single,
             minimumCountSelected: 10,
-            onClick: function (view) {
-              const values = single ? [view.value] : $(vnode.elm).multipleSelect('getSelects');
-              ctrl.setFilter(dimension.key, values);
-            },
+            onClick: view =>
+              ctrl.setFilter(dimension.key, single ? [view.value] : $(vnode.elm).multipleSelect('getSelects')),
           }),
         postpatch: (_oldVnode, vnode) => {
           if (Object.keys(ctrl.vm.filters).length === 0) $(vnode.elm).multipleSelect('uncheckAll');
         },
       },
     },
-    dimension.values.map(function (value) {
-      const selected = ctrl.vm.filters[dimension.key];
-      return h(
+    dimension.values.map(value =>
+      h(
         'option',
         {
           attrs: {
             value: value.key,
-            selected: !!selected && selected.includes(value.key),
+            selected: ctrl.vm.filters[dimension.key]?.includes(value.key),
           },
         },
         value.name
-      );
-    })
+      )
+    )
   );
 };
 

@@ -30,13 +30,23 @@ object perf {
           routes.Tutor.openings(user.username, report.perf.key),
           frag(report.perf.trans, " openings")
         )(
-          ul(report openingHighlights 3 map compare.show)
+          chess.Color.all map { color =>
+            report.openings(color).families.headOption map { fam =>
+              frag(
+                h4(fam.family.name, " as ", color.name),
+                bits.peerGrade(concept.accuracy, fam.accuracy, h5),
+                bits.peerGrade(concept.tacticalAwareness, fam.awareness, h5)
+              )
+            }
+          }
         ),
         angleCard(
           routes.Tutor.time(user.username, report.perf.key),
           frag(report.perf.trans, " time management")
         )(
-          ul(report timeHighlights 3 map compare.show)
+          bits.peerComparison(concept.speed, report.globalClock),
+          bits.peerComparison(concept.clockFlagVictory, report.flagging.win),
+          bits.peerComparison(concept.clockTimeUsage, report.clockUsage)
         ),
         angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
           ul(report phaseHighlights 3 map compare.show)

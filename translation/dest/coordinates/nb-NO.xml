@@ -12,6 +12,8 @@
   <string name="aSquareIsHighlighted">Et felt blir markert på brettet og du må taste inn feltnavnet (f.eks. «e4»).</string>
   <string name="youHaveThirtySeconds">Du har 30 sekunder på deg til å kartlegge så mange felt som mulig!</string>
   <string name="goAsLongAsYouWant">Du kan holde på så lenge du vil, det er ingen tidsfrist!</string>
+  <string name="showCoordinates">Vis koordinater</string>
+  <string name="showPieces">Vis brikker</string>
   <string name="startTraining">Begynn trening</string>
   <string name="findSquare">Finn felt</string>
   <string name="nameSquare">Angi feltnavn</string>

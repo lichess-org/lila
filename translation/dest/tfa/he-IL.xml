@@ -4,10 +4,10 @@
   <string name="twoFactorHelp">אימות דו-שלבי מוסיף עוד שכבה של אבטחה לחשבון שלך.</string>
   <string name="twoFactorApp">הורד אפליקציה לאימות דו-שלבי, למשל andOTP עבור %1$s או המאמת של גוגל עבור %2$s.</string>
   <string name="scanTheCode">סרוק את הברקוד עם האפליקציה.</string>
-  <string name="enterPassword">הכנס את הסיסמא ואת קוד האימות שנוצר על ידי האפליקציה כדי להשלים את הרישום. תזדקק לקוד אימות בכל חיבור מחדש.</string>
+  <string name="enterPassword">הכנס את הסיסמה ואת קוד האימות שנוצר על ידי האפליקציה כדי להשלים את הרישום. תזדקק לקוד אימות בכל חיבור מחדש.</string>
   <string name="ifYouCannotScanEnterX">אם אין ביכולתך לסרוק את הקוד, הקש את הרצף הסודי %s לאפליקציה שלך.</string>
   <string name="authenticationCode">קוד אימות</string>
-  <string name="ifYouLoseAccess">הערה: אם תאבד גישה לאימות הדו-שלבי שלך, ביכולתך לשחזר סיסמא בעזרת דואר אלקטרוני.</string>
+  <string name="ifYouLoseAccess">הערה: אם תאבד גישה לאימות הדו-שלבי שלך, ביכולתך לשחזר את הסיסמה בעזרת הדואר האלקטרוני.</string>
   <string name="enableTwoFactor">הפעלת אימות דו־שלבי</string>
   <string name="disableTwoFactor">השבתת אימות דו־שלבי</string>
   <string name="twoFactorEnabled">אימות דו-שלבי הופעל</string>
