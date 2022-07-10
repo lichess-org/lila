@@ -1,13 +1,14 @@
 package views.html.tutor
 
 import controllers.routes
+import play.api.i18n.Lang
 import play.api.libs.json._
+import scalatags.Text
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
-import play.api.i18n.Lang
 
 object bits {
 
@@ -24,12 +25,16 @@ object bits {
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def peerComparison[A: TutorNumber](c: TutorConcept, metric: TutorBothValueOptions[A])(implicit
+  def peerComparison[A: TutorNumber](
+      c: TutorConcept,
+      metric: TutorBothValueOptions[A],
+      titleTag: Text.Tag = h3
+  )(implicit
       lang: Lang
   ) =
     metric.mine map { mine =>
       div(cls := "tutor-comparison")(
-        h3(cls := "tutor-comparison__name")(concept.show(c)),
+        titleTag(cls := "tutor-comparison__name")(concept.show(c)),
         div(cls := "tutor-comparison__unit")(horizontalBarPercent(mine.some, "Yours", "mine")),
         div(cls := "tutor-comparison__unit")(horizontalBarPercent(metric.peer, "Peers", "peer"))
       )
