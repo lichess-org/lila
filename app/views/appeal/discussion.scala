@@ -97,10 +97,7 @@ object discussion {
           )
         )
       ),
-      if (modData.isEmpty)
-      h2(
-        renderMark(user)
-      ),
+      modData.isEmpty option h2(renderMark(user)),
       modData map { m =>
         frag(
           div(cls := "mod-zone mod-zone-full none"),
