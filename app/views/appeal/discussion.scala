@@ -7,6 +7,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import views.html.appeal.tree
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
@@ -28,10 +29,10 @@ object discussion {
       markedByMe: Boolean
   )
 
-  def apply(appeal: Appeal, textForm: Form[String])(implicit ctx: Context) =
+  def apply(appeal: Appeal, me: User, textForm: Form[String])(implicit ctx: Context) =
     bits.layout("Appeal") {
       main(cls := "page-small box box-pad appeal")(
-        renderAppeal(appeal, textForm, modData = none)
+        renderAppeal(appeal, textForm, Right(me))
       )
     }
 
@@ -42,7 +43,7 @@ object discussion {
   )(implicit ctx: Context) =
     bits.layout(s"Appeal by ${modData.suspect.user.username}") {
       main(cls := "box box-pad appeal")(
-        renderAppeal(appeal, textForm, modData.some),
+        renderAppeal(appeal, textForm, Left(modData)),
         div(cls := "appeal__actions", id := "appeal-actions")(
           modData.inquiry match {
             case None =>
@@ -77,15 +78,15 @@ object discussion {
   private def renderAppeal(
       appeal: Appeal,
       textForm: Form[String],
-      modData: Option[ModData]
+      as: Either[ModData, User]
   )(implicit ctx: Context) =
     frag(
       h1(
         div(cls := "title")(
           "Appeal",
-          modData.isDefined option frag(" by ", userIdLink(appeal.id.some))
+          as.isLeft option frag(" by ", userIdLink(appeal.id.some))
         ),
-        modData.isDefined option div(cls := "actions")(
+        as.isLeft option div(cls := "actions")(
           a(
             cls  := "button button-empty mod-zone-toggle",
             href := routes.User.mod(appeal.id),
@@ -94,7 +95,8 @@ object discussion {
           )
         )
       ),
-      modData map { m =>
+      as.toOption.map(user => h2(renderMark(user))),
+      as.left.toOption map { m =>
         frag(
           div(cls := "mod-zone mod-zone-full none"),
           views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(ctx, m.renderIp)(
@@ -107,28 +109,38 @@ object discussion {
         appeal.msgs.map { msg =>
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
-              renderUser(appeal, msg.by, modData.isDefined),
-              if (modData.isEmpty) momentFromNowOnce(msg.at)
+              renderUser(appeal, msg.by, as.isLeft),
+              if (as.isRight) momentFromNowOnce(msg.at)
               else momentFromNowServer(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
         },
-        modData.exists(_.markedByMe) option div(dataIcon := "", cls := "marked-by-me text")(
+        as.left.exists(_.markedByMe) option div(dataIcon := "", cls := "marked-by-me text")(
           "You have marked this user. Appeal should be handled by another moderator"
         ),
-        if (modData.isEmpty && !appeal.canAddMsg) p("Please wait for a moderator to reply.")
+        if (as.isRight && !appeal.canAddMsg) p("Please wait for a moderator to reply.")
         else
-          modData.fold(true)(_.inquiry.isDefined) option renderForm(
+          as.fold(_.inquiry.isDefined, _ => true) option renderForm(
             textForm,
             action =
-              if (modData.isDefined) routes.Appeal.reply(appeal.id).url
+              if (as.isLeft) routes.Appeal.reply(appeal.id).url
               else routes.Appeal.post.url,
             isNew = false,
-            presets = modData.map(_.presets)
+            presets = as.left.toOption.map(_.presets)
           )
       )
     )
+
+  private def renderMark(suspect: User)(implicit ctx: Context) = {
+    val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
+    if (suspect.disabled || query.contains("alt")) tree.closedByModerators
+    else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
+    else if (suspect.marks.boost || query.contains("boost")) tree.boosterMarked
+    else if (suspect.marks.troll || query.contains("shadowban")) tree.accountMuted
+    else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
+    else tree.cleanAllGood
+  }
 
   private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
     if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")

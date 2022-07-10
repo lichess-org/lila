@@ -38,7 +38,7 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
       env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
         html.appeal.tree(me, _)
       }
-    case Some(a) => fuccess(html.appeal.discussion(a, err | form))
+    case Some(a) => fuccess(html.appeal.discussion(a, me, err | form))
   }
 
   def post =
