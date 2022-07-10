@@ -39,8 +39,9 @@ final class Tutor(env: Env) extends LilaController(env) {
         .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).fuccess) { color =>
           LilaOpeningFamily
             .find(opName)
+            .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).fuccess) { family =>
-              Ok(views.html.tutor.opening(report, perf, family as color, me)).fuccess
+              Ok(views.html.tutor.opening(report, perf, family, color, me)).fuccess
             }
         }
     }

@@ -29,6 +29,8 @@ case class TutorColorOpenings(
   )
 
   lazy val allCompares = List(accuracyCompare, performanceCompare, awarenessCompare)
+
+  def find(fam: LilaOpeningFamily) = families.find(_.family == fam)
 }
 
 case class TutorOpeningFamily(
