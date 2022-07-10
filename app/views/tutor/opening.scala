@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
+import lila.insight.InsightPosition
 import lila.tutor.{ TutorFullReport, TutorOpeningFamily, TutorPerfReport }
 
 object opening {
@@ -16,7 +17,8 @@ object opening {
       perfReport: TutorPerfReport,
       report: TutorOpeningFamily,
       as: chess.Color,
-      user: lila.user.User
+      user: lila.user.User,
+      puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
   )(implicit ctx: Context) = {
     bits.layout(
       full,
@@ -48,15 +50,34 @@ object opening {
         as.name
       ),
       bits.mascotSays(
-        "You played the ",
-        report.family.name.value,
-        " in ",
-        report.performance.mine.count.localize,
-        " games, which is ",
-        strong(perfReport.openingFrequency(as, report).percent.toInt, "%"),
-        " of the time you played as ",
-        as.name,
-        "."
+        p(
+          "You played the ",
+          report.family.name.value,
+          " in ",
+          report.performance.mine.count.localize,
+          " games, which is ",
+          strong(perfReport.openingFrequency(as, report).percent.toInt, "%"),
+          " of the time you played as ",
+          as.name,
+          "."
+        ),
+        puzzle.map { p =>
+          a(
+            cls  := "button button-no-upper",
+            href := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
+          )(
+            "Train your tactical awareness with ",
+            p.family.name.value,
+            " puzzles"
+          )
+        }
+      ),
+      div(
+        cls := "tutor-card__content"
+      )(
+        bits.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
+        bits.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
+        bits.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
       )
     )
   }

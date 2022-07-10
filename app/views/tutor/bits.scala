@@ -27,7 +27,7 @@ object bits {
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
   def peerGrade[A](
-      c: Either[String, TutorConcept],
+      c: TutorConcept,
       metricOptions: TutorBothValueOptions[A],
       titleTag: Text.Tag = h3,
       detail: Frag = emptyFrag
@@ -37,7 +37,7 @@ object bits {
       val minePercent = renderPercent(metric.mine.value)
       val peerPercent = renderPercent(metric.peer.value)
       div(cls := "tutor-grade")(
-        titleTag(cls := "tutor-grade__name")(c.fold(concept.show, concept.show)),
+        titleTag(cls := "tutor-grade__name")(concept show c),
         div(
           cls   := s"tutor-grade__visual tutor-grade__visual--${grade.wording.id}",
           title := s"$minePercent% vs $peerPercent%"
@@ -57,15 +57,14 @@ object bits {
       titleTag: Text.Tag = h3
   )(implicit lang: Lang) =
     peerGrade(
-      Right(c),
+      c,
       metric,
       titleTag = titleTag,
       detail = metric.mine.fold(emptyFrag) { mine =>
         div(cls := "tutor-grade__detail")(
-          strong(renderPercent(mine.value)),
-          "%",
+          c.unit.render(mine.value),
           metric.peer.map { peer =>
-            em(" vs ", strong(renderPercent(peer.value)), "% (peers)")
+            em(" vs ", c.unit.render(peer.value), " (peers)")
           },
           " over ",
           mine.count.localize,
@@ -75,22 +74,22 @@ object bits {
       }
     )
 
-  private def horizontalBarPercent[A](
-      value: Option[ValueCount[A]],
-      legend: String,
-      extraCls: String
-  )(implicit lang: Lang, number: TutorNumber[A]) =
-    value match {
-      case Some(v) =>
-        div(
-          cls   := s"tutor-bar tutor-bar--$extraCls",
-          style := s"--value:${Math.round(number double v.value)}%"
-        )(
-          span(legend),
-          em(strong(renderPercent(v.value)), "%", " (", v.count.localize, ")")
-        )
-      case None => div(cls := s"tutor-bar tutor-bar--$extraCls tutor-bar--empty")
-    }
+  // private def horizontalBarPercent[A](
+  //     value: Option[ValueCount[A]],
+  //     legend: String,
+  //     extraCls: String
+  // )(implicit lang: Lang, number: TutorNumber[A]) =
+  //   value match {
+  //     case Some(v) =>
+  //       div(
+  //         cls   := s"tutor-bar tutor-bar--$extraCls",
+  //         style := s"--value:${Math.round(number double v.value)}%"
+  //       )(
+  //         span(legend),
+  //         em(strong(renderPercent(v.value)), "%", " (", v.count.localize, ")")
+  //       )
+  //     case None => div(cls := s"tutor-bar tutor-bar--$extraCls tutor-bar--empty")
+  //   }
 
   private def renderPercent[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
 

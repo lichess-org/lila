@@ -106,6 +106,9 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
       }
     }
 
+  def find(family: LilaOpeningFamily): Fu[Option[PuzzleOpening.FamilyWithCount]] =
+    collection map { _.familyMap.get(family.key) }
+
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache get {}
 

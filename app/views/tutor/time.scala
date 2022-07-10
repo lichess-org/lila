@@ -15,7 +15,7 @@ object time {
       ctx: Context
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "time"))(
-      cls := "tutor__time box",
+      cls := "tutor__time box box-pad",
       h1(
         a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
         report.perf.trans,
