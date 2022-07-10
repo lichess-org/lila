@@ -69,7 +69,7 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         getModData(me, appeal, suspect) map { modData =>
-          Ok(html.appeal.discussion.show(appeal, form, modData))
+          Ok(html.appeal.discussion.show(appeal, form, modData, suspect.user))
         }
       }
     }
@@ -83,7 +83,7 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
           .fold(
             err =>
               getModData(me, appeal, suspect) map { modData =>
-                BadRequest(html.appeal.discussion.show(appeal, err, modData))
+                BadRequest(html.appeal.discussion.show(appeal, err, modData, suspect.user))
               },
             text =>
               for {
