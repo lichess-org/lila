@@ -29,7 +29,7 @@
   <string name="fairPlayPage">עלון ההסבר על משחק הוגן</string>
   <string name="youCanUseOpeningBookNoEngine">בליצ\'ס, ההבדל העיקרי בכללים של שחמט בהתכתבות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע במשחקים בהתכתבות, ליצ\'ס לא.</string>
   <string name="gameplay">מהלך המשחק</string>
-  <string name="howBulletBlitzEtcDecided">איך קליע, בזק וזמני משחק אחרים מוחלטים?</string>
+  <string name="howBulletBlitzEtcDecided">איך Bullet, Blitz וזמני משחק אחרים נקבעים?</string>
   <string name="basedOnGameDuration">קטגוריות הזמן של ליצ\'ס מבוססות על משך המשחק המשוער = %1$s
 למשל, משך הזמן המשוער של משחק 5+3 הוא 5 × 60 + 40 × 3 = 420 שניות.</string>
   <string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת זמן לכל מהלך)</string>
@@ -89,17 +89,17 @@
 
 נא לא לבקש את דרגת LM.</string>
   <string name="whatUsernameCanIchoose">מה יכול להיות שם המשתמש שלי?</string>
-  <string name="usernamesNotOffensive">ככלל, על שמות משתמש לא להיות פוגעניים, להכיל תוכן שיווקי או להתחזות לאדם אחר. ניתן לקרוא עוד על ה%1$s.</string>
+  <string name="usernamesNotOffensive">ככלל, על שמות משתמש לא להיות פוגעניים, להכיל תוכן שיווקי או להתחזות לאדם אחר. מידע נוסף ניתן למצוא ב%1$s.</string>
   <string name="guidelines">הנחיות</string>
-  <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
-  <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים ודוחות. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
+  <string name="canIChangeMyUsername">האם אני יכול לשנות את שם המשתמש שלי?</string>
+  <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים, דוחות ומסמכים מיוצאים. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
   <string name="uniqueTrophies">גביעים ייחודיים</string>
   <string name="ownerUniqueTrophies">הגביע הזה הוא ייחודי בהיסטוריה של ליצ׳ס, אף אחד מלבד %1$s לא יזכה בו.</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
-  <string name="aHourlyBulletTournament">טורניר הקליע השעתי</string>
-  <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שאם יצליח לעשות זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
+  <string name="aHourlyBulletTournament">טורניר הBullet השעתי</string>
+  <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שאם יצליח לעשות זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את Stockfish וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
-  <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
+  <string name="whichRatingSystemUsedByLichess">באיזו מערכת דירוג Lichess משתמש?</string>
   <string name="ratingSystemUsedByLichess">הדירוג מחושב באמצעות שיטת Glicko-2 שפותחה על ידי מארק גליקמן. זו שיטת דירוג מאוד פופולארית שגופי שחמט רבים עושים בה שימוש (FIDE היא יוצאת מן הכלל ומשתמשת בשיטת Elo).
 
 שיטות גליקו מסתמכות על מקדמי וודאות. כששחקן נרשם לליצ׳ס, דירוגו יכול לנוע בין 500 ל־2500 ברמת וודאות של 95 אחוזים, כאשר הדירוג ההתחלתי הוא 1500. בתחילה מקדם הוודאות הוא נמוך, ולכן משחק בודד יכול לשנות את הדירוג אף במאות נקודות. אולם ככל שנצברים משחקים הוודאות עולה והשינוי ממשחק למשחק קטן.
@@ -110,7 +110,7 @@
   <string name="notPlayedEnoughRatedGamesAgainstX">השחקן לא השלים מספיק משחקים מדורגים נגד %1$s בקטגוריית הדירוג.</string>
   <string name="similarOpponents">יריבים ברמה דומה</string>
   <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. כתלות במספר המשחקים ששיחקת, יתכן שכעבור שנה של חוסר פעילות הדירוג יהפוך שוב לזמני.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">באופן קונקרטי, הדירוג זמני אם הסטייה שלו גדולה מ-110. זוהי רמת הוודאות שלנו באשר לדירוגך. כלל שהסטייה יותר נמוכה, דירוגך יציב יותר.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">באופן קונקרטי, הדירוג זמני אם הסטייה בו גדולה מ-110. זוהי רמת הוודאות שלנו באשר לדירוגך. כלל שהסטייה יותר נמוכה, דירוגך יציב יותר.</string>
   <string name="howDoLeaderoardsWork">איך דירוג וטבלאות דירוג עובדים?</string>
   <string name="inOrderToAppearsYouMust">כדי להעפיל ל%1$s עליך:</string>
   <string name="ratingLeaderboards">טבלת הדירוג</string>
@@ -129,11 +129,11 @@
   <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא אצלך או אצלנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
   <string name="howToThreeDots">כיצד...</string>
-  <string name="enableDisableNotificationPopUps">הפעל או חסום התראות קופצות?</string>
+  <string name="enableDisableNotificationPopUps">להפעיל או לחסום התראות קופצות?</string>
   <string name="viewSiteInformationPopUp">צפה בחלון הקופץ המכיל מידע על האתר</string>
   <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
-לחץ על סמל הנעילה שליד כתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
+לחץ על סמל הנעילה שליד הכתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
 
 לאחר מכן בחר אם לאפשר או לחסום התראות מליצ\'ס.</string>
 </resources>
