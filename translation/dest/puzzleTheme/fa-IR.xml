@@ -31,6 +31,7 @@
   <string name="kingsideAttack">حمله به جناه شاه</string>
   <string name="kingsideAttackDescription">حمله به شاه حریف زمانی که در جناه شاه قلعه رفته است.</string>
   <string name="clearance">پاکسازی</string>
+  <string name="clearanceDescription">حرکتی، اغلب سریع، برای پاک کردن صفحه جهت دنبال کردن ایده های تاکتیکی بعدی.</string>
   <string name="defensiveMove">حرکت تدافعی</string>
   <string name="defensiveMoveDescription">حرکت یا دنباله ای از حرکات که برای جلوگیری از دست دادن مهره یا مزیت لازم است.</string>
   <string name="deflection">منحرف کردن</string>
@@ -100,6 +101,7 @@
   <string name="short">معمای کوتاه</string>
   <string name="shortDescription">دو حرکت تا پیروزی.</string>
   <string name="skewer">حمله پیکانی</string>
+  <string name="skewerDescription">موتیف زمانی است که یک مهره با ارزش بالا مورد حمله قرار می گیرد تا از مسیر خارج شود، و مهره ای با ارزش کمتر که پشت آن قرار دارد گرفته شود، برعکس پین.</string>
   <string name="smotheredMate">مات مختنق</string>
   <string name="smotheredMateDescription">ماتی که توسط یک اسب انجام می شود که در آن پادشاه قادر به حرکت نیست زیرا توسط مهره های خود احاطه شده.</string>
   <string name="superGM">بازی سوپر استاد بزرگ</string>
