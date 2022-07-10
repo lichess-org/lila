@@ -10,6 +10,8 @@ function loadShepherd(f) {
   }
 }
 lichess.studyTour = function (study) {
+  const helpButtonSelector = 'main.analyse .study__buttons .help top';
+  if (!$(helpButtonSelector).length) return;
   loadShepherd(function (theme) {
     var onTab = function (tab) {
       return {
@@ -27,7 +29,7 @@ lichess.studyTour = function (study) {
       };
     };
 
-    var tour = new Shepherd.Tour({
+    const tour = new Shepherd.Tour({
       defaults: {
         classes: theme,
         scrollTo: false,
@@ -43,7 +45,7 @@ lichess.studyTour = function (study) {
           'discuss positions with friends,<br>' +
           'and of course for chess lessons!<br><br>' +
           "It's a powerful tool, let's take some time to see how it works.",
-        attachTo: 'main.analyse .study__buttons .help top',
+        attachTo: helpButtonSelector,
       },
       {
         title: 'Shared and saved',
@@ -113,7 +115,7 @@ lichess.studyTour = function (study) {
             action: tour.next,
           },
         ],
-        attachTo: 'main.analyse .study__buttons .help top',
+        attachTo: helpButtonSelector,
       },
     ]
       .filter(function (v) {
