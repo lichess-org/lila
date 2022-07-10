@@ -6,7 +6,7 @@ import lila.common.Iso
 
 trait TutorNumber[V] {
   val iso: Iso.DoubleIso[V]
-  def compare(a: V, b: V) = ValueComparison(iso.to(a), iso.to(b))
+  def grade(a: V, b: V) = Grade(iso.to(a), iso.to(b))
   def average(vs: Iterable[ValueCount[V]]): ValueCount[V] =
     vs.foldLeft((0d, 0)) { case ((sum, total), ValueCount(value, count)) =>
       (sum + iso.to(value) * count, total + count)
@@ -15,7 +15,7 @@ trait TutorNumber[V] {
     }
   def reverseCompare = new TutorNumber[V] {
     val iso                                                          = TutorNumber.this.iso
-    override def compare(a: V, b: V)                                 = TutorNumber.this.compare(b, a)
+    override def grade(a: V, b: V)                                   = TutorNumber.this.grade(b, a)
     override def average(vs: Iterable[ValueCount[V]]): ValueCount[V] = TutorNumber.this.average(vs)
   }
 }
@@ -32,11 +32,11 @@ object TutorNumber {
     val iso = Iso.double[AccuracyPercent](AccuracyPercent.apply, _.value)
   }
   implicit val ratingIsTutorNumber = new TutorNumber[Rating] {
-    val iso                                    = Iso.double[Rating](Rating.apply, _.value)
-    override def compare(a: Rating, b: Rating) = ValueComparison((a.value - b.value) / 300)
+    val iso                                  = Iso.double[Rating](Rating.apply, _.value)
+    override def grade(a: Rating, b: Rating) = Grade((a.value - b.value) / 300)
   }
   implicit val clockPercentIsTutorNumber = new TutorNumber[ClockPercent] {
     val iso = Iso.double[ClockPercent](ClockPercent.fromPercent, _.value)
-    override def compare(a: ClockPercent, b: ClockPercent) = ValueComparison(iso.to(b), iso.to(a))
+    override def grade(a: ClockPercent, b: ClockPercent) = Grade(iso.to(b), iso.to(a))
   }
 }

@@ -43,7 +43,7 @@ case class TutorFullReport(
           p.relevantComparisons.filter(compFilter)
         )(Math.ceil(nb.toDouble * p.stats.totalNbGames / nbGames).toInt) map (_ -> p.perf)
       }
-      .sortBy(-_._1.comparison.abs)
+      .sortBy(-_._1.grade.abs)
       .take(nb)
 
   override def toString = s"Report($user, $at, ${perfs.map(_.perf.key) mkString "+"})"

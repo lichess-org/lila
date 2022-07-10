@@ -12,4 +12,28 @@
       margin-top: 0.5em;
     }
   }
+  &-grade {
+    margin-bottom: $block-gap;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &__name {
+      font-weight: normal;
+      font-size: 1.2em;
+    }
+    &__visual {
+      @extend %flex-center;
+      > div {
+        flex: 13% 0 0;
+        margin-#{$end-direction}: 1.28%;
+        height: 1.5em;
+        line-height: 1.5em;
+        border: $border;
+        background: $c-bg-zebra;
+        &.lit {
+          background: $c-good;
+        }
+      }
+    }
+  }
 }

@@ -34,8 +34,8 @@ object perf {
             report.openings(color).families.headOption map { fam =>
               frag(
                 h4(fam.family.name, " as ", color.name),
-                bits.peerComparison(concept.accuracy, fam.accuracy, h5),
-                bits.peerComparison(concept.tacticalAwareness, fam.awareness, h5)
+                bits.peerGrade(concept.accuracy, fam.accuracy, h5),
+                bits.peerGrade(concept.tacticalAwareness, fam.awareness, h5)
               )
             }
           }

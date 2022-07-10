@@ -29,14 +29,31 @@ object bits {
       c: TutorConcept,
       metric: TutorBothValueOptions[A],
       titleTag: Text.Tag = h3
-  )(implicit
-      lang: Lang
-  ) =
+  )(implicit lang: Lang) =
     metric.mine map { mine =>
       div(cls := "tutor-comparison")(
         titleTag(cls := "tutor-comparison__name")(concept.show(c)),
         div(cls := "tutor-comparison__unit")(horizontalBarPercent(mine.some, "Yours", "mine")),
         div(cls := "tutor-comparison__unit")(horizontalBarPercent(metric.peer, "Peers", "peer"))
+      )
+    }
+
+  def peerGrade[A](
+      c: TutorConcept,
+      metricOptions: TutorBothValueOptions[A],
+      titleTag: Text.Tag = h3
+  )(implicit lang: Lang, number: TutorNumber[A]) =
+    metricOptions.asAvailable map { metric =>
+      val grade       = metric.grade
+      val minePercent = number.iso.to(metric.mine.value)
+      val peerPercent = number.iso.to(metric.peer.value)
+      div(cls := "tutor-grade")(
+        titleTag(cls := "tutor-grade__name")(concept.show(c)),
+        div(cls := "tutor-grade__visual", title := s"$minePercent% vs $peerPercent%")(
+          lila.tutor.Grade.Wording.list.map { gw =>
+            div(cls := (grade.wording > gw).option("lit"))
+          }
+        )
       )
     }
 

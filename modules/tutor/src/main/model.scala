@@ -21,6 +21,13 @@ case class ValueCount[V](value: V, count: Int) {
   def relevantTo(total: Int) = reliableEnough && count * 10 > total
 }
 
+case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])(implicit
+    o: Ordering[A]
+) {
+  // def map[B: Ordering](f: A => B)                           = TutorBothValuesAvailable(mine map f, peer map f)
+  def higher                                        = o.compare(mine.value, peer.value) >= 0
+  def grade(implicit number: TutorNumber[A]): Grade = number.grade(mine.value, peer.value)
+}
 case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(implicit o: Ordering[A]) {
   def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer map (_ map f))
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
@@ -31,6 +38,8 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
 ) {
   def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine map (_ map f), peer map (_ map f))
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
+  def asAvailable                 = for { m <- mine; p <- peer } yield TutorBothValuesAvailable(m, p)
+  def grade(implicit number: TutorNumber[A]): Option[Grade] = asAvailable.map(_.grade)
 }
 
 sealed abstract class TutorMetric[V](val metric: InsightMetric)
@@ -59,39 +68,34 @@ object TutorRatio {
 }
 
 // value from -1 (worse) to +1 (best)
-case class ValueComparison private (value: Double) {
+case class Grade private (value: Double) {
 
-  import ValueComparison.Wording
+  import Grade.Wording
 
   def abs    = math.abs(value)
-  def better = wording == Wording.MuchBetter || wording == Wording.Better || wording == Wording.SlightlyBetter
-  def worse  = wording == Wording.MuchWorse || wording == Wording.Worse || wording == Wording.SlightlyWorse
+  def better = wording >= Wording.SlightlyBetter
+  def worse  = wording <= Wording.SlightlyWorse
   def negate = copy(value = -value)
 
-  val wording: Wording = value match {
-    case v if v < -0.5  => Wording.MuchWorse
-    case v if v < -0.2  => Wording.Worse
-    case v if v < -0.05 => Wording.SlightlyWorse
-    case v if v < 0.05  => Wording.Similar
-    case v if v < 0.2   => Wording.SlightlyBetter
-    case v if v < 0.5   => Wording.Better
-    case _              => Wording.MuchBetter
-  }
+  val wording: Wording = Wording.list.find(_.top > value) | Wording.MuchBetter
 }
 
-object ValueComparison {
-  def apply(a: Double, b: Double): ValueComparison = apply((a / b) - 1)
-  def apply(value: Double): ValueComparison        = new ValueComparison(value atLeast -1 atMost 1)
+object Grade {
+  def apply(a: Double, b: Double): Grade = apply((a / b) - 1)
+  def apply(value: Double): Grade        = new Grade(value atLeast -1 atMost 1)
 
-  sealed abstract class Wording(val value: String)
+  sealed abstract class Wording(val value: String, val top: Double) extends Ordered[Wording] {
+    def compare(other: Wording) = top compare other.top
+  }
   object Wording {
-    case object MuchWorse      extends Wording("much worse than")
-    case object Worse          extends Wording("worse than")
-    case object SlightlyWorse  extends Wording("slightly worse than")
-    case object Similar        extends Wording("similar to")
-    case object SlightlyBetter extends Wording("slightly better than")
-    case object Better         extends Wording("better than")
-    case object MuchBetter     extends Wording("much better than")
+    case object MuchWorse      extends Wording("much worse than", -0.5)
+    case object Worse          extends Wording("worse than", -0.2)
+    case object SlightlyWorse  extends Wording("slightly worse than", -0.05)
+    case object Similar        extends Wording("similar to", 0.05)
+    case object SlightlyBetter extends Wording("slightly better than", 0.2)
+    case object Better         extends Wording("better than", 0.5)
+    case object MuchBetter     extends Wording("much better than", 1)
+    val list = List[Wording](MuchWorse, Worse, SlightlyWorse, Similar, SlightlyBetter, Better, MuchBetter)
   }
 }
 
