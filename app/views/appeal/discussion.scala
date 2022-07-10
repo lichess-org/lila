@@ -29,21 +29,22 @@ object discussion {
       markedByMe: Boolean
   )
 
-  def apply(appeal: Appeal, textForm: Form[String])(implicit ctx: Context) =
+  def apply(appeal: Appeal, me: User, textForm: Form[String])(implicit ctx: Context) =
     bits.layout("Appeal") {
       main(cls := "page-small box box-pad appeal")(
-        renderAppeal(appeal, textForm, modData = none)
+        renderAppeal(appeal, textForm, modData = none, user = me)
       )
     }
 
   def show(
       appeal: Appeal,
       textForm: Form[String],
-      modData: ModData
+      modData: ModData,
+      user: User
   )(implicit ctx: Context) =
     bits.layout(s"Appeal by ${modData.suspect.user.username}") {
       main(cls := "box box-pad appeal")(
-        renderAppeal(appeal, textForm, modData.some),
+        renderAppeal(appeal, textForm, modData.some, user),
         div(cls := "appeal__actions", id := "appeal-actions")(
           modData.inquiry match {
             case None =>
@@ -78,7 +79,8 @@ object discussion {
   private def renderAppeal(
       appeal: Appeal,
       textForm: Form[String],
-      modData: Option[ModData]
+      modData: Option[ModData],
+      user: User
   )(implicit ctx: Context) =
     frag(
       h1(
@@ -97,7 +99,7 @@ object discussion {
       ),
       if (modData.isEmpty)
       h2(
-        ctx.me map renderMark
+        renderMark(user)
       ),
       modData map { m =>
         frag(
