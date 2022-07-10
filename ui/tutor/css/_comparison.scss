@@ -30,7 +30,7 @@
         height: 1.5em;
         line-height: 1.5em;
         border: $border;
-        background: $c-bg-zebra2;
+        background: $c-bg-low;
         &.lit {
           background: mix($c-good, $c-bg-box, 80%);
         }

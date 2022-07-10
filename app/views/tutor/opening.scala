@@ -24,14 +24,15 @@ object opening {
       full,
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
       menu = frag(
-        a(href := routes.Tutor.user(user.username))("Tutor"),
-        a(href := routes.Tutor.perf(user.username, perfReport.perf.key))(perfReport.perf.trans),
-        a(href := routes.Tutor.openings(user.username, perfReport.perf.key))("Openings"),
+        perf.menu(full, user, perfReport, "openings"),
         perfReport.openings(as).families map { family =>
           a(
             href := routes.Tutor
-              .opening(user.username, perfReport.perf.key, as.name, report.family.key.value),
-            cls := family.family.key.value.active(report.family.key.value)
+              .opening(user.username, perfReport.perf.key, as.name, family.family.key.value),
+            cls := List(
+              "subnav__subitem2" -> true,
+              "active"           -> (family.family.key.value == report.family.key.value)
+            )
           )(family.family.name.value)
         }
       )

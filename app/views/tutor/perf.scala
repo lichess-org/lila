@@ -59,21 +59,17 @@ object perf {
       active: String
   )(implicit
       ctx: Context
-  ) = frag(
-    a(href := routes.Tutor.user(user.username))("Tutor"),
-    a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
-      report.perf.trans
-    ),
-    a(href := routes.Tutor.openings(user.username, report.perf.key), cls := active.active("openings"))(
-      "Openings"
-    ),
-    a(href := routes.Tutor.time(user.username, report.perf.key), cls := active.active("time"))(
-      "Time management"
-    ),
-    a(href := routes.Tutor.phases(user.username, report.perf.key), cls := active.active("phases"))(
-      "Game phases"
+  ) = {
+    def subItem(key: String, name: String, url: Call) =
+      a(href := url, cls := List("subnav__subitem" -> true, "active" -> (key == active)))(name)
+    frag(
+      a(href := routes.Tutor.user(user.username))("Tutor"),
+      a(href := routes.Tutor.perf(user.username, report.perf.key), cls := "active")(report.perf.trans),
+      subItem("time", "Time management", routes.Tutor.time(user.username, report.perf.key)),
+      subItem("phases", "Game phases", routes.Tutor.phases(user.username, report.perf.key)),
+      subItem("openings", "Openings", routes.Tutor.openings(user.username, report.perf.key))
     )
-  )
+  }
 
   private def angleCard(url: Call, title: Frag)(content: Modifier*)(implicit ctx: Context) =
     st.article(cls := "tutor__perf__angle tutor-card tutor-card--link", dataHref := url)(

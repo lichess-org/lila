@@ -31,10 +31,7 @@ object concept {
   def adhoc(name: String, unit: TutorUnit = percent) = new TutorConcept(name, "", unit)
 
   def show(concept: TutorConcept): Tag =
-    span(cls := "tutor__concept")(concept.name, iconTag("")(dataTitle := concept.description))
-
-  def show(concept: String): Tag =
-    span(cls := "tutor__concept")(concept)
+    span(cls := "tutor__concept")(concept.name)
 }
 
 sealed trait TutorUnit {
