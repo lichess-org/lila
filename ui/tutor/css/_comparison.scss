@@ -20,6 +20,7 @@
     &__name {
       font-weight: normal;
       font-size: 1.2em;
+      margin-bottom: 0.5em;
     }
     &__visual {
       @extend %flex-center;
@@ -29,9 +30,20 @@
         height: 1.5em;
         line-height: 1.5em;
         border: $border;
-        background: $c-bg-zebra;
+        background: $c-bg-zebra2;
         &.lit {
-          background: $c-good;
+          background: mix($c-good, $c-bg-box, 80%);
+        }
+      }
+      &--1,
+      &--2 {
+        > div.lit {
+          background: mix($c-bad, $c-bg-box, 80%);
+        }
+      }
+      &--3 {
+        > div.lit {
+          background: mix($c-brag, $c-bg-box, 80%);
         }
       }
     }

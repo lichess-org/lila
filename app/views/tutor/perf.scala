@@ -32,11 +32,7 @@ object perf {
         )(
           chess.Color.all map { color =>
             report.openings(color).families.headOption map { fam =>
-              frag(
-                h4(fam.family.name, " as ", color.name),
-                bits.peerGrade(concept.accuracy, fam.accuracy, h5),
-                bits.peerGrade(concept.tacticalAwareness, fam.awareness, h5)
-              )
+              bits.peerGrade(Left(s"${fam.family.name} as $color"), fam.mix, h4)
             }
           }
         ),
@@ -44,12 +40,14 @@ object perf {
           routes.Tutor.time(user.username, report.perf.key),
           frag(report.perf.trans, " time management")
         )(
-          bits.peerComparison(concept.speed, report.globalClock),
-          bits.peerComparison(concept.clockFlagVictory, report.flagging.win),
-          bits.peerComparison(concept.clockTimeUsage, report.clockUsage)
+          bits.peerGrade(Right(concept.speed), report.globalClock),
+          bits.peerGrade(Right(concept.clockFlagVictory), report.flagging.win),
+          bits.peerGrade(Right(concept.clockTimeUsage), report.clockUsage)
         ),
         angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
-          ul(report phaseHighlights 3 map compare.show)
+          report.phases.map { phase =>
+            bits.peerGrade(Left(phase.phase.name), phase.mix)
+          }
         )
       )
     )

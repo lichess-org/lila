@@ -6,6 +6,7 @@ import lila.common.Iso
 
 trait TutorNumber[V] {
   val iso: Iso.DoubleIso[V]
+  def double(v: V)      = iso to v
   def grade(a: V, b: V) = Grade(iso.to(a), iso.to(b))
   def average(vs: Iterable[ValueCount[V]]): ValueCount[V] =
     vs.foldLeft((0d, 0)) { case ((sum, total), ValueCount(value, count)) =>
