@@ -33,7 +33,7 @@ object TutorFlagging {
               mine.totalSize
             )
         }
-      val f = TutorFlagging(
+      TutorFlagging(
         win = TutorBothValueOptions(
           mine = valueCountOf(mine, Result.Win),
           peer = valueCountOf(peer, Result.Win)
@@ -43,13 +43,6 @@ object TutorFlagging {
           peer = valueCountOf(peer, Result.Loss)
         )
       )
-
-      if (user.perfType == PerfType.Bullet) {
-        println(mine)
-        println(peer)
-        println(f)
-      }
-      f
     }
   }
 }
