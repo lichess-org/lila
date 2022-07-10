@@ -36,8 +36,9 @@ import { bind, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
-import { ops } from 'tree';
+import { ops, path as treePath } from 'tree';
 import { view as cevalView, renderEval, Eval } from 'ceval';
+import * as control from '../control';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
@@ -55,16 +56,6 @@ export default function (ctrl: AnalyseController) {
 
   lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
-  });
-
-  window.Mousetrap.bind('c', () => {
-    if (ctrl.threatMode()) {
-      notify.set(`${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`);
-    } else {
-      const evs = ctrl.currentEvals(),
-        bestEv = cevalView.getBestEval(evs);
-      notify.set(`${evalInfo(bestEv)} ${depthInfo(ctrl, evs.client, !!evs.client?.cloud)}`);
-    }
   });
 
   return {
@@ -125,7 +116,7 @@ export default function (ctrl: AnalyseController) {
               },
             },
             // make sure consecutive positions are different so that they get re-read
-            renderCurrentNode(ctrl.node, style) + (ctrl.node.ply % 2 === 0 ? '' : ' ')
+            renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' ')
           ),
           h('h2', 'Move form'),
           h(
@@ -230,8 +221,6 @@ export default function (ctrl: AnalyseController) {
             h('br'),
             'space: play best computer move',
             h('br'),
-            'c: announce computer evaluation',
-            h('br'),
             'x: show threat',
             h('br'),
           ]),
@@ -266,11 +255,41 @@ export default function (ctrl: AnalyseController) {
             h('br'),
             commands.scan.help,
             h('br'),
+            "eval: announce last move's computer evaluation",
+            h('br'),
+            'prev: return to the previous move',
+            h('br'),
+            'next: go to the next move',
+            h('br'),
+            'prev line: switch to the previous variation',
+            h('br'),
+            'next line: switch to the next variation',
           ]),
         ]),
       ]);
     },
   };
+}
+
+function renderEvalAndDepth(ctrl: AnalyseController): string {
+  let evalStr: string, depthStr: string;
+  if (ctrl.threatMode()) {
+    evalStr = evalInfo(ctrl.node.threat);
+    depthStr = depthInfo(ctrl, ctrl.node.threat, false);
+    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`;
+  } else {
+    const evs = ctrl.currentEvals(),
+      bestEv = cevalView.getBestEval(evs);
+    evalStr = evalInfo(bestEv);
+    depthStr = depthInfo(ctrl, evs.client, !!evs.client?.cloud);
+  }
+  if (!evalStr) {
+    if (!ctrl.ceval.allowed()) return 'local evaluation not allowed';
+    else if (!ctrl.ceval.possible) return 'local evaluation not possible';
+    else return 'local evaluation not enabled';
+  } else {
+    return evalStr + ' ' + depthStr;
+  }
 }
 
 function evalInfo(bestEv: Eval | undefined): string {
@@ -319,15 +338,32 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
   };
 }
 
-const shortCommands = ['p', 's'];
+const shortCommands = ['p', 's', 'next', 'prev', 'eval'];
 
 function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0]);
+  return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
-  const pieces = ctrl.chessground.state.pieces;
-  notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+  const lowered = c.toLowerCase();
+  if (lowered === 'next') {
+    control.next(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'prev') {
+    control.prev(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'next line') {
+    jumpNextLine(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'prev line') {
+    jumpPrevLine(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'eval') {
+    notify(renderEvalAndDepth(ctrl));
+  } else {
+    const pieces = ctrl.chessground.state.pieces;
+    notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+  }
 }
 
 const analysisGlyphs = ['?!', '?', '??'];
@@ -392,9 +428,29 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
   );
 }
 
-function renderCurrentNode(node: Tree.Node, style: Style): string {
+function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
+  if (ctrl.path === treePath.root) return { i: 1, of: 1 };
+  const prevNode = ctrl.tree.nodeAtPath(treePath.init(ctrl.path));
+  return {
+    i: prevNode.children.findIndex(node => node.id === ctrl.node.id),
+    of: prevNode.children.length,
+  };
+}
+
+function renderLineIndex(ctrl: AnalyseController): string {
+  const { i, of } = currentLineIndex(ctrl);
+  return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
+}
+
+function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
+  const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
-  return [moveView.plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderComments(node, style)]
+  return [
+    moveView.plyToTurn(node.ply),
+    renderSan(node.san, node.uci, style),
+    renderLineIndex(ctrl),
+    renderComments(node, style),
+  ]
     .join(' ')
     .trim();
 }
@@ -427,4 +483,17 @@ function userHtml(ctrl: AnalyseController, player: Player) {
 
 function playerByColor(d: AnalyseData, color: Color) {
   return color === d.player.color ? d.player : d.opponent;
+}
+
+const jumpNextLine = (ctrl: AnalyseController) => jumpLine(ctrl, 1);
+const jumpPrevLine = (ctrl: AnalyseController) => jumpLine(ctrl, -1);
+
+function jumpLine(ctrl: AnalyseController, delta: number) {
+  const { i, of } = currentLineIndex(ctrl);
+  if (of === 1) return;
+  const newI = (i + delta + of) % of;
+  const prevPath = treePath.init(ctrl.path);
+  const prevNode = ctrl.tree.nodeAtPath(prevPath);
+  const newPath = prevPath + prevNode.children[newI].id;
+  ctrl.userJumpIfCan(newPath);
 }
