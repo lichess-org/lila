@@ -11,5 +11,7 @@
   <string name="aSquareNameAppears">Koordinate polja će se pojaviti na ploči, a Vi morate kliknuti na odgovarajuće polje. Imate 30 sekundi da ispravno označite što veći broj polja!</string>
   <string name="youHaveThirtySeconds">Imate 30 sekundi da tačno mapirate što je više moguće polja!</string>
   <string name="goAsLongAsYouWant">Igrajte koliko god želite, nema vremenskog ograničenja!</string>
+  <string name="showCoordinates">Prikaži koordinate</string>
+  <string name="showPieces">Prikaži figure</string>
   <string name="startTraining">Pokrenite trening</string>
 </resources>
