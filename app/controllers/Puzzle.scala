@@ -90,19 +90,21 @@ final class Puzzle(
     Open { implicit ctx =>
       NoBot {
         val angle = PuzzleAngle.mix
-        nextPuzzleForMe(angle) flatMap {
+        nextPuzzleForMe(angle, none) flatMap {
           renderShow(_, angle)
         }
       }
     }
 
-  private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Color] = None)(implicit
+  private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Option[Color]])(implicit
       ctx: Context
   ): Fu[Puz] =
     ctx.me match {
       case Some(me) =>
-        env.puzzle.session.setAngleAndColor(me, angle, color) >> env.puzzle.selector.nextPuzzleFor(me, angle)
-      case None => env.puzzle.anon.getOneFor(angle, color) orFail "Couldn't find a puzzle for anon!"
+        color.?? { colorChoice =>
+          env.puzzle.session.setAngleAndColor(me, angle, colorChoice)
+        } >> env.puzzle.selector.nextPuzzleFor(me, angle)
+      case None => env.puzzle.anon.getOneFor(angle, ~color) orFail "Couldn't find a puzzle for anon!"
     }
 
   def complete(angleStr: String, id: String) =
@@ -198,7 +200,7 @@ final class Puzzle(
                                   } yield json
                                 case _ =>
                                   for {
-                                    next     <- nextPuzzleForMe(angle)
+                                    next     <- nextPuzzleForMe(angle, none)
                                     nextJson <- renderJson(next, angle, none, newUser.some)
                                   } yield Json.obj(
                                     "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
@@ -212,7 +214,7 @@ final class Puzzle(
                     env.puzzle.finisher.incPuzzlePlays(id)
                     if (mobileBc) fuccess(Json.obj("user" -> false))
                     else
-                      nextPuzzleForMe(angle, data.color) flatMap {
+                      nextPuzzleForMe(angle, data.color map some) flatMap {
                         renderJson(_, angle)
                       } map { json =>
                         Json.obj("next" -> json)
@@ -303,7 +305,7 @@ final class Puzzle(
     NoBot {
       PuzzleAngle find angleOrId match {
         case Some(angle) =>
-          nextPuzzleForMe(angle) flatMap {
+          nextPuzzleForMe(angle, none) flatMap {
             renderShow(_, angle)
           }
         case _ if angleOrId.size == Puz.idSize =>
@@ -339,7 +341,7 @@ final class Puzzle(
     NoBot {
       PuzzleAngle.find(angleKey).fold(Redirect(routes.Puzzle.openings()).fuccess) { angle =>
         val color = Color fromName colorKey
-        nextPuzzleForMe(angle, color) flatMap {
+        nextPuzzleForMe(angle, color.some) flatMap {
           renderShow(_, angle, color = color)
         }
       }
@@ -458,7 +460,7 @@ final class Puzzle(
           html = notFound,
           api = v => {
             val angle = PuzzleAngle.mix
-            nextPuzzleForMe(angle) flatMap { puzzle =>
+            nextPuzzleForMe(angle, none) flatMap { puzzle =>
               renderJson(puzzle, angle, apiVersion = v.some)
             } dmap JsonOk
           }
