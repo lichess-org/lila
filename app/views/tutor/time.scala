@@ -6,6 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.insight.InsightPosition
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 
 object time {
@@ -24,9 +25,9 @@ object time {
         ul(report timeHighlights 5 map compare.show)
       ),
       div(cls := "tutor-card__content")(
-        bits.peerComparison(concept.speed, report.globalClock),
-        bits.peerComparison(concept.clockFlagVictory, report.flagging.win),
-        bits.peerComparison(concept.clockTimeUsage, report.clockUsage)
+        bits.peerGradeWithDetail(concept.speed, report.globalClock, InsightPosition.Move),
+        bits.peerGradeWithDetail(concept.clockFlagVictory, report.flagging.win, InsightPosition.Game),
+        bits.peerGradeWithDetail(concept.clockTimeUsage, report.clockUsage, InsightPosition.Game)
       )
     )
 }

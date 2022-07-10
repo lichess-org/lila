@@ -105,12 +105,12 @@ object Grade {
     def compare(other: Wording) = top compare other.top
   }
   object Wording {
-    case object MuchWorse      extends Wording(1, "much worse than", -0.5)
+    case object MuchWorse      extends Wording(1, "much worse than", -0.3)
     case object Worse          extends Wording(2, "worse than", -0.2)
-    case object SlightlyWorse  extends Wording(3, "slightly worse than", -0.05)
-    case object Similar        extends Wording(4, "similar to", 0.05)
+    case object SlightlyWorse  extends Wording(3, "slightly worse than", -0.07)
+    case object Similar        extends Wording(4, "similar to", 0.07)
     case object SlightlyBetter extends Wording(5, "slightly better than", 0.2)
-    case object Better         extends Wording(6, "better than", 0.5)
+    case object Better         extends Wording(6, "better than", 0.3)
     case object MuchBetter     extends Wording(7, "much better than", 1)
     val list = List[Wording](MuchWorse, Worse, SlightlyWorse, Similar, SlightlyBetter, Better, MuchBetter)
   }

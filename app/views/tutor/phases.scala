@@ -8,6 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.insight.Phase
+import lila.insight.InsightPosition
 
 object phases {
 
@@ -33,8 +34,8 @@ object phases {
               )
             ),
             div(cls := "tutor-card__content")(
-              bits.peerComparison(concept.accuracy, phase.accuracy),
-              bits.peerComparison(concept.tacticalAwareness, phase.accuracy)
+              bits.peerGradeWithDetail(concept.accuracy, phase.accuracy, InsightPosition.Move),
+              bits.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move)
             )
           )
         }

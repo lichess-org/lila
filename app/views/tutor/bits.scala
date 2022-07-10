@@ -8,6 +8,7 @@ import scalatags.Text
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.insight.InsightPosition
 import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
 
 object bits {
@@ -25,28 +26,16 @@ object bits {
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def peerComparison[A: TutorNumber](
-      c: TutorConcept,
-      metric: TutorBothValueOptions[A],
-      titleTag: Text.Tag = h3
-  )(implicit lang: Lang) =
-    metric.mine map { mine =>
-      div(cls := "tutor-comparison")(
-        titleTag(cls := "tutor-comparison__name")(concept.show(c)),
-        div(cls := "tutor-comparison__unit")(horizontalBarPercent(mine.some, "Yours", "mine")),
-        div(cls := "tutor-comparison__unit")(horizontalBarPercent(metric.peer, "Peers", "peer"))
-      )
-    }
-
   def peerGrade[A](
       c: Either[String, TutorConcept],
       metricOptions: TutorBothValueOptions[A],
-      titleTag: Text.Tag = h3
+      titleTag: Text.Tag = h3,
+      detail: Frag = emptyFrag
   )(implicit lang: Lang, number: TutorNumber[A]) =
     metricOptions.asAvailable map { metric =>
       val grade       = metric.grade
-      val minePercent = number.iso.to(metric.mine.value)
-      val peerPercent = number.iso.to(metric.peer.value)
+      val minePercent = renderPercent(metric.mine.value)
+      val peerPercent = renderPercent(metric.peer.value)
       div(cls := "tutor-grade")(
         titleTag(cls := "tutor-grade__name")(c.fold(concept.show, concept.show)),
         div(
@@ -56,9 +45,35 @@ object bits {
           lila.tutor.Grade.Wording.list.map { gw =>
             div(cls := (grade.wording >= gw).option("lit"))
           }
-        )
+        ),
+        detail
       )
     }
+
+  def peerGradeWithDetail[A: TutorNumber](
+      c: TutorConcept,
+      metric: TutorBothValueOptions[A],
+      position: InsightPosition,
+      titleTag: Text.Tag = h3
+  )(implicit lang: Lang) =
+    peerGrade(
+      Right(c),
+      metric,
+      titleTag = titleTag,
+      detail = metric.mine.fold(emptyFrag) { mine =>
+        div(cls := "tutor-grade__detail")(
+          strong(renderPercent(mine.value)),
+          "%",
+          metric.peer.map { peer =>
+            em(" vs ", strong(renderPercent(peer.value)), "% (peers)")
+          },
+          " over ",
+          mine.count.localize,
+          " ",
+          position.short
+        )
+      }
+    )
 
   private def horizontalBarPercent[A](
       value: Option[ValueCount[A]],
@@ -67,13 +82,17 @@ object bits {
   )(implicit lang: Lang, number: TutorNumber[A]) =
     value match {
       case Some(v) =>
-        val double = number.iso.to(v.value)
-        div(cls := s"tutor-bar tutor-bar--$extraCls", style := s"--value:${Math.round(double)}%")(
+        div(
+          cls   := s"tutor-bar tutor-bar--$extraCls",
+          style := s"--value:${Math.round(number double v.value)}%"
+        )(
           span(legend),
-          em(strong(f"${double}%1.1f"), "%", " (", v.count.localize, ")")
+          em(strong(renderPercent(v.value)), "%", " (", v.count.localize, ")")
         )
       case None => div(cls := s"tutor-bar tutor-bar--$extraCls tutor-bar--empty")
     }
+
+  private def renderPercent[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
 
   private[tutor] def layout(
       availability: TutorFullReport.Availability,
