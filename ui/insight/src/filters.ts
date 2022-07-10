@@ -14,7 +14,6 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
           $(vnode.elm).multipleSelect({
             placeholder: dimension.name,
             width: '100%',
-            maxHeight: 400,
             selectAll: false,
             filter: dimension.key === 'opening',
             single,
