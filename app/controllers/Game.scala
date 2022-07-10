@@ -103,19 +103,38 @@ final class Game(
               .pipe(noProxyBuffer)
               .as(gameContentType(config))
               .fuccess
-          else {
-            val date = DateTimeFormat forPattern "yyyy-MM-dd" print DateTime.now
+          else
             apiC
               .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
                 source =>
                   Ok.chunked(source)
                     .pipe(
-                      asAttachmentStream(s"lichess_${user.username}_$date.${format.toString.toLowerCase}")
+                      asAttachmentStream(
+                        s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
+                      )
                     )
                     .as(gameContentType(config))
               }
               .fuccess
-          }
+
+        }
+      }
+    }
+
+  private def fileDate = DateTimeFormat forPattern "yyyy-MM-dd" print DateTime.now
+
+  def apiExportByUserImportedGames(username: String) =
+    AnonOrScoped() { req => me =>
+      env.user.repo named username map {
+        _.filter(u => u.enabled || me.exists(_ is u)) ?? { user =>
+          apiC
+            .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(
+              env.api.gameApiV2.exportUserImportedGames(user)
+            ) { source =>
+              Ok.chunked(source)
+                .pipe(asAttachmentStream(s"lichess_${user.username}_$fileDate.imported.pgn"))
+                .as(pgnContentType)
+            }
         }
       }
     }

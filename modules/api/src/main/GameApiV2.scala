@@ -229,6 +229,13 @@ final class GameApiV2(
         }
       }
 
+  def exportUserImportedGames(user: User): Source[String, _] =
+    gameRepo
+      .sortedCursor(Query imported user.id, Query.importedSort, batchSize = 20)
+      .documentSource()
+      .throttle(20, 1 second)
+      .mapConcat(_.pgnImport.map(_.pgn).toList)
+
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
 
