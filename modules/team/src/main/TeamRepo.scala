@@ -136,7 +136,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[Team.ID]): Fu[Set[Team.ID]] =
-    coll.secondaryPreferred.distinctEasy[Team.ID, Set]("_id", $doc("hideMembers" -> true))
+    coll.secondaryPreferred.distinctEasy[Team.ID, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
 
   private[team] val enabledSelect = $doc("enabled" -> true)
 
