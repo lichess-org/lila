@@ -12,7 +12,10 @@ case class TutorPhase(
     phase: Phase,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[TutorRatio]
-)
+) {
+
+  def mix = accuracy mix awareness
+}
 
 private object TutorPhases {
 

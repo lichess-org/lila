@@ -21,6 +21,9 @@ object concept {
   val accuracy          = new TutorConcept("Accuracy", InsightMetric.MeanAccuracy.description)
   val tacticalAwareness = new TutorConcept("Tactical Awareness", InsightMetric.Awareness.description)
 
-  def show(concept: TutorConcept) =
-    span(cls := "tutor__concept", dataTitle := concept.description)(concept.name, iconTag(""))
+  def show(concept: TutorConcept): Tag =
+    span(cls := "tutor__concept")(concept.name, iconTag("")(dataTitle := concept.description))
+
+  def show(concept: String): Tag =
+    span(cls := "tutor__concept")(concept)
 }

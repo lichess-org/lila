@@ -39,7 +39,7 @@ object bits {
     }
 
   def peerGrade[A](
-      c: TutorConcept,
+      c: Either[String, TutorConcept],
       metricOptions: TutorBothValueOptions[A],
       titleTag: Text.Tag = h3
   )(implicit lang: Lang, number: TutorNumber[A]) =
@@ -48,10 +48,13 @@ object bits {
       val minePercent = number.iso.to(metric.mine.value)
       val peerPercent = number.iso.to(metric.peer.value)
       div(cls := "tutor-grade")(
-        titleTag(cls := "tutor-grade__name")(concept.show(c)),
-        div(cls := "tutor-grade__visual", title := s"$minePercent% vs $peerPercent%")(
+        titleTag(cls := "tutor-grade__name")(c.fold(concept.show, concept.show)),
+        div(
+          cls   := s"tutor-grade__visual tutor-grade__visual--${grade.wording.id}",
+          title := s"$minePercent% vs $peerPercent%"
+        )(
           lila.tutor.Grade.Wording.list.map { gw =>
-            div(cls := (grade.wording > gw).option("lit"))
+            div(cls := (grade.wording >= gw).option("lit"))
           }
         )
       )
