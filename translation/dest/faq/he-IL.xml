@@ -3,14 +3,14 @@
   <string name="faqAbbreviation">שאלות נפוצות</string>
   <string name="frequentlyAskedQuestions">שאלות נפוצות</string>
   <string name="whyIsLichessCalledLichess">למה ליצ\'ס נקרא ליצ\'ס?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">ליצ׳ס הוא הלחם של Live, Light, Libre - חיים, אור וחופש; ו־Chess - שחמט. מבטאים זאת כך: %1$s.</string>
-  <string name="leechess">לִיצֶ\'ס</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">לִיצֶ\'ס הוא הלחם של Live, Light, Libre - חיים, אור וחופש; ו־Chess - שחמט. מבטאים זאת כך: %1$s.</string>
+  <string name="leechess"> לִיצֶ\'ס </string>
   <string name="hearItPronouncedBySpecialist">שמעו מומחה מבטא ״Lichess\".</string>
-  <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך שליצ\'ס הוא open source ולא פושה בו זבל קנייני כמו באתרים אחרים.</string>
-  <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של ליצ\'ס, %1$s הוא קיצור של li[chess in sca]la, שכן רוב הקוד של ליצ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
+  <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך ש לִיצֶ\'ס  הוא open source ולא פושה בו זבל קנייני כמו באתרים אחרים.</string>
+  <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של  לִיצֶ\'ס , %1$s הוא קיצור של li[chess in sca]la, שכן רוב הקוד של לִיצֶ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
   <string name="howCanIContributeToLichess">כיצד אוכל לתרום לליצ\'ס?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">ליצ\'ס מופעל על ידי תרומות מצד תומכים ומאמצי צוות מתנדבים.</string>
-  <string name="findMoreAndSeeHowHelp">תוכל לקרוא עוד על %1$s (וגם על %2$s). אם אתה מעוניין לעזור לליצ\'ס ע\"י נידוב זמנך וכישוריך, ישנן הרבה %3$s.</string>
+  <string name="findMoreAndSeeHowHelp">תוכל לקרוא עוד על %1$s (וגם על %2$s). אם אתה מעוניין לעזור ללִיצֶ\'ס ע\"י נידוב זמנך וכישוריך, ישנן הרבה %3$s.</string>
   <string name="beingAPatron">להיות תומך</string>
   <string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
   <string name="otherWaysToHelp">דרכים אחרות לעזור</string>
@@ -27,10 +27,10 @@
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="pleaseReadFairPlayPage">לקבלת מידע נוסף, בבקשה קראו את %s שלנו</string>
   <string name="fairPlayPage">עלון ההסבר על משחק הוגן</string>
-  <string name="youCanUseOpeningBookNoEngine">בליצ\'ס, ההבדל העיקרי בכללים של שחמט בהתכתבות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע במשחקים בהתכתבות, ליצ\'ס לא.</string>
+  <string name="youCanUseOpeningBookNoEngine">בלִיצֶ\'ס, ההבדל העיקרי בכללים של שחמט בהתכתבות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע במשחקים בהתכתבות, לִיצֶ\'ס לא.</string>
   <string name="gameplay">מהלך המשחק</string>
   <string name="howBulletBlitzEtcDecided">איך Bullet, Blitz וזמני משחק אחרים נקבעים?</string>
-  <string name="basedOnGameDuration">קטגוריות הזמן של ליצ\'ס מבוססות על משך המשחק המשוער = %1$s
+  <string name="basedOnGameDuration">קטגוריות הזמן של לִיצֶ\'ס מבוססות על משך המשחק המשוער = %1$s
 למשל, משך הזמן המשוער של משחק 5+3 הוא 5 × 60 + 40 × 3 = 420 שניות.</string>
   <string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת זמן לכל מהלך)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
@@ -44,7 +44,7 @@
 המהלך הממוחשב הטוב ביותר יאבד אפס מאית חייל, אך מהלכים פחותים יביאו להידרדרותו של המדד, שנמדד במאית חייל.
 
 ניתן להשתמש בערך זה כאינדיקטור לאיכות המשחק. ככל שפחות מאיות חייל מופסדות בכל מהלך, כך המשחק יותר מדויק.
-הניתוח הממוחשב בליצ\'ס מבוצע על ידי Stockfish.</string>
+הניתוח הממוחשב בלִיצֶ\'ס  מבוצע על ידי Stockfish.</string>
   <string name="insufficientMaterial">הפסד על זמן, תיקו והיעדר חומר מספיק</string>
   <string name="lichessFollowFIDErules">במקרה בו נגמר הזמן של שחקן אחד, אותו שחקן בדרך כלל יפסיד את המשחק. עם זאת, המשחק נגמר בתיקו אם העמדה היא כזו שהיריב אינו יכול לעשות מט למלך השחקן בשום סדרה של מהלכים חוקיים אפשריים (%1$s).
 
@@ -63,20 +63,20 @@
   <string name="goodIntroduction">הקדמה טובה</string>
   <string name="lichessTraining">אימון בליצ\'ס</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
-  <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו עקב %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו בסעיף 9.2 ד\' של %2$s.</string>
+  <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו עקב %1$s. לִיצֶ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו בסעיף 9.2 ד\' של %2$s.</string>
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
   <string name="notRepeatedMoves">לא חזרנו על מהלכים, מדוע המשחק הסתיים בתיקו ע\"י חזרתיות?</string>
   <string name="repeatedPositionsThatMatters">חזרה משולש מתייחסת ל%1$s, לא תורות. החזרות אינן חייבות להתקיים ברצף.</string>
   <string name="positions">עמדות</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
-  <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
+  <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s לִיצֶ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
   <string name="configure">לקבוע את תצורת</string>
   <string name="accounts">חשבונות</string>
   <string name="titlesAvailableOnLichess">אילו תארים יש בLichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess מכיר בכל דרגות FIDE למשחק על גבי לוח, כמו גם %1$s. הנה רשימה של דרגות FIDE:</string>
   <string name="showYourTitle">אם יש לך תואר ממשחק על גבי לוח, תוכל להגיש בקשה להצגה בחשבונך על ידי מילוי %1$s, כולל תמונה ברורה של מסמך/כרטיס מזהה וצילום סלפי שלך אוחז במסמך/כרטיס.
 
-אימות כשחקן עם תואר בליצ\'ס נותן גישה לטורנירי זירה לשחקנים כאלה.
+אימות כשחקן עם תואר בלִיצֶ\'ס  נותן גישה לטורנירי זירה לשחקנים כאלה.
 
 לבסוף יש תואר כבוד %2$s.</string>
   <string name="asWellAsManyNMtitles">תארי אמן של מדינות רבות</string>
@@ -131,9 +131,9 @@
   <string name="howToThreeDots">כיצד...</string>
   <string name="enableDisableNotificationPopUps">להפעיל או לחסום התראות קופצות?</string>
   <string name="viewSiteInformationPopUp">צפה בחלון הקופץ המכיל מידע על האתר</string>
-  <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
+  <string name="lichessCanOptionnalySendPopUps"> לִיצֶ\'ס  יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
 לחץ על סמל הנעילה שליד הכתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
 
-לאחר מכן בחר אם לאפשר או לחסום התראות מליצ\'ס.</string>
+לאחר מכן בחר אם לאפשר או לחסום התראות מלִיצֶ\'ס .</string>
 </resources>
