@@ -758,6 +758,14 @@ object mon {
     def uploadTime(user: String) = future("picfit.upload.time", Map("user" -> user))
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
   }
+  class executor(name: String) {
+    val queuedSubmissions = histogram("executor.queuedSubmissions").withTag("name", name)
+    val queuedTasks       = histogram("executor.queuedTasks").withTag("name", name)
+    val poolSize          = histogram("executor.poolSize").withTag("name", name)
+    val activeThreads     = histogram("executor.activeThreads").withTag("name", name)
+    val runningThreads    = histogram("executor.runningThreads").withTag("name", name)
+    val steals            = gauge("executor.steals").withTag("name", name)
+  }
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A] _
 
