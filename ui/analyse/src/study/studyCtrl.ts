@@ -99,7 +99,7 @@ export default function (
       // path is at ctrl.path
       mode: {
         sticky: sticked,
-        write: relayData ? relayRecProp() : nonRelayRecMapProp(data.id),
+        write: relayData ? relayRecProp() : nonRelayRecMapProp.getKey(data.id),
       },
       // how many events missed because sync=off
       behind: 0,
@@ -510,7 +510,7 @@ export default function (
       if (d.s && !vm.mode.sticky) vm.behind++;
       if (d.s) data.position = d.p;
       else if (d.w && d.w.s === lichess.sri) {
-        vm.mode.write = relayData ? relayRecProp() : nonRelayRecMapProp(data.id);
+        vm.mode.write = relayData ? relayRecProp() : nonRelayRecMapProp.getKey(data.id);
         vm.chapterId = d.p.chapterId;
       }
       xhrReload();
@@ -687,7 +687,7 @@ export default function (
     toggleWrite() {
       vm.mode.write = !vm.mode.write && members.canContribute();
       if (relayData) relayRecProp(vm.mode.write);
-      else nonRelayRecMapProp(data.id, vm.mode.write);
+      else nonRelayRecMapProp.setKey(data.id, vm.mode.write);
       xhrReload();
     },
     isWriting,

@@ -5,6 +5,7 @@ import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
 import { AnalyseSocketSend } from '../socket';
+import { storedMap, StoredMap } from 'common/storage';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;
@@ -14,6 +15,7 @@ export interface StudyInviteFormCtrl {
   invite(titleName: string): void;
   redraw(): void;
   trans: Trans;
+  recentlyInvited: StoredMap<null>;
 }
 
 export function makeCtrl(
@@ -25,6 +27,8 @@ export function makeCtrl(
 ): StudyInviteFormCtrl {
   const open = prop(false),
     spectators = prop<string[]>([]);
+
+  const recentlyInvited = storedMap<null>('study.recentlyInvited', 100, () => null);
   return {
     open,
     members,
@@ -41,12 +45,12 @@ export function makeCtrl(
     },
     redraw,
     trans,
+    recentlyInvited,
   };
 }
 
 export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
-  const candidates = ctrl
-    .spectators()
+  const candidates = [...new Set([...ctrl.spectators(), ...ctrl.recentlyInvited.getMap().keys()])]
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
   return snabModal({
@@ -71,6 +75,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                   input.value = '';
                   ctrl.invite(v.name);
                   ctrl.redraw();
+                  ctrl.recentlyInvited.setKey(v.name, null);
                 },
               });
               input.focus();
@@ -86,7 +91,10 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                 'span.button.button-metal',
                 {
                   key: username,
-                  hook: bind('click', _ => ctrl.invite(username)),
+                  hook: bind('click', _ => {
+                    ctrl.invite(username);
+                    ctrl.recentlyInvited.setKey(username, null);
+                  }),
                 },
                 username
               );
