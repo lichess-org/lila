@@ -427,7 +427,7 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
       const $promotionPiece = ev.key.toLowerCase();
       const $form = $moveBox.parent().parent();
       if (!$promotionPiece.match(/^[qnrb]$/)) {
-        $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bisho');
+        $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop');
         return false;
       }
       $moveBox.val($moveBox.val() + $promotionPiece);

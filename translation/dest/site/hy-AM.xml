@@ -561,6 +561,8 @@
   <string name="error.unknown">Սխալ արժեք</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Էլ. փոստի այս հասցեն սխալ է:</string>
+  <string name="error.min">Արժեքը պետք է լինի մեծ կամ հավասար %s</string>
+  <string name="error.max">Արժեքը պետք է լինի փոքր կամ հավասար %s</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
   <string name="ifRegistered">Եթե գրանցված է</string>
   <string name="onlyExistingConversations">Միայն գոյություն ունեցող քննարկումները</string>

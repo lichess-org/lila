@@ -4,7 +4,6 @@ import * as cg from 'chessground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
-import AnalyseController from './ctrl';
 import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
@@ -15,7 +14,7 @@ export type Seconds = number;
 export { Key, Piece } from 'chessground/types';
 
 export interface NvuiPlugin {
-  render(ctrl: AnalyseController): VNode;
+  render(): VNode;
 }
 
 export interface AnalyseApi {

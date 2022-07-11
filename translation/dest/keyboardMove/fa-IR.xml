@@ -17,4 +17,5 @@
   <string name="bothTheLetterOAndTheDigitZero">حرف o و عدد 0 نشان دهتده قلعه رفتن است</string>
   <string name="ifItIsLegalToCastleBothWays" comment="ifItIsLegalToCastleBothWays&#10;&#10;'Enter' as in the key on a standard keyboard.">اگر مجاز به قلعه رفتن در هر دو جهت هستید، از \"enter\" جهت قلعه جناح شاه استفاده کنید</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations" comment="capitalizationOnlyMattersInAmbiguousSituations&#10;&#10;Note: Piece letters (K, Q, R, B, N) currently remain the same regardless of which language the user has selected.">از حروف بزرگ تنها در موقعیت های مبهم استفاده میشود مانند bishop و b-pawn</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">برای ارتقا، کافی است قبل از اینکه نوبت شما شود، ارتقا مورد نظر را تایپ کنید</string>
 </resources>

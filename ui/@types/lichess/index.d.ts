@@ -255,8 +255,10 @@ interface Window {
   readonly LichessCli: any;
   readonly LichessRound: any;
   readonly LichessRoundNvui?: Nvui;
-  readonly LichessAnalyseNvui?: Nvui;
   readonly LichessPuzzleNvui?: Nvui;
+  readonly LichessAnalyseNvui?: (ctrl: any) => {
+    render(): any;
+  };
   readonly LichessChartGame: {
     acpl: {
       (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;

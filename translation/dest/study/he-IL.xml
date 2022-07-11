@@ -37,7 +37,7 @@
     <item quantity="other">%s משתמשים</item>
   </plurals>
   <string name="inviteToTheStudy">הזמן ללוח הלמידה</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">השתדל להזמין רק שחקנים המוכרים לך והמעונינים בניתוח זה.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">אנא הזמן רק שחקנים שאתה מכיר המעוניינים להצטרף ללוח הלמידה הזה.</string>
   <string name="searchByUsername">חפש לפי שם משתמש</string>
   <string name="spectator">צופה</string>
   <string name="contributor">תורם</string>

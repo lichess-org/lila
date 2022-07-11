@@ -1,10 +1,10 @@
 import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
-import { Redraw, AnalyseData } from '../interfaces';
+import { AnalyseData } from '../interfaces';
 import { Player } from 'game';
 import {
   renderSan,
@@ -36,15 +36,22 @@ import { bind, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
-import { ops } from 'tree';
+import { ops, path as treePath } from 'tree';
+import { view as cevalView, renderEval, Eval } from 'ceval';
+import * as control from '../control';
+import { lichessRules } from 'chessops/compat';
+import { makeSan } from 'chessops/san';
+import { opposite, parseUci } from 'chessops/util';
+import { parseFen } from 'chessops/fen';
+import { setupPosition } from 'chessops/variant';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (redraw: Redraw) {
-  const notify = new Notify(redraw),
+export default function (ctrl: AnalyseController) {
+  const notify = new Notify(ctrl.redraw),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
     prefixStyle = prefixSetting(),
@@ -57,7 +64,7 @@ export default function (redraw: Redraw) {
   });
 
   return {
-    render(ctrl: AnalyseController): VNode {
+    render(): VNode {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
@@ -95,7 +102,7 @@ export default function (redraw: Redraw) {
                     attrs: {
                       'aria-pressed': `${ctrl.explorer.enabled()}`,
                     },
-                    hook: bind('click', _ => ctrl.explorer.toggle(), redraw),
+                    hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
                   },
                   ctrl.trans.noarg('openingExplorerAndTablebase')
                 ),
@@ -114,7 +121,7 @@ export default function (redraw: Redraw) {
               },
             },
             // make sure consecutive positions are different so that they get re-read
-            renderCurrentNode(ctrl.node, style) + (ctrl.node.ply % 2 === 0 ? '' : ' ')
+            renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' ')
           ),
           h('h2', 'Move form'),
           h(
@@ -147,6 +154,8 @@ export default function (redraw: Redraw) {
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
+          cevalView.renderCeval(ctrl),
+          cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
           h(
@@ -202,14 +211,25 @@ export default function (redraw: Redraw) {
           }),
           h('h2', 'Settings'),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h3', 'Board Settings'),
+          h('h3', 'Board settings'),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           h('h2', 'Keyboard shortcuts'),
-          h('p', ['Use arrow keys to navigate in the game.']),
-          h('h2', 'Board Mode commands'),
+          h('p', [
+            'Use arrow keys to navigate in the game.',
+            h('br'),
+            'l: toggle local computer analysis',
+            h('br'),
+            'z: toggle all computer analysis',
+            h('br'),
+            'space: play best computer move',
+            h('br'),
+            'x: show threat',
+            h('br'),
+          ]),
+          h('h2', 'Board mode commands'),
           h('p', [
             'Use these commands when focused on the board itself.',
             h('br'),
@@ -240,11 +260,88 @@ export default function (redraw: Redraw) {
             h('br'),
             commands.scan.help,
             h('br'),
+            "eval: announce last move's computer evaluation",
+            h('br'),
+            'best: announce the top engine move',
+            h('br'),
+            'prev: return to the previous move',
+            h('br'),
+            'next: go to the next move',
+            h('br'),
+            'prev line: switch to the previous variation',
+            h('br'),
+            'next line: switch to the next variation',
           ]),
         ]),
       ]);
     },
   };
+}
+
+const NOT_ALLOWED = 'local evaluation not allowed';
+const NOT_POSSIBLE = 'local evaluation not possible';
+const NOT_ENABLED = 'local evaluation not enabled';
+
+function renderEvalAndDepth(ctrl: AnalyseController): string {
+  let evalStr: string, depthStr: string;
+  if (ctrl.threatMode()) {
+    evalStr = evalInfo(ctrl.node.threat);
+    depthStr = depthInfo(ctrl, ctrl.node.threat, false);
+    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`;
+  } else {
+    const evs = ctrl.currentEvals(),
+      bestEv = cevalView.getBestEval(evs);
+    evalStr = evalInfo(bestEv);
+    depthStr = depthInfo(ctrl, evs.client, !!evs.client?.cloud);
+  }
+  if (!evalStr) {
+    if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
+    else if (!ctrl.ceval.possible) return NOT_POSSIBLE;
+    else return NOT_ENABLED;
+  } else {
+    return evalStr + ' ' + depthStr;
+  }
+}
+
+function evalInfo(bestEv: Eval | undefined): string {
+  if (bestEv) {
+    if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
+    else if (defined(bestEv.mate)) return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
+  }
+  return '';
+}
+
+function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
+  if (!clientEv) return '';
+  const depth = clientEv.depth || 0;
+  return isCloud
+    ? ctrl.trans('depthX', depth) + ' Cloud'
+    : ctrl.trans('depthX', depth + '/' + Math.max(depth, clientEv.maxDepth || depth));
+}
+
+function renderBestMove(ctrl: AnalyseController, style: Style): string {
+  const instance = ctrl.getCeval();
+  if (!instance.allowed()) return NOT_ALLOWED;
+  if (!instance.possible) return NOT_POSSIBLE;
+  if (!instance.enabled()) return NOT_ENABLED;
+  const node = ctrl.node,
+    setup = parseFen(node.fen).unwrap();
+  let pvs: Tree.PvData[] = [];
+  if (ctrl.threatMode() && node.threat) {
+    pvs = node.threat.pvs;
+    setup.turn = opposite(setup.turn);
+    if (setup.turn === 'white') setup.fullmoves += 1;
+  } else if (node.ceval) {
+    pvs = node.ceval.pvs;
+  }
+  const pos = setupPosition(lichessRules(instance.variant.key), setup);
+  if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
+    const uci = pvs[0].moves[0];
+    const san = makeSan(pos.unwrap(), parseUci(uci)!);
+    return renderSan(san, uci, style);
+  } else {
+    return '';
+  }
 }
 
 function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNode)[] {
@@ -277,15 +374,32 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
   };
 }
 
-const shortCommands = ['p', 'scan'];
+const shortCommands = ['p', 's', 'next', 'prev', 'eval', 'best'];
 
 function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0]);
+  return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
-  const pieces = ctrl.chessground.state.pieces;
-  notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+  const lowered = c.toLowerCase();
+  if (lowered === 'next') {
+    control.next(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'prev') {
+    control.prev(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'next line') {
+    jumpNextLine(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'prev line') {
+    jumpPrevLine(ctrl);
+    ctrl.redraw();
+  } else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
+  else if (lowered === 'best') notify(renderBestMove(ctrl, style));
+  else {
+    const pieces = ctrl.chessground.state.pieces;
+    notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+  }
 }
 
 const analysisGlyphs = ['?!', '?', '??'];
@@ -350,9 +464,29 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
   );
 }
 
-function renderCurrentNode(node: Tree.Node, style: Style): string {
+function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
+  if (ctrl.path === treePath.root) return { i: 1, of: 1 };
+  const prevNode = ctrl.tree.nodeAtPath(treePath.init(ctrl.path));
+  return {
+    i: prevNode.children.findIndex(node => node.id === ctrl.node.id),
+    of: prevNode.children.length,
+  };
+}
+
+function renderLineIndex(ctrl: AnalyseController): string {
+  const { i, of } = currentLineIndex(ctrl);
+  return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
+}
+
+function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
+  const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
-  return [moveView.plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderComments(node, style)]
+  return [
+    moveView.plyToTurn(node.ply),
+    renderSan(node.san, node.uci, style),
+    renderLineIndex(ctrl),
+    renderComments(node, style),
+  ]
     .join(' ')
     .trim();
 }
@@ -385,4 +519,17 @@ function userHtml(ctrl: AnalyseController, player: Player) {
 
 function playerByColor(d: AnalyseData, color: Color) {
   return color === d.player.color ? d.player : d.opponent;
+}
+
+const jumpNextLine = (ctrl: AnalyseController) => jumpLine(ctrl, 1);
+const jumpPrevLine = (ctrl: AnalyseController) => jumpLine(ctrl, -1);
+
+function jumpLine(ctrl: AnalyseController, delta: number) {
+  const { i, of } = currentLineIndex(ctrl);
+  if (of === 1) return;
+  const newI = (i + delta + of) % of;
+  const prevPath = treePath.init(ctrl.path);
+  const prevNode = ctrl.tree.nodeAtPath(prevPath);
+  const newPath = prevPath + prevNode.children[newI].id;
+  ctrl.userJumpIfCan(newPath);
 }
