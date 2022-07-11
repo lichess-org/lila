@@ -159,7 +159,7 @@ object InsightMetric {
         Move,
         Move,
         Percent,
-        "How often you take advantage of your opponent blunders. 100% means you punish them all, 0% means you counter-blunder them all."
+        "How often you take advantage of your opponent mistakes."
       )
 
   case object Luck
@@ -170,7 +170,7 @@ object InsightMetric {
         Move,
         Move,
         Percent,
-        "How often your opponent fails to punish your blunders. 100% means they miss all your blunders, 0% means they spot them all."
+        "How often your opponent fails to punish your mistakes."
       )
 
   case object Material

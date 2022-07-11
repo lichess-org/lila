@@ -70,7 +70,7 @@ object opening {
         }
       ),
       div(
-        cls := "box__pad"
+        cls := "tutor__pad"
       )(
         grade.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
         hr,

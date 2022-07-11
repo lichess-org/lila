@@ -24,7 +24,7 @@ object time {
       bits.mascotSays(
         ul(report timeHighlights 5 map compare.show)
       ),
-      div(cls := "box__pad")(
+      div(cls := "tutor__pad")(
         grade.peerGradeWithDetail(concept.speed, report.globalClock, InsightPosition.Move),
         hr,
         grade.peerGradeWithDetail(concept.clockFlagVictory, report.flagging.win, InsightPosition.Game),

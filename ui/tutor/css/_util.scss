@@ -12,6 +12,10 @@
     }
   }
 
+  &__pad {
+    padding: 0 var(--box-padding) $box-padding-vert var(--box-padding);
+  }
+
   &__concept {
     @extend %flex-center-nowrap;
     i {
