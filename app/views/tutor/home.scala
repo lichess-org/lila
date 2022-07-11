@@ -81,18 +81,18 @@ object home {
           ),
           report percentTimeOf perfReport.perf map { percent =>
             div(cls := "tutor-card__top__title__sub")(
-              bits.renderPercent(percent),
+              bits.percentFrag(percent),
               " of your chess playing time."
             )
           }
         )
       ),
       div(cls := "tutor-card__content")(
-        bits.peerGrade(concept.accuracy, perfReport.accuracy),
-        bits.peerGrade(concept.tacticalAwareness, perfReport.awareness),
-        bits.peerGrade(concept.speed, perfReport.globalClock),
-        bits.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
-        bits.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),
+        grade.peerGrade(concept.accuracy, perfReport.accuracy),
+        grade.peerGrade(concept.tacticalAwareness, perfReport.awareness),
+        grade.peerGrade(concept.speed, perfReport.globalClock),
+        grade.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
+        grade.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),
         // ul(perfReport.relevantComparisons.topN(3) map compare.show),
         bits.seeMore
       )

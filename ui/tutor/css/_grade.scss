@@ -1,17 +1,4 @@
 .tutor {
-  &-comparison {
-    margin-bottom: $block-gap;
-    &:last-child {
-      margin-bottom: 0;
-    }
-    &__name {
-      font-weight: normal;
-      font-size: 1.2em;
-    }
-    &__unit {
-      margin-top: 0.5em;
-    }
-  }
   &-grade {
     margin-bottom: $block-gap;
     &:last-child {
@@ -20,6 +7,10 @@
     &__name {
       font-weight: normal;
       font-size: 1.2em;
+      margin-bottom: 0.5em;
+    }
+    &--detail .tutor-grade__name {
+      font-size: 1.5em;
       margin-bottom: 0.5em;
     }
     &__visual {

@@ -53,7 +53,7 @@ object opening {
           " in ",
           report.performance.mine.count.localize,
           " games, which is ",
-          bits.renderPercent(perfReport.openingFrequency(as, report)),
+          bits.percentFrag(perfReport.openingFrequency(as, report)),
           " of the time you played as ",
           as.name,
           "."
@@ -72,9 +72,11 @@ object opening {
       div(
         cls := "box__pad"
       )(
-        bits.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
-        bits.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
-        bits.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
+        grade.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
+        hr,
+        grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
+        hr,
+        grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
       )
     )
   }

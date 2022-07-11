@@ -16,7 +16,7 @@ object concept {
   val speed =
     new TutorConcept("Speed", "How fast you play, based on average remaining time on your clock.", percent)
   val clockFlagVictory =
-    new TutorConcept("Clock flag victory", "How often you win by flagging the opponent.", percent)
+    new TutorConcept("Flagging skills", "How often you win by flagging the opponent.", percent)
   val clockTimeUsage = new TutorConcept(
     "Clock time usage",
     "How well you make use of your available time. Losing games with a lot of time left is poor usage of the clock.",

@@ -42,14 +42,14 @@ object openings {
                 div(cls := "tutor-card__top__title")(
                   h3(cls := "tutor-card__top__title__text")(fam.family.name.value),
                   div(cls := "tutor-card__top__title__sub")(
-                    bits.renderPercent(report.openingFrequency(color, fam)),
+                    bits.percentFrag(report.openingFrequency(color, fam)),
                     " of your games"
                   )
                 )
               ),
               div(cls := "tutor-card__content")(
-                bits.peerGrade(concept.accuracy, fam.accuracy),
-                bits.peerGrade(concept.tacticalAwareness, fam.awareness)
+                grade.peerGrade(concept.accuracy, fam.accuracy),
+                grade.peerGrade(concept.tacticalAwareness, fam.awareness)
               )
             )
           })
