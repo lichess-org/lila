@@ -234,7 +234,7 @@ export default function (redraw: Redraw): NvuiPlugin {
           // h('p', takes(ctrl.data.steps.map(data => data.fen))),
           h('h2', 'Settings'),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h3', 'Board Settings'),
+          h('h3', 'Board settings'),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
@@ -262,7 +262,7 @@ export default function (redraw: Redraw): NvuiPlugin {
             'takeback: Offer or accept take back.',
             h('br'),
           ]),
-          h('h2', 'Board Mode commands'),
+          h('h2', 'Board mode commands'),
           h('p', [
             'Use these commands when focused on the board itself.',
             h('br'),

@@ -125,7 +125,7 @@ export default class AnalyseCtrl {
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
 
-    if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(redraw) as NvuiPlugin;
+    if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
