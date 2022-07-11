@@ -4,10 +4,10 @@
   <string name="frequentlyAskedQuestions">שאלות נפוצות</string>
   <string name="whyIsLichessCalledLichess">למה ליצ\'ס נקרא ליצ\'ס?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">לִיצֶ\'ס הוא הלחם של Live, Light, Libre - חיים, אור וחופש; ו־Chess - שחמט. מבטאים זאת כך: %1$s.</string>
-  <string name="leechess"> לִיצֶ\'ס </string>
+  <string name="leechess">לִיצֶ\'ס</string>
   <string name="hearItPronouncedBySpecialist">שמעו מומחה מבטא ״Lichess\".</string>
-  <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך ש לִיצֶ\'ס  הוא open source ולא פושה בו זבל קנייני כמו באתרים אחרים.</string>
-  <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של  לִיצֶ\'ס , %1$s הוא קיצור של li[chess in sca]la, שכן רוב הקוד של לִיצֶ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
+  <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך שלִיצֶ\'ס הוא open source ולא פושה בו זבל קנייני כמו באתרים אחרים.</string>
+  <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של לִיצֶ\'ס, %1$s הוא קיצור של li[chess in sca]la, שכן רוב הקוד של לִיצֶ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
   <string name="howCanIContributeToLichess">כיצד אוכל לתרום לליצ\'ס?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">ליצ\'ס מופעל על ידי תרומות מצד תומכים ומאמצי צוות מתנדבים.</string>
   <string name="findMoreAndSeeHowHelp">תוכל לקרוא עוד על %1$s (וגם על %2$s). אם אתה מעוניין לעזור ללִיצֶ\'ס ע\"י נידוב זמנך וכישוריך, ישנן הרבה %3$s.</string>
@@ -44,7 +44,7 @@
 המהלך הממוחשב הטוב ביותר יאבד אפס מאית חייל, אך מהלכים פחותים יביאו להידרדרותו של המדד, שנמדד במאית חייל.
 
 ניתן להשתמש בערך זה כאינדיקטור לאיכות המשחק. ככל שפחות מאיות חייל מופסדות בכל מהלך, כך המשחק יותר מדויק.
-הניתוח הממוחשב בלִיצֶ\'ס  מבוצע על ידי Stockfish.</string>
+הניתוח הממוחשב בלִיצֶ\'ס מבוצע על ידי Stockfish.</string>
   <string name="insufficientMaterial">הפסד על זמן, תיקו והיעדר חומר מספיק</string>
   <string name="lichessFollowFIDErules">במקרה בו נגמר הזמן של שחקן אחד, אותו שחקן בדרך כלל יפסיד את המשחק. עם זאת, המשחק נגמר בתיקו אם העמדה היא כזו שהיריב אינו יכול לעשות מט למלך השחקן בשום סדרה של מהלכים חוקיים אפשריים (%1$s).
 
@@ -76,7 +76,7 @@
   <string name="lichessRecognizeAllOTBtitles">Lichess מכיר בכל דרגות FIDE למשחק על גבי לוח, כמו גם %1$s. הנה רשימה של דרגות FIDE:</string>
   <string name="showYourTitle">אם יש לך תואר ממשחק על גבי לוח, תוכל להגיש בקשה להצגה בחשבונך על ידי מילוי %1$s, כולל תמונה ברורה של מסמך/כרטיס מזהה וצילום סלפי שלך אוחז במסמך/כרטיס.
 
-אימות כשחקן עם תואר בלִיצֶ\'ס  נותן גישה לטורנירי זירה לשחקנים כאלה.
+אימות כשחקן עם תואר בלִיצֶ\'ס נותן גישה לטורנירי זירה לשחקנים כאלה.
 
 לבסוף יש תואר כבוד %2$s.</string>
   <string name="asWellAsManyNMtitles">תארי אמן של מדינות רבות</string>
@@ -131,9 +131,9 @@
   <string name="howToThreeDots">כיצד...</string>
   <string name="enableDisableNotificationPopUps">להפעיל או לחסום התראות קופצות?</string>
   <string name="viewSiteInformationPopUp">צפה בחלון הקופץ המכיל מידע על האתר</string>
-  <string name="lichessCanOptionnalySendPopUps"> לִיצֶ\'ס  יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
+  <string name="lichessCanOptionnalySendPopUps">לִיצֶ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
 לחץ על סמל הנעילה שליד הכתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
 
-לאחר מכן בחר אם לאפשר או לחסום התראות מלִיצֶ\'ס .</string>
+לאחר מכן בחר אם לאפשר או לחסום התראות מלִיצֶ\'ס.</string>
 </resources>
