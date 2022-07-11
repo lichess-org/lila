@@ -39,6 +39,11 @@ import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
 import { view as cevalView, renderEval, Eval } from 'ceval';
 import * as control from '../control';
+import { lichessRules } from 'chessops/compat';
+import { makeSan } from 'chessops/san';
+import { opposite, parseUci } from 'chessops/util';
+import { parseFen } from 'chessops/fen';
+import { setupPosition } from 'chessops/variant';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
@@ -257,6 +262,8 @@ export default function (ctrl: AnalyseController) {
             h('br'),
             "eval: announce last move's computer evaluation",
             h('br'),
+            'best: announce the top engine move',
+            h('br'),
             'prev: return to the previous move',
             h('br'),
             'next: go to the next move',
@@ -271,6 +278,10 @@ export default function (ctrl: AnalyseController) {
   };
 }
 
+const NOT_ALLOWED = 'local evaluation not allowed';
+const NOT_POSSIBLE = 'local evaluation not possible';
+const NOT_ENABLED = 'local evaluation not enabled';
+
 function renderEvalAndDepth(ctrl: AnalyseController): string {
   let evalStr: string, depthStr: string;
   if (ctrl.threatMode()) {
@@ -284,9 +295,9 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
     depthStr = depthInfo(ctrl, evs.client, !!evs.client?.cloud);
   }
   if (!evalStr) {
-    if (!ctrl.ceval.allowed()) return 'local evaluation not allowed';
-    else if (!ctrl.ceval.possible) return 'local evaluation not possible';
-    else return 'local evaluation not enabled';
+    if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
+    else if (!ctrl.ceval.possible) return NOT_POSSIBLE;
+    else return NOT_ENABLED;
   } else {
     return evalStr + ' ' + depthStr;
   }
@@ -306,6 +317,31 @@ function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefine
   return isCloud
     ? ctrl.trans('depthX', depth) + ' Cloud'
     : ctrl.trans('depthX', depth + '/' + Math.max(depth, clientEv.maxDepth || depth));
+}
+
+function renderBestMove(ctrl: AnalyseController, style: Style): string {
+  const instance = ctrl.getCeval();
+  if (!instance.allowed()) return NOT_ALLOWED;
+  if (!instance.possible) return NOT_POSSIBLE;
+  if (!instance.enabled()) return NOT_ENABLED;
+  const node = ctrl.node,
+    setup = parseFen(node.fen).unwrap();
+  let pvs: Tree.PvData[] = [];
+  if (ctrl.threatMode() && node.threat) {
+    pvs = node.threat.pvs;
+    setup.turn = opposite(setup.turn);
+    if (setup.turn === 'white') setup.fullmoves += 1;
+  } else if (node.ceval) {
+    pvs = node.ceval.pvs;
+  }
+  const pos = setupPosition(lichessRules(instance.variant.key), setup);
+  if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
+    const uci = pvs[0].moves[0];
+    const san = makeSan(pos.unwrap(), parseUci(uci)!);
+    return renderSan(san, uci, style);
+  } else {
+    return '';
+  }
 }
 
 function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNode)[] {
@@ -338,7 +374,7 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
   };
 }
 
-const shortCommands = ['p', 's', 'next', 'prev', 'eval'];
+const shortCommands = ['p', 's', 'next', 'prev', 'eval', 'best'];
 
 function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
@@ -358,9 +394,9 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
   } else if (lowered === 'prev line') {
     jumpPrevLine(ctrl);
     ctrl.redraw();
-  } else if (lowered === 'eval') {
-    notify(renderEvalAndDepth(ctrl));
-  } else {
+  } else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
+  else if (lowered === 'best') notify(renderBestMove(ctrl, style));
+  else {
     const pieces = ctrl.chessground.state.pieces;
     notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
   }
