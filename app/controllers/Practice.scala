@@ -131,7 +131,7 @@ final class Practice(
     }
 
   def config =
-    Auth { implicit ctx => _ =>
+    Secure(_.PracticeConfig) { implicit ctx => _ =>
       for {
         struct <- api.structure.get
         form   <- api.config.form
