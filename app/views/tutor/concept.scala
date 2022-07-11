@@ -4,7 +4,7 @@ import scalatags.Text.tags2.abbr
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.insight.{ InsightDimension, InsightMetric }
+import lila.insight.{ InsightDimension, InsightMetric, Phase }
 import lila.tutor.TutorNumber
 
 sealed class TutorConcept(val name: String, val description: String, val unit: TutorUnit)
@@ -27,6 +27,8 @@ object concept {
   val tacticalAwareness = new TutorConcept("Tactical Awareness", InsightMetric.Awareness.description, percent)
 
   val performance = new TutorConcept("Performance", InsightMetric.Performance.description, rating)
+
+  def phase(phase: Phase, unit: TutorUnit = percent) = adhoc(phase.name, unit)
 
   def adhoc(name: String, unit: TutorUnit = percent) = new TutorConcept(name, "", unit)
 

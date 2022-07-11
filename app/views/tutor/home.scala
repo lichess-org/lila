@@ -9,6 +9,7 @@ import lila.common.Heapsort.implicits._
 import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
 import lila.tutor.TutorCompare.comparisonOrdering
 import lila.user.User
+import lila.insight.Phase
 
 object home {
 
@@ -26,23 +27,6 @@ object home {
               full.report.nbGames.localize,
               " recent rated games of yours."
             )
-          ),
-          p(
-            "You particularly enjoy playing ",
-            full.report.favouritePerfs.map(_.perf.trans).mkString(" and "),
-            "!"
-          ),
-          p(
-            h2("Your strengths:"),
-            ul(full.report strengths 4 map { case (comp, perf) =>
-              compare.showWithPerf(comp, perf.some)
-            })
-          ),
-          p(
-            h2("Your weaknesses:"),
-            ul(full.report weaknesses 4 map { case (comp, perf) =>
-              compare.showWithPerf(comp, perf.some)
-            })
           )
         )
       },
@@ -93,7 +77,9 @@ object home {
         grade.peerGrade(concept.speed, perfReport.globalClock),
         grade.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
         grade.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),
-        // ul(perfReport.relevantComparisons.topN(3) map compare.show),
+        perfReport.phases.map { phase =>
+          grade.peerGrade(concept.phase(phase.phase), phase.mix)
+        },
         bits.seeMore
       )
     )

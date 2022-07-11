@@ -46,7 +46,7 @@ object perf {
         ),
         angleCard(routes.Tutor.phases(user.username, report.perf.key), frag(report.perf.trans, " phases"))(
           report.phases.map { phase =>
-            grade.peerGrade(concept.adhoc(phase.phase.name), phase.mix)
+            grade.peerGrade(concept.phase(phase.phase), phase.mix)
           }
         )
       )

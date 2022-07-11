@@ -1,7 +1,7 @@
 .tutor {
   @include breakpoint($mq-subnav-side) {
     .subnav {
-      width: 27ch;
+      width: 22ch;
       .subnav__subitem {
         margin-left: 1em;
       }
