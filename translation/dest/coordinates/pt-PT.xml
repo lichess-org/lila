@@ -10,7 +10,11 @@
   <string name="youCanAnalyseAGameMoreEffectively">Podes analisar um jogo com maior eficiência se conseguires reconhecer as coordenadas rapidamente.</string>
   <string name="aSquareNameAppears">O nome da casa aparece no tabuleiro e tens de clicar na casa correspondente. Tenta reconhecer o maior número de casas em 30 segundos!</string>
   <string name="aSquareIsHighlighted">É destacado um quadrado no tabuleiro e o jogador deve inserir a coordenada (p. ex. \"e4\"). Terá 30 segundos para mapear corretamente o máximo de quadrados possível!</string>
+  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">Tem 30 segundos para mapear corretamente o máximo de quadrados possível!</string>
+  <string name="goAsLongAsYouWant">Pode continuar enquanto quiser, não há limite de tempo!</string>
+  <string name="showCoordinates">Mostrar coordenadas</string>
+  <string name="showPieces">Mostrar as peças</string>
   <string name="startTraining">Começar o treino</string>
-  <string name="findSquare">Encontrar quadrado</string>
-  <string name="nameSquare">Designar quadrado</string>
+  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">Encontrar quadrado</string>
+  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">Designar quadrado</string>
 </resources>

@@ -10,7 +10,11 @@
   <string name="youCanAnalyseAGameMoreEffectively">شما می توانید به خوبی بازی های خود را بررسی کنید اگر نیازی برای جست و جو برای خانه ها نداشته باشید.</string>
   <string name="aSquareNameAppears">نام یک خانه بر روی صحفه ضاهر می شود و شما باید بر روی ان کلیک کنید. شما 30 ثانیه وقت دارید تا هر چه می توانید امتیاز بگیرید!</string>
   <string name="aSquareIsHighlighted">یک خانه روی صفحه نشان داده می شود و شما باید مختصات آن (مثلا e4) را وارد کنید. سی ثانیه زمان دارید که هرچقدر می توانید خانه ها را مشخص کنید!</string>
+  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">30 ثانیه مهلت دارید تا هرچقدر که میتوانید پیش بروید!</string>
+  <string name="goAsLongAsYouWant">بدون محدودیت زمانی </string>
+  <string name="showCoordinates">نمایش مختصات</string>
+  <string name="showPieces">نمایش مهره ها</string>
   <string name="startTraining">شروع تمرین</string>
-  <string name="findSquare">خانه را پیدا کنید</string>
-  <string name="nameSquare">خانه را نام گذاری کنید</string>
+  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">خانه را پیدا کنید</string>
+  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">خانه را نام گذاری کنید</string>
 </resources>
