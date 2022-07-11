@@ -15,12 +15,12 @@ object bits {
 
   val mascot =
     img(
-      cls := "tutor__mascot",
+      cls := "mascot",
       src := assetUrl("images/mascot/octopus-shadow.svg")
     )
 
-  def mascotSays(content: Modifier*) = div(cls := "tutor__mascot-says")(
-    div(cls := "tutor__mascot-says__content")(content),
+  def mascotSays(content: Modifier*) = div(cls := "mascot-says")(
+    div(cls := "mascot-says__content")(content),
     mascot
   )
 

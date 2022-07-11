@@ -25,10 +25,7 @@ import lila.puzzle.{
   Result
 }
 
-final class Puzzle(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env) {
+final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   private def renderJson(
       puzzle: Puz,
@@ -296,8 +293,16 @@ final class Puzzle(
   }
 
   def openings(order: String) = Open { implicit ctx =>
-    env.puzzle.opening.collection map { collection =>
-      Ok(views.html.puzzle.opening.all(collection, PuzzleOpening.Order(order)))
+    env.puzzle.opening.collection flatMap { collection =>
+      ctx.me.?? { me =>
+        env.insight.insightUserApi.find(me.id) map {
+          _ ?? { insightUser =>
+            collection.makeMine(insightUser.families, insightUser.openings).some
+          }
+        }
+      } map { mine =>
+        Ok(views.html.puzzle.opening.all(collection, mine, PuzzleOpening.Order(order)))
+      }
     }
   }
 
