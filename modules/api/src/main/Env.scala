@@ -59,6 +59,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,
+    shutdown: akka.actor.CoordinatedShutdown,
     val mode: Mode
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -109,13 +110,14 @@ final class Env(
 
   private lazy val pagerDuty = wire[PagerDuty]
 
+  wire[Monitoring]
+
   Bus.subscribeFun("chatLinkCheck", "announce") {
     case GetLinkCheck(line, source, promise)                   => promise completeWith linkCheck(line, source)
     case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
   }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    lila.mon.bus.classifiers.update(lila.common.Bus.size)
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
     userEnv.repo.setSeenAt(User.lichessId)
