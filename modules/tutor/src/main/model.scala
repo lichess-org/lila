@@ -98,8 +98,9 @@ case class Grade private (value: Double) {
 }
 
 object Grade {
-  def apply(a: Double, b: Double): Grade = apply((a / b) - 1)
-  def apply(value: Double): Grade        = new Grade(value atLeast -1 atMost 1)
+  def ratio(a: Double, b: Double): Grade   = if (b == 0) apply(1) else apply((a / b) - 1)
+  def percent(a: Double, b: Double): Grade = if (b == 0) apply(1) else apply((a / b) - 1)
+  def apply(value: Double): Grade          = new Grade(value atLeast -1 atMost 1)
 
   sealed abstract class Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording] {
     def compare(other: Wording) = top compare other.top

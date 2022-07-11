@@ -6,8 +6,8 @@ import lila.common.Iso
 
 trait TutorNumber[V] {
   val iso: Iso.DoubleIso[V]
-  def double(v: V)      = iso to v
-  def grade(a: V, b: V) = Grade(iso.to(a), iso.to(b))
+  def double(v: V) = iso to v
+  def grade(a: V, b: V): Grade
   def average(vs: Iterable[ValueCount[V]]): ValueCount[V] =
     vs.foldLeft((0d, 0)) { case ((sum, total), ValueCount(value, count)) =>
       (sum + iso.to(value) * count, total + count)
@@ -24,7 +24,8 @@ trait TutorNumber[V] {
 object TutorNumber {
 
   implicit val ratioIsTutorNumber = new TutorNumber[TutorRatio] {
-    val iso = Iso.double[TutorRatio](TutorRatio.fromPercent, _.percent)
+    val iso                                 = Iso.double[TutorRatio](TutorRatio.fromPercent, _.percent)
+    def grade(a: TutorRatio, b: TutorRatio) = Grade.ratio(iso to a, iso to b)
   }
   implicit val doubleIsTutorNumber = new TutorNumber[Double] {
     val iso = Iso.isoIdentity[Double]
@@ -38,6 +39,5 @@ object TutorNumber {
   }
   implicit val clockPercentIsTutorNumber = new TutorNumber[ClockPercent] {
     val iso = Iso.double[ClockPercent](ClockPercent.fromPercent, _.value)
-    override def grade(a: ClockPercent, b: ClockPercent) = Grade(iso.to(b), iso.to(a))
   }
 }
