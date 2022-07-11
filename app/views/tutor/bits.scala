@@ -91,7 +91,7 @@ object bits {
   //     case None => div(cls := s"tutor-bar tutor-bar--$extraCls tutor-bar--empty")
   //   }
 
-  private def renderPercent[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
+  def renderPercent[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
 
   private[tutor] def layout(
       availability: TutorFullReport.Availability,

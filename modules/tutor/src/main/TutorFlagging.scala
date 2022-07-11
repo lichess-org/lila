@@ -7,7 +7,7 @@ import lila.common.config
 import lila.insight._
 import lila.rating.PerfType
 
-case class TutorFlagging(win: TutorBothValueOptions[TutorRatio], loss: TutorBothValueOptions[TutorRatio])
+case class TutorFlagging(win: TutorBothValueOptions[GoodPercent], loss: TutorBothValueOptions[GoodPercent])
 
 object TutorFlagging {
 
@@ -27,9 +27,9 @@ object TutorFlagging {
         answer.clusters.collectFirst {
           case Cluster(res, Insight.Stacked(points), _, _) if res == result =>
             ValueCount(
-              TutorRatio fromPercent ~points.collectFirst {
+              GoodPercent(~points.collectFirst {
                 case (valueName, point) if valueName == clockFlagValueName => point.y
-              },
+              }),
               mine.totalSize
             )
         }

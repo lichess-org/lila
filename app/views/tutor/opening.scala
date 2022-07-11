@@ -57,7 +57,7 @@ object opening {
           " in ",
           report.performance.mine.count.localize,
           " games, which is ",
-          strong(perfReport.openingFrequency(as, report).percent.toInt, "%"),
+          bits.renderPercent(perfReport.openingFrequency(as, report)),
           " of the time you played as ",
           as.name,
           "."

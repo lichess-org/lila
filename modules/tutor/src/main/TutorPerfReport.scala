@@ -19,7 +19,7 @@ case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
     accuracy: TutorBothValueOptions[AccuracyPercent],
-    awareness: TutorBothValueOptions[TutorRatio],
+    awareness: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
     openings: Color.Map[TutorColorOpenings],
@@ -36,7 +36,7 @@ case class TutorPerfReport(
     phases.map { phase => (phase.phase, phase.accuracy) }
   )
 
-  lazy val phaseAwarenessCompare = TutorCompare[Phase, TutorRatio](
+  lazy val phaseAwarenessCompare = TutorCompare[Phase, GoodPercent](
     InsightDimension.Phase,
     TutorMetric.Awareness,
     phases.map { phase => (phase.phase, phase.awareness) }
@@ -77,7 +77,7 @@ case class TutorPerfReport(
       clockCompares.flatMap(_.peerComparisons)
 
   def openingFrequency(color: Color, fam: TutorOpeningFamily) =
-    TutorRatio(fam.performance.mine.count, stats.nbGames(color))
+    GoodPercent(fam.performance.mine.count, stats.nbGames(color))
 }
 
 private object TutorPerfReport {
@@ -108,7 +108,7 @@ private object TutorPerfReport {
         user.perfType,
         user.perfStats,
         accuracy = accuracy valueMetric user.perfType map AccuracyPercent.apply,
-        awareness = awareness valueMetric user.perfType map TutorRatio.fromPercent,
+        awareness = awareness valueMetric user.perfType map GoodPercent.apply,
         globalClock = globalClock valueMetric user.perfType map ClockPercent.fromPercent,
         clockUsage = clockUsage valueMetric user.perfType map ClockPercent.fromPercent,
         openings,

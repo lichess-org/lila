@@ -18,7 +18,7 @@ case class TutorCompare[D, V](
       points.collect { case (dim, TutorBothValueOptions(Some(mine), _)) => dim -> mine }
     for {
       (dim1, met1) <- myPoints.filter(_._2 relevantTo totalCountMine)
-      avg = number.average(myPoints.filter(_._1 != dim1).map(_._2))
+      avg = number.mean(myPoints.filter(_._1 != dim1).map(_._2))
     } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg))
   }
 

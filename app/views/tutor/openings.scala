@@ -12,7 +12,6 @@ import lila.tutor.{
   TutorBothValues,
   TutorFullReport,
   TutorPerfReport,
-  TutorRatio,
   ValueCount
 }
 
@@ -43,7 +42,7 @@ object openings {
                 div(cls := "tutor-card__top__title")(
                   h3(cls := "tutor-card__top__title__text")(fam.family.name.value),
                   div(cls := "tutor-card__top__title__sub")(
-                    strong(report.openingFrequency(color, fam).percent.toInt, "%"),
+                    bits.renderPercent(report.openingFrequency(color, fam)),
                     " of your games"
                   )
                 )

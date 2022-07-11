@@ -79,9 +79,9 @@ object home {
             perfReport.perf.trans,
             " games"
           ),
-          report ratioTimeOf perfReport.perf map { ratio =>
+          report percentTimeOf perfReport.perf map { percent =>
             div(cls := "tutor-card__top__title__sub")(
-              strong(ratio.percent.toInt, "%"),
+              bits.renderPercent(percent),
               " of your chess playing time."
             )
           }
