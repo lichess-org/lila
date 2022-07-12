@@ -34,8 +34,8 @@ object phases {
               )
             ),
             div(cls := "tutor-card__content")(
-              bits.peerGradeWithDetail(concept.accuracy, phase.accuracy, InsightPosition.Move),
-              bits.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move)
+              grade.peerGradeWithDetail(concept.accuracy, phase.accuracy, InsightPosition.Move),
+              grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move)
             )
           )
         }

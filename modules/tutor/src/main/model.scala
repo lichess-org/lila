@@ -43,20 +43,12 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
   def asAvailable                 = for { m <- mine; p <- peer } yield TutorBothValuesAvailable(m, p)
   def grade(implicit number: TutorNumber[A]): Option[Grade] = asAvailable.map(_.grade)
 
-  def mix[B](
-      other: TutorBothValueOptions[B]
-  )(implicit numberA: TutorNumber[A], numberB: TutorNumber[B]): TutorBothValueOptions[Double] = {
-    def ponder(vca: ValueCount[Double], vcb: ValueCount[Double]): Option[ValueCount[Double]] =
-      (vca.count > 0 || vcb.count > 0) option ValueCount(
-        (vca.value * vca.count + vcb.value * vcb.count) / (vca.count + vcb.count),
-        vca.count + vcb.count
-      )
-    implicit val zero = Zero(ValueCount[Double](0d, 0))
+  def mix(other: TutorBothValueOptions[A])(implicit number: TutorNumber[A]): TutorBothValueOptions[A] =
     TutorBothValueOptions(
-      mine = ponder(mine.??(_.double), other.mine.??(_.double)),
-      peer = ponder(peer.??(_.double), other.peer.??(_.double))
+      mine = number.mean(mine, other.mine).some.filter(_.count > 0),
+      peer = number.mean(peer, other.peer).some.filter(_.count > 0)
     )
-  }
+
 }
 
 sealed abstract class TutorMetric[V](val metric: InsightMetric)
@@ -66,22 +58,16 @@ object TutorMetric {
   // time used when losing ((100 - clockPercent) on last move)
   case object ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
   case object Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
-  case object Awareness   extends TutorMetric[TutorRatio](InsightMetric.Awareness)
+  case object Awareness   extends TutorMetric[GoodPercent](InsightMetric.Awareness)
   case object Performance extends TutorMetric[Rating](InsightMetric.Performance)
 }
 
-case class TutorRatio(value: Double) extends AnyVal {
-  def percent = value * 100
-}
+// higher is better
+case class GoodPercent(value: Double) extends AnyVal with Percent
 
-object TutorRatio {
-
-  def apply(a: Int, b: Int): TutorRatio       = TutorRatio(a.toDouble / b)
-  def apply(a: Double, b: Double): TutorRatio = TutorRatio(a / b)
-  def fromPercent(p: Double): TutorRatio      = TutorRatio(p / 100)
-
-  implicit val zero     = Zero(TutorRatio(0))
-  implicit val ordering = Ordering.by[TutorRatio, Double](_.value)
+object GoodPercent {
+  def apply(a: Double, b: Double): GoodPercent = GoodPercent(100 * a / b)
+  implicit val ordering                        = Ordering.by[GoodPercent, Double](_.value)
 }
 
 // value from -1 (worse) to +1 (best)
@@ -98,8 +84,9 @@ case class Grade private (value: Double) {
 }
 
 object Grade {
-  def apply(a: Double, b: Double): Grade = apply((a / b) - 1)
-  def apply(value: Double): Grade        = new Grade(value atLeast -1 atMost 1)
+  def ratio(a: Double, b: Double): Grade     = if (b == 0) apply(1) else apply((a / b) - 1)
+  def percent(a: Percent, b: Percent): Grade = if (b.value == 0) apply(1) else apply((a.value / b.value) - 1)
+  def apply(value: Double): Grade            = new Grade(value atLeast -1 atMost 1)
 
   sealed abstract class Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording] {
     def compare(other: Wording) = top compare other.top

@@ -4,7 +4,7 @@ import scalatags.Text.tags2.abbr
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.insight.{ InsightDimension, InsightMetric }
+import lila.insight.{ InsightDimension, InsightMetric, Phase }
 import lila.tutor.TutorNumber
 
 sealed class TutorConcept(val name: String, val description: String, val unit: TutorUnit)
@@ -16,7 +16,7 @@ object concept {
   val speed =
     new TutorConcept("Speed", "How fast you play, based on average remaining time on your clock.", percent)
   val clockFlagVictory =
-    new TutorConcept("Clock flag victory", "How often you win by flagging the opponent.", percent)
+    new TutorConcept("Flagging skills", "How often you win by flagging the opponent.", percent)
   val clockTimeUsage = new TutorConcept(
     "Clock time usage",
     "How well you make use of your available time. Losing games with a lot of time left is poor usage of the clock.",
@@ -28,13 +28,12 @@ object concept {
 
   val performance = new TutorConcept("Performance", InsightMetric.Performance.description, rating)
 
+  def phase(phase: Phase, unit: TutorUnit = percent) = adhoc(phase.name, unit)
+
   def adhoc(name: String, unit: TutorUnit = percent) = new TutorConcept(name, "", unit)
 
   def show(concept: TutorConcept): Tag =
-    span(cls := "tutor__concept")(concept.name, iconTag("")(dataTitle := concept.description))
-
-  def show(concept: String): Tag =
-    span(cls := "tutor__concept")(concept)
+    span(cls := "tutor__concept")(concept.name)
 }
 
 sealed trait TutorUnit {

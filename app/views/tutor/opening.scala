@@ -24,19 +24,16 @@ object opening {
       full,
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
       menu = frag(
-        a(href := routes.Tutor.user(user.username))("Tutor"),
-        a(href := routes.Tutor.perf(user.username, perfReport.perf.key))(perfReport.perf.trans),
-        a(href := routes.Tutor.openings(user.username, perfReport.perf.key))("Openings"),
         perfReport.openings(as).families map { family =>
           a(
             href := routes.Tutor
-              .opening(user.username, perfReport.perf.key, as.name, report.family.key.value),
+              .opening(user.username, perfReport.perf.key, as.name, family.family.key.value),
             cls := family.family.key.value.active(report.family.key.value)
           )(family.family.name.value)
         }
       )
     )(
-      cls := "tutor__opening box box-pad",
+      cls := "tutor__opening box",
       h1(
         a(
           href     := routes.Tutor.openings(user.username, perfReport.perf.key),
@@ -56,7 +53,7 @@ object opening {
           " in ",
           report.performance.mine.count.localize,
           " games, which is ",
-          strong(perfReport.openingFrequency(as, report).percent.toInt, "%"),
+          bits.percentFrag(perfReport.openingFrequency(as, report)),
           " of the time you played as ",
           as.name,
           "."
@@ -73,11 +70,13 @@ object opening {
         }
       ),
       div(
-        cls := "tutor-card__content"
+        cls := "tutor__pad"
       )(
-        bits.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
-        bits.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
-        bits.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
+        grade.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
+        hr,
+        grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
+        hr,
+        grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
       )
     )
   }

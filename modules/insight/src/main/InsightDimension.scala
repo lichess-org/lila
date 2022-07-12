@@ -221,7 +221,7 @@ object InsightDimension {
         "Accuracy",
         F.moves("a"),
         Move,
-        """Accuracy of your moves. Higher is better."""
+        """How accurate your moves are, based on Stockfish evaluation."""
       )
 
   case object WinPercentRange

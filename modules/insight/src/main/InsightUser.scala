@@ -27,11 +27,11 @@ object InsightUser {
     InsightUser(userId, count, families, openings, DateTime.now)
 }
 
-final private class InsightUserApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
+final class InsightUserApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val userCacheBSONHandler = Macros.handler[InsightUser]
 
-  def find(id: String) = coll(_.one[InsightUser]($id(id)))
+  def find(id: User.ID) = coll(_.one[InsightUser]($id(id)))
 
   def save(u: InsightUser) = coll(_.update.one($id(u.id), u, upsert = true).void)
 

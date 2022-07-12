@@ -49,6 +49,11 @@ case class PuzzleOpeningCollection(
     case Order.Popular      => treePopular
     case Order.Alphabetical => treeAlphabetical
   }
+
+  def makeMine(myFams: List[LilaOpeningFamily], myVars: List[LilaOpening]) = Mine(
+    families = myFams.filter(fam => familyMap.contains(fam.key)),
+    variations = myVars.filter(op => openingMap.contains(op.key))
+  )
 }
 
 final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: CacheApi)(implicit
@@ -165,6 +170,11 @@ object PuzzleOpening {
 
   type TreeMap  = Map[LilaOpeningFamily, (Count, Set[WithCount])]
   type TreeList = List[(FamilyWithCount, List[WithCount])]
+
+  case class Mine(families: List[LilaOpeningFamily], variations: List[LilaOpening]) {
+    lazy val familyKeys    = families.view.map(_.key).toSet
+    lazy val variationKeys = variations.view.map(_.key).toSet
+  }
 
   sealed abstract class Order(val key: String, val name: I18nKey)
 

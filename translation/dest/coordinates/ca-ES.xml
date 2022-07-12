@@ -10,7 +10,9 @@
   <string name="youCanAnalyseAGameMoreEffectively">Pots analitzar un joc de forma més eficient si en pots reconèixer ràpidament les coordenades.</string>
   <string name="aSquareNameAppears">Una coordenada apareix en el tauler i has de clicar-ne la casella corresponent. Tens 30 segons per mapejar correctament el màxim de caselles possible!</string>
   <string name="aSquareIsHighlighted">Es marca una casella en el tauler i heu d\'introduir-ne la seva coordenada (p. ex. \"e4\"). Teniu 30 segons per mapejar correctament totes les coordenades que pugueu!</string>
+  <string name="showCoordinates">Mostrar les coordenades</string>
+  <string name="showPieces">Mostrar les peces</string>
   <string name="startTraining">Comença l\'entrenament</string>
-  <string name="findSquare">Cerca caselles</string>
-  <string name="nameSquare">Anomena caselles</string>
+  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">Cerca caselles</string>
+  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">Anomena caselles</string>
 </resources>

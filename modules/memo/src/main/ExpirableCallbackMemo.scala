@@ -8,7 +8,7 @@ final class ExpireCallbackMemo(ttl: FiniteDuration, callback: String => Unit)(im
 
   private val cache: Cache[String, Boolean] = lila.common.LilaCache.scaffeineSameThreadExecutor
     .expireAfterWrite(ttl)
-    .removalListener((key: String, _: Boolean, _) => callback(key))
+    .evictionListener((key: String, _: Boolean, _) => callback(key))
     .build[String, Boolean]()
 
   @inline private def isNotNull[A](a: A) = a != null

@@ -26,9 +26,9 @@ case class TutorFullReport(
     }
   }
 
-  def ratioTimeOf(perf: PerfType): Option[TutorRatio] =
+  def percentTimeOf(perf: PerfType): Option[GoodPercent] =
     apply(perf).flatMap(_.estimateTotalTime) map { time =>
-      TutorRatio(time.toSeconds.toInt, totalTime.toSeconds.toInt)
+      GoodPercent(time.toSeconds.toDouble, totalTime.toSeconds.toDouble)
     }
 
   def strengths = ponderedHighlights(_.better) _

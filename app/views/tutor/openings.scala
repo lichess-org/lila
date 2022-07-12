@@ -12,7 +12,6 @@ import lila.tutor.{
   TutorBothValues,
   TutorFullReport,
   TutorPerfReport,
-  TutorRatio,
   ValueCount
 }
 
@@ -22,14 +21,14 @@ object openings {
       ctx: Context
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "openings"))(
-      cls := "tutor__openings box box-pad",
+      cls := "tutor__openings box",
       h1(
         a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
         report.perf.trans,
         " openings"
       ),
       bits.mascotSays(report openingHighlights 3 map compare.show),
-      div(cls := "tutor__openings__colors")(chess.Color.all.map { color =>
+      div(cls := "tutor__openings__colors tutor__pad")(chess.Color.all.map { color =>
         st.section(cls := "tutor__openings__color")(
           h2("Your most played ", color.name, " openings"),
           div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
@@ -43,14 +42,14 @@ object openings {
                 div(cls := "tutor-card__top__title")(
                   h3(cls := "tutor-card__top__title__text")(fam.family.name.value),
                   div(cls := "tutor-card__top__title__sub")(
-                    strong(report.openingFrequency(color, fam).percent.toInt, "%"),
+                    bits.percentFrag(report.openingFrequency(color, fam)),
                     " of your games"
                   )
                 )
               ),
               div(cls := "tutor-card__content")(
-                bits.peerGrade(concept.accuracy, fam.accuracy),
-                bits.peerGrade(concept.tacticalAwareness, fam.awareness)
+                grade.peerGrade(concept.accuracy, fam.accuracy),
+                grade.peerGrade(concept.tacticalAwareness, fam.awareness)
               )
             )
           })

@@ -1,17 +1,4 @@
 .tutor {
-  &-comparison {
-    margin-bottom: $block-gap;
-    &:last-child {
-      margin-bottom: 0;
-    }
-    &__name {
-      font-weight: normal;
-      font-size: 1.2em;
-    }
-    &__unit {
-      margin-top: 0.5em;
-    }
-  }
   &-grade {
     margin-bottom: $block-gap;
     &:last-child {
@@ -22,6 +9,11 @@
       font-size: 1.2em;
       margin-bottom: 0.5em;
     }
+    &--detail .tutor-grade__name {
+      text-transform: uppercase;
+      font-size: 1.7em;
+      margin-bottom: 0.5em;
+    }
     &__visual {
       @extend %flex-center;
       > div {
@@ -30,7 +22,7 @@
         height: 1.5em;
         line-height: 1.5em;
         border: $border;
-        background: $c-bg-zebra2;
+        background: $c-bg-low;
         &.lit {
           background: mix($c-good, $c-bg-box, 80%);
         }

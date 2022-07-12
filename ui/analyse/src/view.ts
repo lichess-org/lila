@@ -368,7 +368,7 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 }
 
 export default function (ctrl: AnalyseCtrl): VNode {
-  if (ctrl.nvui) return ctrl.nvui.render(ctrl);
+  if (ctrl.nvui) return ctrl.nvui.render();
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,

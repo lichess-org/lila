@@ -11,10 +11,10 @@ import lila.user.User
 case class TutorPhase(
     phase: Phase,
     accuracy: TutorBothValueOptions[AccuracyPercent],
-    awareness: TutorBothValueOptions[TutorRatio]
+    awareness: TutorBothValueOptions[GoodPercent]
 ) {
 
-  def mix = accuracy mix awareness
+  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(a => GoodPercent(a.value)) mix awareness
 }
 
 private object TutorPhases {
@@ -32,7 +32,7 @@ private object TutorPhases {
       TutorPhase(
         phase,
         accuracy = accuracy valueMetric phase map AccuracyPercent.apply,
-        awareness = awareness valueMetric phase map TutorRatio.fromPercent
+        awareness = awareness valueMetric phase map GoodPercent.apply
       )
     }
 }

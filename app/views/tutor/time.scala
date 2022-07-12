@@ -15,7 +15,7 @@ object time {
       ctx: Context
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "time"))(
-      cls := "tutor__time box box-pad",
+      cls := "tutor__time box",
       h1(
         a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
         report.perf.trans,
@@ -24,10 +24,12 @@ object time {
       bits.mascotSays(
         ul(report timeHighlights 5 map compare.show)
       ),
-      div(cls := "tutor-card__content")(
-        bits.peerGradeWithDetail(concept.speed, report.globalClock, InsightPosition.Move),
-        bits.peerGradeWithDetail(concept.clockFlagVictory, report.flagging.win, InsightPosition.Game),
-        bits.peerGradeWithDetail(concept.clockTimeUsage, report.clockUsage, InsightPosition.Game)
+      div(cls := "tutor__pad")(
+        grade.peerGradeWithDetail(concept.speed, report.globalClock, InsightPosition.Move),
+        hr,
+        grade.peerGradeWithDetail(concept.clockFlagVictory, report.flagging.win, InsightPosition.Game),
+        hr,
+        grade.peerGradeWithDetail(concept.clockTimeUsage, report.clockUsage, InsightPosition.Game)
       )
     )
 }
