@@ -67,26 +67,37 @@ export const storedJsonProp =
   };
 
 export interface StoredMap<V> {
-  getMap(): Map<string, V>;
-  getKey(key: string): V;
-  setKey(key: string, value: V): void;
+  (key: string): V;
+  (key: string, value: V): void;
 }
 
 export const storedMap = <V>(propKey: string, maxSize: number, defaultValue: () => V): StoredMap<V> => {
   const prop = storedJsonProp<[string, V][]>(propKey, () => []);
   const map = new Map<string, V>(prop());
-  return {
-    getMap: () => {
-      return map;
-    },
-    getKey: (key: string) => {
-      const ret = map.get(key);
-      return defined(ret) ? ret : defaultValue();
-    },
-    setKey: (key: string, v: V) => {
+  return (key: string, v?: V) => {
+    if (defined(v)) {
       map.delete(key); // update insertion order as old entries are culled
       map.set(key, v);
       prop(Array.from(map.entries()).slice(-maxSize));
-    },
+    }
+    const ret = map.get(key);
+    return defined(ret) ? ret : defaultValue();
+  };
+};
+
+export interface StoredSet<V> {
+  (): Set<V>;
+  (value: V): void;
+}
+
+export const storedSet = <V>(propKey: string, maxSize: number, initial: () => Set<V>): StoredSet<V> => {
+  const prop = storedJsonProp<V[]>(propKey, () => [...initial()]);
+  const set = new Set<V>(prop());
+  return (v?: V) => {
+    if (defined(v)) {
+      set.add(v);
+      prop([...set].slice(-maxSize)); // sets maintain insertion order
+    }
+    return set;
   };
 };
