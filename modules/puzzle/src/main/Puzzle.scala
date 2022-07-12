@@ -21,12 +21,13 @@ case class Puzzle(
       fm * 2 - color.fold(1, 2)
     }
 
-  lazy val fenAfterInitialMove: FEN = {
-    for {
-      sit1 <- Forsyth << fen
-      sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
-    } yield Forsyth >> sit2
-  } err s"Can't apply puzzle $id first move"
+  def situationAfterInitialMove: Option[chess.Situation] = for {
+    sit1 <- Forsyth << fen
+    sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
+  } yield sit2
+
+  lazy val fenAfterInitialMove: FEN =
+    situationAfterInitialMove map Forsyth.>> err s"Can't apply puzzle $id first move"
 
   def color = fen.color.fold[chess.Color](chess.White)(!_)
 

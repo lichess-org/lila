@@ -3,7 +3,6 @@ package lila.puzzle
 import akka.stream.scaladsl._
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariation }
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.common.{ LilaOpening, LilaOpeningFamily, LilaStream }
@@ -122,7 +121,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
       key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
     }
 
-  def addAllMissing: Funit =
+  private[puzzle] def addAllMissing: Funit =
     colls.puzzle {
       _.find(
         $doc(
