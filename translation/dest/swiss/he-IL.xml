@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">טורנירים שוויצרי</string>
+  <string name="swissTournaments">טורנירים שוויצריים</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">צפו בסיבוב</item>
     <item quantity="two">צפו בכל %s הסיבובים</item>
@@ -21,14 +21,14 @@
   </plurals>
   <string name="roundsAreStartedManually">סבבים מתחילים באופן ידני</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">שנייה אחת בין סבבים</item>
-    <item quantity="two">שתי שניות בין סבבים</item>
+    <item quantity="one">שנייה %s בין סבבים</item>
+    <item quantity="two">%s שניות בין סבבים</item>
     <item quantity="many">%s שניות בין סבבים</item>
     <item quantity="other">%s שניות בין סבבים</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">דקה אחת בין סבבים</item>
-    <item quantity="two">שתי דקות בין סבבים</item>
+    <item quantity="one">דקה %s בין סבבים</item>
+    <item quantity="two">%s דקות בין סבבים</item>
     <item quantity="many">%s דקות בין סבבים</item>
     <item quantity="other">%s דקות בין סבבים</item>
   </plurals>
@@ -53,15 +53,15 @@
   <string name="pointsCalculationA">ניצחון שווה נקודה, תיקו חצי נקודה והפסד אפס נקודות. כששחקן לא משובץ באחד הסבבים הוא מקבל נקודה.</string>
   <string name="tiebreaksCalculationQ">איך שוברי-שוויון מחושבים?</string>
   <string name="sonnebornBergerScore">ניקוד סונבורן-ברגר</string>
-  <string name="tiebreaksCalculationA">עם ה-%s. סכם את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
+  <string name="tiebreaksCalculationA">בעזרת %s. סכם את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
   <string name="pairingsQ">איך נקבע השיבוץ לזוגות?</string>
   <string name="dutchSystem">השיטה ההולנדית</string>
   <string name="FIDEHandbook">מפרט חוקי פיד״ה</string>
-  <string name="pairingsA">לפי ה%1$s, המוצאת אל הפועל על ידי %2$s, בהתאם ל%3$s.</string>
+  <string name="pairingsA">לפי %1$s, המוצאת אל הפועל על ידי %2$s, בהתאם ל%3$s.</string>
   <string name="moreRoundsThanPlayersQ">מה קורה אם בטורניר ישנם יותר סבבים משחקנים?</string>
-  <string name="moreRoundsThanPlayersA">כאשר כל השיבוצים האפשריים לזוגות שוחקו, הטורניר יסתיים ויוכרז מנצח.</string>
+  <string name="moreRoundsThanPlayersA">כאשר כל השיבוצים האפשריים לזוגות ישוחקו, הטורניר יסתיים ויוכרז מנצח.</string>
   <string name="restrictedToTeamsQ">מדוע זה מוגבל לקבוצות?</string>
-  <string name="restrictedToTeamsA">טורנירים שווייצרים לא תוכננו עבור שח אונליין. הם דורשים דיוק, התמדה וסבלנות מצד השחקנים. אנו חושבים שהתנאים הללו יכולים להתקיים בסבירות גבוהה יותר בקבוצה מאשר בטורניר גלובלי.</string>
+  <string name="restrictedToTeamsA">טורנירים שווייצרים לא תוכננו עבור שח אונליין. הם דורשים דייקנות, התמדה וסבלנות מצד השחקנים. אנו חושבים שהתנאים הללו יכולים להתקיים בסבירות גבוהה יותר בקבוצה מאשר בטורניר גלובלי.</string>
   <string name="numberOfByesQ">כמה פעמים שחקן יכול לקבל נקודה כי לא שובץ?</string>
   <string name="numberOfByesA">בכל פעם שלא נמצא עבורו שיבוץ. חוץ מזה, כאשר שחקן מצטרף באיחור לטורניר הוא מקבל חצי נקודה.</string>
   <string name="whatIfOneDoesntPlayQ">מה קורה אם שחקן לא משחק?</string>
@@ -74,7 +74,7 @@
   <string name="roundRobinA">היינו רוצים להוסיף זאת, אך לצערנו שיטת Round Robin לא עובדת אונליין. אנו לא יכולים לצפות מכל השחקנים לשחק את כל המשחקים הדרושים באירוע מקוון, ולכן מרבית האירועים הללו יהיו פגומים ולא הוגנים, מה שחוטא למטרה שלשמה הם נועדו. הפורמט הכי קרוב שניתן לשחק אונליין הוא טורניר שוויצרי בו כל השיבוצים האפשריים ישוחקו טרם סיום הטורניר.</string>
   <string name="otherSystemsQ">ומה באשר לשיטות טורניר אחרות?</string>
   <string name="otherSystemsA">נכון לכרגע אין לנו כוונה להוסיף ל־Lichess שיטות טורניר נוספות.</string>
-  <string name="swissDescription">בטורניר שוויצרי %1$s, אין הכרח שכל משתתף ישחק נגד כל משתתף אחר. בכל סיבוב כל שחקן משחק נגד שחקן אחר, והשיבוצים נקבעים על פי הניקוד שנצבר לאורך הטורניר, מבלי ששני שחקנים ישחקו זה נגד זה יותר מפעם אחת. המנצח הוא בעל הניקוד הגבוה ביותר. כל המשתתפים משחקים בכל הסיבובים, אלא אם מספרם אי־זוגי</string>
+  <string name="swissDescription">בטורניר שוויצרי %1$s, אין הכרח שכל משתתף ישחק נגד כל משתתף אחר. בכל סיבוב כל שחקן משחק נגד שחקן אחר, והשיבוצים נקבעים על פי הניקוד שנצבר לאורך הטורניר, מבלי ששני שחקנים ישחקו זה נגד זה יותר מפעם אחת. המנצח הוא בעל הניקוד הגבוה ביותר. כל המשתתפים משחקים בכל הסבבים, אלא אם מספרם אי־זוגי</string>
   <string name="teamOnly">רק מובילי קבוצות יכולים ליצור טורנירים שוויצרים, ורק חברי קבוצות יכולים להשתתף בהם. %1$s כדי להתחיל לשחק בטורנירים שוויצרים.</string>
   <string name="joinOrCreateTeam">הצטרף לקבוצה או צור קבוצה</string>
   <string name="nowPlaying">משחק כעת</string>
@@ -82,9 +82,9 @@
   <string name="comparison">השוואה</string>
   <string name="tournDuration">משך הטורניר</string>
   <string name="predefinedDuration">משך מוגדר מראש בדקות</string>
-  <string name="durationUnknown">מספר סיבובים מירבי מוגדר מראש, אך ללא הגבלת זמן</string>
+  <string name="durationUnknown">מספר סבבים מירבי מוגדר מראש, אך ללא הגבלת זמן</string>
   <string name="numberOfGames">מספר משחקים</string>
-  <string name="numberOfGamesAsManyAsPossible">מספר הסיבובים המירבי האפשרי בזמן המוקצב</string>
+  <string name="numberOfGamesAsManyAsPossible">מספר הסבבים המירבי האפשרי בזמן המוקצב</string>
   <string name="numberOfGamesPreDefined">נקבע מראש, זהה עבור כל השחקנים</string>
   <string name="pairingSystem">שיטת השיבוץ</string>
   <string name="pairingSystemArena">כל יריב זמין עם דירוג דומה</string>
@@ -96,9 +96,9 @@
   <string name="possibleButNotConsecutive">אפשרי אך לא ברצף</string>
   <string name="identicalForbidden">אסור</string>
   <string name="lateJoin">הצטרפות מאוחרת</string>
-  <string name="lateJoinUntil">כן, עד תחילת מחצית מן הסיבובים</string>
+  <string name="lateJoinUntil">כן, עד תחילת מחצית מן הסבבים</string>
   <string name="pause">השהה</string>
-  <string name="pauseSwiss">כן, אך יתכן שיקטין את מספר הסיבובים</string>
+  <string name="pauseSwiss">כן, אך יתכן שיקטין את מספר הסבבים</string>
   <string name="streaksAndBerserk">רצפי ניצחונית ו\'אטרף\'</string>
   <string name="similarToOTB">דומה לטורנירים על־גבי לוח</string>
   <string name="unlimitedAndFree">לא מוגבל וחינמי</string>
