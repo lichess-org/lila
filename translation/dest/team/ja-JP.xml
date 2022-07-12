@@ -11,6 +11,7 @@
   <string name="myTeams">自分の所属チーム</string>
   <string name="noTeamFound">チームが見つかりませんでした</string>
   <string name="joinTeam">チームに参加</string>
+  <string name="onlyLeaderLeavesTeam">辞める前に別のチームリーダーを指名するか、チームを閉鎖してください。</string>
   <string name="quitTeam">チームを辞める</string>
   <string name="manuallyReviewAdmissionRequests">入会要請を手動で許可</string>
   <string name="manuallyReviewAdmissionRequestsHelp">ここにチェックすると、チームに加入したい人は申請が必要になります。許可するかどうかはあなたが決めます。</string>
