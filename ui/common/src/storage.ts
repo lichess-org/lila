@@ -92,11 +92,12 @@ export interface StoredSet<V> {
 
 export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => {
   const prop = storedJsonProp<V[]>(propKey, () => []);
-  const set = new Set<V>(prop());
+  let set = new Set<V>(prop());
   return (v?: V) => {
     if (defined(v)) {
       set.add(v);
-      prop([...set].slice(-maxSize)); // sets maintain insertion order
+      set = new Set([...set].slice(-maxSize)); // sets maintain insertion order
+      prop([...set]);
     }
     return set;
   };
