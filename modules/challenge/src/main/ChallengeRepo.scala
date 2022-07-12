@@ -132,7 +132,8 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       (reason != Challenge.DeclineReason.default) ??
         coll.updateField($id(challenge.id), "declineReason", reason).void
     }
-  def accept(challenge: Challenge) = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
+  private[challenge] def accept(challenge: Challenge) =
+    setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
 
   def statusById(id: Challenge.ID) = coll.primitiveOne[Status]($id(id), "status")
 

@@ -97,7 +97,7 @@ final class ChallengeApi(
         fuccess(Invalid("Game incompatible with a BOT account"))
       else if (c.challengerIsOpen)
         repo.setChallenger(c.setChallenger(user, sid), color) inject Valid(none)
-      else {
+      else
         joiner(c, user, color).flatMap {
           case Valid(pov) =>
             (repo accept c) >>- {
@@ -106,7 +106,7 @@ final class ChallengeApi(
             } inject Valid(pov.some)
           case Invalid(err) => fuccess(Invalid(err))
         }
-      }
+
     }
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
