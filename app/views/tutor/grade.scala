@@ -45,11 +45,20 @@ object grade {
         gradeVisual(metric),
         div(cls := "tutor-grade__detail")(
           c.unit.render(metric.mine.value),
-          em(" vs ", c.unit.render(metric.peer.value), " (peers)"),
+          em(title := s"${metric.peer.count} peer ${position.short}")(
+            " vs ",
+            c.unit.render(metric.peer.value),
+            " (peers)"
+          ),
           " over ",
           metric.mine.count.localize,
           " ",
-          position.short
+          position.short,
+          !metric.mine.reliableEnough option frag(
+            " (",
+            em(cls := "text", dataIcon := "")("small sample!"),
+            ")"
+          )
         )
       )
     }
