@@ -9,6 +9,7 @@
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
   <string name="lichessPoweredByDonationsAndVolunteers">لایچس از طریق کمک های مالی حامیان و تلاش های داوطلبان تامین میشود.</string>
+  <string name="findMoreAndSeeHowHelp">اینجا میتوانید بیشتر راجع‌ به %1$s بدانید (همینطور %2$s). اگر میخواهید به‌صورت داوطلب وقت و مهارت تان را در اختیار لیچس بگذارید، اینجا تعدادی از %3$s وجود دارد.</string>
   <string name="beingAPatron">پشتیبان بودن</string>
   <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
   <string name="otherWaysToHelp">راه های دیگر برای حمایت</string>
