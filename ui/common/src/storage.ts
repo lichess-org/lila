@@ -90,8 +90,8 @@ export interface StoredSet<V> {
   (value: V): void;
 }
 
-export const storedSet = <V>(propKey: string, maxSize: number, initial: () => Set<V>): StoredSet<V> => {
-  const prop = storedJsonProp<V[]>(propKey, () => [...initial()]);
+export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => {
+  const prop = storedJsonProp<V[]>(propKey, () => []);
   const set = new Set<V>(prop());
   return (v?: V) => {
     if (defined(v)) {

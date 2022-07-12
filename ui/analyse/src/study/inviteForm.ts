@@ -28,7 +28,7 @@ export function makeCtrl(
   const open = prop(false),
     spectators = prop<string[]>([]);
 
-  const previouslyInvited = storedSet<string>('study.previouslyInvited', 10, () => []);
+  const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {
     open,
     members,
