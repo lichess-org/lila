@@ -87,7 +87,7 @@ export const storedMap = <V>(propKey: string, maxSize: number, defaultValue: () 
 
 export interface StoredSet<V> {
   (): Set<V>;
-  (value: V): void;
+  (value: V): Set<V>;
 }
 
 export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => {
