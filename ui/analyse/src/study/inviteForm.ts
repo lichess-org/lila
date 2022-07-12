@@ -42,7 +42,7 @@ export function makeCtrl(
     invite(titleName: string) {
       const userId = titleNameToId(titleName);
       send('invite', userId);
-      previouslyInvited(userId);
+      setTimeout(() => previouslyInvited(userId), 1000);
       setTab();
     },
     redraw,
