@@ -26,7 +26,7 @@ $pocket-height: 60px;
     'controls'
     'tools'
     'side'
-    'acpl'
+    'round-training'
     'under'
     'chat'
     'uchat';
@@ -38,7 +38,7 @@ $pocket-height: 60px;
       'board      gauge tools'
       'board      gauge pocket-bot'
       'under      .     controls'
-      'under      .     acpl'
+      'under      .     round-training'
       'under      .     side'
       'chat       .     side'
       'uchat      .     side';
@@ -52,7 +52,7 @@ $pocket-height: 60px;
       'chat    . board gauge tools'
       'chat    . board gauge pocket-bot'
       'uchat   . under .     controls'
-      'uchat   . under .     acpl';
+      'uchat   . under .     round-training';
   }
 }
 
