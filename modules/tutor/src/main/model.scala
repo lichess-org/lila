@@ -3,12 +3,12 @@ package lila.tutor
 import alleycats.Zero
 import chess.{ Division, Situation }
 
+import lila.analyse.AccuracyPercent
 import lila.analyse.Analysis
 import lila.game.Pov
 import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats, MeanRating }
 import lila.rating.PerfType
 import lila.user.User
-import lila.analyse.AccuracyPercent
 
 case class Rating(value: Double) extends AnyVal
 object Rating {
@@ -84,21 +84,20 @@ case class Grade private (value: Double) {
 }
 
 object Grade {
-  def ratio(a: Double, b: Double): Grade     = if (b == 0) apply(1) else apply((a / b) - 1)
-  def percent(a: Percent, b: Percent): Grade = if (b.value == 0) apply(1) else apply((a.value / b.value) - 1)
+  def percent(a: Percent, b: Percent): Grade = apply((a.value - b.value) / 25)
   def apply(value: Double): Grade            = new Grade(value atLeast -1 atMost 1)
 
   sealed abstract class Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording] {
     def compare(other: Wording) = top compare other.top
   }
   object Wording {
-    case object MuchWorse      extends Wording(1, "much worse than", -0.3)
-    case object Worse          extends Wording(2, "worse than", -0.2)
-    case object SlightlyWorse  extends Wording(3, "slightly worse than", -0.07)
-    case object Similar        extends Wording(4, "similar to", 0.07)
-    case object SlightlyBetter extends Wording(5, "slightly better than", 0.2)
-    case object Better         extends Wording(6, "better than", 0.3)
     case object MuchBetter     extends Wording(7, "much better than", 1)
+    case object Better         extends Wording(6, "better than", 0.6)
+    case object SlightlyBetter extends Wording(5, "slightly better than", 0.3)
+    case object Similar        extends Wording(4, "similar to", 0.1)
+    case object SlightlyWorse  extends Wording(3, "slightly worse than", -Similar.top)
+    case object Worse          extends Wording(2, "worse than", -SlightlyBetter.top)
+    case object MuchWorse      extends Wording(1, "much worse than", -Better.top)
     val list = List[Wording](MuchWorse, Worse, SlightlyWorse, Similar, SlightlyBetter, Better, MuchBetter)
   }
 }

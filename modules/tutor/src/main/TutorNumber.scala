@@ -45,7 +45,7 @@ object TutorNumber {
   }
   implicit val ratingIsTutorNumber = new TutorNumber[Rating] {
     val iso                                  = Iso.double[Rating](Rating.apply, _.value)
-    override def grade(a: Rating, b: Rating) = Grade((a.value - b.value) / 300)
+    override def grade(a: Rating, b: Rating) = Grade((a.value - b.value) / 150)
   }
   implicit val clockPercentIsTutorNumber = new TutorNumber[ClockPercent] {
     val iso                                     = Iso.double[ClockPercent](ClockPercent.fromPercent, _.value)
