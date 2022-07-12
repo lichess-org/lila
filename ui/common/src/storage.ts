@@ -84,3 +84,21 @@ export const storedMap = <V>(propKey: string, maxSize: number, defaultValue: () 
     return defined(ret) ? ret : defaultValue();
   };
 };
+
+export interface StoredSet<V> {
+  (): Set<V>;
+  (value: V): Set<V>;
+}
+
+export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => {
+  const prop = storedJsonProp<V[]>(propKey, () => []);
+  let set = new Set<V>(prop());
+  return (v?: V) => {
+    if (defined(v)) {
+      set.add(v);
+      set = new Set([...set].slice(-maxSize)); // sets maintain insertion order
+      prop([...set]);
+    }
+    return set;
+  };
+};
