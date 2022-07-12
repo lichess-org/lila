@@ -40,7 +40,9 @@ export function makeCtrl(
       open(!open());
     },
     invite(titleName: string) {
-      send('invite', titleNameToId(titleName));
+      const userId = titleNameToId(titleName);
+      send('invite', userId);
+      previouslyInvited(userId);
       setTab();
     },
     redraw,
@@ -75,7 +77,6 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                   input.value = '';
                   ctrl.invite(v.name);
                   ctrl.redraw();
-                  ctrl.previouslyInvited(v.name);
                 },
               });
               input.focus();
@@ -93,7 +94,6 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                   key: username,
                   hook: bind('click', _ => {
                     ctrl.invite(username);
-                    ctrl.previouslyInvited(username);
                   }),
                 },
                 username
