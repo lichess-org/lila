@@ -25,7 +25,8 @@ const renderEval = (e: string): VNode => h('eval', e.replace('-', '−'));
 export const renderIndexText = (ply: Ply, withDots?: boolean): string =>
   plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : '');
 
-export const renderIndex = (ply: Ply, withDots?: boolean): VNode => h('index', renderIndexText(ply, withDots));
+export const renderIndex = (ply: Ply, withDots?: boolean): VNode =>
+  h(`index.sbhint${ply}`, renderIndexText(ply, withDots));
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
