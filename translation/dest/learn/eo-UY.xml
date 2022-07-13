@@ -178,6 +178,12 @@ La reĝo estas senvalora! Perdi ĝin signifas perdi la ludon.</string>
   <string name="queenOverBishop">Prenu la pecon
 kun la plej alta valoro!
 Damo &gt; Kuriero</string>
+  <string name="pieceValueExchange">Prenu la pecon kun la plej alta valoro!
+ Ne interŝanĝu
+ pli altvaloran pecon kontraŭ malpli valora.</string>
+  <string name="pieceValueLegal">Prenu la pecon
+kun la plej alta valoro!
+Certiĝu, ke via movo estas laŭleĝa!</string>
   <string name="takeThePieceWithTheHighestValue">Prenu la pecon
 kun la plej alta valoro!</string>
   <string name="pieceValueComplete">Pecoj kun alta movebleco havas pli altan valoron!
