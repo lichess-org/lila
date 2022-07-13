@@ -43,7 +43,7 @@
     <item quantity="other">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
   </plurals>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך להכריז על ניצחון, על תיקו או להמתין.</string>
-  <string name="forceResignation">טען שניצחת</string>
+  <string name="forceResignation">הכרז על ניצחון</string>
   <string name="forceDraw">הכרז על תיקו</string>
   <string name="talkInChat">היו אדיבים ודברו בצ׳אט בצורה נאותה!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך.</string>
@@ -173,7 +173,7 @@
   <string name="signIn">התחבר</string>
   <string name="youNeedAnAccountToDoThat">אתה צריך חשבון כדי לעשות זאת</string>
   <string name="signUp">הירשם</string>
-  <string name="computersAreNotAllowedToPlay">מחשבים ושחקנים הנעזרים במחשב במשחקם אינם מורשים לשחק. אנא המנע מהעזרות במנועי שחמט, מאגרי מידע או שחקנים אחרים במהלך המשחק. בנוסף, מומלץ להימנע מיצירת משתמשים מרובים, שכן יצירת כמות מוגזמת של משתמשים תביא לסילוק מהאתר.</string>
+  <string name="computersAreNotAllowedToPlay">מחשבים ושחקנים הנעזרים במחשב במשחקם אינם מורשים לשחק. אנא המנע מהיעזרות במנועי שחמט, מאגרי מידע או שחקנים אחרים במהלך המשחק. בנוסף, מומלץ להימנע מיצירת משתמשים מרובים, שכן יצירת כמות מוגזמת של משתמשים תביא לסילוק מהאתר.</string>
   <string name="games">משחקים</string>
   <string name="forum">פורום</string>
   <string name="xPostedInForumY">%1$s כתב בנושא %2$s</string>
@@ -894,7 +894,7 @@
   <string name="correspondenceDesc">משחקים בהתכתבות: יותר מיום עבור כל תור</string>
   <string name="puzzleDesc">מאמן טקטיקות שחמט</string>
   <string name="important">חשוב</string>
-  <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">יתכן שלשאלה שלך כבר יש תשובה %1$s</string>
   <string name="inTheFAQ">בשאלות הנפוצות</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">כדי לדווח על רמאות או על התנהגות עוינת, %1$s</string>
   <string name="useTheReportForm">השתמש בטופס הדיווח</string>
@@ -906,7 +906,7 @@
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
-  <string name="mentionedYouInX">תייגו אתכם ב- %1$s.</string>
+  <string name="mentionedYouInX">תייג אותך ב- %1$s.</string>
   <string name="xMentionedYouInY">%1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
   <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
@@ -971,7 +971,7 @@
   <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>
   <string name="cantDoThisTwice">עם סגירת החשבון בשנית לא תתאפשר עוד פתיחתו לעולם.</string>
   <string name="emailAssociatedToaccount">כתובת האימייל שמקושרת למשתמש</string>
-  <string name="sentEmailWithLink">שלחנו לך דואל עם קישור.</string>
+  <string name="sentEmailWithLink">שלחנו לך דוא״ל עם קישור.</string>
   <string name="tournamentEntryCode">קוד כניסה לטורניר</string>
   <string name="hangOn">רגע!</string>
   <string name="gameInProgress">אתה באמצע משחק עם %s.</string>
