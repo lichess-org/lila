@@ -23,7 +23,7 @@ final class ExpireCallbackMemo(
       (_, canc) => {
         Option(canc).foreach(_.cancel())
         scheduler.scheduleOnce(ttl) {
-          timeouts remove key
+          remove(key)
           callback(key)
         }
       }
