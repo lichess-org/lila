@@ -119,19 +119,19 @@ final class RemoteSocket(
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
 
-  final class StoppableSender(conn: PubSub[String, String], channel: Channel) extends Sender {
-    def apply(msg: String): Unit               = if (!stopping) conn.async.publish(channel, msg).unit
+  final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender {
+    def apply(msg: String): Unit               = if (!stopping) logAndSend(channel, msg)
     def sticky(_id: String, msg: String): Unit = apply(msg)
   }
 
-  final class RoundRobinSender(conn: PubSub[String, String], channel: Channel, parallelism: Int)
+  final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
       extends Sender {
     def apply(msg: String): Unit = publish(msg.hashCode.abs % parallelism, msg)
     // use the ID to select the channel, not the entire message
     def sticky(id: String, msg: String): Unit = publish(id.hashCode.abs % parallelism, msg)
 
     private def publish(subChannel: Int, msg: String) =
-      if (!stopping) conn.async.publish(s"$channel:$subChannel", msg).unit
+      if (!stopping) logAndSend(s"$channel:$subChannel", msg)
   }
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
@@ -141,10 +141,15 @@ final class RemoteSocket(
   private val send: Send = makeSender("site-out").apply _
 
   def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
-    connectAndSubscribe(channel) { message =>
-      reader(RawMsg(message)) collect handler match {
-        case Some(_) => // processed
-        case None    => logger.warn(s"Unhandled $channel $message")
+    connectAndSubscribe(channel) { str =>
+      RawMsg(str) match {
+        case None => logger.error(s"Invalid $channel $str")
+        case Some(msg) =>
+          lila.mon.ws.in(channel, msg.path).increment()
+          reader(msg) collect handler match {
+            case Some(_) => // processed
+            case None    => logger.warn(s"Unhandled $channel $str")
+          }
       }
     }
 
@@ -200,6 +205,12 @@ object RemoteSocket {
   trait Sender {
     def apply(msg: String): Unit
     def sticky(_id: String, msg: String): Unit
+
+    protected val conn: PubSub[String, String]
+    protected def logAndSend(channel: Channel, msg: String) = {
+      lila.mon.ws.out(channel, msg.takeWhile(' ' !=)).increment()
+      conn.async.publish(channel, msg).unit
+    }
   }
 
   object Protocol {
@@ -209,9 +220,11 @@ object RemoteSocket {
         f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
       def all = args split ' '
     }
-    def RawMsg(msg: String): RawMsg = {
+    def RawMsg(msg: String): Option[RawMsg] = {
       val parts = msg.split(" ", 2)
-      new RawMsg(parts(0), ~parts.lift(1))
+      parts.headOption map {
+        new RawMsg(_, ~parts.lift(1))
+      }
     }
 
     trait In
