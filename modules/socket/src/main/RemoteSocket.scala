@@ -131,7 +131,7 @@ final class RemoteSocket(
     def sticky(id: String, msg: String): Unit = publish(id.hashCode.abs % parallelism, msg)
 
     private def publish(subChannel: Int, msg: String) =
-      if (!stopping) logAndSend(s"$channel:$subChannel", msg)
+      if (!stopping) conn.async.publish(s"$channel:$subChannel", msg).unit
   }
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
@@ -140,12 +140,12 @@ final class RemoteSocket(
 
   private val send: Send = makeSender("site-out").apply _
 
-  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
+  def subscribe(channel: Channel, reader: In.Reader, monitor: Boolean = true)(handler: Handler): Funit =
     connectAndSubscribe(channel) { str =>
       RawMsg(str) match {
         case None => logger.error(s"Invalid $channel $str")
         case Some(msg) =>
-          lila.mon.ws.in(channel, msg.path).increment()
+          if (monitor) lila.mon.ws.in(channel, msg.path).increment()
           reader(msg) collect handler match {
             case Some(_) => // processed
             case None    => logger.warn(s"Unhandled $channel $str")
@@ -157,7 +157,7 @@ final class RemoteSocket(
       handler: Handler
   ): Funit =
     // subscribe to main channel
-    subscribe(channel, reader)(handler) >> {
+    subscribe(channel, reader, monitor = false)(handler) >> {
       // and subscribe to subchannels
       (0 to parallelism)
         .map { index =>
