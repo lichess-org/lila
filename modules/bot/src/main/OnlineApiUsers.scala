@@ -19,7 +19,7 @@ final class OnlineApiUsers(
   )
 
   def setOnline(userId: lila.user.User.ID): Unit = {
-    val wasOffline = !isOnline(userId) || !cache.get(userId)
+    val wasOffline = !isOnline(userId) && !cache.get(userId)
     cache.put(userId)
     if (wasOffline) publish(userId, isOnline = true)
   }
