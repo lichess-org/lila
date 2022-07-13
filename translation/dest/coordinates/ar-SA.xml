@@ -8,8 +8,6 @@
   <string name="mostChessCourses">معظم دورات الشطرنج والتمارين تستخدم التدوين الجبري على نطاق واسع.</string>
   <string name="talkToYourChessFriends">فهي تجعل من السهل التحدث إلى أصدقائك الشطرنجين، ما دام كل منكم يفهم \"لغة الشطرنج\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">يمكنك تحليل المباراة بفعالية أكبر إذا كنت تتعرف بسرعة على الاحداثيات.</string>
-  <string name="aSquareNameAppears">اسم المربع يظهر على الرقعة، ويجب عليك النقر فوق المربع الصحيح. لديك 30 ثانية للتعرف على أكبر عدد ممكن من المربعات!</string>
-  <string name="aSquareIsHighlighted">سيتم اشعال مربع على اللوحة و عليك إدخال الإحداثيات (مثلا \"e4\"). لديك 30 ثانية لتخريط صوابا أكبر عدد ممكن من المربعات!</string>
   <string name="startTraining">إبدأ التدريب</string>
   <string name="findSquare">ابحث عن مربع</string>
   <string name="nameSquare">سم المربع</string>
