@@ -162,7 +162,7 @@ final class RemoteSocket(
       // and subscribe to subchannels
       (0 to parallelism)
         .map { index =>
-          subscribe(s"$channel:$index", reader)(handler)
+          subscribe(s"$channel:$index", reader, monitor = false)(handler)
         }
         .sequenceFu
         .void
