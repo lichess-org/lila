@@ -213,8 +213,10 @@ object RemoteSocket {
       lila.mon.ws.out(channel, path).increment()
       conn.async
         .publish(channel, msg)
-        .thenRun { (clients: Long) =>
-          lila.mon.ws.outSuccess(channel, path).record(clients)
+        .thenApply {
+          new java.util.function.Function[java.lang.Long, Unit] {
+            def apply(clients: java.lang.Long) = lila.mon.ws.outSuccess(channel, path).record(clients).unit
+          }
         }
         .unit
     }
