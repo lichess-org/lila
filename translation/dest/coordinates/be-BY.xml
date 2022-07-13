@@ -10,7 +10,9 @@
   <string name="youCanAnalyseAGameMoreEffectively">Вы можаце больш эфектыўна аналізаваць гульні, калі вы ведаеце дзе кожная клетка знаходзіцца.</string>
   <string name="aSquareNameAppears">Назва клетцы будзе з\'яўляцца на дошцы і вам трэба клікнуць на яе. У вас ёсць 30 секунд, каб вызначыць як мага больш клетак!</string>
   <string name="aSquareIsHighlighted">Клетка будзе падсвечвацца на дошцы і вам патрэбна ўвесці каардынату (напрыклад \"e4\"). У вас ёсць 30 секунд, каб правільна ўказаць як мага больш клетак!</string>
+  <string name="showCoordinates">Паказваць каардынаты</string>
+  <string name="showPieces">Паказваць фігуры</string>
   <string name="startTraining">Пачаць трэніроўку</string>
-  <string name="findSquare">Знайдзіце клетку</string>
-  <string name="nameSquare">Назавіце клетку</string>
+  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">Знайдзіце клетку</string>
+  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">Назавіце клетку</string>
 </resources>
