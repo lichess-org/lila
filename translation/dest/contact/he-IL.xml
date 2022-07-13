@@ -13,7 +13,7 @@
   <string name="doPasswordReset">השלם איפוס סיסמה כדי להסיר את השלב השני שלך</string>
   <string name="accountSupport">אני צריך תמיכת חשבון</string>
   <string name="wantTitle">אני רוצה שהתואר שלי יוצג בליצ\'ס</string>
-  <string name="visitTitleConfirmation">כדי להציג את התואר שלך בפרופיל בלִיצֶ\'ס, וכדי להשתתף בארנות לבעלי תארים (Titled Arenas), צפה בעמוד אימות התארים</string>
+  <string name="visitTitleConfirmation">כדי להציג את התואר שלך בפרופיל בלִיצֶ\'ס, וכדי להשתתף בארנות לבעלי תארים (Titled Arenas), בקר בעמוד אימות התארים</string>
   <string name="wantCloseAccount">אני מעוניין לסגור את חשבוני</string>
   <string name="closeYourAccount">אתה יכול לסגור את חשבונך בעמוד זה</string>
   <string name="doNotAskByEmail">אל תבקשו מאיתנו לסגור את החשבון ע\"י אימייל, אנחנו לא נעשה את זה.</string>
@@ -48,14 +48,14 @@
   <string name="tryCastling">נסה את המשחקים האינטראקטיביים הקצרים האלו כדי ללמוד על הצרחה</string>
   <string name="castlingImported">אם ייבאת את המשחק, או התחלת אותו מעמדה מותאמת אישית, בדוק אם הגדרת את זכויות ההצרחה בצורה נכונה.</string>
   <string name="insufficientMaterial">היעדר חומר מספיק</string>
-  <string name="fideMate">על פי חוקי השחמט של פיד\"ה סעיף 6.9, אם מט אפשרי ברצף מהלכים חוקי כלשהו, אז המשחק אינו מהווה תיקו</string>
+  <string name="fideMate">על פי סעיף 6.9 לחוקי השחמט של פיד״ה, אם מט אפשרי ברצף מהלכים חוקי כלשהו, אז המשחק לא יסתיים בתיקו</string>
   <string name="knightMate">אפשר לבצע מט רק עם פרש או רץ, אם ליריב יש יותר ממלך על הלוח.</string>
   <string name="noRatingPoints">נקודות דירוג לא הוענקו</string>
   <string name="ratedGame">בדוק אם שיחקת משחק מדורג. משחק לא מדורג לא משפיע על הדירוג (מד הכושר).</string>
   <string name="botRatingAbuse">בנסיבות מסויימות כאשר משחק הוא מול בוט, משחק מדורג עשוי שלא להעניק נקודות אם ייקבע שהשחקן מנצל את הבוט לצבירת ניקוד.</string>
   <string name="errorPage">שגיאה בדף</string>
   <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, אתה יכול לדווח על זה:</string>
-  <string name="banAppeal">ערער על איסור או על הגבלה בIP</string>
+  <string name="banAppeal">ערעור על איסור או על הגבלה בIP</string>
   <string name="engineAppeal">סימן שימוש במנוע או רמאות</string>
   <string name="sendAppealTo">אתה יכול לשלוח ערעור ל%s.</string>
   <string name="falsePositives">אבחנות שגויות קורות לפעמים, ואנחנו מצטערים על כך.</string>
@@ -64,7 +64,7 @@
   <string name="doNotDeny">אל תכחיש שרימית. אם אתה רוצה שיאפשרו לך ליצור חשבון חדש, פשוט תודה במה שעשית, והראה שהבנת שזו טעות.</string>
   <string name="otherRestriction">הגבלה אחרת</string>
   <string name="collaboration">שיתוף פעולה, משפטי, מסחרי</string>
-  <string name="monetizing">מונטיזציה של לִיצֶ\'ס</string>
+  <string name="monetizing">מונטיזציה של  לִיצֶ\'ס </string>
   <string name="buyingLichess">קניית ליצ\'ס</string>
   <string name="authorizationToUse">הרשאה לשימוש בליצ\'ס</string>
   <string name="welcomeToUse">אתם מוזמנים להשתמש בליצ\'ס לצורך פעילותכם, גם מסחרית.</string>
