@@ -37,10 +37,6 @@ const board = (ctrl: CoordinateTrainerCtrl): VNode => {
 
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans } = ctrl;
-  const modeExplanationText =
-    trans(ctrl.mode() === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation') +
-    ' ' +
-    trans(ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant');
   return h('div.explanation', [
     h('p', trans('knowingTheChessBoard')),
     h('ul', [
@@ -49,7 +45,8 @@ const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
       h('li', trans('youCanAnalyseAGameMoreEffectively')),
     ]),
     h('strong', trans(ctrl.mode())),
-    h('p', modeExplanationText),
+    h('p', trans(ctrl.mode() === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation')),
+    h('p', trans(ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant')),
   ]);
 };
 
