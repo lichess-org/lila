@@ -8,13 +8,11 @@
   <string name="mostChessCourses">Meeste skaak kursusse en oefeninge gebruik algebraïese notasie.</string>
   <string name="talkToYourChessFriends">Dit maak dit makliker om met jou skaak vriende te praat omdat julle albei die \'taal van skaak\' verstaan.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Jy kan \'n spel meer effektief analiseer as jy vinnig koördinate kan herken.</string>
-  <string name="aSquareNameAppears">As \'n Koördinaat op die bord verskyn moet jy op die ooreenstemmende blokkie klik. Jy het 30 sekondes om soveel as moontlik blokkies aan te dui!</string>
-  <string name="aSquareIsHighlighted">Gee die koördinate van die gemerkte blokkie op die bord (bv. \"e4\"). Jy het 30 sekondes om soveel moontlik blokkies te identifiseer!</string>
-  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">Jy het 30 sekondes om soveel blokkies moontlik te merk!</string>
+  <string name="youHaveThirtySeconds">Jy het 30 sekondes om soveel blokkies moontlik te merk!</string>
   <string name="goAsLongAsYouWant">Neem so lank as wat jy wil, daar is geen tydsbeperking nie!</string>
   <string name="showCoordinates">Vertoon koördinate</string>
   <string name="showPieces">Vertoon stukke</string>
   <string name="startTraining">Begin die oefening</string>
-  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">Vind die blokkie</string>
-  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">Gee die koördinate van die blokkie</string>
+  <string name="findSquare">Vind die blokkie</string>
+  <string name="nameSquare">Gee die koördinate van die blokkie</string>
 </resources>
