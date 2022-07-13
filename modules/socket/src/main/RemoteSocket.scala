@@ -58,6 +58,7 @@ final class RemoteSocket(
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys).unit
     case In.TellSri(sri, userId, typ, msg) =>
+      lila.mon.ws.siteInTellSri(typ).increment()
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
@@ -120,7 +121,7 @@ final class RemoteSocket(
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender {
-    def apply(msg: String): Unit               = if (!stopping) logAndSend(channel, msg)
+    def apply(msg: String): Unit               = if (!stopping) monitorAndSend(channel, msg)
     def sticky(_id: String, msg: String): Unit = apply(msg)
   }
 
@@ -207,9 +208,15 @@ object RemoteSocket {
     def sticky(_id: String, msg: String): Unit
 
     protected val conn: PubSub[String, String]
-    protected def logAndSend(channel: Channel, msg: String) = {
-      lila.mon.ws.out(channel, msg.takeWhile(' ' !=)).increment()
-      conn.async.publish(channel, msg).unit
+    protected def monitorAndSend(channel: Channel, msg: String) = {
+      val path = msg.takeWhile(' ' !=)
+      lila.mon.ws.out(channel, path).increment()
+      conn.async
+        .publish(channel, msg)
+        .thenRun { (clients: Long) =>
+          lila.mon.ws.outSuccess(channel, path).record(clients)
+        }
+        .unit
     }
   }
 
