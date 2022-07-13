@@ -13,6 +13,7 @@ final class OnlineApiUsers(
 )(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
 
   private val cache = new ExpireCallbackMemo(
+    scheduler,
     10.seconds,
     userId => publish(userId, isOnline = false)
   )

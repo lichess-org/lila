@@ -21,9 +21,10 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
 ) {
   import EvalCacheUpgrade._
 
-  private val members       = mutable.AnyRefMap.empty[SriString, WatchingMember]
-  private val evals         = mutable.AnyRefMap.empty[SetupId, EvalState]
-  private val expirableSris = new ExpireCallbackMemo(10 minutes, sri => unregister(Socket.Sri(sri)))
+  private val members = mutable.AnyRefMap.empty[SriString, WatchingMember]
+  private val evals   = mutable.AnyRefMap.empty[SetupId, EvalState]
+  private val expirableSris =
+    new ExpireCallbackMemo(scheduler, 10 minutes, sri => expire(Socket.Sri(sri)))
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
@@ -57,11 +58,10 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
     }
   }
 
-  def unregister(sri: Socket.Sri): Unit =
+  private def expire(sri: Socket.Sri): Unit =
     members get sri.value foreach { wm =>
       unregisterEval(wm.setupId, sri)
       members -= sri.value
-      expirableSris remove sri.value
     }
 
   private def unregisterEval(setupId: SetupId, sri: Socket.Sri): Unit =
