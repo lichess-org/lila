@@ -30,7 +30,8 @@ final class ExpireCallbackMemo(
     )
     .unit
 
-  def remove(key: String) = timeouts remove key
+  // does not call the expiration callback
+  def remove(key: String) = Option(timeouts remove key).foreach(_.cancel())
 
   def count = timeouts.size
 
