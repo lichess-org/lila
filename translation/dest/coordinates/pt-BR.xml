@@ -8,13 +8,11 @@
   <string name="mostChessCourses">A maioria dos cursos e exercícios de xadrez utilizam a notação algébrica extensivamente.</string>
   <string name="talkToYourChessFriends">Isso torna mais fácil conversar com seus amigos de xadrez, desde que ambos entendam a \"linguagem do xadrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Você pode analisar um jogo mais eficientemente se não precisar ficar procurando os nomes das casas.</string>
-  <string name="aSquareNameAppears">Uma coordenada aparece no tabuleiro e você deve clicar na casa correspondente. Você tem 30 segundos para reconhecer o máximo possível de casas!</string>
-  <string name="aSquareIsHighlighted">Uma casa é marcada no tabuleiro e você deve digitar a coordenada (p. ex. \"e4\"). Você tem 30 segundos para localizar corretamente o maior número de casas possível!</string>
-  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">Você tem 30 segundos para localizar corretamente o máximo de casas possível!</string>
+  <string name="youHaveThirtySeconds">Você tem 30 segundos para localizar corretamente o máximo de casas possível!</string>
   <string name="goAsLongAsYouWant">Vá até quando quiser, não há limite de tempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>
   <string name="showPieces">Mostrar as peças</string>
   <string name="startTraining">Começar treino</string>
-  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">Ache a casa</string>
-  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">Nome da casa</string>
+  <string name="findSquare">Ache a casa</string>
+  <string name="nameSquare">Nome da casa</string>
 </resources>
