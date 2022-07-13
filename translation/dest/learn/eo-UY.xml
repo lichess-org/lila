@@ -129,8 +129,8 @@ Faru iun movon por daŭrigi.</string>
   <string name="castling">Aroki</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
   <string name="castlingIntro">Alportu vian reĝon en sekurecon, kaj lanĉu vian turon por atako!</string>
-  <string name="castleKingSide">Movi vian reĝon du kvadratojn por aroki reĝflanke!</string>
-  <string name="castleQueenSide">Movi vian reĝon du kvadratojn por aroki damflanke!</string>
+  <string name="castleKingSide">Movu vian reĝon du kvadratojn por aroki reĝflanke!</string>
+  <string name="castleQueenSide">Movu vian reĝon du kvadratojn por aroki damflanke!</string>
   <string name="theKnightIsInTheWay">La ĉevalo obstrukcas la vojon!
 Movi ĝin, poste aroku reĝflanke.</string>
   <string name="castleKingSideMovePiecesFirst">Aroku reĝflanke!
