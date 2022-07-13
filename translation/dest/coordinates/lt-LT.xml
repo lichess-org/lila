@@ -8,13 +8,11 @@
   <string name="mostChessCourses">Dauguma šachmatų kursų ir pratimų plačiai naudoja algebrinį žymėjimą.</string>
   <string name="talkToYourChessFriends">Tai leidžia paprasčiau kalbėti su jūsų šachmatų draugais, kadangi abu suprantate „šachmatų kalbą“.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Galite efektyviau analizuoti partijas, kadangi nereikia ieškoti langelių pavadinimų.</string>
-  <string name="aSquareNameAppears">Ant lentos pasirodys langelio pavadinimas, o jūs turėsite spustelėti tinkamą langelį. Turite 30 sekundžių atpažinti kiek galima daugiau langelių!</string>
-  <string name="aSquareIsHighlighted">Lentoje buvo pažymėtas langelis. Jums reikia suvesti jo koordinates (pvz. \"e4\"). Jūs turite trisdešimt sekundžių teisingai pažymėti kiek įmanoma daugiau langelių!</string>
-  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">Turite 30 sekundžių pažymėti kiek galima daugiau langelių!</string>
+  <string name="youHaveThirtySeconds">Turite 30 sekundžių pažymėti kiek galima daugiau langelių!</string>
   <string name="goAsLongAsYouWant">Žymėkite kiek tik norite, laiko limito nėra!</string>
   <string name="showCoordinates">Rodyti koordinates</string>
   <string name="showPieces">Rodyti figūras</string>
   <string name="startTraining">Pradėti treniruotę</string>
-  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">Rasti langelį</string>
-  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">Pavadinti langelį</string>
+  <string name="findSquare">Rasti langelį</string>
+  <string name="nameSquare">Pavadinti langelį</string>
 </resources>
