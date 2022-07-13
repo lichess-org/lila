@@ -881,7 +881,7 @@
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכים/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
-  <string name="agreementPolicy">אני מסכים לעקוב אחרי כל מדיניות של Lichess.</string>
+  <string name="agreementPolicy">אני מסכים לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
   <string name="rapid">Rapid</string>
