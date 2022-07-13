@@ -22,7 +22,12 @@ object LilaOpeningFamily {
   lazy val families: Map[Key, LilaOpeningFamily] = FullOpeningDB.all
     .foldLeft(Map.empty[Key, LilaOpeningFamily]) { case (acc, fullOp) =>
       val fam = LilaOpeningFamily(fullOp.family, fullOp)
-      if (acc.contains(fam.key)) acc else acc.updated(fam.key, fam)
+      acc.get(fam.key) match {
+        case Some(existing) if fullOp.uci.size < existing.full.uci.size =>
+          acc.updated(fam.key, fam)
+        case Some(_) => acc
+        case None    => acc.updated(fam.key, fam)
+      }
     }
 
   lazy val familyList = families.values.toList.sortBy(_.name.value)
