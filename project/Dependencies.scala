@@ -19,7 +19,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.8.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.11.1"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.1.8.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.0.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.75.Final" classifier "linux-x86_64"
   val autoconfig   = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
   val scalatest    = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
