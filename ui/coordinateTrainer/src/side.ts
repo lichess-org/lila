@@ -42,7 +42,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             {
               attrs: {
                 for: `coord_mode_${mode}`,
-                title: ctrl.trans(mode === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted'),
+                title: ctrl.trans(mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation'),
               },
             },
             ctrl.trans(mode)

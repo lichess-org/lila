@@ -38,7 +38,7 @@ const board = (ctrl: CoordinateTrainerCtrl): VNode => {
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans } = ctrl;
   const modeExplanationText =
-    trans(ctrl.mode() === 'findSquare' ? 'aSquareNameAppears' : 'aSquareIsHighlighted') +
+    trans(ctrl.mode() === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation') +
     ' ' +
     trans(ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant');
   return h('div.explanation', [
