@@ -28,7 +28,7 @@ object grade {
     metricOptions.asAvailable map { metric =>
       div(cls := "tutor-grade")(
         titleTag(cls := "tutor-grade__name")(concept show c),
-        gradeVisual(metric)
+        gradeVisual(c, metric)
       )
     }
 
@@ -42,12 +42,12 @@ object grade {
       div(cls := "tutor-grade tutor-grade--detail")(
         titleTag(cls := "tutor-grade__name")(concept show c),
         c.description.nonEmpty option p(cls := "tutor-grade__concept")(c.description),
-        gradeVisual(metric),
+        gradeVisual(c, metric),
         div(cls := "tutor-grade__detail")(
-          c.unit.render(metric.mine.value),
+          c.unit.html(metric.mine.value),
           em(title := s"${metric.peer.count} peer ${position.short}")(
             " vs ",
-            c.unit.render(metric.peer.value),
+            c.unit.html(metric.peer.value),
             " (peers)"
           ),
           " over ",
@@ -63,13 +63,13 @@ object grade {
       )
     }
 
-  private def gradeVisual[A](metric: TutorBothValuesAvailable[A])(implicit number: TutorNumber[A]) = {
-    val grade       = metric.grade
-    val minePercent = bits.percentNumber(metric.mine.value)
-    val peerPercent = bits.percentNumber(metric.peer.value)
+  private def gradeVisual[A](c: TutorConcept, metric: TutorBothValuesAvailable[A])(implicit
+      number: TutorNumber[A]
+  ) = {
+    val grade = metric.grade
     div(
       cls   := s"tutor-grade__visual tutor-grade__visual--${grade.wording.id}",
-      title := s"$minePercent% vs $peerPercent%"
+      title := s"${c.unit.text(metric.mine.value)} vs peers: ${c.unit.text(metric.peer.value)}"
     )(
       lila.tutor.Grade.Wording.list.map { gw =>
         div(cls := (grade.wording >= gw).option("lit"))

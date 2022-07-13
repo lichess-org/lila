@@ -37,15 +37,19 @@ object concept {
 }
 
 sealed trait TutorUnit {
-  def render[V: TutorNumber](v: V): Frag
+  def html[V: TutorNumber](v: V): Frag
+  def text[V: TutorNumber](v: V): String
 }
 
 object TutorUnit {
 
   val rating = new TutorUnit {
-    def render[V](v: V)(implicit number: TutorNumber[V]) = strong(f"${number double v}%1.0f")
+    def html[V: TutorNumber](v: V)                     = strong(text(v))
+    def text[V](v: V)(implicit number: TutorNumber[V]) = f"${number double v}%1.0f"
   }
   val percent = new TutorUnit {
-    def render[V](v: V)(implicit number: TutorNumber[V]) = frag(strong(f"${number double v}%1.1f"), "%")
+    def html[V: TutorNumber](v: V)                          = frag(strong(number(v)), "%")
+    def text[V: TutorNumber](v: V)                          = s"${number(v)}%"
+    private def number[V](v: V)(implicit n: TutorNumber[V]) = f"${n double v}%1.1f"
   }
 }
