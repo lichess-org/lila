@@ -35,14 +35,14 @@
   <string name="celebratedPatrons">התומכים המהוללים שהופכים את לִיצֶ\'ס לאפשרי</string>
   <string name="whereMoneyGoes">לאן הכסף הולך?</string>
   <string name="serversAndDeveloper">בראש ובראשונה, לשרתים חזקים.
-לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של  לִיצֶ\'ס .</string>
+לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של ליצ׳ס.</string>
   <string name="costBreakdown">ראה את מפרט ההוצאות הכלכליות</string>
   <string name="officialNonProfit">האם לִיצֶ\'ס הוא ארגון ללא מטרות רווח באופן רשמי?</string>
   <string name="actOfCreation">כן, הנה מסמך היצירה (בצרפתית)</string>
   <string name="changeMonthlySupport">האם אני יכול/ה לשנות/לבטל את התמיכה החודשית שלי?</string>
   <string name="changeOrContact">כן, בכל זמן נתון, מהעמוד הזה.
 או שאפשר %s.</string>
-  <string name="contactSupport">צור קשר עם התמיכה שלנו</string>
+  <string name="contactSupport">ליצור קשר עם התמיכה שלנו</string>
   <string name="otherMethods">האם יש אמצעים אחרים לתרום?</string>
   <string name="bankTransfers">אנחנו מקבלים גם העברות בנקאיות</string>
   <string name="patronFeatures">האם יש יתרונות ששמורים רק עבור תומכים?</string>
@@ -50,10 +50,10 @@
 מה שכן, תומכים מקבלים סמליל חדש ומגניב לפרופיל ויכולות רברוב.</string>
   <string name="featuresComparison">ראה את ההבדלים בין החשבונות</string>
   <plurals name="patronForMonths">
-    <item quantity="one">פטרון ליצ\'ס לחודש אחד</item>
-    <item quantity="two">פטרון ליצ\'ס ל%s חודשים</item>
-    <item quantity="many">פטרון ליצ\'ס ל%s חודשים</item>
-    <item quantity="other">פטרון ליצ\'ס ל%s חודשים</item>
+    <item quantity="one">תומך ליצ\'ס לחודש אחד</item>
+    <item quantity="two">תומך ליצ\'ס ל%s חודשים</item>
+    <item quantity="many">תומך ליצ\'ס ל%s חודשים</item>
+    <item quantity="other">תומך ליצ\'ס ל%s חודשים</item>
   </plurals>
   <string name="youSupportWith">אתה תומך בליצ\'ס עם %s בחודש.</string>
   <string name="tyvm">תודה רבה מאוד על העזרה שלך. אתה תותח!</string>

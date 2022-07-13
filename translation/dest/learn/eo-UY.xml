@@ -129,8 +129,8 @@ Faru iun movon por daŭrigi.</string>
   <string name="castling">Aroki</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
   <string name="castlingIntro">Alportu vian reĝon en sekurecon, kaj lanĉu vian turon por atako!</string>
-  <string name="castleKingSide">Movi vian reĝon du kvadratojn por aroki reĝflanke!</string>
-  <string name="castleQueenSide">Movi vian reĝon du kvadratojn por aroki damflanke!</string>
+  <string name="castleKingSide">Movu vian reĝon du kvadratojn por aroki reĝflanke!</string>
+  <string name="castleQueenSide">Movu vian reĝon du kvadratojn por aroki damflanke!</string>
   <string name="theKnightIsInTheWay">La ĉevalo obstrukcas la vojon!
 Movi ĝin, poste aroku reĝflanke.</string>
   <string name="castleKingSideMovePiecesFirst">Aroku reĝflanke!
@@ -178,6 +178,12 @@ La reĝo estas senvalora! Perdi ĝin signifas perdi la ludon.</string>
   <string name="queenOverBishop">Prenu la pecon
 kun la plej alta valoro!
 Damo &gt; Kuriero</string>
+  <string name="pieceValueExchange">Prenu la pecon kun la plej alta valoro!
+ Ne interŝanĝu
+ pli altvaloran pecon kontraŭ malpli valora.</string>
+  <string name="pieceValueLegal">Prenu la pecon
+kun la plej alta valoro!
+Certiĝu, ke via movo estas laŭleĝa!</string>
   <string name="takeThePieceWithTheHighestValue">Prenu la pecon
 kun la plej alta valoro!</string>
   <string name="pieceValueComplete">Pecoj kun alta movebleco havas pli altan valoron!
