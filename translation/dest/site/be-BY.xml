@@ -113,7 +113,7 @@
   <string name="byCPL">Цікавае</string>
   <string name="openStudy">Адкрыць навучанне</string>
   <string name="enable">Уключыць</string>
-  <string name="bestMoveArrow">Паказваць лепшы ход</string>
+  <string name="bestMoveArrow">Паказваць стрэлкай найлепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
   <string name="multipleLines">Дадатковыя хады</string>
   <string name="cpus">Працэсары</string>
