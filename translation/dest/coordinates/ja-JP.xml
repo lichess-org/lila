@@ -8,13 +8,11 @@
   <string name="mostChessCourses">チェスの講座、問題はほとんど「代数式」という記譜法を使っています。</string>
   <string name="talkToYourChessFriends">またチェスの友人と話をするのも簡単になります。双方がいわば「チェス語」を理解しているからです。</string>
   <string name="youCanAnalyseAGameMoreEffectively">このマスはどこか、いちいち探すことがなくなれば、ゲームの検討も効率よくできます。</string>
-  <string name="aSquareNameAppears">ボード上にマスの名前が表示されるので、そのマスをクリックしてください。30 秒間でできるだけ多くのマスをクリックします。</string>
-  <string name="aSquareIsHighlighted">ボード上にハイライト表示されるマスの座標（たとえば「e4」）を入力してください。30 秒間にできるだけ多くのマスの座標を正しく入力します。</string>
-  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">30 秒の間にできるだけ多くのマスを正しくクリック！</string>
+  <string name="youHaveThirtySeconds">30 秒の間にできるだけ多くのマスを正しくクリック！</string>
   <string name="goAsLongAsYouWant">じっくりどうぞ、時間制限なしです！</string>
   <string name="showCoordinates">座標を表示</string>
   <string name="showPieces">駒を表示</string>
   <string name="startTraining">トレーニングを開始</string>
-  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">マスを探す</string>
-  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">マスの名前を入力</string>
+  <string name="findSquare">マスを探す</string>
+  <string name="nameSquare">マスの名前を入力</string>
 </resources>
