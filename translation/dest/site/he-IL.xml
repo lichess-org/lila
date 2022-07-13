@@ -872,7 +872,7 @@
   <string name="howToAvoidThis">איך להימנע מכך?</string>
   <string name="playEveryGame">יש לסיים כל משחק שהתחלת.</string>
   <string name="tryToWin">יש לנסות לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
-  <string name="resignLostGames">יש לפרוש במצבי הפסד (אין לתת לשעון להיגמר).</string>
+  <string name="resignLostGames">יש לפרוש במצבי הפסד (אין לתת לשעון לרוץ).</string>
   <string name="temporaryInconvenience">אנו מצטערים על אי הנעימות הזמנית,</string>
   <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב־lichess.org.</string>
   <string name="thankYouForReading">תודה רבה על הקריאה!</string>
@@ -926,14 +926,14 @@
   <string name="welcome">ברוכים הבאים!</string>
   <string name="lichessPatronInfo">ליצ\'ס היא ארגון צדקה ותוכנת קוד פתוח חינמית.
 כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
-  <string name="coachManager">אזור המאמן</string>
+  <string name="coachManager">הגדרות עבור מאמנים</string>
   <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">בטל טורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
-  <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. יש קישורי מארקאפ זמינים.[name](https://url)</string>
+  <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. קישורים לעיצוב התיאור זמינים.[name](https://url)</string>
   <string name="ratedFormHelp">המשחקים מדורגים 
 ומשפיעים על דירוגם של השחקנים</string>
-  <string name="onlyMembersOfTeam">רק חברי המועדון</string>
+  <string name="onlyMembersOfTeam">רק חברי הקבוצה</string>
   <string name="noRestriction">ללא הגבלה</string>
   <string name="minimumRatedGames">מספר משחקים מדורגים מינימלי</string>
   <string name="minimumRating">דירוג מינימלי</string>
@@ -947,7 +947,7 @@
   <string name="cancelSimul">בטל את המשחק הסימולטני</string>
   <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
-  <string name="simulFeatured">תכונה ב-%s</string>
+  <string name="simulFeatured">הצג ב-%s</string>
   <string name="simulFeaturedHelp">גרום למשחק להיות פומבי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
@@ -955,11 +955,11 @@
   <string name="embedsAvailable">הדבק כתובת משחק או כתובת של פרק לוח לימוד כדי להטמיע אותו.</string>
   <string name="inYourLocalTimezone">באזור הזמן שלך</string>
   <string name="tournChat">צ\'אט טורניר</string>
-  <string name="noChat">בטל אפשרות צ\'ט</string>
-  <string name="onlyTeamLeaders">רק ראשי מועדון</string>
-  <string name="onlyTeamMembers">רק חברי מועדון</string>
+  <string name="noChat">בטל אפשרות צ\'אט</string>
+  <string name="onlyTeamLeaders">רק ראשי קבוצות</string>
+  <string name="onlyTeamMembers">רק חברי קבוצות</string>
   <string name="navigateMoveTree">נווט ברשימת המהלכים</string>
-  <string name="mouseTricks">תעלולי עכבר</string>
+  <string name="mouseTricks">קיצורי עכבר</string>
   <string name="toggleLocalAnalysis">הפעילו/כבו ניתוח מחשב מקומי</string>
   <string name="toggleAllAnalysis">הפעילו/כבו כל ניתוח מחשב</string>
   <string name="playComputerMove">שחק את מהלך המחשב הטוב ביותר</string>
@@ -967,7 +967,7 @@
   <string name="focusChat">הגדל את הצ\'אט</string>
   <string name="showHelpDialog">הראה את דיאלוג זה</string>
   <string name="reopenYourAccount">פתח את חשבונך מחדש</string>
-  <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתחו.</string>
+  <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתוח אותו.</string>
   <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>
   <string name="cantDoThisTwice">עם סגירת החשבון בשנית לא תתאפשר עוד פתיחתו לעולם.</string>
   <string name="emailAssociatedToaccount">כתובת האימייל שמקושרת למשתמש</string>
@@ -976,7 +976,7 @@
   <string name="hangOn">רגע!</string>
   <string name="gameInProgress">אתה באמצע משחק עם %s.</string>
   <string name="abortTheGame">בטל את המשחק</string>
-  <string name="resignTheGame">הכנע</string>
+  <string name="resignTheGame">היכנע</string>
   <string name="youCantStartNewGame">לא תוכל להתחיל משחק חדש עד גמר הנוכחי.</string>
   <string name="since">מאז</string>
   <string name="until">עד</string>
