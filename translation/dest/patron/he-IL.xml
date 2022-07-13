@@ -42,7 +42,7 @@
   <string name="changeMonthlySupport">האם אני יכול/ה לשנות/לבטל את התמיכה החודשית שלי?</string>
   <string name="changeOrContact">כן, בכל זמן נתון, מהעמוד הזה.
 או שאפשר %s.</string>
-  <string name="contactSupport">צור קשר עם התמיכה שלנו</string>
+  <string name="contactSupport">ליצור קשר עם התמיכה שלנו</string>
   <string name="otherMethods">האם יש אמצעים אחרים לתרום?</string>
   <string name="bankTransfers">אנחנו מקבלים גם העברות בנקאיות</string>
   <string name="patronFeatures">האם יש יתרונות ששמורים רק עבור תומכים?</string>
@@ -50,10 +50,10 @@
 מה שכן, תומכים מקבלים סמליל חדש ומגניב לפרופיל ויכולות רברוב.</string>
   <string name="featuresComparison">ראה את ההבדלים בין החשבונות</string>
   <plurals name="patronForMonths">
-    <item quantity="one">פטרון ליצ\'ס לחודש אחד</item>
-    <item quantity="two">פטרון ליצ\'ס ל%s חודשים</item>
-    <item quantity="many">פטרון ליצ\'ס ל%s חודשים</item>
-    <item quantity="other">פטרון ליצ\'ס ל%s חודשים</item>
+    <item quantity="one">תומך ליצ\'ס לחודש אחד</item>
+    <item quantity="two">תומך ליצ\'ס ל%s חודשים</item>
+    <item quantity="many">תומך ליצ\'ס ל%s חודשים</item>
+    <item quantity="other">תומך ליצ\'ס ל%s חודשים</item>
   </plurals>
   <string name="youSupportWith">אתה תומך בליצ\'ס עם %s בחודש.</string>
   <string name="tyvm">תודה רבה מאוד על העזרה שלך. אתה תותח!</string>
