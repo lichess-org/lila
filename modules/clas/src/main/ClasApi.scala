@@ -95,16 +95,19 @@ final class ClasApi(
           Match($doc("userId" -> student)) -> List(
             Project($doc("clasId" -> true)),
             PipelineOperator(
-              $lookup.pipeline(
-                from = colls.clas,
+              $lookup.pipelineFull(
+                from = colls.clas.name,
                 as = "clas",
-                local = "clasId",
-                foreign = "_id",
+                let = $doc("local" -> "$clasId"),
                 pipe = List(
                   $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc("$in" -> $arr(teacher, "$teachers"))
-                    )
+                    "$match" ->
+                      $expr(
+                        $and(
+                          $doc("$eq" -> $arr("$_id", "$$local")),
+                          $doc("$in" -> $arr(teacher, "$teachers"))
+                        )
+                      )
                   ),
                   $doc("$limit"   -> 1),
                   $doc("$project" -> $id(true))

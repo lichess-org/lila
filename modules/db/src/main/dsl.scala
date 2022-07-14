@@ -67,6 +67,11 @@ trait dsl {
   def $not(expression: Bdoc): Bdoc = {
     $doc("$not" -> expression)
   }
+
+  def $expr(expression: Bdoc): Bdoc = {
+    $doc("$expr" -> expression)
+  }
+
   // End of Top Level Logical Operators
   // **********************************************************************************************//
 
@@ -348,20 +353,25 @@ trait dsl {
       simple(from.name, as, local, foreign)
     def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
       simple(from.name.value, as, local, foreign)
-    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+    def pipelineFull(from: String, as: String, let: Bdoc, pipe: List[Bdoc]): Bdoc =
       $doc(
         "$lookup" -> $doc(
-          "from" -> from,
-          "as"   -> as,
-          "let"  -> $doc("local" -> s"$$$local"),
-          "pipeline" -> {
-            $doc(
-              "$match" -> $doc(
-                "$expr" -> $doc("$eq" -> $arr(s"$$$foreign", "$$local"))
-              )
-            ) :: pipe
-          }
+          "from"     -> from,
+          "as"       -> as,
+          "let"      -> let,
+          "pipeline" -> pipe
         )
+      )
+    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipelineFull(
+        from,
+        as,
+        $doc("local" -> s"$$$local"),
+        $doc(
+          "$match" -> $doc(
+            $expr($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
+          )
+        ) :: pipe
       )
     def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       pipeline(from.name, as, local, foreign, pipe)
