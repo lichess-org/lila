@@ -8,6 +8,8 @@
   <string name="mostChessCourses">Шахмат мектептердің көпшілігі алгебралық жазу тәртібін ұстанады.</string>
   <string name="talkToYourChessFriends">\"Шахмат тілін\" біліп жүрсеңіз, шахмат білетін досыңызбен әңгіме құру оңай болады.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Координатты танитын болсаңыз, ойынды тиімді түрде талдауға қабілетті боласыз.</string>
+  <string name="aCoordinateAppears">Координаттар тақта бетіне шыққанда, сіз оған сәйкес шаршыны шертуіңіз керек.</string>
+  <string name="aSquareIsHighlightedExplanation">Тақта бетінде шаршы жылт еткенде, оның координатын жазуыңыз керек (мысалы, e4).</string>
   <string name="youHaveThirtySeconds">30 секунд ішінде барынша көп шаршыны анықтап табыңыз!</string>
   <string name="goAsLongAsYouWant">Асықпай жүрсеңіз болады, уақытта шектеу жоқ!</string>
   <string name="showCoordinates">Координаттарды көрсету</string>
