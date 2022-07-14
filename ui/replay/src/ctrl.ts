@@ -1,13 +1,37 @@
-import { ReplayData, ReplayOpts } from './interfaces';
+import { Api as CgApi } from 'chessground/api';
+import { makeFen } from 'chessops/fen';
+import { makeUci, Position } from 'chessops';
+import { parsePgn, startingPosition } from 'chessops/pgn';
+import { parseSan } from 'chessops/san';
+import { Prop, prop } from 'common';
+import { ReplayOpts, Node } from './interfaces';
 
 export default class ReplayCtrl {
-  data: ReplayData;
+  orientation: Color;
+  nodes: Node[] = [];
+  index: number = 0;
   trans: Trans;
+  ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
   constructor(opts: ReplayOpts, readonly redraw: () => void) {
-    this.data = {
-      pgn: opts.pgn.split(' '),
-    };
+    this.orientation = opts.orientation || 'white';
+    const game = parsePgn(opts.pgn)[0];
+    const pos = startingPosition(game.headers).unwrap();
+    const toNode = (pos: Position) => ({ fen: makeFen(pos.toSetup()), check: pos.isCheck() });
+    this.nodes.push(toNode(pos));
+    for (let n of game.moves.mainline()) {
+      const move = parseSan(pos, n.san);
+      if (!move) {
+        console.error(n, game.headers, makeFen(pos.toSetup()));
+        throw `Can't parse ${n}`;
+      } else pos.play(move);
+      this.nodes.push({ ...toNode(pos), san: n.san, uci: makeUci(move) });
+    }
+    this.index = this.nodes.length - 1;
+
+    console.log(this.nodes);
     this.trans = lichess.trans(opts.i18n);
   }
+
+  node = () => this.nodes[this.index];
 }
