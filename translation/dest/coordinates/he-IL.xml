@@ -8,6 +8,8 @@
   <string name="mostChessCourses">בימינו, שיטת הרישום האלגברית היא הנפוצה ביותר בכל תוכנות האימון.</string>
   <string name="talkToYourChessFriends">היא מקלה על התקשורת עם חבריך לשחמט, כי היא משמשת כשפת תקשורת המובנת לכולכם.</string>
   <string name="youCanAnalyseAGameMoreEffectively">האנליזה של משחקים היא יותר אפקטיבית כאשר איננו זקוקים לתת שמות למשבצות השונות.</string>
+  <string name="aCoordinateAppears">נקודת ציון (קואורדינטה) מופיעה על הלוח ועליך ללחוץ על המשבצת המתאימה לה.</string>
+  <string name="aSquareIsHighlightedExplanation">אחת המשבצות מודגשת על הלוח ועליך להכניס את נקודת הציון (למשל: e4).</string>
   <string name="youHaveThirtySeconds">יש לך 30 שניות למקם נכונה כמה שיותר משבצות!</string>
   <string name="goAsLongAsYouWant">פתור כפי יכולתך, אין מגבלת זמן!</string>
   <string name="showCoordinates">הצג קואורדינטות (נקודות ציון)</string>
