@@ -32,8 +32,8 @@ export const init = (ctrl: RoundController) =>
       ctrl.redraw();
     });
 
-export function view(ctrl: RoundController): VNode {
-  return snabModal({
+export const view = (ctrl: RoundController): VNode =>
+  snabModal({
     class: 'keyboard-help',
     onInsert: async ($wrap: Cash) => {
       const [, html] = await Promise.all([lichess.loadCssPath('round.keyboard'), xhr.text(xhr.url('/round/help', {}))]);
@@ -45,4 +45,3 @@ export function view(ctrl: RoundController): VNode {
     },
     content: [h('div.scrollable', spinner())],
   });
-}

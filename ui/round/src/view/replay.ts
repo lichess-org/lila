@@ -49,8 +49,8 @@ const renderDrawOffer = () =>
     '½?'
   );
 
-function renderMove(step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) {
-  return step
+const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
+  step
     ? h(
         moveTag,
         {
@@ -63,7 +63,6 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, drawOffers: Se
     : orEmpty
     ? h(moveTag, '…')
     : undefined;
-}
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
   let result: string | undefined;
@@ -225,8 +224,8 @@ function initMessage(ctrl: RoundController) {
     : null;
 }
 
-function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
-  return h('button.fbt', {
+const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
+  h('button.fbt', {
     attrs: {
       disabled: disabled,
       'data-icon': icon,
@@ -238,7 +237,6 @@ function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: 
       ctrl.redraw();
     }),
   });
-}
 
 export function render(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data,
