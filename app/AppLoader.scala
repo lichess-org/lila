@@ -158,6 +158,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val ublog: Ublog                   = wire[Ublog]
   lazy val tutor: Tutor                   = wire[Tutor]
   lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
+  lazy val opening: Opening               = wire[Opening]
 
   // eagerly wire up all controllers
   val router: Router = {
