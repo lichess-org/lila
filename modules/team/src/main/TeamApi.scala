@@ -11,7 +11,7 @@ import scala.util.Try
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl._
-import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam }
+import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam, LeaveTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
 import lila.memo.CacheApi._
@@ -232,11 +232,13 @@ final class TeamApi(
       (res.n == 1) ?? {
         teamRepo.incMembers(team.id, -1) >>
           (team.leaders contains userId) ?? teamRepo.setLeaders(team.id, team.leaders - userId)
-      } >>-
+      } >>- {
+        Bus.publish(LeaveTeam(teamId = team.id, userId = userId), "teamLeave")
         cached.invalidateTeamIds(userId)
+      }
     }
 
-  def quitAll(userId: User.ID): Fu[List[Team.ID]] =
+  def quitAllOnAccountClosure(userId: User.ID): Fu[List[Team.ID]] =
     cached.teamIdsList(userId) flatMap { teamIds =>
       memberRepo.removeByUser(userId) >>
         requestRepo.removeByUser(userId) >>
@@ -259,7 +261,7 @@ final class TeamApi(
       (!team.leaders(me.id)).?? {
         modLog.teamKick(me.id, userId, team.name)
       } >>-
-      Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
+      Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
 
   def kickMembers(team: Team, json: String, me: User) =
     (parseTagifyInput(json) - team.createdBy).map(kick(team, _, me))

@@ -327,52 +327,36 @@ final class SwissApi(
       }
     }
 
-  private[swiss] def kickFromTeam(teamId: TeamID, userId: User.ID) =
-    colls.swiss.secondaryPreferred
-      .primitive[Swiss.Id]($doc("teamId" -> teamId, "featurable" -> true), "_id")
-      .flatMap { swissIds =>
-        colls.player.distinctEasy[Swiss.Id, Seq](
-          "s",
-          $inIds(swissIds.map { SwissPlayer.makeId(_, userId) }),
-          ReadPreference.secondaryPreferred
-        )
-      }
+  private[swiss] def leaveTeam(teamId: TeamID, userId: User.ID) =
+    joinedPlayableSwissIds(userId, List(teamId))
       .flatMap { kickFromSwissIds(userId, _) }
 
   private[swiss] def kickLame(userId: User.ID) =
     Bus
       .ask[List[TeamID]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
-      .flatMap { teamIds =>
-        colls.swiss.aggregateList(100) { framework =>
-          import framework._
-          Match($doc("teamId" $in teamIds, "featurable" -> true)) -> List(
-            PipelineOperator(
-              $lookup.pipelineFull(
-                as = "player",
-                from = colls.player.name,
-                let = $doc("s" -> "$_id"),
-                pipe = List(
-                  $doc(
-                    "$match" -> $doc(
-                      $expr(
-                        $and(
-                          $doc("$eq" -> $arr("$u", userId)),
-                          $doc("$eq" -> $arr("$s", "$$s"))
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            ),
-            Match("player" $ne $arr()),
-            Limit(100),
-            Project($id(true))
-          )
-        }
+      .flatMap { joinedPlayableSwissIds(userId, _) }
+      .flatMap { kickFromSwissIds(userId, _) }
+
+  def joinedPlayableSwissIds(userId: User.ID, teamIds: List[TeamID]): Fu[List[Swiss.Id]] =
+    colls.swiss
+      .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        Match($doc("teamId" $in teamIds, "featurable" -> true)) -> List(
+          PipelineOperator(
+            $lookup.pipeline(
+              as = "player",
+              from = colls.player.name,
+              local = "_id",
+              foreign = "s",
+              pipe = List($doc("$match" -> $doc("u" -> userId)))
+            )
+          ),
+          Match("player" $ne $arr()),
+          Limit(100),
+          Project($id(true))
+        )
       }
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
-      .flatMap { kickFromSwissIds(userId, _) }
 
   private def kickFromSwissIds(userId: User.ID, swissIds: Seq[Swiss.Id], forfeit: Boolean = false): Funit =
     swissIds.map { withdraw(_, userId, forfeit) }.sequenceFu.void

@@ -20,7 +20,7 @@ final private class TournamentBusHandler(
     "adjustCheater",
     "adjustBooster",
     "playban",
-    "teamKick",
+    "teamLeave",
     "berserk"
   ) {
 

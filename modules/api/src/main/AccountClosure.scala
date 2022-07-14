@@ -47,7 +47,7 @@ final class AccountClosure(
       _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
       _       <- relationApi.unfollowAll(u.id)
       _       <- rankingApi.remove(u.id)
-      teamIds <- teamApi.quitAll(u.id)
+      teamIds <- teamApi.quitAllOnAccountClosure(u.id)
       _       <- challengeApi.removeByUserId(u.id)
       _       <- tournamentApi.withdrawAll(u)
       _       <- swissApi.withdrawAll(u, teamIds)
