@@ -121,9 +121,9 @@ export default class EditorCtrl {
     };
   }
 
-  makeAnalysisUrl(legalFen: string): string {
+  makeAnalysisUrl(legalFen: string, orientation: Color = 'white'): string {
     const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
-    return `/analysis/${variant}${urlFen(legalFen)}`;
+    return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}`;
   }
 
   makeEditorUrl(fen: string): string {
