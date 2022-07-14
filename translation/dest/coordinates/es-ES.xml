@@ -8,6 +8,7 @@
   <string name="mostChessCourses">La mayoría de los cursos y ejercicios de ajedrez usan la notación algebraica.</string>
   <string name="talkToYourChessFriends">Facilita la comunicación con otros jugadores, que también hablan el \"lenguaje del ajedrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Puedes analizar partidas de forma más eficiente si no tienes que andar buscando los nombres de los escaques.</string>
+  <string name="aCoordinateAppears">Una coordenada aparece en el tablero y debe hacer clic en el cuadrado correspondiente.</string>
   <string name="youHaveThirtySeconds">¡Tienes 30 segundos para marcar correctamente tantos escaques como sea posible!</string>
   <string name="goAsLongAsYouWant">¡Tómate todo el tiempo que quieras, no hay límite de tiempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>
