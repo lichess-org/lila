@@ -122,7 +122,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           tagStatus
             .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
             .fold(dbGame) { res =>
-              dbGame.finish(res.status, res.winner).game
+              dbGame.finish(res.status, res.winner)
             }
 
         }

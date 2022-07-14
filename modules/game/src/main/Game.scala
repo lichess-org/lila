@@ -384,31 +384,24 @@ case class Game(
   def drawable        = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss
 
-  def finish(status: Status, winner: Option[Color]) = {
-    val newClock = clock map { _.stop }
-    Progress(
-      this,
-      copy(
-        status = status,
-        whitePlayer = whitePlayer.finish(winner contains White),
-        blackPlayer = blackPlayer.finish(winner contains Black),
-        chess = chess.copy(clock = newClock),
-        loadClockHistory = clk =>
-          clockHistory map { history =>
-            // If not already finished, we're ending due to an event
-            // in the middle of a turn, such as resignation or draw
-            // acceptance. In these cases, record a final clock time
-            // for the active color. This ensures the end time in
-            // clockHistory always matches the final clock time on
-            // the board.
-            if (!finished) history.record(turnColor, clk)
-            else history
-          }
-      ),
-      // Events here for BC.
-      List(Event.End(winner)) ::: newClock.??(c => List(Event.Clock(c)))
+  def finish(status: Status, winner: Option[Color]): Game =
+    copy(
+      status = status,
+      whitePlayer = whitePlayer.finish(winner contains White),
+      blackPlayer = blackPlayer.finish(winner contains Black),
+      chess = chess.copy(clock = clock map { _.stop }),
+      loadClockHistory = clk =>
+        clockHistory map { history =>
+          // If not already finished, we're ending due to an event
+          // in the middle of a turn, such as resignation or draw
+          // acceptance. In these cases, record a final clock time
+          // for the active color. This ensures the end time in
+          // clockHistory always matches the final clock time on
+          // the board.
+          if (!finished) history.record(turnColor, clk)
+          else history
+        }
     )
-  }
 
   def rated  = mode.rated
   def casual = !rated

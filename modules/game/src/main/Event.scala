@@ -265,12 +265,6 @@ object Event {
     override def owner   = !w
   }
 
-  // for mobile app BC only
-  case class End(winner: Option[Color]) extends Event {
-    def typ  = "end"
-    def data = Json.toJson(winner)
-  }
-
   case class EndData(game: Game, ratingDiff: Option[RatingDiffs]) extends Event {
     def typ = "endData"
     def data =

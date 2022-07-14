@@ -105,13 +105,14 @@ final private class Finisher(
     }
 
   private def apply(
-      game: Game,
+      prev: Game,
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
       message: Option[Messenger.SystemMessage] = None
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
-    val prog   = game.finish(status, winnerC)
+    val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
+    val game   = prog.game
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game
       .finish(
@@ -122,33 +123,29 @@ final private class Finisher(
         status = status.name
       )
       .increment()
-    val g = prog.game
-    recordLagStats(g)
+    recordLagStats(game)
     proxy.save(prog) >>
       gameRepo.finish(
-        id = g.id,
+        id = game.id,
         winnerColor = winnerC,
-        winnerId = winnerC flatMap (g.player(_).userId),
+        winnerId = winnerC flatMap (game.player(_).userId),
         status = prog.game.status
       ) >>
       userRepo
-        .pair(
-          g.whitePlayer.userId,
-          g.blackPlayer.userId
-        )
+        .pair(game.whitePlayer.userId, game.blackPlayer.userId)
         .flatMap { case (whiteO, blackO) =>
-          val finish = FinishGame(g, whiteO, blackO)
+          val finish = FinishGame(game, whiteO, blackO)
           updateCountAndPerfs(finish) map { ratingDiffs =>
-            message foreach { messenger(g, _) }
-            gameRepo game g.id foreach { newGame =>
+            message foreach { messenger(game, _) }
+            gameRepo game game.id foreach { newGame =>
               newGame foreach proxy.setFinishedGame
-              val newFinish = finish.copy(game = newGame | g)
+              val newFinish = finish.copy(game = newGame | game)
               Bus.publish(newFinish, "finishGame")
               game.userIds foreach { userId =>
                 Bus.publish(newFinish, s"userFinishGame:$userId")
               }
             }
-            prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
+            List(lila.game.Event.EndData(game, ratingDiffs))
           }
         }
   }
