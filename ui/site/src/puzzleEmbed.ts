@@ -1,4 +1,5 @@
 import { Chessground } from 'chessground';
+import { uciToChessgroundLastMove } from 'chess/main';
 
 window.onload = () => {
   const el = document.querySelector('#daily-puzzle') as HTMLElement,
@@ -10,7 +11,7 @@ window.onload = () => {
     drawable: { enabled: false, visible: false },
     viewOnly: true,
     fen: fen,
-    lastMove: lm ? ([lm[0] + lm[1], lm[2] + lm[3]] as Key[]) : undefined,
+    lastMove: uciToChessgroundLastMove(lm),
     orientation: orientation as 'white' | 'black',
   });
 

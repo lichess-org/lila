@@ -10,6 +10,7 @@ import { opposite, parseUci } from 'chessops/util';
 import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
+import { uciToChessgroundLastMove } from 'chess';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -465,11 +466,10 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     return;
   }
   const { fen, uci } = pvBoard;
-  const lastMove = uci[1] === '@' ? [uci.slice(2)] : [uci.slice(0, 2), uci.slice(2, 4)];
   const orientation = ctrl.getOrientation();
   const cgConfig = {
     fen,
-    lastMove,
+    lastMove: uciToChessgroundLastMove(uci),
     orientation,
     coordinates: false,
     viewOnly: true,

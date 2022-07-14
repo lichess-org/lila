@@ -265,12 +265,6 @@ export default class AnalyseCtrl {
     this.actionMenu.open = false;
   }
 
-  private uciToLastMove(uci?: Uci): Key[] | undefined {
-    if (!uci) return;
-    const start = uci[1] === '@' ? 2 : 0;
-    return [uci.slice(start, start + 2), uci.slice(2, 4)] as Key[];
-  }
-
   private showGround(): void {
     this.onChange();
     if (!defined(this.node.dests)) this.getDests();
@@ -316,7 +310,7 @@ export default class AnalyseCtrl {
               dests: (movableColor === color && dests) || new Map(),
             },
         check: !!node.check,
-        lastMove: this.uciToLastMove(node.uci),
+        lastMove: chessUtil.uciToChessgroundLastMove(node.uci),
       };
     if (!dests && !node.check) {
       // premove while dests are loading from server

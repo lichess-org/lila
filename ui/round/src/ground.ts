@@ -3,6 +3,7 @@ import { Chessground } from 'chessground';
 import { Config } from 'chessground/config';
 import * as round from './round';
 import resizeHandle from 'common/resize';
+import { uciToChessgroundLastMove } from 'chess';
 import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
@@ -17,7 +18,7 @@ export function makeConfig(ctrl: RoundController): Config {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
-    lastMove: util.uci2move(step.uci),
+    lastMove: uciToChessgroundLastMove(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: ctrl.data.pref.is3d,

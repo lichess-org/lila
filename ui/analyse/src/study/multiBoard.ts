@@ -6,6 +6,7 @@ import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite } from 'chessground/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
+import { uciToChessgroundLastMove } from 'chess';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -173,7 +174,7 @@ function makeCg(preview: ChapterPreview): VNode {
           const lm = preview.lastMove!;
           domData.get(vnode.elm as HTMLElement, 'chessground').set({
             fen: preview.fen,
-            lastMove: [lm[0] + lm[1], lm[2] + lm[3]],
+            lastMove: uciToChessgroundLastMove(lm),
           });
         }
         vnode.data!.fen = preview.fen;

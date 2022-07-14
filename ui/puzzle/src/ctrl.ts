@@ -25,6 +25,7 @@ import { Role, Move, Outcome } from 'chessops/types';
 import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
+import { uciToChessgroundLastMove } from 'chess';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -170,7 +171,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         enabled: false,
       },
       check: !!node.check,
-      lastMove: uciToLastMove(node.uci),
+      lastMove: uciToChessgroundLastMove(node.uci),
     };
     if (node.ply >= vm.initialNode.ply) {
       if (vm.mode !== 'view' && color !== vm.pov && !nextNode) {
@@ -228,11 +229,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       },
       path
     );
-  }
-
-  function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
-    // assuming standard chess
-    return defined(uci) ? [uci.slice(0, 2) as Key, uci.slice(2, 4) as Key] : undefined;
   }
 
   function addNode(node: Tree.Node, path: Tree.Path): void {
