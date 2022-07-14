@@ -62,8 +62,8 @@
   <string name="cloudAnalysis">Бұлттық талдау</string>
   <string name="goDeeper">Терең кету</string>
   <string name="showThreat">Қауіп көрсету</string>
-  <string name="inLocalBrowser">өз браузеріңізде</string>
-  <string name="toggleLocalEvaluation">Жергілікті өңдеу</string>
+  <string name="inLocalBrowser">өз браузер күшімен</string>
+  <string name="toggleLocalEvaluation">Өз құрылғыңыздың күшімен есептеу</string>
   <string name="promoteVariation">Тармақты көтеру</string>
   <string name="makeMainLine">Негізгі жол ету</string>
   <string name="deleteFromHere">Мына жерден жою</string>
