@@ -101,7 +101,7 @@ final class ClasApi(
                 local = "clasId",
                 foreign = "_id",
                 pipe = List(
-                  $doc("$match"   -> $expr($doc("$in" -> $arr(teacher, "$teachers")))),
+                  $doc("$match"   -> $doc("teachers" -> teacher)),
                   $doc("$limit"   -> 1),
                   $doc("$project" -> $id(true))
                 )
