@@ -475,10 +475,10 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  private[tournament] def kickFromTeam(teamId: TeamID, userId: User.ID): Funit =
-    tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam") flatMap {
+  private[tournament] def quitTeamTournaments(teamId: TeamID, userId: User.ID): Funit =
+    tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "quitTeam") flatMap {
       _.map { tourId =>
-        Parallel(tourId, "kickFromTeam")(tournamentRepo.byId) { tour =>
+        Parallel(tourId, "quitTeamTournaments")(tournamentRepo.byId) { tour =>
           val fu =
             if (tour.isCreated) playerRepo.remove(tour.id, userId)
             else playerRepo.withdraw(tour.id, userId)

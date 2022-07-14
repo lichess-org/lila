@@ -83,12 +83,12 @@ final class Env(
     "finishGame",
     "adjustCheater",
     "adjustBooster",
-    "teamKick"
+    "teamQuit"
   ) {
-    case lila.game.actorApi.FinishGame(game, _, _)           => api.finishGame(game).unit
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId).unit
+    case lila.game.actorApi.FinishGame(game, _, _)       => api.finishGame(game).unit
+    case lila.hub.actorApi.team.QuitTeam(teamId, userId) => api.quitTeamTournaments(teamId, userId).unit
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.kickLame(userId).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.kickLame(userId).unit
   }
 
   LilaScheduler(_.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(api.startPendingRounds)

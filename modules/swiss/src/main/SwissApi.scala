@@ -327,7 +327,7 @@ final class SwissApi(
       }
     }
 
-  private[swiss] def kickFromTeam(teamId: TeamID, userId: User.ID) =
+  private[swiss] def quitTeamTournaments(teamId: TeamID, userId: User.ID) =
     colls.swiss.secondaryPreferred
       .primitive[Swiss.Id]($doc("teamId" -> teamId, "featurable" -> true), "_id")
       .flatMap { swissIds =>

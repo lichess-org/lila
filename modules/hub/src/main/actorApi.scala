@@ -223,7 +223,7 @@ package team {
   case class JoinTeam(id: String, userId: String)
   case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
   case class IsLeaderOf(leaderId: String, memberId: String, promise: Promise[Boolean])
-  case class KickFromTeam(teamId: String, userId: String)
+  case class QuitTeam(teamId: String, userId: String)
   case class TeamIdsJoinedBy(userId: String, promise: Promise[List[LightTeam.TeamID]])
 }
 

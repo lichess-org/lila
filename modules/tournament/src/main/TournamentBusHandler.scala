@@ -20,7 +20,7 @@ final private class TournamentBusHandler(
     "adjustCheater",
     "adjustBooster",
     "playban",
-    "teamKick",
+    "teamQuit",
     "berserk"
   ) {
 
@@ -47,7 +47,7 @@ final private class TournamentBusHandler(
 
     case lila.hub.actorApi.playban.Playban(userId, _, true) => api.pausePlaybanned(userId).unit
 
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
+    case lila.hub.actorApi.team.QuitTeam(teamId, userId) => api.quitTeamTournaments(teamId, userId).unit
   }
 
   private def ejectFromEnterable(userId: User.ID) =

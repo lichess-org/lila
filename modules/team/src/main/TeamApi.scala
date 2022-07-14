@@ -11,7 +11,7 @@ import scala.util.Try
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl._
-import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam }
+import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, QuitTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
 import lila.memo.CacheApi._
@@ -230,8 +230,10 @@ final class TeamApi(
   def quit(team: Team, userId: User.ID): Funit =
     memberRepo.remove(team.id, userId) flatMap { res =>
       (res.n == 1) ?? {
-        teamRepo.incMembers(team.id, -1) >>
+        teamRepo.incMembers(team.id, -1) >> {
+          Bus.publish(QuitTeam(team.id, userId), "teamQuit")
           (team.leaders contains userId) ?? teamRepo.setLeaders(team.id, team.leaders - userId)
+        }
       } >>-
         cached.invalidateTeamIds(userId)
     }
@@ -258,8 +260,7 @@ final class TeamApi(
     quit(team, userId) >>
       (!team.leaders(me.id)).?? {
         modLog.teamKick(me.id, userId, team.name)
-      } >>-
-      Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
+      }
 
   def kickMembers(team: Team, json: String, me: User) =
     (parseTagifyInput(json) - team.createdBy).map(kick(team, _, me))
