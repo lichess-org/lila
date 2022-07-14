@@ -10,7 +10,7 @@ import { uciToChessgroundLastMove } from 'chess';
 export default class ReplayCtrl {
   orientation: Color;
   nodes: Node[] = [];
-  index: number = 0;
+  index = 0;
   trans: Trans;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   menu = prop<boolean>(false);
@@ -22,7 +22,7 @@ export default class ReplayCtrl {
     const pos = startingPosition(game.headers).unwrap();
     const toNode = (pos: Position) => ({ fen: makeFen(pos.toSetup()), check: pos.isCheck() });
     this.nodes.push(toNode(pos));
-    for (let n of game.moves.mainline()) {
+    for (const n of game.moves.mainline()) {
       const move = parseSan(pos, n.san);
       if (!move) {
         console.error(n, game.headers, makeFen(pos.toSetup()));
