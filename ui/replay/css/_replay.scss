@@ -1,5 +1,25 @@
 .replay {
-  width: 600px;
-  height: 400px;
-  background: red;
+  @extend %box-neat-force;
+  background: $c-bg-zebra;
+
+  &__board {
+    @extend %square;
+
+    .cg-wrap {
+      @extend %abs-100;
+    }
+  }
+
+  &__controls {
+    @extend %flex-center-nowrap;
+
+    button {
+      flex: 1 1 auto;
+      padding: 0.3em 0;
+      border-left: $border;
+      &:first-child {
+        border: none;
+      }
+    }
+  }
 }

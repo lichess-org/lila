@@ -5,6 +5,7 @@ import { parsePgn, startingPosition } from 'chessops/pgn';
 import { parseSan } from 'chessops/san';
 import { Prop, prop } from 'common';
 import { ReplayOpts, Node } from './interfaces';
+import { uciToChessgroundLastMove } from 'chess';
 
 export default class ReplayCtrl {
   orientation: Color;
@@ -34,4 +35,29 @@ export default class ReplayCtrl {
   }
 
   node = () => this.nodes[this.index];
+
+  backward = () => {
+    this.index = Math.max(0, this.index - 1);
+    this.setGround();
+    this.redraw();
+  };
+  forward = () => {
+    this.index = Math.min(this.nodes.length - 1, this.index + 1);
+    this.setGround();
+    this.redraw();
+  };
+
+  cgOpts = () => ({
+    fen: this.node().fen,
+    orientation: this.orientation,
+    check: this.node().check,
+    lastMove: uciToChessgroundLastMove(this.node().uci),
+  });
+
+  private setGround = () => this.withGround(g => g.set(this.cgOpts()));
+
+  withGround = (f: (cg: CgApi) => void) => {
+    const g = this.ground();
+    return g && f(g);
+  };
 }

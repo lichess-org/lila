@@ -1,10 +1,10 @@
 import ReplayCtrl from './ctrl';
 import view from './view';
-import { init, attributesModule, classModule } from 'snabbdom';
+import { init, attributesModule, classModule, eventListenersModule } from 'snabbdom';
 import { ReplayOpts } from './interfaces';
 
 export default function start(element: Element, opts: ReplayOpts) {
-  const patch = init([classModule, attributesModule]);
+  const patch = init([classModule, attributesModule, eventListenersModule]);
 
   const ctrl = new ReplayCtrl(opts, redraw);
 
