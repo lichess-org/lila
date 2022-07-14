@@ -12,6 +12,7 @@ verwänded die algebraischi Notazion.</string>
 wänn alli die \"Schach-Schprach\" verschtöhnd.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Me chann es Schpil effektiver analysiere, 
 wänn me d\'Koordinate schnäll gseht.</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Uf em Brätt erschint e Koordinate (z.B. c3) und du muesch ufs entschprächendi Fäld klicke.</string>
   <string name="youHaveThirtySeconds">Du häsch 30 Sekunde, zum soviel Fälder wie möglich, korrekt z\'bezeichne!</string>
   <string name="goAsLongAsYouWant">Mach so lang wie du wottsch, es git keis Zitlimitt!</string>
   <string name="showCoordinates">Koordinate azeige</string>
