@@ -6,10 +6,11 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
+import lila.puzzle.PuzzleOpening
 
 object family {
 
-  def apply(fam: LilaOpeningFamily)(implicit
+  def apply(fam: LilaOpeningFamily, puzzle: Option[PuzzleOpening.FamilyWithCount])(implicit
       ctx: Context
   ) =
     views.html.base.layout(
@@ -29,9 +30,15 @@ object family {
         .some
     ) {
       main(cls := "page box box-pad")(
-        h1(fam.name.value),
+        h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), fam.name.value),
         h2(fam.full.pgn),
-        div(cls := "pgn-replay", data("pgn") := fam.full.pgn)
+        div(
+          cls         := "replay replay--autoload",
+          data("pgn") := fam.full.pgn
+        ),
+        puzzle.map { p =>
+          a(href := routes.Puzzle.show(p.family.key.value))("Train with ", fam.name.value, " puzzles")
+        }
       )
     }
 }
