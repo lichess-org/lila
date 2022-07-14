@@ -61,24 +61,12 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                     // ensure we have enough after filtering deviation
                     Sample(nbPuzzles * 4),
                     PipelineOperator(
-                      $doc(
-                        "$lookup" -> $doc(
-                          "from" -> colls.puzzle.name.value,
-                          "as"   -> "puzzle",
-                          "let"  -> $doc("id" -> "$ids"),
-                          "pipeline" -> $arr(
-                            $doc(
-                              "$match" -> $doc(
-                                "$expr" -> $doc(
-                                  "$and" -> $arr(
-                                    $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", deviation))
-                                  )
-                                )
-                              )
-                            )
-                          )
-                        )
+                      $lookup.pipeline(
+                        from = colls.puzzle,
+                        as = "puzzle",
+                        local = "ids",
+                        foreign = "_id",
+                        pipe = List($doc("$match" -> $doc("glicko.d" $lte deviation)))
                       )
                     ),
                     UnwindField("puzzle"),

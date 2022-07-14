@@ -72,29 +72,25 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     // ensure we have enough after filtering deviation & color
                     Sample(nbPuzzles * 7),
                     PipelineOperator(
-                      $doc(
-                        "$lookup" -> $doc(
-                          "from" -> colls.puzzle.name.value,
-                          "as"   -> "puzzle",
-                          "let"  -> $doc("id" -> "$ids"),
-                          "pipeline" -> $arr(
-                            $doc(
-                              "$match" -> $doc(
-                                "$expr" -> $doc(
-                                  "$and" -> $arr(
-                                    $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                                    fenColorRegex
-                                  )
-                                )
+                      $lookup.pipelineFull(
+                        from = colls.puzzle.name.value,
+                        as = "puzzle",
+                        let = $doc("id" -> "$ids"),
+                        pipe = List(
+                          $doc(
+                            "$match" -> $expr(
+                              $and(
+                                $doc("$eq"  -> $arr("$_id", "$$id")),
+                                $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                                fenColorRegex
                               )
-                            ),
-                            $doc(
-                              "$project" -> $doc(
-                                "fen"    -> true,
-                                "line"   -> true,
-                                "rating" -> $doc("$toInt" -> "$glicko.r")
-                              )
+                            )
+                          ),
+                          $doc(
+                            "$project" -> $doc(
+                              "fen"    -> true,
+                              "line"   -> true,
+                              "rating" -> $doc("$toInt" -> "$glicko.r")
                             )
                           )
                         )

@@ -38,24 +38,14 @@ final class Cached(
           Match($doc("_id" $startsWith s"$u@")) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.size + 1, -1)))),
             PipelineOperator(
-              $doc(
-                "$lookup" -> $doc(
-                  "from" -> teamRepo.coll.name,
-                  "as"   -> "team",
-                  "let"  -> $doc("id" -> "$_id"),
-                  "pipeline" -> $arr(
-                    $doc(
-                      "$match" -> $doc(
-                        "$expr" -> $doc(
-                          "$and" -> $arr(
-                            $doc("$eq" -> $arr("$_id", "$$id")),
-                            $doc("$eq" -> $arr("$enabled", true))
-                          )
-                        )
-                      )
-                    ),
-                    $doc("$project" -> $doc($id(true)))
-                  )
+              $lookup.pipeline(
+                from = teamRepo.coll,
+                as = "team",
+                local = "_id",
+                foreign = "_id",
+                pipe = List(
+                  $doc("$match"   -> $doc("enabled" -> true)),
+                  $doc("$project" -> $id(true))
                 )
               )
             ),

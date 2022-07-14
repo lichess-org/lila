@@ -91,26 +91,16 @@ final class RelayApi(
             Match(tourRepo.selectors.officialActive) -> List(
               Sort(Descending("tier")),
               PipelineOperator(
-                $doc(
-                  "$lookup" -> $doc(
-                    "from" -> roundRepo.coll.name,
-                    "as"   -> "round",
-                    "let"  -> $doc("id" -> "$_id"),
-                    "pipeline" -> $arr(
-                      $doc(
-                        "$match" -> $doc(
-                          "$expr" -> $doc(
-                            "$and" -> $arr(
-                              $doc("$eq" -> $arr("$tourId", "$$id")),
-                              $doc("$eq" -> $arr("$finished", false))
-                            )
-                          )
-                        )
-                      ),
-                      $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                      $doc("$sort"      -> roundRepo.sort.chrono),
-                      $doc("$limit"     -> 1)
-                    )
+                $lookup.pipeline(
+                  from = roundRepo.coll,
+                  as = "round",
+                  local = "_id",
+                  foreign = "tourId",
+                  pipe = List(
+                    $doc("$match"     -> $doc("finished" -> false)),
+                    $doc("$addFields" -> $doc("sync.log" -> $arr())),
+                    $doc("$sort"      -> roundRepo.sort.chrono),
+                    $doc("$limit"     -> 1)
                   )
                 )
               ),

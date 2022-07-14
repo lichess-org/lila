@@ -82,25 +82,21 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     )
 
   private def lookupPlayer(userId: User.ID, project: Option[Bdoc]) =
-    $doc(
-      "$lookup" -> $doc(
-        "from" -> playerCollName.value,
-        "let"  -> $doc("tid" -> "$_id"),
-        "pipeline" -> $arr(
-          $doc(
-            "$match" -> $doc(
-              "$expr" -> $doc(
-                "$and" -> $arr(
-                  $doc("$eq" -> $arr("$uid", userId)),
-                  $doc("$eq" -> $arr("$tid", "$$tid"))
-                )
-              )
+    $lookup.pipelineFull(
+      from = playerCollName.value,
+      as = "player",
+      let = $doc("tid" -> "$_id"),
+      pipe = List(
+        $doc(
+          "$match" -> $expr(
+            $and(
+              $doc("$eq" -> $arr("$uid", userId)),
+              $doc("$eq" -> $arr("$tid", "$$tid"))
             )
-          ),
-          project.map { p => $doc(s"$$project" -> p) }
-        ),
-        "as" -> "player"
-      )
+          )
+        ).some,
+        project.map { p => $doc(s"$$project" -> p) }
+      ).flatten
     )
 
   private[tournament] def upcomingAdapterExpensiveCacheMe(userId: User.ID, max: Int) =

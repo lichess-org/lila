@@ -367,11 +367,7 @@ trait dsl {
         from,
         as,
         $doc("local" -> s"$$$local"),
-        $doc(
-          "$match" -> $doc(
-            $expr($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
-          )
-        ) :: pipe
+        $doc("$match" -> $expr($doc("$eq" -> $arr(s"$$$foreign", "$$local")))) :: pipe
       )
     def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       pipeline(from.name, as, local, foreign, pipe)

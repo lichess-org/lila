@@ -34,27 +34,23 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
             List(
               "mates" -> List(
                 PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from" -> colls.student.name,
-                      "as"   -> "mates",
-                      "let"  -> $doc("ids" -> "$classes"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc(
-                              "$and" -> $arr(
-                                $doc("$in" -> $arr("$clasId", "$$ids")),
-                                $doc("$ne" -> $arr("$userId", studentId))
-                              )
-                            )
+                  $lookup.pipelineFull(
+                    from = colls.student.name,
+                    as = "mates",
+                    let = $doc("ids" -> "$classes"),
+                    pipe = List(
+                      $doc(
+                        "$match" -> $expr(
+                          $and(
+                            $doc("$in" -> $arr("$clasId", "$$ids")),
+                            $doc("$ne" -> $arr("$userId", studentId))
                           )
-                        ),
-                        $doc(
-                          "$group" -> $doc(
-                            "_id"   -> BSONNull,
-                            "mates" -> $doc("$addToSet" -> "$userId")
-                          )
+                        )
+                      ),
+                      $doc(
+                        "$group" -> $doc(
+                          "_id"   -> BSONNull,
+                          "mates" -> $doc("$addToSet" -> "$userId")
                         )
                       )
                     )
@@ -64,23 +60,17 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
               ),
               "teachers" -> List(
                 PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from" -> colls.clas.name,
-                      "as"   -> "teachers",
-                      "let"  -> $doc("ids" -> "$classes"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc("$in" -> $arr("$_id", "$$ids"))
-                          )
-                        ),
-                        $doc("$unwind" -> "$teachers"),
-                        $doc(
-                          "$group" -> $doc(
-                            "_id"      -> BSONNull,
-                            "teachers" -> $doc("$addToSet" -> "$teachers")
-                          )
+                  $lookup.pipelineFull(
+                    from = colls.clas.name,
+                    as = "teachers",
+                    let = $doc("ids" -> "$classes"),
+                    pipe = List(
+                      $doc("$match"  -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
+                      $doc("$unwind" -> "$teachers"),
+                      $doc(
+                        "$group" -> $doc(
+                          "_id"      -> BSONNull,
+                          "teachers" -> $doc("$addToSet" -> "$teachers")
                         )
                       )
                     )

@@ -79,31 +79,27 @@ final class PuzzleReplayApi(
           ) -> List(
             Sort(Ascending("d")),
             PipelineOperator(
-              $doc(
-                "$lookup" -> $doc(
-                  "from" -> colls.puzzle.name.value,
-                  "as"   -> "puzzle",
-                  "let" -> $doc(
-                    "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
-                  ),
-                  "pipeline" -> $arr(
-                    $doc(
-                      "$match" -> $doc(
-                        "$expr" -> {
-                          if (theme == PuzzleTheme.mix.key) $doc("$eq" -> $arr("$_id", "$$pid"))
-                          else
-                            $doc(
-                              "$and" -> $arr(
-                                $doc("$eq" -> $arr("$_id", "$$pid")),
-                                $doc("$in" -> $arr(theme, "$themes"))
-                              )
+              $lookup.pipelineFull(
+                from = colls.puzzle.name.value,
+                as = "puzzle",
+                let = $doc("pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))),
+                pipe = List(
+                  $doc(
+                    "$match" -> $doc(
+                      $expr {
+                        if (theme == PuzzleTheme.mix.key) $doc("$eq" -> $arr("$_id", "$$pid"))
+                        else
+                          $doc(
+                            $and(
+                              $doc("$eq" -> $arr("$_id", "$$pid")),
+                              $doc("$in" -> $arr(theme, "$themes"))
                             )
-                        }
-                      )
-                    ),
-                    $doc("$limit"   -> maxPuzzles),
-                    $doc("$project" -> $doc("_id" -> true))
-                  )
+                          )
+                      }
+                    )
+                  ),
+                  $doc("$limit"   -> maxPuzzles),
+                  $doc("$project" -> $doc("_id" -> true))
                 )
               )
             ),
@@ -119,23 +115,13 @@ final class PuzzleReplayApi(
     }
 
   private val puzzleLookup =
-    $doc(
-      "$lookup" -> $doc(
-        "from" -> colls.puzzle.name.value,
-        "as"   -> "puzzle",
-        "let" -> $doc(
-          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
-        ),
-        "pipeline" -> $arr(
-          $doc(
-            "$match" -> $doc(
-              "$expr" -> $doc(
-                $doc("$eq" -> $arr("$_id", "$$pid"))
-              )
-            )
-          ),
-          $doc("$project" -> $doc("_id" -> true))
-        )
+    $lookup.pipelineFull(
+      from = colls.puzzle.name.value,
+      as = "puzzle",
+      let = $doc("pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))),
+      pipe = List(
+        $doc("$match"   -> $expr($doc("$eq" -> $arr("$_id", "$$pid")))),
+        $doc("$project" -> $doc("_id" -> true))
       )
     )
 }

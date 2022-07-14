@@ -24,24 +24,14 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
         import framework._
         Match($doc("u2" -> userId, "r" -> Follow)) -> List(
           PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from" -> userRepo.coll.name,
-                "let"  -> $doc("uid" -> "$u1"),
-                "pipeline" -> $arr(
-                  $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc(
-                        "$and" -> $arr(
-                          $doc("$eq" -> $arr("$_id", "$$uid")),
-                          $doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(10)))
-                        )
-                      )
-                    )
-                  ),
-                  $doc("$project" -> $id(true))
-                ),
-                "as" -> "follower"
+            $lookup.pipeline(
+              from = userRepo.coll,
+              as = "follower",
+              local = "u1",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(10))))),
+                $doc("$project" -> $id(true))
               )
             )
           ),

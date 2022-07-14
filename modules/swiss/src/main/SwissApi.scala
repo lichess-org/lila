@@ -628,23 +628,19 @@ final class SwissApi(
         import framework._
         Match($doc("finishedAt" $exists false, "nbPlayers" $gt 0, "teamId" $in teamIds)) -> List(
           PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from" -> colls.player.name,
-                "let"  -> $doc("s" -> "$_id"),
-                "pipeline" -> $arr(
-                  $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc(
-                        "$and" -> $arr(
-                          $doc("$eq" -> $arr("$u", user.id)),
-                          $doc("$eq" -> $arr("$s", "$$s"))
-                        )
-                      )
+            $lookup.pipelineFull(
+              from = colls.player.name,
+              let = $doc("s" -> "$_id"),
+              as = "player",
+              pipe = List(
+                $doc(
+                  "$match" -> $expr(
+                    $and(
+                      $doc("$eq" -> $arr("$u", user.id)),
+                      $doc("$eq" -> $arr("$s", "$$s"))
                     )
                   )
-                ),
-                "as" -> "player"
+                )
               )
             )
           ),

@@ -73,22 +73,10 @@ object PuzzleRound {
 
   import lila.db.dsl._
   def puzzleLookup(colls: PuzzleColls, pipeline: List[Bdoc] = Nil) =
-    $doc(
-      "$lookup" -> $doc(
-        "from" -> colls.puzzle.name.value,
-        "as"   -> "puzzle",
-        "let" -> $doc(
-          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
-        ),
-        "pipeline" -> {
-          $doc(
-            "$match" -> $doc(
-              "$expr" -> $doc(
-                $doc("$eq" -> $arr("$_id", "$$pid"))
-              )
-            )
-          ) :: pipeline
-        }
-      )
+    $lookup.pipelineFull(
+      from = colls.puzzle.name.value,
+      as = "puzzle",
+      let = $doc("pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))),
+      pipe = $doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$pid")))) :: pipeline
     )
 }

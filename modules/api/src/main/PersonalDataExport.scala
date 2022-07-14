@@ -163,13 +163,11 @@ final class PersonalDataExport(
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))) concat
         gameChatsLookup(
-          $doc(
-            "$lookup" -> $doc(
-              "from"     -> chatEnv.coll.name,
-              "as"       -> "chat",
-              "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
-              "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
-            )
+          $lookup.pipelineFull(
+            from = chatEnv.coll.name,
+            as = "chat",
+            let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
+            pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
           )
         )
 
@@ -184,13 +182,11 @@ final class PersonalDataExport(
               Match($doc(Game.BSONFields.playerUids -> user.id)),
               Project($id(true)),
               PipelineOperator(
-                $doc(
-                  "$lookup" -> $doc(
-                    "from"     -> roundEnv.noteApi.collName,
-                    "as"       -> "note",
-                    "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
-                    "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
-                  )
+                $lookup.pipelineFull(
+                  from = roundEnv.noteApi.collName,
+                  as = "note",
+                  let = $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
+                  pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
                 )
               ),
               Unwind("note"),

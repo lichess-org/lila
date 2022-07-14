@@ -87,11 +87,7 @@ final class UblogPaginator(
             local = "blog",
             foreign = "_id",
             pipe = List(
-              $doc(
-                "$match" -> $doc(
-                  "$expr" -> $doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW))
-                )
-              ),
+              $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW)))),
               $doc("$project" -> $id(true))
             )
           )
@@ -130,28 +126,24 @@ final class UblogPaginator(
               Match($doc("u1" -> userId, "r" -> lila.relation.Follow)) -> List(
                 Group(BSONNull)("ids" -> PushField("u2")),
                 PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from" -> colls.post.name,
-                      "as"   -> "post",
-                      "let"  -> $doc("users" -> "$ids"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc(
-                              "$and" -> $arr(
-                                $doc("$in" -> $arr(s"$$created.by", "$$users")),
-                                $doc("$eq" -> $arr("$live", true)),
-                                $doc("$gt" -> $arr("$lived.at", DateTime.now.minusMonths(3)))
-                              )
-                            )
+                  $lookup.pipelineFull(
+                    from = colls.post.name,
+                    as = "post",
+                    let = $doc("users" -> "$ids"),
+                    pipe = List(
+                      $doc(
+                        "$match" -> $expr(
+                          $and(
+                            $doc("$in" -> $arr(s"$$created.by", "$$users")),
+                            $doc("$eq" -> $arr("$live", true)),
+                            $doc("$gt" -> $arr("$lived.at", DateTime.now.minusMonths(3)))
                           )
-                        ),
-                        $doc("$project" -> previewPostProjection),
-                        $doc("$sort"    -> $doc("lived.at" -> -1)),
-                        $doc("$skip"    -> offset),
-                        $doc("$limit"   -> length)
-                      )
+                        )
+                      ),
+                      $doc("$project" -> previewPostProjection),
+                      $doc("$sort"    -> $doc("lived.at" -> -1)),
+                      $doc("$skip"    -> offset),
+                      $doc("$limit"   -> length)
                     )
                   )
                 ),
