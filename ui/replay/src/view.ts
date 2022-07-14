@@ -4,12 +4,64 @@ import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
 
 export default function view(ctrl: ReplayCtrl) {
-  return h('div.replay', [h('div.replay__board', renderGround(ctrl)), renderControls(ctrl)]);
+  return ctrl.menu()
+    ? renderMenu(ctrl)
+    : h('div.replay', [h('div.replay__board', renderGround(ctrl)), renderControls(ctrl)]);
 }
+
+const renderMenu = (ctrl: ReplayCtrl) =>
+  h('div.replay.replay--menu', [
+    h(
+      'div.replay__menu',
+      h('div.replay__menu__inner', [
+        h(
+          'button.replay__menu__entry.fbt.text',
+          {
+            attrs: {
+              'data-icon': '',
+            },
+            on: { click: ctrl.flip },
+          },
+          'Flip the board'
+        ),
+        h(
+          'a.replay__menu__entry.fbt.text',
+          {
+            attrs: {
+              href: ctrl.analysisUrl(),
+              target: '_blank',
+              'data-icon': '',
+            },
+          },
+          'Analysis board'
+        ),
+        h(
+          'a.replay__menu__entry.fbt.text',
+          {
+            attrs: {
+              href: ctrl.practiceUrl(),
+              target: '_blank',
+              'data-icon': '',
+            },
+          },
+          'Practice with computer'
+        ),
+      ])
+    ),
+    renderControls(ctrl),
+  ]);
 
 const renderControls = (ctrl: ReplayCtrl) =>
   h('div.replay__controls', [
     dirButton('', ctrl.index < 1, ctrl.backward),
+    h(
+      'button.fbt.replay__controls__menu',
+      {
+        class: { active: ctrl.menu() },
+        on: { click: ctrl.toggleMenu },
+      },
+      '⋮'
+    ),
     dirButton('', ctrl.index > ctrl.nodes.length - 2, ctrl.forward),
   ]);
 

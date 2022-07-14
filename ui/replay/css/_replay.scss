@@ -2,7 +2,8 @@
   @extend %box-neat-force;
   background: $c-bg-zebra;
 
-  &__board {
+  &__board,
+  &__menu {
     @extend %square;
 
     .cg-wrap {
@@ -11,14 +12,39 @@
   }
 
   &__controls {
-    @extend %flex-center-nowrap;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
 
-    button {
+    .fbt {
       flex: 1 1 auto;
-      padding: 0.3em 0;
+      padding: 0.4em 0.7em;
       border-left: $border;
       &:first-child {
         border: none;
+      }
+    }
+
+    &__menu.fbt {
+      flex: 0 1 auto;
+    }
+  }
+
+  &__menu {
+    outline: $border;
+    &__inner {
+      @extend %flex-column;
+      padding-top: var(--box-padding);
+    }
+    &__entry {
+      text-align: $start-direction;
+      padding: 0.8em var(--box-padding);
+      &::before {
+        color: $c-good;
+        font-size: 1.5em;
+      }
+      &:hover::before {
+        color: $c-good-over;
       }
     }
   }
