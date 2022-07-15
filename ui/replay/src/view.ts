@@ -2,11 +2,11 @@ import ReplayCtrl from './ctrl';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
+import { bindNonPassive } from 'common/snabbdom';
+import stepwiseScroll from 'common/wheel';
 
 export default function view(ctrl: ReplayCtrl) {
-  return ctrl.menu()
-    ? renderMenu(ctrl)
-    : h('div.replay', [h('div.replay__board', renderGround(ctrl)), renderControls(ctrl)]);
+  return ctrl.menu() ? renderMenu(ctrl) : h('div.replay', [renderBoard(ctrl), renderControls(ctrl)]);
 }
 
 const renderMenu = (ctrl: ReplayCtrl) =>
@@ -74,12 +74,30 @@ const dirButton = (icon: string, disabled: boolean, click: () => void) =>
     on: { click },
   });
 
-const renderGround = (ctrl: ReplayCtrl): VNode =>
-  h('div.cg-wrap', {
-    hook: {
-      insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+const renderBoard = (ctrl: ReplayCtrl): VNode =>
+  h(
+    'div.replay__board',
+    {
+      hook: wheelScroll(ctrl),
     },
-  });
+    h('div.cg-wrap', {
+      hook: {
+        insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      },
+    })
+  );
+
+const wheelScroll = (ctrl: ReplayCtrl) =>
+  'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
+    ? undefined
+    : bindNonPassive(
+        'wheel',
+        stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+          e.preventDefault();
+          if (e.deltaY > 0 && scroll) ctrl.forward();
+          else if (e.deltaY < 0 && scroll) ctrl.backward();
+        })
+      );
 
 export const makeConfig = (ctrl: ReplayCtrl): CgConfig => ({
   viewOnly: true,
