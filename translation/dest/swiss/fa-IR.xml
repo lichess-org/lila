@@ -86,6 +86,7 @@
   <string name="pairingWaitTime">زمان انتظار برای حریف‌یابی</string>
   <string name="pairingWaitTimeArena">سریع: برای همه بازیکنان صبر نمیکند</string>
   <string name="pairingWaitTimeSwiss">اهسته: منتظر ماندن برای همه بازیکنان</string>
+  <string name="identicalPairing">بازی دوباره با یک فرد</string>
   <string name="possibleButNotConsecutive">ممکن است، اما متوالی نیست</string>
   <string name="identicalForbidden">ممنوع</string>
   <string name="lateJoin">ورود با تاخیر</string>
