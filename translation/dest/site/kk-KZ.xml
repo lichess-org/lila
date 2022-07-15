@@ -348,7 +348,7 @@
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
   <string name="leaderboard">Мықтылар қатары</string>
-  <string name="screenshotCurrentPosition">Осы күйді сурет ету</string>
+  <string name="screenshotCurrentPosition">Осы күйді суретке түсіру</string>
   <string name="gameAsGIF">GIF етіп сақтау</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
@@ -659,8 +659,8 @@
   <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>
   <string name="timeToProcessAMoveOnLichessServer">Личес сервері жүрісті өңдеуге жұмсайтын уақыт</string>
-  <string name="downloadAnnotated">Жазбасы барды алу</string>
-  <string name="downloadRaw">Қарасын алу</string>
+  <string name="downloadAnnotated">Өңделген күйде алу</string>
+  <string name="downloadRaw">Шикі түрде алу</string>
   <string name="downloadImported">Жүктеп салынғанды алу</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
