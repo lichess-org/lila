@@ -1,4 +1,3 @@
-import * as cg from 'chessground/types';
 import { piotr } from './piotr';
 
 export { SanToUci, sanWriter } from './sanWriter';
@@ -37,10 +36,4 @@ export const altCastles = {
   e1h1: 'e1g1',
   e8a8: 'e8c8',
   e8h8: 'e8g8',
-};
-
-export const uciToChessgroundLastMove = (uci: string | undefined): cg.Key[] | undefined => {
-  if (!uci) return undefined;
-  if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
-  return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 };

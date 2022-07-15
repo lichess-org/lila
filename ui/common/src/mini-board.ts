@@ -1,5 +1,5 @@
 import * as domData from './data';
-import { uciToChessgroundLastMove } from 'chess';
+import { uciToMove } from 'chessground/util';
 
 export const init = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
@@ -17,7 +17,7 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
         coordinates: false,
         viewOnly: !node.getAttribute('data-playable'),
         fen,
-        lastMove: uciToChessgroundLastMove(lm),
+        lastMove: uciToMove(lm),
         drawable: {
           enabled: false,
           visible: false,

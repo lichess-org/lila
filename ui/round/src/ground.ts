@@ -1,13 +1,13 @@
-import { h } from 'snabbdom';
+import * as round from './round';
+import * as util from './util';
+import resizeHandle from 'common/resize';
+import RoundController from './ctrl';
 import { Chessground } from 'chessground';
 import { Config } from 'chessground/config';
-import * as round from './round';
-import resizeHandle from 'common/resize';
-import { uciToChessgroundLastMove } from 'chess';
-import * as util from './util';
+import { h } from 'snabbdom';
 import { plyStep } from './round';
-import RoundController from './ctrl';
 import { RoundData } from './interfaces';
+import { uciToMove } from 'chessground/util';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -18,7 +18,7 @@ export function makeConfig(ctrl: RoundController): Config {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
-    lastMove: uciToChessgroundLastMove(step.uci),
+    lastMove: uciToMove(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: ctrl.data.pref.is3d,

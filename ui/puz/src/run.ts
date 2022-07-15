@@ -3,7 +3,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { opposite } from 'chessground/util';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
-import { uciToChessgroundLastMove } from 'chess';
+import { uciToMove } from 'chessground/util';
 
 export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConfig => {
   const cur = run.current;
@@ -17,7 +17,7 @@ export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConf
       dests: canMove ? chessgroundDests(pos) : undefined,
     },
     check: !!pos.isCheck(),
-    lastMove: uciToChessgroundLastMove(cur.lastMove()),
+    lastMove: uciToMove(cur.lastMove()),
     animation: {
       enabled: cur.moveIndex >= 0,
     },

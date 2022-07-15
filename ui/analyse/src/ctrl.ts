@@ -42,6 +42,7 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
 import wikiTheory, { WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
+import { uciToMove } from 'chessground/util';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -310,7 +311,7 @@ export default class AnalyseCtrl {
               dests: (movableColor === color && dests) || new Map(),
             },
         check: !!node.check,
-        lastMove: chessUtil.uciToChessgroundLastMove(node.uci),
+        lastMove: uciToMove(node.uci),
       };
     if (!dests && !node.check) {
       // premove while dests are loading from server

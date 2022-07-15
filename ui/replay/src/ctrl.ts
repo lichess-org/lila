@@ -5,7 +5,7 @@ import { parsePgn, startingPosition } from 'chessops/pgn';
 import { parseSan } from 'chessops/san';
 import { Prop, prop } from 'common';
 import { ReplayOpts, Node } from './interfaces';
-import { uciToChessgroundLastMove } from 'chess';
+import { uciToMove } from 'chessground/util';
 
 export default class ReplayCtrl {
   orientation: Color;
@@ -61,7 +61,7 @@ export default class ReplayCtrl {
     fen: this.node().fen,
     orientation: this.orientation,
     check: this.node().check,
-    lastMove: uciToChessgroundLastMove(this.node().uci),
+    lastMove: uciToMove(this.node().uci),
   });
 
   analysisUrl = () => `/analysis/${this.node().fen.replace(' ', '_')}?color=${this.orientation}`;
