@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "tablesort": "^5.3",
-    "chessground": "^8.2",
+    "chessground": "^8.2.2",
     "snabbdom": "^3.3.1"
   },
   "devDependencies": {

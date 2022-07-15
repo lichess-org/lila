@@ -27,7 +27,7 @@
   "dependencies": {
     "chessops": "^0.12",
     "snabbdom": "^3.3.1",
-    "chessground": "^8.2.0",
+    "chessground": "^8.2.2",
     "common": "2.0.0"
   },
   "devDependencies": {

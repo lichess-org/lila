@@ -23,7 +23,7 @@
     "ceval": "2.0.0",
     "chart.js": "^3.7.0",
     "chess": "2.0.0",
-    "chessground": "^8.2.0",
+    "chessground": "^8.2.2",
     "chessops": "^0.12",
     "common": "2.0.0",
     "keyboardMove": "1.0.0",
