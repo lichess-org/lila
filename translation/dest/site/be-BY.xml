@@ -593,9 +593,9 @@
   <string name="letOtherPlayersInviteYouToStudy">Дазволіць іншым гульцам запрасіць вас на даследаванне</string>
   <string name="sound">Гук</string>
   <string name="none">Няма</string>
-  <string name="fast">Хутка</string>
-  <string name="normal">Нармальна</string>
-  <string name="slow">Павольна</string>
+  <string name="fast">Хуткая</string>
+  <string name="normal">Сярэдняя</string>
+  <string name="slow">Павольная</string>
   <string name="insideTheBoard">Унутры дошкі</string>
   <string name="outsideTheBoard">Па-за дошкай</string>
   <string name="onSlowGames">У павольных гульнях</string>
