@@ -143,7 +143,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Келісімді тепе-теңдік</string>
   <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу жүріс</string>
-  <string name="currentGames">Қазір ойналуда</string>
+  <string name="currentGames">Қазіргі ойындар</string>
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
     <item quantity="other">%s ойын</item>
