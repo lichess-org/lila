@@ -4,9 +4,8 @@ import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { opposite } from 'chessground/util';
+import { opposite, uciToMove } from 'chessground/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
-import { uciToMove } from 'chessground/util';
 
 export class MultiBoardCtrl {
   loading = false;
