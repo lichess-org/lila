@@ -34,14 +34,15 @@
     outline: $border;
     &__inner {
       @extend %flex-column;
-      padding-top: var(--box-padding);
+      padding-top: 2em;
     }
-    &__entry {
+    &__entry.fbt {
       text-align: $start-direction;
-      padding: 0.8em var(--box-padding);
+      padding: 0.8em 2.5em;
+      transition: none;
       &::before {
         color: $c-good;
-        font-size: 1.5em;
+        font-size: 2em;
       }
       &:hover::before {
         color: $c-good-over;
