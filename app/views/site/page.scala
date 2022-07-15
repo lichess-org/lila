@@ -13,7 +13,7 @@ object page {
       moreCss = cssTag("page"),
       title = ~doc.getText("doc.title")
     ) {
-      main(cls := "page-small box box-pad page")(pageContent(doc, resolver))
+      main(cls := s"""page-small box box-pad page ${if (isRTL) "force-ltr"}""")(pageContent(doc, resolver))
     }
 
   def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
@@ -22,7 +22,7 @@ object page {
     layout(
       title = ~doc.getText("doc.title"),
       active = active,
-      contentCls = "page box box-pad",
+      contentCls = s"""page box box-pad  ${if (isRTL) "force-ltr"}""",
       moreCss = cssTag("page")
     )(pageContent(doc, resolver))
 
@@ -43,7 +43,7 @@ object page {
       title = title,
       active = "source",
       moreCss = frag(cssTag("source")),
-      contentCls = "page",
+      contentCls = s"""page ${if (isRTL) "force-ltr"}""",
       moreJs = embedJsUnsafeLoadThen(
         """$('#asset-version-date').text(lichess.info.date);
 $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 12));
@@ -99,7 +99,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       title = "Webmasters",
       active = "webmasters",
       moreCss = cssTag("page"),
-      contentCls = "page"
+      contentCls = s"""page ${if (isRTL) "force-ltr"}"""
     )(
       frag(
         div(cls := "box box-pad developers body")(
