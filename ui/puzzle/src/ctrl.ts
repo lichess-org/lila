@@ -317,15 +317,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       streak,
       opts.settings.color
     );
-    if (res.replayComplete && data.replay) return lichess.redirect(`/training/dashboard/${data.replay.days}`);
-    if (res.next.user && data.user) {
+    if (res.next?.user && data.user) {
       data.user.rating = res.next.user.rating;
       data.user.provisional = res.next.user.provisional;
       vm.round = res.round;
       if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
     }
     if (win) speech.success();
-    vm.next.resolve(res.next);
+    if (res.replayComplete) vm.next.reject('replay complete');
+    else vm.next.resolve(res.next);
     if (streak && win) streak.onComplete(true, res.next);
     redraw();
   }
@@ -334,12 +334,16 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (streak && vm.lastFeedback != 'win') return;
 
     ceval.stop();
-    vm.next.promise.then(initiate).then(redraw);
+    vm.next.promise.then(initiate).then(redraw).catch(redirectToDashboard);
 
     if (!streak && !data.replay) {
       const path = `/training/${data.angle.key}`;
       if (location.pathname != path) history.replaceState(null, '', path);
     }
+  }
+
+  function redirectToDashboard() {
+    if (data.replay) lichess.redirect(`/training/dashboard/${data.replay.days}`);
   }
 
   function instanciateCeval(): void {
