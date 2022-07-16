@@ -102,7 +102,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     return g && f(g);
   }
 
-  function initiate(fromData: PuzzleData): void {
+  function initiate(fromData: PuzzleData | undefined): void {
+    if (!fromData) return;
+
     data = fromData;
     tree = treeBuild(pgnToTree(data.game.pgn.split(' ')));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
@@ -324,8 +326,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
     }
     if (win) speech.success();
-    if (res.replayComplete) vm.next.reject('replay complete');
-    else vm.next.resolve(res.next);
+    vm.next.resolve(res.next);
     if (streak && win) streak.onComplete(true, res.next);
     redraw();
   }
@@ -334,7 +335,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (streak && vm.lastFeedback != 'win') return;
 
     ceval.stop();
-    vm.next.promise.then(initiate).then(redraw).catch(redirectToDashboard);
+    vm.next.promise.then(redirectIfUndefined).then(initiate).then(redraw);
 
     if (!streak && !data.replay) {
       const path = `/training/${data.angle.key}`;
@@ -342,8 +343,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }
   }
 
-  function redirectToDashboard() {
-    if (data.replay) lichess.redirect(`/training/dashboard/${data.replay.days}`);
+  function redirectIfUndefined(fromData: PuzzleData | undefined) {
+    if (!fromData && data.replay) lichess.redirect(`/training/dashboard/${data.replay.days}`);
+    return fromData;
   }
 
   function instanciateCeval(): void {

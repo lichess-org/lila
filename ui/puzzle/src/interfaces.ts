@@ -96,7 +96,7 @@ export interface Vm {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  next: Deferred<PuzzleData>;
+  next: Deferred<PuzzleData | undefined>;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
