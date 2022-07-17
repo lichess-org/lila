@@ -7,7 +7,7 @@ import * as util from './util';
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import makeStudy from './study/studyCtrl';
+import type makeStudyCtrl from './study/studyCtrl';
 import throttle from 'common/throttle';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import { Api as ChessgroundApi } from 'chessground/api';
@@ -115,7 +115,7 @@ export default class AnalyseCtrl {
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
 
-  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
+  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw, makeStudy?: typeof makeStudyCtrl) {
     this.data = opts.data;
     this.element = opts.element;
     this.embed = opts.embed;
@@ -154,7 +154,7 @@ export default class AnalyseCtrl {
     this.startCeval();
     this.explorer.setNode();
     this.study = opts.study
-      ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
+      ? makeStudy?.(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
       : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 

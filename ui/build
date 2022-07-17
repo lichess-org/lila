@@ -19,7 +19,7 @@ apps2="chess palantir"
 apps3="ceval game tree chat nvui puz keyboardMove"
 apps4="site swiss msg tutor replay opening cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher serviceWorker dgt storm racer coordinateTrainer"
 site_plugins="tvEmbed puzzleEmbed analyseEmbed user clas captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr appeal publicChats contact userGamesDownload tvGames ublog ublogForm speech"
-other_plugins="round:nvui analyse:nvui analyse:studyTopicForm puzzle:nvui puzzle:dashboard puzzle:opening chart:ratingDistribution chart:ratingHistory chart:game mod:user mod:inquiry mod:search mod:games mod:activity mod:teamAdmin "
+other_plugins="round:nvui analyse:nvui analyse:study analyse:studyTopicForm puzzle:nvui puzzle:dashboard puzzle:opening chart:ratingDistribution chart:ratingHistory chart:game mod:user mod:inquiry mod:search mod:games mod:activity mod:teamAdmin "
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
