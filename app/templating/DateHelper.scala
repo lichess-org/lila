@@ -44,7 +44,8 @@ trait DateHelper { self: I18nHelper with StringHelper =>
     showDateTimeZone(date, DateTimeZone.UTC)
 
   def showDate(date: DateTime)(implicit lang: Lang): String =
-    dateFormatter print date
+    if (lang.language == "ar") dateFormatter print date replaceAll ("\u200f", "")
+    else dateFormatter print date 
 
   def showEnglishDate(date: DateTime): String =
     englishDateFormatter print date
