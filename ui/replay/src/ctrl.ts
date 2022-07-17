@@ -69,7 +69,7 @@ export default class ReplayCtrl {
 
   private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 
-  withGround = (f: (cg: CgApi) => void) => {
+  private withGround = (f: (cg: CgApi) => void) => {
     const g = this.ground();
     return g && f(g);
   };

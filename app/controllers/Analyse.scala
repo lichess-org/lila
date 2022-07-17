@@ -7,7 +7,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
 
@@ -99,13 +99,11 @@ final class Analyse(
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
         case Some((game, initialFen)) =>
           val pov = Pov(game, chess.Color.fromName(color) | White)
-          env.api.roundApi.embed(
+          env.api.roundApi.replayEmbed(
             pov,
-            lila.api.Mobile.Api.currentVersion,
-            initialFenO = initialFen.some,
-            withFlags = WithFlags(opening = true)
+            initialFen = Preload(initialFen.some)
           ) map { data =>
-            Ok(html.analyse.embed(pov, data))
+            Ok(html.analyse.embed.replay(pov, data))
           }
         case _ => fuccess(NotFound(html.analyse.embed.notFound))
       } dmap EnableSharedArrayBuffer

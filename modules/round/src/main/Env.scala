@@ -52,6 +52,7 @@ final class Env(
     evalCache: lila.evalCache.EvalCacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     isBotSync: lila.common.LightUser.IsBotSync,
+    lightUserGet: lila.common.LightUser.Getter,
     lightUserSync: lila.common.LightUser.GetterSync,
     ircApi: lila.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,

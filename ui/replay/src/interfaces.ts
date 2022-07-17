@@ -16,5 +16,6 @@ export interface ReplayData {
 export interface ReplayOpts {
   pgn: string;
   orientation?: Color;
+  showMoves: boolean;
   i18n: I18nDict;
 }
