@@ -3,6 +3,9 @@
 $c-bg-inaccuracy-hover: c-dimmer($c-inaccuracy, 70%);
 $c-bg-mistake-hover: c-dimmer($c-mistake, 70%);
 $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
+$c-bg-good-hover: c-dimmer($c-good, 70%);
+$c-bg-brilliant-hover: c-dimmer($c-brilliant, 70%);
+$c-bg-interesting-hover: c-dimmer($c-interesting, 70%);
 
 .tview2 {
   white-space: normal;
@@ -38,6 +41,24 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
       color: $c-blunder;
       &:hover {
         background: $c-bg-blunder-hover;
+      }
+    }
+    &.good {
+      color: $c-good;
+      &:hover {
+        background: $c-bg-good-hover;
+      }
+    }
+    &.brilliant {
+      color: $c-brilliant;
+      &:hover {
+        background: $c-bg-brilliant-hover;
+      }
+    }
+    &.interesting {
+      color: $c-interesting;
+      &:hover {
+        background: $c-bg-interesting-hover;
       }
     }
   }
@@ -83,7 +104,7 @@ $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
     font-style: italic;
   }
 
-  move:not(.empty):not(.blunder):not(.mistake):not(.inaccuracy):hover {
+  move:not(.empty):not(.blunder):not(.mistake):not(.inaccuracy):not(.good):not(.brilliant):not(.interesting):hover {
     &,
     index,
     eval {
