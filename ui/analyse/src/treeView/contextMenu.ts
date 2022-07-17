@@ -1,7 +1,7 @@
 import { bind, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { patch } from '../main';
+import patch from '../patch';
 import * as studyView from '../study/studyView';
 import { nodeFullName } from '../util';
 

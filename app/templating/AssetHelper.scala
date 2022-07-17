@@ -53,6 +53,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def roundNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("round.nvui")
 
   def analyseTag                            = jsModule("analysisBoard")
+  def analyseStudyTag                       = jsModule("analysisBoard.study")
   def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
   def puzzleTag                            = jsModule("puzzle")
