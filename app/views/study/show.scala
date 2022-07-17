@@ -22,7 +22,7 @@ object show {
       title = s.name.value,
       moreCss = cssTag("analyse.study"),
       moreJs = frag(
-        analyseTag,
+        analyseStudyTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.study=${safeJsonValue(
             Json.obj(
