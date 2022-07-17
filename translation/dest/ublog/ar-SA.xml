@@ -10,6 +10,7 @@
   <string name="drafts">المسودات</string>
   <string name="published">المنشورة</string>
   <string name="createBlogDiscussion">تمكين التعليقات</string>
+  <string name="createBlogDiscussionHelp">سيتم إنشاء موضوع المنتدى للأشخاص للتعليق على مشاركتك</string>
   <string name="publishOnYourBlog">المنشور على مدونتك</string>
   <string name="publishHelp">إذا تم تحديد الخيار سيتم نشر المقال على مدونتك، اذا لم يتم تحديد الخيار سيتم حفظها بشكل خاص في مسوداتك</string>
   <plurals name="publishedNbBlogPosts">
