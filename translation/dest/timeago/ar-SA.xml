@@ -1,2 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">الان</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="zero">منذ %s ثانية</item>
+    <item quantity="one">منذ %s ثانية</item>
+    <item quantity="two">منذ %s ثانية</item>
+    <item quantity="few">منذ %s ثانية</item>
+    <item quantity="many">منذ %s ثانية</item>
+    <item quantity="other">منذ %s ثانية</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="zero">منذ %s دقائق</item>
+    <item quantity="one">منذ %s دقائق</item>
+    <item quantity="two">منذ %s دقائق</item>
+    <item quantity="few">منذ %s دقائق</item>
+    <item quantity="many">منذ %s دقائق</item>
+    <item quantity="other">منذ %s دقائق</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="zero">منذ %s ساعة</item>
+    <item quantity="one">منذ %s ساعة</item>
+    <item quantity="two">منذ %s ساعة</item>
+    <item quantity="few">منذ %s ساعة</item>
+    <item quantity="many">منذ %s ساعة</item>
+    <item quantity="other">منذ %s ساعة</item>
+  </plurals>
+  <string name="rightNow">حاليا</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="zero">منذ %s دقيقة/دقائق مضت</item>
+    <item quantity="one">منذ %s دقيقة/دقائق مضت</item>
+    <item quantity="two">منذ %s دقيقة/دقائق مضت</item>
+    <item quantity="few">منذ %s دقيقة/دقائق مضت</item>
+    <item quantity="many">منذ %s دقيقة/دقائق مضت</item>
+    <item quantity="other">منذ %s دقيقة/دقائق مضت</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="zero">منذ %s ساعة/ساعات مضت</item>
+    <item quantity="one">منذ %s ساعة/ساعات مضت</item>
+    <item quantity="two">منذ %s ساعة/ساعات مضت</item>
+    <item quantity="few">منذ %s ساعة/ساعات مضت</item>
+    <item quantity="many">منذ %s ساعة/ساعات مضت</item>
+    <item quantity="other">منذ %s ساعة/ساعات مضت</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="zero">منذ %s يوم/أيام</item>
+    <item quantity="one">منذ %s يوم</item>
+    <item quantity="two">منذ %s يوم/أيام</item>
+    <item quantity="few">منذ %s يوم/أيام</item>
+    <item quantity="many">منذ %s يوم/أيام</item>
+    <item quantity="other">منذ %s يوم/أيام</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="zero">منذ %s أسابيع</item>
+    <item quantity="one">منذ %s أسابيع</item>
+    <item quantity="two">منذ %s أسابيع</item>
+    <item quantity="few">منذ %s أسابيع</item>
+    <item quantity="many">منذ %s أسابيع</item>
+    <item quantity="other">منذ %s أسابيع</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="zero">منذ %s شهر</item>
+    <item quantity="one">منذ %s شهر</item>
+    <item quantity="two">منذ %s شهر</item>
+    <item quantity="few">منذ %s شهر</item>
+    <item quantity="many">منذ %s شهر</item>
+    <item quantity="other">منذ %s شهر</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="zero">منذ %s سنة</item>
+    <item quantity="one">منذ %s سنة</item>
+    <item quantity="two">منذ %s سنة</item>
+    <item quantity="few">منذ %s سنة</item>
+    <item quantity="many">منذ %s سنة</item>
+    <item quantity="other">منذ %s سنة</item>
+  </plurals>
+</resources>
