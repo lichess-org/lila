@@ -30,7 +30,7 @@
   <string name="kingInTheCenter">Raja berada di tengah</string>
   <string name="threeChecks">Tiga kali skak</string>
   <string name="raceFinished">Balapan telah berakhir</string>
-  <string name="variantEnding">Variasi Babak Akhir</string>
+  <string name="variantEnding">Akhir sesuai aturan variasi</string>
   <string name="newOpponent">Penantang baru</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan Anda ingin bermain lagi dengan Anda</string>
   <string name="joinTheGame">Ikuti permainan</string>
@@ -68,8 +68,8 @@
   <string name="deleteFromHere">Hapus dari sini</string>
   <string name="forceVariation">Paksakan variasi</string>
   <string name="move">Langkah</string>
-  <string name="variantLoss">Variasi kerugian</string>
-  <string name="variantWin">Variasi menang</string>
+  <string name="variantLoss">Kekalahan variasi</string>
+  <string name="variantWin">Kemenangan variasi</string>
   <string name="insufficientMaterial">Bidak tidak mencukupi</string>
   <string name="pawnMove">Langkah pion</string>
   <string name="capture">Makan</string>
