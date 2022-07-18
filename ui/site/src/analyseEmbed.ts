@@ -1,8 +1,9 @@
 import exportLichessGlobals from './site.lichess.globals';
+import LichessReplay from 'replay';
 
 exportLichessGlobals();
 
-export default function (opts: any) {
+export default function embed(opts: any) {
   window.LichessAnalyse.start({
     ...opts,
     socketSend: () => {},
@@ -16,4 +17,8 @@ export default function (opts: any) {
         `<a href="/study/${opts.study.id}/${opts.study.chapter.id}" target="_blank" rel="noopener" class="button gamebook-embed">Start</a>`
       )
     );
+}
+
+export function replayEmbed(opts: any) {
+  LichessReplay(document.querySelector('.replay')!, opts);
 }

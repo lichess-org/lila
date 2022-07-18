@@ -14,7 +14,7 @@ object embed {
 
   def apply(pov: lila.game.Pov, data: JsObject)(implicit config: EmbedConfig) =
     views.html.base.embed(
-      title = replay titleOf pov,
+      title = views.html.analyse.replay titleOf pov,
       cssModule = "analyse.embed"
     )(
       div(cls    := "is2d")(
@@ -36,11 +36,44 @@ object embed {
       jsModule("analysisBoard.embed"),
       analyseTag,
       embedJsUnsafeLoadThen(
-        s"""analyseEmbed(${safeJsonValue(
+        s"""analyseEmbed.embed(${safeJsonValue(
             Json.obj(
               "data"  -> data,
               "embed" -> true,
               "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+            )
+          )})""",
+        config.nonce
+      )
+    )
+
+  def replay(pov: lila.game.Pov, data: JsObject)(implicit config: EmbedConfig) =
+    views.html.base.embed(
+      title = views.html.analyse.replay titleOf pov,
+      cssModule = "replay.embed"
+    )(
+      div(cls    := "is2d")(
+        main(cls := "replay")
+      ),
+      footer {
+        val url = routes.Round.watcher(pov.gameId, pov.color.name)
+        frag(
+          div(cls := "left")(
+            a(targetBlank, href := url)(h1(titleGame(pov.game))),
+            " ",
+            em("brought to you by ", a(targetBlank, href := netBaseUrl)(netConfig.domain))
+          ),
+          a(targetBlank, cls := "open", href := url)("Open")
+        )
+      },
+      views.html.base.layout.inlineJs(config.nonce)(config.lang),
+      depsTag,
+      jsModule("analysisBoard.embed"),
+      embedJsUnsafeLoadThen(
+        s"""analyseEmbed.replayEmbed(${safeJsonValue(
+            Json.obj(
+              "data" -> data,
+              "i18n" -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
             )
           )})""",
         config.nonce

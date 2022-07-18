@@ -1,10 +1,9 @@
-import LichessReplay from 'replay';
+import Lpv from 'lichess-pgn-viewer';
 
 lichess.load.then(() => {
   $('.replay--autoload').each(function (this: HTMLElement) {
-    LichessReplay(this, {
+    Lpv(this, {
       pgn: this.dataset['pgn']!,
-      i18n: {},
     });
   });
 });

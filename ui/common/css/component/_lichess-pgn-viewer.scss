@@ -1,0 +1,104 @@
+$c-bg: $c-bg-box;
+$c-accent: $c-good;
+
+.lpv {
+  @extend %box-neat-force;
+  background: $c-bg;
+
+  &__board,
+  &__menu {
+    position: relative;
+    display: block;
+    height: 0;
+    padding-bottom: 100%;
+    width: 100%;
+  }
+  &__board {
+  }
+
+  &__controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+
+    .fbt {
+      flex: 1 1 auto;
+      padding: 0.4em 0.7em;
+      border-left: 1px solid $c-border;
+      &:first-child {
+        border: none;
+      }
+    }
+
+    &__menu.fbt {
+      flex: 0 1 auto;
+      padding: 0.4em 1em;
+    }
+    &__backward::before {
+      content: '←';
+    }
+    &__forward::before {
+      content: '→';
+    }
+    &__backward,
+    &__forward {
+      padding: 0.4rem 0.7rem;
+      &::before {
+        font-size: 3em;
+        line-height: 0.5em;
+      }
+    }
+  }
+
+  &__menu {
+    outline: 1px solid $c-border;
+    &__inner {
+      display: flex;
+      flex-flow: column;
+      padding-top: 2em;
+    }
+    &__entry.fbt {
+      text-align: left;
+      padding: 0.8em 2.5em;
+      transition: none;
+      &::before {
+        color: $c-accent;
+        font-size: 2em;
+      }
+      &:hover::before {
+        color: $c-accent-over;
+      }
+    }
+  }
+
+  &__fbt {
+    background: none;
+    border: none;
+    outline: none;
+    color: $c-font;
+    align-items: normal;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 1em;
+    line-height: 1.5;
+    text-decoration: none;
+
+    @media (hover: hover) {
+      &:hover:not(.disabled):not([disabled]) {
+        background: mix($c-accent, $c-bg, 75%);
+        color: #fff;
+      }
+    }
+
+    &.active {
+      background: $c-accent !important;
+      color: #fff;
+    }
+
+    &.disabled,
+    &[disabled] {
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+}

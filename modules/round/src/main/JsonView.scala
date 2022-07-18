@@ -211,7 +211,11 @@ final class JsonView(
         import LightUser.lightUserWrites
         Json
           .obj(
-            "game"        -> gameJsonView(game, initialFen),
+            "game" -> {
+              gameJsonView(game, initialFen) ++ Json.obj(
+                "pgn" -> pov.game.pgnMoves.mkString(" ")
+              )
+            },
             "white"       -> Json.obj("user" -> white),
             "black"       -> Json.obj("user" -> black),
             "orientation" -> pov.color.name,

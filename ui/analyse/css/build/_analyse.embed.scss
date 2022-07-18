@@ -13,13 +13,11 @@
 @import '../../../common/css/vendor/chessground/chessground';
 
 @import '../../../common/css/component/board';
+@import '../../../common/css/component/lichess-pgn-viewer';
 
 @import '../../../common/css/base/scrollbar';
 @import '../../../common/css/component/fbt';
 @import '../../../common/css/component/button';
 @import '../../../common/css/form/cmn-toggle';
-@import '../../../tree/css/tree';
-@import '../../../chess/css/control';
-@import '../../../chess/css/zh-pocket';
 
-@import '../embed/embed';
+// @import '../embed/replay';
