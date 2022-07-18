@@ -3,7 +3,7 @@
 $c-bg-inaccuracy-hover: c-dimmer($c-inaccuracy, 70%);
 $c-bg-mistake-hover: c-dimmer($c-mistake, 70%);
 $c-bg-blunder-hover: c-dimmer($c-blunder, 70%);
-$c-bg-good-hover: c-dimmer($c-good, 70%);
+$c-bg-good-hover: c-dimmer($c-good-move, 70%);
 $c-bg-brilliant-hover: c-dimmer($c-brilliant, 70%);
 $c-bg-interesting-hover: c-dimmer($c-interesting, 70%);
 
@@ -44,7 +44,7 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%);
       }
     }
     &.good {
-      color: $c-good;
+      color: $c-good-move;
       &:hover {
         background: $c-bg-good-hover;
       }
