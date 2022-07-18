@@ -35,6 +35,7 @@ themes = [
   ['Portella', 'png'],
   ['Portella_2Kanji', 'png'],
   ['western', 'svg'],
+  ['Engraved_cz', 'svg'],
 ]
 types = {
   'svg' => 'svg+xml;base64,',

@@ -22,6 +22,7 @@ object PieceSet {
     "1Kanji_3D",
     "2Kanji_3D",
     "Shogi_cz",
+    "Engraved_cz",
     "Kanji_Guide_Shadowed",
     "Valdivia",
     "Vald_opt",
