@@ -97,7 +97,7 @@ case class Game(
   def hasChat = !isTournament && !isSimul && nonAi
 
   // Only for defined handicaps in shogi/StartingPosition
-  lazy val isHandicap: Boolean = StartingPosition isSfenHandicap initialSfen
+  lazy val isHandicap: Boolean = initialSfen.fold(false)(StartingPosition isHandicap _)
 
   // we can't rely on the clock,
   // because if moretime was given,
@@ -736,7 +736,6 @@ object Game {
     val usiMoves          = "um"
     val status            = "s"
     val plies             = "t"
-    val startedAtPly      = "st"
     val clock             = "c"
     val positionHashes    = "ph"
     val daysPerTurn       = "cd"

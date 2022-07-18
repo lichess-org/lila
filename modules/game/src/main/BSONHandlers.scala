@@ -33,14 +33,15 @@ object BSONHandlers {
 
       val light = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
 
-      val initialSfen   = r.getO[Sfen](F.initialSfen)
-      val startedAtPly  = r intD F.startedAtPly
-      val startedAtMove = initialSfen.flatMap(_.moveNumber) | 1
+      val initialSfen    = r.getO[Sfen](F.initialSfen)
+      val startedAtMove  = initialSfen.flatMap(_.moveNumber) | 1
+      val startedAtColor = initialSfen.flatMap(_.color) | Sente
+      val startedAtPly   = startedAtMove - (if ((startedAtMove % 2 == 1) == startedAtColor.sente) 1 else 0)
+
       val plies         = r int F.plies atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val turnColor     = Color.fromPly(plies)
+      val plyColor      = Color.fromPly(plies)
       val createdAt     = r date F.createdAt
 
-      val playedPlies = plies - startedAtPly
       val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
 
       val periodEntries = BinaryFormat.periodEntries
@@ -60,17 +61,18 @@ object BSONHandlers {
         situation = shogi.Situation(
           shogi.Board(pieces = pieces),
           hands = hands.getOrElse(Hands.empty),
-          color = turnColor,
+          color = plyColor,
           history = ShogiHistory(
             lastMove = usiMoves.lastOption,
-            positionHashes = positionHashes
+            positionHashes = positionHashes,
+            initialSfen = initialSfen
           ),
           variant = gameVariant
         ),
         usiMoves = usiMoves,
         clock = r.getO[Color => Clock](F.clock) {
           clockBSONReader(createdAt, periodEntries, light.sentePlayer.berserk, light.gotePlayer.berserk)
-        } map (_(turnColor)),
+        } map (_(plyColor)),
         plies = plies,
         startedAtPly = startedAtPly,
         startedAtMove = startedAtMove
@@ -91,7 +93,7 @@ object BSONHandlers {
             bg <- goteClockHistory
             history <-
               BinaryFormat.clockHistory
-                .read(clk.limit, bs, bg, periodEntries, (light.status == Status.Outoftime).option(turnColor))
+                .read(clk.limit, bs, bg, periodEntries, (light.status == Status.Outoftime).option(plyColor))
             _ = lila.mon.game.loadClockHistory.increment()
           } yield history,
         status = light.status,
@@ -129,7 +131,6 @@ object BSONHandlers {
         ),
         F.status       -> o.status,
         F.plies        -> o.shogi.plies,
-        F.startedAtPly -> w.intO(o.shogi.startedAtPly),
         F.clock -> (o.shogi.clock flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         }),
