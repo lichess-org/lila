@@ -44,8 +44,8 @@
   <string name="blackResigned">la xekri pu randa</string>
   <string name="whiteLeftTheGame">la blabi co\'u cliva lo nunjvi</string>
   <string name="blackLeftTheGame">la xekri co\'u cliva lo nunjvi</string>
-  <string name="whiteDidntMove">la blabi na zukte</string>
-  <string name="blackDidntMove">la xekri na zukte</string>
+  <string name="whiteDidntMove">lo se caxmati na zukte</string>
+  <string name="blackDidntMove">lo te caxmati na zukte</string>
   <string name="requestAComputerAnalysis">gau ku lo skami cu lanli</string>
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
   <string name="computerAnalysisAvailable">pu se lanli lo skami</string>
