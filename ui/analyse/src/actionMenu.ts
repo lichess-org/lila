@@ -192,7 +192,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             {
               attrs: {
                 href: d.userAnalysis
-                  ? '/editor?' + new URLSearchParams({ fen: ctrl.node.fen, variant: d.game.variant.key })
+                  ? '/editor?' + new URLSearchParams({ fen: ctrl.node.fen, variant: d.game.variant.key, color: ctrl.chessground.state.orientation})
                   : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
                 'data-icon': '',
                 ...(ctrl.embed
