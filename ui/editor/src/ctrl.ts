@@ -47,7 +47,7 @@ export default class EditorCtrl {
 
     window.Mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
-      this.onChange()
+      this.onChange();
     });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
@@ -57,7 +57,7 @@ export default class EditorCtrl {
 
     this.redraw = () => {};
     if (!this.cfg.embed) {
-      this.options.orientation = (params.get('color') === 'black') ? 'black' : 'white'
+      this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
     }
     this.setFen(this.initialFen);
     this.redraw = redraw;
@@ -132,7 +132,7 @@ export default class EditorCtrl {
   makeEditorUrl(fen: string, orientation: Color = 'white'): string {
     if (fen === INITIAL_FEN && this.rules === 'chess' && orientation === 'white') return this.cfg.baseUrl;
     const variant = this.rules === 'chess' ? '' : '?variant=' + lichessVariant(this.rules);
-    const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`
+    const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`;
     return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}`;
   }
 
