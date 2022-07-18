@@ -26,7 +26,7 @@ maintainer := "contact@lishogi.org"
 // format: off
 libraryDependencies ++= akka.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
-  scalalib, hasher,
+  shogi, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scrimage, scaffeine, lettuce, uaparser
@@ -36,7 +36,7 @@ libraryDependencies ++= akka.bundle ++ Seq(
 }
 
 lazy val modules = Seq(
-  common, db, shogi, rating, user, security, hub, socket,
+  common, db, rating, user, security, hub, socket,
   msg, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
@@ -77,11 +77,6 @@ lazy val i18n = module("i18n",
 lazy val storm = module("storm",
   Seq(common, memo, hub, puzzle, db, user, rating, pref, tree),
   reactivemongo.bundle
-)
-
-lazy val shogi = module("shogi",
-  Seq(),
-  Seq()
 )
 
 lazy val compression = module("compression", Seq(), Seq(specs2))
@@ -127,12 +122,12 @@ lazy val evaluation = module("evaluation",
 )
 
 lazy val common = module("common",
-  Seq(shogi),
+  Seq(),
   Seq(kamon.core, scalatags, jodaForms, scaffeine, specs2) ++ reactivemongo.bundle
 )
 
 lazy val rating = module("rating",
-  Seq(common, db, shogi, memo, i18n),
+  Seq(common, db, memo, i18n),
   reactivemongo.bundle
 )
 
@@ -192,7 +187,7 @@ lazy val user = module("user",
 )
 
 lazy val game = module("game",
-  Seq(common, memo, db, shogi, hub, user, chat, compression),
+  Seq(common, memo, db, hub, user, chat, compression),
   Seq(specs2) ++ reactivemongo.bundle
 )
 
@@ -212,7 +207,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(common, hub, game, user, notifyModule, evalCache, shogi),
+  Seq(common, hub, game, user, notifyModule, evalCache),
   reactivemongo.bundle
 )
 
@@ -412,7 +407,7 @@ lazy val notifyModule = module("notify",
 )
 
 lazy val tree = module("tree",
-  Seq(common, shogi),
+  Seq(common),
   Seq()
 )
 
@@ -422,6 +417,6 @@ lazy val socket = module("socket",
 )
 
 lazy val hub = module("hub",
-  Seq(common, shogi),
+  Seq(common),
   Seq(scaffeine)
 )

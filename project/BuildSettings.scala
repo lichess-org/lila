@@ -30,6 +30,7 @@ object BuildSettings {
     akka.bundle ++ Seq(
       play.api,
       scalalib,
+      shogi,
       jodaTime,
       ws,
       macwire.macros,
