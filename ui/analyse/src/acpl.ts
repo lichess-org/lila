@@ -2,7 +2,8 @@ import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
-import { defined } from 'common';
+import { defined } from 'common/common';
+import { bind, dataIcon } from 'common/snabbdom';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -94,20 +95,17 @@ function doRender(ctrl: AnalyseCtrl): VNode {
     [
       playerTable(ctrl, 'sente'),
       h('div.hidden', '-'),
-      // i don't think it's worth it considering the current browser engine
-      /*
       ctrl.study
         ? null
         : h(
-            "a.button.text",
+            'a.button.text',
             {
               class: { active: !!ctrl.retro },
-              attrs: dataIcon("G"),
-              hook: bind("click", ctrl.toggleRetro, ctrl.redraw),
+              attrs: dataIcon('G'),
+              hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            ctrl.trans.noarg("learnFromYourMistakes")
+            ctrl.trans.noarg('learnFromYourMistakes')
           ),
-          */
       playerTable(ctrl, 'gote'),
     ]
   );
