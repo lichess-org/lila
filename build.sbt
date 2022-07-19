@@ -202,7 +202,7 @@ lazy val tv = module("tv",
 )
 
 lazy val bot = module("bot",
-  Seq(common, db, hub, game, user, challenge, chat),
+  Seq(common, db, hub, game, user, challenge, chat, socket),
   reactivemongo.bundle
 )
 

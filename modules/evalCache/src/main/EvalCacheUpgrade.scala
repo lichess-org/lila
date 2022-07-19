@@ -19,9 +19,10 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
 ) {
   import EvalCacheUpgrade._
 
-  private val members       = AnyRefMap.empty[SriString, WatchingMember]
-  private val evals         = AnyRefMap.empty[SetupId, Set[SriString]]
-  private val expirableSris = new ExpireCallbackMemo(20 minutes, sri => unregister(Socket.Sri(sri)))
+  private val members = AnyRefMap.empty[SriString, WatchingMember]
+  private val evals   = AnyRefMap.empty[SetupId, EvalState]
+  private val expirableSris =
+    new ExpireCallbackMemo(scheduler, 10 minutes, sri => expire(Socket.Sri(sri)))
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
@@ -33,15 +34,19 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
     }
     val setupId = makeSetupId(variant, sfen, multiPv)
     members += (sri.value -> WatchingMember(push, setupId, path))
-    evals += (setupId     -> (~evals.get(setupId) + sri.value))
+      evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri.value), 0))(_ addSri sri))
     expirableSris put sri.value
   }
 
-  def onEval(input: EvalCacheEntry.Input, sri: Option[Socket.Sri]): Unit = {
+  def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = {
     (1 to input.eval.multiPv) flatMap { multiPv =>
-      evals get makeSetupId(input.id.variant, input.sfen, multiPv)
-    } foreach { sris =>
-      val wms = sris.filter { s => sri.map(s != _.value).getOrElse(true) } flatMap members.get
+      val setupId = makeSetupId(input.id.variant, input.sfen, multiPv)
+      evals get setupId map (setupId -> _)
+    } filter {
+      _._2.depth < input.eval.depth
+    } foreach { case (setupId, eval) =>
+      evals += (setupId -> eval.copy(depth = input.eval.depth))
+      val wms = eval.sris.withFilter(sri.value !=) flatMap members.get
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.sfen)
         wms foreach { wm =>
@@ -52,18 +57,17 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
     }
   }
 
-  def unregister(sri: Socket.Sri): Unit =
+  private def expire(sri: Socket.Sri): Unit =
     members get sri.value foreach { wm =>
       unregisterEval(wm.setupId, sri)
       members -= sri.value
-      expirableSris remove sri.value
     }
 
   private def unregisterEval(setupId: SetupId, sri: Socket.Sri): Unit =
-    evals get setupId foreach { sris =>
-      val newSris = sris - sri.value
+    evals get setupId foreach { eval =>
+      val newSris = eval.sris - sri.value
       if (newSris.isEmpty) evals -= setupId
-      else evals += (setupId -> newSris)
+      else evals += (setupId -> eval.copy(sris = newSris))
     }
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
@@ -78,6 +82,10 @@ private object EvalCacheUpgrade {
   private type SriString = String
   private type SetupId   = String
   private type Push      = JsObject => Unit
+
+  private case class EvalState(sris: Set[SriString], depth: Int) {
+    def addSri(sri: Socket.Sri) = copy(sris = sris + sri.value)
+  }
 
   private def makeSetupId(variant: Variant, sfen: Sfen, multiPv: Int): SetupId =
     s"${variant.id}${EvalCacheEntry.SmallSfen.make(variant, sfen).value}^$multiPv"
