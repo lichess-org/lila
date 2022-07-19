@@ -77,6 +77,22 @@ const spectrum = () =>
     })
     .pipe(gulp.dest('../../public/vendor/spectrum/'));
 
+const fairy = () =>
+  gulp
+    .src(['stockfish.js', 'stockfish.wasm', 'stockfish.worker.js'], {
+      cwd: path.dirname(require.resolve('fairy-stockfish-nnue.wasm/package.json')),
+      cwdbase: true,
+    })
+    .pipe(gulp.dest('../../public/vendor/fairy/'));
+
+const yaneuraou = () =>
+  gulp
+    .src(['lib/yaneuraou.k-p.js', 'lib/yaneuraou.k-p.wasm', 'lib/yaneuraou.k-p.worker.js'], {
+      cwd: path.dirname(require.resolve('@mizarjp/yaneuraou.k-p/package.json')),
+      cwdbase: true,
+    })
+    .pipe(gulp.dest('../../public/vendor/yaneuraou.k-p/'));
+
 const prodSource = () =>
   browserify(browserifyOpts('src/index.ts', false))
     .plugin(tsify)
@@ -186,6 +202,8 @@ const tasks = [
   jqueryBarRating,
   highcharts,
   spectrum,
+  fairy,
+  yaneuraou,
 ];
 
 const dev = gulp.series(tasks.concat([devSource]));
