@@ -9,6 +9,7 @@
   <string name="promoteC8ToQueen">Promover c8 a rainha</string>
   <string name="offerOrAcceptDraw">Oferecer ou aceitar empate</string>
   <string name="readOutClocks">Ler os relógios</string>
+  <string name="readOutOpponentName">Leia o nome do adversário</string>
   <string name="otherCommands">Outros comandos</string>
   <string name="tips">Dicas</string>
 </resources>
