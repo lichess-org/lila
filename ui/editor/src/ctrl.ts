@@ -4,7 +4,7 @@ import { NumberPair } from 'shogiground/types';
 import { Rules, Role } from 'shogiops/types';
 import { makeSfen, parseSfen, initialSfen } from 'shogiops/sfen';
 import { Position } from 'shogiops/shogi';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common/common';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
 import { Hand, Hands } from 'shogiops/hand';
 import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variantUtil';
@@ -111,8 +111,8 @@ export default class EditorCtrl {
     };
   }
 
-  makeAnalysisUrl(legalSfen: string): string {
-    return `/analysis/${this.rules}/${this.encodeSfen(legalSfen)}`;
+  makeAnalysisUrl(legalSfen: string, orientation: Color = 'sente'): string {
+    return `/analysis/${this.rules}/${this.encodeSfen(legalSfen)}?color=${orientation}`;
   }
 
   makeEditorUrl(sfen: string): string {

@@ -288,7 +288,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: {
                   'data-icon': 'A',
                   rel: 'nofollow',
-                  ...(state.legalSfen ? { href: ctrl.makeAnalysisUrl(state.legalSfen) } : {}),
+                  ...(state.legalSfen ? { href: ctrl.makeAnalysisUrl(state.legalSfen, ctrl.bottomColor()) } : {}),
                 },
                 class: {
                   button: true,
