@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Stell uf b4 en Turm inne (nur bi Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Offerier oder akzeptier es Remis</string>
   <string name="readOutClocks">Schprächendi Uhre</string>
+  <string name="readOutOpponentName">Lis de Name vum Gägner vor</string>
   <string name="otherCommands">Anderi Befehl</string>
   <string name="tips">Vorschläg</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Wänn die obe zeigti Notazion ungwohnt isch, chann mer da meh drüber lerne:</string>
