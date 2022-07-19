@@ -10,7 +10,7 @@ final class Env(
     gameRepo: lila.game.GameRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  lazy val analysisRepo = new AnalysisRepo(db(CollName("analysis2")))
+  lazy val analysisRepo = new AnalysisRepo(db(CollName("analysis3")))
 
   lazy val requesterApi = new RequesterApi(db(CollName("analysis_requester")))
 
