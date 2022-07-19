@@ -4,18 +4,12 @@ sg-hand-wrap {
   width: 77%;
   height: 0;
   padding-bottom: calc(77% / 7 / 11 * 12 + 1px);
-  .variant-minishogi & {
-    padding-bottom: calc(77% / 5 / 11 * 12 + 1px);
-  }
   &.hand-bottom {
     margin-left: 23%;
   }
   @include breakpoint($mq-col2-uniboard) {
     width: 100%;
     padding-bottom: calc(100% / 7 / 11 * 12 + 1px);
-    .variant-minishogi & {
-      padding-bottom: calc(100% / 5 / 11 * 12 + 1px);
-    }
     &.hand-bottom {
       margin-left: unset;
     }
@@ -104,11 +98,16 @@ sg-hand-wrap {
         transform: scale(0.5);
         pointer-events: auto;
         z-index: z('sg__hand-piece');
-        // variants
-        .variant-minishogi & {
-          flex: 1 0 20%;
-        }
       }
+    }
+  }
+  &.r-5 {
+    padding-bottom: calc(77% / 5 / 11 * 12 + 1px);
+    @include breakpoint($mq-col2-uniboard) {
+      padding-bottom: calc(100% / 5 / 11 * 12 + 1px);
+    }
+    sg-hand sg-hp-wrap piece {
+      flex: 1 0 20%;
     }
   }
 }
