@@ -111,12 +111,12 @@ object EvalCacheEntry {
 
   object SmallSfen {
     private[evalCache] def raw(str: String) = new SmallSfen(str)
-    def make(variant: Variant, sfen: Sfen): SmallSfen = {
-      val base = sfen.truncate.value.filter { c =>
-        c != '/' && c != '-' && c != 'b'
-      }
-      new SmallSfen(base)
-    }
+    def make(variant: Variant, sfen: Sfen): SmallSfen = 
+      new SmallSfen(
+        sfen.value.split(' ').take(3).mkString("").filter { c =>
+          c != '/' && c != '-' && c != 'w'
+        }
+      )
     def validate(variant: Variant, sfen: Sfen): Option[SmallSfen] =
       sfen.toSituation(variant).exists(_.playable(false, false)) option make(variant, sfen)
   }
