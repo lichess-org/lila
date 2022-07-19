@@ -1,5 +1,6 @@
 import { h } from 'snabbdom';
-import { Position, MaybeVNodes } from '../interfaces';
+import { MaybeVNodes } from 'common/snabbdom';
+import { Position } from '../interfaces';
 import * as game from 'game';
 import * as status from 'game/status';
 import { renderClock } from '../clock/clockView';

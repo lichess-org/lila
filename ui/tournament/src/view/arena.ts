@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
+import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
+import { player as renderPlayer, ratio2percent, playerName } from './util';
 import { teamName } from './battle';
-import { MaybeVNodes } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
 

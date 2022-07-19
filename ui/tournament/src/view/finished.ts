@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import { MaybeVNodes } from 'common/snabbdom';
 import TournamentController from '../ctrl';
-import { TournamentData, MaybeVNodes } from '../interfaces';
+import { TournamentData } from '../interfaces';
 import * as pagination from '../pagination';
 import { controls, standing, podium } from './arena';
 import { teamStanding } from './battle';

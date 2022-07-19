@@ -8,7 +8,7 @@ import teamInfo from './teamInfo';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
 import TournamentController from '../ctrl';
-import { MaybeVNodes } from '../interfaces';
+import { MaybeVNodes } from 'common/snabbdom';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
   return h(

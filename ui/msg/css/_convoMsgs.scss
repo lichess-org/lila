@@ -13,6 +13,9 @@
   }
   &__typing {
     color: $c-font-dim;
+    line-height: 0.9em;
+    min-height: 0.9em;
+    font-size: 0.9em;
   }
   &__content {
     @extend %flex-column, %break-word;

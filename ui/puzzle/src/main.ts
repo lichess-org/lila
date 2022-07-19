@@ -1,7 +1,7 @@
 import { init, classModule, attributesModule, VNode } from 'snabbdom';
 
 import makeCtrl from './ctrl';
-import { menuHover } from 'common/menuHover';
+import menuHover from 'common/menuHover';
 import view from './view/main';
 import { Shogiground } from 'shogiground';
 import { Controller, PuzzleOpts } from './interfaces';

@@ -7,7 +7,7 @@ import MoveOn from './moveOn';
 import { main as view } from './view/main';
 import LishogiChat from 'chat';
 import boot from './boot';
-import { menuHover } from 'common/menuHover';
+import menuHover from 'common/menuHover';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
@@ -18,9 +18,8 @@ export interface RoundMain {
   app: (opts: RoundOpts) => RoundApi;
 }
 
+const patch = init([classModule, attributesModule]);
 export function app(opts: RoundOpts): RoundApi {
-  const patch = init([classModule, attributesModule]);
-
   let vnode: VNode, ctrl: RoundController;
 
   function redraw() {
@@ -35,7 +34,7 @@ export function app(opts: RoundOpts): RoundApi {
 
   window.addEventListener('resize', redraw); // col1 / col2+ transition
 
-  ctrl.isPlaying() && menuHover();
+  if (ctrl.isPlaying()) menuHover();
 
   return {
     socketReceive: ctrl.socket.receive,

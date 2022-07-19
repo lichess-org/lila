@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import spinner from 'common/spinner';
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 
 export function loaded(ctrl: Ctrl): VNode {
@@ -185,14 +186,4 @@ function onClick(f: (e: Event) => void) {
       (vnode.elm as HTMLElement).addEventListener('click', f);
     },
   };
-}
-
-function spinner() {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
-      }),
-    ]),
-  ]);
 }

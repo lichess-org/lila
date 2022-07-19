@@ -7,7 +7,7 @@ import { CustomThemeCtrl, ctrl as customThemeCtrl, CustomThemeData } from './cus
 import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece';
 import { Redraw } from './util';
 import { NotationCtrl, ctrl as notationCtrl, NotationData } from './notation';
-import { prop, Prop } from 'common';
+import { prop, Prop } from 'common/common';
 
 export interface DasherData {
   user?: LightUser;

@@ -7,9 +7,6 @@ import { ChatPlugin } from 'chat';
 import { Role } from 'shogiops/types';
 import { MoveMetadata as SgMoveMetadata } from 'shogiground/types';
 
-export type MaybeVNode = VNode | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
-
 export type Redraw = () => void;
 
 export interface Untyped {

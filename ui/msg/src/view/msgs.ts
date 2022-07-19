@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import { Convo, Msg, Daily } from '../interfaces';
 import * as enhance from './enhance';
 import { scroller } from './scroller';
-import { bind } from './util';
 import MsgCtrl from '../ctrl';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
@@ -22,6 +22,9 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
               'button.msg-app__convo__msgs__more.button.button-empty',
               {
                 key: 'more',
+                attrs: {
+                  type: 'button',
+                },
                 hook: bind('click', _ => {
                   scroller.setMarker();
                   ctrl.getMore();
@@ -31,7 +34,7 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
             )
           : null,
         ...contentMsgs(ctrl, convo.msgs),
-        ctrl.typing ? h('div.msg-app__convo__msgs__typing', `${convo.user.name} is typing...`) : null,
+        h('div.msg-app__convo__msgs__typing', ctrl.typing ? `${convo.user.name} is typing...` : null),
       ]),
     ]
   );

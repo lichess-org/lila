@@ -1,6 +1,7 @@
 import { h, Hooks } from 'snabbdom';
+import spinner from 'common/spinner';
+import { bind } from 'common/snabbdom';
 import LobbyController from '../ctrl';
-import { bind, spinner } from './util';
 
 function renderRange(range: string) {
   return h('div.range', range.replace('-', '–'));

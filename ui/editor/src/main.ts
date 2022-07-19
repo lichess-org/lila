@@ -4,7 +4,7 @@ import view from './view';
 
 import { init, VNode, classModule, attributesModule, propsModule, eventListenersModule } from 'snabbdom';
 
-import { menuHover } from 'common/menuHover';
+import menuHover from 'common/menuHover';
 import { Shogiground } from 'shogiground';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);

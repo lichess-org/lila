@@ -6,7 +6,7 @@ import { opposite } from 'shogiground/util';
 import { Pieces } from 'shogiground/types';
 import { isDrop } from 'shogiops/types';
 import { makeSquare, parseUsi } from 'shogiops/util';
-import { defined } from 'common';
+import { defined } from 'common/common';
 
 interface Opts {
   vm: Vm;

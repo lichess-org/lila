@@ -1,7 +1,9 @@
 import { h, VNode } from 'snabbdom';
+import { bind } from 'common/snabbdom';
+import spinner from 'common/spinner';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
 import { userModInfo } from './xhr';
-import { userLink, spinner, bind } from './util';
+import { userLink } from './util';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;

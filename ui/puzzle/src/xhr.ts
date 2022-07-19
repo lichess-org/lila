@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
-import { defined } from 'common';
+import { defined } from 'common/common';
 import throttle from 'common/throttle';
 
 export function complete(

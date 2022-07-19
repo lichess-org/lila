@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
-
-import { bind, onInsert, playerName } from './util';
+import { bind, onInsert } from 'common/snabbdom';
 import { TeamBattle, RankedTeam } from '../interfaces';
 import TournamentController from '../ctrl';
+import { playerName } from './util';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const onClose = () => {

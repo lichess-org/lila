@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { MaybeVNode } from '../interfaces';
+import { MaybeVNode } from 'common/snabbdom';
 import RoundController from '../ctrl';
 import { playable, isPlayerTurn } from 'game';
 

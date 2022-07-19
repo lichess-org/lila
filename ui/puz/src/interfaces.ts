@@ -1,18 +1,9 @@
-import { VNode } from 'snabbdom';
 import { Piece } from 'shogiops/types';
 import { Clock } from './clock';
 import { Combo } from './combo';
 import CurrentPuzzle from './current';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type Redraw = () => void;
-
-export interface Promotion {
-  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: boolean) => void): boolean;
-  cancel(): void;
-  view(): MaybeVNode;
-}
 
 export interface PuzPrefs {
   coords: 0 | 1 | 2 | 3;
@@ -25,7 +16,7 @@ export interface PuzPrefs {
   notation: number;
 }
 
-export type UserMove = (orig: Key, dest: Key) => void;
+export type UserMove = (orig: Key, dest: Key, prom: boolean) => void;
 export type UserDrop = (piece: Piece, dest: Key) => void;
 
 export interface Puzzle {

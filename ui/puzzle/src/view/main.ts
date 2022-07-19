@@ -3,24 +3,15 @@ import * as side from './side';
 import theme from './theme';
 import * as shogiground from './shogiground';
 import feedbackView from './feedback';
+import stepwiseScroll from 'common/wheel';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { onInsert, bind, bindMobileMousedown } from '../util';
+import { onInsert, bindMobileMousedown, bindNonPassive } from 'common/snabbdom';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
-}
-
-function wheel(ctrl: Controller, e: WheelEvent): false | undefined {
-  const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'SG-BOARD') return;
-  e.preventDefault();
-  if (e.deltaY > 0) control.next(ctrl);
-  else if (e.deltaY < 0) control.prev(ctrl);
-  ctrl.redraw();
-  return false;
 }
 
 function dataAct(e: Event): string | null {
@@ -109,7 +100,18 @@ export default function (ctrl: Controller): VNode {
           hook:
             'ontouchstart' in window || window.lishogi.storage.get('scrollMoves') == '0'
               ? undefined
-              : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
+              : bindNonPassive(
+                  'wheel',
+                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                    const target = e.target as HTMLElement;
+                    if (target.tagName !== 'PIECE' && target.tagName !== 'SQ' && target.tagName !== 'SG-SQUARES')
+                      return;
+                    e.preventDefault();
+                    if (e.deltaY > 0 && scroll) control.next(ctrl);
+                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                    ctrl.redraw();
+                  })
+                ),
         },
         shogiground.renderBoard(ctrl)
       ),

@@ -1,7 +1,8 @@
 import { h, VNode } from 'snabbdom';
-import { tds, bind } from './util';
+import { bind, MaybeVNodes } from 'common/snabbdom';
+import { tds } from './util';
 import LobbyController from '../ctrl';
-import { Seek, MaybeVNodes } from '../interfaces';
+import { Seek } from '../interfaces';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel',

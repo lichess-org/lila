@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import spinner from 'common/spinner';
 import { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
-import { spinner } from './util';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;

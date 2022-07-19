@@ -1,4 +1,4 @@
-import { defined } from 'common';
+import { defined } from 'common/common';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from './util';
 

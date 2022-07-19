@@ -1,10 +1,12 @@
 import { h, Hooks, VNode } from 'snabbdom';
+import spinner from 'common/spinner';
+import { MaybeVNodes } from 'common/snabbdom';
 import * as util from '../util';
 import * as game from 'game';
 import * as status from 'game/status';
 import { game as gameRoute } from 'game/router';
 import { PlayerUser } from 'game';
-import { RoundData, MaybeVNodes } from '../interfaces';
+import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 import { promotionZone } from 'shogiops/variantUtil';
@@ -84,7 +86,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
           ctrl.redraw
         ),
       },
-      [me ? util.spinner() : h('span', noarg('rematch'))]
+      [me ? spinner() : h('span', noarg('rematch'))]
     ),
   ];
 }

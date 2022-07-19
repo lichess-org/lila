@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { opposite } from 'shogiground/util';
-import { player as renderPlayer, miniBoard, bind } from './util';
+import { bind } from 'common/snabbdom';
+import { miniBoard, player as renderPlayer } from './util';
 import { Duel, DuelPlayer, DuelTeams, TeamBattle } from '../interfaces';
 import { teamName } from './battle';
 import TournamentController from '../ctrl';

@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import { Convo } from '../interfaces';
-import { bind } from './util';
 import MsgCtrl from '../ctrl';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
@@ -25,6 +25,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         attrs: {
           'data-icon': 'k',
           title: ctrl.trans.noarg('blocked'),
+          type: 'button',
           'data-hover-text': ctrl.trans.noarg('unblock'),
         },
         hook: bind('click', ctrl.unblock),
@@ -36,6 +37,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         key: 'block',
         attrs: {
           'data-icon': 'k',
+          type: 'button',
           title: ctrl.trans.noarg('block'),
         },
         hook: bind('click', withConfirm(ctrl.block)),
@@ -46,6 +48,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       key: 'delete',
       attrs: {
         'data-icon': 'q',
+        type: 'button',
         title: ctrl.trans.noarg('delete'),
       },
       hook: bind('click', withConfirm(ctrl.delete)),

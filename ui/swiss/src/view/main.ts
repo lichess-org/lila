@@ -1,8 +1,10 @@
 import { h, VNode } from 'snabbdom';
-import { spinner, dataIcon, bind, onInsert, numberRow } from './util';
+import { dataIcon, bind, onInsert, MaybeVNodes } from 'common/snabbdom';
+import spinner from 'common/spinner';
+import { numberRow } from './util';
 import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';
-import { MaybeVNodes, SwissData, Pager } from '../interfaces';
+import { SwissData, Pager } from '../interfaces';
 import header from './header';
 import standing from './standing';
 import * as boards from './boards';

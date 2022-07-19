@@ -1,5 +1,6 @@
+import spinner from 'common/spinner';
 import { h, VNode } from 'snabbdom';
-import { header, Open, Redraw, spinner, validateUrl } from './util';
+import { header, Open, Redraw, validateUrl } from './util';
 
 export interface CustomThemeData {
   boardColor: string;

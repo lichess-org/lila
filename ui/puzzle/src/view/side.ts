@@ -1,5 +1,5 @@
-import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty, PuzzlePlayer } from '../interfaces';
-import { dataIcon, onInsert } from '../util';
+import { Controller, Puzzle, PuzzleGame, PuzzleDifficulty, PuzzlePlayer } from '../interfaces';
+import { dataIcon, MaybeVNode, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 
 export function puzzleBox(ctrl: Controller): VNode {
