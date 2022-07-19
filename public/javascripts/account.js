@@ -16,7 +16,7 @@ $(function () {
     $form.find('input').on('change', function () {
       if (this.name == 'behavior.scrollMoves') {
         smStorage.set(this.value);
-        showSaved();
+        $form.find('.saved').fadeIn();
       }
       const cfg = lishogi.formAjax($form);
       cfg.success = function () {
