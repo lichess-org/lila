@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Placer une tour en b4 (variante Crazyhouse seulement)</string>
   <string name="offerOrAcceptDraw">Proposer ou accepter la nulle</string>
   <string name="readOutClocks">Entendre le temps restant sur les horloges</string>
+  <string name="readOutOpponentName">Prononcer le nom de l\'adversaire</string>
   <string name="otherCommands">Autres commandes</string>
   <string name="tips">Conseils</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Vous ne connaissez pas la notation utilisée ? Pour en savoir plus :</string>
