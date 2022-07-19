@@ -9,7 +9,6 @@ import shogi.variant.Variant
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.socket.Socket
-import lila.user.User
 
 final class EvalCacheApi(
     coll: Coll,
@@ -21,15 +20,6 @@ final class EvalCacheApi(
   import EvalCacheEntry._
   import BSONHandlers._
 
-  def evalCacheRouteEndpoint(userId: User.ID, data: JsObject) =
-    truster cachedTrusted userId foreach {
-      _ foreach { tu =>
-        JsonHandlers.readPut(tu, data) foreach {
-          put(tu, _, None)
-        }
-      }
-    }
-
   def getEvalJson(variant: Variant, sfen: Sfen, multiPv: Int): Fu[Option[JsObject]] =
     getEval(
       id = Id(variant, SmallSfen.make(variant, sfen)),
@@ -38,7 +28,7 @@ final class EvalCacheApi(
       _.map { JsonHandlers.writeEval(_, sfen) }
     }
 
-  def put(trustedUser: TrustedUser, candidate: Input.Candidate, sri: Option[Socket.Sri]): Funit =
+  def put(trustedUser: TrustedUser, candidate: Input.Candidate, sri: Socket.Sri): Funit =
     candidate.input ?? { put(trustedUser, _, sri) }
 
   def shouldPut = truster shouldPut _
@@ -71,7 +61,7 @@ final class EvalCacheApi(
       if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
     }
 
-  private def put(trustedUser: TrustedUser, input: Input, sri: Option[Socket.Sri]): Funit =
+  private def put(trustedUser: TrustedUser, input: Input, sri: Socket.Sri): Funit =
     Validator(input) match {
       case Some(error) =>
         logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.sfen}")

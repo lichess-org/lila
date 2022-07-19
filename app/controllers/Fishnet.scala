@@ -15,27 +15,6 @@ final class Fishnet(env: Env) extends LilaController(env) {
   private def api    = env.fishnet.api
   private val logger = lila.log("fishnet")
 
-  def evalCachePut(key: String) = {
-    Action.async(parse.json) { req =>
-      api clientUserId lila.fishnet.Client.Key(key) map {
-        case Some(uid) => {
-          req.body
-            .validate[JsObject]
-            .fold(
-              errors => {
-                BadRequest("Missing js object")
-              },
-              data => {
-                env.evalCache.api.evalCacheRouteEndpoint(uid.value, data)
-                Ok("Eval will be processed.")
-              }
-            )
-        }
-        case None => BadRequest("Invalid key")
-      }
-    }
-  }
-
   def acquire(slow: Boolean = false) =
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
       api.acquire(client, slow) addEffect { jobOpt =>

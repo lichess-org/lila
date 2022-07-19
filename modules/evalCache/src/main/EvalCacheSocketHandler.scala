@@ -37,7 +37,7 @@ final private class EvalCacheSocketHandler(
     truster cachedTrusted userId foreach {
       _ foreach { tu =>
         JsonHandlers.readPutData(tu, data) foreach {
-          api.put(tu, _, Some(sri))
+          api.put(tu, _, sri)
         }
       }
     }
