@@ -7,9 +7,7 @@ import { Shogiground } from 'shogiground';
 import LishogiChat from 'chat';
 
 import { init, classModule, attributesModule } from 'snabbdom';
-import { menuHover } from 'common/menuHover';
-
-menuHover();
+import menuHover from 'common/menuHover';
 
 export const patch = init([classModule, attributesModule]);
 
@@ -25,6 +23,8 @@ export function start(opts: AnalyseOpts): AnalyseApi {
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
+
+  menuHover();
 
   return {
     socketReceive: ctrl.socket.receive,

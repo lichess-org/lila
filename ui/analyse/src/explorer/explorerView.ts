@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
 import { view as renderConfig } from './explorerConfig';
-import { bind, dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
 import {

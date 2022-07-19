@@ -1,15 +1,15 @@
 import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common';
+import { prop, Prop } from 'common/common';
+import { bind, MaybeVNodes } from 'common/snabbdom';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';
 import { Shogiground } from 'shogiground';
-import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
+import { Redraw, AnalyseData } from '../interfaces';
 import { Player } from 'game';
 import { renderMove, renderPieces, renderBoard, styleSetting, Style } from 'nvui/shogi';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { bind } from '../util';
 
 window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -161,10 +161,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
       h(
         'select',
         {
-          hook: bind('change', e => {
-            ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value));
-            ctrl.redraw();
-          }),
+          hook: bind('change', e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)), ctrl.redraw),
         },
         analysisNodes
           .filter(n => (n.ply % 2 === 1) === (color === 'sente'))

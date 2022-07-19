@@ -1,5 +1,5 @@
 import * as xhr from '../studyXhr';
-import { prop } from 'common';
+import { prop } from 'common/common';
 import { storedProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';

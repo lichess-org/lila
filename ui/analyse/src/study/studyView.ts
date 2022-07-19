@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
-import { bind, dataIcon, iconTag, richHTML } from '../util';
+import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
+import { iconTag, richHTML } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -19,7 +20,6 @@ import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from
 import { view as descView } from './description';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
-import { MaybeVNodes } from '../interfaces';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;

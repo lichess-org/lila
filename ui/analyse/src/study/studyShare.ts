@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { bind, baseUrl } from '../util';
-import { prop, Prop } from 'common';
+import { prop, Prop } from 'common/common';
+import { bind } from 'common/snabbdom';
+import { baseUrl } from '../util';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
 

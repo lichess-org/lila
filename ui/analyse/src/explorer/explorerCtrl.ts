@@ -1,4 +1,4 @@
-import { prop } from 'common';
+import { prop } from 'common/common';
 import { storedProp } from 'common/storage';
 import { opposite } from 'shogiground/util';
 import { controller as configCtrl } from './explorerConfig';

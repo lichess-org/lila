@@ -1,4 +1,4 @@
-import { Prop } from 'common';
+import { Prop } from 'common/common';
 import { StoredProp, StoredJsonProp } from 'common/storage';
 
 export interface Hovering {

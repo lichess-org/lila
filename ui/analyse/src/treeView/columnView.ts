@@ -1,10 +1,11 @@
 import { h, VNode } from 'snabbdom';
-import { empty } from 'common';
+import { isEmpty } from 'common/common';
+import { MaybeVNodes } from 'common/snabbdom';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
-import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
+import { ConcealOf, Conceal } from '../interfaces';
 import {
   nonEmpty,
   mainHook,
@@ -35,7 +36,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (conceal === 'hide') return;
   if (opts.isMainline) {
     const commentTags = renderMainlineCommentsOf(ctx, main, opts, conceal, true).filter(nonEmpty);
-    if (!cs[1] && empty(commentTags) && !main.forceVariation)
+    if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return ([moveView.renderIndex(main.ply, ctx.ctrl.plyOffset(), false)] as MaybeVNodes).concat(
         renderMoveAndChildrenOf(ctx, main, {
           parentPath: opts.parentPath,
@@ -193,7 +194,7 @@ function renderMainlineCommentsOf(
   conceal: Conceal,
   withColor: boolean
 ): MaybeVNodes {
-  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
+  if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.gote ' : '.sente ') : '';
   const withAuthor = node.comments!.some(c => c.by !== node.comments![0].by);
@@ -242,7 +243,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     {
       hook: mainHook(ctrl),
     },
-    ([empty(commentTags) ? null : h('interrupt', commentTags)] as MaybeVNodes).concat(
+    ([isEmpty(commentTags) ? null : h('interrupt', commentTags)] as MaybeVNodes).concat(
       renderChildrenOf(ctx, root, {
         parentPath: '',
         isMainline: true,

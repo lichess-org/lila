@@ -1,11 +1,10 @@
-import { empty } from 'common';
+import { isEmpty } from 'common/common';
+import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
-import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
-import { bind, dataIcon } from './util';
 import * as kifExport from './notationExport';
 
 interface AutoplaySpeed {
@@ -44,7 +43,7 @@ function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefin
           method: 'post',
           action: '/' + g.id + '/delete',
         },
-        hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
+        hook: bindNonPassive('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
       },
       [
         h(
@@ -66,7 +65,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const speeds = [
     ...baseSpeeds,
-    ...(d.game.speed !== 'correspondence' && !empty(d.game.moveCentis) ? [realtimeSpeed] : []),
+    ...(d.game.speed !== 'correspondence' && !isEmpty(d.game.moveCentis) ? [realtimeSpeed] : []),
     ...(d.analysis ? [cplSpeed] : []),
   ];
   return h(
@@ -202,6 +201,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
+  const notSupported = 'Browser does not support this option';
+
   const cevalConfig: MaybeVNodes =
     ceval && ceval.possible && ceval.allowed()
       ? ([h('h2', noarg('computerAnalysis'))] as MaybeVNodes)
@@ -259,6 +260,17 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
+                  ctrlBoolSetting(
+                    {
+                      name: 'Use NNUE',
+                      title: ceval.supportsNnue ? 'Use NNUE  (page reload required after change)' : notSupported,
+                      id: 'enable-nnue',
+                      checked: ceval.supportsNnue && ceval.enableNnue(),
+                      change: ceval.enableNnue,
+                      disabled: !ceval.supportsNnue,
+                    },
+                    ctrl
+                  ),
                   (id => {
                     const max = 5;
                     return h('div.setting', [
@@ -282,11 +294,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           h('input#' + id, {
                             attrs: {
                               type: 'range',
-                              min: 1,
+                              min: 0,
                               max: ceval.maxThreads,
                               step: 1,
+                              disabled: ceval.maxThreads <= 1,
+                              ...(ceval.maxThreads < 1 ? null : { title: notSupported }),
                             },
-                            hook: rangeConfig(() => parseInt(ceval.threads!()), ctrl.cevalSetThreads),
+                            hook: rangeConfig(() => ceval.threads!(), ctrl.cevalSetThreads),
                           }),
                           h('div.range_value', `${ceval.threads()} / ${ceval.maxThreads}`),
                         ]);
@@ -302,13 +316,15 @@ export function view(ctrl: AnalyseCtrl): VNode {
                               min: 4,
                               max: Math.floor(Math.log2(ceval.maxHashSize)),
                               step: 1,
+                              disabled: ceval.maxHashSize <= 16,
+                              ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
                             },
                             hook: rangeConfig(
-                              () => Math.floor(Math.log2(parseInt(ceval.hashSize!()))),
+                              () => Math.floor(Math.log2(ceval.hashSize!())),
                               v => ctrl.cevalSetHashSize(Math.pow(2, v))
                             ),
                           }),
-                          h('div.range_value', formatHashSize(parseInt(ceval.hashSize()))),
+                          h('div.range_value', formatHashSize(ceval.hashSize())),
                         ]))('analyse-memory')
                     : null,
                 ]

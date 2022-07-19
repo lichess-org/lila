@@ -1,8 +1,8 @@
+import { h, VNode } from 'snabbdom';
+import spinner from 'common/spinner';
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { spinner } from './util';
 import { modal } from './modal';
-import { h, VNode } from 'snabbdom';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();

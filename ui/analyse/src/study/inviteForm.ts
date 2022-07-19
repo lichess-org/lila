@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { bind, titleNameToId, onInsert } from '../util';
-import { prop, Prop } from 'common';
+import { bind, onInsert } from 'common/snabbdom';
+import { titleNameToId } from '../util';
+import { prop, Prop } from 'common/common';
 import { modal } from '../modal';
 import { StudyMemberMap } from './interfaces';
 

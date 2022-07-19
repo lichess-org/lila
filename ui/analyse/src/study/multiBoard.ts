@@ -2,9 +2,9 @@ import { h, VNode } from 'snabbdom';
 import { Shogiground } from 'shogiground';
 import { opposite } from 'shogiground/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
-import { MaybeVNodes } from '../interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { bind, spinner } from '../util';
+import { bind, MaybeVNodes } from 'common/snabbdom';
+import spinner from 'common/spinner';
 import { handRoles } from 'shogiops/variantUtil';
 
 export class MultiBoardCtrl {

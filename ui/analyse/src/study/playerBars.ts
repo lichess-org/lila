@@ -4,7 +4,7 @@ import { TagArray } from './interfaces';
 import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
 import { isFinished, findTag, resultOf } from './studyChapters';
-import { defined } from 'common';
+import { defined } from 'common/common';
 
 interface PlayerNames {
   sente: string;

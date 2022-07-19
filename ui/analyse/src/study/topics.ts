@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as modal from '../modal';
-import { bind, bindSubmit, onInsert } from '../util';
-import { prop, Prop } from 'common';
+import { prop, Prop } from 'common/common';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { StudyCtrl, Topic } from './interfaces';
 import { Redraw } from '../interfaces';
 

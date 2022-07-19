@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { defined } from 'common';
+import { defined } from 'common/common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 import { renderTime } from './clocks';
 import { notationsWithColor } from 'common/notation';

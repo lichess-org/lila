@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import GamebookPlayCtrl, { State } from './gamebookPlayCtrl';
-import { bind, dataIcon, iconTag, richHTML } from '../../util';
+import { bind, dataIcon } from 'common/snabbdom';
+import { iconTag, richHTML } from '../../util';
 import { toBlackWhite } from 'shogiops/util';
 
 const defaultComments = {

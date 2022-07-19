@@ -1,6 +1,7 @@
 import { h, thunk, VNode } from 'snabbdom';
 import throttle from 'common/throttle';
-import { option, onInsert } from '../util';
+import { onInsert } from 'common/snabbdom';
+import { option } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapter } from './interfaces';
 

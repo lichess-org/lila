@@ -1,49 +1,36 @@
-import { h, Attrs, VNode, Hooks } from 'snabbdom';
+import { Notation, notationsWithColor } from 'common/notation';
+import { dataIcon } from 'common/snabbdom';
+import { h, Hooks } from 'snabbdom';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
+
+const longPressDuration = 610; // used in bindMobileTapHold
 
 export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'sente' : 'gote';
 }
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
-  for (const mousedownEvent of ['touchstart', 'mousedown']) {
-    el.addEventListener(mousedownEvent, e => {
+export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
+  let longPressCountdown;
+
+  el.addEventListener('touchstart', e => {
+    longPressCountdown = setTimeout(() => {
       f(e);
-      e.preventDefault();
       if (redraw) redraw();
-    });
-  }
-}
-
-function listenTo(el: HTMLElement, eventName: string, f: (e: Event) => any, redraw?: () => void) {
-  el.addEventListener(eventName, e => {
-    const res = f(e);
-    if (res === false) e.preventDefault();
-    if (redraw) redraw();
-    return res;
+    }, longPressDuration);
   });
-}
 
-export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
-  return onInsert(el => listenTo(el, eventName, f, redraw));
-}
+  el.addEventListener('touchmove', () => {
+    clearTimeout(longPressCountdown);
+  });
 
-export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
-  return bind(
-    'submit',
-    e => {
-      e.preventDefault();
-      return f(e);
-    },
-    redraw
-  );
-}
+  el.addEventListener('touchcancel', () => {
+    clearTimeout(longPressCountdown);
+  });
 
-export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
-  return {
-    insert: vnode => f(vnode.elm as A),
-  };
+  el.addEventListener('touchend', () => {
+    clearTimeout(longPressCountdown);
+  });
 }
 
 export function readOnlyProp<A>(value: A): () => A {
@@ -52,19 +39,14 @@ export function readOnlyProp<A>(value: A): () => A {
   };
 }
 
-export function dataIcon(icon: string): Attrs {
-  return {
-    'data-icon': icon,
-  };
-}
-
 export function iconTag(icon: string) {
   return h('i', { attrs: dataIcon(icon) });
 }
 
-export function nodeFullName(node: Tree.Node) {
-  if (node.notation) return node.ply + '.' + ' ' + node.notation;
-  return 'Initial position';
+export function nodeFullName(node: Tree.Node, notation: Notation) {
+  if (node.notation)
+    return h('span' + notationsWithColor.includes(notation) ? '.color-icon' : '', node.ply + '.' + ' ' + node.notation);
+  return h('span', 'Initial position');
 }
 
 export function plural(noun: string, nb: number): string {
@@ -74,16 +56,6 @@ export function plural(noun: string, nb: number): string {
 export function titleNameToId(titleName: string): string {
   const split = titleName.split(' ');
   return (split.length === 1 ? split[0] : split[1]).toLowerCase();
-}
-
-export function spinner(): VNode {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
-      }),
-    ]),
-  ]);
 }
 
 export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
@@ -151,18 +123,9 @@ function toTwitchEmbedUrl(url: string) {
   return undefined;
 }
 
-const commentYoutubeRegex =
-  /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
-const commentTwitchRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)(?:\?|&|)(\S*)/i;
-const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)/i;
 const newLineRegex = /\n/g;
 
 function toLink(url: string) {
-  if (!window.crossOriginIsolated) {
-    if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
-    if (commentTwitchRegex.test(url)) return toTwitchEmbed(url) || url;
-    if (imgurRegex.test(url)) return `<img src="${url}" class="embed"/>`;
-  }
   const show = url.replace(/https?:\/\//, '');
   return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${show}</a>`;
 }

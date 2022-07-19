@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { titleNameToId, bind, dataIcon, iconTag, onInsert, scrollTo } from '../util';
-import { prop, Prop } from 'common';
+import { prop, Prop } from 'common/common';
+import { bind, onInsert, dataIcon } from 'common/snabbdom';
+import { titleNameToId, iconTag, scrollTo } from '../util';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifCtrl } from './notif';

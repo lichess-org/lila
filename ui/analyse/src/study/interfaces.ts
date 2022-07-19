@@ -1,4 +1,4 @@
-import { Prop } from 'common';
+import { Prop } from 'common/common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';

@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { parseSfen } from 'shogiops/sfen';
 import * as shogiground from './ground';
-import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
-import { defined } from 'common';
+import { defined } from 'common/common';
+import { bind, onInsert, dataIcon, bindNonPassive, bindMobileMousedown } from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -32,6 +32,8 @@ import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
+import spinner from 'common/spinner';
+import stepwiseScroll from 'common/wheel';
 
 const li = window.lishogi;
 
@@ -76,16 +78,6 @@ function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
       renderTreeView(ctrl, concealOf),
     ].concat(renderResult(ctrl))
   );
-}
-
-function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
-  const target = e.target as HTMLElement;
-  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'SG-BOARD') return;
-  e.preventDefault();
-  if (e.deltaY > 0) control.next(ctrl);
-  else if (e.deltaY < 0) control.prev(ctrl);
-  ctrl.redraw();
-  return false;
 }
 
 function inputs(ctrl: AnalyseCtrl): VNode | undefined {
@@ -381,7 +373,19 @@ export default function (ctrl: AnalyseCtrl): VNode {
             hook:
               window.lishogi.hasTouchEvents || ctrl.gamebookPlay() || window.lishogi.storage.get('scrollMoves') == '0'
                 ? undefined
-                : bind('wheel', (e: WheelEvent) => wheel(ctrl, e)),
+                : bindNonPassive(
+                    'wheel',
+                    stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                      if (ctrl.gamebookPlay()) return;
+                      const target = e.target as HTMLElement;
+                      if (target.tagName !== 'PIECE' && target.tagName !== 'SQ' && target.tagName !== 'SG-SQUARES')
+                        return;
+                      e.preventDefault();
+                      if (e.deltaY > 0 && scroll) control.next(ctrl);
+                      else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                      ctrl.redraw();
+                    })
+                  ),
           },
           [
             ...(clocks || []),

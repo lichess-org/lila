@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { bind, nodeFullName, richHTML } from '../util';
+import { nodeFullName, richHTML } from '../util';
 import { StudyCtrl } from './interfaces';
 
 function authorDom(author) {
@@ -68,7 +69,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
             })
           : null,
         authorDom(by),
-        ...(node.usi ? [' on ', h('span.node', nodeFullName(node))] : []),
+        ...(node.usi ? [' on ', h('span.node', nodeFullName(node, ctrl.data.pref.notation))] : []),
         ': ',
         h('div.text', { hook: richHTML(comment.text) }),
       ]);

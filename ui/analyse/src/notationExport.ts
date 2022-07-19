@@ -1,14 +1,14 @@
 import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
-import { MaybeVNodes } from './interfaces';
 import { makeNotationLine } from 'common/notation';
+import { MaybeVNodes } from 'common/snabbdom';
 import { ForecastStep } from './forecast/interfaces';
 import { ops as treeOps } from 'tree';
 
 import { makeKifHeader, makeKifMove } from 'shogiops/notation/kif/kif';
 import { makeCsaHeader, makeCsaMove } from 'shogiops/notation/csa/csa';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
-import { defined } from 'common';
+import { defined } from 'common/common';
 import { parseUsi } from 'shogiops/util';
 import { Square } from 'shogiops/types';
 import { renderTime } from './clocks';

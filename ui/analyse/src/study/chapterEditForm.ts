@@ -1,7 +1,9 @@
 import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common/common';
 import { Redraw } from '../interfaces';
-import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../util';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
+import spinner from 'common/spinner';
+import { option, emptyRedButton } from '../util';
 import * as modal from '../modal';
 import * as chapterForm from './chapterNewForm';
 import { StudyChapterConfig, StudyChapterMeta } from './interfaces';
@@ -58,7 +60,6 @@ export function ctrl(
         send('editChapter', data);
         current(null);
       }
-      redraw();
     },
     delete(id) {
       send('deleteChapter', id);
@@ -94,7 +95,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                   o[field] = chapterForm.fieldValue(e, field);
                 });
                 ctrl.submit(o);
-              }),
+              }, ctrl.redraw),
             },
             [
               h('div.form-group', [
@@ -126,18 +127,28 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
             h(
               emptyRedButton,
               {
-                hook: bind('click', _ => {
-                  if (confirm(ctrl.trans.noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
-                }),
+                hook: bind(
+                  'click',
+                  _ => {
+                    if (confirm(ctrl.trans.noarg('clearAllCommentsInThisChapter'))) ctrl.clearAnnotations(data.id);
+                  },
+                  ctrl.redraw
+                ),
+                attrs: { type: 'button' },
               },
               ctrl.trans.noarg('clearAnnotations')
             ),
             h(
               emptyRedButton,
               {
-                hook: bind('click', _ => {
-                  if (confirm(ctrl.trans.noarg('deleteThisChapter'))) ctrl.delete(data.id);
-                }),
+                hook: bind(
+                  'click',
+                  _ => {
+                    if (confirm(ctrl.trans.noarg('deleteThisChapter'))) ctrl.delete(data.id);
+                  },
+                  ctrl.redraw
+                ),
+                attrs: { type: 'button' },
               },
               ctrl.trans.noarg('deleteChapter')
             ),

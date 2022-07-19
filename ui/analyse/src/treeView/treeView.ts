@@ -2,15 +2,16 @@ import { h, VNode, Hooks } from 'snabbdom';
 import { playable } from 'game';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
-import { MaybeVNodes, ConcealOf } from '../interfaces';
+import { ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { enrichText, innerHTML } from '../util';
+import { bindMobileTapHold, enrichText, innerHTML } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import inline from './inlineView';
-import { empty, defined } from 'common';
+import { isEmpty, defined } from 'common/common';
 import throttle from 'common/throttle';
 import { storedProp, StoredProp } from 'common/storage';
+import { MaybeVNodes } from 'common/snabbdom';
 import { makeNotation } from 'common/notation';
 import { makeUsi, parseUsi } from 'shogiops/util';
 
@@ -96,7 +97,7 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
 }
 
 export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, parentPath: Tree.Path): MaybeVNodes {
-  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
+  if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
   return node
     .comments!.map(comment => {
       if (comment.by === 'lishogi' && !ctx.showComputer) return;
@@ -146,7 +147,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
     insert: vnode => {
       const el = vnode.elm as HTMLElement;
       if (ctrl.path !== '') autoScroll(ctrl, el);
-      el.oncontextmenu = (e: MouseEvent) => {
+      const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null)
           contextMenu(e, {
@@ -156,6 +157,9 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
         ctrl.redraw();
         return false;
       };
+      el.oncontextmenu = ctxMenuCallback;
+      bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
+
       el.addEventListener('mousedown', (e: MouseEvent) => {
         if (defined(e.button) && e.button !== 0) return; // only touch or left click
         const path = eventPath(e);

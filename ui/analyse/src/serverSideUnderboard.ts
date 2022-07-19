@@ -1,5 +1,5 @@
 import AnalyseCtrl from './ctrl';
-import { defined } from 'common';
+import { defined } from 'common/common';
 import { baseUrl } from './util';
 import { AnalyseData } from './interfaces';
 

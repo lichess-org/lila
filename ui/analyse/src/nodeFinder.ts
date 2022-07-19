@@ -1,5 +1,5 @@
 import { winningChances } from 'ceval';
-import { defined } from 'common';
+import { defined } from 'common/common';
 
 function hasCompChild(node: Tree.Node): boolean {
   return !!node.children.find(function (c) {

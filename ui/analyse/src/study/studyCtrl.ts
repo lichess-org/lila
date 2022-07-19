@@ -1,4 +1,4 @@
-import { prop } from 'common';
+import { prop } from 'common/common';
 import throttle from 'common/throttle';
 import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';

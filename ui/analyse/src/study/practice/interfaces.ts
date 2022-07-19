@@ -1,4 +1,4 @@
-import { Prop } from 'common';
+import { Prop } from 'common/common';
 import { StoredBooleanProp } from 'common/storage';
 
 export interface Goal {

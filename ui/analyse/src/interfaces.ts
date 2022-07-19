@@ -5,8 +5,6 @@ import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interf
 import { RelayData } from './study/relay/interfaces';
 import AnalyseController from './ctrl';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type Seconds = number;
 
 export interface NvuiPlugin {

@@ -1,8 +1,10 @@
 import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common/common';
 import { storedProp, StoredProp } from 'common/storage';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
+import spinner from 'common/spinner';
 import * as xhr from 'common/xhr';
-import { bind, bindSubmit, spinner, option, onInsert } from '../util';
+import { option } from '../util';
 import { variants as xhrVariants, importNotation } from './studyXhr';
 import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';

@@ -1,9 +1,10 @@
 import { h, VNode } from 'snabbdom';
+import { makeNotation } from 'common/notation';
+import spinner from 'common/spinner';
+import { bind, dataIcon } from 'common/snabbdom';
 import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../notationExport';
-import { bind, dataIcon, spinner } from '../util';
-import { makeNotation } from 'common/notation';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   var firstNode = cNodes[0];
@@ -69,20 +70,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 attrs: dataIcon('G'),
               },
               [
-                h(
-                  'a.del',
-                  {
-                    hook: bind(
-                      'click',
-                      e => {
-                        fctrl.removeIndex(i);
-                        e.stopPropagation();
-                      },
-                      ctrl.redraw
-                    ),
-                  },
-                  'x'
-                ),
+                h('button.del', {
+                  hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
+                  attrs: { 'data-icon': '', type: 'button' },
+                }),
                 h(
                   'moves-notation',
                   renderNodesHtml(nodes, initialSfen(ctrl), ctrl.data.pref.notation, ctrl.data.game.variant.key)

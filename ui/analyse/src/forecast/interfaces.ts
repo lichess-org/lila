@@ -1,4 +1,4 @@
-import { Prop } from 'common';
+import { Prop } from 'common/common';
 
 export interface ForecastData {
   onMyTurn?: boolean;

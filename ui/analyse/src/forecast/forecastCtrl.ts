@@ -1,4 +1,4 @@
-import { prop } from 'common';
+import { prop } from 'common/common';
 import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
 import { AnalyseData } from '../interfaces';
 
