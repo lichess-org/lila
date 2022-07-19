@@ -5,23 +5,64 @@ $c-accent: $c-good;
   @extend %box-neat-force;
   background: $c-bg;
 
-  &__board,
-  &__menu {
-    position: relative;
-    display: block;
-    height: 0;
-    padding-bottom: 100%;
-    width: 100%;
+  &--replay,
+  &--menu {
   }
+  &--replay {
+    display: grid;
+    overflow: hidden;
+    grid-template-areas:
+      'board      moves'
+      'controls   moves';
+    grid-template-columns: auto fit-content(24ch);
+    grid-template-rows: auto 3rem;
+    grid-row-gap: 0;
+    .cg-wrap {
+      @extend %square;
+    }
+    cg-board {
+      box-shadow: none;
+    }
+  }
+
   &__board {
+    grid-area: board;
+  }
+
+  &__moves {
+    grid-area: moves;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    position: relative;
+    overflow-y: auto;
+    align-content: flex-start;
+    will-change: scroll-position;
+    user-select: none;
+    line-height: 1.7;
+    font-size: 1.1em;
+    index {
+      flex: 0 0 16.666%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      background: #302e2c;
+    }
+    move {
+      flex: 0 0 41.666%;
+      padding-left: 0.7em;
+      cursor: pointer;
+    }
   }
 
   &__controls {
+    grid-area: controls;
     display: flex;
     flex-flow: row nowrap;
     align-items: stretch;
 
-    .fbt {
+    .lpv__fbt {
       flex: 1 1 auto;
       padding: 0.4em 0.7em;
       border-left: 1px solid $c-border;
@@ -30,7 +71,7 @@ $c-accent: $c-good;
       }
     }
 
-    &__menu.fbt {
+    &__menu.lpv__fbt {
       flex: 0 1 auto;
       padding: 0.4em 1em;
     }
@@ -51,13 +92,14 @@ $c-accent: $c-good;
   }
 
   &__menu {
-    outline: 1px solid $c-border;
+    outline: 2px solid $c-accent;
+    background: mix($c-accent, $c-bg, 15%);
     &__inner {
       display: flex;
       flex-flow: column;
       padding-top: 2em;
     }
-    &__entry.fbt {
+    &__entry.lpv__fbt {
       text-align: left;
       padding: 0.8em 2.5em;
       transition: none;

@@ -64,7 +64,11 @@ final object RawHtml {
 
   def hasLinks(text: String) = urlPattern.matcher(text).find
 
-  def addLinks(text: String, expandImg: Boolean = true): String =
+  def addLinks(
+      text: String,
+      expandImg: Boolean = true,
+      renderWith: Option[(String, String) => String] = None
+  ): String =
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 
@@ -121,9 +125,9 @@ final object RawHtml {
               else imgUrl(url)
             }
             sb.append(
-              imgHtml.getOrElse(
-                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
-              )
+              imgHtml
+                .orElse(renderWith.map(r => r(url, text)))
+                .getOrElse(s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>""")
             )
           }
           lastAppendIdx = end

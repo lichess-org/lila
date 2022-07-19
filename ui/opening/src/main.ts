@@ -4,6 +4,7 @@ lichess.load.then(() => {
   $('.replay--autoload').each(function (this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
+      initialPly: 'last',
     });
   });
 });

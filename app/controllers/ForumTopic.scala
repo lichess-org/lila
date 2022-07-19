@@ -75,7 +75,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             form <- ctx.me.ifTrue(
               canWrite && topic.open && !topic.isOld
             ) ?? { me => forms.postWithCaptcha(me, inOwnTeam) map some }
-            _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
+            _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
             res <-
               if (canRead)
                 Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)).fuccess

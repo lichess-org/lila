@@ -42,15 +42,15 @@ final class Analyser(
     analysis.studyId match {
       case None =>
         gameRepo gameWithInitialFen analysis.id map {
-          _ ?? { case (game, initialFen) =>
+          _ ?? { g =>
             Bus.publish(
               TellIfExists(
                 analysis.id,
                 actorApi.AnalysisProgress(
                   analysis = analysis,
-                  game = game,
-                  variant = game.variant,
-                  initialFen = initialFen | game.variant.initialFen
+                  game = g.game,
+                  variant = g.game.variant,
+                  initialFen = g.fen | g.game.variant.initialFen
                 )
               ),
               "roundSocket"

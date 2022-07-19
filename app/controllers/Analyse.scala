@@ -97,12 +97,12 @@ final class Analyse(
   def embed(gameId: String, color: String) =
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-        case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color.fromName(color) | White)
+        case Some(g) =>
+          val pov = Pov(g.game, chess.Color.fromName(color) | White)
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,
-            initialFen = Preload(initialFen),
+            initialFen = Preload(g.fen),
             withFlags = WithFlags(opening = true)
           ) map { data =>
             Ok(html.analyse.embed(pov, data))
@@ -114,11 +114,11 @@ final class Analyse(
   def embedReplayGame(gameId: String, color: String) =
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-        case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color.fromName(color) | White)
+        case Some(g) =>
+          val pov = Pov(g.game, chess.Color.fromName(color) | White)
           env.api.roundApi.replayEmbed(
             pov,
-            initialFen = Preload(initialFen.some)
+            initialFen = Preload(g.fen.some)
           ) map { data =>
             Ok(html.analyse.embed.replay(pov, data))
           }
