@@ -5,8 +5,8 @@ import StormCtrl from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { makeSgOpts } from 'puz/run';
 import { makeConfig as makeSgConfig } from 'puz/view/shogiground';
-import { onInsert } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
+import { onInsert } from 'common/snabbdom';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -52,7 +52,7 @@ const shogigroundHand = (ctrl: StormCtrl, pos: 'top' | 'bottom'): VNode => {
 const renderBonus = (bonus: number) => `${bonus}s`;
 
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
-  h('div.puz-board.main-board', [shogigroundBoard(ctrl), ctrl.promotion.view()]),
+  h('div.puz-board.main-board', shogigroundBoard(ctrl)),
   shogigroundHand(ctrl, 'top'),
   h('div.puz-side', [
     ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),

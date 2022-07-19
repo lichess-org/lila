@@ -3,9 +3,9 @@ import config from './config';
 import sign from 'puz/sign';
 import { Api as SgApi } from 'shogiground/api';
 import { getNow, puzzlePov, sound } from 'puz/util';
-import { prop } from 'common';
+import { prop } from 'common/common';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
-import { Promotion, Run } from 'puz/interfaces';
+import { Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
 import { Clock } from 'puz/clock';
@@ -22,7 +22,6 @@ export default class StormCtrl {
   run: Run;
   vm: StormVm;
   trans: Trans;
-  promotion: Promotion;
   shogiground: SgApi;
 
   constructor(opts: StormOpts, redraw: (data: StormData) => void) {
@@ -77,8 +76,8 @@ export default class StormCtrl {
     this.end();
   };
 
-  userMove = (orig: Key, dest: Key): void => {
-    if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
+  userMove = (orig: Key, dest: Key, prom: boolean): void => {
+    this.playUserMove(orig, dest, prom);
   };
 
   userDrop = (piece: Piece, dest: Key): void => {
@@ -101,7 +100,6 @@ export default class StormCtrl {
   private finishMoveOrDrop(move: Move) {
     this.run.clock.start();
     this.run.moves++;
-    this.promotion.cancel();
 
     const puzzle = this.run.current;
     const pos = puzzle.position();

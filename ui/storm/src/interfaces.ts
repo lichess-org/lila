@@ -1,4 +1,4 @@
-import { Prop } from 'common';
+import { Prop } from 'common/common';
 import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {

@@ -1,6 +1,6 @@
 import { init, classModule, attributesModule, VNode } from 'snabbdom';
 
-import { menuHover } from 'common/menuHover';
+import menuHover from 'common/menuHover';
 import StormCtrl from './ctrl';
 import { Shogiground } from 'shogiground';
 import { StormOpts } from './interfaces';
