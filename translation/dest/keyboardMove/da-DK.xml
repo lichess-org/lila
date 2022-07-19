@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Indsæt et tårn på b4 (kun Crazyhouse-variant)</string>
   <string name="offerOrAcceptDraw">Tilbyd eller acceptér remis</string>
   <string name="readOutClocks">Oplæsning af ure</string>
+  <string name="readOutOpponentName">Læs modstanderens navn højt</string>
   <string name="otherCommands">Andre kommandoer</string>
   <string name="tips">Tips</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Hvis du ikke er bekendt med ovenstående notation af træk, kan du få mere at vide her:</string>
