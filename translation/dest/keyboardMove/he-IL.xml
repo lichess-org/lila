@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">הוסף צריח למשבצת b4 (רק ב־CrazyHouse)</string>
   <string name="offerOrAcceptDraw">הצע או קבל תיקו</string>
   <string name="readOutClocks">הקרא שעונים</string>
+  <string name="readOutOpponentName">הקרא את שם היריב</string>
   <string name="otherCommands">פקודות אחרות</string>
   <string name="tips">טיפים</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">אם רישום המהלכים הזה אינו מוכר לכם, למדו עוד על כך כאן:</string>
