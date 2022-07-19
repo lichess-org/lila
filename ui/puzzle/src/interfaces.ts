@@ -4,14 +4,10 @@ import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as SgConfig } from 'shogiground/config';
 import { Deferred } from 'common/defer';
 import { Outcome, Piece, Move } from 'shogiops/types';
-import { Prop } from 'common';
+import { Prop } from 'common/common';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
-import { VNode } from 'snabbdom';
 import { Shogi } from 'shogiops/shogi';
-
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 
 export type Redraw = () => void;
 
@@ -42,6 +38,7 @@ export interface Controller extends KeyboardController {
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUsi(usi: string): void;
+  playUsiList(usiList: string[]): void;
   getOrientation(): Color;
   threatMode: Prop<boolean>;
   getNode(): Tree.Node;
@@ -168,6 +165,7 @@ export interface PuzzlePlayer {
 }
 
 export interface PuzzleUser {
+  id: string;
   rating: number;
   provisional?: boolean;
 }

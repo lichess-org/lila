@@ -30,7 +30,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const autoNext = storedProp('puzzle.autoNext', false);
   const shogiground = Shogiground();
   const threatMode = prop(false);
-  const session = new PuzzleSession(opts.data.theme.key, $('body').data('user'));
+  const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -52,6 +52,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function initiate(fromData: PuzzleData): void {
     data = fromData;
+
     tree = data.game.usi
       ? treeBuild(usiToTree(data.game.usi.split(' '), opts.pref.notation))
       : treeBuild(sfenToTree(data.game.sfen!));
@@ -146,6 +147,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function playUsi(usi: Usi): void {
     sendMove(parseUsi(usi)!);
+  }
+
+  function playUsiList(usiList: Usi[]): void {
+    usiList.forEach(playUsi);
   }
 
   function playUserMove(orig: Key, dest: Key, promotion: boolean): void {
@@ -258,7 +263,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.resultSent = true;
     session.complete(data.puzzle.id, win);
     return xhr.complete(data.puzzle.id, data.theme.key, win, data.replay).then((res: PuzzleResult) => {
-      if (res?.replayComplete && data.replay) return window.lishogi.redirect(`/training/dashboard/${data.replay.days}`);
       if (res?.next.user && data.user) {
         data.user.rating = res.next.user.rating;
         data.user.provisional = res.next.user.provisional;
@@ -266,19 +270,24 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
       }
       if (win) speech.success();
-      vm.next.resolve(res.next);
+      if (res.replayComplete) vm.next.reject('replay complete');
+      else vm.next.resolve(res.next);
       redraw();
     });
   }
 
   function nextPuzzle(): void {
     ceval.stop();
-    vm.next.promise.then(initiate).then(redraw);
+    vm.next.promise.then(initiate).then(redraw).catch(redirectToDashboard);
 
     if (!data.replay) {
       const path = `/training/${data.theme.key}`;
       if (location.pathname != path) history.replaceState(null, '', path);
     }
+  }
+
+  function redirectToDashboard() {
+    if (data.replay) window.lishogi.redirect(`/training/dashboard/${data.replay.days}`);
   }
 
   function instanciateCeval(): void {
@@ -292,12 +301,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         name: 'Standard',
         key: 'standard',
       },
+      initialSfen: data.game.sfen,
       possible: true,
       emit: function (ev, work) {
         tree.updateAt(work.path, function (node) {
           if (work.threatMode) {
             if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth) node.threat = ev;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth < ev.maxDepth) node.ceval = ev;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth) node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -508,6 +518,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     userMove,
     userDrop,
     playUsi,
+    playUsiList,
     showEvalGauge() {
       return vm.showComputer() && ceval.enabled();
     },
