@@ -1,9 +1,10 @@
 import { h, VNode, Classes } from 'snabbdom';
-import { defined } from 'common';
+import { defined } from 'common/common';
+import { MaybeVNodes, MaybeVNode } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
-import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
+import { Controller } from '../interfaces';
 
 interface Ctx {
   ctrl: Controller;
@@ -153,9 +154,9 @@ export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
     node.notation,
+    puzzleGlyph(ctx, node),
     ev &&
       (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) ? renderEval('#' + ev.mate) : undefined),
-    puzzleGlyph(ctx, node),
   ];
 }
 
