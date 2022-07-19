@@ -48,7 +48,7 @@ final class Env(
   private val socket: StudySocket = wire[StudySocket]
 
   lazy val studyRepo             = new StudyRepo(studyDb(CollName("study")))
-  lazy val chapterRepo           = new ChapterRepo(studyDb(CollName("study_chapter_flat")))
+  lazy val chapterRepo           = new ChapterRepo(studyDb(CollName("study_chapter")))
   private lazy val topicRepo     = new StudyTopicRepo(studyDb(CollName("study_topic")))
   private lazy val userTopicRepo = new StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
