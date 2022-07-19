@@ -7,7 +7,7 @@ export default rollupProject({
     output: 'analysisBoard', // can't call it analyse.js, triggers adblockers :facepalm:
   },
   study: {
-    name: 'LichessAnalyseStudy',
+    name: 'LichessAnalyse',
     input: 'src/plugins/studyMain.ts',
     output: 'analysisBoard.study',
   },

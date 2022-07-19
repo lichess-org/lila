@@ -14,12 +14,12 @@ object tree {
   import trans.contact.doNotMessageModerators
   import views.html.base.navTree._
 
-  val cleanAllGood = "Your account is not marked or restricted. You're all good!";
-  val engineMarked = "Your account is marked for illegal assistance in games.";
-  val boosterMarked = "Your account is marked for rating manipulation.";
-  val accountMuted = "Your account is muted.";
+  val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
+  val engineMarked             = "Your account is marked for illegal assistance in games.";
+  val boosterMarked            = "Your account is marked for rating manipulation.";
+  val accountMuted             = "Your account is muted.";
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
-  val closedByModerators = "Your account was closed by moderators.";
+  val closedByModerators       = "Your account was closed by moderators.";
 
   private def cleanMenu(implicit ctx: Context): Branch =
     Branch(
