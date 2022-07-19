@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Dropp et tårn på b4 (kun varianten Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Tilby eller godta remis</string>
   <string name="readOutClocks">Les klokkene høyt</string>
+  <string name="readOutOpponentName">Les motstanderens navn høyt</string>
   <string name="otherCommands">Andre kommandoer</string>
   <string name="tips">Tips</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">For dem som ikke kjenner til notasjonen ovenfor, finnes mer informasjon her:</string>
