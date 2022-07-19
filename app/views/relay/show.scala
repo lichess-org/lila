@@ -40,7 +40,7 @@ object show {
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
                 writeable = ctx.userId.??(s.canChat),
-                public = false,
+                public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
                 localMod = ctx.userId.??(s.canContribute)
               )
