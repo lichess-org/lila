@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Spustite topa na b4 (samo u Crazyhouseu)</string>
   <string name="offerOrAcceptDraw">Ponudite ili prihvatite remi</string>
   <string name="readOutClocks">Pročitati vremena naglas</string>
+  <string name="readOutOpponentName">Pročitaj protivnikovo ime naglas</string>
   <string name="otherCommands">Druge komande</string>
   <string name="tips">Savjeti</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Ako Vam je zapis poteza iznad nepoznat, naučite više ovdje:</string>
