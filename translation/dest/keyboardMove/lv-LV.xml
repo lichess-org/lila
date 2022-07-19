@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Novietot torni lauciņā b4 (tikai Crazyhouse variantā)</string>
   <string name="offerOrAcceptDraw">Piedāvāt vai vienoties par neizširtu</string>
   <string name="readOutClocks">Nolasīt spēlētājiem atlikušo laiku</string>
+  <string name="readOutOpponentName">Nolasīt pretiniekā vārdu</string>
   <string name="otherCommands">Citas komandas</string>
   <string name="tips">Ieteikumi</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Ja nepazīstiet augšup redzamo gājienu pierakstu, varat uzzināt vairāk šeit:</string>
