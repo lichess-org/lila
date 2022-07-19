@@ -1,6 +1,6 @@
 import throttle from './throttle';
 
-export function runner(hacks: () => void, throttleMs: number = 100): void {
+export const runner = (hacks: () => void, throttleMs: number = 100) => {
   let timeout: number | undefined;
 
   const runHacks = throttle(throttleMs, () =>
@@ -16,13 +16,13 @@ export function runner(hacks: () => void, throttleMs: number = 100): void {
   }
 
   runHacks();
-}
+};
 
 let boundShogigroundResize = false;
 
-export function bindShogigroundResizeOnce(f: () => void): void {
+export const bindShogigroundResizeOnce = (f: () => void) => {
   if (!boundShogigroundResize) {
     boundShogigroundResize = true;
     document.body.addEventListener('shogiground.resize', f);
   }
-}
+};
