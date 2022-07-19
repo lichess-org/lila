@@ -23,8 +23,8 @@
   "dependencies": {
     "common": "2.0.0",
     "debounce-promise": "^3.1.2",
-    "shogiground": "0.5.3",
-    "shogiops": "^0.8.1",
+    "shogiground": "^0.5.5",
+    "shogiops": "^0.9.0",
     "snabbdom": "^3.5.1"
   },
   "scripts": {
