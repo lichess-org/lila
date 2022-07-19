@@ -9,18 +9,18 @@ sealed class SoundSet private[pref] (val key: String, val name: String) {
 
 object SoundSet {
 
-  val default = new SoundSet("shogi2", "Shogi2")
+  val default = new SoundSet("shogi", "Shogi")
   val silent  = new SoundSet("silent", "Silent")
 
   val list = List(
     silent,
-    new SoundSet("standard", "Standard"),
+    new SoundSet("standard", "Chess"),
     new SoundSet("nes", "NES"),
     new SoundSet("sfx", "SFX"),
     new SoundSet("futuristic", "Futuristic"),
     new SoundSet("robot", "Robot"),
     new SoundSet("music", "Pentatonic"),
-    new SoundSet("shogi1", "Shogi1"),
+    new SoundSet("shogiAlt", "Shogi Alternative"),
     default,
     new SoundSet("speech", "Speech")
   )
@@ -35,7 +35,4 @@ object SoundSet {
   def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
 
   def contains(key: String) = allByKey contains key.toLowerCase
-
-  def name2key(name: String): String =
-    allByName.get(name).fold(name.toLowerCase)(_.key)
 }

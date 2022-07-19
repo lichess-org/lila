@@ -82,7 +82,7 @@ private object PrefHandlers {
         "theme"           -> o.theme,
         "customTheme"     -> o.customTheme,
         "pieceSet"        -> o.pieceSet,
-        "soundSet"        -> SoundSet.name2key(o.soundSet),
+        "soundSet"        -> o.soundSet,
         "blindfold"       -> o.blindfold,
         "takeback"        -> o.takeback,
         "moretime"        -> o.moretime,
