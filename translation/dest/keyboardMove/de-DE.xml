@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Platziere einen Turm auf b4 (Nur in der Crazyhouse-Variante)</string>
   <string name="offerOrAcceptDraw">Biete oder nimm ein Remis an</string>
   <string name="readOutClocks">Die Schachuhr vorlesen</string>
+  <string name="readOutOpponentName">Den Namen des Gegners vorlesen</string>
   <string name="otherCommands">Andere Befehle</string>
   <string name="tips">Tipps</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Wenn dir die oben gezeigte Notation nicht vertraut ist, kannst du hier mehr darüber erfahren:</string>
