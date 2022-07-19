@@ -9,6 +9,7 @@
   <string name="dropARookAtB4">Pune o tură la b4 (doar în varianta Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Oferă sau acceptă remiză</string>
   <string name="readOutClocks">Citește ceasurile</string>
+  <string name="readOutOpponentName">Citește numele adversarului</string>
   <string name="otherCommands">Alte comenzi</string>
   <string name="tips">Sfaturi</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Dacă notația de mai sus nu este cunoscută, aflați mai multe aici:</string>
