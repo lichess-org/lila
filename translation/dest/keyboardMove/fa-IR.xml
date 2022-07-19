@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">قلعه را در b4 رها کنید</string>
   <string name="offerOrAcceptDraw">پیشنهاد یا قبول تساوی</string>
   <string name="readOutClocks">اعلام ساعت</string>
+  <string name="readOutOpponentName">نام حریف را بخوانید</string>
   <string name="otherCommands">سایر دستورات</string>
   <string name="tips">نکات</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">اگر با نماد حرکت فوق آسنا نیستید، اینجا بیشتر بیاموزید:</string>
