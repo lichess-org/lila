@@ -57,7 +57,7 @@ object Info {
 
   import Eval.{ Cp, Mate }
 
-  val LineMaxPlies = 16
+  val LineMaxPlies = 12
 
   private val separator     = ","
   private val listSeparator = ";"
@@ -68,22 +68,20 @@ object Info {
   private def strMate(s: String) = s.toIntOption map Mate.apply
 
   // 103,,Pg6 Ph4,Ph4
-  private def decode(ply: Int, str: String): Option[Info] =
+  private def decode(ply: Int, str: String): Info =
     str.split(separator) match {
-      case Array()           => Info(ply, Eval.empty).some
-      case Array(cp)         => Info(ply, Eval(strCp(cp), None, None)).some
-      case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
-      case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList).some
+      case Array(cp)         => Info(ply, Eval(strCp(cp), None, None))
+      case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None))
+      case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList)
       case Array(cp, ma, va, be) =>
-        Info(ply, Eval(strCp(cp), strMate(ma), Usi apply be), va.split(' ').toList).some
-      case _ => none
+        Info(ply, Eval(strCp(cp), strMate(ma), Usi apply be), va.split(' ').toList)
+      case _                 => Info(ply, Eval.empty)
     }
 
-  def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
+  def decodeList(str: String, fromPly: Int): List[Info] =
     str.split(listSeparator).toList.zipWithIndex map { case (infoStr, index) =>
       decode(index + 1 + fromPly, infoStr)
     }
-  }.sequence
 
   def encodeList(infos: List[Info]): String = infos map (_.encode) mkString listSeparator
 

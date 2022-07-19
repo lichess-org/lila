@@ -61,7 +61,7 @@ object Analysis {
       Analysis(
         id = r str "_id",
         studyId = r strO "studyId",
-        infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
+        infos = Info.decodeList(raw, startPly),
         startPly = startPly,
         uid = r strO "uid",
         by = r strO "by",
