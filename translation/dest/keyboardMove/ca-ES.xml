@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Deixar una torre a b4 (Variant d\'escacs bojos només)</string>
   <string name="offerOrAcceptDraw">Oferir o acceptar taules</string>
   <string name="readOutClocks">Llegir els rellotges</string>
+  <string name="readOutOpponentName">Llegeix el nom del rival</string>
   <string name="otherCommands">Altres comandes</string>
   <string name="tips">Consells</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Si aquesta notació no us es familiar, en podeu descobrir més aquí:</string>
