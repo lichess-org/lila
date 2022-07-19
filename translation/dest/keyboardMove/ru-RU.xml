@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Выставить ладью на b4 (в варианте Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Предложить или принять ничью</string>
   <string name="readOutClocks">Проговорить время на часах</string>
+  <string name="readOutOpponentName">Проговорить имя противника</string>
   <string name="otherCommands">Другие команды</string>
   <string name="tips">Советы</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Если нотация команд непонятна, изучите её по ссылке:</string>
