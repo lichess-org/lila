@@ -20,7 +20,7 @@ module.exports = function (ctrl) {
     m(
       'div',
       trans(ctrl, 'nbPlaying', function (p) {
-        return p.game.status < status.ids.mate;
+        return p.game.status < status.ids.aborted;
       })
     ),
     m(
