@@ -10,6 +10,7 @@
   <string name="youCanAnalyseAGameMoreEffectively">Môžete efektívnejšie analyzovať partie, ak nebudete neustále potrebovať hľadať názvy polí.</string>
   <string name="youHaveThirtySeconds">Máte 30 sekúnd na to aby ste správne klikli na čo najviac políčok!</string>
   <string name="goAsLongAsYouWant">Trénujte do ľubovôle, nie ste limitovaní časom!</string>
+  <string name="showCoordinates">Ukázať súradnice</string>
   <string name="startTraining">Začať tréning</string>
   <string name="findSquare">Nájsť pole</string>
   <string name="nameSquare">Pomenovať pole</string>
