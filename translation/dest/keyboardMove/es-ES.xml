@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Colocar una torre en b4 (solo variante Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Ofrecer o aceptar tablas</string>
   <string name="readOutClocks">Leer relojes</string>
+  <string name="readOutOpponentName">Leer el nombre del oponente</string>
   <string name="otherCommands">Otros comandos</string>
   <string name="tips">Sugerencias</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Si la notación de movimiento anterior es desconocida, aprende más aquí:</string>
