@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Pastatyti bokštą ties b4 (tik Crazyhouse variante)</string>
   <string name="offerOrAcceptDraw">Pasiūlyti ar priimti lygiąsias</string>
   <string name="readOutClocks">Garsiai perskaityti laikrodžius</string>
+  <string name="readOutOpponentName">Perskaityti priešininko vardą</string>
   <string name="otherCommands">Kitos komandos</string>
   <string name="tips">Patarimai</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Jei pateiktas užrašymo būdas nepažįstamas sužinokite daugiau čia:</string>
