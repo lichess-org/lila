@@ -25,36 +25,16 @@ object TreeBuilder {
   def apply(
       game: lila.game.Game,
       analysis: Option[Analysis],
-      initialSfen: Sfen,
       withFlags: WithFlags
-  ): Root =
-    apply(
-      id = game.id,
-      usiMoves = game.usiMoves,
-      variant = game.variant,
-      analysis = analysis,
-      initialSfen = initialSfen,
-      withFlags = withFlags,
-      clocks = withFlags.clocks ?? game.bothClockStates
-    )
-
-  def apply(
-      id: String,
-      usiMoves: Vector[Usi],
-      variant: Variant,
-      analysis: Option[Analysis],
-      initialSfen: Sfen,
-      withFlags: WithFlags,
-      clocks: Option[Vector[Centis]]
   ): Root = {
-    val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? clocks
-    shogi.Replay.gamesWhileValid(usiMoves, initialSfen.some, variant) match {
+    val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
+    shogi.Replay.gamesWhileValid(game.usiMoves, game.initialSfen, game.variant) match {
       case (gamesWithInit, error) =>
-        error foreach logShogiError(id)
+        error foreach logShogiError(game.id)
         val init  = gamesWithInit.head
         val games = gamesWithInit.tail
         val openingOf: OpeningOf =
-          if (withFlags.opening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findBySfen
+          if (withFlags.opening && Variant.openingSensibleVariants(game.variant)) FullOpeningDB.findBySfen
           else _ => None
         val sfen                = init.toSfen
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
@@ -66,7 +46,9 @@ object TreeBuilder {
           sfen = sfen,
           check = init.situation.check,
           opening = openingOf(sfen),
-          clock = withClocks.flatMap(_.headOption),
+          clock = withFlags.clocks ?? game.clock.map { c =>
+            Centis.ofSeconds(c.limitSeconds)
+          },
           eval = infos lift 0 map makeEval
         )
         def makeBranch(index: Int, g: shogi.Game, usi: Usi) = {
@@ -95,11 +77,11 @@ object TreeBuilder {
           )
           advices.get(g.plies + 1).flatMap { adv =>
             games.lift(index - 1).map { fromGame =>
-              withAnalysisChild(id, branch, variant, fromGame.toSfen, openingOf)(adv.info)
+              withAnalysisChild(game.id, branch, game.variant, fromGame.toSfen, openingOf)(adv.info)
             }
           } getOrElse branch
         }
-        games.zip(usiMoves).zipWithIndex.reverse match {
+        games.zip(game.usiMoves).zipWithIndex.reverse match {
           case Nil => root
           case ((g, m), i) :: rest =>
             root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
