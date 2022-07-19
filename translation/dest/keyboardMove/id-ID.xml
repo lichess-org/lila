@@ -2,5 +2,5 @@
 <resources>
   <string name="kingsideCastle">Rokade pendek</string>
   <string name="queensideCastle">Rokade panjang</string>
-  <string name="promoteC8ToQueen" comment="promoteC8ToQueen&#10;&#10;Note: Coordinates (A-G) currently remain the same regardless of which language the user has selected.">Promosi mentri di petak c8</string>
+  <string name="promoteC8ToQueen">Promosi mentri di petak c8</string>
 </resources>
