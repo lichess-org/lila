@@ -190,21 +190,21 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
     coll(_.exists($id(studyId) ++ (s"members.$userId" $exists true)))
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
-    countLikes(studyId).flatMap {
-      case None => fuccess(Study.Likes(0))
-      case Some((prevLikes, createdAt)) =>
-        val likes = Study.Likes(prevLikes.value + (if (v) 1 else -1))
-        coll {
-          _.update.one(
-            $id(studyId),
-            $set(
-              F.likes -> likes,
-              F.rank  -> Study.Rank.compute(likes, createdAt)
-            ) ++ {
-              if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)
-            }
-          ) inject likes
+    coll { c =>
+      c.update.one($id(studyId), if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)) >> {
+        countLikes(studyId).flatMap {
+          case None                     => fuccess(Study.Likes(0))
+          case Some((likes, createdAt)) =>
+            // Multiple updates may race to set denormalized likes and rank,
+            // but values should be approximately correct, match a real like
+            // count (though perhaps not the latest one), and any uncontended
+            // query will set the precisely correct value.
+            c.update.one(
+              $id(studyId),
+              $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
+            ) inject likes
         }
+      }
     }
 
   def liked(study: Study, user: User): Fu[Boolean] =
