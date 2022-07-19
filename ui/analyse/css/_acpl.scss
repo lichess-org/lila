@@ -20,11 +20,13 @@
   .color-icon::before {
     vertical-align: text-bottom;
   }
-  tr.symbol {
-    cursor: pointer;
-  }
-  tr.symbol:hover {
-    color: #3893e8;
+  tr {
+    &.symbol {
+      cursor: pointer;
+      &:hover {
+        color: #3893e8;
+      }
+    }
   }
   .button {
     margin: 0.6em 0;

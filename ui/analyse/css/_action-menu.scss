@@ -88,6 +88,9 @@
       height: 1.6em;
       width: 100%;
     }
+    &[min='0'] {
+      padding: 0;
+    }
     .range_value {
       flex: 0 0 auto;
       display: block;

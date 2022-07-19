@@ -10,13 +10,16 @@
   }
   move {
     @extend %move;
+    @media (hover: none) {
+      user-select: none;
+    }
   }
   &-column move {
     font-size: 1.092em;
     padding: 0 2px;
   }
   &-inline move {
-    padding: 0.25em 0.17em;
+    padding: 0.25em 0.2em;
     white-space: nowrap;
     font-weight: bold;
   }
@@ -31,10 +34,15 @@
   }
   move.active {
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: mix($c-primary, $c-bg-box, 25%);
+    color: $c-font-clear;
   }
-  &-inline move.active {
+  &-inline move.active,
+  line move.active {
     @extend %box-radius;
+    background: mix($c-primary, $c-bg-box, 40%);
+    color: $c-font-clearer;
+    outline: 1px solid mix($c-primary, $c-bg-box, 60%);
   }
   move.nongame {
     font-style: italic;
