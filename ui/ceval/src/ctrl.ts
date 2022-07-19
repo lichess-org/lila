@@ -1,24 +1,21 @@
-import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
-import { Pool } from './pool';
-import { prop } from 'common';
+import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
+
+import { Result } from '@badrap/result';
+import { AbstractWorker, ThreadedWasmWorker } from './worker';
+import { prop } from 'common/common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
+import { Cache } from './cache';
+import { parseSfen } from 'shogiops/sfen';
+import { Position } from 'shogiops/shogi';
+import { defaultPosition } from 'shogiops/variant';
 
-const li = window.lishogi;
-
-function is64Bit(): boolean {
-  const x64 = ['x86_64', 'x86-64', 'Win64', 'x64', 'amd64', 'AMD64'];
-  for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
-  return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
+function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
+  return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
 }
 
-function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
-  // In theory 32 bit should be supported just the same, but some 32 bit
-  // browser builds seem to have trouble with WASMX. So for now detect and
-  // require a 64 bit platform.
-  if (!is64Bit()) return;
-
+function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
   // Atomics
   if (typeof Atomics !== 'object') return;
 
@@ -26,11 +23,7 @@ function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory 
   if (typeof SharedArrayBuffer !== 'function') return;
 
   // Shared memory
-  const mem = new WebAssembly.Memory({
-    shared: true,
-    initial,
-    maximum,
-  } as WebAssembly.MemoryDescriptor);
+  const mem = sharedWasmMemory(initial, maximum);
   if (!(mem.buffer instanceof SharedArrayBuffer)) return;
 
   // Structured cloning
@@ -43,144 +36,181 @@ function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory 
   return mem;
 }
 
-function median(values: number[]): number {
-  values.sort((a, b) => a - b);
-  const half = Math.floor(values.length / 2);
-  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2.0;
+function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
+  const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);
+  switch (technology) {
+    case 'none':
+      return 0;
+    case 'hce':
+      return 18 + extraDepth;
+    case 'nnue':
+      return 20 + extraDepth;
+  }
+}
+
+function engineName(technology: CevalTechnology): string {
+  switch (technology) {
+    case 'none':
+      return 'None';
+    case 'hce':
+      return 'Fairy Stockfish';
+    case 'nnue':
+      return 'YaneuraOu K-P';
+  }
+}
+
+const cevalDisabledSentinel = '1';
+
+function enabledAfterDisable() {
+  const enabledAfter = window.lishogi.tempStorage.get('ceval.enabled-after');
+  const disable = window.lishogi.storage.get('ceval.disable') || cevalDisabledSentinel;
+  return enabledAfter === disable;
+}
+
+function isStandardMaterial(pos: Position) {
+  const board = pos.board,
+    hands = pos.hands.sente.add(pos.hands.gote);
+  return (
+    board.pawn.size() + board.tokin.size() + hands.pawn <= 18 &&
+    board.lance.size() + board.promotedlance.size() + hands.lance <= 4 &&
+    board.knight.size() + board.promotedknight.size() + hands.knight <= 4 &&
+    board.silver.size() + board.promotedsilver.size() + hands.silver <= 4 &&
+    board.gold.size() + hands.gold <= 4 &&
+    board.rook.size() + board.dragon.size() + hands.rook <= 2 &&
+    board.bishop.size() + board.horse.size() + hands.bishop <= 2 &&
+    board.king.size() == 2 &&
+    board.king.intersect(board.sente).size() === 1
+  );
 }
 
 export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
+  const enableNnue = storedProp('ceval.enable-nnue', true);
 
-  // select wasmx with growable shared mem > wasmx > wasm > asmjs
-  let technology: CevalTechnology = 'asmjs';
+  // check root position
+  const pos = opts.initialSfen
+    ? parseSfen(opts.variant.key, opts.initialSfen, false)
+    : Result.ok(defaultPosition(opts.variant.key));
+  const analysable = pos.isOk;
+
+  // select nnue > hce > none
+  const useYaneuraou = !analysable || (pos.value.rules === 'standard' && isStandardMaterial(pos.value));
+  let supportsNnue = false;
+  let technology: CevalTechnology = 'none';
   let growableSharedMem = false;
-  const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
+  const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
-    technology = 'wasm'; // WebAssembly 1.0
-    const sharedMem = sharedWasmMemory(8, 16);
+    const sharedMem = sendableSharedWasmMemory(8, 16);
     if (sharedMem) {
-      technology = 'wasmx';
+      technology = 'hce';
+
+      // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
+      const sourceWithSimd = Uint8Array.from([
+        0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9, 2, 1,
+        97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1, 11,
+      ]);
+      supportsNnue = WebAssembly.validate(sourceWithSimd);
+      if (useYaneuraou && enableNnue()) technology = 'nnue';
+
       try {
         sharedMem.grow(8);
         growableSharedMem = true;
-      } catch (e) {}
+      } catch (e) {
+        // memory growth not supported
+      }
     }
   }
 
-  const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 16 : 2);
-  const threads = storedProp(
-    storageKey('ceval.threads'),
-    Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads)
+  const initialAllocationMaxThreads = useYaneuraou ? 2 : 1;
+  const maxThreads = Math.min(
+    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+    growableSharedMem ? 32 : initialAllocationMaxThreads
   );
+  const threads = () => {
+    const stored = window.lishogi.storage.get(storageKey('ceval.threads'));
+    return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
+  };
 
-  const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
-  const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
+  const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
+  const maxHashSize = Math.min(
+    ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
+    growableSharedMem ? 1024 : 16
+  );
+  const hashSize = () => {
+    const stored = window.lishogi.storage.get(storageKey('ceval.hash-size'));
+    return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
+  };
 
-  const minDepth = 6;
-  const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
-  let curEval: Tree.ClientEval | null = null;
-  const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
+  let curEval: Tree.LocalEval | null = null;
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enableStorage.get() && !document.hidden);
-  let started: Started | false = false;
+  const enabled = prop(technology !== 'none' && opts.possible && analysable && allowed() && enabledAfterDisable());
+  const downloadProgress = prop(0);
+  let running = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
+  const pvBoard = prop<PvBoard | null>(null);
   const isDeeper = prop(false);
 
-  const pool = new Pool(
-    {
-      technology,
-      asmjs: 'vendor/stockfish.js/stockfish.js',
-      wasm: 'vendor/stockfish.js/stockfish.wasm.js',
-      wasmx: 'vendor/stockfish.wasm/stockfish.js',
-    },
-    {
-      minDepth,
-      variant: opts.variant.key,
-      threads: technology == 'wasmx' && (() => Math.min(parseInt(threads()), maxThreads)),
-      hashSize: technology == 'wasmx' && (() => Math.min(parseInt(hashSize()), maxHashSize)),
-    }
-  );
-
-  // adjusts maxDepth based on nodes per second
-  const npsRecorder = (function () {
-    const values: number[] = [];
-    const applies = (ev: Tree.ClientEval) => {
-      return (
-        ev.knps &&
-        ev.depth >= 16 &&
-        typeof ev.cp !== 'undefined' &&
-        Math.abs(ev.cp) < 500 &&
-        ev.sfen.split(/\s/)[0].split(/[lnsgkbrkp]/i).length - 1 >= 10
-      );
-    };
-    return function (ev: Tree.ClientEval) {
-      if (!applies(ev)) return;
-      values.push(ev.knps);
-      if (values.length > 9) {
-        const knps = median(values) || 0;
-        let depth = 18;
-        if (knps > 100) depth = 19;
-        if (knps > 150) depth = 20;
-        if (knps > 250) depth = 21;
-        if (knps > 500) depth = 22;
-        if (knps > 1000) depth = 23;
-        if (knps > 2000) depth = 24;
-        if (knps > 3500) depth = 25;
-        if (knps > 5000) depth = 26;
-        if (knps > 7000) depth = 27;
-        maxDepth(depth);
-        if (values.length > 40) values.shift();
-      }
-    };
-  })();
+  let worker: AbstractWorker<unknown> | undefined;
 
   let lastEmitSfen: string | null = null;
-
-  const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
+  const onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
     sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'sente' : 'gote');
-    npsRecorder(ev);
     curEval = ev;
     opts.emit(ev, work);
-    if (ev.sfen !== lastEmitSfen) {
+    if (ev.sfen !== lastEmitSfen && enabledAfterDisable()) {
+      // amnesty while auto disable not processed
       lastEmitSfen = ev.sfen;
-      li.storage.fire('ceval.sfen', ev.sfen);
+      window.lishogi.storage.fire('ceval.sfen', ev.sfen);
     }
   });
 
-  const effectiveMaxDepth = () => (isDeeper() || infinite() ? 99 : parseInt(maxDepth()));
+  const curDepth = () => (curEval ? curEval.depth : 0);
+
+  const effectiveMaxDepth = () =>
+    isDeeper() || infinite() ? 99 : defaultDepth(technology, threads(), parseInt(multiPv()));
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort(function (a, b) {
       return povChances(color, b) - povChances(color, a);
     });
 
-  const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
-    if (!enabled() || !opts.possible) return;
+  const start = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
+    if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
-    isDeeper(deeper);
-    const maxD = effectiveMaxDepth();
+    const maxDepth = effectiveMaxDepth();
 
     const step = steps[steps.length - 1];
 
     const existing = threatMode ? step.threat : step.ceval;
-    if (existing && existing.depth >= maxD) return;
+    if (existing && existing.depth >= maxDepth) {
+      lastStarted = {
+        path,
+        steps,
+        threatMode,
+      };
+      return;
+    }
 
     const work: Work = {
+      variant: opts.variant.key,
+      threads: threads(),
+      hashSize: hashSize(),
+      stopRequested: false,
+
       initialSfen: steps[0].sfen,
       moves: [],
       currentSfen: step.sfen,
       path,
       ply: step.ply,
-      maxDepth: maxD,
+      maxDepth,
       multiPv: parseInt(multiPv()),
       threatMode,
-      emit(ev: Tree.ClientEval) {
+      emit(ev: Tree.LocalEval) {
         if (enabled()) onEmit(ev, work);
       },
     };
@@ -197,9 +227,36 @@ export default function (opts: CevalOpts): CevalCtrl {
       }
     }
 
-    pool.start(work);
+    // Notify all other tabs to disable ceval.
+    window.lishogi.storage.fire('ceval.disable');
+    window.lishogi.tempStorage.set('ceval.enabled-after', window.lishogi.storage.get('ceval.disable')!);
 
-    started = {
+    if (!worker) {
+      if (technology == 'nnue')
+        worker = new ThreadedWasmWorker({
+          baseName: 'yaneuraou.k-p',
+          baseUrl: 'vendor/yaneuraou.k-p/lib/',
+          module: 'YaneuraOu_K_P',
+          downloadProgress: throttle(200, mb => {
+            downloadProgress(mb);
+            opts.redraw();
+          }),
+          version: 'c9c34f2',
+          cache: new Cache('ceval-wasm-cache'),
+        });
+      else if (technology == 'hce')
+        worker = new ThreadedWasmWorker({
+          baseName: 'stockfish',
+          baseUrl: 'vendor/fairy/',
+          module: 'Stockfish',
+          version: '014622b',
+        });
+    }
+
+    if (worker) worker.start(work);
+
+    running = true;
+    lastStarted = {
       path,
       steps,
       threatMode,
@@ -207,42 +264,54 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
 
   function goDeeper() {
-    const s = started || lastStarted;
-    if (s) {
-      stop();
-      start(s.path, s.steps, s.threatMode, true);
+    isDeeper(true);
+    if (lastStarted) {
+      if (infinite()) {
+        if (curEval) opts.emit(curEval, lastStarted);
+      } else {
+        stop();
+        start(lastStarted.path, lastStarted.steps, lastStarted.threatMode);
+      }
     }
   }
 
   function stop() {
-    if (!enabled() || !started) return;
-    pool.stop();
-    lastStarted = started;
-    started = false;
+    if (!enabled() || !running) return;
+    worker?.stop();
+    running = false;
   }
 
-  // ask other tabs if a game is in progress
-  if (enabled()) {
-    li.storage.fire('ceval.sfen', 'start');
-    li.storage.make('round.ongoing').listen(_ => {
-      enabled(false);
-      opts.redraw();
-    });
-  }
+  const showingCloud = (): boolean => {
+    if (!lastStarted) return false;
+    const curr = lastStarted.steps[lastStarted.steps.length - 1];
+    return !!curr.ceval?.cloud;
+  };
 
   return {
     technology,
-    start,
+    start: (path, steps, threadMode) => {
+      isDeeper(false);
+      start(path, steps, !!threadMode);
+    },
     stop,
     allowed,
     possible: opts.possible,
     enabled,
+    downloadProgress,
     multiPv,
-    threads: technology == 'wasmx' ? threads : undefined,
-    hashSize: technology == 'wasmx' ? hashSize : undefined,
+    threads,
+    setThreads(threads: number) {
+      window.lishogi.storage.set(storageKey('ceval.threads'), threads.toString());
+    },
     maxThreads,
+    hashSize,
+    setHashSize(hash: number) {
+      window.lishogi.storage.set(storageKey('ceval.hash-size'), hash.toString());
+    },
     maxHashSize,
     infinite,
+    supportsNnue,
+    enableNnue,
     hovering,
     setHovering(sfen: Sfen, usi?: Usi) {
       hovering(
@@ -255,21 +324,39 @@ export default function (opts: CevalOpts): CevalCtrl {
       );
       opts.setAutoShapes();
     },
+    pvBoard,
+    setPvBoard(_pvBoard: PvBoard | null) {
+      pvBoard(_pvBoard);
+      opts.redraw();
+    },
     toggle() {
       if (!opts.possible || !allowed()) return;
       stop();
-      enabled(!enabled());
-      if (document.visibilityState !== 'hidden') enableStorage.set(enabled());
+      if (!enabled() && !document.hidden) {
+        const disable = window.lishogi.storage.get('ceval.disable') || cevalDisabledSentinel;
+        if (disable) window.lishogi.tempStorage.set('ceval.enabled-after', disable);
+        enabled(true);
+      } else {
+        window.lishogi.tempStorage.set('ceval.enabled-after', '');
+        enabled(false);
+      }
     },
-    curDepth: () => (curEval ? curEval.depth : 0),
+    curDepth,
     effectiveMaxDepth,
     variant: opts.variant,
     isDeeper,
     goDeeper,
-    canGoDeeper: () => !isDeeper() && !infinite() && !pool.isComputing(),
-    isComputing: () => !!started && pool.isComputing(),
-    engineName: pool.engineName,
-    destroy: pool.destroy,
+    canGoDeeper: () =>
+      technology !== 'none' &&
+      curDepth() < 99 &&
+      !isDeeper() &&
+      ((!infinite() && !worker?.isComputing()) || showingCloud()),
+    isComputing: () => !!running && !!worker?.isComputing(),
+    engineName: engineName(technology),
+    longEngineName: () => worker?.engineName(),
+    destroy: () => worker?.destroy(),
     redraw: opts.redraw,
+    cachable: technology == 'nnue' || technology == 'hce',
+    analysable,
   };
 }

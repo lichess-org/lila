@@ -1,22 +1,20 @@
 import { Outcome } from 'shogiops/types';
-import { Prop } from 'common';
-import { StoredProp, StoredBooleanProp } from 'common/storage';
+import { Prop } from 'common/common';
+import { StoredBooleanProp, StoredProp } from 'common/storage';
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'wasmx';
+export type CevalTechnology = 'hce' | 'nnue' | 'none'; // at least show cloud analysis for none
 
 export interface Eval {
   cp?: number;
   mate?: number;
 }
 
-export interface WorkerOpts {
-  variant: VariantKey;
-  threads: false | (() => number | string);
-  hashSize: false | (() => number | string);
-  minDepth: number;
-}
-
 export interface Work {
+  variant: VariantKey;
+  threads: number;
+  hashSize: number | undefined;
+  stopRequested: boolean;
+
   path: string;
   maxDepth: number;
   multiPv: number;
@@ -25,14 +23,12 @@ export interface Work {
   initialSfen: string;
   currentSfen: string;
   moves: string[];
-  emit: (ev: Tree.ClientEval) => void;
+  emit: (ev: Tree.LocalEval) => void;
 }
 
-export interface PoolOpts {
-  technology: CevalTechnology;
-  wasm: string;
-  wasmx: string;
-  asmjs: string;
+export interface EvalMeta {
+  path: string;
+  threatMode: boolean;
 }
 
 export interface CevalOpts {
@@ -40,12 +36,18 @@ export interface CevalOpts {
   multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
-  emit: (ev: Tree.ClientEval, work: Work) => void;
+  initialSfen: string | undefined;
+  emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
-  redraw(): void;
+  redraw: () => void;
 }
 
 export interface Hovering {
+  sfen: string;
+  usi: string;
+}
+
+export interface PvBoard {
   sfen: string;
   usi: string;
 }
@@ -61,22 +63,32 @@ export interface CevalCtrl {
   canGoDeeper(): boolean;
   effectiveMaxDepth(): number;
   technology: CevalTechnology;
+  downloadProgress: Prop<number>;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;
+  analysable: boolean;
+  cachable: boolean;
   isComputing(): boolean;
-  engineName(): string | undefined;
+  engineName: string;
+  longEngineName(): string | undefined;
   variant: Variant;
   setHovering: (sfen: string, usi?: string) => void;
+  setPvBoard: (pvBoard: PvBoard | null) => void;
   multiPv: StoredProp<number>;
-  start: (path: string, steps: Step[], threatMode?: boolean, deeper?: boolean) => void;
+  start: (path: string, steps: Step[], threatMode?: boolean) => void;
   stop(): void;
-  threads: StoredProp<number> | undefined;
-  hashSize: StoredProp<number> | undefined;
+  threads(): number;
+  setThreads(threads: number): void;
   maxThreads: number;
+  hashSize(): number;
+  setHashSize(hash: number): void;
   maxHashSize: number;
   infinite: StoredBooleanProp;
+  supportsNnue: boolean;
+  enableNnue: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
+  pvBoard: Prop<PvBoard | null>;
   toggle(): void;
   curDepth(): number;
   isDeeper(): boolean;
@@ -96,12 +108,13 @@ export interface ParentCtrl {
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUsi(usi: string): void;
+  playUsiList(usiList: string[]): void;
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;
   showComputer(): boolean;
   trans: Trans;
-  data?: any;
+  data: any;
 }
 
 export interface NodeEvals {
@@ -113,6 +126,7 @@ export interface Step {
   ply: number;
   sfen: string;
   usi?: string;
+  notation?: string;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;
 }

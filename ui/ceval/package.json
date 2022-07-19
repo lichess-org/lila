@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiops": "^0.8.1",
-    "snabbdom": "^3.5.1"
+    "shogiops": "^0.9.0",
+    "snabbdom": "^3.5.1",
+    "idb-keyval": "^6.1.0"
   }
 }

@@ -1,11 +1,23 @@
 .pv_box {
+  position: relative;
   background: $c-bg-box;
   font-size: 13px;
   .pv {
-    @extend %nowrap-ellipsis;
-    height: 2em;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
     line-height: 2em;
     border-top: $border;
+    padding-right: 16px;
+    min-height: 4em;
+
+    &.pv--nowrap {
+      display: block; // "flex" doesn't support ellipsis so switch back to "block"
+      flex-wrap: initial;
+      min-height: 2em;
+      height: 2em;
+      @extend %nowrap-ellipsis;
+    }
     &[data-usi]:hover {
       background: mix($c-secondary, $c-bg-box, 20%);
       cursor: pointer;
@@ -17,7 +29,51 @@
     }
     span {
       @extend %move-notation;
-      margin-left: 4px;
+      display: inline-block; // takes whole height - easier to hover then
+      margin-left: 6px;
+    }
+
+    &[data-usi] .pv-move:hover {
+      color: $c-primary;
+    }
+    .pv-wrap-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0 3px;
+      margin: 0;
+      cursor: pointer;
+
+      &:hover {
+        background: $c-secondary;
+        color: $c-secondary-over;
+      }
+      &::before {
+        content: '▲';
+      }
+    }
+
+    &.pv--nowrap .pv-wrap-toggle::before {
+      content: '▼';
+    }
+  }
+
+  .pv-board {
+    @extend %popup-shadow;
+    position: absolute;
+    width: 80%;
+    max-width: 240px;
+    right: 8px; // so moves are still visible
+    margin-top: 8px;
+    z-index: 1;
+    sg-hand-wrap {
+      background: $c-bg-zebra;
+      .hand-top {
+        @extend %box-radius-top;
+      }
+      .hand-bottom {
+        @extend %box-radius-bottom;
+      }
     }
   }
 }
