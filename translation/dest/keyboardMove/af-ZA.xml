@@ -9,6 +9,7 @@
   <string name="promoteC8ToQueen">Promoveer c8 na dame</string>
   <string name="offerOrAcceptDraw">Bied of aanvaar \'n gelykop</string>
   <string name="readOutClocks">Lees die horlosies hardop</string>
+  <string name="readOutOpponentName">Lees opponent se naam uit</string>
   <string name="otherCommands">Ander bevele</string>
   <string name="tips">Wenke</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Indien bogenoemde notasie vir jou onbekend is, leer meer hier:</string>
