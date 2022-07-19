@@ -28,8 +28,8 @@ private object BSONHandlers {
     private def movesWrite(moves: Moves): String = moves.value.toList.map(_.usi) mkString " "
     private def movesRead(str: String): Option[Moves] =
       Usi readList str flatMap (_.toNel) map Moves.apply
-    private val scoreSeparator = '@'
-    private val pvSeparator    = '?'
+    private val scoreSeparator = ':'
+    private val pvSeparator    = '/'
     private val pvSeparatorStr = pvSeparator.toString
     def readTry(bs: BSONValue) =
       bs match {
@@ -60,12 +60,12 @@ private object BSONHandlers {
 
   implicit val EntryIdHandler = tryHandler[Id](
     { case BSONString(value) =>
-      value split '@' match {
+      value split ':' match {
         case Array(sfen) => Success(Id(shogi.variant.Standard, SmallSfen raw sfen))
         case Array(variantId, sfen) =>
           Success(
             Id(
-              variantId.toIntOption flatMap shogi.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+              shogi.variant.Variant.orDefault(~variantId.toIntOption),
               SmallSfen raw sfen
             )
           )
