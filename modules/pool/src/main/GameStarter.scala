@@ -75,7 +75,6 @@ final private class GameStarter(
         situation = shogi.Situation(shogi.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      initialSfen = None,
       sentePlayer = Player.make(shogi.Sente, senteUser),
       gotePlayer = Player.make(shogi.Gote, goteUser),
       mode = shogi.Mode.Rated,

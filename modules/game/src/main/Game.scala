@@ -18,7 +18,6 @@ case class Game(
     sentePlayer: Player,
     gotePlayer: Player,
     shogi: ShogiGame,
-    initialSfen: Option[Sfen], // None for variant default position
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
@@ -39,6 +38,8 @@ case class Game(
   def plies     = shogi.plies
   def clock     = shogi.clock
   def usiMoves  = shogi.usiMoves
+
+  def initialSfen = history.initialSfen
 
   val players = List(sentePlayer, gotePlayer)
 
@@ -691,13 +692,16 @@ object Game {
       daysPerTurn: Option[Int] = None
   ): NewGame = {
     val createdAt = DateTime.now
+    val shogiWithInitialSfen = 
+      initialSfen.filterNot(_.initialOf(shogi.variant)).fold(shogi) { sfen =>
+        shogi.withHistory(shogi.situation.history.withInitialSfen(sfen))
+      }
     NewGame(
       Game(
         id = IdGenerator.uncheckedGame,
         sentePlayer = sentePlayer,
         gotePlayer = gotePlayer,
-        shogi = shogi,
-        initialSfen = initialSfen.filterNot(_.initialOf(shogi.variant)),
+        shogi = shogiWithInitialSfen,
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,

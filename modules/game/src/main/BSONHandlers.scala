@@ -86,7 +86,6 @@ object BSONHandlers {
         sentePlayer = light.sentePlayer,
         gotePlayer = light.gotePlayer,
         shogi = shogiGame,
-        initialSfen = initialSfen,
         loadClockHistory = clk =>
           for {
             bs <- senteClockHistory
