@@ -20,7 +20,7 @@ private object bits {
         ("", trans.selectHandicap.txt(), None),
         (shogi.StartingPosition.initial.sfen.value, "平手 - Even", Some("default"))
       ) ++
-        shogi.StartingPosition.handicaps.map { v =>
+        shogi.StartingPosition.handicaps.positions.map { v =>
           (v.sfen.value, v.fullName, None)
         }
     val positionChoices: List[SelectChoice] =
