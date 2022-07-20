@@ -357,7 +357,8 @@
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды жүктеп салу</string>
-  <string name="importGameExplanation">Ойынның PGN-ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
+  <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
+Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>
     <item quantity="other">%s ойын салынды</item>
@@ -634,7 +635,7 @@
   <string name="keyEnterOrExitVariation">тармаққа кіру/шығу</string>
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
-  <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Буллит, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
+  <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Дайын жарысқа қосылу не жаңасын құрастыру – таңдау сізде. Буллит, Блитц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз!</string>
   <string name="tournamentNotFound">Жарыс табылмады</string>
   <string name="tournamentDoesNotExist">Бұл жарыс жоқ.</string>
   <string name="tournamentMayHaveBeenCanceled">Егер ойыншылардың барлығы жарыстан шықса, бұл жарыс тоқталуы мүмкін.</string>
