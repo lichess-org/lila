@@ -36,10 +36,10 @@
   <string name="explainPromoteToQueenAutomatically">Ойын кезінде автоматты айналдыруды уақытша өшіру үшін &lt;ctrl&gt; басып тұрыңыз</string>
   <string name="whenPremoving">Алдын-ала жүрісте</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Үш реттік қайталану болса, автоматты түрде тепе-теңдік жариялау</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">30 секунд қалғанда</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">30 секунд қалғанда</string>
   <string name="moveConfirmation">Жүрісті растау</string>
   <string name="inCorrespondenceGames">Хат алмасып ойнағанда</string>
-  <string name="correspondenceAndUnlimited">Хат алмасып және шексіз уақытпен</string>
+  <string name="correspondenceAndUnlimited">Хат алмаса ойналатын мен уақыты шексіз</string>
   <string name="confirmResignationAndDrawOffers">Берілу мен тепе-теңдік ұсынысын растау</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Бекіну әдісі</string>
   <string name="castleByMovingTwoSquares">Патшаны екі шаршы жүру</string>
