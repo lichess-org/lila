@@ -127,5 +127,5 @@ object Streamer {
 
   val tierChoices = (0 to maxTier).map(t => t -> t.toString)
 
-  def canApply(u: User) = (u.count.game >= 15 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified
+  def canApply(u: User) = (u.count.game >= 3 && u.createdSinceDays(1)) || u.hasTitle || u.isVerified
 }
