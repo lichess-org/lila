@@ -23,14 +23,15 @@ final class ExpireCallbackMemo(
       (_, canc) => {
         Option(canc).foreach(_.cancel())
         scheduler.scheduleOnce(ttl) {
-          timeouts remove key
+          remove(key)
           callback(key)
         }
       }
     )
     .unit
 
-  def remove(key: String) = timeouts remove key
+  // does not call the expiration callback
+  def remove(key: String) = Option(timeouts remove key).foreach(_.cancel())
 
   def count = timeouts.size
 
