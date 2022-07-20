@@ -43,6 +43,13 @@ sg-squares {
     border-bottom: 1px solid black;
     border-right: 1px solid black;
   }
+  .preload & {
+    border-width: 0;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    background-image: linear-gradient(to right, black 1px, transparent 1px), linear-gradient(to bottom, black 1px, transparent 1px);
+    background-size: calc(100% / 9) calc(100% / 9);
+  }
 }
 
 .sg-wrap {
@@ -66,6 +73,9 @@ sg-squares {
       &::after {
         @extend %grid-dot;
       }
+    }
+    &.preload {
+      background-size: calc(100% / 5) calc(100% / 5);
     }
   }
 }
@@ -113,6 +123,11 @@ sg-squares {
   #dasher_app .piece .list {
     background: #878787;
   }
+  .preload sg-squares {
+    background-image: none;
+    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200%/9) calc(200%/9);
+    background-position: 100% 100%;
+  }
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
       background-color: #bcbcbc;
@@ -154,6 +169,11 @@ sg-squares {
   }
   #dasher_app .piece .list {
     background: #617a8e;
+  }
+  .preload sg-squares {
+    background-image: none;
+    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200%/9) calc(200%/9);
+    background-position: 100% 100%;
   }
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
@@ -215,6 +235,9 @@ sg-squares {
   sg-squares sq::after {
     background-color: #eee !important;
   }
+  .sg-wrap.preload sg-squares {
+    background-image: linear-gradient(to right, #eee 1px, transparent 1px), linear-gradient(to bottom, #eee 1px, transparent 1px);
+  }
 }
 
 .doubutsu {
@@ -231,6 +254,11 @@ sg-squares {
         content: unset !important;
       }
     }
+  }
+  .preload sg-squares {
+    border-bottom: 2px dashed #bb645c;
+    border-right: 2px dashed #bb645c;
+    background-image: none;
   }
   @include breakpoint($mq-col2-uniboard) {
     .orientation-gote sg-hand {
@@ -252,12 +280,12 @@ sg-squares {
     background-color: var(--c-board-color, transparent);
     background-image: var(--c-board-url, none);
     sg-squares {
-      border-top: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
-      border-left: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+      border-top: 1px solid var(--c-grid-color, $c-font);
+      border-left: 1px solid var(--c-grid-color, $c-font);
     }
     sq {
-      border-bottom: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
-      border-right: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+      border-bottom: 1px solid var(--c-grid-color, $c-font);
+      border-right: 1px solid var(--c-grid-color, $c-font);
       &::after {
         background-color: var(--c-grid-color, $c-font) !important;
       }
@@ -267,11 +295,18 @@ sg-squares {
     sg-hand {
       background-color: var(--c-hands-color, transparent);
       background-image: var(--c-hands-url, none);
-      border: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+      border: 1px solid var(--c-grid-color, $c-font);
     }
     &.coords-edge .main-board .sg-wrap {
-      border: var(--c-grid-width, 1px) solid var(--c-grid-color, $c-font);
+      border: 1px solid var(--c-grid-color, $c-font);
     }
+  }
+  .preload sg-squares {
+    border-top: unset;
+    border-left: unset;
+    border-bottom: 1px solid var(--c-grid-color, $c-font);
+    border-right:  1px solid var(--c-grid-color, $c-font);
+    background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 1px, transparent 1px), linear-gradient(to bottom, var(--c-grid-color, $c-font) 1px, transparent 1px);
   }
   &.grid-width-0 {
     .sg-wrap {
@@ -281,9 +316,12 @@ sg-squares {
         sq {
           border-width: 0;
           &::after {
-            content: unset;
+            content: unset !important;
           }
         }
+      }
+      &.preload sg-squares {
+        background-image: none;
       }
     }
   }
@@ -295,11 +333,14 @@ sg-squares {
         sq {
           border-width: 2px;
           &::after {
-            margin: -6px;
-            width: 10px;
-            height: 10px;
+            margin: -6px !important;
+            width: 10px !important;
+            height: 10px !important;
           }
         }
+      }
+      &.preload sg-squares {
+          background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 2px, transparent 2px), linear-gradient(to bottom, var(--c-grid-color, $c-font) 2px, transparent 2px);
       }
     }
   }
@@ -311,16 +352,22 @@ sg-squares {
         sq {
           border-width: 3px;
           &::after {
-            margin: -7px;
-            width: 12px;
-            height: 12px;
+            margin: -7px !important;
+            width: 12px !important;
+            height: 12px !important;
           }
         }
+      }
+      &.preload sg-squares {
+        background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 3px, transparent 3px), linear-gradient(to bottom, var(--c-grid-color, $c-font) 3px, transparent 3px);
       }
     }
   }
 }
 
+// Not too sure about this
+// I believe 1px border is going to be too small for bigger (for example 4k) screens
+// Can't test it tho...
 @include breakpoint($mq-xx-large) {
   sg-squares,
   sg-squares sq,
@@ -329,8 +376,8 @@ sg-squares {
     border-width: 2px;
   }
   sg-squares sq::after {
-    margin: -7px !important;
-    width: 12px !important;
-    height: 12px !important;
+    margin: -6px !important;
+    width: 10px !important;
+    height: 10px !important;
   }
 }
