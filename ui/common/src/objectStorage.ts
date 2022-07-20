@@ -9,7 +9,7 @@ registration.stores above and then bump registration.version otherwise it will
 not be created.  that's necessary because new object stores can only be created
 during an "upgrade" event issued when the database is opened, see bottom of file.
 
-It seems technically possible to handle this automatically here in objectStore.ts,
+It seems technically possible to handle this automatically here in objectStorage module,
 by checking a new request for a store against the currently open connection's
 list of stores, and if it's not there, bumping the version number and
 reopening the connection which triggers the event where we can create the new

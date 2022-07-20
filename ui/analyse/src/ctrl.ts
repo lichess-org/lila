@@ -36,7 +36,7 @@ import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
-import { objectStorage, ObjectStorage } from 'common/objectStore';
+import { objectStorage, ObjectStorage } from 'common/objectStorage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -943,7 +943,7 @@ export default class AnalyseCtrl {
   private async mergeDbState(): Promise<void> {
     if (this.study || this.practice) return;
     try {
-      const store = await objectStorage<AnalyseState>('analysis-state');
+      const store = await objectStorage<AnalyseState>('analyse-state');
       const state = await store.get(this.data.game.id);
       if (state && state.root) {
         this.tree.merge(state.root);
