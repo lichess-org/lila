@@ -196,7 +196,7 @@ function renderMainlineCommentsOf(
 ): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
-  const colorClass = withColor ? (node.ply % 2 === 0 ? '.gote ' : '.sente ') : '';
+  const colorClass = withColor ? (node.ply % 2 === 0 ? '.sente ' : '.gote ') : '';
   const withAuthor = node.comments!.some(c => c.by !== node.comments![0].by);
 
   return node.comments!.map(comment => {
