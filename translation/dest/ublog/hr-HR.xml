@@ -9,6 +9,7 @@
   <string name="postBody">Tijelo objave</string>
   <string name="drafts">Skice</string>
   <string name="published">Objavljeno</string>
+  <string name="createBlogDiscussion">Omogući komentare</string>
   <string name="publishOnYourBlog">Objavi na blog</string>
   <string name="publishHelp">Ako je označeno, objava će biti navedena na vašem blogu. Ako ne, bit će privatan, u vašim skicama objava</string>
   <string name="xPublishedY">%1$s objavio %2$s</string>
