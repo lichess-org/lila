@@ -13,7 +13,6 @@ final class Page(
   val about        = helpDocument("about")
   val tos          = helpDocument("tos")
   val privacy      = helpDocument("privacy")
-  val source       = helpDocument("source")
   val master       = helpDocument("master")
   val ads          = helpDocument("ads")
   val patron       = singleDocument("patron")
@@ -80,6 +79,14 @@ final class Page(
       pageHit
       OptionOk(prismicC.getPage("doc", uid, ctx.lang.code)) { case (doc, _) =>
         views.html.site.notationExplanation(doc)
+      }
+    }
+
+  def source =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(prismicC.getPage("doc", "source")) { case (doc, resolver) =>
+        views.html.site.help.source(doc, resolver)
       }
     }
 

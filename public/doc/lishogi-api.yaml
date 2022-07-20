@@ -1,0 +1,3678 @@
+openapi: "3.0.0"
+info:
+  version: 2.0.0
+  title: Lishogi.org API reference
+  x-logo:
+    url: https://lishogi1.org/assets/logo/lishogi-pad12.svg
+    backgroundColor: #ffffff
+  description: "\n\n# WIP - Introduction\nWelcome to the reference for the Lishogi API! Lishogi is free/libre, open-source shogi server powered by volunteers and donations.\n\n\
+  \ - This documentation is a work in progress, there is a lot of incorrect information right now - I plan to have this ready by the end of July, but no promises
+  \ - Get help in the [lishogi developers discord channel](https://discord.gg/YFtpMGg3rR),\
+  \ or in the #lishogi IRC channel on freenode.\n\
+  \ - Check out [lishogi widgets to embed in your website](https://lishogi.org/developers).\n\
+  \ - [Download all lishogi rated games](https://database.lishogi.org/)\n\
+  \n## Endpoint\n\
+  \ All requests go to `https://lishogi.org`.\n\
+  \n## Rate limiting\n\
+  \ All requests are rate limited using various strategies,\
+  \ to ensure the API remains responsive for everyone.\n\
+  \ Only make one request at a time.\n\
+  \ If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429),\
+  \ please wait a full minute before resuming API usage."
+servers:
+  - url: https://lishogi.org
+tags:
+- name: Account
+  description: |
+    Read and write account informations and preferences.
+    https://lishogi.org/account/preferences/game-display
+- name: Users
+  description: |
+    Access registered users on Lishogi.
+    https://lishogi.org/player
+- name: Relations
+  description: |
+    Access relations between users.
+- name: Games
+  description: |
+    Access games played on Lishogi.
+    https://lishogi.org/games
+- name: Teams
+  description: |
+    Access and manage Lishogi teams and their members.
+    https://lishogi.org/team
+- name: Board
+  description: "Play on Lishogi with physical boards and third-party clients.\n
+  \ Works with normal Lishogi accounts. Engine play or assistance is forbidden.\n\n\
+  \n### Features\n\
+  \ - [Stream incoming shogi moves](#operation/boardGameStream)\n\
+  \ - [Play shogi moves](#operation/boardGameMove)\n\
+  \ - [Read](#operation/boardGameStream) and [write](#operation/boardGameChat) in the player and spectator chats\n\
+  \ - [Receive](#operation/apiStreamEvent), [create](#operation/challengeCreate) and [accept](#operation/challengeAccept) (or [decline](#operation/challengeDecline)) challenges\n\
+  \ - [Abort](#operation/boardGameAbort) and [resign](#operation/boardGameResign) games\n\
+  \ - Compatible with normal Lishogi accounts\n\n
+  \n### Restrictions\n\
+  \ - Engine assistance is strictly forbidden\n\
+  \ - Casual games: [Rapid, Classical and Correspondence](https://lishogi.org/faq#time-controls) only\n\
+  \ - Rated games: [Estimated duration](https://lishogi.org/faq#time-controls) >= 1200. That includes Classical, Correspondence, and some Rapid time controls such as 15+10 and 20+0.\n\
+- name: Bot
+  description: "Play on Lishogi as a bot. Allows engine play.\n
+  \ Read the [blog post announcement of lishogi bots](https://lishogi.org/blog/WvDNticAAMu_mHKP/welcome-lishogi-bots).\n\n
+  \ Only works with [Bot accounts](#operation/botAccountUpgrade).\n\n\
+  \n### Features\n\
+  \ - [Stream incoming shogi moves](#operation/botGameStream)\n\
+  \ - [Play shogi moves](#operation/botGameMove)\n\
+  \ - [Read](#operation/botGameStream) and [write](#operation/botGameChat) in the player and spectator chats\n\
+  \ - [Receive](#operation/apiStreamEvent), [create](#operation/challengeCreate) and [accept](#operation/challengeAccept) (or [decline](#operation/challengeDecline)) challenges\n\
+  \ - [Abort](#operation/botGameAbort) and [resign](#operation/botGameResign) games\n\
+  \ - Engine assistance is allowed\n\
+  \n### Restrictions\n\
+  \ - Bots can only play challenge games:  pools and tournaments are off-limits\n\
+  \n### Integrations\n\
+  \ - [Python3 lishogi-bot](https://github.com/careless25/lishogi-bot) (official)\n\
+  \ - [JavaScript bot-o-tron](https://github.com/tailuge/bot-o-tron)\n\
+  \ - [Golang lishogi-bot](https://github.com/dolegi/lishogi-bot)\n\
+  \ - Yours? Please make [an issue or pull request](https://github.com/lishogi-org/api).\n\
+  \n### Links\n\
+  \ - Join the [Lishogi Bots team](https://lishogi.org/team/lishogi-bots) with your bot account\n\
+  \ - [Get help in the discord channel](https://discord.gg/YFtpMGg3rR)\n\
+  \ - Watch [Lishogi Bot TV](https://lishogi.org/tv/bot)"
+- name: Challenges
+  description: |
+    Send and receive challenges to play.
+- name: Arena tournaments
+  description: |
+    Access Arena tournaments played on Lishogi.
+    [Official Arena tournaments](https://lishogi.org/tournament) are maintained by Lishogi,
+    but you can [create your own Arena tournaments](https://lishogi.org/tournament/new) as well.
+- name: Swiss tournaments
+  description: |
+    Access Swiss tournaments played on Lishogi.
+    [Read more about Swiss tournaments.](https://lishogi.org/swiss).
+- name: Simuls
+  description: |
+    Access simuls played on Lishogi.
+    https://lishogi.org/simul
+- name: Studies
+  description: |
+    Access Lishogi studies.
+    https://lishogi.org/study
+- name: Messaging
+  description: |
+    Private messages with other players.
+    https://lishogi.org/inbox
+- name: OAuth
+  description: |
+    Requests taking advantage of OAuth authentication.
+    https://lishogi.org/account/oauth/app
+- name: Analysis
+  description: |
+    Access Lishogi cloud evaluations database.
+    https://lishogi.org/analysis
+paths:
+  /api/users/status:
+    get:
+      operationId: apiUsersStatus
+      summary: Get real-time users status
+      description: |
+        Read the `online`, `playing` and `streaming` flags of several users.
+
+        This API is very fast and cheap on lishogi side.
+        So you can call it quite often (like once every 5 seconds).
+
+        Use it to track players and know when they're connected on lishogi and playing games.
+      tags:
+        - Users
+      security:
+        - None: []
+      parameters:
+        - in: query
+          name: ids
+          required: true
+          description: User IDs separated by commas. Up to 50 IDs.
+          schema:
+            type: string
+          example: aliquantus,shogi-network,lovlas
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    title:
+                      type: string
+                      nullable: true
+                    online:
+                      type: boolean
+                      nullable: true
+                    playing:
+                      type: boolean
+                      nullable: true
+                    streaming:
+                      type: boolean
+                      nullable: true
+                    patron:
+                      type: boolean
+                      nullable: true
+                example: [
+                  {
+                    "id": "aliquantus",
+                    "name": "Aliquantus"
+                  },
+                  {
+                    "id": "shogi-network",
+                    "name": "Shogi-Network",
+                    "title": "NM",
+                    "online": true,
+                    "playing": true,
+                    "streaming": true,
+                    "patron": true
+                  }
+                ]
+
+  /player:
+    get:
+      operationId: player
+      summary: Get all top 10
+      tags:
+        - Users
+      security:
+        - SameOrigin: []
+      description: |
+        Get the top 10 players for each speed and variant.
+
+        See https://lishogi.org/player.
+      parameters:
+        - $ref: '#/components/parameters/lishogi'
+      responses:
+        200:
+          content:
+            application/vnd.lishogi.v3+json:
+              schema:
+                $ref: '#/components/schemas/Top10s'
+
+  /player/top/{nb}/{perfType}:
+    get:
+      operationId: playerTopNbPerfType
+      summary: Get one leaderboard
+      tags:
+        - Users
+      security:
+        - SameOrigin: []
+      description: |
+        Get the leaderboard for a single speed or variant (a.k.a. `perfType`).
+        There is no leaderboard for correspondence or puzzles.
+
+        See https://lishogi.org/player/top/200/bullet.
+      parameters:
+        - $ref: '#/components/parameters/lishogi'
+        - in: path
+          name: nb
+          description: How many users to fetch
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            example: 100
+          required: true
+        - in: path
+          name: perfType
+          description: The speed or variant
+          schema:
+            type: string
+            example: bullet
+            enum:
+              - ultraBullet
+              - bullet
+              - blitz
+              - rapid
+              - classical
+              - minishogi
+          required: true
+      responses:
+        200:
+          content:
+            application/vnd.lishogi.v3+json:
+              schema:
+                $ref: '#/components/schemas/Leaderboard'
+
+  /api/user/{username}:
+    get:
+      operationId: apiUser
+      summary: Get user public data
+      description: |
+        Read public data of a user.
+      tags:
+        - Users
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExtended'
+
+  /api/user/{username}/rating-history:
+    get:
+      operationId: apiUserRatingHistory
+      summary: Get rating history of a user
+      description: |
+        Read rating history of a user, for all perf types.
+        There is at most one entry per day.
+        Format of an entry is `[year, month, day, rating]`.
+        `month` starts at zero (January).
+      tags:
+        - Users
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingHistory'
+
+  /api/user/{username}/activity:
+    get:
+      operationId: apiUserActivity
+      summary: Get user activity
+      description: |
+        Read data to generate the activity feed of a user.
+      tags:
+        - Users
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              example:
+                https://gist.github.com/ornicar/0ee2d2427cb74ed1a35e86f5ba09fabc
+
+
+  /api/user/puzzle-activity:
+    get:
+      operationId: apiUserPuzzleActivity
+      summary: Get your puzzle activity
+      description: |
+        Download your puzzle activity in [ndjson](http://ndjson.org/) format.
+
+        Puzzle activity is sorted by reverse chronological order (most recent first)
+
+        We recommend streaming the response, for it can be very long.
+      tags:
+        - Users
+        - OAuth
+      security:
+        - OAuth2: ["puzzle:read"]
+      parameters:
+        - in: query
+          name: max
+          description: How many entries to download. Leave empty to download all activity.
+          schema:
+            type: integer
+            minimum: 1
+            default: null
+      responses:
+        200:
+          content:
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/PuzzleRoundJson'
+
+  /api/users:
+    post:
+      operationId: apiUsers
+      summary: Get users by ID
+      tags:
+        - Users
+      security:
+        - None: []
+      description: |
+        Get several users by their IDs. Users are returned in the order same order as the IDs.
+
+        The method is `POST` so a longer list of IDs can be sent in the request body.
+      requestBody:
+        description: User IDs separated by commas.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: "aliquantus,shogi-network,lovlas"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /api/account:
+    get:
+      operationId: accountMe
+      summary: Get my profile
+      description: |
+        Public informations about the logged in user.
+      tags:
+        - Account
+        - OAuth
+      security:
+        - OAuth2: []
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExtended'
+
+  /api/account/email:
+    get:
+      operationId: accountEmail
+      summary: Get my email address
+      description: |
+        Read the email address of the logged in user.
+      tags:
+        - Account
+        - OAuth
+      security:
+        - OAuth2: ["email:read"]
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                example:
+                  email: abathur@mail.org
+
+  /api/account/preferences:
+    get:
+      operationId: account
+      summary: Get my preferences
+      description: |
+        Read the preferences of the logged in user.
+
+        - https://lishogi.org/account/preferences/game-display
+        - https://github.com/ornicar/lila/blob/master/modules/pref/src/main/Pref.scala
+      tags:
+        - Account
+        - OAuth
+      security:
+        - OAuth2: ["preference:read"]
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPreferences'
+
+  /api/account/kid:
+    get:
+      operationId: accountKid
+      summary: Get my kid mode status
+      description: |
+        Read the kid mode status of the logged in user.
+
+        - https://lishogi.org/account/kid
+      tags:
+        - Account
+        - OAuth
+      security:
+        - OAuth2: ["preference:read"]
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  kid:
+                    type: boolean
+                example:
+                  kid: false
+    post:
+      operationId: accountKidPost
+      summary: Set my kid mode status
+      description: |
+        Set the kid mode status of the logged in user.
+
+        - https://lishogi.org/account/kid
+      tags:
+        - Account
+        - OAuth
+      security:
+        - OAuth2: ["preference:write"]
+      parameters:
+        - in: query
+          name: v
+          required: true
+          description: Kid mode status
+          schema:
+            type: boolean
+          example: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+
+  /game/export/{gameId}:
+    get:
+      operationId: gameNotation
+      summary: Export one game
+      description: |
+        Download one game in either KIF, CSA or JSON format.
+        If the game is ongoing, the 3 last moves are omitted.
+      tags:
+        - Games
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: gameId
+          description: The game ID (8 characters).
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: moves
+          description: Include the moves.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: notationInJson
+          description: Include the full usi moves within the JSON response, in a `moves` field.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: tags
+          description: Include the tags.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: clocks
+          description: |
+            Include clock comments with the moves, when available.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: evals
+          description: |
+            Include analysis evaluation comments in the notation, when available.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: opening
+          description: |
+            Include the opening name.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: literate
+          description: |
+            Insert textual annotations in the notation about the opening, analysis variations, mistakes, and game termination.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/gameNotation'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameJson'
+
+  /api/user/{username}/current-game:
+    get:
+      operationId: apiUserCurrentGame
+      summary: Export ongoing game of a user
+      description: |
+        Download the ongoing game, or the last game played, of a user.
+        Available in either KIF, CSA or JSON format.
+        If the game is ongoing, the 3 last moves are omitted.
+      tags:
+        - Games
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: gameId
+          description: The game ID (8 characters).
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: moves
+          description: Include the moves.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: notationInJson
+          description: Include the full notation within the JSON response, in a `notation` field.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: tags
+          description: Include the tags.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: clocks
+          description: |
+            Include clock comments in the moves, when available.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: evals
+          description: |
+            Include analysis evaluation comments in the notation, when available.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: opening
+          description: |
+            Include the opening name.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: literate
+          description: |
+            Insert textual annotations in the notation about the opening, analysis variations, mistakes, and game termination.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/gameNotation'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameJson'
+
+  /api/games/user/{username}:
+    get:
+      operationId: apiGamesUser
+      summary: Export games of a user
+      description: |
+        Download all games of any user in KIF, CSA or [ndjson](http://ndjson.org/) format.
+
+        Games are sorted by reverse chronological order (most recent first)
+
+        We recommend streaming the response, for it can be very long.
+
+        The game stream is throttled, depending on who is making the request:
+          - Anonymous request: 20 games per second
+          - [OAuth2 authenticated](#section/Authentication) request: 30 games per second
+          - Authenticated, downloading your own games: 60 games per second
+      tags:
+        - Games
+        - OAuth
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: username
+          description: The user name.
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: since
+          description: Download games played since this timestamp.
+          schema:
+            type: integer
+            minimum: 1356998400070
+            default: Account creation date
+        - in: query
+          name: until
+          description: Download games played until this timestamp.
+          schema:
+            type: integer
+            minimum: 1356998400070
+            default: Now
+        - in: query
+          name: max
+          description: How many games to download. Leave empty to download all games.
+          schema:
+            type: integer
+            minimum: 1
+            default: null
+        - in: query
+          name: vs
+          description: "[Filter] Only games played against this opponent"
+          schema:
+            type: string
+        - in: query
+          name: rated
+          description: "[Filter] Only rated (`true`) or casual (`false`) games"
+          schema:
+            type: boolean
+            default: null
+        - in: query
+          name: perfType
+          description: "[Filter] Only games in these speeds or variants.\n
+          \nMultiple perf types can be specified, separated by a comma.\n
+          \nExample: blitz,rapid,classical"
+          schema:
+            type: string
+            default: null
+            enum:
+              - ultraBullet
+              - bullet
+              - blitz
+              - rapid
+              - classical
+              - correspondence
+              - minishogi
+        - in: query
+          name: color
+          description: "[Filter] Only games played as this color."
+          schema:
+            type: string
+            default: null
+            enum:
+              - white
+              - black
+        - in: query
+          name: analysed
+          description: "[Filter] Only games with or without a computer analysis available"
+          schema:
+            type: boolean
+            default: null
+        - in: query
+          name: ongoing
+          description: "[Filter] Also include ongoing games"
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: moves
+          description: Include the moves.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: notationInJson
+          description: Include the full within the JSON response, in a `moves` field.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: tags
+          description: Include the tags.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: clocks
+          description: |
+            Include clock comments in the moves, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: evals
+          description: |
+            Include analysis evaluation comments in the notation, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: opening
+          description: |
+            Include the opening name.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/gameNotation'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/GameJson'
+
+  /games/export/_ids:
+    post:
+      operationId: gamesExportIds
+      summary: Export games by IDs
+      description: |
+        Download games by IDs in KIF, CSA or [ndjson](http://ndjson.org/) format.
+
+        Games are sorted by reverse chronological order (most recent first)
+
+        The method is `POST` so a longer list of IDs can be sent in the request body.
+
+        300 IDs can be submitted. If the request uses OAuth2, 500 IDs can be submitted.
+      tags:
+        - Games
+      security:
+        - SameOrigin: []
+      requestBody:
+        description: Game IDs separated by commas.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: "TJxUmbWK,4OtIh2oh,ILwozzRZ"
+      parameters:
+        - in: query
+          name: moves
+          description: Include the moves.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: notationInJson
+          description: Include the full within the JSON response, in a `moves` field.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: tags
+          description: Include the tags.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: clocks
+          description: |
+            Include clock comments in the moves, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: evals
+          description: |
+            Include analysis evaluation comments in the notation, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: opening
+          description: |
+            Include the opening name.
+
+            Example: `[Opening "King's Gambit Accepted, King's Knight Gambit"]`
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/gameNotation'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/GameJson'
+
+  /api/stream/games-by-users:
+    post:
+      operationId: gamesByUsers
+      summary: Stream current games
+      description: |
+        Stream the games played between a list of users, in real time.
+        Only games where **both players** are part of the list are included.
+
+        Maximum number of users: 300.
+
+        **Games are streamed as [ndjson](http://ndjson.org/)**, i.e. one JSON object per line.
+
+        The method is `POST` so a longer list of IDs can be sent in the request body.
+      tags:
+        - Games
+      security:
+        - None: []
+      requestBody:
+        description: Up to 300 user IDs separated by commas.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: aliquantus,shogi-network,lovlas
+      responses:
+        200:
+          content:
+            application/x-ndjson:
+              schema:
+                example: {"id":"A5fcMO3k","rated":true,"variant":"standard","speed":"bullet","perf":"bullet","createdAt":1525789431889,"status":20,"clock":{"initial":60,"increment":0,"totalTime":60},"players":{"white":{"userId":"kastorcito","rating":2617},"black":{"userId":"er_or","rating":2288}}}
+
+  /api/account/playing:
+    get:
+      operationId: apiAccountPlaying
+      summary: Get ongoing games
+      description: |
+        Get the ongoing games of the current user.
+        Real-time and correspondence games are included.
+        The most urgent games are listed first.
+      tags:
+        - Games
+        - OAuth
+      security:
+        - OAuth2: []
+      parameters:
+        - in: query
+          name: nb
+          description: Max number of games to fetch
+          schema:
+            type: integer
+            default: 9
+            minimum: 1
+            maximum: 50
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                example: {"nowPlaying":[{"fullId":"knbD9FPUqhra","gameId":"knbD9FPU","fen":"rnbqkbnr/pp3pp1/8/3p3p/1PpPp3/P1P1P3/5PPP/RNBQKBNR","color":"white","lastMove":"c5c4","variant":{"key":"standard","name":"Standard"},"speed":"correspondence","perf":"correspondence","rated":true,"opponent":{"id":"thibot","username":"BOT thibot","rating":1500},"isMyTurn":true}]}
+
+  /tv/channels:
+    get:
+      operationId: tvChannels
+      summary: Get current TV games
+      description: |
+        Get basic info about the best games being played for each speed and variant,
+        but also computer games and bot games.
+
+        See [lishogi.org/tv](https://lishogi.org/tv).
+      tags:
+        - Games
+      security:
+        - SameOrigin: []
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                example: {"Bot":{"user":{"id":"leelashogi","name":"Leelashogi","title":"BOT"},"rating":2660,"gameId":"Zznv9MIl"},"Blitz":{"user":{"id":"lekkerkortook","name":"LekkerKortOok"},"rating":2603,"gameId":"hTJ4v7Mp"},"Racing Kings":{"user":{"id":"shogilo21","name":"shogilo21"},"rating":2123,"gameId":"lgCDl5Of"},"UltraBullet":{"user":{"id":"farmville","name":"Farmville"},"rating":2338,"gameId":"NEY6OQ32"},"Bullet":{"user":{"id":"nurmibrah","name":"nurmiBrah"},"rating":2499,"gameId":"5LgyE516"},"Classical":{"user":{"id":"holden_m_j_thomas","name":"Holden_M_J_Thomas"},"rating":1806,"gameId":"k3oLby6N"},"Three-check":{"user":{"id":"pepellou","name":"pepellou","patron":true},"rating":1978,"gameId":"Og5RCvmu"},"Antishogi":{"user":{"id":"maria-bakkar","name":"maria-bakkar"},"rating":2103,"gameId":"toCr41yx"},"Computer":{"user":{"id":"oh_my_goat_im_so_bat","name":"oh_my_goat_Im_so_bat"},"rating":2314,"gameId":"TkI4qZxu"},"Horde":{"user":{"id":"habitualshogi","name":"Habitualshogi"},"rating":1803,"gameId":"oMofN63H"},"Rapid":{"user":{"id":"denpayd","name":"DenpaYD"},"rating":2289,"gameId":"IcWOl8ee"},"Atomic":{"user":{"id":"meetyourdemise","name":"MeetYourDemise"},"rating":2210,"gameId":"tvMxtCMN"},"Crazyhouse":{"user":{"id":"mathace","name":"mathace"},"rating":2397,"gameId":"i3gTZlUb"},"shogi960":{"user":{"id":"voja_7","name":"voja_7"},"rating":1782,"gameId":"lrXLcedu"},"King of the Hill":{"user":{"id":"nadime","name":"Nadime"},"rating":1500,"gameId":"DsQn8aEV"},"Top Rated":{"user":{"id":"lekkerkortook","name":"LekkerKortOok"},"rating":2603,"gameId":"hTJ4v7Mp"}}
+
+  /api/tournament:
+    get:
+      operationId: apiTournament
+      summary: Get current tournaments
+      description: |
+        Get recently finished, ongoing, and upcoming tournaments.
+
+        This API is used to display the [Lishogi tournament schedule](https://lishogi.org/tournament).
+      tags:
+        - "Arena tournaments"
+      security:
+        - None: []
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArenaTournament'
+    post:
+      operationId: apiTournamentPost
+      summary: Create a new Arena tournament
+      description: |
+        Create a public or private Arena tournament.
+
+        This endpoint mirrors the form on https://lishogi.org/tournament/new.
+
+        You can create up to 12 public tournaments per day, or 24 private tournaments.
+      tags:
+        - "Arena tournaments"
+      security:
+        - OAuth2: ["tournament:write"]
+      requestBody:
+        description: Parameters of the tournament
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The tournament name. Leave empty to get a random Grandmaster name
+                clockTime:
+                  type: number
+                  description: Clock initial time in minutes
+                  example: 2
+                  minimum: 0
+                  maximum: 60
+                  enum:
+                    - 0
+                    - 0.25
+                    - 0.5
+                    - 0.75
+                    - 1
+                    - 1.5
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                clockIncrement:
+                  type: integer
+                  description: Clock increment in seconds
+                  example: 1
+                  minimum: 0
+                  maximum: 60
+                minutes:
+                  type: integer
+                  description: How long the tournament lasts, in minutes
+                  example: 60
+                  minimum: 0
+                  maximum: 360
+                waitMinutes:
+                  type: integer
+                  description: How long to wait before starting the tournament, from now, in minutes
+                  minimum: 0
+                  maximum: 360
+                  default: 5
+                startDate:
+                  type: integer
+                  description: Timestamp to start the tournament at a given date and time. Overrides the `waitMinutes` setting
+                variant:
+                  type: string
+                  description: The variant to use in tournament games
+                  enum:
+                    - standard
+                    - shogi960
+                    - crazyhouse
+                    - antishogi
+                    - atomic
+                    - horde
+                    - kingOfTheHill
+                    - racingKings
+                    - threeCheck
+                  default: standard
+                rated:
+                  type: boolean
+                  description: Games are rated and impact players ratings
+                  default: true
+                position:
+                  type: string
+                  description: Custom initial position (in SFEN) for all games of the tournament. Must be one of [these positions](https://github.com/ornicar/scalashogi/blob/ab61b7e6d8d4ab602f6366b29b0e5715717e8944/src/main/scala/StartingPosition.scala#L25)
+                berserkable:
+                  type: boolean
+                  description: Whether the players can use berserk
+                  default: true
+                streakable:
+                  type: boolean
+                  description: After 2 wins, consecutive wins grant 4 points instead of 2.
+                  default: true
+                # "conditions.titled":
+                #   type: boolean
+                #   description: Whether to require a title to enter the tournament
+                #   default: false
+                hasChat:
+                  type: boolean
+                  description: Whether the players can discuss in a chat
+                  default: true
+                description:
+                  type: string
+                  description: Anything you want to tell players about the tournament
+                password:
+                  type: string
+                  description: Make the tournament private, and restrict access with a password
+                conditions.teamMember.teamId:
+                  type: string
+                  description: |
+                    Restrict entry to members of a team.
+
+                    The teamId is the last part of a team URL, e.g. https://lishogi.org/team/coders has teamId = `coders`.
+
+                    Leave empty to let everyone join the tournament.
+                conditions.minRating.rating:
+                  type: integer
+                  description: Minimum rating to join. Leave empty to let everyone join the tournament.
+                conditions.maxRating.rating:
+                  type: integer
+                  description: Maximum rating to join. Based on best rating reached in the last 7 days. Leave empty to let everyone join the tournament.
+                conditions.nbRatedGame.nb:
+                  type: integer
+                  description: Minimum number of rated games required to join.
+              required:
+                - clockTime
+                - clockIncrement
+                - minutes
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArenaTournament'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/tournament/{id}:
+    get:
+      operationId: tournament
+      summary: Get info about a tournament
+      description: |
+        Get detailed info about recently finished, current, or upcoming tournament's duels, player standings, and other info.
+      tags:
+        - "Arena tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: id
+          description: The tournament ID.
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: page
+          description: Specify which page of player standings to view.
+          schema:
+            type: number
+            example: 1
+            default: 1
+            minimum: 1
+            maximum: 200
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArenaTournamentId'
+
+  /api/tournament/{id}/games:
+    get:
+      operationId: gamesByTournament
+      summary: Export games of an Arena tournament
+      description: |
+        Download games of a tournament in KIF, CSA or [ndjson](http://ndjson.org/) format.
+
+        Games are sorted by reverse chronological order (most recent first)
+      tags:
+        - "Arena tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: id
+          description: The tournament ID.
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: moves
+          description: Include the moves.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: notationInJson
+          description: Include the full notation within the JSON response, in a `notation` field.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: tags
+          description: Include the tags.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: clocks
+          description: |
+            Include clock comments in the moves, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: evals
+          description: |
+            Include analysis evaluation comments in the notation, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: opening
+          description: |
+            Include the opening name.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/gameNotation'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/GameJson'
+
+  /api/tournament/{id}/results:
+    get:
+      operationId: resultsByTournament
+      summary: Get results of a tournament
+      description: |
+        Players of a tournament, with their score and performance, sorted by rank (best first).
+
+        **Players are streamed as [ndjson](http://ndjson.org/)**, i.e. one JSON object per line.
+
+        If called on an ongoing tournament, results can be inconsistent
+        due to ranking changes while the players are being streamed.
+        Use on finished tournaments for guaranteed consistency.
+      tags:
+        - "Arena tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: id
+          description: The tournament ID.
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: nb
+          description: Max number of players to fetch
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          content:
+            application/x-ndjson:
+              schema:
+                example: {"rank":4,"score":389,"rating":2618,"username":"opperwezen","title":"IM","performance":2423,"team":"coders"}
+
+  /api/tournament/{id}/teams:
+    get:
+      operationId: teamsByTournament
+      summary: Get team standing of a team battle
+      description: |
+        Teams of a team battle tournament, with top players, sorted by rank (best first).
+      tags:
+        - "Arena tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: id
+          description: The tournament ID.
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                example: {"id":"CdPg1ey4","teams":[{"rank":1,"id":"cat-lovers","score":842,"players":[{"user":{"name":"lizen69","id":"lizen69"},"score":54},{"user":{"name":"lizen249","id":"lizen249"}}]}]}
+
+  /api/user/{username}/tournament/created:
+    get:
+      operationId: apiUserNameTournamentCreated
+      summary: Get tournaments created by a user
+      description: |
+        Get all tournaments created by a given user.
+
+        Tournaments are sorted by reverse chronological order of start date (last starting first).
+
+        **Tournaments are streamed as [ndjson](http://ndjson.org/)**, i.e. one JSON object per line.
+      tags:
+        - "Arena tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: query
+          name: nb
+          description: Max number of tournaments to fetch
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          content:
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/ArenaTournament'
+
+  /api/swiss/new/{teamId}:
+    post:
+      operationId: apiSwissNew
+      summary: Create a new Swiss tournament
+      description: |
+        Create a Swiss tournament for your team.
+
+        This endpoint mirrors the Swiss tournament form from your team pagee.
+
+        You can create up to 12 tournaments per day.
+      tags:
+        - "Swiss tournaments"
+      security:
+        - OAuth2: ["tournament:write"]
+      parameters:
+        - in: query
+          name: teamId
+          description: ID of the team
+          schema:
+            type: string
+      requestBody:
+        description: Parameters of the tournament
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The tournament name. Leave empty to get a random Grandmaster name
+                'clock.limit':
+                  type: number
+                  description: Clock initial time in seconds
+                  example: 300
+                  minimum: 0
+                  maximum: 3600
+                'clock.increment':
+                  type: integer
+                  description: Clock increment in seconds
+                  example: 1
+                  minimum: 0
+                  maximum: 600
+                nbRounds:
+                  type: integer
+                  description: Maximum number of rounds to play
+                  minimum: 3
+                  maximum: 100
+                  default: 8
+                startsAt:
+                  type: integer
+                  description: Timestamp in milliseconds to start the tournament at a given date and time. By default, it starts 10 minutes after creation.
+                roundInterval:
+                  type: integer
+                  description: |
+                    How long to wait between each round, in seconds.
+
+                    Set to 99999999 to manually schedule each round from the tournament UI.
+                  minimum: 0
+                  maximum: 86400
+                  default: auto
+                variant:
+                  type: string
+                  description: The variant to use in tournament games
+                  enum:
+                    - standard
+                    - shogi960
+                    - crazyhouse
+                    - antishogi
+                    - atomic
+                    - horde
+                    - kingOfTheHill
+                    - racingKings
+                    - threeCheck
+                  default: standard
+                description:
+                  type: string
+                  description: Anything you want to tell players about the tournament
+                rated:
+                  type: boolean
+                  description: Games are rated and impact players ratings
+                  default: true
+                chatFor:
+                  type: number
+                  description: |
+                    Who can read and write in the chat.
+                    - 0  = No-one
+                    - 10 = Only team leaders
+                    - 20 = Only team members
+                    - 30 = All Lishogi players
+                  default: 20
+              required:
+                - 'clock.limit'
+                - 'clock.increment'
+                - nbRounds
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwissTournament'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /swiss/{id}.trf:
+    get:
+      operationId: swissTrf
+      summary: Export TRF of a Swiss tournament
+      description: |
+        Download a tournament in the Tournament Report File format, the FIDE standard.
+
+        Documentation: https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
+
+        Example: https://lishogi.org/swiss/j8rtJ5GL.trf
+      tags:
+        - "Swiss tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: id
+          description: The tournament ID.
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          content:
+            text/plain:
+              example:
+
+  /api/swiss/{id}/games:
+    get:
+      operationId: gamesBySwiss
+      summary: Export games of a Swiss tournament
+      description: |
+        Download games of a tournament in KIF, CSA or [ndjson](http://ndjson.org/) format.
+
+        Games are sorted by reverse chronological order (last round first)
+      tags:
+        - "Swiss tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: id
+          description: The tournament ID.
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: moves
+          description: Include the moves.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: notationInJson
+          description: Include the full within the JSON response, in a `notation` field.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: tags
+          description: Include the tags.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: clocks
+          description: |
+            Include clock comments in the moves, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: evals
+          description: |
+            Include analysis evaluation comments in the notation, when available.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: opening
+          description: |
+            Include the opening name.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/gameNotation'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/GameJson'
+
+  /study/{studyId}/{chapterId}.kif:
+    get:
+      operationId: studyChapterKif
+      summary: Export one study chapter
+      description: |
+        Download one study chapter in KIF format.
+      tags:
+        - Studies
+      security:
+        - SameOrigin: []
+      parameters:
+        - in: path
+          name: studyId
+          description: The study ID (8 characters).
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: chapterId
+          description: The chapter ID (8 characters).
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StudyPgn'
+
+  /study/{studyId}.kif:
+    get:
+      operationId: studyChapterKif
+      summary: Export all chapters
+      description: |
+        Download all chapters of a study in KIF format.
+      tags:
+        - Studies
+      security:
+        - SameOrigin: []
+      parameters:
+        - in: path
+          name: studyId
+          description: The study ID (8 characters).
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StudyKif'
+
+  /api/simul:
+    get:
+      operationId: apiSimul
+      summary: Get current simuls
+      description: |
+        Get recently finished, ongoing, and upcoming simuls.
+      tags:
+        - Simuls
+      security:
+        - None: []
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Simul'
+
+  /api/team/{teamId}:
+    get:
+      operationId: teamShow
+      summary: Get a single team
+      description: Infos about a team
+      tags:
+        - Teams
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: teamId
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+
+  /api/team/all:
+    get:
+      operationId: teamAll
+      summary: Get popular teams
+      description: |
+        Paginator of the most popular teams.
+      tags:
+        - Teams
+      security:
+        - None: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: number
+            example: 1
+            default: 1
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+
+  /api/team/of/{username}:
+    get:
+      operationId: teamOfUsername
+      summary: Teams of a player
+      description: |
+        All the teams a player is a member of.
+      tags:
+        - Teams
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+            example: "thibault"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+
+  /api/team/search:
+    get:
+      operationId: teamSearch
+      summary: Search teams
+      description: |
+        Paginator of team search results for a keyword.
+      tags:
+        - Teams
+      security:
+        - None: []
+      parameters:
+        - in: query
+          name: text
+          schema:
+            type: string
+            example: coders
+        - in: query
+          name: page
+          schema:
+            type: number
+            example: 1
+            default: 1
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+
+  /api/team/{teamId}/users:
+    get:
+      operationId: teamIdUsers
+      summary: Get members of a team
+      description: |
+        Members are sorted by reverse chronological order of joining the team (most recent first).
+
+        **Members are streamed as [ndjson](http://ndjson.org/)**, i.e. one JSON object per line.
+      tags:
+        - Users
+        - Teams
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: teamId
+          schema:
+            type: string
+            example: "coders"
+          required: true
+      responses:
+        200:
+          content:
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/UserExtended'
+
+  /api/team/{teamId}/arena:
+    get:
+      operationId: apiTeamArena
+      summary: Get team arena tournaments
+      description: |
+        Get all tournaments relevant to a team.
+
+        Tournaments are sorted by reverse chronological order of start date (last starting first).
+
+        **Tournaments are streamed as [ndjson](http://ndjson.org/)**, i.e. one JSON object per line.
+      tags:
+        - Teams
+        - "Arena tournaments"
+      security:
+        - None: []
+      parameters:
+        - in: query
+          name: max
+          description: How many tournaments to download.
+          schema:
+            type: integer
+            minimum: 1
+            default: 100
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArenaTournament'
+
+  /team/{teamId}/join:
+    post:
+      operationId: teamIdJoin
+      summary: Join a team
+      description: |
+        Join a team.
+        If the team join policy requires a confirmation,
+        and the team owner is not the oAuth app owner,
+        and the `message` field is not set,
+        then the call fails with `403 Forbidden`.
+      tags:
+        - Teams
+        - OAuth
+      security:
+        - OAuth2: ["team:write"]
+          SameOrigin: []
+      parameters:
+        - in: path
+          name: teamId
+          schema:
+            type: string
+            example: "coders"
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Optional request message, if the team is not open.
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+
+  /team/{teamId}/quit:
+    post:
+      operationId: teamIdQuit
+      summary: Leave a team
+      description: |
+        Leave a team.
+        - https://lishogi.org/team
+      tags:
+        - Teams
+        - OAuth
+      security:
+        - OAuth2: ["team:write"]
+          SameOrigin: []
+      parameters:
+        - in: path
+          name: teamId
+          schema:
+            type: string
+            example: "coders"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+
+  /team/{teamId}/kick/{userId}:
+    post:
+      operationId: teamIdKickUserId
+      summary: Kick a user from your team
+      description: |
+        Kick a member out of one of your teams.
+        - https://lishogi.org/team
+      tags:
+        - Teams
+        - OAuth
+      security:
+        - OAuth2: ["team:write"]
+          SameOrigin: []
+      parameters:
+        - in: path
+          name: teamId
+          schema:
+            type: string
+            example: "coders"
+          required: true
+        - in: path
+          name: userId
+          schema:
+            type: string
+            example: "neio"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+
+  /team/{teamId}/pm-all:
+    post:
+      operationId: teamIdPmAll
+      summary: Message all members
+      description: |
+        Send a private message to all members of a team.
+        You must own the team.
+      tags:
+        - Teams
+        - OAuth
+      security:
+        - OAuth2: ["team:write"]
+      parameters:
+        - in: path
+          name: teamId
+          schema:
+            type: string
+            example: "coders"
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: The message to send to all your team members.
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /streamer/live:
+    get:
+      operationId: streamerLive
+      summary: Get live streamers
+      description: |
+        Get basic info about currently streaming users.
+
+        This API is very fast and cheap on lishogi side.
+        So you can call it quite often (like once every 5 seconds).
+      tags:
+        - Users
+      security:
+        - None: []
+          SameOrigin: []
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    title:
+                      type: string
+                      nullable: true
+                    online:
+                      type: boolean
+                      nullable: true
+                    patron:
+                      type: boolean
+                      nullable: true
+                example: [
+                  {
+                    "id": "aliquantus",
+                    "name": "Aliquantus"
+                  },
+                  {
+                    "id": "shogi-network",
+                    "name": "Shogi-Network",
+                    "title": "NM",
+                    "playing": true,
+                    "patron": true
+                  }
+                ]
+
+  /api/user/{username}/following:
+    get:
+      operationId: apiUserFollowing
+      summary: Get users followed by a user
+      description: |
+        **Users are streamed as [ndjson](http://ndjson.org/)**, i.e. one JSON object per line.
+      tags:
+        - Relations
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+            example: "thibault"
+          required: true
+      responses:
+        200:
+          content:
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/UserExtended'
+
+  /api/user/{username}/followers:
+    get:
+      operationId: apiUserFollowers
+      summary: Get users who follow a user
+      description: |
+        **Users are streamed as [ndjson](http://ndjson.org/)**, i.e. one JSON object per line.
+      tags:
+        - Relations
+      security:
+        - None: []
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+            example: "thibault"
+          required: true
+      responses:
+        200:
+          content:
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/UserExtended'
+
+  /api/stream/event:
+    get:
+      operationId: apiStreamEvent
+      summary: Stream incoming events
+      description: "\n
+      \ Stream the events reaching a lishogi user in real time as [ndjson](http://ndjson.org/).\n\n
+      \ Each line is a JSON object containing a `type` field. Possible values are:\n
+      \ - `challenge` Incoming challenge\n
+      \ - `gameStart` Start of a game\n\n
+      \n
+      \ When the stream opens, all current challenges and games are sent."
+      tags:
+        - Board
+        - Bot
+        - Challenges
+      security:
+        - OAuth2: ["challenge:read", "bot:play", "board:play"]
+      responses:
+        200:
+          content:
+            text/plain:
+              example: |
+                {"type":"challenge","challenge":{"id":"7pGLxJ4F","status":"created","challenger":{"id":"lovlas","name":"Lovlas","title":"IM","rating":2506,"patron":true,"online":true,"lag":24},"destUser":{"id":"thibot","name":"thibot","title":null,"rating":1500,"provisional":true,"online":true,"lag":45},"variant":{"key":"standard","name":"Standard","short":"Std"},"rated":true,"timeControl":{"type":"clock","limit":300,"increment":25,"show":"5+25"},"color":"random","perf":{"icon":"#","name":"Rapid"}}}
+                {"type":"gameStart","game":{"id":"1lsvP62l"}}
+
+  /api/board/seek:
+    post:
+      operationId: apiBoardSeek
+      summary: Create a seek
+      description: "\n
+      \ Create a public seek, to start a game with a random player.\n\n
+      \ The response is streamed but doesn't contain any information. **Keep the connection open to keep the seek active**.\n\n
+      \ If the client closes the connection, the seek is canceled.\n\n
+      \ If the seek is accepted, or expires, the server closes the connection.\n\n
+      \ **Make sure to also have an [Event stream](#operation/apiStreamEvent) open**, to be notified when a game starts.\n
+      \ We recommend opening the [Event stream](#operation/apiStreamEvent) first, then the seek stream. This way,\n
+      \ you won't miss the game event if the seek is accepted immediately."
+      tags:
+        - Board
+      security:
+        - OAuth2: ["board:play"]
+      requestBody:
+        description: Parameters of the seek
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                rated:
+                  type: boolean
+                  description: Whether the game is rated and impacts players ratings.
+                  example: true
+                  default: false
+                time:
+                  type: number
+                  description: Clock initial time in minutes.
+                  example: 15
+                  minimum: 0
+                  maximum: 180
+                increment:
+                  type: integer
+                  description: Clock increment in seconds.
+                  example: 15
+                  minimum: 0
+                  maximum: 180
+                variant:
+                  type: string
+                  description: The variant of the game.
+                  enum:
+                    - standard
+                    - shogi960
+                    - crazyhouse
+                    - antishogi
+                    - atomic
+                    - horde
+                    - kingOfTheHill
+                    - racingKings
+                    - threeCheck
+                  default: standard
+                color:
+                  type: string
+                  description: The color to play. Better left empty to automatically get 50% white.
+                  enum:
+                    - random
+                    - white
+                    - black
+                  default: random
+                ratingRange:
+                  type: string
+                  description: |
+                    The rating range of potential opponents. Better left empty.
+                    Example: 1500-1800
+              required:
+                - time
+                - increment
+      responses:
+        200:
+          content:
+            text/plain:
+              example: ""
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/board/game/stream/{gameId}:
+    get:
+      operationId: boardGameStream
+      summary: Stream Board game state
+      description: "\
+      \ Stream the state of a game being played with the Board API, as [ndjson](http://ndjson.org/).\n\
+      \nUse this endpoint to get updates about the game in real-time, with a single request.\n\
+      \nEach line is a JSON object containing a `type` field. Possible values are:\n
+      \ - `gameFull` Full game data. All values are immutable, except for the `state` field.\n
+      \ - `gameState` Current state of the game. Immutable values not included. Sent when a move is played, a draw is offered, or when the game ends.\n
+      \ - `chatLine` Chat message sent by a user in the `room` \"player\" or \"spectator\".\n\n
+      \nThe first line is always of type `gameFull`."
+      tags:
+        - Board
+      security:
+        - OAuth2: ["board:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotGameState'
+
+  /api/board/game/{gameId}/move/{move}:
+    post:
+      operationId: boardGameMove
+      summary: Make a Board move
+      description: |
+        Make a move in a game being played with the Board API.
+
+        The move can also contain a draw offer/agreement.
+      tags:
+        - Board
+      security:
+        - OAuth2: ["board:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+        - in: path
+          name: move
+          required: true
+          description: The move to play, in UCI format
+          schema:
+            type: string
+            example: "e2e4"
+        - in: query
+          name: offeringDraw
+          description: Whether to accept (or agree to) a draw
+          schema:
+            type: boolean
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/board/game/{gameId}/chat:
+    post:
+      operationId: boardGameChat
+      summary: Write in the chat
+      description: |
+        Post a message to the player or spectator chat, in a game being played with the Board API.
+      tags:
+        - Board
+      security:
+        - OAuth2: ["board:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                room:
+                  type: string
+                  enum:
+                  - player
+                  - spectator
+                text:
+                  type: string
+                  example: "Thank you for the game!"
+              required:
+                - room
+                - text
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/board/game/{gameId}/abort:
+    post:
+      operationId: boardGameAbort
+      summary: Abort a game
+      description: |
+        Abort a game being played with the Board API.
+      tags:
+        - Board
+      security:
+        - OAuth2: ["board:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/board/game/{gameId}/resign:
+    post:
+      operationId: boardGameResign
+      summary: Resign a game
+      description: |
+        Resign a game being played with the Board API.
+      tags:
+        - Board
+      security:
+        - OAuth2: ["board:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/board/game/{gameId}/draw/{accept}:
+    post:
+      operationId: boardGameDraw
+      summary: Handle draw offers
+      description: |
+        Create/accept/decline draw offers.
+        - `yes`: Offer a draw, or accept the opponent's draw offer.
+        - `no`: Decline a draw offer from the opponent.
+      tags:
+        - Board
+      security:
+        - OAuth2: ["board:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+        - in: path
+          name: accept
+          schema:
+            type: boolean
+            example: "yes"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/bot/account/upgrade:
+    post:
+      operationId: botAccountUpgrade
+      summary: Upgrade to Bot account
+      description: |
+        Upgrade a lishogi player account into a Bot account. Only Bot accounts can use the Bot API.
+
+        The account **cannot have played any game** before becoming a Bot account. The upgrade is **irreversible**. The account will only be able to play as a Bot.
+
+        Follow these steps:
+        - Create an [API access token](https://lishogi.org/account/oauth/token/create?scopes[]=bot:play) with "Play bot moves" permission.
+        - `curl -d '' https://lishogi.org/api/bot/account/upgrade -H "Authorization: Bearer <yourTokenHere>"`
+
+        To know if an account has already been upgraded, use the [Get my profile API](#operation/accountMe):
+        the `title` field should be set to `BOT`.
+      tags:
+        - Bot
+      security:
+        - OAuth2: ["bot:play"]
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/bot/game/stream/{gameId}:
+    get:
+      operationId: botGameStream
+      summary: Stream Bot game state
+      description: "\
+      \ Stream the state of a game being played with the Bot API, as [ndjson](http://ndjson.org/).\n\
+      \nUse this endpoint to get updates about the game in real-time, with a single request.\n\
+      \nEach line is a JSON object containing a `type` field. Possible values are:\n
+      \ - `gameFull` Full game data. All values are immutable, except for the `state` field.\n
+      \ - `gameState` Current state of the game. Immutable values not included.\n
+      \ - `chatLine` Chat message sent by a user (or the bot itself) in the `room` \"player\" or \"spectator\".\n\n
+      \nThe first line is always of type `gameFull`."
+      tags:
+        - Bot
+      security:
+        - OAuth2: ["bot:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotGameState'
+
+  /api/bot/game/{gameId}/move/{move}:
+    post:
+      operationId: botGameMove
+      summary: Make a Bot move
+      description: |
+        Make a move in a game being played with the Bot API.
+
+        The move can also contain a draw offer/agreement.
+      tags:
+        - Bot
+      security:
+        - OAuth2: ["bot:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+        - in: path
+          name: move
+          required: true
+          description: The move to play, in UCI format
+          schema:
+            type: string
+            example: "e2e4"
+        - in: query
+          name: offeringDraw
+          description: Whether to accept (or agree to) a draw
+          schema:
+            type: boolean
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/bot/game/{gameId}/chat:
+    post:
+      operationId: botGameChat
+      summary: Write in the chat
+      description: |
+        Post a message to the player or spectator chat, in a game being played with the Bot API.
+      tags:
+        - Bot
+      security:
+        - OAuth2: ["bot:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                room:
+                  type: string
+                  enum:
+                  - player
+                  - spectator
+                text:
+                  type: string
+                  example: "Thank you for the game!"
+              required:
+                - room
+                - text
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/bot/game/{gameId}/abort:
+    post:
+      operationId: botGameAbort
+      summary: Abort a game
+      description: |
+        Abort a game being played with the Bot API.
+      tags:
+        - Bot
+      security:
+        - OAuth2: ["bot:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/bot/game/{gameId}/resign:
+    post:
+      operationId: botGameResign
+      summary: Resign a game
+      description: |
+        Resign a game being played with the Bot API.
+      tags:
+        - Bot
+      security:
+        - OAuth2: ["bot:play"]
+      parameters:
+        - in: path
+          name: gameId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/challenge/{username}:
+    post:
+      operationId: challengeCreate
+      summary: Create a challenge
+      description: |
+        Challenge someone to play. The targeted player can choose to accept or decline.
+
+        If the challenge is accepted, you will be notified on the [event stream](#operation/apiStreamEvent)
+        that a new game has started. The game ID will be the same as the challenge ID.
+
+        If you also have an OAuth token with `challenge:write` scope for the receiving user,
+        you can make them accept the challenge immediately by setting the `acceptByToken` field.
+      tags:
+        - Challenges
+      security:
+        - OAuth2: ["challenge:write", "bot:play", "board:play"]
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+            example: "Leelashogi"
+          required: true
+      requestBody:
+        description: Parameters of the challenge
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                rated:
+                  type: boolean
+                  description: Game is rated and impacts players ratings
+                'clock.limit':
+                  type: number
+                  description: Clock initial time in seconds. If empty, a correspondence game is created.
+                  example: 300
+                  minimum: 0
+                  maximum: 10800
+                'clock.increment':
+                  type: integer
+                  description: Clock increment in seconds. If empty, a correspondence game is created.
+                  example: 1
+                  minimum: 0
+                  maximum: 60
+                days:
+                  type: integer
+                  description: Days per move, for correspondence games. Clock settings must be omitted.
+                  example: 5
+                  minimum: 1
+                  maximum: 15
+                color:
+                  type: string
+                  description: Which color you get to play
+                  enum:
+                    - random
+                    - white
+                    - black
+                  default: 'random'
+                variant:
+                  type: string
+                  description: The variant of the game
+                  enum:
+                    - standard
+                    - shogi960
+                    - crazyhouse
+                    - antishogi
+                    - atomic
+                    - horde
+                    - kingOfTheHill
+                    - racingKings
+                    - threeCheck
+                  default: standard
+                fen:
+                  type: string
+                  description: Custom initial position (in FEN). Variant must be standard, and the game cannot be rated.
+                  default: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+                acceptByToken:
+                  type: string
+                  description: |
+                    Immediately accept the challenge and create the game.
+                    Pass in an OAuth token (with the `challenge:write` scope) for the receiving user.
+                    On success, the response will contain a `game` field instead of a `challenge` field.
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeJson'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/challenge/{challengeId}/accept:
+    post:
+      operationId: challengeAccept
+      summary: Accept a challenge
+      description: |
+        Accept an incoming challenge.
+
+        You should receive a `gameStart` event on the [incoming events stream](#operation/apiStreamEvent).
+      tags:
+        - Challenges
+      security:
+        - OAuth2: ["challenge:write", "bot:play", "board:play"]
+      parameters:
+        - in: path
+          name: challengeId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+
+  /api/challenge/{challengeId}/decline:
+    post:
+      operationId: challengeDecline
+      summary: Decline a challenge
+      description: |
+        Decline an incoming challenge.
+      tags:
+        - Challenges
+      security:
+        - OAuth2: ["challenge:write", "bot:play", "board:play"]
+      parameters:
+        - in: path
+          name: challengeId
+          schema:
+            type: string
+            example: "5IrD6Gzz"
+          required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+
+  /api/challenge/ai:
+    post:
+      operationId: challengeAi
+      summary: Challenge the AI
+      description: |
+        Start a game with Lishogi AI.
+
+        You will be notified on the [event stream](#operation/apiStreamEvent) that a new game has started.
+      tags:
+        - Challenges
+      security:
+        - OAuth2: ["challenge:write", "bot:play", "board:play"]
+      requestBody:
+        description: Parameters of the game
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                level:
+                  type: number
+                  description: AI strength
+                  minimum: 1
+                  maximum: 8
+                'clock.limit':
+                  type: number
+                  description: Clock initial time in seconds. If empty, a correspondence game is created.
+                  example: 300
+                  minimum: 0
+                  maximum: 10800
+                'clock.increment':
+                  type: integer
+                  description: Clock increment in seconds. If empty, a correspondence game is created.
+                  example: 1
+                  minimum: 0
+                  maximum: 60
+                days:
+                  type: integer
+                  description: Days per move, for correspondence games. Clock settings must be omitted.
+                  example: 5
+                  minimum: 1
+                  maximum: 15
+                color:
+                  type: string
+                  description: Which color you get to play
+                  enum:
+                    - random
+                    - white
+                    - black
+                  default: 'random'
+                variant:
+                  type: string
+                  description: The variant of the game
+                  enum:
+                    - standard
+                    - shogi960
+                    - crazyhouse
+                    - antishogi
+                    - atomic
+                    - horde
+                    - kingOfTheHill
+                    - racingKings
+                    - threeCheck
+                  default: standard
+                fen:
+                  type: string
+                  description: Custom initial position (in FEN). Variant must be standard, and the game cannot be rated.
+                  default: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameJson'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/challenge/open:
+    post:
+      operationId: challengeOpen
+      summary: Open-ended challenge
+      description: |
+        Create a challenge that any 2 players can join.
+
+        Share the URL of the challenge. the first 2 players to click it will be paired for a game.
+
+        The response body also contains `whiteUrl` and `blackUrl`.
+        You can control which color each player gets by giving them these URLs,
+        instead of the main challenge URL.
+
+        Open challenges expire after 24h.
+
+        To directly pair 2 known players, use [this endpoint](#operation/challengeCreate) instead,
+        with the `acceptByToken` parameter.
+      tags:
+        - Challenges
+      security:
+        - None: []
+      requestBody:
+        description: Parameters of the game
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                'clock.limit':
+                  type: number
+                  description: Clock initial time in seconds. If empty, a correspondence game is created.
+                  example: 300
+                  minimum: 0
+                  maximum: 10800
+                'clock.increment':
+                  type: integer
+                  description: Clock increment in seconds. If empty, a correspondence game is created.
+                  example: 1
+                  minimum: 0
+                  maximum: 60
+                variant:
+                  type: string
+                  description: The variant of the game
+                  enum:
+                    - standard
+                    - shogi960
+                    - crazyhouse
+                    - antishogi
+                    - atomic
+                    - horde
+                    - kingOfTheHill
+                    - racingKings
+                    - threeCheck
+                  default: standard
+                fen:
+                  type: string
+                  description: Custom initial position (in FEN). Variant must be standard, and the game cannot be rated.
+                  default: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeJson'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /inbox/{username}:
+    post:
+      operationId: inboxUsername
+      summary: Send a private message
+      description: |
+        Send a private message to another player.
+      tags:
+        - Messaging
+      security:
+        - OAuth2: ["msg:write"]
+          SameOrigin: []
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+            example: "someplayer"
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: "Thank you for the game!"
+              required:
+                - text
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/cloud-eval:
+    get:
+      operationId: apiCloudEval
+      summary: Get cloud evaluation of a position.
+      description: |
+        Get the cached evaluation of a position, if available.
+
+        Opening positions have more chances of being available.
+
+        Up to 5 variations may be available. Variants are supported.
+      tags:
+        - Analysis
+      security:
+        - None: []
+      parameters:
+        - in: query
+          name: fen
+          required: true
+          description: FEN of the position
+          schema:
+            type: string
+          example: rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2
+        - in: query
+          name: multiPv
+          description: Number of variations
+          schema:
+            type: number
+            default: 1
+        - in: query
+          name: variant
+          description: Variant
+          schema:
+            type: string
+            default: standard
+      responses:
+        200:
+          content:
+            application/json:
+              example: {"fen":"rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2","knodes":13683,"depth":22,"pvs":[{"moves":"c8f5 d2d4 e7e6 g1f3 g8e7 c1e3 c7c5 d4c5 e7c6 b1c3","cp":-13},{"moves":"c7c5 c2c3 d5d4 g1f3 b8c6 c3d4 c6d4 b1c3 c8d7 f1d3","cp":-1},{"moves":"e7e6 d2d4 c7c5 c2c3 b8c6 g1f3 c8d7 b1a3 c5d4 c3d4","cp":24}]}
+
+components:
+  parameters:
+    lishogi:
+      in: header
+      name: Accept
+      schema:
+        type: string
+        default: application/vnd.lishogi.v3+json
+      required: true
+  schemas:
+    ChallengeJson:
+      example: {
+        "id": "VU0nyvsW",
+        "url": "https://lishogi.org/VU0nyvsW",
+        "color": "random",
+        "direction": "out",
+        "timeControl": {
+          "increment": 2,
+          "limit": 300,
+          "show": "5+2",
+          "type": "clock"
+        },
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        },
+        "challenger": {
+          "id": "thibot",
+          "name": "thibot",
+          "online": true,
+          "provisional": false,
+          "rating": 1940,
+          "title": "BOT"
+        },
+        "destUser": {
+          "id": "leelashogi",
+          "name": "Leelashogi",
+          "online": true,
+          "provisional": true,
+          "rating": 2670,
+          "title": "BOT"
+        },
+        "perf": {
+          "icon": ";",
+          "name": "Correspondence"
+        },
+        "rated": true,
+        "speed": "blitz",
+        "status": "created"
+      }
+    GameJson:
+      example: {
+        "id": "q7ZvsdUF",
+        "rated": true,
+        "variant": "standard",
+        "speed": "blitz",
+        "perf": "blitz",
+        "createdAt": 1514505150384,
+        "lastMoveAt": 1514505592843,
+        "status": "draw",
+        "players": {
+          "white": {
+            "user": {
+              "name": "Lance5500",
+              "title": "LM",
+              "patron": true,
+              "id": "lance5500"
+            },
+            "rating": 2389,
+            "ratingDiff": 4,
+          },
+          "black": {
+            "user": {
+              "name": "TryingHard87",
+              "id": "tryinghard87"
+            },
+            "rating": 2498,
+            "ratingDiff": -4,
+          }
+        },
+        "opening": {
+          "eco":"D31",
+          "name":"Semi-Slav Defense: Marshall Gambit",
+          "ply":7
+        },
+        "moves": "d4 d5 c4 c6 Nc3 e6 e4 Nd7 exd5 cxd5 cxd5 exd5 Nxd5 Nb6 Bb5+ Bd7 Qe2+ Ne7 Nxb6 Qxb6 Bxd7+ Kxd7 Nf3 Qa6 Ne5+ Ke8 Qf3 f6 Nd3 Qc6 Qe2 Kf7 O-O Kg8 Bd2 Re8 Rac1 Nf5 Be3 Qe6 Rfe1 g6 b3 Bd6 Qd2 Kf7 Bf4 Qd7 Bxd6 Nxd6 Nc5 Rxe1+ Rxe1 Qc6 f3 Re8 Rxe8 Nxe8 Kf2 Nc7 Qb4 b6 Qc4+ Nd5 Nd3 Qe6 Nb4 Ne7 Qxe6+ Kxe6 Ke3 Kd6 g3 h6 Kd3 h5 Nc2 Kd5 a3 Nc6 Ne3+ Kd6 h4 Nd8 g4 Ne6 Ke4 Ng7 Nc4+ Ke6 d5+ Kd7 a4 g5 gxh5 Nxh5 hxg5 fxg5 Kf5 Nf4 Ne3 Nh3 Kg4 Ng1 Nc4 Kc7 Nd2 Kd6 Kxg5 Kxd5 f4 Nh3+ Kg4 Nf2+ Kf3 Nd3 Ke3 Nc5 Kf3 Ke6 Ke3 Kf5 Kd4 Ne6+ Kc4",
+        "clock": {
+          "initial": 300,
+          "increment": 3,
+          "totalTime": 420
+        }
+      }
+    gameNotation:
+      example: |
+        [Event "Rated Blitz game"]
+        [Site "https://lishogi.org/fY44h4OY"]
+        [Date "2018.03.29"]
+        [Round "-"]
+        [White "pveldman"]
+        [Black "thibault"]
+        [Result "1-0"]
+        [UTCDate "2018.03.29"]
+        [UTCTime "01:38:15"]
+        [WhiteElo "1610"]
+        [BlackElo "1601"]
+        [WhiteRatingDiff "+10"]
+        [BlackRatingDiff "-10"]
+        [Variant "Standard"]
+        [TimeControl "180+0"]
+        [ECO "C62"]
+        [Opening "Ruy Lopez: Steinitz Defense"]
+        [Termination "Normal"]
+        [Event "U1700 SuperBlitz Arena"]
+
+        1. e4 { [%clk 0:03:00] } e5 { [%clk 0:03:00] } 2. Nf3 { [%clk 0:02:59] } Nc6 { [%clk 0:02:58] } 3. Bb5 { [%clk 0:02:57] } d6 { [%clk 0:02:55] } 4. h3 { [%clk 0:02:54] } Nf6 { [%clk 0:02:52] } 5. Bxc6+ { [%clk 0:02:52] } bxc6 { [%clk 0:02:49] } 6. d3 { [%clk 0:02:51] } Be7 { [%clk 0:02:46] } 7. O-O { [%clk 0:02:47] } O-O { [%clk 0:02:45] } 8. b3 { [%clk 0:02:45] } d5 { [%clk 0:02:45] } 9. exd5 { [%clk 0:02:33] } cxd5 { [%clk 0:02:40] } 10. Nxe5 { [%clk 0:02:31] } Qd6 { [%clk 0:02:38] } 1-0
+    StudyPgn:
+      example: |
+        [Event "♦ All about the Sicilian Defense ♦: Dragon Variation"]
+        [Site "https://lishogi.org/study/8c8bmUfy/qwnXMwVC"]
+        [Result "*"]
+        [UTCDate "2017.06.25"]
+        [UTCTime "10:12:04"]
+        [Variant "Standard"]
+        [ECO "B76"]
+        [Opening "Sicilian Defense: Dragon Variation, Yugoslav Attack, Panov Variation"]
+        [Annotator "https://lishogi.org/@/Francesco_Super"]
+
+        { This chapter will go over the Dragon Variation, a very common variation used by Black and it is the most aggressive variation in the Sicilian defense. }
+        1. e4 c5 2. Nf3 { Simple developing move to control the d4 square } { [%csl Gd4,Gc5][%cal Gf3d4,Gc5d4] } 2... d6 { [%cal Gd6e5] } (2... e6 3. d4 cxd4 4. Nxd4 Nf6 5. e5 (5. Nc3 { [%cal Ge4e5] }) 5... Qa5+) 3. d4 { Whites want the exchange of pawns } { [%cal Gc5d4] } 3... cxd4 { [%cal Gf3d4] } 4. Nxd4 { Whites are now ahead in development but blacks still have the two central pawns whereas whites only one. } { [%csl Ge7,Gd6,Ge4] } 4... Nf6 { Blacks are now developing their knight and threatening the e4 pawn } { [%csl Ge4][%cal Gf6e4] } 5. Nc3 { The e4 pawn is now protected by the c3 knight } { [%csl Ge4,Bc3][%cal Rf6e4,Bc3e4] } 5... g6 { This is the DRAGON VARIATION. g6 allows the dark-squared bishop to develop and move to g7, controlling the long dark-squared diagonal } { [%csl Gd4] } 6. Be3 { [%cal Gd1d2,Gf2f3,Ge1c1,Gg2g4,Gh2h4,Gg4g5] } (6. Be2 Bg7 7. O-O Nc6 8. Be3 { [%cal Ge3d4] } (8. f3 Nxe4 { [%cal Gg7d4,Gc6d4] } 9. Nxc6 Qb6+ { [%cal Gb6c6,Gb6g1] } 10. Kh1 Nxc3 { [%cal Gc3d1,Gc3e2] } 11. bxc3 bxc6 { [%cal Gc8a6] }) 8... O-O 9. Nb3 a6 { [%cal Gb7b5,Gb5b4,Ge2c4] }) 6... Bg7 (6... Ng4 { [%cal Gg4e3] } 7. Bb5+ { [%cal Gb5e8,Gb8d7,Gc8d7,Gd1g4] } 7... Nc6 8. Nxc6 bxc6 9. Bxc6+ { [%cal Gc6a8] }) 7. f3 { The key opening moves for White, who attempt to castle queenside , whereas f3 strengthens the pawn structure, connecting e4 to the h2 and g2, while White also plan pushing to g4 and possibly h4. } { [%csl Bf3,Be3][%cal Rg2g4,Rh2h4,Rg4g5] } 7... O-O (7... h5 { Is operating against g4. }) 8. Qd2 { [%csl Gh6,Gg7][%cal Ge1c1,Ga1d1,Re3h6,Rd2h6] } 8... Nc6 { [%csl Gc6,Gh6][%cal Gb8c6,Ge1c1,Ga7a6,Ge3h6] } 9. g4 (9. Bh6 { [%cal Ge3d4] } 9... Bxh6 10. Qxh6 Nxd4) 9... Be6 10. Nxe6 fxe6 { [%cal Gf8f1] } 11. O-O-O Ne5 12. Be2 { [%csl Gf3][%cal Re5f3,Bd1h1,Bg1d1] } 12... Qc7 { [%csl Gc4][%cal Ge5c4,Gc4e3,Gc4d2,Bf8c8,Yc7c3] } 13. h4 Nc4 *
+    User:
+      example: {
+        "id": "georges",
+        "username": "Georges",
+        "title": "NM",
+        "online": true,
+        "playing": true,
+        "streaming": false,
+        "createdAt": 1290415680000,
+        "seenAt": 1522636452014,
+        "profile": {
+            "bio": "Free bugs!",
+            "country": "EC",
+            "firstName": "Thibault",
+            "lastName": "Duplessis",
+            "links": "github.com/ornicar\r\ntwitter.com/ornicar",
+            "location": "On the road"
+        },
+        "language": "en-GB",
+        "perfs": {
+            "blitz": {
+                "games": 2945,
+                "prog": -22,
+                "rating": 1609,
+                "rd": 60
+            },
+            "bullet": {
+                "games": 2324,
+                "prog": -9,
+                "rating": 1602,
+                "rd": 61
+            },
+            "shogi960": {
+                "games": 347,
+                "prog": 84,
+                "rating": 1554,
+                "rd": 66
+            },
+            "puzzle": {
+                "games": 2248,
+                "prog": -67,
+                "rating": 1737,
+                "rd": 63
+            },
+        },
+        "patron": true,
+        "disabled" : false,
+        "engine" : false,
+        "booster" : false,
+        "playTime": {
+            "total": 3296897,
+            "tv": 12134
+        }
+      }
+    UserLight:
+      example: {
+        "id": "shogi-network",
+        "name": "Shogi-Network",
+        "title": "NM",
+        "playing": true,
+        "patron": true
+      }
+    UserExtended:
+      example: {
+        "id": "georges",
+        "username": "Georges",
+        "title": "NM",
+        "online": true,
+        "playing": true,
+        "streaming": false,
+        "createdAt": 1290415680000,
+        "seenAt": 1522636452014,
+        "profile": {
+            "bio": "Free bugs!",
+            "country": "EC",
+            "firstName": "Thibault",
+            "lastName": "Duplessis",
+            "links": "github.com/ornicar\r\ntwitter.com/ornicar",
+            "location": "On the road"
+        },
+        "nbFollowers": 2735,
+        "nbFollowing": 299,
+        "completionRate": 97,
+        "language": "en-GB",
+        "count": {
+            "ai": 531,
+            "all": 9265,
+            "bookmark": 71,
+            "draw": 340,
+            "drawH": 331,
+            "import": 66,
+            "loss": 4480,
+            "lossH": 4207,
+            "me": 0,
+            "playing": 6,
+            "rated": 7157,
+            "win": 4440,
+            "winH": 4378
+        },
+        "perfs": {
+            "blitz": {
+                "games": 2945,
+                "prog": -22,
+                "rating": 1609,
+                "rd": 60
+            },
+            "bullet": {
+                "games": 2324,
+                "prog": -9,
+                "rating": 1602,
+                "rd": 61
+            },
+            "shogi960": {
+                "games": 347,
+                "prog": 84,
+                "rating": 1554,
+                "rd": 66
+            },
+            "puzzle": {
+                "games": 2248,
+                "prog": -67,
+                "rating": 1737,
+                "rd": 63
+            },
+        },
+        "patron": true,
+        "disabled" : false,
+        "engine" : false,
+        "booster" : false,
+        "playTime": {
+            "total": 3296897,
+            "tv": 12134
+        }
+      }
+
+    PuzzleRoundJson:
+      example: {
+        "id": 70232,
+        "date": 1514505150384,
+        "rating": "1982",
+        "ratingDiff": 5,
+        "puzzleRating": 1877
+      }
+
+    RatingHistory:
+      example: [{"name":"Bullet","points":[[2011,0,8,1472],[2011,0,9,1332],[2011,8,12,1314]]},{"name":"Blitz","points":[[2011,7,29,1332]]}]
+
+    Top10s:
+      example: {
+        "bullet": [
+          {
+            "id": "bahadirozen",
+            "username": "BahadirOzen",
+            "perfs": {
+              "bullet": {
+                "rating": 3018,
+                "progress": 18
+              }
+            },
+            "online": true,
+            "title": "FM"
+          },
+          {
+            "id": "penguingim1",
+            "username": "penguingim1",
+            "perfs": {
+              "bullet": {
+                "rating": 2983,
+                "progress": -36
+              }
+            },
+            "title": "GM",
+            "online": true,
+            "patron": true
+          },
+          {
+            "id": "night-king96",
+            "username": "Night-King96",
+            "perfs": {
+              "bullet": {
+                "rating": 2958,
+                "progress": 35
+              }
+            },
+            "title": "GM"
+          },
+        ],
+        "blitz": [],
+        "rapid": [],
+        "classical": [],
+        "ultraBullet": [],
+        "shogi960": [],
+        "crazyhouse": [],
+        "antishogi": [],
+        "atomic": [],
+        "horde": [],
+        "kingOfTheHill": [],
+        "racingKings": [],
+        "threeCheck": []
+      }
+
+    Leaderboard:
+      example: {
+        "users": [
+          {
+            "id": "bahadirozen",
+            "username": "BahadirOzen",
+            "perfs": {
+              "bullet": {
+                "rating": 3018,
+                "progress": 18
+              }
+            },
+            "online": true,
+            "title": "FM"
+          },
+          {
+            "id": "penguingim1",
+            "username": "penguingim1",
+            "perfs": {
+              "bullet": {
+                "rating": 2983,
+                "progress": -36
+              }
+            },
+            "title": "GM",
+            "online": true,
+            "patron": true
+          },
+          {
+            "id": "night-king96",
+            "username": "Night-King96",
+            "perfs": {
+              "bullet": {
+                "rating": 2958,
+                "progress": 35
+              }
+            },
+            "title": "GM"
+          },
+        ]
+      }
+
+    UserPreferences:
+      example: {
+        "prefs":{
+          "dark":true,
+          "transp":false,
+          "bgImg":"http://media.blizzard.com/sc2/media/wallpapers/wall080/wall080-1920x1080.jpg",
+          "is3d":false,
+          "theme":"wood2",
+          "pieceSet":"go",
+          "theme3d":"Light-Wood",
+          "pieceSet3d":"Staunton",
+          "soundSet":"silent",
+          "blindfold":0,
+          "autoQueen":2,
+          "autoThreefold":2,
+          "takeback":3,
+          "clockTenths":1,
+          "clockBar":true,
+          "clockSound":true,
+          "premove":true,
+          "animation":2,
+          "captured":true,
+          "follow":true,
+          "highlight":true,
+          "destination":true,
+          "coords":2,
+          "replay":2,
+          "challenge":3,
+          "message":3,
+          "coordColor":1,
+          "submitMove":0,
+          "confirmResign":1,
+          "insightShare":2,
+          "keyboardMove":0,
+          "zen":0,
+          "moveEvent":2
+        }
+    }
+
+    ArenaTournament:
+      example: {
+        "id": "QITRjufu",
+        "fullName": "U1700 SuperBlitz Arena",
+        "clock": {
+            "increment": 0,
+            "limit": 180
+        },
+        "minutes": 57,
+        "rated": true,
+        "createdBy": "lishogi",
+        "system": "arena",
+        "secondsToStart": 0,
+        "startsAt": 1522803600000,
+        "finishesAt": 1522807020000,
+        "hasMaxRating": true,
+        "nbPlayers": 154,
+        "status": 30,
+        "perf": {
+            "icon": ")",
+            "key": "blitz",
+            "name": "Blitz",
+            "position": 1
+        },
+        "schedule": {
+            "freq": "hourly",
+            "speed": "superblitz"
+        },
+        "variant": {
+            "key": "standard",
+            "name": "Standard",
+            "short": "Std"
+        },
+        "winner": {
+            "id": "camerun10",
+            "name": "camerun10",
+            "title": null
+        }
+      }
+
+    ArenaTournamentId:
+      example: {
+        "id": "QITRjufu",
+        "fullName": "U1700 SuperBlitz Arena",
+        "clock": {
+          "increment": 0,
+          "limit": 180
+        },
+        "minutes": 57,
+        "createdBy": "lishogi",
+        "system": "arena",
+        "secondsToStart": 0,
+        "secondsToFinish": 36000,
+        "isFinshed": true,
+        "isRecentlyFinished": true,
+        "pairingsClosed": true,
+        "startsAt": 1522803600000,
+        "finishesAt": 1522807020000,
+        "nbPlayers": 154,
+        "perf": {
+          "icon": ")",
+          "key": "blitz",
+          "name": "Blitz",
+          "position": 1
+        },
+        "schedule": {
+          "freq": "hourly",
+          "speed": "superblitz"
+        },
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        },
+        "duels": [
+          {
+            "id": "0MM6q4tQ",
+            "p": [
+              {
+                "n": "player1",
+                "r": 1500,
+                "k": 3
+              },
+              {
+                "n": "player2",
+                "r": 1500,
+                "k": 3
+              }
+            ]
+          }
+        ],
+        "standings": {
+          "page": 1,
+          "players": [
+            {
+              "name": "player1",
+              "rank": 1,
+              "rating": 1500,
+              "score": 3,
+              "sheet": {
+                "scores": [
+                {
+                  "0": 2,
+                  "1": 2,
+                },
+                {
+                  "0": 4,
+                  "1": 3,
+                },
+                0
+                ],
+                "total": 6,
+                "fire": true
+              }
+            }
+          ],
+        },
+        "featured": {
+          "id": "khe72Fer",
+          "fen": "rn1qkb1r/pQ3ppp/2b2n2/8/5P2/4P3/PP4PP/RNB1KBNR",
+          "color": "black",
+          "lastMove": "d7c6",
+          "white": {
+            "rank": 2,
+            "name": "player1",
+            "rating": 1360
+          },
+          "black": {
+            "rank": 5,
+            "name": "player2",
+            "rating": 1431
+          }
+        },
+        "podium": [
+          {
+            "name": "player1",
+            "rank": 1,
+            "rating": 1500,
+            "score": 3,
+            "sheet": {
+              "scores": [
+              {
+                "0": 2,
+                "1": 2,
+              },
+              {
+                "0": 4,
+                "1": 3,
+              },
+              0
+              ],
+              "total": 6,
+              "fire": true
+            },
+            "nb": {
+              "game": 3,
+              "beserk": 0,
+              "win": 2
+            },
+            "performance": 1787
+          }
+        ],
+        "stats": {
+          "games": 454,
+          "moves": 27542,
+          "whiteWins": 236,
+          "blackWins": 207,
+          "draws": 11,
+          "berserks": 0,
+          "averageRating": 1320
+        }
+      }
+
+    Simul:
+      example: {
+          "fullName": "GM shogiWeeb simul",
+          "host": {
+              "id": "shogiweeb",
+              "name": "shogiWeeb",
+              "rating": 1500,
+              "title": "GM"
+          },
+          "id": "pDGbxhUe",
+          "isCreated": false,
+          "isFinished": true,
+          "isRunning": false,
+          "name": "GM shogiWeeb",
+          "nbApplicants": 0,
+          "nbPairings": 24,
+          "text": "",
+          "variants": [
+              {
+                  "icon": "+",
+                  "key": "standard",
+                  "name": "Standard"
+              }
+          ]
+      }
+
+    Team:
+      example: {
+        "id": "coders",
+        "name": "Coders",
+        "leaders": [
+          {
+            "id": "thibault",
+            "name": "thibault",
+            "patron": true
+          }
+        ],
+        "nbMembers": 3129,
+        "description": "There are 10 kinds of people in the world: those who understand binary, and the others.\r\n\r\nIf you want to join the team, prove (briefly) that you can code in the request message!",
+        "open": false
+      }
+
+    BotGameState:
+      type: object
+      properties:
+        state:
+          type: object
+          properties:
+            moves:
+              type: string
+              description: Current moves in UCI format
+            wtime:
+              type: integer
+              description: Integer of milliseconds White has left on the clock
+            btime:
+              type: integer
+              description: Integer of milliseconds Black has left on the clock
+            winc:
+              type: integer
+              description: Integer of White Fisher increment.
+            binc:
+              type: integer
+              description: Integer of Black Fisher increment.
+            status:
+              type: string
+              description: Game status code. https://github.com/WandererXII/scalashogi/master/src/main/scala/Status.scala
+            winner:
+              type: string
+              description: Color of the winner, if any
+      example: [
+        {
+          "type": "gameFull",
+          "id": "5IrD6Gzz",
+          "rated": true,
+          "variant": {
+            "key": "standard",
+            "name": "Standard",
+            "short": "Std"
+          },
+          "clock": {
+            "initial": 1200000,
+            "increment": 10000
+          },
+          "speed": "classical",
+          "perf": {
+            "name": "Classical"
+          },
+          "createdAt": 1523825103562,
+          "white": {
+            "id": "lovlas",
+            "name": "lovlas",
+            "provisional": false,
+            "rating": 2500,
+            "title": "IM"
+          },
+          "black": {
+            "id": "leela",
+            "name": "leela",
+            "rating": 2390,
+            "title": null
+          },
+          "initialSfen": "startpos",
+          "state": {
+            "type": "gameState",
+            "usimoves": "7g7f",
+            "wtime": 7598040,
+            "btime": 8395220,
+            "winc": 10000,
+            "binc": 10000,
+            "status": "started"
+          }
+        },
+        {
+          "type": "gameState",
+          "usiMoves": "7g7f",
+          "wtime": 7598040,
+          "btime": 8395220,
+          "winc": 10000,
+          "binc": 10000,
+          "status": "started"
+        },
+        {
+          "type": "chatLine",
+          "username": "thibault",
+          "text": "Good luck, have fun",
+          "room": "player"
+        },
+        {
+          "type": "chatLine",
+          "username": "lovlas",
+          "text": "!eval",
+          "room": "spectator"
+        },
+        {
+          "type": "gameState",
+          "usiMoves": "7g7f",
+          "wtime": 7598040,
+          "btime": 8395220,
+          "winc": 10000,
+          "binc": 10000,
+          "status": "resign",
+          "winner": "black"
+        }
+      ]
+
+    StreamEvents:
+      example: |
+        {"type":"challenge","challenge":{"id":"7pGLxJ4F","status":"created","challenger":{"id":"lovlas","name":"Lovlas","title":"IM","rating":2506,"patron":true,"online":true,"lag":24},"destUser":{"id":"thibot","name":"thibot","title":null,"rating":1500,"provisional":true,"online":true,"lag":45},"variant":{"key":"standard","name":"Standard","short":"Std"},"rated":true,"timeControl":{"type":"clock","limit":300,"increment":25,"show":"5+25"},"color":"random","perf":{"icon":"#","name":"Rapid"}}}
+        {"type":"gameStart","game":{"id":"1lsvP62l"}}
+
+    Ok:
+      properties:
+        ok:
+          type: boolean
+      example:
+        ok: true
+
+    Error:
+      properties:
+        error:
+          type: string
+          description: The cause of the error.
+      example:
+        error: "This request is invalid because [...]"
+
+    NotFound:
+      properties:
+        error:
+          type: string
+      example:
+        error: "Not found."
+
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: "### Authorization Code Flow\n\
+        \ The authorization code flow allows your users to **login with lishogi**.\n\
+        \ - [Create a Lishogi OAuth app](https://lishogi.org/account/oauth/app)\n\
+        \ - [About authorization code flow](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2#grant-type-authorization-code)\n\
+        \n### Personal API Token\n\
+        \ Personal API tokens allow you to quickly interact with Lishogi OAuth API.\n\
+        \ - `curl https://lishogi.org/api/account -H \"Authorization: Bearer <token>\"`\n\
+        \ - [Generate a personal API token](https://lishogi.org/account/oauth/token)"
+      flows:
+        authorizationCode:
+          authorizationUrl: https://oauth.lishogi.org/oauth/authorize
+          tokenUrl: https://oauth.lishogi.org/oauth
+          scopes:
+            "preference:read": Read your preferences
+            "preference:write": Write your preferences
+            "email:read": Read your email address
+            "challenge:read": Read incoming challenges
+            "challenge:write": Create, accept, decline challenges
+            "tournament:write": Create tournaments
+            "board:play": Play with the Board API
+            "bot:play": Play with the Bot API. Only for [Bot accounts](#operation/botAccountUpgrade)
+    SameOrigin:
+      description: "CORS is not supported on this endpoint.\n\
+        \ If you need it, please\n\
+        \ [make an issue](https://github.com/ornicar/lila/issues/new)\n\
+        \ to request it."
+      type: none
+    None:
+      description: "No authorization required.\n\
+        \ For requests that don't need an authenticated user."
+      type: none
