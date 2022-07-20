@@ -36,6 +36,7 @@ import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
+import { objectStorage, ObjectStorage } from 'common/objectStorage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -46,7 +47,6 @@ import ExplorerCtrl from './explorer/explorerCtrl';
 export default class AnalyseCtrl {
   data: AnalyseData;
   element: HTMLElement;
-
   tree: TreeWrapper;
   socket: Socket;
   chessground: ChessgroundApi;
@@ -82,6 +82,7 @@ export default class AnalyseCtrl {
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
+  isDirty = false; // if isDirty show reset button to erase local move storage
 
   // display flags
   flipped = false;
@@ -91,6 +92,7 @@ export default class AnalyseCtrl {
   showGauge = storedBooleanProp('show-gauge', true);
   showComputer = storedBooleanProp('show-computer', true);
   showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
+  saveMovesProp = storedBooleanProp('save-moves-local-db', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -113,6 +115,7 @@ export default class AnalyseCtrl {
   music?: any;
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
+  moveDb?: ObjectStorage<AnalyseState>;
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
     this.data = opts.data;
@@ -180,8 +183,8 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-
     speech.setup();
+    this.mergeDbState();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -220,6 +223,7 @@ export default class AnalyseCtrl {
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki) this.wiki(this.nodeList);
+    this.saveDbState();
   };
 
   flip = () => {
@@ -525,6 +529,9 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
+    if (!this.isDirty) {
+      this.isDirty = !this.tree.pathExists(path + node.id);
+    }
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -918,4 +925,57 @@ export default class AnalyseCtrl {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom) return f(this.chessground);
     return undefined;
   };
+
+  saveMoves = (switchVal?: boolean): boolean => {
+    if (!defined(switchVal)) {
+      return defined(this.moveDb) && this.saveMovesProp();
+    } else {
+      this.saveMovesProp(switchVal);
+      if (switchVal) {
+        if (this.isDirty) this.saveDbState();
+        else this.mergeDbState();
+      }
+      this.redraw();
+      return switchVal;
+    }
+  };
+
+  hardReset = (): void => {
+    if (defined(this.moveDb)) {
+      this.moveDb.remove(this.data.game.id);
+      window.location.reload();
+    }
+  };
+
+  private saveDbState(): void {
+    if (!this.saveMoves() || !this.isDirty) return;
+
+    if (defined(this.moveDb)) {
+      this.moveDb.put(this.data.game.id, {
+        root: this.tree.root,
+        path: this.path,
+        flipped: this.flipped,
+      });
+    }
+  }
+
+  private async mergeDbState(): Promise<void> {
+    if (this.synthetic || this.embed || defined(this.study)) return;
+    try {
+      const store = await objectStorage<AnalyseState>('analyse-state');
+      const state = await store.get(this.data.game.id);
+      if (defined(state) && this.saveMovesProp()) {
+        this.isDirty = true;
+        this.tree.merge(state.root);
+        this.jump(state.path);
+        if (state.flipped) this.flip();
+      }
+      this.moveDb = store;
+      this.redraw();
+    } catch (e) {
+      console.log(`IDB unavailable due to security settings or quota: ${e}`);
+    }
+  }
 }
+
+type AnalyseState = { root: Tree.Node; path: Tree.Path; flipped: boolean };
