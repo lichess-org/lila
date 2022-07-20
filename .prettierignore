@@ -4,6 +4,7 @@ project
 bin
 
 public/css
+public/doc
 public/piece-css
 public/compiled
 public/glyphs.json

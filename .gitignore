@@ -16,9 +16,10 @@ public/compiled
 public/vendor/bar-rating
 public/vendor/highcharts-4.2.5
 public/vendor/hopscotch
-public/vendor/stockfish.wasm
-public/vendor/stockfish-mv.wasm
-public/vendor/stockfish.js
+public/vendor/yaneuraou.k-p
+public/vendor/fairy
+public/vendor/spectrum
+public/vendor/sliding-puzzles
 public/css/
 target
 data/
@@ -29,6 +30,8 @@ ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 yarn-error.log
+ui/puz/**/*.js
+ui/puz/**/*.d.ts
 
 RUNNING_PID
 
