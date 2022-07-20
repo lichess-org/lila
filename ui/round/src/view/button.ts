@@ -124,7 +124,7 @@ export function impasse(ctrl: RoundController): VNode {
     {
       attrs: {
         title: ctrl.noarg('impasse'),
-        disabled: !['standard'].includes(ctrl.data.game.variant.key),
+        disabled: 'standard' !== ctrl.data.game.variant.key,
       },
       class: { active: ctrl.impasseHelp },
       hook: util.bind('click', _ => {
@@ -184,26 +184,65 @@ export function resignConfirm(ctrl: RoundController): VNode {
   return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
 }
 
+// https://github.com/WandererXII/scalashogi/blob/main/src/main/scala/StartingPosition.scala
+function pointOffsetFromSfen(sfen: string): number {
+  switch (sfen.split(' ').slice(0, 3).join(' ')) {
+    case 'lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 1;
+    case '1nsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 1;
+    case 'lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 5;
+    case 'lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 5;
+    case 'lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 6;
+    case 'lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 10;
+    case '1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 12;
+    case '2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 14;
+    case '3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 16;
+    case '4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
+      return 18;
+    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w 3p 1':
+      return 24;
+    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1':
+      return 27;
+    case 'ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1':
+      return 4;
+    case 'l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"':
+      return 6;
+    case '4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1':
+      return 8;
+    default:
+      return 0;
+  }
+}
+
 export function impasseHelp(ctrl: RoundController) {
   if (!ctrl.impasseHelp) return null;
 
-  const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
-  const rules = ctrl.data.game.variant.key;
-  const shogi = parseSfen(rules, lastStep.sfen, false);
+  const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1],
+    rules = ctrl.data.game.variant.key,
+    shogi = parseSfen(rules, lastStep.sfen, false),
+    initialSfen = ctrl.data.game.initialSfen,
+    pointOffset = initialSfen ? pointOffsetFromSfen(initialSfen) : 0;
 
   if (shogi.isErr) return null;
-
   const board = shogi.value.board;
 
-  const sentePromotion = promotionZone(rules)('sente').intersect(board.sente);
-  const gotePromotion = promotionZone(rules)('gote').intersect(board.gote);
-  const allMajorPieces = board.bishop.union(board.rook).union(board.horse).union(board.dragon);
+  const sentePromotion = promotionZone(rules)('sente').intersect(board.sente),
+    gotePromotion = promotionZone(rules)('gote').intersect(board.gote),
+    allMajorPieces = board.bishop.union(board.rook).union(board.horse).union(board.dragon);
 
-  const senteKing: boolean = !sentePromotion.intersect(board.king).isEmpty();
-  const goteKing: boolean = !gotePromotion.intersect(board.king).isEmpty();
+  const senteKing: boolean = !sentePromotion.intersect(board.king).isEmpty(),
+    goteKing: boolean = !gotePromotion.intersect(board.king).isEmpty();
 
-  const senteNumberOfPieces: number = sentePromotion.diff(board.king).size();
-  const goteNumberOfPieces: number = gotePromotion.diff(board.king).size();
+  const senteNumberOfPieces: number = sentePromotion.diff(board.king).size(),
+    goteNumberOfPieces: number = gotePromotion.diff(board.king).size();
 
   const senteImpasseValue =
     senteNumberOfPieces +
@@ -212,6 +251,7 @@ export function impasseHelp(ctrl: RoundController) {
     (shogi.value.hands['sente'].bishop + shogi.value.hands['sente'].rook) * 4;
 
   const goteImpasseValue =
+    pointOffset +
     goteNumberOfPieces +
     allMajorPieces.intersect(gotePromotion).size() * 4 +
     shogi.value.hands['gote'].count() +
