@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">ルークを b4 に打つ（クレージーハウスのみ）</string>
   <string name="offerOrAcceptDraw">ドローの提案または受諾</string>
   <string name="readOutClocks">残り時間の読み上げ</string>
+  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud.">相手の名前を読み上げる</string>
   <string name="otherCommands">その他のコマンド</string>
   <string name="tips">ヒント</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">上の記号がわからない方は、こちらをご覧ください。</string>
