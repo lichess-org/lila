@@ -6,9 +6,6 @@ case class Profile(
     bio: Option[String] = None,
     firstName: Option[String] = None,
     lastName: Option[String] = None,
-    fideRating: Option[Int] = None,
-    uscfRating: Option[Int] = None,
-    ecfRating: Option[Int] = None,
     links: Option[String] = None
 ) {
 
@@ -31,19 +28,10 @@ case class Profile(
 
   def actualLinks: List[Link] = links ?? Links.make
 
-  import Profile.OfficialRating
-
-  def officialRating: Option[OfficialRating] =
-    fideRating.map { OfficialRating("fide", _) } orElse
-      uscfRating.map { OfficialRating("uscf", _) } orElse
-      ecfRating.map { OfficialRating("ecf", _) }
-
   private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }
 
 object Profile {
-
-  case class OfficialRating(name: String, rating: Int)
 
   val default = Profile()
 

@@ -33,15 +33,12 @@ final class DataForm(authenticator: Authenticator) {
 
   val profile = Form(
     mapping(
-      "country"    -> optional(text.verifying(Countries.codeSet contains _)),
-      "location"   -> optional(cleanNonEmptyText(maxLength = 80)),
-      "bio"        -> optional(cleanNonEmptyText(maxLength = 600)),
-      "firstName"  -> nameField,
-      "lastName"   -> nameField,
-      "fideRating" -> optional(number(min = 600, max = 3000)),
-      "uscfRating" -> optional(number(min = 100, max = 3000)),
-      "ecfRating"  -> optional(number(min = 0, max = 300)),
-      "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
+      "country"   -> optional(text.verifying(Countries.codeSet contains _)),
+      "location"  -> optional(cleanNonEmptyText(maxLength = 80)),
+      "bio"       -> optional(cleanNonEmptyText(maxLength = 600)),
+      "firstName" -> nameField,
+      "lastName"  -> nameField,
+      "links"     -> optional(cleanNonEmptyText(maxLength = 3000))
     )(Profile.apply)(Profile.unapply)
   )
 

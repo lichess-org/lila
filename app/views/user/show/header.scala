@@ -208,9 +208,6 @@ object header {
                   }
                 ),
                 div(cls := "stats")(
-                  profile.officialRating.map { r =>
-                    div(r.name.toUpperCase, " rating: ", strong(r.rating))
-                  },
                   profile.nonEmptyLocation.ifTrue(ctx.noKid).map { l =>
                     span(cls := "location")(l)
                   },

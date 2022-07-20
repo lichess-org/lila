@@ -77,9 +77,6 @@ object widget {
             tr(cls := "rating")(
               th(rating()),
               td(
-                profile.fideRating.map { r =>
-                  frag("FIDE: ", r)
-                },
                 a(href := routes.User.show(c.user.username))(
                   c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map {
                     showPerfRating(c.user, _)
