@@ -36,6 +36,7 @@ import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
+import { objectStorage, ObjectStorage } from 'common/objectStore';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -46,7 +47,6 @@ import ExplorerCtrl from './explorer/explorerCtrl';
 export default class AnalyseCtrl {
   data: AnalyseData;
   element: HTMLElement;
-
   tree: TreeWrapper;
   socket: Socket;
   chessground: ChessgroundApi;
@@ -113,6 +113,8 @@ export default class AnalyseCtrl {
   music?: any;
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
+  stateDb?: ObjectStorage<AnalyseState>;
+  isDirty = false;
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
     this.data = opts.data;
@@ -180,8 +182,8 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-
     speech.setup();
+    this.mergeDbState();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -220,6 +222,7 @@ export default class AnalyseCtrl {
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki) this.wiki(this.nodeList);
+    this.saveDbState();
   };
 
   flip = () => {
@@ -918,4 +921,42 @@ export default class AnalyseCtrl {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom) return f(this.chessground);
     return undefined;
   };
+
+  hardReset = (): void => {
+    if (this.stateDb && this.isDirty) {
+      this.stateDb.remove(this.data.game.id);
+      window.location.reload();
+    }
+  };
+
+  private saveDbState(): void {
+    if (this.stateDb) {
+      if (!this.isDirty) this.isDirty = this.path != this.initialPath;
+      this.stateDb.put(this.data.game.id, {
+        root: this.tree.root,
+        path: this.path,
+        flipped: this.flipped,
+      });
+    }
+  }
+
+  private async mergeDbState(): Promise<void> {
+    if (this.study || this.practice) return;
+    try {
+      const store = await objectStorage<AnalyseState>('analysis-state');
+      const state = await store.get(this.data.game.id);
+      if (state && state.root) {
+        this.tree.merge(state.root);
+        this.isDirty = true;
+        this.jump(state.path);
+        if (state.flipped) this.flip();
+        else this.redraw();
+      }
+      this.stateDb = store; // wake up saveDbState
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
+
+type AnalyseState = { root: Tree.Node; path: Tree.Path; flipped: boolean };

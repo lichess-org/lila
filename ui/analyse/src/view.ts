@@ -241,6 +241,7 @@ function controls(ctrl: AnalyseCtrl) {
             if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
+            else if (action === 'reset') ctrl.hardReset();
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
@@ -299,6 +300,19 @@ function controls(ctrl: AnalyseCtrl) {
         jumpButton(iconNext, 'next', canJumpNext),
         jumpButton(iconLast, 'last', canJumpNext),
       ]),
+      !ctrl.study
+        ? h('button.fbt', {
+            attrs: {
+              title: 'Clear saved moves',
+              'data-act': 'reset',
+              'data-icon': '',
+            },
+            class: {
+              visibilty: !!ctrl.stateDb,
+              disabled: !ctrl.isDirty,
+            },
+          })
+        : null,
       ctrl.studyPractice
         ? h('div.noop')
         : h('button.fbt', {
