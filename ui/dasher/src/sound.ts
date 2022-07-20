@@ -22,7 +22,7 @@ export interface SoundCtrl {
 }
 
 export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close): SoundCtrl {
-  const list: Sound[] = raw.map(s => s.split(' '));
+  const list: Sound[] = raw.map(s => s.split('|'));
 
   const api = window.lishogi.sound;
 

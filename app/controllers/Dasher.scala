@@ -79,7 +79,7 @@ final class Dasher(env: Env) extends LilaController(env) {
                 ),
                 "sound" -> Json.obj(
                   "list" -> lila.pref.SoundSet.list.map { set =>
-                    s"${set.key} ${set.name}"
+                    s"${set.key}|${set.name}"
                   }
                 ),
                 "background" -> Json.obj(
