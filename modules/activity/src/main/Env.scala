@@ -20,6 +20,7 @@ final class Env(
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName,
+    teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
