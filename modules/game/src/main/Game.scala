@@ -372,15 +372,12 @@ case class Game(
   def drawable        = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock
 
-  def finish(status: Status, winner: Option[Color]) = {
-    val newClock = clock map { _.stop }
-    Progress(
-      this,
+  def finish(status: Status, winner: Option[Color]) =
       copy(
         status = status,
         sentePlayer = sentePlayer.finish(winner contains Sente),
         gotePlayer = gotePlayer.finish(winner contains Gote),
-        shogi = shogi.copy(clock = newClock),
+        shogi = shogi.copy(clock = clock map { _.stop }),
         loadClockHistory = clk =>
           clockHistory map { history =>
             // If not already finished, we're ending due to an event
@@ -394,11 +391,7 @@ case class Game(
                 .record(turnColor, clk, shogi.fullTurnNumber)
             else history
           }
-      ),
-      // Events here for BC.
-      List(Event.End(winner)) ::: newClock.??(c => List(Event.Clock(c)))
-    )
-  }
+      )
 
   def rated  = mode.rated
   def casual = !rated

@@ -115,7 +115,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
           .start pipe { dbGame =>
           // apply the result from the board or the tags
           game.situation.status match {
-            case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner).game
+            case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner)
             case None =>
               parsed.tags.resultColor
                 .map {
@@ -125,7 +125,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
                 }
                 .filter(_.status > Status.Started)
                 .fold(dbGame) { res =>
-                  dbGame.finish(res.status, res.winner).game
+                  dbGame.finish(res.status, res.winner)
                 }
           }
         }

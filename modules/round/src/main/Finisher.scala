@@ -97,13 +97,14 @@ final private class Finisher(
     }
 
   private def apply(
-      game: Game,
+      prev: Game,
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
       message: Option[String] = None
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
-    val prog   = game.finish(status, winnerC)
+    val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
+    val game   = prog.game
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game
       .finish(
@@ -114,30 +115,29 @@ final private class Finisher(
         status = status.name
       )
       .increment()
-    val g = prog.game
-    recordLagStats(g)
+    recordLagStats(game)
     proxy.save(prog) >>
       gameRepo.finish(
-        id = g.id,
+        id = game.id,
         winnerColor = winnerC,
-        winnerId = winnerC map (g.player(_).userId | ""),
+        winnerId = winnerC map (game.player(_).userId | ""),
         status = prog.game.status
       ) >>
       userRepo
         .pair(
-          g.sentePlayer.userId,
-          g.gotePlayer.userId
+          game.sentePlayer.userId,
+          game.gotePlayer.userId
         )
         .flatMap {
           case (senteO, goteO) => {
-            val finish = FinishGame(g, senteO, goteO)
+            val finish = FinishGame(game, senteO, goteO)
             updateCountAndPerfs(finish) map { ratingDiffs =>
-              message foreach { messenger.system(g, _) }
-              gameRepo game g.id foreach { newGame =>
+              message foreach { messenger.system(game, _) }
+              gameRepo game game.id foreach { newGame =>
                 newGame foreach proxy.setFinishedGame
-                Bus.publish(finish.copy(game = newGame | g), "finishGame")
+                Bus.publish(finish.copy(game = newGame | game), "finishGame")
               }
-              prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
+              List(lila.game.Event.EndData(game, ratingDiffs))
             }
           }
         }
