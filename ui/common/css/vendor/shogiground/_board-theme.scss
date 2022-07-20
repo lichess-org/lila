@@ -47,7 +47,8 @@ sg-squares {
     border-width: 0;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
-    background-image: linear-gradient(to right, black 1px, transparent 1px), linear-gradient(to bottom, black 1px, transparent 1px);
+    background-image: linear-gradient(to right, black 1px, transparent 1px),
+      linear-gradient(to bottom, black 1px, transparent 1px);
     background-size: calc(100% / 9) calc(100% / 9);
   }
 }
@@ -64,17 +65,19 @@ sg-squares {
       }
     }
   }
-  &.d-5x5 sg-squares sq {
-    &:nth-child(7),
-    &:nth-child(10),
-    &:nth-child(22),
-    &:nth-child(25) {
-      position: relative;
-      &::after {
-        @extend %grid-dot;
-      }
+  &.d-5x5 {
+    sg-squares sq {
+     &:nth-child(7),
+     &:nth-child(10),
+     &:nth-child(22),
+     &:nth-child(25) {
+       position: relative;
+       &::after {
+         @extend %grid-dot;
+       }
+     }
     }
-    &.preload {
+    &.preload sg-squares {
       background-size: calc(100% / 5) calc(100% / 5);
     }
   }
@@ -125,7 +128,7 @@ sg-squares {
   }
   .preload sg-squares {
     background-image: none;
-    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200%/9) calc(200%/9);
+    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 9) calc(200% / 9);
     background-position: 100% 100%;
   }
   @include breakpoint($mq-col2-uniboard) {
@@ -172,7 +175,7 @@ sg-squares {
   }
   .preload sg-squares {
     background-image: none;
-    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200%/9) calc(200%/9);
+    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 9) calc(200% / 9);
     background-position: 100% 100%;
   }
   @include breakpoint($mq-col2-uniboard) {
@@ -236,7 +239,8 @@ sg-squares {
     background-color: #eee !important;
   }
   .sg-wrap.preload sg-squares {
-    background-image: linear-gradient(to right, #eee 1px, transparent 1px), linear-gradient(to bottom, #eee 1px, transparent 1px);
+    background-image: linear-gradient(to right, #eee 1px, transparent 1px),
+      linear-gradient(to bottom, #eee 1px, transparent 1px);
   }
 }
 
@@ -305,8 +309,9 @@ sg-squares {
     border-top: unset;
     border-left: unset;
     border-bottom: 1px solid var(--c-grid-color, $c-font);
-    border-right:  1px solid var(--c-grid-color, $c-font);
-    background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 1px, transparent 1px), linear-gradient(to bottom, var(--c-grid-color, $c-font) 1px, transparent 1px);
+    border-right: 1px solid var(--c-grid-color, $c-font);
+    background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--c-grid-color, $c-font) 1px, transparent 1px);
   }
   &.grid-width-0 {
     .sg-wrap {
@@ -340,7 +345,8 @@ sg-squares {
         }
       }
       &.preload sg-squares {
-          background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 2px, transparent 2px), linear-gradient(to bottom, var(--c-grid-color, $c-font) 2px, transparent 2px);
+        background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 2px, transparent 2px),
+          linear-gradient(to bottom, var(--c-grid-color, $c-font) 2px, transparent 2px);
       }
     }
   }
@@ -359,7 +365,8 @@ sg-squares {
         }
       }
       &.preload sg-squares {
-        background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 3px, transparent 3px), linear-gradient(to bottom, var(--c-grid-color, $c-font) 3px, transparent 3px);
+        background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 3px, transparent 3px),
+          linear-gradient(to bottom, var(--c-grid-color, $c-font) 3px, transparent 3px);
       }
     }
   }
