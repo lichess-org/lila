@@ -200,7 +200,7 @@ final class JsonView(
       val (_, branchList) = solution.foldLeft[(shogi.Game, List[tree.Branch])]((init, Nil)) {
         case ((prev, branches), usi) =>
           val game =
-            prev(usi).fold(err => sys error s"puzzle ${puzzle.id} $err", identity) // todo
+            prev(usi).getOrElse(prev) // fold(err => sys error s"puzzle ${puzzle.id} $err", identity) // todo
           val branch = tree.Branch(
             id = shogi.format.usi.UsiCharPair(usi, shogi.variant.Standard),
             ply = game.plies,

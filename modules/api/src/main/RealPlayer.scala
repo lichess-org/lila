@@ -42,6 +42,7 @@ final class RealPlayerApi(
                 .map(RealPlayers)
             }
           }
+          .nevermind
       }
   }
 }

@@ -24,7 +24,6 @@ object index {
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
-        // script(src := "https://js.stripe.com/v3/"),
         jsTag("checkout.js"),
         embedJsUnsafe(s"""lishogi.checkout("$stripePublicKey");""")
       ),
