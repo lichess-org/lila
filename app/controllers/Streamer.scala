@@ -62,7 +62,7 @@ final class Streamer(
         WithVisibleStreamer(s) {
           for {
             sws      <- env.streamer.liveStreamApi of s
-            activity <- env.activity.read.recent(sws.user, 10)
+            activity <- env.activity.read.recent(sws.user)
           } yield Ok(html.streamer.show(sws, activity))
         }
       }

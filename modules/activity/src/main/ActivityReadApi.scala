@@ -25,14 +25,14 @@ final class ActivityReadApi(
 
   private val recentNb = 7
 
-  def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] =
+  def recent(u: User): Fu[Vector[ActivityView]] =
     for {
       activities <-
         coll.ext
           .find(regexId(u.id))
           .sort($sort desc "_id")
           .cursor[Activity](ReadPreference.secondaryPreferred)
-          .vector(nb)
+          .vector(recentNb)
           .dmap(_.filterNot(_.isEmpty))
           .mon(_.user segment "activity.raws")
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {

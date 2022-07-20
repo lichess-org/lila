@@ -353,7 +353,7 @@ final class Clas(
     Secure(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
-          env.activity.read.recent(s.user, 14) map { activity =>
+          env.activity.read.recent(s.user) map { activity =>
             views.html.clas.student.show(clas, students, s, activity)
           }
         }
