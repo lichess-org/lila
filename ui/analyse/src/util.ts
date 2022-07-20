@@ -45,7 +45,14 @@ export function iconTag(icon: string) {
 
 export function nodeFullName(node: Tree.Node, notation: Notation) {
   if (node.notation)
-    return h('span' + notationsWithColor.includes(notation) ? '.color-icon' : '', node.ply + '.' + ' ' + node.notation);
+    return h('span', [
+      node.ply + '. ',
+      h(
+        'span' +
+          (notationsWithColor.includes(notation) ? '.color-icon.' + (node.ply % 2 === 0 ? 'sente' : 'gote') : ''),
+        node.notation
+      ),
+    ]);
   return h('span', 'Initial position');
 }
 
