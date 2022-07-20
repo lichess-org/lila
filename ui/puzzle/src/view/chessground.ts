@@ -23,7 +23,7 @@ export function makeConfig(ctrl: Controller): CgConfig {
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: ctrl.pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     movable: {
       free: false,
       color: opts.movable!.color,
