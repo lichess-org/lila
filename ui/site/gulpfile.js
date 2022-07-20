@@ -135,13 +135,12 @@ function makeBundle(filename) {
   };
 }
 
+const latestCommit = JSON.parse(execSync('curl -s https://api.github.com/repos/WandererXII/lishogi/commits/master'));
 const gitSha = cb => {
   const info = JSON.stringify({
     date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-    commit: execSync('git rev-parse -q --short HEAD', {
-      encoding: 'utf-8',
-    }).trim(),
-    message: execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
+    commit: latestCommit.sha.trim(),
+    message: latestCommit.commit.message.trim()
   });
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   fs.writeFileSync(
