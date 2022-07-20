@@ -12,7 +12,7 @@ trait ShogigroundHelper {
 
   private val sgBoard   = tag("sg-board")
   private val sgSquares = tag("sg-squares")
-  private val sgPieces  = tag("sg-squares")
+  private val sgPieces  = tag("sg-pieces")
   val sgWrapContent     = sgBoard(sgSquares)
 
   def shogiground(sit: Situation, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag =
@@ -44,6 +44,8 @@ trait ShogigroundHelper {
       lastMove = ~pov.game.history.lastMove.map(_.positions)
     )
 
+  // if preload with the fake grid is not satisfactory, we will have to send all the <sq></sq>,
+  // that would mean cca 8% increase of the document size... 
   private def sgWrap(variant: Variant, orient: Option[Color])(content: Frag): Frag =
     div(cls := s"sg-wrap d-${variant.numberOfFiles}x${variant.numberOfRanks}${orient.fold("")(o => s" orientation-${o.name}")} preload") {
       sgBoard {
