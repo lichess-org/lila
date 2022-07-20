@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Тураны b4-ке тастау (Crazyhouse шахматында ғана)</string>
   <string name="offerOrAcceptDraw">Тепе-теңдікті сұрау не қабылдау</string>
   <string name="readOutClocks">Сағатты дауыстап айту</string>
+  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud.">Қарсыластың атын дауыстап оқу</string>
   <string name="otherCommands">Басқа пәрмендер</string>
   <string name="tips">Түсіндірме</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Көрсетілген жүріс тәртібі бейтаныс болса, осы жерден біліп алыңыз:</string>
