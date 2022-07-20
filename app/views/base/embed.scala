@@ -22,11 +22,11 @@ object embed {
           cssTagWithTheme(cssModule, config.bg)
         ),
         st.body(cls := s"base highlight ${config.board}")(
-          layout.dataSoundSet := SoundSet.silent.key,
-          layout.dataAssetUrl := env.net.assetBaseUrl,
+          layout.dataSoundSet     := SoundSet.silent.key,
+          layout.dataAssetUrl     := env.net.assetBaseUrl,
           layout.dataAssetVersion := assetVersion.value,
-          layout.dataTheme := config.bg,
-          layout.dataPieceSet := config.pieceSet.name,
+          layout.dataTheme        := config.bg,
+          layout.dataPieceSet     := config.pieceSet.name,
           body
         )
       )

@@ -48,19 +48,19 @@ object bits {
     !u.lame ??
       rankMap.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
+          span(cls  := "trophy perf top1", title := s"${perf.trans} Champion!")(
             img(src := staticUrl("images/trophy/Big-Gold-Cup.png"))
           )
         case (perf, rank) if rank <= 2 =>
-          span(cls := "trophy perf top2", title := s"${perf.trans} Top 2!")(
+          span(cls  := "trophy perf top2", title := s"${perf.trans} Top 2!")(
             img(src := staticUrl("images/trophy/Big-Silver-Cup.png"))
           )
         case (perf, rank) if rank <= 3 =>
-          span(cls := "trophy perf top3", title := s"${perf.trans} Top 3 player!")(
+          span(cls  := "trophy perf top3", title := s"${perf.trans} Top 3 player!")(
             img(src := staticUrl("images/trophy/Fancy-Gold.png"))
           )
         case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10 player!")(
+          span(cls  := "trophy perf top10", title := s"${perf.trans} Top 10 player!")(
             img(src := staticUrl("images/trophy/Gold-Cup.png"))
           )
       }

@@ -42,12 +42,12 @@ object watcher {
         roundTag,
         embedJsUnsafe(s"""lishogi=window.lishogi||{};customWS=true;onload=function(){
 LishogiRound.boot(${safeJsonValue(
-          Json.obj(
-            "data" -> data,
-            "i18n" -> jsI18n(pov.game),
-            "chat" -> chatJson
-          )
-        )})}""")
+            Json.obj(
+              "data" -> data,
+              "i18n" -> jsI18n(pov.game),
+              "chat" -> chatJson
+            )
+          )})}""")
       ),
       openGraph = povOpenGraph(pov).some,
       shogiground = false

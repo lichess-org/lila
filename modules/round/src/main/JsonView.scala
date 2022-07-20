@@ -6,7 +6,7 @@ import play.api.libs.json._
 
 import lila.common.ApiVersion
 import lila.game.JsonView._
-import lila.game.{ Pov, Game, Player => GamePlayer }
+import lila.game.{ Game, Player => GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -88,7 +88,7 @@ final class JsonView(
                 "clockTenths"       -> pref.clockTenths,
                 "clockCountdown"    -> pref.clockCountdown,
                 "moveEvent"         -> pref.moveEvent,
-                "notation"     -> pref.notation
+                "notation"          -> pref.notation
               )
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
@@ -179,7 +179,7 @@ final class JsonView(
                 "replay"            -> pref.replay,
                 "clockTenths"       -> pref.clockTenths,
                 "clockCountdown"    -> pref.clockCountdown,
-                "notation"     -> pref.notation
+                "notation"          -> pref.notation
               )
               .add("highlightLastDests" -> pref.highlightLastDests)
               .add("highlightCheck" -> pref.highlightCheck)
@@ -242,7 +242,7 @@ final class JsonView(
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
             "resizeHandle"      -> pref.resizeHandle,
-            "notation"     -> pref.notation
+            "notation"          -> pref.notation
           )
           .add("highlightLastDests" -> pref.highlightLastDests)
           .add("highlightCheck" -> pref.highlightCheck)

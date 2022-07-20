@@ -10,7 +10,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.{ EmailAddress, HTTPRequest }
 import lila.security.{ FingerPrint, Signup }
-import lila.user.{ User => UserModel, PasswordHasher }
+import lila.user.{ PasswordHasher, User => UserModel }
 import UserModel.ClearPassword
 import views._
 
@@ -99,7 +99,7 @@ final class Auth(
                           html = fuccess {
                             err.errors match {
                               case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
-                              case _                                               => Unauthorized(html.auth.login(err, referrer))
+                              case _ => Unauthorized(html.auth.login(err, referrer))
                             }
                           },
                           api = _ =>

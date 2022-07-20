@@ -9,7 +9,7 @@ import BSONHandlers._
 import lila.common.Bus
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
+import lila.hub.actorApi.timeline.{ Follow => FollowUser, Propagate }
 import lila.hub.actors
 import lila.memo.CacheApi._
 import lila.user.User

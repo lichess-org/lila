@@ -448,7 +448,7 @@ final class Study(
             Ok(env.study.notationDump.ofChapter(study, flags)(chapter).toString)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump
-                  .filename(study, chapter)}${fileType(flags)}"
+                    .filename(study, chapter)}${fileType(flags)}"
               )
               .as(notationContentType)
               .fuccess

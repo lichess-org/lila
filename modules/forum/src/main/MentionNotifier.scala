@@ -8,7 +8,8 @@ import lila.user.{ User, UserRepo }
 
 /** Notifier to inform users if they have been mentioned in a post
   *
-  * @param notifyApi Api for sending inbox messages
+  * @param notifyApi
+  *   Api for sending inbox messages
   */
 final class MentionNotifier(
     userRepo: UserRepo,

@@ -41,8 +41,8 @@ object signup {
           agreement(form("agreement"), form.errors.exists(_.key startsWith "agreement.")),
           if (recaptcha.enabled)
             button(
-              cls := "g-recaptcha submit button text big",
-              attr("data-sitekey") := recaptcha.key,
+              cls                   := "g-recaptcha submit button text big",
+              attr("data-sitekey")  := recaptcha.key,
               attr("data-callback") := "signupSubmit"
             )(trans.signUp())
           else form3.submit(trans.signUp(), icon = none, klass = "big")

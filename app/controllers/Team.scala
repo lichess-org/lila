@@ -490,7 +490,7 @@ final class Team(
         msg =>
           Right {
             PmAllLimitPerUser(me.id) {
-              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
 You received this because you are subscribed to messages of the team $url."""

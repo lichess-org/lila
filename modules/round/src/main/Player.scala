@@ -42,7 +42,7 @@ final private class Player(
           case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
           case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
           case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
-          case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
+          case _ => fufail(ClientError(s"$pov move refused for some reason"))
         }
     }
 
@@ -62,7 +62,7 @@ final private class Player(
       case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
       case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
       case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
-      case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
+      case _ => fufail(ClientError(s"$pov move refused for some reason"))
     }
 
   private def postHumanOrBotPlay(

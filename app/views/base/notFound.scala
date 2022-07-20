@@ -45,7 +45,7 @@ object notFound {
           ),
           p(cls := "credits")(
             a(
-              href := "https://github.com/WandererXII/sliding-puzzles",
+              href   := "https://github.com/WandererXII/sliding-puzzles",
               target := "_blank"
             )("Sliding puzzles")
           )

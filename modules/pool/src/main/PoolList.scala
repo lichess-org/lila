@@ -7,7 +7,7 @@ object PoolList {
   import PoolConfig._
 
   val all: List[PoolConfig] = List(
-    //PoolConfig(1 ++ 0, Wave(12 seconds, 40 players))
+    // PoolConfig(1 ++ 0, Wave(12 seconds, 40 players))
   )
 
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set

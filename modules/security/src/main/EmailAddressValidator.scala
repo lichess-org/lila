@@ -22,9 +22,11 @@ final class EmailAddressValidator(
     isAcceptable(email) option EmailAddressValidator.Acceptable(email)
 
   /** Returns true if an E-mail address is taken by another user.
-    * @param email The E-mail address to be checked
-    * @param forUser Optionally, the user the E-mail address field is to be assigned to.
-    *                If they already have it assigned, returns false.
+    * @param email
+    *   The E-mail address to be checked
+    * @param forUser
+    *   Optionally, the user the E-mail address field is to be assigned to. If they already have it assigned,
+    *   returns false.
     * @return
     */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =

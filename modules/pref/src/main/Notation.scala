@@ -8,16 +8,16 @@ sealed class Notation private[pref] (val index: Int) {
 
 object Notations {
 
-  val western = new Notation(0) // 11
-  val kawasaki = new Notation(1)
-  val japanese = new Notation(2)
+  val western       = new Notation(0) // 11
+  val kawasaki      = new Notation(1)
+  val japanese      = new Notation(2)
   val westernEngine = new Notation(3) // 1a
 
   val all = List(
     western,
     westernEngine,
     kawasaki,
-    japanese,
+    japanese
   )
 
   lazy val allByIndex = all map { n =>

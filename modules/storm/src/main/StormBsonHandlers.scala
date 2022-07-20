@@ -11,7 +11,7 @@ import lila.common.Day
 
 private object StormBsonHandlers {
 
-  import lila.puzzle.BsonHandlers.{ PuzzleIdBSONHandler }
+  import lila.puzzle.BsonHandlers.PuzzleIdBSONHandler
 
   implicit val StormPuzzleBSONReader = new BSONDocumentReader[StormPuzzle] {
     def readDocument(r: BSONDocument) = for {

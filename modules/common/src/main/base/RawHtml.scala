@@ -1,7 +1,7 @@
 package lila.base
 
 import java.lang.Character.isLetterOrDigit
-import java.lang.{ StringBuilder => jStringBuilder, Math }
+import java.lang.{ Math, StringBuilder => jStringBuilder }
 import scala.annotation.{ switch, tailrec }
 
 import lila.common.base.StringUtils.escapeHtmlRaw
@@ -105,10 +105,10 @@ final object RawHtml {
 
           if (isTldInternal) {
             sb.append(s"""<a href="${if (allButScheme.isEmpty) "/"
-            else allButScheme}">${allButScheme match {
-              case USER_LINK(user) => "@" + user
-              case _               => DOMAIN + allButScheme
-            }}</a>""")
+              else allButScheme}">${allButScheme match {
+                case USER_LINK(user) => "@" + user
+                case _               => DOMAIN + allButScheme
+              }}</a>""")
           } else {
             val isHttp = domainS - start == 7
             val url    = (if (isHttp) "http://" else "https://") + allButScheme

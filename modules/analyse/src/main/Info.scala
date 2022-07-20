@@ -75,7 +75,7 @@ object Info {
       case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList)
       case Array(cp, ma, va, be) =>
         Info(ply, Eval(strCp(cp), strMate(ma), Usi apply be), va.split(' ').toList)
-      case _                 => Info(ply, Eval.empty)
+      case _ => Info(ply, Eval.empty)
     }
 
   def decodeList(str: String, fromPly: Int): List[Info] =

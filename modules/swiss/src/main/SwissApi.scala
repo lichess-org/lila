@@ -386,7 +386,7 @@ final class SwissApi(
                       "nextRoundAt",
                       swiss.settings.dailyInterval match {
                         case Some(days) => game.createdAt plusDays days
-                        case None       => DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
+                        case None => DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
                       }
                     )
                     .void >>-

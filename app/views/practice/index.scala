@@ -26,7 +26,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
     ) {
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu practice-side")(
-          i(cls := "fat"),
+          i(cls      := "fat"),
           h1("Practice"),
           h2("makes your shogi perfect"),
           div(cls := "progress")(
@@ -51,7 +51,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
                 section.studies.map { stud =>
                   val prog = data.progressOn(stud.id)
                   a(
-                    cls := s"study ${if (prog.complete) "done" else "ongoing"}",
+                    cls  := s"study ${if (prog.complete) "done" else "ongoing"}",
                     href := routes.Practice.show(section.id, stud.slug, stud.id.value)
                   )(
                     ctx.isAuth option span(cls := "ribbon-wrapper")(

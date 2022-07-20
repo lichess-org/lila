@@ -62,9 +62,11 @@ final private class PovToEntry(
             situations = situations,
             movetimes = movetimes,
             advices = an.?? {
-              _.advices.view.map { a =>
-                a.info.ply -> a
-              }.toMap
+              _.advices.view
+                .map { a =>
+                  a.info.ply -> a
+                }
+                .toMap
             }
           )
         }

@@ -29,7 +29,9 @@ private object bits {
         ("fromPosition", trans.fromPosition.txt(), None)
       )
     val variant = form("variant").value.flatMap(shogi.variant.Variant(_)) | shogi.variant.Standard
-    val url = form("sfen").value.fold(routes.Editor.index)(sfen => routes.Editor.parseArg(s"${variant.key}/$sfen")).url
+    val url = form("sfen").value
+      .fold(routes.Editor.index)(sfen => routes.Editor.parseArg(s"${variant.key}/$sfen"))
+      .url
     div(cls := "sfen_position optional_config")(
       renderRadios(form("position"), positionChoices),
       div(cls := "sfen_position_wrap")(
@@ -37,15 +39,15 @@ private object bits {
           renderLabel(form("handicap"), trans.handicap.txt()),
           renderSelect(form("handicap"), handicapChoices, (a, _) => a == "default"),
           a(
-            cls := "button button-empty",
+            cls      := "button button-empty",
             dataIcon := "",
-            title := trans.handicap.txt(),
-            target := "_blank",
-            href := "https://en.wikipedia.org/wiki/Handicap_(shogi)"
+            title    := trans.handicap.txt(),
+            target   := "_blank",
+            href     := "https://en.wikipedia.org/wiki/Handicap_(shogi)"
           )
         ),
         div(
-          cls := "sfen_form",
+          cls             := "sfen_form",
           dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}"""
         )(
           renderLabel(form("sfen"), "SFEN"),
@@ -56,10 +58,10 @@ private object bits {
           span(cls := "preview")(
             validSfen.map { vf =>
               div(
-                cls := "mini-board sg-wrap parse-sfen",
-                dataColor := vf.color.name,
-                dataSfen := vf.sfen.value,
-                dataVariant := vf.situation.variant.key,
+                cls           := "mini-board sg-wrap parse-sfen",
+                dataColor     := vf.color.name,
+                dataSfen      := vf.sfen.value,
+                dataVariant   := vf.situation.variant.key,
                 dataResizable := "1"
               )(sgWrapContent)
             }
@@ -100,14 +102,14 @@ private object bits {
       options.map { case (key, name, hint) =>
         div(
           input(
-            `type` := "radio",
-            id := s"$prefix${field.id}_${key}",
+            `type`  := "radio",
+            id      := s"$prefix${field.id}_${key}",
             st.name := field.name,
-            value := key,
+            value   := key,
             field.value.has(key) option checked
           ),
           label(
-            cls := "required",
+            cls   := "required",
             title := hint,
             `for` := s"$prefix${field.id}_$key"
           )(name)

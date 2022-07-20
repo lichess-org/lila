@@ -26,7 +26,7 @@ final class Editor(env: Env) extends LilaController(env) {
   def parseArg(arg: String) =
     arg.split("/", 2) match {
       case Array(key) => load("", Variant orDefault key)
-      case Array(key, sfen) => 
+      case Array(key, sfen) =>
         Variant.byKey get key match {
           case Some(variant) => load(sfen, variant)
           case _             => load(arg, Standard)
@@ -54,9 +54,9 @@ final class Editor(env: Env) extends LilaController(env) {
   def data =
     Open { implicit ctx =>
       fuccess {
-        val sfen = get("sfen") map Sfen.clean
+        val sfen    = get("sfen") map Sfen.clean
         val variant = get("variant").flatMap(Variant.byKey get _)
-        val sit = readSfen(sfen, variant)
+        val sit     = readSfen(sfen, variant)
         Ok(
           html.board.editor.jsData(sit)
         ) as JSON

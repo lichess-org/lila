@@ -15,8 +15,8 @@ object bits {
   def link(swissId: Swiss.Id, name: String): Frag =
     a(
       dataIcon := "g",
-      cls := "text",
-      href := routes.Page.notSupported.url
+      cls      := "text",
+      href     := routes.Page.notSupported.url
     )(name)
 
   def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"

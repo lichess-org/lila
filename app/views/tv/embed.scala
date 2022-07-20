@@ -23,7 +23,7 @@ object embed {
           cssTagWithTheme("tv.embed", config.bg)
         ),
         body(
-          cls := s"base ${config.board}",
+          cls           := s"base ${config.board}",
           dataStreamUrl := routes.Tv.feed
         )(
           div(id := "featured-game", cls := "embedded", title := "lishogi.org TV")(

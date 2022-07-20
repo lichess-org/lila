@@ -33,7 +33,7 @@ object security {
             tr(
               td(cls := "icon")(
                 span(
-                  cls := s"is-${if (s.session.id == curSessionId) "gold" else "green"}",
+                  cls      := s"is-${if (s.session.id == curSessionId) "gold" else "green"}",
                   dataIcon := (if (s.session.isMobile) "" else "")
                 )
               ),
@@ -51,7 +51,7 @@ object security {
               ),
               td(
                 s.session.id != curSessionId option
-                  postForm(action := routes.Account.signout(s.session.id))(
+                  postForm(action    := routes.Account.signout(s.session.id))(
                     submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := "L")
                   )
               )

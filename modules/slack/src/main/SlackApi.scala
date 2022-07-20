@@ -284,7 +284,7 @@ final class SlackApi(
           val ipLink    = lishogiLink(s"/mod/search?q=$ip", ip.value)
           val fpLink    = fp.fold("none")(print => lishogiLink(s"/mod/print/$print", print))
           s"$link EMAIL: $emailLink IP: $ipLink FP: $fpLink${susp ?? " *proxy*"}${apiVersion
-            .??(v => s" API v$v")}"
+              .??(v => s" API v$v")}"
         },
         channel = rooms.signups
       )

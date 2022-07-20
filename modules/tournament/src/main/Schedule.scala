@@ -204,8 +204,8 @@ object Schedule {
     val all: List[Speed] =
       List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, HyperRapid, Rapid, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
-    def apply(key: String)       = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
-    def byId(id: Int)            = all find (_.id == id)
+    def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
+    def byId(id: Int)      = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match {
         // Similar speed tournaments should not be simultaneously scheduled
@@ -317,12 +317,12 @@ object Schedule {
 
       case (Shield, variant, Blitz) if !variant.standard => TC(5 * 60, 0, 10, 1)
 
-      case (_, _, UltraBullet) => TC(     30, 0,  0, 1) //      30
-      case (_, _, HyperBullet) => TC(      0, 0,  5, 1) //            5 * 25
-      case (_, _, Bullet)      => TC(      0, 0, 10, 1) //           10 * 25
-      case (_, _, SuperBlitz)  => TC( 3 * 60, 0, 10, 1) //  3 * 60 + 10 * 25
-      case (_, _, Blitz)       => TC( 5 * 60, 0, 10, 1) //  5 * 60 + 10 * 25
-      case (_, _, HyperRapid)  => TC( 5 * 60, 0, 15, 1) //  5 * 60 + 15 * 25
+      case (_, _, UltraBullet) => TC(30, 0, 0, 1)       //      30
+      case (_, _, HyperBullet) => TC(0, 0, 5, 1)        //            5 * 25
+      case (_, _, Bullet)      => TC(0, 0, 10, 1)       //           10 * 25
+      case (_, _, SuperBlitz)  => TC(3 * 60, 0, 10, 1)  //  3 * 60 + 10 * 25
+      case (_, _, Blitz)       => TC(5 * 60, 0, 10, 1)  //  5 * 60 + 10 * 25
+      case (_, _, HyperRapid)  => TC(5 * 60, 0, 15, 1)  //  5 * 60 + 15 * 25
       case (_, _, Rapid)       => TC(10 * 60, 0, 15, 1) // 10 * 60 + 15 * 25
       case (_, _, Classical)   => TC(15 * 60, 0, 30, 1) // 15 * 60 + 30 * 25
     }

@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import shogi.{ Pos, Piece }
+import shogi.{ Piece, Pos }
 import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa

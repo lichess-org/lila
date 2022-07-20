@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.security.{ Permission, Granter => Master }
+import lila.security.{ Granter => Master, Permission }
 import lila.user.{ User, UserContext }
 
 trait Granter {
@@ -19,7 +19,7 @@ trait Granter {
     }
 
   private def isOldEnoughToForum(u: User) = {
-    u.count.game >= 3 //&& u.createdSinceDays(2)
+    u.count.game >= 3 // && u.createdSinceDays(2)
   } || u.hasTitle || u.isVerified
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =

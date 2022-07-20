@@ -20,7 +20,7 @@ object menu {
         a(cls := active.active("search"), href := routes.Mod.search)("Search users"),
       isGranted(_.SetEmail) option
         a(cls := active.active("email"), href := routes.Mod.emailConfirm)("Email confirm"),
-      //isGranted(_.PracticeConfig) option
+      // isGranted(_.PracticeConfig) option
       //  a(cls := active.active("practice"), href := routes.Practice.config)("Practice"),
       isGranted(_.ManageTournament) option
         a(cls := active.active("tour"), href := routes.TournamentCrud.index(1))("Tournaments"),

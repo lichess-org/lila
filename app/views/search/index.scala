@@ -29,8 +29,8 @@ object index {
       main(cls := "box page-small search")(
         h1(advancedSearch()),
         st.form(
-          rel := "nofollow",
-          cls := "box__pad search__form",
+          rel    := "nofollow",
+          cls    := "box__pad search__form",
           action := s"${routes.Search.index()}#results",
           method := "GET"
         )(dataReqs)(

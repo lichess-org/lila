@@ -100,7 +100,7 @@ ${trans.common_contact("https://lishogi.org/contact").render}"""
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
-    val publisher              = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
+    val publisher = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
     val noteContact = a(itemprop := "url", href := "https://lishogi.org/contact")(
       span(itemprop := "name")("lishogi.org/contact")
     )
@@ -122,7 +122,7 @@ ${trans.common_contact("https://lishogi.org/contact").render}"""
 
     val noteLink = a(
       itemprop := "url",
-      href := "https://lishogi.org/"
+      href     := "https://lishogi.org/"
     )(span(itemprop := "name")("lishogi.org"))
 
     def url(u: String)(implicit lang: Lang) =

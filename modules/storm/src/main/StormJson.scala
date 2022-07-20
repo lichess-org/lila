@@ -20,14 +20,14 @@ final class StormJson(sign: StormSign) {
 
   def pref(p: lila.pref.Pref) =
     Json.obj(
-      "coords"          -> p.coords,
-      "destination"     -> p.destination,
-      "dropDestination" -> p.dropDestination,
-      "moveEvent"       -> p.moveEvent,
+      "coords"             -> p.coords,
+      "destination"        -> p.destination,
+      "dropDestination"    -> p.dropDestination,
+      "moveEvent"          -> p.moveEvent,
       "highlightLastDests" -> p.highlightLastDests,
-      "highlightCheck"    -> p.highlightCheck,
-      "squareOverlay" -> p.squareOverlay,
-      "notation"   -> p.notation
+      "highlightCheck"     -> p.highlightCheck,
+      "squareOverlay"      -> p.squareOverlay,
+      "notation"           -> p.notation
     )
 
   def newHigh(n: Option[StormHigh.NewHigh]) =

@@ -36,14 +36,14 @@ object show {
             s.stream match {
               case Some(YouTube.Stream(_, _, videoId, _)) =>
                 iframe(
-                  st.frameborder := "0",
+                  st.frameborder  := "0",
                   frame.scrolling := "no",
-                  src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
+                  src             := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
                 )
               case _ =>
                 s.streamer.twitch.map { twitch =>
                   iframe(
-                    st.frameborder := "0",
+                    st.frameborder  := "0",
                     frame.scrolling := "yes",
                     src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=$netDomain"
                   )
@@ -57,7 +57,7 @@ object show {
             case Some(YouTube.Stream(_, _, videoId, _)) =>
               div(cls := "box embed youTube")(
                 iframe(
-                  src := s"https://www.youtube.com/embed/$videoId?autoplay=1",
+                  src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",
                   st.frameborder := "0",
                   frame.allowfullscreen
                 )

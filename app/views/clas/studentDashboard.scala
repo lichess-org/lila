@@ -106,9 +106,9 @@ object studentDashboard {
       td(
         a(
           dataIcon := "U",
-          cls := List("button button-empty text" -> true, "disabled" -> !online),
-          title := trans.challengeToPlay.txt(),
-          href := online option s"${routes.Lobby.home}?user=${user.username}#friend"
+          cls      := List("button button-empty text" -> true, "disabled" -> !online),
+          title    := trans.challengeToPlay.txt(),
+          href     := online option s"${routes.Lobby.home}?user=${user.username}#friend"
         )(trans.play())
       )
     }

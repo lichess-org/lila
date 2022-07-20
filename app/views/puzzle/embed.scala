@@ -19,7 +19,7 @@ object embed {
     )(
       dailyLink(daily)(config.lang)(
         targetBlank,
-        id := "daily-puzzle",
+        id  := "daily-puzzle",
         cls := "embedded"
       ),
       jQueryTag,
@@ -28,7 +28,7 @@ object embed {
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(
-    href := routes.Puzzle.daily,
+    href  := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
     raw(daily.html),

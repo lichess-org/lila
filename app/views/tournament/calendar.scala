@@ -16,11 +16,11 @@ object calendar {
         jsModule("tournamentCalendar"),
         embedJsUnsafe(
           s"""LishogiTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
-            Json.obj(
-              "data" -> json,
-              "i18n" -> bits.jsI18n
-            )
-          )})"""
+              Json.obj(
+                "data" -> json,
+                "i18n" -> bits.jsI18n
+              )
+            )})"""
         )
       ),
       moreCss = cssTag("tournament.calendar")

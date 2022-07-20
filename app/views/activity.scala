@@ -288,10 +288,10 @@ object activity {
   private def scoreFrag(s: Score)(implicit ctx: Context) =
     raw {
       s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
-        "loss",
-        s.loss,
-        trans.nbLosses
-      )}</score>"""
+          "loss",
+          s.loss,
+          trans.nbLosses
+        )}</score>"""
     }
 
   private def ratingProgFrag(r: RatingProg) =

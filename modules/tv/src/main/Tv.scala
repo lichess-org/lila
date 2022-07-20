@@ -50,7 +50,7 @@ final class Tv(
 }
 
 object Tv {
-  import shogi.{ Speed => S, variant => V }
+  import shogi.{ variant => V, Speed => S }
   import lila.rating.{ PerfType => P }
 
   case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
@@ -157,7 +157,7 @@ object Tv {
     }.toMap
   }
 
-  //private def rated(min: Int)                         = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
+  // private def rated(min: Int)                         = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def minRating(min: Int)                     = (c: Candidate) => hasMinRating(c.game, min)
   private def speed(speed: shogi.Speed)               = (c: Candidate) => c.game.speed == speed
   private def variant(variant: shogi.variant.Variant) = (c: Candidate) => c.game.variant == variant

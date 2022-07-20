@@ -498,11 +498,13 @@ final class ReportApi(
 
     def allBySuspect: Fu[Map[User.ID, Report.Inquiry]] =
       coll.list[Report]($doc("inquiry.mod" $exists true)) map {
-        _.view.flatMap { r =>
-          r.inquiry map { i =>
-            r.user -> i
+        _.view
+          .flatMap { r =>
+            r.inquiry map { i =>
+              r.user -> i
+            }
           }
-        }.toMap
+          .toMap
       }
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))

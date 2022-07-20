@@ -113,11 +113,11 @@ object StreamerForm {
       }
   }
 
-  implicit private val headlineFormat    = formatter.stringFormatter[Headline](_.value, Headline.apply)
-  private def headlineField              = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
+  implicit private val headlineFormat = formatter.stringFormatter[Headline](_.value, Headline.apply)
+  private def headlineField           = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
   implicit private val descriptionFormat = formatter.stringFormatter[Description](_.value, Description.apply)
-  private def descriptionField           = of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
-  implicit private val nameFormat        = formatter.stringFormatter[Name](_.value, Name.apply)
+  private def descriptionField = of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
+  implicit private val nameFormat = formatter.stringFormatter[Name](_.value, Name.apply)
   private def nameField =
     of[Name].verifying(
       constraint.minLength[Name](_.value)(3),

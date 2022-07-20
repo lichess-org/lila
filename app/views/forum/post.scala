@@ -17,9 +17,9 @@ object post {
         li(
           a(
             dataIcon := p.isTeam.option("f"),
-            cls := "post_link text",
-            href := routes.ForumPost.redirect(p.postId),
-            title := p.topicName
+            cls      := "post_link text",
+            href     := routes.ForumPost.redirect(p.postId),
+            title    := p.topicName
           )(
             shorten(p.topicName, 30)
           ),
@@ -59,10 +59,10 @@ object post {
           ctx.userId.fold(false)(post.shouldShowEditForm(_)) option
             a(cls := "mod edit button button-empty text", dataIcon := "m")("Edit"),
           canModCateg option a(
-            cls := "mod delete button button-empty button-red",
-            href := routes.ForumPost.delete(categ.slug, post.id),
+            cls      := "mod delete button button-empty button-red",
+            href     := routes.ForumPost.delete(categ.slug, post.id),
             dataIcon := "q",
-            title := "Delete"
+            title    := "Delete"
           )
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
@@ -76,15 +76,15 @@ object post {
         postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
           textarea(
             bits.dataTopic := topic.id,
-            name := "changes",
-            cls := "post-text-area edit-post-box",
-            minlength := 3,
+            name           := "changes",
+            cls            := "post-text-area edit-post-box",
+            minlength      := 3,
             required
           )(post.text),
           div(cls := "edit-buttons")(
             a(
-              cls := "edit-post-cancel",
-              href := routes.ForumPost.redirect(post.id),
+              cls   := "edit-post-cancel",
+              href  := routes.ForumPost.redirect(post.id),
               style := "margin-left:20px"
             )(
               trans.cancel()
@@ -103,7 +103,7 @@ object post {
         val size  = users.size
         button(
           dataHref := (ctx.isAuth && canReact) option routes.ForumPost.react(post.id, r, !mine(r)).url,
-          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          cls      := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {
               val who =

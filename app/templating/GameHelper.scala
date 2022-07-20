@@ -1,14 +1,14 @@
 package lila.app
 package templating
 
-import shogi.{ Status => S, Color, Clock, Mode }
+import shogi.{ Clock, Color, Mode, Status => S }
 import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
-import lila.i18n.{ I18nKeys => trans, defaultLang }
+import lila.i18n.{ defaultLang, I18nKeys => trans }
 import lila.user.{ Title, User }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ShogigroundHelper =>
@@ -148,7 +148,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case Some(user) =>
         frag(
           (if (link) a else span)(
-            cls := userClass(user.id, cssClass, withOnline),
+            cls  := userClass(user.id, cssClass, withOnline),
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
@@ -157,7 +157,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
               frag(" ", showRatingDiff(d))
             },
             engine option span(
-              cls := "tos_violation",
+              cls   := "tos_violation",
               title := trans.thisAccountViolatedTos.txt()
             )
           ),
@@ -250,15 +250,15 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val variant  = game.variant
     val tag      = if (withLink) a else span
     tag(
-      href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
+      href  := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
-      cls := 
+      cls :=
         s"mini-board mini-board-${game.id} sg-wrap parse-sfen $cssClass d-${variant.numberOfFiles}x${variant.numberOfRanks}",
-      dataLive := isLive.option(game.id),
-      dataColor := pov.color.name,
-      dataSfen := game.situation.toSfen.value,
+      dataLive     := isLive.option(game.id),
+      dataColor    := pov.color.name,
+      dataSfen     := game.situation.toSfen.value,
       dataLastmove := ~game.lastMoveKeys,
-      dataVariant := game.variant.key
+      dataVariant  := game.variant.key
     )(sgWrapContent)
   }
 
@@ -266,18 +266,18 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val isLive  = pov.game.isBeingPlayed
     val variant = pov.game.variant
     a(
-      href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
+      href  := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
         s"mini-board mini-board-${pov.gameId} sg-wrap parse-sfen d-${variant.numberOfFiles}x${variant.numberOfRanks}" -> true,
-        s"live mini-board-${pov.gameId}"                                                                              -> isLive
+        s"live mini-board-${pov.gameId}" -> isLive
       ),
-      dataLive := isLive.option(pov.gameId),
-      dataColor := pov.color.name,
-      dataSfen := pov.game.situation.toSfen.value,
+      dataLive     := isLive.option(pov.gameId),
+      dataColor    := pov.color.name,
+      dataSfen     := pov.game.situation.toSfen.value,
       dataLastmove := ~pov.game.lastMoveKeys,
-      dataVariant := pov.game.variant.key,
-      target := blank.option("_blank")
+      dataVariant  := pov.game.variant.key,
+      target       := blank.option("_blank")
     )(sgWrapContent)
   }
 

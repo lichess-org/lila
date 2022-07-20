@@ -9,7 +9,7 @@ import lila.common.Json._
 import lila.common.Maths
 import lila.common.config.BaseUrl
 
-import shogi.{ Centis, Color, Replay, Situation, Game => ShogiGame }
+import shogi.{ Centis, Color, Game => ShogiGame, Replay, Situation }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
@@ -30,9 +30,9 @@ final class GifExport(
           .addHttpHeaders("Content-Type" -> "application/json")
           .withBody(
             Json.obj(
-              "black"       -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
-              "white"       -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
-              "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/WandererXII/lishogi-gif",
+              "black" -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
+              "white" -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
+              "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/WandererXII/lishogi-gif",
               "orientation" -> pov.color.engName,
               "delay"       -> targetMedianTime.centis, // default delay for frames
               "frames"      -> frames(pov.game)

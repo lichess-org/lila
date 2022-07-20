@@ -17,17 +17,17 @@ object DataForm {
   val pref = Form(
     mapping(
       "display" -> mapping(
-        "animation"       -> number.verifying(Set(0, 1, 2, 3) contains _),
-        "coords"          -> checkedNumber(Pref.Coords.choices),
+        "animation"          -> number.verifying(Set(0, 1, 2, 3) contains _),
+        "coords"             -> checkedNumber(Pref.Coords.choices),
         "highlightLastDests" -> booleanNumber,
-        "highlightCheck"    -> booleanNumber,
-        "squareOverlay"   -> booleanNumber,
-        "destination"     -> booleanNumber,
-        "dropDestination" -> booleanNumber,
-        "replay"          -> checkedNumber(Pref.Replay.choices),
-        "zen"             -> optional(booleanNumber),
-        "resizeHandle"    -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"       -> checkedNumber(Pref.Blindfold.choices)
+        "highlightCheck"     -> booleanNumber,
+        "squareOverlay"      -> booleanNumber,
+        "destination"        -> booleanNumber,
+        "dropDestination"    -> booleanNumber,
+        "replay"             -> checkedNumber(Pref.Replay.choices),
+        "zen"                -> optional(booleanNumber),
+        "resizeHandle"       -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+        "blindfold"          -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
       "behavior" -> mapping(
         "moveEvent"     -> optional(number.verifying(Set(0, 1, 2) contains _)),
@@ -102,7 +102,7 @@ object DataForm {
         follow = follow == 1,
         highlightLastDests = display.highlightLastDests == 1,
         highlightCheck = display.highlightCheck == 1,
-        squareOverlay = display.squareOverlay  == 1,
+        squareOverlay = display.squareOverlay == 1,
         destination = display.destination == 1,
         dropDestination = display.dropDestination == 1,
         coords = display.coords,
@@ -137,7 +137,7 @@ object DataForm {
           replay = pref.replay,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
-          resizeHandle = pref.resizeHandle.some,
+          resizeHandle = pref.resizeHandle.some
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,
@@ -190,7 +190,9 @@ object DataForm {
   val bgImg = Form(
     single(
       "bgImg" -> text.verifying { url =>
-        url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith("//"))
+        url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
+          "//"
+        ))
       }
     )
   )
@@ -210,15 +212,19 @@ object DataForm {
   val customTheme = Form(
     mapping(
       "boardColor" -> text(maxLength = 30),
-      "boardImg"   -> text.verifying { url =>
-          url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith("//"))
-        },
+      "boardImg" -> text.verifying { url =>
+        url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
+          "//"
+        ))
+      },
       "gridColor"  -> text(maxLength = 30),
       "gridWidth"  -> number.verifying(Set(0, 1, 2, 3) contains _),
       "handsColor" -> text(maxLength = 30),
-      "handsImg"   -> text.verifying { url =>
-          url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith("//"))
-        },
+      "handsImg" -> text.verifying { url =>
+        url.getBytes("UTF-8").length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
+          "//"
+        ))
+      }
     )(CustomTheme.apply)(CustomTheme.unapply)
   )
 

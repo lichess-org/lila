@@ -142,10 +142,10 @@ object event {
           half = true
         ) { f =>
           input(
-            cls := "form-control user-autocomplete",
-            name := f.name,
-            id := form3.id(f),
-            value := f.value,
+            cls     := "form-control user-autocomplete",
+            name    := f.name,
+            id      := form3.id(f),
+            value   := f.value,
             dataTag := "span"
           )
         }

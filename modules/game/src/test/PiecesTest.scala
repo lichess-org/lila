@@ -9,7 +9,7 @@ import shogi.variant.{ Standard, Variant }
 class PiecesTest extends Specification {
   val usis                                                     = Usi.readList(Fixtures.fromProd3).get.toVector
   def fromUsis(usis: Vector[Usi], variant: Variant = Standard) = BinaryFormat.pieces.read(usis, None, variant)
-  
+
   "Piece map reader" should {
 
     "Starting position" in {

@@ -31,10 +31,10 @@ object coordinate {
       zoomable = true
     )(
       main(
-        id := "trainer",
-        cls := "coord-trainer training init",
+        id                      := "trainer",
+        cls                     := "coord-trainer training init",
         attr("data-color-pref") := ctx.pref.coordColorName,
-        attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score.url)
+        attr("data-score-url")  := ctx.isAuth.option(routes.Coordinate.score.url)
       )(
         div(cls := "coord-trainer__side")(
           div(cls := "box")(
@@ -48,9 +48,9 @@ object coordinate {
               List(Color.GOTE, Color.RANDOM, Color.SENTE).map { id =>
                 div(
                   input(
-                    tpe := "radio",
+                    tpe   := "radio",
                     st.id := s"coord_color_$id",
-                    name := "color",
+                    name  := "color",
                     value := id,
                     (id == ctx.pref.coordColor) option checked
                   ),
@@ -60,7 +60,7 @@ object coordinate {
             )
           )
         ),
-        div(cls := "coord-trainer__board main-board")(
+        div(cls   := "coord-trainer__board main-board")(
           div(cls := "next_coord", id := "next_coord0"),
           div(cls := "next_coord", id := "next_coord1"),
           shogigroundBoard(shogi.variant.Standard)

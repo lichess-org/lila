@@ -21,7 +21,7 @@ final private class TwitchApi(ws: WSClient, config: TwitchConfig)(implicit ec: E
     (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10) ?? {
       val query = List(
         "game_id" -> "368914", // shogi
-        "first"   -> "100" // max results per page
+        "first"   -> "100"     // max results per page
       ) ::: List(
         pagination.flatMap(_.cursor).map { "after" -> _ }
       ).flatten

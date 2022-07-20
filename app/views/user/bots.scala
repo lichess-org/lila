@@ -42,13 +42,13 @@ object bots {
                   u.playTime.fold(td) { playTime =>
                     td(
                       p(
-                        cls := "text",
+                        cls      := "text",
                         dataIcon := "'",
                         st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod))
                       )(showPeriod(playTime.totalPeriod)),
                       playTime.nonEmptyTvPeriod.map { tvPeriod =>
                         p(
-                          cls := "text",
+                          cls      := "text",
                           dataIcon := "1",
                           st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod))
                         )(showPeriod(tvPeriod))
@@ -60,9 +60,9 @@ object bots {
                     td(
                       a(
                         dataIcon := "U",
-                        cls := List("button button-empty text" -> true),
+                        cls      := List("button button-empty text" -> true),
                         st.title := trans.challengeToPlay.txt(),
-                        href := s"${routes.Lobby.home}?user=${u.username}#friend"
+                        href     := s"${routes.Lobby.home}?user=${u.username}#friend"
                       )(trans.play())
                     )
                   }

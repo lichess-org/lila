@@ -7,9 +7,9 @@ import lila.app._
 import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
-import lila.report.{ Suspect, Mod => AsMod }
+import lila.report.{ Mod => AsMod, Suspect }
 import lila.security.{ FingerHash, Permission }
-import lila.user.{ User => UserModel, Title }
+import lila.user.{ Title, User => UserModel }
 import ornicar.scalalib.Zero
 import play.api.data._
 import play.api.data.Forms._

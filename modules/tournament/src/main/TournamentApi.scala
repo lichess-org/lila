@@ -165,9 +165,11 @@ final class TournamentApi(
                   playerRepo
                     .byTourAndUserIds(tour.id, pairings.flatMap(_.users))
                     .map {
-                      _.view.map { player =>
-                        player.userId -> player
-                      }.toMap
+                      _.view
+                        .map { player =>
+                          player.userId -> player
+                        }
+                        .toMap
                     }
                     .mon(_.tournament.pairing.createPlayerMap)
                     .flatMap { playersMap =>

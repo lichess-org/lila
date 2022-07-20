@@ -111,7 +111,7 @@ object EvalCacheEntry {
 
   object SmallSfen {
     private[evalCache] def raw(str: String) = new SmallSfen(str)
-    def make(variant: Variant, sfen: Sfen): SmallSfen = 
+    def make(variant: Variant, sfen: Sfen): SmallSfen =
       new SmallSfen(
         sfen.value.split(' ').take(3).mkString("").filter { c =>
           c != '/' && c != '-' && c != 'w'

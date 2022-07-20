@@ -45,20 +45,20 @@ object student {
             postForm(action := routes.Clas.studentSetKid(clas.id.value, s.user.username, !s.user.kid))(
               form3.submit(if (s.user.kid) trans.disableKidMode() else trans.enableKidMode(), icon = none)(
                 s.student.isArchived option disabled,
-                cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
+                cls   := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
                 title := trans.kidModeExplanation.txt()
               )
             ),
             postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
               form3.submit(trans.clas.resetPassword(), icon = none)(
                 s.student.isArchived option disabled,
-                cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
+                cls   := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
                 title := trans.clas.generateANewPassword.txt()
               )
             ),
             a(
-              href := routes.Clas.studentRelease(clas.id.value, s.user.username),
-              cls := "button button-empty",
+              href  := routes.Clas.studentRelease(clas.id.value, s.user.username),
+              cls   := "button button-empty",
               title := trans.clas.upgradeFromManaged.txt()
             )(trans.clas.release())
           )
@@ -87,15 +87,15 @@ object student {
         div(
           a(
             href := routes.Msg.convo(s.user.username),
-            cls := "button button-empty"
+            cls  := "button button-empty"
           )(trans.message()),
           a(
             href := routes.Clas.studentEdit(clas.id.value, s.user.username),
-            cls := "button button-empty"
+            cls  := "button button-empty"
           )(trans.edit()),
           a(
             href := routes.User.show(s.user.username),
-            cls := "button button-empty"
+            cls  := "button button-empty"
           )(trans.profile())
         )
       )
@@ -209,7 +209,7 @@ object student {
           hr,
           postForm(
             action := routes.Clas.studentArchive(clas.id.value, s.user.username, true),
-            cls := "student-show__archive"
+            cls    := "student-show__archive"
           )(
             form3.submit(trans.clas.removeStudent(), icon = none)(
               cls := "confirm button-red button-empty"

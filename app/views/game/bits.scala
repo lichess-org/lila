@@ -31,9 +31,9 @@ object bits {
       variant: shogi.variant.Variant = shogi.variant.Standard
   ): Frag =
     div(
-      cls := s"mini-board parse-sfen sg-wrap d-${variant.numberOfFiles}x${variant.numberOfRanks}",
-      dataColor := color.name,
-      dataSfen := sfen.value,
+      cls         := s"mini-board parse-sfen sg-wrap d-${variant.numberOfFiles}x${variant.numberOfRanks}",
+      dataColor   := color.name,
+      dataSfen    := sfen.value,
       dataVariant := variant.key
     )(sgWrapContent)
 
@@ -72,10 +72,10 @@ object bits {
         title: String,
         name: String
     ) = a(
-      cls := "variant-link",
-      st.href := href,
-      rel := "nofollow",
-      target := "_blank",
+      cls      := "variant-link",
+      st.href  := href,
+      rel      := "nofollow",
+      target   := "_blank",
       st.title := title
     )(name)
 

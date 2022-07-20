@@ -24,7 +24,7 @@ object bits {
       header: Tag = h2
   )(implicit ctx: Context) =
     a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
-      st.img(src := post.image),
+      st.img(src             := post.image),
       div(cls := "content")(
         header(cls := "title")(post.title),
         span(post.shortlede),

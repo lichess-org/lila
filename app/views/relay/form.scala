@@ -26,14 +26,14 @@ object form {
       hr,
       postForm(action := routes.Relay.cloneRelay(r.slug, r.id.value))(
         submitButton(
-          cls := "button button-empty confirm",
+          cls   := "button button-empty confirm",
           title := "Create an new identical broadcast, for another round or a similar tournament"
         )(cloneBroadcast())
       ),
       hr,
       postForm(action := routes.Relay.reset(r.slug, r.id.value))(
         submitButton(
-          cls := "button button-red button-empty confirm",
+          cls   := "button button-red button-empty confirm",
           title := "The source will need to be active in order to re-create the chapters!"
         )(resetBroadcast())
       )
@@ -61,9 +61,9 @@ object form {
         fullDescription(),
         help = fullDescriptionHelp(
           a(
-            href := "https://guides.github.com/features/mastering-markdown/",
+            href   := "https://guides.github.com/features/mastering-markdown/",
             target := "_blank",
-            rel := "noopener"
+            rel    := "noopener"
           )("Markdown"),
           20000.localize
         ).some

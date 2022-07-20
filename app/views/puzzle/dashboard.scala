@@ -37,23 +37,23 @@ object dashboard {
           jsModule("puzzle.dashboard", true),
           embedJsUnsafe(s"""$$(function() {
             LishogiPuzzleDashboard.renderRadar(${safeJsonValue(
-            Json
-              .obj(
-                "radar" -> Json.obj(
-                  "labels" -> mostPlayed.map { case (key, _) =>
-                    PuzzleTheme(key).name.txt()
-                  },
-                  "datasets" -> Json.arr(
-                    Json.obj(
-                      "label" -> "Performance",
-                      "data" -> mostPlayed.map { case (_, results) =>
-                        results.performance
-                      }
+              Json
+                .obj(
+                  "radar" -> Json.obj(
+                    "labels" -> mostPlayed.map { case (key, _) =>
+                      PuzzleTheme(key).name.txt()
+                    },
+                    "datasets" -> Json.arr(
+                      Json.obj(
+                        "label" -> "Performance",
+                        "data" -> mostPlayed.map { case (_, results) =>
+                          results.performance
+                        }
+                      )
                     )
                   )
                 )
-              )
-          )})})""")
+            )})})""")
         )
       }
     ) { dash =>
@@ -122,7 +122,7 @@ object dashboard {
               span(trans.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices map { d =>
                 a(
-                  cls := (d == days).option("current"),
+                  cls  := (d == days).option("current"),
                   href := s"${routes.Puzzle.dashboard(d, path)}${!(ctx is user) ?? s"?u=${user.username}"}"
                 )(trans.nbDays.pluralSame(d))
               }
@@ -164,14 +164,14 @@ object dashboard {
         span("performance")
       ),
       div(
-        cls := s"$metricClass $metricClass--win",
+        cls   := s"$metricClass $metricClass--win",
         style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
       )(
         strong(s"${results.winPercent}%"),
         span("solved")
       ),
       a(
-        cls := s"$metricClass $metricClass--fix",
+        cls  := s"$metricClass $metricClass--fix",
         href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(

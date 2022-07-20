@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
+import play.api.data.validation.{ Constraint, Invalid, Valid => FormValid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference

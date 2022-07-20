@@ -32,22 +32,22 @@ object insight {
 $$(function() {
 lishogi = lishogi || {};
 lishogi.insight = LishogiInsight(document.getElementById('insight'), ${safeJsonValue(
-          Json.obj(
-            "ui"              -> ui,
-            "initialQuestion" -> question,
-            "i18n"            -> Json.obj(),
-            "myUserId"        -> ctx.userId,
-            "user" -> Json.obj(
-              "id"      -> u.id,
-              "name"    -> u.username,
-              "nbGames" -> cache.count,
-              "stale"   -> stale,
-              "shareId" -> prefId
-            ),
-            "pageUrl" -> routes.Page.notSupported.url,
-            "postUrl" -> routes.Page.notSupported.url
-          )
-        )});
+            Json.obj(
+              "ui"              -> ui,
+              "initialQuestion" -> question,
+              "i18n"            -> Json.obj(),
+              "myUserId"        -> ctx.userId,
+              "user" -> Json.obj(
+                "id"      -> u.id,
+                "name"    -> u.username,
+                "nbGames" -> cache.count,
+                "stale"   -> stale,
+                "shareId" -> prefId
+              ),
+              "pageUrl" -> routes.Page.notSupported.url,
+              "postUrl" -> routes.Page.notSupported.url
+            )
+          )});
 });""")
       ),
       moreCss = cssTag("insight")

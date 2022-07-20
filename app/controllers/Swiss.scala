@@ -5,7 +5,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
+import lila.swiss.Swiss.{ ChatFor, Id => SwissId }
 import lila.swiss.{ Swiss => SwissModel }
 import views._
 

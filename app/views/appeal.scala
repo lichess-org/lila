@@ -52,20 +52,20 @@ object appeal2 {
                 ),
                 if (appeal.isOpen)
                   frag(
-                    postForm(action := routes.Appeal.act(suspect.user.username, "close"))(
+                    postForm(action             := routes.Appeal.act(suspect.user.username, "close"))(
                       submitButton("Close")(cls := "button button-red button-thin")
                     ),
                     if (appeal.isMuted)
-                      postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
+                      postForm(action               := routes.Appeal.act(suspect.user.username, "open"))(
                         submitButton("Un-mute")(cls := "button button-green button-thin")
                       )
                     else
-                      postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(
+                      postForm(action            := routes.Appeal.act(suspect.user.username, "mute"))(
                         submitButton("Mute")(cls := "button button-red button-thin")
                       )
                   )
                 else
-                  postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
+                  postForm(action            := routes.Appeal.act(suspect.user.username, "open"))(
                     submitButton("Open")(cls := "button button-green button-thin")
                   )
               )

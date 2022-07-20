@@ -142,14 +142,14 @@ object list {
       }
       // a(cls := "text", dataIcon := "", href := "https://lishogi.org/blog/V0KrLSkAAMo3hsi4/study-shogi-the-lishogi-way")(
       //  trans.study.whatAreStudies()
-      //)
+      // )
     )
   }
 
   private[study] def searchForm(placeholder: String, value: String) =
-    form(cls := "search", action := routes.Study.search(), method := "get")(
-      input(name := "q", st.placeholder := placeholder, st.value := value),
-      submitButton(cls := "button", dataIcon := "y")
+    form(cls           := "search", action    := routes.Study.search(), method := "get")(
+      input(name       := "q", st.placeholder := placeholder, st.value         := value),
+      submitButton(cls := "button", dataIcon  := "y")
     )
 
   private def layout(

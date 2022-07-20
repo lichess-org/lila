@@ -40,7 +40,7 @@ object irwin {
             div(cls := "box__top__actions")(
               a(
                 href := "https://monitor.lishogi.ovh/dashboard/db/lishogi-moderation",
-                cls := "button button-empty"
+                cls  := "button button-empty"
               )("Monitoring")
             )
           ),
@@ -76,7 +76,7 @@ object irwin {
   def report(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context): Frag =
     div(id := "mz_irwin", cls := "mz-section")(
       header(
-        a(cls := "title", href := routes.Irwin.dashboard)(
+        a(cls     := "title", href := routes.Irwin.dashboard)(
           img(src := staticUrl("images/icons/brain.blue.svg")),
           " Irwin AI",
           br,
@@ -99,9 +99,9 @@ object irwin {
                   a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
                     gameReport.moves.map { move =>
                       span(
-                        cls := percentClass(move.activation),
+                        cls      := percentClass(move.activation),
                         st.title := move.toString,
-                        style := s"height:${move.activation}%"
+                        style    := s"height:${move.activation}%"
                       )
                     }
                   )

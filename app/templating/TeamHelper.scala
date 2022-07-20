@@ -20,9 +20,9 @@ trait TeamHelper { self: HasEnv =>
 
   def teamLink(id: String, name: Frag, withIcon: Boolean): Tag =
     a(
-      href := routes.Team.show(id),
+      href     := routes.Team.show(id),
       dataIcon := withIcon.option("f"),
-      cls := withIcon option "text"
+      cls      := withIcon option "text"
     )(name)
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)

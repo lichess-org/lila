@@ -48,8 +48,8 @@ object edit {
           div(cls := "picture_wrap")(
             if (c.coach.hasPicture)
               a(
-                cls := "upload_picture",
-                href := routes.Coach.picture,
+                cls   := "upload_picture",
+                href  := routes.Coach.picture,
                 title := "Change/delete your profile picture"
               )(
                 widget.pic(c, 250)
@@ -67,8 +67,8 @@ object edit {
             ),
             div(
               a(
-                href := routes.Coach.show(c.user.username),
-                cls := "button button-empty text",
+                href     := routes.Coach.show(c.user.username),
+                cls      := "button button-empty text",
                 dataIcon := "v"
               )("Preview coach page")
             )
@@ -112,7 +112,7 @@ object edit {
                   half = true
                 )(
                   form3.input(_)(
-                    data("all") := jsonLanguages,
+                    data("all")   := jsonLanguages,
                     data("value") := c.coach.languages.mkString(",")
                   )
                 ),

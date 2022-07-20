@@ -3,7 +3,7 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.libs.json._
 
-import lila.analyse.{ JsonView => analysisJson, Analysis }
+import lila.analyse.{ Analysis, JsonView => analysisJson }
 import lila.common.ApiVersion
 import lila.game.{ Game, Pov }
 import lila.pref.Pref

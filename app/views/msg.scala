@@ -16,11 +16,11 @@ object msg {
         jsModule("msg"),
         embedJsUnsafe(
           s"""$$(() =>LishogiMsg(document.querySelector('.msg-app'), ${safeJsonValue(
-            Json.obj(
-              "data" -> json,
-              "i18n" -> jsI18n
-            )
-          )}))"""
+              Json.obj(
+                "data" -> json,
+                "i18n" -> jsI18n
+              )
+            )}))"""
         )
       ),
       title = "Lishogi Inbox"

@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 
 import lila.common.NormalizedEmailAddress
 import lila.db.dsl._
-import lila.user.User.{ ClearPassword, PasswordAndToken, BSONFields => F }
+import lila.user.User.{ BSONFields => F, ClearPassword, PasswordAndToken }
 
 final class Authenticator(
     passHasher: PasswordHasher,

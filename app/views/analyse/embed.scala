@@ -27,12 +27,12 @@ object embed {
           cssTagWithTheme("analyse.embed", config.bg)
         ),
         body(
-          cls := s"highlight ${config.bg} ${config.board}",
-          dataDev := (!isProd).option("true"),
-          dataAssetUrl := assetBaseUrl,
+          cls              := s"highlight ${config.bg} ${config.board}",
+          dataDev          := (!isProd).option("true"),
+          dataAssetUrl     := assetBaseUrl,
           dataAssetVersion := assetVersion.value,
-          dataTheme := config.bg,
-          dataPieceSet := config.pieceSet.name
+          dataTheme        := config.bg,
+          dataPieceSet     := config.pieceSet.name
         )(
           div(
             main(cls := "analyse")
@@ -56,12 +56,12 @@ object embed {
           analyseTag,
           embedJsUnsafe(
             s"""lishogi.startEmbeddedAnalyse(${safeJsonValue(
-              Json.obj(
-                "data"  -> data,
-                "embed" -> true,
-                "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
-              )
-            )})""",
+                Json.obj(
+                  "data"  -> data,
+                  "embed" -> true,
+                  "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+                )
+              )})""",
             config.nonce
           )
         )

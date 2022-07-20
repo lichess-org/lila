@@ -11,7 +11,7 @@ object bits {
 
   def mini(sfen: Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
-      cls := "mini-board mini-board--init sg-wrap",
+      cls       := "mini-board mini-board--init sg-wrap",
       dataState := s"${sfen.value},${color.name},$lastMove"
     )(sgWrapContent)
 

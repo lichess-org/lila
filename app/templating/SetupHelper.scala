@@ -86,7 +86,7 @@ trait SetupHelper { self: I18nHelper =>
     List(
       (TimeMode.RealTime.id.toString, trans.realTime.txt(), none),
       (TimeMode.Correspondence.id.toString, trans.correspondence.txt(), none)
-      //(TimeMode.Unlimited.id.toString, trans.unlimited.txt(), none)
+      // (TimeMode.Unlimited.id.toString, trans.unlimited.txt(), none)
     )
   }
 
@@ -183,7 +183,7 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.Coords.NONE, trans.no.txt()),
       (Pref.Coords.INSIDE, trans.insideTheBoard.txt()),
       (Pref.Coords.OUTSIDE, trans.outsideTheBoard.txt()),
-      (Pref.Coords.EDGE, trans.edgeOfTheBoard.txt()),
+      (Pref.Coords.EDGE, trans.edgeOfTheBoard.txt())
     )
 
   def translatedMoveListWhilePlayingChoices(implicit lang: Lang) =

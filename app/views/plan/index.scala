@@ -24,7 +24,7 @@ object index {
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
-        //script(src := "https://js.stripe.com/v3/"),
+        // script(src := "https://js.stripe.com/v3/"),
         jsTag("checkout.js"),
         embedJsUnsafe(s"""lishogi.checkout("$stripePublicKey");""")
       ),
@@ -80,9 +80,9 @@ object index {
               ),
               div(cls := "content")(
                 div(
-                  cls := "plan_checkout",
-                  attr("data-email") := email.map(_.value),
-                  attr("data-lifetime-usd") := lila.plan.Cents.lifetime.usd.toString,
+                  cls                         := "plan_checkout",
+                  attr("data-email")          := email.map(_.value),
+                  attr("data-lifetime-usd")   := lila.plan.Cents.lifetime.usd.toString,
                   attr("data-lifetime-cents") := lila.plan.Cents.lifetime.value
                 )(
                   raw(s"""
@@ -138,11 +138,11 @@ object index {
                   st.group(cls := "radio buttons freq")(
                     div(
                       st.title := payLifetimeOnce.txt(lila.plan.Cents.lifetime.usd),
-                      cls := List("lifetime-check" -> patron.exists(_.isLifetime)),
+                      cls      := List("lifetime-check" -> patron.exists(_.isLifetime)),
                       input(
-                        tpe := "radio",
+                        tpe  := "radio",
                         name := "freq",
-                        id := "freq_lifetime",
+                        id   := "freq_lifetime",
                         patron.exists(_.isLifetime) option disabled,
                         value := "lifetime"
                       ),
@@ -151,9 +151,9 @@ object index {
                     div(
                       st.title := recurringBilling.txt(),
                       input(
-                        tpe := "radio",
+                        tpe  := "radio",
                         name := "freq",
-                        id := "freq_monthly",
+                        id   := "freq_monthly",
                         checked,
                         value := "monthly"
                       ),
@@ -162,9 +162,9 @@ object index {
                     div(
                       st.title := singleDonation.txt(),
                       input(
-                        tpe := "radio",
+                        tpe  := "radio",
                         name := "freq",
-                        id := "freq_onetime",
+                        id   := "freq_onetime",
                         checked,
                         value := "onetime"
                       ),
@@ -177,22 +177,22 @@ object index {
                         val id = s"plan_${cents.value}"
                         div(
                           input(
-                            tpe := "radio",
-                            name := "plan",
+                            tpe   := "radio",
+                            name  := "plan",
                             st.id := id,
                             cents.usd.value == 10 option checked,
-                            value := cents.value,
-                            attr("data-usd") := cents.usd.toString,
+                            value               := cents.value,
+                            attr("data-usd")    := cents.usd.toString,
                             attr("data-amount") := cents.value
                           ),
                           label(`for` := id)(cents.usd.toString)
                         )
                       },
-                      div(cls := "other")(
+                      div(cls     := "other")(
                         input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
                         label(
-                          `for` := "plan_other",
-                          title := pleaseEnterAmount.txt(),
+                          `for`                    := "plan_other",
+                          title                    := pleaseEnterAmount.txt(),
                           attr("data-trans-other") := otherAmount.txt()
                         )(otherAmount())
                       )

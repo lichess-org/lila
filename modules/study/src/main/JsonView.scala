@@ -2,7 +2,7 @@ package lila.study
 
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.{ Pos, Piece }
+import shogi.{ Piece, Pos }
 import play.api.libs.json._
 import scala.util.chaining._
 
@@ -173,10 +173,11 @@ object JsonView {
   implicit private[study] val pieceOrPosReader: Reads[Shape.PosOrPiece] = Reads[Shape.PosOrPiece] { v =>
     posReader.reads(v) match {
       case JsSuccess(pos, _) => JsSuccess(Left(pos).withRight[Piece])
-      case JsError(_) => pieceReader.reads(v) match {
-        case JsSuccess(piece, _) => JsSuccess(Right(piece).withLeft[Pos])
-        case JsError(_) => JsError(Nil)
-      }
+      case JsError(_) =>
+        pieceReader.reads(v) match {
+          case JsSuccess(piece, _) => JsSuccess(Right(piece).withLeft[Pos])
+          case JsError(_)          => JsError(Nil)
+        }
     }
   }
 
@@ -187,8 +188,8 @@ object JsonView {
           brush <- o str "brush"
           orig  <- o.get[Shape.PosOrPiece]("orig")
         } yield o.get[Shape.PosOrPiece]("dest") match {
-            case Some(dest) if dest != orig => Shape.Arrow(brush, orig, dest)
-            case _                          => Shape.Circle(brush, orig, o.get[Piece]("piece"))
+          case Some(dest) if dest != orig => Shape.Arrow(brush, orig, dest)
+          case _                          => Shape.Circle(brush, orig, o.get[Piece]("piece"))
         }
       }
       .fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))

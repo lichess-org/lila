@@ -2,7 +2,7 @@ package lila.simul
 
 import shogi.variant.Variant
 import shogi.format.forsyth.Sfen
-import shogi.{ Speed }
+import shogi.Speed
 import lila.rating.PerfType
 import lila.user.User
 import org.joda.time.DateTime

@@ -5,7 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import scala.concurrent.duration._
 
-import lila.common.{ EmailAddress, LameName, Form => LilaForm }
+import lila.common.{ EmailAddress, Form => LilaForm, LameName }
 import lila.user.{ TotpSecret, User, UserRepo }
 import User.{ ClearPassword, TotpToken }
 
@@ -187,7 +187,7 @@ final class DataForm(
       Form(
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token"  -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
+          "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
         )
       )
     }

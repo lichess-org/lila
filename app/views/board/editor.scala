@@ -36,7 +36,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
         .some
     )(
       main(id := "board-editor")(
-        div(cls := "board-editor")(
+        div(cls   := "board-editor")(
           div(cls := "spare"),
           div(cls := "main-board")(shogigroundBoard(sit.variant, shogi.Sente.some)),
           div(cls := "spare")
@@ -44,7 +44,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
       )
     )
 
-    def jsData(
+  def jsData(
       sit: shogi.Situation
   )(implicit ctx: Context) =
     Json.obj(
@@ -58,10 +58,10 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
           "moveEvent"          -> ctx.pref.moveEvent,
           "resizeHandle"       -> ctx.pref.resizeHandle,
           "highlightLastDests" -> ctx.pref.highlightLastDests,
-          "squareOverlay"    -> ctx.pref.squareOverlay,
+          "squareOverlay"      -> ctx.pref.squareOverlay,
           "notation"           -> ctx.pref.notation
         ),
-      "i18n"          -> i18nJsObject(i18nKeyes)
+      "i18n" -> i18nJsObject(i18nKeyes)
     )
 
   private val i18nKeyes = List(

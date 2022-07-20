@@ -84,7 +84,7 @@ object form {
             t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
               submitButton(
                 dataIcon := "L",
-                cls := "text button button-empty button-red confirm",
+                cls      := "text button button-empty button-red confirm",
                 st.title := "Closes the team forever." // can actually be reverted
               )(trans.close())
             ),
@@ -92,7 +92,7 @@ object form {
               postForm(cls := "inline", action := routes.Team.close(t.id))(
                 submitButton(
                   dataIcon := "q",
-                  cls := "text button button-empty button-red confirm",
+                  cls      := "text button button-empty button-red confirm",
                   st.title := "Deletes the team and its memberships. Cannot be reverted!"
                 )(trans.delete())
               )

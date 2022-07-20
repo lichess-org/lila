@@ -2,7 +2,7 @@ package lila.round
 
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.PrefApi
-import lila.i18n.{ I18nKeys => trans, defaultLang }
+import lila.i18n.{ defaultLang, I18nKeys => trans }
 
 import lila.common.Bus
 

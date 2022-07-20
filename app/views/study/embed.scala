@@ -33,12 +33,12 @@ object embed {
           cssTagWithTheme("analyse.embed", config.bg)
         ),
         body(
-          cls := s"highlight ${config.bg} ${config.board}",
-          dataDev := (!isProd).option("true"),
-          dataAssetUrl := assetBaseUrl,
+          cls              := s"highlight ${config.bg} ${config.board}",
+          dataDev          := (!isProd).option("true"),
+          dataAssetUrl     := assetBaseUrl,
           dataAssetVersion := assetVersion.value,
-          dataTheme := config.bg,
-          dataPieceSet := config.pieceSet.name
+          dataTheme        := config.bg,
+          dataPieceSet     := config.pieceSet.name
         )(
           div(
             main(cls := "analyse")
@@ -56,11 +56,11 @@ object embed {
                 a(target := "_blank", href := url)(h1(s.name.value))
               ),
               a(
-                target := "_blank",
-                cls := "open",
+                target   := "_blank",
+                cls      := "open",
                 dataIcon := "=",
-                href := url,
-                title := trans.study.open.txt()
+                href     := url,
+                title    := trans.study.open.txt()
               )
             )
           },
@@ -72,14 +72,14 @@ object embed {
           analyseTag,
           embedJsUnsafe(
             s"""lishogi.startEmbeddedAnalyse(${safeJsonValue(
-              Json.obj(
-                "study"  -> data.study,
-                "data"   -> data.analysis,
-                "embed"  -> true,
-                "i18n"   -> views.html.board.userAnalysisI18n(),
-                "userId" -> none[String]
-              )
-            )});
+                Json.obj(
+                  "study"  -> data.study,
+                  "data"   -> data.analysis,
+                  "embed"  -> true,
+                  "i18n"   -> views.html.board.userAnalysisI18n(),
+                  "userId" -> none[String]
+                )
+              )});
 document.getElementById('chapter-selector').onchange = function() {
   location.href = this.value + location.search;
 };""",

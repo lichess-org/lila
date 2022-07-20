@@ -2,7 +2,7 @@ package controllers
 
 import lila.api.Context
 import lila.app._
-import lila.game.{ Game => GameModel, Pov, AnonCookie }
+import lila.game.{ AnonCookie, Game => GameModel, Pov }
 import play.api.mvc._
 
 private[controllers] trait TheftPrevention { self: LilaController =>
@@ -20,7 +20,7 @@ private[controllers] trait TheftPrevention { self: LilaController =>
         case (Some(playerUserId), Some(userId)) => playerUserId != userId
         case (None, _) =>
           !lila.api.Mobile.Api.requested(ctx.req) &&
-            !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)
+          !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)
       }
     }
   }

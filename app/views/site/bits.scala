@@ -15,7 +15,7 @@ object bits {
       main(
         iframe(
           src := "https://docs.google.com/forms/d/e/1FAIpQLSeSAp51tSaW9JlPGVX0o8dcScAuxGMhNOL9eEUIfARGzpITmA/viewform?embedded=true",
-          style := "width:100%;height:1400px",
+          style          := "width:100%;height:1400px",
           st.frameborder := 0
         )(spinner)
       )

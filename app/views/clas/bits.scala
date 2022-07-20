@@ -29,7 +29,7 @@ object bits {
                 a(cls := "active", href := routes.Clas.show(clas.clas.id.value))(clas.clas.name),
                 clas.students.map { s =>
                   a(
-                    cls := List("student" -> true, "active" -> student.exists(s.is)),
+                    cls  := List("student" -> true, "active" -> student.exists(s.is)),
                     href := routes.Clas.studentShow(clas.clas.id.value, s.userId)
                   )(
                     usernameOrId(s.userId),

@@ -21,17 +21,17 @@ object show {
         analyseTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lishogi=window.lishogi||{};lishogi.practice=${safeJsonValue(
-          Json.obj(
-            "practice" -> data.practice,
-            "study"    -> data.study,
-            "data"     -> data.analysis,
-            "i18n"     -> board.userAnalysisI18n(),
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
+            Json.obj(
+              "practice" -> data.practice,
+              "study"    -> data.study,
+              "data"     -> data.analysis,
+              "i18n"     -> board.userAnalysisI18n(),
+              "explorer" -> Json.obj(
+                "endpoint"          -> explorerEndpoint,
+                "tablebaseEndpoint" -> tablebaseEndpoint
+              )
             )
-          )
-        )}""")
+          )}""")
       ),
       csp = defaultCsp.withWebAssembly.some,
       shogiground = false,

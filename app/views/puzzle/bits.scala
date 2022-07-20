@@ -18,9 +18,9 @@ object bits {
       tag: Tag
   ): Tag =
     tag(
-      cls := "mini-board parse-sfen sg-wrap d-9x9",
-      dataColor := color.name,
-      dataSfen := sfen.value,
+      cls          := "mini-board parse-sfen sg-wrap d-9x9",
+      dataColor    := color.name,
+      dataSfen     := sfen.value,
       dataLastmove := lastMove
     )(sgWrapContent)
 

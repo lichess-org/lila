@@ -103,7 +103,7 @@ object list {
             span(cls := "tabs")(
               a(
                 href := routes.Report.listWithFilter("all"),
-                cls := List("new" -> (counts.sum > 0), "active" -> (filter == "all"))
+                cls  := List("new" -> (counts.sum > 0), "active" -> (filter == "all"))
               )(
                 countTag(counts.sum > 0 option counts.sum),
                 "All"

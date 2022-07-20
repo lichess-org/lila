@@ -59,7 +59,7 @@ object page {
     views.html.base.layout(
       title =
         s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) ""
-        else " - page " + games.currentPage}",
+          else " - page " + games.currentPage}",
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),

@@ -107,10 +107,12 @@ final class EntryApi(
       val langsToExclude = BlogLangs.langs.filter(BlogLangs.parse(langCode) !=).toList
       cache.getUnit map { bcs =>
         val bcsFiltered = bcs filter {
-          _.decode.map {
-            case BlogPost(_, _, _, lc) => !(langsToExclude contains lc)
-            case _                     => true
-          }.get
+          _.decode
+            .map {
+              case BlogPost(_, _, _, lc) => !(langsToExclude contains lc)
+              case _                     => true
+            }
+            .get
         }
         bcsFiltered.headOption.fold(entries) { mostRecentBc =>
           val interleaved = {

@@ -2,7 +2,7 @@ package lila.game
 
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import shogi.{ Color, Clock, Hands, Sente, Gote, Status, Mode, History => ShogiHistory, Game => ShogiGame }
+import shogi.{ Clock, Color, Game => ShogiGame, Gote, Hands, History => ShogiHistory, Mode, Sente, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Try
@@ -38,9 +38,9 @@ object BSONHandlers {
       val startedAtColor = initialSfen.flatMap(_.color) | Sente
       val startedAtPly   = startedAtMove - (if ((startedAtMove % 2 == 1) == startedAtColor.sente) 1 else 0)
 
-      val plies         = r int F.plies atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val plyColor      = Color.fromPly(plies)
-      val createdAt     = r date F.createdAt
+      val plies     = r int F.plies atMost Game.maxPlies // unlimited can cause StackOverflowError
+      val plyColor  = Color.fromPly(plies)
+      val createdAt = r date F.createdAt
 
       val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
 
@@ -128,8 +128,8 @@ object BSONHandlers {
             (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.gotePlayer
           )
         ),
-        F.status       -> o.status,
-        F.plies        -> o.shogi.plies,
+        F.status -> o.status,
+        F.plies  -> o.shogi.plies,
         F.clock -> (o.shogi.clock flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         }),

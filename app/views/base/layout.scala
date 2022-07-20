@@ -17,8 +17,8 @@ object layout {
   object bits {
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
-    val topComment                   = raw("""<!-- Lishogi is open source! See https://lishogi.org/source -->""")
-    val charset                      = raw("""<meta charset="utf-8">""")
+    val topComment = raw("""<!-- Lishogi is open source! See https://lishogi.org/source -->""")
+    val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     )
@@ -35,10 +35,10 @@ object layout {
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
-        id := "piece-sprite",
+        id   := "piece-sprite",
         href := assetUrl(s"piece-css/$ps.css"),
-        tpe := "text/css",
-        rel := "stylesheet"
+        tpe  := "text/css",
+        rel  := "stylesheet"
       )
   }
   import bits._
@@ -47,13 +47,13 @@ object layout {
 
   private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
     raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t =>
-      s"""type="$t" """
-    )}${crossorigin ?? "crossorigin"}>""")
-  
+        s"""type="$t" """
+      )}${crossorigin ?? "crossorigin"}>""")
+
   private def fontPreload(implicit ctx: Context) =
     preload(assetUrl("font/lishogi.woff2"), "font", crossorigin = true, "font/woff2".some)
 
-  private def boardPreload(implicit ctx: Context) = 
+  private def boardPreload(implicit ctx: Context) =
     ctx.currentTheme.file map { file =>
       preload(assetUrl(s"images/boards/$file"), "image", crossorigin = false)
     }
@@ -68,28 +68,28 @@ object layout {
     List(512, 256, 192, 128, 64)
       .map { px =>
         s"""<link rel="icon" type="image/png" href="${staticUrl(
-          s"logo/lishogi-favicon-$px.png"
-        )}" sizes="${px}x${px}">"""
+            s"logo/lishogi-favicon-$px.png"
+          )}" sizes="${px}x${px}">"""
       }
       .mkString(
         "",
         "",
         s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
-          "logo/lishogi-favicon-32.png"
-        )}" sizes="32x32">"""
+            "logo/lishogi-favicon-32.png"
+          )}" sizes="32x32">"""
       )
   }
   private def blindModeForm(implicit ctx: Context) =
     raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (
-      ctx.blind
-    )
-      0
-    else
-      1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
-      ctx.blind
-    )
-      "Disable"
-    else "Enable"} blind mode</button></form>""")
+        ctx.blind
+      )
+        0
+      else
+        1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
+        ctx.blind
+      )
+        "Disable"
+      else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lila.user.User) =
     raw(
@@ -100,14 +100,14 @@ object layout {
     spaceless(s"""<div>
   <a id="challenge-toggle" class="toggle link">
     <span title="${trans.challenges
-      .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
+        .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
   </a>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <a id="notify-toggle" class="toggle link">
     <span title="${trans.notifications
-      .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
+        .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
   </a>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
@@ -120,7 +120,7 @@ object layout {
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
 <a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
-      .txt()}</a>""")
+        .txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 
@@ -128,22 +128,22 @@ object layout {
     div(id := "clinput")(
       clinputLink,
       input(
-        spellcheck := "false",
+        spellcheck   := "false",
         autocomplete := ctx.blind.toString,
-        aria.label := trans.search.search.txt(),
-        placeholder := trans.search.search.txt()
+        aria.label   := trans.search.search.txt(),
+        placeholder  := trans.search.search.txt()
       )
     )
 
   private def switchLanguage(implicit ctx: Context) =
     spaceless(s"""<form method="post" action="/translation/select" class="header-langs">
     ${if (ctx.lang.language == "en")
-      """<button type="submit" name="lang" value="ja-JP" title="ja-JP">日本語</button>"""
-    else """<button type="submit" name="lang" value="en-US" title="en-US">English</button>"""}
+        """<button type="submit" name="lang" value="ja-JP" title="ja-JP">日本語</button>"""
+      else """<button type="submit" name="lang" value="en-US" title="en-US">English</button>"""}
     </form>""")
 
   private lazy val botImage = img(
-    src := staticUrl("images/icons/bot.png"),
+    src   := staticUrl("images/icons/bot.png"),
     title := "Robot shogi",
     style :=
       "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
@@ -163,7 +163,7 @@ object layout {
         s"--c-board-url:${cssBackgroundImageValue(ct.boardImg)};",
         s"--c-grid-color:${ct.gridColor};",
         s"--c-hands-color:${ct.handsColor};",
-        s"--c-hands-url:${cssBackgroundImageValue(ct.handsImg)};",
+        s"--c-hands-url:${cssBackgroundImageValue(ct.handsImg)};"
       ).mkString("")
     }
     (zoom ++ customBg ++ customTheme).reduceLeftOption(_ + _)
@@ -222,7 +222,7 @@ object layout {
           pieceSprite,
           meta(
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
-            name := "description"
+            name    := "description"
           ),
           link(rel := "mask-icon", href := staticUrl("logo/lishogi.svg"), attr("color") := "black"),
           favicons,
@@ -230,9 +230,9 @@ object layout {
           noTranslate,
           openGraph.map(_.frags),
           link(
-            href := routes.Blog.atom,
-            `type` := "application/atom+xml",
-            rel := "alternate",
+            href     := routes.Blog.atom,
+            `type`   := "application/atom+xml",
+            rel      := "alternate",
             st.title := trans.blog.txt()
           ),
           fontPreload,
@@ -250,18 +250,18 @@ object layout {
             "mobile"               -> ctx.isMobileBrowser,
             "playing fixed-scroll" -> playing
           ),
-          dataDev := (!isProd).option("true"),
-          dataVapid := vapidPublicKey,
-          dataUser := ctx.userId,
-          dataSoundSet := ctx.currentSoundSet.toString,
+          dataDev           := (!isProd).option("true"),
+          dataVapid         := vapidPublicKey,
+          dataUser          := ctx.userId,
+          dataSoundSet      := ctx.currentSoundSet.toString,
           dataSocketDomains := socketDomains.mkString(","),
-          dataAssetUrl := assetBaseUrl,
-          dataAssetVersion := assetVersion.value,
-          dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
-          dataTheme := ctx.currentBg,
-          dataPieceSet := ctx.currentPieceSet.name,
-          dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style := cssVariables(zoomable)
+          dataAssetUrl      := assetBaseUrl,
+          dataAssetVersion  := assetVersion.value,
+          dataNonce         := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
+          dataTheme         := ctx.currentBg,
+          dataPieceSet      := ctx.currentPieceSet.name,
+          dataAnnounce      := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          style             := cssVariables(zoomable)
         )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
@@ -273,15 +273,15 @@ object layout {
           div(
             id := "main-wrap",
             cls := List(
-              wrapClass  -> wrapClass.nonEmpty,
+              wrapClass -> wrapClass.nonEmpty
             )
           )(body),
           ctx.isAuth option div(
-            id := "friend_box",
+            id          := "friend_box",
             dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
           )(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
-            div(cls := "content_wrap none")(
+            div(cls   := "content_wrap none")(
               div(cls := "content list")
             )
           ),
@@ -314,21 +314,21 @@ object layout {
     private def reports(implicit ctx: Context) =
       isGranted(_.SeeReport) option
         a(
-          cls := "link data-count link-center",
-          title := "Moderation",
-          href := routes.Report.list,
+          cls       := "link data-count link-center",
+          title     := "Moderation",
+          href      := routes.Report.list,
           dataCount := blockingReportNbOpen,
-          dataIcon := ""
+          dataIcon  := ""
         )
 
     private def teamRequests(implicit ctx: Context) =
       ctx.teamNbRequests > 0 option
         a(
-          cls := "link data-count link-center",
-          href := routes.Team.requests,
+          cls       := "link data-count link-center",
+          href      := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon := "f",
-          title := trans.team.teams.txt()
+          dataIcon  := "f",
+          title     := trans.team.teams.txt()
         )
 
     def apply(playing: Boolean)(implicit ctx: Context) =

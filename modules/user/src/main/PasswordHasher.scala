@@ -10,8 +10,7 @@ import lila.common.config.Secret
 
 /** Encryption for bcrypt hashes.
   *
-  * CTS reveals input length, which is fine for
-  * this application.
+  * CTS reveals input length, which is fine for this application.
   */
 final private class Aes(secret: Secret) {
   private val sKey = {

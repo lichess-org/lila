@@ -74,7 +74,7 @@ ${Mailgun.txt.serviceNote}
     userRepo email user.id flatMap {
       _ ?? { email =>
         implicit val lang = userLang(user)
-        val body          = s"""Hello,
+        val body = s"""Hello,
 
 It is our pleasure to welcome you as a Lishogi coach.
 Your coach profile awaits you on ${baseUrl}/coach/edit.
@@ -103,7 +103,7 @@ ${Mailgun.txt.serviceNote}
       emailOption <- userRepo email user.id
       _ <- emailOption.?? { email =>
         implicit val lang = userLang(user)
-        val body          = s"""Hello,
+        val body = s"""Hello,
 
 Here is your private fishnet key:
 

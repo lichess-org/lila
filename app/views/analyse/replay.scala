@@ -18,7 +18,7 @@ object replay {
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${pov.game.opening
-      .fold(trans.analysis.txt())(_.opening.ecoName)}"
+        .fold(trans.analysis.txt())(_.opening.ecoName)}"
 
   private def playerName(p: Player): String =
     (p.aiLevel
@@ -55,9 +55,9 @@ object replay {
       ctx.noBlind option frag(
         pov.game.variant.standard option a(
           dataIcon := "$",
-          cls := "text",
-          target := "_blank",
-          href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
+          cls      := "text",
+          target   := "_blank",
+          href     := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
         )(
           "Share as a GIF"
         ),
@@ -70,23 +70,23 @@ object replay {
       span(
         a(
           dataIcon := "x",
-          cls := "text",
-          href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
+          cls      := "text",
+          href     := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
           attr(
             "download"
           ) := s"lishogi_game_${Tag.UTCDate.format
-            .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
+              .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
         )(
           trans.downloadRaw()
         ),
         a(
           dataIcon := "x",
-          cls := "text jis",
-          href := s"data:text/plain;charset=shift-jis,${UriEncoding.encodePathSegment(kif, "Shift-JIS")}",
+          cls      := "text jis",
+          href     := s"data:text/plain;charset=shift-jis,${UriEncoding.encodePathSegment(kif, "Shift-JIS")}",
           attr(
             "download"
           ) := s"lishogi_game_${Tag.UTCDate.format
-            .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
+              .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
         )(
           "Shift-JIS"
         )
@@ -96,8 +96,8 @@ object replay {
       ),
       game.isKifImport option a(
         dataIcon := "x",
-        cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?imported=1"
+        cls      := "text",
+        href     := s"${routes.Game.exportOne(game.id)}?imported=1"
       )(
         trans.downloadImported()
       )
@@ -105,8 +105,8 @@ object replay {
     val csaLinks = pov.game.variant.standard option div(
       a(
         dataIcon := "x",
-        cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?csa=1&clocks=0"
+        cls      := "text",
+        href     := s"${routes.Game.exportOne(game.id)}?csa=1&clocks=0"
       )(
         trans.downloadRaw()
       ),
@@ -115,8 +115,8 @@ object replay {
       ),
       game.isCsaImport option a(
         dataIcon := "x",
-        cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?imported=1&csa=1"
+        cls      := "text",
+        href     := s"${routes.Game.exportOne(game.id)}?imported=1&csa=1"
       )(trans.downloadImported())
     )
 
@@ -130,18 +130,18 @@ object replay {
         analyseTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lishogi=lishogi||{};lishogi.analyse=${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "i18n"   -> jsI18n(),
-            "userId" -> ctx.userId,
-            "chat"   -> chatJson,
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            ),
-            "hunter" -> isGranted(_.Hunter)
-          )
-        )}""")
+            Json.obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson,
+              "explorer" -> Json.obj(
+                "endpoint"          -> explorerEndpoint,
+                "tablebaseEndpoint" -> tablebaseEndpoint
+              ),
+              "hunter" -> isGranted(_.Hunter)
+            )
+          )}""")
       ),
       openGraph = povOpenGraph(pov).some
     )(
@@ -158,8 +158,7 @@ object replay {
               )
           ),
           chatOption.map(_ => views.html.chat.frag),
-          div(cls := "analyse__board main-board")
-            (shogigroundBoard(pov.game.variant, pov.color.some)),
+          div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           !ctx.blind option frag(
@@ -169,7 +168,7 @@ object replay {
                   if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
                   else
                     postForm(
-                      cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                      cls    := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
                       action := routes.Analyse.requestAnalysis(gameId)
                     )(
                       submitButton(cls := "button text")(
@@ -186,7 +185,7 @@ object replay {
                     input(
                       readonly,
                       spellcheck := false,
-                      cls := "copyable autoselect analyse__underboard__sfen"
+                      cls        := "copyable autoselect analyse__underboard__sfen"
                     )
                   ),
                   div(cls := "notation-options")(
@@ -214,7 +213,7 @@ object replay {
               div(cls := "analyse__underboard__menu")(
                 game.analysable option
                   span(
-                    cls := "computer-analysis",
+                    cls       := "computer-analysis",
                     dataPanel := "computer-analysis",
                     title := analysis.map { a =>
                       s"Provided by ${usernameOrId(a.providedBy)}"

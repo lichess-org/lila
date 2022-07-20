@@ -64,15 +64,15 @@ object features {
             tr(unlimited)(
               a(href := routes.Puzzle.home)("Tactical puzzles from user games")
             ),
-            //tr(unlimited)(
+            // tr(unlimited)(
             //  a(href := s"${routes.UserAnalysis.index}#explorer")("Opening explorer"),
             //  " (62 million games!)"
-            //),
-            //tr(unlimited)(
+            // ),
+            // tr(unlimited)(
             //  a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
             //    "7-piece endgame tablebase"
             //  )
-            //),
+            // ),
             tr(check)(
               "Download/Upload any game as KIF or CSA"
             ),
@@ -103,8 +103,8 @@ object features {
               strong("All features to come, forever")
             )
           ),
-          //header(h1(dataIcon := "")("Mobile")),
-          //tbody(
+          // header(h1(dataIcon := "")("Mobile")),
+          // tbody(
           //  tr(unlimited)(
           //    "Online and offline games, with 8 variants"
           //  ),
@@ -135,7 +135,7 @@ object features {
           //  tr(check)(
           //    strong("All features to come, forever")
           //  )
-          //),
+          // ),
           header(h1("Support Lishogi")),
           tbody(cls := "support")(
             st.tr(

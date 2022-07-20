@@ -60,11 +60,11 @@ object indexStripe {
                   p(decideHowMuch()),
                   "USD $ ",
                   input(
-                    tpe := "number",
-                    min := 1,
-                    max := 100000,
-                    step := "0.01",
-                    name := "usd",
+                    tpe   := "number",
+                    min   := 1,
+                    max   := 100000,
+                    step  := "0.01",
+                    name  := "usd",
                     value := info.subscription.plan.usd.toString
                   ),
                   submitButton(cls := "button")(trans.apply()),

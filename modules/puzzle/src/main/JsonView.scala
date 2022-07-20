@@ -83,16 +83,16 @@ final class JsonView(
 
   def pref(p: lila.pref.Pref) =
     Json.obj(
-      "blindfold"       -> p.blindfold,
-      "coords"          -> p.coords,
-      "animation"       -> Json.obj("duration" -> p.animationMillis),
-      "destination"     -> p.destination,
-      "dropDestination" -> p.dropDestination,
-      "moveEvent"       -> p.moveEvent,
+      "blindfold"          -> p.blindfold,
+      "coords"             -> p.coords,
+      "animation"          -> Json.obj("duration" -> p.animationMillis),
+      "destination"        -> p.destination,
+      "dropDestination"    -> p.dropDestination,
+      "moveEvent"          -> p.moveEvent,
       "highlightLastDests" -> p.highlightLastDests,
-      "highlightCheck"    -> p.highlightCheck,
-      "squareOverlay"   -> p.squareOverlay,
-      "notation"   -> p.notation
+      "highlightCheck"     -> p.highlightCheck,
+      "squareOverlay"      -> p.squareOverlay,
+      "notation"           -> p.notation
     )
 
   def dashboardJson(dash: PuzzleDashboard, days: Int)(implicit lang: Lang) = Json.obj(

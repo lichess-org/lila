@@ -59,7 +59,7 @@ object leaderboard {
           )
         )
 
-      //def marathonWinners =
+      // def marathonWinners =
       //  section(
       //    h2(cls := "text", dataIcon := "\\")("Marathon"),
       //    ul(
@@ -79,14 +79,14 @@ object leaderboard {
           h1("Tournament winners"),
           div(cls := "tournament-leaderboards")(
             eliteWinners,
-            //freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
+            // freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
             freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
             freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
             freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
             freqWinners(winners.hyperrapid, PerfType.Rapid, "HyperRapid"),
             freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
             freqWinners(winners.classical, PerfType.Classical, "Classical"),
-            //marathonWinners,
+            // marathonWinners,
             lila.tournament.WinnersApi.variants.map { v =>
               PerfType.byVariant(v).map { pt =>
                 winners.variants.get(pt.key).map { w =>

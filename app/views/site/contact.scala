@@ -332,7 +332,7 @@ object contact {
   private def renderedMenu(implicit ctx: Context) = renderNode(menu, none)
 
   private def makeId(id: String)   = st.id := s"help-$id"
-  private def makeLink(id: String) = href := s"#help-$id"
+  private def makeLink(id: String) = href  := s"#help-$id"
 
   private def goBack(parent: Node): Frag =
     a(makeLink(parent.id), cls := "back", dataIcon := "I", title := "Go back")

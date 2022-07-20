@@ -49,8 +49,8 @@ trait FormHelper { self: I18nHelper =>
         // case ("constraint.required", _) => required
         case ("constraint.minLength", Seq(m: Int)) => minlength := m
         case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
-        case ("constraint.min", Seq(m: Int))       => min := m
-        case ("constraint.max", Seq(m: Int))       => max := m
+        case ("constraint.min", Seq(m: Int))       => min       := m
+        case ("constraint.max", Seq(m: Int))       => max       := m
       }
 
     val split = div(cls := "form-split")
@@ -79,10 +79,10 @@ trait FormHelper { self: I18nHelper =>
     def input(field: Field, typ: String = "", klass: String = ""): BaseTagType =
       st.input(
         st.id := id(field),
-        name := field.name,
+        name  := field.name,
         value := field.value,
-        tpe := typ.nonEmpty.option(typ),
-        cls := List("form-control" -> true, klass -> klass.nonEmpty)
+        tpe   := typ.nonEmpty.option(typ),
+        cls   := List("form-control" -> true, klass -> klass.nonEmpty)
       )(validationModifiers(field))
 
     def checkbox(
@@ -116,11 +116,11 @@ trait FormHelper { self: I18nHelper =>
     ) =
       frag(
         st.input(
-          st.id := fieldId,
-          name := fieldName,
+          st.id    := fieldId,
+          name     := fieldName,
           st.value := value,
-          tpe := "checkbox",
-          cls := "form-control cmn-toggle",
+          tpe      := "checkbox",
+          cls      := "form-control cmn-toggle",
           checked option st.checked,
           disabled option st.disabled
         ),
@@ -136,8 +136,8 @@ trait FormHelper { self: I18nHelper =>
       frag(
         st.select(
           st.id := id(field),
-          name := field.name,
-          cls := "form-control"
+          name  := field.name,
+          cls   := "form-control"
         )(disabled option (st.disabled := true))(validationModifiers(field))(
           default map { option(value := "")(_) },
           options.toSeq map { case (value, name) =>
@@ -156,8 +156,8 @@ trait FormHelper { self: I18nHelper =>
     )(modifiers: Modifier*): Frag =
       st.textarea(
         st.id := id(field),
-        name := field.name,
-        cls := List("form-control" -> true, klass -> klass.nonEmpty)
+        name  := field.name,
+        cls   := List("form-control" -> true, klass -> klass.nonEmpty)
       )(validationModifiers(field))(modifiers)(~field.value)
 
     val actions = div(cls := "form-actions")
@@ -172,8 +172,8 @@ trait FormHelper { self: I18nHelper =>
     ): Tag =
       submitButton(
         dataIcon := icon,
-        name := nameValue.map(_._1),
-        value := nameValue.map(_._2),
+        name     := nameValue.map(_._1),
+        value    := nameValue.map(_._2),
         cls := List(
           "submit button" -> true,
           "text"          -> icon.isDefined,
@@ -188,9 +188,9 @@ trait FormHelper { self: I18nHelper =>
 
     def hidden(name: String, value: String): Tag =
       st.input(
-        st.name := name,
+        st.name  := name,
         st.value := value,
-        tpe := "hidden"
+        tpe      := "hidden"
       )
 
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
@@ -204,7 +204,7 @@ trait FormHelper { self: I18nHelper =>
     def flatpickr(field: Field, withTime: Boolean = true): Frag =
       input(field, klass = "flatpickr")(
         dataEnableTime := withTime,
-        datatime24h := withTime
+        datatime24h    := withTime
       )
 
     object file {

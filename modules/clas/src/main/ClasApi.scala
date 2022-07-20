@@ -235,7 +235,7 @@ final class ClasApi(
           orig = teacherId,
           dest = student.id,
           text = s"""${lila.i18n.I18nKeys.clas.welcomeToClass
-            .txt(clas.name)(student.realLang | lila.i18n.defaultLang)}
+              .txt(clas.name)(student.realLang | lila.i18n.defaultLang)}
 
 $baseUrl/class/${clas.id}
 

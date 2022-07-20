@@ -39,7 +39,7 @@ object profile {
             form3.group(form("firstName"), trans.firstName(), half = true)(form3.input(_)),
             form3.group(form("lastName"), trans.lastName(), half = true)(form3.input(_))
           ),
-          //form3.split(
+          // form3.split(
           //  List("fide", "uscf", "ecf").map { rn =>
           //    form3.group(
           //      form(s"${rn}Rating"),
@@ -48,7 +48,7 @@ object profile {
           //      klass = "form-third"
           //    )(form3.input(_, typ = "number"))
           //  }
-          //),
+          // ),
           form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp)) { f =>
             form3.textarea(f)(rows := 5)
           },

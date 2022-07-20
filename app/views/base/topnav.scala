@@ -39,7 +39,7 @@ object topnav {
           a(href := routes.Puzzle.home)(trans.puzzles()),
           a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
           a(href := routes.Puzzle.show("tsume"))(trans.puzzleTheme.tsume())
-          //a(cls := "new-feature")(href := routes.Storm.home)("Tsume Storm")
+          // a(cls := "new-feature")(href := routes.Storm.home)("Tsume Storm")
         )
       ),
       st.section(
@@ -47,11 +47,11 @@ object topnav {
         div(role := "group")(
           ctx.noBot option frag(
             a(href := routes.Learn.index)(trans.chessBasics()),
-            //a(href := routes.Practice.index)(trans.practice()),
+            // a(href := routes.Practice.index)(trans.practice()),
             a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
           ),
           a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-          //ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
+          // ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
           canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lishogiClasses())
         )
       ),
@@ -61,7 +61,7 @@ object topnav {
           a(href := routes.Tv.index)("Lishogi TV"),
           a(href := routes.Tv.games)(trans.currentGames()),
           ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu()),
-          //a(href := routes.Relay.index)(trans.broadcast.broadcasts()),
+          // a(href := routes.Relay.index)(trans.broadcast.broadcasts()),
           ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
         )
       ),
@@ -79,7 +79,7 @@ object topnav {
         linkTitle(routes.UserAnalysis.index.toString, trans.tools()),
         div(role := "group")(
           a(href := routes.UserAnalysis.index)(trans.analysis()),
-          //a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
+          // a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
           a(href := routes.Editor.index)(trans.boardEditor()),
           a(href := routes.Importer.importGame)(trans.importGame()),
           a(href := routes.Search.index())(trans.search.advancedSearch())

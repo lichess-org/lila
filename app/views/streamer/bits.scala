@@ -35,19 +35,19 @@ object bits extends Context.ToLang {
     s.picturePath match {
       case Some(path) =>
         img(
-          width := size,
+          width  := size,
           height := size,
-          cls := "picture",
-          src := dbImageUrl(path.value),
-          alt := s"${u.titleUsername} Lishogi streamer picture"
+          cls    := "picture",
+          src    := dbImageUrl(path.value),
+          alt    := s"${u.titleUsername} Lishogi streamer picture"
         )
       case _ =>
         img(
-          width := size,
+          width  := size,
           height := size,
-          cls := "default picture",
-          src := staticUrl("images/placeholder.png"),
-          alt := "Default Lishogi streamer picture"
+          cls    := "default picture",
+          src    := staticUrl("images/placeholder.png"),
+          alt    := "Default Lishogi streamer picture"
         )
     }
 
@@ -66,15 +66,15 @@ object bits extends Context.ToLang {
         )
       } getOrElse a(href := routes.Streamer.edit)(yourPage()),
       isGranted(_.Streamers) option a(
-        cls := active.active("requests"),
+        cls  := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
-      )("Approval requests"),
+      )("Approval requests")
       /*
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lishogi-streamer-community")(
         "Streamer community"
       ),
       a(href := "/about")(downloadKit())
-      */
+       */
     )
 
   def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
@@ -91,7 +91,7 @@ object bits extends Context.ToLang {
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
       redirectLink(s.streamer.id.value)(
-        cls := "stream highlight",
+        cls   := "stream highlight",
         title := s.status
       )(
         strong(cls := "text", dataIcon := "")(l titleName s),

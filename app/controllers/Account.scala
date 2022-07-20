@@ -6,7 +6,7 @@ import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
-import lila.user.{ User => UserModel, TotpSecret }
+import lila.user.{ TotpSecret, User => UserModel }
 import views.html
 
 final class Account(
@@ -101,7 +101,6 @@ final class Account(
       val nb = (getInt("nb", req) | 9) atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))
     }
-
 
   def passwd =
     Auth { implicit ctx => me =>

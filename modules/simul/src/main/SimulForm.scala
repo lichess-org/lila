@@ -18,7 +18,7 @@ object SimulForm {
   val clockTimeDefault = 20
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
 
-  val clockIncrements       = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockIncrements = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
   val clockIncrementDefault = 60
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
@@ -26,7 +26,7 @@ object SimulForm {
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 
-  val clockByoyomi        = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockByoyomi = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
   val clockByoyomiDefault = 0
   val clockByoyomiChoices = options(clockByoyomi, "%d second{s}")
 
@@ -161,7 +161,9 @@ object SimulForm {
 
     def isCustomPositionValid =
       position.fold(true) { sfen =>
-        sfen.toSituation(actualVariants.headOption | shogi.variant.Standard).exists(_.playable(strict = true, withImpasse = true))
+        sfen
+          .toSituation(actualVariants.headOption | shogi.variant.Standard)
+          .exists(_.playable(strict = true, withImpasse = true))
       }
 
     def actualVariants = variants.flatMap(shogi.variant.Variant(_)).distinct

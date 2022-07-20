@@ -45,8 +45,8 @@ object categ {
 
     val newTopicButton = canWrite option
       a(
-        href := routes.ForumTopic.form(categ.slug),
-        cls := "button button-empty button-green text",
+        href     := routes.ForumTopic.form(categ.slug),
+        cls      := "button button-empty button-green text",
         dataIcon := "m"
       )(
         trans.createANewTopic()
@@ -89,9 +89,9 @@ object categ {
       main(cls := "forum forum-categ box")(
         h1(
           a(
-            href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+            href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
             dataIcon := "I",
-            cls := "text"
+            cls      := "text"
           ),
           categ.team.fold(frag(categ.name))(teamIdToName)
         ),

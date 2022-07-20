@@ -25,7 +25,7 @@ final private class FishnetRepo(
 
   def getClient(key: Client.Key)        = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
-  def getOfflineClient: Fu[Client]      = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
+  def getOfflineClient: Fu[Client] = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClient(client: Client): Funit =
     clientColl.update.one(selectClient(client.key), client, upsert = true).void >>-
       clientCache.invalidate(client.key)

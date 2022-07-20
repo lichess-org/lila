@@ -97,7 +97,7 @@ object form {
         form3.group(
           form("clockTime"),
           trans.clockInitialTime(),
-          //help = trans.simulClockHint().some,
+          // help = trans.simulClockHint().some,
           half = true
         )(form3.select(_, clockTimeChoices)),
         form3.group(

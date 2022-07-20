@@ -99,7 +99,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
-                id := "tv-embed-src",
+                id  := "tv-embed-src",
                 cls := "copyable autoselect",
                 value := s"""<iframe src="$baseUrl/tv/frame?theme=wood&bg=light&pieceSet=Ryoko_1Kanji" $args></iframe>"""
               ),
@@ -117,14 +117,14 @@ $('#asset-version-message').text(lishogi.info.message);"""
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
-                id := "puzzle-embed-src",
+                id  := "puzzle-embed-src",
                 cls := "copyable autoselect",
                 value := s"""<iframe src="$baseUrl/training/frame?theme=wood&bg=light&pieceSet=Ryoko_1Kanji" $args></iframe>"""
               ),
               button(
-                title := "Copy code",
-                cls := "copy button",
-                dataRel := "puzzle-embed-src",
+                title    := "Copy code",
+                cls      := "copy button",
+                dataRel  := "puzzle-embed-src",
                 dataIcon := "\""
               )
             ),
@@ -190,7 +190,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
       moreJs = moreJs
     ) {
       val sep = div(cls := "sep")
-      //val external             = frag(" ", i(dataIcon := "0"))
+      // val external             = frag(" ", i(dataIcon := "0"))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
@@ -200,18 +200,18 @@ $('#asset-version-message').text(lishogi.info.message);"""
           a(activeCls("resources"), href := routes.Page.resources)(trans.shogiResources()),
           a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
           a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
-          //a(activeCls("master"), href := routes.Page.master)("Title verification"),
+          // a(activeCls("master"), href := routes.Page.master)("Title verification"),
           sep,
           a(activeCls("source"), href := routes.Page.source)(trans.sourceCode()),
           a(activeCls("help"), href := routes.Page.help)(trans.contribute()),
           a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou()),
           sep,
           a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
-          //a(activeCls("database"), href := "https://database.lishogi.org")(trans.database(), external),
-          //a(activeCls("api"), href := routes.Api.index)("API", external),
+          // a(activeCls("database"), href := "https://database.lishogi.org")(trans.database(), external),
+          // a(activeCls("api"), href := routes.Api.index)("API", external),
           sep,
           a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLishogiLagging())
-          //a(activeCls("ads"), href := routes.Page.ads)("Block ads")
+          // a(activeCls("ads"), href := routes.Page.ads)("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)
       )

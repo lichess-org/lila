@@ -20,7 +20,7 @@ final class Annotator {
         move =>
           move.copy(
             comments = advice.makeComment(true, true) :: move.comments
-            //variations = makeVariation(advice.ply, advice) :: Nil
+            // variations = makeVariation(advice.ply, advice) :: Nil
           )
       )
     }

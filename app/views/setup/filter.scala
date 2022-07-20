@@ -103,9 +103,9 @@ object filter {
   ) =
     label(title := hint)(
       input(
-        tpe := "checkbox",
-        cls := "regular-checkbox",
-        name := s"${form(key).name}[$index]",
+        tpe      := "checkbox",
+        cls      := "regular-checkbox",
+        name     := s"${form(key).name}[$index]",
         st.value := value,
         checks(value) option checked
       )(content)

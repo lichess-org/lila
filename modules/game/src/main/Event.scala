@@ -2,7 +2,7 @@ package lila.game
 
 import play.api.libs.json._
 
-import shogi.{ Centis, Color, Situation, Clock => ShogiClock, Status }
+import shogi.{ Centis, Clock => ShogiClock, Color, Situation, Status }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import JsonView._

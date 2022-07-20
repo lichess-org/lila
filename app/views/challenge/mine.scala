@@ -50,17 +50,17 @@ object mine {
                       br,
                       p(cls := "challenge-id-form")(
                         input(
-                          id := "challenge-id",
-                          cls := "copyable autoselect",
+                          id         := "challenge-id",
+                          cls        := "copyable autoselect",
                           spellcheck := "false",
                           readonly,
                           value := challengeLink,
-                          size := challengeLink.size
+                          size  := challengeLink.size
                         ),
                         button(
-                          title := "Copy URL",
-                          cls := "copy button",
-                          dataRel := "challenge-id",
+                          title    := "Copy URL",
+                          cls      := "copy button",
+                          dataRel  := "challenge-id",
                           dataIcon := "\""
                         )
                       ),
@@ -71,8 +71,8 @@ object mine {
                       br,
                       postForm(cls := "user-invite", action := routes.Challenge.toFriend(c.id))(
                         input(
-                          name := "username",
-                          cls := "friend-autocomplete",
+                          name        := "username",
+                          cls         := "friend-autocomplete",
                           placeholder := trans.search.search.txt()
                         ),
                         error.map { badTag(_) }

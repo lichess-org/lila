@@ -9,10 +9,10 @@ import scala.util.{ Failure, Success, Try }
 import org.joda.time.DateTime
 
 case class Client(
-    _id: Client.Key,                   // API key used to authenticate and assign move or analysis
-    userId: Client.UserId,             // lishogi user ID
-    skill: Client.Skill,               // what can this client do
-    evaluation: Client.Evaluation,     // what eval function/engine client uses determines what variants he can play
+    _id: Client.Key,       // API key used to authenticate and assign move or analysis
+    userId: Client.UserId, // lishogi user ID
+    skill: Client.Skill,   // what can this client do
+    evaluation: Client.Evaluation, // what eval function/engine client uses determines what variants he can play
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
     createdAt: DateTime

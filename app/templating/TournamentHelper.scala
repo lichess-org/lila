@@ -30,15 +30,15 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
   def tournamentLink(tour: Tournament)(implicit lang: Lang): Frag =
     a(
       dataIcon := "g",
-      cls := (if (tour.isScheduled) "text is-gold" else "text"),
-      href := routes.Tournament.show(tour.id).url
+      cls      := (if (tour.isScheduled) "text is-gold" else "text"),
+      href     := routes.Tournament.show(tour.id).url
     )(tour.name())
 
   def tournamentLink(tourId: String)(implicit lang: Lang): Frag =
     a(
       dataIcon := "g",
-      cls := "text",
-      href := routes.Tournament.show(tourId).url
+      cls      := "text",
+      href     := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: String)(implicit lang: Lang) =
@@ -67,6 +67,6 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
   def tournamentIconChar(tour: Tournament): String =
     tour.schedule.map(_.freq) match {
       case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => "\\"
-      case _                                                                 => tour.spotlight.flatMap(_.iconFont) | tour.perfType.fold('g')(_.iconChar).toString
+      case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.fold('g')(_.iconChar).toString
     }
 }

@@ -32,7 +32,7 @@ final class PlanApi(
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match {
-          case None                                 => fufail(s"Can't switch non-existent subscription of ${user.id}")
+          case None => fufail(s"Can't switch non-existent subscription of ${user.id}")
           case Some(sub) if sub.plan.cents == cents => fuccess(sub)
           case Some(sub) =>
             getOrMakePlan(cents, Freq.Monthly) flatMap { plan =>

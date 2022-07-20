@@ -53,10 +53,11 @@ object show {
                 ) {
                   // if locale is in japanese, check if un-translated by searching timeline for same-titled blog post but in english locale. bit hacky but works.
                   val enBlogId = env.timeline.entryApi.broadcast.cacheGet map {
-                    _.decode.map {
-                      case BlogPost(id, slug, _, _) => Some(Map("id" -> id, "slug" -> slug))
-                      case _                        => None
-                    } get
+                    _.decode
+                      .map {
+                        case BlogPost(id, slug, _, _) => Some(Map("id" -> id, "slug" -> slug))
+                        case _                        => None
+                      } get
                   } filter {
                     _ ?? { blogMap =>
                       blogMap("id") != doc.id && blogMap("slug") == doc.slug

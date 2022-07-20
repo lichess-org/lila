@@ -27,11 +27,11 @@ object home {
         jsModule("tournamentSchedule"),
         embedJsUnsafe(
           s"""var app=LishogiTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
-            Json.obj(
-              "data" -> json,
-              "i18n" -> bits.jsI18n
-            )
-          )});
+              Json.obj(
+                "data" -> json,
+                "i18n" -> bits.jsI18n
+              )
+            )});
 var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;"""
         )
       ),
@@ -86,8 +86,8 @@ var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             h1(trans.tournaments()),
             ctx.isAuth option div(cls := "box__top__actions")(
               a(
-                href := routes.Tournament.form,
-                cls := "button button-green text",
+                href     := routes.Tournament.form,
+                cls      := "button button-green text",
                 dataIcon := "O"
               )(trans.createANewTournament())
             )

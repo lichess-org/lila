@@ -60,7 +60,7 @@ object otherTrophies {
       info.isCoach option
         a(
           href := routes.Coach.show(info.user.username),
-          cls := "trophy award icon3d coach",
+          cls  := "trophy award icon3d coach",
           ariaTitle(trans.coach.lishogiCoach.txt())
         )(":"),
       (info.isStreamer && ctx.noKid) option {

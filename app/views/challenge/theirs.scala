@@ -66,7 +66,7 @@ object theirs {
                     p(
                       "You must ",
                       a(
-                        cls := "button",
+                        cls  := "button",
                         href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "sente")}"
                       )(trans.signIn()),
                       " to join it."
@@ -85,9 +85,9 @@ object theirs {
               h1("Challenge accepted!"),
               bits.details(c),
               a(
-                id := "challenge-redirect",
+                id   := "challenge-redirect",
                 href := routes.Round.watcher(c.id, "sente"),
-                cls := "button button-fat"
+                cls  := "button button-fat"
               )(
                 trans.joinTheGame()
               )

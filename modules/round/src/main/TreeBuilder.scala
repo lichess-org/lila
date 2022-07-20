@@ -38,9 +38,13 @@ object TreeBuilder {
           else _ => None
         val sfen                = init.toSfen
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
-        val advices: Map[Ply, Advice] = analysis.??(_.advices.view.map { a =>
-          a.ply -> a
-        }.toMap)
+        val advices: Map[Ply, Advice] = analysis.??(
+          _.advices.view
+            .map { a =>
+              a.ply -> a
+            }
+            .toMap
+        )
         val root = Root(
           ply = init.plies,
           sfen = sfen,

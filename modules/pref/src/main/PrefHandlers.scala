@@ -12,11 +12,11 @@ private object PrefHandlers {
     def reads(r: BSON.Reader): CustomTheme =
       CustomTheme(
         boardColor = r str "bc",
-        boardImg   = r str "bi",
-        gridColor  = r str "gc",
-        gridWidth  = r int "gw",
-        handsColor  = r str "hc",
-        handsImg    = r str "hi"
+        boardImg = r str "bi",
+        gridColor = r str "gc",
+        gridWidth = r int "gw",
+        handsColor = r str "hc",
+        handsImg = r str "hi"
       )
 
     def writes(w: BSON.Writer, o: CustomTheme) =
@@ -31,7 +31,7 @@ private object PrefHandlers {
   }
 
   implicit val prefBSONHandler = new BSON[Pref] {
-    
+
     def reads(r: BSON.Reader): Pref =
       Pref(
         _id = r str "_id",
@@ -75,43 +75,43 @@ private object PrefHandlers {
 
     def writes(w: BSON.Writer, o: Pref) =
       $doc(
-        "_id"             -> o._id,
-        "dark"            -> o.dark,
-        "transp"          -> o.transp,
-        "bgImg"           -> o.bgImg,
-        "theme"           -> o.theme,
-        "customTheme"     -> o.customTheme,
-        "pieceSet"        -> o.pieceSet,
-        "soundSet"        -> o.soundSet,
-        "blindfold"       -> o.blindfold,
-        "takeback"        -> o.takeback,
-        "moretime"        -> o.moretime,
-        "clockTenths"     -> o.clockTenths,
-        "clockCountdown"  -> o.clockCountdown,
-        "clockSound"      -> o.clockSound,
-        "premove"         -> o.premove,
-        "animation"       -> o.animation,
-        "follow"          -> o.follow,
+        "_id"                -> o._id,
+        "dark"               -> o.dark,
+        "transp"             -> o.transp,
+        "bgImg"              -> o.bgImg,
+        "theme"              -> o.theme,
+        "customTheme"        -> o.customTheme,
+        "pieceSet"           -> o.pieceSet,
+        "soundSet"           -> o.soundSet,
+        "blindfold"          -> o.blindfold,
+        "takeback"           -> o.takeback,
+        "moretime"           -> o.moretime,
+        "clockTenths"        -> o.clockTenths,
+        "clockCountdown"     -> o.clockCountdown,
+        "clockSound"         -> o.clockSound,
+        "premove"            -> o.premove,
+        "animation"          -> o.animation,
+        "follow"             -> o.follow,
         "highlightLastDests" -> o.highlightLastDests,
-        "highlightCheck"  -> o.highlightCheck,
-        "squareOverlay"   -> o.squareOverlay,
-        "destination"     -> o.destination,
-        "dropDestination" -> o.dropDestination,
-        "coords"          -> o.coords,
-        "replay"          -> o.replay,
-        "challenge"       -> o.challenge,
-        "message"         -> o.message,
-        "studyInvite"     -> o.studyInvite,
-        "coordColor"      -> o.coordColor,
-        "submitMove"      -> o.submitMove,
-        "confirmResign"   -> o.confirmResign,
-        "insightShare"    -> o.insightShare,
-        "keyboardMove"    -> o.keyboardMove,
-        "zen"             -> o.zen,
-        "moveEvent"       -> o.moveEvent,
-        "notation"        -> o.notation,
-        "resizeHandle"    -> o.resizeHandle,
-        "tags"            -> o.tags
+        "highlightCheck"     -> o.highlightCheck,
+        "squareOverlay"      -> o.squareOverlay,
+        "destination"        -> o.destination,
+        "dropDestination"    -> o.dropDestination,
+        "coords"             -> o.coords,
+        "replay"             -> o.replay,
+        "challenge"          -> o.challenge,
+        "message"            -> o.message,
+        "studyInvite"        -> o.studyInvite,
+        "coordColor"         -> o.coordColor,
+        "submitMove"         -> o.submitMove,
+        "confirmResign"      -> o.confirmResign,
+        "insightShare"       -> o.insightShare,
+        "keyboardMove"       -> o.keyboardMove,
+        "zen"                -> o.zen,
+        "moveEvent"          -> o.moveEvent,
+        "notation"           -> o.notation,
+        "resizeHandle"       -> o.resizeHandle,
+        "tags"               -> o.tags
       )
   }
 }

@@ -89,14 +89,14 @@ object topic {
         .some
     ) {
       val teamOnly = categ.team.filterNot(myTeam)
-      val pager    = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
+      val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
-            href := routes.ForumCateg.show(categ.slug),
+            href     := routes.ForumCateg.show(categ.slug),
             dataIcon := "I",
-            cls := "text"
+            cls      := "text"
           ),
           topic.name
         ),
@@ -131,7 +131,7 @@ object topic {
           div(
             unsub.map { uns =>
               postForm(
-                cls := s"unsub ${if (uns) "on" else "off"}",
+                cls    := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
                 button(cls := "button button-empty text on", dataIcon := "v", bits.dataUnsub := "off")(
@@ -164,7 +164,7 @@ object topic {
         ),
         formWithCaptcha.map { case (form, captcha) =>
           postForm(
-            cls := "form3 reply",
+            cls    := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(

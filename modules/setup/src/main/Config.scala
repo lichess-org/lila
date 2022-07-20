@@ -1,6 +1,6 @@
 package lila.setup
 
-import shogi.{ Game => ShogiGame, Clock, Speed }
+import shogi.{ Clock, Game => ShogiGame, Speed }
 import shogi.variant.Variant
 import shogi.format.forsyth.Sfen
 

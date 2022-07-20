@@ -67,8 +67,8 @@ final private class ExplorerGame(
     val notation = g.notationImport.flatMap(ni =>
       if (ni.isCsa) CsaParser.full(ni.notation).toOption else KifParser.full(ni.notation).toOption
     )
-    val sente  = notation.flatMap(_.tags(_.Sente)) | Namer.playerTextBlocking(g.sentePlayer)(lightUserApi.sync)
-    val gote   = notation.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
+    val sente = notation.flatMap(_.tags(_.Sente)) | Namer.playerTextBlocking(g.sentePlayer)(lightUserApi.sync)
+    val gote  = notation.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
     val result = shogi.Color.showResult(g.winnerColor)
     val event: Option[String] =
       (notation.flatMap(_.tags(_.Event)), notation.flatMap(_.tags.year).map(_.toString)) match {

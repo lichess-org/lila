@@ -40,7 +40,12 @@ object BSONHandlers {
   )
 
   implicit private val PosOrPieceBSONHandler = tryHandler[Shape.PosOrPiece](
-    { case BSONString(v) => Pos.fromKey(v).map(Left(_).withRight[Piece]).orElse(Piece.fromForsyth(v).map(Right(_).withLeft[Pos])) toTry s"No such pos or piece: $v" },
+    { case BSONString(v) =>
+      Pos
+        .fromKey(v)
+        .map(Left(_).withRight[Piece])
+        .orElse(Piece.fromForsyth(v).map(Right(_).withLeft[Pos])) toTry s"No such pos or piece: $v"
+    },
     x => BSONString(x.fold(_.usiKey, _.forsyth))
   )
 
@@ -245,7 +250,7 @@ object BSONHandlers {
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
-  implicit val tagsHandler                     = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
+  implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
   implicit private val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   implicit val ChapterRelayBSONHandler         = Macros.handler[Chapter.Relay]
   implicit val ChapterServerEvalBSONHandler    = Macros.handler[Chapter.ServerEval]

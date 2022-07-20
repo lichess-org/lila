@@ -24,17 +24,17 @@ object home {
         jsModule("lobby", defer = true),
         embedJsUnsafe(
           s"""lishogi=window.lishogi||{};customWS=true;lishogi_lobby=${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "playban" -> playban.map { pb =>
-                Json.obj(
-                  "minutes"          -> pb.mins,
-                  "remainingSeconds" -> (pb.remainingSeconds + 3)
-                )
-              },
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )}"""
+              Json.obj(
+                "data" -> data,
+                "playban" -> playban.map { pb =>
+                  Json.obj(
+                    "minutes"          -> pb.mins,
+                    "remainingSeconds" -> (pb.remainingSeconds + 3)
+                  )
+                },
+                "i18n" -> i18nJsObject(i18nKeys)
+              )
+            )}"""
         )
       ),
       moreCss = cssTag("lobby"),
@@ -165,20 +165,20 @@ object home {
               span(trans.patron.becomePatron())
             )
           )
-          //a(href := "https://shop.spreadshirt.com/lishogi-org")(
+          // a(href := "https://shop.spreadshirt.com/lishogi-org")(
           //  iconTag(""),
           //  span(cls := "lobby__support__text")(
           //    strong("Swag Store"),
           //    span(trans.playChessInStyle())
           //  )
-          //)
+          // )
         ),
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lishogi")),
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
-          //a(href := "/mobile")(trans.mobileApp()),
+          // a(href := "/mobile")(trans.mobileApp()),
           ctx.noKid option a(href := routes.Page.resources)(trans.shogiResources()),
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),

@@ -34,7 +34,7 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
     }
     val setupId = makeSetupId(variant, sfen, multiPv)
     members += (sri.value -> WatchingMember(push, setupId, path))
-      evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri.value), 0))(_ addSri sri))
+    evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri.value), 0))(_ addSri sri))
     expirableSris put sri.value
   }
 

@@ -40,8 +40,10 @@ final private class SwissRankingApi(
     SwissPlayer.fields { f =>
       colls.player.primitive[User.ID]($doc(f.swissId -> id), $sort desc f.score, f.userId)
     } map {
-      _.view.zipWithIndex.map { case (user, i) =>
-        (user, i + 1)
-      }.toMap
+      _.view.zipWithIndex
+        .map { case (user, i) =>
+          (user, i + 1)
+        }
+        .toMap
     }
 }
