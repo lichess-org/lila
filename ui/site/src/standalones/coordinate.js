@@ -21,6 +21,7 @@ $(function () {
     var wrongTimeout;
     const notation = $('.notation-0')[0] ? 0 : $('.notation-1')[0] ? 1 : $('.notation-2')[0] ? 2 : 3;
 
+    $board.removeClass('preload')
     var showColor = function () {
       color = colorPref == 'random' ? ['sente', 'gote'][Math.round(Math.random())] : colorPref;
       if (!ground)
