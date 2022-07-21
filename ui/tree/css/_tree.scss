@@ -16,15 +16,12 @@
   }
   &-column move {
     font-size: 1.092em;
-    padding: 0 2px;
+    padding: 0 3px;
   }
   &-inline move {
     padding: 0.25em 0.2em;
     white-space: nowrap;
     font-weight: bold;
-  }
-  move.parent {
-    color: $c-primary;
   }
   comment a {
     vertical-align: top;
@@ -56,7 +53,7 @@
       color: $c-primary-over;
     }
   }
-  &-inline move:hover {
+  interrupt move:hover, &-inline move:hover {
     @extend %box-radius;
   }
   move.empty {
@@ -146,6 +143,15 @@
     @extend %break-word;
     display: block;
     padding: 3px 5px;
+    &.inaccuracy {
+      color: $c-inaccuracy;
+    }
+    &.mistake {
+      color: $c-mistake;
+    }
+    &.blunder {
+      color: $c-blunder;
+    }
   }
   &-inline comment {
     vertical-align: 45%;
@@ -168,13 +174,13 @@
     overflow-x: hidden;
   }
   &-column comment.inaccuracy {
-    border-color: #56b4e9;
+    border-color: $c-inaccuracy;
   }
   &-column comment.mistake {
-    border-color: #e69f00;
+    border-color: $c-mistake;
   }
   &-column comment.blunder {
-    border-color: #df5353;
+    border-color: $c-blunder;
   }
   &-column comment.undefined {
     border-color: #66558c;
@@ -214,7 +220,7 @@
     padding-left: 7px;
   }
   &-column line {
-    margin: 2px 0;
+    margin: 2px 0 0 0;
   }
   lines lines move {
     font-size: 13px;
