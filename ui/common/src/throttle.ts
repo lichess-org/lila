@@ -43,6 +43,17 @@ export function finallyDelay<T extends (...args: any) => Promise<void>>(
 }
 
 /**
+ * Wraps an asynchronous function to ensure only one call at a time is in flight. Any extra calls
+ * are dropped, except the last one, which waits for the previous call to complete plus a delay.
+ */
+export function throttlePromiseDelay<T extends (...args: any) => Promise<any>>(
+  delay: (...args: Parameters<T>) => number,
+  wrapped: T
+): (...args: Parameters<T>) => void {
+  return throttlePromise(finallyDelay(delay, wrapped));
+}
+
+/**
  * Ensures calls to the wrapped function are spaced by the given delay.
  * Any extra calls are dropped, except the last one, which waits for the delay.
  */
