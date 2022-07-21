@@ -140,7 +140,7 @@ const gitSha = cb => {
   const info = JSON.stringify({
     date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
     commit: latestCommit.sha.trim(),
-    message: latestCommit.commit.message.trim()
+    message: latestCommit.commit.message.trim(),
   });
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   fs.writeFileSync(

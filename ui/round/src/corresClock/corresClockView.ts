@@ -56,13 +56,6 @@ export default function (
       },
     },
     [
-      ctrl.data.showBar
-        ? h('div.bar', [
-            h('span', {
-              attrs: { style: `width: ${ctrl.timePercent(color)}%` },
-            }),
-          ])
-        : null,
       h('div.time', {
         hook: {
           insert: vnode => update(vnode.elm as HTMLElement),

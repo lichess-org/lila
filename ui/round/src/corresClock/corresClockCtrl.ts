@@ -6,13 +6,11 @@ export interface CorresClockData {
   increment: Seconds;
   sente: Seconds;
   gote: Seconds;
-  showBar: boolean;
 }
 
 export interface CorresClockController {
   root: RoundController;
   data: CorresClockData;
-  timePercent(color: Color): number;
   update(sente: Seconds, gote: Seconds): void;
   tick(color: Color): void;
   millisOf(color: Color): Millis;
@@ -25,12 +23,6 @@ interface Times {
 }
 
 export function ctrl(root: RoundController, data: CorresClockData, onFlag: () => void): CorresClockController {
-  const timePercentDivisor = 0.1 / data.increment;
-
-  function timePercent(color: Color): number {
-    return Math.max(0, Math.min(100, times[color] * timePercentDivisor));
-  }
-
   let times: Times;
 
   function update(sente: Seconds, gote: Seconds): void {
@@ -56,7 +48,6 @@ export function ctrl(root: RoundController, data: CorresClockData, onFlag: () =>
   return {
     root,
     data,
-    timePercent,
     millisOf,
     update,
     tick,

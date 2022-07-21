@@ -26,7 +26,6 @@ export interface ClockData {
   emerg: Seconds;
   showTenths: TenthsPref;
   clockCountdown: Seconds;
-  showBar: boolean;
   moretime: number;
   sPeriods: number;
   gPeriods: number;
@@ -74,7 +73,6 @@ export class ClockController {
   };
 
   showTenths: (millis: Millis, color: Color) => boolean;
-  showBar = {} as ColorMap<boolean>;
   times: Times;
 
   barTime: number;
@@ -116,8 +114,6 @@ export class ClockController {
     this.goneBerserk[d.player.color] = !!d.player.berserk;
     this.goneBerserk[d.opponent.color] = !!d.opponent.berserk;
 
-    this.showBar['sente'] = cdata.showBar && !this.opts.nvui && this.curPeriods['sente'] === 0;
-    this.showBar['gote'] = cdata.showBar && !this.opts.nvui && this.curPeriods['gote'] === 0;
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
@@ -159,7 +155,6 @@ export class ClockController {
     this.curPeriods[color] += 1;
     this.times[color] += this.byoyomi * 1000;
     if (this.opts.soundColor === color) this.emergSound.nextPeriod();
-    this.showBar[color] = false; // let's just not show the bar for byoyomi
     this.emergSound.byoTicks = undefined;
   };
 
