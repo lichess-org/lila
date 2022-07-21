@@ -19,6 +19,7 @@ import {
   truncateComment,
   retroLine,
 } from './util';
+import { notationsWithColor } from 'common/notation';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -105,7 +106,6 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
           renderMoveAndChildrenOf(ctx, n, {
             parentPath: opts.parentPath,
             isMainline: false,
-            withIndex: true,
             noConceal: opts.noConceal,
             truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
           })
@@ -135,7 +135,13 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-    content: MaybeVNodes = [moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true), node.notation],
+    colorIcon = notationsWithColor.includes(ctx.ctrl.data.pref.notation)
+      ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote')
+      : '',
+    content: MaybeVNodes = [
+      moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true),
+      h('span' + colorIcon, node.notation),
+    ],
     classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
@@ -178,7 +184,6 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   return h(
     'inline',
     renderMoveAndChildrenOf(ctx, node, {
-      withIndex: true,
       parentPath: opts.parentPath,
       isMainline: false,
       noConceal: opts.noConceal,
@@ -196,7 +201,7 @@ function renderMainlineCommentsOf(
 ): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
-  const colorClass = withColor ? (node.ply % 2 === 0 ? '.sente ' : '.gote ') : '';
+  const colorClass = withColor ? (node.ply % 2 ? '.sente ' : '.gote ') : '';
   const withAuthor = node.comments!.some(c => c.by !== node.comments![0].by);
 
   return node.comments!.map(comment => {

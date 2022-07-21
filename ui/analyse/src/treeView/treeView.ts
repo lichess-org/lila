@@ -34,5 +34,5 @@ export function ctrl(initialValue: TreeViewKey = 'column'): TreeView {
 
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
-  return ctrl.treeView.inline() || window.lishogi.isCol1() ? inline(ctrl) : column(ctrl, concealOf);
+  return (ctrl.treeView.inline() || window.lishogi.isCol1()) && !concealOf ? inline(ctrl) : column(ctrl, concealOf);
 }

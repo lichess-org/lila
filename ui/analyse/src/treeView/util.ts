@@ -27,7 +27,6 @@ export interface Opts {
   parentPath: Tree.Path;
   isMainline: boolean;
   inline?: Tree.Node;
-  withIndex?: boolean;
   truncate?: number;
 }
 
@@ -164,6 +163,4 @@ export function retroLine(ctx: Ctx, node: Tree.Node, opts: Opts): VNode | undefi
     : undefined;
 }
 
-export function nonEmpty(x: any): boolean {
-  return !!x;
-}
+export const nonEmpty = (x: any): boolean => !!x;

@@ -48,8 +48,7 @@ export function nodeFullName(node: Tree.Node, notation: Notation) {
     return h('span', [
       node.ply + '. ',
       h(
-        'span' +
-          (notationsWithColor.includes(notation) ? '.color-icon.' + (node.ply % 2 === 1 ? 'sente' : 'gote') : ''),
+        'span' + (notationsWithColor.includes(notation) ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : ''),
         node.notation
       ),
     ]);
