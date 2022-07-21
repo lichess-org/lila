@@ -49,7 +49,7 @@ export function nodeFullName(node: Tree.Node, notation: Notation) {
       node.ply + '. ',
       h(
         'span' +
-          (notationsWithColor.includes(notation) ? '.color-icon.' + (node.ply % 2 === 0 ? 'sente' : 'gote') : ''),
+          (notationsWithColor.includes(notation) ? '.color-icon.' + (node.ply % 2 === 1 ? 'sente' : 'gote') : ''),
         node.notation
       ),
     ]);

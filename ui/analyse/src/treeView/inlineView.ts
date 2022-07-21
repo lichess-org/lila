@@ -3,7 +3,7 @@ import { MaybeVNodes } from 'common/snabbdom';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
-import { Ctx, Opts, mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
+import { Ctx, mainHook, Opts, nodeClasses, renderInlineCommentsOf, retroLine, findCurrentPath } from './util';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,

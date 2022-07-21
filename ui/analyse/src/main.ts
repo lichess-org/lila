@@ -1,27 +1,27 @@
-import { AnalyseApi, AnalyseOpts } from './interfaces';
-
-import makeCtrl from './ctrl';
-import view from './view';
-import boot from './boot';
 import { Shogiground } from 'shogiground';
 import LishogiChat from 'chat';
 
-import { init, classModule, attributesModule } from 'snabbdom';
+import { AnalyseApi, AnalyseOpts } from './interfaces';
+import patch from './patch';
+import makeCtrl from './ctrl';
+import makeView from './view';
+import makeBoot from './boot';
+
 import menuHover from 'common/menuHover';
 
-export const patch = init([classModule, attributesModule]);
+export { patch };
 
 export function start(opts: AnalyseOpts): AnalyseApi {
   opts.element = document.querySelector('main.analyse') as HTMLElement;
 
   const ctrl = new makeCtrl(opts, redraw);
 
-  const blueprint = view(ctrl);
+  const blueprint = makeView(ctrl);
   opts.element.innerHTML = '';
   let vnode = patch(opts.element, blueprint);
 
   function redraw() {
-    vnode = patch(vnode, view(ctrl));
+    vnode = patch(vnode, makeView(ctrl));
   }
 
   menuHover();
@@ -35,7 +35,7 @@ export function start(opts: AnalyseOpts): AnalyseApi {
   };
 }
 
-export { boot };
+export const boot = makeBoot(start);
 
 // that's for the rest of lishogi to access shogiground
 // without having to include it a second time

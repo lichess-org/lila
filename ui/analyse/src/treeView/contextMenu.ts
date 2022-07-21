@@ -3,7 +3,7 @@ import * as studyView from '../study/studyView';
 import { bind, onInsert } from 'common/snabbdom';
 import { nodeFullName } from '../util';
 import AnalyseCtrl from '../ctrl';
-import { patch } from '../main';
+import patch from '../patch';
 
 export interface Opts {
   path: Tree.Path;

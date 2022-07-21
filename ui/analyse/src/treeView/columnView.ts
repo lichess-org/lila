@@ -6,19 +6,19 @@ import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { ConcealOf, Conceal } from '../interfaces';
+import { enrichText, innerHTML } from '../util';
 import {
-  nonEmpty,
   mainHook,
   nodeClasses,
+  nonEmpty,
+  Ctx as BaseCtx,
+  Opts as BaseOpts,
+  usiToNotation,
   findCurrentPath,
   renderInlineCommentsOf,
   truncateComment,
   retroLine,
-  Ctx as BaseCtx,
-  Opts as BaseOpts,
-  usiToNotation,
-} from './treeView';
-import { enrichText, innerHTML } from '../util';
+} from './util';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
