@@ -172,7 +172,7 @@
   <string name="variants">Түрі</string>
   <string name="timeControl">Уақыт қалпы</string>
   <string name="realTime">Шын уақытта</string>
-  <string name="correspondence">Хат алмасып ойнау</string>
+  <string name="correspondence">Хат-хабарлы ойын</string>
   <string name="daysPerTurn">Күн бір жүріске</string>
   <string name="oneDay">Бір күн</string>
   <plurals name="nbDays">
@@ -541,9 +541,9 @@
   <string name="xCompetesInY">%1$s %2$s-та жарысты</string>
   <string name="victory">Жеңіс</string>
   <string name="defeat">Жеңіліс</string>
-  <string name="victoryVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
-  <string name="defeatVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
-  <string name="drawVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
+  <string name="victoryVsYInZ">%1$s %2$s-ға қарсы %3$s</string>
+  <string name="defeatVsYInZ">%1$s %2$s-ға қарсы %3$s</string>
+  <string name="drawVsYInZ">%1$s %2$s-ға қарсы %3$s</string>
   <string name="timeline">Уақыт тізбегі</string>
   <string name="starting">Басталуы:</string>
   <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет – жалпыға ашық, әрі оны көрсету – сіздің өз еркіңіз.</string>
@@ -689,7 +689,7 @@
   <string name="fullFeatured">Толыққанды жабдықталған</string>
   <string name="phoneAndTablet">Телепон мен планшет</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
-  <string name="correspondenceChess">Пошталық шахмат</string>
+  <string name="correspondenceChess">Хат-хабарлы шахмат</string>
   <string name="onlineAndOfflinePlay">Онлайн мен оффлайн ойнау</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Серік болып, достарды ойынға шақыру</string>
@@ -812,7 +812,7 @@
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
   <string name="classicalDesc">Классикалық ойындар: 25 минут әрі одан көп</string>
-  <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
+  <string name="correspondenceDesc">Хат-хабарлы ойындар: әр жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
