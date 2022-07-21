@@ -65,14 +65,15 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
         'tbody',
         advices
           .map(a => {
-            const nb: number = d.analysis![color][a.kind];
-            const attrs: VNodeData = nb
-              ? {
-                  'data-color': color,
-                  'data-symbol': a.symbol,
-                }
-              : {};
-            return h('tr' + (nb ? '.symbol' : ''), { attrs }, [h('td', '' + nb), h('th', trans(a.plural))]);
+            const nb: number = d.analysis![color][a.kind],
+              style = nb ? `.symbol.${a.kind}` : '',
+              attrs: VNodeData = nb
+                ? {
+                    'data-color': color,
+                    'data-symbol': a.symbol,
+                  }
+                : {};
+            return h('tr' + (nb ? `.symbol${style}` : ''), { attrs }, [h('td', '' + nb), h('th', trans(a.plural))]);
           })
           .concat(h('tr', [h('td', '' + (defined(acpl) ? acpl : '?')), h('th', trans('averageCentipawnLoss'))]))
       ),

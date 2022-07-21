@@ -57,6 +57,16 @@ $c-warn-over: $c-brag-over;
 $c-bad: $c-error;
 $c-bad-over: $c-error-over;
 
+/* move error highlights */
+$c-inaccuracy: hsl(202, 78%, 62%);
+$c-mistake: hsl(41, 100%, 45%);
+$c-blunder: hsl(0, 69%, 60%);
+
+/* good move highlights */
+$c-good-move: hsl(130, 67%, 62%);
+$c-brilliant: hsl(129, 71%, 45%);
+$c-interesting: hsl(307, 80%, 70%);
+
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;
 $c-link-clear: $c-primary-clear;

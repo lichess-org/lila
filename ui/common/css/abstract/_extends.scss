@@ -12,7 +12,7 @@
   font-weight: 600;
 }
 %shogi-font {
-  font-family: 'Noto Shogi', 'Noto Sans'; // shogi font sometimes?
+  font-family: 'Noto Shogi', 'Noto Sans';
 }
 %move-notation {
   @extend %shogi-font;

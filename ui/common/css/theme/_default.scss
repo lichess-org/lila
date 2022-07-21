@@ -72,6 +72,16 @@ $c-bad-over: $c-error-over;
 $c-fancy: hsl(294, 61%, 62%);
 $c-fancy-over: white; /* text over brag background */
 
+/* move error highlights */
+$c-inaccuracy: hsl(202, 78%, 40%);
+$c-mistake: hsl(41, 100%, 35%);
+$c-blunder: hsl(0, 68%, 50%);
+
+/* good move highlights */
+$c-good-move: hsl(130, 67%, 40%);
+$c-brilliant: hsl(129, 71%, 45%);
+$c-interesting: hsl(307, 80%, 70%);
+
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;
 $c-link-clear: $c-primary-clear;
