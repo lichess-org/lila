@@ -132,7 +132,7 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
       )
         .cursor[Puzzle]()
         .documentSource()
-        .mapAsyncUnordered(4)(addMissing)
+        .mapAsyncUnordered(4)(updateOpening)
         .runWith(LilaStream.sinkCount)
         .chronometer
         .log(logger)(count => s"Done adding $count puzzle openings")
@@ -140,7 +140,20 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
         .void
     }
 
-  private def addMissing(puzzle: Puzzle): Funit = gameRepo gameFromSecondary puzzle.gameId flatMap {
+  def recomputeAll: Funit = funit
+  colls.puzzle {
+    _.find($doc(Puzzle.BSONFields.opening $exists true))
+      .cursor[Puzzle]()
+      .documentSource()
+      .mapAsyncUnordered(2)(updateOpening)
+      .runWith(LilaStream.sinkCount)
+      .chronometer
+      .log(logger)(count => s"Done updating $count puzzle openings")
+      .result
+      .void
+  }
+
+  private def updateOpening(puzzle: Puzzle): Funit = gameRepo gameFromSecondary puzzle.gameId flatMap {
     _ ?? { game =>
       FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
         case None =>
