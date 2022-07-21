@@ -3,7 +3,7 @@
  * flight. Any extra calls are dropped, except the last one, which waits for
  * the previous call to complete.
  */
-export function throttlePromise<T extends (...args: any) => Promise<void>>(
+export function throttlePromise<T extends (...args: any) => Promise<any>>(
   wrapped: T
 ): (...args: Parameters<T>) => void {
   let current: Promise<void> | undefined;
@@ -30,7 +30,7 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
  * after completion plus a delay (regardless if the wrapped function resolves
  * or rejects).
  */
-export function finallyDelay<T extends (...args: any) => Promise<void>>(
+export function finallyDelay<T extends (...args: any) => Promise<any>>(
   delay: (...args: Parameters<T>) => number,
   wrapped: T
 ): (...args: Parameters<T>) => Promise<void> {
