@@ -69,7 +69,6 @@ coords {
   }
   .coords-out coords {
     &.ranks {
-      will-change: transform; // for some reason - helps with blurry pieces
       right: -12px;
       width: 12px;
     }
