@@ -115,7 +115,7 @@ const wheelScroll = (ctrl: ReplayCtrl) =>
 export const makeConfig = (ctrl: ReplayCtrl): CgConfig => ({
   viewOnly: true,
   coordinates: true,
-  addDimensionsCssVars: true,
+  // addDimensionsCssVars: true,
   drawable: {
     enabled: false,
     visible: false,
