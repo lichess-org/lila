@@ -456,13 +456,11 @@ export default class RoundController {
     speech.step(step);
   };
 
-  private clearJust() {}
-
   reload = (d: RoundData): void => {
     if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
     round.massage(d);
     this.data = d;
-    this.clearJust();
+    this.initNotation();
     this.shouldSendMoveTime = false;
     if (this.clock) this.clock.setClock(d, d.clock!.sente, d.clock!.gote, d.clock!.sPeriods, d.clock!.gPeriods);
     if (this.corresClock) this.corresClock.update(d.correspondence.sente, d.correspondence.gote);
@@ -499,7 +497,6 @@ export default class RoundController {
     }
     if (!d.player.spectator && d.game.plies > 1)
       li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
-    this.clearJust();
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
