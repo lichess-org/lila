@@ -289,14 +289,9 @@ final class SimulApi(
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer = system.actorOf(
-      Props(
-        new Debouncer(
-          5 seconds,
-          (_: Debouncer.Nothing) => Bus.publish(siteMessage, "sendToFlag")
-        )
-      )
+    private val debouncer = new Debouncer[Unit](system.scheduler, 5 seconds, 1)(_ =>
+      Bus.publish(siteMessage, "sendToFlag")
     )
-    def apply(): Unit = { debouncer ! Debouncer.Nothing }
+    def apply() = debouncer.push(()).unit
   }
 }
