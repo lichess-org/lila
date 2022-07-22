@@ -7,7 +7,7 @@ info:
     url: "https://lishogi.org/api"
     email: "contact@lishogi.org"
   x-logo:
-    url: https://lishogi1.org/assets/logo/lishogi-pad12.svg
+    url: https://lishogi1.org/assets/logo/lishogi-favicon-128.png
   description: |
     # Introduction
     Welcome to the reference for the Lishogi API! Lishogi is free/libre,
@@ -1046,8 +1046,8 @@ paths:
           schema:
             type: string
             enum:
-              - white
-              - black
+              - sente
+              - gote
         - in: query
           name: analysed
           description: "[Filter] Only games with or without a computer analysis available"
@@ -1305,14 +1305,14 @@ paths:
                     "increment": 0,
                     "totalTime": 60},
                     "players": {
-                      "white": {
+                      "sente": {
                         "userId": "kastorcito",
                         "rating": 2617
                       },
-                    "black": {
-                      "userId": "er_or",
-                      "rating": 2288
-                    }
+                      "gote": {
+                        "userId": "er_or",
+                        "rating": 2288
+                      }
                   }
                 }
 
@@ -1353,8 +1353,8 @@ paths:
                     {
                       "gameId": "rCRw1AuO",
                       "fullId": "rCRw1AuOvonq",
-                      "color": "black",
-                      "fen": "r1bqkbnr/pppp2pp/2n1pp2/8/8/3PP3/PPPB1PPP/RN1QKBNR w KQkq - 2 4",
+                      "color": "gote",
+                      "sfen": "r1bqkbnr/pppp2pp/2n1pp2/8/8/3PP3/PPPB1PPP/RN1QKBNR w KQkq - 2 4",
                       "hasMoved": true,
                       "isMyTurn": false,
                       "lastMove": "b8c6",
@@ -1563,20 +1563,20 @@ paths:
                   "t": "featured",
                   "d": {
                     "id": "qVSOPtMc",
-                    "orientation": "black",
+                    "orientation": "gote",
                     "players": [
                       {
-                        "color": "white",
+                        "color": "sente",
                         "user": { "name": "lizen9", "id": "lizen9", "title": "GM" },
                         "rating": 2531
                       },
                       {
-                        "color": "black",
+                        "color": "gote",
                         "user": { "name": "lizen29", "title": "WGM", "id": "lizen29" },
                         "rating": 2594
                       }
                     ],
-                    "fen": "rnbqk1r1/ppp1ppbp/8/N2p2p1/8/1PQPP3/P1P2PPn/R1B1K1NR"
+                    "sfen": "rnbqk1r1/ppp1ppbp/8/N2p2p1/8/1PQPP3/P1P2PPn/R1B1K1NR"
                   }
                 }
 
@@ -1753,7 +1753,7 @@ paths:
                   default: true
                 position:
                   type: string
-                  description: Custom initial position (in FEN) for all games of the tournament. Must be a legal shogi position. Only works with standard shogi, not variants (except Chess960).
+                  description: Custom initial position (in SFEN) for all games of the tournament. Must be a legal shogi position. Only works with standard shogi, not variants (except Chess960).
                 berserkable:
                   type: boolean
                   description: Whether the players can use berserk
@@ -1944,7 +1944,7 @@ paths:
                   default: true
                 position:
                   type: string
-                  description: Custom initial position (in FEN) for all games of the tournament. Must be a legal shogi position. Only works with standard shogi, not variants (except Chess960).
+                  description: Custom initial position (in SFEN) for all games of the tournament. Must be a legal shogi position. Only works with standard shogi, not variants (except Chess960).
                 berserkable:
                   type: boolean
                   description: Whether the players can use berserk
@@ -4411,11 +4411,11 @@ paths:
                   $ref: '#/components/schemas/VariantKey'
                 color:
                   type: string
-                  description: The color to play. Better left empty to automatically get 50% white.
+                  description: The color to play. Better left empty to automatically get 50% sente.
                   enum:
                     - random
-                    - white
-                    - black
+                    - sente
+                    - gote
                   default: random
                 ratingRange:
                   type: string
@@ -4519,10 +4519,10 @@ paths:
         - in: path
           name: move
           required: true
-          description: The move to play, in UCI format
+          description: The move to play, in USI format
           schema:
             type: string
-            example: "e2e4"
+            example: "7g7f"
         - in: query
           name: offeringDraw
           description: Whether to offer (or agree to) a draw
@@ -4969,7 +4969,7 @@ paths:
         - in: path
           name: move
           required: true
-          description: The move to play, in UCI format
+          description: The move to play, in USI format
           schema:
             type: string
             example: "e2e4"
@@ -5250,14 +5250,14 @@ paths:
                   description: Which color you get to play
                   enum:
                     - random
-                    - white
-                    - black
+                    - sente
+                    - gote
                   default: 'random'
                 variant:
                   $ref: '#/components/schemas/VariantKey'
-                fen:
+                sfen:
                   type: string
-                  description: Custom initial position (in FEN). Variant must be standard, and the game cannot be rated. Castling moves will use UCI_Chess960 notation, for example e1h1 instead of e1g1.
+                  description: Custom initial position (in SFEN). Variant must be standard, and the game cannot be rated. Castling moves will use notation, for example e1h1 instead of e1g1.
                   default: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
                 keepAliveStream:
                   type: boolean
@@ -5498,14 +5498,14 @@ paths:
                   description: Which color you get to play
                   enum:
                     - random
-                    - white
-                    - black
+                    - sente
+                    - gote
                   default: 'random'
                 variant:
                   $ref: '#/components/schemas/VariantKey'
-                fen:
+                sfen:
                   type: string
-                  description: Custom initial position (in FEN). Variant must be standard, and the game cannot be rated.
+                  description: Custom initial position (in SFEN). Variant must be standard, and the game cannot be rated.
                   default: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
       responses:
         "200":
@@ -5535,7 +5535,7 @@ paths:
 
         Share the URL of the challenge. the first 2 players to click it will be paired for a game.
 
-        The response body also contains `whiteUrl` and `blackUrl`.
+        The response body also contains `senteUrl` and `goteUrl`.
         You can control which color each player gets by giving them these URLs,
         instead of the main challenge URL.
 
@@ -5582,9 +5582,9 @@ paths:
                     - 14
                 variant:
                   $ref: '#/components/schemas/VariantKey'
-                fen:
+                sfen:
                   type: string
-                  description: Custom initial position (in FEN). Variant must be standard, and the game cannot be rated.
+                  description: Custom initial position (in SFEN). Variant must be standard, and the game cannot be rated.
                   default: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
                 name:
                   type: string
@@ -5721,9 +5721,9 @@ paths:
                 players:
                   type: string
                   description: |
-                    OAuth tokens of all the players to pair, with the syntax `tokenOfWhitePlayerInGame1:tokenOfBlackPlayerInGame1,tokenOfWhitePlayerInGame2:tokenOfBlackPlayerInGame2,...`.
+                    OAuth tokens of all the players to pair, with the syntax `tokenOfSentePlayerInGame1:tokenOfGotePlayerInGame1,tokenOfSentePlayerInGame2:tokenOfGotePlayerInGame2,...`.
 
-                    The 2 tokens of the players of a game are separated with `:`. The first token gets the white pieces. Games are separated with `,`.
+                    The 2 tokens of the players of a game are separated with `:`. The first token gets the sente pieces. Games are separated with `,`.
 
                     Up to 1000 tokens can be sent, for a max of 500 games.
 
@@ -6022,9 +6022,9 @@ paths:
       security: []
       parameters:
         - in: query
-          name: fen
+          name: sfen
           required: true
-          description: FEN of the position
+          description: SFEN of the position
           schema:
             type: string
           example: rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2
@@ -6050,7 +6050,7 @@ paths:
           content:
             application/json:
               example: {
-                "fen": "rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2",
+                "sfen": "rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2",
                 "knodes": 13683,
                 "depth": 22,
                 "pvs": [
@@ -6279,17 +6279,17 @@ paths:
       security: []
       parameters:
         - in: query
-          name: fen
-          description: FEN of the root position
+          name: sfen
+          description: SFEN of the root position
           schema:
             type: string
           example: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
         - in: query
           name: play
           description: |
-            Comma separated sequence of legal moves in UCI notation.
-            Play additional moves starting from `fen`.
-            Required to find an opening name, if `fen` is not an exact match
+            Comma separated sequence of legal moves in USI notation.
+            Play additional moves starting from `sfen`.
+            Required to find an opening name, if `sfen` is not an exact match
             for a named position.
           schema:
             type: string
@@ -6343,7 +6343,7 @@ paths:
 
         Games sampled from all Lishogi players.
 
-        Example: `curl https://explorer.lishogi.ovh/lishogi?variant=standard&speeds=blitz,rapid,classical&ratings=2200,2500&fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR%20w%20KQkq%20-%200%201`
+        Example: `curl https://explorer.lishogi.ovh/lishogi?variant=standard&speeds=blitz,rapid,classical&ratings=2200,2500&sfen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR%20w%20KQkq%20-%200%201`
       tags:
         - Opening Explorer
       security: []
@@ -6355,17 +6355,17 @@ paths:
             $ref: '#/components/schemas/VariantKey'
             default: standard
         - in: query
-          name: fen
-          description: FEN of the root position
+          name: sfen
+          description: SFEN of the root position
           schema:
             type: string
           example: rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2
         - in: query
           name: play
           description: |
-            Comma separated sequence of legal moves in UCI notation.
-            Play additional moves starting from `fen`.
-            Required to find an opening name, if `fen` is not an exact match
+            Comma separated sequence of legal moves in USI notation.
+            Play additional moves starting from `sfen`.
+            Required to find an opening name, if `sfen` is not an exact match
             for a named position.
           schema:
             type: string
@@ -6455,7 +6455,7 @@ paths:
         Will index new games at most once per minute, and revisit previously
         ongoing games at most once every day.
 
-        Example: `curl https://explorer.lishogi.ovh/player?player=revoof&color=white&play=d2d4,d7d5&recentGames=1`
+        Example: `curl https://explorer.lishogi.ovh/player?player=revoof&color=sente&play=d2d4,d7d5&recentGames=1`
       tags:
         - Opening Explorer
       security: []
@@ -6473,17 +6473,17 @@ paths:
             $ref: '#/components/schemas/VariantKey'
             default: standard
         - in: query
-          name: fen
-          description: FEN of the root position
+          name: sfen
+          description: SFEN of the root position
           schema:
             type: string
           example: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
         - in: query
           name: play
           description: |
-            Comma separated sequence of legal moves in UCI notation.
-            Play additional moves starting from `fen`.
-            Required to find an opening name, if `fen` is not an exact match
+            Comma separated sequence of legal moves in USI notation.
+            Play additional moves starting from `sfen`.
+            Required to find an opening name, if `sfen` is not an exact match
             for a named position.
           schema:
             type: string
@@ -6584,14 +6584,14 @@ paths:
       description: |
         **Endpoint: <https://tablebase.lishogi.ovh>**
 
-        Example: `curl http://tablebase.lishogi.ovh/standard?fen=4k3/6KP/8/8/8/8/7p/8_w_-_-_0_1`
+        Example: `curl http://tablebase.lishogi.ovh/standard?sfen=4k3/6KP/8/8/8/8/7p/8_w_-_-_0_1`
       tags:
         - Tablebase
       security: []
       parameters:
         - in: query
-          name: fen
-          description: FEN of the position. Underscores allowed.
+          name: sfen
+          description: SFEN of the position. Underscores allowed.
           schema:
             type: string
           required: true
@@ -6805,7 +6805,7 @@ components:
               additionalProperties: false
         color:
           type: string
-          enum: ["white", "black", "random"]
+          enum: ["sente", "gote", "random"]
         perf:
           type: object
           properties:
@@ -6818,7 +6818,7 @@ components:
           enum:
             - in
             - out
-        initialFen:
+        initialSfen:
           type: string
         declineReason:
           type: string
@@ -6879,8 +6879,8 @@ components:
       example: {
         "id": "VU0nyvsW",
         "url": "https://lishogi.org/VU0nyvsW",
-        "urlWhite": "https://lishogi.org/VU0nyvsW?color=white",
-        "urlBlack": "https://lishogi.org/VU0nyvsW?color=black",
+        "urlSente": "https://lishogi.org/VU0nyvsW?color=sente",
+        "urlGote": "https://lishogi.org/VU0nyvsW?color=gote",
         "color": "random",
         "direction": "out",
         "timeControl": {
@@ -6925,18 +6925,18 @@ components:
         "games": [
             {
               "id": "NKop9IyD",
-              "black": "lizen1",
-              "white": "thibault"
+              "gote": "lizen1",
+              "sente": "thibault"
             },
             {
               "id": "KT8374ut",
-              "black": "lizen3",
-              "white": "lizen2"
+              "gote": "lizen3",
+              "sente": "lizen2"
             },
             {
               "id": "wInQr8Sk",
-              "black": "lizen5",
-              "white": "lizen4"
+              "gote": "lizen5",
+              "sente": "lizen4"
             }
         ],
         "variant": "standard",
@@ -7005,15 +7005,15 @@ components:
         players:
           type: object
           properties:
-            white:
+            sente:
               $ref: '#/components/schemas/GameUser'
-            black:
+            gote:
               $ref: '#/components/schemas/GameUser'
-        initialFen:
+        initialSfen:
           type: string
         winner:
           type: string
-          enum: [white, black]
+          enum: [sente, gote]
         opening:
           type: object
           properties:
@@ -7040,11 +7040,11 @@ components:
               best:
                 type: string
                 example: c2c3
-                description: Best move in UCI notation (only if played move was inaccurate)
+                description: Best move in USI notation (only if played move was inaccurate)
               variation:
                 type: string
-                example: c3 Nc6 d4 Qb6 Be2 Nge7 Na3 cxd4 cxd4 Nf5
-                description: Best variation in SAN notation (only if played move was inaccurate)
+                example: 7g7f 2h2b
+                description: Best variation in USI notation (only if played move was inaccurate)
               judgment:
                 type: object
                 description: Judgment annotation (only if played move was inaccurate)
@@ -7092,7 +7092,7 @@ components:
         "lastMoveAt": 1514505592843,
         "status": "draw",
         "players": {
-          "white": {
+          "sente": {
             "user": {
               "name": "Lance5500",
               "title": "LM",
@@ -7102,7 +7102,7 @@ components:
             "rating": 2389,
             "ratingDiff": 4,
           },
-          "black": {
+          "gote": {
             "user": {
               "name": "TryingHard87",
               "id": "tryinghard87"
@@ -7129,15 +7129,15 @@ components:
         [Site "https://lishogi.org/fY44h4OY"]
         [Date "2018.03.29"]
         [Round "-"]
-        [White "pveldman"]
-        [Black "thibault"]
+        [Sente "pveldman"]
+        [Gote "thibault"]
         [Result "1-0"]
         [UTCDate "2018.03.29"]
         [UTCTime "01:38:15"]
-        [WhiteElo "1610"]
-        [BlackElo "1601"]
-        [WhiteRatingDiff "+10"]
-        [BlackRatingDiff "-10"]
+        [SenteElo "1610"]
+        [GoteElo "1601"]
+        [SenteRatingDiff "+10"]
+        [GoteRatingDiff "-10"]
         [Variant "Standard"]
         [TimeControl "180+0"]
         [ECO "C62"]
@@ -7152,11 +7152,11 @@ components:
         [Site "Astana"]
         [Date "2012.07.10"]
         [Round "23"]
-        [White "Carlsen, Magnus"]
-        [Black "Chadaev, Nikolay"]
+        [Sente "Carlsen, Magnus"]
+        [Gote "Chadaev, Nikolay"]
         [Result "1-0"]
-        [WhiteElo "2837"]
-        [BlackElo "2580"]
+        [SenteElo "2837"]
+        [GoteElo "2580"]
 
         1. e4 e5 2. f4 d5 3. exd5 exf4 4. Nf3 Nf6 5. c4 c6 6. d4 cxd5 7. c5 Nc6 8. Bb5 Be7 9. O-O O-O 10. Bxf4 Bg4 11. Nc3 Ne4 12. Qd3 Bf5 13. Qe3 Bf6 14. Bxc6 bxc6 15. Ne5 Bxe5 16. Bxe5 Bg6 17. Nxe4 Bxe4 18. Qg3 f6 19. Bd6 Re8 20. b4 Bg6 21. a4 a6 22. h4 Qd7 23. h5 Bxh5 24. Rxf6 Qg4 25. Qxg4 Bxg4 26. Rf4 Bh5 27. Raf1 h6 28. Be5 Ra7 29. b5 axb5 30. axb5 cxb5 31. c6 Raa8 32. c7 Kh7 33. Rb1 Be2 34. Rf7 Rg8 35. Re7 Bc4 36. Kh2 Rae8 37. Rd7 Ra8 38. Rb2 Raf8 39. g4 Ra8 40. Rf2 b4 41. Rff7 h5 42. Rxg7+ Rxg7 43. Rxg7+ 1-0
     StudyPgn:
@@ -7389,7 +7389,7 @@ components:
             playing:
               type: string
               format: uri
-              example: https://lishogi.org/yqfLYJ5E/black
+              example: https://lishogi.org/yqfLYJ5E/gote
             completionRate:
               type: integer
               example: 97
@@ -7453,12 +7453,12 @@ components:
             "notation": "d4 Nf6 Nf3 g6 Nc3 d6 e4 c5 Be3 cxd4 Bxd4 Nc6 Be3 Qa5 Bd2 Bg7 Be2 O-O O-O Qb6 Rb1 Bg4 h3 Bxf3 Bxf3 Nd4 Be3 Nxf3+ Qxf3 Qc6 Bd4 a6 Bxf6 Bxf6 Nd5 Qxc2 Nxf6+ exf6 Qxf6 Qxe4 Qxd6 Rad8 Qb6 Rfe8 Rfe1 Qxe1+ Rxe1 Rxe1+ Kh2 Rd2 Kg3 Ree2 Qxb7 Rxb2 Qxa6 Rxa2 Qc8+ Kg7 Qc3+ Kg8 Qc5 Rxf2 Qc8+ Kg7 Qc3+ Kh6 Qe3+ Kg7 Qe5+ Kf8 Qh8+ Ke7 Qe5+ Kf8 Qb8+ Kg7 Qe5+ f6 Qe7+ Kh6 Qf8+ Kg5 h4+ Kh5 Qc5+ f5 Qc1 Rxg2+ Kh3 Rh2+ Kg3 Rag2+ Kf3 Rg4 Qd1 Rhxh4 Kf2 Rh2+ Kf3 Rh3+ Ke2 Rg2+ Kf1+ Rg4 Kf2 g5 Qd8 h6 Qe8+ Kh4 Kf1 h5 Qe1+ Rhg3 Qe5 f4 Qe1 f3 Kf2 Rf4 Qh1+ Rh3 Qe1 g4",
             "players": [
                 {
-                    "color": "white",
+                    "color": "sente",
                     "name": "borska (2013)",
                     "userId": "borska"
                 },
                 {
-                    "color": "black",
+                    "color": "gote",
                     "name": "Xxn00bkillar69xX (1990)",
                     "userId": "xxn00bkillar69xx"
                 }
@@ -8107,15 +8107,15 @@ components:
         },
         "featured": {
           "id": "khe72Fer",
-          "fen": "rn1qkb1r/pQ3ppp/2b2n2/8/5P2/4P3/PP4PP/RNB1KBNR",
-          "color": "black",
+          "sfen": "rn1qkb1r/pQ3ppp/2b2n2/8/5P2/4P3/PP4PP/RNB1KBNR",
+          "color": "gote",
           "lastMove": "d7c6",
-          "white": {
+          "sente": {
             "rank": 2,
             "name": "player1",
             "rating": 1360
           },
-          "black": {
+          "gote": {
             "rank": 5,
             "name": "player2",
             "rating": 1431
@@ -8153,8 +8153,8 @@ components:
         "stats": {
           "games": 454,
           "moves": 27542,
-          "whiteWins": 236,
-          "blackWins": 207,
+          "senteWins": 236,
+          "goteWins": 207,
           "draws": 11,
           "berserks": 0,
           "averageRating": 1320
@@ -8187,11 +8187,11 @@ components:
         "stats": {
             "absences": 1608,
             "averageRating": 1588,
-            "blackWins": 42541,
+            "goteWins": 42541,
             "byes": 12,
             "draws": 0,
             "games": 42689,
-            "whiteWins": 42837
+            "senteWins": 42837
         }
       }
 
@@ -8280,34 +8280,32 @@ components:
 
     OpeningExplorerJson:
       example: {
-        "white": 1443,
+        "sente": 1443,
         "draws": 3787,
-        "black": 1156,
+        "gote": 1156,
         "moves": [
           {
-            "uci": "c6d5",
-            "san": "cxd5",
+            "usi": "c6d5",
             "averageRating": 2423,
-            "white": 1443,
+            "sente": 1443,
             "draws": 3787,
-            "black": 1155,
+            "gote": 1155,
             "game": null
           },
           {
-            "uci": "g8f6",
-            "san": "Nf6",
+            "usi": "g8f6",
             "averageRating": 2515,
-            "white": 0,
+            "sente": 0,
             "draws": 0,
-            "black": 1,
+            "gote": 1,
             "game": {
               "id": "1EErB5jc",
-              "winner": "black",
-              "white": {
+              "winner": "gote",
+              "sente": {
                 "name": "Drozdovskij, Yuri",
                 "rating": 2509
               },
-              "black": {
+              "gote": {
                 "name": "Dobrov, Vladimir",
                 "rating": 2515
               },
@@ -8318,14 +8316,14 @@ components:
         ],
         "topGames": [
           {
-            "uci": "c6d5",
+            "usi": "c6d5",
             "id": "kN6d9l2i",
-            "winner": "black",
-            "white": {
+            "winner": "gote",
+            "sente": {
               "name": "Carlsen, M.",
               "rating": 2881
             },
-            "black": {
+            "gote": {
               "name": "Anand, V.",
               "rating": 2785
             },
@@ -8333,14 +8331,14 @@ components:
             "month": "2014-06"
           },
           {
-            "uci": "c6d5",
+            "usi": "c6d5",
             "id": "qeYPJL2y",
-            "winner": "white",
-            "white": {
+            "winner": "sente",
+            "sente": {
               "name": "So, W.",
               "rating": 2778
             },
-            "black": {
+            "gote": {
               "name": "Carlsen, M.",
               "rating": 2843
             },
@@ -8357,68 +8355,63 @@ components:
 
     OpeningExplorerPlayerJson:
       example: {
-        "white": 359,
+        "sente": 359,
         "draws": 23,
-        "black": 273,
+        "gote": 273,
         "moves": [
           {
-            "uci": "c2c4",
-            "san": "c4",
+            "usi": "c2c4",
             "averageOpponentRating": 1695,
             "performance": 1744,
-            "white": 354,
+            "sente": 354,
             "draws": 23,
-            "black": 266,
+            "gote": 266,
             "game": null
           },
           {
-            "uci": "c2c3",
-            "san": "c3",
+            "usi": "c2c3",
             "averageOpponentRating": 1796,
             "performance": 1796,
-            "white": 2,
+            "sente": 2,
             "draws": 0,
-            "black": 2,
+            "gote": 2,
             "game": null
           },
           {
-            "uci": "e2e4",
-            "san": "e4",
+            "usi": "e2e4",
             "averageOpponentRating": 1762,
             "performance": 1640,
-            "white": 1,
+            "sente": 1,
             "draws": 0,
-            "black": 2,
+            "gote": 2,
             "game": null
           },
           {
-            "uci": "g1f3",
-            "san": "Nf3",
+            "usi": "g1f3",
             "averageOpponentRating": 1496,
             "performance": 1374,
-            "white": 1,
+            "sente": 1,
             "draws": 0,
-            "black": 2,
+            "gote": 2,
             "game": null
           },
           {
-            "uci": "h2h3",
-            "san": "h3",
+            "usi": "h2h3",
             "averageOpponentRating": 1696,
             "performance": 2496,
-            "white": 1,
+            "sente": 1,
             "draws": 0,
-            "black": 0,
+            "gote": 0,
             "game": {
               "id": "zyI4GGKv",
-              "winner": "white",
+              "winner": "sente",
               "speed": "bullet",
               "mode": "rated",
-              "black": {
+              "gote": {
                 "name": "gocool99",
                 "rating": 1696
               },
-              "white": {
+              "sente": {
                 "name": "revoof",
                 "rating": 1702
               },
@@ -8427,23 +8420,22 @@ components:
             }
           },
           {
-            "uci": "h2h4",
-            "san": "h4",
+            "usi": "h2h4",
             "averageOpponentRating": 1674,
             "performance": 874,
-            "white": 0,
+            "sente": 0,
             "draws": 0,
-            "black": 1,
+            "gote": 1,
             "game": {
               "id": "9vA24xBn",
-              "winner": "black",
+              "winner": "gote",
               "speed": "bullet",
               "mode": "rated",
-              "black": {
+              "gote": {
                 "name": "MentalBlood",
                 "rating": 1674
               },
-              "white": {
+              "sente": {
                 "name": "revoof",
                 "rating": 1657
               },
@@ -8454,16 +8446,16 @@ components:
         ],
         "recentGames": [
           {
-            "uci": "c2c4",
+            "usi": "c2c4",
             "id": "BGLmUtv7",
-            "winner": "white",
+            "winner": "sente",
             "speed": "bullet",
             "mode": "rated",
-            "black": {
+            "gote": {
               "name": "yigithanyiigit",
               "rating": 1227
             },
-            "white": {
+            "sente": {
               "name": "revoof",
               "rating": 1717
             },
@@ -8541,8 +8533,7 @@ components:
           "category": "win",
           "moves": [
             {
-              "uci": "h7h8q",
-              "san": "h8=Q+",
+              "usi": "h7h8q",
               "dtz": -2,
               "precise_dtz": -2,
               "dtm": -16,
@@ -8560,12 +8551,9 @@ components:
     Move:
       type: object
       properties:
-        uci:
+        usi:
           type: string
-          example: "h7h8q"
-        san:
-          type: string
-          example: "h8=Q+"
+          example: "7g7f+"
         category:
           type: string
           enum:
@@ -8695,11 +8683,11 @@ components:
         createdAt:
           type: number
           format: int64
-        white:
+        sente:
           $ref: '#/components/schemas/GameEventPlayer'
-        black:
+        gote:
           $ref: '#/components/schemas/GameEventPlayer'
-        initialFen:
+        initialSfen:
           type: string
           default: "startpos"
         state:
@@ -8715,9 +8703,9 @@ components:
         - perf
         - rated
         - createdAt
-        - white
-        - black
-        - initialFen
+        - sente
+        - gote
+        - initialSfen
         - state
 
     GameStateEvent:
@@ -8728,43 +8716,37 @@ components:
           const: gameState
         moves:
           type: string
-          description: Current moves in UCI format
-        wtime:
-          type: integer
-          description: Integer of milliseconds White has left on the clock
+          description: Current moves in USI format
         btime:
           type: integer
-          description: Integer of milliseconds Black has left on the clock
-        winc:
+          description: Integer of milliseconds sente has left on the clock
+        qtime:
           type: integer
-          description: Integer of White Fisher increment.
+          description: Integer of milliseconds Gote has left on the clock
         binc:
           type: integer
-          description: Integer of Black Fisher increment.
+          description: Integer of Sente Fisher increment.
+        winc:
+          type: integer
+          description: Integer of Gote Fisher increment.
         status:
           $ref: '#/components/schemas/GameStatus'
         winner:
           type: string
           description: Color of the winner, if any
-        wdraw:
-          type: boolean
-          description: true if white is offering draw, else omitted
-        bdraw:
-          type: boolean
-          description: true if black is offering draw, else omitted
-        wtakeback:
-          type: boolean
-          description: true if white is proposing takeback, else omitted
         btakeback:
           type: boolean
-          description: true if black is proposing takeback, else omitted
+          description: true if sente is proposing takeback, else omitted
+        qtakeback:
+          type: boolean
+          description: true if gote is proposing takeback, else omitted
       required:
         - type
         - moves
-        - wtime
         - btime
-        - winc
+        - wtime
         - binc
+        - winc
         - status
 
     ChatLineEvent:
@@ -8911,9 +8893,9 @@ components:
           "speed": "blitz",
           "perf": "blitz",
           "rated": true,
-          "initialFen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-          "fen": "rnbqkb1r/1p1ppppp/p6n/2p4Q/8/1P2P3/P1PP1PPP/RNB1KBNR w KQkq - 0 4",
-          "player": "white",
+          "initialSfen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+          "sfen": "rnbqkb1r/1p1ppppp/p6n/2p4Q/8/1P2P3/P1PP1PPP/RNB1KBNR w KQkq - 0 4",
+          "player": "sente",
           "turns": 6,
           "startedAtTurn": 0,
           "source": "pool",
@@ -8921,17 +8903,17 @@ components:
           "createdAt": 1620029815106,
           "lastMove": "c7c5"
         },
-        { "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w", "wc": 180, "bc": 180 },
-        { "fen": "rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b", "lm": "e2e3", "wc": 180, "bc": 180 },
-        { "fen": "rnbqkb1r/pppppppp/7n/8/8/4P3/PPPP1PPP/RNBQKBNR w", "lm": "g8h6", "wc": 180, "bc": 180 },
+        { "sfen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w", "wc": 180, "bc": 180 },
+        { "sfen": "rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b", "lm": "e2e3", "wc": 180, "bc": 180 },
+        { "sfen": "rnbqkb1r/pppppppp/7n/8/8/4P3/PPPP1PPP/RNBQKBNR w", "lm": "g8h6", "wc": 180, "bc": 180 },
         {
-          "fen": "rnbqkb1r/pppppppp/7n/8/8/1P2P3/P1PP1PPP/RNBQKBNR b",
+          "sfen": "rnbqkb1r/pppppppp/7n/8/8/1P2P3/P1PP1PPP/RNBQKBNR b",
           "lm": "b2b3",
           "wc": 177,
           "bc": 180
         },
         {
-          "fen": "rnbqkb1r/1ppppppp/p6n/8/8/1P2P3/P1PP1PPP/RNBQKBNR w",
+          "sfen": "rnbqkb1r/1ppppppp/p6n/8/8/1P2P3/P1PP1PPP/RNBQKBNR w",
           "lm": "a7a6",
           "wc": 177,
           "bc": 177
@@ -9157,8 +9139,8 @@ components:
         "game": {
           "gameId": "rCRw1AuO",
           "fullId": "rCRw1AuOvonq",
-          "color": "black",
-          "fen": "r1bqkbnr/pppp2pp/2n1pp2/8/8/3PP3/PPPB1PPP/RN1QKBNR w KQkq - 2 4",
+          "color": "gote",
+          "sfen": "r1bqkbnr/pppp2pp/2n1pp2/8/8/3PP3/PPPB1PPP/RN1QKBNR w KQkq - 2 4",
           "hasMoved": true,
           "isMyTurn": false,
           "lastMove": "b8c6",
@@ -9182,8 +9164,8 @@ components:
         "game": {
           "gameId": "rCRw1AuO",
           "fullId": "rCRw1AuOvonq",
-          "color": "black",
-          "fen": "r1bqkbnr/pppp2pp/2n1pp2/8/8/3PP3/PPPB1PPP/RN1QKBNR w KQkq - 2 4",
+          "color": "gote",
+          "sfen": "r1bqkbnr/pppp2pp/2n1pp2/8/8/3PP3/PPPB1PPP/RN1QKBNR w KQkq - 2 4",
           "hasMoved": true,
           "isMyTurn": false,
           "lastMove": "b8c6",
@@ -9220,27 +9202,27 @@ components:
           "name": "Classical"
         },
         "createdAt": 1523825103562,
-        "white": {
+        "sente": {
           "id": "lovlas",
           "name": "lovlas",
           "provisional": false,
           "rating": 2500,
           "title": "IM"
         },
-        "black": {
+        "gote": {
           "id": "leela",
           "name": "leela",
           "rating": 2390,
           "title": null
         },
-        "initialFen": "startpos",
+        "initialSfen": "startpos",
         "state": {
           "type": "gameState",
-          "moves": "e2e4 c7c5 f2f4 d7d6 g1f3 b8c6 f1c4 g8f6 d2d3 g7g6 e1g1 f8g7",
-          "wtime": 7598040,
+          "moves": "7g7f",
           "btime": 8395220,
-          "winc": 10000,
+          "wtime": 7598040,
           "binc": 10000,
+          "winc": 10000,
           "status": "started"
         }
       }
@@ -9248,11 +9230,11 @@ components:
     gameState:
       value: {
         "type": "gameState",
-        "moves": "e2e4 c7c5 f2f4 d7d6 g1f3 b8c6 f1c4 g8f6 d2d3 g7g6 e1g1 f8g7 b1c3",
-        "wtime": 7598040,
+        "moves": "7g7f 8h2b",
         "btime": 8395220,
-        "winc": 10000,
+        "wtime": 7598040,
         "binc": 10000,
+        "winc": 10000,
         "status": "started"
       }
 
@@ -9278,8 +9260,8 @@ components:
         "moves": "e2e4 c7c5 f2f4 d7d6 g1f3 b8c6 f1c4 g8f6 d2d3 g7g6 e1g1 f8g7 b1c3",
         "wtime": 7598040,
         "btime": 8395220,
-        "winc": 10000,
         "binc": 10000,
+        "winc": 10000,
         "status": "resign",
-        "winner": "black"
+        "winner": "gote"
       }
