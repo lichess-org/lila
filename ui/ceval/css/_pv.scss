@@ -27,6 +27,10 @@
       width: 34px;
       text-align: center;
     }
+    index {
+      margin-left: 6px;
+      margin-right: -6px;
+    }
     span {
       @extend %move-notation;
       display: inline-block; // takes whole height - easier to hover then

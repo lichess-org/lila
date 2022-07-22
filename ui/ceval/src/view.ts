@@ -428,13 +428,14 @@ function renderPvMoves(pos: Position, pv: Usi[], notation: Notation): VNode[] {
     notationMoves = makeNotationLineWithPosition(notation, pos, moves, pos.lastMove),
     addColorIcon = notationsWithColor.includes(notation);
   for (let i = 0; i < pv.length; i++) {
-    // we either add color icon or move number, not both
     const colorIcon = addColorIcon ? '.color-icon.' + pos.turn : '',
-      moveNumber = addColorIcon ? '' : `${pos.fullmoves}. `;
+      moveNumber = `${pos.fullmoves}. `;
     pos.play(moves[i]);
     const usi = pv[i],
       sfen = makeSfen(pos);
     key += '|' + usi;
+    // move number separately for notations with color icon
+    if (addColorIcon) vnodes.push(h('index', moveNumber));
     vnodes.push(
       h(
         'span.pv-move' + colorIcon,
@@ -445,7 +446,7 @@ function renderPvMoves(pos: Position, pv: Usi[], notation: Notation): VNode[] {
             'data-board': `${sfen}|${usi}`,
           },
         },
-        moveNumber + notationMoves[i]
+        (addColorIcon ? '' : moveNumber) + notationMoves[i]
       )
     );
   }
