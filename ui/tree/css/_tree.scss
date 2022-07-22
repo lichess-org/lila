@@ -81,7 +81,8 @@
       color: $c-primary-over;
     }
   }
-  interrupt move:hover, &-inline move:hover {
+  interrupt move:hover,
+  &-inline move:hover {
     @extend %box-radius;
   }
   move.empty {

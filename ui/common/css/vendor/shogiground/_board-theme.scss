@@ -67,15 +67,15 @@ sg-squares {
   }
   &.d-5x5 {
     sg-squares sq {
-     &:nth-child(7),
-     &:nth-child(10),
-     &:nth-child(22),
-     &:nth-child(25) {
-       position: relative;
-       &::after {
-         @extend %grid-dot;
-       }
-     }
+      &:nth-child(7),
+      &:nth-child(10),
+      &:nth-child(22),
+      &:nth-child(25) {
+        position: relative;
+        &::after {
+          @extend %grid-dot;
+        }
+      }
     }
     &.preload sg-squares {
       background-size: calc(100% / 5) calc(100% / 5);
