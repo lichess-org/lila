@@ -23,7 +23,8 @@ final class Env(
     baseUrl: BaseUrl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
+    scheduler: Scheduler
 ) {
 
   lazy val roundForm = wire[RelayRoundForm]
@@ -33,6 +34,8 @@ final class Env(
   private lazy val roundRepo = new RelayRoundRepo(db(CollName("relay")))
 
   private lazy val tourRepo = new RelayTourRepo(db(CollName("relay_tour")))
+
+  private lazy val leaderboard = wire[RelayLeaderboardApi]
 
   lazy val jsonView = wire[JsonView]
 
