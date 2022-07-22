@@ -6,7 +6,7 @@ import shogi.{ Centis, MoveMetrics, Status }
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
-import lila.game.{ Event, Game, Pov, Progress }
+import lila.game.{ Game, Pov, Progress }
 import lila.game.Game.PlayerId
 import cats.data.Validated
 
@@ -94,7 +94,7 @@ final private class Player(
               notifyMove(usi, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else
-                  fuccess(progress.events :+ Event.Reload)
+                  fuccess(progress.events)
               }
         }
     } else
