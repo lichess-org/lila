@@ -179,6 +179,7 @@ final class JsonView(
                 "replay"            -> pref.replay,
                 "clockTenths"       -> pref.clockTenths,
                 "clockCountdown"    -> pref.clockCountdown,
+                "moveEvent"         -> pref.moveEvent,
                 "notation"          -> pref.notation
               )
               .add("highlightLastDests" -> pref.highlightLastDests)
