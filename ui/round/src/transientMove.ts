@@ -24,6 +24,7 @@ export default class TransientMove {
   };
 
   expire = () => {
+    console.log('Server did not ack your move, we will try reloading the game.');
     this.socket.reload({});
   };
 }

@@ -43,8 +43,6 @@ export class Protocol {
   }
 
   received(command: string): void {
-    console.log('received', command);
-
     const parts = command.trim().split(/\s+/g);
     if (parts[0] === 'usiok') {
       if (this.work?.variant === 'standard') {

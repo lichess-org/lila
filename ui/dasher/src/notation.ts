@@ -22,7 +22,7 @@ export function ctrl(data: NotationData, trans: Trans, redraw: Redraw, close: Cl
       data.current = n;
       $.post('/pref/notation', { notation: n }, () => {
         // we need to reload the page to see changes
-        setTimeout(location.reload.bind(location), 150);
+        window.lishogi.reload();
       }).fail(() => window.lishogi.announce({ msg: 'Failed to save notation preference' }));
       redraw();
     },
