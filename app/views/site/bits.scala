@@ -7,27 +7,13 @@ import controllers.routes
 
 object bits {
 
-  def getFishnet()(implicit ctx: Context) =
-    views.html.base.layout(
-      title = "fishnet API key request",
-      csp = defaultCsp.withGoogleForm.some
-    ) {
-      main(
-        iframe(
-          src := "https://docs.google.com/forms/d/e/1FAIpQLSeSAp51tSaW9JlPGVX0o8dcScAuxGMhNOL9eEUIfARGzpITmA/viewform?embedded=true",
-          style          := "width:100%;height:1400px",
-          st.frameborder := 0
-        )(spinner)
-      )
-    }
-
   def api =
     raw(
       s"""<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; script-src 'unsafe-eval' https://cdn.jsdelivr.net blob:; child-src blob:; connect-src ${env.net.assetDomain}; img-src data: https://lishogi.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; script-src 'unsafe-eval' https://cdn.jsdelivr.net blob:; child-src blob:; connect-src ${env.net.assetDomain}; img-src data: https://lishogi.org https://lishogi1.org;">
     <title>Lishogi.org API reference</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
