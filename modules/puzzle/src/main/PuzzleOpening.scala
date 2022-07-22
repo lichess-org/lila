@@ -121,27 +121,25 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
       key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
     }
 
-  private[puzzle] def addAllMissing: Funit =
-    colls.puzzle {
-      _.find(
-        $doc(
-          Puzzle.BSONFields.opening $exists false,
-          Puzzle.BSONFields.themes $nin List(PuzzleTheme.equality.key, PuzzleTheme.endgame.key),
-          Puzzle.BSONFields.fen $endsWith """\s[|1]\d""" // up to move 19!
-        )
+  private[puzzle] def addAllMissing: Funit = colls.puzzle {
+    _.find(
+      $doc(
+        Puzzle.BSONFields.opening $exists false,
+        Puzzle.BSONFields.themes $nin List(PuzzleTheme.equality.key, PuzzleTheme.endgame.key),
+        Puzzle.BSONFields.fen $endsWith """\s[|1]\d""" // up to move 19!
       )
-        .cursor[Puzzle]()
-        .documentSource()
-        .mapAsyncUnordered(4)(updateOpening)
-        .runWith(LilaStream.sinkCount)
-        .chronometer
-        .log(logger)(count => s"Done adding $count puzzle openings")
-        .result
-        .void
-    }
+    )
+      .cursor[Puzzle]()
+      .documentSource()
+      .mapAsyncUnordered(4)(updateOpening)
+      .runWith(LilaStream.sinkCount)
+      .chronometer
+      .log(logger)(count => s"Done adding $count puzzle openings")
+      .result
+      .void
+  }
 
-  def recomputeAll: Funit = funit
-  colls.puzzle {
+  def recomputeAll: Funit = colls.puzzle {
     _.find($doc(Puzzle.BSONFields.opening $exists true))
       .cursor[Puzzle]()
       .documentSource()
