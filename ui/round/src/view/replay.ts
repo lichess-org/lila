@@ -73,7 +73,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
     els.push(
       h(
         moveTag +
-          (useColorIcon ? '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'sente' : 'gote') : ''),
+          (useColorIcon ? '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'gote' : 'sente') : ''),
         {
           class: { active: moveNumber === curMove },
         },
