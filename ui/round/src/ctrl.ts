@@ -28,6 +28,7 @@ import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
+import { uciToMove } from 'chessground/util';
 
 import {
   RoundOpts,
@@ -270,7 +271,7 @@ export default class RoundController {
     const s = this.stepAt(ply),
       config: CgConfig = {
         fen: s.fen,
-        lastMove: util.uci2move(s.uci),
+        lastMove: uciToMove(s.uci),
         check: !!s.check,
         turnColor: this.ply % 2 === 0 ? 'white' : 'black',
       };
@@ -428,7 +429,7 @@ export default class RoundController {
       else {
         // This block needs to be idempotent, even for castling moves in
         // Chess960.
-        const keys = util.uci2move(o.uci)!,
+        const keys = uciToMove(o.uci)!,
           pieces = this.chessground.state.pieces;
         if (
           !o.castle ||

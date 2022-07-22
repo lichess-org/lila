@@ -11,6 +11,7 @@ import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi
 import lila.ublog.UblogPost
 import lila.user.User
+import lila.forum.Categ
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
@@ -21,7 +22,8 @@ final class ActivityReadApi(
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
-    swissApi: lila.swiss.SwissApi
+    swissApi: lila.swiss.SwissApi,
+    teamRepo: lila.team.TeamRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -49,11 +51,17 @@ final class ActivityReadApi(
 
   private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
     for {
-      forumPosts <- a.forumPosts ?? { p =>
+      allForumPosts <- a.forumPosts ?? { p =>
         forumPostApi
           .liteViewsByIds(p.value.map(_.value))
           .mon(_.user segment "activity.posts") dmap some
       }
+      hiddenForumTeamIds <- teamRepo.filterHideForum(
+        (~allForumPosts).flatMap(_.topic.possibleTeamId).distinct
+      )
+      forumPosts = allForumPosts.map(
+        _.filterNot(_.topic.possibleTeamId.exists(hiddenForumTeamIds.contains))
+      )
       ublogPosts <- a.ublogPosts ?? { p =>
         ublogApi
           .liveLightsByIds(p.value.map(_.value).map(UblogPost.Id))

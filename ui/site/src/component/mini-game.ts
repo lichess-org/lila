@@ -1,3 +1,4 @@
+import { uciToMove } from 'chessground/util';
 import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
@@ -20,7 +21,7 @@ export const init = (node: HTMLElement) => {
         viewOnly: true,
         fen,
         orientation,
-        lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+        lastMove: uciToMove(lm),
         drawable: {
           enabled: false,
           visible: false,
@@ -54,12 +55,11 @@ export const initAll = (parent?: HTMLElement) => {
 export const update = (node: HTMLElement, data: UpdateData) => {
   const $el = $(node),
     lm = data.lm,
-    lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
     cg = domData.get(node.querySelector('.cg-wrap')!, 'chessground');
   if (cg)
     cg.set({
       fen: data.fen,
-      lastMove,
+      lastMove: uciToMove(lm),
     });
   const turnColor = fenColor(data.fen);
   const renderClock = (time: number | undefined, color: Color) => {

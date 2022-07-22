@@ -113,6 +113,9 @@ GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lan
 GET   /blog/community/:lang            controllers.Ublog.community(lang: String, page: Int ?= 1)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 
+GET   /opening                         controllers.Opening.index
+GET   /opening/:family                 controllers.Opening.family(family: String)
+
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
 POST  /training/coordinate/score       controllers.Coordinate.score
@@ -864,7 +867,7 @@ POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
 GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
-GET   /yt                              controllers.Main.movedPermanently(to: String = "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA")
+GET   /yt                              controllers.Main.movedPermanently(to: String = "https://www.youtube.com/c/LichessDotOrg")
 GET   /dmca                            controllers.Main.movedPermanently(to: String = "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform")
 
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, path="public", file)

@@ -76,6 +76,8 @@
     "ui/puz",
     "ui/storm",
     "ui/racer",
+    "ui/opening",
+    "ui/replay",
     "ui/@build/rollupProject",
     "ui/@types/lichess",
     "ui/@types/cash"

@@ -19,7 +19,6 @@ import { PromotionCtrl } from 'chess/promotion';
 
 export default class RacerCtrl {
   private data: RacerData;
-  private redraw: () => void;
   private sign = Math.random().toString(36);
   private localScore = 0;
   race: Race;
@@ -35,11 +34,10 @@ export default class RacerCtrl {
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
 
-  constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
+  constructor(opts: RacerOpts, readonly redraw: () => void) {
     this.data = opts.data;
     this.race = this.data.race;
     this.pref = opts.pref;
-    this.redraw = () => redraw(this.data);
     this.trans = lichess.trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
