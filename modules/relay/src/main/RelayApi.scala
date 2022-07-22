@@ -127,7 +127,8 @@ final class RelayApi(
         Match(
           $doc(
             "sync.until" $exists true,
-            "sync.nextAt" $lt DateTime.now
+            "sync.nextAt" $lt DateTime.now,
+            "tour.tier" $exists official
           )
         ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
