@@ -19,6 +19,7 @@ final class BotJsonView(
       "state" -> gameState(game)
     )
 
+  // Everything marked backwards will be removed soon
   def gameImmutable(game: Game)(implicit lang: Lang): JsObject = {
     Json
       .obj(
@@ -35,7 +36,8 @@ final class BotJsonView(
         "white"       -> playerJson(game.sentePov), // backwards support
         "gote"        -> playerJson(game.gotePov),
         "black"       -> playerJson(game.gotePov),  // backwards support
-        "initialSfen" -> game.initialSfen.fold("startpos")(_.value)
+        "initialSfen" -> game.initialSfen.fold("startpos")(_.value),
+        "initialFen"  -> game.initialSfen.fold("startpos")(_.value) // backwards support
       )
       .add("tournamentId" -> game.tournamentId)
   }
@@ -44,8 +46,7 @@ final class BotJsonView(
     Json
       .obj(
         "type"     -> "gameState",
-        "moves"    -> game.usiMoves.map(_.uci).mkString(" "), // backwards support
-        "usiMoves" -> game.usiMoves.map(_.usi).mkString(" "),
+        "moves"    -> game.usiMoves.map(_.usi).mkString(" "),
         "btime"    -> millisOf(game.sentePov),
         "wtime"    -> millisOf(game.gotePov),
         "binc"     -> game.clock.??(_.config.increment.millis),

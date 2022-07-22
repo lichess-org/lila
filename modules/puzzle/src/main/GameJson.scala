@@ -64,7 +64,7 @@ final private class GameJson(
         "perf"     -> perfJson(game),
         "rated"    -> game.rated,
         "players"  -> playersJson(game),
-        "usiMoves" -> game.shogi.usiMoves.take(plies + 1).map(_.usi).mkString(" ")
+        "moves" -> game.shogi.usiMoves.take(plies + 1).map(_.usi).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
