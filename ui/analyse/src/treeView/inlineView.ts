@@ -111,14 +111,14 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       : '',
     content: MaybeVNodes = [
       node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
-      h('span' + colorIcon, node.notation),
+      h('move-notation' + colorIcon, node.notation),
     ];
   if (node.glyphs && ctx.showGlyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h(
     'move',
     {
       attrs: { p: path },
-      class: nodeClasses(ctx, path),
+      class: nodeClasses(ctx, node, path),
     },
     content
   );

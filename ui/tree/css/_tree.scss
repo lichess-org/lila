@@ -10,6 +10,27 @@
   }
   move {
     @extend %move;
+    &.inaccuracy {
+      color: $c-inaccuracy;
+    }
+    &.mistake {
+      color: $c-mistake;
+    }
+    &.blunder {
+      color: $c-blunder;
+    }
+    &.good-move {
+      color: $c-good-move;
+    }
+    &.brilliant {
+      color: $c-brilliant;
+    }
+    &.interesting {
+      color: $c-interesting;
+    }
+    move-notation::before {
+      color: $c-font;
+    }
     @media (hover: none) {
       user-select: none;
     }
@@ -33,6 +54,9 @@
     font-weight: bold;
     background: mix($c-primary, $c-bg-box, 25%);
     color: $c-font-clear;
+    move-notation::before {
+      color: $c-font-clear;
+    }
   }
   &-inline move.active,
   line move.active {
@@ -40,6 +64,9 @@
     background: mix($c-primary, $c-bg-box, 40%);
     color: $c-font-clearer;
     outline: 1px solid mix($c-primary, $c-bg-box, 60%);
+    move-notation::before {
+      color: $c-font-clearer;
+    }
   }
   move.nongame {
     font-style: italic;
@@ -48,7 +75,8 @@
     &,
     index,
     eval,
-    movetime {
+    movetime,
+    move-notation::before {
       background: $c-primary;
       color: $c-primary-over;
     }
@@ -143,15 +171,6 @@
     @extend %break-word;
     display: block;
     padding: 3px 5px;
-    &.inaccuracy {
-      color: $c-inaccuracy;
-    }
-    &.mistake {
-      color: $c-mistake;
-    }
-    &.blunder {
-      color: $c-blunder;
-    }
   }
   &-inline comment {
     vertical-align: 45%;
@@ -237,12 +256,12 @@
     height: 6px;
   }
   lines line::before {
-    margin-top: 0.65em;
+    margin-top: 0.7em;
     margin-left: -8px;
     content: ' ';
     border-top: 2px solid $c-border;
     position: absolute;
-    width: 8px;
+    width: 7px;
     height: 6px;
   }
   lines lines:last-child {

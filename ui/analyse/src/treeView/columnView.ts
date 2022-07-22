@@ -121,7 +121,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-    classes = nodeClasses(ctx, path);
+    classes = nodeClasses(ctx, node, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   return h(
     'move',
@@ -140,9 +140,9 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       : '',
     content: MaybeVNodes = [
       moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true),
-      h('span' + colorIcon, node.notation),
+      h('move-notation' + colorIcon, node.notation),
     ],
-    classes = nodeClasses(ctx, path);
+    classes = nodeClasses(ctx, node, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h(
