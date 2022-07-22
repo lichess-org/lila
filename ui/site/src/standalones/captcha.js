@@ -1,4 +1,3 @@
-var shogi = require('shogiops/shogi');
 var sfen = require('shogiops/sfen');
 var util = require('shogiops/variantUtil');
 
@@ -40,8 +39,8 @@ $(function () {
             if (data == 1) {
               const key = solution.slice(3, 5);
               const piece = sg.state.pieces.get(key);
-              const sfen = sg.getSfen() + (piece.color === 'sente' ? ' w' : ' b');
-              const pos = sfen.parseSfen(sfen).chain(s => shogi.Shogi.fromSetup(s, false));
+              const sfenStr = sg.getBoardSfen() + (piece.color === 'sente' ? ' w' : ' b');
+              const pos = sfen.parseSfen('standard', sfenStr, false);
               if (pos.isOk && !pos.value.isCheckmate()) {
                 sg.setPieces(
                   new Map([
@@ -49,7 +48,7 @@ $(function () {
                       key,
                       {
                         color: piece.color,
-                        role: util.promote('shogi')(piece.role),
+                        role: util.promote('standard')(piece.role),
                         promoted: true,
                       },
                     ],
