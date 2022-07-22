@@ -378,8 +378,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     stepwiseScroll((e: WheelEvent, scroll: boolean) => {
                       if (ctrl.gamebookPlay()) return;
                       const target = e.target as HTMLElement;
-                      if (target.tagName !== 'PIECE' && target.tagName !== 'SQ' && target.tagName !== 'SG-SQUARES')
-                        return;
+                      if (target.tagName !== 'SG-PIECES') return;
                       e.preventDefault();
                       if (e.deltaY > 0 && scroll) control.next(ctrl);
                       else if (e.deltaY < 0 && scroll) control.prev(ctrl);
