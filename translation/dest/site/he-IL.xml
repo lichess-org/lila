@@ -571,7 +571,7 @@
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על-ידי %s</string>
   <string name="importedByX">יובא ע\"י %s</string>
-  <string name="thisTopicIsNowClosed">הנושא סגור עכשיו</string>
+  <string name="thisTopicIsNowClosed">הנושא לא מקבל יותר תגובות.</string>
   <string name="blog">בלוג</string>
   <string name="notes">הערות</string>
   <string name="typePrivateNotesHere">הכנס הערות פרטיות כאן</string>
