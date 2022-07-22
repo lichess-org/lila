@@ -148,7 +148,7 @@ export interface PuzzleGame {
   };
   rated?: boolean;
   players?: [PuzzlePlayer, PuzzlePlayer];
-  usi?: string;
+  moves?: string;
   clock?: string;
   // From the outside
   sfen?: string;

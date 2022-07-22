@@ -52,9 +52,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function initiate(fromData: PuzzleData): void {
     data = fromData;
-
-    tree = data.game.usi
-      ? treeBuild(usiToTree(data.game.usi.split(' '), opts.pref.notation))
+    tree = data.game.moves
+      ? treeBuild(usiToTree(data.game.moves.split(' '), opts.pref.notation))
       : treeBuild(sfenToTree(data.game.sfen!));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play';
