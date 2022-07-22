@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Cờ qua thư và không giới hạn</string>
 	<string name="confirmResignationAndDrawOffers">Xác nhận đầu hàng và đề nghị hòa</string>
 	<string name="inputMovesWithTheKeyboard">Nhập các nước đi với bàn phím</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

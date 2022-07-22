@@ -3,9 +3,9 @@
 	<string name="faqAbbreviation">常見問題</string>
 	<string name="frequentlyAskedQuestions">常見問題</string>
 	<string name="whyIsLishogiCalledLishogi">為什麼叫做Lishogi呢?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="forkedFromLichess">Lishogi 是一個從 Lichess 分支出來的開源專案，但因為這個網站只專注於將棋，我們便稱他為 Lishogi。</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leechess">ㄌㄧ ㄒㄧㄡ ㄍㄧ</string>
 	<string name="whyLiveLightLibre">直播(live)，無時無刻都有人在下棋，而每一場棋局也都被觀賞。光明及自由(light and libre) 代表Lishogi是開源軟體及不被版權蟑螂影響。</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -27,7 +27,7 @@
 	<string name="howCanIBecomeModerator">我要如何成為一個仲裁者？</string>
 	<string name="youCannotApply">你無法主動申請成為一個仲裁者。如果我們看到我們認為有能力擔任仲裁者的人，我們會主動聯繫他們。</string>
 	<string name="isCorrespondenceDifferent">通訊賽和常規賽有差異嗎？</string>
-	<string name="youCanUseOpeningBookNoEngine">在Lishogi，兩者的最大的規則差異在通信賽可以使用開局庫。但電腦輔助一樣是禁止的，並一樣會被標記為電腦輔助的使用者。
+	<string name="youCanUseOpeningBookNoEngine">在Lishogi，兩者的最大的規則差異在通信賽可以使用序盤資料庫。但電腦輔助一樣是禁止的，並一樣會被標記為電腦輔助的使用者。
 即便在ICCF允許在通信賽中使用電腦輔助，但Lishogi不行。</string>
 	<string name="gameplay">下棋</string>
 	<string name="howBulletBlitzEtcDecided">Bullet、Blitz和其他模式的時限是怎麼決定的？</string>

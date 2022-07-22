@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
 	<string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
 	<string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Западная нотация</string>
 	<string name="japaneseNotation">Японская нотация</string>
 	<string name="kitaoKawasakiNotation">Китайская</string>

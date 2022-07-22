@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">通信戦と持ち時間無制限</string>
 	<string name="confirmResignationAndDrawOffers">投了と引き分け提案を確認する</string>
 	<string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">西洋表記</string>
 	<string name="japaneseNotation">日本表記</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki 形式</string>

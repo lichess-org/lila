@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
 	<string name="confirmResignationAndDrawOffers">Aufgabe und Remis-Angebote bestätigen</string>
 	<string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

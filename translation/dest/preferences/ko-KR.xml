@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">긴 대국과 무제한</string>
 	<string name="confirmResignationAndDrawOffers">기권 또는 무승부 제안시 물음</string>
 	<string name="inputMovesWithTheKeyboard">키보드 입력</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

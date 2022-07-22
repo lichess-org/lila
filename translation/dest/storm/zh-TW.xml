@@ -15,7 +15,7 @@
     <item quantity="other">Played %1$s runs of %2$s</item>
   </plurals>
   <string name="highscoreX">Highscore: %s</string>
-  <string name="score">評分</string>
+  <string name="score">分數</string>
   <string name="moves">走棋</string>
   <string name="accuracy">精準度</string>
   <string name="combo">Combo</string>

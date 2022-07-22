@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>
 	<string name="confirmResignationAndDrawOffers">אשר הצעות כניעה ותיקו</string>
 	<string name="inputMovesWithTheKeyboard">קלוט מהלכים באמצעות המקלדת</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

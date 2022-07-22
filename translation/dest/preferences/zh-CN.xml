@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">通信和无限</string>
 	<string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
 	<string name="inputMovesWithTheKeyboard">用键盘输入棋步</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">西式记谱法</string>
 	<string name="japaneseNotation">日式记谱法</string>
 	<string name="kitaoKawasakiNotation">北尾—川崎记谱法</string>

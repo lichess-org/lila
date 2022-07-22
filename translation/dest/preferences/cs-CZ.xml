@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Korespondeční a bez limitu</string>
 	<string name="confirmResignationAndDrawOffers">Potvrzovat rezignaci a nabídku remízy</string>
 	<string name="inputMovesWithTheKeyboard">Zadávání tahů pomocí klávesnice</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

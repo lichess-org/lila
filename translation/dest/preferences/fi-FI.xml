@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
 	<string name="confirmResignationAndDrawOffers">Vahvista luovutukset ja tasapelitarjoukset</string>
 	<string name="inputMovesWithTheKeyboard">Syötä siirtoja näppäimistöllä</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

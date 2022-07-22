@@ -9,7 +9,7 @@
   <string name="eventName">活動名稱</string>
   <string name="eventDescription">簡短活動說明</string>
   <string name="fullDescription">完整活動說明</string>
-  <string name="fullDescriptionHelp">實況內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
+  <string name="fullDescriptionHelp">實況內容的詳細描述。可以使用 %1$s，字數必須在%2$s字以下。</string>
   <string name="sourceUrl">來源網址</string>
   <string name="sourceUrlHelp">URL that Lishogi will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="roundNumber">回合數</string>

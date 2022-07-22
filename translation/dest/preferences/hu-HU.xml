@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Távjáték és korlátlan</string>
 	<string name="confirmResignationAndDrawOffers">Feladás és döntetlen kérelem megerősítése</string>
 	<string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

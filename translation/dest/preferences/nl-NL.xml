@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>
 	<string name="confirmResignationAndDrawOffers">Opgave en remise-aanbod bevestigen</string>
 	<string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">За листуванням та необмежені</string>
 	<string name="confirmResignationAndDrawOffers">Підтверджувати повернення ходу та пропозиції нічий</string>
 	<string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

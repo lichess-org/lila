@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Korrespondensie en onbeperkte</string>
 	<string name="confirmResignationAndDrawOffers">Bevestig oorgawe en gelykop voorstelle</string>
 	<string name="inputMovesWithTheKeyboard">Voer skuiwe in met sleutelbord</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

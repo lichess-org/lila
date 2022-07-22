@@ -6,7 +6,7 @@
   <string name="noAndYourNetworkIsBad">沒有，但是您的網路不穩</string>
   <string name="yesItWillBeFixedSoon">是的，我會盡快被修復!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">棋局因為以下條件而lag(這些數字越小越好):</string>
-  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatency">Lishogi 伺服器延遲</string>
   <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
   <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
   <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (United Kingdom), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>

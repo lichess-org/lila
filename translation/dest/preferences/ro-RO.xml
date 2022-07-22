@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
 	<string name="confirmResignationAndDrawOffers">Confirmă abandonarea și oferirea remizei</string>
 	<string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

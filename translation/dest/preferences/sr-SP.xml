@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>
 	<string name="confirmResignationAndDrawOffers">Потврда за предавање и предлагање ремија</string>
 	<string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

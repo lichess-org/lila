@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">Korrespondens och obegränsad</string>
 	<string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi-anbud</string>
 	<string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>

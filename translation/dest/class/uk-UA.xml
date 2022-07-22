@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="lishogiClasses">Класи</string>
+	<string name="teachClassesOfChessStudents">Вчи шьоґі зі знадобами Лішьоґі</string>
 	<string name="features">Можливості</string>
-	<string name="quicklyGenerateSafeUsernames">Швидко створюйте безпечні імена користувачів та паролі для учнів</string>
-	<string name="trackStudentProgress">Відстежуйте прогрес учнів у іграх та задачах</string>
-	<string name="messageAllStudents">Повідомляйте усіх учнів про нові навчальні матеріали</string>
-	<string name="freeForAllForever">Безкоштовно на 100% для всіх, назавжди, без реклам та стеження</string>
-	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="quicklyGenerateSafeUsernames">Швидко створи безпечні імена прізвиськ та ключів для учнів</string>
+	<string name="trackStudentProgress">Стеж поступи учнів в іграх і задачах</string>
+	<string name="messageAllStudents">Повідом всіх учнів про новий учбовий матеріял</string>
+	<string name="freeForAllForever">Повністю задарма: для всіх, назавжди, без реклам і стежачів</string>
+	<string name="applyToBeLishogiTeacher">Вдайся учителем Лішьоґі</string>
 	<string name="noClassesYet">Ще немає уроків.</string>
 	<string name="teachersX">Викладачі: %s</string>
 	<string name="newClass">Новий урок</string>
@@ -23,7 +23,7 @@
 	<string name="classDescription">Опис класу</string>
 	<string name="visibleByBothStudentsAndTeachers">Видимий як вчителям, так і учнями класу</string>
 	<string name="teachersOfTheClass">Вчителі класу</string>
-	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="addLishogiUsernames">Додай прізвиська Лішьоґі, аби запросити їх як учителів. Один на рядок.</string>
 	<string name="theyMustFirstApply">Спочатку вони мають стати вчителями Lishogi.</string>
 	<string name="resetPassword">Скинути пароль</string>
 	<string name="makeSureToCopy">Переконайтеся, що ви скопіювали або записали пароль. Ви не зможете побачити його знову!</string>
@@ -33,21 +33,21 @@
 	<string name="realName">Справжнє ім\'я</string>
 	<string name="privateWillNeverBeShown">Приватний. Ніколи не буде показуватися за межами класу. Допомагає згадати, хто цей учень.</string>
 	<string name="addStudent">Додати учня</string>
-	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="lishogiProfileXCreatedForY">Видок Лішьоґі %1$s створений для %2$s.</string>
 	<string name="studentCredentials">Учень:  %1$s
 Ім\'я користувача: %2$s
 Пароль: %3$s</string>
-	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteALishogiAccount">Запроси особівку Лішьоґі</string>
 	<string name="inviteDesc1">Якщо у учня вже є обліковий запис Lishogi, ви можете запросити його до класу.</string>
 	<string name="inviteDesc2">Вони отримають повідомлення на Lishogi з посиланням, щоб приєднатися до класу.</string>
 	<string name="inviteDesc3">Важливо: запрошуйте лише учнів, яких ви знаєте і які активно хочуть приєднатися до класу.</string>
 	<string name="inviteDesc4">Ніколи не надсилати небажані запрошення довільним гравцям.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createANewLishogiAccount">Створи нову особівку Лішьоґі</string>
 	<string name="createDesc1">Якщо учень ще не має облікового запису Lishogi, його можна створити тут.</string>
 	<string name="createDesc2">Не потрібна електронна адреса. Пароль буде згенерований і Вам доведеться відправити його учневі, так що вони можуть увійти в систему.</string>
 	<string name="createDesc3">Важливо: учень не повинен мати кілька облікових записів.</string>
 	<string name="createDesc4">Якщо у них вже є такий, натомість використовуйте форму запрошення.</string>
-	<string name="lishogiUsername">Lishogi username</string>
+	<string name="lishogiUsername">Прізвисько Лішьоґі</string>
 	<string name="generateANewUsername">Створити нове ім\'я користувача</string>
 	<string name="welcomeToClass">Ласкаво просимо до вашого класу: %s.
 Ось посилання для доступу до класу.</string>

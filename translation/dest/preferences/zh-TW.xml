@@ -36,6 +36,7 @@
 	<string name="correspondenceAndUnlimited">通信和無限</string>
 	<string name="confirmResignationAndDrawOffers">確認投降或和局請求</string>
 	<string name="inputMovesWithTheKeyboard">使用鍵盤輸入棋步</string>
+	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
 	<string name="westernNotation">西洋記法</string>
 	<string name="japaneseNotation">日本記法</string>
 	<string name="kitaoKawasakiNotation">北尾-川崎記法</string>

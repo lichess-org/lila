@@ -2,13 +2,13 @@
 <resources>
   <string name="advantage">優勢</string>
   <string name="advantageDescription">把握機會取得優勢！</string>
-  <string name="castling">Castling</string>
+  <string name="castling">圍玉</string>
   <string name="castlingDescription">Bring the king to safety.</string>
   <string name="crushing">逆轉</string>
   <string name="crushingDescription">察覺對方的惡手並取得極大優勢。</string>
-  <string name="equality">Equality</string>
-  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position.</string>
-  <string name="defensiveMove">Defensive move</string>
+  <string name="equality">互角</string>
+  <string name="equalityDescription">從劣勢局面挽回或保持雙方勢力的均衡。</string>
+  <string name="defensiveMove">防守</string>
   <string name="defensiveMoveDescription">A precise move or sequence of moves that is needed to avoid losing material or another advantage.</string>
   <string name="deflection">Deflection</string>
   <string name="deflectionDescription">A move that distracts an opponent piece from another duty that it performs, such as guarding a key square. Sometimes also called \"overloading\".</string>
@@ -20,7 +20,7 @@
   <string name="endgameDescription">棋局最後階段時使用的戰術</string>
   <string name="fork">抓雙</string>
   <string name="forkDescription">A move where the moved piece attacks two opponent pieces at once.</string>
-  <string name="hangingPiece">Hanging piece</string>
+  <string name="hangingPiece">浮駒</string>
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended or insufficiently defended and free to capture.</string>
   <string name="long">長手數詰</string>
   <string name="longDescription">五步獲勝</string>
@@ -60,10 +60,10 @@
   <string name="healthyMixDescription">這裡面甚麼類型的題目都有，而且你無法預知。準備好，如同一般對局一樣解題！</string>
   <string name="tsume">詰將棋</string>
   <string name="tsumeDescription">你的目標是將死你的對手。每一手都必須為王手。</string>
-  <string name="strikingPawn">Striking pawn</string>
-  <string name="strikingPawnDescription">A tactitc involving dropping a pawn in front of opponent\'s piece and attacking it.</string>
-  <string name="joiningPawn">Joining pawn</string>
-  <string name="joiningPawnDescription">A tactic in which a pawn is sacrificially dropped in front of opponent\'s piece.</string>
+  <string name="strikingPawn">叩擊歩</string>
+  <string name="strikingPawnDescription">在對方步兵以外的棋駒前打入步兵以進行施壓的手筋</string>
+  <string name="joiningPawn">繼步</string>
+  <string name="joiningPawnDescription">在對方的步兵前方打入步兵犧牲，再打入一枚步兵的進攻手筋。</string>
   <string name="dancingPawns">跳舞的步兵</string>
   <string name="dancingPawnsDescription">A tactic to capture opponent\'s gold with sacrificing a pawn.</string>
   <string name="edgeAttack">端攻</string>

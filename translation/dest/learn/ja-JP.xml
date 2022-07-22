@@ -11,7 +11,7 @@
 	<string name="theIntroduction">はじめに</string>
 	<string name="introBasics">基本を学びましょう</string>
 	<string name="introIntro">あなたの旅はここから始まります。</string>
-	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
+	<string name="clickHereAfterYouveChosen">好きなピースデザインを選択したら、ここをクリックしてください。</string>
 	<string name="choosePieceDesign">駒の区別がつくことが大切なので、自分が気に入った駒のデザインを選択しましょう。そのために右上にある歯車かユーザ名をクリックし、そこから「駒のデザイン」をクリックします。</string>
 	<string name="promotionZone">いくつかの駒は相手の陣地 3 列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
 	<string name="senteGoesFirst">将棋では最初に指す人を先手と呼び、次に指す人を後手と呼びます。先手は黒で、後手は白で表されることがあります。続けるには先手として好きな手を指してください。</string>
