@@ -34,7 +34,7 @@ export function renderIndexText(ply: Ply, offset?: number, withDots?: boolean): 
 }
 
 export function renderIndex(ply: Ply, offset?: number, withDots?: boolean): VNode {
-  return h('index', renderIndexText(ply, offset, withDots));
+  return h(`index.sbhint${ply}`, renderIndexText(ply, offset, withDots));
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] {
