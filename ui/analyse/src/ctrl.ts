@@ -943,9 +943,7 @@ export default class AnalyseCtrl {
   };
 
   private saveDbState(): void {
-    if (!this.saveMoves() || !this.isDirty) return;
-
-    if (defined(this.moveDb)) {
+    if (defined(this.moveDb) && this.saveMoves() && this.isDirty) {
       this.moveDb.put(this.data.game.id, {
         root: this.tree.root,
         path: this.path,
