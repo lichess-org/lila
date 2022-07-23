@@ -111,10 +111,10 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
 }
 
 export function usiToNotation(ctx: Ctx, node: Tree.Node, parentPath: Tree.Path, text: string): string {
-  const matches = text.match(/\[usi:(\d*)\.?(\d\w\d\w)\]/g);
+  const matches = text.match(/\[usi:(\d*)\.?((?:\d\w|\w\*)\d\w(?:\+|=)?)\]/g);
   if (matches?.length) {
     for (const mText of matches) {
-      const match = mText.match(/usi:(\d*)\.?(\d\w\d\w)/);
+      const match = mText.match(/usi:(\d*)\.?((?:\d\w|\w\*)\d\w(?:\+|=)?)/);
       if (match) {
         // the default is that the move is played after this node
         const plyCutoff = node.ply - (parseInt(match[1]) || node.ply),
