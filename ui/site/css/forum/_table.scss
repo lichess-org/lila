@@ -10,7 +10,7 @@
 
     @include breakpoint($mq-small) {
       display: table-cell;
-      text-align: $end-direction;
+      text-align: right;
       padding-#{$end-direction}: 2em;
     }
   }
@@ -45,12 +45,6 @@
 
     .subject {
       font-size: 1.2em;
-    }
-
-    .replies {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.5em;
     }
 
     th:nth-child(2) {

@@ -56,12 +56,7 @@ object categ {
         td(cls := "subject")(
           a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name)
         ),
-        td(cls := "right")(
-          if (topic.topic.closed)
-            div(cls := "replies", dataIcon := "\uE054")(topic.nbReplies.localize)
-          else
-            topic.nbReplies.localize
-        ),
+        td(cls := "right")(topic.nbReplies.localize),
         td(
           topic.lastPost.map { post =>
             frag(
