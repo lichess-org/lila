@@ -15,7 +15,7 @@ export function main(ctrl: RoundController): VNode {
     : h(
         'div.round__app.variant-' + d.game.variant.key,
         {
-          class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
+          class: { 'move-confirm': !!ctrl.usiToSubmit },
         },
         [
           h(

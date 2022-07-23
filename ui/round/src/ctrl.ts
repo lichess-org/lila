@@ -29,12 +29,11 @@ import {
   ApiMove,
   ApiEnd,
   Redraw,
-  SocketMove,
-  SocketDrop,
   SocketOpts,
   MoveMetadata,
   Position,
   NvuiPlugin,
+  SocketUsi,
 } from './interfaces';
 import { makeNotation, makeNotationLine } from 'common/notation';
 import { isDrop, Role, Piece } from 'shogiops/types';
@@ -71,8 +70,7 @@ export default class RoundController {
   redirecting: boolean = false;
   impasseHelp: boolean = false;
   transientMove: TransientMove;
-  moveToSubmit?: SocketMove;
-  dropToSubmit?: SocketDrop;
+  usiToSubmit?: SocketUsi;
   goneBerserk: GoneBerserk = {};
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
@@ -235,7 +233,7 @@ export default class RoundController {
       splitSfen = s.sfen.split(' '),
       config: SgConfig = {
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
-        lastDests: (s.usi ? usiToSquareNames(s.usi) : []) as Key[],
+        lastDests: s.usi ? (usiToSquareNames(s.usi) as Key[]) : undefined,
         check: !!s.check,
         turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
         activeColor: this.isPlaying() ? this.data.player.color : undefined,
@@ -308,14 +306,14 @@ export default class RoundController {
   };
 
   sendMove = (orig: sg.Key, dest: sg.Key, prom: boolean, meta: sg.MoveMetadata) => {
-    const move: SocketMove = {
+    const move: SocketUsi = {
       u: orig + dest,
     };
     if (prom) move.u += '+';
     if (blur.get()) move.b = 1;
     this.resign(false);
     if (this.data.pref.submitMove && !meta.premade) {
-      this.moveToSubmit = move;
+      this.usiToSubmit = move;
       this.redraw();
     } else {
       this.sendUsi(move, meta);
@@ -323,13 +321,13 @@ export default class RoundController {
   };
 
   sendDrop = (role: Role, key: sg.Key, meta: sg.MoveMetadata): void => {
-    const drop: SocketDrop = {
+    const drop: SocketUsi = {
       u: roleToString(role).toUpperCase() + '*' + key,
     };
     if (blur.get()) drop.b = 1;
     this.resign(false);
     if (this.data.pref.submitMove && !meta.premade) {
-      this.dropToSubmit = drop;
+      this.usiToSubmit = drop;
       this.redraw();
     } else {
       this.sendUsi(drop, meta);
@@ -621,19 +619,15 @@ export default class RoundController {
   };
 
   submitMove = (v: boolean): void => {
-    const toSubmit = this.moveToSubmit || this.dropToSubmit;
-    if (v && toSubmit) {
-      if (this.moveToSubmit) this.sendUsi(this.moveToSubmit);
-      else this.sendUsi(this.dropToSubmit);
-      //li.sound.confirmation();
-    } else this.jump(this.ply);
+    const toSubmit = this.usiToSubmit;
+    if (v && this.usiToSubmit) this.sendUsi(this.usiToSubmit);
+    else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
   };
 
   cancelMove = (): void => {
-    this.moveToSubmit = undefined;
-    this.dropToSubmit = undefined;
+    this.usiToSubmit = undefined;
   };
 
   private onChange = () => {

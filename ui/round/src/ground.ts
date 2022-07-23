@@ -20,7 +20,7 @@ export function makeConfig(ctrl: RoundController): Config {
     orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'sente' : 'gote',
     activeColor: playing ? data.player.color : undefined,
-    lastDests: (step.usi ? usiToSquareNames(step.usi) : []) as Key[],
+    lastDests: step.usi ? (usiToSquareNames(step.usi) as Key[]) : undefined,
     check: !!step.check,
     coordinates: {
       enabled: data.pref.coords !== 0,

@@ -23,11 +23,7 @@ export interface SocketOpts {
   millis?: number;
 }
 
-export interface SocketMove {
-  u: Usi;
-  b?: 1;
-}
-export interface SocketDrop {
+export interface SocketUsi {
   u: Usi;
   b?: 1;
 }
