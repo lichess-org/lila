@@ -82,6 +82,7 @@ export default class AnalyseCtrl {
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
+  isDirty = false; // if isDirty show reset button to erase local move storage
 
   // display flags
   flipped = false;
@@ -91,6 +92,7 @@ export default class AnalyseCtrl {
   showGauge = storedBooleanProp('show-gauge', true);
   showComputer = storedBooleanProp('show-computer', true);
   showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
+  saveMovesProp = storedBooleanProp('save-moves-local-db', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -114,7 +116,6 @@ export default class AnalyseCtrl {
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
   stateDb?: ObjectStorage<AnalyseState>;
-  isDirty = false;
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
     this.data = opts.data;
@@ -922,39 +923,55 @@ export default class AnalyseCtrl {
     return undefined;
   };
 
-  hardReset = (): void => {
-    if (this.stateDb && this.isDirty) {
+  saveMoves = (switchVal?: boolean): boolean => {
+    if (!defined(switchVal)) {
+      return defined(this.stateDb) && this.saveMovesProp();
+    } else {
+      this.saveMovesProp(switchVal);
+      switchVal ? this.saveDbState() : this.hardReset(true);
+      return switchVal;
+    }
+  };
+
+  hardReset = (force = false): void => {
+    if (defined(this.stateDb) && (force || this.isDirty)) {
       this.stateDb.remove(this.data.game.id);
       window.location.reload();
     }
   };
 
   private saveDbState(): void {
-    if (this.stateDb) {
-      if (!this.isDirty) this.isDirty = this.path != this.initialPath;
-      this.stateDb.put(this.data.game.id, {
-        root: this.tree.root,
-        path: this.path,
-        flipped: this.flipped,
-      });
-    }
+    if (!this.saveMoves()) return;
+
+    if (!this.isDirty) this.isDirty = this.path != this.initialPath;
+
+    this.stateDb!.put(this.data.game.id, {
+      // ! spurious TS2532
+      root: this.tree.root,
+      path: this.path,
+      flipped: this.flipped,
+    });
   }
 
   private async mergeDbState(): Promise<void> {
-    if (this.study || this.practice) return;
+    if (defined(this.study) || this.synthetic || this.embed) return;
     try {
       const store = await objectStorage<AnalyseState>('analyse-state');
       const state = await store.get(this.data.game.id);
-      if (state && state.root) {
-        this.tree.merge(state.root);
-        this.isDirty = true;
-        this.jump(state.path);
-        if (state.flipped) this.flip();
-        else this.redraw();
+      if (defined(state)) {
+        if (!this.saveMovesProp()) {
+          store.remove(this.data.game.id);
+        } else {
+          this.tree.merge(state.root);
+          this.isDirty = true;
+          this.jump(state.path);
+          if (state.flipped) this.flip();
+        }
       }
-      this.stateDb = store; // wake up saveDbState
+      this.stateDb = store;
+      this.redraw();
     } catch (e) {
-      console.log(e);
+      console.log(`IDB unavailable due to security settings or quota: ${e}`);
     }
   }
 }

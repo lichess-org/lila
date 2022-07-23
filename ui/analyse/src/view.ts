@@ -300,15 +300,15 @@ function controls(ctrl: AnalyseCtrl) {
         jumpButton(iconNext, 'next', canJumpNext),
         jumpButton(iconLast, 'last', canJumpNext),
       ]),
-      !ctrl.study
+      !defined(ctrl.study)
         ? h('button.fbt', {
             attrs: {
-              title: 'Clear saved moves',
+              title: noarg('clearSavedMoves'),
               'data-act': 'reset',
               'data-icon': '',
             },
             class: {
-              visibilty: !!ctrl.stateDb,
+              invisible: !ctrl.saveMoves(),
               disabled: !ctrl.isDirty,
             },
           })

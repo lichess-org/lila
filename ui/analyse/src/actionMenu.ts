@@ -1,4 +1,4 @@
-import { isEmpty } from 'common';
+import { isEmpty, defined } from 'common';
 import modal from 'common/modal';
 import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
@@ -393,10 +393,29 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ),
   ];
 
+  const moveCacheConfig = [
+    defined(ctrl.stateDb)
+      ? ctrlToggle(
+          {
+            name: noarg('saveMovesInBrowserCache'),
+            title: noarg('saveMovesInBrowserCacheHelp'),
+            id: 'cache',
+            checked: ctrl.saveMoves(),
+            change(v) {
+              ctrl.saveMoves(v);
+              ctrl.actionMenu.toggle();
+            },
+          },
+          ctrl
+        )
+      : null,
+  ];
+
   return h(
     'div.action-menu',
     tools
       .concat(notationConfig)
+      .concat(moveCacheConfig)
       .concat(cevalConfig)
       .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
       .concat([
