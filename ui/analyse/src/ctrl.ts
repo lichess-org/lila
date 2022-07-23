@@ -36,7 +36,7 @@ import { Outcome, Piece } from 'shogiops/types';
 import { parseSfen } from 'shogiops/sfen';
 import { Position, PositionError } from 'shogiops/shogi';
 import { Result } from '@badrap/result';
-import { makeNotation, Notation } from 'common/notation';
+import { makeNotation } from 'common/notation';
 import { Shogiground } from 'shogiground';
 import { makeConfig } from './ground';
 
@@ -190,7 +190,7 @@ export default class AnalyseCtrl {
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
-    this.initNotation(data.pref.notation, data.game.variant.key);
+    this.initNotation();
 
     this.actionMenu = new ActionMenuCtrl();
     this.autoplay = new Autoplay(this);
@@ -569,7 +569,9 @@ export default class AnalyseCtrl {
     this.shogiground.setAutoShapes(computeAutoShapes(this));
   };
 
-  private initNotation = (notation: Notation, variant: VariantKey): void => {
+  private initNotation = (): void => {
+    const notation = this.data.pref.notation,
+      variant = this.data.game.variant.key;
     function update(node: Tree.Node, prev?: Tree.Node) {
       if (prev && node.usi && !node.notation)
         node.notation = makeNotation(notation, prev.sfen, variant, node.usi, prev.usi);
@@ -763,6 +765,7 @@ export default class AnalyseCtrl {
   mergeAnalysisData(data: ServerEvalData): void {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
+    this.initNotation();
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
     if (data.analysis)
@@ -814,6 +817,7 @@ export default class AnalyseCtrl {
       variant: this.data.game.variant.key,
       canGet: () => this.canEvalGet(),
       canPut: () =>
+        this.ceval?.cachable &&
         this.data.evalPut &&
         this.canEvalGet() &&
         // if not in study, only put decent opening moves
