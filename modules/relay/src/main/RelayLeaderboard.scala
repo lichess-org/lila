@@ -49,25 +49,31 @@ final class RelayLeaderboardApi(
     tour     <- tourRepo.coll.byId[RelayTour, RelayTour.Id](id) orFail s"No such relay tour $id"
     roundIds <- roundRepo.idsByTourOrdered(tour)
     tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.studyId))
-    players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int])]) { case (lead, game: Tags) =>
-      chess.Color.all.foldLeft(lead) { case (lead, color) =>
-        game(color.name).fold(lead) { name =>
-          val (score, played) = game.resultColor.fold((0d, 0)) {
-            case None                            => (0.5, 1)
-            case Some(winner) if winner == color => (1d, 1)
-            case _                               => (0d, 1)
-          }
-          val rating = game(s"${color}Elo").flatMap(_.toIntOption)
-          lead.getOrElse(name, (0d, 0, none)) match {
-            case (prevScore, prevPlayed, prevRating) =>
-              lead.updated(name, (prevScore + score, prevPlayed + played, rating orElse prevRating))
+    players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int], Option[String])]) {
+      case (lead, game: Tags) =>
+        chess.Color.all.foldLeft(lead) { case (lead, color) =>
+          game(color.name).fold(lead) { name =>
+            val (score, played) = game.resultColor.fold((0d, 0)) {
+              case None                            => (0.5, 1)
+              case Some(winner) if winner == color => (1d, 1)
+              case _                               => (0d, 1)
+            }
+            val rating = game(s"${color}Elo").flatMap(_.toIntOption)
+            val title  = game(s"${color}Title")
+            lead.getOrElse(name, (0d, 0, none, none)) match {
+              case (prevScore, prevPlayed, prevRating, prevTitle) =>
+                lead.updated(
+                  name,
+                  (prevScore + score, prevPlayed + played, rating orElse prevRating, title orElse prevTitle)
+                )
+            }
           }
         }
-      }
     }
   } yield RelayLeaderboard {
-    players.toList.sortBy(-_._2._1) map { case (name, (score, played, rating)) =>
-      RelayLeaderboard.Player(name, score, played, rating)
+    players.toList.sortBy(-_._2._1) map { case (name, (score, played, rating, title)) =>
+      val fullName = title.fold(name)(t => s"$t $name")
+      RelayLeaderboard.Player(fullName, score, played, rating)
     }
   }
 }
