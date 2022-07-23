@@ -775,7 +775,7 @@ final class TournamentApi(
     }
 
   private object publish {
-    private val debouncer = new Debouncer[Unit](scheduler, 15 seconds, 1)(_ => {
+    private val debouncer = new Debouncer[Unit](15 seconds, 1)(_ => {
       implicit val lang = lila.i18n.defaultLang
       fetchUpdateTournaments flatMap apiJsonView.apply foreach { json =>
         Bus.publish(

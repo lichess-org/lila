@@ -5,10 +5,11 @@ import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration._
 import scala.jdk.CollectionConverters._
 
-final class Debouncer[Id](scheduler: Scheduler, duration: FiniteDuration, initialCapacity: Int = 64)(
+final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     f: Id => Unit
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler
 ) {
   import Debouncer._
 
