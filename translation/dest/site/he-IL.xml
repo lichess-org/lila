@@ -184,7 +184,7 @@
   <string name="today">היום</string>
   <string name="yesterday">אתמול</string>
   <string name="minutesPerSide">דקות עבור כל צד</string>
-  <string name="variant">גרסא</string>
+  <string name="variant">גרסה</string>
   <string name="variants">גרסאות</string>
   <string name="timeControl">קטגוריית זמן</string>
   <string name="realTime">זמן אמת</string>
@@ -274,8 +274,8 @@
   <string name="rematch">משחק חוזר</string>
   <string name="rematchOfferSent">הצעה למשחק חוזר נשלחה</string>
   <string name="rematchOfferAccepted">הצעה למשחק חוזר התקבלה</string>
-  <string name="rematchOfferCanceled">בקשת משחק חוזר בוטלה</string>
-  <string name="rematchOfferDeclined">בקשת משחק חוזר נדחתה</string>
+  <string name="rematchOfferCanceled">בקשה למשחק חוזר בוטלה</string>
+  <string name="rematchOfferDeclined">בקשה למשחק חוזר נדחתה</string>
   <string name="cancelRematchOffer">בטל הצעה למשחק חוזר</string>
   <string name="viewRematch">צפה במשחק החוזר</string>
   <string name="confirmMove">אשר מהלך</string>
@@ -918,7 +918,7 @@
   <string name="resVsX">%1$s נגד %2$s</string>
   <string name="someoneReviewedYourCoachProfile">מישהו דירג את פרופיל המאמן שלך.</string>
   <string name="newPendingReview">דירוג ממתין חדש</string>
-  <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תקנון השימוש בליצ\'ס</string>
+  <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תנאי השימוש בליצ\'ס</string>
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
   <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
