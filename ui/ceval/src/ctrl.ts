@@ -356,7 +356,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     longEngineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
-    cachable: technology == 'nnue' || technology == 'hce',
+    cachable: technology == 'nnue' || (opts.variant.key !== 'standard' && technology == 'hce'),
     analysable,
   };
 }
