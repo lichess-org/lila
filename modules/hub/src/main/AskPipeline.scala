@@ -9,7 +9,7 @@ import scala.concurrent.{ ExecutionContext, Promise }
  * and only enqueues one.
  */
 final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: String)(implicit
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     ec: scala.concurrent.ExecutionContext
 ) extends SyncActor {
 
@@ -76,7 +76,7 @@ final class AskPipelines[K, R](
     name: String
 )(implicit
     ec: ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   def apply(key: K): Fu[R] = pipelines.get(key).get

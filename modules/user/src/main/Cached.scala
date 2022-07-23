@@ -17,7 +17,7 @@ final class Cached(
     rankingApi: RankingApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   implicit private val LightUserBSONHandler  = Macros.handler[LightUser]

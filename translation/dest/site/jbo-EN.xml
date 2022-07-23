@@ -44,6 +44,8 @@
   <string name="blackResigned">la xekri pu randa</string>
   <string name="whiteLeftTheGame">la blabi co\'u cliva lo nunjvi</string>
   <string name="blackLeftTheGame">la xekri co\'u cliva lo nunjvi</string>
+  <string name="whiteDidntMove">lo se caxmati na zukte</string>
+  <string name="blackDidntMove">lo te caxmati na zukte</string>
   <string name="requestAComputerAnalysis">gau ku lo skami cu lanli</string>
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
   <string name="computerAnalysisAvailable">pu se lanli lo skami</string>
@@ -105,6 +107,15 @@
   <string name="blunder">lo nu srera sai</string>
   <string name="mistake">lo nu srera na\'oi</string>
   <string name="inaccuracy">lo nu srera ru\'e</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s roi srera sai</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s roi srera na\'oi</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s roi srera ru\'e</item>
+  </plurals>
   <string name="moveTimes">lo kelka\'u ditcu</string>
   <string name="flipBoard">gapnifagau lo plita</string>
   <string name="threefoldRepetition">lo nu su\'o kelka\'u porsi xoi lamporsixu su\'o ci roi fasnu</string>
@@ -114,6 +125,7 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s jvikei</item>
   </plurals>
+  <string name="drawByMutualAgreement">simnalpro lo ka norji\'a</string>
   <string name="currentGames">lo cabna nunjvi</string>
   <plurals name="nbGames">
     <item quantity="other">%s pu se ci\'erkei</item>

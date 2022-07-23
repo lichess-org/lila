@@ -31,7 +31,7 @@ final class Env(
     gameRepo: lila.game.GameRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)

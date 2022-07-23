@@ -10,14 +10,14 @@ final class AutoAnalysis(
     fishnet: lila.hub.actors.Fishnet
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   def apply(candidate: Report.Candidate): Funit =
     if (candidate.isCheat) doItNow(candidate)
     else if (candidate.isPrint) fuccess {
       List(30, 90) foreach { minutes =>
-        system.scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
+        scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
       }
     }
     else funit

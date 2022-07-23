@@ -1,0 +1,52 @@
+.replay {
+  @extend %box-neat-force;
+  background: $c-bg-zebra;
+
+  &__board,
+  &__menu {
+    @extend %square;
+
+    .cg-wrap {
+      @extend %abs-100;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+
+    .fbt {
+      flex: 1 1 auto;
+      padding: 0.4em 0.7em;
+      border-left: $border;
+      &:first-child {
+        border: none;
+      }
+    }
+
+    &__menu.fbt {
+      flex: 0 1 auto;
+    }
+  }
+
+  &__menu {
+    outline: $border;
+    &__inner {
+      @extend %flex-column;
+      padding-top: 2em;
+    }
+    &__entry.fbt {
+      text-align: $start-direction;
+      padding: 0.8em 2.5em;
+      transition: none;
+      &::before {
+        color: $c-good;
+        font-size: 2em;
+      }
+      &:hover::before {
+        color: $c-good-over;
+      }
+    }
+  }
+}

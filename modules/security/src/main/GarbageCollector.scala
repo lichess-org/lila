@@ -16,7 +16,7 @@ final class GarbageCollector(
     isArmed: () => Boolean
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private val logger = lila.security.logger.branch("GarbageCollector")
@@ -31,7 +31,7 @@ final class GarbageCollector(
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
       val ip = HTTPRequest ipAddress req
-      system.scheduler
+      scheduler
         .scheduleOnce(6 seconds) {
           val applyData = ApplyData(user, ip, email, req)
           logger.debug(s"delay $applyData")
@@ -110,11 +110,7 @@ final class GarbageCollector(
         irc.garbageCollector(message) >>- {
           if (armed) {
             doInitialSb(user)
-            system.scheduler
-              .scheduleOnce(wait) {
-                doCollect(user)
-              }
-              .unit
+            scheduler.scheduleOnce(wait) { doCollect(user) }.unit
           }
         }
     }

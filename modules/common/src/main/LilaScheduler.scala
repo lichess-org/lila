@@ -12,7 +12,7 @@ object LilaScheduler {
       every: config.type => config.Every,
       timeout: config.type => config.AtMost,
       initialDelay: config.type => config.Delay
-  )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem): Unit = {
+  )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler): Unit = {
 
     val run = () => f
 
@@ -20,11 +20,11 @@ object LilaScheduler {
       run()
         .withTimeout(timeout(config).value)
         .addEffectAnyway {
-          system.scheduler.scheduleOnce(every(config).value) { runAndScheduleNext() }.unit
+          scheduler.scheduleOnce(every(config).value) { runAndScheduleNext() }.unit
         }
         .unit
 
-    system.scheduler
+    scheduler
       .scheduleOnce(initialDelay(config).value) {
         runAndScheduleNext()
       }

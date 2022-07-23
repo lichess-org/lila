@@ -29,7 +29,7 @@ Ti servono entrambi!</string>
   <string name="queenComplete">Congratulazioni! La donna non ha segreti per te.</string>
   <string name="theKing">Il re</string>
   <string name="theMostImportantPiece">Il pezzo più importante</string>
-  <string name="kingIntro">Tu sei il re. Se cadi in battaglia la partita è perduta.</string>
+  <string name="kingIntro">Tu sei il re. Se cadi in battaglia la partita è persa.</string>
   <string name="theKingIsSlow">Il re è lento.</string>
   <string name="lastOne">L\'ultimo!</string>
   <string name="kingComplete">Ora puoi comandare il comandante!</string>

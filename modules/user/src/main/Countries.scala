@@ -282,7 +282,8 @@ object Countries {
     C("_rainbow", "Rainbow"),
     C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
-    C("_earth", "Earth")
+    C("_earth", "Earth"),
+    C("_transgender", "Transgender")
   )
 
   val allPairs = all map { c =>
@@ -308,7 +309,8 @@ object Countries {
     "_pirate",
     "_rainbow",
     "_united-nations",
-    "_earth"
+    "_earth",
+    "_transgender"
   )
 
   def info(code: String): Option[Country] = map get code

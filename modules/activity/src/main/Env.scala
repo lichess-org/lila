@@ -1,6 +1,5 @@
 package lila.activity
 
-import akka.actor._
 import com.softwaremill.macwire._
 import com.softwaremill.tagging._
 import scala.concurrent.duration._
@@ -20,10 +19,11 @@ final class Env(
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName,
+    teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private lazy val coll = db(CollName("activity2")).failingSilently()
@@ -74,7 +74,7 @@ final class Env(
     case lila.hub.actorApi.relation.Follow(from, to)      => write.follow(from, to).unit
     case lila.study.actorApi.StartStudy(id)               =>
       // wait some time in case the study turns private
-      system.scheduler.scheduleOnce(5 minutes) { write.study(id).unit }.unit
+      scheduler.scheduleOnce(5 minutes) { write.study(id).unit }.unit
     case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId).unit
     case lila.hub.actorApi.team.JoinTeam(id, userId)      => write.team(id, userId).unit
     case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId).unit

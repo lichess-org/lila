@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.jdk.CollectionConverters._
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ ActorRef, ActorSystem, Scheduler }
 
 object Bus {
 
@@ -47,7 +47,7 @@ object Bus {
 
   def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(implicit
       ec: scala.concurrent.ExecutionContext,
-      system: ActorSystem
+      scheduler: Scheduler
   ): Fu[A] = {
     val promise = Promise[A]()
     val msg     = makeMsg(promise)
@@ -56,7 +56,7 @@ object Bus {
       .withTimeout(
         timeout,
         Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
-      )
+      )(ec, scheduler)
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
   }
 

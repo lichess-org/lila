@@ -90,6 +90,7 @@ final class Env(
     val controllerComponents: ControllerComponents
 )(implicit
     val system: ActorSystem,
+    val scheduler: akka.actor.Scheduler,
     val executionContext: ExecutionContext,
     val mode: play.api.Mode
 ) {
@@ -150,8 +151,6 @@ final class Env(
       lila.log("preloader").warn("daily puzzle", e)
       none
     }
-
-  def scheduler = system.scheduler
 
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
 }

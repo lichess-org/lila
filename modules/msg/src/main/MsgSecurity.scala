@@ -24,7 +24,7 @@ final private class MsgSecurity(
     chatPanic: lila.chat.ChatPanic
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   import BsonHandlers._

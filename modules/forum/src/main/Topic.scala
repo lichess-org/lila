@@ -41,7 +41,8 @@ case class Topic(
 
   def isTooBig = nbPosts > (if (Categ.isTeamSlug(categId)) 500 else 50)
 
-  def looksLikeTeamForum = Categ.isTeamSlug(categId)
+  def looksLikeTeamForum = Categ isTeamSlug categId
+  def possibleTeamId     = Categ slugToTeamId categId
 
   def isSticky = ~sticky
 

@@ -18,7 +18,7 @@ object show {
       title = us.practiceStudy.name,
       moreCss = cssTag("analyse.practice"),
       moreJs = frag(
-        analyseTag,
+        analyseStudyTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.practice=${safeJsonValue(
             Json.obj(

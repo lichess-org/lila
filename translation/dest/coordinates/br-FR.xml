@@ -8,6 +8,7 @@
   <string name="mostChessCourses">Darn vrasañ eus ar c\'hentelioù ha poelladennoù a ra gant an notadur aljebrek.</string>
   <string name="talkToYourChessFriends">Aesoc\'h e vo deoc\'h kaozeal gant ho mignoned peogwir e veoc\'h gouest da gomz \"yezh an echedoù\" asambles gante.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Efedusoc\'h eo an dielfennañ pa ouzer diouzhtu pelec\'h emaomp war an dachenn emgann.</string>
-  <string name="aSquareNameAppears">Un daveenn a zeuy war wel ha deoc\'h-c\'hwi da glikañ war ar garrezenn a glot ganti. 30 eilenn ho po evit adkavout ar muiañ a garrezennoù ma c\'hallit!</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Un daveenn a zifoup war an dablez hag e rankit klikañ war ar garezenn.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Lakaet \'vez liv war ur garrezenn war an dablez hag e rankit skrivañ he daveennoù (sk \"e4).</string>
   <string name="startTraining">Kregiñ ganti</string>
 </resources>

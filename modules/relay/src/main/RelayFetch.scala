@@ -28,7 +28,7 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
-)(implicit context: ExecutionContext, system: ActorSystem) {
+)(implicit context: ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   LilaScheduler(_.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
     syncRelays(official = true)

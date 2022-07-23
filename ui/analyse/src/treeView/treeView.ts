@@ -90,6 +90,9 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeCla
     inaccuracy: glyphIds.includes(6),
     mistake: glyphIds.includes(2),
     blunder: glyphIds.includes(4),
+    good: glyphIds.includes(1),
+    brilliant: glyphIds.includes(3),
+    interesting: glyphIds.includes(5),
   };
 }
 

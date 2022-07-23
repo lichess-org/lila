@@ -76,11 +76,11 @@
   <string name="startingSoon">Басталуға әзір</string>
   <string name="comparison">Салыстырма</string>
   <string name="tournDuration">Жарыс ұзақтығы</string>
-  <string name="predefinedDuration">Белгіленген ұзақтығы, минутпен</string>
-  <string name="durationUnknown">Айналымдардың белгіленген саны, бірақ ұзақтығы беймәлім</string>
+  <string name="predefinedDuration">Ұзақтығы белгіленген (минутпен)</string>
+  <string name="durationUnknown">Айналымдар саны белгіленген, бірақ ұзақтығы беймәлім</string>
   <string name="numberOfGames">Ойын саны</string>
   <string name="numberOfGamesAsManyAsPossible">Ұзақтығымен шектелген барынша көп</string>
-  <string name="numberOfGamesPreDefined">Алдын-ала келісіп белгіленген, барлық ойыншыларда бірдей</string>
+  <string name="numberOfGamesPreDefined">Алдын-ала келісіп белгіленген, барлық ойыншыларға бірдей</string>
   <string name="pairingSystem">Жұптау жүйесі</string>
   <string name="pairingSystemArena">Дәрежесі шамалас кез-келген қарсылас</string>
   <string name="pairingSystemSwiss">Ұпай мен шешуші ойынға негізделген ең тиімді жұптау</string>
