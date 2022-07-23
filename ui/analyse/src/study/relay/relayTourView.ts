@@ -40,7 +40,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
             })
           : h('div', relay.data.tour.description),
         roundsTable(relay),
-        relay.data.leaderboard?.length && leaderboard(relay.data.leaderboard),
+        relay.data.leaderboard?.length ? leaderboard(relay.data.leaderboard) : undefined,
       ]),
       study.looksNew() ? null : multiBoardView(study.multiBoard, study),
     ]);
