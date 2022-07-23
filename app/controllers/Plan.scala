@@ -1,19 +1,12 @@
 package controllers
 
-import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ EmailAddress, HTTPRequest }
-import lila.plan.StripeClient.StripeException
+import lila.common.EmailAddress
 import lila.plan.{
-  Cents,
-  Checkout,
-  CreateStripeSession,
-  CustomerId,
-  Freq,
   MonthlyCustomerInfo,
   OneTimeCustomerInfo,
   StripeCustomer
@@ -132,67 +125,6 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       env.plan.webhook(req.body) map { _ =>
         Ok("kthxbye")
       }
-    }
-
-  def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
-  def badStripeApiCall: PartialFunction[Throwable, Result] = { case e: StripeException =>
-    logger.error("Plan.stripeCheckout", e)
-    badStripeSession("Stripe API call failed")
-  }
-
-  private def createStripeSession(checkout: Checkout, customerId: CustomerId) =
-    env.plan.api
-      .createSession(
-        CreateStripeSession(
-          s"${env.net.baseUrl}${routes.Plan.thanks}",
-          s"${env.net.baseUrl}${routes.Plan.index}",
-          customerId,
-          checkout
-        )
-      )
-      .map(session => Ok(Json.obj("session" -> Json.obj("id" -> session.id.value))) as JSON)
-      .recover(badStripeApiCall)
-
-  def switchStripePlan(user: UserModel, cents: Cents) = {
-    env.plan.api
-      .switch(user, cents)
-      .inject(Ok(Json.obj("switch" -> Json.obj("cents" -> cents.value))) as JSON)
-      .recover(badStripeApiCall)
-  }
-
-  private val StripeRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
-    key = "stripe.checkout.ip",
-    enforce = env.net.rateLimit.value
-  )(
-    ("fast", 6, 10.minute),
-    ("slow", 20, 1.day)
-  )
-
-  // update the stripe integration they said, it will be simple they said
-  // Actually they didn't, I was warned.
-  def stripeCheckout =
-    AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
-      StripeRateLimit(HTTPRequest lastRemoteAddress req) {
-        if (!HTTPRequest.isXhr(req)) BadRequest.fuccess
-        else
-          lila.plan.Checkout.form
-            .bindFromRequest()
-            .fold(
-              err => badStripeSession(err.toString()).fuccess,
-              checkout =>
-                env.plan.api.userCustomer(me) flatMap {
-                  case Some(customer) if checkout.freq == Freq.Onetime =>
-                    createStripeSession(checkout, customer.id)
-                  case Some(customer) if customer.firstSubscription.isDefined =>
-                    switchStripePlan(me, checkout.amount)
-                  case _ =>
-                    env.plan.api
-                      .makeCustomer(me, checkout)
-                      .flatMap(customer => createStripeSession(checkout, customer.id))
-                }
-            )
-      }(rateLimitedFu)
     }
 
   def payPalIpn =
