@@ -409,7 +409,7 @@
   <string name="continueFromHere">המשך מכאן</string>
   <string name="toStudy">הפוך ללוח למידה</string>
   <string name="importGame">ייבא משחק</string>
-  <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ׳אט וקישור לשיתוף.</string>
+  <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s משחק מיובא</item>
     <item quantity="two">%s משחקים מיובאים</item>
