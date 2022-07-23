@@ -15,7 +15,7 @@ final private class DnsApi(
     mongoCache: lila.memo.MongoCache.Api
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   // only valid email domains that are not whitelisted should make it here

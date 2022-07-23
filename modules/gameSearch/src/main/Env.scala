@@ -1,6 +1,5 @@
 package lila.gameSearch
 
-import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -23,7 +22,7 @@ final class Env(
     makeClient: Index => ESClient
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)

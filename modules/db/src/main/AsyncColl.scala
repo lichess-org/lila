@@ -1,6 +1,6 @@
 package lila.db
 
-import akka.actor.ActorSystem
+import akka.actor.Scheduler
 import alleycats.Zero
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
@@ -17,7 +17,7 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(implicit ec: 
 
   def map[A](f: Coll => A): Fu[A] = get map f
 
-  def failingSilently(timeout: FiniteDuration = 500 millis)(implicit system: ActorSystem) =
+  def failingSilently(timeout: FiniteDuration = 500 millis)(implicit scheduler: Scheduler) =
     new AsyncCollFailingSilently(this, timeout)
 }
 
@@ -25,7 +25,7 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(implicit ec: 
  * this DB coll with fallback to default when any operation fails. */
 final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(implicit
     ec: ExecutionContext,
-    system: ActorSystem
+    scheduler: Scheduler
 ) {
 
   def apply[A](f: Coll => Fu[A])(implicit default: Zero[A]) =

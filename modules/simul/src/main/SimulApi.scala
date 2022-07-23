@@ -25,7 +25,7 @@ final class SimulApi(
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
 
@@ -289,7 +289,7 @@ final class SimulApi(
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer = new Debouncer[Unit](system.scheduler, 5 seconds, 1)(_ =>
+    private val debouncer = new Debouncer[Unit](scheduler, 5 seconds, 1)(_ =>
       Bus.publish(siteMessage, "sendToFlag")
     )
     def apply() = debouncer.push(()).unit

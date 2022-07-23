@@ -16,11 +16,10 @@ final class Env(
     userRepo: lila.user.UserRepo,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi,
-    settingStore: lila.memo.SettingStore.Builder,
-    scheduler: akka.actor.Scheduler
+    settingStore: lila.memo.SettingStore.Builder
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
 

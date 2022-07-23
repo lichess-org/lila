@@ -22,7 +22,7 @@ final class Env(
     cacheApi: CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode,
     mat: akka.stream.Materializer
 ) {

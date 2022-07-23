@@ -25,7 +25,7 @@ final class ReportApi(
     thresholds: Thresholds
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   import BSONHandlers._
