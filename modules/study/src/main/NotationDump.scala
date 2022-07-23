@@ -170,7 +170,7 @@ object NotationDump {
           result = none,
           variations = flags.variations ?? {
             variations.view.map { child =>
-              toMoves(child.mainline, child.sfen, variant, noVariations, startingPly, showAuthors).toList
+              toMoves(child.mainline, node.sfen, variant, noVariations, startingPly, showAuthors).toList
             }.toList
           }
         ) +: moves)
