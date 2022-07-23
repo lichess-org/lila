@@ -8,8 +8,6 @@
   <string name="mostChessCourses">象棋课程及练习普遍使用代数记谱法。</string>
   <string name="talkToYourChessFriends">这能让您更便捷地与棋友交谈，因为你们都懂这门“象棋语言”。</string>
   <string name="youCanAnalyseAGameMoreEffectively">快速识别格子可以高效的分析对局。</string>
-  <string name="aSquareNameAppears">棋盘中间出现格子的名称之后，您必须点击正确的格子。在30秒内认出尽可能多的格子！</string>
-  <string name="aSquareIsHighlighted">棋盘上有一个格子高亮显示，你需要输入其坐标（比如“e4”）。你有30秒时间来正确定位尽可能多的格子！</string>
   <string name="startTraining">开始训练</string>
   <string name="findSquare">找格子</string>
   <string name="nameSquare">格子坐标</string>

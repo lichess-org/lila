@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">שחק עם חבר</string>
-  <string name="playWithTheMachine">שחק נגד המחשב</string>
+  <string name="playWithTheMachine">שחק מול המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתף את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -571,7 +571,7 @@
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על-ידי %s</string>
   <string name="importedByX">יובא ע\"י %s</string>
-  <string name="thisTopicIsNowClosed">הנושא סגור עכשיו</string>
+  <string name="thisTopicIsNowClosed">הנושא לא מקבל יותר תגובות.</string>
   <string name="blog">בלוג</string>
   <string name="notes">הערות</string>
   <string name="typePrivateNotesHere">הכנס הערות פרטיות כאן</string>
@@ -881,7 +881,7 @@
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכים/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
-  <string name="agreementPolicy">אני מסכים לעקוב אחרי כל מדיניות של Lichess.</string>
+  <string name="agreementPolicy">אני מסכים לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
   <string name="rapid">Rapid</string>

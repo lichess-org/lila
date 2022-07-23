@@ -113,7 +113,7 @@
   <string name="byCPL">Цікавае</string>
   <string name="openStudy">Адкрыць навучанне</string>
   <string name="enable">Уключыць</string>
-  <string name="bestMoveArrow">Паказваць лепшы ход</string>
+  <string name="bestMoveArrow">Паказваць стрэлкай найлепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
   <string name="multipleLines">Дадатковыя хады</string>
   <string name="cpus">Працэсары</string>
@@ -593,9 +593,9 @@
   <string name="letOtherPlayersInviteYouToStudy">Дазволіць іншым гульцам запрасіць вас на даследаванне</string>
   <string name="sound">Гук</string>
   <string name="none">Няма</string>
-  <string name="fast">Хутка</string>
-  <string name="normal">Нармальна</string>
-  <string name="slow">Павольна</string>
+  <string name="fast">Хуткая</string>
+  <string name="normal">Сярэдняя</string>
+  <string name="slow">Павольная</string>
   <string name="insideTheBoard">Унутры дошкі</string>
   <string name="outsideTheBoard">Па-за дошкай</string>
   <string name="onSlowGames">У павольных гульнях</string>
@@ -810,13 +810,13 @@
   </plurals>
   <string name="practiceWithComputer">Трэніроўка з камп’ютарам</string>
   <string name="anotherWasX">Таксама можна: %s</string>
-  <string name="bestWasX">Лепшы ход: %s</string>
+  <string name="bestWasX">Найлепшы ход %s</string>
   <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
   <string name="resumePractice">Працягнуць трэніроўку</string>
   <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
   <string name="computerThinking">Камп’ютар думае...</string>
-  <string name="seeBestMove">Паказаць лепшы ход</string>
-  <string name="hideBestMove">Схаваць лепшы ход</string>
+  <string name="seeBestMove">Паказаць найлепшы ход</string>
+  <string name="hideBestMove">Схаваць найлепшы ход</string>
   <string name="getAHint">Атрымаць падказку</string>
   <string name="evaluatingYourMove">Ацэнка вашага ходу...</string>
   <string name="whiteWinsGame">Белыя перамаглі</string>
