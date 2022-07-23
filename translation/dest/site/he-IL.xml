@@ -103,7 +103,7 @@
   <string name="lossSavedBy50MoveRule">נמנע הפסד מפאת כלל 50 המהלכים</string>
   <string name="winOr50MovesByPriorMistake">ניצחון או כלל 50 המסעים בגלל טעות קודמת</string>
   <string name="lossOr50MovesByPriorMistake">הפסד או כלל 50 המסעים בגלל טעות קודמת</string>
-  <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם עקבו אחר שורת בסיס הטבלה המומלצת מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בבסיסי הטבלה של Syzygy.</string>
+  <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם שוחק ההמשך המומלץ של טבלת הסיומים מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בבסיסי הטבלה של Syzygy.</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="importPgn">ייבא בפורמט PGN</string>
   <string name="delete">מחיקה</string>
@@ -401,7 +401,7 @@
   <string name="save">שמור</string>
   <string name="leaderboard">טבלת השחקנים המובילים</string>
   <string name="screenshotCurrentPosition">צלם את העמדה הנוכחית</string>
-  <string name="gameAsGIF">משחק בתור GIF</string>
+  <string name="gameAsGIF">המשחק בתור GIF</string>
   <string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
   <string name="orUploadPgnFile">או העלה קובץ PGN</string>
@@ -432,7 +432,7 @@
   </plurals>
   <string name="favoriteOpponents">יריבים מועדפים</string>
   <string name="follow">עקוב</string>
-  <string name="following">עוקבים</string>
+  <string name="following">ברשימת המעקב</string>
   <string name="unfollow">הפסק מעקב</string>
   <string name="followX">עקוב אחר %s</string>
   <string name="unfollowX">הפסק לעקוב אחר %s</string>
@@ -448,10 +448,10 @@
     <item quantity="other">%s עוקבים</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s עוקב</item>
-    <item quantity="two">%s עוקבים</item>
-    <item quantity="many">%s עוקב</item>
-    <item quantity="other">%s עוקב</item>
+    <item quantity="one">%s ברשימת המעקב</item>
+    <item quantity="two">%s ברשימת המעקב</item>
+    <item quantity="many">%s ברשימת המעקב</item>
+    <item quantity="other">%s ברשימת המעקב</item>
   </plurals>
   <string name="more">עוד</string>
   <string name="memberSince">רשום מ</string>
