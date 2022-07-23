@@ -15,13 +15,12 @@ export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
     children: [],
   } as Tree.Node;
   let current = root;
-  let lastMove: Move | undefined = undefined;
   usis.forEach((usi, i) => {
-    const move = parseUsi(usi)!;
-    const notationMove = makeNotationWithPosition(notation, pos, move, lastMove);
-    lastMove = move;
+    const move = parseUsi(usi)!,
+      captured = pos.board.has(move.to),
+      notationMove = makeNotationWithPosition(notation, pos, move, pos.lastMove);
     pos.play(move);
-    const nextNode = makeNode(pos, move, notationMove, i + 1);
+    const nextNode = makeNode(pos, move, notationMove, captured, i + 1);
     current.children.push(nextNode);
     current = nextNode;
   });
@@ -45,29 +44,29 @@ export function mergeSolution(
   pov: Color,
   notation: Notation
 ): void {
-  const initialNode = root.nodeAtPath(initialPath);
-  const pos = parseSfen('standard', initialNode.sfen, false).unwrap();
-  const fromPly = initialNode.ply;
+  const initialNode = root.nodeAtPath(initialPath),
+    pos = parseSfen('standard', initialNode.sfen, false).unwrap(),
+    fromPly = initialNode.ply;
 
-  let lastMove: Move | undefined = undefined;
   const nodes = solution.map((usi, i) => {
-    const move = parseUsi(usi)!;
-    const notationMove = makeNotationWithPosition(notation, pos, move, lastMove);
-    lastMove = move;
+    const move = parseUsi(usi)!,
+      captured = pos.board.has(move.to),
+      notationMove = makeNotationWithPosition(notation, pos, move, pos.lastMove);
     pos.play(move);
-    const node = makeNode(pos, move, notationMove, fromPly + i + 1);
+    const node = makeNode(pos, move, notationMove, captured, fromPly + i + 1);
     if ((pov == 'sente') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';
     return node;
   });
   root.addNodes(nodes, initialPath);
 }
 
-const makeNode = (pos: Position, move: Move, notation: MoveNotation, ply: number): Tree.Node => ({
+const makeNode = (pos: Position, move: Move, notation: MoveNotation, capture: boolean, ply: number): Tree.Node => ({
   ply,
   sfen: makeSfen(pos),
   id: scalashogiCharPair(move),
   usi: makeUsi(move),
   notation: notation,
+  capture: capture,
   check: pos.isCheck() ? (makeSquare(pos.board.kingOf(pos.turn)!) as Key) : undefined,
   children: [],
 });

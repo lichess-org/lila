@@ -76,8 +76,6 @@ export interface Vm {
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
   next: Deferred<PuzzleData>;
-  justPlayed?: Key;
-  justDropped?: Piece;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   initialPath: Tree.Path;
@@ -86,7 +84,6 @@ export interface Vm {
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   voteDisabled?: boolean;
-  sgConfig: SgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;
 }
