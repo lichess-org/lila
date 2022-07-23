@@ -115,7 +115,7 @@ export default class AnalyseCtrl {
   music?: any;
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
-  stateDb?: ObjectStorage<AnalyseState>;
+  moveDb?: ObjectStorage<AnalyseState>;
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
     this.data = opts.data;
@@ -529,6 +529,9 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
+    if (!this.isDirty) {
+      this.isDirty = !this.tree.pathExists(path + node.id);
+    }
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -925,50 +928,49 @@ export default class AnalyseCtrl {
 
   saveMoves = (switchVal?: boolean): boolean => {
     if (!defined(switchVal)) {
-      return defined(this.stateDb) && this.saveMovesProp();
+      return defined(this.moveDb) && this.saveMovesProp();
     } else {
       this.saveMovesProp(switchVal);
-      switchVal ? this.saveDbState() : this.hardReset(true);
+      if (switchVal) {
+        if (this.isDirty) this.saveDbState();
+        else this.mergeDbState();
+      }
+      this.redraw();
       return switchVal;
     }
   };
 
-  hardReset = (force = false): void => {
-    if (defined(this.stateDb) && (force || this.isDirty)) {
-      this.stateDb.remove(this.data.game.id);
+  hardReset = (): void => {
+    if (defined(this.moveDb)) {
+      this.moveDb.remove(this.data.game.id);
       window.location.reload();
     }
   };
 
   private saveDbState(): void {
-    if (!this.saveMoves()) return;
+    if (!this.saveMoves() || !this.isDirty) return;
 
-    if (!this.isDirty) this.isDirty = this.path != this.initialPath;
-
-    this.stateDb!.put(this.data.game.id, {
-      // ! spurious TS2532
-      root: this.tree.root,
-      path: this.path,
-      flipped: this.flipped,
-    });
+    if (defined(this.moveDb)) {
+      this.moveDb.put(this.data.game.id, {
+        root: this.tree.root,
+        path: this.path,
+        flipped: this.flipped,
+      });
+    }
   }
 
   private async mergeDbState(): Promise<void> {
-    if (defined(this.study) || this.synthetic || this.embed) return;
+    if (this.synthetic || this.embed || defined(this.study)) return;
     try {
       const store = await objectStorage<AnalyseState>('analyse-state');
       const state = await store.get(this.data.game.id);
-      if (defined(state)) {
-        if (!this.saveMovesProp()) {
-          store.remove(this.data.game.id);
-        } else {
-          this.tree.merge(state.root);
-          this.isDirty = true;
-          this.jump(state.path);
-          if (state.flipped) this.flip();
-        }
+      if (defined(state) && this.saveMovesProp()) {
+        this.isDirty = true;
+        this.tree.merge(state.root);
+        this.jump(state.path);
+        if (state.flipped) this.flip();
       }
-      this.stateDb = store;
+      this.moveDb = store;
       this.redraw();
     } catch (e) {
       console.log(`IDB unavailable due to security settings or quota: ${e}`);

@@ -241,7 +241,6 @@ function controls(ctrl: AnalyseCtrl) {
             if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-            else if (action === 'reset') ctrl.hardReset();
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
@@ -300,19 +299,6 @@ function controls(ctrl: AnalyseCtrl) {
         jumpButton(iconNext, 'next', canJumpNext),
         jumpButton(iconLast, 'last', canJumpNext),
       ]),
-      !defined(ctrl.study)
-        ? h('button.fbt', {
-            attrs: {
-              title: noarg('clearSavedMoves'),
-              'data-act': 'reset',
-              'data-icon': '',
-            },
-            class: {
-              invisible: !ctrl.saveMoves(),
-              disabled: !ctrl.isDirty,
-            },
-          })
-        : null,
       ctrl.studyPractice
         ? h('div.noop')
         : h('button.fbt', {
@@ -483,7 +469,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                     renderAnalyse(ctrl, concealOf),
                     gamebookEditView || forkView(ctrl, concealOf),
-                    retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
+                    retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl) || renderSaveMoves(ctrl),
                   ]),
             ])),
       menuIsOpen || tour ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
@@ -542,4 +528,29 @@ export default function (ctrl: AnalyseCtrl): VNode {
           }),
     ]
   );
+}
+
+function renderSaveMoves(ctrl: AnalyseCtrl): VNode | undefined {
+  if (defined(ctrl.study)) return;
+  const noarg = ctrl.trans.noarg;
+
+  return h('div.save-moves', { attrs: { title: noarg('savingMovesHelp') } }, [
+    h('button-none.reset', {
+      class: { invisible: !(ctrl.saveMoves() && ctrl.isDirty) },
+      attrs: {
+        title: ctrl.trans.noarg('clearSavedMoves'),
+        'data-icon': '',
+      },
+      hook: bind('click', () => ctrl.hardReset()),
+    }),
+    h('div.switch-label', ctrl.saveMoves() ? noarg('savingMoves') : null),
+    h(
+      'a.rec-switch',
+      {
+        class: { on: ctrl.saveMoves() },
+        hook: bind('click', () => ctrl.saveMoves(!ctrl.saveMoves())),
+      },
+      [h('i.is'), 'REC']
+    ),
+  ]);
 }
