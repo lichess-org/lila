@@ -50,8 +50,10 @@ object layout {
         s"""type="$t" """
       )}${crossorigin ?? "crossorigin"}>""")
 
-  private def fontPreload(implicit ctx: Context) =
-    preload(assetUrl("font/lishogi.woff2"), "font", crossorigin = true, "font/woff2".some)
+  private def fontPreload(implicit ctx: Context) = frag(
+    preload(assetUrl("font/lishogi.woff2"), "font", crossorigin = true, "font/woff2".some),
+    preload(assetUrl("font/lishogi.shogi.woff2"), "font", crossorigin = true, "font/woff2".some)
+  )
 
   private def boardPreload(implicit ctx: Context) =
     ctx.currentTheme.file map { file =>
@@ -242,13 +244,14 @@ object layout {
         ),
         st.body(
           cls := List(
-            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation} grid-width-${ctx.pref.customThemeOrDefault.gridWidth}" -> true,
-            "no-touch"             -> !ctx.pref.squareOverlay,
-            "zen"                  -> ctx.pref.isZen,
-            "blind-mode"           -> ctx.blind,
-            "kid"                  -> ctx.kid,
-            "mobile"               -> ctx.isMobileBrowser,
-            "playing fixed-scroll" -> playing
+            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation}" -> true,
+            s"grid-width-${ctx.pref.customThemeOrDefault.gridWidth}" -> ctx.pref.isUsingCustomTheme,
+            "no-touch"                                               -> !ctx.pref.squareOverlay,
+            "zen"                                                    -> ctx.pref.isZen,
+            "blind-mode"                                             -> ctx.blind,
+            "kid"                                                    -> ctx.kid,
+            "mobile"                                                 -> ctx.isMobileBrowser,
+            "playing fixed-scroll"                                   -> playing
           ),
           dataDev           := (!isProd).option("true"),
           dataVapid         := vapidPublicKey,
