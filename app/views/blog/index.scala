@@ -24,7 +24,7 @@ object index {
     )(
       main(cls := "page-menu")(
         bits.menu(none, "lichess".some),
-        div(cls := "blog index page-menu__content page-small box")(
+        div(cls := "blog index page-menu__content page-small box force-ltr")(
           div(cls := "box__top")(
             h1("Lichess Official Blog"),
             a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := "")
@@ -54,7 +54,7 @@ object index {
     )(
       main(cls := "page-menu")(
         bits.menu(year.some, none),
-        div(cls := "page-menu__content box")(
+        div(cls := "page-menu__content box force-ltr")(
           div(cls := "box__top")(h1(s"Lichess blog posts from $year")),
           st.section(
             div(cls := "blog-cards")(posts map { bits.postCard(_) })

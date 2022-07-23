@@ -1,6 +1,5 @@
 package lila.chat
 
-import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -28,7 +27,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
@@ -45,7 +44,7 @@ final class Env(
 
   lazy val panic = wire[ChatPanic]
 
-  system.scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) { () =>
+  scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) { () =>
     timeout.checkExpired foreach api.userChat.reinstate
   }
 }

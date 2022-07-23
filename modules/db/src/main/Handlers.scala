@@ -138,12 +138,6 @@ trait Handlers {
   implicit val centisIntHandler: BSONHandler[chess.Centis] = intIsoHandler(Iso.centisIso)
 
   implicit val FENHandler: BSONHandler[FEN] = stringAnyValHandler[FEN](_.value, FEN.apply)
-  implicit val FenOpeningHandler = tryHandler[chess.opening.FullOpening](
-    { case BSONString(fen) => chess.opening.FullOpeningDB findByFen FEN(fen) toTry s"No such opening: $fen" },
-    o => BSONString(o.fen)
-  )
-  implicit val OpeningFamilyHandler: BSONHandler[OpeningFamily] =
-    stringAnyValHandler[OpeningFamily](_.name, OpeningFamily.apply)
 
   import lila.common.{ LilaOpening, LilaOpeningFamily }
   implicit val OpeningKeyBSONHandler: BSONHandler[LilaOpening.Key] = stringIsoHandler(

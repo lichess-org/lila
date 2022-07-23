@@ -15,6 +15,7 @@ final private[api] class Cli(
     plan: lila.plan.Env,
     msg: lila.msg.Env,
     video: lila.video.Env,
+    puzzle: lila.puzzle.Env,
     accountClosure: AccountClosure
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
@@ -50,6 +51,9 @@ final private[api] class Cli(
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
           )
       }
+    case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
+      puzzle.opening.recomputeAll
+      fuccess("started in background")
   }
 
   private def run(args: List[String]): Fu[String] = {

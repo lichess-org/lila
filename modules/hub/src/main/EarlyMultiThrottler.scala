@@ -46,7 +46,7 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(implicit ec: Execut
     case x => logger.branch("EarlyMultiThrottler").warn(s"Unsupported message $x")
   }
 
-  implicit def system = context.system
+  implicit def scheduler = context.system.scheduler
 
   def execute(work: Work): Funit =
     lila.common.Future.makeItLast(work.cooldown) { work.run() }

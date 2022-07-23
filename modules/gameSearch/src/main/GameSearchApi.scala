@@ -11,7 +11,7 @@ final class GameSearchApi(
     gameRepo: GameRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =

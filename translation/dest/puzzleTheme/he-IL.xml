@@ -56,7 +56,7 @@
   <string name="interference">קטיעת קו הגנה</string>
   <string name="interferenceDescription">הזזת כלי בין שני כלים יריבים על מנת להותיר אותם לא מוגנים, למשל פרש על משבצת מוגנת בין שני צריחים.</string>
   <string name="intermezzo">אינטרמצו</string>
-  <string name="intermezzoDescription">במקום ביצוע המסע הצפוי, ביצוע מסע אחר שמציב איום מיידי שהיריב חייב להשיב. נקרא גם \"בין לבין\" או מגרמנית \"זווישנזוג\".</string>
+  <string name="intermezzoDescription">במקום ביצוע המסע הצפוי, ביצוע מסע אחר שמציב איום מיידי שהיריב חייב להתגונן נגדו. נקרא גם \"בין לבין\" או מגרמנית \"זווישנזוג\".</string>
   <string name="knightEndgame">סיום פרשים</string>
   <string name="knightEndgameDescription">סיום עם פרשים ורגלים בלבד.</string>
   <string name="long">פאזל ארוך</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">כלי המאיים או מגן על משבצת דרך כלי יריב.</string>
   <string name="zugzwang">כפאי</string>
   <string name="zugzwangDescription">היריב מוגבל במסעים שביכולתו לבצע, וכל אחד מחמיר את מצבו.</string>
-  <string name="healthyMix">תערובת בריאה</string>
-  <string name="healthyMixDescription">קצת מהכל. לא תדעו למה לצפות, עליכם להיות מוכנים להכל! בדיוק כמו משחקים אמיתיים.</string>
+  <string name="healthyMix">שילוב בריא</string>
+  <string name="healthyMixDescription">קצת מהכל. לא תדעו למה לצפות. עליכם להיות מוכנים להכל! בדיוק כמו משחקים אמיתיים.</string>
   <string name="playerGames">המשחקים שלי</string>
   <string name="playerGamesDescription">יצירת חידות ממשחקים שלך או ממשקים של חברים.</string>
   <string name="puzzleDownloadInformation">החידות האלו הן נחלת הכלל, וניתן להוריד אותן מ-%s.</string>

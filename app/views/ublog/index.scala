@@ -20,7 +20,7 @@ object index {
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
       moreJs = posts.hasNextPage option infiniteScrollTag,
-      title = s"${trans.ublog.drafts()}"
+      title = trans.ublog.drafts.txt()
     ) {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "mine".some),

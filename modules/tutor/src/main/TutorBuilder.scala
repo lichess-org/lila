@@ -35,10 +35,7 @@ final private class TutorBuilder(
     userRepo: UserRepo,
     fishnet: TutorFishnet,
     reportColl: Coll @@ ReportColl
-)(implicit
-    ec: ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(implicit ec: ExecutionContext) {
 
   import TutorBsonHandlers._
   import TutorBuilder._

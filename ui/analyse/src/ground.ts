@@ -50,7 +50,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     orientation: ctrl.bottomColor(),
     coordinates: pref.coords !== Prefs.Coords.Hidden && !ctrl.embed,
     addPieceZIndex: pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     viewOnly: !!ctrl.embed,
     movable: {
       free: false,

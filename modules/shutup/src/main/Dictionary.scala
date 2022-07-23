@@ -134,6 +134,7 @@ spunk
 smurff?(er|ing|)
 stfu
 stupid
+subhuman
 suicide
 suck m[ey]
 terrorist
@@ -209,6 +210,7 @@ p[ie]d[aoe]?r
 
   def es = dict("""
 cabr[oó]na?
+cag[oó]n
 ching(ue|a)
 chupame
 cobarde
@@ -218,6 +220,7 @@ imbecil
 madre
 maric[oó]n
 mierda
+payas[ao]
 pendejo
 put[ao]
 trampa
@@ -242,8 +245,9 @@ sparati
 
   def hi = dict("""
 (madar|be?hen|beti)chod
+bh?o?sdi?ke?
 chut(iya|)
-gaa?nd
+gaa?ndu?
 """)
 
   def fr = dict("""

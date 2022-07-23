@@ -32,7 +32,7 @@ final class Env(
     db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   implicit private val twitchLoader  = AutoConfig.loader[TwitchConfig]
@@ -82,7 +82,7 @@ final class Env(
     api.demote(userId).unit
   }
 
-  system.scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
+  scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
   }
 }

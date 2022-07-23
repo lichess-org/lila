@@ -20,7 +20,7 @@ final class StudySearchApi(
     chapterRepo: ChapterRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
 ) extends SearchReadApi[Study, Query] {
 

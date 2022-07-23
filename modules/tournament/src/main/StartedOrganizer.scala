@@ -1,6 +1,5 @@
 package lila.tournament
 
-import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
@@ -12,7 +11,7 @@ final private class StartedOrganizer(
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     socket: TournamentSocket
-)(implicit ec: ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
+)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer) {
 
   var runCounter = 0
 

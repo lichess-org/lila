@@ -50,7 +50,7 @@ object embed {
       views.html.base.layout.inlineJs(config.nonce)(config.lang),
       depsTag,
       jsModule("analysisBoard.embed"),
-      analyseTag,
+      analyseStudyTag,
       embedJsUnsafeLoadThen(
         s"""analyseEmbed(${safeJsonValue(
             Json.obj(

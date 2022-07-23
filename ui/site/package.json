@@ -7,14 +7,14 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@rollup/plugin-replace": "^3.0.1",
+    "@rollup/plugin-replace": "^4.0.0",
     "@types/debounce-promise": "^3.1.4",
     "@types/fnando__sparkline": "^0.3.4",
     "@types/lichess": "2.0.0",
     "@types/web": "^0",
     "@types/yaireo__tagify": "^4.9.0",
     "@types/zxcvbn": "^4.4.0",
-    "chessground": "^8.2.0",
+    "chessground": "^8.3.2",
     "rollup": "^2",
     "rollup-plugin-copy": "^3.3.0",
     "typescript": "^4"

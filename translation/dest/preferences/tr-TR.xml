@@ -12,7 +12,7 @@
   <string name="pgnPieceNotation">Notasyon tut</string>
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
   <string name="pgnLetter">Harf (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Odak modu</string>
   <string name="showPlayerRatings">Oyuncu puanlarını göster</string>
   <string name="explainShowPlayerRatings">Bu seçenek, sitedeki bütün oyuncu puanlarını gizleyerek yalnızca satranca odaklanmanıza yardımcı olur. Hâlâ puanlı maçlar oynayabilirsiniz ancak puanlar sizden gizlenir.</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
@@ -36,12 +36,12 @@
   <string name="explainPromoteToQueenAutomatically">Otomatik terfiyi geçici olarak devre dışı bırakmak için terfi sırasında &lt;ctrl&gt; tuşunu basılı tutun</string>
   <string name="whenPremoving">Ön hamlelerde</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>
   <string name="confirmResignationAndDrawOffers">Oyundan çekilme ve beraberlik tekliflerini onayla</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atış şekli</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atma şekli</string>
   <string name="castleByMovingTwoSquares">Şahı iki kare sürerek</string>
   <string name="castleByMovingOntoTheRook">Şahı kalenin üstüne getirerek</string>
   <string name="inputMovesWithTheKeyboard">Hamleleri klavye ile gir</string>

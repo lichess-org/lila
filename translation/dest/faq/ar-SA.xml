@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">كيف يمكنني أن أصبح مشرفاً؟</string>
   <string name="youCannotApply">ليس من الممكن التقدّم بطلب ان تكون مشرف. اذا رأينا شخصاً نعتقد انه سيكون جيداً كمشرف، سنقوم بالتواصل معهم مباشرة.</string>
   <string name="isCorrespondenceDifferent">هل يختلف اللعب بالمراسلة عن لعبة الشطرنج العادية؟</string>
+  <string name="pleaseReadFairPlayPage">للحصول على مزيد من المعلومات ، ارجع الى %s</string>
+  <string name="fairPlayPage">صفحة اللعب العادل</string>
   <string name="youCanUseOpeningBookNoEngine">في Lichess ، يتمثل الاختلاف الرئيسي في قواعد لعبة الشطرنج بالمراسلة في أن الكتاب الافتتاحي مسموح به. لا يزال استخدام المحركات محظورًا وسيؤدي إلى وضع علامة للمساعدة في المحرك. على الرغم من أن ICCF تسمح باستخدام المحرك في المراسلات ، إلا أن Lichess لا تفعل ذلك.</string>
   <string name="gameplay">أسلوب اللعب</string>
   <string name="howBulletBlitzEtcDecided">كيف يتم تحديد بولييت، بليتز وغيرها من الضوابط الزمنية؟</string>

@@ -19,7 +19,8 @@ final private class InsightIndexer(
     storage: InsightStorage
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler,
+    mat: akka.stream.Materializer
 ) {
 
   private val workQueue =

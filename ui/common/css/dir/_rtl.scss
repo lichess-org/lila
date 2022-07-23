@@ -13,3 +13,8 @@ $transform-direction: -1;
     padding: $top $start $bottom $end;
   }
 }
+
+.force-ltr {
+  direction: ltr;
+  text-align: left;
+}

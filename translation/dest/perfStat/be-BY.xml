@@ -19,12 +19,12 @@
   <string name="notEnoughGames">Згуляна недастаткова партый</string>
   <string name="highestRating">Найвышэйшы рэйтынг: %s</string>
   <string name="lowestRating">Найніжэйшы рэйтынг: %s</string>
-  <string name="fromXToY">ад %1$s да %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">ад %1$s да %2$s</string>
   <string name="winningStreak">Перамог запар</string>
   <string name="losingStreak">Паразаў запар</string>
   <string name="longestStreak">Найдаўжэйшая серыя: %s</string>
   <string name="currentStreak">Бягучая серыя: %s</string>
-  <string name="bestRated">Лепшыя рэйтынгавыя перамогі</string>
+  <string name="bestRated">Найлепшыя рэйтынгавыя перамогі</string>
   <string name="worstRated">Горшыя рэйтынгавыя паразы</string>
   <string name="gamesInARow">Гульняў сыграна запар</string>
   <string name="lessThanOneHour">Менш за гадзіну паміж гульнямі</string>

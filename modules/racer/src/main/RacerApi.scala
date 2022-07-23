@@ -11,7 +11,7 @@ import lila.common.Bus
 final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserRepo, cacheApi: CacheApi)(
     implicit
     ec: ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   import RacerRace.Id
@@ -80,7 +80,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
 
   private def doStart(race: RacerRace): Option[RacerRace] =
     race.startCountdown.map { starting =>
-      system.scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis) {
+      scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis) {
         finish(race.id)
       }
       starting

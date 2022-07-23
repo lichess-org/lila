@@ -22,6 +22,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     idGenerator: lila.game.IdGenerator
 ) {
 

@@ -1,0 +1,30 @@
+{
+  "name": "replay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "lichess.org embedded replay board",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "compile": "tsc --incremental --declaration --inlineSourceMap",
+    "dev": "$npm_execpath run compile && rollup --config",
+    "prod": "$npm_execpath run compile && rollup --config --config-prod"
+  },
+  "devDependencies": {
+    "@build/rollupProject": "2.0",
+    "@types/cash": "8.0.0",
+    "@types/lichess": "2.0.0",
+    "@types/web": "^0",
+    "rollup": "^2",
+    "typescript": "^4"
+  },
+  "dependencies": {
+    "chessground": "^8.3.2",
+    "chessops": "^0.12",
+    "common": "2.0.0",
+    "snabbdom": "^3.3"
+  }
+}

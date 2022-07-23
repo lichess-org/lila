@@ -25,6 +25,7 @@ import { Role, Move, Outcome } from 'chessops/types';
 import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
+import { uciToMove } from 'chessground/util';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -133,6 +134,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }, 4000);
 
     withGround(g => {
+      g.selectSquare(null);
       g.setAutoShapes([]);
       g.setShapes([]);
       showGround(g);
@@ -170,7 +172,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         enabled: false,
       },
       check: !!node.check,
-      lastMove: uciToLastMove(node.uci),
+      lastMove: uciToMove(node.uci),
     };
     if (node.ply >= vm.initialNode.ply) {
       if (vm.mode !== 'view' && color !== vm.pov && !nextNode) {
@@ -228,11 +230,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       },
       path
     );
-  }
-
-  function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
-    // assuming standard chess
-    return defined(uci) ? [uci.slice(0, 2) as Key, uci.slice(2, 4) as Key] : undefined;
   }
 
   function addNode(node: Tree.Node, path: Tree.Path): void {
@@ -321,15 +318,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       streak,
       opts.settings.color
     );
-    if (res.replayComplete && data.replay) return lichess.redirect(`/training/dashboard/${data.replay.days}`);
-    if (res.next.user && data.user) {
+    if (res.next?.user && data.user) {
       data.user.rating = res.next.user.rating;
       data.user.provisional = res.next.user.provisional;
       vm.round = res.round;
       if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
     }
     if (win) speech.success();
-    vm.next.resolve(res.next);
+    if (res.replayComplete) vm.next.reject('replay complete');
+    else vm.next.resolve(res.next);
     if (streak && win) streak.onComplete(true, res.next);
     redraw();
   }
@@ -338,12 +335,16 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (streak && vm.lastFeedback != 'win') return;
 
     ceval.stop();
-    vm.next.promise.then(initiate).then(redraw);
+    vm.next.promise.then(initiate).then(redraw).catch(redirectToDashboard);
 
     if (!streak && !data.replay) {
       const path = `/training/${data.angle.key}`;
       if (location.pathname != path) history.replaceState(null, '', path);
     }
+  }
+
+  function redirectToDashboard() {
+    if (data.replay) lichess.redirect(`/training/dashboard/${data.replay.days}`);
   }
 
   function instanciateCeval(): void {

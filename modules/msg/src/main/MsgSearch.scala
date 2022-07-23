@@ -15,7 +15,7 @@ final class MsgSearch(
     userCache: lila.user.Cached,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   import BsonHandlers._
 

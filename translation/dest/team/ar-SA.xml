@@ -16,6 +16,7 @@
   <string name="myTeams">فرقي</string>
   <string name="noTeamFound">لايوجد فريق</string>
   <string name="joinTeam">انضم للفريق</string>
+  <string name="onlyLeaderLeavesTeam">الرجاء إضافة قائد فريق جديد قبل المغادرة، أو إغلاق الفريق.</string>
   <string name="quitTeam">انسحب من الفريق</string>
   <string name="manuallyReviewAdmissionRequests">مراجعة طلبات القبول يدويًا</string>
   <string name="manuallyReviewAdmissionRequestsHelp">إن حددت، سيحتاج اللاعبون من أجل الانضمام إلا الفريق كتابة طلب يمكنك رفضه أم قبوله.</string>

@@ -10,7 +10,8 @@ final private class RelaySync(
     studyApi: StudyApi,
     multiboard: StudyMultiBoard,
     chapterRepo: ChapterRepo,
-    tourRepo: RelayTourRepo
+    tourRepo: RelayTourRepo,
+    leaderboard: RelayLeaderboardApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type NbMoves = Int
@@ -161,6 +162,7 @@ final private class RelaySync(
     } >>- {
       multiboard.invalidate(study.id)
       studyApi.reloadChapters(study)
+      leaderboard invalidate tour.id
     }
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =

@@ -19,7 +19,7 @@ final class BotPlayer(
     spam: lila.security.Spam
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
