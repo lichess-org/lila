@@ -104,6 +104,7 @@ interface Cookie {
 interface AssetUrlOpts {
   sameDomain?: boolean;
   noVersion?: boolean;
+  version?: string;
 }
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
