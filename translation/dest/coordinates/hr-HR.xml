@@ -8,8 +8,6 @@
   <string name="mostChessCourses">Većina šahovskih tečajeva i vježbi opsežno koristi algebarsku notaciju.</string>
   <string name="talkToYourChessFriends">Jednostavnije je razgovarati sa svojim šahovskim prijateljima, jer oboje razumijete \"šahovski jezik\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Možeš učinkovitije analizirati partiju ako ne trebaš tražiti koordinate pojedinih polja.</string>
-  <string name="aSquareNameAppears">Koordinate polja će se pojaviti na ploči, a ti moraš kliknuti na točno polje. Imaš 30 sekundi da prepoznaš čim više polja!</string>
-  <string name="aSquareIsHighlighted">Polje je označeno na ploči a vi morate unijeti koordinate (npr. \"e4\"). Imate 30 sekundi da točno označite što je više polja moguće!</string>
   <string name="startTraining">Započni trening</string>
   <string name="findSquare">Pronađi polje</string>
   <string name="nameSquare">Imenuj polje</string>

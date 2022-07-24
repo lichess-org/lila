@@ -7,7 +7,7 @@ import lila.db.dsl._
 
 final private class SwissScoring(
     colls: SwissColls
-)(implicit system: akka.actor.ActorSystem, ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(implicit scheduler: akka.actor.Scheduler, ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
 
   import BsonHandlers._
 

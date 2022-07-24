@@ -20,6 +20,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
 ) {
 

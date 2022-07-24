@@ -1,6 +1,5 @@
 package lila.tournament
 
-import akka.actor._
 import chess.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
@@ -13,7 +12,7 @@ import lila.common.{ LilaScheduler, LilaStream }
 final private class TournamentScheduler(
     api: TournamentApi,
     tournamentRepo: TournamentRepo
-)(implicit ec: ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
+)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer) {
 
   import Schedule.Freq._
   import Schedule.Speed._

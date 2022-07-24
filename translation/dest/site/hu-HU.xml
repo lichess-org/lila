@@ -23,7 +23,7 @@
   <string name="createAGame">Játék létrehozása</string>
   <string name="whiteIsVictorious">Világos nyert</string>
   <string name="blackIsVictorious">Sötét nyert</string>
-  <string name="youPlayTheWhitePieces">Fehérrel fogsz játszani</string>
+  <string name="youPlayTheWhitePieces">Világossal fogsz játszani</string>
   <string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
   <string name="itsYourTurn">Te következel</string>
   <string name="cheatDetected">Csalás észlelve</string>
@@ -366,8 +366,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Kattints a táblára és lépj - innen tudjuk, hogy ember vagy.</string>
   <string name="captcha.fail">Kérünk, oldd meg a sakk captchát.</string>
   <string name="notACheckmate">Ez nem matt</string>
-  <string name="whiteCheckmatesInOneMove">Fehér következő lépésben mattot ad</string>
-  <string name="blackCheckmatesInOneMove">Fekete a következő lépésben mattot ad</string>
+  <string name="whiteCheckmatesInOneMove">Világos egy lépésben mattot ad</string>
+  <string name="blackCheckmatesInOneMove">Sötét egy lépésben mattot ad</string>
   <string name="retry">Újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <plurals name="nbFriendsOnline">
@@ -751,7 +751,7 @@
   <string name="findBetterMoveForBlack">Találj egy jobb lépést sötétnek</string>
   <string name="resumeLearning">Tanulás folytatása</string>
   <string name="youCanDoBetter">Van jobb lépés is</string>
-  <string name="tryAnotherMoveForWhite">Próbálj mást lépni fehérrel</string>
+  <string name="tryAnotherMoveForWhite">Próbálj mást lépni világossal</string>
   <string name="tryAnotherMoveForBlack">Próbálj mást lépni feketével</string>
   <string name="solution">Megoldás</string>
   <string name="waitingForAnalysis">Készül az analízis</string>

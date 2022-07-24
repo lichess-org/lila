@@ -217,7 +217,7 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       studyIds: Seq[Study.Id],
       nbChaptersPerStudy: Int
   ): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
-    studyIds.nonEmpty ?? coll(
+    studyIds.nonEmpty ?? coll {
       _.find(
         $doc("studyId" $in studyIds),
         $doc("studyId" -> true, "_id" -> true, "name" -> true).some
@@ -225,7 +225,7 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
         .sort($sort asc "order")
         .cursor[Bdoc]()
         .list(nbChaptersPerStudy * studyIds.size)
-    )
+    }
       .map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) { case (hash, doc) =>
           doc.getAsOpt[Study.Id]("studyId").fold(hash) { studyId =>
@@ -256,6 +256,9 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       id   <- doc.getAsOpt[Chapter.Id]("_id")
       name <- doc.getAsOpt[Chapter.Name]("name")
     } yield Chapter.IdName(id, name)
+
+  def tagsByStudyIds(studyIds: Iterable[Study.Id]): Fu[List[Tags]] =
+    studyIds.nonEmpty ?? coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
 
   def startServerEval(chapter: Chapter) =
     coll {

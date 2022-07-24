@@ -22,7 +22,7 @@ case class RelayRound(
 
   def id = _id
 
-  def studyId = Study.Id(id.value)
+  def studyId = id.studyId
 
   lazy val slug = {
     val s = lila.common.String slugify name
@@ -65,7 +65,9 @@ case class RelayRound(
 
 object RelayRound {
 
-  case class Id(value: String) extends AnyVal with StringValue
+  case class Id(value: String) extends AnyVal with StringValue {
+    def studyId = Study.Id(value)
+  }
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 

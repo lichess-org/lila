@@ -41,14 +41,19 @@ final class Dev(env: Env) extends LilaController(env) {
     }
 
   def settingsPost(id: String) =
-    SecureBody(_.Settings) { implicit ctx => _ =>
+    SecureBody(_.Settings) { implicit ctx => me =>
       settingsList.find(_.id == id) ?? { setting =>
         implicit val req = ctx.body
         setting.form
           .bindFromRequest()
           .fold(
             _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
+            v => {
+              lila
+                .log("setting")
+                .info(s"${me.user.username} changes $id from ${setting.get()} to ${v.toString}")
+              setting.setString(v.toString) inject Redirect(routes.Dev.settings)
+            }
           )
       }
     }

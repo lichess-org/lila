@@ -30,6 +30,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
 
@@ -83,12 +84,12 @@ final class Env(
 
   private lazy val phaser = wire[PuzzlePhaser]
 
-  system.scheduler.scheduleAtFixedRate(10 minutes, 1 day) { () =>
+  scheduler.scheduleAtFixedRate(10 minutes, 1 day) { () =>
     opening.addAllMissing >> phaser.addAllMissing unit
   }
 
   if (mode == play.api.Mode.Prod)
-    system.scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
+    scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
       pathApi.isStale foreach { stale =>
         if (stale) logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
       }

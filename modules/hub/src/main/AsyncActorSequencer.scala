@@ -8,7 +8,7 @@ import lila.base.LilaTimeout
 
 final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: String, logging: Boolean = true)(
     implicit
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     ec: ExecutionContext
 ) {
 
@@ -45,7 +45,7 @@ final class AsyncActorSequencers(
     name: String,
     logging: Boolean = true
 )(implicit
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     ec: ExecutionContext
 ) {
 

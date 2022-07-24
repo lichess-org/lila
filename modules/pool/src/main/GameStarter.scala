@@ -13,7 +13,7 @@ final private class GameStarter(
     onStart: Game.Id => Unit
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   import PoolApi._

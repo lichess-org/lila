@@ -13,7 +13,8 @@ final class Env(
     playbanApi: lila.playban.PlaybanApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler
 ) {
 
   private lazy val hookThieve = wire[HookThieve]

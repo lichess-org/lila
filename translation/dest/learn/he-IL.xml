@@ -4,7 +4,7 @@
   <string name="byPlaying">על־ידי משחק!</string>
   <string name="menu">תפריט</string>
   <string name="progressX">התקדמות: %s</string>
-  <string name="resetMyProgress">אפס את מדד ההתקדמות שלי</string>
+  <string name="resetMyProgress">אפס את מד ההתקדמות שלי</string>
   <string name="youWillLoseAllYourProgress">תאבד את כל ההתקדמות שצברת!</string>
   <string name="play">שחק!</string>
   <string name="chessPieces">כלי השחמט</string>
@@ -162,9 +162,9 @@
   <string name="whatNext">ומה עכשיו?</string>
   <string name="youKnowHowToPlayChess">יפה, למדת את יסודות השחמט! כעת, למד להיות שחקן חזק יותר!</string>
   <string name="register">הרשמה</string>
-  <string name="getAFreeLichessAccount">פתח חשבון חינם ב-Lichess</string>
+  <string name="getAFreeLichessAccount">צור חשבון Lichess בחינם</string>
   <string name="practice">אימון</string>
-  <string name="learnCommonChessPositions">למד מערכים שגורים</string>
+  <string name="learnCommonChessPositions">למד עמדות נפוצות</string>
   <string name="puzzles">חידות</string>
   <string name="exerciseYourTacticalSkills">אמן את כישוריך</string>
   <string name="videos">סרטי וידאו</string>

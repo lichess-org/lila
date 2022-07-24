@@ -9,8 +9,15 @@
   <string name="postBody">Tijelo objave</string>
   <string name="drafts">Skice</string>
   <string name="published">Objavljeno</string>
+  <string name="createBlogDiscussion">Omogući komentare</string>
+  <string name="createBlogDiscussionHelp">Stvorit će se nova tema na forumu kako bi ljudi mogli komentirati vaš post</string>
   <string name="publishOnYourBlog">Objavi na blog</string>
   <string name="publishHelp">Ako je označeno, objava će biti navedena na vašem blogu. Ako ne, bit će privatan, u vašim skicama objava</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Objavio blog post</item>
+    <item quantity="few">Objavio %s blog posta</item>
+    <item quantity="other">Objavljeno %s objava na blogu</item>
+  </plurals>
   <string name="xPublishedY">%1$s objavio %2$s</string>
   <string name="thisPostIsPublished">Ovaj post je objavljen</string>
   <string name="thisIsADraft">Ovo je skica</string>
@@ -20,4 +27,5 @@
   <string name="latestBlogPosts">Najnovije objave na blogu</string>
   <string name="uploadAnImageForYourPost">Prenesite sliku za svoj post</string>
   <string name="imageAlt">Alternativni tekst slike</string>
+  <string name="imageCredit">Autor slike</string>
 </resources>

@@ -73,6 +73,10 @@ Lila is licensed under the GNU Affero General Public License 3 or any later
 version at your choice with an exception for Highcharts. See [copying](https://github.com/lichess-org/lila/blob/master/COPYING.md) for
 details.
 
+## Production architecture (as of July 2022)
+
+![Lichess production server architecture diagram](https://raw.githubusercontent.com/lichess-org/lila/master/public/images/architecture.png)
+
 ## Credits
 
 See [lichess.org/thanks](https://lichess.org/thanks) and the contributors here:
