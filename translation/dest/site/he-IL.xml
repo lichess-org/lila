@@ -103,7 +103,7 @@
   <string name="lossSavedBy50MoveRule">נמנע הפסד מפאת כלל 50 המהלכים</string>
   <string name="winOr50MovesByPriorMistake">ניצחון או כלל 50 המסעים בגלל טעות קודמת</string>
   <string name="lossOr50MovesByPriorMistake">הפסד או כלל 50 המסעים בגלל טעות קודמת</string>
-  <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם עקבו אחר שורת בסיס הטבלה המומלצת מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בבסיסי הטבלה של Syzygy.</string>
+  <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם שוחק ההמשך המומלץ של טבלת הסיומים מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בבסיסי הטבלה של Syzygy.</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="importPgn">ייבא בפורמט PGN</string>
   <string name="delete">מחיקה</string>
@@ -184,7 +184,7 @@
   <string name="today">היום</string>
   <string name="yesterday">אתמול</string>
   <string name="minutesPerSide">דקות עבור כל צד</string>
-  <string name="variant">גרסא</string>
+  <string name="variant">גרסה</string>
   <string name="variants">גרסאות</string>
   <string name="timeControl">קטגוריית זמן</string>
   <string name="realTime">זמן אמת</string>
@@ -274,8 +274,8 @@
   <string name="rematch">משחק חוזר</string>
   <string name="rematchOfferSent">הצעה למשחק חוזר נשלחה</string>
   <string name="rematchOfferAccepted">הצעה למשחק חוזר התקבלה</string>
-  <string name="rematchOfferCanceled">בקשת משחק חוזר בוטלה</string>
-  <string name="rematchOfferDeclined">בקשת משחק חוזר נדחתה</string>
+  <string name="rematchOfferCanceled">בקשה למשחק חוזר בוטלה</string>
+  <string name="rematchOfferDeclined">בקשה למשחק חוזר נדחתה</string>
   <string name="cancelRematchOffer">בטל הצעה למשחק חוזר</string>
   <string name="viewRematch">צפה במשחק החוזר</string>
   <string name="confirmMove">אשר מהלך</string>
@@ -401,7 +401,7 @@
   <string name="save">שמור</string>
   <string name="leaderboard">טבלת השחקנים המובילים</string>
   <string name="screenshotCurrentPosition">צלם את העמדה הנוכחית</string>
-  <string name="gameAsGIF">משחק בתור GIF</string>
+  <string name="gameAsGIF">המשחק בתור GIF</string>
   <string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
   <string name="orUploadPgnFile">או העלה קובץ PGN</string>
@@ -409,7 +409,7 @@
   <string name="continueFromHere">המשך מכאן</string>
   <string name="toStudy">הפוך ללוח למידה</string>
   <string name="importGame">ייבא משחק</string>
-  <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ׳אט וקישור לשיתוף.</string>
+  <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s משחק מיובא</item>
     <item quantity="two">%s משחקים מיובאים</item>
@@ -432,7 +432,7 @@
   </plurals>
   <string name="favoriteOpponents">יריבים מועדפים</string>
   <string name="follow">עקוב</string>
-  <string name="following">עוקבים</string>
+  <string name="following">ברשימת המעקב</string>
   <string name="unfollow">הפסק מעקב</string>
   <string name="followX">עקוב אחר %s</string>
   <string name="unfollowX">הפסק לעקוב אחר %s</string>
@@ -448,10 +448,10 @@
     <item quantity="other">%s עוקבים</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s עוקב</item>
-    <item quantity="two">%s עוקבים</item>
-    <item quantity="many">%s עוקב</item>
-    <item quantity="other">%s עוקב</item>
+    <item quantity="one">%s ברשימת המעקב</item>
+    <item quantity="two">%s ברשימת המעקב</item>
+    <item quantity="many">%s ברשימת המעקב</item>
+    <item quantity="other">%s ברשימת המעקב</item>
   </plurals>
   <string name="more">עוד</string>
   <string name="memberSince">רשום מ</string>
@@ -918,7 +918,7 @@
   <string name="resVsX">%1$s נגד %2$s</string>
   <string name="someoneReviewedYourCoachProfile">מישהו דירג את פרופיל המאמן שלך.</string>
   <string name="newPendingReview">דירוג ממתין חדש</string>
-  <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תקנון השימוש בליצ\'ס</string>
+  <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תנאי השימוש בליצ\'ס</string>
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
   <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
