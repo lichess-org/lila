@@ -285,7 +285,7 @@ export default function (
 
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
-      updateUrl(vm.chapterId)
+      updateUrl(vm.chapterId);
       nextPath = (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId]) || data.position.path;
     } else {
       nextPath = sameChapter
@@ -398,7 +398,7 @@ export default function (
     vm.loading = true;
     vm.nextChapterId = id;
     vm.justSetChapterId = id;
-    updateUrl(id)
+    updateUrl(id);
     redraw();
   }
 
