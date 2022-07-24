@@ -338,7 +338,7 @@
   <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
   <string name="backToGame">Zurück zur Partie</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
-  <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
+  <string name="xJoinedTeamY">%1$s trat dem Team %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
   <string name="xStartedStreaming">%s hat einen Stream gestartet</string>
   <string name="averageElo">Durchschnittswertung</string>
