@@ -24,7 +24,7 @@ object Namer {
         }
       }
     ) { level =>
-      s"YaneuraOu V6.00 level $level"
+      s"A.I. level $level" // todo - give proper engine name
     }
 
   def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(implicit

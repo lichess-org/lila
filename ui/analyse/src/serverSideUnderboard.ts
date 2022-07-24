@@ -2,6 +2,7 @@ import AnalyseCtrl from './ctrl';
 import { defined } from 'common/common';
 import { baseUrl } from './util';
 import { AnalyseData } from './interfaces';
+import { initialSfen } from 'shogiops/sfen';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;
@@ -76,7 +77,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   function chartLoader() {
-    return `<div id="acpl-chart-loader"><span>YaneuraOu V6<br>server analysis</span>${li.spinnerHtml}</div>`;
+    const engineName = ctrl.data.game.initialSfen !== initialSfen('standard') ? 'Fairy Stockfish' : 'YaneuraOu V7';
+    return `<div id="acpl-chart-loader"><span>${engineName}<br>server analysis</span>${li.spinnerHtml}</div>`;
   }
   function startAdvantageChart() {
     if (li.advantageChart || li.AnalyseNVUI) return;
