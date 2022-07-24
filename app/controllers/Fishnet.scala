@@ -41,8 +41,6 @@ final class Fishnet(env: Env) extends LilaController(env) {
             case WorkNotFound    => onComplete
             case GameNotFound    => onComplete
             case NotAcquired     => onComplete
-            case WeakAnalysis(_) => onComplete
-            // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
             case e => fuccess(Left(InternalServerError(e.getMessage)))
           },
           {

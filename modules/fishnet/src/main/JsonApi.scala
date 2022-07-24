@@ -104,8 +104,6 @@ object JsonApi {
             .flatMap(_.nodes)
         }
 
-      def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
-      def weak   = !strong
     }
 
     case class PartialAnalysis(
@@ -144,8 +142,6 @@ object JsonApi {
 
       val npsCeil = 10 * 1000 * 1000
 
-      val desiredNodes    = 3 * 1000 * 1000
-      val acceptableNodes = desiredNodes * 0.7
     }
   }
 
