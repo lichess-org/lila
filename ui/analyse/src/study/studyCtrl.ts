@@ -244,6 +244,12 @@ export default function (
     if (practice) practice.onLoad();
   }
 
+  function updateUrl(chapterId: string) {
+    if (!practice) {
+      window.history.replaceState(null, '', `/study/${data.id}/${chapterId}`);
+    }
+  }
+
   function onReload(d: ReloadData) {
     const s = d.study!;
     const prevPath = ctrl.path;
@@ -279,6 +285,7 @@ export default function (
 
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
+      updateUrl(vm.chapterId)
       nextPath = (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId]) || data.position.path;
     } else {
       nextPath = sameChapter
@@ -391,6 +398,7 @@ export default function (
     vm.loading = true;
     vm.nextChapterId = id;
     vm.justSetChapterId = id;
+    updateUrl(id)
     redraw();
   }
 
