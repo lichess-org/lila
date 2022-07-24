@@ -585,12 +585,12 @@ export default class AnalyseCtrl {
       if (node.sfen !== ev.sfen && !isThreat) return;
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
-        if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < threat.maxDepth)
+        if (!node.threat || isEvalBetter(threat, node.threat) || node.threat.maxDepth < threat.maxDepth)
           node.threat = threat;
       } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
       else if (!ev.cloud) {
-        if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
-        else if (node.ceval && ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
+        if (node.ceval.cloud && ev.maxDepth > node.ceval.depth) node.ceval = ev;
+        else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
       }
 
       if (path === this.path) {

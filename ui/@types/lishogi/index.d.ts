@@ -104,6 +104,7 @@ interface Cookie {
 interface AssetUrlOpts {
   sameDomain?: boolean;
   noVersion?: boolean;
+  version?: string;
 }
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
@@ -233,19 +234,26 @@ interface Paginator<A> {
 declare namespace Tree {
   export type Path = string;
 
-  export interface ClientEval {
+  interface ClientEvalBase {
     sfen: Sfen;
-    maxDepth: number;
     depth: number;
-    knps: number;
     nodes: number;
-    millis: number;
     pvs: PvData[];
-    cloud?: boolean;
     cp?: number;
     mate?: number;
-    retried?: boolean;
   }
+  export interface CloudEval extends ClientEvalBase {
+    cloud: true;
+    maxDepth: undefined;
+    millis: undefined;
+  }
+  export interface LocalEval extends ClientEvalBase {
+    cloud?: false;
+    maxDepth: number;
+    knps: number;
+    millis: number;
+  }
+  export type ClientEval = CloudEval | LocalEval;
 
   export interface ServerEval {
     cp?: number;
@@ -275,7 +283,7 @@ declare namespace Tree {
     gamebook?: Gamebook;
     check?: Key;
     capture?: boolean;
-    threat?: ClientEval;
+    threat?: LocalEval;
     ceval?: ClientEval;
     eval?: ServerEval;
     tbhit?: TablebaseHit | null;
