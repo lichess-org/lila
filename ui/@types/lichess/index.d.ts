@@ -279,6 +279,7 @@ interface Window {
   readonly Sortable: any;
   readonly Peer: any;
   readonly Highcharts: any;
+  readonly LilaLpv: any;
 
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;
@@ -364,7 +365,7 @@ interface Variant {
 interface Paginator<A> {
   currentPage: number;
   maxPerPage: number;
-  currentPageResults: Array<A>;
+  currentPageResults: A[];
   nbResults: number;
   previousPage?: number;
   nextPage?: number;

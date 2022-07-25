@@ -47,7 +47,7 @@ final class ForumExpand(gameRepo: GameRepo, netDomain: config.NetDomain, pgnDump
           .get(url)
           .orElse(matches.get(removeScheme(url)))
           .fold[Frag](raw(url)) { case (_, pgn) =>
-            div(cls := "lpv--autostart", attr("data-pgn") := pgn.toString)
+            div(cls := "lpv--autostart", attr("data-pgn") := pgn.toString, attr("data-showMoves") := true)
           }
           .render
       raw {

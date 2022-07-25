@@ -927,6 +927,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bity/oauth2-auth-code-pkce@^2":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@bity/oauth2-auth-code-pkce/-/oauth2-auth-code-pkce-2.13.0.tgz#cee077db75182b01e9b576a52ee408480d39bdc5"
+  integrity sha512-jAVsbLIVHvo0Lm6sj2t3ltiLbWKvTlkVflHCiV9DRk1w9FBEOjpJD7OJXkeWBY0Vgr+XiGIm80yJa+sa8XpnWQ==
+
 "@eslint/eslintrc@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.3.0.tgz#29f92c30bb3e771e4a2048c95fa6855392dfac4f"
@@ -2488,7 +2493,7 @@ chessground@^4.4:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
 
-chessground@^8.3:
+chessground@^8.3, chessground@^8.3.3:
   version "8.3.3"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.3.3.tgz#585ad05d4f5caf899b2038c2a08bc1139dd56c1f"
   integrity sha512-QUuVKcGDI8ve4zPwFyfU3bIWTaoEP6a+GehLGOa7zU3y4L0BLOsiEXzp2QWjt75e3JKa6m3qdWb9ahyDro7lcA==
@@ -5451,6 +5456,16 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+lichess-pgn-viewer@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/lichess-pgn-viewer/-/lichess-pgn-viewer-0.1.6.tgz#893863ccc2ea8a908798680a8c8f71eaa9e26a07"
+  integrity sha512-TfghmLxbix9TeGwVinwBbEFv81Z7FkbQRfCKaswvXI1ddfkUV1waRmVwhGUPAOPGHDdhB4xOBYMWOdnXYMZ2Pw==
+  dependencies:
+    "@bity/oauth2-auth-code-pkce" "^2"
+    chessground "^8.3.3"
+    chessops "^0.12"
+    snabbdom "^3"
+
 liftoff@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/liftoff/-/liftoff-3.1.0.tgz#c9ba6081f908670607ee79062d700df062c52ed3"
@@ -7346,7 +7361,7 @@ smart-buffer@^4.2.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-snabbdom@^3.3.1:
+snabbdom@^3, snabbdom@^3.3.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/snabbdom/-/snabbdom-3.5.1.tgz#25f80ef15b194baea703d9d5441892e369de18e1"
   integrity sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==

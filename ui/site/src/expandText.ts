@@ -77,7 +77,7 @@ lichess.load.then(() => {
       };
     matches = a.href.match(gameRegex);
     if (matches && matches[1] && !notGames.includes(matches[1]) && a.text.match(gameRegex)) {
-      let src = '/embed/' + matches[1];
+      let src = '/embed/game/' + matches[1];
       if (matches[2]) src += '/' + matches[2]; // orientation
       if (matches[3]) src += matches[3]; // ply hash
       return {
@@ -247,4 +247,13 @@ lichess.load.then(() => {
   );
 
   expandGames(as.filter(a => a.type === 'game'));
+
+  expandLpv();
 });
+
+function expandLpv() {
+  if ($('.lpv--autostart').length) {
+    lichess.loadCssPath('lpv');
+    lichess.loadModule('lpv').then(() => window.LilaLpv());
+  }
+}

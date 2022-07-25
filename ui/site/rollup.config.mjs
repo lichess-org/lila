@@ -116,6 +116,11 @@ export default rollupProject({
     input: 'src/expandText.ts',
     output: 'expandText',
   },
+  lpv: {
+    input: 'src/lpv.ts',
+    output: 'lpv',
+    name: 'LilaLpv',
+  },
   team: {
     input: 'src/team.ts',
     output: 'team',
