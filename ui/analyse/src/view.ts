@@ -530,19 +530,19 @@ function renderSaveMoves(ctrl: AnalyseCtrl): VNode | undefined {
 
   return h('div.save-moves', { attrs: { title: noarg('savingMovesHelp') } }, [
     h('button-none.reset', {
-      class: { invisible: !(ctrl.saveMoves() && ctrl.isDirty) },
+      class: { invisible: !(ctrl.isSavingMoves() && ctrl.isDirty) },
       attrs: {
         title: ctrl.trans.noarg('clearSavedMoves'),
         'data-icon': '',
       },
-      hook: bind('click', () => ctrl.hardReset()),
+      hook: bind('click', () => ctrl.clearSavedMoves()),
     }),
-    h('div.switch-label', ctrl.saveMoves() ? noarg('savingMoves') : null),
+    h('div.switch-label', ctrl.isSavingMoves() ? noarg('savingMoves') : null),
     h(
       'a.rec-switch',
       {
-        class: { on: ctrl.saveMoves() },
-        hook: bind('click', () => ctrl.saveMoves(!ctrl.saveMoves())),
+        class: { on: ctrl.isSavingMoves() },
+        hook: bind('click', () => ctrl.toggleSaveMoves()),
       },
       [h('i.is'), 'REC']
     ),

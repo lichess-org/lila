@@ -921,21 +921,20 @@ export default class AnalyseCtrl {
     return undefined;
   };
 
-  saveMoves = (switchVal?: boolean): boolean => {
-    if (!defined(switchVal)) {
-      return defined(this.moveDb) && this.saveMovesProp();
-    } else {
-      this.saveMovesProp(switchVal);
-      if (switchVal) {
-        if (this.isDirty) this.saveDbState();
-        else this.mergeDbState();
-      }
-      this.redraw();
-      return switchVal;
+  isSavingMoves = (): boolean => defined(this.moveDb) && this.saveMovesProp();
+
+  toggleSaveMoves = (): boolean => {
+    const saveMoves = !this.saveMovesProp();
+    this.saveMovesProp(saveMoves);
+    if (saveMoves) {
+      if (this.isDirty) this.saveDbState();
+      else this.mergeDbState();
     }
+    this.redraw();
+    return saveMoves;
   };
 
-  hardReset = (): void => {
+  clearSavedMoves = (): void => {
     if (defined(this.moveDb)) {
       this.moveDb.remove(this.data.game.id);
       window.location.reload();
@@ -943,7 +942,7 @@ export default class AnalyseCtrl {
   };
 
   private saveDbState(): void {
-    if (defined(this.moveDb) && this.saveMoves() && this.isDirty) {
+    if (defined(this.moveDb) && this.isSavingMoves() && this.isDirty) {
       this.moveDb.put(this.data.game.id, {
         root: this.tree.root,
         path: this.path,
