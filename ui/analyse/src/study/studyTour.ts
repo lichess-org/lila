@@ -20,10 +20,9 @@ export function study(ctrl: AnalyseCtrl) {
     });
 }
 
-export function chapter(setTab: (tab: string) => void) {
+export const chapter = (setTab: (tab: string) => void) =>
   lichess.loadScript('javascripts/study/tour-chapter.js').then(() => {
     window.lichess.studyTourChapter({
       setTab,
     });
   });
-}
