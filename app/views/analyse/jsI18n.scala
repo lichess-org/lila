@@ -57,6 +57,7 @@ object jsI18n {
         trans.inlineNotation,
         trans.savingMoves,
         trans.savingMovesHelp,
+        trans.makeAStudy,
         trans.clearSavedMoves,
         trans.computerAnalysis,
         trans.enable,

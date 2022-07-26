@@ -546,7 +546,11 @@ function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
 
   return h('div.analyse__persistence.sub-box', [
     h('div.title', noarg('savingMoves')),
-    h('p.analyse__persistence__help', [iconTag(''), noarg('savingMovesHelp')]),
+    h('p.analyse__persistence__help', [
+      iconTag(''),
+      noarg('savingMovesHelp'),
+      ctrl.ongoing ? null : ' ' + noarg('makeAStudy'),
+    ]),
     h('div.analyse__persistence__actions', [
       studyButton(ctrl),
       h(

@@ -466,8 +466,9 @@ computer analysis, game chat and shareable URL.</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="savingMoves">Temporary move storage</string>
-  <string name="savingMovesHelp">We're storing your variations in your browser cache. For safekeeping and sharing, consider making a study.</string>
-  <string name="clearSavedMoves">Reset moves</string>
+  <string name="savingMovesHelp">We're storing your variations in your browser cache.</string>
+  <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
+  <string name="clearSavedMoves">Clear moves</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activePlayers">Active players</string>
