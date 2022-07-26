@@ -18,7 +18,7 @@ import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'tree';
 import { render as trainingView } from './roundTraining';
-import { view as actionMenu } from './actionMenu';
+import { studyButton, view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
 import * as control from './control';
 import crazyView from './crazy/crazyView';
@@ -39,6 +39,7 @@ import { render as renderTreeView } from './treeView/treeView';
 import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 import type * as studyDeps from './study/studyDeps';
+import { iconTag } from './util';
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
@@ -200,6 +201,7 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'menu') ctrl.actionMenu.toggle();
             else if (action === 'analysis' && ctrl.studyPractice)
               window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
+            else if (action === 'persistence') ctrl.persistence?.toggleOpen();
           },
           ctrl.redraw
         );
@@ -242,6 +244,19 @@ function controls(ctrl: AnalyseCtrl) {
                         class: {
                           hidden: menuIsOpen || !!ctrl.retro,
                           active: !!ctrl.practice,
+                        },
+                      })
+                    : null,
+                  ctrl.persistence?.isDirty
+                    ? h('button.fbt', {
+                        attrs: {
+                          title: noarg('savingMoves'),
+                          'data-act': 'persistence',
+                          'data-icon': '',
+                        },
+                        class: {
+                          hidden: menuIsOpen || !!ctrl.retro,
+                          active: ctrl.persistence.open(),
                         },
                       })
                     : null,
@@ -526,26 +541,25 @@ export default function (deps?: typeof studyDeps) {
 }
 
 function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.study) return;
+  if (!ctrl.persistence?.open()) return;
   const noarg = ctrl.trans.noarg;
 
-  return h('div.analyse__persistence', { attrs: { title: noarg('savingMovesHelp') } }, [
-    h('button-none.reset', {
-      class: { invisible: !(ctrl.persistence.active() && ctrl.persistence.isDirty) },
-      attrs: {
-        title: ctrl.trans.noarg('clearSavedMoves'),
-        'data-icon': '',
-      },
-      hook: bind('click', ctrl.persistence.clear),
-    }),
-    h('div.switch-label', ctrl.persistence.active() ? noarg('savingMoves') : null),
-    h(
-      'a.rec-switch',
-      {
-        class: { on: ctrl.persistence.active() },
-        hook: bind('click', ctrl.persistence.toggle),
-      },
-      [h('i.is'), 'REC']
-    ),
+  return h('div.analyse__persistence.sub-box', [
+    h('div.title', noarg('savingMoves')),
+    h('p.analyse__persistence__help', [iconTag(''), noarg('savingMovesHelp')]),
+    h('div.analyse__persistence__actions', [
+      studyButton(ctrl),
+      h(
+        'button.button.button-empty.button-red',
+        {
+          attrs: {
+            title: ctrl.trans.noarg('clearSavedMoves'),
+            'data-icon': '',
+          },
+          hook: bind('click', ctrl.persistence.clear),
+        },
+        'Clear moves'
+      ),
+    ]),
   ]);
 }

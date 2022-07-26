@@ -54,7 +54,7 @@ export default class AnalyseCtrl {
   trans: Trans;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  persistence: Persistence;
+  persistence?: Persistence;
 
   // current tree state, cursor, and denormalized node lists
   path: Tree.Path;
@@ -123,7 +123,6 @@ export default class AnalyseCtrl {
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
     this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
-    this.persistence = new Persistence(this);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
@@ -133,6 +132,8 @@ export default class AnalyseCtrl {
     this.instanciateEvalCache();
 
     this.initialize(this.data, false);
+
+    this.persistence = this.embed || this.study ? undefined : new Persistence(this, this.synthetic);
 
     this.instanciateCeval();
 
@@ -184,7 +185,7 @@ export default class AnalyseCtrl {
       this.redraw();
     });
     speech.setup();
-    this.persistence.merge();
+    this.persistence?.merge();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -223,7 +224,7 @@ export default class AnalyseCtrl {
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki) this.wiki(this.nodeList);
-    this.persistence.save();
+    this.persistence?.save();
   };
 
   flip = () => {
@@ -523,8 +524,7 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
-    if (!this.persistence.isDirty) this.persistence.isDirty = !this.tree.pathExists(path + node.id);
-
+    this.persistence?.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
