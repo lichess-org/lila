@@ -151,7 +151,7 @@ final class Relation(
       )
     }
 
-  def apiFollowing = Scoped() { implicit req => me =>
+  def apiFollowing = Scoped(_.Follow.Read) { implicit req => me =>
     apiC.jsonStream {
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
