@@ -136,6 +136,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }, 4000);
 
     withGround(g => {
+      g.selectSquare(null);
       g.setAutoShapes([]);
       g.setShapes([]);
       showGround(g);

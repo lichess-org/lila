@@ -206,10 +206,10 @@ private object LobbySyncActor {
       resyncIdsPeriod: FiniteDuration
   )(
       makeTrouper: () => LobbySyncActor
-  )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) = {
+  )(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) = {
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
-    system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
+    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
     lila.common.LilaScheduler(_.Every(broomPeriod), _.AtMost(10 seconds), _.Delay(7 seconds)) {
       trouper.ask[Unit](Tick)
     }

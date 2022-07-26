@@ -34,7 +34,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
+    scheduler: Scheduler
 ) {
 
   private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)

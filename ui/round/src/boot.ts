@@ -21,7 +21,7 @@ export default function (opts: RoundOpts): void {
             o.player ? [o.player.title, o.player.name, o.player.rating].filter(x => x).join('&nbsp') : 'Anonymous'
           );
       },
-      end() {
+      endData() {
         xhr.text(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
           const $html = $(html),
             $meta = $html.find('.game__meta');

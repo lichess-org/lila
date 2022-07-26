@@ -15,10 +15,9 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
-
-  private def scheduler = system.scheduler
 
   lazy val jsonView = wire[BotJsonView]
 

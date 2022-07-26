@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
 import lila.insight.{ InsightDimension, Phase }
 import lila.rating.PerfType
-import lila.tutor.{ TutorCompare, TutorMetric, Grade }
+import lila.tutor.{ Grade, TutorCompare, TutorMetric }
 
 private object compare {
 

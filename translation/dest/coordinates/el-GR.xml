@@ -8,13 +8,11 @@
   <string name="mostChessCourses">Τα περισσότερα μαθήματα κι οι περισσότερες ασκήσεις στο σκάκι χρησιμοποιούν τον αλγεβρικό τρόπο γραφής.</string>
   <string name="talkToYourChessFriends">Καθίσταται ευκολότερο να επικοινωνήσετε με τους φίλους σας στο σκάκι, δεδομένου ότι και οι δύο καταλαβαίνετε τη γλώσσα του σκακιού.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Μπορείτε να αναλύσετε ένα παιχνίδι αποτελεσματικότερα εάν δεν χρειάζεται να αναζητάτε τα ονόματα των τετραγώνων.</string>
-  <string name="aSquareNameAppears">Ένα όνομα τετραγώνου εμφανίζεται στη σκακιέρα και πρέπει να πατήσετε το σωστό τετράγωνο. Έχετε 30 δευτερόλεπτα για να αναγνωρίσετε όσο το δυνατόν περισσότερα τετράγωνα!</string>
-  <string name="aSquareIsHighlighted">Σκοπός σας είναι να δώσετε τις συντεταγμένες του τετραγώνου που θα «λάμψει» (π.χ. \"e4\"). Έχετε 30 δευτερόλεπτα, οπότε πρέπει να είστε γρήγοροι!</string>
-  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">Έχετε 30 δευτερόλεπτα για να διαλέξτε σωστά όσα τετράγωνα γίνεται!</string>
+  <string name="youHaveThirtySeconds">Έχετε 30 δευτερόλεπτα για να διαλέξτε σωστά όσα τετράγωνα γίνεται!</string>
   <string name="goAsLongAsYouWant">Πάρτε όσο χρόνο θέλετε, δεν υπάρχει χρονικό όριο!</string>
   <string name="showCoordinates">Εμφάνιση συντεταγμένων</string>
   <string name="showPieces">Εμφάνιση κομματιών</string>
   <string name="startTraining">Έναρξη εξάσκησης</string>
-  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">Εύρεση τετραγώνου</string>
-  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">Ονομασία τετραγώνου</string>
+  <string name="findSquare">Εύρεση τετραγώνου</string>
+  <string name="nameSquare">Ονομασία τετραγώνου</string>
 </resources>

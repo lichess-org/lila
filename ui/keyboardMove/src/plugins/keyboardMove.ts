@@ -80,6 +80,11 @@ export default (opts: Opts) => {
         readClocks(opts.ctrl.clock());
         clear();
       }
+    } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
+      if ('who' === v.toLowerCase()) {
+        readOpponentName();
+        clear();
+      }
     } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
       if ('draw' === v.toLowerCase()) {
         opts.ctrl.draw();
@@ -193,6 +198,11 @@ function readClocks(clockCtrl: any | undefined) {
     return `${color} ${msg}`;
   });
   lichess.sound.say(msgs.join('. '));
+}
+
+function readOpponentName(): void {
+  const opponentName = document.querySelector('.ruser-top') as HTMLInputElement;
+  lichess.sound.say(opponentName.innerText.split('\n')[0]);
 }
 
 function simplePlural(nb: number, word: string) {

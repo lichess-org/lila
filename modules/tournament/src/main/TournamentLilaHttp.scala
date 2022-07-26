@@ -23,7 +23,7 @@ final class TournamentLilaHttp(
     pause: Pause,
     lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
-)(implicit mat: akka.stream.Materializer, system: akka.actor.ActorSystem, ec: ExecutionContext) {
+)(implicit mat: akka.stream.Materializer, scheduler: akka.actor.Scheduler, ec: ExecutionContext) {
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
   def handledIds                = isOnLilaHttp.keys

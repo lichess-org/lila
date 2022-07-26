@@ -223,6 +223,14 @@
     <item quantity="many">%s ساعة</item>
     <item quantity="other">%s ساعة</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="zero">%s دقائق</item>
+    <item quantity="one">%s دقائق</item>
+    <item quantity="two">%s دقيقة</item>
+    <item quantity="few">%s دقيقة</item>
+    <item quantity="many">%s دقيقة</item>
+    <item quantity="other">%s دقيقة</item>
+  </plurals>
   <string name="time">الوقت</string>
   <string name="rating">التقييم</string>
   <string name="ratingStats">احصائيات التقييم</string>

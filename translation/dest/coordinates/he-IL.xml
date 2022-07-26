@@ -8,13 +8,13 @@
   <string name="mostChessCourses">בימינו, שיטת הרישום האלגברית היא הנפוצה ביותר בכל תוכנות האימון.</string>
   <string name="talkToYourChessFriends">היא מקלה על התקשורת עם חבריך לשחמט, כי היא משמשת כשפת תקשורת המובנת לכולכם.</string>
   <string name="youCanAnalyseAGameMoreEffectively">האנליזה של משחקים היא יותר אפקטיבית כאשר איננו זקוקים לתת שמות למשבצות השונות.</string>
-  <string name="aSquareNameAppears">בהנתן קואורדינטות משבצת, יש להקיש על המשבצת הנכונה. בוא נראה כמה משבצות תצליח להקיש ב-30 שניות!</string>
-  <string name="aSquareIsHighlighted">אחת המשבצות מודגשת על הלוח ועליך להקליד את הקורדינאטות (לדוגמה \"e4\"). יש לך 30 שניות לזהות נכונה כמה שיותר משבצות.</string>
-  <string name="youHaveThirtySeconds" comment="youHaveThirtySeconds&#10;&#10;This is the description of a game for learning coordinates. The user is shown random coordinates and the task is to click the corresponding squares as fast as possible.&#10;Try it on https://lichess.org/training/coordinate">יש לך 30 שניות למקם נכונה כמה שיותר משבצות!</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">נקודת ציון (קואורדינטה) מופיעה על הלוח ועליך ללחוץ על המשבצת המתאימה לה.</string>
+  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">אחת המשבצות מודגשת על הלוח ועליך להקליד את נקודת הציון (למשל: e4).</string>
+  <string name="youHaveThirtySeconds">יש לך 30 שניות למקם נכונה כמה שיותר משבצות!</string>
   <string name="goAsLongAsYouWant">פתור כפי יכולתך, אין מגבלת זמן!</string>
   <string name="showCoordinates">הצג קואורדינטות (נקודות ציון)</string>
   <string name="showPieces">הצג כלים</string>
   <string name="startTraining">התחל להתאמן</string>
-  <string name="findSquare" comment="findSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A coordinate appears on the board and you must click on the corresponding square.">מצא את המשבצת</string>
-  <string name="nameSquare" comment="nameSquare&#10;One of the two modes of Coordinate training: https://lichess.org/training/coordinate&#10;&#10;A square is highlighted on the board and you must enter the coordinate (e.g. &quot;e4&quot;).">תן שם למשבצת</string>
+  <string name="findSquare">מצא את המשבצת</string>
+  <string name="nameSquare">תן שם למשבצת</string>
 </resources>

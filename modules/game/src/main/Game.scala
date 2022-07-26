@@ -728,6 +728,8 @@ object Game {
 
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
 
+  def isBoardOrBotCompatible(game: Game) = isBoardCompatible(game) || isBotCompatible(game)
+
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
   private[game] val someEmptyClockHistory = Some(ClockHistory())

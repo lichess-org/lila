@@ -19,6 +19,7 @@ final private class TournamentSocket(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
 

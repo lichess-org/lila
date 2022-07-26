@@ -25,7 +25,7 @@
   <string name="teachersOfTheClass">Lehrer vu de Klass</string>
   <string name="addLichessUsernames">Füeg Lichess Benutzernäme zue, um sie als Lehrer izlade. Aber nur 1 pro Zile.</string>
   <string name="resetPassword">Passwort zruggsetze</string>
-  <string name="makeSureToCopy">Kopier das Passwort JETZT oder schribs uf! Du gsehsch das Wort keis zweits Mal! </string>
+  <string name="makeSureToCopy">Kopier das Passwort JETZT oder schribs uf! Du gsehsch das Wort keis zweits Mal!</string>
   <string name="passwordX">Passwort: %s</string>
   <string name="generateANewPassword">Generier es neus Passwort für de Schüeler</string>
   <string name="invitedToXByY">iglade zu %1$s vu %2$s</string>

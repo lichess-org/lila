@@ -90,6 +90,9 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeCla
     inaccuracy: glyphIds.includes(6),
     mistake: glyphIds.includes(2),
     blunder: glyphIds.includes(4),
+    good: glyphIds.includes(1),
+    brilliant: glyphIds.includes(3),
+    interesting: glyphIds.includes(5),
   };
 }
 
@@ -166,7 +169,7 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   return (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p');
 }
 
-export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
+const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
   const cont = el.parentElement?.parentElement;
   if (!cont) return;
   const target = el.querySelector<HTMLElement>('.active');

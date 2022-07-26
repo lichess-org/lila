@@ -13,6 +13,7 @@
   <string name="myTeams">Moji timovi</string>
   <string name="noTeamFound">Nijedan tim nije pronađen</string>
   <string name="joinTeam">Priključi se timu</string>
+  <string name="onlyLeaderLeavesTeam">Molim vas da prije odlaska dodate novog vođu tima ili zatvorite tim.</string>
   <string name="quitTeam">Napusti tim</string>
   <string name="manuallyReviewAdmissionRequests">Ručno provjeri zahtjeve za pridruživanjem</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Kada označeni, igrači moraju napisati zahtjev za pridruživanje timu, kojeg možeš prihvatiti ili odbiti.</string>

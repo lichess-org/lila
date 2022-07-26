@@ -26,7 +26,7 @@ final class Env(
     insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private lazy val irwinReportColl = db(CollName("irwin_report")).taggedWith[IrwinColl]
@@ -41,7 +41,7 @@ final class Env(
 
   if (appConfig.get[Boolean]("kaladin.enabled")) {
 
-    system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
+    scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
       (for {
         leaders <- tournamentApi.allCurrentLeadersInStandard
         suspects <- lila.common.Future
@@ -56,7 +56,7 @@ final class Env(
         _ <- kaladinApi.tournamentLeaders(suspects)
       } yield ()).unit
     }
-    system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
+    scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
       (for {
         topOnline <- userCache.getTop50Online.map(_ map Suspect)
         _         <- irwinApi.requests.topOnline(topOnline)
@@ -64,11 +64,11 @@ final class Env(
       } yield ()).unit
     }
 
-    system.scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds) { () =>
+    scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds) { () =>
       kaladinApi.readResponses.unit
     }
 
-    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+    scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       kaladinApi.monitorQueued.unit
     }
   }

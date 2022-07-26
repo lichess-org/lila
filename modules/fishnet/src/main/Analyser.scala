@@ -15,7 +15,7 @@ final class Analyser(
     limiter: FishnetLimiter
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   val maxPlies = 300

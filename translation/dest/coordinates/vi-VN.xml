@@ -8,6 +8,5 @@
   <string name="mostChessCourses">Hầu hết các khóa học và bài tập cờ vua dùng ký hiệu đại số rộng rãi.</string>
   <string name="talkToYourChessFriends">Nó giúp bạn cờ dễ nói chuyện với nhau hơn, vì cả hai đều hiểu \"ngôn ngữ cờ vua\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Bạn sẽ phân tích ván cờ hiệu quả hơn nếu bạn có thể tìm ra ngay ô cờ từ tọa độ.</string>
-  <string name="aSquareNameAppears">Từng tọa độ sẽ xuất hiện trên bàn cờ và bạn phải chọn đúng ô cờ. Bạn có 30 giây để xác định nhiều ô cờ nhất có thể!</string>
   <string name="startTraining">Bắt đầu luyện</string>
 </resources>

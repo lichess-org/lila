@@ -26,7 +26,8 @@ case class PracticeStructure(
 
   lazy val chapterIds: List[Chapter.Id] = sections.flatMap(_.studies).flatMap(_.chapterIds)
 
-  lazy val nbChapters = chapterIds.size
+  lazy val nbUnhiddenChapters =
+    sections.filterNot(_.hide).flatMap(_.studies).filterNot(_.hide).map(_.chapterIds.size).sum
 
   def findSection(id: Study.Id): Option[PracticeSection] = sectionsByStudyIds get id
 

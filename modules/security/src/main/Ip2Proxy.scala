@@ -28,7 +28,7 @@ final class Ip2ProxyServer(
     checkUrl: String
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) extends Ip2Proxy {
 
   def apply(ip: IpAddress): Fu[Boolean] =
