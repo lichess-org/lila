@@ -960,7 +960,7 @@ export default class AnalyseCtrl {
         this.isDirty = true;
         this.tree.merge(state.root);
         this.jump(state.path);
-        if (state.flipped) this.flip();
+        if (state.flipped != this.flipped) this.flip();
       }
       this.moveDb = store;
       this.redraw();
