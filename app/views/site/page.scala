@@ -13,7 +13,7 @@ object page {
       moreCss = cssTag("page"),
       title = ~doc.getText("doc.title")
     ) {
-      main(cls := "page-small box box-pad page force-rtl")(pageContent(doc, resolver))
+      main(cls := "page-small box box-pad page force-ltr")(pageContent(doc, resolver))
     }
 
   def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit

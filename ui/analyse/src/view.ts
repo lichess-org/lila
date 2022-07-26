@@ -32,6 +32,7 @@ import { ConcealOf } from './interfaces';
 import { view as keyboardView } from './keyboard';
 import * as pgnExport from './pgnExport';
 import retroView from './retrospect/retroView';
+import practiceView from './practice/practiceView';
 import serverSideUnderboard from './serverSideUnderboard';
 import { StudyCtrl } from './study/interfaces';
 import { render as renderTreeView } from './treeView/treeView';
@@ -462,7 +463,7 @@ export default function (deps?: typeof studyDeps) {
                       showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                       renderAnalyse(ctrl, concealOf),
                       gamebookEditView || forkView(ctrl, concealOf),
-                      retroView(ctrl) || deps?.practiceView(ctrl) || explorerView(ctrl) || renderSaveMoves(ctrl),
+                      retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl) || renderSaveMoves(ctrl)
                     ]),
               ])),
         menuIsOpen || tour ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
