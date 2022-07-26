@@ -88,6 +88,8 @@ export interface NvuiPlugin {
   render(ctrl: Controller): VNode;
 }
 
+export type ReplayEnd = PuzzleReplay;
+
 export interface Vm {
   path: Tree.Path;
   nodeList: Tree.Node[];
@@ -96,7 +98,7 @@ export interface Vm {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  next: Deferred<PuzzleData | undefined>;
+  next: Deferred<PuzzleData | ReplayEnd>;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
