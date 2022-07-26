@@ -340,7 +340,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: {
           readonly: true,
           spellcheck: false,
-          value: ctrl.makeEditorUrl(fen),
+          value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()),
         },
       }),
     ]),
