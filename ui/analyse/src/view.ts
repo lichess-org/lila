@@ -174,7 +174,6 @@ function controls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
-    persistBtnDisabled = ctrl.actionMenu.open || ctrl.explorer.enabled() || !!ctrl.practice,
     noarg = ctrl.trans.noarg;
   let iconFirst = '';
   let iconPrev = '';
@@ -197,12 +196,10 @@ function controls(ctrl: AnalyseCtrl) {
             if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-            else if (action === 'explorer') ctrl.toggleExplorer();
-            else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
             else if (action === 'analysis' && ctrl.studyPractice)
               window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
-            else if (action === 'persistence' && !persistBtnDisabled) ctrl.persistence?.toggleOpen();
+            else ctrl.toggleRadioBox(action);
           },
           ctrl.redraw
         );
@@ -256,9 +253,8 @@ function controls(ctrl: AnalyseCtrl) {
                           'data-icon': '',
                         },
                         class: {
-                          disabled: persistBtnDisabled,
-                          hidden: !!ctrl.retro,
-                          active: ctrl.persistence.open() && !persistBtnDisabled,
+                          hidden: menuIsOpen || !!ctrl.retro,
+                          active: ctrl.persistence.open() && !(ctrl.explorer.enabled() || ctrl.practice),
                         },
                       })
                     : null,

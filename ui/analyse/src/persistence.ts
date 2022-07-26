@@ -10,8 +10,8 @@ export default class Persistence {
 
   constructor(readonly ctrl: AnalyseCtrl) {}
 
-  toggleOpen() {
-    this.open(!this.open());
+  toggleOpen(val: boolean | undefined = undefined) {
+    if (val == undefined || val != this.open()) this.open(!this.open());
   }
 
   clear = (): void => {

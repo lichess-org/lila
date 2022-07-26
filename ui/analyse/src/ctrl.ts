@@ -876,24 +876,27 @@ export default class AnalyseCtrl {
     if (this.retro) this.retro = undefined;
     else {
       this.retro = makeRetro(this, this.bottomColor());
-      if (this.practice) this.togglePractice();
-      if (this.explorer.enabled()) this.toggleExplorer();
+      this.togglePractice(false);
+      this.toggleExplorer(false);
     }
     this.setAutoShapes();
   };
 
-  toggleExplorer = (): void => {
-    if (this.practice) this.togglePractice();
-    if (this.explorer.enabled() || this.explorer.allowed()) this.explorer.toggle();
+  toggleExplorer = (val: boolean | undefined = undefined): void => {
+    this.togglePractice(false);
+
+    if (val != this.explorer.enabled() && this.explorer.allowed()) this.explorer.toggle();
   };
 
-  togglePractice = () => {
-    if (this.practice || !this.ceval.possible) {
+  togglePractice = (val: boolean | undefined = undefined) => {
+    if (val == undefined) val = !this.practice && this.ceval.possible;
+
+    if (!val && this.practice) {
       this.practice = undefined;
       this.showGround();
-    } else {
+    } else if (val && !this.practice) {
       if (this.retro) this.toggleRetro();
-      if (this.explorer.enabled()) this.toggleExplorer();
+      this.toggleExplorer(false);
       this.practice = makePractice(this, () => {
         // push to 20 to store AI moves in the cloud
         // lower to 18 after task completion (or failure)
@@ -902,6 +905,27 @@ export default class AnalyseCtrl {
       this.setAutoShapes();
     }
   };
+
+  // Trying to untangle this toggle/radio stuff a bit without breaking anything.
+  // Good news, I was able to make it worse.
+  toggleRadioBox(view: string | null) {
+    switch (view) {
+      case 'practice':
+        this.toggleExplorer(false);
+        this.persistence?.toggleOpen(false);
+        this.togglePractice();
+        break;
+      case 'explorer':
+        this.persistence?.toggleOpen(false);
+        this.togglePractice(false);
+        this.toggleExplorer();
+        break;
+      case 'persistence':
+        this.togglePractice(false);
+        this.toggleExplorer(false);
+        this.persistence?.toggleOpen();
+    }
+  }
 
   restartPractice() {
     this.practice = undefined;
