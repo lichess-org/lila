@@ -37,7 +37,7 @@ final class KaladinApi(
     settingStore: lila.memo.SettingStore.Builder
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   import BSONHandlers._

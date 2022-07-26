@@ -133,9 +133,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
     : undefined;
 }
 
-function isLoaded(data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig {
-  return 'orientation' in data;
-}
+const isLoaded = (data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig => 'orientation' in data;
 
 function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): VNode[] {
   const mode = data.practice ? 'practice' : defined(data.conceal) ? 'conceal' : data.gamebook ? 'gamebook' : 'normal',

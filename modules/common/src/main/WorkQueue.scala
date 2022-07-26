@@ -46,7 +46,7 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
     .queue[TaskWithPromise[_]](buffer)
     .mapAsyncUnordered(parallelism) { case (task, promise) =>
       task()
-        .withTimeout(timeout, new TimeoutException)(ec, mat.system)
+        .withTimeout(timeout, new TimeoutException)(ec, mat.system.scheduler)
         .tap(promise.completeWith)
         .recover {
           case e: TimeoutException =>

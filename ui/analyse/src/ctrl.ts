@@ -83,6 +83,7 @@ export default class AnalyseCtrl {
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
+  isDirty = false; // if isDirty show reset button to erase local move storage
 
   // display flags
   flipped = false;
@@ -92,6 +93,7 @@ export default class AnalyseCtrl {
   showGauge = storedBooleanProp('show-gauge', true);
   showComputer = storedBooleanProp('show-computer', true);
   showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
+  saveMovesProp = storedBooleanProp('save-moves-local-db', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -114,8 +116,7 @@ export default class AnalyseCtrl {
   music?: any;
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
-  stateDb?: ObjectStorage<AnalyseState>;
-  isDirty = false;
+  moveDb?: ObjectStorage<AnalyseState>;
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw, makeStudy?: typeof makeStudyCtrl) {
     this.data = opts.data;
@@ -523,6 +524,9 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
+    if (!this.isDirty) {
+      this.isDirty = !this.tree.pathExists(path + node.id);
+    }
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -917,17 +921,29 @@ export default class AnalyseCtrl {
     return undefined;
   };
 
-  hardReset = (): void => {
-    if (this.stateDb && this.isDirty) {
-      this.stateDb.remove(this.data.game.id);
+  isSavingMoves = (): boolean => defined(this.moveDb) && this.saveMovesProp();
+
+  toggleSaveMoves = (): boolean => {
+    const saveMoves = !this.saveMovesProp();
+    this.saveMovesProp(saveMoves);
+    if (saveMoves) {
+      if (this.isDirty) this.saveDbState();
+      else this.mergeDbState();
+    }
+    this.redraw();
+    return saveMoves;
+  };
+
+  clearSavedMoves = (): void => {
+    if (defined(this.moveDb)) {
+      this.moveDb.remove(this.data.game.id);
       window.location.reload();
     }
   };
 
   private saveDbState(): void {
-    if (this.stateDb) {
-      if (!this.isDirty) this.isDirty = this.path != this.initialPath;
-      this.stateDb.put(this.data.game.id, {
+    if (defined(this.moveDb) && this.isSavingMoves() && this.isDirty) {
+      this.moveDb.put(this.data.game.id, {
         root: this.tree.root,
         path: this.path,
         flipped: this.flipped,
@@ -936,20 +952,20 @@ export default class AnalyseCtrl {
   }
 
   private async mergeDbState(): Promise<void> {
-    if (this.study || this.practice) return;
+    if (this.synthetic || this.embed || defined(this.study)) return;
     try {
       const store = await objectStorage<AnalyseState>('analyse-state');
       const state = await store.get(this.data.game.id);
-      if (state && state.root) {
-        this.tree.merge(state.root);
+      if (defined(state) && this.saveMovesProp()) {
         this.isDirty = true;
+        this.tree.merge(state.root);
         this.jump(state.path);
         if (state.flipped) this.flip();
-        else this.redraw();
       }
-      this.stateDb = store; // wake up saveDbState
+      this.moveDb = store;
+      this.redraw();
     } catch (e) {
-      console.log(e);
+      console.log(`IDB unavailable due to security settings or quota: ${e}`);
     }
   }
 }

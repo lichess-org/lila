@@ -1,6 +1,6 @@
 package lila.socket
 
-import akka.actor.{ ActorSystem, CoordinatedShutdown }
+import akka.actor.{ CoordinatedShutdown, Scheduler }
 import chess.{ Centis, Color }
 import io.lettuce.core._
 import io.lettuce.core.pubsub.{ StatefulRedisPubSubConnection => PubSub }
@@ -25,7 +25,7 @@ final class RemoteSocket(
     shutdown: CoordinatedShutdown
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: Scheduler
 ) {
 
   import RemoteSocket._, Protocol._

@@ -79,9 +79,9 @@ object Future {
 
   def delay[A](
       duration: FiniteDuration
-  )(run: => Fu[A])(implicit ec: ExecutionContext, system: ActorSystem): Fu[A] =
+  )(run: => Fu[A])(implicit ec: ExecutionContext, scheduler: Scheduler): Fu[A] =
     if (duration == 0.millis) run
-    else akka.pattern.after(duration, system.scheduler)(run)
+    else akka.pattern.after(duration, scheduler)(run)
 
   def sleep(duration: FiniteDuration)(implicit ec: ExecutionContext, scheduler: Scheduler): Funit = {
     val p = Promise[Unit]()
@@ -91,17 +91,17 @@ object Future {
 
   def makeItLast[A](
       duration: FiniteDuration
-  )(run: => Fu[A])(implicit ec: ExecutionContext, system: ActorSystem): Fu[A] =
+  )(run: => Fu[A])(implicit ec: ExecutionContext, scheduler: Scheduler): Fu[A] =
     if (duration == 0.millis) run
-    else run zip akka.pattern.after(duration, system.scheduler)(funit) dmap (_._1)
+    else run zip akka.pattern.after(duration, scheduler)(funit) dmap (_._1)
 
   def retry[T](op: () => Fu[T], delay: FiniteDuration, retries: Int, logger: Option[lila.log.Logger])(implicit
       ec: ExecutionContext,
-      system: ActorSystem
+      scheduler: Scheduler
   ): Fu[T] =
     op() recoverWith {
       case e if retries > 0 =>
         logger foreach { _.info(s"$retries retries - ${e.getMessage}") }
-        akka.pattern.after(delay, system.scheduler)(retry(op, delay, retries - 1, logger))
+        akka.pattern.after(delay, scheduler)(retry(op, delay, retries - 1, logger))
     }
 }

@@ -22,7 +22,7 @@ final private class PushApi(
     gameRepo: lila.game.GameRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   def finish(game: Game): Funit =

@@ -169,7 +169,7 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   return (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p');
 }
 
-export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
+const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
   const cont = el.parentElement?.parentElement;
   if (!cont) return;
   const target = el.querySelector<HTMLElement>('.active');

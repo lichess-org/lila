@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">Blog dari %s</string>
+  <string name="newPost">Postingan baru</string>
+  <string name="saveDraft">Simpan draf</string>
+  <string name="postTitle">Judul postingan</string>
+  <string name="postIntro">Prakata postingan</string>
+  <string name="postBody">Isi postingan</string>
+  <string name="drafts">Draf</string>
+  <string name="published">Telah terbit</string>
+</resources>

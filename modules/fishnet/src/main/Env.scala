@@ -40,7 +40,8 @@ final class Env(
     shutdown: akka.actor.CoordinatedShutdown
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
+    scheduler: akka.actor.Scheduler
 ) {
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)

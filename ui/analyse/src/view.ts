@@ -32,6 +32,7 @@ import { ConcealOf } from './interfaces';
 import { view as keyboardView } from './keyboard';
 import * as pgnExport from './pgnExport';
 import retroView from './retrospect/retroView';
+import practiceView from './practice/practiceView';
 import serverSideUnderboard from './serverSideUnderboard';
 import { StudyCtrl } from './study/interfaces';
 import { render as renderTreeView } from './treeView/treeView';
@@ -194,7 +195,6 @@ function controls(ctrl: AnalyseCtrl) {
             if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-            else if (action === 'reset') ctrl.hardReset();
             else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
@@ -253,19 +253,6 @@ function controls(ctrl: AnalyseCtrl) {
         jumpButton(iconNext, 'next', canJumpNext),
         jumpButton(iconLast, 'last', canJumpNext),
       ]),
-      !ctrl.study
-        ? h('button.fbt', {
-            attrs: {
-              title: 'Clear saved moves',
-              'data-act': 'reset',
-              'data-icon': '',
-            },
-            class: {
-              visibilty: !!ctrl.stateDb,
-              disabled: !ctrl.isDirty,
-            },
-          })
-        : null,
       ctrl.studyPractice
         ? h('div.noop')
         : h('button.fbt', {
@@ -476,7 +463,7 @@ export default function (deps?: typeof studyDeps) {
                       showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                       renderAnalyse(ctrl, concealOf),
                       gamebookEditView || forkView(ctrl, concealOf),
-                      retroView(ctrl) || deps?.practiceView(ctrl) || explorerView(ctrl),
+                      retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl) || renderSaveMoves(ctrl)
                     ]),
               ])),
         menuIsOpen || tour ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
@@ -536,4 +523,29 @@ export default function (deps?: typeof studyDeps) {
       ]
     );
   };
+}
+
+function renderSaveMoves(ctrl: AnalyseCtrl): VNode | undefined {
+  if (defined(ctrl.study)) return;
+  const noarg = ctrl.trans.noarg;
+
+  return h('div.save-moves', { attrs: { title: noarg('savingMovesHelp') } }, [
+    h('button-none.reset', {
+      class: { invisible: !(ctrl.isSavingMoves() && ctrl.isDirty) },
+      attrs: {
+        title: ctrl.trans.noarg('clearSavedMoves'),
+        'data-icon': '',
+      },
+      hook: bind('click', () => ctrl.clearSavedMoves()),
+    }),
+    h('div.switch-label', ctrl.isSavingMoves() ? noarg('savingMoves') : null),
+    h(
+      'a.rec-switch',
+      {
+        class: { on: ctrl.isSavingMoves() },
+        hook: bind('click', () => ctrl.toggleSaveMoves()),
+      },
+      [h('i.is'), 'REC']
+    ),
+  ]);
 }

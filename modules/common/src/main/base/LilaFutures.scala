@@ -1,6 +1,6 @@
 package lila.base
 
-import akka.actor.ActorSystem
+import akka.actor.Scheduler
 import alleycats.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
@@ -128,30 +128,30 @@ final class LilaFuture[A](private val fua: Fu[A]) extends AnyVal {
       case _: Exception => default
     }
 
-  def withTimeout(duration: FiniteDuration)(implicit ec: EC, system: ActorSystem): Fu[A] =
+  def withTimeout(duration: FiniteDuration)(implicit ec: EC, scheduler: Scheduler): Fu[A] =
     withTimeout(duration, LilaTimeout(s"Future timed out after $duration"))
 
   def withTimeout(
       duration: FiniteDuration,
       error: => Throwable
-  )(implicit ec: EC, system: ActorSystem): Fu[A] = {
+  )(implicit ec: EC, scheduler: Scheduler): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
-      akka.pattern.after(duration, system.scheduler)(Future failed error)
+      akka.pattern.after(duration, scheduler)(Future failed error)
     )
   }
 
   def withTimeoutDefault(
       duration: FiniteDuration,
       default: => A
-  )(implicit ec: EC, system: ActorSystem): Fu[A] = {
+  )(implicit ec: EC, scheduler: Scheduler): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
-      akka.pattern.after(duration, system.scheduler)(Future(default))
+      akka.pattern.after(duration, scheduler)(Future(default))
     )
   }
 
-  def delay(duration: FiniteDuration)(implicit ec: EC, system: ActorSystem) =
+  def delay(duration: FiniteDuration)(implicit ec: EC, scheduler: Scheduler) =
     lila.common.Future.delay(duration)(fua)
 
   def chronometer    = Chronometer(fua)

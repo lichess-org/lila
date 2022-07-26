@@ -8,8 +8,6 @@
   <string name="mostChessCourses">대부분의 체스 강좌와 훈련은 `대수적 표기법`을 광범위하게 사용합니다.</string>
   <string name="talkToYourChessFriends">기보법을 안다면, 친구와 당신 모두 \'체스의 언어\'를 이해하기 때문에 체스 경기를 이야기하기 쉬워집니다.</string>
   <string name="youCanAnalyseAGameMoreEffectively">당신이 좌표를 빠르게 인식할 수 있다면 더 효과적으로 게임을 분석할 수 있습니다.</string>
-  <string name="aSquareNameAppears">보드 위에 좌표의 이름이 나타납니다. 30초 내에 최대한 많은 좌표에 맞는 사각형을 클릭하십시오!</string>
-  <string name="aSquareIsHighlighted">보드에 칸이 강조되고 그 칸의 좌표를 입력해야 합니다 (예시: \"e4). 30초 안에 최대한 많은 칸을 대응시키세요!</string>
   <string name="startTraining">훈련 시작</string>
   <string name="findSquare">칸 찾기</string>
   <string name="nameSquare">칸 이름짓기</string>
