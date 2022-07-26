@@ -174,6 +174,7 @@ function controls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
+    persistBtnDisabled = ctrl.actionMenu.open || ctrl.explorer.enabled() || !!ctrl.practice,
     noarg = ctrl.trans.noarg;
   let iconFirst = '';
   let iconPrev = '';
@@ -201,7 +202,7 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'menu') ctrl.actionMenu.toggle();
             else if (action === 'analysis' && ctrl.studyPractice)
               window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
-            else if (action === 'persistence') ctrl.persistence?.toggleOpen();
+            else if (action === 'persistence' && !persistBtnDisabled) ctrl.persistence?.toggleOpen();
           },
           ctrl.redraw
         );
@@ -247,7 +248,7 @@ function controls(ctrl: AnalyseCtrl) {
                         },
                       })
                     : null,
-                  ctrl.persistence?.isDirty
+                  ctrl.persistence?.isDirty && !ctrl.study?.isWriting()
                     ? h('button.fbt', {
                         attrs: {
                           title: noarg('savingMoves'),
@@ -255,8 +256,9 @@ function controls(ctrl: AnalyseCtrl) {
                           'data-icon': '',
                         },
                         class: {
-                          hidden: menuIsOpen || !!ctrl.retro,
-                          active: ctrl.persistence.open(),
+                          disabled: persistBtnDisabled,
+                          hidden: !!ctrl.retro,
+                          active: ctrl.persistence.open() && !persistBtnDisabled,
                         },
                       })
                     : null,
@@ -542,6 +544,9 @@ export default function (deps?: typeof studyDeps) {
 
 function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
   if (!ctrl.persistence?.open()) return;
+  if (!ctrl.persistence.isDirty) return;
+  if (ctrl.study?.isWriting()) return;
+
   const noarg = ctrl.trans.noarg;
 
   return h('div.analyse__persistence.sub-box', [

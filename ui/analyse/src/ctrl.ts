@@ -133,7 +133,7 @@ export default class AnalyseCtrl {
 
     this.initialize(this.data, false);
 
-    this.persistence = this.embed || this.study ? undefined : new Persistence(this, this.synthetic);
+    this.persistence = this.embed ? undefined : new Persistence(this);
 
     this.instanciateCeval();
 
