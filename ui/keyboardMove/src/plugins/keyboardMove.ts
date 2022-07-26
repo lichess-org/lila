@@ -201,8 +201,8 @@ function readClocks(clockCtrl: any | undefined) {
 }
 
 function readOpponentName(): void {
-  const opponentName = document.querySelector('.ruser-top name') as HTMLInputElement;
-  lichess.sound.say(opponentName.innerText);
+  const opponentName = document.querySelector('.ruser-top') as HTMLInputElement;
+  lichess.sound.say(opponentName.innerText.split('\n')[0]);
 }
 
 function simplePlural(nb: number, word: string) {
