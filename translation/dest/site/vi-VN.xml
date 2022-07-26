@@ -554,6 +554,8 @@ Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập tr�
   <string name="error.email_unique">Email này không được chấp nhận hoặc đã được dùng</string>
   <string name="error.email_different">Đây đã là email cua</string>
   <string name="error.minLength">Phải dài ít nhất %s ký tự</string>
+  <string name="error.min">Phải lớn hơn hoặc bằng %s</string>
+  <string name="error.max">Phải nhỏ hơn hoặc bằng %s</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
   <string name="ifRegistered">Chỉ người có tài khoản</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
@@ -771,6 +773,7 @@ Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập tr�
   <string name="currentMatchScore">Tỷ số của lần đối đầu này</string>
   <string name="agreementAssistance">Tôi đồng ý rằng, tôi sẽ không nhận sự trợ giúp trong lúc chơi (từ máy tính, sách, các cơ sở dữ liệu, hoặc từ người khác).</string>
   <string name="agreementNice">Tôi đồng ý rằng, tôi luôn luôn tôn trọng người chơi khác.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Tôi đồng ý sẽ không tạo nhiều tài khoản (trừ những lý do nêu trong %s).</string>
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>

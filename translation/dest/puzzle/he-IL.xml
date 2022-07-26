@@ -76,7 +76,7 @@
   <string name="searchPuzzles">חיפוש פאזלים</string>
   <string name="fromMyGamesNone">אין פאזלים מהמשחקים שלך במאגר, אך אנחנו עדיין אוהבים אותך!
 שחק משחקי Rapid ו־Classical כדי להגדיל את הסבירות שיתווסף פאזל משלך!</string>
-  <string name="fromXGamesFound">נמצאו %1$s חידות ב-%2$s משחקים</string>
+  <string name="fromXGamesFound">נמצאו %1$s חידות במשחקים של %2$s</string>
   <string name="puzzleDashboardDescription">אימון וניתוח יובילו לשיפור</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s שוּחק</item>

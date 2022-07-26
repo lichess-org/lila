@@ -14,6 +14,7 @@
   <string name="myTeams">Мої команди</string>
   <string name="noTeamFound">Не знайдено команди</string>
   <string name="joinTeam">Приєднатися до команди</string>
+  <string name="onlyLeaderLeavesTeam">Будь ласка, додайте новог о лідера команди перед виходом, або закрийте команду.</string>
   <string name="quitTeam">Залишити команду</string>
   <string name="manuallyReviewAdmissionRequests">Огляд запитів на вступ вручну</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Якщо відмічено, гравцям необхідно написати запит на вступ в команду, який ви можете відхилити або прийняти.</string>
