@@ -6,8 +6,6 @@ export default function autostart() {
     loadCssPath('lpv').then(() => {
       Lpv(this, {
         pgn: this.dataset['pgn']!,
-        showMoves: !!this.dataset['showmoves'],
-        scrollToMove: true,
       });
     });
   });
