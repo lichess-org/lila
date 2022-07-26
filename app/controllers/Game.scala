@@ -37,7 +37,7 @@ final class Game(
       }
     }
 
-  def exportOne(id: String) = Action.async { exportGame(id, _) }
+  def exportOne(id: String) = Action.async { exportGame(GameModel takeGameId id, _) }
 
   private[controllers] def exportGame(gameId: GameModel.ID, req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
