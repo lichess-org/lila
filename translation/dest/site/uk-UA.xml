@@ -498,6 +498,8 @@
   <string name="tournamentIsStarting">Турнір починається</string>
   <string name="tournamentPairingsAreNowClosed">Жеребкування турніру завершено.</string>
   <string name="standByX">Очікуйте, %s, йде жеребкування, будьте готові!</string>
+  <string name="pause">Пауза</string>
+  <string name="resume">Відновити</string>
   <string name="youArePlaying">Ви граєте!</string>
   <string name="winRate">Відсоток перемог</string>
   <string name="berserkRate">Ігор як берсерк</string>
@@ -641,6 +643,7 @@
   <string name="community">Спільнота</string>
   <string name="tools">Інструменти</string>
   <string name="increment">Приріст</string>
+  <string name="error.unknown">Неприпустиме значення</string>
   <string name="error.required">Це поле обов\'язкове</string>
   <string name="error.email">Ця адреса електронної пошти є недійсна</string>
   <string name="error.email_acceptable">Ця адреса електронної пошти неприйнятна. Будь ласка, перевірте її та спробуйте знову.</string>

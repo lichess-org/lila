@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
 Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunden.</string>
   <string name="durationFormula">(Anfangszeit in Sekunden) + 40 × (Zug-Inkrement)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
   <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
@@ -96,7 +96,7 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="usernamesCannotBeChanged">Nein, Benutzernamen können aus technischen und praktischen Gründen nicht geändert werden. Die Benutzernamen tauchen an zu vielen Stellen auf: Datenbanken, Exporte, Logs und im Gedächtnis anderer Leute. Du kannst lediglich einmal die Groß-/Kleinschreibung ändern.</string>
   <string name="uniqueTrophies">Einzigartige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
-  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
+  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, alle seiner Partien %s zu berserken und zu gewinnen.</string>
   <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
   <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
   <string name="lichessRatings">Lichess-Wertungen</string>
