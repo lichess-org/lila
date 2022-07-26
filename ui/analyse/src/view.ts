@@ -463,7 +463,7 @@ export default function (deps?: typeof studyDeps) {
                       showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                       renderAnalyse(ctrl, concealOf),
                       gamebookEditView || forkView(ctrl, concealOf),
-                      retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl) || renderSaveMoves(ctrl)
+                      retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl) || renderPersistence(ctrl),
                     ]),
               ])),
         menuIsOpen || tour ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
@@ -525,25 +525,25 @@ export default function (deps?: typeof studyDeps) {
   };
 }
 
-function renderSaveMoves(ctrl: AnalyseCtrl): VNode | undefined {
-  if (defined(ctrl.study)) return;
+function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
+  if (ctrl.study) return;
   const noarg = ctrl.trans.noarg;
 
-  return h('div.save-moves', { attrs: { title: noarg('savingMovesHelp') } }, [
+  return h('div.analyse__persistence', { attrs: { title: noarg('savingMovesHelp') } }, [
     h('button-none.reset', {
-      class: { invisible: !(ctrl.isSavingMoves() && ctrl.isDirty) },
+      class: { invisible: !(ctrl.persistence.active() && ctrl.persistence.isDirty) },
       attrs: {
         title: ctrl.trans.noarg('clearSavedMoves'),
         'data-icon': '',
       },
-      hook: bind('click', () => ctrl.clearSavedMoves()),
+      hook: bind('click', ctrl.persistence.clear),
     }),
-    h('div.switch-label', ctrl.isSavingMoves() ? noarg('savingMoves') : null),
+    h('div.switch-label', ctrl.persistence.active() ? noarg('savingMoves') : null),
     h(
       'a.rec-switch',
       {
-        class: { on: ctrl.isSavingMoves() },
-        hook: bind('click', () => ctrl.toggleSaveMoves()),
+        class: { on: ctrl.persistence.active() },
+        hook: bind('click', ctrl.persistence.toggle),
       },
       [h('i.is'), 'REC']
     ),

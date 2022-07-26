@@ -54,13 +54,12 @@ export async function objectStorage<V>(storeName: string): Promise<ObjectStorage
       resolveOp([]); // TODO
     });
 
-  function actionPromise<V>(f: () => IDBRequest) {
-    return new Promise<V>((resolve, reject) => {
+  const actionPromise = <V>(f: () => IDBRequest) =>
+    new Promise<V>((resolve, reject) => {
       const res = f();
       res.onsuccess = (e: Event) => resolve((e.target as IDBRequest).result);
       res.onerror = (e: Event) => reject((e.target as IDBRequest).result);
     });
-  }
 
   return {
     get,

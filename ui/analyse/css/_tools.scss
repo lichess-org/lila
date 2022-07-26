@@ -39,60 +39,6 @@
         }
       }
     }
-
-    .save-moves {
-      @extend %metal-bg;
-      display: flex;
-      flex: 0 0 32px;
-      padding: 0 8px;
-      flex-wrap: nowrap;
-      gap: 1em;
-      align-items: center;
-      justify-content: space-between;
-
-      .switch-label {
-        display: flex;
-        font-size: 14px;
-        color: $c-font-dim;
-        user-select: none;
-      }
-
-      .reset {
-        color: $c-font-dim;
-        cursor: pointer;
-        background: transparent;
-
-        &:hover {
-          color: $c-font;
-        }
-
-        &.invisible {
-          visibility: hidden;
-        }
-      }
-
-      .rec-switch {
-        @extend %flex-center-nowrap, %page-text;
-        opacity: 0.8;
-
-        i::before {
-          font-size: 1.4em;
-          content: '';
-          color: $c-font-dim;
-          margin-#{$end-direction}: 0.2rem;
-        }
-
-        &.on i::before {
-          content: '';
-          color: $c-good;
-        }
-
-        &:hover {
-          color: $c-font;
-          opacity: 1;
-        }
-      }
-    }
   }
 
   &__moves {
