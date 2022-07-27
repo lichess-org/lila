@@ -222,4 +222,8 @@ export default rollupProject({
     input: 'src/speech.ts',
     output: 'speech',
   },
+  tvSingle: {
+    input: 'src/tvSingle.ts',
+    output: 'tvSingle',
+  },
 });

@@ -1,4 +1,5 @@
 @import 'side';
+@import 'zen';
 
 $mq-col1: $mq-col1-uniboard;
 $mq-col2: $mq-col2-uniboard;
@@ -26,6 +27,7 @@ $mq-col3: $mq-col3-uniboard;
   }
 
   .round__underboard {
+    @extend %zen;
     overflow: hidden;
   }
 

@@ -1,0 +1,16 @@
+@import '../../../round/css/constants';
+
+%zen {
+  .zen & {
+    display: none;
+  }
+}
+
+#friend_box,
+.round__side,
+#{$moves-tag} > :not(.result-wrap),
+.ruser,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
+}

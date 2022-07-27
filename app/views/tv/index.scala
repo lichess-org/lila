@@ -25,6 +25,7 @@ object index {
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       moreJs = frag(
         roundTag,
+        jsModule("tvSingle"),
         embedJsUnsafeLoadThen(
           s"""LichessRound.boot(${safeJsonValue(
               Json.obj(
@@ -44,7 +45,8 @@ object index {
           url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
         )
         .some,
-      robots = true
+      robots = true,
+      playing = true
     )(
       main(cls := "round tv-single")(
         st.aside(cls := "round__side")(
