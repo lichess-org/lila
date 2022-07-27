@@ -58,7 +58,6 @@ final class RemoteSocket(
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys).unit
     case In.TellSri(sri, userId, typ, msg) =>
-      lila.mon.ws.siteInTellSri(typ).increment()
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
@@ -121,8 +120,8 @@ final class RemoteSocket(
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender {
-    def apply(msg: String): Unit               = if (!stopping) monitorAndSend(channel, msg)
-    def sticky(_id: String, msg: String): Unit = apply(msg)
+    def apply(msg: String)               = if (!stopping) send(channel, msg).unit
+    def sticky(_id: String, msg: String) = apply(msg)
   }
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
@@ -141,12 +140,11 @@ final class RemoteSocket(
 
   private val send: Send = makeSender("site-out").apply _
 
-  def subscribe(channel: Channel, reader: In.Reader, monitor: Boolean = true)(handler: Handler): Funit =
+  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
     connectAndSubscribe(channel) { str =>
       RawMsg(str) match {
         case None => logger.error(s"Invalid $channel $str")
         case Some(msg) =>
-          if (monitor) lila.mon.ws.in(channel, msg.path).increment()
           reader(msg) collect handler match {
             case Some(_) => // processed
             case None    => logger.warn(s"Unhandled $channel $str")
@@ -158,11 +156,11 @@ final class RemoteSocket(
       handler: Handler
   ): Funit =
     // subscribe to main channel
-    subscribe(channel, reader, monitor = false)(handler) >> {
+    subscribe(channel, reader)(handler) >> {
       // and subscribe to subchannels
       (0 to parallelism)
         .map { index =>
-          subscribe(s"$channel:$index", reader, monitor = false)(handler)
+          subscribe(s"$channel:$index", reader)(handler)
         }
         .sequenceFu
         .void
@@ -208,18 +206,7 @@ object RemoteSocket {
     def sticky(_id: String, msg: String): Unit
 
     protected val conn: PubSub[String, String]
-    protected def monitorAndSend(channel: Channel, msg: String) = {
-      val path = msg.takeWhile(' ' !=)
-      lila.mon.ws.out(channel, path).increment()
-      conn.async
-        .publish(channel, msg)
-        .thenApply {
-          new java.util.function.Function[java.lang.Long, Unit] {
-            def apply(clients: java.lang.Long) = lila.mon.ws.outSuccess(channel, path).record(clients).unit
-          }
-        }
-        .unit
-    }
+    protected def send(channel: Channel, msg: String) = conn.async.publish(channel, msg)
   }
 
   object Protocol {
