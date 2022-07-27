@@ -37,7 +37,6 @@
     "@types/cash": "8.0.0",
     "@types/dom-screen-wake-lock": "1.0.0",
     "@types/lichess": "2.0.0",
-    "@types/web": "^0",
     "typescript": "^4"
   }
 }

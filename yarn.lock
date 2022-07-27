@@ -1531,11 +1531,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.1.tgz#828e4785ccca13f44e2fb6852ae0ef11e3e20ba5"
   integrity sha512-z+2vB6yDt1fNwKOeGbckpmirO+VBDuQqecXkgeIqDlaOtmKn6hPR/viQ8cxCfqLU4fTlvM3+YjM367TukWdxpg==
 
-"@types/node@18.0.6":
-  version "18.0.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.6.tgz#0ba49ac517ad69abe7a1508bc9b3a5483df9d5d7"
-  integrity sha512-/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==
-
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
@@ -1591,11 +1586,6 @@
   version "0.0.69"
   resolved "https://registry.yarnpkg.com/@types/web/-/web-0.0.69.tgz#4bace2485fd699b129916e6192213f873818be3b"
   integrity sha512-0CqMxeJ+ETljejsVQ5U6gV75C9zz9nmCBXHYqdfnVmWp54VfoJSxUgeO6NI+ezgBl0JQsSiZCs2pkCCT9ERhbA==
-
-"@types/web@^0":
-  version "0.0.70"
-  resolved "https://registry.yarnpkg.com/@types/web/-/web-0.0.70.tgz#84222357e29d273f6d9327def440cc3dae092807"
-  integrity sha512-13SLsep5Yg0V7wzoB3Ipxsgc77Odv462Gk51iYg5IYk4y+E+R1cZNrbHzKpNVJ0AifP4BOcxKDvxdvoZnKPJBw==
 
 "@types/webrtc@^0.0.32":
   version "0.0.32"

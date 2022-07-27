@@ -14,7 +14,6 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/lichess": "2.0.0",
-    "@types/web": "^0",
     "rollup": "^2",
     "typescript": "^4"
   },
