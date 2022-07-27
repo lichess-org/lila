@@ -251,7 +251,7 @@ function controls(ctrl: AnalyseCtrl) {
                       })
                     : null,
                   ctrl.persistence?.isDirty
-                    ? h('button.fbt', {
+                    ? h('button.fbt.persistence', {
                         attrs: {
                           title: noarg('savingMoves'),
                           'data-act': 'persistence',

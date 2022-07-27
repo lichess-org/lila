@@ -124,9 +124,14 @@
       transition: visibility 0s;
     }
 
+    .persistence {
+      color: $c-good;
+    }
+
     .active {
       margin-top: -3px;
       padding-top: 3px;
+      color: $c-good-over;
     }
 
     @include breakpoint($mq-col1) {
