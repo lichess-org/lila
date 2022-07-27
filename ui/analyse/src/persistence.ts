@@ -1,7 +1,7 @@
-import { prop } from 'common';
-import { objectStorage, ObjectStorage } from 'common/objectStorage';
 import AnalyseCtrl from './ctrl';
 import { AnalyseState } from './interfaces';
+import { defined, prop } from 'common';
+import { objectStorage, ObjectStorage } from 'common/objectStorage';
 
 export default class Persistence {
   isDirty = false; // if isDirty show reset button to erase local move storage
@@ -13,8 +13,8 @@ export default class Persistence {
     this.open(open);
   }
 
-  toggleOpen() {
-    this.open(!this.open());
+  toggleOpen(v?: boolean) {
+    this.open(defined(v) ? v : !this.open());
   }
 
   clear = (): void => {

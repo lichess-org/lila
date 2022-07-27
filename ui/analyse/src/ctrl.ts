@@ -885,6 +885,7 @@ export default class AnalyseCtrl {
   toggleExplorer = (): void => {
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled() || this.explorer.allowed()) this.explorer.toggle();
+    this.persistence?.toggleOpen(false);
   };
 
   togglePractice = () => {
@@ -894,6 +895,7 @@ export default class AnalyseCtrl {
     } else {
       if (this.retro) this.toggleRetro();
       if (this.explorer.enabled()) this.toggleExplorer();
+      this.persistence?.toggleOpen(false);
       this.practice = makePractice(this, () => {
         // push to 20 to store AI moves in the cloud
         // lower to 18 after task completion (or failure)
@@ -901,6 +903,12 @@ export default class AnalyseCtrl {
       });
       this.setAutoShapes();
     }
+  };
+
+  togglePersistence = () => {
+    if (this.practice) this.togglePractice();
+    if (this.explorer.enabled()) this.toggleExplorer();
+    this.persistence?.toggleOpen();
   };
 
   restartPractice() {
