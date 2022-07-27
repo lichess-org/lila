@@ -12,9 +12,7 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
   const whitePov = ctrl.bottomIsWhite(),
     parentClock = ctrl.tree.getParentClock(node, ctrl.path),
     isWhiteTurn = node.ply % 2 === 0,
-    centis: Array<number | undefined> = [parentClock, clock];
-
-  if (!isWhiteTurn) centis.reverse();
+    centis: Array<number | undefined> = isWhiteTurn ? [parentClock, clock] : [clock, parentClock];
 
   const study = ctrl.study,
     relay = study && study.data.chapter.relay;
