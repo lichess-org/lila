@@ -55,7 +55,7 @@
   <string name="blackDidntMove">שחור לא ביצע מסע</string>
   <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
-  <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
+  <string name="computerAnalysisAvailable">ניתוח ממוחשב זמין</string>
   <string name="computerAnalysisDisabled">ניתוח מחשב מושבת</string>
   <string name="analysis">לוח ניתוחים</string>
   <string name="depthX">בעומק של %s מהלכים</string>
@@ -148,7 +148,7 @@
   <string name="offerDraw">הצע תיקו</string>
   <string name="draw">תיקו</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s שחקנים מחוברים</item>
+    <item quantity="one">%s שחקנים</item>
     <item quantity="two">%s שחקנים</item>
     <item quantity="many">%s שחקנים</item>
     <item quantity="other">%s שחקנים</item>
@@ -727,7 +727,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק במייל כדי להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את המייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל כדי לאפס את הסיסמה.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">על ידי הרשמה, אתה מסכים ל%s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">על ידי הרשמה, את/ה מסכים/ה ל%s.</string>
   <string name="readAboutOur">קרא את %s.</string>
   <string name="networkLagBetweenYouAndLichess">עיכוב הרשת בינך לבין ליצ\'ס</string>
   <string name="timeToProcessAMoveOnLichessServer">זמן לעיבוד מהלך בשרת ליצ\'ס</string>
@@ -878,10 +878,10 @@
   <string name="thankYouForReading">תודה רבה על הקריאה!</string>
   <string name="lifetimeScore">תוצאה כוללת</string>
   <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
-  <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
-  <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
+  <string name="agreementAssistance">אני מסכימ/ה שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד־נתונים, או אדם אחר).</string>
+  <string name="agreementNice">אני מסכים/ה שתמיד אהיה אדיב/ה כלפי השחקנים האחרים.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכים/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
-  <string name="agreementPolicy">אני מסכים לציית לכל מדיניות של Lichess.</string>
+  <string name="agreementPolicy">אני מסכים/ה לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
   <string name="rapid">Rapid</string>

@@ -1,6 +1,6 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
-import throttle from 'common/throttle';
+import throttle, { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { Boost } from './boost';
@@ -258,11 +258,13 @@ export default class RacerCtrl {
 
   private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
 
-  private setZen = throttle(1000, zen =>
-    xhr.text('/pref/zen', {
-      method: 'post',
-      body: xhr.form({ zen: zen ? 1 : 0 }),
-    })
+  private setZen = throttlePromiseDelay(
+    () => 1000,
+    zen =>
+      xhr.text('/pref/zen', {
+        method: 'post',
+        body: xhr.form({ zen: zen ? 1 : 0 }),
+      })
   );
 
   private toggleZen = () => lichess.pubsub.emit('zen');

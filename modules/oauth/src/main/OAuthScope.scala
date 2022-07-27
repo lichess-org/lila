@@ -44,6 +44,7 @@ object OAuthScope {
   }
 
   object Follow {
+    case object Read  extends OAuthScope("follow:read", "Read followed players")
     case object Write extends OAuthScope("follow:write", "Follow and unfollow other players")
   }
 
@@ -84,6 +85,7 @@ object OAuthScope {
     Puzzle.Read,
     Team.Read,
     Team.Write,
+    Follow.Read,
     Follow.Write,
     Msg.Write,
     Board.Play,

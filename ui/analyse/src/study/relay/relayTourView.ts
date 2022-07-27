@@ -48,18 +48,33 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   return undefined;
 }
 
-const leaderboard = (players: LeadPlayer[]): VNode =>
-  h('div.relay-tour__text__leaderboard', [
+const leaderboard = (players: LeadPlayer[]): VNode => {
+  const withRating = players.find(p => p.rating);
+  return h('div.relay-tour__text__leaderboard', [
     h('table.slist.slist-invert', [
-      h('thead', h('tr', [h('th', h('h2', 'Leaderboard')), h('th', 'Elo'), h('th', 'Score'), h('th', 'Games')])),
+      h(
+        'thead',
+        h('tr', [
+          h('th', h('h2', 'Leaderboard')),
+          withRating ? h('th', 'Elo') : undefined,
+          h('th', 'Score'),
+          h('th', 'Games'),
+        ])
+      ),
       h(
         'tbody',
         players.map(player =>
-          h('tr', [h('th', player.name), h('td', player.rating), h('td', player.score), h('td', player.played)])
+          h('tr', [
+            h('th', player.name),
+            withRating ? h('td', player.rating) : undefined,
+            h('td', player.score),
+            h('td', player.played),
+          ])
         )
       ),
     ]),
   ]);
+};
 
 const roundsTable = (relay: RelayCtrl): VNode =>
   h('div.relay-tour__text__schedule', [

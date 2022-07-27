@@ -51,7 +51,9 @@ final private class RelayFetch(
             logger.info(s"Finish by lack of activity ${rt.round}")
             api.update(rt.round)(_.finish)
           } else if (rt.round.shouldGiveUp) {
-            logger.info(s"Finish for lack of start ${rt.round}")
+            val msg = "Finish for lack of start"
+            logger.info(s"$msg ${rt.round}")
+            if (rt.tour.official) irc.broadcastError(rt.round.id.value, rt.fullName, msg)
             api.update(rt.round)(_.finish)
           } else fuccess(rt.round)
         }.sequenceFu
