@@ -872,20 +872,28 @@ export default class AnalyseCtrl {
     });
   }
 
+  closeTools = () => {
+    if (this.retro) this.retro = undefined;
+    if (this.practice) this.togglePractice();
+    if (this.explorer.enabled()) this.toggleExplorer();
+    this.persistence?.toggleOpen(false);
+  };
+
   toggleRetro = (): void => {
     if (this.retro) this.retro = undefined;
     else {
+      this.closeTools();
       this.retro = makeRetro(this, this.bottomColor());
-      if (this.practice) this.togglePractice();
-      if (this.explorer.enabled()) this.toggleExplorer();
     }
     this.setAutoShapes();
   };
 
   toggleExplorer = (): void => {
-    if (this.practice) this.togglePractice();
-    if (this.explorer.enabled() || this.explorer.allowed()) this.explorer.toggle();
-    this.persistence?.toggleOpen(false);
+    if (this.explorer.enabled()) this.explorer.toggle();
+    else if (this.explorer.allowed()) {
+      this.closeTools();
+      this.explorer.toggle();
+    }
   };
 
   togglePractice = () => {
@@ -893,9 +901,7 @@ export default class AnalyseCtrl {
       this.practice = undefined;
       this.showGround();
     } else {
-      if (this.retro) this.toggleRetro();
-      if (this.explorer.enabled()) this.toggleExplorer();
-      this.persistence?.toggleOpen(false);
+      this.closeTools();
       this.practice = makePractice(this, () => {
         // push to 20 to store AI moves in the cloud
         // lower to 18 after task completion (or failure)
@@ -906,9 +912,9 @@ export default class AnalyseCtrl {
   };
 
   togglePersistence = () => {
-    if (this.practice) this.togglePractice();
-    if (this.explorer.enabled()) this.toggleExplorer();
-    this.persistence?.toggleOpen();
+    const isOpen = this.persistence?.open();
+    this.closeTools();
+    this.persistence?.toggleOpen(!isOpen);
   };
 
   restartPractice() {
