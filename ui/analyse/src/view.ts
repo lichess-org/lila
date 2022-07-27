@@ -201,7 +201,10 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'menu') ctrl.actionMenu.toggle();
             else if (action === 'analysis' && ctrl.studyPractice)
               window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
-            else if (action === 'persistence') ctrl.togglePersistence();
+            else if (action === 'persistence') {
+              ctrl.persistence?.autoOpen(false);
+              ctrl.togglePersistence();
+            }
           },
           ctrl.redraw
         );
