@@ -63,6 +63,8 @@ export default function (ctrl: AnalyseController) {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
+  window.Mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
+
   return {
     render(): VNode {
       const d = ctrl.data,
@@ -225,6 +227,8 @@ export default function (ctrl: AnalyseController) {
             'z: toggle all computer analysis',
             h('br'),
             'space: play best computer move',
+            h('br'),
+            'c: announce computer evaluation',
             h('br'),
             'x: show threat',
             h('br'),
