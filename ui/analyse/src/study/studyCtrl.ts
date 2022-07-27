@@ -167,6 +167,10 @@ export default function (
     return vm.mode.write && !isGamebookPlay();
   }
 
+  function isModeActive(): boolean {
+    return vm.mode.write || vm.mode.sticky;
+  }
+
   function makeChange(...args: StudySocketSendParams): boolean {
     if (isWriting()) {
       send(...args);
@@ -239,7 +243,7 @@ export default function (
   configureAnalysis();
 
   function configurePractice() {
-    if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
+    if (!data.chapter.practice) ctrl.togglePractice(false);
     if (data.chapter.practice) ctrl.restartPractice();
     if (practice) practice.onLoad();
   }
@@ -691,6 +695,7 @@ export default function (
       xhrReload();
     },
     isWriting,
+    isModeActive,
     makeChange,
     startTour,
     userJump: ctrl.userJump,

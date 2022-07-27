@@ -161,7 +161,7 @@ export default class AnalyseCtrl {
       : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
-    if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
+    if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice(true);
     else if (location.hash === '#menu') lichess.requestIdleCallback(this.actionMenu.toggle, 500);
 
     keyboard.bind(this);
@@ -685,7 +685,7 @@ export default class AnalyseCtrl {
     this.startCeval();
     if (!this.ceval.enabled()) {
       this.threatMode(false);
-      if (this.practice) this.togglePractice();
+      this.togglePractice(false);
     }
     this.redraw();
   };
@@ -695,7 +695,7 @@ export default class AnalyseCtrl {
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
     this.threatMode(!this.threatMode());
-    if (this.threatMode() && this.practice) this.togglePractice();
+    if (this.threatMode()) this.togglePractice(false);
     this.setAutoShapes();
     this.startCeval();
     this.redraw();
@@ -781,7 +781,7 @@ export default class AnalyseCtrl {
     if (this.ceval.enabled()) this.toggleCeval();
     const value = !this.showComputer();
     this.showComputer(value);
-    if (!value && this.practice) this.togglePractice();
+    if (!value) this.togglePractice(false);
     this.onToggleComputer();
     lichess.pubsub.emit('analysis.comp.toggle', value);
   };
@@ -883,18 +883,19 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (val: boolean | undefined = undefined): void => {
+    if (val == this.explorer.enabled() || !this.explorer.allowed()) return;
     this.togglePractice(false);
-
-    if (val != this.explorer.enabled() && this.explorer.allowed()) this.explorer.toggle();
+    this.explorer.toggle();
   };
 
-  togglePractice = (val: boolean | undefined = undefined) => {
-    if (val == undefined) val = !this.practice && this.ceval.possible;
+  togglePractice = (val: boolean | undefined = undefined): void => {
+    const newVal = defined(val) ? val : !this.practice;
+    if (newVal == !!this.practice) return; // no change
 
-    if (!val && this.practice) {
+    if (!newVal) {
       this.practice = undefined;
       this.showGround();
-    } else if (val && !this.practice) {
+    } else if (this.ceval.possible) {
       if (this.retro) this.toggleRetro();
       this.toggleExplorer(false);
       this.practice = makePractice(this, () => {
@@ -908,7 +909,7 @@ export default class AnalyseCtrl {
 
   // Trying to untangle this toggle/radio stuff a bit without breaking anything.
   // Good news, I was able to make it worse.
-  toggleRadioBox(view: string | null) {
+  toggleRadioBox(view: string | null): void {
     switch (view) {
       case 'practice':
         this.toggleExplorer(false);
@@ -925,11 +926,12 @@ export default class AnalyseCtrl {
         this.toggleExplorer(false);
         this.persistence?.toggleOpen();
     }
+    // yeah maybe i got a bit carried away there
   }
 
   restartPractice() {
     this.practice = undefined;
-    this.togglePractice();
+    this.togglePractice(true);
   }
 
   gamebookPlay = (): GamebookPlayCtrl | undefined => this.study && this.study.gamebookPlay();

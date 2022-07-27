@@ -237,7 +237,7 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
     'button.button.button-empty.text',
     {
       attrs: dataIcon(''),
-      hook: bind('click', () => ctrl.toggleRadioBox.bind('explorer'), ctrl.redraw),
+      hook: bind('click', () => ctrl.toggleExplorer, ctrl.redraw),
     },
     ctrl.trans.noarg('close')
   );

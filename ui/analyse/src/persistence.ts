@@ -33,6 +33,9 @@ export default class Persistence {
     if (!this.isDirty) {
       this.isDirty = !this.ctrl.tree.pathExists(path + node.id);
     }
+    if (this.isDirty && this.ctrl.study?.isModeActive()) {
+      this.moveDb?.remove(this.ctrl.data.game.id);
+    }
   }
 
   async merge(): Promise<void> {

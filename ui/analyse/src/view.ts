@@ -245,7 +245,7 @@ function controls(ctrl: AnalyseCtrl) {
                         },
                       })
                     : null,
-                  ctrl.persistence?.isDirty && !ctrl.study?.isWriting()
+                  ctrl.persistence?.isDirty && !ctrl.study?.isModeActive()
                     ? h('button.fbt', {
                         attrs: {
                           title: noarg('savingMoves'),
@@ -541,7 +541,7 @@ export default function (deps?: typeof studyDeps) {
 function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
   if (!ctrl.persistence?.open()) return;
   if (!ctrl.persistence.isDirty) return;
-  if (ctrl.study?.isWriting()) return;
+  if (ctrl.study?.isModeActive()) return;
 
   const noarg = ctrl.trans.noarg;
 

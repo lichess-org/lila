@@ -54,6 +54,7 @@ export interface StudyCtrl {
   toggleSticky(): void;
   toggleWrite(): void;
   isWriting(): boolean;
+  isModeActive(): boolean;
   makeChange(...args: StudySocketSendParams): boolean;
   startTour(): void;
   userJump(path: Tree.Path): void;
