@@ -2,11 +2,21 @@ import * as speech from './speech';
 import * as xhr from './xhr';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
-import { PromotionCtrl } from 'chess/promotion';
 import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
+import {
+  Redraw,
+  Vm,
+  Controller,
+  PuzzleOpts,
+  PuzzleData,
+  MoveTest,
+  ThemeKey,
+  NvuiPlugin,
+  ReplayEnd,
+} from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -20,7 +30,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
-import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin } from './interfaces';
+import { PromotionCtrl } from 'chess/promotion';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
@@ -325,26 +335,28 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
     }
     if (win) speech.success();
-    if (res.replayComplete) vm.next.reject('replay complete');
-    else vm.next.resolve(res.next);
+    vm.next.resolve(data.replay && res.replayComplete ? data.replay : res.next);
     if (streak && win) streak.onComplete(true, res.next);
     redraw();
   }
+
+  const isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   function nextPuzzle(): void {
     if (streak && vm.lastFeedback != 'win') return;
 
     ceval.stop();
-    vm.next.promise.then(initiate).then(redraw).catch(redirectToDashboard);
+    vm.next.promise.then(n => {
+      if (isPuzzleData(n)) {
+        initiate(n);
+        redraw();
+      } else lichess.redirect(`/training/dashboard/${n.days}`);
+    });
 
     if (!streak && !data.replay) {
       const path = `/training/${data.angle.key}`;
       if (location.pathname != path) history.replaceState(null, '', path);
     }
-  }
-
-  function redirectToDashboard() {
-    if (data.replay) lichess.redirect(`/training/dashboard/${data.replay.days}`);
   }
 
   function instanciateCeval(): void {

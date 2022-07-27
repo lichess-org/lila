@@ -66,8 +66,8 @@ const leaderboard = (players: LeadPlayer[]): VNode => {
         players.map(player =>
           h('tr', [
             h('th', player.name),
-            h('td', player.rating),
-            withRating ? h('td', player.score) : undefined,
+            withRating ? h('td', player.rating) : undefined,
+            h('td', player.score),
             h('td', player.played),
           ])
         )
