@@ -43,17 +43,18 @@ import { PromotionCtrl } from 'chess/promotion';
 import wikiTheory, { WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
+import Persistence from './persistence';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
   element: HTMLElement;
-
   tree: TreeWrapper;
   socket: Socket;
   chessground: ChessgroundApi;
   trans: Trans;
   ceval: CevalCtrl;
   evalCache: EvalCache;
+  persistence?: Persistence;
 
   // current tree state, cursor, and denormalized node lists
   path: Tree.Path;
@@ -132,6 +133,8 @@ export default class AnalyseCtrl {
 
     this.initialize(this.data, false);
 
+    this.persistence = this.embed || opts.study ? undefined : new Persistence(this, this.synthetic);
+
     this.instanciateCeval();
 
     this.initialPath = treePath.root;
@@ -181,8 +184,8 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-
     speech.setup();
+    this.persistence?.merge();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -221,6 +224,7 @@ export default class AnalyseCtrl {
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki) this.wiki(this.nodeList);
+    this.persistence?.save();
   };
 
   flip = () => {
@@ -520,6 +524,7 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
+    this.persistence?.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -903,14 +908,10 @@ export default class AnalyseCtrl {
     this.togglePractice();
   }
 
-  gamebookPlay = (): GamebookPlayCtrl | undefined => {
-    return this.study && this.study.gamebookPlay();
-  };
+  gamebookPlay = (): GamebookPlayCtrl | undefined => this.study && this.study.gamebookPlay();
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
-  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined => {
-    if (this.chessground && this.cgVersion.js === this.cgVersion.dom) return f(this.chessground);
-    return undefined;
-  };
+  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
+    this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
 }
