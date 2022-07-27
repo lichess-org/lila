@@ -495,6 +495,7 @@
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="oneUrlPerLine">Katrā rindā vienu URL.</string>
   <string name="inlineNotation">Iekļautā notācija</string>
+  <string name="savingMovesHelp">Jūsu gājienu variācijas tiek glabātas pārlūka kešatmiņā.</string>
   <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
