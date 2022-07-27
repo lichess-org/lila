@@ -464,6 +464,9 @@
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="oneUrlPerLine">Un enlace por línea.</string>
   <string name="inlineNotation">Notación compacta</string>
+  <string name="savingMoves">Librería temporal de movimientos</string>
+  <string name="savingMovesHelp">Siempre almacenamos tus variantes en el caché de tu navegador.</string>
+  <string name="clearSavedMoves">Borrar movimientos</string>
   <string name="previouslyOnLichessTV">Anteriormente en Lichess TV</string>
   <string name="onlinePlayers">Jugadores conectados</string>
   <string name="activePlayers">Jugadores activos</string>
