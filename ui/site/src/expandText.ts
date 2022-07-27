@@ -99,11 +99,7 @@ lichess.load.then(() => {
     if (a)
       expandYoutube(a)
         .find('iframe')
-        .on('load', function () {
-          setTimeout(function () {
-            expandYoutubes(as, wait + 200);
-          }, wait);
-        });
+        .on('load', () => setTimeout(() => expandYoutubes(as, wait + 200), wait));
   }
 
   let twitterLoaded = false;
