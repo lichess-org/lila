@@ -43,7 +43,8 @@ final class MarkdownRender(
     header: Boolean = false,
     blockQuote: Boolean = false,
     list: Boolean = false,
-    code: Boolean = false
+    code: Boolean = false,
+    moreExtensions: List[HtmlRenderer.HtmlRendererExtension] = List(MarkdownRender.LilaLinkExtension)
 ) {
 
   private type Key  = String
@@ -53,7 +54,7 @@ final class MarkdownRender(
   if (table) extensions.add(TablesExtension.create())
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink) extensions.add(AutolinkExtension.create())
-  extensions.add(MarkdownRender.LilaLinkExtension)
+  moreExtensions foreach extensions.add
 
   private val options = new MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)

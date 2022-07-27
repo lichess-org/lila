@@ -19,7 +19,8 @@ final class Env(
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
-    net: NetConfig
+    net: NetConfig,
+    gameTextExpand: lila.game.GameTextExpand
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer

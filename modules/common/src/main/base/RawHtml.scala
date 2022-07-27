@@ -6,6 +6,7 @@ import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
 
 import lila.common.base.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
+import scalatags.Text.all._
 
 final object RawHtml {
 
@@ -64,10 +65,12 @@ final object RawHtml {
 
   def hasLinks(text: String) = urlPattern.matcher(text).find
 
+  type LinkRender = (String, String) => Frag
+
   def addLinks(
       text: String,
       expandImg: Boolean = true,
-      renderWith: Option[(String, String) => String] = None
+      linkRender: Option[LinkRender] = None
   ): String =
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
@@ -126,7 +129,7 @@ final object RawHtml {
             }
             sb.append(
               imgHtml
-                .orElse(renderWith.map(r => r(url, text)))
+                .orElse(linkRender.map(_(url, text).render))
                 .getOrElse(s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>""")
             )
           }

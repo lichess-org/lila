@@ -5,6 +5,15 @@ lichess.load.then(() => {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
       initialPly: 'last',
+      showMoves: false,
+      showClocks: false,
+      showPlayers: false,
+      menu: {
+        getPgn: {
+          enabled: true,
+          fileName: this.dataset['title'].replace(' ', '_') + '.pgn',
+        },
+      },
     });
   });
 });

@@ -11,7 +11,7 @@ final class ForumPaginator(
     topicRepo: TopicRepo,
     postRepo: PostRepo,
     config: ForumConfig,
-    expand: ForumExpand
+    textExpand: ForumTextExpand
 )(implicit ec: ExecutionContext) {
 
   import BSONHandlers._
@@ -26,7 +26,7 @@ final class ForumPaginator(
       ),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
-    ).flatMap(_ mapFutureList expand.manyPosts)
+    ).flatMap(_ mapFutureList textExpand.manyPosts)
 
   def categTopics(
       categ: Categ,

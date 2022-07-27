@@ -29,7 +29,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    netDomain: NetDomain
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
@@ -66,6 +67,8 @@ final class Env(
   lazy val rematches = wire[Rematches]
 
   lazy val jsonView = wire[JsonView]
+
+  lazy val textExpand = wire[GameTextExpand]
 
   // eargerly load captcher actor
   private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)

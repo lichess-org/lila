@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@toast-ui/editor": "^3.1.2",
+    "@toast-ui/editor": "3.1.2",
     "@yaireo/tagify": "^4.9.5",
     "chat": "2.0.0",
     "common": "2.0.0",
@@ -34,7 +34,7 @@
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
     "zxcvbn": "^4.4.2",
-    "lichess-pgn-viewer": "^0.1.6"
+    "lichess-pgn-viewer": "^0.3.3"
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",

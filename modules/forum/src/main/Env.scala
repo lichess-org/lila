@@ -40,8 +40,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient,
-    netDomain: NetDomain,
-    pgnDump: PgnDump
+    gameTextExpand: lila.game.GameTextExpand
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
@@ -53,7 +52,7 @@ final class Env(
   private lazy val detectLanguage =
     new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
-  private lazy val expand = wire[ForumExpand]
+  private lazy val textExpand = wire[ForumTextExpand]
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
 
