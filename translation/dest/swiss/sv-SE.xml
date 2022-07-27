@@ -13,6 +13,11 @@
     <item quantity="one">En runda per dag</item>
     <item quantity="other">En runda varje %s dagar</item>
   </plurals>
+  <string name="roundsAreStartedManually">Rundor startas manuellt</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekund mellan rundorna</item>
+    <item quantity="other">%s sekunder mellan rundor</item>
+  </plurals>
   <string name="nextRound">Nästa runda</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Pågående parti</item>
@@ -22,4 +27,8 @@
   <string name="numberOfRoundsHelp">Ett udda antal rundor möjliggör optimal färgbalans.</string>
   <string name="roundInterval">Intervall mellan rundor</string>
   <string name="forbiddenPairings">Förbjudna parningar</string>
+  <string name="pointsCalculationQ">Hur räknas poängen?</string>
+  <string name="joinOrCreateTeam">Gå med eller skapa ett team</string>
+  <string name="startingSoon">Börjar snart</string>
+  <string name="comparison">Jämförelse</string>
 </resources>
