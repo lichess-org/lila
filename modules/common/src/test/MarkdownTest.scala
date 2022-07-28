@@ -24,4 +24,18 @@ class MarkdownTest extends Specification {
 """
     }
   }
+  "markdown game embeds" should {
+    val domain     = config.NetDomain("http://l.org")
+    val gameId     = "abcdefgh"
+    val pgn        = "e2 e4"
+    val pgns       = Map(gameId -> pgn)
+    val gameRender = new MarkdownRender(gameEmbeds = (domain, (pgns.get _)).some)("test") _
+    "work" in {
+      val md = Markdown(s"foo [game](http://l.org/$gameId) bar")
+      gameRender(
+        md
+      ) must_== s"""<p>foo <div data-pgn="$pgn" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
+"""
+    }
+  }
 }
