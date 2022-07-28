@@ -29,7 +29,8 @@ class MarkdownTest extends Specification {
     val gameId     = "abcdefgh"
     val pgn        = "e2 e4"
     val pgns       = Map(gameId -> pgn)
-    val gameRender = new MarkdownRender(gameEmbeds = (domain, (pgns.get _)).some)("test") _
+    val expander   = MarkdownRender.GameExpand(domain, pgns.get)
+    val gameRender = new MarkdownRender(gameExpand = expander.some)("test") _
     "work" in {
       val md = Markdown(s"foo [game](http://l.org/$gameId) bar")
       gameRender(
