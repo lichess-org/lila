@@ -520,6 +520,10 @@
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="oneUrlPerLine">Jedna URL na riadok.</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
+  <string name="savingMoves" comment="savingMoves&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Úložisko dočasných ťahov</string>
+  <string name="savingMovesHelp" comment="savingMovesHelp&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Vaše varianty vždy ukladáme do cash pamäti Vášho prehliadača.</string>
+  <string name="makeAStudy" comment="makeAStudy&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Pre bezpečné uchovanie a zdieľanie pouvažujte nad vytvorením štúdie.</string>
+  <string name="clearSavedMoves" comment="clearSavedMoves">Zrušiť dočasné ťahy</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
   <string name="onlinePlayers">Pripojení hráči</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
