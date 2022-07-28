@@ -463,6 +463,8 @@
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
+  <string name="savingMoves" comment="savingMoves&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Քայլերի ժամանակավոր պահոց</string>
+  <string name="savingMovesHelp" comment="savingMovesHelp&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Մենք միշտ պահպանում ենք Ձեր տարբերակները Ձեր դիտարկչի քեշում։</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
