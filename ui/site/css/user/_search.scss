@@ -35,14 +35,12 @@
     table {
       .two-columns {
         @extend %flex-wrap;
+        gap: 1em;
 
         > * {
           flex: 1 150px;
-        }
-
-        input[type='text'],
-        select {
-          width: 78%;
+          @extend %flex-between-nowrap;
+          gap: 2ch;
         }
       }
     }
