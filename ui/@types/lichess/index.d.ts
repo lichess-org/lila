@@ -247,7 +247,6 @@ interface Window {
   LichessSpeech?: LichessSpeech;
   readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
   LichessChat: (element: Element, opts: any) => any;
-  LichessReplay: (element: Element, opts: any) => any;
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
   readonly LichessChallenge: (element: any, opts: any) => any;
