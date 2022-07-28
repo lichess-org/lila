@@ -60,7 +60,9 @@ interface Link {
 type LinkType = 'game';
 
 const domain = window.location.host;
-const gameRegex = new RegExp(`(?:https?://)${domain}/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$`);
+const gameRegex = new RegExp(
+  `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$`
+);
 const notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
 
 export function expandIFrames(el: HTMLElement) {
@@ -113,7 +115,7 @@ function parseLink(a: HTMLAnchorElement): Link | undefined {
   if (id && !notGames.includes(id))
     return {
       type: 'game',
-      src: configureSrc(`/embed/${id}${pov ? `/${pov}` : ''}${ply || ''}`),
+      src: configureSrc(`/embed/game/${id}${pov ? `/${pov}` : ''}${ply || ''}`),
     };
   return undefined;
 }

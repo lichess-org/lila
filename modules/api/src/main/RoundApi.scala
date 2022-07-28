@@ -178,21 +178,6 @@ final private[api] class RoundApi(
       }
       .mon(_.round.api.embed)
 
-  def replayEmbed(
-      pov: Pov,
-      initialFen: Preload[Option[FEN]] = Preload.none
-  ): Fu[JsObject] =
-    initialFen
-      .orLoad(gameRepo initialFen pov.game)
-      .flatMap { initialFen =>
-        jsonView.replayJson(
-          pov,
-          Pref.default,
-          initialFen = initialFen
-        )
-      }
-      .mon(_.round.api.replay)
-
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,

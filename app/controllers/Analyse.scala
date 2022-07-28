@@ -113,16 +113,9 @@ final class Analyse(
 
   def embedReplayGame(gameId: String, color: String) =
     Action.async { implicit req =>
-      env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-        case Some(g) =>
-          val pov = Pov(g.game, chess.Color.fromName(color) | White)
-          env.api.roundApi.replayEmbed(
-            pov,
-            initialFen = Preload(g.fen.some)
-          ) map { data =>
-            Ok(html.analyse.embed.replay(pov, data))
-          }
-        case _ => fuccess(NotFound(html.analyse.embed.notFound))
+      env.game.textExpand.getPgn(gameId) map {
+        case Some(pgn) => Ok(html.analyse.embed.lpv(pgn))
+        case _         => NotFound(html.analyse.embed.notFound)
       } dmap EnableSharedArrayBuffer
     }
 

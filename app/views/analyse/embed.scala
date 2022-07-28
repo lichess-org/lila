@@ -47,35 +47,17 @@ object embed {
       )
     )
 
-  def replay(pov: lila.game.Pov, data: JsObject)(implicit config: EmbedConfig) =
+  def lpv(pgn: String)(implicit config: EmbedConfig) =
     views.html.base.embed(
-      title = views.html.analyse.replay titleOf pov,
-      cssModule = "replay.embed"
+      title = "Lichess PGN viewer",
+      cssModule = "lpv.embed"
     )(
-      div(cls    := "is2d")(
-        main(cls := "replay")
-      ),
-      footer {
-        val url = routes.Round.watcher(pov.gameId, pov.color.name)
-        frag(
-          div(cls := "left")(
-            a(targetBlank, href := url)(h1(titleGame(pov.game))),
-            " ",
-            em("brought to you by ", a(targetBlank, href := netBaseUrl)(netConfig.domain))
-          ),
-          a(targetBlank, cls := "open", href := url)("Open")
-        )
-      },
-      views.html.base.layout.inlineJs(config.nonce)(config.lang),
-      depsTag,
-      jsModule("analysisBoard.embed"),
-      embedJsUnsafeLoadThen(
-        s"""analyseEmbed.replayEmbed(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "i18n" -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
-            )
-          )})""",
+      div(pgn),
+      jsModule("lpv.embed"),
+      embedJsUnsafe(
+        s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild,${safeJsonValue(
+            Json.obj("i18n" -> Json.obj())
+          )})})""",
         config.nonce
       )
     )

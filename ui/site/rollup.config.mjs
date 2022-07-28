@@ -121,6 +121,11 @@ export default rollupProject({
     output: 'lpv',
     name: 'LilaLpv',
   },
+  lpvEmbed: {
+    input: 'src/lpv.embed.ts',
+    output: 'lpv.embed',
+    name: 'LpvEmbed',
+  },
   team: {
     input: 'src/team.ts',
     output: 'team',

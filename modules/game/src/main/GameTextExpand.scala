@@ -16,6 +16,7 @@ final class GameTextExpand(
     cacheApi: CacheApi
 )(implicit ec: ExecutionContext, mode: Mode) {
 
+  def getPgn(id: Game.ID)     = pgnCache async id
   def getPgnSync(id: Game.ID) = pgnCache.sync(id)
 
   def fromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
@@ -69,7 +70,7 @@ final class GameTextExpand(
     compute = id => gameIdToPgn(id).map2(_.render),
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(500 millis, if (mode == Mode.Prod) 25 else 0),
-    expireAfter = Syncache.ExpireAfterWrite(20 minutes)
+    expireAfter = Syncache.ExpireAfterWrite(10 minutes)
   )
 
   private def gameIdToPgn(id: Game.ID): Fu[Option[Pgn]] =
