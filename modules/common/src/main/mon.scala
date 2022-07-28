@@ -485,17 +485,6 @@ object mon {
     def teamBulk(teamId: String) = histogram("msg.bulk.team").withTag("id", teamId)
     def clasBulk(clasId: String) = histogram("msg.bulk.clas").withTag("id", clasId)
   }
-  object ws {
-    val inCounter                       = counter("ws.in")
-    def in(chan: String, path: String)  = inCounter.withTags(Map("chan" -> chan, "path" -> path))
-    val siteInTellSriCounter            = counter("ws.in.site-in.tell-sri")
-    def siteInTellSri(typ: String)      = siteInTellSriCounter.withTag("typ", typ)
-    val outCounter                      = counter("ws.out")
-    def out(chan: String, path: String) = outCounter.withTags(Map("chan" -> chan, "path" -> path))
-    val outSuccessHistogram             = histogram("ws.out.success")
-    def outSuccess(chan: String, path: String) =
-      outSuccessHistogram.withTags(Map("chan" -> chan, "path" -> path))
-  }
   object puzzle {
     object selector {
       object user {

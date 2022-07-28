@@ -50,8 +50,8 @@
         &:nth-child(3) {
           font-weight: bold;
         }
-        &:nth-child(4) {
-          // width: 2ch;
+        &:last-child {
+          padding-#{$end-direction}: 1.5em;
         }
       }
     }
