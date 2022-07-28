@@ -16,6 +16,37 @@ final class GameTextExpand(
     cacheApi: CacheApi
 )(implicit ec: ExecutionContext, mode: Mode) {
 
+  def getPgnSync(id: Game.ID) = pgnCache.sync(id)
+
+  def fromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
+    gameRegex
+      .findAllMatchIn(text)
+      .toList
+      .flatMap { m =>
+        Option(m group 1) filter { id =>
+          !notGames(id)
+        } map (m.matched -> _)
+      }
+      .map { case (matched, id) =>
+        pgnCache.async(id) map2 { removeScheme(matched) -> _ }
+      }
+      .sequenceFu
+      .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
+      matches
+        .get(url)
+        .orElse(matches.get(removeScheme(url)))
+        .fold[Frag](raw(url)) { pgn =>
+          div(cls := "lpv--autostart", attr("data-pgn") := pgn.toString)
+        }
+    }
+
+  def preloadGamesFromText(text: String): Funit = pgnCache preloadMany {
+    gameRegex
+      .findAllMatchIn(text)
+      .toList
+      .flatMap { m => Option(m group 1) filterNot notGames.contains }
+  }
+
   private val gameRegex =
     s"""$netDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b""".r
 
@@ -44,29 +75,5 @@ final class GameTextExpand(
   private def gameIdToPgn(id: Game.ID): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMap {
       _ ?? { g => pgnDump(g.game, g.fen, pgnFlags) dmap some }
-    }
-
-  def getPgnSync(id: Game.ID) = pgnCache.sync(id)
-
-  def fromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
-    gameRegex
-      .findAllMatchIn(text)
-      .toList
-      .flatMap { m =>
-        Option(m group 1) filter { id =>
-          !notGames(id)
-        } map (m.matched -> _)
-      }
-      .map { case (matched, id) =>
-        pgnCache.async(id) map2 { removeScheme(matched) -> _ }
-      }
-      .sequenceFu
-      .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
-      matches
-        .get(url)
-        .orElse(matches.get(removeScheme(url)))
-        .fold[Frag](raw(url)) { pgn =>
-          div(cls := "lpv--autostart", attr("data-pgn") := pgn.toString)
-        }
     }
 }

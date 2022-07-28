@@ -35,9 +35,8 @@ final class UblogMarkup(
     _.maximumSize(2048)
       .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
       .buildAsyncFuture { case (id, markdown) =>
-        // todo game preload?
-        val res = process(id)(markdown)
-        fuccess(res)
+        gameExpand.preloadGamesFromText(markdown.value) inject
+          process(id)(markdown)
       }
   }
 
