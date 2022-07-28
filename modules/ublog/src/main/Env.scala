@@ -23,10 +23,11 @@ final class Env(
     gameTextExpand: lila.game.GameTextExpand
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
 ) {
 
-  import net.{ assetBaseUrl, baseUrl }
+  import net.{ assetBaseUrl, baseUrl, domain }
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 

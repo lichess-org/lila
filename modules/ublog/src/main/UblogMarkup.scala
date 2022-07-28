@@ -6,13 +6,15 @@ import scala.concurrent.duration._
 import lila.common.config
 import lila.common.{ Chronometer, Markdown, MarkdownRender }
 import lila.memo.CacheApi
+import play.api.Mode
 
 final class UblogMarkup(
     gameExpand: lila.game.GameTextExpand,
     baseUrl: config.BaseUrl,
     assetBaseUrl: config.AssetBaseUrl,
-    cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    cacheApi: CacheApi,
+    netDomain: config.NetDomain
+)(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
 
   private val renderer = new MarkdownRender(
     autoLink = true,
@@ -21,7 +23,8 @@ final class UblogMarkup(
     header = true,
     blockQuote = true,
     code = true,
-    table = true
+    table = true,
+    gameExpand = MarkdownRender.GameExpand(netDomain, gameExpand.getPgnSync).some
   )
 
   def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map(scalatags.Text.all.raw)
@@ -30,18 +33,13 @@ final class UblogMarkup(
 
   private val cache = cacheApi[(UblogPost.Id, Markdown), Html](2048, "ublog.markup") {
     _.maximumSize(2048)
+      .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
       .buildAsyncFuture { case (id, markdown) =>
+        // todo game preload?
         val res = process(id)(markdown)
-        println(res)
         fuccess(res)
       }
   }
-
-  // def apply(markdown: Markdown): Fu[Frag] = gameExpand(text) map { linkRender =>
-  //   raw {
-  //     lila.base.RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some)
-  //   }
-  // }
 
   private def process(id: UblogPost.Id): Markdown => Html = replaceGameGifs.apply andThen
     unescapeAtUsername.apply andThen

@@ -197,7 +197,7 @@ object MarkdownRender {
       new java.util.HashSet(Arrays.asList(new NodeRenderingHandler(classOf[Link], render)))
 
     private val gameRegex =
-      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$$""".pp.r
+      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$$""".r
 
     private def render(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       // Based on implementation in CoreNodeRenderer.
@@ -216,7 +216,7 @@ object MarkdownRender {
         }
         url match {
           case gameRegex(id, _, _) =>
-            expander.getPgn(id).pp(id).fold(justAsLink()) { pgn =>
+            expander.getPgn(id).fold(justAsLink()) { pgn =>
               html
                 .attr("data-pgn", pgn)
                 .attr("class", "lpv--autostart")

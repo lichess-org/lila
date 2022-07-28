@@ -10,7 +10,7 @@ final class ForumTextExpand(gameExpand: GameTextExpand)(implicit
     ec: ExecutionContext
 ) {
 
-  def one(text: String): Fu[Frag] = gameExpand(text) map { linkRender =>
+  def one(text: String): Fu[Frag] = gameExpand.fromText(text) map { linkRender =>
     raw {
       lila.base.RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some)
     }
