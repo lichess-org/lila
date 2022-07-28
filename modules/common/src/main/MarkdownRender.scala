@@ -23,16 +23,16 @@ import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
-import com.vladsch.flexmark.ast.{ Image, Link }
+import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import io.mola.galimatias.URL
 import scala.collection.JavaConverters
 import java.util.Arrays
 import scala.jdk.CollectionConverters._
 import scala.util.Try
-import com.vladsch.flexmark.ast.AutoLink
 import chess.format.pgn.Pgn
 import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
+import com.vladsch.flexmark.html.renderer.ResolvedLink
 
 final case class Markdown(value: String) extends AnyVal with StringValue {
   def apply(f: String => String) = Markdown(f(value))
@@ -193,43 +193,72 @@ object MarkdownRender {
   }
   private class GameEmbedNodeRenderer(expander: GameExpand) extends NodeRenderer {
     override def getNodeRenderingHandlers() =
-      // TODO: autolink
-      new java.util.HashSet(Arrays.asList(new NodeRenderingHandler(classOf[Link], render)))
+      new java.util.HashSet(
+        Arrays.asList(
+          new NodeRenderingHandler(classOf[Link], renderLink),
+          new NodeRenderingHandler(classOf[AutoLink], renderAutoLink)
+        )
+      )
 
     private val gameRegex =
       s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$$""".r
 
-    private def render(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
+    private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
       else {
-        var resolvedLink = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
-        val url          = resolvedLink.getUrl()
-        def justAsLink() = {
-          html.attr("href", url)
-          if (node.getTitle.isNotNull) resolvedLink = resolvedLink.withTitle(node.getTitle().unescape())
-          html.attr(resolvedLink.getNonNullAttributes())
-          html.srcPos(node.getChars()).withAttr(resolvedLink).tag("a")
-          context.renderChildren(node)
-          html.tag("/a").unit
-        }
-        url match {
+        var link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        def justAsLink() = renderLink(node, context, html, link)
+        link.getUrl match {
           case gameRegex(id, _, _) =>
-            expander.getPgn(id).fold(justAsLink()) { pgn =>
-              html
-                .attr("data-pgn", pgn)
-                .attr("class", "lpv--autostart")
-                .srcPos(node.getChars())
-                .withAttr(resolvedLink)
-                .tag("div")
-                .text(url)
-                .tag("/div")
-                .unit
-            }
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
           case _ => justAsLink()
         }
       }
+
+    private def renderAutoLink(
+        node: AutoLink,
+        context: NodeRendererContext,
+        html: HtmlWriter
+    ): Unit =
+      // Based on implementation in CoreNodeRenderer.
+      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+        context.renderChildren(node)
+      else {
+        val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        def justAsLink() = renderLink(node, context, html, link)
+        link.getUrl match {
+          case gameRegex(id, _, _) =>
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
+          case _ => justAsLink()
+        }
+      }
+
+    private def renderLink(
+        node: LinkNode,
+        context: NodeRendererContext,
+        html: HtmlWriter,
+        baseLink: ResolvedLink
+    ) = {
+      val link = if (node.getTitle.isNotNull) baseLink.withTitle(node.getTitle().unescape()) else baseLink
+      html.attr("href", link.getUrl)
+      html.attr(link.getNonNullAttributes())
+      html.srcPos(node.getChars()).withAttr(link).tag("a")
+      context.renderChildren(node)
+      html.tag("/a").unit
+    }
+
+    private def renderPgnViewer(node: LinkNode, html: HtmlWriter, link: ResolvedLink)(pgn: String) =
+      html
+        .attr("data-pgn", pgn)
+        .attr("class", "lpv--autostart")
+        .srcPos(node.getChars())
+        .withAttr(link)
+        .tag("div")
+        .text(link.getUrl)
+        .tag("/div")
+        .unit
   }
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension {

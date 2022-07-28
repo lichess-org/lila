@@ -31,8 +31,15 @@ class MarkdownTest extends Specification {
     val pgns       = Map(gameId -> pgn)
     val expander   = MarkdownRender.GameExpand(domain, pgns.get)
     val gameRender = new MarkdownRender(gameExpand = expander.some)("test") _
-    "work" in {
+    "full link" in {
       val md = Markdown(s"foo [game](http://l.org/$gameId) bar")
+      gameRender(
+        md
+      ) must_== s"""<p>foo <div data-pgn="$pgn" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
+"""
+    }
+    "auto link" in {
+      val md = Markdown(s"foo http://l.org/$gameId bar")
       gameRender(
         md
       ) must_== s"""<p>foo <div data-pgn="$pgn" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
