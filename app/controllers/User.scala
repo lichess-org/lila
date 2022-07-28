@@ -130,13 +130,12 @@ final class User(
                 }
                 res <-
                   if (HTTPRequest isSynchronousHttp ctx.req) for {
-                    info   <- env.userInfo(u, nbs, ctx)
+                    info   <- env.userInfo(u, nbs, ctx, withUblog = false)
                     _      <- env.team.cached.nameCache preloadMany info.teamIds
                     social <- env.socialInfo(u, ctx)
-                    searchForm =
-                      (filters.current == GameFilter.Search) option
-                        GameFilterMenu
-                          .searchForm(userGameSearch, filters.current)(ctx.body, formBinding, reqLang)
+                    searchForm = (filters.current == GameFilter.Search) option
+                      GameFilterMenu
+                        .searchForm(userGameSearch, filters.current)(ctx.body, formBinding, reqLang)
                   } yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
                   else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
               } yield res,

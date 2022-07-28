@@ -27,7 +27,7 @@ object dashboard {
       path = "dashboard",
       title =
         if (ctx is user) trans.puzzle.puzzleDashboard.txt()
-        else s"${user.username} puzzle dashboard",
+        else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
       moreJs = dashOpt ?? { dash =>
@@ -71,7 +71,7 @@ object dashboard {
       "improvementAreas",
       title =
         if (ctx is user) trans.puzzle.improvementAreas.txt()
-        else s"${user.username} improvement areas",
+        else s"${user.username} ${trans.puzzle.improvementAreas.txt()}",
       subtitle = trans.puzzle.improvementAreasDescription.txt(),
       dashOpt = dashOpt
     ) { dash =>
@@ -85,7 +85,7 @@ object dashboard {
       "strengths",
       title =
         if (ctx is user) trans.puzzle.strengths.txt()
-        else s"${user.username} puzzle strengths",
+        else s"${user.username} ${trans.puzzle.strengths.txt()}",
       subtitle = trans.puzzle.strengthDescription.txt(),
       dashOpt = dashOpt
     ) { dash =>
@@ -109,10 +109,9 @@ object dashboard {
       moreJs = moreJs
     )(
       main(cls := "page-menu")(
-        bits.pageMenu(path),
+        bits.pageMenu(path, user.some),
         div(cls := s"page-menu__content box box-pad $baseClass")(
           div(cls := "box__top")(
-            // iconTag(''),
             h1(
               title,
               strong(subtitle)
@@ -123,7 +122,7 @@ object dashboard {
               PuzzleDashboard.dayChoices map { d =>
                 a(
                   cls  := (d == days).option("current"),
-                  href := s"${routes.Puzzle.dashboard(d, path)}${!(ctx is user) ?? s"?u=${user.username}"}"
+                  href := routes.Puzzle.dashboard(d, path, user.username.some)
                 )(trans.nbDays.pluralSame(d))
               }
             )

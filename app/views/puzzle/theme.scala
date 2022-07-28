@@ -17,7 +17,7 @@ object theme {
       moreCss = cssTag("puzzle.page")
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("themes"),
+        bits.pageMenu("themes", ctx.me),
         div(cls := "page-menu__content box")(
           h1(trans.puzzle.puzzleThemes()),
           div(cls := "puzzle-themes")(

@@ -30,8 +30,8 @@ object side {
           "active" -> active.has(perfType)
         ),
         href := ctx.pref.showRatings.?? {
-          if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
-          else routes.User.perfStat(u.username, perfType.key).url.some
+          if (isPuzzle) routes.Puzzle.dashboard(30, "home", u.username.some).url
+          else routes.User.perfStat(u.username, perfType.key).url
         },
         span(
           h3(perfType.trans),

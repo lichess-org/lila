@@ -98,7 +98,13 @@ object student {
           a(
             href := routes.User.show(s.user.username),
             cls  := "button button-empty"
-          )(trans.profile())
+          )(trans.profile()),
+          a(
+            href := routes.Puzzle.dashboard(7, "home", s.user.username.some),
+            cls  := "button button-empty"
+          )(
+            trans.puzzle.puzzleDashboard()
+          )
         )
       )
     )

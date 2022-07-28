@@ -144,7 +144,8 @@ object teacherDashboard {
                 dataSortNumberTh(trans.clas.progress()),
                 dataSortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
                 if (progress.isPuzzle) dataSortNumberTh(trans.clas.winrate())
-                else dataSortNumberTh(trans.clas.timePlaying())
+                else dataSortNumberTh(trans.clas.timePlaying()),
+                th
               )
             ),
             tbody(
@@ -160,7 +161,17 @@ object teacherDashboard {
                   ),
                   td(prog.nb),
                   if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
-                  else td(dataSort := prog.millis)(showPeriod(prog.period))
+                  else td(dataSort := prog.millis)(showPeriod(prog.period)),
+                  td(
+                    if (progress.isPuzzle)
+                      a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.some))(
+                        trans.puzzle.puzzleDashboard()
+                      )
+                    else
+                      a(href := routes.User.perfStat(user.username, progress.perfType.key))(
+                        trans.perfStat.perfStats(progress.perfType.trans)
+                      )
+                  )
                 )
               }
             )

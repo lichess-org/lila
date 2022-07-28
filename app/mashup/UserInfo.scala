@@ -123,12 +123,12 @@ object UserInfo {
       insightShare: lila.insight.Share,
       playbanApi: lila.playban.PlaybanApi
   )(implicit ec: ExecutionContext) {
-    def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
+    def apply(user: User, nbs: NbGames, ctx: Context, withUblog: Boolean = true): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
         !(user.is(User.lichessId) || user.isBot) ??
         postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
-        ublogApi.userBlogPreviewFor(user, 3, ctx.me) zip
+        (withUblog ?? ublogApi.userBlogPreviewFor(user, 3, ctx.me)) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
         userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
         teamApi.joinedTeamsOfUserAsSeenBy(user, ctx.me).mon(_.user segment "teamIds") zip

@@ -5,10 +5,12 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, Json }
 
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.MessageKey
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
+import lila.user.User
 
 object bits {
 
@@ -36,7 +38,8 @@ object bits {
       )
   }
 
-  def pageMenu(active: String, days: Int = 30)(implicit lang: Lang) =
+  def pageMenu(active: String, user: Option[User], days: Int = 30)(implicit ctx: Context) = {
+    val u = user.filterNot(ctx.is).map(_.username)
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.Puzzle.home)(
         trans.puzzles()
@@ -47,22 +50,26 @@ object bits {
       a(cls := active.active("openings"), href := routes.Puzzle.openings())(
         "By openings"
       ),
-      a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard"))(
+      a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard", u))(
         trans.puzzle.puzzleDashboard()
       ),
-      a(cls := active.active("improvementAreas"), href := routes.Puzzle.dashboard(days, "improvementAreas"))(
+      a(
+        cls  := active.active("improvementAreas"),
+        href := routes.Puzzle.dashboard(days, "improvementAreas", u)
+      )(
         trans.puzzle.improvementAreas()
       ),
-      a(cls := active.active("strengths"), href := routes.Puzzle.dashboard(days, "strengths"))(
+      a(cls := active.active("strengths"), href := routes.Puzzle.dashboard(days, "strengths", u))(
         trans.puzzle.strengths()
       ),
-      a(cls := active.active("history"), href := routes.Puzzle.history(1))(
+      a(cls := active.active("history"), href := routes.Puzzle.history(1, u))(
         trans.puzzle.history()
       ),
       a(cls := active.active("player"), href := routes.Puzzle.ofPlayer())(
         trans.puzzle.fromMyGames()
       )
     )
+  }
 
   private val baseI18nKeys: List[MessageKey] =
     List(
