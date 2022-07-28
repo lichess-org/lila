@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import throttlePromiseDelay from 'common/throttle';
 
-const setZen = throttle(1000, zen =>
+const setZen = throttlePromiseDelay(1000, zen =>
   xhr.text('/pref/zen', {
     method: 'post',
     body: xhr.form({ zen: zen ? 1 : 0 }),
