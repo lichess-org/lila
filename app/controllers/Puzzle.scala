@@ -12,6 +12,7 @@ import lila.app._
 import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleForm.RoundData
+import lila.user.{ User => UserModel }
 import lila.puzzle.{
   Puzzle => Puz,
   PuzzleAngle,
@@ -19,11 +20,12 @@ import lila.puzzle.{
   PuzzleDifficulty,
   PuzzleOpening,
   PuzzleReplay,
+  PuzzleResult,
   PuzzleSettings,
   PuzzleStreak,
-  PuzzleTheme,
-  Result
+  PuzzleTheme
 }
+import play.api.mvc.Result
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
@@ -31,7 +33,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       puzzle: Puz,
       angle: PuzzleAngle,
       replay: Option[PuzzleReplay] = None,
-      newUser: Option[lila.user.User] = None,
+      newUser: Option[UserModel] = None,
       apiVersion: Option[ApiVersion] = None
   )(implicit
       ctx: Context
@@ -377,7 +379,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     }
 
   def apiDashboard(days: Int) = {
-    def render(me: lila.user.User)(implicit lang: play.api.i18n.Lang) = JsonOptionOk {
+    def render(me: UserModel)(implicit lang: play.api.i18n.Lang) = JsonOptionOk {
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
     }
     AuthOrScoped(_.Puzzle.Read)(
@@ -386,23 +388,17 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     )
   }
 
-  def dashboard(days: Int, path: String = "home") =
-    Auth { implicit ctx => me =>
-      get("u")
-        .ifTrue(isGranted(_.CheatHunter))
-        .??(env.user.repo.named)
-        .map(_ | me)
-        .flatMap { user =>
-          env.puzzle.dashboard(user, days) map { dashboard =>
-            path match {
-              case "dashboard" => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
-              case "improvementAreas" =>
-                Ok(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
-              case "strengths" => Ok(views.html.puzzle.dashboard.strengths(user, dashboard, days))
-              case _           => Redirect(routes.Puzzle.dashboard(days, "dashboard"))
-            }
-          }
+  def dashboard(days: Int, path: String = "home", u: Option[String]) =
+    DashboardPage(u) { implicit ctx => user =>
+      env.puzzle.dashboard(user, days) map { dashboard =>
+        path match {
+          case "dashboard" => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
+          case "improvementAreas" =>
+            Ok(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
+          case "strengths" => Ok(views.html.puzzle.dashboard.strengths(user, dashboard, days))
+          case _ => Redirect(routes.Puzzle.dashboard(days, "dashboard", !ctx.is(user) option user.username))
         }
+      }
     }
 
   def replay(days: Int, themeKey: String) =
@@ -410,7 +406,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       val theme         = PuzzleTheme.findOrMix(themeKey)
       val checkedDayOpt = PuzzleDashboard.getclosestDay(days)
       env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
-        case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
+        case None =>
+          Redirect(routes.Puzzle.dashboard(days, "home", none)).fuccess
         case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
       }
     }
@@ -431,19 +428,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
     }
 
-  def history(page: Int) =
-    Auth { implicit ctx => me =>
-      get("u")
-        .ifTrue(isGranted(_.CheatHunter))
-        .??(env.user.repo.named)
-        .map(_ | me)
-        .flatMap { user =>
-          Reasonable(page) {
-            env.puzzle.history(user, page) map { history =>
-              Ok(views.html.puzzle.history(user, page, history))
-            }
-          }
+  def history(page: Int, u: Option[String]) =
+    DashboardPage(u) { implicit ctx => user =>
+      Reasonable(page) {
+        env.puzzle.history(user, page) map { history =>
+          Ok(views.html.puzzle.history(user, page, history))
         }
+      }
     }
 
   def mobileBcLoad(nid: Long) =
@@ -503,10 +494,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
                   .flatMap { solution =>
                     Puz
                       .numericalId(solution.id)
-                      .map(_ -> Result(solution.win))
+                      .map(_ -> PuzzleResult(solution.win))
                   }
                   .?? { case (id, solution) =>
-                    env.puzzle.finisher(id, PuzzleAngle.mix, me, Result(solution.win), chess.Mode.Rated)
+                    env.puzzle.finisher(id, PuzzleAngle.mix, me, PuzzleResult(solution.win), chess.Mode.Rated)
                   } map {
                   case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
                   case Some((round, perf)) =>
@@ -540,5 +531,21 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   def help =
     Open { implicit ctx =>
       Ok(html.site.helpModal.puzzle).fuccess
+    }
+
+  private def DashboardPage(username: Option[String])(f: Context => UserModel => Fu[Result]) =
+    Auth { implicit ctx => me =>
+      username
+        .??(env.user.repo.named)
+        .flatMap {
+          _ ?? { user =>
+            (fuccess(isGranted(_.CheatHunter)) >>|
+              (user.enabled ?? env.clas.api.clas.isTeacherOf(me.id, user.id))) map {
+              _ option user
+            }
+          }
+        }
+        .dmap(_ | me)
+        .flatMap(f(ctx))
     }
 }

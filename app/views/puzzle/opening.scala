@@ -21,7 +21,7 @@ object opening {
       moreJs = jsModule("puzzle.opening")
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("openings"),
+        bits.pageMenu("openings", ctx.me),
         div(cls := "page-menu__content box")(
           div(cls := "box__top")(
             h1("Puzzles by openings"),

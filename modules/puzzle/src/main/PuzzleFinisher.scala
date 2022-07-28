@@ -34,7 +34,7 @@ final private[puzzle] class PuzzleFinisher(
       id: Puzzle.Id,
       angle: PuzzleAngle,
       user: User,
-      result: Result,
+      result: PuzzleResult,
       mode: Mode
   ): Fu[Option[(PuzzleRound, Perf)]] =
     if (api.casual(user, id)) fuccess {
@@ -165,7 +165,7 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.castling
     ).map(_.key)
 
-    private def weightOf(angle: PuzzleAngle, result: Result) =
+    private def weightOf(angle: PuzzleAngle, result: PuzzleResult) =
       angle.asTheme.fold(1f) { theme =>
         if (theme == PuzzleTheme.mix.key) 1
         else if (isObvious(theme)) {
@@ -177,14 +177,14 @@ final private[puzzle] class PuzzleFinisher(
         }
       }
 
-    def player(angle: PuzzleAngle, result: Result, glicko: (Glicko, Glicko), puzzle: Glicko) = {
+    def player(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), puzzle: Glicko) = {
       val provisionalPuzzle = puzzle.provisional ?? {
         if (result.win) -0.2f else -0.7f
       }
       glicko._1.average(glicko._2, (weightOf(angle, result) + provisionalPuzzle) atLeast 0.1f)
     }
 
-    def puzzle(angle: PuzzleAngle, result: Result, glicko: (Glicko, Glicko), player: Glicko) =
+    def puzzle(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), player: Glicko) =
       if (player.clueless) glicko._1
       else glicko._1.average(glicko._2, weightOf(angle, result))
   }

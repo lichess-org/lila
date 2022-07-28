@@ -83,7 +83,7 @@ object Puzzle {
   case class UserResult(
       puzzleId: Id,
       userId: lila.user.User.ID,
-      result: Result,
+      result: PuzzleResult,
       rating: (Int, Int)
   )
 
