@@ -52,10 +52,10 @@ object embed {
       title = "Lichess PGN viewer",
       cssModule = "lpv.embed"
     )(
-      div(pgn),
+      div(cls := "is2d")(div(pgn)),
       jsModule("lpv.embed"),
       embedJsUnsafe(
-        s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild,${safeJsonValue(
+        s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild.firstChild,${safeJsonValue(
             Json.obj("i18n" -> Json.obj())
           )})})""",
         config.nonce
