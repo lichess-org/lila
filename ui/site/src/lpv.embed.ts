@@ -8,6 +8,7 @@ interface OptsWithI18n extends Opts {
 export default function start(elem: HTMLElement, opts: OptsWithI18n) {
   Lpv(elem, {
     ...opts,
+    fullScreen: true,
     pgn: elem.innerHTML,
     translate: key => opts.i18n[key] || key,
   });

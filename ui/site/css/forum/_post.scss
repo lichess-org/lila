@@ -106,10 +106,6 @@
       @extend %video;
 
       margin: $block-gap auto;
-
-      &.embed--game {
-        @extend %game-embed;
-      }
     }
 
     .hidden-quotes {

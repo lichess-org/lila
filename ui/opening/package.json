@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "lichess-pgn-viewer": "^0.3.4"
+    "lichess-pgn-viewer": "^0.3.5"
   },
   "scripts": {
     "dev": "rollup --config",
