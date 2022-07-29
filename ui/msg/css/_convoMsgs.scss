@@ -107,6 +107,7 @@
     @extend %video;
 
     &--game {
+      @extend %box-neat-force;
       padding-bottom: 75%;
       // @extend %game-embed;
     }
