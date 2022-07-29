@@ -619,10 +619,6 @@ export default class RoundController {
     if (was !== is) {
       lichess.quietMode = is;
       $('body').toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
-      if (!this.data.tv) {
-        // don't remove "playing" if on TV since it's needed for zen
-        $('body').toggleClass('playing', !this.data.player.spectator);
-      }
     }
   };
 
