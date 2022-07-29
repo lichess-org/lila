@@ -156,11 +156,9 @@ export default class RoundController {
     });
 
     lichess.pubsub.on('zen', () => {
-      if (!this.data.player.spectator) {
-        const zen = $('body').toggleClass('zen').hasClass('zen');
-        window.dispatchEvent(new Event('resize'));
-        xhr.setZen(zen);
-      }
+      const zen = $('body').toggleClass('zen').hasClass('zen');
+      window.dispatchEvent(new Event('resize'));
+      xhr.setZen(zen);
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
@@ -615,9 +613,7 @@ export default class RoundController {
     const is = this.isPlaying();
     if (was !== is) {
       lichess.quietMode = is;
-      $('body')
-        .toggleClass('playing', !this.data.player.spectator)
-        .toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+      $('body').toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
     }
   };
 

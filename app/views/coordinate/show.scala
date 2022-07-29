@@ -34,7 +34,7 @@ object show {
         )
         .some,
       zoomable = true,
-      playing = true
+      zenable = true
     )(
       main(id := "trainer")(
         div(cls   := "trainer")(

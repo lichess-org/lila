@@ -20,6 +20,7 @@ object bits {
       moreCss: Frag = emptyFrag,
       chessground: Boolean = true,
       playing: Boolean = false,
+      zenable: Boolean = false,
       robots: Boolean = false
   )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
@@ -34,6 +35,7 @@ object bits {
       ),
       chessground = chessground,
       playing = playing,
+      zenable = zenable,
       robots = robots,
       zoomable = true,
       csp = defaultCsp.withPeer.some
