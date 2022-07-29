@@ -278,7 +278,10 @@ interface Window {
   readonly Sortable: any;
   readonly Peer: any;
   readonly Highcharts: any;
-  readonly LilaLpv: any;
+  readonly LilaLpv: {
+    autostart(): void;
+    loadPgnAndStart(el: HTMLElement, url: string, opts: any): Promise<void>;
+  };
 
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;

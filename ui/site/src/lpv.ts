@@ -3,7 +3,7 @@ import { loadCssPath } from './component/assets';
 import { Opts } from 'lichess-pgn-viewer/interfaces';
 import { text as xhrText } from 'common/xhr';
 
-export default function autostart() {
+export function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
     loadCssPath('lpv').then(() => {
       Lpv(this, {
