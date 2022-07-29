@@ -366,13 +366,11 @@ export function renderBoard(
   return h(boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper', ranks);
 }
 
-export function renderFile(f: string, style: Style): string {
-  return style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
-}
+export const renderFile = (f: string, style: Style): string =>
+  style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
 
-export function renderKey(key: string, style: Style): string {
-  return `${renderFile(key[0], style)} ${key[1]}`;
-}
+export const renderKey = (key: string, style: Style): string =>
+  style === 'nato' || style === 'anna' ? `${renderFile(key[0], style)} ${key[1]}` : `${key[0]}${key[1]}`;
 
 export function castlingFlavours(input: string): string {
   switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
