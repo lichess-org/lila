@@ -45,20 +45,23 @@ export interface DasherCtrl {
 
 export interface DasherOpts {
   playing: boolean;
+  zenable: boolean;
 }
 
-export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
+export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
   const trans = lichess.trans(data.i18n);
+  const opts = {
+    playing: $('body').hasClass('playing'),
+    zenable: $('body').hasClass('zenable'),
+  };
 
   const mode: Prop<Mode> = prop(defaultMode as Mode);
 
-  function setMode(m: Mode) {
+  const setMode = (m: Mode) => {
     mode(m);
     redraw();
-  }
-  function close() {
-    setMode(defaultMode);
-  }
+  };
+  const close = () => setMode(defaultMode);
 
   const ping = pingCtrl(trans, redraw);
 

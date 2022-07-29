@@ -31,7 +31,7 @@ object storm {
       ),
       title = "Puzzle Storm",
       zoomable = true,
-      playing = true,
+      zenable = true,
       chessground = false
     ) {
       main(

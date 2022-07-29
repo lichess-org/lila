@@ -133,12 +133,12 @@ object layout {
   <div id="notify-app" class="dropdown"></div>
 </div>""")
 
-  private def anonDasher(playing: Boolean)(implicit ctx: Context) =
+  private def anonDasher(implicit ctx: Context) =
     spaceless(s"""<div class="dasher">
   <a class="toggle link anon">
     <span title="${trans.preferences.preferences.txt()}" data-icon=""></span>
   </a>
-  <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
+  <div id="dasher_app" class="dropdown"></div>
 </div>
 <a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
         .txt()}</a>""")
@@ -224,6 +224,7 @@ object layout {
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       chessground: Boolean = true,
       zoomable: Boolean = false,
+      zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
@@ -292,6 +293,7 @@ object layout {
               "kid"                  -> ctx.kid,
               "mobile"               -> ctx.isMobileBrowser,
               "playing fixed-scroll" -> playing,
+              "zenable"              -> zenable,
               "no-rating"            -> !ctx.pref.showRatings
             )
           },
@@ -316,8 +318,8 @@ object layout {
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
             .map(views.html.auth.bits.checkYourEmailBanner(_)),
-          playing option zenToggle,
-          siteHeader(playing),
+          zenable option zenToggle,
+          siteHeader.apply,
           div(
             id := "main-wrap",
             cls := List(
@@ -402,7 +404,7 @@ object layout {
           title     := trans.team.teams.txt()
         )
 
-    def apply(playing: Boolean)(implicit ctx: Context) =
+    def apply(implicit ctx: Context) =
       header(id := "top")(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
@@ -428,7 +430,7 @@ object layout {
           else
             ctx.me map { me =>
               frag(allNotifications, dasher(me))
-            } getOrElse { !ctx.pageData.error option anonDasher(playing) }
+            } getOrElse { !ctx.pageData.error option anonDasher }
         )
       )
   }
