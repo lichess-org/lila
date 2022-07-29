@@ -5456,10 +5456,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lichess-pgn-viewer@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/lichess-pgn-viewer/-/lichess-pgn-viewer-0.3.5.tgz#f992577a1ae60dc4bc26e96de1ff0239423a8e00"
-  integrity sha512-NqxRKOMs01zHvP1+O0le2FhuaZYUVtbN857u2BtEr3ZBEAcuX6N2cmrAEyFkWto+bgO1vBcf2HapxZsXDteBeg==
+lichess-pgn-viewer@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/lichess-pgn-viewer/-/lichess-pgn-viewer-0.3.6.tgz#47d654520aa1ee235ca64a3360628f86959653f5"
+  integrity sha512-XzWqZ+qdb2OQyjE9Z1beWIO2dAqJPTZUsod0S1dfkZ85CR/6End0eIwkZfvvtotdtppIwItkETYaHBUrpEvMKg==
   dependencies:
     "@bity/oauth2-auth-code-pkce" "^2"
     chessground "^8.3.3"

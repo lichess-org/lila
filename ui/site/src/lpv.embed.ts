@@ -13,7 +13,7 @@ export default function start(elem: HTMLElement, opts: OptsWithI18n) {
   };
   Lpv(elem, {
     ...opts,
-    fullScreen: true,
+    showMoves: 'auto',
     pgn: elem.innerHTML,
     translate: key => i18n[key],
   });
