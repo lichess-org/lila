@@ -37,11 +37,7 @@ function command(q: string) {
   else if (is('light dark transp'))
     lichess
       .loadModule('dasher')
-      .then(() =>
-        window.LichessDasher(document.createElement('div'), {
-          playing: $('body').hasClass('playing'),
-        })
-      )
+      .then(() => window.LichessDasher(document.createElement('div')))
       .then(dasher => dasher.subs.background.set(exec));
   else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
   else if (is('help')) help();
