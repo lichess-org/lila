@@ -79,9 +79,7 @@ function suggestBgSwitch() {
 
   let dasher: Promise<any>;
   const getDasher = (): Promise<any> => {
-    dasher =
-      dasher ||
-      lichess.loadModule('dasher').then(() => window.LichessDasher(document.createElement('div'), { playing: false }));
+    dasher = dasher || lichess.loadModule('dasher').then(() => window.LichessDasher(document.createElement('div')));
     return dasher;
   };
 
