@@ -58,7 +58,7 @@
   <string name="example">דוגמה</string>
   <string name="addAnotherTheme">הוסף נושא חדש</string>
   <string name="nextPuzzle">הפאזל הבא</string>
-  <string name="jumpToNextPuzzleImmediately">המשך לחידה הבאה באופן מיידי</string>
+  <string name="jumpToNextPuzzleImmediately">המשך ישר לחידה הבאה</string>
   <string name="puzzleDashboard">תמונת מצב</string>
   <string name="improvementAreas">תחומים לשיפור</string>
   <string name="strengths">חוזקות</string>
@@ -76,7 +76,7 @@
   <string name="searchPuzzles">חיפוש פאזלים</string>
   <string name="fromMyGamesNone">אין פאזלים מהמשחקים שלך במאגר, אך אנחנו עדיין אוהבים אותך!
 שחק משחקי Rapid ו־Classical כדי להגדיל את הסבירות שיתווסף פאזל משלך!</string>
-  <string name="fromXGamesFound">נמצאו %1$s חידות במשחקים של %2$s</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">נמצאו %1$s חידות במשחקים של %2$s</string>
   <string name="puzzleDashboardDescription">אימון וניתוח יובילו לשיפור</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s שוּחק</item>
