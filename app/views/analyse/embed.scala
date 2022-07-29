@@ -48,7 +48,7 @@ object embed {
       )
     )
 
-  def lpv(pgn: String)(implicit config: EmbedConfig) =
+  def lpv(pgn: String, orientation: Option[chess.Color])(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = "Lichess PGN viewer",
       cssModule = "lpv.embed"
@@ -57,7 +57,11 @@ object embed {
       jsModule("lpv.embed"),
       embedJsUnsafe(
         s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild.firstChild,${safeJsonValue(
-            Json.obj("i18n" -> i18nJsObject(lpvI18n))
+            Json
+              .obj(
+                "i18n" -> i18nJsObject(lpvI18n)
+              )
+              .add("orientation", orientation.map(_.name))
           )})})""",
         config.nonce
       )
