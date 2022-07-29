@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
+import lila.i18n.MessageKey
 
 object embed {
 
@@ -56,11 +57,18 @@ object embed {
       jsModule("lpv.embed"),
       embedJsUnsafe(
         s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild.firstChild,${safeJsonValue(
-            Json.obj("i18n" -> Json.obj())
+            Json.obj("i18n" -> i18nJsObject(lpvI18n))
           )})})""",
         config.nonce
       )
     )
+
+  val lpvI18n: Vector[MessageKey] = Vector(
+    trans.flipBoard,
+    trans.analysis,
+    trans.practiceWithComputer,
+    trans.download
+  ).map(_.key)
 
   def notFound(implicit config: EmbedConfig) =
     views.html.base.embed(

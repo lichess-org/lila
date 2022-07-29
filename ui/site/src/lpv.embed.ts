@@ -6,10 +6,15 @@ interface OptsWithI18n extends Opts {
 }
 
 export default function start(elem: HTMLElement, opts: OptsWithI18n) {
+  const i18n = {
+    ...opts.i18n,
+    flipTheBoard: opts.i18n.flipBoard,
+    analysisBoard: opts.i18n.analysis,
+  };
   Lpv(elem, {
     ...opts,
     fullScreen: true,
     pgn: elem.innerHTML,
-    translate: key => opts.i18n[key] || key,
+    translate: key => i18n[key],
   });
 }
