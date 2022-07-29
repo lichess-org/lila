@@ -62,7 +62,8 @@ object player {
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
-      playing = true
+      playing = true,
+      zenable = true
     )(
       main(cls := "round")(
         st.aside(cls := "round__side")(

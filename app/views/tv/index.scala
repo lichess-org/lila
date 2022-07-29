@@ -44,7 +44,7 @@ object index {
           url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
         )
         .some,
-      playing = true,
+      zenable = true,
       robots = true
     )(
       main(cls := "round tv-single")(

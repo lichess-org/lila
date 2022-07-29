@@ -156,15 +156,10 @@ export default class RoundController {
     });
 
     lichess.pubsub.on('zen', () => {
-      if (!this.data.player.spectator || this.data.tv) {
-        const zen = $('body').toggleClass('zen').hasClass('zen');
-        window.dispatchEvent(new Event('resize'));
-        xhr.setZen(zen);
-      }
+      const zen = $('body').toggleClass('zen').hasClass('zen');
+      window.dispatchEvent(new Event('resize'));
+      xhr.setZen(zen);
     });
-    if (this.data.tv) {
-      $('body').addClass('playing'); // for zen
-    }
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
   }
