@@ -1,6 +1,7 @@
-import { text as xhrText } from 'common/xhr';
 import Lpv from 'lichess-pgn-viewer';
 import { loadCssPath } from './component/assets';
+import { Opts } from 'lichess-pgn-viewer/interfaces';
+import { text as xhrText } from 'common/xhr';
 
 export default function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
@@ -12,12 +13,12 @@ export default function autostart() {
   });
 }
 
-export const loadPgnAndStart = async (el: HTMLElement, url: string) => {
+export const loadPgnAndStart = async (el: HTMLElement, url: string, opts: Opts) => {
   await loadCssPath('lpv');
   const pgn = await xhrText(url, {
     headers: {
       Accept: 'application/x-chess-pgn',
     },
   });
-  return Lpv(el, { pgn });
+  return Lpv(el, { ...opts, pgn });
 };

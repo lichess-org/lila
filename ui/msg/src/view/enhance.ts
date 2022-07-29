@@ -56,12 +56,13 @@ interface Expandable {
 interface Link {
   type: LinkType;
   src: string;
+  opts: any;
 }
 type LinkType = 'game';
 
 const domain = window.location.host;
 const gameRegex = new RegExp(
-  `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$`
+  `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:(?:#)(\\d+))?$`
 );
 const notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
 
@@ -101,16 +102,20 @@ const expandGame = async (exp: Expandable) => {
   $(exp.element).parent().parent().addClass('has-embed');
   $(exp.element).replaceWith($('<div>').prepend($lpv));
   await lichess.loadModule('lpv');
-  await window.LilaLpv.loadPgnAndStart($lpv[0], exp.link.src);
+  await window.LilaLpv.loadPgnAndStart($lpv[0], exp.link.src, exp.link.opts);
   scroller.auto();
 };
 
 function parseLink(a: HTMLAnchorElement): Link | undefined {
-  const [id, pov, ply] = Array.from(a.href.match(gameRegex) || []).slice(1);
+  const [id, orientation, initialPly] = Array.from(a.href.match(gameRegex) || []).slice(1);
   if (id && !notGames.includes(id))
     return {
       type: 'game',
-      src: `/embed/game/${id}${pov ? `/${pov}` : ''}${ply || ''}`,
+      src: `/embed/game/${id}`,
+      opts: {
+        orientation,
+        initialPly,
+      },
     };
   return undefined;
 }
