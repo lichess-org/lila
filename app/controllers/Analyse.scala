@@ -111,11 +111,21 @@ final class Analyse(
       } dmap EnableSharedArrayBuffer
     }
 
+  val AcceptsPgn = Accepting("application/x-chess-pgn")
+
   def embedReplayGame(gameId: String, color: String) =
     Action.async { implicit req =>
       env.game.textExpand.getPgn(gameId) map {
-        case Some(pgn) => Ok(html.analyse.embed.lpv(pgn))
-        case _         => NotFound(html.analyse.embed.notFound)
+        case Some(pgn) =>
+          render {
+            case AcceptsPgn() => Ok(pgn)
+            case _            => Ok(html.analyse.embed.lpv(pgn))
+          }
+        case _ =>
+          render {
+            case AcceptsPgn() => NotFound("*")
+            case _            => NotFound(html.analyse.embed.notFound)
+          }
       } dmap EnableSharedArrayBuffer
     }
 

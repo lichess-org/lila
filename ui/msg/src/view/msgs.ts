@@ -124,7 +124,7 @@ const renderText = (msg: Msg) =>
 const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   const el = vnode.elm as HTMLElement;
   if (insert) scroller.init(el);
-  enhance.expandIFrames(el);
+  enhance.expandLpvs(el);
   scroller.toMarker() || scroller.auto();
 };
 
