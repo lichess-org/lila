@@ -151,7 +151,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     selection!.addRange(range);
   });
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {
-    const url = `${baseUrl()}/embed/${data.game.id}${location.hash}`;
+    const url = `${baseUrl()}/embed/game/${data.game.id}${location.hash}`;
     const iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
     modal({
       content: $(
