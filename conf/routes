@@ -169,6 +169,7 @@ POST  /racer/lobby                      controllers.Racer.lobby
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/external               controllers.UserAnalysis.external
+GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn: String, color: String = "white")
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 

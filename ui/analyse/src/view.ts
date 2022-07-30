@@ -154,14 +154,10 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           'button.button.button-thin.action.text',
           {
             attrs: dataIcon(''),
-            hook: bind(
-              'click',
-              _ => {
-                const pgn = $('.copyables .pgn textarea').val() as string;
-                if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
-              },
-              ctrl.redraw
-            ),
+            hook: bind('click', _ => {
+              const pgn = $('.copyables .pgn textarea').val() as string;
+              if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
+            }),
           },
           ctrl.trans.noarg('importPgn')
         ),

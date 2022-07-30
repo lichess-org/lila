@@ -149,6 +149,7 @@ export interface AnalyseOpts {
     instance?: Promise<ChatCtrl>;
   };
   wiki?: boolean;
+  inlinePgn?: string;
 }
 
 export interface JustCaptured extends cg.Piece {

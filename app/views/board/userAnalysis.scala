@@ -14,7 +14,12 @@ import controllers.routes
 
 object userAnalysis {
 
-  def apply(data: JsObject, pov: lila.game.Pov, withForecast: Boolean = false)(implicit ctx: Context) =
+  def apply(
+      data: JsObject,
+      pov: lila.game.Pov,
+      withForecast: Boolean = false,
+      inlinePgn: Option[String] = None
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.analysis.txt(),
       moreCss = frag(
@@ -27,12 +32,14 @@ object userAnalysis {
         analyseTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
-            Json.obj(
-              "data"     -> data,
-              "i18n"     -> userAnalysisI18n(withForecast = withForecast),
-              "explorer" -> bits.explorerConfig,
-              "wiki"     -> pov.game.variant.standard
-            )
+            Json
+              .obj(
+                "data"     -> data,
+                "i18n"     -> userAnalysisI18n(withForecast = withForecast),
+                "explorer" -> bits.explorerConfig,
+                "wiki"     -> pov.game.variant.standard
+              )
+              .add("inlinePgn", inlinePgn)
           )}""")
       ),
       csp = defaultCsp.withWebAssembly.withAnyWs.withWikiBooks.some,

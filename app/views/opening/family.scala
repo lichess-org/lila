@@ -38,8 +38,11 @@ object family {
           data("title") := fam.full.name
         ),
         puzzle.map { p =>
-          a(href := routes.Puzzle.show(p.family.key.value))("Train with ", fam.name.value, " puzzles")
-        }
+          a(cls := "button", href := routes.Puzzle.show(p.family.key.value))("Train with puzzles")
+        },
+        a(cls := "button", href := s"${routes.UserAnalysis.pgn(fam.full.pgn.replace(" ", "_"))}#explorer")(
+          "View in opening explorer"
+        )
       )
     }
 }

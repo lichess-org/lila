@@ -151,7 +151,6 @@ final private[api] class RoundApi(
   }
     .mon(_.round.api.watcher)
 
-  // TODO remove?
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
@@ -163,7 +162,14 @@ final private[api] class RoundApi(
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
         withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
-          jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me)
+          jsonView.userAnalysisJson(
+            pov,
+            pref,
+            initialFen,
+            orientation,
+            owner = owner,
+            me = me
+          )
         }
       }
     }

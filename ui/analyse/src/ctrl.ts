@@ -131,6 +131,8 @@ export default class AnalyseCtrl {
 
     this.instanciateEvalCache();
 
+    if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
+
     this.initialize(this.data, false);
 
     this.persistence = this.embed || opts.study ? undefined : new Persistence(this, this.synthetic);
@@ -141,12 +143,13 @@ export default class AnalyseCtrl {
 
     {
       const loc = window.location,
-        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1));
-      if (hashPly) {
+        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
+        startPly = hashPly || (opts.inlinePgn && this.tree.lastPly());
+      if (startPly) {
         // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
         window.history.replaceState(null, '', loc.pathname + loc.search);
         const mainline = treeOps.mainlineNodeList(this.tree.root);
-        this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= hashPly);
+        this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= startPly);
       }
     }
 
@@ -431,20 +434,24 @@ export default class AnalyseCtrl {
     this.cgVersion.js++;
   }
 
-  changePgn(pgn: string): void {
+  changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
     try {
       const data: AnalyseData = {
         ...pgnImport(pgn),
         orientation: this.bottomColor(),
         pref: this.data.pref,
+        evalPut: this.data.evalPut,
       } as AnalyseData;
-      this.reloadData(data, false);
-      this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
-      this.redraw();
+      if (andReload) {
+        this.reloadData(data, false);
+        this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+        this.redraw();
+      }
+      return data;
     } catch (err) {
       console.log(err);
-      this.redraw();
     }
+    return undefined;
   }
 
   changeFen(fen: Fen): void {

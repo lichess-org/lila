@@ -230,7 +230,6 @@ final class JsonView(
           .add("correspondence", game.correspondenceClock)
     }
 
-  // TODO delete?
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
@@ -238,7 +237,7 @@ final class JsonView(
       orientation: chess.Color,
       owner: Boolean,
       me: Option[User],
-      division: Option[chess.Division] = none
+      division: Option[chess.Division] = None
   ) = {
     import pov._
     val fen = Forsyth >> game.chess

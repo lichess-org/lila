@@ -50,6 +50,18 @@ final class UserAnalysis(
       }
     }
 
+  def pgn(pgn: String, color: String) =
+    Open { implicit ctx =>
+      val pov         = makePov(none, Standard)
+      val orientation = chess.Color.fromName(color) | pov.color
+      env.api.roundApi
+        .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
+        EnableSharedArrayBuffer(
+          Ok(html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some))
+        )
+      }
+    }
+
   private[controllers] def makePov(fen: Option[FEN], variant: Variant): Pov =
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {
@@ -75,6 +87,7 @@ final class UserAnalysis(
       from.situation.color
     )
 
+  // correspondence premove aka forecast
   def game(id: String, color: String) =
     Open { implicit ctx =>
       OptionFuResult(env.game.gameRepo game id) { g =>
