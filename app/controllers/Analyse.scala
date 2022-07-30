@@ -94,22 +94,7 @@ final class Analyse(
         }
       }
 
-  def embed(gameId: String, color: String) =
-    Action.async { implicit req =>
-      env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-        case Some(g) =>
-          val pov = Pov(g.game, chess.Color.fromName(color) | White)
-          env.api.roundApi.embed(
-            pov,
-            lila.api.Mobile.Api.currentVersion,
-            initialFen = Preload(g.fen),
-            withFlags = WithFlags(opening = true)
-          ) map { data =>
-            Ok(html.analyse.embed(pov, data))
-          }
-        case _ => fuccess(NotFound(html.analyse.embed.notFound))
-      } dmap EnableSharedArrayBuffer
-    }
+  def embed(gameId: String, color: String) = embedReplayGame(gameId, color)
 
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 

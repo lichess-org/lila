@@ -151,33 +151,6 @@ final private[api] class RoundApi(
   }
     .mon(_.round.api.watcher)
 
-  def embed(
-      pov: Pov,
-      apiVersion: ApiVersion,
-      analysis: Option[Analysis] = None,
-      initialFen: Preload[Option[FEN]] = Preload.none,
-      withFlags: WithFlags
-  ): Fu[JsObject] =
-    initialFen
-      .orLoad(gameRepo initialFen pov.game)
-      .flatMap { initialFen =>
-        jsonView.watcherJson(
-          pov,
-          Pref.default,
-          apiVersion,
-          none,
-          none,
-          initialFen = initialFen,
-          withFlags = withFlags
-        ) map { json =>
-          (
-            withTree(pov, analysis, initialFen, withFlags) _ compose
-              withAnalysis(pov.game, analysis)
-          )(json)
-        }
-      }
-      .mon(_.round.api.embed)
-
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,

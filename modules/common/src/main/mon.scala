@@ -131,8 +131,6 @@ object mon {
     object api {
       val player  = timer("round.api").withTag("endpoint", "player")
       val watcher = timer("round.api").withTag("endpoint", "watcher")
-      val embed   = timer("round.api").withTag("endpoint", "embed")
-      val replay  = timer("round.api").withTag("endpoint", "replay")
     }
     object forecast {
       val create = counter("round.forecast.create").withoutTags()
