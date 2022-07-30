@@ -2498,10 +2498,17 @@ chessground@^8.3, chessground@^8.3.3:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.3.3.tgz#585ad05d4f5caf899b2038c2a08bc1139dd56c1f"
   integrity sha512-QUuVKcGDI8ve4zPwFyfU3bIWTaoEP6a+GehLGOa7zU3y4L0BLOsiEXzp2QWjt75e3JKa6m3qdWb9ahyDro7lcA==
 
-chessops@^0.12, chessops@^0.12.3:
+chessops@^0.12:
   version "0.12.3"
   resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.12.3.tgz#16efa245fc83d23e0b1514280e90f30549dd8838"
   integrity sha512-E6A2ZcTzZycG6kENrVQJkxIFAeeLT/6zX/0B7ZXJJc8kUw73EYrBNPE/z5pfVi+pIu5BpELdvUX87/RvRQMkQA==
+  dependencies:
+    "@badrap/result" "^0.2"
+
+chessops@^0.12.4:
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.12.4.tgz#f021fb1532b8abda11d307b3e0ed69367dfe1a07"
+  integrity sha512-Y5d1sZmXQzjKymAZ2foRc+THfsJmUpIEAktKTcMoGGiVaizGOEYR0P2RrBLT3MseuN91cU9/1N5uvDTBEp1eKQ==
   dependencies:
     "@badrap/result" "^0.2"
 
@@ -5456,14 +5463,14 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lichess-pgn-viewer@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/lichess-pgn-viewer/-/lichess-pgn-viewer-0.3.6.tgz#47d654520aa1ee235ca64a3360628f86959653f5"
-  integrity sha512-XzWqZ+qdb2OQyjE9Z1beWIO2dAqJPTZUsod0S1dfkZ85CR/6End0eIwkZfvvtotdtppIwItkETYaHBUrpEvMKg==
+lichess-pgn-viewer@^0.3.8:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/lichess-pgn-viewer/-/lichess-pgn-viewer-0.3.8.tgz#bbbb4a8fabb10cd9f9be2e26db566f87773d95f9"
+  integrity sha512-lmPwb7ZZODZtk3cmfwIVK5O4ME/g3fQlei4EfMTljyxr3XKB5SIAkz8AKS8NRFQhcs6rPbI1fUuM213/2u40Yw==
   dependencies:
     "@bity/oauth2-auth-code-pkce" "^2"
     chessground "^8.3.3"
-    chessops "^0.12.3"
+    chessops "^0.12.4"
     snabbdom "^3"
 
 liftoff@^3.1.0:
