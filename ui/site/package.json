@@ -34,7 +34,7 @@
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
     "zxcvbn": "^4.4.2",
-    "lichess-pgn-viewer": "^0.3.8"
+    "lichess-pgn-viewer": "^0.3.10"
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
