@@ -2488,10 +2488,15 @@ chessground@^4.4:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
 
-chessground@^8.3, chessground@^8.3.3:
+chessground@^8.3:
   version "8.3.3"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.3.3.tgz#585ad05d4f5caf899b2038c2a08bc1139dd56c1f"
   integrity sha512-QUuVKcGDI8ve4zPwFyfU3bIWTaoEP6a+GehLGOa7zU3y4L0BLOsiEXzp2QWjt75e3JKa6m3qdWb9ahyDro7lcA==
+
+chessground@^8.3.4:
+  version "8.3.4"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.3.4.tgz#e840863599467700c583725fa110af14ced7c976"
+  integrity sha512-AE7SvnQa8bUAigCHZso8junZDCkxLViyfdXUYpXuKrhZmCS9Z6zadeWGVkUwzaAK1fWGZx1OiCac5XM2X6QdPg==
 
 chessops@^0.12:
   version "0.12.3"
@@ -5458,12 +5463,12 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lichess-pgn-viewer@^0.3.10:
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/lichess-pgn-viewer/-/lichess-pgn-viewer-0.3.10.tgz#85e02b4cbce5875851013b6aa25244b19903e955"
-  integrity sha512-ZarhCqWVGaFPUMn+sVwp61lMgJkyrcLAXYhQiQX7bdEcRuTb7O28CzaMA3jlQ2DCVVvj6FdwHL18zFMX9jAuIg==
+lichess-pgn-viewer@^0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/lichess-pgn-viewer/-/lichess-pgn-viewer-0.3.11.tgz#ad56563534536e1055b5e7f78b92f1e307f389a8"
+  integrity sha512-f5H3JhPCEJ9hidDcbijF5TtN4osB9xNds1w7jHqAU2vsZJzZq2b+rA5/hZFWLTZhvf5MPmCK5RKIhCUwebWHmQ==
   dependencies:
-    chessground "^8.3.3"
+    chessground "^8.3.4"
     chessops "^0.12.4"
     snabbdom "^3"
 
