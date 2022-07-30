@@ -66,7 +66,7 @@ object admin {
   private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
 
-  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(implicit
+  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament], unsubs: Int)(implicit
       ctx: Context
   ) = {
 
@@ -110,7 +110,17 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
             form3.group(
               form("message"),
               trans.message(),
-              help = raw("You can send up to 7 team messages per week.").some
+              help = frag(
+                "You can send up to 7 team messages per week.",
+                br,
+                pluralizeLocalize("member", unsubs),
+                " out of ",
+                t.nbMembers.localize,
+                " (",
+                f"${(unsubs * 100d) / t.nbMembers}%1.1f",
+                "%)",
+                " have unsubscribed from messages."
+              ).some
             )(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),

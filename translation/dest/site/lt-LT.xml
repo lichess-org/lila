@@ -527,6 +527,10 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
+  <string name="savingMoves" comment="savingMoves&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Laikinas ėjimų saugojimas</string>
+  <string name="savingMovesHelp" comment="savingMovesHelp&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Mes visada laikome jūsų variacijas jūsų naršyklės atmintyje.</string>
+  <string name="makeAStudy" comment="makeAStudy&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Norėdami pasiekti vėliau ar pasidalinti sukurkite studiją.</string>
+  <string name="clearSavedMoves" comment="clearSavedMoves">Išvalyti ėjimus</string>
   <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
   <string name="onlinePlayers">Prisijungę žaidėjai</string>
   <string name="activePlayers">Aktyvumas</string>

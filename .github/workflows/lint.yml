@@ -11,12 +11,20 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: yarn
+      - uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+      - uses: github/codeql-action/analyze@v2
       - run: yarn install
       - run: yarn run lint
       - run: yarn run check-format
