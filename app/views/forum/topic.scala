@@ -107,7 +107,7 @@ object topic {
           topic.name
         ),
         pager,
-        div(cls := "forum-topic__posts expand-text")(
+        div(cls := "forum-topic__posts")(
           posts.currentPageResults.map { p =>
             post.show(
               categ,
