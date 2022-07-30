@@ -131,7 +131,7 @@
     <item quantity="two">%s c\'hoarier</item>
     <item quantity="few">%s c\'hoarier</item>
     <item quantity="many">%s c\'hoarier</item>
-    <item quantity="other">%s c\'hoarierien</item>
+    <item quantity="other">%s c\'hoarier</item>
   </plurals>
   <string name="drawByMutualAgreement">Rampo dre asant pep hini</string>
   <string name="fiftyMovesWithoutProgress">Hanter-kant taol hep araokadenn</string>

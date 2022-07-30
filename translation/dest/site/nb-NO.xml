@@ -464,6 +464,10 @@
   <string name="socialMediaLinks">Linker til sosiale media</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
+  <string name="savingMoves" comment="savingMoves&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Midlertidig lagring av trekk</string>
+  <string name="savingMovesHelp" comment="savingMovesHelp&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Vi lagrer variantene dine i nettleserens mellomlager.</string>
+  <string name="makeAStudy" comment="makeAStudy&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Du kan lage en studie for å bevare og dele trekkene.</string>
+  <string name="clearSavedMoves" comment="clearSavedMoves">Fjern trekk</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activePlayers">Aktive spillere</string>

@@ -10,7 +10,7 @@
   <string name="dropARookAtB4">B4 karesine bir kale koy (Sadece crazyhouse varyantı için)</string>
   <string name="offerOrAcceptDraw">Beraberlik teklif et veya teklifi kabul et</string>
   <string name="readOutClocks">Süreyi sesli oku</string>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud.">Rakibin adını sesli oku</string>
+  <string name="readOutOpponentName">Rakibin adını sesli oku</string>
   <string name="otherCommands">Diğer komutlar</string>
   <string name="tips">İpuçları</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Yukarıdaki hamle notasyonuna aşina değilseniz buradan bilgi edinin:</string>
