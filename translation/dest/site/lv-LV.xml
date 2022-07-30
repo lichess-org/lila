@@ -495,10 +495,10 @@
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="oneUrlPerLine">Katrā rindā vienu URL.</string>
   <string name="inlineNotation">Iekļautā notācija</string>
-  <string name="savingMoves" comment="savingMoves&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Gājieni saglabāti īslaicīgi</string>
-  <string name="savingMovesHelp" comment="savingMovesHelp&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Jūsu gājienu variācijas tiek glabātas pārlūka kešatmiņā.</string>
-  <string name="makeAStudy" comment="makeAStudy&#10;&#10;Part of a warning text if you play moves when analysing a completed game.&#10;It says:&#10;'Temporary move storage&#10;We're always storing your variations in your browser cache.&#10;For safekeeping and sharing, consider making a study.'&#10;&#10;For context, Lichess studies are a feature that allow players to store and review games with ease: https://lichess.org/study">Lai saglabātu un dalītos, varat izveidot izpēti.</string>
-  <string name="clearSavedMoves" comment="clearSavedMoves">Dzēst gājienus</string>
+  <string name="savingMoves">Gājieni saglabāti īslaicīgi</string>
+  <string name="savingMovesHelp">Jūsu gājienu variācijas tiek glabātas pārlūka kešatmiņā.</string>
+  <string name="makeAStudy">Lai saglabātu un dalītos, varat izveidot izpēti.</string>
+  <string name="clearSavedMoves">Dzēst gājienus</string>
   <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
