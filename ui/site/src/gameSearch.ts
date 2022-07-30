@@ -36,7 +36,7 @@ lichess.load.then(() => {
           .text(user)
       );
     }
-    row.classList.toggle('none', usernames.length < 2);
+    row.classList.toggle('none', !usernames.length);
   }
 
   function reloadUserChoices() {
