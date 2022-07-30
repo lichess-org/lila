@@ -48,6 +48,9 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
       )
       .void
 
+  private[team] def countUnsub(teamId: Team.ID): Fu[Int] =
+    coll.countSel(teamQuery(teamId) ++ $doc("unsub" -> true))
+
   def teamQuery(teamId: Team.ID)                         = $doc("team" -> teamId)
   private def selectId(teamId: Team.ID, userId: User.ID) = $id(TeamMember.makeId(teamId, userId))
   private def userQuery(userId: User.ID)                 = $doc("user" -> userId)

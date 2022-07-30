@@ -91,4 +91,8 @@ final class Cached(
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
   }
+
+  val unsubs = cacheApi[Team.ID, Int](512, "team.unsubs") {
+    _.expireAfterWrite(1 hour).buildAsyncFuture(id => memberRepo.countUnsub(id))
+  }
 }
