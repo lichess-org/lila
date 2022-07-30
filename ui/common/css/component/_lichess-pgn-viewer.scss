@@ -8,7 +8,7 @@ $c-accent: $c-secondary;
 $c-accent-over: $c-secondary-over;
 $c-font-shy: $c-font-dim;
 
-@import '../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
+@import '../../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
 
 .lpv {
   @extend %box-neat-force;
