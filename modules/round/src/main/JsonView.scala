@@ -230,6 +230,7 @@ final class JsonView(
           .add("correspondence", game.correspondenceClock)
     }
 
+  // TODO delete?
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
@@ -276,7 +277,6 @@ final class JsonView(
           .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
           .add("destination" -> (pref.destination && !pref.isBlindfold)),
-        "path"         -> pov.game.turns,
         "userAnalysis" -> true
       )
       .add("evalPut" -> me.??(evalCache.shouldPut))

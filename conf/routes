@@ -171,7 +171,6 @@ GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/external               controllers.UserAnalysis.external
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
-POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)

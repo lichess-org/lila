@@ -89,7 +89,7 @@ export interface Game {
   player: Color;
   turns: number;
   fen: Fen;
-  startedAtTurn: number;
+  startedAtTurn?: number;
   source: Source;
   speed: Speed;
   variant: Variant;

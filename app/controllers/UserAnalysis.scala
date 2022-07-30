@@ -136,34 +136,6 @@ final class UserAnalysis(
         }
     }
 
-  // XHR only
-  def pgn =
-    OpenBody { implicit ctx =>
-      implicit val req = ctx.body
-      env.importer.forms.importForm
-        .bindFromRequest()
-        .fold(
-          jsonFormError,
-          data =>
-            env.importer.importer
-              .inMemory(data)
-              .fold(
-                err => BadRequest(jsonError(err)).as(JSON).fuccess,
-                { case (game, fen) =>
-                  val pov = Pov(game, chess.White)
-                  env.api.roundApi.userAnalysisJson(
-                    pov,
-                    ctx.pref,
-                    initialFen = fen,
-                    pov.color,
-                    owner = false,
-                    me = ctx.me
-                  ) map JsonOk
-                }
-              )
-        )
-    }
-
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
   def forecasts(fullId: String) =

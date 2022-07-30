@@ -4,7 +4,6 @@ import * as game from 'game';
 import * as keyboard from './keyboard';
 import * as speech from './speech';
 import * as util from './util';
-import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type makeStudyCtrl from './study/studyCtrl';
@@ -44,6 +43,7 @@ import wikiTheory, { WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
+import pgnImport from './pgnImport';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -432,24 +432,19 @@ export default class AnalyseCtrl {
   }
 
   changePgn(pgn: string): void {
-    this.redirecting = true;
-    xhr
-      .json('/analysis/pgn', {
-        method: 'post',
-        body: xhr.form({ pgn }),
-      })
-      .then(
-        (data: AnalyseData) => {
-          this.reloadData(data, false);
-          this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
-          this.redraw();
-        },
-        error => {
-          console.log(error);
-          this.redirecting = false;
-          this.redraw();
-        }
-      );
+    try {
+      const data: AnalyseData = {
+        ...pgnImport(pgn),
+        orientation: this.bottomColor(),
+        pref: this.data.pref,
+      } as AnalyseData;
+      this.reloadData(data, false);
+      this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+      this.redraw();
+    } catch (err) {
+      console.log(err);
+      this.redraw();
+    }
   }
 
   changeFen(fen: Fen): void {
