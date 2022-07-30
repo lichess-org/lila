@@ -8,6 +8,7 @@ const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
 const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
+const iccfRegex = /^[1-8]{4}[1-5]?$/;
 
 interface Opts {
   input: HTMLInputElement;
@@ -31,6 +32,9 @@ export default (opts: Opts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
+    if (v.match(iccfRegex)) {
+	    v = iccfToUci(v);
+	}
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
     const selectedKey = opts.ctrl.hasSelected() || '';
     if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
@@ -119,6 +123,31 @@ export default (opts: Opts) => {
     });
   };
 };
+
+function iccfToUci(v: string) {
+        let icffShortCastleRegex = /^5(1|8)3(1|8)$/;
+        let icffLongCastleRegex = /^5(1|8)3(1|8)$/;
+        if (v.match(icffShortCastleRegex)) {
+                return 'o-o';
+        }
+        else if (v.match(icffLongCastleRegex)) {
+                return 'o-o-o';
+        }
+
+        let chars = v.split('');
+        let numericToAlgebraic = { 1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h' };
+        let numericToAlgebraicPromotion = { 1: 'q', 2: 'r', 3: 'b', 4: 'n' };
+        // Handle the promotion case later to avoid duplicate code
+        for (let i = 0; i < chars.length - 1; i++) {
+                if (i === 0 || i === 2) {
+                        chars[i] = numericToAlgebraic[chars[i]];
+                }
+        }
+        if (chars.length === 5) {
+                chars[4] = numericToAlgebraicPromotion[chars[4]];
+        }
+        return chars.join('');
+}
 
 function makeBindings(opts: any, submit: Submit, clear: () => void) {
   window.Mousetrap.bind('enter', () => opts.input.focus());
