@@ -50,10 +50,10 @@ final class UserAnalysis(
       }
     }
 
-  def pgn(pgn: String, color: String) =
+  def pgn(pgn: String) =
     Open { implicit ctx =>
       val pov         = makePov(none, Standard)
-      val orientation = chess.Color.fromName(color) | pov.color
+      val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
         EnableSharedArrayBuffer(
