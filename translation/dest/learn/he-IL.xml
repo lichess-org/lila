@@ -95,8 +95,8 @@
   <string name="attackYourOpponentsKing">חפש התקפות שח שאין להן הגנה!</string>
   <string name="mateInOneComplete">יפה, זו הדרך לנצחונות בשחמט!</string>
   <string name="intermediate">דרגה בינונית</string>
-  <string name="boardSetup">מצב הלוח</string>
-  <string name="howTheGameStarts">פתיחת המשחק</string>
+  <string name="boardSetup">סידור הכלים</string>
+  <string name="howTheGameStarts">העמדה ההתחלתית</string>
   <string name="boardSetupIntro">שני הצבאות מוכנים לקרב, זה מול זה.</string>
   <string name="thisIsTheInitialPosition">זהו מצב הלוח בתחילת כל משחק שחמט! בצע מהלך כלשהו להמשך המשחק.</string>
   <string name="firstPlaceTheRooks">תחילה שים את הצריחים בארבע פינות הלוח.</string>
@@ -160,7 +160,7 @@
   <string name="checkInTwoGoal">איים שח בשני מסעים!</string>
   <string name="checkInTwoComplete">יפה, איימת על מלך היריב ואילצת אותו להתגונן!</string>
   <string name="whatNext">ומה עכשיו?</string>
-  <string name="youKnowHowToPlayChess">יפה, למדת את יסודות השחמט! כעת, למד להיות שחקן חזק יותר!</string>
+  <string name="youKnowHowToPlayChess">יפה, למדת את יסודות השחמט! אתה רוצה להמשיך להשתפר?</string>
   <string name="register">הרשמה</string>
   <string name="getAFreeLichessAccount">צור חשבון Lichess בחינם</string>
   <string name="practice">אימון</string>
@@ -172,7 +172,7 @@
   <string name="playPeople">שחק עם אנשים</string>
   <string name="opponentsFromAroundTheWorld">יריבים מכל העולם</string>
   <string name="playMachine">שחק עם המחשב</string>
-  <string name="testYourSkillsWithTheComputer">בדוק את יכולותיך במחשב</string>
+  <string name="testYourSkillsWithTheComputer">הראה למחשב למה אתה מסוגל</string>
   <string name="letsGo">בוא נתחיל!</string>
   <string name="stageX">שלב %s</string>
   <string name="awesome">מעולה!</string>
