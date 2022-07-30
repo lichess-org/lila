@@ -15,25 +15,24 @@ lichess.load.then(() => {
   }
 
   function userChoices(row: HTMLTableRowElement) {
-    const isSelected = function (row: HTMLTableRowElement, rowClassName: string, user: string, dataKey: string) {
-      const player = $form.data(dataKey);
-      return row.classList.contains(rowClassName) && player.length && user == player;
+    const isSelected = (row: HTMLTableRowElement, rowClassName: string, user: string, dataKey: string): boolean => {
+      const player: string = $form.data(dataKey);
+      return row.classList.contains(rowClassName) && !!player.length && user == player;
     };
     const usernames = getUsernames();
-    const $select = $(row).find('select').html('');
+    const $select = $(row).find('select').html('<option value=""></option>');
     for (const user of usernames) {
       $select.append(
         $('<option>')
-          .attr('value', user)
-          .attr(
-            'selected',
-            isSelected(row, 'winner', user, 'req-winner') ||
-              isSelected(row, 'loser', user, 'req-loser') ||
-              isSelected(row, 'whiteUser', user, 'req-white') ||
-              isSelected(row, 'blackUser', user, 'req-black')
-              ? 'selected'
-              : ''
-          )
+          .attr({
+            value: user,
+            ...(isSelected(row, 'winner', user, 'req-winner') ||
+            isSelected(row, 'loser', user, 'req-loser') ||
+            isSelected(row, 'whiteUser', user, 'req-white') ||
+            isSelected(row, 'blackUser', user, 'req-black')
+              ? { selected: '' }
+              : {}),
+          })
           .text(user)
       );
     }
