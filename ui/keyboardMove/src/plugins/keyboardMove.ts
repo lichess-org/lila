@@ -125,8 +125,8 @@ export default (opts: Opts) => {
 };
 
 function iccfToUci(v: string) {
-        let icffShortCastleRegex = /^5(1|8)3(1|8)$/;
-        let icffLongCastleRegex = /^5(1|8)3(1|8)$/;
+        const icffShortCastleRegex = /^5(1|8)3(1|8)$/;
+        const icffLongCastleRegex = /^5(1|8)3(1|8)$/;
         if (v.match(icffShortCastleRegex)) {
                 return 'o-o';
         }
@@ -134,9 +134,9 @@ function iccfToUci(v: string) {
                 return 'o-o-o';
         }
 
-        let chars = v.split('');
-        let numericToAlgebraic = { 1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h' };
-        let numericToAlgebraicPromotion = { 1: 'q', 2: 'r', 3: 'b', 4: 'n' };
+        const chars = v.split('');
+        const numericToAlgebraic = { 1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h' };
+        const numericToAlgebraicPromotion = { 1: 'q', 2: 'r', 3: 'b', 4: 'n' };
         // Handle the promotion case later to avoid duplicate code
         for (let i = 0; i < chars.length - 1; i++) {
                 if (i === 0 || i === 2) {
