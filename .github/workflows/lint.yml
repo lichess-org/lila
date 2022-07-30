@@ -23,7 +23,7 @@ jobs:
           cache: yarn
       - uses: github/codeql-action/init@v2
         with:
-          languages: javascript, java
+          languages: javascript
       - uses: github/codeql-action/analyze@v2
       - run: yarn install
       - run: yarn run lint
