@@ -397,6 +397,7 @@ export default class AnalyseCtrl {
       const prev = this.path;
       this.practice.preUserJump(prev, path);
       this.jump(path);
+      this.withCg(cg => cg.cancelPremove());
       this.practice.postUserJump(prev, this.path);
     } else this.jump(path);
   };
