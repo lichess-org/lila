@@ -687,7 +687,7 @@ export default class AnalyseCtrl {
     this.startCeval();
     if (!this.ceval.enabled()) {
       this.threatMode(false);
-      if (this.practice) this.togglePractice();
+      if (this.practice) this.practice = undefined;
     }
     this.redraw();
   };
@@ -780,10 +780,10 @@ export default class AnalyseCtrl {
   }
 
   toggleComputer = () => {
+    if (this.showComputer() && this.opts.practice) this.togglePractice();
     if (this.ceval.enabled()) this.toggleCeval();
     const value = !this.showComputer();
     this.showComputer(value);
-    if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
     lichess.pubsub.emit('analysis.comp.toggle', value);
   };

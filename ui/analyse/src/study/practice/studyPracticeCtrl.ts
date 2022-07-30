@@ -44,7 +44,7 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     if (!root.study!.data.chapter.practice) {
       return saveNbMoves();
     }
-    if (success() !== null) return;
+    if (!root.practice || success() !== null) return;
     nbMoves(computeNbMoves());
     const res = success(makeSuccess(root, goal(), nbMoves()));
     if (res) onVictory();
