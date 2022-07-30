@@ -33,8 +33,9 @@ object family {
         h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), fam.name.value),
         h2(fam.full.pgn),
         div(
-          cls         := "replay replay--autoload",
-          data("pgn") := fam.full.pgn
+          cls           := "replay replay--autoload",
+          data("pgn")   := fam.full.pgn,
+          data("title") := fam.full.name
         ),
         puzzle.map { p =>
           a(href := routes.Puzzle.show(p.family.key.value))("Train with ", fam.name.value, " puzzles")

@@ -7,11 +7,11 @@ lichess.load.then(() => {
     'click',
     throttlePromiseDelay(
       () => 1000,
-      function (this: HTMLButtonElement) {
+      async function (this: HTMLButtonElement) {
         const button = $(this),
           likeClass = 'ublog-post__like--liked',
           liked = !button.hasClass(likeClass);
-        return xhr
+        return await xhr
           .text(`/ublog/${button.data('rel')}/like?v=${liked}`, {
             method: 'post',
           })
@@ -29,10 +29,10 @@ lichess.load.then(() => {
     'click',
     throttlePromiseDelay(
       () => 1000,
-      function (this: HTMLButtonElement) {
+      async function (this: HTMLButtonElement) {
         const button = $(this),
           followClass = 'followed';
-        return xhr
+        return await xhr
           .text(button.data('rel'), {
             method: 'post',
           })

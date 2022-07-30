@@ -3,11 +3,20 @@ package lila.ublog
 import java.util.regex.Matcher
 import scala.concurrent.duration._
 
-import lila.common.{ Chronometer, Markdown, MarkdownRender }
 import lila.common.config
-import lila.common.config.NetConfig
+import lila.common.{ Chronometer, Markdown, MarkdownRender }
+import lila.memo.CacheApi
+import play.api.Mode
 
-final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseUrl) {
+final class UblogMarkup(
+    gameExpand: lila.game.GameTextExpand,
+    baseUrl: config.BaseUrl,
+    assetBaseUrl: config.AssetBaseUrl,
+    cacheApi: CacheApi,
+    netDomain: config.NetDomain
+)(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
+
+  import UblogMarkup._
 
   private val renderer = new MarkdownRender(
     autoLink = true,
@@ -16,18 +25,24 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
     header = true,
     blockQuote = true,
     code = true,
-    table = true
+    table = true,
+    gameExpand = MarkdownRender.GameExpand(netDomain, gameExpand.getPgnSync).some
   )
 
-  type Html = String
+  def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map(scalatags.Text.all.raw)
 
-  def apply(post: UblogPost): Html = cache.get(post.markdown, process(post))
+  private val cache = cacheApi[(UblogPost.Id, Markdown), Html](2048, "ublog.markup") {
+    _.maximumSize(2048)
+      .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
+      .buildAsyncFuture { case (id, markdown) =>
+        gameExpand.preloadGamesFromText(markdown.value) inject
+          process(id)(markdown)
+      }
+  }
 
-  private val cache = lila.memo.CacheApi.scaffeineNoScheduler.maximumSize(2048).build[Markdown, Html]()
-
-  private def process(post: UblogPost): Markdown => Html = replaceGameGifs.apply andThen
+  private def process(id: UblogPost.Id): Markdown => Html = replaceGameGifs.apply andThen
     unescapeAtUsername.apply andThen
-    renderer(s"ublog:${post.id}") andThen
+    renderer(s"ublog:${id}") andThen
     imageParagraph andThen
     unescapeUnderscoreInLinks.apply
 
@@ -40,12 +55,17 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   // put images into a container for styling
   private def imageParagraph(markup: Html) =
     markup.replace("""<p><img src=""", """<p class="img-container"><img src=""")
+}
+
+private[ublog] object UblogMarkup {
+
+  private type Html = String
 
   private def unescape(txt: String) = txt.replace("""\_""", "_")
 
   // https://github.com/lichess-org/lila/issues/9767
   // toastui editor escapes `_` as `\_` and it breaks autolinks
-  private[ublog] object unescapeUnderscoreInLinks {
+  object unescapeUnderscoreInLinks {
     private val hrefRegex    = """href="([^"]+)"""".r
     private val contentRegex = """>([^<]+)</a>""".r
     def apply(markup: Html) = contentRegex.replaceAllIn(
@@ -55,7 +75,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   }
 
   // toastui editor escapes `_` as `\_` and it breaks @username
-  private[ublog] object unescapeAtUsername {
+  object unescapeAtUsername {
     // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matchs the '\' character.
     // Can't end with '\', which would be escaping something after the username, like '\)'
     private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{1,29}\w)(?![@\w-]|\.\w)""".r

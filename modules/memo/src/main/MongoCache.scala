@@ -89,6 +89,17 @@ object MongoCache {
       cache
     }
 
+    // no in-heap cache
+    def noHeap[K, V: BSONHandler](
+        name: String,
+        dbTtl: FiniteDuration,
+        keyToString: K => String
+    )(f: K => Fu[V]): MongoCache[K, V] =
+      apply[K, V](8, name, dbTtl, keyToString) { loader =>
+        _.expireAfterWrite(1 second)
+          .buildAsyncFuture(loader(f))
+      }
+
     // AsyncLoadingCache for single entry with DB persistence
     def unit[V: BSONHandler](
         name: String,
@@ -105,12 +116,11 @@ object MongoCache {
       )
 
     // no in-heap cache
-    def only[K, V: BSONHandler](
+    def unitNoHeap[V: BSONHandler](
         name: String,
-        dbTtl: FiniteDuration,
-        keyToString: K => String
-    )(f: K => Fu[V]): MongoCache[K, V] =
-      apply[K, V](8, name, dbTtl, keyToString) { loader =>
+        dbTtl: FiniteDuration
+    )(f: Unit => Fu[V]): MongoCache[Unit, V] =
+      unit[V](name, dbTtl) { loader =>
         _.expireAfterWrite(1 second)
           .buildAsyncFuture(loader(f))
       }

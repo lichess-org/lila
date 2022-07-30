@@ -23,6 +23,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
+    mongoCacheApi: lila.memo.MongoCache.Api,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env

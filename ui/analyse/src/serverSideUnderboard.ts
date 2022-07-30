@@ -153,7 +153,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {
     // location.hash is percent encoded, so no need to escape and make &bg=...
     // uglier in the process.
-    const url = `${baseUrl()}/embed/${data.game.id}?theme=auto&bg=auto${location.hash}`;
+    const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
     modal({
       content: $(

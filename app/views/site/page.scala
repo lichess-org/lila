@@ -179,7 +179,7 @@ $('#asset-version-message').text(lichess.info.message);"""
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1("Embed a chess game in your site"),
-            raw(s"""<iframe src="/embed/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
+            raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
             p(
               raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """),
               "\"",

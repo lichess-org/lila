@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 
-type LinkType = 'youtube' | 'study' | 'game' | 'twitter';
+type LinkType = 'youtube' | 'study' | 'twitter';
 
 interface Parsed {
   type: LinkType;
@@ -11,11 +11,6 @@ interface Candidate {
   parent: HTMLElement;
   type: LinkType;
   src: string;
-}
-
-interface Group {
-  parent: HTMLElement | null;
-  index: number;
 }
 
 function toYouTubeEmbedUrl(url: string) {
@@ -46,9 +41,7 @@ function toTwitterEmbedUrl(url: string) {
 lichess.load.then(() => {
   const domain = window.location.host,
     chapterRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b'),
-    studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})(#\\d+)?\\b'),
-    gameRegex = new RegExp(domain + '/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b'),
-    notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
+    studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})(#\\d+)?\\b');
 
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
     const tw = toTwitterEmbedUrl(a.href);
@@ -75,16 +68,6 @@ lichess.load.then(() => {
         type: 'study',
         src: `/study/embed/${matches[1]}/autochap${matches[2] || ''}`,
       };
-    matches = a.href.match(gameRegex);
-    if (matches && matches[1] && !notGames.includes(matches[1]) && a.text.match(gameRegex)) {
-      let src = '/embed/' + matches[1];
-      if (matches[2]) src += '/' + matches[2]; // orientation
-      if (matches[3]) src += matches[3]; // ply hash
-      return {
-        type: 'game',
-        src: src,
-      };
-    }
   }
 
   function expandYoutube(a: Candidate) {
@@ -99,11 +82,7 @@ lichess.load.then(() => {
     if (a)
       expandYoutube(a)
         .find('iframe')
-        .on('load', function () {
-          setTimeout(function () {
-            expandYoutubes(as, wait + 200);
-          }, wait);
-        });
+        .on('load', () => setTimeout(() => expandYoutubes(as, wait + 200), wait));
   }
 
   let twitterLoaded = false;
@@ -141,43 +120,6 @@ lichess.load.then(() => {
       expand(a).on('load', () => {
         setTimeout(() => expandStudies(as, wait + 200), wait);
       });
-  }
-
-  function groupByParent(as: Candidate[]) {
-    const groups: Candidate[][] = [];
-    let current: Group = {
-      parent: null,
-      index: -1,
-    };
-    as.forEach(a => {
-      if (a.parent === current.parent) groups[current.index].push(a);
-      else {
-        current = {
-          parent: a.parent,
-          index: current.index + 1,
-        };
-        groups[current.index] = [a];
-      }
-    });
-    return groups;
-  }
-
-  function expandGames(as: Candidate[]) {
-    groupByParent(as).forEach(group => {
-      if (group.length < 3) group.forEach(expand);
-      else
-        group.forEach(a => {
-          a.element.title = 'Click to expand';
-          a.element.classList.add('text');
-          a.element.setAttribute('data-icon', '');
-          a.element.addEventListener('click', function (e) {
-            if (e.button === 0) {
-              e.preventDefault();
-              expand(a);
-            }
-          });
-        });
-    });
   }
 
   const themes = [
@@ -246,5 +188,13 @@ lichess.load.then(() => {
       })
   );
 
-  expandGames(as.filter(a => a.type === 'game'));
+  expandLpv();
 });
+
+const expandLpv = async () => {
+  if ($('.lpv--autostart').length) {
+    lichess.loadCssPath('lpv');
+    await lichess.loadModule('lpv');
+    window.LilaLpv.autostart();
+  }
+};

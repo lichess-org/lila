@@ -98,14 +98,14 @@
     margin-top: 1em;
     margin-bottom: 1em;
 
+    .lpv {
+      margin: $block-gap auto;
+    }
+
     .embed:not(img) {
       @extend %video;
 
       margin: $block-gap auto;
-
-      &.embed--game {
-        @extend %game-embed;
-      }
     }
 
     .hidden-quotes {
