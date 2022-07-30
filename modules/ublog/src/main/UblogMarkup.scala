@@ -16,6 +16,8 @@ final class UblogMarkup(
     netDomain: config.NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
 
+  import UblogMarkup._
+
   private val renderer = new MarkdownRender(
     autoLink = true,
     list = true,
@@ -28,8 +30,6 @@ final class UblogMarkup(
   )
 
   def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map(scalatags.Text.all.raw)
-
-  private type Html = String
 
   private val cache = cacheApi[(UblogPost.Id, Markdown), Html](2048, "ublog.markup") {
     _.maximumSize(2048)
@@ -55,12 +55,17 @@ final class UblogMarkup(
   // put images into a container for styling
   private def imageParagraph(markup: Html) =
     markup.replace("""<p><img src=""", """<p class="img-container"><img src=""")
+}
+
+private[ublog] object UblogMarkup {
+
+  private type Html = String
 
   private def unescape(txt: String) = txt.replace("""\_""", "_")
 
   // https://github.com/lichess-org/lila/issues/9767
   // toastui editor escapes `_` as `\_` and it breaks autolinks
-  private[ublog] object unescapeUnderscoreInLinks {
+  object unescapeUnderscoreInLinks {
     private val hrefRegex    = """href="([^"]+)"""".r
     private val contentRegex = """>([^<]+)</a>""".r
     def apply(markup: Html) = contentRegex.replaceAllIn(
@@ -70,7 +75,7 @@ final class UblogMarkup(
   }
 
   // toastui editor escapes `_` as `\_` and it breaks @username
-  private[ublog] object unescapeAtUsername {
+  object unescapeAtUsername {
     // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matchs the '\' character.
     // Can't end with '\', which would be escaping something after the username, like '\)'
     private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{1,29}\w)(?![@\w-]|\.\w)""".r
