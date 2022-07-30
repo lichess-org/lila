@@ -15,23 +15,29 @@ lichess.load.then(() => {
   }
 
   function userChoices(row: HTMLTableRowElement) {
-    const options = ["<option value=''></option>"];
     const isSelected = function (row: HTMLTableRowElement, rowClassName: string, user: string, dataKey: string) {
       const player = $form.data(dataKey);
-      return row.classList.contains(rowClassName) && player.length && user == player ? 'selected' : '';
+      return row.classList.contains(rowClassName) && player.length && user == player;
     };
-    getUsernames().forEach(function (user) {
-      const option: string[] = [];
-      option.push("<option value='" + user + "'");
-      option.push(isSelected(row, 'winner', user, 'req-winner'));
-      option.push(isSelected(row, 'loser', user, 'req-loser'));
-      option.push(isSelected(row, 'whiteUser', user, 'req-white'));
-      option.push(isSelected(row, 'blackUser', user, 'req-black'));
-      option.push('>' + user + '</option>');
-      options.push(option.join(''));
-    });
-    $(row).find('select').html(options.join(''));
-    row.classList.toggle('none', options.length < 2);
+    const usernames = getUsernames();
+    const $select = $(row).find('select').html('');
+    for (const user of usernames) {
+      $select.append(
+        $('<option>')
+          .attr('value', user)
+          .attr(
+            'selected',
+            isSelected(row, 'winner', user, 'req-winner') ||
+              isSelected(row, 'loser', user, 'req-loser') ||
+              isSelected(row, 'whiteUser', user, 'req-white') ||
+              isSelected(row, 'blackUser', user, 'req-black')
+              ? 'selected'
+              : ''
+          )
+          .text(user)
+      );
+    }
+    row.classList.toggle('none', usernames.length < 2);
   }
 
   function reloadUserChoices() {
@@ -66,7 +72,7 @@ lichess.load.then(() => {
 
   const updatePagerLink = () =>
     $result.find('.infinite-scroll .pager a').each(function (this: HTMLAnchorElement) {
-      this.href = this.href + '&' + serialized;
+      this.href += '&' + serialized;
     });
   updatePagerLink();
   lichess.pubsub.on('content-loaded', updatePagerLink);
