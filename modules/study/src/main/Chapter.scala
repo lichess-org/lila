@@ -172,7 +172,7 @@ object Chapter {
   private val defaultNameRegex = """Chapter \d+""".r
   def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
-  def fixName(n: Name) = Name(lila.common.String.fullCleanUp(n.value) take 80)
+  def fixName(n: Name) = Name(lila.common.String.softCleanUp(n.value) take 80)
 
   val idSize = 8
 
