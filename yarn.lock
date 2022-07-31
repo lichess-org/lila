@@ -2480,6 +2480,11 @@ chart.js@^3.8:
   version "0.10.2"
   resolved "https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249"
 
+chessground@8.3.3:
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.3.3.tgz#585ad05d4f5caf899b2038c2a08bc1139dd56c1f"
+  integrity sha512-QUuVKcGDI8ve4zPwFyfU3bIWTaoEP6a+GehLGOa7zU3y4L0BLOsiEXzp2QWjt75e3JKa6m3qdWb9ahyDro7lcA==
+
 chessground@^4.4:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-4.4.2.tgz#582912aabb5ed32131abdeb6cfcb54d1c4cda7aa"
@@ -2488,7 +2493,7 @@ chessground@^4.4:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
 
-chessground@^8.3, chessground@^8.3.4:
+chessground@^8.3.4:
   version "8.3.4"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.3.4.tgz#e840863599467700c583725fa110af14ced7c976"
   integrity sha512-AE7SvnQa8bUAigCHZso8junZDCkxLViyfdXUYpXuKrhZmCS9Z6zadeWGVkUwzaAK1fWGZx1OiCac5XM2X6QdPg==
