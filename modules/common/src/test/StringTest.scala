@@ -7,6 +7,8 @@ import org.specs2.execute.Result
 
 class StringTest extends Specification {
 
+  implicit def netDomain = lila.common.config.NetDomain("lichess.org")
+
   val i18nValidStrings = List(
     """éâòöÌÒÒçÇ""",
     """صارف اپنا نام تبدیل کریں۔ یہ صرف ایک دفعہ ہو سکتا ہے اور صرف انگریزی حروف چھوٹے یا بڑے کرنے کی اجازت ہے۔.""",
