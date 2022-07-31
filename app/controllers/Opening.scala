@@ -12,23 +12,17 @@ final class Opening(env: Env) extends LilaController(env) {
 
   def index =
     Open { implicit ctx =>
-      env.opening.api.families map { coll =>
-        import lila.opening.OpeningFamilyData.familyDataWrite
-        render {
-          case Accepts.Json() => JsonOk(coll.all)
-          case _              => Ok(html.opening.index(coll))
-        }
+      env.opening.api.popular map { pop =>
+        Ok(html.opening.index(pop))
       }
     }
 
-  def family(key: String) =
+  def show(key: String) =
     Secure(_.Beta) { implicit ctx => _ =>
-      LilaOpeningFamily.find(key) ?? { family =>
-        env.opening.api(family) flatMap {
-          _ ?? { data =>
-            env.puzzle.opening.find(family) map { puzzle =>
-              Ok(html.opening.family(data, puzzle))
-            }
+      env.opening.api.find(key) flatMap {
+        _ ?? { op =>
+          env.puzzle.opening.find(op.data.opening.family) map { puzzle =>
+            Ok(html.opening.show(op, puzzle))
           }
         }
       }

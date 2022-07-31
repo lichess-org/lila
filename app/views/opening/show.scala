@@ -8,21 +8,21 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LilaOpeningFamily
 import lila.common.String.html.safeJsonValue
-import lila.opening.OpeningFamilyData
+import lila.opening.OpeningData
 import lila.puzzle.PuzzleOpening
 import lila.common.Heapsort
 import lila.opening.OpeningHistorySegment
 
-object family {
+object show {
 
   def apply(
-      dataWithAll: OpeningFamilyData.WithAll,
+      dataWithAll: OpeningData.WithAll,
       puzzle: Option[PuzzleOpening.FamilyWithCount]
   )(implicit
       ctx: Context
   ) = {
     import dataWithAll.{ percent => percentHistory, _ }
-    import data.fam
+    import data.opening
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = frag(
@@ -34,26 +34,26 @@ object family {
             )})"""
         }
       ),
-      title = s"${trans.opening.txt()} • ${fam.name}",
+      title = s"${trans.opening.txt()} • ${opening.name}",
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(fam.full.fen.replace(" ", "_"), chess.White.name, fam.full.uci.split(" ").lastOption, none).url}"
+            s"${routes.Export.fenThumbnail(opening.ref.fen.replace(" ", "_"), chess.White.name, opening.ref.uci.split(" ").lastOption, none).url}"
           ).some,
-          title = fam.name.value,
-          url = s"$netBaseUrl${routes.Opening.family(fam.key.value)}",
-          description = fam.full.pgn
+          title = opening.name.value,
+          url = s"$netBaseUrl${routes.Opening.show(opening.key.value)}",
+          description = opening.ref.pgn
         )
         .some
     ) {
       main(cls := "page box box-pad opening__family")(
-        h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), fam.name.value),
-        div(cls := "opening__intro", style := s"--move-rows: ${(fam.full.uci.count(' ' ==) / 2) + 1}")(
+        h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), opening.name.value),
+        div(cls := "opening__intro", style := s"--move-rows: ${(opening.nbMoves) + 1}")(
           div(
             cls              := "lpv",
-            st.data("pgn")   := fam.full.pgn,
-            st.data("title") := fam.full.name
+            st.data("pgn")   := opening.ref.pgn,
+            st.data("title") := opening.ref.name
           ),
           div(cls := "opening__intro__side")(
             data.history.lastOption.map { seg =>
@@ -77,12 +77,12 @@ object family {
               a(
                 cls      := "button text",
                 dataIcon := "",
-                href     := s"${routes.UserAnalysis.pgn(fam.full.pgn.replace(" ", "_"))}#explorer"
+                href     := s"${routes.UserAnalysis.pgn(opening.ref.pgn.replace(" ", "_"))}#explorer"
               )(
                 "View in opening explorer"
               )
             ),
-            div(cls := "opening__intro__text")("Text here?")
+            div(cls := "opening__intro__text")("Text here, soon.")
           )
         ),
         percentHistory.nonEmpty option div(cls := "opening__popularity")(

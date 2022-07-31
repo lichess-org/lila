@@ -37,8 +37,9 @@ object LilaOpeningFamily {
 
 case class LilaOpening(ref: FullOpening, name: LilaOpening.Name, family: LilaOpeningFamily) {
   import LilaOpening._
-  val key       = Key(nameToKey(name.value))
-  def variation = ref.variation | otherVariations
+  val key          = Key(nameToKey(name.value))
+  def variation    = ref.variation | otherVariations
+  lazy val nbMoves = ref.uci.count(' ' ==) + 1
 }
 
 object LilaOpening {
