@@ -11,7 +11,6 @@ import play.api.Mode
 
 final class GameTextExpand(
     gameRepo: GameRepo,
-    netDomain: config.NetDomain,
     pgnDump: PgnDump,
     cacheApi: CacheApi
 )(implicit ec: ExecutionContext, mode: Mode) {
@@ -49,7 +48,7 @@ final class GameTextExpand(
   }
 
   private val gameRegex =
-    s"""$netDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b""".r
+    s"""/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b""".r
 
   private val notGames =
     Set("training", "analysis", "insights", "practice", "features", "password", "streamer", "timeline")
