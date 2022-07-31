@@ -38,7 +38,7 @@ object family {
         )
         .some
     ) {
-      main(cls := "page box box-pad")(
+      main(cls := "page box box-pad opening")(
         h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), fam.name.value),
         h2(fam.full.pgn),
         div(

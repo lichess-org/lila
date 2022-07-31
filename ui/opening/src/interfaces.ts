@@ -4,7 +4,7 @@ export interface OpeningData {
 }
 
 export interface HistorySegment {
-  date: string;
+  month: string;
   black: number;
   draws: number;
   white: number;

@@ -1,5 +1,5 @@
 import Lpv from 'lichess-pgn-viewer';
-import { HistorySegment, OpeningData } from './interfaces';
+import { OpeningData } from './interfaces';
 import { CategoryScale, Chart, LinearScale, LineController, PointElement, LineElement, Tooltip } from 'chart.js';
 
 Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
@@ -32,22 +32,21 @@ const renderHistoryChart = (data: OpeningData) => {
       datasets: [
         {
           label: data.name,
-          data: data.history.map(s => ({ x: s.date, y: s.black + s.draws + s.white })),
+          data: data.history.map(s => ({ x: s.month, y: (s.black + s.draws + s.white) / 10 })),
           borderColor: 'rgba(189,130,35,1)',
         },
       ],
     },
-    // options: {
-    //   responsive: true,
-    //   plugins: {
-    //     legend: {
-    //       position: 'top',
-    //     },
-    //     title: {
-    //       display: true,
-    //       text: 'Popularity',
-    //     },
-    //   },
-    // },
+    options: {
+      animation: false,
+      scales: {
+        y: {
+          min: 0,
+          max: 50,
+        },
+        x: {},
+      },
+      responsive: true,
+    },
   });
 };
