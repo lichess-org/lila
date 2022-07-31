@@ -16,14 +16,13 @@ object index {
       moreCss = cssTag("opening"),
       title = s"${trans.opening.txt()}"
     ) {
-      val (byMove, others) = coll.treeList.partition(_._2.size > 3)
-      main(cls := "page box box-pad opening__list")(
+      main(cls := "page box box-pad opening__index")(
         h1("Chess openings"),
         div(
-          byMove.map { case (first, fams) =>
+          coll.treeByMove.map { case (first, fams) =>
             frag(
               h2(s"1. $first"),
-              div(cls := "opening__list__links")(
+              div(cls := "opening__index__links")(
                 fams map { fam =>
                   a(href := routes.Opening.family(fam.fam.key.value))(fam.fam.name.value)
                 }
@@ -31,8 +30,8 @@ object index {
             )
           },
           h2("Others"),
-          div(cls := "opening__list__links")(
-            others.flatMap(_._2) map { fam =>
+          div(cls := "opening__index__links")(
+            coll.treeOthers map { fam =>
               h4(a(href := routes.Opening.family(fam.fam.key.value))(fam.fam.name.value))
             }
           )

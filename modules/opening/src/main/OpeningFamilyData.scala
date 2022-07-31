@@ -14,12 +14,14 @@ case class OpeningFamilyData(fam: LilaOpeningFamily, history: List[OpeningHistor
 object OpeningFamilyData {
 
   case class WithAll(data: OpeningFamilyData, all: List[OpeningHistorySegment[Long]]) {
-    def percent = data.history zip all map { case (mine, all) =>
-      mine.copy(
-        black = (mine.black.toDouble * 100 / all.sum).toFloat,
-        draws = (mine.draws.toDouble * 100 / all.sum).toFloat,
-        white = (mine.white.toDouble * 100 / all.sum).toFloat
-      )
+    lazy val percent = {
+      data.history zip all map { case (mine, all) =>
+        mine.copy(
+          black = (mine.black.toDouble * 100 / all.sum).toFloat,
+          draws = (mine.draws.toDouble * 100 / all.sum).toFloat,
+          white = (mine.white.toDouble * 100 / all.sum).toFloat
+        )
+      }
     }
   }
 
@@ -41,8 +43,9 @@ case class FamilyDataCollection(all: List[OpeningFamilyData]) {
   type TreeMap  = Map[Move, List[OpeningFamilyData]]
   type TreeList = List[(Move, List[OpeningFamilyData])]
 
+  // only keeps families with at least two moves
   val treeMap: TreeMap =
-    all.foldLeft(Map.empty: TreeMap) { case (tree, d) =>
+    all.filter(_.fam.full.uci.count(' ' ==) > 0).foldLeft(Map.empty: TreeMap) { case (tree, d) =>
       d.fam.full.pgn.split(' ').drop(1).headOption.fold(tree) { move =>
         tree.updatedWith(move) { ops =>
           (d :: ~ops).some
@@ -57,6 +60,10 @@ case class FamilyDataCollection(all: List[OpeningFamilyData]) {
       }
       .toList
       .sortBy(-_._2.map(_.nbGames).sum)
+
+  val (treeByMove, treeOthers) = treeList.partition(_._2.size > 3) match {
+    case (byMove, others) => byMove -> others.flatMap(_._2).sortBy(-_.nbGames)
+  }
 }
 
 private object FamilyDataCollection {

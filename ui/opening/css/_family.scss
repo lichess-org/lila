@@ -1,0 +1,23 @@
+.opening {
+  &__family {
+    .lpv {
+      margin: 3em 0;
+      max-width: 300px;
+    }
+    overflow: hidden;
+  }
+  &__popularity {
+    &__chart {
+      max-height: 30vh;
+    }
+    &__stats {
+      font-size: 1rem;
+      em {
+        margin-left: 1em;
+        strong {
+          color: $c-brag;
+        }
+      }
+    }
+  }
+}

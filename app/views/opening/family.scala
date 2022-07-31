@@ -10,6 +10,8 @@ import lila.common.LilaOpeningFamily
 import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningFamilyData
 import lila.puzzle.PuzzleOpening
+import lila.common.Heapsort
+import lila.opening.OpeningHistorySegment
 
 object family {
 
@@ -19,7 +21,7 @@ object family {
   )(implicit
       ctx: Context
   ) = {
-    import dataWithAll._
+    import dataWithAll.{ percent => percentHistory, _ }
     import data.fam
     views.html.base.layout(
       moreCss = cssTag("opening"),
@@ -28,7 +30,7 @@ object family {
         embedJsUnsafeLoadThen {
           import lila.opening.OpeningHistory.segmentJsonWrite
           s"""LichessOpening.family(${safeJsonValue(
-              Json.obj("history" -> dataWithAll.percent)
+              Json.obj("history" -> percentHistory)
             )})"""
         }
       ),
@@ -53,8 +55,19 @@ object family {
           st.data("pgn")   := fam.full.pgn,
           st.data("title") := fam.full.name
         ),
-        h2("Popularity over time"),
-        canvas(cls := "opening__popularity"),
+        percentHistory.nonEmpty option div(cls := "opening__popularity")(
+          h2(
+            "Popularity",
+            span(cls := "opening__popularity__stats")(
+              em("Average: ", percentFrag(percentHistory.map(_.sum).sum / percentHistory.size)),
+              percentHistory.lastOption.map { seg => em("Current: ", percentFrag(seg.sum)) },
+              Heapsort
+                .topN(percentHistory, 1, Ordering.by[OpeningHistorySegment[Float], Float](_.sum))
+                .headOption map { seg => em("Peak: ", percentFrag(seg.sum), " on ", seg.month) }
+            )
+          ),
+          canvas(cls := "opening__popularity__chart")
+        ),
         puzzle.map { p =>
           a(cls := "button", href := routes.Puzzle.show(p.family.key.value))("Train with puzzles")
         },
@@ -64,4 +77,7 @@ object family {
       )
     }
   }
+
+  private def percentNumber(v: Float) = f"${v}%1.1f"
+  private def percentFrag(v: Float)   = frag(strong(percentNumber(v)), "%")
 }
