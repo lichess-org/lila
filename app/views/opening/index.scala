@@ -5,11 +5,11 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.LilaOpeningFamily
+import lila.opening.OpeningFamilyData
 
 object index {
 
-  def apply(fams: List[LilaOpeningFamily])(implicit
+  def apply(fams: List[OpeningFamilyData])(implicit
       ctx: Context
   ) =
     views.html.base.layout(
@@ -20,7 +20,13 @@ object index {
         h1("Chess openings"),
         div(
           fams.map { fam =>
-            a(href := routes.Opening.family(fam.key.value))(fam.name.value)
+            h2(
+              a(href := routes.Opening.family(fam.fam.key.value))(
+                fam.fam.name.value,
+                " ",
+                fam.nbGames
+              )
+            )
           }
         )
       )

@@ -42,21 +42,21 @@ const renderHistoryChart = (data: OpeningData) => {
       datasets: [
         {
           label: 'Draws',
-          data: data.history.map(s => s.draws / 10),
+          data: data.history.map(s => s.draws),
           borderColor: 'rgba(189,130,35,1)',
           backgroundColor: 'rgba(189,130,35,0.5)',
           fill: true,
         },
         {
           label: 'White wins',
-          data: data.history.map(s => s.white / 10),
+          data: data.history.map(s => s.white),
           borderColor: 'rgba(189,130,150,1)',
           backgroundColor: 'rgba(189,130,150,0.5)',
           fill: true,
         },
         {
           label: 'Black wins',
-          data: data.history.map(s => s.black / 10),
+          data: data.history.map(s => s.black),
           borderColor: 'rgba(189,130,220,1)',
           backgroundColor: 'rgba(189,130,220,0.5)',
           fill: true,
@@ -69,7 +69,7 @@ const renderHistoryChart = (data: OpeningData) => {
         y: {
           stacked: true,
           min: 0,
-          max: 20,
+          // max: 20,
         },
         x: {},
       },

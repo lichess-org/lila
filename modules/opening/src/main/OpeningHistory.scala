@@ -2,41 +2,22 @@ package lila.opening
 
 import play.api.libs.json.{ JsArray, Json, Reads, Writes }
 
-case class OpeningHistory(history: List[OpeningHistorySegment]) {
-
-  def perMilOf(all: OpeningHistory) = OpeningHistory(
-    history zip all.history map { case (mine, all) =>
-      mine perMilOf all
-    }
-  )
-
-  def filterNotEmpty = copy(history.filter(!_.isEmpty))
-}
-
-case class OpeningHistorySegment(
+case class OpeningHistorySegment[A](
     month: String, // YYYY-MM
-    black: Long,
-    draws: Long,
-    white: Long
-) {
+    black: A,
+    draws: A,
+    white: A
+)(implicit num: Numeric[A]) {
+
+  import num.mkNumericOps
 
   def isEmpty = black == 0 || draws == 0 || white == 0
 
-  lazy val sum = black + draws + white
-
-  def perMilOf(all: OpeningHistorySegment) = copy(
-    black = (black * 1000 / all.sum),
-    draws = (draws * 1000 / all.sum),
-    white = (white * 1000 / all.sum)
-  )
+  lazy val sum: A = black + draws + white
 }
 
 object OpeningHistory {
 
-  implicit private def segmentJsonRead = Json.reads[OpeningHistorySegment]
-  private def segmentJsonWrite         = Json.writes[OpeningHistorySegment]
-  implicit def historyJsonRead         = Json.reads[OpeningHistory]
-  implicit def historyJsonWrite = Writes[OpeningHistory] { h =>
-    JsArray(h.history.toList map segmentJsonWrite.writes)
-  }
+  implicit def segmentJsonRead[A: Reads: Numeric] = Json.reads[OpeningHistorySegment[A]]
+  implicit def segmentJsonWrite                   = Json.writes[OpeningHistorySegment[Float]]
 }
