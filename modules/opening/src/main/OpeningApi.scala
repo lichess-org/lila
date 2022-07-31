@@ -76,7 +76,7 @@ final class OpeningApi(
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(
         (List(
-          "since"   -> "2015-01",
+          "since"   -> "2016-01",
           "variant" -> chess.variant.Standard.key
         ) ::: fam.map(f => "fen" -> f.full.fen.pp("fetch")).orElse(Some("play" -> "")).toList,
         ): _*
