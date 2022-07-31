@@ -1,4 +1,4 @@
-import { Dests } from 'chessground/types';
+import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
 import { KeyboardMove } from '../main';
 
@@ -125,26 +125,15 @@ export default (opts: Opts) => {
 };
 
 function iccfToUci(v: string) {
-  const icffShortCastleRegex = /^5(1|8)3(1|8)$/;
-  const icffLongCastleRegex = /^5(1|8)3(1|8)$/;
-  if (v.match(icffShortCastleRegex)) {
-    return 'o-o';
-  } else if (v.match(icffLongCastleRegex)) {
-    return 'o-o-o';
-  }
+  if (v.match(/^5(1|8)3(1|8)$/)) return 'o-o';
+  else if (v.match(/^5(1|8)3(1|8)$/)) return 'o-o-o';
 
   const chars = v.split('');
-  const numericToAlgebraic = { 1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h' };
-  const numericToAlgebraicPromotion = { 1: 'q', 2: 'r', 3: 'b', 4: 'n' };
-  // Handle the promotion case later to avoid duplicate code
-  for (let i = 0; i < chars.length - 1; i++) {
-    if (i === 0 || i === 2) {
-      chars[i] = numericToAlgebraic[chars[i]];
-    }
-  }
-  if (chars.length === 5) {
-    chars[4] = numericToAlgebraicPromotion[chars[4]];
-  }
+  [0, 2].forEach(i => {
+    chars[i] = files[parseInt(chars[i]) - 1];
+  });
+  if (chars[4]) chars[4] = 'qrbn'[parseInt(chars[4]) - 1];
+
   return chars.join('');
 }
 
