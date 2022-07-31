@@ -16,11 +16,11 @@ Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineEle
 export function family(data: OpeningData) {
   console.log(data);
   renderHistoryChart(data);
-  $('.replay--autoload').each(function (this: HTMLElement) {
+  $('.opening__family .lpv').each(function (this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
       initialPly: 'last',
-      showMoves: false,
+      showMoves: 'bottom',
       showClocks: false,
       showPlayers: false,
       menu: {

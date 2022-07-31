@@ -49,16 +49,46 @@ object family {
     ) {
       main(cls := "page box box-pad opening__family")(
         h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), fam.name.value),
-        h2(fam.full.pgn),
-        div(
-          cls              := "replay replay--autoload",
-          st.data("pgn")   := fam.full.pgn,
-          st.data("title") := fam.full.name
+        div(cls := "opening__intro", style := s"--move-rows: ${(fam.full.uci.count(' ' ==) / 2) + 1}")(
+          div(
+            cls              := "lpv",
+            st.data("pgn")   := fam.full.pgn,
+            st.data("title") := fam.full.name
+          ),
+          div(cls := "opening__intro__side")(
+            data.history.lastOption.map { seg =>
+              div(cls := "opening__win-rate")(
+                h2(
+                  "Lichess win rate",
+                  span(cls := "title-stats")(
+                    em("White: ", percentFrag(seg.whitePercent)),
+                    em("Black: ", percentFrag(seg.blackPercent)),
+                    em("Draws: ", percentFrag(seg.drawPercent))
+                  )
+                )
+              )
+            },
+            div(cls := "opening__intro__actions")(
+              puzzle.map { p =>
+                a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(p.family.key.value))(
+                  "Train with puzzles"
+                )
+              },
+              a(
+                cls      := "button text",
+                dataIcon := "",
+                href     := s"${routes.UserAnalysis.pgn(fam.full.pgn.replace(" ", "_"))}#explorer"
+              )(
+                "View in opening explorer"
+              )
+            ),
+            div(cls := "opening__intro__text")("Text here?")
+          )
         ),
         percentHistory.nonEmpty option div(cls := "opening__popularity")(
           h2(
-            "Popularity",
-            span(cls := "opening__popularity__stats")(
+            "Lichess popularity",
+            span(cls := "title-stats")(
               em("Average: ", percentFrag(percentHistory.map(_.sum).sum / percentHistory.size)),
               percentHistory.lastOption.map { seg => em("Current: ", percentFrag(seg.sum)) },
               Heapsort
@@ -67,12 +97,6 @@ object family {
             )
           ),
           canvas(cls := "opening__popularity__chart")
-        ),
-        puzzle.map { p =>
-          a(cls := "button", href := routes.Puzzle.show(p.family.key.value))("Train with puzzles")
-        },
-        a(cls := "button", href := s"${routes.UserAnalysis.pgn(fam.full.pgn.replace(" ", "_"))}#explorer")(
-          "View in opening explorer"
         )
       )
     }

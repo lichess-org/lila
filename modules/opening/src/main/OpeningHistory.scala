@@ -9,11 +9,16 @@ case class OpeningHistorySegment[A](
     white: A
 )(implicit num: Numeric[A]) {
 
-  import num.mkNumericOps
+  import num.{ fromInt, mkNumericOps }
 
   def isEmpty = black == 0 || draws == 0 || white == 0
 
   lazy val sum: A = black + draws + white
+
+  def whitePercent            = percentOf(white)
+  def blackPercent            = percentOf(black)
+  def drawPercent             = percentOf(draws)
+  private def percentOf(v: A) = (v.toDouble * 100d / sum.toDouble).toFloat
 }
 
 object OpeningHistory {
