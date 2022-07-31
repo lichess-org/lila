@@ -5,6 +5,14 @@ import { Notification, Renderer, Renderers } from './interfaces';
 // function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
 export default function makeRenderers(trans: Trans): Renderers {
   return {
+    streamStart: {
+      html: n =>
+        generic(n, '/streamer/' + n.content.sid, '\ue006', [
+          h('span', [h('strong', n.content.name), drawTime(n)]),
+          h('span', n.content.text),
+        ]),
+      text: n => n.content.text, // streamStarts are pre-translated
+    },
     genericLink: {
       html: n =>
         generic(n, n.content.url, n.content.icon, [

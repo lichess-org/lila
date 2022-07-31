@@ -1,6 +1,5 @@
 package lila.push
 
-import akka.actor._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -11,6 +10,8 @@ import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.push.TourSoon
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
+import lila.hub.actorApi.streamer.NotifiableFollower
+import lila.pref.NotificationPref
 import lila.user.User
 
 final private class PushApi(
@@ -19,12 +20,13 @@ final private class PushApi(
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
-    gameRepo: lila.game.GameRepo
+    gameRepo: lila.game.GameRepo,
+    prefApi: lila.pref.PrefApi,
+    postApi: lila.forum.PostApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {
-
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
     else
@@ -34,9 +36,10 @@ final private class PushApi(
             IfAway(pov) {
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
-                  pushToAll(
+                  maybePush(
                     userId,
                     _.finish,
+                    NotificationPref.GameEvent,
                     PushApi.Data(
                       title = pov.win match {
                         case Some(true)  => "You won!"
@@ -74,9 +77,10 @@ final private class PushApi(
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
                   game.pgnMoves.lastOption ?? { sanMove =>
-                    pushToAll(
+                    maybePush(
                       userId,
                       _.move,
+                      NotificationPref.GameEvent,
                       PushApi.Data(
                         title = "It's your turn!",
                         body = s"$opponent played $sanMove",
@@ -107,9 +111,10 @@ final private class PushApi(
             pov.player.userId ?? { userId =>
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
-                  pushToAll(
+                  maybePush(
                     userId,
                     _.takeback,
+                    NotificationPref.GameEvent,
                     PushApi
                       .Data(
                         title = "Takeback offer",
@@ -139,9 +144,10 @@ final private class PushApi(
             pov.player.userId ?? { userId =>
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
-                  pushToAll(
+                  maybePush(
                     userId,
                     _.takeback,
+                    NotificationPref.GameEvent,
                     PushApi.Data(
                       title = "Draw offer",
                       body = s"$opponent offers a draw",
@@ -163,9 +169,10 @@ final private class PushApi(
   def corresAlarm(pov: Pov): Funit =
     pov.player.userId ?? { userId =>
       asyncOpponentName(pov) flatMap { opponent =>
-        pushToAll(
+        maybePush(
           userId,
           _.corresAlarm,
+          NotificationPref.TimeAlarm,
           PushApi.Data(
             title = "Time is almost up!",
             body = s"You are about to lose on time against $opponent",
@@ -191,9 +198,10 @@ final private class PushApi(
       _ ?? { sender =>
         userRepo.isKid(t other sender) flatMap {
           !_ ?? {
-            pushToAll(
+            maybePush(
               t other sender,
               _.message,
+              NotificationPref.InboxMsg,
               PushApi.Data(
                 title = sender.titleName,
                 body = shorten(t.lastMsg.text, 57 - 3, "..."),
@@ -212,14 +220,55 @@ final private class PushApi(
       }
     }
 
+  def forumMention(userId: User.ID, title: String, postId: String): Funit =
+    postApi.getPost(postId) flatMap { post =>
+      maybePush(
+        userId,
+        _.forumMention,
+        NotificationPref.ForumMention,
+        PushApi.Data(
+          title = title,
+          body = post.fold(title)(p => shorten(p.text, 57 - 3, "...")),
+          stacking = Stacking.ForumMention,
+          payload = Json.obj(
+            "userId" -> userId,
+            "userData" -> Json.obj(
+              "type"   -> "forumMention",
+              "postId" -> postId
+            )
+          )
+        )
+      )
+    }
+
+  def streamStart(streamerId: User.ID, notifyList: List[NotifiableFollower]): Funit =
+    // nice execution context you have there...  should this be throttled?
+    Future.applySequentially(notifyList) { target =>
+      filterPush(
+        target.userId,
+        _.streamStart,
+        target.filter,
+        PushApi.Data(
+          title = target.streamerName,
+          body = target.text,
+          stacking = Stacking.StreamStart,
+          payload = Json.obj(
+            "userId"   -> streamerId,
+            "userData" -> Json.obj("type" -> "streamStart", "streamerId" -> streamerId)
+          )
+        )
+      )
+    }
+
   def challengeCreate(c: Challenge): Funit =
     c.destUser ?? { dest =>
       c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
         lightUser(challenger.id) flatMap {
           _ ?? { lightChallenger =>
-            pushToAll(
+            maybePush(
               dest.id,
               _.challenge.create,
+              NotificationPref.Challenge,
               PushApi.Data(
                 title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
                 body = describeChallenge(c),
@@ -241,9 +290,10 @@ final private class PushApi(
   def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
       joinerId ?? lightUser flatMap { lightJoiner =>
-        pushToAll(
+        maybePush(
           challenger.id,
           _.challenge.accept,
+          NotificationPref.Challenge,
           PushApi.Data(
             title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
             body = describeChallenge(c),
@@ -262,9 +312,10 @@ final private class PushApi(
 
   def tourSoon(tour: TourSoon): Funit =
     lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
-      pushToAll(
+      maybePush(
         userId,
         _.tourSoon,
+        NotificationPref.TournamentSoon,
         PushApi
           .Data(
             title = tour.tourName,
@@ -286,13 +337,24 @@ final private class PushApi(
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
 
-  private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
-    webPush(userId, data).addEffects { res =>
-      monitor(lila.mon.push.send)("web", res.isSuccess)
-    } zip
+  private def maybePush(
+      userId: User.ID,
+      monitor: MonitorType,
+      filterType: NotificationPref.Type,
+      data: PushApi.Data
+  ): Funit =
+    prefApi.getNotificationFilter(userId, filterType) flatMap (filterPush(userId, monitor, _, data))
+
+  private def filterPush(userId: User.ID, monitor: MonitorType, filter: Int, data: PushApi.Data): Funit = {
+    ((filter & NotificationPref.WEB) != 0) ??
+      webPush(userId, data).addEffects { res =>
+        monitor(lila.mon.push.send)("web", res.isSuccess)
+      }
+    ((filter & NotificationPref.DEVICE) != 0) ??
       firebasePush(userId, data).addEffects { res =>
         monitor(lila.mon.push.send)("firebase", res.isSuccess)
-      } void
+      }
+  }
 
   private def describeChallenge(c: Challenge) = {
     import lila.challenge.Challenge.TimeControl._
@@ -319,7 +381,6 @@ final private class PushApi(
 }
 
 private object PushApi {
-
   case class Data(
       title: String,
       body: String,

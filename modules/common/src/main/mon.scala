@@ -649,12 +649,14 @@ object mon {
           .increment()
         ()
       }
-      val move        = send("move") _
-      val takeback    = send("takeback") _
-      val corresAlarm = send("corresAlarm") _
-      val finish      = send("finish") _
-      val message     = send("message") _
-      val tourSoon    = send("tourSoon") _
+      val move         = send("move") _
+      val takeback     = send("takeback") _
+      val corresAlarm  = send("corresAlarm") _
+      val streamStart  = send("streamStart") _
+      val forumMention = send("forumMention") _
+      val finish       = send("finish") _
+      val message      = send("message") _
+      val tourSoon     = send("tourSoon") _
       object challenge {
         val create = send("challengeCreate") _
         val accept = send("challengeAccept") _

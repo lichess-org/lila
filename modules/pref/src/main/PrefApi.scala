@@ -71,7 +71,7 @@ final class PrefApi(
   private def unmentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "_id",
-      $inIds(userIds) ++ $doc("mention" -> false)
+      $inIds(userIds) ++ $doc("notification.forumMention" -> 0)
     )
 
   def mentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
@@ -107,4 +107,10 @@ final class PrefApi(
     val reqPref = RequestPref fromRequest req
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
   }
+
+  def getNotificationFilter(uid: User.ID, tpe: NotificationPref.Type): Fu[Int] =
+    coll.find($id(uid), $doc(s"notification.$tpe" -> true).some).one[Bdoc] map {
+      case Some(bdoc) => (bdoc child "notification" flatMap (_ int tpe.toString)) getOrElse 0
+      case _          => 0
+    }
 }

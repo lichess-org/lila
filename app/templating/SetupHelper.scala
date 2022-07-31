@@ -6,7 +6,7 @@ import chess.variant.Variant
 import play.api.i18n.Lang
 
 import lila.i18n.{ I18nKeys => trans }
-import lila.pref.Pref
+import lila.pref.{ NotificationPref, Pref }
 import lila.report.Reason
 import lila.setup.TimeMode
 
@@ -69,6 +69,12 @@ trait SetupHelper { self: I18nHelper =>
     ("1", "One day", none) :: List(2, 3, 5, 7, 10, 14).map { d =>
       (d.toString, s"$d days", none)
     }
+
+  def translatedBooleanIntChoices(implicit lang: Lang) =
+    Seq(
+      0 -> trans.no.txt(),
+      1 -> trans.yes.txt()
+    )
 
   def translatedTimeModeChoices(implicit lang: Lang) =
     List(
@@ -215,6 +221,25 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.MoveEvent.DRAG, trans.preferences.dragPiece.txt()),
       (Pref.MoveEvent.BOTH, trans.preferences.bothClicksAndDrag.txt())
     )
+
+  def translatedNotifyChoices(implicit lang: Lang): Seq[(Int, String)] =
+    Seq(
+      NotificationPref.NONE           -> trans.preferences.notifyNone.txt(),
+      NotificationPref.WEB            -> trans.preferences.notifyWeb.txt(),
+      NotificationPref.DEVICE         -> trans.preferences.notifyDevice.txt(),
+      NotificationPref.WEB_AND_DEVICE -> trans.preferences.notifyEverything.txt()
+    )
+
+  def translatedNotifyMoreChoices(implicit lang: Lang): Seq[(Int, String)] =
+    Seq(
+      NotificationPref.BELL            -> trans.preferences.notifyBell.txt(),
+      NotificationPref.BELL_AND_WEB    -> trans.preferences.notifyWeb.txt(),
+      NotificationPref.BELL_AND_DEVICE -> trans.preferences.notifyDevice.txt(),
+      NotificationPref.ALL             -> trans.preferences.notifyEverything.txt()
+    )
+
+  def translatedNotifyNoneMoreChoices(implicit lang: Lang): Seq[(Int, String)] =
+    (NotificationPref.NONE -> trans.preferences.notifyNone.txt()) +: translatedNotifyMoreChoices(lang)
 
   def translatedTakebackChoices(implicit lang: Lang) =
     List(

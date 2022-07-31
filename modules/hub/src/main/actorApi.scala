@@ -4,13 +4,22 @@ package actorApi
 import chess.format.Uci
 import org.joda.time.{ DateTime, Period }
 import play.api.libs.json._
+import play.api.i18n.Lang
 import scala.concurrent.Promise
 
 // announce something to all clients
 case class Announce(msg: String, date: DateTime, json: JsObject)
 
 package streamer {
-  case class StreamStart(userId: String)
+  case class StreamStart(streamerId: String, pushTo: List[NotifiableFollower])
+  case class NotifiableFollower(
+      userId: String,
+      streamerName: String,
+      text: String,
+      filter: Int,
+      lang: Lang,
+      recentlyOnline: Boolean = false
+  )
 }
 
 package map {
@@ -317,4 +326,5 @@ package plan {
 
 package push {
   case class TourSoon(tourId: String, tourName: String, userIds: Iterable[String], swiss: Boolean)
+  case class ForumMention(userId: String, title: String, postId: String)
 }

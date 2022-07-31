@@ -15,7 +15,10 @@ final class Env(
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     getLightUserSync: lila.common.LightUser.GetterSync,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    prefApi: lila.pref.PrefApi,
+    relationApi: lila.relation.RelationApi,
+    timeline: lila.hub.actors.Timeline
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -28,6 +31,8 @@ final class Env(
   private val maxPerPage = MaxPerPage(7)
 
   lazy val api = wire[NotifyApi]
+
+  private lazy val streamStarter = wire[StreamStartHelper]
 
   // api actor
   Bus.subscribeFun("notify") {

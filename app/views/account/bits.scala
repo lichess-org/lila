@@ -29,5 +29,26 @@ object bits {
       case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()
       case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()
       case PrefCateg.Privacy      => trans.preferences.privacy.txt()
+      case PrefCateg.Notification => trans.preferences.notifications.txt()
     }
+
+  def setting(name: Frag, body: Frag) = st.section(h2(name), body)
+
+  def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
+    st.group(cls := "radio")(
+      options.map { v =>
+        val id      = s"${field.id}_${v._1}"
+        val checked = field.value has v._1.toString
+        div(
+          input(
+            st.id := s"$prefix$id",
+            checked option st.checked,
+            tpe   := "radio",
+            value := v._1.toString,
+            name  := field.name
+          ),
+          label(`for` := s"$prefix$id")(v._2)
+        )
+      }.toList
+    )
 }

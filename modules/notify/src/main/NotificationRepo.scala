@@ -1,7 +1,9 @@
 package lila.notify
 
-import lila.db.dsl._
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+
+import lila.db.dsl._
 
 final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -9,6 +11,9 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
 
   def insert(notification: Notification) =
     coll.insert.one(notification).void
+
+  def insertMany(notifications: Iterable[Notification]): Funit =
+    coll.insert.many(notifications).void
 
   def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
     coll.delete.one(userNotificationsQuery(notifies) ++ selector).void
@@ -28,12 +33,17 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
   private def hasOld =
     $doc(
       "read" -> false,
-      "createdAt" $gt DateTime.now.minusDays(3)
+      $or(
+        $doc("content.type" -> $ne("streamStart"), "createdAt" $gt DateTime.now.minusDays(3)),
+        $doc("content.type" -> "streamStart", "createdAt" $gt DateTime.now.minusHours(2))
+      )
     )
+
   private def hasUnread =
     $doc( // recent, read
       "createdAt" $gt DateTime.now.minusMinutes(10)
     )
+
   private def hasOldOrUnread =
     $doc("$or" -> List(hasOld, hasUnread))
 
@@ -45,6 +55,19 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
         "content.studyId" -> studyId
       ) ++ hasOldOrUnread
     )
+
+  def bulkUnreadCount(userIds: Iterable[String]): Fu[List[(String, Int)]] = {
+    coll.aggregateList(-1, ReadPreference.secondaryPreferred) { f =>
+      f.Match($doc("notifies" $in userIds) ++ hasOld) ->
+        List(f.GroupField("notifies")("nb" -> f.SumAll))
+    } map { docs =>
+      for {
+        doc   <- docs
+        user  <- doc string "_id"
+        count <- doc int "nb"
+      } yield (user, count)
+    }
+  }
 
   def hasRecentNotificationsInThread(
       userId: Notification.Notifies,

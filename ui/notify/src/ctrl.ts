@@ -1,4 +1,4 @@
-import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
+import { Ctrl, NotifyOpts, NotifyData, SingleNotifyData, Redraw } from './interfaces';
 
 import * as xhr from 'common/xhr';
 import notify from 'common/notification';
@@ -19,7 +19,11 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     }
   });
 
-  function update(d: NotifyData, incoming: boolean) {
+  function update(d: NotifyData | SingleNotifyData, incoming: boolean) {
+    if (!('pager' in d)) {
+      updateSingle(d as SingleNotifyData);
+      return;
+    }
     data = d;
     if (data.pager.currentPage === 1 && data.unread && opts.isVisible()) {
       opts.setNotified();
@@ -29,17 +33,30 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     initiating = false;
     scrolling = false;
     opts.setCount(data.unread);
-    if (incoming) notifyNew();
+    if (incoming) {
+      if (data.pager.currentPage !== 1) return;
+      const notif = data.pager.currentPageResults.find(n => !n.read);
+      if (!notif) return;
+      pulsePlayAndPush(asText(notif, lichess.trans(data.i18n)), notif.content.user?.id == 'lichess');
+    }
     redraw();
   }
 
-  function notifyNew() {
-    if (!data || data.pager.currentPage !== 1) return;
-    const notif = data.pager.currentPageResults.find(n => !n.read);
-    if (!notif) return;
+  function updateSingle(d: SingleNotifyData) {
+    if (opts.isVisible()) {
+      loadPage(1);
+      if (!lichess.quietMode) lichess.sound.playOnce('newPM');
+      return;
+    }
+    opts.setCount(d.unread);
+    data = undefined;
+    pulsePlayAndPush(d.note.content.text, d.note.content.user?.id == 'lichess');
+    redraw();
+  }
+
+  function pulsePlayAndPush(text: string | undefined, isLichess: boolean) {
     opts.pulse();
-    if (!lichess.quietMode || notif.content.user?.id == 'lichess') lichess.sound.playOnce('newPM');
-    const text = asText(notif, lichess.trans(data.i18n));
+    if (!lichess.quietMode || isLichess) lichess.sound.playOnce('newPM');
     const pushSubscribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
     if (!pushSubscribed && text) notify(text);
   }

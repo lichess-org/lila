@@ -44,11 +44,12 @@ private object BSONHandlers {
   implicit val PlanStartHandler  = Macros.handler[PlanStart]
   implicit val PlanExpireHandler = Macros.handler[PlanExpire]
 
-  implicit val RatingRefundHandler = Macros.handler[RatingRefund]
-  implicit val CorresAlarmHandler  = Macros.handler[CorresAlarm]
-  implicit val IrwinDoneHandler    = Macros.handler[IrwinDone]
-  implicit val KaladinDoneHandler  = Macros.handler[KaladinDone]
-  implicit val GenericLinkHandler  = Macros.handler[GenericLink]
+  implicit val RatingRefundHandler    = Macros.handler[RatingRefund]
+  implicit val CorresAlarmHandler     = Macros.handler[CorresAlarm]
+  implicit val IrwinDoneHandler       = Macros.handler[IrwinDone]
+  implicit val KaladinDoneHandler     = Macros.handler[KaladinDone]
+  implicit val GenericLinkHandler     = Macros.handler[GenericLink]
+  implicit val StreamStartNoteHandler = Macros.handler[StreamStartNote]
 
   implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.fromWhite, _.white)
 
@@ -79,6 +80,7 @@ private object BSONHandlers {
         case x: IrwinDone                  => IrwinDoneHandler.writeTry(x).get
         case x: KaladinDone                => KaladinDoneHandler.writeTry(x).get
         case x: GenericLink                => GenericLinkHandler.writeTry(x).get
+        case x: StreamStartNote            => StreamStartNoteHandler.writeTry(x).get
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -117,6 +119,7 @@ private object BSONHandlers {
         case "irwinDone"      => IrwinDoneHandler.readTry(reader.doc).get
         case "kaladinDone"    => KaladinDoneHandler.readTry(reader.doc).get
         case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
+        case "streamStart"    => StreamStartNoteHandler.readTry(reader.doc).get
       }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)

@@ -6,7 +6,6 @@ import lila.db.BSON
 import lila.db.dsl._
 
 private object PrefHandlers {
-
   implicit val prefBSONHandler = new BSON[Pref] {
 
     def reads(r: BSON.Reader): Pref =
@@ -34,7 +33,6 @@ private object PrefHandlers {
         follow = r.getD("follow", Pref.default.follow),
         highlight = r.getD("highlight", Pref.default.highlight),
         destination = r.getD("destination", Pref.default.destination),
-        corresEmailNotif = r.getD("corresEmailNotif", Pref.default.corresEmailNotif),
         coords = r.getD("coords", Pref.default.coords),
         replay = r.getD("replay", Pref.default.replay),
         challenge = r.getD("challenge", Pref.default.challenge),
@@ -42,7 +40,6 @@ private object PrefHandlers {
         studyInvite = r.getD("studyInvite", Pref.default.studyInvite),
         submitMove = r.getD("submitMove", Pref.default.submitMove),
         confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
-        mention = r.getD("mention", Pref.default.mention),
         insightShare = r.getD("insightShare", Pref.default.insightShare),
         keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
         zen = r.getD("zen", Pref.default.zen),
@@ -52,53 +49,61 @@ private object PrefHandlers {
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         agreement = r.getD("agreement", 0),
+        notification = r.getD(
+          "notification",
+          NotificationPref.default.copy(
+            // migrate existing settings to new location
+            // delete this copy call after a month or so. 8/2022
+            correspondenceEmail = r.getD("corresEmailNotif", false) ?? 1,
+            forumMention = r.getD("mention", true) ?? NotificationPref.BELL
+          )
+        ),
         tags = r.getD("tags", Pref.default.tags)
       )
 
     def writes(w: BSON.Writer, o: Pref) =
       $doc(
-        "_id"              -> o._id,
-        "bg"               -> o.bg,
-        "bgImg"            -> o.bgImg,
-        "is3d"             -> o.is3d,
-        "theme"            -> o.theme,
-        "pieceSet"         -> o.pieceSet,
-        "theme3d"          -> o.theme3d,
-        "pieceSet3d"       -> o.pieceSet3d,
-        "soundSet"         -> SoundSet.name2key(o.soundSet),
-        "blindfold"        -> o.blindfold,
-        "autoQueen"        -> o.autoQueen,
-        "autoThreefold"    -> o.autoThreefold,
-        "takeback"         -> o.takeback,
-        "moretime"         -> o.moretime,
-        "clockTenths"      -> o.clockTenths,
-        "clockBar"         -> o.clockBar,
-        "clockSound"       -> o.clockSound,
-        "premove"          -> o.premove,
-        "animation"        -> o.animation,
-        "corresEmailNotif" -> o.corresEmailNotif,
-        "captured"         -> o.captured,
-        "follow"           -> o.follow,
-        "highlight"        -> o.highlight,
-        "destination"      -> o.destination,
-        "coords"           -> o.coords,
-        "replay"           -> o.replay,
-        "challenge"        -> o.challenge,
-        "message"          -> o.message,
-        "studyInvite"      -> o.studyInvite,
-        "submitMove"       -> o.submitMove,
-        "confirmResign"    -> o.confirmResign,
-        "mention"          -> o.mention,
-        "insightShare"     -> o.insightShare,
-        "keyboardMove"     -> o.keyboardMove,
-        "zen"              -> o.zen,
-        "ratings"          -> o.ratings,
-        "rookCastle"       -> o.rookCastle,
-        "moveEvent"        -> o.moveEvent,
-        "pieceNotation"    -> o.pieceNotation,
-        "resizeHandle"     -> o.resizeHandle,
-        "agreement"        -> o.agreement,
-        "tags"             -> o.tags
+        "_id"           -> o._id,
+        "bg"            -> o.bg,
+        "bgImg"         -> o.bgImg,
+        "is3d"          -> o.is3d,
+        "theme"         -> o.theme,
+        "pieceSet"      -> o.pieceSet,
+        "theme3d"       -> o.theme3d,
+        "pieceSet3d"    -> o.pieceSet3d,
+        "soundSet"      -> SoundSet.name2key(o.soundSet),
+        "blindfold"     -> o.blindfold,
+        "autoQueen"     -> o.autoQueen,
+        "autoThreefold" -> o.autoThreefold,
+        "takeback"      -> o.takeback,
+        "moretime"      -> o.moretime,
+        "clockTenths"   -> o.clockTenths,
+        "clockBar"      -> o.clockBar,
+        "clockSound"    -> o.clockSound,
+        "premove"       -> o.premove,
+        "animation"     -> o.animation,
+        "captured"      -> o.captured,
+        "follow"        -> o.follow,
+        "highlight"     -> o.highlight,
+        "destination"   -> o.destination,
+        "coords"        -> o.coords,
+        "replay"        -> o.replay,
+        "challenge"     -> o.challenge,
+        "message"       -> o.message,
+        "studyInvite"   -> o.studyInvite,
+        "submitMove"    -> o.submitMove,
+        "confirmResign" -> o.confirmResign,
+        "insightShare"  -> o.insightShare,
+        "keyboardMove"  -> o.keyboardMove,
+        "zen"           -> o.zen,
+        "ratings"       -> o.ratings,
+        "rookCastle"    -> o.rookCastle,
+        "moveEvent"     -> o.moveEvent,
+        "pieceNotation" -> o.pieceNotation,
+        "resizeHandle"  -> o.resizeHandle,
+        "agreement"     -> o.agreement,
+        "notification"  -> o.notification,
+        "tags"          -> o.tags
       )
   }
 }

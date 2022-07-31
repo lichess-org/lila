@@ -1614,6 +1614,7 @@ object preferences {
 val `preferences` = new I18nKey("preferences:preferences")
 val `display` = new I18nKey("preferences:display")
 val `privacy` = new I18nKey("preferences:privacy")
+val `notifications` = new I18nKey("preferences:notifications")
 val `pieceAnimation` = new I18nKey("preferences:pieceAnimation")
 val `materialDifference` = new I18nKey("preferences:materialDifference")
 val `boardHighlights` = new I18nKey("preferences:boardHighlights")
@@ -1661,7 +1662,18 @@ val `sayGgWpAfterLosingOrDrawing` = new I18nKey("preferences:sayGgWpAfterLosingO
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
 val `scrollOnTheBoardToReplayMoves` = new I18nKey("preferences:scrollOnTheBoardToReplayMoves")
 val `correspondenceEmailNotification` = new I18nKey("preferences:correspondenceEmailNotification")
-
+val `notifyStreamStart` = new I18nKey("preferences:notifyStreamStart")
+val `notifyInboxMsg` = new I18nKey("preferences:notifyInboxMsg")
+val `notifyForumMention` = new I18nKey("preferences:notifyForumMention")
+val `notifyGameEvent` = new I18nKey("preferences:notifyGameEvent")
+val `notifyChallenge` = new I18nKey("preferences:notifyChallenge")
+val `notifyTournamentSoon` = new I18nKey("preferences:notifyTournamentSoon")
+val `notifyTimeAlarm` = new I18nKey("preferences:notifyTimeAlarm")
+val `notifyNone` = new I18nKey( "preferences:notifyNone")
+val `notifyBell` = new I18nKey("preferences:notifyBell")
+val `notifyWeb` = new I18nKey("preferences:notifyWeb")
+val `notifyDevice` = new I18nKey("preferences:notifyDevice")
+val `notifyEverything` = new I18nKey("preferences:notifyEverything")
 }
 
 object team {

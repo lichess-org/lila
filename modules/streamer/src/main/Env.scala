@@ -29,6 +29,8 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
+    relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi,
     db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -73,7 +75,8 @@ final class Env(
     keyword = config.keyword,
     alwaysFeatured = alwaysFeaturedSetting.get _,
     googleApiKey = config.googleApiKey,
-    twitchApi = twitchApi
+    twitchApi = twitchApi,
+    notifyApi = notifyApi
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]

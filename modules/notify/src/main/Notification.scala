@@ -4,8 +4,6 @@ import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
 
-case class NewNotification(notification: Notification, unreadNotifications: Int)
-
 case class Notification(
     _id: String,
     notifies: Notification.Notifies,
@@ -28,6 +26,7 @@ object Notification {
 
   case class UnreadCount(value: Int) extends AnyVal
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
+  case class SingleAndUnread(note: Notification, unread: UnreadCount)
   case class Notifies(value: String)          extends AnyVal with StringValue
   case class NotificationRead(value: Boolean) extends AnyVal
 
@@ -54,6 +53,14 @@ object MentionedInThread {
   case class TopicId(value: String)     extends AnyVal with StringValue
   case class Category(value: String)    extends AnyVal with StringValue
   case class PostId(value: String)      extends AnyVal with StringValue
+}
+
+case class StreamStartNote(streamerId: lila.user.User.ID, streamerName: String, text: String)
+    extends NotificationContent("streamStart")
+
+object StreamStartNote {
+  def make(userId: String, streamerId: String, streamerName: String, text: String): Notification =
+    Notification.make(Notification.Notifies(userId), new StreamStartNote(streamerId, streamerName, text))
 }
 
 case class InvitedToStudy(

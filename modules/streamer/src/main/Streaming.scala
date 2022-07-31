@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 import scala.util.chaining._
 
-import lila.common.{ Bus, LilaScheduler }
+import lila.common.LilaScheduler
 import lila.common.config.Secret
 import lila.user.User
 
@@ -19,7 +19,8 @@ final private class Streaming(
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
-    twitchApi: TwitchApi
+    twitchApi: TwitchApi,
+    notifyApi: lila.notify.NotifyApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
@@ -69,14 +70,7 @@ final private class Streaming(
         import s.streamer.userId
         if (!streamStartMemo.get(userId)) {
           streamStartMemo.put(userId)
-          timeline ! {
-            import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
-            Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId
-          }
-          Bus.publish(
-            lila.hub.actorApi.streamer.StreamStart(userId),
-            "streamStart"
-          )
+          notifyApi.notifyStreamStart(userId, s.streamer.name.value)
         }
       }
     }

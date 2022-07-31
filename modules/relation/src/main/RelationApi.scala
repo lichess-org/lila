@@ -38,7 +38,8 @@ final class RelationApi(
 
   def fetchFollowing = repo following _
 
-  def freshFollowersFromSecondary = repo.freshFollowersFromSecondary _
+  def freshFollowersFromSecondary(userId: ID, daysAgo: Int = 10) =
+    repo.freshFollowersFromSecondary(userId, daysAgo)
 
   def fetchBlocking = repo blocking _
 

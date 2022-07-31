@@ -18,7 +18,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
   def blockers(userId: ID) = relaters(userId, Block)
   def blocking(userId: ID) = relating(userId, Block)
 
-  def freshFollowersFromSecondary(userId: ID): Fu[List[User.ID]] =
+  def freshFollowersFromSecondary(userId: ID, daysAgo: Int): Fu[List[User.ID]] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
@@ -30,7 +30,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
               local = "u1",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(10))))),
+                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(daysAgo))))),
                 $doc("$project" -> $id(true))
               )
             )
