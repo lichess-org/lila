@@ -38,35 +38,25 @@ case class FamilyDataCollection(all: List[OpeningFamilyData]) {
   val byKey: Map[LilaOpeningFamily.Key, OpeningFamilyData] = all.view.map { d => d.fam.key -> d }.toMap
 
   type Move     = String
-  type TreeMap  = Map[Move, Map[Move, List[OpeningFamilyData]]]
-  type TreeList = List[(Move, List[(Move, List[OpeningFamilyData])])]
+  type TreeMap  = Map[Move, List[OpeningFamilyData]]
+  type TreeList = List[(Move, List[OpeningFamilyData])]
 
   val treeMap: TreeMap =
     all.foldLeft(Map.empty: TreeMap) { case (tree, d) =>
-      d.fam.full.pgn.split(' ').drop(1).take(2).toList match {
-        case first :: second :: _ =>
-          tree.updatedWith(first) { subTree =>
-            (~subTree).updatedWith(second)(ops => (d :: ~ops).some).some
-          }
-        case _ => tree
+      d.fam.full.pgn.split(' ').drop(1).headOption.fold(tree) { move =>
+        tree.updatedWith(move) { ops =>
+          (d :: ~ops).some
+        }
       }
     }
 
   val treeList: TreeList =
     treeMap.view
       .mapValues {
-        _.toList
-          .sortBy {
-            -_._2.map(_.nbGames).sum
-          }
-          .map { case (move, ops) =>
-            move -> ops.sortBy(-_.nbGames)
-          }
+        _.toList.sortBy(-_.nbGames)
       }
       .toList
-      .sortBy {
-        -_._2.map(_._2.map(_.nbGames).sum).sum
-      }
+      .sortBy(-_._2.map(_.nbGames).sum)
 }
 
 private object FamilyDataCollection {

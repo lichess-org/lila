@@ -1,7 +1,10 @@
 .opening {
   &__list {
     h2 {
-      font-size: 4em;
+      margin: 1.8em 0 1em 0;
+      border-bottom: 1px solid $c-brag;
+      line-height: 1.5em;
+      padding-bottom: 0.5em;
     }
     &__sub-tree {
       @extend %flex-center-nowrap;
@@ -18,6 +21,11 @@
 
       @include breakpoint($mq-not-xx-small) {
         grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+      }
+
+      a {
+        font-size: 1.3em;
+        line-height: 1.8em;
       }
     }
   }
