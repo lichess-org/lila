@@ -41,10 +41,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('shift+i', () => {
       ctrl.treeView.toggle();
       ctrl.redraw();
-    })
-    .bind('z', () => {
-      ctrl.toggleComputer();
-      ctrl.redraw();
     });
 
   if (ctrl.embed) return;
@@ -66,6 +62,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('l', ctrl.toggleCeval)
+    .bind('z', () => {
+      ctrl.toggleComputer();
+      ctrl.redraw();
+    })
     .bind('a', () => {
       ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
       ctrl.redraw();

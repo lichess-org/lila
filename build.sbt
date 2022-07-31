@@ -39,7 +39,7 @@ lazy val modules = Seq(
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor
+  ublog, tutor, opening
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -253,6 +253,11 @@ lazy val insight = module("insight",
 lazy val tutor = module("tutor",
   Seq(common, game, user, analyse, round, insight),
   specs2Bundle ++ reactivemongo.bundle
+)
+
+lazy val opening = module("opening",
+  Seq(common, memo),
+  Seq()
 )
 
 lazy val tournament = module("tournament",

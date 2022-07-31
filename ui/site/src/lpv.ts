@@ -7,7 +7,7 @@ export function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
     loadCssPath('lpv').then(() => {
       Lpv(this, {
-        pgn: this.dataset['pgn']!,
+        pgn: this.dataset['pgn']!.replace(/<br>/g, '\n'),
       });
     });
   });

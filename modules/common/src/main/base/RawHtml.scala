@@ -65,7 +65,7 @@ final object RawHtml {
 
   def hasLinks(text: String) = urlPattern.matcher(text).find
 
-  type LinkRender = (String, String) => Frag
+  type LinkRender = (String, String) => Option[Frag]
 
   def addLinks(
       text: String,
@@ -112,27 +112,28 @@ final object RawHtml {
           }
 
           val allButScheme = escapeHtmlRaw(removeUrlTrackingParameters(csb.toString))
+          lazy val isHttp  = domainS - start == 7
+          lazy val url     = (if (isHttp) "http://" else "https://") + allButScheme
+          lazy val text    = if (isHttp) url else allButScheme
 
-          if (isTldInternal) {
-            sb.append(s"""<a href="${if (allButScheme.isEmpty) "/"
-              else allButScheme}">${allButScheme match {
-                case USER_LINK(user) => "@" + user
-                case _               => DOMAIN + allButScheme
-              }}</a>""")
-          } else {
-            val isHttp = domainS - start == 7
-            val url    = (if (isHttp) "http://" else "https://") + allButScheme
-            val text   = if (isHttp) url else allButScheme
-            val imgHtml = {
+          sb append {
+            if (isTldInternal)
+              linkRender flatMap { _(allButScheme, text).map(_.render) } getOrElse s"""<a href="${if (
+                  allButScheme.isEmpty
+                )
+                  "/"
+                else allButScheme}">${allButScheme match {
+                  case USER_LINK(user) => "@" + user
+                  case _               => DOMAIN + allButScheme
+                }}</a>"""
+            else {
               if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
               else imgUrl(url)
+            } getOrElse {
+              s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
             }
-            sb.append(
-              imgHtml
-                .orElse(linkRender.map(_(url, text).render))
-                .getOrElse(s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>""")
-            )
           }
+
           lastAppendIdx = end
         } while (m.find)
 

@@ -1,17 +1,16 @@
 package views.html
 package study
 
+import controllers.routes
 import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.study.{ Order, StudyTopic, StudyTopics }
 import lila.study.Study.WithChaptersAndLiked
+import lila.study.{ Order, StudyTopic, StudyTopics }
 import lila.user.User
-
-import controllers.routes
 
 object list {
 

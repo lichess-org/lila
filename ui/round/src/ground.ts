@@ -85,17 +85,12 @@ export function makeConfig(ctrl: RoundController): Config {
   };
 }
 
-export function reload(ctrl: RoundController) {
-  ctrl.chessground.set(makeConfig(ctrl));
-}
+export const reload = (ctrl: RoundController) => ctrl.chessground.set(makeConfig(ctrl));
 
-export function boardOrientation(data: RoundData, flip: boolean): Color {
-  if (data.game.variant.key === 'racingKings') return flip ? 'black' : 'white';
-  else return flip ? data.opponent.color : data.player.color;
-}
+export const boardOrientation = (data: RoundData, flip: boolean): Color =>
+  data.game.variant.key === 'racingKings' ? (flip ? 'black' : 'white') : flip ? data.opponent.color : data.player.color;
 
-export function render(ctrl: RoundController) {
-  return h('div.cg-wrap', {
+export const render = (ctrl: RoundController) =>
+  h('div.cg-wrap', {
     hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl)))),
   });
-}

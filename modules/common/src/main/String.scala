@@ -101,7 +101,7 @@ object String {
   // for publicly listed text like team names, study names, forum topics...
   def fullCleanUp(str: String) = removeMultibyteSymbols(removeChars(normalize(str.trim), isGarbageChar))
 
-  // for inner text like study move annotations, possibly forum posts and team descriptions
+  // for inner text like study chapter names, possibly forum posts and team descriptions
   def softCleanUp(str: String) = removeChars(normalize(str.trim), isInvisibleChar)
 
   def decodeUriPath(input: String): Option[String] = {
