@@ -125,7 +125,7 @@ export default (opts: Opts) => {
 };
 
 function iccfToUci(v: string) {
-  if (v.match(/^5(1|8)3(1|8)$/)) return 'o-o';
+  if (v.match(/^5(1|8)7(1|8)$/)) return 'o-o';
   else if (v.match(/^5(1|8)3(1|8)$/)) return 'o-o-o';
 
   const chars = v.split('');
