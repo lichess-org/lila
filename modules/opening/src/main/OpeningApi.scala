@@ -9,44 +9,65 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.LilaOpeningFamily
 import lila.memo.CacheApi
+import play.api.Mode
 
 final class OpeningApi(
     ws: StandaloneWSClient,
     cacheApi: CacheApi,
+    mongoCache: lila.memo.MongoCache.Api,
     explorerEndpoint: String @@ ExplorerEndpoint
-)(implicit ec: ExecutionContext) {
+)(implicit ec: ExecutionContext, mode: Mode) {
 
-  private val allGamesHistory = cacheApi.unit[OpeningHistory] {
+  def families: Fu[FamilyDataCollection] = collectionCache.get(())
+
+  def apply(op: LilaOpeningFamily): Fu[Option[OpeningFamilyData.WithAll]] = for {
+    coll <- families
+    all  <- allGamesHistory.get(())
+  } yield coll.byKey get op.key map {
+    OpeningFamilyData.WithAll(_, all)
+  }
+
+  private val allGamesHistory = cacheApi.unit[List[OpeningHistorySegment[Long]]] {
     _.refreshAfterWrite(1 hour)
       .buildAsyncFuture { _ =>
         fetchHistory(none)
       }
   }
 
-  private val familyCache = cacheApi[LilaOpeningFamily.Key, OpeningFamilyData](64, "opening.family.data") {
-    _.expireAfterWrite(1 hour).buildAsyncFuture(key =>
-      computeFamilyData(LilaOpeningFamily(key) err s"Can't find opening family $key?!")
-    )
+  import FamilyDataCollection.collectionHandler
+  val collectionCache = mongoCache.unit[FamilyDataCollection](
+    "opening:families",
+    25 hours
+  ) { loader =>
+    _.refreshAfterWrite(24 hours)
+      .buildAsyncFuture {
+        loader { _ =>
+          val fams =
+            if (mode == Mode.Prod) LilaOpeningFamily.familyList
+            else LilaOpeningFamily.familyList take 50
+          fams
+            .map(computeFamilyData)
+            .sequenceFu
+            .map(_.sortBy(-_.nbGames)) map FamilyDataCollection.apply
+        }
+      }
   }
 
   private def computeFamilyData(fam: LilaOpeningFamily): Fu[OpeningFamilyData] = for {
-    history <- fetchHistory(fam.some).dmap(some).recover { case e: Exception =>
+    history <- fetchHistory(fam.some).recover { case e: Exception =>
       logger.error(s"Couldn't get opening family data for ${fam.key}", e)
-      none
+      Nil
     }
     allGames <- allGamesHistory.get(())
-    relative = history.map(_ perMilOf allGames)
-  } yield OpeningFamilyData(fam, relative)
+  } yield OpeningFamilyData(fam, history)
 
-  private def fetchHistory(fam: Option[LilaOpeningFamily]) =
+  private def fetchHistory(fam: Option[LilaOpeningFamily]): Fu[List[OpeningHistorySegment[Long]]] =
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(
         (List(
           "since"   -> "2015-01",
           "variant" -> chess.variant.Standard.key
-          // "ratings" -> "2000,2200,2500"
-          // "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(",")
-        ) ::: fam.map(f => "fen" -> f.full.fen).orElse(Some("play" -> "")).toList,
+        ) ::: fam.map(f => "fen" -> f.full.fen.pp("fetch")).orElse(Some("play" -> "")).toList,
         ): _*
       )
       .get()
@@ -54,13 +75,9 @@ final class OpeningApi(
         case res if res.status != 200 =>
           fufail(s"Couldn't reach the opening explorer: ${fam.fold("initial")(_.key.value)}")
         case res =>
-          import OpeningHistory.historyJsonRead
-          res
-            .body[JsValue]
-            .validate[OpeningHistory]
+          import OpeningHistory.segmentJsonRead
+          (res.body[JsValue] \ "history")
+            .validate[List[OpeningHistorySegment[Long]]]
             .fold(invalid => fufail(invalid.toString), fuccess)
-            .map(_.filterNotEmpty)
       }
-
-  def apply(op: LilaOpeningFamily): Fu[OpeningFamilyData] = familyCache.get(op.key)
 }

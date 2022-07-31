@@ -5,13 +5,14 @@ import com.softwaremill.tagging._
 import scala.concurrent.duration._
 
 import lila.common.config
-import lila.memo.CacheApi
+import lila.memo.{ CacheApi, MongoCache }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 @Module
 final class Env(
     cacheApi: CacheApi,
+    mongoCache: MongoCache.Api,
     appConfig: Configuration,
     ws: StandaloneWSClient
 )(implicit

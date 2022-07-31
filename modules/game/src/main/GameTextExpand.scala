@@ -55,7 +55,7 @@ final class GameTextExpand(
   private def lichessPgnViewer(game: Game.WithInitialFen, pgn: Pgn): Frag =
     div(cls := "lpv", attr("data-pgn") := pgn.toString)
 
-  private val pgnFlags = PgnDump.WithFlags(clocks = false, evals = false, opening = false)
+  private val pgnFlags = PgnDump.WithFlags(clocks = true, evals = false, opening = false)
 
   private val pgnCache = cacheApi.sync[Game.ID, Option[String]](
     "gameTextExpand.pgnSync",

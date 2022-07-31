@@ -16,7 +16,9 @@ final class ForumPaginator(
 
   import BSONHandlers._
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post.WithFrag]] =
+  def topicPosts(topic: Topic, page: Int, me: Option[User])(implicit
+      netDomain: lila.common.config.NetDomain
+  ): Fu[Paginator[Post.WithFrag]] =
     Paginator(
       new Adapter[Post](
         collection = postRepo.coll,

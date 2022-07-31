@@ -153,7 +153,9 @@ object String {
 
   object html {
 
-    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true): Frag =
+    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(implicit
+        netDomain: config.NetDomain
+    ): Frag =
       raw {
         val withLinks = RawHtml.addLinks(rawText, expandImg)
         if (nl2br) RawHtml.nl2br(withLinks) else withLinks
@@ -173,7 +175,7 @@ object String {
     def unescapeHtml(html: String): String =
       org.apache.commons.text.StringEscapeUtils.unescapeHtml4(html)
 
-    def markdownLinksOrRichText(text: String): Frag = {
+    def markdownLinksOrRichText(text: String)(implicit netDomain: config.NetDomain): Frag = {
       val escaped = escapeHtmlRaw(text)
       val marked  = RawHtml.justMarkdownLinks(escaped)
       if (marked == escaped) richText(text)

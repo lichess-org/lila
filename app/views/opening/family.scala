@@ -13,16 +13,23 @@ import lila.puzzle.PuzzleOpening
 
 object family {
 
-  def apply(fam: LilaOpeningFamily, data: OpeningFamilyData, puzzle: Option[PuzzleOpening.FamilyWithCount])(
-      implicit ctx: Context
-  ) =
+  def apply(
+      dataWithAll: OpeningFamilyData.WithAll,
+      puzzle: Option[PuzzleOpening.FamilyWithCount]
+  )(implicit
+      ctx: Context
+  ) = {
+    import dataWithAll._
+    import data.fam
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = frag(
         jsModule("opening"),
         embedJsUnsafeLoadThen {
-          import lila.opening.OpeningHistory.historyJsonWrite
-          s"""LichessOpening.family(${safeJsonValue(Json.obj("history" -> data.history))})"""
+          import lila.opening.OpeningHistory.segmentJsonWrite
+          s"""LichessOpening.family(${safeJsonValue(
+              Json.obj("history" -> dataWithAll.percent)
+            )})"""
         }
       ),
       title = s"${trans.opening.txt()} • ${fam.name}",
@@ -38,7 +45,7 @@ object family {
         )
         .some
     ) {
-      main(cls := "page box box-pad")(
+      main(cls := "page box box-pad opening")(
         h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), fam.name.value),
         h2(fam.full.pgn),
         div(
@@ -55,4 +62,5 @@ object family {
         )
       )
     }
+  }
 }

@@ -36,7 +36,7 @@ final private[forum] class TopicApi(
       slug: String,
       page: Int,
       forUser: Option[User]
-  ): Fu[Option[(Categ, Topic, Paginator[Post.WithFrag])]] =
+  )(implicit netDomain: lila.common.config.NetDomain): Fu[Option[(Categ, Topic, Paginator[Post.WithFrag])]] =
     for {
       data <- categRepo bySlug categSlug flatMap {
         _ ?? { categ =>

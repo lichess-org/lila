@@ -1,4 +1,9 @@
-.lpv {
-  margin: 3em 0;
-  max-width: 300px;
+.opening {
+  &__popularity {
+    max-height: 30vh;
+  }
+  .lpv {
+    margin: 3em 0;
+    max-width: 300px;
+  }
 }

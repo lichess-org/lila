@@ -64,6 +64,7 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def ctxLang(implicit ctx: Context)         = ctx.lang
   implicit def ctxReq(implicit ctx: Context)          = ctx.req
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
+  implicit def netDomain                              = env.net.domain
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
 
   protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
