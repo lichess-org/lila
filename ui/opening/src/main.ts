@@ -1,8 +1,17 @@
 import Lpv from 'lichess-pgn-viewer';
 import { OpeningData } from './interfaces';
-import { CategoryScale, Chart, LinearScale, LineController, PointElement, LineElement, Tooltip } from 'chart.js';
+import {
+  CategoryScale,
+  Chart,
+  LinearScale,
+  LineController,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Filler,
+} from 'chart.js';
 
-Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
+Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 export function family(data: OpeningData) {
   console.log(data);
@@ -29,11 +38,28 @@ const renderHistoryChart = (data: OpeningData) => {
   new Chart(canvas, {
     type: 'line',
     data: {
+      labels: data.history.map(s => s.month),
       datasets: [
         {
-          label: data.name,
-          data: data.history.map(s => ({ x: s.month, y: (s.black + s.draws + s.white) / 10 })),
+          label: 'Draws',
+          data: data.history.map(s => s.draws / 10),
           borderColor: 'rgba(189,130,35,1)',
+          backgroundColor: 'rgba(189,130,35,0.5)',
+          fill: true,
+        },
+        {
+          label: 'White wins',
+          data: data.history.map(s => s.white / 10),
+          borderColor: 'rgba(189,130,150,1)',
+          backgroundColor: 'rgba(189,130,150,0.5)',
+          fill: true,
+        },
+        {
+          label: 'Black wins',
+          data: data.history.map(s => s.black / 10),
+          borderColor: 'rgba(189,130,220,1)',
+          backgroundColor: 'rgba(189,130,220,0.5)',
+          fill: true,
         },
       ],
     },
@@ -41,8 +67,9 @@ const renderHistoryChart = (data: OpeningData) => {
       animation: false,
       scales: {
         y: {
+          stacked: true,
           min: 0,
-          max: 50,
+          max: 20,
         },
         x: {},
       },
