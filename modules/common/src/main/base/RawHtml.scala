@@ -130,9 +130,9 @@ final object RawHtml {
               else imgUrl(url)
             }
             sb.append(
-              imgHtml
-                .orElse(linkRender.map(_(url, text).render))
-                .getOrElse(s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>""")
+              imgHtml.getOrElse(
+                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
+              )
             )
           }
           lastAppendIdx = end
