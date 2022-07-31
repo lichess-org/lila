@@ -11,7 +11,7 @@ import lila.common.LilaOpeningFamily
 final class Opening(env: Env) extends LilaController(env) {
 
   def index =
-    Secure(_.Beta) { implicit ctx => _ =>
+    Open { implicit ctx =>
       env.opening.api.families map { coll =>
         import lila.opening.OpeningFamilyData.familyDataWrite
         render {
