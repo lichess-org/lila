@@ -65,7 +65,7 @@ final object RawHtml {
 
   def hasLinks(text: String) = urlPattern.matcher(text).find
 
-  type LinkRender = (String, String) => Frag
+  type LinkRender = (String, String) => Option[Frag]
 
   def addLinks(
       text: String,
@@ -118,7 +118,10 @@ final object RawHtml {
 
           sb append {
             if (isTldInternal)
-              linkRender.map { _(url, text).render } getOrElse s"""<a href="${if (allButScheme.isEmpty) "/"
+              linkRender flatMap { _(allButScheme, text).map(_.render) } getOrElse s"""<a href="${if (
+                  allButScheme.isEmpty
+                )
+                  "/"
                 else allButScheme}">${allButScheme match {
                   case USER_LINK(user) => "@" + user
                   case _               => DOMAIN + allButScheme
