@@ -24,15 +24,15 @@ object index {
               h2(s"1. $first"),
               div(
                 subTree.map { case (second, openings) =>
-                  frag(
-                    second map { m => h3(s"... $m") },
-                    openings map { fam =>
-                      a(href := routes.Opening.family(fam.fam.key.value))(
-                        fam.fam.name.value,
-                        " ",
-                        fam.nbGames
-                      )
-                    }
+                  div(cls := "opening__list__sub-tree")(
+                    h3(s"... $second"),
+                    div(cls := "opening__list__links")(
+                      openings map { fam =>
+                        h4(
+                          a(href := routes.Opening.family(fam.fam.key.value))(fam.fam.name.value)
+                        )
+                      }
+                    )
                   )
                 }
               )
