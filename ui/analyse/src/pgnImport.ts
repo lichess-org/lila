@@ -21,7 +21,7 @@ export default function (pgn: string): Partial<AnalyseData> {
     },
   ];
   const mainline = Array.from(game.moves.mainline());
-  let pos = start;
+  const pos = start;
   mainline.forEach((node, index) => {
     const ply = initialPly + index + 1;
     const move = parseSan(pos, node.san);
