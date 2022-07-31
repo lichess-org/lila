@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "tablesort": "^5.3",
-    "chessground": "8.3.3",
+    "chessground": "^8.3.5",
     "snabbdom": "^3.3.1",
     "lichess-pgn-viewer": "^0.3.11"
   },
