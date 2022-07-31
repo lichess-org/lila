@@ -45,6 +45,9 @@ final class OpeningApi(
           val fams =
             if (mode == Mode.Prod) LilaOpeningFamily.familyList
             else LilaOpeningFamily.familyList take 50
+          /* TODO
+           * ws.url("https://lichess.org/opening").withHttpHeaders("Accept" -> MimeTypes.JSON)
+           */
           fams
             .map(computeFamilyData)
             .sequenceFu

@@ -45,7 +45,7 @@ object family {
         )
         .some
     ) {
-      main(cls := "page box box-pad opening")(
+      main(cls := "page box box-pad opening__family")(
         h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), fam.name.value),
         h2(fam.full.pgn),
         div(
@@ -53,6 +53,7 @@ object family {
           st.data("pgn")   := fam.full.pgn,
           st.data("title") := fam.full.name
         ),
+        h2("Popularity over time"),
         canvas(cls := "opening__popularity"),
         puzzle.map { p =>
           a(cls := "button", href := routes.Puzzle.show(p.family.key.value))("Train with puzzles")

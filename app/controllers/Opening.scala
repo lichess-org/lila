@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc._
 import views.html
 
@@ -12,7 +13,11 @@ final class Opening(env: Env) extends LilaController(env) {
   def index =
     Secure(_.Beta) { implicit ctx => _ =>
       env.opening.api.families map { coll =>
-        Ok(html.opening.index(coll.all))
+        import lila.opening.OpeningFamilyData.familyDataWrite
+        render {
+          case Accepts.Json() => JsonOk(Json.arr(coll.all))
+          case _              => Ok(html.opening.index(coll))
+        }
       }
     }
 

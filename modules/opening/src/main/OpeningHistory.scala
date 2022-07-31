@@ -18,6 +18,6 @@ case class OpeningHistorySegment[A](
 
 object OpeningHistory {
 
-  implicit def segmentJsonRead[A: Reads: Numeric] = Json.reads[OpeningHistorySegment[A]]
-  implicit def segmentJsonWrite                   = Json.writes[OpeningHistorySegment[Float]]
+  implicit def segmentJsonRead[A: Reads: Numeric]   = Json.reads[OpeningHistorySegment[A]]
+  implicit def segmentJsonWrite[A: Writes: Numeric] = Json.writes[OpeningHistorySegment[A]]
 }
