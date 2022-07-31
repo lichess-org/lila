@@ -28,7 +28,7 @@ final private class FishnetOpeningBook(
 
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
     (game.turns < depth.get() && !outOfBook.get(game.id)) ?? {
-      ws.url(config.explorerEndpoint)
+      ws.url(s"${config.explorerEndpoint}/lichess")
         .withQueryStringParameters(
           "variant"     -> game.variant.key,
           "fen"         -> Forsyth.>>(game.chess).value,
