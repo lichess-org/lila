@@ -22,10 +22,12 @@ case class OpeningHistorySegment(
 
   def isEmpty = black == 0 || draws == 0 || white == 0
 
+  lazy val sum = black + draws + white
+
   def perMilOf(all: OpeningHistorySegment) = copy(
-    black = (black * 1000 / all.black),
-    draws = (draws * 1000 / all.draws),
-    white = (white * 1000 / all.white)
+    black = (black * 1000 / all.sum),
+    draws = (draws * 1000 / all.sum),
+    white = (white * 1000 / all.sum)
   )
 }
 
