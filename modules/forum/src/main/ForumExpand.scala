@@ -5,6 +5,7 @@ import scalatags.Text.all._
 
 import lila.common.String.html.richText
 import lila.game.GameTextExpand
+import lila.base.RawHtml
 
 final class ForumTextExpand(gameExpand: GameTextExpand)(implicit
     ec: ExecutionContext
@@ -12,7 +13,9 @@ final class ForumTextExpand(gameExpand: GameTextExpand)(implicit
 
   def one(text: String): Fu[Frag] = gameExpand.fromText(text) map { linkRender =>
     raw {
-      lila.base.RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some)
+      RawHtml.nl2br {
+        RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some)
+      }
     }
   }
 
