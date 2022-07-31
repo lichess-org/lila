@@ -116,25 +116,21 @@ final object RawHtml {
           lazy val url     = (if (isHttp) "http://" else "https://") + allButScheme
           lazy val text    = if (isHttp) url else allButScheme
 
-          if (isTldInternal)
-            sb.append {
+          sb append {
+            if (isTldInternal)
               linkRender.map { _(url, text).render } getOrElse s"""<a href="${if (allButScheme.isEmpty) "/"
                 else allButScheme}">${allButScheme match {
                   case USER_LINK(user) => "@" + user
                   case _               => DOMAIN + allButScheme
                 }}</a>"""
-            }
-          else {
-            val imgHtml = {
+            else {
               if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
               else imgUrl(url)
+            } getOrElse {
+              s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
             }
-            sb.append(
-              imgHtml.getOrElse(
-                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
-              )
-            )
           }
+
           lastAppendIdx = end
         } while (m.find)
 
