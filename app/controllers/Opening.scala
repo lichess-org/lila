@@ -15,7 +15,7 @@ final class Opening(env: Env) extends LilaController(env) {
       env.opening.api.families map { coll =>
         import lila.opening.OpeningFamilyData.familyDataWrite
         render {
-          case Accepts.Json() => JsonOk(Json.arr(coll.all))
+          case Accepts.Json() => JsonOk(coll.all)
           case _              => Ok(html.opening.index(coll))
         }
       }

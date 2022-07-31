@@ -27,7 +27,10 @@ object OpeningFamilyData {
   implicit def familyJsonWrite = Writes[LilaOpeningFamily] { f =>
     Json.obj("name" -> f.full.name, "key" -> f.key.value)
   }
-  implicit def familyDataWrite = Json.writes[OpeningFamilyData]
+  import lila.common.Json.openingFamilyReads
+  implicit def openingSegmentRead = Json.reads[OpeningHistorySegment[Long]]
+  implicit def familyDataRead     = Json.reads[OpeningFamilyData]
+  implicit def familyDataWrite    = Json.writes[OpeningFamilyData]
 }
 
 case class FamilyDataCollection(all: List[OpeningFamilyData]) {

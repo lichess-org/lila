@@ -42,16 +42,24 @@ final class OpeningApi(
     _.refreshAfterWrite(24 hours)
       .buildAsyncFuture {
         loader { _ =>
-          val fams =
-            if (mode == Mode.Prod) LilaOpeningFamily.familyList
-            else LilaOpeningFamily.familyList take 50
-          /* TODO
-           * ws.url("https://lichess.org/opening").withHttpHeaders("Accept" -> MimeTypes.JSON)
-           */
-          fams
-            .map(computeFamilyData)
-            .sequenceFu
-            .map(_.sortBy(-_.nbGames)) map FamilyDataCollection.apply
+          if (mode == Mode.Prod)
+            LilaOpeningFamily.familyList
+              .map(computeFamilyData)
+              .sequenceFu
+              .map(_.sortBy(-_.nbGames)) map FamilyDataCollection.apply
+          else
+            ws.url("https://lichess.dev/opening")
+              .withHttpHeaders("Accept" -> "application/json")
+              .get()
+              .flatMap {
+                case res if res.status != 200 =>
+                  fufail(s"Couldn't reach the opening list: ${res.body take 200}")
+                case res =>
+                  res
+                    .body[JsValue]
+                    .validate[List[OpeningFamilyData]]
+                    .fold(invalid => fufail(invalid.toString), datas => fuccess(FamilyDataCollection(datas)))
+              }
         }
       }
   }
