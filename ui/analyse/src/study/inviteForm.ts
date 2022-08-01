@@ -31,6 +31,7 @@ export function makeCtrl(
   const toggle = () => {
     if (!open()) lichess.pubsub.emit('analyse.close-all');
     open(!open());
+    redraw();
   };
 
   lichess.pubsub.on('analyse.close-all', () => open(false));

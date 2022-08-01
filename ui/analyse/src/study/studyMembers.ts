@@ -292,7 +292,7 @@ export function view(ctrl: StudyCtrl): VNode {
             'div.add',
             {
               key: 'add',
-              hook: bind('click', members.inviteForm.toggle, ctrl.redraw),
+              hook: bind('click', members.inviteForm.toggle),
             },
             [h('div.left', [h('span.status', iconTag('')), h('div.user-link', ctrl.trans.noarg('addMembers'))])]
           )
