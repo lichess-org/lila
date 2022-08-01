@@ -24,12 +24,12 @@ final class OpeningApi(
     explorerEndpoint: String @@ ExplorerEndpoint
 )(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
 
-  def popular: Fu[PopularOpenings] = popularCache.get(())
+  def getPopular: Fu[PopularOpenings] = popularCache.get(())
 
   def find(key: String): Fu[Option[OpeningData.WithAll]] = apply(LilaOpening.Key(key))
 
   def apply(key: LilaOpening.Key): Fu[Option[OpeningData.WithAll]] =
-    popular map {
+    getPopular map {
       _.byKey get key
     } orElse {
       coll.byId[OpeningData](key.value)

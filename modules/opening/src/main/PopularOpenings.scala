@@ -43,7 +43,7 @@ case class PopularOpenings(all: List[OpeningData]) {
       .toList
       .sortBy(-_._2.map(_._2.map(_.nbGames).sum).sum)
 
-  val (treeByMove, treeOthers) = treeList.partition(_._2.size > 2) match {
+  val (treeByMove, treeOthers) = treeList.partition(_._2.map(_._2.size).sum > 10) match {
     case (byMove, others) => byMove -> others.flatMap(_._2).sortBy(-_._2.map(_.nbGames).sum)
   }
 }

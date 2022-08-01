@@ -31,7 +31,7 @@ object index {
             )
           },
           h2("Others"),
-          div(cls := "opening__index__links")(
+          div(cls := "opening__index__others")(
             openings.treeOthers map { case (fam, ops) =>
               familyWithOpenings(fam, ops)
             }
