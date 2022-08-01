@@ -88,10 +88,10 @@ lichess.studyTourChapter = function (study) {
     });
     tour.start();
 
-    lichess.pubsub.on('tour.stop', tour.cancel);
+    lichess.pubsub.on('analyse.close-all', tour.cancel);
 
     Shepherd.once('inactive', _ => {
-      lichess.pubsub.off('tour.stop', tour.cancel);
+      lichess.pubsub.off('analyse.close-all', tour.cancel);
     });
   });
 };

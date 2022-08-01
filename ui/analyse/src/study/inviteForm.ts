@@ -28,18 +28,12 @@ export function makeCtrl(
   const open = prop(false),
     spectators = prop<string[]>([]);
 
-  const toggle = function () {
-    if (!open()) {
-      lichess.pubsub.emit('tour.stop');
-      lichess.pubsub.on('dialog.close', () => {
-        // use toggle to close the dialog
-        if (open()) toggle();
-      });
-    } else {
-      lichess.pubsub.off('dialog.close', close);
-    }
+  const toggle = () => {
+    if (!open()) lichess.pubsub.emit('analyse.close-all');
     open(!open());
   };
+
+  lichess.pubsub.on('analyse.close-all', () => open(false));
 
   const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {
