@@ -49,5 +49,5 @@
   <string name="history">Boshqotirma tarixi</string>
   <string name="solved">yechildi</string>
   <string name="failed">xatolik</string>
-  <string name="fromXGamesFound">%2$s ta o‘yin ichidan %1$s boshqotirmalar topildi</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%2$s ta o‘yin ichidan %1$s boshqotirmalar topildi</string>
 </resources>
