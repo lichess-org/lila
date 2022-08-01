@@ -63,7 +63,7 @@
   <string name="searchPuzzles">Hledat hádanky</string>
   <string name="fromMyGamesNone">V databázi nemáte žádné úlohy, ale Lichess vás stále velmi miluje.
 Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!</string>
-  <string name="fromXGamesFound">%1$s úloh nalezeno v %2$s partiích</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s úloh nalezeno v %2$s partiích</string>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s zahána</item>
