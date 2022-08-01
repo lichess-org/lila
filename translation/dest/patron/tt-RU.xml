@@ -52,7 +52,7 @@
   <string name="update">Яңарту</string>
   <string name="changeMonthlyAmount">Айлык күләмен үзгәртегез (%s)</string>
   <string name="cancelSupport">ярдәмегезне юкка чыгарыгыз</string>
-  <string name="xOrY">%1$s яки %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s яки %2$s</string>
   <string name="decideHowMuch">Lichess сезнең өчен нәрсә кирәклеген хәл итегез:</string>
   <string name="stopPayments">Кредит картаны тартып алыгыз һәм түләүләрне туктатыгыз:</string>
   <string name="noLongerSupport">Инде озак Lichessка булышмый</string>
