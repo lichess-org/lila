@@ -33,6 +33,7 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="history">Historya ng Arena</string>
   <string name="newTeamBattle">Bagong Laban ng Grupo</string>
   <string name="customStartDate">Pasadyang panimulang petsa</string>
+  <string name="customStartDateHelp">Sa sarili mong lokal na timezone. Ino-override nito ang setting na \"Oras bago magsimula ang tournament.\"</string>
   <string name="allowBerserk">Payagan ang Berserk</string>
   <string name="allowBerserkHelp">Hayaan ang mga manlalaro na hatiin ang kanilang clock time para makakuha ng extrang puntos</string>
   <string name="allowChatHelp">Hayaan ang mga manlalaro na mag-usap sa isang chat room</string>
