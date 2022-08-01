@@ -32,7 +32,7 @@
   <string name="update">ଅଦ୍ୟତନ କରନ୍ତୁ</string>
   <string name="changeMonthlyAmount">ମାସିକ ରାଶି ପରିବର୍ତ୍ତନ କର (%s)</string>
   <string name="cancelSupport">ଆପଣଙ୍କ ସମର୍ଥନ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ</string>
-  <string name="xOrY">%1$s ବା %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ବା %2$s</string>
   <string name="decideHowMuch">Lichess ଆପଣଙ୍କ ପାଇଁ କେତେ ମୂଲ୍ୟବାନ ତାହା ସ୍ଥିର କରନ୍ତୁ:</string>
   <string name="stopPayments">ଆପଣଙ୍କ କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ ଏବଂ ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
   <string name="stopPaymentsPayPal">PayPal ସଦସ୍ୟତା ବାତିଲ୍ କରି ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
