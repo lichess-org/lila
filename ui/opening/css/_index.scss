@@ -3,29 +3,32 @@
     h2 {
       margin: 1.8em 0 1em 0;
       border-bottom: 1px solid $c-brag;
-      line-height: 1.5em;
-      padding-bottom: 0.5em;
+      line-height: 1.4em;
+      padding-bottom: 0.3em;
+      font-size: 3em;
     }
     &__sub-tree {
-      @extend %flex-center-nowrap;
-      margin: 0 0 3em 0;
       h3 {
-        flex: 0 0 3em;
         font-size: 2em;
+        line-height: 2em;
       }
     }
     &__links {
       flex: 1 1 auto;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
+      margin: 0 0 3em 2em;
 
       @include breakpoint($mq-not-xx-small) {
         grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
       }
 
-      a {
+      span {
+        overflow: hidden;
+        white-space: nowrap;
         font-size: 1.1em;
         line-height: 1.8em;
+        text-overflow: ellipsis;
       }
     }
   }
