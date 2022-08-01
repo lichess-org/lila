@@ -23,6 +23,8 @@ object show {
   ) = {
     import dataWithAll.{ percent => percentHistory, _ }
     import data.opening
+    val family = opening.ref.variation.isDefined option opening.family
+    val name   = if (family.isDefined) opening.name.value else opening.family.name.value
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = frag(
@@ -34,21 +36,32 @@ object show {
             )})"""
         }
       ),
-      title = s"${trans.opening.txt()} • ${opening.name}",
+      title = s"${trans.opening.txt()} • $name",
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
             s"${routes.Export.fenThumbnail(opening.ref.fen.replace(" ", "_"), chess.White.name, opening.ref.uci.split(" ").lastOption, none).url}"
           ).some,
-          title = opening.name.value,
+          title = name,
           url = s"$netBaseUrl${routes.Opening.show(opening.key.value)}",
           description = opening.ref.pgn
         )
         .some
     ) {
       main(cls := "page box box-pad opening__family")(
-        h1(a(href := routes.Opening.index, dataIcon := "", cls := "text"), opening.name.value),
+        h1(
+          frag(
+            a(href := routes.Opening.index, dataIcon := "", cls := "text"),
+            family.fold(frag(name)) { fam =>
+              frag(
+                a(href := routes.Opening.show(fam.key.value))(fam.name),
+                ": ",
+                opening.variation.name
+              )
+            }
+          )
+        ),
         div(cls := "opening__intro", style := s"--move-rows: ${(opening.nbMoves) + 1}")(
           div(
             cls              := "lpv",

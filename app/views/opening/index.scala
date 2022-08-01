@@ -8,6 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.opening.PopularOpenings
 import lila.opening.OpeningData
 import lila.common.LilaOpeningFamily
+import lila.common.LilaOpening
 
 object index {
 
@@ -43,7 +44,7 @@ object index {
     div(cls := "opening__index__sub-tree")(
       h3(a(href := routes.Opening.show(fam.key.value))(fam.name.value)),
       div(cls := "opening__index__links")(
-        ops map openingLink
+        ops.filter(_.opening.variation != LilaOpening.otherVariations) map openingLink
       )
     )
 

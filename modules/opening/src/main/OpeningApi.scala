@@ -26,13 +26,13 @@ final class OpeningApi(
 
   def popular: Fu[PopularOpenings] = popularCache.get(())
 
-  def find(key: String): Fu[Option[OpeningData.WithAll]] = LilaOpening.find(key) ?? apply
+  def find(key: String): Fu[Option[OpeningData.WithAll]] = apply(LilaOpening.Key(key))
 
-  def apply(op: LilaOpening): Fu[Option[OpeningData.WithAll]] =
+  def apply(key: LilaOpening.Key): Fu[Option[OpeningData.WithAll]] =
     popular map {
-      _.byKey get op.key
+      _.byKey get key
     } orElse {
-      coll.byId[OpeningData](op.key.value)
+      coll.byId[OpeningData](key.value)
     } flatMap {
       _ ?? { opening =>
         allGamesHistory.get(()) map { OpeningData.WithAll(opening, _).some }
@@ -40,7 +40,7 @@ final class OpeningApi(
     }
 
   private val popularCache = cacheApi.unit[PopularOpenings] {
-    _.refreshAfterWrite(1 hour)
+    _.refreshAfterWrite(5 second)
       .buildAsyncFuture { _ =>
         import OpeningData.openingDataHandler
         coll.find($empty).sort($sort desc "nbGames").cursor[OpeningData]().list(500) map PopularOpenings
@@ -52,13 +52,12 @@ final class OpeningApi(
 
   private def addMissingOpenings: Funit =
     coll.distinctEasy[String, Set]("_id", $empty) flatMap { existingIds =>
-      val missingKeys = LilaOpening.openings.keySet diff existingIds.map(LilaOpening.Key)
-      lila.common.Future.applySequentially(missingKeys.toList) { key =>
-        LilaOpening(key) ?? { op =>
-          coll.insert
-            .one(OpeningData(key, op, Nil, DateTime.now minusYears 1, nbGames = 0, Markdown("")))
-            .void
-        }
+      val missingOpenings =
+        LilaOpening.openingList.filterNot(op => existingIds.contains(op.familyKeyOrKey.value))
+      lila.common.Future.applySequentially(missingOpenings) { op =>
+        coll.insert
+          .one(OpeningData(op.familyKeyOrKey, op, Nil, DateTime.now minusYears 1, nbGames = 0, Markdown("")))
+          .void
       }
     }
 

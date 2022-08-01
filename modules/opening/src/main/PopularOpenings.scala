@@ -5,7 +5,10 @@ import lila.common.LilaOpeningFamily
 
 case class PopularOpenings(all: List[OpeningData]) {
 
-  val byKey: Map[LilaOpening.Key, OpeningData] = all.view.map { d => d.key -> d }.toMap
+  val byKey: Map[LilaOpening.Key, OpeningData] =
+    all.view.map { d =>
+      d.key -> d
+    }.toMap
 
   type Move     = String
   type TreeMap  = Map[Move, Map[LilaOpeningFamily, List[OpeningData]]]
@@ -15,8 +18,7 @@ case class PopularOpenings(all: List[OpeningData]) {
   val treeMap: TreeMap =
     all
       .filter { op =>
-        op.opening.nbMoves > 1 &&
-        op.opening.variation != LilaOpening.otherVariations
+        op.opening.nbMoves > 1
       }
       .foldLeft(Map.empty: TreeMap) { case (tree, d) =>
         d.opening.ref.pgn.split(' ').drop(1).headOption.fold(tree) { move =>

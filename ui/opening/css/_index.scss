@@ -16,11 +16,12 @@
     &__links {
       flex: 1 1 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+      gap: 0 1ch;
       margin: 0 0 3em 2em;
 
       @include breakpoint($mq-not-xx-small) {
-        grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
       }
 
       span {
