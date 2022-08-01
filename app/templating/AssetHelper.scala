@@ -91,6 +91,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", assets),
+      fontSrc = List("'self'", assets),
       baseUri = List("'none'")
     )
   }

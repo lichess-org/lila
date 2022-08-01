@@ -15,7 +15,7 @@
   "dependencies": {
     "chart.js": "^3.8",
     "common": "2.0.0",
-    "lichess-pgn-viewer": "^0.3.11"
+    "lichess-pgn-viewer": "^1"
   },
   "scripts": {
     "dev": "rollup --config",
