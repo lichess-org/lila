@@ -18,7 +18,7 @@
   <string name="notEnoughGames">Խաղացված պարտիաների քանակն անբավարար է</string>
   <string name="highestRating">Բարձրագույն վարկանիշ` %s</string>
   <string name="lowestRating">Ցածրագույն վարկանիշ` %s</string>
-  <string name="fromXToY">%1$s-ից %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">%1$s-ից %2$s</string>
   <string name="winningStreak">Անընդմեջ հաղթանակներ</string>
   <string name="losingStreak">Անընդմեջ պարտություններ</string>
   <string name="longestStreak">Ամենաերկար շարքը` %s</string>
