@@ -48,7 +48,7 @@
   <string name="onlyContributorsCanRequestAnalysis">പഠനത്തിൽ സംഭാവന ചെയ്തവർക്ക് മാത്രമേ കമ്പ്യൂട്ടർ വിശകലനം ചെയ്യാൻ സാധിക്കുകയുള്ളൂ.</string>
   <string name="getAFullComputerAnalysis">സെർവർ-സൈഡിൽ ഉള്ള കമ്പ്യൂട്ടറിന്റെ സഹായത്താൽ പ്രധാന ലൈനിന്റെ പൂർണ വിശകലനം ലഭിക്കുക.</string>
   <string name="makeSureTheChapterIsComplete">പാഠം മുഴുവനായെന്ന് ഉറപ്പു വരുത്തുക. നിങ്ങൾക്ക് ഒരിക്കൽ മാത്രമേ വിശകലനത്തിന് അപേക്ഷിക്കാൻ സാധിക്കുകയുള്ളൂ.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">എല്ലാ sync ചെയ്ത അംഗങ്ങളും ഒരേ പൊസിഷനിൽ സ്ഥിതി ചെയ്യുക</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">എല്ലാ sync ചെയ്ത അംഗങ്ങളും ഒരേ പൊസിഷനിൽ സ്ഥിതി ചെയ്യുക</string>
   <string name="shareChanges">മാറ്റങ്ങൾ സെർവറിൽ സേവ് ചെയ്ത് അവ കാണികൾക്ക് പങ്കുവെക്കുക</string>
   <string name="playing">കളിക്കുന്നു</string>
   <string name="first">ഒന്നാമത്തെ</string>
