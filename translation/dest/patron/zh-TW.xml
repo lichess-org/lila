@@ -45,7 +45,7 @@
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">更改每月的金額 (%s)</string>
   <string name="cancelSupport">取消贊助</string>
-  <string name="xOrY">%1$s 或 %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s 或 %2$s</string>
   <string name="decideHowMuch">決定 Lichess 對你來說有什麼價值：</string>
   <string name="stopPayments">提取您的信用卡並停止付款：</string>
   <string name="stopPaymentsPayPal">取消PayPal 訂閱並停止付款</string>
