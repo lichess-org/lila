@@ -92,7 +92,8 @@ final class OpeningApi(
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(
         (List(
-          "since" -> OpeningData.firstMonth
+          "since" -> OpeningData.firstMonth,
+          "until" -> OpeningData.lastMonth
         ) ::: op.map(o => "fen" -> o.ref.fen).orElse(Some("play" -> "")).toList,
         ): _*
       )

@@ -1,6 +1,7 @@
 package lila.opening
 
 import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 
 import lila.common.LilaOpening
 import lila.common.Markdown
@@ -36,4 +37,9 @@ object OpeningData {
 
   val firstYear  = 2016
   val firstMonth = s"$firstYear-01"
+  def lastMonth =
+    DateTimeFormat forPattern "yyyy-MM" print {
+      val now = DateTime.now
+      if (now.dayOfMonth.get > 7) now else now.minusMonths(1)
+    }
 }
