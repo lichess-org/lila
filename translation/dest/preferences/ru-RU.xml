@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Удерживайте клавишу &lt;ctrl&gt; во время превращения, чтобы временно отключить автопревращение в ферзя</string>
   <string name="whenPremoving">Когда сделан предварительный ход</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Когда остаётся меньше 30 секунд</string>
   <string name="moveConfirmation">Подтверждение хода</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
