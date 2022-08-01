@@ -23,7 +23,7 @@ object msg {
             )})"""
         )
       ),
-      title = "Lichess Inbox"
+      title = trans.inbox.txt(),
     ) {
       main(cls := "box msg-app")
     }
