@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Just Etüden Matwierkender kënnen eng Computer Analyse ufroen.</string>
   <string name="getAFullComputerAnalysis">Vollstänneg serversäiteg Computeranalyse vun der Haaptvariant erhalen.</string>
   <string name="makeSureTheChapterIsComplete">Stell sécher dass d\'Kapitel vollstänneg ass. Du kanns eng Analyse just eemol ufroen.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">All SYNC Memberen gesinn déi selwecht Positioun</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">All SYNC Memberen gesinn déi selwecht Positioun</string>
   <string name="shareChanges">Deel Ännerungen mat den Zuschauer an späicher se um Server</string>
   <string name="playing">Lafend Partie</string>
   <string name="first">Éischt Säit</string>
