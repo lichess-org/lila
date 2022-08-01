@@ -265,7 +265,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
       });
       return h('div', [
         h('h3', `${color} pieces`),
-        ...lists
+        lists
           .map(
             l =>
               `${l[0]}: ${l
