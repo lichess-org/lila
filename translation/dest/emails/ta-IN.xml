@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">உங்கள் lichess.org கணக்கை உறுதிசெய்க, %s</string>
+  <string name="emailConfirm_subject" comment="emailConfirm_subject&#10;&#10;%s is the player's username.&#10;Please do NOT transcribe 'lichess.org', it should be kept exactly as it is written.">உங்கள் lichess.org கணக்கை உறுதிசெய்க, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">உங்கள் Lichess கணக்கை செயல்படுத்த இந்த இணைப்பை கிளிக் செய்க:</string>
   <string name="emailConfirm_ignore">நீங்கள் Lichess உடன் பதிவு செய்யவில்லை என்றால், இந்த மின்னஞ்சலை கவலையின்றி புறக்கணிக்கலாம்.</string>
   <string name="passwordReset_subject">உங்கள் lichess.org கடவுச்சொல்லை மீட்டமைக்க, %s</string>
