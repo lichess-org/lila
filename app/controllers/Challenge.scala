@@ -16,6 +16,7 @@ import lila.oauth.{ AccessToken, OAuthScope }
 import lila.setup.ApiConfig
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
+import play.api.mvc.RequestHeader
 
 final class Challenge(
     env: Env,
@@ -221,7 +222,7 @@ final class Challenge(
                   get("opponentToken", req).map(Bearer.apply) match {
                     case None => BadRequest(jsonError("The game can no longer be aborted")).fuccess
                     case Some(bearer) =>
-                      env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write)) map {
+                      env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
                         case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
                           lila.common.Bus.publish(Tell(id, AbortForce), "roundSocket")
                           jsonOkResult
@@ -379,10 +380,11 @@ final class Challenge(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
       strToken: String
-  )(managedBy: lila.user.User, message: Option[Template]) =
+  )(managedBy: lila.user.User, message: Option[Template])(implicit req: RequestHeader) =
     env.oAuth.server.auth(
       Bearer(strToken),
-      List(lila.oauth.OAuthScope.Challenge.Write)
+      List(lila.oauth.OAuthScope.Challenge.Write),
+      req.some
     ) flatMap {
       _.fold(
         err => BadRequest(jsonError(err.message)).fuccess,

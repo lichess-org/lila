@@ -30,7 +30,7 @@ final class OAuthServer(
           case None => fufail(NoSuchUser)
           case Some(u) =>
             andLogReq foreach { req =>
-              logger.info(s"auth ${u.username} ${HTTPRequest print req} by ${at}")
+              logger.info(s"auth ${u.username} ${HTTPRequest print req} by ${at.clientOrigin | "?"}")
             }
             fuccess(OAuthScope.Scoped(u, at.scopes))
         }

@@ -30,7 +30,7 @@ object AccessToken {
     def from(bearer: Bearer) = Id(Algo.sha256(bearer.secret).hex)
   }
 
-  case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
+  case class ForAuth(userId: User.ID, scopes: List[OAuthScope], clientOrigin: Option[String])
 
   object BSONFields {
     val id           = "_id"
@@ -50,8 +50,9 @@ object AccessToken {
   import OAuthScope.scopeHandler
 
   private[oauth] val forAuthProjection = $doc(
-    BSONFields.userId -> true,
-    BSONFields.scopes -> true
+    BSONFields.userId       -> true,
+    BSONFields.scopes       -> true,
+    BSONFields.clientOrigin -> true
   )
 
   implicit private[oauth] val idHandler     = stringAnyValHandler[Id](_.value, Id.apply)
@@ -62,7 +63,8 @@ object AccessToken {
       for {
         userId <- doc.getAsTry[User.ID](BSONFields.userId)
         scopes <- doc.getAsTry[List[OAuthScope]](BSONFields.scopes)
-      } yield ForAuth(userId, scopes)
+        origin = doc.getAsOpt[String](BSONFields.clientOrigin)
+      } yield ForAuth(userId, scopes, origin)
   }
 
   implicit val AccessTokenBSONHandler = new BSON[AccessToken] {
