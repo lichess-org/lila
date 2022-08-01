@@ -29,7 +29,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Зөвхөн судалгааны хувь нэмэр оруулагчид компьютерийн шинжилгээ хийлгэх хүсэлт гаргаж болно.</string>
   <string name="getAFullComputerAnalysis">Үндсэн шугамын сервер талын компьютерийн анализ хийх.</string>
   <string name="makeSureTheChapterIsComplete">Бүлэг дууссан эсэхийг шалгаарай. Та зөвхөн нэг удаа шинжилгээг хүсч болно.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">СССК-ийн бүх гишүүд ижил байрлалд байна</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">СССК-ийн бүх гишүүд ижил байрлалд байна</string>
   <string name="shareChanges">Сонирхогчдын өөрчлөлтийг хуваалцаж, тэднийг сервер дээр хадгалах</string>
   <string name="playing">Тоглож байна</string>
   <string name="first">Нэгтэх</string>
