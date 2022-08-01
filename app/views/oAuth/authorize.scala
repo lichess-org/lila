@@ -68,7 +68,7 @@ object authorize {
             a(href := prompt.cancelUrl)("Cancel"),
             submitButton(
               cls      := s"$buttonClass disabled",
-              dataIcon := isDanger.option(""),
+              dataIcon := isDanger.option(""),
               disabled := true,
               id       := "oauth-authorize",
               title := s"The website ${prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"

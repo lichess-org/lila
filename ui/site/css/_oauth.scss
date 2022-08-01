@@ -50,7 +50,7 @@
         @extend %data-icon;
         font-size: 1.5em;
         margin-#{$end-direction}: 0.2em;
-        content: '';
+        content: '';
         color: $c-bad-over;
       }
     }
