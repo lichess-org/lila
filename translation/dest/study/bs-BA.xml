@@ -52,7 +52,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Samo saradnici u studiji mogu zahtijevati računarsku analizu.</string>
   <string name="getAFullComputerAnalysis">Dobijte potpunu serversku analizu glavne varijacije.</string>
   <string name="makeSureTheChapterIsComplete">Budite sigurni da je poglavlje gotovo. Računarsku analizu možete zahtjevati samo jednom.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Svi sinhronizovani članovi ostaju na istoj poziciji</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Svi sinhronizovani članovi ostaju na istoj poziciji</string>
   <string name="shareChanges">Podijelite promjene sa posmatračima i sačuvajte ih na server</string>
   <string name="playing">U toku</string>
   <string name="first">Prva strana</string>
