@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Nav spēlēts pietiekami spēļu</string>
   <string name="highestRating">Augstākais reitings: %s</string>
   <string name="lowestRating">Zemākais reitings: %s</string>
-  <string name="fromXToY">no %1$s līdz %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">no %1$s līdz %2$s</string>
   <string name="winningStreak">Uzvaras pēc kārtas</string>
   <string name="losingStreak">Zaudējumi pēc kārtas</string>
   <string name="longestStreak">Garākā sērija: %s</string>
