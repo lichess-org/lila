@@ -14,7 +14,7 @@
   <string name="fullDescription">תיאור מלא של הטורניר</string>
   <string name="fullDescriptionHelp">תיאור מפורט של הטורניר (אופציונאלי). %1$s זמין. אורך התיאור לא יעלה על %2$s תווים.</string>
   <string name="sourceUrlOrGameIds">קישור למקור (URL) או מזהה המשחקים (IDs)</string>
-  <string name="sourceUrlHelp">הקישור שאנחנו בליצ׳ס נבדוק כדי לקלוט עדכונים ב-PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
+  <string name="sourceUrlHelp">הקישור שאנחנו בלִיצֶ\'ס נבדוק כדי לקלוט עדכונים ב-PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
   <string name="gameIdsHelp">לחלופין, ניתן להזין עד 64 IDs של משחקי ליצ׳ס, מופרדים ברווחים.</string>
   <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
   <string name="startDateHelp">אופציונאלי, אם אתה יודע מתי האירוע צפוי להתחיל</string>
