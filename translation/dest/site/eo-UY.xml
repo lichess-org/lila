@@ -89,6 +89,7 @@
     <item quantity="one">Mato post %s duonmovo</item>
     <item quantity="other">Mato post %s duonmovoj</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" kun rondigo, bazita en nombro de inter-movoj ĝis sekva kapto aŭ peona movo</string>
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
@@ -96,6 +97,9 @@
   <string name="xOpeningExplorer">%s esplorilo de malfermoj</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la regulo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la regulo pri 50-movoj</string>
+  <string name="winOr50MovesByPriorMistake">Venko aŭ 50 movoj de antaŭa eraro</string>
+  <string name="lossOr50MovesByPriorMistake">Malvenko aŭ 50 movoj de antaŭa eraro</string>
+  <string name="unknownDueToRounding">Venko/Malvenko nur garantiita se rekomendataj movoj estis sekvitaj de la lasta movo aŭ peona movo, pro ebla rondigo.</string>
   <string name="allSet">Preta!</string>
   <string name="importPgn">Importi PGN</string>
   <string name="delete">Forigi</string>
@@ -344,9 +348,11 @@
   <string name="apply">Apliki</string>
   <string name="save">Konservi</string>
   <string name="leaderboard">Sukcesotabulo</string>
+  <string name="screenshotCurrentPosition">Ekrankopii nunan pozicion</string>
   <string name="gameAsGIF">Ludo kiel GIF</string>
   <string name="pasteTheFenStringHere">Glui la FEN-ĉenon ĉi tie</string>
   <string name="pasteThePgnStringHere">Glui la PGN-ĉenon ĉi tie</string>
+  <string name="orUploadPgnFile">Aŭ alŝuti PGN-dosieron</string>
   <string name="fromPosition">De pozicio</string>
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
   <string name="toStudy">Studo</string>
@@ -458,6 +464,10 @@
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
+  <string name="savingMoves">Dumtempa konservejo de movoj</string>
+  <string name="savingMovesHelp">Ni ĉiam konservas viajn variojn en via retumila kaŝmemoro.</string>
+  <string name="makeAStudy">Por konservado kaj kunhavigo, konsideru fari studon.</string>
+  <string name="clearSavedMoves">Forigi movojn</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
