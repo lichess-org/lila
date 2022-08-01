@@ -17,23 +17,24 @@ object authorize {
     src := assetUrl("images/icons/linked-rings.png")
   )
 
-  def footer(redirectUrl: String) = div(cls := "oauth__footer")(
-    p(
-      "Not owned or operated by lichess.org"
-    ),
+  def footer(redirectUrl: String, isDanger: Boolean) = div(cls := "oauth__footer")(
+    p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org"),
     p(cls := "oauth__redirect")(
       "Will redirect to ",
       redirectUrl
     )
   )
 
-  def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(implicit ctx: Context) =
+  def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(implicit ctx: Context) = {
+    val isDanger    = prompt.maybeScopes.exists(OAuthScope.dangerList.contains)
+    val buttonClass = s"button${isDanger ?? " button-red confirm text"}"
+    val buttonDelay = if (isDanger) 5000 else 2000
     views.html.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth"),
       moreJs = embedJsUnsafe(
         // ensure maximum browser compatibility
-        """setTimeout(function(){var el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.setAttribute('class','button')}, 2000);"""
+        s"""setTimeout(function(){var el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.setAttribute('class','$buttonClass')}, $buttonDelay);"""
       ),
       csp = defaultCsp.withLegacyCompatibility.some
     ) {
@@ -58,17 +59,24 @@ object authorize {
               prompt.maybeScopes map { scope =>
                 li(
                   cls := List(
-                    "danger" -> (scope == OAuthScope.Web.Mod || scope == OAuthScope.Web.Login)
+                    "danger" -> OAuthScope.dangerList(scope)
                   )
                 )(scope.name)
               }
             ),
           form3.actions(
             a(href := prompt.cancelUrl)("Cancel"),
-            submitButton(cls := "button disabled", disabled := true, id := "oauth-authorize")("Authorize")
+            submitButton(
+              cls      := s"$buttonClass disabled",
+              dataIcon := isDanger.option(""),
+              disabled := true,
+              id       := "oauth-authorize",
+              title := s"The website ${prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
+            )("Authorize")
           ),
-          footer(prompt.redirectUri.withoutQuery)
+          footer(prompt.redirectUri.withoutQuery, isDanger)
         )
       )
     }
+  }
 }
