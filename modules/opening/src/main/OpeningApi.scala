@@ -24,10 +24,28 @@ final class OpeningApi(
     explorerEndpoint: String @@ ExplorerEndpoint
 )(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
 
-  import OpeningData.openingDataHandler
+  def popular: Fu[PopularOpenings] = popularCache.get(())
 
-  def popular: Fu[PopularOpenings] =
-    coll.find($empty).sort($sort desc "nbGames").cursor[OpeningData]().list(500) map PopularOpenings
+  def find(key: String): Fu[Option[OpeningData.WithAll]] = LilaOpening.find(key) ?? apply
+
+  def apply(op: LilaOpening): Fu[Option[OpeningData.WithAll]] =
+    popular map {
+      _.byKey get op.key
+    } orElse {
+      coll.byId[OpeningData](op.key.value)
+    } flatMap {
+      _ ?? { opening =>
+        allGamesHistory.get(()) map { OpeningData.WithAll(opening, _).some }
+      }
+    }
+
+  private val popularCache = cacheApi.unit[PopularOpenings] {
+    _.refreshAfterWrite(1 hour)
+      .buildAsyncFuture { _ =>
+        import OpeningData.openingDataHandler
+        coll.find($empty).sort($sort desc "nbGames").cursor[OpeningData]().list(500) map PopularOpenings
+      }
+  }
 
   private[opening] def updateOpenings: Funit =
     addMissingOpenings >> updateHistories
@@ -68,18 +86,6 @@ final class OpeningApi(
       .result
       .void
   }
-
-  def find(key: String): Fu[Option[OpeningData.WithAll]] =
-    LilaOpening.find(key) ?? apply
-
-  def apply(op: LilaOpening): Fu[Option[OpeningData.WithAll]] =
-    coll.byId[OpeningData](op.key.value) flatMap {
-      _ ?? { opening =>
-        allGamesHistory.get(()) map {
-          OpeningData.WithAll(opening, _).some
-        }
-      }
-    }
 
   private val allGamesHistory = cacheApi.unit[List[OpeningHistorySegment[Int]]] {
     _.refreshAfterWrite(1 hour)
