@@ -61,7 +61,7 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="update">Aggiorna</string>
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>
   <string name="cancelSupport">annulla il tuo supporto</string>
-  <string name="xOrY">%1$s oppure %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s oppure %2$s</string>
   <string name="decideHowMuch">Decidi cosa vale per te in Lichess:</string>
   <string name="stopPayments">Rimuovi la tua carta di credito e ferma i pagamenti:</string>
   <string name="stopPaymentsPayPal">Annulla l\'abbonamento a PayPal e interrompi i pagamenti:</string>
