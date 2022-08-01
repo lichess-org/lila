@@ -24,6 +24,7 @@ object msg {
         )
       ),
       title = trans.inbox.txt(),
+      csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "box msg-app")
     }
