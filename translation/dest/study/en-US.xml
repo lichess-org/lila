@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Only the study contributors can request a computer analysis.</string>
   <string name="getAFullComputerAnalysis">Get a full server-side computer analysis of the mainline.</string>
   <string name="makeSureTheChapterIsComplete">Make sure the chapter is complete. You can only request analysis once.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">All SYNC members remain on the same position</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">All SYNC members remain on the same position</string>
   <string name="shareChanges">Share changes with spectators and save them on the server</string>
   <string name="playing">Playing</string>
   <string name="first">First</string>
