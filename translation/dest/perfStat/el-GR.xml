@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Δεν έχουν παιχτεί αρκετές παρτίδες</string>
   <string name="highestRating">Υψηλότερη βαθμολογία: %s</string>
   <string name="lowestRating">Χαμηλότερη βαθμολογία: %s</string>
-  <string name="fromXToY">από %1$s έως %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">από %1$s έως %2$s</string>
   <string name="winningStreak">Συνεχόμενες νίκες</string>
   <string name="losingStreak">Συνεχόμενες ήττες</string>
   <string name="longestStreak">Μεγαλύτερο Σερί: %s</string>
