@@ -7,7 +7,7 @@ export default function makeRenderers(trans: Trans): Renderers {
   return {
     streamStart: {
       html: n =>
-        generic(n, '/streamer/' + n.content.sid, '\ue006', [
+        generic(n, `/streamer/${n.content.sid}/redirect`, '\ue006', [
           h('span', [h('strong', n.content.name), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -23,7 +23,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     mention: {
       html: n =>
-        generic(n, '/forum/redirect/post/' + n.content.postId, '', [
+        generic(n, `/forum/redirect/post/${n.content.postId}`, '', [
           h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
           h('span', trans('mentionedYouInX', n.content.topic)),
         ]),
