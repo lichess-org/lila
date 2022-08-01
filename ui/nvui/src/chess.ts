@@ -255,7 +255,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
   return h(
     'div',
     ['white', 'black'].map(color => {
-      const lists: any = [];
+      const lists: string[][] = [];
       ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
         const keys = [];
         for (const [key, piece] of pieces) {
@@ -267,7 +267,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
         h('h3', `${color} pieces`),
         ...lists
           .map(
-            (l: any) =>
+            l =>
               `${l[0]}: ${l
                 .slice(1)
                 .map((k: string) => renderKey(k, style))
