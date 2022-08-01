@@ -60,7 +60,7 @@ Edo %s.</string>
   <string name="update">Eguneratu</string>
   <string name="changeMonthlyAmount">Hileroko kopurua aldatu (%s)</string>
   <string name="cancelSupport">zure babesa ezeztatu</string>
-  <string name="xOrY">%1$s edo %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s edo %2$s</string>
   <string name="decideHowMuch">Erabaki zenbat balio duen Lichessek zuretzat:</string>
   <string name="stopPayments">Kendu zure kreditu txartela eta ordainketa egiteari utzi:</string>
   <string name="stopPaymentsPayPal">Bertan behera utzi PayPal bidezko harpidetza eta utzi ordaintzeari:</string>
