@@ -240,7 +240,7 @@ final class Challenge(
       import cats.implicits._
       val scopes = List(OAuthScope.Challenge.Write)
       (get("token1", req) map Bearer.apply, get("token2", req) map Bearer.apply).mapN {
-        env.oAuth.server.authBoth(scopes)
+        env.oAuth.server.authBoth(scopes, req)
       } ?? {
         _ flatMap {
           case Left(e) => handleScopedFail(scopes, e)
