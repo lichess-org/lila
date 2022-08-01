@@ -246,7 +246,7 @@ function controls(ctrl: AnalyseCtrl) {
                         },
                       })
                     : null,
-                  ctrl.persistence?.isDirty
+                  ctrl.persistence
                     ? h('button.fbt.persistence', {
                         attrs: {
                           title: noarg('savingMoves'),
