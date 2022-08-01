@@ -11,7 +11,7 @@ export default class Persistence {
   moveDb?: ObjectStorage<AnalyseState>;
 
   constructor(readonly ctrl: AnalyseCtrl, open: boolean) {
-    this.open(open);
+    this.open(open && this.autoOpen());
   }
 
   toggleOpen(v?: boolean) {
