@@ -17,6 +17,8 @@
   <string name="stalemate">Tabla</string>
   <string name="white">Puti</string>
   <string name="black">Itim</string>
+  <string name="asWhite">Bilang puti</string>
+  <string name="asBlack">Bilang itim</string>
   <string name="randomColor">Ibat-ibang panig</string>
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
@@ -168,6 +170,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s oras</item>
     <item quantity="other">%s mga oras</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minuto</item>
   </plurals>
   <string name="time">Oras</string>
   <string name="rating">Marka</string>
@@ -330,8 +336,11 @@
   <string name="apply">Isumite</string>
   <string name="save">I-save</string>
   <string name="leaderboard">Board ng Pinuno</string>
+  <string name="screenshotCurrentPosition">Screenshot kasalukuyang posisyon</string>
+  <string name="gameAsGIF">Laro Bilang GIF</string>
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
+  <string name="orUploadPgnFile">O mag upload ng PGN file</string>
   <string name="fromPosition">Mula sa posisyon</string>
   <string name="continueFromHere">Magpatuloy mula dito</string>
   <string name="toStudy">Pagaralan</string>
@@ -407,6 +416,8 @@
   <string name="tournamentIsStarting">Mag sisimula na yung torneo</string>
   <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
+  <string name="pause">I-hinto</string>
+  <string name="resume">Ipatuloy</string>
   <string name="youArePlaying">Ikaw ay naglalaro!</string>
   <string name="winRate">Porsyento na manalo</string>
   <string name="berserkRate">Porsyento na magberserk</string>
@@ -439,6 +450,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa O watawat</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
+  <string name="oneUrlPerLine">Isang URL kada linya.</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
   <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
   <string name="onlinePlayers">Mga online na manlalaro</string>
