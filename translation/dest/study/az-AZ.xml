@@ -49,7 +49,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Yalnız çalışma iştirakçıları kompüter təhlili tələb edə bilər.</string>
   <string name="getAFullComputerAnalysis">Ana variant üçün serverdən hərtərəfli kompüter təhlilini alın.</string>
   <string name="makeSureTheChapterIsComplete">Fəslin tamamlandığına əmin olun. Yalnız bir dəfə təhlil tələbi edə bilərsiniz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni pozisiyada qalır</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni pozisiyada qalır</string>
   <string name="shareChanges">Dəyişiklikləri tamaşaçılarla paylaşın və onları serverdə saxlayın</string>
   <string name="playing">Oynanılan</string>
   <string name="first">İlk</string>
