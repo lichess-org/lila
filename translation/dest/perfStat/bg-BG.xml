@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Не са играни достатъчно игри</string>
   <string name="highestRating">Най-висок рейтинг: %s</string>
   <string name="lowestRating">Най-нисък рейтинг: %s</string>
-  <string name="fromXToY">от %1$s до %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">от %1$s до %2$s</string>
   <string name="winningStreak">Печеливша поредица</string>
   <string name="losingStreak">Губеща поредица</string>
   <string name="longestStreak">Най-дълга поредица: %s</string>
