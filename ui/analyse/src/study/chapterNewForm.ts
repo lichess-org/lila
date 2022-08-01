@@ -73,12 +73,16 @@ export function ctrl(
   }
 
   function open() {
+    // end tour and prepare to close if asked
+    lichess.pubsub.on('dialog.close', close);
     lichess.pubsub.emit('tour.stop');
+
     vm.open = true;
     loadVariants();
     vm.initial(false);
   }
   function close() {
+    lichess.pubsub.off('dialog.close', close);
     lichess.pubsub.emit('tour.stop');
     vm.open = false;
   }
