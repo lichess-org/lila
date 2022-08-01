@@ -50,7 +50,7 @@
   <string name="update">Dagfør</string>
   <string name="changeMonthlyAmount">Broyt mánaðarligu upphæddina (%s)</string>
   <string name="cancelSupport">strika stuðul tín</string>
-  <string name="xOrY">%1$s ella %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ella %2$s</string>
   <string name="decideHowMuch">Ger av, hvussu nógv Lichess er vert fyri teg:</string>
   <string name="stopPayments">Tak keypskortið aftur og steðga gjaldingum:</string>
   <string name="noLongerSupport">Stuðla ikki Lichess longur</string>
