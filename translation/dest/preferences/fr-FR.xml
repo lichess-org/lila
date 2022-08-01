@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Maintenez la touche &lt;ctrl&gt; enfoncée lors de la promotion pour désactiver temporairement l\'auto-promotion</string>
   <string name="whenPremoving">Lors d\'un pré-coup</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="correspondenceAndUnlimited">Correspondance et illimité</string>
