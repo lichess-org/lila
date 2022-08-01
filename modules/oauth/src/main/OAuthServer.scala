@@ -3,14 +3,16 @@ package lila.oauth
 import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Result }
 
-import lila.common.{ Bearer, HTTPRequest }
+import lila.common.{ Bearer, HTTPRequest, Strings }
 import lila.db.dsl._
+import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
     tokenApi: AccessTokenApi,
     userRepo: UserRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    originBlocklist: SettingStore[Strings]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import OAuthServer._
@@ -29,10 +31,15 @@ final class OAuthServer(
         userRepo enabledById at.userId flatMap {
           case None => fufail(NoSuchUser)
           case Some(u) =>
+            val blocked =
+              at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
             andLogReq foreach { req =>
-              logger.info(s"auth ${u.username} ${HTTPRequest print req} by ${at.clientOrigin | "?"}")
+              logger.info(
+                s"${if (blocked) "block" else "auth"} ${at.clientOrigin | "?"} as @${u.username} ${HTTPRequest print req}"
+              )
             }
-            fuccess(OAuthScope.Scoped(u, at.scopes))
+            if (blocked) fufail(OriginBlocked)
+            else fuccess(OAuthScope.Scoped(u, at.scopes))
         }
     } dmap Right.apply recover { case e: AuthError =>
       Left(e)
@@ -61,6 +68,7 @@ object OAuthServer {
   case class MissingScope(scopes: List[OAuthScope])    extends AuthError("Missing scope")
   case object NoSuchUser                               extends AuthError("No such user")
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
+  case object OriginBlocked        extends AuthError("Origin blocked")
 
   def responseHeaders(acceptedScopes: Seq[OAuthScope], availableScopes: Seq[OAuthScope])(
       res: Result
