@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Net genug gewäert Partien</string>
   <string name="highestRating">Héchste Wäertungszuel: %s</string>
   <string name="lowestRating">Niddregst Wäertungszuel: %s</string>
-  <string name="fromXToY">Vun %1$s bis %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">Vun %1$s bis %2$s</string>
   <string name="winningStreak">Erfollegsserie</string>
   <string name="losingStreak">Verloschserie</string>
   <string name="longestStreak">Längsten Erfollegserie: %s</string>
