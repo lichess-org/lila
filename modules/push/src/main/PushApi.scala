@@ -253,7 +253,7 @@ final private class PushApi(
           body = target.text,
           stacking = Stacking.StreamStart,
           payload = Json.obj(
-            "userId"   -> streamerId,
+            "userId"   -> target.userId,
             "userData" -> Json.obj("type" -> "streamStart", "streamerId" -> streamerId)
           )
         )
