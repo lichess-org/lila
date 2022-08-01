@@ -16,12 +16,12 @@ object create {
       data: lila.study.StudyForm.importGame.Data,
       owner: List[Study.IdName],
       contrib: List[Study.IdName],
-      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
+      backUrl: Option[String]
   )(implicit ctx: Context) =
     views.html.site.message(
       title = trans.toStudy.txt(),
       icon = Some(""),
-      back = data.fen.map(fen => editorUrl(fen, data.variant | chess.variant.Variant.default)),
+      back = backUrl,
       moreCss = cssTag("study.create").some
     ) {
       div(cls := "study-create")(
