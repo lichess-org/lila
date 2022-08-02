@@ -61,7 +61,7 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="update">Oppdater</string>
   <string name="changeMonthlyAmount">Endre månedlig sum (%s)</string>
   <string name="cancelSupport">Avbryt støtten din</string>
-  <string name="xOrY">%1$s eller %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s eller %2$s</string>
   <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljer og stopp faste innbetalinger:</string>
   <string name="stopPaymentsPayPal">Avslutt PayPal-abonnement og stans betalinger:</string>

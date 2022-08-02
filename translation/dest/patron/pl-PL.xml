@@ -65,7 +65,7 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="update">Aktualizuj</string>
   <string name="changeMonthlyAmount">Zmień miesięczną kwotę (%s)</string>
   <string name="cancelSupport">anuluj wsparcie</string>
-  <string name="xOrY">%1$s lub %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s lub %2$s</string>
   <string name="decideHowMuch">Zdecyduj ile wart jest dla Ciebie Lichess:</string>
   <string name="stopPayments">Wypłać swoją kartę płatniczą i zatrzymaj płatności:</string>
   <string name="stopPaymentsPayPal">Anuluj subskrypcję PayPal i zatrzymaj płatności:</string>

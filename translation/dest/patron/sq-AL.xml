@@ -61,7 +61,7 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="update">Përditësoje</string>
   <string name="changeMonthlyAmount">Ndryshoni shumën mujore (%s)</string>
   <string name="cancelSupport">anuloni përkrahjen tuaj</string>
-  <string name="xOrY">%1$s ose %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ose %2$s</string>
   <string name="decideHowMuch">Vendosni se sa vlen Lichess-i për ju:</string>
   <string name="stopPayments">Hiqeni kartën tuaj të kreditit dhe ndalni pagesat:</string>
   <string name="noLongerSupport">Mos e përkrahni më Lichess-in</string>

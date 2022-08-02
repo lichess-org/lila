@@ -61,7 +61,7 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="update">Aktualisierung</string>
   <string name="changeMonthlyAmount">Ändere den monatlichen Betrag (%s)</string>
   <string name="cancelSupport">Beende deine Unterstützung</string>
-  <string name="xOrY">%1$s oder %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s oder %2$s</string>
   <string name="decideHowMuch">Entscheide wieviel dir Lichess wert ist:</string>
   <string name="stopPayments">Deine Kreditkarte zurückziehen und Zahlungen beenden:</string>
   <string name="stopPaymentsPayPal">PayPal-Abonnement kündigen und Zahlungen stoppen:</string>

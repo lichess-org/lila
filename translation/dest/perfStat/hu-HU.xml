@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Nincs elegendő játszma</string>
   <string name="highestRating">Legmagasabb pontszám: %s</string>
   <string name="lowestRating">Legalacsonyabb pontszám: %s</string>
-  <string name="fromXToY">%1$s-tól %2$s-ig</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">%1$s-tól %2$s-ig</string>
   <string name="winningStreak">Győztes sorozat</string>
   <string name="losingStreak">Vesztes sorozat</string>
   <string name="longestStreak">Leghosszabb sorozat: %s</string>

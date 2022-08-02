@@ -18,7 +18,7 @@
   <string name="notEnoughGames">No i hai suficients partidas chugadas</string>
   <string name="highestRating">Puntuación mas alta: %s</string>
   <string name="lowestRating">Puntuación mas baixa: %s</string>
-  <string name="fromXToY">dende %1$s dica %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">dende %1$s dica %2$s</string>
   <string name="winningStreak">Tongada de victorias</string>
   <string name="losingStreak">Tongada de redotas</string>
   <string name="longestStreak">Tongada mas larga: %s</string>

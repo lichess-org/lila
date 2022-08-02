@@ -66,7 +66,7 @@
   <string name="fromXGames">%s の対局からの問題</string>
   <string name="searchPuzzles">問題を検索</string>
   <string name="fromMyGamesNone">あなたの対局からの問題はまだありませんが、Lichess はあなたの参加を歓迎します。自分の対局が使われる可能性を増やすには、ラピッドかクラシカルでプレイしてください！</string>
-  <string name="fromXGamesFound">%1$s 問がヒット（全 %2$s 局中）</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s 問がヒット（全 %2$s 局中）</string>
   <string name="puzzleDashboardDescription">練習、分析、上達</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s 問をプレイ</item>

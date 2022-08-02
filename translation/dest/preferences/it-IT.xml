@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Tieni premuto il tasto &lt;ctrl&gt; durante la promozione per disabilitare temporaneamente la promozione automatica</string>
   <string name="whenPremoving">Quando preseleziono una mossa</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclama patta automaticamente dopo triplice ripetizione</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quando il tempo rimanente è &lt; 30 secondi</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quando il tempo rimanente è &lt; 30 secondi</string>
   <string name="moveConfirmation">Conferma della mossa</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="correspondenceAndUnlimited">Corrispondenza e senza limiti di tempo</string>

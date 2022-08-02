@@ -61,7 +61,7 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="update">Opdatér</string>
   <string name="changeMonthlyAmount">Ændr det månedlige beløb (%s)</string>
   <string name="cancelSupport">annuller din støtte</string>
-  <string name="xOrY">%1$s eller %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s eller %2$s</string>
   <string name="decideHowMuch">Beslut hvor meget Lichess er værd for dig:</string>
   <string name="stopPayments">Træk dit kreditkort tilbage og stop betalinger:</string>
   <string name="stopPaymentsPayPal">Annuller PayPal-abonnement og stop betalinger:</string>

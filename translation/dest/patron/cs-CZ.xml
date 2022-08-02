@@ -63,7 +63,7 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="update">Aktualizovat</string>
   <string name="changeMonthlyAmount">Změnit měsíční částku (%s)</string>
   <string name="cancelSupport">zrušit svou podporu</string>
-  <string name="xOrY">%1$s nebo %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s nebo %2$s</string>
   <string name="decideHowMuch">Rozhodněte se, jakou má pro Vás Lichess hodnotu:</string>
   <string name="stopPayments">Odebrat kreditní kartu a zastavit platby:</string>
   <string name="noLongerSupport">Už nepodporovat Lichess</string>

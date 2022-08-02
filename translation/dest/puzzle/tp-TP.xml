@@ -50,7 +50,7 @@
   <string name="solved">pini pona</string>
   <string name="failed">pini ike</string>
   <string name="fromXGames">musi lili tan musi pi jan %s</string>
-  <string name="fromXGamesFound">musi lili %1$s tan musi %2$s</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">musi lili %1$s tan musi %2$s</string>
   <plurals name="nbPlayed">
     <item quantity="one">sina musi e musi lili %s</item>
     <item quantity="other">sina musi e musi lili %s</item>

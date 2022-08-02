@@ -48,7 +48,7 @@
   <string name="onlyContributorsCanRequestAnalysis">पाठका योगदान कर्ताहरुले मात्र कम्प्युटर विश्लेषणको अनुरोध गर्न सक्नुहुनेछ।</string>
   <string name="getAFullComputerAnalysis">मुख्य लाइनको सर्भर बाट पुर्ण कम्प्युटर विश्लेषण प्राप्त गर्नुहोस्।</string>
   <string name="makeSureTheChapterIsComplete">अध्याय पुरा भएको यकिन गर्नुहोस्। विश्लेषणको अनुरोध एकपटक मात्र गर्न सक्नुहुनेछ।</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">सबै सिंक सदस्यहरु एउटै पोजिसनमा रहनुहुनेछ।</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">सबै सिंक सदस्यहरु एउटै पोजिसनमा रहनुहुनेछ।</string>
   <string name="shareChanges">दर्शक हरुले देख्ने गरि परिवर्तन गर्नुहोस्, सर्भरमा पनि सेभ हुनेछ</string>
   <string name="playing">खेल सुचारु</string>
   <string name="first">प्रथम</string>

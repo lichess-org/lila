@@ -65,7 +65,7 @@
   <string name="searchPuzzles">Cari teka-teki</string>
   <string name="fromMyGamesNone">Anda tidak mempunyai teka-teki dalam pangkalan data, tetapi Lichess masih sangat menyayangi anda.
 Main permainan pantas dan klasik untuk meningkatkan peluang anda untuk menambahkan teka-teki anda!</string>
-  <string name="fromXGamesFound">Teka-teki %1$s terdapat dalam permainan %2$s</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">Teka-teki %1$s terdapat dalam permainan %2$s</string>
   <string name="puzzleDashboardDescription">Melatih, menganalisis, memperbaiki</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s dimainkan</item>

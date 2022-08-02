@@ -49,7 +49,7 @@
   <string name="makeAdditionalDonation">Направи додатну донацију сада</string>
   <string name="changeMonthlyAmount">Промени месечну вредност (%s)</string>
   <string name="cancelSupport">откажи твоју пордшку</string>
-  <string name="xOrY">%1$s или %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s или %2$s</string>
   <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
   <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>
   <string name="viewOthers">Погледај остале Личес Патроне</string>

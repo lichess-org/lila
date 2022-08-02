@@ -28,7 +28,7 @@
   <string name="kickSomeone">הסר מישהו מהקבוצה</string>
   <string name="whoToKick">את מי אתה רוצה להסיר מהקבוצה?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s בקשת הצטרפות</item>
+    <item quantity="one">בקשת הצטרפות %s</item>
     <item quantity="two">%s בקשות הצטרפות</item>
     <item quantity="many">%s בקשות הצטרפות</item>
     <item quantity="other">%s בקשות הצטרפות</item>

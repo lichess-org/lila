@@ -18,7 +18,7 @@
   <string name="notEnoughGames">N\'ho peus c\'hoariet a-walc\'h c\'hoazh</string>
   <string name="highestRating">Renkadur uhelañ: %s</string>
   <string name="lowestRating">Renkadur izelañ: %s</string>
-  <string name="fromXToY">etre %1$s ha %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">etre %1$s ha %2$s</string>
   <string name="winningStreak">Krogadoù gounezet da-heul</string>
   <string name="losingStreak">Krogadoù kollet da-heul</string>
   <string name="longestStreak">Brasañ niver da heul: %s</string>

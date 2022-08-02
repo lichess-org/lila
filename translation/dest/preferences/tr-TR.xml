@@ -12,7 +12,7 @@
   <string name="pgnPieceNotation">Notasyon tut</string>
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
   <string name="pgnLetter">Harf (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Odak modu</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
   <string name="showPlayerRatings">Oyuncu puanlarını göster</string>
   <string name="explainShowPlayerRatings">Bu seçenek, sitedeki bütün oyuncu puanlarını gizleyerek yalnızca satranca odaklanmanıza yardımcı olur. Hâlâ puanlı maçlar oynayabilirsiniz ancak puanlar sizden gizlenir.</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
