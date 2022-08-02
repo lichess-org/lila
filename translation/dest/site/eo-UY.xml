@@ -576,6 +576,10 @@
   <string name="error.email_acceptable">Ĉi tiu retadreso estas malakceptata. Bonvolu kontroli ĝin, kaj provu denove.</string>
   <string name="error.email_unique">Retadreso nevalida aŭ jam prenita</string>
   <string name="error.email_different">Tiu estas jam via retpoŝtadreso</string>
+  <string name="error.minLength">Minimume ĝi devas enhavi %s signojn</string>
+  <string name="error.maxLength">Maksimume ĝi devas enhavi %s signojn</string>
+  <string name="error.min">Minimume ĝi devas enhavi %s</string>
+  <string name="error.max">Maksimume ĝi devas enhavi %s</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
   <string name="ifRegistered">Se registrita</string>
   <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
@@ -663,8 +667,10 @@
   <string name="downloadImported">Elŝutu importitan</string>
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Tuŝadi sur komputilaj varioj por antaŭrigardi ilin.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
+  <string name="receiveForumNotifications">Ricevi sciigojn kiam iu mencias vin en forumo</string>
   <string name="shareYourInsightsData">Havebligi viajn datumojn pri ŝaka kompreno</string>
   <string name="withNobody">Kun neniu</string>
   <string name="withFriends">Kun amikoj</string>
@@ -797,6 +803,7 @@
   <string name="currentMatchScore">Aktuala matĉa poentaro</string>
   <string name="agreementAssistance">Mi konsentas, ke mi neniam ricevos helpon dum miaj ludoj (de komputila programo, libro, datumbazo aŭ alia persono).</string>
   <string name="agreementNice">Mi konsentas, ke mi ĉiam estos respektema al aliaj ludantoj.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Mi konsentas ke mi ne faros plurajn kontojn (escepte pro la deklaritaj kialoj en la %s).</string>
   <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
@@ -832,11 +839,15 @@
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Iu rigardos vian trejnistan profilon.</string>
+  <string name="newPendingReview">Nova okazonta revizio</string>
   <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
   <string name="clickToRevealEmailAddress">[Klaku por malkaŝi retpoŝtadreson]</string>
   <string name="download">Elŝuti</string>
   <string name="welcome">Bonvenon!</string>
+  <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
+Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="cancelTournament">Nuligi la turniron</string>
   <string name="tournDescription">Turnira priskribo</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
