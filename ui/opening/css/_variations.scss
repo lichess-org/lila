@@ -19,6 +19,12 @@
       .lpv__board {
         cursor: pointer;
       }
+      &--current {
+        outline: 3px solid $c-brag;
+        a {
+          color: $c-brag;
+        }
+      }
     }
   }
 }

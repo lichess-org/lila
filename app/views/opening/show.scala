@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ Heapsort, LilaOpeningFamily }
+import lila.common.{ Heapsort, LilaOpening, LilaOpeningFamily }
 import lila.common.String.html.safeJsonValue
 import lila.opening.{ OpeningData, OpeningHistorySegment }
 import lila.puzzle.PuzzleOpening
@@ -109,7 +109,7 @@ object show {
           ),
           canvas(cls := "opening__popularity__chart")
         ),
-        renderVariations(variations)
+        renderVariations(variations, current = opening.some)
       )
     }
   }
@@ -149,14 +149,21 @@ object show {
         p(cls := "opening__info")(
           "This opening family doesn't have a position of its own! Check out its most popular variations:"
         ),
-        renderVariations(variations)
+        renderVariations(variations, current = none)
       )
     }
 
-  private def renderVariations(variations: List[OpeningData.Preview])(implicit ctx: Context) =
+  private def renderVariations(variations: List[OpeningData.Preview], current: Option[LilaOpening])(implicit
+      ctx: Context
+  ) =
     div(cls := "opening__variations")(
       variations map { v =>
-        div(cls := "opening__variations__variation")(
+        div(
+          cls := List(
+            "opening__variations__variation"          -> true,
+            "opening__variations__variation--current" -> current.has(v.opening)
+          )
+        )(
           index.openingLink(v),
           div(cls := "lpv lpv--preload lpv--moves-false", attr("data-pgn") := v.opening.ref.pgn)(lpvPreload)
         )

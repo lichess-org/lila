@@ -35,12 +35,20 @@ final class OpeningApi(
       }
     }
 
-  def variationsOf(fam: LilaOpeningFamily, nb: Int = 64): Fu[List[OpeningData.Preview]] =
-    coll
-      .find($doc("_id" $startsWith s"${fam.key}_"), OpeningData.previewProjection.some)
-      .sort($sort desc "nbGames")
-      .cursor[OpeningData.Preview]()
-      .list(nb)
+  def variationsOf(fam: LilaOpeningFamily): Fu[List[OpeningData.Preview]] =
+    variationsCache.get(fam.key)
+
+  private val variationsCache =
+    cacheApi[LilaOpeningFamily.Key, List[OpeningData.Preview]](64, "opening.variations") {
+      _.expireAfterWrite(1 hour)
+        .buildAsyncFuture { key =>
+          coll
+            .find($doc("_id" $startsWith s"${key}_"), OpeningData.previewProjection.some)
+            .sort($sort desc "nbGames")
+            .cursor[OpeningData.Preview]()
+            .list(32)
+        }
+    }
 
   private val popularCache = cacheApi.unit[PopularOpenings] {
     _.refreshAfterWrite(5 second)

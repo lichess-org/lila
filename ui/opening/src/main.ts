@@ -46,6 +46,7 @@ const renderVariations = () =>
           showMoves: false,
           initialPly: 'last',
           drawArrows: false,
+          scrollToMove: false,
         });
       });
     $(this).on('click', '.lpv__board', e =>
