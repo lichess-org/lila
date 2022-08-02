@@ -20,14 +20,18 @@ final class Opening(env: Env) extends LilaController(env) {
   def show(key: String) =
     Secure(_.Beta) { implicit ctx => _ =>
       env.opening.api.find(key) flatMap {
-        _ ?? { op =>
-          val actualKey = op.data.opening.familyKeyOrKey.value
-          if (actualKey == key)
-            env.puzzle.opening.find(op.data.opening.family) map { puzzle =>
-              Ok(html.opening.show(op, puzzle))
+        case Some(op) =>
+          env.puzzle.opening.find(op.data.opening.family) map { puzzle =>
+            Ok(html.opening.show(op, puzzle))
+          }
+        case None =>
+          LilaOpeningFamily.find(key) ?? { fam =>
+            env.opening.api.variationsOf(fam) flatMap { variations =>
+              env.puzzle.opening.find(fam) map { puzzle =>
+                Ok(html.opening.show.abstractFamily(fam, variations, puzzle))
+              }
             }
-          else fuccess(Redirect(routes.Opening.show(actualKey)))
-        }
+          }
       }
     }
 }

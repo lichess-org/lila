@@ -14,7 +14,6 @@ import {
 Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 export function family(data: OpeningData) {
-  console.log(data);
   renderHistoryChart(data);
   $('.opening__family .lpv').each(function (this: HTMLElement) {
     Lpv(this, {
@@ -29,6 +28,17 @@ export function family(data: OpeningData) {
           fileName: this.dataset['title'].replace(' ', '_') + '.pgn',
         },
       },
+    });
+  });
+}
+
+export function abstractFamily() {
+  $('.opening__variations__variation .lpv').each(function (this: HTMLElement) {
+    Lpv(this, {
+      pgn: this.dataset['pgn'],
+      showPlayers: false,
+      showMoves: false,
+      initialPly: 'last',
     });
   });
 }

@@ -13,7 +13,7 @@ case class OpeningData(
     historyAt: DateTime,
     nbGames: Int,
     markdown: Markdown
-) {
+) extends OpeningData.Base {
   def key = _id
 }
 
@@ -21,7 +21,19 @@ object OpeningData {
   import reactivemongo.api.bson.Macros
   import lila.db.dsl._
   import OpeningHistory.historySegmentsHandler
-  implicit val openingDataHandler = Macros.handler[OpeningData]
+  implicit val openingDataHandler    = Macros.handler[OpeningData]
+  implicit val openingPreviewHandler = Macros.handler[Preview]
+
+  trait Base {
+    def key: LilaOpening.Key
+    def opening: LilaOpening
+    def nbGames: Int
+  }
+
+  private[opening] val previewProjection = $doc("opening" -> true, "nbGames" -> true)
+  case class Preview(_id: LilaOpening.Key, opening: LilaOpening, nbGames: Int) extends Base {
+    def key = _id
+  }
 
   case class WithAll(data: OpeningData, all: List[OpeningHistorySegment[Int]]) {
     lazy val percent = {

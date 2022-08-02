@@ -4,16 +4,12 @@ import akka.stream.scaladsl._
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import play.api.libs.json.JsValue
-import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.akkastream.cursorProducer
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.LilaOpening
-import lila.common.LilaOpeningFamily
-import lila.common.LilaStream
-import lila.common.Markdown
+import lila.common.{ LilaOpening, LilaOpeningFamily, LilaStream, Markdown }
 import lila.db.dsl._
 import lila.memo.CacheApi
 
@@ -38,6 +34,13 @@ final class OpeningApi(
         allGamesHistory.get(()) map { OpeningData.WithAll(opening, _).some }
       }
     }
+
+  def variationsOf(fam: LilaOpeningFamily, nb: Int = 64): Fu[List[OpeningData.Preview]] =
+    coll
+      .find($doc("_id" $startsWith s"${fam.key}_"), OpeningData.previewProjection.some)
+      .sort($sort desc "nbGames")
+      .cursor[OpeningData.Preview]()
+      .list(nb)
 
   private val popularCache = cacheApi.unit[PopularOpenings] {
     _.refreshAfterWrite(5 second)
@@ -107,6 +110,7 @@ final class OpeningApi(
         case res if res.status != 200 =>
           fufail(s"Couldn't reach the opening explorer: ${op.fold("initial")(_.key.value)}")
         case res =>
+          import play.api.libs.ws.JsonBodyReadables._
           import OpeningHistory.segmentJsonRead
           (res.body[JsValue] \ "history")
             .validate[List[OpeningHistorySegment[Int]]]

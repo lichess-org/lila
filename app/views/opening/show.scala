@@ -6,21 +6,17 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.LilaOpeningFamily
+import lila.common.{ Heapsort, LilaOpeningFamily }
 import lila.common.String.html.safeJsonValue
-import lila.opening.OpeningData
+import lila.opening.{ OpeningData, OpeningHistorySegment }
 import lila.puzzle.PuzzleOpening
-import lila.common.Heapsort
-import lila.opening.OpeningHistorySegment
 
 object show {
 
   def apply(
       dataWithAll: OpeningData.WithAll,
       puzzle: Option[PuzzleOpening.FamilyWithCount]
-  )(implicit
-      ctx: Context
-  ) = {
+  )(implicit ctx: Context) = {
     import dataWithAll.{ percent => percentHistory, _ }
     import data.opening
     val family = opening.ref.variation.isDefined option opening.family
@@ -115,6 +111,55 @@ object show {
       )
     }
   }
+
+  // family with no associated position
+  // usually the "gambit declined" families
+  def abstractFamily(
+      fam: LilaOpeningFamily,
+      variations: List[OpeningData.Preview],
+      puzzle: Option[PuzzleOpening.FamilyWithCount]
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = cssTag("opening"),
+      moreJs = frag(
+        jsModule("opening"),
+        embedJsUnsafeLoadThen { """LichessOpening.abstractFamily()""" }
+      ),
+      title = s"${trans.opening.txt()} • ${fam.name}",
+      openGraph = lila.app.ui
+        .OpenGraph(
+          `type` = "article",
+          image = none,
+          title = fam.name.value,
+          url = s"$netBaseUrl${routes.Opening.show(fam.key.value)}",
+          description = "This is an abstract opening, check out its variations."
+        )
+        .some,
+      csp = defaultCsp.withInlineIconFont.some
+    ) {
+      main(cls := "page box box-pad opening__family opening__family--abstract")(
+        h1(
+          frag(
+            a(href := routes.Opening.index, dataIcon := "", cls := "text"),
+            fam.name
+          )
+        ),
+        p(cls := "opening__info")(
+          "This opening family doesn't have a position of its own! Check out its most popular variations:"
+        ),
+        renderVariations(variations)
+      )
+    }
+
+  private def renderVariations(variations: List[OpeningData.Preview])(implicit ctx: Context) =
+    div(cls := "opening__variations")(
+      variations map { v =>
+        div(cls   := "opening__variations__variation")(
+          div(cls := "lpv", attr("data-pgn") := v.opening.ref.pgn),
+          h3(index.openingLink(v))
+        )
+      }
+    )
 
   private def percentNumber(v: Float) = f"${v}%1.1f"
   private def percentFrag(v: Float)   = frag(strong(percentNumber(v)), "%")
