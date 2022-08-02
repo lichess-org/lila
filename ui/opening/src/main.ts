@@ -37,21 +37,32 @@ export const abstractFamily = () => renderVariations();
 
 const renderVariations = () =>
   $('.opening__variations').each(function (this: HTMLElement) {
-    $(this)
-      .find('.lpv')
-      .each(function (this: HTMLElement) {
-        Lpv(this, {
-          pgn: this.dataset['pgn'],
-          showPlayers: false,
-          showMoves: false,
-          initialPly: 'last',
-          drawArrows: false,
-          scrollToMove: false,
+    const lazyLoader = new IntersectionObserver(
+      (entries: any[]) => {
+        entries.forEach(e => {
+          if (e.intersectionRatio) {
+            renderVariation(e.target);
+            lazyLoader.unobserve(e.target);
+          }
         });
-      });
+      },
+      { threshold: 0.1 }
+    );
+    Array.from(this.querySelectorAll('.lpv')).forEach(c => lazyLoader.observe(c));
+
     $(this).on('click', '.lpv__board', e =>
       $(e.target).parents('.opening__variations__variation').find('a').trigger('click')
     );
+  });
+
+const renderVariation = (el: HTMLElement) =>
+  Lpv(el, {
+    pgn: el.dataset['pgn'],
+    showPlayers: false,
+    showMoves: false,
+    initialPly: 'last',
+    drawArrows: false,
+    scrollToMove: false,
   });
 
 const renderHistoryChart = (data: OpeningData) => {
