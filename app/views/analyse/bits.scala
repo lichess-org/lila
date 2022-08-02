@@ -22,6 +22,6 @@ object bits {
       chessground = false,
       robots = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withAnyWs.withPeer.some
+      csp = defaultCsp.withWebAssembly.withAnyWs.withPeer.withInlineIconFont.some
     )(body)
 }
