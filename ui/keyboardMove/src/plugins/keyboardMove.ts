@@ -126,12 +126,9 @@ export default (opts: Opts) => {
 };
 
 function iccfToUci(v: string) {
-  if (v.match(/^5(1|8)7(1|8)$/)) return 'o-o';
-  else if (v.match(/^5(1|8)3(1|8)$/)) return 'o-o-o';
-
   const chars = v.split('');
   [0, 2].forEach(i => {
-    chars[i] = files[parseInt(chars[i]) - 1];
+    if (chars[i]) chars[i] = files[parseInt(chars[i]) - 1];
   });
   if (chars[4]) chars[4] = 'qrbn'[parseInt(chars[4]) - 1];
 
