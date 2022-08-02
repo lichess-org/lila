@@ -172,6 +172,6 @@ object show {
 
   private val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
-  private def percentNumber(v: Float) = f"${v}%1.1f"
+  private def percentNumber(v: Float) = f"${v}%1.2f"
   private def percentFrag(v: Float)   = frag(strong(percentNumber(v)), "%")
 }
