@@ -484,6 +484,7 @@
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
   <string name="descPrivate">Privata priskribo</string>
+  <string name="descPrivateHelp">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
   <string name="help">Helpo:</string>
@@ -572,7 +573,9 @@
   <string name="error.unknown">Nevalida valoro</string>
   <string name="error.required">Ĉi tiu kampo estas deviga</string>
   <string name="error.email">Ĉi tiu retadreso ne estas valida</string>
+  <string name="error.email_acceptable">Ĉi tiu retadreso estas malakceptata. Bonvolu kontroli ĝin, kaj provu denove.</string>
   <string name="error.email_unique">Retadreso nevalida aŭ jam prenita</string>
+  <string name="error.email_different">Tiu estas jam via retpoŝtadreso</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
   <string name="ifRegistered">Se registrita</string>
   <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
