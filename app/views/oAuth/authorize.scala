@@ -71,7 +71,7 @@ object authorize {
               dataIcon := isDanger.option(""),
               disabled := true,
               id       := "oauth-authorize",
-              title := s"The website ${prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
+              title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
             )("Authorize")
           ),
           footer(prompt.redirectUri.withoutQuery, isDanger)
