@@ -35,7 +35,7 @@ final class OAuthServer(
               at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
             andLogReq foreach { req =>
               logger.info(
-                s"${if (blocked) "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req}"
+                s"${if (blocked) "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
               )
             }
             if (blocked) fufail(OriginBlocked)
