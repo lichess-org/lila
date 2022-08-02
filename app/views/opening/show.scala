@@ -15,6 +15,7 @@ object show {
 
   def apply(
       dataWithAll: OpeningData.WithAll,
+      variations: List[OpeningData.Preview],
       puzzle: Option[PuzzleOpening.FamilyWithCount]
   )(implicit ctx: Context) = {
     import dataWithAll.{ percent => percentHistory, _ }
@@ -61,10 +62,10 @@ object show {
         ),
         div(cls := "opening__intro", style := s"--move-rows: ${(opening.nbMoves) + 1}")(
           div(
-            cls              := "lpv",
+            cls              := "lpv lpv--preload lpv--moves-bottom",
             st.data("pgn")   := opening.ref.pgn,
             st.data("title") := opening.ref.name
-          ),
+          )(lpvPreload),
           div(cls := "opening__intro__side")(
             data.history.lastOption.map { seg =>
               div(cls := "opening__win-rate")(
@@ -107,7 +108,8 @@ object show {
             )
           ),
           canvas(cls := "opening__popularity__chart")
-        )
+        ),
+        renderVariations(variations)
       )
     }
   }
@@ -154,12 +156,14 @@ object show {
   private def renderVariations(variations: List[OpeningData.Preview])(implicit ctx: Context) =
     div(cls := "opening__variations")(
       variations map { v =>
-        div(cls   := "opening__variations__variation")(
-          div(cls := "lpv", attr("data-pgn") := v.opening.ref.pgn),
-          h3(index.openingLink(v))
+        div(cls := "opening__variations__variation")(
+          index.openingLink(v),
+          div(cls := "lpv lpv--preload lpv--moves-false", attr("data-pgn") := v.opening.ref.pgn)(lpvPreload)
         )
       }
     )
+
+  private val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
   private def percentNumber(v: Float) = f"${v}%1.1f"
   private def percentFrag(v: Float)   = frag(strong(percentNumber(v)), "%")

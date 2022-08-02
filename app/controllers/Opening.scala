@@ -21,8 +21,10 @@ final class Opening(env: Env) extends LilaController(env) {
     Secure(_.Beta) { implicit ctx => _ =>
       env.opening.api.find(key) flatMap {
         case Some(op) =>
-          env.puzzle.opening.find(op.data.opening.family) map { puzzle =>
-            Ok(html.opening.show(op, puzzle))
+          env.opening.api.variationsOf(op.data.opening.family) flatMap { variations =>
+            env.puzzle.opening.find(op.data.opening.family) map { puzzle =>
+              Ok(html.opening.show(op, variations, puzzle))
+            }
           }
         case None =>
           LilaOpeningFamily.find(key) ?? { fam =>

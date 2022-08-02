@@ -14,8 +14,7 @@ import {
 Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 export function family(data: OpeningData) {
-  renderHistoryChart(data);
-  $('.opening__family .lpv').each(function (this: HTMLElement) {
+  $('.opening__intro .lpv').each(function (this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
       initialPly: 'last',
@@ -30,18 +29,29 @@ export function family(data: OpeningData) {
       },
     });
   });
+  lichess.requestIdleCallback(renderVariations);
+  lichess.requestIdleCallback(() => renderHistoryChart(data));
 }
 
-export function abstractFamily() {
-  $('.opening__variations__variation .lpv').each(function (this: HTMLElement) {
-    Lpv(this, {
-      pgn: this.dataset['pgn'],
-      showPlayers: false,
-      showMoves: false,
-      initialPly: 'last',
-    });
+export const abstractFamily = () => renderVariations();
+
+const renderVariations = () =>
+  $('.opening__variations').each(function (this: HTMLElement) {
+    $(this)
+      .find('.lpv')
+      .each(function (this: HTMLElement) {
+        Lpv(this, {
+          pgn: this.dataset['pgn'],
+          showPlayers: false,
+          showMoves: false,
+          initialPly: 'last',
+          drawArrows: false,
+        });
+      });
+    $(this).on('click', '.lpv__board', e =>
+      $(e.target).parents('.opening__variations__variation').find('a').trigger('click')
+    );
   });
-}
 
 const renderHistoryChart = (data: OpeningData) => {
   const canvas = document.querySelector('.opening__popularity__chart') as HTMLCanvasElement;

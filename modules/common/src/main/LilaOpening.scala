@@ -37,7 +37,8 @@ object LilaOpeningFamily {
 case class LilaOpening(ref: FullOpening, name: LilaOpening.Name, family: LilaOpeningFamily) {
   import LilaOpening._
   val key            = Key(nameToKey(name.value))
-  def familyKeyOrKey = if (ref.variation.isDefined) key else Key(family.key.value)
+  def isFamily       = ref.variation.isEmpty
+  def familyKeyOrKey = if (isFamily) Key(family.key.value) else key
   def variation      = ref.variation | otherVariations
   lazy val nbMoves   = ref.uci.count(' ' ==) + 1
   lazy val lastUci   = ref.uci.split(' ').lastOption

@@ -49,7 +49,5 @@ object index {
     )
 
   private[opening] def openingLink(op: OpeningData.Base)(implicit ctx: Context) =
-    span(
-      a(href := routes.Opening.show(op.key.value))(op.opening.variation.name)
-    ) // , " ", op.nbGames.localize)
+    a(href := routes.Opening.show(op.key.value))(op.opening.variation.name)
 }
