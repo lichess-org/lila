@@ -47,7 +47,8 @@ object show {
           url = s"$netBaseUrl${routes.Opening.show(opening.key.value)}",
           description = opening.ref.pgn
         )
-        .some
+        .some,
+      csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening__family")(
         h1(
