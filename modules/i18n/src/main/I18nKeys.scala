@@ -2355,6 +2355,7 @@ object keyboardMove {
 val `keyboardInputCommands` = new I18nKey("keyboardMove:keyboardInputCommands")
 val `performAMove` = new I18nKey("keyboardMove:performAMove")
 val `movePieceFromE2ToE4` = new I18nKey("keyboardMove:movePieceFromE2ToE4")
+val `movePieceFromD2ToD4` = new I18nKey("keyboardMove:movePieceFromD2ToD4")
 val `moveKnightToC3` = new I18nKey("keyboardMove:moveKnightToC3")
 val `kingsideCastle` = new I18nKey("keyboardMove:kingsideCastle")
 val `queensideCastle` = new I18nKey("keyboardMove:queensideCastle")
