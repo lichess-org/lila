@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="keyboardInputCommands">Comenzi de la tastatură</string>
   <string name="performAMove">Efectuează o mutare</string>
   <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Mută piesa de la e2 la e4</string>
   <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Mută calul la c3</string>
