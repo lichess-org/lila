@@ -13,6 +13,7 @@
   <string name="myTeams">Echipele mele</string>
   <string name="noTeamFound">Nu s-a găsit nicio echipă</string>
   <string name="joinTeam">Intră în echipă</string>
+  <string name="onlyLeaderLeavesTeam">Te rugăm să adaugi un nou lider de echipă înainte de a părăsi echipa, sau să desființezi echipa.</string>
   <string name="quitTeam">Ieşi din echipă</string>
   <string name="manuallyReviewAdmissionRequests">Verificați manual cererile de admitere</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Dacă este bifat, jucătorii vor trebui să scrie o cerere pentru a se alătura echipei, pe care o puteți refuza sau accepta.</string>
