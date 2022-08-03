@@ -108,22 +108,13 @@ final class GarbageCollector(
         logger.info(message)
         noteApi.lichessWrite(user, s"Garbage collected because of $msg")
         irc.garbageCollector(message) >>- {
-          if (armed) {
-            doInitialSb(user)
-            scheduler.scheduleOnce(wait) { doCollect(user) }.unit
-          }
+          if (armed) scheduler.scheduleOnce(wait) { doCollect(user) }.unit
         }
     }
   }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
     noteApi.byUserForMod(user.id).map(_.exists(_.text startsWith "Garbage collected"))
-
-  private def doInitialSb(user: User): Unit =
-    Bus.publish(
-      lila.hub.actorApi.security.GCImmediateSb(user.id),
-      "garbageCollect"
-    )
 
   private def doCollect(user: User): Unit =
     Bus.publish(
