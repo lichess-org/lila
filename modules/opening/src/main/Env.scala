@@ -26,13 +26,20 @@ final class Env(
 
   private val openingColl = db(config.CollName("opening")).taggedWith[OpeningColl]
 
+  private lazy val update: OpeningUpdate = wire[OpeningUpdate]
+
+  private val allGamesHistory = cacheApi
+    .unit { _.refreshAfterWrite(1 hour).buildAsyncFuture { _ => update.fetchHistory(none) } }
+    .taggedWith[AllGamesHistory]
+
   lazy val api = wire[OpeningApi]
 
   // api.updateOpenings.logFailure(logger).unit
   scheduler.scheduleAtFixedRate(5 minutes, 7 day) { () =>
-    api.updateOpenings.unit
+    update.all.unit
   }
 }
 
 trait ExplorerEndpoint
 trait OpeningColl
+trait AllGamesHistory

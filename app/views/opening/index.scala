@@ -25,26 +25,30 @@ object index {
           openings.treeByMove.map { case (first, sub) =>
             frag(
               h2(s"1. $first"),
-              sub.map { case (fam, ops) =>
-                familyWithOpenings(fam, ops)
+              sub.map { case (fam, nbGames, ops) =>
+                familyWithOpenings(fam, nbGames, ops)
               }
             )
           },
           h2("Others"),
           div(cls := "opening__index__others")(
-            openings.treeOthers map { case (fam, ops) =>
-              familyWithOpenings(fam, ops)
+            openings.treeOthers map { case (fam, nbGames, ops) =>
+              familyWithOpenings(fam, nbGames, ops)
             }
           )
         )
       )
     }
 
-  private def familyWithOpenings(fam: LilaOpeningFamily, ops: List[OpeningData])(implicit ctx: Context) =
+  private def familyWithOpenings(fam: LilaOpeningFamily, nbGames: Int, ops: List[OpeningData])(implicit
+      ctx: Context
+  ) =
     div(cls := "opening__index__sub-tree")(
-      h3(a(href := routes.Opening.show(fam.key.value))(fam.name.value)),
+      h3(a(href := routes.Opening.show(fam.key.value))(fam.name.value), em(nbGames.localize)),
       div(cls := "opening__index__links")(
-        ops.filter(_.opening.variation != LilaOpening.otherVariations) map openingLink
+        ops map { op =>
+          span(openingLink(op), em(op.nbGames.localize))
+        }
       )
     )
 

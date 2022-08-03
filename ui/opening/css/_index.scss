@@ -37,5 +37,11 @@
         text-overflow: ellipsis;
       }
     }
+
+  em {
+    color: $c-font-shy;
+    font-size: 0.8em;
+    margin-left: 1em;
+  }
   }
 }
