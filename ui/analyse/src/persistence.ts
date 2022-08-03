@@ -10,9 +10,7 @@ export default class Persistence {
   autoOpen = storedBooleanProp('persistence-auto-open', true);
   moveDb?: ObjectStorage<AnalyseState>;
 
-  constructor(readonly ctrl: AnalyseCtrl, open: boolean) {
-    this.open(open && this.autoOpen());
-  }
+  constructor(readonly ctrl: AnalyseCtrl) {}
 
   toggleOpen(v?: boolean) {
     this.open(defined(v) ? v : !this.open());
