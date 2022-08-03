@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">اضغط مفتاح&lt;ctrl&gt; اثناء الترقية لتعطيل الترقية التقائية مؤقتاً</string>
   <string name="whenPremoving">عند النقلة الاستباقية</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">عندما يقل الوقت عن 30 ثانية</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>

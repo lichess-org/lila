@@ -69,7 +69,7 @@
   <string name="searchPuzzles">Busca exercicios</string>
   <string name="fromMyGamesNone">Non tes exercicios na base de datos, pero Lichess aínda te quiere un montón.
 Xoga partidas rápidas e clásicas para ter máis posibilidades de que se engadan os teus exercicios!</string>
-  <string name="fromXGamesFound">%1$s exercicios atopados en %2$s partidas</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s exercicios atopados en %2$s partidas</string>
   <string name="puzzleDashboardDescription">Adestra, analiza, mellora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s xogados</item>

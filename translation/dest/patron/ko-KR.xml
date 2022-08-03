@@ -59,7 +59,7 @@
   <string name="update">업데이트</string>
   <string name="changeMonthlyAmount">월 금액 변경(%s)</string>
   <string name="cancelSupport">지원 취소</string>
-  <string name="xOrY">%1$s 또는 %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s 또는 %2$s</string>
   <string name="decideHowMuch">Lichess의 가치를 결정해주세요:</string>
   <string name="stopPayments">신용카드를 취소하고 지불을 중지:</string>
   <string name="stopPaymentsPayPal">PayPal 구독을 중지하고 결제를 멈추세요:</string>

@@ -27,7 +27,7 @@
   <string name="theChapterIsTooShortToBeAnalysed">ئەو بەشە بەهۆی کورتییەوە ناتوانرێت شیکار بکرێت.</string>
   <string name="onlyContributorsCanRequestAnalysis">تەنها بەشداربووانی لێکۆڵینەوەکە دەتوانن داوای شیکارکردنی کۆمپیوتەر بکەن.</string>
   <string name="makeSureTheChapterIsComplete">دڵنیا ببەوه لەوەی کە بەشەکە تەواو کراوە. تەنها بۆ یەکجار دەتوانیت ئەو شیکارکردنە بکەیت.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">هەموو ئەندامەکانی SYNC لەسەر هەمان پێگە بمێننەوە</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">هەموو ئەندامەکانی SYNC لەسەر هەمان پێگە بمێننەوە</string>
   <string name="shareChanges">گۆڕانکاریەکان لەگەڵ بینەرەکان بەشداری پێبکە و لەسەر سێرڤەرەکە دایانبکه</string>
   <string name="playing">یاریکردن</string>
   <string name="first">یەکەم</string>

@@ -32,7 +32,7 @@
   <string name="promoteToQueenAutomatically">Povýšit na dámu automaticky</string>
   <string name="whenPremoving">Při předtahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžádat remízu při trojím opakování pozice</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Když zbývající čas &lt; 30 sekund</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Když zbývající čas &lt; 30 sekund</string>
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="inCorrespondenceGames">V korespondenčním šachu</string>
   <string name="correspondenceAndUnlimited">Korespondeční a bez limitu</string>

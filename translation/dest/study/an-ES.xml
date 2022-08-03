@@ -48,7 +48,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Nomás los colaboradors d\'o estudio pueden solicitar una analisi per ordinador.</string>
   <string name="getAFullComputerAnalysis">Obtiene una analisi completa d\'a linia prencipal en o servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegura-te que lo capitol ye completo. Nomás puede solicitar l\'analisi una vegada.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Totz los miembros de SYNC son en a mesma posición</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Totz los miembros de SYNC son en a mesma posición</string>
   <string name="shareChanges">Comparte cambios con os espectadors y alza-los en o servidor</string>
   <string name="playing">Chugando</string>
   <string name="first">Primer</string>

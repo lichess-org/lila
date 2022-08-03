@@ -9,7 +9,11 @@ import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 import reactivemongo.api.ReadPreference
 
-final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: UserRepo)(implicit
+final class AccessTokenApi(
+    coll: Coll,
+    cacheApi: lila.memo.CacheApi,
+    userRepo: UserRepo
+)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 

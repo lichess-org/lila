@@ -1,0 +1,30 @@
+.opening {
+  &__variations {
+    margin-top: 3em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+    gap: 2em;
+
+    &__variation {
+      @extend %box-neat-force, %flex-column;
+      background: $c-bg-zebra;
+      a {
+        @extend %flex-center;
+        flex: 1 0 3em;
+        font-size: 1.3em;
+        font-weight: bold;
+        padding: 0.3em 0.7em 0.3em 1em;
+        line-height: 1.2em;
+      }
+      .lpv__board {
+        cursor: pointer;
+      }
+      &--current {
+        outline: 3px solid $c-brag;
+        a {
+          color: $c-brag;
+        }
+      }
+    }
+  }
+}

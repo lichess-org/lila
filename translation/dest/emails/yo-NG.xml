@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Jẹrisi akọọlẹ lichess.org rẹ, %s</string>
+  <string name="emailConfirm_subject" comment="emailConfirm_subject&#10;&#10;%s is the player's username.&#10;Please do NOT transcribe 'lichess.org', it should be kept exactly as it is written.">Jẹrisi akọọlẹ lichess.org rẹ, %s</string>
 </resources>

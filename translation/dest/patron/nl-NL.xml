@@ -61,7 +61,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="update">Bijwerken</string>
   <string name="changeMonthlyAmount">Het maandelijkse bedrag wijzigen (%s)</string>
   <string name="cancelSupport">je steun annuleren</string>
-  <string name="xOrY">%1$s of %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s of %2$s</string>
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
   <string name="stopPaymentsPayPal">Abonnement via PayPal annuleren en betalingen stoppen:</string>

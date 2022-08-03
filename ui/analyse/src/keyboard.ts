@@ -59,6 +59,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
+      if (ctrl.keyboardHelp) lichess.pubsub.emit('analyse.close-all');
       ctrl.redraw();
     })
     .bind('l', ctrl.toggleCeval)

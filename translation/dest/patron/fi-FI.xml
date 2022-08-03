@@ -60,7 +60,7 @@ Tai voit %s.</string>
   <string name="update">Päivitä</string>
   <string name="changeMonthlyAmount">Muuta kuukausittaista summaa (%s)</string>
   <string name="cancelSupport">peru tukesi</string>
-  <string name="xOrY">%1$s tai %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s tai %2$s</string>
   <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
   <string name="stopPaymentsPayPal">Peruuta PayPal-tilaus ja pysäytä maksut:</string>

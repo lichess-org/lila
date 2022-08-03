@@ -61,7 +61,7 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="update">Oppdater</string>
   <string name="changeMonthlyAmount">Endre månadleg beløp (%s)</string>
   <string name="cancelSupport">avslutt støtta di</string>
-  <string name="xOrY">%1$s eller %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s eller %2$s</string>
   <string name="decideHowMuch">Avgjer kor stor verde Lichess har for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljar og stopp faste innbetalingar:</string>
   <string name="stopPaymentsPayPal">Avslutt PayPal abonnement og stopp betalingar:</string>

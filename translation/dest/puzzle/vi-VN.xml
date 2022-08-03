@@ -60,7 +60,7 @@
   <string name="fromMyGamesNone">Bạn không có câu đố nào trong hệ thống, nhưng Lichess vẫn rất yêu mến bạn.
 
 Hãy chơi thêm nhiều ván cờ nhanh và cờ tiêu chuẩn để được có cơ hội có câu đố được trích ra từ trò chơi của bạn!</string>
-  <string name="fromXGamesFound">%1$s tìm được trong %2$s ván đấu</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s tìm được trong %2$s ván đấu</string>
   <string name="puzzleDashboardDescription">Rèn luyện, phân tích, tiến bộ</string>
   <plurals name="nbPlayed">
     <item quantity="other">Đã chơi %s câu đố</item>

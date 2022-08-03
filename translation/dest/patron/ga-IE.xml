@@ -66,7 +66,7 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="update">Nuashonrú</string>
   <string name="changeMonthlyAmount">Athraigh an méid míosúil (%s)</string>
   <string name="cancelSupport">cuir do thacaíocht ar ceal</string>
-  <string name="xOrY">%1$s nó %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s nó %2$s</string>
   <string name="decideHowMuch">Socraigh cad is fiú Lichess duit:</string>
   <string name="stopPayments">Tarraing do chárta creidmheasa as agus stop íocaíochtaí:</string>
   <string name="noLongerSupport">Ná thacaíonn Lichess a thuilleadh</string>

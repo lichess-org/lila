@@ -19,7 +19,7 @@
   <string name="notEnoughGames">N-au fost jucate destule meciuri</string>
   <string name="highestRating">Cel mai mare rating: %s</string>
   <string name="lowestRating">Cel mai mic rating: %s</string>
-  <string name="fromXToY">de la %1$s la %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">de la %1$s la %2$s</string>
   <string name="winningStreak">Victorii consecutive</string>
   <string name="losingStreak">Înfrângeri consecutive</string>
   <string name="longestStreak">Cea mai lungă secvență: %s</string>

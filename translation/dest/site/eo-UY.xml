@@ -89,6 +89,7 @@
     <item quantity="one">Mato post %s duonmovo</item>
     <item quantity="other">Mato post %s duonmovoj</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" kun rondigo, bazita en nombro de inter-movoj ĝis sekva kapto aŭ peona movo</string>
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
@@ -96,6 +97,9 @@
   <string name="xOpeningExplorer">%s esplorilo de malfermoj</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la regulo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la regulo pri 50-movoj</string>
+  <string name="winOr50MovesByPriorMistake">Venko aŭ 50 movoj de antaŭa eraro</string>
+  <string name="lossOr50MovesByPriorMistake">Malvenko aŭ 50 movoj de antaŭa eraro</string>
+  <string name="unknownDueToRounding">Venko/Malvenko nur garantiita se rekomendataj movoj estis sekvitaj de la lasta movo aŭ peona movo, pro ebla rondigo.</string>
   <string name="allSet">Preta!</string>
   <string name="importPgn">Importi PGN</string>
   <string name="delete">Forigi</string>
@@ -344,9 +348,11 @@
   <string name="apply">Apliki</string>
   <string name="save">Konservi</string>
   <string name="leaderboard">Sukcesotabulo</string>
+  <string name="screenshotCurrentPosition">Ekrankopii nunan pozicion</string>
   <string name="gameAsGIF">Ludo kiel GIF</string>
   <string name="pasteTheFenStringHere">Glui la FEN-ĉenon ĉi tie</string>
   <string name="pasteThePgnStringHere">Glui la PGN-ĉenon ĉi tie</string>
+  <string name="orUploadPgnFile">Aŭ alŝuti PGN-dosieron</string>
   <string name="fromPosition">De pozicio</string>
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
   <string name="toStudy">Studo</string>
@@ -458,6 +464,10 @@
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
+  <string name="savingMoves">Dumtempa konservejo de movoj</string>
+  <string name="savingMovesHelp">Ni ĉiam konservas viajn variojn en via retumila kaŝmemoro.</string>
+  <string name="makeAStudy">Por konservado kaj kunhavigo, konsideru fari studon.</string>
+  <string name="clearSavedMoves">Forigi movojn</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
@@ -474,6 +484,7 @@
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
   <string name="descPrivate">Privata priskribo</string>
+  <string name="descPrivateHelp">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
   <string name="help">Helpo:</string>
@@ -562,7 +573,13 @@
   <string name="error.unknown">Nevalida valoro</string>
   <string name="error.required">Ĉi tiu kampo estas deviga</string>
   <string name="error.email">Ĉi tiu retadreso ne estas valida</string>
+  <string name="error.email_acceptable">Ĉi tiu retadreso estas malakceptata. Bonvolu kontroli ĝin, kaj provu denove.</string>
   <string name="error.email_unique">Retadreso nevalida aŭ jam prenita</string>
+  <string name="error.email_different">Tiu estas jam via retpoŝtadreso</string>
+  <string name="error.minLength">Minimume ĝi devas enhavi %s signojn</string>
+  <string name="error.maxLength">Maksimume ĝi devas enhavi %s signojn</string>
+  <string name="error.min">Minimume ĝi devas enhavi %s</string>
+  <string name="error.max">Maksimume ĝi devas enhavi %s</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
   <string name="ifRegistered">Se registrita</string>
   <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
@@ -650,8 +667,10 @@
   <string name="downloadImported">Elŝutu importitan</string>
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Tuŝadi sur komputilaj varioj por antaŭrigardi ilin.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
+  <string name="receiveForumNotifications">Ricevi sciigojn kiam iu mencias vin en forumo</string>
   <string name="shareYourInsightsData">Havebligi viajn datumojn pri ŝaka kompreno</string>
   <string name="withNobody">Kun neniu</string>
   <string name="withFriends">Kun amikoj</string>
@@ -784,6 +803,7 @@
   <string name="currentMatchScore">Aktuala matĉa poentaro</string>
   <string name="agreementAssistance">Mi konsentas, ke mi neniam ricevos helpon dum miaj ludoj (de komputila programo, libro, datumbazo aŭ alia persono).</string>
   <string name="agreementNice">Mi konsentas, ke mi ĉiam estos respektema al aliaj ludantoj.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Mi konsentas ke mi ne faros plurajn kontojn (escepte pro la deklaritaj kialoj en la %s).</string>
   <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
@@ -819,11 +839,15 @@
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Iu rigardos vian trejnistan profilon.</string>
+  <string name="newPendingReview">Nova okazonta revizio</string>
   <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
   <string name="clickToRevealEmailAddress">[Klaku por malkaŝi retpoŝtadreson]</string>
   <string name="download">Elŝuti</string>
   <string name="welcome">Bonvenon!</string>
+  <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
+Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="cancelTournament">Nuligi la turniron</string>
   <string name="tournDescription">Turnira priskribo</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>

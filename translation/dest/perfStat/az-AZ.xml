@@ -18,7 +18,7 @@
   <string name="notEnoughGames">Yetərli sayda oyun oynanılmayıb</string>
   <string name="highestRating">Ən yüksək reytinq: %s</string>
   <string name="lowestRating">Ən aşağı reytinq: %s</string>
-  <string name="fromXToY">%1$s tarixindən %2$s tarixinə qədər</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">%1$s tarixindən %2$s tarixinə qədər</string>
   <string name="winningStreak">Qalibiyyət seriyası</string>
   <string name="losingStreak">Məğlubiyyət seriyası</string>
   <string name="longestStreak">Ən uzun seriya: %s</string>

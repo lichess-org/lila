@@ -69,7 +69,7 @@
   <string name="searchPuzzles">ಒಗಟುಗಳನ್ನು ಹುಡುಕಿ</string>
   <string name="fromMyGamesNone">ನಮ್ಮ ಡೇಟಾಬೇಸ್ ನಲ್ಲಿ ನಿಮ್ಮ ಯಾವುದೇ ಒಗಟುಗಳಿಲ್ಲ, ಆದರೆ ಲೀಚೆಸ್ ನಿಮ್ಮನ್ನು ಎಂದಿನಂತೆಯೇ ತುಂಬಾ ಇಷ್ಟ ಪಡುತ್ತಿದೆ.
 ತ್ವರಿತ (Rapid) ಮತ್ತು ಶಾಸ್ತ್ರೀಯ ಶೈಲಿಯ ಆಟಗಳನ್ನು ಇನ್ನಷ್ಟು ಹೆಚ್ಚು ಆಡಿ, ಒಗಟುಗಳ ಗುಚ್ಛದಲ್ಲಿ ನಿಮ್ಮ ಆಟಗಳನ್ನು ಕಾಣುವ ಅವಕಾಶವನ್ನು ಹೆಚ್ಚಿಸಿಕೊಳ್ಳಿ!</string>
-  <string name="fromXGamesFound">%1$s ಒಗಟುಗಳು ಸಿಕ್ಕಿವೆ %2$s ಆಟಗಳಲ್ಲಿ</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s ಒಗಟುಗಳು ಸಿಕ್ಕಿವೆ %2$s ಆಟಗಳಲ್ಲಿ</string>
   <string name="puzzleDashboardDescription">ಕಲಿಯಿರಿ, ವಿಶ್ಲೇಷಿಸಿ, ಸುಧಾರಿಸಿ</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s ಒಗಟು ಆಡಿದ್ದೀರಿ</item>

@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Not enough games played</string>
   <string name="highestRating">Highest rating: %s</string>
   <string name="lowestRating">Lowest rating: %s</string>
-  <string name="fromXToY">from %1$s to %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">from %1$s to %2$s</string>
   <string name="winningStreak">Winning streak</string>
   <string name="losingStreak">Losing streak</string>
   <string name="longestStreak">Longest streak: %s</string>

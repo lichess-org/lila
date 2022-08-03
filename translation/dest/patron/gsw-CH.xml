@@ -62,7 +62,7 @@ Aber en Lichess Gönner chann sich mit dem coole Flamme Icon sis Profil schmück
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Veränder de monetlich Betrag (%s)</string>
   <string name="cancelSupport">beänd dini Underschtützig</string>
-  <string name="xOrY">%1$s oder %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s oder %2$s</string>
   <string name="decideHowMuch">Entscheid wie vill dir Lichess wert isch:</string>
   <string name="stopPayments">Dini Kreditcharte zruggzieh und Zahlige beände:</string>
   <string name="stopPaymentsPayPal">De PayPal Uftrag anulliere und d\'Zahlige stoppe:</string>

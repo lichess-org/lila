@@ -111,7 +111,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
       'a.button.button-empty',
       {
         attrs: {
-          href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
+          href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
           target: '_blank',
           rel: 'noopener',
           'data-icon': '',

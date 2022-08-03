@@ -63,7 +63,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="update">Ažuriranje</string>
   <string name="changeMonthlyAmount">Promjenite mjesečni iznos (%s)</string>
   <string name="cancelSupport">otkažite Vašu podršku</string>
-  <string name="xOrY">%1$s ili %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ili %2$s</string>
   <string name="decideHowMuch">Odlučite koliko Vam vrijedi Lichess:</string>
   <string name="stopPayments">Povucite kreditnu karticu i zaustavite plaćanja:</string>
   <string name="stopPaymentsPayPal">Otkaži PayPal pretplatu i zaustavi isplate:</string>

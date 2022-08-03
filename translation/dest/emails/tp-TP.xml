@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">jan %s, o toki e nimi sin sina pi lipu lichess.org</string>
+  <string name="emailConfirm_subject" comment="emailConfirm_subject&#10;&#10;%s is the player's username.&#10;Please do NOT transcribe 'lichess.org', it should be kept exactly as it is written.">jan %s, o toki e nimi sin sina pi lipu lichess.org</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">sina wile jo e nimi sina pi lipu Lichess la o luka e nimi ni:</string>
   <string name="emailConfirm_ignore">sina pali ala kepeken nimi pi lipu Lichess la sina ken sona ala e lipu ni.</string>
   <string name="passwordReset_subject">jan %s o, o pali e nimi sin pi sona ala pi lipu Lichess.org</string>

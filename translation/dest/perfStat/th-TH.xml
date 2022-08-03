@@ -18,7 +18,7 @@
   <string name="notEnoughGames">เกมที่เล่นไม่เพียงพอ</string>
   <string name="highestRating">ระดับคะแนนสูงสุด: %s</string>
   <string name="lowestRating">ระดับคะแนนต่ำสุด: %s</string>
-  <string name="fromXToY">จาก %1$s ถึง %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">จาก %1$s ถึง %2$s</string>
   <string name="winningStreak">การชนะต่อเนื่อง</string>
   <string name="losingStreak">การแพ้ต่อเนื่อง</string>
   <string name="longestStreak">ค่าต่อเนื่องสูงสุด: %s</string>

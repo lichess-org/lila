@@ -70,7 +70,7 @@
   <string name="fromMyGamesNone">डेटाबेस मध्ये आपली कोडी अजून नाहीत, तरीही आपण lichess चे आवडते आहात. 
 
 आपले कोडे निवडले जाण्याच्या संधि वाढवण्यासाठी रॅपिड आणि क्लासिकल खेळ खेळा!</string>
-  <string name="fromXGamesFound">%1$s कोडे %2$s यांच्या खेळात मिळाले</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s कोडे %2$s यांच्या खेळात मिळाले</string>
   <string name="puzzleDashboardDescription">प्रशिक्षण, विश्लेषण, सुधारणा</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s खेळताहेत</item>

@@ -1,0 +1,47 @@
+.opening {
+  &__index {
+    h2 {
+      margin: 1.8em 0 1em 0;
+      border-bottom: 1px solid $c-brag;
+      line-height: 1.4em;
+      padding-bottom: 0.3em;
+      font-size: 3em;
+    }
+    &__others {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
+      gap: 0 1ch;
+    }
+    &__sub-tree {
+      h3 {
+        font-size: 2em;
+        line-height: 2em;
+      }
+    }
+    &__links {
+      flex: 1 1 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+      gap: 0 1ch;
+      margin: 0 0 3em 2em;
+
+      @include breakpoint($mq-not-xx-small) {
+        grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
+      }
+
+      span {
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 1.1em;
+        line-height: 1.8em;
+        text-overflow: ellipsis;
+      }
+    }
+
+    em {
+      color: $c-font-shy;
+      font-size: 0.8em;
+      margin-left: 1em;
+    }
+  }
+}

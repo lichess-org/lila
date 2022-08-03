@@ -31,7 +31,7 @@ case class Puzzle(
 
   def color = fen.color.fold[chess.Color](chess.White)(!_)
 
-  def hasTheme(theme: PuzzleTheme) = themes(theme.key)
+  def hasTheme(anyOf: PuzzleTheme*) = anyOf.exists(t => themes(t.key))
 }
 
 object Puzzle {

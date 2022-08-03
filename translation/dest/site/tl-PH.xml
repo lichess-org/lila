@@ -17,6 +17,8 @@
   <string name="stalemate">Tabla</string>
   <string name="white">Puti</string>
   <string name="black">Itim</string>
+  <string name="asWhite">Bilang puti</string>
+  <string name="asBlack">Bilang itim</string>
   <string name="randomColor">Ibat-ibang panig</string>
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
@@ -168,6 +170,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s oras</item>
     <item quantity="other">%s mga oras</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minuto</item>
   </plurals>
   <string name="time">Oras</string>
   <string name="rating">Marka</string>
@@ -330,8 +336,11 @@
   <string name="apply">Isumite</string>
   <string name="save">I-save</string>
   <string name="leaderboard">Board ng Pinuno</string>
+  <string name="screenshotCurrentPosition">Screenshot kasalukuyang posisyon</string>
+  <string name="gameAsGIF">Laro Bilang GIF</string>
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
+  <string name="orUploadPgnFile">O mag upload ng PGN file</string>
   <string name="fromPosition">Mula sa posisyon</string>
   <string name="continueFromHere">Magpatuloy mula dito</string>
   <string name="toStudy">Pagaralan</string>
@@ -407,6 +416,8 @@
   <string name="tournamentIsStarting">Mag sisimula na yung torneo</string>
   <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
+  <string name="pause">I-hinto</string>
+  <string name="resume">Ipatuloy</string>
   <string name="youArePlaying">Ikaw ay naglalaro!</string>
   <string name="winRate">Porsyento na manalo</string>
   <string name="berserkRate">Porsyento na magberserk</string>
@@ -439,7 +450,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa O watawat</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
+  <string name="oneUrlPerLine">Isang URL kada linya.</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
+  <string name="savingMoves">Temporero paglipat ng imbakan</string>
+  <string name="savingMovesHelp">Palagi naming kinikeep ang iyong mga variation sa cache ng iyong browser.</string>
+  <string name="makeAStudy">Para sa pag iingat at pagbabahagi, pag isipang gumawa ng pag-aaral.</string>
+  <string name="clearSavedMoves">Tangalin ang mga moves</string>
   <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
   <string name="onlinePlayers">Mga online na manlalaro</string>
   <string name="activePlayers">Aktibong manlalaro</string>
@@ -482,6 +498,7 @@
   <string name="reportDescriptionHelp">I-paste ang link sa mga laro at ipaliwanag kung ano ang mali tungkol sa ugali ng gumagamit. Huwag mo lamang sabihin na \"sila\'y nandaya\", pero sabihin mo sa amin kung paano mo ito nasabi. Ang iyong report ay ipoproseso ng mas mabilis kapag nakasulat sa English.</string>
   <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
   <string name="by">sa pamamagitan ng %s</string>
+  <string name="importedByX">Inimport ni %s</string>
   <string name="thisTopicIsNowClosed">Ang paksang itp ay sarado na.</string>
   <string name="blog">Blog</string>
   <string name="notes">Mga Talaan</string>
@@ -542,6 +559,7 @@
   <string name="community">Komunidad</string>
   <string name="tools">Mga Kagamitan</string>
   <string name="increment">Pagdagdag</string>
+  <string name="error.unknown">Di-wastong kahalaga</string>
   <string name="error.required">Ang patlang na ito ay kailangan</string>
   <string name="error.email">Ang email address na ito ay hindi wasto</string>
   <string name="error.email_acceptable">Hindi katanggap-tanggap ang email address na ito. Mangyaring i-double check ito, at subukang muli.</string>
@@ -552,6 +570,7 @@
   <string name="error.min">Dapat ay hindi bababa sa %s</string>
   <string name="error.max">Dapat nasa mos %s</string>
   <string name="ifRatingIsPlusMinusX">Kung ang marka ay ± %s</string>
+  <string name="ifRegistered">Kung nakarehistro</string>
   <string name="onlyExistingConversations">Mga nabubuhay na pagsasalitaan lamang</string>
   <string name="onlyFriends">Mga kaibigan lamang</string>
   <string name="menu">Menu</string>
@@ -773,6 +792,7 @@
   <string name="currentMatchScore">Kasalukuyang iskor ng labanan</string>
   <string name="agreementAssistance">Sumasang-ayon ako na hindi ako kailanman tatanggap ng ayuda sa panahon ng aking mga laro (mula sa isang kompyuter ng ahedres, aklat, database o sa ibang tao).</string>
   <string name="agreementNice">Sumasang-ayon ako na lagi akong magiging magalang sa ibang mga manlalaro.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Sumasang-ayon ako na hindi ako gagawa ng maraming account (maliban sa dahilan na nakalagay sa %s).</string>
   <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
   <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
   <string name="edit">I-edit</string>
@@ -870,4 +890,9 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="abortTheGame">I-abort ang laro</string>
   <string name="resignTheGame">Resign ang laro</string>
   <string name="youCantStartNewGame">Hindi ka maaaring magsimula ng isang bagong laro hanggang sa matapos ang isang ito.</string>
+  <string name="since">Mula noon</string>
+  <string name="until">Hanggang</string>
+  <string name="lichessDbExplanation">Na-rate na mga laro na pinakita mula sa lahat ng manlalaro ng Lichess</string>
+  <string name="switchSides">Lumipat ng sides</string>
+  <string name="closingAccountWithdrawAppeal">Ang pagsasara ng iyong account ay babawiin ang iyong apela</string>
 </resources>
