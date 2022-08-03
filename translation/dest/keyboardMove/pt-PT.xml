@@ -12,4 +12,8 @@
   <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Leia o nome do adversário</string>
   <string name="otherCommands">Outros comandos</string>
   <string name="tips">Dicas</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Se a notação de jogada usada acima não é familiar, aprenda mais aqui:</string>
+  <string name="bothTheLetterOAndTheDigitZero" comment="bothTheLetterOAndTheDigitZero&#10;&#10;Only the Latin character 'o' works.">Tanto a letra \"o\" como o algarismo zero \"0\" podem ser utilizados no roque</string>
+  <string name="ifItIsLegalToCastleBothWays">Se for legal fazer roque de ambas as maneiras, use a tecla enter para fazer roque do lado do rei</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">As letras maiúsculas só importam em casos ambíguos que envolvam o bispo e o peão b</string>
 </resources>
