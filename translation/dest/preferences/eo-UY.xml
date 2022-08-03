@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferoj</string>
+  <string name="display">Montri</string>
   <string name="privacy">Privateco</string>
   <string name="pieceAnimation">Animacio de ŝakpecoj</string>
   <string name="materialDifference">Materiala diferenco</string>
