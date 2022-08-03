@@ -8,8 +8,8 @@ const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
 const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
-const partialIccfRegex = /^[1-8]{1,3}$/;
-const iccfRegex = /^[1-8]{4}[1-5]?$/;
+// accept partial ICCF because submit runs on every keypress
+const iccfRegex = /^[1-8]{1,4}[1-5]?$/;
 
 interface Opts {
   input: HTMLInputElement;
@@ -33,7 +33,7 @@ export default (opts: Opts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
-    if (v.match(iccfRegex) || v.match(partialIccfRegex)) {
+    if (v.match(iccfRegex)) {
       v = iccfToUci(v);
     }
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
