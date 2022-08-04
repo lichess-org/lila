@@ -9,6 +9,7 @@
   <string name="postBody">Bejegyzés törzse</string>
   <string name="drafts">Piszkozatok</string>
   <string name="published">Közzétett</string>
+  <string name="createBlogDiscussion">Hozzászólások engedélyezése</string>
   <string name="publishOnYourBlog">Közzététel a saját blogomon</string>
   <string name="publishHelp">Ha bejelölöd a bejegyzés nyilvános lesz. Ha nem jelölöd be, akkor privát poszt marad és a vázlatok között megtalálható lesz</string>
   <plurals name="publishedNbBlogPosts">
