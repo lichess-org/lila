@@ -25,7 +25,7 @@
   <string name="crushing">压倒性优势</string>
   <string name="crushingDescription">发现对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)。</string>
   <string name="doubleBishopMate">双象杀王</string>
-  <string name="doubleBishopMateDescription">双象在交错的斜线上将杀被同一方子力阻挡的王。</string>
+  <string name="doubleBishopMateDescription">双象在相邻的斜线上将杀被同一方子力阻挡的王。</string>
   <string name="dovetailMate">燕尾杀法</string>
   <string name="dovetailMateDescription">后贴面杀，王唯一能逃跑的两个格子被同一方的棋子阻挡。</string>
   <string name="equality">均势</string>
