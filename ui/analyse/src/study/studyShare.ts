@@ -231,6 +231,17 @@ export function view(ctrl: StudyShareCtrl): VNode {
           },
         }),
       ]),
+      h('div.pgn', [
+        h('div.pair', [
+          h('label.name', 'PGN'),
+          h('textarea.copyable.autoselect', {
+            attrs: {
+              spellCheck: false,
+              download: `/study/${studyId}/${chapter.id}.pgn`,
+            },
+          }),
+        ]),
+      ]),
     ]),
   ]);
 }
