@@ -68,8 +68,6 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val textExpand = wire[GameTextExpand]
-
   // eargerly load captcher actor
   private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>

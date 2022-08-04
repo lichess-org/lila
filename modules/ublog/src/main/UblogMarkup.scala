@@ -1,22 +1,27 @@
 package lila.ublog
 
 import java.util.regex.Matcher
+import play.api.Mode
 import scala.concurrent.duration._
 
 import lila.common.config
-import lila.common.{ Chronometer, Markdown, MarkdownRender }
+import lila.common.{ Bus, Chronometer, Markdown, MarkdownRender }
+import lila.game.Game
+import lila.hub.actorApi.lpv.GamePgnsFromText
 import lila.memo.CacheApi
-import play.api.Mode
 
 final class UblogMarkup(
-    gameExpand: lila.game.GameTextExpand,
     baseUrl: config.BaseUrl,
     assetBaseUrl: config.AssetBaseUrl,
     cacheApi: CacheApi,
     netDomain: config.NetDomain
-)(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
+)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler, mode: Mode) {
 
   import UblogMarkup._
+
+  private val pgnCache = cacheApi.notLoadingSync[Game.ID, String](256, "ublogMarkup.pgn") {
+    _.expireAfterWrite(1 second).build()
+  }
 
   private val renderer = new MarkdownRender(
     autoLink = true,
@@ -26,7 +31,7 @@ final class UblogMarkup(
     blockQuote = true,
     code = true,
     table = true,
-    gameExpand = MarkdownRender.GameExpand(netDomain, gameExpand.getPgnSync).some
+    gameExpand = MarkdownRender.GameExpand(netDomain, pgnCache.getIfPresent).some
   )
 
   def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map(scalatags.Text.all.raw)
@@ -35,7 +40,7 @@ final class UblogMarkup(
     _.maximumSize(2048)
       .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
       .buildAsyncFuture { case (id, markdown) =>
-        gameExpand.preloadGamesFromText(markdown.value) inject
+        Bus.ask("lpv")(GamePgnsFromText(markdown.value, _)) addEffect pgnCache.putAll inject
           process(id)(markdown)
       }
   }

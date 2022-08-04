@@ -1,7 +1,6 @@
 package controllers
 
 import chess.format.FEN
-import chess.White
 import play.api.mvc._
 import views._
 
@@ -100,7 +99,7 @@ final class Analyse(
 
   def embedReplayGame(gameId: String, color: String) =
     Action.async { implicit req =>
-      env.game.textExpand.getPgn(gameId) map {
+      env.api.textLpvExpand.getPgn(gameId) map {
         case Some(pgn) =>
           render {
             case AcceptsPgn() => Ok(pgn)

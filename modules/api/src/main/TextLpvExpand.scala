@@ -1,24 +1,26 @@
-package lila.game
+package lila.api
 
 import chess.format.pgn.Pgn
-import scala.concurrent.ExecutionContext
+import play.api.Mode
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 import scalatags.Text.all._
 
+import lila.analyse.AnalysisRepo
 import lila.common.config
-import lila.memo.{ CacheApi, Syncache }
-import play.api.Mode
+import lila.game.{ Game, GameRepo }
+import lila.memo.CacheApi
 
-final class GameTextExpand(
+final class TextLpvExpand(
     gameRepo: GameRepo,
+    analysisRepo: AnalysisRepo,
     pgnDump: PgnDump,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext, mode: Mode) {
+)(implicit ec: ExecutionContext) {
 
-  def getPgn(id: Game.ID)     = pgnCache async id
-  def getPgnSync(id: Game.ID) = pgnCache.sync(id)
+  def getPgn(id: Game.ID) = pgnCache get id
 
-  def fromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
+  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
     gameRegex
       .findAllMatchIn(text)
       .toList
@@ -28,7 +30,7 @@ final class GameTextExpand(
         } map (m.matched -> _)
       }
       .map { case (matched, id) =>
-        pgnCache.async(id) map2 { matched -> _ }
+        pgnCache.get(id) map2 { matched -> _ }
       }
       .sequenceFu
       .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
@@ -39,11 +41,14 @@ final class GameTextExpand(
         }
     }
 
-  def preloadGamesFromText(text: String): Funit = pgnCache preloadMany {
-    gameRegex
+  def gamePgnsFromText(text: String): Fu[Map[Game.ID, String]] = {
+    val gameIds = gameRegex
       .findAllMatchIn(text)
       .toList
       .flatMap { m => Option(m group 1) filterNot notGames.contains }
+    pgnCache getAll gameIds map {
+      _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
+    }
   }
 
   private val gameRegex =
@@ -55,19 +60,19 @@ final class GameTextExpand(
   private def lichessPgnViewer(game: Game.WithInitialFen, pgn: Pgn): Frag =
     div(cls := "lpv", attr("data-pgn") := pgn.toString)
 
-  private val pgnFlags = PgnDump.WithFlags(clocks = true, evals = false, opening = false)
+  private val pgnFlags =
+    lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val pgnCache = cacheApi.sync[Game.ID, Option[String]](
-    "gameTextExpand.pgnSync",
-    512,
-    compute = id => gameIdToPgn(id).map2(_.render),
-    default = _ => none,
-    strategy = Syncache.WaitAfterUptime(500 millis, if (mode == Mode.Prod) 25 else 0),
-    expireAfter = Syncache.ExpireAfterWrite(10 minutes)
-  )
+  private val pgnCache = cacheApi[Game.ID, Option[String]](512, "textLpvExpand.pgn") {
+    _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
+  }
 
   private def gameIdToPgn(id: Game.ID): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMap {
-      _ ?? { g => pgnDump(g.game, g.fen, pgnFlags) dmap some }
+      _ ?? { g =>
+        analysisRepo.byId(id) flatMap { analysis =>
+          pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
+        }
+      }
     }
 }

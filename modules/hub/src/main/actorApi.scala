@@ -113,6 +113,11 @@ package captcha {
   case class ValidCaptcha(id: String, solution: String)
 }
 
+package lpv {
+  case class GamePgnsFromText(text: String, promise: Promise[Map[String, String]])
+  case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
+}
+
 package simul {
   case class GetHostIds(promise: Promise[Set[String]])
   case class PlayerMove(gameId: String)

@@ -19,10 +19,10 @@ final class Env(
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
-    net: NetConfig,
-    gameTextExpand: lila.game.GameTextExpand
+    net: NetConfig
 )(implicit
     ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
 ) {
