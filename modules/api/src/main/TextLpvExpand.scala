@@ -37,7 +37,11 @@ final class TextLpvExpand(
       matches
         .get(url)
         .map { pgn =>
-          div(cls := "lpv--autostart", attr("data-pgn") := pgn.toString)
+          div(
+            cls                      := "lpv--autostart",
+            attr("data-pgn")         := pgn.toString,
+            attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name
+          )
         }
     }
 

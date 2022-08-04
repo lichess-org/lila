@@ -8,6 +8,7 @@ export function autostart() {
     loadCssPath('lpv').then(() => {
       Lpv(this, {
         pgn: this.dataset['pgn']!.replace(/<br>/g, '\n'),
+        orientation: this.dataset['orientation'] as Color | undefined,
         lichess: location.origin,
       });
     });
