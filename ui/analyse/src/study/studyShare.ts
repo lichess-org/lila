@@ -235,13 +235,13 @@ export function view(ctrl: StudyShareCtrl): VNode {
         h('div.pair', [
           h('label.name', 'PGN'),
           h('textarea.copyable.autoselect', {
-            attrs: { 
+            attrs: {
               spellCheck: false,
-              download: `/study/${studyId}/${chapter.id}.pgn`  
+              download: `/study/${studyId}/${chapter.id}.pgn`,
             },
-          })
+          }),
         ]),
-      ])
+      ]),
     ]),
   ]);
 }
