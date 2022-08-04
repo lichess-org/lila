@@ -11,7 +11,7 @@
     <item quantity="other">在%s小时内</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="other">在 %s 天</item>
+    <item quantity="other">在 %s 天内</item>
   </plurals>
   <plurals name="inNbWeeks">
     <item quantity="other">在%s周内</item>
