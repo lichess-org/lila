@@ -34,8 +34,18 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">Հրավիրեք միայն այն մասնակիցներին, որոնց ճանաչում եք, և որոնք ակտիվորեն ցանկանում են միանալ այս ստուդիային։</string>
   <string name="searchByUsername">Որոնում ըստ մասնակցային անվան</string>
   <string name="spectator">Հանդիսատես</string>
+  <string name="leaveTheStudy">Լքել ստուդիան</string>
   <string name="unlike">Չեմ հավանում</string>
+  <string name="studyPgn">Ստուդիայի PGN-ն</string>
+  <string name="studyUrl">Ստուդիայի հղումը</string>
+  <string name="studyNotFound">Ստուդիան չի գտնվել</string>
+  <string name="createStudy">Ստեղծել ստուդիա</string>
+  <string name="editStudy">Խմբագրել ստուդիան</string>
+  <string name="pinnedStudyComment">Ստուդիայի ամրակցված մեկնաբանություն</string>
+  <string name="deleteTheStudyChatHistory">Հեռացնե՞լ ստուդիայի զրուցարանը։ Վերականգնել հնարավոր չի լինի։</string>
+  <string name="deleteStudy">Հեռացնել ստուդիան</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Հեռացնե՞լ ամբողջ ստուդիան։ Հեռացումն անդառնալի կլինի։ Հաստատելու համար մուտքագրեք ստուդիայի անվանումը՝ %s</string>
+  <string name="whereDoYouWantToStudyThat">Որտե՞ղ եք ցանկանում ստեղծել ստուդիան։</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Ցուգցվանգ</string>
   <string name="studyActions">Գործողությունները ստուդիայում</string>
   <string name="topics">Թեմաներ</string>
