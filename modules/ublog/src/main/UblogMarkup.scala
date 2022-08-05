@@ -40,8 +40,9 @@ final class UblogMarkup(
     _.maximumSize(2048)
       .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
       .buildAsyncFuture { case (id, markdown) =>
-        Bus.ask("lpv")(GamePgnsFromText(markdown.value, _)) addEffect pgnCache.putAll inject
-          process(id)(markdown)
+        Bus.ask("lpv")(GamePgnsFromText(markdown.value, _)) andThen { case scala.util.Success(pgns) =>
+          pgnCache.putAll(pgns)
+        } inject process(id)(markdown)
       }
   }
 

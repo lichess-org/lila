@@ -50,6 +50,7 @@ final class TextLpvExpand(
       .findAllMatchIn(text)
       .toList
       .flatMap { m => Option(m group 1) filterNot notGames.contains }
+      .distinct
     pgnCache getAll gameIds map {
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
