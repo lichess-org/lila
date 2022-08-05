@@ -556,12 +556,12 @@ function renderPersistence(ctrl: AnalyseCtrl): VNode | undefined {
         'button.button.button-empty.button-red',
         {
           attrs: {
-            title: ctrl.trans.noarg('clearSavedMoves'),
+            title: noarg('clearSavedMoves'),
             'data-icon': '',
           },
           hook: bind('click', ctrl.persistence.clear),
         },
-        'Clear moves'
+        noarg('clearSavedMoves')
       ),
     ]),
   ]);
