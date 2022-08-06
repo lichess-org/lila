@@ -143,15 +143,13 @@ export function view(ctrl: StudyShareCtrl): VNode {
           attrs: {
             'data-icon': '',
           },
-          on: {
-            click: () => {
-              xhrText(`/study/${studyId}/${chapter.id}.pgn`).then(pgnAsText => {
-                navigator.clipboard.writeText(pgnAsText).then(() => {
-                  alert('PGN copied into clipboard.');
-                });
+          hook: bind('click', () => {
+            xhrText(`/study/${studyId}/${chapter.id}.pgn`).then(pgnAsText => {
+              navigator.clipboard.writeText(pgnAsText).then(() => {
+                alert('PGN copied into clipboard.');
               });
-            },
-          },
+            });
+          }),
         },
         'Copy PGN'
       ),

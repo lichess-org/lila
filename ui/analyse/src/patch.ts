@@ -1,3 +1,3 @@
-import { attributesModule, classModule, eventListenersModule, init } from 'snabbdom';
+import { attributesModule, classModule, init } from 'snabbdom';
 
-export default init([classModule, attributesModule, eventListenersModule]);
+export default init([classModule, attributesModule]);
