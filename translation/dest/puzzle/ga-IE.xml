@@ -60,6 +60,7 @@
   </plurals>
   <string name="example">Sampla</string>
   <string name="addAnotherTheme">Cuir téama eile leis</string>
+  <string name="nextPuzzle">An chéad bhfadhb eile</string>
   <string name="jumpToNextPuzzleImmediately">Léim chuig an chéad fadhbh eile láithreach</string>
   <string name="puzzleDashboard">Painéal fadhbhanna</string>
   <string name="improvementAreas">Réimsí feabhsúcháin</string>
