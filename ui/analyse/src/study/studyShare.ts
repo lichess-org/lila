@@ -146,12 +146,12 @@ export function view(ctrl: StudyShareCtrl): VNode {
           hook: bind('click', () => {
             xhrText(`/study/${studyId}/${chapter.id}.pgn`).then(pgnAsText => {
               navigator.clipboard.writeText(pgnAsText).then(() => {
-                alert('PGN copied into clipboard.');
+                alert(ctrl.trans.noarg('pgnCopiedToClipboard'));
               });
             });
           }),
         },
-        'Copy PGN'
+        ctrl.trans.noarg('copyPgn')
       ),
       h(
         'a.button.text',

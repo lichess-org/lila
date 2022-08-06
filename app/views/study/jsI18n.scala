@@ -60,6 +60,8 @@ object jsI18n {
       studyPgn,
       downloadAllGames,
       chapterPgn,
+      copyPgn,
+      pgnCopiedToClipboard,
       downloadGame,
       studyUrl,
       currentChapterUrl,
