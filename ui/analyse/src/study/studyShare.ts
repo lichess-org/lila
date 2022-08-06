@@ -143,12 +143,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
           attrs: {
             'data-icon': '',
           },
-          hook: bind('click', () => {
-            xhrText(`/study/${studyId}/${chapter.id}.pgn`).then(pgnAsText => {
-              navigator.clipboard.writeText(pgnAsText).then(() => {
-                alert(ctrl.trans.noarg('pgnCopiedToClipboard'));
-              });
-            });
+          hook: bind('click', async () => {
+            const pgn = await xhrText(`/study/${studyId}/${chapter.id}.pgn`);
+            await navigator.clipboard.writeText(pgn);
+            alert(ctrl.trans.noarg('pgnCopiedToClipboard'));
           }),
         },
         ctrl.trans.noarg('copyPgn')
