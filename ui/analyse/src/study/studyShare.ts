@@ -145,11 +145,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
           },
           on: {
             click: () => {
-              xhrText(`/study/${studyId}/${chapter.id}.txt`).then(pgnAsText => {
+              xhrText(`/study/${studyId}/${chapter.id}.pgn`).then(pgnAsText => {
                 navigator.clipboard.writeText(pgnAsText).then(() => {
                   alert('PGN copied into clipboard.');
                 });
-
               });
             },
           },
