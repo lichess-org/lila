@@ -479,6 +479,19 @@ final class Study(
       }
     }
 
+  def chapterPgnPlainText(id: String, chapterId: String) =
+    Open { implicit ctx =>
+      env.study.api.byIdWithChapter(id, chapterId) flatMap {
+        _.fold(notFound) { case WithChapter(study, chapter) =>
+          CanView(study, ctx.me) {
+            env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
+              Ok(pgn.toString).as("text/plain")
+            }
+          }(privateUnauthorizedFu(study), privateForbiddenFu(study))
+        }
+      }
+    }
+
   def exportPgn(username: String) =
     OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
