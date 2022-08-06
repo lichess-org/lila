@@ -124,12 +124,14 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
 
   def apply(notify: Notification.AndUnread)(implicit lang: Lang) =
     andUnreadWrites.writes(notify) ++ Json.obj(
-      "i18n" -> JsDump.keysToObject(i18nKeys, lang)
+      "i18n" -> JsDump.keysToObject(i18nKeys, lang),
+      "alert" -> false
     )
 
   def apply(notify: Notification.SingleAndUnread)(implicit lang: Lang) =
     Json.obj(
       "note"   -> notify.note,
-      "unread" -> notify.unread
+      "unread" -> notify.unread,
+      "alert" -> notify.alert
     )
 }

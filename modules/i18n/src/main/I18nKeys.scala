@@ -1669,11 +1669,10 @@ val `notifyGameEvent` = new I18nKey("preferences:notifyGameEvent")
 val `notifyChallenge` = new I18nKey("preferences:notifyChallenge")
 val `notifyTournamentSoon` = new I18nKey("preferences:notifyTournamentSoon")
 val `notifyTimeAlarm` = new I18nKey("preferences:notifyTimeAlarm")
-val `notifyNone` = new I18nKey( "preferences:notifyNone")
 val `notifyBell` = new I18nKey("preferences:notifyBell")
+val `notifyPush` = new I18nKey("preferences:notifyPush")
 val `notifyWeb` = new I18nKey("preferences:notifyWeb")
 val `notifyDevice` = new I18nKey("preferences:notifyDevice")
-val `notifyEverything` = new I18nKey("preferences:notifyEverything")
 }
 
 object team {

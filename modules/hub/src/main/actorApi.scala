@@ -16,7 +16,7 @@ package streamer {
       userId: String,
       streamerName: String,
       text: String,
-      filter: Int,
+      allows: Int,
       lang: Lang,
       recentlyOnline: Boolean = false
   )

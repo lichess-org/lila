@@ -51,6 +51,7 @@ $c-secondary-over: #fff;
 /* Accent: orange */
 $c-accent: hsl(22, 100%, 42%);
 $c-accent-dim: c-dimmer($c-accent);
+$c-accent-faint: hsla(22, 100%, 42%, 0.4);
 $c-accent-clear: c-clearer($c-accent);
 $c-accent-over: #fff;
 

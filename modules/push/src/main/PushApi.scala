@@ -172,7 +172,7 @@ final private class PushApi(
         maybePush(
           userId,
           _.corresAlarm,
-          NotificationPref.TimeAlarm,
+          NotificationPref.GameEvent,
           PushApi.Data(
             title = "Time is almost up!",
             body = s"You are about to lose on time against $opponent",
@@ -236,25 +236,6 @@ final private class PushApi(
               "type"   -> "forumMention",
               "postId" -> postId
             )
-          )
-        )
-      )
-    }
-
-  def streamStart(streamerId: User.ID, notifyList: List[NotifiableFollower]): Funit =
-    // nice execution context you have there...  should this be throttled?
-    Future.applySequentially(notifyList) { target =>
-      filterPush(
-        target.userId,
-        _.streamStart,
-        target.filter,
-        PushApi.Data(
-          title = target.streamerName,
-          body = target.text,
-          stacking = Stacking.StreamStart,
-          payload = Json.obj(
-            "userId"   -> target.userId,
-            "userData" -> Json.obj("type" -> "streamStart", "streamerId" -> streamerId)
           )
         )
       )
@@ -335,25 +316,43 @@ final private class PushApi(
       )
     }
 
+  import NotificationPref._
+  def streamStart(streamerId: User.ID, notifyList: List[NotifiableFollower]): Funit =
+  // nice execution context you have there...  should this be throttled?
+    Future.applySequentially(notifyList) { target =>
+      filterPush(
+        target.userId,
+        _.streamStart,
+        Allows(target.allows),
+        PushApi.Data(
+          title = target.streamerName,
+          body = target.text,
+          stacking = Stacking.StreamStart,
+          payload = Json.obj(
+            "userId"   -> target.userId,
+            "userData" -> Json.obj("type" -> "streamStart", "streamerId" -> streamerId)
+          )
+        )
+      )
+    }
+
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
 
   private def maybePush(
       userId: User.ID,
       monitor: MonitorType,
-      filterType: NotificationPref.Type,
+      event: Event,
       data: PushApi.Data
   ): Funit =
-    prefApi.getNotificationFilter(userId, filterType) flatMap (filterPush(userId, monitor, _, data))
+    prefApi.getNotificationPref(userId) flatMap { x => filterPush(userId, monitor, x.allows(event), data) }
 
-  private def filterPush(userId: User.ID, monitor: MonitorType, filter: Int, data: PushApi.Data): Funit = {
-    ((filter & NotificationPref.WEB) != 0) ??
-      webPush(userId, data).addEffects { res =>
-        monitor(lila.mon.push.send)("web", res.isSuccess)
-      }
-    ((filter & NotificationPref.DEVICE) != 0) ??
-      firebasePush(userId, data).addEffects { res =>
-        monitor(lila.mon.push.send)("firebase", res.isSuccess)
-      }
+  private def filterPush(userId: User.ID, monitor: MonitorType, allows: Allows, data: PushApi.Data): Funit = {
+    allows.web ?? webPush(userId, data).addEffects { res =>
+      monitor(lila.mon.push.send)("web", res.isSuccess)
+    }
+    allows.device ?? firebasePush(userId, data).addEffects { res =>
+      monitor(lila.mon.push.send)("firebase", res.isSuccess)
+    }
   }
 
   private def describeChallenge(c: Challenge) = {

@@ -4,9 +4,9 @@ import play.api.data._
 import play.api.data.Forms._
 
 import lila.common.Form.{ numberIn, stringIn }
+import NotificationPref._
 
 object PrefForm {
-
   private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
     choice => choices.exists(_._1 == choice)
 
@@ -18,6 +18,11 @@ object PrefForm {
 
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)
+
+  private val allowsMapping = mapping(
+    "bell" -> boolean,
+    "push" -> boolean,
+  )(Allows.fromForm)(Allows.toForm)
 
   val pref = Form(
     mapping(
@@ -51,13 +56,12 @@ object PrefForm {
         "moretime" -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(ClockData.unapply),
       "notification" -> mapping(
-        "inboxMsg"            -> checkedInteger(NotificationPref.moreChoices),
-        "challenge"           -> checkedInteger(NotificationPref.choices),
-        "tournamentSoon"      -> checkedInteger(NotificationPref.choices),
-        "gameEvent"           -> checkedInteger(NotificationPref.choices),
-        "timeAlarm"           -> checkedInteger(NotificationPref.choices),
-        "streamStart"         -> checkedInteger(NotificationPref.noneMoreChoices),
-        "forumMention"        -> checkedInteger(NotificationPref.noneMoreChoices),
+        "inboxMsg"            -> allowsMapping,
+        "challenge"           -> allowsMapping,
+        "forumMention"        -> allowsMapping,
+        "streamStart"         -> allowsMapping,
+        "tournamentSoon"      -> allowsMapping,
+        "gameEvent"           -> allowsMapping,
         "correspondenceEmail" -> booleanNumber
       )(NotificationPref.apply)(NotificationPref.unapply),
       "follow"       -> booleanNumber,

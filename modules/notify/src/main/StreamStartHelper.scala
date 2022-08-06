@@ -7,6 +7,7 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.streamer.NotifiableFollower
 import lila.i18n._
+import lila.pref.NotificationPref._
 import lila.user.User
 
 /* a helper class to encapsulate pref, timeline, and relation dependencies
@@ -21,7 +22,7 @@ final private class StreamStartHelper(
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
-  def getNotiflowersAndPush(streamerId: User.ID, streamerName: String): Fu[Iterable[NotifiableFollower]] =
+  def getNotiflowersAndPush(streamerId: User.ID, streamerName: String): Fu[Iterable[NotifiableFollower]] = {
     relationApi.freshFollowersFromSecondary(streamerId, 14).flatMap { followers =>
       timeline ! {
         import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
@@ -34,8 +35,12 @@ final private class StreamStartHelper(
         )
       }
     }
+  }
 
-  case class NotiflowerViews(notiflowers: Iterable[NotifiableFollower], sid: String, name: String) {
+  case class NotiflowerView(unfiltered: Iterable[NotifiableFollower], sid: String, name: String) {
+    import lila.pref.NotificationPref.Allows
+
+    val notiflowers = unfiltered.filter(x => Allows(x.allows).bell)
 
     val noteList: List[Notification] =
       notiflowers map { x => StreamStartNote.make(x.userId, sid, name, x.text) } toList
@@ -49,7 +54,12 @@ final private class StreamStartHelper(
       noteList.groupMapReduce(_.notifies.value)(identity)((x, _) => x)
 
     val notesByLang: Map[play.api.i18n.Lang, Iterable[Option[Notification]]] =
-      notiflowers.groupMap(_.lang)(nf => notesByUser.get(nf.userId))
+      notiflowers.groupMap(_.lang)(x => notesByUser.get(x.userId))
+
+    def alertPartition(users: Set[String]): (Set[String], Set[String]) = {
+      val alertUsers = users.filter(x => Allows(byUser(x).allows).push)
+      (alertUsers, users diff alertUsers)
+    }
   }
 
   private def lookupNotifiable(

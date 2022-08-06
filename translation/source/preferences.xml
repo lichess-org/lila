@@ -58,9 +58,8 @@
   <string name="notifyChallenge">Challenges</string>
   <string name="notifyTournamentSoon">Tournament starting soon</string>
   <string name="notifyTimeAlarm">Correspondence clock running out</string>
-  <string name="notifyNone">No Push</string>
-  <string name="notifyBell">Bell Only</string>
-  <string name="notifyWeb">Web Push</string>
-  <string name="notifyDevice">Device Push</string>
-  <string name="notifyEverything">All</string>
+  <string name="notifyBell">Bell</string>
+  <string name="notifyPush">Push</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Device</string>
 </resources>

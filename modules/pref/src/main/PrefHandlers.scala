@@ -49,19 +49,11 @@ private object PrefHandlers {
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         agreement = r.getD("agreement", 0),
-        notification = r.getD(
-          "notification",
-          NotificationPref.default.copy(
-            // migrate existing settings to new location
-            // delete this copy call after a month or so. 8/2022
-            correspondenceEmail = r.getD("corresEmailNotif", false) ?? 1,
-            forumMention = r.getD("mention", true) ?? NotificationPref.BELL
-          )
-        ),
-        tags = r.getD("tags", Pref.default.tags)
+        tags = r.getD("tags", Pref.default.tags),
+        notification = readNotification(r)
       )
 
-    def writes(w: BSON.Writer, o: Pref) =
+    def writes(w: BSON.Writer, o: Pref) = {
       $doc(
         "_id"           -> o._id,
         "bg"            -> o.bg,
@@ -102,8 +94,22 @@ private object PrefHandlers {
         "pieceNotation" -> o.pieceNotation,
         "resizeHandle"  -> o.resizeHandle,
         "agreement"     -> o.agreement,
-        "notification"  -> o.notification,
-        "tags"          -> o.tags
+        "tags"          -> o.tags,
+        "notification"  -> o.notification
+      )
+    }
+
+    // migrate two old settings to their new home in notification sub-document. this code can be removed
+    // after some number of months, after which returning users who didn't login in at least once during
+    // this period will need to reapply these two settings if different from defaults.  8/2022
+    import NotificationPref._
+    private def readNotification(r: BSON.Reader): NotificationPref =
+      r.getD(
+        "notification",
+        default.copy(
+          correspondenceEmail = r.getD("corresEmailNotif", false) ?? 1,
+          forumMention = Allows(r.getD("mention", true) ?? BELL)
+        )
       )
   }
 }

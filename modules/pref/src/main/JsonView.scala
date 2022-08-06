@@ -35,7 +35,7 @@ object JsonView {
       "message"          -> p.message,
       "submitMove"       -> p.submitMove,
       "confirmResign"    -> p.confirmResign,
-      "mention"          -> (p.notification.forumMention != 0), // back compat
+      "mention"          -> p.notification.forumMention.any, // back compat
       "corresEmailNotif" -> (p.notification.correspondenceEmail != 0), // back compat
       "notification"     -> p.notification,
       "insightShare"     -> p.insightShare,

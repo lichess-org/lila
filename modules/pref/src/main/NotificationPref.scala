@@ -1,101 +1,98 @@
 package lila.pref
 
 import play.api.libs.json.{ Json, OWrites }
-import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
+import reactivemongo.api.bson.Macros
+import NotificationPref._
 
 case class NotificationPref(
-    inboxMsg: Int,
-    challenge: Int,
-    gameEvent: Int,
-    tournamentSoon: Int,
-    timeAlarm: Int,
-    streamStart: Int,
-    forumMention: Int,
+    inboxMsg: Allows,
+    challenge: Allows,
+    forumMention: Allows,
+    streamStart: Allows,
+    tournamentSoon: Allows,
+    gameEvent: Allows,
     correspondenceEmail: Int
 ) {
 
-  import NotificationPref._
-
-  def filter(notification: Type): Int =
-    notification match {
-      case InboxMsg       => inboxMsg
-      case Challenge      => challenge
-      case GameEvent      => gameEvent
-      case TournamentSoon => tournamentSoon
-      case TimeAlarm      => timeAlarm
-      case StreamStart    => streamStart
-      case ForumMention   => forumMention
-    }
+  def allows(event: Event): Allows = event match {
+    case InboxMsg => inboxMsg
+    case Challenge => challenge
+    case ForumMention => forumMention
+    case StreamStart => streamStart
+    case TournamentSoon => tournamentSoon
+    case GameEvent => gameEvent
+  }
 }
 
 object NotificationPref {
-  val NONE            = 0
   val BELL            = 1
-  val WEB             = 2 // web push
-  val BELL_AND_WEB    = BELL | WEB
+  val WEB             = 2 // web push & browser alerts from notify/*.ts
   val DEVICE          = 4 // firebase
-  val BELL_AND_DEVICE = BELL | DEVICE
-  val WEB_AND_DEVICE  = WEB | DEVICE
-  val ALL             = BELL | WEB | DEVICE
+  val PUSH            = WEB|DEVICE  // may need to separate when macOS ventura happens
 
-  val choices: Seq[Int]     = Seq(NONE, WEB, DEVICE, WEB_AND_DEVICE)        // non-bell push notifications
-  val moreChoices: Seq[Int] = Seq(BELL, BELL_AND_WEB, BELL_AND_DEVICE, ALL) // inbox
-  val noneMoreChoices: Seq[Int] = NONE +: moreChoices // stream start & forum mention
+  case class Allows(value: Int) extends AnyVal with IntValue {
+    def push: Boolean = (value & (WEB|DEVICE)) != 0
+    def web: Boolean = (value & WEB) != 0
+    def device: Boolean = (value & DEVICE) != 0
+    def bell: Boolean = (value & BELL) != 0
+    def any: Boolean = value != 0
+  }
 
-  sealed trait Type {
-    override def toString: String = { // to match db fields
+  sealed trait Event {
+    override def toString: String = { // camelcase for matching db fields
       val typeName = getClass.getSimpleName
-      s"${typeName.charAt(0).toLower}${typeName.substring(1, typeName.length - 1)}" // strip object class $
+      s"${typeName.charAt(0).toLower}${typeName.substring(1, typeName.length - 1)}" // strip $
     }
   }
 
-  case object InboxMsg       extends Type
-  case object GameEvent      extends Type
-  case object Challenge      extends Type
-  case object TournamentSoon extends Type
-  case object TimeAlarm      extends Type
-  case object StreamStart    extends Type
-  case object ForumMention   extends Type
+  case object InboxMsg       extends Event
+  case object Challenge      extends Event
+  case object ForumMention   extends Event
+  case object StreamStart    extends Event
+  case object TournamentSoon extends Event
+  case object GameEvent      extends Event
 
   lazy val default: NotificationPref = NotificationPref(
-    inboxMsg = ALL,
-    challenge = WEB_AND_DEVICE,
-    gameEvent = WEB_AND_DEVICE,
-    tournamentSoon = WEB_AND_DEVICE,
-    timeAlarm = WEB_AND_DEVICE,
-    streamStart = NONE,
-    forumMention = BELL,
+    inboxMsg = Allows(BELL|PUSH),
+    challenge = Allows(BELL|PUSH),
+    forumMention = Allows(BELL),
+    streamStart = Allows(0),
+    tournamentSoon = Allows(PUSH),
+    gameEvent = Allows(PUSH),
     correspondenceEmail = 0
   )
-  /* example within a pref json view:
-    ...
-    "notification": {
-      "correspondenceEmail": true,
-      "streamStart": "bell|web|device",
-      "gameEvent": "web",
-      "inboxMsg": "",
-      ...
-   */
+
+  implicit private val AllowsBSONHandler =
+    lila.db.dsl.intAnyValHandler[Allows](_.value, Allows.apply)
+
+  implicit val NotificationPrefBSONHandler =
+    Macros.handler[NotificationPref]
+
+  object Allows {
+
+    def fromForm(bell: Boolean, push: Boolean): Allows =
+      Allows((bell ?? BELL)|(push ?? PUSH))
+
+    def toForm(allows: Allows): Some[(Boolean, Boolean)] =
+      Some((allows.bell, allows.push))
+  }
+
   implicit val notificationDataJsonWriter: OWrites[NotificationPref] =
-    OWrites[NotificationPref] { ndata =>
+    OWrites[NotificationPref] { data =>
       Json.obj(
-        "inboxMsg"            -> filterToString(ndata.inboxMsg),
-        "challenge"           -> filterToString(ndata.challenge),
-        "gameEvent"           -> filterToString(ndata.gameEvent),
-        "tournamentSoon"      -> filterToString(ndata.tournamentSoon),
-        "timeAlarm"           -> filterToString(ndata.timeAlarm),
-        "streamStart"         -> filterToString(ndata.streamStart),
-        "forumMention"        -> filterToString(ndata.forumMention),
-        "correspondenceEmail" -> (ndata.correspondenceEmail != 0)
+        "inboxMsg"            -> allowsToJson(data.inboxMsg),
+        "forumMention"        -> allowsToJson(data.forumMention),
+        "streamStart"         -> allowsToJson(data.streamStart),
+        "challenge"           -> allowsToJson(data.challenge),
+        "tournamentSoon"      -> allowsToJson(data.tournamentSoon),
+        "gameEvent"           -> allowsToJson(data.gameEvent),
+        "correspondenceEmail" -> (data.correspondenceEmail != 0)
       )
     }
 
-  private def filterToString(filter: Int): String = (
-    Map(BELL -> "bell", WEB -> "web", DEVICE -> "device") collect {
-      case (tpe, str) if (filter & tpe) != 0 => str
+  private def allowsToJson(v: Allows) = List(
+    Map(BELL -> "bell", PUSH -> "push") collect {
+      case (tpe, str) if (v.value & tpe) != 0 => str
     }
-  ).mkString("|")
-
-  implicit val NotificationDataBSONHandler: BSONDocumentHandler[NotificationPref] =
-    Macros.handler[NotificationPref]
+  )
 }

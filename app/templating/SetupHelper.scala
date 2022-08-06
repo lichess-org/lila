@@ -222,25 +222,6 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.MoveEvent.BOTH, trans.preferences.bothClicksAndDrag.txt())
     )
 
-  def translatedNotifyChoices(implicit lang: Lang): Seq[(Int, String)] =
-    Seq(
-      NotificationPref.NONE           -> trans.preferences.notifyNone.txt(),
-      NotificationPref.WEB            -> trans.preferences.notifyWeb.txt(),
-      NotificationPref.DEVICE         -> trans.preferences.notifyDevice.txt(),
-      NotificationPref.WEB_AND_DEVICE -> trans.preferences.notifyEverything.txt()
-    )
-
-  def translatedNotifyMoreChoices(implicit lang: Lang): Seq[(Int, String)] =
-    Seq(
-      NotificationPref.BELL            -> trans.preferences.notifyBell.txt(),
-      NotificationPref.BELL_AND_WEB    -> trans.preferences.notifyWeb.txt(),
-      NotificationPref.BELL_AND_DEVICE -> trans.preferences.notifyDevice.txt(),
-      NotificationPref.ALL             -> trans.preferences.notifyEverything.txt()
-    )
-
-  def translatedNotifyNoneMoreChoices(implicit lang: Lang): Seq[(Int, String)] =
-    (NotificationPref.NONE -> trans.preferences.notifyNone.txt()) +: translatedNotifyMoreChoices(lang)
-
   def translatedTakebackChoices(implicit lang: Lang) =
     List(
       (Pref.Takeback.NEVER, trans.never.txt()),

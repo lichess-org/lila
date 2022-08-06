@@ -19,6 +19,7 @@ export interface NotifyData {
 export interface SingleNotifyData {
   note: Notification;
   unread: number;
+  alert: boolean;
 }
 
 interface NotificationUser {

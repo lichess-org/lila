@@ -1,8 +1,9 @@
-import { Ctrl, NotifyOpts, NotifyData, SingleNotifyData, Redraw } from './interfaces';
+import { Ctrl, Notification, NotifyOpts, NotifyData, SingleNotifyData, Redraw } from './interfaces';
 
 import * as xhr from 'common/xhr';
 import notify from 'common/notification';
-import { asText } from './view';
+//import { asText } from './view';    TODO, put i18n back into non-streamer incomings
+import { defined } from 'common';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   let data: NotifyData | undefined,
@@ -20,6 +21,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   });
 
   function update(d: NotifyData | SingleNotifyData, incoming: boolean) {
+    opts.setCount(d.unread);
     if (!('pager' in d)) {
       updateSingle(d as SingleNotifyData);
       return;
@@ -32,33 +34,18 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     }
     initiating = false;
     scrolling = false;
-    opts.setCount(data.unread);
-    if (incoming) {
-      if (data.pager.currentPage !== 1) return;
-      const notif = data.pager.currentPageResults.find(n => !n.read);
-      if (!notif) return;
-      pulsePlayAndPush(asText(notif, lichess.trans(data.i18n)), notif.content.user?.id == 'lichess');
-    }
+    if (incoming) alertUser(data);
     redraw();
   }
 
   function updateSingle(d: SingleNotifyData) {
     if (opts.isVisible()) {
       loadPage(1);
-      if (!lichess.quietMode) lichess.sound.playOnce('newPM');
       return;
     }
-    opts.setCount(d.unread);
     data = undefined;
-    pulsePlayAndPush(d.note.content.text, d.note.content.user?.id == 'lichess');
+    alertUser(d);
     redraw();
-  }
-
-  function pulsePlayAndPush(text: string | undefined, isLichess: boolean) {
-    opts.pulse();
-    if (!lichess.quietMode || isLichess) lichess.sound.playOnce('newPM');
-    const pushSubscribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
-    if (!pushSubscribed && text) notify(text);
   }
 
   const loadPage = (page: number) =>
@@ -117,6 +104,30 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
         _ => update(emptyNotifyData, false),
         _ => lichess.announce({ msg: 'Failed to clear notifications' })
       );
+  }
+
+  function alertUser(d: NotifyData | SingleNotifyData) {
+    const note = getUnreadNotification(d);
+    if (!defined(note)) return;
+
+    opts.pulse();
+    if (!lichess.quietMode || note.content.user?.id == 'lichess') lichess.sound.playOnce('newPM');
+
+    if ('alert' in d && d.alert) {
+      const pushSubscribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
+      // firefox and chrome merged push and notify into a single permission many moons ago
+      if (!pushSubscribed) notify(d.note.content.text);
+    }
+  }
+
+  function getUnreadNotification(d: NotifyData | SingleNotifyData): Notification | undefined {
+    if ('pager' in d) {
+      const ndata = d as NotifyData;
+      if (ndata.pager.currentPage !== 1) return undefined;
+      return ndata.pager.currentPageResults.find(n => !n.read);
+    } else {
+      return (d as SingleNotifyData).note;
+    }
   }
 
   return {

@@ -34,14 +34,14 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
     $doc(
       "read" -> false,
       $or(
-        $doc("content.type" -> $ne("streamStart"), "createdAt" $gt DateTime.now.minusDays(3)),
-        $doc("content.type" -> "streamStart", "createdAt" $gt DateTime.now.minusHours(2))
+        $doc("content.type" -> "streamStart", "createdAt" $gt DateTime.now.minusHours(2)),
+        $doc("content.type" -> $ne("streamStart"), "createdAt" $gt DateTime.now.minusDays(3))
       )
     )
 
   private def hasUnread =
     $doc( // recent, read
-      "createdAt" $gt DateTime.now.minusMinutes(10)
+      "createdAt" $gt DateTime.now.minusMinutes(10) // wtf?
     )
 
   private def hasOldOrUnread =
@@ -97,6 +97,9 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
     coll.exists(userNotificationsQuery(notifies) ++ selector)
 
   val recentSort = $sort desc "createdAt"
+
+  def mostRecentUnread(userId: Notification.Notifies) =
+    coll.find($doc("notifies" -> userId, "read" -> false)).sort($sort.createdDesc).one[Notification]
 
   def userNotificationsQuery(userId: Notification.Notifies) = $doc("notifies" -> userId)
 
