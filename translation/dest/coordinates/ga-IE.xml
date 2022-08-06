@@ -8,5 +8,6 @@
   <string name="mostChessCourses">Baineann an chuid is mó de chúrsaí agus cleachtaí fichille úsáid as an nodaireacht ailgéabrach go fairsing.</string>
   <string name="talkToYourChessFriends">Tá sé níos éascaigh labhairt le do chairde fichille, má dtuigeann an bheirt agaibh ‘teanga na fichille’.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Is féidir leat cluiche a anailísiú ar bhealach níos éifeachtaí más féidir leat comhordanáidí a aithint go tapa.</string>
+  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Tá comhordanáid le feiceáil ar an gclár agus ní mór duit cliceáil ar an gcearnóg chomhfhreagrach.</string>
   <string name="startTraining">Tosaigh</string>
 </resources>
