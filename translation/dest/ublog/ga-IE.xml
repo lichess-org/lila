@@ -9,6 +9,8 @@
   <string name="postBody">Postáil corpthéacs</string>
   <string name="drafts">Dréachtaí</string>
   <string name="published">Foilsithe</string>
+  <string name="createBlogDiscussion">Cumasaigh tuairimí</string>
+  <string name="createBlogDiscussionHelp">Cruthófar topaic fóraim chun go bhféadfaidh daoine trácht a dhéanamh ar do phostáil</string>
   <string name="publishOnYourBlog">Foilsigh ar do bhlag féin</string>
   <string name="publishHelp">Má dhéantar seiceáil air, liostálfar an postáil ar do bhlag. Mura bhfuil, beidh sé príobháideach, i do dhréachtphostáil</string>
   <plurals name="publishedNbBlogPosts">
