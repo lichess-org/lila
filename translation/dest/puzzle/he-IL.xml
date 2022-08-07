@@ -16,7 +16,7 @@
   <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שים לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
   <string name="findTheBestMoveForWhite">מצא את המהלך הטוב ביותר ללבן.</string>
   <string name="findTheBestMoveForBlack">מצא את המהלך הטוב ביותר לשחור.</string>
-  <string name="toGetPersonalizedPuzzles">לקבלת חידה מותאמת אישית:</string>
+  <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
   <string name="puzzleId">חידה %s</string>
   <string name="puzzleOfTheDay">החידה היומית</string>
   <string name="clickToSolve">לחץ כדי לפתור</string>
@@ -71,7 +71,7 @@
   <string name="continueTheStreak">המשך את הרצף</string>
   <string name="newStreak">רצף חדש</string>
   <string name="fromMyGames">מהמשחקים שלי</string>
-  <string name="lookupOfPlayer">חפש פאזלים ממשחקים של אחד המשתמשים</string>
+  <string name="lookupOfPlayer">חפש פאזלים ממשחקים של אחד השחקנים</string>
   <string name="fromXGames">חידות מתוך המשחקים של %s</string>
   <string name="searchPuzzles">חיפוש פאזלים</string>
   <string name="fromMyGamesNone">אין פאזלים מהמשחקים שלך במאגר, אך אנחנו עדיין אוהבים אותך!
