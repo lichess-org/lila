@@ -30,5 +30,5 @@ final private class ModNotifier(
         notifies = Notification.Notifies(victim.user.id),
         content = lila.notify.RatingRefund(pt.trans, points)
       )
-    }
+    }.void
 }
