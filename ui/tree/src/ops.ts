@@ -23,9 +23,7 @@ export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.No
   return nodes;
 }
 
-function pickFirstChild(node: Tree.Node): Tree.Node | undefined {
-  return node.children[0];
-}
+const pickFirstChild = (node: Tree.Node): Tree.Node | undefined => node.children[0];
 
 export function childById(node: Tree.Node, id: string): Tree.Node | undefined {
   return node.children.find(child => child.id === id);

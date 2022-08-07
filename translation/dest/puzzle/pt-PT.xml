@@ -66,6 +66,7 @@
   <string name="newStreak">Nova sequência de vitórias</string>
   <string name="fromMyGames">Dos meus jogos</string>
   <string name="lookupOfPlayer">Pesquise problemas de jogos de um jogador</string>
+  <string name="fromXGames">Puzzles dos jogos de %s</string>
   <string name="searchPuzzles">Pesquisar desafios</string>
   <string name="fromMyGamesNone">Não tens problemas na base de dados, mas Lichess adora-te muito.
 

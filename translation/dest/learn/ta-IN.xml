@@ -10,6 +10,8 @@
   <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>
   <string name="rookIntro">ரோக் ஒரு சக்திவாய்ந்த துண்டு. நீங்கள் கட்டளையிட தயாரா?</string>
   <string name="rookGoal">அதை நட்சத்திரத்திற்கு கொண்டு வர ரூக் மீது கிளிக் செய்யவும்!</string>
+  <string name="theQueen">அரசி</string>
+  <string name="theKing">அரசன்</string>
   <string name="lastOne">கடைசியாக ஒன்று!</string>
   <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
   <string name="combat">போர்</string>

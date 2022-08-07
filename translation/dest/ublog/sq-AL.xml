@@ -9,6 +9,8 @@
   <string name="postBody">Lëndë postimi</string>
   <string name="drafts">Skica</string>
   <string name="published">Të publikuar</string>
+  <string name="createBlogDiscussion">Aktivizo komentet</string>
+  <string name="createBlogDiscussionHelp">Një temë do të krijohet në forum për të lejuar njerëzit të komentojnë postimin tuaj</string>
   <string name="publishOnYourBlog">Botojeni në blogun tuaj</string>
   <string name="publishHelp">Në iu vëntë shenjë, postimi do të shfaqet në blogun tuaj. Nëse jo, do të jetë privat, te postimet tuaja skicë</string>
   <plurals name="publishedNbBlogPosts">
@@ -32,4 +34,5 @@
   </plurals>
   <string name="uploadAnImageForYourPost">Ngarkoni një figurë për postimin tuaj</string>
   <string name="imageAlt">Tekst alternativ për figurën</string>
+  <string name="imageCredit">Kreditet e imazhit</string>
 </resources>
