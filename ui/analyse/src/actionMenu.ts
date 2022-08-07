@@ -136,7 +136,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
     },
     [
       !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : null,
-      hiddenInput('pgn',''),
+      hiddenInput('pgn', ''),
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
