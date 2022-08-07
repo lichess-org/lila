@@ -286,8 +286,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="exportGames">Partie exportiere</string>
   <string name="ratingRange">Wertigsbereich</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Em Gägner %s Sekundä gä</item>
-    <item quantity="other">Em Gägner %s Sekundä gä</item>
+    <item quantity="one">Em Gägner %s Sekunde gäh</item>
+    <item quantity="other">Em Gägner %s Sekunde gäh</item>
   </plurals>
   <string name="thisAccountViolatedTos">Das Konto hät gäge d\'Lichess-Nutzigsbedingige verschtosse</string>
   <string name="openingExplorerAndTablebase">Eröffnigsbuech &amp; Tablebase</string>
