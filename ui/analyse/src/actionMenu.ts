@@ -129,11 +129,14 @@ export function studyButton(ctrl: AnalyseCtrl) {
       },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
+        if (pgnInput && (!ctrl.persistence || ctrl.persistence.isDirty)) {
+          pgnInput.value = pgnExport.renderFullTxt(ctrl);
+        }
       }),
     },
     [
-      !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pgn', ''),
+      !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : null,
+      hiddenInput('pgn',''),
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
