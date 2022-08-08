@@ -464,6 +464,7 @@
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="oneUrlPerLine">En URL per rad.</string>
   <string name="inlineNotation">Visa notation</string>
+  <string name="clearSavedMoves">Rensa schack drag</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activePlayers">Mest aktiva spelare</string>
