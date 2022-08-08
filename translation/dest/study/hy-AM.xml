@@ -39,8 +39,10 @@
   <string name="youAreNowAContributor">Այժմ Դուք խմբագիր եք</string>
   <string name="unlike">Չեմ հավանում</string>
   <string name="annotateWithGlyphs">Ավելացնել սիմվոլներով անոտացիա</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Վերլուծության համար գլուխը չափազանց կարճ է։</string>
   <string name="onlyContributorsCanRequestAnalysis">Միայն ստուդիայի խմբագիրները կարող են խնդրել համակարգչային վերլուծություն։</string>
   <string name="getAFullComputerAnalysis">Սերվերից ստանալ գլխավոր գծի ամբողջական համակարգչային վերլուծություն։</string>
+  <string name="makeSureTheChapterIsComplete">Համոզվեք, որ գլուխն ավարտված է։ Համակարգչային վերլուծություն կարող եք խնդրել միայն մեկ անգամ։</string>
   <string name="playing">Ակտիվ</string>
   <string name="cloneStudy">Կլոնավորել</string>
   <string name="studyPgn">Ստուդիայի PGN-ն</string>
@@ -51,9 +53,17 @@
   <string name="open">Բացել</string>
   <string name="studyNotFound">Ստուդիան չի գտնվել</string>
   <string name="importFromChapterX">Ներդնել %s-ից</string>
+  <string name="orientation">Կողմնորոշում</string>
+  <string name="analysisMode">Վերլուծության ռեժիմ</string>
   <string name="pinnedChapterComment">Գլխի ամրակցված մեկնաբանություն</string>
+  <string name="saveChapter">Պահպանել գլուխը</string>
+  <string name="clearAnnotations">Հեռացնել անոտացիան</string>
+  <string name="clearVariations">Հեռացնել տարբերակները</string>
   <string name="rightUnderTheBoard">Անմիջապես տախտակի տակ</string>
   <string name="noPinnedComment">Ոչ</string>
+  <string name="normalAnalysis">Սովորական վերլուծություն</string>
+  <string name="hideNextMoves">Թաքցնել հետագա քայլերը</string>
+  <string name="interactiveLesson">Ինտերակտիվ դասընթաց</string>
   <string name="createStudy">Ստեղծել ստուդիա</string>
   <string name="editStudy">Խմբագրել ստուդիան</string>
   <string name="visibility">Հասանելի է դիտման համար</string>
@@ -66,8 +76,13 @@
   <string name="contributors">Համահեղինակներ</string>
   <string name="members">Անդամները</string>
   <string name="everyone">Բոլորը</string>
+  <string name="enableSync">Միացնել սինքրոնացումը</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Այո. բոլորի համար դնել միևնույն դիրքը</string>
+  <string name="noLetPeopleBrowseFreely">Ոչ. թույլատրել մասնակիցներին ազատ ուսումնասիրել բոլոր դիրքերը</string>
   <string name="pinnedStudyComment">Ստուդիայի ամրակցված մեկնաբանություն</string>
   <string name="start">Սկսել</string>
+  <string name="save">Պահպանել</string>
+  <string name="clearChat">Մաքրել զրուցարանը</string>
   <string name="deleteTheStudyChatHistory">Հեռացնե՞լ ստուդիայի զրուցարանը։ Վերականգնել հնարավոր չի լինի։</string>
   <string name="deleteStudy">Հեռացնել ստուդիան</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Հեռացնե՞լ ամբողջ ստուդիան։ Հեռացումն անդառնալի կլինի։ Հաստատելու համար մուտքագրեք ստուդիայի անվանումը՝ %s</string>
@@ -86,4 +101,5 @@
   <string name="popularTopics">Շատ դիտվող թեմաներ</string>
   <string name="manageTopics">Թեմաների կառավարում</string>
   <string name="back">Հետ</string>
+  <string name="youCompletedThisLesson">Շնորհավորո՜ւմ ենք։ Դուք ավարեցիք այս դասը։</string>
 </resources>
