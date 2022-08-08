@@ -599,6 +599,8 @@
 في السياق، دراسات ليتشيس هي ميزة تسمح للاعبين بتخزين و مراجعة المباريات بسهولة: 
 https://lichess. org/study</string>
   <string name="savingMovesHelp">نحن دائماً نخزن تفريعاتك في ذاكرة التخزين المؤقت للمتصفح.</string>
+  <string name="makeAStudy">للحفظ الآمن و المشاركة، يمكنك إنشاء دراسة.</string>
+  <string name="clearSavedMoves">مسح النقلات</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
   <string name="activePlayers">لاعبين نشطين</string>
