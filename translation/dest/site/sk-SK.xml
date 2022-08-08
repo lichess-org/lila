@@ -203,6 +203,12 @@
     <item quantity="many">%s hodín</item>
     <item quantity="other">%s hodín</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minúta</item>
+    <item quantity="few">%s minúty</item>
+    <item quantity="many">%s minút</item>
+    <item quantity="other">%s minút</item>
+  </plurals>
   <string name="time">Čas</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Štatistika ratingov</string>
