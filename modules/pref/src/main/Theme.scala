@@ -41,7 +41,7 @@ object Theme extends ThemeObject {
     new Theme("green", "svg/green.svg"),
     new Theme("marble", "marble.jpg"),
     new Theme("green-plastic", "green-plastic.png"),
-    new Theme("grey", "grey.jpg"),
+    new Theme("grey", "svg/grey.svg"),
     new Theme("metal", "metal.jpg"),
     new Theme("olive", "olive.jpg"),
     new Theme("newspaper", "newspaper.png"),
