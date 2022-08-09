@@ -46,7 +46,9 @@
   <string name="playing">Ակտիվ</string>
   <string name="cloneStudy">Կլոնավորել</string>
   <string name="studyPgn">Ստուդիայի PGN-ն</string>
+  <string name="chapterPgn">Գլխի PGN-ը</string>
   <string name="studyUrl">Ստուդիայի հղումը</string>
+  <string name="currentChapterUrl">Այս գլխի հղումը</string>
   <string name="youCanPasteThisInTheForumToEmbed">Ֆորումում կամ Lichess-ի բլոգում ներդնելու համար տեղադրեք այս կոդը</string>
   <string name="startAtInitialPosition">Բացել սկզբնական դիրքում</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Կայքում կարելի է ներդնել միայն հրապարակային ստուդիաները։</string>
