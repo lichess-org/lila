@@ -82,10 +82,10 @@ final class Env(
 
   lazy val opening = wire[PuzzleOpeningApi]
 
-  private lazy val phaser = wire[PuzzlePhaser]
+  private lazy val tagger = wire[PuzzleTagger]
 
   scheduler.scheduleAtFixedRate(10 minutes, 1 day) { () =>
-    opening.addAllMissing >> phaser.addAllMissing unit
+    tagger.addAllMissing unit
   }
 
   if (mode == play.api.Mode.Prod)
