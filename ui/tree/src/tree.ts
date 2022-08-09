@@ -35,13 +35,9 @@ export interface TreeWrapper {
 }
 
 export function build(root: Tree.Node): TreeWrapper {
-  function lastNode(): MaybeNode {
-    return ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
-  }
+  const lastNode = (): MaybeNode => ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
 
-  function nodeAtPath(path: Tree.Path): Tree.Node {
-    return nodeAtPathFrom(root, path);
-  }
+  const nodeAtPath = (path: Tree.Path): Tree.Node => nodeAtPathFrom(root, path);
 
   function nodeAtPathFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
     if (path === '') return node;
