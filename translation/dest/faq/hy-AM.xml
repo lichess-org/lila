@@ -27,6 +27,8 @@
   <string name="configure">կարգավորել</string>
   <string name="accounts">Հաշիվներ</string>
   <string name="noUpperCaseDot">Ոչ.</string>
+  <string name="ratingLeaderboards">առաջատարների ցանկ.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Երկրորդ պայմանն այն է, որ փակված մասնակցային հաշիվներով խաղացողներն անհետանում են առաջատարների ցանկից։</string>
   <string name="displayPreferences">ցուցադրել նախընտրանքները</string>
   <string name="howToThreeDots">Ինչպե՞ս...</string>
 </resources>
