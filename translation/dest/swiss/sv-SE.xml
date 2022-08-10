@@ -67,7 +67,13 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="willSwissReplaceArenasQ">Kommer schweizer att ersätta arena-turneringar?</string>
   <string name="willSwissReplaceArenasA">Nej. De är kompletterande funktioner.</string>
   <string name="roundRobinQ">Hur är det med Berger/alla-möter-alla?</string>
+  <string name="roundRobinA">Vi skulle vilja lägga till det, men tyvärr fungerar inte Round Robin online. Anledningen är att det inte finns något rättvist sätt att hantera när människor lämnar turneringen i förtid. Vi kan inte förvänta oss att alla spelare spelar alla sina partier i ett online-event. Det kommer bara inte att hända, och som ett resultat skulle de flesta Round Robin turneringar vara bristfälliga och orättvisa, vilket motverkar syftet med turneringen. Det närmaste du kan komma till Round Robin online är att spela en schweizisk turnering med ett mycket stort antal rundor. Då kommer alla möjliga parningar att spelas innan turneringen slutar.</string>
   <string name="joinOrCreateTeam">Gå med eller skapa ett team</string>
+  <string name="nowPlaying">Spelas nu</string>
   <string name="startingSoon">Börjar snart</string>
   <string name="comparison">Jämförelse</string>
+  <string name="tournDuration">Turneringens varaktighet</string>
+  <string name="predefinedDuration">Fördefinierad varaktighet i minuter</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Ja men kan minska antalet rundor</string>
 </resources>
