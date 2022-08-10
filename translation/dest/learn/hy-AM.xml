@@ -102,6 +102,8 @@
   <string name="placeTheBishops">Տեղադրեք փղերը։ Նրանց տեղը ձիերի կողքին է։</string>
   <string name="placeTheQueen">Տեղադրեք թագուհին։ Նա սիրում է իր գույնը։</string>
   <string name="placeTheKing">Տեղադրեք արքան։ Նա կանգնում է թագուհու կողքին։</string>
+  <string name="castling">Փոխատեղում</string>
+  <string name="castlingIntro">Արքան տեղափոխեք ապահով տեղ, և նավակը դուրս բերեք մարտի։</string>
   <string name="enPassant">Կողանցիկ հարված</string>
   <string name="stalemate">Պատ</string>
   <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
