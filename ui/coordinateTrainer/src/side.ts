@@ -185,6 +185,22 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   ]);
 };
 
+const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
+  const label = ctrl.trans.noarg(ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces');
+  return h('div.box.current-status', [
+    h(
+      `label.color_${ctrl.orientation}`,
+      {
+        attrs: {
+          title: label,
+        },
+      },
+      h('i')
+    ),
+    h('em', label),
+  ]);
+};
+
 const side = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.side', [
     h('div.box', h('h1', ctrl.trans('coordinates'))),
@@ -193,6 +209,7 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
           scoreBox(ctrl),
           !ctrl.timeDisabled() ? timeBox(ctrl) : null,
           ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
+          playingAs(ctrl),
           ctrl.timeDisabled() ? backButton(ctrl) : null,
         ]
       : [
