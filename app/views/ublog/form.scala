@@ -103,7 +103,9 @@ object form {
               form3.file.image("image")
             )
           else
-            post.image.isDefined option submitButton(cls := "button button-red confirm")(trans.ublog.deleteImage())
+            post.image.isDefined option submitButton(cls := "button button-red confirm")(
+              trans.ublog.deleteImage()
+            )
         )
       )
     )
