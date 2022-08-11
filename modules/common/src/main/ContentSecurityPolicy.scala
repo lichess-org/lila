@@ -16,7 +16,12 @@ case class ContentSecurityPolicy(
 
   def withLegacyCompatibility = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
 
-  def withWebAssembly =
+  def withWebAssembly = withUnsafeEval
+
+  // https://github.com/yairEO/tagify/issues/1096
+  def withTagifyUnsafeEvalWorkaround = withUnsafeEval
+
+  private def withUnsafeEval =
     copy(
       scriptSrc = "'unsafe-eval'" :: scriptSrc
     )

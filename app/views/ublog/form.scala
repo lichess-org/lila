@@ -22,7 +22,8 @@ object form {
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
-      title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
+      title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}",
+      csp = defaultCsp.withTagifyUnsafeEvalWorkaround.some
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
@@ -39,7 +40,8 @@ object form {
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
-      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}"
+      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}",
+      csp = defaultCsp.withTagifyUnsafeEvalWorkaround.some
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
