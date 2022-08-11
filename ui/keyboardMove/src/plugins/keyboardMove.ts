@@ -90,6 +90,11 @@ export default (opts: Opts) => {
         opts.ctrl.draw();
         clear();
       }
+    } else if (v.length > 0 && 'next'.startsWith(v.toLowerCase())) {
+      if ('next' === v.toLowerCase()) {
+        opts.ctrl.next && opts.ctrl.next();
+        clear();
+      }
     } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
       if (['help', '?'].includes(v.toLowerCase())) {
         opts.ctrl.helpModalOpen(true);
