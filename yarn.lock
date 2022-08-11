@@ -1597,10 +1597,18 @@
   resolved "https://registry.yarnpkg.com/@types/webrtc/-/webrtc-0.0.32.tgz#b2d55194202879ad241640e291382419a19250d9"
   integrity sha512-+F0Ozq+ksnKtjcMHujSgb4A1Vjt0b4wvvxP3/pTnXKsIrLo34EgHh2z3qJq3ntX4dbK6ytxpY1rzO/4Z8rVrHg==
 
-"@types/yaireo__tagify@*", "@types/yaireo__tagify@^4.9.0":
+"@types/yaireo__tagify@*":
   version "4.15.0"
   resolved "https://registry.yarnpkg.com/@types/yaireo__tagify/-/yaireo__tagify-4.15.0.tgz#1157dee317588234b8f0a9581e80073641a29778"
   integrity sha512-zzgJRbwpwlLmHqmWFcfxbZtqc8pNph5stNR1ytlC4kNQvdKqArk7ts09au8gXQgz5wgoxIu0zb9b2JLPTZbZ2A==
+  dependencies:
+    "@types/react" "*"
+    "@types/yaireo__tagify" "*"
+
+"@types/yaireo__tagify@^4.15":
+  version "4.15.1"
+  resolved "https://registry.yarnpkg.com/@types/yaireo__tagify/-/yaireo__tagify-4.15.1.tgz#4f912049ee50c2b0d0201b82ed36315e283730ad"
+  integrity sha512-6O1tHceNNDQXvQWSkAmUmFzZCy/2haDTYO+sNPXPoBxycOhaEmfZkZUq790RrTMRsQiV0Z+neDKNgTkdsEXtgw==
   dependencies:
     "@types/react" "*"
     "@types/yaireo__tagify" "*"
@@ -1702,10 +1710,10 @@
     "@typescript-eslint/types" "5.32.0"
     eslint-visitor-keys "^3.3.0"
 
-"@yaireo/tagify@^4.9.5":
-  version "4.15.2"
-  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.15.2.tgz#37dd807cbe4502edc8830d169611a8c4bdee5476"
-  integrity sha512-azCKxE4rl88qqZBgvIvTcfvHrk4M+y8ZT7JuVpwCGtpmp/cPps0nmibHNUiCuu7VWqL0IusrBmQ1ATtR9WCTlw==
+"@yaireo/tagify@^4.15":
+  version "4.15.3"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.15.3.tgz#8a6bd1b5dceabeeed231ff78df1439668e6cf584"
+  integrity sha512-aAeKlx+HrdRNzQp5wbQN1L5HbMr63P6ndBSwXXY+8dlbQy+aNupWdB1P/6MWtEEtZxUx9K/Bz5DqO8vFuIwIpQ==
 
 "ab@https://github.com/lichess-org/ab-stub":
   version "1.0.0"
