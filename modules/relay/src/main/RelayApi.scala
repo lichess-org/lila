@@ -128,12 +128,12 @@ final class RelayApi(
         Match(
           $doc(
             "sync.until" $exists true,
-            "sync.nextAt" $lt DateTime.now,
-            "tour.tier" $exists official
+            "sync.nextAt" $lt DateTime.now
           )
         ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
           UnwindField("tour"),
+          Match($doc("tour.tier" $exists official)),
           Sort(Descending("tour.tier")),
           Limit(maxDocs)
         )
