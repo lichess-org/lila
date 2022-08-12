@@ -32,7 +32,7 @@ function ribbon(ctrl: LearnCtrl, s: Stage, status: string, res: number[]) {
   let content;
   if (status === 'ongoing') {
     content = res.length > 0 ? [res.length, s.levels.length].join(' / ') : ctrl.trans.noarg('play');
-  } else content = makeStars(average(res));
+  } else content = makeStars(Math.floor(average(res)));
   return h('div.ribbon.' + status, h('div.ribbon-inner', content));
 }
 
