@@ -60,16 +60,17 @@ final private class InsightIndexer(
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
-    else {
-      (user.count.rated >= maxGames) ?? gameRepo.coll
+    else
+      {
+        (user.count.rated >= maxGames) ?? gameRepo.coll
+          .find(gameQuery(user))
+          .sort(Query.sortCreated)
+          .skip(maxGames - 1)
+          .one[Game](readPreference = ReadPreference.secondaryPreferred)
+      } orElse gameRepo.coll
         .find(gameQuery(user))
-        .sort(Query.sortCreated)
-        .skip(maxGames - 1)
+        .sort(Query.sortChronological)
         .one[Game](readPreference = ReadPreference.secondaryPreferred)
-    } orElse gameRepo.coll
-      .find(gameQuery(user))
-      .sort(Query.sortChronological)
-      .one[Game](readPreference = ReadPreference.secondaryPreferred)
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit =
     storage nbByPerf user.id flatMap { nbs =>

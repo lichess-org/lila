@@ -156,30 +156,31 @@ object MarkdownRender {
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
-      else {
-        val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-        val url          = resolvedLink.getUrl()
-        val altText      = new TextCollectingVisitor().collectAndGetText(node)
-        whitelistedSrc(url) match {
-          case Some(src) =>
-            html
-              .srcPos(node.getChars())
-              .attr("src", src)
-              .attr("alt", altText)
-              .attr(resolvedLink.getNonNullAttributes())
-              .withAttr(resolvedLink)
-              .tagVoid("img")
-          case None =>
-            html
-              .srcPos(node.getChars())
-              .attr("href", url)
-              .attr("rel", rel)
-              .withAttr(resolvedLink)
-              .tag("a")
-              .text(altText)
-              .tag("/a")
-        }
-      }.unit
+      else
+        {
+          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+          val url          = resolvedLink.getUrl()
+          val altText      = new TextCollectingVisitor().collectAndGetText(node)
+          whitelistedSrc(url) match {
+            case Some(src) =>
+              html
+                .srcPos(node.getChars())
+                .attr("src", src)
+                .attr("alt", altText)
+                .attr(resolvedLink.getNonNullAttributes())
+                .withAttr(resolvedLink)
+                .tagVoid("img")
+            case None =>
+              html
+                .srcPos(node.getChars())
+                .attr("href", url)
+                .attr("rel", rel)
+                .withAttr(resolvedLink)
+                .tag("a")
+                .text(altText)
+                .tag("/a")
+          }
+        }.unit
   }
 
   private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension {

@@ -21,9 +21,10 @@ private[tournament] case class WaitingUsers(
   private val waitSeconds: Int =
     if (clock.estimateTotalSeconds < 30) 8
     else if (clock.estimateTotalSeconds < 60) 10
-    else {
-      clock.estimateTotalSeconds / 10 + 6
-    } atMost 50 atLeast 15
+    else
+      {
+        clock.estimateTotalSeconds / 10 + 6
+      } atMost 50 atLeast 15
 
   lazy val all  = hash.keySet
   lazy val size = hash.size
