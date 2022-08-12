@@ -14,7 +14,7 @@ object bits {
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; script-src 'unsafe-eval' https://cdn.jsdelivr.net blob:; child-src blob:; connect-src ${env.net.assetDomain}; img-src data: https://lishogi.org https://lishogi1.org;">
-    <title>Lishogi.org API reference</title>
+    <title>Lishogi.org API reference - WIP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
     <style>body { margin: 0; padding: 0; }</style>

@@ -146,17 +146,34 @@ $(function () {
     'kinkaku',
     'space',
     'doubutsu',
+    // backend doesn't support it yet
+    //    'custom',
   ];
 
   var configureSrc = function (url) {
     if (url.includes('://')) return url; // youtube, img, etc
-    var parsed = new URL(url, window.location.href);
-    parsed.searchParams.append(
-      'theme',
+    const parsed = new URL(url, window.location.href);
+    const theme =
       themes.find(function (theme) {
         return document.body.classList.contains(theme);
-      }) ?? 'wood'
-    );
+      }) ?? 'wood';
+    parsed.searchParams.append('theme', theme);
+    if (theme === 'custom') {
+      const ct = [
+        ['--c-board-color', 'boardColor'],
+        ['--c-board-url', 'boardImg'],
+        ['--c-grid-color', 'gridColor'],
+        ['--c-hands-color', 'handsColor'],
+        ['--c-hands-url', 'handsImg'],
+      ];
+      ct.forEach(vals => {
+        const cProp = document.body.style.getPropertyValue(vals[0]);
+        if (cProp) parsed.searchParams.append(vals[1], cProp);
+      });
+      const gridWidths = [0, 1, 2, 3],
+        gridWidth = gridWidths.find(gw => document.body.classList.contains(`grid-width-${gw}`));
+      if (gridWidth !== undefined) parsed.searchParams.append('gridWidth', gridWidth);
+    }
     const pieceSet = document.body.dataset.pieceSet;
     if (pieceSet) parsed.searchParams.append('pieceSet', pieceSet);
     parsed.searchParams.append('bg', document.body.dataset.theme);

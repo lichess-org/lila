@@ -42,7 +42,7 @@ case class Analysis(
   def valid = infos.nonEmpty
 
   def nbEmptyInfos       = infos.count(_.isEmpty)
-  def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
+  def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size.atLeast(1)
 }
 
 object Analysis {
