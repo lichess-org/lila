@@ -14,22 +14,19 @@ object SoundSet {
 
   val list = List(
     silent,
-    new SoundSet("standard", "Chess"),
+    new SoundSet("chess", "Chess"),
     new SoundSet("nes", "NES"),
     new SoundSet("sfx", "SFX"),
     new SoundSet("futuristic", "Futuristic"),
     new SoundSet("robot", "Robot"),
     new SoundSet("music", "Pentatonic"),
-    new SoundSet("shogiAlt", "Shogi Alternative"),
+    new SoundSet("shogialt", "Shogi Alternative"),
     default,
     new SoundSet("speech", "Speech")
   )
 
   lazy val allByKey = list map { c =>
     c.key -> c
-  } toMap
-  lazy val allByName = list map { c =>
-    c.name -> c
   } toMap
 
   def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)

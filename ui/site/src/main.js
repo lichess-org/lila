@@ -678,7 +678,7 @@
           return {
             play: $.noop,
           };
-        set = 'standard';
+        set = 'shogi';
       }
       var baseUrl = lishogi.assetUrl('sound', { noVersion: true });
       return new Howl({
