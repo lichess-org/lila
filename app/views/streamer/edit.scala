@@ -25,7 +25,6 @@ object edit {
       main(cls := "page-menu")(
         bits.menu("edit", s.withoutStream.some),
         div(cls := "page-menu__content box streamer-edit")(
-          standardFlash(), // success for trolls, their submit was discarded.
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
               if (s.streamer.hasPicture)

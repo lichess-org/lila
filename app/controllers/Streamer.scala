@@ -117,9 +117,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
 
   def editApply =
     AuthBody { implicit ctx => me =>
-      if (ctx.me.exists(_.marks.troll))
-        fuccess(Redirect(s"${routes.Streamer.edit.url}").flashSuccess)
-      else AsStreamer { s =>
+      AsStreamer { s =>
         env.streamer.liveStreamApi of s flatMap { sws =>
           implicit val req = ctx.body
           StreamerForm
