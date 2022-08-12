@@ -102,10 +102,9 @@ sg-hand-wrap {
     }
   }
   &.r-5 {
-    padding-bottom: calc(77% / 5 / 11 * 12 + 1px);
-    @include breakpoint($mq-col2-uniboard) {
-      padding-bottom: calc(100% / 5 / 11 * 12 + 1px);
-    }
+    width: 100%;
+    padding-bottom: calc(100% / 5 / 11 * 12 + 1px);
+    margin-left: 0;
     sg-hand sg-hp-wrap piece {
       flex: 1 0 20%;
     }
