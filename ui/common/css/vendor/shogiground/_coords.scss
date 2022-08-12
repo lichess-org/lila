@@ -19,7 +19,6 @@ coords {
   font-weight: bold;
 
   &.ranks {
-    text-transform: uppercase;
     flex-flow: column-reverse;
     top: 1px;
     right: 0; // a negative value creates empty space on the right side in mobile browsers
