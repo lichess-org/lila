@@ -148,7 +148,15 @@ function makeSelection(ctrl: CustomThemeCtrl, name: string, options: string[]): 
 }
 
 function makeColorPicker(ctrl: CustomThemeCtrl, vnode: VNode, key: Key) {
-  const move = (color: any) => ctrl.set(key, color.toHex8String());
+  const move = (color: any) => {
+    const hexColor = color.toHex8String(),
+      prevColor = ctrl.data[key] as string;
+    if (hexColor === prevColor) return;
+    if (hexColor.slice(-2) === '00' && prevColor.slice(1, -2) !== hexColor.slice(1, -2))
+      $('.sp-container:not(.sp-hidden) .sp-alpha-handle').addClass('highlight');
+    else if (prevColor.slice(-2) === '00') $('.sp-container:not(.sp-hidden) .sp-alpha-handle').removeClass('highlight');
+    ctrl.set(key, hexColor);
+  };
 
   $(vnode.elm as HTMLElement).spectrum({
     type: 'component',

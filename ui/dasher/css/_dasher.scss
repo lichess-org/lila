@@ -213,6 +213,28 @@
       .sp-alpha {
         border-radius: 4px;
       }
+      .sp-alpha-handle.highlight {
+        animation: 1.5s glow ease-in-out infinite;
+      }
+      .sp-alpha-handle, .sp-slider {
+        background: $c-bg-input;
+        outline: 1px solid $c-font-clearer;
+      }
+      .sp-dragger {
+        outline: 1px solid #1b1b1b;
+      }
     }
+  }
+}
+
+@keyframes glow {
+  0% {
+    background: $c-bg-input;
+  }
+  50% {
+    background: $c-bad;
+  }
+  100% {
+    background: $c-bg-input;
   }
 }
