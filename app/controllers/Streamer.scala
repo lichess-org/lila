@@ -88,11 +88,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
     AuthBody { implicit ctx => me =>
       ctx.noKid ?? {
         NoLameOrBot {
-          NoShadowban {
-            api find me flatMap {
-              case None => api.create(me) inject Redirect(routes.Streamer.edit)
-              case _    => Redirect(routes.Streamer.edit).fuccess
-            }
+          api find me flatMap {
+            case None => api.create(me) inject Redirect(routes.Streamer.edit)
+            case _    => Redirect(routes.Streamer.edit).fuccess
           }
         }
       }
@@ -119,7 +117,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
 
   def editApply =
     AuthBody { implicit ctx => me =>
-      AsStreamer { s =>
+      if (ctx.me.exists(_.marks.troll))
+        fuccess(Redirect(s"${routes.Streamer.edit.url}").flashSuccess)
+      else AsStreamer { s =>
         env.streamer.liveStreamApi of s flatMap { sws =>
           implicit val req = ctx.body
           StreamerForm
