@@ -81,11 +81,12 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUsi(color, nextBest, 'paleGreen', pieces));
       if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
-        nCeval.pvs.forEach(function (pv) {
+        nCeval.pvs.forEach(function (pv, i) {
           if (pv.moves[0] === nextBest) return;
-          const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
+          const shift = winningChances.povDiff(color, nCeval.pvs[0], pv),
+            brush = i === 0 ? 'paleGreen' : 'palerGreen';
           if (shift >= 0 && shift < 0.2) {
-            shapes = shapes.concat(makeShapesFromUsi(color, pv.moves[0], 'paleGreen', pieces));
+            shapes = shapes.concat(makeShapesFromUsi(color, pv.moves[0], brush, pieces));
           }
         });
       }

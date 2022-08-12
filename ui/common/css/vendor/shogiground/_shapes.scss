@@ -4,6 +4,7 @@ $shape-themes: (
   'alternative1': #003088,
   'alternative2': #e68f00,
   'paleGreen': #15781c,
+  'palerGreen': #15781c,
   'paleRed': #882020,
   'paleBlue': #003088,
   'paleGrey': #777777,
@@ -47,5 +48,11 @@ $shape-themes: (
     ellipse.#{$pale} {
       opacity: 0.55;
     }
+  }
+  line.palerGreen {
+    opacity: 0.35;
+  }
+  ellipse.palerGreen {
+    opacity: 0.35;
   }
 }
