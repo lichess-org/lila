@@ -5,8 +5,6 @@
   &.hand-bottom {
     grid-area: hand-bot;
   }
-  width: 100%;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
 }
 
 .analyse {
@@ -29,11 +27,19 @@
     'tools'
     'controls';
   grid-template-columns: auto;
-  grid-template-rows: max-content 100vw max-content minmax(50px, calc(100vh - 100vw - 12rem)) 3rem;
-
+  grid-template-rows: min-content calc(100vw / 11 * 12) min-content minmax(50px, calc(100vh - 100vw - 12rem)) 2.5rem;
+  grid-template-rows: 1fr 9fr 1fr 2.5fr 3rem;
+  &.variant-minishogi {
+    grid-template-rows: 1fr 5fr 1fr 2.5fr 3rem;
+  }
+  
   @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
-    grid-template-columns: minmax(100px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
-    grid-template-rows: max-content 1fr 2.5rem max-content;
+    grid-template-columns: 9fr 7fr;
+    &.variant-minishogi {
+      grid-template-columns: 5fr 5fr;
+      grid-template-rows: min-content 1fr 2.5rem min-content;
+    }
+    grid-template-rows: min-content 1fr 2.5rem min-content;
     grid-template-areas:
       'board hand-top'
       'board tools'

@@ -5,6 +5,13 @@ footer {
   border-top: none;
   height: 2.5rem;
   padding: 0 1vw;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+
   .left {
     @extend %nowrap-ellipsis;
     flex: 1 1 100%;
