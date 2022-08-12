@@ -58,7 +58,7 @@ final class MoveDB(implicit system: ActorSystem) {
       case Acquire(client) => {
         sender() ! coll.values
           .foldLeft[Option[Move]](None) {
-            case (found, m) if m.nonAcquired && client.canHandle(m.game.initialSfen, m.game.variant) => {
+            case (found, m) if (m.nonAcquired && (client.skill != Client.Skill.MoveStd || m.isStandard)) => {
               Some {
                 found.fold(m) { a =>
                   if (m.canAcquire(client) && m.createdAt.isBefore(a.createdAt)) m else a

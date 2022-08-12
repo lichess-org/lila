@@ -327,12 +327,13 @@ GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export
 GET   /game/export/gif/$color<sente|gote>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
-POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
-POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
-POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
-POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
-GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
-GET   /fishnet/status                         controllers.Fishnet.status
+POST  /fishnet/acquire                         controllers.Fishnet.notSupported
+POST  /shoginet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
+POST  /shoginet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
+POST  /shoginet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
+POST  /shoginet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
+GET   /shoginet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
+GET   /shoginet/status                         controllers.Fishnet.status
 
 # Pref
 POST  /pref/:name                             controllers.Pref.set(name: String)

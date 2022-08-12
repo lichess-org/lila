@@ -15,6 +15,10 @@ final class Fishnet(env: Env) extends LilaController(env) {
   private def api    = env.fishnet.api
   private val logger = lila.log("fishnet")
 
+  def notSupported = Action {
+    Unauthorized("Version 3.0.0 is no longer supported. Please restart fishnet to upgrade. (git pull)")
+  }
+
   def acquire(slow: Boolean = false) =
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
       api.acquire(client, slow) addEffect { jobOpt =>
