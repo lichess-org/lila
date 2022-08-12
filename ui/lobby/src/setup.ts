@@ -1,5 +1,7 @@
 import { FormStore, toFormLines, makeStore } from './form';
 import LobbyController from './ctrl';
+import { handicaps } from 'game/handicaps';
+import { initialSfen } from 'shogiops/sfen';
 
 const li = window.lishogi;
 
@@ -396,6 +398,19 @@ export default class Setup {
       })
       .trigger('change');
 
+    const updateEngineName = () => {
+      const sfen = $sfenInput.val(),
+        variant = $variantSelect.val(),
+        $infos = $('div.level').find('.ai_info > div'),
+        useYane = variant == 1 && (!sfen || handicaps.includes(sfen) || initialSfen('standard') === sfen);
+
+      $infos.text((_, text) => {
+        const from = useYane ? 'Fairy Stockfish' : 'YaneuraOu V7.00';
+        const to = useYane ? 'YaneuraOu V7.00' : 'Fairy Stockfish';
+        return text.replace(from, to);
+      });
+    };
+
     const validateSfen = li.debounce(function () {
       $sfenInput.removeClass('success failure');
       $positionPreview.removeClass('failure');
@@ -425,6 +440,7 @@ export default class Setup {
     $sfenInput.on('keyup', () => {
       $handicapSelect.val('');
       validateSfen();
+      updateEngineName();
     });
 
     $positionInput.on('change', function (this: HTMLElement) {
@@ -438,13 +454,16 @@ export default class Setup {
         $sfenInput.val('');
         $positionWrap.hide();
         $positionPreview.html();
+        toggleButtons();
       }
+      updateEngineName();
       save();
     });
 
     $handicapSelect.on('change', function (): void {
       $sfenInput.val($handicapSelect.val());
       validateSfen();
+      updateEngineName();
       save();
     });
 
@@ -509,6 +528,7 @@ export default class Setup {
         $default.click();
         $positionWrap.hide();
       }
+      updateEngineName();
       initAdvancedTimeSetup();
       toggleButtons();
     };
