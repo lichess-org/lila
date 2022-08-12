@@ -56,7 +56,9 @@ export function onDest<T extends Shape>(dest: Key, shapes: T[]): VmEvaluation<T[
 
 export function onSuccess<T extends Shape>(shapes: T[]): VmEvaluation<T[]> {
   return (level: Level, usiCList: UsiWithColor[]): T[] => {
-    if (level.success(level, usiCList)) return shapes;
+    const usiCListTrim =
+      usiCList.length && usiCList[usiCList.length - 1].color !== level.color ? usiCList.slice(0, -1) : usiCList;
+    if (level.success(level, usiCListTrim)) return shapes;
     else return [];
   };
 }
