@@ -54,6 +54,6 @@ export const sound = {
   move: throttleSound('move'),
   capture: throttleSound('capture'),
   check: throttleSound('check'),
-  start: make('other/koto1', 0.6),
-  end: make('other/koto2', 0.6),
+  start: make('other/koto1', 0.35),
+  end: make('other/koto2', 0.35),
 };
