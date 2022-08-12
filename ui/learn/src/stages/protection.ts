@@ -38,7 +38,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 1,
     success: not(unprotectedCapture),
     failure: unprotectedCapture,
-    drawShapes: onSuccess([arrow('2h', '8h')]),
+    drawShapes: concat(initial([arrow('3c', '2d', 'red'), arrow('3c', '8h', 'red')]), onSuccess([arrow('2h', '8h')])),
     showFailureMove: 'unprotected',
   },
   {

@@ -1,4 +1,4 @@
-import { check, colorOn, not } from '../assert';
+import { and, check, colorOn, not, unprotectedCapture } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, checkShapes, concat, initial } from '../shapes';
@@ -98,10 +98,11 @@ const levels: IncompleteLevel[] = [
     goal: 'watchOutForYourOpponentsReply',
     sfen: '9/9/9/9/9/4b4/PPG6/LS7/K4r3 b L 1',
     nbMoves: 1,
-    success: not(check('sente')),
-    failure: check('sente'),
+    success: and(not(unprotectedCapture), not(check('sente'))),
+    failure: () => true,
     drawShapes: checkShapes,
     offerIllegalDests: true,
+    showFailureMove: 'unprotected',
   },
   {
     goal: 'watchOutForYourOpponentsReply',

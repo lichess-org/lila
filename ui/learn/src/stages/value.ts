@@ -1,5 +1,5 @@
 import { parseUsi, parseSquare } from 'shogiops/util';
-import { extinct, colorOn, pieceOn, scenarioSuccess, scenarioFailure } from '../assert';
+import { extinct, colorOn, pieceOn, scenarioSuccess, scenarioFailure, not } from '../assert';
 import { IncompleteLevel, IncompleteStage, Level, UsiWithColor } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, circle, initial, onFailure } from '../shapes';
@@ -73,7 +73,7 @@ const levels: IncompleteLevel[] = [
     sfen: '7k1/9/6+P+P+P/9/Pg2n4/2N6/1KP6/3+r5/L2G5 b g 1',
     nbMoves: 1,
     success: pieceOn({ role: 'tokin', color: 'sente' }, '2b'),
-    failure: notSuccess,
+    failure: not(pieceOn({ role: 'tokin', color: 'sente' }, '2b')),
     drawShapes: onFailure([arrow(toPiece('g'), '8f')]),
     showFailureMove: (level, usiCList: UsiWithColor[]) => {
       const lastUsiC = usiCList[usiCList.length - 1];
@@ -99,10 +99,10 @@ const levels: IncompleteLevel[] = [
     failure: scenarioFailure,
     drawShapes: initial([
       arrow('7a', '7d'),
-      arrow('7a', '6c'),
+      arrow('7a', '6b'),
       arrow('7a', '8a'),
       circle('7d'),
-      circle('6c'),
+      circle('6b'),
       circle('8a'),
     ]),
     scenario: createScenario(['S*2a']),
