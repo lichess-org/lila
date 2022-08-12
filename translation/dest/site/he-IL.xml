@@ -536,7 +536,7 @@
   <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
   <string name="success">הפעולה הושלמה</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s משחקים בתהליך</item>
+    <item quantity="one">משחק %s בתהליך</item>
     <item quantity="two">%s משחקים בתהליך</item>
     <item quantity="many">%s משחקים בתהליך</item>
     <item quantity="other">%s משחקים בתהליך</item>
