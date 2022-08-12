@@ -144,6 +144,7 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
       reuseCapturedPieces,
       dropIntro,
       capturedPiecesCanBeDropped,
+      dropLimitations,
       youCannotHaveTwoUnpromotedPawns,
       protection,
       keepYourPiecesSafe,
