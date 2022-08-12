@@ -25,7 +25,7 @@ object Source {
     (v.id, v)
   } toMap
 
-  val searchable             = List(Lobby, Friend, Ai, Position, Import, Tournament, Simul, Pool, Swiss)
+  val searchable             = List(Lobby, Friend, Ai, Position, Import, Tournament, Simul)
   val expirable: Set[Source] = Set(Lobby, Tournament, Pool, Swiss)
 
   def apply(id: Int): Option[Source] = byId get id
