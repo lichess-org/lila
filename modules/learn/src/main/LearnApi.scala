@@ -24,7 +24,7 @@ final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
   def reset(user: User) =
     coll.delete.one($id(user.id)).void
 
-  private val maxCompletion = 120
+  private val maxCompletion = 123
 
   def completionPercent(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
     coll
