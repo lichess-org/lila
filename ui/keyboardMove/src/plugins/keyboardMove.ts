@@ -92,7 +92,7 @@ export default (opts: Opts) => {
       }
     } else if (v.length > 0 && 'next'.startsWith(v.toLowerCase())) {
       if ('next' === v.toLowerCase()) {
-        opts.ctrl.next && opts.ctrl.next();
+        opts.ctrl.next?.();
         clear();
       }
     } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {

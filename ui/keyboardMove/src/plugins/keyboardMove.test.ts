@@ -79,6 +79,23 @@ describe('keyboardMove', () => {
     expect(input.value).toBe('');
   });
 
+  test('next command', () => {
+    input.value = 'next';
+    const mockNext = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        next: mockNext,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(input.value).toBe('');
+  });
+
   test('reads out clock', () => {
     input.value = 'clock';
     const mockMillisOf = jest.fn(_ => 1000);

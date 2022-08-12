@@ -445,7 +445,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function jump(path: Tree.Path): void {
-    console.log('jump');
     const pathChanged = path !== vm.path,
       isForwardStep = pathChanged && path.length === vm.path.length + 2;
     setPath(path);
