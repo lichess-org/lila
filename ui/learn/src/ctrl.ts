@@ -180,17 +180,19 @@ export default class LearnCtrl {
 
       if (this.vm.levelState === 'fail' && this.vm.level.showFailureMove) {
         const usi =
-          this.vm.level.showFailureMove === 'capture'
-            ? findCapture(pos)
-            : this.vm.level.showFailureMove === 'unprotected'
-            ? findUnprotectedCapture(pos)
-            : this.vm.level.showFailureMove === 'random'
-            ? findRandomMove(pos)
-            : this.vm.level.showFailureMove(this.vm.level, this.vm.usiCList);
-        if (usi) {
+            this.vm.level.showFailureMove === 'capture'
+              ? findCapture(pos)
+              : this.vm.level.showFailureMove === 'unprotected'
+              ? findUnprotectedCapture(pos)
+              : this.vm.level.showFailureMove === 'random'
+              ? findRandomMove(pos)
+              : this.vm.level.showFailureMove(this.vm.level, this.vm.usiCList),
+          parsedUsi = usi && parseUsi(usi);
+
+        if (parsedUsi && pos.board.getRole(parsedUsi.to) !== 'king') {
           const usiC = { usi: usi, color: opposite(this.vm.level.color) };
           this.vm.usiCList.push(usiC);
-          pos.play(parseUsi(usiC.usi)!);
+          pos.play(parsedUsi);
           ground.playUsi(this, usiC);
         }
       }
