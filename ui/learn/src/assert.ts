@@ -1,6 +1,6 @@
 import { Piece } from 'shogiground/types';
 import { samePiece } from 'shogiground/util';
-import { parseSquare, parseUsi } from 'shogiops/util';
+import { opposite, parseSquare, parseUsi } from 'shogiops/util';
 import { Assertion, Level, UsiWithColor } from './interfaces';
 import { findCapture, findUnprotectedCapture } from './shogi';
 import { currentPosition } from './util';
@@ -57,11 +57,13 @@ export function checkmate(level: Level, usiCList: UsiWithColor[]): boolean {
 
 export function unprotectedCapture(level: Level, usiCList: UsiWithColor[]): boolean {
   const pos = currentPosition(level, usiCList);
+  pos.turn = opposite(level.color);
   return !!findUnprotectedCapture(pos);
 }
 
 export function anyCapture(level: Level, usiCList: UsiWithColor[]): boolean {
   const pos = currentPosition(level, usiCList);
+  pos.turn = opposite(level.color);
   return !!findCapture(pos);
 }
 
