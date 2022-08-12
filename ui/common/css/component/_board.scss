@@ -38,6 +38,7 @@
     left: 0;
     &.hand-top {
       top: 0;
+      margin: unset;
       @extend %box-radius-top;
       sg-hand {
         justify-content: start;
@@ -45,6 +46,7 @@
     }
     &.hand-bottom {
       top: calc(100% / 11 * 10);
+      margin: unset;
       sg-hand {
         justify-content: end;
       }
