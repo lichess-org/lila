@@ -44,7 +44,7 @@ final class NotationDump(
         )
         extendedMoves.zipWithIndex.map { case (usiWithRole, index) =>
           NotationMove(
-            moveNumber = index + 1 + game.shogi.startedAtMove,
+            moveNumber = index + game.shogi.startedAtMove,
             usiWithRole = usiWithRole,
             secondsSpent = clocksSpent lift (index - clockOffset) map (_.roundSeconds),
             secondsTotal = clocksTotal lift (index - clockOffset) map (_.roundSeconds)
