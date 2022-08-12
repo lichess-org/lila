@@ -144,7 +144,6 @@ object NotationDump {
       root.sfen,
       variant,
       root.children.variations,
-      root.ply,
       root.hasMultipleCommentAuthors
     )
 
@@ -153,7 +152,6 @@ object NotationDump {
       initialSfen: Sfen,
       variant: Variant,
       variations: Variations,
-      startingPly: Int,
       showAuthors: Boolean
   )(implicit flags: WithFlags): Vector[NotationMove] = {
     val enriched = shogi.Replay.usiWithRoleWhilePossible(line.map(_.usi), initialSfen.some, variant)
@@ -161,7 +159,7 @@ object NotationDump {
       .zip(enriched)
       .foldLeft(variations -> Vector.empty[NotationMove]) { case ((variations, moves), (node, usiWithRole)) =>
         node.children.variations -> (NotationMove(
-          moveNumber = node.ply - startingPly,
+          moveNumber = node.ply,
           usiWithRole = usiWithRole,
           glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
           comments = flags.comments ?? {
@@ -170,7 +168,7 @@ object NotationDump {
           result = none,
           variations = flags.variations ?? {
             variations.view.map { child =>
-              toMoves(child.mainline, node.sfen, variant, noVariations, startingPly, showAuthors).toList
+              toMoves(child.mainline, node.sfen, variant, noVariations, showAuthors).toList
             }.toList
           }
         ) +: moves)
