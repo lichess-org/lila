@@ -50,7 +50,7 @@ final class Db(
         if (devMode)
           driver
             .connect(
-              parsedUri.hosts.map(_._1).toSeq,
+              parsedUri.hosts.map(hostAndPort => s"${hostAndPort._1}:${hostAndPort._2}").toSeq,
               MongoConnectionOptions.default.copy(failoverStrategy = FailoverStrategy(1.second, 5, _ * 1.5)),
               name
             )
