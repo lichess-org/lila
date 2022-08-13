@@ -101,13 +101,11 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       let wasmBinary: ArrayBuffer | undefined;
       if (cache) {
         const wasmPath = this.opts.baseUrl + 'stockfish.wasm';
-        if (cache) {
-          try {
-            const [found, data] = await cache.get(wasmPath, version);
-            if (found) wasmBinary = data;
-          } catch (e) {
-            console.log('ceval: idb cache load failed:', e);
-          }
+        try {
+          const [found, data] = await cache.get(wasmPath, version);
+          if (found) wasmBinary = data;
+        } catch (e) {
+          console.log('ceval: idb cache load failed:', e);
         }
 
         if (!wasmBinary) {
