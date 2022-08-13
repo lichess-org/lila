@@ -11,29 +11,29 @@
 	<string name="theIntroduction">परिचय</string>
 	<string name="introBasics">आइए जानें कुछ मूल बातें</string>
 	<string name="introIntro">आपकी यात्रा यहाँ से शुरू होती है।</string>
-	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
+	<string name="clickHereAfterYouveChosen">अपनी पसंद का डिज़ाइन चुनने के बाद यहां क्लिक करें।</string>
 	<string name="choosePieceDesign">यह महत्वपूर्ण है कि आप अपने टुकड़ों को अलग-अलग बता सकें, इसलिए सुनिश्चित करें कि आप सही टुकड़ा सेट चुनें।
 ऐसा करने के लिए कॉग व्हील (cog wheel) या अपने उपयोगकर्ता नाम (ऊपरी दाएं कोने) पर क्लिक करें और फिर \'टुकड़ा सेट\' पर क्लिक करें।</string>
 	<string name="promotionZone">जब आपके कुछ टुकड़े पहुंचते हैं या अपने प्रतिद्वंद्वी के क्षेत्र में पहले तीन रैंक छोड़ते हैं तो आप अपने टुकड़े को बढ़ावा देने और इसे मजबूत बनाने के लिए चुन सकते हैं।</string>
 	<string name="senteGoesFirst">Shogi में जो खिलाड़ी पहले जाता है उसे Sente कहा जाता है और जो खिलाड़ी दूसरे स्थान पर जाता है उसे Gote कहा जाता है। Sente को कभी-कभी काले रंग और सफेद द्वारा Gote द्वारा दर्शाया जाता है। जारी रखने के लिए Sente के रूप में कोई भी कदम उठाएं।</string>
 	<string name="introComplete">अब आप कुछ मूल बातें जानते हैं, लेकिन ट्यूटोरियल का यह हिस्सा अभी भी निर्माणाधीन है। अब जानें कि अलग-अलग टुकड़े कैसे चलते हैं।</string>
-	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
+	<string name="introCompleteTwo">अब आप कुछ मूल बातें जानते हैं ! अब जानें कि अलग-अलग टुकड़े कैसे चलते हैं।</string>
 	<string name="theRook">रूक</string>
 	<string name="itMovesInStraightLines">यह सीधी रेखा में चलता है</string>
 	<string name="rookIntro">रूक एक शक्तिशाली टुकड़ा है। क्या आप इसे कमांड करने के लिए तैयार हैं ?</string>
 	<string name="rookGoal">तारा लाने के लिए रूक पर क्लिक करें !</string>
-	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
+	<string name="grabAllTheStarsRemember">सभी सितारों को पकड़ो ! याद रखें, बोर्ड के बाहर देखें।</string>
 	<string name="rookPromotion">रूक शक्तिशाली ड्रैगन को बढ़ावा देता है। यह मत भूलो कि जब आप प्रचार क्षेत्र छोड़ते हैं तो आप अपने टुकड़े को भी बढ़ावा दे सकते हैं।</string>
 	<string name="rookSummary">रूक ऊपर, नीचे, बाएं या दाएं जितना चाहे जा सकता है।</string>
 	<string name="dragonSummary">यह अनप्रोटेक्टेड रूक की तरह ही आगे बढ़ सकता है, लेकिन किसी भी विकर्ण दिशा में एक वर्ग भी, यह बहुत मजबूत बनाता है।</string>
-	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
+	<string name="dragonSummaryTwo">ड्रैगन अनप्रोमोटेड रूक की तरह ही आगे बढ़ सकता है, लेकिन किसी भी विकर्ण दिशा में एक वर्ग भी, जिससे यह बहुत मजबूत हो जाता है।</string>
 	<string name="grabAllTheStars">सारे सितारों को एकत्रित करें !</string>
 	<string name="theFewerMoves">आपके द्वारा की जाने वाली कम चालें, अधिक अंक आप जीत !</string>
 	<string name="rookComplete">बधाई हो ! आपने रूक का प्रयोग करना सफलतापूर्वक सीख लिया है।</string>
 	<string name="theBishop">बिशप (Bishop)</string>
 	<string name="itMovesDiagonally">यह तिरछे चलता है</string>
 	<string name="bishopIntro">अब हम बिशप के चाल को सीखेंगे !</string>
-	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
+	<string name="ehThereIsNoPiece">क्या?! बोर्ड पर कोई टुकड़ा नहीं है। लेकिन बोर्ड के बाहर देखो, एक बिशप ! यह वह जगह है जहां आपके द्वारा पकड़े गए टुकड़े जाते हैं। आप टुकड़े को वापस बोर्ड पर रख सकते हैं। हमेशा की तरह, सभी सितारों को पकड़ो।</string>
 	<string name="bishopPromotion">अपने बिशप को बढ़ावा देने से यह मजबूत हो जाएगा, यह \"घोड़ा\" (\"the horse\") नामक एक टुकड़े में बदल जाएगा।</string>
 	<string name="bishopSummary">बिशप किसी भी विकर्ण दिशा में चलता है।</string>
 	<string name="horseSummary">प्रचारित बिशप भी तिरछे चलता है, लेकिन यह एक वर्ग ऊपर, नीचे, बाएँ या दाएँ भी जा सकता है।</string>
@@ -68,7 +68,7 @@
 	<string name="lancePromotion">लांस को बढ़ावा देने के बाद, यह अलग तरह से चलता है, लेकिन आपने पहले ही इसे कहीं देखा है - गोल्ड जेनरल के समान।</string>
 	<string name="lanceSummary">आगे बढ़ता है, यह वास्तव में आसान है।</string>
 	<string name="planceSummary">यह गोल्ड जेनरल के समान है।</string>
-	<string name="planceSummaryTwo">The promoted lance moves the same as the gold general.</string>
+	<string name="planceSummaryTwo">पदोन्नत लांस गोल्ड जनरल के समान ही चलता है।</string>
 	<string name="lanceComplete">शानदार काम !</string>
 	<string name="theGold">गोल्ड जेनरल (The gold general)</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">गोल्ड जेनरल किसी भी दिशा में चलता है बस पीछे नहीं।</string>
@@ -94,14 +94,14 @@
 	<string name="takeTheBlackPieces">काले टुकड़े ले लो !</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">काले टुकड़े ले लो !
 और अपना मत खोना।</string>
-	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
-And don\'t lose yours.</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">दुश्मन के टुकड़े ले लो !
+और अपना मत खोना।</string>
 	<string name="captureComplete">बधाई ! आप जानते हैं कि shogi के टुकड़ों से कैसे लड़ें !</string>
-	<string name="pieceDrops">Piece drops</string>
-	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
-	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
-	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
-	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
+	<string name="pieceDrops">टुकड़ा बूँदें (Piece drops)</string>
+	<string name="reuseCapturedPieces">पकड़े गए टुकड़ों का उपयोग करें !</string>
+	<string name="dropIntro">एक बार फिर, बिना अपना खोए, प्रतिद्वंद्वी के सभी टुकड़ों पर कब्जा करें!</string>
+	<string name="capturedPiecesCanBeDropped">कैप्चर किए गए टुकड़ों को आपकी बारी पर वापस बोर्ड पर गिराया जा सकता है !</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">आपके पास एक ही फ़ाइल में दो अप्रकाशित पॉन्स नहीं हो सकते।</string>
 	<string name="protection">संरक्षण</string>
 	<string name="keepYourPiecesSafe">अपने टुकड़े सुरक्षित रखें</string>
 	<string name="protectionIntro">अपने असुरक्षित मोहरो की पहचान करे और उन्हें बचाए !</string>
@@ -110,8 +110,8 @@ And don\'t lose yours.</string>
 खतरे से बच !</string>
 	<string name="noEscape">कहीं नहीं भाग सकते,
 लेकिन आप बचाव कर सकते हैं !</string>
-	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
-	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
+	<string name="makeSureAllSafe">सुनिश्चित करें कि आपके सभी टुकड़े सुरक्षित हैं !</string>
+	<string name="dontForgetYouCanDropToDefend">मत भूलो कि आप बचाव के लिए टुकड़े गिरा सकते हैं !</string>
 	<string name="dontLetThemTakeAnyUndefendedPiece">उन्हें लेने मत दो
 कोई अपरिभाषित टुकड़ा !</string>
 	<string name="combat">युद्ध</string>
@@ -127,7 +127,7 @@ And don\'t lose yours.</string>
 	<string name="outOfCheck">चेक से बाहर</string>
 	<string name="defendYourKing">अपने राजा की रक्षा करें</string>
 	<string name="outOfCheckIntro">आप शह में हैं ! आपको हमले से बचना या शह रोकना चाहिए।</string>
-	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
+	<string name="ifYourKingIsAttacked">यदि आपके राजा पर हमला किया जाता है, तो आपको हमले से निपटना होगा।</string>
 	<string name="escapeWithTheKing">राजा के साथ भागो !</string>
 	<string name="theKingCannotEscapeButBlock">राजा बच नहीं सकता,
 लेकिन आप हमले को रोक सकते हैं !</string>
@@ -135,21 +135,21 @@ And don\'t lose yours.</string>
 हमलावर टुकड़ा लेकर।</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">यह नाइट जाँच कर रहा है
 अपने बचाव के माध्यम से !</string>
-	<string name="getOutOfCheck">Get out of check!</string>
-	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
+	<string name="getOutOfCheck">चेक से बाहर !</string>
+	<string name="watchOutForYourOpponentsReply">अपने प्रतिद्वंद्वी की चाल पर ध्यान दें !</string>
 	<string name="escapeOrBlock">राजा के साथ बच
 या हमले को ब्लॉक करें !</string>
 	<string name="outOfCheckComplete">बधाई ! आपके राजा को कभी भी नहीं ले जाया जा सकता है, सुनिश्चित करें कि आप किसी चेक से बचाव कर सकते हैं !</string>
 	<string name="mateInOne">१ में मात</string>
 	<string name="defeatTheOpponentsKing">विरोधी के राजा को हराना</string>
 	<string name="mateInOneIntro">आप तब जीतते हैं जब आपका प्रतिद्वंद्वी किसी शह से बचाव नहीं कर सकता।</string>
-	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
-	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
+	<string name="toWinInShogi">शोगी में जीतने के लिए, अपने प्रतिद्वंद्वी के राजा को ऐसे जांचें कि वे बचाव न कर सकें। यह मात है, या त्सुमे (tsume)।</string>
+	<string name="dropsCommonDeliverMate">ड्रॉप्स मेट को डिलीवर करने का एक बहुत ही सामान्य तरीका है।</string>
 	<string name="attackYourOpponentsKing">अपने प्रतिद्वंद्वी के राजा पर हमला करो
 एक तरह से जिसका बचाव नहीं किया जा सकता है !</string>
-	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
-	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
-	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
+	<string name="chooseYourPieceCarefully">अपना टुकड़ा सावधानी से चुनें !</string>
+	<string name="mateWithADroppedPawnIs">एक ड्रॉप्ड पॉन के साथ मेट अवैध है - एक वास्तविक खेल में आपको ज़ब्त कर लिया जाएगा !</string>
+	<string name="mateWithAPushedPawnIs">एक पुशेड पॉन के साथ मात ठीक है।</string>
 	<string name="mateInOneComplete">बधाई ! इसी तरह आप shogi के खेल जीतते हैं !</string>
 	<string name="intermediate">माध्यमिक</string>
 	<string name="boardSetup">बोर्ड सेटअप</string>
@@ -158,22 +158,22 @@ And don\'t lose yours.</string>
 	<string name="thisIsTheInitialPosition">यह प्रारंभिक स्थिति है
 shogi के हर खेल के !
 जारी रखने के लिए कोई भी कदम उठाएं।</string>
-	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
-	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
-	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
-	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
-	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
-	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
-	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
-	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
+	<string name="firstPlaceTheKing">खेल से पहले टुकड़ों को स्थापित करने के दो पारंपरिक तरीके हैं। हम ऊहाशी (大橋 ) शैली सिखाएंगे, जो आमतौर पर पेशेवरों द्वारा उपयोग की जाती है। राजा पहले जाता है। राजा को पिछली रैंक के मध्य वर्ग में ले जाएँ।</string>
+	<string name="dropAGold">राजा के बाईं ओर एक गोल्ड गिराएं, फिर एक और गोल्ड दाईं ओर रखें।</string>
+	<string name="thenPlaceASilver">फिर सिल्वर को बायीं ओर के गोल्ड के पास, और सिल्वर को दाहिने गोल्ड के पास रखें।</string>
+	<string name="dropTheKnights">नाइट्स को उसी तरह गिराएं जैसे आपने सिल्वर को रखा था। आपका प्रतिद्वंद्वी इटौ (伊藤) शैली कर रहा होगा।</string>
+	<string name="dropTheLances">लांस गिराओ। आपका प्रतिद्वंद्वी लांस से पहले पॉन को बाएं से दाएं रखना शुरू कर देगा। यह इटौ शैली है।</string>
+	<string name="placeTheBishopThenRook">बिशप को लेफ्ट नाइट के ऊपर रखें, फिर रूक को राइट नाइट के ऊपर। बेशक, वास्तविक खेलों में सेटअप के दौरान अपने प्रतिद्वंद्वी के साथ तालमेल बिठाने की कोई आवश्यकता नहीं है।</string>
+	<string name="placeThePawns">अंत में, तीसरे रैंक पर, पॉन्स को उसी तरह गिराएं जैसे आपने पिछली रैंक के टुकड़ों को रखा था। मंडल आपका मार्गदर्शक होगा।</string>
+	<string name="pushingThe3rdPawn">बिशप के विकर्ण को खोलने के लिए तीसरे पॉन को धक्का देना सबसे आम पहला कदम है। जारी रखने के लिए यह कदम उठाएं।</string>
 	<string name="boardSetupComplete">बधाई हो ! आप जानते हैं कि shogi बोर्ड कैसे स्थापित किया जाता है।</string>
-	<string name="repetition">Repetition</string>
-	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
-	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
-	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
-	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
-	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
-	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
+	<string name="repetition">दुहराव</string>
+	<string name="fourfoldRepetitionIsADrawExcept">चौगुना दोहराव एक ड्रा है, सिवाय...</string>
+	<string name="repetitionIntro">चौगुनी पुनरावृत्ति एक ड्रा है पेर्पेतुअल चेक एक हानि है।</string>
+	<string name="ifTheSamePositionOccurs">यदि शोगी में एक ही स्थिति 4 बार आती है, तो यह एक स्वचालित ड्रा है। इस स्थिति को सेनिचाइट (千日手) कहा जाता है। केवल कानूनी कदम उठाएं।</string>
+	<string name="perpetualCheckIsALoss">लेकिन, विरोधी के राजा की लगातार चेक करना चेक पक्ष के लिए एक नुकसान है। दुर्भाग्य से आपके प्रतिद्वंद्वी के लिए, वे नहीं जानते ! केवल कानूनी कदम उठाएं।</string>
+	<string name="boardFlippedFindBestMove">बोर्ड बस फ़्लिप किया गया था। यहां सबसे अच्छा कदम क्या है ?</string>
+	<string name="repetitionComplete">परपेचुअल चेक के नुकसान के पीछे विचार यह है कि किसी को जबरदस्ती ड्रॉ कराने से रोका जाए।</string>
 	<string name="stalemate">स्टेलमेट (Stalemate)</string>
 	<string name="theGameIsADraw">खेल ड्रॉ है।</string>
 	<string name="stalemateIntro">जब कोई खिलाड़ी जांच में नहीं होता है और कोई कानूनी कदम नहीं उठाता है, तो यह एक गतिरोध है। खेल तैयार है: कोई भी जीतता है, कोई भी हारता है।</string>
@@ -184,26 +184,26 @@ shogi के हर खेल के !
 	<string name="advanced">उन्नत</string>
 	<string name="pieceValue">टुकड़ा का मूल्य</string>
 	<string name="evaluatePieceStrength">टुकड़ा ताकत का मूल्यांकन करें</string>
-	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
-The king is priceless! Losing it means losing the game.</string>
+	<string name="pieceValueIntroNew">उच्च गतिशीलता वाले टुकड़ों का मूल्य अधिक होता है।
+राजा अनमोल है ! हारने का मतलब है खेल हारना।</string>
 	<string name="queenOverBishop">टुकड़ा ले लो
 उच्चतम मूल्य के साथ !
 रानी &gt; बिशप</string>
-	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
-Take the most valuable piece.</string>
-	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
-Take the most valuable piece without losing your own.</string>
-	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
-Take the most valuable piece.</string>
-	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
-	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
-	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
-	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
-	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
-	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
+	<string name="pawnsAreTheLeastValuable">पॉन्स सबसे कम मूल्यवान टुकड़ा हैं, उसके बाद लैंसेस हैं। नाइट्स लैंसेस से थोड़े अधिक मूल्यवान होते हैं।
+सबसे कीमती टुकड़ा लो।</string>
+	<string name="knightSilverGold">नाइट &lt; सिल्वर &lt; गोल्ड
+अपना खुद का खोए बिना सबसे मूल्यवान टुकड़ा लें।</string>
+	<string name="goldBishopRook">गोल्ड &lt; बिशप &lt; रूक
+सबसे कीमती टुकड़ा लो।</string>
+	<string name="takeAllThePiecesStartingFromTheMost">सबसे मूल्यवान से लेकर कम से कम मूल्यवान तक, सभी टुकड़ों को क्रम में लें !</string>
+	<string name="anExchangeIs">एक एक्सचेंज तब होता है जब आप एक टुकड़े पर कब्जा कर लेते हैं, और दूसरे को खो देते हैं। कौन सा एक्सचेंज बेहतर है? सिल्वर-फॉर-रूक, या गोल्ड-फॉर-नाइट?</string>
+	<string name="theOpponentJustGaveAway">प्रतिद्वंद्वी ने अपना कीमती किश्ती मुफ्त में दे दिया ! क्या आप इसे लेते हैं ?</string>
+	<string name="yourKingsValueIsInfinite">रूक की तुलना में राजा का मूल्य अनंत है। यहां सबसे अच्छा कदम क्या है ?</string>
+	<string name="twoGeneralsAreBetter">दो जनरल एक से अधिक प्रमुख टुकड़े के लायक हो सकते हैं। एक नाईट और लांस एक जनरल से बेहतर हो सकते हैं। बिशप की बलि देने और दो जनरल को जीतने का तरीका खोजें।</string>
+	<string name="rememberWhichPieceIsTheMostValuable">क्या आपको याद है कि कौन सा टुकड़ा सबसे मूल्यवान है ?</string>
 	<string name="takeThePieceWithTheHighestValue">टुकड़ा ले लो
 उच्चतम मूल्य के साथ !</string>
-	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">राजा हर दूसरे टुकड़े की तुलना में अधिक मूल्यवान है। प्रतिद्वंद्वी के राजा पर हमला करने के लिए टुकड़ों का बलिदान करना ठीक हो सकता है। बस अपने राजा की सुरक्षा को भी मत भूलना !</string>
 	<string name="checkInTwo">दो में चेक करें</string>
 	<string name="twoMovesToGiveCheck">दो चाल मैं चेक दे</string>
 	<string name="checkInTwoIntro">प्रतिद्वंदी के राजा को दो सही चाल चला कर शह दे !</string>

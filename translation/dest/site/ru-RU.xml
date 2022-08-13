@@ -94,7 +94,7 @@
 	<string name="xOpeningExplorer">База дебютов для %s</string>
 	<string name="allSet">Готово!</string>
 	<string name="importKif">Импортировать партию</string>
-	<string name="importCsa">Import CSA</string>
+	<string name="importCsa">Импортировать CSA</string>
 	<string name="delete">Удалить</string>
 	<string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
 	<string name="replayMode">Смотреть в повторе</string>
@@ -294,7 +294,7 @@
 		<item quantity="other">%s играются</item>
 	</plurals>
 	<string name="exportGames">Скачать игры</string>
-	<string name="export">Export</string>
+	<string name="export">Экспорт</string>
 	<string name="ratingRange">Рейтинг соперника</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Дать %s секунду</item>
@@ -375,15 +375,14 @@
 	<string name="save">Сохранить</string>
 	<string name="leaderboard">Лучшие игроки</string>
 	<string name="selectHandicap">Выберите фору</string>
-	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
-	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
+	<string name="pasteTheSfenStringHere">Вставьте текст SFEN сюда</string>
+	<string name="pasteTheKifCsaStringHere">Вставьте текст KIF или CSA здесь</string>
 	<string name="fromPosition">С позиции</string>
-	<string name="default">Default</string>
+	<string name="default">По умолчанию</string>
 	<string name="continueFromHere">Продолжить с этой позиции</string>
 	<string name="toStudy">Студия</string>
 	<string name="importGame">Импортировать игру</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">Вставьте KIF или CSA игры, что бы получить просматриваемый повтор, анализ компьютера, игровой чат и рабочий URL адрес.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s импортированная</item>
 		<item quantity="few">%s импортированные</item>
@@ -602,7 +601,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="slow">Медленно</string>
 	<string name="insideTheBoard">Внутри доски</string>
 	<string name="outsideTheBoard">Вне доски</string>
-	<string name="edgeOfTheBoard">Edge of the board</string>
+	<string name="edgeOfTheBoard">Край доски</string>
 	<string name="onSlowGames">В медленных играх</string>
 	<string name="always">Всегда</string>
 	<string name="never">Никогда</string>
@@ -806,17 +805,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="light">Светлый</string>
 	<string name="dark">Тёмный</string>
 	<string name="transparent">Прозрачный</string>
-	<string name="customTheme">Custom theme</string>
+	<string name="customTheme">Пользовательская тема</string>
 	<string name="backgroundImageUrl">URL фонового изображения:</string>
-	<string name="backgroundColor">Background color:</string>
-	<string name="gridColor">Grid color:</string>
-	<string name="gridWidth">Grid width:</string>
-	<string name="board">Board</string>
-	<string name="grid">Grid</string>
-	<string name="gridSlim">Slim</string>
-	<string name="gridThick">Thick</string>
-	<string name="gridVeryThick">Very thick</string>
-	<string name="hands">Hands</string>
+	<string name="backgroundColor">Цвет фона:</string>
+	<string name="gridColor">Цвет плитки:</string>
+	<string name="gridWidth">Ширина плитки:</string>
+	<string name="board">Доска</string>
+	<string name="grid">Плитка</string>
+	<string name="gridSlim">Тонкий</string>
+	<string name="gridThick">Жирный</string>
+	<string name="gridVeryThick">Очень жирный</string>
+	<string name="hands">Руки</string>
 	<string name="boardTheme">Оформление доски</string>
 	<string name="boardSize">Размер доски</string>
 	<string name="pieceSet">Оформление фигур</string>
@@ -831,8 +830,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Основы сёги</string>
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>
-	<string name="invalidKif">Invalid KIF</string>
-	<string name="invalidNotation">Invalid notation</string>
+	<string name="invalidKif">Некорректный KIF</string>
+	<string name="invalidNotation">Недопустимая нотация</string>
 	<string name="invalidFen">Некорректный FEN</string>
 	<string name="error.minLength">Минимальная длина — %s</string>
 	<string name="error.maxLength">Максимальная длина — %s</string>

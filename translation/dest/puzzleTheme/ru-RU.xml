@@ -61,9 +61,9 @@
   <string name="tsume">Цумэ</string>
   <string name="tsumeDescription">Ваша цель состоит в том, чтобы поставить мат противнику. Каждый ход должен быть шахом.</string>
   <string name="strikingPawn">Ударная пешка</string>
-  <string name="strikingPawnDescription">Тактика, связанная с выбросом пешки перед фигурой противника и ее атакой.</string>
+  <string name="strikingPawnDescription">Тактика, связанная с выбросом пешки перед фигурой противника и атакуя ее.</string>
   <string name="joiningPawn">Присоединение пешки</string>
-  <string name="joiningPawnDescription">Тактика, в которой пешка жертвуется перед фигурой противника.</string>
+  <string name="joiningPawnDescription">Тактика, в которой вы жертвуете пешка сбросив ее перед фигурой противника.</string>
   <string name="dancingPawns">Танцующие пешки</string>
   <string name="dancingPawnsDescription">Тактика захвата золота противника с принесением в жертву пешки.</string>
   <string name="edgeAttack">Краевая атака</string>

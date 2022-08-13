@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Тренеры сёги</string>
+	<string name="lishogiCoaches">Тренеры Lishogi</string>
 	<string name="lishogiCoach">Тренер сёги</string>
 	<string name="areYouCoach">Вы отличный тренер сёги с %s?</string>
 	<string name="becomeACoach">Вы тренер сёги с опытом и хотите быть частью lishogi?</string>

@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Dejar el estudio</string>
   <string name="youAreNowAContributor">Ahora eres un colaborador</string>
   <string name="youAreNowASpectator">Ahora eres un espectador</string>
-  <string name="tags">Tags</string>
+  <string name="tags">Etiquetas</string>
   <string name="like">Me gusta</string>
   <string name="newTag">Nueva etiqueta</string>
   <string name="commentThisPosition">Comentar esta posición</string>
@@ -59,9 +59,9 @@
   <string name="cloneStudy">Clonar</string>
   <string name="downloadAllGames">Descargar todas las partidas</string>
   <string name="downloadGame">Descargar partida</string>
-  <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
+  <string name="studyKif">Estudiar KIF</string>
+  <string name="chapterKif">Capítulo KIF</string>
+  <string name="chapterCsa">Capítulo CSA</string>
   <string name="studyUrl">URL del estudio</string>
   <string name="broadcastUrl">Enlace de la transmisión</string>
   <string name="currentChapterUrl">URL del capítulo actual</string>
@@ -96,8 +96,8 @@
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Comenzar desde una posición personalizada</string>
   <string name="loadAGameByUrl">Cargar una partida desde una URL</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
-  <string name="loadAGameFromKif">Load games from KIF</string>
+  <string name="loadAPositionFromSfen">Cargar una posición de SFEN</string>
+  <string name="loadAGameFromKif">Cargar partidas de KIF</string>
   <string name="automatic">Automática</string>
   <string name="urlOfTheGame">URL de la partida</string>
   <string name="loadAGameFromXOrY">Cargar una partida desde %1$s</string>

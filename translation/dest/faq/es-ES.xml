@@ -12,7 +12,7 @@
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi se mantiene mediante donaciones de patrocinadores y los esfuerzos de un equipo de voluntarios.</string>
 	<string name="findMoreAndSeeHowHelp">Puedes aprender más sobre %1$s. Si quieres ayudar a Lishogi voluntariamente con tu tiempo y habilidades, hay muchas %2$s.</string>
 	<string name="beingAPatron">Conviértete en un mecenas</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="otherWaysToContribute">Aquí puedes encontrar muchas otras formas de contribuir a Lishogi.</string>
 	<string name="breakdownOfOurCosts">desglose de nuestros gastos</string>
 	<string name="otherWaysToHelp">otras formas de ayudar</string>
 	<string name="fairPlay">Juego limpio</string>
@@ -48,7 +48,7 @@
 	<string name="goodIntroduction">buena introducción</string>
 	<string name="officialRulesPDF">reglas oficiales (pdf)</string>
 	<string name="lishogiTraining">Entrenamiento en Lishogi</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">Repetición cuádruple</string>
 	<string name="handBookPDF">manual (pdf)</string>
 	<string name="notRepeatedMoves">No hemos repetido movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
 	<string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene ocurrir consecutivamente.</string>

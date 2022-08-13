@@ -5,30 +5,30 @@
   <string name="newDailyHighscore">Nuevo récord diario!</string>
   <string name="newWeeklyHighscore">Nuevo récord semanal!</string>
   <string name="newMonthlyHighscore">Nuevo récord mensual!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="newAllTimeHighscore">¡Récord absoluto!</string>
+  <string name="previousHighscoreWasX">El récord anterior era %s</string>
+  <string name="playAgain">Jugar de nuevo</string>
   <plurals name="xRuns">
-    <item quantity="one">1 run</item>
-    <item quantity="other">%s runs</item>
+    <item quantity="one">1 ronda</item>
+    <item quantity="other">%s rondas</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Played one run of %2$s</item>
-    <item quantity="other">Played %1$s runs of %2$s</item>
+    <item quantity="one">Has jugado una ronda de %2$s</item>
+    <item quantity="other">Has jugado %1$s rondas de %2$s</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
+  <string name="highscoreX">Récord: %s</string>
   <string name="score">Puntuación</string>
   <string name="moves">Movimientos</string>
   <string name="accuracy">Precisión</string>
   <string name="combo">Combo</string>
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por jugada</string>
-  <string name="highestSolved">Highest solved</string>
+  <string name="highestSolved">Ejercicio más difícil resuelto</string>
   <string name="puzzlesPlayed">Ejercicios jugados</string>
-  <string name="newRun">New run (hotkey: Space)</string>
-  <string name="endRun">End run (hotkey: Enter)</string>
+  <string name="newRun">Nueva ronda (tecla: Espacio)</string>
+  <string name="endRun">Terminar ronda (tecla: Enter)</string>
   <string name="highscores">Mejores puntuaciones</string>
-  <string name="viewBestRuns">View best runs</string>
-  <string name="bestRunOfDay">Best run of day</string>
-  <string name="runs">Runs</string>
+  <string name="viewBestRuns">Ver las mejores rondas</string>
+  <string name="bestRunOfDay">Mejor ronda del día</string>
+  <string name="runs">Rondas</string>
 </resources>

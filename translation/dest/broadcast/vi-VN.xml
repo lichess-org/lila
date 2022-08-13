@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Phát sóng</string>
-  <string name="liveBroadcasts">Giải đấu phát trực tuyến</string>
+  <string name="liveBroadcasts">Giải đấu phát trực tiếp</string>
   <string name="newBroadcast">Luồng trực tiếp mới</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
