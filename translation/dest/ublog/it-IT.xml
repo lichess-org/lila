@@ -35,4 +35,9 @@
   <string name="uploadAnImageForYourPost">Carica un\'immagine per il tuo post</string>
   <string name="imageAlt">Testo alternativo dell\'immagine</string>
   <string name="imageCredit">Crediti immagine</string>
+  <string name="deleteBlog">Elimina questo messaggio permanentemente</string>
+  <string name="deleteImage">Elimina l\'immagine</string>
+  <string name="safeToUseImages">Le immagini dai seguenti siti possono essere usate in sicurezza:</string>
+  <string name="selectPostTopics">Seleziona l\'argomento del tuo messaggio</string>
+  <string name="useImagesYouMadeYourself">Puoi anche usare immagini create da te, foto che hai fatto, schermate di Lichess... Qualunque cosa che non sia protetta da copyright.</string>
 </resources>
