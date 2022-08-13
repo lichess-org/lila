@@ -70,6 +70,13 @@ Please also remember that, over the long run, ratings tend to gravitate towards 
 
 """, /* ---------------------------------------------------------------*/ """
 
+Warning: Inappropriate username
+
+Due to the fact that your username is either an inappropriate word/phrase or because your username is offencive to someone or a set of people or is impersonating someone that you aren't, your account will be terminated within the next 24 hours.
+Once this is done, you will be permitted to create a new lishogi account with a username that follows our Username policy (https://github.com/lichess-org/lila/wiki/Username-policy).
+
+""", /* ---------------------------------------------------------------*/ """
+
 Warning: Username or profile that implies you are a titled player
 
 The username policy (https://github.com/lichess-org/lila/wiki/Username-policy) for Lishogi states that you can't have a username that implies that you have a JSA title or the Lishogi Master title, or impersonating a specific titled player. Actual titled players can verify by contacting us at contact@lishogi.org with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lishogi user profile. Since your username or profile implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
@@ -86,6 +93,12 @@ Warning: leaving games / stalling on time
 
 In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
 This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.
+
+""", /* ---------------------------------------------------------------*/ """
+
+Warning: Others
+
+If you continue to violate Lishogi's Terms of Service (https://lishogi.org/terms-of-service) in any manner, your account will be restricted. Please refrain from doing so.
 
 """, /* ---------------------------------------------------------------*/ """
 
