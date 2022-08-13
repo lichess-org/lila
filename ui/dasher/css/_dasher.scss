@@ -216,7 +216,8 @@
       .sp-alpha-handle.highlight {
         animation: 1.5s glow ease-in-out infinite;
       }
-      .sp-alpha-handle, .sp-slider {
+      .sp-alpha-handle,
+      .sp-slider {
         background: $c-bg-input;
         outline: 1px solid $c-font-clearer;
       }

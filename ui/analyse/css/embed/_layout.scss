@@ -32,7 +32,7 @@
   &.variant-minishogi {
     grid-template-rows: 1fr 5fr 1fr 2.5fr 3rem;
   }
-  
+
   @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
     grid-template-columns: 9fr 7fr;
     &.variant-minishogi {
