@@ -100,7 +100,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
           'HCE'
         )
       : h(
-          'span.technology',
+          'span.technology.bad',
           { attrs: { title: 'Unfortunately local analysis is not available for this device or browser' } },
           'No local engine supported'
         ),
@@ -220,12 +220,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         pearl ? h('pearl', [pearl]) : null,
         h('help', [
           ...engineName(instance),
-          h(
-            'span',
-            instance.technology !== 'none'
-              ? [h('br'), instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game']
-              : []
-          ),
+          h('span', [h('br'), instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game']),
         ]),
       ];
 

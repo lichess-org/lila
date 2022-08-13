@@ -69,6 +69,9 @@
 
   .technology {
     margin-left: 5px;
+    &.bad {
+      color: $c-bad;
+    }
     &.good {
       color: $c-good;
     }
