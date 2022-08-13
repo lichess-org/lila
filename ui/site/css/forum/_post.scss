@@ -15,6 +15,14 @@
       font-size: 1.1em;
       margin-right: 1rem;
     }
+
+    a.author--op {
+      @extend %box-radius;
+      padding: 0.2em;
+      padding-right: 0.8em;
+      background: mix($c-primary, $c-bg-box, 12%);
+    }
+
     .anchor {
       @extend %break-nope;
       color: $c-link-dim;
