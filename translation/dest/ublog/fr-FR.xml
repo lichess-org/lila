@@ -35,4 +35,8 @@
   <string name="uploadAnImageForYourPost">Téléverser une image pour votre publication</string>
   <string name="imageAlt">Description de l\'image</string>
   <string name="imageCredit">Source de l\'image</string>
+  <string name="deleteImage">Supprimer l\'image</string>
+  <string name="useImagesYouMadeYourself">Vous pouvez également utiliser des images que vous avez faites vous-même, des photos que vous avez prises, des captures d\'écran de Lichess... tout ce qui n\'est pas protégé par droit d\'auteur par quelqu\'un d\'autre.</string>
+  <string name="safeAndRespectfulContent">Veuillez ne publier que du contenu sûr et respectueux. Ne copiez pas le contenu de quelqu\'un d\'autre.</string>
+  <string name="inappropriateContentAccountClosed">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
 </resources>
