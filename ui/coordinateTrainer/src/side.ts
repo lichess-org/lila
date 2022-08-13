@@ -186,7 +186,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
 };
 
 const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
-  return h('div.box.current-status', [
+  return h('div.box.current-status.current-status--color', [
     h(`label.color_${ctrl.orientation}`, h('i')),
     h('em', ctrl.trans.noarg(ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces')),
   ]);

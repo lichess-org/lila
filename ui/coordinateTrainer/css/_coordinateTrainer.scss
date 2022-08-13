@@ -47,12 +47,29 @@
       padding: 0 !important;
       text-align: center;
     }
+  }
 
-    &.current-status {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+  i {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+  }
+
+  .current-status {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    &--color {
+      flex-flow: row;
+      i {
+        width: 60px;
+        height: 60px;
+      }
     }
   }
 
@@ -60,15 +77,6 @@
   form.color,
   form.timeControl {
     margin-top: $block-gap;
-  }
-
-  i {
-    display: block;
-    width: 30px;
-    height: 30px;
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
-    padding: 0;
   }
 
   .mode_option,
