@@ -35,4 +35,7 @@
   <string name="uploadAnImageForYourPost">Lataa kirjoitukseesi kuva</string>
   <string name="imageAlt">Vaihtoehtoinen kuvateksti</string>
   <string name="imageCredit">Kuvan lähde</string>
+  <string name="safeAndRespectfulContent">Julkaise vain turvallista ja muita kunnioittavaa sisältöä. Älä kopioi toisten luomaa sisältöä.</string>
+  <string name="inappropriateContentAccountClosed">Epäasiallisen sisällön julkaisu voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
+  <string name="blogTips">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
 </resources>
