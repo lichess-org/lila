@@ -32,10 +32,13 @@ final class AsyncDb(
   def apply(name: CollName) = new AsyncColl(name, () => dbCache.get.dmap(_.collection(name.value)))
 }
 
+// apologies for the devMode flag, but maybe this could help nasty errors on prod startup as well?
+// just want to get rid of the 20-30 red mongo errors in startup logs so as not to become desensitized
 final class Db(
     name: String,
     uri: String,
-    driver: AsyncDriver
+    driver: AsyncDriver,
+    devMode: Boolean = false
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val logger = lila.db.logger branch name
@@ -44,9 +47,16 @@ final class Db(
     MongoConnection
       .fromString(uri)
       .flatMap { parsedUri =>
-        driver
-          .connect(parsedUri, name.some)
-          .flatMap(_ database parsedUri.db.getOrElse("lichess"))
+        if (devMode)
+          driver
+            .connect(
+              parsedUri.hosts.map(_._1).toSeq,
+              MongoConnectionOptions.default.copy(failoverStrategy = FailoverStrategy(1.second, 5, _ * 1.5)),
+              name
+            )
+            .flatMap(_ database parsedUri.db.getOrElse("lichess"))
+        else
+          driver.connect(parsedUri, name.some).flatMap(_ database parsedUri.db.getOrElse("lichess"))
       }
       .await(5.seconds, s"db:$name")
   ) { lap =>

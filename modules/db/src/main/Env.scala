@@ -16,7 +16,8 @@ trait YoloDb
 @Module
 final class Env(
     appConfig: Configuration,
-    shutdown: CoordinatedShutdown
+    shutdown: CoordinatedShutdown,
+    mode: play.api.Mode
 )(implicit ec: ExecutionContext) {
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
@@ -24,7 +25,8 @@ final class Env(
   lazy val mainDb = new Db(
     name = "main",
     uri = appConfig.get[String]("mongodb.uri"),
-    driver = driver
+    driver = driver,
+    mode != play.api.Mode.Prod
   )
 
   lazy val yoloDb = new AsyncDb(
