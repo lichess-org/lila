@@ -139,20 +139,7 @@ export default class AnalyseCtrl {
 
     this.instanciateCeval();
 
-    this.initialPath = treePath.root;
-
-    {
-      const loc = window.location,
-        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
-        startPly = hashPly || (opts.inlinePgn && this.tree.lastPly());
-      if (startPly) {
-        // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-        window.history.replaceState(null, '', loc.pathname + loc.search);
-        const mainline = treeOps.mainlineNodeList(this.tree.root);
-        this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= startPly);
-      }
-    }
-
+    this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
 
     this.showGround();
@@ -212,6 +199,21 @@ export default class AnalyseCtrl {
 
     lichess.sound.preloadBoardSounds();
   }
+
+  private makeInitialPath = (): string => {
+    // if correspondence, always use latest actual move to set 'current' style
+    if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+
+    const loc = window.location,
+      hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
+      startPly = hashPly || (this.opts.inlinePgn && this.tree.lastPly());
+    if (startPly) {
+      // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
+      window.history.replaceState(null, '', loc.pathname + loc.search);
+      const mainline = treeOps.mainlineNodeList(this.tree.root);
+      return treeOps.takePathWhile(mainline, n => n.ply <= startPly);
+    } else return treePath.root;
+  };
 
   enableWiki = (v: boolean) => {
     this.wiki = v ? wikiTheory() : undefined;
