@@ -21,6 +21,7 @@ object Permission {
   case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban             extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
+  case object SetKidMode            extends Permission("SET_KID_MODE", List(UserSpy), "Set Kid Mode")
   case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
   case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserSpy), "Mark as booster")
   case object IpBan                 extends Permission("IP_BAN", List(UserSpy), "IP ban")
@@ -82,7 +83,6 @@ object Permission {
           UserSpy,
           UserEvaluate,
           SeeReport,
-          Appeals,
           ModLog,
           SeeInsight,
           UserSearch,
@@ -128,8 +128,10 @@ object Permission {
           IpBan,
           PrintBan,
           CloseAccount,
+          Appeals,
           SetTitle,
           SetEmail,
+          SetKidMode,
           ManageTeam,
           ManageTournament,
           ManageSimul,
@@ -163,6 +165,7 @@ object Permission {
     "Comm mod" -> List(
       ViewPrivateComms,
       Shadowban,
+      SetKidMode,
       ChatTimeout,
       ModerateForum,
       ReportBan,
