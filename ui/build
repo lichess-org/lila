@@ -13,9 +13,9 @@ ls -l node_modules node_modules/@* ui/node_modules ui/*/node_modules | grep /yar
 
 mkdir -p public/compiled
 
-apps1="common"
+apps1="common palantir"
 apps2="ceval game tree chat nvui puz"
-apps3="site msg chat cli challenge notify learn editor round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker puzzle storm"
+apps3="analyse site msg cli challenge notify learn editor puzzle round lobby tournament tournamentSchedule tournamentCalendar simul dasher speech serviceWorker storm"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
