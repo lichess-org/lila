@@ -84,12 +84,14 @@ final class Env(
     val storm: lila.storm.Env,
     val racer: lila.racer.Env,
     val ublog: lila.ublog.Env,
+    val opening: lila.opening.Env,
     val tutor: lila.tutor.Env,
     val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
     val controllerComponents: ControllerComponents
 )(implicit
     val system: ActorSystem,
+    val scheduler: akka.actor.Scheduler,
     val executionContext: ExecutionContext,
     val mode: play.api.Mode
 ) {
@@ -150,8 +152,6 @@ final class Env(
       lila.log("preloader").warn("daily puzzle", e)
       none
     }
-
-  def scheduler = system.scheduler
 
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
 }
@@ -247,6 +247,7 @@ final class EnvBoot(
   lazy val storm: lila.storm.Env             = wire[lila.storm.Env]
   lazy val racer: lila.racer.Env             = wire[lila.racer.Env]
   lazy val ublog: lila.ublog.Env             = wire[lila.ublog.Env]
+  lazy val opening: lila.opening.Env         = wire[lila.opening.Env]
   lazy val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]

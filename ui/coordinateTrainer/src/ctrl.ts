@@ -1,6 +1,6 @@
 import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import { withEffect } from 'common';
 import { storedBooleanProp, storedProp } from 'common/storage';
 import { Api as CgApi } from 'chessground/api';
@@ -43,11 +43,13 @@ export default class CoordinateTrainerCtrl {
   zen: boolean;
 
   constructor(readonly config: CoordinateTrainerConfig, readonly redraw: Redraw) {
-    const setZen = throttle(1000, zen =>
-      xhr.text('/pref/zen', {
-        method: 'post',
-        body: xhr.form({ zen: zen ? 1 : 0 }),
-      })
+    const setZen = throttlePromiseDelay(
+      () => 1000,
+      zen =>
+        xhr.text('/pref/zen', {
+          method: 'post',
+          body: xhr.form({ zen: zen ? 1 : 0 }),
+        })
     );
 
     lichess.pubsub.on('zen', () => {

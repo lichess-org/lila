@@ -16,7 +16,7 @@ final private class TutorQueue(
     reportColl: Coll @@ ReportColl,
     queueColl: Coll @@ QueueColl,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   import TutorQueue._
 

@@ -72,6 +72,7 @@ idiot
 incest
 jerk
 jizz?(um|)
+kill (you|u)
 labia
 lamer?
 lesbo
@@ -79,6 +80,7 @@ lo+ser
 masturbat(e|ion|ing)
 milf
 molest(er|)
+mong
 monkey
 moron
 mother(fuc?k(er|)|)
@@ -136,6 +138,7 @@ stfu
 stupid
 subhuman
 suicide
+suc?ker
 suck m[ey]
 terrorist
 tit(t?ies|ty|)(fuc?k|)
@@ -244,7 +247,7 @@ sparati
 """)
 
   def hi = dict("""
-(madar|be?hen|beti)chod
+(mada?r|mother|be?hen|beti)chod
 bh?o?sdi?ke?
 chut(iya|)
 gaa?ndu?

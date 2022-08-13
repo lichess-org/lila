@@ -18,10 +18,11 @@ final class RelayTourForm {
 
   val form = Form(
     mapping(
-      "name"        -> cleanText(minLength = 3, maxLength = 80),
-      "description" -> cleanText(minLength = 3, maxLength = 400),
-      "markdown"    -> optional(toMarkdown(cleanText(maxLength = 20_000))),
-      "tier"        -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST))
+      "name"            -> cleanText(minLength = 3, maxLength = 80),
+      "description"     -> cleanText(minLength = 3, maxLength = 400),
+      "markdown"        -> optional(toMarkdown(cleanText(maxLength = 20_000))),
+      "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
+      "autoLeaderboard" -> boolean
     )(Data.apply)(Data.unapply)
   )
 
@@ -36,7 +37,8 @@ object RelayTourForm {
       name: String,
       description: String,
       markup: Option[Markdown],
-      tier: Option[RelayTour.Tier]
+      tier: Option[RelayTour.Tier],
+      autoLeaderboard: Boolean
   ) {
 
     def update(tour: RelayTour, user: User) =
@@ -44,7 +46,8 @@ object RelayTourForm {
         name = name,
         description = description,
         markup = markup,
-        tier = tier ifTrue Granter(_.Relay)(user)
+        tier = tier ifTrue Granter(_.Relay)(user),
+        autoLeaderboard = autoLeaderboard
       )
 
     def make(user: User) =
@@ -57,7 +60,8 @@ object RelayTourForm {
         tier = tier ifTrue Granter(_.Relay)(user),
         active = false,
         createdAt = DateTime.now,
-        syncedAt = none
+        syncedAt = none,
+        autoLeaderboard = autoLeaderboard
       )
   }
 
@@ -68,7 +72,8 @@ object RelayTourForm {
         name = tour.name,
         description = tour.description,
         markup = tour.markup,
-        tier = tour.tier
+        tier = tour.tier,
+        autoLeaderboard = tour.autoLeaderboard
       )
   }
 }

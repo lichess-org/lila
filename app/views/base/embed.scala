@@ -16,10 +16,10 @@ object embed {
         head(
           layout.bits.charset,
           layout.bits.viewport,
-          layout.bits.metaCsp(basicCsp withNonce config.nonce),
+          layout.bits.metaCsp(basicCsp.withNonce(config.nonce).withInlineIconFont),
           st.headTitle(title),
           layout.bits.pieceSprite(config.pieceSet),
-          cssTagWithDirAndTheme(cssModule, isRTL = false, config.bg)
+          cssTagWithDirAndTheme(cssModule, isRTL = lila.i18n.LangList.isRTL(config.lang), config.bg)
         ),
         st.body(cls := s"base highlight ${config.board}")(
           layout.dataSoundSet := SoundSet.silent.key,

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Socruithe</string>
+  <string name="display">Taispeáin</string>
+  <string name="privacy">Príobháideacht</string>
   <string name="pieceAnimation">Beochan píosa</string>
   <string name="materialDifference">Difríocht ábhartha</string>
   <string name="boardHighlights">Buaicphointí an bhoird (an mbeart deireanach agus an sáinn)</string>
@@ -32,7 +34,7 @@
   <string name="promoteToQueenAutomatically">Ardú go banríon sa ghnáthchúrsa</string>
   <string name="whenPremoving">Réamh-ghluaiseacht</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Máigh cluiche cothrom ar athrshuíomh faoi thrí go huathoibríoch</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Nuair atá am fágtha &lt; 30 soicind</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Nuair atá am fágtha &lt; 30 soicind</string>
   <string name="moveConfirmation">Deimhniú beart</string>
   <string name="inCorrespondenceGames">Cluichí comhfhreagrais</string>
   <string name="correspondenceAndUnlimited">Comhfhreagras agus neamhtheoranta</string>

@@ -53,7 +53,7 @@
   <string name="addAnotherTheme">Басқа тақырып қосу</string>
   <string name="nextPuzzle">Келесі жұмбақ</string>
   <string name="jumpToNextPuzzleImmediately">Келесі жұмбаққа бірден өту</string>
-  <string name="puzzleDashboard">Жұмбақ басқару</string>
+  <string name="puzzleDashboard">Жетістіктер</string>
   <string name="improvementAreas">Жетілдіру бағыты</string>
   <string name="strengths">Күштілігі</string>
   <string name="history">Жұмбақ журналы</string>
@@ -70,7 +70,7 @@
   <string name="searchPuzzles">Жұмбақ іздеу</string>
   <string name="fromMyGamesNone">Дерекқорыңызда жұмбақ жоқ (бірақ сізге деген құрметіміз одан азайған емес).
 Жүйрік әрі классикалық ойын ойнап, жұмбақ құрылуына себепші болыңыз!</string>
-  <string name="fromXGamesFound">%2$s ойында %1$s жұмбақ табылды</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%2$s ойында %1$s жұмбақ табылды</string>
   <string name="puzzleDashboardDescription">Жаттығып, талдап, ақыл шыңдаңыз!</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s ойнадыңыз</item>
@@ -82,6 +82,6 @@
   </plurals>
   <string name="percentSolved">%s шешілді</string>
   <string name="noPuzzlesToShow">Мәлімет жоқ. Алдымен жұмбақ шешіп көріңіз!</string>
-  <string name="improvementAreasDescription">Жетістігіңізді арттыру үшін осыны көріңіз!</string>
+  <string name="improvementAreasDescription">Жетістігіңізді жақсарту үшін осы жаттығуды көріңіз!</string>
   <string name="strengthDescription">Осы тақырыпта сізде үздік нәтиже</string>
 </resources>

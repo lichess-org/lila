@@ -72,4 +72,10 @@ object Json {
   implicit val uciWrites: Writes[Uci] = Writes { u =>
     JsString(u.uci)
   }
+
+  implicit def openingFamilyReads = Reads[LilaOpeningFamily] { f =>
+    f.get[String]("key")
+      .flatMap(LilaOpeningFamily.find)
+      .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
+  }
 }

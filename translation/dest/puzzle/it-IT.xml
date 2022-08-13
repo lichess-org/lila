@@ -70,7 +70,7 @@
   <string name="searchPuzzles">Cerca tattiche</string>
   <string name="fromMyGamesNone">Nel database delle tattiche di Lichess non è presente nessuna delle tue partite, ma Lichess ti vuole bene lo stesso.
 Gioca altre partite rapide o classiche per aumentare le tue possibilità di avere una tua tattica nel database!</string>
-  <string name="fromXGamesFound">%1$s tattiche trovate in %2$s partite</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s tattiche trovate in %2$s partite</string>
   <string name="puzzleDashboardDescription">Allenati, analizza, migliora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s giocato</item>

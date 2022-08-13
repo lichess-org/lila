@@ -14,6 +14,7 @@ import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.relation.RelationApi
 import lila.user.User
+import lila.game.PgnDump
 
 @Module
 final private class ForumConfig(
@@ -36,9 +37,10 @@ final class Env(
     relationApi: RelationApi,
     prefApi: PrefApi,
     userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
@@ -48,6 +50,8 @@ final class Env(
 
   private lazy val detectLanguage =
     new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
+
+  private lazy val textExpand = wire[ForumTextExpand]
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
 

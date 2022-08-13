@@ -73,7 +73,7 @@
   <string name="fromMyGamesNone">Nema tvojih zadataka u bazi, ali Lichess te i dalje puno voli.
 
 Igraj rapid i classic partije da povećaš vjerojatnost da zadatak iz tvoje partije bude dodan!</string>
-  <string name="fromXGamesFound">%1$s zadatka su nađena u %2$s partija</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s zadatka su nađena u %2$s partija</string>
   <string name="puzzleDashboardDescription">Vježbaj, analiziraj, unaprijedi</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s odigran</item>

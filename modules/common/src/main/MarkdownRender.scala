@@ -1,6 +1,5 @@
 package lila.common
 
-import lila.base.RawHtml
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
@@ -24,13 +23,16 @@ import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
-import com.vladsch.flexmark.ast.{ Image, Link }
+import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import io.mola.galimatias.URL
 import scala.collection.JavaConverters
 import java.util.Arrays
 import scala.jdk.CollectionConverters._
 import scala.util.Try
-import com.vladsch.flexmark.ast.AutoLink
+import chess.format.pgn.Pgn
+import com.vladsch.flexmark.util.misc.Extension
+import lila.base.RawHtml
+import com.vladsch.flexmark.html.renderer.ResolvedLink
 
 final case class Markdown(value: String) extends AnyVal with StringValue {
   def apply(f: String => String) = Markdown(f(value))
@@ -43,7 +45,8 @@ final class MarkdownRender(
     header: Boolean = false,
     blockQuote: Boolean = false,
     list: Boolean = false,
-    code: Boolean = false
+    code: Boolean = false,
+    gameExpand: Option[MarkdownRender.GameExpand] = None
 ) {
 
   private type Key  = String
@@ -53,7 +56,9 @@ final class MarkdownRender(
   if (table) extensions.add(TablesExtension.create())
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink) extensions.add(AutolinkExtension.create())
-  extensions.add(MarkdownRender.LilaLinkExtension)
+  extensions.add(
+    gameExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { new MarkdownRender.GameEmbedExtension(_) }
+  )
 
   private val options = new MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
@@ -86,7 +91,7 @@ final class MarkdownRender(
     tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
   )
 
-  def apply(key: Key)(text: Markdown): Html =
+  def apply(key: Key, pgns: Map[String, Pgn] = Map.empty)(text: Markdown): Html =
     Chronometer
       .sync {
         try {
@@ -104,6 +109,8 @@ final class MarkdownRender(
 
 object MarkdownRender {
 
+  case class GameExpand(domain: config.NetDomain, getPgn: String => Option[String])
+
   private val rel = "nofollow noopener noreferrer"
 
   private object WhitelistedImageExtension extends HtmlRenderer.HtmlRendererExtension {
@@ -117,11 +124,7 @@ object MarkdownRender {
   }
   private object WhitelistedImageNodeRenderer extends NodeRenderer {
     override def getNodeRenderingHandlers() =
-      new java.util.HashSet(
-        Arrays.asList(
-          new NodeRenderingHandler(classOf[Image], render)
-        )
-      )
+      new java.util.HashSet(Arrays.asList(new NodeRenderingHandler(classOf[Image], render)))
 
     private val whitelist =
       List(
@@ -153,30 +156,110 @@ object MarkdownRender {
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
+      else
+        {
+          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+          val url          = resolvedLink.getUrl()
+          val altText      = new TextCollectingVisitor().collectAndGetText(node)
+          whitelistedSrc(url) match {
+            case Some(src) =>
+              html
+                .srcPos(node.getChars())
+                .attr("src", src)
+                .attr("alt", altText)
+                .attr(resolvedLink.getNonNullAttributes())
+                .withAttr(resolvedLink)
+                .tagVoid("img")
+            case None =>
+              html
+                .srcPos(node.getChars())
+                .attr("href", url)
+                .attr("rel", rel)
+                .withAttr(resolvedLink)
+                .tag("a")
+                .text(altText)
+                .tag("/a")
+          }
+        }.unit
+  }
+
+  private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension {
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder
+        .nodeRendererFactory(new NodeRendererFactory {
+          override def apply(options: DataHolder) = new GameEmbedNodeRenderer(expander)
+        })
+        .unit
+  }
+  private class GameEmbedNodeRenderer(expander: GameExpand) extends NodeRenderer {
+    override def getNodeRenderingHandlers() =
+      new java.util.HashSet(
+        Arrays.asList(
+          new NodeRenderingHandler(classOf[Link], renderLink),
+          new NodeRenderingHandler(classOf[AutoLink], renderAutoLink)
+        )
+      )
+
+    private val gameRegex =
+      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$$""".r
+
+    private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
+      // Based on implementation in CoreNodeRenderer.
+      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+        context.renderChildren(node)
       else {
-        val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-        val url          = resolvedLink.getUrl()
-        val altText      = new TextCollectingVisitor().collectAndGetText(node)
-        whitelistedSrc(url) match {
-          case Some(src) =>
-            html
-              .srcPos(node.getChars())
-              .attr("src", src)
-              .attr("alt", altText)
-              .attr(resolvedLink.getNonNullAttributes())
-              .withAttr(resolvedLink)
-              .tagVoid("img")
-          case None =>
-            html
-              .srcPos(node.getChars())
-              .attr("href", url)
-              .attr("rel", rel)
-              .withAttr(resolvedLink)
-              .tag("a")
-              .text(altText)
-              .tag("/a")
+        var link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        def justAsLink() = renderLink(node, context, html, link)
+        link.getUrl match {
+          case gameRegex(id, _, _) =>
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
+          case _ => justAsLink()
         }
-      }.unit
+      }
+
+    private def renderAutoLink(
+        node: AutoLink,
+        context: NodeRendererContext,
+        html: HtmlWriter
+    ): Unit =
+      // Based on implementation in CoreNodeRenderer.
+      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+        context.renderChildren(node)
+      else {
+        val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        def justAsLink() = renderLink(node, context, html, link)
+        link.getUrl match {
+          case gameRegex(id, _, _) =>
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
+          case _ => justAsLink()
+        }
+      }
+
+    private def renderLink(
+        node: LinkNode,
+        context: NodeRendererContext,
+        html: HtmlWriter,
+        baseLink: ResolvedLink
+    ) = {
+      val link = if (node.getTitle.isNotNull) baseLink.withTitle(node.getTitle().unescape()) else baseLink
+      html.attr("href", link.getUrl)
+      html.attr(link.getNonNullAttributes())
+      html.srcPos(node.getChars()).withAttr(link).tag("a")
+      context.renderChildren(node)
+      html.tag("/a").unit
+    }
+
+    private def renderPgnViewer(node: LinkNode, html: HtmlWriter, link: ResolvedLink)(pgn: String) =
+      html
+        .attr("data-pgn", pgn)
+        .attr("class", "lpv--autostart")
+        .srcPos(node.getChars())
+        .withAttr(link)
+        .tag("div")
+        .text(link.getUrl)
+        .tag("/div")
+        .unit
   }
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension {

@@ -28,17 +28,20 @@ export function makeCtrl(
   const open = prop(false),
     spectators = prop<string[]>([]);
 
+  const toggle = () => {
+    if (!open()) lichess.pubsub.emit('analyse.close-all');
+    open(!open());
+    redraw();
+  };
+
+  lichess.pubsub.on('analyse.close-all', () => open(false));
+
   const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {
     open,
     members,
     spectators,
-    toggle() {
-      if (!open()) {
-        lichess.pubsub.emit('tour.stop');
-      }
-      open(!open());
-    },
+    toggle,
     invite(titleName: string) {
       const userId = titleNameToId(titleName);
       send('invite', userId);

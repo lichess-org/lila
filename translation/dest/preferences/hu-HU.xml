@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Testreszabás</string>
+  <string name="display">Megjelenés</string>
+  <string name="privacy">Adatvédelem</string>
   <string name="pieceAnimation">Bábuk animációja</string>
   <string name="materialDifference">Bábuk közötti különbség</string>
   <string name="boardHighlights">Kiemelés a táblán (utolsó lépés és sakk)</string>
@@ -34,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Tartsd lenyomva a &lt;ctrl&gt; billentyűt gyalog átváltozásakor az automatikus átváltoztatás letiltásához</string>
   <string name="whenPremoving">Előre meghatározott lépés esetén</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Ha a hátralévő idő &lt; 30 másodperc</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
   <string name="inCorrespondenceGames">Levelező mérkőzés</string>
   <string name="correspondenceAndUnlimited">Távjáték és korlátlan</string>

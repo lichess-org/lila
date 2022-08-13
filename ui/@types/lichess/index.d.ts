@@ -247,11 +247,10 @@ interface Window {
   LichessSpeech?: LichessSpeech;
   readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
   LichessChat: (element: Element, opts: any) => any;
-  LichessReplay: (element: Element, opts: any) => any;
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
   readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: any, opts: any) => any;
+  readonly LichessDasher: (element: any) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
@@ -279,6 +278,10 @@ interface Window {
   readonly Sortable: any;
   readonly Peer: any;
   readonly Highcharts: any;
+  readonly LilaLpv: {
+    autostart(): void;
+    loadPgnAndStart(el: HTMLElement, url: string, opts: any): Promise<void>;
+  };
 
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;
@@ -364,7 +367,7 @@ interface Variant {
 interface Paginator<A> {
   currentPage: number;
   maxPerPage: number;
-  currentPageResults: Array<A>;
+  currentPageResults: A[];
   nbResults: number;
   previousPage?: number;
   nextPage?: number;

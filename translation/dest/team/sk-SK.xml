@@ -14,6 +14,7 @@
   <string name="myTeams">Moje tímy</string>
   <string name="noTeamFound">Nenašiel sa tím</string>
   <string name="joinTeam">Vstúpiť do tímu</string>
+  <string name="onlyLeaderLeavesTeam">Pred odchodom prosím pridajte nového lídra tímu, alebo zrušte tím.</string>
   <string name="quitTeam">Opustiť tím</string>
   <string name="manuallyReviewAdmissionRequests">Ručne skontrolujte žiadosti o prijatie</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ak je táto možnosť začiarknutá, hráči budú musieť napísať žiadosť o vstup do družstva, ktorú môžete následne prijať alebo odmietnuť.</string>

@@ -57,7 +57,7 @@ Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
   <string name="update">Perbarui</string>
   <string name="changeMonthlyAmount">Ubah jumlah bulanan (%s)</string>
   <string name="cancelSupport">batal dukungan Anda</string>
-  <string name="xOrY">%1$s atau %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s atau %2$s</string>
   <string name="decideHowMuch">Putuskan apa yang layak bagi Lichess berguna bagi Anda:</string>
   <string name="stopPayments">Tarik kartu kredit Anda dan hentikan pembayaran:</string>
   <string name="noLongerSupport">Tidak lagi mendukung Lichess</string>

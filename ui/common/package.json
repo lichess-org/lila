@@ -30,14 +30,14 @@
   },
   "dependencies": {
     "tablesort": "^5.3",
-    "chessground": "^8.3",
-    "snabbdom": "^3.3.1"
+    "chessground": "^8.3.5",
+    "snabbdom": "^3.3.1",
+    "lichess-pgn-viewer": "^1"
   },
   "devDependencies": {
     "@types/cash": "8.0.0",
     "@types/dom-screen-wake-lock": "1.0.0",
     "@types/lichess": "2.0.0",
-    "@types/web": "^0",
     "typescript": "^4"
   }
 }

@@ -235,6 +235,8 @@
   <string name="inbox">එන ලිපි</string>
   <string name="chatRoom">කතාබස් පුවරුව</string>
   <string name="loginToChat">කතාබස් කිරීමට පුරනය වන්න</string>
+  <string name="youHaveBeenTimedOut">ඔබ චෙස් ගේම ගසනවා
+You are playing chess.</string>
   <string name="spectatorRoom">ප්‍රේක්ෂක කාමරය</string>
   <string name="composeMessage">පණිවිඩය රචනා කරන්න</string>
   <string name="subject">විෂයය</string>

@@ -66,13 +66,12 @@
   <string name="newStreak">Nova sequência de vitórias</string>
   <string name="fromMyGames">Dos meus jogos</string>
   <string name="lookupOfPlayer">Pesquise problemas de jogos de um jogador</string>
-  <string name="fromXGames">%s é um nome de utilizador.
-Estes desafios foram retirados dos jogos desse utilizador</string>
+  <string name="fromXGames">Puzzles dos jogos de %s</string>
   <string name="searchPuzzles">Pesquisar desafios</string>
   <string name="fromMyGamesNone">Não tens problemas na base de dados, mas Lichess adora-te muito.
 
 Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de teres um problema adicionado!</string>
-  <string name="fromXGamesFound">%1$s problemas encontrados em %2$s partidas</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s problemas encontrados em %2$s partidas</string>
   <string name="puzzleDashboardDescription">Treinar, analisar, melhorar</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s problema feito</item>

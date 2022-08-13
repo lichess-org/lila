@@ -8,6 +8,5 @@
   <string name="mostChessCourses">Enamik malekursustest ja -ülesannetest kasutavad ulatuslikult algebralisi märke.</string>
   <string name="talkToYourChessFriends">See teeb oma malesõpradega rääkimise kergemaks, sest Te mõlemad mõistate \"male keelt\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Saate mänge efektiivsemalt analüüsida, kui ei pea ruutude nimetusi taga otsima.</string>
-  <string name="aSquareNameAppears">Ruudu nimetus ilmub lauale ning peate klõpsama õigel ruudul. Teil on 30 sekundit aega, et tuvastada võimalikult palju ruute!</string>
   <string name="startTraining">Alusta treeningut</string>
 </resources>

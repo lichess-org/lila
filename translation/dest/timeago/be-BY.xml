@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">толькі што</string>
+  <string name="justNow">зараз</string>
   <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
     <item quantity="one">праз %s секунду</item>
     <item quantity="few">праз %s секунды</item>
-    <item quantity="many">праз %s секундаў</item>
+    <item quantity="many">праз %s секунд</item>
     <item quantity="other">праз %s секунд</item>
   </plurals>
   <plurals name="inNbMinutes">

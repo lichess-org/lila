@@ -50,7 +50,7 @@ object racer {
       ),
       title = "Puzzle Racer",
       zoomable = true,
-      playing = true,
+      zenable = true,
       chessground = false
     ) {
       main(

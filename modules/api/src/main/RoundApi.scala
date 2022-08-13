@@ -17,6 +17,7 @@ import lila.swiss.{ GameView => SwissView }
 import lila.tournament.{ GameView => TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
+import lila.common.Preload
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -150,33 +151,6 @@ final private[api] class RoundApi(
   }
     .mon(_.round.api.watcher)
 
-  def embed(
-      pov: Pov,
-      apiVersion: ApiVersion,
-      analysis: Option[Analysis] = None,
-      initialFenO: Option[Option[FEN]] = None,
-      withFlags: WithFlags
-  ): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
-        jsonView.watcherJson(
-          pov,
-          Pref.default,
-          apiVersion,
-          none,
-          none,
-          initialFen = initialFen,
-          withFlags = withFlags
-        ) map { json =>
-          (
-            withTree(pov, analysis, initialFen, withFlags) _ compose
-              withAnalysis(pov.game, analysis)
-          )(json)
-        }
-      }
-      .mon(_.round.api.embed)
-
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
@@ -188,7 +162,14 @@ final private[api] class RoundApi(
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
         withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
-          jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me)
+          jsonView.userAnalysisJson(
+            pov,
+            pref,
+            initialFen,
+            orientation,
+            owner = owner,
+            me = me
+          )
         }
       }
     }

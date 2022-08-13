@@ -50,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Analizë kompjuterike mund të kërkohet vetëm nga kontribuesit e këtij mësimi.</string>
   <string name="getAFullComputerAnalysis">Merrni nga shërbyesi një analizë të plotë kompjuterike të variantit kryesor.</string>
   <string name="makeSureTheChapterIsComplete">Sigurohuni që kapitulli të jetë i plotë. Mund të kërkoni analizë vetëm një herë.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Krejt anëtarët SYNC mbesin në të njëjtin pozicion</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Krejt anëtarët SYNC mbesin në të njëjtin pozicion</string>
   <string name="shareChanges">Ndani ndryshimet me shikuesit dhe ruajini ato në shërbyes</string>
   <string name="playing">Po luhet</string>
   <string name="first">E para</string>

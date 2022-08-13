@@ -114,7 +114,7 @@ GET   /blog/community/:lang            controllers.Ublog.community(lang: String,
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 
 GET   /opening                         controllers.Opening.index
-GET   /opening/:family                 controllers.Opening.family(family: String)
+GET   /opening/:key                    controllers.Opening.show(key: String)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
@@ -129,11 +129,11 @@ GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/openings               controllers.Puzzle.openings(order: String ?= "popular")
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[String] ?= None, page: Int ?= 1)
-GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path: String = "home")
-GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String)
+GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path: String = "home", u: Option[String])
+GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String, u: Option[String])
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme: String)
-GET   /training/history                controllers.Puzzle.history(page: Int ?= 1)
-GET   /training/mobile/history                controllers.Puzzle.mobileHistory(page: Int ?= 1)
+GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[String])
+GET   /training/mobile/history         controllers.Puzzle.mobileHistory(page: Int ?= 1)
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
@@ -169,9 +169,9 @@ POST  /racer/lobby                      controllers.Racer.lobby
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/external               controllers.UserAnalysis.external
+GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn: String)
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
-POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
@@ -296,6 +296,9 @@ POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId
 
 GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: String, color: String = "white")
 GET   /embed/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embed(gameId: String, color: String)
+
+GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: String, color: String = "white")
+GET   /embed/game/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embedReplayGame(gameId: String, color: String)
 
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
 

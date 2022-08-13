@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">നിങ്ങളുടെ lichess.org അക്കൗണ്ട് confirm ചെയ്യൂ, %s</string>
+  <string name="emailConfirm_subject" comment="emailConfirm_subject&#10;&#10;%s is the player's username.&#10;Please do NOT transcribe 'lichess.org', it should be kept exactly as it is written.">നിങ്ങളുടെ lichess.org അക്കൗണ്ട് confirm ചെയ്യൂ, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">ലിങ്ക് അമർത്തി അക്കൗണ്ട് സജ്ജമാക്കൂ:</string>
   <string name="emailConfirm_ignore">Lichess ഉമായി നിങ്ങൾ രജിസ്റ്റർ ചെയ്തിട്ടില്ലെങ്കിൽ ഈ മെസ്സേജ് നിങ്ങൾക്ക് അവഗണിക്കാം.</string>
   <string name="passwordReset_subject">നിങ്ങളുടെ lichess.org പാസ്സ്‌വേഡ് മാറ്റുക, %s</string>

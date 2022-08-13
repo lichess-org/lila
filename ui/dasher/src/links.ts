@@ -68,7 +68,7 @@ export default function (ctrl: DasherCtrl): VNode {
 
   const piece = h('button.sub', modeCfg(ctrl, 'piece'), noarg('pieceSet'));
 
-  const zenToggle = ctrl.opts.playing
+  const zenToggle = ctrl.opts.zenable
     ? h('div.zen.selector', [
         h(
           'button.text',

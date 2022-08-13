@@ -16,7 +16,7 @@ object PuzzleForm {
       streakScore: Option[Int],
       color: Option[Color]
   ) {
-    def result         = Result(win)
+    def result         = PuzzleResult(win)
     def streakPuzzleId = streakId flatMap Puzzle.toId
     def mode           = chess.Mode(rated)
   }

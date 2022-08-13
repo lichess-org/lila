@@ -8,8 +8,6 @@
   <string name="mostChessCourses">Shumica e kurseve dhe ushtrimeve të shahut përdorin gjerësisht shënimet algjebrike.</string>
   <string name="talkToYourChessFriends">E bën më të lehtë të bisedoni me shokët tuaj të shahut, ngaqë të dy kuptoni “gjuhën e shahut”.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Një lojë mund ta analizoni më me efikasitet, nëse kuptoni shpejt koordinatat.</string>
-  <string name="aSquareNameAppears">Te fusha shfaqet një koordinatë dhe duhet të klikoni në kutinë përkatëse. Keni 30 sekonda për të përshoqëruar sa më shumë kuti të jetë e mundur!</string>
-  <string name="aSquareIsHighlighted">Në fushë theksohet një kuadrat dhe ju duhet të jepni koordinatën (p.sh. “e4”). Keni 30 sekonda që të jepni aq kuadrate sa është e mundur!</string>
   <string name="startTraining">Filloni trajnimin</string>
   <string name="findSquare">Gjeni kuadrat</string>
   <string name="nameSquare">Emërtoni kuadratin</string>

@@ -18,8 +18,42 @@
     max-height: 50vh;
     overflow-y: auto;
 
-    &__schedule td:nth-child(3) {
-      text-align: center;
+    .slist {
+      border-bottom: 0;
+    }
+
+    &__schedule {
+      td:nth-child(3) {
+        text-align: center;
+      }
+    }
+
+    &__leaderboard {
+      thead {
+        background: none;
+        th {
+          border: 0;
+          padding: 0 0.8rem;
+          &:first-child {
+            padding-left: 0;
+          }
+        }
+      }
+      th,
+      td {
+        text-align: $end-direction;
+        &:first-child {
+          text-align: $start-direction;
+        }
+      }
+      td {
+        &:nth-child(3) {
+          font-weight: bold;
+        }
+        &:last-child {
+          padding-#{$end-direction}: 1.5em;
+        }
+      }
     }
 
     .slist {

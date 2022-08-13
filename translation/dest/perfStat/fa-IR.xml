@@ -19,7 +19,7 @@
   <string name="notEnoughGames">تعداد بازی های انجام شده کافی نیست</string>
   <string name="highestRating">بالاترین امتیاز: %s</string>
   <string name="lowestRating">پایین‌ترین امتیاز: %s</string>
-  <string name="fromXToY">از %1$s تا %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">از %1$s تا %2$s</string>
   <string name="winningStreak">بردهای متوالی</string>
   <string name="losingStreak">باخت‌های متوالی</string>
   <string name="longestStreak">طولانی‌ترین توالی: %s</string>

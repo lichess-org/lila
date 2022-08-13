@@ -8,15 +8,14 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/lichess": "2.0.0",
-    "@types/web": "^0",
     "@types/cash": "8.0.0",
     "rollup": "^2",
     "typescript": "^4",
-    "@types/yaireo__tagify": "^4.9.0"
+    "@types/yaireo__tagify": "^4.15"
   },
   "dependencies": {
     "common": "2.0.0",
-    "@yaireo/tagify": "^4.9.5",
+    "@yaireo/tagify": "^4.15",
     "apexcharts": "^3.33",
     "tablesort": "^5.3"
   },

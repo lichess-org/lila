@@ -1,6 +1,5 @@
 package lila.perfStat
 
-import akka.actor._
 import com.softwaremill.macwire._
 import com.softwaremill.tagging._
 import play.api.Configuration
@@ -18,7 +17,7 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private lazy val storage = new PerfStatStorage(

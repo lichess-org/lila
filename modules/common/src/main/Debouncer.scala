@@ -1,41 +1,54 @@
 package lila.common
 
 import akka.actor._
+import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration._
+import scala.jdk.CollectionConverters._
 
-// do NOT embed me in an actor
-// for it would likely create a memory leak
-final class Debouncer[A: Manifest](length: FiniteDuration, effect: A => Unit)(implicit
-    ec: scala.concurrent.ExecutionContext
-) extends Actor {
+final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
+    f: Id => Unit
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler
+) {
+  import Debouncer._
 
-  private case object DelayEnd
+  private val debounces = new ConcurrentHashMap[Id, Queued](initialCapacity)
 
-  private var delayed: Option[A] = none
+  def push(id: Id): Unit = debounces
+    .compute(
+      id,
+      (_, prev) =>
+        Option(prev) match {
+          case None =>
+            f(id)
+            scheduler.scheduleOnce(duration) { runScheduled(id) }
+            Empty
+          case _ => Another
+        }
+    )
+    .unit
 
-  def ready: Receive = { case a: A =>
-    effect(a)
-    context.system.scheduler.scheduleOnce(length, self, DelayEnd)
-    context become delay
-  }
+  private def runScheduled(id: Id): Unit = debounces
+    .computeIfPresent(
+      id,
+      (_, queued) =>
+        if (queued == Another) {
+          f(id)
+          scheduler.scheduleOnce(duration) { runScheduled(id) }
+          Empty
+        } else nullToRemove
+    )
+    .unit
 
-  def delay: Receive = {
-
-    case a: A => delayed = a.some
-
-    case DelayEnd =>
-      context become ready
-      delayed foreach { a =>
-        self ! a
-        delayed = none
-      }
-  }
-
-  def receive = ready
+  private[this] var nullToRemove: Queued = _
 }
 
-object Debouncer {
+private object Debouncer {
 
-  sealed trait Nothing
-  object Nothing extends Nothing
+  // can't use a boolean or int,
+  // the ConcurrentHashMap uses weird defaults instead of null for missing values
+  sealed private trait Queued
+  private object Another extends Queued
+  private object Empty   extends Queued
 }

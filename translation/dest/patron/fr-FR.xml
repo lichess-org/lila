@@ -61,7 +61,7 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="update">Modifier</string>
   <string name="changeMonthlyAmount">Changer le montant mensuel (%s)</string>
   <string name="cancelSupport">annuler votre soutien</string>
-  <string name="xOrY">%1$s ou %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ou %2$s</string>
   <string name="decideHowMuch">Décidez de ce que vaut Lichess pour vous :</string>
   <string name="stopPayments">Retirer votre carte de crédit et arrêter les paiements :</string>
   <string name="stopPaymentsPayPal">Annuler l\'abonnement PayPal et arrêter les paiements :</string>

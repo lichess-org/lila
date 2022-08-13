@@ -7,6 +7,8 @@ import RawHtml._
 
 class RawHtmlTest extends Specification {
 
+  implicit def netDomain = lila.common.config.NetDomain("lichess.org")
+
   val htmlTags = "<[^>]++>".r
   def copyLinkConsistency(text: String) = {
     // Plain text of linkified text should linkify to the same result.

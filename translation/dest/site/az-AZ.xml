@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Ağ</string>
   <string name="black">Qara</string>
+  <string name="asWhite">ağ olaraq</string>
+  <string name="asBlack">qara olaraq</string>
   <string name="randomColor">Təsadüfi rəng</string>
   <string name="createAGame">Bir oyun yarat</string>
   <string name="whiteIsVictorious">Ağlar qalib gəldi</string>
@@ -821,6 +823,7 @@
   <string name="onlyTitled">Ancaq titullu oyunçular</string>
   <string name="onlyTitledHelp">Turnirə qoşulmaq üçün rəsmi titul tələb edir</string>
   <string name="cancelSimul">Simulu ləğv et</string>
+  <string name="tournChat">Turnir mesajı</string>
   <string name="noChat">Söhbətsiz</string>
   <string name="onlyTeamLeaders">Yalnız qrup lideri</string>
   <string name="onlyTeamMembers">Ancaq klub üzvləri</string>

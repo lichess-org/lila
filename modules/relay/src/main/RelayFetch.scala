@@ -28,7 +28,7 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
-)(implicit context: ExecutionContext, system: ActorSystem) {
+)(implicit context: ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   LilaScheduler(_.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
     syncRelays(official = true)
@@ -42,7 +42,7 @@ final private class RelayFetch(
     api
       .toSync(official)
       .flatMap { relays =>
-        lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
+        lila.mon.relay.ongoing(official).update(relays.size)
         relays.map { rt =>
           if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
             api.update(rt.round)(_ => newRelay)
@@ -51,7 +51,9 @@ final private class RelayFetch(
             logger.info(s"Finish by lack of activity ${rt.round}")
             api.update(rt.round)(_.finish)
           } else if (rt.round.shouldGiveUp) {
-            logger.info(s"Finish for lack of start ${rt.round}")
+            val msg = "Finish for lack of start"
+            logger.info(s"$msg ${rt.round}")
+            if (rt.tour.official) irc.broadcastError(rt.round.id.value, rt.fullName, msg)
             api.update(rt.round)(_.finish)
           } else fuccess(rt.round)
         }.sequenceFu

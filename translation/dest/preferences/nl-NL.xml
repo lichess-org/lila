@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Houd de &lt;Ctrl&gt; toets ingedrukt om auto-promotie tijdelijk uit te zetten</string>
   <string name="whenPremoving">Bij vooraf-zetten</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Wanneer resterende tijd &lt; 30 seconden</string>
   <string name="moveConfirmation">Zetbevestiging</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>

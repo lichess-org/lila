@@ -338,7 +338,7 @@
   <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
   <string name="backToGame">Zurück zur Partie</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
-  <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
+  <string name="xJoinedTeamY">%1$s trat dem Team %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
   <string name="xStartedStreaming">%s hat einen Stream gestartet</string>
   <string name="averageElo">Durchschnittswertung</string>
@@ -464,6 +464,10 @@
   <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="oneUrlPerLine">Eine URL pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
+  <string name="savingMoves">Temporärer Zug-Speicher</string>
+  <string name="savingMovesHelp">Wir speichern deine Varianten in deinem Browser-Cache.</string>
+  <string name="makeAStudy">Lege eine Studie an um Züge langfristig zu speichern oder zu teilen.</string>
+  <string name="clearSavedMoves">Züge löschen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>
   <string name="activePlayers">Aktive Spieler</string>

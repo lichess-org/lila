@@ -31,7 +31,7 @@ case class Puzzle(
 
   def color = fen.color.fold[chess.Color](chess.White)(!_)
 
-  def hasTheme(theme: PuzzleTheme) = themes(theme.key)
+  def hasTheme(anyOf: PuzzleTheme*) = anyOf.exists(t => themes(t.key))
 }
 
 object Puzzle {
@@ -83,7 +83,7 @@ object Puzzle {
   case class UserResult(
       puzzleId: Id,
       userId: lila.user.User.ID,
-      result: Result,
+      result: PuzzleResult,
       rating: (Int, Int)
   )
 
@@ -102,6 +102,7 @@ object Puzzle {
     val day      = "day"
     val issue    = "issue"
     val dirty    = "dirty" // themes need to be denormalized
+    val tagMe    = "tagMe" // pending phase & opening
   }
 
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)

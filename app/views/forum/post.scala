@@ -34,100 +34,101 @@ object post {
   def show(
       categ: lila.forum.Categ,
       topic: lila.forum.Topic,
-      post: lila.forum.Post,
+      postWithFrag: lila.forum.Post.WithFrag,
       url: String,
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
-  )(implicit ctx: Context) = {
-    st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
-      div(cls := "forum-post__metas")(
-        (!post.erased || canModCateg) option div(
-          bits.authorLink(
-            post = post,
-            cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
-          ),
-          a(href := url)(
-            post.updatedAt
-              .map { updatedAt =>
-                frag(
-                  span(cls := "post-edited")("edited "),
-                  momentFromNow(updatedAt)
-                )
-              }
-              .getOrElse {
-                momentFromNow(post.createdAt)
-              }
-          ),
-          (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
-            button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := "")("Edit"),
-          ctx.me flatMap { me =>
-            if (!post.erased && post.canBeEditedBy(me))
-              postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
-                submitButton(
-                  cls      := "mod delete button button-empty confirm",
-                  dataIcon := "",
-                  title    := "Delete"
-                )
-              ).some
-            else
-              frag(
-                if (canModCateg || topic.isUblogAuthor(me))
-                  a(
-                    cls      := "mod delete button button-empty",
-                    href     := routes.ForumPost.delete(categ.slug, post.id),
+  )(implicit ctx: Context) = postWithFrag match {
+    case Post.WithFrag(post, body) =>
+      st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
+        div(cls := "forum-post__metas")(
+          (!post.erased || canModCateg) option div(
+            bits.authorLink(
+              post = post,
+              cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
+            ),
+            a(href := url)(
+              post.updatedAt
+                .map { updatedAt =>
+                  frag(
+                    span(cls := "post-edited")("edited "),
+                    momentFromNow(updatedAt)
+                  )
+                }
+                .getOrElse {
+                  momentFromNow(post.createdAt)
+                }
+            ),
+            (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
+              button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := "")("Edit"),
+            ctx.me flatMap { me =>
+              if (!post.erased && post.canBeEditedBy(me))
+                postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
+                  submitButton(
+                    cls      := "mod delete button button-empty confirm",
                     dataIcon := "",
                     title    := "Delete"
                   )
-                else
-                  post.userId map { userId =>
-                    val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
-                    frag(
-                      nbsp,
-                      a(
-                        titleOrText(trans.reportXToModerators.txt(userId)),
-                        cls := "mod report button button-empty",
-                        href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
-                        dataIcon := ""
-                      )
+                ).some
+              else
+                frag(
+                  if (canModCateg || topic.isUblogAuthor(me))
+                    a(
+                      cls      := "mod delete button button-empty",
+                      href     := routes.ForumPost.delete(categ.slug, post.id),
+                      dataIcon := "",
+                      title    := "Delete"
                     )
-                  }
-              ).some
-          },
-          (canReply && !post.erased) option button(
-            cls      := "mod quote button button-empty text",
-            tpe      := "button",
-            dataIcon := "❝"
-          )("Quote")
+                  else
+                    post.userId map { userId =>
+                      val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
+                      frag(
+                        nbsp,
+                        a(
+                          titleOrText(trans.reportXToModerators.txt(userId)),
+                          cls := "mod report button button-empty",
+                          href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
+                          dataIcon := ""
+                        )
+                      )
+                    }
+                ).some
+            },
+            (canReply && !post.erased) option button(
+              cls      := "mod quote button button-empty text",
+              tpe      := "button",
+              dataIcon := "❝"
+            )("Quote")
+          ),
+          a(cls := "anchor", href := url)(s"#${post.number}")
         ),
-        a(cls := "anchor", href := url)(s"#${post.number}")
-      ),
-      p(cls := "forum-post__message")(
-        if (post.erased) "<Comment deleted by user>"
-        else richText(post.text)
-      ),
-      !post.erased option reactions(post, canReact),
-      ctx.me.exists(post.shouldShowEditForm) option
-        postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
-          textarea(
-            bits.dataTopic := topic.id,
-            name           := "changes",
-            cls            := "post-text-area edit-post-box",
-            minlength      := 3,
-            required
-          )(post.text),
-          div(cls := "edit-buttons")(
-            a(
-              cls   := "edit-post-cancel",
-              href  := routes.ForumPost.redirect(post.id),
-              style := "margin-left:20px"
-            )(
-              trans.cancel()
-            ),
-            submitButton(cls := "button")(trans.apply())
+        p(cls := "forum-post__message expand-text")(
+          if (post.erased) "<Comment deleted by user>"
+          else body
+        ),
+        !post.erased option reactions(post, canReact),
+        ctx.me.exists(post.shouldShowEditForm) option
+          postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
+            textarea(
+              bits.dataTopic := topic.id,
+              name           := "changes",
+              cls            := "post-text-area edit-post-box",
+              minlength      := 3,
+              required
+            )(post.text),
+            div(cls := "edit-buttons")(
+              a(
+                cls   := "edit-post-cancel",
+                href  := routes.ForumPost.redirect(post.id),
+                style := "margin-left:20px"
+              )(
+                trans.cancel()
+              ),
+              submitButton(cls := "button")(trans.apply())
+            )
           )
-        )
-    )
+      )
   }
 
   def reactions(post: Post, canReact: Boolean)(implicit ctx: Context) = {

@@ -21,7 +21,7 @@ object opening {
       moreJs = jsModule("puzzle.opening")
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("openings"),
+        bits.pageMenu("openings", ctx.me),
         div(cls := "page-menu__content box")(
           div(cls := "box__top")(
             h1("Puzzles by openings"),
@@ -90,7 +90,7 @@ object opening {
 
   private def familyLink(family: LilaOpeningFamily, mine: Option[PuzzleOpening.Mine]): Tag = a(
     cls     := List("blpt" -> true, "opening-mine" -> mine.exists(_.familyKeys(family.key))),
-    dataFen := family.full.fen
+    dataFen := family.full.map(_.fen)
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
   def orderSelect(order: Order)(implicit ctx: Context) = {

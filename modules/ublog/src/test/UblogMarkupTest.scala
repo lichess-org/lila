@@ -8,7 +8,7 @@ import lila.common.{ config, Markdown }
 
 class UblogMarkupTest extends Specification {
 
-  val m = new UblogMarkup(config.BaseUrl("https://lichess.org"), config.AssetBaseUrl("https://lichess1.org"))
+  val m = UblogMarkup
 
   "backslashUnderscore" should {
     "fix href" in {

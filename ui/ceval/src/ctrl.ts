@@ -244,7 +244,7 @@ export default function (opts: CevalOpts): CevalCtrl {
           }),
           version: 'b6939d',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
-          cache: new Cache('ceval-wasm-cache'),
+          cache: window.indexedDB && new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker({

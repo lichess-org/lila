@@ -9,7 +9,7 @@ package object puzzle extends PackageObject {
 
 package puzzle {
 
-  case class Result(win: Boolean) extends AnyVal {
+  case class PuzzleResult(win: Boolean) extends AnyVal {
     def loss   = !win
     def glicko = if (win) Glicko.Result.Win else Glicko.Result.Loss
   }

@@ -76,8 +76,8 @@ Umwandle muesch nöd.</string>
   <string name="combatIntro">En guete Chrieger kännt beides, Agriff und Verteidigung!</string>
   <string name="combatComplete">Gratuliere, du weisch jetzt, wie me mit de Schachfigure kämpft!</string>
   <string name="checkInOne">Schach mit 1 Zug</string>
-  <string name="attackTheOpponentsKing">Griff de gägnerisch König a</string>
-  <string name="checkInOneIntro">Griff de gägnerisch König a und büt \"Schach\", so dass er sich verteidige muess!</string>
+  <string name="attackTheOpponentsKing">Grif de gägnerisch König a</string>
+  <string name="checkInOneIntro">Grif de gägnerisch König a und büt \"Schach\", so dass er sich verteidige muess!</string>
   <string name="checkInOneGoal">Büt das \"Schach\" mit eim Zug!</string>
   <string name="checkInOneComplete">Gratuliere, du häsch dim Gägner \"Schach\" bote und en zwunge, sin König z\'verteidige!</string>
   <string name="outOfCheck">Es \"Schach\" abwehre</string>
@@ -92,7 +92,7 @@ Umwandle muesch nöd.</string>
   <string name="mateInOne">Matt mit 1 Zug</string>
   <string name="defeatTheOpponentsKing">Besieg de gägnerisch König</string>
   <string name="mateInOneIntro">Du günnsch, wänn din Gägner dis Schachgebot nöd abwehre cha.</string>
-  <string name="attackYourOpponentsKing">Griff de gägnerisch König so a, dass din Agriff nöd abgwehrt werde cha!</string>
+  <string name="attackYourOpponentsKing">Grif de gägnerisch König so a, dass din Agriff nöd abgwehrt werde cha!</string>
   <string name="mateInOneComplete">Gratuliere, genau so günnsch du Schachschpil!</string>
   <string name="intermediate">Mittlers Niveau</string>
   <string name="boardSetup">Ufschtellig</string>
@@ -113,7 +113,7 @@ Mach irgend en Zug zum witer fahre.</string>
   <string name="boardSetupComplete">Gratuliere, du weisch jetzt, wie mer all Schachfigure richtig ufschtellt.</string>
   <string name="castling">Rochade</string>
   <string name="theSpecialKingMove">De schpezielli Königszug</string>
-  <string name="castlingIntro">Bring din König i Sicherheit und de Turm i Agriffsposizion!</string>
+  <string name="castlingIntro">Bring din König i Sicherheit und de Turm i Agrifsposizion!</string>
   <string name="castleKingSide">Zieh de König - uf de Königssite - zwei Fälder. 
 Das isch die churz Rochade \"0-0\"!</string>
   <string name="castleQueenSide">Zieh de König - uf de Damesiie - zwei Fälder.
@@ -166,7 +166,7 @@ Läufer = 3
 Schpringer = 3
 Pur = 1</string>
   <string name="checkInTwo">Schach mit 2 Züg</string>
-  <string name="twoMovesToGiveCheck">Mit 2 Züg Schach büüte</string>
+  <string name="twoMovesToGiveCheck">Mit 2 Züg Schach büte</string>
   <string name="checkInTwoIntro">Find di richtig Kombination, zum de König mit 2 Züg Schach setze!</string>
   <string name="checkInTwoGoal">Bedroh de König mit 2 Züg!</string>
   <string name="checkInTwoComplete">Gratuliere, du häsch din Gägner Schach gsetzt und ihn zur Verteidigung vu sim König zwunge!</string>

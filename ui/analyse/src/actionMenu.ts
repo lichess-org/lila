@@ -101,24 +101,17 @@ function rangeConfig(read: () => number, write: (value: number) => void): Hooks 
   };
 }
 
-function formatHashSize(v: number): string {
-  if (v < 1000) return v + 'MB';
-  else return Math.round(v / 1024) + 'GB';
-}
+const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
-function hiddenInput(name: string, value: string) {
-  return h('input', {
-    attrs: { type: 'hidden', name, value },
-  });
-}
+const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
 
-function studyButton(ctrl: AnalyseCtrl) {
+export function studyButton(ctrl: AnalyseCtrl) {
   if (ctrl.study && ctrl.embed && !ctrl.ongoing)
     return h(
       'a.button.button-empty',
       {
         attrs: {
-          href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
+          href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
           target: '_blank',
           rel: 'noopener',
           'data-icon': '',
@@ -141,7 +134,7 @@ function studyButton(ctrl: AnalyseCtrl) {
     },
     [
       !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pgn', ''),
-      hiddenInput('orientation', ctrl.chessground.state.orientation),
+      hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
       h(

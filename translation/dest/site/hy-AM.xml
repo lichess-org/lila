@@ -463,6 +463,10 @@
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
+  <string name="savingMoves">Քայլերի ժամանակավոր պահոց</string>
+  <string name="savingMovesHelp">Մենք միշտ պահպանում ենք Ձեր տարբերակները Ձեր դիտարկչի քեշում։</string>
+  <string name="makeAStudy">Պահպանելու և կիսվելու համար դիտարկեք ստուդիա ստեղծելու հնարավորությունը։</string>
+  <string name="clearSavedMoves">Մաքրել քայլերը</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
@@ -665,6 +669,8 @@
   <string name="onlineAndOfflinePlay">Առցանց և օֆլայն խաղ</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
   <string name="gameAnalysis">Խաղի վերլուծություն</string>
+  <string name="xJoinsY">%1$s-ը միացել է %2$s-ին</string>
+  <string name="xLikesY">%1$s-ը հավանել է %2$s-ին</string>
   <string name="quickPairing">Արագ սկիզբ</string>
   <string name="lobby">Սպասասրահ</string>
   <string name="anonymous">Անանուն</string>
@@ -787,6 +793,7 @@
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
   <string name="xMentionedYouInY">%1$s-ը հիշատակել է Ձեզ  «%2$s»-ում։</string>
   <string name="invitedYouToX">Հրավիրել է Ձեզ «%1$s»։</string>
+  <string name="xInvitedYouToY">%1$s-ը հրավիրել է Ձեզ  «%2$s»։</string>
   <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
   <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
   <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>

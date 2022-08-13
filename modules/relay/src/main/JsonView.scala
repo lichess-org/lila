@@ -6,8 +6,11 @@ import scala.concurrent.duration._
 import lila.common.config.BaseUrl
 import lila.common.Json.jodaWrites
 import lila.study.Chapter
+import scala.concurrent.ExecutionContext
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(implicit
+    ec: ExecutionContext
+) {
 
   import JsonView._
   import lila.study.JsonView.chapterMetadataWrites
@@ -55,13 +58,15 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
       currentRoundId: RelayRound.Id,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
-  ) =
+  ) = leaderboardApi(trs.tour) map { leaderboard =>
     JsData(
       relay = apply(trs)
-        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync))),
+        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync)))
+        .add("leaderboard" -> leaderboard.map(_.players.map(RelayLeaderboard.playerWrites.writes))),
       study = studyData.study,
       analysis = studyData.analysis
     )
+  }
 }
 
 object JsonView {

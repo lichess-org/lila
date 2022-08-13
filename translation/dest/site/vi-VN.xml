@@ -6,12 +6,12 @@
   <string name="gameOver">Kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="waiting">Đang chờ</string>
-  <string name="yourTurn">Lượt của bạn</string>
+  <string name="yourTurn">Đến lượt bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
   <string name="strength">Độ mạnh</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
-  <string name="chat">Trò chuyện</string>
+  <string name="chat">Tán gẫu</string>
   <string name="resign">Bỏ cuộc</string>
   <string name="checkmate">Chiếu hết</string>
   <string name="stalemate">Hòa pat</string>
@@ -29,7 +29,7 @@
   <string name="cheatDetected">Phát hiện gian lận</string>
   <string name="kingInTheCenter">Vua ở trung tâm</string>
   <string name="threeChecks">Ba lần chiếu</string>
-  <string name="raceFinished">Cuộc thi kết thúc.</string>
+  <string name="raceFinished">Cuộc đua kết thúc</string>
   <string name="variantEnding">Hết cờ theo luật</string>
   <string name="newOpponent">Đối thủ mới</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Đối thủ muốn chơi một ván cờ mới với bạn</string>
@@ -39,11 +39,11 @@
   <plurals name="opponentLeftCounter">
     <item quantity="other">Đối thủ bỏ cuộc. Bạn có thể tuyên bố thắng cuộc trong %s giây.</item>
   </plurals>
-  <string name="opponentLeftChoices">Đối thủ đã rời khỏi ván cờ. Bạn có thể buộc đối phương chịu thua, hỏi hòa hoặc đợi</string>
+  <string name="opponentLeftChoices">Đối thủ đã rời khỏi ván cờ. Bạn có thể buộc đối phương chịu thua, chọn hòa hoặc đợi.</string>
   <string name="forceResignation">Giành chiến thắng</string>
-  <string name="forceDraw">Bắt buộc hòa</string>
-  <string name="talkInChat">Thảo luận trong chat</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng url này sẽ bắt đầu chơi với bạn</string>
+  <string name="forceDraw">Để hòa</string>
+  <string name="talkInChat">Hãy trở nên thân thiện trong cuộc trò chuyện!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng URL này sẽ bắt đầu chơi với bạn.</string>
   <string name="whiteResigned">Trắng chịu thua</string>
   <string name="blackResigned">Đen chịu thua</string>
   <string name="whiteLeftTheGame">Trắng đã thoát khỏi ván cờ</string>
@@ -53,13 +53,13 @@
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
-  <string name="computerAnalysisDisabled">Phân tích máy tính không có sẵn</string>
+  <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
   <string name="analysis">Bảng phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Phân tích bằng máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính ...</string>
   <string name="cloudAnalysis">Phân tích đám mây</string>
-  <string name="goDeeper">Máy tính phân tích sâu hơn</string>
+  <string name="goDeeper">Phân tích sâu hơn</string>
   <string name="showThreat">Hiển thị các mối đe dọa</string>
   <string name="inLocalBrowser">ở trình duyệt địa phương</string>
   <string name="toggleLocalEvaluation">Kích hoạt đánh giá địa phương</string>
@@ -87,27 +87,19 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\"\" được làm tròn, dựa vào số nước đi quân cho tới nước bắt quân hoặc đi tốt tiếp theo</string>
+  <string name="dtzWithRounding">DTZ50\" được làm tròn, dựa vào số nước đi quân cho tới nước bắt quân hoặc đi tốt tiếp theo</string>
   <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openingExplorer">Sách khai cuộc</string>
   <string name="openingEndgameExplorer">Sách khai cuộc/cờ tàn</string>
-  <string name="xOpeningExplorer">Sách khai cuộc %s</string>
+  <string name="xOpeningExplorer">Khám phá khai cuộc %s</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
-  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước
-
-Được hiển thị trong một số tình huống trong chế độ xem cơ sở bảng trò chơi cuối cùng. Nếu người dùng bỏ qua đề xuất cơ sở bảng, có thể kết thúc bằng tình huống mà cơ sở bảng Syzygy không thể biết liệu quy tắc 50 bước di chuyển có ngăn cản chiến thắng hay không.
-
-Ngoài ra, hãy xem chuỗi \"Chỉ được đảm bảo thắng / thua nếu dòng cơ sở bảng được đề xuất là ...\" để biết chú giải công cụ sẽ giải thích điều này.</string>
+  <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước</string>
   <string name="lossOr50MovesByPriorMistake">Thua hoặc 50 lần di chuyển do sai lầm trước
 
 Analogous to source string \"Win or 50 moves by prior mistake\" - please see context there.</string>
-  <string name="unknownDueToRounding">Không xác định do làm tròn
-
-Chú giải công cụ giải thích \"Thắng hoặc 50 nước đi do nhầm lẫn trước\" và \"Thua hoặc 50 nước đi do nhầm lẫn trước\" trong chế độ xem cơ sở trò chơi kết thúc.
-
-\"Làm tròn\" được dùng theo nghĩa toán học. Nó đề cập đến một sự khác biệt của cơ sở bảng Syzygy, nơi một số giá trị DTZ được lưu trữ làm tròn xuống.</string>
+  <string name="unknownDueToRounding">Chỉ được đảm bảo thắng/thua nếu dòng cơ sở bảng được đề xuất đã được tuân theo kể từ lần bắt hoặc ăn quân cuối cùng, do có thể làm tròn các giá trị DTZ trong cơ sở bảng Syzygy.</string>
   <string name="allSet">Đã xong!</string>
   <string name="importPgn">Nhập PGN</string>
   <string name="delete">Xóa</string>
@@ -332,6 +324,8 @@ Chú giải công cụ giải thích \"Thắng hoặc 50 nước đi do nhầm l
   <string name="apply">Áp dụng</string>
   <string name="save">Lưu</string>
   <string name="leaderboard">Bảng dẫn đầu</string>
+  <string name="screenshotCurrentPosition">Chụp màn hình vị trí hiện tại</string>
+  <string name="gameAsGIF">Lưu thành GIF</string>
   <string name="pasteTheFenStringHere">Dán chuỗi FEN ở đây</string>
   <string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
   <string name="orUploadPgnFile">Hoặc tải file PGN lên</string>
@@ -443,6 +437,10 @@ Chú giải công cụ giải thích \"Thắng hoặc 50 nước đi do nhầm l
 
 Xuất hiện trong phần \'Liên kết phương tiện truyền thông xã hội\' khi bạn chỉnh sửa hồ sơ của mình, để hiển thị các URL được liên kết với bạn: https://lichess.org/account/profile</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
+  <string name="savingMoves">Lưu trữ nước cờ tạm thời</string>
+  <string name="savingMovesHelp">Chúng tôi luôn lưu trữ các biến thể của bạn trong bộ nhớ cache của trình duyệt.</string>
+  <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
+  <string name="clearSavedMoves">Xóa nước cờ</string>
   <string name="previouslyOnLichessTV">Kênh trước</string>
   <string name="onlinePlayers">Các kỳ thủ có mặt</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
@@ -554,6 +552,9 @@ Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập tr�
   <string name="error.email_unique">Email này không được chấp nhận hoặc đã được dùng</string>
   <string name="error.email_different">Đây đã là email cua</string>
   <string name="error.minLength">Phải dài ít nhất %s ký tự</string>
+  <string name="error.maxLength">Phải dài tối đa %s ký tự</string>
+  <string name="error.min">Phải lớn hơn hoặc bằng %s</string>
+  <string name="error.max">Phải nhỏ hơn hoặc bằng %s</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
   <string name="ifRegistered">Chỉ người có tài khoản</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
@@ -771,6 +772,7 @@ Ghi chú người chơi đã nhập trò chơi, thông qua công cụ Nhập tr�
   <string name="currentMatchScore">Tỷ số của lần đối đầu này</string>
   <string name="agreementAssistance">Tôi đồng ý rằng, tôi sẽ không nhận sự trợ giúp trong lúc chơi (từ máy tính, sách, các cơ sở dữ liệu, hoặc từ người khác).</string>
   <string name="agreementNice">Tôi đồng ý rằng, tôi luôn luôn tôn trọng người chơi khác.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Tôi đồng ý sẽ không tạo nhiều tài khoản (trừ những lý do nêu trong %s).</string>
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
@@ -841,11 +843,13 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="simulDescription">Mô tả cuộc đánh đồng loạt</string>
   <string name="simulDescriptionHelp">Bạn có muốn thông báo gì thêm cho những người tham gia không?</string>
   <string name="markdownAvailable">%s dùng được ở đây, nếu cần soạn thảo phức tạp.</string>
+  <string name="embedsAvailable">Dán URL trò chơi hoặc URL chương nghiên cứu để nhúng.</string>
   <string name="inYourLocalTimezone">Trên múi giờ địa phương của bạn</string>
   <string name="tournChat">Chat trong cuộc thi đấu</string>
   <string name="noChat">Không chat</string>
   <string name="onlyTeamLeaders">Chỉ dành cho nhóm quản lý</string>
   <string name="onlyTeamMembers">Chỉ dành cho thành viên</string>
+  <string name="navigateMoveTree">Điều hướng cây nước đi</string>
   <string name="mouseTricks">Mẹo khi sử dụng chuột</string>
   <string name="toggleLocalAnalysis">Bật/tắt đánh giá máy tính</string>
   <string name="toggleAllAnalysis">Bật/tắt đánh giá máy tính</string>
@@ -867,9 +871,11 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
   <string name="since">Từ</string>
   <string name="until">Cho đến khi</string>
+  <string name="lichessDbExplanation">Các trò chơi đã xếp hạng được lấy mẫu từ tất cả người chơi Lichess</string>
   <string name="switchSides">Đổi bên
 
 Mô tả khi di chuột qua tùy chọn \'dưới dạng trắng/đen\' cho các trò chơi trước đây của riêng bạn, trong trình khám phá mở đầu: https://lichess.org/analysis#explorer
 
 Nhấp vào này sẽ chuyển lịch sử trò chơi giữa trắng và đen.</string>
+  <string name="closingAccountWithdrawAppeal">Đóng tài khoản sẽ rút lại kháng nghị của bạn</string>
 </resources>

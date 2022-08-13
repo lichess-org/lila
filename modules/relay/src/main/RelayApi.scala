@@ -24,7 +24,8 @@ final class RelayApi(
     multiboard: StudyMultiBoard,
     jsonView: JsonView,
     formatApi: RelayFormatApi,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    leaderboard: RelayLeaderboardApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BSONHandlers._
@@ -127,12 +128,12 @@ final class RelayApi(
         Match(
           $doc(
             "sync.until" $exists true,
-            "sync.nextAt" $lt DateTime.now,
-            "tour.tier" $exists official
+            "sync.nextAt" $lt DateTime.now
           )
         ) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
           UnwindField("tour"),
+          Match($doc("tour.tier" $exists official)),
           Sort(Descending("tour.tier")),
           Limit(maxDocs)
         )
@@ -145,7 +146,8 @@ final class RelayApi(
   }
 
   def tourUpdate(tour: RelayTour, data: RelayTourForm.Data, user: User): Funit =
-    tourRepo.coll.update.one($id(tour.id), data.update(tour, user)).void
+    tourRepo.coll.update.one($id(tour.id), data.update(tour, user)).void >>-
+      leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
     roundRepo.lastByTour(tour) flatMap {
@@ -219,8 +221,10 @@ final class RelayApi(
         old.hasStartedEarly ?? roundRepo.coll.update
           .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
           .void
-      } >>-
-        multiboard.invalidate(relay.studyId)
+      } >>- {
+        multiboard invalidate relay.studyId
+        leaderboard invalidate relay.tourId
+      }
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRound.Id): Fu[Option[RelayTour]] =

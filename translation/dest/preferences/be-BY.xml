@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Налады</string>
-  <string name="display">Адлюстроўваць</string>
+  <string name="display">Выгляд</string>
   <string name="privacy">Прыватнасць</string>
   <string name="pieceAnimation">Анімацыя фігур</string>
   <string name="materialDifference">Паказваць розніцу ў фігурах</string>
@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Зацісніце клавішу &lt;ctrl&gt; пад час пераўтварэння, каб часова адключыць аўта-пераўтварэнне</string>
   <string name="whenPremoving">Пры ходзе на апярэджанне</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Калі застаецца &lt; 30 секунд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Калі застаецца &lt; 30 секунд</string>
   <string name="moveConfirmation">Пацверджанне ходу</string>
   <string name="inCorrespondenceGames">У гульні па ліставанні</string>
   <string name="correspondenceAndUnlimited">Па ліставанні і без абмежавання часу</string>

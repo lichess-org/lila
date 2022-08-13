@@ -44,6 +44,7 @@ object OAuthScope {
   }
 
   object Follow {
+    case object Read  extends OAuthScope("follow:read", "Read followed players")
     case object Write extends OAuthScope("follow:write", "Follow and unfollow other players")
   }
 
@@ -70,7 +71,7 @@ object OAuthScope {
 
   type Selector = OAuthScope.type => OAuthScope
 
-  val all = List(
+  val all: List[OAuthScope] = List(
     Preference.Read,
     Preference.Write,
     Email.Read,
@@ -84,12 +85,20 @@ object OAuthScope {
     Puzzle.Read,
     Team.Read,
     Team.Write,
+    Follow.Read,
     Follow.Write,
     Msg.Write,
     Board.Play,
     Bot.Play,
     Web.Login,
     Web.Mod
+  )
+
+  val dangerList: Set[OAuthScope] = Set(
+    Team.Write,
+    Web.Login,
+    Web.Mod,
+    Msg.Write
   )
 
   val byKey: Map[String, OAuthScope] = all.map { s =>

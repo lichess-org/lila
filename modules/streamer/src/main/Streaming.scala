@@ -22,7 +22,7 @@ final private class Streaming(
     twitchApi: TwitchApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   import Stream._

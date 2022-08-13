@@ -36,7 +36,8 @@ final class SwissApi(
     roundSocket: lila.round.RoundSocket
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
+    mat: akka.stream.Materializer,
     mode: play.api.Mode
 ) {
 
@@ -404,41 +405,42 @@ final class SwissApi(
             )
             .flatMap { result =>
               if (result.nModified == 0) fuccess(false) // dedup
-              else {
-                if (swiss.nbOngoing > 0)
-                  colls.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
-                else
-                  fuccess {
-                    logger.warn(s"swiss ${swiss.id} nbOngoing = ${swiss.nbOngoing}")
-                  }
-              } >>
-                game.playerWhoDidNotMove.flatMap(_.userId).?? { absent =>
-                  SwissPlayer.fields { f =>
-                    colls.player
-                      .updateField($doc(f.swissId -> swiss.id, f.userId -> absent), f.absent, true)
-                      .void
-                  }
-                } >> {
-                  (swiss.nbOngoing <= 1) ?? {
-                    if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
-                    else if (swiss.settings.manualRounds) fuccess {
-                      systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
+              else
+                {
+                  if (swiss.nbOngoing > 0)
+                    colls.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
+                  else
+                    fuccess {
+                      logger.warn(s"swiss ${swiss.id} nbOngoing = ${swiss.nbOngoing}")
                     }
-                    else
-                      colls.swiss
-                        .updateField(
-                          $id(swiss.id),
-                          "nextRoundAt",
-                          swiss.settings.dailyInterval match {
-                            case Some(days) => game.createdAt plusDays days
-                            case None =>
-                              DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
-                          }
-                        )
-                        .void >>-
-                        systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
-                  }
-                } inject true
+                } >>
+                  game.playerWhoDidNotMove.flatMap(_.userId).?? { absent =>
+                    SwissPlayer.fields { f =>
+                      colls.player
+                        .updateField($doc(f.swissId -> swiss.id, f.userId -> absent), f.absent, true)
+                        .void
+                    }
+                  } >> {
+                    (swiss.nbOngoing <= 1) ?? {
+                      if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
+                      else if (swiss.settings.manualRounds) fuccess {
+                        systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
+                      }
+                      else
+                        colls.swiss
+                          .updateField(
+                            $id(swiss.id),
+                            "nextRoundAt",
+                            swiss.settings.dailyInterval match {
+                              case Some(days) => game.createdAt plusDays days
+                              case None =>
+                                DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
+                            }
+                          )
+                          .void >>-
+                          systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
+                    }
+                  } inject true
             }
       }.flatMap {
         case true => recomputeAndUpdateAll(swissId)
@@ -483,7 +485,7 @@ final class SwissApi(
       } >>- {
       systemChat(swiss.id, s"Tournament completed!")
       socket.reload(swiss.id)
-      system.scheduler
+      scheduler
         .scheduleOnce(10 seconds) {
           // we're delaying this to make sure the ranking has been recomputed
           // since doFinish is called by finishGame before that

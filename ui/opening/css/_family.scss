@@ -1,0 +1,52 @@
+.opening {
+  &__family {
+    .title-stats {
+      font-size: 1rem;
+      em {
+        margin-left: 1em;
+        strong {
+          color: $c-brag;
+        }
+      }
+    }
+  }
+  &__intro {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 3em;
+    margin-bottom: 3em;
+    overflow: hidden;
+    .lpv {
+      flex: 1 0 auto;
+      max-width: 300px;
+      grid-template-rows: auto 3em calc(1.8em * var(--move-rows)); // TODO remove!
+      .lpv__controls {
+        // TODO remove!
+        border-bottom: 1px solid $c-border;
+      }
+    }
+    &__side {
+      flex: 1 1 auto;
+      @extend %flex-column;
+      gap: 3em;
+    }
+    &__actions {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-start;
+      gap: 2em;
+    }
+    &__text {
+      @extend %box-neat;
+      background: $c-bg-zebra;
+      padding: 1em 2em;
+      flex: 1 1 auto;
+    }
+  }
+  &__popularity {
+    &__chart {
+      height: 30vh;
+      max-height: 30vh;
+    }
+  }
+}

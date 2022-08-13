@@ -48,7 +48,7 @@
   <string name="onlyContributorsCanRequestAnalysis">පරිගණක විශ්ලේෂණයක් ඉල්ලා සිටිය හැක්කේ අධ්‍යයන දායකයින්ට පමණි.</string>
   <string name="getAFullComputerAnalysis">මෙම ප්‍රධාන ගණයේ සම්පූර්ණ පරිගණක සර්වර්-ගැන විශ්ලේෂණය ලබා ගන්න.</string>
   <string name="makeSureTheChapterIsComplete">පරිච්ඡේදය සම්පූර්ණ බවට වග බලා ගන්න. ඔබට විශ්ලේෂණය ඉල්ලා සිටිය හැක්කේ එක් වරක් පමණි.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">සියලුම SYNC සාමාජිකයින් එකම ස්ථානයක රැඳී සිටිති</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">සියලුම SYNC සාමාජිකයින් එකම ස්ථානයක රැඳී සිටිති</string>
   <string name="shareChanges">වෙනස්කම් ප්‍රේක්ෂකයන් සමඟ බෙදාගෙන ඒවා සේවාදායකයේ සුරකින්න</string>
   <string name="playing">සෙල්ලම් කරමින්</string>
   <string name="first">පළමුවන</string>

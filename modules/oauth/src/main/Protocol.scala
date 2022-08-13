@@ -65,7 +65,8 @@ object Protocol {
   }
 
   case class RedirectUri(value: URL) extends AnyVal {
-    private def host: Option[String] = Option(value.host).map(_.toHostString)
+
+    def host: Option[String] = Option(value.host).map(_.toHostString)
 
     // https://github.com/smola/galimatias/issues/72 will be more precise
     def clientOrigin: String = s"${value.scheme}://${~host}"

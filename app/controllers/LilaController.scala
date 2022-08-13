@@ -64,6 +64,7 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def ctxLang(implicit ctx: Context)         = ctx.lang
   implicit def ctxReq(implicit ctx: Context)          = ctx.req
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
+  implicit def netDomain                              = env.net.domain
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
 
   protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
@@ -671,12 +672,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
-
-  protected def makeCustomResult(status: Int, reasonPhrase: String) =
-    Result(
-      header = new ResponseHeader(status, reasonPhrase = reasonPhrase.some).pp,
-      body = play.api.http.HttpEntity.NoEntity
-    )
 
   protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
 

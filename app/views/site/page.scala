@@ -13,7 +13,7 @@ object page {
       moreCss = cssTag("page"),
       title = ~doc.getText("doc.title")
     ) {
-      main(cls := "page-small box box-pad page force-rtl")(pageContent(doc, resolver))
+      main(cls := "page-small box box-pad page force-ltr")(pageContent(doc, resolver))
     }
 
   def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
@@ -179,7 +179,7 @@ $('#asset-version-message').text(lichess.info.message);"""
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1("Embed a chess game in your site"),
-            raw(s"""<iframe src="/embed/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
+            raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
             p(
               raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """),
               "\"",

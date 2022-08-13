@@ -1,13 +1,12 @@
 package controllers
 
 import chess.format.FEN
-import chess.White
 import play.api.mvc._
 import views._
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
 
@@ -94,20 +93,23 @@ final class Analyse(
         }
       }
 
-  def embed(gameId: String, color: String) =
+  def embed(gameId: String, color: String) = embedReplayGame(gameId, color)
+
+  val AcceptsPgn = Accepting("application/x-chess-pgn")
+
+  def embedReplayGame(gameId: String, color: String) =
     Action.async { implicit req =>
-      env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-        case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color.fromName(color) | White)
-          env.api.roundApi.embed(
-            pov,
-            lila.api.Mobile.Api.currentVersion,
-            initialFenO = initialFen.some,
-            withFlags = WithFlags(opening = true)
-          ) map { data =>
-            Ok(html.analyse.embed(pov, data))
+      env.api.textLpvExpand.getPgn(gameId) map {
+        case Some(pgn) =>
+          render {
+            case AcceptsPgn() => Ok(pgn)
+            case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
           }
-        case _ => fuccess(NotFound(html.analyse.embed.notFound))
+        case _ =>
+          render {
+            case AcceptsPgn() => NotFound("*")
+            case _            => NotFound(html.analyse.embed.notFound)
+          }
       } dmap EnableSharedArrayBuffer
     }
 

@@ -464,6 +464,10 @@
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
   <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
+  <string name="savingMoves">Emagatzematge temporal de moviments</string>
+  <string name="savingMovesHelp">Sempre emmagatzemem les vostres variacions a la memòria cau del navegador.</string>
+  <string name="makeAStudy">Per guardar-les de forma segura i compartir-les, considereu fer-n\'he un estudi.</string>
+  <string name="clearSavedMoves">Neteja moviments</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
   <string name="activePlayers">Jugadors actius</string>

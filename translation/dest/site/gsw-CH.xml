@@ -466,6 +466,10 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="socialMediaLinks">Social Media Links</string>
   <string name="oneUrlPerLine">Nur 1 Web Adrässe (URL) pro Zile.</string>
   <string name="inlineNotation">Inline-Notation</string>
+  <string name="savingMoves">Tämporäri Zugschpeicherig</string>
+  <string name="savingMovesHelp">Mir schpeichered dini Variante immer im Browser-Cache.</string>
+  <string name="makeAStudy">Zum Variante sicher ufzbewahre und zum Witergeh, söttsch e Schtudie erschtelle.</string>
+  <string name="clearSavedMoves">Gschpeichereti Züg lösche</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
   <string name="onlinePlayers">Online Schpiller</string>
   <string name="activePlayers">Aktivi Schpiller</string>

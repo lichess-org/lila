@@ -4,7 +4,7 @@
   <string name="byPlaying">үйреніңіз!</string>
   <string name="menu">Мәзір</string>
   <string name="progressX">Жетістік: %s</string>
-  <string name="resetMyProgress">Жетістігімді өшіру</string>
+  <string name="resetMyProgress">Өшіріп қайта санау</string>
   <string name="youWillLoseAllYourProgress">Бүкіл жетістігіңізден айырыласыз!</string>
   <string name="play">ойнаңыз!</string>
   <string name="chessPieces">Шахмат тастары</string>

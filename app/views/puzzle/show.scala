@@ -61,7 +61,7 @@ object show {
         )
         .some,
       zoomable = true,
-      playing = true
+      zenable = true
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(

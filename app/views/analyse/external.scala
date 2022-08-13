@@ -38,7 +38,7 @@ object external {
           attr("data-ceval-external") := prompt.toJson.toString
         )("Authorize")
       ),
-      oAuth.authorize.footer(prompt.url.origin)
+      oAuth.authorize.footer(prompt.url.origin, isDanger = false)
     )
   }
 }

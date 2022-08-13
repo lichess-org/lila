@@ -7,22 +7,21 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@rollup/plugin-replace": "^3.0.1",
+    "@rollup/plugin-replace": "^4.0.0",
     "@types/debounce-promise": "^3.1.4",
     "@types/fnando__sparkline": "^0.3.4",
     "@types/lichess": "2.0.0",
-    "@types/web": "^0",
-    "@types/yaireo__tagify": "^4.9.0",
+    "@types/yaireo__tagify": "^4.15",
     "@types/zxcvbn": "^4.4.0",
-    "chessground": "^8.3",
+    "chessground": "^8.3.5",
     "rollup": "^2",
     "rollup-plugin-copy": "^3.3.0",
     "typescript": "^4"
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@toast-ui/editor": "^3.1.2",
-    "@yaireo/tagify": "^4.9.5",
+    "@toast-ui/editor": "3.1.2",
+    "@yaireo/tagify": "^4.15",
     "chat": "2.0.0",
     "common": "2.0.0",
     "debounce-promise": "^3.1.2",
@@ -34,7 +33,8 @@
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "lichess-pgn-viewer": "^1"
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",

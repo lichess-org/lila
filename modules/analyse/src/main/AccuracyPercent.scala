@@ -37,10 +37,11 @@ for x in xs:
    */
   def fromWinPercents(before: WinPercent, after: WinPercent): AccuracyPercent = AccuracyPercent {
     if (after.value >= before.value) 100d
-    else {
-      val winDiff = before.value - after.value
-      103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411;
-    } atMost 100 atLeast 0
+    else
+      {
+        val winDiff = before.value - after.value
+        103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411;
+      } atMost 100 atLeast 0
   }
 
   def fromWinPercents(both: BeforeAfter): AccuracyPercent =

@@ -53,7 +53,7 @@ Manimenos, los patrones obtienen dreito a presumir d\'o suyo nuevo icono de perf
   <string name="update">Actualizar</string>
   <string name="changeMonthlyAmount">Cambiar la cantidat mensual (%s)</string>
   <string name="cancelSupport">cancela lo tuyo suporte</string>
-  <string name="xOrY">%1$s u %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s u %2$s</string>
   <string name="decideHowMuch">Decide quanto vale Lichess pa tu:</string>
   <string name="stopPayments">Retira la tuya tarcheta de credito y deixa de pagar:</string>
   <string name="noLongerSupport">Ya no suporta Lichess</string>

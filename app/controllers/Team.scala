@@ -491,14 +491,15 @@ final class Team(
   def pmAll(id: String) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
-        env.tournament.api
-          .visibleByTeam(team.id, 0, 20)
-          .dmap(_.next)
-          .map { tours =>
-            Ok(html.team.admin.pmAll(team, forms.pmAll, tours))
-          }
+        renderPmAll(team, forms.pmAll)
       }
     }
+
+  private def renderPmAll(team: TeamModel, form: Form[_])(implicit ctx: Context) =
+    for {
+      tours  <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+      unsubs <- env.team.cached.unsubs.get(team.id)
+    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs))
 
   def pmAllSubmit(id: String) =
     AuthOrScopedBody(_.Team.Write)(
@@ -506,13 +507,7 @@ final class Team(
         me =>
           WithOwnedTeamEnabled(id) { team =>
             doPmAll(team, me)(ctx.body).fold(
-              err =>
-                env.tournament.api
-                  .visibleByTeam(team.id, 0, 20)
-                  .dmap(_.next)
-                  .map { tours =>
-                    BadRequest(html.team.admin.pmAll(team, err, tours))
-                  },
+              err => renderPmAll(team, err),
               _ map { res =>
                 Redirect(routes.Team.show(team.id))
                   .flashing(res match {

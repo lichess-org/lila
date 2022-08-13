@@ -67,7 +67,7 @@ final private class LinkCheck(
     }
   }
 
-  private def tourLink(tourId: Tournament.ID, source: FullSource) =
+  private def tourLink(tourId: Tournament.ID, source: FullSource): Fu[Boolean] =
     tournamentRepo byId tourId flatMap {
       _ ?? { tour =>
         fuccess(tour.isScheduled) >>| {
@@ -94,10 +94,10 @@ final private class LinkCheck(
   private def teamLink(teamId: String, source: FullSource) = fuFalse
 
   private val multipleLinks   = s"(?i)$domain.+$domain".r.unanchored
-  private val tournamentLinkR = s"(?i)$domain/tournament/(\\w+)".r.unanchored
-  private val simulLinkR      = s"(?i)$domain/simul/(\\w+)".r.unanchored
-  private val swissLinkR      = s"(?i)$domain/swiss/(\\w+)".r.unanchored
-  private val studyLinkR      = s"(?i)$domain/study/(\\w+)".r.unanchored
+  private val tournamentLinkR = s"(?i)$domain/tournament/(\\w{8})".r.unanchored
+  private val simulLinkR      = s"(?i)$domain/simul/(\\w{8})".r.unanchored
+  private val swissLinkR      = s"(?i)$domain/swiss/(\\w{8})".r.unanchored
+  private val studyLinkR      = s"(?i)$domain/study/(\\w{8})".r.unanchored
   private val teamLinkR       = s"(?i)$domain/team/([\\w-]+)".r.unanchored
 }
 

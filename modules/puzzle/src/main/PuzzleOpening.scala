@@ -9,7 +9,7 @@ import lila.common.{ LilaOpening, LilaOpeningFamily, LilaStream }
 import lila.db.dsl._
 import lila.game.GameRepo
 import lila.i18n.{ I18nKey, I18nKeys => trans }
-import lila.memo.CacheApi
+import lila.memo.{ CacheApi, MongoCache }
 
 case class PuzzleOpeningCollection(
     families: List[PuzzleOpening.FamilyWithCount], // most popular first
@@ -55,7 +55,12 @@ case class PuzzleOpeningCollection(
   )
 }
 
-final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: CacheApi)(implicit
+final class PuzzleOpeningApi(
+    colls: PuzzleColls,
+    gameRepo: GameRepo,
+    cacheApi: CacheApi,
+    mongoCache: MongoCache.Api
+)(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer
@@ -64,37 +69,41 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
   import LilaOpening._
   import PuzzleOpening._
 
+  private val countedCache = mongoCache.unitNoHeap[List[Bdoc]]("puzzle:opening:counted", 24 hours) { _ =>
+    import Puzzle.BSONFields._
+    colls.puzzle {
+      _.aggregateList(maxOpenings) { framework =>
+        import framework._
+        UnwindField(opening) -> List(
+          PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
+          Limit(maxOpenings)
+        )
+      }
+    }
+  }
+
   private val collectionCache =
     cacheApi.unit[PuzzleOpeningCollection] {
-      _.refreshAfterWrite(1 day)
+      _.refreshAfterWrite(1 hour)
         .buildAsyncFuture { _ =>
-          import Puzzle.BSONFields._
-          colls.puzzle {
-            _.aggregateList(maxOpenings) { framework =>
-              import framework._
-              UnwindField(opening) -> List(
-                PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
-                Limit(maxOpenings)
-              )
-            }.map {
-              _.foldLeft(PuzzleOpeningCollection(Nil, Nil)) { case (acc, obj) =>
-                val count = ~obj.int("count")
-                obj.string("_id").fold(acc) { keyStr =>
-                  LilaOpeningFamily.find(keyStr) match {
-                    case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
-                    case None =>
-                      LilaOpening
-                        .find(keyStr)
-                        .filter(_.ref.variation != LilaOpening.otherVariations)
-                        .fold(acc) { op =>
-                          acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
-                        }
-                  }
+          countedCache.get(()) map {
+            _.foldLeft(PuzzleOpeningCollection(Nil, Nil)) { case (acc, obj) =>
+              val count = ~obj.int("count")
+              obj.string("_id").fold(acc) { keyStr =>
+                LilaOpeningFamily.find(keyStr) match {
+                  case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
+                  case None =>
+                    LilaOpening
+                      .find(keyStr)
+                      .filter(_.ref.variation != LilaOpening.otherVariations)
+                      .fold(acc) { op =>
+                        acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
+                      }
                 }
               }
-            } map { case PuzzleOpeningCollection(families, openings) =>
-              PuzzleOpeningCollection(families.reverse, openings.reverse)
             }
+          } map { case PuzzleOpeningCollection(families, openings) =>
+            PuzzleOpeningCollection(families.reverse, openings.reverse)
           }
         }
     }
@@ -121,24 +130,6 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
       key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
     }
 
-  private[puzzle] def addAllMissing: Funit = colls.puzzle {
-    _.find(
-      $doc(
-        Puzzle.BSONFields.opening $exists false,
-        Puzzle.BSONFields.themes $nin List(PuzzleTheme.equality.key, PuzzleTheme.endgame.key),
-        Puzzle.BSONFields.fen $endsWith """\s[|1]\d""" // up to move 19!
-      )
-    )
-      .cursor[Puzzle]()
-      .documentSource()
-      .mapAsyncUnordered(4)(updateOpening)
-      .runWith(LilaStream.sinkCount)
-      .chronometer
-      .log(logger)(count => s"Done adding $count puzzle openings")
-      .result
-      .void
-  }
-
   def recomputeAll: Funit = colls.puzzle {
     _.find($doc(Puzzle.BSONFields.opening $exists true))
       .cursor[Puzzle]()
@@ -151,21 +142,24 @@ final class PuzzleOpeningApi(colls: PuzzleColls, gameRepo: GameRepo, cacheApi: C
       .void
   }
 
-  private def updateOpening(puzzle: Puzzle): Funit = gameRepo gameFromSecondary puzzle.gameId flatMap {
-    _ ?? { game =>
-      FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
-        case None =>
-          fuccess {
-            logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
+  private[puzzle] def updateOpening(puzzle: Puzzle): Funit =
+    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
+      gameRepo gameFromSecondary puzzle.gameId flatMap {
+        _ ?? { game =>
+          FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
+            case None =>
+              fuccess {
+                logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
+              }
+            case Some(o) =>
+              val keys = List(o.family.key, o.key).map(_.value)
+              colls.puzzle {
+                _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
+              }
           }
-        case Some(o) =>
-          val keys = List(o.family.key, o.key).map(_.value)
-          colls.puzzle {
-            _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
-          }
+        }
       }
     }
-  }
 }
 
 object PuzzleOpening {

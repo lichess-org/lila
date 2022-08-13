@@ -72,16 +72,17 @@ export function ctrl(
       });
   }
 
-  function open() {
-    lichess.pubsub.emit('tour.stop');
+  const open = () => {
+    lichess.pubsub.emit('analyse.close-all');
     vm.open = true;
     loadVariants();
     vm.initial(false);
-  }
-  function close() {
-    lichess.pubsub.emit('tour.stop');
+  };
+  const close = () => {
     vm.open = false;
-  }
+  };
+
+  lichess.pubsub.on('analyse.close-all', close);
 
   return {
     vm,

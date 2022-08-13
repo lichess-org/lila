@@ -40,9 +40,9 @@ final class Export(env: Env) extends LilaController(env) {
     }
 
   def gif(id: String, color: String) =
-    exportImageOf(env.game.gameRepo gameWithInitialFen id) { case (game, initialFen) =>
-      env.game.gifExport.fromPov(Pov(game, Color.fromName(color) | Color.white), initialFen) map
-        stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
+    exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
+      env.game.gifExport.fromPov(Pov(g.game, Color.fromName(color) | Color.white), g.fen) map
+        stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
   def legacyGameThumbnail(id: String) =

@@ -70,7 +70,7 @@
   <string name="fromMyGamesNone">Ùn avete prublemi in a databasa, ma li piaceria à Lichess d\' avè ne.
 
 Ghjucate e partite rapide è e partite classiche per aumintà a prubabilità d\' avè un  strattu di e vostre partite!</string>
-  <string name="fromXGamesFound">%1$s prublemi trovi in %2$s partite</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s prublemi trovi in %2$s partite</string>
   <string name="puzzleDashboardDescription">Addestrà, analisà, migliurà</string>
   <plurals name="nbToReplay">
     <item quantity="one">%s à ghjucà da torna</item>

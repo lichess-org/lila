@@ -62,8 +62,8 @@
   <string name="cloudAnalysis">Бұлттық талдау</string>
   <string name="goDeeper">Терең кету</string>
   <string name="showThreat">Қауіп көрсету</string>
-  <string name="inLocalBrowser">өз браузеріңізде</string>
-  <string name="toggleLocalEvaluation">Жергілікті өңдеу</string>
+  <string name="inLocalBrowser">өз браузер күшімен</string>
+  <string name="toggleLocalEvaluation">Өз құрылғыңыздың күшімен есептеу</string>
   <string name="promoteVariation">Тармақты көтеру</string>
   <string name="makeMainLine">Негізгі жол ету</string>
   <string name="deleteFromHere">Мына жерден жою</string>
@@ -143,7 +143,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Келісімді тепе-теңдік</string>
   <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу жүріс</string>
-  <string name="currentGames">Қазір ойналуда</string>
+  <string name="currentGames">Қазіргі ойындар</string>
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
     <item quantity="other">%s ойын</item>
@@ -172,7 +172,7 @@
   <string name="variants">Түрі</string>
   <string name="timeControl">Уақыт қалпы</string>
   <string name="realTime">Шын уақытта</string>
-  <string name="correspondence">Хат алмасып ойнау</string>
+  <string name="correspondence">Хат-хабарлы ойын</string>
   <string name="daysPerTurn">Күн бір жүріске</string>
   <string name="oneDay">Бір күн</string>
   <plurals name="nbDays">
@@ -348,7 +348,7 @@
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
   <string name="leaderboard">Мықтылар қатары</string>
-  <string name="screenshotCurrentPosition">Осы күйді сурет ету</string>
+  <string name="screenshotCurrentPosition">Осы күйді суретке түсіру</string>
   <string name="gameAsGIF">GIF етіп сақтау</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
@@ -357,7 +357,8 @@
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды жүктеп салу</string>
-  <string name="importGameExplanation">Ойынның PGN-ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
+  <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
+Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>
     <item quantity="other">%s ойын салынды</item>
@@ -433,7 +434,7 @@
   <string name="youArePlaying">Сіз ойындасыз!</string>
   <string name="winRate">Жеңіс үлесі</string>
   <string name="berserkRate">Берсерк үлесі</string>
-  <string name="performance">Жетістігі</string>
+  <string name="performance">Жетістік</string>
   <string name="tournamentComplete">Жарыс қорытындысы</string>
   <string name="movesPlayed">Жүрістер саны</string>
   <string name="whiteWins">Ақтардың жеңісі</string>
@@ -464,6 +465,10 @@
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
   <string name="inlineNotation">Біржолды хаттама</string>
+  <string name="savingMoves">Жүрістерді уақытша сақтау</string>
+  <string name="savingMovesHelp">Біз сіздің ойын тармақтарыңызды браузер кэшінде сақтаймыз.</string>
+  <string name="makeAStudy">Ұзаққа сақтау әрі бөлісу үшін зерттеуді жасасаңыз болады.</string>
+  <string name="clearSavedMoves">Жүрістерді жою</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да көрсетілген</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
@@ -540,9 +545,9 @@
   <string name="xCompetesInY">%1$s %2$s-та жарысты</string>
   <string name="victory">Жеңіс</string>
   <string name="defeat">Жеңіліс</string>
-  <string name="victoryVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
-  <string name="defeatVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
-  <string name="drawVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
+  <string name="victoryVsYInZ">%1$s %2$s-ға қарсы %3$s</string>
+  <string name="defeatVsYInZ">%1$s %2$s-ға қарсы %3$s</string>
+  <string name="drawVsYInZ">%1$s %2$s-ға қарсы %3$s</string>
   <string name="timeline">Уақыт тізбегі</string>
   <string name="starting">Басталуы:</string>
   <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет – жалпыға ашық, әрі оны көрсету – сіздің өз еркіңіз.</string>
@@ -634,7 +639,7 @@
   <string name="keyEnterOrExitVariation">тармаққа кіру/шығу</string>
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
-  <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Буллит, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
+  <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Дайын жарысқа қосылу не жаңасын құрастыру – таңдау сізде. Буллит, Блитц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз!</string>
   <string name="tournamentNotFound">Жарыс табылмады</string>
   <string name="tournamentDoesNotExist">Бұл жарыс жоқ.</string>
   <string name="tournamentMayHaveBeenCanceled">Егер ойыншылардың барлығы жарыстан шықса, бұл жарыс тоқталуы мүмкін.</string>
@@ -659,8 +664,8 @@
   <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>
   <string name="timeToProcessAMoveOnLichessServer">Личес сервері жүрісті өңдеуге жұмсайтын уақыт</string>
-  <string name="downloadAnnotated">Жазбасы барды алу</string>
-  <string name="downloadRaw">Қарасын алу</string>
+  <string name="downloadAnnotated">Өңделген күйде алу</string>
+  <string name="downloadRaw">Шикі түрде алу</string>
   <string name="downloadImported">Жүктеп салынғанды алу</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
@@ -688,10 +693,10 @@
   <string name="fullFeatured">Толыққанды жабдықталған</string>
   <string name="phoneAndTablet">Телепон мен планшет</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
-  <string name="correspondenceChess">Пошталық шахмат</string>
+  <string name="correspondenceChess">Хат-хабарлы шахмат</string>
   <string name="onlineAndOfflinePlay">Онлайн мен оффлайн ойнау</string>
   <string name="viewTheSolution">Жауабты қарау</string>
-  <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
+  <string name="followAndChallengeFriends">Серік болып, достарды ойынға шақыру</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s тіліндегі нұсқасы бар!</item>
     <item quantity="other">%s тіліндегі нұсқасы бар!</item>
@@ -811,7 +816,7 @@
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
   <string name="classicalDesc">Классикалық ойындар: 25 минут әрі одан көп</string>
-  <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
+  <string name="correspondenceDesc">Хат-хабарлы ойындар: әр жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>

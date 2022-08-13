@@ -12,9 +12,7 @@ import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import { render as renderKeyboardMove } from 'keyboardMove';
 
-function renderAnalyse(ctrl: Controller): VNode {
-  return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
-}
+const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;

@@ -1,15 +1,15 @@
 package views.html
 package study
 
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.removeMultibyteSymbols
 import lila.study.Order
-
-import controllers.routes
 
 object bits {
 
@@ -71,7 +71,10 @@ object bits {
       div(cls := "body")(
         ol(cls := "chapters")(
           s.chapters.map { name =>
-            li(cls := "text", dataIcon := "")(name.value)
+            li(cls := "text", dataIcon := "")(
+              if (ctx.userId.exists(s.study.isMember)) name.value
+              else removeMultibyteSymbols(name.value)
+            )
           }
         ),
         ol(cls := "members")(

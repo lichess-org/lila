@@ -6,7 +6,8 @@ import lila.common.Bus
 
 final private class HookThieve()(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler
 ) {
 
   import HookThieve._

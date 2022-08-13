@@ -22,7 +22,8 @@ object form {
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
-      title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
+      title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}",
+      csp = defaultCsp.withTagifyUnsafeEvalWorkaround.some
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
@@ -39,7 +40,8 @@ object form {
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
-      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}"
+      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}",
+      csp = defaultCsp.withTagifyUnsafeEvalWorkaround.some
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
@@ -61,7 +63,7 @@ object form {
             form3.action(
               submitButton(
                 cls   := "button button-red button-empty confirm",
-                title := "Delete this blog post definitively"
+                title := trans.ublog.deleteBlog.txt()
               )(trans.delete())
             )
           )
@@ -82,7 +84,7 @@ object form {
             frag(
               p(trans.ublog.uploadAnImageForYourPost()),
               p(
-                "It is safe to use images from the following websites: ",
+                trans.ublog.safeToUseImages(),
                 fragList(
                   List(
                     "unsplash.com"        -> "https://unsplash.com",
@@ -97,13 +99,15 @@ object form {
                 )
               ),
               p(
-                "You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else."
+                trans.ublog.useImagesYouMadeYourself()
               ),
               p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
               form3.file.image("image")
             )
           else
-            post.image.isDefined option submitButton(cls := "button button-red confirm")("Delete the image")
+            post.image.isDefined option submitButton(cls := "button button-red confirm")(
+              trans.ublog.deleteImage()
+            )
         )
       )
     )
@@ -145,13 +149,13 @@ object form {
       },
       post.toOption match {
         case None =>
-          form3.group(form("topics"), frag("Select the topics your post is about"))(
+          form3.group(form("topics"), frag(trans.ublog.selectPostTopics()))(
             form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
           )
         case _ =>
           div(
             form3.split(
-              form3.group(form("topics"), frag("Select the topics your post is about"), half = true)(
+              form3.group(form("topics"), frag(trans.ublog.selectPostTopics()), half = true)(
                 form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
               ),
               form3.group(form("language"), trans.language(), half = true) { field =>
@@ -194,8 +198,8 @@ object form {
     )
 
   private def etiquette(implicit ctx: Context) = div(cls := "ublog-post-form__etiquette")(
-    p("Please only post safe and respectful content. Do not copy someone else's content."),
-    p("Anything inappropriate could get your account closed."),
+    p(trans.ublog.safeAndRespectfulContent()),
+    p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
         dataIcon := "",
@@ -212,5 +216,5 @@ object form {
     href     := routes.Page.loneBookmark("blog-tips"),
     cls      := "text",
     targetBlank
-  )("Our simple tips to write great blog posts")
+  )(trans.ublog.blogTips())
 }

@@ -426,6 +426,8 @@
   <string name="apply">Deimhnigh</string>
   <string name="save">Sábháil</string>
   <string name="leaderboard">Clár ceann riain</string>
+  <string name="screenshotCurrentPosition">Seat an suíomh reatha</string>
+  <string name="gameAsGIF">Cluiche mar GIF</string>
   <string name="pasteTheFenStringHere">Greamaigh an téacs FEN anseo</string>
   <string name="pasteThePgnStringHere">Greamaigh an téacs PGN anseo</string>
   <string name="orUploadPgnFile">Nó treas a uaslódáil</string>
@@ -520,6 +522,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentIsStarting">Tá an comórtas ag tosú</string>
   <string name="tournamentPairingsAreNowClosed">Níl cluichí á socrú níos mó.</string>
   <string name="standByX">Bí réidh %s, ag roinnt imreoirí ina bpéirí, faigh faoi réir!</string>
+  <string name="pause">Cuir ar sos</string>
+  <string name="resume">Atosaigh</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
   <string name="berserkRate">Ráta Beirseirc</string>
@@ -554,6 +558,10 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="socialMediaLinks">Naisc chuig na meáin shóisialta</string>
   <string name="oneUrlPerLine">URL amháin an líne.</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>
+  <string name="savingMoves">Stóráil beart sealadach</string>
+  <string name="savingMovesHelp">Bímid i gcónaí ag stóráil do chuid athruithe i dtaisce do bhrabhsálaí.</string>
+  <string name="makeAStudy">Ar mhaithe le slánú agus le roinnt, smaoinigh ar staidéar a dhéanamh.</string>
+  <string name="clearSavedMoves">Glan amach bearta</string>
   <string name="previouslyOnLichessTV">Roimhe seo ar Lichess TV</string>
   <string name="onlinePlayers">Imreoirí ar líne</string>
   <string name="activePlayers">Imreoirí gníomhacha</string>
@@ -666,6 +674,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="community">Pobal</string>
   <string name="tools">Uirlisí</string>
   <string name="increment">Incrimint</string>
+  <string name="error.unknown">Luach neamhbhailí</string>
   <string name="error.required">Tá an réimse seo riachtanach</string>
   <string name="error.email">Tá an seoladh ríomhphoist seo neamhbhailí</string>
   <string name="error.email_acceptable">Ní ghlactar leis an seoladh ríomhphoist seo. Déan é a sheiceáil faoi dhó le do thoil, agus bain triail eile as.</string>
@@ -676,6 +685,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
   <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="ifRatingIsPlusMinusX">Más é ±%s an rátáil</string>
+  <string name="ifRegistered">Má chláraítear</string>
   <string name="onlyExistingConversations">Comhráite láithreach amháin</string>
   <string name="onlyFriends">Cairde amháin</string>
   <string name="menu">Roghchlár</string>
@@ -1017,4 +1027,5 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="until">Go dtí</string>
   <string name="lichessDbExplanation">Cluichí rátáilte a sampláladh ó gach imreoir Lichess</string>
   <string name="switchSides">Athraigh taobhanna</string>
+  <string name="closingAccountWithdrawAppeal">Má dhúnann tú do chuntas tarraingeofar siar d’achomharc</string>
 </resources>

@@ -16,7 +16,7 @@ final class GarbageCollector(
     isArmed: () => Boolean
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   private val logger = lila.security.logger.branch("GarbageCollector")
@@ -31,7 +31,7 @@ final class GarbageCollector(
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
       val ip = HTTPRequest ipAddress req
-      system.scheduler
+      scheduler
         .scheduleOnce(6 seconds) {
           val applyData = ApplyData(user, ip, email, req)
           logger.debug(s"delay $applyData")
@@ -108,26 +108,13 @@ final class GarbageCollector(
         logger.info(message)
         noteApi.lichessWrite(user, s"Garbage collected because of $msg")
         irc.garbageCollector(message) >>- {
-          if (armed) {
-            doInitialSb(user)
-            system.scheduler
-              .scheduleOnce(wait) {
-                doCollect(user)
-              }
-              .unit
-          }
+          if (armed) scheduler.scheduleOnce(wait) { doCollect(user) }.unit
         }
     }
   }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
     noteApi.byUserForMod(user.id).map(_.exists(_.text startsWith "Garbage collected"))
-
-  private def doInitialSb(user: User): Unit =
-    Bus.publish(
-      lila.hub.actorApi.security.GCImmediateSb(user.id),
-      "garbageCollect"
-    )
 
   private def doCollect(user: User): Unit =
     Bus.publish(

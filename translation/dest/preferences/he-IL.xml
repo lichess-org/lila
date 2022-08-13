@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">החזק את מקש &lt;ctrl&gt; בזמן הקידום כדי להשבית זמנית את הקידום האוטומטי</string>
   <string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר קטן מ-30 שניות</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">כשהזמן הנותר קטן מ-30 שניות</string>
   <string name="moveConfirmation">אישור מהלך</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>

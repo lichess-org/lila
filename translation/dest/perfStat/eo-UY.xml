@@ -18,7 +18,7 @@
   <string name="notEnoughGames">Ne sufiĉaj luditaj ludoj</string>
   <string name="highestRating">Plej alta rango: %s</string>
   <string name="lowestRating">Plej malalta rango: %s</string>
-  <string name="fromXToY">de %1$s al %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">de %1$s al %2$s</string>
   <string name="winningStreak">Sinsekva gajnado</string>
   <string name="losingStreak">Sinsekva perdado</string>
   <string name="longestStreak">Plej longa sinsekva rezulto: %s</string>

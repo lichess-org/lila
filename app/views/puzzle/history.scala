@@ -13,25 +13,29 @@ import lila.user.User
 
 object history {
 
-  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) =
+  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) = {
+    val title =
+      if (ctx is user) trans.puzzle.history.txt()
+      else s"${user.username} ${trans.puzzle.history.txt()}"
     views.html.base.layout(
-      title = "Puzzle history",
+      title = title,
       moreCss = cssTag("puzzle.dashboard"),
       moreJs = infiniteScrollTag
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("history"),
+        bits.pageMenu("history", user.some),
         div(cls := "page-menu__content box box-pad")(
-          h1(trans.puzzle.history()),
+          h1(title),
           div(cls := "puzzle-history")(
             div(cls := "infinite-scroll")(
               pager.currentPageResults map renderSession,
-              pagerNext(pager, np => s"${routes.Puzzle.history(np).url}${!ctx.is(user) ?? s"&u=${user.id}"}")
+              pagerNext(pager, np => routes.Puzzle.history(np, user.username.some).url)
             )
           )
         )
       )
     )
+  }
 
   private def renderSession(session: PuzzleSession)(implicit ctx: Context) =
     div(cls := "puzzle-history__session")(

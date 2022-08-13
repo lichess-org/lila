@@ -18,7 +18,8 @@ import scala.util.{ Failure, Success }
 
 final private class FishnetOpeningBook(
     ws: StandaloneWSClient,
-    depth: SettingStore[Int] @@ FishnetOpeningBook.Depth
+    depth: SettingStore[Int] @@ FishnetOpeningBook.Depth,
+    config: FishnetConfig
 )(implicit ec: ExecutionContext) {
 
   import FishnetOpeningBook._
@@ -27,7 +28,7 @@ final private class FishnetOpeningBook(
 
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
     (game.turns < depth.get() && !outOfBook.get(game.id)) ?? {
-      ws.url(endpoint)
+      ws.url(s"${config.explorerEndpoint}/lichess")
         .withQueryStringParameters(
           "variant"     -> game.variant.key,
           "fen"         -> Forsyth.>>(game.chess).value,
@@ -90,8 +91,6 @@ object FishnetOpeningBook {
 
   implicit val moveReader     = Json.reads[Move]
   implicit val responseReader = Json.reads[Response]
-
-  private val endpoint = "https://explorer.lichess.ovh/lichess"
 
   private val levelRatings: Map[Int, Seq[Int]] = Map(
     1 -> Seq(1600),

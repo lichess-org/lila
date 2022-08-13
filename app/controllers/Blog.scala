@@ -153,7 +153,9 @@ final class Blog(
   )(implicit ctx: lila.api.Context) =
     document.collect {
       case document if document.slug == slug => fuccess(callback(Right(document)))
-      case document if document.slugs.exists(StringUtils.stripEnd(_, ".") == slug) =>
+      case document
+          if document.slugs
+            .exists(s => StringUtils.stripEnd(s, ".") == slug || s == StringUtils.stripEnd(slug, ".")) =>
         fuccess(callback(Left(document.slug)))
     } getOrElse notFound
 }

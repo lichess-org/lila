@@ -15,7 +15,7 @@ final private class DnsApi(
     mongoCache: lila.memo.MongoCache.Api
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
 
   // only valid email domains that are not whitelisted should make it here
@@ -26,7 +26,7 @@ final private class DnsApi(
 
   implicit private val DomainBSONHandler = stringAnyValHandler[Domain](_.value, Domain.apply)
 
-  private val mxCache = mongoCache.only[Domain.Lower, List[Domain]](
+  private val mxCache = mongoCache.noHeap[Domain.Lower, List[Domain]](
     "security.mx",
     7 days,
     _.value

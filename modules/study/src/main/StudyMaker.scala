@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.FEN
-import lila.game.{ Namer, Pov }
+import lila.game.{ Game, Namer, Pov }
 import lila.user.User
 
 final private class StudyMaker(
@@ -13,7 +13,7 @@ final private class StudyMaker(
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
-      case Some((game, initialFen)) =>
+      case Some(Game.WithInitialFen(game, initialFen)) =>
         createFromPov(
           data,
           Pov(game, data.form.orientation.flatMap(_.resolve) | chess.White),

@@ -33,7 +33,8 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: Scheduler
+    scheduler: Scheduler,
+    mode: play.api.Mode
 ) {
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)

@@ -31,12 +31,11 @@
     "prod": "$npm_execpath run compile"
   },
   "dependencies": {
-    "chessground": "^8.3",
+    "chessground": "^8.3.5",
     "snabbdom": "^3.3.1"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
-    "@types/web": "^0",
     "typescript": "^4"
   }
 }

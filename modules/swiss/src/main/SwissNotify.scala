@@ -12,7 +12,7 @@ import lila.user.User
 
 final private class SwissNotify(colls: SwissColls)(implicit
     ec: ExecutionContext,
-    system: ActorSystem
+    scheduler: akka.actor.Scheduler
 ) {
   import BsonHandlers._
 

@@ -31,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Automaatselt edenda lipuks</string>
   <string name="whenPremoving">ennetava käiguga</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kuuluta viik kolmekordsel kordusel automaatselt</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Aega on vähem kui &lt;30 sekundit</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Aega on vähem kui &lt;30 sekundit</string>
   <string name="moveConfirmation">Käigu kinnitus</string>
   <string name="inCorrespondenceGames">Kirjavahetus mängud</string>
   <string name="correspondenceAndUnlimited">Kirjavahetus ja piiramatu</string>

@@ -124,10 +124,9 @@ export default function () {
       if (booted) return;
       booted = true;
       $(this).removeAttr('href');
-      const $el = $('#dasher_app').html(initiatingHtml),
-        playing = $('body').hasClass('playing');
+      const $el = $('#dasher_app').html(initiatingHtml);
       loadCssPath('dasher');
-      loadModule('dasher').then(() => window.LichessDasher($el.empty()[0], { playing }));
+      loadModule('dasher').then(() => window.LichessDasher($el.empty()[0]));
     });
   }
 

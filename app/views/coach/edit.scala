@@ -36,7 +36,8 @@ object edit {
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
       evenMoreJs = jsModule("coach.form"),
-      active = "coach"
+      active = "coach",
+      csp = defaultCsp.withTagifyUnsafeEvalWorkaround.some
     )(
       div(cls := "account coach-edit box")(
         div(cls := "top")(

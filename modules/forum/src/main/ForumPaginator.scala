@@ -10,14 +10,17 @@ import lila.user.User
 final class ForumPaginator(
     topicRepo: TopicRepo,
     postRepo: PostRepo,
-    config: ForumConfig
+    config: ForumConfig,
+    textExpand: ForumTextExpand
 )(implicit ec: ExecutionContext) {
 
   import BSONHandlers._
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
+  def topicPosts(topic: Topic, page: Int, me: Option[User])(implicit
+      netDomain: lila.common.config.NetDomain
+  ): Fu[Paginator[Post.WithFrag]] =
     Paginator(
-      new Adapter(
+      new Adapter[Post](
         collection = postRepo.coll,
         selector = postRepo.forUser(me) selectTopic topic.id,
         projection = none,
@@ -25,7 +28,7 @@ final class ForumPaginator(
       ),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
-    )
+    ).flatMap(_ mapFutureList textExpand.manyPosts)
 
   def categTopics(
       categ: Categ,

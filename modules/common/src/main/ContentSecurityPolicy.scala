@@ -8,6 +8,7 @@ case class ContentSecurityPolicy(
     workerSrc: List[String],
     imgSrc: List[String],
     scriptSrc: List[String],
+    fontSrc: List[String],
     baseUri: List[String]
 ) {
 
@@ -15,7 +16,12 @@ case class ContentSecurityPolicy(
 
   def withLegacyCompatibility = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
 
-  def withWebAssembly =
+  def withWebAssembly = withUnsafeEval
+
+  // https://github.com/yairEO/tagify/issues/1096
+  def withTagifyUnsafeEvalWorkaround = withUnsafeEval
+
+  private def withUnsafeEval =
     copy(
       scriptSrc = "'unsafe-eval'" :: scriptSrc
     )
@@ -82,6 +88,8 @@ case class ContentSecurityPolicy(
 
   def withLilaHttp = copy(connectSrc = "http.lichess.org" :: connectSrc)
 
+  def withInlineIconFont = copy(fontSrc = "data:" :: fontSrc)
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,
@@ -91,6 +99,7 @@ case class ContentSecurityPolicy(
       "worker-src "  -> workerSrc,
       "img-src "     -> imgSrc,
       "script-src "  -> scriptSrc,
+      "font-src "    -> fontSrc,
       "base-uri "    -> baseUri
     ) collect {
       case (directive, sources) if sources.nonEmpty =>

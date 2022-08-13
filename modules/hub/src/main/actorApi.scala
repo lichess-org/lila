@@ -59,7 +59,6 @@ package report {
 
 package security {
   case class GarbageCollect(userId: String)
-  case class GCImmediateSb(userId: String)
   case class CloseAccount(userId: String)
   case class DeletePublicChats(userId: String)
 }
@@ -112,6 +111,11 @@ package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)
   case class ValidCaptcha(id: String, solution: String)
+}
+
+package lpv {
+  case class GamePgnsFromText(text: String, promise: Promise[Map[String, String]])
+  case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 }
 
 package simul {

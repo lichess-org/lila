@@ -19,7 +19,7 @@ object ofPlayer {
       moreJs = infiniteScrollTag
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("player"),
+        bits.pageMenu("player", user),
         div(cls := "page-menu__content puzzle-of-player box box-pad")(
           form(
             action := routes.Puzzle.ofPlayer(),

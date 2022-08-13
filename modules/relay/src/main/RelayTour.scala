@@ -13,7 +13,8 @@ case class RelayTour(
     createdAt: DateTime,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
-    syncedAt: Option[DateTime]    // last time a round was synced
+    syncedAt: Option[DateTime],   // last time a round was synced
+    autoLeaderboard: Boolean = true
 ) {
   def id = _id
 

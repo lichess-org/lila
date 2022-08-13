@@ -27,12 +27,11 @@
   "dependencies": {
     "chessops": "^0.12",
     "snabbdom": "^3.3.1",
-    "chessground": "^8.3",
+    "chessground": "^8.3.5",
     "common": "2.0.0"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
-    "@types/web": "^0",
     "typescript": "^4"
   }
 }
