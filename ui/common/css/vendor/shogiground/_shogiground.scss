@@ -30,6 +30,7 @@ sg-pieces {
 }
 sg-squares {
   display: grid;
+  justify-content: space-between;
   grid-template: repeat(9, 1fr) / repeat(9, 1fr);
   .d-5x5 & {
     grid-template: repeat(5, 1fr) / repeat(5, 1fr);
