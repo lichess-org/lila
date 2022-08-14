@@ -40,4 +40,7 @@
   <string name="safeToUseImages">Суреттерді келесі қауіпсіз сайттардан алуыңызға болады: </string>
   <string name="selectPostTopics">Жазбаңыздың тақырыбын таңдаңыз</string>
   <string name="useImagesYouMadeYourself">Сонымен қатар, ешбіреудің ауторлық құқығымен қорғалмаған суретті қолдануға еркінсіз. Мысалы, өзіңіз салған, түсірген суретіңіз не Личестің экран суреті.</string>
+  <string name="safeAndRespectfulContent">Мазмұны қауіпсіз әрі басқаларға сыйласты жазбаны салыңыз. Біреудің жазбасын көшірмеңіз.</string>
+  <string name="inappropriateContentAccountClosed">Әдепсіз, орынсыз нәрселер болса, тіркелгіңіз жабылады.</string>
+  <string name="blogTips">Керемет блог-жазбаны қалай жазу туралы кеңестер</string>
 </resources>
