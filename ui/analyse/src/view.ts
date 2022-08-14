@@ -134,7 +134,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pgn', [
       h('div.pair', [
         h('label.name', 'PGN'),
-        h('textarea.copyable.autoselect', {
+        h('textarea.copyable', {
           attrs: { spellCheck: false },
           hook: {
             ...onInsert(el => {
