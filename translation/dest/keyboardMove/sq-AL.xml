@@ -10,6 +10,7 @@
   <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Lësho një torrë në b4 (vetëm varianti i Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Ofro ose pajtohu me remi</string>
   <string name="readOutClocks">Lexo me zë kohën</string>
+  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Lexim i emrit të kundërshtarit</string>
   <string name="otherCommands">Të tjerat</string>
   <string name="tips">Këshilla</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Nëse shënimi i mësipërm i lëvizjes është i panjohur, mësoni më shumë këtu:</string>
