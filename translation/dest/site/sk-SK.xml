@@ -38,7 +38,7 @@
   <string name="blackPlays">Čierny na ťahu</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Váš súper odišiel od šachovnice. O %s sekundu si môžete nárokovať výhru.</item>
-    <item quantity="few">Váš súper odišiel od šachovnice. O %s sekundy si môžete nárokovať výhru.</item>
+    <item quantity="few">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
     <item quantity="many">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
     <item quantity="other">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
   </plurals>
@@ -951,8 +951,11 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
   <string name="simulFeatured">Zobraziť na %s</string>
+  <string name="simulFeaturedHelp">Ukázať vašu simultánnu hru všetkým na %s. Zakázať pre súkromné simultánne hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
+  <string name="markdownAvailable">%s je dostupné pre viac pokročilú syntax.</string>
+  <string name="embedsAvailable">Prilepiť URL hry alebo kapitoly štúdia sem.</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
   <string name="noChat">Vypnutý chat</string>
