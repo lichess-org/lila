@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="saveDraft">ရေးလက်စကို သိမ်းပါ</string>
+  <string name="deleteBlog">ဤဘလော့ဂ် ပို့စ်ကို လုံးဝ ဖျက်ပစ်ပါ</string>
+  <string name="deleteImage">ပုံကို ဖျက်ပါ</string>
+  <string name="selectPostTopics">သင့် ပို့စ် အကြောင်းအရာကို ရွေးချယ်ပါ</string>
+  <string name="inappropriateContentAccountClosed">မည်သည့် မလျော်မကန် အရာကြောင့် မဆို သင့် အကောင့် အပိတ်ခံရနိုင်ပါသည်။</string>
+  <string name="blogTips">ကောင်းမွန်သော ဘလော့ဂ် ပို့စ်များ ရေးနိုင်ရန် အတွက် ကျွန်ုပ်တို့၏ ရိုးရှင်းသော အကြံပြုချက်များ</string>
 </resources>
