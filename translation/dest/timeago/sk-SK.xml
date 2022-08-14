@@ -13,4 +13,65 @@
     <item quantity="many">o %s dní</item>
     <item quantity="other">o %s dní</item>
   </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">o %s týždeň</item>
+    <item quantity="few">o %s týždne</item>
+    <item quantity="many">o %s týždňov</item>
+    <item quantity="other">o %s týždňov</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">o %s mesiac</item>
+    <item quantity="few">o %s mesiace</item>
+    <item quantity="many">o %s mesiacov</item>
+    <item quantity="other">o %s mesiacov</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">o %s rok</item>
+    <item quantity="few">o %s roky</item>
+    <item quantity="many">o %s rokov</item>
+    <item quantity="other">o %s rokov</item>
+  </plurals>
+  <string name="rightNow">práve teraz</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">pred %s sekundou</item>
+    <item quantity="few">pred %s sekundami</item>
+    <item quantity="many">pred %s sekundami</item>
+    <item quantity="other">pred %s sekundami</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">pred %s minútou</item>
+    <item quantity="few">pred %s minútami</item>
+    <item quantity="many">pred %s minútami</item>
+    <item quantity="other">pred %s minútami</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">pred %s hodinou</item>
+    <item quantity="few">pred %s hodinami</item>
+    <item quantity="many">pred %s hodinami</item>
+    <item quantity="other">pred %s hodinami</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">pred %s dňom</item>
+    <item quantity="few">pred %s dňami</item>
+    <item quantity="many">pred %s dňami</item>
+    <item quantity="other">pred %s dňami</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">pred %s týždňom</item>
+    <item quantity="few">pred %s týždňami</item>
+    <item quantity="many">pred %s týždňami</item>
+    <item quantity="other">pred %s týždňami</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">pred %s mesiacom</item>
+    <item quantity="few">pred %s mesiacmi</item>
+    <item quantity="many">pred %s mesiacmi</item>
+    <item quantity="other">pred %s mesiacmi</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">pred %s rokom</item>
+    <item quantity="few">pred %s rokmi</item>
+    <item quantity="many">pred %s rokmi</item>
+    <item quantity="other">pred %s rokmi</item>
+  </plurals>
 </resources>
