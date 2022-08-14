@@ -87,6 +87,7 @@ export default function (
 
   const relayRecProp = storedBooleanProp('relay.rec', true);
   const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
+  const chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
 
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
@@ -264,7 +265,7 @@ export default function (
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
-    ctrl.flipped = false;
+    ctrl.flipped = chapterFlipMapProp(data.chapter.id);
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
@@ -296,7 +297,6 @@ export default function (
     configurePractice();
     serverEval.reset();
     commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node);
-
     redraw();
     ctrl.startCeval();
   }
@@ -649,6 +649,9 @@ export default function (
       if (gamebookPlay) gamebookPlay.onJump();
       else chapters.localPaths[vm.chapterId] = ctrl.path; // don't remember position on gamebook
       if (practice) practice.onJump();
+    },
+    onFlip() {
+      chapterFlipMapProp(data.chapter.id, ctrl.flipped);
     },
     withPosition,
     setPath(path, node) {
