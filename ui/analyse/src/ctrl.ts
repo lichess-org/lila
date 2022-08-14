@@ -232,6 +232,7 @@ export default class AnalyseCtrl {
 
   flip = () => {
     this.flipped = !this.flipped;
+    this.study?.onFlip();
     this.chessground.set({
       orientation: this.bottomColor(),
     });
