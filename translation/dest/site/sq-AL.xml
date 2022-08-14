@@ -461,6 +461,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="socialMediaLinks">Lidhje mediash shoqërore</string>
   <string name="oneUrlPerLine">Një URL për rresht.</string>
   <string name="inlineNotation">Shënim brendazi</string>
+  <string name="savingMoves">Depozitim i përkohshëm i lëvizjeve</string>
+  <string name="savingMovesHelp">Po i depozitojmë variacionet tuaja në fshehtinën e shfletuesit.</string>
+  <string name="makeAStudy">Për ruajtje të sigurt dhe për ndarje me të tjerët, shihni mundësinë e krijimit të një studimi.</string>
+  <string name="clearSavedMoves">Spastroji lëvizjet</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
   <string name="onlinePlayers">Lojtarë në linjë</string>
   <string name="activePlayers">Lojëtarë aktivë</string>
