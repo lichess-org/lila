@@ -100,6 +100,8 @@ Y no pierdas las tuyas.</string>
 	<string name="reuseCapturedPieces">¡Reutiliza piezas capturadas!</string>
 	<string name="dropIntro">Una vez más, capturar todas las piezas del oponente, sin perder las tuyas!</string>
 	<string name="capturedPiecesCanBeDropped">¡Las piezas capturadas pueden ser reintroducidas sobre el tablero en tu turno!</string>
+	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Droppping a piece in promotion zone doesn\'t result in promotion.
+Take the enemy pieces!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">No puedes tener dos peones sin promocionar en la misma fila.</string>
 	<string name="protection">Protección</string>
 	<string name="keepYourPiecesSafe">Mantén tus piezas a salvo</string>

@@ -101,6 +101,8 @@ And don\'t lose yours.</string>
 	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
 	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
 	<string name="capturedPiecesCanBeDropped">Captured pieces can be dropped back on the board on your turn!</string>
+	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Droppping a piece in promotion zone doesn\'t result in promotion.
+Take the enemy pieces!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">Beskerming</string>
 	<string name="keepYourPiecesSafe">Hou jou stukke veilig</string>

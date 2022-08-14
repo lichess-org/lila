@@ -101,6 +101,8 @@
 	<string name="reuseCapturedPieces">पकड़े गए टुकड़ों का उपयोग करें !</string>
 	<string name="dropIntro">एक बार फिर, बिना अपना खोए, प्रतिद्वंद्वी के सभी टुकड़ों पर कब्जा करें!</string>
 	<string name="capturedPiecesCanBeDropped">कैप्चर किए गए टुकड़ों को आपकी बारी पर वापस बोर्ड पर गिराया जा सकता है !</string>
+	<string name="dropLimitations">आप एक टुकड़े को दूसरे टुकड़े पर नहीं गिरा सकते हैं या इसे ऐसे स्थान पर नहीं गिरा सकते हैं जहाँ इसकी कोई कानूनी चाल न हो। प्रचार क्षेत्र में एक टुकड़ा छोड़ने से पदोन्नति नहीं होती है।
+दुश्मन के टुकड़े ले लो !</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">आपके पास एक ही फ़ाइल में दो अप्रकाशित पॉन्स नहीं हो सकते।</string>
 	<string name="protection">संरक्षण</string>
 	<string name="keepYourPiecesSafe">अपने टुकड़े सुरक्षित रखें</string>

@@ -100,6 +100,8 @@ I nie strać swojej.</string>
 	<string name="reuseCapturedPieces">Wykorzystaj zbite bierki!</string>
 	<string name="dropIntro">Ponownie zdobądź wszystkie bierki przeciwnika, nie tracąc swojej!</string>
 	<string name="capturedPiecesCanBeDropped">Zbite bierki mogą zostać wstawione w Twojej kolejce z powrotem na szachownicę.</string>
+	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Droppping a piece in promotion zone doesn\'t result in promotion.
+Take the enemy pieces!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">Nie możesz mieć dwóch niepromowanych pionków w tej samej kolumnie.</string>
 	<string name="protection">Obrona</string>
 	<string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
