@@ -101,7 +101,7 @@
 	<string name="reuseCapturedPieces">Повторно используйте захваченные фигуры!</string>
 	<string name="dropIntro">Еще раз, захватите все фигуры оппонента не теряя своих!</string>
 	<string name="capturedPiecesCanBeDropped">Захваченные вами фигуры могут быть сброшены на доску во время вашего хода!</string>
-	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Droppping a piece in promotion zone doesn\'t result in promotion.
+	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Dropping a piece in promotion zone doesn\'t result in promotion.
 Take the enemy pieces!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">Вы не можете иметь две не повышенные пешки на одной линии.</string>
 	<string name="protection">Защита</string>

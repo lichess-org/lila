@@ -99,7 +99,7 @@ Ve sizinkileri kaptırmayın.</string>
 	<string name="reuseCapturedPieces">Yenmiş taşları yeniden kullan!</string>
 	<string name="dropIntro">Bir kez daha, kendi taşlarınızı kaptırmadan rakibin bütün taşlarını ele geçirin!</string>
 	<string name="capturedPiecesCanBeDropped">Yenmiş taşlar sıra sizdeyken oyuna geri sokulabilir!</string>
-	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Droppping a piece in promotion zone doesn\'t result in promotion.
+	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Dropping a piece in promotion zone doesn\'t result in promotion.
 Take the enemy pieces!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
 	<string name="protection">Savunma</string>
