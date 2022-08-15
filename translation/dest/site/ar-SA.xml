@@ -588,6 +588,19 @@
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
+  <string name="savingMoves">حفظ النقلات
+
+جزء من رسالة تحذيرية في حال لعبك لنقلات عند تحليل مباراة مكتملة.
+تقول:
+\'ذاكرة نقلات مؤقتة
+نحن دائماً نخزن تفريعاتك في cache المتصفح
+للتخزين الآمن و المشاركة، يمكنك إنشاء دراسة\'
+
+في السياق، دراسات ليتشيس هي ميزة تسمح للاعبين بتخزين و مراجعة المباريات بسهولة: 
+https://lichess. org/study</string>
+  <string name="savingMovesHelp">نحن دائماً نخزن تفريعاتك في ذاكرة التخزين المؤقت للمتصفح.</string>
+  <string name="makeAStudy">للحفظ الآمن و المشاركة، يمكنك إنشاء دراسة.</string>
+  <string name="clearSavedMoves">مسح النقلات</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
   <string name="activePlayers">لاعبين نشطين</string>

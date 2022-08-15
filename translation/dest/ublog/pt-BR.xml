@@ -35,4 +35,12 @@
   <string name="uploadAnImageForYourPost">Enviar uma imagem para sua postagem</string>
   <string name="imageAlt">Texto alternativo para a imagem</string>
   <string name="imageCredit">Crédito da imagem</string>
+  <string name="deleteBlog">Excluir esta postagem definitivamente</string>
+  <string name="deleteImage">Excluir a imagem</string>
+  <string name="safeToUseImages">É seguro utilizar imagens dos seguintes sites: </string>
+  <string name="selectPostTopics">Selecione os assuntos da sua postagem</string>
+  <string name="useImagesYouMadeYourself">Você também pode utilizar imagens feitas por você, fotografias que tirou, capturas de tela do Lichess... qualquer coisa que não esteja protegida por direitos autorais de outra pessoa.</string>
+  <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
+  <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
+  <string name="blogTips">Nossas dicas simples para escrever ótimas postagens</string>
 </resources>

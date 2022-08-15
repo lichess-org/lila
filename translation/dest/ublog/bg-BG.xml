@@ -35,4 +35,5 @@
   <string name="uploadAnImageForYourPost">Качване на изображение към публикацията</string>
   <string name="imageAlt">Алтернативен текст на изображението</string>
   <string name="imageCredit">Права на изображението</string>
+  <string name="deleteImage">Изтрий снимка</string>
 </resources>
