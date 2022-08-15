@@ -14,7 +14,7 @@ info:
     open-source shogi server forked from lichess powered by volunteers and donations.
 
     Currently this page is a work in progress, information here is most likely wrong and incorrect!
-    Expect it to be done during August 22.
+    Expect it to be done during 2022.
     - Get help in the [Lishogi Discord channel](https://discord.gg/YFtpMGg3rR)
     - [Contribute to this documentation on Github](https://github.com/WandererXII/lishogi/public/doc)
     - Check out [Lishogi widgets to embed in your website](https://lishogi.org/developers)
@@ -88,7 +88,6 @@ tags:
   \ - [Lishogi discord bot](https://top.gg/bot/707287095911120968)"
 - name: Bot
   description: "Play on Lishogi as a bot. Allows engine play.\n
-  \ Read the [blog post announcement of lishogi bots](https://lishogi.org/blog/WvDNticAAMu_mHKP/welcome-lishogi-bots).\n\n
   \ Only works with [Bot accounts](#operation/botAccountUpgrade).\n\n\
   \n### Features\n\
   \ - [Stream incoming shogi moves](#operation/botGameStream)\n\
@@ -106,7 +105,6 @@ tags:
   \ - [Golang lishogi-bot](https://github.com/dolegi/lishogi-bot)\n\
   \ - Yours? Please make [an issue or pull request](https://github.com/lishogi-org/api).\n\
   \n### Links\n\
-  \ - [Announcement](https://lishogi.org/blog/WvDNticAAMu_mHKP/welcome-lishogi-bots)\n\
   \ - Join the [Lishogi Bots team](https://lishogi.org/team/lishogi-bots) with your bot account\n\
   \ - [Get help in the discord channel](https://discord.gg/quwueFd)\n\
   \ - Watch [Lishogi Bot TV](https://lishogi.org/tv/bot)"
