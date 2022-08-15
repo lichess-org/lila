@@ -382,7 +382,7 @@ sg-squares {
   .coords-edge .main-board .sg-wrap {
     border-width: 2px;
   }
-  sg-squares sq::after {
+  body:not(.custom) sg-squares sq::after {
     margin: -6px !important;
     width: 10px !important;
     height: 10px !important;
