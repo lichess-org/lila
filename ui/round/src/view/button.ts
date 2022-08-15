@@ -207,15 +207,15 @@ function pointOffsetFromSfen(sfen: string): number {
       return 16;
     case '4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
       return 18;
-    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w 3p 1':
+    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w 3p':
       return 24;
-    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1':
+    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
       return 27;
-    case 'ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1':
+    case 'ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
       return 4;
-    case 'l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"':
+    case 'l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -"':
       return 6;
-    case '4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1':
+    case '4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
       return 8;
     default:
       return 0;
