@@ -2,7 +2,6 @@ function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
     var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'dark' : 'default');
     lishogi.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
-    lishogi.loadCss('stylesheets/shepherd.css');
     lishogi.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).done(function () {
       lishogi
         .loadScript('vendor/shepherd/dist/js/shepherd.min.js', {
