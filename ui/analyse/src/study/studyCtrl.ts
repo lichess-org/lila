@@ -321,6 +321,7 @@ export default function (
       );
   });
 
+  ctrl.flipped = chapterFlipMapProp(data.chapter.id);
   if (members.canContribute()) form.openIfNew();
 
   const currentNode = () => ctrl.node;
