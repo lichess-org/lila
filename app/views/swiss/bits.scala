@@ -117,6 +117,8 @@ object bits {
     trans.swiss.ongoingGames,
     trans.swiss.startingIn,
     trans.swiss.nextRound,
-    trans.team.joinTeam
+    trans.team.joinTeam,
+    trans.swiss.XRoundsSwiss,
+    trans.swiss.XOutOfYRoundsSwiss
   ).map(_.key)
 }
