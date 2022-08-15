@@ -72,7 +72,7 @@ Please also remember that, over the long run, ratings tend to gravitate towards 
 
 Warning: Inappropriate username
 
-Due to the fact that your username is either an inappropriate word/phrase or because your username is offencive to someone or a set of people or is impersonating someone that you aren't, your account will be terminated within the next 24 hours.
+Due to the fact that your username is either an inappropriate word/phrase that could be offensive to someone or is impersonating someone that you aren't, your account will be terminated within the next 24 hours.
 Once this is done, you will be permitted to create a new lishogi account with a username that follows our Username policy (https://github.com/lichess-org/lila/wiki/Username-policy).
 
 """, /* ---------------------------------------------------------------*/ """
