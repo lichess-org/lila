@@ -45,7 +45,7 @@ object userAnalysis {
         .some,
       zoomable = true
     ) {
-      main(cls := s"analyse variant-${pov.game.variant}")(
+      main(cls := s"analyse variant-${pov.game.variant.key}")(
         pov.game.synthetic option st.aside(cls := "analyse__side")(
           views.html.base.bits.mselect(
             "analyse-variant",
@@ -60,7 +60,9 @@ object userAnalysis {
           )
         ),
         div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
+        div(cls := "sg-hand-wrap hand-top"),
         div(cls := "analyse__tools"),
+        div(cls := "sg-hand-wrap hand-bottom"),
         div(cls := "analyse__controls")
       )
     }

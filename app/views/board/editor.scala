@@ -36,7 +36,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
         .some
     )(
       main(id := "board-editor")(
-        div(cls   := "board-editor")(
+        div(cls   := s"board-editor variant-${sit.variant.key}")(
           div(cls := "spare"),
           div(cls := "main-board")(shogigroundBoard(sit.variant, shogi.Sente.some)),
           div(cls := "spare")

@@ -146,7 +146,7 @@ object replay {
       openGraph = povOpenGraph(pov).some
     )(
       frag(
-        main(cls := s"analyse variant-${pov.game.variant}")(
+        main(cls := s"analyse variant-${pov.game.variant.key}")(
           st.aside(cls := "analyse__side")(
             views.html.game
               .side(
@@ -159,7 +159,9 @@ object replay {
           ),
           chatOption.map(_ => views.html.chat.frag),
           div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
+          div(cls := "sg-hand-wrap hand-top"),
           div(cls := "analyse__tools")(div(cls := "ceval")),
+          div(cls := "sg-hand-wrap hand-bottom"),
           div(cls := "analyse__controls"),
           !ctx.blind option frag(
             div(cls := "analyse__underboard")(
