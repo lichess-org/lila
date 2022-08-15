@@ -76,6 +76,7 @@ final class NotationDump(
       val genTags = List(
         Tag(_.Event, s"${study.name} - ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
+        Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.Annotator, ownerName(study))
       ) ::: (!chapter.root.sfen.initialOf(chapter.setup.variant)) ?? (
         List(
