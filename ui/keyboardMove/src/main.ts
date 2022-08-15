@@ -28,7 +28,7 @@ export interface KeyboardMove {
   justSelected(): boolean;
   clock(): ClockController | undefined;
   draw(): void;
-  next?(): void;
+  next(): void;
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
 }
@@ -136,7 +136,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     clock: () => root.clock,
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
-    next: root.next,
+    next: () => root.next?.(),
     helpModalOpen,
     isFocused,
   };

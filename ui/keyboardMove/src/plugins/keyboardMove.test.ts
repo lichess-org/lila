@@ -21,6 +21,7 @@ const defaultCtrl = {
   clock: unexpectedErrorThrower('clock'),
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
+  next: unexpectedErrorThrower('next'),
   drop: unexpectedErrorThrower('drop'),
   hasSelected: () => undefined,
   jump: () => null,
@@ -79,7 +80,7 @@ describe('keyboardMove', () => {
     expect(input.value).toBe('');
   });
 
-  test('next command', () => {
+  test('goes to next puzzle', () => {
     input.value = 'next';
     const mockNext = jest.fn();
     const keyboardMovePlugin = keyboardMove({
