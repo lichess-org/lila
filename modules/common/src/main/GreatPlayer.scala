@@ -226,6 +226,7 @@ object GreatPlayer {
     ("Kasparyan", "Genrikh_Kasparyan"),
     ("Kavalek", "Lubomir_Kavalek"),
     ("Kazantsev", "Alexander_Kazantsev"),
+    ("Emil Kemény", "Emil_Kem%C3%A9ny"),
     ("Keres", "Paul_Keres"),
     ("Khalifman", "Alexander_Khalifman"),
     ("Kholmov", "Ratmir_Kholmov"),
