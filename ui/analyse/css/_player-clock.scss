@@ -1,5 +1,25 @@
 $clock-height: 20px;
 
+.analyse.has-clocks {
+  sg-board {
+    border-radius: 0;
+  }
+  @include breakpoint($mq-col2) {
+    margin-top: 0.8rem;
+    .analyse__underboard {
+      margin-top: calc(#{$clock-height / 2} + 3vmin);
+    }
+  }
+  @include breakpoint($mq-col1) {
+    .analyse__controls {
+      margin-top: $clock-height;
+    }
+    .analyse__board {
+      margin: 1.6rem 0;
+    }
+  }
+}
+
 .analyse__clock {
   @extend %metal, %box-shadow;
 
