@@ -463,7 +463,7 @@ object GreatPlayer {
     ("Sergeant", "Philip_Walsingham_Sergeant"),
     ("Shabalov", "Alexander_Shabalov"),
     ("Sherrard", "Benny_Andersson"),
-    ("Shipley", "Emil_Kem%C3%A9ny"),
+    ("Shipley", "Walter_Penn_Shipley"),
     ("Shirov", "Alexei_Shirov"),
     ("Short", "Nigel_Short"),
     ("Showalter", "Jackson_Showalter"),
