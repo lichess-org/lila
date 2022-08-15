@@ -465,6 +465,7 @@
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="savingMoves">Geçici hamle depolama</string>
+  <string name="savingMovesHelp">Sizin varyasyonlarınızı tarayıcı önbelleğinde saklıyoruz.</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
