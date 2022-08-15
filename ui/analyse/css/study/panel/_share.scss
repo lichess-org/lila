@@ -21,6 +21,11 @@
   }
   .downloads {
     @extend %flex-around;
+    gap: 1rem;
     margin-bottom: 2em;
+    .button {
+      padding: 1em 0em;
+      width: calc(50% - 1rem);
+    }
   }
 }
