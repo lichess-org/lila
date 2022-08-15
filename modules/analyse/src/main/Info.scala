@@ -67,7 +67,6 @@ object Info {
   private def strCp(s: String)   = s.toIntOption map Cp.apply
   private def strMate(s: String) = s.toIntOption map Mate.apply
 
-  // 103,,Pg6 Ph4,Ph4
   private def decode(ply: Int, str: String): Info =
     str.split(separator) match {
       case Array(cp)         => Info(ply, Eval(strCp(cp), None, None))
