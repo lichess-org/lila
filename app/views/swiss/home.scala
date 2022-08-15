@@ -57,9 +57,11 @@ object home {
             ),
             td(cls := "infos")(
               span(cls := "rounds")(
-                s.isStarted option frag(s.round.value, " / "),
-                trans.swiss.nbRounds.pluralSame(s.settings.nbRounds),
-                " Swiss"
+                if (s.isStarted)
+                  trans.swiss.XOutOfYRoundsSwiss
+                    .plural(s.settings.nbRounds, s.round.value, s.settings.nbRounds)
+                else
+                  trans.swiss.XRoundsSwiss.pluralSame(s.settings.nbRounds)
               ),
               span(cls := "setup")(
                 s.clock.show,
