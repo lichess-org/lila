@@ -79,7 +79,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
 
   function chartLoader() {
     const engineName =
-      ctrl.data.game.initialSfen !== initialSfen('standard') || !handicaps.includes(ctrl.data.game.initialSfen)
+      ctrl.data.game.initialSfen &&
+      ctrl.data.game.initialSfen !== initialSfen('standard') &&
+      !handicaps.includes(ctrl.data.game.initialSfen)
         ? 'Fairy Stockfish'
         : 'YaneuraOu V7';
     return `<div id="acpl-chart-loader"><span>${engineName}<br>server analysis</span>${li.spinnerHtml}</div>`;
