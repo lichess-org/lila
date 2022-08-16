@@ -31,6 +31,8 @@ export default (opts: Opts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
+    // no need to match regex because conversion preserves SAN
+    v = germanToEnglishSan(v);
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
     const selectedKey = opts.ctrl.hasSelected() || '';
     if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
@@ -119,6 +121,28 @@ export default (opts: Opts) => {
     });
   };
 };
+
+function germanToEnglishSan(v: string): string {
+  const germanToEnglish = new Map<string, string>([
+    ['s', 'n'],
+    ['l', 'b'],
+    ['t', 'r'],
+  ]);
+  const chars = v.split('');
+
+  for (let i = 0; i < chars.length; i++) {
+    if (germanToEnglish.has(chars[i].toLowerCase())) chars[i] = germanToEnglish.get(chars[i].toLowerCase()) || '';
+  }
+
+  // don't have enough information to resolve ambiguity when v = 'd'
+  if (chars.length > 1) {
+    // letter at the end indicates promotion
+    if (chars[chars.length-1].toLowerCase() === 'd') chars[chars.length - 1] = 'q';
+    // if file follows initial letter then initial letter refers to piece
+    if (chars[0].toLowerCase() === 'd' && chars[1].toLowerCase().match(fileRegex)) chars[0] = 'q';
+  }
+  return chars.join('')
+}
 
 function makeBindings(opts: any, submit: Submit, clear: () => void) {
   window.Mousetrap.bind('enter', () => opts.input.focus());

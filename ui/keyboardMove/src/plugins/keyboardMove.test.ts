@@ -133,6 +133,25 @@ describe('keyboardMove', () => {
       expect(input.value).toBe('');
     });
 
+    test('plays Nf3 via German SAN', () => {
+      input.value = 'Sf3';
+      const mockSan = jest.fn();
+      const keyboardMovePlugin = keyboardMove({
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          san: mockSan,
+        },
+      }) as any;
+
+      keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+
+      expect(mockSan.mock.calls.length).toBe(1);
+      expect(mockSan.mock.calls[0][0]).toBe('e2');
+      expect(mockSan.mock.calls[0][1]).toBe('e4');
+      expect(input.value).toBe('');
+    });
+
     test('selects e2 via UCI', () => {
       input.value = 'e2';
       const mockSelect = jest.fn();
