@@ -137,11 +137,11 @@ function germanToEnglishSan(v: string): string {
   // don't have enough information to resolve ambiguity when v = 'd'
   if (chars.length > 1) {
     // letter at the end indicates promotion
-    if (chars[chars.length-1].toLowerCase() === 'd') chars[chars.length - 1] = 'q';
+    if (chars[chars.length - 1].toLowerCase() === 'd') chars[chars.length - 1] = 'q';
     // if file follows initial letter then initial letter refers to piece
     if (chars[0].toLowerCase() === 'd' && chars[1].toLowerCase().match(fileRegex)) chars[0] = 'q';
   }
-  return chars.join('')
+  return chars.join('');
 }
 
 function makeBindings(opts: any, submit: Submit, clear: () => void) {
