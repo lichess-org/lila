@@ -114,6 +114,7 @@ object helpModal {
           row(kbd("who"), readOutOpponentName()),
           row(kbd("draw"), offerOrAcceptDraw()),
           row(kbd("resign"), trans.resignTheGame()),
+          row(kbd("next"), trans.puzzle.nextPuzzle()),
           row(frag(kbd("help"), or, kbd("?")), trans.showHelpDialog()),
           header(tips()),
           tr(

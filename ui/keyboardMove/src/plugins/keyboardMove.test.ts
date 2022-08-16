@@ -21,6 +21,7 @@ const defaultCtrl = {
   clock: unexpectedErrorThrower('clock'),
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
+  next: unexpectedErrorThrower('next'),
   drop: unexpectedErrorThrower('drop'),
   hasSelected: () => undefined,
   jump: () => null,
@@ -76,6 +77,23 @@ describe('keyboardMove', () => {
     keyboardMovePlugin(startingFen, toMap({}), true);
 
     expect(mockDraw.mock.calls.length).toBe(1);
+    expect(input.value).toBe('');
+  });
+
+  test('goes to next puzzle', () => {
+    input.value = 'next';
+    const mockNext = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        next: mockNext,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockNext).toHaveBeenCalledTimes(1);
     expect(input.value).toBe('');
   });
 

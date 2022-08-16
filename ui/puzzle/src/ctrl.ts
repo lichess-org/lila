@@ -99,6 +99,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           sendMove: playUserMove,
           redraw: this.redraw,
           userJumpPlyDelta,
+          next: nextPuzzle,
         },
         { fen: this.vm.node.fen }
       );
@@ -344,6 +345,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function nextPuzzle(): void {
     if (streak && vm.lastFeedback != 'win') return;
+    if (vm.mode !== 'view') return;
 
     ceval.stop();
     vm.next.promise.then(n => {
