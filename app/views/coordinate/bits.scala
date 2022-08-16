@@ -47,6 +47,8 @@ object bits {
     trans.time,
     trans.asWhite,
     trans.asBlack,
-    trans.randomColor
+    trans.randomColor,
+    trans.youPlayTheWhitePieces,
+    trans.youPlayTheBlackPieces
   ).map(_.key)
 }

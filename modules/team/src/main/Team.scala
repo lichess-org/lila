@@ -62,9 +62,10 @@ object Team {
 
   def maxJoin(u: User) =
     if (u.isVerified) maxJoinCeiling * 2
-    else {
-      15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
-    } atMost maxJoinCeiling
+    else
+      {
+        15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
+      } atMost maxJoinCeiling
 
   type Access = Int
   object Access {

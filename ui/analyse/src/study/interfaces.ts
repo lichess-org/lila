@@ -45,6 +45,7 @@ export interface StudyCtrl {
   isChapterOwner(): boolean;
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
+  onFlip(): void;
   withPosition<T>(obj: T): T & { ch: string; path: string };
   setPath(path: Tree.Path, node: Tree.Node): void;
   deleteNode(path: Tree.Path): void;
