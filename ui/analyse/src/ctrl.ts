@@ -253,7 +253,7 @@ export default class AnalyseCtrl {
     this.onChange();
     if (!skip) this.shogiground.set(this.makeSgOpts());
     this.setAutoShapes();
-    if (this.node.shapes) this.shogiground.setShapes(this.node.shapes as DrawShape[]);
+    this.setShapes(this.node.shapes as DrawShape[] | undefined);
   }
 
   private getMoveDests(): sg.Dests {
@@ -567,6 +567,10 @@ export default class AnalyseCtrl {
 
   setAutoShapes = (): void => {
     this.shogiground.setAutoShapes(computeAutoShapes(this));
+  };
+
+  setShapes = (shapes?: DrawShape[]): void => {
+    if (shapes) this.shogiground.setShapes(shapes);
   };
 
   private initNotation = (): void => {

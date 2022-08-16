@@ -16,7 +16,7 @@ export function renderBoard(ctrl: AnalyseCtrl): VNode {
           board: vnode.elm as HTMLElement,
         });
         ctrl.setAutoShapes();
-        if (ctrl.node.shapes) ctrl.shogiground.setShapes(ctrl.node.shapes as DrawShape[]);
+        ctrl.setShapes(ctrl.node.shapes as DrawShape[] | undefined);
       },
     },
   });

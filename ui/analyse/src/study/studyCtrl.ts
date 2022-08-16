@@ -477,7 +477,7 @@ export default function (
       if (wrongChapter(d)) return;
       if (who && who.s === li.sri) return;
       ctrl.tree.setShapes(d.s, ctrl.path);
-      if (ctrl.path === position.path) ctrl.shogiground.setShapes(d.s);
+      if (ctrl.path === position.path) ctrl.setShapes(d.s);
       redraw();
     },
     validationError(d) {

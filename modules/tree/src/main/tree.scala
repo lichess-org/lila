@@ -205,7 +205,14 @@ object Node {
     case Left(pos) => posWrites.writes(pos)
     case Right(piece) => pieceWrites.writes(piece)
   }
-  implicit private val shapeCircleWrites = Json.writes[Shape.Circle]
+  implicit private val shapeCircleWrites: Writes[Shape.Circle] = Writes { c =>
+    Json.obj(
+      "brush" -> c.brush,
+      "orig"  -> c.pos,
+      "dest"  -> c.pos,
+      "piece" -> c.piece
+    )
+  }
   implicit private val shapeArrowWrites  = Json.writes[Shape.Arrow]
   implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
