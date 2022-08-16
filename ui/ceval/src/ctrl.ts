@@ -1,5 +1,5 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
-
+import { isIOS, isIPad, isAndroid } from 'common/mobile';
 import { Result } from '@badrap/result';
 import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalWorkerOpts } from './worker';
 import { prop } from 'common';
@@ -30,11 +30,10 @@ function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly
 
   // Structured cloning
   try {
-    window.postMessage(mem, '*');
+    window.postMessage(mem.buffer, '*');
   } catch (e) {
-    return;
+    return undefined;
   }
-
   return mem;
 }
 
@@ -95,8 +94,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
-    const sharedMem = sendableSharedWasmMemory(8, 16);
-    if (sharedMem) {
+    const sharedMem = sendableSharedWasmMemory(1, 2);
+    if (sharedMem?.buffer) {
       technology = 'hce';
 
       // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
@@ -105,7 +104,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       if (supportsNnue && officialStockfish && enableNnue()) technology = 'nnue';
 
       try {
-        sharedMem.grow(8);
+        sharedMem.grow(1);
         growableSharedMem = true;
       } catch (e) {
         // memory growth not supported
@@ -130,17 +129,28 @@ export default function (opts: CevalOpts): CevalCtrl {
     const stored = lichess.storage.get(storageKey('ceval.threads'));
     return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
   };
+  const pow2floor = (n: number) => {
+    let pow2 = 1;
+    while (pow2 * 2 <= n) pow2 *= 2;
+    return pow2;
+  };
+  const maxWasmPages = (minPages: number): number => {
+    if (!growableSharedMem) return minPages;
+    let maxPages = 0;
+    if (navigator.deviceMemory && !isAndroid()) {
+      maxPages = Math.floor(navigator.deviceMemory) * 8192; // chrome/opera/edge, 1/2 avail RAM max shared
+    } else if (isAndroid()) maxPages = 8192; // 512 MB max shared, 64 MB max hash
+    else if (isIPad()) maxPages = 8192; // 512 MB max shared, 64 MB max hash
+    else if (isIOS()) maxPages = 4096; // 256 MB max shared, 32 MB max hash
+    else maxPages = 32768; // firefox/mac-safari/other, 2 GB max shared, 256 MB max hash
+    return Math.max(minPages, maxPages);
+  };
+  const maxHashSize = technology == 'external' ? externalOpts!.maxHash || 16 : pow2floor(maxWasmPages(2048) / 128);
 
-  const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
-  const maxHashSize =
-    technology == 'external'
-      ? externalOpts!.maxHash || 16
-      : Math.min(((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = () => {
     const stored = lichess.storage.get(storageKey('ceval.hash-size'));
     return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
   };
-
   const multiPv = storedIntProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedBooleanProp('ceval.infinite', false);
   let curEval: Tree.LocalEval | null = null;
@@ -243,7 +253,7 @@ export default function (opts: CevalOpts): CevalCtrl {
             opts.redraw();
           }),
           version: 'b6939d',
-          wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
+          wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
           cache: window.indexedDB && new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
@@ -251,7 +261,7 @@ export default function (opts: CevalOpts): CevalCtrl {
           baseUrl: officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
           module: officialStockfish ? 'Stockfish' : 'StockfishMv',
           version: 'a022fa',
-          wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
+          wasmMemory: sharedWasmMemory(1024, maxWasmPages(1088)),
         });
       else
         worker = new WebWorker({

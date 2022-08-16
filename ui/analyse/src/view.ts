@@ -2,15 +2,8 @@ import { view as cevalView } from 'ceval';
 import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import {
-  bind,
-  bindNonPassive,
-  bindMobileMousedown,
-  MaybeVNode,
-  MaybeVNodes,
-  onInsert,
-  dataIcon,
-} from 'common/snabbdom';
+import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
+import { bindMobileMousedown } from 'common/mobile';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
