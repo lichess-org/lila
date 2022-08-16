@@ -3,11 +3,15 @@ package lila.common
 import play.api.mvc._
 import scala.concurrent.ExecutionContext
 
-import lila.common.config.NetDomain
+import lila.common.config.NetConfig
 
-final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
+final class LilaCookie(config: NetConfig, baker: SessionCookieBaker) {
 
-  private val cookieDomain = domain.value.split(":").head
+  private val cookieDomain =
+    if (config.isProd) config.domain.value.split(":").head
+    else new java.net.URI(config.baseUrl.value).getHost
+  // as a dev instance, we like to listen on localhost:9663 but might want clients to connect through
+  // https://some-proxy-tunnel.com. grab the external domain from net.base_url so cookies still work
 
   def makeSessionId(implicit req: RequestHeader) = session(LilaCookie.sessionId, generateSessionId())
 

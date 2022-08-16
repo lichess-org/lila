@@ -45,6 +45,12 @@ final class CSRFRequestHandler(net: NetConfig) {
            * Since the request comes from Lichess, we accept it.
            */
           true
+        case Some(o) if o == net.baseUrl.value =>
+          /* The origin header is the value of net.base_url in config.  so net.base_url
+           * is being used to specify a public face that is not in net.domain.  return
+           * true if dev instance
+           */
+          !net.isProd
         case Some(_) =>
           /* The origin header is set to another value, like a domain or "null".
            * We reject the request.
