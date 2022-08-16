@@ -63,6 +63,6 @@ export function renderMove(move: string): string | undefined {
     return [match[1], match[2], match[3], match[4]]
       .map(toHiragana)
       .filter(s => s && s.length)
-      .join(',');
+      .join(' ');
   else return undefined;
 }
