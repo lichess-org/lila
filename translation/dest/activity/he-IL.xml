@@ -57,7 +57,7 @@
     <item quantity="other">התחיל לעקוב אחר %s שחקנים</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">השיג %s עוקב חדש</item>
+    <item quantity="one">השיג עוקב %s חדש</item>
     <item quantity="two">השיג %s עוקבים חדשים</item>
     <item quantity="many">השיג %s עוקבים חדשים</item>
     <item quantity="other">השיג %s עוקבים חדשים</item>
