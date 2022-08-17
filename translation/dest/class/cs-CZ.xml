@@ -102,5 +102,11 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="newsEdit2">Přidejte poslední novinky nahoru. Neodstraňujte předchozí novinky.</string>
   <string name="newsEdit3">Oddělte zprávy ---
 Zobrazí se vodorovná čára.</string>
+  <string name="invite">Pozvat</string>
+  <string name="youHaveBeenInvitedByX">Byli jste pozváni uživatelem %s.</string>
+  <string name="youAcceptedThisInvitation">Přijali jste pozvánku.</string>
+  <string name="youDeclinedThisInvitation">Odmítli jste pozvánku.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">nebo</string>
+  <string name="createMultipleAccounts">Vytvořit více Lichess účtů najednou</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">použít tento formulář</string>
 </resources>
