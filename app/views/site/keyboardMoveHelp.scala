@@ -115,6 +115,8 @@ object helpModal {
           row(kbd("draw"), offerOrAcceptDraw()),
           row(kbd("resign"), trans.resignTheGame()),
           row(kbd("next"), trans.puzzle.nextPuzzle()),
+          row(kbd("upv"), trans.puzzle.upVote()),
+          row(kbd("downv"), trans.puzzle.downVote()),
           row(frag(kbd("help"), or, kbd("?")), trans.showHelpDialog()),
           header(tips()),
           tr(
