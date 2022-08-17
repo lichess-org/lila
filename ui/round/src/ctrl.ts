@@ -10,6 +10,7 @@ import * as speech from './speech';
 import * as sg from 'shogiground/types';
 import { Config as SgConfig } from 'shogiground/config';
 import { Api as SgApi } from 'shogiground/api';
+import { samePiece } from 'shogiground/util';
 import { ClockController } from './clock/clockCtrl';
 import { initialSfen } from 'shogiops/sfen';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
@@ -370,7 +371,7 @@ export default class RoundController {
 
     d.game.plies = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'sente' : 'gote';
-    const playedColor = o.ply % 2 === 0 ? 'gote' : 'sente',
+    const playedColor: Color = o.ply % 2 === 0 ? 'gote' : 'sente',
       activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
@@ -379,17 +380,17 @@ export default class RoundController {
     this.setTitle();
     const move = parseUsi(o.usi!)!;
     const capture = this.shogiground.state.pieces.get(makeSquare(move.to) as Key);
+    const isDropMove = isDrop(move);
     if (!this.replaying()) {
       this.ply++;
-      if (isDrop(move))
-        this.shogiground.drop(
-          {
-            role: move.role,
-            color: playedColor,
-          },
-          o.usi!.substring(2, 4) as sg.Key
-        );
-      else {
+      if (isDropMove) {
+        const piece = {
+          role: move.role,
+          color: playedColor,
+        };
+        // no need to drop the piece if it is already there
+        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, o.usi!.substring(2, 4) as sg.Key);
+      } else {
         // This block needs to be idempotent
         const keys = usiToSquareNames(o.usi!) as Key[];
         this.shogiground.move(keys[0], keys[1], move.promotion);
@@ -418,7 +419,7 @@ export default class RoundController {
         usi: o.usi,
         notation: makeNotation(d.pref.notation, lastStep.sfen, this.data.game.variant.key, o.usi!, lastStep.usi),
         check: o.check,
-        capture: !!capture,
+        capture: !!capture && !isDropMove, // drops can't capture
       };
     d.steps.push(step);
     game.setOnGame(d, playedColor, true);
