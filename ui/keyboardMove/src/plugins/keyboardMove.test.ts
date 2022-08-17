@@ -144,11 +144,11 @@ describe('keyboardMove', () => {
         },
       }) as any;
 
-      keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+      keyboardMovePlugin(startingFen, toMap({ Sg1: ['Sf3'] }), true);
 
       expect(mockSan.mock.calls.length).toBe(1);
-      expect(mockSan.mock.calls[0][0]).toBe('e2');
-      expect(mockSan.mock.calls[0][1]).toBe('e4');
+      expect(mockSan.mock.calls[0][0]).toBe('Sg1');
+      expect(mockSan.mock.calls[0][1]).toBe('Sf3');
       expect(input.value).toBe('');
     });
 
