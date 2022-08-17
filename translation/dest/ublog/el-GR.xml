@@ -7,8 +7,8 @@
   <string name="postTitle">Τίτλος</string>
   <string name="postIntro">Πρόλογος</string>
   <string name="postBody">Κυρίως θέμα</string>
-  <string name="drafts">Προσχέδιο</string>
-  <string name="published">Δημοσιεύτηκε</string>
+  <string name="drafts">Πρόχειρα</string>
+  <string name="published">Δημοσιευμένα</string>
   <string name="createBlogDiscussion">Ενεργοποίηση σχολίων</string>
   <string name="createBlogDiscussionHelp">Θα δημιουργηθεί ένα θέμα στο φόρουμ για να σχολιάσουν τα άτομα στη δημοσίευσή σας</string>
   <string name="publishOnYourBlog">Δημοσίευση στο ιστολόγιό σας</string>
@@ -18,15 +18,15 @@
     <item quantity="other">Δημοσιεύθηκαν οι αναρτήσεις ιστολογίου του %s</item>
   </plurals>
   <plurals name="nbViews">
-    <item quantity="one">Μία εμφάνιση</item>
-    <item quantity="other">%s εμφανίσεις</item>
+    <item quantity="one">Μία προβολή</item>
+    <item quantity="other">%s προβολές</item>
   </plurals>
   <string name="xPublishedY">%1$s δημοσίευσε %2$s</string>
-  <string name="thisPostIsPublished">Αυτή η δημοσίευση αναρτήθηκε</string>
-  <string name="thisIsADraft">Αυτό είναι ένα προσχέδιο</string>
-  <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις ιστολογίου από τον χρήστη %s</string>
-  <string name="noPostsInThisBlogYet">Δεν έχουν καταχωρηθεί δημοσιεύσεις σε αυτό το ιστολόγιο ακόμα.</string>
-  <string name="noDrafts">Δεν υπάρχουν προσχέδια για εμφάνιση.</string>
+  <string name="thisPostIsPublished">Αυτή η ανάρτηση έχει δημοσιευτεί</string>
+  <string name="thisIsADraft">Πρόχειρο</string>
+  <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις από τον χρήστη %s</string>
+  <string name="noPostsInThisBlogYet">Δεν υπάρχει καμία δημοσίευση σε αυτό το ιστολόγιο ακόμα.</string>
+  <string name="noDrafts">Δεν έχετε αποθηκευμένα πρόχειρα.</string>
   <string name="latestBlogPosts">Τελευταίες δημοσιεύσεις ιστολογίου</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Δείτε μία δημοσίευση</item>
