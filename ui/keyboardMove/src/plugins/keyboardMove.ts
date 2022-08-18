@@ -8,6 +8,7 @@ const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
 const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
+const germanSanRegex = /^([sltdSLTD](x?[a-h][1-8])?)+(([a-h]x?)?[a-h](1|8)=?[sltdSLTD])$/;
 
 interface Opts {
   input: HTMLInputElement;
@@ -31,8 +32,7 @@ export default (opts: Opts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
-    // no need to match regex because conversion preserves SAN
-    v = germanToEnglishSan(v);
+    if (v.match(germanSanRegex)) v = germanToEnglishSan(v);
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
     const selectedKey = opts.ctrl.hasSelected() || '';
     if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
