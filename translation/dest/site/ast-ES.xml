@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">Xuega con un amigu</string>
+  <string name="playWithTheMachine">Xuega contra l\'ordenador</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar a daquién a xugar, da-y esti enllaz</string>
+  <string name="gameOver">Xuegu termináu</string>
+  <string name="waitingForOpponent">Esperando al oponente</string>
+  <string name="waiting">Esperando</string>
+  <string name="yourTurn">La to vez</string>
+  <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
+  <string name="level">Nivel</string>
+  <string name="strength">Dificultá</string>
+  <string name="toggleTheChat">Alterna\'l chat</string>
+  <string name="chat">Chat</string>
+  <string name="resign">Abandonar</string>
+  <string name="checkmate">Xaque mate</string>
+  <string name="stalemate">Xuego afogáu</string>
+  <string name="white">Blanques</string>
+  <string name="black">Negres</string>
+  <string name="asWhite">como blanques</string>
+  <string name="asBlack">como negres</string>
+  <string name="randomColor">Llau aleatoriu</string>
+  <string name="createAGame">Crear una partida</string>
+  <string name="whiteIsVictorious">Blanques ganen</string>
+  <string name="blackIsVictorious">Negres ganen</string>
+  <string name="youPlayTheWhitePieces">Xuegas con blanques</string>
+  <string name="youPlayTheBlackPieces">Xuegas con negres</string>
+  <string name="itsYourTurn">Ye la to vez!</string>
+  <string name="cheatDetected">Trampes detectaes</string>
+  <string name="kingInTheCenter">Rei nel centru</string>
+  <string name="threeChecks">Trés xaques</string>
+  <string name="raceFinished">Carrera terminada</string>
+  <string name="variantEnding">Final de variante</string>
+  <string name="newOpponent">Nuevu oponente</string>
+</resources>
