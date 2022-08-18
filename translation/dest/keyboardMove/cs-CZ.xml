@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="bothTheLetterOAndTheDigitZero" comment="bothTheLetterOAndTheDigitZero&#10;&#10;Only the Latin character 'o' works.">Písmeno „o“ i číslice nula „0“ mohou být použity pro rošádu</string>
+  <string name="ifItIsLegalToCastleBothWays">Pokud jsou možné obě rošády, použijte klávesu Enter pro malou rošádu</string>
+</resources>
