@@ -48,6 +48,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   </plurals>
   <string name="newTeamBattle">Nová týmová bitva</string>
   <string name="customStartDate">Vlastní datum zahájení</string>
+  <string name="customStartDateHelp">Ve vašem vlastním časovém pásmu. Přepíše nastavení \"Čas před zahájením turnaje\"</string>
   <string name="allowBerserk">Povolit Berserk</string>
   <string name="allowBerserkHelp">Umožní hráčům snížit čas na polovinu a získat bod navíc</string>
   <string name="allowChatHelp">Nechat hráče diskutovat v chatu</string>
