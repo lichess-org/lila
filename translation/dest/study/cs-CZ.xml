@@ -82,6 +82,7 @@
   <string name="studyNotFound">Studie nenalezena</string>
   <string name="editChapter">Upravit kapitolu</string>
   <string name="newChapter">Nová kapitola</string>
+  <string name="importFromChapterX">Importovat z %s</string>
   <string name="orientation">Orientace</string>
   <string name="analysisMode">Režim rozboru</string>
   <string name="pinnedChapterComment">Připnutý komentář u kapitoly</string>
