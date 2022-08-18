@@ -39,4 +39,6 @@
   <string name="uploadAnImageForYourPost">Nahrať obrázok pre svoj príspevok</string>
   <string name="imageAlt">Alternatívny popis obrázka</string>
   <string name="imageCredit">Vlastník obrázka</string>
+  <string name="deleteBlog">Definitívne vymazať tento blogový príspevok</string>
+  <string name="deleteImage">Vymazať tento obrázok</string>
 </resources>
