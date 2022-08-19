@@ -58,11 +58,9 @@ object index {
             a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code")(
               "Lichess OAuth app example"
             ),
-            ", and ",
-            a(href := "https://lichess.org/api")(
-              "Lichess' API documentation"
-            ),
-            " to get an idea on how Lishogi's API looks."
+            ", and the ",
+            a(href := routes.Api.index)("API documentation (WIP)"),
+            "."
           ),
           table(cls := "slist slist-pad")(
             made.map { t =>
