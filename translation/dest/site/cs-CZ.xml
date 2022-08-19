@@ -977,4 +977,5 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Hodnocené hry od všech Lichess hráčů</string>
   <string name="switchSides">Prohodit strany</string>
+  <string name="closingAccountWithdrawAppeal">Uzavřením vašeho účtu stáhnete vaše odvolání</string>
 </resources>
