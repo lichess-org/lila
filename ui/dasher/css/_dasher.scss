@@ -214,7 +214,22 @@
         border-radius: 4px;
       }
       .sp-alpha-handle.highlight {
-        animation: 1.5s glow ease-in-out infinite;
+        background: $c-bg-input;
+        outline: 2px solid $c-bad;
+        animation: 1.3s flash-glow ease-in-out infinite;
+        &::after {
+          content: '';
+          position: absolute;
+          left: -2px;
+          top: -20px;
+          border: 10px solid $c-bad;
+          border-bottom: 0;
+          border-left-color: transparent;
+          border-right-color: transparent;
+          opacity: 0;
+          animation: 0.5s delayedShow forwards, 1.3s bounce ease-in-out infinite;
+          animation-delay: 3s;
+        }
       }
       .sp-alpha-handle,
       .sp-slider {
@@ -228,14 +243,35 @@
   }
 }
 
-@keyframes glow {
+@keyframes flash-glow {
   0% {
     background: $c-bg-input;
+    outline: 2px solid $c-bad;
   }
   50% {
     background: $c-bad;
+    outline: 2px solid $c-font-clearer;
   }
   100% {
     background: $c-bg-input;
+    outline: 2px solid $c-bad;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    top: -20px;
+  }
+  50% {
+    top: -15px;
+  }
+  100% {
+    top: -20px;
+  }
+}
+
+@keyframes delayedShow {
+  to {
+    opacity: 1;
   }
 }
