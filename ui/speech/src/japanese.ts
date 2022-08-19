@@ -27,6 +27,7 @@ function toHiragana(kanji: string | undefined): string | undefined {
     case '龍':
       return 'りゅう';
     case '玉':
+    case '王':
       return 'おう';
     case '成':
       return 'なり';
@@ -55,7 +56,7 @@ function toHiragana(kanji: string | undefined): string | undefined {
   }
 }
 const jReg =
-  /((?:[１２３４５６７８９][一二三四五六七八九])|同　)(歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|王)(打|左|右|上|行|引|寄|直)*(成|不成)?/;
+  /((?:[１２３４５６７８９][一二三四五六七八九])|同　)(歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|玉|王)(打|左|右|上|行|引|寄|直)*(成|不成)?/;
 
 export function renderMove(move: string): string | undefined {
   const match = move.match(jReg);
