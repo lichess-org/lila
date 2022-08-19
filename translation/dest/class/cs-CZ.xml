@@ -12,6 +12,7 @@
   <string name="teachersX">Učitelé: %s</string>
   <string name="newClass">Nová třída</string>
   <string name="closeClass">Zavřít třídu</string>
+  <string name="removedByX">Odstraněno uživatelem %s</string>
   <string name="reopen">Znovu otevřít</string>
   <string name="removeStudent">Odstranit studenta</string>
   <string name="removedStudents">Odstraněno</string>
@@ -116,4 +117,6 @@ Zobrazí se vodorovná čára.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">vytvořit více tříd</string>
   <string name="studentsRealNamesOnePerLine">Skutečná jména studentů, jedno na řádek</string>
   <string name="xisNowAStudentOfTheClass">%s je nyní student třídy</string>
+  <string name="anInvitationHasBeenSentToX">Pozvánka byla odeslána uživateli %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s již má pozvánku</string>
 </resources>
