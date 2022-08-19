@@ -102,7 +102,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
       : h(
           'span.technology.bad',
           { attrs: { title: 'Unfortunately local analysis is not available for this device or browser' } },
-          'No local engine supported'
+          'No engine supported'
         ),
   ];
 }
