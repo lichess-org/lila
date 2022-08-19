@@ -15,7 +15,7 @@
   <string name="theChapterIsTooShortToBeAnalysed">Ang kabanata ay masyadong maiksi para sa pagsusuri.</string>
   <string name="onlyContributorsCanRequestAnalysis">Ang mga kontribyutor lamang ng pag-aaral ang maaaring manghingi ng pagsusuri galing sa kompyuter.</string>
   <string name="makeSureTheChapterIsComplete">Siguraduhin na ang kabanata ay kumpleto. Isang beses ka lang makakahingi ng analysis.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Lahat ng miyembro ng SYNC ay mananatili sa parehas na position</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Lahat ng miyembro ng SYNC ay mananatili sa parehas na position</string>
   <string name="shareChanges">Ibahagi ang mga pagbabago sa mga manonood at i-save sila sa server</string>
   <string name="playing">Naglalaro</string>
   <string name="first">Una</string>

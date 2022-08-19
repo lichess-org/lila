@@ -164,7 +164,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
         List(whiteToken, blackToken) // flatten now, re-pair later!
       }
       .mapAsync(8) { token =>
-        oauthServer.auth(token, List(OAuthScope.Challenge.Write)) map {
+        oauthServer.auth(token, List(OAuthScope.Challenge.Write), none) map {
           _.left.map { BadToken(token, _) }
         }
       }

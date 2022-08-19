@@ -53,7 +53,7 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="update">Ĝisdatigi</string>
   <string name="changeMonthlyAmount">Ŝanĝu la monatan sumon (%s)</string>
   <string name="cancelSupport">nuligi vian subtenon</string>
-  <string name="xOrY">%1$s aŭ %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s aŭ %2$s</string>
   <string name="decideHowMuch">Decidu, kiom valoras Lichess por vi:</string>
   <string name="stopPayments">Retiru vian kreditkarton kaj ĉesu pagojn:</string>
   <string name="noLongerSupport">Ne plu subtenas Lichess</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">%s さん lichess.org のアカウントご確認を</string>
+  <string name="emailConfirm_subject" comment="emailConfirm_subject&#10;&#10;%s is the player's username.&#10;Please do NOT transcribe 'lichess.org', it should be kept exactly as it is written.">%s さん lichess.org のアカウントご確認を</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">リンクをクリックして Lichess のアカウントを有効化してください。</string>
   <string name="emailConfirm_ignore">もし Lichess に登録した覚えがなければ、無視して大丈夫です。</string>
   <string name="passwordReset_subject">%s さん、lichess.org のパスワードをリセットして</string>

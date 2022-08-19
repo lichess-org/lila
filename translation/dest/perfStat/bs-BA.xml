@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Nedovoljno partija odigrano</string>
   <string name="highestRating">Najveći rejting: %s</string>
   <string name="lowestRating">Najniži rejting: %s</string>
-  <string name="fromXToY">od %1$s do %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">od %1$s do %2$s</string>
   <string name="winningStreak">Pobjednički Niz</string>
   <string name="losingStreak">Gubitnički Niz</string>
   <string name="longestStreak">Najduži niz: %s</string>

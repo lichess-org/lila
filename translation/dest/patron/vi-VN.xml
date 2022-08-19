@@ -53,7 +53,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi lượng tiền hàng tháng (%s)</string>
   <string name="cancelSupport">hủy sự giúp đỡ của bạn</string>
-  <string name="xOrY">%1$s hoặc %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s hoặc %2$s</string>
   <string name="decideHowMuch">Quyết định Lichess đáng giá như nào với bạn:</string>
   <string name="stopPayments">Rút thẻ tín dụng và dừng các thanh toán:</string>
   <string name="stopPaymentsPayPal">Huỷ đăng ký qua PayPal và dừng chuyển tiền:</string>

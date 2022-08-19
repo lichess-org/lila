@@ -63,7 +63,7 @@ Totuși, Patronii primesc o nouă pictogramă faină lângă profil.</string>
   <string name="update">Actualizare</string>
   <string name="changeMonthlyAmount">Modificați suma lunară (%s)</string>
   <string name="cancelSupport">anuleaza-ți susținerea</string>
-  <string name="xOrY">%1$s sau %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s sau %2$s</string>
   <string name="decideHowMuch">Decide cât valorează Lichess pentru tine:</string>
   <string name="stopPayments">Retrage-ți cardul de credit și oprește plățile:</string>
   <string name="stopPaymentsPayPal">Anulează abonamentul PayPal și oprește plățile:</string>

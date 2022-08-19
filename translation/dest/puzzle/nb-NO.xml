@@ -70,7 +70,7 @@
   <string name="searchPuzzles">Søk etter sjakknøtter</string>
   <string name="fromMyGamesNone">Du har ingen sjakknøtter i databasen, men Lichess setter like fullt umåtelig stor pris på deg.
 Spill partier i hurtigsjakk og klassisk sjakk for å øke sjansen for å få med en sjakknøtt!</string>
-  <string name="fromXGamesFound">%1$s sjakknøtter funnet i partier med %2$s</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s sjakknøtter funnet i partier med %2$s</string>
   <string name="puzzleDashboardDescription">Øv, analyser, bli bedre</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s spilt</item>

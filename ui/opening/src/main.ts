@@ -14,13 +14,11 @@ import {
 Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 export function family(data: OpeningData) {
-  console.log(data);
-  renderHistoryChart(data);
-  $('.replay--autoload').each(function (this: HTMLElement) {
+  $('.opening__intro .lpv').each(function (this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
       initialPly: 'last',
-      showMoves: false,
+      showMoves: 'bottom',
       showClocks: false,
       showPlayers: false,
       menu: {
@@ -31,34 +29,53 @@ export function family(data: OpeningData) {
       },
     });
   });
+  lichess.requestIdleCallback(renderVariations);
+  lichess.requestIdleCallback(() => renderHistoryChart(data));
 }
 
+export const abstractFamily = () => renderVariations();
+
+const renderVariations = () =>
+  $('.opening__variations').each(function (this: HTMLElement) {
+    const lazyLoader = new IntersectionObserver(
+      (entries: any[]) => {
+        entries.forEach(e => {
+          if (e.intersectionRatio) {
+            renderVariation(e.target);
+            lazyLoader.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    Array.from(this.querySelectorAll('.lpv')).forEach(c => lazyLoader.observe(c));
+
+    $(this).on('click', '.lpv__board', e =>
+      $(e.target).parents('.opening__variations__variation').find('a').trigger('click')
+    );
+  });
+
+const renderVariation = (el: HTMLElement) =>
+  Lpv(el, {
+    pgn: el.dataset['pgn'],
+    showPlayers: false,
+    showMoves: false,
+    initialPly: 'last',
+    drawArrows: false,
+    scrollToMove: false,
+  });
+
 const renderHistoryChart = (data: OpeningData) => {
-  const canvas = document.querySelector('.opening__popularity') as HTMLCanvasElement;
+  const canvas = document.querySelector('.opening__popularity__chart') as HTMLCanvasElement;
   new Chart(canvas, {
     type: 'line',
     data: {
       labels: data.history.map(s => s.month),
       datasets: [
         {
-          label: 'Draws',
-          data: data.history.map(s => s.draws),
-          borderColor: 'rgba(189,130,35,1)',
-          backgroundColor: 'rgba(189,130,35,0.5)',
-          fill: true,
-        },
-        {
-          label: 'White wins',
-          data: data.history.map(s => s.white),
-          borderColor: 'rgba(189,130,150,1)',
-          backgroundColor: 'rgba(189,130,150,0.5)',
-          fill: true,
-        },
-        {
-          label: 'Black wins',
-          data: data.history.map(s => s.black),
-          borderColor: 'rgba(189,130,220,1)',
-          backgroundColor: 'rgba(189,130,220,0.5)',
+          data: data.history.map(s => s.draws + s.black + s.white),
+          borderColor: 'hsla(37,74%,43%,1)',
+          backgroundColor: 'hsla(37,74%,43%,0.5)',
           fill: true,
         },
       ],
@@ -67,7 +84,6 @@ const renderHistoryChart = (data: OpeningData) => {
       animation: false,
       scales: {
         y: {
-          stacked: true,
           min: 0,
           // max: 20,
         },

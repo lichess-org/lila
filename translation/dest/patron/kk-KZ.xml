@@ -61,7 +61,7 @@
   <string name="update">Жаңарту</string>
   <string name="changeMonthlyAmount">Айлық мөлшерін өзгерту (%s)</string>
   <string name="cancelSupport">қолдауды тоқтату</string>
-  <string name="xOrY">%1$s немесе %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s немесе %2$s</string>
   <string name="decideHowMuch">Личес сізге қаншалықты бағалы:</string>
   <string name="stopPayments">Банк картасын ажыратып, төлемдерді тоқтату:</string>
   <string name="stopPaymentsPayPal">PayPal жазылым мен төлемдерін тоқтату:</string>

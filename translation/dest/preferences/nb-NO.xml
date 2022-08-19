@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Hold &lt;ctrl&gt;-tasten nede under bondeforvandlingen for å unngå auto-dronning</string>
   <string name="whenPremoving">Ved bruk av førtrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Når gjenværende tid &lt; 30 sekunder</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Når gjenværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Trekkbekreftelse</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="correspondenceAndUnlimited">Korrespondanse og ubegrenset</string>

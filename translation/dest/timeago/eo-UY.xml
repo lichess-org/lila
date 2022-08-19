@@ -29,6 +29,7 @@
     <item quantity="one">en %s jaro</item>
     <item quantity="other">en %s jaroj</item>
   </plurals>
+  <string name="rightNow">ĵuse</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">antaŭ %s sekundo</item>
     <item quantity="other">antaŭ %s sekundoj</item>

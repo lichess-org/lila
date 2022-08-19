@@ -3,7 +3,7 @@ package lila.common
 import chess.Color
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariation }
 
-case class LilaOpeningFamily(ref: OpeningFamily, full: FullOpening) {
+case class LilaOpeningFamily(ref: OpeningFamily, full: Option[FullOpening]) {
   import LilaOpeningFamily._
   val name             = Name(ref.name)
   val key              = Key(LilaOpening nameToKey name.value)
@@ -21,12 +21,11 @@ object LilaOpeningFamily {
 
   lazy val families: Map[Key, LilaOpeningFamily] = FullOpeningDB.all
     .foldLeft(Map.empty[Key, LilaOpeningFamily]) { case (acc, fullOp) =>
-      val fam = LilaOpeningFamily(fullOp.family, fullOp)
+      val fam = LilaOpeningFamily(fullOp.family, fullOp.variation.isEmpty option fullOp)
       acc.get(fam.key) match {
-        case Some(existing) if fullOp.uci.size < existing.full.uci.size =>
-          acc.updated(fam.key, fam)
-        case Some(_) => acc
-        case None    => acc.updated(fam.key, fam)
+        case Some(LilaOpeningFamily(_, None)) if fam.full.isDefined => acc.updated(fam.key, fam)
+        case Some(_)                                                => acc
+        case None                                                   => acc.updated(fam.key, fam)
       }
     }
 
@@ -37,8 +36,12 @@ object LilaOpeningFamily {
 
 case class LilaOpening(ref: FullOpening, name: LilaOpening.Name, family: LilaOpeningFamily) {
   import LilaOpening._
-  val key       = Key(nameToKey(name.value))
-  def variation = ref.variation | otherVariations
+  val key            = Key(nameToKey(name.value))
+  def isFamily       = ref.variation.isEmpty
+  def familyKeyOrKey = if (isFamily) Key(family.key.value) else key
+  def variation      = ref.variation | otherVariations
+  lazy val nbMoves   = ref.uci.count(' ' ==) + 1
+  lazy val lastUci   = ref.uci.split(' ').lastOption
 }
 
 object LilaOpening {

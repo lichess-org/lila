@@ -1,83 +1,55 @@
 package lila.opening
 
 import com.softwaremill.tagging._
-import play.api.libs.json.JsValue
-import play.api.libs.ws.JsonBodyReadables._
-import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.LilaOpeningFamily
+import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.db.dsl._
 import lila.memo.CacheApi
-import play.api.Mode
+import com.github.blemale.scaffeine.AsyncLoadingCache
 
 final class OpeningApi(
-    ws: StandaloneWSClient,
     cacheApi: CacheApi,
-    mongoCache: lila.memo.MongoCache.Api,
-    explorerEndpoint: String @@ ExplorerEndpoint
-)(implicit ec: ExecutionContext, mode: Mode) {
+    coll: Coll @@ OpeningColl,
+    allGamesHistory: AsyncLoadingCache[Unit, List[OpeningHistorySegment[Int]]] @@ AllGamesHistory
+)(implicit ec: ExecutionContext) {
 
-  def families: Fu[FamilyDataCollection] = collectionCache.get(())
+  def getPopular: Fu[PopularOpenings] = popularCache.get(())
 
-  def apply(op: LilaOpeningFamily): Fu[Option[OpeningFamilyData.WithAll]] = for {
-    coll <- families
-    all  <- allGamesHistory.get(())
-  } yield coll.byKey get op.key map {
-    OpeningFamilyData.WithAll(_, all)
-  }
+  def find(key: String): Fu[Option[OpeningData.WithAll]] = apply(LilaOpening.Key(key))
 
-  private val allGamesHistory = cacheApi.unit[List[OpeningHistorySegment[Long]]] {
-    _.refreshAfterWrite(1 hour)
-      .buildAsyncFuture { _ =>
-        fetchHistory(none)
+  def apply(key: LilaOpening.Key): Fu[Option[OpeningData.WithAll]] =
+    getPopular map {
+      _.byKey get key
+    } orElse {
+      coll.byId[OpeningData](key.value)
+    } flatMap {
+      _ ?? { opening =>
+        allGamesHistory.get(()) map { OpeningData.WithAll(opening, _).some }
       }
-  }
-
-  import FamilyDataCollection.collectionHandler
-  val collectionCache = mongoCache.unit[FamilyDataCollection](
-    "opening:families",
-    25 hours
-  ) { loader =>
-    _.refreshAfterWrite(24 hours)
-      .buildAsyncFuture {
-        loader { _ =>
-          val fams =
-            if (mode == Mode.Prod) LilaOpeningFamily.familyList
-            else LilaOpeningFamily.familyList take 50
-          fams
-            .map(computeFamilyData)
-            .sequenceFu
-            .map(_.sortBy(-_.nbGames)) map FamilyDataCollection.apply
-        }
-      }
-  }
-
-  private def computeFamilyData(fam: LilaOpeningFamily): Fu[OpeningFamilyData] = for {
-    history <- fetchHistory(fam.some).recover { case e: Exception =>
-      logger.error(s"Couldn't get opening family data for ${fam.key}", e)
-      Nil
     }
-    allGames <- allGamesHistory.get(())
-  } yield OpeningFamilyData(fam, history)
 
-  private def fetchHistory(fam: Option[LilaOpeningFamily]): Fu[List[OpeningHistorySegment[Long]]] =
-    ws.url(s"$explorerEndpoint/lichess/history")
-      .withQueryStringParameters(
-        (List(
-          "since"   -> "2015-01",
-          "variant" -> chess.variant.Standard.key
-        ) ::: fam.map(f => "fen" -> f.full.fen.pp("fetch")).orElse(Some("play" -> "")).toList,
-        ): _*
-      )
-      .get()
-      .flatMap {
-        case res if res.status != 200 =>
-          fufail(s"Couldn't reach the opening explorer: ${fam.fold("initial")(_.key.value)}")
-        case res =>
-          import OpeningHistory.segmentJsonRead
-          (res.body[JsValue] \ "history")
-            .validate[List[OpeningHistorySegment[Long]]]
-            .fold(invalid => fufail(invalid.toString), fuccess)
+  def variationsOf(fam: LilaOpeningFamily): Fu[List[OpeningData.Preview]] =
+    variationsCache.get(fam.key)
+
+  private val variationsCache =
+    cacheApi[LilaOpeningFamily.Key, List[OpeningData.Preview]](64, "opening.variations") {
+      _.expireAfterWrite(1 hour)
+        .buildAsyncFuture { key =>
+          coll
+            .find($doc("_id" $startsWith s"${key}_"), OpeningData.previewProjection.some)
+            .sort($sort desc "nbGames")
+            .cursor[OpeningData.Preview]()
+            .list(64)
+        }
+    }
+
+  private val popularCache = cacheApi.unit[PopularOpenings] {
+    _.refreshAfterWrite(5 second)
+      .buildAsyncFuture { _ =>
+        import OpeningData.openingDataHandler
+        coll.find($empty).sort($sort desc "nbGames").cursor[OpeningData]().list(500) map PopularOpenings
       }
+  }
 }

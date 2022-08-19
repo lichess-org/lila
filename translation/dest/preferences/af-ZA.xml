@@ -35,7 +35,7 @@
   <string name="explainPromoteToQueenAutomatically">Druk die &lt;ctrl&gt;-sleutel terwyl jy promoveer om outo-promovering tydelik te deaktiveer</string>
   <string name="whenPremoving">Tydens vooraf-skuiwe</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis gelykop met drievoudige repetisie outomaties</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">&lt; 30 sekondes voor tyd uitloop</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">&lt; 30 sekondes voor tyd uitloop</string>
   <string name="moveConfirmation">Skuif bevestiging</string>
   <string name="inCorrespondenceGames">Korrespondensie spelle</string>
   <string name="correspondenceAndUnlimited">Korrespondensie en onbeperkte</string>

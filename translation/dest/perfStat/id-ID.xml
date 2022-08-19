@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Permainan yang dimainkan tidak mencukupi</string>
   <string name="highestRating">Rating tertinggi: %s</string>
   <string name="lowestRating">Rating terendah: %s</string>
-  <string name="fromXToY">dari %1$s ke %2$s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">dari %1$s ke %2$s</string>
   <string name="winningStreak">Kemenangan beruntun</string>
   <string name="losingStreak">Kekalahan beruntun</string>
   <string name="longestStreak">Beruntun terpanjang: %s</string>

@@ -60,7 +60,7 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Méintlechen Montant änneren (%s)</string>
   <string name="cancelSupport">deng Ënnerstëtzung ofbriechen</string>
-  <string name="xOrY">%1$s oder %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s oder %2$s</string>
   <string name="decideHowMuch">Decidéier wat Lichess dir wert ass:</string>
   <string name="stopPayments">Kreditkaart zeréckzéien and Iwwerweisungen stoppen:</string>
   <string name="noLongerSupport">Lichess net méi ënnerstëtzen</string>

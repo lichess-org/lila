@@ -64,7 +64,7 @@ Ali pa %s.</string>
   <string name="update">Posodobitev</string>
   <string name="changeMonthlyAmount">Spremeni mesečni znesek (%s)</string>
   <string name="cancelSupport">prekliči svojo podporo</string>
-  <string name="xOrY">%1$s ali %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ali %2$s</string>
   <string name="decideHowMuch">Odločite se, koliko vam je Lichess vreden:</string>
   <string name="stopPayments">Umaknite kreditno kartico in ustavite plačila:</string>
   <string name="stopPaymentsPayPal">Prekličite naročnino na PayPal in ustavite plačila:</string>

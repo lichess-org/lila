@@ -23,7 +23,8 @@ object msg {
             )})"""
         )
       ),
-      title = "Lichess Inbox"
+      title = trans.inbox.txt(),
+      csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "box msg-app")
     }

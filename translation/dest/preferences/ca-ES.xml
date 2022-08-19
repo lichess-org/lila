@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Demana empat per repetició automàticament</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació de moviment</string>
   <string name="inCorrespondenceGames">Només en partides per correspondència</string>
   <string name="correspondenceAndUnlimited">Per correspondència i sense límit de temps</string>

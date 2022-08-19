@@ -18,7 +18,7 @@
   <string name="notEnoughGames">पर्याप्त खेल नहीं खेले गए</string>
   <string name="highestRating">अधिकतम रेटिंग:%s</string>
   <string name="lowestRating">न्यूनतम रेटिंग: %s</string>
-  <string name="fromXToY">%1$s से %2$s तक</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">%1$s से %2$s तक</string>
   <string name="winningStreak">लगातार जीत की संख्या</string>
   <string name="losingStreak">लगातार हार की संख्या</string>
   <string name="longestStreak">सबसे लंबी स्ट्रीक: %s</string>

@@ -114,7 +114,7 @@ GET   /blog/community/:lang            controllers.Ublog.community(lang: String,
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 
 GET   /opening                         controllers.Opening.index
-GET   /opening/:family                 controllers.Opening.family(family: String)
+GET   /opening/:key                    controllers.Opening.show(key: String)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home

@@ -69,7 +69,7 @@
   <string name="searchPuzzles">Mirar problemas</string>
   <string name="fromMyGamesNone">No i hai problemas de las tuyas partidas en a base de datos, pero Lichess te quiere muito igual.
 Chuga partidas rapidas y clasica pa tener mas opcions de que anyadamos un problemas tuyo.</string>
-  <string name="fromXGamesFound">S\'ha trobau %1$s problemas de %2$s partidas</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">S\'ha trobau %1$s problemas de %2$s partidas</string>
   <string name="puzzleDashboardDescription">Entrena, analisa, millora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s chugau</item>

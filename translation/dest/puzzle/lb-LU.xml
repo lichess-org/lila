@@ -69,7 +69,7 @@
   <string name="searchPuzzles">Aufgabe sichen</string>
   <string name="fromMyGamesNone">Et befannen sech keng Aufgabe vun dir an der Datebank, mee Lichess schätzt dech weiderhi ganz vill.
 Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun denge Partien bäizefügen!</string>
-  <string name="fromXGamesFound">%1$s Aufgaben an %2$s Partie fonnt</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s Aufgaben an %2$s Partie fonnt</string>
   <string name="puzzleDashboardDescription">Trainéier, analyséier, verbesser</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gespillt</item>

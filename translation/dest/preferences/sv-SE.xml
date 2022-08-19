@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Håll ner &lt;ctrl&gt; -tangenten medan du uppgraderar för att tillfälligt inaktivera automatisk förvandling</string>
   <string name="whenPremoving">Vid premove</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Begär remi automatiskt vid trefaldig upprepning</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">När återstående tid &lt; 30 sekunder</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">När återstående tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekräftelse av drag</string>
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="correspondenceAndUnlimited">Korrespondens och obegränsad</string>

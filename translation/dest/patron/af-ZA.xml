@@ -53,7 +53,7 @@ Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="update">Dateer Op</string>
   <string name="changeMonthlyAmount">Verander die maandelikse bedrag (%s)</string>
   <string name="cancelSupport">kanseleer jou ondersteuning</string>
-  <string name="xOrY">%1$s of %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s of %2$s</string>
   <string name="decideHowMuch">Besluit wat Lichess vir jou werd is:</string>
   <string name="stopPayments">Onttrek jou krediet kaart en kanseleer paaiemente:</string>
   <string name="stopPaymentsPayPal">Kanselleer PayPal-subskripsie en stop betalings:</string>

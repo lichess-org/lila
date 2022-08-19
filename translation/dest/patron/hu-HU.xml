@@ -61,7 +61,7 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="update">Frissítés</string>
   <string name="changeMonthlyAmount">Havi összeg módosítása (%s)</string>
   <string name="cancelSupport">támogatás visszavonása</string>
-  <string name="xOrY">%1$s vagy %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s vagy %2$s</string>
   <string name="decideHowMuch">Mennyit ér meg neked a Lichess:</string>
   <string name="stopPayments">Bankkártya törlése és fizetések leállítása:</string>
   <string name="stopPaymentsPayPal">PayPal előfizetés törlése és anyagi támogatás leállítása:</string>

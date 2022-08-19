@@ -67,7 +67,7 @@
   <string name="fromXGames">Խնդիրներ %s-ի պարտիաներից</string>
   <string name="searchPuzzles">Փնտրել խնդիրներ</string>
   <string name="fromMyGamesNone">Տվյալների բազայում Ձեր պարտիաներից խնդիրներ չկան, բայց Lichess-ը Ձեզ հետ հույսեր է կապում։ Խաղացե՛ք ավելի շատ արագ կամ դասական ժամակարգով պարտիաներ, և խնդիրներ ունեցող խաղացողների ցանկում հայտնվելու Ձեր հնարավորությունները կմեծանան։</string>
-  <string name="fromXGamesFound">Գտնվել է %1$s խնդիր %2$s պարտիաներում</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">Գտնվել է %1$s խնդիր %2$s պարտիաներում</string>
   <string name="puzzleDashboardDescription">Մարզվե՛ք, վերլուծե՛ք, բարելավե՛ք</string>
   <string name="noPuzzlesToShow">Ոչինչ չկա, սկսելու համար լուծե՛ք մի քանի խնդիր։</string>
 </resources>

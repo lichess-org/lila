@@ -90,7 +90,8 @@ object topic {
           url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
           description = shorten(posts.currentPageResults.headOption.??(_.post.text), 152)
         )
-        .some
+        .some,
+      csp = defaultCsp.withInlineIconFont.some
     ) {
       val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits

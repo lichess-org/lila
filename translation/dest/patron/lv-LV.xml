@@ -63,7 +63,7 @@ Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</strin
   <string name="update">Jaunināt</string>
   <string name="changeMonthlyAmount">Mainīt ikmēneša daudzumu (%s)</string>
   <string name="cancelSupport">atcelt savu atbalstu</string>
-  <string name="xOrY">%1$s vai %2$s</string>
+  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s vai %2$s</string>
   <string name="decideHowMuch">Izlemiet, cik jums Lichess ir vērts:</string>
   <string name="stopPayments">Noņemt kredītkarti un beigt maksājumus:</string>
   <string name="stopPaymentsPayPal">Atcelt PayPal abonementu un pārtraukt maksājumus:</string>

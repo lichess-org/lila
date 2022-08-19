@@ -273,7 +273,11 @@ final class Study(
               contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
               res <-
                 if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-                else Ok(html.study.create(data, owner, contrib, editorC.editorUrl)).fuccess
+                else {
+                  val back = HTTPRequest.referer(req) orElse
+                    data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
+                  Ok(html.study.create(data, owner, contrib, back)).fuccess
+                }
             } yield res
         )
     }

@@ -71,7 +71,7 @@ object OAuthScope {
 
   type Selector = OAuthScope.type => OAuthScope
 
-  val all = List(
+  val all: List[OAuthScope] = List(
     Preference.Read,
     Preference.Write,
     Email.Read,
@@ -92,6 +92,13 @@ object OAuthScope {
     Bot.Play,
     Web.Login,
     Web.Mod
+  )
+
+  val dangerList: Set[OAuthScope] = Set(
+    Team.Write,
+    Web.Login,
+    Web.Mod,
+    Msg.Write
   )
 
   val byKey: Map[String, OAuthScope] = all.map { s =>
