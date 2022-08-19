@@ -83,7 +83,6 @@ export interface Step {
   usi?: Usi;
   notation?: string;
   check?: boolean;
-  capture?: boolean;
 }
 
 export interface ApiMove extends Step {

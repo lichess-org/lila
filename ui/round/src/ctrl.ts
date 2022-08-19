@@ -248,9 +248,11 @@ export default class RoundController {
         dests: this.isPlaying() ? util.getDropDests(s.sfen, this.data.game.variant.key) : new Map(),
       };
     }
+    const move = s.usi && parseUsi(s.usi),
+      capture = isForwardStep && move && this.shogiground.state.pieces.get(makeSquare(move.to) as Key);
     this.shogiground.set(config);
     if (s.usi && isForwardStep) {
-      if (s.capture) sound.capture();
+      if (capture) sound.capture();
       else sound.move();
       if (s.check) sound.check();
     }
@@ -379,16 +381,15 @@ export default class RoundController {
     this.playerByColor('gote').offeringDraw = o.gDraw;
     this.setTitle();
     const move = parseUsi(o.usi!)!;
-    const capture = this.shogiground.state.pieces.get(makeSquare(move.to) as Key);
-    const isDropMove = isDrop(move);
     if (!this.replaying()) {
       this.ply++;
-      if (isDropMove) {
-        const piece = {
-          role: move.role,
-          color: playedColor,
-        };
-        // no need to drop the piece if it is already there
+      if (isDrop(move)) {
+        const capture = this.shogiground.state.pieces.get(makeSquare(move.to) as Key),
+          piece = {
+            role: move.role,
+            color: playedColor,
+          };
+        // no need to drop the piece if it is already there - would play the sound again
         if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, o.usi!.substring(2, 4) as sg.Key);
       } else {
         // This block needs to be idempotent
@@ -419,7 +420,6 @@ export default class RoundController {
         usi: o.usi,
         notation: makeNotation(d.pref.notation, lastStep.sfen, this.data.game.variant.key, o.usi!, lastStep.usi),
         check: o.check,
-        capture: !!capture && !isDropMove, // drops can't capture
       };
     d.steps.push(step);
     game.setOnGame(d, playedColor, true);
