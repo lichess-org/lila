@@ -1,9 +1,9 @@
 # search ignores
-vendor
-translation
+translation/dest
 ui/*/css/build
 public/font
 public/images
-public/sound
 public/piece
 public/piece-css
+public/sound
+public/vendor
