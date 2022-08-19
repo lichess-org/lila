@@ -165,6 +165,7 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">S ideou</string>
   <string name="nextChapter">Další kapitola</string>
   <string name="prevChapter">Předchozí kapitola</string>
+  <string name="studyActions">Akce pro studii</string>
   <string name="topics">Témata</string>
   <string name="myTopics">Moje témata</string>
   <string name="popularTopics">Oblíbená témata</string>
