@@ -9,7 +9,7 @@ const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 // accept partial ICCF because submit runs on every keypress
-const iccfRegex = /^[1-8]{1,4}[1-5]?$/;
+const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
 interface Opts {
   input: HTMLInputElement;
@@ -127,10 +127,8 @@ export default (opts: Opts) => {
 
 function iccfToUci(v: string) {
   const chars = v.split('');
-  [0, 2].forEach(i => {
-    if (chars[i]) chars[i] = files[parseInt(chars[i]) - 1];
-  });
-  if (chars[4]) chars[4] = 'qrbn'[parseInt(chars[4]) - 1];
+  if (chars[0]) chars[0] = files[parseInt(chars[0]) - 1];
+  if (chars[2]) chars[2] = 'qrbn'[parseInt(chars[4]) - 1];
 
   return chars.join('');
 }
