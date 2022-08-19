@@ -19,7 +19,7 @@ function parseSfen($elem) {
     if (ground) ground.set(config);
     else {
       this.innerHTML = '<div class="sg-wrap mini-board"></div>';
-      $this.data('shogiground', Shogiground(config, this.firstChild));
+      $this.data('shogiground', Shogiground(config, { board: this.firstChild }));
     }
   });
 }
