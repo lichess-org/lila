@@ -124,6 +124,10 @@
   <string name="enPassantComplete">Շնորհավորո՜ւմ ենք։ Դուք արդեն կարող եք կատարել կողանցիկ հարված։</string>
   <string name="stalemate">Պատ</string>
   <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
+  <string name="whatNext">Հետո ինչ?</string>
+  <string name="youKnowHowToPlayChess">Դուք կարող եք շախմատ խաղալ, շնորհավորում եմ: Ցանկանում եք դառնալ ավելի ուժեղ խաղացող?</string>
+  <string name="practice">Զբաղվել, Պարապել</string>
+  <string name="learnCommonChessPositions">Ուսումնասիրեք  շախմատային ընդհանուր շախմատային դիրքերը</string>
   <string name="puzzles">Խնդիրներ</string>
   <string name="exerciseYourTacticalSkills">Մարզեք Ձեր մարտավարական ունակությունները</string>
   <string name="videos">Տեսանյութեր</string>
@@ -146,6 +150,7 @@
   <string name="rightOn">Հենց այդպե՛ս։</string>
   <string name="stageXComplete">%s դասը յուրացված է</string>
   <string name="next">Հաջորդը</string>
+  <string name="nextX">Հաջորդ: %s</string>
   <string name="backToMenu">Վերադառնալ ցանկ</string>
   <string name="puzzleFailed">Առաջադրանքը ձախողվե՛ց</string>
   <string name="retry">Կրկնել</string>
