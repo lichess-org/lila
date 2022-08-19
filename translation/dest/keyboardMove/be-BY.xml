@@ -10,6 +10,7 @@
   <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Паставіць ладдзю на b4 (толькі для Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Прапанаваць ці пагадзіцца на нічыю</string>
   <string name="readOutClocks">Агучыць астатак часу</string>
+  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Агучыць імя суперніка</string>
   <string name="otherCommands">Іншыя каманды</string>
   <string name="tips">Падказкі</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Калі анатацыя хода вышэй незразумела, дазнайцеся болей тут:</string>
