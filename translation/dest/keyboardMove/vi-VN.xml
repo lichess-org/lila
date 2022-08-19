@@ -10,6 +10,7 @@
   <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Đặt xe ở b4 (chỉ Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Cầu hoà hoặc nhận hoà</string>
   <string name="readOutClocks">Thông báo thời gian</string>
+  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Đọc tên đối thủ</string>
   <string name="otherCommands">Lệnh khác</string>
   <string name="tips">Lời khuyên</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Nếu bạn không nhận ra nước đi trên, tìm hiểu tại đây:</string>
