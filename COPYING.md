@@ -5,7 +5,6 @@ Any file in this project that does not state otherwise and is not listed as an
 exception below is part of lila and copyright (c) 2019 onwards the li[shogi in sca]la authors.
 
 For a list of the authors see the commit log or
-https://github.com/lichess-org/lila/graphs/contributors,
 https://github.com/WandererXII/lishogi/graphs/contributors.
 
 Lishogi is free software; you can redistribute and/or modify it under the terms
@@ -50,7 +49,7 @@ public/piece/mono | Thibault Duplessis and [Colin M.L. Burnett](https://en.wikip
 public/piece/{1Kanji_3D,Intl_Colored_3D} | [Little-Mage](https://github.com/Little-Mage) and [CouchTomato87](https://github.com/CouchTomato87) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 public/piece/2Kanji_3D | [Little-Mage](https://github.com/Little-Mage) and [orangain](https://github.com/orangain) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
 public/piece/orangain | [orangain](https://github.com/orangain) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
-public/piece/{Intl_Colored_2D,Intl_Monochrome_2D,Intl_Shadowed,Intl_Wooden_3D,international,Kanji_Guide_Shadowed} | [CouchTomato87](https://github.com/CouchTomato87) | [CC BY 4.0](https://github.com/CouchTomato87/InternationalizedPieces/blob/master/LICENCE.txt)
+public/piece/{Intl_Colored_2D,Intl_Monochrome_2D,Intl_Shadowed,Intl_Wooden_3D,international,Kanji_Guide_Shadowed,Intl_Portella} | [CouchTomato87](https://github.com/CouchTomato87) | [CC BY 4.0](https://github.com/CouchTomato87/InternationalizedPieces/blob/master/LICENCE.txt)
 public/piece/Shogi_cz | [shogi.cz](https://www.shogi.cz/) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 public/piece/shogi_BnW | [visualdenniss](https://github.com/visualdenniss) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 public/piece/{simple_kanji,kanji_red_wood,kanji_light,kanji_brown,doubutsu} | [Ka-hu](https://github.com/Ka-hu) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
@@ -58,6 +57,7 @@ public/piece/Ryoko_1Kanji | [nexxogen](https://github.com/nexxogen) | [CC BY-SA 
 public/piece/{Portella,Portella_2Kanji} | Portella | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/{Logy_Games,Vald_opt,Valdivia} | [Kleffa](https://github.com/kleffa) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 public/piece/western | [peanatsu](https://github.com/peanatsu) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
+public/piece/Engraved_cz | [ddeo604](https://github.com/ddeo604) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 public/sound/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sound/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sound/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
