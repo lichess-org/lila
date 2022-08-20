@@ -21,7 +21,7 @@ final private class TwitchApi(ws: WSClient, config: TwitchConfig)(implicit ec: E
     (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10) ?? {
       val query = List(
         "game_id" -> "1593570952", // shogi
-        "first"   -> "100"     // max results per page
+        "first"   -> "100"         // max results per page
       ) ::: List(
         pagination.flatMap(_.cursor).map { "after" -> _ }
       ).flatten
@@ -36,12 +36,12 @@ final private class TwitchApi(ws: WSClient, config: TwitchConfig)(implicit ec: E
           case res if res.status == 200 =>
             res.body[JsValue].validate[Twitch.Result](twitchResultReads) match {
               case JsSuccess(result, _) => fuccess(result)
-              case JsError(err)         => fufail(s"twitch $err ${res.body.take(500)}")
+              case JsError(err)         => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
             }
           case res if res.status == 401 && res.body.contains("Invalid OAuth token") =>
             logger.warn("Renewing twitch API token")
             renewToken >> fuccess(Twitch.Result(None, None))
-          case res => fufail(s"twitch ${res.body.take(500)}")
+          case res => fufail(s"twitch ${lila.log.http(res.status, res.body)}")
         }
         .recover { case e: Exception =>
           logger.warn(e.getMessage)
@@ -69,8 +69,8 @@ final private class TwitchApi(ws: WSClient, config: TwitchConfig)(implicit ec: E
             case Some(token) =>
               tmpToken = Secret(token)
               funit
-            case _ => fufail(s"twitch.renewToken ${res.status} ${res.body.take(500)}")
+            case _ => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
           }
-        case res => fufail(s"twitch.renewToken ${res.status} ${res.body.take(500)}")
+        case res => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
       }
 }

@@ -11,6 +11,6 @@ object log {
     def branch(childName: String) = new Logger(name = s"$name.$childName")
   }
 
-  def http(res: play.api.libs.ws.WSResponse) =
-    s"${res.status} ${res.body.linesIterator.take(1).toList.headOption getOrElse "-"}"
+  def http(status: Int, body: String) =
+    s"$status ${body.linesIterator.take(1).toList.headOption getOrElse "-"}"
 }
