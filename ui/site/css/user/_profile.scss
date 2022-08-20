@@ -94,11 +94,16 @@
   .col2 {
     display: flex;
     flex-flow: row wrap;
+    margin-bottom: 0.5em;
 
     > a {
       @extend %nowrap-ellipsis;
 
       flex: 0 0 50%;
+    }
+    > strong {
+      flex: 0 0 100%;
+      margin-bottom: 0.5em;
     }
   }
 
