@@ -31,7 +31,7 @@ final class ReportApi(
   import BSONHandlers._
   import Report.Candidate
 
-  private lazy val accuracyOf = accuracy.of _
+  private lazy val accuracyOf = accuracy.apply _
 
   private lazy val scorer = wire[ReportScore]
 
@@ -510,11 +510,11 @@ final class ReportApi(
           }
       }
 
-    def of(reporter: ReporterId): Fu[Option[Accuracy]] =
+    private def of(reporter: ReporterId): Fu[Option[Accuracy]] =
       cache get reporter.value
 
     def apply(candidate: Candidate): Fu[Option[Accuracy]] =
-      (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)
+      candidate.isCheat ?? of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
       coll
