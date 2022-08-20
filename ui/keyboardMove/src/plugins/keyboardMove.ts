@@ -128,7 +128,7 @@ export default (opts: Opts) => {
 function iccfToUci(v: string) {
   const chars = v.split('');
   if (chars[0]) chars[0] = files[parseInt(chars[0]) - 1];
-  if (chars[2]) chars[2] = 'qrbn'[parseInt(chars[4]) - 1];
+  if (chars[2]) chars[2] = 'kqrbn'[parseInt(chars[4])];
 
   return chars.join('');
 }
