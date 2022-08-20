@@ -5,6 +5,7 @@ import play.api.data.validation.Constraints
 import play.api.data.Forms._
 
 import User.ClearPassword
+import lila.common.LameName
 import lila.common.Form.{ cleanNonEmptyText, cleanText }
 
 final class UserForm(authenticator: Authenticator) {
