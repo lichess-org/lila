@@ -97,6 +97,8 @@
   <string name="xOpeningExplorer">%s விளையாட்டு திறப்பு ஆராய்ச்சி</string>
   <string name="winPreventedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் வெற்றி தடுப்புதல்</string>
   <string name="lossSavedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் தோல்வி தடுப்புதல்</string>
+  <string name="winOr50MovesByPriorMistake">வெற்றி அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
+  <string name="lossOr50MovesByPriorMistake">இழப்பு அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
   <string name="allSet">எல்லாம் அமைக்கப்பட்டது!</string>
   <string name="importPgn">PGN இறக்குமதி</string>
   <string name="delete">நீக்கு</string>
