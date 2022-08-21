@@ -103,7 +103,7 @@ object helpModal {
         tbody(
           header(performAMove()),
           row(kbd("e2e4"), movePieceFromE2ToE4()),
-          row(kbd("4244"), movePieceFromD2ToD4()),
+          row(kbd("5254"), movePieceFromE2ToE4()),
           row(kbd("Nc3"), moveKnightToC3()),
           row(kbd("O-O"), kingsideCastle()),
           row(kbd("O-O-O"), queensideCastle()),

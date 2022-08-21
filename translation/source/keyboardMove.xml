@@ -3,7 +3,6 @@
   <string name="keyboardInputCommands">Keyboard input commands</string>
   <string name="performAMove">Perform a move</string>
   <string name="movePieceFromE2ToE4">Move piece from e2 to e4</string>
-  <string name="movePieceFromD2ToD4">Move piece from d2 to d4</string>
   <string name="moveKnightToC3">Move knight to c3</string>
   <string name="kingsideCastle">Kingside castle</string>
   <string name="queensideCastle">Queenside castle</string>
