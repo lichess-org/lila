@@ -43,14 +43,8 @@ export function hookMobileMousedown(f: (e: Event) => any) {
   return bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 }
 
-export const isAndroid = (): boolean => {
-  return /Android/.test(navigator.platform);
-};
+export const isAndroid = (): boolean => /Android/.test(navigator.platform);
 
-export const isIOS = (): boolean => {
-  return /iPad|iPhone|iPod/.test(navigator.platform) ? true : isIPad();
-};
+export const isIOS = (): boolean => /iPad|iPhone|iPod/.test(navigator.platform) || isIPad();
 
-export const isIPad = (): boolean => {
-  return navigator?.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform);
-};
+export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform);
