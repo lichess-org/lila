@@ -135,16 +135,24 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
   const maxWasmPages = (minPages: number): number => {
     if (!growableSharedMem) return minPages;
-    let maxPages = 0;
-    if (navigator.deviceMemory && !isAndroid()) {
-      maxPages = Math.floor(navigator.deviceMemory) * 8192; // chrome/opera/edge, 1/2 avail RAM max shared
-    } else if (isAndroid()) maxPages = 8192; // 512 MB max shared, 64 MB max hash
-    else if (isIPad()) maxPages = 8192; // 512 MB max shared, 64 MB max hash
-    else if (isIOS()) maxPages = 4096; // 256 MB max shared, 32 MB max hash
-    else maxPages = 32768; // firefox/mac-safari/other, 2 GB max shared, 256 MB max hash
+    let maxPages = 32768; // hopefully desktop browser, 2 GB max shared
+    if (isAndroid()) maxPages = 8192; // 512 MB max shared
+    else if (isIPad()) maxPages = 8192; // 512 MB max shared
+    else if (isIOS()) maxPages = 4096; // 256 MB max shared
     return Math.max(minPages, maxPages);
   };
-  const maxHashSize = technology == 'external' ? externalOpts!.maxHash || 16 : pow2floor(maxWasmPages(2048) / 128);
+  // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even
+  // scales like native stockfish with increasing hash.  prefer smaller, non-crashing values
+  // steer the high performance crowd towards external engine as it gets better
+  const maxHashMB = (): number => {
+    let maxHash = 256; // this is conservative but safe, mostly desktop firefox / mac safari users here
+    if (navigator.deviceMemory) maxHash = pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
+    else if (isAndroid()) maxHash = 64; // budget androids are easy to crash @ 128
+    else if (isIPad()) maxHash = 64; // ipados safari pretends to be desktop but acts more like iphone
+    else if (isIOS()) maxHash = 32;
+    return maxHash;
+  };
+  const maxHashSize = technology == 'external' ? externalOpts!.maxHash || 16 : maxHashMB();
 
   const hashSize = () => {
     const stored = lichess.storage.get(storageKey('ceval.hash-size'));
