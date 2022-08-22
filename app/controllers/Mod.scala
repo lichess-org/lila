@@ -247,6 +247,18 @@ final class Mod(
       }
     }
 
+  def createNameCloseVote(username: String) =
+    Secure(_.SendToZulip) { _ => me =>
+      env.user.repo named username flatMap {
+        _ ?? { user =>
+          env.irc.api.nameCloseVote(
+            user = user,
+            mod = me
+          ) inject NoContent
+        }
+      }
+    }
+
   def table =
     Secure(_.ModLog) { implicit ctx => _ =>
       modApi.allMods map { html.mod.table(_) }

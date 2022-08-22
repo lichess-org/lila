@@ -45,13 +45,28 @@ final class IrcApi(
           )
       }
       .flatMap {
-        _ ?? { ZulipLink =>
+        _ ?? { zulipLink =>
           noteApi.write(
             user,
-            s"$domain discussion: $ZulipLink",
+            s"$domain discussion: $zulipLink",
             mod.user,
             modOnly = true,
             dox = domain == ModDomain.Admin
+          )
+        }
+      }
+  }
+
+  def nameCloseVote(user: User, mod: Holder): Funit = {
+    zulip.sendAndGetLink(ZulipClient.stream.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
+      .flatMap {
+        _ ?? { zulipLink =>
+          noteApi.write(
+            user,
+            s"username discussion: $zulipLink",
+            mod.user,
+            modOnly = true,
+            dox = false
           )
         }
       }
