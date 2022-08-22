@@ -136,7 +136,7 @@ export function analysisButton(ctrl: RoundController): VNode | undefined {
           },
           attrs: {
             title: ctrl.noarg('analysis'),
-            href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis',
+            href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
             'data-icon': '',
           },
         },
