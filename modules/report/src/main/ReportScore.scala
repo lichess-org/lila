@@ -1,11 +1,11 @@
 package lila.report
 
 final private class ReportScore(
-    getAccuracy: ReporterId => Fu[Option[Accuracy]]
+    getAccuracy: Report.Candidate => Fu[Option[Accuracy]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
-    getAccuracy(candidate.reporter.id) map { accuracy =>
+    getAccuracy(candidate) map { accuracy =>
       impl.baseScore +
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
