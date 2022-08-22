@@ -63,7 +63,7 @@ final class SelfReport(
               ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
               if (markUserSetting.get().matches(name))
                 scheduler.scheduleOnce(
-                  (60 + ThreadLocalRandom.nextInt(24 * 60)).minutes
+                  (10 + ThreadLocalRandom.nextInt(24 * 60)).minutes
                 ) {
                   lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
                 }

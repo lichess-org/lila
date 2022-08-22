@@ -26,6 +26,8 @@ case class RelayTour(
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
 
   def official = tier.isDefined
+
+  def reAssignIfOfficial = if (official) copy(ownerId = User.broadcasterId) else this
 }
 
 object RelayTour {

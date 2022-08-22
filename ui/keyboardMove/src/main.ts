@@ -156,7 +156,7 @@ export function render(ctrl: KeyboardMove) {
       ),
     }),
     ctrl.isFocused()
-      ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, type ? to learn more')
+      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()
       ? snabModal({

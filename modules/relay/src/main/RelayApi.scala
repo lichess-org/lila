@@ -14,6 +14,7 @@ import lila.common.config.MaxPerSecond
 import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyMultiBoard, StudyRepo }
+import lila.security.Granter
 import lila.user.User
 
 final class RelayApi(
@@ -243,7 +244,7 @@ final class RelayApi(
     }
 
   def canUpdate(user: User, tour: RelayTour): Fu[Boolean] =
-    fuccess(tour.ownerId == user.id) >>|
+    fuccess(Granter(_.Relay)(user) || tour.ownerId == user.id) >>|
       roundRepo.coll.distinctEasy[Study.Id, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
         studyRepo.membersByIds(ids) map {
           _.exists(_ contributorIds user.id)
