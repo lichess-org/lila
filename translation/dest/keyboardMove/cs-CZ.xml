@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="performAMove">Provést tah</string>
-  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Přesunout figuru z e2 na e4</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Přesunout jezdce na c3</string>
+  <string name="movePieceFromE2ToE4">Přesunout figuru z e2 na e4</string>
+  <string name="moveKnightToC3">Přesunout jezdce na c3</string>
   <string name="offerOrAcceptDraw">Nabídnout nebo přijmout remízu</string>
   <string name="readOutClocks">Přečíst čas</string>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Přečíst jméno soupeře</string>
+  <string name="readOutOpponentName">Přečíst jméno soupeře</string>
   <string name="otherCommands">Další příkazy</string>
   <string name="tips">Tipy</string>
-  <string name="bothTheLetterOAndTheDigitZero" comment="bothTheLetterOAndTheDigitZero&#10;&#10;Only the Latin character 'o' works.">Písmeno „o“ i číslice nula „0“ mohou být použity pro rošádu</string>
+  <string name="bothTheLetterOAndTheDigitZero">Písmeno „o“ i číslice nula „0“ mohou být použity pro rošádu</string>
   <string name="ifItIsLegalToCastleBothWays">Pokud jsou možné obě rošády, použijte klávesu Enter pro malou rošádu</string>
 </resources>
