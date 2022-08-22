@@ -449,7 +449,6 @@ export default class AnalyseCtrl {
       if (andReload) {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
-        this.chessground.set({ fen: this.node.fen });
         this.redraw();
       }
       return data;

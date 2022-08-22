@@ -1,5 +1,4 @@
 import { view as cevalView } from 'ceval';
-import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
@@ -302,13 +301,10 @@ const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNo
   h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
 export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
-  const cgState = ctrl.chessground?.state,
-    pieces = cgState ? cgState.pieces : readFen(ctrl.node.fen);
-
   return materialView.renderMaterialDiffs(
     !!ctrl.data.pref.showCaptured,
     ctrl.bottomColor(),
-    pieces,
+    ctrl.node.fen,
     !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
     ctrl.nodeList,
     ctrl.node.ply
