@@ -18,6 +18,7 @@ import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
 import { siteTrans } from './component/trans';
 import { trapFocus } from 'common/modal';
+import { isIOS } from 'common/mobile';
 
 exportLichessGlobals();
 lichess.info = info;
@@ -134,7 +135,7 @@ lichess.load.then(() => {
       }, 1000);
 
     // prevent zoom when keyboard shows on iOS
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window)) {
+    if (isIOS() && !('MSStream' in window)) {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }

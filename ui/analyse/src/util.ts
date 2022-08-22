@@ -6,33 +6,8 @@ export { autolink, innerHTML, enrichText, richHTML, toYouTubeEmbed, toTwitchEmbe
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
-const longPressDuration = 610; // used in bindMobileTapHold
-
 export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'white' : 'black';
-}
-
-export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void) {
-  let longPressCountdown: number;
-
-  el.addEventListener('touchstart', e => {
-    longPressCountdown = setTimeout(() => {
-      f(e);
-      if (redraw) redraw();
-    }, longPressDuration);
-  });
-
-  el.addEventListener('touchmove', () => {
-    clearTimeout(longPressCountdown);
-  });
-
-  el.addEventListener('touchcancel', () => {
-    clearTimeout(longPressCountdown);
-  });
-
-  el.addEventListener('touchend', () => {
-    clearTimeout(longPressCountdown);
-  });
 }
 
 export function readOnlyProp<A>(value: A): () => A {
