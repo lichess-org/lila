@@ -358,9 +358,9 @@
   <string name="thematic">נושאי</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">משחק מדורג %s ≥</item>
-    <item quantity="two">משחק מדורג %s ≥</item>
-    <item quantity="many">משחק מדורג %s ≥</item>
-    <item quantity="other">משחק מדורג %s ≥</item>
+    <item quantity="two">משחקים מדורגים %s ≥</item>
+    <item quantity="many">משחקים מדורגים %s ≥</item>
+    <item quantity="other">משחקים מדורגים %s ≥</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s משחק מדורג</item>
@@ -369,10 +369,10 @@
     <item quantity="other">≥ %1$s %2$s משחקים מדורגים</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">עלייך לשחק עוד משחק מדורג %1$s של %2$s</item>
-    <item quantity="two">עלייך לשחק עוד %1$s משחקים מדורגים של %2$s</item>
-    <item quantity="many">עלייך לשחק עוד %1$s משחקים מדורגים של %2$s</item>
-    <item quantity="other">עלייך לשחק עוד %1$s משחקים מדורגים של %2$s</item>
+    <item quantity="one">יש לשחק עוד משחק מדורג %1$s של %2$s</item>
+    <item quantity="two">יש לשחק עוד %1$s משחקים מדורגים של %2$s</item>
+    <item quantity="many">יש לשחק עוד %1$s משחקים מדורגים של %2$s</item>
+    <item quantity="other">יש לשחק עוד %1$s משחקים מדורגים של %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">עליך לשחק עוד משחק מדורג %s</item>
