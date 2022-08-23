@@ -2,11 +2,11 @@ import { h, Hooks, VNode } from 'snabbdom';
 import { defined, isEmpty } from 'common/common';
 import { makeNotation } from 'common/notation';
 import throttle from 'common/throttle';
-import { makeUsi, parseUsi } from 'shogiops/util';
+import { makeUsi, parseUsi, toBW } from 'shogiops/util';
 import { path as treePath } from 'tree';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
-import { bindMobileTapHold, enrichText, innerHTML } from '../util';
+import { bindMobileTapHold, enrichText, innerHTML, plyColor } from '../util';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { MaybeVNodes } from 'common/snabbdom';
 import { playable } from 'game';
@@ -110,25 +110,28 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
   };
 }
 
+// create move notation in reference to node or parent node
 export function usiToNotation(ctx: Ctx, node: Tree.Node, parentPath: Tree.Path, text: string): string {
   const matches = text.match(/\[usi:(\d*)\.?((?:\d\w|\w\*)\d\w(?:\+|=)?)\]/g);
   if (matches?.length) {
     for (const mText of matches) {
       const match = mText.match(/usi:(\d*)\.?((?:\d\w|\w\*)\d\w(?:\+|=)?)/);
       if (match) {
-        // the default is that the move is played after this node
-        const plyCutoff = node.ply - (parseInt(match[1]) || node.ply),
-          parent = plyCutoff <= 0 ? node : ctx.ctrl.tree.nodeAtPath(parentPath.slice(0, -2 * plyCutoff)),
-          md = match[2] && parseUsi(match[2]), // to make sure we have valid usi
+        const textPlyColor = plyColor(parseInt(match[1]) || node.ply),
+          useParentNode = plyColor(node.ply) !== textPlyColor,
+          parentNode = ctx.ctrl.tree.nodeAtPath(parentPath),
+          refNode = useParentNode ? parentNode : node,
+          refSfen =
+            !node.usi && useParentNode ? refNode.sfen.replace(/ (b|w) /, ' ' + toBW(textPlyColor) + ' ') : refNode.sfen, // for initial node
+          moveOrDrop = match[2] && parseUsi(match[2]), // to make sure we have valid usi
           notation =
-            md &&
-            parent &&
+            moveOrDrop &&
             makeNotation(
               ctx.ctrl.data.pref.notation,
-              parent.sfen,
+              refSfen,
               ctx.ctrl.data.game.variant.key,
-              makeUsi(md),
-              parent.usi
+              makeUsi(moveOrDrop),
+              refNode.usi
             );
         if (notation) text = text.replace(mText, notation);
         else text = text.replace(mText, 'Invalid move');
@@ -146,7 +149,7 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, parentPath: Tr
       const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
         truncated = truncateComment(comment.text, 300, ctx);
       return h('comment', {
-        hook: innerHTML(usiToNotation(ctx, node, parentPath, truncated), text => by + enrichText(text)),
+        hook: innerHTML(truncated, text => by + enrichText(usiToNotation(ctx, node, parentPath, text))),
       });
     })
     .filter(nonEmpty);

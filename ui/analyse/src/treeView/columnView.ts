@@ -214,9 +214,9 @@ function renderMainlineCommentsOf(
     const by = withAuthor ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
-      hook: innerHTML(by + usiToNotation(ctx, node, opts.parentPath, truncated), text => {
+      hook: innerHTML(by + truncated, text => {
         const s = text.split('</span>');
-        return by + enrichText(s[s.length - 1]);
+        return by + enrichText(usiToNotation(ctx, node, opts.parentPath, s[s.length - 1]));
       }),
     });
   });
