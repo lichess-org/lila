@@ -429,8 +429,6 @@ function renderPvMoves(pos: Position, pv: Usi[], notation: Notation): VNode[] {
     const usi = pv[i],
       sfen = makeSfen(pos);
     key += '|' + usi;
-    // move number separately for notations with color icon
-    if (addColorIcon) vnodes.push(h('index', moveNumber));
     vnodes.push(
       h(
         'span.pv-move' + colorIcon,
