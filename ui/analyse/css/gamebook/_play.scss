@@ -29,12 +29,15 @@
   }
   .comment {
     @extend %flex-column, %box-shadow;
+    flex: 2 1 0;
     font-size: 1.1em;
     background: $c-bg-box;
     border-radius: 1rem;
+    margin-top: 1em;
     position: relative;
     /* fixes firefox overflow when comment is long https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox */
     min-height: 0;
+    max-height: 25rem;
     @if $theme-dark {
       border: 1px solid $c-font-dimmer;
     }
@@ -57,7 +60,8 @@
     .content {
       z-index: 2;
       overflow-y: auto;
-      padding: 1em;
+      padding: 0 1em 1em 1em;
+      margin-top: 1rem; // so that the scroll is not over the border-radius
       min-height: 2.5em;
     }
     div.hint {
