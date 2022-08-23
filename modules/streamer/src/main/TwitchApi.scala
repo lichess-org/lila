@@ -18,9 +18,9 @@ final private class TwitchApi(ws: WSClient, config: TwitchConfig)(implicit ec: E
       page: Int,
       pagination: Option[Twitch.Pagination]
   ): Fu[List[Twitch.TwitchStream]] =
-    (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10) ?? {
+    (config.clientId.nonEmpty && config.secret.value.nonEmpty && config.gameId.nonEmpty && page < 10) ?? {
       val query = List(
-        "game_id" -> "1593570952", // shogi
+        "game_id" -> config.gameId,// shogi
         "first"   -> "100"         // max results per page
       ) ::: List(
         pagination.flatMap(_.cursor).map { "after" -> _ }
