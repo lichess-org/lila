@@ -15,6 +15,9 @@ trait ShogigroundHelper {
   private val sgPieces  = tag("sg-pieces")
   val sgWrapContent     = sgBoard(sgSquares)
 
+  val sgHandTop    = div(cls := "sg-hand-wrap hand-top")(tag("sg-hand"))
+  val sgHandBottom = div(cls := "sg-hand-wrap hand-bottom")(tag("sg-hand"))
+
   def shogiground(sit: Situation, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag =
     sgWrap(sit.variant, orient.some) {
       frag(

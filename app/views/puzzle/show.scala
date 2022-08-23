@@ -58,9 +58,9 @@ object show {
           div(cls    := "puzzle__side__metas")
         ),
         div(cls := "puzzle__board main-board")(shogigroundBoard(shogi.variant.Standard, puzzle.color.some)),
-        div(cls := "sg-hand-wrap hand-top"),
+        sgHandTop,
         div(cls := "puzzle__tools"),
-        div(cls := "sg-hand-wrap hand-bottom"),
+        sgHandBottom,
         div(cls := "puzzle__controls")
       )
     }

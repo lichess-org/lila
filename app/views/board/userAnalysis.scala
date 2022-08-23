@@ -60,9 +60,9 @@ object userAnalysis {
           )
         ),
         div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
-        div(cls := "sg-hand-wrap hand-top"),
+        sgHandTop,
         div(cls := "analyse__tools"),
-        div(cls := "sg-hand-wrap hand-bottom"),
+        sgHandBottom,
         div(cls := "analyse__controls")
       )
     }

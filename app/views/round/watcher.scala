@@ -83,9 +83,9 @@ LishogiRound.boot(${safeJsonValue(
               div(cls := "kif")(kif.render)
             )
           ),
-          div(cls := "sg-hand-wrap hand-top"),
+          sgHandTop,
           div(cls := "round__board main-board")(shogiground(pov)),
-          div(cls := "sg-hand-wrap hand-bottom")
+          sgHandBottom
         )
       )
     )

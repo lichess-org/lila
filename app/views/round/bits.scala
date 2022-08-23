@@ -138,13 +138,13 @@ object bits {
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
     div(cls := s"round__app variant-${pov.game.variant.key}")(
       div(cls := "round__app__board main-board")(shogiground(pov)),
-      div(cls := "sg-hand-wrap hand-top"),
+      sgHandTop,
       div(cls := "round__app__table"),
       div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
       div(cls := "ruser ruser-bottom user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),
       div(cls := "rclock rclock-top preload")(div(cls := "clock-byo")(nbsp)),
       div(cls := "rclock rclock-bottom preload")(div(cls := "clock-byo")(nbsp)),
-      div(cls := "sg-hand-wrap hand-bottom"),
+      sgHandBottom,
       div(cls := "rmoves")(div(cls := "moves")),
       controls option div(cls := "rcontrols")(i(cls := "ddloader"))
     )

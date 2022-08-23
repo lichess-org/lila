@@ -24,9 +24,9 @@ object replayBot {
           views.html.game.side(pov, none, simul = simul, bookmarked = false)
         ),
         div(cls := "analyse__board main-board")(shogigroundBoard(pov.game.variant, pov.color.some)),
-        div(cls := "sg-hand-wrap hand-top"),
+        sgHandTop,
         div(cls := "analyse__tools")(div(cls := "ceval")),
-        div(cls := "sg-hand-wrap hand-bottom"),
+        sgHandBottom,
         div(cls := "analyse__controls"),
         div(cls := "analyse__underboard")(
           div(cls := "analyse__underboard__panels")(
