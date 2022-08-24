@@ -7,6 +7,8 @@ import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
 
+const suppressThisIsUndefined = (warning, warn) => warning.code !== 'THIS_IS_UNDEFINED' && warn(warning);
+
 export default rollupProject({
   main: {
     input: 'src/site.ts',
@@ -179,6 +181,7 @@ export default rollupProject({
   tourForm: {
     input: 'src/tourForm.ts',
     output: 'tourForm',
+    onwarn: suppressThisIsUndefined,
   },
   gameSearch: {
     input: 'src/gameSearch.ts',
@@ -188,16 +191,19 @@ export default rollupProject({
     input: 'src/userComplete.ts',
     output: 'userComplete',
     name: 'UserComplete',
+    onwarn: suppressThisIsUndefined,
   },
   infiniteScroll: {
     input: 'src/infiniteScroll.ts',
     output: 'infiniteScroll',
     name: 'InfiniteScroll',
+    onwarn: suppressThisIsUndefined,
   },
   flatpickr: {
     input: 'src/flatpickr.ts',
     output: 'flatpickr',
     name: 'LichessFlatpickr',
+    onwarn: suppressThisIsUndefined,
   },
   appeal: {
     input: 'src/appeal.ts',

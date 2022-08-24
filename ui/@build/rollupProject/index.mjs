@@ -49,7 +49,7 @@ export default targets => {
         //   summaryOnly: true,
         // }),
       ],
-      onwarn: (warning, warn) => warning.code !== 'THIS_IS_UNDEFINED' && warn(warning),
+      onwarn: target.onwarn,
     }));
   };
 };
