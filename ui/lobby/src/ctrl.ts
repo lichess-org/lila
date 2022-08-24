@@ -46,6 +46,7 @@ export default class LobbyController {
   private alreadyWatching: string[] = [];
 
   constructor(readonly opts: LobbyOpts, readonly redraw: () => void) {
+    intentionalbug;
     this.data = opts.data;
     this.data.hooks = [];
     this.me = opts.data.me;
