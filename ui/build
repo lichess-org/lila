@@ -63,7 +63,7 @@ if [ $mode == "css" ]; then
 else
   if type -p parallel; then # parallel execution!
     if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
-      P_OPTS="-j+4 --halt now,fail=1"
+      P_OPTS="-j+4 --halt never"
     fi
     set -x
     parallel --gnu $P_OPTS build ::: $apps1
