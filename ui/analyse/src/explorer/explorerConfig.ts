@@ -39,7 +39,7 @@ export interface ExplorerConfigData {
     value: StoredProp<string>;
     previous: StoredJsonProp<string[]>;
   };
-  color: Prop<Color>;
+  color: StoredProp<Color>;
   byDb(): ByDbSetting;
 }
 
@@ -79,7 +79,12 @@ export class ExplorerConfigCtrl {
         value: storedStringProp('explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
-      color: prop('white'),
+      color: storedProp<Color>(
+        'white',
+        'white',
+        str => str as Color,
+        v => v
+      ),
       byDb() {
         return this.byDbData[this.db() as ExplorerDb] || this.byDbData.lichess;
       },
