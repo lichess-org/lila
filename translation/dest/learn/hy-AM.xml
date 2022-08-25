@@ -128,6 +128,11 @@
   <string name="enPassantComplete">Շնորհավորո՜ւմ ենք։ Դուք արդեն կարող եք կատարել կողանցիկ հարված։</string>
   <string name="stalemate">Պատ</string>
   <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
+  <string name="stalemateIntro">Եթե այն խաղացողը, որի քայլի հերթն է, անելու քայլ չունի, և նրա արքան շախի տակ չէ, այդ իրավիճակը կոչվում է  «պատ»։ Խաղն ավարտվում է ոչ-ոքի․ ոչ ոք չի հաղթել, ոչ ոք չի պարտվել։</string>
+  <string name="stalemateGoal">Պատ սևերին․
+- Սևերը քայլ անել չեն կարող։
+- Սևերի արքան շախի տակ չէ։</string>
+  <string name="stalemateComplete">Շնորհավորո՜ւմ ենք։ Ավելի լավ է ստանալ պատ, քան մատ։</string>
   <string name="advanced">Առաջադեմ մակարդակ</string>
   <string name="pieceValue">Խաղաքարերի արժեքը</string>
   <string name="evaluatePieceStrength">Գնահատեք խաղաքարի ուժը</string>
