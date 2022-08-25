@@ -80,11 +80,11 @@ export default function (opts: Opts): DrawShape[] {
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUsi(n.eval.best!, turnColor, 'engine', pieces));
     if (!hovering) {
-      const nextBest =
-        !opts.nextNodeBest && opts.ceval.enabled() && n.ceval ? n.ceval.pvs[0].moves[0] : opts.nextNodeBest;
+      const useCur = !opts.nextNodeBest && opts.ceval.enabled(),
+        nextBest = useCur && n.ceval ? n.ceval.pvs[0].moves[0] : opts.nextNodeBest;
       if (nextBest)
         shapes = shapes.concat(
-          makeAutoShapesFromUsi(nextBest, turnColor, !opts.nextNodeBest ? 'engine' : 'engineThreat', pieces)
+          makeAutoShapesFromUsi(nextBest, turnColor, useCur && n.ceval ? 'engine' : 'engineThreat', pieces)
         );
       if (
         opts.ceval.enabled() &&
