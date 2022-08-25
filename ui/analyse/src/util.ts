@@ -4,33 +4,8 @@ import { h, Hooks } from 'snabbdom';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
-const longPressDuration = 610; // used in bindMobileTapHold
-
 export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'sente' : 'gote';
-}
-
-export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
-  let longPressCountdown;
-
-  el.addEventListener('touchstart', e => {
-    longPressCountdown = setTimeout(() => {
-      f(e);
-      if (redraw) redraw();
-    }, longPressDuration);
-  });
-
-  el.addEventListener('touchmove', () => {
-    clearTimeout(longPressCountdown);
-  });
-
-  el.addEventListener('touchcancel', () => {
-    clearTimeout(longPressCountdown);
-  });
-
-  el.addEventListener('touchend', () => {
-    clearTimeout(longPressCountdown);
-  });
 }
 
 export function readOnlyProp<A>(value: A): () => A {

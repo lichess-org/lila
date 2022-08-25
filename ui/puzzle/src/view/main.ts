@@ -6,7 +6,8 @@ import feedbackView from './feedback';
 import stepwiseScroll from 'common/wheel';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { onInsert, bindMobileMousedown, bindNonPassive } from 'common/snabbdom';
+import { onInsert, bindNonPassive } from 'common/snabbdom';
+import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 

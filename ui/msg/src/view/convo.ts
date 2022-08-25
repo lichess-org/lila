@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import { hookMobileMousedown } from 'common/mobile';
 import { Convo } from '../interfaces';
-import { userName, bindMobileMousedown } from './util';
+import { userName } from './util';
 import renderMsgs from './msgs';
 import renderActions from './actions';
 import renderInteract from './interact';
@@ -18,7 +19,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
         h('div.msg-app__convo__head__left', [
           h('span.msg-app__convo__head__back', {
             attrs: { 'data-icon': 'I' },
-            hook: bindMobileMousedown(ctrl.showSide),
+            hook: hookMobileMousedown(ctrl.showSide),
           }),
           h(
             'a.user-link.ulpt',

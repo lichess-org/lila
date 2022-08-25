@@ -1,12 +1,13 @@
 import { h, Hooks, VNode } from 'snabbdom';
 import { defined, isEmpty } from 'common/common';
+import { bindMobileTapHold } from 'common/mobile';
 import { makeNotation } from 'common/notation';
 import throttle from 'common/throttle';
 import { makeUsi, parseUsi, toBW } from 'shogiops/util';
 import { path as treePath } from 'tree';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
-import { bindMobileTapHold, enrichText, innerHTML, plyColor } from '../util';
+import { enrichText, innerHTML, plyColor } from '../util';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { MaybeVNodes } from 'common/snabbdom';
 import { playable } from 'game';
