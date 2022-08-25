@@ -363,10 +363,10 @@
     <item quantity="other">משחקים מדורגים %s ≥</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s משחק מדורג</item>
-    <item quantity="two">≥ %1$s %2$s משחקים מדורגים</item>
-    <item quantity="many">≥ %1$s %2$s משחקים מדורגים</item>
-    <item quantity="other">≥ %1$s %2$s משחקים מדורגים</item>
+    <item quantity="one">≥ משחק %2$s מדורג %1$s</item>
+    <item quantity="two">≥ %1$s משחקי %2$s מדורגים</item>
+    <item quantity="many">≥ %1$s משחקי %2$s מדורגים</item>
+    <item quantity="other">≥ %1$s משחקי %2$s מדורגים</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">יש לשחק עוד משחק מדורג %1$s של %2$s</item>
@@ -533,7 +533,7 @@
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
   <string name="activePlayers">הכי פעילים</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">שימו לב! המשחק מדורג אך אין שעון.</string>
   <string name="success">הפעולה הושלמה</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">משחק %s בתהליך</item>
