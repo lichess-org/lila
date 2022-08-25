@@ -95,7 +95,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const analysable = pos.isOk;
 
   // select nnue > hce > none
-  const useYaneuraou = !analysable || (pos.value.rules === 'standard' && isStandardMaterial(pos.value));
+  const useYaneuraou = opts.variant.key === 'standard' && (!analysable || isStandardMaterial(pos.value));
   let supportsNnue = false;
   let technology: CevalTechnology = 'none';
   let growableSharedMem = false;
@@ -375,9 +375,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     longEngineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
-    cachable:
-      technology == 'nnue' ||
-      ((opts.variant.key !== 'standard' || (pos.isOk && !isStandardMaterial(pos.value))) && technology == 'hce'),
+    shouldUseYaneuraou: useYaneuraou,
+    cachable: technology === 'nnue' || (!useYaneuraou && technology === 'hce'),
     analysable,
   };
 }

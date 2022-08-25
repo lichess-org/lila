@@ -86,6 +86,7 @@ export interface CevalCtrl {
   maxHashSize: number;
   infinite: StoredBooleanProp;
   supportsNnue: boolean;
+  shouldUseYaneuraou: boolean;
   enableNnue: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
   pvBoard: Prop<PvBoard | null>;
