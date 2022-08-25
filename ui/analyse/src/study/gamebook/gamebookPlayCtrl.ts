@@ -103,7 +103,14 @@ export default class GamebookPlayCtrl {
   };
 
   solution = () => {
-    this.root.shogiground.setShapes(makeShapesFromUsi(this.root.turnColor(), this.root.node.children[0].usi!, 'green'));
+    this.root.shogiground.setShapes(
+      makeShapesFromUsi(
+        this.root.turnColor(),
+        this.root.node.children[0].usi!,
+        'engine',
+        this.root.shogiground.state.pieces
+      )
+    );
   };
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);

@@ -22,7 +22,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 2,
     success: extinct('gote'),
     failure: anyCapture,
-    drawShapes: initial([arrow('4c', '5c', 'red')]),
+    drawShapes: initial([arrow('4c', '5c', 'wrong')]),
     showFailureMove: 'capture',
   },
   {

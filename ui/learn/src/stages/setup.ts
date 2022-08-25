@@ -108,7 +108,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 2,
     success: scenarioSuccess,
     failure: scenarioFailure,
-    drawShapes: initial([arrow('7g', '7f', 'green')]),
+    drawShapes: initial([arrow('7g', '7f')]),
     scenario: createScenario(['7g7f'], 'sente', false),
   },
 ];

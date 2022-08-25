@@ -1,15 +1,18 @@
+// opacity has to be set outside color
 $shape-themes: (
+  // user shape colors
   'primary': #15781b,
   'alternative0': #882020,
   'alternative1': #003088,
   'alternative2': #e68f00,
-  'paleGreen': #15781c,
-  'palerGreen': #15781c,
-  'paleRed': #882020,
-  'paleBlue': #003088,
-  'paleGrey': #777777,
-  'red': #882020,
-  'green': #15781b,
+  // engine shape colors
+  'engine': #003088,
+  'engineAlt': #003088,
+  'engineThreat': #882020,
+  'engineThreatAlt': #882020,
+  // learning shape colors
+  'correct': #15781b,
+  'wrong': #882020
 );
 
 .sg-shapes {
@@ -39,20 +42,39 @@ $shape-themes: (
       fill: #{$color};
     }
   }
+  $blues: 'engine', 'engineAlt';
+  $blue-alt: #e68f00;
+  @each $blue in $blues {
+    .blue &,
+    .space &,
+    .kinkaku & {
+      ellipse.#{$blue} {
+        stroke: $blue-alt;
+      }
+      line.#{$blue} {
+        stroke: $blue-alt;
+      }
+      marker#arrowhead-#{$blue} path {
+        fill: $blue-alt;
+      }
+    }
+  }
 
-  $pales: 'paleGreen', 'paleRed', 'paleBlue';
+  $pales: 'engine', 'engineThreat', 'correct', 'wrong';
   @each $pale in $pales {
     line.#{$pale} {
-      opacity: 0.55;
+      opacity: 0.6;
     }
     ellipse.#{$pale} {
-      opacity: 0.55;
+      opacity: 0.6;
     }
   }
-  line.palerGreen {
+  line.engineAlt,
+  line.engineThreatAlt {
     opacity: 0.35;
   }
-  ellipse.palerGreen {
+  ellipse.engineAlt,
+  ellipse.engineThreatAlt {
     opacity: 0.35;
   }
 }

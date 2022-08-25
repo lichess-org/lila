@@ -10,7 +10,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 1,
     success: not(anyCapture),
     failure: anyCapture,
-    drawShapes: initial([arrow('8g', '8h', 'red')]),
+    drawShapes: initial([arrow('8g', '8h', 'wrong')]),
     showFailureMove: 'capture',
   },
   {
@@ -29,7 +29,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 3,
     success: not(unprotectedCapture),
     failure: unprotectedCapture,
-    drawShapes: concat(initial([arrow('7d', '7f', 'red'), arrow('7h', '7g')]), onSuccess([arrow('7h', '7f')])),
+    drawShapes: concat(initial([arrow('7d', '7f', 'wrong'), arrow('7h', '7g')]), onSuccess([arrow('7h', '7f')])),
     showFailureMove: 'unprotected',
   },
   {
@@ -38,7 +38,10 @@ const levels: IncompleteLevel[] = [
     nbMoves: 1,
     success: not(unprotectedCapture),
     failure: unprotectedCapture,
-    drawShapes: concat(initial([arrow('3c', '2d', 'red'), arrow('3c', '8h', 'red')]), onSuccess([arrow('2h', '8h')])),
+    drawShapes: concat(
+      initial([arrow('3c', '2d', 'wrong'), arrow('3c', '8h', 'wrong')]),
+      onSuccess([arrow('2h', '8h')])
+    ),
     showFailureMove: 'unprotected',
   },
   {

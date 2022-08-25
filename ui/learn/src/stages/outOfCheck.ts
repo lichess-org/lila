@@ -11,7 +11,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 1,
     success: not(check('sente')),
     failure: check('sente'),
-    drawShapes: concat(initial([arrow('5e', '5i', 'red')]), checkShapes),
+    drawShapes: concat(initial([arrow('5e', '5i', 'wrong')]), checkShapes),
     offerIllegalDests: true,
   },
   {

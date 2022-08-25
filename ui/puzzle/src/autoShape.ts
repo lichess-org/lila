@@ -16,7 +16,12 @@ interface Opts {
   threatMode: boolean;
 }
 
-function makeAutoShapesFromUsi(usi: Usi, color: Color, brush: string, pieces?: Pieces): DrawShape[] {
+function makeAutoShapesFromUsi(
+  usi: Usi,
+  color: Color,
+  brush: 'engine' | 'engineAlt' | 'engineThreat' | 'engineThreatAlt',
+  pieces: Pieces
+): DrawShape[] {
   const move = parseUsi(usi);
   if (!move) return [];
   if (isDrop(move))
@@ -32,6 +37,7 @@ function makeAutoShapesFromUsi(usi: Usi, color: Color, brush: string, pieces?: P
         piece: {
           role: move.role,
           color: color,
+          scale: 0.8,
         },
         brush: brush,
       },
@@ -54,7 +60,7 @@ function makeAutoShapesFromUsi(usi: Usi, color: Color, brush: string, pieces?: P
           role: pieceToPromote.role,
           scale: 0.8,
         },
-        brush: 'green',
+        brush: 'engine',
       });
     }
 
@@ -66,16 +72,20 @@ export default function (opts: Opts): DrawShape[] {
   const n = opts.vm.node,
     hovering = opts.ceval.hovering(),
     color = opts.ground.state.activeColor,
-    turnColor = opts.ground.state.turnColor;
+    turnColor = opts.ground.state.turnColor,
+    pieces = opts.ground.state.pieces;
   let shapes: DrawShape[] = [];
   if (hovering && hovering.sfen === n.sfen)
-    shapes = shapes.concat(makeAutoShapesFromUsi(hovering.usi, turnColor, 'paleBlue'));
+    shapes = shapes.concat(makeAutoShapesFromUsi(hovering.usi, turnColor, 'engine', pieces));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
-    if (n.eval) shapes = shapes.concat(makeAutoShapesFromUsi(n.eval.best!, turnColor, 'paleGreen'));
+    if (n.eval) shapes = shapes.concat(makeAutoShapesFromUsi(n.eval.best!, turnColor, 'engine', pieces));
     if (!hovering) {
-      let nextBest: Usi | undefined = opts.nextNodeBest;
-      if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
-      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUsi(nextBest, turnColor, 'paleBlue'));
+      const nextBest =
+        !opts.nextNodeBest && opts.ceval.enabled() && n.ceval ? n.ceval.pvs[0].moves[0] : opts.nextNodeBest;
+      if (nextBest)
+        shapes = shapes.concat(
+          makeAutoShapesFromUsi(nextBest, turnColor, !opts.nextNodeBest ? 'engine' : 'engineThreat', pieces)
+        );
       if (
         opts.ceval.enabled() &&
         n.ceval &&
@@ -83,24 +93,28 @@ export default function (opts: Opts): DrawShape[] {
         n.ceval.pvs[1] &&
         !(opts.threatMode && n.threat && n.threat.pvs[2])
       ) {
-        n.ceval.pvs.forEach(function (pv) {
+        n.ceval.pvs.forEach((pv, i) => {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color as Color, n.ceval!.pvs[0], pv);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
-          shapes = shapes.concat(makeAutoShapesFromUsi(pv.moves[0], turnColor, 'paleGrey', opts.ground.state.pieces));
+          shapes = shapes.concat(
+            makeAutoShapesFromUsi(pv.moves[0], turnColor, i > 0 ? 'engineAlt' : 'engine', opts.ground.state.pieces)
+          );
         });
       }
     }
   }
   if (opts.ceval.enabled() && opts.threatMode && n.threat) {
     if (n.threat.pvs[1]) {
-      shapes = shapes.concat(makeAutoShapesFromUsi(n.threat.pvs[0].moves[0], turnColor, 'paleRed'));
-      n.threat.pvs.slice(1).forEach(function (pv) {
+      shapes = shapes.concat(makeAutoShapesFromUsi(n.threat.pvs[0].moves[0], turnColor, 'engineThreat', pieces));
+      n.threat.pvs.slice(1).forEach(pv => {
         const shift = winningChances.povDiff(opposite(color as Color), pv, n.threat!.pvs[0]);
         if (shift > 0.2 || isNaN(shift) || shift < 0) return;
-        shapes = shapes.concat(makeAutoShapesFromUsi(pv.moves[0], turnColor, 'paleRed', opts.ground.state.pieces));
+        shapes = shapes.concat(
+          makeAutoShapesFromUsi(pv.moves[0], turnColor, 'engineThreatAlt', opts.ground.state.pieces)
+        );
       });
-    } else shapes = shapes.concat(makeAutoShapesFromUsi(n.threat.pvs[0].moves[0], turnColor, 'red'));
+    } else shapes = shapes.concat(makeAutoShapesFromUsi(n.threat.pvs[0].moves[0], turnColor, 'engineThreat', pieces));
   }
   return shapes;
 }
