@@ -103,6 +103,7 @@ function pronounce(str: string): string | undefined {
 function renderMove(move: string) {
   // avoiding the collision
   if (move[0] === '+' || move[0] === '成') move = '!' + move.substring(1);
+  else if (move[0] === 'と') move = '!歩' + move.substring(1);
   return move
     .replace('不成', '=')
     .split('')
