@@ -2,6 +2,8 @@ import { renderMove as jRenderMove } from './japanese';
 
 function toRole(char: string): string | undefined {
   switch (char) {
+    case 'と':
+      return 'promoted pawn';
     case '馬':
       return 'horse';
     case '龍':
@@ -100,10 +102,10 @@ function pronounce(str: string): string | undefined {
 // P-76, G79-78
 // P-7f, G7i-7h
 // 歩-76, 金(79)-78
+// ７六歩, ７八金直
 function renderMove(move: string) {
   // avoiding the collision
   if (move[0] === '+' || move[0] === '成') move = '!' + move.substring(1);
-  else if (move[0] === 'と') move = '!歩' + move.substring(1);
   return move
     .replace('不成', '=')
     .split('')
