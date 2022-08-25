@@ -33,7 +33,7 @@ function resize() {
 $(function () {
   var $featured = $('#featured-game');
   var board = function () {
-    return $featured.find('.mini-board');
+    return $featured.find('a.mini-board');
   };
   parseSfen(board());
   if (!window.EventSource) return;
