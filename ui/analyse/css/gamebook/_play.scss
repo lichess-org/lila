@@ -30,6 +30,7 @@
   .comment {
     @extend %flex-column, %box-shadow;
     flex: 2 1 0;
+    justify-content: space-between;
     font-size: 1.1em;
     background: $c-bg-box;
     border-radius: 1rem;
@@ -65,13 +66,22 @@
       min-height: 2.5em;
     }
     div.hint {
-      padding: 0.8em 1em;
+      padding: 0.8em 1em 0 1em;
+      max-height: 8rem;
       background: $c-primary;
+      border-bottom: 1rem solid $c-primary;
       color: $c-primary-over;
       border-radius: 0 0 1rem 1rem;
       cursor: pointer;
+      overflow-y: scroll;
       font-size: 0.9em;
       z-index: 2;
+      &::-webkit-scrollbar-track {
+        background: $c-primary;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: $c-primary-over;
+      }
     }
     a.hint {
       padding: 0.8em 1em;
