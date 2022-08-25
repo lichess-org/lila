@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">သူငယ်ချင်းဖြင့်ကစားမည်</string>
+  <string name="playWithAFriend">သူငယ်ချင်းနှင့်ကစားမည်</string>
   <string name="playWithTheMachine">ကွန်ပျူတာဖြင့်ကစားမည်</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">အခြားကစားမည့်သူအားဖိတ်ကြားးရန်</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">အခြားကစားမည့်သူအားဖိတ်ကြားရန်</string>
   <string name="gameOver">ပွဲပြီးပြီ</string>
   <string name="waitingForOpponent">ပြိုင်ဘက်အားစောင့်ဆိုင်းနေသည်</string>
   <string name="waiting">စောင့်ဆိုင်းနေသည်</string>
@@ -14,7 +14,7 @@
   <string name="chat">စကားပြောရန်</string>
   <string name="resign">အရှုံးပေးသည်</string>
   <string name="checkmate">ဘုရင်ကိုဖမ်းမည်</string>
-  <string name="stalemate">Stalemate</string>
+  <string name="stalemate">အက်ကွက်</string>
   <string name="white">အဖြူ</string>
   <string name="black">အမည်း</string>
   <string name="asWhite">အဖြူ အနေဖြင့်</string>
@@ -25,7 +25,7 @@
   <string name="blackIsVictorious">အမည်းရောင်အနိုင်ရသည်</string>
   <string name="youPlayTheWhitePieces">အဖြူရောင်ဖြင့်ကစားမည်</string>
   <string name="youPlayTheBlackPieces">အမည်းရောင်ဖြင့်ကစားမည်</string>
-  <string name="itsYourTurn">အခုသင့်အလှည့်ရောက်ပြီ</string>
+  <string name="itsYourTurn">အခုသင့်အလှည့်ရောက်ပြီ!</string>
   <string name="cheatDetected">ခိုးချခြင်းတွေ့ရှိ</string>
   <string name="kingInTheCenter">King in the centre</string>
   <string name="threeChecks">Three checks</string>
