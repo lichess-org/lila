@@ -550,6 +550,10 @@
     <item quantity="one">Առավելագույնը՝ %s նշան։</item>
     <item quantity="other">Առավելագույնը՝ %s նշան։</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s արգելափակում</item>
+    <item quantity="other">%s արգելափակում</item>
+  </plurals>
   <string name="listBlockedPlayers">Այն խաղացողների ցանկը, որոնց Դուք արգելափակել եք</string>
   <string name="human">Մարդ</string>
   <string name="computer">Համակարգիչ</string>
@@ -643,9 +647,17 @@
   <string name="glicko2Rating">Glicko-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ձեզ նամակ ենք ուղարկել։ Մասնակցային հաշիվն ակտիվացնելու համար սեղմեք նամակում եղած հղումը։</string>
+  <string name="timeToProcessAMoveOnLichessServer">Քայլի մշակման ժամանակը Lichess-ի սերվերում</string>
+  <string name="downloadAnnotated">Ներբեռնել անոտացիաներով</string>
+  <string name="downloadRaw">Ներբեռնել նախնական տեսքով</string>
+  <string name="downloadImported">Ներբեռնել ներմուծվածը</string>
   <string name="crosstable">Հաշիվ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Քայլերը թերթելու համար կարելի է մկնիկի անիվը պտտել տախտակի վրա։</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Թերթեք տարբերակները դրանք դիտելու համար  </string>
   <string name="analysisShapesHowTo">Խաղատախտակի վրա շրջանակներ և սլաքներ պատկերելու համար օգտագործեք Shift+մկնիկի ձախ կոճակը կամ աջ կոճակը։</string>
+  <string name="letOtherPlayersMessageYou">Թույլ տալ այլ խաղացողներին Ձեզ հաղորդագրություններ ուղարկել</string>
+  <string name="receiveForumNotifications">Ստանալ ծանուցումներ ֆորումում հիշատակվելու դեպքում</string>
+  <string name="shareYourInsightsData">Ներկայացրեք Ձեր շախմատային պատկերացումների տվյալները</string>
   <string name="withNobody">Ոչ մեկի հետ</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
@@ -668,6 +680,7 @@
   <string name="correspondenceChess">Նամակագրական շախմատ</string>
   <string name="onlineAndOfflinePlay">Առցանց և օֆլայն խաղ</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
+  <string name="followAndChallengeFriends">Բաժանորդագրություններ և խաղ ընկերների հետ</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Հասանելի՜ է %s լեզվով</item>
     <item quantity="other">Հասանելի՜ է %s լեզուներով</item>
