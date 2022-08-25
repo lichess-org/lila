@@ -718,6 +718,12 @@ export default class AnalyseCtrl {
     this.cevalReset();
   };
 
+  cevalSetEnableNnue = (v: boolean): void => {
+    this.ceval.enableNnue(v);
+    this.ceval.stop();
+    alert('Reload the window to see changes.');
+  };
+
   showEvalGauge(): boolean {
     return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
   }

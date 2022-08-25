@@ -266,7 +266,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       title: ceval.supportsNnue ? 'Use NNUE  (page reload required after change)' : notSupported,
                       id: 'enable-nnue',
                       checked: ceval.supportsNnue && ceval.enableNnue(),
-                      change: ceval.enableNnue,
+                      change: ctrl.cevalSetEnableNnue,
                       disabled: !ceval.supportsNnue,
                     },
                     ctrl
