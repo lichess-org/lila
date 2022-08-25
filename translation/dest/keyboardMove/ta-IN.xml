@@ -10,4 +10,5 @@
   <string name="dropARookAtB4">b4 இல் ஒரு ருக்கை விடவும் (கிரேசிஹவுஸ் வேரியன்ட் மட்டுமே)</string>
   <string name="offerOrAcceptDraw">ஒரு டிராவை வழங்கவும் அல்லது ஏற்றுக்கொள்ளவும்</string>
   <string name="readOutClocks">கடிகாரங்களைப் படிக்கவும்</string>
+  <string name="readOutOpponentName">எதிராளியின் பெயரைப் படிக்கவும்</string>
 </resources>
