@@ -3,7 +3,11 @@ import { Protocol } from './protocol';
 import { Cache } from './cache';
 
 interface WasmEngineModule {
-  (opts: { wasmBinary?: ArrayBuffer; locateFile(path: string): string }): Promise<Engine>;
+  (opts: {
+    wasmBinary?: ArrayBuffer;
+    locateFile(path: string): string;
+    wasmMemory: WebAssembly.Memory;
+  }): Promise<Engine>;
 }
 
 interface Engine {
@@ -53,6 +57,7 @@ export interface ThreadedWasmWorkerOpts {
   baseUrl: string;
   module: 'YaneuraOu_K_P' | 'Stockfish';
   version: string;
+  wasmMemory: WebAssembly.Memory;
   downloadProgress?: (mb: number) => void;
   cache?: Cache;
 }
@@ -114,6 +119,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
             version: version,
             sameDomain: path.endsWith('.worker.js'),
           }),
+        wasmMemory: this.opts.wasmMemory,
       });
 
       const protocol = this.getProtocol();

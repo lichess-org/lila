@@ -1,19 +1,18 @@
-import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
-
 import { Result } from '@badrap/result';
-import { AbstractWorker, ThreadedWasmWorker } from './worker';
 import { prop } from 'common/common';
+import { isIOS, isIPad, isAndroid } from 'common/mobile';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
-import { povChances } from './winningChances';
-import { Cache } from './cache';
 import { parseSfen } from 'shogiops/sfen';
 import { Position } from 'shogiops/shogi';
 import { defaultPosition } from 'shogiops/variant';
+import { Cache } from './cache';
+import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
+import { povChances } from './winningChances';
+import { AbstractWorker, ThreadedWasmWorker } from './worker';
 
-function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
-  return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
-}
+const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
+  new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
 
 function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
   // Atomics
@@ -28,9 +27,9 @@ function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly
 
   // Structured cloning
   try {
-    window.postMessage(mem, '*');
+    window.postMessage(mem.buffer, '*');
   } catch (e) {
-    return;
+    return undefined;
   }
 
   return mem;
@@ -102,7 +101,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   let growableSharedMem = false;
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
-    const sharedMem = sendableSharedWasmMemory(8, 16);
+    const sharedMem = sendableSharedWasmMemory(1, 2);
     if (sharedMem) {
       technology = 'hce';
 
@@ -115,7 +114,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       if (useYaneuraou && enableNnue()) technology = 'nnue';
 
       try {
-        sharedMem.grow(8);
+        sharedMem.grow(1);
         growableSharedMem = true;
       } catch (e) {
         // memory growth not supported
@@ -132,17 +131,35 @@ export default function (opts: CevalOpts): CevalCtrl {
     const stored = window.lishogi.storage.get(storageKey('ceval.threads'));
     return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
   };
+  const pow2floor = (n: number) => {
+    let pow2 = 1;
+    while (pow2 * 2 <= n) pow2 *= 2;
+    return pow2;
+  };
+  const maxWasmPages = (minPages: number): number => {
+    if (!growableSharedMem) return minPages;
+    let maxPages = 32768; // hopefully desktop browser, 2 GB max shared
+    if (isAndroid()) maxPages = 8192; // 512 MB max shared
+    else if (isIPad()) maxPages = 8192; // 512 MB max shared
+    else if (isIOS()) maxPages = 4096; // 256 MB max shared
+    return Math.max(minPages, maxPages);
+  };
+  const maxHashMB = (): number => {
+    let maxHash = 256; // this is conservative but safe, mostly desktop firefox / mac safari users here
+    if (navigator.deviceMemory) maxHash = pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
 
-  const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
-  const maxHashSize = Math.min(
-    ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
-    growableSharedMem ? 1024 : 16
-  );
+    if (isAndroid()) maxHash = 64; // budget androids are easy to crash @ 128
+    else if (isIPad()) maxHash = 64; // ipados safari pretends to be desktop but acts more like iphone
+    else if (isIOS()) maxHash = 32;
+
+    return maxHash;
+  };
+  const maxHashSize = maxHashMB();
+
   const hashSize = () => {
     const stored = window.lishogi.storage.get(storageKey('ceval.hash-size'));
     return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
   };
-
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.LocalEval | null = null;
@@ -242,7 +259,8 @@ export default function (opts: CevalOpts): CevalCtrl {
             opts.redraw();
           }),
           version: 'c9c34f2',
-          cache: new Cache('ceval-wasm-cache'),
+          wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
+          cache: window.indexedDB && new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker({
@@ -250,6 +268,7 @@ export default function (opts: CevalOpts): CevalCtrl {
           baseUrl: 'vendor/fairy/',
           module: 'Stockfish',
           version: '014622b',
+          wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
         });
     }
 
