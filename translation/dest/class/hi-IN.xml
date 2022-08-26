@@ -107,4 +107,11 @@
   <string name="createMultipleAccounts">एक साथ अनेक Lichess खाते बनाएँ</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">आप %s छात्रों के नामों की सूची से एक से अधिक Lichess खाते बनाने के लिए भी कर सकते हैं।</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">इस फॉर्म का उपयोग करें</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">ध्यान दें कि एक कक्षा में अधिकतम %1$s छात्र हो सकते हैं। अधिक विद्यार्थियों को प्रबंधित करने के लिए, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">अधिक कक्षाएं बनाएं</string>
+  <string name="studentsRealNamesOnePerLine">विद्यार्थियों के वास्तविक नाम, प्रति पंक्ति एक</string>
+  <string name="xisNowAStudentOfTheClass">%s अब कक्षा का छात्र है</string>
+  <string name="anInvitationHasBeenSentToX">An invitation has been sent to %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s के पास पहले से एक लंबित आमंत्रण है</string>
+  <string name="xIsAKidAccountWarning">%1$s एक बच्चा खाता है और आपका संदेश प्राप्त नहीं कर सकता। आपको उन्हें मैन्युअल रूप से आमंत्रण URL देना होगा: %2$s</string>
 </resources>
