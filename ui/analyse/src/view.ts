@@ -8,7 +8,7 @@ import * as router from 'game/router';
 import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
-import { ops as treeOps, path as treePath } from 'tree';
+import { path as treePath } from 'tree';
 import { render as trainingView } from './roundTraining';
 import { studyButton, view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
@@ -32,6 +32,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 import type * as studyDeps from './study/studyDeps';
 import { iconTag } from './util';
+import { renderNextChapter } from './study/nextChapter';
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
@@ -49,24 +50,6 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
     };
   return undefined;
 }
-
-export const renderNextChapter = (ctrl: AnalyseCtrl) =>
-  !ctrl.embed && !ctrl.opts.relay && ctrl.study?.hasNextChapter()
-    ? h(
-        'button.next.text',
-        {
-          attrs: {
-            'data-icon': '',
-            type: 'button',
-          },
-          hook: bind('click', ctrl.study.goToNextChapter),
-          class: {
-            highlighted: !!ctrl.outcome() || ctrl.node == treeOps.last(ctrl.mainline),
-          },
-        },
-        ctrl.trans.noarg('nextChapter')
-      )
-    : null;
 
 const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
   h('button.fbt', {
