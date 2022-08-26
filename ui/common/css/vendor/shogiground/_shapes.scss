@@ -12,8 +12,13 @@ $shape-themes: (
   'engineThreatAlt': #882020,
   // learning shape colors
   'correct': #15781b,
-  'wrong': #882020
-);
+  'wrong': #882020,
+  // todo - remove after updating server
+  'green': #15781b,
+  'red': #882020,
+  'yellow': #e68f00,
+  'blue': #003088
+  );
 
 .sg-shapes {
   z-index: z('sg__svg.sg-shapes');
