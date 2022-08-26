@@ -49,7 +49,12 @@ export class ExplorerConfigCtrl {
   myName?: string;
   participants: (string | undefined)[];
 
-  constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly variant: VariantKey,
+    readonly onClose: () => void,
+    previous?: ExplorerConfigCtrl
+  ) {
     this.myName = document.body.dataset['user'];
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
       name => name && name != this.myName
@@ -62,8 +67,9 @@ export class ExplorerConfigCtrl {
         until: storedStringProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
       };
     }
+    const prevData = previous?.data;
     this.data = {
-      open: prop(false),
+      open: prevData?.open || prop(false),
       db: storedProp<ExplorerDb>(
         'explorer.db.' + variant,
         this.allDbs[0],
@@ -75,11 +81,11 @@ export class ExplorerConfigCtrl {
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {
-        open: prop(false),
+        open: prevData?.playerName.open || prop(false),
         value: storedStringProp('explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
-      color: prop('white'),
+      color: prevData?.color || prop('white'),
       byDb() {
         return this.byDbData[this.db() as ExplorerDb] || this.byDbData.lichess;
       },
