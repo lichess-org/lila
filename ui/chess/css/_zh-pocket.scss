@@ -4,6 +4,8 @@
   display: flex;
   width: 62.5%;
   background: #888;
+  margin: auto;
+  justify-content: center;
 
   @include breakpoint($mq-col2-uniboard) {
     width: 100%;
