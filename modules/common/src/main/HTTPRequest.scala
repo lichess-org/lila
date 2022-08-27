@@ -132,4 +132,7 @@ object HTTPRequest {
     }
     else if (isCrawler(req)) "crawler"
     else "browser"
+
+  def queryStringGet(req: RequestHeader, name: String): Option[String] =
+    req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
 }
