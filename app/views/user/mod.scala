@@ -96,8 +96,8 @@ object mod {
         isGranted(_.SetKidMode) option {
           postForm(
             action := routes.Mod.kid(u.username),
-            title := "Activate kid mode if not already the case",
-            cls := "xhr"
+            title  := "Activate kid mode if not already the case",
+            cls    := "xhr"
           )(
             submitButton(cls := "btn-rack__btn confirm")("Kid")
           )

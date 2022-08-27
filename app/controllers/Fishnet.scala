@@ -42,10 +42,10 @@ final class Fishnet(env: Env) extends LilaController(env) {
         .postAnalysis(Work.Id(workId), client, data)
         .flatFold(
           {
-            case WorkNotFound    => onComplete
-            case GameNotFound    => onComplete
-            case NotAcquired     => onComplete
-            case e => fuccess(Left(InternalServerError(e.getMessage)))
+            case WorkNotFound => onComplete
+            case GameNotFound => onComplete
+            case NotAcquired  => onComplete
+            case e            => fuccess(Left(InternalServerError(e.getMessage)))
           },
           {
             case PostAnalysisResult.Complete(analysis) =>

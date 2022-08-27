@@ -90,7 +90,8 @@ object JsonApi {
         with Result {
 
       def completeOrPartial =
-        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(shoginet, yaneuraou, fairy, analysis.flatten)
+        if (analysis.headOption.??(_.isDefined))
+          CompleteAnalysis(shoginet, yaneuraou, fairy, analysis.flatten)
         else PartialAnalysis(shoginet, yaneuraou, fairy, analysis)
     }
 
@@ -242,16 +243,20 @@ object JsonApi {
       JsString(id.value)
     }
     private def fairyOrYane(sfen: Sfen, variant: Variant) =
-      if (variant.standard && Some(sfen).filterNot(_.initialOf(variant)).fold(true)(StartingPosition isHandicap _)) None
+      if (
+        variant.standard && Some(sfen)
+          .filterNot(_.initialOf(variant))
+          .fold(true)(StartingPosition isHandicap _)
+      ) None
       else Some("fairy")
-    
+
     implicit val WorkWrites = OWrites[Work] { work =>
       (work match {
         case a: Analysis =>
           Json.obj(
             "work" -> Json.obj(
-              "type" -> "analysis",
-              "id"   -> a.id,
+              "type"   -> "analysis",
+              "id"     -> a.id,
               "flavor" -> fairyOrYane(a.game.position, a.game.variant)
             ),
             "nodes"         -> a.nodes,

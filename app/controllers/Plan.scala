@@ -6,11 +6,7 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.common.EmailAddress
-import lila.plan.{
-  MonthlyCustomerInfo,
-  OneTimeCustomerInfo,
-  StripeCustomer
-}
+import lila.plan.{ MonthlyCustomerInfo, OneTimeCustomerInfo, StripeCustomer }
 import lila.user.{ User => UserModel }
 import views._
 

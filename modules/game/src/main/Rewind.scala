@@ -42,9 +42,11 @@ object Rewind {
           sentePlayer = rewindPlayer(game.sentePlayer),
           gotePlayer = rewindPlayer(game.gotePlayer),
           shogi = game.initialSfen.fold(rewindedGame.copy(clock = newClock)) { sfen =>
-            rewindedGame.copy(clock = newClock).withHistory(
-              rewindedGame.situation.history.withInitialSfen(sfen)
-            )
+            rewindedGame
+              .copy(clock = newClock)
+              .withHistory(
+                rewindedGame.situation.history.withInitialSfen(sfen)
+              )
           },
           binaryMoveTimes = game.binaryMoveTimes.map { binary =>
             val moveTimes = BinaryFormat.moveTime.read(binary, game.playedPlies)

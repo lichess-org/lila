@@ -46,8 +46,8 @@ final class FishnetApi(
   def acquire(client: Client, slow: Boolean = false): Fu[Option[JsonApi.Work]] =
     (client.skill match {
       case Skill.Move | Skill.MoveStd => acquireMove(client)
-      case Skill.Analysis => acquireAnalysis(client, slow)
-      case Skill.All      => acquireMove(client) orElse acquireAnalysis(client, slow)
+      case Skill.Analysis             => acquireAnalysis(client, slow)
+      case Skill.All                  => acquireMove(client) orElse acquireAnalysis(client, slow)
     }).monSuccess(_.fishnet.acquire)
       .recover { case e: Exception =>
         logger.error("Fishnet.acquire", e)

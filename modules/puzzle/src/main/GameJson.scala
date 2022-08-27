@@ -60,11 +60,11 @@ final private class GameJson(
   private def generate(game: Game, plies: Int): JsObject =
     Json
       .obj(
-        "id"       -> game.id,
-        "perf"     -> perfJson(game),
-        "rated"    -> game.rated,
-        "players"  -> playersJson(game),
-        "moves" -> game.shogi.usiMoves.take(plies + 1).map(_.usi).mkString(" ")
+        "id"      -> game.id,
+        "perf"    -> perfJson(game),
+        "rated"   -> game.rated,
+        "players" -> playersJson(game),
+        "moves"   -> game.shogi.usiMoves.take(plies + 1).map(_.usi).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 

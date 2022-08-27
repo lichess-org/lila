@@ -25,7 +25,7 @@ sealed trait Work {
   def isAcquired                   = acquired.isDefined
   def nonAcquired                  = !isAcquired
   def canAcquire(client: Client)   = lastTryByKey.fold(true)(client.key !=)
-  def isStandard                   = game.variant.standard && game.initialSfen.fold(true)(_.initialOf(game.variant))
+  def isStandard = game.variant.standard && game.initialSfen.fold(true)(_.initialOf(game.variant))
 
   def acquiredBefore(date: DateTime) = acquiredAt.??(_ isBefore date)
 }

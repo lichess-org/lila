@@ -96,8 +96,7 @@ object TempBan {
   /** Create a playban. First offense: 10 min. Multiplier of repeat offense after X days:
     *   - 0 days: 3x
     *   - 0 - 3 days: linear scale from 3x to 1x
-    *   - >3 days quick drop off
-    * Account less than 3 days old --> 2x the usual time
+    *   - >3 days quick drop off Account less than 3 days old --> 2x the usual time
     */
   def make(bans: Vector[TempBan], accountCreationDate: DateTime): TempBan =
     make {
