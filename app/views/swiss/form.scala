@@ -109,7 +109,12 @@ object form {
         form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
           form3.select(_, SwissCondition.DataForm.maxRatingChoices)
         )
-      )
+      ),
+      form3.group(
+        form("conditions.allowList"),
+        "Only allow pre-defined users to join",
+        help = raw("One username per line").some
+      )(form3.textarea(_)(rows := 4))
     )
 }
 
