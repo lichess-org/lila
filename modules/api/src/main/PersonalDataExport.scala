@@ -117,7 +117,7 @@ final class PersonalDataExport(
 
     val forumPosts =
       Source(List(textTitle("Forum posts"))) concat
-        forumEnv.postApi.allByUser(user.id).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
+        forumEnv.postRepo.allByUserCursor(user).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
           s"${textDate(p.createdAt)}\n${p.text}$bigSep"
         }
 

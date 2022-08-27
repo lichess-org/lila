@@ -6,6 +6,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
+import lila.common.HTTPRequest
 
 object signup {
 
@@ -21,6 +22,8 @@ object signup {
       moreCss = cssTag("auth"),
       csp = defaultCsp.withHcaptcha.some
     ) {
+      def referrerParameter =
+        HTTPRequest.queryStringGet(ctx.req, "referrer").?? { ref => s"?referrer=${urlencode(ref)}" }
       main(cls := "auth auth-signup box box-pad")(
         h1(trans.signUp()),
         postForm(
@@ -29,7 +32,7 @@ object signup {
             "form3"             -> true,
             "h-captcha-enabled" -> form.enabled
           ),
-          action := routes.Auth.signupPost
+          action := s"${routes.Auth.signupPost}$referrerParameter"
         )(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),

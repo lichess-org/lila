@@ -40,7 +40,11 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler,
+    mat: akka.stream.Materializer
+) {
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
