@@ -187,9 +187,10 @@ object SetupForm {
         "name" -> optional(lila.common.Form.cleanNonEmptyText(maxLength = 200)),
         variant,
         clock,
-        "days"  -> optional(days),
-        "rated" -> boolean,
-        "fen"   -> fenField
+        "days"      -> optional(days),
+        "rated"     -> boolean,
+        "fen"       -> fenField,
+        "usernames" -> list(lila.user.UserForm.historicalUsernameField)
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)

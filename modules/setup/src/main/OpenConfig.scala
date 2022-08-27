@@ -13,7 +13,8 @@ final case class OpenConfig(
     clock: Option[Clock.Config],
     days: Option[Int],
     rated: Boolean,
-    position: Option[FEN] = None
+    position: Option[FEN] = None,
+    usernames: List[String] = Nil
 ) {
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
@@ -33,7 +34,8 @@ object OpenConfig {
       cl: Option[Clock.Config],
       days: Option[Int],
       rated: Boolean,
-      pos: Option[FEN]
+      pos: Option[FEN],
+      usernames: List[String]
   ) =
     new OpenConfig(
       name = n.map(_.trim).filter(_.nonEmpty),
@@ -41,6 +43,7 @@ object OpenConfig {
       clock = cl,
       days = days,
       rated = rated,
-      position = pos
+      position = pos,
+      usernames = usernames
     ).autoVariant
 }
