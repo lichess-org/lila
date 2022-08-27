@@ -200,7 +200,7 @@ object MarkdownRender {
           new NodeRenderingHandler(classOf[AutoLink], renderAutoLink)
         )
       )
-
+    // TODO: refactor lila game link regexes and supporting code into common/LilaLinks.scala or something
     private val gameRegex =
       s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$$""".r
 
@@ -209,11 +209,12 @@ object MarkdownRender {
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
       else {
-        var link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLink(node, context, html, link)
+
         link.getUrl match {
-          case gameRegex(id, _, _) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
+          case gameRegex(id, color, ply) =>
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
         }
       }
@@ -230,8 +231,8 @@ object MarkdownRender {
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLink(node, context, html, link)
         link.getUrl match {
-          case gameRegex(id, _, _) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
+          case gameRegex(id, color, ply) =>
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
         }
       }
@@ -250,14 +251,25 @@ object MarkdownRender {
       html.tag("/a").unit
     }
 
-    private def renderPgnViewer(node: LinkNode, html: HtmlWriter, link: ResolvedLink)(pgn: String) =
+    private def renderPgnViewer(
+        node: LinkNode,
+        html: HtmlWriter,
+        link: ResolvedLink,
+        pgn: String,
+        color: String,
+        ply: String
+    ) =
       html
+        .tag("div") // this div needed for viewport calculations in site/lpv.ts
         .attr("data-pgn", pgn)
+        .attr("data-orientation", if (color != null) color else "white")
+        .attr("data-ply", if (ply != null) ply.substring(1) else "0")
         .attr("class", "lpv--autostart")
         .srcPos(node.getChars())
         .withAttr(link)
         .tag("div")
         .text(link.getUrl)
+        .tag("/div")
         .tag("/div")
         .unit
   }

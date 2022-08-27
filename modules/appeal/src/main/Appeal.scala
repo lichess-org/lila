@@ -34,7 +34,10 @@ case class Appeal(
         else if (!isByMod(msg) && status == Appeal.Status.Read) Appeal.Status.Unread
         else status,
       firstUnrepliedAt =
-        if (isByMod(msg) || msgs.lastOption.exists(msg => isByMod(msg) || msg.at.isBefore(DateTime.now.minusWeeks(2)))) DateTime.now
+        if (
+          isByMod(msg) || msgs.lastOption
+            .exists(msg => isByMod(msg) || msg.at.isBefore(DateTime.now.minusWeeks(2)))
+        ) DateTime.now
         else firstUnrepliedAt
     )
   }
