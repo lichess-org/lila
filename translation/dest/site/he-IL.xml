@@ -793,7 +793,7 @@
   <string name="boardSize">גודל הלוח</string>
   <string name="pieceSet">סט הכלים</string>
   <string name="embedInYourWebsite">הטמעה באתרך</string>
-  <string name="usernameAlreadyUsed">שם המשתמש הזה כבר קיים, אנא נסה שם משתמש אחר.</string>
+  <string name="usernameAlreadyUsed">שם המשתמש הזה כבר קיים, אנא נסו שם משתמש אחר.</string>
   <string name="usernamePrefixInvalid">שם המשתמש חייב להתחיל באות.</string>
   <string name="usernameSuffixInvalid">שם המשתמש חייב להסתיים באות או מספר.</string>
   <string name="usernameCharsInvalid">שם המשתמש חייב להכיל רק אותיות, מספרים, מקפים תחתונים ומקפים. רצף מקפים אינו אפשרי.</string>
@@ -883,9 +883,9 @@
   <string name="lifetimeScore">תוצאה כוללת</string>
   <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
   <string name="agreementAssistance">אני מסכימ/ה שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד־נתונים, או אדם אחר).</string>
-  <string name="agreementNice">אני מסכים/ה שתמיד אהיה אדיב/ה כלפי השחקנים האחרים.</string>
+  <string name="agreementNice">אני מסכימ/ה שתמיד אהיה אדיב/ה כלפי השחקנים האחרים.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכים/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
-  <string name="agreementPolicy">אני מסכים/ה לציית לכל מדיניות של Lichess.</string>
+  <string name="agreementPolicy">אני מסכימ/ה לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
   <string name="rapid">Rapid</string>
