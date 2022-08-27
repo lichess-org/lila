@@ -90,8 +90,15 @@ object SwissCondition {
     def name(perf: PerfType)(implicit lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
   }
 
-  case class AllowList(value: String) extends AnyVal {
+  case class AllowList(value: String) extends SwissCondition with FlatCond {
+
     def userIds = value.linesIterator.map { _.trim.toLowerCase }.filter(_.nonEmpty).toSet
+
+    def apply(user: User, perf: PerfType): SwissCondition.Verdict =
+      if (userIds(user.id)) Accepted
+      else Refused { _ => "Your name is not in the tournament line-up." }
+
+    def name(perf: PerfType)(implicit lang: Lang) = "Fixed line-up"
   }
 
   case class All(
@@ -102,7 +109,7 @@ object SwissCondition {
       allowList: Option[AllowList]
   ) {
 
-    lazy val list: List[SwissCondition] = List(nbRatedGame, maxRating, minRating, titled).flatten
+    lazy val list: List[SwissCondition] = List(nbRatedGame, maxRating, minRating, titled, allowList).flatten
 
     def relevant = list.nonEmpty
 
