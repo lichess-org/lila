@@ -262,8 +262,8 @@ object MarkdownRender {
       html
         .tag("div") // this div needed for viewport calculations in site/lpv.ts
         .attr("data-pgn", pgn)
-        .attr("data-orientation", if (color != null) color else "white")
-        .attr("data-ply", if (ply != null) ply.substring(1) else "0")
+        .attr("data-orientation", Option(color) | "white")
+        .attr("data-ply", Option(ply) | "0")
         .attr("class", "lpv--autostart")
         .srcPos(node.getChars())
         .withAttr(link)
