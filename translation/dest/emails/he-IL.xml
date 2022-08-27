@@ -9,7 +9,7 @@
   <string name="emailChange_subject">אשר את כתובתך החדשה, %s</string>
   <string name="emailChange_intro">יש לשנות את כתובת הדוא״ל שלך.</string>
   <string name="emailChange_click">כדי לאשר את גישתך לכתובת המייל הזו, לחץ על הקישור הבא:</string>
-  <string name="welcome_subject">ברוך הבא, %s</string>
+  <string name="welcome_subject">ברוך/ה הבא/ה, %s</string>
   <string name="welcome_text">יצרת בהצלחה את חשבונך באתר https://lichess.org.
 עמוד הפרופיל שלך הוא %1$s. אתה יכול לשנותו כרצונך ב%2$s
 אנו מאחלים לכלים שלך תמיד למצוא את דרכם למלך של יריביך!</string>
