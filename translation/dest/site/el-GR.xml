@@ -20,7 +20,7 @@
   <string name="asWhite">ως λευκός</string>
   <string name="asBlack">ως μαύρος</string>
   <string name="randomColor">Τυχαίο χρώμα</string>
-  <string name="createAGame">Νέο παιχνίδι</string>
+  <string name="createAGame">Δημιουργήστε παιχνίδι</string>
   <string name="whiteIsVictorious">Τα λευκά νίκησαν</string>
   <string name="blackIsVictorious">Τα μαύρα νίκησαν</string>
   <string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
