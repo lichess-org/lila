@@ -132,6 +132,7 @@ final class Mod(
     OAuthMod(_.Shadowban) { _ => _ =>
       withSuspect(username) { sus =>
         env.mod.publicChat.deleteAll(sus) >>
+          env.forum.delete.allByUser(sus.user) >>
           env.msg.api.deleteAllBy(sus.user) map some
       }
     }(actionResult(username))
