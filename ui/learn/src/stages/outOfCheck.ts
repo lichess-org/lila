@@ -1,7 +1,7 @@
 import { and, check, colorOn, not, pieceOn, unprotectedCapture } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
-import { arrow, checkShapes, concat, initial } from '../shapes';
+import { arrow, checkShapes, circle, concat, initial, onUsi } from '../shapes';
 import { toPiece } from '../util';
 
 const levels: IncompleteLevel[] = [
@@ -92,7 +92,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 1,
     success: and(not(check('sente')), not(pieceOn(toPiece('P'), '1g'))),
     failure: () => true,
-    drawShapes: checkShapes,
+    drawShapes: concat(checkShapes, onUsi('P*1g', [circle('1e', 'red'), circle('1g', 'red')])),
     offerIllegalDests: true,
   },
   {

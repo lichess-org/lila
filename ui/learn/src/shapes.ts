@@ -47,6 +47,13 @@ export function initial<T extends Shape>(shapes: T[]): VmEvaluation<T[]> {
   return onPly<T>(0, shapes);
 }
 
+export function onUsi<T extends Shape>(usi: Usi, shapes: T[]): VmEvaluation<T[]> {
+  return (_level: Level, usiCList: UsiWithColor[]): T[] => {
+    if (usiCList.length && usi === usiCList[usiCList.length - 1].usi) return shapes;
+    else return [];
+  };
+}
+
 export function onDest<T extends Shape>(dest: Key, shapes: T[]): VmEvaluation<T[]> {
   return (_level: Level, usiCList: UsiWithColor[]): T[] => {
     if (usiCList.length && dest === usiCList[usiCList.length - 1].usi.slice(2, 4)) return shapes;
