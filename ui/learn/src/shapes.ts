@@ -6,19 +6,19 @@ import { UsiWithColor, Level, VmEvaluation, Shape } from './interfaces';
 import { findCaptures, inCheck } from './shogi';
 import { currentPosition } from './util';
 
-export function arrow(orig: Key | Piece, dest: Key | Piece, brush?: 'correct' | 'wrong'): DrawShape {
+export function arrow(orig: Key | Piece, dest: Key | Piece, brush?: 'green' | 'red'): DrawShape {
   return {
     orig,
     dest,
-    brush: brush || 'correct',
+    brush: brush || 'green',
   };
 }
 
-export function circle(key: Key | Piece, brush?: 'correct' | 'wrong'): DrawShape {
+export function circle(key: Key | Piece, brush?: 'green' | 'red'): DrawShape {
   return {
     orig: key,
     dest: key,
-    brush: brush || 'correct',
+    brush: brush || 'green',
   };
 }
 
@@ -80,7 +80,7 @@ export function checkShapes(level: Level, usiCList: UsiWithColor[]): DrawShape[]
     const kingAttacks = findCaptures(pos);
     return kingAttacks
       .filter(m => m.to === kingSq)
-      .map(m => arrow(makeSquare(m.from) as Key, makeSquare(m.to) as Key, 'wrong'));
+      .map(m => arrow(makeSquare(m.from) as Key, makeSquare(m.to) as Key, 'red'));
   } else return [];
 }
 

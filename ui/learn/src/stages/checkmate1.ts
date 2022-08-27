@@ -101,7 +101,7 @@ const levels: IncompleteLevel[] = [
     nbMoves: 1,
     success: and(checkmate, not(pieceOn(toPiece('P'), '1d'))),
     failure: or(not(checkmate), pieceOn(toPiece('P'), '1d')),
-    drawShapes: initial([circle(toPiece('P'), 'wrong'), circle(toPiece('L'))]),
+    drawShapes: initial([circle(toPiece('P'), 'red'), circle(toPiece('L'))]),
     offerIllegalDests: true,
   },
   {

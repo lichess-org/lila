@@ -10,10 +10,7 @@ $shape-themes: (
   'engineAlt': #003088,
   'engineThreat': #882020,
   'engineThreatAlt': #882020,
-  // learning shape colors
-  'correct': #15781b,
-  'wrong': #882020,
-  // todo - remove after updating server
+  // misc shape colors
   'green': #15781b,
   'red': #882020,
   'yellow': #e68f00,
@@ -65,14 +62,13 @@ $shape-themes: (
     }
   }
 
-  $pales: 'engine', 'engineThreat', 'correct', 'wrong';
-  @each $pale in $pales {
-    line.#{$pale} {
-      opacity: 0.6;
-    }
-    ellipse.#{$pale} {
-      opacity: 0.6;
-    }
+  line.engine,
+  line.engineThreat {
+    opacity: 0.6;
+  }
+  ellipse.engine,
+  ellipse.engineThreat {
+    opacity: 0.6;
   }
   line.engineAlt,
   line.engineThreatAlt {
