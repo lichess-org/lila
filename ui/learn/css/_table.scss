@@ -53,13 +53,11 @@
     @keyframes shadow-glow {
       50% {
         box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.5);
-        transform: scale(1.05);
       }
     }
     @keyframes text-shadow-glow {
       50% {
         text-shadow: 0 0 10px #fff;
-        transform: scale(1.05);
       }
     }
     h2 {
