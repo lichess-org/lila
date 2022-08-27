@@ -99,8 +99,7 @@ object Condition {
   case class MinRating(perf: PerfType, rating: Int) extends Condition with RatingCondition with FlatCond {
 
     def apply(user: User) =
-      if (user.hasTitle) Accepted
-      else if (user.perfs(perf).provisional) Refused { implicit lang =>
+      if (user.perfs(perf).provisional) Refused { implicit lang =>
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
       }
       else if (user.perfs(perf).intRating < rating) Refused { implicit lang =>
