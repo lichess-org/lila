@@ -660,13 +660,13 @@
   <string name="whiteCastlingKingside">O-O ללבן</string>
   <string name="blackCastlingKingside">O-O לשחור</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s פוסט בפורום</item>
+    <item quantity="one">פוסט %s בפורום</item>
     <item quantity="two">%s פוסטים בפורום</item>
     <item quantity="many">%s פוסטים בפורום</item>
     <item quantity="other">%s פוסטים בפורום</item>
   </plurals>
   <string name="tpTimeSpentPlaying">זמן במשחק : %s</string>
-  <string name="watchGames">צפה במשחקים</string>
+  <string name="watchGames">צפייה במשחקים</string>
   <string name="tpTimeSpentOnTV">זמן בטלוויזיה: %s</string>
   <string name="watch">צפה</string>
   <string name="videoLibrary">ספריית וידאו</string>
@@ -681,13 +681,13 @@
   <string name="termsOfService">תנאים לשימוש באתר</string>
   <string name="sourceCode">קוד מקור</string>
   <string name="simultaneousExhibitions">משחקים סימולטניים</string>
-  <string name="host">מארח</string>
-  <string name="hostColorX">צבע המארח: %s</string>
+  <string name="host">מארח/ת</string>
+  <string name="hostColorX">צבע המארח/ת: %s</string>
   <string name="createdSimuls">משחקים סימולטניים חדשים</string>
-  <string name="hostANewSimul">ארח משחק סימולטני חדש</string>
+  <string name="hostANewSimul">ארח/י משחק סימולטני חדש</string>
   <string name="noSimulFound">המשחק הסימולטני לא נמצא</string>
   <string name="noSimulExplanation">המשחק הסימולטני אינו קיים.</string>
-  <string name="returnToSimulHomepage">חזור לדף הבית של המשחקים הסימולטניים</string>
+  <string name="returnToSimulHomepage">חזרה לדף הבית של המשחקים הסימולטניים</string>
   <string name="aboutSimul">משחק סימולטני מערב שחקן יחיד אשר משחק נגד שחקנים רבים בו זמנית.</string>
   <string name="aboutSimulImage">מתוך 50 משחקים בו-זמנית, פישר ניצח ב-47 משחקים, השיג 2 תוצאות תיקו והפסיד במשחק אחד.</string>
   <string name="aboutSimulRealLife">המושג נלקח מאירועים בעולם האמיתי. בחיים האמיתיים, המארח עובר משולחן לשולחן ומשחק מהלך אחד בכל פעם.</string>
@@ -714,7 +714,7 @@
   <string name="tournamentNotFound">הטורניר לא נמצא</string>
   <string name="tournamentDoesNotExist">הטורניר הזה אינו קיים.</string>
   <string name="tournamentMayHaveBeenCanceled">יתכן שהטורניר בוטל, אם שכל השחקנים יצאו ממנו טרם התחלתו.</string>
-  <string name="returnToTournamentsHomepage">חזור לדף הבית של הטורנירים</string>
+  <string name="returnToTournamentsHomepage">חזרה לדף הבית של הטורנירים</string>
   <string name="weeklyPerfTypeRatingDistribution">התפלגות שבועית של דירוגי %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s שחקני %2$s השבוע.</item>
@@ -737,16 +737,16 @@
   <string name="readAboutOur">קרא את %s.</string>
   <string name="networkLagBetweenYouAndLichess">עיכוב הרשת בינך לבין ליצ\'ס</string>
   <string name="timeToProcessAMoveOnLichessServer">זמן לעיבוד מהלך בשרת ליצ\'ס</string>
-  <string name="downloadAnnotated">הורד עם הערות</string>
-  <string name="downloadRaw">הורד ללא הערות</string>
+  <string name="downloadAnnotated">הורדה עם הערות</string>
+  <string name="downloadRaw">הורדה ללא הערות</string>
   <string name="downloadImported">הורד משחק מיובא</string>
   <string name="crosstable">חשבון הנקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול כדי להתקדם במשחק.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">רחף מעל וריאציות המחשב עם העכבר בשביל לראות תצוגה מקדימה שלהן.</string>
   <string name="analysisShapesHowTo">הקש \"Shift\" + מקש עכבר שמאלי או ימני כדי לצייר חצים ועיגולים על הלוח.</string>
-  <string name="letOtherPlayersMessageYou">אפשר לשחקנים אחרים לשלוח לך הודעות</string>
-  <string name="receiveForumNotifications">קבל התראות כשאתה מתויג בפורום</string>
-  <string name="shareYourInsightsData">שתף את תובנות השחמט שלך</string>
+  <string name="letOtherPlayersMessageYou">אפשר/י לשחקנים אחרים לשלוח לך הודעות</string>
+  <string name="receiveForumNotifications">קבל/י התראות כשאת/ה מתויג/ת בפורום</string>
+  <string name="shareYourInsightsData">שתף/י את תובנות השחמט שלך</string>
   <string name="withNobody">עם אף אחד</string>
   <string name="withFriends">עם חברים</string>
   <string name="withEverybody">עם כולם</string>
@@ -769,7 +769,7 @@
   <string name="correspondenceChess">שחמט בהתכתבות</string>
   <string name="onlineAndOfflinePlay">שחק עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
-  <string name="followAndChallengeFriends">עקוב אחר חברים והזמן אותם למשחק</string>
+  <string name="followAndChallengeFriends">עקבו אחר חברים והזמינו אותם למשחק</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">זמין בשפה %s!</item>
     <item quantity="two">זמין ב%s שפות!</item>
@@ -777,9 +777,9 @@
     <item quantity="other">זמין ב%s שפות!</item>
   </plurals>
   <string name="gameAnalysis">ניתוח המשחק</string>
-  <string name="xHostsY">%1$s מארח %2$s</string>
-  <string name="xJoinsY">%1$s מצטרף ל-%2$s</string>
-  <string name="xLikesY">%1$s אוהב %2$s</string>
+  <string name="xHostsY">%1$s מארח/ת %2$s</string>
+  <string name="xJoinsY">%1$s מצטרף/ת ל-%2$s</string>
+  <string name="xLikesY">%1$s אוהב את %2$s</string>
   <string name="quickPairing">הצטרפות מהירה</string>
   <string name="lobby">לובי</string>
   <string name="anonymous">אנונימי</string>
@@ -809,7 +809,7 @@
   <string name="notifications">התראות</string>
   <string name="perfRatingX">דירוג: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s שניה לשחק את המסע הראשון</item>
+    <item quantity="one">שנייה %s לשחק את המסע הראשון</item>
     <item quantity="two">%s שניות כדי לשחק את המסע הראשון</item>
     <item quantity="many">%s שניות כדי לשחק את המסע הראשון</item>
     <item quantity="other">%s שניות כדי לשחק את המסע הראשון</item>
@@ -817,7 +817,7 @@
   <string name="practiceWithComputer">התאמן עם המחשב</string>
   <string name="anotherWasX">מהלך טוב נוסף היה %s</string>
   <string name="bestWasX">המהלך הטוב ביותר היה %s</string>
-  <string name="youBrowsedAway">גלשת למחוזות אחרים</string>
+  <string name="youBrowsedAway">גלשתם למחוזות אחרים</string>
   <string name="resumePractice">המשך להתאמן</string>
   <string name="theGameIsADraw">המשחק הסתיים בתיקו.</string>
   <string name="computerThinking">המחשב חושב ...</string>
@@ -834,7 +834,7 @@
   <string name="xWasPlayed">%s שוחק</string>
   <string name="findBetterMoveForWhite">מצא מהלך טוב יותר ללבן</string>
   <string name="findBetterMoveForBlack">מצב מהלך טוב יותר לשחור</string>
-  <string name="resumeLearning">המשך ללמוד</string>
+  <string name="resumeLearning">המשיכו ללמוד</string>
   <string name="youCanDoBetter">יש מהלך טוב יותר:)</string>
   <string name="tryAnotherMoveForWhite">נסה למצוא מהלך טוב יותר ללבן</string>
   <string name="tryAnotherMoveForBlack">נסה למצוא מהלך טוב יותר לשחור</string>
@@ -845,8 +845,8 @@
   <string name="doneReviewingWhiteMistakes">בדיקת טעויות ללבן הסתיימה</string>
   <string name="doneReviewingBlackMistakes">בדיקת טעויות לשחור הסתיימה</string>
   <string name="doItAgain">עשה זאת שוב</string>
-  <string name="reviewWhiteMistakes">בדוק טעויות ללבן</string>
-  <string name="reviewBlackMistakes">בדוק טעויות לשחור</string>
+  <string name="reviewWhiteMistakes">בדיקת טעויות ללבן</string>
+  <string name="reviewBlackMistakes">בדיקת טעויות לשחור</string>
   <string name="advantage">יתרון</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s שניה</item>
@@ -858,15 +858,15 @@
   <string name="middlegame">מציעה</string>
   <string name="endgame">סיום</string>
   <string name="conditionalPremoves">מסעים מותנים מראש</string>
-  <string name="addCurrentVariation">הוסף את הווריאציה הנוכחית</string>
-  <string name="playVariationToCreateConditionalPremoves">צור וריאציה כדי להגדיר מסעים מותנים מראש</string>
+  <string name="addCurrentVariation">הוספת הווריאציה הנוכחית</string>
+  <string name="playVariationToCreateConditionalPremoves">צרו וריאציה כדי להגדיר מסעים מותנים מראש</string>
   <string name="noConditionalPremoves">אין מהלכים מותנים מראש</string>
-  <string name="playX">שחק %s</string>
+  <string name="playX">שחקו %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">ושמור המשך מוגדר מראש %s</item>
-    <item quantity="two">ושמור %s המשכים מוגדרים מראש</item>
-    <item quantity="many">ושמור %s המשכים מוגדרים מראש</item>
-    <item quantity="other">ושמור %s המשכים מוגדרים מראש</item>
+    <item quantity="one">ושמרו המשך מוגדר מראש %s</item>
+    <item quantity="two">ושמרו %s המשכים מוגדרים מראש</item>
+    <item quantity="many">ושמרו %s המשכים מוגדרים מראש</item>
+    <item quantity="other">ושמרו %s המשכים מוגדרים מראש</item>
   </plurals>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
@@ -886,10 +886,10 @@
   <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
   <string name="agreementAssistance">אני מסכימ/ה שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד־נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכימ/ה שתמיד אהיה אדיב/ה כלפי השחקנים האחרים.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכים/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכימ/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
   <string name="agreementPolicy">אני מסכימ/ה לציית לכל מדיניות של Lichess.</string>
-  <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
-  <string name="edit">ערוך</string>
+  <string name="searchOrStartNewDiscussion">חפשו את התחילו שיחה חדשה</string>
+  <string name="edit">עריכה</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ-30 שניות על השעון</string>
@@ -903,7 +903,7 @@
   <string name="yourQuestionMayHaveBeenAnswered">יתכן שלשאלה שלך כבר יש תשובה %1$s</string>
   <string name="inTheFAQ">בשאלות הנפוצות</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">כדי לדווח על רמאות או על התנהגות עוינת, %1$s</string>
-  <string name="useTheReportForm">השתמש בטופס הדיווח</string>
+  <string name="useTheReportForm">השתמשו בטופס הדיווח</string>
   <string name="toRequestSupport">לבקשת תמיכה, %1$s</string>
   <string name="tryTheContactPage">נסה את העמוד ״צור קשר״</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
@@ -922,19 +922,19 @@
   <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
   <string name="gameVsX">המשחק נגד %1$s</string>
   <string name="resVsX">%1$s נגד %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">מישהו דירג את פרופיל המאמן שלך.</string>
-  <string name="newPendingReview">דירוג ממתין חדש</string>
+  <string name="someoneReviewedYourCoachProfile">מישהו כתב ביקורת על פרופיל המאמן שלך.</string>
+  <string name="newPendingReview">ביקורת ממתינה חדשה</string>
   <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תנאי השימוש בליצ\'ס</string>
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
-  <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
+  <string name="clickToRevealEmailAddress">לחץ/י כדי לחשוף את כתובת הדוא\"ל</string>
   <string name="download">הורדה</string>
   <string name="welcome">ברוכים הבאים!</string>
   <string name="lichessPatronInfo">ליצ\'ס הוא ארגון לטובת הכלל ותוכנת קוד פתוח חינמית.
 כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
   <string name="coachManager">הגדרות עבור מאמנים</string>
   <string name="streamerManager">אזור ניהול משדר</string>
-  <string name="cancelTournament">בטל טורניר</string>
+  <string name="cancelTournament">ביטול הטורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
   <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. קישורים לעיצוב התיאור זמינים.[name](https://url)</string>
   <string name="ratedFormHelp">המשחקים מדורגים 
@@ -950,10 +950,10 @@
 שדה זה עובד רק עבור משחקים סטנדרטיים, לא עם וריאנטים.
 אתה יכול להשתמש ב-%s כדי ליצור מיקום FEN, ואז להדביק אותו כאן.
 השאר את שדה זה ריק כדי להתחיל משחקים מהמיקום ההתחלתי הרגיל.</string>
-  <string name="cancelSimul">בטל את המשחק הסימולטני</string>
+  <string name="cancelSimul">ביטול המשחק הסימולטני</string>
   <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
-  <string name="simulFeatured">הצג ב-%s</string>
+  <string name="simulFeatured">הצג ב%s</string>
   <string name="simulFeaturedHelp">גרום למשחק להיות פומבי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
@@ -970,9 +970,9 @@
   <string name="toggleAllAnalysis">הפעילו/כבו כל ניתוח מחשב</string>
   <string name="playComputerMove">שחק את מהלך המחשב הטוב ביותר</string>
   <string name="analysisOptions">אפשרויות ניתוח</string>
-  <string name="focusChat">הגדל את הצ\'אט</string>
-  <string name="showHelpDialog">הראה את דיאלוג זה</string>
-  <string name="reopenYourAccount">פתח את חשבונך מחדש</string>
+  <string name="focusChat">הגדלת הצ\'אט</string>
+  <string name="showHelpDialog">הצגת מסך עזרה זה</string>
+  <string name="reopenYourAccount">פתח/י את חשבונך מחדש</string>
   <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתוח אותו.</string>
   <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>
   <string name="cantDoThisTwice">עם סגירת החשבון בשנית לא תתאפשר עוד פתיחתו לעולם.</string>
@@ -980,13 +980,13 @@
   <string name="sentEmailWithLink">שלחנו לך דוא״ל עם קישור.</string>
   <string name="tournamentEntryCode">קוד כניסה לטורניר</string>
   <string name="hangOn">רגע!</string>
-  <string name="gameInProgress">אתה באמצע משחק עם %s.</string>
-  <string name="abortTheGame">בטל את המשחק</string>
-  <string name="resignTheGame">היכנע</string>
+  <string name="gameInProgress">את/ה באמצע משחק עם %s.</string>
+  <string name="abortTheGame">בטל/י את המשחק</string>
+  <string name="resignTheGame">כניעה</string>
   <string name="youCantStartNewGame">לא תוכל להתחיל משחק חדש עד גמר הנוכחי.</string>
   <string name="since">מאז</string>
   <string name="until">עד</string>
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
-  <string name="switchSides">הפוך לוח</string>
+  <string name="switchSides">הפוך צד</string>
   <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
 </resources>
