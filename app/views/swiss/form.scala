@@ -36,7 +36,7 @@ object form {
               fields.entryCode
             ),
             condition(form, fields, swiss = none),
-            form3.split(fields.forbiddenPairings),
+            form3.split(fields.forbiddenPairings, fields.allowList),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -71,7 +71,7 @@ object form {
               fields.entryCode
             ),
             condition(form, fields, swiss = swiss.some),
-            form3.split(fields.forbiddenPairings),
+            form3.split(fields.forbiddenPairings, fields.allowList),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
@@ -222,4 +222,13 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       help = trans.swiss.forbiddenPairingsHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
+
+  def allowList = form3.group(
+    form("conditions.allowList"),
+    "Only allow pre-defined users to join",
+    help = raw(
+      "If this list is non-empty, then usernames absent from this list will be forbidden to join. One username per line."
+    ).some,
+    half = true
+  )(form3.textarea(_)(rows := 4))
 }

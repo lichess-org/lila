@@ -22,13 +22,12 @@ object login {
       ),
       moreCss = cssTag("auth")
     ) {
+      def referrerParameter = referrer.?? { ref => s"?referrer=${urlencode(ref)}" }
       main(cls := "auth auth-login box box-pad")(
         h1(trans.signIn()),
         postForm(
-          cls := "form3",
-          action := s"${routes.Auth.authenticate}${referrer.?? { ref =>
-              s"?referrer=${urlencode(ref)}"
-            }}"
+          cls    := "form3",
+          action := s"${routes.Auth.authenticate}$referrerParameter"
         )(
           div(cls := "one-factor")(
             form3.globalError(form),
@@ -48,7 +47,7 @@ object login {
           )
         ),
         div(cls := "alternative")(
-          a(href := routes.Auth.signup)(trans.signUp()),
+          a(href := s"${routes.Auth.signup}$referrerParameter")(trans.signUp()),
           a(href := routes.Auth.passwordReset)(trans.passwordReset()),
           a(href := routes.Auth.magicLink)("Log in by email")
         )

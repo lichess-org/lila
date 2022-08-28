@@ -16,7 +16,7 @@
     "common": "2.0.0"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "dev": "rollup --failAfterWarnings --config",
+    "prod": "rollup --failAfterWarnings --config --config-prod"
   }
 }

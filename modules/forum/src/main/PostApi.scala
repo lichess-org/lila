@@ -189,12 +189,6 @@ final class PostApi(
 
   def nbByUser(userId: String) = postRepo.coll.countSel($doc("userId" -> userId))
 
-  def allByUser(userId: User.ID): AkkaStreamCursor[Post] =
-    postRepo.coll
-      .find($doc("userId" -> userId))
-      .sort($doc("createdAt" -> -1))
-      .cursor[Post](ReadPreference.secondaryPreferred)
-
   def categsForUser(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
     for {
       categs <- categRepo visibleWithTeams teams

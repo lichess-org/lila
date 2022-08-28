@@ -481,8 +481,7 @@ abstract private[controllers] class LilaController(val env: Env)
       html = fuccess {
         Redirect(
           if (HTTPRequest.isClosedLoginPath(ctx.req)) routes.Auth.login else routes.Auth.signup
-        ) withCookies env.lilaCookie
-          .session(env.security.api.AccessUri, ctx.req.uri)
+        ) withCookies env.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ =>
         env.lilaCookie

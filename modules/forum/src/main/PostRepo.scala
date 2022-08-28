@@ -1,10 +1,10 @@
 package lila.forum
 
+import Filter._
 import org.joda.time.DateTime
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
-import Filter._
 import lila.db.dsl._
 import lila.user.User
 
@@ -61,6 +61,11 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
       .sort($sort.createdDesc)
       .cursor[Post]()
       .list(nb)
+
+  def allByUserCursor(user: User): AkkaStreamCursor[Post] =
+    coll
+      .find($doc("userId" -> user.id))
+      .cursor[Post](ReadPreference.secondaryPreferred)
 
   def countByCateg(categ: Categ): Fu[Int] =
     coll.countSel(selectCateg(categ.id))

@@ -11,17 +11,17 @@
     "@types/cash": "8.0.0",
     "rollup": "^2",
     "typescript": "^4",
-    "@types/yaireo__tagify": "^4.15"
+    "@types/yaireo__tagify": "^4.16"
   },
   "dependencies": {
     "common": "2.0.0",
-    "@yaireo/tagify": "^4.15",
+    "@yaireo/tagify": "^4.16",
     "apexcharts": "^3.33",
     "tablesort": "^5.3"
   },
   "scripts": {
-    "all-dev": "rollup --config --config-all",
-    "plugin-dev": "rollup --config --config-plugin",
-    "plugin-prod": "rollup --config --config-prod --config-plugin"
+    "all-dev": "rollup --failAfterWarnings --config --config-all",
+    "plugin-dev": "rollup --failAfterWarnings --config --config-plugin",
+    "plugin-prod": "rollup --failAfterWarnings --config --config-prod --config-plugin"
   }
 }

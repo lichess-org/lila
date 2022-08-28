@@ -9,7 +9,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.8.0"
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "7.1.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.2.1"
-  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.11.0"
+  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.11.1"
   val chess       = "org.lichess"                  %% "scalachess"                      % "10.5.1"
   val compression = "org.lichess"                  %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"               %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
@@ -40,7 +40,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.5.6"
+    val version = "2.5.8"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.3"
@@ -73,7 +73,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.4.7"
+    val version    = "2.5.7"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

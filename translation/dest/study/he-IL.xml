@@ -41,7 +41,7 @@
   <string name="searchByUsername">חפש לפי שם משתמש</string>
   <string name="spectator">צופה</string>
   <string name="contributor">תורם</string>
-  <string name="kick">העף</string>
+  <string name="kick">הסרה</string>
   <string name="leaveTheStudy">עזוב את לוח הלמידה</string>
   <string name="youAreNowAContributor">כעת אתה תורם</string>
   <string name="youAreNowASpectator">כעת אתה צופה</string>

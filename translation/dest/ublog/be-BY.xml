@@ -41,4 +41,5 @@
   <string name="uploadAnImageForYourPost">Загрузіць малюнак да вашага допісу</string>
   <string name="imageAlt">Тэкставае апісанне выявы</string>
   <string name="imageCredit">Выява належыць</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Нашыя простыя парады пра напісанне цудоўных допісаў у блогу</string>
 </resources>
