@@ -247,10 +247,13 @@ package fishnet {
 }
 
 package user {
+
+  import lila.common.EmailAddress
   case class Note(from: String, to: String, text: String, mod: Boolean)
   sealed trait ClasId
   case class KidId(id: String)    extends ClasId
   case class NonKidId(id: String) extends ClasId
+  case class ChangeEmail(id: String, email: EmailAddress)
 }
 
 package round {

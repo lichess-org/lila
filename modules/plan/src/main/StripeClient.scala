@@ -10,6 +10,7 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import lila.common.config.Secret
 import lila.common.WebService
 import lila.user.User
+import lila.common.EmailAddress
 
 final private class StripeClient(
     ws: StandaloneWSClient,
@@ -133,6 +134,9 @@ final private class StripeClient(
       s"customers/${customerId.value}",
       "invoice_settings[default_payment_method]" -> paymentMethod
     ).void
+
+  def setCustomerEmail(cus: StripeCustomer, email: EmailAddress): Funit =
+    postOne[JsObject](s"customers/${cus.id.value}", "email" -> email.value).void
 
   def setSubscriptionPaymentMethod(subscription: StripeSubscription, paymentMethod: String): Funit =
     postOne[JsObject](s"subscriptions/${subscription.id}", "default_payment_method" -> paymentMethod).void
