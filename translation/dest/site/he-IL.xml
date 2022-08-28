@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">שחק עם חבר</string>
+  <string name="playWithAFriend">שחק/י עם חבר/ה</string>
   <string name="playWithTheMachine">שחק מול המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
@@ -10,7 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s רמה %2$s</string>
   <string name="level">רמה</string>
   <string name="strength">רמת קושי</string>
-  <string name="toggleTheChat">הפעל/כבה את הצ\'אט</string>
+  <string name="toggleTheChat">הפעלת/ כיבוי הצ\'אט</string>
   <string name="chat">שלח/י הודעה</string>
   <string name="resign">כניעה</string>
   <string name="checkmate">מט</string>
@@ -20,7 +20,7 @@
   <string name="asWhite">בתור לבן</string>
   <string name="asBlack">כשחור</string>
   <string name="randomColor">צבע אקראי</string>
-  <string name="createAGame">צור משחק</string>
+  <string name="createAGame">יצירת משחק</string>
   <string name="whiteIsVictorious">הלבן ניצח</string>
   <string name="blackIsVictorious">השחור ניצח</string>
   <string name="youPlayTheWhitePieces">את/ה משחק/ת כלבן</string>
@@ -61,6 +61,8 @@
   <string name="depthX">בעומק של %s מהלכים</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
   <string name="loadingEngine">טוען מנוע...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">מחשב מהלכים...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">שגיאה בטעינת המנוע</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
   <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצג איום</string>
