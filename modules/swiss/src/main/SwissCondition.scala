@@ -92,7 +92,7 @@ object SwissCondition {
 
   case class AllowList(value: String) extends SwissCondition with FlatCond {
 
-    lazy val segments = value.linesIterator.map { _.trim.toLowerCase }.filter(_.nonEmpty).toSet
+    private lazy val segments = value.linesIterator.map { _.trim.toLowerCase }.filter(_.nonEmpty).toSet
 
     private def allowAnyTitledUser = segments contains "%titled"
 
