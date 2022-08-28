@@ -59,6 +59,7 @@
   <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
   <string name="loadingEngine">Есептеуіш жүктелуде...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Қадамдарды есептеу...</string>
   <string name="cloudAnalysis">Бұлттық талдау</string>
   <string name="goDeeper">Терең кету</string>
   <string name="showThreat">Қауіп көрсету</string>
@@ -669,7 +670,7 @@
   <string name="downloadImported">Жүктеп салынғанды алу</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Компьютердің ойын тармағын көру үшін үстіне меңзер апарыңыз.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Компьютерлік тармақты көру үшін үстіне меңзер апарыңыз.</string>
   <string name="analysisShapesHowTo">Тақтада шеңбер мен нұсқағыш сызу үшін тінтуірмен оң шертіңіз немесе shift баса сол шертіңіз.</string>
   <string name="letOtherPlayersMessageYou">Ойыншыларға сізге хабар жіберу рұқсат па?</string>
   <string name="receiveForumNotifications">Форумда сіз туралы жазса, хабарлама алу</string>
