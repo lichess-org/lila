@@ -321,6 +321,12 @@ export default function (opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     downloadProgress,
+    isLoaded(): boolean {
+      return !!worker?.isLoaded();
+    },
+    initFailed(): boolean {
+      return !!worker?.initFailed();
+    },
     multiPv,
     threads,
     setThreads(threads: number) {

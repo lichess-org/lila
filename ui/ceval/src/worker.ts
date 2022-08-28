@@ -23,20 +23,30 @@ declare global {
 }
 
 export abstract class AbstractWorker<T> {
-  private booted: boolean;
+  protected bootSuccess?: boolean;
+  // undefined == not yet initialized, true == initialized, false == failed
+  // if boot is async, then the subclass is responsible for setting bootSuccess.
 
   constructor(readonly opts: T) {}
 
   start(work: Work): void {
-    if (!this.booted) {
+    if (!this.bootSuccess) {
       this.boot();
-      this.booted = true;
+      if (this.boot.constructor.name !== 'AsyncFunction') this.bootSuccess = true;
     }
     this.getProtocol().compute(work);
   }
 
   stop(): void {
     this.getProtocol().compute(undefined);
+  }
+
+  isLoaded(): boolean {
+    return this.bootSuccess === true;
+  }
+
+  initFailed(): boolean {
+    return this.bootSuccess === false;
   }
 
   isComputing(): boolean {
@@ -107,7 +117,6 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
         } catch (e) {
           console.log('ceval: idb cache load failed:', e);
         }
-
         if (!wasmBinary) {
           wasmBinary = await new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
@@ -122,27 +131,31 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
             req.send();
           });
         }
-
         try {
           await cache.set(wasmPath, version, wasmBinary);
         } catch (e) {
           console.log('ceval: idb cache store failed:', e);
         }
       }
+      try {
+        // Load Emscripten module.
+        await lichess.loadScript(this.opts.baseUrl + 'stockfish.js', { version });
+        const sf = await window[this.opts.module]!({
+          wasmBinary,
+          locateFile: (path: string) =>
+            lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
+          wasmMemory: this.opts.wasmMemory,
+        });
 
-      // Load Emscripten module.
-      await lichess.loadScript(this.opts.baseUrl + 'stockfish.js', { version });
-      const sf = await window[this.opts.module]!({
-        wasmBinary,
-        locateFile: (path: string) =>
-          lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
-        wasmMemory: this.opts.wasmMemory,
-      });
-
-      const protocol = this.getProtocol();
-      sf.addMessageListener(protocol.received.bind(protocol));
-      protocol.connected(msg => sf.postMessage(msg));
-      ThreadedWasmWorker.sf[this.opts.module] = sf;
+        const protocol = this.getProtocol();
+        sf.addMessageListener(protocol.received.bind(protocol));
+        protocol.connected(msg => sf.postMessage(msg));
+        ThreadedWasmWorker.sf[this.opts.module] = sf;
+        this.bootSuccess = true;
+      } catch (err) {
+        console.error(err);
+        this.bootSuccess = false;
+      }
     }
   }
 
