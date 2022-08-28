@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">כיתות</string>
-  <string name="teachClassesOfChessStudents">למד כיתות של תלמידי שחמט עם כלי הכיתות ש-Lichess מעמיד עבורך.</string>
+  <string name="teachClassesOfChessStudents">למד/י כיתות של תלמידי שחמט עם כלי הכיתות ש-Lichess מעמיד לרשותך.</string>
   <string name="features">תכונות</string>
-  <string name="quicklyGenerateSafeUsernames">הפק במהירות שמות משתמשים וסיסמאות בטוחות לסטודנטים</string>
-  <string name="trackStudentProgress">עקוב אחר ההתקדמות של התלמידים במשחקים ובחידות</string>
-  <string name="messageAllStudents">שלח הודעה לכל התלמידים על חומר לימוד חדש בכיתה</string>
-  <string name="freeForAllForever">חינמי לחלוטין לכול, לנצח ובלי פרסומות וכלי מעקב</string>
-  <string name="applyToBeLichessTeacher">הגש בקשה להיות מורה בליצ\'ס</string>
+  <string name="quicklyGenerateSafeUsernames">הפיקו במהירות שמות משתמשים וסיסמאות בטוחות לתלמידים</string>
+  <string name="trackStudentProgress">עקבו אחר ההתקדמות של התלמידים במשחקים ובחידות</string>
+  <string name="messageAllStudents">שלחו הודעה לכל התלמידים על חומר לימוד חדש בכיתה</string>
+  <string name="freeForAllForever">חינמי לחלוטין לכולם, לנצח, בלי פרסומות וכלי מעקב</string>
+  <string name="applyToBeLichessTeacher">הגישו בקשה להיות מורה בליצ\'ס</string>
   <string name="noClassesYet">אין עדיין כיתות.</string>
   <string name="teachersX">מורים: %s</string>
   <string name="newClass">כיתה חדשה</string>
@@ -17,8 +17,8 @@
   <string name="removeStudent">הסר תלמיד</string>
   <string name="removedStudents">הוסרו</string>
   <string name="inviteTheStudentBack">הזמן את התלמיד בחזרה</string>
-  <string name="sendAMessage">שלח הודעה לכל התלמידים.</string>
-  <string name="aLinkToTheClassWillBeAdded">קישור לכיתה יתווסף אוטומטית בסוף ההודעה, אז לא תצטרך להוסיף זאת בעצמך.</string>
+  <string name="sendAMessage">שלח/י הודעה לכל התלמידים.</string>
+  <string name="aLinkToTheClassWillBeAdded">קישור לכיתה יתווסף אוטומטית בסוף ההודעה, אז לא תצטרכו להוסיף זאת בעצמכם.</string>
   <string name="className">שם הכיתה</string>
   <string name="classDescription">תיאור הכיתה</string>
   <string name="visibleByBothStudentsAndTeachers">גלוי למורים ולתלמידי הכיתה</string>
@@ -30,9 +30,9 @@
   <string name="generateANewPassword">צור סיסמה חדשה לתלמיד</string>
   <string name="invitedToXByY">הוזמן ל%1$s ע\"י %2$s</string>
   <string name="realName">שם אמיתי</string>
-  <string name="privateWillNeverBeShown">פרטי. אף פעם לא יראה מחוץ לכיתה. עוזר לזכור מי התלמיד.</string>
+  <string name="privateWillNeverBeShown">פרטי. אף פעם לא ייראה מחוץ לכיתה. עוזר לזכור מי התלמיד.</string>
   <string name="addStudent">הוסף תלמיד</string>
-  <string name="lichessProfileXCreatedForY">פרופיל ליצ\'ס %1$s נוצר עבור %2$s.</string>
+  <string name="lichessProfileXCreatedForY">הפרופיל בליצ\'ס %1$s נוצר עבור %2$s.</string>
   <string name="studentCredentials">תלמיד: %1$s
 שם משתמש: %2$s
 סיסמה: %3$s</string>
@@ -42,16 +42,16 @@
   <string name="inviteDesc3">חשוב: הזמן רק תלמידים אשר אתה מכיר, ושרוצים להיות נוכחים בכיתה באופן אקטיבי.</string>
   <string name="inviteDesc4">לעולם אל תשלח הזמנות לא רצויות לשחקנים שרירותיים.</string>
   <string name="createANewLichessAccount">צור חשבון ליצ\'ס חדש</string>
-  <string name="createDesc1">אם לתלמיד עדיין אין חשבון בליצ\'ס, אתה יכול ליצור אחד בשבילו.</string>
-  <string name="createDesc2">כתובת אימייל אינה דרושה. סיסמה תיווצר, ותצטרך להעביר אותה לתלמיד, כדי שיוכל להתחבר.</string>
-  <string name="createDesc3">חשוב: לתלמיד אסור שיהיו מספר חשבונות.</string>
-  <string name="createDesc4">אם יש להם כבר אחד, השתמש במקום זאת בטופס ההזמנה.</string>
-  <string name="createStudentWarning">צור משתמשים לתלמידים אמיתיים בלבד. אל תשתמש בזה ליצירת משתמשים נוספים לעצמך. אתה תחסם.</string>
+  <string name="createDesc1">אם לאחד התלמידים עדיין אין חשבון בליצ\'ס, את/ה יכול/ה ליצור אחד בשבילו.</string>
+  <string name="createDesc2">כתובת אימייל אינה דרושה. סיסמה תיווצר, ותצטרך/י להעביר אותה לתלמיד/ה כדי שיוכלו להתחבר.</string>
+  <string name="createDesc3">חשוב: לתלמיד/ה אסור שיהיו מספר חשבונות.</string>
+  <string name="createDesc4">אם יש להם כבר אחד, השתמש/י במקום זאת בטופס ההזמנה.</string>
+  <string name="createStudentWarning">צרו משתמשים לתלמידים אמיתיים בלבד. אל תשתמשו בזה ליצירת משתמשים נוספים לעצמכם. אתם תחסמו.</string>
   <string name="lichessUsername">שם משתמש בליצ\'ס</string>
   <string name="generateANewUsername">צור שם משתמש חדש</string>
   <string name="welcomeToClass">ברוך הבא לכיתתך: %s.
 הנה הלינק כדי לגשת לכיתה.</string>
-  <string name="invitationToClass">אתה מוזמן להצטרף לכיתה ״%s״ בתור תלמיד.</string>
+  <string name="invitationToClass">את/ה מוזמן/ת להצטרף לכיתה ״%s״ בתור תלמיד/ה.</string>
   <string name="clickToViewInvitation">לחץ על הלינק כדי לראות את ההזמנה:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">הזמנה אחת ממתינה</item>
@@ -60,11 +60,11 @@
     <item quantity="other">%s הזמנות ממתינות</item>
   </plurals>
   <string name="onlyVisibleToTeachers">גלוי רק למורי הכיתה</string>
-  <string name="lastActiveDate">פעיל</string>
+  <string name="lastActiveDate">נכנס/ה לאחרונה</string>
   <string name="managed">מנוהל</string>
-  <string name="thisStudentAccountIsManaged">חשבון התלמיד הזה מנוהל</string>
-  <string name="upgradeFromManaged">שדרג ממנוהל לעצמאי</string>
-  <string name="release">שחרר</string>
+  <string name="thisStudentAccountIsManaged">חשבון התלמיד/ה הזה מנוהל</string>
+  <string name="upgradeFromManaged">שדרג/י ממנוהל לעצמאי</string>
+  <string name="release">שחרר/י</string>
   <string name="releaseTheAccount">שחרר את החשבון כדי שהתלמיד יוכל לנהל אותו בעצמו.</string>
   <string name="releaseDesc1">חשבון ששוחרר לא יוכל להיות מנוהל שוב. התלמיד יוכל לצאת ממצב הילדים ולאפס את סיסמתו.</string>
   <string name="releaseDesc2">התלמיד ישאר בכיתה לאחר שחשבונו ישוחרר.</string>
