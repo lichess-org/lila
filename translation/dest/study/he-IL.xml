@@ -115,7 +115,7 @@
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
   <string name="loadAGameFromXOrY">טען משחק מ%1$s או מ%2$s</string>
   <string name="createChapter">צור פרק</string>
-  <string name="configureLiveBroadcast">קבע שידור חי</string>
+  <string name="configureLiveBroadcast">קבע את התצורה של השידור החי</string>
   <string name="createStudy">צור לוח למידה</string>
   <string name="editStudy">ערוך לוח למידה</string>
   <string name="visibility">חשיפה</string>
