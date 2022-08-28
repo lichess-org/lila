@@ -103,7 +103,7 @@
   <string name="lossOr50MovesByPriorMistake">Жеңіліс немесе 50 жүріс ережесі</string>
   <string name="unknownDueToRounding">Жеңіс не жеңілістің шарты: басып алудан не сарбаз жүрісінен кейін, Сизигия дерекқорында DTZ шамасын дөңгелектеу кезінде сізге ұсынылаған дерекқор тармағына еру.</string>
   <string name="allSet">Барлығы дайын!</string>
-  <string name="importPgn">PGN импорты</string>
+  <string name="importPgn">PGN жүктеп салу</string>
   <string name="delete">Жою</string>
   <string name="deleteThisImportedGame">Бұл импортталған ойынды жоясыз ба?</string>
   <string name="replayMode">Ойнату тәртібі</string>
@@ -472,7 +472,7 @@
   <string name="makeAStudy">Ұзаққа сақтау әрі бөлісу үшін зерттеуді жасасаңыз болады.</string>
   <string name="clearSavedMoves">Жүрістерді жою</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да көрсетілген</string>
-  <string name="onlinePlayers">Қосулы ойыншылар</string>
+  <string name="onlinePlayers">Желідегі ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
   <string name="success">Бәрі дұрыс!</string>
@@ -737,7 +737,7 @@
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
-    <item quantity="other">Бірінші қадамға %s секунд бар</item>
+    <item quantity="other">Бірінші жүріске %s секунд бар</item>
   </plurals>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="anotherWasX">Тағы %s</string>
@@ -746,18 +746,18 @@
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="theGameIsADraw">Ойын тең аяқталды.</string>
   <string name="computerThinking">Компьютер ойлануда ...</string>
-  <string name="seeBestMove">Үздік қадамды көру</string>
-  <string name="hideBestMove">Үздік қадамды жасыру</string>
+  <string name="seeBestMove">Үздік жүрісті көру</string>
+  <string name="hideBestMove">Үздік жүрісті жасыру</string>
   <string name="getAHint">Көмек алу</string>
-  <string name="evaluatingYourMove">Қадам өңделіп жатыр ...</string>
+  <string name="evaluatingYourMove">Жүріс өңделіп жатыр ...</string>
   <string name="whiteWinsGame">Ақ жеңді</string>
   <string name="blackWinsGame">Қара жеңді</string>
   <string name="learnFromYourMistakes">Өз қателеріңізден сабақ алыңыз</string>
   <string name="learnFromThisMistake">Осы қатеден сабақ алыңыз</string>
-  <string name="skipThisMove">Осы қадамды елемеу</string>
+  <string name="skipThisMove">Осы жүрісті елемеу</string>
   <string name="next">Келесі</string>
   <string name="xWasPlayed">%s ойналды</string>
-  <string name="findBetterMoveForWhite">Ақ пайдасына ең тиімді қадамды табыңыз</string>
+  <string name="findBetterMoveForWhite">Ақ пайдасына ең тиімді жүрісті табыңыз</string>
   <string name="findBetterMoveForBlack">Қара пайдасына ең тиімді жүрісті табыңыз</string>
   <string name="resumeLearning">Үйренуді қорытындылау</string>
   <string name="youCanDoBetter">Тағы талпынып көріңіз</string>
@@ -780,14 +780,14 @@
   <string name="opening">Бастау</string>
   <string name="middlegame">Ойын ортасы</string>
   <string name="endgame">Ойынсоңы</string>
-  <string name="conditionalPremoves">Шартты алдын-ала жүрістер</string>
+  <string name="conditionalPremoves">Шартты ертелі жүріс</string>
   <string name="addCurrentVariation">Қазіргі тармақты қосу</string>
-  <string name="playVariationToCreateConditionalPremoves">Шартты алдын-ала жүрістерді құру үшін бір тармақты ойнаңыз</string>
-  <string name="noConditionalPremoves">Шартты алдын-ала жүрістер жоқ</string>
+  <string name="playVariationToCreateConditionalPremoves">Шартты ертелі жүрістерді құру үшін бір тармақты ойнаңыз</string>
+  <string name="noConditionalPremoves">Шартты ертелі жүрістер жоқ</string>
   <string name="playX">%s жүріңіз</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">алдын-ала жүрістердің %s қатарын сақтау</item>
-    <item quantity="other">алдын-ала жүрістердің %s қатарын сақтау</item>
+    <item quantity="one">әрі ертелі жүрістердің %s жолын сақтау</item>
+    <item quantity="other">әрі ертелі жүрістердің %s жолын сақтау</item>
   </plurals>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
@@ -885,11 +885,11 @@
   <string name="noChat">Сұхбатты өшіру</string>
   <string name="onlyTeamLeaders">Тек топ жетекшілері</string>
   <string name="onlyTeamMembers">Тек топ мүшелері</string>
-  <string name="navigateMoveTree">Жүріс тізімін басқару</string>
+  <string name="navigateMoveTree">Жүрістер тізімін шолу</string>
   <string name="mouseTricks">Тіңтуір әдістері</string>
   <string name="toggleLocalAnalysis">Өз компьютеріңізде талдауды қосу</string>
   <string name="toggleAllAnalysis">Барлық компьютер талдауларын қосу</string>
-  <string name="playComputerMove">Үздік компьютер жүрісін қолдану</string>
+  <string name="playComputerMove">Компьютердің үздік жүрісін қолдану</string>
   <string name="analysisOptions">Талдау баптаулары</string>
   <string name="focusChat">Нысаналы сұхбат</string>
   <string name="showHelpDialog">Осы көмекші терезені көрсету</string>
