@@ -61,6 +61,8 @@
   <string name="depthX">Globina %s</string>
   <string name="usingServerAnalysis">Z analizo strežnika</string>
   <string name="loadingEngine">Nalaganje motorja ...</string>
+  <string name="calculatingMoves">Računanje potez...</string>
+  <string name="engineFailed">Napaka pri nalaganju motorja</string>
   <string name="cloudAnalysis">Analiza v oblaku</string>
   <string name="goDeeper">Pojdi globje</string>
   <string name="showThreat">Prikaži grožnjo</string>
