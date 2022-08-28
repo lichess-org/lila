@@ -19,7 +19,7 @@
   <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
   <string name="puzzleId">חידה %s</string>
   <string name="puzzleOfTheDay">החידה היומית</string>
-  <string name="clickToSolve">לחץ כדי לפתור</string>
+  <string name="clickToSolve">לחץ/י כדי לפתור</string>
   <string name="goodMove">מהלך טוב</string>
   <string name="bestMove">המהלך הטוב ביותר!</string>
   <string name="keepGoing">המשך…</string>
