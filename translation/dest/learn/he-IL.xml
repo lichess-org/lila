@@ -183,13 +183,13 @@
   <string name="outstanding">מהמם!</string>
   <string name="wayToGo">אנחנו מתקדמים!</string>
   <string name="yesYesYes">זהו זה!</string>
-  <string name="youreGoodAtThis">אתה גדול!</string>
+  <string name="youreGoodAtThis">אתם גדולים!</string>
   <string name="nailedIt">ביצוע מרשים.</string>
   <string name="rightOn">המשיכו כך!</string>
   <string name="stageXComplete">הושלם שלב %s</string>
-  <string name="next">עבור לפרק הבא</string>
+  <string name="next">הבא</string>
   <string name="nextX">הבא: %s</string>
-  <string name="backToMenu">חזור לתפריט</string>
+  <string name="backToMenu">חזרה לתפריט</string>
   <string name="puzzleFailed">נכשלת בתרגיל!</string>
-  <string name="retry">נסה שוב</string>
+  <string name="retry">נסו שוב</string>
 </resources>
