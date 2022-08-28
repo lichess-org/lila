@@ -124,15 +124,28 @@ object Condition {
       }
   }
 
+  case class AllowList(value: String) extends Condition with FlatCond {
+
+    def userIds = value.linesIterator.map { _.trim.toLowerCase }.filter(_.nonEmpty)
+
+    def apply(user: User): Condition.Verdict =
+      if (userIds contains user.id) Accepted
+      else Refused { _ => "Your name is not in the tournament line-up." }
+
+    def name(implicit lang: Lang) = "Fixed line-up"
+  }
+
   case class All(
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
       titled: Option[Titled.type],
-      teamMember: Option[TeamMember]
+      teamMember: Option[TeamMember],
+      allowList: Option[AllowList]
   ) {
 
-    lazy val list: List[Condition] = List(nbRatedGame, maxRating, minRating, titled, teamMember).flatten
+    lazy val list: List[Condition] =
+      List(nbRatedGame, maxRating, minRating, titled, teamMember, allowList).flatten
 
     def relevant = list.nonEmpty
 
@@ -174,7 +187,8 @@ object Condition {
       maxRating = none,
       minRating = none,
       titled = none,
-      teamMember = none
+      teamMember = none,
+      allowList = none
     )
 
     case class WithVerdicts(list: List[WithVerdict]) extends AnyVal {
@@ -211,6 +225,7 @@ object Condition {
       _ => BSONBoolean(true)
     )
     implicit private val TeamMemberHandler = Macros.handler[TeamMember]
+    implicit private val AllowListHandler  = Macros.handler[AllowList]
     implicit val AllBSONHandler            = Macros.handler[All]
   }
 
@@ -320,7 +335,8 @@ object Condition {
         "maxRating"   -> maxRating,
         "minRating"   -> minRating,
         "titled"      -> optional(boolean),
-        "teamMember"  -> optional(teamMember(leaderTeams))
+        "teamMember"  -> optional(teamMember(leaderTeams)),
+        "allowList"   -> optional(nonEmptyText(maxLength = 9999))
       )(AllSetup.apply)(AllSetup.unapply)
         .verifying("Invalid ratings", _.validRatings)
 
@@ -329,7 +345,8 @@ object Condition {
         maxRating: RatingSetup,
         minRating: RatingSetup,
         titled: Option[Boolean],
-        teamMember: Option[TeamMemberSetup]
+        teamMember: Option[TeamMemberSetup],
+        allowList: Option[String]
     ) {
 
       def validRatings =
@@ -344,7 +361,8 @@ object Condition {
           maxRating.convert(perf)(MaxRating.apply),
           minRating.convert(perf)(MinRating.apply),
           ~titled option Titled,
-          teamMember.flatMap(_ convert teams)
+          teamMember.flatMap(_ convert teams),
+          allowList = allowList map AllowList
         )
     }
     object AllSetup {
@@ -353,7 +371,8 @@ object Condition {
         maxRating = RatingSetup(none, none),
         minRating = RatingSetup(none, none),
         titled = none,
-        teamMember = none
+        teamMember = none,
+        allowList = none
       )
       def apply(all: All): AllSetup =
         AllSetup(
@@ -361,7 +380,8 @@ object Condition {
           maxRating = RatingSetup(all.maxRating.map(_.perf.key), all.maxRating.map(_.rating)),
           minRating = RatingSetup(all.minRating.map(_.perf.key), all.minRating.map(_.rating)),
           titled = all.titled has Titled option true,
-          teamMember = all.teamMember.map(TeamMemberSetup.apply)
+          teamMember = all.teamMember.map(TeamMemberSetup.apply),
+          allowList = all.allowList.map(_.value)
         )
     }
   }
