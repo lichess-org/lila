@@ -61,6 +61,8 @@
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
   <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Obliczanie ruchów...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Błąd ładowania silnika</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
