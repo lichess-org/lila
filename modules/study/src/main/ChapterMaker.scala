@@ -174,7 +174,9 @@ final private class ChapterMaker(
       fuccess(fen.some)
     } map { goodFen =>
       pgnOpt
-        .flatMap(pgn => if (pgn.isEmpty) None else PgnImport(pgn, Nil).toOption map (_.root))
+        .filter(_.nonEmpty)
+        .flatMap(PgnImport(_, Nil).toOption)
+        .map(_.root)
         .getOrElse(GameToRoot(game, goodFen, withClocks = true))
     }
 
