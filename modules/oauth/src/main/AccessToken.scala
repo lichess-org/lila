@@ -21,6 +21,8 @@ case class AccessToken(
   def isBrandNew = createdAt.exists(DateTime.now.minusSeconds(5).isBefore)
 
   def expiresOrFarFuture = expires | DateTime.now.plusYears(1)
+
+  def isDangerous = scopes.exists(OAuthScope.dangerList.contains)
 }
 
 object AccessToken {
