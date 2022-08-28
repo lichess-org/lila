@@ -74,7 +74,7 @@
   <string name="variantLoss">Ұтылу жолы</string>
   <string name="variantWin">Жеңу жолы</string>
   <string name="insufficientMaterial">Матқа тас мөлшері жеткіліксіз</string>
-  <string name="pawnMove">Сарбаз қадамы</string>
+  <string name="pawnMove">Сарбаз жүрісі</string>
   <string name="capture">Басып алу</string>
   <string name="close">Жабу</string>
   <string name="winning">Жеңіс</string>
@@ -88,10 +88,10 @@
   <string name="topGames">Үздік ойындар</string>
   <string name="masterDbExplanation">%2$s - %3$s жж FIDE-дәрежесі %1$s+ ойыншылар қатысқан 2 миллион шынайы ойын</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s жарты-қадамды мат</item>
-    <item quantity="other">%s жарты-қадамды мат</item>
+    <item quantity="one">%s жартыжүрісті мат</item>
+    <item quantity="other">%s жартыжүрісті мат</item>
   </plurals>
-  <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жарты-қадамдардың санына негізделген</string>
+  <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
@@ -99,9 +99,9 @@
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережемен жеңіске жеткізбеу</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
-  <string name="winOr50MovesByPriorMistake">Жеңіс немесе 50 қадам ережесі</string>
-  <string name="lossOr50MovesByPriorMistake">Жеңіліс немесе 50 қадам ережесі</string>
-  <string name="unknownDueToRounding">Жеңіс не жеңілістің шарты: басып алудан не сарбаз қадамынан кейін, Сизигия дерекқорында DTZ шамасын дөңгелектеу кезінде сізге ұсынылаған дерекқор тармағына ерсеңіз.</string>
+  <string name="winOr50MovesByPriorMistake">Жеңіс немесе 50 жүріс ережесі</string>
+  <string name="lossOr50MovesByPriorMistake">Жеңіліс немесе 50 жүріс ережесі</string>
+  <string name="unknownDueToRounding">Жеңіс не жеңілістің шарты: басып алудан не сарбаз жүрісінен кейін, Сизигия дерекқорында DTZ шамасын дөңгелектеу кезінде сізге ұсынылаған дерекқор тармағына еру.</string>
   <string name="allSet">Барлығы дайын!</string>
   <string name="importPgn">PGN импорты</string>
   <string name="delete">Жою</string>
@@ -144,7 +144,7 @@
     <item quantity="other">%s ойыншы</item>
   </plurals>
   <string name="drawByMutualAgreement">Келісімді тепе-теңдік</string>
-  <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу қадам</string>
+  <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу жүріс</string>
   <string name="currentGames">Қазіргі ойындар</string>
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
@@ -366,11 +366,11 @@
     <item quantity="other">%s ойын салынды</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Бұл шахмат түрлі CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Тақтада қадам жасаумен адам екеніңізді растаңыз.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Тақтада жүріс жасаумен адам екеніңізді растаңыз.</string>
   <string name="captcha.fail">Шахмат түріндегі есепті шешіңіз.</string>
   <string name="notACheckmate">Мат емес</string>
-  <string name="whiteCheckmatesInOneMove">Ақ бір қадаммен мат қояды</string>
-  <string name="blackCheckmatesInOneMove">Қара бір қадаммен мат қояды</string>
+  <string name="whiteCheckmatesInOneMove">Ақ бір жүріспен мат қояды</string>
+  <string name="blackCheckmatesInOneMove">Қара бір жүріспен мат қояды</string>
   <string name="retry">Қайталау</string>
   <string name="reconnecting">Қайта байланысу</string>
   <plurals name="nbFriendsOnline">
@@ -467,10 +467,10 @@
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
   <string name="inlineNotation">Біржолды хаттама</string>
-  <string name="savingMoves">Қадамдарды уақытша сақтау</string>
+  <string name="savingMoves">Жүрістерді уақытша сақтау</string>
   <string name="savingMovesHelp">Біз сіздің ойын тармақтарыңызды браузер кэшінде сақтаймыз.</string>
   <string name="makeAStudy">Ұзаққа сақтау әрі бөлісу үшін зерттеуді жасасаңыз болады.</string>
-  <string name="clearSavedMoves">Қадамдарды жою</string>
+  <string name="clearSavedMoves">Жүрістерді жою</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да көрсетілген</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
@@ -480,7 +480,7 @@
     <item quantity="one">%s ойын өтуде</item>
     <item quantity="other">%s ойын өтуде</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Қадамнан кейін келесі ойынға автоматты түрде өту</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Жүрістен кейін келесі ойынға бірден өту</string>
   <string name="autoSwitch">Авто қосу</string>
   <string name="puzzles">Жұмбақтар</string>
   <string name="tournamentWinners">Жарыс женімпаздары</string>
@@ -621,9 +621,9 @@
   <string name="returnToSimulHomepage">Көпшілікке қарсы ойынның бастапқы бетіне оралу</string>
   <string name="aboutSimul">Көпшілікке қарсы ойында ойыншы бір мезгілде бірнешеуге қарсы ойнайды.</string>
   <string name="aboutSimulImage">Фишер 50 қарсыластың 47-сін жеңіп, 2-мен тең ойнап, 1-нен жеңілді.</string>
-  <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы тақталарды аралап, бір-бір қадамнан жасап отырады.</string>
+  <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы тақталарды аралап, бір-бірден жүріс жасап отырады.</string>
   <string name="aboutSimulRules">Көпшілікке қарсы ойын басталысымен, әр ойыншы ақ тастар иесі – бас ойыншымен жарысады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
-  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда жай ойын. Қайта ойнау, қадамды қайтару, уақыт қосу дегендер болмайды.</string>
+  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
   <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
@@ -665,12 +665,12 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
   <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>
-  <string name="timeToProcessAMoveOnLichessServer">Личес сервердің қадамды өңдеуге жұмсайтын уақыты</string>
+  <string name="timeToProcessAMoveOnLichessServer">Личес сервердің жүрісті өңдеуге жұмсайтын уақыты</string>
   <string name="downloadAnnotated">Өңделген күйде алу</string>
   <string name="downloadRaw">Шикі түрде алу</string>
   <string name="downloadImported">Жүктеп салынғанды алу</string>
   <string name="crosstable">Қос дерек</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, тақта үстінен тінтуір доңғалағын айналдырып қадам жасай аласыз.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, тақта үстінен тінтуір доңғалағын айналдырып жүріс жасай аласыз.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Компьютерлік тармақты көру үшін үстіне меңзер апарыңыз.</string>
   <string name="analysisShapesHowTo">Тақтада шеңбер мен нұсқағыш сызу үшін тінтуірмен оң шертіңіз немесе shift баса сол шертіңіз.</string>
   <string name="letOtherPlayersMessageYou">Ойыншыларға сізге хабар жіберу рұқсат па?</string>
@@ -736,7 +736,7 @@
   <string name="notifications">Хабарлама</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">Бірінші қадамға %s секунд бар</item>
+    <item quantity="one">Бірінші жүріске %s секунд бар</item>
     <item quantity="other">Бірінші қадамға %s секунд бар</item>
   </plurals>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
@@ -758,7 +758,7 @@
   <string name="next">Келесі</string>
   <string name="xWasPlayed">%s ойналды</string>
   <string name="findBetterMoveForWhite">Ақ пайдасына ең тиімді қадамды табыңыз</string>
-  <string name="findBetterMoveForBlack">Қара пайдасына ең тиімді қадамды табыңыз</string>
+  <string name="findBetterMoveForBlack">Қара пайдасына ең тиімді жүрісті табыңыз</string>
   <string name="resumeLearning">Үйренуді қорытындылау</string>
   <string name="youCanDoBetter">Тағы талпынып көріңіз</string>
   <string name="tryAnotherMoveForWhite">Ақтар пайдасына басқаша жүріп көріңіз</string>
