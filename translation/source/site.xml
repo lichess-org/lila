@@ -58,8 +58,8 @@
   <string name="analysis">Analysis board</string>
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Using server analysis</string>
-  <string name="loadingEngine">Loading engine ...</string>
-  <string name="calculatingMoves">Calculating moves ...</string>
+  <string name="loadingEngine">Loading engine...</string>
+  <string name="calculatingMoves">Calculating moves...</string>
   <string name="engineFailed">Error loading engine</string>
   <string name="cloudAnalysis">Cloud analysis</string>
   <string name="goDeeper">Go deeper</string>
