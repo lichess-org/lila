@@ -35,14 +35,14 @@ class MarkdownTest extends Specification {
       val md = Markdown(s"foo [game](http://l.org/$gameId) bar")
       gameRender(
         md
-      ) must_== s"""<p>foo <div data-pgn="$pgn" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
+      ) must_== s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="0" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
 """
     }
     "auto link" in {
       val md = Markdown(s"foo http://l.org/$gameId bar")
       gameRender(
         md
-      ) must_== s"""<p>foo <div data-pgn="$pgn" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
+      ) must_== s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="0" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
 """
     }
   }
