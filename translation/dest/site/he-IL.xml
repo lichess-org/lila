@@ -67,7 +67,7 @@
   <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצג איום</string>
   <string name="inLocalBrowser">בדפדפן המקומי</string>
-  <string name="toggleLocalEvaluation">הפעל ניתוח מקומי</string>
+  <string name="toggleLocalEvaluation">הפעלת ניתוח מקומי</string>
   <string name="promoteVariation">העדפת וריאנט</string>
   <string name="makeMainLine">קביעה כוריאנט הראשי</string>
   <string name="deleteFromHere">מחיקה מכאן והלאה</string>
@@ -734,7 +734,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את המייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל כדי לאפס את הסיסמה.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">על ידי הרשמה, את/ה מסכים/ה ל%s.</string>
-  <string name="readAboutOur">קרא את %s.</string>
+  <string name="readAboutOur">קראו את %s.</string>
   <string name="networkLagBetweenYouAndLichess">עיכוב הרשת בינך לבין ליצ\'ס</string>
   <string name="timeToProcessAMoveOnLichessServer">זמן לעיבוד מהלך בשרת ליצ\'ס</string>
   <string name="downloadAnnotated">הורדה עם הערות</string>
@@ -912,8 +912,8 @@
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
-  <string name="mentionedYouInX">תייג אותך ב- %1$s.</string>
-  <string name="xMentionedYouInY">%1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
+  <string name="mentionedYouInX">תייג/ה אותך ב- %1$s.</string>
+  <string name="xMentionedYouInY">%1$s הזכיר/ה אותך בהודעה ב-\"%2$s\".</string>
   <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">אתה כעת חבר בקבוצה.</string>
@@ -946,10 +946,10 @@
   <string name="maximumWeeklyRating">דירוג שבועי מקסימלי</string>
   <string name="onlyTitled">רק שחקנים עם תואר</string>
   <string name="onlyTitledHelp">רק שחקנים עם תואר</string>
-  <string name="positionInputHelp">הדבק FEN חוקי כדי להתחיל כל משחק מעמדה נתונה.
-שדה זה עובד רק עבור משחקים סטנדרטיים, לא עם וריאנטים.
-אתה יכול להשתמש ב-%s כדי ליצור מיקום FEN, ואז להדביק אותו כאן.
-השאר את שדה זה ריק כדי להתחיל משחקים מהמיקום ההתחלתי הרגיל.</string>
+  <string name="positionInputHelp">הדביקו FEN חוקי כדי להתחיל כל משחק מעמדה נתונה.
+שדה זה עובד רק עבור משחקים סטנדרטיים, לא עבור וריאנטים.
+את/ה יכול/ה להשתמש ב-%s כדי ליצור מיקום FEN, ואז להדביק אותו כאן.
+השאירו את השדה הזה ריק כדי להתחיל משחקים מהמיקום ההתחלתי הרגיל.</string>
   <string name="cancelSimul">ביטול המשחק הסימולטני</string>
   <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
