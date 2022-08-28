@@ -35,10 +35,10 @@ Xem tất cả %s bài đăng</item>
   <string name="imageCredit">Nguồn ảnh</string>
   <string name="deleteBlog">Xóa bài đăng blog này</string>
   <string name="deleteImage">Xóa hình ảnh</string>
-  <string name="safeToUseImages">Sử dụng an toàn hình ảnh từ các trang web: </string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Sử dụng an toàn hình ảnh từ các trang web: </string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
   <string name="useImagesYouMadeYourself">Bạn cũng có thể dùng hình ảnh của riêng bạn, những bức ảnh bạn chụp, ảnh chụp màn hình của Lichess... bất kỳ thứ gì miễn là không vi phạm bản quyền của ai.</string>
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai khác.</string>
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị khoá.</string>
-  <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài đăng blog tuyệt vời</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Vài mẹo đơn giản để giúp viết ra một bài đăng blog tuyệt vời</string>
 </resources>
