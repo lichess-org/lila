@@ -27,7 +27,7 @@
   <string name="wantClearHistory">אני רוצה למחוק את ההיסטוריה או הדירוג שלי</string>
   <string name="cantClearHistory">לא ניתן למחוק את היסטוריית המשחק, היסטוריית הפאזלים, או הדירוגים שלך.</string>
   <string name="wantReport">אני רוצה לדווח על שחקן</string>
-  <string name="toReportAPlayerUseForm">כדי לדווח על שחקן, השתמש בטופס הדיווח</string>
+  <string name="toReportAPlayerUseForm">כדי לדווח על שחקן, השתמשו בטופס הדיווח</string>
   <string name="youCanAlsoReachReportPage">אתה יכול גם להגיע לעמוד הדיווח על ידי לחיצה על הכפתור %s בעמוד הפרופיל.</string>
   <string name="doNotReportInForum">אל תדווחו על שחקנים בפורום.</string>
   <string name="doNotSendReportEmails">אל תשלחו לנו מיילים כדי לדווח.</string>
