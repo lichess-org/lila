@@ -37,10 +37,10 @@
   <string name="imageCredit">Crédito da imagem</string>
   <string name="deleteBlog">Excluir esta postagem definitivamente</string>
   <string name="deleteImage">Excluir a imagem</string>
-  <string name="safeToUseImages">É seguro utilizar imagens dos seguintes sites: </string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">É seguro utilizar imagens dos seguintes sites: </string>
   <string name="selectPostTopics">Selecione os assuntos da sua postagem</string>
   <string name="useImagesYouMadeYourself">Você também pode utilizar imagens feitas por você, fotografias que tirou, capturas de tela do Lichess... qualquer coisa que não esteja protegida por direitos autorais de outra pessoa.</string>
   <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
   <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
-  <string name="blogTips">Nossas dicas simples para escrever ótimas postagens</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Nossas dicas simples para escrever ótimas postagens</string>
 </resources>
