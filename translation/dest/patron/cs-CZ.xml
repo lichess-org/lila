@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Přispět</string>
+  <string name="donateAsX">Přispět jako %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Účet zdarma</string>
   <string name="becomePatron">Staňte se Lichess Patronem</string>
@@ -66,6 +67,7 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s nebo %2$s</string>
   <string name="decideHowMuch">Rozhodněte se, jakou má pro Vás Lichess hodnotu:</string>
   <string name="stopPayments">Odebrat kreditní kartu a zastavit platby:</string>
+  <string name="stopPaymentsPayPal">Zrušit předplatné PayPal a zastavit platby:</string>
   <string name="noLongerSupport">Už nepodporovat Lichess</string>
   <string name="viewOthers">Zobrazit ostatní Lichess Patrony</string>
   <string name="date">Datum</string>

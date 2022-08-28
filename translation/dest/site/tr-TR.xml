@@ -17,8 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Beyaz</string>
   <string name="black">Siyah</string>
-  <string name="asWhite">beyazlarda</string>
-  <string name="asBlack">siyahlarda</string>
+  <string name="asWhite">beyazda</string>
+  <string name="asBlack">siyahta</string>
   <string name="randomColor">Rastgele renk</string>
   <string name="createAGame">Yeni bir oyun kur</string>
   <string name="whiteIsVictorious">Zafer Beyazın</string>
@@ -96,26 +96,26 @@
   <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
-  <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
-  <string name="winOr50MovesByPriorMistake">Kazanın ya da 50 hamle yapın</string>
-  <string name="lossOr50MovesByPriorMistake">Kaybedin ya da 50 hamle yapın</string>
+  <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde engellendi</string>
+  <string name="winOr50MovesByPriorMistake">Galibiyet veya geçmiş hata sebebiyle 50 hamle</string>
+  <string name="lossOr50MovesByPriorMistake">Mağlubiyet veya geçmiş hata sebebiyle 50 hamle</string>
   <string name="unknownDueToRounding">Kazanma/kaybetme, Syzygy tablo tabanlarında DTZ değerlerinin olası yuvarlanması nedeniyle, yalnızca son yakalama veya piyon hareketinden bu yana önerilen tablo tabanı çizgisi izlendiğinde garanti edilir.</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="importPgn">PGN\'yi içe aktar</string>
   <string name="delete">Sil</string>
-  <string name="deleteThisImportedGame">Yüklediğiniz oyunu silmek istiyor musunuz?</string>
+  <string name="deleteThisImportedGame">İçe aktarılmış bu oyun silinsin mi?</string>
   <string name="replayMode">Tekrar modu</string>
   <string name="realtimeReplay">Gerçek Zamanlı</string>
-  <string name="byCPL">SPK ile</string>
+  <string name="byCPL">CPL ile</string>
   <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
-  <string name="bestMoveArrow">En iyi hamleyi tahta üzerinde göster</string>
+  <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
   <string name="memory">Hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
-  <string name="removesTheDepthLimit">Derinlik limitini kaldırır fakat bilgisayarınız ısınabilir.</string>
+  <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
   <string name="blunder">Vahim hata</string>
   <string name="mistake">Hata</string>
   <string name="inaccuracy">Kusurlu hamle</string>
@@ -164,7 +164,7 @@
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
-  <string name="discussions">Tartışmalar</string>
+  <string name="discussions">Sohbetler</string>
   <string name="today">Bugün</string>
   <string name="yesterday">Dün</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
@@ -217,7 +217,7 @@
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
   </plurals>
   <string name="cancel">İptal et</string>
-  <string name="whiteTimeOut">Beyazın zamanı tükendi.</string>
+  <string name="whiteTimeOut">Beyazın zamanı tükendi</string>
   <string name="blackTimeOut">Siyahın zamanı tükendi</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
   <string name="drawOfferAccepted">Beraberlik teklifi kabul edildi</string>
@@ -246,9 +246,9 @@
   <string name="rematch">Yeniden oyna</string>
   <string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
   <string name="rematchOfferAccepted">Yeniden oynama teklifi kabul edildi</string>
-  <string name="rematchOfferCanceled">Yeniden oynama teklifi reddedildi</string>
+  <string name="rematchOfferCanceled">Yeniden oynama teklifi geri çekildi</string>
   <string name="rematchOfferDeclined">Yeniden oynama teklifi reddedildi</string>
-  <string name="cancelRematchOffer">Yeniden oynama teklifini iptal et</string>
+  <string name="cancelRematchOffer">Yeniden oynama teklifini geri çek</string>
   <string name="viewRematch">Rövanş oyununu göster</string>
   <string name="confirmMove">Hamleyi onayla</string>
   <string name="play">Oyna</string>
@@ -267,12 +267,12 @@
     <item quantity="other">%s puanlı</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s kez kazandı</item>
-    <item quantity="other">%s kez kazandı</item>
+    <item quantity="one">%s galibiyet</item>
+    <item quantity="other">%s galibiyet</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s kez kaybetti</item>
-    <item quantity="other">%s kez kaybetti</item>
+    <item quantity="one">%s mağlubiyet</item>
+    <item quantity="other">%s mağlubiyet</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s kez berabere kaldı</item>
@@ -465,6 +465,7 @@
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="savingMoves">Geçici hamle depolama</string>
+  <string name="savingMovesHelp">Sizin varyasyonlarınızı tarayıcı önbelleğinde saklıyoruz.</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>

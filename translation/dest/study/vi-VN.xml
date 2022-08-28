@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">Bây giờ bạn là người xem</string>
   <string name="pgnTags">Nhãn PGN</string>
   <string name="like">Thích</string>
+  <string name="unlike">Bỏ thích</string>
   <string name="newTag">Nhãn mới</string>
   <string name="commentThisPosition">Bình luận về thế cờ này</string>
   <string name="commentThisMove">Bình luận về nước đi này</string>
@@ -72,11 +73,13 @@
   <string name="studyNotFound">Không tìm thấy nghiên cứu nào</string>
   <string name="editChapter">Sửa chương</string>
   <string name="newChapter">Chương mới</string>
+  <string name="importFromChapterX">Nhập từ %s</string>
   <string name="orientation">Bài học cho</string>
   <string name="analysisMode">Chế độ phân tích</string>
   <string name="pinnedChapterComment">Ghim bình luận chương</string>
   <string name="saveChapter">Lưu chương</string>
   <string name="clearAnnotations">Xóa chú thích</string>
+  <string name="clearVariations">Xóa chú thích</string>
   <string name="deleteChapter">Xóa chương</string>
   <string name="deleteThisChapter">Bạn muốn xóa chương này? Không thể làm lại được đâu!</string>
   <string name="clearAllCommentsInThisChapter">Xóa tất cả bình luận, dấu chú thích và hình vẽ trong chương này?</string>
@@ -122,6 +125,7 @@
   <string name="clearChat">Xóa chat</string>
   <string name="deleteTheStudyChatHistory">Xóa lịch sử chat? Không thể làm lại được đâu!</string>
   <string name="deleteStudy">Xóa bài học</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Xóa toàn bộ bài học? Không có cách nào để khôi phục lại! Nếu chắc chắn hãy nhập tên của bài học để xác nhận: %s</string>
   <string name="whereDoYouWantToStudyThat">Bạn muốn học ở đâu?</string>
   <string name="goodMove">Nước tốt</string>
   <string name="mistake">Sai lầm</string>

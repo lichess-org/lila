@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Ler o nome da persoa rival</string>
+  <string name="keyboardInputCommands">Comandos de entrada de teclado</string>
+  <string name="performAMove">Facer un movemento</string>
+  <string name="movePieceFromE2ToE4">Mover o peón de e2 a e4</string>
+  <string name="moveKnightToC3">Mover o cabalo a c3</string>
+  <string name="kingsideCastle">Enroque do rei</string>
+  <string name="queensideCastle">Enroque da raíña</string>
+  <string name="promoteC8ToQueen">Ascender c8 a dama</string>
+  <string name="dropARookAtB4">Crea unha torre en b4 (solo en Crazyhouse)</string>
+  <string name="offerOrAcceptDraw">Ofrecer ou aceptar táboas</string>
+  <string name="readOutClocks">Ver reloxos</string>
+  <string name="readOutOpponentName">Ler o nome da persoa rival</string>
+  <string name="otherCommands">Outros comandos</string>
+  <string name="tips">Consellos</string>
 </resources>

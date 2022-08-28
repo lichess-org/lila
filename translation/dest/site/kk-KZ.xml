@@ -419,7 +419,7 @@
   <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
   <string name="fewerPlayers">Егер кіру талаптарын қойсаңыз, қатысатын ойыншылар саны аз болады.</string>
   <string name="showAdvancedSettings">Қосымша баптауларды көрсету</string>
-  <string name="makePrivateTournament">Кіруді құпиясөз арқылы шектеп, жарысты оңашалаңыз</string>
+  <string name="makePrivateTournament">Кіруді құпиясөзбен шектеп, жарысты оңашалаңыз</string>
   <string name="join">Қосылыңыз</string>
   <string name="withdraw">Ойыннан шығу</string>
   <string name="points">Ұпайлар</string>
@@ -723,7 +723,7 @@
   <string name="usernameAlreadyUsed">Бұл ат қолданыста, басқасын жазып көріңіз.</string>
   <string name="usernamePrefixInvalid">Атыңыз әріптен басталуы керек.</string>
   <string name="usernameSuffixInvalid">Атыңыз әріп не санмен аяқталуы керек.</string>
-  <string name="usernameCharsInvalid">Атты тек қана әріптер, сандар, төменгі сызықтар мен сызықтардан құрастыруға рұқсат.</string>
+  <string name="usernameCharsInvalid">Тіркелгі атында тек қана әріп, сан, сызықша мен төменгі сызықша сияқты таңбалар болу керек. Бірнеше сызықша не төменгі сызықшаларды қатарынан жазбаңыз.</string>
   <string name="usernameUnacceptable">Бұл атты қолдануға болмайды.</string>
   <string name="playChessInStyle">Сәнді бола ойнаңыз</string>
   <string name="chessBasics">Шахмат әліппесі</string>
@@ -821,7 +821,7 @@
   <string name="important">Ескерту</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
   <string name="inTheFAQ">ЖҚС-да</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Бір қолданушының дөрекі қылығына не алдап ойнады деп шағымдану үшін %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Дөрекі қылық не алдап ойнау туралы шағымдану үшін %1$s</string>
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
   <string name="toRequestSupport">Жәрдем іздесеңіз %1$s</string>
   <string name="tryTheContactPage">байланыс туралы бетке өтіңіз</string>

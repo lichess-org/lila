@@ -2,15 +2,15 @@
 <resources>
   <string name="keyboardInputCommands">Ստեղնաշարով մուտքագրելու հրահանգներ</string>
   <string name="performAMove">Կատարել քայլ</string>
-  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Խաղաքարը e2-ից տեղափոխել e4</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Ձիով քայլել c3</string>
+  <string name="movePieceFromE2ToE4">Խաղաքարը e2-ից տեղափոխել e4</string>
+  <string name="moveKnightToC3">Ձիով քայլել c3</string>
   <string name="kingsideCastle">Կարճ փոխատեղում</string>
   <string name="queensideCastle">Երկար փոխատեղում</string>
   <string name="promoteC8ToQueen">Վերածել թագուհու c8-ում</string>
-  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Նավակը տեղափոխել b4 (Crazyhouse տարբերակում)</string>
+  <string name="dropARookAtB4">Նավակը տեղափոխել b4 (Crazyhouse տարբերակում)</string>
   <string name="offerOrAcceptDraw">Առաջարկել կամ ընդունել ոչ-ոքի</string>
   <string name="readOutClocks">Իմանալ ժամացույցի ժամանակը</string>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Արտաբերել մրցակցի անունը</string>
+  <string name="readOutOpponentName">Արտաբերել մրցակցի անունը</string>
   <string name="otherCommands">Այլ հրահանգներ</string>
   <string name="tips">Խորհուրդներ</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Եթե վերը թվարկված քայլերն անհասկանալի են, դրանք ուսումնասիրեք այստեղ.</string>

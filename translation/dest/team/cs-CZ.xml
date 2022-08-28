@@ -59,4 +59,5 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="upcomingTourns">Nadcházející turnaje</string>
   <string name="completedTourns">Proběhlé turnaje</string>
   <string name="declinedRequests">Odmítnuté žádosti</string>
+  <string name="joinLichessVariantTeam">Připojte se k oficiálnímu týmu %s pro novinky a události</string>
 </resources>
