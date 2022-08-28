@@ -38,7 +38,7 @@ final class SecurityApi(
 
   lazy val usernameOrEmailForm = Form(
     single(
-      "username" -> nonEmptyText
+      "username" -> lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength)
     )
   )
 
