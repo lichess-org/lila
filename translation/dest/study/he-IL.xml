@@ -16,7 +16,7 @@
   <string name="recentlyUpdated">עודכן לאחרונה</string>
   <string name="mostPopular">הכי פופולריים</string>
   <string name="alphabetical">בסדר האלפבית</string>
-  <string name="addNewChapter">הוסף פרק חדש</string>
+  <string name="addNewChapter">הוסיפו פרק חדש</string>
   <plurals name="nbChapters">
     <item quantity="one">פרק %s</item>
     <item quantity="two">%s פרקים</item>
@@ -57,7 +57,7 @@
   <string name="getAFullComputerAnalysis">קבל ניתוח צד־שרת מלא של המסעים העיקריים (mainline).</string>
   <string name="makeSureTheChapterIsComplete">ניתן לבקש ניתוח ממוחשב רק פעם אחת, ולכן וודאו שהפרק הושלם.</string>
   <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">כולם צופים באותה העמדה</string>
-  <string name="shareChanges">שתף שינויים עם הצופים ושמור אותם על השרת</string>
+  <string name="shareChanges">שתפו שינויים עם הצופים ושמרו אותם על השרת</string>
   <string name="playing">מתקיים כעת</string>
   <string name="first">ראשון</string>
   <string name="previous">הקודם</string>
@@ -72,7 +72,7 @@
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
   <string name="youCanPasteThisInTheForumToEmbed">אתה יכול לפרסם את זה בפורום כדי להטמיע</string>
-  <string name="startAtInitialPosition">התחל/י במצב התחלתי</string>
+  <string name="startAtInitialPosition">התחל/י במצב ההתחלתי</string>
   <string name="startAtX">התחל ב%s</string>
   <string name="embedInYourWebsite">הטמע באתר שלך</string>
   <string name="readMoreAboutEmbedding">קרא עוד על הטמעה</string>
