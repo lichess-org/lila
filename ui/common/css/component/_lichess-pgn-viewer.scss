@@ -13,3 +13,7 @@ $c-font-shy: $c-font-dim;
 .lpv {
   @extend %box-neat-force;
 }
+
+div.lpv-mouseover {
+  outline: 3px solid mix($c-primary, $c-bg, 25%);
+}
