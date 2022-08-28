@@ -46,14 +46,18 @@ object index {
           "."
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
-          div(cls            := "box__pad brand")(
-            iconTag("")(cls := "is-green"),
+          div(cls := "box__pad brand")(
+            if (token.isDangerous) iconTag("")(cls := "is-red")
+            else iconTag("")(cls                   := "is-green"),
             div(
-              p(
-                "Make sure to copy your new personal access token now.",
-                br,
-                "You won’t be able to see it again!"
-              ),
+              if (token.isDangerous)
+                p(strong("The token will grant access to your account. Do NOT share it with anyone!"))
+              else
+                p(
+                  "Make sure to copy your new personal access token now.",
+                  br,
+                  "You won’t be able to see it again!"
+                ),
               code(token.plain.secret)
             )
           )

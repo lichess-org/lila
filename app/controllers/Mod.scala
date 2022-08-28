@@ -132,6 +132,7 @@ final class Mod(
     OAuthMod(_.Shadowban) { _ => _ =>
       withSuspect(username) { sus =>
         env.mod.publicChat.deleteAll(sus) >>
+          env.forum.delete.allByUser(sus.user) >>
           env.msg.api.deleteAllBy(sus.user) map some
       }
     }(actionResult(username))
@@ -244,6 +245,18 @@ final class Mod(
               ) inject NoContent
             }
           }
+      }
+    }
+
+  def createNameCloseVote(username: String) =
+    Secure(_.SendToZulip) { _ => me =>
+      env.user.repo named username flatMap {
+        _ ?? { user =>
+          env.irc.api.nameCloseVote(
+            user = user,
+            mod = me
+          ) inject NoContent
+        }
       }
     }
 

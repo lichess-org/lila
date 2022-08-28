@@ -203,6 +203,12 @@
     <item quantity="many">%s hodín</item>
     <item quantity="other">%s hodín</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minúta</item>
+    <item quantity="few">%s minúty</item>
+    <item quantity="many">%s minút</item>
+    <item quantity="other">%s minút</item>
+  </plurals>
   <string name="time">Čas</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Štatistika ratingov</string>
@@ -945,8 +951,11 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
   <string name="simulFeatured">Zobraziť na %s</string>
+  <string name="simulFeaturedHelp">Ukázať vašu simultánnu hru všetkým na %s. Zakázať pre súkromné simultánne hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
+  <string name="markdownAvailable">%s je dostupné pre viac pokročilú syntax.</string>
+  <string name="embedsAvailable">Prilepiť URL hry alebo kapitoly štúdia sem.</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
   <string name="noChat">Vypnutý chat</string>

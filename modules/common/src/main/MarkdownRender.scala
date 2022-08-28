@@ -156,30 +156,31 @@ object MarkdownRender {
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
-      else {
-        val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-        val url          = resolvedLink.getUrl()
-        val altText      = new TextCollectingVisitor().collectAndGetText(node)
-        whitelistedSrc(url) match {
-          case Some(src) =>
-            html
-              .srcPos(node.getChars())
-              .attr("src", src)
-              .attr("alt", altText)
-              .attr(resolvedLink.getNonNullAttributes())
-              .withAttr(resolvedLink)
-              .tagVoid("img")
-          case None =>
-            html
-              .srcPos(node.getChars())
-              .attr("href", url)
-              .attr("rel", rel)
-              .withAttr(resolvedLink)
-              .tag("a")
-              .text(altText)
-              .tag("/a")
-        }
-      }.unit
+      else
+        {
+          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+          val url          = resolvedLink.getUrl()
+          val altText      = new TextCollectingVisitor().collectAndGetText(node)
+          whitelistedSrc(url) match {
+            case Some(src) =>
+              html
+                .srcPos(node.getChars())
+                .attr("src", src)
+                .attr("alt", altText)
+                .attr(resolvedLink.getNonNullAttributes())
+                .withAttr(resolvedLink)
+                .tagVoid("img")
+            case None =>
+              html
+                .srcPos(node.getChars())
+                .attr("href", url)
+                .attr("rel", rel)
+                .withAttr(resolvedLink)
+                .tag("a")
+                .text(altText)
+                .tag("/a")
+          }
+        }.unit
   }
 
   private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension {
@@ -208,11 +209,11 @@ object MarkdownRender {
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
       else {
-        var link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLink(node, context, html, link)
         link.getUrl match {
-          case gameRegex(id, _, _) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
+          case gameRegex(id, color, ply) =>
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
         }
       }
@@ -229,8 +230,8 @@ object MarkdownRender {
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLink(node, context, html, link)
         link.getUrl match {
-          case gameRegex(id, _, _) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link))
+          case gameRegex(id, color, ply) =>
+            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
         }
       }
@@ -249,9 +250,18 @@ object MarkdownRender {
       html.tag("/a").unit
     }
 
-    private def renderPgnViewer(node: LinkNode, html: HtmlWriter, link: ResolvedLink)(pgn: String) =
+    private def renderPgnViewer(
+        node: LinkNode,
+        html: HtmlWriter,
+        link: ResolvedLink,
+        pgn: String,
+        color: String,
+        ply: String
+    ) =
       html
         .attr("data-pgn", pgn)
+        .attr("data-orientation", Option(color) | "white")
+        .attr("data-ply", Option(ply) | "0")
         .attr("class", "lpv--autostart")
         .srcPos(node.getChars())
         .withAttr(link)

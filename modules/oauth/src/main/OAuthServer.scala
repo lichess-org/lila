@@ -34,7 +34,7 @@ final class OAuthServer(
             val blocked =
               at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
             andLogReq foreach { req =>
-              logger.info(
+              logger.debug(
                 s"${if (blocked) "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
               )
             }

@@ -1,7 +1,6 @@
 package lila.notify
 
 import scala.concurrent.duration._
-
 import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
@@ -54,12 +53,13 @@ final class NotifyApi(
   def unreadCount(userId: Notification.Notifies): Fu[Notification.UnreadCount] =
     unreadCountCache get userId dmap Notification.UnreadCount.apply
 
-  def addNotification(notification: Notification): Funit =
+  def addNotification(notification: Notification): Fu[Boolean] =
     // Add to database and then notify any connected clients of the new notification
     insertOrDiscardNotification(notification) map {
-      _ foreach { notif =>
-        notifyUser(notif.notifies)
-      }
+      case Some(note) =>
+        notifyUser(note.notifies)
+        true
+      case None => false
     }
 
   def addNotificationWithoutSkipOrEvent(notification: Notification): Funit =
@@ -94,7 +94,8 @@ final class NotifyApi(
     */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
     !shouldSkip(notification) flatMap {
-      _ ?? addNotificationWithoutSkipOrEvent(notification) inject notification.some
+      case true  => addNotificationWithoutSkipOrEvent(notification) inject notification.some
+      case false => fuccess(None)
     }
 
   private def notifyUser(notifies: Notification.Notifies): Funit =

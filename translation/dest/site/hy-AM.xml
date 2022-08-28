@@ -550,6 +550,10 @@
     <item quantity="one">Առավելագույնը՝ %s նշան։</item>
     <item quantity="other">Առավելագույնը՝ %s նշան։</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s արգելափակում</item>
+    <item quantity="other">%s արգելափակում</item>
+  </plurals>
   <string name="listBlockedPlayers">Այն խաղացողների ցանկը, որոնց Դուք արգելափակել եք</string>
   <string name="human">Մարդ</string>
   <string name="computer">Համակարգիչ</string>
@@ -643,9 +647,17 @@
   <string name="glicko2Rating">Glicko-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ձեզ նամակ ենք ուղարկել։ Մասնակցային հաշիվն ակտիվացնելու համար սեղմեք նամակում եղած հղումը։</string>
+  <string name="timeToProcessAMoveOnLichessServer">Քայլի մշակման ժամանակը Lichess-ի սերվերում</string>
+  <string name="downloadAnnotated">Ներբեռնել անոտացիաներով</string>
+  <string name="downloadRaw">Ներբեռնել նախնական տեսքով</string>
+  <string name="downloadImported">Ներբեռնել ներմուծվածը</string>
   <string name="crosstable">Հաշիվ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Քայլերը թերթելու համար կարելի է մկնիկի անիվը պտտել տախտակի վրա։</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Թերթեք տարբերակները դրանք դիտելու համար  </string>
   <string name="analysisShapesHowTo">Խաղատախտակի վրա շրջանակներ և սլաքներ պատկերելու համար օգտագործեք Shift+մկնիկի ձախ կոճակը կամ աջ կոճակը։</string>
+  <string name="letOtherPlayersMessageYou">Թույլ տալ այլ խաղացողներին Ձեզ հաղորդագրություններ ուղարկել</string>
+  <string name="receiveForumNotifications">Ստանալ ծանուցումներ ֆորումում հիշատակվելու դեպքում</string>
+  <string name="shareYourInsightsData">Ներկայացրեք Ձեր շախմատային պատկերացումների տվյալները</string>
   <string name="withNobody">Ոչ մեկի հետ</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
@@ -668,7 +680,15 @@
   <string name="correspondenceChess">Նամակագրական շախմատ</string>
   <string name="onlineAndOfflinePlay">Առցանց և օֆլայն խաղ</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
+  <string name="followAndChallengeFriends">Բաժանորդագրություններ և խաղ ընկերների հետ</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Հասանելի՜ է %s լեզվով</item>
+    <item quantity="other">Հասանելի՜ է %s լեզուներով</item>
+  </plurals>
   <string name="gameAnalysis">Խաղի վերլուծություն</string>
+  <string name="xHostsY">%1$s-ը ստեղծել է %2$s-ը</string>
+  <string name="xJoinsY">%1$s-ը միացել է %2$s-ին</string>
+  <string name="xLikesY">%1$s-ը հավանել է %2$s-ին</string>
   <string name="quickPairing">Արագ սկիզբ</string>
   <string name="lobby">Սպասասրահ</string>
   <string name="anonymous">Անանուն</string>
@@ -756,6 +776,8 @@
   <string name="timeoutExpires">Դուք կարող եք վերադառնալ %s անց։</string>
   <string name="why">Ինչու՞</string>
   <string name="pleasantChessExperience">Մեր նպատակը շախմատը բոլորի համար հետաքրքիր դարձնելն է։</string>
+  <string name="goodPractice">Դրան հասնելու համար մենք պետք է այնպես անենք, որ բոլոր խաղացողները հետևեն բարեկրթության կանոններին։</string>
+  <string name="potentialProblem">Երբ հայտնաբերում ենք հավանական խնդիր, մենք ցուցադրում ենք այս հաղորդագրությունը։</string>
   <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
   <string name="playEveryGame">Հասցրե՛ք ավարտին սկսված բոլոր խաղերը։</string>
   <string name="tryToWin">Փորձեք հաղթել (կամ գոնե ոչ-ոքի խաղալ) յուրաքանչյուր խաղ։</string>
@@ -785,12 +807,21 @@
   <string name="inTheFAQ">ՀՏՀ-ում</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Օգտատիրոջ խարդախ կամ անպարկեշտ պահվածքը ծանուցելու համար %1$s</string>
   <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
+  <string name="toRequestSupport">Աջակցություն ստանալու համար %1$s</string>
+  <string name="tryTheContactPage">դիտեք կոնտակտային տվյալները</string>
   <string name="thisTopicIsArchived">Այս թեման տեղափոխվել է արխիվ, և այն այլևս հնարավոր չէ մեկնաբանել։</string>
+  <string name="joinTheTeamXToPost">Մուտք գործեք %1$s, այս ֆորումում գրելու համար</string>
   <string name="teamNamedX">%1$s թիմ</string>
+  <string name="youCannotPostYetPlaySomeGames">Դուք առայժմ չեք կարող գրել այս ֆորումում։ Խաղացե՛ք մի քանի պարտիա։</string>
   <string name="subscribe">Բաժանորդագրվել</string>
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
+  <string name="mentionedYouInX">հիշատակել է Ձեզ «%1$s»-ում։</string>
   <string name="xMentionedYouInY">%1$s-ը հիշատակել է Ձեզ  «%2$s»-ում։</string>
   <string name="invitedYouToX">Հրավիրել է Ձեզ «%1$s»։</string>
+  <string name="xInvitedYouToY">%1$s-ը հրավիրել է Ձեզ  «%2$s»։</string>
+  <string name="youAreNowPartOfTeam">Այժմ Դուք ակումբի անդամ եք։</string>
+  <string name="youHaveJoinedTeamX">Դուք ընդգրկվել եք «%1$s»-ում։</string>
+  <string name="someoneYouReportedWasBanned">Ինչ-որ մենք արգելափակվել է Ձեր դիմումով</string>
   <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
   <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
   <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>
@@ -808,14 +839,21 @@
   <string name="streamerManager">Սթրիմերների համար</string>
   <string name="cancelTournament">Չեղարկել մրցաշարը</string>
   <string name="tournDescription">Մրցաշարի նկարագրությունը</string>
+  <string name="ratedFormHelp">Խաղերն ընթանում են վարկանիշի հաշվարկով և ազդում են խաղացողների վարկանիշի վրա</string>
+  <string name="onlyMembersOfTeam">Միայն ակումբի անդամների համար</string>
   <string name="noRestriction">Առանց սահմանափակումների</string>
   <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
   <string name="minimumRating">Նվազագույն վարկանիշ</string>
+  <string name="maximumWeeklyRating">Առավելագույն ամենշաբաթյա վարկանիշ</string>
   <string name="onlyTitled">Միայն տիտղոսավոր խաղացողներ</string>
   <string name="onlyTitledHelp">Պահանջում է պաշտոնական տիտղոս մրցաշարին մասնակցելու համար</string>
   <string name="cancelSimul">Չեղարկել խաղաշարը</string>
   <string name="simulHostcolor">Խաղաշար անցկացնողի գույնը յուրաքանչյուր պարտիայում</string>
   <string name="estimatedStart">Խաղաշարը սկսելու նախատեսվող ժամը</string>
+  <string name="simulFeatured">Ցույց տալ %s-ում</string>
+  <string name="simulFeaturedHelp">Ցուցադրել խաղաշարը %s-ում։ Անջատեք մասնավոր խաղաշարերի համար։</string>
+  <string name="simulDescription">Խաղաշարի նկարագրությունը</string>
+  <string name="simulDescriptionHelp">Ցանկանո՞ւմ եք որևէ բան պատմել մասնակիցներին։</string>
   <string name="markdownAvailable">%s հասանելի է ընդլայնված ֆորմատավորման համար</string>
   <string name="embedsAvailable">Ներդնելու համար տեղադրեք պարտիայի կամ ստուդիայի URL-հասցեն։</string>
   <string name="inYourLocalTimezone">Ձեր ժամագոտում</string>

@@ -1,5 +1,5 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
-
+import { isIOS, isIPad, isAndroid } from 'common/mobile';
 import { Result } from '@badrap/result';
 import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalWorkerOpts } from './worker';
 import { prop } from 'common';
@@ -13,9 +13,8 @@ import { isStandardMaterial } from 'chessops/chess';
 import { defaultPosition, setupPosition } from 'chessops/variant';
 import { lichessRules } from 'chessops/compat';
 
-function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
-  return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
-}
+const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
+  new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
 
 function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
   // Atomics
@@ -30,11 +29,10 @@ function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly
 
   // Structured cloning
   try {
-    window.postMessage(mem, '*');
+    window.postMessage(mem.buffer, '*');
   } catch (e) {
-    return;
+    return undefined;
   }
-
   return mem;
 }
 
@@ -95,8 +93,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
-    const sharedMem = sendableSharedWasmMemory(8, 16);
-    if (sharedMem) {
+    const sharedMem = sendableSharedWasmMemory(1, 2);
+    if (sharedMem?.buffer) {
       technology = 'hce';
 
       // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
@@ -105,7 +103,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       if (supportsNnue && officialStockfish && enableNnue()) technology = 'nnue';
 
       try {
-        sharedMem.grow(8);
+        sharedMem.grow(1);
         growableSharedMem = true;
       } catch (e) {
         // memory growth not supported
@@ -130,17 +128,36 @@ export default function (opts: CevalOpts): CevalCtrl {
     const stored = lichess.storage.get(storageKey('ceval.threads'));
     return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
   };
+  const pow2floor = (n: number) => {
+    let pow2 = 1;
+    while (pow2 * 2 <= n) pow2 *= 2;
+    return pow2;
+  };
+  const maxWasmPages = (minPages: number): number => {
+    if (!growableSharedMem) return minPages;
+    let maxPages = 32768; // hopefully desktop browser, 2 GB max shared
+    if (isAndroid()) maxPages = 8192; // 512 MB max shared
+    else if (isIPad()) maxPages = 8192; // 512 MB max shared
+    else if (isIOS()) maxPages = 4096; // 256 MB max shared
+    return Math.max(minPages, maxPages);
+  };
+  // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even
+  // scales like native stockfish with increasing hash.  prefer smaller, non-crashing values
+  // steer the high performance crowd towards external engine as it gets better
+  const maxHashMB = (): number => {
+    let maxHash = 256; // this is conservative but safe, mostly desktop firefox / mac safari users here
+    if (navigator.deviceMemory) maxHash = pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
+    else if (isAndroid()) maxHash = 64; // budget androids are easy to crash @ 128
+    else if (isIPad()) maxHash = 64; // ipados safari pretends to be desktop but acts more like iphone
+    else if (isIOS()) maxHash = 32;
+    return maxHash;
+  };
+  const maxHashSize = technology == 'external' ? externalOpts!.maxHash || 16 : maxHashMB();
 
-  const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
-  const maxHashSize =
-    technology == 'external'
-      ? externalOpts!.maxHash || 16
-      : Math.min(((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = () => {
     const stored = lichess.storage.get(storageKey('ceval.hash-size'));
     return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
   };
-
   const multiPv = storedIntProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedBooleanProp('ceval.infinite', false);
   let curEval: Tree.LocalEval | null = null;
@@ -243,15 +260,15 @@ export default function (opts: CevalOpts): CevalCtrl {
             opts.redraw();
           }),
           version: 'b6939d',
-          wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
-          cache: new Cache('ceval-wasm-cache'),
+          wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
+          cache: window.indexedDB && new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker({
           baseUrl: officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
           module: officialStockfish ? 'Stockfish' : 'StockfishMv',
           version: 'a022fa',
-          wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
+          wasmMemory: sharedWasmMemory(1024, maxWasmPages(1088)),
         });
       else
         worker = new WebWorker({
@@ -304,6 +321,12 @@ export default function (opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     downloadProgress,
+    isLoaded(): boolean {
+      return !!worker?.isLoaded();
+    },
+    initFailed(): boolean {
+      return !!worker?.initFailed();
+    },
     multiPv,
     threads,
     setThreads(threads: number) {

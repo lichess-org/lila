@@ -35,4 +35,6 @@
   <string name="uploadAnImageForYourPost">Gönderinize bir görsel ekleyin</string>
   <string name="imageAlt">Alternatif resim metni</string>
   <string name="imageCredit">Resim kaynağı</string>
+  <string name="deleteImage">Resmi sil</string>
+  <string name="useImagesYouMadeYourself">Telif hakkı başkalarında olmayan her şeyi kullanabilirsiniz: kendi yaptığınız resimler, çektiğiniz fotoğraflar, Lichess ekran görüntüleri gibi.</string>
 </resources>

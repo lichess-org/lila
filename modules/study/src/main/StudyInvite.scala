@@ -72,7 +72,7 @@ final private class StudyInvite(
           InvitedToStudy.StudyId(study.id.value)
         )
         val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
-        notifyApi.addNotification(notification)
+        notifyApi.addNotification(notification).void
       }(funit)
     } yield invited
 

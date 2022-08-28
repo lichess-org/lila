@@ -47,7 +47,7 @@ object Streamer {
       approval = Approval(
         requested = false,
         granted = false,
-        ignored = false,
+        ignored = user.marks.troll,
         tier = 0,
         chatEnabled = true,
         lastGrantedAt = none

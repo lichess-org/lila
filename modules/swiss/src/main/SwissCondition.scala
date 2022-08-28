@@ -79,8 +79,7 @@ object SwissCondition {
   case class MinRating(rating: Int) extends SwissCondition with FlatCond {
 
     def apply(user: User, perf: PerfType) =
-      if (user.hasTitle) Accepted
-      else if (user.perfs(perf).provisional) Refused { implicit lang =>
+      if (user.perfs(perf).provisional) Refused { implicit lang =>
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
       }
       else if (user.perfs(perf).intRating < rating) Refused { implicit lang =>
@@ -91,14 +90,29 @@ object SwissCondition {
     def name(perf: PerfType)(implicit lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
   }
 
+  case class AllowList(value: String) extends SwissCondition with FlatCond {
+
+    private lazy val segments = value.linesIterator.map { _.trim.toLowerCase }.filter(_.nonEmpty).toSet
+
+    private def allowAnyTitledUser = segments contains "%titled"
+
+    def apply(user: User, perf: PerfType): SwissCondition.Verdict =
+      if (segments contains user.id) Accepted
+      else if (allowAnyTitledUser && user.hasTitle) Accepted
+      else Refused { _ => "Your name is not in the tournament line-up." }
+
+    def name(perf: PerfType)(implicit lang: Lang) = "Fixed line-up"
+  }
+
   case class All(
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
-      titled: Option[Titled.type]
+      titled: Option[Titled.type],
+      allowList: Option[AllowList]
   ) {
 
-    lazy val list: List[SwissCondition] = List(nbRatedGame, maxRating, minRating, titled).flatten
+    lazy val list: List[SwissCondition] = List(nbRatedGame, maxRating, minRating, titled, allowList).flatten
 
     def relevant = list.nonEmpty
 
@@ -131,7 +145,8 @@ object SwissCondition {
       nbRatedGame = none,
       maxRating = none,
       minRating = none,
-      titled = none
+      titled = none,
+      allowList = none
     )
 
     case class WithVerdicts(list: List[WithVerdict]) extends AnyVal {
@@ -160,26 +175,9 @@ object SwissCondition {
       { case _: BSONValue => Titled },
       _ => BSONBoolean(true)
     )
-    implicit val AllBSONHandler = Macros.handler[All]
+    implicit private val AllowListHandler = Macros.handler[AllowList]
+    implicit val AllBSONHandler           = Macros.handler[All]
   }
-
-//   object JSONHandlers {
-//     import play.api.libs.json._
-
-//     def verdictsFor(verdicts: All.WithVerdicts, perf: PerfType, lang: Lang) =
-//       Json.obj(
-//         "list" -> verdicts.list.map { case WithVerdict(cond, verd) =>
-//           Json.obj(
-//             "condition" -> cond.name(perf)(lang),
-//             "verdict" -> (verd match {
-//               case Refused(reason) => reason(lang)
-//               case Accepted        => JsString("ok")
-//             })
-//           )
-//         },
-//         "accepted" -> verdicts.accepted
-//       )
-//   }
 
   object DataForm {
     import play.api.data.Forms._
@@ -220,7 +218,8 @@ object SwissCondition {
         "nbRatedGame" -> optional(nbRatedGame),
         "maxRating"   -> maxRating,
         "minRating"   -> minRating,
-        "titled"      -> optional(boolean)
+        "titled"      -> optional(boolean),
+        "allowList"   -> optional(nonEmptyText(maxLength = 9999))
       )(AllSetup.apply)(AllSetup.unapply)
         .verifying("Invalid ratings", _.validRatings)
 
@@ -228,7 +227,8 @@ object SwissCondition {
         nbRatedGame: Option[NbRatedGame],
         maxRating: RatingSetup,
         minRating: RatingSetup,
-        titled: Option[Boolean]
+        titled: Option[Boolean],
+        allowList: Option[String]
     ) {
 
       def validRatings =
@@ -241,7 +241,8 @@ object SwissCondition {
         nbRatedGame.filter(_.nb > 0),
         maxRating.actualRating map MaxRating,
         minRating.actualRating map MinRating,
-        ~titled option Titled
+        ~titled option Titled,
+        allowList = allowList map AllowList
       )
     }
     object AllSetup {
@@ -249,14 +250,16 @@ object SwissCondition {
         nbRatedGame = none,
         maxRating = RatingSetup(none),
         minRating = RatingSetup(none),
-        titled = none
+        titled = none,
+        allowList = none
       )
       def apply(all: All): AllSetup =
         AllSetup(
           nbRatedGame = all.nbRatedGame,
           maxRating = RatingSetup(all.maxRating.map(_.rating)),
           minRating = RatingSetup(all.minRating.map(_.rating)),
-          titled = all.titled has Titled option true
+          titled = all.titled has Titled option true,
+          allowList = all.allowList.map(_.value)
         )
     }
   }

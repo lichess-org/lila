@@ -518,6 +518,7 @@ GET   /mod/table                       controllers.Mod.table
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip
+POST  /mod/:username/create-name-close-vote controllers.Mod.createNameCloseVote(username: String)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
 GET   /mod/activity                    controllers.Mod.activity

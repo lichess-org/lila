@@ -11,4 +11,6 @@
   <string name="showCoordinates">Ցույց տալ կոորդինատները</string>
   <string name="showPieces">Ցույց տալ խաղաքարերը</string>
   <string name="startTraining">Սկսել ուսուցումը</string>
+  <string name="findSquare">Գտնել դաշտը</string>
+  <string name="nameSquare">Անվանել դաշտը</string>
 </resources>

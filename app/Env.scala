@@ -12,8 +12,6 @@ import lila.common.config._
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings._
 import lila.memo.SettingStore.UserIds._
-import lila.security.Granter
-import lila.user.{ Holder, User }
 
 final class Env(
     val config: Configuration,
@@ -247,7 +245,7 @@ final class EnvBoot(
   lazy val storm: lila.storm.Env             = wire[lila.storm.Env]
   lazy val racer: lila.racer.Env             = wire[lila.racer.Env]
   lazy val ublog: lila.ublog.Env             = wire[lila.ublog.Env]
-  lazy val opening: lila.opening.Env           = wire[lila.opening.Env]
+  lazy val opening: lila.opening.Env         = wire[lila.opening.Env]
   lazy val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]

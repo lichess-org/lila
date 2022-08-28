@@ -5,6 +5,7 @@ import { makeUci, Rules } from 'chessops';
 import { makeVariant, parsePgn, parseVariant, startingPosition } from 'chessops/pgn';
 import { Player } from 'game';
 import { scalachessCharPair } from 'chessops/compat';
+import { makeSquare } from 'chessops/util';
 
 export default function (pgn: string): Partial<AnalyseData> {
   const game = parsePgn(pgn)[0];
@@ -34,6 +35,7 @@ export default function (pgn: string): Partial<AnalyseData> {
       children: [],
       san,
       uci: makeUci(move),
+      check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
     });
   });
   const rules: Rules = parseVariant(headers.get('variant')) || 'chess';

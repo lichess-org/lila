@@ -12,5 +12,11 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sсек = %2$s</string>
   <string name="noUpperCaseDot">Не.</string>
   <string name="canIChangeMyUsername">Мога ли да променя потребителското ми име?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">За съжаление не можем да върнем точки за рейтинг игри, загубени поради забавяне или прекъсване на връзката, независимо дали проблемът е бил от ваша или от наша страна. Последното обаче се случва много рядко. Също така имайте предвид, че когато Lichess се рестартира и поради това загубите по време, ние прекъсваме играта, за да предотвратим несправедлива загуба.</string>
   <string name="howToThreeDots">Как да...</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess може по желание да изпраща известия, например когато е ваш ред или сте получили лично съобщение.
+
+Кликнете върху иконата за заключване до адреса lichess. org в лентата с URL адреси на браузъра си.
+
+След това изберете дали да разрешите или да блокирате известията от Lichess.</string>
 </resources>

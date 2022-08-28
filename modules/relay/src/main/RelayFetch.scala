@@ -42,7 +42,7 @@ final private class RelayFetch(
     api
       .toSync(official)
       .flatMap { relays =>
-        lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
+        lila.mon.relay.ongoing(official).update(relays.size)
         relays.map { rt =>
           if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
             api.update(rt.round)(_ => newRelay)

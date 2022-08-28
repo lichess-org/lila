@@ -1,22 +1,14 @@
 import { view as cevalView } from 'ceval';
-import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import {
-  bind,
-  bindNonPassive,
-  bindMobileMousedown,
-  MaybeVNode,
-  MaybeVNodes,
-  onInsert,
-  dataIcon,
-} from 'common/snabbdom';
+import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
+import { bindMobileMousedown } from 'common/mobile';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
-import { ops as treeOps, path as treePath } from 'tree';
+import { path as treePath } from 'tree';
 import { render as trainingView } from './roundTraining';
 import { studyButton, view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
@@ -40,6 +32,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 import type * as studyDeps from './study/studyDeps';
 import { iconTag } from './util';
+import { renderNextChapter } from './study/nextChapter';
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
@@ -57,24 +50,6 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
     };
   return undefined;
 }
-
-export const renderNextChapter = (ctrl: AnalyseCtrl) =>
-  !ctrl.embed && !ctrl.opts.relay && ctrl.study?.hasNextChapter()
-    ? h(
-        'button.next.text',
-        {
-          attrs: {
-            'data-icon': '',
-            type: 'button',
-          },
-          hook: bind('click', ctrl.study.goToNextChapter),
-          class: {
-            highlighted: !!ctrl.outcome() || ctrl.node == treeOps.last(ctrl.mainline),
-          },
-        },
-        ctrl.trans.noarg('nextChapter')
-      )
-    : null;
 
 const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
   h('button.fbt', {
@@ -134,7 +109,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pgn', [
       h('div.pair', [
         h('label.name', 'PGN'),
-        h('textarea.copyable.autoselect', {
+        h('textarea.copyable', {
           attrs: { spellCheck: false },
           hook: {
             ...onInsert(el => {
@@ -309,13 +284,10 @@ const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNo
   h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
 export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
-  const cgState = ctrl.chessground?.state,
-    pieces = cgState ? cgState.pieces : readFen(ctrl.node.fen);
-
   return materialView.renderMaterialDiffs(
     !!ctrl.data.pref.showCaptured,
     ctrl.bottomColor(),
-    pieces,
+    ctrl.node.fen,
     !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
     ctrl.nodeList,
     ctrl.node.ply

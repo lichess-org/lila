@@ -8,6 +8,7 @@ import lila.common.{ IpAddress, Strings }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
+import lila.common.ThreadLocalRandom
 
 final class SelfReport(
     tellRound: TellRound,
@@ -17,7 +18,7 @@ final class SelfReport(
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   private val onceEvery = lila.memo.OnceEvery(1 hour)
 
@@ -61,7 +62,11 @@ final class SelfReport(
                 ))
               ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
               if (markUserSetting.get().matches(name))
-                lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                scheduler.scheduleOnce(
+                  (10 + ThreadLocalRandom.nextInt(24 * 60)).minutes
+                ) {
+                  lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                }
             }
           }
         }

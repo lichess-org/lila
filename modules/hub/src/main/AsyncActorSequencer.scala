@@ -19,22 +19,28 @@ final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: Str
   def run[A](task: Task[A]): Fu[A] = asyncActor.ask[A](TaskWithPromise(task, _))
 
   private[this] val asyncActor =
-    new BoundedAsyncActor(maxSize, name, logging)({ case TaskWithPromise(task, promise) =>
-      promise.completeWith {
-        task()
-          .withTimeout(timeout)
-          .transform(
-            identity,
-            {
-              case LilaTimeout(msg) =>
-                val fullMsg = s"$name AsyncActorSequencer $msg"
-                if (logging) lila.log("asyncActor").warn(fullMsg)
-                LilaTimeout(fullMsg)
-              case e => e
-            }
-          )
-      }.future
-    })
+    new BoundedAsyncActor(
+      maxSize,
+      name,
+      logging
+    )(
+      { case TaskWithPromise(task, promise) =>
+        promise.completeWith {
+          task()
+            .withTimeout(timeout)
+            .transform(
+              identity,
+              {
+                case LilaTimeout(msg) =>
+                  val fullMsg = s"$name AsyncActorSequencer $msg"
+                  if (logging) lila.log("asyncActor").warn(fullMsg)
+                  LilaTimeout(fullMsg)
+                case e => e
+              }
+            )
+        }.future
+      }
+    )
 }
 
 // Distributes tasks to many sequencers

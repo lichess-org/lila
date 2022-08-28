@@ -88,11 +88,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
     AuthBody { implicit ctx => me =>
       ctx.noKid ?? {
         NoLameOrBot {
-          NoShadowban {
-            api find me flatMap {
-              case None => api.create(me) inject Redirect(routes.Streamer.edit)
-              case _    => Redirect(routes.Streamer.edit).fuccess
-            }
+          api find me flatMap {
+            case None => api.create(me) inject Redirect(routes.Streamer.edit)
+            case _    => Redirect(routes.Streamer.edit).fuccess
           }
         }
       }
