@@ -6,6 +6,7 @@ import { opposite } from 'shogiground/util';
 import { Pieces } from 'shogiground/types';
 import { isDrop } from 'shogiops/types';
 import { makeSquare, parseUsi } from 'shogiops/util';
+import { promote } from 'shogiops/variantUtil';
 import { defined } from 'common/common';
 
 interface Opts {
@@ -50,14 +51,14 @@ function makeAutoShapesFromUsi(
         brush: brush,
       },
     ];
-    const pieceToPromote = move.promotion ? pieces?.get(usi.slice(0, 2) as Key) : undefined;
+    const pieceToPromote = move.promotion ? pieces.get(usi.slice(0, 2) as Key) : undefined;
     if (defined(pieceToPromote)) {
       shapes.push({
         orig: makeSquare(move.to) as Key,
         dest: makeSquare(move.to) as Key,
         piece: {
           color: pieceToPromote.color,
-          role: pieceToPromote.role,
+          role: promote('standard')(pieceToPromote.role) || pieceToPromote.role,
           scale: 0.8,
         },
         brush: 'engine',
