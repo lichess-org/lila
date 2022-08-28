@@ -36,15 +36,18 @@ final class SecurityApi(
 
   val AccessUri = "access_uri"
 
+  private val usernameOrEmailMapping =
+    lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength)
+
   lazy val usernameOrEmailForm = Form(
     single(
-      "username" -> lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength)
+      "username" -> usernameOrEmailMapping
     )
   )
 
   lazy val loginForm = Form(
     tuple(
-      "username" -> nonEmptyText, // can also be an email
+      "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> nonEmptyText
     )
   )
@@ -52,7 +55,7 @@ final class SecurityApi(
   private def loadedLoginForm(candidate: Option[LoginCandidate]) =
     Form(
       mapping(
-        "username" -> nonEmptyText, // can also be an email
+        "username" -> usernameOrEmailMapping, // can also be an email
         "password" -> nonEmptyText,
         "token"    -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
