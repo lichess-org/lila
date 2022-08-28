@@ -106,8 +106,8 @@ final class Auth(
                   api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
                 ),
               usernameOrEmail =>
-                HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
-                  api.loadLoginForm(usernameOrEmail) flatMap {
+                HasherRateLimit(usernameOrEmail.trim, ctx.req) { chargeIpLimiter =>
+                  api.loadLoginForm(usernameOrEmail.trim) flatMap {
                     _.bindFromRequest()
                       .fold(
                         err => {
