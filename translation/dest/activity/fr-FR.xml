@@ -52,7 +52,7 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">A créé %s nouvelle étude</item>
-    <item quantity="other">%s nouvelles études créées</item>
+    <item quantity="other">A créé %s nouvelles études</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">A participé à %s tournoi</item>
