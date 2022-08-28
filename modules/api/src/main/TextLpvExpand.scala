@@ -37,11 +37,13 @@ final class TextLpvExpand(
       matches
         .get(url)
         .map { pgn =>
-          div(
-            cls                      := "lpv--autostart",
-            attr("data-pgn")         := pgn.toString,
-            attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
-            attr("data-ply") := plyRegex.findFirstIn(url).fold("last")(_.substring(1))
+          div( // added div for viewport calculations (pgn-viewer hoses its initializer element). site/lpv.ts
+            div(
+              cls                      := "lpv--autostart",
+              attr("data-pgn")         := pgn.toString,
+              attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
+              attr("data-ply")         := plyRegex.findFirstIn(url).fold("last")(_.substring(1))
+            )
           )
         }
     }

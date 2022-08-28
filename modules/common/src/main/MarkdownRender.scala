@@ -259,6 +259,7 @@ object MarkdownRender {
         ply: String
     ) =
       html
+        .tag("div") // this div needed for viewport calculations in site/lpv.ts
         .attr("data-pgn", pgn)
         .attr("data-orientation", Option(color) | "white")
         .attr("data-ply", Option(ply) | "0")
@@ -267,6 +268,7 @@ object MarkdownRender {
         .withAttr(link)
         .tag("div")
         .text(link.getUrl)
+        .tag("/div")
         .tag("/div")
         .unit
   }
