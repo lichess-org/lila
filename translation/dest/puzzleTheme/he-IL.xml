@@ -3,7 +3,7 @@
   <string name="advancedPawn">רגלי מתקדם</string>
   <string name="advancedPawnDescription">אחד מהחיילים שלך עמוק בקווי היריב, אולי מאיים להיות מוכתר.</string>
   <string name="advantage">יתרון</string>
-  <string name="advantageDescription">נצל את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
+  <string name="advantageDescription">נצל/י את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
   <string name="anastasiaMate">המט של אנסטסיה</string>
   <string name="anastasiaMateDescription">פרש, יחד עם צריח או מלכה, לוכדים את המלך היריב בין דופן הלוח לבין כלי מכוחותיו.</string>
   <string name="arabianMate">מט ערבי</string>
