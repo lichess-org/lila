@@ -23,7 +23,9 @@ final class SecurityForm(
   private val passwordMinLength = 4
 
   private val anyEmail =
-    LilaForm.cleanNonEmptyText(minLength = 6, maxLength = 320).verifying(Constraints.emailAddress)
+    LilaForm
+      .cleanNonEmptyText(minLength = 6, maxLength = EmailAddress.maxLength)
+      .verifying(Constraints.emailAddress)
   private val sendableEmail   = anyEmail.verifying(emailValidator.sendableConstraint)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
