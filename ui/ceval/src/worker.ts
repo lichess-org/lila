@@ -152,7 +152,8 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
         protocol.connected(msg => sf.postMessage(msg));
         ThreadedWasmWorker.sf[this.opts.module] = sf;
         this.bootSuccess = true;
-      } catch (_) {
+      } catch (err) {
+        console.error(err);
         this.bootSuccess = false;
       }
     }
