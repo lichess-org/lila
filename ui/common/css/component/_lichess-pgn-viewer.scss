@@ -4,8 +4,9 @@ $c-bg-controls: $c-bg;
 $c-bg-movelist: $c-bg;
 $c-bg-variation: hsl($c-site-hue, 5%, 15%) !default;
 $c-bg-pane: hsla(0, 0%, 0%, 0.9);
-$c-accent: $c-secondary;
-$c-accent-over: $c-secondary-over;
+$c-accent: $c-primary;
+$c-accent-over: $c-primary-over;
+$c-font-accent: mix($c-bg, hsl(0, 0%, 65%), 20%);
 $c-font-shy: $c-font-dim;
 
 @import '../../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
