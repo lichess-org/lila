@@ -219,7 +219,9 @@ final class SwissApi(
     } zip
       (nbSoon > 0).?? {
         colls.swiss
-          .find($doc("teamId" -> teamId, "finishedAt" $exists false))
+          .find(
+            $doc("teamId" -> teamId, "startsAt" $gt DateTime.now.minusWeeks(2), "finishedAt" $exists false)
+          )
           .sort($sort asc "startsAt")
           .cursor[Swiss]()
           .list(nbSoon)
