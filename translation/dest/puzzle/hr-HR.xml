@@ -54,6 +54,7 @@
   </plurals>
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodaj novu kategoriju</string>
+  <string name="nextPuzzle">Sljedeća puzla</string>
   <string name="jumpToNextPuzzleImmediately">Automatski učitaj nove zadatke</string>
   <string name="puzzleDashboard">Sučelje zadataka</string>
   <string name="improvementAreas">Nedostaci</string>
