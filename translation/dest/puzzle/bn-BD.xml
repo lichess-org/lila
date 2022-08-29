@@ -68,7 +68,7 @@
   <string name="searchPuzzles">ধাঁধা খুজুন</string>
   <string name="fromMyGamesNone">ডাটাবেজে আপনার কোনো ধাঁধা নেই।
 আপনার খেলা থেকে ধাঁধা নেয়ার সম্ভাবনা বাড়াতে র‍্যাপিড এবং ক্লাসিক খেলুন।</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%2$s টি খেলা হতে %1$s টি ধাঁধা পাওয়া গেছে।</string>
+  <string name="fromXGamesFound">%2$s টি খেলা হতে %1$s টি ধাঁধা পাওয়া গেছে।</string>
   <string name="puzzleDashboardDescription">প্রশিক্ষণ, বিশ্লেষণ, উন্নতি</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s টি খেলেছেন</item>
