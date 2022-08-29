@@ -48,13 +48,15 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
+  val maxLength = 320
+
   val gmailDomains = Set("gmail.com", "googlemail.com")
 
   // adding normalized domains requires database migration!
   private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
 
   def isValid(str: String) =
-    str.sizeIs < 320 &&
+    str.sizeIs < maxLength &&
       regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
 
   def from(str: String): Option[EmailAddress] =

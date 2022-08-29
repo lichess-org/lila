@@ -10,6 +10,7 @@ export function autostart() {
         pgn: this.dataset['pgn']!.replace(/<br>/g, '\n'),
         orientation: this.dataset['orientation'] as Color | undefined,
         lichess: location.origin,
+        initialPly: this.dataset['ply'] as number | 'last',
       });
     });
   });

@@ -42,13 +42,15 @@ object RelayTourForm {
   ) {
 
     def update(tour: RelayTour, user: User) =
-      tour.copy(
-        name = name,
-        description = description,
-        markup = markup,
-        tier = tier ifTrue Granter(_.Relay)(user),
-        autoLeaderboard = autoLeaderboard
-      )
+      tour
+        .copy(
+          name = name,
+          description = description,
+          markup = markup,
+          tier = tier ifTrue Granter(_.Relay)(user),
+          autoLeaderboard = autoLeaderboard
+        )
+        .reAssignIfOfficial
 
     def make(user: User) =
       RelayTour(
@@ -62,7 +64,7 @@ object RelayTourForm {
         createdAt = DateTime.now,
         syncedAt = none,
         autoLeaderboard = autoLeaderboard
-      )
+      ).reAssignIfOfficial
   }
 
   object Data {

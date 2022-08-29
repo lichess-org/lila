@@ -102,6 +102,8 @@ object bits {
       trans.depthX,
       trans.usingServerAnalysis,
       trans.loadingEngine,
+      trans.calculatingMoves,
+      trans.engineFailed,
       trans.cloudAnalysis,
       trans.goDeeper,
       trans.showThreat,

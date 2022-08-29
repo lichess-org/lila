@@ -24,7 +24,7 @@
     "snabbdom": "^3.3.1"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "dev": "rollup --failAfterWarnings --config",
+    "prod": "rollup --failAfterWarnings --config --config-prod"
   }
 }

@@ -64,6 +64,8 @@ export interface CevalCtrl {
   effectiveMaxDepth(): number;
   technology: CevalTechnology;
   downloadProgress: Prop<number>;
+  isLoaded(): boolean;
+  initFailed(): boolean;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;

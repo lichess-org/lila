@@ -1,6 +1,6 @@
 import * as cg from 'chessground/types';
 import { h, VNode } from 'snabbdom';
-import { CheckCount, CheckState, MaterialDiff, MaterialDiffSide } from '../interfaces';
+import { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
 import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
 import { opposite } from 'chessground/util';
 
@@ -24,29 +24,18 @@ function renderMaterialDiff(
   return h('div.material.material-' + position, children);
 }
 
-const EMPTY_MATERIAL_DIFF: MaterialDiff = {
-  white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-  black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-};
-
 export function renderMaterialDiffs(
   showCaptured: boolean,
   bottomColor: Color,
-  pieces: cg.Pieces,
+  fen: Fen,
   showChecks: boolean,
   checkStates: CheckState[],
   ply: Ply
 ): [VNode, VNode] {
-  let material: MaterialDiff,
-    score = 0;
-  if (showCaptured) {
-    material = getMaterialDiff(pieces);
-    score = getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
-  } else material = EMPTY_MATERIAL_DIFF;
-
+  const material = getMaterialDiff(showCaptured ? fen : '');
+  const score = getScore(material) * (bottomColor === 'white' ? 1 : -1);
   const checks: CheckCount = showChecks ? countChecks(checkStates, ply) : NO_CHECKS;
   const topColor = opposite(bottomColor);
-
   return [
     renderMaterialDiff(material[topColor], -score, 'top', checks[topColor]),
     renderMaterialDiff(material[bottomColor], score, 'bottom', checks[bottomColor]),

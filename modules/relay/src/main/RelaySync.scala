@@ -24,18 +24,22 @@ final private class RelaySync(
           case None =>
             lila.common.Future.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match {
-                case Some(chapter) => updateChapter(rt.tour, study, chapter, game)
+                case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
                 case None =>
-                  createChapter(study, game) flatMap { chapter =>
-                    chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                      studyApi.deleteChapter(study.id, initial.id) {
-                        actorApi.Who(study.ownerId, sri)
+                  chapterRepo.countByStudyId(study.id) flatMap {
+                    case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+                    case _ =>
+                      createChapter(study, game) flatMap { chapter =>
+                        chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
+                          studyApi.deleteChapter(study.id, initial.id) {
+                            actorApi.Who(study.ownerId, sri)
+                          }
+                        } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
                       }
-                    } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   }
               }
             } flatMap { chapterUpdates =>
-              val result = SyncResult.Ok(chapterUpdates.toList, games)
+              val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
               lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
               tourRepo.setSyncedNow(rt.tour) inject result
             }

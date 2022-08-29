@@ -29,6 +29,7 @@ export interface KeyboardMove {
   clock(): ClockController | undefined;
   draw(): void;
   next(): void;
+  vote(v: boolean): void;
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
 }
@@ -63,6 +64,7 @@ export interface RootController {
   userJumpPlyDelta?: (plyDelta: Ply) => void;
   redraw: Redraw;
   next?: () => void;
+  vote?: (v: boolean) => void;
 }
 interface Step {
   fen: string;
@@ -137,6 +139,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
     next: () => root.next?.(),
+    vote: (v: boolean) => root.vote?.(v),
     helpModalOpen,
     isFocused,
   };
@@ -156,7 +159,7 @@ export function render(ctrl: KeyboardMove) {
       ),
     }),
     ctrl.isFocused()
-      ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, type ? to learn more')
+      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()
       ? snabModal({

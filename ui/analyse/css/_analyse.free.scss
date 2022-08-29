@@ -14,13 +14,13 @@
       #{$end-direction}: 0;
       top: 100%;
       text-align: right;
-      opacity: 0;
+      visibility: hidden;
 
       @include transition;
     }
 
     textarea:focus ~ .action {
-      opacity: 1;
+      visibility: visible;
     }
   }
 

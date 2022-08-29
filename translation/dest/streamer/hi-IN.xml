@@ -18,6 +18,8 @@
   <string name="rule1">जब आप Lichess पर स्ट्रीम करते हैं तो अपने स्ट्रीम शीर्षक में \"lichess.org\" कीवर्ड शामिल करें।</string>
   <string name="rule2">जब आप गैर-लिचेस सामग्री को स्ट्रीम करते हैं तो कीवर्ड हटा दे।</string>
   <string name="rule3">लिचेस स्वचालित रूप से आपकी स्ट्रीम का पता लगाएगा और निम्नलिखित भत्तों को सक्षम करेगा:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">अपनी स्ट्रीम के दौरान सभी के लिए निष्पक्ष खेल सुनिश्चित करने के लिए हमारे %s को पढ़ें।</string>
+  <string name="streamingFairplayFAQ">स्ट्रीमिंग फेयरप्ले अक्सर पूछे जाने वाले प्रश्न</string>
   <string name="perks">कीवर्ड के साथ स्ट्रीमिंग का लाभ</string>
   <string name="perk1">अपने लाइकस प्रोफाइल पर एक ज्वलंत स्ट्रीमर आइकन प्राप्त करें।</string>
   <string name="perk2">स्ट्रीमर्स सूची के शीर्ष पर पहुंचे।</string>

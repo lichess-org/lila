@@ -49,6 +49,7 @@ export default targets => {
         //   summaryOnly: true,
         // }),
       ],
+      onwarn: target.onwarn,
     }));
   };
 };

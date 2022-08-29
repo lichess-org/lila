@@ -12,8 +12,7 @@ object layout {
       title: String,
       active: String,
       evenMoreCss: Frag = emptyFrag,
-      evenMoreJs: Frag = emptyFrag,
-      csp: Option[lila.common.ContentSecurityPolicy] = None
+      evenMoreJs: Frag = emptyFrag
   )(body: Frag)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,

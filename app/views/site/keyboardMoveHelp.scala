@@ -103,6 +103,7 @@ object helpModal {
         tbody(
           header(performAMove()),
           row(kbd("e2e4"), movePieceFromE2ToE4()),
+          row(kbd("5254"), movePieceFromE2ToE4()),
           row(kbd("Nc3"), moveKnightToC3()),
           row(kbd("O-O"), kingsideCastle()),
           row(kbd("O-O-O"), queensideCastle()),
@@ -115,6 +116,8 @@ object helpModal {
           row(kbd("draw"), offerOrAcceptDraw()),
           row(kbd("resign"), trans.resignTheGame()),
           row(kbd("next"), trans.puzzle.nextPuzzle()),
+          row(kbd("upv"), trans.puzzle.upVote()),
+          row(kbd("downv"), trans.puzzle.downVote()),
           row(frag(kbd("help"), or, kbd("?")), trans.showHelpDialog()),
           header(tips()),
           tr(

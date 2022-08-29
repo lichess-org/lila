@@ -17,7 +17,7 @@ import {
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
-} from './treeView';
+} from './common';
 import { enrichText, innerHTML } from '../util';
 
 interface Ctx extends BaseCtx {

@@ -51,6 +51,7 @@
   </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Engadir outro tema</string>
+  <string name="nextPuzzle">Seguinte exercicio</string>
   <string name="jumpToNextPuzzleImmediately">Ir ao seguinte crebacabezas inmediatamente</string>
   <string name="puzzleDashboard">Informe de crebacabezas</string>
   <string name="improvementAreas">Áreas de mellora</string>

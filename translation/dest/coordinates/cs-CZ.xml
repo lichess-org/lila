@@ -8,6 +8,9 @@
   <string name="mostChessCourses">Většina šachových kurzů a cvičení velmi často používá algebraickou notaci.</string>
   <string name="talkToYourChessFriends">Snadněji se dorozumíte se svými šachovými přáteli, protože oba budete mluvit \"řečí šachu\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Můžete efektivněji analyzovat partie, pokud nebudete muset neustále hledat jména polí.</string>
+  <string name="youHaveThirtySeconds">Máte 30 vteřin, abyste správně určili co nejvíce polí!</string>
+  <string name="showCoordinates">Zobrazit souřadnice</string>
+  <string name="showPieces">Zobrazit figury</string>
   <string name="startTraining">Začít trénink</string>
   <string name="findSquare">Najděte pole</string>
   <string name="nameSquare">Pojmenujte pole</string>

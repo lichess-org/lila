@@ -726,7 +726,7 @@
   <string name="usernameCharsInvalid">Το όνομα χρήστη πρέπει να περιέχει μόνο γράμματα, αριθμούς, κάτω παύλες και ενωτικά.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
-  <string name="chessBasics">Τα βασικά στο σκάκι</string>
+  <string name="chessBasics">Τα βασικά</string>
   <string name="coaches">Προπονητές</string>
   <string name="invalidPgn">Μη έγκυρο PGN</string>
   <string name="invalidFen">Μη έγκυρο FEN</string>

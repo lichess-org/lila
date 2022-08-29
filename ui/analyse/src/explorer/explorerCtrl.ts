@@ -48,12 +48,12 @@ export default class ExplorerCtrl {
   lastStream = prop<Sync<CancellableStream> | null>(null);
   cache: Dictionary<ExplorerData> = {};
 
-  constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, allow: boolean) {
-    this.allowed = prop(allow);
+  constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
+    this.allowed = prop(previous ? previous.allowed() : !root.embed);
     this.enabled = root.embed ? prop(false) : storedBooleanProp('explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
-    this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload);
+    this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload, previous?.config);
     window.addEventListener('hashchange', this.checkHash, false);
     this.checkHash();
   }

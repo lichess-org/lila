@@ -12,8 +12,6 @@ import lila.common.config._
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings._
 import lila.memo.SettingStore.UserIds._
-import lila.security.Granter
-import lila.user.{ Holder, User }
 
 final class Env(
     val config: Configuration,

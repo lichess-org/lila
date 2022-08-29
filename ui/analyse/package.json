@@ -18,7 +18,7 @@
     "@types/debounce-promise": "^3.1.4",
     "@types/highcharts": "=4.2.57",
     "@types/lichess": "2.0.0",
-    "@types/yaireo__tagify": "^4.15",
+    "@types/yaireo__tagify": "^4.16",
     "highcharts": "=4.2.5",
     "prop-types": "^15.8.1",
     "rollup": "^2",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@badrap/result": "^0.2",
-    "@yaireo/tagify": "^4.15",
+    "@yaireo/tagify": "^4.16",
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
@@ -40,9 +40,9 @@
     "tree": "2.0.0"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod",
-    "plugin-dev": "rollup --config --config-plugin",
-    "plugin-prod": "rollup --config --config-prod --config-plugin"
+    "dev": "rollup --failAfterWarnings --config",
+    "prod": "rollup --failAfterWarnings --config --config-prod",
+    "plugin-dev": "rollup --failAfterWarnings --config --config-plugin",
+    "plugin-prod": "rollup --failAfterWarnings --config --config-prod --config-plugin"
   }
 }

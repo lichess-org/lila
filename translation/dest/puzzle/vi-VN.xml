@@ -73,6 +73,9 @@ Hãy chơi thêm nhiều ván cờ nhanh và cờ tiêu chuẩn để được c
   <plurals name="nbPlayed">
     <item quantity="other">Đã chơi %s câu đố</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s cần giải lại</item>
+  </plurals>
   <string name="percentSolved">Đã giải được %s câu đố</string>
   <string name="noPuzzlesToShow">Chưa có gì cả, hãy giải một vài câu đố trước đã!</string>
   <string name="improvementAreasDescription">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>

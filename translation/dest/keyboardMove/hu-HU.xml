@@ -2,20 +2,20 @@
 <resources>
   <string name="keyboardInputCommands">Billentyűbeviteli parancsok</string>
   <string name="performAMove">Lépés megtétele</string>
-  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Lépj egy bábuval e2-ről e4-re</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Lépj huszárral c3-ra</string>
+  <string name="movePieceFromE2ToE4">Lépj egy bábuval e2-ről e4-re</string>
+  <string name="moveKnightToC3">Lépj huszárral c3-ra</string>
   <string name="kingsideCastle">Sáncolás királyszárnyra</string>
   <string name="queensideCastle">Sáncolás vezérszárnyra</string>
   <string name="promoteC8ToQueen">Változtasd a c8-at vezérré</string>
-  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Ejts egy bástyát a b4-re (csak Crazyhouse variánsban)</string>
+  <string name="dropARookAtB4">Ejts egy bástyát a b4-re (csak Crazyhouse variánsban)</string>
   <string name="offerOrAcceptDraw">Döntetlen ajánlása vagy elfogadása</string>
   <string name="readOutClocks">Órák felolvasása</string>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Ellenfél nevének felolvasása</string>
+  <string name="readOutOpponentName">Ellenfél nevének felolvasása</string>
   <string name="otherCommands">Egyéb parancsok</string>
   <string name="tips">Tippek</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Ha a fentebbi lépésjelölést nem ismered, tudj meg többet itt:</string>
   <string name="includingAXToIndicateACapture">Ütés jelölésére az \"x\" hozzáadása nem kötelező</string>
-  <string name="bothTheLetterOAndTheDigitZero" comment="bothTheLetterOAndTheDigitZero&#10;&#10;Only the Latin character 'o' works.">Az \"o\" betű és a nulla számjegy \"0\" bármelyike használható sáncoláshoz</string>
+  <string name="bothTheLetterOAndTheDigitZero">Az \"o\" betű és a nulla számjegy \"0\" bármelyike használható sáncoláshoz</string>
   <string name="ifItIsLegalToCastleBothWays">Ha mindkét oldalra szabályos sáncolni, enterrel sáncoljon királyszárnya</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Kis- és nagybetű csak félreérthető helyzetekben számít amikor a futó és a b-gyalog is érintett</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Előre megadott lépéshez csak írd be a kívánt lépést mielőtt sorrakerülsz</string>

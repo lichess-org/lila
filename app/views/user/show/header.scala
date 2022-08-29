@@ -195,11 +195,13 @@ object header {
                     )
                   },
                   !hideTroll option div(cls := "social_links col2")(
+                    if (profile.actualLinks.nonEmpty) strong(trans.socialMediaLinks()),
                     profile.actualLinks.map { link =>
                       a(href := link.url, targetBlank, noFollow)(link.site.name)
                     }
                   ),
                   div(cls := "teams col2")(
+                    if (info.teamIds.nonEmpty) strong(trans.team.teams()),
                     info.teamIds.sorted.map { t =>
                       teamLink(t, withIcon = false)
                     }

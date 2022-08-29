@@ -5,6 +5,7 @@ import play.api.data.validation.Constraints
 import play.api.data.Forms._
 
 import User.ClearPassword
+import lila.common.LameName
 import lila.common.Form.{ cleanNonEmptyText, cleanText }
 
 final class UserForm(authenticator: Authenticator) {
@@ -12,10 +13,15 @@ final class UserForm(authenticator: Authenticator) {
   def username(user: User): Form[String] =
     Form(
       single(
-        "username" -> cleanNonEmptyText.verifying(
-          "changeUsernameNotSame",
-          name => name.toLowerCase == user.username.toLowerCase && name != user.username
-        )
+        "username" -> cleanNonEmptyText
+          .verifying(
+            "changeUsernameNotSame",
+            name => name.toLowerCase == user.username.toLowerCase && name != user.username
+          )
+          .verifying(
+            "usernameUnacceptable",
+            name => !LameName.hasTitle(name) || LameName.hasTitle(user.username)
+          )
       )
     ).fill(user.username)
 
