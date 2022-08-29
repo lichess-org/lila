@@ -100,6 +100,16 @@ export default (opts: Opts) => {
         opts.ctrl.next?.();
         clear();
       }
+    } else if (v.length > 0 && 'upv'.startsWith(v.toLowerCase())) {
+      if ('upv' === v.toLowerCase()) {
+        opts.ctrl.vote?.(true);
+        clear();
+      }
+    } else if (v.length > 0 && 'downv'.startsWith(v.toLowerCase())) {
+      if ('downv' === v.toLowerCase()) {
+        opts.ctrl.vote?.(false);
+        clear();
+      }
     } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
       if (['help', '?'].includes(v.toLowerCase())) {
         opts.ctrl.helpModalOpen(true);

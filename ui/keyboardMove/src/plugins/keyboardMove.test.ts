@@ -22,6 +22,7 @@ const defaultCtrl = {
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
   next: unexpectedErrorThrower('next'),
+  vote: unexpectedErrorThrower('vote'),
   drop: unexpectedErrorThrower('drop'),
   hasSelected: () => undefined,
   jump: () => null,
@@ -94,6 +95,42 @@ describe('keyboardMove', () => {
     keyboardMovePlugin(startingFen, toMap({}), true);
 
     expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(input.value).toBe('');
+  });
+
+  test('up votes puzzle', () => {
+    input.value = 'upv';
+    const mockVote = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        vote: mockVote,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockVote).toHaveBeenCalledTimes(1);
+    expect(mockVote).toBeCalledWith(true);
+    expect(input.value).toBe('');
+  });
+
+  test('down votes puzzle', () => {
+    input.value = 'downv';
+    const mockVote = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        vote: mockVote,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+
+    expect(mockVote).toHaveBeenCalledTimes(1);
+    expect(mockVote).toBeCalledWith(false);
     expect(input.value).toBe('');
   });
 

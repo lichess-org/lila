@@ -100,6 +100,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           redraw: this.redraw,
           userJumpPlyDelta,
           next: nextPuzzle,
+          vote,
         },
         { fen: this.vm.node.fen }
       );
