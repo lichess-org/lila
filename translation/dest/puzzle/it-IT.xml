@@ -13,8 +13,8 @@
   <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
   <string name="voteToLoadNextOne">Vota per caricare la prossima!</string>
-  <string name="upVote">Voto positivo per il puzzle</string>
-  <string name="downVote">Voto negativo per il puzzle</string>
+  <string name="upVote">Valuta positivamente questo puzzle</string>
+  <string name="downVote">Valuta negativamente questo puzzle</string>
   <string name="yourPuzzleRatingWillNotChange">Il tuo punteggio per le tattiche non cambierà. Nota che le tattiche non sono una competizione. Il punteggio ci aiuta a selezionare le migliori tattiche per il tuo livello di gioco.</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
