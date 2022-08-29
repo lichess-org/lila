@@ -13,6 +13,8 @@
   <string name="specialMoves">Špeciálne ťahy</string>
   <string name="didYouLikeThisPuzzle">Páčila sa vám táto úloha?</string>
   <string name="voteToLoadNextOne">Hlasujte a prejdite k ďalšej úlohe!</string>
+  <string name="upVote">Posunúť úlohu vyššie</string>
+  <string name="downVote">Posunúť úlohu nižšie</string>
   <string name="yourPuzzleRatingWillNotChange">Váš rating úloh sa nezmení. Upozorňujeme, že úlohy nie sú súťaž. Rating pomáha pri výbere najlepších úloh s prihliadnutím na vaše aktuálne zručnosti.</string>
   <string name="findTheBestMoveForWhite">Nájdite najlepší ťah za bieleho.</string>
   <string name="findTheBestMoveForBlack">Nájdite najlepší ťah za čierneho.</string>
