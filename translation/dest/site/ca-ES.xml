@@ -463,7 +463,7 @@
   <string name="biography">Biografia</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
-  <string name="socialMediaLinks">Enllaços a xarxes social</string>
+  <string name="socialMediaLinks">Enllaços a xarxes socials</string>
   <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="savingMoves">Emagatzematge temporal de moviments</string>
