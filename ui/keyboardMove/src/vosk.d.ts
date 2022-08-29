@@ -28,7 +28,7 @@ type VoskInstance = {
 };
 
 declare global {
-    export const Vosk: VoskInstance;
+  export const Vosk: VoskInstance;
 }
 
 export type RecognizerMessage = ServerMessagePartialResult | ServerMessageResult;

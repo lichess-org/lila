@@ -23,51 +23,49 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-const speechLookup = new Map<string, string>(
-    [
-        ['a', 'a'],
-        ['b', 'b'],
-        ['c', 'c'],
-        ['d', 'd'],
-        ['e', 'e'],
-        ['f', 'f'],
-        ['g', 'g'],
-        ['h', 'h'],
+const speechLookup = new Map<string, string>([
+  ['a', 'a'],
+  ['b', 'b'],
+  ['c', 'c'],
+  ['d', 'd'],
+  ['e', 'e'],
+  ['f', 'f'],
+  ['g', 'g'],
+  ['h', 'h'],
 
-        ['one', '1'],
-        ['two', '2'],
-        ['three', '3'],
-        ['four', '4'],
-        ['five', '5'],
-        ['six', '6'],
-        ['seven', '7'],
-        ['eight', '8'],
+  ['one', '1'],
+  ['two', '2'],
+  ['three', '3'],
+  ['four', '4'],
+  ['five', '5'],
+  ['six', '6'],
+  ['seven', '7'],
+  ['eight', '8'],
 
-        ['rook', 'R'],
-        ['knight', 'N'],
-        ['bishop', 'B'],
-        ['queen', 'Q'],
-        ['king', 'K'],
+  ['rook', 'R'],
+  ['knight', 'N'],
+  ['bishop', 'B'],
+  ['queen', 'Q'],
+  ['king', 'K'],
 
-        ['takes', 'x'],
-    ]
-)
+  ['takes', 'x'],
+]);
 
 export default (opts: Opts) => {
-  lichess.loadScript('javascripts/vendor/vosk.js').then(() => {
+  lichess.loadScript('javascripts/vendor/vosk.min.js').then(() => {
     console.log('Vosk has loaded');
 
     async function loadSpeechRecognition() {
       const model = await Vosk.createModel(lichess.assetUrl('vendor/model.tar.gz'));
-      const recognizer = new model.KaldiRecognizer(
-        48000,
-        JSON.stringify([...speechLookup.keys()])
-      );
+      const recognizer = new model.KaldiRecognizer(48000, JSON.stringify([...speechLookup.keys()]));
 
       recognizer.on('result', (message: ServerMessageResult) => {
-        const split = message.result.text.split(" ");
-        const command = split.map(word => speechLookup.get(word)).filter(word => word !== undefined).join("");
-        submit(command, {force: true, isTrusted: true});
+        const split = message.result.text.split(' ');
+        const command = split
+          .map(word => speechLookup.get(word))
+          .filter(word => word !== undefined)
+          .join('');
+        submit(command, { force: true, isTrusted: true });
       });
 
       const mediaStream = await navigator.mediaDevices.getUserMedia({
