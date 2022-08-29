@@ -70,7 +70,7 @@
   <string name="searchPuzzles">Procurar quebra-cabeças</string>
   <string name="fromMyGamesNone">Você não tem nenhum quebra-cabeça no banco de dados, mas o Lichess ainda te ama muito.
 Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafio seu adicionado!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s quebra-cabeças encontrados em %2$s partidas</string>
+  <string name="fromXGamesFound">%1$s quebra-cabeças encontrados em %2$s partidas</string>
   <string name="puzzleDashboardDescription">Treine, analise, melhore</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jogado</item>
