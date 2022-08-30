@@ -29,7 +29,7 @@
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
   </plurals>
-  <string name="addMembers">הוסף משתמשים</string>
+  <string name="addMembers">הוספת משתמשים</string>
   <plurals name="nbMembers">
     <item quantity="one">משתמש אחד</item>
     <item quantity="two">%s משתמשים</item>
@@ -38,13 +38,13 @@
   </plurals>
   <string name="inviteToTheStudy">הזמינו ללוח הלמידה</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">אנא הזמינו רק שחקנים שאתם מכירים המעוניינים להצטרף ללוח הלמידה הזה.</string>
-  <string name="searchByUsername">חפש לפי שם משתמש</string>
+  <string name="searchByUsername">חיפוש לפי שם משתמש</string>
   <string name="spectator">צופה</string>
   <string name="contributor">תורם</string>
   <string name="kick">הסרה</string>
   <string name="leaveTheStudy">צא/י מלוח הלמידה</string>
   <string name="youAreNowAContributor">כעת את/ה תורם/ת</string>
-  <string name="youAreNowASpectator">כעת אתה צופה</string>
+  <string name="youAreNowASpectator">כעת את/ת צופה</string>
   <string name="pgnTags">תוויות PGN</string>
   <string name="like">אהבתי</string>
   <string name="unlike">ביטול \"אהבתי\"</string>
