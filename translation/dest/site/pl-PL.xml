@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Partia ze znajomym</string>
-  <string name="playWithTheMachine">Graj z komputerem</string>
+  <string name="playWithAFriend">Zagraj ze znajomym</string>
+  <string name="playWithTheMachine">Zagraj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na przeciwnika</string>
@@ -732,7 +732,7 @@
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
-  <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości aby zresetować swoje hasło.</string>
+  <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości, aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
   <string name="readAboutOur">Przeczytaj o %s w naszym serwisie.</string>
   <string name="networkLagBetweenYouAndLichess">Opóźnienie sieci między Tobą a lichess</string>
