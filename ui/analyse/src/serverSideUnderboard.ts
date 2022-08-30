@@ -30,7 +30,23 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
   let lastInputHash: string;
 
+  const updateGifLinks = (fen: Fen) => {
+    positionGifLink.href = xhrUrl(`/export/gif/${fen.replace(/ /g, '_')}`, {
+      color: ctrl.bottomColor(),
+      lastMove: ctrl.node.uci,
+      variant: ctrl.data.game.variant.key,
+      theme: document.body.dataset.boardTheme,
+      piece: document.body.dataset.pieceSet,
+    });
+    gameGifLink.href = xhrUrl(`/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
+      theme: document.body.dataset.boardTheme,
+      piece: document.body.dataset.pieceSet,
+    });
+  };
+
   if (!window.LichessAnalyseNvui) {
+    lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
+    lichess.pubsub.on('piece.change', () => updateGifLinks(inputFen.value));
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       setTimeout(
         () => (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown'),
@@ -43,14 +59,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
-        positionGifLink.href = xhrUrl(`/export/gif/${fen.replace(/ /g, '_')}`, {
-          color: ctrl.bottomColor(),
-          lastMove: ctrl.node.uci,
-          variant: ctrl.data.game.variant.key,
-          theme: document.body.dataset.boardTheme,
-          piece: document.body.dataset.pieceSet,
-        });
-        gameGifLink.pathname = `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`;
+        updateGifLinks(fen);
         lastInputHash = nextInputHash;
       }
       if ($chart.length) {
