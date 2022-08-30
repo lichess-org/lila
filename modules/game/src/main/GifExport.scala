@@ -22,7 +22,12 @@ final class GifExport(
   private val targetMedianTime = Centis(80)
   private val targetMaxTime    = Centis(200)
 
-  def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
+  def fromPov(
+      pov: Pov,
+      initialFen: Option[FEN],
+      theme: Option[String],
+      piece: Option[String]
+  ): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
       ws.url(s"$url/game.gif")
         .withMethod("POST")
@@ -34,7 +39,9 @@ final class GifExport(
             "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
             "orientation" -> pov.color.name,
             "delay"       -> targetMedianTime.centis, // default delay for frames
-            "frames"      -> frames(pov.game, initialFen)
+            "frames"      -> frames(pov.game, initialFen),
+            "theme"       -> theme.|("brown"),
+            "piece"       -> piece.|("cburnett")
           )
         )
         .stream() flatMap {
@@ -45,7 +52,7 @@ final class GifExport(
       }
     }
 
-  def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
+  def gameThumbnail(game: Game, theme: Option[String], piece: Option[String]): Fu[Source[ByteString, _]] = {
     val query = List(
       "fen"         -> (Forsyth >> game.chess).value,
       "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
@@ -53,7 +60,9 @@ final class GifExport(
       "orientation" -> game.naturalOrientation.name
     ) ::: List(
       game.lastMoveKeys.map { "lastMove" -> _ },
-      game.situation.checkSquare.map { "check" -> _.key }
+      game.situation.checkSquare.map { "check" -> _.key },
+      theme.map { "theme" -> _ },
+      piece.map { "piece" -> _ }
     ).flatten
 
     lightUserApi preloadMany game.userIds flatMap { _ =>
@@ -73,14 +82,18 @@ final class GifExport(
       fen: FEN,
       lastMove: Option[String],
       orientation: Color,
-      variant: Variant
+      variant: Variant,
+      theme: Option[String],
+      piece: Option[String]
   ): Fu[Source[ByteString, _]] = {
     val query = List(
       "fen"         -> fen.value,
       "orientation" -> orientation.name
     ) ::: List(
       lastMove.map { "lastMove" -> _ },
-      Forsyth.<<@(variant, fen).flatMap(_.checkSquare.map { "check" -> _.key })
+      Forsyth.<<@(variant, fen).flatMap(_.checkSquare.map { "check" -> _.key }),
+      theme.map { "theme" -> _ },
+      piece.map { "piece" -> _ }
     ).flatten
 
     ws.url(s"$url/image.gif")
