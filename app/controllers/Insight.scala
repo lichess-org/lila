@@ -1,7 +1,7 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.libs.json.JsValue
+import play.api.i18n.Lang
+import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc._
 import views._
 
@@ -80,7 +80,7 @@ final class Insight(env: Env) extends LilaController(env) {
       scoped = req =>
         me =>
           AccessibleApi(username)(me.some) { user =>
-            processQuestion(user, req)
+            processQuestion(user, req)(reqLang(req))
           }
     )
 

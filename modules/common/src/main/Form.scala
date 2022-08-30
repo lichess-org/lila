@@ -79,35 +79,40 @@ object Form {
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   // trims and removes garbage chars before validation
-  val cleanTextFormatter: Formatter[String] = new Formatter[String] {
+  private def makeCleanTextFormatter(keepSymbols: Boolean): Formatter[String] = new Formatter[String] {
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
-        .map(_.trim)
         .map(String.normalize.apply)
-        .map(String.removeMultibyteSymbols)
+        .map(if (keepSymbols) identity else String.removeMultibyteSymbols)
+        .map(_.trim)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   }
+  val cleanTextFormatter: Formatter[String]            = makeCleanTextFormatter(keepSymbols = false)
+  val cleanTextFormatterWithSymbols: Formatter[String] = makeCleanTextFormatter(keepSymbols = true)
 
-  val cleanText: Mapping[String] = of(cleanTextFormatter).verifying(
-    V.Constraint((s: String) =>
-      if (String.hasGarbageChars(s))
-        V.Invalid(
-          Seq(
-            V.ValidationError(
-              s"The text contains invalid chars: ${String.distinctGarbageChars(s) mkString " "}"
-            )
+  val garbageCharsConstraint = V.Constraint((s: String) =>
+    if (String.hasGarbageChars(s))
+      V.Invalid(
+        Seq(
+          V.ValidationError(
+            s"The text contains invalid chars: ${String.distinctGarbageChars(s) mkString " "}"
           )
         )
-      else V.Valid
-    )
+      )
+    else V.Valid
   )
+
+  val cleanText: Mapping[String] = of(cleanTextFormatter) verifying garbageCharsConstraint
+  val cleanTextWithSymbols: Mapping[String] =
+    of(cleanTextFormatterWithSymbols) verifying garbageCharsConstraint
+
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match {
-      case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))
-      case (0, max)            => cleanText.verifying(Constraints.maxLength(max))
-      case (min, max)          => cleanText.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+      case (min, Int.MaxValue) => cleanText.verifying(Constraints minLength min)
+      case (0, max)            => cleanText.verifying(Constraints maxLength max)
+      case (min, max)          => cleanText.verifying(Constraints minLength min, Constraints maxLength max)
     }
 
   val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)

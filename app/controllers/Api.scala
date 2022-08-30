@@ -1,6 +1,7 @@
 package controllers
 
 import akka.stream.scaladsl._
+import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -42,15 +43,18 @@ final class Api(
       Ok(views.html.site.bits.api)
     }
 
-  def user(name: String) =
-    CookieBasedApiRequest { implicit ctx =>
-      userApi.extended(
-        name,
-        ctx.me,
-        withFollows = userWithFollows(ctx.req),
-        withTrophies = getBool("trophies")
-      ) map toApiResult
-    }
+  def user(name: String) = {
+    def get(req: RequestHeader, lang: Lang, me: Option[lila.user.User]) = userApi.extended(
+      name,
+      me,
+      withFollows = userWithFollows(req),
+      withTrophies = getBool("trophies", req)
+    )(lang) map toApiResult map toHttp
+    OpenOrScoped()(
+      ctx => get(ctx.req, ctx.lang, ctx.me),
+      req => me => get(req, me.realLang | reqLang(req), me.some)
+    )
+  }
 
   private[controllers] def userWithFollows(req: RequestHeader) =
     HTTPRequest.apiVersion(req).exists(_ < 6) && !getBool("noFollows", req)
