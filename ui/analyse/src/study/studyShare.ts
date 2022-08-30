@@ -146,6 +146,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
               color: ctrl.bottomColor(),
               lastMove: ctrl.currentNode().uci,
               variant: ctrl.variantKey,
+              theme: document.body.dataset.boardTheme,
+              piece: document.body.dataset.pieceSet,
             }),
             download: true,
           },
@@ -157,7 +159,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
         {
           attrs: {
             'data-icon': '',
-            href: `/study/${studyId}/${chapter.id}.gif`,
+            href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
+              theme: document.body.dataset.boardTheme,
+              piece: document.body.dataset.pieceSet,
+            }),
             download: true,
           },
         },

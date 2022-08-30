@@ -47,6 +47,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           color: ctrl.bottomColor(),
           lastMove: ctrl.node.uci,
           variant: ctrl.data.game.variant.key,
+          theme: document.body.dataset.boardTheme,
+          piece: document.body.dataset.pieceSet,
         });
         gameGifLink.pathname = `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`;
         lastInputHash = nextInputHash;
