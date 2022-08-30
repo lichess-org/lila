@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="settings">הגדרות</string>
-  <string name="closeAccount">סגור את החשבון</string>
+  <string name="closeAccount">סגירת החשבון</string>
   <string name="closingIsDefinitive">הסגירה היא סופית. אין דרך חזרה. האם את/ה בטוח/ה?</string>
   <string name="cantOpenSimilarAccount">לא תוכל לפתוח חשבון חדש עם אותו השם, אפילו בשינוי אותיות קטנות לגדולות ולהיפך.</string>
   <string name="changedMindDoNotCloseAccount">שיניתי את דעתי, אל תסגרו את החשבון שלי</string>
