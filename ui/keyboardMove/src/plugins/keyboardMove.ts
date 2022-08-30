@@ -51,47 +51,48 @@ const speechLookup = new Map<string, string>([
   ['takes', 'x'],
 ]);
 
+function loadVosk(submit: Submit) {
+  console.log('Vosk has loaded');
+
+  async function loadSpeechRecognition() {
+    const model = await Vosk.createModel(lichess.assetUrl('vendor/model.tar.gz'));
+    const recognizer = new model.KaldiRecognizer(48000, JSON.stringify([...speechLookup.keys()]));
+
+    recognizer.on('result', (message: ServerMessageResult) => {
+      const split = message.result.text.split(' ');
+      const command = split
+        .map(word => speechLookup.get(word))
+        .filter(word => word !== undefined)
+        .join('');
+      submit(command, { force: true, isTrusted: true });
+    });
+
+    const mediaStream = await navigator.mediaDevices.getUserMedia({
+      video: false,
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+      },
+    });
+
+    const audioContext = new AudioContext();
+    const recognizerNode = audioContext.createScriptProcessor(4096, 1, 1);
+    recognizerNode.onaudioprocess = event => {
+      try {
+        recognizer.acceptWaveform(event.inputBuffer);
+      } catch (error) {
+        console.error('acceptWaveform failed', error);
+      }
+    };
+
+    const source = audioContext.createMediaStreamSource(mediaStream);
+    source.connect(recognizerNode);
+  }
+
+  loadSpeechRecognition();
+}
+
 export default (opts: Opts) => {
-  lichess.loadScript('javascripts/vendor/vosk.min.js').then(() => {
-    console.log('Vosk has loaded');
-
-    async function loadSpeechRecognition() {
-      const model = await Vosk.createModel(lichess.assetUrl('vendor/model.tar.gz'));
-      const recognizer = new model.KaldiRecognizer(48000, JSON.stringify([...speechLookup.keys()]));
-
-      recognizer.on('result', (message: ServerMessageResult) => {
-        const split = message.result.text.split(' ');
-        const command = split
-          .map(word => speechLookup.get(word))
-          .filter(word => word !== undefined)
-          .join('');
-        submit(command, { force: true, isTrusted: true });
-      });
-
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: false,
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-        },
-      });
-
-      const audioContext = new AudioContext();
-      const recognizerNode = audioContext.createScriptProcessor(4096, 1, 1);
-      recognizerNode.onaudioprocess = event => {
-        try {
-          recognizer.acceptWaveform(event.inputBuffer);
-        } catch (error) {
-          console.error('acceptWaveform failed', error);
-        }
-      };
-
-      const source = audioContext.createMediaStreamSource(mediaStream);
-      source.connect(recognizerNode);
-    }
-
-    loadSpeechRecognition();
-  });
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -199,6 +200,10 @@ export default (opts: Opts) => {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
   };
+  if (lichess.loadScript !== undefined) {
+    lichess.loadScript('javascripts/vendor/vosk.min.js').then(() => loadVosk(submit));
+  }
+
   makeBindings(opts, submit, clear);
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
