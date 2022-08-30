@@ -18,7 +18,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def povOpenGraph(pov: Pov) =
     lila.app.ui.OpenGraph(
-      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId).url).some,
+      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId, None, None).url).some,
       title = titleGame(pov.game),
       url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
       description = describePov(pov)
