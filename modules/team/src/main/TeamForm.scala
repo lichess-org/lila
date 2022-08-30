@@ -2,9 +2,17 @@ package lila.team
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, mustNotContainLichess, numberIn, toMarkdown }
+import lila.common.Form.{
+  cleanNonEmptyText,
+  cleanText,
+  cleanTextWithSymbols,
+  mustNotContainLichess,
+  numberIn,
+  toMarkdown
+}
 import lila.common.Markdown
 import lila.db.dsl._
 
@@ -105,7 +113,7 @@ final private[team] class TeamForm(
   def createWithCaptcha = withCaptcha(create)
 
   val pmAll = Form(
-    single("message" -> cleanText(minLength = 3, maxLength = 9000))
+    single("message" -> cleanTextWithSymbols.verifying(Constraints minLength 3, Constraints maxLength 9000))
   )
 
   val explain = Form(single("explain" -> cleanText(minLength = 3, maxLength = 9000)))
