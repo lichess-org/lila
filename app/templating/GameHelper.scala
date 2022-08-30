@@ -32,8 +32,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def describePov(pov: Pov) = {
     import pov._
-    val p1 = playerText(player, withRating = true)
-    val p2 = playerText(opponent, withRating = true)
+    val p1 = playerText(game.whitePlayer, withRating = true)
+    val p2 = playerText(game.blackPlayer, withRating = true)
     val speedAndClock =
       if (game.imported) "imported"
       else
