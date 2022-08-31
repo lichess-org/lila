@@ -827,8 +827,8 @@
   <string name="evaluatingYourMove">מעריך את המסע שלך ...</string>
   <string name="whiteWinsGame">הלבן מנצח</string>
   <string name="blackWinsGame">השחור מנצח</string>
-  <string name="learnFromYourMistakes">למד מהטעויות שלך</string>
-  <string name="learnFromThisMistake">למד מהטעות הזאת</string>
+  <string name="learnFromYourMistakes">למד/י מהטעויות שלך</string>
+  <string name="learnFromThisMistake">למד/י מהטעות הזאת</string>
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="next">הבא</string>
   <string name="xWasPlayed">%s שוחק</string>
