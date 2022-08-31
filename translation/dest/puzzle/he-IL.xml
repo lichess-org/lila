@@ -12,21 +12,23 @@
   <string name="origin">מקור</string>
   <string name="specialMoves">צעדים מיוחדים</string>
   <string name="didYouLikeThisPuzzle">האם אהבת את החידה הזאת?</string>
-  <string name="voteToLoadNextOne">דרג לקבלת הפאזל הבא!</string>
+  <string name="voteToLoadNextOne">דרגו כדי לקבל את הפאזל הבא!</string>
+  <string name="upVote">אהבתם את החידה? הצביעו הצבעה עילית</string>
+  <string name="downVote">לא אהבתם? הצביעו הצבעה תחתית</string>
   <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שים לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
-  <string name="findTheBestMoveForWhite">מצא את המהלך הטוב ביותר ללבן.</string>
-  <string name="findTheBestMoveForBlack">מצא את המהלך הטוב ביותר לשחור.</string>
+  <string name="findTheBestMoveForWhite">מצא/י את המהלך הטוב ביותר ללבן.</string>
+  <string name="findTheBestMoveForBlack">מצא/י את המהלך הטוב ביותר לשחור.</string>
   <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
   <string name="puzzleId">חידה %s</string>
   <string name="puzzleOfTheDay">החידה היומית</string>
-  <string name="clickToSolve">לחץ כדי לפתור</string>
+  <string name="clickToSolve">לחץ/י כדי לפתור</string>
   <string name="goodMove">מהלך טוב</string>
   <string name="bestMove">המהלך הטוב ביותר!</string>
   <string name="keepGoing">המשך…</string>
   <string name="puzzleSuccess">כל הכבוד!</string>
   <string name="puzzleComplete">החידה הושלמה!</string>
   <string name="notTheMove">זה לא המהלך!</string>
-  <string name="trySomethingElse">נסה משהו אחר.</string>
+  <string name="trySomethingElse">נסו משהו אחר.</string>
   <string name="ratingX">דירוג: %s</string>
   <string name="hidden">מוסתר</string>
   <plurals name="playedXTimes">
@@ -65,9 +67,9 @@
   <string name="history">חידות קודמות</string>
   <string name="solved">פתרת</string>
   <string name="failed">שגית</string>
-  <string name="streakDescription">פתור חידות ברמת קושי עולה וצור רצף של ניצחונות. אין שעון, אז קח את הזמן. מהלך שגוי אחד, והמשחק נגמר! אבל אתה יכול לדלג על מהלך אחד בכל הפעלה.</string>
+  <string name="streakDescription">פתרו חידות ברמת קושי עולה וצברו רצף של ניצחונות. אין שעון, אז קחו את הזמן. מהלך שגוי אחד, והמשחק נגמר! אבל את/ה יכול/ה לדלג על מהלך אחד בכל הפעלה.</string>
   <string name="yourStreakX">הרצף שלך: %s</string>
-  <string name="streakSkipExplanation">דלג על מהלך זה כדי לשמור על הרצף שלך! ניתן לבצע דילוג כזה רק פעם אחת בכל הפעלה.</string>
+  <string name="streakSkipExplanation">דלג/י על מהלך זה כדי לשמור על הרצף שלך! ניתן לבצע דילוג כזה רק פעם אחת בכל הפעלה.</string>
   <string name="continueTheStreak">המשך את הרצף</string>
   <string name="newStreak">רצף חדש</string>
   <string name="fromMyGames">מהמשחקים שלי</string>
@@ -76,7 +78,7 @@
   <string name="searchPuzzles">חיפוש פאזלים</string>
   <string name="fromMyGamesNone">אין פאזלים מהמשחקים שלך במאגר, אך אנחנו עדיין אוהבים אותך!
 שחק משחקי Rapid ו־Classical כדי להגדיל את הסבירות שיתווסף פאזל משלך!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">נמצאו %1$s חידות במשחקים של %2$s</string>
+  <string name="fromXGamesFound">נמצאו %1$s חידות במשחקים של %2$s</string>
   <string name="puzzleDashboardDescription">אימון וניתוח יובילו לשיפור</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s שוּחק</item>
@@ -93,5 +95,5 @@
   <string name="percentSolved">%s נפתרו</string>
   <string name="noPuzzlesToShow">אין מה להראות, לכו לפתור כמה חידות קודם!</string>
   <string name="improvementAreasDescription">התאמנו על אלה כדי לשפר את ההתקדמות שלכם!</string>
-  <string name="strengthDescription">אתה מתפקד הכי טוב בנושאים הבאים</string>
+  <string name="strengthDescription">את/ה מתפקד/ת הכי טוב בנושאים הבאים</string>
 </resources>

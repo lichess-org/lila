@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">שידורים</string>
-  <string name="liveBroadcasts">משדרים חיים של טורנירים</string>
+  <string name="liveBroadcasts">שידורים חיים של טורנירים</string>
   <string name="newBroadcast">משדר חי חדש</string>
   <string name="addRound">הוסף סבב</string>
   <string name="ongoing">כרגע</string>

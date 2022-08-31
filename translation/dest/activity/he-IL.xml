@@ -21,7 +21,7 @@
     <item quantity="other">פתר/ה %s פאזלים טקטיים</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">שיחק/ה משחק %2$s%1$s</item>
+    <item quantity="one">שיחק/ה משחק %2$s %1$s</item>
     <item quantity="two">שיחק/ה %1$s משחקי %2$s</item>
     <item quantity="many">שיחק/ה %1$s משחקי %2$s</item>
     <item quantity="other">שיחק/ה %1$s משחקי %2$s</item>
@@ -99,7 +99,7 @@
     <item quantity="other">השתתף/ה ב-%s טורנירים שוויצריים</item>
   </plurals>
   <string name="rankedInSwissTournament">סיים/ה במקום %1$s ב-%2$s</string>
-  <string name="signedUp">נרשם לlichess.org</string>
+  <string name="signedUp">נרשם/ה לlichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">הצטרף לקבוצה %s</item>
     <item quantity="two">הצטרף ל-%s קבוצות</item>

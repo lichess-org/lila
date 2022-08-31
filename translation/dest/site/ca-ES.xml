@@ -59,9 +59,11 @@
   <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
   <string name="loadingEngine">Carregant màquina...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calculant...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Error carregant màquina</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
   <string name="goDeeper">Aprofundir</string>
-  <string name="showThreat">Mostrar amenaça</string>
+  <string name="showThreat">Mostra l\'amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar anàlisi local</string>
   <string name="promoteVariation">Promocionar variant</string>
@@ -337,7 +339,7 @@
   <string name="mustBeInTeam">Heu de ser de l\'equip %s</string>
   <string name="youAreNotInTeam">No sou de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
-  <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
+  <string name="siteDescription">Servidor d\'escacs gratuït online. Juga als escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen extensions. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
   <string name="xStartedStreaming">%s transmissió començada</string>
@@ -461,7 +463,7 @@
   <string name="biography">Biografia</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
-  <string name="socialMediaLinks">Enllaços a xarxes social</string>
+  <string name="socialMediaLinks">Enllaços a xarxes socials</string>
   <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="savingMoves">Emagatzematge temporal de moviments</string>
@@ -668,7 +670,7 @@
   <string name="downloadImported">Descàrrega importada</string>
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu premudes les variants d\'anàlisi per a previsualitzar-les.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu el ratolí sobre les variants d\'anàlisi per a previsualitzar-les.</string>
   <string name="analysisShapesHowTo">Pitja la tecla Shift + clic o feu clic dret per dibuixar cercles i fletxes al tauler.</string>
   <string name="letOtherPlayersMessageYou">Deixa que altres jugadors t\'envïin missatges</string>
   <string name="receiveForumNotifications">Rebre notificacions quan et mencionin al fòrum</string>

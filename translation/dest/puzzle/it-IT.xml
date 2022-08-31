@@ -13,6 +13,8 @@
   <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
   <string name="voteToLoadNextOne">Vota per caricare la prossima!</string>
+  <string name="upVote">Valuta positivamente questo puzzle</string>
+  <string name="downVote">Valuta negativamente questo puzzle</string>
   <string name="yourPuzzleRatingWillNotChange">Il tuo punteggio per le tattiche non cambierà. Nota che le tattiche non sono una competizione. Il punteggio ci aiuta a selezionare le migliori tattiche per il tuo livello di gioco.</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Cerca tattiche</string>
   <string name="fromMyGamesNone">Nel database delle tattiche di Lichess non è presente nessuna delle tue partite, ma Lichess ti vuole bene lo stesso.
 Gioca altre partite rapide o classiche per aumentare le tue possibilità di avere una tua tattica nel database!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s tattiche trovate in %2$s partite</string>
+  <string name="fromXGamesFound">%1$s tattiche trovate in %2$s partite</string>
   <string name="puzzleDashboardDescription">Allenati, analizza, migliora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s giocato</item>

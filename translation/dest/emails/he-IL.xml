@@ -14,7 +14,7 @@
 עמוד הפרופיל שלך הוא %1$s. אתה יכול לשנותו כרצונך ב%2$s
 אנו מאחלים לכלים שלך תמיד למצוא את דרכם למלך של יריביך!</string>
   <string name="logInToLichess">%s, התחבר/י ל־lichess.org</string>
-  <string name="common_orPaste">(אם הקלדה אינה עובדת, נסה הדבקה לתוך הדפדפן!)</string>
-  <string name="common_note">זו הודעת שרות בקשר לשימושך ב-%s.</string>
-  <string name="common_contact">כדי ליצור איתנו קשר, השתמש ב-%s.</string>
+  <string name="common_orPaste">(אם הקלדה אינה עובדת, נסו הדבקה לתוך הדפדפן!)</string>
+  <string name="common_note">זו הודעת שירות בקשר לשימושך ב-%s.</string>
+  <string name="common_contact">כדי ליצור איתנו קשר, השתמשו ב-%s.</string>
 </resources>

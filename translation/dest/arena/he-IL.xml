@@ -2,7 +2,7 @@
 <resources>
   <string name="arenaTournaments">טורנירי זירה</string>
   <string name="isItRated">האם זה נכלל בדרוג?</string>
-  <string name="willBeNotified">תישלח הודעה על תחילת התחרות, כך שבינתיים אתה יכול לשחק במקביל.</string>
+  <string name="willBeNotified">תישלח הודעה על תחילת התחרות, כך שבינתיים את/ה יכול/ה לשחק במקביל.</string>
   <string name="isRated">תחרות זו היא רשמית ותקבע את דרוגך.</string>
   <string name="isNotRated">טורניר זה אינו מדורג ולא ישפיע על דירוגך.</string>
   <string name="someRated">חלק מהתחרויות הן מדורגות ויקבעו את דרוגך.</string>
@@ -15,9 +15,9 @@
 
 אופצית האטרף אינה קיימת במשחקים הזמן המקורי הוא 0 (למשל 0+1 או 0+2).</string>
   <string name="howIsTheWinnerDecided">איך נקבע המנצח?</string>
-  <string name="howIsTheWinnerDecidedAnswer">השחקן (או שחקנים) עם מספר הנקודות המרבי בסיום הזמן החוקי של התחרות יוכרזו כמנצחים.
+  <string name="howIsTheWinnerDecidedAnswer">השחקן/ית עם מספר הנקודות המרבי בסיום הזמן החוקי של התחרות יוכרזו כמנצחים.
 
-אם יש כמה שחקנים עם מספר זה, הם ידורגו לפי איכות הישגיהם בתחרות.</string>
+אם יש כמה שחקנים עם מספר זה, הם ידורגו לפי דירוג הביצוע שלהם בתחרות.</string>
   <string name="howDoesPairingWork">איך מתבצע השיבוץ?</string>
   <string name="howDoesPairingWorkAnswer">השיבוץ בתחילת הטורניר נעשה לפי דירוג השחקן. 
 

@@ -59,6 +59,8 @@
   <string name="depthX">Sakonera %s</string>
   <string name="usingServerAnalysis">Zerbitzariko analisia erabiltzen ari da</string>
   <string name="loadingEngine">Motorea kargatzen...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Jokaldiak kalkulatzen...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Errorea motorea kargatzean</string>
   <string name="cloudAnalysis">\"Lainoko\" analisia</string>
   <string name="goDeeper">Sakonago begiratu</string>
   <string name="showThreat">Mehatxua erakutsi</string>
