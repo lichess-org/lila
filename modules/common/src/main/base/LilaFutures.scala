@@ -123,6 +123,7 @@ final class LilaFuture[A](private val fua: Fu[A]) extends AnyVal {
       } catch {
         case e: Exception =>
           lila.log("await").warn(s"Timeout $name after $duration", e)
+          lila.mon.blocking.timeout(name).increment()
           throw e
       }
     }
