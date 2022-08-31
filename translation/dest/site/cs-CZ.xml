@@ -61,6 +61,7 @@
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
   <string name="loadingEngine">Načítání AI engine...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Výpočet tahů...</string>
   <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Chyba při načítání enginu</string>
   <string name="cloudAnalysis">Cloudová analýza</string>
   <string name="goDeeper">Hlouběji</string>
@@ -951,6 +952,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="estimatedStart">Předpokládaný začátek</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
+  <string name="markdownAvailable">%s je k dispozici pro pokročilé formátování.</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
   <string name="noChat">Vypnutý chat</string>
