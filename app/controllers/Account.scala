@@ -163,6 +163,7 @@ final class Account(
   private def refreshSessionId(me: UserModel, result: Result)(implicit ctx: Context): Fu[Result] =
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
+      env.push.unregisterDevices(me) >>
       env.security.api.saveAuthentication(me.id, ctx.mobileApiVersion) map { sessionId =>
         result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
       }
