@@ -63,7 +63,7 @@ export function countChildrenAndComments(node: Tree.Node) {
 
 // adds n2 into n1
 export function merge(n1: Tree.Node, n2: Tree.Node): void {
-  n1.eval = n2.eval;
+  if (n2.eval) n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments &&
     n2.comments.forEach(function (c) {
