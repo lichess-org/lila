@@ -47,7 +47,7 @@ final class LightUserApi(
           case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
         },
     default = id => LightUser(id, id, None, isPatron = false).some,
-    strategy = Syncache.WaitAfterUptime(8 millis),
+    strategy = Syncache.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfterWrite(20 minutes)
   )
 }
