@@ -45,6 +45,7 @@ private object PrefHandlers {
         mention = r.getD("mention", Pref.default.mention),
         insightShare = r.getD("insightShare", Pref.default.insightShare),
         keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
+        voiceMove = r.getD("voiceMove", Pref.default.voiceMove),
         zen = r.getD("zen", Pref.default.zen),
         ratings = r.getD("ratings", Pref.default.ratings),
         rookCastle = r.getD("rookCastle", Pref.default.rookCastle),

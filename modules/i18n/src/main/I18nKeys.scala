@@ -1662,6 +1662,7 @@ val `castleByMovingTheKingTwoSquaresOrOntoTheRook` = new I18nKey("preferences:ca
 val `castleByMovingTwoSquares` = new I18nKey("preferences:castleByMovingTwoSquares")
 val `castleByMovingOntoTheRook` = new I18nKey("preferences:castleByMovingOntoTheRook")
 val `inputMovesWithTheKeyboard` = new I18nKey("preferences:inputMovesWithTheKeyboard")
+val `inputMovesWithYourVoice` = new I18nKey("preferences:inputMovesWithYourVoice")
 val `snapArrowsToValidMoves` = new I18nKey("preferences:snapArrowsToValidMoves")
 val `sayGgWpAfterLosingOrDrawing` = new I18nKey("preferences:sayGgWpAfterLosingOrDrawing")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")

@@ -145,6 +145,7 @@ export interface PuzzlePrefs {
   };
   blindfold: boolean;
   keyboardMove: boolean;
+  voiceMove: boolean;
 }
 
 export interface Angle {

@@ -76,7 +76,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
-    val assets = assetDomain.value
+    val assets  = assetDomain.value
     val sockets = socketDomains map { x => s"wss://$x${!req.secure ?? s" ws://$x"}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = !req.secure ?? List("http://127.0.0.1:3000")
@@ -84,7 +84,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       defaultSrc = List("'self'", assets),
       // TODO (28 August, 2022): Use sensible values for the CSP
       connectSrc =
-        "'self'" :: "data:" :: "*" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev, 
+        "'self'" :: "data:" :: "*" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
       frameSrc = List("'self'", assets, "www.youtube.com", "player.twitch.tv"),
       // TODO (28 August, 2022): Use sensible values for the CSP

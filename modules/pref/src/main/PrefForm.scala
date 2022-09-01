@@ -40,6 +40,7 @@ object PrefForm {
         "corresEmailNotif" -> optional(booleanNumber),
         "confirmResign"    -> checkedNumber(Pref.ConfirmResign.choices),
         "keyboardMove"     -> optional(booleanNumber),
+        "voiceMove"        -> optional(booleanNumber),
         "rookCastle"       -> optional(booleanNumber)
       )(BehaviorData.apply)(BehaviorData.unapply),
       "clock" -> mapping(
@@ -81,6 +82,7 @@ object PrefForm {
       corresEmailNotif: Option[Int],
       confirmResign: Int,
       keyboardMove: Option[Int],
+      voiceMove: Option[Int],
       rookCastle: Option[Int]
   )
 
@@ -131,6 +133,7 @@ object PrefForm {
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
+        voiceMove = behavior.voiceMove | pref.voiceMove,
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
@@ -165,6 +168,7 @@ object PrefForm {
           corresEmailNotif = (if (pref.corresEmailNotif) 1 else 0).some,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
+          voiceMove = pref.voiceMove.some,
           rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(

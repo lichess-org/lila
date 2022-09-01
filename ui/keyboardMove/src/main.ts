@@ -19,6 +19,7 @@ export interface KeyboardMove {
   update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void;
   isFocused: Prop<boolean>;
+  voiceMove: boolean;
   san(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
@@ -63,6 +64,7 @@ export interface RootController {
   submitMove?: (v: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
   redraw: Redraw;
+  voiceMove: boolean;
   next?: () => void;
   vote?: (v: boolean) => void;
 }
@@ -74,6 +76,7 @@ type Redraw = () => void;
 export function ctrl(root: RootController, step: Step): KeyboardMove {
   const isFocused = propWithEffect(false, root.redraw);
   const helpModalOpen = propWithEffect(false, root.redraw);
+  const voiceMove = root.voiceMove;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   let lastSelect = performance.now();
@@ -142,6 +145,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     vote: (v: boolean) => root.vote?.(v),
     helpModalOpen,
     isFocused,
+    voiceMove,
   };
 }
 

@@ -88,7 +88,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    if (opts.pref.keyboardMove) {
+    if (opts.pref.keyboardMove || opts.pref.voiceMove) {
       keyboardMove = makeKeyboardMove(
         {
           data: {
@@ -101,6 +101,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           userJumpPlyDelta,
           next: nextPuzzle,
           vote,
+          // TODO: keyboardMove: opts.pref.keyboardMove
+          voiceMove: opts.pref.voiceMove,
         },
         { fen: this.vm.node.fen }
       );

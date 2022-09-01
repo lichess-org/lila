@@ -200,7 +200,8 @@ export default (opts: Opts) => {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
   };
-  if (lichess.loadScript !== undefined) {
+
+  if (lichess.loadScript !== undefined && opts.ctrl.voiceMove) {
     lichess.loadScript('javascripts/vendor/vosk.min.js').then(() => loadVosk(submit));
   }
 

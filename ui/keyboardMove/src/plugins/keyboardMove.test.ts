@@ -36,6 +36,7 @@ const defaultCtrl = {
   usedSan: true,
   helpModalOpen: propWithEffect(false, () => null),
   isFocused: propWithEffect(false, () => null),
+  voiceMove: false,
 };
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
