@@ -21,7 +21,7 @@ final class AccountClosure(
     planApi: lila.plan.PlanApi,
     seekApi: lila.lobby.SeekApi,
     securityStore: lila.security.Store,
-    webSubscriptionApi: lila.push.WebSubscriptionApi,
+    pushEnv: lila.push.Env,
     streamerApi: lila.streamer.StreamerApi,
     reportApi: lila.report.ReportApi,
     modApi: lila.mod.ModApi,
@@ -54,7 +54,8 @@ final class AccountClosure(
       _       <- planApi.cancel(u).recoverDefault
       _       <- seekApi.removeByUser(u)
       _       <- securityStore.closeAllSessionsOf(u.id)
-      _       <- webSubscriptionApi.unsubscribeByUser(u)
+      _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
+      _       <- pushEnv.unregisterDevices(u)
       _       <- streamerApi.demote(u.id)
       reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
       _ <- if (selfClose) modLogApi.selfCloseAccount(u.id, reports) else modLogApi.closeAccount(by.id, u.id)
