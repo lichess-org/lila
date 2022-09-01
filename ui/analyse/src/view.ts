@@ -256,9 +256,13 @@ function controls(ctrl: AnalyseCtrl) {
   );
 }
 
+let prevForceInnerCoords: boolean;
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   if (ctrl.data.pref.coords === Prefs.Coords.Outside) {
-    $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
+    if (prevForceInnerCoords !== v) {
+      prevForceInnerCoords = v;
+      $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
+    }
   }
 }
 
