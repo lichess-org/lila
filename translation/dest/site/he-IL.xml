@@ -668,7 +668,7 @@
   <string name="tpTimeSpentPlaying">זמן במשחק : %s</string>
   <string name="watchGames">צפייה במשחקים</string>
   <string name="tpTimeSpentOnTV">זמן בטלוויזיה: %s</string>
-  <string name="watch">צפה</string>
+  <string name="watch">צפו</string>
   <string name="videoLibrary">ספריית וידאו</string>
   <string name="streamersMenu">משדרים</string>
   <string name="mobileApp">אפליקציה לטלפון</string>
@@ -827,8 +827,8 @@
   <string name="evaluatingYourMove">מעריך את המסע שלך ...</string>
   <string name="whiteWinsGame">הלבן מנצח</string>
   <string name="blackWinsGame">השחור מנצח</string>
-  <string name="learnFromYourMistakes">למד מהטעויות שלך</string>
-  <string name="learnFromThisMistake">למד מהטעות הזאת</string>
+  <string name="learnFromYourMistakes">למד/י מהטעויות שלך</string>
+  <string name="learnFromThisMistake">למד/י מהטעות הזאת</string>
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="next">הבא</string>
   <string name="xWasPlayed">%s שוחק</string>
