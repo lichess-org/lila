@@ -41,5 +41,6 @@
   <string name="selectPostTopics">Gönderinizin ilgili olduğu konuları seçin</string>
   <string name="useImagesYouMadeYourself">Kendi oluşturduğunuz görseller, çektiğiniz fotoğraflar veya Lichess ekran görüntüleri gibi telif hakkı başkasına ait olmayan herhangi bir resmi de kullanabilirsiniz.</string>
   <string name="safeAndRespectfulContent">Paylaştığınız içeriklerin uygun ve orijinal olmasına lütfen dikkat edin. Başka bir kullanıcının içeriğini kopyalamayın.</string>
-  <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapanmasına yol açacaktır.</string>
+  <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapatılmasına yol açacaktır.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Harika blog gönderileri yazmanın püf noktaları</string>
 </resources>
