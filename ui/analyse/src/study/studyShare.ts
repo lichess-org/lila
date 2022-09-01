@@ -142,7 +142,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
         {
           attrs: {
             'data-icon': '',
-            href: xhrUrl(`/export/gif/${ctrl.currentNode().fen.replace(/ /g, '_')}`, {
+            href: xhrUrl(document.body.getAttribute('data-asset-url') + '/export/fen.gif', {
+              fen: ctrl.currentNode().fen,
               color: ctrl.bottomColor(),
               lastMove: ctrl.currentNode().uci,
               variant: ctrl.variantKey,
