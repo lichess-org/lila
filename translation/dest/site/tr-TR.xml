@@ -59,6 +59,8 @@
   <string name="depthX">Derinlik %s</string>
   <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
   <string name="loadingEngine">Satranç motoru yükleniyor...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Hamleler hesaplanıyor...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Motor yüklenirken hata oluştu</string>
   <string name="cloudAnalysis">Bulut analizi</string>
   <string name="goDeeper">Daha derine in</string>
   <string name="showThreat">Tehdidi göster</string>
@@ -275,12 +277,12 @@
     <item quantity="other">%s mağlubiyet</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s kez berabere kaldı</item>
-    <item quantity="other">%s kez berabere kaldı</item>
+    <item quantity="one">%s beraberlik</item>
+    <item quantity="other">%s beraberlik</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s şimdi oynanıyor</item>
-    <item quantity="other">%s şimdi oynanıyor</item>
+    <item quantity="one">%s oynuyor</item>
+    <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
@@ -288,19 +290,19 @@
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Bu hesap Lichess Kullanım Şartları\'nı ihlâl etti</string>
+  <string name="thisAccountViolatedTos">Bu hesap Lichess Hizmet Şartları\'nı ihlal etti</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
-  <string name="takeback">Hamleni geri al</string>
+  <string name="takeback">Hamleyi geri al</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et</string>
-  <string name="takebackPropositionSent">Hamleyi geri alma teklifi gönderildi.</string>
-  <string name="takebackPropositionDeclined">Hamleyi geri alma teklifi reddedildi.</string>
-  <string name="takebackPropositionAccepted">Hamleyi geri alma teklifi kabul edildi.</string>
-  <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi.</string>
-  <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri alma teklifi gönderdi</string>
+  <string name="takebackPropositionSent">Hamleyi geri alma teklif edildi</string>
+  <string name="takebackPropositionDeclined">Hamleyi geri alma teklifi reddedildi</string>
+  <string name="takebackPropositionAccepted">Hamleyi geri alma teklifi kabul edildi</string>
+  <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi</string>
+  <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri almayı teklif etti</string>
   <string name="bookmarkThisGame">Bu oyunu işaretle</string>
   <string name="tournament">Turnuva</string>
   <string name="tournaments">Turnuvalar</string>
-  <string name="tournamentPoints">Turnuvada alınan puanlar</string>
+  <string name="tournamentPoints">Turnuvalardan alınan puanlar</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turnuva Puanı</item>
     <item quantity="other">%s Turnuva Puanı</item>
