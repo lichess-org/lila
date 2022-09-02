@@ -351,9 +351,9 @@
   <string name="save">Kaydet</string>
   <string name="leaderboard">Lider Tablosu</string>
   <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
-  <string name="gameAsGIF">GIF Olarak Oyun</string>
+  <string name="gameAsGIF">Oyunun GIF hali</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
-  <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
+  <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
@@ -364,17 +364,17 @@
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Bu bir satranç doğrulama sistemidir.</string>
+  <string name="thisIsAChessCaptcha">Bu bir satranç CAPTCHA\'sıdır.</string>
   <string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
-  <string name="captcha.fail">Lütfen satranç doğrulamasını yapın.</string>
+  <string name="captcha.fail">Lütfen satranç CAPTCHA\'sını çözün.</string>
   <string name="notACheckmate">Mat değil</string>
   <string name="whiteCheckmatesInOneMove">Beyaz bir hamlede mat eder</string>
   <string name="blackCheckmatesInOneMove">Siyah bir hamlede mat eder</string>
   <string name="retry">Tekrar dene</string>
   <string name="reconnecting">Yeniden bağlanılıyor</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s arkadaş çevrimiçi</item>
-    <item quantity="other">%s arkadaş çevrimiçi</item>
+    <item quantity="one">%s arkadaş çevrim içi</item>
+    <item quantity="other">%s arkadaş çevrim içi</item>
   </plurals>
   <string name="favoriteOpponents">Favori rakipler</string>
   <string name="follow">Takip et</string>
