@@ -698,7 +698,7 @@
   <string name="simulVariantsHint">אם אתה בוחר מספר גרסאות, כל שחקן יריב זוכה לבחור גרסה למשחק.</string>
   <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק נגד יותר שחקנים, כך תזדקק ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
-  <string name="simulHostExtraTime">זמן נוסף למארח</string>
+  <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
