@@ -60,7 +60,7 @@ object replay {
         href := cdnUrl(
           routes.Export
             .fenThumbnail(
-              Forsyth.>>(pov.game.situation).value.replace(" ", "_"),
+              Forsyth.>>(pov.game.situation).value,
               pov.color.name,
               None,
               pov.game.variant.key.some
