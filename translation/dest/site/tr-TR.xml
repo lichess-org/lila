@@ -406,7 +406,7 @@
     <item quantity="other">%s dakikadan daha az</item>
   </plurals>
   <string name="required">Gerekli.</string>
-  <string name="openTournaments">Mevcut turnuvalar</string>
+  <string name="openTournaments">Açık turnuvalar</string>
   <string name="duration">Süre</string>
   <string name="winner">Kazanan</string>
   <string name="standing">Sıralama</string>
@@ -430,7 +430,7 @@
   <string name="tournamentIsStarting">Turnuva başlıyor</string>
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="standByX">Hazır ol %s, oyuncular eşleştiriliyor!</string>
-  <string name="pause">Duraklatıldı</string>
+  <string name="pause">Duraklat</string>
   <string name="resume">Devam et</string>
   <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
@@ -450,18 +450,18 @@
   <string name="chess960StartPosition">Chess960 başlangıç pozisyonu: %s</string>
   <string name="startPosition">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
-  <string name="loadPosition">Konumu yükle</string>
+  <string name="loadPosition">Pozisyon yükle</string>
   <string name="isPrivate">Özel</string>
   <string name="reportXToModerators">%s \'i Moderatörlere bildir</string>
   <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
   <string name="xRating">Derecelendirme: %s</string>
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
   <string name="profile">Profil</string>
-  <string name="editProfile">Profilini düzenle</string>
+  <string name="editProfile">Profili düzenle</string>
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya Bayrak</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya bayrak</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
