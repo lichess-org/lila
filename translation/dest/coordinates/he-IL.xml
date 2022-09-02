@@ -14,7 +14,7 @@
   <string name="goAsLongAsYouWant">פתרו כפי יכולתכם, אין מגבלת זמן!</string>
   <string name="showCoordinates">הצגת קואורדינטות (נקודות ציון)</string>
   <string name="showPieces">הצג כלים</string>
-  <string name="startTraining">התחל להתאמן</string>
-  <string name="findSquare">מצא את המשבצת</string>
-  <string name="nameSquare">תן שם למשבצת</string>
+  <string name="startTraining">התחילו להתאמן</string>
+  <string name="findSquare">מצא/י את המשבצת</string>
+  <string name="nameSquare">תן/י שם למשבצת</string>
 </resources>
