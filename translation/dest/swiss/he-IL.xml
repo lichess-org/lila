@@ -53,7 +53,7 @@
   <string name="pointsCalculationA">ניצחון שווה נקודה, תיקו חצי נקודה והפסד אפס נקודות. כששחקן לא משובץ באחד הסבבים הוא מקבל נקודה.</string>
   <string name="tiebreaksCalculationQ">איך שוברי-שוויון מחושבים?</string>
   <string name="sonnebornBergerScore">ניקוד סונבורן-ברגר</string>
-  <string name="tiebreaksCalculationA">בעזרת %s. סכם את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
+  <string name="tiebreaksCalculationA">בעזרת %s. סכמו את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
   <string name="pairingsQ">איך נקבע השיבוץ לזוגות?</string>
   <string name="dutchSystem">השיטה ההולנדית</string>
   <string name="FIDEHandbook">מפרט חוקי פיד״ה</string>
