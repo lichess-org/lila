@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">שחק/י עם חבר/ה</string>
-  <string name="playWithTheMachine">שחק מול המחשב</string>
+  <string name="playWithTheMachine">שחק/י מול המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -174,7 +174,7 @@
   <string name="logOut">התנתק/י</string>
   <string name="signIn">התחבר/י</string>
   <string name="youNeedAnAccountToDoThat">את/ה צריך/ה חשבון כדי לעשות פעולה זו</string>
-  <string name="signUp">הרשמה</string>
+  <string name="signUp">הירשם/י</string>
   <string name="computersAreNotAllowedToPlay">מחשבים ושחקנים הנעזרים במחשב במשחקיהם אינם מורשים לשחק. אנא הימנעו מהיעזרות במנועי שחמט, מאגרי מידע או שחקנים אחרים במהלך המשחק. בנוסף, מומלץ להימנע מיצירת משתמשים מרובים, שכן יצירת כמות מוגזמת של משתמשים תביא לסילוק מהאתר.</string>
   <string name="games">משחקים</string>
   <string name="forum">פורום</string>
@@ -698,7 +698,7 @@
   <string name="simulVariantsHint">אם אתה בוחר מספר גרסאות, כל שחקן יריב זוכה לבחור גרסה למשחק.</string>
   <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק נגד יותר שחקנים, כך תזדקק ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
-  <string name="simulHostExtraTime">זמן נוסף למארח</string>
+  <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
@@ -758,7 +758,7 @@
   <string name="security">אבטחה</string>
   <string name="sessions">מכשירים מחוברים</string>
   <string name="revokeAllSessions">נתק את כל המכשירים</string>
-  <string name="playChessEverywhere">שחק שחמט בכל מקום</string>
+  <string name="playChessEverywhere">שחקו שחמט בכל מקום</string>
   <string name="asFreeAsLichess">חינמי לחלוטין, ממש כמו האתר!</string>
   <string name="builtForTheLoveOfChessNotMoney">נבנה בגלל אהבה למשחק, לא כדי להרוויח כסף</string>
   <string name="everybodyGetsAllFeaturesForFree">כולם מקבלים את כל התוכן בחינם</string>
@@ -767,7 +767,7 @@
   <string name="phoneAndTablet">טלפון וטאבלט</string>
   <string name="bulletBlitzClassical">קליע, בזק, קלאסי</string>
   <string name="correspondenceChess">שחמט בהתכתבות</string>
-  <string name="onlineAndOfflinePlay">שחק עם או בלי חיבור לאינטרנט</string>
+  <string name="onlineAndOfflinePlay">שחקו עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
   <string name="followAndChallengeFriends">עקבו אחר חברים והזמינו אותם למשחק</string>
   <plurals name="availableInNbLanguages">

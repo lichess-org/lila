@@ -51,7 +51,7 @@
   <string name="forkDescription">Un coup où la pièce déplacée attaque deux pièces de l\'adversaire à la fois.</string>
   <string name="hangingPiece">Pièce en prise</string>
   <string name="hangingPieceDescription">Une tactique impliquant une pièce adverse non protégée ou insuffisamment défendue et libre d\'être capturée.</string>
-  <string name="hookMate">Mat de l\'hameçon</string>
+  <string name="hookMate">Mat du hameçon</string>
   <string name="hookMateDescription">Mat avec une Tour, un Cavalier et un pion, avec un pion adverse qui empêche la fuite du roi ennemi.</string>
   <string name="interference">Interception</string>
   <string name="interferenceDescription">Déplacer une pièce entre deux pièces adverses pour en laisser l\'une ou les deux non protégées, comme un Cavalier sur une case défendue entre deux Tours.</string>
