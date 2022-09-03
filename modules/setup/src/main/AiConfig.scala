@@ -51,7 +51,8 @@ case class AiConfig(
 
   def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
-  def timeControlFromPosition = timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1
+  def timeControlFromPosition =
+    timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1
 }
 
 object AiConfig extends BaseConfig {
