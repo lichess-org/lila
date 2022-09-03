@@ -10,7 +10,7 @@
   <string name="allStudies">כל לוחות הלמידה</string>
   <string name="studiesCreatedByX">לוחות למידה שנוצרו על ידי %s</string>
   <string name="noneYet">אין עדיין.</string>
-  <string name="hot">הכי נצפים</string>
+  <string name="hot">כוכבים עולים</string>
   <string name="dateAddedNewest">תאריך הוספה (החדש ביותר)</string>
   <string name="dateAddedOldest">תאריך הוספה (הישן ביותר)</string>
   <string name="recentlyUpdated">עודכן לאחרונה</string>
@@ -117,7 +117,7 @@
   <string name="createChapter">צור פרק</string>
   <string name="configureLiveBroadcast">קביעת התצורה של השידור החי</string>
   <string name="createStudy">יצירת לוח למידה</string>
-  <string name="editStudy">ערוך לוח למידה</string>
+  <string name="editStudy">עריכת לוח למידה</string>
   <string name="visibility">חשיפה</string>
   <string name="public">פומבי</string>
   <string name="unlisted">כולם</string>
@@ -132,7 +132,7 @@
   <string name="yesKeepEveryoneOnTheSamePosition">כן: שמור את כולם באותה העמדה</string>
   <string name="noLetPeopleBrowseFreely">לא: תן לאנשים לדפדף בחופשיות</string>
   <string name="pinnedStudyComment">תגובה מוצמדת ללוח הלמידה</string>
-  <string name="start">התחל</string>
+  <string name="start">שמירה</string>
   <string name="save">שמור</string>
   <string name="clearChat">נקה צ\'אט</string>
   <string name="deleteTheStudyChatHistory">למחוק את היסטוריית הצ\'אט של לוח הלמידה? אין דרך חזרה!</string>
