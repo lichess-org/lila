@@ -10,6 +10,7 @@ import lila.api.GameApiV2
 import lila.app._
 import lila.common.config
 import lila.db.dsl._
+import lila.rating.PerfType
 import lila.user.Holder
 
 final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
@@ -38,19 +39,21 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
 
   private def fetchGames(user: lila.user.User, filter: Filter) = {
     val select = toDbSelect(filter) ++ lila.game.Query.finished
-    filter.realSpeed
-      .fold(env.game.gameRepo.recentPovsByUserFromSecondary(user, filter.nbGames, select)) { speed =>
-        import akka.stream.scaladsl._
-        env.game.gameRepo
-          .recentGamesByUserFromSecondaryCursor(user, select)
-          .documentSource(10_000)
-          .filter(_.speed == speed)
-          .take(filter.nbGames)
-          .mapConcat { g => lila.game.Pov(g, user).toList }
-          .toMat(Sink.seq)(Keep.right)
-          .run()
-          .map(_.toList)
-      }
+    import akka.stream.scaladsl._
+    env.game.gameRepo
+      .recentGamesByUserFromSecondaryCursor(user, select)
+      .documentSource(10_000)
+      .filter(game =>
+        filter.realSpeed
+          .map(_ == game.speed)
+          .getOrElse(true) && filter.realVariant.map(_ == game.variant).getOrElse(true)
+      )
+      .take(filter.nbGames)
+      .mapConcat { g => lila.game.Pov(g, user).toList }
+      .toMat(Sink.seq)(Keep.right)
+      .run()
+      .map(_.toList)
+
   }
 
   def post(username: String) =
@@ -110,7 +113,7 @@ object GameMod {
   case class Filter(
       arena: Option[String],
       swiss: Option[String],
-      speed: Option[String],
+      perf: Option[String],
       opponents: Option[String],
       nbGamesOpt: Option[Int]
   ) {
@@ -125,7 +128,8 @@ object GameMod {
         .map(lila.user.User.normalize)
         .toList
         .distinct
-    def realSpeed = speed.flatMap(k => chess.Speed.all.find(_.key == k))
+    def realSpeed                                  = perf.flatMap(k => chess.Speed.all.find(_.key == k))
+    def realVariant: Option[chess.variant.Variant] = perf.flatMap(PerfType.apply).map(PerfType.variantOf)
 
     def nbGames = nbGamesOpt | 100
   }
