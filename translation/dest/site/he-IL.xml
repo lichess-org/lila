@@ -114,7 +114,7 @@
   <string name="realtimeReplay">זמן אמת</string>
   <string name="byCPL">עפ\"י CPL</string>
   <string name="openStudy">פתח לוח למידה</string>
-  <string name="enable">אפשר</string>
+  <string name="enable">הפעלה</string>
   <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
   <string name="evaluationGauge">מד הערכה</string>
   <string name="multipleLines">המשכים מקבילים</string>
@@ -144,7 +144,7 @@
     <item quantity="other">%s אי-דיוקים</item>
   </plurals>
   <string name="moveTimes">זמני המהלכים</string>
-  <string name="flipBoard">הפוך את הלוח</string>
+  <string name="flipBoard">סיבוב הלוח</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
   <string name="claimADraw">דרוש תיקו</string>
   <string name="offerDraw">הצע תיקו</string>
@@ -751,9 +751,9 @@
   <string name="withFriends">עם חברים</string>
   <string name="withEverybody">עם כולם</string>
   <string name="kidMode">מצב ילדים</string>
-  <string name="kidModeExplanation">בשביל הבטיחות. במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעל אופציה זו עבור ילדיך ועבור תלמידי בית ספר. זאת כדי להגן עליהם מפני משתמשים אחרים.</string>
+  <string name="kidModeExplanation">בשביל הבטיחות. במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעילו אופציה זו עבור ילדיכם ועבור תלמידי בית ספר. זאת כדי להגן עליהם מפני משתמשים אחרים.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'ס מקבל אייקון %s, כדי שתדע שילדיך מוגנים.</string>
-  <string name="enableKidMode">הפעל מצב ילדים</string>
+  <string name="enableKidMode">הפעילו מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>
   <string name="sessions">מכשירים מחוברים</string>
