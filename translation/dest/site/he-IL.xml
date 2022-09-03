@@ -394,7 +394,7 @@
   <string name="siteDescription">שרת שחמט מקוון חינמי. שחקו שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחקו שחמט עם המחשב, עם חברים או עם יריבים אקראיים.</string>
   <string name="xJoinedTeamY">%1$s הצטרף/ה לקבוצה %2$s</string>
   <string name="xCreatedTeamY">%1$s יצר/ה את הקבוצה %2$s</string>
-  <string name="xStartedStreaming">%s התחיל לשדר</string>
+  <string name="xStartedStreaming">%s התחיל/ה לשדר</string>
   <string name="averageElo">דירוג ממוצע</string>
   <string name="location">מיקום</string>
   <string name="filterGames">סנן משחקים</string>
@@ -690,11 +690,11 @@
   <string name="returnToSimulHomepage">חזרה לדף הבית של המשחקים הסימולטניים</string>
   <string name="aboutSimul">משחק סימולטני מערב שחקן יחיד אשר משחק נגד שחקנים רבים בו זמנית.</string>
   <string name="aboutSimulImage">מתוך 50 משחקים בו-זמנית, פישר ניצח ב-47 משחקים, השיג 2 תוצאות תיקו והפסיד במשחק אחד.</string>
-  <string name="aboutSimulRealLife">המושג נלקח מאירועים בעולם האמיתי. בחיים האמיתיים, המארח עובר משולחן לשולחן ומשחק מהלך אחד בכל פעם.</string>
+  <string name="aboutSimulRealLife">המושג נלקח מאירועים בעולם האמיתי. בחיים האמיתיים, המארח/ת עובר/ת משולחן לשולחן ומשחק/ת מהלך אחד בכל פעם.</string>
   <string name="aboutSimulRules">כאשר המשחק הסימולטני מתחיל, כל שחקן מתחיל את המשחק עם המארח, אשר משחק בתור הלבן. המשחק הסימולטני מסתיים כאשר כל המשחקים מסתיימים.</string>
   <string name="aboutSimulSettings">המשחקים הסימולטניים הם תמיד לא מדורגים. האפשרויות של: \"נסה שוב\", ״החזר מהלך״ ו\"הוסף זמן\" מבוטלות.</string>
   <string name="create">צור</string>
-  <string name="whenCreateSimul">כאשר אתה יוצר משחק סימולטני, אתה זוכה לשחק עם שחקנים רבים בו זמנית.</string>
+  <string name="whenCreateSimul">כאשר את/ה יוצר/ת משחק סימולטני, את/ה זוכה לשחק עם שחקנים רבים בו זמנית.</string>
   <string name="simulVariantsHint">אם אתה בוחר מספר גרסאות, כל שחקן יריב זוכה לבחור גרסה למשחק.</string>
   <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק נגד יותר שחקנים, כך תזדקק ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
@@ -779,7 +779,7 @@
   <string name="gameAnalysis">ניתוח המשחק</string>
   <string name="xHostsY">%1$s מארח/ת %2$s</string>
   <string name="xJoinsY">%1$s מצטרף/ת ל-%2$s</string>
-  <string name="xLikesY">%1$s אוהב את %2$s</string>
+  <string name="xLikesY">%1$s אוהב/ת את %2$s</string>
   <string name="quickPairing">הצטרפות מהירה</string>
   <string name="lobby">לובי</string>
   <string name="anonymous">אנונימי</string>
