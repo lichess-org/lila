@@ -915,7 +915,7 @@
   <string name="mentionedYouInX">תייג/ה אותך ב- %1$s.</string>
   <string name="xMentionedYouInY">%1$s הזכיר/ה אותך בהודעה ב-\"%2$s\".</string>
   <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
+  <string name="xInvitedYouToY">%1$s הזמין/ה אותך ללוח הלמידה \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">אתה כעת חבר בקבוצה.</string>
   <string name="youHaveJoinedTeamX">הצטרפת אל \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">מישהו שדיווחת עליו נחסם</string>
@@ -958,7 +958,7 @@
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
   <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
-  <string name="embedsAvailable">הדבק כתובת משחק או כתובת של פרק לוח לימוד כדי להטמיע אותו.</string>
+  <string name="embedsAvailable">הדביקו כתובת משחק (URL) או כתובת של פרק לוח למידה כדי להטמיע אותם.</string>
   <string name="inYourLocalTimezone">באזור הזמן שלך</string>
   <string name="tournChat">צ\'אט טורניר</string>
   <string name="noChat">בטל אפשרות צ\'אט</string>
