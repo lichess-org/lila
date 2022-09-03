@@ -515,13 +515,13 @@
   <string name="blog">Blog</string>
   <string name="notes">Notlar</string>
   <string name="typePrivateNotesHere">Özel notlarınızı buraya yazın</string>
-  <string name="invalidUsernameOrPassword">Kullanıcı adı ya da şifre geçersiz.</string>
-  <string name="incorrectPassword">Yanlış şifre</string>
+  <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
+  <string name="incorrectPassword">Şifre yanlış</string>
   <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
-  <string name="currentPassword">Geçerli şifre</string>
+  <string name="currentPassword">Mevcut şifre</string>
   <string name="newPassword">Yeni şifre</string>
-  <string name="newPasswordAgain">Yeni şifre(tekrar)</string>
+  <string name="newPasswordAgain">Yeni şifre (tekrar)</string>
   <string name="newPasswordsDontMatch">Yeni şifreler eşleşmiyor</string>
   <string name="newPasswordStrength">Şifre gücü</string>
   <string name="clockInitialTime">Maç başlangıç süresi</string>
