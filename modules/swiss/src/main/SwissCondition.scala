@@ -219,7 +219,7 @@ object SwissCondition {
         "maxRating"   -> maxRating,
         "minRating"   -> minRating,
         "titled"      -> optional(boolean),
-        "allowList"   -> optional(nonEmptyText(maxLength = 9999))
+        "allowList"   -> optional(nonEmptyText(maxLength = 100_1000))
       )(AllSetup.apply)(AllSetup.unapply)
         .verifying("Invalid ratings", _.validRatings)
 
