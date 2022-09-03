@@ -10,6 +10,7 @@ import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
 
+
 object form {
 
   def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(implicit
@@ -129,20 +130,42 @@ object form {
             trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
         )(form3.input(_))
       ),
-      form3.group(
-        form("estimatedStartAt"),
-        trans.estimatedStart(),
-        half = true
-      )(form3.flatpickr(_)),
+      form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
+        form3.select(_, SimulForm.waitMinuteChoices)
+      ),
       form3.group(
         form("text"),
         trans.simulDescription(),
         help = trans.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
+      frag(
+        legend(trans.advancedSettings()),
+        errMsg(form("conditions")),
+        p(
+          strong(dataIcon := "", cls := "text")(trans.recommendNotTouching()),
+          " ",
+          trans.fewerPlayers(),
+          " ",
+          a(cls := "show")(trans.showAdvancedSettings())
+        )
+      ),
       ctx.me.exists(_.canBeFeatured) option form3.checkbox(
         form("featured"),
         trans.simulFeatured("lichess.org/simul"),
         help = trans.simulFeaturedHelp("lichess.org/simul").some
+      ),
+      frag(
+        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
+          form3.select(_, SimulForm.minRatingChoices)
+        ),
+        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
+          form3.select(_, SimulForm.maxRatingChoices)
+        ),
+        form3.group(
+          form("startDate"),
+          trans.arena.customStartDate(),
+          help = trans.arena.customStartDateHelp().some
+        )(form3.flatpickr(_))
       )
     )
   }

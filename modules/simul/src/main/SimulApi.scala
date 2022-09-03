@@ -58,7 +58,8 @@ final class SimulApi(
       host = me,
       color = setup.color,
       text = setup.text,
-      estimatedStartAt = setup.estimatedStartAt,
+      waitMinutes = setup.waitMinutes | SimulForm.waitMinuteDefault,
+      startDate = setup.startDate,
       team = setup.team,
       featurable = some(~setup.featured && me.canBeFeatured)
     )
@@ -75,7 +76,6 @@ final class SimulApi(
       position = setup.realPosition,
       color = setup.color.some,
       text = setup.text,
-      estimatedStartAt = setup.estimatedStartAt,
       team = setup.team,
       featurable = some(~setup.featured && me.canBeFeatured)
     )

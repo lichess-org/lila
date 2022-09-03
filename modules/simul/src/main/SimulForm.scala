@@ -34,6 +34,20 @@ object SimulForm {
   )
   val colorDefault = "white"
 
+  val waitMinutes       = Seq(1, 2, 3, 5, 10, 15, 20, 30, 45, 60)
+  val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
+  val waitMinuteDefault = 5
+
+  val maxRatings =
+    List(2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 900, 800)
+  val maxRatingChoices = ("", "No restriction") ::
+    options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
+
+  val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
+    2400, 2500, 2600)
+  val minRatingChoices = ("", "No restriction") ::
+    options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
+
   private def nameType(host: User) =
     eventName(2, 40, host.isVerifiedOrAdmin).verifying(
       Constraint[String] { (t: String) =>
@@ -59,7 +73,8 @@ object SimulForm {
       position = none,
       color = colorDefault,
       text = "",
-      estimatedStartAt = none,
+      waitMinutes = waitMinuteDefault.some,
+      startDate = none,
       team = none,
       featured = host.hasTitle.some
     )
@@ -74,7 +89,8 @@ object SimulForm {
       position = simul.position,
       color = simul.color | "random",
       text = simul.text,
-      estimatedStartAt = simul.estimatedStartAt,
+      waitMinutes = none,
+      startDate = simul.startsAt.some,
       team = simul.team,
       featured = simul.featurable
     )
@@ -104,7 +120,8 @@ object SimulForm {
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
-        "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
+        "startDate"   -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"             -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
         "featured"         -> optional(boolean)
       )(Setup.apply)(Setup.unapply)
@@ -127,7 +144,8 @@ object SimulForm {
       position: Option[FEN],
       color: String,
       text: String,
-      estimatedStartAt: Option[DateTime] = None,
+      waitMinutes: Option[Int],
+      startDate: Option[DateTime],
       team: Option[String],
       featured: Option[Boolean]
   ) {

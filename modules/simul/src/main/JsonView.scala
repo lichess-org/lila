@@ -46,7 +46,7 @@ final class JsonView(
           "nbApplicants" -> simul.applicants.size,
           "nbPairings"   -> simul.pairings.size
         )
-        .add("estimatedStartAt" -> simul.startedAt)
+        .add("waitMinutes" -> simul.startedAt)
         .add("startedAt" -> simul.startedAt)
         .add("finishedAt" -> simul.finishedAt)
     }
