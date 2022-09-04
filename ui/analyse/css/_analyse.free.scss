@@ -20,7 +20,7 @@
       @include transition;
     }
 
-    :focus-within .action {
+    &:focus-within .action {
       visibility: visible;
       opacity: 1;
     }
