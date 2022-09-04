@@ -82,13 +82,11 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     val localDev = !req.secure ?? List("http://127.0.0.1:3000")
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
-      // TODO (28 August, 2022): Use sensible values for the CSP
       connectSrc =
-        "'self'" :: "data:" :: "*" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
+        "'self'" :: "data:" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
       frameSrc = List("'self'", assets, "www.youtube.com", "player.twitch.tv"),
-      // TODO (28 August, 2022): Use sensible values for the CSP
-      workerSrc = List("data:", "*", "blob:"),
+      workerSrc = List("'self'", assets, "blob:"),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", assets),
       fontSrc = List("'self'", assets),
