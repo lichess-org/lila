@@ -2020,12 +2020,12 @@ val `similarToOTB` = new I18nKey("swiss:similarToOTB")
 val `unlimitedAndFree` = new I18nKey("swiss:unlimitedAndFree")
 val `viewAllXRounds` = new I18nKey("swiss:viewAllXRounds")
 val `nbRounds` = new I18nKey("swiss:nbRounds")
-val `XRoundsSwiss` = new I18nKey("swiss:XRoundsSwiss")
+val `xRoundsSwiss` = new I18nKey("swiss:xRoundsSwiss")
 val `oneRoundEveryXDays` = new I18nKey("swiss:oneRoundEveryXDays")
 val `xSecondsBetweenRounds` = new I18nKey("swiss:xSecondsBetweenRounds")
 val `xMinutesBetweenRounds` = new I18nKey("swiss:xMinutesBetweenRounds")
 val `ongoingGames` = new I18nKey("swiss:ongoingGames")
-val `XOutOfYRoundsSwiss` = new I18nKey("swiss:XOutOfYRoundsSwiss")
+val `xOutOfYRoundsSwiss` = new I18nKey("swiss:xOutOfYRoundsSwiss")
 
 }
 
