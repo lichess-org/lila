@@ -1,8 +1,8 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
-import { bindMobileMousedown } from 'common/mobile';
+import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert } from 'common/snabbdom';
+import { bindMobileMousedown, isMobile } from 'common/mobile';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
@@ -113,10 +113,33 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           attrs: { spellCheck: false },
           hook: {
             ...onInsert(el => {
-              (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
-                ? ctrl.pgnInput
-                : pgnExport.renderFullTxt(ctrl);
-              el.addEventListener('input', e => (ctrl.pgnInput = (e.target as HTMLTextAreaElement).value));
+              const pgnField = el as HTMLTextAreaElement;
+              pgnField.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+              pgnField.addEventListener('input', e => {
+                ctrl.pgnInput = (e.target as HTMLTextAreaElement).value;
+              });
+              pgnField.addEventListener('keypress', (e: KeyboardEvent) => {
+                if (e.key == 'Enter') {
+                  if (
+                    e.getModifierState('Shift') ||
+                    e.getModifierState('Control') ||
+                    e.getModifierState('Alt') ||
+                    e.getModifierState('Meta')
+                  )
+                    return;
+                  else if (
+                    !isMobile() &&
+                    pgnField.value !== pgnExport.renderFullTxt(ctrl) &&
+                    ctrl.changePgn(pgnField.value, true)
+                  )
+                    e.preventDefault();
+                }
+              });
+              if (isMobile())
+                pgnField.addEventListener(
+                  'focusout',
+                  () => pgnField.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(pgnField.value, true)
+                );
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
@@ -125,17 +148,6 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             },
           },
         }),
-        h(
-          'button.button.button-thin.action.text',
-          {
-            attrs: dataIcon(''),
-            hook: bind('click', _ => {
-              const pgn = $('.copyables .pgn textarea').val() as string;
-              if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
-            }),
-          },
-          ctrl.trans.noarg('importPgn')
-        ),
       ]),
     ]),
   ]);
