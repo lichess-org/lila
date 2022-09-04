@@ -15,8 +15,7 @@
       top: 100%;
       text-align: right;
       visibility: hidden;
-
-      @include transition;
+      transition: all 150ms !important;
     }
 
     textarea:focus ~ .action {
