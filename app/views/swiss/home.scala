@@ -58,10 +58,10 @@ object home {
             td(cls := "infos")(
               span(cls := "rounds")(
                 if (s.isStarted)
-                  trans.swiss.XOutOfYRoundsSwiss
+                  trans.swiss.xOutOfYRoundsSwiss
                     .plural(s.settings.nbRounds, s.round.value, s.settings.nbRounds)
                 else
-                  trans.swiss.XRoundsSwiss.pluralSame(s.settings.nbRounds)
+                  trans.swiss.xRoundsSwiss.pluralSame(s.settings.nbRounds)
               ),
               span(cls := "setup")(
                 s.clock.show,

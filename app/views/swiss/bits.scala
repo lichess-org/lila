@@ -118,7 +118,7 @@ object bits {
     trans.swiss.startingIn,
     trans.swiss.nextRound,
     trans.team.joinTeam,
-    trans.swiss.XRoundsSwiss,
-    trans.swiss.XOutOfYRoundsSwiss
+    trans.swiss.xRoundsSwiss,
+    trans.swiss.xOutOfYRoundsSwiss
   ).map(_.key)
 }
