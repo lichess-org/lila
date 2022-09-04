@@ -256,9 +256,13 @@ function controls(ctrl: AnalyseCtrl) {
   );
 }
 
+let prevForceInnerCoords: boolean;
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   if (ctrl.data.pref.coords === Prefs.Coords.Outside) {
-    $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
+    if (prevForceInnerCoords !== v) {
+      prevForceInnerCoords = v;
+      $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
+    }
   }
 }
 
@@ -359,7 +363,7 @@ export default function (deps?: typeof studyDeps) {
       playerBars = deps?.renderPlayerBars(ctrl),
       playerStrips = !playerBars && renderPlayerStrips(ctrl),
       gaugeOn = ctrl.showEvalGauge(),
-      needsInnerCoords = !!gaugeOn || !!playerBars,
+      needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
       tour = deps?.relayTour(ctrl);
 
     return h(

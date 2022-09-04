@@ -123,25 +123,25 @@ final class StudyApi(
       data: StudyMaker.ImportGame,
       user: User,
       withRatings: Boolean
-  ): Fu[Option[Study.WithChapter]] =
-    (data.form.as match {
-      case StudyForm.importGame.AsNewStudy => create(data, user, withRatings)
-      case StudyForm.importGame.AsChapterOf(studyId) =>
-        byId(studyId) flatMap {
-          case Some(study) if study.canContribute(user.id) =>
-            addChapter(
-              studyId = study.id,
-              data = data.form.toChapterData,
-              sticky = study.settings.sticky,
-              withRatings
-            )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
-          case _ => fuccess(none)
-        } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user, withRatings)
-    }) addEffect {
-      _ ?? { sc =>
-        Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
+  ): Fu[Option[Study.WithChapter]] = data.form.as match {
+    case StudyForm.importGame.AsNewStudy =>
+      create(data, user, withRatings) addEffect {
+        _ ?? { sc =>
+          Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
+        }
       }
-    }
+    case StudyForm.importGame.AsChapterOf(studyId) =>
+      byId(studyId) flatMap {
+        case Some(study) if study.canContribute(user.id) =>
+          addChapter(
+            studyId = study.id,
+            data = data.form.toChapterData,
+            sticky = study.settings.sticky,
+            withRatings
+          )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
+        case _ => fuccess(none)
+      } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user, withRatings)
+  }
 
   def create(
       data: StudyMaker.ImportGame,

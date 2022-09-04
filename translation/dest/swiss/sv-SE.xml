@@ -15,12 +15,12 @@
   </plurals>
   <string name="roundsAreStartedManually">Rundor startas manuellt</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">%s sekund mellan rundorna</item>
-    <item quantity="other">%s sekunder mellan rundor</item>
+    <item quantity="one">%s sekund mellan ronderna</item>
+    <item quantity="other">%s sekunder mellan ronderna</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s sekunder mellan ronderna</item>
-    <item quantity="other">%s sekunder mellan ronderna</item>
+    <item quantity="one">%s minut mellan ronderna</item>
+    <item quantity="other">%s minuter mellan ronderna</item>
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="nextRound">Nästa runda</string>
@@ -76,6 +76,12 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="comparison">Jämförelse</string>
   <string name="tournDuration">Turneringens varaktighet</string>
   <string name="predefinedDuration">Fördefinierad varaktighet i minuter</string>
+  <string name="numberOfGames">Antal spel</string>
+  <string name="pairingSystem">Parkopplingssystem</string>
+  <string name="pairingSystemArena">Alla tillgängliga motståndare med liknande ranking</string>
+  <string name="identicalForbidden">Förbjuden</string>
+  <string name="lateJoin">Sent anslöt</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Ja men kan minska antalet rundor</string>
+  <string name="unlimitedAndFree">Obegränsad och gratis</string>
 </resources>

@@ -13,4 +13,6 @@
   <string name="specialMoves">சிறப்பு நகர்வுகள்</string>
   <string name="didYouLikeThisPuzzle">இந்தப் புதிர் நீங்கள் விரும்பினீர்களா?</string>
   <string name="voteToLoadNextOne">அடுத்ததை ஏற்றுவதற்கு வாக்களியுங்கள்!</string>
+  <string name="upVote">வரை வாக்குப் புதிர்</string>
+  <string name="downVote">கீழ் வாக்குப் புதிர்</string>
 </resources>

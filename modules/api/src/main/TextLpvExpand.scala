@@ -41,7 +41,7 @@ final class TextLpvExpand(
             cls                      := "lpv--autostart",
             attr("data-pgn")         := pgn.toString,
             attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
-            attr("data-ply") := plyRegex.findFirstIn(url).fold("last")(_.substring(1))
+            attr("data-ply")         := plyRegex.findFirstIn(url).fold("last")(_.substring(1))
           )
         }
     }

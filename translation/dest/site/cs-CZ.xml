@@ -61,6 +61,8 @@
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
   <string name="loadingEngine">Načítání AI engine...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Výpočet tahů...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Chyba při načítání enginu</string>
   <string name="cloudAnalysis">Cloudová analýza</string>
   <string name="goDeeper">Hlouběji</string>
   <string name="showThreat">Zobrazit hrozbu</string>
@@ -526,7 +528,9 @@
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="oneUrlPerLine">Jedna URL na řádek.</string>
   <string name="inlineNotation">Notace v řádcích</string>
+  <string name="savingMoves">Dočasné uložení tahů</string>
   <string name="savingMovesHelp">Vždy ukládáme vaše varianty do mezipaměti prohlížeče.</string>
+  <string name="makeAStudy">Pro bezpečné uložení a sdílení zvažte vytvoření studie.</string>
   <string name="clearSavedMoves">Vymazat tahy</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
   <string name="onlinePlayers">Hráči online</string>
@@ -889,7 +893,7 @@
   <string name="rapid">Rapid</string>
   <string name="classical">Klasické</string>
   <string name="ultraBulletDesc">Šíleně rychlé hry: méně než 30 sekund</string>
-  <string name="bulletDesc">Velmi rychlé hry: méně než 3 minulty</string>
+  <string name="bulletDesc">Velmi rychlé hry: méně než 3 minuty</string>
   <string name="blitzDesc">Rychlé hry: 3 až 8 minut</string>
   <string name="rapidDesc">Rapid tempo: 8 až 25 minut</string>
   <string name="classicalDesc">Klasické tempo: 25 a více minut</string>
@@ -950,11 +954,13 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="estimatedStart">Předpokládaný začátek</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
+  <string name="markdownAvailable">%s je k dispozici pro pokročilé formátování.</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
   <string name="noChat">Vypnutý chat</string>
   <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
   <string name="onlyTeamMembers">Pouze členové týmu</string>
+  <string name="navigateMoveTree">Navigovat seznamem tahů</string>
   <string name="mouseTricks">Klávesové zkratky</string>
   <string name="toggleLocalAnalysis">Zapnout/vypnout lokální počítačovou analýzu</string>
   <string name="toggleAllAnalysis">Zapnout/vypnout všechny počítačové analýzy</string>

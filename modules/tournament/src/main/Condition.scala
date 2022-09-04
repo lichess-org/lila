@@ -339,7 +339,8 @@ object Condition {
         "minRating"   -> minRating,
         "titled"      -> optional(boolean),
         "teamMember"  -> optional(teamMember(leaderTeams)),
-        "allowList"   -> optional(nonEmptyText(maxLength = 9999))
+        "allowList" -> optional(nonEmptyText(maxLength = 100_1000))
+          .verifying("5000 usernames max", _.fold(true)(_.count('\n' ==) <= 5_000))
       )(AllSetup.apply)(AllSetup.unapply)
         .verifying("Invalid ratings", _.validRatings)
 

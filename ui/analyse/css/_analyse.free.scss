@@ -15,12 +15,14 @@
       top: 100%;
       text-align: right;
       visibility: hidden;
+      opacity: 0;
 
       @include transition;
     }
 
-    textarea:focus ~ .action {
+    &:focus-within .action {
       visibility: visible;
+      opacity: 1;
     }
   }
 

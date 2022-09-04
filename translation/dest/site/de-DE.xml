@@ -59,6 +59,8 @@
   <string name="depthX">Tiefe: %s</string>
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
   <string name="loadingEngine">Engine wird geladen ...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Berechne Züge...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
   <string name="showThreat">Drohungen anzeigen</string>

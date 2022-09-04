@@ -175,8 +175,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     pearl = '#' + bestEv.mate;
     percent = 100;
   } else {
-    if (ctrl.outcome()) pearl = '-';
-    else if (!enabled) pearl = h('i');
+    if (!enabled) pearl = h('i');
+    else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
     else if (instance.initFailed()) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
     else pearl = h('i.ddloader');
     percent = 0;
@@ -217,6 +217,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
             'span.info',
             ctrl.outcome()
               ? [trans.noarg('gameOver')]
+              : ctrl.getNode().threefold
+              ? [trans.noarg('threefoldRepetition')]
               : threatMode
               ? [threatInfo(ctrl, threat)]
               : localEvalInfo(ctrl, evs)
