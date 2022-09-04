@@ -19,7 +19,7 @@
       @include transition;
     }
 
-    textarea:focus ~ .action {
+    :focus-within .action {
       visibility: visible;
     }
   }
