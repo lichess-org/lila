@@ -9,7 +9,7 @@ import lila.common.Bus
 import lila.common.LilaScheduler
 import lila.hub.actorApi.push.TourSoon
 
-final private class TournamentNotify(repo: TournamentRepo, cached: Cached)(implicit
+final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(implicit
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {

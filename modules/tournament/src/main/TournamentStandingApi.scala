@@ -16,7 +16,7 @@ import lila.user.User
  */
 final class TournamentStandingApi(
     playerRepo: PlayerRepo,
-    cached: Cached,
+    cached: TournamentCache,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit
