@@ -32,7 +32,7 @@ final class Swiss(
 
   def show(id: String) =
     Open { implicit ctx =>
-      env.swiss.api.byId(SwissId(id)) flatMap { swissOption =>
+      env.swiss.cache.swissCache.byId(SwissId(id)) flatMap { swissOption =>
         val page = getInt("page").filter(0.<)
         negotiate(
           html = swissOption.fold(swissNotFound.fuccess) { swiss =>
@@ -86,7 +86,7 @@ final class Swiss(
 
   def apiShow(id: String) =
     Action.async { implicit req =>
-      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
+      env.swiss.cache.swissCache byId SwissId(id) flatMap {
         case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
         case _           => notFoundJson()
       }
@@ -97,7 +97,7 @@ final class Swiss(
 
   def round(id: String, round: Int) =
     Open { implicit ctx =>
-      OptionFuResult(env.swiss.api.byId(SwissId(id))) { swiss =>
+      OptionFuResult(env.swiss.cache.swissCache byId SwissId(id)) { swiss =>
         (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRound.Number(round)) ?? { r =>
           val page = getInt("page").filter(0.<)
           env.swiss.roundPager(swiss, r, page | 0) map { pager =>
@@ -161,7 +161,7 @@ final class Swiss(
 
   def apiTerminate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
+      env.swiss.cache.swissCache byId SwissId(id) flatMap {
         _ ?? {
           case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
             env.swiss.api
@@ -307,7 +307,7 @@ final class Swiss(
 
   def exportTrf(id: String) =
     Action.async {
-      env.swiss.api.byId(SwissId(id)) map {
+      env.swiss.cache.swissCache byId SwissId(id) map {
         case None => NotFound("Tournament not found")
         case Some(swiss) =>
           Ok.chunked(env.swiss.trf(swiss, sorted = true) intersperse "\n")
@@ -327,7 +327,7 @@ final class Swiss(
     }
 
   private def WithSwiss(id: String)(f: SwissModel => Fu[Result]): Fu[Result] =
-    env.swiss.api.byId(SwissId(id)) flatMap { _ ?? f }
+    env.swiss.cache.swissCache byId SwissId(id) flatMap { _ ?? f }
 
   private def WithEditableSwiss(
       id: String,
