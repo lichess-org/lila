@@ -141,7 +141,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         'a.button.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': '',
             title: ctrl.trans.noarg('copyChapterPgnDescription'),
           },
           hook: bind('click', async event => {
