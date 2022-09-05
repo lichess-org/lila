@@ -1,10 +1,10 @@
 package views.html.mod
 
 import controllers.GameMod
-import scala.util.chaining._
 import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
+import scala.util.chaining._
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -12,9 +12,9 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
 import lila.rating.PerfType
-import lila.user.User
-import lila.tournament.LeaderboardApi.TourEntry
 import lila.swiss.Swiss
+import lila.tournament.LeaderboardApi.TourEntry
+import lila.user.User
 
 object games {
 
@@ -43,8 +43,8 @@ object games {
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
                 filterForm("speed"),
-                PerfType.all.filter(_.key != "puzzle").map { p =>
-                  p.key -> p.trans(Lang("en"))
+                PerfType.nonPuzzle.map { p =>
+                  p.key -> p.trans
                 },
                 "Variant".some
               ),

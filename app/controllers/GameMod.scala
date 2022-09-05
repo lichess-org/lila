@@ -43,13 +43,11 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
     env.game.gameRepo
       .recentGamesByUserFromSecondaryCursor(user, select)
       .documentSource(10_000)
-      .filter(game =>
-        filter.realSpeed
-          .map(_ == game.speed)
-          .getOrElse(true) && filter.realVariant.map(_ == game.variant).getOrElse(true)
-      )
+      .filter { game =>
+        filter.perf.fold(true)(game.perfKey ==)
+      }
       .take(filter.nbGames)
-      .mapConcat { g => lila.game.Pov(g, user).toList }
+      .mapConcat { lila.game.Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)
       .run()
       .map(_.toList)
@@ -128,8 +126,6 @@ object GameMod {
         .map(lila.user.User.normalize)
         .toList
         .distinct
-    def realSpeed                                  = perf.flatMap(k => chess.Speed.all.find(_.key == k))
-    def realVariant: Option[chess.variant.Variant] = perf.flatMap(PerfType.apply).map(PerfType.variantOf)
 
     def nbGames = nbGamesOpt | 100
   }
@@ -138,8 +134,8 @@ object GameMod {
 
   def toDbSelect(filter: Filter): Bdoc =
     lila.game.Query.notSimul ++
-      filter.realSpeed.?? { speed =>
-        lila.game.Query.clock(speed != chess.Speed.Correspondence)
+      filter.perf.?? { perf =>
+        lila.game.Query.clock(perf != PerfType.Correspondence.key)
       } ++ filter.arena.?? { id =>
         $doc(lila.game.Game.BSONFields.tournamentId -> id)
       } ++ filter.swiss.?? { id =>
