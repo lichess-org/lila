@@ -15,7 +15,7 @@ object Dependencies {
   val maxmind     = "com.sanoma.cda"               %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19-THIB213"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.1" % "compile"
-  val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.0" % "compile"
+  val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.10.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.11.1"
