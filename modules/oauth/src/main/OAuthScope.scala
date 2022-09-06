@@ -60,6 +60,10 @@ object OAuthScope {
     case object Play extends OAuthScope("bot:play", "Play games with the bot API")
   }
 
+  object Engine {
+    case object Write extends OAuthScope("engine:write", "Register external engines")
+  }
+
   object Web {
     case object Login
         extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")

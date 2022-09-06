@@ -145,4 +145,15 @@ final class Analyse(
         crosstable
       )
     )
+
+  def externalEngineRegister =
+    ScopedBody(_.Engine.Write) { implicit req => me =>
+      lila.analyse.ExternalEngine.form
+        .bindFromRequest()
+        .fold(
+          err => jsonFormError(err)(me.realLang | reqLang),
+          data => env.analyse.externalEngine.register(me, data) inject Created(jsonOkBody)
+        )
+    }
+
 }
