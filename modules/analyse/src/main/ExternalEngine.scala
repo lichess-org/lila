@@ -63,13 +63,12 @@ object ExternalEngine {
         stringIn(chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.key).toSet)
       }),
       "officialStockfish" -> optional(boolean),
-      "secret"            -> nonEmptyText(8, 1024),
+      "secret"            -> nonEmptyText(16, 1024),
       "data"              -> optional(text(maxLength = 8192))
     )(FormData.apply)(FormData.unapply)
   )
 
   implicit val jsonWrites: OWrites[ExternalEngine] = Json.writes[ExternalEngine]
-  // .tranform { obj => obj - "clientSecret" }
 }
 
 final class ExternalEngineApi(coll: Coll)(implicit ec: ExecutionContext) {

@@ -736,7 +736,7 @@ GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImported
 GET   /api/external-engine             controllers.Analyse.externalEngineList
 POST  /api/external-engine             controllers.Analyse.externalEngineCreate
 GET   /api/external-engine/:id         controllers.Analyse.externalEngineShow(id: String)
-POST  /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(id: String)
+PUT   /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(id: String)
 DELETE /api/external-engine/:id        controllers.Analyse.externalEngineDelete(id: String)
 
 # Mobile API only

@@ -61,7 +61,7 @@ object OAuthScope {
   }
 
   object Engine {
-    case object Read  extends OAuthScope("engine:read", "View your external engines")
+    case object Read  extends OAuthScope("engine:read", "View and use your external engines")
     case object Write extends OAuthScope("engine:write", "Create and update external engines")
   }
 
