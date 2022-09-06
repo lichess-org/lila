@@ -1,15 +1,16 @@
 package lila.analyse
 
+import AnalyseBsonHandlers.externalEngineHandler
 import chess.variant.Variant
 import play.api.data._
 import play.api.data.Forms._
+import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
-import lila.user.User
 import lila.common.Form._
 import lila.common.{ SecureRandom, ThreadLocalRandom }
-import AnalyseBsonHandlers.externalEngineHandler
+import lila.db.dsl._
+import lila.user.User
 
 case class ExternalEngine(
     _id: String, // random
@@ -35,8 +36,8 @@ object ExternalEngine {
       secret: String,
       data: Option[String]
   ) {
-    def make(by: User) = ExternalEngine(
-      _id = ThreadLocalRandom.nextString(12),
+    def make(userId: User.ID) = ExternalEngine(
+      _id = s"eei_${ThreadLocalRandom.nextString(12)}",
       engineName = engineName,
       maxThreads = maxThreads,
       maxHashMib = maxHashMib,
@@ -44,8 +45,12 @@ object ExternalEngine {
       officialStockfish = ~officialStockfish,
       providerSecret = secret,
       providerData = data,
-      userId = by.id,
-      clientSecret = SecureRandom.nextString(16)
+      userId = userId,
+      clientSecret = s"ees_${SecureRandom.nextString(16)}"
+    )
+    def update(engine: ExternalEngine) = make(engine.userId).copy(
+      _id = engine._id,
+      clientSecret = engine.clientSecret
     )
   }
 
@@ -58,16 +63,32 @@ object ExternalEngine {
         stringIn(chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.key).toSet)
       }),
       "officialStockfish" -> optional(boolean),
-      "providerSecret"    -> nonEmptyText(8, 1024),
-      "providerData"      -> optional(text(maxLength = 8192))
+      "secret"            -> nonEmptyText(8, 1024),
+      "data"              -> optional(text(maxLength = 8192))
     )(FormData.apply)(FormData.unapply)
   )
+
+  implicit val jsonWrites: OWrites[ExternalEngine] = Json.writes[ExternalEngine]
+  // .tranform { obj => obj - "clientSecret" }
 }
 
 final class ExternalEngineApi(coll: Coll)(implicit ec: ExecutionContext) {
 
-  def register(by: User, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
-    val engine = data make by
+  def create(by: User, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
+    val engine = data make by.id
     coll.insert.one(engine) inject engine
   }
+
+  def list(by: User): Fu[List[ExternalEngine]] = coll.list[ExternalEngine]($doc("userId" -> by.id), 100)
+
+  def find(by: User, id: String): Fu[Option[ExternalEngine]] =
+    coll.one($doc("userId" -> by.id) ++ $id(id))
+
+  def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
+    val engine = data update prev
+    coll.update.one($id(engine._id), engine) inject engine
+  }
+
+  def delete(by: User, id: String): Fu[Boolean] =
+    coll.delete.one($doc("userId" -> by.id) ++ $id(id)).map(_.n > 0)
 }

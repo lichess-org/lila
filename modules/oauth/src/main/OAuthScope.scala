@@ -61,7 +61,8 @@ object OAuthScope {
   }
 
   object Engine {
-    case object Write extends OAuthScope("engine:write", "Register external engines")
+    case object Read  extends OAuthScope("engine:read", "View your external engines")
+    case object Write extends OAuthScope("engine:write", "Create and update external engines")
   }
 
   object Web {
@@ -94,6 +95,8 @@ object OAuthScope {
     Msg.Write,
     Board.Play,
     Bot.Play,
+    Engine.Read,
+    Engine.Write,
     Web.Login,
     Web.Mod
   )
