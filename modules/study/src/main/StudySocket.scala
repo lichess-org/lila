@@ -229,7 +229,7 @@ final private class StudySocket(
     logger,
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
-      api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
+      api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId) >>& !api.isOfficialBroadcast(roomId)
     },
     chatBusChan = _.Study
   )

@@ -84,6 +84,20 @@ final class RelayApi(
       .sort($doc("startedAt" -> -1, "startsAt" -> -1))
       .one[RelayRound]
 
+  def isOfficial(id: RelayRound.Id): Fu[Boolean] =
+    roundRepo.coll
+      .aggregateOne() { framework =>
+        import framework._
+        Match($id(id)) -> List(
+          PipelineOperator(tourRepo lookup "tourId"),
+          UnwindField("tour"),
+          PipelineOperator($doc("$replaceWith" -> $doc("tier" -> "$tour.tier")))
+        )
+      }
+      .map(_.exists(_.getAsOpt[Int]("tier").isDefined))
+
+  studyApi.isOfficialBroadcastFn = Some(id => isOfficial(RelayRound.Id(id.value)))
+
   val officialActive = cacheApi.unit[List[RelayTour.ActiveWithNextRound]] {
     _.refreshAfterWrite(5 seconds)
       .buildAsyncFuture { _ =>

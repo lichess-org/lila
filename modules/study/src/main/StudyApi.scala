@@ -907,4 +907,7 @@ final class StudyApi(
     socket foreach { s =>
       f(s)(studyId)
     }
+
+  var isOfficialBroadcastFn: Option[(Study.Id) => Fu[Boolean]] = None
+  def isOfficialBroadcast(studyId: Study.Id): Fu[Boolean] = isOfficialBroadcastFn.?? { _(studyId) }
 }
