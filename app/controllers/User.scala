@@ -77,9 +77,10 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
     if (HTTPRequest isSynchronousHttp ctx.req) {
       for {
-        as     <- env.activity.read.recent(u)
+        as     <- env.activity.read.recentAndPreload(u)
         nbs    <- env.userNbGames(u, ctx, withCrosstable = false)
         info   <- env.userInfo(u, nbs, ctx)
+        _      <- env.userInfo.preloadTeams(info)
         social <- env.socialInfo(u, ctx)
       } yield status {
         lila.mon.chronoSync(_.user segment "renderSync") {
@@ -87,7 +88,7 @@ final class User(
         }
       }
     } else
-      env.activity.read.recent(u) map { as =>
+      env.activity.read.recentAndPreload(u) map { as =>
         status(html.activity(u, as))
       }
 

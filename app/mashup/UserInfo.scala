@@ -119,6 +119,7 @@ object UserInfo {
       isHostingSimul: lila.round.IsSimulHost,
       streamerApi: lila.streamer.StreamerApi,
       teamApi: lila.team.TeamApi,
+      teamCache: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share,
       playbanApi: lila.playban.PlaybanApi
@@ -155,5 +156,7 @@ object UserInfo {
               insightVisible = insightVisible
             )
         }
+
+    def preloadTeams(info: UserInfo) = teamCache.nameCache.preloadMany(info.teamIds)
   }
 }

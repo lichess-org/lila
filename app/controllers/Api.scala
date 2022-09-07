@@ -385,7 +385,7 @@ final class Api(
         lila.mon.api.activity.increment(1)
         env.user.repo named name flatMap {
           _ ?? { user =>
-            env.activity.read.recent(user) flatMap {
+            env.activity.read.recentAndPreload(user) flatMap {
               _.map { env.activity.jsonView(_, user) }.sequenceFu
             }
           }
