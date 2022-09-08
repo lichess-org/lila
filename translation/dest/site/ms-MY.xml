@@ -2,14 +2,14 @@
 <resources>
   <string name="playWithAFriend">Main bersama rakan</string>
   <string name="playWithTheMachine">Bermain dengan mesin</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, beri URL ini</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Permainan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran anda</string>
-  <string name="aiNameLevelAiLevel">%2$s tahap %1$s</string>
+  <string name="aiNameLevelAiLevel">%1$s tahap %2$s</string>
   <string name="level">Tahap</string>
-  <string name="strength">Malay</string>
+  <string name="strength">Kekuatan</string>
   <string name="toggleTheChat">Togol bual</string>
   <string name="chat">Sembang</string>
   <string name="resign">Menyerah kalah</string>
@@ -25,19 +25,19 @@
   <string name="blackIsVictorious">Hitam menang</string>
   <string name="youPlayTheWhitePieces">Mula dengan buah putih</string>
   <string name="youPlayTheBlackPieces">Mula dengan buah hitam</string>
-  <string name="itsYourTurn">Giliran anda sekarang!</string>
+  <string name="itsYourTurn">Giliran anda!</string>
   <string name="cheatDetected">Penipuan Dikesan</string>
   <string name="kingInTheCenter">Raja di tengah</string>
   <string name="threeChecks">Tiga check</string>
   <string name="raceFinished">Perlumbaan tamat</string>
   <string name="variantEnding">Variasi berakhir</string>
   <string name="newOpponent">Lawan baru</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan anda mahu bermain perminan yang baru dengan anda</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan anda mahu bermain permainan yang baru dengan anda</string>
   <string name="joinTheGame">Menyertai permainan</string>
   <string name="whitePlays">Putih untuk main</string>
   <string name="blackPlays">Hitam untuk main</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">Your opponent left the game. You can claim victory in %s seconds.</item>
+    <item quantity="other">Lawan telah meninggalkan permainan. Anda boleh menuntut kemenangan dalam %s saat.</item>
   </plurals>
   <string name="opponentLeftChoices">Pemain lain mungkin meninggalkan permainan.Anda boleh menuntut kemenangan, dan tuntut seri, atau tunggu jap.</string>
   <string name="forceResignation">Tuntut kemenangan</string>
@@ -58,6 +58,7 @@
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
   <string name="loadingEngine">Memuatkan enjin ...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Mengira pergerakan...</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Pergi lebih mendalam</string>
   <string name="showThreat">Tunjukkan kenyataan</string>
@@ -322,18 +323,28 @@
   <string name="apply">Hantar</string>
   <string name="save">Simpan</string>
   <string name="leaderboard">Papan pendahulu</string>
+  <string name="gameAsGIF">Permainan sebagai GIF</string>
   <string name="pasteTheFenStringHere">Paste teks FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste text PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat naik fail PGN</string>
   <string name="fromPosition">Dari kedudukan</string>
   <string name="continueFromHere">Teruskan dari sini</string>
   <string name="toStudy">Belajar</string>
+  <string name="importGame">Import permainan</string>
+  <plurals name="nbImportedGames">
+    <item quantity="other">%s permainan diimport</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Ini adalah CAPTCHA catur.</string>
+  <string name="notACheckmate">Bukan syahmat</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s rakan dalam talian</item>
   </plurals>
+  <string name="favoriteOpponents">Lawan kegemaran</string>
   <string name="follow">Ikut</string>
   <string name="following">Senarai yang diikuti</string>
   <string name="unfollow">Berhenti mengikuti</string>
+  <string name="followX">Ikut %s</string>
+  <string name="unfollowX">Nyahikut %s</string>
   <string name="block">Menghalang</string>
   <string name="blocked">Dihalang</string>
   <string name="unblock">Nyah-halang</string>
@@ -390,6 +401,7 @@
   <string name="blackWins">Menang Hitam</string>
   <string name="draws">Seri</string>
   <string name="nextXTournament">Pertandingan %s seterusnya:</string>
+  <string name="popularOpenings">Pembukaan terkenal</string>
   <string name="startPosition">Posisi permulaan</string>
   <string name="biography">Biografi</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau bendera</string>
@@ -430,6 +442,7 @@
   <string name="reportDescriptionHelp">Laporkan link kepada permainan dan terangkan apa yang dilakukan oleh pengguna yang tidak betul. Jangan hanya beritahu \"mereka menipu\" tapi terangkan juga bagaimana anda dapatkan konklusi ini. Laporan anda akan diproses lebih cepat jika ditulis dalam English.</string>
   <string name="error.provideOneCheatedGameLink">Tolong berikan sekurangnya satu link kepada game yang dicurigai ditipu.</string>
   <string name="by">oleh %s</string>
+  <string name="importedByX">Diimport oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini sekarang ditutup.</string>
   <string name="blog">Blog</string>
   <string name="notes">Nota</string>
@@ -450,8 +463,19 @@
   <string name="fast">Laju</string>
   <string name="normal">Biasa</string>
   <string name="slow">Perlahan</string>
+  <string name="insideTheBoard">Dalam papan</string>
+  <string name="outsideTheBoard">Luar papan</string>
+  <string name="always">Selalu</string>
   <string name="victory">Menang</string>
   <string name="defeat">Kalah</string>
+  <string name="allInformationIsPublicAndOptional">Setiap maklumat dapat dilihat umum dan tidak wajib.</string>
+  <string name="biographyDescription">Ceritakan diri anda, minat anda, mengapa anda suka catur, bukaan kegemaran, pemain, ...</string>
+  <plurals name="blocks">
+    <item quantity="other">%s disekat</item>
+  </plurals>
+  <string name="listBlockedPlayers">Senarai pemain yang disekat</string>
+  <string name="computer">Komputer</string>
+  <string name="clock">Jam</string>
   <string name="opponent">Lawan</string>
   <string name="learnMenu">Belajar</string>
   <string name="studyMenu">Selidik</string>
@@ -459,7 +483,10 @@
   <string name="community">Komuniti</string>
   <string name="tools">Peralatan</string>
   <string name="increment">Tokokan</string>
+  <string name="error.unknown">Nilai tidak sah</string>
   <string name="error.required">Ruangan ini perlu diisi</string>
+  <string name="error.email">Emel ini tidak sah</string>
+  <string name="error.email_unique">Emel tidak sah atau sudah diguna</string>
   <string name="ifRatingIsPlusMinusX">Jika rating adalah ± %s</string>
   <string name="onlyFriends">Hanya rakan-rakan</string>
   <string name="menu">Menu</string>
