@@ -114,14 +114,14 @@ export interface NoteCtrl {
 export interface ModerationOpts {
   reasons: ModerationReason[];
   permissions: Permissions;
+  resourceId: string;
   redraw: Redraw;
 }
 
 export interface ModerationCtrl {
   loading(): boolean;
   data(): ModerationData | undefined;
-  reasons: ModerationReason[];
-  permissions(): Permissions;
+  opts: ModerationOpts;
   open(line: HTMLElement): void;
   close(): void;
   timeout(reason: ModerationReason, text: string): void;
