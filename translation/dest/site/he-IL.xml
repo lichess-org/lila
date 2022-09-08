@@ -107,7 +107,7 @@
   <string name="lossOr50MovesByPriorMistake">הפסד או כלל 50 המסעים בגלל טעות קודמת</string>
   <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם שוחק ההמשך המומלץ של טבלת הסיומים מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בטבלת הסיומים של Syzygy.</string>
   <string name="allSet">הכול מוכן!</string>
-  <string name="importPgn">ייבא בפורמט PGN</string>
+  <string name="importPgn">ייבוא PGN</string>
   <string name="delete">מחיקה</string>
   <string name="deleteThisImportedGame">מחק את המשחק המיובא הזה?</string>
   <string name="replayMode">מצב הרצת המסעים</string>
@@ -478,7 +478,7 @@
   <string name="advancedSettings">הגדרות מתקדמות</string>
   <string name="safeTournamentName">בחר/י שם בטוח מאוד לטורניר.</string>
   <string name="inappropriateNameWarning">כל דבר לא הולם ולו במעט עלול לגרום לסגירת חשבונך.</string>
-  <string name="emptyTournamentName">השאירו ריק כדי לקרוא לטורניר על שם רב-אמן אקראי.</string>
+  <string name="emptyTournamentName">השאירו ריק כדי לקרוא לטורניר על שם שחקן/ית שח דגול/ה.</string>
   <string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
   <string name="fewerPlayers">אם תגדיר/י תנאי כניסה, יהיו בטורניר פחות שחקנים.</string>
   <string name="showAdvancedSettings">הצגת הגדרות מתקדמות</string>
