@@ -65,13 +65,6 @@ object Tv {
   }
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
-  private[tv] def toCandidate(lightUser: LightUser.GetterSync)(game: Game) =
-    Tv.Candidate(
-      game = game,
-      hasBot = game.userIds.exists { userId =>
-        lightUser(userId).exists(_.isBot)
-      }
-    )
 
   sealed abstract class Channel(
       val name: String,

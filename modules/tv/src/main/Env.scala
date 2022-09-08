@@ -8,7 +8,8 @@ import scala.concurrent.duration._
 final class Env(
     gameRepo: lila.game.GameRepo,
     renderer: lila.hub.actors.Renderer,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
+    lightUserSync: lila.common.LightUser.GetterSync,
     gameProxyRepo: lila.round.GameProxyRepo,
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,
