@@ -379,6 +379,7 @@
   <string name="tournamentIsStarting">Pertandingan ini akan bermula</string>
   <string name="tournamentPairingsAreNowClosed">Keseimbangan pertandingan sekarang ditutup.</string>
   <string name="standByX">Berada dengan %s, permain yang diseimbangkan, sila bersedia!</string>
+  <string name="pause">Jeda</string>
   <string name="youArePlaying">Anda sedang bermain!</string>
   <string name="winRate">Rate menang</string>
   <string name="berserkRate">Rate berserk</string>
@@ -388,7 +389,11 @@
   <string name="whiteWins">Buah putih menang</string>
   <string name="blackWins">Menang Hitam</string>
   <string name="draws">Seri</string>
+  <string name="nextXTournament">Pertandingan %s seterusnya:</string>
   <string name="startPosition">Posisi permulaan</string>
+  <string name="biography">Biografi</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau bendera</string>
+  <string name="thankYou">Terima kasih!</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
