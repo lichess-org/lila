@@ -75,7 +75,7 @@
   <string name="startAtInitialPosition">התחל/י במצב ההתחלתי</string>
   <string name="startAtX">התחל ב%s</string>
   <string name="embedInYourWebsite">הטמעה באתר שלך</string>
-  <string name="readMoreAboutEmbedding">קרא עוד על הטמעה</string>
+  <string name="readMoreAboutEmbedding">קראו עוד על הטמעה</string>
   <string name="onlyPublicStudiesCanBeEmbedded">ניתן להטמיע אך ורק לוחות למידה פומביים!</string>
   <string name="open">פתח</string>
   <string name="xBroughtToYouByY">%1$s, מוגש על ידי %2$s</string>
@@ -122,7 +122,7 @@
   <string name="public">פומבי</string>
   <string name="unlisted">כולם</string>
   <string name="inviteOnly">מוזמנים בלבד</string>
-  <string name="allowCloning">אפשר יצירת עותקים</string>
+  <string name="allowCloning">אפשרו יצירת עותקים</string>
   <string name="nobody">אף אחד</string>
   <string name="onlyMe">רק אני</string>
   <string name="contributors">תורמים</string>
@@ -169,7 +169,7 @@
   <string name="topics">נושאים</string>
   <string name="myTopics">הנושאים שלי</string>
   <string name="popularTopics">נושאים פופולריים</string>
-  <string name="manageTopics">נהל נושאים</string>
+  <string name="manageTopics">עריכת נושאים</string>
   <string name="back">חזרה</string>
   <string name="playAgain">הפעל שוב</string>
   <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>
