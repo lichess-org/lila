@@ -679,7 +679,7 @@
   <string name="really">באמת</string>
   <string name="contribute">לתרום</string>
   <string name="termsOfService">תנאים לשימוש באתר</string>
-  <string name="sourceCode">קוד מקור</string>
+  <string name="sourceCode">קוד המקור</string>
   <string name="simultaneousExhibitions">משחקים סימולטניים</string>
   <string name="host">מארח/ת</string>
   <string name="hostColorX">צבע המארח/ת: %s</string>
@@ -905,7 +905,7 @@
   <string name="toReportSomeoneForCheatingOrBadBehavior">כדי לדווח על רמאות או על התנהגות עוינת, %1$s</string>
   <string name="useTheReportForm">השתמשו בטופס הדיווח</string>
   <string name="toRequestSupport">לבקשת תמיכה, %1$s</string>
-  <string name="tryTheContactPage">נסה את העמוד ״צור קשר״</string>
+  <string name="tryTheContactPage">נסו את העמוד ״צרו קשר״</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
   <string name="joinTheTeamXToPost">הצטרף ל %1$s כדי לפרסם בפורום הזה</string>
   <string name="teamNamedX">הקבוצה %1$s</string>
