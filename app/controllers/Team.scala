@@ -90,7 +90,7 @@ final class Team(
           .findMine(lila.chat.Chat.Id(team.id), ctx.me)
           .map(some)
       _ <- env.user.lightUserApi preloadMany {
-        info.userIds ::: chat.??(_.chat.userIds)
+        team.leaders.toList ::: info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
     } yield html.team.show(team, members, info, chat, version, requestModView, log)
