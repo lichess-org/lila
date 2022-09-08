@@ -58,9 +58,9 @@
     <item quantity="other">%s נקודות מעל לדירוג החידות שלך</item>
   </plurals>
   <string name="example">דוגמה</string>
-  <string name="addAnotherTheme">הוסף נושא חדש</string>
+  <string name="addAnotherTheme">הוסיפו נושא חדש</string>
   <string name="nextPuzzle">הפאזל הבא</string>
-  <string name="jumpToNextPuzzleImmediately">המשך ישר לחידה הבאה</string>
+  <string name="jumpToNextPuzzleImmediately">המשיכו ישר לחידה הבאה</string>
   <string name="puzzleDashboard">תמונת מצב</string>
   <string name="improvementAreas">תחומים לשיפור</string>
   <string name="strengths">חוזקות</string>
@@ -70,7 +70,7 @@
   <string name="streakDescription">פתרו חידות ברמת קושי עולה וצברו רצף של ניצחונות. אין שעון, אז קחו את הזמן. מהלך שגוי אחד, והמשחק נגמר! אבל את/ה יכול/ה לדלג על מהלך אחד בכל הפעלה.</string>
   <string name="yourStreakX">הרצף שלך: %s</string>
   <string name="streakSkipExplanation">דלג/י על מהלך זה כדי לשמור על הרצף שלך! ניתן לדלג רק פעם אחת בכל הפעלה.</string>
-  <string name="continueTheStreak">המשך את הרצף</string>
+  <string name="continueTheStreak">המשך הרצף</string>
   <string name="newStreak">רצף חדש</string>
   <string name="fromMyGames">מהמשחקים שלי</string>
   <string name="lookupOfPlayer">חפש פאזלים ממשחקים של אחד השחקנים</string>
