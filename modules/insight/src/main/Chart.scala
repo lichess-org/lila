@@ -1,7 +1,8 @@
 package lila.insight
 
-import play.api.libs.json._
 import play.api.i18n.Lang
+import play.api.libs.json._
+import scala.concurrent.ExecutionContext
 
 import lila.common.LightUser
 
@@ -35,32 +36,11 @@ object Chart {
       data: List[Double]
   )
 
-  def fromAnswer[X](getLightUser: LightUser.GetterSync)(answer: Answer[X])(implicit lang: Lang): Chart = {
+  def fromAnswer[X](
+      getLightUser: LightUser.Getter
+  )(answer: Answer[X])(implicit lang: Lang, ec: ExecutionContext): Fu[Chart] = {
 
     import answer._, question._
-
-    def gameUserJson(player: lila.game.Player): JsObject = {
-      val light = player.userId flatMap getLightUser
-      Json
-        .obj(
-          "name"   -> light.map(_.name),
-          "title"  -> light.map(_.title),
-          "rating" -> player.rating
-        )
-        .noNull
-    }
-
-    def games =
-      povs.map { pov =>
-        Json.obj(
-          "id"       -> pov.gameId,
-          "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
-          "color"    -> pov.player.color.name,
-          "lastMove" -> ~pov.game.lastMoveKeys,
-          "user1"    -> gameUserJson(pov.player),
-          "user2"    -> gameUserJson(pov.opponent)
-        )
-      }
 
     def xAxis(implicit lang: Lang) =
       Xaxis(
@@ -128,14 +108,36 @@ object Chart {
         }
       }
 
-    Chart(
-      question = JsonQuestion fromQuestion question,
-      xAxis = xAxis,
-      valueYaxis = Yaxis(metric.name, metric.dataType.name),
-      sizeYaxis = Yaxis(metric.per.tellNumber, InsightMetric.DataType.Count.name),
-      series = sortedSeries,
-      sizeSerie = sizeSerie,
-      games = games
-    )
+    def gameUserJson(player: lila.game.Player): Fu[JsObject] =
+      (player.userId ?? getLightUser) map { lu =>
+        Json
+          .obj("rating" -> player.rating)
+          .add("name", lu.map(_.name))
+          .add("title", lu.map(_.title))
+      }
+
+    povs.map { pov =>
+      for {
+        user1 <- gameUserJson(pov.player)
+        user2 <- gameUserJson(pov.opponent)
+      } yield Json.obj(
+        "id"       -> pov.gameId,
+        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+        "color"    -> pov.player.color.name,
+        "lastMove" -> ~pov.game.lastMoveKeys,
+        "user1"    -> user1,
+        "user2"    -> user2
+      )
+    }.sequenceFu map { games =>
+      Chart(
+        question = JsonQuestion fromQuestion question,
+        xAxis = xAxis,
+        valueYaxis = Yaxis(metric.name, metric.dataType.name),
+        sizeYaxis = Yaxis(metric.per.tellNumber, InsightMetric.DataType.Count.name),
+        series = sortedSeries,
+        sizeSerie = sizeSerie,
+        games = games
+      )
+    }
   }
 }
