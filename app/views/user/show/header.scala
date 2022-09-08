@@ -281,7 +281,8 @@ object header {
           userIdLink(note.from.some),
           br,
           note.dox option "dox ",
-          momentFromNow(note.date),
+          if (isGranted(_.ModNote)) momentFromNowServer(note.date)
+          else momentFromNow(note.date),
           (ctx.me.exists(note.isFrom) && !note.mod) option frag(
             br,
             postForm(action := routes.User.deleteNote(note._id))(
