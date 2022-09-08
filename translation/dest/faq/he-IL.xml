@@ -19,7 +19,7 @@
   <string name="fairPlay">משחק הוגן</string>
   <string name="whenAmIEligibleRatinRefund">מתי אני זכאי להחזר דירוג אוטומטי מהפסד לרמאים?</string>
   <string name="ratingRefundExplanation">דקה לאחר סימון שחקן/ית, 40 המשחקים המדורגים האחרונים מ-3 הימים האחרונים נבחנים. אם היית היריב/ה של השחקן/ית במשחקים הללו, איבדת דירוג (בגלל הפסד או תיקו) והדירוג שלך לא היה זמני, תקבל/י החזר דירוג. ההחזר מחושב על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
-  (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל החזר או רק החזר חלקי). ההחזר לעולם לא יעלה על 150 נקודות.</string>
+  (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל/י החזר או רק החזר חלקי). ההחזר לעולם לא יעלה על 150 נקודות.</string>
   <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
   <string name="leavingGameWithoutResigningExplanation">אם יריבך מבטל משחקים או עוזב אותם לעיתים קרובות, הוא \"יושעה ממשחקים\", מה שאומר שיאסר עליו באופן זמני לשחק. זה לא יצוין באופן פומבי בפרופיל שלו. אם התנהגות זו תמשיך, אורך ההשעיה יעלה - והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלו לצמיתות.</string>
   <string name="howCanIBecomeModerator">איך אני יכול/ה להיות מנהל/ת?</string>
@@ -27,7 +27,7 @@
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="pleaseReadFairPlayPage">לקבלת מידע נוסף, בבקשה קראו את %s שלנו</string>
   <string name="fairPlayPage">המדריך שלנו למשחק הוגן</string>
-  <string name="youCanUseOpeningBookNoEngine">בלִיצֶ\'ס, ההבדל העיקרי בכללים של שחמט בהתכתבות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע במשחקים בהתכתבות, לִיצֶ\'ס לא.</string>
+  <string name="youCanUseOpeningBookNoEngine">בלִיצֶ\'ס, ההבדל העיקרי בכללים של שחמט בהתכתבות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על הסתייעות במנועים. למרות שICCF מאפשרת שימוש במנוע במשחקים בהתכתבות, לִיצֶ\'ס לא.</string>
   <string name="gameplay">מהלך המשחק</string>
   <string name="howBulletBlitzEtcDecided">איך Bullet, Blitz וזמני משחק אחרים נקבעים?</string>
   <string name="basedOnGameDuration">קטגוריות הזמן של לִיצֶ\'ס מבוססות על משך המשחק המשוער = %1$s
@@ -123,10 +123,10 @@
 
 עדיף לחשוב על דירוג כמונח יחסי. לכל אוכלוסיית שחקנים בארגון או אתר מסוים, הדירוג ינבא מי ינצח, יפסיד או ישיג תיקו, ובאיזו תדירות. להגיד: ״הדירוג שלי הוא X״ זה חסר משמעות כל עוד אין שחקנים אחרים אליהם הדירוג מושווה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
-  <string name="enableZenMode">הפעל את מצב זן ב%1$s או על ידי הקשה על %2$s במהלך משחק.</string>
+  <string name="enableZenMode">הפעילו את מצב זן ב%1$s או על ידי הקשה על %2$s במהלך משחק.</string>
   <string name="displayPreferences">הגדרות תצוגה</string>
   <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא אצלך או אצלנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא אצלך או אצלנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס וכתוצאה מכך נגמר לך הזמן, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
   <string name="howToThreeDots">כיצד...</string>
   <string name="enableDisableNotificationPopUps">להפעיל או לחסום התראות קופצות?</string>
   <string name="viewSiteInformationPopUp">צפה בחלון הקופץ המכיל מידע על האתר</string>
