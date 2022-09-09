@@ -38,7 +38,7 @@
     <item quantity="other">שוחק %s פעמים</item>
   </plurals>
   <string name="fromGameLink">מתוך משחק %s</string>
-  <string name="continueTraining">המשך להתאמן</string>
+  <string name="continueTraining">המשיכו להתאמן</string>
   <string name="difficultyLevel">רמת קושי</string>
   <string name="normal">רגיל</string>
   <string name="easier">קל יותר</string>
