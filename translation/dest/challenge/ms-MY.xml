@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Cabaran</string>
+  <string name="challengeDeclined">Cabaran ditolak</string>
+  <string name="challengeAccepted">Cabaran diterima!</string>
+  <string name="challengeCanceled">Cabaran dibatalkan.</string>
+  <string name="registerToSendChallenges">Sila mendaftar untuk menghantar cabaran.</string>
+  <string name="youCannotChallengeX">Anda tidak boleh mencabar %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s tidak menerima cabaran.</string>
+  <string name="yourXRatingIsTooFarFromY">Rating %1$s anda terlalu jauh daripada %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Tidak boleh mencabar orang lain kerana rating %s hanya sementara.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s hanya menerima cabaran daripada rakan.</string>
+</resources>
