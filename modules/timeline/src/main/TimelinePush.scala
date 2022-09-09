@@ -14,7 +14,9 @@ final private[timeline] class TimelinePush(
     relationApi: lila.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
-    unsubApi: UnsubApi
+    unsubApi: UnsubApi,
+    memberRepo: lila.team.MemberRepo,
+    teamApi: lila.team.TeamApi
 ) extends Actor {
 
   implicit def ec = context.dispatcher
@@ -37,6 +39,7 @@ final private[timeline] class TimelinePush(
       case Users(ids)    => fuccess(ids)
       case Followers(id) => relationApi.freshFollowersFromSecondary(id)
       case Friends(id)   => relationApi.fetchFriends(id)
+      case WithTeam(_)   => fuccess(Nil)
       case ExceptUser(_) => fuccess(Nil)
       case ModsOnly(_)   => fuccess(Nil)
     } flatMap { users =>
@@ -46,6 +49,17 @@ final private[timeline] class TimelinePush(
           fus flatMap { us =>
             userRepo.userIdsWithRoles(modPermissions.map(_.dbKey)) dmap { userIds =>
               us filter userIds.contains
+            }
+          }
+        case (fus, WithTeam(teamId)) =>
+          fus flatMap { us =>
+            teamApi.team(teamId) flatMap {
+              case Some(team) if team.isForumFor(_.MEMBERS) =>
+                memberRepo.filterUserIdsInTeam(teamId, us toSet) map (_ toList)
+              case Some(team) if team.isForumFor(_.LEADERS) =>
+                fuccess(us filter team.leaders)
+              case _ =>
+                fus
             }
           }
         case (fus, _) => fus
