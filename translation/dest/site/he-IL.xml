@@ -705,7 +705,7 @@
   <string name="averageCentipawnLoss">אובדן מאית חייל ממוצע</string>
   <string name="keyboardShortcuts">קיצורי מקלדת</string>
   <string name="keyMoveBackwardOrForward">גלול אחורה/קדימה</string>
-  <string name="keyGoToStartOrEnd">לך להתחלה/לסיום</string>
+  <string name="keyGoToStartOrEnd">מעבר להתחלה/לסיום</string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
   <string name="newTournament">טורניר חדש</string>
@@ -983,7 +983,7 @@
   <string name="gameInProgress">את/ה באמצע משחק עם %s.</string>
   <string name="abortTheGame">בטל/י את המשחק</string>
   <string name="resignTheGame">כניעה</string>
-  <string name="youCantStartNewGame">לא תוכל להתחיל משחק חדש עד גמר הנוכחי.</string>
+  <string name="youCantStartNewGame">לא תוכל/י להתחיל משחק חדש עד גמר הנוכחי.</string>
   <string name="since">מאז</string>
   <string name="until">עד</string>
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
