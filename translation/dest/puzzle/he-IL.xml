@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">דרגו כדי לקבל את הפאזל הבא!</string>
   <string name="upVote">אהבתם את החידה? הצביעו הצבעה עילית</string>
   <string name="downVote">לא אהבתם? הצביעו הצבעה תחתית</string>
-  <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שים לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
+  <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שימו לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
   <string name="findTheBestMoveForWhite">מצא/י את המהלך הטוב ביותר ללבן.</string>
   <string name="findTheBestMoveForBlack">מצא/י את המהלך הטוב ביותר לשחור.</string>
   <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
