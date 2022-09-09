@@ -713,7 +713,7 @@
   <string name="tournamentHomeDescription">שחק בטורנירי שחמט מהירים! הצטרף לטורניר רשמי ומתוכנן, או צור אחד משלך. Bullet, Blitz, Threecheck, Chess960, King of the Hill, Classical, ואפשרויות נוספות של משחקי שחמט מהנים.</string>
   <string name="tournamentNotFound">הטורניר לא נמצא</string>
   <string name="tournamentDoesNotExist">הטורניר הזה אינו קיים.</string>
-  <string name="tournamentMayHaveBeenCanceled">יתכן שהטורניר בוטל, אם שכל השחקנים יצאו ממנו טרם התחלתו.</string>
+  <string name="tournamentMayHaveBeenCanceled">קיימת אפשרות שהטורניר בוטל, במקרה שכל השחקנים יצאו ממנו לפני התחלתו.</string>
   <string name="returnToTournamentsHomepage">חזרה לדף הבית של הטורנירים</string>
   <string name="weeklyPerfTypeRatingDistribution">התפלגות שבועית של דירוגי %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
