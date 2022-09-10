@@ -14,7 +14,7 @@ import { defaultPosition, setupPosition } from 'chessops/variant';
 import { lichessRules } from 'chessops/compat';
 
 const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
-  new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
+  new WebAssembly.Memory({ shared: true, initial, maximum });
 
 function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
   // Atomics
