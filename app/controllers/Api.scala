@@ -300,7 +300,7 @@ final class Api(
 
   def swissGames(id: String) =
     AnonOrScoped() { req => me =>
-      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
+      env.swiss.cache.swissCache byId lila.swiss.Swiss.Id(id) flatMap {
         _ ?? { swiss =>
           val config = GameApiV2.BySwissConfig(
             swissId = swiss.id,
@@ -322,7 +322,7 @@ final class Api(
 
   def swissResults(id: String) = Action.async { implicit req =>
     val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
-    env.swiss.api byId lila.swiss.Swiss.Id(id) map {
+    env.swiss.cache.swissCache byId lila.swiss.Swiss.Id(id) map {
       _ ?? { swiss =>
         val source = env.swiss.api
           .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)
@@ -385,7 +385,7 @@ final class Api(
         lila.mon.api.activity.increment(1)
         env.user.repo named name flatMap {
           _ ?? { user =>
-            env.activity.read.recent(user) flatMap {
+            env.activity.read.recentAndPreload(user) flatMap {
               _.map { env.activity.jsonView(_, user) }.sequenceFu
             }
           }

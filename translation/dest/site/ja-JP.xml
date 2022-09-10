@@ -67,7 +67,7 @@
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
-  <string name="deleteFromHere">ここから削除</string>
+  <string name="deleteFromHere">これ以降を削除</string>
   <string name="forceVariation">変化として表示</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>

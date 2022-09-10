@@ -33,4 +33,6 @@ object AnalyseBsonHandlers {
   implicit val winPercentHandler = percentAsIntHandler[WinPercent](_.value, WinPercent.apply)
 
   implicit val accuracyPercentHandler = percentAsIntHandler[AccuracyPercent](_.value, AccuracyPercent.apply)
+
+  implicit val externalEngineHandler = Macros.handler[ExternalEngine]
 }

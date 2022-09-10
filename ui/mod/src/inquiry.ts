@@ -54,7 +54,7 @@ lichess.load.then(() => {
       expandMentions(
         $(this)
           .html()
-          .replace(/(?:https:\/\/)?lichess\.org\/((?:[\w\/:(&;)?=@]|\.\w)+)/gi, '<a href="/$1">lichess.org/$1</a>')
+          .replace(/(?:https:\/\/)?lichess\.org\/((?:[\w\/:(&;)=@-]|[?.]\w)+)/gi, '<a href="/$1">lichess.org/$1</a>')
       )
     );
   });

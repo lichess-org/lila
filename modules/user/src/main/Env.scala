@@ -44,7 +44,7 @@ final class Env(
   val lightUserApi: LightUserApi = wire[LightUserApi]
   val lightUser                  = lightUserApi.async
   val lightUserSync              = lightUserApi.sync
-  val isBotSync                  = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
+  val isBotSync                  = lightUserApi.isBotSync
 
   lazy val botIds     = new GetBotIds(() => cached.botIds.get {})
   lazy val rankingsOf = new RankingsOf(cached.rankingsOf)

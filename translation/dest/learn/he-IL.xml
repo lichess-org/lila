@@ -53,7 +53,7 @@
   <string name="captureThenPromote">הכה את כלי היריב והכתר את הרגלי שלך!</string>
   <string name="useAllThePawns">השתמש/י בכל הרגלים! 
 אין צורך להכתיר.</string>
-  <string name="aPawnOnTheSecondRank">רגלי על השורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
+  <string name="aPawnOnTheSecondRank">רגלי בשורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
   <string name="grabAllTheStarsNoNeedToPromote">קח/י את כל הכוכבים! 
 אין צורך להכתיר.</string>
   <string name="pawnComplete">יפה, את/ה שולט/ת בחיל הרגלים.</string>
@@ -178,7 +178,7 @@
   <string name="watchInstructiveChessVideos">צפו בסרטוני שחמט מעשירים</string>
   <string name="playPeople">שחקו עם אנשים</string>
   <string name="opponentsFromAroundTheWorld">יריבים מכל העולם</string>
-  <string name="playMachine">שחק עם המחשב</string>
+  <string name="playMachine">שחק/י עם המחשב</string>
   <string name="testYourSkillsWithTheComputer">הראו למחשב למה אתם מסוגלים</string>
   <string name="letsGo">בואו נתחיל!</string>
   <string name="stageX">שלב %s</string>

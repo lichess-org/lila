@@ -69,7 +69,7 @@ final class PostApi(
               if (anonMod) logAnonPost(me.id, post, edit = false)
               else if (!post.troll && !categ.quiet && !topic.isTooBig)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
-                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
+                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)

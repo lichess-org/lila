@@ -425,7 +425,7 @@ GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
-GET   /export/gif/*fen                                        controllers.Export.fenThumbnail(fen: String, color: String ?= "white", lastMove: Option[String], variant: Option[String])
+GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen: String, color: String ?= "white", lastMove: Option[String], variant: Option[String])
 
 # Fishnet
 GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/lichess-org/fishnet")
@@ -731,6 +731,13 @@ POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username: String)
+
+# External engine
+GET   /api/external-engine             controllers.Analyse.externalEngineList
+POST  /api/external-engine             controllers.Analyse.externalEngineCreate
+GET   /api/external-engine/:id         controllers.Analyse.externalEngineShow(id: String)
+PUT   /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(id: String)
+DELETE /api/external-engine/:id        controllers.Analyse.externalEngineDelete(id: String)
 
 # Mobile API only
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)

@@ -51,9 +51,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
-    isBotSync: lila.common.LightUser.IsBotSync,
-    lightUserGet: lila.common.LightUser.Getter,
-    lightUserSync: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     ircApi: lila.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
@@ -63,6 +61,8 @@ final class Env(
     system: ActorSystem,
     scheduler: akka.actor.Scheduler
 ) {
+
+  import lightUserApi._
 
   implicit private val animationLoader = durationLoader(AnimationDuration)
   private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
@@ -121,9 +121,12 @@ final class Env(
   lazy val onStart: OnStart = new OnStart((gameId: Game.ID) =>
     proxyRepo game gameId foreach {
       _ foreach { game =>
-        Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
-        game.userIds foreach { userId =>
-          Bus.publish(lila.game.actorApi.StartGame(game), s"userStartGame:$userId")
+        lightUserApi.preloadMany(game.userIds) >>- {
+          val sg = lila.game.actorApi.StartGame(game)
+          Bus.publish(sg, "startGame")
+          game.userIds foreach { userId =>
+            Bus.publish(sg, s"userStartGame:$userId")
+          }
         }
       }
     }

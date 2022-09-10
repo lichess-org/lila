@@ -21,7 +21,7 @@ import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 
 final class TournamentApi(
-    cached: Cached,
+    cached: TournamentCache,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     playerRepo: PlayerRepo,

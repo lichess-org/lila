@@ -15,7 +15,7 @@ case class Appeal(
     firstUnrepliedAt: DateTime
 ) {
   def id       = _id
-  def isRead = status == Appeal.Status.Read
+  def isRead   = status == Appeal.Status.Read
   def isMuted  = status == Appeal.Status.Muted
   def isUnread = status == Appeal.Status.Unread
 

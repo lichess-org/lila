@@ -30,7 +30,7 @@ final class Study(
       Reasonable(page) {
         if (text.trim.isEmpty)
           env.study.pager.all(ctx.me, Order.default, page) flatMap { pag =>
-            negotiate(
+            preloadMembers(pag) >> negotiate(
               html = Ok(html.study.list.all(pag, Order.default)).fuccess,
               api = _ => apiStudies(pag)
             )
@@ -55,7 +55,7 @@ final class Study(
             Redirect(routes.Study.allDefault(page)).fuccess
           case order =>
             env.study.pager.all(ctx.me, order, page) flatMap { pag =>
-              negotiate(
+              preloadMembers(pag) >> negotiate(
                 html = Ok(html.study.list.all(pag, order)).fuccess,
                 api = _ => apiStudies(pag)
               )
@@ -71,7 +71,7 @@ final class Study(
       env.user.repo.named(username).flatMap {
         _.fold(notFound(ctx)) { owner =>
           env.study.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
-            negotiate(
+            preloadMembers(pag) >> negotiate(
               html = Ok(html.study.list.byOwner(pag, Order(order), owner)).fuccess,
               api = _ => apiStudies(pag)
             )
@@ -83,7 +83,7 @@ final class Study(
   def mine(order: String, page: Int) =
     Auth { implicit ctx => me =>
       env.study.pager.mine(me, Order(order), page) flatMap { pag =>
-        negotiate(
+        preloadMembers(pag) >> negotiate(
           html = env.study.topicApi.userTopics(me.id) map { topics =>
             Ok(html.study.list.mine(pag, Order(order), me, topics))
           },
@@ -95,7 +95,7 @@ final class Study(
   def minePublic(order: String, page: Int) =
     Auth { implicit ctx => me =>
       env.study.pager.minePublic(me, Order(order), page) flatMap { pag =>
-        negotiate(
+        preloadMembers(pag) >> negotiate(
           html = Ok(html.study.list.minePublic(pag, Order(order), me)).fuccess,
           api = _ => apiStudies(pag)
         )
@@ -105,7 +105,7 @@ final class Study(
   def minePrivate(order: String, page: Int) =
     Auth { implicit ctx => me =>
       env.study.pager.minePrivate(me, Order(order), page) flatMap { pag =>
-        negotiate(
+        preloadMembers(pag) >> negotiate(
           html = Ok(html.study.list.minePrivate(pag, Order(order), me)).fuccess,
           api = _ => apiStudies(pag)
         )
@@ -115,7 +115,7 @@ final class Study(
   def mineMember(order: String, page: Int) =
     Auth { implicit ctx => me =>
       env.study.pager.mineMember(me, Order(order), page) flatMap { pag =>
-        negotiate(
+        preloadMembers(pag) >> negotiate(
           html = env.study.topicApi.userTopics(me.id) map { topics =>
             Ok(html.study.list.mineMember(pag, Order(order), me, topics))
           },
@@ -127,7 +127,7 @@ final class Study(
   def mineLikes(order: String, page: Int) =
     Auth { implicit ctx => me =>
       env.study.pager.mineLikes(me, Order(order), page) flatMap { pag =>
-        negotiate(
+        preloadMembers(pag) >> negotiate(
           html = Ok(html.study.list.mineLikes(pag, Order(order))).fuccess,
           api = _ => apiStudies(pag)
         )
@@ -140,21 +140,25 @@ final class Study(
         case None => notFound
         case Some(topic) =>
           env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
-            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { case (pag, topics) =>
-              Ok(html.study.topic.show(topic, pag, Order(order), topics))
+            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) flatMap { case (pag, topics) =>
+              preloadMembers(pag) inject Ok(html.study.topic.show(topic, pag, Order(order), topics))
             }
       }
     }
+
+  private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
+    env.user.lightUserApi.preloadMany(
+      pag.currentPageResults.view
+        .flatMap(_.study.members.members.values take StudyModel.previewNbMembers)
+        .map(_.id)
+        .toSeq
+    )
 
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) = {
     implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
       env.study.jsonView.pagerData(s)
     }
-    Ok(
-      Json.obj(
-        "paginator" -> PaginatorJson(pager)
-      )
-    ).fuccess
+    Ok(Json.obj("paginator" -> PaginatorJson(pager))).fuccess
   }
 
   private def orRelay(id: String, chapterId: Option[String] = None)(

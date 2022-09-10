@@ -19,6 +19,7 @@ adol(f|ph)
 afraid
 anal(plug|sex|)
 anus
+ape
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
@@ -45,6 +46,7 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
+cripp?le
 cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
@@ -170,6 +172,7 @@ wog
 (|на|вы)ебнуть?ся
 blyat
 p[ie]d[aoe]?r
+uebok
 анус
 бля(|дь|ди|де|динам?|дине|дство|ть)
 вы[её]бывае?(ть?ся|тесь)
@@ -221,8 +224,10 @@ est[úu]pid[ao]
 idiota
 imbecil
 madre
-maric[oó]n
+maric[oó]na?
+maric[ao]
 mierda
+moduler[ao]
 payas[ao]
 pendejo
 put[ao]

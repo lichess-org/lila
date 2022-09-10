@@ -59,6 +59,8 @@
   <string name="depthX">Derinlik %s</string>
   <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
   <string name="loadingEngine">Satranç motoru yükleniyor...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Hamleler hesaplanıyor...</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Motor yüklenirken hata oluştu</string>
   <string name="cloudAnalysis">Bulut analizi</string>
   <string name="goDeeper">Daha derine in</string>
   <string name="showThreat">Tehdidi göster</string>
@@ -242,7 +244,7 @@
   <string name="rated">Puanlı</string>
   <string name="casualTournament">Puansız</string>
   <string name="ratedTournament">Puanlı</string>
-  <string name="thisGameIsRated">Bu oyun puanlıdır</string>
+  <string name="thisGameIsRated">Bu oyun derecelidir</string>
   <string name="rematch">Yeniden oyna</string>
   <string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
   <string name="rematchOfferAccepted">Yeniden oynama teklifi kabul edildi</string>
@@ -263,8 +265,8 @@
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <plurals name="nbRated">
-    <item quantity="one">%s puanlı</item>
-    <item quantity="other">%s puanlı</item>
+    <item quantity="one">%s dereceli</item>
+    <item quantity="other">%s dereceli</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s galibiyet</item>
@@ -275,12 +277,12 @@
     <item quantity="other">%s mağlubiyet</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s kez berabere kaldı</item>
-    <item quantity="other">%s kez berabere kaldı</item>
+    <item quantity="one">%s beraberlik</item>
+    <item quantity="other">%s beraberlik</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s şimdi oynanıyor</item>
-    <item quantity="other">%s şimdi oynanıyor</item>
+    <item quantity="one">%s oynuyor</item>
+    <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
@@ -288,19 +290,19 @@
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Bu hesap Lichess Kullanım Şartları\'nı ihlâl etti</string>
+  <string name="thisAccountViolatedTos">Bu hesap Lichess Hizmet Şartları\'nı ihlal etti</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
-  <string name="takeback">Hamleni geri al</string>
+  <string name="takeback">Hamleyi geri al</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et</string>
-  <string name="takebackPropositionSent">Hamleyi geri alma teklifi gönderildi.</string>
-  <string name="takebackPropositionDeclined">Hamleyi geri alma teklifi reddedildi.</string>
-  <string name="takebackPropositionAccepted">Hamleyi geri alma teklifi kabul edildi.</string>
-  <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi.</string>
-  <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri alma teklifi gönderdi</string>
+  <string name="takebackPropositionSent">Hamleyi geri alma teklif edildi</string>
+  <string name="takebackPropositionDeclined">Hamleyi geri alma teklifi reddedildi</string>
+  <string name="takebackPropositionAccepted">Hamleyi geri alma teklifi kabul edildi</string>
+  <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi</string>
+  <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri almayı teklif etti</string>
   <string name="bookmarkThisGame">Bu oyunu işaretle</string>
   <string name="tournament">Turnuva</string>
   <string name="tournaments">Turnuvalar</string>
-  <string name="tournamentPoints">Turnuvada alınan puanlar</string>
+  <string name="tournamentPoints">Turnuvalardan alınan puanlar</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turnuva Puanı</item>
     <item quantity="other">%s Turnuva Puanı</item>
@@ -313,20 +315,20 @@
   <string name="backToTournament">Turnuvaya geri dön</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s puanlı maç</item>
-    <item quantity="other">≥ %s puanlı maç</item>
+    <item quantity="one">≥ %s dereceli maç</item>
+    <item quantity="other">≥ %s dereceli maç</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s puanlı %2$s maçı</item>
     <item quantity="other">≥ %1$s puanlı %2$s maçı</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">%1$s tane daha puanlı %2$s oynamanız gerekiyor</item>
-    <item quantity="other">%1$s tane daha puanlı %2$s oynamanız gerekiyor</item>
+    <item quantity="one">%1$s tane daha dereceli %2$s oynamanız gerekiyor</item>
+    <item quantity="other">%1$s tane daha dereceli %2$s oynamanız gerekiyor</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">%s tane daha puanlı oyun oynamanız gerekiyor</item>
-    <item quantity="other">%s tane daha puanlı oyun oynamanız gerekiyor</item>
+    <item quantity="one">%s tane daha dereceli oyun oynamanız gerekiyor</item>
+    <item quantity="other">%s tane daha dereceli oyun oynamanız gerekiyor</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
   <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
@@ -334,24 +336,24 @@
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
   <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
   <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
-  <string name="mustBeInTeam">%s adlı takımda olmalısınız.</string>
-  <string name="youAreNotInTeam">%s takımının üyesi değilsiniz.</string>
+  <string name="mustBeInTeam">%s adlı takımda olmalısınız</string>
+  <string name="youAreNotInTeam">%s takımının üyesi değilsiniz</string>
   <string name="backToGame">Oyuna dön</string>
-  <string name="siteDescription">Bedava çevrimiçi satranç sitesi. Olması gerektiği gibi satranç oyna. Kayıt gerekmez, reklam içermez, herhangi bir eklentiye ihtiyacınız yok. Bilgisayarla, arkadaşlarınızla ya da rastgele bir oyuncuya karşı oyna.</string>
+  <string name="siteDescription">Bedava çevrimiçi satranç sunucusu. Sade bir arayüzde satranç oynayın. Kayda gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarınızla veya rastgele bir rakiple satranç oynayın.</string>
   <string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
   <string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
   <string name="xStartedStreaming">%s canlı yayında</string>
-  <string name="averageElo">Ortalama puan</string>
-  <string name="location">Konum</string>
+  <string name="averageElo">Ortalama derece</string>
+  <string name="location">Yer</string>
   <string name="filterGames">Oyunları kategorilendir</string>
   <string name="reset">Sıfırla</string>
   <string name="apply">Uygula</string>
   <string name="save">Kaydet</string>
   <string name="leaderboard">Lider Tablosu</string>
   <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
-  <string name="gameAsGIF">GIF Olarak Oyun</string>
+  <string name="gameAsGIF">Oyunun GIF hali</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
-  <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
+  <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
@@ -362,17 +364,17 @@
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Bu bir satranç doğrulama sistemidir.</string>
+  <string name="thisIsAChessCaptcha">Bu bir satranç CAPTCHA\'sıdır.</string>
   <string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
-  <string name="captcha.fail">Lütfen satranç doğrulamasını yapın.</string>
+  <string name="captcha.fail">Lütfen satranç CAPTCHA\'sını çözün.</string>
   <string name="notACheckmate">Mat değil</string>
   <string name="whiteCheckmatesInOneMove">Beyaz bir hamlede mat eder</string>
   <string name="blackCheckmatesInOneMove">Siyah bir hamlede mat eder</string>
   <string name="retry">Tekrar dene</string>
   <string name="reconnecting">Yeniden bağlanılıyor</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s arkadaş çevrimiçi</item>
-    <item quantity="other">%s arkadaş çevrimiçi</item>
+    <item quantity="one">%s arkadaş çevrim içi</item>
+    <item quantity="other">%s arkadaş çevrim içi</item>
   </plurals>
   <string name="favoriteOpponents">Favori rakipler</string>
   <string name="follow">Takip et</string>
@@ -404,7 +406,7 @@
     <item quantity="other">%s dakikadan daha az</item>
   </plurals>
   <string name="required">Gerekli.</string>
-  <string name="openTournaments">Mevcut turnuvalar</string>
+  <string name="openTournaments">Açık turnuvalar</string>
   <string name="duration">Süre</string>
   <string name="winner">Kazanan</string>
   <string name="standing">Sıralama</string>
@@ -428,7 +430,7 @@
   <string name="tournamentIsStarting">Turnuva başlıyor</string>
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="standByX">Hazır ol %s, oyuncular eşleştiriliyor!</string>
-  <string name="pause">Duraklatıldı</string>
+  <string name="pause">Duraklat</string>
   <string name="resume">Devam et</string>
   <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
@@ -448,18 +450,18 @@
   <string name="chess960StartPosition">Chess960 başlangıç pozisyonu: %s</string>
   <string name="startPosition">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
-  <string name="loadPosition">Konumu yükle</string>
+  <string name="loadPosition">Pozisyon yükle</string>
   <string name="isPrivate">Özel</string>
   <string name="reportXToModerators">%s \'i Moderatörlere bildir</string>
   <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
   <string name="xRating">Derecelendirme: %s</string>
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
   <string name="profile">Profil</string>
-  <string name="editProfile">Profilini düzenle</string>
+  <string name="editProfile">Profili düzenle</string>
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya Bayrak</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya bayrak</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
@@ -513,13 +515,13 @@
   <string name="blog">Blog</string>
   <string name="notes">Notlar</string>
   <string name="typePrivateNotesHere">Özel notlarınızı buraya yazın</string>
-  <string name="invalidUsernameOrPassword">Kullanıcı adı ya da şifre geçersiz.</string>
-  <string name="incorrectPassword">Yanlış şifre</string>
+  <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
+  <string name="incorrectPassword">Şifre yanlış</string>
   <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
-  <string name="currentPassword">Geçerli şifre</string>
+  <string name="currentPassword">Mevcut şifre</string>
   <string name="newPassword">Yeni şifre</string>
-  <string name="newPasswordAgain">Yeni şifre(tekrar)</string>
+  <string name="newPasswordAgain">Yeni şifre (tekrar)</string>
   <string name="newPasswordsDontMatch">Yeni şifreler eşleşmiyor</string>
   <string name="newPasswordStrength">Şifre gücü</string>
   <string name="clockInitialTime">Maç başlangıç süresi</string>

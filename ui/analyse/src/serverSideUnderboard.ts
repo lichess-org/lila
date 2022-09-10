@@ -43,7 +43,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
-        positionGifLink.href = xhrUrl(`/export/gif/${fen.replace(/ /g, '_')}`, {
+        positionGifLink.href = xhrUrl(document.body.getAttribute('data-asset-url') + '/export/fen.gif', {
+          fen,
           color: ctrl.bottomColor(),
           lastMove: ctrl.node.uci,
           variant: ctrl.data.game.variant.key,

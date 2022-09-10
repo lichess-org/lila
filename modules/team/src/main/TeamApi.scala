@@ -53,6 +53,7 @@ final class TeamApi(
         id = id,
         name = setup.name,
         password = setup.password,
+        intro = setup.intro,
         description = setup.description,
         descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
         open = setup.isOpen,
@@ -73,6 +74,7 @@ final class TeamApi(
   def update(team: Team, edit: TeamEdit, me: User): Funit =
     team.copy(
       password = edit.password,
+      intro = edit.intro,
       description = edit.description,
       descPrivate = edit.descPrivate,
       open = edit.isOpen,
