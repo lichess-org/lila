@@ -106,6 +106,7 @@ final private[forum] class TopicApi(
               if (!post.troll && !categ.quiet)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id))
                   .toFollowersOf(me.id)
+                  .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
               Bus.publish(actorApi.CreatePost(post), "forumPost")
