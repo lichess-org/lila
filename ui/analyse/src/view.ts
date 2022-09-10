@@ -114,19 +114,16 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           hook: {
             ...onInsert((el: HTMLTextAreaElement) => {
               el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+              const changePgnIfDifferent = () =>
+                el.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(el.value, true);
 
               el.addEventListener('input', () => (ctrl.pgnInput = el.value));
 
               el.addEventListener('keypress', (e: KeyboardEvent) => {
                 if (e.key != 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile()) return;
-                else if (el.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(el.value, true))
-                  e.preventDefault();
+                else if (changePgnIfDifferent()) e.preventDefault();
               });
-              if (isMobile())
-                el.addEventListener(
-                  'focusout',
-                  () => el.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(el.value, true)
-                );
+              if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
