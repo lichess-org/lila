@@ -197,6 +197,7 @@
   <string name="changeUsername">Canviar nom d\'usuari</string>
   <string name="changeUsernameNotSame">Només es pot canviar entre majúscules i minúscules. Per exemple, de \"perecullera\" a \"PereCullera\".</string>
   <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només canviant les lletres majúscules per minúscules.</string>
+  <string name="signupEmailHint">Només s\'utilitzarà per resetejar la contrassenya.</string>
   <string name="password">Contrassenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
