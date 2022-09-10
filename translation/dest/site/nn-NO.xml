@@ -59,8 +59,8 @@
   <string name="depthX">Djupn %s</string>
   <string name="usingServerAnalysis">Brukar serveranalyse</string>
   <string name="loadingEngine">Lastar sjakkmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Reknar på trekk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Feil under innlasting av berekningsmotor</string>
+  <string name="calculatingMoves">Reknar på trekk...</string>
+  <string name="engineFailed">Feil under innlasting av berekningsmotor</string>
   <string name="cloudAnalysis">Skyanalyse</string>
   <string name="goDeeper">Søk djupare</string>
   <string name="showThreat">Vis trussel</string>
