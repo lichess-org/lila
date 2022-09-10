@@ -60,8 +60,8 @@
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
   <string name="loadingEngine">Se încarcă motorul de analiză...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Se calculează mutările...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Eroare încărcare motor</string>
+  <string name="calculatingMoves">Se calculează mutările...</string>
+  <string name="engineFailed">Eroare încărcare motor</string>
   <string name="cloudAnalysis">Analiză online</string>
   <string name="goDeeper">Mergi mai în profunzime</string>
   <string name="showThreat">Afișează amenințarea</string>
