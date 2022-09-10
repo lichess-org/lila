@@ -59,8 +59,8 @@
   <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
   <string name="loadingEngine">Carregant màquina...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calculant...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Error carregant màquina</string>
+  <string name="calculatingMoves">Calculant...</string>
+  <string name="engineFailed">Error carregant màquina</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
   <string name="goDeeper">Aprofundir</string>
   <string name="showThreat">Mostra l\'amenaça</string>
