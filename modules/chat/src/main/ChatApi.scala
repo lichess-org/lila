@@ -115,7 +115,7 @@ final class ChatApi(
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)) { s =>
-        Bus.ask[Boolean]("chatLinkCheck") { GetLinkCheck(line, s, _) }
+        Bus.ask("chatLinkCheck") { GetLinkCheck(line, s, _) }
       }
 
     def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
