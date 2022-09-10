@@ -61,8 +61,8 @@
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
   <string name="loadingEngine">Načítání AI engine...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Výpočet tahů...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Chyba při načítání enginu</string>
+  <string name="calculatingMoves">Výpočet tahů...</string>
+  <string name="engineFailed">Chyba při načítání enginu</string>
   <string name="cloudAnalysis">Cloudová analýza</string>
   <string name="goDeeper">Hlouběji</string>
   <string name="showThreat">Zobrazit hrozbu</string>
