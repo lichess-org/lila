@@ -1,10 +1,18 @@
-import { h, thunk, VNode, VNodeData } from 'snabbdom';
-
+import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
 import { defined } from 'common';
 import { bind, dataIcon } from 'common/snabbdom';
+
+// same as Colors object in chart/acpl, need a good way to export or import these there
+const Colors = {
+  inaccuracy: '#1c9ae3',
+  blunder: '#db3d3d',
+  mistake: '#cc9b00',
+  white: '#ffffff',
+  black: '#333333',
+};
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -47,17 +55,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const acpl = d.analysis![color].acpl;
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
-    ...advices.map(a => {
-      const nb: number = d.analysis![color][a.kind];
-      const style = nb ? `.symbol.${a.kind}` : '';
-      const attrs: VNodeData = nb
-        ? {
-            'data-color': color,
-            'data-symbol': a.symbol,
-          }
-        : {};
-      return h(`div.advice-summary__error${style}`, { attrs }, ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb)));
-    }),
+    ...advices.map(a => error(ctrl, d.analysis![color][a.kind], color, a)),
     h('div.advice-summary__acpl', [
       h('strong', '' + (defined(acpl) ? acpl : '?')),
       h('span', ctrl.trans.noarg('averageCentipawnLoss')),
@@ -65,15 +63,47 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   ]);
 }
 
-const doRender = (ctrl: AnalyseCtrl): VNode =>
+const error = (ctrl: AnalyseCtrl, nb: number, color: Color, advice: Advice) =>
   h(
+    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : ''),
+    { attrs: nb ? { 'data-color': color, 'data-symbol': advice.symbol } : {} },
+    ctrl.trans.vdomPlural(advice.i18n, nb, h('strong', nb))
+  );
+
+const lineColor = (symbol: string | undefined): string | undefined => {
+  if (symbol == '??') return Colors.blunder;
+  else if (symbol == '?') return Colors.mistake;
+  else if (symbol == '?!') return Colors.inaccuracy;
+  else return Colors.black;
+};
+
+const doRender = (ctrl: AnalyseCtrl): VNode => {
+  const markers = $('g.highcharts-tracker');
+
+  const showMarkers = (el: Element, visible: boolean) => {
+    const lineNoAlpha = lineColor($(el).data('symbol'));
+    const fillNoAlpha = $(el).data('color') == 'white' ? Colors.white : Colors.black;
+    const selector = `path[stroke^='${lineNoAlpha}'][fill^='${fillNoAlpha}']`;
+    $(selector, markers).attr('stroke', lineNoAlpha + (visible ? 'ff' : '00'));
+    $(selector, markers).attr('fill', fillNoAlpha + (visible ? 'ff' : '00'));
+  };
+
+  return h(
     'div.advice-summary',
     {
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function (this: Element) {
-            ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
-          });
+          $('path', markers).hide();
+          $(vnode.elm as HTMLElement)
+            .on('click', 'div.symbol', function (this: Element) {
+              ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
+            })
+            .on('mouseenter', 'div.symbol', function (this: Element) {
+              showMarkers(this, true);
+            })
+            .on('mouseleave', 'div.symbol', function (this: Element) {
+              showMarkers(this, false);
+            });
         },
       },
     },
@@ -93,6 +123,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode =>
       playerTable(ctrl, 'black'),
     ]
   );
+};
 
 export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
   const puzzle = ctrl.data.puzzle;

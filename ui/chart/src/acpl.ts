@@ -1,10 +1,13 @@
 import { ChartElm, loadHighcharts, MovePoint } from './common';
 import divisionLines from './division';
 
-const Colors = {
+// we share these with analyse/roundTraining but cannot export or import them
+export const Colors = {
   inaccuracy: '#1c9ae3',
   blunder: '#db3d3d',
   mistake: '#cc9b00',
+  white: '#ffffff',
+  black: '#333333',
 };
 
 const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
@@ -38,10 +41,10 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
         y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
       };
       let [annotation, lineColor] = glyphProperties(node.glyphs);
-      let fillColor = color ? '#fff' : '#333';
+      let fillColor = (color ? Colors.white : Colors.black) + '00';
       if (!partial && blurs[color].shift() === '1') {
         annotation = 'blur';
-        lineColor = fillColor = 'rgba(42, 122, 225, 0.25)'; // distinguish
+        lineColor = fillColor = 'rgba(42, 122, 225, 0.25)';
       }
       if (annotation) {
         point.marker = {
@@ -107,7 +110,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
             },
             select: {
               radius: 4,
-              lineWidth: '3px', // changed to distinguish from move markers
+              lineWidth: '3px',
               lineColor: `rgba(127, 127, 127, ${lightTheme ? '0.3' : '0.75'})`,
               fillColor: lightTheme ? '#888' : '#bbb',
             },
@@ -163,9 +166,9 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
 };
 
 const glyphProperties = (glyphs: Array<Tree.Glyph> | undefined) => {
-  if (glyphs?.some(g => g.id == 4)) return ['blunder', Colors.blunder];
-  else if (glyphs?.some(g => g.id == 2)) return ['mistake', Colors.mistake];
-  else if (glyphs?.some(g => g.id == 6)) return ['inaccuracy', Colors.inaccuracy];
+  if (glyphs?.some(g => g.id == 4)) return ['blunder', Colors.blunder + '00'];
+  else if (glyphs?.some(g => g.id == 2)) return ['mistake', Colors.mistake + '00'];
+  else if (glyphs?.some(g => g.id == 6)) return ['inaccuracy', Colors.inaccuracy + '00'];
   else return [undefined, undefined];
 };
 
