@@ -7,16 +7,22 @@ const Colors = {
   mistake: '#cc9b00',
 };
 
-const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
+const acpl: Window['LichessChartGame']['acpl'] = async (
+  data: any,
+  mainline: Tree.Node[],
+  trans: Trans,
+  el: ChartElm
+) => {
   await loadHighcharts('highchart');
-  acpl.update = (d: any, mainline: any[]) =>
+  acpl.update = (d: any, mainline: Tree.Node[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
   const lightTheme = window.Highcharts.theme.light;
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
+  const isMod = blurs[0].length != 0 || blurs[1].length == 0;
   if (data.player.color === 'white') blurs.reverse();
 
-  const makeSerieData = (d: any, mainline: any[]) => {
+  const makeSerieData = (d: any, mainline: Tree.Node[]) => {
     const partial = !d.analysis || d.analysis.partial;
     return mainline.slice(1).map(node => {
       const color = node.ply & 1;
@@ -24,7 +30,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
       let cp;
       if (node.eval && node.eval.mate) {
         cp = node.eval.mate > 0 ? Infinity : -Infinity;
-      } else if (node.san.includes('#')) {
+      } else if (node.san?.includes('#')) {
         cp = color === 1 ? Infinity : -Infinity;
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
@@ -37,17 +43,17 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
         name: turn + dots + ' ' + node.san,
         y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
       };
-      let [annotation, lineColor] = glyphProperties(node.glyphs);
+      let [annotation, lineColor] = glyphProperties(isMod, node.glyphs);
       let fillColor = color ? '#fff' : '#333';
       if (!partial && blurs[color].shift() === '1') {
         annotation = 'blur';
-        lineColor = fillColor = 'rgba(42, 122, 225, 0.25)'; // distinguish
+        lineColor = '#d85000';
       }
       if (annotation) {
         point.marker = {
           symbol: annotation == 'blur' ? 'square' : 'circle',
           radius: 4,
-          lineWidth: '3px',
+          lineWidth: annotation == 'blur' ? '1px' : '3px',
           lineColor: lineColor,
           fillColor: fillColor,
         };
@@ -162,10 +168,10 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
   lichess.pubsub.emit('analysis.change.trigger');
 };
 
-const glyphProperties = (glyphs: Array<Tree.Glyph> | undefined) => {
-  if (glyphs?.some(g => g.id == 4)) return ['blunder', Colors.blunder];
-  else if (glyphs?.some(g => g.id == 2)) return ['mistake', Colors.mistake];
-  else if (glyphs?.some(g => g.id == 6)) return ['inaccuracy', Colors.inaccuracy];
+const glyphProperties = (isMod: boolean, glyphs: Array<Tree.Glyph> | undefined) => {
+  if (!isMod && glyphs?.some(g => g.id == 4)) return ['blunder', Colors.blunder];
+  else if (!isMod && glyphs?.some(g => g.id == 2)) return ['mistake', Colors.mistake];
+  else if (!isMod && glyphs?.some(g => g.id == 6)) return ['inaccuracy', Colors.inaccuracy];
   else return [undefined, undefined];
 };
 
