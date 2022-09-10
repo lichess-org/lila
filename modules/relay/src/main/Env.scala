@@ -61,13 +61,19 @@ final class Env(
     ()
   }
 
-  lila.common.Bus.subscribeFun("study", "relayToggle") {
-    case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId).unit
-    case lila.study.actorApi.RelayToggle(id, v, who) =>
+  lila.common.Bus.subscribeFuns(
+    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId, _) =>
+      api.onStudyRemove(studyId).unit
+    },
+    "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
         _ ?? {
           api.requestPlay(RelayRound.Id(id.value), v)
         }
       }
-  }
+    },
+    "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
+      promise completeWith api.officialActive.get({}).map(_.exists(_.round.studyId == studyId))
+    }
+  )
 }

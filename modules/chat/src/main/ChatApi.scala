@@ -115,7 +115,7 @@ final class ChatApi(
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)) { s =>
-        Bus.ask[Boolean]("chatLinkCheck") { GetLinkCheck(line, s, _) }
+        Bus.ask("chatLinkCheck") { GetLinkCheck(line, s, _) }
       }
 
     def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
@@ -147,7 +147,10 @@ final class ChatApi(
         busChan: BusChan.Select
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
+        case ((Some(chat), Some(mod)), Some(user))
+            if isMod(mod) || (busChan(BusChan) == BusChan.Study && isRelayMod(
+              mod
+            )) || scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, mod, user, reason, scope, text, busChan)
         case _ => funit
       }
@@ -207,7 +210,7 @@ final class ChatApi(
             line foreach { l =>
               publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
             }
-            if (isMod(mod)) {
+            if (scope == ChatTimeout.Scope.Global) {
               lila.common.Bus.publish(
                 lila.hub.actorApi.mod.ChatTimeout(
                   mod = mod.id,
@@ -235,7 +238,8 @@ final class ChatApi(
       } inject change
     }
 
-    private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
+    private def isMod(user: User)      = lila.security.Granter(_.ChatTimeout)(user)
+    private def isRelayMod(user: User) = lila.security.Granter(_.BroadcastTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach { r =>
