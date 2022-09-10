@@ -10,16 +10,22 @@ export const Colors = {
   black: '#333333',
 };
 
-const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
+const acpl: Window['LichessChartGame']['acpl'] = async (
+  data: any,
+  mainline: Tree.Node[],
+  trans: Trans,
+  el: ChartElm,
+  isHunter: boolean
+) => {
   await loadHighcharts('highchart');
-  acpl.update = (d: any, mainline: any[]) =>
+  acpl.update = (d: any, mainline: Tree.Node[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
   const lightTheme = window.Highcharts.theme.light;
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
 
-  const makeSerieData = (d: any, mainline: any[]) => {
+  const makeSerieData = (d: any, mainline: Tree.Node[]) => {
     const partial = !d.analysis || d.analysis.partial;
     return mainline.slice(1).map(node => {
       const color = node.ply & 1;
@@ -27,7 +33,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
       let cp;
       if (node.eval && node.eval.mate) {
         cp = node.eval.mate > 0 ? Infinity : -Infinity;
-      } else if (node.san.includes('#')) {
+      } else if (node.san?.includes('#')) {
         cp = color === 1 ? Infinity : -Infinity;
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
@@ -44,13 +50,14 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
       let fillColor = (color ? Colors.white : Colors.black) + '00';
       if (!partial && blurs[color].shift() === '1') {
         annotation = 'blur';
-        lineColor = fillColor = 'rgba(42, 122, 225, 0.25)';
+        lineColor = '#d85000';
+        fillColor = color ? Colors.white : Colors.black;
       }
-      if (annotation) {
+      if (annotation && (!isHunter || annotation === 'blur')) {
         point.marker = {
           symbol: annotation == 'blur' ? 'square' : 'circle',
           radius: 4,
-          lineWidth: '3px',
+          lineWidth: annotation == 'blur' ? '1px' : '3px',
           lineColor: lineColor,
           fillColor: fillColor,
         };

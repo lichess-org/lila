@@ -93,6 +93,7 @@ GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: 
 GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
+GET   /api/player                      controllers.User.apiList
 
 GET   /dasher                          controllers.Dasher.get
 
@@ -267,7 +268,8 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
-GET   /streamer/live                   controllers.Streamer.live
+GET   /api/streamer/live               controllers.Streamer.live
+GET   /streamer/live                   controllers.Main.movedPermanently(to: String = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply

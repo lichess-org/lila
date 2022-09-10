@@ -91,7 +91,15 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
     lichess
       .loadModule('chart.game')
-      .then(() => window.LichessChartGame!.acpl(data, ctrl.mainline, ctrl.trans, $('#acpl-chart')[0] as HTMLElement));
+      .then(() =>
+        window.LichessChartGame!.acpl(
+          data,
+          ctrl.mainline,
+          ctrl.trans,
+          $('#acpl-chart')[0] as HTMLElement,
+          ctrl.opts.hunter
+        )
+      );
   }
 
   const storage = lichess.storage.make('analysis.panel');
