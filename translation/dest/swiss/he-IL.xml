@@ -53,7 +53,7 @@
   <string name="pointsCalculationA">ניצחון שווה נקודה, תיקו חצי נקודה והפסד אפס נקודות. כששחקן לא משובץ באחד הסבבים הוא מקבל נקודה.</string>
   <string name="tiebreaksCalculationQ">איך שוברי-שוויון מחושבים?</string>
   <string name="sonnebornBergerScore">ניקוד סונבורן-ברגר</string>
-  <string name="tiebreaksCalculationA">בעזרת %s. סכם את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
+  <string name="tiebreaksCalculationA">בעזרת %s. סכמו את הניקוד של כל השחקנים שהשחקן הביס ומחצית מהניקוד של השחקנים שהשחקן השיג נגדם תיקו.</string>
   <string name="pairingsQ">איך נקבע השיבוץ לזוגות?</string>
   <string name="dutchSystem">השיטה ההולנדית</string>
   <string name="FIDEHandbook">מפרט חוקי פיד״ה</string>
@@ -77,7 +77,7 @@
   <string name="swissDescription">בטורניר שוויצרי %1$s, אין הכרח שכל משתתף ישחק נגד כל משתתף אחר. בכל סיבוב כל שחקן משחק נגד שחקן אחר, והשיבוצים נקבעים על פי הניקוד שנצבר לאורך הטורניר, מבלי ששני שחקנים ישחקו זה נגד זה יותר מפעם אחת. המנצח הוא בעל הניקוד הגבוה ביותר. כל המשתתפים משחקים בכל הסבבים, אלא אם מספרם אי־זוגי</string>
   <string name="teamOnly">רק מובילי קבוצות יכולים ליצור טורנירים שוויצריים, ורק חברי קבוצות יכולים להשתתף בהם. %1$s כדי להתחיל לשחק בטורנירים שוויצריים.</string>
   <string name="joinOrCreateTeam">הצטרף לקבוצה או צור קבוצה</string>
-  <string name="nowPlaying">משחק כעת</string>
+  <string name="nowPlaying">משחקים נוכחיים</string>
   <string name="startingSoon">מתחיל בקרוב</string>
   <string name="comparison">השוואה</string>
   <string name="tournDuration">משך הטורניר</string>

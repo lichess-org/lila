@@ -102,7 +102,7 @@ final class RelayApi(
     _.refreshAfterWrite(5 seconds)
       .buildAsyncFuture { _ =>
         tourRepo.coll
-          .aggregateList(30) { framework =>
+          .aggregateList(40) { framework =>
             import framework._
             Match(tourRepo.selectors.officialActive) -> List(
               Sort(Descending("tier")),
@@ -121,7 +121,7 @@ final class RelayApi(
                 )
               ),
               UnwindField("round"),
-              Limit(30)
+              Limit(40)
             )
           }
           .map { docs =>

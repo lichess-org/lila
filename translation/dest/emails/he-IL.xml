@@ -11,7 +11,7 @@
   <string name="emailChange_click">כדי לאשר את גישתך לכתובת המייל הזו, לחץ על הקישור הבא:</string>
   <string name="welcome_subject">ברוך/ה הבא/ה, %s</string>
   <string name="welcome_text">יצרת בהצלחה את חשבונך באתר https://lichess.org.
-עמוד הפרופיל שלך הוא %1$s. אתה יכול לשנותו כרצונך ב%2$s
+עמוד הפרופיל שלך הוא %1$s. את/ה יכול/ה לערוך אותו כרצונך ב%2$s
 אנו מאחלים לכלים שלך תמיד למצוא את דרכם למלך של יריביך!</string>
   <string name="logInToLichess">%s, התחבר/י ל־lichess.org</string>
   <string name="common_orPaste">(אם הקלדה אינה עובדת, נסו הדבקה לתוך הדפדפן!)</string>

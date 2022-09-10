@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="contact">צור קשר</string>
-  <string name="contactLichess">צור קשר עם ליצ\'ס</string>
+  <string name="contact">צרו קשר</string>
+  <string name="contactLichess">צרו קשר עם ליצ\'ס</string>
   <string name="whatCanWeHelpYouWith">במה נוכל לעזור?</string>
   <string name="visitThisPage">צפו בעמוד זה כדי לפתור את הבעיה</string>
   <string name="iCantLogIn">אני לא מצליח/ה להתחבר</string>

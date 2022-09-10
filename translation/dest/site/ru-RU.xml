@@ -61,7 +61,7 @@
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
   <string name="loadingEngine">Загрузка движка...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Идёт рассчёт ходов...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Идёт расчёт ходов...</string>
   <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Ошибка загрузки движка</string>
   <string name="cloudAnalysis">Облачный анализ</string>
   <string name="goDeeper">Анализировать глубже</string>

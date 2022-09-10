@@ -59,6 +59,8 @@
   <string name="depthX">Tüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analyse benutze</string>
   <string name="loadingEngine">Engine wird glade ...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">berächnet Züg</string>
+  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Fähler bim Engine lade</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Gang tüfer</string>
   <string name="showThreat">Bedrohig azeige</string>
