@@ -59,8 +59,8 @@
   <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
   <string name="loadingEngine">Есептеуіш жүктелуде...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Қадамдарды есептеу...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Есептеуішті жүктеу үзілді</string>
+  <string name="calculatingMoves">Қадамдарды есептеу...</string>
+  <string name="engineFailed">Есептеуішті жүктеу үзілді</string>
   <string name="cloudAnalysis">Бұлттық талдау</string>
   <string name="goDeeper">Терең кету</string>
   <string name="showThreat">Қауіпті көрсету</string>
