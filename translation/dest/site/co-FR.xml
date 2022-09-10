@@ -365,8 +365,8 @@
   <string name="retry">Prova da torna</string>
   <string name="reconnecting">Ricunnettà si</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s amicu in nantu à u situ</item>
-    <item quantity="other">%s amichi nantu à u situ</item>
+    <item quantity="one">%s amicu à nantu à u situ</item>
+    <item quantity="other">%s amichi à nantu à u situ</item>
   </plurals>
   <string name="favoriteOpponents">Avversariu prefiritu</string>
   <string name="follow">Segue</string>
