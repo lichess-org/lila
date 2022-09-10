@@ -44,7 +44,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
       };
       let [annotation, lineColor] = glyphProperties(isMod, node.glyphs);
-      let fillColor = color ? '#fff' : '#333';
+      const fillColor = color ? '#fff' : '#333';
       if (!partial && blurs[color].shift() === '1') {
         annotation = 'blur';
         lineColor = '#d85000';
