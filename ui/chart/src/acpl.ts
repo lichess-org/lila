@@ -11,7 +11,8 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
   data: any,
   mainline: Tree.Node[],
   trans: Trans,
-  el: ChartElm
+  el: ChartElm,
+  isHunter: boolean
 ) => {
   await loadHighcharts('highchart');
   acpl.update = (d: any, mainline: Tree.Node[]) =>
@@ -19,7 +20,6 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
 
   const lightTheme = window.Highcharts.theme.light;
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
-  const isMod = blurs[0].length != 0 || blurs[1].length == 0;
   if (data.player.color === 'white') blurs.reverse();
 
   const makeSerieData = (d: any, mainline: Tree.Node[]) => {
@@ -43,13 +43,13 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         name: turn + dots + ' ' + node.san,
         y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
       };
-      let [annotation, lineColor] = glyphProperties(isMod, node.glyphs);
+      let [annotation, lineColor] = glyphProperties(node.glyphs);
       const fillColor = color ? '#fff' : '#333';
       if (!partial && blurs[color].shift() === '1') {
         annotation = 'blur';
         lineColor = '#d85000';
       }
-      if (annotation) {
+      if (annotation && (!isHunter || annotation === 'blur')) {
         point.marker = {
           symbol: annotation == 'blur' ? 'square' : 'circle',
           radius: 4,
@@ -168,10 +168,10 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
   lichess.pubsub.emit('analysis.change.trigger');
 };
 
-const glyphProperties = (isMod: boolean, glyphs: Array<Tree.Glyph> | undefined) => {
-  if (!isMod && glyphs?.some(g => g.id == 4)) return ['blunder', Colors.blunder];
-  else if (!isMod && glyphs?.some(g => g.id == 2)) return ['mistake', Colors.mistake];
-  else if (!isMod && glyphs?.some(g => g.id == 6)) return ['inaccuracy', Colors.inaccuracy];
+const glyphProperties = (glyphs: Array<Tree.Glyph> | undefined) => {
+  if (glyphs?.some(g => g.id == 4)) return ['blunder', Colors.blunder];
+  else if (glyphs?.some(g => g.id == 2)) return ['mistake', Colors.mistake];
+  else if (glyphs?.some(g => g.id == 6)) return ['inaccuracy', Colors.inaccuracy];
   else return [undefined, undefined];
 };
 
