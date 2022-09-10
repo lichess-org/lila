@@ -70,8 +70,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
     res.withHeaders(
       "Cross-Origin-Opener-Policy" -> "same-origin",
-      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest isChrome96OrMore req) "credentialless"
-                                         else "require-corp")
+      "Cross-Origin-Embedder-Policy" -> "credentialless"
     )
 
   protected def NoCache(res: Result): Result =
