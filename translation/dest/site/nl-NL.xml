@@ -59,8 +59,8 @@
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Met serveranalyse</string>
   <string name="loadingEngine">Laden van computer...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Zetten berekenen...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Fout bij laden engine</string>
+  <string name="calculatingMoves">Zetten berekenen...</string>
+  <string name="engineFailed">Fout bij laden engine</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon dreiging</string>
