@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">בצע מהלך כדי להתחיל</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">אתה משחק בלבן בכל החידות</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">אתה משחק בשחור בכל החידות</string>
+  <string name="moveToStart">בצע/י מהלך כדי להתחיל</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">את/ה משחק/ת בלבן בכל החידות</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">את/ה משחק/ת בשחור בכל החידות</string>
   <string name="puzzlesSolved">חידות נפתרו</string>
   <string name="newDailyHighscore">שיא יומי חדש!</string>
   <string name="newWeeklyHighscore">שיא שבועי חדש!</string>
@@ -34,7 +34,7 @@
   <string name="newRun">סיבוב חדש</string>
   <string name="endRun">סיים ריצה</string>
   <string name="highscores">שיאים</string>
-  <string name="viewBestRuns">ראה את הריצות הכי טובות</string>
+  <string name="viewBestRuns">צפו בריצות הכי טובות</string>
   <string name="bestRunOfDay">הריצה הטובה ביותר היום</string>
   <string name="runs">ריצות</string>
   <string name="getReady">התכונן!</string>
@@ -59,7 +59,7 @@
   <string name="thisWeek">השבוע</string>
   <string name="thisMonth">החודש</string>
   <string name="allTime">אי פעם</string>
-  <string name="clickToReload">לחץ כדי לטעון מחדש</string>
+  <string name="clickToReload">לחץ/י כדי לטעון מחדש</string>
   <string name="thisRunHasExpired">המרוץ הסתיים!</string>
   <string name="thisRunWasOpenedInAnotherTab">המרוץ הזה נפתח בחלון אחר!</string>
 </resources>
