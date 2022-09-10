@@ -53,7 +53,7 @@
   <string name="raceYourFriends">התחרה עם חבריך</string>
   <string name="skip">דלג</string>
   <string name="skipHelp">אתה יכול לדלג על מסע פעם אחת בכל מרוץ:</string>
-  <string name="skipExplanation">דלג על מהלך זה כדי לשמור על הקומבו שלך! עובד רק פעם אחת במירוץ.</string>
+  <string name="skipExplanation">דלג/י על מהלך זה כדי לשמור על הרצף שלך! ניתן לדלג רק פעם אחת בכל מירוץ.</string>
   <string name="failedPuzzles">פאזלים שנכשלת בפתרונם</string>
   <string name="slowPuzzles">פאזלים שהתעכבת בפתרונם</string>
   <string name="thisWeek">השבוע</string>

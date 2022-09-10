@@ -59,6 +59,7 @@
   <string name="depthX">Дълбочина %s</string>
   <string name="usingServerAnalysis">Използване на сървърен анализ</string>
   <string name="loadingEngine">Зареждане на програмата ...</string>
+  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Изчисляване на ходовете...</string>
   <string name="cloudAnalysis">Облачен анализ</string>
   <string name="goDeeper">По-детайлно</string>
   <string name="showThreat">Покажи заплаха</string>
