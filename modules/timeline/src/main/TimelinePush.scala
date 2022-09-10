@@ -16,7 +16,7 @@ final private[timeline] class TimelinePush(
     entryApi: EntryApi,
     unsubApi: UnsubApi,
     memberRepo: lila.team.MemberRepo,
-    teamApi: lila.team.TeamApi
+    teamCache: lila.team.Cached
 ) extends Actor {
 
   implicit def ec = context.dispatcher
@@ -52,15 +52,16 @@ final private[timeline] class TimelinePush(
             }
           }
         case (fus, WithTeam(teamId)) =>
-          fus flatMap { us =>
-            teamApi.team(teamId) flatMap {
-              case Some(team) if team.isForumFor(_.MEMBERS) =>
-                memberRepo.filterUserIdsInTeam(teamId, us toSet) map (_ toList)
-              case Some(team) if team.isForumFor(_.LEADERS) =>
-                fuccess(us filter team.leaders)
-              case _ =>
-                fus
-            }
+          teamCache.forumAccess get teamId flatMap {
+            case lila.team.Team.Access.MEMBERS =>
+              fus flatMap { us =>
+                memberRepo.filterUserIdsInTeam(teamId, us).map(_.toList)
+              }
+            case lila.team.Team.Access.LEADERS =>
+              fus flatMap { us =>
+                teamCache.leaders.get(teamId).map(us.toSet.intersect).map(_.toList)
+              }
+            case _ => fus
           }
         case (fus, _) => fus
       }
