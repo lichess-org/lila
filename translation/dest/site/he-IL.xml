@@ -61,8 +61,8 @@
   <string name="depthX">בעומק של %s מהלכים</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
   <string name="loadingEngine">טוען מנוע...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">מחשב מהלכים...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">שגיאה בטעינת המנוע</string>
+  <string name="calculatingMoves">מחשב מהלכים...</string>
+  <string name="engineFailed">שגיאה בטעינת המנוע</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
   <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצגת איום</string>
