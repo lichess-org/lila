@@ -1,11 +1,18 @@
 import { ChartElm, loadHighcharts, MovePoint } from './common';
 import divisionLines from './division';
 
+const Colors = {
+  inaccuracy: '#1c9ae3',
+  blunder: '#db3d3d',
+  mistake: '#cc9b00',
+};
+
 const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
   await loadHighcharts('highchart');
   acpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
+  const lightTheme = window.Highcharts.theme.light;
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
 
@@ -30,15 +37,21 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
         name: turn + dots + ' ' + node.san,
         y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
       };
+      let [annotation, lineColor] = glyphProperties(node.glyphs);
+      let fillColor = color ? '#fff' : '#333';
       if (!partial && blurs[color].shift() === '1') {
+        annotation = 'blur';
+        lineColor = fillColor = 'rgba(42, 122, 225, 0.25)'; // distinguish
+      }
+      if (annotation) {
         point.marker = {
-          symbol: 'square',
-          radius: 3,
-          lineWidth: '1px',
-          lineColor: '#d85000',
-          fillColor: color ? '#fff' : '#333',
+          symbol: annotation == 'blur' ? 'square' : 'circle',
+          radius: 4,
+          lineWidth: '3px',
+          lineColor: lineColor,
+          fillColor: fillColor,
         };
-        point.name += ' [blur]';
+        point.name += ` [${annotation}]`;
       }
       return point;
     });
@@ -94,7 +107,9 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
             },
             select: {
               radius: 4,
-              lineColor: '#d85000',
+              lineWidth: '3px', // changed to distinguish from move markers
+              lineColor: `rgba(127, 127, 127, ${lightTheme ? '0.3' : '0.75'})`,
+              fillColor: lightTheme ? '#888' : '#bbb',
             },
           },
         },
@@ -145,6 +160,13 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
     else el.highcharts.getSelectedPoints().forEach((point: any) => point.select(false));
   };
   lichess.pubsub.emit('analysis.change.trigger');
+};
+
+const glyphProperties = (glyphs: Array<Tree.Glyph> | undefined) => {
+  if (glyphs?.some(g => g.id == 4)) return ['blunder', Colors.blunder];
+  else if (glyphs?.some(g => g.id == 2)) return ['mistake', Colors.mistake];
+  else if (glyphs?.some(g => g.id == 6)) return ['inaccuracy', Colors.inaccuracy];
+  else return [undefined, undefined];
 };
 
 const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
