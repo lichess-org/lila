@@ -23,7 +23,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     memberRepo: lila.team.MemberRepo,
-    teamApi: lila.team.TeamApi
+    teamCache: lila.team.Cached
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
