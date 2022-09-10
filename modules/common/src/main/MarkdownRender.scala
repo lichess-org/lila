@@ -261,7 +261,7 @@ object MarkdownRender {
       html
         .attr("data-pgn", pgn)
         .attr("data-orientation", Option(color) | "white")
-        .attr("data-ply", Option(ply) | "0") // should that "0" be "last"?
+        .attr("data-ply", Option(ply) | "")
         .attr("class", "lpv--autostart")
         .srcPos(node.getChars())
         .withAttr(link)
