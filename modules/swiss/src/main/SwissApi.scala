@@ -340,7 +340,7 @@ final class SwissApi(
     Bus
       .ask[List[TeamID]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
       .flatMap { joinedPlayableSwissIds(userId, _) }
-      .flatMap { kickFromSwissIds(userId, _) }
+      .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 
   def joinedPlayableSwissIds(userId: User.ID, teamIds: List[TeamID]): Fu[List[Swiss.Id]] =
     colls.swiss
@@ -661,7 +661,7 @@ final class SwissApi(
       }
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
       .flatMap {
-        _.map { withdraw(_, user.id, forfeit = false) }.sequenceFu.void
+        _.map { withdraw(_, user.id) }.sequenceFu.void
       }
 
   def isUnfinished(id: Swiss.Id): Fu[Boolean] =

@@ -41,7 +41,8 @@ object show {
                   writeable = ctx.userId.??(rt.study.canChat),
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                  localMod = ctx.userId.??(rt.study.canContribute)
+                  localMod = rt.tour.tier.isEmpty && ctx.userId.??(rt.study.canContribute),
+                  broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout)
                 )
               ),
               "explorer"      -> views.html.board.bits.explorerConfig,

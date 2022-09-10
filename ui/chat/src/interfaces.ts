@@ -56,6 +56,7 @@ export interface Line {
 
 export interface Permissions {
   local?: boolean;
+  broadcast?: boolean;
   timeout?: boolean;
   shadowban?: boolean;
 }

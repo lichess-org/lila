@@ -107,44 +107,45 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       )
     : undefined;
 
-  const timeout = perms.timeout
-    ? h('div.timeout.block', [
-        h('strong', 'Timeout 15 minutes for'),
-        ...ctrl.opts.reasons.map(r =>
-          h(
-            'a.text',
-            {
-              attrs: { 'data-icon': '' },
-              hook: bind('click', () => ctrl.timeout(r, data.text)),
-            },
-            r.name
-          )
-        ),
-      ])
-    : h('div.timeout.block', [
-        h('strong', 'Moderation'),
-        ...[
-          h(
-            'a.text',
-            {
-              attrs: { 'data-icon': '' },
-              hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
-            },
-            'Timeout 15 minutes'
+  const timeout =
+    perms.timeout || perms.broadcast
+      ? h('div.timeout.block', [
+          h('strong', 'Timeout 15 minutes for'),
+          ...ctrl.opts.reasons.map(r =>
+            h(
+              'a.text',
+              {
+                attrs: { 'data-icon': '' },
+                hook: bind('click', () => ctrl.timeout(r, data.text)),
+              },
+              r.name
+            )
           ),
-          h(
-            'a.text',
-            {
-              attrs: { 'data-icon': '' },
-              hook: bind('click', () => {
-                reportUserText(ctrl.opts.resourceId, data.username, data.text);
-                ctrl.timeout(ctrl.opts.reasons[0], data.text);
-              }),
-            },
-            'Timeout and report to Lichess'
-          ),
-        ],
-      ]);
+        ])
+      : h('div.timeout.block', [
+          h('strong', 'Moderation'),
+          ...[
+            h(
+              'a.text',
+              {
+                attrs: { 'data-icon': '' },
+                hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
+              },
+              'Timeout 15 minutes'
+            ),
+            h(
+              'a.text',
+              {
+                attrs: { 'data-icon': '' },
+                hook: bind('click', () => {
+                  reportUserText(ctrl.opts.resourceId, data.username, data.text);
+                  ctrl.timeout(ctrl.opts.reasons[0], data.text);
+                }),
+              },
+              'Timeout and report to Lichess'
+            ),
+          ],
+        ]);
 
   const history = data.history
     ? h('div.history.block', [

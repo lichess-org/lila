@@ -32,7 +32,7 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
   def countByTeam(teamId: Team.ID): Fu[Int] =
     coll.countSel(teamQuery(teamId))
 
-  def filterUserIdsInTeam(teamId: Team.ID, userIds: Set[User.ID]): Fu[Set[User.ID]] =
+  def filterUserIdsInTeam(teamId: Team.ID, userIds: Iterable[User.ID]): Fu[Set[User.ID]] =
     userIds.nonEmpty ??
       coll.distinctEasy[User.ID, Set]("user", $inIds(userIds.map { TeamMember.makeId(teamId, _) }))
 
