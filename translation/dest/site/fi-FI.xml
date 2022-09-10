@@ -59,8 +59,8 @@
   <string name="depthX">Syvyys %s</string>
   <string name="usingServerAnalysis">Palvelimen analyysi</string>
   <string name="loadingEngine">Tietokonetta ladataan ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Lasketaan siirtoja...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Virhe tietokoneen lataamisessa</string>
+  <string name="calculatingMoves">Lasketaan siirtoja...</string>
+  <string name="engineFailed">Virhe tietokoneen lataamisessa</string>
   <string name="cloudAnalysis">Pilvianalyysi</string>
   <string name="goDeeper">Syvennä analyysiä</string>
   <string name="showThreat">Näytä uhka</string>
