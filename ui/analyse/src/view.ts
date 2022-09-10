@@ -2,7 +2,7 @@ import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
-import { bindMobileMousedown } from 'common/mobile';
+import { bindMobileMousedown, isMobile } from 'common/mobile';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
@@ -112,11 +112,18 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('textarea.copyable', {
           attrs: { spellCheck: false },
           hook: {
-            ...onInsert(el => {
-              (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
-                ? ctrl.pgnInput
-                : pgnExport.renderFullTxt(ctrl);
-              el.addEventListener('input', e => (ctrl.pgnInput = (e.target as HTMLTextAreaElement).value));
+            ...onInsert((el: HTMLTextAreaElement) => {
+              el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+              const changePgnIfDifferent = () =>
+                el.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(el.value, true);
+
+              el.addEventListener('input', () => (ctrl.pgnInput = el.value));
+
+              el.addEventListener('keypress', (e: KeyboardEvent) => {
+                if (e.key != 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile()) return;
+                else if (changePgnIfDifferent()) e.preventDefault();
+              });
+              if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
@@ -125,17 +132,19 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             },
           },
         }),
-        h(
-          'button.button.button-thin.action.text',
-          {
-            attrs: dataIcon(''),
-            hook: bind('click', _ => {
-              const pgn = $('.copyables .pgn textarea').val() as string;
-              if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
-            }),
-          },
-          ctrl.trans.noarg('importPgn')
-        ),
+        isMobile()
+          ? null
+          : h(
+              'button.button.button-thin.action.text',
+              {
+                attrs: dataIcon(''),
+                hook: bind('click', _ => {
+                  const pgn = $('.copyables .pgn textarea').val() as string;
+                  if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
+                }),
+              },
+              ctrl.trans.noarg('importPgn')
+            ),
       ]),
     ]),
   ]);
