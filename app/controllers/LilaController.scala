@@ -69,9 +69,8 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
     res.withHeaders(
-      "Origin-Trial" -> "AxcscrjAGbacnsd/bIdpWGzIBgYyAK9darpQ8TCd6djxwf8vtUTpY1LNhai4YG/TVpQYrelIytWSsgBnK54UnsUAAABTeyJvcmlnaW4iOiJodHRwczovL2xpY2hlc3Mub3JnIiwiZmVhdHVyZSI6IkNvZXBDcmVkZW50aWFsbGVzcyIsImV4cGlyeSI6MTY3NTIwNTk0MH0=", // https://bugzilla.mozilla.org/show_bug.cgi?id=1789300
       "Cross-Origin-Opener-Policy" -> "same-origin",
-      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest supportsCredentialless req) "credentialless"
+      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest isChrome96OrMore req) "credentialless"
                                          else "require-corp")
     )
 
