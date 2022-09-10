@@ -66,7 +66,7 @@
   <string name="masterVsMaster">משחקי אמן נגד אמן</string>
   <string name="masterVsMasterDescription">פאזלים ממשחקים בין שני אמנים.</string>
   <string name="mate">מט</string>
-  <string name="mateDescription">נצח את המשחק בסטייל.</string>
+  <string name="mateDescription">נצחו את המשחק בסטייל.</string>
   <string name="mateIn1">מט ב1</string>
   <string name="mateIn1Description">בצע מט במסע אחד.</string>
   <string name="mateIn2">מט ב2</string>
