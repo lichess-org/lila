@@ -261,7 +261,7 @@ interface Window {
   };
   readonly LichessChartGame: {
     acpl: {
-      (data: any, mainline: Tree.Node[], trans: Trans, el: HTMLElement): Promise<void>;
+      (data: any, mainline: Tree.Node[], trans: Trans, el: HTMLElement, hunter: boolean): Promise<void>;
       update?(data: any, mainline: Tree.Node[]): void;
     };
     movetime: {
