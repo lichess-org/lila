@@ -289,7 +289,7 @@
   <string name="spectatorRoom">חדר צופים</string>
   <string name="composeMessage">כתיבת הודעה</string>
   <string name="subject">נושא</string>
-  <string name="send">שלח</string>
+  <string name="send">שליחה</string>
   <string name="incrementInSeconds">תוספת בשניות</string>
   <string name="freeOnlineChess">שחמט חינמי ברשת</string>
   <plurals name="nbRated">
@@ -554,7 +554,7 @@
   <string name="no">לא</string>
   <string name="yes">כן</string>
   <string name="help">עזרה:</string>
-  <string name="createANewTopic">צור נושא חדש</string>
+  <string name="createANewTopic">צרו נושא חדש</string>
   <string name="topics">נושאים</string>
   <string name="posts">פוסטים</string>
   <string name="lastPost">הפוסט האחרון</string>
