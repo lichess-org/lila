@@ -90,6 +90,7 @@ object Report {
   case class Score(value: Double) extends AnyVal {
     def +(s: Score) = Score(s.value + value)
     def *(m: Int)   = Score(value * m)
+    def /(m: Int)   = Score(value / m)
     def color =
       if (value >= 150) "red"
       else if (value >= 100) "orange"
@@ -97,6 +98,7 @@ object Report {
       else "green"
     def atLeast(v: Int)   = Score(value atLeast v)
     def atLeast(s: Score) = Score(value atLeast s.value)
+    def withinBounds      = Score(value atLeast 5 atMost 100)
   }
   implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 

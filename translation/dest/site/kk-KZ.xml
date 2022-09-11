@@ -59,8 +59,8 @@
   <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
   <string name="loadingEngine">Есептеуіш жүктелуде...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Қадамдарды есептеу...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Есептеуішті жүктеу үзілді</string>
+  <string name="calculatingMoves">Қадамдарды есептеу...</string>
+  <string name="engineFailed">Есептеуішті жүктеу үзілді</string>
   <string name="cloudAnalysis">Бұлттық талдау</string>
   <string name="goDeeper">Терең кету</string>
   <string name="showThreat">Қауіпті көрсету</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Атыңызды өзгерту</string>
   <string name="changeUsernameNotSame">Тек әріптер үлкендігін өзгерту рұқсат. Мысалы, \"tolebi\" дегенді \"ToleBi\" деп.</string>
   <string name="changeUsernameDescription">Пайдаланушы атын өзгертіңіз. Бұны бір мәрте ғана жасауға рұқсат. Тек әріптің үлкендігін ғана өзгерте аласыз.</string>
+  <string name="signupUsernameHint">Атыңызды таңдағанда, өз үйіңізде айтуға лайықты болатындай болсын. Оны кейін өзгерте алмайсыз. Орынсыз, ұятсыз сөздері болса, тіркелгіңіз толықтай жабылады!</string>
+  <string name="signupEmailHint">Құпиясөзді қайта орнату үшін ғана керек.</string>
   <string name="password">Құпиясөз</string>
   <string name="changePassword">Құпиясөзді өзгерту</string>
   <string name="changeEmail">Поштаны ауыстыру</string>

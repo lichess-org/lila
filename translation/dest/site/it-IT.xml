@@ -59,8 +59,8 @@
   <string name="depthX">Profondità %s</string>
   <string name="usingServerAnalysis">Analisi del computer in uso</string>
   <string name="loadingEngine">Caricamento del motore di analisi...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calcolando le mosse...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Errore nel caricamento del motore</string>
+  <string name="calculatingMoves">Calcolando le mosse...</string>
+  <string name="engineFailed">Errore nel caricamento del motore</string>
   <string name="cloudAnalysis">Analisi nel cloud</string>
   <string name="goDeeper">Aumenta la profondità</string>
   <string name="showThreat">Mostra minaccia</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Cambia nome utente</string>
   <string name="changeUsernameNotSame">Puoi cambiare solamente il maiuscolo/minuscolo delle lettere (per esempio da \"mariorossi\" a \"MarioRossi\").</string>
   <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
+  <string name="signupUsernameHint">Assicurati di scegliere un nome utente appropriato. Non potrai cambiarlo successivamente e gli account con nomi inappropriati saranno cancellati!</string>
+  <string name="signupEmailHint">Lo useremo solamente per reimpostare la tua password.</string>
   <string name="password">Password</string>
   <string name="changePassword">Cambia password</string>
   <string name="changeEmail">Cambia email</string>

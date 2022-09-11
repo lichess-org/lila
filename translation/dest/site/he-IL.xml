@@ -61,8 +61,8 @@
   <string name="depthX">בעומק של %s מהלכים</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
   <string name="loadingEngine">טוען מנוע...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">מחשב מהלכים...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">שגיאה בטעינת המנוע</string>
+  <string name="calculatingMoves">מחשב מהלכים...</string>
+  <string name="engineFailed">שגיאה בטעינת המנוע</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
   <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצגת איום</string>
@@ -219,6 +219,8 @@
   <string name="changeUsername">שנה שם משתמש</string>
   <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ-\"johndoe\" ל-\"JohnDoe\".</string>
   <string name="changeUsernameDescription">שנוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
+  <string name="signupUsernameHint">ודאו ששם המשתמש שלכם מתאים גם לילדים. לא תוכלו לשנות אותו מאוחר יותר וחשבונות עם שמות משתמש לא הולמים יסגרו!</string>
+  <string name="signupEmailHint">רק לצורך איפוס הסיסמה.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שינוי סיסמה</string>
   <string name="changeEmail">שינוי דוא״ל</string>
@@ -289,7 +291,7 @@
   <string name="spectatorRoom">חדר צופים</string>
   <string name="composeMessage">כתיבת הודעה</string>
   <string name="subject">נושא</string>
-  <string name="send">שלח</string>
+  <string name="send">שליחה</string>
   <string name="incrementInSeconds">תוספת בשניות</string>
   <string name="freeOnlineChess">שחמט חינמי ברשת</string>
   <plurals name="nbRated">
@@ -554,7 +556,7 @@
   <string name="no">לא</string>
   <string name="yes">כן</string>
   <string name="help">עזרה:</string>
-  <string name="createANewTopic">צור נושא חדש</string>
+  <string name="createANewTopic">צרו נושא חדש</string>
   <string name="topics">נושאים</string>
   <string name="posts">פוסטים</string>
   <string name="lastPost">הפוסט האחרון</string>
@@ -695,7 +697,7 @@
   <string name="aboutSimulSettings">המשחקים הסימולטניים הם תמיד לא מדורגים. האפשרויות של: \"נסה שוב\", ״החזר מהלך״ ו\"הוסף זמן\" מבוטלות.</string>
   <string name="create">צור</string>
   <string name="whenCreateSimul">כאשר את/ה יוצר/ת משחק סימולטני, את/ה זוכה לשחק עם שחקנים רבים בו זמנית.</string>
-  <string name="simulVariantsHint">אם אתה בוחר מספר גרסאות, כל שחקן יריב זוכה לבחור גרסה למשחק.</string>
+  <string name="simulVariantsHint">אם תבחר/י מספר גרסאות, כל שחקן יריב יזכה לבחור גרסה למשחק.</string>
   <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק נגד יותר שחקנים, כך תזדקק ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
   <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>

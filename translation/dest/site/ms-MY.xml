@@ -58,7 +58,7 @@
   <string name="depthX">Kedalaman %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
   <string name="loadingEngine">Memuatkan enjin ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Mengira pergerakan...</string>
+  <string name="calculatingMoves">Mengira pergerakan...</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Pergi lebih mendalam</string>
   <string name="showThreat">Tunjukkan ancaman</string>

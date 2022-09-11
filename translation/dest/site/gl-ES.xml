@@ -59,8 +59,8 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>
   <string name="loadingEngine">Cargando módulo ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calculando movementos...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Erro ao cargar motor no dispositivo local</string>
+  <string name="calculatingMoves">Calculando movementos...</string>
+  <string name="engineFailed">Erro ao cargar motor no dispositivo local</string>
   <string name="cloudAnalysis">Análise na nube</string>
   <string name="goDeeper">Con máis detalle</string>
   <string name="showThreat">Amosar ameaza</string>

@@ -61,8 +61,8 @@
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
   <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Obliczanie ruchów...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Błąd ładowania silnika</string>
+  <string name="calculatingMoves">Obliczanie ruchów...</string>
+  <string name="engineFailed">Błąd ładowania silnika</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
@@ -219,6 +219,8 @@
   <string name="changeUsername">Zmień nazwę użytkownika</string>
   <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
+  <string name="signupUsernameHint">Wybierz przyjazną nazwę użytkownika. Nie możesz jej później zmienić, a niestosowna nazwa spowoduje zamknięcie konta!</string>
+  <string name="signupEmailHint">Użyjemy go tylko do resetowania hasła.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
   <string name="changeEmail">Zmień adres e-mail</string>
