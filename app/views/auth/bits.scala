@@ -19,7 +19,7 @@ object bits {
       form3.group(
         username,
         if (register) trans.username() else trans.usernameOrEmail(),
-        help = trans.signupUsernameHint().some
+        help = register option trans.signupUsernameHint()
       ) { f =>
         frag(
           form3.input(f)(autofocus, required, autocomplete := "username"),
