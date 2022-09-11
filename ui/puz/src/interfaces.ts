@@ -7,12 +7,14 @@ export interface PuzCtrl {
   vm: PuzVm;
   toggleFilterSlow: () => void;
   toggleFilterFailed: () => void;
+  toggleFilterSkipped: () => void;
   trans: Trans;
 }
 
 export interface PuzVm {
   filterFailed: boolean;
   filterSlow: boolean;
+  filterSkipped: boolean;
 }
 
 export interface PuzPrefs {
@@ -49,6 +51,7 @@ export interface Run {
 export interface Round {
   puzzle: Puzzle;
   win: boolean;
+  skip: boolean;
   millis: number;
 }
 

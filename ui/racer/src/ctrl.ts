@@ -31,6 +31,7 @@ export default class RacerCtrl {
   boost: Boost = new Boost();
   skipAvailable = true;
   knowsSkip = storedBooleanProp('racer.skip', false);
+  skippedPuzzleID: string;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
 
@@ -145,6 +146,7 @@ export default class RacerCtrl {
   skip = () => {
     if (this.skipAvailable && this.run.clock.started()) {
       this.skipAvailable = false;
+      this.skippedPuzzleID = this.run.current.puzzle.id;
       sound.good();
       this.playUci(this.run.current.expectedMove());
       this.knowsSkip(true);
@@ -232,6 +234,7 @@ export default class RacerCtrl {
     this.run.history.push({
       puzzle: this.data.puzzles[this.run.current.index],
       win,
+      skip: this.skippedPuzzleID === this.run.current.puzzle.id,
       millis: getNow() - this.run.current.startAt,
     });
 

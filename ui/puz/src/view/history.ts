@@ -13,13 +13,30 @@ const slowPuzzleIds = (ctrl: PuzCtrl): Set<string> | undefined => {
   return new Set(ctrl.run.history.filter(r => r.millis > threshold).map(r => r.puzzle.id));
 };
 
+const skippedPuzzleIds = (ctrl: PuzCtrl): Set<string> | undefined => {
+  if (!ctrl.vm.filterSkipped || !ctrl.run.history.length) return undefined;
+  return new Set(ctrl.run.history.filter(r => r.skip).map(r => r.puzzle.id));
+};
+
 export default (ctrl: PuzCtrl): VNode => {
   const slowIds = slowPuzzleIds(ctrl);
+  const skippedIds = skippedPuzzleIds(ctrl);
   const noarg = ctrl.trans.noarg;
   return h('div.puz-history.box.box-pad', [
     h('div.box__top', [
       h('h2', ctrl.trans('puzzlesPlayed')),
       h('div.box__top__actions', [
+        h(
+          'button.puz-history__filter.button',
+          {
+            class: {
+              active: ctrl.vm.filterSkipped,
+              'button-empty': !ctrl.vm.filterSkipped,
+            },
+            hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterSkipped)),
+          },
+          noarg('skippedPuzzles')
+        ),
         h(
           'button.puz-history__filter.button',
           {
@@ -47,7 +64,12 @@ export default (ctrl: PuzCtrl): VNode => {
     h(
       'div.puz-history__rounds',
       ctrl.run.history
-        .filter(r => (!r.win || !ctrl.vm.filterFailed) && (!slowIds || slowIds.has(r.puzzle.id)))
+        .filter(
+          r =>
+            (!r.win || !ctrl.vm.filterFailed) &&
+            (!slowIds || slowIds.has(r.puzzle.id)) &&
+            (!skippedIds || skippedIds.has(r.puzzle.id))
+        )
         .map(round =>
           h(
             'div.puz-history__round',
