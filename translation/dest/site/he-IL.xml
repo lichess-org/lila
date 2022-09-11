@@ -262,7 +262,7 @@
   <string name="accept">הסכמה</string>
   <string name="decline">סירוב</string>
   <string name="playingRightNow">מתקיים עכשיו</string>
-  <string name="eventInProgress">מתקיימים עכשיו</string>
+  <string name="eventInProgress">מתקיים עכשיו</string>
   <string name="finished">הסתיים</string>
   <string name="finishesX">נגמר עוד %s</string>
   <string name="abortGame">ביטול המשחק</string>
