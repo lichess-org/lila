@@ -12,6 +12,7 @@ import lila.common.config
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.Holder
+import lila.evaluation.PlayerAssessment
 
 final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
 
@@ -38,7 +39,8 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
     }
 
   private def fetchGames(user: lila.user.User, filter: Filter) = {
-    val select = toDbSelect(filter) ++ lila.game.Query.finished
+    val select =
+      toDbSelect(filter) ++ lila.game.Query.finished ++ lila.game.Query.turnsGt(PlayerAssessment.minPlies - 1)
     import akka.stream.scaladsl._
     env.game.gameRepo
       .recentGamesByUserFromSecondaryCursor(user, select)
