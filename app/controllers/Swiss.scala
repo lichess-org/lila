@@ -58,7 +58,7 @@ final class Swiss(
                 env.user.lightUserApi.preloadMany(c.chat.userIds)
               }
               streamers  <- streamerCache get swiss.id
-              isLocalMod <- canChat ?? canModChat(swiss)
+              isLocalMod <- canChat ?? ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
             } yield Ok(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           },
           api = _ =>
@@ -355,10 +355,6 @@ final class Swiss(
         case _                             => fuTrue
       }
     }
-
-  private def canModChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
-    if (isGranted(_.ChatTimeout)) fuTrue
-    else ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
 
   private val streamerCache =
     env.memo.cacheApi[SwissModel.Id, List[UserModel.ID]](64, "swiss.streamers") {
