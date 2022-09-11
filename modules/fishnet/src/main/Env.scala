@@ -38,6 +38,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
+    userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -123,10 +124,14 @@ final class Env(
     new lila.common.Cli {
       def process = {
         case "fishnet" :: "client" :: "create" :: name :: Nil =>
-          val userId = name.toLowerCase
-          api.createClient(Client.UserId(userId)) map { client =>
-            Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
-            s"Created key: ${client.key.value} for: $userId"
+          val userId = lila.user.User normalize name
+          userRepo.enabledById(userId).map(_.exists(_.marks.clean)) flatMap {
+            case false => fuccess("User missing, closed, or banned")
+            case true =>
+              api.createClient(Client.UserId(userId)) map { client =>
+                Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
+                s"Created key: ${client.key.value} for: $userId"
+              }
           }
         case "fishnet" :: "client" :: "delete" :: key :: Nil =>
           repo toKey key flatMap repo.deleteClient inject "done!"
