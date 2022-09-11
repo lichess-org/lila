@@ -181,7 +181,8 @@ object Permission {
           Streamers,
           DisableTwoFactor,
           ChangePermission,
-          StudyAdmin
+          StudyAdmin,
+          BroadcastTimeout
         ),
         "Admin"
       )
