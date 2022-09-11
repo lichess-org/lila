@@ -281,7 +281,7 @@
   <string name="rematchOfferCanceled">בקשה למשחק חוזר בוטלה</string>
   <string name="rematchOfferDeclined">בקשה למשחק חוזר נדחתה</string>
   <string name="cancelRematchOffer">ביטול ההצעה למשחק חוזר</string>
-  <string name="viewRematch">צפה במשחק החוזר</string>
+  <string name="viewRematch">צפייה במשחק החוזר</string>
   <string name="confirmMove">אישור המהלך</string>
   <string name="play">שחקו</string>
   <string name="inbox">תיבת דואר</string>
@@ -744,7 +744,7 @@
   <string name="downloadImported">הורד משחק מיובא</string>
   <string name="crosstable">חשבון הנקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול כדי להתקדם במשחק.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">רחף מעל וריאציות המחשב עם העכבר בשביל לראות תצוגה מקדימה שלהן.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">רחפו מעל וריאציות המחשב עם העכבר בשביל לראות תצוגה מקדימה שלהן.</string>
   <string name="analysisShapesHowTo">הקש \"Shift\" + מקש עכבר שמאלי או ימני כדי לצייר חצים ועיגולים על הלוח.</string>
   <string name="letOtherPlayersMessageYou">אפשר/י לשחקנים אחרים לשלוח לך הודעות</string>
   <string name="receiveForumNotifications">קבל/י התראות כשאת/ה מתויג/ת בפורום</string>
