@@ -59,8 +59,8 @@
   <string name="depthX">Syvyys %s</string>
   <string name="usingServerAnalysis">Palvelimen analyysi</string>
   <string name="loadingEngine">Tietokonetta ladataan ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Lasketaan siirtoja...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Virhe tietokoneen lataamisessa</string>
+  <string name="calculatingMoves">Lasketaan siirtoja...</string>
+  <string name="engineFailed">Virhe tietokoneen lataamisessa</string>
   <string name="cloudAnalysis">Pilvianalyysi</string>
   <string name="goDeeper">Syvennä analyysiä</string>
   <string name="showThreat">Näytä uhka</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Muuta käyttäjänimeä</string>
   <string name="changeUsernameNotSame">Voit muuttaa vain pieniä kirjaimia isoiksi tai toisinpäin. Esimerkiksi \"mattimeikäläinen\" voidaan muuttaa muotoon \"MattiMeikäläinen\".</string>
   <string name="changeUsernameDescription">Muuta käyttäjänimeä. Tämän voi tehdä vain kerran. Voit muuttaa vain pieniä kirjaimia isoiksi kirjaimiksi ja toisinpäin.</string>
+  <string name="signupUsernameHint">Nimeä käyttäjätunnuksesi niin, että se sopii kaikenikäisten nähtäväksi. Et voi muuttaa tunnusta myöhemmin. Kaikki epäasiallisesti nimetyt käyttäjätunnukset suljetaan!</string>
+  <string name="signupEmailHint">Käytämme sitä vain, jos pyydät uutta salasanaa.</string>
   <string name="password">Salasana</string>
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>

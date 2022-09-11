@@ -59,8 +59,8 @@
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Bruker serveranalyse</string>
   <string name="loadingEngine">Laster sjakkmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Beregner trekk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Kunne ikke laste sjakkmotor</string>
+  <string name="calculatingMoves">Beregner trekk...</string>
+  <string name="engineFailed">Kunne ikke laste sjakkmotor</string>
   <string name="cloudAnalysis">Skyanalyse</string>
   <string name="goDeeper">Gå dypere</string>
   <string name="showThreat">Vis trussel</string>

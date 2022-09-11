@@ -58,8 +58,8 @@
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用中</string>
   <string name="loadingEngine">エンジン読み込み中…</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">手を読んでいます…</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">エンジン読み込みエラー</string>
+  <string name="calculatingMoves">手を読んでいます…</string>
+  <string name="engineFailed">エンジン読み込みエラー</string>
   <string name="cloudAnalysis">クラウド解析</string>
   <string name="goDeeper">より深く</string>
   <string name="showThreat">狙いを表示</string>
@@ -186,6 +186,8 @@
   <string name="changeUsername">ユーザー名の変更</string>
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
+  <string name="signupUsernameHint">ユーザー名は無難なものにしてください。後で変えることはできないし、ユーザー名が不適切だとアカウントが閉鎖されます！</string>
+  <string name="signupEmailHint">この情報はパスワードのリセットにのみ使用します。</string>
   <string name="password">パスワード</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>

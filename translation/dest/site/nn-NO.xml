@@ -59,8 +59,8 @@
   <string name="depthX">Djupn %s</string>
   <string name="usingServerAnalysis">Brukar serveranalyse</string>
   <string name="loadingEngine">Lastar sjakkmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Reknar på trekk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Feil under innlasting av berekningsmotor</string>
+  <string name="calculatingMoves">Reknar på trekk...</string>
+  <string name="engineFailed">Feil under innlasting av berekningsmotor</string>
   <string name="cloudAnalysis">Skyanalyse</string>
   <string name="goDeeper">Søk djupare</string>
   <string name="showThreat">Vis trussel</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Endre brukarnamn</string>
   <string name="changeUsernameNotSame">Du kan berre bytte små til store bokstavar, eller store til små. Til dømes \"olanormann\" til \"OlaNormann\".</string>
   <string name="changeUsernameDescription">Endre brukarnamnet. Det kan berre gjerast ein gong, og du kan berre endre store bokstavar til små eller små til store.</string>
+  <string name="signupUsernameHint">Gå for eit familievenleg brukarnamn. Namnet kan ikkje endrast seinare og kontoar med upassande brukarnamn vert stengde!</string>
+  <string name="signupEmailHint">Vi vil berre bruka den dersom det vert naudsynt å nullstilla passordet.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Endre passord</string>
   <string name="changeEmail">Endre e-postadresse</string>

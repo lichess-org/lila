@@ -59,8 +59,8 @@
   <string name="depthX">Tiefe: %s</string>
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
   <string name="loadingEngine">Engine wird geladen ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Berechne Züge...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Fehler beim Laden der Engine</string>
+  <string name="calculatingMoves">Berechne Züge...</string>
+  <string name="engineFailed">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
   <string name="showThreat">Drohungen anzeigen</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Benutzernamen ändern</string>
   <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
   <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
+  <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
+  <string name="signupEmailHint">Wir werden sie nur zum Zurücksetzen deines Passworts verwenden.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
