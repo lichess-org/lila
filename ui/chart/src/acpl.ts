@@ -58,7 +58,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       if (annotation && (!isHunter || isBlur)) {
         point.marker = {
           symbol: isBlur ? 'square' : 'circle',
-          radius: isBlur ? 4 : 2,
+          radius: isBlur ? 4 : 3,
           lineWidth: '1px',
           lineColor: isBlur ? hex.accent : markColor,
           fillColor: markColor,
