@@ -1,10 +1,17 @@
-import { h, thunk, VNode, VNodeData } from 'snabbdom';
-
+import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
 import { defined } from 'common';
 import { bind, dataIcon } from 'common/snabbdom';
+
+// same as ErrorColors object in chart/acpl
+const ErrorColors = {
+  // 5 hex digits.  append '0' to select black or '1' for white
+  inaccuracy: '#1c9ae',
+  blunder: '#db303',
+  mistake: '#cc9b0',
+};
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -47,17 +54,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const acpl = d.analysis![color].acpl;
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
-    ...advices.map(a => {
-      const nb: number = d.analysis![color][a.kind];
-      const style = nb ? `.symbol.${a.kind}` : '';
-      const attrs: VNodeData = nb
-        ? {
-            'data-color': color,
-            'data-symbol': a.symbol,
-          }
-        : {};
-      return h(`div.advice-summary__error${style}`, { attrs }, ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb)));
-    }),
+    ...advices.map(a => error(ctrl, d.analysis![color][a.kind], color, a)),
     h('div.advice-summary__acpl', [
       h('strong', '' + (defined(acpl) ? acpl : '?')),
       h('span', ctrl.trans.noarg('averageCentipawnLoss')),
@@ -65,15 +62,45 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   ]);
 }
 
-const doRender = (ctrl: AnalyseCtrl): VNode =>
+const error = (ctrl: AnalyseCtrl, nb: number, color: Color, advice: Advice) =>
   h(
+    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : ''),
+    { attrs: nb ? { 'data-color': color, 'data-symbol': advice.symbol } : {} },
+    ctrl.trans.vdomPlural(advice.i18n, nb, h('strong', nb))
+  );
+
+const errorColor = (symbol: string | undefined): string => {
+  if (symbol == '??') return ErrorColors.blunder;
+  else if (symbol == '?') return ErrorColors.mistake;
+  else if (symbol == '?!') return ErrorColors.inaccuracy;
+  else return '#00000'; // 5 hex digits intentional
+};
+
+const doRender = (ctrl: AnalyseCtrl): VNode => {
+  const markers = $('g.highcharts-tracker');
+
+  const showMarkers = (el: Element, visible: boolean) => {
+    const color = errorColor($(el).data('symbol')) + ($(el).data('color') == 'white' ? '1' : '0');
+    const selector = `path[stroke^='${color}']`;
+    $(selector, markers).attr('stroke-width', visible ? '6px' : '1px');
+  };
+
+  return h(
     'div.advice-summary',
     {
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function (this: Element) {
-            ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
-          });
+          $('path', markers).hide();
+          $(vnode.elm as HTMLElement)
+            .on('click', 'div.symbol', function (this: Element) {
+              ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
+            })
+            .on('mouseenter', 'div.symbol', function (this: Element) {
+              showMarkers(this, true);
+            })
+            .on('mouseleave', 'div.symbol', function (this: Element) {
+              showMarkers(this, false);
+            });
         },
       },
     },
@@ -93,6 +120,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode =>
       playerTable(ctrl, 'black'),
     ]
   );
+};
 
 export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
   const puzzle = ctrl.data.puzzle;

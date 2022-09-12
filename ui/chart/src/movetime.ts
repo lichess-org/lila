@@ -243,7 +243,7 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
           labels: disabled,
           lineWidth: 0,
           tickWidth: 0,
-          plotLines: divisionLines(data.game.division, trans),
+          plotLines: divisionLines(data.game.division, trans, true),
         },
         yAxis: [
           {
