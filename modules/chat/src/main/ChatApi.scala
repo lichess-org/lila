@@ -188,42 +188,41 @@ final class ChatApi(
         text: String,
         busChan: BusChan.Select
     ): Funit =
-      chatTimeout.add(c, mod, user, reason, scope) flatMap {
-        _ ?? {
-          val lineText = scope match {
-            case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
-            case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
+      chatTimeout.add(c, mod, user, reason, scope) flatMap { isNew =>
+        val lineText = scope match {
+          case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
+          case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
+        }
+        val line = (isNew && c.hasRecentLine(user)) option UserLine(
+          username = systemUserId,
+          title = None,
+          patron = user.isPatron,
+          text = lineText,
+          troll = false,
+          deleted = false
+        )
+        val c2   = c.markDeleted(user)
+        val chat = line.fold(c2)(c2.add)
+        coll.update.one($id(chat.id), chat).void >>- {
+          cached.invalidate(chat.id)
+          publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+          line foreach { l =>
+            publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
           }
-          val line = c.hasRecentLine(user) option UserLine(
-            username = systemUserId,
-            title = None,
-            patron = user.isPatron,
-            text = lineText,
-            troll = false,
-            deleted = false
-          )
-          val c2   = c.markDeleted(user)
-          val chat = line.fold(c2)(c2.add)
-          coll.update.one($id(chat.id), chat).void >>- {
-            cached.invalidate(chat.id)
-            publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
-            line foreach { l =>
-              publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
-            }
-            if (scope == ChatTimeout.Scope.Global) {
-              lila.common.Bus.publish(
-                lila.hub.actorApi.mod.ChatTimeout(
-                  mod = mod.id,
-                  user = user.id,
-                  reason = reason.key,
-                  text = text
-                ),
-                "chatTimeout"
-              )
+          if (scope == ChatTimeout.Scope.Global) {
+            lila.common.Bus.publish(
+              lila.hub.actorApi.mod.ChatTimeout(
+                mod = mod.id,
+                user = user.id,
+                reason = reason.key,
+                text = text
+              ),
+              "chatTimeout"
+            )
+            if (isNew)
               lila.common.Bus
                 .publish(lila.hub.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
-            } else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
-          }
+          } else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }
       }
 
