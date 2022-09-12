@@ -17,6 +17,7 @@ import lila.hub.LeaderTeam
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
+import lila.security.Granter
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -110,7 +111,7 @@ final class TeamApi(
     cached
       .teamIdsList(member.id)
       .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
-      if (viewer.exists(_ is member)) fuccess(allIds)
+      if (viewer.exists(_ is member) || viewer.exists(Granter(_.UserModView))) fuccess(allIds)
       else
         allIds.nonEmpty ?? {
           teamRepo.filterHideMembers(allIds) flatMap { hiddenIds =>
