@@ -21,7 +21,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
   const area = window.Highcharts.theme.lichess.area;
-  const hex = window.Highcharts.theme.lichess.hex;
+  const line = window.Highcharts.theme.lichess.line;
 
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
@@ -53,14 +53,14 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
       if (isBlur) {
         annotation = 'blur';
-        markColor = isWhite ? hex.white : hex.black;
+        markColor = isWhite ? line.white : line.black;
       }
       if (annotation && (!isHunter || isBlur)) {
         point.marker = {
           symbol: isBlur ? 'square' : 'circle',
           radius: isBlur ? 4 : 3,
           lineWidth: '1px',
-          lineColor: isBlur ? hex.accent : markColor,
+          lineColor: isBlur ? line.accent : markColor,
           fillColor: markColor,
         };
         point.name += ` [${annotation}]`;
@@ -100,7 +100,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         negativeFillColor: isHunter ? area.black : area.acplBlack,
         threshold: 0,
         lineWidth: 1,
-        color: hex.grey,
+        color: line.grey,
         states: {
           hover: {
             lineWidthPlus: 0,
@@ -116,13 +116,13 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
           states: {
             hover: {
               radius: 3,
-              lineColor: isHunter ? hex.accent : hex.grey,
+              lineColor: isHunter ? line.accent : line.grey,
             },
             select: {
               enabled: isHunter,
               radius: 4,
-              lineColor: hex.accent,
-              fillColor: hex.accent,
+              lineColor: line.accent,
+              fillColor: line.accent,
             },
           },
         },
@@ -174,9 +174,9 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         else el.highcharts.getSelectedPoints().forEach((point: any) => point.select(false));
       }
     : (ply: number) => {
-        const line = window.Highcharts.charts[0].xAxis[0].plotLinesAndBands[0];
-        line.options.value = ply - 1 - data.game.startedAtTurn;
-        line.render();
+        const plyline = window.Highcharts.charts[0].xAxis[0].plotLinesAndBands[0];
+        plyline.options.value = ply - 1 - data.game.startedAtTurn;
+        plyline.render(); // undocumented but...  i'm sure it's fine ;p
       };
   lichess.pubsub.emit('analysis.change.trigger');
 };

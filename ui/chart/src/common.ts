@@ -39,6 +39,11 @@ export async function loadHighcharts(tpe: string) {
       weak: light ? '#ccc' : '#404040',
       strong: light ? '#a0a0a0' : '#606060',
       fat: '#d85000',
+      white: '#ffffff',
+      black: '#333333',
+      grey: light ? '#999999' : '#777777',
+      accent: '#d85000',
+      primary: light ? '#1b78d0' : '#3692e7',
     };
     const area = {
       white: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
@@ -46,21 +51,12 @@ export async function loadHighcharts(tpe: string) {
       acplWhite: light ? '#ffffff80' : '#ffffff20',
       acplBlack: light ? '#cccccc80' : '#00000050',
     };
-    const hex = {
-      // can just append alpha to hex color strings
-      white: '#ffffff',
-      black: '#333333',
-      grey: light ? '#999999' : '#777777',
-      accent: '#d85000',
-      primary: light ? '#1b78d0' : '#3692e7',
-    };
     return {
       light: light,
       lichess: {
         text: text,
         line: line,
         area: area,
-        hex: hex,
       },
       colors: [
         '#DDDF0D',

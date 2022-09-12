@@ -4,12 +4,14 @@ interface Division {
 }
 
 export default function (div: Division, trans: Trans, colorful: boolean) {
+  // plotLines[0] reserved for current ply indicator but unused for movetimes graph or cheat hunter view
   const lines = [];
   lines.push({
-    color: colorful ? '#00000000' : '#d85000', // not used for movetimes or mods
+    color: '#d85000',
     width: 1,
     value: 0,
   });
+  const textWeak = window.Highcharts.theme.lichess.text.weak;
   if (div.middle) {
     lines.push({
       label: {
@@ -18,10 +20,10 @@ export default function (div: Division, trans: Trans, colorful: boolean) {
         align: 'left',
         y: 0,
         style: {
-          color: window.Highcharts.theme.lichess.text.weak,
+          color: textWeak,
         },
       },
-      color: colorful ? '#639B24' : window.Highcharts.theme.lichess.text.weak,
+      color: colorful ? '#639B24' : textWeak,
       width: 1,
       value: 0,
     });
@@ -32,10 +34,10 @@ export default function (div: Division, trans: Trans, colorful: boolean) {
         align: 'left',
         y: 0,
         style: {
-          color: window.Highcharts.theme.lichess.text.weak,
+          color: textWeak,
         },
       },
-      color: colorful ? '#3093cc' : window.Highcharts.theme.lichess.text.weak,
+      color: colorful ? '#3093cc' : textWeak,
       width: div.middle === null ? 0 : 1,
       value: div.middle,
     });
@@ -48,10 +50,10 @@ export default function (div: Division, trans: Trans, colorful: boolean) {
         align: 'left',
         y: 0,
         style: {
-          color: window.Highcharts.theme.lichess.text.weak,
+          color: textWeak,
         },
       },
-      color: colorful ? '#cc9730' : window.Highcharts.theme.lichess.text.weak,
+      color: colorful ? '#cc9730' : textWeak,
       width: div.end === null ? 0 : 1,
       value: div.end,
     });

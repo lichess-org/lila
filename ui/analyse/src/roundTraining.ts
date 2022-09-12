@@ -69,7 +69,7 @@ const error = (ctrl: AnalyseCtrl, nb: number, color: Color, advice: Advice) =>
     ctrl.trans.vdomPlural(advice.i18n, nb, h('strong', nb))
   );
 
-const moveColor = (symbol: string | undefined): string => {
+const errorColor = (symbol: string | undefined): string => {
   if (symbol == '??') return ErrorColors.blunder;
   else if (symbol == '?') return ErrorColors.mistake;
   else if (symbol == '?!') return ErrorColors.inaccuracy;
@@ -80,10 +80,9 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
   const markers = $('g.highcharts-tracker');
 
   const showMarkers = (el: Element, visible: boolean) => {
-    const color = moveColor($(el).data('symbol')) + ($(el).data('color') == 'white' ? '1' : '0');
+    const color = errorColor($(el).data('symbol')) + ($(el).data('color') == 'white' ? '1' : '0');
     const selector = `path[stroke^='${color}']`;
     $(selector, markers).attr('stroke-width', visible ? '6px' : '1px');
-    console.log(`${$(selector, markers)} ${selector} ${color}`);
   };
 
   return h(
