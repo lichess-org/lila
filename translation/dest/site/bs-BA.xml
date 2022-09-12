@@ -24,7 +24,7 @@
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
   <string name="youPlayTheWhitePieces">Igrate bijelim figurama</string>
-  <string name="youPlayTheBlackPieces">Igrate sa crnim figurama</string>
+  <string name="youPlayTheBlackPieces">Igrate crnim figurama</string>
   <string name="itsYourTurn">Vi Ste na Potezu!</string>
   <string name="cheatDetected">Otkriveno varanje</string>
   <string name="kingInTheCenter">Kralj u centru</string>
@@ -120,7 +120,7 @@
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računar može analizirati, i održava toplinu računara</string>
-  <string name="blunder">Velika greška</string>
+  <string name="blunder">Grubi previd</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>
   <plurals name="nbBlunders">
