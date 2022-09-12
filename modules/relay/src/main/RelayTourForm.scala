@@ -5,7 +5,7 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.util.chaining._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, toMarkdown }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, formatter, toMarkdown }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
@@ -22,7 +22,8 @@ final class RelayTourForm {
       "description"     -> cleanText(minLength = 3, maxLength = 400),
       "markdown"        -> optional(toMarkdown(cleanText(maxLength = 20_000))),
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
-      "autoLeaderboard" -> boolean
+      "autoLeaderboard" -> boolean,
+      "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply)))
     )(Data.apply)(Data.unapply)
   )
 
@@ -38,7 +39,8 @@ object RelayTourForm {
       description: String,
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
-      autoLeaderboard: Boolean
+      autoLeaderboard: Boolean,
+      players: Option[RelayPlayers]
   ) {
 
     def update(tour: RelayTour, user: User) =
@@ -48,7 +50,8 @@ object RelayTourForm {
           description = description,
           markup = markup,
           tier = tier ifTrue Granter(_.Relay)(user),
-          autoLeaderboard = autoLeaderboard
+          autoLeaderboard = autoLeaderboard,
+          players = players
         )
         .reAssignIfOfficial
 
@@ -63,7 +66,8 @@ object RelayTourForm {
         active = false,
         createdAt = DateTime.now,
         syncedAt = none,
-        autoLeaderboard = autoLeaderboard
+        autoLeaderboard = autoLeaderboard,
+        players = players
       ).reAssignIfOfficial
   }
 
@@ -75,7 +79,8 @@ object RelayTourForm {
         description = tour.description,
         markup = tour.markup,
         tier = tour.tier,
-        autoLeaderboard = tour.autoLeaderboard
+        autoLeaderboard = tour.autoLeaderboard,
+        players = tour.players
       )
   }
 }
