@@ -5,13 +5,12 @@ import * as game from 'game';
 import { defined } from 'common';
 import { bind, dataIcon } from 'common/snabbdom';
 
-// same as Colors object in chart/acpl, need a good way to export or import these there
-const Colors = {
-  inaccuracy: '#1c9ae3',
-  blunder: '#db3d3d',
-  mistake: '#cc9b00',
-  white: '#ffffff',
-  black: '#333333',
+// same as ErrorColors object in chart/acpl
+const ErrorColors = {
+  // 5 hex digits.  append '0' to select black or '1' for white
+  inaccuracy: '#1c9ae',
+  blunder: '#db303',
+  mistake: '#cc9b0',
 };
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
@@ -70,22 +69,20 @@ const error = (ctrl: AnalyseCtrl, nb: number, color: Color, advice: Advice) =>
     ctrl.trans.vdomPlural(advice.i18n, nb, h('strong', nb))
   );
 
-const lineColor = (symbol: string | undefined): string | undefined => {
-  if (symbol == '??') return Colors.blunder;
-  else if (symbol == '?') return Colors.mistake;
-  else if (symbol == '?!') return Colors.inaccuracy;
-  else return Colors.black;
+const errorColor = (symbol: string | undefined): string => {
+  if (symbol == '??') return ErrorColors.blunder;
+  else if (symbol == '?') return ErrorColors.mistake;
+  else if (symbol == '?!') return ErrorColors.inaccuracy;
+  else return '#00000'; // 5 hex digits intentional
 };
 
 const doRender = (ctrl: AnalyseCtrl): VNode => {
   const markers = $('g.highcharts-tracker');
 
   const showMarkers = (el: Element, visible: boolean) => {
-    const lineNoAlpha = lineColor($(el).data('symbol'));
-    const fillNoAlpha = $(el).data('color') == 'white' ? Colors.white : Colors.black;
-    const selector = `path[stroke^='${lineNoAlpha}'][fill^='${fillNoAlpha}']`;
-    $(selector, markers).attr('stroke', lineNoAlpha + (visible ? 'ff' : '00'));
-    $(selector, markers).attr('fill', fillNoAlpha + (visible ? 'ff' : '00'));
+    const color = errorColor($(el).data('symbol')) + ($(el).data('color') == 'white' ? '1' : '0');
+    const selector = `path[stroke^='${color}']`;
+    $(selector, markers).attr('stroke-width', visible ? '6px' : '1px');
   };
 
   return h(
