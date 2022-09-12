@@ -43,7 +43,7 @@
     <item quantity="other">יריבך עזב את המשחק. תוכל/י לדרוש ניצחון בעוד %s שניות.</item>
   </plurals>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך להכריז על ניצחון, על תיקו או להמתין.</string>
-  <string name="forceResignation">הכרז על ניצחון</string>
+  <string name="forceResignation">הכריזו על ניצחון</string>
   <string name="forceDraw">הכריזו על תיקו</string>
   <string name="talkInChat">היו אדיבים ודברו בצ׳אט בצורה נאותה!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שייכנס לכתובת הזאת ישחק איתך.</string>
