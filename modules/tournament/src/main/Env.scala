@@ -73,6 +73,8 @@ final class Env(
 
   private lazy val pause = wire[Pause]
 
+  private lazy val waitingUsers = wire[WaitingUsersApi]
+
   private lazy val socket = wire[TournamentSocket]
 
   private lazy val pairingSystem = wire[arena.PairingSystem]
