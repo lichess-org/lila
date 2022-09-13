@@ -197,6 +197,8 @@
   <string name="changeUsername">Cambià u so nome d\' utilizatore</string>
   <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
   <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
+  <string name="signupUsernameHint">Siate sicuru di sceglie un cugnome curtesu. Ùn lu puderete cambià pi tardu è i tutti i conti cù un nome seranu chjosi!</string>
+  <string name="signupEmailHint">Ùn l\' adupreremu soltantu pà riinizializà a vostra parolla d\' accessu.</string>
   <string name="password">Parolla d\'intesa</string>
   <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
   <string name="changeEmail">Cambià u vostru currieru elettronicu</string>
@@ -350,6 +352,7 @@
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i ghjucadori i più forti</string>
+  <string name="screenshotCurrentPosition">Catturà u screnu di a pusizione attuale</string>
   <string name="gameAsGIF">Trasfurmà a partita in GIF</string>
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
@@ -465,6 +468,9 @@
   <string name="socialMediaLinks">Leie di e rete suciale</string>
   <string name="oneUrlPerLine">Una URL per ogni linea.</string>
   <string name="inlineNotation">Nutazione in linea</string>
+  <string name="savingMoves">Salvà i movi di modu tempurariu</string>
+  <string name="savingMovesHelp">Salvemu sempre a variante in u vostru browser cache.</string>
+  <string name="makeAStudy">Pè guardà lu à longu andà è sparte lu, create piuttostu un studiu.</string>
   <string name="clearSavedMoves">Sfassà i movi</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucadori nantu à u situ</string>
