@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Pedinu avanzatu</string>
+  <string name="advancedPawnDescription">Unu di i vostri pedini hè avanzatu in a pusizione di l\' aversariu, podassi chì a so promuzoin hè una minaccia.</string>
+  <string name="advantage">Vantaghju</string>
+  <string name="advantageDescription">Ùn perdite l\' uccasione di piglià un vantaghju decisivu. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">U mattu d\' Anastasia</string>
+  <string name="anastasiaMateDescription">Un cavallu è una torra o una dama travaglianu inseme pè catturà u rè uppostu trà u bordu di a scacchera è una pezza di u so campu.</string>
+  <string name="arabianMate">Scaccumattu arabu</string>
+  <string name="arabianMateDescription">Un cavallu è una torra o una dama travaglianu inseme pè catturà u rè uppostu in un scornu di a scacchera.</string>
+  <string name="attackingF2F7">Attacchendu f2 o f7</string>
+  <string name="attackingF2F7Description">Un attaccu cuncentratu nantu à u pedinu f2 o f7, cum\'è in l\' attaccu figatellu.</string>
+  <string name="attraction">Attrazzione</string>
+</resources>
