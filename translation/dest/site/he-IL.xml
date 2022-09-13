@@ -533,7 +533,7 @@
   <string name="savingMoves">אחסון מהלכים זמני</string>
   <string name="savingMovesHelp">אנו מאחסנים את המהלכים שלך במחסנית של הדפדפן.</string>
   <string name="makeAStudy">כדי לשמור ולשתף, תוכל/י ליצור לוח למידה.</string>
-  <string name="clearSavedMoves">הסר מהלכים</string>
+  <string name="clearSavedMoves">הסרת המהלכים</string>
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
   <string name="activePlayers">הכי פעילים</string>
@@ -704,7 +704,7 @@
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
-  <string name="averageCentipawnLoss">אובדן מאית חייל ממוצע</string>
+  <string name="averageCentipawnLoss">אובדן מאית־חייל ממוצע</string>
   <string name="keyboardShortcuts">קיצורי מקלדת</string>
   <string name="keyMoveBackwardOrForward">גלול אחורה/קדימה</string>
   <string name="keyGoToStartOrEnd">מעבר להתחלה/לסיום</string>
