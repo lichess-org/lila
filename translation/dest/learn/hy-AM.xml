@@ -79,7 +79,7 @@
   <string name="checkInOneGoal">Թիրախավորե՛ք մրցակցի արքային մեկ քայլով։</string>
   <string name="checkInOneComplete">Շնորհավորո՜ւմ ենք։ Դուք շախ հայտարարեցիք մրցակցին` ստիպելով պաշտպանել արքային։</string>
   <string name="outOfCheck">Ազատում շախից</string>
-  <string name="defendYourKing">Պաշտպանեք ձեր արքային</string>
+  <string name="defendYourKing">Պաշտպանեք ձեր արքան</string>
   <string name="outOfCheckIntro">Ձեզ շա՛խ։ Դուք պետք է հեռանաք կամ ծածկվեք գրոհից։</string>
   <string name="escapeWithTheKing">Արքան փախչո՜ւմ է։</string>
   <string name="theKingCannotEscapeButBlock">Արքան չի կարող հեռանալ, բայց դուք կարող եք պաշտպանել նրան։</string>

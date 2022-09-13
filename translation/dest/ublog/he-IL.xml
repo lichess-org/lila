@@ -33,10 +33,10 @@
   <string name="noDrafts">אין טיוטות להצגה.</string>
   <string name="latestBlogPosts">פוסטים אחרונים</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">צפה בפוסט אחד</item>
-    <item quantity="two">צפה בכל הפוסטים של %s</item>
-    <item quantity="many">צפה בכל הפוסטים של %s</item>
-    <item quantity="other">צפה בכל הפוסטים של %s</item>
+    <item quantity="one">צפו בפוסט אחד</item>
+    <item quantity="two">צפו בכל הפוסטים על %s</item>
+    <item quantity="many">צפו בכל הפוסטים על %s</item>
+    <item quantity="other">צפו בכל הפוסטים על %s</item>
   </plurals>
   <string name="uploadAnImageForYourPost">העלו תמונה לפוסט שלכם</string>
   <string name="imageAlt">תיאור התמונה</string>

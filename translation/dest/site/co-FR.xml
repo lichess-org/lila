@@ -59,6 +59,8 @@
   <string name="depthX">Prufundezza %s</string>
   <string name="usingServerAnalysis">Aduprate l\' arnese d\' analisa</string>
   <string name="loadingEngine">Si telecaricheghja l\' urdinatore...</string>
+  <string name="calculatingMoves">Calculendu i movi...</string>
+  <string name="engineFailed">Difficultà in a carica di u mutore d\' anàlisi</string>
   <string name="cloudAnalysis">Analisa di u nullu</string>
   <string name="goDeeper">Analisa di modu più prufondu</string>
   <string name="showThreat">Mustrà a minaccia</string>
@@ -195,6 +197,8 @@
   <string name="changeUsername">Cambià u so nome d\' utilizatore</string>
   <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
   <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
+  <string name="signupUsernameHint">Siate sicuru di sceglie un cugnome curtesu. Ùn lu puderete cambià pi tardu è i tutti i conti cù un nome seranu chjosi!</string>
+  <string name="signupEmailHint">Ùn l\' adupreremu soltantu pà riinizializà a vostra parolla d\' accessu.</string>
   <string name="password">Parolla d\'intesa</string>
   <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
   <string name="changeEmail">Cambià u vostru currieru elettronicu</string>
@@ -206,6 +210,10 @@
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">A classifica hè attualizata ogni minuta</item>
     <item quantity="other">A classifica hè attualizata ogni %s minuti</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s prublemi</item>
+    <item quantity="other">%s prublemi</item>
   </plurals>
   <string name="gamesPlayed">Partite ghjucate</string>
   <plurals name="nbGamesWithYou">
@@ -344,6 +352,8 @@
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i ghjucadori i più forti</string>
+  <string name="screenshotCurrentPosition">Catturà u screnu di a pusizione attuale</string>
+  <string name="gameAsGIF">Trasfurmà a partita in GIF</string>
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
   <string name="orUploadPgnFile">O telecarigate un ducumentu PGN</string>
@@ -422,6 +432,8 @@
   <string name="tournamentIsStarting">Principia a ghjustra</string>
   <string name="tournamentPairingsAreNowClosed">L\' appaghjamentu di u turneu hè chjosu avà.</string>
   <string name="standByX">%s, avete da esse appaghjatu, siate prontu à ghjucà!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Ripiglià</string>
   <string name="youArePlaying">Ghjucate avà!</string>
   <string name="winRate">Percentuale di vittoria</string>
   <string name="berserkRate">Percentuale di Bersek</string>
@@ -456,6 +468,10 @@
   <string name="socialMediaLinks">Leie di e rete suciale</string>
   <string name="oneUrlPerLine">Una URL per ogni linea.</string>
   <string name="inlineNotation">Nutazione in linea</string>
+  <string name="savingMoves">Salvà i movi di modu tempurariu</string>
+  <string name="savingMovesHelp">Salvemu sempre a variante in u vostru browser cache.</string>
+  <string name="makeAStudy">Pè guardà lu à longu andà è sparte lu, create piuttostu un studiu.</string>
+  <string name="clearSavedMoves">Sfassà i movi</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucadori nantu à u situ</string>
   <string name="activePlayers">Ghjucadori attivi</string>
@@ -463,7 +479,7 @@
   <string name="success">Successu</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partita si ghjoca avà</item>
-    <item quantity="other">%s si ghjocanu avà</item>
+    <item quantity="other">%s partite si ghjocanu avà</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passà di modu automaticu à a prossima partita dopu à u colpu</string>
   <string name="autoSwitch">Auto cambiamentu</string>
@@ -559,6 +575,7 @@
   <string name="community">Cumunità</string>
   <string name="tools">Arnesi</string>
   <string name="increment">Raghjunta di tempu</string>
+  <string name="error.unknown">A valore ùn cunvene micca</string>
   <string name="error.required">U duminiu hè nicissariu</string>
   <string name="error.email">St\' indirizzu mail ùn hè valida</string>
   <string name="error.email_acceptable">St\' indirizzu mail ùn pò esse accettata. Verificate lu è provate da torna.</string>

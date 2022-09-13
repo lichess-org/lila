@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Datum dodavanja (najstarije)</string>
   <string name="recentlyUpdated">Nedavno ažurirane</string>
   <string name="mostPopular">Najpopularnije</string>
+  <string name="alphabetical">Abecedno</string>
   <string name="addNewChapter">Dodajte novo poglavlje</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Poglavlje</item>
@@ -67,12 +68,12 @@
   <string name="downloadGame">Skini partiju</string>
   <string name="studyUrl">Link studije</string>
   <string name="currentChapterUrl">Link trenutnog poglavlja</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Možete ovo zalijepiti na forumu kako biste prikazali</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Možete ovo zalijepiti na forumu ili Vašem blogu na Lichessu kako biste ugradili poglavlje</string>
   <string name="startAtInitialPosition">Krenite sa inicijalnom pozicijom</string>
   <string name="startAtX">Krenite sa %s</string>
-  <string name="embedInYourWebsite">Uključite na Vaš sajt ili blog</string>
-  <string name="readMoreAboutEmbedding">Pročitajte više o uključivanju</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">Samo javne studije mogu biti uključene!</string>
+  <string name="embedInYourWebsite">Ugradite na Vaš sajt</string>
+  <string name="readMoreAboutEmbedding">Pročitajte više o ugrađivanju</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Samo javne studije mogu biti ugrađene!</string>
   <string name="open">Otvorite</string>
   <string name="xBroughtToYouByY">%1$s vam je donio %2$s</string>
   <string name="studyNotFound">Studija nije pronađena</string>
@@ -132,7 +133,7 @@
   <string name="clearChat">Izbrišite dopisivanje</string>
   <string name="deleteTheStudyChatHistory">Da li želite izbrisati svo dopisivanje vezano za ovu studiju? Nakon ove akcije, obrisani tekst se ne može vratiti!</string>
   <string name="deleteStudy">Izbrišite studiju</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Izbrisati cijelu studiju? Nema povratka! Ukucajte naziv studije da potvrdit: %s</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Izbrisati cijelu studiju? Nema povratka! Ukucajte naziv studije da potvrdite: %s</string>
   <string name="whereDoYouWantToStudyThat">Gdje želite da ovu poziciju prostudirate?</string>
   <string name="goodMove">Dobar potez</string>
   <string name="mistake">Greška</string>
@@ -160,6 +161,7 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">S idejom</string>
   <string name="nextChapter">Sljedeće poglavlje</string>
   <string name="prevChapter">Prethodno poglavlje</string>
+  <string name="studyActions">Opcije za studiju</string>
   <string name="topics">Teme</string>
   <string name="myTopics">Moje teme</string>
   <string name="popularTopics">Popularne teme</string>
