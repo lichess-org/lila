@@ -21,17 +21,13 @@ export default class ServerEval {
         el = this.chartEl(),
         chart = el && el.highcharts;
       if (chart) {
-        if (lp === false) this.unselect(chart);
-        else {
-          const point = chart.series[0].data[lp - 1 - root.tree.root.ply];
-          if (defined(point)) point.select();
-          else this.unselect(chart);
+        if (lp) {
+          const ply: number = lp - root.tree.root.ply;
+          if (defined(chart.series[0].data[ply - 1])) (chart as any).selectPly(ply);
         }
       } else this.lastPly(false);
     });
   }
-
-  unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(p => p.select(false));
 
   reset = () => {
     this.requested(false);

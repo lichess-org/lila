@@ -56,8 +56,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         const chart = ($chart[0] as HighchartsHTMLElement).highcharts as PlyChart;
         if (chart) {
           if (mainlinePly != chart.lastPly) {
-            if (mainlinePly === false) unselect(chart);
-            else chart.selectPly(mainlinePly);
+            if (mainlinePly) chart.selectPly(mainlinePly);
           }
           chart.lastPly = mainlinePly;
         }

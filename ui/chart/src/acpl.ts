@@ -175,7 +175,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       }
     : (ply: number) => {
         const plyline = window.Highcharts.charts[0].xAxis[0].plotLinesAndBands[0];
-        plyline.options.value = ply - 1 - data.game.startedAtTurn;
+        plyline.options.value = ply - 1 - (data.game.startedAtTurn || 0);
         plyline.render(); // undocumented but...  i'm sure it's fine ;p
       };
   lichess.pubsub.emit('analysis.change.trigger');
