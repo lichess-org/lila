@@ -124,24 +124,24 @@
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
   <string name="blunder">טעות גסה</string>
   <string name="mistake">שגיאה</string>
-  <string name="inaccuracy">אי דיוק</string>
+  <string name="inaccuracy">אי־דיוק</string>
   <plurals name="nbBlunders">
-    <item quantity="one">טעות גסה %s</item>
+    <item quantity="one">%s טעות גסה</item>
     <item quantity="two">%s טעויות גסות</item>
     <item quantity="many">%s טעויות גסות</item>
     <item quantity="other">%s טעויות גסות</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">שגיאה %s</item>
+    <item quantity="one">%s שגיאה</item>
     <item quantity="two">%s שגיאות</item>
     <item quantity="many">%s שגיאות</item>
     <item quantity="other">%s שגיאות</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">אי-דיוק %s</item>
-    <item quantity="two">%s אי-דיוקים</item>
-    <item quantity="many">%s אי-דיוקים</item>
-    <item quantity="other">%s אי-דיוקים</item>
+    <item quantity="one">%s אי־דיוק</item>
+    <item quantity="two">%s אי־דיוקים</item>
+    <item quantity="many">%s אי־דיוקים</item>
+    <item quantity="other">%s אי־דיוקים</item>
   </plurals>
   <string name="moveTimes">זמני המהלכים</string>
   <string name="flipBoard">סיבוב הלוח</string>
