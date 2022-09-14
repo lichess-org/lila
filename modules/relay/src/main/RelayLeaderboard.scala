@@ -8,6 +8,7 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
 import akka.actor.Scheduler
+import chess.Outcome
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
 
@@ -53,10 +54,10 @@ final class RelayLeaderboardApi(
       case (lead, game: Tags) =>
         chess.Color.all.foldLeft(lead) { case (lead, color) =>
           game(color.name).fold(lead) { name =>
-            val (score, played) = game.resultColor.fold((0d, 0)) {
-              case None                            => (0.5, 1)
-              case Some(winner) if winner == color => (1d, 1)
-              case _                               => (0d, 1)
+            val (score, played) = game.outcome.fold((0d, 0)) {
+              case Outcome(None)                            => (0.5, 1)
+              case Outcome(Some(winner)) if winner == color => (1d, 1)
+              case _                                        => (0d, 1)
             }
             val rating = game(s"${color}Elo").flatMap(_.toIntOption)
             val title  = game(s"${color}Title")

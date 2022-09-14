@@ -70,7 +70,7 @@ final private class ExplorerGame(
     val pgn    = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
     val white  = pgn.flatMap(_.tags(_.White)) | Namer.playerTextBlocking(g.whitePlayer)(lightUserApi.sync)
     val black  = pgn.flatMap(_.tags(_.Black)) | Namer.playerTextBlocking(g.blackPlayer)(lightUserApi.sync)
-    val result = chess.Color.showResult(g.winnerColor)
+    val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
     val event: Option[String] =
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match {
         case (Some(event), Some(year)) if event.contains(year) => event.some
