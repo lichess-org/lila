@@ -42,14 +42,26 @@ const advices: Advice[] = [
   { kind: 'blunder', i18n: 'nbBlunders', symbol: '??' },
 ];
 
+const winPercentage = (centipawns: number) => 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * centipawns)) - 1);
+const moveAccuracy = (evaluationBefore: number, evaluationAfter: number) =>
+  103.1668 * Math.exp(-0.04354 * (winPercentage(evaluationBefore) - winPercentage(evaluationAfter))) - 3.1669;
+const harmonicMean = (numbers: number[]) => numbers.length / numbers.reduce((left, right) => left + 1 / right, 0);
+
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const d = ctrl.data;
   const acpl = d.analysis![color].acpl;
-  const incorrectMoves = advices
-    .map(advice => d.analysis![color][advice.kind])
-    .reduce((left, right) => left + right, 0);
-  const numberOfMoves = ctrl.data.game.turns - (ctrl.data.game.startedAtTurn || 0);
-  const accuracy = Math.round((1 - incorrectMoves / numberOfMoves) * 100);
+  const positions = ctrl.mainline.filter(node => defined(node.eval)).map(node => node.eval!.cp);
+  const moves = positions.slice(0, -1).map((evaluation, index) => [evaluation, positions[index + 1]]);
+  const colorParity = color === 'white' ? 0 : 1;
+  const colorMultiplier = color === 'white' ? 1 : -1;
+  const playerMoves = moves
+    .filter((_move, index) => index % 2 === colorParity)
+    .filter(([pos1, pos2]) => defined(pos1) && defined(pos2));
+  const moveAccuracies = playerMoves
+    .map(([pos1, pos2]) => moveAccuracy(pos1! * colorMultiplier, pos2! * colorMultiplier))
+    .filter(accuracy => accuracy > 0);
+  const accuracy = Math.round(harmonicMean(moveAccuracies.map(accuracy => accuracy / 100)) * 100);
+
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => {
