@@ -64,7 +64,7 @@
   <string name="cloudAnalysis">Analisa di u nullu</string>
   <string name="goDeeper">Analisa di modu più prufondu</string>
   <string name="showThreat">Mustrà a minaccia</string>
-  <string name="inLocalBrowser">in u navigatore lucale</string>
+  <string name="inLocalBrowser">in u navigadore lucale</string>
   <string name="toggleLocalEvaluation">Commutà versu a valutazione lucale</string>
   <string name="promoteVariation">Palisà a variante</string>
   <string name="makeMainLine">Fà ne a linea principale</string>
@@ -143,7 +143,7 @@
     <item quantity="one">%s ghjucadore</item>
     <item quantity="other">%s ghjucadori</item>
   </plurals>
-  <string name="drawByMutualAgreement">Partita patta per via d\' un accusentu</string>
+  <string name="drawByMutualAgreement">Partita patta per via d\' un accunsentu</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta movi senza prugressi</string>
   <string name="currentGames">Partite ghjucate in direttu</string>
   <plurals name="nbGames">
@@ -159,7 +159,7 @@
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
   <string name="signUp">Arrigistrà si</string>
-  <string name="computersAreNotAllowedToPlay">L\' urdinatore è i ghjocatori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucadore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucadori chì anu troppu conti seranu messi fora.</string>
+  <string name="computersAreNotAllowedToPlay">L\' urdinatori è i ghjocadori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucadore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucadori chì anu troppu conti seranu messi fora.</string>
   <string name="games">Partite</string>
   <string name="forum">Foru</string>
   <string name="xPostedInForumY">%1$s pustatu in u sughjettu %2$s</string>
@@ -390,8 +390,8 @@
   <string name="followsYou">Vi segue</string>
   <string name="xStartedFollowingY">%1$s hà principiatu à segue%2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s seguitore</item>
-    <item quantity="other">%s seguitori</item>
+    <item quantity="one">%s sustenidore</item>
+    <item quantity="other">%s sustenidori</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s seguitu</item>
@@ -410,7 +410,7 @@
   <string name="required">Dumandata.</string>
   <string name="openTournaments">Ghjustre aperte</string>
   <string name="duration">Durata</string>
-  <string name="winner">Vincitore</string>
+  <string name="winner">Vincidore</string>
   <string name="standing">Classifica</string>
   <string name="createANewTournament">Creà un turneu novu</string>
   <string name="tournamentCalendar">Almanancu di i turnei</string>
@@ -663,7 +663,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Vi avemu mandatu un email. Clicate nantu à a leia mintuvatu in u mail pè attivà u vostru contu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">S\'è ùn pudete micca vede u mail, verificate in l\' altri cartulari di a scatula mail, rumenzula, spami.</string>
   <string name="weHaveSentYouAnEmailTo">Avemu mandatu un mail à %s. Clicate nantu à a leia in u mail pè creà da torna a vostra parolla d\' intesa.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">L\' arregistramentu induce un accusentu cù i nostri %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">L\' arregistramentu induce un accunsentu cù i nostri %s.</string>
   <string name="readAboutOur">Leghje i nostri%s.</string>
   <string name="networkLagBetweenYouAndLichess">A cunnessione trà voi è Lichess ùn viaghja micca</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempu pè trattà un colpu nantu à u servitore Lichess</string>
@@ -806,10 +806,10 @@
   <string name="thankYouForReading">Vi ringraziemu d\' avè lettu!</string>
   <string name="lifetimeScore">Storia di i risultati</string>
   <string name="currentMatchScore">Risultatu di u scontru attuale</string>
-  <string name="agreementAssistance">Sò d\' accusentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, un libru, una databasa o d\' una altra persona).</string>
-  <string name="agreementNice">Sò d\' accusentu chì seraghju sempre rispettosu di l\' altri ghjucadori.</string>
+  <string name="agreementAssistance">Sò d\' accunsentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, d\'un libru, d\'una databasa o d\' una altra persona).</string>
+  <string name="agreementNice">Sò d\' accunsentu chì seraghju sempre rispettosu di l\' altri ghjucadori.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Accettu d\' ùn creà parechji conti ( for\' di i raggioni mintuvati in u %s).</string>
-  <string name="agreementPolicy">Sò d\' accusentu chì seguiteraghju tutte e regule di Lichess.</string>
+  <string name="agreementPolicy">Sò d\' accunsentu chì seguiteraghju tutte e regule di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cercà o principià una chjachjera nova</string>
   <string name="edit">Edità</string>
   <string name="rapid">Rapida</string>
@@ -820,7 +820,7 @@
   <string name="rapidDesc">Partite rapide: da 8 à 25 minuti</string>
   <string name="classicalDesc">Partite classiche: 25 minuti è più</string>
   <string name="correspondenceDesc">Partite pè via di a currespondenza: unu o parechji ghorni pè ghjucà un colpu</string>
-  <string name="puzzleDesc">Allenatore di tattica</string>
+  <string name="puzzleDesc">Allenadore di tattica</string>
   <string name="important">Impurtante</string>
   <string name="yourQuestionMayHaveBeenAnswered">A vostra dumanda puderia avè dighjà una risposta %1$s</string>
   <string name="inTheFAQ">in a FAD</string>
@@ -844,7 +844,7 @@
   <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allenatore.</string>
+  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allenadore.</string>
   <string name="newPendingReview">Un utilzatore cerca un allenadore</string>
   <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
