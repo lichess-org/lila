@@ -408,7 +408,7 @@
     <item quantity="other">Menu di %s minuti</item>
   </plurals>
   <string name="required">Dumandata.</string>
-  <string name="openTournaments">Ghjustra apperta</string>
+  <string name="openTournaments">Ghjustre aperte</string>
   <string name="duration">Durata</string>
   <string name="winner">Vincitore</string>
   <string name="standing">Classifica</string>
@@ -845,7 +845,7 @@
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allenatore.</string>
-  <string name="newPendingReview">Un utilzatore cerca un allenatore</string>
+  <string name="newPendingReview">Un utilzatore cerca un allenadore</string>
   <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
