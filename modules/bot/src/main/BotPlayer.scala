@@ -75,14 +75,16 @@ final class BotPlayer(
     Bus.publish(Tell(id, msg), "roundSocket")
 
   def abort(pov: Pov): Funit =
-    if (!pov.game.abortable) clientError("This game can no longer be aborted")
+    if (!pov.game.abortableByUser) clientError("This game can no longer be aborted")
     else
       fuccess {
         tellRound(pov.gameId, Abort(pov.playerId))
       }
 
   def resign(pov: Pov): Funit =
-    if (pov.game.abortable) abort(pov)
+    if (pov.game.abortableByUser) fuccess {
+      tellRound(pov.gameId, Abort(pov.playerId))
+    }
     else if (pov.game.resignable) fuccess {
       tellRound(pov.gameId, Resign(pov.playerId))
     }
