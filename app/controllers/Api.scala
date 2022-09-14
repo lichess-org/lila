@@ -11,6 +11,7 @@ import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
+import lila.game.GamesByIdsStream
 
 final class Api(
     env: Env,
@@ -340,15 +341,47 @@ final class Api(
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
       val max = me.fold(300) { u => if (u.id == "lichess4545") 900 else 500 }
-      GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-        addKeepAlive(
-          env.game.gamesByUsersStream(
-            userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet,
-            withCurrentGames = getBool("withCurrentGames", req)
+      withIdsFromReqBody(req, max) { ids =>
+        GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+          addKeepAlive(
+            env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
           )
-        )
-      )(sourceToNdJsonOption).fuccess
+        )(sourceToNdJsonOption)
+      }.fuccess
     }
+
+  def gamesByIdsStream(streamId: String) =
+    AnonOrScopedBody(parse.tolerantText)() { req => me =>
+      withIdsFromReqBody(req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
+        GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+          addKeepAlive(
+            env.game.gamesByIdsStream(
+              streamId,
+              initialIds = ids,
+              maxGames = if (me.isDefined) 5_000 else 1_000
+            )
+          )
+        )(sourceToNdJsonOption)
+      }.fuccess
+    }
+
+  def gamesByIdsStreamAddIds(streamId: String) =
+    AnonOrScopedBody(parse.tolerantText)() { req => me =>
+      withIdsFromReqBody(req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
+        env.game.gamesByIdsStream.addGameIds(streamId, ids)
+        jsonOkResult
+      }.fuccess
+    }
+
+  private def gamesByIdsMax(me: Option[lila.user.User]) =
+    me.fold(500) { u => if (u.id == "challengermode") 10_000 else 1000 }
+  private def withIdsFromReqBody(req: Request[String], max: Int, transform: String => String = identity)(
+      f: Set[String] => Result
+  ): Result = {
+    val ids = req.body.split(',').view.map(s => transform(s.trim)).filter(_.nonEmpty).toSet
+    if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
+    else f(ids)
+  }
 
   def cloudEval =
     Action.async { req =>
