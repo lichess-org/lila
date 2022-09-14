@@ -86,6 +86,7 @@ export default class RoundController {
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   voiceMove: boolean;
+  keybaordMove: boolean;
 
   private music?: any;
 
@@ -93,7 +94,8 @@ export default class RoundController {
     round.massage(opts.data);
 
     const d = (this.data = opts.data);
-    this.voiceMove = this.data.voiceMove;
+    this.voiceMove = d.voiceMove;
+    this.keyboardMove = d.keyboardMove;
 
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;

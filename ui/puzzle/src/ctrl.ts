@@ -101,7 +101,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           userJumpPlyDelta,
           next: nextPuzzle,
           vote,
-          // TODO: keyboardMove: opts.pref.keyboardMove
+          keyboardMove: opts.pref.keyboardMove,
           voiceMove: opts.pref.voiceMove,
         },
         { fen: this.vm.node.fen }
