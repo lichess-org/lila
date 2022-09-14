@@ -45,6 +45,11 @@ const advices: Advice[] = [
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const d = ctrl.data;
   const acpl = d.analysis![color].acpl;
+  const incorrectMoves = advices
+    .map(advice => d.analysis![color][advice.kind])
+    .reduce((left, right) => left + right, 0);
+  const numberOfMoves = ctrl.data.game.turns - (ctrl.data.game.startedAtTurn || 0);
+  const accuracy = Math.round((1 - incorrectMoves / numberOfMoves) * 100);
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => {
@@ -61,6 +66,10 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     h('div.advice-summary__acpl', [
       h('strong', '' + (defined(acpl) ? acpl : '?')),
       h('span', ctrl.trans.noarg('averageCentipawnLoss')),
+    ]),
+    h('div.advice-summary__accuracy', [
+      h('strong', '' + (defined(d.analysis) ? accuracy : '?')),
+      h('span', ctrl.trans.noarg('accuracy')),
     ]),
   ]);
 }

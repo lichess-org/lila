@@ -634,6 +634,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
   <string name="timeBeforeTournamentStarts">Time before tournament starts</string>
   <string name="averageCentipawnLoss">Average centipawn loss</string>
+  <string name="accuracy">Accuracy</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
