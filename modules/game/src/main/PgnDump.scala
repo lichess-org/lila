@@ -3,7 +3,7 @@ package lila.game
 import chess.format.Forsyth
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
 import chess.format.{ pgn => chessPgn, FEN }
-import chess.{ Centis, Color }
+import chess.{ Centis, Color, Outcome }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
@@ -203,6 +203,5 @@ object PgnDump {
   }
 
   def result(game: Game) =
-    if (game.finished) Color.showResult(game.winnerColor)
-    else "*"
+    Outcome.showResult(game.finished option Outcome(game.winnerColor))
 }
