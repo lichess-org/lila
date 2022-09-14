@@ -14,9 +14,8 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
   def apply(streamId: String, initialIds: Set[Game.ID], maxGames: Int): Source[JsValue, _] = {
-    println(initialIds)
     val startStream = Source.queue[Game](
-      150 atLeast initialIds.size,
+      bufferSize = maxGames,
       akka.stream.OverflowStrategy.dropHead
     ) mapMaterializedValue { queue =>
       var watchedIds = initialIds
