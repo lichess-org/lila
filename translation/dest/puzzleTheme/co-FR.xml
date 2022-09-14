@@ -23,4 +23,11 @@
   <string name="capturingDefender">Catturà u difendidore</string>
   <string name="crushing">Sfracellu</string>
   <string name="crushingDescription">Sfuttà u sbagliu di l\' aversariu per uttene un vantaghju decisivu. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">Scaccu mattu cù dui alfieri</string>
+  <string name="dovetailMate">Mattu di Cozio</string>
+  <string name="equality">Ugualità</string>
+  <string name="kingsideAttack">Assaltu nantu à u latu di u rè</string>
+  <string name="clearance">Liquidazione</string>
+  <string name="defensiveMove">Colpu di difesa</string>
+  <string name="deflection">Scansa</string>
 </resources>
