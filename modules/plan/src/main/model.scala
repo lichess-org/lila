@@ -219,7 +219,9 @@ case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cy
     price   <- pricing.get[PayPalAmount]("fixed_price")(JsonHandlers.payPal.AmountReads)
   } yield price.money.currency
 }
+case class PayPalTransactionId(value: String) extends AnyVal with StringValue
 case class PayPalCapture(
+    id: PayPalTransactionId,
     amount: PayPalAmount,
     custom_id: String,
     status: String
@@ -231,9 +233,10 @@ case class PayPalSaleAmount(total: BigDecimal, currency: Currency) {
   def amount = PayPalAmount(total, currency)
 }
 case class PayPalSale(
+    id: PayPalTransactionId,
     amount: PayPalSaleAmount,
     custom: String,
     state: String
 ) {
-  def toCapture = PayPalCapture(amount.amount, custom_id = custom, status = state)
+  def toCapture = PayPalCapture(id, amount.amount, custom_id = custom, status = state)
 }
