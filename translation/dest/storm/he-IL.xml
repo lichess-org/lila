@@ -9,7 +9,7 @@
   <string name="newMonthlyHighscore">שיא חודשי חדש!</string>
   <string name="newAllTimeHighscore">שיא חדש בכל הזמנים!</string>
   <string name="previousHighscoreWasX">השיא הקודם היה %s</string>
-  <string name="playAgain">שחק שוב</string>
+  <string name="playAgain">שחק/י שוב</string>
   <plurals name="xRuns">
     <item quantity="one">ניסיון אחד</item>
     <item quantity="two">%s ניסיונות</item>
