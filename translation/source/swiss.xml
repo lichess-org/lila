@@ -107,6 +107,6 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="unlimitedAndFree">Unlimited and free</string>
   <plurals name="xOutOfYRoundsSwiss">
       <item quantity="one">%1$s / %2$s round Swiss</item>
-      <item quantity="other">%1$s / %2$s round Swiss</item>
+      <item quantity="other">%1$s / %2$s rounds Swiss</item>
   </plurals>
 </resources>
