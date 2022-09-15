@@ -55,6 +55,17 @@
     }
   }
 
+  &.unavailable {
+    piece {
+      cursor: auto;
+      opacity: 0.1;
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+
   &.usable {
     piece {
       cursor: pointer;
