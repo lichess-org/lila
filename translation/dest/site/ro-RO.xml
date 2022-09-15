@@ -670,6 +670,7 @@
   <string name="tournamentFAQ">Întrebări și răspunsuri pentru turneu</string>
   <string name="timeBeforeTournamentStarts">Timp până la începerea turneului</string>
   <string name="averageCentipawnLoss">Medie pion-cenți pierduți</string>
+  <string name="accuracy">Acuratețe</string>
   <string name="keyboardShortcuts">Scurtături taste</string>
   <string name="keyMoveBackwardOrForward">mută înapoi/înainte</string>
   <string name="keyGoToStartOrEnd">început/sfârșit</string>
