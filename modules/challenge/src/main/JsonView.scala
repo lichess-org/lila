@@ -90,6 +90,7 @@ final class JsonView(
       .add("initialFen" -> c.initialFen)
       .add("declineReason" -> c.declineReason.map(_.trans.txt()))
       .add("open" -> c.open)
+      .add("singleGame" -> c.singleGame)
 
   private def iconChar(c: Challenge) =
     if (c.variant == chess.variant.FromPosition) ''

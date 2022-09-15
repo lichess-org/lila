@@ -424,7 +424,8 @@ final class Challenge(
                 destUser = none,
                 rematchOf = none,
                 name = config.name,
-                openToUserIds = config.userIds
+                openToUserIds = config.userIds,
+                singleGame = config.singleGame
               )
               (env.challenge.api create challenge) map {
                 case true =>

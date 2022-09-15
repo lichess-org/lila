@@ -112,7 +112,8 @@ final class ChallengeBulkApi(
             blackPlayer = Player.make(chess.Black, black.some, _(perfType)),
             mode = bulk.mode,
             source = lila.game.Source.Api,
-            pgnImport = None
+            pgnImport = None,
+            single = true
           )
           .withId(id)
           .start

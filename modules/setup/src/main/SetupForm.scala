@@ -193,7 +193,8 @@ object SetupForm {
         "fen"   -> fenField,
         "users" -> optional(
           LilaForm.strings.separator(",").verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
-        )
+        ),
+        "singleGame" -> optional(boolean)
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)
