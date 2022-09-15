@@ -18,4 +18,22 @@
   <string name="aiLevel">Livellu di l\' I.A</string>
   <string name="source">Surghjente</string>
   <string name="nbTurns">Numeru di girandule</string>
+  <string name="result">Risultatu</string>
+  <string name="winnerColor">Culore di u vincidore</string>
+  <string name="date">Data</string>
+  <string name="sortBy">Trasceglie cù</string>
+  <string name="analysis">Analisa</string>
+  <string name="onlyAnalysed">Soltantu e partite cù una analisa d\' urdinatore dispunibile</string>
+  <string name="color">Culore</string>
+  <string name="evaluation">Valutazione</string>
+  <string name="maxNumber">Numeru massimu</string>
+  <string name="maxNumberExplanation">U numeru massimu di partite à splurà</string>
+  <string name="include">Include</string>
+  <string name="descending">Discendente</string>
+  <string name="ascending">Ascendente</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s partita truvata</item>
+    <item quantity="other">%s partite truvate</item>
+  </plurals>
+  <string name="ratingExplanation">A classifica mezana di i dui ghjucadori</string>
 </resources>
