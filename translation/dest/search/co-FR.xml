@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="search">Cercà</string>
+  <string name="advancedSearch">Ricerca avanzata</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Cercà in a partita%s</item>
+    <item quantity="other">Cercà in e partite%s</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Un partita truvata</item>
+    <item quantity="other">%s partite truvate</item>
+  </plurals>
+  <string name="opponentName">Nome di l\' aversariu</string>
+  <string name="loser">Perdente</string>
+  <string name="from">Da</string>
+  <string name="to">à</string>
+  <string name="humanOrComputer">Pocu impreme s\'è l\' uppunente era un umanu o un urdinatore</string>
+  <string name="aiLevel">Livellu di l\' I.A</string>
+  <string name="source">Surghjente</string>
+  <string name="nbTurns">Numeru di girandule</string>
+</resources>
