@@ -60,6 +60,13 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
       type: 'area',
       spacing: [3, 0, 3, 0],
       animation: false,
+      events: {
+        click(e: any) {
+          const pliesFromStart = Math.round(e.xAxis[0].value);
+          el.highcharts.series[0].data[pliesFromStart]?.select(true);
+          lichess.pubsub.emit('analysis.chart.click', pliesFromStart);
+        },
+      },
     },
     plotOptions: {
       series: {
