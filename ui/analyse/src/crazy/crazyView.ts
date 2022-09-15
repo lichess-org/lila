@@ -2,6 +2,8 @@ import { drag } from './crazyCtrl';
 import { h } from 'snabbdom';
 import { MouchEvent } from 'chessground/types';
 import { onInsert } from 'common/snabbdom';
+import { parseFen } from 'chessops/fen';
+import { setupPosition } from 'chessops/variant';
 import AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
@@ -11,16 +13,18 @@ type Position = 'top' | 'bottom';
 
 export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (!ctrl.node.crazy || ctrl.data.game.variant.key !== 'crazyhouse') return;
+  const pos = setupPosition('crazyhouse', parseFen(ctrl.node.fen).unwrap()).unwrap();
   const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
   const dropped = ctrl.justDropped;
   const captured = ctrl.justCaptured;
   if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
   const activeColor = color === ctrl.turnColor();
-  const usable = !ctrl.embed && activeColor;
+  const usable = !ctrl.embed && activeColor && !pos.isEnd();
+  const unavailable = pos.isEnd();
   return h(
     `div.pocket.is2d.pocket-${position}.pos-${ctrl.bottomColor()}`,
     {
-      class: { usable },
+      class: { usable, unavailable },
       hook: onInsert(el => {
         if (ctrl.embed) return;
         eventNames.forEach(name => {
