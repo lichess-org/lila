@@ -42,7 +42,11 @@ object bits {
         )
       ),
       div(cls := "mode")(
-        s"${c.colorChoice.toString()} • ${modeName(c.mode)}"
+        c.open.map {
+          _.colorFor(ctx.me).fold("Restricted")(_.toString)
+        } | c.colorChoice.toString,
+        " • ",
+        modeName(c.mode)
       )
     )
 }

@@ -239,7 +239,8 @@ object Form {
 
   object strings {
     def separator(sep: String) = of[List[String]](
-      formatter.stringFormatter[List[String]](_ mkString sep, _.split(sep).toList)
+      formatter
+        .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
     )
   }
 

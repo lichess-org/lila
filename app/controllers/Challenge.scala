@@ -50,9 +50,7 @@ final class Challenge(
       showId(id)
     }
 
-  protected[controllers] def showId(id: String)(implicit
-      ctx: Context
-  ): Fu[Result] =
+  protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
@@ -416,18 +414,18 @@ final class Challenge(
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req) {
               import lila.challenge.Challenge._
-              val challenge = lila.challenge.Challenge
-                .make(
-                  variant = config.variant,
-                  initialFen = config.position,
-                  timeControl = TimeControl.make(config.clock, config.days),
-                  mode = chess.Mode(config.rated),
-                  color = "random",
-                  challenger = Challenger.Open,
-                  destUser = none,
-                  rematchOf = none,
-                  name = config.name
-                )
+              val challenge = lila.challenge.Challenge.make(
+                variant = config.variant,
+                initialFen = config.position,
+                timeControl = TimeControl.make(config.clock, config.days),
+                mode = chess.Mode(config.rated),
+                color = "random",
+                challenger = Challenger.Open,
+                destUser = none,
+                rematchOf = none,
+                name = config.name,
+                openToUserIds = config.userIds
+              )
               (env.challenge.api create challenge) map {
                 case true =>
                   JsonOk(
