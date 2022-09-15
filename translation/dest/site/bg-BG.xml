@@ -636,6 +636,7 @@
   <string name="tournamentFAQ">ЧЗВ относно състезанието</string>
   <string name="timeBeforeTournamentStarts">Време до началото на турнира</string>
   <string name="averageCentipawnLoss">Средна загуба в стотни на пешка</string>
+  <string name="accuracy">Точност</string>
   <string name="keyboardShortcuts">Клавиатурни комбинации</string>
   <string name="keyMoveBackwardOrForward">мести напред/назад</string>
   <string name="keyGoToStartOrEnd">към началото/края</string>
