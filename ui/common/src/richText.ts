@@ -11,8 +11,10 @@ export const userPattern = /(^|[^\w@#/])@([a-z0-9][a-z0-9_-]{0,28}[a-z0-9])/gi;
 // looks like it has a @mention or #gameid or a url.tld
 export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,})/.test(str);
 
-export const toLink = (url: string): string =>
-  `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(/https?:\/\//, '')}</a>`;
+export function toLink(url: string): string {
+  if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
+  return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(/https?:\/\//, '')}</a>`;
+}
 
 export const autolink = (str: string, callback: (str: string) => string): string =>
   str.replace(linkRegex, (_, space, url) => space + callback(url));
@@ -48,7 +50,9 @@ export function enrichText(text: string, allowNewlines = true): string {
   return html;
 }
 
-export const richHTML = (text: string, newLines = true): Hooks => innerHTML(text, t => enrichText(t, newLines));
+export function richHTML(text: string, newLines = true): Hooks {
+  return innerHTML(text, t => enrichText(t, newLines));
+}
 
 const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|])/gi;
 const pawnDropPattern = /^[a-h][2-7]$/;
