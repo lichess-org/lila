@@ -178,7 +178,8 @@ object BSONHandlers {
           swissId = r strO F.swissId,
           simulId = r strO F.simulId,
           analysed = r boolD F.analysed,
-          drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty)
+          drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty),
+          single = r boolD F.single
         )
       )
     }
@@ -218,7 +219,8 @@ object BSONHandlers {
         F.tournamentId      -> o.metadata.tournamentId,
         F.swissId           -> o.metadata.swissId,
         F.simulId           -> o.metadata.simulId,
-        F.analysed          -> w.boolO(o.metadata.analysed)
+        F.analysed          -> w.boolO(o.metadata.analysed),
+        F.single            -> w.boolO(o.metadata.single)
       ) ++ {
         if (o.variant.standard)
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))

@@ -25,9 +25,10 @@ case class Challenge(
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
-    open: Option[Boolean] = None,
+    open: Option[Challenge.Open] = None,
     name: Option[String] = None,
-    declineReason: Option[Challenge.DeclineReason] = None
+    declineReason: Option[Challenge.DeclineReason] = None,
+    singleGame: Boolean = false
 ) {
 
   import Challenge._
@@ -94,7 +95,7 @@ case class Challenge(
       case _                                             => none
     }
 
-  def isOpen = ~open
+  def isOpen = open.isDefined
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 
@@ -189,6 +190,19 @@ object Challenge {
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
   }
 
+  case class Open(userIds: Option[(User.ID, User.ID)]) {
+    def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
+    def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
+    def colorFor(me: Option[User]): Option[Color] = for {
+      m        <- me
+      (u1, u2) <- userIds
+      color <-
+        if (m is u1) chess.White.some
+        else if (m is u2) chess.Black.some
+        else none
+    } yield color
+  }
+
   private def speedOf(timeControl: TimeControl) =
     timeControl match {
       case TimeControl.Clock(config) => Speed(config)
@@ -229,7 +243,9 @@ object Challenge {
       destUser: Option[User],
       rematchOf: Option[Game.ID],
       name: Option[String] = None,
-      id: Option[String] = None
+      id: Option[String] = None,
+      openToUserIds: Option[(User.ID, User.ID)] = None,
+      singleGame: Boolean = false
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White  -> chess.White
@@ -261,8 +277,9 @@ object Challenge {
       createdAt = DateTime.now,
       seenAt = !isOpen option DateTime.now,
       expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
-      open = isOpen option true,
-      name = name
+      open = isOpen option Open(openToUserIds),
+      name = name,
+      singleGame = singleGame
     )
   }
 }

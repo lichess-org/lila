@@ -65,7 +65,8 @@ private object ChallengeJoiner {
         mode = if (chessGame.board.variant.fromPosition) Mode.Casual else c.mode,
         source = Source.Friend,
         daysPerTurn = c.daysPerTurn,
-        pgnImport = None
+        pgnImport = None,
+        single = c.singleGame
       )
       .withId(c.id)
       .pipe { g =>

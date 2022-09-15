@@ -40,6 +40,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
     disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user),
     them = !!d.opponent.offeringRematch && !disabled,
     noarg = ctrl.noarg;
+  if (!game.rematchable(d)) return [];
   return [
     them
       ? h(

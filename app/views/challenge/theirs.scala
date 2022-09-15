@@ -42,7 +42,13 @@ object theirs {
               c.notableInitialFen.map { fen =>
                 div(cls := "board-preview", views.html.board.bits.mini(fen, !c.finalColor)(div))
               },
-              if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
+              if (c.open.exists(!_.canJoin(ctx.me)))
+                div(
+                  "Waiting for ",
+                  fragList((~c.open.flatMap(_.userIdList)).map(uid => userIdLink(uid.some)), " and "),
+                  " to start the game."
+                )
+              else if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
                 badTag(
                   // very rare message, don't translate
                   s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined."

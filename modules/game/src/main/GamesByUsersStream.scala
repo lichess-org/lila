@@ -71,13 +71,14 @@ private object GameStream {
     case Game.WithInitialFen(g, initialFen) =>
       Json
         .obj(
-          "id"        -> g.id,
-          "rated"     -> g.rated,
-          "variant"   -> g.variant.key,
-          "speed"     -> g.speed.key,
-          "perf"      -> PerfPicker.key(g),
-          "createdAt" -> g.createdAt,
-          "status"    -> g.status.id,
+          "id"         -> g.id,
+          "rated"      -> g.rated,
+          "variant"    -> g.variant.key,
+          "speed"      -> g.speed.key,
+          "perf"       -> PerfPicker.key(g),
+          "createdAt"  -> g.createdAt,
+          "status"     -> g.status.id,
+          "statusName" -> g.status.name,
           "players" -> JsObject(g.players map { p =>
             p.color.name -> Json
               .obj(
