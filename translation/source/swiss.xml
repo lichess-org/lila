@@ -6,7 +6,12 @@
     <item quantity="other">View all %s rounds</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s round</item>
     <item quantity="other">%s rounds</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s round Swiss</item>
+    <item quantity="other">%s rounds Swiss</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">One round per day</item>
@@ -100,4 +105,8 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="streaksAndBerserk">Streaks and Berserk</string>
   <string name="similarToOTB">Similar to OTB tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
+  <plurals name="xOutOfYRoundsSwiss">
+      <item quantity="one">%1$s / %2$s round Swiss</item>
+      <item quantity="other">%1$s / %2$s rounds Swiss</item>
+  </plurals>
 </resources>
