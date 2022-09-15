@@ -7,7 +7,7 @@ export interface PuzCtrl {
   vm: PuzVm;
   toggleFilterSlow: () => void;
   toggleFilterFailed: () => void;
-  toggleFilterSkip: () => void;
+  toggleFilterSkip?: () => void;
   trans: Trans;
 }
 
