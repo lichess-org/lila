@@ -780,6 +780,7 @@ https://lichess. org/study</string>
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
   <string name="averageCentipawnLoss">معدل الخسارة مقيمة ب 0.01 بيدق</string>
+  <string name="accuracy">الدقة</string>
   <string name="keyboardShortcuts">اختصارات لوحة المفاتيح</string>
   <string name="keyMoveBackwardOrForward">تحرك للخلف/للأمام</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
