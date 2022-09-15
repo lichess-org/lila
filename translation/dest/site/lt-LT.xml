@@ -706,6 +706,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
   <string name="averageCentipawnLoss">Vidutinis centi-pėstininkų nuostolis</string>
+  <string name="accuracy">Tikslumas</string>
   <string name="keyboardShortcuts">Spartieji klavišai</string>
   <string name="keyMoveBackwardOrForward">judėti pirmyn/atgal</string>
   <string name="keyGoToStartOrEnd">eiti į pradžią/pabaigą</string>
