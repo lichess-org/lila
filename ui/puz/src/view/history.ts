@@ -30,7 +30,7 @@ function buttonMaker(vmFilter: boolean, title: string, togglefn: any): VNode {
 export default (ctrl: PuzCtrl): VNode => {
   const slowIds = slowPuzzleIds(ctrl);
   const noarg = ctrl.trans.noarg;
-  let buttons: VNode[] = [
+  const buttons: VNode[] = [
     buttonMaker(ctrl.vm.filterFailed, noarg('failedPuzzles'), ctrl.toggleFilterFailed),
     buttonMaker(ctrl.vm.filterSlow, noarg('slowPuzzles'), ctrl.toggleFilterSlow),
   ];

@@ -46,7 +46,7 @@ export interface Run {
   combo: Combo;
   modifier: Modifier;
   endAt?: number;
-  skipId?: String;
+  skipId?: string;
 }
 
 export interface Round {
