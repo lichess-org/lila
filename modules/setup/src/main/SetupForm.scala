@@ -167,7 +167,8 @@ object SetupForm {
         "fen"             -> fenField,
         "acceptByToken"   -> optional(nonEmptyText),
         "message"         -> message,
-        "keepAliveStream" -> optional(boolean)
+        "keepAliveStream" -> optional(boolean),
+        "singleGame"      -> optional(boolean)
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)

@@ -370,7 +370,8 @@ final class Challenge(
         color = config.color.name,
         challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
         destUser = dest.some,
-        rematchOf = none
+        rematchOf = none,
+        singleGame = config.singleGame
       )
   }
 
