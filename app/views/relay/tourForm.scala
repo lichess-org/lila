@@ -81,6 +81,17 @@ object tourForm {
           half = true
         )(form3.select(_, RelayTour.Tier.options))
       else form3.hidden(form("tier"))
-    )
+    ),
+    form3.group(
+      form("players"),
+      "Optional: replace player names and ratings",
+      help = frag(
+        "One line per player, formatted as such:",
+        pre("Original name; Replacement name; Optional replacement rating"),
+        "Example:",
+        pre("""DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764""")
+      ).some
+    )(form3.textarea(_)(rows := 3))
   )
 }

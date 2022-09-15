@@ -59,6 +59,8 @@
   <string name="depthX">Tüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analyse benutze</string>
   <string name="loadingEngine">Engine wird glade ...</string>
+  <string name="calculatingMoves">berächnet Züg</string>
+  <string name="engineFailed">Fähler bim Engine lade</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Gang tüfer</string>
   <string name="showThreat">Bedrohig azeige</string>
@@ -196,6 +198,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="changeUsername">Benutzername ändere</string>
   <string name="changeUsernameNotSame">Me chann nur d\'Gross-/Chlischriibig verändere, z. B. \"grosspatzer\" in \"GrossPatzer\".</string>
   <string name="changeUsernameDescription">Korrigier din Benutzername: Das gaht aber nur eimal und mer chann nur d\'Gros- und d\'Chlischribig verändere.</string>
+  <string name="signupUsernameHint">Wähl bitte en aständige Benutzername. Du chasch en nachträglich nüme ändere und jedes Konto mit untolerierbarem Name wird gschlosse!</string>
+  <string name="signupEmailHint">Mir benutzed sie nur zum s\'Passwort zruggsetze.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>

@@ -61,8 +61,8 @@
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
   <string name="loadingEngine">Загрузка движка...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Идёт рассчёт ходов...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Ошибка загрузки движка</string>
+  <string name="calculatingMoves">Идёт расчёт ходов...</string>
+  <string name="engineFailed">Ошибка загрузки движка</string>
   <string name="cloudAnalysis">Облачный анализ</string>
   <string name="goDeeper">Анализировать глубже</string>
   <string name="showThreat">Показать ответную угрозу</string>
@@ -219,6 +219,8 @@
   <string name="changeUsername">Изменить имя пользователя</string>
   <string name="changeUsernameNotSame">Можно изменить только регистр символов. Например, поменять «Johndoe» на «JohnDoe».</string>
   <string name="changeUsernameDescription">Изменить имя пользователя. Это можно сделать только один раз, при этом можно изменить только регистр символов.</string>
+  <string name="signupUsernameHint">Убедитесь, что вы выбрали благопристойное имя пользователя. Вы не сможете изменить его позже, при этом все учётные записи с неприличными именами будут закрыты!</string>
+  <string name="signupEmailHint">Мы будем использовать его только для сброса пароля.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">Сменить пароль</string>
   <string name="changeEmail">Сменить адрес электронной почты</string>

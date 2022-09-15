@@ -59,8 +59,8 @@
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
   <string name="loadingEngine">Indlæser skakmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Beregner træk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Fejl under indlæsning af beregningsmotor</string>
+  <string name="calculatingMoves">Beregner træk...</string>
+  <string name="engineFailed">Fejl under indlæsning af beregningsmotor</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Ændr brugernavn</string>
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"bentlarsen\" til \"BentLarsen\".</string>
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
+  <string name="signupUsernameHint">Sørg for at vælge et familievenligt brugernavn. Du kan ikke ændre det senere, og alle konti med upassende brugernavne vil blive lukket!</string>
+  <string name="signupEmailHint">Vi vil kun bruge det til nulstilling af adgangskode.</string>
   <string name="password">Adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>

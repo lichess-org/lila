@@ -61,6 +61,8 @@
   <string name="depthX">Глибина %s</string>
   <string name="usingServerAnalysis">Використовуючи комп\'ютерний аналіз</string>
   <string name="loadingEngine">Готування рушія...</string>
+  <string name="calculatingMoves">Обчислення ходів...</string>
+  <string name="engineFailed">Помилка завантаження рушія</string>
   <string name="cloudAnalysis">Хмарний аналіз</string>
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
@@ -217,6 +219,8 @@
   <string name="changeUsername">Змінити ім\'я користувача</string>
   <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
+  <string name="signupUsernameHint">Переконайтесь, що ви вибрали хороше ім\'я. Ви не можете змінити його потім, а профілі з непристойними іменами будуть заблоковані!</string>
+  <string name="signupEmailHint">Ми використаємо її лише для скидання пароля.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>

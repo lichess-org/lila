@@ -77,9 +77,10 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
     if (HTTPRequest isSynchronousHttp ctx.req) {
       for {
-        as     <- env.activity.read.recent(u)
+        as     <- env.activity.read.recentAndPreload(u)
         nbs    <- env.userNbGames(u, ctx, withCrosstable = false)
         info   <- env.userInfo(u, nbs, ctx)
+        _      <- env.userInfo.preloadTeams(info)
         social <- env.socialInfo(u, ctx)
       } yield status {
         lila.mon.chronoSync(_.user segment "renderSync") {
@@ -87,7 +88,7 @@ final class User(
         }
       }
     } else
-      env.activity.read.recent(u) map { as =>
+      env.activity.read.recentAndPreload(u) map { as =>
         status(html.activity(u, as))
       }
 
@@ -288,27 +289,20 @@ final class User(
           api = _ =>
             fuccess {
               implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
-              Ok(
-                Json.obj(
-                  "bullet"        -> leaderboards.bullet,
-                  "blitz"         -> leaderboards.blitz,
-                  "rapid"         -> leaderboards.rapid,
-                  "classical"     -> leaderboards.classical,
-                  "ultraBullet"   -> leaderboards.ultraBullet,
-                  "crazyhouse"    -> leaderboards.crazyhouse,
-                  "chess960"      -> leaderboards.chess960,
-                  "kingOfTheHill" -> leaderboards.kingOfTheHill,
-                  "threeCheck"    -> leaderboards.threeCheck,
-                  "antichess"     -> leaderboards.antichess,
-                  "atomic"        -> leaderboards.atomic,
-                  "horde"         -> leaderboards.horde,
-                  "racingKings"   -> leaderboards.racingKings
-                )
-              )
+              import lila.user.JsonView.leaderboardsWrites
+              JsonOk(leaderboards)
             }
         )
       }
     }
+
+  def apiList = Action.async {
+    env.user.cached.top10.get {} map { leaderboards =>
+      implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+      import lila.user.JsonView.leaderboardsWrites
+      JsonOk(leaderboards)
+    }
+  }
 
   def topNb(nb: Int, perfKey: String) =
     Open { implicit ctx =>

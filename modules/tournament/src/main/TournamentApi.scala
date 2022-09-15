@@ -21,7 +21,7 @@ import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 
 final class TournamentApi(
-    cached: Cached,
+    cached: TournamentCache,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     playerRepo: PlayerRepo,
@@ -40,6 +40,7 @@ final class TournamentApi(
     verify: Condition.Verify,
     duelStore: DuelStore,
     pause: Pause,
+    waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
@@ -85,8 +86,7 @@ final class TournamentApi(
       andJoin ?? join(
         tour.id,
         me,
-        tour.password,
-        setup.teamBattleByTeam,
+        TournamentForm.TournamentJoin(tour.password, setup.teamBattleByTeam),
         getUserTeamIds = _ => fuccess(leaderTeams.map(_.id)),
         asLeader = false,
         none
@@ -276,8 +276,7 @@ final class TournamentApi(
   private[tournament] def join(
       tourId: Tournament.ID,
       me: User,
-      password: Option[String],
-      withTeamId: Option[String],
+      data: TournamentForm.TournamentJoin,
       getUserTeamIds: User => Fu[List[TeamID]],
       asLeader: Boolean,
       promise: Option[Promise[Tournament.JoinResult]]
@@ -289,11 +288,10 @@ final class TournamentApi(
           if (
             prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
-              MessageDigest
-                .isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8)) ||
+              MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
                 // user-specific access code: HMAC-SHA256(access code, user id)
                 MessageDigest
-                  .isEqual(Algo.hmac(p).sha256(me.id).hex.getBytes(UTF_8), (~password).getBytes(UTF_8))
+                  .isEqual(Algo.hmac(p).sha256(me.id).hex.getBytes(UTF_8), (~data.password).getBytes(UTF_8))
             )
           )
             getVerdicts(tour, me.some, getUserTeamIds, prevPlayer.isDefined) flatMap { verdicts =>
@@ -303,7 +301,7 @@ final class TournamentApi(
                 def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
                   playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
                     updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
-                withTeamId match {
+                data.team match {
                   case None if tour.isTeamBattle && prevPlayer.isDefined => proceedWithTeam(none)
                   case None if tour.isTeamBattle                         => fuccess(JoinResult.MissingTeam)
                   case None                                              => proceedWithTeam(none)
@@ -322,10 +320,12 @@ final class TournamentApi(
           else
             fuccess(JoinResult.WrongEntryCode)
         fuResult map { result =>
-          if (result.ok)
-            withTeamId.ifTrue(asLeader && tour.isTeamBattle) foreach {
+          if (result.ok) {
+            data.team.ifTrue(asLeader && tour.isTeamBattle) foreach {
               tournamentRepo.setForTeam(tour.id, _)
             }
+            if (~data.pairMeAsap) waitingUsers.addApiUser(tour, me)
+          }
           socket.reload(tour.id)
           promise.foreach(_ success result)
         }
@@ -335,13 +335,12 @@ final class TournamentApi(
   def joinWithResult(
       tourId: Tournament.ID,
       me: User,
-      password: Option[String],
-      teamId: Option[String],
+      data: TournamentForm.TournamentJoin,
       getUserTeamIds: User => Fu[List[TeamID]],
       isLeader: Boolean
   ): Fu[Tournament.JoinResult] = {
     val promise = Promise[Tournament.JoinResult]()
-    join(tourId, me, password, teamId, getUserTeamIds, isLeader, promise.some)
+    join(tourId, me, data, getUserTeamIds, isLeader, promise.some)
     promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
   }
 

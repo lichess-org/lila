@@ -59,8 +59,8 @@
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Bruker serveranalyse</string>
   <string name="loadingEngine">Laster sjakkmotor ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Beregner trekk...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Kunne ikke laste sjakkmotor</string>
+  <string name="calculatingMoves">Beregner trekk...</string>
+  <string name="engineFailed">Kunne ikke laste sjakkmotor</string>
   <string name="cloudAnalysis">Skyanalyse</string>
   <string name="goDeeper">Gå dypere</string>
   <string name="showThreat">Vis trussel</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Endre brukernavn</string>
   <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanordmann\" til \"OlaNordmann\".</string>
   <string name="changeUsernameDescription">Endre brukernavnet ditt. Dette kan bare gjøres én gang, og du bare kan endre små bokstaver til store eller store til små.</string>
+  <string name="signupUsernameHint">Velg et sømmelig brukernavn. Det kan ikke endres, og alle kontoer med usømmelige brukernavn vil bli avsluttet.</string>
+  <string name="signupEmailHint">Vi bruker den bare når du tilbakestiller passordet ditt.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Bytt passord</string>
   <string name="changeEmail">Endre e-postadresse</string>

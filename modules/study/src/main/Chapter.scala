@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Tags }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.Variant
-import chess.{ Centis, Color }
+import chess.{ Centis, Color, Outcome }
 import org.joda.time.DateTime
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
@@ -78,7 +78,7 @@ case class Chapter(
     _id = _id,
     name = name,
     setup = setup,
-    resultColor = tags.resultColor.isDefined option tags.resultColor,
+    outcome = tags.outcome.isDefined option tags.outcome,
     hasRelayPath = relay.exists(!_.path.isEmpty)
   )
 
@@ -138,7 +138,7 @@ object Chapter {
   case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
 
     def looksAlive =
-      tags.resultColor.isEmpty &&
+      tags.outcome.isEmpty &&
         relay.lastMoveAt.isAfter {
           DateTime.now.minusMinutes {
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
@@ -152,13 +152,13 @@ object Chapter {
       _id: Id,
       name: Name,
       setup: Setup,
-      resultColor: Option[Option[Option[Color]]],
+      outcome: Option[Option[Outcome]],
       hasRelayPath: Boolean
   ) extends Like {
 
-    def looksOngoing = resultColor.exists(_.isEmpty) && hasRelayPath
+    def looksOngoing = outcome.exists(_.isEmpty) && hasRelayPath
 
-    def resultStr: Option[String] = resultColor.map(_.fold("*")(chess.Color.showResult).replace("1/2", "½"))
+    def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
   }
 
   case class IdName(id: Id, name: Name)

@@ -59,8 +59,8 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
   <string name="loadingEngine">A carregar o motor de jogo ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">A calcular as jogadas...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Erro ao carregar o motor</string>
+  <string name="calculatingMoves">A calcular as jogadas...</string>
+  <string name="engineFailed">Erro ao carregar o motor</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só te é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
+  <string name="signupUsernameHint">Certifique-se que escolhe um nome de utilizador decoroso. Não poderá alterá-lo mais tarde e quaisquer contas com nomes de utilizador inapropriados serão fechadas!</string>
+  <string name="signupEmailHint">Só o usaremos para redefinir a palavra-passe.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
   <string name="changeEmail">Alterar email</string>

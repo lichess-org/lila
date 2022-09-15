@@ -22,6 +22,8 @@ case class PlayerAssessment(
 
 object PlayerAssessment {
 
+  val minPlies = 36
+
   // when you don't have computer analysis
   case class Basics(
       moveTimes: Statistics.IntAvgSd,

@@ -59,8 +59,8 @@
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Die gebruik van bediener analise</string>
   <string name="loadingEngine">Enjin laai tans ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Bereken skuiwe...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Kon nie enjin laai nie</string>
+  <string name="calculatingMoves">Bereken skuiwe...</string>
+  <string name="engineFailed">Kon nie enjin laai nie</string>
   <string name="cloudAnalysis">Wolkanalise</string>
   <string name="goDeeper">Gaan dieper</string>
   <string name="showThreat">Toon bedreiging</string>
@@ -193,6 +193,8 @@
   <string name="changeUsername">Verander gebruikersnaam</string>
   <string name="changeUsernameNotSame">Slegs die hoof-/kleinletters kan verander. Byvoorbeeld \"pietsmit\" na \"PietSmit\".</string>
   <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof-/kleinletters in die gebruikersnaam verander.</string>
+  <string name="signupUsernameHint">Kies asseblief \'n aanvaarbare gebruikersnaam. Dit kan nie later verander word nie, en enige onaanvaarbare gebruikersname sal gesluit word!</string>
+  <string name="signupEmailHint">Dit sal slegs gebruik word om wagwoorde te herstel.</string>
   <string name="password">Wagwoord</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>

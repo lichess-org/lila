@@ -452,7 +452,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
         WithStudent(clas, username) { s =>
           for {
             withManagingClas <- env.clas.api.student.withManagingClas(s, clas)
-            activity         <- env.activity.read.recent(s.user)
+            activity         <- env.activity.read.recentAndPreload(s.user)
           } yield views.html.clas.student.show(clas, students, withManagingClas, activity)
         }
       }

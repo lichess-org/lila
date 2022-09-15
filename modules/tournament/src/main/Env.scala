@@ -57,7 +57,7 @@ final class Env(
   lazy val playerRepo              = new PlayerRepo(db(config.playerColl))
   private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
 
-  lazy val cached: Cached = wire[Cached]
+  lazy val cached: TournamentCache = wire[TournamentCache]
 
   lazy val verify = wire[Condition.Verify]
 
@@ -72,6 +72,8 @@ final class Env(
   private lazy val duelStore = wire[DuelStore]
 
   private lazy val pause = wire[Pause]
+
+  private lazy val waitingUsers = wire[WaitingUsersApi]
 
   private lazy val socket = wire[TournamentSocket]
 

@@ -59,8 +59,8 @@
   <string name="depthX">ஆழம் %s</string>
   <string name="usingServerAnalysis">லீசெசின் கணினியின் ஆராய்ச்சி</string>
   <string name="loadingEngine">சற்று நேரம் பொறுங்கள்...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">கணிக்கிறது நகர்கிறது...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">படத்தை ஏற்றுவதில் இயந்திரம்</string>
+  <string name="calculatingMoves">கணிக்கிறது நகர்கிறது...</string>
+  <string name="engineFailed">படத்தை ஏற்றுவதில் இயந்திரம்</string>
   <string name="cloudAnalysis">மேகம் பகுப்பாய்வு</string>
   <string name="goDeeper">இன்னும் ஆராய்ந்துக்கொள்ளுங்கள்</string>
   <string name="showThreat">அச்சுறுத்தல்களைக் காண்பி</string>

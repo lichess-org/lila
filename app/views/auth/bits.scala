@@ -16,7 +16,11 @@ object bits {
       ctx: Context
   ) =
     frag(
-      form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
+      form3.group(
+        username,
+        if (register) trans.username() else trans.usernameOrEmail(),
+        help = register option trans.signupUsernameHint()
+      ) { f =>
         frag(
           form3.input(f)(autofocus, required, autocomplete := "username"),
           p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
@@ -27,7 +31,7 @@ object bits {
       ),
       register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
       emailOption.map { email =>
-        form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
+        form3.group(email, trans.email(), help = trans.signupEmailHint().some)(
           form3.input(_, typ = "email")(required)
         )
       }

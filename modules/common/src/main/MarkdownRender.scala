@@ -202,7 +202,7 @@ object MarkdownRender {
       )
 
     private val gameRegex =
-      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$$""".r
+      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r
 
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       // Based on implementation in CoreNodeRenderer.
@@ -261,7 +261,7 @@ object MarkdownRender {
       html
         .attr("data-pgn", pgn)
         .attr("data-orientation", Option(color) | "white")
-        .attr("data-ply", Option(ply) | "0")
+        .attr("data-ply", Option(ply) | "")
         .attr("class", "lpv--autostart")
         .srcPos(node.getChars())
         .withAttr(link)

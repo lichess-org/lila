@@ -13,6 +13,8 @@
   <string name="specialMoves">Özel hamleler</string>
   <string name="didYouLikeThisPuzzle">Bulmacayı beğendiniz mi?</string>
   <string name="voteToLoadNextOne">Sıradakine geçmek için oy verin!</string>
+  <string name="upVote">Bulmacayı beğen</string>
+  <string name="downVote">Bulmacayı beğenme</string>
   <string name="yourPuzzleRatingWillNotChange">Bulmaca puanınız değişmeyecek. Bulmacaların bir yarış olmadığını unutmayın. Bu puan mevcut becerilerinize en uygun bulmacayı seçmeye yardımcı olur.</string>
   <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulunuz.</string>
   <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulun.</string>

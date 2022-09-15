@@ -59,8 +59,8 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>
   <string name="loadingEngine">Cargando módulo ...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Calculando movementos...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Erro ao cargar motor no dispositivo local</string>
+  <string name="calculatingMoves">Calculando movementos...</string>
+  <string name="engineFailed">Erro ao cargar motor no dispositivo local</string>
   <string name="cloudAnalysis">Análise na nube</string>
   <string name="goDeeper">Con máis detalle</string>
   <string name="showThreat">Amosar ameaza</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Cambiar nome de usuario</string>
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
+  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario \"axeitado para a familia\" (family-friendly). Non poderás cambialo despois e calquera conta con nome de usuario inapropiado será cancelada!</string>
+  <string name="signupEmailHint">Só se usará para restablecer o contrasinal.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>

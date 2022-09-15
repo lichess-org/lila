@@ -53,7 +53,7 @@
   <string name="captureThenPromote">הכה את כלי היריב והכתר את הרגלי שלך!</string>
   <string name="useAllThePawns">השתמש/י בכל הרגלים! 
 אין צורך להכתיר.</string>
-  <string name="aPawnOnTheSecondRank">רגלי על השורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
+  <string name="aPawnOnTheSecondRank">רגלי בשורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
   <string name="grabAllTheStarsNoNeedToPromote">קח/י את כל הכוכבים! 
 אין צורך להכתיר.</string>
   <string name="pawnComplete">יפה, את/ה שולט/ת בחיל הרגלים.</string>
@@ -154,7 +154,7 @@
 אל תקריב כלי שלך 
 כדי לאכול כלי יריב שערכו פחות.</string>
   <string name="pieceValueLegal">קח את הכלי עם הערך הגבוה ביותר! וודא שהמהלך שלך חוקי!</string>
-  <string name="takeThePieceWithTheHighestValue">קח/י את הכלי החזק יותר!</string>
+  <string name="takeThePieceWithTheHighestValue">קח/י את הכלי החזק ביותר!</string>
   <string name="pieceValueComplete">יפה, את/ה מכיר/ה את הערך של הכלים! 
 מלכה=9, 
 צריח=5,
@@ -173,7 +173,7 @@
   <string name="practice">אימון</string>
   <string name="learnCommonChessPositions">למדו עמדות נפוצות</string>
   <string name="puzzles">חידות</string>
-  <string name="exerciseYourTacticalSkills">אמן את כישוריך</string>
+  <string name="exerciseYourTacticalSkills">הפכו לאשפים טקטיים</string>
   <string name="videos">סרטונים</string>
   <string name="watchInstructiveChessVideos">צפו בסרטוני שחמט מעשירים</string>
   <string name="playPeople">שחקו עם אנשים</string>

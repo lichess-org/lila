@@ -8,7 +8,7 @@ import lila.memo._
 import lila.memo.CacheApi._
 import lila.user.User
 
-final private[tournament] class Cached(
+final class TournamentCache(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,

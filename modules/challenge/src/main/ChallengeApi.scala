@@ -12,12 +12,13 @@ import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi._
 import lila.memo.ExpireSetMemo
-import lila.user.{ User, UserRepo }
+import lila.user.{ LightUserApi, User, UserRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
     challengeMaker: ChallengeMaker,
     userRepo: UserRepo,
+    lightUserApi: LightUserApi,
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
@@ -173,6 +174,7 @@ final class ChallengeApi(
       for {
         all  <- allFor(userId)
         lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
+        _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       } yield Bus.publish(
         SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
         "socketUsers"

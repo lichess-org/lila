@@ -18,4 +18,6 @@ final class Env(
   lazy val analyser = wire[Analyser]
 
   lazy val annotator = new Annotator(net.domain)
+
+  lazy val externalEngine = new ExternalEngineApi(db(CollName("external_engine")))
 }

@@ -1,6 +1,7 @@
 package controllers
 
 import chess.format.FEN
+import play.api.libs.json.JsArray
 import play.api.mvc._
 import views._
 
@@ -145,4 +146,57 @@ final class Analyse(
         crosstable
       )
     )
+
+  def externalEngineList =
+    ScopedBody(_.Engine.Read) { _ => me =>
+      env.analyse.externalEngine.list(me) map { list =>
+        JsonOk(JsArray(list map lila.analyse.ExternalEngine.jsonWrites.writes))
+      }
+    }
+
+  def externalEngineShow(id: String) =
+    ScopedBody(_.Engine.Read) { _ => me =>
+      env.analyse.externalEngine.find(me, id) map {
+        _.fold(notFoundJsonSync()) { engine =>
+          JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+        }
+      }
+    }
+
+  def externalEngineCreate =
+    ScopedBody(_.Engine.Write) { implicit req => me =>
+      lila.analyse.ExternalEngine.form
+        .bindFromRequest()
+        .fold(
+          err => newJsonFormError(err)(me.realLang | reqLang),
+          data =>
+            env.analyse.externalEngine.create(me, data) map { engine =>
+              Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+            }
+        )
+    }
+
+  def externalEngineUpdate(id: String) =
+    ScopedBody(_.Engine.Write) { implicit req => me =>
+      env.analyse.externalEngine.find(me, id) flatMap {
+        _.fold(notFoundJson()) { engine =>
+          lila.analyse.ExternalEngine.form
+            .bindFromRequest()
+            .fold(
+              err => newJsonFormError(err)(me.realLang | reqLang),
+              data =>
+                env.analyse.externalEngine.update(engine, data) map { engine =>
+                  JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+                }
+            )
+        }
+      }
+    }
+
+  def externalEngineDelete(id: String) =
+    ScopedBody(_.Engine.Write) { _ => me =>
+      env.analyse.externalEngine.delete(me, id) map { res =>
+        if (res) jsonOkResult else notFoundJsonSync()
+      }
+    }
 }

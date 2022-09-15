@@ -59,8 +59,8 @@
   <string name="depthX">Derinlik %s</string>
   <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
   <string name="loadingEngine">Satranç motoru yükleniyor...</string>
-  <string name="calculatingMoves" comment="calculatingMoves&#10;Appears while the local (on-device) chess engine is still assessing moves.">Hamleler hesaplanıyor...</string>
-  <string name="engineFailed" comment="engineFailed&#10;Appears if the local (on-device) chess engine failed to load.">Motor yüklenirken hata oluştu</string>
+  <string name="calculatingMoves">Hamleler hesaplanıyor...</string>
+  <string name="engineFailed">Motor yüklenirken hata oluştu</string>
   <string name="cloudAnalysis">Bulut analizi</string>
   <string name="goDeeper">Daha derine in</string>
   <string name="showThreat">Tehdidi göster</string>
@@ -197,6 +197,8 @@
   <string name="changeUsername">Kullanıcı adını değiştir</string>
   <string name="changeUsernameNotSame">Sadece kullanıcı adınızdaki büyük/küçük harfleri değiştirebilirsiniz. Örneğin \"johndoe\" den \"JohnDoe\" gibi.</string>
   <string name="changeUsernameDescription">Kullanıcı adınızı değiştirin. Bu işlemi sadece 1 (bir) kez gerçekleştirebilirsiniz ve sadece mevcut kullanıcı adınızdaki harfleri (\"johndoe\", \"JohnDoe\") değiştirebilirsiniz.</string>
+  <string name="signupUsernameHint">Aile dostu bir kullanıcı adı seçtiğinizden emin olun. Kullanıcı adı daha sonra değiştirilemez ve uygunsuz kullanıcı adına sahip hesaplar kapatılır!</string>
+  <string name="signupEmailHint">Bunu yalnızca şifre sıfırlaması için kullanacağız.</string>
   <string name="password">Şifre</string>
   <string name="changePassword">Şifre değiştir</string>
   <string name="changeEmail">E-posta adresini değiştir</string>
@@ -468,6 +470,8 @@
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="savingMoves">Geçici hamle depolama</string>
   <string name="savingMovesHelp">Sizin varyasyonlarınızı tarayıcı önbelleğinde saklıyoruz.</string>
+  <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
+  <string name="clearSavedMoves">Hamleleri sil</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>

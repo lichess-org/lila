@@ -1,6 +1,8 @@
 package lila.challenge
 
-case class AllChallenges(in: List[Challenge], out: List[Challenge])
+case class AllChallenges(in: List[Challenge], out: List[Challenge]) {
+  def all = in ::: out
+}
 
 sealed trait Direction {
   val name = toString.toLowerCase

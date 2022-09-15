@@ -71,10 +71,10 @@ final private class ChapterMaker(
 
   private def resolveOrientation(data: Data, root: Node.Root, tags: Tags = Tags.empty): Color =
     data.orientation match {
-      case Orientation.Fixed(color)        => color
-      case _ if tags.resultColor.isDefined => Color.white
-      case _ if data.isGamebook            => !root.lastMainlineNode.color
-      case _                               => root.lastMainlineNode.color
+      case Orientation.Fixed(color)    => color
+      case _ if tags.outcome.isDefined => Color.white
+      case _ if data.isGamebook        => !root.lastMainlineNode.color
+      case _                           => root.lastMainlineNode.color
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {

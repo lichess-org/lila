@@ -60,7 +60,7 @@ export function view(ctrl: ServerEval): VNode {
         ctrl.lastPly(false);
         lichess.requestIdleCallback(async () => {
           await lichess.loadModule('chart.game');
-          window.LichessChartGame!.acpl(ctrl.root.data, ctrl.root.mainline, ctrl.root.trans, el);
+          window.LichessChartGame!.acpl(ctrl.root.data, ctrl.root.mainline, ctrl.root.trans, el, false);
           ctrl.chartEl(el as HighchartsHTMLElement);
         }, 800);
       }),

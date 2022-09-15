@@ -63,9 +63,15 @@ object dev {
             "Only use if you know exactly what you're doing."
           ),
           res map { pre(_) },
-          postForm(action                         := routes.Dev.cliPost)(
-            form3.textarea(form("command"))(style := "height:10em", autofocus),
+          postForm(action := routes.Dev.cliPost)(
+            form3.input(form("command"))(autofocus),
             br,
+            form3.submit(frag("Submit"))
+          ),
+          hr,
+          postForm(action := routes.Dev.cliPost)(
+            p("Same thing but with a textarea for multiline commands:"),
+            form3.textarea(form("command"))(style := "height:8em"),
             br,
             form3.submit(frag("Submit"))
           ),

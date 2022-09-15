@@ -61,7 +61,7 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="pairingsA">Využívá se %1$s, realizován pomocí %2$s, v souladu s dokumentem %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
   <string name="moreRoundsThanPlayersA">Když se všechny možné kombinace odehrají, turnaj bude ukončen a bude určen vítěz.</string>
-  <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
+  <string name="restrictedToTeamsQ">Proč je omezený jen pro týmy?</string>
   <string name="restrictedToTeamsA">Švýcarské turnaje nebyly koncipovány pro online šachy. Požadují od hráčů dochvilnost, obětavost a trpělivost.
 Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v rámci týmu než v globálních turnajích.</string>
   <string name="numberOfByesQ">Kolik bodů zdarma může hráč dostat?</string>

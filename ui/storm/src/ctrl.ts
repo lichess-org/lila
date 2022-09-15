@@ -73,6 +73,7 @@ export default class StormCtrl {
   }
 
   end = (): void => {
+    if (this.run.endAt) return;
     this.run.history.reverse();
     this.run.endAt = getNow();
     this.ground(false);
