@@ -215,7 +215,7 @@ final class Challenge(
               } flatMap {
                 _ ?? { p => env.round.proxyRepo.upgradeIfPresent(p) dmap some }
               } flatMap {
-                case Some(pov) if pov.game.abortable =>
+                case Some(pov) if pov.game.abortableByUser =>
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
                   jsonOkResult.fuccess
                 case Some(pov) if pov.game.playable =>

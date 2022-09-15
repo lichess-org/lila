@@ -207,7 +207,7 @@ final class Env(
   val apiMoveStream = wire[ApiMoveStream]
 
   def resign(pov: Pov): Unit =
-    if (pov.game.abortable) tellRound(pov.gameId, Abort(pov.playerId))
+    if (pov.game.abortableByUser) tellRound(pov.gameId, Abort(pov.playerId))
     else if (pov.game.resignable) tellRound(pov.gameId, Resign(pov.playerId))
 }
 
