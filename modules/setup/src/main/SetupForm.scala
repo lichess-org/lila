@@ -7,6 +7,7 @@ import play.api.data.Forms._
 
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
+import lila.common.{ Form => LilaForm }
 
 object SetupForm {
 
@@ -166,7 +167,8 @@ object SetupForm {
         "fen"             -> fenField,
         "acceptByToken"   -> optional(nonEmptyText),
         "message"         -> message,
-        "keepAliveStream" -> optional(boolean)
+        "keepAliveStream" -> optional(boolean),
+        "singleGame"      -> optional(boolean)
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)
@@ -184,12 +186,16 @@ object SetupForm {
 
     lazy val open = Form(
       mapping(
-        "name" -> optional(lila.common.Form.cleanNonEmptyText(maxLength = 200)),
+        "name" -> optional(LilaForm.cleanNonEmptyText(maxLength = 200)),
         variant,
         clock,
         "days"  -> optional(days),
         "rated" -> boolean,
-        "fen"   -> fenField
+        "fen"   -> fenField,
+        "users" -> optional(
+          LilaForm.strings.separator(",").verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
+        ),
+        "singleGame" -> optional(boolean)
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)

@@ -2,20 +2,20 @@
 <resources>
   <string name="keyboardInputCommands">Пернетақтамен енгізу пәрмендері</string>
   <string name="performAMove">Жүріс жасау</string>
-  <string name="movePieceFromE2ToE4" comment="movePieceFromE2ToE4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Тасты e2-ден e4-ке қою</string>
-  <string name="moveKnightToC3" comment="moveKnightToC3&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Атты c3-ке қою</string>
+  <string name="movePieceFromE2ToE4">Тасты e2-ден e4-ке қою</string>
+  <string name="moveKnightToC3">Атты c3-ке қою</string>
   <string name="kingsideCastle">Патшажақты бекіну</string>
   <string name="queensideCastle">Уәзіржақты бекіну</string>
   <string name="promoteC8ToQueen">c8-де уәзірге айналдыру</string>
-  <string name="dropARookAtB4" comment="dropARookAtB4&#10;&#10;Note: Coordinates (a-g in Latin characters) currently remain the same regardless of which language the user has selected.">Тураны b4-ке тастау (Crazyhouse шахматында ғана)</string>
+  <string name="dropARookAtB4">Тураны b4-ке тастау (Crazyhouse шахматында ғана)</string>
   <string name="offerOrAcceptDraw">Тепе-теңдікті сұрау не қабылдау</string>
   <string name="readOutClocks">Сағатты дауыстап айту</string>
-  <string name="readOutOpponentName" comment="readOutOpponentName&#10;&#10;Press a button on the keyboard to hear the opponent's name aloud. The feature is most useful for blind players.">Қарсыластың атын дауыстап оқу</string>
+  <string name="readOutOpponentName">Қарсыластың атын дауыстап оқу</string>
   <string name="otherCommands">Басқа пәрмендер</string>
   <string name="tips">Түсіндірме</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Көрсетілген жүріс тәртібі бейтаныс болса, осы жерден біліп алыңыз:</string>
   <string name="includingAXToIndicateACapture">Басып алуды \"x\" деп белгілеуге болады</string>
-  <string name="bothTheLetterOAndTheDigitZero" comment="bothTheLetterOAndTheDigitZero&#10;&#10;Only the Latin character 'o' works.">Бекінуді \"o\" әрпімен де, \"0\" санымен де жазуға рұқсат</string>
+  <string name="bothTheLetterOAndTheDigitZero">Бекінуді \"o\" әрпімен де, \"0\" санымен де жазуға рұқсат</string>
   <string name="ifItIsLegalToCastleBothWays">Егер бекіну екі жаққа да ашық болса, патша жағына enter-мен бекінесіз</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Әріптердің үлкендігі тек кей жағдайда ғана орынды, мысалы, піл (B) мен b тақта жолындағы сарбазды ажыратуда</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Алдын-ала жүру үшін, кезегіңіз келмегенше, жүрісті кәдімгідей енгізіңіз</string>

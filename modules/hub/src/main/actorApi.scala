@@ -197,6 +197,7 @@ package timeline {
     case class Users(users: List[String]) extends Propagation
     case class Followers(user: String)    extends Propagation
     case class Friends(user: String)      extends Propagation
+    case class WithTeam(teamId: String)   extends Propagation
     case class ExceptUser(user: String)   extends Propagation
     case class ModsOnly(value: Boolean)   extends Propagation
   }
@@ -204,13 +205,14 @@ package timeline {
   import propagation._
 
   case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
-    def toUsers(ids: List[String])  = add(Users(ids))
-    def toUser(id: String)          = add(Users(List(id)))
-    def toFollowersOf(id: String)   = add(Followers(id))
-    def toFriendsOf(id: String)     = add(Friends(id))
-    def exceptUser(id: String)      = add(ExceptUser(id))
-    def modsOnly(value: Boolean)    = add(ModsOnly(value))
-    private def add(p: Propagation) = copy(propagations = p :: propagations)
+    def toUsers(ids: List[String])       = add(Users(ids))
+    def toUser(id: String)               = add(Users(List(id)))
+    def toFollowersOf(id: String)        = add(Followers(id))
+    def toFriendsOf(id: String)          = add(Friends(id))
+    def withTeam(teamId: Option[String]) = teamId.fold(this)(id => add(WithTeam(id)))
+    def exceptUser(id: String)           = add(ExceptUser(id))
+    def modsOnly(value: Boolean)         = add(ModsOnly(value))
+    private def add(p: Propagation)      = copy(propagations = p :: propagations)
   }
 }
 
@@ -247,10 +249,13 @@ package fishnet {
 }
 
 package user {
+
+  import lila.common.EmailAddress
   case class Note(from: String, to: String, text: String, mod: Boolean)
   sealed trait ClasId
   case class KidId(id: String)    extends ClasId
   case class NonKidId(id: String) extends ClasId
+  case class ChangeEmail(id: String, email: EmailAddress)
 }
 
 package round {

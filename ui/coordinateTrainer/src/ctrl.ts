@@ -207,7 +207,7 @@ export default class CoordinateTrainerCtrl {
       if (this.isAuth)
         xhr.text('/training/coordinate/score', {
           method: 'post',
-          body: xhr.form({ mode: this.mode, color: this.orientation, score: this.score }),
+          body: xhr.form({ mode: this.mode(), color: this.orientation, score: this.score }),
         });
     }
 

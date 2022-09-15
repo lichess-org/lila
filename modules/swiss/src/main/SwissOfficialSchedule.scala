@@ -70,7 +70,7 @@ final private class SwissOfficialSchedule(colls: SwissColls, cache: SwissCache)(
         roundInterval = SwissForm.autoInterval(config.clock),
         password = none,
         conditions = SwissCondition
-          .All(nbRatedGame = SwissCondition.NbRatedGame(config.minGames).some, none, none, none),
+          .All(nbRatedGame = SwissCondition.NbRatedGame(config.minGames).some, none, none, none, none),
         forbiddenPairings = ""
       )
     )

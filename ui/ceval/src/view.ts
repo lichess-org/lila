@@ -22,13 +22,12 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
     trans = ctrl.trans;
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
-
+    if (ceval.initFailed()) return [trans.noarg('engineFailed')];
     const mb = ceval.downloadProgress() / 1024 / 1024;
-    return [
-      evs.server && ctrl.nextNodeBest()
-        ? trans.noarg('usingServerAnalysis')
-        : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : ''),
-    ];
+    const localEvalText = ceval.isLoaded()
+      ? trans.noarg('calculatingMoves')
+      : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '');
+    return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : localEvalText];
   }
 
   const depth = evs.client.depth || 0;
@@ -56,7 +55,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
 }
 
 function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
-  if (!threat) return ctrl.trans.noarg('loadingEngine');
+  if (!threat) return ctrl.trans.noarg('calculatingMoves');
   let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
   if (threat.knps) t += ', ' + Math.round(threat.knps) + 'k nodes/s';
   return t;
@@ -175,11 +174,11 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
-  } else if (ctrl.outcome()) {
-    pearl = '-';
-    percent = 0;
   } else {
-    pearl = enabled ? h('i.ddloader') : h('i');
+    if (!enabled) pearl = h('i');
+    else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
+    else if (instance.initFailed()) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
+    else pearl = h('i.ddloader');
     percent = 0;
   }
   if (threatMode) {
@@ -218,6 +217,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
             'span.info',
             ctrl.outcome()
               ? [trans.noarg('gameOver')]
+              : ctrl.getNode().threefold
+              ? [trans.noarg('threefoldRepetition')]
               : threatMode
               ? [threatInfo(ctrl, threat)]
               : localEvalInfo(ctrl, evs)

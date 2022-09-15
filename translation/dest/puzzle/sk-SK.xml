@@ -13,6 +13,8 @@
   <string name="specialMoves">Špeciálne ťahy</string>
   <string name="didYouLikeThisPuzzle">Páčila sa vám táto úloha?</string>
   <string name="voteToLoadNextOne">Hlasujte a prejdite k ďalšej úlohe!</string>
+  <string name="upVote">Posunúť úlohu vyššie</string>
+  <string name="downVote">Posunúť úlohu nižšie</string>
   <string name="yourPuzzleRatingWillNotChange">Váš rating úloh sa nezmení. Upozorňujeme, že úlohy nie sú súťaž. Rating pomáha pri výbere najlepších úloh s prihliadnutím na vaše aktuálne zručnosti.</string>
   <string name="findTheBestMoveForWhite">Nájdite najlepší ťah za bieleho.</string>
   <string name="findTheBestMoveForBlack">Nájdite najlepší ťah za čierneho.</string>
@@ -45,6 +47,7 @@
   <string name="hardest">Najťažšia</string>
   <string name="example">Príklad</string>
   <string name="addAnotherTheme">Pridať ďalšiu kategóriu</string>
+  <string name="nextPuzzle">Ďalšia úloha</string>
   <string name="jumpToNextPuzzleImmediately">Automaticky prejsť na ďalšiu úlohu</string>
   <string name="puzzleDashboard">Nástenka šachových úloh</string>
   <string name="improvementAreas">Oblasti zlepšenia</string>
@@ -59,7 +62,7 @@
   <string name="lookupOfPlayer">Vyhľadávanie úloh z partií hráča</string>
   <string name="fromXGames">Úlohy z partí hráča %s</string>
   <string name="searchPuzzles">Hľadať úlohy</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s úloh nájdených v %2$s partiách</string>
+  <string name="fromXGamesFound">%1$s úloh nájdených v %2$s partiách</string>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte sa</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s hraná</item>

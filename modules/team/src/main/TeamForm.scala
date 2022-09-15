@@ -2,9 +2,17 @@ package lila.team
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, mustNotContainLichess, numberIn, toMarkdown }
+import lila.common.Form.{
+  cleanNonEmptyText,
+  cleanText,
+  cleanTextWithSymbols,
+  mustNotContainLichess,
+  numberIn,
+  toMarkdown
+}
 import lila.common.Markdown
 import lila.db.dsl._
 
@@ -25,6 +33,8 @@ final private[team] class TeamForm(
     def requestMessage(team: Team) =
       "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
+    val intro =
+      "intro" -> optional(cleanText(minLength = 3, maxLength = 200))
     val description =
       "description" -> toMarkdown(cleanText(minLength = 30, maxLength = 4000))
     val descPrivate =
@@ -41,6 +51,7 @@ final private[team] class TeamForm(
     mapping(
       Fields.name,
       Fields.password,
+      Fields.intro,
       Fields.description,
       Fields.descPrivate,
       Fields.request,
@@ -55,6 +66,7 @@ final private[team] class TeamForm(
     Form(
       mapping(
         Fields.password,
+        Fields.intro,
         Fields.description,
         Fields.descPrivate,
         Fields.request,
@@ -64,6 +76,7 @@ final private[team] class TeamForm(
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
       password = team.password,
+      intro = team.intro,
       description = team.description,
       descPrivate = team.descPrivate,
       request = !team.open,
@@ -105,7 +118,7 @@ final private[team] class TeamForm(
   def createWithCaptcha = withCaptcha(create)
 
   val pmAll = Form(
-    single("message" -> cleanText(minLength = 3, maxLength = 9000))
+    single("message" -> cleanTextWithSymbols.verifying(Constraints minLength 3, Constraints maxLength 9000))
   )
 
   val explain = Form(single("explain" -> cleanText(minLength = 3, maxLength = 9000)))
@@ -127,6 +140,7 @@ final private[team] class TeamForm(
 private[team] case class TeamSetup(
     name: String,
     password: Option[String],
+    intro: Option[String],
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
@@ -138,6 +152,7 @@ private[team] case class TeamSetup(
 
 private[team] case class TeamEdit(
     password: Option[String],
+    intro: Option[String],
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,

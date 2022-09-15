@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Մրցակիցը ստիպված է անել հնարավոր փոքրաթիվ քայլերից մեկը,  բայց քայլերից ցանկացածը տանում է դիրքի վատացման։</string>
   <string name="healthyMix">Խառը խնդիրներ</string>
   <string name="healthyMixDescription">Ամեն ինչից` քիչ-քիչ։ Դուք չգիտեք` ինչ է սպասվում, այնպես որ, պատրաստ եղեք ամեն ինչի։ Ինչպես իսկական պարտիայում։</string>
+  <string name="playerGames">Խաղացողի պարտիաները</string>
+  <string name="playerGamesDescription">Գտնել խնդիրներ, որոնք ստեղծվել են Ձեր պարտիաներից, կամ այլ խաղացողների պարտիաներից։</string>
+  <string name="puzzleDownloadInformation">Այս խնդիրները հանրության սեփականությունն են, և Դուք կարող եք ներբեռնել դրանք՝ %s։</string>
 </resources>

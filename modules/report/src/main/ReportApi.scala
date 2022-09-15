@@ -5,15 +5,16 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.Bus
-import lila.common.Heapsort
+import lila.common.{ Bus, Heapsort }
 import lila.db.dsl._
+import lila.game.GameRepo
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
 
 final class ReportApi(
     val coll: Coll,
     userRepo: UserRepo,
+    gameRepo: GameRepo,
     autoAnalysis: AutoAnalysis,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
@@ -22,7 +23,8 @@ final class ReportApi(
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
-    thresholds: Thresholds
+    thresholds: Thresholds,
+    domain: lila.common.config.NetDomain
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
@@ -31,7 +33,7 @@ final class ReportApi(
   import BSONHandlers._
   import Report.Candidate
 
-  private lazy val accuracyOf = accuracy.of _
+  private lazy val accuracyOf = accuracy.apply _
 
   private lazy val scorer = wire[ReportScore]
 
@@ -510,11 +512,11 @@ final class ReportApi(
           }
       }
 
-    def of(reporter: ReporterId): Fu[Option[Accuracy]] =
+    private def of(reporter: ReporterId): Fu[Option[Accuracy]] =
       cache get reporter.value
 
     def apply(candidate: Candidate): Fu[Option[Accuracy]] =
-      (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)
+      candidate.isCheat ?? of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
       coll

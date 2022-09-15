@@ -145,4 +145,25 @@ object JsonView {
           .add("dox", note.dox)
       }
     }
+
+  implicit def leaderboardsWrites(implicit
+      lightPerfWrites: OWrites[User.LightPerf]
+  ): Writes[Perfs.Leaderboards] =
+    Writes[Perfs.Leaderboards] { leaderboards =>
+      Json.obj(
+        "bullet"        -> leaderboards.bullet,
+        "blitz"         -> leaderboards.blitz,
+        "rapid"         -> leaderboards.rapid,
+        "classical"     -> leaderboards.classical,
+        "ultraBullet"   -> leaderboards.ultraBullet,
+        "crazyhouse"    -> leaderboards.crazyhouse,
+        "chess960"      -> leaderboards.chess960,
+        "kingOfTheHill" -> leaderboards.kingOfTheHill,
+        "threeCheck"    -> leaderboards.threeCheck,
+        "antichess"     -> leaderboards.antichess,
+        "atomic"        -> leaderboards.atomic,
+        "horde"         -> leaderboards.horde,
+        "racingKings"   -> leaderboards.racingKings
+      )
+    }
 }

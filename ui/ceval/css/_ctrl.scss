@@ -29,6 +29,10 @@
     font-weight: bold;
   }
 
+  .is-red::before {
+    vertical-align: -3px;
+  }
+
   help,
   .engine {
     @extend %nowrap-hidden;

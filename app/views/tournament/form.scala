@@ -151,6 +151,16 @@ object form {
         }
       ),
       form3.split(
+        form3.group(
+          form("conditions.allowList"),
+          "Only allow pre-defined users to join",
+          help = raw(
+            "If this list is non-empty, then usernames absent from this list will be forbidden to join. One username per line."
+          ).some,
+          half = true
+        )(form3.textarea(_)(rows := 4))
+      ),
+      form3.split(
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
           form3.checkbox(
             form("conditions.titled"),

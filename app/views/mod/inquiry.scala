@@ -186,6 +186,11 @@ object inquiry {
                 submitButton(cls := "fbt")("Send to Zulip")
               )
             },
+            isGranted(_.SendToZulip) option {
+              postForm(action := routes.Mod.createNameCloseVote(in.user.username))(
+                submitButton(cls := "fbt")("Create name-close vote")
+              )
+            },
             postForm(action := routes.Report.xfiles(in.report.id))(
               submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
                 "Move to X-Files"

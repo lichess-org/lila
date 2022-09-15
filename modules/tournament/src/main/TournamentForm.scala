@@ -152,12 +152,17 @@ object TournamentForm {
   val joinForm =
     Form(
       mapping(
-        "team"     -> optional(nonEmptyText),
-        "password" -> optional(nonEmptyText)
+        "team"       -> optional(nonEmptyText),
+        "password"   -> optional(nonEmptyText),
+        "pairMeAsap" -> optional(boolean)
       )(TournamentJoin.apply)(TournamentJoin.unapply)
     )
 
-  case class TournamentJoin(team: Option[String], password: Option[String])
+  case class TournamentJoin(
+      team: Option[String],
+      password: Option[String],
+      pairMeAsap: Option[Boolean] = None
+  )
 }
 
 private[tournament] case class TournamentSetup(

@@ -59,6 +59,8 @@
   <string name="depthX">Дълбочина %s</string>
   <string name="usingServerAnalysis">Използване на сървърен анализ</string>
   <string name="loadingEngine">Зареждане на програмата ...</string>
+  <string name="calculatingMoves">Изчисляване на ходовете...</string>
+  <string name="engineFailed">Грешка при зареждане на програмата</string>
   <string name="cloudAnalysis">Облачен анализ</string>
   <string name="goDeeper">По-детайлно</string>
   <string name="showThreat">Покажи заплаха</string>
@@ -195,6 +197,8 @@
   <string name="changeUsername">Промяна на потребителско име</string>
   <string name="changeUsernameNotSame">Единствено могат да се заменят малки с главни букви. Например, \"johndoe\" с \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промяна на потребителско име. Може да се извърши само веднъж и можете да сменяте единствено малки и главни букви.</string>
+  <string name="signupUsernameHint">Изберете прилично потребителско име. Няма да можете да го смените по-късно и всички регистрации с нецензурни имена биват затворени!</string>
+  <string name="signupEmailHint">Ще го използваме само за възстановяване на паролата.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Промяна на паролата</string>
   <string name="changeEmail">Промяна на имейл</string>
@@ -465,6 +469,10 @@
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
   <string name="inlineNotation">Вградена нотация</string>
+  <string name="savingMoves">Временно съхранение на вариацията</string>
+  <string name="savingMovesHelp">Винаги съхраняваме вашите вариации в кеша на браузъра ви.</string>
+  <string name="makeAStudy">За съхранение и споделяне помислете за изготвяне на казус.</string>
+  <string name="clearSavedMoves">Изтрий ходовете</string>
   <string name="previouslyOnLichessTV">Приключили игри</string>
   <string name="onlinePlayers">Свързани играчи</string>
   <string name="activePlayers">Активни играчи</string>

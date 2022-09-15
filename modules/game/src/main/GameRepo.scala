@@ -277,6 +277,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def isAnalysed(id: ID): Fu[Boolean] =
     coll.exists($id(id) ++ Query.analysed(true))
 
+  def analysed(id: ID) = coll.one[Game]($id(id) ++ Query.analysed(true))
+
   def exists(id: ID) = coll.exists($id(id))
 
   def tournamentId(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)

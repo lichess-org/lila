@@ -131,6 +131,10 @@ $col2-panel-height: 240px;
   overflow: hidden;
 }
 
+#acpl-chart {
+  cursor: pointer;
+}
+
 #acpl-chart-loader {
   font-size: 0.9em;
   position: absolute;

@@ -22,6 +22,7 @@ final private class StudySocket(
     chatApi: lila.chat.ChatApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
 
@@ -229,7 +230,8 @@ final private class StudySocket(
     logger,
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
-      api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
+      api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId) >>&
+        !Bus.ask("isOfficialRelay") { actorApi.IsOfficialRelay(roomId, _) }
     },
     chatBusChan = _.Study
   )

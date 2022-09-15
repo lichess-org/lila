@@ -48,7 +48,7 @@ object side {
         ),
         tour.teamBattle map teamBattle(tour),
         tour.spotlight map { s =>
-          st.section(
+          st.section(cls := "description")(
             markdownLinksOrRichText(s.description),
             shieldOwner map { owner =>
               p(cls := "defender", dataIcon := "")(

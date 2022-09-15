@@ -67,7 +67,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
         WithVisibleStreamer(s) {
           for {
             sws      <- env.streamer.liveStreamApi of s
-            activity <- env.activity.read.recent(sws.user)
+            activity <- env.activity.read.recentAndPreload(sws.user)
           } yield Ok(html.streamer.show(sws, activity))
         }
       }
@@ -88,11 +88,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
     AuthBody { implicit ctx => me =>
       ctx.noKid ?? {
         NoLameOrBot {
-          NoShadowban {
-            api find me flatMap {
-              case None => api.create(me) inject Redirect(routes.Streamer.edit)
-              case _    => Redirect(routes.Streamer.edit).fuccess
-            }
+          api find me flatMap {
+            case None => api.create(me) inject Redirect(routes.Streamer.edit)
+            case _    => Redirect(routes.Streamer.edit).fuccess
           }
         }
       }

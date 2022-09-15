@@ -45,7 +45,7 @@ export default class Persistence {
       if (state) {
         this.isDirty = true;
         this.ctrl.tree.merge(state.root);
-        this.ctrl.jump(state.path);
+        if (!this.ctrl.ongoing) this.ctrl.jump(state.path);
         if (state.flipped != this.ctrl.flipped) this.ctrl.flip();
       }
       this.ctrl.redraw();

@@ -11,7 +11,7 @@ import lila.hub.SyncActor
 
 final private[tv] class TvSyncActor(
     renderer: lila.hub.actors.Renderer,
-    lightUserSync: LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
     rematches: lila.game.Rematches
@@ -28,7 +28,7 @@ final private[tv] class TvSyncActor(
       onSelect = this.!,
       gameProxyRepo.game,
       rematches.getAcceptedId,
-      lightUserSync
+      lightUserApi.sync
     )
   }.toMap
 
@@ -55,7 +55,7 @@ final private[tv] class TvSyncActor(
 
     case lila.game.actorApi.StartGame(g) =>
       if (g.hasClock) {
-        val candidate = Tv.toCandidate(lightUserSync)(g)
+        val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
         channelTroupers collect {
           case (chan, trouper) if chan filter candidate => trouper
         } foreach (_ addCandidate g)
@@ -67,9 +67,9 @@ final private[tv] class TvSyncActor(
       import lila.socket.Socket.makeMessage
       import cats.implicits._
       val player = game.players.sortBy { p =>
-        ~p.rating + ~p.userId.flatMap(lightUserSync).flatMap(_.title).flatMap(Tv.titleScores.get)
+        ~p.rating + ~p.userId.flatMap(lightUserApi.sync).flatMap(_.title).flatMap(Tv.titleScores.get)
       }.lastOption | game.player(game.naturalOrientation)
-      val user = player.userId flatMap lightUserSync
+      val user = player.userId flatMap lightUserApi.sync
       (user, player.rating) mapN { (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }

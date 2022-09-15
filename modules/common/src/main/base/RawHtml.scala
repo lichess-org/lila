@@ -124,12 +124,13 @@ final object RawHtml {
                   case USER_LINK(user) => "@" + user
                   case _               => s"${netDomain}$allButScheme"
                 }}</a>"""
-            else {
-              if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
-              else imgUrl(url)
-            } getOrElse {
-              s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
-            }
+            else
+              {
+                if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
+                else imgUrl(url)
+              } getOrElse {
+                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
+              }
           }
 
           lastAppendIdx = end

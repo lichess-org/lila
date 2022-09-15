@@ -7,13 +7,28 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
 import lila.memo._
+import lila.memo.CacheApi._
 
-final private class SwissCache(
+final class SwissCache(
     colls: SwissColls,
     cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
+
+  object swissCache {
+
+    private val cache = cacheApi[Swiss.Id, Option[Swiss]](512, "swiss.swiss") {
+      _.expireAfterWrite(1 second)
+        .buildAsyncFuture(id => colls.swiss.byId[Swiss](id.value))
+    }
+    def clear(id: Swiss.Id) = cache invalidate id
+
+    def byId                          = cache.get _
+    def notFinishedById(id: Swiss.Id) = byId(id).dmap(_.filter(_.isNotFinished))
+    def createdById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isCreated))
+    def startedById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isStarted))
+  }
 
   val name = cacheApi.sync[Swiss.Id, Option[String]](
     name = "swiss.name",

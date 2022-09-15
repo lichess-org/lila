@@ -24,18 +24,22 @@ final private class RelaySync(
           case None =>
             lila.common.Future.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match {
-                case Some(chapter) => updateChapter(rt.tour, study, chapter, game)
+                case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
                 case None =>
-                  createChapter(study, game) flatMap { chapter =>
-                    chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                      studyApi.deleteChapter(study.id, initial.id) {
-                        actorApi.Who(study.ownerId, sri)
+                  chapterRepo.countByStudyId(study.id) flatMap {
+                    case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+                    case _ =>
+                      createChapter(study, game) flatMap { chapter =>
+                        chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
+                          studyApi.deleteChapter(study.id, initial.id) {
+                            actorApi.Who(study.ownerId, sri)
+                          }
+                        } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
                       }
-                    } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   }
               }
             } flatMap { chapterUpdates =>
-              val result = SyncResult.Ok(chapterUpdates.toList, games)
+              val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
               lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
               tourRepo.setSyncedNow(rt.tour) inject result
             }
@@ -145,7 +149,7 @@ final private class RelaySync(
         chapterId = chapter.id,
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
-        val newEnd = chapter.tags.resultColor.isEmpty && tags.resultColor.isDefined
+        val newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         newEnd ?? onChapterEnd(tour, study, chapter)
       } inject true
     }

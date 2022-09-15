@@ -11,6 +11,7 @@ import lila.common.{ Bus, IpAddress }
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
+import lila.common.EmailAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -564,6 +565,17 @@ final class PlanApi(
       .cursor[Charge]()
       .list()
       .map(_.flatMap(_.toGift))
+
+  private[plan] def onEmailChange(userId: User.ID, email: EmailAddress): Funit =
+    userRepo enabledById userId flatMap {
+      _ ?? { user =>
+        stripe.userCustomer(user) flatMap {
+          _.filterNot(_.email.has(email.value)) ?? {
+            stripeClient.setCustomerEmail(_, email)
+          }
+        }
+      }
+    }
 
   private val topPatronUserIdsNb = 300
   private val topPatronUserIdsCache = mongoCache.unit[List[User.ID]](

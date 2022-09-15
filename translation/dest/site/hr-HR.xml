@@ -60,6 +60,8 @@
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
   <string name="loadingEngine">Učitavanje računalne analize...</string>
+  <string name="calculatingMoves">Kalkuliram poteze...</string>
+  <string name="engineFailed">Greška pri učitavanju šahovskog programa</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
   <string name="showThreat">Pokaži prijetnju</string>
@@ -374,6 +376,8 @@
   <string name="apply">Primijeni</string>
   <string name="save">Spremi</string>
   <string name="leaderboard">Ljestvica</string>
+  <string name="screenshotCurrentPosition">Uslikaj trenutnu poziciju</string>
+  <string name="gameAsGIF">Igra u obliku GIF-a</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
   <string name="orUploadPgnFile">Ili učitaj PGN datoteku</string>
@@ -458,6 +462,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
+  <string name="pause">Pauza</string>
+  <string name="resume">Nastavi</string>
   <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Postotak pobjeda</string>
   <string name="berserkRate">Postotak berserka</string>
@@ -492,6 +498,10 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="oneUrlPerLine">Jedan URL po liniji.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
+  <string name="savingMoves">Privremena pohrana poteza</string>
+  <string name="savingMovesHelp">Vaše varijacije uvijek spremamo u predmemoriju preglednika.</string>
+  <string name="makeAStudy">Za čuvanje i dijeljenje razmislite o izradi studije.</string>
+  <string name="clearSavedMoves">Očisti poteze</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
   <string name="activePlayers">Aktivni igrači</string>
@@ -598,6 +608,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
+  <string name="error.unknown">Nevažeća vrijednost</string>
   <string name="error.required">Ovo polje je obavezno</string>
   <string name="error.email">Ova email adresa je neispravna</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva. Molimo provjerite ju te pokušajte ponovo.</string>

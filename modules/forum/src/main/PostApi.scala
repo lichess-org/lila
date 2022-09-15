@@ -69,7 +69,7 @@ final class PostApi(
               if (anonMod) logAnonPost(me.id, post, edit = false)
               else if (!post.troll && !categ.quiet && !topic.isTooBig)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
-                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
+                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
@@ -188,12 +188,6 @@ final class PostApi(
   def allUserIds(topicId: Topic.ID) = postRepo allUserIdsByTopicId topicId
 
   def nbByUser(userId: String) = postRepo.coll.countSel($doc("userId" -> userId))
-
-  def allByUser(userId: User.ID): AkkaStreamCursor[Post] =
-    postRepo.coll
-      .find($doc("userId" -> userId))
-      .sort($doc("createdAt" -> -1))
-      .cursor[Post](ReadPreference.secondaryPreferred)
 
   def categsForUser(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
     for {

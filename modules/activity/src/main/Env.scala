@@ -20,7 +20,8 @@ final class Env(
     getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName,
     teamRepo: lila.team.TeamRepo,
-    swissApi: lila.swiss.SwissApi
+    swissApi: lila.swiss.SwissApi,
+    lightUserApi: lila.user.LightUserApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler

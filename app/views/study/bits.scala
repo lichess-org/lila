@@ -9,7 +9,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.removeMultibyteSymbols
-import lila.study.Order
+import lila.study.{ Order, Study }
 
 object bits {
 
@@ -32,7 +32,7 @@ object bits {
       submitButton(cls := "button button-green", dataIcon := "", title := trans.study.createStudy.txt())
     )
 
-  def authLinks(active: String, order: lila.study.Order)(implicit ctx: Context) = {
+  def authLinks(active: String, order: Order)(implicit ctx: Context) = {
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
@@ -47,7 +47,7 @@ object bits {
     )
   }
 
-  def widget(s: lila.study.Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) =
+  def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id.value), title := s.study.name.value),
       div(cls := "top", dataIcon := "")(
@@ -79,7 +79,7 @@ object bits {
         ),
         ol(cls := "members")(
           s.study.members.members.values
-            .take(4)
+            .take(Study.previewNbMembers)
             .map { m =>
               li(cls := "text", dataIcon := (if (m.canContribute) "" else ""))(titleNameOrId(m.id))
             }

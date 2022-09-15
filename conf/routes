@@ -93,6 +93,7 @@ GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: 
 GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
+GET   /api/player                      controllers.User.apiList
 
 GET   /dasher                          controllers.Dasher.get
 
@@ -267,7 +268,8 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
-GET   /streamer/live                   controllers.Streamer.live
+GET   /api/streamer/live               controllers.Streamer.live
+GET   /streamer/live                   controllers.Main.movedPermanently(to: String = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
@@ -425,7 +427,7 @@ GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
-GET   /export/gif/*fen                                        controllers.Export.fenThumbnail(fen: String, color: String ?= "white", lastMove: Option[String], variant: Option[String])
+GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen: String, color: String ?= "white", lastMove: Option[String], variant: Option[String])
 
 # Fishnet
 GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/lichess-org/fishnet")
@@ -518,6 +520,7 @@ GET   /mod/table                       controllers.Mod.table
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip
+POST  /mod/:username/create-name-close-vote controllers.Mod.createNameCloseVote(username: String)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
 GET   /mod/activity                    controllers.Mod.activity
@@ -703,6 +706,8 @@ GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId: String)
+POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId: String)
 GET   /api/stream/event                controllers.Api.eventStream
 GET   /api/stream/game/:id             controllers.Api.moveStream(id: String)
 GET   /api/account                     controllers.Account.apiMe
@@ -730,6 +735,13 @@ POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username: String)
+
+# External engine
+GET   /api/external-engine             controllers.Analyse.externalEngineList
+POST  /api/external-engine             controllers.Analyse.externalEngineCreate
+GET   /api/external-engine/:id         controllers.Analyse.externalEngineShow(id: String)
+PUT   /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(id: String)
+DELETE /api/external-engine/:id        controllers.Analyse.externalEngineDelete(id: String)
 
 # Mobile API only
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)

@@ -59,6 +59,8 @@
   <string name="depthX">عمق بررسی تا %s حرکت</string>
   <string name="usingServerAnalysis">استفاده از سرور برای تحلیل</string>
   <string name="loadingEngine">موتور پردازش بارگذاری می‌گردد...</string>
+  <string name="calculatingMoves">محاسبه حرکت ها...</string>
+  <string name="engineFailed">مشکل در بارگذاری انجین</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">عمق و تعداد بیشتری از حرکتها را بررسی نمایید</string>
   <string name="showThreat">تهدید را نمایش بدهید</string>

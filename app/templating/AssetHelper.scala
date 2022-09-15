@@ -76,11 +76,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
-    val assets = assetDomain.value
-    val sockets = socketDomains map { socketDomain =>
-      val protocol = if (req.secure) "wss://" else "ws://"
-      s"$protocol$socketDomain"
-    }
+    val assets  = assetDomain.value
+    val sockets = socketDomains map { x => s"wss://$x${!req.secure ?? s" ws://$x"}" }
+    // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = !req.secure ?? List("http://127.0.0.1:3000")
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),

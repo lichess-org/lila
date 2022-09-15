@@ -35,10 +35,12 @@ final class Auth(
       }
     }
 
-  private def getReferrer(implicit ctx: Context): String =
-    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
-      ctxReq.session.get(api.AccessUri) getOrElse
-      routes.Lobby.home.url
+  private def getReferrerOption(implicit ctx: Context): Option[String] =
+    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse ctxReq.session.get(
+      api.AccessUri
+    )
+
+  private def getReferrer(implicit ctx: Context): String = getReferrerOption | routes.Lobby.home.url
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
@@ -79,7 +81,7 @@ final class Auth(
 
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").flatMap(env.api.referrerRedirect.valid)
+      val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
       referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
@@ -308,7 +310,7 @@ final class Auth(
   private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
-        html = Redirect(routes.User.show(user.username)).fuccess,
+        html = Redirect(getReferrerOption | routes.User.show(user.username).url).fuccess,
         api = _ => mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
@@ -410,6 +412,7 @@ final class Auth(
                 env.user.repo.disableTwoFactor(user.id) >>
                 env.security.store.closeAllSessionsOf(user.id) >>
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
+                env.push.unregisterDevices(user) >>
                 authenticateUser(user) >>-
                 lila.mon.user.auth.passwordResetConfirm("success").increment().unit
             }(rateLimitedFu)

@@ -16,7 +16,7 @@ final private[round] class Drawer(
 
   implicit private val chatLang = defaultLang
 
-  def autoThreefold(game: Game): Fu[Option[Pov]] = game.playable ??
+  def autoThreefold(game: Game): Fu[Option[Pov]] = game.drawable ??
     Pov(game)
       .map { pov =>
         import Pref.PrefZero
@@ -32,7 +32,7 @@ final private[round] class Drawer(
       .sequenceFu
       .dmap(_.flatten.headOption)
 
-  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.playable ?? {
+  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
     pov match {
       case pov if pov.game.history.threefoldRepetition =>
         finisher.other(pov.game, _.Draw, None)
@@ -48,7 +48,7 @@ final private[round] class Drawer(
     }
   }
 
-  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.playable ?? {
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
     pov match {
       case Pov(g, color) if pov.player.isOfferingDraw =>
         proxy.save {
@@ -69,11 +69,8 @@ final private[round] class Drawer(
   }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    (pov.game.playable && pov.game.history.threefoldRepetition) ?? finisher.other(
-      pov.game,
-      _.Draw,
-      None
-    )
+    (pov.game.drawable && pov.game.history.threefoldRepetition) ??
+      finisher.other(pov.game, _.Draw, None)
 
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 

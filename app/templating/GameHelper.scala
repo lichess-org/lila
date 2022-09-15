@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import chess.{ Black, Clock, Color, Mode, Status => S, White }
+import chess.{ Black, Clock, Color, Mode, Outcome, Status => S, White }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -32,8 +32,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def describePov(pov: Pov) = {
     import pov._
-    val p1 = playerText(player, withRating = true)
-    val p2 = playerText(opponent, withRating = true)
+    val p1 = playerText(game.whitePlayer, withRating = true)
+    val p2 = playerText(game.blackPlayer, withRating = true)
     val speedAndClock =
       if (game.imported) "imported"
       else
@@ -214,13 +214,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   // whiteUsername 1-0 blackUsername
   def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) chess.Color.showResult(result map Color.fromWhite) else "*"
+    val res = Outcome.showResult(finished option Outcome(result map Color.fromWhite))
     s"${titleNameOrId(whiteUserId)} $res ${titleNameOrId(blackUserId)}"
   }
 
   def gameResult(game: Game) =
-    if (game.finished) chess.Color.showResult(game.winnerColor)
-    else "*"
+    Outcome.showResult(game.finished option Outcome(game.winnerColor))
 
   def gameLink(
       game: Game,

@@ -51,7 +51,7 @@ object dev {
     val title = "Command Line Interface"
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("mod.misc")
+      moreCss = frag(cssTag("mod.misc"), cssTag("form3"))
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("cli"),
@@ -64,7 +64,16 @@ object dev {
           ),
           res map { pre(_) },
           postForm(action := routes.Dev.cliPost)(
-            form3.input(form("command"))(autofocus)
+            form3.input(form("command"))(autofocus),
+            br,
+            form3.submit(frag("Submit"))
+          ),
+          hr,
+          postForm(action := routes.Dev.cliPost)(
+            p("Same thing but with a textarea for multiline commands:"),
+            form3.textarea(form("command"))(style := "height:8em"),
+            br,
+            form3.submit(frag("Submit"))
           ),
           h2("Command examples:"),
           pre("""uptime

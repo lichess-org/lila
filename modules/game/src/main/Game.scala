@@ -325,7 +325,10 @@ case class Game(
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
-      !playerHasOfferedDrawRecently(color)
+      !playerHasOfferedDrawRecently(color) &&
+      !swissPreventsDraw
+
+  def swissPreventsDraw = isSwiss && playedTurns < 60
 
   def playerHasOfferedDrawRecently(color: Color) =
     drawOffers.lastBy(color) ?? (_ >= turns - 20)
@@ -337,9 +340,9 @@ case class Game(
   def playerCouldRematch =
     finishedOrAborted &&
       nonMandatory &&
-      !boosted && ! {
-        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
-      }
+      !metadata.single &&
+      !boosted &&
+      !(hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60))
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&
@@ -355,7 +358,7 @@ case class Game(
     }
 
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
-  def abortableByUser = abortable && !fromApi
+  def abortableByUser = abortable && !metadata.single
 
   def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
@@ -381,8 +384,9 @@ case class Game(
     }
 
   def resignable      = playable && !abortable
-  def drawable        = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss
+  def drawable        = playable && !abortable && !swissPreventsDraw
+  def forceDrawable   = playable && !abortable
 
   def finish(status: Status, winner: Option[Color]): Game =
     copy(
@@ -741,7 +745,8 @@ object Game {
       mode: Mode,
       source: Source,
       pgnImport: Option[PgnImport],
-      daysPerTurn: Option[Int] = None
+      daysPerTurn: Option[Int] = None,
+      single: Boolean = false
   ): NewGame = {
     val createdAt = DateTime.now
     NewGame(
@@ -753,23 +758,14 @@ object Game {
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,
-        metadata = metadata(source).copy(pgnImport = pgnImport),
+        metadata = metadata(source).copy(pgnImport = pgnImport, single = single),
         createdAt = createdAt,
         movedAt = createdAt
       )
     )
   }
 
-  def metadata(source: Source) =
-    Metadata(
-      source = source.some,
-      pgnImport = none,
-      tournamentId = none,
-      swissId = none,
-      simulId = none,
-      analysed = false,
-      drawOffers = GameDrawOffers.empty
-    )
+  def metadata(source: Source) = Metadata.empty.copy(source = source.some)
 
   object BSONFields {
 
@@ -813,6 +809,7 @@ object Game {
     val checkAt           = "ck"
     val perfType          = "pt" // only set on student games for aggregation
     val drawOffers        = "do"
+    val single            = "single"
   }
 }
 

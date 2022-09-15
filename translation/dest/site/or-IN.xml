@@ -218,7 +218,7 @@
   <string name="reason">କାରଣ</string>
   <string name="whatIsIheMatter">ମାମଲା କ\'ଣ?</string>
   <string name="importedByX">%sଙ୍କ ଦ୍ୱାରା ଆମଦାନୀ ହୋଇଛି</string>
-  <string name="thisTopicIsNowClosed">ଏହି ବିଷୟଟି ବର୍ତ୍ତମାନ ବନ୍ଦ ହୋଇଯାଇଛି।</string>
+  <string name="thisTopicIsNowClosed">ଏଇ ପ୍ରକରଣଟି ଏବେ ବନ୍ଦ ହୋଇଯାଇଛି।</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍‍ୱାର୍ଡ଼</string>

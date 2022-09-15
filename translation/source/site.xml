@@ -58,7 +58,9 @@
   <string name="analysis">Analysis board</string>
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Using server analysis</string>
-  <string name="loadingEngine">Loading engine ...</string>
+  <string name="loadingEngine">Loading engine...</string>
+  <string name="calculatingMoves">Calculating moves...</string>
+  <string name="engineFailed">Error loading engine</string>
   <string name="cloudAnalysis">Cloud analysis</string>
   <string name="goDeeper">Go deeper</string>
   <string name="showThreat">Show threat</string>
@@ -195,6 +197,8 @@
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
+  <string name="signupUsernameHint">Make sure to choose a family-friendly username. You cannot change it later and any accounts with inappropriate usernames will get closed!</string>
+  <string name="signupEmailHint">We will only use it for password reset.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
@@ -632,6 +636,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
   <string name="timeBeforeTournamentStarts">Time before tournament starts</string>
   <string name="averageCentipawnLoss">Average centipawn loss</string>
+  <string name="accuracy">Accuracy</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>

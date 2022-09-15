@@ -13,6 +13,8 @@
   <string name="specialMoves">Ypatingi ėjimai</string>
   <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
+  <string name="upVote">Prabalsuoti už</string>
+  <string name="downVote">Prabalsuoti prieš</string>
   <string name="yourPuzzleRatingWillNotChange">Jūsų galvosūkių reitingas nesikeis. Pažymėtina, kad galvosūkiai nėra rungtynės. Reitingas padeda išrinkti tinkamiausius galvosūkius pagal jūsų gebėjimus.</string>
   <string name="findTheBestMoveForWhite">Raskite geriausią ėjimą baltiems.</string>
   <string name="findTheBestMoveForBlack">Raskite geriausią ėjimą juodiems.</string>
@@ -76,7 +78,7 @@
   <string name="searchPuzzles">Ieškoti galvosūkių</string>
   <string name="fromMyGamesNone">Jūs galvosūkių duomenų bazėje neturite, bet Lichess vis tiek jus labai myli.
 Žaiskite greituosius ir klasikinius žaidimus ir taip padidinkite šansus, kad bus pridėtas galvosūkis iš jūsų partijos!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s galvosūkių rasta %2$s partijose</string>
+  <string name="fromXGamesFound">%1$s galvosūkių rasta %2$s partijose</string>
   <string name="puzzleDashboardDescription">Treniruokitės, analizuokite, tobulinkitės</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s sužaistas</item>

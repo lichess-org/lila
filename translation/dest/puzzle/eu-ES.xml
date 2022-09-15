@@ -13,6 +13,8 @@
   <string name="specialMoves">Jokaldi bereziak</string>
   <string name="didYouLikeThisPuzzle">Ariketa gustukoa izan da?</string>
   <string name="voteToLoadNextOne">Eman bozka hurrengoa kargatzeko!</string>
+  <string name="upVote">Ariketari +1 botoa</string>
+  <string name="downVote">Ariketari -1 botoa</string>
   <string name="yourPuzzleRatingWillNotChange">Ariketen zure puntuazioa ez da aldatuko. Kontuan izan ariketak ez direla txapelketa bat. Puntuaziok zure gaitasunen araberako ariketak aukeratzen laguntzen du.</string>
   <string name="findTheBestMoveForWhite">Zurien jokaldi onena bilatu.</string>
   <string name="findTheBestMoveForBlack">Beltzen jokaldi onena bilatu.</string>
@@ -70,7 +72,7 @@
   <string name="searchPuzzles">Ariketak bilatu</string>
   <string name="fromMyGamesNone">Ez duzu ariketarik datu-basean, hala ere Lichessek asko maite zaitu.
 Jokatu partida azkar eta arruntak zure partidetatik eratorritako ariketak izateko!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s ariketa aurkitu dira %2$s partidatan</string>
+  <string name="fromXGamesFound">%1$s ariketa aurkitu dira %2$s partidatan</string>
   <string name="puzzleDashboardDescription">Entrenatu, aztertu, hobetu</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jokatuta</item>

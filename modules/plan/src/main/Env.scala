@@ -91,6 +91,10 @@ final class Env(
     expiration.run.unit
   }
 
+  lila.common.Bus.subscribeFun("email") { case lila.hub.actorApi.user.ChangeEmail(userId, email) =>
+    api.onEmailChange(userId, email).unit
+  }
+
   def cli =
     new lila.common.Cli {
       def process = {

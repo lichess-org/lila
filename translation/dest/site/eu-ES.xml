@@ -59,6 +59,8 @@
   <string name="depthX">Sakonera %s</string>
   <string name="usingServerAnalysis">Zerbitzariko analisia erabiltzen ari da</string>
   <string name="loadingEngine">Motorea kargatzen...</string>
+  <string name="calculatingMoves">Jokaldiak kalkulatzen...</string>
+  <string name="engineFailed">Errorea motorea kargatzean</string>
   <string name="cloudAnalysis">\"Lainoko\" analisia</string>
   <string name="goDeeper">Sakonago begiratu</string>
   <string name="showThreat">Mehatxua erakutsi</string>
@@ -195,6 +197,8 @@
   <string name="changeUsername">Erabiltzaile-izena aldatu</string>
   <string name="changeUsernameNotSame">Hizkien izaera bakarrik aldatu daiteke (larriak vs. xeheak). Adibidez: jatorrizko \"urlia\" \"UrLiA\" bihurtu daiteke.</string>
   <string name="changeUsernameDescription">Zure erabiltzaile-izena aldatu. Hau behin bakarrik egin daiteke eta hizkien izaera bakarrik aldatu dezakezu (hizki larriak vs. xeheak).</string>
+  <string name="signupUsernameHint">Edonorentzako bezalako erabiltzaile-izena aukeratu. Ezingo duzu aldatu. Desegokiak diren erabiltzaile-izenak dituzten kontuak itxi egingo ditugu!</string>
+  <string name="signupEmailHint">Pasahitza berrezartzeko erabiliko dugu bakarrik.</string>
   <string name="password">Pasahitza</string>
   <string name="changePassword">Pasahitza aldatu</string>
   <string name="changeEmail">Posta elektronikoa aldatu</string>
@@ -464,6 +468,10 @@
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="oneUrlPerLine">Lerro bakoitzeko URL bat.</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
+  <string name="savingMoves">Jokaldiak gordetzeko momentuko tokia</string>
+  <string name="savingMovesHelp">Zure jokaldiak nabigatzailean gordetzen ari gara.</string>
+  <string name="makeAStudy">Ondo gorde eta partekatzeko sortu azterlan bat.</string>
+  <string name="clearSavedMoves">Garbitu jokaldiak</string>
   <string name="previouslyOnLichessTV">Aurreko Lichess TV saioak</string>
   <string name="onlinePlayers">Konektatutako jokalariak</string>
   <string name="activePlayers">Jokalari aktiboak</string>

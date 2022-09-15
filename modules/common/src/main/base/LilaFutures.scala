@@ -118,7 +118,13 @@ final class LilaFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def await(duration: FiniteDuration, name: String): A =
     Chronometer.syncMon(_.blocking.time(name)) {
-      Await.result(fua, duration)
+      try {
+        Await.result(fua, duration)
+      } catch {
+        case e: Exception =>
+          lila.mon.blocking.timeout(name).increment()
+          throw e
+      }
     }
 
   def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =

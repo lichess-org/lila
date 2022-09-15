@@ -16,7 +16,7 @@ final class TournamentLilaHttp(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
-    cached: Cached,
+    cached: TournamentCache,
     duelStore: DuelStore,
     statsApi: TournamentStatsApi,
     jsonView: JsonView,

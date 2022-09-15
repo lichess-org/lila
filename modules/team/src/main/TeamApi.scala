@@ -17,6 +17,7 @@ import lila.hub.LeaderTeam
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
+import lila.security.Granter
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -53,6 +54,7 @@ final class TeamApi(
         id = id,
         name = setup.name,
         password = setup.password,
+        intro = setup.intro,
         description = setup.description,
         descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
         open = setup.isOpen,
@@ -73,6 +75,7 @@ final class TeamApi(
   def update(team: Team, edit: TeamEdit, me: User): Funit =
     team.copy(
       password = edit.password,
+      intro = edit.intro,
       description = edit.description,
       descPrivate = edit.descPrivate,
       open = edit.isOpen,
@@ -108,7 +111,7 @@ final class TeamApi(
     cached
       .teamIdsList(member.id)
       .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
-      if (viewer.exists(_ is member)) fuccess(allIds)
+      if (viewer.exists(_ is member) || viewer.exists(Granter(_.UserModView))) fuccess(allIds)
       else
         allIds.nonEmpty ?? {
           teamRepo.filterHideMembers(allIds) flatMap { hiddenIds =>

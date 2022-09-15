@@ -2,7 +2,7 @@
   &-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
-    grid-gap: 3vmin;
+    grid-gap: 2em;
   }
   &-card {
     @extend %box-neat-force;

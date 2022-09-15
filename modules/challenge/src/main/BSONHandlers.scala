@@ -84,5 +84,7 @@ private object BSONHandlers {
       }
   }
 
-  implicit val ChallengeBSONHandler = Macros.handler[Challenge]
+  implicit private val OpenForIdsBSONHandler = tuple2BSONHandler[lila.user.User.ID]
+  implicit val ChallengeOpenBSONHandler      = Macros.handler[Challenge.Open]
+  implicit val ChallengeBSONHandler          = Macros.handler[Challenge]
 }

@@ -3,7 +3,7 @@
   <string name="advancedPawn">רגלי מתקדם</string>
   <string name="advancedPawnDescription">אחד מהחיילים שלך עמוק בקווי היריב, אולי מאיים להיות מוכתר.</string>
   <string name="advantage">יתרון</string>
-  <string name="advantageDescription">נצל את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
+  <string name="advantageDescription">נצל/י את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
   <string name="anastasiaMate">המט של אנסטסיה</string>
   <string name="anastasiaMateDescription">פרש, יחד עם צריח או מלכה, לוכדים את המלך היריב בין דופן הלוח לבין כלי מכוחותיו.</string>
   <string name="arabianMate">מט ערבי</string>
@@ -13,7 +13,7 @@
   <string name="attraction">משיכה</string>
   <string name="attractionDescription">החלפת כלים או הקרבה שמעודדות או מכריחות כלי יריב לנדוד למשבצת שמאפשרת טקטיקת המשך.</string>
   <string name="backRankMate">מט שורה אחורית (״מתחת למים״)</string>
-  <string name="backRankMateDescription">בצע מט למלך בשורת הפתיחה שלו, בה הוא כלוא על ידי כלים מכוחותיו.</string>
+  <string name="backRankMateDescription">בצעו מט למלך בשורת הפתיחה שלו, בה הוא כלוא על ידי כלים מכוחותיו.</string>
   <string name="bishopEndgame">סיום רצים</string>
   <string name="bishopEndgameDescription">סיום עם רצים ורגלים בלבד.</string>
   <string name="bodenMate">המט של בודן</string>
@@ -66,7 +66,7 @@
   <string name="masterVsMaster">משחקי אמן נגד אמן</string>
   <string name="masterVsMasterDescription">פאזלים ממשחקים בין שני אמנים.</string>
   <string name="mate">מט</string>
-  <string name="mateDescription">נצח את המשחק בסטייל.</string>
+  <string name="mateDescription">נצחו את המשחק בסטייל.</string>
   <string name="mateIn1">מט ב1</string>
   <string name="mateIn1Description">בצע מט במסע אחד.</string>
   <string name="mateIn2">מט ב2</string>

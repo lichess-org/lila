@@ -3,7 +3,6 @@ import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
-import { defined } from 'common';
 import { bind, dataIcon } from 'common/snabbdom';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
@@ -43,8 +42,9 @@ const advices: Advice[] = [
 ];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const d = ctrl.data;
-  const acpl = d.analysis![color].acpl;
+  const d = ctrl.data,
+    sideData = d.analysis![color];
+
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => {
@@ -58,10 +58,8 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
         : {};
       return h(`div.advice-summary__error${style}`, { attrs }, ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb)));
     }),
-    h('div.advice-summary__acpl', [
-      h('strong', '' + (defined(acpl) ? acpl : '?')),
-      h('span', ctrl.trans.noarg('averageCentipawnLoss')),
-    ]),
+    h('div.advice-summary__acpl', [h('strong', sideData.acpl), h('span', ctrl.trans.noarg('averageCentipawnLoss'))]),
+    h('div.advice-summary__accuracy', [h('strong', [sideData.accuracy, '%']), h('span', ctrl.trans.noarg('accuracy'))]),
   ]);
 }
 

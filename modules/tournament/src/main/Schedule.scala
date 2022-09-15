@@ -392,7 +392,8 @@ object Schedule {
         },
         maxRating = none,
         titled = none,
-        teamMember = none
+        teamMember = none,
+        allowList = none
       )
     }
 }

@@ -41,7 +41,7 @@ object create {
                   isGranted(_.Shusher) || isGranted(_.BoostHunter) || isGranted(_.CheatHunter)
                 )
               val id = s"oauth-scope-${scope.key.replace(":", "_")}"
-              !hidden option div(
+              !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList(scope)))(
                 span(
                   form3.cmnToggle(
                     id,

@@ -59,6 +59,7 @@ object userAnalysisI18n {
     trans.computerAnalysis,
     trans.learnFromYourMistakes,
     trans.averageCentipawnLoss,
+    trans.accuracy,
     trans.viewTheSolution,
     // action menu
     trans.menu,
@@ -114,6 +115,8 @@ object userAnalysisI18n {
     trans.depthX,
     trans.usingServerAnalysis,
     trans.loadingEngine,
+    trans.calculatingMoves,
+    trans.engineFailed,
     trans.cloudAnalysis,
     trans.goDeeper,
     trans.showThreat,

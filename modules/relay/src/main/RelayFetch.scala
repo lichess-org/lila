@@ -42,7 +42,7 @@ final private class RelayFetch(
     api
       .toSync(official)
       .flatMap { relays =>
-        lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
+        lila.mon.relay.ongoing(official).update(relays.size)
         relays.map { rt =>
           if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
             api.update(rt.round)(_ => newRelay)
@@ -65,6 +65,7 @@ final private class RelayFetch(
     if (!rt.round.sync.playing) fuccess(rt.round.withSync(_.play))
     else
       fetchGames(rt)
+        .map(games => rt.tour.players.fold(games)(_ update games))
         .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size).unit)
         .flatMap { games =>

@@ -61,6 +61,8 @@
   <string name="depthX">Globina %s</string>
   <string name="usingServerAnalysis">Z analizo strežnika</string>
   <string name="loadingEngine">Nalaganje motorja ...</string>
+  <string name="calculatingMoves">Računanje potez...</string>
+  <string name="engineFailed">Napaka pri nalaganju motorja</string>
   <string name="cloudAnalysis">Analiza v oblaku</string>
   <string name="goDeeper">Pojdi globje</string>
   <string name="showThreat">Prikaži grožnjo</string>
@@ -217,6 +219,8 @@
   <string name="changeUsername">Spremenite uporabniško ime</string>
   <string name="changeUsernameNotSame">Črkam je mogoče le zamenjati velikost v male ali velike tiskane. Naprimer \"janeznovak\" v \"JanezNovak\".</string>
   <string name="changeUsernameDescription">Spremenite svoje uporabniško ime. To je mogoče opraviti le enkrat in spremiti samo velikost tiskanih črk v male ali velike.</string>
+  <string name="signupUsernameHint">Ne pozabite izbrati družini prijaznega uporabniškega imena. Pozneje ga ne morete spremeniti in vsa neprimerna uporabniška imena bodo zaprta!</string>
+  <string name="signupEmailHint">Uporabljali ga bomo samo za ponastavitev gesla.</string>
   <string name="password">Geslo</string>
   <string name="changePassword">Zamenjaj geslo</string>
   <string name="changeEmail">Zamenjaj E-poštnega naslova</string>

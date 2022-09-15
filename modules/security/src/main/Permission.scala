@@ -17,6 +17,7 @@ object Permission {
   case object ModerateForum    extends Permission("MODERATE_FORUM", "Moderate forum")
   case object ModerateBlog     extends Permission("MODERATE_BLOG", "Moderate blog")
   case object ChatTimeout      extends Permission("CHAT_TIMEOUT", "Chat timeout")
+  case object BroadcastTimeout extends Permission("BROADCAST_TIMEOUT", "Broadcast timeout")
   case object PublicChatView   extends Permission("VIEW_PUBLIC_CHAT", "See public chat page")
   case object GamifyView       extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case object UserModView      extends Permission("USER_SPY", "User profile mod view")
@@ -180,7 +181,8 @@ object Permission {
           Streamers,
           DisableTwoFactor,
           ChangePermission,
-          StudyAdmin
+          StudyAdmin,
+          BroadcastTimeout
         ),
         "Admin"
       )
@@ -241,6 +243,7 @@ object Permission {
     ),
     "Content" -> List(
       Relay,
+      BroadcastTimeout,
       ManageEvent,
       ManageTournament,
       ManageSimul,

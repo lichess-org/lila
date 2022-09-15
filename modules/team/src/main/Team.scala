@@ -13,6 +13,7 @@ case class Team(
     _id: Team.ID, // also the url slug
     name: String,
     password: Option[String],
+    intro: Option[String],
     description: Markdown,
     descPrivate: Option[Markdown],
     nbMembers: Int,
@@ -62,9 +63,10 @@ object Team {
 
   def maxJoin(u: User) =
     if (u.isVerified) maxJoinCeiling * 2
-    else {
-      15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
-    } atMost maxJoinCeiling
+    else
+      {
+        15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
+      } atMost maxJoinCeiling
 
   type Access = Int
   object Access {
@@ -104,6 +106,7 @@ object Team {
       id: String,
       name: String,
       password: Option[String],
+      intro: Option[String],
       description: Markdown,
       descPrivate: Option[Markdown],
       open: Boolean,
@@ -113,6 +116,7 @@ object Team {
       _id = id,
       name = name,
       password = password,
+      intro = intro,
       description = description,
       descPrivate = descPrivate,
       nbMembers = 1,

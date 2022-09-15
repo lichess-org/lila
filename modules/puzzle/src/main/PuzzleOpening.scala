@@ -130,24 +130,6 @@ final class PuzzleOpeningApi(
       key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
     }
 
-  private[puzzle] def addAllMissing: Funit = colls.puzzle {
-    _.find(
-      $doc(
-        Puzzle.BSONFields.opening $exists false,
-        Puzzle.BSONFields.themes $nin List(PuzzleTheme.equality.key, PuzzleTheme.endgame.key),
-        Puzzle.BSONFields.fen $endsWith """\s[|1]\d""" // up to move 19!
-      )
-    )
-      .cursor[Puzzle]()
-      .documentSource()
-      .mapAsyncUnordered(4)(updateOpening)
-      .runWith(LilaStream.sinkCount)
-      .chronometer
-      .log(logger)(count => s"Done adding $count puzzle openings")
-      .result
-      .void
-  }
-
   def recomputeAll: Funit = colls.puzzle {
     _.find($doc(Puzzle.BSONFields.opening $exists true))
       .cursor[Puzzle]()
@@ -160,21 +142,24 @@ final class PuzzleOpeningApi(
       .void
   }
 
-  private def updateOpening(puzzle: Puzzle): Funit = gameRepo gameFromSecondary puzzle.gameId flatMap {
-    _ ?? { game =>
-      FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
-        case None =>
-          fuccess {
-            logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
+  private[puzzle] def updateOpening(puzzle: Puzzle): Funit =
+    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
+      gameRepo gameFromSecondary puzzle.gameId flatMap {
+        _ ?? { game =>
+          FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
+            case None =>
+              fuccess {
+                logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
+              }
+            case Some(o) =>
+              val keys = List(o.family.key, o.key).map(_.value)
+              colls.puzzle {
+                _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
+              }
           }
-        case Some(o) =>
-          val keys = List(o.family.key, o.key).map(_.value)
-          colls.puzzle {
-            _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
-          }
+        }
       }
     }
-  }
 }
 
 object PuzzleOpening {

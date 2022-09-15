@@ -12,12 +12,13 @@ import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi._
 import lila.memo.ExpireSetMemo
-import lila.user.{ User, UserRepo }
+import lila.user.{ LightUserApi, User, UserRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
     challengeMaker: ChallengeMaker,
     userRepo: UserRepo,
+    lightUserApi: LightUserApi,
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
@@ -89,25 +90,33 @@ final class ChallengeApi(
       c: Challenge,
       user: Option[User],
       sid: Option[String],
-      color: Option[chess.Color] = None
+      requestedColor: Option[chess.Color] = None
   ): Fu[Validated[String, Option[Pov]]] =
     acceptQueue {
       if (c.canceled) fuccess(Invalid("The challenge has been canceled."))
       else if (c.declined) fuccess(Invalid("The challenge has been declined."))
       else if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
         fuccess(Invalid("Game incompatible with a BOT account"))
-      else if (c.challengerIsOpen)
-        repo.setChallenger(c.setChallenger(user, sid), color) inject Valid(none)
-      else
-        joiner(c, user, color).flatMap {
-          case Valid(pov) =>
-            (repo accept c) >>- {
-              uncacheAndNotify(c)
-              Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
-            } inject Valid(pov.some)
-          case Invalid(err) => fuccess(Invalid(err))
-        }
-
+      else if (c.open.exists(!_.canJoin(user))) fuccess(Invalid("The challenge is not for you to accept."))
+      else {
+        val openFixedColor = for {
+          me      <- user
+          open    <- c.open
+          userIds <- open.userIds
+        } yield chess.Color.fromWhite(me is userIds._1)
+        val color = openFixedColor orElse requestedColor
+        if (c.challengerIsOpen)
+          repo.setChallenger(c.setChallenger(user, sid), color) inject Valid(none)
+        else
+          joiner(c, user, color).flatMap {
+            case Valid(pov) =>
+              (repo accept c) >>- {
+                uncacheAndNotify(c)
+                Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
+              } inject Valid(pov.some)
+            case Invalid(err) => fuccess(Invalid(err))
+          }
+      }
     }
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
@@ -173,6 +182,7 @@ final class ChallengeApi(
       for {
         all  <- allFor(userId)
         lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
+        _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       } yield Bus.publish(
         SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
         "socketUsers"

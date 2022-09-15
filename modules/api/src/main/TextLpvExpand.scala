@@ -40,7 +40,8 @@ final class TextLpvExpand(
           div(
             cls                      := "lpv--autostart",
             attr("data-pgn")         := pgn.toString,
-            attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name
+            attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
+            attr("data-ply")         := plyRegex.findFirstIn(url).fold("last")(_.substring(1))
           )
         }
     }
@@ -58,6 +59,8 @@ final class TextLpvExpand(
 
   private val gameRegex =
     s"""/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b""".r
+
+  private val plyRegex = raw"#(\d+)\z".r
 
   private val notGames =
     Set("training", "analysis", "insights", "practice", "features", "password", "streamer", "timeline")

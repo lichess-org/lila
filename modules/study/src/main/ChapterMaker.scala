@@ -71,10 +71,10 @@ final private class ChapterMaker(
 
   private def resolveOrientation(data: Data, root: Node.Root, tags: Tags = Tags.empty): Color =
     data.orientation match {
-      case Orientation.Fixed(color)        => color
-      case _ if tags.resultColor.isDefined => Color.white
-      case _ if data.isGamebook            => !root.lastMainlineNode.color
-      case _                               => root.lastMainlineNode.color
+      case Orientation.Fixed(color)    => color
+      case _ if tags.outcome.isDefined => Color.white
+      case _ if data.isGamebook        => !root.lastMainlineNode.color
+      case _                           => root.lastMainlineNode.color
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
@@ -128,7 +128,7 @@ final private class ChapterMaker(
       initialFen: Option[FEN] = None
   ): Fu[Chapter] =
     for {
-      root <- game2root(game, initialFen)
+      root <- getBestRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <- {
         if (data.isDefaultName)
@@ -169,10 +169,16 @@ final private class ChapterMaker(
         )
     }
 
-  private[study] def game2root(game: Game, initialFen: Option[FEN]): Fu[Node.Root] =
+  private[study] def getBestRoot(game: Game, pgnOpt: Option[String], initialFen: Option[FEN]): Fu[Node.Root] =
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
-    } map { GameToRoot(game, _, withClocks = true) }
+    } map { goodFen =>
+      pgnOpt
+        .filter(_.nonEmpty)
+        .flatMap(PgnImport(_, Nil).toOption)
+        .map(_.root)
+        .getOrElse(GameToRoot(game, goodFen, withClocks = true))
+    }
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")

@@ -37,15 +37,15 @@
   <string name="whitePlays">Wiss am Zug</string>
   <string name="blackPlays">Schwarz isch am Zug</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Din Gägner hät d\'Partie verlah. Du chasch i %s Sekunde din Sieg beaschpruche.</item>
-    <item quantity="other">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
+    <item quantity="one">Din Gägner hät d\'Partie verlah, du chasch in %s Sekunde din Sieg beaschpruche</item>
+    <item quantity="other">Din Gägner hät d\'Partie verlah, du chasch in %s Sekunde din Sieg beaschpruche</item>
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpil verlah. Du chasch de Sieg beaschpruche, es Remis mache oder warte.</string>
   <string name="forceResignation">De Sieg beaschpruche</string>
   <string name="forceDraw">Remis mälde</string>
   <string name="talkInChat">Bitte blib nett im Chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
-  <string name="whiteResigned">Wiss git uf</string>
+  <string name="whiteResigned">Wiss hät ufgeh</string>
   <string name="blackResigned">Schwarz hät ufgeh</string>
   <string name="whiteLeftTheGame">Wiss hät d\'Partie verlah</string>
   <string name="blackLeftTheGame">Schwarz hät d\'Partie verlah</string>
@@ -59,6 +59,8 @@
   <string name="depthX">Tüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analyse benutze</string>
   <string name="loadingEngine">Engine wird glade ...</string>
+  <string name="calculatingMoves">berächnet Züg</string>
+  <string name="engineFailed">Fähler bim Engine lade</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Gang tüfer</string>
   <string name="showThreat">Bedrohig azeige</string>
@@ -129,7 +131,7 @@
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s Ungnauigkeit</item>
-    <item quantity="other">%s Ungnauigkeitä</item>
+    <item quantity="other">%s Ungnauigkeite</item>
   </plurals>
   <string name="moveTimes">Zugzite</string>
   <string name="flipBoard">Brätt umcheere</string>
@@ -195,7 +197,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="usernameOrEmail">Benutzername oder E-Mail-Adrässe</string>
   <string name="changeUsername">Benutzername ändere</string>
   <string name="changeUsernameNotSame">Me chann nur d\'Gross-/Chlischriibig verändere, z. B. \"grosspatzer\" in \"GrossPatzer\".</string>
-  <string name="changeUsernameDescription">Korrigier din Beutzername: Das gaht nur eimal und mer chann nur d\'Gros- und Chlischribig verändere.</string>
+  <string name="changeUsernameDescription">Korrigier din Benutzername: Das gaht aber nur eimal und mer chann nur d\'Gros- und d\'Chlischribig verändere.</string>
+  <string name="signupUsernameHint">Wähl bitte en aständige Benutzername. Du chasch en nachträglich nüme ändere und jedes Konto mit untolerierbarem Name wird gschlosse!</string>
+  <string name="signupEmailHint">Mir benutzed sie nur zum s\'Passwort zruggsetze.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
@@ -286,11 +290,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="exportGames">Partie exportiere</string>
   <string name="ratingRange">Wertigsbereich</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Em Gägner %s Sekundä gä</item>
-    <item quantity="other">Em Gägner %s Sekundä gä</item>
+    <item quantity="one">Gib dim Gägner %s Sekunde</item>
+    <item quantity="other">Gib dim Gägner %s Sekunde</item>
   </plurals>
   <string name="thisAccountViolatedTos">Das Konto hät gäge d\'Lichess-Nutzigsbedingige verschtosse</string>
-  <string name="openingExplorerAndTablebase">Eröffnigsbuech &amp; Tablebase</string>
+  <string name="openingExplorerAndTablebase">Eröffnigsbuech &amp; Ändschpil-Datäbank</string>
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
   <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
@@ -334,7 +338,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüüf</string>
   <string name="ratedMoreThanInPerf">Gwertet ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Wertig ≤ %1$s in %2$s die Wuche</string>
+  <string name="ratedLessThanInPerf">Wertig ≤ %1$s im %2$s die letschte 7 Täg</string>
   <string name="mustBeInTeam">Du muesch im Team %s si</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrugg zum Schpil</string>
@@ -455,7 +459,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="reportXToModerators">Mäld %s de Moderatore</string>
   <string name="profileCompletion">Profil-Vollschtändigkeit: %s</string>
   <string name="xRating">%s Wertigszahl</string>
-  <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
+  <string name="ifNoneLeaveEmpty">Nur wänn vorhande</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeite</string>
   <string name="firstName">Vorname</string>
@@ -486,7 +490,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="name">Name</string>
   <string name="description">Beschribig</string>
   <string name="descPrivate">Privati Beschribig</string>
-  <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie öffentlich Tegscht.</string>
+  <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie de Öffentlichi.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hilf:</string>
@@ -541,7 +545,7 @@ zum Bewise das du en Mänsch bisch.</string>
   <string name="insideTheBoard">Uf em Brätt</string>
   <string name="outsideTheBoard">Usse vum Brätt</string>
   <string name="onSlowGames">Bi langsame Partie</string>
-  <string name="always">Schtändig</string>
+  <string name="always">Immer</string>
   <string name="never">Nie</string>
   <string name="xCompetesInY">%1$s nimmt bi %2$s teil</string>
   <string name="victory">Sieg</string>
@@ -650,7 +654,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und witeri Variante sind vorhande - für ändlose Schach-Spass.</string>
   <string name="tournamentNotFound">Turnier nöd gfunde</string>
   <string name="tournamentDoesNotExist">Das Turnier exischtiert nöd.</string>
-  <string name="tournamentMayHaveBeenCanceled">Das Turnier wird abgseit, wänn alli Schpiller vor em Beginn weg sind.</string>
+  <string name="tournamentMayHaveBeenCanceled">Es Turnier wird abgseit, wänn alli Schpiller vor em Start weg sind.</string>
   <string name="returnToTournamentsHomepage">Zrugg zur Turnier-Homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Wüchentlichi %s-Wertigsverteilig</string>
   <plurals name="nbPerfTypePlayersThisWeek">
@@ -665,7 +669,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="cumulative">Summiert</string>
   <string name="glicko2Rating">Glicko-2 Wertig</string>
   <string name="checkYourEmail">Check dini E-Mail</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir e E-Mail gschickt: Klick de Link i de Nachricht, zum dis Konto aktiviere.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir es Mail gschickt: Klick de Link i de Nachricht, um dis Konto z\'aktiviere.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech witeri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
   <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
@@ -680,7 +684,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
   <string name="analysisShapesHowTo">Mit Shift + Musklick - rächts oder links - chasch grüeni oder roti Chreis und Pfil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
-  <string name="receiveForumNotifications">Empfang Benachrichtige, dass du im Forum erwähnt worde bisch</string>
+  <string name="receiveForumNotifications">Mäldige empfange, falls du im Forum erwähnt wirsch</string>
   <string name="shareYourInsightsData">Teil dini persönliche Schpilldate</string>
   <string name="withNobody">Mit niemertem</string>
   <string name="withFriends">Mit Fründe</string>
@@ -796,12 +800,12 @@ gits nöd und es isch immer ungwertet.</string>
     <item quantity="other">und speicher %s Voruszug Zile</item>
   </plurals>
   <string name="sorry">Äxgüsi :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Wili müesse schperre.</string>
+  <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Zitli müesse schperre.</string>
   <string name="timeoutExpires">Die Schperrig ändet in %s.</string>
   <string name="why">Wieso?</string>
   <string name="pleasantChessExperience">Mir wänd allne e möglichscht gueti Schach-Erfahrig büte.</string>
   <string name="goodPractice">Zum dem Zwäck müend mir sicher si, dass sich all Schpiller korräkt verhalted.</string>
-  <string name="potentialProblem">Wänn es möglichs Problem entdeckt wird, zeiged mir die Nachricht.</string>
+  <string name="potentialProblem">Wänn es möglichs Problem entdeckt wird, zeiged mir die Mäldig.</string>
   <string name="howToAvoidThis">Wie chasch das verhindere?</string>
   <string name="playEveryGame">Schpill jedi Partie, wo du afangsch, au fertig.</string>
   <string name="tryToWin">Probier jedes Spil z\'günne (oder mindeschtens es Remis z\'erreiche).</string>

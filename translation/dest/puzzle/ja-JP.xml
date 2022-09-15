@@ -13,6 +13,8 @@
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
+  <string name="upVote">上げ投票</string>
+  <string name="downVote">下げ投票</string>
   <string name="yourPuzzleRatingWillNotChange">あなたのレーティングは動きません。タクティクス問題は競技ではありません。レーティングは今のあなたのスキルに見合った問題を選ぶのに役立ちます。</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
@@ -66,7 +68,7 @@
   <string name="fromXGames">%s の対局からの問題</string>
   <string name="searchPuzzles">問題を検索</string>
   <string name="fromMyGamesNone">あなたの対局からの問題はまだありませんが、Lichess はあなたの参加を歓迎します。自分の対局が使われる可能性を増やすには、ラピッドかクラシカルでプレイしてください！</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">%1$s 問がヒット（全 %2$s 局中）</string>
+  <string name="fromXGamesFound">%1$s 問がヒット（全 %2$s 局中）</string>
   <string name="puzzleDashboardDescription">練習、分析、上達</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s 問をプレイ</item>

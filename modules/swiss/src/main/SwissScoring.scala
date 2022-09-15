@@ -23,7 +23,7 @@ final private class SwissScoring(
 
   private def recompute(id: Swiss.Id): Fu[Option[SwissScoring.Result]] =
     colls.swiss.byId[Swiss](id.value) flatMap {
-      _.?? { (swiss: Swiss) =>
+      _.?? { swiss =>
         for {
           (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
           pairingMap = SwissPairing.toMap(pairings)

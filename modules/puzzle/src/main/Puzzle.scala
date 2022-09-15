@@ -102,6 +102,7 @@ object Puzzle {
     val day      = "day"
     val issue    = "issue"
     val dirty    = "dirty" // themes need to be denormalized
+    val tagMe    = "tagMe" // pending phase & opening
   }
 
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)

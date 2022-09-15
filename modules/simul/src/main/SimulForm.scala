@@ -88,17 +88,7 @@ object SimulForm {
         "clockExtra"     -> numberIn(clockExtraChoices),
         "variants" -> list {
           number.verifying(
-            Set(
-              chess.variant.Standard.id,
-              chess.variant.Chess960.id,
-              chess.variant.KingOfTheHill.id,
-              chess.variant.ThreeCheck.id,
-              chess.variant.Antichess.id,
-              chess.variant.Atomic.id,
-              chess.variant.Horde.id,
-              chess.variant.RacingKings.id,
-              chess.variant.Crazyhouse.id
-            ) contains _
+            chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.id).contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),

@@ -69,7 +69,7 @@ object bits {
           t.name,
           ctx.userId.exists(t.leaders.contains) option em("leader")
         ),
-        shorten(lila.common.String.removeMultibyteSymbols(t.description.value), 200)
+        t.intro | shorten(lila.common.String.removeMultibyteSymbols(t.description.value), 200)
       ),
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),

@@ -23,6 +23,14 @@
   <string name="analysis">Phân tích</string>
   <string name="onlyAnalysed">Chỉ những game mà máy tính phân tích sẵn sàng</string>
   <string name="color">Màu sắc</string>
+  <string name="evaluation">Đánh giá</string>
   <string name="maxNumber">Số lượng tối đa</string>
   <string name="maxNumberExplanation">Số trận đấu tối đa để tải</string>
+  <string name="include">Bao gồm</string>
+  <string name="descending">Giảm dần</string>
+  <string name="ascending">Tăng dần</string>
+  <plurals name="gamesFound">
+    <item quantity="other">Đã tìm được %s ván cờ</item>
+  </plurals>
+  <string name="ratingExplanation">Xếp hạng trung bình của cả hai người chơi</string>
 </resources>

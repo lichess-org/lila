@@ -19,6 +19,7 @@ adol(f|ph)
 afraid
 anal(plug|sex|)
 anus
+ape
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
@@ -45,6 +46,7 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
+cripp?le
 cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
@@ -72,6 +74,7 @@ idiot
 incest
 jerk
 jizz?(um|)
+kill (you|u)
 labia
 lamer?
 lesbo
@@ -79,6 +82,7 @@ lo+ser
 masturbat(e|ion|ing)
 milf
 molest(er|)
+mong
 monkey
 moron
 mother(fuc?k(er|)|)
@@ -136,6 +140,7 @@ stfu
 stupid
 subhuman
 suicide
+suc?ker
 suck m[ey]
 terrorist
 tit(t?ies|ty|)(fuc?k|)
@@ -167,6 +172,7 @@ wog
 (|на|вы)ебнуть?ся
 blyat
 p[ie]d[aoe]?r
+uebok
 анус
 бля(|дь|ди|де|динам?|дине|дство|ть)
 вы[её]бывае?(ть?ся|тесь)
@@ -218,8 +224,10 @@ est[úu]pid[ao]
 idiota
 imbecil
 madre
-maric[oó]n
+maric[oó]na?
+maric[ao]
 mierda
+moduler[ao]
 payas[ao]
 pendejo
 put[ao]
@@ -244,7 +252,7 @@ sparati
 """)
 
   def hi = dict("""
-(madar|be?hen|beti)chod
+(mada?r|mother|be?hen|beti)chod
 bh?o?sdi?ke?
 chut(iya|)
 gaa?ndu?

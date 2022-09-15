@@ -1,7 +1,7 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.libs.json.JsValue
+import play.api.i18n.Lang
+import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc._
 import views._
 
@@ -80,20 +80,19 @@ final class Insight(env: Env) extends LilaController(env) {
       scoped = req =>
         me =>
           AccessibleApi(username)(me.some) { user =>
-            processQuestion(user, req)
+            processQuestion(user, req)(reqLang(req))
           }
     )
 
-  private def processQuestion(user: lila.user.User, body: Request[JsValue]) = {
+  private def processQuestion(user: lila.user.User, body: Request[JsValue])(implicit lang: Lang) = {
     import lila.insight.JsonQuestion, JsonQuestion._
-    implicit val lang = reqLang(body)
     body.body
       .validate[JsonQuestion]
       .fold(
         err => BadRequest(jsonError(err.toString)).fuccess,
         _.question.fold(BadRequest.fuccess) { q =>
-          env.insight.api.ask(q, user) map
-            lila.insight.Chart.fromAnswer(env.user.lightUserSync) map
+          env.insight.api.ask(q, user) flatMap
+            lila.insight.Chart.fromAnswer(env.user.lightUser) map
             env.insight.jsonView.chart.apply map { Ok(_) }
         }
       )

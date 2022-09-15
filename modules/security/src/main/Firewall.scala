@@ -45,7 +45,7 @@ final class Firewall(
     coll.delete.one($inIds(ips)).void >>- loadFromDb.unit
 
   private def loadFromDb: Funit =
-    coll.distinctEasy[String, Set]("_id", $empty, ReadPreference.secondaryPreferred).map { ips =>
+    coll.distinctEasy[String, Set]("_id", $empty, ReadPreference.primary).map { ips =>
       current = ips
       lila.mon.security.firewall.ip.update(ips.size).unit
     }

@@ -49,6 +49,7 @@ object jsI18n {
         trans.nbMistakes,
         trans.nbBlunders,
         trans.averageCentipawnLoss,
+        trans.accuracy,
         trans.viewTheSolution,
         trans.youNeedAnAccountToDoThat,
         // action menu

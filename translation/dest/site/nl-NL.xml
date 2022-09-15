@@ -59,6 +59,8 @@
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Met serveranalyse</string>
   <string name="loadingEngine">Laden van computer...</string>
+  <string name="calculatingMoves">Zetten berekenen...</string>
+  <string name="engineFailed">Fout bij laden engine</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon dreiging</string>
@@ -195,6 +197,8 @@
   <string name="changeUsername">Wijzig gebruikersnaam</string>
   <string name="changeUsernameNotSame">Enkel de hoofdlettergevoeligheid van de letters kan veranderen. Bijvoorbeeld van \"janjansen\" naar \"JanJansen\".</string>
   <string name="changeUsernameDescription">Wijzig je gebruikersnaam. Dit kan slechts eenmaal worden gedaan en je kunt alleen het hoofdlettergebruik van je gebruikersnaam veranderen.</string>
+  <string name="signupUsernameHint">Zorg ervoor dat u een gezinsvriendelijke gebruikersnaam kiest. U kunt het later niet meer wijzigen en alle accounts met ongepaste gebruikersnamen zullen gesloten worden!</string>
+  <string name="signupEmailHint">We zullen het alleen gebruiken om het wachtwoord opnieuw in te stellen.</string>
   <string name="password">Wachtwoord</string>
   <string name="changePassword">Wijzig wachtwoord</string>
   <string name="changeEmail">Verander email</string>
@@ -466,7 +470,7 @@
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="savingMoves">Tijdelijke zettenopslag</string>
   <string name="savingMovesHelp">We slaan je varianten op in de browser-cache.</string>
-  <string name="makeAStudy">Om ze te bewaren en te delen, overweeg het maken van een studie.</string>
+  <string name="makeAStudy">Om ze te bewaren en te delen, overweeg een studie aan te maken.</string>
   <string name="clearSavedMoves">Zetten wissen</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
