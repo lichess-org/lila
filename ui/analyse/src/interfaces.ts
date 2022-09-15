@@ -126,6 +126,7 @@ export interface AnalysisSide {
   inaccuracy: number;
   mistake: number;
   blunder: number;
+  accuracy: number;
 }
 
 export interface AnalyseOpts {
