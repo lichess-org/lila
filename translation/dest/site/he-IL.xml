@@ -705,6 +705,7 @@
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
   <string name="averageCentipawnLoss">אובדן מאית־חייל ממוצע</string>
+  <string name="accuracy">דיוק</string>
   <string name="keyboardShortcuts">קיצורי מקלדת</string>
   <string name="keyMoveBackwardOrForward">גלול אחורה/קדימה</string>
   <string name="keyGoToStartOrEnd">מעבר להתחלה/לסיום</string>
