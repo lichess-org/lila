@@ -635,6 +635,7 @@
   <string name="tournamentFAQ">FAQ des tournois</string>
   <string name="timeBeforeTournamentStarts">Temps restant avant le début du tournoi</string>
   <string name="averageCentipawnLoss">Perte moyenne en centipions</string>
+  <string name="accuracy">Précision</string>
   <string name="keyboardShortcuts">Raccourcis clavier</string>
   <string name="keyMoveBackwardOrForward">avancer/reculer</string>
   <string name="keyGoToStartOrEnd">aller au début/à la fin</string>
