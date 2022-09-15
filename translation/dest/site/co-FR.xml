@@ -32,7 +32,7 @@
   <string name="raceFinished">Cora compia</string>
   <string name="variantEnding">Fine di a variante</string>
   <string name="newOpponent">Aversariu novu</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">U vostru aversariu vole ghjucà una partita nova cù voi</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">U vostru aversariu vole ghjucà una altra partita cù voi</string>
   <string name="joinTheGame">Ghjunghjite a partita</string>
   <string name="whitePlays">Tocca à i bianchi</string>
   <string name="blackPlays">Tocca à i neri</string>
@@ -533,7 +533,7 @@
   <string name="privacy">Cunfidenzialità</string>
   <string name="privacyPolicy">Pulitica di cunfidenzialità</string>
   <string name="letOtherPlayersFollowYou">Accettà chì altri ghjucadori vi seguitinu</string>
-  <string name="letOtherPlayersChallengeYou">Accettà chì altri ghjucadori vi sfidanu</string>
+  <string name="letOtherPlayersChallengeYou">Accettà i sfidi di l\'altri ghjucadori</string>
   <string name="letOtherPlayersInviteYouToStudy">Accettà chì altri ghjucadori vi invitanu</string>
   <string name="sound">Sonu</string>
   <string name="none">Mancunu</string>
@@ -700,7 +700,7 @@
   <string name="correspondenceChess">Scacchi pè via di currispundenza</string>
   <string name="onlineAndOfflinePlay">Ghjocu in direttu o in senza reta</string>
   <string name="viewTheSolution">Vede a suluzione</string>
-  <string name="followAndChallengeFriends">Segue è sfidà amichi</string>
+  <string name="followAndChallengeFriends">Seguità è sfidà amichi</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dispunibule in %s lingua!</item>
     <item quantity="other">Dispunibule in %s lingue!</item>
@@ -731,7 +731,7 @@
   <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
   <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
   <string name="chessBasics">E base di i scacchi</string>
-  <string name="coaches">Allenatori</string>
+  <string name="coaches">Allinadori</string>
   <string name="invalidPgn">PGN invalidu</string>
   <string name="invalidFen">FEN invalidu</string>
   <string name="custom">Abitudine</string>
@@ -786,7 +786,7 @@
   <string name="addCurrentVariation">Aghjunghje a variante attuale</string>
   <string name="playVariationToCreateConditionalPremoves">Ghjcate una variante pè creà un precolpu cundiziunale</string>
   <string name="noConditionalPremoves">Ùn ci hè micca precolpu cundiziunale</string>
-  <string name="playX">Ghjucà%s</string>
+  <string name="playX">Ghjucà %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">è salvà %s linea di precolpu</item>
     <item quantity="other">è salvà %s linea di precolpu</item>
@@ -821,7 +821,7 @@
   <string name="rapidDesc">Partite rapide: da 8 à 25 minuti</string>
   <string name="classicalDesc">Partite classiche: 25 minuti è più</string>
   <string name="correspondenceDesc">Partite pè via di a currespondenza: unu o parechji ghorni pè ghjucà un colpu</string>
-  <string name="puzzleDesc">Allenadore di tattica</string>
+  <string name="puzzleDesc">Allinadore di tattica</string>
   <string name="important">Impurtante</string>
   <string name="yourQuestionMayHaveBeenAnswered">A vostra dumanda puderia avè dighjà una risposta %1$s</string>
   <string name="inTheFAQ">in a FAD</string>
@@ -845,8 +845,8 @@
   <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allenadore.</string>
-  <string name="newPendingReview">Un utilzatore cerca un allenadore</string>
+  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allinadore.</string>
+  <string name="newPendingReview">Un utilzatore cerca un allinadore</string>
   <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
@@ -854,7 +854,7 @@
   <string name="download">Telecaricà</string>
   <string name="welcome">Benvenutu!</string>
   <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
-  <string name="coachManager">Responsevule di l\' allenatori</string>
+  <string name="coachManager">Respunsevule di l\' allinadori</string>
   <string name="streamerManager">Responsevule di i streamers</string>
   <string name="cancelTournament">Cancellà u turneu</string>
   <string name="tournDescription">Descrizzione di u turneu</string>
