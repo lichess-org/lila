@@ -636,6 +636,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tournamentFAQ">Domande frequenti sui tornei</string>
   <string name="timeBeforeTournamentStarts">Tempo prima dell\'inizio del torneo</string>
   <string name="averageCentipawnLoss">Centesimi di pedone persi in media</string>
+  <string name="accuracy">Accuratezza</string>
   <string name="keyboardShortcuts">Scorciatoie da tastiera</string>
   <string name="keyMoveBackwardOrForward">muovi indietro/avanti</string>
   <string name="keyGoToStartOrEnd">vai all\'inizio/fine</string>
