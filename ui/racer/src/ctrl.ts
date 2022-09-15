@@ -50,11 +50,13 @@ export default class RacerCtrl {
       modifier: {
         moveAt: 0,
       },
+      skipId: undefined,
     };
     this.vm = {
       alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
       filterFailed: false,
       filterSlow: false,
+      filterSkip: false,
     };
     this.countdown = new Countdown(
       this.run.clock,
@@ -146,6 +148,7 @@ export default class RacerCtrl {
     if (this.skipAvailable && this.run.clock.started()) {
       this.skipAvailable = false;
       sound.good();
+      this.run.skipId = this.run.current.puzzle.id;
       this.playUci(this.run.current.expectedMove());
       this.knowsSkip(true);
     }
@@ -253,6 +256,11 @@ export default class RacerCtrl {
 
   toggleFilterFailed = () => {
     this.vm.filterFailed = !this.vm.filterFailed;
+    this.redraw();
+  };
+
+  toggleFilterSkip = () => {
+    this.vm.filterSkip = !this.vm.filterSkip;
     this.redraw();
   };
 

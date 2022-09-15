@@ -7,12 +7,14 @@ export interface PuzCtrl {
   vm: PuzVm;
   toggleFilterSlow: () => void;
   toggleFilterFailed: () => void;
+  toggleFilterSkip: () => void;
   trans: Trans;
 }
 
 export interface PuzVm {
   filterFailed: boolean;
   filterSlow: boolean;
+  filterSkip?: boolean;
 }
 
 export interface PuzPrefs {
@@ -44,6 +46,7 @@ export interface Run {
   combo: Combo;
   modifier: Modifier;
   endAt?: number;
+  skipId?: String;
 }
 
 export interface Round {
