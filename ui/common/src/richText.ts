@@ -14,7 +14,7 @@ export function isMoreThanText(str: string) {
 }
 
 export function toLink(url: string): string {
-  if (!url.match(/^[A-z]+:\/\//)) {
+  if (!url.match(/^[A-Za-z]+:\/\//)) {
     url = 'https://' + url;
   }
   return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(/https?:\/\//, '')}</a>`;
