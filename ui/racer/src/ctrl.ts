@@ -33,6 +33,7 @@ export default class RacerCtrl {
   knowsSkip = storedBooleanProp('racer.skip', false);
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
+  redrawInterval: Timeout;
 
   constructor(opts: RacerOpts, readonly redraw: () => void) {
     this.data = opts.data;
@@ -85,7 +86,7 @@ export default class RacerCtrl {
       this.setZen(zen);
     });
     $('#zentog').on('click', this.toggleZen);
-    setInterval(this.redraw, 1000);
+    this.redrawInterval = setInterval(this.redraw, 1000);
     setTimeout(this.hotkeys, 1000);
   }
 
@@ -140,6 +141,7 @@ export default class RacerCtrl {
     lichess.pubsub.emit('ply', 0); // restore resize handle
     $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
+    clearInterval(this.redrawInterval);
   };
 
   canSkip = () => this.skipAvailable;
