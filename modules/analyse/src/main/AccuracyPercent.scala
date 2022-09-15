@@ -1,5 +1,6 @@
 package lila.analyse
 
+import lila.common.Maths
 import lila.game.Game.SideAndStart
 import lila.tree.Eval
 import lila.tree.Eval.{ Cp, Mate }
@@ -64,4 +65,7 @@ for x in xs:
 
   def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
+
+  def harmonicMean(pov: SideAndStart, analysis: Analysis): Option[AccuracyPercent] =
+    Maths.harmonicMean(fromAnalysisAndPov(pov, analysis).map(_.value)) map AccuracyPercent.apply
 }

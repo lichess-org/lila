@@ -4,6 +4,7 @@ import play.api.libs.json._
 
 import lila.game.Game
 import lila.tree.Eval.JsonHandlers._
+import lila.common.Maths
 
 object JsonView {
 
@@ -36,11 +37,13 @@ object JsonView {
     analysis.summary
       .find(_._1 == pov.color)
       .map(_._2)
-      .map(s =>
+      .map { s =>
         JsObject(s map { case (nag, nb) =>
           nag.toString.toLowerCase -> JsNumber(nb)
-        }).add("acpl" -> lila.analyse.AccuracyCP.mean(pov, analysis))
-      )
+        })
+          .add("acpl", lila.analyse.AccuracyCP.mean(pov, analysis))
+          .add("accuracy", lila.analyse.AccuracyPercent.harmonicMean(pov, analysis).map(_.toInt))
+      }
 
   def bothPlayers(game: Game, analysis: Analysis) =
     Json.obj(
