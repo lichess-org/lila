@@ -10,14 +10,14 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { Run } from 'puz/interfaces';
+import { PuzCtrl, Run } from 'puz/interfaces';
 import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 
-export default class RacerCtrl {
+export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;
   private sign = Math.random().toString(36);
   private localScore = 0;
@@ -51,7 +51,6 @@ export default class RacerCtrl {
       modifier: {
         moveAt: 0,
       },
-      skipId: undefined,
     };
     this.vm = {
       alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,

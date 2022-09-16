@@ -1,5 +1,5 @@
 import { Prop } from 'common';
-import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
+import { Config, PuzPrefs, PuzVm, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
   data: StormData;
@@ -16,13 +16,11 @@ export interface StormData {
   signed?: string;
 }
 
-export interface StormVm {
+export interface StormVm extends PuzVm {
   response?: RunResponse;
   dupTab?: boolean;
   signed: Prop<string | undefined>;
   lateStart: boolean;
-  filterFailed: boolean;
-  filterSlow: boolean;
 }
 
 export interface DailyBest {

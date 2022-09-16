@@ -8,13 +8,13 @@ import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
-import { Run } from 'puz/interfaces';
+import { PuzCtrl, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
 import { Clock } from 'puz/clock';
 import { PromotionCtrl } from 'chess/promotion';
 
-export default class StormCtrl {
+export default class StormCtrl implements PuzCtrl {
   private data: StormData;
   private redraw: () => void;
   pref: StormPrefs;
