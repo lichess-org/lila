@@ -9,6 +9,10 @@
     <item quantity="one">%s ronde</item>
     <item quantity="other">%s rondes</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s Ronde Zwitsers</item>
+    <item quantity="other">%s ronden Zwitsers</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Eén ronde per dag</item>
     <item quantity="other">Eén ronde elke %s dagen</item>
