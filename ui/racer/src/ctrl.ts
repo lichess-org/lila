@@ -31,7 +31,7 @@ export default class RacerCtrl {
   boost: Boost = new Boost();
   skipAvailable = true;
   knowsSkip = storedBooleanProp('racer.skip', false);
-  skippedPuzzleID: string;
+  skippedPuzzleId?: String;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
   flipped = false;
 
@@ -56,6 +56,7 @@ export default class RacerCtrl {
       alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
       filterFailed: false,
       filterSlow: false,
+      filterSkipped: false,
     };
     this.countdown = new Countdown(
       this.run.clock,
@@ -146,7 +147,6 @@ export default class RacerCtrl {
   skip = () => {
     if (this.skipAvailable && this.run.clock.started()) {
       this.skipAvailable = false;
-      this.skippedPuzzleID = this.run.current.puzzle.id;
       sound.good();
       this.playUci(this.run.current.expectedMove());
       this.knowsSkip(true);
@@ -256,6 +256,11 @@ export default class RacerCtrl {
 
   toggleFilterFailed = () => {
     this.vm.filterFailed = !this.vm.filterFailed;
+    this.redraw();
+  };
+
+  toggleFilterSkipped = () => {
+    this.vm.filterSkipped = !this.vm.filterSkipped;
     this.redraw();
   };
 

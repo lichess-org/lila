@@ -47,6 +47,7 @@ export interface RacerVm {
   alreadyStarted: boolean;
   filterFailed: boolean;
   filterSlow: boolean;
+  filterSkipped: boolean;
 }
 
 export interface RacerConfig extends Config {

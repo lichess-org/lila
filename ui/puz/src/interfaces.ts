@@ -2,15 +2,6 @@ import type { Clock } from './clock';
 import type { Combo } from './combo';
 import type CurrentPuzzle from './current';
 
-export interface PuzCtrl {
-  run: Run;
-  vm: PuzVm;
-  toggleFilterSlow: () => void;
-  toggleFilterFailed: () => void;
-  toggleFilterSkipped: () => void;
-  trans: Trans;
-}
-
 export interface PuzVm {
   filterFailed: boolean;
   filterSlow: boolean;
