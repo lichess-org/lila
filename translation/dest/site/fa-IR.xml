@@ -629,6 +629,7 @@
   <string name="tournamentFAQ">سوالات متداول مسابقات</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
   <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
+  <string name="accuracy">دقت</string>
   <string name="keyboardShortcuts">میانبر های صفحه کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>

@@ -197,7 +197,7 @@
   <string name="changeUsername">Cambiar nombre de usuario</string>
   <string name="changeUsernameNotSame">Sólo es posible cambiar mayúsculas por minúsculas y viceversa. Por ejemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar tu nombre de usuario. Esto sólo puede hacerse una vez, y sólo se puede cambiar mayúsculas por minúsculas y viceversa.</string>
-  <string name="signupUsernameHint">Asegúrese de elegir un nombre de usuario amigable con la familia. ¡No puede cambiarlo más tarde y cualquier cuenta con nombres de usuario inapropiados se cerrará!</string>
+  <string name="signupUsernameHint">Asegurate de elegir un nombre de usuario amigable para todos los públicos. ¡No puedes cambiarlo más tarde y cualquier nombre de usuario inapropiado se cerrará!</string>
   <string name="signupEmailHint">Sólo lo usaremos para restablecer la contraseña.</string>
   <string name="password">Contraseña</string>
   <string name="changePassword">Cambiar contraseña</string>
@@ -635,6 +635,7 @@
   <string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes de que comience el torneo</string>
   <string name="averageCentipawnLoss">Pérdida promedio en centipeones</string>
+  <string name="accuracy">Precisión</string>
   <string name="keyboardShortcuts">Atajos del teclado</string>
   <string name="keyMoveBackwardOrForward">movimiento hacia atrás y hacia adelante</string>
   <string name="keyGoToStartOrEnd">ir al inicio/fin</string>

@@ -34,7 +34,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
 
     > i {
       font-size: 24px;
-      float: left;
+      float: $start-direction;
       width: 50px;
       height: 50px;
       margin-top: -10px;
@@ -100,7 +100,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
   }
 
   score {
-    float: right;
+    float: $end-direction;
     font-size: 0.7em;
     margin-top: 2px;
 

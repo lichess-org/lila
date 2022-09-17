@@ -635,6 +635,7 @@
   <string name="tournamentFAQ">Perguntas Frequentes sobre torneios no estilo Arena</string>
   <string name="timeBeforeTournamentStarts">Contagem regressiva para início do torneio</string>
   <string name="averageCentipawnLoss">Perda média em centipeões</string>
+  <string name="accuracy">Precisão</string>
   <string name="keyboardShortcuts">Atalhos de teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar lance</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>

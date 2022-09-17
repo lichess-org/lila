@@ -3,7 +3,7 @@
   <string name="xBlog">הבלוג של %s</string>
   <string name="newPost">פוסט חדש</string>
   <string name="editYourBlogPost">עריכת הפוסט</string>
-  <string name="saveDraft">שמור טיוטה</string>
+  <string name="saveDraft">שמירה כטיוטה</string>
   <string name="postTitle">כותרת הפוסט</string>
   <string name="postIntro">מבוא לפוסט</string>
   <string name="postBody">גוף הפוסט</string>

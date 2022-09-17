@@ -634,6 +634,7 @@
   <string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
   <string name="timeBeforeTournamentStarts">Temps per a què comenci el torneig</string>
   <string name="averageCentipawnLoss">Pèrdua mitjana en centipeons</string>
+  <string name="accuracy">Precisió</string>
   <string name="keyboardShortcuts">Dreceres del teclat</string>
   <string name="keyMoveBackwardOrForward">moure enrere/davant</string>
   <string name="keyGoToStartOrEnd">anar a l\'inici/anar al final</string>
