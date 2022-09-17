@@ -108,9 +108,7 @@ export function toYouTubeEmbed(url: string): string | undefined {
 function toTwitchEmbedUrl(url: string) {
   if (!url) return;
   const m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
-  return m ?
-      `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false`:
-  undefined;
+  return m ? `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false` : undefined;
 }
 
 export function toTwitchEmbed(url: string): string | undefined {
