@@ -8,7 +8,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
-import router.Routes
 import scala.annotation.nowarn
 
 final class AppLoader extends ApplicationLoader {
@@ -93,7 +92,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
-  lazy val appeal: Appeal                 = wire[Appeal]
+  lazy val appeal: appeal.Appeal          = wire[appeal.Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val playApi: PlayApi               = wire[PlayApi]
@@ -161,9 +160,12 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val opening: Opening               = wire[Opening]
 
   // eagerly wire up all controllers
-  val router: Router = {
-    @nowarn val prefix: String = "/"
-    wire[Routes]
+  val appealPrefixRouter: appeal.Routes =
+    new apiRouter.Routes(httpErrorHandler, appeal, "")
+
+  val mainRouter: Router = {
+    val prefix = "/"
+    wire[_root_.router.Routes]
   }
 
   if (configuration.get[Boolean]("kamon.enabled")) {

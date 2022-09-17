@@ -1,4 +1,4 @@
-package controllers
+package controllers.appeal
 
 import play.api.mvc.Result
 import views._
