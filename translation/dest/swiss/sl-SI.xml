@@ -13,6 +13,12 @@
     <item quantity="few">%s krogi</item>
     <item quantity="other">%s krogov</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s krog tekmovanja po švicarskem sistemu</item>
+    <item quantity="two">%s kroga tekmovanja po švicarskem sistemu</item>
+    <item quantity="few">%s krogi tekmovanja po švicarskem sistemu</item>
+    <item quantity="other">%s krogov tekmovanja po švicarskem sistemu</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">En krog na dan</item>
     <item quantity="two">En krog vsaka %s dni</item>
@@ -59,4 +65,10 @@ Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
 Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
   <string name="pairingWaitTimeArena">Hitro: ne čakaj na vse igralce</string>
   <string name="pairingWaitTimeSwiss">Počasi: čakaj na vse igralce</string>
+  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+    <item quantity="one">%1$s / %2$s krog tekmovanja po švicarskem sistemu</item>
+    <item quantity="two">%1$s / %2$s kroga tekmovanja po švicarskem sistemu</item>
+    <item quantity="few">%1$s / %2$s krogi tekmovanja po švicarskem sistemu</item>
+    <item quantity="other">%1$s / %2$s krogov tekmovanja po švicarskem sistemu</item>
+  </plurals>
 </resources>
