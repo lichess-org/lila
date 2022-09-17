@@ -69,10 +69,10 @@
     <item quantity="other">אירח/ה %s משחקים סימולטניים</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">השתתף/ה במשחק ידידות %s</item>
-    <item quantity="two">השתתף/ה ב%s משחקי ידידות</item>
-    <item quantity="many">השתתף/ה ב%s משחקי ידידות</item>
-    <item quantity="other">השתתף/ה ב%s משחקי ידידות</item>
+    <item quantity="one">השתתף/ה במשחק סימולטני %s</item>
+    <item quantity="two">השתתף/ה ב־%s משחקים סימולטניים</item>
+    <item quantity="many">השתתף/ה ב־%s משחקים סימולטניים</item>
+    <item quantity="other">השתתף/ה ב־%s משחקים סימולטניים</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">יצר/ה לוח למידה %s חדש</item>
@@ -101,9 +101,9 @@
   <string name="rankedInSwissTournament">סיים/ה במקום %1$s ב-%2$s</string>
   <string name="signedUp">נרשם/ה לlichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">הצטרף לקבוצה %s</item>
-    <item quantity="two">הצטרף ל-%s קבוצות</item>
-    <item quantity="many">הצטרף ל-%s קבוצות</item>
-    <item quantity="other">הצטרף ל-%s קבוצות</item>
+    <item quantity="one">הצטרף/ה לקבוצה %s</item>
+    <item quantity="two">הצטרף/ה ל־%s קבוצות</item>
+    <item quantity="many">הצטרף/ה ל־%s קבוצות</item>
+    <item quantity="other">הצטרף/ה ל־%s קבוצות</item>
   </plurals>
 </resources>
