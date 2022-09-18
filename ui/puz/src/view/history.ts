@@ -64,7 +64,7 @@ function renderFilters(ctrl: PuzCtrl | RacerCtrl): VNode[] {
 }
 
 function filterHistory(ctrl: PuzCtrl | RacerCtrl) {
-  const slowIds = slowPuzzleIds(ctrl);
+  const slowIds = slowPuzzleIds(ctrl as PuzCtrl);
   if (ctrl instanceof RacerCtrl) {
     const skippedIds = skippedPuzzleIds(ctrl);
     return ctrl.run.history.filter(
