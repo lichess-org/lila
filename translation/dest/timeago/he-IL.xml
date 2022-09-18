@@ -14,7 +14,7 @@
     <item quantity="other">עוד %s דקות</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">עוד %s שעה</item>
+    <item quantity="one">עוד שעה %s</item>
     <item quantity="two">עוד %s שעות</item>
     <item quantity="many">עוד %s שעות</item>
     <item quantity="other">עוד %s שעות</item>
