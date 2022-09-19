@@ -130,15 +130,23 @@ final class TournamentApi(
 
   private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
 
-  private[tournament] def makePairings(forTour: Tournament, users: WaitingUsers): Funit =
-    (users.size > 1 && (!hadPairings.get(forTour.id) || users.haveWaitedEnough)) ??
+  private[tournament] def makePairings(
+      forTour: Tournament,
+      users: WaitingUsers,
+      smallTourNbActivePlayers: Option[Int]
+  ): Funit =
+    (users.size > 1 && (
+      !hadPairings.get(forTour.id) ||
+        users.haveWaitedEnough ||
+        smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
+    )) ??
       Parallel(forTour.id, "makePairings")(cached.tourCache.started) { tour =>
         cached
           .ranking(tour)
           .mon(_.tournament.pairing.createRanking)
           .flatMap { ranking =>
             pairingSystem
-              .createPairings(tour, users, ranking)
+              .createPairings(tour, users, ranking, smallTourNbActivePlayers)
               .mon(_.tournament.pairing.createPairings)
               .flatMap {
                 case Nil => funit
