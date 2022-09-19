@@ -104,18 +104,15 @@ trait dsl {
     $doc("$setOnInsert" -> $doc((Seq(item) ++ items): _*))
   }
 
-  def $set(item: ElementProducer, items: ElementProducer*): Bdoc = {
-    $doc("$set" -> $doc((Seq(item) ++ items): _*))
-  }
+  def $set(items: ElementProducer*): Bdoc =
+    $doc("$set" -> items.nonEmpty ?? $doc(items: _*))
+
+  def $unset(fields: Iterable[String]): Bdoc =
+    $doc("$unset" -> fields.nonEmpty ?? $doc(fields.map(k => (k, BSONString("")))))
 
   def $unset(field: String, fields: String*): Bdoc = {
     $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString("")))))
   }
-
-  def $unset(fields: Seq[String]): Bdoc =
-    fields.nonEmpty ?? {
-      $doc("$unset" -> $doc(fields.map(k => (k, BSONString("")))))
-    }
 
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc = {
     if (value) $set(field -> true) else $unset(field)
