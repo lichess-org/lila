@@ -24,10 +24,7 @@ private case class WaitingUsers(
   private val waitSeconds: Int =
     if (clock.estimateTotalSeconds < 30) 8
     else if (clock.estimateTotalSeconds < 60) 10
-    else
-      {
-        clock.estimateTotalSeconds / 10 + 6
-      } atMost 50 atLeast 15
+    else (clock.estimateTotalSeconds / 10 + 6) atMost 50 atLeast 15
 
   lazy val all  = hash.keySet
   lazy val size = hash.size
@@ -65,6 +62,8 @@ private case class WaitingUsers(
     memo put userId
     if (apiUsers.isEmpty) copy(apiUsers = memo.some) else this
   }
+
+  def removePairedUsers(us: Set[User.ID]) = copy(hash -- us)
 }
 
 final private class WaitingUsersApi {
@@ -85,6 +84,13 @@ final private class WaitingUsersApi {
         cur.next.foreach(_ success newWaiting)
         WaitingUsers.WithNext(newWaiting, none)
       }
+    )
+
+  def registerPairedUsers(tourId: Tournament.ID, users: Set[User.ID]) =
+    store.computeIfPresent(
+      tourId,
+      (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
+        cur.copy(waiting = cur.waiting removePairedUsers users)
     )
 
   def addApiUser(tour: Tournament, user: User) = updateOrCreate(tour) { w =>

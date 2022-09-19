@@ -154,6 +154,7 @@ final class TournamentApi(
                       .void
                       .mon(_.tournament.pairing.createInserts) >>- {
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
+                      waitingUsers.registerPairedUsers(tour.id, pairings.view.flatMap(_.pairing.users).toSet)
                       socket.reload(tour.id)
                       hadPairings put tour.id
                       featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
