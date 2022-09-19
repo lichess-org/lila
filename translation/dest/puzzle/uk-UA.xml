@@ -69,7 +69,7 @@
   <string name="failed">невирішені</string>
   <string name="streakDescription">Вирішуйте щораз важчі задачі та створюйте серію перемог. Обмеження часу немає, тому не поспішайте. Один хибний хід, і гру закінчено! Але Ви можете проминути один хід за сесію.</string>
   <string name="yourStreakX">Ваша серія: %s</string>
-  <string name="streakSkipExplanation">Пропустіть цей хід, щоб зберегти вашу серію! Можна використати тільки один раз.</string>
+  <string name="streakSkipExplanation">Пропустіть цей хід, щоб зберегти Вашу серію! Але лише один раз за сесію.</string>
   <string name="continueTheStreak">Продовжити серію</string>
   <string name="newStreak">Нова серія</string>
   <string name="fromMyGames">З моїх ігор</string>
