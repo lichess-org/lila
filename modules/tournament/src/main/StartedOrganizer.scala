@@ -17,7 +17,7 @@ final private class StartedOrganizer(
 
   LilaScheduler(_.Every(1 seconds), _.AtMost(30 seconds), _.Delay(26 seconds)) {
 
-    val doAllTournaments = runCounter % 20 == 0
+    val doAllTournaments = runCounter % 15 == 0
 
     tournamentRepo
       .startedCursorWithNbPlayersGte {
