@@ -9,15 +9,15 @@
   <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך שלִיצֶ\'ס הוא open source ולא פושה בו זבל קנייני כמו באתרים אחרים.</string>
   <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של לִיצֶ\'ס, %1$s הוא קיצור של li[chess in sca]la, שכן רוב הקוד של לִיצֶ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
   <string name="howCanIContributeToLichess">כיצד אוכל לתרום לליצ\'ס?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">ליצ\'ס מופעל על ידי תרומות מצד תומכים ומאמצי צוות מתנדבים.</string>
-  <string name="findMoreAndSeeHowHelp">תוכל/י לקרוא עוד על %1$s (וגם על %2$s). אם אתם מעוניינים לעזור ללִיצֶ\'ס ע\"י נידוב זמנכם וכישוריכם, ישנן הרבה %3$s.</string>
-  <string name="beingAPatron">להיות תומך/ת</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">ליצ\'ס נתמך בידי תרומות מצד תומכים ובידי צוות מתנדבים אשר תורם לפיתוחו.</string>
+  <string name="findMoreAndSeeHowHelp">אתם מוזמנים לקרוא עוד על %1$s (וגם על %2$s). אם אתם מעוניינים לעזור ללִיצֶ\'ס ע\"י נידוב זמנכם וכישוריכם, ישנן הרבה %3$s.</string>
+  <string name="beingAPatron">מתן תרומה</string>
   <string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
   <string name="otherWaysToHelp">דרכים אחרות לעזור</string>
   <string name="areThereWebsitesBasedOnLichess">האם ישנם אתרים המבוססים על ליצ\'ס?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">כן. ליצ\'ס אכן עורר השראה לאתרי קוד פתוח אחרים המשתמשים באתר שלנו %1$s, %2$s, או %3$s.</string>
   <string name="fairPlay">משחק הוגן</string>
-  <string name="whenAmIEligibleRatinRefund">מתי אני זכאי להחזר דירוג אוטומטי מהפסד לרמאים?</string>
+  <string name="whenAmIEligibleRatinRefund">מתי אני זכאי/ת להחזר דירוג אוטומטי מהפסד לרמאים?</string>
   <string name="ratingRefundExplanation">דקה לאחר סימון שחקן/ית, 40 המשחקים המדורגים האחרונים מ-3 הימים האחרונים נבחנים. אם היית היריב/ה של השחקן/ית במשחקים הללו, איבדת דירוג (בגלל הפסד או תיקו) והדירוג שלך לא היה זמני, תקבל/י החזר דירוג. ההחזר מחושב על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
   (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל/י החזר או רק החזר חלקי). ההחזר לעולם לא יעלה על 150 נקודות.</string>
   <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
