@@ -69,11 +69,11 @@ object faq {
           ),
           tr(
             td("Antichess"),
-            td(19)
+            td(20)
           ),
           tr(
             td("Atomic"),
-            td(4)
+            td(10)
           ),
           tr(
             td("Chess960"),
@@ -85,7 +85,7 @@ object faq {
           ),
           tr(
             td("Horde"),
-            td(49)
+            td(30)
           ),
           tr(
             td("King of the hill"),

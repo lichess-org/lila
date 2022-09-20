@@ -41,10 +41,10 @@ case class Pairing(
     case Standard => 60;
     case Chess960 => 60;
 
-    case Antichess     => 38;
-    case Atomic        => 8;
+    case Antichess     => 40;
+    case Atomic        => 20;
     case Crazyhouse    => 50;
-    case Horde         => 98;
+    case Horde         => 60;
     case KingOfTheHill => 50;
     case RacingKings   => 30;
     case ThreeCheck    => 20;
