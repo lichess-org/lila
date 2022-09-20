@@ -3,6 +3,7 @@ package lila.tournament
 import play.api.i18n.Lang
 import scala.concurrent.duration._
 
+import chess.variant.Variant
 import lila.hub.LightTeam.TeamID
 import lila.memo._
 import lila.memo.CacheApi._
@@ -93,6 +94,7 @@ final class TournamentCache(
     private case class SheetKey(
         tourId: Tournament.ID,
         userId: User.ID,
+        variant: Variant,
         version: Sheet.Version,
         streakable: Sheet.Streakable
     )
@@ -121,13 +123,14 @@ final class TournamentCache(
       SheetKey(
         tour.id,
         userId,
+        tour.variant,
         Sheet.Version.of(tour.startsAt),
         Sheet.Streakable(tour.streakable)
       )
 
     private def compute(key: SheetKey): Fu[Sheet] =
       pairingRepo.finishedByPlayerChronological(key.tourId, key.userId) map {
-        arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable)
+        arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable, key.variant)
       }
 
     private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet") {

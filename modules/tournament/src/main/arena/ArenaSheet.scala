@@ -1,11 +1,12 @@
 package lila.tournament
 package arena
 
+import chess.variant.Variant
 import org.joda.time.DateTime
 import lila.user.User
 
 // most recent first
-case class Sheet(scores: List[Sheet.Score], total: Int) {
+case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant) {
   import Sheet._
 
   def isOnFire: Boolean =
@@ -22,7 +23,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int) {
         Score(
           Result.Draw,
           if (streakable.value && isOnFire) Flag.Double
-          else if (version != Version.V1 && !p.longGame && isDrawStreak(scores)) Flag.Null
+          else if (version != Version.V1 && !p.longGame(variant) && isDrawStreak(scores)) Flag.Null
           else Flag.Normal,
           berserk
         )
@@ -41,20 +42,21 @@ case class Sheet(scores: List[Sheet.Score], total: Int) {
       .filter(_.flag == Flag.StreakStarter && !p.wonBy(userId))
       .fold(scores)(_.withFlag(Flag.Normal) :: scores.tail)
 
-    Sheet(score :: prevScores, score.value + total)
+    Sheet(score :: prevScores, score.value + total, variant)
   }
 }
 
 object Sheet {
-  val empty = Sheet(Nil, 0)
+  def empty(variant: Variant) = Sheet(Nil, 0, variant)
 
   def buildFromScratch(
       userId: User.ID,
       pairings: List[Pairing],
       version: Version,
-      streakable: Streakable
+      streakable: Streakable,
+      variant: Variant
   ): Sheet =
-    pairings.foldLeft(empty) { case (sheet, pairing) =>
+    pairings.foldLeft(empty(variant)) { case (sheet, pairing) =>
       sheet.addResult(userId, pairing, version, streakable)
     }
 
