@@ -37,7 +37,6 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   </plurals>
   <string name="thisIsPrivate">Đây là giải đấu riêng tư</string>
   <string name="shareUrl">Chia sẻ URL này để mọi người tham dự: %s</string>
-  <string name="drawStreak">Chuỗi hòa: Khi một người chơi hòa liên tục ở một đấu trường, chỉ ván hòa đầu tiên mang lại điểm, hoặc các ván hòa kéo dài hơn %s nước đi. Chuỗi hòa chỉ có thể được phá bỏ bởi một ván thắng, chứ không thể bằng ván thua hoặc hòa.</string>
   <string name="history">Lịch sử đấu trường</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Xem đội

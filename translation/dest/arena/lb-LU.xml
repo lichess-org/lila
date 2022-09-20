@@ -38,7 +38,6 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
   </plurals>
   <string name="thisIsPrivate">Dësen Turnéier ass privat</string>
   <string name="shareUrl">Deel dës URL, dass aner Leit bäitrieden kënnen: %s</string>
-  <string name="drawStreak">Remis-Serien: Wann een Spiller konsekutiv Remis spillt, kritt hien just fir dat éischt Resultat en Punkt oder awer wann en Remis méi wéi %s Zich huet. Eng Remis-Serie kann just duerch eng Victoire gebrach ginn, net duerch eng Defaite oder en Remis.</string>
   <string name="history">Arena-Geschicht</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ekipp ukucken</item>

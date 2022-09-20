@@ -39,7 +39,6 @@
   </plurals>
   <string name="thisIsPrivate">এটা হয় একটি ব্যক্তিগত প্রতিযোগিতা</string>
   <string name="shareUrl">মানুষদের যোগ দিতে এই URL শেয়ার করুন: %s</string>
-  <string name="drawStreak">ড্র স্ট্রিক: যখন একজন খেলোয়ার অ্যারিনাতে পরপর ড্র করে তখন কেবল প্রথম ড্র তেই, অথবা %s চালের বেশি খেলে ড্র করলে পয়েন্ট পাওয়া যাবে। ড্র স্ট্রিক কেবলমাত্র জেতার মাধ্যমেই ভাঙা যায়, হারা কিংবা ড্র করার মাধ্যমে নয়।</string>
   <string name="history">অ্যারিনার ইতিহাস</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">দলকে দেখুন</item>

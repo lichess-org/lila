@@ -37,7 +37,6 @@
   </plurals>
   <string name="thisIsPrivate">Սա փակ մրցաշար է</string>
   <string name="shareUrl">Խաղացողների հրավիրելու համար տարածիր այս հղումը՝ %s</string>
-  <string name="drawStreak">Ոչ-ոքիների շարք. եթե խաղացողը «Արենայում» ունի իրար հաջորդող մի քանի ոչ-ոքի, ապա միավոր է տրվում միայն առաջին ոչ-ոքիի համար, կամ այն ոչ-ոքիի համար, որը կտևի %s քայլից ավելի։ Ոչ-ոքիների շարքը կարելի է ընդհատել միայն հաղթանակով, բայց ոչ պարտությամբ կամ ևս մեկ ոչ-ոքիով։</string>
   <string name="history">«Արենայի» պատմություն</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Դիտել ակումբը</item>
