@@ -62,16 +62,14 @@ object bots {
               };
 
             val challengeButton =
-              if (ctx is u) td
+              if (ctx is u) span
               else {
-                td(
-                  a(
-                    dataIcon := "",
-                    cls      := List("button button-empty text" -> true),
-                    st.title := trans.challenge.challengeToPlay.txt(),
-                    href     := s"${routes.Lobby.home}?user=${u.username}#friend"
-                  )(trans.play())
-                )
+                a(
+                  dataIcon := "",
+                  cls      := List("button button-empty text" -> true),
+                  st.title := trans.challenge.challengeToPlay.txt(),
+                  href     := s"${routes.Lobby.home}?user=${u.username}#friend"
+                )(trans.play())
               };
 
             tr(
