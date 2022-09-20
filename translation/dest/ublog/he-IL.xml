@@ -12,7 +12,7 @@
   <string name="createBlogDiscussion">אפשר תגובות</string>
   <string name="createBlogDiscussionHelp">יווצר נושא בפורום כדי שאנשים יוכלו להגיב על הפוסט שלך</string>
   <string name="publishOnYourBlog">פרסם בבלוג שלך</string>
-  <string name="publishHelp">אם הפוסט נבדק, הוא יפורסם לבלוג שלך. אם לא, הוא יישאר בטיוטות שלך.</string>
+  <string name="publishHelp">אם הפוסט נבדק, הוא יפורסם לבלוג שלך. אם לא, הוא יישאר בטיוטות שלך</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">פרסם/ה פוסט</item>
     <item quantity="two">פרסם/ה %s פוסטים</item>
