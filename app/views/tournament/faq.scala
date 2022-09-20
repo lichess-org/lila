@@ -56,45 +56,49 @@ object faq {
       p(drawStreakStandard(30)),
       p(drawStreakVariants()),
       table(cls := "slist slist-pad")(
-        tr(
-          th(variant()),
-          th(minimumGameLength())
+        thead(
+          tr(
+            th(variant()),
+            th(minimumGameLength())
+          )
         ),
-        tr(
-          td("Standard"),
-          td(30)
-        ),
-        tr(
-          td("Antichess"),
-          td(19)
-        ),
-        tr(
-          td("Atomic"),
-          td(4)
-        ),
-        tr(
-          td("Chess960"),
-          td(30)
-        ),
-        tr(
-          td("Crazyhouse"),
-          td(25)
-        ),
-        tr(
-          td("Horde"),
-          td(49)
-        ),
-        tr(
-          td("King of the hill"),
-          td(25)
-        ),
-        tr(
-          td("Racing kings"),
-          td(15)
-        ),
-        tr(
-          td("Three check"),
-          td(10)
+        tbody(
+          tr(
+            td("Standard"),
+            td(30)
+          ),
+          tr(
+            td("Antichess"),
+            td(19)
+          ),
+          tr(
+            td("Atomic"),
+            td(4)
+          ),
+          tr(
+            td("Chess960"),
+            td(30)
+          ),
+          tr(
+            td("Crazyhouse"),
+            td(25)
+          ),
+          tr(
+            td("Horde"),
+            td(49)
+          ),
+          tr(
+            td("King of the hill"),
+            td(25)
+          ),
+          tr(
+            td("Racing kings"),
+            td(15)
+          ),
+          tr(
+            td("Three check"),
+            td(10)
+          )
         )
       )
     )
