@@ -55,7 +55,7 @@ object faq {
       p(drawingWithinNbMoves.pluralSame(10)),
       p(drawStreakStandard(30)),
       p(drawStreakVariants()),
-      table(
+      table(cls := "slist slist-pad")(
         tr(
           th(variant()),
           th(minimumGameLength())
