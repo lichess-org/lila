@@ -636,6 +636,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentFAQ">Spørsmål og svar knytta til arenaturnering</string>
   <string name="timeBeforeTournamentStarts">Tid til turneringa startar</string>
   <string name="averageCentipawnLoss">Gjennomsnittleg centibondetap</string>
+  <string name="accuracy">Presisjon</string>
   <string name="keyboardShortcuts">Snarvegar på tastaturet</string>
   <string name="keyMoveBackwardOrForward">flytt att og fram</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
