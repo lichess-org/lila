@@ -41,13 +41,13 @@ case class Pairing(
     case Standard => 60;
     case Chess960 => 60;
 
-    case Antichess     => 19;
-    case Atomic        => 4;
-    case Crazyhouse    => 25;
-    case Horde         => 49;
-    case KingOfTheHill => 25;
-    case RacingKings   => 15;
-    case ThreeCheck    => 10;
+    case Antichess     => 38;
+    case Atomic        => 8;
+    case Crazyhouse    => 50;
+    case Horde         => 98;
+    case KingOfTheHill => 50;
+    case RacingKings   => 30;
+    case ThreeCheck    => 20;
   }))
 
   def wonBy(user: User.ID): Boolean     = winner.has(user)
