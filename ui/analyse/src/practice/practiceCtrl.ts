@@ -99,7 +99,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     else {
       const isFiftyMoves = node.fen.split(' ')[4] === '100';
       const nodeEval: Eval =
-        tbhitToEval(node.tbhit) || (node.threefold || (outcome && !outcome.winner) || isFiftyMoves ? { cp: 0 } : (node.ceval as Eval));
+        tbhitToEval(node.tbhit) ||
+        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves ? { cp: 0 } : (node.ceval as Eval));
       const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
