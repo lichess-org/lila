@@ -48,50 +48,68 @@ object bots {
     )
   }
 
-  private def botTable(users: List[User])(implicit ctx: Context) = table(cls := "slist slist-pad")(
-    tbody(
-      users map { u =>
-        tr(
-          td(userLink(u)),
-          u.profile
-            .ifTrue(ctx.noKid)
-            .ifTrue(!u.marks.troll || ctx.is(u))
-            .flatMap(_.nonEmptyBio)
-            .map { bio =>
-              td(shorten(bio, 400))
-            } | td,
-          ctx.pref.showRatings option td(cls := "rating")(u.bestAny3Perfs.map {
-            showPerfRating(u, _)
-          }),
-          u.playTime.fold(td) { playTime =>
-            td(
-              p(
-                cls      := "text",
-                dataIcon := "",
-                st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod))
-              )(showPeriod(playTime.totalPeriod)),
-              playTime.nonEmptyTvPeriod.map { tvPeriod =>
-                p(
-                  cls      := "text",
-                  dataIcon := "",
-                  st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod))
-                )(showPeriod(tvPeriod))
-              }
-            )
-          },
-          if (ctx is u) td
-          else {
-            td(
-              a(
-                dataIcon := "",
-                cls      := List("button button-empty text" -> true),
-                st.title := trans.challenge.challengeToPlay.txt(),
-                href     := s"${routes.Lobby.home}?user=${u.username}#friend"
-              )(trans.play())
+  private def botTable(users: List[User])(implicit ctx: Context) = {
+    table(cls := "slist slist-pad")(
+      tbody(
+        users map { u =>
+          {
+            val bio = u.profile
+              .ifTrue(ctx.noKid)
+              .ifTrue(!u.marks.troll || ctx.is(u))
+              .flatMap(_.nonEmptyBio)
+              .map { bio =>
+                shorten(bio, 400)
+              };
+
+            val challengeButton =
+              if (ctx is u) td
+              else {
+                td(
+                  a(
+                    dataIcon := "",
+                    cls      := List("button button-empty text" -> true),
+                    st.title := trans.challenge.challengeToPlay.txt(),
+                    href     := s"${routes.Lobby.home}?user=${u.username}#friend"
+                  )(trans.play())
+                )
+              };
+
+            tr(
+              td(cls := "mobile", colspan := 3)(
+                userLink(u),
+                br,
+                br,
+                bio,
+                br,
+                br,
+                div(style := "text-align: center")(challengeButton)
+              ),
+              td(userLink(u)),
+              td(bio),
+              ctx.pref.showRatings option td(cls := "rating")(u.bestAny3Perfs.map {
+                showPerfRating(u, _)
+              }),
+              u.playTime.fold(td) { playTime =>
+                td(
+                  p(
+                    cls      := "text",
+                    dataIcon := "",
+                    st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod))
+                  )(showPeriod(playTime.totalPeriod)),
+                  playTime.nonEmptyTvPeriod.map { tvPeriod =>
+                    p(
+                      cls      := "text",
+                      dataIcon := "",
+                      st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod))
+                    )(showPeriod(tvPeriod))
+                  }
+                )
+              },
+              td(challengeButton)
             )
           }
-        )
-      }
+        }
+      )
     )
-  )
+  }
 }

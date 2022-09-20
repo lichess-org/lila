@@ -110,22 +110,34 @@ $user-list-width: 30ch;
     padding-bottom: 2vh;
   }
 
-  td:nth-child(2) {
+  td:nth-child(3) {
     @extend %break-word;
   }
 
-  td:nth-child(3),
-  td:nth-child(4) {
+  td:nth-child(4),
+  td:nth-child(5) {
     white-space: nowrap;
   }
 
-  @include breakpoint($mq-not-small) {
-    td.rating {
+  td {
+    &.mobile {
       display: none;
     }
   }
+
+  @include breakpoint($mq-not-small) {
+    td {
+      &:not(.mobile) {
+        display: none;
+      }
+      &.mobile {
+        display: block;
+      }
+    }
+  }
+
   @include breakpoint($mq-not-x-large) {
-    td:nth-child(4) {
+    td:nth-child(5) {
       display: none;
     }
   }
