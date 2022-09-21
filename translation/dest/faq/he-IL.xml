@@ -124,7 +124,7 @@
 עדיף לחשוב על דירוג כמונח יחסי. לכל אוכלוסיית שחקנים בארגון או אתר מסוים, הדירוג ינבא מי ינצח, יפסיד או ישיג תיקו, ובאיזו תדירות. להגיד: ״הדירוג שלי הוא X״ זה חסר משמעות כל עוד אין שחקנים אחרים אליהם הדירוג מושווה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
   <string name="enableZenMode">הפעילו את מצב זן ב%1$s או על ידי הקשה על %2$s במהלך משחק.</string>
-  <string name="displayPreferences">הגדרות תצוגה</string>
+  <string name="displayPreferences">הגדרות התצוגה</string>
   <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">לצערנו, איננו יכולים להחזיר נקודות דירוג שאבדו עקב תקלת רשת או ניתוק, בין אם היא אצלך או אצלנו (על אף שאצלנו מתרחשות תקלות כאלה רק לעיתים נדירות). כאשר מבוצעת הפעלה מחדש של ליצ׳ס וכתוצאה מכך נגמר לך הזמן, אנו מבטלים את המשחק כדי למנוע הפסד לא הוגן.</string>
   <string name="howToThreeDots">כיצד...</string>
