@@ -39,6 +39,7 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   </plurals>
   <string name="thisIsPrivate">Ta turnir je zaseben</string>
   <string name="shareUrl">Delite ta URL, da se igralci lahko pridružijo: %s</string>
+  <string name="drawStreak">Niz remijev: Ko igralec zeporedoma remizira v areni, bo le leprvi remi rezultiral v točko ali remiji z več kot %s potezami. Niz remijev se lahko prekine le z zmago, ne pa s porazom ali remijem.</string>
   <string name="history">Zgodovina arene</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Spoznajte ekipo</item>

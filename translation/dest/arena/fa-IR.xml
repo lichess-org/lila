@@ -36,6 +36,7 @@
   </plurals>
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
+  <string name="drawStreak">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
   <string name="history">تاریخچه مسابقات</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">مشاهده تیم</item>
