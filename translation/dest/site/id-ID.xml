@@ -58,6 +58,8 @@
   <string name="depthX">Detil %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisa</string>
   <string name="loadingEngine">Memuat...</string>
+  <string name="calculatingMoves">Menghitung...</string>
+  <string name="engineFailed">Gagal memuat komputer</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Lihat lebih detail</string>
   <string name="showThreat">Tunjukkan ancaman</string>
@@ -181,6 +183,7 @@
   <string name="changeUsername">Ganti nama pengguna</string>
   <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
   <string name="changeUsernameDescription">Ganti nama pengguna Anda. Ini hanya diperbolehkan mengubah huruf besar-kecil nama pengguna Anda.</string>
+  <string name="signupEmailHint">Ini hanya akan digunakan untuk setel ulang password.</string>
   <string name="password">Kata sandi</string>
   <string name="changePassword">Ganti kata sandi</string>
   <string name="changeEmail">Ubah email</string>
@@ -430,6 +433,9 @@
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="oneUrlPerLine">Satu tautan per baris.</string>
   <string name="inlineNotation">Notasi inline</string>
+  <string name="savingMoves">Penyimpanan temporer</string>
+  <string name="savingMovesHelp">Kami selalu menyimpan variasi Anda di cache browser.</string>
+  <string name="clearSavedMoves">Bersihkan gerakan</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
   <string name="activePlayers">Pemain aktif</string>
@@ -589,6 +595,7 @@
   <string name="tournamentFAQ">Arena Turnamen FAQ</string>
   <string name="timeBeforeTournamentStarts">Waktu sebelum turnamen dimulai</string>
   <string name="averageCentipawnLoss">Rata-rata poin kekalahan</string>
+  <string name="accuracy">Akurasi</string>
   <string name="keyboardShortcuts">Tombol pintas keyboard</string>
   <string name="keyMoveBackwardOrForward">Mundurkan/Majukan</string>
   <string name="keyGoToStartOrEnd">Ke awal/akhir</string>

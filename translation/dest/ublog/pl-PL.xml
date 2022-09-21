@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xBlog">Blog gracza %s</string>
-  <string name="newPost">Nowy wpis</string>
+  <string name="newPost">Utwórz nowy wpis</string>
   <string name="editYourBlogPost">Edytuj swój wpis na blogu</string>
   <string name="saveDraft">Zapisz wersję roboczą</string>
   <string name="postTitle">Tytuł wpisu</string>

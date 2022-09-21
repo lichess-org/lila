@@ -423,7 +423,7 @@
   <string name="thisIsAChessCaptcha">זה CAPTCHA של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ/י על הלוח כדי לעשות מהלך, כדי להוכיח שאת/ה בן אנוש.</string>
   <string name="captcha.fail">אנא בצע/י את המהלך הנכון בלוח ה-Captcha.</string>
-  <string name="notACheckmate">לא מט.</string>
+  <string name="notACheckmate">לא מט</string>
   <string name="whiteCheckmatesInOneMove">מט ב-1 ללבן</string>
   <string name="blackCheckmatesInOneMove">מט ב-1 לשחור</string>
   <string name="retry">נסו שוב</string>
@@ -610,7 +610,7 @@
   <string name="always">תמיד</string>
   <string name="never">אף פעם</string>
   <string name="xCompetesInY">%1$s מתחרה ב-%2$s</string>
-  <string name="victory">ניצחון!</string>
+  <string name="victory">ניצחון</string>
   <string name="defeat">הפסד</string>
   <string name="victoryVsYInZ">%1$s נגד %2$s ב%3$s</string>
   <string name="defeatVsYInZ">%1$s נגד %2$s ב%3$s</string>
