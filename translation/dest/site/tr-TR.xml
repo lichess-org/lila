@@ -205,6 +205,7 @@
   <string name="email">E-posta</string>
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
+  <string name="emailConfirmNotReceived">Kayıt olduktan sonra doğrulama e-postası almadınız mı?</string>
   <string name="rank">Sıralama</string>
   <string name="rankX">Sıralama: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
