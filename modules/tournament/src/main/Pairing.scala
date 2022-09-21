@@ -37,17 +37,11 @@ case class Pairing(
   def quickFinish      = finished && turns.exists(20 >)
   def quickDraw        = draw && turns.exists(20 >)
   def notSoQuickFinish = finished && turns.exists(14 <=)
-  def longGame(variant: Variant = Standard) = turns.exists(_ >= (variant match {
-    case Standard => 60;
-    case Chess960 => 60;
-
-    case Antichess     => 40;
-    case Atomic        => 20;
-    case Crazyhouse    => 50;
-    case Horde         => 60;
-    case KingOfTheHill => 50;
-    case RacingKings   => 30;
-    case ThreeCheck    => 20;
+  def longGame(variant: Variant) = turns.exists(_ >= (variant match {
+    case Standard | Chess960 | Horde => 60
+    case Crazyhouse | KingOfTheHill  => 50
+    case Antichess | RacingKings     => 40
+    case ThreeCheck | Atomic         => 20
   }))
 
   def wonBy(user: User.ID): Boolean     = winner.has(user)

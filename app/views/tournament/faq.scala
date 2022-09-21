@@ -64,39 +64,19 @@ object faq {
         ),
         tbody(
           tr(
-            td("Standard"),
+            td(trans.standard(), ", Chess960, Horde"),
             td(30)
           ),
           tr(
-            td("Antichess"),
+            td("Crazyhouse, King of the Hill"),
+            td(25)
+          ),
+          tr(
+            td("Antichess, Racing Kings"),
             td(20)
           ),
           tr(
-            td("Atomic"),
-            td(10)
-          ),
-          tr(
-            td("Chess960"),
-            td(30)
-          ),
-          tr(
-            td("Crazyhouse"),
-            td(25)
-          ),
-          tr(
-            td("Horde"),
-            td(30)
-          ),
-          tr(
-            td("King of the hill"),
-            td(25)
-          ),
-          tr(
-            td("Racing kings"),
-            td(15)
-          ),
-          tr(
-            td("Three check"),
+            td("Three check, Atomic"),
             td(10)
           )
         )
