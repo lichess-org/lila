@@ -205,6 +205,16 @@
   <string name="email">Sähköpostiosoite</string>
   <string name="passwordReset">Salasanan uusiminen</string>
   <string name="forgotPassword">Unohditko salasanasi?</string>
+  <string name="emailConfirmHelp">Apu sähköpostivahvistuksen kanssa</string>
+  <string name="emailConfirmNotReceived">Etkö saanut vahvistussähköpostiasi rekisteröitymisen jälkeen?</string>
+  <string name="whatSignupUsername">Mitä käyttäjänimeä käytit kirjautumiseen?</string>
+  <string name="emailSent">Olemme lähettäneet sähköpostin osoitteeseen %s.</string>
+  <string name="emailCanTakeSomeTime">Sähköpostin saapuminen voi kestää jonkin aikaa.</string>
+  <string name="refreshInboxAfterFiveMinutes">Odota 5 minuuttia ja päivitä sähköpostin saapuneet-kansio.</string>
+  <string name="emailForSignupHelp">Jos kaikki muu epäonnistuu, lähetä meille tämä sähköposti:</string>
+  <string name="accountConfirmationEmailNotNeeded">Et tarvitse vahvistussähköpostia.</string>
+  <string name="accountClosed">Käyttäjätili %s on suljettu.</string>
+  <string name="accountRegisteredWithoutEmail">Tili %s rekisteröitiin ilman sähköpostia.</string>
   <string name="rank">Sijoitus</string>
   <string name="rankX">Sijoitus: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
