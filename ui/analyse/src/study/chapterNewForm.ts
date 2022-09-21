@@ -293,7 +293,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           activeTab === 'pgn'
             ? h('div.form-group', [
                 h('textarea#chapter-pgn.form-control', {
-                  attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
+                  attrs: { placeholder: trans.pluralSame('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
                 h(
                   'a.button.button-empty',

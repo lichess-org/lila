@@ -283,7 +283,7 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
                 selected: key == ctrl.settings.difficulty,
                 title:
                   !!delta &&
-                  ctrl.trans.plural(
+                  ctrl.trans.pluralSame(
                     delta < 0 ? 'nbPointsBelowYourPuzzleRating' : 'nbPointsAboveYourPuzzleRating',
                     Math.abs(delta)
                   ),

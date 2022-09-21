@@ -25,10 +25,16 @@ export const trans = (i18n: I18nDict) => {
     const str = i18n[key];
     return str ? format(str, args) : key;
   };
-  trans.plural = function (key: I18nKey, count: number) {
+  trans.pluralSame = function (key: I18nKey, count: number) {
     const pluralKey = `${key}:${lichess.quantity(count)}`;
     const str = i18n[pluralKey] || i18n[key];
     return str ? format(str, Array.prototype.slice.call(arguments, 1)) : key;
+  };
+
+  trans.plural = function (key: I18nKey, count: number, ...args: string[]) {
+    const pluralKey = `${key}:${lichess.quantity(count)}`;
+    const str = i18n[pluralKey] || i18n[key];
+    return str ? format(str, args) : key;
   };
   // optimisation for translations without arguments
   trans.noarg = (key: I18nKey) => i18n[key] || key;
