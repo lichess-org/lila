@@ -17,7 +17,7 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
       const whiteColumnBorder = '#00000044';
       const blackAreaFill = hunter ? area.black : 'rgba(0, 0, 0, 0.4)';
       const blackColumnFill = 'rgba(0, 0, 0, 0.9)';
-      const blackColumnBorder = '#ffffff55';
+      const blackColumnBorder = '#ffffff33';
 
       const moveSeries = {
         white: [] as MovePoint[],

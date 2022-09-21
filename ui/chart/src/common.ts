@@ -44,7 +44,7 @@ export async function loadHighcharts(tpe: string) {
       grey: light ? '#999999' : '#777777',
     };
     const area = {
-      white: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.5)',
+      white: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
       black: light ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)',
     };
     return {
