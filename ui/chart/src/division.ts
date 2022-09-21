@@ -6,7 +6,7 @@ interface Division {
 export default function (div: Division, trans: Trans) {
   const lines = [];
   lines.push({
-    color: '#d85000',
+    color: window.Highcharts.theme.lichess.line.accent,
     width: 1,
     value: 0,
     zIndex: 5,

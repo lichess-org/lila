@@ -61,11 +61,11 @@ const error = (ctrl: AnalyseCtrl, nb: number, color: Color, advice: Advice) =>
 
 const markerColorPrefix = (el: Element): string => {
   const symbol = el.getAttribute('data-symbol');
-  const playerBit = el.getAttribute('data-color') == 'white' ? '1' : '0';
+  const playerColorBit = el.getAttribute('data-color') == 'white' ? '1' : '0';
   // these 5 digit hex values are from the bottom of chart/acpl.ts
-  if (symbol == '??') return '#db303' + playerBit;
-  else if (symbol == '?') return '#cc9b0' + playerBit;
-  else if (symbol == '?!') return '#1c9ae' + playerBit;
+  if (symbol == '??') return '#db303' + playerColorBit;
+  else if (symbol == '?') return '#cc9b0' + playerColorBit;
+  else if (symbol == '?!') return '#1c9ae' + playerColorBit;
   else return '#000000';
 };
 
@@ -73,9 +73,9 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
   const markers = $('g.highcharts-tracker');
   const showMarkers = (el: Element, visible: boolean) => {
     const prefix = markerColorPrefix(el);
-    const $nodes = $(`path[stroke^='${prefix}']`, markers);
-    $nodes.attr('fill', `${prefix}${visible ? 'ff' : '00'}`);
-    $nodes.attr('stroke', `${prefix}${visible ? 'ff' : '00'}`);
+    $(`path[stroke^='${prefix}']`, markers)
+      .attr('fill', `${prefix}${visible ? 'ff' : '00'}`)
+      .attr('stroke', `${prefix}${visible ? 'ff' : '00'}`);
   };
 
   return h(
