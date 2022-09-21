@@ -208,6 +208,8 @@
   <string name="emailConfirmHelp">Apu sähköpostivahvistuksen kanssa</string>
   <string name="emailConfirmNotReceived">Etkö saanut vahvistussähköpostiasi rekisteröitymisen jälkeen?</string>
   <string name="whatSignupUsername">Mitä käyttäjänimeä käytit kirjautumiseen?</string>
+  <string name="usernameNotFound">Nimellä %s ei löytynyt käyttäjää.</string>
+  <string name="usernameCanBeUsedForNewAccount">Voit luoda uuden tunnuksen tällä käyttäjänimellä</string>
   <string name="emailSent">Olemme lähettäneet sähköpostin osoitteeseen %s.</string>
   <string name="emailCanTakeSomeTime">Sähköpostin saapuminen voi kestää jonkin aikaa.</string>
   <string name="refreshInboxAfterFiveMinutes">Odota 5 minuuttia ja päivitä sähköpostin saapuneet-kansio.</string>
