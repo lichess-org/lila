@@ -122,7 +122,7 @@ mit ähnlichem Rang</string>
   <string name="streaksAndBerserk">Serie und Berserk</string>
   <string name="similarToOTB">Ähnlich wie OTB Turnier</string>
   <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s Rundi Schweizer System</item>
     <item quantity="other">%1$s / %2$s Rundene Schweizer System</item>
   </plurals>
