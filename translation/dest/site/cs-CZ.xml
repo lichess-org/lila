@@ -705,6 +705,7 @@
   <string name="tournamentFAQ">Arena turnaj - často kladené otázky</string>
   <string name="timeBeforeTournamentStarts">Čas do začátku turnaje</string>
   <string name="averageCentipawnLoss">Průměrná pěšcová ztráta</string>
+  <string name="accuracy">Přesnost</string>
   <string name="keyboardShortcuts">Klávesové zkratky</string>
   <string name="keyMoveBackwardOrForward">O tah vpřed/vzad</string>
   <string name="keyGoToStartOrEnd">běžte na začátek/konec</string>

@@ -137,7 +137,9 @@
   <string name="stalemate">פט</string>
   <string name="theGameIsADraw">המשחק מסתיים בתיקו</string>
   <string name="stalemateIntro">כאשר שחקן לא מצוי תחת איום שח ואין לו אף מהלך חוקי, מצב כזה נקרא פט והמשחק מסתיים בתיקו.</string>
-  <string name="stalemateGoal">מצב הפט מתקבל כאשר א. אין לשחור כל מסע חוקי, ב. מלכו אינו מאויים.</string>
+  <string name="stalemateGoal">מצב הפט יתקבל כאשר:
+-לא יהיה לשחור אף מסע חוקי
+-מלכו לא יהיה מאויים.</string>
   <string name="stalemateComplete">יפה, עדיף לחטוף פט מאשר לחטוף מט!</string>
   <string name="advanced">מתקדם</string>
   <string name="pieceValue">הערך של כל כלי</string>
@@ -154,7 +156,7 @@
 אל תקריב כלי שלך 
 כדי לאכול כלי יריב שערכו פחות.</string>
   <string name="pieceValueLegal">קח את הכלי עם הערך הגבוה ביותר! וודא שהמהלך שלך חוקי!</string>
-  <string name="takeThePieceWithTheHighestValue">קח/י את הכלי החזק יותר!</string>
+  <string name="takeThePieceWithTheHighestValue">קח/י את הכלי החזק ביותר!</string>
   <string name="pieceValueComplete">יפה, את/ה מכיר/ה את הערך של הכלים! 
 מלכה=9, 
 צריח=5,

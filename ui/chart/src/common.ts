@@ -38,18 +38,14 @@ export async function loadHighcharts(tpe: string) {
     const line = {
       weak: light ? '#ccc' : '#404040',
       strong: light ? '#a0a0a0' : '#606060',
-      fat: '#d85000',
+      accent: '#d85000',
       white: '#ffffff',
       black: '#333333',
       grey: light ? '#999999' : '#777777',
-      accent: '#d85000',
-      primary: light ? '#1b78d0' : '#3692e7',
     };
     const area = {
       white: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
       black: light ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)',
-      acplWhite: light ? '#ffffff80' : '#ffffff20',
-      acplBlack: light ? '#cccccc80' : '#00000050',
     };
     return {
       light: light,

@@ -33,6 +33,7 @@ export interface Game {
   rematch?: string;
   rated?: boolean;
   perf: string;
+  single?: boolean;
 }
 
 export interface Status {

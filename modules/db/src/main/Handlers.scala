@@ -157,6 +157,11 @@ trait Handlers {
   implicit val markdownHandler: BSONHandler[lila.common.Markdown] =
     stringAnyValHandler(_.value, lila.common.Markdown.apply)
 
+  implicit def tuple2BSONHandler[T: BSONHandler] = tryHandler[(T, T)](
+    { case arr: BSONArray => for { a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) } yield (a, b) },
+    { case (a, b) => BSONArray(a, b) }
+  )
+
   val minutesHandler = BSONIntegerHandler.as[FiniteDuration](_.minutes, _.toMinutes.toInt)
 
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](

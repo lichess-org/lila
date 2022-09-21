@@ -564,9 +564,9 @@ final class SwissApi(
                         systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
                         colls.swiss.update
                           .one($id(s.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
-                          .void >>- cache.swissCache.clear(swiss.id)
+                          .void
                     }
-                  }
+                  } >>- cache.swissCache.clear(swiss.id)
               }
             else {
               if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)

@@ -706,6 +706,8 @@ GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId: String)
+POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId: String)
 GET   /api/stream/event                controllers.Api.eventStream
 GET   /api/stream/game/:id             controllers.Api.moveStream(id: String)
 GET   /api/account                     controllers.Account.apiMe

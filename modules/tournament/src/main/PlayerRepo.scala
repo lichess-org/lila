@@ -184,9 +184,6 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       }
     }
 
-  def countActive(tourId: Tournament.ID): Fu[Int] =
-    coll.countSel(selectTour(tourId) ++ selectActive)
-
   def count(tourId: Tournament.ID): Fu[Int] = coll.countSel(selectTour(tourId))
 
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
@@ -238,7 +235,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       selectTour(tourId) ++ $doc("m" $gt 0)
     )
 
-  private[tournament] def nbActiveUserIds(tourId: Tournament.ID): Fu[Int] =
+  private[tournament] def nbActivePlayers(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
 
   def winner(tourId: Tournament.ID): Fu[Option[Player]] =

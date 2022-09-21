@@ -456,10 +456,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess(notFoundJsonSync(msg))
 
-  def notForBotAccounts =
-    BadRequest(
-      jsonError("This API endpoint is not for Bot accounts.")
-    )
+  def notForBotAccounts = JsonBadRequest(jsonError("This API endpoint is not for Bot accounts."))
 
   def ridiculousBackwardCompatibleJsonError(err: JsObject): JsObject =
     err ++ Json.obj("error" -> err)

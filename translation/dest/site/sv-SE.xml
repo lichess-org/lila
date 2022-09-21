@@ -637,6 +637,7 @@ https://lichess. org/study</string>
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
   <string name="averageCentipawnLoss">Genomsnittligt förlorad hundradelsbonde</string>
+  <string name="accuracy">Precision</string>
   <string name="keyboardShortcuts">Snabbkommandon</string>
   <string name="keyMoveBackwardOrForward">bakåtdrag/framåtdrag</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>

@@ -7,6 +7,7 @@ import play.api.data.Forms._
 
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
+import lila.common.{ Form => LilaForm }
 
 object SetupForm {
 
@@ -103,33 +104,6 @@ object SetupForm {
       )
   )
 
-  lazy val boardApiSeek = Form(
-    mapping(
-      "time"        -> time,
-      "increment"   -> increment,
-      "variant"     -> optional(boardApiVariantKeys),
-      "rated"       -> optional(boolean),
-      "color"       -> optional(color),
-      "ratingRange" -> optional(ratingRange)
-    )((t, i, v, r, c, g) =>
-      HookConfig(
-        variant = v.flatMap(Variant.apply) | Variant.default,
-        timeMode = TimeMode.RealTime,
-        time = t,
-        increment = i,
-        days = 1,
-        mode = chess.Mode(~r),
-        color = lila.lobby.Color.orDefault(c),
-        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
-      )
-    )(_ => none)
-      .verifying("Invalid clock", _.validClock)
-      .verifying(
-        "Invalid time control",
-        hook => hook.makeClock ?? lila.game.Game.isBoardCompatible
-      )
-  )
-
   object api {
 
     lazy val clockMapping =
@@ -166,7 +140,8 @@ object SetupForm {
         "fen"             -> fenField,
         "acceptByToken"   -> optional(nonEmptyText),
         "message"         -> message,
-        "keepAliveStream" -> optional(boolean)
+        "keepAliveStream" -> optional(boolean),
+        "singleGame"      -> optional(boolean)
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)
@@ -184,12 +159,16 @@ object SetupForm {
 
     lazy val open = Form(
       mapping(
-        "name" -> optional(lila.common.Form.cleanNonEmptyText(maxLength = 200)),
+        "name" -> optional(LilaForm.cleanNonEmptyText(maxLength = 200)),
         variant,
         clock,
         "days"  -> optional(days),
         "rated" -> boolean,
-        "fen"   -> fenField
+        "fen"   -> fenField,
+        "users" -> optional(
+          LilaForm.strings.separator(",").verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
+        ),
+        "singleGame" -> optional(boolean)
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)

@@ -50,6 +50,8 @@ final class JsonView(
       "socketVersion" -> socketVersion
     )
 
+  implicit private val openWrites = Json.writes[Challenge.Open]
+
   def apply(direction: Option[Direction])(c: Challenge)(implicit lang: Lang): JsObject =
     Json
       .obj(
@@ -87,6 +89,8 @@ final class JsonView(
       .add("direction" -> direction.map(_.name))
       .add("initialFen" -> c.initialFen)
       .add("declineReason" -> c.declineReason.map(_.trans.txt()))
+      .add("open" -> c.open)
+      .add("singleGame" -> c.singleGame)
 
   private def iconChar(c: Challenge) =
     if (c.variant == chess.variant.FromPosition) ''

@@ -705,6 +705,7 @@
   <string name="tournamentFAQ">Вопросы и ответы про Арену</string>
   <string name="timeBeforeTournamentStarts">Время до начала турнира</string>
   <string name="averageCentipawnLoss">Потери сантипешек в среднем</string>
+  <string name="accuracy">Точность</string>
   <string name="keyboardShortcuts">Горячие клавиши</string>
   <string name="keyMoveBackwardOrForward">ход назад/вперёд</string>
   <string name="keyGoToStartOrEnd">в начало/конец</string>

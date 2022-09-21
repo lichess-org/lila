@@ -63,6 +63,8 @@
   <string name="depthX">عمق التحليل %s</string>
   <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
   <string name="loadingEngine">تحميل المحرك...</string>
+  <string name="calculatingMoves">حساب النقلات...</string>
+  <string name="engineFailed">خطأ في تحميل المحرك</string>
   <string name="cloudAnalysis">تحليل سحابي</string>
   <string name="goDeeper">تحليل أعمق</string>
   <string name="showThreat">إظهار التهديد</string>
@@ -239,12 +241,20 @@
   <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
+  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم صديق للعائلة. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
+  <string name="signupEmailHint">سوف نستخدمه فقط لإعادة تعيين كلمة المرور.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
   <string name="email">البريد الإلكتروني</string>
   <string name="passwordReset">إعادة تعيين كلمة المرور</string>
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
+  <string name="emailConfirmHelp">المساعدة في تأكيد البريد الإلكتروني</string>
+  <string name="emailConfirmNotReceived">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
+  <string name="whatSignupUsername">ما هو اسم المستخدم الذي استخدمته للتسجيل؟</string>
+  <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">يمكنك استخدام اسم المستخدم هذا لإنشاء حساب جديد</string>
+  <string name="emailSent">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -780,6 +790,7 @@ https://lichess. org/study</string>
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
   <string name="averageCentipawnLoss">معدل الخسارة مقيمة ب 0.01 بيدق</string>
+  <string name="accuracy">الدقة</string>
   <string name="keyboardShortcuts">اختصارات لوحة المفاتيح</string>
   <string name="keyMoveBackwardOrForward">تحرك للخلف/للأمام</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>

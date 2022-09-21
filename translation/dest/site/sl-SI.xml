@@ -697,6 +697,7 @@
   <string name="tournamentFAQ">Turnirji - odgovori na pogosta vprašanja</string>
   <string name="timeBeforeTournamentStarts">Čas do začetka turnirja</string>
   <string name="averageCentipawnLoss">Povprečna izguba stotin kmeta</string>
+  <string name="accuracy">Natančnost</string>
   <string name="keyboardShortcuts">Bližnjice na tipkovnici</string>
   <string name="keyMoveBackwardOrForward">pomik naprej/nazaj</string>
   <string name="keyGoToStartOrEnd">pojdi na začetek/konec</string>

@@ -49,6 +49,7 @@ object jsI18n {
         trans.nbMistakes,
         trans.nbBlunders,
         trans.averageCentipawnLoss,
+        trans.accuracy,
         trans.viewTheSolution,
         trans.youNeedAnAccountToDoThat,
         // action menu
@@ -93,6 +94,7 @@ object jsI18n {
         trans.resumePractice,
         trans.whiteWinsGame,
         trans.blackWinsGame,
+        trans.drawByFiftyMoves,
         trans.theGameIsADraw,
         trans.yourTurn,
         trans.computerThinking,

@@ -1,23 +1,9 @@
 import { ChartElm, loadHighcharts, MovePoint } from './common';
 import divisionLines from './division';
 
-// we share these same incomplete colors with analyse/roundTraining.ts
-export const ErrorColors = {
-  // only 5 hex digits.  append '0' for black or '1' for white
-  inaccuracy: '#1c9ae',
-  blunder: '#db303',
-  mistake: '#cc9b0',
-};
-
-const acpl: Window['LichessChartGame']['acpl'] = async (
-  data: any,
-  mainline: Tree.Node[],
-  trans: Trans,
-  el: ChartElm,
-  isHunter: boolean
-) => {
+const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
   await loadHighcharts('highchart');
-  acpl.update = (d: any, mainline: Tree.Node[]) =>
+  acpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
   const area = window.Highcharts.theme.lichess.area;
@@ -26,7 +12,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
 
-  const makeSerieData = (d: any, mainline: Tree.Node[]) => {
+  const makeSerieData = (d: any, mainline: any[]) => {
     const partial = !d.analysis || d.analysis.partial;
     return mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) == 1;
@@ -34,7 +20,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       let cp;
       if (node.eval && node.eval.mate) {
         cp = node.eval.mate > 0 ? Infinity : -Infinity;
-      } else if (node.san?.includes('#')) {
+      } else if (node.san.includes('#')) {
         cp = isWhite ? Infinity : -Infinity;
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
@@ -47,21 +33,19 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         name: turn + dots + ' ' + node.san,
         y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
       };
-      let [annotation, markColor] = glyphProperties(node.glyphs);
-      markColor += isWhite ? '1' : '0';
-
+      let [annotation, fillColor] = glyphProperties(node);
       const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
       if (isBlur) {
         annotation = 'blur';
-        markColor = isWhite ? line.white : line.black;
+        fillColor = isWhite ? line.white : line.black;
       }
-      if (annotation && (!isHunter || isBlur)) {
+      if (annotation) {
         point.marker = {
           symbol: isBlur ? 'square' : 'circle',
-          radius: isBlur ? 4 : 3,
+          radius: 4,
           lineWidth: '1px',
-          lineColor: isBlur ? line.accent : markColor,
-          fillColor: markColor,
+          lineColor: isBlur ? line.accent : fillColor,
+          fillColor: fillColor,
         };
         point.name += ` [${annotation}]`;
       }
@@ -96,14 +80,14 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         animation: false,
       },
       area: {
-        fillColor: isHunter ? area.white : area.acplWhite,
-        negativeFillColor: isHunter ? area.black : area.acplBlack,
+        fillColor: area.white,
+        negativeFillColor: area.black,
         threshold: 0,
         lineWidth: 1,
-        color: line.grey,
+        color: line.accent,
         states: {
           hover: {
-            lineWidthPlus: 0,
+            lineWidth: 1,
           },
         },
         events: {
@@ -112,17 +96,14 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
           },
         },
         marker: {
-          radius: isHunter ? 1 : 0,
+          radius: 0,
           states: {
             hover: {
               radius: 3,
-              lineColor: isHunter ? line.accent : line.grey,
+              lineColor: line.accent,
             },
             select: {
-              enabled: isHunter,
-              radius: 4,
-              lineColor: line.accent,
-              fillColor: line.accent,
+              enabled: false,
             },
           },
         },
@@ -147,7 +128,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       labels: disabled,
       lineWidth: 0,
       tickWidth: 0,
-      plotLines: divisionLines(data.game.division, trans, isHunter),
+      plotLines: divisionLines(data.game.division, trans),
     },
     yAxis: {
       title: noText,
@@ -167,24 +148,20 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       ],
     },
   });
-  el.highcharts.selectPly = isHunter
-    ? (ply: number) => {
-        const point = el.highcharts.series[0].data[ply - 1 - data.game.startedAtTurn];
-        if (point) point.select(true);
-        else el.highcharts.getSelectedPoints().forEach((point: any) => point.select(false));
-      }
-    : (ply: number) => {
-        const plyline = window.Highcharts.charts[0].xAxis[0].plotLinesAndBands[0];
-        plyline.options.value = ply - 1 - data.game.startedAtTurn;
-        plyline.render(); // undocumented but...  i'm sure it's fine ;p
-      };
+  el.highcharts.selectPly = (ply: number) => {
+    const plyline = el.highcharts.xAxis[0].plotLinesAndBands[0];
+    plyline.options.value = ply - 1 - data.game.startedAtTurn;
+    plyline.render();
+  };
   lichess.pubsub.emit('analysis.change.trigger');
 };
 
-const glyphProperties = (glyphs: Array<Tree.Glyph> | undefined) => {
-  if (glyphs?.some(g => g.id == 4)) return ['blunder', ErrorColors.blunder];
-  else if (glyphs?.some(g => g.id == 2)) return ['mistake', ErrorColors.mistake];
-  else if (glyphs?.some(g => g.id == 6)) return ['inaccuracy', ErrorColors.inaccuracy];
+// the color prefixes below are mirrored in analyse/src/roundTraining.ts
+const glyphProperties = (node: Tree.Node) => {
+  const playerAndAlpha = `${node.ply & 1}00`;
+  if (node.glyphs?.some(g => g.id == 4)) return ['blunder', '#db303' + playerAndAlpha];
+  else if (node.glyphs?.some(g => g.id == 2)) return ['mistake', '#cc9b0' + playerAndAlpha];
+  else if (node.glyphs?.some(g => g.id == 6)) return ['inaccuracy', '#1c9ae' + playerAndAlpha];
   else return [undefined, undefined];
 };
 

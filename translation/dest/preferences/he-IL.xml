@@ -37,7 +37,7 @@
   <string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">כשהזמן הנותר קטן מ-30 שניות</string>
-  <string name="moveConfirmation">אישור מהלך</string>
+  <string name="moveConfirmation">אישור המהלכים</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>
   <string name="confirmResignationAndDrawOffers">אשרו כניעה והצעות תיקו</string>
@@ -47,7 +47,7 @@
   <string name="inputMovesWithTheKeyboard">הקלידו מהלכים באמצעות המקלדת</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">התאמת החצים למסעים חוקיים</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">כתבו ״Good game, well played\" בצ׳אט לאחר הפסד או תיקו (בתרגום חופשי: משחק יפה, שיחקת טוב)</string>
-  <string name="yourPreferencesHaveBeenSaved">העדפותיך נשמרו</string>
+  <string name="yourPreferencesHaveBeenSaved">העדפותיך נשמרו.</string>
   <string name="scrollOnTheBoardToReplayMoves">גלול על גבי הלוח כדי להראות מהלכים קודמים</string>
   <string name="correspondenceEmailNotification">הודעת מייל יומית עם רשימת המשחקים שלך בהתכתבות</string>
 </resources>

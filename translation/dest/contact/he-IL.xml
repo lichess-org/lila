@@ -11,7 +11,7 @@
   <string name="youCanLoginWithEmail">את/ה יכול/ה להתחבר עם כתובת האימייל שאיתה נרשמת</string>
   <string name="lost2FA">איבדתי גישה לקודי האימות הדו־שלביים שלי</string>
   <string name="doPasswordReset">השלימו איפוס סיסמה כדי להסיר את השלב השני שלכם</string>
-  <string name="accountSupport">אני צריך תמיכת חשבון</string>
+  <string name="accountSupport">אני צריך/ה תמיכת חשבון</string>
   <string name="wantTitle">אני רוצה שהתואר שלי יוצג בליצ\'ס</string>
   <string name="visitTitleConfirmation">כדי להציג את התואר שלך בפרופיל בלִיצֶ\'ס, וכדי להשתתף בארנות לבעלי תארים (Titled Arenas), בקר/י בעמוד אימות התארים</string>
   <string name="wantCloseAccount">אני מעוניין/ת לסגור את חשבוני</string>
@@ -70,7 +70,7 @@
   <string name="welcomeToUse">אתם מוזמנים להשתמש בליצ\'ס לצורך פעילותכם, גם מסחרית.</string>
   <string name="videosAndBooks">אתם יכול להציג את Lichess בסרטונים שלכם, ואתם יכול להדפיס צילומי מסך מתוך לִיצֶ\'ס בספרים שלכם.</string>
   <string name="creditAppreciated">מתן קרדיט מוערך אך אינו נדרש.</string>
-  <string name="noneOfTheAbove">אף אחד מן הנזכרים לעיל</string>
+  <string name="noneOfTheAbove">משהו אחר</string>
   <string name="sendEmailAt">שלחו לנו אימייל ב%s.</string>
   <string name="explainYourRequest">אנא הסבירו את בקשתכם בבירור וביסודיות. ציינו את שם המשתמש שלכם בליצ\'ס וכל מידע שיכול לעזור לנו לעזור לכם.</string>
 </resources>

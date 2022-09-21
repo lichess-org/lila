@@ -635,6 +635,7 @@
   <string name="tournamentFAQ">Areenaturnausten FAQ</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
   <string name="averageCentipawnLoss">Keskimääräinen sadasosasotilaan menetys</string>
+  <string name="accuracy">Tarkkuus</string>
   <string name="keyboardShortcuts">Pikanäppäimet</string>
   <string name="keyMoveBackwardOrForward">siirry eteenpäin/taaksepäin</string>
   <string name="keyGoToStartOrEnd">siirry alkuun/loppuun</string>

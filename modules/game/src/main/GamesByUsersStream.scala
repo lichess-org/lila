@@ -7,7 +7,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.Bus
-import lila.common.Json.jodaWrites
+import lila.common.Json.{ fenFormat, jodaWrites }
 import lila.game.Game
 import lila.user.User
 
@@ -38,7 +38,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
     initialGames concat startStream
   }
     .mapAsync(1)(gameRepo.withInitialFen)
-    .map(gameWithInitialFenWriter.writes)
+    .map(GameStream.gameWithInitialFenWriter.writes)
 
   private def currentGamesSource(userIds: Set[User.ID]): Source[Game, _] = {
     import lila.db.dsl._
@@ -63,22 +63,22 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
       .documentSource()
       .throttle(30, 1.second)
   }
+}
 
-  implicit private val fenWriter: Writes[FEN] = Writes[FEN] { f =>
-    JsString(f.value)
-  }
+private object GameStream {
 
-  private val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites {
+  val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites {
     case Game.WithInitialFen(g, initialFen) =>
       Json
         .obj(
-          "id"        -> g.id,
-          "rated"     -> g.rated,
-          "variant"   -> g.variant.key,
-          "speed"     -> g.speed.key,
-          "perf"      -> PerfPicker.key(g),
-          "createdAt" -> g.createdAt,
-          "status"    -> g.status.id,
+          "id"         -> g.id,
+          "rated"      -> g.rated,
+          "variant"    -> g.variant.key,
+          "speed"      -> g.speed.key,
+          "perf"       -> PerfPicker.key(g),
+          "createdAt"  -> g.createdAt,
+          "status"     -> g.status.id,
+          "statusName" -> g.status.name,
           "players" -> JsObject(g.players map { p =>
             p.color.name -> Json
               .obj(

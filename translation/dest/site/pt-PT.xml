@@ -197,6 +197,8 @@
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só te é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
+  <string name="signupUsernameHint">Certifique-se que escolhe um nome de utilizador decoroso. Não poderá alterá-lo mais tarde e quaisquer contas com nomes de utilizador inapropriados serão fechadas!</string>
+  <string name="signupEmailHint">Só o usaremos para redefinir a palavra-passe.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
@@ -634,6 +636,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="tournamentFAQ">Perguntas frequentes sobre torneios em arena</string>
   <string name="timeBeforeTournamentStarts">Contagem decrescente para o início do torneio</string>
   <string name="averageCentipawnLoss">Perda média de centésimos de peão</string>
+  <string name="accuracy">Precisão</string>
   <string name="keyboardShortcuts">Atalhos do teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar jogada</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>

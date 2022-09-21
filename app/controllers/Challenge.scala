@@ -50,9 +50,7 @@ final class Challenge(
       showId(id)
     }
 
-  protected[controllers] def showId(id: String)(implicit
-      ctx: Context
-  ): Fu[Result] =
+  protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
@@ -215,7 +213,7 @@ final class Challenge(
               } flatMap {
                 _ ?? { p => env.round.proxyRepo.upgradeIfPresent(p) dmap some }
               } flatMap {
-                case Some(pov) if pov.game.abortable =>
+                case Some(pov) if pov.game.abortableByUser =>
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
                   jsonOkResult.fuccess
                 case Some(pov) if pov.game.playable =>
@@ -372,7 +370,8 @@ final class Challenge(
         color = config.color.name,
         challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
         destUser = dest.some,
-        rematchOf = none
+        rematchOf = none,
+        singleGame = config.singleGame
       )
   }
 
@@ -416,18 +415,19 @@ final class Challenge(
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req) {
               import lila.challenge.Challenge._
-              val challenge = lila.challenge.Challenge
-                .make(
-                  variant = config.variant,
-                  initialFen = config.position,
-                  timeControl = TimeControl.make(config.clock, config.days),
-                  mode = chess.Mode(config.rated),
-                  color = "random",
-                  challenger = Challenger.Open,
-                  destUser = none,
-                  rematchOf = none,
-                  name = config.name
-                )
+              val challenge = lila.challenge.Challenge.make(
+                variant = config.variant,
+                initialFen = config.position,
+                timeControl = TimeControl.make(config.clock, config.days),
+                mode = chess.Mode(config.rated),
+                color = "random",
+                challenger = Challenger.Open,
+                destUser = none,
+                rematchOf = none,
+                name = config.name,
+                openToUserIds = config.userIds,
+                singleGame = config.singleGame
+              )
               (env.challenge.api create challenge) map {
                 case true =>
                   JsonOk(
