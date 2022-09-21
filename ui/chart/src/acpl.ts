@@ -1,12 +1,7 @@
 import { ChartElm, loadHighcharts, MovePoint } from './common';
 import divisionLines from './division';
 
-const acpl: Window['LichessChartGame']['acpl'] = async (
-  data: any,
-  mainline: Tree.Node[],
-  trans: Trans,
-  el: ChartElm
-) => {
+const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
   await loadHighcharts('highchart');
   acpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
