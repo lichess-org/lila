@@ -108,10 +108,10 @@
   <string name="streaksAndBerserk">רצפי ניצחונית ו\'אטרף\'</string>
   <string name="similarToOTB">דומה לטורנירים על־גבי לוח</string>
   <string name="unlimitedAndFree">לא מוגבל וחינמי</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
-    <item quantity="one">סבב %1$s מתוך %2$s כבר שוחק</item>
-    <item quantity="two">%1$s סבבים מתוך %2$s כבר שוחקו</item>
-    <item quantity="many">%1$s סבבים מתוך %2$s כבר שוחקו</item>
-    <item quantity="other">%1$s סבבים מתוך %2$s כבר שוחקו</item>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">סבב %1$s / %2$s כבר שוחק</item>
+    <item quantity="two">%1$s / %2$s סבבים כבר שוחקו</item>
+    <item quantity="many">%1$s / %2$s סבבים כבר שוחקו</item>
+    <item quantity="other">%1$s / %2$s סבבים כבר שוחקו</item>
   </plurals>
 </resources>
