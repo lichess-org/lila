@@ -68,7 +68,11 @@ lichess.load.then(() => {
       message = $post.find('.forum-post__message')[0] as HTMLElement,
       response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
 
-    let quote = message.innerText
+    let messageText = message.innerText;
+    const selection = window.getSelection();
+    if (selection && selection.anchorNode?.parentElement === message) messageText = selection.toString();
+
+    let quote = messageText
       .replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
       .trim()
       .split('\n')

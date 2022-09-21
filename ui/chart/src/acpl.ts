@@ -6,39 +6,48 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
   acpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
 
+  const area = window.Highcharts.theme.lichess.area;
+  const line = window.Highcharts.theme.lichess.line;
+
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
 
   const makeSerieData = (d: any, mainline: any[]) => {
     const partial = !d.analysis || d.analysis.partial;
     return mainline.slice(1).map(node => {
-      const color = node.ply & 1;
+      const isWhite = (node.ply & 1) == 1;
 
       let cp;
       if (node.eval && node.eval.mate) {
         cp = node.eval.mate > 0 ? Infinity : -Infinity;
       } else if (node.san.includes('#')) {
-        cp = color === 1 ? Infinity : -Infinity;
+        cp = isWhite ? Infinity : -Infinity;
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
         cp = node.eval.cp;
       } else return { y: null };
 
       const turn = Math.floor((node.ply - 1) / 2) + 1;
-      const dots = color === 1 ? '.' : '...';
+      const dots = isWhite ? '.' : '...';
       const point: MovePoint = {
         name: turn + dots + ' ' + node.san,
         y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
       };
-      if (!partial && blurs[color].shift() === '1') {
+      let [annotation, fillColor] = glyphProperties(node);
+      const isBlur = !partial && blurs[isWhite ? 1 : 0].shift() === '1';
+      if (isBlur) {
+        annotation = 'blur';
+        fillColor = isWhite ? line.white : line.black;
+      }
+      if (annotation) {
         point.marker = {
-          symbol: 'square',
-          radius: 3,
+          symbol: isBlur ? 'square' : 'circle',
+          radius: 4,
           lineWidth: '1px',
-          lineColor: '#d85000',
-          fillColor: color ? '#fff' : '#333',
+          lineColor: isBlur ? line.accent : fillColor,
+          fillColor: fillColor,
         };
-        point.name += ' [blur]';
+        point.name += ` [${annotation}]`;
       }
       return point;
     });
@@ -62,9 +71,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
       animation: false,
       events: {
         click(e: any) {
-          const pliesFromStart = Math.round(e.xAxis[0].value);
-          el.highcharts.series[0].data[pliesFromStart]?.select(true);
-          lichess.pubsub.emit('analysis.chart.click', pliesFromStart);
+          lichess.pubsub.emit('analysis.chart.click', Math.round(e.xAxis[0].value));
         },
       },
     },
@@ -73,35 +80,30 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
         animation: false,
       },
       area: {
-        fillColor: window.Highcharts.theme.lichess.area.white,
-        negativeFillColor: window.Highcharts.theme.lichess.area.black,
+        fillColor: area.white,
+        negativeFillColor: area.black,
         threshold: 0,
         lineWidth: 1,
-        color: '#d85000',
-        cursor: 'pointer',
+        color: line.accent,
         states: {
           hover: {
             lineWidth: 1,
           },
         },
         events: {
-          click(event: any) {
-            if (event.point) {
-              event.point.select(true);
-              lichess.pubsub.emit('analysis.chart.click', event.point.x);
-            }
+          click(e: any) {
+            lichess.pubsub.emit('analysis.chart.click', e.point.x);
           },
         },
         marker: {
-          radius: 1,
+          radius: 0,
           states: {
             hover: {
-              radius: 4,
-              lineColor: '#d85000',
+              radius: 3,
+              lineColor: line.accent,
             },
             select: {
-              radius: 4,
-              lineColor: '#d85000',
+              enabled: false,
             },
           },
         },
@@ -147,11 +149,20 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
     },
   });
   el.highcharts.selectPly = (ply: number) => {
-    const point = el.highcharts.series[0].data[ply - 1 - data.game.startedAtTurn];
-    if (point) point.select(true);
-    else el.highcharts.getSelectedPoints().forEach((point: any) => point.select(false));
+    const plyline = el.highcharts.xAxis[0].plotLinesAndBands[0];
+    plyline.options.value = ply - 1 - data.game.startedAtTurn;
+    plyline.render();
   };
   lichess.pubsub.emit('analysis.change.trigger');
+};
+
+// the color prefixes below are mirrored in analyse/src/roundTraining.ts
+const glyphProperties = (node: Tree.Node) => {
+  const playerAndAlpha = `${node.ply & 1}00`;
+  if (node.glyphs?.some(g => g.id == 4)) return ['blunder', '#db303' + playerAndAlpha];
+  else if (node.glyphs?.some(g => g.id == 2)) return ['mistake', '#cc9b0' + playerAndAlpha];
+  else if (node.glyphs?.some(g => g.id == 6)) return ['inaccuracy', '#1c9ae' + playerAndAlpha];
+  else return [undefined, undefined];
 };
 
 const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);

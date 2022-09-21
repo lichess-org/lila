@@ -83,14 +83,14 @@
   <string name="losing">מפסיד</string>
   <string name="drawn">תיקו</string>
   <string name="unknown">לא ידוע</string>
-  <string name="database">מסד נתונים</string>
+  <string name="database">מסד הנתונים</string>
   <string name="whiteDrawBlack">שחור / תיקו / לבן</string>
   <string name="averageRatingX">דירוג ממוצע: %s</string>
   <string name="recentGames">משחקים אחרונים</string>
   <string name="topGames">המשחקים המובילים</string>
   <string name="masterDbExplanation">שני מיליון משחקים על לוח פיזי של %1$s+ שחקני פידה מ %2$s עד %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">מט בעוד %s חצאי מהלכים</item>
+    <item quantity="one">מט בעוד חצי מהלך %s</item>
     <item quantity="two">מט בעוד %s חצאי מהלכים</item>
     <item quantity="many">מט בעוד %s חצאי מהלכים</item>
     <item quantity="other">מט בעוד %s חצאי מהלכים</item>
@@ -264,7 +264,7 @@
   <string name="playingRightNow">מתקיים עכשיו</string>
   <string name="eventInProgress">מתקיים עכשיו</string>
   <string name="finished">הסתיים</string>
-  <string name="finishesX">נגמר עוד %s</string>
+  <string name="finishesX">נגמר %s</string>
   <string name="abortGame">ביטול המשחק</string>
   <string name="gameAborted">המשחק בוטל</string>
   <string name="standard">רגיל</string>
@@ -423,7 +423,7 @@
   <string name="thisIsAChessCaptcha">זה CAPTCHA של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ/י על הלוח כדי לעשות מהלך, כדי להוכיח שאת/ה בן אנוש.</string>
   <string name="captcha.fail">אנא בצע/י את המהלך הנכון בלוח ה-Captcha.</string>
-  <string name="notACheckmate">לא מט.</string>
+  <string name="notACheckmate">לא מט</string>
   <string name="whiteCheckmatesInOneMove">מט ב-1 ללבן</string>
   <string name="blackCheckmatesInOneMove">מט ב-1 לשחור</string>
   <string name="retry">נסו שוב</string>
@@ -610,7 +610,7 @@
   <string name="always">תמיד</string>
   <string name="never">אף פעם</string>
   <string name="xCompetesInY">%1$s מתחרה ב-%2$s</string>
-  <string name="victory">ניצחון!</string>
+  <string name="victory">ניצחון</string>
   <string name="defeat">הפסד</string>
   <string name="victoryVsYInZ">%1$s נגד %2$s ב%3$s</string>
   <string name="defeatVsYInZ">%1$s נגד %2$s ב%3$s</string>
