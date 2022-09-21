@@ -1,4 +1,4 @@
-import { Config, PuzPrefs, PuzVm, Puzzle } from 'puz/interfaces';
+import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 import { Api as CgApi } from 'chessground/api';
 
 export type RaceStatus = 'pre' | 'racing' | 'post';
@@ -42,7 +42,7 @@ export interface PlayerWithScore extends Player {
   boostAt?: Date;
 }
 
-export interface RacerVm extends PuzVm {
+export interface RacerVm {
   startsAt?: Date;
   alreadyStarted: boolean;
 }

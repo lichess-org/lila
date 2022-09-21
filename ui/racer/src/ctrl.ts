@@ -11,6 +11,7 @@ import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { PuzCtrl, Run } from 'puz/interfaces';
+import { PuzFilters } from 'puz/filters';
 import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
@@ -25,6 +26,7 @@ export default class RacerCtrl implements PuzCtrl {
   pref: RacerPrefs;
   run: Run;
   vm: RacerVm;
+  filters: PuzFilters;
   trans: Trans;
   promotion: PromotionCtrl;
   countdown: Countdown;
@@ -39,6 +41,7 @@ export default class RacerCtrl implements PuzCtrl {
     this.data = opts.data;
     this.race = this.data.race;
     this.pref = opts.pref;
+    this.filters = new PuzFilters(redraw, true);
     this.trans = lichess.trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
@@ -54,9 +57,6 @@ export default class RacerCtrl implements PuzCtrl {
     };
     this.vm = {
       alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
-      filterFailed: false,
-      filterSlow: false,
-      filterSkip: false,
     };
     this.countdown = new Countdown(
       this.run.clock,
@@ -247,21 +247,6 @@ export default class RacerCtrl implements PuzCtrl {
   flip = () => {
     this.flipped = !this.flipped;
     this.withGround(g => g.toggleOrientation());
-    this.redraw();
-  };
-
-  toggleFilterSlow = () => {
-    this.vm.filterSlow = !this.vm.filterSlow;
-    this.redraw();
-  };
-
-  toggleFilterFailed = () => {
-    this.vm.filterFailed = !this.vm.filterFailed;
-    this.redraw();
-  };
-
-  toggleFilterSkip = () => {
-    this.vm.filterSkip = !this.vm.filterSkip;
     this.redraw();
   };
 

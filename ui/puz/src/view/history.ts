@@ -5,38 +5,37 @@ import { h, VNode } from 'snabbdom';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
 import { onInsert } from 'common/snabbdom';
+import { Toggle } from 'common';
 
 const slowPuzzleIds = (ctrl: PuzCtrl): Set<string> | undefined => {
-  if (!ctrl.vm.filterSlow || !ctrl.run.history.length) return undefined;
+  if (!ctrl.filters.slow() || !ctrl.run.history.length) return undefined;
   const mean = ctrl.run.history.reduce((a, r) => a + r.millis, 0) / ctrl.run.history.length;
   const threshold = mean * 1.5;
   return new Set(ctrl.run.history.filter(r => r.millis > threshold).map(r => r.puzzle.id));
 };
 
-function buttonMaker(vmFilter: boolean, title: string, toggleFn: () => void): VNode {
-  return h(
+const toggleButton = (prop: Toggle, title: string): VNode =>
+  h(
     'button.puz-history__filter.button',
     {
       class: {
-        active: vmFilter,
-        'button-empty': !vmFilter,
+        active: prop(),
+        'button-empty': !prop,
       },
-      hook: onInsert(e => e.addEventListener('click', toggleFn)),
+      hook: onInsert(e => e.addEventListener('click', prop.toggle)),
     },
     title
   );
-}
 
 export default (ctrl: PuzCtrl): VNode => {
-  const slowIds = slowPuzzleIds(ctrl);
-  const noarg = ctrl.trans.noarg;
-  const buttons: VNode[] = [
-    buttonMaker(ctrl.vm.filterFailed, noarg('failedPuzzles'), ctrl.toggleFilterFailed),
-    buttonMaker(ctrl.vm.filterSlow, noarg('slowPuzzles'), ctrl.toggleFilterSlow),
-  ];
-  if (ctrl.vm.filterSkip !== undefined && ctrl.toggleFilterSkip !== undefined)
-    //if RacerCtrl, not StormCtrl
-    buttons.push(buttonMaker(ctrl.vm.filterSkip, noarg('skippedPuzzle'), ctrl.toggleFilterSkip));
+  const slowIds = slowPuzzleIds(ctrl),
+    filters = ctrl.filters,
+    noarg = ctrl.trans.noarg,
+    buttons: VNode[] = [
+      toggleButton(filters.fail, noarg('failedPuzzles')),
+      toggleButton(filters.slow, noarg('slowPuzzles')),
+    ];
+  if (filters.skip) buttons.push(toggleButton(filters.skip, noarg('skippedPuzzle')));
   return h('div.puz-history.box.box-pad', [
     h('div.box__top', [h('h2', ctrl.trans('puzzlesPlayed')), h('div.box__top__actions', buttons)]),
     h(
@@ -44,9 +43,9 @@ export default (ctrl: PuzCtrl): VNode => {
       ctrl.run.history
         .filter(
           r =>
-            (!r.win || !ctrl.vm.filterFailed) &&
+            (!r.win || !filters.fail()) &&
             (!slowIds || slowIds.has(r.puzzle.id)) &&
-            (!ctrl.vm.filterSkip || r.puzzle.id === ctrl.run.skipId)
+            (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId)
         )
         .map(round =>
           h(

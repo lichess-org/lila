@@ -1,5 +1,5 @@
 import { Prop } from 'common';
-import { Config, PuzPrefs, PuzVm, Puzzle } from 'puz/interfaces';
+import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
   data: StormData;
@@ -16,7 +16,7 @@ export interface StormData {
   signed?: string;
 }
 
-export interface StormVm extends PuzVm {
+export interface StormVm {
   response?: RunResponse;
   dupTab?: boolean;
   signed: Prop<string | undefined>;
