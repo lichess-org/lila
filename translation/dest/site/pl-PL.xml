@@ -227,6 +227,13 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
+  <string name="emailConfirmHelp">Pomoc z potwierdzeniem adresu e-mail</string>
+  <string name="emailConfirmNotReceived">Nie otrzymałeś potwierdzenia e-mail po rejestracji?</string>
+  <string name="whatSignupUsername">Jakiej nazwy użytkownika użyłeś do rejestracji?</string>
+  <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
+  <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
+  <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="rank">Miejsce</string>
   <string name="rankX">Miejsce: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
