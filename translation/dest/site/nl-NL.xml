@@ -205,6 +205,9 @@
   <string name="email">Email</string>
   <string name="passwordReset">Nieuw wachtwoord</string>
   <string name="forgotPassword">Wachtwoord vergeten?</string>
+  <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
+  <string name="emailForSignupHelp">Als niks anders lukt, stuur ons dan deze e-mail:</string>
+  <string name="copyTextToEmail">Kopieer en plak de bovenstaande tekst en stuur het naar %s</string>
   <string name="rank">Positie</string>
   <string name="rankX">Positie: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
