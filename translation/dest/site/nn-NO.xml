@@ -764,6 +764,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="bestWasX">Best var %s</string>
   <string name="youBrowsedAway">Du bladde deg vekk</string>
   <string name="resumePractice">Ta opp att øving</string>
+  <string name="drawByFiftyMoves">Partiet enda med remis etter femtitrekksregelen.</string>
   <string name="theGameIsADraw">Partiet endar med remis.</string>
   <string name="computerThinking">Computer tenker...</string>
   <string name="seeBestMove">Sjå beste trekk</string>
