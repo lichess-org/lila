@@ -233,8 +233,12 @@
   <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
   <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
+  <string name="emailCanTakeSomeTime">Dostarczenie emaila może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
+  <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz email. Jeśli tak, oznacz go jako nie spam.</string>
+  <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
   <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
+  <string name="waitForSignupHelp">Wkrótce wrócimy do Ciebie, aby pomóc Ci w dokończeniu rejestracji.</string>
   <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
   <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nie potrzebujesz e-maila z potwierdzeniem.</string>
