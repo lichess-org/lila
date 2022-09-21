@@ -210,7 +210,9 @@
   <string name="whatSignupUsername">Welke gebruikersnaam heb je gebruikt om je aan te melden?</string>
   <string name="usernameNotFound">We konden geen gebruiker vinden met deze naam: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">U kunt deze gebruikersnaam gebruiken om een nieuw account aan te maken</string>
+  <string name="emailSent">We hebben een e-mail gestuurd naar %s.</string>
   <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
+  <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
   <string name="emailForSignupHelp">Als niks anders lukt, stuur ons dan deze e-mail:</string>
   <string name="copyTextToEmail">Kopieer en plak de bovenstaande tekst en stuur het naar %s</string>
   <string name="rank">Positie</string>
