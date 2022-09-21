@@ -10,4 +10,13 @@
   <string name="emailChange_intro">\"Waisa chikumbiro chekuchinja email address yako\".</string>
   <string name="emailChange_click">\"Kuti tizive kuti ndiwe muridzi weEmail iyi, tinokumbirawo kuti ubaye Ringi riri pasi apo tapota\":\":</string>
   <string name="welcome_subject">Makorokoto Wauya pa Lichess.org, sununguka, %s</string>
+  <string name="welcome_text">Makorokoto, wabudirira kugadzira account pa https://lichess.org.
+
+Iyi ndiyo profile peji yako: %1$s. Unokwanisa kuita kuti iratidzike sezvaunoda pa %2$s.
+
+Nakirwa, uye tinoshuvira kuti zvidhori zvako zvigare zvichiwana zhira zvakananga kuna Mambo weVavengi vako!</string>
+  <string name="logInToLichess">Pinda mu lichess.org, %s</string>
+  <string name="common_orPaste">\"(Paurikubaya Ringi zvirikuramba here? Imbozama kuriKopa woPaster muBrowser!)\"</string>
+  <string name="common_note">\"Iyi iEmail yabva kubato rinoona nezveMashandisiro aunoita %s\".</string>
+  <string name="common_contact">\"Kana uchida kutaura nesu tibate pa %s\".</string>
 </resources>
