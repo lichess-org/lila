@@ -227,6 +227,19 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
+  <string name="emailConfirmHelp">Pomoc z potwierdzeniem adresu e-mail</string>
+  <string name="emailConfirmNotReceived">Nie otrzymałeś potwierdzenia e-mail po rejestracji?</string>
+  <string name="whatSignupUsername">Jakiej nazwy użytkownika użyłeś do rejestracji?</string>
+  <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
+  <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
+  <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
+  <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
+  <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
+  <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nie potrzebujesz e-maila z potwierdzeniem.</string>
+  <string name="accountClosed">Konto %s jest zamknięte.</string>
+  <string name="accountRegisteredWithoutEmail">Konto %s zostało zarejestrowane bez adresu e-mail.</string>
   <string name="rank">Miejsce</string>
   <string name="rankX">Miejsce: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -822,6 +835,7 @@
   <string name="bestWasX">Najlepsze było %s</string>
   <string name="youBrowsedAway">Oddalono się</string>
   <string name="resumePractice">Wznów trening</string>
+  <string name="drawByFiftyMoves">Partia została zremisowana przez regułę pięćdziesięciu ruchów.</string>
   <string name="theGameIsADraw">Partia zakończona remisem.</string>
   <string name="computerThinking">Komputer szuka ruchu…</string>
   <string name="seeBestMove">Zobacz najlepszy ruch</string>
