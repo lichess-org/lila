@@ -234,6 +234,7 @@ export default class RacerCtrl {
     this.run.history.push({
       puzzle: this.data.puzzles[this.run.current.index],
       win,
+      skip: this.skippedPuzzleID === this.run.current.puzzle.id,
       millis: getNow() - this.run.current.startAt,
     });
 

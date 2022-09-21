@@ -64,17 +64,17 @@ function renderFilters(ctrl: PuzCtrl | RacerCtrl): VNode[] {
 }
 
 function filterHistory(ctrl: PuzCtrl | RacerCtrl) {
-  const slowIds = slowPuzzleIds(ctrl as PuzCtrl);
+  const slowIds = slowPuzzleIds(ctrl);
   if (ctrl instanceof RacerCtrl) {
     const skippedIds = skippedPuzzleIds(ctrl);
-    return (ctrl as RacerCtrl).run.history.filter(
+    return ctrl.run.history.filter(
       r =>
         (!r.win || !ctrl.vm.filterFailed) &&
         (!slowIds || slowIds.has(r.puzzle.id)) &&
         (!skippedIds || skippedIds.has(r.puzzle.id))
     );
   } else {
-    return (ctrl as PuzCtrl).run.history.filter(r => (!r.win || !ctrl.vm.filterFailed) && (!slowIds || slowIds.has(r.puzzle.id)));
+    return ctrl.run.history.filter(r => (!r.win || !ctrl.vm.filterFailed) && (!slowIds || slowIds.has(r.puzzle.id)));
   }
 }
 

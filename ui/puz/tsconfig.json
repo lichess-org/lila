@@ -3,7 +3,6 @@
   "include": ["src"],
   "exclude": [],
   "compilerOptions": {
-    "outDir": "./dist",
-    "types" : ["jquery"]
+    "outDir": "./dist"
   }
 }
