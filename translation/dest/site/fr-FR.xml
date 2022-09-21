@@ -763,6 +763,7 @@
   <string name="bestWasX">Le meilleur coup était %s</string>
   <string name="youBrowsedAway">Vous avez parcouru</string>
   <string name="resumePractice">Reprendre l\'entraînement</string>
+  <string name="drawByFiftyMoves">Cette partie est nulle de par la règle des cinquantes mouvements.</string>
   <string name="theGameIsADraw">La partie est nulle.</string>
   <string name="computerThinking">L’ordinateur réfléchit ...</string>
   <string name="seeBestMove">Voir le meilleur coup</string>
