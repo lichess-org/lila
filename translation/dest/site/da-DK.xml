@@ -763,6 +763,7 @@
   <string name="bestWasX">Bedste var %s</string>
   <string name="youBrowsedAway">Du browsede væk</string>
   <string name="resumePractice">Genoptag træning</string>
+  <string name="drawByFiftyMoves">Partiet er endt med remis efter reglen om halvtreds træk.</string>
   <string name="theGameIsADraw">Partiet ender med remis.</string>
   <string name="computerThinking">Computer tænker...</string>
   <string name="seeBestMove">Se bedste træk</string>
