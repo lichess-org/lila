@@ -763,6 +763,7 @@
   <string name="bestWasX">Am besten war %s</string>
   <string name="youBrowsedAway">Du hast weg geblättert</string>
   <string name="resumePractice">Übung fortsetzen</string>
+  <string name="drawByFiftyMoves">Die Partie wurde aufgrund der 50-Züge-Regel Remis erklärt.</string>
   <string name="theGameIsADraw">Das Spiel ist Remis.</string>
   <string name="computerThinking">Computer überlegt ...</string>
   <string name="seeBestMove">Zeige den besten Zug</string>
