@@ -764,6 +764,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="bestWasX">Best was %s</string>
   <string name="youBrowsedAway">You browsed away</string>
   <string name="resumePractice">Resume practice</string>
+  <string name="drawByFiftyMoves">The game has been drawn by the fifty move rule.</string>
   <string name="theGameIsADraw">The game is a draw.</string>
   <string name="computerThinking">Computer thinking ...</string>
   <string name="seeBestMove">See best move</string>

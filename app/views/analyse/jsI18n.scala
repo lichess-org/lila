@@ -94,6 +94,7 @@ object jsI18n {
         trans.resumePractice,
         trans.whiteWinsGame,
         trans.blackWinsGame,
+        trans.drawByFiftyMoves,
         trans.theGameIsADraw,
         trans.yourTurn,
         trans.computerThinking,
