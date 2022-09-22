@@ -52,6 +52,7 @@
   <string name="skipExplanation">¡Omite este movimiento para conservar tu racha! Sólo funciona una vez por carrera.</string>
   <string name="failedPuzzles">Ejercicios fallidos</string>
   <string name="slowPuzzles">Ejercicios lentos</string>
+  <string name="skippedPuzzle">Ejercicio omitido</string>
   <string name="thisWeek">Esta semana</string>
   <string name="thisMonth">Este mes</string>
   <string name="allTime">Todo</string>

@@ -957,7 +957,8 @@
   <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">ביטול הטורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
-  <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. קישורים לעיצוב התיאור זמינים.[name](https://url)</string>
+  <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. קישורים אינטראקטיביים של Markdown זמינים.
+[name](https://url)</string>
   <string name="ratedFormHelp">המשחקים מדורגים 
 ומשפיעים על דירוגם של השחקנים</string>
   <string name="onlyMembersOfTeam">רק חברי הקבוצה</string>
@@ -969,8 +970,8 @@
   <string name="onlyTitledHelp">רק שחקנים עם תואר</string>
   <string name="positionInputHelp">הדביקו FEN חוקי כדי להתחיל כל משחק מעמדה נתונה.
 שדה זה עובד רק עבור משחקים סטנדרטיים, לא עבור וריאנטים.
-את/ה יכול/ה להשתמש ב-%s כדי ליצור מיקום FEN, ואז להדביק אותו כאן.
-השאירו את השדה הזה ריק כדי להתחיל משחקים מהמיקום ההתחלתי הרגיל.</string>
+את/ה יכול/ה להשתמש ב%s כדי ליצור עמדת FEN, ואז להדביק אותה כאן.
+השאירו את השדה הזה ריק כדי להתחיל משחקים מהעמדה ההתחלתית הרגילה.</string>
   <string name="cancelSimul">ביטול המשחק הסימולטני</string>
   <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>

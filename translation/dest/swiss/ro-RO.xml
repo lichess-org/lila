@@ -112,7 +112,7 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="streaksAndBerserk">Serii de victorii si Berserk</string>
   <string name="similarToOTB">Similar turneelor oficiale</string>
   <string name="unlimitedAndFree">Nelimitat și gratuit</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">Runda %1$s / %2$s sistem elvețian</item>
     <item quantity="few">Runda %1$s / %2$s sistem elvețian</item>
     <item quantity="other">Runda %1$s / %2$s sistem elvețian</item>

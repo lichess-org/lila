@@ -7,7 +7,7 @@
   </plurals>
   <string name="pairingWaitTimeArena">ଦ୍ରୁତ: ସମସ୍ତ ଖେଳାଳିଙ୍କ ପାଇଁ ଅପେକ୍ଷା କରେ ନାହିଁ</string>
   <string name="pairingWaitTimeSwiss">ଧୀର: ସମସ୍ତ ଖେଳାଳିଙ୍କ ପାଇଁ ଅପେକ୍ଷା କରେ</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s ରାଉଣ୍ଡ ସ୍ୱିସ୍</item>
     <item quantity="other">%1$s / %2$s ରାଉଣ୍ଡ ସ୍ୱିସ୍</item>
   </plurals>

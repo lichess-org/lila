@@ -130,10 +130,10 @@
   <string name="theSpecialPawnMove">מהלך מיוחד של רגלי</string>
   <string name="enPassantIntro">כאשר רגלי היריב מתקדם שני צעדים, ניתן להכות אותו כאילו הלך רק צעד אחד.</string>
   <string name="blackJustMovedThePawnByTwoSquares">השחור קידם רגלי פעמיים בבת אחת! הכה אותו דרך הילוכו.</string>
-  <string name="enPassantOnlyWorksImmediately">הכאה דרך הילוכו אפשרית רק מייד אחרי מהלכו של רגלי היריב.</string>
+  <string name="enPassantOnlyWorksImmediately">הכאה דרך הילוכו אפשרית רק מיד אחרי מהלכו של רגלי היריב.</string>
   <string name="enPassantOnlyWorksOnFifthRank">לקיחה \"דרך הילוכו\" אפשרית רק מיד אחרי שרגלי היריב הגיע לשורה 5.</string>
   <string name="takeAllThePawnsEnPassant">קחו את כל הרגלים \"דרך הילוכם\"!</string>
-  <string name="enPassantComplete">יפה, עכשיו תוכל להכות את רגלי יריבך דרך הילוכו.</string>
+  <string name="enPassantComplete">יפה, עכשיו תוכל/י להכות את רגלי יריבך דרך הילוכו.</string>
   <string name="stalemate">פט</string>
   <string name="theGameIsADraw">המשחק מסתיים בתיקו</string>
   <string name="stalemateIntro">כאשר שחקן לא מצוי תחת איום שח ואין לו אף מהלך חוקי, מצב כזה נקרא פט והמשחק מסתיים בתיקו.</string>

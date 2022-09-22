@@ -746,6 +746,7 @@
   <string name="bestWasX">Melhor seria %s</string>
   <string name="youBrowsedAway">Você navegou para longe</string>
   <string name="resumePractice">Retornar à prática</string>
+  <string name="drawByFiftyMoves">O jogo empatou pela regra dos cinquenta movimentos.</string>
   <string name="theGameIsADraw">A partida está empatada.</string>
   <string name="computerThinking">Computador pensando ...</string>
   <string name="seeBestMove">Veja o melhor lance</string>

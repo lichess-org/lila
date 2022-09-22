@@ -104,7 +104,7 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="streaksAndBerserk">Putket ja berserkki</string>
   <string name="similarToOTB">Samanlainen kuin lähishakkiturnaukset</string>
   <string name="unlimitedAndFree">Rajoittamaton ja ilmainen</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s kierroksesta sveitsiläisellä järjestelmällä</item>
     <item quantity="other">%1$s / %2$s kierroksesta sveitsiläisellä järjestelmällä</item>
   </plurals>

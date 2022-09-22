@@ -802,6 +802,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="bestWasX">Najbolji potez je %s</string>
   <string name="youBrowsedAway">Odsurfali ste</string>
   <string name="resumePractice">Nastavi vježbu</string>
+  <string name="drawByFiftyMoves">Partija je neriješena po pravilu pedeset poteza.</string>
   <string name="theGameIsADraw">Partija završava remijem.</string>
   <string name="computerThinking">Kompjuter razmišlja ...</string>
   <string name="seeBestMove">Vidi najbolji potez</string>

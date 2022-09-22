@@ -105,7 +105,7 @@ O mais próximo que se pode ter de um round robin online, é jogar um torneio su
   <string name="streaksAndBerserk">Sequências e Berserk</string>
   <string name="similarToOTB">Semelhante a torneios OTB</string>
   <string name="unlimitedAndFree">Ilimitado e gratuito</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s rodada de %2$s</item>
     <item quantity="other">%1$s rodadas de %2$s</item>
   </plurals>

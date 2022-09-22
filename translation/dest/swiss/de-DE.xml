@@ -102,7 +102,7 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="streaksAndBerserk">Siegesserien und Berserken</string>
   <string name="similarToOTB">Ähnlich wie OTB Turniere</string>
   <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s Runden Schweizer System</item>
     <item quantity="other">%1$s / %2$s Runden Schweizer System</item>
   </plurals>

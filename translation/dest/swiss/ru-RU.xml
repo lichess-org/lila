@@ -117,7 +117,7 @@
   <string name="streaksAndBerserk">Серии и берсерк</string>
   <string name="similarToOTB">Подобно классическим турнирам</string>
   <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s раунд по Швейцарской системе</item>
     <item quantity="few">%1$s / %2$s раунда по Швейцарской системе</item>
     <item quantity="many">%1$s / %2$s раундов по Швейцарской системе</item>
