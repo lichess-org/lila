@@ -77,7 +77,7 @@ object communication {
                 " ",
                 e.details,
                 " ",
-                momentFromNowOnce(e.date)
+                momentFromNowServer(e.date)
               )
             }
           )
@@ -90,7 +90,7 @@ object communication {
                 div(
                   userIdLink(note.from.some),
                   " ",
-                  momentFromNowOnce(note.date),
+                  momentFromNowServer(note.date),
                   ": ",
                   richText(note.text)
                 )
@@ -103,7 +103,7 @@ object communication {
           ul(cls := "public_chats")(
             publicLines.reverse.map { line =>
               li(cls := "line author")(
-                line.date.fold[Frag]("[OLD]")(momentFromNowOnce),
+                line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
                 line.from.map {
                   case PublicSource.Tournament(id) => tournamentLink(id)
@@ -133,7 +133,7 @@ object communication {
                 )(
                   titleNameOrAnon(pov.opponent.userId),
                   " – ",
-                  momentFromNowOnce(pov.game.movedAt)
+                  momentFromNowServer(pov.game.movedAt)
                 ),
                 div(cls := "chat")(
                   chat.lines.map { line =>
@@ -165,7 +165,7 @@ object communication {
                     modConvo.msgs.reverse.map { msg =>
                       val author = msg.user == u.id
                       tr(cls := List("post" -> true, "author" -> author))(
-                        td(momentFromNowOnce(msg.date)),
+                        td(momentFromNowServer(msg.date)),
                         td(strong(if (author) u.username else modConvo.contact.username)),
                         td(cls := "message")(highlightBad(msg.text))
                       )
