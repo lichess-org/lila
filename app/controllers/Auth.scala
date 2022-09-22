@@ -59,7 +59,7 @@ final class Auth(
   ): Fu[Result] =
     api.appeal.saveAuthentication(u.id) flatMap { sessionId =>
       negotiate(
-        html = redirect(routes.Appeal.landing.url).fuccess map authenticateCookie(sessionId),
+        html = redirect(appeal.routes.Appeal.landing.url).fuccess map authenticateCookie(sessionId),
         api = _ => NotFound.fuccess
       )
     } recoverWith authRecovery

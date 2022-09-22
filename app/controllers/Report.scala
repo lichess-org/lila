@@ -60,7 +60,7 @@ final class Report(
         prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
           next.fold(
             Redirect {
-              if (prev.exists(_.isAppeal)) routes.Appeal.queue
+              if (prev.exists(_.isAppeal)) appeal.routes.Appeal.queue
               else routes.Report.list
             }
           )(onInquiryStart)
@@ -101,7 +101,7 @@ final class Report(
               case Some(url) => Redirect(url).fuccess
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-                if (prev.isAppeal) Redirect(routes.Appeal.queue).fuccess
+                if (prev.isAppeal) Redirect(appeal.routes.Appeal.queue).fuccess
                 else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
                   api.inquiries.toggleNext(me, prev.room) map {
                     _.fold(redirectToList)(onInquiryStart)
@@ -111,7 +111,7 @@ final class Report(
                   api.inquiries.toggle(me, prev.id) map { case (prev, next) =>
                     next
                       .fold(
-                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue)
+                        if (prev.exists(_.isAppeal)) Redirect(appeal.routes.Appeal.queue)
                         else redirectToList
                       )(onInquiryStart)
                   }

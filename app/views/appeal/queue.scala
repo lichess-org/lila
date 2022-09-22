@@ -2,6 +2,7 @@ package views.html
 package appeal
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal => appealRoutes }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -49,7 +50,7 @@ object queue {
                 )
               }),
               td(
-                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
+                a(href := appealRoutes.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.id) map { i =>
                   frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }

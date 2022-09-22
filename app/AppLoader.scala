@@ -92,7 +92,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
-  lazy val appeal: appeal.Appeal          = wire[appeal.Appeal]
+  lazy val appealC: appeal.Appeal         = wire[appeal.Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val playApi: PlayApi               = wire[PlayApi]
@@ -160,13 +160,8 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val opening: Opening               = wire[Opening]
 
   // eagerly wire up all controllers
-  val appealPrefixRouter: appeal.Routes =
-    new apiRouter.Routes(httpErrorHandler, appeal, "")
-
-  val mainRouter: Router = {
-    val prefix = "/"
-    wire[_root_.router.Routes]
-  }
+  val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
+  val router: Router                     = wire[_root_.router.Routes]
 
   if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")

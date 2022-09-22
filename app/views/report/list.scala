@@ -1,6 +1,7 @@
 package views.html.report
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal => appealRoutes }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -121,7 +122,7 @@ object list {
                 }
               },
               (appeals > 0 && isGranted(_.Appeals)) option a(
-                href := routes.Appeal.queue,
+                href := appealRoutes.queue,
                 cls := List(
                   "new"    -> true,
                   "active" -> (filter == "appeal")

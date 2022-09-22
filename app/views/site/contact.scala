@@ -2,6 +2,7 @@ package views.html
 package site
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal => appealRoutes }
 import scala.util.chaining._
 
 import lila.api.Context
@@ -266,7 +267,7 @@ object contact {
         ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home)(netConfig.domain, routes.Appeal.home.url))),
+          p(sendAppealTo(a(href := appealRoutes.home)(netConfig.domain, appealRoutes.home.url))),
           p(
             falsePositives(),
             br,

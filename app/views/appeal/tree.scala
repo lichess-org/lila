@@ -2,6 +2,7 @@ package views.html
 package appeal
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal => appealRoutes }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -319,7 +320,7 @@ object tree {
   private def newAppeal(preset: String = "")(implicit ctx: Context) =
     discussion.renderForm(
       lila.appeal.Appeal.form.fill(preset),
-      action = routes.Appeal.post.url,
+      action = appealRoutes.post.url,
       isNew = true,
       presets = none
     )

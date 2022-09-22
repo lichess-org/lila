@@ -652,7 +652,6 @@ POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
 POST  /report/:id/snooze/:dur          controllers.Report.snooze(id: String, dur: String)
 GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
 
-# Appeal
 ->    /appeal                          appeal.Routes
 
 # Stats

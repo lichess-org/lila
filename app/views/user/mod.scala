@@ -1,6 +1,7 @@
 package views.html.user
 
 import controllers.routes
+import controllers.appeal.{ routes => appealRoutes }
 import play.api.i18n.Lang
 
 import lila.api.Context
@@ -323,7 +324,7 @@ object mod {
       appeal map { a =>
         frag(
           div(cls := "mod_log mod_log--appeal")(
-            st.a(href := routes.Appeal.show(a.id))(
+            st.a(href := appealRoutes.Appeal.show(a.id))(
               strong(cls := "text", dataIcon := "")(
                 "Appeal status: ",
                 a.status.toString
@@ -331,7 +332,7 @@ object mod {
             ),
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            a.msgs.size > 1 option st.a(href := routes.Appeal.show(a.id))(
+            a.msgs.size > 1 option st.a(href := appealRoutes.Appeal.show(a.id))(
               frag("and ", pluralize("more message", a.msgs.size - 1))
             )
           )
@@ -627,7 +628,7 @@ object mod {
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
-                      href := isGranted(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      href := isGranted(_.Appeals).option(appealRoutes.Appeal.show(o.username).url),
                       cls := List(
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted

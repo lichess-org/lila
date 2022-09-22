@@ -358,7 +358,7 @@ final class Mod(
           isAppeal.??(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
             case Some(ongoing) if ongoing.mod != me.id =>
               env.user.lightUserApi.asyncFallback(ongoing.mod) map { mod =>
-                Redirect(routes.Appeal.show(user.username))
+                Redirect(appeal.routes.Appeal.show(user.username))
                   .flashFailure(s"Currently processed by ${mod.name}")
               }
             case _ =>
@@ -366,7 +366,7 @@ final class Mod(
                 if (isAppeal) env.report.api.inquiries.appeal _
                 else env.report.api.inquiries.spontaneous _
               f(me, Suspect(user)) inject {
-                if (isAppeal) Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
+                if (isAppeal) Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
                 else redirect(user.username, mod = true)
               }
           }
