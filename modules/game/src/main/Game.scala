@@ -383,10 +383,11 @@ case class Game(
         )
     }
 
-  def resignable      = playable && !abortable
-  def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss
-  def drawable        = playable && !abortable && !swissPreventsDraw
-  def forceDrawable   = playable && !abortable
+  def resignable = playable && !abortable
+  def forceResignable =
+    resignable && nonAi && !fromFriend && hasClock && !isSwiss && !metadata.hasRule(_.NoClaimWin)
+  def drawable      = playable && !abortable && !swissPreventsDraw
+  def forceDrawable = playable && !abortable && !metadata.hasRule(_.NoClaimWin)
 
   def finish(status: Status, winner: Option[Color]): Game =
     copy(
