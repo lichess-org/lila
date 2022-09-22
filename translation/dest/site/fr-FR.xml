@@ -220,7 +220,7 @@
   <string name="accountConfirmed">L\'utilisateur %s a été confirmé avec succès.</string>
   <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Vous n\'avez pas besoin d\'un e-mail de confirmation.</string>
-  <string name="accountClosed">Le compte %s est fermé.</string>
+  <string name="accountClosed">Le compte %s est clôturé.</string>
   <string name="accountRegisteredWithoutEmail">Le compte %s a été enregistré sans e-mail.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Classement : %s</string>
