@@ -105,7 +105,7 @@ Det nærmeste man kommer en alle-mot-alle-turnering på nett, er å spille en sv
   <string name="streaksAndBerserk">Rekker og berserk</string>
   <string name="similarToOTB">Tilsvarer fysiske turneringer</string>
   <string name="unlimitedAndFree">Ubegrenset og gratis</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s sveitserrunde</item>
     <item quantity="other">%1$s / %2$s sveitserrunder</item>
   </plurals>

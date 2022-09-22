@@ -33,8 +33,9 @@ export interface Game {
   rematch?: string;
   rated?: boolean;
   perf: string;
-  single?: boolean;
+  rules?: GameRule[];
 }
+export declare type GameRule = 'noAbort' | 'noRematch' | 'NoGiveTime' | 'NoClaimWin';
 
 export interface Status {
   id: StatusId;

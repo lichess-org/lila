@@ -209,13 +209,13 @@ export function side(ctrl: StudyCtrl): VNode {
   const chaptersTab =
     tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
       ? null
-      : makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
+      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
     chaptersTab,
     !tourTab || ctrl.members.canContribute() || ctrl.data.admin
-      ? makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size()))
+      ? makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size()))
       : null,
     ctrl.members.isOwner()
       ? h(

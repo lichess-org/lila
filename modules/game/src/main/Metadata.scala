@@ -13,7 +13,7 @@ private[game] case class Metadata(
     simulId: Option[String],
     analysed: Boolean,
     drawOffers: GameDrawOffers,
-    single: Boolean // no abort and no rematch
+    rules: Set[GameRule]
 ) {
 
   def pgnDate = pgnImport flatMap (_.date)
@@ -21,11 +21,15 @@ private[game] case class Metadata(
   def pgnUser = pgnImport flatMap (_.user)
 
   def isEmpty = this == Metadata.empty
+
+  def hasRule(rule: GameRule.type => GameRule) = rules(rule(GameRule))
+  def nonEmptyRules                            = rules.nonEmpty option rules
 }
 
 private[game] object Metadata {
 
-  val empty = Metadata(None, None, None, None, None, analysed = false, GameDrawOffers.empty, single = false)
+  val empty =
+    Metadata(None, None, None, None, None, analysed = false, GameDrawOffers.empty, rules = Set.empty)
 }
 
 // plies
@@ -49,6 +53,19 @@ case class GameDrawOffers(white: Set[Int], black: Set[Int]) {
 
 object GameDrawOffers {
   val empty = GameDrawOffers(Set.empty, Set.empty)
+}
+
+sealed trait GameRule {
+  val key = lila.common.String lcfirst toString
+}
+
+case object GameRule {
+  case object NoAbort    extends GameRule
+  case object NoRematch  extends GameRule
+  case object NoGiveTime extends GameRule
+  case object NoClaimWin extends GameRule
+  val all   = List[GameRule](NoAbort, NoRematch, NoGiveTime, NoClaimWin)
+  val byKey = all.map(r => r.key -> r).toMap
 }
 
 case class PgnImport(

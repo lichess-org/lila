@@ -16,9 +16,9 @@ export const playedTurns = (data: GameData): number => data.game.turns - (data.g
 export const bothPlayersHavePlayed = (data: GameData): boolean => playedTurns(data) > 1;
 
 export const abortable = (data: GameData): boolean =>
-  playable(data) && !bothPlayersHavePlayed(data) && !mandatory(data) && !data.game.single;
+  playable(data) && !bothPlayersHavePlayed(data) && !mandatory(data) && !data.game.rules?.includes('noAbort');
 
-export const rematchable = (data: GameData): boolean => !data.game.single;
+export const rematchable = (data: GameData): boolean => !data.game.rules?.includes('noRematch');
 
 export const takebackable = (data: GameData): boolean =>
   playable(data) &&

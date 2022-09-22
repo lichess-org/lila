@@ -5,7 +5,7 @@
     <item quantity="one">%s rondte Switsers</item>
     <item quantity="other">%s rondtes Switsers</item>
   </plurals>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s rondte Switsers</item>
     <item quantity="other">%1$s / %2$s rondtes Switsers</item>
   </plurals>

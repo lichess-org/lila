@@ -205,6 +205,10 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
+  <string name="emailSent">Enviámos um correio eletrónico para %s.</string>
+  <string name="emailCanTakeSomeTime">Pode demorar algum tempo a chegar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Aguarde 5 minutos e atualize a sua caixa de entrada de correio eletrónico.</string>
+  <string name="accountClosed">A conta %s está encerrada.</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Posição: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -747,6 +751,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="bestWasX">%s seria melhor</string>
   <string name="youBrowsedAway">Saíste</string>
   <string name="resumePractice">Continuar a prática</string>
+  <string name="drawByFiftyMoves">O jogo foi empatado de acordo com a regra dos cinquenta lances.</string>
   <string name="theGameIsADraw">O jogo é um empate.</string>
   <string name="computerThinking">Computador a pensar...</string>
   <string name="seeBestMove">Ver o melhor movimento</string>

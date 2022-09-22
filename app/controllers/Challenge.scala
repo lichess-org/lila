@@ -371,7 +371,7 @@ final class Challenge(
         challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
         destUser = dest.some,
         rematchOf = none,
-        singleGame = config.singleGame
+        rules = config.rules
       )
   }
 
@@ -426,7 +426,7 @@ final class Challenge(
                 rematchOf = none,
                 name = config.name,
                 openToUserIds = config.userIds,
-                singleGame = config.singleGame
+                rules = config.rules
               )
               (env.challenge.api create challenge) map {
                 case true =>

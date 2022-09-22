@@ -103,7 +103,7 @@ Pourquoi? Parce qu\'il n\'existe pas de façon équitable de résoudre le probl�
   <string name="streaksAndBerserk">Séries et Berserk</string>
   <string name="similarToOTB">Similaire aux tournois en personne</string>
   <string name="unlimitedAndFree">Illimité et gratuit</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s/%2$s ronde (système suisse)</item>
     <item quantity="other">%1$s/%2$s rondes (système suisse)</item>
   </plurals>

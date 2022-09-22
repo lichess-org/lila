@@ -340,7 +340,7 @@ case class Game(
   def playerCouldRematch =
     finishedOrAborted &&
       nonMandatory &&
-      !metadata.single &&
+      !metadata.hasRule(_.NoRematch) &&
       !boosted &&
       !(hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60))
 
@@ -353,12 +353,12 @@ case class Game(
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def moretimeable(color: Color) =
-    playable && canTakebackOrAddTime && {
+    playable && canTakebackOrAddTime && !metadata.hasRule(_.NoGiveTime) && {
       clock.??(_ moretimeable color) || correspondenceClock.??(_ moretimeable color)
     }
 
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
-  def abortableByUser = abortable && !metadata.single
+  def abortableByUser = abortable && !metadata.hasRule(_.NoAbort)
 
   def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
@@ -383,10 +383,11 @@ case class Game(
         )
     }
 
-  def resignable      = playable && !abortable
-  def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss
-  def drawable        = playable && !abortable && !swissPreventsDraw
-  def forceDrawable   = playable && !abortable
+  def resignable = playable && !abortable
+  def forceResignable =
+    resignable && nonAi && !fromFriend && hasClock && !isSwiss && !metadata.hasRule(_.NoClaimWin)
+  def drawable      = playable && !abortable && !swissPreventsDraw
+  def forceDrawable = playable && !abortable && !metadata.hasRule(_.NoClaimWin)
 
   def finish(status: Status, winner: Option[Color]): Game =
     copy(
@@ -746,7 +747,7 @@ object Game {
       source: Source,
       pgnImport: Option[PgnImport],
       daysPerTurn: Option[Int] = None,
-      single: Boolean = false
+      rules: Set[GameRule] = Set.empty
   ): NewGame = {
     val createdAt = DateTime.now
     NewGame(
@@ -758,7 +759,7 @@ object Game {
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,
-        metadata = metadata(source).copy(pgnImport = pgnImport, single = single),
+        metadata = metadata(source).copy(pgnImport = pgnImport, rules = rules),
         createdAt = createdAt,
         movedAt = createdAt
       )
@@ -809,7 +810,7 @@ object Game {
     val checkAt           = "ck"
     val perfType          = "pt" // only set on student games for aggregation
     val drawOffers        = "do"
-    val single            = "single"
+    val rules             = "rules"
   }
 }
 

@@ -11,6 +11,7 @@ import scala.util.Success
 private object BSONHandlers {
 
   import Challenge._
+  import lila.game.BSONHandlers.RulesHandler
 
   implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice](
     {
@@ -39,14 +40,10 @@ private object BSONHandlers {
         case TimeControl.Unlimited                       => $empty
       }
   }
-  implicit val VariantBSONHandler = tryHandler[Variant](
-    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
-    x => BSONInteger(x.id)
-  )
-  implicit val StatusBSONHandler = tryHandler[Status](
-    { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
-    x => BSONInteger(x.id)
-  )
+  implicit val VariantBSONHandler       = valueMapHandler(Variant.byId)(_.id)
+  implicit val StatusBSONHandler        = valueMapHandler(Status.byId)(_.id)
+  implicit val DeclineReasonBSONHandler = valueMapHandler(DeclineReason.byKey)(_.key)
+
   implicit val RatingBSONHandler = new BSON[Rating] {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
     def writes(w: Writer, r: Rating) =
@@ -67,10 +64,6 @@ private object BSONHandlers {
     def reads(r: Reader)                           = Challenger.Anonymous(r.str("s"))
     def writes(w: Writer, a: Challenger.Anonymous) = $doc("s" -> a.secret)
   }
-  implicit val DeclineReasonBSONHandler = tryHandler[DeclineReason](
-    { case BSONString(k) => Success(Challenge.DeclineReason(k)) },
-    r => BSONString(r.key)
-  )
   implicit val ChallengerBSONHandler = new BSON[Challenger] {
     def reads(r: Reader) =
       if (r contains "id") RegisteredBSONHandler reads r

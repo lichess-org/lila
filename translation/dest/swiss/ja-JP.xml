@@ -98,7 +98,7 @@
   <string name="streaksAndBerserk">連勝ボーナスとバーサーク</string>
   <string name="similarToOTB">現実世界の大会と同じ？</string>
   <string name="unlimitedAndFree">無制限で無料</string>
-  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+  <plurals name="xOutOfYRoundsSwiss">
     <item quantity="other">%1$s / %2$s R スイス式</item>
   </plurals>
 </resources>
