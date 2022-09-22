@@ -9,6 +9,10 @@
     <item quantity="one">%s runde</item>
     <item quantity="other">%s rundar</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s runde sveitsisk</item>
+    <item quantity="other">%s rundar sveitsisk</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Ein runde pr. dag</item>
     <item quantity="other">Ein runde kvar %s dag</item>
@@ -97,4 +101,8 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="streaksAndBerserk">Vinstrekkjer og Berserk</string>
   <string name="similarToOTB">Svarande til turneringar over bordet (\"OTB\")</string>
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
+  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+    <item quantity="one">%1$s / %2$s runde sveitsisk</item>
+    <item quantity="other">%1$s / %2$s rundar sveitsisk</item>
+  </plurals>
 </resources>

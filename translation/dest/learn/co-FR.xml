@@ -46,8 +46,8 @@ Ma ghjunti ch\' elli sò nantu à l\' ultima filare di a scacchera, ponu esse tr
   <string name="mostOfTheTimePromotingToAQueenIsBest">A spessu, u megliu hè di prumove lu in dama. 
 Ma certe volte, un cavallu pò esse praticu assai!</string>
   <string name="pawnsMoveForward">I pedini movenu davanti à elli, 
-ma cattureghjanu in diagunale!</string>
-  <string name="captureThenPromote">Cattureghja, pò prumovi!</string>
+ma chjappanu un pezza in diagunale!</string>
+  <string name="captureThenPromote">Chjappa, pò prumovi!</string>
   <string name="useAllThePawns">Adopra tutti i pedini!
 Prumove ùn hè necessariu quì.</string>
   <string name="aPawnOnTheSecondRank">Un pedinu pò avanza di diue cantarelle quandu ellu hè nantu à so cantarella iniziale!</string>
@@ -65,7 +65,7 @@ Prumove ùn hè necessariu quì.</string>
   <string name="takeTheBlackPieces">Pigliate e pezze nere!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Pigliate e pezze nere!
 Ma ùn perdite e vostre.</string>
-  <string name="captureComplete">Felicitazione! Sapete avà cumu si cattureghjanu e pezze!</string>
+  <string name="captureComplete">Felicitazione! Sapete avà cumu si chjappanu e pezze!</string>
   <string name="protection">Prutegge</string>
   <string name="keepYourPiecesSafe">Assicurà e so pezze</string>
   <string name="protectionIntro">Truvate e pezze attaccate da l\' aversariu, pò difendite le!</string>
@@ -77,7 +77,7 @@ ma pudete difende!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Ùn lasciate lu piglià
 mancu una pezza senza difesa!</string>
   <string name="combat">Battaglia</string>
-  <string name="captureAndDefendPieces">Catturate è difendite e pezze</string>
+  <string name="captureAndDefendPieces">Chjappate è difendite e pezze</string>
   <string name="combatIntro">Un bonu cumbattente sà attacà è difende!</string>
   <string name="combatComplete">Felicitazione! Sapete avà cumu battaglià cù e pezze!</string>
   <string name="checkInOne">Scaccu in un colpu</string>

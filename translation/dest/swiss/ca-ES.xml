@@ -9,6 +9,10 @@
     <item quantity="one">%s ronda</item>
     <item quantity="other">%s rondes</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">Suís a %s ronda</item>
+    <item quantity="other">Suís a %s rondes</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Una ronda per dia</item>
     <item quantity="other">Una ronda cada %s dies</item>
@@ -101,4 +105,8 @@ El més a prop que pots arribar a un emparellament de tots contra tots en línia
   <string name="streaksAndBerserk">Ratxes i Berserk</string>
   <string name="similarToOTB">Similar a tornejos presencials</string>
   <string name="unlimitedAndFree">Il·limitat i gratuït</string>
+  <plurals name="xOutOfYRoundsSwiss" comment="xOutOfYRoundsSwiss [one] [other]&#10;Display saying what round of a Swiss tournament you are on e.g. 1 / 6 round Swiss&#10;&#10;%1$s is the round you are on.&#10;%2$s is the total number of rounds.">
+    <item quantity="one">Suís, %1$s de %2$s ronda</item>
+    <item quantity="other">Suís, %1$s de %2$s rondes</item>
+  </plurals>
 </resources>

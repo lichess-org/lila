@@ -631,6 +631,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tournamentFAQ">Arena toernooi Vrae</string>
   <string name="timeBeforeTournamentStarts">Tydsduur tot aanvang van toernooi</string>
   <string name="averageCentipawnLoss">Gemiddelde sentipion verlies</string>
+  <string name="accuracy">Akkuraatheid</string>
   <string name="keyboardShortcuts">Sleutelbord kortpaaie</string>
   <string name="keyMoveBackwardOrForward">skuif terug/vorentoe</string>
   <string name="keyGoToStartOrEnd">gaan na begin/einde</string>

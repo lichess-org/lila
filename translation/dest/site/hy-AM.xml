@@ -625,6 +625,7 @@
   <string name="tournamentFAQ">Հարցեր «Արենա» մրցաշարերի վերաբերյալ</string>
   <string name="timeBeforeTournamentStarts">Ժամանակ մինչև մրցաշարի սկսվելը</string>
   <string name="averageCentipawnLoss">Միջինը հարյուրերորդական զինվորի կորուստ</string>
+  <string name="accuracy">Ճշտություն</string>
   <string name="keyboardShortcuts">Ստեղնաշարի դյուրանցումներ</string>
   <string name="keyMoveBackwardOrForward">քայլ հետ/առաջ</string>
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>

@@ -17,7 +17,7 @@ final private class StartedOrganizer(
 
   LilaScheduler(_.Every(1 seconds), _.AtMost(30 seconds), _.Delay(26 seconds)) {
 
-    val doAllTournaments = runCounter % 20 == 0
+    val doAllTournaments = runCounter % 15 == 0
 
     tournamentRepo
       .startedCursorWithNbPlayersGte {
@@ -49,18 +49,18 @@ final private class StartedOrganizer(
       api finish tour
     } else if (tour.nbPlayers < 2) funit
     else if (tour.nbPlayers < 30) {
-      playerRepo nbActiveUserIds tour.id flatMap { nb =>
-        (nb >= 2) ?? startPairing(tour)
+      playerRepo nbActivePlayers tour.id flatMap { nb =>
+        (nb >= 2) ?? startPairing(tour, nb.some)
       }
     } else startPairing(tour)
 
-  private def startPairing(tour: Tournament): Funit =
-    (!tour.pairingsClosed && tour.nbPlayers > 1) ??
+  private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Funit =
+    !tour.pairingsClosed ??
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
         .flatMap { waiting =>
           lila.mon.tournament.waitingPlayers(tour.id).record(waiting.size).unit
-          api.makePairings(tour, waiting)
+          api.makePairings(tour, waiting, smallTourNbActivePlayers)
         }
 }

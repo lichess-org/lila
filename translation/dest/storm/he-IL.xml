@@ -51,7 +51,7 @@
   <string name="createNewGame">צרו משחק חדש</string>
   <string name="joinPublicRace">הצטרפו למירוץ פומבי</string>
   <string name="raceYourFriends">התחרה/י עם חבריך</string>
-  <string name="skip">דלג</string>
+  <string name="skip">דלג/י</string>
   <string name="skipHelp">את/ה יכול/ה לדלג על מסע פעם אחת בכל מרוץ:</string>
   <string name="skipExplanation">דלג/י על מהלך זה כדי לשמור על הרצף שלך! ניתן לדלג רק פעם אחת בכל מירוץ.</string>
   <string name="failedPuzzles">פאזלים שנכשלת בפתרונם</string>

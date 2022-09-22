@@ -635,6 +635,7 @@
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gjennomsnittlig centibondetap</string>
+  <string name="accuracy">Presisjon</string>
   <string name="keyboardShortcuts">Tastatursnarveier</string>
   <string name="keyMoveBackwardOrForward">Gå bakover/fremover</string>
   <string name="keyGoToStartOrEnd">Gå til start/slutt</string>

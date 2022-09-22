@@ -38,7 +38,10 @@ export async function loadHighcharts(tpe: string) {
     const line = {
       weak: light ? '#ccc' : '#404040',
       strong: light ? '#a0a0a0' : '#606060',
-      fat: '#d85000', // light ? '#a0a0a0' : '#707070'
+      accent: '#d85000',
+      white: '#ffffff',
+      black: '#333333',
+      grey: light ? '#999999' : '#777777',
     };
     const area = {
       white: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
