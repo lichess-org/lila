@@ -205,6 +205,7 @@
   <string name="email">Имейл</string>
   <string name="passwordReset">Смяна на парола</string>
   <string name="forgotPassword">Забравена парола?</string>
+  <string name="accountClosed">Регистрацията %s е закрита.</string>
   <string name="rank">Класация</string>
   <string name="rankX">Класация: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
