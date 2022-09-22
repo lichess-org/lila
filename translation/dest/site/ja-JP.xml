@@ -194,6 +194,13 @@
   <string name="email">メールアドレス</string>
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
+  <string name="emailConfirmNotReceived">サインアップしたのに確認メールが届きませんでしたか？</string>
+  <string name="whatSignupUsername">サインアップに使用したユーザー名は？</string>
+  <string name="usernameNotFound">この名前のユーザーは見つかりません：%s</string>
+  <string name="usernameCanBeUsedForNewAccount">このユーザー名を使って新しいアカウントが作れます</string>
+  <string name="emailSent">%s にメールを送信しました。</string>
+  <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
+  <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
   <string name="rank">ランク</string>
   <string name="rankX">ランク: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
