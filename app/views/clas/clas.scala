@@ -1,5 +1,6 @@
 package views.html.clas
 
+import controllers.clas.routes.{ Clas => clasRoutes }
 import play.api.data.Form
 import play.api.i18n.Lang
 
@@ -33,7 +34,7 @@ object clas {
           )
         ),
         div(cls := "clas-home__onboard")(
-          postForm(action := routes.Clas.becomeTeacher)(
+          postForm(action := clasRoutes.becomeTeacher)(
             submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
           )
         )
@@ -48,7 +49,7 @@ object clas {
       div(cls := "box__top")(
         h1(trans.clas.lichessClasses()),
         a(
-          href     := routes.Clas.form,
+          href     := clasRoutes.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
           dataIcon := ""
@@ -59,7 +60,7 @@ object clas {
       else
         renderClasses(current),
       (closed || others.nonEmpty) option div(cls := "clas-index__others")(
-        a(href := s"${routes.Clas.index}?closed=${!closed}")(
+        a(href := s"${clasRoutes.index}?closed=${!closed}")(
           "And ",
           others.size.localize,
           " ",
@@ -84,7 +85,7 @@ object clas {
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
           dataIcon := ""
         )(
-          a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
+          a(cls := "overlay", href := clasRoutes.show(clas.id.value)),
           div(
             h3(clas.name),
             p(clas.desc)
@@ -113,7 +114,7 @@ object clas {
         innerForm(form, c.some),
         hr,
         c.isActive option postForm(
-          action := routes.Clas.archive(c.id.value, v = true),
+          action := clasRoutes.archive(c.id.value, v = true),
           cls    := "clas-edit__archive"
         )(
           form3.submit(trans.clas.closeClass(), icon = none)(
@@ -131,14 +132,14 @@ object clas {
           br,
           trans.clas.aLinkToTheClassWillBeAdded()
         ),
-        postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
+        postForm(cls := "form3", action := clasRoutes.notifyPost(c.id.value))(
           form3.globalError(form),
           form3.group(
             form("text"),
             frag(trans.message())
           )(form3.textarea(_)(rows := 3)),
           form3.actions(
-            a(href := routes.Clas.wall(c.id.value))(trans.cancel()),
+            a(href := clasRoutes.wall(c.id.value))(trans.cancel()),
             form3.submit(trans.send())
           )
         )
@@ -146,7 +147,7 @@ object clas {
     )
 
   private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
-    postForm(cls := "form3", action := clas.fold(routes.Clas.create)(c => routes.Clas.update(c.id.value)))(
+    postForm(cls := "form3", action := clas.fold(clasRoutes.create)(c => clasRoutes.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
       form3.group(
@@ -164,7 +165,7 @@ object clas {
           )(form3.textarea(_)(rows := 4))
       },
       form3.actions(
-        a(href := clas.fold(routes.Clas.index)(c => routes.Clas.show(c.id.value)))(trans.cancel()),
+        a(href := clas.fold(clasRoutes.index)(c => clasRoutes.show(c.id.value)))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

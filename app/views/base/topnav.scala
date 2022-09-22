@@ -1,5 +1,6 @@
 package views.html.base
 
+import controllers.clas.routes.{ Clas => clasRoutes }
 import controllers.routes
 
 import lila.api.Context
@@ -55,7 +56,7 @@ object topnav {
           ),
           a(href := routes.Study.allDefault(1))(trans.studyMenu()),
           ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
-          canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lichessClasses())
+          canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )
       ),
       st.section(

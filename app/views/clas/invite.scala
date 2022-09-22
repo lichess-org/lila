@@ -1,6 +1,8 @@
 package views.html.clas
 
+import controllers.clas.routes.{ Clas => clasRoutes }
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -29,7 +31,7 @@ object invite {
           case false => flashMessage(cls := "flash-warning")(trans.clas.youDeclinedThisInvitation())
         },
         invite.accepted.fold(true)(false.==) option
-          postForm(cls := "form3", action := routes.Clas.invitationAccept(invite._id.value))(
+          postForm(cls := "form3", action := clasRoutes.invitationAccept(invite._id.value))(
             form3.actions(
               if (!invite.accepted.has(false))
                 form3.submit(

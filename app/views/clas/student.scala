@@ -1,5 +1,6 @@
 package views.html.clas
 
+import controllers.clas.routes.{ Clas => clasRoutes }
 import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
@@ -34,7 +35,7 @@ object student {
         s.student.archived map { archived =>
           div(cls := "student-show__archived archived")(
             bits.showArchived(archived),
-            postForm(action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = false))(
+            postForm(action := clasRoutes.studentArchive(clas.id.value, s.user.username, v = false))(
               form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(cls := "confirm button-empty")
             )
           )
@@ -43,7 +44,7 @@ object student {
         s.student.managed option div(cls := "student-show__managed")(
           p(trans.clas.thisStudentAccountIsManaged()),
           div(cls := "student-show__managed__actions")(
-            postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
+            postForm(action := clasRoutes.studentResetPassword(clas.id.value, s.user.username))(
               form3.submit(trans.clas.resetPassword(), icon = none)(
                 s.student.isArchived option disabled,
                 cls   := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
@@ -51,7 +52,7 @@ object student {
               )
             ),
             a(
-              href  := routes.Clas.studentRelease(clas.id.value, s.user.username),
+              href  := clasRoutes.studentRelease(clas.id.value, s.user.username),
               cls   := "button button-empty",
               title := trans.clas.upgradeFromManaged.txt()
             )(trans.clas.release())
@@ -59,7 +60,7 @@ object student {
         ) orElse s.managingClas.map { managingClas =>
           div(cls := "student-show__managed")(
             p(trans.clas.thisStudentAccountIsManaged()),
-            a(href := routes.Clas.studentShow(managingClas.id.value, s.user.username))(
+            a(href := clasRoutes.studentShow(managingClas.id.value, s.user.username))(
               "Class: ",
               managingClas.name
             )
@@ -80,7 +81,7 @@ object student {
       div(cls := "student-show__top__meta")(
         p(
           trans.clas.invitedToXByY(
-            a(href := routes.Clas.show(clas.id.value))(clas.name),
+            a(href := clasRoutes.show(clas.id.value))(clas.name),
             userIdLink(s.student.created.by.some, withOnline = false)
           ),
           " ",
@@ -92,7 +93,7 @@ object student {
             cls  := "button button-empty"
           )(trans.message()),
           a(
-            href := routes.Clas.studentEdit(clas.id.value, s.user.username),
+            href := clasRoutes.studentEdit(clas.id.value, s.user.username),
             cls  := "button button-empty"
           )(trans.edit()),
           a(
@@ -158,7 +159,7 @@ object student {
               trans.clas.inviteDesc4()
             )
           ),
-          postForm(cls := "form3", action := routes.Clas.studentInvite(clas.id.value))(
+          postForm(cls := "form3", action := clasRoutes.studentInvite(clas.id.value))(
             form3.group(invite("username"), trans.clas.lichessUsername())(field =>
               div(cls := "complete-parent")(
                 form3.input(field, klass = "user-autocomplete")(created.isEmpty option autofocus)(
@@ -179,11 +180,11 @@ object student {
             p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4()),
             badTag(strong(trans.clas.createStudentWarning()))
           ),
-          postForm(cls := "form3", action := routes.Clas.studentCreate(clas.id.value))(
+          postForm(cls := "form3", action := clasRoutes.studentCreate(clas.id.value))(
             form3.group(
               create("create-username"),
               trans.clas.lichessUsername(),
-              help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(clas.id.value)}?gen=1")(
+              help = a(cls := "name-regen", href := s"${clasRoutes.studentForm(clas.id.value)}?gen=1")(
                 trans.clas.generateANewUsername()
               ).some
             )(
@@ -198,7 +199,7 @@ object student {
           div(cls := "info")(
             h2(trans.clas.createMultipleAccounts()),
             trans.clas.multipleAccsFormDescription(
-              a(href := routes.Clas.studentManyForm(clas.id.value))(
+              a(href := clasRoutes.studentManyForm(clas.id.value))(
                 trans.clas.useThisForm()
               )
             )
@@ -247,7 +248,7 @@ object student {
       ),
       (nbStudents < lila.clas.Clas.maxStudents) option frag(
         p(badTag(strong(trans.clas.createStudentWarning()))),
-        postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id.value))(
+        postForm(cls := "form3", action := clasRoutes.studentManyCreate(clas.id.value))(
           form3.globalError(form),
           form3.group(
             form("realNames"),
@@ -265,7 +266,7 @@ object student {
     p(dataIcon := "", cls := "text")(
       trans.clas.maxStudentsNote(
         lila.clas.Clas.maxStudents,
-        a(href := routes.Clas.form)(trans.clas.createMoreClasses())
+        a(href := clasRoutes.form)(trans.clas.createMoreClasses())
       )
     )
 
@@ -275,14 +276,14 @@ object student {
       top(clas, s),
       div(cls := "box__pad")(
         standardFlash(),
-        postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id.value, s.user.username))(
+        postForm(cls := "form3", action := clasRoutes.studentUpdate(clas.id.value, s.user.username))(
           form3.globalError(form),
           realNameField(form),
           form3.group(form("notes"), trans.notes(), help = trans.clas.onlyVisibleToTeachers().some)(
             form3.textarea(_)(autofocus, rows := 15)
           ),
           form3.actions(
-            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
+            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
             form3.submit(trans.apply())
           )
         ),
@@ -290,14 +291,14 @@ object student {
         div(cls := "student-show__other-actions")(
           s.student.isActive option
             postForm(
-              action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = true)
+              action := clasRoutes.studentArchive(clas.id.value, s.user.username, v = true)
             )(
               form3.submit(trans.clas.removeStudent(), icon = none)(
                 cls := "confirm button-red button-empty"
               )
             ),
           s.student.managed option a(
-            href  := routes.Clas.studentClose(clas.id.value, s.user.username),
+            href  := clasRoutes.studentClose(clas.id.value, s.user.username),
             cls   := "button button-empty button-red",
             title := trans.clas.closeDesc1.txt()
           )(trans.clas.closeStudent())
@@ -318,7 +319,7 @@ object student {
           br,
           trans.clas.releaseDesc2()
         ),
-        postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id.value, s.user.username))(
+        postForm(cls := "form3", action := clasRoutes.studentReleasePost(clas.id.value, s.user.username))(
           form3.globalError(form),
           form3.group(
             form("email"),
@@ -326,7 +327,7 @@ object student {
             help = trans.clas.realUniqueEmail().some
           )(form3.input(_, typ = "email")(autofocus, required)),
           form3.actions(
-            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
+            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
             form3.submit(trans.apply())
           )
         )
@@ -343,11 +344,11 @@ object student {
         h2(trans.clas.closeTheAccount()),
         p(strong(badTag(trans.clas.closeDesc1()))),
         p(
-          a(href := routes.Clas.studentRelease(clas.id.value, s.user.username))(trans.clas.closeDesc2())
+          a(href := clasRoutes.studentRelease(clas.id.value, s.user.username))(trans.clas.closeDesc2())
         ),
-        postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id.value, s.user.username))(
+        postForm(cls := "form3", action := clasRoutes.studentClosePost(clas.id.value, s.user.username))(
           form3.actions(
-            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
+            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
             form3.submit(trans.clas.closeTheAccount(), icon = "".some)(cls := "button-red confirm")
           )
         )

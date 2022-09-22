@@ -98,7 +98,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]
-  lazy val clas: Clas                     = wire[Clas]
+  lazy val clasC: clas.Clas               = wire[clas.Clas]
   lazy val coordinate: Coordinate         = wire[Coordinate]
   lazy val dasher: Dasher                 = wire[Dasher]
   lazy val dev: Dev                       = wire[Dev]
@@ -162,6 +162,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   // eagerly wire up all controllers
   val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
   val reportRouter: _root_.report.Routes = wire[_root_.report.Routes]
+  val clasRouter: _root_.clas.Routes     = wire[_root_.clas.Routes]
   val router: Router                     = wire[_root_.router.Routes]
 
   if (configuration.get[Boolean]("kamon.enabled")) {

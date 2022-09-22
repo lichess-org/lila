@@ -1,6 +1,7 @@
 package views.html.user
 
 import controllers.appeal.{ routes => appealRoutes }
+import controllers.clas.routes.{ Clas => clasRoutes }
 import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
@@ -293,7 +294,7 @@ object mod {
       "Created by ",
       userLink(managed.createdBy),
       " for class ",
-      a(href := routes.Clas.show(managed.clas.id.value))(managed.clas.name)
+      a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
@@ -656,7 +657,7 @@ object mod {
 
   private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails)(u: User) =
     emails.emails.get(u.id).map(_.value) map {
-      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(id))(s"Class #$id")
+      case EmailAddress.clasIdRegex(id) => a(href := clasRoutes.show(id))(s"Class #$id")
       case email                        => frag(email)
     }
 
