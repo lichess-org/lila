@@ -213,7 +213,7 @@
   <string name="emailSent">Nous avons envoyé un e-mail à %s.</string>
   <string name="emailCanTakeSomeTime">Cela peut prendre un certain temps pour arriver.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
-  <string name="checkSpamFolder">Vérifiez également votre dossier de spam, il pourrait y arriver. Si c\'est le cas, marquez le comme non spam.</string>
+  <string name="checkSpamFolder">Vérifiez également votre dossier de spam, il pourrait s\'y trouver. Si c\'est le cas, marquez le comme non spam.</string>
   <string name="emailForSignupHelp">Si tout le reste échoue, envoyez-nous ce courriel :</string>
   <string name="copyTextToEmail">Copiez et collez le texte ci-dessus et envoyez-le à %s</string>
   <string name="waitForSignupHelp">Nous reviendrons vers vous sous peu pour vous aider à compléter votre inscription.</string>
