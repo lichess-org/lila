@@ -112,6 +112,7 @@ object SetupBulk {
     def collidesWith(other: ScheduledBulk) = {
       pairAt == other.pairAt || startClocksAt == other.startClocksAt
     } && userSet.exists(other.userSet.contains)
+    def nonEmptyRules = rules.nonEmpty option rules
   }
 
   sealed trait ScheduleError
@@ -122,6 +123,7 @@ object SetupBulk {
   def toJson(bulk: ScheduledBulk) = {
     import bulk._
     import lila.common.Json.jodaWrites
+    import lila.game.JsonView.ruleWriter
     Json
       .obj(
         "id" -> _id,
@@ -144,6 +146,7 @@ object SetupBulk {
         "pairedAt"      -> pairedAt
       )
       .add("message" -> message.map(_.value))
+      .add("rules" -> nonEmptyRules)
   }
 
 }
