@@ -142,6 +142,7 @@ interface Trans {
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
+  pluralSame(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): Array<string | T>;
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
 }
