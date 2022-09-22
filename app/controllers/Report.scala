@@ -1,4 +1,5 @@
 package controllers
+package report
 
 import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import views._
@@ -61,15 +62,15 @@ final class Report(
           next.fold(
             Redirect {
               if (prev.exists(_.isAppeal)) appeal.routes.Appeal.queue
-              else routes.Report.list
+              else report.routes.Report.list
             }
           )(onInquiryStart)
       }
     }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
-    if (inquiry.isRecentComm) Redirect(routes.Mod.communicationPrivate(inquiry.user))
-    else if (inquiry.isComm) Redirect(routes.Mod.communicationPublic(inquiry.user))
+    if (inquiry.isRecentComm) Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
+    else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
   protected[controllers] def onInquiryClose(
@@ -154,7 +155,7 @@ final class Report(
   def form =
     Auth { implicit ctx => _ =>
       get("username") ?? env.user.repo.named flatMap { user =>
-        if (user.map(_.id) has UserModel.lichessId) Redirect(routes.Main.contact).fuccess
+        if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).fuccess
         else
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
             val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {

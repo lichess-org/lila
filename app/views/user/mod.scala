@@ -1,7 +1,8 @@
 package views.html.user
 
-import controllers.routes
 import controllers.appeal.{ routes => appealRoutes }
+import controllers.report.routes.{ Report => reportRoutes }
+import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
@@ -349,7 +350,7 @@ object mod {
         ),
         reports.by.map { r =>
           r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
-            postForm(action := routes.Report.inquiry(r.id))(
+            postForm(action := reportRoutes.inquiry(r.id))(
               submitButton(reportScore(r.score), " ", strong(r.reason.name)),
               " ",
               userIdLink(r.user.some),
@@ -367,7 +368,7 @@ object mod {
           reports.about.isEmpty option ": nothing to show."
         ),
         reports.about.map { r =>
-          postForm(action := routes.Report.inquiry(r.id))(
+          postForm(action := reportRoutes.inquiry(r.id))(
             submitButton(reportScore(r.score), " ", strong(r.reason.name)),
             div(cls := "atoms")(
               r.bestAtoms(3).map { atom =>

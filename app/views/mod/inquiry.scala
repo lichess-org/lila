@@ -2,6 +2,7 @@ package views.html.mod
 
 import cats.data.NonEmptyList
 import controllers.appeal.routes.{ Appeal => appealRoutes }
+import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 import scala.util.matching.Regex
 
@@ -192,7 +193,7 @@ object inquiry {
                 submitButton(cls := "fbt")("Create name-close vote")
               )
             },
-            postForm(action := routes.Report.xfiles(in.report.id))(
+            postForm(action := reportRoutes.xfiles(in.report.id))(
               submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
                 "Move to X-Files"
               ),
@@ -215,7 +216,7 @@ object inquiry {
           )
         ),
         postForm(
-          action := routes.Report.process(in.report.id),
+          action := reportRoutes.process(in.report.id),
           title  := "Dismiss this report as processed. (Hotkey: d)",
           cls    := "process"
         )(
@@ -223,7 +224,7 @@ object inquiry {
           autoNextInput
         ),
         postForm(
-          action := routes.Report.inquiry(in.report.id),
+          action := reportRoutes.inquiry(in.report.id),
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(
@@ -268,7 +269,7 @@ object inquiry {
 
   private def snoozeUrl(report: Report, duration: String): String =
     if (report.isAppeal) appealRoutes.snooze(report.user, duration).url
-    else routes.Report.snooze(report.id, duration).url
+    else reportRoutes.snooze(report.id, duration).url
 
   private def boostOpponents(
       report: Report,

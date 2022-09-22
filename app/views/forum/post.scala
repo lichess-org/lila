@@ -1,13 +1,14 @@
 package views
 package html.forum
 
+import controllers.report.routes.{ Report => reportRoutes }
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.forum.Post
-
-import controllers.routes
 
 object post {
 
@@ -88,7 +89,7 @@ object post {
                         a(
                           titleOrText(trans.reportXToModerators.txt(userId)),
                           cls := "mod report button button-empty",
-                          href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
+                          href := s"${reportRoutes.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
                           dataIcon := ""
                         )
                       )

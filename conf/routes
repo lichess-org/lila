@@ -639,20 +639,8 @@ GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index
 
-# Report
-GET   /report                          controllers.Report.form
-POST  /report                          controllers.Report.create
-POST  /report/flag                     controllers.Report.flag
-GET   /report/thanks                   controllers.Report.thanks(reported: String)
-GET   /report/list                     controllers.Report.list
-GET   /report/list/:room               controllers.Report.listWithFilter(room: String)
-POST  /report/:id/inquiry              controllers.Report.inquiry(id: String)
-POST  /report/:id/process              controllers.Report.process(id: String)
-POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
-POST  /report/:id/snooze/:dur          controllers.Report.snooze(id: String, dur: String)
-GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
-
 ->    /appeal                          appeal.Routes
+->    /report                          report.Routes
 
 # Stats
 GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String, username: Option[String] ?= None)

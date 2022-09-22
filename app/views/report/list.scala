@@ -2,6 +2,7 @@ package views.html.report
 
 import controllers.routes
 import controllers.appeal.routes.{ Appeal => appealRoutes }
+import controllers.report.routes.{ Report => reportRoutes }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -64,12 +65,12 @@ object list {
                   r.inquiry match {
                     case None =>
                       if (r.done.isDefined)
-                        postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
+                        postForm(action := reportRoutes.inquiry(r.id), cls := "reopen")(
                           submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
                       else
-                        postForm(action         := routes.Report.inquiry(r.id), cls := "inquiry")(
-                          submitButton(dataIcon := "", cls                         := "button button-metal")
+                        postForm(action         := reportRoutes.inquiry(r.id), cls := "inquiry")(
+                          submitButton(dataIcon := "", cls                        := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(
@@ -101,7 +102,7 @@ object list {
             i(cls := "icon"),
             span(cls := "tabs")(
               a(
-                href := routes.Report.listWithFilter("all"),
+                href := reportRoutes.listWithFilter("all"),
                 cls  := List("active" -> (filter == "all"))
               )(
                 "All",
@@ -110,7 +111,7 @@ object list {
               ctx.me ?? { me =>
                 lila.report.Room.all.filter(lila.report.Room.isGrantedFor(Holder(me))).map { room =>
                   a(
-                    href := routes.Report.listWithFilter(room.key),
+                    href := reportRoutes.listWithFilter(room.key),
                     cls := List(
                       "active"            -> (filter == room.key),
                       s"room-${room.key}" -> true

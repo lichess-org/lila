@@ -1,5 +1,6 @@
 package views.html.ublog
 
+import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 import play.api.mvc.Call
 
@@ -95,7 +96,7 @@ object post {
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),
                 cls := "button button-empty ublog-post__meta__report",
-                href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOfPost(post).url}")}&reason=comm",
+                href := s"${reportRoutes.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOfPost(post).url}")}&reason=comm",
                 dataIcon := ""
               )
           ),

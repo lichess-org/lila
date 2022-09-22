@@ -134,7 +134,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val relation: Relation             = wire[Relation]
   lazy val relay: RelayRound              = wire[RelayRound]
   lazy val relayTour: RelayTour           = wire[RelayTour]
-  lazy val report: Report                 = wire[Report]
+  lazy val reportC: report.Report         = wire[report.Report]
   lazy val round: Round                   = wire[Round]
   lazy val search: Search                 = wire[Search]
   lazy val setup: Setup                   = wire[Setup]
@@ -161,6 +161,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
 
   // eagerly wire up all controllers
   val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
+  val reportRouter: _root_.report.Routes = wire[_root_.report.Routes]
   val router: Router                     = wire[_root_.router.Routes]
 
   if (configuration.get[Boolean]("kamon.enabled")) {

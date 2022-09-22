@@ -1,8 +1,9 @@
 package views.html
 package site
 
-import controllers.routes
 import controllers.appeal.routes.{ Appeal => appealRoutes }
+import controllers.report.routes.{ Report => reportRoutes }
+import controllers.routes
 import scala.util.chaining._
 
 import lila.api.Context
@@ -154,7 +155,7 @@ object contact {
           wantReport(),
           frag(
             p(
-              a(href := routes.Report.form)(toReportAPlayerUseForm()),
+              a(href := reportRoutes.form)(toReportAPlayerUseForm()),
               "."
             ),
             p(

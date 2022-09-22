@@ -19,7 +19,7 @@ import lila.user.{ Holder, Title, User => UserModel }
 
 final class Mod(
     env: Env,
-    reportC: => Report,
+    reportC: => report.Report,
     userC: => User
 ) extends LilaController(env) {
 
@@ -220,7 +220,7 @@ final class Mod(
   def inquiryToZulip =
     Secure(_.SendToZulip) { _ => me =>
       env.report.api.inquiries ofModId me.id flatMap {
-        case None => Redirect(routes.Report.list).fuccess
+        case None => Redirect(report.routes.Report.list).fuccess
         case Some(report) =>
           env.user.repo named report.user flatMap {
             _ ?? { user =>
