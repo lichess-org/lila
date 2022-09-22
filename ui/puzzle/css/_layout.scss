@@ -6,6 +6,13 @@
   }
 }
 
+@include breakpoint(max-height 1050px) {
+  body {
+    overflow-y: scroll;
+    margin-bottom: 0;
+  }
+}
+
 .puzzle {
   grid-area: main;
   display: grid;
