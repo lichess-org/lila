@@ -19,9 +19,9 @@ a dummy project to experiment with, I decided to make a chess board.
 So I hacked it up quickly, to learn about XHR long polling. Then I put it online,
 and then I moved on to the next toy project as usual.
 
-However someone started using it, to my surprise. So I added a chat to communicate
+However, someone started using it, to my surprise. So I added a chat to communicate
 with that person. I got scolded by them because the board allowed illegal moves.
-Fine. I fixed that. And then the next bug, and then they must have invited some friends,
+Fine. I fixed that. And then the next bug, and then they must have invited some friends
 because suddenly there was a few players online. So I kept adding bugs and fixing them.
 
 You know how it ended. It turned out, there was a real need for a free software chess server.
