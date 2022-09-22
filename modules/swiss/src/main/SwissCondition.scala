@@ -92,7 +92,7 @@ object SwissCondition {
 
   case class AllowList(value: String) extends SwissCondition with FlatCond {
 
-    private lazy val segments = value.linesIterator.map { _.trim.toLowerCase }.filter(_.nonEmpty).toSet
+    private lazy val segments = value.linesIterator.map(User.normalize).toSet
 
     private def allowAnyTitledUser = segments contains "%titled"
 
@@ -219,8 +219,7 @@ object SwissCondition {
         "maxRating"   -> maxRating,
         "minRating"   -> minRating,
         "titled"      -> optional(boolean),
-        "allowList" -> optional(nonEmptyText(maxLength = 100_1000))
-          .verifying("5000 usernames max", _.fold(true)(_.count('\n' ==) <= 5_000))
+        "allowList"   -> optional(allowList)
       )(AllSetup.apply)(AllSetup.unapply)
         .verifying("Invalid ratings", _.validRatings)
 
