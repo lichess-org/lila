@@ -302,7 +302,7 @@
   <string name="confirmMove">אישור המהלך</string>
   <string name="play">שחקו</string>
   <string name="inbox">תיבת דואר</string>
-  <string name="chatRoom">חדר צא\'ט</string>
+  <string name="chatRoom">חדר צ\'אט</string>
   <string name="loginToChat">התחבר/י כדי לדבר בצ\'אט</string>
   <string name="youHaveBeenTimedOut">הושעית משיחה בצ׳אט.</string>
   <string name="spectatorRoom">חדר צופים</string>
@@ -982,8 +982,8 @@
   <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
   <string name="embedsAvailable">הדביקו כתובת משחק (URL) או כתובת של פרק לוח למידה כדי להטמיע אותם.</string>
   <string name="inYourLocalTimezone">באזור הזמן שלך</string>
-  <string name="tournChat">צ\'אט טורניר</string>
-  <string name="noChat">בטל אפשרות צ\'אט</string>
+  <string name="tournChat">שליחת הודעה</string>
+  <string name="noChat">ביטול אפשרות הצ\'אט</string>
   <string name="onlyTeamLeaders">רק ראשי קבוצות</string>
   <string name="onlyTeamMembers">רק חברי קבוצות</string>
   <string name="navigateMoveTree">נווט ברשימת המהלכים</string>
