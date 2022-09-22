@@ -66,7 +66,7 @@ private object ChallengeJoiner {
         source = Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
-        single = c.singleGame
+        rules = c.rules
       )
       .withId(c.id)
       .pipe { g =>

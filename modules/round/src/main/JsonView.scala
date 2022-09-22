@@ -126,7 +126,6 @@ final class JsonView(
               "millisToMove" -> game.timeForFirstMove.millis
             )
           })
-          .add("single" -> game.metadata.single)
       }
 
   private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =

@@ -5,7 +5,7 @@ import chess.variant.Chess960
 import chess.variant.FromPosition
 import chess.{ Clock, Speed }
 
-import lila.game.PerfPicker
+import lila.game.{ GameRule, PerfPicker }
 import lila.lobby.Color
 import lila.rating.PerfType
 import chess.variant.Variant
@@ -21,7 +21,7 @@ final case class ApiConfig(
     acceptByToken: Option[String] = None,
     message: Option[Template],
     keepAliveStream: Boolean,
-    singleGame: Boolean
+    rules: Set[GameRule] = Set.empty
 ) {
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
@@ -56,7 +56,7 @@ object ApiConfig extends BaseHumanConfig {
       tok: Option[String],
       msg: Option[String],
       keepAliveStream: Option[Boolean],
-      singleGame: Option[Boolean]
+      rules: Option[Set[GameRule]]
   ) =
     new ApiConfig(
       variant = chess.variant.Variant.orDefault(~v),
@@ -68,7 +68,7 @@ object ApiConfig extends BaseHumanConfig {
       acceptByToken = tok,
       message = msg map Template,
       keepAliveStream = ~keepAliveStream,
-      singleGame = ~singleGame
+      rules = ~rules
     ).autoVariant
 
   def validFen(variant: Variant, fen: Option[FEN]) =

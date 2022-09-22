@@ -38,7 +38,7 @@ final class JsonView(rematches: Rematches) {
       .add("check" -> game.situation.checkSquare.map(_.key))
       .add("rematch" -> rematches.getAcceptedId(game.id))
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
-      .add("single" -> game.metadata.single)
+      .add("rules" -> game.metadata.nonEmptyRules)
 
   def ownerPreview(pov: Pov)(lightUserSync: LightUser.GetterSync) =
     Json
@@ -175,5 +175,8 @@ object JsonView {
 
   implicit val sourceWriter: Writes[Source] = Writes { s =>
     JsString(s.name)
+  }
+  implicit val ruleWriter: Writes[GameRule] = Writes { r =>
+    JsString(r.key)
   }
 }

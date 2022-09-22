@@ -7,6 +7,7 @@ import chess.variant.FromPosition
 import lila.game.PerfPicker
 import lila.rating.PerfType
 import lila.user.User
+import lila.game.GameRule
 
 final case class OpenConfig(
     name: Option[String],
@@ -16,7 +17,7 @@ final case class OpenConfig(
     rated: Boolean,
     position: Option[FEN],
     userIds: Option[(User.ID, User.ID)],
-    singleGame: Boolean
+    rules: Set[GameRule] = Set.empty
 ) {
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
@@ -38,7 +39,7 @@ object OpenConfig {
       rated: Boolean,
       pos: Option[FEN],
       usernames: Option[List[String]],
-      singleGame: Option[Boolean]
+      rules: Option[Set[GameRule]]
   ) =
     new OpenConfig(
       name = n.map(_.trim).filter(_.nonEmpty),
@@ -50,6 +51,6 @@ object OpenConfig {
       userIds = usernames.map(_.map(User.normalize)) collect { case List(w, b) =>
         (w, b)
       },
-      singleGame = ~singleGame
+      rules = ~rules
     ).autoVariant
 }

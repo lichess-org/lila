@@ -141,7 +141,7 @@ object SetupForm {
         "acceptByToken"   -> optional(nonEmptyText),
         "message"         -> message,
         "keepAliveStream" -> optional(boolean),
-        "singleGame"      -> optional(boolean)
+        "rules"           -> optional(gameRules)
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)
@@ -168,7 +168,7 @@ object SetupForm {
         "users" -> optional(
           LilaForm.strings.separator(",").verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
         ),
-        "singleGame" -> optional(boolean)
+        "rules" -> optional(gameRules)
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)
