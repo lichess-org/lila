@@ -310,19 +310,16 @@ final class TournamentApi(
                 def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
                   playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
                     updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
-                data.team match {
-                  case None if tour.isTeamBattle && prevPlayer.isDefined => proceedWithTeam(none)
-                  case None if tour.isTeamBattle                         => fuccess(JoinResult.MissingTeam)
-                  case None                                              => proceedWithTeam(none)
-                  case Some(team) =>
-                    tour.teamBattle match {
-                      case Some(battle) if battle.teams contains team =>
-                        getUserTeamIds(me) flatMap { myTeams =>
-                          if (myTeams has team) proceedWithTeam(team.some)
-                          else fuccess(JoinResult.MissingTeam)
-                        }
-                      case _ => fuccess(JoinResult.Nope)
-                    }
+                tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
+                  data.team match {
+                    case None if prevPlayer.isDefined => proceedWithTeam(none)
+                    case Some(team) if battle.teams contains team =>
+                      getUserTeamIds(me) flatMap { myTeams =>
+                        if (myTeams has team) proceedWithTeam(team.some)
+                        else fuccess(JoinResult.MissingTeam)
+                      }
+                    case _ => fuccess(JoinResult.MissingTeam)
+                  }
                 }
               }
             }
