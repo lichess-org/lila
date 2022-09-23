@@ -41,7 +41,7 @@ export function ctrl(
     set(t: Theme) {
       const d = dimensionData();
       d.current = t;
-      applyTheme(t, d.list);
+      applyTheme(t, d.list, dimension() === 'd3');
       xhr
         .text('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
           body: xhr.form({ theme: t }),
@@ -76,6 +76,8 @@ function themeView(current: Theme, set: (t: Theme) => void) {
     );
 }
 
-function applyTheme(t: Theme, list: Theme[]) {
+function applyTheme(t: Theme, list: Theme[], is3d: boolean) {
   $('body').removeClass(list.join(' ')).addClass(t);
+  if (!is3d) document.body.dataset.boardTheme = t;
+  lichess.pubsub.emit('theme.change');
 }

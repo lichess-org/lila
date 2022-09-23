@@ -521,12 +521,12 @@ final class Study(
       clocks = getBoolOpt("clocks", req) | true
     )
 
-  def chapterGif(id: String, chapterId: String) =
+  def chapterGif(id: String, chapterId: String, theme: Option[String], piece: Option[String]) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanView(study, ctx.me) {
-            env.study.gifExport.ofChapter(chapter) map { stream =>
+            env.study.gifExport.ofChapter(chapter, theme, piece) map { stream =>
               Ok.chunked(stream)
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")

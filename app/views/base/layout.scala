@@ -210,6 +210,7 @@ object layout {
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataDirection             = attr("data-direction")
+  val dataBoardTheme            = attr("data-board-theme")
   val dataPieceSet              = attr("data-piece-set")
   val dataAssetUrl              = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
@@ -307,6 +308,7 @@ object layout {
           dataAssetVersion := assetVersion.value,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := ctx.currentBg,
+          dataBoardTheme   := ctx.currentTheme.name,
           dataPieceSet     := ctx.currentPieceSet.name,
           dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
           style            := zoomable option s"--zoom:${ctx.zoom}"

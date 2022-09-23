@@ -30,7 +30,24 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
   let lastInputHash: string;
 
+  const updateGifLinks = (fen: Fen) => {
+    const ds = document.body.dataset;
+    positionGifLink.href = xhrUrl(ds.assetUrl + '/export/fen.gif', {
+      fen,
+      color: ctrl.bottomColor(),
+      lastMove: ctrl.node.uci,
+      variant: ctrl.data.game.variant.key,
+      theme: ds.boardTheme,
+      piece: ds.pieceSet,
+    });
+    gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
+      theme: ds.boardTheme,
+      piece: ds.pieceSet,
+    });
+  };
+
   if (!window.LichessAnalyseNvui) {
+    lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       setTimeout(
         () => (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown'),
@@ -43,13 +60,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
-        positionGifLink.href = xhrUrl(document.body.getAttribute('data-asset-url') + '/export/fen.gif', {
-          fen,
-          color: ctrl.bottomColor(),
-          lastMove: ctrl.node.uci,
-          variant: ctrl.data.game.variant.key,
-        });
-        gameGifLink.pathname = `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`;
+        updateGifLinks(fen);
         lastInputHash = nextInputHash;
       }
       if ($chart.length) {

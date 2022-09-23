@@ -39,39 +39,56 @@ final class Export(env: Env) extends LilaController(env) {
       }
     }
 
-  def gif(id: String, color: String) =
+  def gif(id: String, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
-      env.game.gifExport.fromPov(Pov(g.game, Color.fromName(color) | Color.white), g.fen) map
+      env.game.gifExport.fromPov(
+        Pov(g.game, Color.fromName(color) | Color.white),
+        g.fen,
+        theme,
+        piece
+      ) map
         stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
-  def legacyGameThumbnail(id: String) =
+  def legacyGameThumbnail(id: String, theme: Option[String], piece: Option[String]) =
     Action {
-      MovedPermanently(routes.Export.gameThumbnail(id).url)
+      MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
     }
 
-  def gameThumbnail(id: String) = exportImageOf(env.game.gameRepo game id) { game =>
-    env.game.gifExport.gameThumbnail(game) map
-      stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
-  }
+  def gameThumbnail(id: String, theme: Option[String], piece: Option[String]) =
+    exportImageOf(env.game.gameRepo game id) { game =>
+      env.game.gifExport.gameThumbnail(game, theme, piece) map
+        stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
+    }
 
-  def puzzleThumbnail(id: String) =
+  def puzzleThumbnail(id: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.puzzle.api.puzzle find Id(id)) { puzzle =>
       env.game.gifExport.thumbnail(
         fen = puzzle.fenAfterInitialMove,
         lastMove = puzzle.line.head.uci.some,
         orientation = puzzle.color,
-        variant = Standard
+        variant = Standard,
+        theme,
+        piece
       ) map stream()
     }
 
-  def fenThumbnail(fen: String, color: String, lastMove: Option[String], variant: Option[String]) =
+  def fenThumbnail(
+      fen: String,
+      color: String,
+      lastMove: Option[String],
+      variant: Option[String],
+      theme: Option[String],
+      piece: Option[String]
+  ) =
     exportImageOf(fuccess(Forsyth << FEN.clean(fen))) { _ =>
       env.game.gifExport.thumbnail(
         fen = FEN clean fen,
         lastMove = lastMove flatMap (Uci.Move(_).map(_.uci)),
         orientation = Color.fromName(color) | Color.White,
-        variant = Variant(variant.getOrElse("standard")) | Standard
+        variant = Variant(variant.getOrElse("standard")) | Standard,
+        theme,
+        piece
       ) map stream()
     }
 

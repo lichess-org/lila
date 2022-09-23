@@ -38,7 +38,7 @@ object show {
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(opening.ref.fen, chess.White.name, opening.ref.uci.split(" ").lastOption, none).url}"
+            s"${routes.Export.fenThumbnail(opening.ref.fen, chess.White.name, opening.ref.uci.split(" ").lastOption, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = name,
           url = s"$netBaseUrl${routes.Opening.show(opening.key.value)}",

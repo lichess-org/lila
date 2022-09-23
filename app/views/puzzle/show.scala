@@ -44,7 +44,9 @@ object show {
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
+          image = cdnUrl(
+            routes.Export.puzzleThumbnail(puzzle.id.value, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+          ).some,
           title =
             if (isStreak) "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",

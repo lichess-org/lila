@@ -174,6 +174,7 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
+    lichess.pubsub.on('theme.change', redraw);
     speech.setup();
     this.persistence?.merge();
   }
