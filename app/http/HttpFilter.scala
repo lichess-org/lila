@@ -13,20 +13,20 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
   private val logger      = lila.log("http")
   private val logRequests = env.config.get[Boolean]("net.http.log")
 
-  def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
+  def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] = {
     if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
       result.withHeaders("Service-Worker-Allowed" -> "/")
     }
-    else
-      {
-        val startTime = nowMillis
-        redirectWrongDomain(req) map fuccess getOrElse {
-          nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
-            monitoring(req, startTime, result)
-            result
-          }
+    else {
+      val startTime = nowMillis
+      redirectWrongDomain(req) map fuccess getOrElse {
+        nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
+          monitoring(req, startTime, result)
+          result.withHeaders("Cross-Origin-Opener-Policy" -> "same-origin")
         }
-      } dmap addCoep _
+      }
+    }
+  } dmap addCoep _
 
   private def monitoring(req: RequestHeader, startTime: Long, result: Result) = {
     val actionName = HTTPRequest actionName req

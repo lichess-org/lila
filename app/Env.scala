@@ -133,6 +133,12 @@ final class Env(
     default = false,
     text = "Use external piece images".some
   )
+  lazy val originTrial =
+    memo.settingStore[String](
+      "originTrial",
+      default = "",
+      text = "Origin-Trial token for COEP:credentialless".some
+    )
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]

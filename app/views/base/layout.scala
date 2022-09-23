@@ -239,6 +239,9 @@ object layout {
         head(
           charset,
           viewport,
+          env.originTrial.get().some.filter(_.nonEmpty) map { originTrial =>
+            meta(httpEquiv := "Origin-Trial", content := originTrial)
+          },
           metaCsp(csp),
           metaThemeColor,
           st.headTitle {
