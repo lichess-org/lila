@@ -15,20 +15,18 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
-      result.withHeaders(
-        "Service-Worker-Allowed"       -> "/",
-        "Cross-Origin-Embedder-Policy" -> "require-corp"
-      )
+      result.withHeaders("Service-Worker-Allowed" -> "/")
     }
-    else {
-      val startTime = nowMillis
-      redirectWrongDomain(req) map fuccess getOrElse {
-        nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
-          monitoring(req, startTime, result)
-          result
+    else
+      {
+        val startTime = nowMillis
+        redirectWrongDomain(req) map fuccess getOrElse {
+          nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
+            monitoring(req, startTime, result)
+            result
+          }
         }
-      }
-    }
+      } dmap addCoep _
 
   private def monitoring(req: RequestHeader, startTime: Long, result: Result) = {
     val actionName = HTTPRequest actionName req
@@ -53,4 +51,10 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
       result.withHeaders(ResponseHeaders.headersForApiOrApp(req): _*)
     else
       result
+
+  private def addCoep(result: Result) =
+    if (result.header.headers.contains("Cross-Origin-Embedder-Policy"))
+      result
+    else
+      result.withHeaders("Cross-Origin-Embedder-Policy" -> "credentialless")
 }
