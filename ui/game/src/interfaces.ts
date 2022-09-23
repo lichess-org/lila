@@ -35,7 +35,7 @@ export interface Game {
   perf: string;
   rules?: GameRule[];
 }
-export declare type GameRule = 'noAbort' | 'noRematch' | 'NoGiveTime' | 'NoClaimWin';
+export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
 export interface Status {
   id: StatusId;
