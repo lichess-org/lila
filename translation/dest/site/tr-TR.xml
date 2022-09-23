@@ -72,7 +72,7 @@
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Varyant yenilgisi</string>
-  <string name="variantWin">Kazanç devam yolu</string>
+  <string name="variantWin">Varyant zaferi</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
@@ -211,10 +211,10 @@
   <string name="usernameNotFound">%s adında herhangi bir kullanıcı bulamadık.</string>
   <string name="usernameCanBeUsedForNewAccount">Bu kullanıcı adını yeni bir hesap oluşturmak için kullanabilirsiniz</string>
   <string name="emailSent">%s adresine bir e-posta gönderdik.</string>
-  <string name="emailCanTakeSomeTime">E-posta\'nın ulaşması biraz zaman alabilir.</string>
+  <string name="emailCanTakeSomeTime">E-postanın ulaşması biraz zaman alabilir.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dakika bekleyip e-posta gelen kutunuzu yenileyin.</string>
   <string name="checkSpamFolder">Ayrıca spam klasörünü kontrol edin, orada olabilir. Eğer öyleyse spam değil olarak işaretleyin.</string>
-  <string name="emailForSignupHelp">Eğer hiçbiri işe yaramazsa, bize şu e-postayı gönderin:</string>
+  <string name="emailForSignupHelp">Hiçbiri işe yaramazsa, bize şu e-postayı gönderin:</string>
   <string name="copyTextToEmail">Yukarıdaki metni kopyalayıp %s adresine gönderin</string>
   <string name="waitForSignupHelp">Kaydınızı tamamlamanıza yardımcı olmak için kısa bir süre içinde size geri döneceğiz.</string>
   <string name="accountConfirmed">%s kullanıcısı başarıyla onaylandı.</string>
@@ -300,7 +300,7 @@
     <item quantity="other">%s beraberlik</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s oynuyor</item>
+    <item quantity="one">%s oynanıyor</item>
     <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
