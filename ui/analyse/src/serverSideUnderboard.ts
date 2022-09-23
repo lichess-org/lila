@@ -31,17 +31,18 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   let lastInputHash: string;
 
   const updateGifLinks = (fen: Fen) => {
-    positionGifLink.href = xhrUrl(document.body.dataset.assetUrl + '/export/fen.gif', {
+    const ds = document.body.dataset;
+    positionGifLink.href = xhrUrl(ds.assetUrl + '/export/fen.gif', {
       fen,
       color: ctrl.bottomColor(),
       lastMove: ctrl.node.uci,
       variant: ctrl.data.game.variant.key,
-      theme: document.body.dataset.boardTheme,
-      piece: document.body.dataset.pieceSet,
+      theme: ds.boardTheme,
+      piece: ds.pieceSet,
     });
-    gameGifLink.href = xhrUrl(`/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
-      theme: document.body.dataset.boardTheme,
-      piece: document.body.dataset.pieceSet,
+    gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
+      theme: ds.boardTheme,
+      piece: ds.pieceSet,
     });
   };
 
