@@ -48,7 +48,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
 
   if (!window.LichessAnalyseNvui) {
     lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
-    lichess.pubsub.on('piece.change', () => updateGifLinks(inputFen.value));
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       setTimeout(
         () => (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown'),
