@@ -122,6 +122,6 @@
   <string name="healthyMix">שילוב בריא</string>
   <string name="healthyMixDescription">קצת מהכל. לא תדעו למה לצפות. עליכם להיות מוכנים להכל! בדיוק כמו משחקים אמיתיים.</string>
   <string name="playerGames">המשחקים שלי</string>
-  <string name="playerGamesDescription">יצירת חידות ממשחקים שלך או ממשקים של חברים.</string>
+  <string name="playerGamesDescription">חפשו חידות אשר נוצרו ממשחקים שלכם או של שחקנים אחרים.</string>
   <string name="puzzleDownloadInformation">החידות האלו הן נחלת הכלל, וניתן להוריד אותן מ-%s.</string>
 </resources>
