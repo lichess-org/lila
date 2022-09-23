@@ -5,8 +5,9 @@ import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import { CoordModifier } from './interfaces';
 import side from './side';
 
-const board = (ctrl: CoordinateTrainerCtrl): VNode => {
-  return h('div.main-board', [
+const boardAndOverlay = (ctrl: CoordinateTrainerCtrl): VNode[] => {
+  return [
+    h('div.main-board', chessground(ctrl)),
     ctrl.playing && ctrl.mode() === 'findSquare'
       ? h(
           'svg.coords-svg',
@@ -30,9 +31,8 @@ const board = (ctrl: CoordinateTrainerCtrl): VNode => {
             )
           )
         )
-      : null,
-    chessground(ctrl),
-  ]);
+      : h('div'),
+  ];
 };
 
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
@@ -133,7 +133,7 @@ const view = (ctrl: CoordinateTrainerCtrl): VNode =>
         wrong: ctrl.wrong,
       },
     },
-    [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), coordinateInput(ctrl)]
+    [side(ctrl), ...boardAndOverlay(ctrl), table(ctrl), progress(ctrl), coordinateInput(ctrl)]
   );
 
 export default view;
