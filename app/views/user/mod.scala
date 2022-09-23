@@ -741,7 +741,7 @@ object mod {
               tr(cls := ip.blocked option "blocked")(
                 td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
-                td(ip.proxy option span(cls := "proxy")("PROXY")),
+                td(ip.proxy map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                 td(ip.clients.toList.map(_.toString).sorted mkString ", "),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
                 canIpBan option td(dataSort := (9999 - ip.alts.cleans))(
