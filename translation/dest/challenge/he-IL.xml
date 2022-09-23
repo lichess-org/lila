@@ -16,7 +16,7 @@
   <string name="declineTooFast">קטגוריית הזמן הזו מהירה מדי בשבילי, בבקשה הזמן אותי שוב למשחק יותר איטי.</string>
   <string name="declineTooSlow">קטגוריית הזמן הזו איטית מדי בשבילי, בבקשה הזמן אותי שוב למשחק יותר מהיר.</string>
   <string name="declineTimeControl">אני לא מאשר אתגרים בקטגוריית הזמן הזו.</string>
-  <string name="declineRated">בבקשה שלח לי הזמנה למשחק מדורג במקום.</string>
+  <string name="declineRated">בבקשה שלח/י לי הזמנה למשחק מדורג במקום.</string>
   <string name="declineCasual">בבקשה שלח לי הזמנה למשחק לא מדורג במקום.</string>
   <string name="declineStandard">אני לא מקבל עכשיו הזמנות למשחקי שחמט לא סטנדרטי.</string>
   <string name="declineVariant">אני לא מעוניין לשחק את סוג השחמט הזה עכשיו.</string>
