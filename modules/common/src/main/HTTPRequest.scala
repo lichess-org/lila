@@ -44,8 +44,7 @@ object HTTPRequest {
 
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
-  val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isFirefox104Plus = UaMatcher("""Firefox/(?:10[4-9]|1[1-9]\d)""")
+  val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
 
   val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
 

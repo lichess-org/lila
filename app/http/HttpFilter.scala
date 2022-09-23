@@ -13,17 +13,25 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
   private val logger      = lila.log("http")
   private val logRequests = env.config.get[Boolean]("net.http.log")
 
+  private val coep = "Cross-Origin-Embedder-Policy"
+
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
-      result.withHeaders("Service-Worker-Allowed" -> "/")
+      result.withHeaders(
+        "Service-Worker-Allowed" -> "/",
+        coep                     -> "require-corp" // for Stockfish worker
+      )
     }
     else {
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {
         nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
           monitoring(req, startTime, result)
-          result.withHeaders("Cross-Origin-Opener-Policy" -> "same-origin")
-        } dmap addCoep _
+          result.withHeaders(
+            "Cross-Origin-Opener-Policy" -> "same-origin",
+            coep                         -> result.header.headers.getOrElse(coep, "credentialless")
+          )
+        }
       }
     }
 
@@ -50,10 +58,4 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
       result.withHeaders(ResponseHeaders.headersForApiOrApp(req): _*)
     else
       result
-
-  private def addCoep(result: Result) =
-    if (result.header.headers.contains("Cross-Origin-Embedder-Policy"))
-      result
-    else
-      result.withHeaders("Cross-Origin-Embedder-Policy" -> "credentialless")
 }
