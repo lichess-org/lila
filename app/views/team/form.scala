@@ -95,7 +95,18 @@ object form {
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
   private def textFields(form: Form[_])(implicit ctx: Context) = frag(
-    form3.group(form("description"), trans.description(), help = markdownAvailable.some)(
+    form3.group(
+      form("intro"),
+      "Introduction",
+      help = frag("Brief description visible only in team listings.").some
+    )(
+      form3.textarea(_)(rows := 2)
+    ),
+    form3.group(
+      form("description"),
+      trans.description(),
+      help = frag("Full description visible on the team page.", br, markdownAvailable).some
+    )(
       form3.textarea(_)(rows := 10)
     ),
     form3.group(

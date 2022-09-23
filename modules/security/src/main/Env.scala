@@ -60,7 +60,7 @@ final class Env(
   lazy val store = new Store(db(config.collection.security), cacheApi)
 
   lazy val ip2proxy: Ip2Proxy =
-    if (config.ip2Proxy.enabled) {
+    if (config.ip2Proxy.enabled && config.ip2Proxy.url.nonEmpty) {
       def mk = (url: String) => wire[Ip2ProxyServer]
       mk(config.ip2Proxy.url)
     } else wire[Ip2ProxySkip]

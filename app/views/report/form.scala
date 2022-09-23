@@ -1,13 +1,13 @@
 package views.html.report
 
+import controllers.report.routes.{ Report => reportRoutes }
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
-
-import controllers.routes
 
 object form {
 
@@ -23,7 +23,7 @@ object form {
         h1(trans.reportAUser()),
         postForm(
           cls    := "form3",
-          action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
+          action := s"${reportRoutes.create}${reqUser.??(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
             p(

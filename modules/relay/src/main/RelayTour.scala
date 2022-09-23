@@ -14,7 +14,8 @@ case class RelayTour(
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
     syncedAt: Option[DateTime],   // last time a round was synced
-    autoLeaderboard: Boolean = true
+    autoLeaderboard: Boolean = true,
+    players: Option[RelayPlayers] = None
 ) {
   def id = _id
 

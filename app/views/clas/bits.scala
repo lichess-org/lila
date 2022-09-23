@@ -1,6 +1,6 @@
 package views.html.clas
 
-import controllers.routes
+import controllers.clas.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._

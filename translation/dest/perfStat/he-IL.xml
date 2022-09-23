@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">מדדי %s</string>
-  <string name="viewTheGames">צפה במשחקים</string>
+  <string name="viewTheGames">צפו במשחקים</string>
   <string name="provisional">זמני</string>
   <string name="notEnoughRatedGames">לא ניתן לקבוע דירוג אמין, מפני שלא שוחקו מספיק משחקים מדורגים.</string>
   <string name="progressOverLastXGames">התקדמות לאורך %s המשחקים האחרונים:</string>

@@ -1,13 +1,16 @@
 package lila.tournament
 
+import chess.Clock.{ Config => TournamentClock }
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import chess.Clock.{ Config => TournamentClock }
+import lila.memo.ExpireSetMemo
 import lila.user.User
 
-private[tournament] case class WaitingUsers(
+private case class WaitingUsers(
     hash: Map[User.ID, DateTime],
+    apiUsers: Option[ExpireSetMemo],
     clock: TournamentClock,
     date: DateTime
 ) {
@@ -21,10 +24,7 @@ private[tournament] case class WaitingUsers(
   private val waitSeconds: Int =
     if (clock.estimateTotalSeconds < 30) 8
     else if (clock.estimateTotalSeconds < 60) 10
-    else
-      {
-        clock.estimateTotalSeconds / 10 + 6
-      } atMost 50 atLeast 15
+    else (clock.estimateTotalSeconds / 10 + 6) atMost 50 atLeast 15
 
   lazy val all  = hash.keySet
   lazy val size = hash.size
@@ -39,29 +39,83 @@ private[tournament] case class WaitingUsers(
 
   lazy val haveWaitedEnough: Boolean =
     size > 100 || {
-      val since = date minusSeconds waitSeconds
-      hash.count { case (_, d) => d.isBefore(since) } > 1
+      val since                      = date minusSeconds waitSeconds
+      val nbConnectedLongEnoughUsers = hash.count { case (_, d) => d.isBefore(since) }
+      nbConnectedLongEnoughUsers > 1
     }
 
-  def update(us: Set[User.ID]) = {
-    val newDate = DateTime.now
+  def update(fromWebSocket: Set[User.ID]) = {
+    val newDate      = DateTime.now
+    val withApiUsers = fromWebSocket ++ apiUsers.??(_.keySet)
     copy(
       date = newDate,
       hash = {
-        hash.view.filterKeys(us.contains) ++
-          us.filterNot(hash.contains).map { _ -> newDate }
+        hash.view.filterKeys(withApiUsers.contains) ++
+          withApiUsers.filterNot(hash.contains).map { _ -> newDate }
       }.toMap
     )
   }
 
   def hasUser(userId: User.ID) = hash contains userId
+
+  def addApiUser(userId: User.ID) = {
+    val memo = apiUsers | new ExpireSetMemo(70 seconds)
+    memo put userId
+    if (apiUsers.isEmpty) copy(apiUsers = memo.some) else this
+  }
+
+  def removePairedUsers(us: Set[User.ID]) = {
+    apiUsers.foreach(_ removeAll us)
+    copy(hash = hash -- us)
+  }
 }
 
-private[tournament] object WaitingUsers {
+final private class WaitingUsersApi {
 
-  def empty(clock: TournamentClock) = WaitingUsers(Map.empty, clock, DateTime.now)
+  private val store = new java.util.concurrent.ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
+  def hasUser(tourId: Tournament.ID, userId: User.ID): Boolean =
+    Option(store get tourId).exists(_.waiting hasUser userId)
+
+  def registerNextPromise(tour: Tournament, promise: Promise[WaitingUsers]) =
+    updateOrCreate(tour)(_.copy(next = promise.some))
+
+  def registerWaitingUsers(tourId: Tournament.ID, users: Set[User.ID]) =
+    store.computeIfPresent(
+      tourId,
+      (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
+        val newWaiting = cur.waiting.update(users)
+        cur.next.foreach(_ success newWaiting)
+        WaitingUsers.WithNext(newWaiting, none)
+      }
+    )
+
+  def registerPairedUsers(tourId: Tournament.ID, users: Set[User.ID]) =
+    store.computeIfPresent(
+      tourId,
+      (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
+        cur.copy(waiting = cur.waiting removePairedUsers users)
+    )
+
+  def addApiUser(tour: Tournament, user: User) = updateOrCreate(tour) { w =>
+    w.copy(waiting = w.waiting addApiUser user.id)
+  }
+
+  def remove(id: Tournament.ID) = store remove id
+
+  private def updateOrCreate(tour: Tournament)(f: WaitingUsers.WithNext => WaitingUsers.WithNext) =
+    store.compute(
+      tour.id,
+      (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
+        f(
+          Option(cur) | WaitingUsers.WithNext(
+            WaitingUsers(Map.empty, None, tour.clock, DateTime.now),
+            none
+          )
+        )
+    )
+}
+
+private object WaitingUsers {
   case class WithNext(waiting: WaitingUsers, next: Option[Promise[WaitingUsers]])
-
-  def emptyWithNext(clock: TournamentClock) = WithNext(empty(clock), none)
 }

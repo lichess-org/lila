@@ -5,34 +5,31 @@ import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import { CoordModifier } from './interfaces';
 import side from './side';
 
-const board = (ctrl: CoordinateTrainerCtrl): VNode => {
-  return h('div.main-board', [
-    ctrl.playing && ctrl.mode() === 'findSquare'
-      ? h(
-          'svg.coords-svg',
-          { attrs: { viewBox: '0 0 100 100' } },
-          ['current', 'next'].map((modifier: CoordModifier) =>
-            h(
-              `g.${modifier}`,
-              {
-                key: `${ctrl.score}-${modifier}`,
-                style:
-                  modifier === 'current'
-                    ? ({
-                        remove: {
-                          opacity: 0,
-                          transform: 'translate(-8px, 60px)',
-                        },
-                      } as unknown as VNodeStyle)
-                    : undefined,
-              },
-              h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey)
-            )
+const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | null => {
+  return ctrl.playing && ctrl.mode() === 'findSquare'
+    ? h(
+        'svg.coords-svg',
+        { attrs: { viewBox: '0 0 100 100' } },
+        ['current', 'next'].map((modifier: CoordModifier) =>
+          h(
+            `g.${modifier}`,
+            {
+              key: `${ctrl.score}-${modifier}`,
+              style:
+                modifier === 'current'
+                  ? ({
+                      remove: {
+                        opacity: 0,
+                        transform: 'translate(-8px, 60px)',
+                      },
+                    } as unknown as VNodeStyle)
+                  : undefined,
+            },
+            h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey)
           )
         )
-      : null,
-    chessground(ctrl),
-  ]);
+      )
+    : null;
 };
 
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
@@ -133,7 +130,14 @@ const view = (ctrl: CoordinateTrainerCtrl): VNode =>
         wrong: ctrl.wrong,
       },
     },
-    [side(ctrl), board(ctrl), table(ctrl), progress(ctrl), coordinateInput(ctrl)]
+    [
+      side(ctrl),
+      h('div.main-board', chessground(ctrl)),
+      textOverlay(ctrl),
+      table(ctrl),
+      progress(ctrl),
+      coordinateInput(ctrl),
+    ]
   );
 
 export default view;

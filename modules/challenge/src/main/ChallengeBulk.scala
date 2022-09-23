@@ -31,6 +31,7 @@ final class ChallengeBulkApi(
     mode: play.api.Mode
 ) {
 
+  import lila.game.BSONHandlers.RulesHandler
   implicit private val gameHandler    = Macros.handler[ScheduledGame]
   implicit private val variantHandler = variantByKeyHandler
   implicit private val clockHandler   = clockConfigHandler
@@ -112,7 +113,8 @@ final class ChallengeBulkApi(
             blackPlayer = Player.make(chess.Black, black.some, _(perfType)),
             mode = bulk.mode,
             source = lila.game.Source.Api,
-            pgnImport = None
+            pgnImport = None,
+            rules = bulk.rules
           )
           .withId(id)
           .start

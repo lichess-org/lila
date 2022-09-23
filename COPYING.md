@@ -23,7 +23,7 @@ See the LICENSE file for a copy of the _GNU Affero General Public License_.
 If you modify this Program, or any covered work, by linking or combining it
 with Highcharts (or a modified version of that library), containing parts
 covered by the terms of the _Creative Commons (CC) Attribution-NonCommercial_
-licence, the licensors of this Program grant you additional permission to
+license, the licensors of this Program grant you additional permission to
 convey the resulting work. Corresponding Source for a non-source form of such a
 combination shall include the source code for the parts of Highcharts used as
 well as that of the covered work.

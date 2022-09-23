@@ -39,6 +39,8 @@ object BSONHandlers {
     x => ByteArrayBSONHandler.writeTry(BinaryFormat.unmovedRooks write x).get
   )
 
+  implicit val RulesHandler = valueMapHandler(GameRule.byKey)(_.key)
+
   implicit private[game] val crazyhouseDataBSONHandler = new BSON[Crazyhouse.Data] {
 
     import Crazyhouse._
@@ -178,7 +180,8 @@ object BSONHandlers {
           swissId = r strO F.swissId,
           simulId = r strO F.simulId,
           analysed = r boolD F.analysed,
-          drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty)
+          drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty),
+          rules = r.getD(F.rules, Set.empty)
         )
       )
     }
@@ -218,7 +221,8 @@ object BSONHandlers {
         F.tournamentId      -> o.metadata.tournamentId,
         F.swissId           -> o.metadata.swissId,
         F.simulId           -> o.metadata.simulId,
-        F.analysed          -> w.boolO(o.metadata.analysed)
+        F.analysed          -> w.boolO(o.metadata.analysed),
+        F.rules             -> o.metadata.nonEmptyRules
       ) ++ {
         if (o.variant.standard)
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))

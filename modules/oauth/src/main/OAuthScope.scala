@@ -60,6 +60,11 @@ object OAuthScope {
     case object Play extends OAuthScope("bot:play", "Play games with the bot API")
   }
 
+  object Engine {
+    case object Read  extends OAuthScope("engine:read", "View and use your external engines")
+    case object Write extends OAuthScope("engine:write", "Create and update external engines")
+  }
+
   object Web {
     case object Login
         extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
@@ -90,6 +95,8 @@ object OAuthScope {
     Msg.Write,
     Board.Play,
     Bot.Play,
+    Engine.Read,
+    Engine.Write,
     Web.Login,
     Web.Mod
   )

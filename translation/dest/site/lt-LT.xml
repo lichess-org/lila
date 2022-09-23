@@ -61,6 +61,8 @@
   <string name="depthX">Gylis: %s</string>
   <string name="usingServerAnalysis">Naudojama serverio analizė</string>
   <string name="loadingEngine">Įkeliamas variklis...</string>
+  <string name="calculatingMoves">Apskaičiuojami ėjimai...</string>
+  <string name="engineFailed">Klaida kraunant variklį</string>
   <string name="cloudAnalysis">Analizė debesyje</string>
   <string name="goDeeper">Eiti gilyn</string>
   <string name="showThreat">Rodyti grėsmę</string>
@@ -217,6 +219,8 @@
   <string name="changeUsername">Keisti vartotojo vardą</string>
   <string name="changeUsernameNotSame">Galima keisti tik raidžių dydį. Pvz., „vardaspav“ į „VardasPav“.</string>
   <string name="changeUsernameDescription">Pasikeiskite naudotojo vardą. Tai gali būti atlikta tik kartą, ir keisti galite tik raidžių dydį.</string>
+  <string name="signupUsernameHint">Įsitikinkite, kad jūsų vartotojo vardas yra tinkamas visų amžių auditorijai. Jo vėliau pasikeisti negalėsite. Bet kokie netinkami vartotojų vardai bus uždaryti!</string>
+  <string name="signupEmailHint">Jį naudosime tik atkurti slaptažodžiui.</string>
   <string name="password">Slaptažodis</string>
   <string name="changePassword">Keisti slaptažodį</string>
   <string name="changeEmail">Keisti el. pašto adresą</string>
@@ -702,6 +706,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
   <string name="averageCentipawnLoss">Vidutinis centi-pėstininkų nuostolis</string>
+  <string name="accuracy">Tikslumas</string>
   <string name="keyboardShortcuts">Spartieji klavišai</string>
   <string name="keyMoveBackwardOrForward">judėti pirmyn/atgal</string>
   <string name="keyGoToStartOrEnd">eiti į pradžią/pabaigą</string>

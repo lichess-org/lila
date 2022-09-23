@@ -142,6 +142,7 @@ interface Trans {
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
+  pluralSame(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): Array<string | T>;
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
 }
@@ -261,8 +262,8 @@ interface Window {
   };
   readonly LichessChartGame: {
     acpl: {
-      (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;
-      update?(data: any, mainline: any[]): void;
+      (data: any, mainline: Tree.Node[], trans: Trans, el: HTMLElement, hunter: boolean): Promise<void>;
+      update?(data: any, mainline: Tree.Node[]): void;
     };
     movetime: {
       (data: any, trans: Trans, hunter: boolean): Promise<void>;

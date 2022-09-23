@@ -59,7 +59,7 @@ final class Auth(
   ): Fu[Result] =
     api.appeal.saveAuthentication(u.id) flatMap { sessionId =>
       negotiate(
-        html = redirect(routes.Appeal.landing.url).fuccess map authenticateCookie(sessionId),
+        html = redirect(appeal.routes.Appeal.landing.url).fuccess map authenticateCookie(sessionId),
         api = _ => NotFound.fuccess
       )
     } recoverWith authRecovery
@@ -412,6 +412,7 @@ final class Auth(
                 env.user.repo.disableTwoFactor(user.id) >>
                 env.security.store.closeAllSessionsOf(user.id) >>
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
+                env.push.unregisterDevices(user) >>
                 authenticateUser(user) >>-
                 lila.mon.user.auth.passwordResetConfirm("success").increment().unit
             }(rateLimitedFu)

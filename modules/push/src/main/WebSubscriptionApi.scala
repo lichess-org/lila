@@ -48,15 +48,4 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
   def unsubscribeByUser(user: User): Funit = {
     coll.delete.one($doc("userId" -> user.id)).void
   }
-
-  def unsubscribeByUserExceptSession(user: User, sessionId: String): Funit = {
-    coll.delete
-      .one(
-        $doc(
-          "userId" -> user.id,
-          "_id"    -> $ne(sessionId)
-        )
-      )
-      .void
-  }
 }

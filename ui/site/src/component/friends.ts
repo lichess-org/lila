@@ -49,7 +49,7 @@ export default class OnlineFriends {
     if (this.loaded)
       requestAnimationFrame(() => {
         const ids = Array.from(this.users.keys()).sort();
-        this.titleEl.innerHTML = siteTrans.plural(
+        this.titleEl.innerHTML = siteTrans.pluralSame(
           'nbFriendsOnline',
           ids.length,
           this.loaded ? `<strong>${ids.length}</strong>` : '-'

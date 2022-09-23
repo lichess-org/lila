@@ -10,7 +10,7 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.common.{ Bearer, Template }
-import lila.game.{ Game, IdGenerator }
+import lila.game.{ Game, GameRule, IdGenerator }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User
 
@@ -25,7 +25,8 @@ object SetupBulk {
       rated: Boolean,
       pairAt: Option[DateTime],
       startClocksAt: Option[DateTime],
-      message: Option[Template]
+      message: Option[Template],
+      rules: Set[GameRule]
   )
 
   private def timestampInNearFuture = longNumber(
@@ -50,7 +51,8 @@ object SetupBulk {
       "rated"         -> boolean,
       "pairAt"        -> optional(timestampInNearFuture),
       "startClocksAt" -> optional(timestampInNearFuture),
-      "message"       -> SetupForm.api.message
+      "message"       -> SetupForm.api.message,
+      "rules"         -> optional(Mappings.gameRules)
     ) {
       (
           tokens: String,
@@ -59,7 +61,8 @@ object SetupBulk {
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
-          message: Option[String]
+          message: Option[String],
+          rules: Option[Set[GameRule]]
       ) =>
         BulkFormData(
           tokens,
@@ -68,7 +71,8 @@ object SetupBulk {
           rated,
           pairTs.map { new DateTime(_) },
           clockTs.map { new DateTime(_) },
-          message map Template
+          message map Template,
+          ~rules
         )
     }(_ => None)
   )
@@ -101,12 +105,14 @@ object SetupBulk {
       startClocksAt: Option[DateTime],
       scheduledAt: DateTime,
       message: Option[Template],
+      rules: Set[GameRule] = Set.empty,
       pairedAt: Option[DateTime] = None
   ) {
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
       pairAt == other.pairAt || startClocksAt == other.startClocksAt
     } && userSet.exists(other.userSet.contains)
+    def nonEmptyRules = rules.nonEmpty option rules
   }
 
   sealed trait ScheduleError
@@ -117,6 +123,7 @@ object SetupBulk {
   def toJson(bulk: ScheduledBulk) = {
     import bulk._
     import lila.common.Json.jodaWrites
+    import lila.game.JsonView.ruleWriter
     Json
       .obj(
         "id" -> _id,
@@ -139,6 +146,7 @@ object SetupBulk {
         "pairedAt"      -> pairedAt
       )
       .add("message" -> message.map(_.value))
+      .add("rules" -> nonEmptyRules)
   }
 
 }
@@ -216,6 +224,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
                     pairAt = data.pairAt | DateTime.now,
                     startClocksAt = data.startClocksAt,
                     message = data.message,
+                    rules = data.rules,
                     scheduledAt = DateTime.now
                   )
                 }

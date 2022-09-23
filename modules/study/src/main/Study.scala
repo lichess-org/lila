@@ -82,6 +82,9 @@ object Study {
 
   val maxChapters = 64
 
+  val previewNbMembers  = 4
+  val previewNbChapters = 4
+
   case class Id(value: String) extends AnyVal with StringValue
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
 

@@ -1,4 +1,5 @@
 package controllers
+package appeal
 
 import play.api.mvc.Result
 import views._
@@ -8,7 +9,7 @@ import lila.app._
 import lila.report.Suspect
 import play.api.data.Form
 
-final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: => User)
+final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
     extends LilaController(env) {
 
   private def form(implicit ctx: Context) =

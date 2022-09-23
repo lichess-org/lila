@@ -87,7 +87,7 @@ final class Cached(
   def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     leaders.get(teamId).dmap(_ contains userId)
 
-  val forumAccess = cacheApi[Team.ID, Team.Access](4096, "team.forum.access") {
+  val forumAccess = cacheApi[Team.ID, Team.Access](1024, "team.forum.access") {
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
   }

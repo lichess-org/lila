@@ -126,7 +126,7 @@ object Condition {
 
   case class AllowList(value: String) extends Condition with FlatCond {
 
-    private lazy val segments = value.linesIterator.map { _.trim.toLowerCase }.filter(_.nonEmpty).toSet
+    private lazy val segments = value.linesIterator.map(User.normalize).toSet
 
     private def allowAnyTitledUser = segments contains "%titled"
 
@@ -339,7 +339,7 @@ object Condition {
         "minRating"   -> minRating,
         "titled"      -> optional(boolean),
         "teamMember"  -> optional(teamMember(leaderTeams)),
-        "allowList"   -> optional(nonEmptyText(maxLength = 9999))
+        "allowList"   -> optional(allowList)
       )(AllSetup.apply)(AllSetup.unapply)
         .verifying("Invalid ratings", _.validRatings)
 

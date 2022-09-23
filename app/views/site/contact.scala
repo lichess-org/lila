@@ -1,6 +1,8 @@
 package views.html
 package site
 
+import controllers.appeal.routes.{ Appeal => appealRoutes }
+import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 import scala.util.chaining._
 
@@ -153,7 +155,7 @@ object contact {
           wantReport(),
           frag(
             p(
-              a(href := routes.Report.form)(toReportAPlayerUseForm()),
+              a(href := reportRoutes.form)(toReportAPlayerUseForm()),
               "."
             ),
             p(
@@ -266,7 +268,7 @@ object contact {
         ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home)(netConfig.domain, routes.Appeal.home.url))),
+          p(sendAppealTo(a(href := appealRoutes.home)(netConfig.domain, appealRoutes.home.url))),
           p(
             falsePositives(),
             br,

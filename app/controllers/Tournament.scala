@@ -255,14 +255,7 @@ final class Tournament(
     data.team
       .?? { env.team.cached.isLeader(_, me.id) }
       .flatMap { isLeader =>
-        api.joinWithResult(
-          tourId,
-          me,
-          password = data.password,
-          teamId = data.team,
-          getUserTeamIds,
-          isLeader
-        )
+        api.joinWithResult(tourId, me, data = data, getUserTeamIds, isLeader)
       }
 
   def pause(id: String) =

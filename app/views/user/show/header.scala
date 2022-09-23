@@ -1,13 +1,14 @@
 package views.html.user.show
 
+import controllers.report.routes.{ Report => reportRoutes }
+import controllers.routes
+
 import lila.api.Context
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.user.User
-
-import controllers.routes
 
 object header {
 
@@ -122,7 +123,7 @@ object header {
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls      := "btn-rack__btn",
-            href     := s"${routes.Report.form}?username=${u.username}",
+            href     := s"${reportRoutes.form}?username=${u.username}",
             dataIcon := ""
           )
         )
@@ -281,7 +282,8 @@ object header {
           userIdLink(note.from.some),
           br,
           note.dox option "dox ",
-          momentFromNow(note.date),
+          if (isGranted(_.ModNote)) momentFromNowServer(note.date)
+          else momentFromNow(note.date),
           (ctx.me.exists(note.isFrom) && !note.mod) option frag(
             br,
             postForm(action := routes.User.deleteNote(note._id))(

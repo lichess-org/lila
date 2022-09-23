@@ -9,12 +9,13 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
       const chartElm = this;
       $(chartElm).addClass('rendered');
 
+      const area = window.Highcharts.theme.lichess.area;
       const highlightColor = '#3893E8';
       const xAxisColor = '#cccccc99';
-      const whiteAreaFill = hunter ? window.Highcharts.theme.lichess.area.white : 'rgba(255, 255, 255, 0.2)';
+      const whiteAreaFill = hunter ? area.white : 'rgba(255, 255, 255, 0.2)';
       const whiteColumnFill = 'rgba(255, 255, 255, 0.9)';
       const whiteColumnBorder = '#00000044';
-      const blackAreaFill = hunter ? window.Highcharts.theme.lichess.area.black : 'rgba(0, 0, 0, 0.4)';
+      const blackAreaFill = hunter ? area.black : 'rgba(0, 0, 0, 0.4)';
       const blackColumnFill = 'rgba(0, 0, 0, 0.9)';
       const blackColumnBorder = '#ffffff33';
 
@@ -96,7 +97,6 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
       const disabled = { enabled: false };
       const noText = { text: null };
       const clickableOptions = {
-        cursor: 'pointer',
         events: {
           click: (event: any) => {
             if (event.point) {
@@ -192,6 +192,16 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
           alignTicks: false,
           spacing: [2, 0, 2, 0],
           animation: false,
+          events: {
+            click(e: any) {
+              let ply = Math.round(e.xAxis[0].value);
+              chartElm.highcharts.series[(showTotal ? 4 : 0) + (ply & 1)].data[ply >> 1]?.select(true);
+              // if the parity of the ply doesn't match the quadrant of the click,
+              // we add the x residual rounded away from zero to correct it
+              if (e.yAxis[0].value < 0 == !(ply & 1)) ply += e.xAxis[0].value < ply ? -1 : 1;
+              lichess.pubsub.emit('analysis.chart.click', ply);
+            },
+          },
         },
         tooltip: {
           formatter: function (this: any) {
@@ -271,6 +281,9 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
         ],
       });
       chartElm.highcharts.selectPly = (ply: number) => {
+        const plyline = chartElm.highcharts.xAxis[0].plotLinesAndBands[0];
+        plyline.options.value = ply - 1 - data.game.startedAtTurn;
+        plyline.render();
         const white = ply % 2 !== 0;
         const serie = (white ? 0 : 1) + (showTotal ? 4 : 0);
         const turn = Math.floor((ply - 1 - data.game.startedAtTurn) / 2);

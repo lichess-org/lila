@@ -1,5 +1,8 @@
 package views.html.user
 
+import controllers.appeal.{ routes => appealRoutes }
+import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -291,7 +294,7 @@ object mod {
       "Created by ",
       userLink(managed.createdBy),
       " for class ",
-      a(href := routes.Clas.show(managed.clas.id.value))(managed.clas.name)
+      a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
@@ -323,7 +326,7 @@ object mod {
       appeal map { a =>
         frag(
           div(cls := "mod_log mod_log--appeal")(
-            st.a(href := routes.Appeal.show(a.id))(
+            st.a(href := appealRoutes.Appeal.show(a.id))(
               strong(cls := "text", dataIcon := "")(
                 "Appeal status: ",
                 a.status.toString
@@ -331,7 +334,7 @@ object mod {
             ),
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            a.msgs.size > 1 option st.a(href := routes.Appeal.show(a.id))(
+            a.msgs.size > 1 option st.a(href := appealRoutes.Appeal.show(a.id))(
               frag("and ", pluralize("more message", a.msgs.size - 1))
             )
           )
@@ -348,7 +351,7 @@ object mod {
         ),
         reports.by.map { r =>
           r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
-            postForm(action := routes.Report.inquiry(r.id))(
+            postForm(action := reportRoutes.inquiry(r.id))(
               submitButton(reportScore(r.score), " ", strong(r.reason.name)),
               " ",
               userIdLink(r.user.some),
@@ -366,7 +369,7 @@ object mod {
           reports.about.isEmpty option ": nothing to show."
         ),
         reports.about.map { r =>
-          postForm(action := routes.Report.inquiry(r.id))(
+          postForm(action := reportRoutes.inquiry(r.id))(
             submitButton(reportScore(r.score), " ", strong(r.reason.name)),
             div(cls := "atoms")(
               r.bestAtoms(3).map { atom =>
@@ -627,7 +630,7 @@ object mod {
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
-                      href := isGranted(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      href := isGranted(_.Appeals).option(appealRoutes.Appeal.show(o.username).url),
                       cls := List(
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
@@ -654,7 +657,7 @@ object mod {
 
   private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails)(u: User) =
     emails.emails.get(u.id).map(_.value) map {
-      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(id))(s"Class #$id")
+      case EmailAddress.clasIdRegex(id) => a(href := clasRoutes.show(id))(s"Class #$id")
       case email                        => frag(email)
     }
 
@@ -738,7 +741,7 @@ object mod {
               tr(cls := ip.blocked option "blocked")(
                 td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
-                td(ip.proxy option span(cls := "proxy")("PROXY")),
+                td(ip.proxy map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                 td(ip.clients.toList.map(_.toString).sorted mkString ", "),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
                 canIpBan option td(dataSort := (9999 - ip.alts.cleans))(

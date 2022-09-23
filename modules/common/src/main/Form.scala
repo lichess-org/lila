@@ -134,7 +134,8 @@ object Form {
   }
 
   object mustNotContainLichess {
-    private val regex = "(?iu)l[iıi̇][cс]h[eе]s".r
+    // \u0131\u0307 is ı (\u0131) with an i dot (\u0307)
+    private val regex = "(?iu)l(?:[i\u0456]|\u0131\u0307?)[c\u0441][h\u04bb][e\u0435][s\u0455]".r
     def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
       if (regex.find(t) && !verifiedUser)
         V.Invalid(V.ValidationError("Must not contain \"lichess\""))
@@ -238,11 +239,18 @@ object Form {
 
   object strings {
     def separator(sep: String) = of[List[String]](
-      formatter.stringFormatter[List[String]](_ mkString sep, _.split(sep).toList)
+      formatter
+        .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
     )
   }
 
   def toMarkdown(m: Mapping[String]): Mapping[Markdown] = m.transform[Markdown](Markdown.apply, _.value)
+
+  def allowList =
+    nonEmptyText(maxLength = 100_1000)
+      .transform[String](_.replace(',', '\n'), identity)
+      .transform[String](_.linesIterator.map(_.trim).filter(_.nonEmpty).distinct mkString "\n", identity)
+      .verifying("5000 usernames max", _.count('\n' ==) <= 5_000)
 
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(

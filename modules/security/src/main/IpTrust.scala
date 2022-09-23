@@ -11,7 +11,7 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
       val location = geoApi orUnknown ip
       if (location == Location.unknown || location == Location.tor) fuTrue
       else if (isUndetectedProxy(location)) fuTrue
-      else proxyApi(ip)
+      else proxyApi(ip).dmap(_.is)
     }
 
   def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =

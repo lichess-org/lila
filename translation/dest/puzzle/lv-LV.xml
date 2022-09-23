@@ -13,6 +13,8 @@
   <string name="specialMoves">Īpaši gājieni</string>
   <string name="didYouLikeThisPuzzle">Vai patika šis uzdevums?</string>
   <string name="voteToLoadNextOne">Balsojiet, lai ielādētu nākamo!</string>
+  <string name="upVote">Patīk puzle</string>
+  <string name="downVote">Nepatīk puzle</string>
   <string name="yourPuzzleRatingWillNotChange">Jūsu uzdevumu reitings nemainīsies. Ievērojiet, ka uzdevumu risināšana nav sacensības. Reitings mums palīdz atlasīt labākos uzdevumus jūsu prasmju līmenim.</string>
   <string name="findTheBestMoveForWhite">Atrodiet labāko gājienu baltajiem.</string>
   <string name="findTheBestMoveForBlack">Atrodiet labāko gājienu melnajiem.</string>
@@ -74,7 +76,7 @@
   <string name="fromMyGamesNone">Mums ļoti žēl, bet jums nav neviena uzdevuma datu bāzē.
 
 Spēlējiet ātrās vai klasiskajās spēlēs, lai paaugstinātu varbūtību, ka no tām tiks izveidots uzdevums!</string>
-  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;The first variable is a number, and the second is a link to a user's profile (e.g. 2 puzzles found in &lt;username&gt; games)&#10;&#10;All games on Lichess are generated from players' games.">Atrasti %1$s uzdevumi no %2$s spēlēm</string>
+  <string name="fromXGamesFound">Atrasti %1$s uzdevumi no %2$s spēlēm</string>
   <string name="puzzleDashboardDescription">Trenēties, izpētīt un uzlabot prasmes</string>
   <plurals name="nbPlayed">
     <item quantity="zero">%s izspēlētas</item>

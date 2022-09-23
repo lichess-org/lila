@@ -19,6 +19,11 @@ object Maths {
       else n.toDouble(arr(mid))
     }
 
+  def harmonicMean(a: Iterable[Double]): Option[Double] =
+    a.nonEmpty option {
+      a.size / a.foldLeft(0d) { case (acc, v) => acc + 1 / Math.max(1, v) }
+    }
+
   def roundAt(n: Double, p: Int): BigDecimal = {
     BigDecimal(n).setScale(p, BigDecimal.RoundingMode.HALF_UP)
   }

@@ -1,6 +1,8 @@
 package views.html.clas
 
+import controllers.clas.routes.{ Clas => clasRoutes }
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -21,14 +23,14 @@ object teacherDashboard {
       div(cls := "clas-show__top")(
         h1(dataIcon := "", cls := "text")(c.name),
         st.nav(cls := "dashboard-nav")(
-          a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))(trans.clas.overview()),
-          a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))(trans.clas.news()),
+          a(cls := active.active("overview"), href := clasRoutes.show(c.id.value))(trans.clas.overview()),
+          a(cls := active.active("wall"), href := clasRoutes.wall(c.id.value))(trans.clas.news()),
           a(
             cls  := active.active("progress"),
-            href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
+            href := clasRoutes.progress(c.id.value, PerfType.Blitz.key, 7)
           )(trans.clas.progress()),
-          a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.edit()),
-          a(cls := active.active("students"), href := routes.Clas.students(c.id.value))(
+          a(cls := active.active("edit"), href := clasRoutes.edit(c.id.value))(trans.edit()),
+          a(cls := active.active("students"), href := clasRoutes.students(c.id.value))(
             trans.clas.students()
           )
         )
@@ -37,7 +39,7 @@ object teacherDashboard {
       c.archived map { archived =>
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),
-          postForm(action                                      := routes.Clas.archive(c.id.value, v = false))(
+          postForm(action                                      := clasRoutes.archive(c.id.value, v = false))(
             form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
           )
         )
@@ -55,7 +57,7 @@ object teacherDashboard {
         div(cls := "clas-show__overview__manage")(
           clas.teachers(c),
           a(
-            href     := routes.Clas.studentForm(c.id.value),
+            href     := clasRoutes.studentForm(c.id.value),
             cls      := "button button-clas text",
             dataIcon := ""
           )(trans.clas.addStudent())
@@ -91,7 +93,7 @@ object teacherDashboard {
                     ),
                     td(momentFromNow(i.created.at)),
                     td(
-                      postForm(action := routes.Clas.invitationRevoke(i._id.value))(
+                      postForm(action := clasRoutes.invitationRevoke(i._id.value))(
                         submitButton(cls := "button button-red button-empty")("Revoke")
                       )
                     )
@@ -240,10 +242,10 @@ object teacherDashboard {
           ).map { pt =>
             a(
               cls  := progress.map(_.perfType.key.active(pt.key)),
-              href := routes.Clas.progress(c.id.value, pt.key, progress.fold(7)(_.days))
+              href := clasRoutes.progress(c.id.value, pt.key, progress.fold(7)(_.days))
             )(pt.trans)
           },
-          a(cls := progress.isEmpty.option("active"), href := routes.Clas.learn(c.id.value))(
+          a(cls := progress.isEmpty.option("active"), href := clasRoutes.learn(c.id.value))(
             trans.learnMenu()
           )
         )
@@ -255,7 +257,7 @@ object teacherDashboard {
             List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
               a(
                 cls  := p.days.toString.active(days.toString),
-                href := routes.Clas.progress(c.id.value, p.perfType.key, days)
+                href := clasRoutes.progress(c.id.value, p.perfType.key, days)
               )(days)
             }
           )
@@ -298,7 +300,7 @@ object teacherDashboard {
 
   private def studentTd(c: Clas, s: Student.WithUser)(implicit ctx: Context) =
     td(
-      a(href := routes.Clas.studentShow(c.id.value, s.user.username))(
+      a(href := clasRoutes.studentShow(c.id.value, s.user.username))(
         userSpan(
           s.user,
           name = span(

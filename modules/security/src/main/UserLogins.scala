@@ -72,7 +72,7 @@ final class UserLoginsApi(
                 ip,
                 firewall blocksIp ip.value,
                 geoIP orUnknown ip.value,
-                proxies(ip.value),
+                proxies.get(ip.value),
                 Alts(othersByIp.getOrElse(ip.value, Set.empty)),
                 ipClients.getOrElse(ip.value, Set.empty)
               )
@@ -210,7 +210,7 @@ object UserLogins {
       ip: Dated[IpAddress],
       blocked: Boolean,
       location: Location,
-      proxy: Boolean,
+      proxy: Option[String],
       alts: Alts,
       clients: Set[UserAgent.Client]
   ) {

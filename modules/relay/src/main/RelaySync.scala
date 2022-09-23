@@ -149,7 +149,7 @@ final private class RelaySync(
         chapterId = chapter.id,
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
-        val newEnd = chapter.tags.resultColor.isEmpty && tags.resultColor.isDefined
+        val newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         newEnd ?? onChapterEnd(tour, study, chapter)
       } inject true
     }

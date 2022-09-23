@@ -93,6 +93,7 @@ GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: 
 GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
+GET   /api/player                      controllers.User.apiList
 
 GET   /dasher                          controllers.Dasher.get
 
@@ -267,7 +268,8 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
-GET   /streamer/live                   controllers.Streamer.live
+GET   /api/streamer/live               controllers.Streamer.live
+GET   /streamer/live                   controllers.Main.movedPermanently(to: String = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
@@ -591,42 +593,6 @@ GET   /coach/:username                 controllers.Coach.show(username: String)
 POST  /coach/:username/review          controllers.Coach.review(username: String)
 GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order: String, country: String, page: Int ?= 1)
 
-# Clas
-GET   /class                           controllers.Clas.index
-GET   /class/new                       controllers.Clas.form
-POST  /class/become-teacher            controllers.Clas.becomeTeacher
-POST  /class/new                       controllers.Clas.create
-GET   /class/invitation/:id            controllers.Clas.invitation(id: String)
-POST  /class/invitation/:id            controllers.Clas.invitationAccept(id: String)
-GET   /class/teacher/:username         controllers.Clas.teacher(username: String)
-GET   /class/$id<\w{8}>                controllers.Clas.show(id: String)
-GET   /class/$id<\w{8}>/edit           controllers.Clas.edit(id: String)
-POST  /class/$id<\w{8}>/edit           controllers.Clas.update(id: String)
-GET   /class/$id<\w{8}>/news           controllers.Clas.wall(id: String)
-GET   /class/$id<\w{8}>/news/edit      controllers.Clas.wallEdit(id: String)
-POST  /class/$id<\w{8}>/news/edit      controllers.Clas.wallUpdate(id: String)
-GET   /class/$id<\w{8}>/notify         controllers.Clas.notifyStudents(id: String)
-POST  /class/$id<\w{8}>/notifyPost     controllers.Clas.notifyPost(id: String)
-GET   /class/$id<\w{8}>/students       controllers.Clas.students(id: String)
-POST  /class/$id<\w{8}>/archive        controllers.Clas.archive(id: String, v: Boolean)
-GET   /class/$id<\w{8}>/progress/learn controllers.Clas.learn(id: String)
-GET   /class/$id<\w{8}>/progress/:pt/:days controllers.Clas.progress(id: String, pt: String, days: Int)
-GET   /class/$id<\w{8}>/student/add    controllers.Clas.studentForm(id: String)
-POST  /class/$id<\w{8}>/student/new    controllers.Clas.studentCreate(id: String)
-GET   /class/$id<\w{8}>/student/many   controllers.Clas.studentManyForm(id: String)
-POST  /class/$id<\w{8}>/student/many   controllers.Clas.studentManyCreate(id: String)
-POST  /class/$id<\w{8}>/student/invite controllers.Clas.studentInvite(id: String)
-GET   /class/$id<\w{8}>/student/:username controllers.Clas.studentShow(id: String, username: String)
-POST  /class/$id<\w{8}>/student/:username/archive controllers.Clas.studentArchive(id: String, username: String, v: Boolean)
-POST  /class/$id<\w{8}>/student/:username/reset-password controllers.Clas.studentResetPassword(id: String, username: String)
-GET   /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentEdit(id: String, username: String)
-POST  /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentUpdate(id: String, username: String)
-GET   /class/$id<\w{8}>/student/:username/release controllers.Clas.studentRelease(id: String, username: String)
-POST  /class/$id<\w{8}>/student/:username/release controllers.Clas.studentReleasePost(id: String, username: String)
-GET   /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClose(id: String, username: String)
-POST  /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClosePost(id: String, username: String)
-POST  /class/$id<\w{8}>/invitation/revoke controllers.Clas.invitationRevoke(id: String)
-
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
@@ -637,29 +603,9 @@ GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index
 
-# Report
-GET   /report                          controllers.Report.form
-POST  /report                          controllers.Report.create
-POST  /report/flag                     controllers.Report.flag
-GET   /report/thanks                   controllers.Report.thanks(reported: String)
-GET   /report/list                     controllers.Report.list
-GET   /report/list/:room               controllers.Report.listWithFilter(room: String)
-POST  /report/:id/inquiry              controllers.Report.inquiry(id: String)
-POST  /report/:id/process              controllers.Report.process(id: String)
-POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
-POST  /report/:id/snooze/:dur          controllers.Report.snooze(id: String, dur: String)
-GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
-
-# Appeal
-GET   /appeal                          controllers.Appeal.home
-POST  /appeal                          controllers.Appeal.post
-GET   /appeal/landing                  controllers.Appeal.landing
-GET   /appeal/queue                    controllers.Appeal.queue
-GET   /appeal/:username                controllers.Appeal.show(username: String)
-POST  /appeal/:username                controllers.Appeal.reply(username: String)
-POST  /appeal/:username/mute           controllers.Appeal.mute(username: String)
-POST  /appeal/:username/snooze/:dur    controllers.Appeal.snooze(username: String, dur: String)
-POST  /appeal/:username/send-to-zulip  controllers.Appeal.sendToZulip(username: String)
+->    /appeal                          appeal.Routes
+->    /report                          report.Routes
+->    /class                           clas.Routes
 
 # Stats
 GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: String, username: Option[String] ?= None)
@@ -704,6 +650,8 @@ GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId: String)
+POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId: String)
 GET   /api/stream/event                controllers.Api.eventStream
 GET   /api/stream/game/:id             controllers.Api.moveStream(id: String)
 GET   /api/account                     controllers.Account.apiMe
@@ -731,6 +679,13 @@ POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username: String)
+
+# External engine
+GET   /api/external-engine             controllers.Analyse.externalEngineList
+POST  /api/external-engine             controllers.Analyse.externalEngineCreate
+GET   /api/external-engine/:id         controllers.Analyse.externalEngineShow(id: String)
+PUT   /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(id: String)
+DELETE /api/external-engine/:id        controllers.Analyse.externalEngineDelete(id: String)
 
 # Mobile API only
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)

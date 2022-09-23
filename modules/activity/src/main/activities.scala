@@ -109,6 +109,7 @@ object activities {
     def addIn(id: User.ID)  = copy(in = Some(~in + id))
     def addOut(id: User.ID) = copy(out = Some(~out + id))
     def isEmpty             = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
+    def allUserIds          = in.??(_.ids) ::: out.??(_.ids)
   }
 
   case class Studies(value: List[Study.Id]) extends AnyVal {

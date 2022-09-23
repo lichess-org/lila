@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Partia ze znajomym</string>
-  <string name="playWithTheMachine">Graj z komputerem</string>
+  <string name="playWithAFriend">Zagraj ze znajomym</string>
+  <string name="playWithTheMachine">Zagraj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na przeciwnika</string>
@@ -61,6 +61,8 @@
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
   <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
+  <string name="calculatingMoves">Obliczanie ruchów...</string>
+  <string name="engineFailed">Błąd ładowania silnika</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
@@ -217,12 +219,31 @@
   <string name="changeUsername">Zmień nazwę użytkownika</string>
   <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
+  <string name="signupUsernameHint">Wybierz przyjazną nazwę użytkownika. Nie możesz jej później zmienić, a niestosowna nazwa spowoduje zamknięcie konta!</string>
+  <string name="signupEmailHint">Użyjemy go tylko do resetowania hasła.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
   <string name="changeEmail">Zmień adres e-mail</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
+  <string name="emailConfirmHelp">Pomoc z potwierdzeniem adresu e-mail</string>
+  <string name="emailConfirmNotReceived">Nie otrzymałeś potwierdzenia e-mail po rejestracji?</string>
+  <string name="whatSignupUsername">Jakiej nazwy użytkownika użyłeś do rejestracji?</string>
+  <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
+  <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
+  <string name="emailCanTakeSomeTime">Dostarczenie emaila może zająć trochę czasu.</string>
+  <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
+  <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz email. Jeśli tak, oznacz go jako nie spam.</string>
+  <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
+  <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
+  <string name="waitForSignupHelp">Wkrótce wrócimy do Ciebie, aby pomóc Ci w dokończeniu rejestracji.</string>
+  <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
+  <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nie potrzebujesz e-maila z potwierdzeniem.</string>
+  <string name="accountClosed">Konto %s jest zamknięte.</string>
+  <string name="accountRegisteredWithoutEmail">Konto %s zostało zarejestrowane bez adresu e-mail.</string>
   <string name="rank">Miejsce</string>
   <string name="rankX">Miejsce: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -701,6 +722,7 @@
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
   <string name="averageCentipawnLoss">Średnia strata w centypionach</string>
+  <string name="accuracy">Dokładność</string>
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
   <string name="keyMoveBackwardOrForward">idź wstecz/do przodu</string>
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
@@ -730,7 +752,7 @@
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
-  <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości aby zresetować swoje hasło.</string>
+  <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości, aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
   <string name="readAboutOur">Przeczytaj o %s w naszym serwisie.</string>
   <string name="networkLagBetweenYouAndLichess">Opóźnienie sieci między Tobą a lichess</string>
@@ -817,6 +839,7 @@
   <string name="bestWasX">Najlepsze było %s</string>
   <string name="youBrowsedAway">Oddalono się</string>
   <string name="resumePractice">Wznów trening</string>
+  <string name="drawByFiftyMoves">Partia została zremisowana przez regułę pięćdziesięciu ruchów.</string>
   <string name="theGameIsADraw">Partia zakończona remisem.</string>
   <string name="computerThinking">Komputer szuka ruchu…</string>
   <string name="seeBestMove">Zobacz najlepszy ruch</string>

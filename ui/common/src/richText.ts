@@ -9,32 +9,28 @@ export const newLineRegex = /\n/g;
 export const userPattern = /(^|[^\w@#/])@([a-z0-9][a-z0-9_-]{0,28}[a-z0-9])/gi;
 
 // looks like it has a @mention or #gameid or a url.tld
-export function isMoreThanText(str: string) {
-  return /(\n|(@|#|\.)\w{2,})/.test(str);
-}
+export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,})/.test(str);
 
 export function toLink(url: string): string {
+  if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
   return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(/https?:\/\//, '')}</a>`;
 }
 
-export function autolink(str: string, callback: (str: string) => string): string {
-  return str.replace(linkRegex, (_, space, url) => space + callback(url));
-}
+export const autolink = (str: string, callback: (str: string) => string): string =>
+  str.replace(linkRegex, (_, space, url) => space + callback(url));
 
-export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
-  return {
-    insert(vnode: VNode) {
+export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
+  insert(vnode: VNode) {
+    (vnode.elm as HTMLElement).innerHTML = toHtml(a);
+    vnode.data!.cachedA = a;
+  },
+  postpatch(old: VNode, vnode: VNode) {
+    if (old.data!.cachedA !== a) {
       (vnode.elm as HTMLElement).innerHTML = toHtml(a);
-      vnode.data!.cachedA = a;
-    },
-    postpatch(old: VNode, vnode: VNode) {
-      if (old.data!.cachedA !== a) {
-        (vnode.elm as HTMLElement).innerHTML = toHtml(a);
-      }
-      vnode.data!.cachedA = a;
-    },
-  };
-}
+    }
+    vnode.data!.cachedA = a;
+  },
+});
 
 export function linkReplace(href: string, body?: string, cls?: string) {
   if (href.includes('&quot;')) return href;
@@ -43,9 +39,8 @@ export function linkReplace(href: string, body?: string, cls?: string) {
   }"${cls ? ` class="${cls}"` : ''}>${body ? body : href}</a>`;
 }
 
-export function userLinkReplace(_: string, prefix: string, user: string) {
-  return prefix + linkReplace('/@/' + user, '@' + user);
-}
+export const userLinkReplace = (_: string, prefix: string, user: string) =>
+  prefix + linkReplace('/@/' + user, '@' + user);
 
 export const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
 
@@ -70,14 +65,10 @@ function moveReplacer(match: string, turn: number, dots: string) {
   return '<a class="jump" data-ply="' + ply + '">' + match + '</a>';
 }
 
-function addPlies(html: string) {
-  return html.replace(movePattern, moveReplacer);
-}
+const addPlies = (html: string) => html.replace(movePattern, moveReplacer);
 
-function userLinkReplacePawn(orig: string, prefix: string, user: string) {
-  if (user.match(pawnDropPattern)) return orig;
-  return userLinkReplace(orig, prefix, user);
-}
+const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
+  user.match(pawnDropPattern) ? orig : userLinkReplace(orig, prefix, user);
 
 export function enhance(text: string, parseMoves: boolean): string {
   const escaped = lichess.escapeHtml(text);
@@ -109,21 +100,20 @@ function toYouTubeEmbedUrl(url: string) {
 
 export function toYouTubeEmbed(url: string): string | undefined {
   const embedUrl = toYouTubeEmbedUrl(url);
-  if (embedUrl)
-    return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
-  return undefined;
+  return embedUrl
+    ? `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+    : undefined;
 }
 
 function toTwitchEmbedUrl(url: string) {
   if (!url) return;
   const m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
-  if (m) return `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false`;
-  return undefined;
+  return m ? `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false` : undefined;
 }
 
 export function toTwitchEmbed(url: string): string | undefined {
   const embedUrl = toTwitchEmbedUrl(url);
-  if (embedUrl)
-    return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`;
-  return undefined;
+  return embedUrl
+    ? `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`
+    : undefined;
 }

@@ -1,17 +1,18 @@
 package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
+import play.api.i18n.Lang
 
 import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
+import lila.forum.Categ
 import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi
 import lila.ublog.UblogPost
 import lila.user.User
-import lila.forum.Categ
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
@@ -23,7 +24,9 @@ final class ActivityReadApi(
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     swissApi: lila.swiss.SwissApi,
-    teamRepo: lila.team.TeamRepo
+    teamRepo: lila.team.TeamRepo,
+    lightUserApi: lila.user.LightUserApi,
+    getTourName: lila.tournament.GetTourName
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -31,7 +34,7 @@ final class ActivityReadApi(
 
   implicit private val ordering = scala.math.Ordering.Double.TotalOrdering
 
-  def recent(u: User): Fu[Vector[ActivityView]] =
+  def recentAndPreload(u: User)(implicit lang: Lang): Fu[Vector[ActivityView]] =
     for {
       activities <-
         coll(
@@ -47,7 +50,13 @@ final class ActivityReadApi(
       views <- activities.map { a =>
         one(practiceStructure, a).mon(_.user segment "activity.view")
       }.sequenceFu
+      _ <- preloadAll(views)
     } yield addSignup(u.createdAt, views)
+
+  private def preloadAll(views: Seq[ActivityView])(implicit lang: Lang) = for {
+    _ <- lightUserApi.preloadMany(views.flatMap(_.follows.??(_.allUserIds)))
+    _ <- getTourName.preload(views.flatMap(_.tours.??(_.best.map(_.tourId))))
+  } yield ()
 
   private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
     for {

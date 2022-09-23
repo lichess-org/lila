@@ -5,17 +5,17 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import scala.concurrent.duration._
 
-import lila.common.LightUser
+import lila.common.{ config, LightUser }
 import lila.user.User
 
 final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
     val captcher: lila.hub.actors.Captcher,
-    domain: lila.common.config.NetDomain
+    domain: config.NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink") { setup =>
-    if (setup.reason != "cheat" || (domain.value + """/(\w{8}|\w{12})""").r.findFirstIn(setup.text).isDefined)
+    if (setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined)
       Valid
     else
       Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
@@ -56,6 +56,10 @@ final private[report] class ReportForm(
 
   private def blockingFetchUser(username: String) =
     lightUserAsync(User normalize username).await(1 second, "reportUser")
+}
+
+object ReportForm {
+  def gameLinkRegex(domain: config.NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
 }
 
 private[report] case class ReportFlag(

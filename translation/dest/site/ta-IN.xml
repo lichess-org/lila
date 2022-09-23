@@ -59,6 +59,8 @@
   <string name="depthX">ஆழம் %s</string>
   <string name="usingServerAnalysis">லீசெசின் கணினியின் ஆராய்ச்சி</string>
   <string name="loadingEngine">சற்று நேரம் பொறுங்கள்...</string>
+  <string name="calculatingMoves">கணிக்கிறது நகர்கிறது...</string>
+  <string name="engineFailed">படத்தை ஏற்றுவதில் இயந்திரம்</string>
   <string name="cloudAnalysis">மேகம் பகுப்பாய்வு</string>
   <string name="goDeeper">இன்னும் ஆராய்ந்துக்கொள்ளுங்கள்</string>
   <string name="showThreat">அச்சுறுத்தல்களைக் காண்பி</string>
@@ -99,6 +101,7 @@
   <string name="lossSavedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் தோல்வி தடுப்புதல்</string>
   <string name="winOr50MovesByPriorMistake">வெற்றி அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
   <string name="lossOr50MovesByPriorMistake">இழப்பு அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
+  <string name="unknownDueToRounding">Syzygy டேபிள்பேஸ்களில் DTZ மதிப்புகளின் சாத்தியமான ரவுண்டிங் காரணமாக, சிப்பாய் நகர்வைக் கைப்பற்றியதிலிருந்து பரிந்துரைக்கப்பட்ட டேபிள்பேஸ் லைன் பின்பற்றப்பட்டிருந்தால் மட்டுமே வெற்றி/தோல்வி உத்தரவாதம்.</string>
   <string name="allSet">எல்லாம் அமைக்கப்பட்டது!</string>
   <string name="importPgn">PGN இறக்குமதி</string>
   <string name="delete">நீக்கு</string>
@@ -121,6 +124,14 @@
   <plurals name="nbBlunders">
     <item quantity="one">%s பெரிய தவறு</item>
     <item quantity="other">%s பெரிய தவறுகள்</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s தவறு</item>
+    <item quantity="other">%s தவறுகள்</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s துல்லியமின்மை</item>
+    <item quantity="other">%s கச்சிதப்பிழைகள்</item>
   </plurals>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>

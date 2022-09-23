@@ -734,7 +734,8 @@ object mon {
     def ask(name: String) = future("bus.ask", name)
   }
   object blocking {
-    def time(name: String) = timer("blocking.time").withTag("name", name)
+    def time(name: String)    = timer("blocking.time").withTag("name", name)
+    def timeout(name: String) = counter("blocking.timeout").withTag("name", name)
   }
   object workQueue {
     def offerFail(name: String, result: String) =

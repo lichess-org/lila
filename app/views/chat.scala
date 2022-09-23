@@ -52,6 +52,7 @@ object chat {
       writeable: Boolean = true,
       restricted: Boolean = false,
       localMod: Boolean = false,
+      broadcastMod: Boolean = false,
       palantir: Boolean = false
   )(implicit ctx: Context) =
     Json
@@ -72,6 +73,7 @@ object chat {
         "public"    -> public,
         "permissions" -> Json
           .obj("local" -> (public && localMod))
+          .add("broadcast" -> (public && broadcastMod))
           .add("timeout" -> (public && isGranted(_.ChatTimeout)))
           .add("shadowban" -> (public && isGranted(_.Shadowban)))
       )
@@ -80,7 +82,10 @@ object chat {
       .add("timeout" -> timeout)
       .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value take 8))
       .add("noteAge" -> withNoteAge)
-      .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
+      .add(
+        "timeoutReasons" -> (!localMod && (isGranted(_.ChatTimeout) || isGranted(_.BroadcastTimeout)))
+          .option(lila.chat.JsonView.timeoutReasons)
+      )
 
   def i18n(withNote: Boolean)(implicit ctx: Context) =
     i18nOptionJsObject(

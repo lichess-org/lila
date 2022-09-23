@@ -1,14 +1,15 @@
 package views.html.base
 
+import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.{ AnnounceStore, Context }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.common.String.html.safeJsonValue
 import lila.common.{ ContentSecurityPolicy, Nonce }
-import lila.common.base.StringUtils.escapeHtmlRaw
 
 object layout {
 
@@ -381,7 +382,7 @@ object layout {
                 "report-score--low"                        -> (score <= mid)
               ),
               title     := "Moderation",
-              href      := routes.Report.list,
+              href      := reportRoutes.list,
               dataCount := score,
               dataIcon  := ""
             )

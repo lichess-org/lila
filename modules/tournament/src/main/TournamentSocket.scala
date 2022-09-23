@@ -1,7 +1,6 @@
 package lila.tournament
 
 import akka.actor._
-import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
@@ -14,6 +13,7 @@ import lila.user.User
 
 final private class TournamentSocket(
     repo: TournamentRepo,
+    waitingUsers: WaitingUsersApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
 )(implicit
@@ -22,8 +22,6 @@ final private class TournamentSocket(
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
-
-  private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
 
@@ -46,19 +44,14 @@ final private class TournamentSocket(
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
     send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.name()(lila.i18n.defaultLang)))
     val promise = Promise[WaitingUsers]()
-    allWaitingUsers.compute(
-      tour.id,
-      (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
-        Option(cur).getOrElse(WaitingUsers emptyWithNext tour.clock).copy(next = promise.some)
-    )
+    waitingUsers.registerNextPromise(tour, promise)
     promise.future.withTimeout(2.seconds, lila.base.LilaException("getWaitingUsers timeout"))
   }
 
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Boolean =
-    Option(allWaitingUsers.get(tourId)).exists(_.waiting hasUser userId)
+  def hasUser = waitingUsers.hasUser _
 
   def finish(tourId: Tournament.ID): Unit = {
-    allWaitingUsers remove tourId
+    waitingUsers remove tourId
     reload(tourId)
   }
 
@@ -79,16 +72,7 @@ final private class TournamentSocket(
     )
 
   private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>
-    allWaitingUsers
-      .computeIfPresent(
-        roomId.value,
-        (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
-          val newWaiting = cur.waiting.update(users)
-          cur.next.foreach(_ success newWaiting)
-          WaitingUsers.WithNext(newWaiting, none)
-        }
-      )
-      .unit
+    waitingUsers.registerWaitingUsers(roomId.value, users).unit
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply _

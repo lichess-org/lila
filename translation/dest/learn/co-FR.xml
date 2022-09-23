@@ -13,12 +13,12 @@
   <string name="rookIntro">A torra hè una pezza putenta putenta. Site prontu à ammaestrà la?</string>
   <string name="rookGoal">Clicheghja nantu à a torra pè move la sin\' à a stella!</string>
   <string name="grabAllTheStars">Cogli tutte e stelle!</string>
-  <string name="theFewerMoves">Menu colpi ghjucarete, più piglierate punti!</string>
+  <string name="theFewerMoves">Menu colpi ghjucarete, più averete punti!</string>
   <string name="useTwoRooks">Aduprate duie torre pè esse più rapidu!</string>
   <string name="rookComplete">Felicitazione! Ammaestrate a torra avà.</string>
   <string name="theBishop">L\' alfieru</string>
   <string name="itMovesDiagonally">Si tramuta in diagunale</string>
-  <string name="bishopIntro">Dopu avemu da amparà cumu si maneghja l\' alfieru!</string>
+  <string name="bishopIntro">Avemu da amparà cumu si maneghja l\' alfieru!</string>
   <string name="youNeedBothBishops">Ci hè un alfieru nantu à e cantarelle bianche è unu nantu à e cantarelle nere. Avete bisognu di i dui!</string>
   <string name="bishopComplete">Felicitazione! Sapete move l\' alfieru.</string>
   <string name="theQueen">A dama</string>
@@ -41,13 +41,13 @@ Scappa è raccogli e stelle!</string>
   <string name="thePawn">U pedinu</string>
   <string name="itMovesForwardOnly">Move soltantu davanti</string>
   <string name="pawnIntro">I pedini sò debuli, ma inseme anu una vera putenza.</string>
-  <string name="pawnsMoveOneSquareOnly">Movenu solu d\' una cantarella. 
+  <string name="pawnsMoveOneSquareOnly">I pedini movenu soltantu d\' una cantarella. 
 Ma ghjunti ch\' elli sò nantu à l\' ultima filare di a scacchera, ponu esse trasfurmati in una pezza putenta!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">A spessu, u megliu hè di prumove lu in dama. 
 Ma certe volte, un cavallu pò esse praticu assai!</string>
   <string name="pawnsMoveForward">I pedini movenu davanti à elli, 
-ma catturanu in diagunale!</string>
-  <string name="captureThenPromote">Cattura, pò prumovi!</string>
+ma chjappanu un pezza in diagunale!</string>
+  <string name="captureThenPromote">Chjappa, pò prumovi!</string>
   <string name="useAllThePawns">Adopra tutti i pedini!
 Prumove ùn hè necessariu quì.</string>
   <string name="aPawnOnTheSecondRank">Un pedinu pò avanza di diue cantarelle quandu ellu hè nantu à so cantarella iniziale!</string>
@@ -65,10 +65,10 @@ Prumove ùn hè necessariu quì.</string>
   <string name="takeTheBlackPieces">Pigliate e pezze nere!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Pigliate e pezze nere!
 Ma ùn perdite e vostre.</string>
-  <string name="captureComplete">Felicitazione! Sapete avà cumu si catturanu e pezze!</string>
+  <string name="captureComplete">Felicitazione! Sapete avà cumu si chjappanu e pezze!</string>
   <string name="protection">Prutegge</string>
   <string name="keepYourPiecesSafe">Assicurà e so pezze</string>
-  <string name="protectionIntro">Truvate e pezze attacate da l\' aversariu, pò difendite le!</string>
+  <string name="protectionIntro">Truvate e pezze attaccate da l\' aversariu, pò difendite le!</string>
   <string name="protectionComplete">Felicitazione! Una pezza ch\' ùn perdite hè una pezza guadagnata!</string>
   <string name="escape">Site minacciatu!
 Truvate una risposta à a minaccia!</string>
@@ -77,13 +77,13 @@ ma pudete difende!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Ùn lasciate lu piglià
 mancu una pezza senza difesa!</string>
   <string name="combat">Battaglia</string>
-  <string name="captureAndDefendPieces">Catturate è difendite e pezze</string>
+  <string name="captureAndDefendPieces">Chjappate è difendite e pezze</string>
   <string name="combatIntro">Un bonu cumbattente sà attacà è difende!</string>
   <string name="combatComplete">Felicitazione! Sapete avà cumu battaglià cù e pezze!</string>
   <string name="checkInOne">Scaccu in un colpu</string>
-  <string name="attackTheOpponentsKing">Attacate u rè uppostu</string>
-  <string name="checkInOneIntro">Pè fà un scaccu à u vostru aversariu, attacate u so rè. Li tocca à difende lu!</string>
-  <string name="checkInOneGoal">Mirate u rè uppostu 
+  <string name="attackTheOpponentsKing">Attaccate u rè uppostu</string>
+  <string name="checkInOneIntro">Pè fà un scaccu à u vostru aversariu, attaccate u so rè. Li tocca à difende lu!</string>
+  <string name="checkInOneGoal">Minacciate u rè uppostu 
 in un colpu!</string>
   <string name="checkInOneComplete">Felicitazione! Avete fattu scaccu à u vostru aversariu, sfurzendu lu à difende u so rè!</string>
   <string name="outOfCheck">Difende u scaccu</string>
@@ -125,7 +125,7 @@ Si mette accantu à a dama.</string>
   <string name="pawnsFormTheFrontLine">I pedini formanu a linea di fronte.
 Ghjoca un colpu pè cuntinuà.</string>
   <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
-  <string name="castling">Arrucamentu</string>
+  <string name="castling">Arruccamentu</string>
   <string name="theSpecialKingMove">U move speciale di u rè</string>
   <string name="castlingIntro">Mettite u vostru rè à l\' aggrottu, è sviluppate e vostre torre pè l\' attaccu!</string>
   <string name="castleKingSide">Muvite u vostru rè di duie canterelle pè fà l\' arruccamentu minò!</string>
@@ -200,7 +200,7 @@ Pedinu = 1</string>
   <string name="opponentsFromAroundTheWorld">Aversarii di u mondu sanu</string>
   <string name="playMachine">Ghjucà contru à l\' urdinatore</string>
   <string name="testYourSkillsWithTheComputer">Testate e vostre cumpetenze di pettu à l\' urdinatore</string>
-  <string name="letsGo">Ademu ci!</string>
+  <string name="letsGo">Andemu ci!</string>
   <string name="stageX">Tappa %s</string>
   <string name="awesome">Geniale!</string>
   <string name="excellent">Eccellente!</string>

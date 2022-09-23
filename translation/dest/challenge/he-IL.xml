@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challenges">הזמנות למשחק</string>
-  <string name="challengeToPlay">הזמן למשחק</string>
+  <string name="challengeToPlay">הזמינו למשחק</string>
   <string name="challengeDeclined">ההזמנה למשחק נדחתה</string>
   <string name="challengeAccepted">ההזמנה למשחק התקבלה!</string>
   <string name="challengeCanceled">ההזמנה למשחק התבטלה.</string>
   <string name="registerToSendChallenges">אנא הירשמו כדי לשלוח הזמנות למשחקים.</string>
   <string name="youCannotChallengeX">לא ניתן להזמין את %s למשחק.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל הזמנות למשחקים.</string>
-  <string name="yourXRatingIsTooFarFromY">הדירוג שלך ב%1$s רחוק מדי מדירוגו של %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">הדירוג שלך ב%1$s רחוק מדי מהדירוג של %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">אין אפשרות להזמין למשחק בגלל שדירוגך ב-%s זמני.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s מאשר רק אתגרים מחברים.</string>
   <string name="declineGeneric">אני לא מקבל הזמנות עכשיו.</string>

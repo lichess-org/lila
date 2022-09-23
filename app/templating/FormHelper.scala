@@ -162,7 +162,7 @@ trait FormHelper { self: I18nHelper =>
     def textarea(
         field: Field,
         klass: String = ""
-    )(modifiers: Modifier*): Frag =
+    )(modifiers: Modifier*): Tag =
       st.textarea(
         st.id := id(field),
         name  := field.name,

@@ -54,7 +54,7 @@ object PgnImport {
               End(
                 status = status,
                 winner = game.winnerColor,
-                resultText = chess.Color.showResult(game.winnerColor),
+                resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }

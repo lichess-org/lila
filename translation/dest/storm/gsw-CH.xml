@@ -52,6 +52,7 @@
   <string name="skipExplanation">Überschpring de Zug, um dini combo b\'halte! Das chasch nur 1x pro Ränne.</string>
   <string name="failedPuzzles">Falsch glösti Ufgabe</string>
   <string name="slowPuzzles">Langsami Ufgabe</string>
+  <string name="skippedPuzzle">Überschprungeni Ufgab</string>
   <string name="thisWeek">Die Wuche</string>
   <string name="thisMonth">De Monet</string>
   <string name="allTime">All-Zit</string>

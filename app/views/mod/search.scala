@@ -1,18 +1,18 @@
 package views.html.mod
 
+import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.IpAddress
-import lila.security.FingerHash
 import lila.mod.IpRender.RenderIp
-
-import controllers.routes
-import lila.user.User
+import lila.security.FingerHash
 import lila.security.Granter
 import lila.user.Holder
+import lila.user.User
 
 object search {
 
@@ -134,7 +134,7 @@ object search {
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
-            h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
+            h1("Class ", a(href := clasRoutes.show(c.id.value))(c.name)),
             p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
           ),
           br,
@@ -170,7 +170,7 @@ object search {
             tbody(
               classes.map(c =>
                 tr(
-                  td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
+                  td(a(href := clasRoutes.show(c.id.value))(s"${c.id}")),
                   td(c.name),
                   td(momentFromNow(c.created.at)),
                   c.archived match {
@@ -190,7 +190,7 @@ object search {
   private def teacherLink(userId: User.ID)(implicit ctx: Context) =
     lightUser(userId).map { user =>
       a(
-        href     := routes.Clas.teacher(user.name),
+        href     := clasRoutes.teacher(user.name),
         cls      := userClass(user.id, none, withOnline = true),
         dataHref := routes.User.show(user.name)
       )(

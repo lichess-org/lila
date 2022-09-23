@@ -6,8 +6,9 @@ import lila.db.dsl._
 
 object BSONHandlers {
 
-  implicit val relayIdHandler     = stringAnyValHandler[RelayRound.Id](_.value, RelayRound.Id.apply)
-  implicit val relayTourIdHandler = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
+  implicit val relayIdHandler      = stringAnyValHandler[RelayRound.Id](_.value, RelayRound.Id.apply)
+  implicit val relayTourIdHandler  = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
+  implicit val relayPlayersHandler = stringAnyValHandler[RelayPlayers](_.text, RelayPlayers.apply)
 
   import RelayRound.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }

@@ -31,7 +31,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   let lastInputHash: string;
 
   const updateGifLinks = (fen: Fen) => {
-    positionGifLink.href = xhrUrl(`/export/gif/${fen.replace(/ /g, '_')}`, {
+    positionGifLink.href = xhrUrl(document.body.dataset.assetUrl + '/export/fen.gif', {
+      fen,
       color: ctrl.bottomColor(),
       lastMove: ctrl.node.uci,
       variant: ctrl.data.game.variant.key,
@@ -101,7 +102,15 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
     lichess
       .loadModule('chart.game')
-      .then(() => window.LichessChartGame!.acpl(data, ctrl.mainline, ctrl.trans, $('#acpl-chart')[0] as HTMLElement));
+      .then(() =>
+        window.LichessChartGame!.acpl(
+          data,
+          ctrl.mainline,
+          ctrl.trans,
+          $('#acpl-chart')[0] as HTMLElement,
+          ctrl.opts.hunter
+        )
+      );
   }
 
   const storage = lichess.storage.make('analysis.panel');

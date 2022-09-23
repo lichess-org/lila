@@ -1,13 +1,14 @@
 package lila.setup
 
-import play.api.data.Forms._
-import play.api.data.format.Formats._
-
+import chess.format.FEN
 import chess.Mode
 import chess.{ variant => V }
-import lila.rating.RatingRange
+import play.api.data.format.Formats._
+import play.api.data.Forms._
+
 import lila.lobby.Color
-import chess.format.FEN
+import lila.rating.RatingRange
+import lila.game.GameRule
 
 private object Mappings {
 
@@ -47,4 +48,8 @@ private object Mappings {
       .transform[FEN](f => FEN(f.value.trim), identity)
       .transform[FEN](truncateMoveNumber, identity)
   }
+  val gameRules = lila.common.Form.strings
+    .separator(",")
+    .verifying(_.forall(GameRule.byKey.contains))
+    .transform[Set[GameRule]](rs => rs.flatMap(GameRule.byKey.get).toSet, _.map(_.key).toList)
 }

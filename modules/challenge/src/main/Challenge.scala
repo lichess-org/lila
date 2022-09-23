@@ -5,7 +5,7 @@ import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
-import lila.game.{ Game, PerfPicker }
+import lila.game.{ Game, GameRule, PerfPicker }
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
 import lila.user.User
@@ -25,9 +25,10 @@ case class Challenge(
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
-    open: Option[Boolean] = None,
+    open: Option[Challenge.Open] = None,
     name: Option[String] = None,
-    declineReason: Option[Challenge.DeclineReason] = None
+    declineReason: Option[Challenge.DeclineReason] = None,
+    rules: Set[GameRule] = Set.empty
 ) {
 
   import Challenge._
@@ -94,7 +95,7 @@ case class Challenge(
       case _                                             => none
     }
 
-  def isOpen = ~open
+  def isOpen = open.isDefined
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 
@@ -109,6 +110,8 @@ case class Challenge(
 
   def isBoardCompatible: Boolean = speed >= Speed.Blitz
   def isBotCompatible: Boolean   = speed >= Speed.Bullet
+
+  def nonEmptyRules = rules.nonEmpty option rules
 }
 
 object Challenge {
@@ -124,8 +127,8 @@ object Challenge {
     case object Canceled extends Status(20)
     case object Declined extends Status(30)
     case object Accepted extends Status(40)
-    val all                            = List(Created, Offline, Canceled, Declined, Accepted)
-    def apply(id: Int): Option[Status] = all.find(_.id == id)
+    val all  = List[Status](Created, Offline, Canceled, Declined, Accepted)
+    val byId = all.map { s => s.id -> s }.toMap
   }
 
   sealed abstract class DeclineReason(val trans: I18nKey) {
@@ -148,6 +151,7 @@ object Challenge {
     val default: DeclineReason = Generic
     val all: List[DeclineReason] =
       List(Generic, Later, TooFast, TooSlow, TimeControl, Rated, Casual, Standard, Variant, NoBot, OnlyBot)
+    val byKey = all.map { r => r.key -> r }.toMap
     val allExceptBot: List[DeclineReason] =
       all.filterNot(r => r == NoBot || r == OnlyBot)
     def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.key == key } | Generic
@@ -187,6 +191,19 @@ object Challenge {
     case object White  extends ColorChoice
     case object Black  extends ColorChoice
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
+  }
+
+  case class Open(userIds: Option[(User.ID, User.ID)]) {
+    def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
+    def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
+    def colorFor(me: Option[User]): Option[Color] = for {
+      m        <- me
+      (u1, u2) <- userIds
+      color <-
+        if (m is u1) chess.White.some
+        else if (m is u2) chess.Black.some
+        else none
+    } yield color
   }
 
   private def speedOf(timeControl: TimeControl) =
@@ -229,7 +246,9 @@ object Challenge {
       destUser: Option[User],
       rematchOf: Option[Game.ID],
       name: Option[String] = None,
-      id: Option[String] = None
+      id: Option[String] = None,
+      openToUserIds: Option[(User.ID, User.ID)] = None,
+      rules: Set[GameRule] = Set.empty
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White  -> chess.White
@@ -261,8 +280,9 @@ object Challenge {
       createdAt = DateTime.now,
       seenAt = !isOpen option DateTime.now,
       expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
-      open = isOpen option true,
-      name = name
+      open = isOpen option Open(openToUserIds),
+      name = name,
+      rules = rules
     )
   }
 }

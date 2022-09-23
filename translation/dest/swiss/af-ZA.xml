@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Switserse Toernooie</string>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s rondte Switsers</item>
+    <item quantity="other">%s rondtes Switsers</item>
+  </plurals>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s rondte Switsers</item>
+    <item quantity="other">%1$s / %2$s rondtes Switsers</item>
+  </plurals>
 </resources>

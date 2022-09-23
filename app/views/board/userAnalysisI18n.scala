@@ -59,6 +59,7 @@ object userAnalysisI18n {
     trans.computerAnalysis,
     trans.learnFromYourMistakes,
     trans.averageCentipawnLoss,
+    trans.accuracy,
     trans.viewTheSolution,
     // action menu
     trans.menu,

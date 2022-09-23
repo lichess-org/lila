@@ -21,7 +21,7 @@
   <string name="aLinkToTheClassWillBeAdded">講座へのリンクはメッセージの最後に自動で入るので、自分で入れる必要はありません。</string>
   <string name="className">教室名</string>
   <string name="classDescription">教室の説明</string>
-  <string name="visibleByBothStudentsAndTeachers">講師と生徒の両方から見える</string>
+  <string name="visibleByBothStudentsAndTeachers">講師と生徒の両方から見えます</string>
   <string name="teachersOfTheClass">この教室の講師</string>
   <string name="addLichessUsernames">講師として招待したい人の Lichess ユーザー名を追加します。1行にひとりです。</string>
   <string name="resetPassword">パスワードをリセット</string>
@@ -56,7 +56,7 @@
   <plurals name="nbPendingInvitations">
     <item quantity="other">まだ返事のない招待 %s 件</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">講師だけに見える</string>
+  <string name="onlyVisibleToTeachers">講師だけに見えます</string>
   <string name="lastActiveDate">最後のログイン</string>
   <string name="managed">管理下</string>
   <string name="thisStudentAccountIsManaged">この生徒のアカウントは講師が管理します。</string>

@@ -3,7 +3,7 @@ package lila.importer
 import cats.data.Validated
 import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
 import chess.format.{ FEN, Forsyth }
-import chess.{ Color, Mode, Replay, Status }
+import chess.{ Color, Mode, Outcome, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._
 import scala.util.chaining._
@@ -111,11 +111,11 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           .start pipe { dbGame =>
           // apply the result from the board or the tags
 
-          val tagStatus: Option[TagResult] = parsed.tags.resultColor
+          val tagStatus: Option[TagResult] = parsed.tags.outcome
             .map {
-              case Some(color)                        => TagResult(status, color.some)
-              case None if status == Status.Outoftime => TagResult(status, none)
-              case None                               => TagResult(Status.Draw, none)
+              case Outcome(Some(winner))           => TagResult(status, winner.some)
+              case _ if status == Status.Outoftime => TagResult(status, none)
+              case _                               => TagResult(Status.Draw, none)
             }
             .filter(_.status > Status.Started)
 

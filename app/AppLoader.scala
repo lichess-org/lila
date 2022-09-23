@@ -8,7 +8,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
-import router.Routes
 import scala.annotation.nowarn
 
 final class AppLoader extends ApplicationLoader {
@@ -93,13 +92,13 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
-  lazy val appeal: Appeal                 = wire[Appeal]
+  lazy val appealC: appeal.Appeal         = wire[appeal.Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]
-  lazy val clas: Clas                     = wire[Clas]
+  lazy val clasC: clas.Clas               = wire[clas.Clas]
   lazy val coordinate: Coordinate         = wire[Coordinate]
   lazy val dasher: Dasher                 = wire[Dasher]
   lazy val dev: Dev                       = wire[Dev]
@@ -135,7 +134,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val relation: Relation             = wire[Relation]
   lazy val relay: RelayRound              = wire[RelayRound]
   lazy val relayTour: RelayTour           = wire[RelayTour]
-  lazy val report: Report                 = wire[Report]
+  lazy val reportC: report.Report         = wire[report.Report]
   lazy val round: Round                   = wire[Round]
   lazy val search: Search                 = wire[Search]
   lazy val setup: Setup                   = wire[Setup]
@@ -161,10 +160,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val opening: Opening               = wire[Opening]
 
   // eagerly wire up all controllers
-  val router: Router = {
-    @nowarn val prefix: String = "/"
-    wire[Routes]
-  }
+  val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
+  val reportRouter: _root_.report.Routes = wire[_root_.report.Routes]
+  val clasRouter: _root_.clas.Routes     = wire[_root_.clas.Routes]
+  val router: Router                     = wire[_root_.router.Routes]
 
   if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")

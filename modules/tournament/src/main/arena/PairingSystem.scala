@@ -21,15 +21,16 @@ final private[tournament] class PairingSystem(
   def createPairings(
       tour: Tournament,
       users: WaitingUsers,
-      ranking: FullRanking
+      ranking: FullRanking,
+      smallTourNbActivePlayers: Option[Int]
   ): Fu[List[Pairing.WithPlayers]] = {
     for {
       lastOpponents <-
         if (tour.isRecentlyStarted) fuccess(Pairing.LastOpponents(Map.empty))
         else pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
-      onlyTwoActivePlayers <- (tour.nbPlayers <= 12) ?? playerRepo.countActive(tour.id).dmap(2 ==)
-      data = Data(tour, lastOpponents, ranking.ranking, onlyTwoActivePlayers)
-      preps    <- (lastOpponents.hash.isEmpty || users.haveWaitedEnough) ?? evenOrAll(data, users)
+      onlyTwoActivePlayers = smallTourNbActivePlayers.exists(2 ==)
+      data                 = Data(tour, lastOpponents, ranking.ranking, onlyTwoActivePlayers)
+      preps    <- evenOrAll(data, users)
       pairings <- prepsToPairings(tour, preps)
     } yield pairings
   }.chronometer

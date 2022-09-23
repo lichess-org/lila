@@ -21,7 +21,7 @@ import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 
 final class TournamentApi(
-    cached: Cached,
+    cached: TournamentCache,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     playerRepo: PlayerRepo,
@@ -40,6 +40,7 @@ final class TournamentApi(
     verify: Condition.Verify,
     duelStore: DuelStore,
     pause: Pause,
+    waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
@@ -85,8 +86,7 @@ final class TournamentApi(
       andJoin ?? join(
         tour.id,
         me,
-        tour.password,
-        setup.teamBattleByTeam,
+        TournamentForm.TournamentJoin(tour.password, setup.teamBattleByTeam),
         getUserTeamIds = _ => fuccess(leaderTeams.map(_.id)),
         asLeader = false,
         none
@@ -130,15 +130,23 @@ final class TournamentApi(
 
   private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
 
-  private[tournament] def makePairings(forTour: Tournament, users: WaitingUsers): Funit =
-    (users.size > 1 && (!hadPairings.get(forTour.id) || users.haveWaitedEnough)) ??
+  private[tournament] def makePairings(
+      forTour: Tournament,
+      users: WaitingUsers,
+      smallTourNbActivePlayers: Option[Int]
+  ): Funit =
+    (users.size > 1 && (
+      !hadPairings.get(forTour.id) ||
+        users.haveWaitedEnough ||
+        smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
+    )) ??
       Parallel(forTour.id, "makePairings")(cached.tourCache.started) { tour =>
         cached
           .ranking(tour)
           .mon(_.tournament.pairing.createRanking)
           .flatMap { ranking =>
             pairingSystem
-              .createPairings(tour, users, ranking)
+              .createPairings(tour, users, ranking, smallTourNbActivePlayers)
               .mon(_.tournament.pairing.createPairings)
               .flatMap {
                 case Nil => funit
@@ -154,6 +162,7 @@ final class TournamentApi(
                       .void
                       .mon(_.tournament.pairing.createInserts) >>- {
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
+                      waitingUsers.registerPairedUsers(tour.id, pairings.view.flatMap(_.pairing.users).toSet)
                       socket.reload(tour.id)
                       hadPairings put tour.id
                       featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
@@ -276,8 +285,7 @@ final class TournamentApi(
   private[tournament] def join(
       tourId: Tournament.ID,
       me: User,
-      password: Option[String],
-      withTeamId: Option[String],
+      data: TournamentForm.TournamentJoin,
       getUserTeamIds: User => Fu[List[TeamID]],
       asLeader: Boolean,
       promise: Option[Promise[Tournament.JoinResult]]
@@ -289,11 +297,10 @@ final class TournamentApi(
           if (
             prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
-              MessageDigest
-                .isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8)) ||
+              MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
                 // user-specific access code: HMAC-SHA256(access code, user id)
                 MessageDigest
-                  .isEqual(Algo.hmac(p).sha256(me.id).hex.getBytes(UTF_8), (~password).getBytes(UTF_8))
+                  .isEqual(Algo.hmac(p).sha256(me.id).hex.getBytes(UTF_8), (~data.password).getBytes(UTF_8))
             )
           )
             getVerdicts(tour, me.some, getUserTeamIds, prevPlayer.isDefined) flatMap { verdicts =>
@@ -303,29 +310,28 @@ final class TournamentApi(
                 def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
                   playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
                     updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
-                withTeamId match {
-                  case None if tour.isTeamBattle && prevPlayer.isDefined => proceedWithTeam(none)
-                  case None if tour.isTeamBattle                         => fuccess(JoinResult.MissingTeam)
-                  case None                                              => proceedWithTeam(none)
-                  case Some(team) =>
-                    tour.teamBattle match {
-                      case Some(battle) if battle.teams contains team =>
-                        getUserTeamIds(me) flatMap { myTeams =>
-                          if (myTeams has team) proceedWithTeam(team.some)
-                          else fuccess(JoinResult.MissingTeam)
-                        }
-                      case _ => fuccess(JoinResult.Nope)
-                    }
+                tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
+                  data.team match {
+                    case None if prevPlayer.isDefined => proceedWithTeam(none)
+                    case Some(team) if battle.teams contains team =>
+                      getUserTeamIds(me) flatMap { myTeams =>
+                        if (myTeams has team) proceedWithTeam(team.some)
+                        else fuccess(JoinResult.MissingTeam)
+                      }
+                    case _ => fuccess(JoinResult.MissingTeam)
+                  }
                 }
               }
             }
           else
             fuccess(JoinResult.WrongEntryCode)
         fuResult map { result =>
-          if (result.ok)
-            withTeamId.ifTrue(asLeader && tour.isTeamBattle) foreach {
+          if (result.ok) {
+            data.team.ifTrue(asLeader && tour.isTeamBattle) foreach {
               tournamentRepo.setForTeam(tour.id, _)
             }
+            if (~data.pairMeAsap) waitingUsers.addApiUser(tour, me)
+          }
           socket.reload(tour.id)
           promise.foreach(_ success result)
         }
@@ -335,13 +341,12 @@ final class TournamentApi(
   def joinWithResult(
       tourId: Tournament.ID,
       me: User,
-      password: Option[String],
-      teamId: Option[String],
+      data: TournamentForm.TournamentJoin,
       getUserTeamIds: User => Fu[List[TeamID]],
       isLeader: Boolean
   ): Fu[Tournament.JoinResult] = {
     val promise = Promise[Tournament.JoinResult]()
-    join(tourId, me, password, teamId, getUserTeamIds, isLeader, promise.some)
+    join(tourId, me, data, getUserTeamIds, isLeader, promise.some)
     promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
   }
 

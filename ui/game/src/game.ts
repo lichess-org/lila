@@ -16,7 +16,9 @@ export const playedTurns = (data: GameData): number => data.game.turns - (data.g
 export const bothPlayersHavePlayed = (data: GameData): boolean => playedTurns(data) > 1;
 
 export const abortable = (data: GameData): boolean =>
-  playable(data) && !bothPlayersHavePlayed(data) && !mandatory(data);
+  playable(data) && !bothPlayersHavePlayed(data) && !mandatory(data) && !data.game.rules?.includes('noAbort');
+
+export const rematchable = (data: GameData): boolean => !data.game.rules?.includes('noRematch');
 
 export const takebackable = (data: GameData): boolean =>
   playable(data) &&
@@ -26,7 +28,11 @@ export const takebackable = (data: GameData): boolean =>
   !data.opponent.proposingTakeback;
 
 export const drawable = (data: GameData): boolean =>
-  playable(data) && data.game.turns >= 2 && !data.player.offeringDraw && !hasAi(data);
+  playable(data) &&
+  data.game.turns >= 2 &&
+  !data.player.offeringDraw &&
+  !hasAi(data) &&
+  (!data.swiss || playedTurns(data) >= 60);
 
 export const resignable = (data: GameData): boolean => playable(data) && !abortable(data);
 

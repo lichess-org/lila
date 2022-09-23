@@ -76,8 +76,8 @@ final class JsonView(
       "likes"     -> s.study.likes.value,
       "updatedAt" -> s.study.updatedAt,
       "owner"     -> lightUserApi.sync(s.study.ownerId),
-      "chapters"  -> s.chapters.take(4),
-      "members"   -> s.study.members.members.values.take(4)
+      "chapters"  -> s.chapters.take(Study.previewNbChapters),
+      "members"   -> s.study.members.members.values.take(Study.previewNbMembers)
     )
 
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =

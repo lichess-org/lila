@@ -15,6 +15,7 @@ import lila.db.dsl._
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
+import chess.Outcome
 
 object BSONHandlers {
 
@@ -362,14 +363,14 @@ object BSONHandlers {
       id    <- doc.getAsTry[Chapter.Id]("_id")
       name  <- doc.getAsTry[Chapter.Name]("name")
       setup <- doc.getAsTry[Chapter.Setup]("setup")
-      resultColor = doc
+      outcome = doc
         .getAsOpt[List[String]]("tags")
-        .map {
-          _.headOption
+        .flatMap {
+          _.headOption // because only the Result: tag is fetched by metadataProjection
             .map(_ drop 7)
-            .filter("*" !=) map Color.fromResult
+            .map(Outcome.fromResult)
         }
       hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
-    } yield Chapter.Metadata(id, name, setup, resultColor, hasRelayPath)
+    } yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)
   }
 }
