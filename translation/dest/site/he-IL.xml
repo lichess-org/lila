@@ -405,8 +405,8 @@
   <string name="yourPerfRatingIsTooHigh">דירוגך ב%1$s גבוה מדי (%2$s)</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">דירוגך השבועי ב%1$s גבוה מדי (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">דירוגך ב%1$s נמוך מדי (%2$s)</string>
-  <string name="ratedMoreThanInPerf">מדורג ≥ %1$s ב%2$s</string>
-  <string name="ratedLessThanInPerf">מדורג ≤ %1$s ב%2$s בשבוע האחרון</string>
+  <string name="ratedMoreThanInPerf">מדורג/ת ≥ %1$s ב%2$s</string>
+  <string name="ratedLessThanInPerf">מדורג/ת ≤ %1$s ב%2$s בשבוע האחרון</string>
   <string name="mustBeInTeam">חובה להיות בקבוצה %s</string>
   <string name="youAreNotInTeam">את/ה לא נמצא/ת בקבוצה %s</string>
   <string name="backToGame">חזור למשחק</string>
