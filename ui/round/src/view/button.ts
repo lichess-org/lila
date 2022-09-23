@@ -115,7 +115,7 @@ export function standard(
 
 export function opponentGone(ctrl: RoundController) {
   const gone = ctrl.opponentGone();
-  if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
+  if (ctrl.data.game.rules?.includes('NoClaimWin')) return null;
   return gone === true
     ? h('div.suggestion', [
         h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
