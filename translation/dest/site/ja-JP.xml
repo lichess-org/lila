@@ -194,6 +194,7 @@
   <string name="email">メールアドレス</string>
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
+  <string name="emailConfirmHelp">確認メールについてのヘルプ</string>
   <string name="emailConfirmNotReceived">サインアップしたのに確認メールが届きませんでしたか？</string>
   <string name="whatSignupUsername">サインアップに使用したユーザー名は？</string>
   <string name="usernameNotFound">この名前のユーザーは見つかりません：%s</string>

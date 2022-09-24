@@ -6,4 +6,14 @@
     <item quantity="few">Pogledajte sva kola %s</item>
     <item quantity="other">Pogledajte sva kola %s</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s kolo po švicarskom sistemu</item>
+    <item quantity="few">%s kola po švicarskom sistemu</item>
+    <item quantity="other">%s kola po švicarskom sistemu</item>
+  </plurals>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s kola po švicarskom sistemu</item>
+    <item quantity="few">%1$s / %2$s kola po švicarskom sistemu</item>
+    <item quantity="other">%1$s / %2$s kola po švicarskom sistemu</item>
+  </plurals>
 </resources>
