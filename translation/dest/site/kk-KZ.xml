@@ -234,7 +234,7 @@
   <string name="accept">Келісу</string>
   <string name="decline">Келіспеу</string>
   <string name="playingRightNow">Қазір ойнап отыр</string>
-  <string name="eventInProgress">Қазір ойнап отыр</string>
+  <string name="eventInProgress">Тап қазір ойнау</string>
   <string name="finished">Аяқталды</string>
   <string name="finishesX">аяқталуына %s қалды</string>
   <string name="abortGame">Ойынды тоқтату</string>
