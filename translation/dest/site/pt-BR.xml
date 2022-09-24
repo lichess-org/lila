@@ -205,6 +205,14 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinição de senha</string>
   <string name="forgotPassword">Esqueceu sua senha?</string>
+  <string name="emailConfirmHelp">Ajuda com confirmação por e-mail</string>
+  <string name="emailConfirmNotReceived">Não recebeu seu e-mail de confirmação após o registro?</string>
+  <string name="whatSignupUsername">Qual nome de usuário você usou para se registrar?</string>
+  <string name="usernameNotFound">Não foi possível encontrar nenhum usuário com este nome: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Você pode usar esse nome de usuário para criar uma nova conta</string>
+  <string name="emailSent">Enviamos um e-mail para %s.</string>
+  <string name="emailCanTakeSomeTime">Pode levar algum tempo para chegar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Aguarde 5 minutos e atualize sua caixa de entrada.</string>
   <string name="rank">Rank</string>
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
