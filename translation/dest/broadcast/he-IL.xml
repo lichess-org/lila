@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">שידורים</string>
-  <string name="liveBroadcasts">שידורים חיים של טורנירים</string>
-  <string name="newBroadcast">משדר חי חדש</string>
+  <string name="broadcasts">הקרנות</string>
+  <string name="liveBroadcasts">צפייה ישירה בטורנירים</string>
+  <string name="newBroadcast">הקרנה ישירה חדשה</string>
   <string name="addRound">הוסף סבב</string>
   <string name="ongoing">כרגע</string>
   <string name="upcoming">בקרוב</string>
@@ -18,10 +18,10 @@
   <string name="gameIdsHelp">לחלופין, ניתן להזין עד 64 IDs של משחקי ליצ׳ס, מופרדים ברווחים.</string>
   <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
   <string name="startDateHelp">אופציונאלי, אם אתה יודע מתי האירוע צפוי להתחיל</string>
-  <string name="credits">תן קרדיט למקור</string>
+  <string name="credits">תן/י קרדיט למקור</string>
   <string name="resetRound">אפס את הסיבוב הזה</string>
   <string name="deleteRound">מחק את הסיבוב הזה</string>
-  <string name="broadcastUrl">הקישור לשידור</string>
+  <string name="broadcastUrl">הקישור להקרנה</string>
   <string name="currentRoundUrl">הקישור לסבב הנוכחי</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
   <string name="downloadAllRounds">הורדת כל הסבבים</string>
