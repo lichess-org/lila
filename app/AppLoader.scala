@@ -3,6 +3,7 @@ package lila.app
 import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
 import play.api._
+import play.api.http.HttpRequestHandler
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc._
@@ -59,6 +60,14 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
       router = router,
       mainC = main,
       lobbyC = lobby
+    )
+
+  override lazy val httpRequestHandler: HttpRequestHandler =
+    new lila.app.http.LilaHttpRequestHandler(
+      router,
+      httpErrorHandler,
+      httpConfiguration,
+      httpFilters
     )
 
   implicit def system = actorSystem
@@ -160,10 +169,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val opening: Opening               = wire[Opening]
 
   // eagerly wire up all controllers
-  val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
-  val reportRouter: _root_.report.Routes = wire[_root_.report.Routes]
-  val clasRouter: _root_.clas.Routes     = wire[_root_.clas.Routes]
-  val router: Router                     = wire[_root_.router.Routes]
+  private val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
+  private val reportRouter: _root_.report.Routes = wire[_root_.report.Routes]
+  private val clasRouter: _root_.clas.Routes     = wire[_root_.clas.Routes]
+  val router: Router                             = wire[_root_.router.Routes]
 
   if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")
