@@ -129,7 +129,7 @@
   <string name="enPassant">הכאה דרך הילוכו</string>
   <string name="theSpecialPawnMove">מהלך מיוחד של רגלי</string>
   <string name="enPassantIntro">כאשר רגלי היריב מתקדם שני צעדים, ניתן להכות אותו כאילו הלך רק צעד אחד.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">השחור קידם רגלי פעמיים בבת אחת! הכה אותו דרך הילוכו.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">השחור קידם רגלי פעמיים בבת אחת! הכו אותו דרך הילוכו.</string>
   <string name="enPassantOnlyWorksImmediately">הכאה דרך הילוכו אפשרית רק מיד אחרי מהלכו של רגלי היריב.</string>
   <string name="enPassantOnlyWorksOnFifthRank">לקיחה \"דרך הילוכו\" אפשרית רק מיד אחרי שרגלי היריב הגיע לשורה 5.</string>
   <string name="takeAllThePawnsEnPassant">קחו את כל הרגלים \"דרך הילוכם\"!</string>
