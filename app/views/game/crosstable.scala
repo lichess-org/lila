@@ -37,9 +37,11 @@ object crosstable {
         })
       },
       matchup map { m =>
-        div(cls := "crosstable__matchup force-ltr", title := trans.currentMatchScore.txt())(ct.users.toList.map { u =>
-          span(cls := m.users.winnerId.map(w => if (w == u.id) "win" else "loss"))(m.users.showScore(u.id))
-        })
+        div(cls := "crosstable__matchup force-ltr", title := trans.currentMatchScore.txt())(
+          ct.users.toList.map { u =>
+            span(cls := m.users.winnerId.map(w => if (w == u.id) "win" else "loss"))(m.users.showScore(u.id))
+          }
+        )
       },
       div(cls := "crosstable__users")(ct.users.toList.map { u =>
         userIdLink(u.id.some, withOnline = false)
