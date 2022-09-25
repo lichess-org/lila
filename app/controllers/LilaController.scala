@@ -68,10 +68,13 @@ abstract private[controllers] class LilaController(val env: Env)
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
 
   protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
-    if (HTTPRequest isChrome96Plus req)
-      res
-    else
-      res.withHeaders("Cross-Origin-Embedder-Policy" -> "require-corp")
+    res.withHeaders(
+      "Cross-Origin-Opener-Policy" -> "same-origin",
+      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest isChrome96Plus req)
+                                           "credentialless"
+                                         else
+                                           "require-corp")
+    )
 
   protected def NoCache(res: Result): Result =
     res.withHeaders(

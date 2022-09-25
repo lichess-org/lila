@@ -18,8 +18,8 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
       result.withHeaders(
-        "Service-Worker-Allowed" -> "/",
-        coep                     -> "require-corp" // for Stockfish worker
+        "Service-Worker-Allowed"       -> "/",
+        "Cross-Origin-Embedder-Policy" -> "require-corp" // for Stockfish worker
       )
     }
     else {
@@ -27,10 +27,7 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
       redirectWrongDomain(req) map fuccess getOrElse {
         nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
           monitoring(req, startTime, result)
-          result.withHeaders(
-            "Cross-Origin-Opener-Policy" -> "same-origin",
-            coep                         -> result.header.headers.getOrElse(coep, "credentialless")
-          )
+          result
         }
       }
     }
