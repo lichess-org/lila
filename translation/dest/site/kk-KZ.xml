@@ -213,6 +213,13 @@
   <string name="emailSent">%s поштасына хат жібердік.</string>
   <string name="emailCanTakeSomeTime">Жетуіне біршама уақыт керек.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут күтіп, поштаңыздың бетін жаңартып көріңіз.</string>
+  <string name="checkSpamFolder">Сонымен қатар, Спам қалтасында қарап көріңіз. Хат сонда болса, \"Спам емес\" деп белгілеу жөн болар.</string>
+  <string name="emailForSignupHelp">Егер де осы амалдардың бәрі жарамаса, бізге осындай хат жіберіңіз:</string>
+  <string name="copyTextToEmail">Осы мәтінді көшіріп, %s жіберіңіз</string>
+  <string name="waitForSignupHelp">Тіркелуді аяқтау үшін біз тез арада жауап береміз.</string>
+  <string name="accountConfirmed">%s тіркелгісі расталды.</string>
+  <string name="accountCanLogin">%s атымен дәл қазір тіркелкіге кіре аласыз.</string>
+  <string name="accountConfirmationEmailNotNeeded">Сізге растау хаты керек емес.</string>
   <string name="accountClosed">%s деген тіркелгі жабылды.</string>
   <string name="accountRegisteredWithoutEmail">%s тіркелгісі поштасыз тіркелген.</string>
   <string name="rank">Орын</string>
@@ -646,6 +653,7 @@
   <string name="tournamentFAQ">Алаң жарысының ЖҚС</string>
   <string name="timeBeforeTournamentStarts">Жарыс басталуына қалған уақыт</string>
   <string name="averageCentipawnLoss">Қателіктердің орташа мәні</string>
+  <string name="accuracy">Дәлдік</string>
   <string name="keyboardShortcuts">Пернетақта пәрмендері</string>
   <string name="keyMoveBackwardOrForward">алға/артқа жүру</string>
   <string name="keyGoToStartOrEnd">басына/аяғына жүру</string>
@@ -756,6 +764,7 @@
   <string name="bestWasX">Үздігі %s</string>
   <string name="youBrowsedAway">Аяғына жеттіңіз</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
+  <string name="drawByFiftyMoves">\"50 жүріс\" ережесіне сәйкес ойын тепе-теңдікпен аяқталды.</string>
   <string name="theGameIsADraw">Ойын тең аяқталды.</string>
   <string name="computerThinking">Компьютер ойлануда ...</string>
   <string name="seeBestMove">Үздік жүрісті көру</string>

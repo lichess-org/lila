@@ -52,6 +52,7 @@
   <string name="skipExplanation">Өз тізбегіңізді сақтау үшін осы жүрістен бас тарту! Әр бәйгеде бір рет.</string>
   <string name="failedPuzzles">Шешілмеген жұмбақтар</string>
   <string name="slowPuzzles">Баяу жұмбақтар</string>
+  <string name="skippedPuzzle">Қараусыз жұмбақ</string>
   <string name="thisWeek">Осы апта</string>
   <string name="thisMonth">Осы ай</string>
   <string name="allTime">Жалпы</string>
