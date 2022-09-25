@@ -334,8 +334,8 @@ object mon {
       val prints = gauge("security.firewall.prints").withoutTags()
     }
     object proxy {
-      def reason(reason: String) = counter("security.proxy.reason").withTag("reason", reason)
-      val request                = future("security.proxy.time")
+      val request                   = future("security.proxy.time")
+      def result(r: Option[String]) = counter("security.proxy.result").withTag("result", r getOrElse "none")
     }
     def rateLimit(key: String)        = counter("security.rateLimit.count").withTag("key", key)
     def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)

@@ -78,9 +78,9 @@ final class Ip2ProxyServer(
               .addEffect {
                 _.zip(ips) foreach { case (proxy, ip) =>
                   cache.put(ip, fuccess(proxy))
+                  lila.mon.security.proxy.result(proxy.name).increment().unit
                 }
               }
-              .monSuccess(_.security.proxy.request)
         }
     }
 
@@ -95,6 +95,9 @@ final class Ip2ProxyServer(
         .dmap(_.body[JsValue])
         .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
+        .addEffect { result =>
+          lila.mon.security.proxy.result(result.name).increment().unit
+        }
     }
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy {
