@@ -57,7 +57,9 @@ final class StudySearchApi(
           .collect { case c if !Chapter.isDefaultName(c.name) => c.name.value }
           .mkString(" "),
       Fields.chapterTexts -> noMultiSpace {
-        (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
+        noKeyword {
+          (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
+        }
       },
       Fields.topics -> s.study.topicsOrEmpty.value.map(_.value),
       // Fields.createdAt -> study.createdAt)
@@ -102,6 +104,8 @@ final class StudySearchApi(
 
   private val multiSpaceRegex            = """\s{2,}""".r
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
+  private val keywordRegex               = """@@\w+@@""".r
+  private def noKeyword(text: String)    = keywordRegex.replaceAllIn(text, "")
 
   def reset(sinceStr: String) =
     client match {
