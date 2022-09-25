@@ -120,7 +120,7 @@ final private class Player(
       blur: Boolean,
       metrics: MoveMetrics
   ): Validated[String, MoveResult] =
-    game.shogi(usi) map { nsg =>
+    game.shogi(usi, metrics) map { nsg =>
       if (nsg.clock.exists(_.outOfTime(game.turnColor, withGrace = false))) Flagged
       else MoveApplied(game.update(nsg, usi, blur))
     }
