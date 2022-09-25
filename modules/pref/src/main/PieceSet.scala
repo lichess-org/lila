@@ -17,7 +17,8 @@ sealed trait PieceSetObject {
     c.name -> c
   } toMap
 
-  def apply(name: String) = allByName.getOrElse(name, default)
+  def apply(name: String): PieceSet         = allByName.getOrElse(name, default)
+  def apply(name: Option[String]): PieceSet = name.fold(default)(apply)
 
   def contains(name: String) = allByName contains name
 }

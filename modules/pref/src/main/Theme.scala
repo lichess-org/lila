@@ -17,7 +17,8 @@ sealed trait ThemeObject {
     c.name -> c
   } toMap
 
-  def apply(name: String) = allByName.getOrElse(name, default)
+  def apply(name: String): Theme         = allByName.getOrElse(name, default)
+  def apply(name: Option[String]): Theme = name.fold(default)(apply)
 
   def contains(name: String) = allByName contains name
 }

@@ -11,6 +11,7 @@ import scala.concurrent.duration._
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.Pov
+import lila.pref.{ PieceSet, Theme }
 import lila.puzzle.Puzzle.Id
 
 final class Export(env: Env) extends LilaController(env) {
@@ -44,8 +45,8 @@ final class Export(env: Env) extends LilaController(env) {
       env.game.gifExport.fromPov(
         Pov(g.game, Color.fromName(color) | Color.white),
         g.fen,
-        theme,
-        piece
+        Theme(theme).name,
+        PieceSet(piece).name
       ) map
         stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
@@ -57,7 +58,7 @@ final class Export(env: Env) extends LilaController(env) {
 
   def gameThumbnail(id: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>
-      env.game.gifExport.gameThumbnail(game, theme, piece) map
+      env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet(piece).name) map
         stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
     }
 
@@ -68,8 +69,8 @@ final class Export(env: Env) extends LilaController(env) {
         lastMove = puzzle.line.head.uci.some,
         orientation = puzzle.color,
         variant = Standard,
-        theme,
-        piece
+        Theme(theme).name,
+        PieceSet(piece).name
       ) map stream()
     }
 
@@ -87,8 +88,8 @@ final class Export(env: Env) extends LilaController(env) {
         lastMove = lastMove flatMap (Uci.Move(_).map(_.uci)),
         orientation = Color.fromName(color) | Color.White,
         variant = Variant(variant.getOrElse("standard")) | Standard,
-        theme,
-        piece
+        Theme(theme).name,
+        PieceSet(piece).name
       ) map stream()
     }
 
