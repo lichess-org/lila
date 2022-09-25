@@ -3,10 +3,10 @@
   <string name="emailConfirm_subject" comment="emailConfirm_subject&#10;&#10;%s is the player's username.&#10;Please do NOT transcribe 'lichess.org', it should be kept exactly as it is written.">jan %s o, o toki e ni: sijelo sin ni li sijelo sina</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">sina wile jo e sijelo sina pi lipu Lichess la o luka e nimi nasin ni:</string>
   <string name="emailConfirm_ignore">sina lon ala e sijelo lon lipu Lichess la sina ken weka sona e lipu ni.</string>
-  <string name="passwordReset_subject">jan %s o, o pali e nimi sin pi sona ala pi lipu Lichess.org</string>
-  <string name="passwordReset_intro">ona li wile pali sin e nimi sina pi sona ala.</string>
-  <string name="passwordReset_clickOrIgnore">sina wile pali la o sina luka e nimi tawa lon noka. sina wile ala la sina sona ala e sitelen ni.</string>
-  <string name="emailChange_subject">jan %s o, nimi sin pi pana toki li pona ala pona tawa sina</string>
+  <string name="passwordReset_subject">jan %s o, o sin e nimi awen sina pi lipu Lichess.org</string>
+  <string name="passwordReset_intro">mi mute li kute e ni: sina wile sin e nimi awen pi sijelo sina.</string>
+  <string name="passwordReset_clickOrIgnore">sina toki e ni la o luka e nimi nasin lon anpa. sina toki ala e ni la o weka sona e lipu ni.</string>
+  <string name="emailChange_subject">jan %s o, toki e nimi sina sin pi lipu toki</string>
   <string name="emailChange_intro">sina toki e ni: sina wile ante e nimi sina pi lipu toki.</string>
   <string name="emailChange_click">mi mute wile sona e ni: nimi ni pi lipu toki li nimi sina. tan ni la o luka e nimi nasin:</string>
   <string name="welcome_subject">jan %s o, kama pona tawa lipu Lichess.org</string>
