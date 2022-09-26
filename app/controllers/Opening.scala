@@ -20,9 +20,13 @@ final class Opening(env: Env) extends LilaController(env) {
 
   def query(q: String) =
     Secure(_.Beta) { implicit ctx => _ =>
-      env.opening.api.lookup(q) map {
+      env.opening.api.lookup(q) flatMap {
         _ ?? { page =>
-          Ok(html.opening.show(page))
+          page.opening ?? { op =>
+            env.puzzle.opening.find(op.family)
+          } map { puzzle =>
+            Ok(html.opening.show(page, puzzle))
+          }
         }
       }
     }

@@ -11,7 +11,7 @@ case class OpeningPage(
     opening: Option[LilaOpening],
     explored: OpeningExplored
 ) {
-  val name = opening.fold(query.fen.value)(_.name.value)
+  val name = opening.fold(query.fen.value)(_.ref.name)
   val key  = opening.fold(query.fen.value.replace(" ", "_"))(_.key.value)
 }
 
@@ -19,7 +19,14 @@ case class ResultCounts(
     white: Int,
     draws: Int,
     black: Int
-)
+) {
+  lazy val sum: Int = black + draws + white
+
+  def whitePercent              = percentOf(white)
+  def blackPercent              = percentOf(black)
+  def drawPercent               = percentOf(draws)
+  private def percentOf(v: Int) = (v.toDouble * 100d / sum.toDouble).toFloat
+}
 
 case class OpeningNext(move: OpeningExplorer.Move, fen: FEN)
 
