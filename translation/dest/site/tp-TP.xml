@@ -99,7 +99,7 @@
   <string name="lossSavedBy50MoveRule">pini ike li kama ala tan nasin pi tawa mute mute luka luka</string>
   <string name="winOr50MovesByPriorMistake">pini pona anu pini pi tawa 50 tan tawa ike pi tenpo pini</string>
   <string name="lossOr50MovesByPriorMistake">pini ike anu pini pi tawa 50 tan tawa ike pi tenpo pini</string>
-  <string name="unknownDueToRounding">musi li ken pini pi anpa ala tan ni: tawa kama li sama ala tawa lipu</string>
+  <string name="unknownDueToRounding">musi li ken pini pi anpa ala tan ni: tawa kama li sama ala tawa lipu.</string>
   <string name="allSet">pona!</string>
   <string name="importPgn">o kama jo e lipu PGN</string>
   <string name="delete">o weka</string>
@@ -108,7 +108,7 @@
   <string name="realtimeReplay">tenpo lon</string>
   <string name="byCPL">tan nanpa CPL</string>
   <string name="openStudy">o open e lipu sona</string>
-  <string name="enable">o ken</string>
+  <string name="enable">o open</string>
   <string name="bestMoveArrow">palisa alasa pi tawa pona</string>
   <string name="evaluationGauge">palisa wawa</string>
   <string name="multipleLines">mute linja</string>
@@ -142,7 +142,7 @@
     <item quantity="other">jan musi %s</item>
   </plurals>
   <string name="drawByMutualAgreement">anpa ala tan wile pi jan musi tu</string>
-  <string name="fiftyMovesWithoutProgress">tawa mute mute luka luka la musi li tawa ala</string>
+  <string name="fiftyMovesWithoutProgress">tawa 50 la musi li pini</string>
   <string name="currentGames">musi pi tenpo ni</string>
   <plurals name="nbGames">
     <item quantity="one">musi wan</item>
@@ -372,7 +372,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="favoriteOpponents">jan ante musi pi pona tawa sina</string>
   <string name="follow">o tawa poka</string>
   <string name="following">jan pi tawa poka</string>
-  <string name="unfollow">o tawa poka ala</string>
+  <string name="unfollow">o weka poka</string>
   <string name="followX">o kama tawa poka pi jan %s</string>
   <string name="unfollowX">o kama tawa poka ala pi jan %s</string>
   <string name="block">o pake</string>
