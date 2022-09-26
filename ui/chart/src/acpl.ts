@@ -1,7 +1,13 @@
-import { ChartElm, loadHighcharts, MovePoint } from './common';
+import { loadHighcharts, MovePoint, selectPly } from './common';
 import divisionLines from './division';
+import { PlyChartHTMLElement } from './interface';
 
-const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any[], trans: Trans, el: ChartElm) => {
+const acpl: Window['LichessChartGame']['acpl'] = async (
+  data: any,
+  mainline: any[],
+  trans: Trans,
+  el: PlyChartHTMLElement
+) => {
   await loadHighcharts('highchart');
   acpl.update = (d: any, mainline: any[]) =>
     el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
@@ -25,7 +31,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
         cp = node.eval.cp;
-      } else return { y: null };
+      } else return { y: undefined };
 
       const turn = Math.floor((node.ply - 1) / 2) + 1;
       const dots = isWhite ? '.' : '...';
@@ -148,11 +154,8 @@ const acpl: Window['LichessChartGame']['acpl'] = async (data: any, mainline: any
       ],
     },
   });
-  el.highcharts.selectPly = (ply: number) => {
-    const plyline = el.highcharts.xAxis[0].plotLinesAndBands[0];
-    plyline.options.value = ply - 1 - data.game.startedAtTurn;
-    plyline.render();
-  };
+  el.highcharts.firstPly = data.treeParts[0].ply;
+  el.highcharts.selectPly = selectPly;
   lichess.pubsub.emit('analysis.change.trigger');
 };
 

@@ -1,11 +1,12 @@
 import divisionLines from './division';
-import { ChartElm, loadHighcharts, MovePoint } from './common';
+import { loadHighcharts, MovePoint, selectPly } from './common';
+import { PlyChartHTMLElement } from './interface';
 
 const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans: Trans, hunter: boolean) => {
   if (!data.game.moveCentis) return; // imported games
   await loadHighcharts('highchart');
   movetime.render = () => {
-    $('#movetimes-chart:not(.rendered)').each(function (this: ChartElm) {
+    $('#movetimes-chart:not(.rendered)').each(function (this: PlyChartHTMLElement) {
       const chartElm = this;
       $(chartElm).addClass('rendered');
 
@@ -281,17 +282,8 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
           },
         ],
       });
-      chartElm.highcharts.selectPly = (ply: number) => {
-        const plyline = chartElm.highcharts.xAxis[0].plotLinesAndBands[0];
-        plyline.options.value = ply - 1 - data.game.startedAtTurn;
-        plyline.render();
-        const white = ply % 2 !== 0;
-        const serie = (white ? 0 : 1) + (showTotal ? 4 : 0);
-        const turn = Math.floor((ply - 1 - data.game.startedAtTurn) / 2);
-        const point = chartElm.highcharts.series[serie].data[turn];
-        if (point) point.select(true);
-        else chartElm.highcharts.getSelectedPoints().forEach((point: any) => point.select(false));
-      };
+      chartElm.highcharts.firstPly = data.treeParts[0].ply;
+      chartElm.highcharts.selectPly = selectPly;
     });
     lichess.pubsub.emit('analysis.change.trigger');
   };
