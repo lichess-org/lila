@@ -37,7 +37,7 @@
   <string name="whitePlays">tenpo ni la walo o musi</string>
   <string name="blackPlays">tenpo ni la pimeja o musi</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">jan ante li weka. sina ken pini pona lon tenpo lili %s kama.</item>
+    <item quantity="one">jan ante li weka. sina ken pini pona lon tenpo Sekunta kama %s.</item>
     <item quantity="other">jan ante li weka tan musi. sina awen la sina ken %s kama pini.</item>
   </plurals>
   <string name="opponentLeftChoices">jan ante li weka. sina ken pini pona anu pini sama anu awen.</string>
@@ -167,7 +167,7 @@
   <string name="discussions">toki</string>
   <string name="today">tenpo suno ni</string>
   <string name="yesterday">tenpo suno pini</string>
-  <string name="minutesPerSide">jan musi wan li ken kepeken tenpo lili Minuta</string>
+  <string name="minutesPerSide">tenpo Minuta</string>
   <string name="variant">nasin musi</string>
   <string name="variants">musi ante</string>
   <string name="timeControl">mute tenpo</string>
@@ -208,6 +208,8 @@
   <string name="usernameNotFound">nimi \"%s\" la mi mute li alasa e sijelo ala.</string>
   <string name="usernameCanBeUsedForNewAccount">sina ken kepeken nimi ni tawa pali sijelo</string>
   <string name="emailSent">mi mute li pini pana e lipu toki tawa %s.</string>
+  <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
+  <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
   <string name="rank">nanpa</string>
   <string name="rankX">nanpa: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -267,7 +269,7 @@
   <string name="composeMessage">o sitelen e toki</string>
   <string name="subject">sina toki pi ijo seme?</string>
   <string name="send">o pana</string>
-  <string name="incrementInSeconds">tenpo sin pi tawa wan</string>
+  <string name="incrementInSeconds">tenpo Sekunta sin pi tawa wan</string>
   <string name="freeOnlineChess">musi pi mani ala</string>
   <plurals name="nbRated">
     <item quantity="one">musi %s pi nanpa wawa</item>
@@ -768,8 +770,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="reviewBlackMistakes">o lukin e tawa ike pi jan pimeja</string>
   <string name="advantage">ante pi suli pona pi jan musi tu</string>
   <plurals name="nbSeconds">
-    <item quantity="one">tenpo lili %s</item>
-    <item quantity="other">tenpo lili %s</item>
+    <item quantity="one">tenpo Sekunta %s</item>
+    <item quantity="other">tenpo Sekunta %s</item>
   </plurals>
   <string name="opening">tenpo lon la kama open</string>
   <string name="middlegame">musi insa</string>
