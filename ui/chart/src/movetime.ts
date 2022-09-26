@@ -100,15 +100,7 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
       const clickableOptions = {
         events: {
           click: (event: any) => {
-            if (event.point) {
-              const x = event.point.x;
-              const p =
-                chartElm.highcharts.series[(showTotal ? 4 : 0) + (((tree[x] ? tree[x].ply : undefined) || x) % 2)].data[
-                  x >> 1
-                ];
-              if (p) p.select(true);
-              lichess.pubsub.emit('analysis.chart.click', x);
-            }
+            if (event.point) lichess.pubsub.emit('analysis.chart.click', event.point.x);
           },
         },
       };
@@ -196,7 +188,6 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
           events: {
             click(e: any) {
               let ply = Math.round(e.xAxis[0].value);
-              chartElm.highcharts.series[(showTotal ? 4 : 0) + (ply & 1)].data[ply >> 1]?.select(true);
               // if the parity of the ply doesn't match the quadrant of the click,
               // we add the x residual rounded away from zero to correct it
               if (e.yAxis[0].value < 0 == !(ply & 1)) ply += e.xAxis[0].value < ply ? -1 : 1;
