@@ -72,6 +72,6 @@ final class Editor(env: Env) extends LilaController(env) {
     if (fen == Forsyth.initial && variant.standard) routes.Editor.index.url
     else {
       val params = variant.exotic ?? s"?variant=${variant.key}"
-      routes.Editor.load(fen.value.replace(" ", "_")).url + params
+      routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params
     }
 }

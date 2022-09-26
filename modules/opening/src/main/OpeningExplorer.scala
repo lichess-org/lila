@@ -17,7 +17,7 @@ final private class OpeningExplorer(
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
         "fen"         -> query.fen.value,
-        "moves"       -> "10",
+        "moves"       -> "12",
         "recentGames" -> "0"
       )
       .get()
@@ -39,13 +39,17 @@ final private class OpeningExplorer(
 object OpeningExplorer {
 
   case class Position(
-      white: Int,
-      draws: Int,
-      black: Int,
+      white: Long,
+      draws: Long,
+      black: Long,
       moves: List[Move]
-  )
+  ) {
+    val movesSum = moves.foldLeft(0L)(_ + _.sum)
+  }
 
-  case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int)
+  case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int) {
+    def sum = white + draws + black
+  }
 
   implicit private val moveReads     = Json.reads[Move]
   implicit private val positionReads = Json.reads[Position]

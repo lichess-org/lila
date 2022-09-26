@@ -1,4 +1,4 @@
-export interface OpeningData {
+export interface OpeningPage {
   name: string;
   history: HistorySegment[];
 }

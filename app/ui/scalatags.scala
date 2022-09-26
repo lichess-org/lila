@@ -18,6 +18,7 @@ trait ScalatagsAttrs {
   val dataCount              = attr("data-count")
   val dataColor              = attr("data-color")
   val dataFen                = attr("data-fen")
+  val dataUci                = attr("data-uci")
   val dataRel                = attr("data-rel")
   val dataTitle              = attr("data-title")
   val novalidate             = attr("novalidate").empty

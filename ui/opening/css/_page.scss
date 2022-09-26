@@ -1,0 +1,89 @@
+.opening {
+  .title-stats {
+    font-size: 1rem;
+    em {
+      margin-left: 1em;
+      strong {
+        color: $c-brag;
+      }
+    }
+  }
+  &__intro {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 3em;
+    margin-bottom: 3em;
+    overflow: hidden;
+    .lpv {
+      flex: 1 0 auto;
+      max-width: 300px;
+    }
+    &__side {
+      flex: 1 1 auto;
+      @extend %flex-column;
+      gap: 3em;
+    }
+    &__actions {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-start;
+      gap: 2em;
+    }
+    &__text {
+      @extend %box-neat;
+      background: $c-bg-zebra;
+      padding: 1em 2em;
+      flex: 1 1 auto;
+    }
+  }
+  &__popularity {
+    &__chart {
+      height: 30vh;
+      max-height: 30vh;
+    }
+  }
+  &__nexts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-gap: $block-gap;
+    margin: var(--box-padding) 0;
+  }
+  &__next {
+    @extend %box-neat;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    background: $c-bg-zebra;
+    position: relative;
+    outline: 3px solid mix($c-link, $c-bg-box, 30%);
+    cursor: pointer;
+    &:hover {
+      outline: 3px solid mix($c-link, $c-bg-box, 60%);
+      background: mix($c-link, $c-bg-zebra, 10%);
+      box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+    }
+    &__content {
+      @extend %flex-column;
+      flex: 1 1 100%;
+    }
+    &__title {
+      @extend %flex-between;
+      font-size: 2em;
+      margin: 0.2em 0.5em;
+    }
+    &__board {
+      flex: 0 0 300px;
+      .cg-wrap {
+        @extend %square;
+      }
+    }
+    &__popularity {
+      @extend %flex-column;
+      justify-content: flex-end;
+      flex: 0 0 27px;
+      span {
+        background: if($theme-light, #a0a0a0, #666);
+      }
+    }
+  }
+}

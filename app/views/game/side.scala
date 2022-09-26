@@ -103,9 +103,8 @@ object side {
               st.section(
                 trans.chess960StartPosition(
                   a(
-                    href := routes.UserAnalysis.parseArg(
-                      s"chess960/${(initialFen | chess.format.Forsyth.initial).value.replace(" ", "_")}"
-                    )
+                    href := routes.UserAnalysis
+                      .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Forsyth.initial)}")
                   )(number)
                 )
               )

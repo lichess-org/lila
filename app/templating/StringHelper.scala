@@ -1,8 +1,8 @@
 package lila.app
 package templating
 
+import chess.format.FEN
 import play.api.i18n.Lang
-
 import ui.ScalatagsTemplate._
 
 trait StringHelper { self: NumberHelper =>
@@ -10,6 +10,8 @@ trait StringHelper { self: NumberHelper =>
   val slugify = lila.common.String.slugify _
 
   val urlencode = lila.common.String.urlencode _
+
+  def underscoreFen = lila.common.String.underscoreFen _
 
   def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
 
@@ -40,8 +42,6 @@ trait StringHelper { self: NumberHelper =>
       case h => raw(h.replaceIf('\n', "<br>"))
     }
   }
-
-  def encodeFen(fen: String) = lila.common.String.base64.encode(fen).reverse
 
   def addQueryParameter(url: String, key: String, value: Any) =
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"

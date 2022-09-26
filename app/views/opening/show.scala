@@ -1,7 +1,7 @@
 package views.html.opening
 
 import controllers.routes
-import play.api.libs.json.Json
+import play.api.libs.json.{ JsArray, Json }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -20,8 +20,8 @@ object show {
         jsModule("opening"),
         embedJsUnsafeLoadThen {
           import lila.opening.OpeningHistory.segmentJsonWrite
-          s"""LichessOpening.family(${safeJsonValue(
-              Json.obj("history" -> null)
+          s"""LichessOpening.page(${safeJsonValue(
+              Json.obj("history" -> JsArray())
             )})"""
         }
       ),
@@ -57,7 +57,7 @@ object show {
                 span(cls := "title-stats")(
                   em("White: ", percentFrag(page.explored.result.whitePercent)),
                   em("Black: ", percentFrag(page.explored.result.blackPercent)),
-                  em("Draws: ", percentFrag(page.explored.result.drawPercent))
+                  em("Draws: ", percentFrag(page.explored.result.drawsPercent))
                 )
               )
             ),
@@ -71,7 +71,7 @@ object show {
                 cls      := "button text",
                 dataIcon := "",
                 href := s"${page.opening.fold(
-                    routes.UserAnalysis.parseArg(page.query.fen.value.replace(" ", "_"))
+                    routes.UserAnalysis.parseArg(underscoreFen(page.query.fen))
                   )(o => routes.UserAnalysis.pgn(o.ref.pgn.replace(" ", "_")))}#explorer"
               )(
                 "View in opening explorer"
@@ -79,6 +79,30 @@ object show {
             ),
             div(cls := "opening__intro__text")("Text here, soon.")
           )
+        ),
+        div(cls := "opening__nexts")(
+          page.explored.next.map { next =>
+            a(cls := "opening__next", href := routes.Opening.query(next.key))(
+              span(cls := "opening__next__popularity")(
+                span(style := s"height:${percentNumber(next.percent)}%")(
+                  s"${Math.round(next.percent)}%"
+                )
+              ),
+              span(cls := "opening__next__content")(
+                span(cls := "opening__next__title")(
+                  span(cls := "opening__next__san")(next.san)
+                ),
+                span(cls := "opening__next__board")(
+                  views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
+                ),
+                span(cls := "opening__next__result")(
+                  resultSegment("white", next.result.whitePercent),
+                  resultSegment("draws", next.result.drawsPercent),
+                  resultSegment("black", next.result.blackPercent)
+                )
+              )
+            )
+          }
         )
       )
     }
@@ -86,6 +110,11 @@ object show {
 
   private val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
-  private def percentNumber(v: Float) = f"${v}%1.2f"
-  private def percentFrag(v: Float)   = frag(strong(percentNumber(v)), "%")
+  private def percentNumber(v: Double) = f"${v}%1.2f"
+  private def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
+
+  private def resultSegment(key: String, percent: Double) =
+    span(cls := key, style := s"width:${percentNumber(percent)}%")(
+      percent > 20 option s"${Math.round(percent)}%"
+    )
 }
