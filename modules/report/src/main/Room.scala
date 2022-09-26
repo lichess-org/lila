@@ -66,4 +66,8 @@ object Room {
       case Xfiles => Granter.is(_.MarkEngine)(mod)
     }
   }
+
+  def filterGranted(mod: Holder, reports: List[Report]) = reports.filter { r =>
+    isGrantedFor(mod)(r.room) && (r.user != mod.id || mod.user.isSuperAdmin)
+  }
 }
