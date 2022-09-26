@@ -154,9 +154,9 @@
   </plurals>
   <string name="viewInFullSize">o suli</string>
   <string name="logOut">o weka tan linluwi</string>
-  <string name="signIn">o lon sijelo</string>
-  <string name="youNeedAnAccountToDoThat">sina wile pali e ni la sina wile jo e sijelo</string>
-  <string name="signUp">o pali e sijelo</string>
+  <string name="signIn">o kepeken nimi sina</string>
+  <string name="youNeedAnAccountToDoThat">sina wile pali e ni la sina wile jo e lipu jan</string>
+  <string name="signUp">o pali e lipu sina</string>
   <string name="computersAreNotAllowedToPlay">sina wile musi la, o kepeken ala e ilo sona e lipu sona e jan sona. kin la, sina pali e nimi mute lon lipu ni la, ni li ken ike.</string>
   <string name="games">musi</string>
   <string name="forum">ma toki</string>
@@ -195,7 +195,7 @@
   <string name="changeUsername">o ante e nimi sina</string>
   <string name="changeUsernameNotSame">sina ken ante e suli taso pi sitelen lili. pana lukin la nimi \"sonjalang\" li ken kama \"SonjaLang\".</string>
   <string name="changeUsernameDescription">o ante e nimi sina. sina ken pali e ni lon tenpo wan taso. sina ken ante e suli taso pi sitelen lili pi nimi sina.</string>
-  <string name="signupUsernameHint">nimi o pona. sina ken ala ante e nimi sina lon tenpo kama. nimi ni li ike tawa jan ante la sijelo sina li kama weka a!</string>
+  <string name="signupUsernameHint">nimi o pona. sina ken ala ante e nimi sina lon tenpo kama. nimi ni li ike tawa jan ante la lipu sina li kama weka a!</string>
   <string name="signupEmailHint">mi mute li kepeken ni tawa sin pi nimi awen sina taso.</string>
   <string name="password">nimi open len</string>
   <string name="changePassword">o ante e nimi open len</string>
@@ -203,10 +203,10 @@
   <string name="email">nimi pi lipu toki linluwi</string>
   <string name="passwordReset">weka sona la o ante e nimi open len</string>
   <string name="forgotPassword">sina sona ala e nimi open len sina anu seme?</string>
-  <string name="emailConfirmNotReceived">sina li pali e sijelo. taso sina kama ala jo e lipu toki tan mi mute?</string>
-  <string name="whatSignupUsername">sina pali e sijelo la sina sitelen e nimi seme?</string>
-  <string name="usernameNotFound">nimi \"%s\" la mi mute li alasa e sijelo ala.</string>
-  <string name="usernameCanBeUsedForNewAccount">sina ken kepeken nimi ni tawa pali sijelo</string>
+  <string name="emailConfirmNotReceived">sina pali e lipu jan. taso sina kama ala jo e lipu toki tan mi mute?</string>
+  <string name="whatSignupUsername">sina pali e lipu jan la sina sitelen e nimi seme?</string>
+  <string name="usernameNotFound">nimi \"%s\" la mi mute li alasa e lipu jan ala.</string>
+  <string name="usernameCanBeUsedForNewAccount">sina ken kepeken nimi ni tawa pali pi lipu sina</string>
   <string name="emailSent">mi mute li pini pana e lipu toki tawa %s.</string>
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
