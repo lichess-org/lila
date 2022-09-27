@@ -844,7 +844,7 @@
   <string name="computerThinking">המחשב חושב ...</string>
   <string name="seeBestMove">הראה את המהלך הטוב היותר</string>
   <string name="hideBestMove">הסתר את המהלך הטוב ביותר</string>
-  <string name="getAHint">קבל רמז</string>
+  <string name="getAHint">קבל/י רמז</string>
   <string name="evaluatingYourMove">מעריך את המסע שלך ...</string>
   <string name="whiteWinsGame">הלבן מנצח</string>
   <string name="blackWinsGame">השחור מנצח</string>
