@@ -2,7 +2,6 @@ package views.html.site
 
 import play.api.i18n.Lang
 
-import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
@@ -13,7 +12,7 @@ object keyboardHelpModal {
   private val or                          = tag("or")
   private val kbd                         = tag("kbd")
 
-  private def navigateMoves(implicit ctx: Context) = frag(
+  private def navigateMoves(implicit lang: Lang) = frag(
     header(trans.navigateMoveTree()),
     row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
     row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
@@ -30,7 +29,7 @@ object keyboardHelpModal {
     row(kbd("x"), trans.showThreat())
   )
 
-  def round(implicit ctx: Context) =
+  def round(implicit lang: Lang) =
     frag(
       h2(trans.keyboardShortcuts()),
       table(
@@ -43,7 +42,7 @@ object keyboardHelpModal {
         )
       )
     )
-  def puzzle(implicit ctx: Context) =
+  def puzzle(implicit lang: Lang) =
     frag(
       h2(trans.keyboardShortcuts()),
       table(
@@ -59,7 +58,7 @@ object keyboardHelpModal {
         )
       )
     )
-  def analyse(isStudy: Boolean)(implicit ctx: Context) =
+  def analyse(isStudy: Boolean)(implicit lang: Lang) =
     frag(
       h2(trans.keyboardShortcuts()),
       table(
@@ -98,7 +97,7 @@ object keyboardHelpModal {
       )
     )
 
-  def keyboardMove(implicit ctx: Context) = {
+  def keyboardMove(implicit lang: Lang) = {
     import trans.keyboardMove._
     frag(
       h2(keyboardInputCommands()),
