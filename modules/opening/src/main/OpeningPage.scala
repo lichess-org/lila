@@ -4,8 +4,8 @@ import chess.format.{ FEN, Forsyth, Uci }
 import chess.opening.FullOpeningDB
 import chess.Speed
 
-import lila.common.SimpleOpening
 import chess.format.pgn.San
+import chess.opening.FullOpening
 
 case class OpeningPage(
     query: OpeningQuery,
@@ -13,6 +13,18 @@ case class OpeningPage(
 ) {
   def opening = query.opening
   def name    = query.name
+  def variationName(next: OpeningNext) = for {
+    cur <- opening
+    nex <- next.opening
+    name =
+      cur.name
+        .zipAll(nex.name, ' ', ' ')
+        .dropWhile { case (a, b) => a == b }
+        .map(_._2)
+        .mkString
+        .dropWhile(Set(' ', ':', ',', '-').contains _)
+    if name.nonEmpty
+  } yield name
 }
 
 case class ResultCounts(
@@ -35,9 +47,9 @@ case class OpeningNext(
     query: OpeningQuery,
     result: ResultCounts,
     percent: Double,
-    opening: Option[SimpleOpening]
+    opening: Option[FullOpening]
 ) {
-  val key = opening.fold(fen.value.replace(" ", "_"))(_.key.value)
+  val key = opening.fold(fen.value.replace(" ", "_"))(_.key)
 }
 
 case class OpeningExplored(result: ResultCounts, next: List[OpeningNext])
@@ -58,13 +70,14 @@ object OpeningPage {
             m.san,
             uci,
             fen,
-            query.copy(
-              pgn = query.pgn :+ chess.format.pgn.Dumper(query.position, move, move.situationAfter),
-              position = move.situationAfter
-            ),
+            query
+              .copy(
+                pgn = query.pgn :+ chess.format.pgn.Dumper(query.position, move, move.situationAfter),
+                position = move.situationAfter
+              ),
             result,
             (result.sum * 100d / exp.movesSum),
-            FullOpeningDB.findByFen(fen).flatMap(SimpleOpening.apply)
+            FullOpeningDB findByFen fen
           )
         }
         .sortBy(-_.result.sum)

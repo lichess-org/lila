@@ -3,7 +3,6 @@ package lila.opening
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.dsl._
 import lila.memo.CacheApi
 import chess.opening.FullOpeningDB

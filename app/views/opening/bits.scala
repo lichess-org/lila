@@ -21,7 +21,10 @@ private object bits {
             )
           ),
           span(cls := "opening__next__title")(
-            span(cls := "opening__next__san")(next.san)
+            span(cls := "opening__next__san")(next.san),
+            page.variationName(next) map { varName =>
+              span(cls := "opening__next__name")(varName)
+            }
           ),
           span(cls := "opening__next__board")(
             views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)

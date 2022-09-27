@@ -32,7 +32,10 @@ object show {
     ) {
       main(cls := "page box box-pad opening")(
         h1(
-          a(href := routes.Opening.index, dataIcon := "", cls := "text"),
+          page.query.prev match {
+            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "", cls := "text")
+            case None       => a(href := routes.Opening.index, dataIcon := "", cls := "text")
+          },
           page.name
         ),
         div(cls := "opening__intro", page.opening.map(o => style := s"--move-rows: ${(o.pgn.size) + 1}"))(
