@@ -11,10 +11,15 @@ object page {
   def lone(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("page"),
-      title = ~doc.getText("doc.title")
+      title = ~doc.getText("doc.title"),
+      moreJs = doc.slugs.has("fair-play") option fairPlayJs
     ) {
       main(cls := "page-small box box-pad page force-ltr")(pageContent(doc, resolver))
     }
+
+  private def fairPlayJs(implicit ctx: Context) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
+})""")
 
   def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
       ctx: Context
