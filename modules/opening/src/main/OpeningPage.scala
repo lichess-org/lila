@@ -13,18 +13,6 @@ case class OpeningPage(
 ) {
   def opening = query.opening
   def name    = query.name
-  def variationName(next: OpeningNext) = for {
-    cur <- opening
-    nex <- next.opening
-    name =
-      cur.name
-        .zipAll(nex.name, ' ', ' ')
-        .dropWhile { case (a, b) => a == b }
-        .map(_._2)
-        .mkString
-        .dropWhile(Set(' ', ':', ',', '-').contains _)
-    if name.nonEmpty
-  } yield name
 }
 
 case class ResultCounts(
@@ -47,7 +35,8 @@ case class OpeningNext(
     query: OpeningQuery,
     result: ResultCounts,
     percent: Double,
-    opening: Option[FullOpening]
+    opening: Option[FullOpening],
+    shortName: Option[String]
 ) {
   val key = opening.fold(fen.value.replace(" ", "_"))(_.key)
 }
@@ -64,8 +53,9 @@ object OpeningPage {
           for {
             uci  <- Uci.Move(m.uci)
             move <- query.position.move(uci).toOption
-            result = ResultCounts(m.white, m.draws, m.black)
-            fen    = Forsyth >> move.situationAfter
+            result  = ResultCounts(m.white, m.draws, m.black)
+            fen     = Forsyth >> move.situationAfter
+            opening = FullOpeningDB findByFen fen
           } yield OpeningNext(
             m.san,
             uci,
@@ -77,7 +67,8 @@ object OpeningPage {
               ),
             result,
             (result.sum * 100d / exp.movesSum),
-            FullOpeningDB findByFen fen
+            opening,
+            shortName = Opening.variationName(query.opening, opening)
           )
         }
         .sortBy(-_.result.sum)

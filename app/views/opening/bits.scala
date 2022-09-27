@@ -22,8 +22,8 @@ private object bits {
           ),
           span(cls := "opening__next__title")(
             span(cls := "opening__next__san")(next.san),
-            page.variationName(next) map { varName =>
-              span(cls := "opening__next__name")(varName)
+            next.shortName map { sn =>
+              span(cls := "opening__next__name")(sn)
             }
           ),
           span(cls := "opening__next__board")(
