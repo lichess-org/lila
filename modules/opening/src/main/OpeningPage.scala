@@ -4,7 +4,7 @@ import chess.format.{ FEN, Forsyth, Uci }
 import chess.opening.FullOpeningDB
 import chess.Speed
 
-import lila.common.LilaOpening
+import lila.common.SimpleOpening
 import chess.format.pgn.San
 
 case class OpeningPage(
@@ -35,7 +35,7 @@ case class OpeningNext(
     query: OpeningQuery,
     result: ResultCounts,
     percent: Double,
-    opening: Option[LilaOpening]
+    opening: Option[SimpleOpening]
 ) {
   val key = opening.fold(fen.value.replace(" ", "_"))(_.key.value)
 }
@@ -64,7 +64,7 @@ object OpeningPage {
             ),
             result,
             (result.sum * 100d / exp.movesSum),
-            FullOpeningDB.findByFen(fen).flatMap(LilaOpening.apply)
+            FullOpeningDB.findByFen(fen).flatMap(SimpleOpening.apply)
           )
         }
         .sortBy(-_.result.sum)

@@ -2,7 +2,7 @@ package lila.opening
 
 import chess.opening.{ FullOpening, FullOpeningDB }
 
-import lila.common.LilaOpening
+import lila.common.SimpleOpening
 
 object Opening {
 

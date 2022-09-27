@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 
 import lila.analyse.AnalyseBsonHandlers._
 import lila.analyse.{ AccuracyPercent, WinPercent }
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
@@ -92,7 +92,7 @@ object BSONHandlers {
         userId = r.str(userId),
         color = r.get[Color](color),
         perf = r.get[PerfType](perf),
-        opening = r.getO[LilaOpening](opening),
+        opening = r.getO[SimpleOpening](opening),
         myCastling = r.get[Castling](myCastling),
         rating = r.intO(rating),
         opponentRating = r.intO(opponentRating),

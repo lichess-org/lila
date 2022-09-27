@@ -5,7 +5,7 @@ import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariati
 import reactivemongo.akkastream.cursorProducer
 import scala.concurrent.duration._
 
-import lila.common.{ LilaOpening, LilaOpeningFamily, LilaStream }
+import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.db.dsl._
 import lila.game.GameRepo
 import lila.i18n.{ I18nKey, I18nKeys => trans }
@@ -16,7 +16,7 @@ case class PuzzleOpeningCollection(
     openings: List[PuzzleOpening.WithCount]        // most popular first
 ) {
 
-  import LilaOpening._
+  import SimpleOpening._
   import PuzzleOpening._
 
   val familyMap  = families.view.map { fam => fam.family.key -> fam }.toMap
@@ -49,7 +49,7 @@ case class PuzzleOpeningCollection(
     case Order.Alphabetical => treeAlphabetical
   }
 
-  def makeMine(myFams: List[LilaOpeningFamily], myVars: List[LilaOpening]) = Mine(
+  def makeMine(myFams: List[LilaOpeningFamily], myVars: List[SimpleOpening]) = Mine(
     families = myFams.filter(fam => familyMap.contains(fam.key)),
     variations = myVars.filter(op => openingMap.contains(op.key))
   )
@@ -66,7 +66,7 @@ final class PuzzleOpeningApi(
     mat: akka.stream.Materializer
 ) {
   import BsonHandlers._
-  import LilaOpening._
+  import SimpleOpening._
   import PuzzleOpening._
 
   private val countedCache = mongoCache.unitNoHeap[List[Bdoc]]("puzzle:opening:counted", 24 hours) { _ =>
@@ -93,9 +93,9 @@ final class PuzzleOpeningApi(
                 LilaOpeningFamily.find(keyStr) match {
                   case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
                   case None =>
-                    LilaOpening
+                    SimpleOpening
                       .find(keyStr)
-                      .filter(_.ref.variation != LilaOpening.otherVariations)
+                      .filter(_.ref.variation != SimpleOpening.otherVariations)
                       .fold(acc) { op =>
                         acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
                       }
@@ -111,7 +111,7 @@ final class PuzzleOpeningApi(
   def getClosestTo(
       opening: FullOpening
   ): Fu[Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]] =
-    LilaOpening(opening) ?? { lilaOp =>
+    SimpleOpening(opening) ?? { lilaOp =>
       collection map { coll =>
         coll.openingMap.get(lilaOp.key).map(Right.apply) orElse {
           coll.familyMap.get(lilaOp.family.key).map(Left.apply)
@@ -125,7 +125,7 @@ final class PuzzleOpeningApi(
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache get {}
 
-  def count(key: Either[LilaOpeningFamily.Key, LilaOpening.Key]): Fu[Int] =
+  def count(key: Either[LilaOpeningFamily.Key, SimpleOpening.Key]): Fu[Int] =
     collection dmap { coll =>
       key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
     }
@@ -146,7 +146,7 @@ final class PuzzleOpeningApi(
     (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
       gameRepo gameFromSecondary puzzle.gameId flatMap {
         _ ?? { game =>
-          FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(LilaOpening.apply) match {
+          FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(SimpleOpening.apply) match {
             case None =>
               fuccess {
                 logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
@@ -169,13 +169,13 @@ object PuzzleOpening {
   type Count = Int
   type Name  = String
 
-  case class WithCount(opening: LilaOpening, count: Count)
+  case class WithCount(opening: SimpleOpening, count: Count)
   case class FamilyWithCount(family: LilaOpeningFamily, count: Count)
 
   type TreeMap  = Map[LilaOpeningFamily, (Count, Set[WithCount])]
   type TreeList = List[(FamilyWithCount, List[WithCount])]
 
-  case class Mine(families: List[LilaOpeningFamily], variations: List[LilaOpening]) {
+  case class Mine(families: List[LilaOpeningFamily], variations: List[SimpleOpening]) {
     lazy val familyKeys    = families.view.map(_.key).toSet
     lazy val variationKeys = variations.view.map(_.key).toSet
   }

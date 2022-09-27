@@ -9,7 +9,7 @@ import reactivemongo.api.bson._
 import scalatags.Text.all._
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.dsl._
 import lila.rating.PerfType
 
@@ -108,7 +108,7 @@ object InsightDimension {
       )
 
   case object OpeningVariation
-      extends InsightDimension[LilaOpening](
+      extends InsightDimension[SimpleOpening](
         "openingVariation",
         "Opening Variation",
         F.opening,
@@ -258,7 +258,7 @@ object InsightDimension {
       case Termination             => lila.insight.Termination.all
       case Color                   => chess.Color.all
       case OpeningFamily           => LilaOpeningFamily.familyList
-      case OpeningVariation        => LilaOpening.openingList
+      case OpeningVariation        => SimpleOpening.openingList
       case OpponentStrength        => RelativeStrength.all
       case PieceRole               => chess.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
@@ -284,7 +284,7 @@ object InsightDimension {
       case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
       case Color                   => chess.Color fromName key
       case OpeningFamily           => LilaOpeningFamily find key
-      case OpeningVariation        => LilaOpening find key
+      case OpeningVariation        => SimpleOpening find key
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => chess.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get

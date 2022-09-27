@@ -7,14 +7,14 @@ import chess.{ Situation, Speed }
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 
 case class OpeningQuery(pgn: Vector[String], position: Situation, speeds: Set[Speed], ratings: Set[Int]) {
   def variant           = chess.variant.Standard
   val fen               = Forsyth >> position
   val opening           = FullOpeningDB findByFen fen
   val openingIfShortest = opening filter Opening.isShortest
-  val family            = opening.flatMap(LilaOpening.apply).map(_.family)
+  val family            = opening.flatMap(SimpleOpening.apply).map(_.family)
   def pgnString         = pgn mkString " "
   val name              = opening.fold(pgnString)(_.name)
   val key               = openingIfShortest.fold(pgn mkString "_")(_.key)
@@ -25,7 +25,7 @@ object OpeningQuery {
   def apply(q: String): Option[OpeningQuery] = byOpening(q) orElse fromPgn(q)
 
   private def byOpening(key: String) = {
-    LilaOpening.find(key).map(_.ref) orElse LilaOpeningFamily.find(key).flatMap(_.full)
+    SimpleOpening.find(key).map(_.ref) orElse LilaOpeningFamily.find(key).flatMap(_.full)
   }.map(_.pgn) flatMap fromPgn
 
   private def fromPgn(pgn: String) = for {

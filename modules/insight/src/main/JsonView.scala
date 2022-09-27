@@ -2,7 +2,7 @@ package lila.insight
 
 import play.api.i18n.Lang
 import play.api.libs.json._
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 
 final class JsonView {
 
@@ -12,7 +12,7 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(families: List[LilaOpeningFamily], openings: List[LilaOpening], asMod: Boolean)(implicit
+  def ui(families: List[LilaOpeningFamily], openings: List[SimpleOpening], asMod: Boolean)(implicit
       lang: Lang
   ) = {
 

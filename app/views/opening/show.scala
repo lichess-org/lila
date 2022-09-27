@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.common.{ Heapsort, LilaOpening, LilaOpeningFamily }
+import lila.common.{ Heapsort, LilaOpeningFamily, SimpleOpening }
 import lila.opening.OpeningPage
 import lila.puzzle.PuzzleOpening
 import lila.opening.OpeningQuery

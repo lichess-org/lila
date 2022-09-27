@@ -3,7 +3,7 @@ package lila.insight
 import chess.format.FEN
 import reactivemongo.api.bson._
 
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
@@ -42,7 +42,7 @@ final private class InsightStorage(val coll: AsyncColl)(implicit ec: scala.concu
 
   def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
 
-  private[insight] def openings(userId: User.ID): Fu[(List[LilaOpeningFamily], List[LilaOpening])] =
+  private[insight] def openings(userId: User.ID): Fu[(List[LilaOpeningFamily], List[SimpleOpening])] =
     coll {
       _.aggregateOne() { framework =>
         import framework._
@@ -60,7 +60,7 @@ final private class InsightStorage(val coll: AsyncColl)(implicit ec: scala.concu
       }.map2 { doc =>
         def readBest[A: BSONHandler](field: String): List[A] =
           (~doc.getAsOpt[List[Bdoc]](field)).flatMap(_.getAsOpt[A]("_id"))
-        (readBest[LilaOpeningFamily]("families"), readBest[LilaOpening]("openings"))
+        (readBest[LilaOpeningFamily]("families"), readBest[SimpleOpening]("openings"))
       }
     }.map(_ | (Nil -> Nil))
 

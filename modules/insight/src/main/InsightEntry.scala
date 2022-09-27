@@ -3,7 +3,7 @@ package lila.insight
 import chess.Color
 import org.joda.time.DateTime
 
-import lila.common.{ LilaOpening, LilaOpeningFamily }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 import lila.user.User
@@ -14,7 +14,7 @@ case class InsightEntry(
     userId: User.ID,
     color: Color,
     perf: PerfType,
-    opening: Option[LilaOpening],
+    opening: Option[SimpleOpening],
     myCastling: Castling,
     rating: Option[Int],
     opponentRating: Option[Int],
