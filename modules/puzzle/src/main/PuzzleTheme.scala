@@ -77,6 +77,7 @@ object PuzzleTheme {
   val veryLong        = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
   val xRayAttack      = PuzzleTheme(Key("xRayAttack"), i.xRayAttack, i.xRayAttackDescription)
   val zugzwang        = PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
+  val checkFirst      = PuzzleTheme(Key("checkFirst"), new I18nKey("Check first"), new I18nKey("Check first"))
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
     trans.puzzle.recommended -> List(
@@ -161,17 +162,17 @@ object PuzzleTheme {
     )
   )
 
-  lazy val all: List[PuzzleTheme] = categorized.flatMap(_._2)
+  lazy val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
 
-  lazy val allTranslationKeys = all.flatMap { t =>
+  lazy val allTranslationKeys = visible.flatMap { t =>
     List(t.name, t.description)
   }
 
-  private lazy val byKey: Map[Key, PuzzleTheme] = all.view.map { t =>
+  private lazy val byKey: Map[Key, PuzzleTheme] = visible.view.map { t =>
     t.key -> t
   }.toMap
 
-  private lazy val byLowerKey: Map[String, PuzzleTheme] = all.view.map { t =>
+  private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.view.map { t =>
     t.key.value.toLowerCase -> t
   }.toMap
 
@@ -198,8 +199,12 @@ object PuzzleTheme {
     opening,
     short,
     smotheredMate,
-    veryLong
+    veryLong,
+    checkFirst
   ).map(_.key)
+
+  // themes that can't be viewed by players
+  val hiddenThemes: Set[Key] = Set(checkFirst.key)
 
   val studyChapterIds: Map[PuzzleTheme.Key, String] = List(
     advancedPawn      -> "sw8VyTe1",

@@ -82,7 +82,7 @@ object PuzzleDashboard {
     PuzzleTheme.masterVsMaster
   ).map(_.key)
 
-  val relevantThemes = PuzzleTheme.all collect {
+  val relevantThemes = PuzzleTheme.visible collect {
     case t if !irrelevantThemes.contains(t.key) => t.key
   }
 }
