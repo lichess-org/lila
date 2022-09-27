@@ -1,11 +1,12 @@
 import divisionLines from './division';
-import { ChartElm, loadHighcharts, MovePoint } from './common';
+import { loadHighcharts, MovePoint, selectPly } from './common';
+import { PlyChartHTMLElement } from './interface';
 
 const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans: Trans, hunter: boolean) => {
   if (!data.game.moveCentis) return; // imported games
   await loadHighcharts('highchart');
   movetime.render = () => {
-    $('#movetimes-chart:not(.rendered)').each(function (this: ChartElm) {
+    $('#movetimes-chart:not(.rendered)').each(function (this: PlyChartHTMLElement) {
       const chartElm = this;
       $(chartElm).addClass('rendered');
 
@@ -99,15 +100,7 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
       const clickableOptions = {
         events: {
           click: (event: any) => {
-            if (event.point) {
-              const x = event.point.x;
-              const p =
-                chartElm.highcharts.series[(showTotal ? 4 : 0) + (((tree[x] ? tree[x].ply : undefined) || x) % 2)].data[
-                  x >> 1
-                ];
-              if (p) p.select(true);
-              lichess.pubsub.emit('analysis.chart.click', x);
-            }
+            if (event.point) lichess.pubsub.emit('analysis.chart.click', event.point.x);
           },
         },
       };
@@ -195,7 +188,6 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
           events: {
             click(e: any) {
               let ply = Math.round(e.xAxis[0].value);
-              chartElm.highcharts.series[(showTotal ? 4 : 0) + (ply & 1)].data[ply >> 1]?.select(true);
               // if the parity of the ply doesn't match the quadrant of the click,
               // we add the x residual rounded away from zero to correct it
               if (e.yAxis[0].value < 0 == !(ply & 1)) ply += e.xAxis[0].value < ply ? -1 : 1;
@@ -254,6 +246,7 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
           lineWidth: 0,
           tickWidth: 0,
           plotLines: divisionLines(data.game.division, trans),
+          minPadding: showTotal ? -0.015 : 0.01,
         },
         yAxis: [
           {
@@ -280,17 +273,8 @@ const movetime: Window['LichessChartGame']['movetime'] = async (data: any, trans
           },
         ],
       });
-      chartElm.highcharts.selectPly = (ply: number) => {
-        const plyline = chartElm.highcharts.xAxis[0].plotLinesAndBands[0];
-        plyline.options.value = ply - 1 - data.game.startedAtTurn;
-        plyline.render();
-        const white = ply % 2 !== 0;
-        const serie = (white ? 0 : 1) + (showTotal ? 4 : 0);
-        const turn = Math.floor((ply - 1 - data.game.startedAtTurn) / 2);
-        const point = chartElm.highcharts.series[serie].data[turn];
-        if (point) point.select(true);
-        else chartElm.highcharts.getSelectedPoints().forEach((point: any) => point.select(false));
-      };
+      chartElm.highcharts.firstPly = data.treeParts[0].ply;
+      chartElm.highcharts.selectPly = selectPly;
     });
     lichess.pubsub.emit('analysis.change.trigger');
   };

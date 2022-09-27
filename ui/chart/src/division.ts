@@ -9,7 +9,7 @@ export default function (div: Division, trans: Trans) {
     color: window.Highcharts.theme.lichess.line.accent,
     width: 1,
     value: 0,
-    zIndex: 5,
+    zIndex: 6,
   });
   const textWeak = window.Highcharts.theme.lichess.text.weak;
   if (div.middle) {

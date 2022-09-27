@@ -1,6 +1,4 @@
-export interface ChartElm extends HTMLElement {
-  highcharts: any;
-}
+import { PlyChart } from './interface';
 
 export interface MovePoint {
   y: number;
@@ -10,6 +8,14 @@ export interface MovePoint {
 }
 
 let highchartsPromise: Promise<any> | undefined;
+
+export function selectPly(this: PlyChart, ply: number | false) {
+  if (this.lastPly === ply) return;
+  this.lastPly = ply;
+  const plyline = (this.xAxis[0] as any).plotLinesAndBands[0];
+  plyline.options.value = ply === false ? -1 : ply - 1 - this.firstPly;
+  plyline.render();
+}
 
 export async function loadHighcharts(tpe: string) {
   if (highchartsPromise) return highchartsPromise;
