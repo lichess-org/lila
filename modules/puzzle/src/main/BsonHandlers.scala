@@ -34,7 +34,7 @@ object BsonHandlers {
       glicko = glicko,
       plays = plays,
       vote = vote,
-      themes = themes
+      themes = themes diff PuzzleTheme.hiddenThemes
     )
   }
 

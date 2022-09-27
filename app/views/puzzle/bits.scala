@@ -26,10 +26,8 @@ object bits {
         PuzzleTheme.enPassant.name.txt()(lila.i18n.defaultLang)
       ))
 
-  lazy val jsonThemes = PuzzleTheme.all
-    .collect {
-      case t if t != PuzzleTheme.mix => t.key
-    }
+  lazy val jsonThemes = PuzzleTheme.visible
+    .collect { case t if t != PuzzleTheme.mix => t.key }
     .partition(PuzzleTheme.staticThemes.contains) match {
     case (static, dynamic) =>
       Json.obj(
@@ -125,8 +123,8 @@ object bits {
       trans.puzzle.nbPointsBelowYourPuzzleRating,
       trans.puzzle.nbPointsAboveYourPuzzleRating
     ).map(_.key) :::
-      PuzzleTheme.all.map(_.name.key) :::
-      PuzzleTheme.all.map(_.description.key) :::
+      PuzzleTheme.visible.map(_.name.key) :::
+      PuzzleTheme.visible.map(_.description.key) :::
       PuzzleDifficulty.all.map(_.name.key)
 
   private val streakI18nKeys: List[MessageKey] =
