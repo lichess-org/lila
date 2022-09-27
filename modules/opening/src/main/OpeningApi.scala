@@ -13,6 +13,8 @@ final class OpeningApi(
     explorer: OpeningExplorer
 )(implicit ec: ExecutionContext) {
 
+  def index: Fu[Option[OpeningPage]] = lookup("")
+
   def lookup(q: String): Fu[Option[OpeningPage]] = OpeningQuery(q) ?? lookup
 
   def lookup(query: OpeningQuery): Fu[Option[OpeningPage]] =

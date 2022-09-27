@@ -11,12 +11,14 @@ import lila.opening.OpeningQuery
 
 final class Opening(env: Env) extends LilaController(env) {
 
-  def index = ???
-  // Open { implicit ctx =>
-  //   env.opening.api.getPopular map { pop =>
-  //     Ok(html.opening.index(pop))
-  //   }
-  // }
+  def index =
+    Secure(_.Beta) { implicit ctx => _ =>
+      env.opening.api.index flatMap {
+        _ ?? { page =>
+          Ok(html.opening.index(page)).fuccess
+        }
+      }
+    }
 
   def query(q: String) =
     Secure(_.Beta) { implicit ctx => _ =>

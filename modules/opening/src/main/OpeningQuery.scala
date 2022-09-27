@@ -18,6 +18,7 @@ case class OpeningQuery(pgn: Vector[String], position: Situation, speeds: Set[Sp
   def pgnString         = pgn mkString " "
   val name              = opening.fold(pgnString)(_.name)
   val key               = openingIfShortest.fold(pgn mkString "_")(_.key)
+  def initial           = pgn.isEmpty
 }
 
 object OpeningQuery {
