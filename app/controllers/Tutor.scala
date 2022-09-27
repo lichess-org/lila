@@ -41,7 +41,7 @@ final class Tutor(env: Env) extends LilaController(env) {
             .find(opName)
             .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).fuccess) { family =>
-              env.puzzle.opening.find(family.family) map { puzzle =>
+              env.puzzle.opening.find(family.family.key) map { puzzle =>
                 Ok(views.html.tutor.opening(report, perf, family, color, me, puzzle))
               }
             }

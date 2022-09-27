@@ -7,10 +7,8 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.common.{ Heapsort, LilaOpeningFamily, SimpleOpening }
-import lila.opening.OpeningPage
+import lila.opening.{ OpeningPage, OpeningQuery }
 import lila.puzzle.PuzzleOpening
-import lila.opening.OpeningQuery
 
 object show {
 
@@ -48,7 +46,7 @@ object show {
         div(cls := "opening__intro", page.opening.map(o => style := s"--move-rows: ${(o.pgn.size) + 1}"))(
           div(
             cls              := "lpv lpv--preload lpv--moves-bottom",
-            st.data("pgn")   := page.opening.map(_.pgn),
+            st.data("pgn")   := page.query.pgnString,
             st.data("title") := page.opening.map(_.name)
           )(lpvPreload),
           div(cls := "opening__intro__side")(

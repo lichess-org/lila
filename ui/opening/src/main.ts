@@ -10,7 +10,6 @@ import {
   Tooltip,
   Filler,
 } from 'chart.js';
-import { uciToMove } from 'chessground/util';
 
 Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
@@ -25,7 +24,7 @@ export function page(data: OpeningPage) {
       menu: {
         getPgn: {
           enabled: true,
-          fileName: this.dataset['title'].replace(' ', '_') + '.pgn',
+          fileName: (this.dataset['title'] || this.dataset['pgn']).replace(' ', '_') + '.pgn',
         },
       },
     });
