@@ -83,7 +83,7 @@ object widgets {
             val pgnMoves = g.pgnMoves take 20
             div(cls := "opening")(
               (!g.fromPosition ?? g.opening) map { opening =>
-                strong(opening.opening.ecoName)
+                strong(opening.opening.name)
               },
               div(cls := "pgn")(
                 pgnMoves.take(6).grouped(2).zipWithIndex map {

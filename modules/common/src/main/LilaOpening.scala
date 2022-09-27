@@ -2,11 +2,12 @@ package lila.common
 
 import chess.Color
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariation }
+import chess.opening.FullOpening.nameToKey
 
 case class LilaOpeningFamily(ref: OpeningFamily, full: Option[FullOpening]) {
   import LilaOpeningFamily._
   val name             = Name(ref.name)
-  val key              = Key(LilaOpening nameToKey name.value)
+  def key              = Key(ref.key)
   def as(color: Color) = LilaOpeningFamily.AsColor(this, color)
 }
 
@@ -51,16 +52,6 @@ object LilaOpening {
 
   val otherVariations = OpeningVariation("Other variations")
 
-  def nameToKey(name: String) =
-    java.text.Normalizer
-      .normalize(
-        name,
-        java.text.Normalizer.Form.NFD
-      )                                      // split an accented letter in the base letter and the accent
-      .replaceAllIn("[\u0300-\u036f]".r, "") // remove all previously split accents
-      .replaceAllIn("""\s+""".r, "_")
-      .replaceAllIn("""[^\w\-]+""".r, "")
-
   def apply(key: Key): Option[LilaOpening]         = openings get key
   def apply(ref: FullOpening): Option[LilaOpening] = openings get Key(nameToKey(nameOf(ref).value))
 
@@ -70,7 +61,7 @@ object LilaOpening {
 
   lazy val openings: Map[Key, LilaOpening] = FullOpeningDB.all
     .foldLeft(Map.empty[Key, LilaOpening]) { case (acc, ref) =>
-      LilaOpeningFamily.find(LilaOpening nameToKey ref.family.name).fold(acc) { fam =>
+      LilaOpeningFamily.find(ref.family.key).fold(acc) { fam =>
         val op   = LilaOpening(ref, nameOf(ref), fam)
         val prev = acc get op.key
         if (prev.fold(true)(_.nbMoves > op.nbMoves)) acc.updated(op.key, op)

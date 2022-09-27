@@ -6,7 +6,6 @@ import scala.concurrent.ExecutionContext
 import lila.common.{ LilaOpening, LilaOpeningFamily }
 import lila.db.dsl._
 import lila.memo.CacheApi
-import chess.opening.FullOpening
 import chess.opening.FullOpeningDB
 
 final class OpeningApi(
@@ -14,9 +13,7 @@ final class OpeningApi(
     explorer: OpeningExplorer
 )(implicit ec: ExecutionContext) {
 
-  def lookup(q: String): Fu[Option[OpeningPage]] = {
-    OpeningQuery.byOpening(q) orElse OpeningQuery.fromPgn(q)
-  } ?? lookup
+  def lookup(q: String): Fu[Option[OpeningPage]] = OpeningQuery(q) ?? lookup
 
   def lookup(query: OpeningQuery): Fu[Option[OpeningPage]] =
     explorer(query) map {

@@ -1,6 +1,5 @@
 package lila.insight
 
-import chess.opening.Ecopening
 import chess.Color
 import org.joda.time.DateTime
 

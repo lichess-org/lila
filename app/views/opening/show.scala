@@ -31,11 +31,11 @@ object show {
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.ref.uci.split(" ").lastOption), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.uci.split(" ").lastOption), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${queryUrl(page.query)}",
-          description = page.opening.??(_.ref.pgn)
+          description = page.opening.??(_.pgn)
         )
         .some,
       csp = defaultCsp.withInlineIconFont.some
@@ -45,11 +45,11 @@ object show {
           a(href := routes.Opening.index, dataIcon := "", cls := "text"),
           page.name
         ),
-        div(cls := "opening__intro", page.opening.map(o => style := s"--move-rows: ${(o.nbMoves) + 1}"))(
+        div(cls := "opening__intro", page.opening.map(o => style := s"--move-rows: ${(o.pgn.size) + 1}"))(
           div(
             cls              := "lpv lpv--preload lpv--moves-bottom",
-            st.data("pgn")   := page.opening.map(_.ref.pgn),
-            st.data("title") := page.opening.map(_.ref.name)
+            st.data("pgn")   := page.opening.map(_.pgn),
+            st.data("title") := page.opening.map(_.name)
           )(lpvPreload),
           div(cls := "opening__intro__side")(
             div(cls := "opening__win-rate")(
@@ -71,9 +71,7 @@ object show {
               a(
                 cls      := "button text",
                 dataIcon := "",
-                href := s"${page.opening.fold(
-                    routes.UserAnalysis.parseArg(underscoreFen(page.query.fen))
-                  )(o => routes.UserAnalysis.pgn(o.ref.pgn.replace(" ", "_")))}#explorer"
+                href     := s"${routes.UserAnalysis.pgn(page.query.pgn mkString "_")}#explorer"
               )(
                 "View in opening explorer"
               )

@@ -17,7 +17,7 @@ object replay {
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
-        .fold(trans.analysis.txt())(_.opening.ecoName)}"
+        .fold(trans.analysis.txt())(_.opening.name)}"
 
   def apply(
       pov: Pov,

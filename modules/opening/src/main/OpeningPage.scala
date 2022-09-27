@@ -59,7 +59,7 @@ object OpeningPage {
             uci,
             fen,
             query.copy(
-              pgn = s"${query.pgn} ${chess.format.pgn.Dumper(query.position, move, move.situationAfter)}",
+              pgn = query.pgn :+ chess.format.pgn.Dumper(query.position, move, move.situationAfter),
               position = move.situationAfter
             ),
             result,
