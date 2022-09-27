@@ -3,6 +3,13 @@ package lila.common
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningVariation }
 import chess.opening.FullOpening.nameToKey
 
+/*
+ * Simple openings only keep one level of variation.
+ * They're also unique by key:
+ * there's only one "Sicilian Defense: Smith-Morra Gambit Accepted" SimpleOpening,
+ * even tho there are multiple FullOpening with that name.
+ */
+
 case class SimpleOpening(ref: FullOpening, name: SimpleOpening.Name, family: LilaOpeningFamily) {
   import SimpleOpening._
   val key            = Key(nameToKey(name.value))
