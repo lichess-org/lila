@@ -13,9 +13,10 @@
     "typescript": "^4.5"
   },
   "scripts": {
-    "dev": "rollup --failAfterWarnings --config",
-    "prod": "rollup --failAfterWarnings --config --config-prod",
-    "plugin-dev": "rollup --failAfterWarnings --config --config-plugin",
-    "plugin-prod": "rollup --failAfterWarnings --config --config-prod --config-plugin"
+    "compile": "tsc --incremental --declaration --emitDeclarationOnly",
+    "dev": "$npm_execpath run compile && rollup --failAfterWarnings --config --config-all",
+    "prod": "$npm_execpath run compile && rollup --failAfterWarnings --config --config-all --config-prod",
+    "plugin-dev": "$npm_execpath run compile && rollup --failAfterWarnings --config --config-plugin",
+    "plugin-prod": "$npm_execpath run compile && rollup --failAfterWarnings --config --config-prod --config-plugin"
   }
 }
