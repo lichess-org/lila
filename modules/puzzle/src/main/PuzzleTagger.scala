@@ -52,25 +52,25 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
         funit
     }
 
-  private def checkFirstTheme(puzzle: Puzzle): Funit = {
-    val isCheck = for {
-      init  <- puzzle.situationAfterInitialMove
+  private def checkFirstTheme(puzzle: Puzzle): Funit = ~ {
+    for {
+      init <- puzzle.situationAfterInitialMove
+      if !puzzle.hasTheme(PuzzleTheme.mateIn1)
       move  <- puzzle.line.tail.headOption
       first <- init.move(move).toOption.map(_.situationAfter)
     } yield first.check
-    println(s"${puzzle.id} $isCheck")
+  } ?? {
     colls.round {
       _.update
         .one(
           $id(PuzzleRound.Id(User.lichessId, puzzle.id).toString),
-          $addOrPull(
-            PuzzleRound.BSONFields.themes,
-            PuzzleRound.Theme(PuzzleTheme.checkFirst.key, true),
-            ~isCheck
-          )
+          $addToSet(PuzzleRound.BSONFields.themes -> PuzzleRound.Theme(PuzzleTheme.checkFirst.key, true))
         )
-        .void
-    }
+    } zip colls.puzzle {
+      _.update.one(
+        $id(puzzle.id),
+        $addToSet(Puzzle.BSONFields.themes -> PuzzleTheme.checkFirst.key)
+      )
+    } void
   }
-
 }
