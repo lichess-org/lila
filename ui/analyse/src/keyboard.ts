@@ -25,11 +25,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
       control.enterVariation(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0'], () => {
+    .bind(['up', '0', 'home'], () => {
       if (!ctrl.fork.prev()) control.first(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$'], () => {
+    .bind(['down', '$', 'end'], () => {
       if (!ctrl.fork.next()) control.last(ctrl);
       ctrl.redraw();
     })

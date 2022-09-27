@@ -189,7 +189,7 @@ export default function (redraw: Redraw) {
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',
             h('br'),
-            'Up and down arrow keys or 0 and $: Jump to the first or last move.',
+            'Up and down arrow keys, or 0 and $, or home and end: Jump to the first or last move.',
           ]),
           h('h2', 'Commands'),
           h('p', [
