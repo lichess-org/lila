@@ -68,7 +68,20 @@ object ExternalEngine {
     )(FormData.apply)(FormData.unapply)
   )
 
-  implicit val jsonWrites: OWrites[ExternalEngine] = Json.writes[ExternalEngine]
+  implicit val jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
+    Json
+      .obj(
+        "id"           -> e._id,
+        "clientSecret" -> e.clientSecret,
+        "userId"       -> e.userId,
+        "engineName"   -> e.engineName,
+        "maxThreads"   -> e.maxThreads,
+        "maxHashMib"   -> e.maxHashMib,
+        "variants"     -> e.variants,
+        "data"         -> e.providerData
+      )
+      .add("officialStockfish" -> e.officialStockfish)
+  }
 }
 
 final class ExternalEngineApi(coll: Coll)(implicit ec: ExecutionContext) {
