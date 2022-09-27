@@ -257,7 +257,7 @@ lazy val tutor = module("tutor",
 
 lazy val opening = module("opening",
   Seq(common, memo),
-  Seq()
+  specs2Bundle
 )
 
 lazy val tournament = module("tournament",
