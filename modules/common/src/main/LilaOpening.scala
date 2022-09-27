@@ -71,8 +71,10 @@ object LilaOpening {
   lazy val openings: Map[Key, LilaOpening] = FullOpeningDB.all
     .foldLeft(Map.empty[Key, LilaOpening]) { case (acc, ref) =>
       LilaOpeningFamily.find(LilaOpening nameToKey ref.family.name).fold(acc) { fam =>
-        val op = LilaOpening(ref, nameOf(ref), fam)
-        if (acc.contains(op.key)) acc else acc.updated(op.key, op)
+        val op   = LilaOpening(ref, nameOf(ref), fam)
+        val prev = acc get op.key
+        if (prev.fold(true)(_.nbMoves > op.nbMoves)) acc.updated(op.key, op)
+        else acc
       }
     }
 
