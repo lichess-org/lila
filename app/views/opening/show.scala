@@ -10,6 +10,7 @@ import lila.common.String.html.safeJsonValue
 import lila.common.{ Heapsort, LilaOpening, LilaOpeningFamily }
 import lila.opening.OpeningPage
 import lila.puzzle.PuzzleOpening
+import lila.opening.OpeningQuery
 
 object show {
 
@@ -33,7 +34,7 @@ object show {
             s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.opening.flatMap(_.ref.uci.split(" ").lastOption), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
-          url = s"$netBaseUrl${routes.Opening.query(page.key)}",
+          url = s"$netBaseUrl${queryUrl(page.query)}",
           description = page.opening.??(_.ref.pgn)
         )
         .some,
@@ -82,24 +83,22 @@ object show {
         ),
         div(cls := "opening__nexts")(
           page.explored.next.map { next =>
-            a(cls := "opening__next", href := routes.Opening.query(next.key))(
+            a(cls := "opening__next", href := queryUrl(next.query))(
               span(cls := "opening__next__popularity")(
-                span(style := s"height:${percentNumber(next.percent)}%")(
+                span(style := s"width:${percentNumber(next.percent)}%")(
                   s"${Math.round(next.percent)}%"
                 )
               ),
-              span(cls := "opening__next__content")(
-                span(cls := "opening__next__title")(
-                  span(cls := "opening__next__san")(next.san)
-                ),
-                span(cls := "opening__next__board")(
-                  views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
-                ),
-                span(cls := "opening__next__result")(
-                  resultSegment("white", next.result.whitePercent),
-                  resultSegment("draws", next.result.drawsPercent),
-                  resultSegment("black", next.result.blackPercent)
-                )
+              span(cls := "opening__next__title")(
+                span(cls := "opening__next__san")(next.san)
+              ),
+              span(cls := "opening__next__board")(
+                views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
+              ),
+              span(cls := "opening__next__result")(
+                resultSegment("white", next.result.whitePercent),
+                resultSegment("draws", next.result.drawsPercent),
+                resultSegment("black", next.result.blackPercent)
               )
             )
           }
@@ -107,6 +106,8 @@ object show {
       )
     }
   }
+
+  def queryUrl(q: OpeningQuery) = routes.Opening.query(q.key)
 
   private val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 

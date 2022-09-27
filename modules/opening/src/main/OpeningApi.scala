@@ -15,7 +15,7 @@ final class OpeningApi(
 )(implicit ec: ExecutionContext) {
 
   def lookup(q: String): Fu[Option[OpeningPage]] = {
-    OpeningQuery.justFen(q) orElse OpeningQuery.byOpening(q)
+    OpeningQuery.byOpening(q) orElse OpeningQuery.fromPgn(q)
   } ?? lookup
 
   def lookup(query: OpeningQuery): Fu[Option[OpeningPage]] =

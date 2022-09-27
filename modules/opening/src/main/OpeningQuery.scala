@@ -1,32 +1,37 @@
 package lila.opening
 
 import chess.format.{ FEN, Forsyth }
+import chess.opening.FullOpeningDB
+import chess.variant.Standard
 import chess.{ Situation, Speed }
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+
 import lila.common.{ LilaOpening, LilaOpeningFamily }
 
-case class OpeningQuery(fen: FEN, position: Situation, speeds: Set[Speed], ratings: Set[Int]) {
+case class OpeningQuery(pgn: String, position: Situation, speeds: Set[Speed], ratings: Set[Int]) {
   def variant = chess.variant.Standard
+  val fen     = Forsyth >> position
+  val opening = FullOpeningDB.findByFen(fen).flatMap(LilaOpening.apply)
+  val name    = opening.fold(pgn)(_.ref.name)
+  val key     = opening.fold(pgn.replace(" ", "_"))(_.key.value)
 }
 
 object OpeningQuery {
 
-  def parse(fenStr: String): Option[(FEN, Situation)] = {
-    val fen = FEN.clean(fenStr)
-    Forsyth << fen filter (_ playable true) map { pos =>
-      (Forsyth >> pos, pos)
-    }
-  }
+  println(lila.common.LilaOpeningFamily.find("Sicilian_Defense").get.full.get.pgn)
 
-  def justFen(fenStr: String) =
-    parse(fenStr) map { case (fen, pos) =>
-      OpeningQuery(fen, pos, defaultSpeeds, defaultRatings)
-    }
+  def fromPgn(pgn: String) = for {
+    parsed <- chess.format.pgn.Reader.full(pgn).toOption
+    replay <- parsed.valid.toOption
+    game = replay.state
+    sit  = game.situation
+    if sit playable true
+  } yield OpeningQuery(game.pgnMoves mkString " ", sit, defaultSpeeds, defaultRatings)
 
   def byOpening(key: String) = {
     LilaOpening.find(key).map(_.ref) orElse LilaOpeningFamily.find(key).flatMap(_.full)
-  }.map(_.fen) flatMap justFen
+  }.map(_.pgn) flatMap fromPgn
 
   val defaultRatings = Set[Int](1600, 1800, 2000, 2200, 2500)
   val defaultSpeeds =

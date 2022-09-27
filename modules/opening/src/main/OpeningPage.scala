@@ -9,11 +9,10 @@ import chess.format.pgn.San
 
 case class OpeningPage(
     query: OpeningQuery,
-    opening: Option[LilaOpening],
     explored: OpeningExplored
 ) {
-  val name = opening.fold(query.fen.value)(_.ref.name)
-  val key  = opening.fold(query.fen.value.replace(" ", "_"))(_.key.value)
+  def opening = query.opening
+  def name    = query.name
 }
 
 case class ResultCounts(
@@ -33,6 +32,7 @@ case class OpeningNext(
     san: String,
     uci: Uci.Move,
     fen: FEN,
+    query: OpeningQuery,
     result: ResultCounts,
     percent: Double,
     opening: Option[LilaOpening]
@@ -45,7 +45,6 @@ case class OpeningExplored(result: ResultCounts, next: List[OpeningNext])
 object OpeningPage {
   def apply(query: OpeningQuery, exp: OpeningExplorer.Position): OpeningPage = OpeningPage(
     query = query,
-    opening = FullOpeningDB.findByFen(query.fen).flatMap(LilaOpening.apply),
     OpeningExplored(
       result = ResultCounts(exp.white, exp.draws, exp.black),
       next = exp.moves
@@ -59,6 +58,10 @@ object OpeningPage {
             m.san,
             uci,
             fen,
+            query.copy(
+              pgn = s"${query.pgn} ${chess.format.pgn.Dumper(query.position, move, move.situationAfter)}",
+              position = move.situationAfter
+            ),
             result,
             (result.sum * 100d / exp.movesSum),
             FullOpeningDB.findByFen(fen).flatMap(LilaOpening.apply)

@@ -49,22 +49,16 @@
     margin: var(--box-padding) 0;
   }
   &__next {
-    @extend %box-neat;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
+    @extend %flex-column, %box-neat;
     background: $c-bg-zebra;
     position: relative;
-    outline: 3px solid mix($c-link, $c-bg-box, 30%);
+    outline: 3px solid mix($c-font, $c-bg-box, 30%);
     cursor: pointer;
+    color: $c-font;
     &:hover {
       outline: 3px solid mix($c-link, $c-bg-box, 60%);
       background: mix($c-link, $c-bg-zebra, 10%);
       box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
-    }
-    &__content {
-      @extend %flex-column;
-      flex: 1 1 100%;
     }
     &__title {
       @extend %flex-between;
@@ -78,11 +72,17 @@
       }
     }
     &__popularity {
-      @extend %flex-column;
-      justify-content: flex-end;
-      flex: 0 0 27px;
+      display: flex;
+      flex-flow: row nowrap;
       span {
-        background: if($theme-light, #a0a0a0, #666);
+        background: $c-good;
+        color: $c-good-over;
+        padding: 0 1em;
+      }
+    }
+    &:hover {
+      &__popularity span {
+        background: $c-primary;
       }
     }
   }
