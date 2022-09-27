@@ -39,10 +39,10 @@
   <string name="drawStreak">רצף תיקו: כאשר לשחקן יש תיקו ברציפות בטורנירי זירה, רק התיקו הראשון יזכה בנקודה, או תיקו שנמשך מעל %s מהלכים. רצף התיקו יכול להישבר רק ע\"י ניצחון, לא ע\"י הפסד או תיקו.</string>
   <string name="history">היסטוריית טורנירי זירה</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">צפה בקבוצה</item>
-    <item quantity="two">צפה ב-%s קבוצות</item>
-    <item quantity="many">צפה בכל %s הקבוצות</item>
-    <item quantity="other">צפה בכל %s הקבוצות</item>
+    <item quantity="one">צפייה בקבוצה</item>
+    <item quantity="two">צפייה ב־%s הקבוצות</item>
+    <item quantity="many">צפייה בכל %s הקבוצות</item>
+    <item quantity="other">צפייה בכל %s הקבוצות</item>
   </plurals>
   <string name="newTeamBattle">קרב צוותים חדש</string>
   <string name="customStartDate">תאריך התחלה</string>
