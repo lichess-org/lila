@@ -14,9 +14,9 @@ import lila.user.User
 
 case class ExternalEngine(
     _id: String, // random
-    engineName: String,
+    name: String,
     maxThreads: Int,
-    maxHashMib: Int,
+    maxHash: Int,
     variants: List[String],
     officialStockfish: Boolean,   // Admissible for cloud evals
     providerSecret: String,       // Chosen at random by the provider, possibly shared between registrations
@@ -28,23 +28,23 @@ case class ExternalEngine(
 object ExternalEngine {
 
   case class FormData(
-      engineName: String,
+      name: String,
       maxThreads: Int,
-      maxHashMib: Int,
+      maxHash: Int,
       variants: Option[List[String]],
       officialStockfish: Option[Boolean],
-      secret: String,
-      data: Option[String]
+      providerSecret: String,
+      providerData: Option[String]
   ) {
     def make(userId: User.ID) = ExternalEngine(
       _id = s"eei_${ThreadLocalRandom.nextString(12)}",
-      engineName = engineName,
+      name = name,
       maxThreads = maxThreads,
-      maxHashMib = maxHashMib,
+      maxHash = maxHash,
       variants = variants.filter(_.nonEmpty) | List(chess.variant.Standard.key),
       officialStockfish = ~officialStockfish,
-      providerSecret = secret,
-      providerData = data,
+      providerSecret = providerSecret,
+      providerData = providerData,
       userId = userId,
       clientSecret = s"ees_${SecureRandom.nextString(16)}"
     )
@@ -56,15 +56,15 @@ object ExternalEngine {
 
   val form = Form(
     mapping(
-      "engineName" -> cleanNonEmptyText(3, 200),
+      "name"       -> cleanNonEmptyText(3, 200),
       "maxThreads" -> number(1, 65_536),
-      "maxHashMib" -> number(1, 1_048_576),
+      "maxHash"    -> number(1, 1_048_576),
       "variants" -> optional(list {
         stringIn(chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.key).toSet)
       }),
       "officialStockfish" -> optional(boolean),
-      "secret"            -> nonEmptyText(16, 1024),
-      "data"              -> optional(text(maxLength = 8192))
+      "providerSecret"    -> nonEmptyText(16, 1024),
+      "providerData"      -> optional(text(maxLength = 8192))
     )(FormData.apply)(FormData.unapply)
   )
 
@@ -72,13 +72,13 @@ object ExternalEngine {
     Json
       .obj(
         "id"           -> e._id,
-        "clientSecret" -> e.clientSecret,
+        "name"         -> e.name,
         "userId"       -> e.userId,
-        "engineName"   -> e.engineName,
         "maxThreads"   -> e.maxThreads,
-        "maxHashMib"   -> e.maxHashMib,
+        "maxHash"      -> e.maxHash,
         "variants"     -> e.variants,
-        "data"         -> e.providerData
+        "providerData" -> e.providerData,
+        "clientSecret" -> e.clientSecret
       )
       .add("officialStockfish" -> e.officialStockfish)
   }
