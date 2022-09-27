@@ -17,11 +17,11 @@ export const init = (ctrl: RoundController) =>
       next(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', 'k'], () => {
+    .bind(['up', 'k', 'home'], () => {
       ctrl.userJump(0);
       ctrl.redraw();
     })
-    .bind(['down', 'j'], () => {
+    .bind(['down', 'j', 'end'], () => {
       ctrl.userJump(ctrl.data.steps.length - 1);
       ctrl.redraw();
     })
