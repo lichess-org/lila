@@ -100,7 +100,7 @@
   <string name="rookEndgame">סיום צריחים</string>
   <string name="rookEndgameDescription">סיום עם צריחים ורגלים בלבד.</string>
   <string name="sacrifice">הקרבה</string>
-  <string name="sacrificeDescription">טקטיקה המשלבת ויתור על חומר בטווח הקצר, על מנת להשיג את היתרון שוב לאחר סדרת מסעים כפויה.</string>
+  <string name="sacrificeDescription">טקטיקה המשלבת ויתור על חומר בטווח הקצר, כדי להשיג את היתרון שוב לאחר סדרת מסעים כפויה.</string>
   <string name="short">פאזל קצר</string>
   <string name="shortDescription">שני מסעים לניצחון.</string>
   <string name="skewer">שיפוד</string>
