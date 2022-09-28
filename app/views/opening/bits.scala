@@ -52,34 +52,17 @@ private object bits {
 
   def config(page: OpeningPage)(implicit ctx: Context) = {
     import OpeningConfig._
-    postForm(action := routes.Opening.config(page.query.key))(
-      checkboxes(form("ratings"), ratingChoices, page.query.config.ratings),
-      checkboxes(form("speeds"), speedChoices, page.query.config.speeds.map(_.id)),
-      form3.submit(trans.apply())
+    details(cls := "opening__config")( // , attr("open") := true)(
+      summary(cls := "opening__config__summary")(page.query.config.toString),
+      postForm(cls := "opening__config__form", action := routes.Opening.config(page.query.key))(
+        checkboxes(form("speeds"), speedChoices, page.query.config.speeds.map(_.id)),
+        checkboxes(form("ratings"), ratingChoices, page.query.config.ratings),
+        div(cls                           := "opening__config__form__submit")(
+          form3.submit(trans.apply())(cls := "button-empty")
+        )
+      )
     )
   }
-
-  private def checkboxes[V](
-      field: play.api.data.Field,
-      options: Iterable[(V, String)],
-      checked: Set[V],
-      prefix: String = "op"
-  ) =
-    st.group(cls := "radio")(
-      options.map { v =>
-        val id = s"${field.id}_${v._1}"
-        div(
-          input(
-            st.id := s"$prefix$id",
-            checked(v._1) option st.checked,
-            tpe   := "checkbox",
-            value := v._1.toString,
-            name  := s"${field.name}[]"
-          ),
-          label(`for` := s"$prefix$id")(v._2)
-        )
-      }.toList
-    )
 
   def moreJs(implicit ctx: Context) = frag(
     jsModule("opening"),

@@ -9,6 +9,30 @@ import lila.common.Form.numberIn
 import lila.common.Iso
 import lila.common.LilaCookie
 
+case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]) {
+
+  override def toString = s"Speed: $showSpeeds; Rating: $showRatings"
+
+  def showRatings: String =
+    showContiguous(ratings.toList.sorted.map(_.toString), OpeningConfig.contiguousRatings)
+  def showSpeeds: String =
+    showContiguous(speeds.toList.sorted.map(_.name), OpeningConfig.contiguousSpeeds)
+
+  // shows contiguous rating ranges, or distinct ratings
+  // 1600 to 2200
+  // or 1600, 2000, 2200
+  private def showContiguous(list: List[String], reference: String): String = list match {
+    case Nil          => "All"
+    case List(single) => single
+    case first :: rest =>
+      val many = first :: rest
+      val hash = many.mkString(",")
+      if (reference == hash) "All"
+      else if (reference contains hash) s"$first to ${rest.lastOption | first}"
+      else many mkString ", "
+  }
+}
+
 final class OpeningConfigStore(baker: LilaCookie) {
   import OpeningConfig._
 
@@ -23,11 +47,11 @@ final class OpeningConfigStore(baker: LilaCookie) {
   )
 }
 
-case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed])
-
 object OpeningConfig {
 
-  val allRatings = List[Int](1600, 1800, 2000, 2200, 2500)
+  val allRatings        = List[Int](1600, 1800, 2000, 2200, 2500)
+  val contiguousRatings = allRatings.mkString(",")
+
   val allSpeeds =
     List[Speed](
       Speed.UltraBullet,
@@ -37,6 +61,7 @@ object OpeningConfig {
       Speed.Classical,
       Speed.Correspondence
     )
+  val contiguousSpeeds = allSpeeds.map(_.name).mkString(",")
 
   val default = OpeningConfig(allRatings.drop(1).toSet, allSpeeds.drop(1).toSet)
 
