@@ -16,6 +16,8 @@ final private class OpeningExplorer(
   def apply(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
+        "ratings"     -> query.config.ratings.mkString(","),
+        "speeds"      -> query.config.speeds.map(_.key).mkString(","),
         "fen"         -> query.fen.value,
         "moves"       -> "12",
         "recentGames" -> "0"

@@ -23,7 +23,7 @@ final class OpeningConfigStore(baker: LilaCookie) {
   )
 }
 
-case class OpeningConfig(ratings: Set[Int])
+case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed])
 
 object OpeningConfig {
 
@@ -38,28 +38,36 @@ object OpeningConfig {
       Speed.Correspondence
     )
 
-  val default = OpeningConfig(allRatings.drop(1).toSet) // allSpeeds.toSet excl Speed.UltraBullet)
+  val default = OpeningConfig(allRatings.drop(1).toSet, allSpeeds.drop(1).toSet)
 
   private[opening] object cookie {
     val name     = "opening"
     val maxAge   = 31536000 // one year
     val valueSep = '/'
+    val fieldSep = '!'
 
-    def read(str: String): Option[OpeningConfig] =
-      OpeningConfig(
-        ratings = str.split(valueSep).flatMap(_.toIntOption).toSet
-      ).some
+    def read(str: String): Option[OpeningConfig] = str split fieldSep match {
+      case Array(r, s) =>
+        OpeningConfig(
+          ratings = r.split(valueSep).flatMap(_.toIntOption).toSet,
+          speeds = s.split(valueSep).flatMap(_.toIntOption).flatMap(Speed.byId.get).toSet
+        ).some
+      case _ => none
+    }
 
-    def write(cfg: OpeningConfig): String =
-      cfg.ratings.mkString(valueSep.toString)
+    def write(cfg: OpeningConfig): String = List(
+      cfg.ratings.mkString(valueSep.toString),
+      cfg.speeds.map(_.id).mkString(valueSep.toString)
+    ) mkString fieldSep.toString
   }
 
   val form = Form(
     mapping(
-      "ratings" -> set(numberIn(allRatings))
-      // "speed"     -> numberIn(OpeningQuery.allRatings),
+      "ratings" -> set(numberIn(allRatings)),
+      "speeds"  -> set(numberIn(allSpeeds.map(_.id)).transform[Speed](s => Speed(s).get, _.id))
     )(OpeningConfig.apply)(OpeningConfig.unapply)
   )
 
   val ratingChoices = allRatings zip allRatings.map(_.toString)
+  val speedChoices  = allSpeeds.map(_.id) zip allSpeeds.map(_.name)
 }

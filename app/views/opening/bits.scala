@@ -54,6 +54,7 @@ private object bits {
     import OpeningConfig._
     postForm(action := routes.Opening.config(page.query.key))(
       checkboxes(form("ratings"), ratingChoices, page.query.config.ratings),
+      checkboxes(form("speeds"), speedChoices, page.query.config.speeds.map(_.id)),
       form3.submit(trans.apply())
     )
   }
