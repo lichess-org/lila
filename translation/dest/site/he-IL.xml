@@ -102,7 +102,7 @@
   <string name="openingEndgameExplorer">סייר פתיחות/סיומים</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפאת כלל 50 המהלכים</string>
-  <string name="lossSavedBy50MoveRule">נמנע הפסד מפאת כלל 50 המהלכים</string>
+  <string name="lossSavedBy50MoveRule">הפסד נמנע מפאת כלל 50 המהלכים</string>
   <string name="winOr50MovesByPriorMistake">ניצחון או כלל 50 המסעים בגלל טעות קודמת</string>
   <string name="lossOr50MovesByPriorMistake">הפסד או כלל 50 המסעים בגלל טעות קודמת</string>
   <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם שוחק ההמשך המומלץ של טבלת הסיומים מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בטבלת הסיומים של Syzygy.</string>
@@ -853,8 +853,8 @@
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="next">הבא</string>
   <string name="xWasPlayed">%s שוחק</string>
-  <string name="findBetterMoveForWhite">מצא מהלך טוב יותר ללבן</string>
-  <string name="findBetterMoveForBlack">מצב מהלך טוב יותר לשחור</string>
+  <string name="findBetterMoveForWhite">מצא/י מהלך טוב יותר ללבן</string>
+  <string name="findBetterMoveForBlack">מצא/י מהלך טוב יותר לשחור</string>
   <string name="resumeLearning">המשיכו ללמוד</string>
   <string name="youCanDoBetter">יש מהלך טוב יותר:)</string>
   <string name="tryAnotherMoveForWhite">נסה למצוא מהלך טוב יותר ללבן</string>
