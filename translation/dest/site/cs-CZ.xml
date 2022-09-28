@@ -227,6 +227,13 @@
   <string name="email">Email</string>
   <string name="passwordReset">Změna hesla</string>
   <string name="forgotPassword">Zapomněl jste heslo?</string>
+  <string name="whatSignupUsername">Jaké uživatelské jméno jste použili k registraci?</string>
+  <string name="usernameNotFound">Nenašli jsme žádného uživatele s tímto jménem: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Můžete použít toto jméno pro vytvoření nového účtu</string>
+  <string name="emailSent">Poslali jsme e-mail na %s.</string>
+  <string name="accountCanLogin">Nyní se můžete přihlásit jako %s.</string>
+  <string name="accountClosed">Účet %s je uzavřen.</string>
+  <string name="accountRegisteredWithoutEmail">Účet %s byl zaregistrován bez e-mailu.</string>
   <string name="rank">Pořadí</string>
   <string name="rankX">Pořadí: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -822,6 +829,7 @@
   <string name="bestWasX">Nejlepší tah byl %s</string>
   <string name="youBrowsedAway">Procvičování přerušeno</string>
   <string name="resumePractice">Pokračovat v procvičování</string>
+  <string name="drawByFiftyMoves">Hra skončila remízou podle pravidla padesáti tahů.</string>
   <string name="theGameIsADraw">Hra končí remízou.</string>
   <string name="computerThinking">Počítač přemýšlí...</string>
   <string name="seeBestMove">Ukázat nejlepší tah</string>
