@@ -834,7 +834,7 @@
     <item quantity="many">%s שניות כדי לשחק את המסע הראשון</item>
     <item quantity="other">%s שניות כדי לשחק את המסע הראשון</item>
   </plurals>
-  <string name="practiceWithComputer">התאמן עם המחשב</string>
+  <string name="practiceWithComputer">התאמן/י עם המחשב</string>
   <string name="anotherWasX">מהלך טוב נוסף היה %s</string>
   <string name="bestWasX">המהלך הטוב ביותר היה %s</string>
   <string name="youBrowsedAway">גלשתם למחוזות אחרים</string>
