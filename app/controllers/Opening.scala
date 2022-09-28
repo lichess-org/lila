@@ -30,4 +30,18 @@ final class Opening(env: Env) extends LilaController(env) {
         }
       }
     }
+
+  def config(q: String) =
+    SecureBody(_.Beta) { implicit ctx => _ =>
+      implicit val req = ctx.body
+      val redir        = Redirect(routes.Opening.query(q))
+      import lila.opening.OpeningConfig._
+      form
+        .bindFromRequest()
+        .fold(
+          err => redir.flashFailure,
+          cfg => redir.withCookies(env.opening.config.write(cfg)).flashSuccess
+        )
+        .fuccess
+    }
 }

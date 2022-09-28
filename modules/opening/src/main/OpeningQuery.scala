@@ -9,7 +9,7 @@ import org.joda.time.format.DateTimeFormat
 
 import lila.common.LilaOpeningFamily
 
-case class OpeningQuery(pgn: Vector[String], position: Situation, speeds: Set[Speed], ratings: Set[Int]) {
+case class OpeningQuery(pgn: Vector[String], position: Situation, config: OpeningConfig) {
   def variant           = chess.variant.Standard
   val fen               = Forsyth >> position
   val opening           = FullOpeningDB findByFen fen
@@ -19,29 +19,26 @@ case class OpeningQuery(pgn: Vector[String], position: Situation, speeds: Set[Sp
   val name              = opening.fold(pgnString)(_.name)
   val key               = openingIfShortest.fold(pgn mkString "_")(_.key)
   def initial           = pgn.isEmpty
-  def prev              = pgn.init.nonEmpty ?? OpeningQuery(pgn.init mkString " ")
+  def prev              = pgn.init.nonEmpty ?? OpeningQuery(pgn.init mkString " ", config)
 
   override def toString = s"$pgn $opening"
 }
 
 object OpeningQuery {
 
-  def apply(q: String): Option[OpeningQuery] = byOpening(q) orElse fromPgn(q.replace("_", " "))
+  def apply(q: String, config: OpeningConfig): Option[OpeningQuery] =
+    byOpening(q, config) orElse fromPgn(q.replace("_", " "), config)
 
-  private def byOpening(key: String) =
-    Opening.shortestLines.get(key).map(_.pgn) flatMap fromPgn
+  private def byOpening(key: String, config: OpeningConfig) =
+    Opening.shortestLines.get(key).map(_.pgn) flatMap { fromPgn(_, config) }
 
-  private def fromPgn(pgn: String) = for {
+  private def fromPgn(pgn: String, config: OpeningConfig) = for {
     parsed <- chess.format.pgn.Reader.full(pgn).toOption
     replay <- parsed.valid.toOption
     game = replay.state
     sit  = game.situation
     if sit playable true
-  } yield OpeningQuery(game.pgnMoves, sit, defaultSpeeds, defaultRatings)
-
-  val defaultRatings = Set[Int](1600, 1800, 2000, 2200, 2500)
-  val defaultSpeeds =
-    Set[Speed](Speed.Bullet, Speed.Blitz, Speed.Rapid, Speed.Classical, Speed.Correspondence)
+  } yield OpeningQuery(game.pgnMoves, sit, config)
 
   val firstYear  = 2016
   val firstMonth = s"$firstYear-01"

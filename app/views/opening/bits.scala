@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.opening.{ OpeningPage, OpeningQuery }
+import lila.opening.{ OpeningConfig, OpeningPage, OpeningQuery }
 
 private object bits {
 
@@ -48,6 +48,36 @@ private object bits {
           em("Draws: ", percentFrag(page.explored.result.drawsPercent))
         )
       )
+    )
+
+  def config(page: OpeningPage)(implicit ctx: Context) = {
+    import OpeningConfig._
+    postForm(action := routes.Opening.config(page.query.key))(
+      checkboxes(form("ratings"), ratingChoices, page.query.config.ratings),
+      form3.submit(trans.apply())
+    )
+  }
+
+  private def checkboxes[V](
+      field: play.api.data.Field,
+      options: Iterable[(V, String)],
+      checked: Set[V],
+      prefix: String = "op"
+  ) =
+    st.group(cls := "radio")(
+      options.map { v =>
+        val id = s"${field.id}_${v._1}"
+        div(
+          input(
+            st.id := s"$prefix$id",
+            checked(v._1) option st.checked,
+            tpe   := "checkbox",
+            value := v._1.toString,
+            name  := s"${field.name}[]"
+          ),
+          label(`for` := s"$prefix$id")(v._2)
+        )
+      }.toList
     )
 
   def moreJs(implicit ctx: Context) = frag(
