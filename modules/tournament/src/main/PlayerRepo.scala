@@ -242,6 +242,11 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
+  // note: tournaments before ISODate("2015-06-15T03:34:01.134Z") (s0tKhoTU)
+  // have player IDs with a length <= 8, breaking this optimization
+  // instead of fixing it with `$doc("$concat" -> $arr("$_id", ":", "$uid"))`
+  // we can just hide the damage in the UI
+  // to save serverside perfs
   private[tournament] def computeRanking(tourId: Tournament.ID): Fu[FullRanking] =
     coll
       .aggregateWith[Bdoc]() { framework =>
