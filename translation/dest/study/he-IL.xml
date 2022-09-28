@@ -120,7 +120,7 @@
   <string name="editStudy">עריכת לוח למידה</string>
   <string name="visibility">חשיפה</string>
   <string name="public">פומבי</string>
-  <string name="unlisted">כולם</string>
+  <string name="unlisted">באמצעות קישור</string>
   <string name="inviteOnly">מוזמנים בלבד</string>
   <string name="allowCloning">אפשרו יצירת עותקים</string>
   <string name="nobody">אף אחד</string>
