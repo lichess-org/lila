@@ -3,7 +3,7 @@
   @extend %box-neat-force;
 
   background: $c-bg-box;
-  padding: #{$block-gap * 0.7} $block-gap;
+  padding: 1.5em;
 
   section:not(:last-child) {
     border-bottom: $border;
