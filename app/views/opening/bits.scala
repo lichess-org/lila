@@ -26,13 +26,15 @@ private object bits {
               span(cls := "opening__next__name")(sn)
             }
           ),
-          span(cls := "opening__next__board")(
-            views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
-          ),
-          span(cls := "opening__next__result")(
-            resultSegment("white", next.result.whitePercent),
-            resultSegment("draws", next.result.drawsPercent),
-            resultSegment("black", next.result.blackPercent)
+          span(cls := "opening__next__result-board")(
+            span(cls := "opening__next__result")(
+              resultSegment("black", next.result.blackPercent),
+              resultSegment("draws", next.result.drawsPercent),
+              resultSegment("white", next.result.whitePercent)
+            ),
+            span(cls := "opening__next__board")(
+              views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
+            )
           )
         )
       }
@@ -41,7 +43,7 @@ private object bits {
   def winRate(page: OpeningPage)(implicit ctx: Context) =
     div(cls := "opening__win-rate")(
       h2(
-        "Lichess win rate",
+        "Win rate",
         span(cls := "title-stats")(
           em("White: ", percentFrag(page.explored.result.whitePercent)),
           em("Black: ", percentFrag(page.explored.result.blackPercent)),
@@ -82,7 +84,7 @@ private object bits {
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
 
   def resultSegment(key: String, percent: Double) =
-    span(cls := key, style := s"width:${percentNumber(percent)}%")(
+    span(cls := key, style := s"height:${percentNumber(percent)}%")(
       percent > 20 option s"${Math.round(percent)}%"
     )
 }

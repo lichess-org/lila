@@ -44,7 +44,7 @@
   }
   &__nexts {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: $block-gap;
     margin: var(--box-padding) 0;
   }
@@ -65,8 +65,13 @@
       font-size: 1.5em;
       margin: 0.2em 0.5em;
     }
+    &__result-board {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+    }
     &__board {
-      flex: 0 0 300px;
+      flex: 1 1 100%;
       .cg-wrap {
         @extend %square;
       }
