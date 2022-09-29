@@ -318,7 +318,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
-          attrs: { placeholder: ctrl.root.trans.noarg('searchByUsername') },
+          attrs: {
+            placeholder: ctrl.root.trans.noarg('searchByUsername'),
+            spellcheck: 'false',
+          },
           hook: onInsert<HTMLInputElement>(input =>
             lichess.userComplete().then(uac => {
               uac({
