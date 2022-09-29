@@ -15,7 +15,7 @@ object theme {
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
       moreCss = cssTag("puzzle.page"),
-      withHrefLangs = "/training/themes".some
+      withHrefLangs = routes.Puzzle.themes.url.some
     )(
       main(cls := "page-menu")(
         bits.pageMenu("themes", ctx.me),

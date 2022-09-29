@@ -620,7 +620,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
 
-  protected def OnlyHumans(result: => Fu[Result])(implicit ctx: lila.api.Context) =
+  protected def OnlyHumans(result: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) notFound else result
 
   protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =
@@ -671,7 +671,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
 
-  protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
+  protected def pageHit(implicit ctx: Context): Unit = pageHit(ctx.req)
 
   protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
   protected val noProxyBuffer       = (res: Result) => res.withHeaders(noProxyBufferHeader)
@@ -682,6 +682,21 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val pgnContentType    = "application/x-chess-pgn"
   protected val ndJsonContentType = "application/x-ndjson"
   protected val csvContentType    = "text/csv"
+
+  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String) =
+    Open { ctx =>
+      if (ctx.isAuth) redirectWithQueryString(path)(ctx.req).fuccess
+      else
+        I18nLangPicker.byHref(langCode) match {
+          case I18nLangPicker.NotFound => notFound(ctx)
+          case I18nLangPicker.Redir(code) =>
+            redirectWithQueryString(s"/$code$path")(ctx.req).fuccess
+          case I18nLangPicker.Found(lang) =>
+            val langCtx = ctx withLang lang
+            pageHit(langCtx)
+            f(langCtx)
+        }
+    }
 
   protected def redirectWithQueryString(path: String)(implicit req: RequestHeader) =
     Redirect {

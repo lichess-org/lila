@@ -282,20 +282,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     serveThemes
   }
 
-  def themesLang(langCode: String) =
-    Open { ctx =>
-      if (ctx.isAuth) redirectWithQueryString(routes.Puzzle.themes.url)(ctx.req).fuccess
-      else
-        I18nLangPicker.byHref(langCode) match {
-          case I18nLangPicker.NotFound => notFound(ctx)
-          case I18nLangPicker.Redir(code) =>
-            redirectWithQueryString(s"/$code${routes.Puzzle.themes.url}")(ctx.req).fuccess
-          case I18nLangPicker.Found(lang) =>
-            implicit val langCtx = ctx withLang lang
-            pageHit
-            serveThemes
-        }
-    }
+  def themesLang = LangPage(routes.Puzzle.themes.url)(serveThemes(_)) _
 
   private def serveThemes(implicit ctx: Context) =
     env.puzzle.api.angles map { all =>
