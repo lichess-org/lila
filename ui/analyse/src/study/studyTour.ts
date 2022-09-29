@@ -13,7 +13,7 @@ export function study(ctrl: AnalyseCtrl) {
           ctrl.redraw();
         },
         closeActionMenu: () => {
-          ctrl.actionMenu.open = false;
+          ctrl.actionMenu(false);
           ctrl.redraw();
         },
       });

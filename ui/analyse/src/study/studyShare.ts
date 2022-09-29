@@ -2,8 +2,8 @@ import { prop, Prop } from 'common';
 import { bind } from 'common/snabbdom';
 import { url as xhrUrl } from 'common/xhr';
 import { h, VNode } from 'snabbdom';
-import { renderIndexAndMove } from '../moveView';
-import { baseUrl } from '../util';
+import { renderIndexAndMove } from '../view/moveView';
+import { baseUrl } from '../view/util';
 import { StudyChapterMeta, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
 

@@ -47,7 +47,7 @@ export interface Toggle extends PropWithEffect<boolean> {
   toggle(): void;
 }
 
-export const toggle = (initialValue: boolean, effect: (value: boolean) => void): Toggle => {
+export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
   const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
   return prop;

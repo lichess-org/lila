@@ -3,7 +3,7 @@ import { onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
-import { renderIndexAndMove } from './moveView';
+import { renderIndexAndMove } from './view/moveView';
 
 export interface ForkCtrl {
   state(): {

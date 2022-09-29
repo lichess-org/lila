@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
+import AnalyseCtrl from '../ctrl';
 
 export function config(ctrl: AnalyseCtrl) {
   const engines = ctrl.data.externalEngines;

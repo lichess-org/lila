@@ -6,7 +6,7 @@ import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
-import { iconTag } from '../util';
+import { iconTag } from '../view/util';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';

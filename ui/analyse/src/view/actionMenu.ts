@@ -2,12 +2,12 @@ import { isEmpty } from 'common';
 import modal from 'common/modal';
 import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
-import { AutoplayDelay } from './autoplay';
+import { AutoplayDelay } from '../autoplay';
 import { config as externalEngineConfig } from './externalEngine';
 import { toggle, ToggleSettings } from 'common/toggle';
-import AnalyseCtrl from './ctrl';
+import AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'game/router';
-import * as pgnExport from './pgnExport';
+import * as pgnExport from '../pgnExport';
 
 interface AutoplaySpeed {
   name: string;
@@ -153,13 +153,6 @@ export function studyButton(ctrl: AnalyseCtrl) {
       ),
     ]
   );
-}
-
-export class ActionMenuCtrl {
-  open = false;
-  toggle = (): void => {
-    this.open = !this.open;
-  };
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {

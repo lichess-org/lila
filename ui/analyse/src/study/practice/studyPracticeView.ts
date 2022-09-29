@@ -2,7 +2,7 @@ import { bind, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, thunk, VNode } from 'snabbdom';
 import { toggle } from 'common/toggle';
-import { option, plural, richHTML } from '../../util';
+import { option, plural, richHTML } from '../../view/util';
 import { view as descView } from '../description';
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeCtrl, StudyPracticeData } from './interfaces';

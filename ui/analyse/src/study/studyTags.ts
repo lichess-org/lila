@@ -2,7 +2,7 @@ import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { option } from '../util';
+import { option } from '../view/util';
 import { StudyChapter, StudyCtrl } from './interfaces';
 import { looksLikeLichessGame } from './studyChapters';
 
