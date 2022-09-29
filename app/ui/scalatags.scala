@@ -45,8 +45,8 @@ trait ScalatagsSnippets extends Cap {
 
   import scalatags.Text.all._
 
-  val nbsp                                   = raw("&nbsp;")
-  val amp                                    = raw("&amp;")
+  val nbsp: Frag                             = raw("&nbsp;")
+  val amp: Frag                              = raw("&amp;")
   def iconTag(icon: Char): Tag               = iconTag(icon.toString)
   def iconTag(icon: String): Tag             = i(dataIcon := icon)
   def iconTag(icon: Char, text: Frag): Tag   = iconTag(icon.toString, text)

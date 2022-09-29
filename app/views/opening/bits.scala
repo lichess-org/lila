@@ -20,12 +20,8 @@ private object bits {
               s"${Math.round(next.percent)}%"
             )
           ),
-          span(cls := "opening__next__title")(
-            span(cls := "opening__next__san")(next.san),
-            next.shortName map { sn =>
-              span(cls := "opening__next__name")(sn)
-            }
-          ),
+          span(cls := "opening__next__san")(next.san),
+          span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
           span(cls := "opening__next__result-board")(
             span(cls := "opening__next__result")(
               resultSegment("black", next.result.blackPercent),

@@ -60,10 +60,17 @@
       background: mix($c-link, $c-bg-zebra, 10%);
       box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
     }
-    &__title {
+    &__san {
       @extend %flex-between;
-      font-size: 1.5em;
-      margin: 0.2em 0.5em;
+      position: absolute;
+      top: 0.2rem;
+      right: 0.5rem;
+      font-size: 2em;
+    }
+    &__name {
+      @extend %roboto;
+      font-size: 1.4em;
+      margin: 0 0 0.2em 0.5em;
     }
     &__result-board {
       display: flex;
@@ -80,9 +87,13 @@
       display: flex;
       flex-flow: row nowrap;
       span {
+        @extend %box-radius-bottom-right;
         background: $c-primary;
         color: $c-primary-over;
-        padding: 0 1em;
+        padding-right: 0.5em;
+        font-size: 0.8em;
+        text-align: right;
+        overflow: hidden;
       }
     }
     &:hover {
