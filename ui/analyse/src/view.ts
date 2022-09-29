@@ -83,7 +83,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pair', [
       h('label.name', 'FEN'),
       h('input.copyable.autoselect.analyse__underboard__fen', {
-        attrs: { spellCheck: false },
+        attrs: { spellcheck: 'false' },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLInputElement;
@@ -110,7 +110,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
       h('div.pair', [
         h('label.name', 'PGN'),
         h('textarea.copyable', {
-          attrs: { spellCheck: false },
+          attrs: { spellcheck: 'false' },
           hook: {
             ...onInsert((el: HTMLTextAreaElement) => {
               el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
