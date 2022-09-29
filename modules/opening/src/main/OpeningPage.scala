@@ -13,6 +13,25 @@ case class OpeningPage(
 ) {
   def opening = query.opening
   def name    = query.name
+
+  def nameParts = query.openingAndExtraMoves match {
+    case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
+  }
+}
+
+case class NamePart(name: String, path: Option[String])
+
+case object NamePart {
+  def from(op: FullOpening): List[NamePart] = {
+    val sections = Opening.sectionsOf(op.name)
+    sections.zipWithIndex map { case (name, i) =>
+      NamePart(
+        name,
+        Opening.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))).map(_.key)
+      )
+    }
+  }
+  def from(moves: List[String]) = moves.map { m => NamePart(m, none) }
 }
 
 case class ResultCounts(
@@ -61,11 +80,7 @@ object OpeningPage {
               m.san,
               uci,
               fen,
-              query
-                .copy(
-                  pgn = query.pgn :+ chess.format.pgn.Dumper(query.position, move, move.situationAfter),
-                  position = move.situationAfter
-                ),
+              query.copy(replay = query.replay addMove Left(move)),
               result,
               (result.sum * 100d / exp.movesSum),
               opening,

@@ -8,6 +8,9 @@
       }
     }
   }
+  &__title {
+    @extend %flex-center-nowrap;
+  }
   &__intro {
     display: flex;
     flex-flow: row nowrap; // add media query

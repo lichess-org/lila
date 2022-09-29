@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.opening.{ OpeningPage, OpeningQuery }
 import lila.puzzle.PuzzleOpening
+import lila.opening.NamePart
 
 object show {
 
@@ -31,12 +32,19 @@ object show {
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening")(
-        h1(
+        h1(cls := "opening__title")(
           page.query.prev match {
             case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "", cls := "text")
             case None       => a(href := routes.Opening.index, dataIcon := "", cls := "text")
           },
-          page.name
+          span(cls := "opening__name-parts")(
+            page.nameParts.zipWithIndex map { case (NamePart(name, key), i) =>
+              frag(
+                if (i == 1) br else if (i > 1) ": " else emptyFrag,
+                key.fold(span(name))(q => a(href := routes.Opening.query(q))(name))
+              )
+            }
+          )
         ),
         div(cls := "opening__intro")(
           div(

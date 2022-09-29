@@ -40,7 +40,7 @@ object Opening {
       case _                  => none
     }
 
-  private def sectionsOf(openingName: String): List[String] =
+  def sectionsOf(openingName: String): List[String] =
     openingName.split(":", 2) match {
       case Array(f, v) => f :: v.split(",").toList.map(_.trim)
       case _           => openingName :: Nil
