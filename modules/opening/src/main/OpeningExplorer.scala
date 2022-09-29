@@ -2,7 +2,7 @@ package lila.opening
 
 import chess.format.FEN
 import com.softwaremill.tagging._
-import play.api.libs.json.{ JsValue, Json }
+import play.api.libs.json.{ JsObject, JsValue, Json }
 import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
@@ -37,13 +37,13 @@ final private class OpeningExplorer(
             )
       }
 
-  def queryHistory(query: OpeningQuery): Fu[OpeningHistory[Int]] =
+  def queryHistory(query: OpeningQuery): Fu[PopularityHistory] =
     historyOf(queryParameters(query))
 
-  def configHistory(config: OpeningConfig): Fu[OpeningHistory[Int]] =
+  def configHistory(config: OpeningConfig): Fu[PopularityHistory] =
     historyOf(configParameters(config))
 
-  private def historyOf(params: List[(String, String)]): Fu[OpeningHistory[Int]] =
+  private def historyOf(params: List[(String, String)]): Fu[PopularityHistory] =
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth): _*)
       .get()
@@ -51,10 +51,17 @@ final private class OpeningExplorer(
         case res if res.status != 200 =>
           fufail(s"Opening explorer: ${res.status}")
         case res =>
-          import OpeningHistory.segmentJsonRead
           (res.body[JsValue] \ "history")
-            .validate[List[OpeningHistorySegment[Int]]]
-            .fold(invalid => fufail(invalid.toString), fuccess)
+            .validate[List[JsObject]]
+            .fold(
+              invalid => fufail(invalid.toString),
+              months =>
+                fuccess {
+                  months.map { o =>
+                    ~o.int("black") + ~o.int("draws") + ~o.int("white")
+                  }
+                }
+            )
       }
       .recover { case e: Exception =>
         logger.warn(s"Opening history $params", e)

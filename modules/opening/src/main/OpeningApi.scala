@@ -26,18 +26,13 @@ final class OpeningApi(
       case _ => none
     }
 
-  private def ponderHistory(query: OpeningHistory[Int], config: OpeningHistory[Int]): OpeningHistory[Int] =
-    query zip config map { case (cur, all) =>
-      if (all.sum < 1) cur.copy(black = 0, draws = 0, white = 0)
-      else
-        cur.copy(
-          black = ((cur.black.toFloat / all.sum) * 10_000).toInt,
-          draws = ((cur.draws.toFloat / all.sum) * 10_000).toInt,
-          white = ((cur.white.toFloat / all.sum) * 10_000).toInt
-        )
+  private def ponderHistory(query: PopularityHistory, config: PopularityHistory): PopularityHistory =
+    query.zipAll(config, 0, 0) map {
+      case (_, 0)     => 0
+      case (cur, all) => ((cur * 10_000L) / all).toInt
     }
 
-  private val allGamesHistory = cacheApi[OpeningConfig, OpeningHistory[Int]](32, "opening.allGamesHistory") {
+  private val allGamesHistory = cacheApi[OpeningConfig, PopularityHistory](32, "opening.allGamesHistory") {
     _.expireAfterWrite(1 hour).buildAsyncFuture(explorer.configHistory)
   }
 }

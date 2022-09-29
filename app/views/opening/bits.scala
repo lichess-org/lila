@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.opening.{ OpeningConfig, OpeningHistory, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.{ OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
 private object bits {
 
@@ -72,7 +72,6 @@ private object bits {
   def moreJs(page: OpeningPage)(implicit ctx: Context) = frag(
     jsModule("opening"),
     embedJsUnsafeLoadThen {
-      import lila.opening.OpeningHistory.segmentJsonWrite
       s"""LichessOpening.page(${safeJsonValue(
           Json.obj("history" -> page.explored.history)
         )})"""

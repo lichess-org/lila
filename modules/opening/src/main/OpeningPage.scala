@@ -41,10 +41,10 @@ case class OpeningNext(
   val key = opening.fold(fen.value.replace(" ", "_"))(_.key)
 }
 
-case class OpeningExplored(result: ResultCounts, next: List[OpeningNext], history: OpeningHistory[Int])
+case class OpeningExplored(result: ResultCounts, next: List[OpeningNext], history: PopularityHistory)
 
 object OpeningPage {
-  def apply(query: OpeningQuery, exp: OpeningExplorer.Position, history: OpeningHistory[Int]): OpeningPage =
+  def apply(query: OpeningQuery, exp: OpeningExplorer.Position, history: PopularityHistory): OpeningPage =
     OpeningPage(
       query = query,
       OpeningExplored(
