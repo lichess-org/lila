@@ -91,25 +91,26 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: Execu
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
   }
   private def doFetchList(userId: User.ID) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
-  private def reloadCache(userId: User.ID) = userCache.put(userId, doFetchList)
+  private def reloadCache(userId: User.ID) = userCache.put(userId, doFetchList(userId))
 
   def list(by: User): Fu[List[ExternalEngine]] = userCache get by.id
 
   def create(by: User, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
     val engine = data make by.id
-    coll.insert.one(engine) >> reloadCache(by.id) inject engine
+    coll.insert.one(engine) >>- reloadCache(by.id) inject engine
   }
 
   def find(by: User, id: String): Fu[Option[ExternalEngine]] =
-    list(by).map(_.filter(_._id == id))
+    list(by).map(_.find(_._id == id))
 
   def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
     val engine = data update prev
-    coll.update.one($id(engine._id), engine) >> reloadCache(engine.userId) inject engine
+    coll.update.one($id(engine._id), engine) >>- reloadCache(engine.userId) inject engine
   }
 
   def delete(by: User, id: String): Fu[Boolean] =
-    coll.delete.one($doc("userId" -> by.id) ++ $id(id)) flatMap { result =>
-      reloadCache(by.id) inject (result.n > 0)
+    coll.delete.one($doc("userId" -> by.id) ++ $id(id)) map { result =>
+      reloadCache(by.id)
+      result.n > 0
     }
 }

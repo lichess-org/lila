@@ -8,6 +8,7 @@ import lila.common.config._
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
+    cacheApi: lila.memo.CacheApi,
     net: NetConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -19,5 +20,5 @@ final class Env(
 
   lazy val annotator = new Annotator(net.domain)
 
-  lazy val externalEngine = new ExternalEngineApi(db(CollName("external_engine")))
+  lazy val externalEngine = new ExternalEngineApi(db(CollName("external_engine")), cacheApi)
 }
