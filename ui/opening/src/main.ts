@@ -1,17 +1,17 @@
+import * as chart from 'chart.js';
 import Lpv from 'lichess-pgn-viewer';
+import { initAll as initMiniBoards } from 'common/mini-board';
 import { OpeningPage } from './interfaces';
-import {
-  CategoryScale,
-  Chart,
-  LinearScale,
-  LineController,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Filler,
-} from 'chart.js';
 
-Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
+chart.Chart.register(
+  chart.LineController,
+  chart.CategoryScale,
+  chart.LinearScale,
+  chart.PointElement,
+  chart.LineElement,
+  chart.Tooltip,
+  chart.Filler
+);
 
 export function page(data: OpeningPage) {
   $('.opening__intro .lpv').each(function (this: HTMLElement) {
@@ -29,12 +29,24 @@ export function page(data: OpeningPage) {
       },
     });
   });
+  initMiniBoards();
+  highlightNextPieces();
   lichess.requestIdleCallback(() => renderHistoryChart(data));
 }
 
+const highlightNextPieces = () => {
+  $('.opening__next cg-board').each(function (this: HTMLElement) {
+    Array.from($(this).find('.last-move'))
+      .map(el => el.style.transform)
+      .forEach(transform => {
+        $(this).find(`piece[style="transform: ${transform};"]`).addClass('highlight');
+      });
+  });
+};
+
 const renderHistoryChart = (data: OpeningPage) => {
   const canvas = document.querySelector('.opening__popularity__chart') as HTMLCanvasElement;
-  new Chart(canvas, {
+  new chart.Chart(canvas, {
     type: 'line',
     data: {
       labels: data.history.map(s => s.month),

@@ -82,6 +82,12 @@
       .cg-wrap {
         @extend %square;
       }
+      piece {
+        opacity: 0.5;
+        &.highlight {
+          opacity: 1;
+        }
+      }
     }
     &__popularity {
       display: flex;
