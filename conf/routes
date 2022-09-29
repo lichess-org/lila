@@ -837,6 +837,7 @@ GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
 GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
+GET   /$lang<\w\w>/training            controllers.Puzzle.homeLang(lang: String)
 GET   /$lang<\w\w>/training/themes     controllers.Puzzle.themesLang(lang: String)
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)

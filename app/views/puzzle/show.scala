@@ -15,7 +15,8 @@ object show {
       puzzle: lila.puzzle.Puzzle,
       data: JsObject,
       pref: JsObject,
-      settings: lila.puzzle.PuzzleSettings
+      settings: lila.puzzle.PuzzleSettings,
+      isPuzzleHome: Boolean = false
   )(implicit ctx: Context) = {
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
@@ -63,7 +64,8 @@ object show {
         )
         .some,
       zoomable = true,
-      zenable = true
+      zenable = true,
+      withHrefLangs = isPuzzleHome option routes.Puzzle.home.url
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(

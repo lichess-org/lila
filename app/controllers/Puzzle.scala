@@ -37,7 +37,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       puzzle: Puz,
       angle: PuzzleAngle,
       color: Option[Color] = None,
-      replay: Option[lila.puzzle.PuzzleReplay] = None
+      replay: Option[lila.puzzle.PuzzleReplay] = None,
+      isHome: Boolean = false
   )(implicit ctx: Context) =
     renderJson(puzzle, angle, replay) zip
       ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
@@ -48,7 +49,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
                 puzzle,
                 json,
                 env.puzzle.jsonView.pref(ctx.pref),
-                settings | PuzzleSettings.default(color)
+                settings | PuzzleSettings.default(color),
+                isPuzzleHome = isHome
               )
           )
         )
@@ -75,13 +77,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       }
     }
 
-  def home =
-    Open { implicit ctx =>
-      NoBot {
-        val angle = PuzzleAngle.mix
-        nextPuzzleForMe(angle, none) flatMap {
-          renderShow(_, angle)
-        }
+  def home = Open(serveHome(_))
+
+  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome(_)) _
+
+  private def serveHome(implicit ctx: Context) =
+    NoBot {
+      val angle = PuzzleAngle.mix
+      nextPuzzleForMe(angle, none) flatMap {
+        renderShow(_, angle, isHome = true)
       }
     }
 
@@ -278,9 +282,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       }
     }
 
-  def themes = Open { implicit ctx =>
-    serveThemes
-  }
+  def themes = Open(serveThemes(_))
 
   def themesLang = LangPage(routes.Puzzle.themes.url)(serveThemes(_)) _
 
