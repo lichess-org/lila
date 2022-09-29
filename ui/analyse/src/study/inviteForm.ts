@@ -70,7 +70,10 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {
-          attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
+          attrs: {
+            placeholder: ctrl.trans.noarg('searchByUsername'),
+            spellcheck: 'false',
+          },
           hook: onInsert<HTMLInputElement>(input =>
             lichess.userComplete().then(uac => {
               uac({

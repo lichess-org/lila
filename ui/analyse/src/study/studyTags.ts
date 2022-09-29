@@ -16,7 +16,7 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
   return h('input', {
     key: value, // force to redraw on change, to visibly update the input value
     attrs: {
-      spellcheck: false,
+      spellcheck: 'false',
       value,
     },
     hook: onInsert<HTMLInputElement>(el => {
