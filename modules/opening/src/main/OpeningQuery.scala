@@ -19,7 +19,7 @@ case class OpeningQuery(pgn: Vector[String], position: Situation, config: Openin
   val name              = opening.fold(pgnString)(_.name)
   val key               = openingIfShortest.fold(pgn mkString "_")(_.key)
   def initial           = pgn.isEmpty
-  def prev              = pgn.init.nonEmpty ?? OpeningQuery(pgn.init mkString " ", config)
+  def prev              = (pgn.sizeIs > 1) ?? OpeningQuery(pgn.init mkString " ", config)
 
   override def toString = s"$pgn $opening"
 }

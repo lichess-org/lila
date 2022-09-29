@@ -34,6 +34,7 @@ object index {
     ) {
       main(cls := "page box box-pad opening opening--index")(
         h1("Chess openings"),
+        config(page),
         whatsNext(page)
       )
     }

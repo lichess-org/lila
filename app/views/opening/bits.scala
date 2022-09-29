@@ -56,7 +56,10 @@ private object bits {
     import OpeningConfig._
     details(cls := "opening__config")( // , attr("open") := true)(
       summary(cls := "opening__config__summary")(page.query.config.toString),
-      postForm(cls := "opening__config__form", action := routes.Opening.config(page.query.key))(
+      postForm(
+        cls    := "opening__config__form",
+        action := routes.Opening.config(page.query.key.some.filter(_.nonEmpty) | "index")
+      )(
         checkboxes(form("speeds"), speedChoices, page.query.config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, page.query.config.ratings),
         div(cls                           := "opening__config__form__submit")(

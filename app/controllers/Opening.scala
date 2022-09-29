@@ -23,25 +23,23 @@ final class Opening(env: Env) extends LilaController(env) {
   def query(q: String) =
     Secure(_.Beta) { implicit ctx => _ =>
       env.opening.api.lookup(q) flatMap {
-        _ ?? { page =>
+        case None                                 => Redirect(routes.Opening.index).fuccess
+        case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index).fuccess
+        case Some(page) if page.query.key != q    => Redirect(routes.Opening.query(page.query.key)).fuccess
+        case Some(page) =>
           page.query.family.??(f => env.puzzle.opening.find(f)) map { puzzle =>
             Ok(html.opening.show(page, puzzle))
           }
-        }
       }
     }
 
   def config(q: String) =
     SecureBody(_.Beta) { implicit ctx => _ =>
       implicit val req = ctx.body
-      val redir        = Redirect(routes.Opening.query(q))
-      import lila.opening.OpeningConfig._
-      form
+      val redir = Redirect(if (q.isEmpty || q == "index") routes.Opening.index else routes.Opening.query(q))
+      lila.opening.OpeningConfig.form
         .bindFromRequest()
-        .fold(
-          err => redir.flashFailure,
-          cfg => redir.withCookies(env.opening.config.write(cfg)).flashSuccess
-        )
+        .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
         .fuccess
     }
 }
