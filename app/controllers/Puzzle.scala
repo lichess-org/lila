@@ -3,6 +3,7 @@ package controllers
 import chess.Color
 import play.api.data.Form
 import play.api.libs.json._
+import play.api.mvc.Result
 import scala.util.chaining._
 import views._
 
@@ -11,28 +12,17 @@ import lila.api.Context
 import lila.app._
 import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
+import lila.i18n.I18nLangPicker
 import lila.puzzle.PuzzleForm.RoundData
+import lila.puzzle.{ Puzzle => Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme }
 import lila.user.{ User => UserModel }
-import lila.puzzle.{
-  Puzzle => Puz,
-  PuzzleAngle,
-  PuzzleDashboard,
-  PuzzleDifficulty,
-  PuzzleOpening,
-  PuzzleReplay,
-  PuzzleResult,
-  PuzzleSettings,
-  PuzzleStreak,
-  PuzzleTheme
-}
-import play.api.mvc.Result
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   private def renderJson(
       puzzle: Puz,
       angle: PuzzleAngle,
-      replay: Option[PuzzleReplay] = None,
+      replay: Option[lila.puzzle.PuzzleReplay] = None,
       newUser: Option[UserModel] = None,
       apiVersion: Option[ApiVersion] = None
   )(implicit
@@ -47,7 +37,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       puzzle: Puz,
       angle: PuzzleAngle,
       color: Option[Color] = None,
-      replay: Option[PuzzleReplay] = None
+      replay: Option[lila.puzzle.PuzzleReplay] = None
   )(implicit ctx: Context) =
     renderJson(puzzle, angle, replay) zip
       ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
@@ -282,17 +272,35 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
           .fold(
             jsonFormError,
             diff =>
-              PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
+              lila.puzzle.PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
                 Redirect(routes.Puzzle.show(theme))
           )
       }
     }
 
   def themes = Open { implicit ctx =>
+    serveThemes
+  }
+
+  def themesLang(langCode: String) =
+    Open { ctx =>
+      if (ctx.isAuth) redirectWithQueryString(routes.Puzzle.themes.url)(ctx.req).fuccess
+      else
+        I18nLangPicker.byHref(langCode) match {
+          case I18nLangPicker.NotFound => notFound(ctx)
+          case I18nLangPicker.Redir(code) =>
+            redirectWithQueryString(s"/$code${routes.Puzzle.themes.url}")(ctx.req).fuccess
+          case I18nLangPicker.Found(lang) =>
+            implicit val langCtx = ctx withLang lang
+            pageHit
+            serveThemes
+        }
+    }
+
+  private def serveThemes(implicit ctx: Context) =
     env.puzzle.api.angles map { all =>
       Ok(views.html.puzzle.theme.list(all))
     }
-  }
 
   def openings(order: String) = Open { implicit ctx =>
     env.puzzle.opening.collection flatMap { collection =>
@@ -303,7 +311,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
           }
         }
       } map { mine =>
-        Ok(views.html.puzzle.opening.all(collection, mine, PuzzleOpening.Order(order)))
+        Ok(views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order)))
       }
     }
   }
@@ -404,7 +412,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   def replay(days: Int, themeKey: String) =
     Auth { implicit ctx => me =>
       val theme         = PuzzleTheme.findOrMix(themeKey)
-      val checkedDayOpt = PuzzleDashboard.getclosestDay(days)
+      val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
       env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
         case None =>
           Redirect(routes.Puzzle.dashboard(days, "home", none)).fuccess
@@ -485,6 +493,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
         html = notFound,
         api = v => {
           import lila.puzzle.PuzzleForm.bc._
+          import lila.puzzle.PuzzleResult
           ctx.body.body
             .validate[SolveData]
             .fold(

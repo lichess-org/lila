@@ -35,11 +35,6 @@ final class Lobby(
       )
     }
 
-  private def redirectWithQueryString(path: String)(implicit req: RequestHeader) =
-    Redirect {
-      if (req.target.uriString contains "?") s"$path?${req.target.queryString}" else path
-    }
-
   private def serveHtmlHome(implicit ctx: Context) =
     env.pageCache { () =>
       keyPages.homeHtml.dmap { html =>

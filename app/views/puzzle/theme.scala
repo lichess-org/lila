@@ -14,7 +14,8 @@ object theme {
   def list(all: PuzzleAngle.All)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
-      moreCss = cssTag("puzzle.page")
+      moreCss = cssTag("puzzle.page"),
+      withHrefLangs = "/training/themes".some
     )(
       main(cls := "page-menu")(
         bits.pageMenu("themes", ctx.me),

@@ -682,4 +682,9 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val pgnContentType    = "application/x-chess-pgn"
   protected val ndJsonContentType = "application/x-ndjson"
   protected val csvContentType    = "text/csv"
+
+  protected def redirectWithQueryString(path: String)(implicit req: RequestHeader) =
+    Redirect {
+      if (req.target.uriString contains "?") s"$path?${req.target.queryString}" else path
+    }
 }
