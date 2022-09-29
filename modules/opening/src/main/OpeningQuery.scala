@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.format.{ FEN, Forsyth }
+import chess.format.{ FEN, Forsyth, Uci }
 import chess.opening.FullOpeningDB
 import chess.variant.Standard
 import chess.{ Situation, Speed }
@@ -9,7 +9,12 @@ import org.joda.time.format.DateTimeFormat
 
 import lila.common.LilaOpeningFamily
 
-case class OpeningQuery(pgn: Vector[String], position: Situation, config: OpeningConfig) {
+case class OpeningQuery(
+    pgn: Vector[String],
+    uci: Vector[Uci],
+    position: Situation,
+    config: OpeningConfig
+) {
   def variant           = chess.variant.Standard
   val fen               = Forsyth >> position
   val opening           = FullOpeningDB findByFen fen
@@ -38,7 +43,12 @@ object OpeningQuery {
     game = replay.state
     sit  = game.situation
     if sit playable true
-  } yield OpeningQuery(game.pgnMoves, sit, config)
+  } yield OpeningQuery(
+    game.pgnMoves,
+    replay.moves.view.map(_.fold(_.toUci, _.toUci)).reverse.toVector,
+    sit,
+    config
+  )
 
   val firstYear  = 2016
   val firstMonth = s"$firstYear-01"

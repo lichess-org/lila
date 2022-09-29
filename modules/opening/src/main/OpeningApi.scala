@@ -20,9 +20,8 @@ final class OpeningApi(
     OpeningQuery(q, configStore.read) ?? lookup
 
   def lookup(query: OpeningQuery): Fu[Option[OpeningPage]] =
-    explorer(query) map {
-      _ map { explored =>
-        OpeningPage(query, explored)
-      }
+    explorer.stats(query) zip explorer.history(query) map {
+      case (Some(stats), history) => OpeningPage(query, stats, history).some
+      case _                      => none
     }
 }

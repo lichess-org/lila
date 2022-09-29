@@ -6,6 +6,7 @@ import play.api.libs.json.{ JsValue, Json }
 import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
+import chess.format.Forsyth
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
@@ -13,20 +14,19 @@ final private class OpeningExplorer(
 )(implicit ec: ExecutionContext) {
   import OpeningExplorer._
 
-  def apply(query: OpeningQuery): Fu[Option[Position]] =
+  def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        "ratings"     -> query.config.ratings.mkString(","),
-        "speeds"      -> query.config.speeds.map(_.key).mkString(","),
-        "fen"         -> query.fen.value,
-        "moves"       -> "12",
-        "recentGames" -> "0"
+        queryParameters(query) ::: List(
+          "moves"       -> "12",
+          "recentGames" -> "0"
+        ): _*
       )
       .get()
       .flatMap {
         case res if res.status == 404 => fuccess(none)
         case res if res.status != 200 =>
-          fufail(s"Couldn't reach the opening explorer: $query")
+          fufail(s"Couldn't reach the opening explorer: ${res.status} for $query")
         case res =>
           res
             .body[JsValue]
@@ -36,6 +36,31 @@ final private class OpeningExplorer(
               data => fuccess(data.some)
             )
       }
+
+  def history(query: OpeningQuery): Fu[OpeningHistory[Int]] =
+    ws.url(s"$explorerEndpoint/lichess/history")
+      .withQueryStringParameters(
+        queryParameters(query) ::: List(
+          "since" -> OpeningQuery.firstMonth
+        ): _*
+      )
+      .get()
+      .flatMap {
+        case res if res.status != 200 =>
+          fufail(s"Couldn't reach the opening explorer: ${res.status} for $query")
+        case res =>
+          import OpeningHistory.segmentJsonRead
+          (res.body[JsValue] \ "history")
+            .validate[List[OpeningHistorySegment[Int]]]
+            .fold(invalid => fufail(invalid.toString), fuccess)
+      }
+
+  private def queryParameters(query: OpeningQuery) =
+    List(
+      "ratings" -> query.config.ratings.mkString(","),
+      "speeds"  -> query.config.speeds.map(_.key).mkString(","),
+      "play"    -> query.uci.map(_.uci).mkString(",")
+    )
 }
 
 object OpeningExplorer {

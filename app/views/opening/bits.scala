@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.opening.{ OpeningConfig, OpeningPage, OpeningQuery }
+import lila.opening.{ OpeningConfig, OpeningHistory, OpeningPage, OpeningQuery, ResultCounts }
 
 private object bits {
 
@@ -23,11 +23,15 @@ private object bits {
           span(cls := "opening__next__san")(next.san),
           span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
           span(cls := "opening__next__result-board")(
-            span(cls := "opening__next__result")(
-              resultSegment("black", next.result.blackPercent),
-              resultSegment("draws", next.result.drawsPercent),
-              resultSegment("white", next.result.whitePercent)
-            ),
+            span(cls := "opening__next__result") {
+              import next.result._
+              val (blackV, drawsV, whiteV) = exaggerateResults(next.result)
+              frag(
+                resultSegment("black", blackPercent, blackV),
+                resultSegment("draws", drawsPercent, drawsV),
+                resultSegment("white", whitePercent, whiteV)
+              )
+            },
             span(cls := "opening__next__board")(
               views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
             )
@@ -65,12 +69,12 @@ private object bits {
     )
   }
 
-  def moreJs(implicit ctx: Context) = frag(
+  def moreJs(page: OpeningPage)(implicit ctx: Context) = frag(
     jsModule("opening"),
     embedJsUnsafeLoadThen {
       import lila.opening.OpeningHistory.segmentJsonWrite
       s"""LichessOpening.page(${safeJsonValue(
-          Json.obj("history" -> JsArray())
+          Json.obj("history" -> page.explored.history)
         )})"""
     }
   )
@@ -82,8 +86,24 @@ private object bits {
   def percentNumber(v: Double) = f"${v}%1.2f"
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
 
-  def resultSegment(key: String, percent: Double) =
-    span(cls := key, style := s"height:${percentNumber(percent)}%")(
-      percent > 20 option s"${Math.round(percent)}%"
+  def resultSegment(key: String, percent: Double, visualPercent: Double) =
+    span(cls := key, style := s"height:${percentNumber(visualPercent)}%")(
+      visualPercent > 10 option s"${Math.round(percent)}%"
     )
+
+  // private def exaggerateResult(percent: Double, key: String) = key match {
+  //   case "whites" | "blacks" => 50 - (50 - percent) * 5
+  //   case _                   => percent
+  // }
+  private def exaggerateResults(result: ResultCounts) = {
+    import result._
+    val (lower, upper) = (30d, 70d)
+    val factor         = 100d / (upper - lower)
+    ((blackPercent - lower) * factor, drawsPercent * factor, (whitePercent - lower) * factor)
+  }
+// function transform(black, draw, white, upper, lower) {
+// scaling_factor = 1 / (upper - lower)
+// return [(black - lower) * scaling_factor, draw * scaling_factor, (white - lower) * scaling_factor]
+// }
+
 }
