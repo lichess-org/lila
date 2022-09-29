@@ -37,29 +37,38 @@ final private class OpeningExplorer(
             )
       }
 
-  def history(query: OpeningQuery): Fu[OpeningHistory[Int]] =
+  def queryHistory(query: OpeningQuery): Fu[OpeningHistory[Int]] =
+    historyOf(queryParameters(query))
+
+  def configHistory(config: OpeningConfig): Fu[OpeningHistory[Int]] =
+    historyOf(configParameters(config))
+
+  private def historyOf(params: List[(String, String)]): Fu[OpeningHistory[Int]] =
     ws.url(s"$explorerEndpoint/lichess/history")
-      .withQueryStringParameters(
-        queryParameters(query) ::: List(
-          "since" -> OpeningQuery.firstMonth
-        ): _*
-      )
+      .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth): _*)
       .get()
       .flatMap {
         case res if res.status != 200 =>
-          fufail(s"Couldn't reach the opening explorer: ${res.status} for $query")
+          fufail(s"Opening explorer: ${res.status}")
         case res =>
           import OpeningHistory.segmentJsonRead
           (res.body[JsValue] \ "history")
             .validate[List[OpeningHistorySegment[Int]]]
             .fold(invalid => fufail(invalid.toString), fuccess)
       }
+      .recover { case e: Exception =>
+        logger.warn(s"Opening history $params", e)
+        Nil
+      }
 
   private def queryParameters(query: OpeningQuery) =
+    configParameters(query.config) ::: List(
+      "play" -> query.uci.map(_.uci).mkString(",")
+    )
+  private def configParameters(config: OpeningConfig) =
     List(
-      "ratings" -> query.config.ratings.mkString(","),
-      "speeds"  -> query.config.speeds.map(_.key).mkString(","),
-      "play"    -> query.uci.map(_.uci).mkString(",")
+      "ratings" -> config.ratings.mkString(","),
+      "speeds"  -> config.speeds.map(_.key).mkString(",")
     )
 }
 

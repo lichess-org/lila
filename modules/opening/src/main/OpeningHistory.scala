@@ -3,7 +3,6 @@ package lila.opening
 import play.api.libs.json.{ JsArray, JsString, Json, Reads, Writes }
 
 case class OpeningHistorySegment[A](
-    month: String, // YYYY-MM
     black: A,
     draws: A,
     white: A
@@ -23,6 +22,9 @@ object OpeningHistory {
 
   type Segments = List[OpeningHistorySegment[Int]]
 
-  implicit def segmentJsonRead[A: Reads: Numeric]   = Json.reads[OpeningHistorySegment[A]]
-  implicit def segmentJsonWrite[A: Writes: Numeric] = Json.writes[OpeningHistorySegment[A]]
+  implicit def segmentJsonRead[A: Reads: Numeric] = Json.reads[OpeningHistorySegment[A]]
+
+  implicit def segmentJsonWrite[A: Writes: Numeric] = Writes[OpeningHistorySegment[A]] { s =>
+    Json.arr(s.black, s.draws, s.white)
+  }
 }

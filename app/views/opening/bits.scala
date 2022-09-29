@@ -86,10 +86,13 @@ private object bits {
   def percentNumber(v: Double) = f"${v}%1.2f"
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
 
-  def resultSegment(key: String, percent: Double, visualPercent: Double) =
-    span(cls := key, style := s"height:${percentNumber(visualPercent)}%")(
-      visualPercent > 10 option s"${Math.round(percent)}%"
+  def resultSegment(key: String, percent: Double, visualPercent: Double) = {
+    val visible = visualPercent > 7
+    val text    = s"${Math.round(percent)}%"
+    span(cls := key, style := s"height:${percentNumber(visualPercent)}%", title := (!visible).option(text))(
+      visible option text
     )
+  }
 
   private def exaggerateResults(result: ResultCounts) = {
     import result._

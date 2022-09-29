@@ -50,11 +50,11 @@ object OpeningQuery {
     config
   )
 
-  val firstYear  = 2016
-  val firstMonth = s"$firstYear-01"
-  def lastMonth =
-    DateTimeFormat forPattern "yyyy-MM" print {
-      val now = DateTime.now
-      if (now.dayOfMonth.get > 7) now else now.minusMonths(1)
-    }
+  val firstYear  = 2017
+  val firstMonth = s"$firstYear-04"
+  // def lastMonth =
+  //   DateTimeFormat forPattern "yyyy-MM" print {
+  //     val now = DateTime.now
+  //     if (now.dayOfMonth.get > 7) now else now.minusMonths(1)
+  //   }
 }

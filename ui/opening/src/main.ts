@@ -2,6 +2,8 @@ import * as chart from 'chart.js';
 import Lpv from 'lichess-pgn-viewer';
 import { initAll as initMiniBoards } from 'common/mini-board';
 import { OpeningPage } from './interfaces';
+import { addMonths } from 'date-fns';
+import 'chartjs-adapter-date-fns';
 
 chart.Chart.register(
   chart.LineController,
@@ -10,7 +12,9 @@ chart.Chart.register(
   chart.PointElement,
   chart.LineElement,
   chart.Tooltip,
-  chart.Filler
+  chart.Filler,
+  chart.Title,
+  chart.TimeScale
 );
 
 export function page(data: OpeningPage) {
@@ -44,15 +48,16 @@ const highlightNextPieces = () => {
   });
 };
 
+const firstDate = new Date('2017-04-01');
 const renderHistoryChart = (data: OpeningPage) => {
   const canvas = document.querySelector('.opening__popularity__chart') as HTMLCanvasElement;
   new chart.Chart(canvas, {
     type: 'line',
     data: {
-      labels: data.history.map(s => s.month),
+      labels: data.history.map((_, i) => addMonths(firstDate, i)),
       datasets: [
         {
-          data: data.history.map(s => s.draws + s.black + s.white),
+          data: data.history.map(s => (s[0] + s[1] + s[2]) / 100),
           borderColor: 'hsla(37,74%,43%,1)',
           backgroundColor: 'hsla(37,74%,43%,0.5)',
           fill: true,
@@ -62,13 +67,31 @@ const renderHistoryChart = (data: OpeningPage) => {
     options: {
       animation: false,
       scales: {
-        y: {
-          min: 0,
-          // max: 20,
+        x: {
+          type: 'time',
+          time: {
+            tooltipFormat: 'MMMM yyyy',
+          },
+          display: false,
         },
-        x: {},
+        y: {
+          title: {
+            display: true,
+            text: 'Popularity over time',
+          },
+        },
       },
       responsive: true,
+      hover: {
+        mode: 'index',
+        intersect: false,
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+        },
+      },
     },
   });
 };

@@ -11,11 +11,13 @@
   &__intro {
     display: flex;
     flex-flow: row wrap;
+    align-items: flex-start;
     gap: 3em;
     margin-bottom: 3em;
     // overflow: hidden;
     .lpv {
       flex: 1 0 auto;
+      width: 20vw;
       max-width: 300px;
     }
     &__side {
@@ -38,8 +40,8 @@
   }
   &__popularity {
     &__chart {
-      height: 30vh;
-      max-height: 30vh;
+      height: 15vh;
+      max-height: 15vh;
     }
   }
   &__nexts {

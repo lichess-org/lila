@@ -61,7 +61,8 @@ object show {
                 "View in opening explorer"
               )
             ),
-            div(cls := "opening__intro__text")("Text here, soon.")
+            canvas(cls := "opening__popularity__chart")
+            // div(cls := "opening__intro__text")("Text here, soon.")
           )
         ),
         whatsNext(page)
