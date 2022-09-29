@@ -82,6 +82,15 @@
       .cg-wrap {
         @extend %square;
       }
+      cg-board {
+        box-shadow: none;
+        background-color: rgba($c-bg-box, 0.3);
+        @if $theme-dark {
+          background-blend-mode: darken;
+        } @else {
+          background-blend-mode: soft-light;
+        }
+      }
       piece {
         opacity: 0.5;
         &.highlight {
