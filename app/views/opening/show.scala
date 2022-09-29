@@ -38,7 +38,7 @@ object show {
           },
           page.name
         ),
-        div(cls := "opening__intro", page.opening.map(o => style := s"--move-rows: ${(o.pgn.size) + 1}"))(
+        div(cls := "opening__intro")(
           div(
             cls              := "lpv lpv--preload lpv--moves-bottom",
             st.data("pgn")   := page.query.pgnString,

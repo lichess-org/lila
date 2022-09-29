@@ -10,20 +10,20 @@
   }
   &__intro {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap; // add media query
     align-items: flex-start;
-    gap: 3em;
+    gap: $block-gap;
     margin-bottom: 3em;
     // overflow: hidden;
     .lpv {
-      flex: 1 0 auto;
-      width: 20vw;
+      flex: 1 1 20vw;
+      min-width: 200px;
       max-width: 300px;
     }
     &__side {
       flex: 1 1 auto;
       @extend %flex-column;
-      gap: 3em;
+      gap: $block-gap;
     }
     &__actions {
       display: flex;
@@ -61,18 +61,29 @@
       outline: 3px solid mix($c-link, $c-bg-box, 60%);
       background: mix($c-link, $c-bg-zebra, 10%);
       box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+      piece {
+        opacity: 0.8;
+      }
+      cg-board {
+        background-color: none;
+      }
     }
-    &__san {
-      @extend %flex-between;
-      position: absolute;
-      top: 0.2rem;
-      right: 0.5rem;
-      font-size: 2em;
+    &__title {
+      @extend %flex-between-nowrap;
     }
     &__name {
       @extend %roboto;
-      font-size: 1.4em;
+      flex: 1 1 auto;
+      font-size: 1.3em;
       margin: 0 0 0.2em 0.5em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &__san {
+      flex: 0 1 auto;
+      font-size: 2em;
+      margin: -1.2rem 0.5rem 0 0;
     }
     &__result-board {
       display: flex;

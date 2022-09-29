@@ -81,7 +81,8 @@ const renderHistoryChart = (data: OpeningPage) => {
           },
         },
       },
-      responsive: true,
+      // https://www.chartjs.org/docs/latest/configuration/responsive.html
+      // responsive: false, // just doesn't work
       hover: {
         mode: 'index',
         intersect: false,

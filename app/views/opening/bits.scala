@@ -20,8 +20,10 @@ private object bits {
               s"${Math.round(next.percent)}%"
             )
           ),
-          span(cls := "opening__next__san")(next.san),
-          span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
+          span(cls := "opening__next__title")(
+            span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
+            span(cls := "opening__next__san")(next.san)
+          ),
           span(cls := "opening__next__result-board")(
             span(cls := "opening__next__result") {
               import next.result._
@@ -43,7 +45,8 @@ private object bits {
   def winRate(page: OpeningPage)(implicit ctx: Context) =
     div(cls := "opening__win-rate")(
       h2(
-        "Win rate",
+        strong(page.explored.result.sum.localize),
+        " games",
         span(cls := "title-stats")(
           em("White: ", percentFrag(page.explored.result.whitePercent)),
           em("Black: ", percentFrag(page.explored.result.blackPercent)),
