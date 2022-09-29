@@ -415,7 +415,7 @@ object layout {
           h1(cls := "site-title")(
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
-            a(href := "/")(
+            a(href := langHref("/"))(
               "lichess",
               span(if (netConfig.isProd) ".org" else ".dev")
             )

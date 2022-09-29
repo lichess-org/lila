@@ -24,4 +24,12 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
   def shortLangName(str: String) = langName(str).takeWhile(','.!=)
 
   def isRTL(implicit lang: Lang) = lila.i18n.LangList.isRTL(lang)
+
+  def langHref(path: String)(implicit ctx: lila.api.Context) =
+    if (ctx.isAuth || ctx.lang.language == lila.i18n.defaultLang.language) path
+    else {
+      val code = lila.i18n.fixJavaLanguageCode(ctx.lang)
+      if (path == "/") s"/$code"
+      else s"/$code$path"
+    }
 }
