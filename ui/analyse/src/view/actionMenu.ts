@@ -91,16 +91,14 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   );
 }
 
-function rangeConfig(read: () => number, write: (value: number) => void): Hooks {
-  return {
-    insert: vnode => {
-      const el = vnode.elm as HTMLInputElement;
-      el.value = '' + read();
-      el.addEventListener('input', _ => write(parseInt(el.value)));
-      el.addEventListener('mouseout', _ => el.blur());
-    },
-  };
-}
+const rangeConfig = (read: () => number, write: (value: number) => void): Hooks => ({
+  insert: vnode => {
+    const el = vnode.elm as HTMLInputElement;
+    el.value = '' + read();
+    el.addEventListener('input', _ => write(parseInt(el.value)));
+    el.addEventListener('mouseout', _ => el.blur());
+  },
+});
 
 const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
