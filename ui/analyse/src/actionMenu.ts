@@ -3,6 +3,7 @@ import modal from 'common/modal';
 import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
 import { AutoplayDelay } from './autoplay';
+import { config as externalEngineConfig } from './externalEngine';
 import { toggle, ToggleSettings } from 'common/toggle';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
@@ -229,153 +230,151 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const notSupported = (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
 
   const cevalConfig: MaybeVNodes =
-    ceval && ceval.possible && ceval.allowed()
-      ? ([h('h2', noarg('computerAnalysis'))] as MaybeVNodes)
-          .concat([
-            ctrlToggle(
-              {
-                name: 'enable',
-                title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
-                id: 'all',
-                checked: ctrl.showComputer(),
-                disabled: mandatoryCeval,
-                change: ctrl.toggleComputer,
-              },
-              ctrl
-            ),
-          ])
-          .concat(
-            ctrl.showComputer()
-              ? [
-                  ctrlToggle(
-                    {
-                      name: 'bestMoveArrow',
-                      title: 'Hotkey: a',
-                      id: 'shapes',
-                      checked: ctrl.showAutoShapes(),
-                      change: ctrl.toggleAutoShapes,
-                    },
-                    ctrl
-                  ),
-                  ctrlToggle(
-                    {
-                      name: 'evaluationGauge',
-                      id: 'gauge',
-                      checked: ctrl.showGauge(),
-                      change: ctrl.toggleGauge,
-                    },
-                    ctrl
-                  ),
-                  ctrlToggle(
-                    {
-                      name: 'Annotations on board',
-                      title: 'Display analysis symbols on the board',
-                      id: 'move-annotation',
-                      checked: ctrl.showMoveAnnotation(),
-                      change: ctrl.toggleMoveAnnotation,
-                    },
-                    ctrl
-                  ),
-                  ctrlToggle(
-                    {
-                      name: 'infiniteAnalysis',
-                      title: 'removesTheDepthLimit',
-                      id: 'infinite',
-                      checked: ceval.infinite(),
-                      change: ctrl.cevalSetInfinite,
-                    },
-                    ctrl
-                  ),
-                  ceval.technology != 'external'
-                    ? ctrlToggle(
+    ceval?.possible && ceval.allowed()
+      ? [
+          h('h2', noarg('computerAnalysis')),
+          ctrlToggle(
+            {
+              name: 'enable',
+              title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
+              id: 'all',
+              checked: ctrl.showComputer(),
+              disabled: mandatoryCeval,
+              change: ctrl.toggleComputer,
+            },
+            ctrl
+          ),
+          ...(ctrl.showComputer()
+            ? [
+                ctrlToggle(
+                  {
+                    name: 'bestMoveArrow',
+                    title: 'Hotkey: a',
+                    id: 'shapes',
+                    checked: ctrl.showAutoShapes(),
+                    change: ctrl.toggleAutoShapes,
+                  },
+                  ctrl
+                ),
+                ctrlToggle(
+                  {
+                    name: 'evaluationGauge',
+                    id: 'gauge',
+                    checked: ctrl.showGauge(),
+                    change: ctrl.toggleGauge,
+                  },
+                  ctrl
+                ),
+                ctrlToggle(
+                  {
+                    name: 'Annotations on board',
+                    title: 'Display analysis symbols on the board',
+                    id: 'move-annotation',
+                    checked: ctrl.showMoveAnnotation(),
+                    change: ctrl.toggleMoveAnnotation,
+                  },
+                  ctrl
+                ),
+                ctrlToggle(
+                  {
+                    name: 'infiniteAnalysis',
+                    title: 'removesTheDepthLimit',
+                    id: 'infinite',
+                    checked: ceval.infinite(),
+                    change: ctrl.cevalSetInfinite,
+                  },
+                  ctrl
+                ),
+                ceval.technology != 'external'
+                  ? ctrlToggle(
+                      {
+                        name: 'Use NNUE',
+                        title: ceval.supportsNnue
+                          ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
+                          : notSupported,
+                        id: 'enable-nnue',
+                        checked: ceval.supportsNnue && ceval.enableNnue(),
+                        change: ceval.enableNnue,
+                        disabled: !ceval.supportsNnue,
+                      },
+                      ctrl
+                    )
+                  : null,
+                (id => {
+                  const max = 5;
+                  return h('div.setting', [
+                    h('label', { attrs: { for: id } }, noarg('multipleLines')),
+                    h('input#' + id, {
+                      attrs: {
+                        type: 'range',
+                        min: 0,
+                        max,
+                        step: 1,
+                      },
+                      hook: rangeConfig(() => ceval!.multiPv(), ctrl.cevalSetMultiPv),
+                    }),
+                    h('div.range_value', ceval.multiPv() + ' / ' + max),
+                  ]);
+                })('analyse-multipv'),
+                (id => {
+                  return h('div.setting', [
+                    h('label', { attrs: { for: id } }, noarg('cpus')),
+                    h('input#' + id, {
+                      attrs: {
+                        type: 'range',
+                        min: 1,
+                        max: ceval.maxThreads,
+                        step: 1,
+                        disabled: ceval.maxThreads <= 1,
+                        ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
+                      },
+                      hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
+                    }),
+                    h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
+                  ]);
+                })('analyse-threads'),
+                (id =>
+                  h('div.setting', [
+                    h('label', { attrs: { for: id } }, noarg('memory')),
+                    h('input#' + id, {
+                      attrs: {
+                        type: 'range',
+                        min: 4,
+                        max: Math.floor(Math.log2(ceval.maxHashSize)),
+                        step: 1,
+                        disabled: ceval.maxHashSize <= 16,
+                        ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
+                      },
+                      hook: rangeConfig(
+                        () => Math.floor(Math.log2(ceval.hashSize())),
+                        v => ctrl.cevalSetHashSize(Math.pow(2, v))
+                      ),
+                    }),
+                    h('div.range_value', formatHashSize(ceval.hashSize())),
+                  ]))('analyse-memory'),
+                ceval.technology == 'external'
+                  ? h('div.setting', [
+                      h('label', 'External engine'),
+                      h(
+                        'button.button.text.button-thin.button-red',
                         {
-                          name: 'Use NNUE',
-                          title: ceval.supportsNnue
-                            ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
-                            : notSupported,
-                          id: 'enable-nnue',
-                          checked: ceval.supportsNnue && ceval.enableNnue(),
-                          change: ceval.enableNnue,
-                          disabled: !ceval.supportsNnue,
-                        },
-                        ctrl
-                      )
-                    : null,
-                  (id => {
-                    const max = 5;
-                    return h('div.setting', [
-                      h('label', { attrs: { for: id } }, noarg('multipleLines')),
-                      h('input#' + id, {
-                        attrs: {
-                          type: 'range',
-                          min: 0,
-                          max,
-                          step: 1,
-                        },
-                        hook: rangeConfig(() => ceval!.multiPv(), ctrl.cevalSetMultiPv),
-                      }),
-                      h('div.range_value', ceval.multiPv() + ' / ' + max),
-                    ]);
-                  })('analyse-multipv'),
-                  (id => {
-                    return h('div.setting', [
-                      h('label', { attrs: { for: id } }, noarg('cpus')),
-                      h('input#' + id, {
-                        attrs: {
-                          type: 'range',
-                          min: 1,
-                          max: ceval.maxThreads,
-                          step: 1,
-                          disabled: ceval.maxThreads <= 1,
-                          ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
-                        },
-                        hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
-                      }),
-                      h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
-                    ]);
-                  })('analyse-threads'),
-                  (id =>
-                    h('div.setting', [
-                      h('label', { attrs: { for: id } }, noarg('memory')),
-                      h('input#' + id, {
-                        attrs: {
-                          type: 'range',
-                          min: 4,
-                          max: Math.floor(Math.log2(ceval.maxHashSize)),
-                          step: 1,
-                          disabled: ceval.maxHashSize <= 16,
-                          ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
-                        },
-                        hook: rangeConfig(
-                          () => Math.floor(Math.log2(ceval.hashSize())),
-                          v => ctrl.cevalSetHashSize(Math.pow(2, v))
-                        ),
-                      }),
-                      h('div.range_value', formatHashSize(ceval.hashSize())),
-                    ]))('analyse-memory'),
-                  ceval.technology == 'external'
-                    ? h('div.setting', [
-                        h('label', 'External engine'),
-                        h(
-                          'button.button.text.button-thin.button-red',
-                          {
-                            attrs: {
-                              'data-icon': '',
-                            },
-                            hook: bindNonPassive('click', () => {
-                              if (confirm('Disconnect external engine and reload?')) {
-                                ceval.disconnectExternalEngine();
-                                lichess.reload();
-                              }
-                            }),
+                          attrs: {
+                            'data-icon': '',
                           },
-                          'Disconnect'
-                        ),
-                      ])
-                    : null,
-                ]
-              : []
-          )
+                          hook: bindNonPassive('click', () => {
+                            if (confirm('Disconnect external engine and reload?')) {
+                              ceval.disconnectExternalEngine();
+                              lichess.reload();
+                            }
+                          }),
+                        },
+                        'Disconnect'
+                      ),
+                    ])
+                  : null,
+              ]
+            : []),
+        ]
       : [];
 
   const notationConfig = [
@@ -394,42 +393,40 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ),
   ];
 
-  return h(
-    'div.action-menu',
-    tools
-      .concat(notationConfig)
-      .concat(cevalConfig)
-      .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
-      .concat([
-        deleteButton(ctrl, ctrl.opts.userId),
-        canContinue
-          ? h('div.continue-with.none.g_' + d.game.id, [
-              h(
-                'a.button',
-                {
-                  attrs: {
-                    href: d.userAnalysis
-                      ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
-                      : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-                    rel: 'nofollow',
-                  },
-                },
-                noarg('playWithTheMachine')
-              ),
-              h(
-                'a.button',
-                {
-                  attrs: {
-                    href: d.userAnalysis
-                      ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
-                      : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-                    rel: 'nofollow',
-                  },
-                },
-                noarg('playWithAFriend')
-              ),
-            ])
-          : null,
-      ])
-  );
+  return h('div.action-menu', [
+    ...tools,
+    ...notationConfig,
+    ...cevalConfig,
+    ...externalEngineConfig(ctrl),
+    ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
+    deleteButton(ctrl, ctrl.opts.userId),
+    canContinue
+      ? h('div.continue-with.none.g_' + d.game.id, [
+          h(
+            'a.button',
+            {
+              attrs: {
+                href: d.userAnalysis
+                  ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
+                  : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+                rel: 'nofollow',
+              },
+            },
+            noarg('playWithTheMachine')
+          ),
+          h(
+            'a.button',
+            {
+              attrs: {
+                href: d.userAnalysis
+                  ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
+                  : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+                rel: 'nofollow',
+              },
+            },
+            noarg('playWithAFriend')
+          ),
+        ])
+      : null,
+  ]);
 }
