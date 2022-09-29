@@ -7,6 +7,15 @@
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist">Чуйте го произнесено от експерт.</string>
   <string name="whyLiveLightLibre">На живо, защото игрите са играни и гледани 24/7;Свободата от факта, че  Личес е с отворен код и необременен с патентовани глупости, които има в други уебсайтове</string>
+  <string name="whyIsLilaCalledLila">По същия начин изходният код за Lichess, %1$s, означава li[chess in sca]la, тъй като по-голямата част от Lichess е написана на %2$s, интуитивен език за програмиране.</string>
+  <string name="howCanIContributeToLichess">Как мога да допринеса за Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess съществува благодарение на дарения и усилията на екип от доброволци.</string>
+  <string name="findMoreAndSeeHowHelp">Можете да научите повече за %1$s (включително %2$s). Ако искате да помогнете на Lichess, като дадете доброволно времето и уменията си, има много %3$s.</string>
+  <string name="beingAPatron">като меценат</string>
+  <string name="breakdownOfOurCosts">разбивка на нашите разходи</string>
+  <string name="otherWaysToHelp">други начини за подпомагане</string>
+  <string name="areThereWebsitesBasedOnLichess">Има ли уебсайтове, базирани на Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Да. Lichess наистина вдъхнови други сайтове с отворен код, които използват нашите %1$s, %2$s или %3$s.</string>
   <string name="fairPlay">Честна игра</string>
   <string name="pleaseReadFairPlayPage">За повече информация, моля прочетете %s</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sсек = %2$s</string>
