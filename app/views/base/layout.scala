@@ -186,12 +186,13 @@ object layout {
     )
 
   private def hrefLang(lang: String, path: String) =
-    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl/$path"/>"""
+    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
 
   private def hrefLangs(path: String)(implicit ctx: Context) = raw {
+    val pathEnd = if (path == "/") "" else path
     hrefLang("x-default", path) + hrefLang("en", path) +
       lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
-        hrefLang(lang, s"$lang$path")
+        hrefLang(lang, s"/$lang$pathEnd")
       }.mkString
   }
 

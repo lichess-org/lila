@@ -50,7 +50,7 @@ object home {
           description = trans.siteDescription.txt()
         )
         .some,
-      withHrefLangs = "".some
+      withHrefLangs = "/".some
     ) {
       main(
         cls := List(
