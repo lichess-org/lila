@@ -2,7 +2,7 @@ import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
 import throttle from 'common/throttle';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { enrichText, innerHTML } from '../util';
+import { enrichText, innerHTML } from '../view/util';
 import { bindMobileTapHold } from 'common/mobile';
 import { h, Hooks, VNode } from 'snabbdom';
 import { isEmpty, defined } from 'common';

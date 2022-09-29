@@ -2,14 +2,13 @@ import { h, VNode } from 'snabbdom';
 import { fixCrazySan } from 'chess';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
+import { plyToTurn } from '../util';
 
 export interface Ctx {
   withDots?: boolean;
   showEval: boolean;
   showGlyphs?: boolean;
 }
-
-export const plyToTurn = (ply: Ply): number => Math.floor((ply - 1) / 2) + 1;
 
 export const renderGlyph = (glyph: Tree.Glyph): VNode =>
   h(

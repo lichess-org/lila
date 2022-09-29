@@ -210,14 +210,17 @@ final class Study(
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
-      baseData = env.round.jsonView.userAnalysisJson(
-        pov,
-        ctx.pref,
-        chapter.root.fen.some,
-        chapter.setup.orientation,
-        owner = false,
-        me = ctx.me,
-        division = division
+      baseData <- env.api.roundApi.withExternalEngines(
+        ctx.me,
+        env.round.jsonView.userAnalysisJson(
+          pov,
+          ctx.pref,
+          chapter.root.fen.some,
+          chapter.setup.orientation,
+          owner = false,
+          me = ctx.me,
+          division = division
+        )
       )
       studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
     } yield WithChapter(study, chapter) -> JsData(

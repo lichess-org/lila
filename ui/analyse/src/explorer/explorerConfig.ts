@@ -6,7 +6,7 @@ import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
-import { iconTag } from '../util';
+import { iconTag } from '../view/util';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
@@ -318,7 +318,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
-          attrs: { placeholder: ctrl.root.trans.noarg('searchByUsername') },
+          attrs: {
+            placeholder: ctrl.root.trans.noarg('searchByUsername'),
+            spellcheck: 'false',
+          },
           hook: onInsert<HTMLInputElement>(input =>
             lichess.userComplete().then(uac => {
               uac({

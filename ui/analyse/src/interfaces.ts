@@ -29,6 +29,14 @@ export interface OpeningPuzzle {
   count: number;
 }
 
+export interface ExternalEngine {
+  id: string;
+  name: string;
+  variants: VariantKey[];
+  clientSecret: string;
+  officialStockfish?: boolean;
+}
+
 // similar, but not identical, to game/GameData
 export interface AnalyseData {
   game: Game;
@@ -53,6 +61,7 @@ export interface AnalyseData {
     id: string;
   };
   puzzle?: OpeningPuzzle;
+  externalEngines?: ExternalEngine[];
 }
 
 export interface AnalysePref {

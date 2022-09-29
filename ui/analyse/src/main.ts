@@ -1,4 +1,4 @@
-import patch from './patch';
+import { patch } from './view/util';
 import makeBoot from './boot';
 import makeStart from './start';
 import LichessChat from 'chat';

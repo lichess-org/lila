@@ -17,7 +17,7 @@ object index {
   def apply(page: OpeningPage)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs,
+      moreJs = moreJs(page),
       title = trans.opening.txt(),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -34,6 +34,7 @@ object index {
     ) {
       main(cls := "page box box-pad opening opening--index")(
         h1("Chess openings"),
+        config(page),
         whatsNext(page)
       )
     }

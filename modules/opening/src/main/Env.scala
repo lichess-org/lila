@@ -15,6 +15,7 @@ final class Env(
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api,
     appConfig: Configuration,
+    cookieBaker: lila.common.LilaCookie,
     ws: StandaloneWSClient
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -25,6 +26,8 @@ final class Env(
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
 
   private lazy val explorer = wire[OpeningExplorer]
+
+  lazy val config = wire[OpeningConfigStore]
 
   lazy val api = wire[OpeningApi]
 }

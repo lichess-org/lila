@@ -1,7 +1,7 @@
 import type { PlyChartHTMLElement } from 'chart/dist/interface';
 
 import AnalyseCtrl from './ctrl';
-import { baseUrl } from './util';
+import { baseUrl } from './view/util';
 import modal from 'common/modal';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';

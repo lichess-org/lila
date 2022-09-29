@@ -11,12 +11,13 @@ import lila.common.Form._
 import lila.common.{ SecureRandom, ThreadLocalRandom }
 import lila.db.dsl._
 import lila.user.User
+import lila.memo.CacheApi
 
 case class ExternalEngine(
     _id: String, // random
-    engineName: String,
+    name: String,
     maxThreads: Int,
-    maxHashMib: Int,
+    maxHash: Int,
     variants: List[String],
     officialStockfish: Boolean,   // Admissible for cloud evals
     providerSecret: String,       // Chosen at random by the provider, possibly shared between registrations
@@ -28,23 +29,23 @@ case class ExternalEngine(
 object ExternalEngine {
 
   case class FormData(
-      engineName: String,
+      name: String,
       maxThreads: Int,
-      maxHashMib: Int,
+      maxHash: Int,
       variants: Option[List[String]],
       officialStockfish: Option[Boolean],
-      secret: String,
-      data: Option[String]
+      providerSecret: String,
+      providerData: Option[String]
   ) {
     def make(userId: User.ID) = ExternalEngine(
       _id = s"eei_${ThreadLocalRandom.nextString(12)}",
-      engineName = engineName,
+      name = name,
       maxThreads = maxThreads,
-      maxHashMib = maxHashMib,
+      maxHash = maxHash,
       variants = variants.filter(_.nonEmpty) | List(chess.variant.Standard.key),
       officialStockfish = ~officialStockfish,
-      providerSecret = secret,
-      providerData = data,
+      providerSecret = providerSecret,
+      providerData = providerData,
       userId = userId,
       clientSecret = s"ees_${SecureRandom.nextString(16)}"
     )
@@ -56,15 +57,15 @@ object ExternalEngine {
 
   val form = Form(
     mapping(
-      "engineName" -> cleanNonEmptyText(3, 200),
+      "name"       -> cleanNonEmptyText(3, 200),
       "maxThreads" -> number(1, 65_536),
-      "maxHashMib" -> number(1, 1_048_576),
+      "maxHash"    -> number(1, 1_048_576),
       "variants" -> optional(list {
         stringIn(chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.key).toSet)
       }),
       "officialStockfish" -> optional(boolean),
-      "secret"            -> nonEmptyText(16, 1024),
-      "data"              -> optional(text(maxLength = 8192))
+      "providerSecret"    -> nonEmptyText(16, 1024),
+      "providerData"      -> optional(text(maxLength = 8192))
     )(FormData.apply)(FormData.unapply)
   )
 
@@ -72,35 +73,44 @@ object ExternalEngine {
     Json
       .obj(
         "id"           -> e._id,
-        "clientSecret" -> e.clientSecret,
+        "name"         -> e.name,
         "userId"       -> e.userId,
-        "engineName"   -> e.engineName,
         "maxThreads"   -> e.maxThreads,
-        "maxHashMib"   -> e.maxHashMib,
+        "maxHash"      -> e.maxHash,
         "variants"     -> e.variants,
-        "data"         -> e.providerData
+        "providerData" -> e.providerData,
+        "clientSecret" -> e.clientSecret
       )
       .add("officialStockfish" -> e.officialStockfish)
   }
 }
 
-final class ExternalEngineApi(coll: Coll)(implicit ec: ExecutionContext) {
+final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+
+  private val userCache = cacheApi[User.ID, List[ExternalEngine]](65_536, "externalEngine.user") {
+    _.maximumSize(65_536).buildAsyncFuture(doFetchList)
+  }
+  private def doFetchList(userId: User.ID) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
+  private def reloadCache(userId: User.ID) = userCache.put(userId, doFetchList(userId))
+
+  def list(by: User): Fu[List[ExternalEngine]] = userCache get by.id
 
   def create(by: User, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
     val engine = data make by.id
-    coll.insert.one(engine) inject engine
+    coll.insert.one(engine) >>- reloadCache(by.id) inject engine
   }
 
-  def list(by: User): Fu[List[ExternalEngine]] = coll.list[ExternalEngine]($doc("userId" -> by.id), 100)
-
   def find(by: User, id: String): Fu[Option[ExternalEngine]] =
-    coll.one($doc("userId" -> by.id) ++ $id(id))
+    list(by).map(_.find(_._id == id))
 
   def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
     val engine = data update prev
-    coll.update.one($id(engine._id), engine) inject engine
+    coll.update.one($id(engine._id), engine) >>- reloadCache(engine.userId) inject engine
   }
 
   def delete(by: User, id: String): Fu[Boolean] =
-    coll.delete.one($doc("userId" -> by.id) ++ $id(id)).map(_.n > 0)
+    coll.delete.one($doc("userId" -> by.id) ++ $id(id)) map { result =>
+      reloadCache(by.id)
+      result.n > 0
+    }
 }

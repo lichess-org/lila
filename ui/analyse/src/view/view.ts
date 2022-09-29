@@ -12,27 +12,27 @@ import { path as treePath } from 'tree';
 import { render as trainingView } from './roundTraining';
 import { studyButton, view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
-import * as control from './control';
-import crazyView from './crazy/crazyView';
-import AnalyseCtrl from './ctrl';
-import explorerView from './explorer/explorerView';
-import forecastView from './forecast/forecastView';
-import { view as forkView } from './fork';
+import * as control from '../control';
+import crazyView from '../crazy/crazyView';
+import AnalyseCtrl from '../ctrl';
+import explorerView from '../explorer/explorerView';
+import forecastView from '../forecast/forecastView';
+import { view as forkView } from '../fork';
 import * as gridHacks from './gridHacks';
-import * as chessground from './ground';
-import { ConcealOf } from './interfaces';
-import { view as keyboardView } from './keyboard';
-import * as pgnExport from './pgnExport';
-import retroView from './retrospect/retroView';
-import practiceView from './practice/practiceView';
-import serverSideUnderboard from './serverSideUnderboard';
-import { StudyCtrl } from './study/interfaces';
-import { render as renderTreeView } from './treeView/treeView';
+import * as chessground from '../ground';
+import { ConcealOf } from '../interfaces';
+import { view as keyboardView } from '../keyboard';
+import * as pgnExport from '../pgnExport';
+import retroView from '../retrospect/retroView';
+import practiceView from '../practice/practiceView';
+import serverSideUnderboard from '../serverSideUnderboard';
+import { StudyCtrl } from '../study/interfaces';
+import { render as renderTreeView } from '../treeView/treeView';
 import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
-import type * as studyDeps from './study/studyDeps';
+import type * as studyDeps from '../study/studyDeps';
 import { iconTag } from './util';
-import { renderNextChapter } from './study/nextChapter';
+import { renderNextChapter } from '../study/nextChapter';
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
@@ -83,7 +83,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pair', [
       h('label.name', 'FEN'),
       h('input.copyable.autoselect.analyse__underboard__fen', {
-        attrs: { spellCheck: false },
+        attrs: { spellcheck: 'false' },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLInputElement;
@@ -110,7 +110,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
       h('div.pair', [
         h('label.name', 'PGN'),
         h('textarea.copyable', {
-          attrs: { spellCheck: false },
+          attrs: { spellcheck: 'false' },
           hook: {
             ...onInsert((el: HTMLTextAreaElement) => {
               el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
@@ -153,7 +153,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
 function controls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    menuIsOpen = ctrl.actionMenu.open,
+    menuIsOpen = ctrl.actionMenu(),
     noarg = ctrl.trans.noarg;
   let iconFirst = '';
   let iconPrev = '';
@@ -296,8 +296,8 @@ const analysisDisabled = (ctrl: AnalyseCtrl): MaybeVNode =>
 const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
   h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
-export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
-  return materialView.renderMaterialDiffs(
+export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
+  materialView.renderMaterialDiffs(
     !!ctrl.data.pref.showCaptured,
     ctrl.bottomColor(),
     ctrl.node.fen,
@@ -305,7 +305,6 @@ export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
     ctrl.nodeList,
     ctrl.node.ply
   );
-}
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   if (ctrl.embed) return;
@@ -365,7 +364,7 @@ export default function (deps?: typeof studyDeps) {
     const concealOf = makeConcealOf(ctrl),
       study = ctrl.study,
       showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
-      menuIsOpen = ctrl.actionMenu.open,
+      menuIsOpen = ctrl.actionMenu(),
       gamebookPlay = ctrl.gamebookPlay(),
       gamebookPlayView = gamebookPlay && deps?.gbPlay.render(gamebookPlay),
       gamebookEditView = deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,

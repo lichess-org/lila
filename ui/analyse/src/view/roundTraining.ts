@@ -1,6 +1,6 @@
 import { h, thunk, VNode } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
-import { findTag } from './study/studyChapters';
+import AnalyseCtrl from '../ctrl';
+import { findTag } from '../study/studyChapters';
 import * as game from 'game';
 import { bind, dataIcon } from 'common/snabbdom';
 

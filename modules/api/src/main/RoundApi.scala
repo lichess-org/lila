@@ -17,7 +17,6 @@ import lila.swiss.{ GameView => SwissView }
 import lila.tournament.{ GameView => TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
-import lila.common.Preload
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -29,6 +28,7 @@ final private[api] class RoundApi(
     swissApi: lila.swiss.SwissApi,
     simulApi: lila.simul.SimulApi,
     puzzleOpeningApi: lila.puzzle.PuzzleOpeningApi,
+    externalEngineApi: lila.analyse.ExternalEngineApi,
     getTeamName: lila.team.GetTeamName,
     getLightUser: lila.common.LightUser.GetterSync
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -115,7 +115,7 @@ final private[api] class RoundApi(
       initialFen: Option[FEN],
       withFlags: WithFlags,
       owner: Boolean = false
-  )(implicit ctx: Context): Fu[JsObject] = {
+  )(implicit ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
     implicit val lang = ctx.lang
     jsonView.watcherJson(
       pov,
@@ -159,31 +159,22 @@ final private[api] class RoundApi(
       owner: Boolean,
       me: Option[User]
   ) =
-    owner.??(forecastApi loadForDisplay pov).map { fco =>
-      withForecast(pov, owner, fco) {
-        withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
-          jsonView.userAnalysisJson(
-            pov,
-            pref,
-            initialFen,
-            orientation,
-            owner = owner,
-            me = me
-          )
+    withExternalEngines(me) {
+      owner.??(forecastApi loadForDisplay pov).map { fco =>
+        withForecast(pov, owner, fco) {
+          withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
+            jsonView.userAnalysisJson(
+              pov,
+              pref,
+              initialFen,
+              orientation,
+              owner = owner,
+              me = me
+            )
+          }
         }
       }
     }
-
-  def freeStudyJson(
-      pov: Pov,
-      pref: Pref,
-      initialFen: Option[FEN],
-      orientation: chess.Color,
-      me: Option[User]
-  ) =
-    withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(
-      jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = false, me = me)
-    )
 
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags)(
       obj: JsObject
@@ -245,6 +236,14 @@ final private[api] class RoundApi(
         analysisJson.bothPlayers(g, a)
       }
     )
+
+  private def withExternalEngines(me: Option[User])(jsonFu: Fu[JsObject]): Fu[JsObject] =
+    jsonFu flatMap { withExternalEngines(me, _) }
+
+  def withExternalEngines(me: Option[User], json: JsObject): Fu[JsObject] =
+    (me ?? externalEngineApi.list) map { engines =>
+      json.add("externalEngines", engines.nonEmpty.option(engines))
+    }
 
   def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(implicit lang: Lang) =
     json.add("tournament" -> viewO.map { v =>

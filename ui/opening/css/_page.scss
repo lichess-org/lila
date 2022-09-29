@@ -8,20 +8,25 @@
       }
     }
   }
+  &__title {
+    @extend %flex-center-nowrap;
+  }
   &__intro {
     display: flex;
-    flex-flow: row wrap;
-    gap: 3em;
+    flex-flow: row nowrap; // add media query
+    align-items: flex-start;
+    gap: $block-gap;
     margin-bottom: 3em;
-    overflow: hidden;
+    // overflow: hidden;
     .lpv {
-      flex: 1 0 auto;
+      flex: 1 1 20vw;
+      min-width: 200px;
       max-width: 300px;
     }
     &__side {
       flex: 1 1 auto;
       @extend %flex-column;
-      gap: 3em;
+      gap: $block-gap;
     }
     &__actions {
       display: flex;
@@ -38,13 +43,13 @@
   }
   &__popularity {
     &__chart {
-      height: 30vh;
-      max-height: 30vh;
+      height: 12vh;
+      max-height: 12vh;
     }
   }
   &__nexts {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: $block-gap;
     margin: var(--box-padding) 0;
   }
@@ -59,25 +64,67 @@
       outline: 3px solid mix($c-link, $c-bg-box, 60%);
       background: mix($c-link, $c-bg-zebra, 10%);
       box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+      piece {
+        opacity: 0.8;
+      }
+      cg-board {
+        background-color: none;
+      }
     }
     &__title {
-      @extend %flex-between;
-      font-size: 1.5em;
-      margin: 0.2em 0.5em;
+      @extend %flex-between-nowrap;
+    }
+    &__name {
+      @extend %roboto;
+      flex: 1 1 auto;
+      font-size: 1.3em;
+      margin: 0 0 0.2em 0.5em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &__san {
+      flex: 0 1 auto;
+      font-size: 2em;
+      margin: -1.2rem 0.5rem 0 0;
+    }
+    &__result-board {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
     }
     &__board {
-      flex: 0 0 300px;
+      flex: 1 1 100%;
       .cg-wrap {
         @extend %square;
+      }
+      cg-board {
+        box-shadow: none;
+        background-color: rgba($c-bg-box, 0.3);
+        @if $theme-dark {
+          background-blend-mode: darken;
+        } @else {
+          background-blend-mode: soft-light;
+        }
+      }
+      piece {
+        opacity: 0.5;
+        &.highlight {
+          opacity: 1;
+        }
       }
     }
     &__popularity {
       display: flex;
       flex-flow: row nowrap;
       span {
-        background: $c-good;
-        color: $c-good-over;
-        padding: 0 1em;
+        @extend %box-radius-bottom-right;
+        background: $c-primary;
+        color: $c-primary-over;
+        padding-right: 0.5em;
+        font-size: 0.8em;
+        text-align: right;
+        overflow: hidden;
       }
     }
     &:hover {

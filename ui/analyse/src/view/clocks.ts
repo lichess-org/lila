@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
-import { isFinished } from './study/studyChapters';
+import AnalyseCtrl from '../ctrl';
+import { isFinished } from '../study/studyChapters';
 
 export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   if (ctrl.embed) return;
@@ -35,15 +35,14 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
   ];
 }
 
-function renderClock(centis: number | undefined, active: boolean, cls: string, showTenths: boolean): VNode {
-  return h(
+const renderClock = (centis: number | undefined, active: boolean, cls: string, showTenths: boolean): VNode =>
+  h(
     'div.analyse__clock.' + cls,
     {
       class: { active },
     },
     clockContent(centis, showTenths)
   );
-}
 
 function clockContent(centis: number | undefined, showTenths: boolean): Array<string | VNode> {
   if (!centis && centis !== 0) return ['-'];
@@ -55,6 +54,4 @@ function clockContent(centis: number | undefined, showTenths: boolean): Array<st
   return centis >= 6000 ? [baseStr] : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
 }
 
-function pad2(num: number): string {
-  return (num < 10 ? '0' : '') + num;
-}
+const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;

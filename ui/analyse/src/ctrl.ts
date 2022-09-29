@@ -4,6 +4,7 @@ import * as game from 'game';
 import * as keyboard from './keyboard';
 import * as speech from './speech';
 import * as util from './util';
+import { plural } from './view/util';
 import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type makeStudyCtrl from './study/studyCtrl';
@@ -14,10 +15,9 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
-import { ActionMenuCtrl } from './actionMenu';
 import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { ForecastCtrl } from './forecast/interfaces';
 import { lichessRules } from 'chessops/compat';
@@ -55,6 +55,7 @@ export default class AnalyseCtrl {
   ceval: CevalCtrl;
   evalCache: EvalCache;
   persistence?: Persistence;
+  actionMenu: Toggle = toggle(false);
 
   // current tree state, cursor, and denormalized node lists
   path: Tree.Path;
@@ -63,7 +64,6 @@ export default class AnalyseCtrl {
   mainline: Tree.Node[];
 
   // sub controllers
-  actionMenu: ActionMenuCtrl;
   autoplay: Autoplay;
   explorer: ExplorerCtrl;
   forecast?: ForecastCtrl;
@@ -188,7 +188,6 @@ export default class AnalyseCtrl {
     this.tree = makeTree(util.treeReconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
 
-    this.actionMenu = new ActionMenuCtrl();
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = makeSocket(this.opts.socketSend, this);
@@ -274,7 +273,7 @@ export default class AnalyseCtrl {
 
   togglePlay(delay: AutoplayDelay): void {
     this.autoplay.toggle(delay);
-    this.actionMenu.open = false;
+    this.actionMenu(false);
   }
 
   private showGround(): void {
@@ -561,8 +560,8 @@ export default class AnalyseCtrl {
       (count.nodes >= 10 || count.comments > 0) &&
       !confirm(
         'Delete ' +
-          util.plural('move', count.nodes) +
-          (count.comments ? ' and ' + util.plural('comment', count.comments) : '') +
+          plural('move', count.nodes) +
+          (count.comments ? ' and ' + plural('comment', count.comments) : '') +
           '?'
       )
     )

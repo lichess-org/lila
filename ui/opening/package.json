@@ -13,8 +13,10 @@
     "typescript": "^4"
   },
   "dependencies": {
-    "chart.js": "^3.8",
+    "chart.js": "^3.9",
+    "chartjs-adapter-date-fns": "^2.0",
     "common": "2.0.0",
+    "date-fns": "^2.29.3",
     "lichess-pgn-viewer": "^1"
   },
   "scripts": {
