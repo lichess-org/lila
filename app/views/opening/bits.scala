@@ -91,19 +91,16 @@ private object bits {
       visualPercent > 10 option s"${Math.round(percent)}%"
     )
 
-  // private def exaggerateResult(percent: Double, key: String) = key match {
-  //   case "whites" | "blacks" => 50 - (50 - percent) * 5
-  //   case _                   => percent
-  // }
   private def exaggerateResults(result: ResultCounts) = {
     import result._
-    val (lower, upper) = (30d, 70d)
-    val factor         = 100d / (upper - lower)
-    ((blackPercent - lower) * factor, drawsPercent * factor, (whitePercent - lower) * factor)
+    val (lower, upper)   = (30d, 70d)
+    val factor           = 100d / (upper - lower)
+    val drawSquishing    = 50d / 100d
+    val drawHalfSquished = drawsPercent * factor * drawSquishing * 50d / 100d
+    val drawTransformed  = drawsPercent * factor - 2 * drawHalfSquished
+    val blackTransformed = (blackPercent - lower) * factor + drawHalfSquished
+    val whiteTransformed = (whitePercent - lower) * factor + drawHalfSquished
+    (blackTransformed, drawTransformed, whiteTransformed)
   }
-// function transform(black, draw, white, upper, lower) {
-// scaling_factor = 1 / (upper - lower)
-// return [(black - lower) * scaling_factor, draw * scaling_factor, (white - lower) * scaling_factor]
-// }
 
 }
