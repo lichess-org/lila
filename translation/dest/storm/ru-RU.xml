@@ -56,6 +56,7 @@
   <string name="skipExplanation">Пропустить этот ход, чтобы сохранить комбо! Только один раз за гонку.</string>
   <string name="failedPuzzles">Нерешённые задачи</string>
   <string name="slowPuzzles">Долго решаемые задачи</string>
+  <string name="skippedPuzzle">Пропущенная задача</string>
   <string name="thisWeek">На этой неделе</string>
   <string name="thisMonth">В этом месяце</string>
   <string name="allTime">За всё время</string>

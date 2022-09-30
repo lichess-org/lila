@@ -115,12 +115,12 @@
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
   <string name="loadAGameFromXOrY">טען משחק מ%1$s או מ%2$s</string>
   <string name="createChapter">צור פרק</string>
-  <string name="configureLiveBroadcast">קביעת התצורה של השידור החי</string>
+  <string name="configureLiveBroadcast">עריכת הקרנה ישירה</string>
   <string name="createStudy">יצירת לוח למידה</string>
   <string name="editStudy">עריכת לוח למידה</string>
   <string name="visibility">חשיפה</string>
   <string name="public">פומבי</string>
-  <string name="unlisted">כולם</string>
+  <string name="unlisted">באמצעות קישור</string>
   <string name="inviteOnly">מוזמנים בלבד</string>
   <string name="allowCloning">אפשרו יצירת עותקים</string>
   <string name="nobody">אף אחד</string>

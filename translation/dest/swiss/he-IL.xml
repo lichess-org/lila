@@ -53,8 +53,8 @@
   <string name="forbiddenPairings">שיבוצים אסורים</string>
   <string name="forbiddenPairingsHelp">שמות המשתמש של שחקנים שלא יכולים לשחק אחד נגד השני (אחים, למשל). שני שמות משתמש בכל שורה, מופרדים ברווח.</string>
   <string name="newSwiss">טורניר שוויצרי חדש</string>
-  <string name="swissVsArenaQ">מתי להשתמש בטורנירים שוויצריים במקום בטורנירי זירה?</string>
-  <string name="swissVsArenaA">בטורניר שוויצרי, כל השחקנים משחקים אותו מספר של משחקים, ויכולים לשחק אחד נגד השני פעם אחת בלבד. זאת יכולה להיות אפשרות טובה למועדונים וטורנירים רשמיים.</string>
+  <string name="swissVsArenaQ">מתי ליצור טורנירים שוויצריים במקום טורנירי זירה?</string>
+  <string name="swissVsArenaA">בטורניר שוויצרי, כל השחקנים משחקים אותו מספר של משחקים, ויכולים לשחק אחד נגד השני פעם אחת בלבד. זאת יכולה להיות אפשרות טובה למועדונים ולטורנירים רשמיים.</string>
   <string name="pointsCalculationQ">איך מחושבות הנקודות?</string>
   <string name="pointsCalculationA">ניצחון שווה נקודה, תיקו חצי נקודה והפסד אפס נקודות. כששחקן לא משובץ באחד הסבבים הוא מקבל נקודה.</string>
   <string name="tiebreaksCalculationQ">איך שוברי-שוויון מחושבים?</string>
