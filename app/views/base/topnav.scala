@@ -26,7 +26,7 @@ object topnav {
           )
         ),
         div(role := "group")(
-          if (ctx.noBot) a(href := langHref("/?any#hook"))(trans.createAGame())
+          if (ctx.noBot) a(href := s"${langHref("/")}?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
             a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
@@ -57,7 +57,7 @@ object topnav {
             a(href := routes.Practice.index)(trans.practice()),
             a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
           ),
-          a(href := routes.Study.allDefault(1))(trans.studyMenu()),
+          a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
           ctx.noKid option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
           canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )

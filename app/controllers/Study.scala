@@ -45,22 +45,28 @@ final class Study(
       }
     }
 
+  def homeLang =
+    LangPage(routes.Study.allDefault())(allResults(Order.Hot.key, 1)(_)) _
+
   def allDefault(page: Int) = all(Order.Hot.key, page)
 
   def all(o: String, page: Int) =
     Open { implicit ctx =>
-      Reasonable(page) {
-        Order(o) match {
-          case order if !Order.withoutSelector.contains(order) =>
-            Redirect(routes.Study.allDefault(page)).fuccess
-          case order =>
-            env.study.pager.all(ctx.me, order, page) flatMap { pag =>
-              preloadMembers(pag) >> negotiate(
-                html = Ok(html.study.list.all(pag, order)).fuccess,
-                api = _ => apiStudies(pag)
-              )
-            }
-        }
+      allResults(o, page)
+    }
+
+  private def allResults(o: String, page: Int)(implicit ctx: Context) =
+    Reasonable(page) {
+      Order(o) match {
+        case order if !Order.withoutSelector.contains(order) =>
+          Redirect(routes.Study.allDefault(page)).fuccess
+        case order =>
+          env.study.pager.all(ctx.me, order, page) flatMap { pag =>
+            preloadMembers(pag) >> negotiate(
+              html = Ok(html.study.list.all(pag, order)).fuccess,
+              api = _ => apiStudies(pag)
+            )
+          }
       }
     }
 
