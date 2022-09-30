@@ -34,15 +34,17 @@ object userAnalysis {
         embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
             Json
               .obj(
-                "data"     -> data,
-                "i18n"     -> userAnalysisI18n(withForecast = withForecast),
-                "explorer" -> bits.explorerConfig,
-                "wiki"     -> pov.game.variant.standard
+                "data"                   -> data,
+                "i18n"                   -> userAnalysisI18n(withForecast = withForecast),
+                "explorer"               -> bits.explorerConfig,
+                "wiki"                   -> pov.game.variant.standard,
+                "externalEngineEndpoint" -> externalEngineEndpoint
               )
               .add("inlinePgn", inlinePgn)
           )}""")
       ),
-      csp = defaultCsp.withWebAssembly.withAnyWs.withWikiBooks.some,
+      csp =
+        defaultCsp.withWebAssembly.withAnyWs.withWikiBooks.withExternalEngine(externalEngineEndpoint).some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(

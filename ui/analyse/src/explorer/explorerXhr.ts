@@ -1,6 +1,6 @@
 import { ExplorerData, ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
-import { readNdJson, CancellableStream } from 'common/ndjson';
+import { readNdJson, CancellableStream } from 'common/stream';
 import { ExplorerConfigData } from './explorerConfig';
 import { sync } from 'common/sync';
 

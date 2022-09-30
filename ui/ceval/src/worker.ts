@@ -1,6 +1,7 @@
 import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
+import { readStream, CancellableStream } from 'common/stream';
 
 interface WasmStockfishModule {
   (opts: {
@@ -170,11 +171,12 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
 export interface ExternalEngine {
   id: string;
   name: string;
-  variants: string[];
+  variants: string;
   maxThreads: number;
   maxHash: number;
   clientSecret: string;
   officialStockfish?: boolean;
+  endpoint: string;
 }
 
 export class ExternalWorker extends AbstractWorker<ExternalEngine> {
@@ -184,22 +186,32 @@ export class ExternalWorker extends AbstractWorker<ExternalEngine> {
     return this.protocol;
   }
 
+  stream: CancellableStream;
+
   boot() {
-    // const url = new URL(this.opts.url);
-    // url.searchParams.set('secret', this.opts.secret);
-    // url.searchParams.set('session', this.session);
-    // const ws = (this.ws = new WebSocket(url.href));
-    // ws.onmessage = e => this.protocol.received(e.data);
-    // ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
-    // ws.onclose = () => {
-    //   this.protocol.disconnected();
-    //   if (this.ws) setTimeout(() => this.boot(), 10_000);
-    // };
+    const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
+    fetch(url.href, {
+      cache: 'default',
+      headers: {}, // avoid default headers for cors
+      credentials: 'omit',
+    }).then(res => {
+      this.stream = readStream((line: string) => {
+        console.log(line);
+      })(res);
+      // const url = new URL(this.opts.url);
+      // url.searchParams.set('secret', this.opts.secret);
+      // url.searchParams.set('session', this.session);
+      // const ws = (this.ws = new WebSocket(url.href));
+      // ws.onmessage = e => this.protocol.received(e.data);
+      // ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
+      // ws.onclose = () => {
+      //   this.protocol.disconnected();
+      //   if (this.ws) setTimeout(() => this.boot(), 10_000);
+      // };
+    });
   }
 
   destroy() {
-    // const ws = this.ws;
-    // this.ws = undefined; // do not reconnect
-    // if (ws && ws.readyState <= 1) ws.close();
+    this.stream.cancel();
   }
 }

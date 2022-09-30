@@ -21,6 +21,8 @@ case class ContentSecurityPolicy(
       scriptSrc = "'unsafe-eval'" :: scriptSrc
     )
 
+  def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
+
   def withStripe =
     copy(
       connectSrc = "https://*.stripe.com" :: connectSrc,
