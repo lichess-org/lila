@@ -37,6 +37,9 @@ GET   /api/tv/channels                 controllers.Tv.channels
 GET   /api/tv/feed                     controllers.Tv.feed
 GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey: String)
 
+# hreflang home must be after the /tv route
+GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
+
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
@@ -149,6 +152,9 @@ POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
+GET   /$lang<\w\w>/training            controllers.Puzzle.homeLang(lang: String)
+GET   /$lang<\w\w>/training/themes     controllers.Puzzle.themesLang(lang: String)
+GET   /$lang<\w\w>/training/:angleOrId controllers.Puzzle.showLang(lang: String, angleOrId: String)
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
@@ -833,10 +839,5 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
-
-GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
-GET   /$lang<\w\w>/training            controllers.Puzzle.homeLang(lang: String)
-GET   /$lang<\w\w>/training/themes     controllers.Puzzle.themesLang(lang: String)
-GET   /$lang<\w\w>/training/:angleOrId controllers.Puzzle.showLang(lang: String, angleOrId: String)
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)
