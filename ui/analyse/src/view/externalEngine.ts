@@ -1,3 +1,4 @@
+import { bind } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 
@@ -5,20 +6,27 @@ export function config(ctrl: AnalyseCtrl) {
   const engines = ctrl.data.externalEngines;
   if (!engines?.length) return [];
   return [
-    h('h2', 'External engines'),
-    h('select.external__select.setting', [
-      h('option', 'None'),
-      ...engines.map(engine =>
-        h(
-          'option',
-          {
-            attrs: {
-              value: engine.id,
+    h('h2', 'Engine manager'),
+    h(
+      'select.external__select.setting',
+      {
+        hook: bind('change', e => ctrl.getCeval().selectEngine((e.target as HTMLSelectElement).value)),
+      },
+      [
+        h('option', { attrs: { value: 'lichess' } }, 'Lichess'),
+        ...engines.map(engine =>
+          h(
+            'option',
+            {
+              attrs: {
+                value: engine.id,
+                selected: ctrl.getCeval().externalEngine?.id == engine.id,
+              },
             },
-          },
-          engine.name
-        )
-      ),
-    ]),
+            engine.name
+          )
+        ),
+      ]
+    ),
   ];
 }

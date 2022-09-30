@@ -652,6 +652,7 @@ export default class AnalyseCtrl {
             multiPvDefault: 1,
           }
         : {}),
+      externalEngines: this.data.externalEngines || [],
     });
   }
 

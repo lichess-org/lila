@@ -43,11 +43,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
           'data-icon': '',
         },
         hook: {
-          insert: vnode =>
-            (vnode.elm as HTMLElement).addEventListener('click', () => {
-              ceval.goDeeper();
-              ceval.redraw();
-            }),
+          insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ceval.goDeeper),
         },
       })
     );

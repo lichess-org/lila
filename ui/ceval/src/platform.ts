@@ -1,7 +1,6 @@
-import { Rules } from 'chessops';
 import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { pow2floor, sharedWasmMemory } from './util';
-import { ExternalWorkerOpts } from './worker';
+import { ExternalEngine } from './worker';
 
 export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'external';
 
@@ -16,15 +15,16 @@ export interface CevalPlatform {
 
 // select nnue > hce > wasm > asmjs
 export function detectPlatform(
-  rules: Rules,
   officialStockfish: boolean,
   enableNnue: boolean,
-  externalOpts: ExternalWorkerOpts | null
+  externalEngine?: ExternalEngine
 ): CevalPlatform {
   let technology: CevalTechnology = 'asmjs',
     growableSharedMem: boolean = false,
     supportsNnue: boolean = false;
-  if (
+
+  if (externalEngine) technology = 'external';
+  else if (
     typeof WebAssembly === 'object' &&
     typeof WebAssembly.validate === 'function' &&
     WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
@@ -45,17 +45,15 @@ export function detectPlatform(
       if (supportsNnue && officialStockfish && enableNnue) technology = 'nnue';
     }
   }
-  if (externalOpts && (officialStockfish || externalOpts.variants?.includes(rules))) technology = 'external';
 
-  const maxThreads =
-    technology == 'external'
-      ? externalOpts!.maxThreads
-      : technology == 'nnue' || technology == 'hce'
-      ? Math.min(
-          Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-          growableSharedMem ? 32 : officialStockfish ? 2 : 1
-        )
-      : 1;
+  const maxThreads = externalEngine
+    ? externalEngine.maxThreads
+    : technology == 'nnue' || technology == 'hce'
+    ? Math.min(
+        Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+        growableSharedMem ? 32 : officialStockfish ? 2 : 1
+      )
+    : 1;
 
   // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even
   // scales like native stockfish with increasing hash.  prefer smaller, non-crashing values
@@ -82,7 +80,7 @@ export function detectPlatform(
       else if (isIOS()) maxPages = 4096; // 256 MB max shared
       return Math.max(minPages, maxPages);
     },
-    maxHashSize: () => (technology == 'external' ? externalOpts!.maxHash || 16 : maxHashMB()),
+    maxHashSize: () => (technology == 'external' ? externalEngine?.maxHash || 16 : maxHashMB()),
   };
 }
 

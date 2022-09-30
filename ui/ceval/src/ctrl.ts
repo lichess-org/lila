@@ -1,5 +1,5 @@
 import throttle from 'common/throttle';
-import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalWorkerOpts } from './worker';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalEngine } from './worker';
 import { Cache } from './cache';
 import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
 import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
@@ -10,7 +10,7 @@ import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
 import { prop, Toggle, toggle } from 'common';
 import { Result } from '@badrap/result';
-import { storedBooleanProp, storedIntProp, StoredProp } from 'common/storage';
+import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
 import { Rules } from 'chessops';
 import { CevalPlatform, CevalTechnology, detectPlatform } from './platform';
 
@@ -23,34 +23,36 @@ function enabledAfterDisable() {
 }
 
 export default class CevalCtrl {
-  enableNnue: StoredProp<boolean>;
   rules: Rules;
   analysable: boolean;
+  possible: boolean;
+  cachable: boolean;
   private officialStockfish: boolean;
-  private externalOpts: ExternalWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.external') || 'null');
 
   platform: CevalPlatform;
   technology: CevalTechnology;
-  multiPv: StoredProp<number>;
+
+  selectedEngine: StoredProp<string> = storedStringProp('ceval.engine', 'lichess');
+  externalEngine?: ExternalEngine; // if selected, available, and usable for current rules
+
+  enableNnue = storedBooleanProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
   infinite = storedBooleanProp('ceval.infinite', false);
-  curEval: Tree.LocalEval | null = null;
+  multiPv: StoredProp<number>;
   allowed = toggle(true);
   enabled: Toggle;
   downloadProgress = prop(0);
-  running = false;
-  lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   hovering = prop<Hovering | null>(null);
   pvBoard = prop<PvBoard | null>(null);
   isDeeper = toggle(false);
-  possible: boolean;
-  cachable: boolean;
 
-  worker: AbstractWorker<unknown> | undefined;
-  redraw: () => void;
+  curEval: Tree.LocalEval | null = null;
+  running = false;
+  lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
+
+  private worker: AbstractWorker<unknown> | undefined;
 
   constructor(readonly opts: CevalOpts) {
     this.possible = this.opts.possible;
-    this.enableNnue = storedBooleanProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
 
     // check root position
     this.rules = lichessRules(this.opts.variant.key);
@@ -61,15 +63,14 @@ export default class CevalCtrl {
     this.officialStockfish = this.rules == 'chess' && (pos.isErr || isStandardMaterial(pos.value));
     this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
 
-    this.platform = detectPlatform(this.rules, this.officialStockfish, this.enableNnue(), this.externalOpts);
+    this.externalEngine = this.opts.externalEngines.find(
+      e => e.id == this.selectedEngine() && (this.officialStockfish || e.variants.includes(this.rules))
+    );
+    this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
     this.technology = this.platform.technology;
 
     this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
-    this.cachable =
-      this.technology == 'nnue' ||
-      this.technology == 'hce' ||
-      (this.technology == 'external' && this.externalOpts!.officialStockfish);
-    this.redraw = opts.redraw;
+    this.cachable = this.technology == 'nnue' || this.technology == 'hce' || !!this.externalEngine?.officialStockfish;
   }
 
   storageKey = (k: string) => (this.opts.storageKeyPrefix ? `${this.opts.storageKeyPrefix}.${k}` : k);
@@ -88,6 +89,9 @@ export default class CevalCtrl {
   };
 
   private lastEmitFen: string | null = null;
+  private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
+    pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+
   onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
     this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     this.curEval = ev;
@@ -103,9 +107,6 @@ export default class CevalCtrl {
 
   effectiveMaxDepth = () =>
     this.isDeeper() || this.infinite() ? 99 : defaultDepth(this.technology, this.threads(), this.multiPv());
-
-  private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
-    pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
   private doStart = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
     if (!this.enabled() || !this.possible || !enabledAfterDisable()) return;
@@ -129,7 +130,6 @@ export default class CevalCtrl {
       threads: this.threads(),
       hashSize: this.hashSize(),
       stopRequested: false,
-
       initialFen: steps[0].fen,
       moves: [],
       currentFen: step.fen,
@@ -164,7 +164,7 @@ export default class CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!this.worker) {
-      if (this.technology == 'external') this.worker = new ExternalWorker(this.externalOpts!);
+      if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine);
       else if (this.technology == 'nnue')
         this.worker = new ThreadedWasmWorker({
           baseUrl: 'vendor/stockfish-nnue.wasm/',
@@ -210,6 +210,7 @@ export default class CevalCtrl {
         this.start(this.lastStarted.path, this.lastStarted.steps, this.lastStarted.threatMode);
       }
     }
+    this.opts.redraw();
   };
 
   stop = () => {
@@ -254,13 +255,16 @@ export default class CevalCtrl {
       this.enabled(false);
     }
   };
+  selectEngine = (id: string) => {
+    this.selectedEngine(this.opts.externalEngines.find(e => e.id == id) ? id : 'lichess');
+    lichess.reload();
+  };
   canGoDeeper = () =>
     this.curDepth() < 99 &&
     !this.isDeeper() &&
     ((!this.infinite() && !this.worker?.isComputing()) || this.showingCloud());
   isComputing = () => !!this.running && !!this.worker?.isComputing();
-  shortEngineName = () => engineName(this.technology, this.externalOpts);
+  shortEngineName = () => engineName(this.technology, this.externalEngine);
   longEngineName = () => this.worker?.engineName();
   destroy = () => this.worker?.destroy();
-  disconnectExternalEngine = () => lichess.storage.remove('ceval.external');
 }
