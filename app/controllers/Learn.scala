@@ -1,27 +1,29 @@
 package controllers
 
-import lila.app._
-
 import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.json._
 import views.html
 
+import lila.api.Context
+import lila.app._
+
 final class Learn(env: Env) extends LilaController(env) {
 
   import lila.learn.JSONHandlers._
 
-  def index =
-    Open { implicit ctx =>
-      pageHit
-      ctx.me
-        .?? { me =>
-          env.learn.api.get(me) map { Json.toJson(_) } map some
-        }
-        .map { progress =>
-          Ok(html.learn.index(progress))
-        }
-    }
+  def index     = Open(serveIndex(_))
+  def indexLang = LangPage(routes.Learn.index)(serveIndex(_)) _
+  private def serveIndex(implicit ctx: Context) = NoBot {
+    pageHit
+    ctx.me
+      .?? { me =>
+        env.learn.api.get(me) map { Json.toJson(_) } map some
+      }
+      .map { progress =>
+        Ok(html.learn.index(progress))
+      }
+  }
 
   private val scoreForm = Form(
     mapping(

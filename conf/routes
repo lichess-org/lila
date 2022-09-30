@@ -128,6 +128,7 @@ GET   /opening/*q                      controllers.Opening.query(q: String)
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
 POST  /training/coordinate/score       controllers.Coordinate.score
+GET   /$lang<\w\w>/training/coordinate controllers.Coordinate.homeLang(lang)
 
 # Training - Puzzle
 GET   /training                        controllers.Puzzle.home
@@ -250,6 +251,7 @@ GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.str
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
+GET   /$lang<\w\w>/learn               controllers.Learn.indexLang(lang)
 
 # Patron
 GET   /patron                          controllers.Plan.index

@@ -8,6 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
+import lila.common.LangPath
 
 object index {
 
@@ -34,7 +35,8 @@ object index {
         )
         .some,
       zoomable = true,
-      chessground = false
+      chessground = false,
+      withHrefLangs = LangPath(routes.Learn.index).some
     ) {
       main(id := "learn-app")
     }
