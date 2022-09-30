@@ -631,7 +631,9 @@ final class User(
 
   def redirect(username: String) =
     Open { implicit ctx =>
-      tryRedirect(username) getOrElse notFound
+      staticRedirect(username) | {
+        tryRedirect(username) getOrElse notFound
+      }
     }
 
   def tryRedirect(username: String)(implicit ctx: Context): Fu[Option[Result]] =

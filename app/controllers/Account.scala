@@ -86,7 +86,7 @@ final class Account(
                   .add("troll" -> me.marks.troll)
                   .add("playban" -> playban)
                   .add("announce" -> AnnounceStore.get.map(_.json))
-              }.withHeaders(CACHE_CONTROL -> s"max-age=15")
+              }.withHeaders(CACHE_CONTROL -> "max-age=15")
             }
         }
       )

@@ -3,14 +3,10 @@
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/seeks                     controllers.Lobby.seeks
+GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
 
-# Should be handled by nginx mostly
-OPTIONS /                              controllers.Options.root
-OPTIONS /*url                          controllers.Options.all(url: String)
-
-GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
-GET   /yt                              controllers.Main.movedPermanently(to: String = "https://www.youtube.com/c/LichessDotOrg")
-GET   /dmca                            controllers.Main.movedPermanently(to: String = "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform")
+# Highest hit count
+GET   /account/info                    controllers.Account.info
 
 # Timeline
 GET   /timeline                        controllers.Timeline.home
@@ -40,9 +36,6 @@ GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelRepla
 GET   /api/tv/channels                 controllers.Tv.channels
 GET   /api/tv/feed                     controllers.Tv.feed
 GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey: String)
-
-# hreflang home must be after the 2-letter routes
-GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
@@ -267,7 +260,6 @@ POST  /patron/ipn                      controllers.Plan.payPalIpn
 POST  /patron/paypal/checkout          controllers.Plan.payPalCheckout
 POST  /patron/paypal/capture/:id       controllers.Plan.payPalCapture(id: String)
 GET   /features                        controllers.Plan.features
-GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 
 # Practice
 GET   /practice                                   controllers.Practice.index
@@ -449,7 +441,6 @@ GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export
 GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen: String, color: String ?= "white", lastMove: Option[String], variant: Option[String], theme: Option[String], piece: Option[String])
 
 # Fishnet
-GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/lichess-org/fishnet")
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
@@ -753,7 +744,6 @@ GET   /account/personal-data           controllers.Account.data
 # App BC
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
-GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
 
 GET   /tutor                           controllers.Tutor.home()
@@ -819,8 +809,6 @@ GET   /$bookmark<privacy|thanks|about|ads|changelog|nft> controllers.Page.menuBo
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
-GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
-GET   /support                         controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /how-to-cheat                    controllers.Page.loneBookmark(bookmark = "how-to-cheat")
 GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: String)
@@ -854,3 +842,7 @@ GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)
+
+# Should be handled by nginx mostly
+OPTIONS /                              controllers.Options.root
+OPTIONS /*url                          controllers.Options.all(url: String)
