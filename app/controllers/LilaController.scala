@@ -683,7 +683,9 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val ndJsonContentType = "application/x-ndjson"
   protected val csvContentType    = "text/csv"
 
-  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String) =
+  protected def LangPage(call: Call)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
+    LangPage(call.url)(f)(langCode)
+  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
     Open { ctx =>
       if (ctx.isAuth) redirectWithQueryString(path)(ctx.req).fuccess
       else

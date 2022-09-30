@@ -219,26 +219,31 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       )
   }
 
-  def streak =
-    Open { implicit ctx =>
-      NoBot {
-        env.puzzle.streak.apply flatMap {
-          _ ?? { case PuzzleStreak(ids, puzzle) =>
-            env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = ctx.me) map { preJson =>
-              val json = preJson ++ Json.obj("streak" -> ids)
-              EnableSharedArrayBuffer {
-                NoCache {
-                  Ok {
-                    views.html.puzzle
-                      .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), PuzzleSettings.default)
-                  }
-                }
+  def streak     = Open(serveStreak(_))
+  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(_)) _
+  def serveStreak(implicit ctx: Context) = NoBot {
+    env.puzzle.streak.apply flatMap {
+      _ ?? { case PuzzleStreak(ids, puzzle) =>
+        env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = ctx.me) map { preJson =>
+          val json = preJson ++ Json.obj("streak" -> ids)
+          EnableSharedArrayBuffer {
+            NoCache {
+              Ok {
+                views.html.puzzle
+                  .show(
+                    puzzle,
+                    json,
+                    env.puzzle.jsonView.pref(ctx.pref),
+                    PuzzleSettings.default,
+                    langPath = LangPath(routes.Puzzle.streak).some
+                  )
               }
             }
           }
         }
       }
     }
+  }
 
   def vote(id: String) =
     AuthBody { implicit ctx => me =>
@@ -285,7 +290,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   def themes = Open(serveThemes(_))
 
-  def themesLang = LangPage(routes.Puzzle.themes.url)(serveThemes(_)) _
+  def themesLang = LangPage(routes.Puzzle.themes)(serveThemes(_)) _
 
   private def serveThemes(implicit ctx: Context) =
     env.puzzle.api.angles map { all =>
