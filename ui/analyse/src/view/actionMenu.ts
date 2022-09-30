@@ -314,14 +314,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       attrs: {
                         type: 'range',
                         min: 1,
-                        max: ceval.maxThreads,
+                        max: ceval.platform.maxThreads,
                         step: 1,
-                        disabled: ceval.maxThreads <= 1,
-                        ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
+                        disabled: ceval.platform.maxThreads <= 1,
+                        ...(ceval.platform.maxThreads <= 1 ? { title: notSupported } : null),
                       },
                       hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
                     }),
-                    h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
+                    h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`),
                   ]);
                 })('analyse-threads'),
                 (id =>

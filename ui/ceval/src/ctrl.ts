@@ -27,11 +27,10 @@ export default class CevalCtrl {
   rules: Rules;
   analysable: boolean;
   private officialStockfish: boolean;
+  private externalOpts: ExternalWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.external') || 'null');
 
   platform: CevalPlatform;
   technology: CevalTechnology;
-  externalOpts: ExternalWorkerOpts | null = JSON.parse(lichess.storage.get('ceval.external') || 'null');
-  maxThreads: number;
   multiPv: StoredProp<number>;
   infinite = storedBooleanProp('ceval.infinite', false);
   curEval: Tree.LocalEval | null = null;
@@ -73,7 +72,7 @@ export default class CevalCtrl {
   threads = () => {
     const stored = lichess.storage.get(this.storageKey('ceval.threads'));
     return Math.min(
-      this.maxThreads,
+      this.platform.maxThreads,
       stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4)
     );
   };
