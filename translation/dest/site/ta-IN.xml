@@ -143,6 +143,7 @@
     <item quantity="one">%s விளையாடிகள்</item>
     <item quantity="other">%s விளையாடிகள்</item>
   </plurals>
+  <string name="drawByMutualAgreement">Rapid</string>
   <string name="currentGames">இப்பொழுதைய ஆட்டங்கள்</string>
   <plurals name="nbGames">
     <item quantity="one">%s ஆட்டங்கள்</item>
