@@ -20,8 +20,8 @@ export function detectPlatform(
   externalEngine?: ExternalEngine
 ): CevalPlatform {
   let technology: CevalTechnology = 'asmjs',
-    growableSharedMem: boolean = false,
-    supportsNnue: boolean = false;
+    growableSharedMem = false,
+    supportsNnue = false;
 
   if (externalEngine) technology = 'external';
   else if (
