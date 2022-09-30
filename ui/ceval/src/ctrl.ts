@@ -43,6 +43,7 @@ export default class CevalCtrl {
   pvBoard = prop<PvBoard | null>(null);
   isDeeper = toggle(false);
   possible: boolean;
+  cachable: boolean;
 
   worker: AbstractWorker<unknown> | undefined;
   redraw: () => void;
@@ -64,6 +65,10 @@ export default class CevalCtrl {
     this.technology = this.platform.technology;
 
     this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
+    this.cachable =
+      this.technology == 'nnue' ||
+      this.technology == 'hce' ||
+      (this.technology == 'external' && this.externalOpts!.officialStockfish);
     this.redraw = opts.redraw;
   }
 
