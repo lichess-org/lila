@@ -44,8 +44,8 @@ object topnav {
             a(href := puzzleUrl)(trans.puzzles()),
             a(href := routes.Puzzle.dashboard(30, "home", none))(trans.puzzle.puzzleDashboard()),
             a(href := langHref(routes.Puzzle.streak))("Puzzle Streak"),
-            a(href := routes.Storm.home)("Puzzle Storm"),
-            a(href := routes.Racer.home)("Puzzle Racer")
+            a(href := langHref(routes.Storm.home))("Puzzle Storm"),
+            a(href := langHref(routes.Racer.home))("Puzzle Racer")
           )
         )
       },

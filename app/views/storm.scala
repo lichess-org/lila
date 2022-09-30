@@ -7,6 +7,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 import lila.storm.{ StormDay, StormHigh }
@@ -32,7 +33,8 @@ object storm {
       title = "Puzzle Storm",
       zoomable = true,
       zenable = true,
-      chessground = false
+      chessground = false,
+      withHrefLangs = LangPath(routes.Storm.home).some
     ) {
       main(
         div(cls   := "storm storm-app storm--play")(

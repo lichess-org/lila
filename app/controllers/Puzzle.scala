@@ -221,7 +221,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   def streak     = Open(serveStreak(_))
   def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(_)) _
-  def serveStreak(implicit ctx: Context) = NoBot {
+  private def serveStreak(implicit ctx: Context) = NoBot {
     env.puzzle.streak.apply flatMap {
       _ ?? { case PuzzleStreak(ids, puzzle) =>
         env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = ctx.me) map { preJson =>

@@ -166,6 +166,7 @@ POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username: String, page: Int ?= 1)
 GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username: String, days: Int ?= 30)
+GET   /$lang<\w\w>/storm                controllers.Storm.homeLang(lang)
 
 # Puzzle Racer
 GET   /racer                            controllers.Racer.home
@@ -174,6 +175,7 @@ POST  /api/racer                        controllers.Racer.apiCreate
 GET   /racer/:id                        controllers.Racer.show(id: String)
 GET   /racer/:id/rematch                controllers.Racer.rematch(id: String)
 POST  /racer/lobby                      controllers.Racer.lobby
+GET   /$lang<\w\w>/racer                controllers.Racer.homeLang(lang)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
