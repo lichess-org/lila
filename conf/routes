@@ -25,6 +25,7 @@ POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId: String)
 
 # TV
 GET   /tv                              controllers.Tv.index
+GET   /$lang<\w\w>/tv                  controllers.Tv.indexLang(lang: String)
 GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Main.movedPermanently(to: String = "/api/tv/channels")

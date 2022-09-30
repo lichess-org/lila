@@ -9,6 +9,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Pov }
+import lila.common.LangPath
 
 object bits {
 
@@ -21,7 +22,8 @@ object bits {
       chessground: Boolean = true,
       playing: Boolean = false,
       zenable: Boolean = false,
-      robots: Boolean = false
+      robots: Boolean = false,
+      withHrefLangs: Option[LangPath] = None
   )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
@@ -38,7 +40,8 @@ object bits {
       zenable = zenable,
       robots = robots,
       zoomable = true,
-      csp = defaultCsp.withPeer.some
+      csp = defaultCsp.withPeer.some,
+      withHrefLangs = withHrefLangs
     )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =
