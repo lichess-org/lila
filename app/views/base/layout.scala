@@ -136,14 +136,17 @@ object layout {
 </div>""")
 
   private def anonDasher(implicit ctx: Context) =
-    spaceless(s"""<div class="dasher">
+    spaceless {
+      s"""<div class="dasher">
   <a class="toggle link anon">
     <span title="${trans.preferences.preferences.txt()}" data-icon=""></span>
   </a>
   <div id="dasher_app" class="dropdown"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
-        .txt()}</a>""")
+<a href="${langHref(
+          routes.Auth.login
+        )}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
+    }
 
   private val clinputLink = a(cls := "link")(span(dataIcon := ""))
 

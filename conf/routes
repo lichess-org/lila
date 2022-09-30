@@ -495,10 +495,12 @@ POST  /translation/select              controllers.I18n.select
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
+GET   /$lang<\w\w>/login               controllers.Auth.loginLang(lang)
 GET   /logout                          controllers.Auth.logoutGet
 POST  /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
+GET   /$lang<\w\w>/signup              controllers.Auth.signupLang(lang)
 GET   /signup/check-your-email         controllers.Auth.checkYourEmail
 POST  /signup/fix-email                controllers.Auth.fixEmail
 GET   /signup/confirm/:token           controllers.Auth.signupConfirmEmail(token: String)

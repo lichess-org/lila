@@ -1,12 +1,12 @@
 package views.html
 package auth
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, LangPath }
 
 object signup {
 
@@ -20,7 +20,8 @@ object signup {
         fingerprintTag
       ),
       moreCss = cssTag("auth"),
-      csp = defaultCsp.withHcaptcha.some
+      csp = defaultCsp.withHcaptcha.some,
+      withHrefLangs = LangPath(routes.Auth.signup).some
     ) {
       def referrerParameter =
         HTTPRequest.queryStringGet(ctx.req, "referrer").?? { ref => s"?referrer=${urlencode(ref)}" }

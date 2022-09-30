@@ -122,7 +122,7 @@ export const userBox = (ctrl: Controller): VNode => {
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', noarg('toGetPersonalizedPuzzles')),
-      h('a.button', { attrs: { href: '/signup' } }, noarg('signUp')),
+      h('a.button', { attrs: { href: router.withLang('/signup') } }, noarg('signUp')),
     ]);
   const diff = ctrl.vm.round?.ratingDiff,
     ratedId = 'puzzle-toggle-rated';
