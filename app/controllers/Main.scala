@@ -5,11 +5,11 @@ import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
+import views._
 
+import lila.api.Context
 import lila.app._
 import lila.hub.actorApi.captcha.ValidCaptcha
-import makeTimeout.large
-import views._
 
 final class Main(
     env: Env,
@@ -48,6 +48,7 @@ final class Main(
 
   def captchaCheck(id: String) =
     Open { implicit ctx =>
+      import makeTimeout.large
       env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
         Ok(if (valid) 1 else 0)
       }
@@ -69,13 +70,14 @@ final class Main(
       }
     }
 
-  def mobile =
-    Open { implicit ctx =>
-      pageHit
-      OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
-        html.mobile(doc, resolver)
-      }
+  def mobile     = Open(serveMobile(_))
+  def mobileLang = LangPage(routes.Main.mobile)(serveMobile(_)) _
+  private def serveMobile(implicit ctx: Context) = {
+    pageHit
+    OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
+      html.mobile(doc, resolver)
     }
+  }
 
   def dailyPuzzleSlackApp =
     Open { implicit ctx =>
