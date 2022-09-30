@@ -1,4 +1,4 @@
-import { CevalTechnology } from './types';
+import { CevalTechnology } from './platform';
 import { ExternalWorkerOpts } from './worker';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
@@ -26,26 +26,6 @@ export const pow2floor = (n: number) => {
 
 export const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
   new WebAssembly.Memory({ shared: true, initial, maximum });
-
-export function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
-  // Atomics
-  if (typeof Atomics !== 'object') return;
-
-  // SharedArrayBuffer
-  if (typeof SharedArrayBuffer !== 'function') return;
-
-  // Shared memory
-  const mem = sharedWasmMemory(initial, maximum);
-  if (!(mem.buffer instanceof SharedArrayBuffer)) return;
-
-  // Structured cloning
-  try {
-    window.postMessage(mem.buffer, '*');
-  } catch (e) {
-    return undefined;
-  }
-  return mem;
-}
 
 export function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
   const extraDepth = Math.min(Math.max(threads - multiPv, 0), 6);

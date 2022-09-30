@@ -2,8 +2,6 @@ import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import CevalCtrl from './ctrl';
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'external';
-
 export interface Eval {
   cp?: number;
   mate?: number;
