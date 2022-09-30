@@ -1,7 +1,7 @@
 import * as winningChances from './winningChances';
 import stepwiseScroll from 'common/wheel';
 import { defined, notNull } from 'common';
-import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
+import { Eval, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
@@ -11,6 +11,7 @@ import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
+import CevalCtrl from './ctrl';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -80,7 +81,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   return [
-    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.engineName),
+    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.shortEngineName()),
     ctrl.technology == 'external'
       ? h(
           'span.technology.good',
@@ -326,7 +327,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
-  const pos = setupPosition(lichessRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
 
   return h(
     'div.pv_box',

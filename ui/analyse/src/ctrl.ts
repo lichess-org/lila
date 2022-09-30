@@ -15,7 +15,7 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, EvalMeta } from 'ceval';
+import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
@@ -637,7 +637,7 @@ export default class AnalyseCtrl {
 
   private instanciateCeval(): void {
     if (this.ceval) this.ceval.destroy();
-    this.ceval = cevalCtrl({
+    this.ceval = new CevalCtrl({
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
@@ -655,9 +655,7 @@ export default class AnalyseCtrl {
     });
   }
 
-  getCeval() {
-    return this.ceval;
-  }
+  getCeval = () => this.ceval;
 
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(

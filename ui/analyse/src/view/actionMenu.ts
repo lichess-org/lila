@@ -331,10 +331,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       attrs: {
                         type: 'range',
                         min: 4,
-                        max: Math.floor(Math.log2(ceval.maxHashSize)),
+                        max: Math.floor(Math.log2(ceval.maxHashSize())),
                         step: 1,
-                        disabled: ceval.maxHashSize <= 16,
-                        ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
+                        disabled: ceval.maxHashSize() <= 16,
+                        ...(ceval.maxHashSize() <= 16 ? { title: notSupported } : null),
                       },
                       hook: rangeConfig(
                         () => Math.floor(Math.log2(ceval.hashSize())),

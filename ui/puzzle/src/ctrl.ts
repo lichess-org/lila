@@ -23,7 +23,7 @@ import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } fro
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
-import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
+import { CevalCtrl } from 'ceval';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
@@ -365,7 +365,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function instanciateCeval(): void {
     if (ceval) ceval.destroy();
-    ceval = cevalCtrl({
+    ceval = new CevalCtrl({
       redraw,
       storageKeyPrefix: 'puzzle',
       multiPvDefault: 3,
