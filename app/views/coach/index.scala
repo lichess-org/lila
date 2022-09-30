@@ -11,6 +11,7 @@ import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.Countries
 import lila.user.Country
+import lila.common.LangPath
 
 object index {
 
@@ -29,7 +30,8 @@ object index {
     views.html.base.layout(
       title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
+      withHrefLangs = LangPath(routes.Coach.all(1)).some
     ) {
       val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)
