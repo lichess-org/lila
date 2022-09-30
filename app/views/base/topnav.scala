@@ -26,12 +26,12 @@ object topnav {
           )
         ),
         div(role := "group")(
-          if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
+          if (ctx.noBot) a(href := langHref("/?any#hook"))(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
-            a(href := routes.Tournament.home)(trans.arena.arenaTournaments()),
-            a(href := routes.Swiss.home)(trans.swiss.swissTournaments()),
-            a(href := routes.Simul.home)(trans.simultaneousExhibitions()),
+            a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
+            a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
+            a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
             ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)("DGT board")
           )
         )

@@ -24,11 +24,12 @@ final class Swiss(
 
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
 
-  def home =
-    Open { implicit ctx =>
-      ctx.userId.??(env.team.cached.teamIdsList) flatMap
-        env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
-    }
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Swiss.home)(serveHome(_)) _
+  private def serveHome(implicit ctx: Context) = NoBot {
+    ctx.userId.??(env.team.cached.teamIdsList) flatMap
+      env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
+  }
 
   def show(id: String) =
     Open { implicit ctx =>

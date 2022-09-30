@@ -344,6 +344,7 @@ GET   /tournament/help                        controllers.Tournament.help(system
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ: String)
+GET   /$lang<\w\w>/tournament                 controllers.Tournament.homeLang(lang)
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
@@ -369,6 +370,7 @@ GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id: Str
 GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id: String, user: String)
 GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id: String, user: String)
 POST  /swiss/$id<\w{8}>/schedule-next-round   controllers.Swiss.scheduleNextRound(id: String)
+GET   /$lang<\w\w>/swiss                      controllers.Swiss.homeLang(lang)
 
 # Simul
 GET   /simul                                  controllers.Simul.home
@@ -385,6 +387,7 @@ POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: String)
+GET   /$lang<\w\w>/simul                      controllers.Simul.homeLang(lang)
 
 # Team
 GET   /team                                   controllers.Team.home(page: Int ?= 1)
