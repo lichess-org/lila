@@ -55,6 +55,7 @@ object bits {
   }
 
   private[team] def teamTr(t: Team)(implicit ctx: Context) = {
+    import lila.common.String._
     val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(
@@ -69,7 +70,7 @@ object bits {
           t.name,
           ctx.userId.exists(t.leaders.contains) option em("leader")
         ),
-        t.intro | shorten(lila.common.String.removeMultibyteSymbols(t.description.value), 200)
+        t.intro | shorten(removeMultibyteSymbols(markdownTake(t.description.value)), 200)
       ),
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),

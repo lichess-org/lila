@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
+import lila.common.String.markdownTake
 import lila.team.{ Team, TeamMember }
 import lila.relation.Relation
 
@@ -20,7 +21,7 @@ object members {
         .OpenGraph(
           title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = shorten(t.description.value, 152)
+          description = shorten(markdownTake(t.description.value), 152)
         )
         .some
     ) {
