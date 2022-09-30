@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
@@ -50,7 +51,7 @@ object home {
           description = trans.siteDescription.txt()
         )
         .some,
-      withHrefLangs = "/".some
+      withHrefLangs = LangPath("/").some
     ) {
       main(
         cls := List(

@@ -1,5 +1,6 @@
 import * as speech from './speech';
 import * as xhr from './xhr';
+import * as router from 'common/router';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
 import moveTest from './moveTest';
@@ -357,7 +358,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     });
 
     if (!streak && !data.replay) {
-      const path = `/training/${data.angle.key}`;
+      const path = router.withLang(`/training/${data.angle.key}`);
       if (location.pathname != path) history.replaceState(null, '', path);
     }
   }

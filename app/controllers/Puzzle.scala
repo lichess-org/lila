@@ -16,6 +16,7 @@ import lila.i18n.I18nLangPicker
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.{ Puzzle => Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme }
 import lila.user.{ User => UserModel }
+import lila.common.LangPath
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
@@ -38,7 +39,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       angle: PuzzleAngle,
       color: Option[Color] = None,
       replay: Option[lila.puzzle.PuzzleReplay] = None,
-      isHome: Boolean = false
+      langPath: Option[LangPath] = None
   )(implicit ctx: Context) =
     renderJson(puzzle, angle, replay) zip
       ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
@@ -50,7 +51,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
                 json,
                 env.puzzle.jsonView.pref(ctx.pref),
                 settings | PuzzleSettings.default(color),
-                isPuzzleHome = isHome
+                langPath
               )
           )
         )
@@ -85,7 +86,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     NoBot {
       val angle = PuzzleAngle.mix
       nextPuzzleForMe(angle, none) flatMap {
-        renderShow(_, angle, isHome = true)
+        renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
       }
     }
 
@@ -305,17 +306,22 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     }
   }
 
-  def show(angleOrId: String) = Open { implicit ctx =>
+  def show(angleOrId: String) = Open(serveShow(angleOrId)(_))
+  def showLang(lang: String, angleOrId: String) =
+    LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId)(_))(lang)
+
+  private def serveShow(angleOrId: String)(implicit ctx: Context) =
     NoBot {
+      val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
       PuzzleAngle find angleOrId match {
         case Some(angle) =>
           nextPuzzleForMe(angle, none) flatMap {
-            renderShow(_, angle)
+            renderShow(_, angle, langPath = langPath)
           }
         case _ if angleOrId.size == Puz.idSize =>
           OptionFuResult(env.puzzle.api.puzzle find Puz.Id(angleOrId)) { puzzle =>
             ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
-              renderShow(puzzle, PuzzleAngle.mix)
+              renderShow(puzzle, PuzzleAngle.mix, langPath = langPath)
           }
         case _ =>
           angleOrId.toLongOption
@@ -326,7 +332,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
           }
       }
     }
-  }
 
   def showWithAngle(angleKey: String, id: String) = Open { implicit ctx =>
     NoBot {

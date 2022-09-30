@@ -8,6 +8,7 @@ import lila.api.{ AnnounceStore, Context }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.base.StringUtils.escapeHtmlRaw
+import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.common.{ ContentSecurityPolicy, Nonce }
 
@@ -188,9 +189,9 @@ object layout {
   private def hrefLang(lang: String, path: String) =
     s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
 
-  private def hrefLangs(path: String)(implicit ctx: Context) = raw {
-    val pathEnd = if (path == "/") "" else path
-    hrefLang("x-default", path) + hrefLang("en", path) +
+  private def hrefLangs(path: LangPath)(implicit ctx: Context) = raw {
+    val pathEnd = if (path.value == "/") "" else path.value
+    hrefLang("x-default", path.value) + hrefLang("en", path.value) +
       lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
         hrefLang(lang, s"/$lang$pathEnd")
       }.mkString
@@ -231,7 +232,7 @@ object layout {
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
-      withHrefLangs: Option[String] = None
+      withHrefLangs: Option[LangPath] = None
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,

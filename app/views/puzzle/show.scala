@@ -6,8 +6,8 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.common.Json.colorWrites
+import lila.common.String.html.safeJsonValue
 
 object show {
 
@@ -16,7 +16,7 @@ object show {
       data: JsObject,
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
-      isPuzzleHome: Boolean = false
+      langPath: Option[lila.common.LangPath] = None
   )(implicit ctx: Context) = {
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
@@ -65,7 +65,7 @@ object show {
         .some,
       zoomable = true,
       zenable = true,
-      withHrefLangs = isPuzzleHome option routes.Puzzle.home.url
+      withHrefLangs = langPath
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(

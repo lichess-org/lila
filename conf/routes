@@ -839,5 +839,6 @@ GET   /robots.txt                      controllers.Main.robots
 GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: String)
 GET   /$lang<\w\w>/training            controllers.Puzzle.homeLang(lang: String)
 GET   /$lang<\w\w>/training/themes     controllers.Puzzle.themesLang(lang: String)
+GET   /$lang<\w\w>/training/:angleOrId controllers.Puzzle.showLang(lang: String, angleOrId: String)
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)
