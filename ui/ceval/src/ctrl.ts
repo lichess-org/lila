@@ -63,7 +63,7 @@ export default class CevalCtrl {
     this.officialStockfish = this.rules == 'chess' && (pos.isErr || isStandardMaterial(pos.value));
     this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
 
-    this.externalEngine = this.opts.externalEngines.find(
+    this.externalEngine = this.opts.externalEngines?.find(
       e => e.id == this.selectedEngine() && (this.officialStockfish || e.variants.includes(this.rules))
     );
     this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
@@ -256,7 +256,7 @@ export default class CevalCtrl {
     }
   };
   selectEngine = (id: string) => {
-    this.selectedEngine(this.opts.externalEngines.find(e => e.id == id) ? id : 'lichess');
+    this.selectedEngine(this.opts.externalEngines?.find(e => e.id == id) ? id : 'lichess');
     lichess.reload();
   };
   canGoDeeper = () =>

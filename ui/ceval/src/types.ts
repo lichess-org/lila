@@ -39,7 +39,7 @@ export interface CevalOpts {
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: () => void;
-  externalEngines: ExternalEngine[];
+  externalEngines?: ExternalEngine[];
 }
 
 export interface Hovering {
