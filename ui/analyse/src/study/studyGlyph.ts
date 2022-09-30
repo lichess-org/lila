@@ -5,6 +5,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import * as xhr from './studyXhr';
+import * as keyboard from './keyboard';
 
 interface AllGlyphs {
   move: Tree.Glyph[];
@@ -56,13 +57,11 @@ export function ctrl(root: AnalyseCtrl): GlyphCtrl {
     );
   });
 
-  return {
-    root,
-    all,
-    loadGlyphs,
-    toggleGlyph,
-    redraw: root.redraw,
-  };
+  const ctrl = {root, all, loadGlyphs, toggleGlyph, redraw: root.redraw};
+
+  keyboard.bind(ctrl);
+
+  return ctrl;
 }
 
 export function viewDisabled(why: string): VNode {
