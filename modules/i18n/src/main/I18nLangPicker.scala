@@ -48,15 +48,19 @@ object I18nLangPicker {
       defaultByLanguage.get(to.language) orElse
         lichessCodes.get(to.language)
 
-  def byHref(code: String): ByHref =
+  def byHref(code: String, req: RequestHeader): ByHref =
     Lang get code flatMap findCloser match {
-      case Some(lang) if fixJavaLanguageCode(lang) == code => Found(lang)
-      case Some(lang)                                      => Redir(fixJavaLanguageCode(lang))
-      case None                                            => NotFound
+      case Some(lang) if fixJavaLanguageCode(lang) == code =>
+        if (req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language))
+          Found(lang)
+        else Refused(lang)
+      case Some(lang) => Redir(fixJavaLanguageCode(lang))
+      case None       => NotFound
     }
 
   sealed trait ByHref
   case class Found(lang: Lang)   extends ByHref
+  case class Refused(lang: Lang) extends ByHref
   case class Redir(code: String) extends ByHref
   case object NotFound           extends ByHref
 }
