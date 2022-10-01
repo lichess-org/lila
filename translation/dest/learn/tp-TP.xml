@@ -16,15 +16,15 @@
   <string name="theFewerMoves">sina tawa pi nanpa lili la sina suli e nanpa sina!</string>
   <string name="useTwoRooks">o tawa wawa kepeken tomo utala tu!</string>
   <string name="rookComplete">pona tawa sina! sina sona ale e tomo utala.</string>
-  <string name="theBishop">jan nasa</string>
+  <string name="theBishop">lawa sewi</string>
   <string name="itMovesDiagonally">ona li tawa kepeken nasin pi poka lili</string>
-  <string name="bishopIntro">tenpo ni la mi kama sona tawa e jan nasa!</string>
+  <string name="bishopIntro">tenpo ni la mi kama sona tawa e lawa sewi!</string>
   <string name="youNeedBothBishops">lawa sewi wan pi poki pimeja en lawa sewi wan pi poki walo li lon. sina wile e ona tu!</string>
   <string name="bishopComplete">pona tawa sina! sina ken lawa e lawa sewi.</string>
   <string name="theQueen">lawa meli</string>
   <string name="queenCombinesRookAndBishop">lawa meli li ken tawa sama tomo utala, sama lawa sewi.</string>
   <string name="queenIntro">ijo pi wawa suli li kama. ona li lawa meli!</string>
-  <string name="queenComplete">pona tawa sina! sina sona sama jan lawa meli.</string>
+  <string name="queenComplete">pona tawa sina! sina sona sama lawa meli.</string>
   <string name="theKing">lawa mije</string>
   <string name="theMostImportantPiece">ijo ni li suli nanpa wan</string>
   <string name="kingIntro">sina lawa mije. sina moli la ale li pini.</string>
@@ -42,8 +42,8 @@ kepeken nasin nasa!</string>
   <string name="itMovesForwardOnly">ona li tawa kepeken nasin sinpin taso</string>
   <string name="pawnIntro">jan utala li wawa ala. taso ona li ken mute.</string>
   <string name="pawnsMoveOneSquareOnly">jan utala li tawa lili. taso ona li kama lon poka ante la ona li kama wawa!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">tenpo mute la, ni li pona #1: o ante e jan utala tawa jan lawa meli.
-taso, tenpo lili la, soweli tawa li pona mute!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">tenpo mute la ni li pona la jan li pali e ijo musi tawa lawa meli.
+tenpo lili la soweli tawa li kepeken mute!</string>
   <string name="pawnsMoveForward">jan utala li tawa sinpin. taso, ona li anpa e ijo pi ma poka sinpin!</string>
   <string name="captureThenPromote">o anpa e ijo. ni li pini la, o ante e ijo musi!</string>
   <string name="useAllThePawns">o kepeken jan utala ale! sina wile ala tawa poka ante.</string>
@@ -111,9 +111,9 @@ o pali e tawa.</string>
 ona li wile lon ma pi poka supa.</string>
   <string name="thenPlaceTheKnights">o tawa e soweli tawa!
 ona li wile lon poka pi tomo utala.</string>
-  <string name="placeTheBishops">o tawa e jan lawa sewi!
+  <string name="placeTheBishops">o tawa e lawa sewi!
 ona li wile lon poka pi soweli tawa.</string>
-  <string name="placeTheQueen">o tawa e jan lawa meli!
+  <string name="placeTheQueen">o tawa e lawa meli!
 ona li wile lon ma pi kule sama.</string>
   <string name="placeTheKing">o tawa e jan lawa mije!
 ona li wile lon poka pi jan lawa meli.</string>
@@ -166,23 +166,23 @@ anpa tawa e ijo.</string>
   <string name="pieceValue">suli pi ijo musi</string>
   <string name="evaluatePieceStrength">o sona e ni: suli pi ijo musi ni li seme?</string>
   <string name="pieceValueIntro">ilo musi li ken tawa mute la, ona li suli!
-jan lawa meli = nanpa suli 9
+lawa meli = nanpa suli 9
 tomo utala = nanpa suli 5
-jan lawa sewi = nanpa suli 3
+lawa sewi = nanpa suli 3
 soweli tawa = nanpa suli 3
 jan utala = nanpa suli 1
 jan lawa li suli ale! sina kama jo ala e ona la, sina anpa.</string>
   <string name="queenOverBishop">o anpa e ijo musi suli!
-jan lawa meli li suli mute. jan lawa sewi li suli lili.</string>
+lawa meli li suli mute. lawa sewi li suli lili.</string>
   <string name="pieceValueExchange">o anpa e ijo musi suli!
 o esun ala e ijo musi suli tawa ijo musi lili.</string>
   <string name="pieceValueLegal">o anpa e ijo musi suli!
 o pali e tawa ken!</string>
   <string name="takeThePieceWithTheHighestValue">o anpa e ijo musi suli!</string>
   <string name="pieceValueComplete">pona a! sina sona e suli pi ijo musi.
-jan lawa meli = nanpa suli 9
+lawa meli = nanpa suli 9
 tomo utala = nanpa suli 5
-jan lawa sewi = nanpa suli 3
+lawa sewi = nanpa suli 3
 soweli tawa = nanpa suli 3
 jan utala = nanpa suli 1</string>
   <string name="checkInTwo">jan lawa li ken moli</string>
