@@ -194,21 +194,23 @@ export class ExternalWorker extends AbstractWorker<ExternalEngine> {
       cache: 'default',
       headers: {}, // avoid default headers for cors
       credentials: 'omit',
-    }).then(res => {
-      this.stream = readStream((line: string) => {
-        console.log(line);
-      })(res);
-      // const url = new URL(this.opts.url);
-      // url.searchParams.set('secret', this.opts.secret);
-      // url.searchParams.set('session', this.session);
-      // const ws = (this.ws = new WebSocket(url.href));
-      // ws.onmessage = e => this.protocol.received(e.data);
-      // ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
-      // ws.onclose = () => {
-      //   this.protocol.disconnected();
-      //   if (this.ws) setTimeout(() => this.boot(), 10_000);
-      // };
-    });
+    })
+      .then(res => {
+        this.stream = readStream((line: string) => {
+          console.log(line);
+        })(res);
+        // const url = new URL(this.opts.url);
+        // url.searchParams.set('secret', this.opts.secret);
+        // url.searchParams.set('session', this.session);
+        // const ws = (this.ws = new WebSocket(url.href));
+        // ws.onmessage = e => this.protocol.received(e.data);
+        // ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
+        // ws.onclose = () => {
+        //   this.protocol.disconnected();
+        //   if (this.ws) setTimeout(() => this.boot(), 10_000);
+        // };
+      })
+      .catch(console.error);
   }
 
   destroy() {
