@@ -100,7 +100,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def analysisCsp(implicit ctx: Context): ContentSecurityPolicy =
-    defaultCsp.withWebAssembly.withAnyWs.withExternalEngine(env.externalEngineEndpoint)
+    defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
 
   def embedJsUnsafe(js: String)(implicit ctx: Context): Frag =
     raw {
