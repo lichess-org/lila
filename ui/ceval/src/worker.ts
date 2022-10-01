@@ -215,6 +215,8 @@ export class ExternalWorker extends AbstractWorker<ExternalEngine> {
     })
       .then(res => {
         // no need to call protocol.connected, ever
+        // but need to set bootSuccess
+        this.bootSuccess = true;
         this.stream = readStream((line: string) => {
           console.log(line);
           this.protocol.received(line);
@@ -224,7 +226,10 @@ export class ExternalWorker extends AbstractWorker<ExternalEngine> {
         //   if (this.ws) setTimeout(() => this.boot(), 10_000);
         // };
       })
-      .catch(console.error);
+      .catch(err => {
+        console.error(err);
+        this.bootSuccess = false;
+      });
   }
 
   destroy() {
