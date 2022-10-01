@@ -55,16 +55,16 @@ private object bits {
       )
     )
 
-  def config(page: OpeningPage)(implicit ctx: Context) = {
+  def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) = {
     import OpeningConfig._
     details(cls := "opening__config")( // , attr("open") := true)(
-      summary(cls := "opening__config__summary")(page.query.config.toString),
+      summary(cls := "opening__config__summary")(config.toString),
       postForm(
         cls    := "opening__config__form",
-        action := routes.Opening.config(page.query.key.some.filter(_.nonEmpty) | "index")
+        action := routes.Opening.config(thenTo)
       )(
-        checkboxes(form("speeds"), speedChoices, page.query.config.speeds.map(_.id)),
-        checkboxes(form("ratings"), ratingChoices, page.query.config.ratings),
+        checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
+        checkboxes(form("ratings"), ratingChoices, config.ratings),
         div(cls                           := "opening__config__form__submit")(
           form3.submit(trans.apply())(cls := "button-empty")
         )

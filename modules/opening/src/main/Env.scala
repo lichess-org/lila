@@ -30,6 +30,8 @@ final class Env(
   lazy val config = wire[OpeningConfigStore]
 
   lazy val api = wire[OpeningApi]
+
+  lazy val search = wire[OpeningSearch]
 }
 
 trait ExplorerEndpoint

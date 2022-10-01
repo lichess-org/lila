@@ -17,7 +17,7 @@ final class OpeningApi(
   def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] = lookup("")
 
   def lookup(q: String)(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, configStore.read) ?? lookup
+    OpeningQuery(q, readConfig) ?? lookup
 
   def lookup(query: OpeningQuery): Fu[Option[OpeningPage]] =
     explorer.stats(query) zip explorer.queryHistory(query) zip allGamesHistory.get(query.config) map {
@@ -25,6 +25,8 @@ final class OpeningApi(
         OpeningPage(query, stats, ponderHistory(history, allHistory)).some
       case _ => none
     }
+
+  def readConfig(implicit req: RequestHeader) = configStore.read
 
   private def ponderHistory(query: PopularityHistory, config: PopularityHistory): PopularityHistory =
     query.zipAll(config, 0, 0) map {

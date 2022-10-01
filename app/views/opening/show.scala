@@ -53,7 +53,7 @@ object show {
             st.data("title") := page.opening.map(_.name)
           )(lpvPreload),
           div(cls := "opening__intro__side")(
-            config(page),
+            configForm(page.query.config, page.query.key),
             winRate(page),
             div(cls := "opening__intro__actions")(
               puzzle.map { p =>

@@ -34,7 +34,10 @@ object index {
     ) {
       main(cls := "page box box-pad opening opening--index")(
         h1("Chess openings"),
-        config(page),
+        div(cls := "opening__search-config")(
+          search.form(""),
+          configForm(page.query.config, "index")
+        ),
         whatsNext(page)
       )
     }
