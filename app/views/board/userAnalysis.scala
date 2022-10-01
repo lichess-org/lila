@@ -42,8 +42,7 @@ object userAnalysis {
               views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
-      csp =
-        defaultCsp.withWebAssembly.withAnyWs.withWikiBooks.withExternalEngine(externalEngineEndpoint).some,
+      csp = analysisCsp.withWikiBooks.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(

@@ -29,7 +29,7 @@ object show {
             ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
-      csp = defaultCsp.withWebAssembly.withAnyWs.some,
+      csp = analysisCsp.some,
       chessground = false,
       zoomable = true
     ) {

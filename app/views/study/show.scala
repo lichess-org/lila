@@ -53,7 +53,7 @@ object show {
       robots = s.isPublic,
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withAnyWs.withPeer.withWikiBooks.some,
+      csp = analysisCsp.withPeer.withWikiBooks.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,
