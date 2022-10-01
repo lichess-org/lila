@@ -483,19 +483,21 @@ final class Auth(
 
   def magicLinkLogin(token: String) =
     Open { implicit ctx =>
-      Firewall {
-        magicLinkLoginRateLimitPerToken(token) {
-          env.security.magicLink confirm token flatMap {
-            case None =>
-              lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
-              notFound
-            case Some(user) =>
-              authLog(user.username, "-", "Magic link")
-              authenticateUser(user) >>-
-                lila.mon.user.auth.magicLinkConfirm("success").increment().unit
-          }
-        }(rateLimitedFu)
-      }
+      if (ctx.isAuth) Redirect(routes.Lobby.home).fuccess
+      else
+        Firewall {
+          magicLinkLoginRateLimitPerToken(token) {
+            env.security.magicLink confirm token flatMap {
+              case None =>
+                lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
+                notFound
+              case Some(user) =>
+                authLog(user.username, "-", "Magic link")
+                authenticateUser(user) >>-
+                  lila.mon.user.auth.magicLinkConfirm("success").increment().unit
+            }
+          }(rateLimitedFu)
+        }
     }
 
   private def loginTokenFor(me: UserModel) = JsonOk {
