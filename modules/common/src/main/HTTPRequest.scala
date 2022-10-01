@@ -132,4 +132,9 @@ object HTTPRequest {
 
   def queryStringGet(req: RequestHeader, name: String): Option[String] =
     req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
+
+  def looksLikeLichessBot(req: RequestHeader) =
+    userAgent(req) exists { ua =>
+      ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
+    }
 }
