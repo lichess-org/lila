@@ -57,7 +57,7 @@ export function ctrl(root: AnalyseCtrl): GlyphCtrl {
     );
   });
 
-  const ctrl = {root, all, loadGlyphs, toggleGlyph, redraw: root.redraw};
+  const ctrl = { root, all, loadGlyphs, toggleGlyph, redraw: root.redraw };
 
   keyboard.bind(ctrl);
 
