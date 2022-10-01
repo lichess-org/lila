@@ -17,7 +17,7 @@ object show {
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page),
-      title = s"${trans.opening.txt()} • $name",
+      title = s"${trans.opening.txt()} • ${page.name}",
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
