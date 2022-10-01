@@ -181,6 +181,7 @@ export interface ExternalEngine {
 
 export class ExternalWorker extends AbstractWorker<ExternalEngine> {
   private protocol = new Protocol();
+  private session = Math.random().toString(36).slice(2, 12);
 
   protected getProtocol() {
     return this.protocol;
@@ -191,20 +192,33 @@ export class ExternalWorker extends AbstractWorker<ExternalEngine> {
   boot() {
     const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
     fetch(url.href, {
+      method: 'post',
       cache: 'default',
-      headers: {}, // avoid default headers for cors
+      headers: {
+        'Content-Type': 'application/json',
+      },
       credentials: 'omit',
+      body: JSON.stringify({
+        clientSecret: this.opts.clientSecret,
+        work: {
+          sessionId: this.session,
+          // TODO
+          threads: this.opts.maxThreads,
+          hash: this.opts.maxHash,
+          maxDepth: 99,
+          multiPv: 1,
+          variant: 'standard',
+          initialFen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+          moves: [],
+        },
+      }),
     })
       .then(res => {
+        // no need to call protocol.connected, ever
         this.stream = readStream((line: string) => {
           console.log(line);
+          this.protocol.received(line);
         })(res);
-        // const url = new URL(this.opts.url);
-        // url.searchParams.set('secret', this.opts.secret);
-        // url.searchParams.set('session', this.session);
-        // const ws = (this.ws = new WebSocket(url.href));
-        // ws.onmessage = e => this.protocol.received(e.data);
-        // ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
         // ws.onclose = () => {
         //   this.protocol.disconnected();
         //   if (this.ws) setTimeout(() => this.boot(), 10_000);
