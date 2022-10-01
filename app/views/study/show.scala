@@ -45,10 +45,9 @@ object show {
                   localMod = ctx.userId exists s.canContribute
                 )
               },
-              "explorer"      -> views.html.board.bits.explorerConfig,
               "socketUrl"     -> socketUrl(s.id.value),
               "socketVersion" -> socketVersion.value
-            )
+            ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
       robots = s.isPublic,

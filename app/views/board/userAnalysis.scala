@@ -34,13 +34,12 @@ object userAnalysis {
         embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
             Json
               .obj(
-                "data"                   -> data,
-                "i18n"                   -> userAnalysisI18n(withForecast = withForecast),
-                "explorer"               -> bits.explorerConfig,
-                "wiki"                   -> pov.game.variant.standard,
-                "externalEngineEndpoint" -> externalEngineEndpoint
+                "data" -> data,
+                "i18n" -> userAnalysisI18n(withForecast = withForecast),
+                "wiki" -> pov.game.variant.standard
               )
-              .add("inlinePgn", inlinePgn)
+              .add("inlinePgn", inlinePgn) ++
+              views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
       csp =

@@ -45,10 +45,9 @@ object show {
                   broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout)
                 )
               ),
-              "explorer"      -> views.html.board.bits.explorerConfig,
               "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
               "socketVersion" -> socketVersion.value
-            )
+            ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
       chessground = false,
