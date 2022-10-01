@@ -43,7 +43,7 @@ function whatNext(ctrl: MapCtrl) {
       'a',
       {
         class: 'stage done' + titleVerbosityClass(transTitle),
-        href: href,
+        href: done ? 'javascript:void(0);' : href,
       },
       [
         done ? m('span.ribbon-wrapper', m('span.ribbon.done', makeStars(1))) : null,
