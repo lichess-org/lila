@@ -1,5 +1,6 @@
 import * as winningChances from './winningChances';
 import stepwiseScroll from 'common/wheel';
+import { bind } from 'common/snabbdom';
 import { defined, notNull } from 'common';
 import { Eval, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
@@ -42,9 +43,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
           title: trans.noarg('goDeeper'),
           'data-icon': '',
         },
-        hook: {
-          insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ceval.goDeeper),
-        },
+        hook: bind('click', ceval.goDeeper),
       })
     );
   else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
@@ -69,9 +68,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
       'data-icon': '',
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
-    hook: {
-      insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ctrl.toggleThreatMode),
-    },
+    hook: bind('click', ctrl.toggleThreatMode),
   });
 }
 
@@ -246,9 +243,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
                 checked: enabled,
                 disabled: !instance.analysable,
               },
-              hook: {
-                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval),
-              },
+              hook: bind('change', ctrl.toggleCeval),
             }),
             h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
           ]
