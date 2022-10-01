@@ -3,6 +3,9 @@
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/seeks                     controllers.Lobby.seeks
+
+# 2-letter routes, then lang route
+GET   /tv                              controllers.Tv.index
 GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang)
 
 # Highest hit count
@@ -24,7 +27,6 @@ GET   /games/export/:username          controllers.Game.exportByUser(username)
 POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId)
 
 # TV
-GET   /tv                              controllers.Tv.index
 GET   /$lang<\w\w>/tv                  controllers.Tv.indexLang(lang)
 GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
