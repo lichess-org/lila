@@ -9,8 +9,7 @@ export default class ServerEval {
   requested = prop(false);
   chartEl = prop<PlyChartHTMLElement | null>(null);
 
-  constructor(readonly root: AnalyseCtrl, readonly chapterId: () => string) {
-  }
+  constructor(readonly root: AnalyseCtrl, readonly chapterId: () => string) {}
 
   reset = () => {
     this.requested(false);
