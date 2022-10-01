@@ -207,7 +207,7 @@ export default class CevalCtrl {
         if (this.curEval) this.opts.emit(this.curEval, this.lastStarted);
       } else {
         stop();
-        this.start(this.lastStarted.path, this.lastStarted.steps, this.lastStarted.threatMode);
+        this.doStart(this.lastStarted.path, this.lastStarted.steps, this.lastStarted.threatMode);
       }
     }
     this.opts.redraw();
