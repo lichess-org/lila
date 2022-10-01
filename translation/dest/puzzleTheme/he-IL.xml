@@ -48,7 +48,7 @@
   <string name="exposedKing">מלך חשוף</string>
   <string name="exposedKingDescription">טקטיקה המשלבת מלך עם מעט מגנים סביבו, שלרוב מובילה למט.</string>
   <string name="fork">מזלג</string>
-  <string name="forkDescription">מסע בו הכלי הנע מאיים של שני כלי יריב במקביל.</string>
+  <string name="forkDescription">מסע בו הכלי הנע מאיים על שני כלי יריב במקביל.</string>
   <string name="hangingPiece">כלי תלוי ללא חיפוי</string>
   <string name="hangingPieceDescription">טקטיקה המשלבת כלי יריב לא מוגן או מוגן לא כהלכה וזמין להכאה.</string>
   <string name="hookMate">מט קרס</string>
