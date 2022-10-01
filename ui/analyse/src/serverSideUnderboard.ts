@@ -1,4 +1,4 @@
-import type { PlyChartHTMLElement } from 'chart/dist/interface';
+import type { PlyChartHTMLElement, PlyChart } from 'chart/dist/interface';
 
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
@@ -14,11 +14,12 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
-    $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
     gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
     positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement;
   let lastInputHash: string;
+  let advChart: PlyChart;
+  let timeChart: PlyChart;
 
   const updateGifLinks = (fen: Fen) => {
     const ds = document.body.dataset;
@@ -45,16 +46,17 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       );
       if (v) $('#acpl-chart').each((_, e) => (e as PlyChartHTMLElement).highcharts.reflow());
     });
-    lichess.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
-      const $chart = $('#acpl-chart');
+    lichess.pubsub.on('analysis.change', (fen: Fen, _) => {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
         updateGifLinks(fen);
         lastInputHash = nextInputHash;
       }
-      if ($chart.length) ($chart[0] as PlyChartHTMLElement).highcharts?.selectPly(mainlinePly);
-      if ($timeChart.length) ($timeChart[0] as PlyChartHTMLElement).highcharts?.selectPly(mainlinePly);
+    });
+    lichess.pubsub.on('ply', (ply: number, mainlinePly: number) => {
+      advChart?.selectPly(mainlinePly, ply == mainlinePly);
+      timeChart?.selectPly(mainlinePly, ply == mainlinePly);
     });
     lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!window.LichessChartGame) startAdvantageChart();
@@ -72,17 +74,14 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
-    lichess
-      .loadModule('chart.game')
-      .then(() =>
-        window.LichessChartGame!.acpl(
-          data,
-          ctrl.mainline,
-          ctrl.trans,
-          $('#acpl-chart')[0] as HTMLElement,
-          ctrl.opts.hunter
-        )
-      );
+    lichess.loadModule('chart.game').then(() => {
+      window
+        .LichessChartGame!.acpl(data, ctrl.mainline, ctrl.trans, $('#acpl-chart')[0] as HTMLElement, ctrl.opts.hunter)
+        .then(() => {
+          advChart = ($('#acpl-chart')[0] as PlyChartHTMLElement).highcharts;
+          advChart?.selectPly(ctrl.node.ply, ctrl.tree.lastMainlineNode(ctrl.path).ply == ctrl.node.ply);
+        });
+    });
   }
 
   const storage = lichess.storage.make('analysis.panel');
@@ -94,9 +93,12 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .filter('.' + panel)
       .addClass('active');
     if ((panel == 'move-times' || ctrl.opts.hunter) && !window.LichessChartGame?.movetime.render)
-      lichess
-        .loadModule('chart.game')
-        .then(() => window.LichessChartGame!.movetime(data, ctrl.trans, ctrl.opts.hunter));
+      lichess.loadModule('chart.game').then(() =>
+        window.LichessChartGame!.movetime(data, ctrl.trans, ctrl.opts.hunter).then(() => {
+          timeChart = ($('#movetimes-chart')[0] as PlyChartHTMLElement).highcharts;
+          timeChart?.selectPly(ctrl.node.ply, ctrl.tree.lastMainlineNode(ctrl.path).ply == ctrl.node.ply);
+        })
+      );
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
       setTimeout(startAdvantageChart, 200);
   };
