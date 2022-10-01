@@ -1,7 +1,7 @@
 import { dataIcon } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
+import { attributesModule, classModule, init, h } from 'snabbdom';
 import { plyToTurn } from '../util';
-import { h, attributesModule, classModule, init } from 'snabbdom';
 
 export const patch = init([classModule, attributesModule]);
 

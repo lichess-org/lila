@@ -8,7 +8,8 @@ import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.{ richText, safeJsonValue }
+import lila.common.String.html.safeJsonValue
+import lila.common.String.markdownTake
 import lila.team.Team
 import lila.mod.Modlog
 
@@ -33,7 +34,7 @@ object show {
         .OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = shorten(t.description.value, 152)
+          description = shorten(markdownTake(t.description.value), 152)
         )
         .some,
       moreJs = frag(
