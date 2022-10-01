@@ -39,7 +39,8 @@
   <string name="knightIntro">הפרש יציב בפניך אתגר... יותר קשה.</string>
   <string name="knightsHaveAFancyWay">לפרשים יש קפיצה...
 קצת מוזרה!</string>
-  <string name="knightsCanJumpOverObstacles">הפרש מדלג על מכשולים ויכול להגיע רחוק בדרכו לפסגה!</string>
+  <string name="knightsCanJumpOverObstacles">הפרש מדלג על מכשולים!
+ברחו ותפסו את הכוכבים!</string>
   <string name="knightComplete">יפה, את/ה רוכב/ת מנוסה!</string>
   <string name="thePawn">הרגלי</string>
   <string name="itMovesForwardOnly">הוא נע קדימה בלבד</string>
@@ -131,7 +132,7 @@
   <string name="enPassantIntro">כאשר רגלי היריב מתקדם שני צעדים, ניתן להכות אותו כאילו הלך רק צעד אחד.</string>
   <string name="blackJustMovedThePawnByTwoSquares">השחור קידם רגלי פעמיים בבת אחת! הכו אותו דרך הילוכו.</string>
   <string name="enPassantOnlyWorksImmediately">הכאה דרך הילוכו אפשרית רק מיד אחרי מהלכו של רגלי היריב.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">לקיחה \"דרך הילוכו\" אפשרית רק מיד אחרי שרגלי היריב הגיע לשורה 5.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">הכאה דרך הילוכו אפשרית רק מיד אחרי שרגלי היריב הגיע לשורה 5.</string>
   <string name="takeAllThePawnsEnPassant">קחו את כל הרגלים \"דרך הילוכם\"!</string>
   <string name="enPassantComplete">יפה, עכשיו תוכל/י להכות את רגלי יריבך דרך הילוכו.</string>
   <string name="stalemate">פט</string>
