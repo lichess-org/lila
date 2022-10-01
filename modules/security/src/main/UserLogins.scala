@@ -214,7 +214,7 @@ object UserLogins {
       alts: Alts,
       clients: Set[UserAgent.Client]
   ) {
-    def datedLocation = Dated(location, ip.date)
+    def datedLocation = Dated(Location.WithProxy(location, proxy), ip.date)
   }
 
   case class FPData(
