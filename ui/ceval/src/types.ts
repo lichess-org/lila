@@ -1,8 +1,7 @@
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import CevalCtrl from './ctrl';
-
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'external';
+import { ExternalEngine } from './worker';
 
 export interface Eval {
   cp?: number;
@@ -40,6 +39,7 @@ export interface CevalOpts {
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: () => void;
+  externalEngines?: ExternalEngine[];
 }
 
 export interface Hovering {

@@ -355,8 +355,8 @@
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
   <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Wertung ≤ %1$s im %2$s diese Woche</string>
-  <string name="mustBeInTeam">Du musst in Team %s sein</string>
-  <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
+  <string name="mustBeInTeam">Du musst zum Team %s gehören</string>
+  <string name="youAreNotInTeam">Du gehörst nicht zum Team %s</string>
   <string name="backToGame">Zurück zur Partie</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat dem Team %2$s bei</string>

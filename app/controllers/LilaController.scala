@@ -705,4 +705,17 @@ abstract private[controllers] class LilaController(val env: Env)
     Redirect {
       if (req.target.uriString contains "?") s"$path?${req.target.queryString}" else path
     }
+
+  protected val movedMap: Map[String, String] = Map(
+    "swag" -> "https://shop.spreadshirt.com/lichess-org",
+    "yt"   -> "https://www.youtube.com/c/LichessDotOrg",
+    "dmca" -> "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform",
+    "fishnet" -> "https://github.com/lichess-org/fishnet",
+    "qa"      -> "/faq",
+    "help"    -> "/contact",
+    "support" -> "/contact",
+    "donate"  -> "/patron"
+  )
+  protected def staticRedirect(key: String): Option[Fu[Result]] =
+    movedMap get key map { MovedPermanently(_).fuccess }
 }

@@ -42,7 +42,9 @@ final class Lobby(
       }
     } map env.lilaCookie.ensure(ctx.req)
 
-  def homeLang = LangPage("/")(serveHtmlHome(_)) _
+  def homeLang(lang: String) =
+    staticRedirect(lang).map(Action.async(_)) getOrElse
+      LangPage("/")(serveHtmlHome(_))(lang)
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
     reqToCtx(req) flatMap { ctx =>

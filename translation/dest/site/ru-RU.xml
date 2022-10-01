@@ -839,6 +839,7 @@
   <string name="bestWasX">Лучше было %s</string>
   <string name="youBrowsedAway">Вы вышли из режима тренировки</string>
   <string name="resumePractice">Возобновить тренировку</string>
+  <string name="drawByFiftyMoves">Партия была сыграна вничью по правилу пятидесяти ходов.</string>
   <string name="theGameIsADraw">Игра окончилась вничью.</string>
   <string name="computerThinking">Компьютер думает...</string>
   <string name="seeBestMove">Посмотреть лучший ход</string>

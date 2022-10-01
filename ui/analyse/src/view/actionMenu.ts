@@ -280,13 +280,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ? ctrlToggle(
                       {
                         name: 'Use NNUE',
-                        title: ceval.supportsNnue
+                        title: ceval.platform.supportsNnue
                           ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
                           : notSupported,
                         id: 'enable-nnue',
-                        checked: ceval.supportsNnue && ceval.enableNnue(),
+                        checked: ceval.platform.supportsNnue && ceval.enableNnue(),
                         change: ceval.enableNnue,
-                        disabled: !ceval.supportsNnue,
+                        disabled: !ceval.platform.supportsNnue,
                       },
                       ctrl
                     )
@@ -314,14 +314,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       attrs: {
                         type: 'range',
                         min: 1,
-                        max: ceval.maxThreads,
+                        max: ceval.platform.maxThreads,
                         step: 1,
-                        disabled: ceval.maxThreads <= 1,
-                        ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
+                        disabled: ceval.platform.maxThreads <= 1,
+                        ...(ceval.platform.maxThreads <= 1 ? { title: notSupported } : null),
                       },
                       hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
                     }),
-                    h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
+                    h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`),
                   ]);
                 })('analyse-threads'),
                 (id =>
@@ -331,10 +331,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       attrs: {
                         type: 'range',
                         min: 4,
-                        max: Math.floor(Math.log2(ceval.maxHashSize())),
+                        max: Math.floor(Math.log2(ceval.platform.maxHashSize())),
                         step: 1,
-                        disabled: ceval.maxHashSize() <= 16,
-                        ...(ceval.maxHashSize() <= 16 ? { title: notSupported } : null),
+                        disabled: ceval.platform.maxHashSize() <= 16,
+                        ...(ceval.platform.maxHashSize() <= 16 ? { title: notSupported } : null),
                       },
                       hook: rangeConfig(
                         () => Math.floor(Math.log2(ceval.hashSize())),
@@ -343,26 +343,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     }),
                     h('div.range_value', formatHashSize(ceval.hashSize())),
                   ]))('analyse-memory'),
-                ceval.technology == 'external'
-                  ? h('div.setting', [
-                      h('label', 'External engine'),
-                      h(
-                        'button.button.text.button-thin.button-red',
-                        {
-                          attrs: {
-                            'data-icon': '',
-                          },
-                          hook: bindNonPassive('click', () => {
-                            if (confirm('Disconnect external engine and reload?')) {
-                              ceval.disconnectExternalEngine();
-                              lichess.reload();
-                            }
-                          }),
-                        },
-                        'Disconnect'
-                      ),
-                    ])
-                  : null,
               ]
             : []),
         ]

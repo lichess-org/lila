@@ -652,6 +652,11 @@ export default class AnalyseCtrl {
             multiPvDefault: 1,
           }
         : {}),
+      externalEngines:
+        this.data.externalEngines?.map(engine => ({
+          ...engine,
+          endpoint: this.opts.externalEngineEndpoint,
+        })) || [],
     });
   }
 

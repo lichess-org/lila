@@ -94,8 +94,9 @@ final class Env(
     val mode: play.api.Mode
 ) {
 
-  val explorerEndpoint  = config.get[String]("explorer.endpoint")
-  val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
+  val explorerEndpoint       = config.get[String]("explorer.endpoint")
+  val tablebaseEndpoint      = config.get[String]("explorer.tablebase.endpoint")
+  val externalEngineEndpoint = config.get[String]("externalEngine.endpoint")
 
   val appVersionDate    = config.getOptional[String]("app.version.date")
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
