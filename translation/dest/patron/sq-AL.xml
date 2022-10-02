@@ -19,7 +19,7 @@
   <string name="ifNotRenewedThenAccountWillRevert">Po nuk u rinovua, llogaria juaj do të rikthehet atëherë si llogari e rregullt.</string>
   <string name="weAreNonProfit">Jemi një ent jofitimprurës, ngaqë besojmë se gjithkush duhet të ketë mundësi të përdorë një platformë shahu të lirë, të kalibrit botëror.</string>
   <string name="weRelyOnSupport">Për ta bërë të mundur këtë, mbështetemi në përkrahjen e njerëzve si ju. Nëse ju pëlqen të përdorni Lichess-in, ju lutemi, shihni mundësinë të na përkrahni duke dhuruar ose duke u bërë një Bamirës!</string>
-  <string name="lifetime">Pergjithmone</string>
+  <string name="lifetime">Përgjithmonë</string>
   <string name="payLifetimeOnce">Paguani %s një herë. Bëhuni Bamirës Lichess-i përgjithmonë!</string>
   <string name="lifetimePatron">Bamirës i përjetshëm i Lichess-it</string>
   <string name="monthly">Një herë në muaj</string>
@@ -64,6 +64,7 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ose %2$s</string>
   <string name="decideHowMuch">Vendosni se sa vlen Lichess-i për ju:</string>
   <string name="stopPayments">Hiqeni kartën tuaj të kreditit dhe ndalni pagesat:</string>
+  <string name="stopPaymentsPayPal">Anulo pajtim PayPal dhe ndali pagesat:</string>
   <string name="noLongerSupport">Mos e përkrahni më Lichess-in</string>
   <string name="viewOthers">Shihni Bamirës të tjerë të Lichess-it</string>
   <string name="date">Datë</string>
