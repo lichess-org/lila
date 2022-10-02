@@ -8,6 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.LilaOpeningFamily
 import lila.opening.OpeningQuery
+import lila.common.HTTPRequest
 
 final class Opening(env: Env) extends LilaController(env) {
 
@@ -16,7 +17,10 @@ final class Opening(env: Env) extends LilaController(env) {
       val q = ~get("q")
       if (q.nonEmpty)
         env.opening.search(q) map { results =>
-          Ok(html.opening.search.resultsPage(q, results, env.opening.api.readConfig))
+          Ok {
+            if (HTTPRequest isXhr ctx.req) html.opening.search.resultsList(q, results)
+            else html.opening.search.resultsPage(q, results, env.opening.api.readConfig)
+          }
         }
       else
         env.opening.api.index flatMap {

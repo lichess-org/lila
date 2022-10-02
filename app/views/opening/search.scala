@@ -11,9 +11,15 @@ import lila.opening.{ OpeningConfig, OpeningSearchResult }
 object search {
 
   def form(q: String)(implicit ctx: Context) =
-    st.form(cls        := "opening__search-form", action := routes.Opening.index, method    := "get")(
-      input(name       := "q", st.placeholder            := "Search for openings", st.value := q),
-      submitButton(cls := "button", dataIcon             := "")
+    st.form(cls := "opening__search-form", action := routes.Opening.index, method := "get")(
+      input(
+        cls            := "opening__search-form__input",
+        name           := "q",
+        st.placeholder := "Search for openings",
+        st.value       := q,
+        autofocus      := true
+      ),
+      submitButton(cls := "button", dataIcon := "")
     )
 
   import bits._
@@ -35,7 +41,7 @@ object search {
   ) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = jsModule("opening"),
+      moreJs = moreJs(none),
       title = s"${trans.opening.txt()} • $q",
       csp = defaultCsp.withInlineIconFont.some
     ) {

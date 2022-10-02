@@ -17,7 +17,7 @@ object index {
   def apply(page: OpeningPage)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(page),
+      moreJs = moreJs(page.some),
       title = trans.opening.txt(),
       openGraph = lila.app.ui
         .OpenGraph(
