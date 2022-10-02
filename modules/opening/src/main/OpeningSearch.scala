@@ -14,7 +14,7 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer) {
   val max = 32
 
   def apply(q: String): Fu[List[OpeningSearchResult]] = fuccess {
-    OpeningSearch(q).map(OpeningSearchResult)
+    OpeningSearch(q, max).map(OpeningSearchResult)
   }
 }
 
@@ -58,15 +58,15 @@ object OpeningSearch {
     case (_, freq, size) => (freq, -size)
   }
 
-  def apply(q: String): List[FullOpening] = {
-    val tokens                         = tokenize(q)
-    val positions: List[Set[Position]] = tokens.flatMap(index.get)
-    val merged                         = positions.flatMap(_.toList)
-    val positionsWithFreq              = merged.groupBy(identity).view.mapValues(_.size).toList
+  def apply(q: String, max: Int): List[FullOpening] = {
+    val tokens            = tokenize(q)
+    val positions         = tokens.flatMap(index.get)
+    val merged            = positions.flatMap(_.toList)
+    val positionsWithFreq = merged.groupBy(identity).view.mapValues(_.size).toList
     val openingsWithFreqAndLen: List[(FullOpening, Freq, NameSize)] = positionsWithFreq.flatMap {
       case (position, freq) => openings.lift(position).map(op => (op, freq, op.name.size))
     }
-    val sorted = openingsWithFreqAndLen.topN(10)(searchOrdering)
+    val sorted = openingsWithFreqAndLen.topN(max)(searchOrdering)
     sorted.map(_._1)
   }
 }

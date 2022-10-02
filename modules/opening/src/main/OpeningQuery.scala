@@ -56,7 +56,7 @@ object OpeningQuery {
   )
 
   val firstYear  = 2017
-  val firstMonth = s"$firstYear-04"
+  val firstMonth = s"$firstYear-01"
   // def lastMonth =
   //   DateTimeFormat forPattern "yyyy-MM" print {
   //     val now = DateTime.now

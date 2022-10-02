@@ -1,5 +1,6 @@
 package views.html.opening
 
+import chess.format.FEN
 import controllers.routes
 
 import lila.api.Context
@@ -20,8 +21,11 @@ object search {
   def resultsList(q: String, results: List[OpeningSearchResult])(implicit ctx: Context) =
     div(cls := "opening__search__results")(
       results map { r =>
-        div(cls := "opening__search__result")(
-          r.opening.name
+        a(cls := "opening__search__result", href := routes.Opening.query(r.opening.key))(
+          span(cls := "opening__search__result__title")(r.opening.name),
+          span(cls := "opening__search__result__board")(
+            views.html.board.bits.mini(FEN(r.opening.fen), lastMove = ~r.opening.lastUci)(span)
+          )
         )
       }
     )
