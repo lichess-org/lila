@@ -345,7 +345,7 @@ export default class AnalyseCtrl {
   };
 
   private onChange: () => void = throttle(300, () => {
-    lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    lichess.pubsub.emit('analysis.change', this.node.fen, this.path);
   });
 
   private updateHref: () => void = debounce(() => {
@@ -389,7 +389,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
-    lichess.pubsub.emit('ply', this.node.ply);
+    lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply);
     this.showGround();
   }
 

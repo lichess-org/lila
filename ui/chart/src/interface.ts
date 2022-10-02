@@ -5,9 +5,8 @@ export interface HighchartsHTMLElement extends HTMLElement {
 }
 
 export interface PlyChart extends Highcharts.ChartObject {
-  lastPly?: number | false;
   firstPly: number;
-  selectPly(ply: number | false): void;
+  selectPly(ply: number, isMainline: boolean): void;
 }
 
 export interface PlyChartHTMLElement extends HTMLElement {

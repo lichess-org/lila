@@ -9,11 +9,7 @@ export default class ServerEval {
   requested = prop(false);
   chartEl = prop<PlyChartHTMLElement | null>(null);
 
-  constructor(readonly root: AnalyseCtrl, readonly chapterId: () => string) {
-    lichess.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
-      if (window.LichessChartGame) this.chartEl()?.highcharts?.selectPly(mainlinePly);
-    });
-  }
+  constructor(readonly root: AnalyseCtrl, readonly chapterId: () => string) {}
 
   reset = () => {
     this.requested(false);
