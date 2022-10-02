@@ -15,14 +15,13 @@ final class Opening(env: Env) extends LilaController(env) {
   def index =
     Secure(_.Beta) { implicit ctx => _ =>
       val q = ~get("q")
-      if (q.nonEmpty)
-        env.opening.search(q) map { results =>
-          Ok {
-            if (HTTPRequest isXhr ctx.req) html.opening.search.resultsList(q, results)
-            else html.opening.search.resultsPage(q, results, env.opening.api.readConfig)
-          }
-        }
-      else
+      if (q.nonEmpty) {
+        val results = env.opening.search(q)
+        Ok {
+          if (HTTPRequest isXhr ctx.req) html.opening.search.resultsList(q, results)
+          else html.opening.search.resultsPage(q, results, env.opening.api.readConfig)
+        }.fuccess
+      } else
         env.opening.api.index flatMap {
           _ ?? { page =>
             Ok(html.opening.index(page)).fuccess

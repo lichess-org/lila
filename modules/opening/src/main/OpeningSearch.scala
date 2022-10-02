@@ -14,9 +14,14 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer) {
 
   val max = 32
 
-  def apply(q: String): Fu[List[OpeningSearchResult]] = fuccess {
+  private val cache = cacheApi.scaffeine
+    .maximumSize(1024)
+    .build[String, List[OpeningSearchResult]](doSearch _)
+
+  def apply(q: String): List[OpeningSearchResult] = cache get q
+
+  def doSearch(q: String): List[OpeningSearchResult] =
     OpeningSearch(q, max).map(OpeningSearchResult)
-  }
 }
 
 // linear performance but it's fine for 3,067 unique openings
