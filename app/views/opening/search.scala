@@ -17,7 +17,9 @@ object search {
         name           := "q",
         st.placeholder := "Search for openings",
         st.value       := q,
-        autofocus      := true
+        autofocus      := true,
+        autocomplete   := "off",
+        spellcheck     := "false"
       ),
       submitButton(cls := "button", dataIcon := "")
     )
