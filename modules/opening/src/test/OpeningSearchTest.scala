@@ -23,5 +23,8 @@ class OpeningSearchTest extends Specification {
       search("Sìcîlián").headOption.map(_.name) must beSome("Sicilian Defense")
       search("  --sIcIlIaN**__").headOption.map(_.name) must beSome("Sicilian Defense")
     }
+    // "progressive" in {
+    //   search("Sicil").headOption.map(_.name) must beSome("Sicilian Defense")
+    // }
   }
 }
