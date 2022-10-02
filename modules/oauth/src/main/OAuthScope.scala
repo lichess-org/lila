@@ -101,6 +101,8 @@ object OAuthScope {
     Web.Mod
   )
 
+  val allButWeb = all.filterNot(_.key startsWith "web:")
+
   val dangerList: Set[OAuthScope] = Set(
     Team.Write,
     Web.Login,
