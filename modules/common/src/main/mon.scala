@@ -704,6 +704,9 @@ object mon {
         )
       )
   }
+  object opening {
+    def searchTime = timer("opening.search.time").withoutTags()
+  }
   object study {
     object tree {
       val read  = timer("study.tree.read").withoutTags()

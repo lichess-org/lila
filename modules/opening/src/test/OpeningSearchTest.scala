@@ -8,10 +8,10 @@ class OpeningSearchTest extends Specification {
     def search(q: String) = OpeningSearch(q, 10)
 
     "tokenize" in {
-      OpeningSearch.tokenize("foo") must_== List("foo")
-      OpeningSearch.tokenize("FoO") must_== List("foo")
-      OpeningSearch.tokenize("FoO bar") must_== List("foo", "bar")
-      OpeningSearch.tokenize("FòO-_ b**-ar") must_== List("foo", "bar")
+      OpeningSearch.tokenize("foo") must_== Set("foo")
+      OpeningSearch.tokenize("FoO") must_== Set("foo")
+      OpeningSearch.tokenize("FoO bar") must_== Set("foo", "bar")
+      OpeningSearch.tokenize("FòO-_ b**-ar") must_== Set("foo", "bar")
     }
     "literal" in {
       search("Sicilian Defense").headOption.map(_.name) must beSome("Sicilian Defense")
@@ -23,8 +23,8 @@ class OpeningSearchTest extends Specification {
       search("Sìcîlián").headOption.map(_.name) must beSome("Sicilian Defense")
       search("  --sIcIlIaN**__").headOption.map(_.name) must beSome("Sicilian Defense")
     }
-    // "progressive" in {
-    //   search("Sicil").headOption.map(_.name) must beSome("Sicilian Defense")
-    // }
+    "progressive" in {
+      search("Sicil").headOption.map(_.name) must beSome("Sicilian Defense")
+    }
   }
 }
