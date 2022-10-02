@@ -45,16 +45,15 @@ object show {
                   localMod = ctx.userId exists s.canContribute
                 )
               },
-              "explorer"      -> views.html.board.bits.explorerConfig,
               "socketUrl"     -> socketUrl(s.id.value),
               "socketVersion" -> socketVersion.value
-            )
+            ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
       robots = s.isPublic,
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withAnyWs.withPeer.withWikiBooks.some,
+      csp = analysisCsp.withPeer.withWikiBooks.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,

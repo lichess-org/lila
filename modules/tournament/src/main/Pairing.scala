@@ -1,6 +1,7 @@
 package lila.tournament
 
 import chess.Color
+import chess.variant._
 import lila.game.Game
 import lila.user.User
 import lila.common.ThreadLocalRandom
@@ -36,7 +37,12 @@ case class Pairing(
   def quickFinish      = finished && turns.exists(20 >)
   def quickDraw        = draw && turns.exists(20 >)
   def notSoQuickFinish = finished && turns.exists(14 <=)
-  def longGame         = turns.exists(60 <=)
+  def longGame(variant: Variant) = turns.exists(_ >= (variant match {
+    case Standard | Chess960 | Horde => 60
+    case Crazyhouse | KingOfTheHill  => 50
+    case Antichess | RacingKings     => 40
+    case ThreeCheck | Atomic         => 20
+  }))
 
   def wonBy(user: User.ID): Boolean     = winner.has(user)
   def lostBy(user: User.ID): Boolean    = winner.exists(user !=)

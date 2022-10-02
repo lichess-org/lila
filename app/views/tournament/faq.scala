@@ -53,6 +53,33 @@ object faq {
       h2(otherRules()),
       p(thereIsACountdown()),
       p(drawingWithinNbMoves.pluralSame(10)),
-      p(drawStreak(30))
+      p(drawStreakStandard(30)),
+      p(drawStreakVariants()),
+      table(cls := "slist slist-pad")(
+        thead(
+          tr(
+            th(variant()),
+            th(minimumGameLength())
+          )
+        ),
+        tbody(
+          tr(
+            td(trans.standard(), ", Chess960, Horde"),
+            td(30)
+          ),
+          tr(
+            td("Crazyhouse, King of the Hill"),
+            td(25)
+          ),
+          tr(
+            td("Antichess, Racing Kings"),
+            td(20)
+          ),
+          tr(
+            td("Three check, Atomic"),
+            td(10)
+          )
+        )
+      )
     )
 }

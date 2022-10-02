@@ -30,7 +30,7 @@ object create {
           br,
           h2("Scopes define the access for personal tokens:"),
           div(cls := "scopes")(
-            lila.oauth.OAuthScope.all.map { scope =>
+            lila.oauth.OAuthScope.allButWeb.map { scope =>
               val disabled = {
                 me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
               } || {

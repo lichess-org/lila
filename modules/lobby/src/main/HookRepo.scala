@@ -16,7 +16,7 @@ final private class HookRepo {
 
   private val hardLimit = 200
 
-  implicit private val creationOrdering = Ordering.by[Hook, Long](_.createdAt.getMillis)
+  private val creationOrdering = Ordering.by[Hook, Long](_.createdAt.getMillis)
 
   def size = hooks.size
 

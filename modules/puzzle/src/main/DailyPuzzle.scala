@@ -7,7 +7,8 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.common.ThreadLocalRandom
+import lila.common.ThreadLocalRandom.odds
+import lila.common.Random
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
@@ -51,7 +52,6 @@ final private[puzzle] class DailyPuzzle(
 
   private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] = {
     def tryAgainMaybe = (tries < 7) ?? findNewBiased(tries + 1)
-    import lila.common.ThreadLocalRandom.odds
     import PuzzleTheme._
     findNew flatMap {
       case None => tryAgainMaybe
@@ -66,6 +66,8 @@ final private[puzzle] class DailyPuzzle(
       .path {
         _.aggregateOne() { framework =>
           import framework._
+          val forbiddenThemes = List(PuzzleTheme.oneMove) :::
+            odds(2).??(List(PuzzleTheme.checkFirst))
           Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.Top, 2150 to 2300)) -> List(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
@@ -82,7 +84,7 @@ final private[puzzle] class DailyPuzzle(
                       Puzzle.BSONFields.plays $gt 9000,
                       Puzzle.BSONFields.day $exists false,
                       Puzzle.BSONFields.issue $exists false,
-                      Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
+                      Puzzle.BSONFields.themes $nin forbiddenThemes.map(_.key.value)
                     )
                   )
                 )

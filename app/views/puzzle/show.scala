@@ -41,7 +41,7 @@ object show {
               .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
           )})""")
       ),
-      csp = defaultCsp.withWebAssembly.withAnyWs.some,
+      csp = analysisCsp.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
