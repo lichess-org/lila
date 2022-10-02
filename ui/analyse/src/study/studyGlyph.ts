@@ -17,15 +17,14 @@ export interface GlyphCtrl {
   all: Prop<AllGlyphs | null>;
   loadGlyphs(): void;
   toggleGlyph(id: Tree.GlyphId): void;
-  redraw(): void;
 }
 
 function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
-  return function (glyph: Tree.Glyph) {
-    return h(
+  return (glyph: Tree.Glyph) =>
+    h(
       'button',
       {
-        hook: bind('click', _ => ctrl.toggleGlyph(glyph.id), ctrl.redraw),
+        hook: bind('click', () => ctrl.toggleGlyph(glyph.id)),
         attrs: { 'data-symbol': glyph.symbol, type: 'button' },
         class: {
           active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id),
@@ -33,7 +32,6 @@ function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
       },
       [glyph.name]
     );
-  };
 }
 
 export function ctrl(root: AnalyseCtrl): GlyphCtrl {
@@ -54,15 +52,10 @@ export function ctrl(root: AnalyseCtrl): GlyphCtrl {
         id,
       })
     );
+    root.redraw();
   });
 
-  return {
-    root,
-    all,
-    loadGlyphs,
-    toggleGlyph,
-    redraw: root.redraw,
-  };
+  return { root, all, loadGlyphs, toggleGlyph };
 }
 
 export function viewDisabled(why: string): VNode {

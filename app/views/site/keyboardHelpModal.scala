@@ -81,7 +81,8 @@ object keyboardHelpModal {
             row(kbd("d"), trans.study.commentThisPosition()),
             row(kbd("g"), trans.study.annotateWithGlyphs()),
             row(kbd("n"), trans.study.nextChapter()),
-            row(kbd("p"), trans.study.prevChapter())
+            row(kbd("p"), trans.study.prevChapter()),
+            row(frag((1 to 6).map(kbd(_))), "Toggle glyph annotations")
           ),
           header(trans.mouseTricks()),
           tr(
