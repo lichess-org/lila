@@ -38,6 +38,8 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   </plurals>
   <string name="thisIsPrivate">Αυτό είναι ιδιωτικό πρωτάθλημα</string>
   <string name="shareUrl">Μοιραστείτε αυτήν την διεύθυνση URL για να συμμετάσχουν άλλα άτομα: %s</string>
+  <string name="variant">Εκδοχή</string>
+  <string name="minimumGameLength">Ελάχιστο μήκος παιχνιδιού</string>
   <string name="history">Ιστορικό αρένας</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Δείτε την ομάδα</item>
