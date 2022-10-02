@@ -51,9 +51,12 @@ object homeInner {
               td(cls := "players text", dataIcon := "")(sim.applicants.size)
             )
           },
-          ctx.isAuth option tr(cls := "create")(
+          tr(cls := "create")(
             td(colspan := "4")(
-              a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
+              if (ctx.isAuth)
+                a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
+              else
+                a(href := routes.Auth.signup, cls := "action button text")("Sign up to host or join a simul")
             )
           )
         ),
