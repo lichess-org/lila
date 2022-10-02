@@ -1,19 +1,20 @@
 package views.html.swiss
 
+import controllers.routes
 import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.swiss.{ FeaturedSwisses, Swiss }
-
-import controllers.routes
 
 object home {
 
   def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
-      moreCss = cssTag("swiss.home")
+      moreCss = cssTag("swiss.home"),
+      withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
         h1("Swiss tournaments"),

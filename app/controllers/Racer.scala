@@ -12,12 +12,11 @@ import play.api.libs.json.Json
 
 final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
 
-  def home =
-    Open { implicit ctx =>
-      NoBot {
-        Ok(html.racer.home).fuccess
-      }
-    }
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Racer.home)(serveHome(_)) _
+  private def serveHome(implicit ctx: Context) = NoBot {
+    Ok(html.racer.home).fuccess
+  }
 
   def create =
     WithPlayerId { implicit ctx => playerId =>

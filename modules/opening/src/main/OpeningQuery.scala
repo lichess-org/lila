@@ -29,7 +29,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
       op.some -> pgn.drop(ply).toList
     } getOrElse (none, pgn.toList)
 
-  val name = openingAndExtraMoves match {
+  val name: String = openingAndExtraMoves match {
     case (Some(op), Nil)   => op.name
     case (Some(op), moves) => s"${op.name}, ${moves mkString " "}"
     case (_, moves)        => moves mkString " "

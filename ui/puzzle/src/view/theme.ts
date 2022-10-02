@@ -2,6 +2,7 @@ import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { renderColorForm } from './side';
+import * as router from 'common/router';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
@@ -17,7 +18,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
     : h('div.puzzle__side__theme', [
         h(
           'a',
-          { attrs: { href: `/training/${t.isOpening ? 'openings' : 'themes'}` } },
+          { attrs: { href: router.withLang(`/training/${t.isOpening ? 'openings' : 'themes'}`) } },
           h(
             'h2',
             {

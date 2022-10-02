@@ -7,24 +7,23 @@ import lila.app._
 
 final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
 
-  def home =
-    Open { implicit ctx =>
-      NoBot {
-        env.storm.selector.apply flatMap { puzzles =>
-          ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
-            NoCache {
-              Ok(
-                views.html.storm.home(
-                  env.storm.json(puzzles, ctx.me),
-                  env.storm.json.pref(ctx.pref),
-                  high
-                )
-              )
-            }
-          }
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Storm.home)(serveHome(_)) _
+  private def serveHome(implicit ctx: Context) = NoBot {
+    env.storm.selector.apply flatMap { puzzles =>
+      ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
+        NoCache {
+          Ok(
+            views.html.storm.home(
+              env.storm.json(puzzles, ctx.me),
+              env.storm.json.pref(ctx.pref),
+              high
+            )
+          )
         }
       }
     }
+  }
 
   def record =
     OpenBody { implicit ctx =>

@@ -1,15 +1,19 @@
 package views.html
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.LangPath
 
 object mobile {
 
   def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Mobile",
-      moreCss = cssTag("mobile")
+      moreCss = cssTag("mobile"),
+      withHrefLangs = LangPath(routes.Main.mobile).some
     ) {
       main(
         div(cls := "mobile page-small box box-pad")(

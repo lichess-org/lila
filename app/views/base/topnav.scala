@@ -26,12 +26,12 @@ object topnav {
           )
         ),
         div(role := "group")(
-          if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
+          if (ctx.noBot) a(href := s"${langHref("/")}?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
-            a(href := routes.Tournament.home)(trans.arena.arenaTournaments()),
-            a(href := routes.Swiss.home)(trans.swiss.swissTournaments()),
-            a(href := routes.Simul.home)(trans.simultaneousExhibitions()),
+            a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
+            a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
+            a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
             ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)("DGT board")
           )
         )
@@ -43,9 +43,9 @@ object topnav {
           div(role := "group")(
             a(href := puzzleUrl)(trans.puzzles()),
             a(href := routes.Puzzle.dashboard(30, "home", none))(trans.puzzle.puzzleDashboard()),
-            a(href := routes.Puzzle.streak)("Puzzle Streak"),
-            a(href := routes.Storm.home)("Puzzle Storm"),
-            a(href := routes.Racer.home)("Puzzle Racer")
+            a(href := langHref(routes.Puzzle.streak))("Puzzle Streak"),
+            a(href := langHref(routes.Storm.home))("Puzzle Storm"),
+            a(href := langHref(routes.Racer.home))("Puzzle Racer")
           )
         )
       },
@@ -53,25 +53,28 @@ object topnav {
         linkTitle(routes.Practice.index.url, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
-            a(href := routes.Learn.index)(trans.chessBasics()),
+            a(href := langHref(routes.Learn.index))(trans.chessBasics()),
             a(href := routes.Practice.index)(trans.practice()),
-            a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
+            a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
           ),
-          a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-          ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
+          a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
+          ctx.noKid option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
           canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )
       ),
-      st.section(
-        linkTitle(routes.Tv.index.url, trans.watch()),
-        div(role := "group")(
-          a(href := routes.Tv.index)("Lichess TV"),
-          a(href := routes.Tv.games)(trans.currentGames()),
-          (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
-          a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
-          ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
+      st.section {
+        val tvUrl = langHref(routes.Tv.index)
+        frag(
+          linkTitle(tvUrl, trans.watch()),
+          div(role := "group")(
+            a(href := tvUrl)("Lichess TV"),
+            a(href := routes.Tv.games)(trans.currentGames()),
+            (ctx.noKid && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
+            a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
+            ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
+          )
         )
-      ),
+      },
       st.section(
         linkTitle(routes.User.list.url, trans.community()),
         div(role := "group")(

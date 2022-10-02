@@ -25,12 +25,11 @@ object show {
               "practice" -> data.practice,
               "study"    -> data.study,
               "data"     -> data.analysis,
-              "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys)),
-              "explorer" -> views.html.board.bits.explorerConfig
-            )
+              "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
+            ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
-      csp = defaultCsp.withWebAssembly.withAnyWs.some,
+      csp = analysisCsp.some,
       chessground = false,
       zoomable = true
     ) {

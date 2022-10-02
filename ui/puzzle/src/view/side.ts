@@ -2,6 +2,7 @@ import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '..
 import { dataIcon, onInsert, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
+import * as router from 'common/router';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
@@ -27,7 +28,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
                   'a',
                   {
                     attrs: {
-                      href: `/training/${puzzle.id}`,
+                      href: router.withLang(`/training/${puzzle.id}`),
                       ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
                     },
                   },
@@ -121,7 +122,7 @@ export const userBox = (ctrl: Controller): VNode => {
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', noarg('toGetPersonalizedPuzzles')),
-      h('a.button', { attrs: { href: '/signup' } }, noarg('signUp')),
+      h('a.button', { attrs: { href: router.withLang('/signup') } }, noarg('signUp')),
     ]);
   const diff = ctrl.vm.round?.ratingDiff,
     ratedId = 'puzzle-toggle-rated';

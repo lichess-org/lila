@@ -683,14 +683,17 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val ndJsonContentType = "application/x-ndjson"
   protected val csvContentType    = "text/csv"
 
-  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String) =
+  protected def LangPage(call: Call)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
+    LangPage(call.url)(f)(langCode)
+  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
     Open { ctx =>
       if (ctx.isAuth) redirectWithQueryString(path)(ctx.req).fuccess
       else
-        I18nLangPicker.byHref(langCode) match {
+        I18nLangPicker.byHref(langCode, ctx.req) match {
           case I18nLangPicker.NotFound => notFound(ctx)
           case I18nLangPicker.Redir(code) =>
             redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).fuccess
+          case I18nLangPicker.Refused(_) => redirectWithQueryString(path)(ctx.req).fuccess
           case I18nLangPicker.Found(lang) =>
             val langCtx = ctx withLang lang
             pageHit(langCtx)
@@ -702,4 +705,17 @@ abstract private[controllers] class LilaController(val env: Env)
     Redirect {
       if (req.target.uriString contains "?") s"$path?${req.target.queryString}" else path
     }
+
+  protected val movedMap: Map[String, String] = Map(
+    "swag" -> "https://shop.spreadshirt.com/lichess-org",
+    "yt"   -> "https://www.youtube.com/c/LichessDotOrg",
+    "dmca" -> "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform",
+    "fishnet" -> "https://github.com/lichess-org/fishnet",
+    "qa"      -> "/faq",
+    "help"    -> "/contact",
+    "support" -> "/contact",
+    "donate"  -> "/patron"
+  )
+  protected def staticRedirect(key: String): Option[Fu[Result]] =
+    movedMap get key map { MovedPermanently(_).fuccess }
 }

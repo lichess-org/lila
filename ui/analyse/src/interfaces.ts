@@ -8,6 +8,7 @@ import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
+import { ExternalEngine } from 'ceval';
 
 export type Seconds = number;
 
@@ -27,14 +28,6 @@ export interface OpeningPuzzle {
   key: string;
   name: string;
   count: number;
-}
-
-export interface ExternalEngine {
-  id: string;
-  name: string;
-  variants: VariantKey[];
-  clientSecret: string;
-  officialStockfish?: boolean;
 }
 
 // similar, but not identical, to game/GameData
@@ -160,6 +153,7 @@ export interface AnalyseOpts {
   };
   wiki?: boolean;
   inlinePgn?: string;
+  externalEngineEndpoint: string;
 }
 
 export interface JustCaptured extends cg.Piece {

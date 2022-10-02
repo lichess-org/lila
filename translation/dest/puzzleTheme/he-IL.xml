@@ -48,7 +48,7 @@
   <string name="exposedKing">מלך חשוף</string>
   <string name="exposedKingDescription">טקטיקה המשלבת מלך עם מעט מגנים סביבו, שלרוב מובילה למט.</string>
   <string name="fork">מזלג</string>
-  <string name="forkDescription">מסע בו הכלי הנע מאיים של שני כלי יריב במקביל.</string>
+  <string name="forkDescription">מסע בו הכלי הנע מאיים על שני כלי יריב במקביל.</string>
   <string name="hangingPiece">כלי תלוי ללא חיפוי</string>
   <string name="hangingPieceDescription">טקטיקה המשלבת כלי יריב לא מוגן או מוגן לא כהלכה וזמין להכאה.</string>
   <string name="hookMate">מט קרס</string>
@@ -100,7 +100,7 @@
   <string name="rookEndgame">סיום צריחים</string>
   <string name="rookEndgameDescription">סיום עם צריחים ורגלים בלבד.</string>
   <string name="sacrifice">הקרבה</string>
-  <string name="sacrificeDescription">טקטיקה המשלבת ויתור על חומר בטווח הקצר, על מנת להשיג את היתרון שוב לאחר סדרת מסעים כפויה.</string>
+  <string name="sacrificeDescription">טקטיקה המשלבת ויתור על חומר בטווח הקצר, כדי להשיג את היתרון שוב לאחר סדרת מסעים כפויה.</string>
   <string name="short">פאזל קצר</string>
   <string name="shortDescription">שני מסעים לניצחון.</string>
   <string name="skewer">שיפוד</string>

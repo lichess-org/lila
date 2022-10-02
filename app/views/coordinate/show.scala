@@ -10,6 +10,7 @@ import lila.pref.Pref.Color
 import play.api.i18n.Lang
 
 import controllers.routes
+import lila.common.LangPath
 
 object show {
 
@@ -34,7 +35,8 @@ object show {
         )
         .some,
       zoomable = true,
-      zenable = true
+      zenable = true,
+      withHrefLangs = LangPath(routes.Coordinate.home).some
     )(
       main(id := "trainer")(
         div(cls   := "trainer")(

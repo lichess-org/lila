@@ -30,7 +30,8 @@ lichess.pubsub.on('socket.in.reload', () =>
           url = s"$netBaseUrl${routes.Simul.home}",
           description = trans.aboutSimul.txt()
         )
-        .some
+        .some,
+      withHrefLangs = lila.common.LangPath(routes.Simul.home).some
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(

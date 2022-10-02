@@ -14,12 +14,15 @@ final class Tv(
     gameC: => Game
 ) extends LilaController(env) {
 
-  def index = onChannel(lila.tv.Tv.Channel.Best.key)
+  def index     = Open(serveIndex(_))
+  def indexLang = LangPage(routes.Tv.index)(serveIndex(_)) _
+  private def serveIndex(implicit ctx: Context) =
+    serveChannel(lila.tv.Tv.Channel.Best.key)
 
-  def onChannel(chanKey: String) =
-    Open { implicit ctx =>
-      (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessTv)
-    }
+  def onChannel(chanKey: String) = Open(serveChannel(chanKey)(_))
+
+  private def serveChannel(chanKey: String)(implicit ctx: Context) =
+    lila.tv.Tv.Channel.byKey.get(chanKey) ?? lichessTv
 
   def sides(gameId: String, color: String) =
     Open { implicit ctx =>

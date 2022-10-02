@@ -7,7 +7,7 @@
   <string name="motifs">kama ante</string>
   <string name="advanced">musi pi sona mute</string>
   <string name="lengths">mute tawa</string>
-  <string name="mates">o moli e jan lawa</string>
+  <string name="mates">o moli e lawa mije</string>
   <string name="goals">pini ante</string>
   <string name="origin">musi tan pi musi lili</string>
   <string name="specialMoves">tawa suli</string>
@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
   <string name="puzzleId">musi lili # %s</string>
-  <string name="puzzleOfTheDay">musi lili pi tenpo suni ni</string>
+  <string name="puzzleOfTheDay">musi lili pi tenpo suno ni</string>
   <string name="clickToSolve">o pini e musi lili</string>
   <string name="goodMove">tawa pona</string>
   <string name="bestMove">tawa pi pona #1!</string>

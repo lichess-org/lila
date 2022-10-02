@@ -63,4 +63,6 @@ object Location {
 
   def apply(ipLoc: IpLocation): Location =
     Location(ipLoc.countryName | unknown.country, ipLoc.countryCode, ipLoc.region, ipLoc.city)
+
+  case class WithProxy(location: Location, proxy: Option[String])
 }

@@ -2,7 +2,7 @@ package views.html.board
 
 import chess.format.{ FEN, Forsyth }
 import controllers.routes
-import play.api.libs.json.Json
+import play.api.libs.json.{ JsObject, JsString, Json }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -42,11 +42,16 @@ object bits {
       )
       .add("fen" -> fen)
 
-  def explorerConfig(implicit ctx: Context) = Json.obj(
+  private def explorerConfig(implicit ctx: Context) = Json.obj(
     "endpoint"          -> explorerEndpoint,
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )
+  def explorerAndCevalConfig(implicit ctx: Context) =
+    Json.obj(
+      "explorer"               -> explorerConfig,
+      "externalEngineEndpoint" -> externalEngineEndpoint
+    )
 
   private val i18nKeyes = List(
     trans.setTheBoard,

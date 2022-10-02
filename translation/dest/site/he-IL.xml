@@ -102,7 +102,7 @@
   <string name="openingEndgameExplorer">סייר פתיחות/סיומים</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפאת כלל 50 המהלכים</string>
-  <string name="lossSavedBy50MoveRule">נמנע הפסד מפאת כלל 50 המהלכים</string>
+  <string name="lossSavedBy50MoveRule">הפסד נמנע מפאת כלל 50 המהלכים</string>
   <string name="winOr50MovesByPriorMistake">ניצחון או כלל 50 המסעים בגלל טעות קודמת</string>
   <string name="lossOr50MovesByPriorMistake">הפסד או כלל 50 המסעים בגלל טעות קודמת</string>
   <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם שוחק ההמשך המומלץ של טבלת הסיומים מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בטבלת הסיומים של Syzygy.</string>
@@ -691,7 +691,7 @@
   <string name="videoLibrary">ספריית וידאו</string>
   <string name="streamersMenu">משדרים</string>
   <string name="mobileApp">אפליקציה לטלפון</string>
-  <string name="webmasters">מנהלי אתרים</string>
+  <string name="webmasters">עבור מתכנתים</string>
   <string name="about">על אודות</string>
   <string name="aboutX">על אודות %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s הוא שרת שחמט חינמי (%2$s), חופשי, עם קוד פחוח וללא פרסומות.</string>
@@ -834,7 +834,7 @@
     <item quantity="many">%s שניות כדי לשחק את המסע הראשון</item>
     <item quantity="other">%s שניות כדי לשחק את המסע הראשון</item>
   </plurals>
-  <string name="practiceWithComputer">התאמן עם המחשב</string>
+  <string name="practiceWithComputer">התאמן/י עם המחשב</string>
   <string name="anotherWasX">מהלך טוב נוסף היה %s</string>
   <string name="bestWasX">המהלך הטוב ביותר היה %s</string>
   <string name="youBrowsedAway">גלשתם למחוזות אחרים</string>
@@ -844,7 +844,7 @@
   <string name="computerThinking">המחשב חושב ...</string>
   <string name="seeBestMove">הראה את המהלך הטוב היותר</string>
   <string name="hideBestMove">הסתר את המהלך הטוב ביותר</string>
-  <string name="getAHint">קבל רמז</string>
+  <string name="getAHint">קבל/י רמז</string>
   <string name="evaluatingYourMove">מעריך את המסע שלך ...</string>
   <string name="whiteWinsGame">הלבן מנצח</string>
   <string name="blackWinsGame">השחור מנצח</string>
@@ -853,8 +853,8 @@
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="next">הבא</string>
   <string name="xWasPlayed">%s שוחק</string>
-  <string name="findBetterMoveForWhite">מצא מהלך טוב יותר ללבן</string>
-  <string name="findBetterMoveForBlack">מצב מהלך טוב יותר לשחור</string>
+  <string name="findBetterMoveForWhite">מצא/י מהלך טוב יותר ללבן</string>
+  <string name="findBetterMoveForBlack">מצא/י מהלך טוב יותר לשחור</string>
   <string name="resumeLearning">המשיכו ללמוד</string>
   <string name="youCanDoBetter">יש מהלך טוב יותר:)</string>
   <string name="tryAnotherMoveForWhite">נסה למצוא מהלך טוב יותר ללבן</string>

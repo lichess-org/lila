@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
+import lila.common.LangPath
 
 object home {
 
@@ -38,7 +39,8 @@ object home {
           title = trans.tournamentHomeTitle.txt(),
           description = trans.tournamentHomeDescription.txt()
         )
-        .some
+        .some,
+      withHrefLangs = LangPath(routes.Tournament.home).some
     ) {
       main(cls := "tour-home")(
         st.aside(cls := "tour-home__side")(

@@ -1,6 +1,7 @@
 import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
+import { readStream, CancellableStream } from 'common/stream';
 
 interface WasmStockfishModule {
   (opts: {
@@ -167,41 +168,71 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
   }
 }
 
-export interface ExternalWorkerOpts {
-  url: string;
-  secret: string;
+export interface ExternalEngine {
+  id: string;
   name: string;
+  variants: string;
   maxThreads: number;
-  maxHash: number | null;
-  variants: string[] | null;
-  officialStockfish: boolean;
+  maxHash: number;
+  clientSecret: string;
+  officialStockfish?: boolean;
+  endpoint: string;
 }
 
-export class ExternalWorker extends AbstractWorker<ExternalWorkerOpts> {
+export class ExternalWorker extends AbstractWorker<ExternalEngine> {
   private protocol = new Protocol();
-  private ws: WebSocket | undefined;
   private session = Math.random().toString(36).slice(2, 12);
 
   protected getProtocol() {
     return this.protocol;
   }
 
+  stream: CancellableStream;
+
   boot() {
-    const url = new URL(this.opts.url);
-    url.searchParams.set('secret', this.opts.secret);
-    url.searchParams.set('session', this.session);
-    const ws = (this.ws = new WebSocket(url.href));
-    ws.onmessage = e => this.protocol.received(e.data);
-    ws.onopen = () => this.protocol.connected(msg => ws.send(msg));
-    ws.onclose = () => {
-      this.protocol.disconnected();
-      if (this.ws) setTimeout(() => this.boot(), 10_000);
-    };
+    const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
+    fetch(url.href, {
+      method: 'post',
+      cache: 'default',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'omit',
+      body: JSON.stringify({
+        clientSecret: this.opts.clientSecret,
+        work: {
+          sessionId: this.session,
+          // TODO
+          threads: this.opts.maxThreads,
+          hash: this.opts.maxHash,
+          maxDepth: 99,
+          multiPv: 1,
+          variant: 'standard',
+          initialFen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+          moves: [],
+        },
+      }),
+    })
+      .then(res => {
+        // no need to call protocol.connected, ever
+        // but need to set bootSuccess
+        this.bootSuccess = true;
+        this.stream = readStream((line: string) => {
+          console.log(line);
+          this.protocol.received(line);
+        })(res);
+        // ws.onclose = () => {
+        //   this.protocol.disconnected();
+        //   if (this.ws) setTimeout(() => this.boot(), 10_000);
+        // };
+      })
+      .catch(err => {
+        console.error(err);
+        this.bootSuccess = false;
+      });
   }
 
   destroy() {
-    const ws = this.ws;
-    this.ws = undefined; // do not reconnect
-    if (ws && ws.readyState <= 1) ws.close();
+    this.stream.cancel();
   }
 }

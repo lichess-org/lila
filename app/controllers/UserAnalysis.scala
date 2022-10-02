@@ -9,10 +9,9 @@ import play.api.mvc._
 import scala.concurrent.duration._
 import views._
 
-import lila.api.{ Context, ExternalEngine }
+import lila.api.Context
 import lila.app._
 import lila.game.Pov
-import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
 import lila.round.JsonView.WithFlags
 
 final class UserAnalysis(
@@ -192,13 +191,6 @@ final class UserAnalysis(
             )
       }
     }
-
-  def external = Open { implicit ctx =>
-    ExternalEngine.form
-      .bindFromRequest(ctx.req.queryString)
-      .fold(err => BadRequest(errorsAsJson(err)), prompt => Ok(html.analyse.external(prompt)))
-      .fuccess
-  }
 
   def help =
     Open { implicit ctx =>

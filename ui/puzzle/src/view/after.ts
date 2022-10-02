@@ -1,6 +1,7 @@
 import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNodes } from '../interfaces';
 import { h, VNode } from 'snabbdom';
+import * as router from 'common/router';
 
 const renderVote = (ctrl: Controller): VNode =>
   h(
@@ -50,7 +51,7 @@ const renderStreak = (ctrl: Controller): MaybeVNodes => [
   h(
     'a.continue',
     {
-      attrs: { href: '/streak' },
+      attrs: { href: router.withLang('/streak') },
     },
     [h('i', { attrs: dataIcon('') }), ctrl.trans('newStreak')]
   ),

@@ -20,7 +20,8 @@ object login {
         jsModule("login"),
         embedJsUnsafeLoadThen("""loginSignup.loginStart()""")
       ),
-      moreCss = cssTag("auth")
+      moreCss = cssTag("auth"),
+      withHrefLangs = lila.common.LangPath(routes.Auth.login).some
     ) {
       def referrerParameter = referrer.?? { ref => s"?referrer=${urlencode(ref)}" }
       main(cls := "auth auth-login box box-pad")(
@@ -47,7 +48,7 @@ object login {
           )
         ),
         div(cls := "alternative")(
-          a(href := s"${routes.Auth.signup}$referrerParameter")(trans.signUp()),
+          a(href := s"${langHref(routes.Auth.signup)}$referrerParameter")(trans.signUp()),
           a(href := routes.Auth.passwordReset)(trans.passwordReset()),
           a(href := routes.Auth.magicLink)("Log in by email")
         )

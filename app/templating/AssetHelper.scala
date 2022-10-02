@@ -99,6 +99,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     ctx.nonce.fold(csp)(csp.withNonce(_))
   }
 
+  def analysisCsp(implicit ctx: Context): ContentSecurityPolicy =
+    defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
+
   def embedJsUnsafe(js: String)(implicit ctx: Context): Frag =
     raw {
       val nonce = ctx.nonce ?? { nonce =>

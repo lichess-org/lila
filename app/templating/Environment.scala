@@ -39,8 +39,9 @@ object Environment
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  def explorerEndpoint  = env.explorerEndpoint
-  def tablebaseEndpoint = env.tablebaseEndpoint
+  def explorerEndpoint       = env.explorerEndpoint
+  def tablebaseEndpoint      = env.tablebaseEndpoint
+  def externalEngineEndpoint = env.externalEngineEndpoint
 
   def isChatPanicEnabled = env.chat.panic.enabled
 

@@ -674,6 +674,7 @@ object mod {
           thead(
             tr(
               th("Country"),
+              th("Proxy"),
               th("Region"),
               th("City"),
               sortNumberTh("Date")
@@ -682,12 +683,13 @@ object mod {
           tbody(
             logins.distinctLocations.toList
               .sortBy(-_.seconds)
-              .map { loc =>
+              .map { l =>
                 tr(
-                  td(loc.value.country),
-                  td(loc.value.region),
-                  td(loc.value.city),
-                  td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
+                  td(l.value.location.country),
+                  td(l.value.proxy map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                  td(l.value.location.region),
+                  td(l.value.location.city),
+                  td(dataSort := l.date.getMillis)(momentFromNowServer(l.date))
                 )
               }
               .toList

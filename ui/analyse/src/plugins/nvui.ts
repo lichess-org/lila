@@ -338,7 +338,7 @@ function renderBestMove(ctrl: AnalyseController, style: Style): string {
   } else if (node.ceval) {
     pvs = node.ceval.pvs;
   }
-  const pos = setupPosition(lichessRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);

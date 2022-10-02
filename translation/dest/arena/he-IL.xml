@@ -23,26 +23,26 @@
 
 בסיום כל משחק, על השחקן לשוב למסך הטורניר ואז ישובץ עם שחקן בעל מיקום דומה. הדבר נעשה כדי למזער את זמן ההמתנה, אך לא מובטח לשחקן שיתמודד עם כל יריביו.
 
-לפיכך כדי לזכות במלוא הנקודות שחק מהר ואל תאבד זמן בין הסיבובים.</string>
+לפיכך כדי לזכות במלוא הנקודות שחקו מהר ואל תאבדו זמן בין הסבבים.</string>
   <string name="howDoesItEnd">איך מסתיימת התחרות?</string>
   <string name="howDoesItEndAnswer">לכל תחרות יש ספירת זמן יורדת. בהתאפס הזמן, שינויי הדרוג נעצרים ומוכרז המנצח. אחרי מועד זה, יש להשלים את המשחקים שלא הסתיימו, אך אלה לא ייחשבו במסגרת התחרות.</string>
   <string name="otherRules">חוקים חשובים נוספים</string>
   <string name="thereIsACountdown">ישנו זמן מוגבל עבור המהלך הראשון שלך. אם לא יבוצע מהלך עד סוף הזמן, המשחק יגמר בהפסד.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
-    <item quantity="two">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
-    <item quantity="many">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
-    <item quantity="other">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
+    <item quantity="one">סיום המשחק בתיקו במהלך התור ה־%s לא יניב נקודות עבור אף שחקן.</item>
+    <item quantity="two">סיום המשחק בתיקו במהלך %s התורות הראשונים לא יניב נקודות עבור אף שחקן.</item>
+    <item quantity="many">סיום המשחק בתיקו במהלך %s התורות הראשונים לא יניב נקודות עבור אף שחקן.</item>
+    <item quantity="other">סיום המשחק בתיקו במהלך %s התורות הראשונים לא יניב נקודות עבור אף שחקן.</item>
   </plurals>
   <string name="thisIsPrivate">זהו טורניר פרטי</string>
   <string name="shareUrl">פרסם אתר זה למציאת חברים נוספים: %s</string>
   <string name="drawStreak">רצף תיקו: כאשר לשחקן יש תיקו ברציפות בטורנירי זירה, רק התיקו הראשון יזכה בנקודה, או תיקו שנמשך מעל %s מהלכים. רצף התיקו יכול להישבר רק ע\"י ניצחון, לא ע\"י הפסד או תיקו.</string>
   <string name="history">היסטוריית טורנירי זירה</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">צפה בקבוצה</item>
-    <item quantity="two">צפה ב-%s קבוצות</item>
-    <item quantity="many">צפה בכל %s הקבוצות</item>
-    <item quantity="other">צפה בכל %s הקבוצות</item>
+    <item quantity="one">צפייה בקבוצה</item>
+    <item quantity="two">צפייה ב־%s הקבוצות</item>
+    <item quantity="many">צפייה בכל %s הקבוצות</item>
+    <item quantity="other">צפייה בכל %s הקבוצות</item>
   </plurals>
   <string name="newTeamBattle">קרב צוותים חדש</string>
   <string name="customStartDate">תאריך התחלה</string>

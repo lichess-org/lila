@@ -79,14 +79,15 @@ final class Auth(
       }
   }
 
-  def login =
-    Open { implicit ctx =>
-      val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
-      referrer ifTrue ctx.isAuth match {
-        case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
-        case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
-      }
+  def login     = Open(serveLogin(_))
+  def loginLang = LangPage(routes.Auth.login)(serveLogin(_)) _
+  private def serveLogin(implicit ctx: Context) = NoBot {
+    val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
+    referrer ifTrue ctx.isAuth match {
+      case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
+      case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
     }
+  }
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 
@@ -96,7 +97,7 @@ final class Auth(
         Firewall {
           def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
           implicit val req            = ctx.body
-          val referrer = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
+          val referrer = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
           api.usernameOrEmailForm
             .bindFromRequest()
             .fold(
@@ -171,12 +172,12 @@ final class Auth(
       )
     }
 
-  def signup =
-    Open { implicit ctx =>
-      NoTor {
-        forms.signup.website map { form =>
-          Ok(html.auth.signup(form))
-        }
+  def signup     = Open(serveSignup(_))
+  def signupLang = LangPage(routes.Auth.signup)(serveSignup(_)) _
+  private def serveSignup(implicit ctx: Context) =
+    NoTor {
+      forms.signup.website map { form =>
+        Ok(html.auth.signup(form))
       }
     }
 
@@ -482,19 +483,21 @@ final class Auth(
 
   def magicLinkLogin(token: String) =
     Open { implicit ctx =>
-      Firewall {
-        magicLinkLoginRateLimitPerToken(token) {
-          env.security.magicLink confirm token flatMap {
-            case None =>
-              lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
-              notFound
-            case Some(user) =>
-              authLog(user.username, "-", "Magic link")
-              authenticateUser(user) >>-
-                lila.mon.user.auth.magicLinkConfirm("success").increment().unit
-          }
-        }(rateLimitedFu)
-      }
+      if (ctx.isAuth) Redirect(routes.Lobby.home).fuccess
+      else
+        Firewall {
+          magicLinkLoginRateLimitPerToken(token) {
+            env.security.magicLink confirm token flatMap {
+              case None =>
+                lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
+                notFound
+              case Some(user) =>
+                authLog(user.username, "-", "Magic link")
+                authenticateUser(user) >>-
+                  lila.mon.user.auth.magicLinkConfirm("success").increment().unit
+            }
+          }(rateLimitedFu)
+        }
     }
 
   private def loginTokenFor(me: UserModel) = JsonOk {
@@ -507,7 +510,14 @@ final class Auth(
   }
 
   def makeLoginToken =
-    AuthOrScoped(_.Web.Login)(_ => loginTokenFor, _ => loginTokenFor)
+    AuthOrScoped(_.Web.Login)(
+      _ => loginTokenFor,
+      req =>
+        user => {
+          lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
+          loginTokenFor(user)
+        }
+    )
 
   def loginWithToken(token: String) =
     Open { implicit ctx =>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">פעילות</string>
-  <string name="hostedALiveStream">עלה לשידור חי</string>
+  <string name="hostedALiveStream">עלה (או עלתה) לשידור חי</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">תמכ/ה בליצ\'ס במשך חודש %1$s כ%2$s</item>
     <item quantity="two">תמכ/ה בליצ\'ס במשך %1$s חודשים כ%2$s</item>
@@ -87,7 +87,7 @@
     <item quantity="other">השתתף/ה ב-%s טורנירי זירה</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">סיים/ה במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב-%4$s</item>
+    <item quantity="one">סיים/ה במקום #%1$s (מעל %%%2$s) עם משחק %3$s ב-%4$s</item>
     <item quantity="two">סיים/ה במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="many">סיים/ה במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="other">סיים/ה במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>

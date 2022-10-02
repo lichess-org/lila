@@ -6,6 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.i18n.I18nKeys.{ storm => s }
 import lila.racer.RacerRace
@@ -15,7 +16,8 @@ object racer {
   def home(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("racer-home"),
-      title = "Puzzle Racer"
+      title = "Puzzle Racer",
+      withHrefLangs = LangPath(routes.Racer.home).some
     ) {
       main(cls := "page page-small racer-home box box-pad")(
         h1("Puzzle Racer"),

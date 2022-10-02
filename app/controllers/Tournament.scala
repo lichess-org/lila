@@ -39,27 +39,28 @@ final class Tournament(
       }
   }
 
-  def home =
-    Open { implicit ctx =>
-      for {
-        (visible, scheduled) <- upcomingCache.getUnit
-        teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
-        allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
-        teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
-        scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
-        response <- negotiate(
-          html = for {
-            finished <- api.notableFinished
-            winners  <- env.tournament.winners.all
-            teamIds  <- ctx.userId.??(env.team.cached.teamIdsList)
-          } yield NoCache {
-            pageHit
-            Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
-          },
-          api = _ => Ok(scheduleJson).fuccess
-        )
-      } yield response
-    }
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Tournament.home)(serveHome(_)) _
+  private def serveHome(implicit ctx: Context) = NoBot {
+    for {
+      (visible, scheduled) <- upcomingCache.getUnit
+      teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
+      allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
+      teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
+      scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
+      response <- negotiate(
+        html = for {
+          finished <- api.notableFinished
+          winners  <- env.tournament.winners.all
+          teamIds  <- ctx.userId.??(env.team.cached.teamIdsList)
+        } yield NoCache {
+          pageHit
+          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
+        },
+        api = _ => Ok(scheduleJson).fuccess
+      )
+    } yield response
+  }
 
   def help(@nowarn("cat=unused") sysStr: Option[String]) =
     Open { implicit ctx =>

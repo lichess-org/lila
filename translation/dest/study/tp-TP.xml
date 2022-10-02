@@ -26,6 +26,10 @@
     <item quantity="other">musi %s</item>
   </plurals>
   <string name="addMembers">poka e jan kulupu</string>
+  <plurals name="nbMembers">
+    <item quantity="one">jan kulupu %s</item>
+    <item quantity="other">jan kulupu %s</item>
+  </plurals>
   <string name="inviteToTheStudy">o pana e wile kama tawa jan ante</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">o pali e ni tawa jan ni taso: sina sona e ona. ona li wile kama.</string>
   <string name="searchByUsername">o alasa kepeken nimi jan</string>

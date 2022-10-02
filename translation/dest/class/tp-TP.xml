@@ -44,6 +44,10 @@ nimi awen: %3$s</string>
     <item quantity="one">jan pi pana sona %s</item>
     <item quantity="other">jan pi pana sona %s</item>
   </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">jan pi kama sona %s</item>
+    <item quantity="other">jan pi kama sona %s</item>
+  </plurals>
   <string name="students">jan pi kama sona</string>
   <string name="progress">pali tawa</string>
   <string name="winrate">nanpa pi pini pona</string>

@@ -15,7 +15,9 @@ final class Simul(env: Env) extends LilaController(env) {
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
-  val home = Open { implicit ctx =>
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Simul.home)(serveHome(_)) _
+  private def serveHome(implicit ctx: Context) = NoBot {
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
       Ok(html.simul.home(pending, created, started, finished)).fuccess

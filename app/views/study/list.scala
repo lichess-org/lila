@@ -7,6 +7,7 @@ import play.api.mvc.Call
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
@@ -21,7 +22,8 @@ object list {
       order = order,
       pag = pag,
       searchFilter = "",
-      url = o => routes.Study.all(o)
+      url = o => routes.Study.all(o),
+      withHrefLangs = LangPath(routes.Study.allDefault()).some
     )
 
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) =
@@ -174,13 +176,15 @@ object list {
       pag: Paginator[WithChaptersAndLiked],
       url: String => Call,
       searchFilter: String,
-      topics: Option[StudyTopics] = None
+      topics: Option[StudyTopics] = None,
+      withHrefLangs: Option[LangPath] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
+      withHrefLangs = withHrefLangs
     ) {
       main(cls := "page-menu")(
         menu(active, order, topics.??(_.value)),

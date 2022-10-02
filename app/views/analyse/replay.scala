@@ -129,13 +129,13 @@ object replay {
         embedJsUnsafeLoadThen(s"""LichessAnalyse.boot(${safeJsonValue(
             Json
               .obj(
-                "data"     -> data,
-                "i18n"     -> jsI18n(),
-                "userId"   -> ctx.userId,
-                "chat"     -> chatJson,
-                "explorer" -> views.html.board.bits.explorerConfig
+                "data"   -> data,
+                "i18n"   -> jsI18n(),
+                "userId" -> ctx.userId,
+                "chat"   -> chatJson
               )
-              .add("hunter" -> isGranted(_.ViewBlurs))
+              .add("hunter" -> isGranted(_.ViewBlurs)) ++
+              views.html.board.bits.explorerAndCevalConfig
           )})""")
       ),
       openGraph = povOpenGraph(pov).some
