@@ -27,5 +27,29 @@
         border-#{$start-direction}: 0;
       }
     }
+    &__results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-gap: $block-gap;
+      margin-top: 2em;
+    }
+    &__result {
+      @extend %flex-column, %box-neat;
+      justify-content: space-between;
+      background: $c-bg-zebra;
+      outline: 3px solid mix($c-font, $c-bg-box, 30%);
+      cursor: pointer;
+      color: $c-font;
+      &:hover {
+        outline: 3px solid mix($c-link, $c-bg-box, 60%);
+        background: mix($c-link, $c-bg-zebra, 10%);
+        box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+      }
+      &__title {
+        @extend %roboto, %metal;
+        font-size: 1.3em;
+        padding: 0.5em 1em;
+      }
+    }
   }
 }
