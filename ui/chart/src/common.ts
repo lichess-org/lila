@@ -10,9 +10,6 @@ export interface MovePoint {
 let highchartsPromise: Promise<any> | undefined;
 
 export function selectPly(this: PlyChart, ply: number, onMainline: boolean) {
-  if (this.lastPly === ply && (this as any).onMainline == onMainline) return;
-  this.lastPly = ply;
-  (this as any).onMainline = onMainline;
   const plyline = (this.xAxis[0] as any).plotLinesAndBands[0];
   plyline.options.value = ply - 1 - this.firstPly;
   plyline.svgElem?.dashstyleSetter(onMainline ? 'solid' : 'dash');
