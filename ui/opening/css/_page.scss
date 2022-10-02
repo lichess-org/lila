@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: $block-gap;
-    margin: var(--box-padding) 0;
+    margin: 3em 0;
   }
   &__next {
     @extend %flex-column, %box-neat;

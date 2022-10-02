@@ -27,7 +27,7 @@ object search {
   import bits._
 
   def resultsList(q: String, results: List[OpeningSearchResult])(implicit ctx: Context) =
-    div(cls := "opening__search__results")(
+    div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
       results map { r =>
         a(cls := "opening__search__result", href := routes.Opening.query(r.opening.key))(
           span(cls := "opening__search__result__title")(r.opening.name),

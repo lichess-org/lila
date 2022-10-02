@@ -26,10 +26,6 @@ export function page(data: OpeningPage) {
   lichess.requestIdleCallback(() => renderHistoryChart(data));
 }
 
-export function search() {
-  searchEngine();
-}
-
 const highlightNextPieces = () => {
   $('.opening__next cg-board').each(function (this: HTMLElement) {
     Array.from($(this).find('.last-move'))

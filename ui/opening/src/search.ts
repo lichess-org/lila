@@ -7,12 +7,17 @@ export function init() {
     const q = str.trim();
     if (q)
       xhr.text(xhr.url('/opening', { q })).then((html: string) => {
-        $('.opening__search__results').replaceWith(html);
+        selectResults().replaceWith(html).removeClass('none');
         initMiniBoards();
       });
-    else Promise.resolve();
+    else {
+      selectResults().addClass('none');
+      Promise.resolve();
+    }
   }, 150);
   $('.opening__search-form__input').on('input', e => {
     debounced((e.target as HTMLInputElement).value);
   });
 }
+
+const selectResults = () => $('.opening__search__results');

@@ -38,6 +38,7 @@ object index {
           search.form(""),
           configForm(page.query.config, "index")
         ),
+        search.resultsList("", Nil),
         whatsNext(page)
       )
     }
