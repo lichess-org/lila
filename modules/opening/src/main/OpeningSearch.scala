@@ -24,26 +24,30 @@ object OpeningSearch {
 
   private type Token    = String
   private type Position = Int
-  private type Freq     = Int
-  private type NameSize = Int
 
-  private val tokenR              = """[^\w-]""".r
-  private val tokenMultiDashRegex = """-{2,}""".r
-  private val excludeTokens       = Set("opening", "variation")
-
-  private def tokenize(str: String): List[Token] = {
-    val singleDashes = tokenMultiDashRegex.replaceAllIn(str.trim.replace(' ', '-'), "-")
-    val normalized   = Normalizer.normalize(singleDashes, Normalizer.Form.NFD)
-    tokenR
-      .replaceAllIn(normalized, "")
-      .toLowerCase
-      .split('-')
-      .view
-      .filterNot(excludeTokens.contains)
-      .toList
+  private[opening] object tokenize {
+    private val nonLetterRegex = """[^a-zA-Z]+""".r
+    private val exclude        = Set("opening", "variation")
+    def apply(str: String): List[Token] = {
+      str
+        .take(200)
+        .split(' ')
+        .view
+        .map(_.trim)
+        .filter(_.nonEmpty)
+        .take(6)
+        .toList
+        .map { token =>
+          Normalizer
+            .normalize(token, Normalizer.Form.NFD)
+            .toLowerCase
+            .replaceAllIn(nonLetterRegex, "")
+        }
+        .filterNot(exclude.contains)
+    }
+    def apply(opening: FullOpening): List[Token] =
+      opening.key.toLowerCase.split('_').view.filterNot(exclude.contains).toList
   }
-  private def tokenize(opening: FullOpening): List[Token] =
-    opening.key.toLowerCase.split('_').view.filterNot(excludeTokens.contains).toList
 
   private val index: Map[Token, Set[Position]] =
     openings.zipWithIndex.foldLeft(Map.empty[Token, Set[Position]]) { case (index, (opening, position)) =>
@@ -54,19 +58,23 @@ object OpeningSearch {
         }
       }
     }
-  private val searchOrdering = Ordering.by[(FullOpening, Freq, NameSize), (Freq, NameSize)] {
-    case (_, freq, size) => (freq, -size)
-  }
+
+  private case class Match[R](result: R, exact: Boolean, freq: Int, nameSize: Int)
+
+  private def matchOrdering[R] =
+    Ordering.by[Match[R], (Boolean, Int, Int)] { case Match(_, exactMatch, freq, size) =>
+      (exactMatch, freq, -size)
+    }
 
   def apply(q: String, max: Int): List[FullOpening] = {
     val tokens            = tokenize(q)
     val positions         = tokens.flatMap(index.get)
     val merged            = positions.flatMap(_.toList)
     val positionsWithFreq = merged.groupBy(identity).view.mapValues(_.size).toList
-    val openingsWithFreqAndLen: List[(FullOpening, Freq, NameSize)] = positionsWithFreq.flatMap {
-      case (position, freq) => openings.lift(position).map(op => (op, freq, op.name.size))
+    val matches: List[Match[FullOpening]] = positionsWithFreq.flatMap { case (position, freq) =>
+      openings.lift(position).map(op => Match(op, true, freq, op.name.size))
     }
-    val sorted = openingsWithFreqAndLen.topN(max)(searchOrdering)
-    sorted.map(_._1)
+    val sorted = matches.topN(max)(matchOrdering)
+    sorted.map(_.result)
   }
 }

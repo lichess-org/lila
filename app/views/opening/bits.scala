@@ -72,12 +72,17 @@ private object bits {
     )
   }
 
-  def moreJs(page: OpeningPage)(implicit ctx: Context) = frag(
+  def moreJs(page: Option[OpeningPage])(implicit ctx: Context) = frag(
     jsModule("opening"),
     embedJsUnsafeLoadThen {
-      s"""LichessOpening.page(${safeJsonValue(
-          Json.obj("history" -> page.explored.history)
-        )})"""
+      page match {
+        case Some(p) =>
+          s"""LichessOpening.page(${safeJsonValue(
+              Json.obj("history" -> p.explored.history)
+            )})"""
+        case None =>
+          s"""LichessOpening.search()"""
+      }
     }
   )
 

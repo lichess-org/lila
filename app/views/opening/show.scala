@@ -16,7 +16,7 @@ object show {
   def apply(page: OpeningPage, puzzle: Option[PuzzleOpening.FamilyWithCount])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(page),
+      moreJs = moreJs(page.some),
       title = s"${trans.opening.txt()} • ${page.name}",
       openGraph = lila.app.ui
         .OpenGraph(
