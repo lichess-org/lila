@@ -14,13 +14,12 @@ final class LilaHttpRequestHandler(
     filters: Seq[EssentialFilter]
 ) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters) {
 
-  override def handlerForRequest(request: RequestHeader): (RequestHeader, Handler) =
-    Chronometer.syncMon(_.http.requestHandler) {
-      super.handlerForRequest(request)
-    }
+  private val monitorPaths = Set("/tv", "/robots.txt")
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
-    Chronometer.syncMon(_.http.router) {
-      router handlerFor request
-    }
+    if (monitorPaths(request.path))
+      Chronometer.syncMon(_.http.router) {
+        router handlerFor request
+      }
+    else router handlerFor request
 }
