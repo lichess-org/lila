@@ -30,7 +30,7 @@
   <string name="queenComplete">יפה, פיצחת את סודות המלכה!</string>
   <string name="theKing">המלך</string>
   <string name="theMostImportantPiece">הכלי החשוב ביותר</string>
-  <string name="kingIntro">את/ה המלך. אם את/ה נופל בקרב, את/ה מפסיד/ה את המשחק.</string>
+  <string name="kingIntro">את/ה המלך. אם את/ה נופל/ת בקרב, את/ה מפסיד/ה את המשחק.</string>
   <string name="theKingIsSlow">המלך איטי.</string>
   <string name="lastOne">אחרון!</string>
   <string name="kingComplete">כעת את/ה הבוס של הבוס!</string>
@@ -39,7 +39,8 @@
   <string name="knightIntro">הפרש יציב בפניך אתגר... יותר קשה.</string>
   <string name="knightsHaveAFancyWay">לפרשים יש קפיצה...
 קצת מוזרה!</string>
-  <string name="knightsCanJumpOverObstacles">הפרש מדלג על מכשולים ויכול להגיע רחוק בדרכו לפסגה!</string>
+  <string name="knightsCanJumpOverObstacles">הפרש מדלג על מכשולים!
+ברחו ותפסו את הכוכבים!</string>
   <string name="knightComplete">יפה, את/ה רוכב/ת מנוסה!</string>
   <string name="thePawn">הרגלי</string>
   <string name="itMovesForwardOnly">הוא נע קדימה בלבד</string>
@@ -50,7 +51,8 @@
 אך לפעמים פרש יכול להיות שימושי!</string>
   <string name="pawnsMoveForward">רגלים נעים קדימה,
 אך מכים באלכסון!</string>
-  <string name="captureThenPromote">הכה את כלי היריב והכתר את הרגלי שלך!</string>
+  <string name="captureThenPromote">הכו את כלי היריב 
+והכתירו את הרגלי שלכם!</string>
   <string name="useAllThePawns">השתמש/י בכל הרגלים! 
 אין צורך להכתיר.</string>
   <string name="aPawnOnTheSecondRank">רגלי בשורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
@@ -131,7 +133,7 @@
   <string name="enPassantIntro">כאשר רגלי היריב מתקדם שני צעדים, ניתן להכות אותו כאילו הלך רק צעד אחד.</string>
   <string name="blackJustMovedThePawnByTwoSquares">השחור קידם רגלי פעמיים בבת אחת! הכו אותו דרך הילוכו.</string>
   <string name="enPassantOnlyWorksImmediately">הכאה דרך הילוכו אפשרית רק מיד אחרי מהלכו של רגלי היריב.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">לקיחה \"דרך הילוכו\" אפשרית רק מיד אחרי שרגלי היריב הגיע לשורה 5.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">הכאה דרך הילוכו אפשרית רק מיד אחרי שרגלי היריב הגיע לשורה 5.</string>
   <string name="takeAllThePawnsEnPassant">קחו את כל הרגלים \"דרך הילוכם\"!</string>
   <string name="enPassantComplete">יפה, עכשיו תוכל/י להכות את רגלי יריבך דרך הילוכו.</string>
   <string name="stalemate">פט</string>
