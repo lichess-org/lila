@@ -33,7 +33,7 @@ object OpeningSearch {
   private type Score = Int
 
   private[opening] object tokenize {
-    private val nonLetterRegex = """[^a-zA-Z]+""".r
+    private val nonLetterRegex = """[^a-zA-Z0-9]+""".r
     private val exclude        = Set("opening", "variation")
     def apply(str: String): Set[Token] = {
       str
@@ -53,7 +53,8 @@ object OpeningSearch {
         .diff(exclude)
     }
     def apply(opening: FullOpening): Set[Token] =
-      opening.key.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet
+      opening.key.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
+        opening.eco.toLowerCase
   }
 
   private case class Entry(opening: FullOpening, tokens: Set[Token])
