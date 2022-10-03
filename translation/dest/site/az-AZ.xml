@@ -59,6 +59,8 @@
   <string name="depthX">Dərinlik %s</string>
   <string name="usingServerAnalysis">Server analizi edilir</string>
   <string name="loadingEngine">Mühərrik yüklənir ...</string>
+  <string name="calculatingMoves">Gedişlər hesablanır...</string>
+  <string name="engineFailed">Mühərrik yüklənərkən xəta yarandı</string>
   <string name="cloudAnalysis">Bulud təhlili</string>
   <string name="goDeeper">Daha dərinə get</string>
   <string name="showThreat">Təhdidi göstər</string>
