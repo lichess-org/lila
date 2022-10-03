@@ -1,6 +1,7 @@
 .opening {
   &__search-config {
     @extend %flex-center;
+    align-items: flex-start;
     gap: 1em;
     margin-bottom: 3em;
   }

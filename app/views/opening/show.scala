@@ -60,6 +60,7 @@ object show {
             )(lpvPreload)
           ),
           div(cls := "opening__intro__content")(
+            div(cls := "opening__intro__text")("No description of the opening, yet."),
             div(cls      := "opening__popularity")(
               canvas(cls := "opening__popularity__chart")
             ),

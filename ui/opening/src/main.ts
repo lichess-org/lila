@@ -10,7 +10,7 @@ export function page(data: OpeningPage) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
       initialPly: 'last',
-      showMoves: 'bottom',
+      showMoves: false,
       showClocks: false,
       showPlayers: false,
       menu: {

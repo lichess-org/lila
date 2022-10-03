@@ -41,6 +41,7 @@
     }
     &__content {
       @extend %flex-column;
+      justify-content: space-between;
       flex: 1 1 auto;
       gap: $block-gap;
     }
