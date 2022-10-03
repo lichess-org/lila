@@ -5,7 +5,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.opening.{ OpeningPage, OpeningQuery }
+import lila.opening.{ OpeningPage, OpeningQuery, OpeningWiki }
 import lila.puzzle.PuzzleOpening
 import lila.opening.NamePart
 
@@ -60,7 +60,25 @@ object show {
             )(lpvPreload)
           ),
           div(cls := "opening__intro__content")(
-            div(cls := "opening__intro__text")("No description of the opening, yet."),
+            div(cls := "opening__wiki")(
+              page.wiki
+                .flatMap(_.markup)
+                .fold(frag("No description of the opening, yet.")) { markup =>
+                  div(cls := "opening__wiki__markup")(raw(markup))
+                },
+              page.query.opening.ifTrue(isGranted(_.ContentTeam)) map { op =>
+                details(cls := "opening__wiki__editor")(
+                  summary(cls := "opening__wiki__editor__summary")("Edit the description"),
+                  postForm(action := routes.Opening.wikiWrite(op.key))(
+                    form3.textarea(
+                      OpeningWiki.form
+                        .fill(~page.wiki.flatMap(_.revisions.headOption).map(_.text.value))("text")
+                    )(),
+                    form3.submit("Update")
+                  )
+                )
+              }
+            ),
             div(cls      := "opening__popularity")(
               canvas(cls := "opening__popularity__chart")
             ),
@@ -74,9 +92,7 @@ object show {
                 cls      := "button text",
                 dataIcon := "",
                 href     := s"${routes.UserAnalysis.pgn(page.query.pgn mkString "_")}#explorer"
-              )(
-                "View in opening explorer"
-              )
+              )("View in opening explorer")
             )
           )
         ),

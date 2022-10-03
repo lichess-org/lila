@@ -43,6 +43,7 @@ object Permission {
   case object SeeInsight       extends Permission("SEE_INSIGHT", "View player insights")
   case object PracticeConfig   extends Permission("PRACTICE_CONFIG", "Configure practice")
   case object PuzzleCurator    extends Permission("PUZZLE_CURATOR", "Classify puzzles")
+  case object OpeningWiki      extends Permission("OPENING_WIKI", "Opening wiki")
   case object Beta             extends Permission("BETA", "Beta features")
   case object UserSearch       extends Permission("USER_SEARCH", "Mod user search")
   case object ManageTeam       extends Permission("MANAGE_TEAM", "Manage teams")
@@ -175,6 +176,7 @@ object Permission {
           ManageEvent,
           PracticeConfig,
           PuzzleCurator,
+          OpeningWiki,
           Presets,
           DisapproveCoachReview,
           Relay,
@@ -250,6 +252,7 @@ object Permission {
       StudyAdmin,
       PracticeConfig,
       PuzzleCurator,
+      OpeningWiki,
       Presets
     ),
     "Dev" -> List(

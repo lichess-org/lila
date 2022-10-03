@@ -6,7 +6,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
-import lila.common.config
+import lila.common.config.CollName
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.{ CacheApi, MongoCache }
 
@@ -27,10 +27,13 @@ final class Env(
 ) {
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
+  private lazy val wikiColl    = db(CollName("opening_wiki")).taggedWith[WikiColl]
 
   private lazy val explorer = wire[OpeningExplorer]
 
   lazy val config = wire[OpeningConfigStore]
+
+  lazy val wikiApi = wire[OpeningWikiApi]
 
   lazy val api = wire[OpeningApi]
 
@@ -38,3 +41,4 @@ final class Env(
 }
 
 trait ExplorerEndpoint
+private trait WikiColl

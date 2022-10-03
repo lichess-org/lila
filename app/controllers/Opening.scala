@@ -31,7 +31,7 @@ final class Opening(env: Env) extends LilaController(env) {
 
   def query(q: String) =
     Open { implicit ctx =>
-      env.opening.api.lookup(q) flatMap {
+      env.opening.api.lookup(q, isGranted(_.OpeningWiki)) flatMap {
         case None                                 => Redirect(routes.Opening.index()).fuccess
         case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index()).fuccess
         case Some(page) if page.query.key != q    => Redirect(routes.Opening.query(page.query.key)).fuccess
@@ -56,4 +56,19 @@ final class Opening(env: Env) extends LilaController(env) {
         .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
         .fuccess
     }
+
+  def wikiWrite(key: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
+    implicit val req = ctx.body
+    env.opening.api.lookup(key, isGranted(_.OpeningWiki)).map(_.flatMap(_.query.opening)) flatMap {
+      _ ?? { op =>
+        val redirect = Redirect(routes.Opening.query(key))
+        lila.opening.OpeningWiki.form
+          .bindFromRequest()
+          .fold(
+            _ => redirect.fuccess,
+            text => env.opening.wikiApi.write(op, text, me.user) inject redirect
+          )
+      }
+    }
+  }
 }

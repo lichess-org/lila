@@ -11,7 +11,8 @@ import lila.game.Game
 
 case class OpeningPage(
     query: OpeningQuery,
-    explored: OpeningExplored
+    explored: OpeningExplored,
+    wiki: Option[OpeningWiki]
 ) {
   def opening = query.opening
   def name    = query.name
@@ -76,7 +77,8 @@ object OpeningPage {
       query: OpeningQuery,
       exp: OpeningExplorer.Position,
       games: List[GameWithPgn],
-      history: PopularityHistoryPercent
+      history: PopularityHistoryPercent,
+      wiki: Option[OpeningWiki]
   ): OpeningPage =
     OpeningPage(
       query = query,
@@ -104,6 +106,7 @@ object OpeningPage {
           }
           .sortBy(-_.result.sum),
         history = history
-      )
+      ),
+      wiki
     )
 }

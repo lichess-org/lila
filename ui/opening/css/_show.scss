@@ -15,6 +15,7 @@
   &__intro {
     display: flex;
     flex-flow: column;
+    align-items: flex-start;
     @include breakpoint($mq-x-small) {
       flex-flow: row;
     }
@@ -50,12 +51,6 @@
       flex-flow: row wrap;
       align-items: flex-start;
       gap: 2em;
-    }
-    &__text {
-      @extend %box-neat;
-      background: $c-bg-zebra;
-      padding: 1em 2em;
-      flex: 1 1 auto;
     }
   }
   &__popularity {

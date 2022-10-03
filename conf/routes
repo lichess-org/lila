@@ -119,6 +119,7 @@ GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Opti
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/*q               controllers.Opening.config(q)
+POST  /opening/wiki/:key               controllers.Opening.wikiWrite(key)
 GET   /opening/*q                      controllers.Opening.query(q)
 
 # Training - Coordinate

@@ -8,8 +8,10 @@ import scala.concurrent.ExecutionContext
 import lila.db.dsl._
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
+import lila.user.User
 
 final class OpeningApi(
+    wikiApi: OpeningWikiApi,
     cacheApi: CacheApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
@@ -17,22 +19,25 @@ final class OpeningApi(
     configStore: OpeningConfigStore
 )(implicit ec: ExecutionContext) {
 
-  def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] = lookup("")
+  def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] = lookup("", withWikiRevisions = false)
 
-  def lookup(q: String)(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, readConfig) ?? lookup
+  def lookup(q: String, withWikiRevisions: Boolean)(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
+    OpeningQuery(q, readConfig) ?? { lookup(_, withWikiRevisions) }
 
-  def lookup(query: OpeningQuery): Fu[Option[OpeningPage]] =
-    explorer.stats(query) zip explorer.queryHistory(query) zip allGamesHistory.get(query.config) flatMap {
-      case ((Some(stats), history), allHistory) =>
-        for {
-          games <- gameRepo.gamesFromSecondary(stats.games.map(_.id))
-          withPgn <- games.map { g =>
-            pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
-          }.sequenceFu
-        } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory)).some
-      case _ => fuccess(none)
-    }
+  def lookup(query: OpeningQuery, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
+    explorer.stats(query) zip
+      explorer.queryHistory(query) zip
+      allGamesHistory.get(query.config) zip
+      query.opening.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap {
+        case (((Some(stats), history), allHistory), wiki) =>
+          for {
+            games <- gameRepo.gamesFromSecondary(stats.games.map(_.id))
+            withPgn <- games.map { g =>
+              pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
+            }.sequenceFu
+          } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory), wiki).some
+        case _ => fuccess(none)
+      }
 
   def readConfig(implicit req: RequestHeader) = configStore.read
 
