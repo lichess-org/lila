@@ -54,7 +54,8 @@ object OpeningSearch {
     }
     def apply(opening: FullOpening): Set[Token] =
       opening.key.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
-        opening.eco.toLowerCase
+        opening.eco.toLowerCase ++
+        opening.pgn.split(' ').take(6).toSet
   }
 
   private case class Entry(opening: FullOpening, tokens: Set[Token])
