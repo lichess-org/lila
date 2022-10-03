@@ -1,11 +1,13 @@
 package lila.opening
 
+import chess.format.pgn.Pgn
+import chess.format.pgn.San
 import chess.format.{ FEN, Forsyth, Uci }
+import chess.opening.FullOpening
 import chess.opening.FullOpeningDB
 import chess.Speed
 
-import chess.format.pgn.San
-import chess.opening.FullOpening
+import lila.game.Game
 
 case class OpeningPage(
     query: OpeningQuery,
@@ -60,18 +62,27 @@ case class OpeningNext(
   val key = opening.fold(fen.value.replace(" ", "_"))(_.key)
 }
 
-case class OpeningExplored(result: ResultCounts, next: List[OpeningNext], history: PopularityHistoryPercent)
+case class GameWithPgn(game: Game, pgn: Pgn)
+
+case class OpeningExplored(
+    result: ResultCounts,
+    games: List[GameWithPgn],
+    next: List[OpeningNext],
+    history: PopularityHistoryPercent
+)
 
 object OpeningPage {
   def apply(
       query: OpeningQuery,
       exp: OpeningExplorer.Position,
+      games: List[GameWithPgn],
       history: PopularityHistoryPercent
   ): OpeningPage =
     OpeningPage(
       query = query,
       OpeningExplored(
         result = ResultCounts(exp.white, exp.draws, exp.black),
+        games = games,
         next = exp.moves
           .flatMap { m =>
             for {

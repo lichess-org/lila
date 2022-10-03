@@ -28,6 +28,7 @@ trait ScalatagsAttrs {
   val downloadAttr           = attr("download").empty
   val viewBoxAttr            = attr("viewBox")
   def attrData(name: String) = attr(s"data-$name")
+  def aria(key: String)      = attr(s"aria-$key")
 
   object frame {
     val scrolling       = attr("scrolling")

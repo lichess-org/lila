@@ -7,6 +7,7 @@ import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
 import chess.format.Forsyth
+import lila.game.Game
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
@@ -18,8 +19,7 @@ final private class OpeningExplorer(
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
         queryParameters(query) ::: List(
-          "moves"       -> "12",
-          "recentGames" -> "0"
+          "moves" -> "12"
         ): _*
       )
       .get()
@@ -85,15 +85,21 @@ object OpeningExplorer {
       white: Int,
       draws: Int,
       black: Int,
-      moves: List[Move]
+      moves: List[Move],
+      topGames: List[GameRef],
+      recentGames: List[GameRef]
   ) {
     val movesSum = moves.foldLeft(0L)(_ + _.sum)
+    val games    = topGames ::: recentGames
   }
 
   case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int) {
     def sum = white + draws + black
   }
 
+  case class GameRef(id: Game.ID)
+
   implicit private val moveReads     = Json.reads[Move]
+  implicit private val gameReads     = Json.reads[GameRef]
   implicit private val positionReads = Json.reads[Position]
 }

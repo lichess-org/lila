@@ -13,8 +13,7 @@ import lila.opening.{ Opening, OpeningConfig, OpeningPage, OpeningQuery, ResultC
 
 private object bits {
 
-  def whatsNext(page: OpeningPage)(implicit ctx: Context) = frag(
-    h2("Games continue with:"),
+  def whatsNext(page: OpeningPage)(implicit ctx: Context) =
     div(cls := "opening__nexts")(
       page.explored.next.map { next =>
         a(cls := "opening__next", href := queryUrl(next.query))(
@@ -44,7 +43,6 @@ private object bits {
         )
       }
     )
-  )
 
   def winRate(page: OpeningPage)(implicit ctx: Context) =
     div(cls := "opening__win-rate")(

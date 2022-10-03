@@ -3,6 +3,7 @@ import { initAll as initMiniBoards } from 'common/mini-board';
 import { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';
 import { init as searchEngine } from './search';
+import panels from './panels';
 
 export function page(data: OpeningPage) {
   $('.opening__intro .lpv').each(function (this: HTMLElement) {
@@ -22,11 +23,33 @@ export function page(data: OpeningPage) {
   });
   initMiniBoards();
   highlightNextPieces();
+  panels($('.opening__panels'), id => {
+    if (id == 'opening-panel-games') loadExampleGames();
+  });
   searchEngine();
   lichess.requestIdleCallback(() => renderHistoryChart(data));
 }
 
 export const search = searchEngine;
+
+const loadExampleGames = () =>
+  $('.opening__games .lpv--todo')
+    .removeClass('.lpv--todo')
+    .each(function (this: HTMLElement) {
+      Lpv(this, {
+        pgn: this.dataset['pgn']!,
+        initialPly: parseInt(this.dataset['ply'] || '99'),
+        showMoves: 'bottom',
+        showClocks: false,
+        showPlayers: true,
+        menu: {
+          getPgn: {
+            enabled: true,
+            fileName: (this.dataset['title'] || 'game').replace(' ', '_') + '.pgn',
+          },
+        },
+      });
+    });
 
 const highlightNextPieces = () => {
   $('.opening__next cg-board').each(function (this: HTMLElement) {

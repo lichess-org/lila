@@ -90,4 +90,30 @@ z-index: 99;
     }
     pre ::: (fromPage to toPage).view.map(Some.apply).toList ::: post
   }
+
+  def ariaTabList(prefix: String, selected: String)(tabs: (String, String, Frag)*) = frag(
+    div(cls := "tab-list", role := "tablist")(
+      tabs map { case (id, name, _) =>
+        button(
+          st.id            := s"$prefix-tab-$id",
+          aria("controls") := s"$prefix-panel-$id",
+          role             := "tab",
+          cls              := "tab-list__tab",
+          aria("selected") := (selected == id).option("true"),
+          tabindex         := 0
+        )(name)
+      }
+    ),
+    div(cls := "panel-list")(
+      tabs map { case (id, _, content) =>
+        div(
+          st.id              := s"$prefix-panel-$id",
+          aria("labelledby") := s"$prefix-tab-$id",
+          role               := "tabpanel",
+          cls                := List("panel-list__panel" -> true, "none" -> (selected != id)),
+          tabindex           := 0
+        )(content)
+      }
+    )
+  )
 }

@@ -6,10 +6,13 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
+import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 
 final class OpeningApi(
     cacheApi: CacheApi,
+    gameRepo: GameRepo,
+    pgnDump: PgnDump,
     explorer: OpeningExplorer,
     configStore: OpeningConfigStore
 )(implicit ec: ExecutionContext) {
@@ -20,10 +23,15 @@ final class OpeningApi(
     OpeningQuery(q, readConfig) ?? lookup
 
   def lookup(query: OpeningQuery): Fu[Option[OpeningPage]] =
-    explorer.stats(query) zip explorer.queryHistory(query) zip allGamesHistory.get(query.config) map {
+    explorer.stats(query) zip explorer.queryHistory(query) zip allGamesHistory.get(query.config) flatMap {
       case ((Some(stats), history), allHistory) =>
-        OpeningPage(query, stats, historyPercent(history, allHistory)).some
-      case _ => none
+        for {
+          games <- gameRepo.gamesFromSecondary(stats.games.map(_.id))
+          withPgn <- games.map { g =>
+            pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
+          }.sequenceFu
+        } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory)).some
+      case _ => fuccess(none)
     }
 
   def readConfig(implicit req: RequestHeader) = configStore.read

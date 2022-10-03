@@ -2,16 +2,19 @@ package lila.opening
 
 import com.softwaremill.macwire._
 import com.softwaremill.tagging._
+import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config
+import lila.game.{ GameRepo, PgnDump }
 import lila.memo.{ CacheApi, MongoCache }
-import play.api.Configuration
-import play.api.libs.ws.StandaloneWSClient
 
 @Module
 final class Env(
     db: lila.db.Db,
+    gameRepo: GameRepo,
+    pgnDump: PgnDump,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api,
     appConfig: Configuration,

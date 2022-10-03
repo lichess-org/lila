@@ -1,0 +1,20 @@
+.opening__panels {
+  .tab-list {
+    @extend %flex-center;
+    gap: 1em;
+    margin-bottom: 3em;
+    &__tab {
+      @extend %button-none, %box-radius;
+      color: $c-primary;
+      font-weight: bold;
+      padding: 0.4em 1em;
+      &:hover {
+        background: mix($c-primary, $c-bg-box, 20%);
+      }
+      &[aria-selected='true'] {
+        background: $c-primary;
+        color: $c-primary-over;
+      }
+    }
+  }
+}

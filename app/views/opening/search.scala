@@ -18,7 +18,7 @@ object search {
         cls            := "opening__search-form__input",
         name           := "q",
         st.placeholder := "Search for openings",
-        st.value       := q.pp("value"),
+        st.value       := q,
         autofocus      := focus.option("true"),
         autocomplete   := "off",
         spellcheck     := "false"

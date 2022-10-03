@@ -52,12 +52,13 @@ object show {
         ),
         div(cls := "opening__intro")(
           div(
-            cls              := "lpv lpv--preload lpv--moves-bottom",
+            cls              := "lpv lpv--todo lpv--moves-bottom",
             st.data("pgn")   := page.query.pgnString,
             st.data("title") := page.opening.map(_.name)
           )(lpvPreload),
           div(cls := "opening__intro__side")(
             winRate(page),
+            canvas(cls := "opening__popularity__chart"),
             div(cls := "opening__intro__actions")(
               puzzle.map { p =>
                 a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(p.family.key.value))(
@@ -71,12 +72,25 @@ object show {
               )(
                 "View in opening explorer"
               )
-            ),
-            canvas(cls := "opening__popularity__chart")
-            // div(cls := "opening__intro__text")("Text here, soon.")
+            )
           )
         ),
-        whatsNext(page)
+        div(cls := "opening__panels")(
+          views.html.base.bits.ariaTabList("opening", "next")(
+            ("next", "Popular continuations", whatsNext(page)),
+            ("games", "Example games", exampleGames(page))
+          )
+        )
       )
     }
+
+  private def exampleGames(page: OpeningPage)(implicit ctx: Context) =
+    div(cls := "opening__games")(page.explored.games.map { game =>
+      div(
+        cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",
+        st.data("pgn")   := game.pgn.toString,
+        st.data("ply")   := page.query.pgn.size + 1,
+        st.data("title") := titleGame(game.game)
+      )(lpvPreload)
+    })
 }
