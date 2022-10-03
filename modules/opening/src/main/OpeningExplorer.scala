@@ -37,13 +37,13 @@ final private class OpeningExplorer(
             )
       }
 
-  def queryHistory(query: OpeningQuery): Fu[PopularityHistory] =
+  def queryHistory(query: OpeningQuery): Fu[PopularityHistoryAbsolute] =
     historyOf(queryParameters(query))
 
-  def configHistory(config: OpeningConfig): Fu[PopularityHistory] =
+  def configHistory(config: OpeningConfig): Fu[PopularityHistoryAbsolute] =
     historyOf(configParameters(config))
 
-  private def historyOf(params: List[(String, String)]): Fu[PopularityHistory] =
+  private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth): _*)
       .get()
@@ -82,9 +82,9 @@ final private class OpeningExplorer(
 object OpeningExplorer {
 
   case class Position(
-      white: Long,
-      draws: Long,
-      black: Long,
+      white: Int,
+      draws: Int,
+      black: Int,
       moves: List[Move]
   ) {
     val movesSum = moves.foldLeft(0L)(_ + _.sum)

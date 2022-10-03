@@ -4,9 +4,9 @@ import chess.opening.{ FullOpening, FullOpeningDB }
 import java.text.Normalizer
 
 import lila.common.base.StringUtils.levenshtein
+import lila.common.Chronometer
 import lila.common.Heapsort.implicits._
 import lila.memo.CacheApi
-import lila.common.Chronometer
 
 case class OpeningSearchResult(opening: FullOpening)
 

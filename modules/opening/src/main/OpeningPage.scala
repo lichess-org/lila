@@ -35,16 +35,16 @@ case object NamePart {
 }
 
 case class ResultCounts(
-    white: Long,
-    draws: Long,
-    black: Long
+    white: Int,
+    draws: Int,
+    black: Int
 ) {
-  lazy val sum: Long = white + draws + black
+  lazy val sum: Int = white + draws + black
 
-  def whitePercent                       = percentOf(white)
-  def drawsPercent                       = percentOf(draws)
-  def blackPercent                       = percentOf(black)
-  private def percentOf(v: Long): Double = (v * 100d / sum)
+  def whitePercent                     = percentOf(white)
+  def drawsPercent                     = percentOf(draws)
+  def blackPercent                     = percentOf(black)
+  private def percentOf(v: Int): Float = (v.toFloat * 100 / sum)
 }
 
 case class OpeningNext(
@@ -60,10 +60,14 @@ case class OpeningNext(
   val key = opening.fold(fen.value.replace(" ", "_"))(_.key)
 }
 
-case class OpeningExplored(result: ResultCounts, next: List[OpeningNext], history: PopularityHistory)
+case class OpeningExplored(result: ResultCounts, next: List[OpeningNext], history: PopularityHistoryPercent)
 
 object OpeningPage {
-  def apply(query: OpeningQuery, exp: OpeningExplorer.Position, history: PopularityHistory): OpeningPage =
+  def apply(
+      query: OpeningQuery,
+      exp: OpeningExplorer.Position,
+      history: PopularityHistoryPercent
+  ): OpeningPage =
     OpeningPage(
       query = query,
       OpeningExplored(

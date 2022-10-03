@@ -25,7 +25,7 @@ export const renderHistoryChart = (data: OpeningPage) => {
       labels: data.history.map((_, i) => addMonths(firstDate, i)),
       datasets: [
         {
-          data: data.history.map(s => s / 100),
+          data: data.history,
           borderColor: 'hsla(37,74%,43%,1)',
           backgroundColor: 'hsla(37,74%,43%,0.5)',
           fill: true,
@@ -43,6 +43,7 @@ export const renderHistoryChart = (data: OpeningPage) => {
           display: false,
         },
         y: {
+          min: 0,
           title: {
             display: true,
             text: 'Popularity over time, in %',
