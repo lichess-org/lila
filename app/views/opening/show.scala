@@ -66,7 +66,7 @@ object show {
                 .fold(frag("No description of the opening, yet.")) { markup =>
                   div(cls := "opening__wiki__markup")(raw(markup))
                 },
-              page.query.opening.ifTrue(isGranted(_.ContentTeam)) map { op =>
+              page.query.opening.ifTrue(isGranted(_.OpeningWiki)) map { op =>
                 details(cls := "opening__wiki__editor")(
                   summary(cls := "opening__wiki__editor__summary")("Edit the description"),
                   postForm(action := routes.Opening.wikiWrite(op.key))(
