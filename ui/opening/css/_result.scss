@@ -1,6 +1,7 @@
-.opening__next__result {
+$result-width: 2rem;
+.result-bar {
   @extend %flex-column;
-  flex: 0 0 2rem;
+  flex: 0 0 $result-width;
   font-size: 0.7em;
   span {
     text-align: center;

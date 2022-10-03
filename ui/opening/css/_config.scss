@@ -2,6 +2,7 @@ $c-opcfg: $c-accent;
 
 .opening__config {
   @extend %box-neat;
+  flex: 1 1 auto;
   background: $c-bg-zebra;
   &:hover {
     outline: 3px solid mix($c-opcfg, $c-bg-box, 60%);

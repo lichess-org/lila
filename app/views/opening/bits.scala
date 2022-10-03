@@ -10,6 +10,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.opening.{ Opening, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.OpeningSearchResult
 
 private object bits {
 
@@ -27,14 +28,8 @@ private object bits {
             span(cls := "opening__next__san")(next.san)
           ),
           span(cls := "opening__next__result-board")(
-            span(cls := "opening__next__result") {
-              import next.result._
-              val (blackV, drawsV, whiteV) = exaggerateResults(next.result)
-              frag(
-                resultSegment("black", blackPercent, blackV),
-                resultSegment("draws", drawsPercent, drawsV),
-                resultSegment("white", whitePercent, whiteV)
-              )
+            span(cls := "opening__next__result result-bar") {
+              resultSegments(next.result)
             },
             span(cls := "opening__next__board")(
               views.html.board.bits.mini(next.fen, lastMove = next.uci.uci)(span)
@@ -42,19 +37,6 @@ private object bits {
           )
         )
       }
-    )
-
-  def winRate(page: OpeningPage)(implicit ctx: Context) =
-    div(cls := "opening__win-rate")(
-      h2(
-        strong(page.explored.result.sum.localize),
-        " games",
-        span(cls := "title-stats")(
-          em("White: ", percentFrag(page.explored.result.whitePercent)),
-          em("Black: ", percentFrag(page.explored.result.blackPercent)),
-          em("Draws: ", percentFrag(page.explored.result.drawsPercent))
-        )
-      )
     )
 
   def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) = {
@@ -115,6 +97,16 @@ private object bits {
 
   def percentNumber(v: Double) = f"${v}%1.2f"
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
+
+  def resultSegments(result: ResultCounts) = {
+    import result._
+    val (blackV, drawsV, whiteV) = exaggerateResults(result)
+    frag(
+      resultSegment("black", blackPercent, blackV),
+      resultSegment("draws", drawsPercent, drawsV),
+      resultSegment("white", whitePercent, whiteV)
+    )
+  }
 
   def resultSegment(key: String, percent: Double, visualPercent: Double) = {
     val visible = visualPercent > 7

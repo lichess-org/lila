@@ -1,13 +1,4 @@
 .opening {
-  .title-stats {
-    font-size: 1rem;
-    em {
-      margin-left: 1em;
-      strong {
-        color: $c-brag;
-      }
-    }
-  }
   &__title {
     @extend %flex-center-nowrap;
     margin-bottom: 3rem;
@@ -23,19 +14,34 @@
   }
   &__intro {
     display: flex;
-    flex-flow: row nowrap; // add media query
-    align-items: flex-start;
+    flex-flow: column;
+    @include breakpoint($mq-x-small) {
+      flex-flow: row;
+    }
     gap: $block-gap;
     margin-bottom: 3em;
-    // overflow: hidden;
-    .lpv {
-      flex: 1 1 20vw;
-      min-width: 200px;
-      max-width: 300px;
+    &__result-lpv {
+      flex: 0 0 100%;
+      @include breakpoint($mq-x-small) {
+        flex: 0 0 calc(300px + #{$result-width});
+      }
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
     }
-    &__side {
-      flex: 1 1 auto;
+    &__result {
+      @extend %box-radius-left;
+      overflow: hidden;
+    }
+    .lpv {
+      flex: 0 0 calc(100% - #{$result-width});
+      @include breakpoint($mq-x-small) {
+        flex: 0 0 300px;
+      }
+    }
+    &__content {
       @extend %flex-column;
+      flex: 1 1 auto;
       gap: $block-gap;
     }
     &__actions {
@@ -55,6 +61,9 @@
     &__chart {
       height: 10vh;
       max-height: 150px;
+    }
+    @include breakpoint($mq-not-xx-small) {
+      display: none;
     }
   }
 }

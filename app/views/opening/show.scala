@@ -51,14 +51,18 @@ object show {
           )
         ),
         div(cls := "opening__intro")(
-          div(
-            cls              := "lpv lpv--todo lpv--moves-bottom",
-            st.data("pgn")   := page.query.pgnString,
-            st.data("title") := page.opening.map(_.name)
-          )(lpvPreload),
-          div(cls := "opening__intro__side")(
-            winRate(page),
-            canvas(cls := "opening__popularity__chart"),
+          div(cls := "opening__intro__result-lpv")(
+            div(cls := "opening__intro__result result-bar")(resultSegments(page.explored.result)),
+            div(
+              cls              := "lpv lpv--todo lpv--moves-bottom",
+              st.data("pgn")   := page.query.pgnString,
+              st.data("title") := page.opening.map(_.name)
+            )(lpvPreload)
+          ),
+          div(cls := "opening__intro__content")(
+            div(cls      := "opening__popularity")(
+              canvas(cls := "opening__popularity__chart")
+            ),
             div(cls := "opening__intro__actions")(
               puzzle.map { p =>
                 a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(p.family.key.value))(
