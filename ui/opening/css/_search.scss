@@ -2,6 +2,7 @@
   &__search-config {
     @extend %flex-center;
     gap: 1em;
+    margin-bottom: 3em;
   }
   &__search {
     &-form {

@@ -13,7 +13,8 @@ import lila.opening.{ Opening, OpeningConfig, OpeningPage, OpeningQuery, ResultC
 
 private object bits {
 
-  def whatsNext(page: OpeningPage)(implicit ctx: Context) =
+  def whatsNext(page: OpeningPage)(implicit ctx: Context) = frag(
+    h2("Games continue with:"),
     div(cls := "opening__nexts")(
       page.explored.next.map { next =>
         a(cls := "opening__next", href := queryUrl(next.query))(
@@ -43,6 +44,7 @@ private object bits {
         )
       }
     )
+  )
 
   def winRate(page: OpeningPage)(implicit ctx: Context) =
     div(cls := "opening__win-rate")(
@@ -60,7 +62,13 @@ private object bits {
   def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) = {
     import OpeningConfig._
     details(cls := "opening__config")( // , attr("open") := true)(
-      summary(cls := "opening__config__summary")(config.toString),
+      summary(cls := "opening__config__summary")(
+        "Speed: ",
+        span(cls := "opening__config__summary__speed")(config.showSpeeds),
+        " • ",
+        "Rating: ",
+        span(cls := "opening__config__summary__rating")(config.showRatings)
+      ),
       postForm(
         cls    := "opening__config__form",
         action := routes.Opening.config(thenTo)

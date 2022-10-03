@@ -10,6 +10,16 @@
   }
   &__title {
     @extend %flex-center-nowrap;
+    margin-bottom: 3rem;
+  }
+  &__name {
+    line-height: 1em;
+    &__section {
+      font-size: 0.8em;
+    }
+    &__section--1 {
+      font-size: 1em;
+    }
   }
   &__intro {
     display: flex;
@@ -43,8 +53,8 @@
   }
   &__popularity {
     &__chart {
-      height: 12vh;
-      max-height: 12vh;
+      height: 10vh;
+      max-height: 150px;
     }
   }
   &__nexts {
@@ -124,7 +134,6 @@
         padding-right: 0.5em;
         font-size: 0.8em;
         text-align: right;
-        overflow: hidden;
       }
     }
     &:hover {

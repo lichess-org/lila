@@ -1,14 +1,20 @@
+$c-opcfg: $c-accent;
+
 .opening__config {
   @extend %box-neat;
   background: $c-bg-zebra;
   &:hover {
-    outline: 3px solid mix($c-accent, $c-bg-box, 60%);
-    background: mix($c-accent, $c-bg-zebra, 10%);
+    outline: 3px solid mix($c-opcfg, $c-bg-box, 60%);
+    background: mix($c-opcfg, $c-bg-zebra, 10%);
   }
   &__summary {
     padding: 1em 2em;
     cursor: pointer;
     user-select: none;
+    &__speed,
+    &__rating {
+      color: $c-opcfg;
+    }
   }
   &__form {
     padding: 0 2em 1em 2em;
@@ -26,7 +32,7 @@
       display: flex;
       justify-content: stretch;
       button {
-        color: $c-accent !important;
+        color: $c-opcfg !important;
         flex: 0 0 100%;
       }
     }

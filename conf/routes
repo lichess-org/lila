@@ -117,7 +117,7 @@ GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lan
 GET   /blog/community/:lang            controllers.Ublog.community(lang, page: Int ?= 1)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 
-GET   /opening                         controllers.Opening.index
+GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/*q               controllers.Opening.config(q)
 GET   /opening/*q                      controllers.Opening.query(q)
 

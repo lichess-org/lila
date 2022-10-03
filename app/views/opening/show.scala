@@ -32,16 +32,20 @@ object show {
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening")(
+        index.searchAndConfig(page.query.config, "", page.query.key),
+        search.resultsList(Nil),
         h1(cls := "opening__title")(
           page.query.prev match {
             case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "", cls := "text")
-            case None       => a(href := routes.Opening.index, dataIcon := "", cls := "text")
+            case None       => a(href := routes.Opening.index(), dataIcon := "", cls := "text")
           },
-          span(cls := "opening__name-parts")(
+          span(cls := "opening__name")(
             page.nameParts.zipWithIndex map { case (NamePart(name, key), i) =>
               frag(
-                if (i == 1) br else if (i > 1) ": " else emptyFrag,
-                key.fold(span(name))(q => a(href := routes.Opening.query(q))(name))
+                if (i == 1) br else if (i > 1) ", " else emptyFrag,
+                key.fold(span(name))(q => a(href := routes.Opening.query(q))(name))(
+                  cls := s"opening__name__section opening__name__section--${i + 1}"
+                )
               )
             }
           )
@@ -53,7 +57,6 @@ object show {
             st.data("title") := page.opening.map(_.name)
           )(lpvPreload),
           div(cls := "opening__intro__side")(
-            configForm(page.query.config, page.query.key),
             winRate(page),
             div(cls := "opening__intro__actions")(
               puzzle.map { p =>

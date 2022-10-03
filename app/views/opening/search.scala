@@ -12,21 +12,21 @@ object search {
 
   import bits._
 
-  def form(q: String)(implicit ctx: Context) =
-    st.form(cls := "opening__search-form", action := routes.Opening.index, method := "get")(
+  def form(q: String, focus: Boolean = false)(implicit ctx: Context) =
+    st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls            := "opening__search-form__input",
         name           := "q",
         st.placeholder := "Search for openings",
-        st.value       := q,
-        autofocus      := true,
+        st.value       := q.pp("value"),
+        autofocus      := focus.option("true"),
         autocomplete   := "off",
         spellcheck     := "false"
       ),
       submitButton(cls := "button", dataIcon := "")
     )
 
-  def resultsList(q: String, results: List[OpeningSearchResult])(implicit ctx: Context) =
+  def resultsList(results: List[OpeningSearchResult])(implicit ctx: Context) =
     div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
       results map { r =>
         a(cls := "opening__search__result", href := routes.Opening.query(r.opening.key))(
@@ -48,12 +48,9 @@ object search {
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening opening--search")(
+        index.searchAndConfig(config, q, s"q:$q", searchFocus = true),
         h1("Chess openings"),
-        div(cls := "opening__search-config")(
-          search.form(q),
-          configForm(config, q)
-        ),
-        resultsList(q, results)
+        resultsList(results)
       )
     }
 }

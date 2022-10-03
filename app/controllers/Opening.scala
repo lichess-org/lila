@@ -12,14 +12,14 @@ import lila.common.HTTPRequest
 
 final class Opening(env: Env) extends LilaController(env) {
 
-  def index =
+  def index(q: Option[String] = None) =
     Secure(_.Beta) { implicit ctx => _ =>
-      val q = ~get("q")
-      if (q.nonEmpty) {
-        val results = env.opening.search(q)
+      val searchQuery = ~q
+      if (searchQuery.nonEmpty) {
+        val results = env.opening.search(searchQuery)
         Ok {
-          if (HTTPRequest isXhr ctx.req) html.opening.search.resultsList(q, results)
-          else html.opening.search.resultsPage(q, results, env.opening.api.readConfig)
+          if (HTTPRequest isXhr ctx.req) html.opening.search.resultsList(results)
+          else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
         }.fuccess
       } else
         env.opening.api.index flatMap {
@@ -32,8 +32,8 @@ final class Opening(env: Env) extends LilaController(env) {
   def query(q: String) =
     Secure(_.Beta) { implicit ctx => _ =>
       env.opening.api.lookup(q) flatMap {
-        case None                                 => Redirect(routes.Opening.index).fuccess
-        case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index).fuccess
+        case None                                 => Redirect(routes.Opening.index()).fuccess
+        case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index()).fuccess
         case Some(page) if page.query.key != q    => Redirect(routes.Opening.query(page.query.key)).fuccess
         case Some(page) =>
           page.query.family.??(f => env.puzzle.opening.find(f)) map { puzzle =>
@@ -42,10 +42,15 @@ final class Opening(env: Env) extends LilaController(env) {
       }
     }
 
-  def config(q: String) =
+  def config(thenTo: String) =
     SecureBody(_.Beta) { implicit ctx => _ =>
       implicit val req = ctx.body
-      val redir = Redirect(if (q.isEmpty || q == "index") routes.Opening.index else routes.Opening.query(q))
+      val redir =
+        Redirect {
+          if (thenTo.isEmpty || thenTo == "index") routes.Opening.index()
+          else if (thenTo startsWith "q:") routes.Opening.index(thenTo.drop(2).some)
+          else routes.Opening.query(thenTo)
+        }
       lila.opening.OpeningConfig.form
         .bindFromRequest()
         .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
