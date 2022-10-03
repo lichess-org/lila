@@ -415,7 +415,7 @@ final class ReportApi(
           .cursor[Report](ReadPreference.secondaryPreferred)
           .list(nb)
       about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
-    } yield Report.ByAndAbout(Room.filterGranted(mod, by), Room.filterGranted(mod, about))
+    } yield Report.ByAndAbout(by, Room.filterGranted(mod, about))
 
   def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =
     coll.primitiveOne[Report.Score](
