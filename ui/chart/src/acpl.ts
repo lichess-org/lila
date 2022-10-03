@@ -10,7 +10,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
 ) => {
   await loadHighcharts('highchart');
   acpl.update = (d: any, mainline: any[]) =>
-    el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
+    el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline) as any);
 
   const area = window.Highcharts.theme.lichess.area;
   const line = window.Highcharts.theme.lichess.line;
