@@ -45,6 +45,11 @@ trait DateHelper { self: I18nHelper with StringHelper =>
 
   def showDate(date: DateTime)(implicit lang: Lang): String =
     if (lang.language == "ar") dateFormatter print date replaceAll ("\u200f", "")
+    else if (lang.language == "he") { 
+      val fixDateFormat = DateTimeFormatter.SHORT
+      val formattedHebDate = fixDateFormat.format(date)
+      dateFormatter print formattedHebDate
+    }
     else dateFormatter print date
 
   def showEnglishDate(date: DateTime): String =
