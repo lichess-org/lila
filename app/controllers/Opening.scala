@@ -13,7 +13,7 @@ import lila.common.HTTPRequest
 final class Opening(env: Env) extends LilaController(env) {
 
   def index(q: Option[String] = None) =
-    Secure(_.Beta) { implicit ctx => _ =>
+    Open { implicit ctx =>
       val searchQuery = ~q
       if (searchQuery.nonEmpty) {
         val results = env.opening.search(searchQuery)
@@ -30,7 +30,7 @@ final class Opening(env: Env) extends LilaController(env) {
     }
 
   def query(q: String) =
-    Secure(_.Beta) { implicit ctx => _ =>
+    Open { implicit ctx =>
       env.opening.api.lookup(q) flatMap {
         case None                                 => Redirect(routes.Opening.index()).fuccess
         case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index()).fuccess
@@ -43,7 +43,7 @@ final class Opening(env: Env) extends LilaController(env) {
     }
 
   def config(thenTo: String) =
-    SecureBody(_.Beta) { implicit ctx => _ =>
+    OpenBody { implicit ctx =>
       implicit val req = ctx.body
       val redir =
         Redirect {

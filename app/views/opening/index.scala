@@ -35,7 +35,7 @@ object index {
     ) {
       main(cls := "page box box-pad opening opening--index")(
         searchAndConfig(page.query.config, "", "index"),
-        h1("Chess openings"),
+        h1("Chess openings (beta)"),
         search.resultsList(Nil),
         whatsNext(page)
       )
