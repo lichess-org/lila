@@ -20,11 +20,31 @@
       color: $c-primary;
     }
     form {
-      @extend %flex-center;
-      gap: 2em;
+      @extend %flex-column;
+      margin-top: 1em;
       textarea {
         flex: 5 1 auto;
         height: 20em;
+      }
+    }
+    &__revisions {
+      max-height: 30vh;
+      overflow: auto;
+      summary {
+        cursor: pointer;
+        color: $c-primary;
+        margin-top: 1em;
+      }
+    }
+    &__revision {
+      border-top: $border;
+      margin-top: 1em;
+      padding: 1em 0 0.5em 0;
+      font-size: 0.8em;
+      textarea {
+        width: 90%;
+        height: 10em;
+        margin: 1em auto 0 auto;
       }
     }
   }

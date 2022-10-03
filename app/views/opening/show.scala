@@ -74,7 +74,16 @@ object show {
                       OpeningWiki.form
                         .fill(~page.wiki.flatMap(_.revisions.headOption).map(_.text.value))("text")
                     )(),
-                    form3.submit("Update")
+                    form3.submit("Save and publish")
+                  ),
+                  details(cls := "opening__wiki__editor__revisions")(
+                    summary("Revision history"),
+                    page.wiki.??(_.revisions).map { rev =>
+                      div(cls := "opening__wiki__editor__revision")(
+                        div(momentFromNowOnce(rev.at), userIdLink(rev.by.some)),
+                        textarea(disabled := true)(rev.text)
+                      )
+                    }
                   )
                 )
               }
