@@ -195,7 +195,7 @@ final class Team(
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         ApiKickRateLimitPerIP[Fu[Api.ApiResult]](
           HTTPRequest ipAddress req,
-          cost = if (me.isVerified) 0 else 1
+          cost = if (me.isVerified || me.isApiHog) 0 else 1
         ) {
           api.kick(team, userId, me) inject Api.Done
         } {
