@@ -1,5 +1,7 @@
 package views.html.opening
 
+import cats.data.NonEmptyList
+import chess.opening.FullOpening
 import controllers.routes
 import play.api.libs.json.{ JsArray, Json }
 
@@ -7,7 +9,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.opening.{ OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.{ Opening, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
 private object bits {
 
@@ -85,6 +87,21 @@ private object bits {
       }
     }
   )
+
+  def splitName(op: FullOpening) =
+    Opening.sectionsOf(op.name) match {
+      case NonEmptyList(family, variations) =>
+        frag(
+          span(cls := "opening-name__family")(family),
+          variations.nonEmpty option ": ",
+          fragList(
+            variations.map { variation =>
+              span(cls := "opening-name__variation")(variation)
+            },
+            ", "
+          )
+        )
+    }
 
   def queryUrl(q: OpeningQuery) = routes.Opening.query(q.key)
 

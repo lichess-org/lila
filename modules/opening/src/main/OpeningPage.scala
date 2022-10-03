@@ -24,7 +24,7 @@ case class NamePart(name: String, path: Option[String])
 case object NamePart {
   def from(op: FullOpening): List[NamePart] = {
     val sections = Opening.sectionsOf(op.name)
-    sections.zipWithIndex map { case (name, i) =>
+    sections.toList.zipWithIndex map { case (name, i) =>
       NamePart(
         name,
         Opening.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))).map(_.key)

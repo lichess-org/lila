@@ -1,6 +1,7 @@
 package lila.opening
 
 import chess.opening.{ FullOpening, FullOpeningDB }
+import cats.data.NonEmptyList
 
 object Opening {
 
@@ -23,15 +24,14 @@ object Opening {
    * "Mieses Opening" -> "Mieses Opening: Reversed Rat" -> "Reversed Rat"
    * For harder ones, see modules/opening/src/test/OpeningTest.scala
    */
-  def variationName(prev: String, next: String): String =
-    sectionsOf(prev)
-      .zipAll(sectionsOf(next), "", "")
+  private[opening] def variationName(prev: String, next: String): String =
+    sectionsOf(prev).toList
+      .zipAll(sectionsOf(next).toList, "", "")
       .dropWhile { case (a, b) => a == b }
       .headOption
       .map(_._2)
       .filter(_.nonEmpty)
-      .orElse(sectionsOf(next).lastOption)
-      .getOrElse(next.takeWhile(':' !=))
+      .getOrElse(sectionsOf(next).last)
 
   def variationName(prev: Option[FullOpening], next: Option[FullOpening]): Option[String] =
     (prev, next) match {
@@ -40,9 +40,9 @@ object Opening {
       case _                  => none
     }
 
-  def sectionsOf(openingName: String): List[String] =
+  def sectionsOf(openingName: String): NonEmptyList[String] =
     openingName.split(":", 2) match {
-      case Array(f, v) => f :: v.split(",").toList.map(_.trim)
-      case _           => openingName :: Nil
+      case Array(f, v) => NonEmptyList(f, v.split(",").toList.map(_.trim))
+      case _           => NonEmptyList(openingName, Nil)
     }
 }

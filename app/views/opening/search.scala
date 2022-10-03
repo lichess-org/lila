@@ -10,6 +10,8 @@ import lila.opening.{ OpeningConfig, OpeningSearchResult }
 
 object search {
 
+  import bits._
+
   def form(q: String)(implicit ctx: Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index, method := "get")(
       input(
@@ -24,13 +26,11 @@ object search {
       submitButton(cls := "button", dataIcon := "")
     )
 
-  import bits._
-
   def resultsList(q: String, results: List[OpeningSearchResult])(implicit ctx: Context) =
     div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
       results map { r =>
         a(cls := "opening__search__result", href := routes.Opening.query(r.opening.key))(
-          span(cls := "opening__search__result__title")(r.opening.name),
+          span(cls := "opening__search__result__title")(splitName(r.opening)),
           span(cls := "opening__search__result__board")(
             views.html.board.bits.mini(FEN(r.opening.fen), lastMove = ~r.opening.lastUci)(span)
           )

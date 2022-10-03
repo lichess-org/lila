@@ -35,7 +35,6 @@
     }
     &__result {
       @extend %flex-column, %box-neat;
-      justify-content: space-between;
       background: $c-bg-zebra;
       outline: 3px solid mix($c-font, $c-bg-box, 30%);
       cursor: pointer;
@@ -47,8 +46,14 @@
       }
       &__title {
         @extend %roboto, %metal;
+        flex: 1 1 100%;
         font-size: 1.3em;
-        padding: 0.5em 1em;
+        padding: 0.4em 0.7em 0.3em 1em;
+        .opening-name {
+          &__variation {
+            font-size: 0.8em;
+          }
+        }
       }
     }
   }
