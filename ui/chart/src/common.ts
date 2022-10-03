@@ -1,7 +1,7 @@
 import { PlyChart } from './interface';
 
 export interface MovePoint {
-  y: number|null;
+  y: number | null;
   x?: number;
   name?: any;
   marker?: any;
