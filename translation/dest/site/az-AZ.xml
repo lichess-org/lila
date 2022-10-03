@@ -91,6 +91,7 @@
     <item quantity="one">%s yarımgedişə mat</item>
     <item quantity="other">%s yarımgedişə mat</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" növbəti alış və ya piyada gedişinə qədər yarım hərəkətlərin sayına əsasən yuvarlaqlaşdırıldı</string>
   <string name="noGameFound">Oyun tapılmadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə tərcihlər menyusunda daha çox oyunun daxil edilməsini seçəsiniz?</string>
   <string name="openingExplorer">Debüt tədqiqatçısı</string>
@@ -98,6 +99,9 @@
   <string name="xOpeningExplorer">%s debüt bazası</string>
   <string name="winPreventedBy50MoveRule">Qələbə 50 gediş qaydasına görə hesaba alınmadı</string>
   <string name="lossSavedBy50MoveRule">Məğlubiyyət 50 gediş qaydasına görə hesaba alınmadı</string>
+  <string name="winOr50MovesByPriorMistake">Qələbə və ya əvvəlki səhvlə 50 gediş</string>
+  <string name="lossOr50MovesByPriorMistake">Məğlubiyyət və ya əvvəlki səhvlə 50 gediş</string>
+  <string name="unknownDueToRounding">Qalib gəlmək/Məğlub olmaq, Syzygy cədvəl bazalarında DTZ dəyərlərinin mümkün yuvarlaqlaşdırılması səbəbiylə, yalnızca sonuncu alış və ya piyada gedişindən sonra tövsiyyə olunan cədvəl bazası xətti izləndiyinə zəmanət verilir.</string>
   <string name="allSet">Hər şey hazır!</string>
   <string name="importPgn">PGN daxil et</string>
   <string name="delete">Sil</string>
@@ -140,6 +144,7 @@
     <item quantity="other">%s oyunçu</item>
   </plurals>
   <string name="drawByMutualAgreement">Qarşılıqlı razılıq əsasında heç-heçə</string>
+  <string name="fiftyMovesWithoutProgress">İrəliləyiş olmadan əlli həmlə</string>
   <string name="currentGames">Cari oyunlar</string>
   <plurals name="nbGames">
     <item quantity="one">%s oyun</item>
@@ -180,6 +185,10 @@
     <item quantity="one">%s saat</item>
     <item quantity="other">%s saat</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s dəqiqə</item>
+    <item quantity="other">%s dəqiqələr</item>
+  </plurals>
   <string name="time">Vaxt</string>
   <string name="rating">Reytinq</string>
   <string name="ratingStats">Reytinq statistikaları</string>
@@ -188,6 +197,7 @@
   <string name="changeUsername">İstifadəçi adını dəyiş</string>
   <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
   <string name="changeUsernameDescription">İstifadəçi adını dəyişdir. Bu prosesi sadəcə bir dəfə edə bilərsən və sadəcə mövcud istifadəçi adındakı hərfləri böyük və ya kiçik edə bilərsən.</string>
+  <string name="signupUsernameHint">Ailə dostu bir istifadəçi adı seçdiyinizdən əmin olun. Siz onu daha sonra dəyişə bilməzsiniz və uyğun olmayan istifadəçi adları olan hesablar bağlanacaq!</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Şifrəni dəyiş</string>
   <string name="changeEmail">E-poçtu dəyiş</string>
