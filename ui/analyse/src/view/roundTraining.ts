@@ -54,9 +54,8 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
         'a.text',
         {
           attrs: {
-            'data-color': '#999',
             'data-icon': '',
-            href: 'https://lichess.org/page/accuracy',
+            href: '/page/accuracy',
             target: '_blank',
           },
         },
