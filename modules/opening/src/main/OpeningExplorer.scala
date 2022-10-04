@@ -1,12 +1,14 @@
 package lila.opening
 
 import chess.format.FEN
+import chess.format.Forsyth
+import chess.opening.FullOpening
 import com.softwaremill.tagging._
 import play.api.libs.json.{ JsObject, JsValue, Json }
 import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
-import chess.format.Forsyth
+
 import lila.game.Game
 
 final private class OpeningExplorer(
@@ -24,13 +26,13 @@ final private class OpeningExplorer(
       .flatMap {
         case res if res.status == 404 => fuccess(none)
         case res if res.status != 200 =>
-          fufail(s"Couldn't reach the opening explorer: ${res.status} for $query")
+          fufail(s"Couldn't reach the opening explorer: ${res.status}")
         case res =>
           res
             .body[JsValue]
             .validate[Position](positionReads)
             .fold(
-              err => fufail(s"Couldn't parse opening data for $query: $err"),
+              err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.some)
             )
       }
@@ -44,6 +46,35 @@ final private class OpeningExplorer(
 
   def configHistory(config: OpeningConfig): Fu[PopularityHistoryAbsolute] =
     historyOf(configParameters(config))
+
+  def simplePopularity(opening: FullOpening): Fu[Option[Int]] =
+    ws.url(s"$explorerEndpoint/lichess")
+      .withQueryStringParameters(
+        "play"        -> opening.uci.replace(" ", ","),
+        "moves"       -> "0",
+        "topGames"    -> "0",
+        "recentGames" -> "0"
+      )
+      .get()
+      .flatMap {
+        case res if res.status == 404 => fuccess(none)
+        case res if res.status != 200 =>
+          fufail(s"Couldn't reach the opening explorer: ${res.status}")
+        case res =>
+          res
+            .body[JsValue]
+            .pp
+            .validate[Position](positionReads)
+            .pp
+            .fold(
+              err => fufail(s"Couldn't parse $err"),
+              data => fuccess(data.sum.some)
+            )
+      }
+      .recover { case e: Exception =>
+        logger.warn(s"Opening simple popularity $opening", e)
+        none
+      }
 
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
@@ -91,7 +122,8 @@ object OpeningExplorer {
       topGames: List[GameRef],
       recentGames: List[GameRef]
   ) {
-    val movesSum = moves.foldLeft(0L)(_ + _.sum)
+    val sum      = white + draws + black
+    val movesSum = moves.foldLeft(0)(_ + _.sum)
     val games    = topGames ::: recentGames
   }
 

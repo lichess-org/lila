@@ -16,7 +16,9 @@ import lila.user.User
 
 case class OpeningWiki(markup: Option[String], revisions: List[OpeningWiki.Revision])
 
-final class OpeningWikiApi(coll: Coll @@ WikiColl, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, cacheApi: CacheApi)(implicit
+    ec: ExecutionContext
+) {
 
   import OpeningWiki.Revision
 
@@ -57,20 +59,28 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, cacheApi: CacheApi)(implicit 
     )
 
   private val cache = cacheApi[Opening.Key, OpeningWiki](1024, "opening.wiki") {
-    _.maximumSize(1024).buildAsyncFuture(compute)
+    _.maximumSize(4096).buildAsyncFuture(compute)
   }
 
-  private def compute(key: Opening.Key): Fu[OpeningWiki] =
-    coll
+  private def compute(key: Opening.Key): Fu[OpeningWiki] = for {
+    docOpt <- coll
       .aggregateOne() { framework =>
         import framework._
         Match($id(key)) ->
           List(Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
       }
-      .map { _.flatMap(_.getAsOpt[Revision]("lastRev")(revisionHandler)) }
-      .map { lastRev =>
-        OpeningWiki(lastRev.map(_.text) map renderer(s"opening:op.key"), Nil)
+    _ <- updatePopularity(key)
+    lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
+  } yield OpeningWiki(lastRev.map(_.text) map renderer(s"opening:op.key"), Nil)
+
+  private def updatePopularity(key: Opening.Key): Funit =
+    Opening.shortestLines.get(key) ?? { op =>
+      explorer.simplePopularity(op) flatMap {
+        _ ?? { popularity =>
+          coll.update.one($id(key), $set("popularity" -> popularity), upsert = true).void
+        }
       }
+    }
 }
 
 object OpeningWiki {
