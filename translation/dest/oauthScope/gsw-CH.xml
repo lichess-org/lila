@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="preferenceRead">Preferänze läse</string>
   <string name="emailRead">d\'E-Mail-Adrässe läse</string>
   <string name="challengeRead">iträffendi Useforderige läse</string>
   <string name="challengeWrite">iträffendi Useforderige schribe</string>
