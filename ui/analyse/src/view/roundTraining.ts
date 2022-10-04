@@ -48,7 +48,21 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => error(ctrl, d.analysis![color][a.kind], color, a)),
     h('div.advice-summary__acpl', [h('strong', sideData.acpl), h('span', ctrl.trans.noarg('averageCentipawnLoss'))]),
-    h('div.advice-summary__accuracy', [h('strong', [sideData.accuracy, '%']), h('span', ctrl.trans.noarg('accuracy'))]),
+    h('div.advice-summary__accuracy', [
+      h('strong', [sideData.accuracy, '%']),
+      h(
+        'a.text',
+        {
+          attrs: {
+            'data-color': '#999',
+            'data-icon': '',
+            href: 'https://lichess.org/page/accuracy',
+            target: '_blank',
+          },
+        },
+        ctrl.trans.noarg('accuracy')
+      ),
+    ]),
   ]);
 }
 
