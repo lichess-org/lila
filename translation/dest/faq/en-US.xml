@@ -139,4 +139,7 @@ It is useful to think of ratings as \"relative\" figures (as opposed to \"absolu
 Click the lock icon next to the lichess.org URL in the address bar of your browser.
 
 Then select whether to allow or block notifications from Lichess.</string>
+  <string name="howToMakeABot">Make a Lichess bot?</string>
+  <string name="toLearnHowToMakeABot">To learn how to create a %s</string>
+  <string name="pleaseRead">, please read this %s.</string>
 </resources>

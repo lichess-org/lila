@@ -1957,6 +1957,9 @@ val `howToThreeDots` = new I18nKey("faq:howToThreeDots")
 val `enableDisableNotificationPopUps` = new I18nKey("faq:enableDisableNotificationPopUps")
 val `viewSiteInformationPopUp` = new I18nKey("faq:viewSiteInformationPopUp")
 val `lichessCanOptionnalySendPopUps` = new I18nKey("faq:lichessCanOptionnalySendPopUps")
+val `howToMakeABot` = new I18nKey("faq:howToMakeABot")
+val `toLearnHowToMakeABot` = new I18nKey("faq:toLearnHowToMakeABot")
+val `pleaseRead` = new I18nKey("faq:pleaseRead")
 
 }
 

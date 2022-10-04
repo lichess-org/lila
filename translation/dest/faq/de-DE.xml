@@ -139,4 +139,7 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
 Klicke auf das Schlosssymbol neben der lichess.org Adresse in der URL-Leiste deines Browsers.
 
 Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
+  <string name="howToMakeABot">Einen Bot erstellen?</string>
+  <string name="toLearnHowToMakeABot">Um zu lernen, wie du einen %s erstellen kannst, </string>
+  <string name="pleaseRead">lies dir diesen %s durch.</string>
 </resources>
