@@ -9,7 +9,7 @@
   <string name="yourTurn">ตาคุณ</string>
   <string name="aiNameLevelAiLevel">%1$s ระดับ %2$s</string>
   <string name="level">ระดับ</string>
-  <string name="strength">ความแข็งแกร่ง</string>
+  <string name="strength">ระดับความยาก</string>
   <string name="toggleTheChat">เปิด/ปิดการสนทนา</string>
   <string name="chat">สนทนา</string>
   <string name="resign">ยอมแพ้</string>
@@ -58,6 +58,8 @@
   <string name="depthX">ความลึก %s ตา</string>
   <string name="usingServerAnalysis">เซิร์ฟเวอร์กำลังวิเคราะห์</string>
   <string name="loadingEngine">กำลังโหลด...</string>
+  <string name="calculatingMoves">กำลังคำนวณตาเดิน</string>
+  <string name="engineFailed">เกิดความผิดผลาดในการโหลด engine</string>
   <string name="cloudAnalysis">กำลังวิเคราะห์ด้วยระบบคลาวด์</string>
   <string name="goDeeper">ลึกอีก</string>
   <string name="showThreat">แสดงตาเดินของคู่ต่อสู้ที่อันตราย</string>
@@ -186,6 +188,9 @@
   <string name="email">อีเมล</string>
   <string name="passwordReset">ตั้งรหัสผ่านใหม่</string>
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
+  <string name="emailSent">เราได้ส่งอีเมลไปที่ %s</string>
+  <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
+  <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
   <string name="rank">อันดับ</string>
   <string name="rankX">อันดับ: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">

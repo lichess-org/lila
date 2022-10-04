@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights">Muncul sebagai tajuk tab/tetingkap apabila melihat cerapan pemain, contohnya https://lichess. org/insights/thibault/acpl/variant</string>
   <string name="xHasNoChessInsights">%s belum mempunyai cerapan catur!</string>
   <string name="insightsAreProtected">Cerapan catur %s dilindungi</string>
   <string name="cantSeeInsights">Maaf, anda tidak dapat melihat cerapan catur %s.</string>

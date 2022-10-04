@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="keyboardInputCommands">Komandat përmes tastaturës</string>
-  <string name="performAMove">Lëvizjet</string>
+  <string name="keyboardInputCommands">Urdhra lëvizjesh përmes tastierës</string>
+  <string name="performAMove">Kryeni një lëvizje</string>
   <string name="movePieceFromE2ToE4">Lëvize figurën prej e2 te e4</string>
   <string name="moveKnightToC3">Lëvize kalin te c3</string>
   <string name="kingsideCastle">Rrokada në anën e mbretit</string>
