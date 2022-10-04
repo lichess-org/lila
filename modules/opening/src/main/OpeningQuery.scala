@@ -43,8 +43,13 @@ object OpeningQuery {
   def apply(q: String, config: OpeningConfig): Option[OpeningQuery] =
     byOpening(q, config) orElse fromPgn(q.replace("_", " "), config)
 
-  private def byOpening(key: String, config: OpeningConfig) =
-    Opening.shortestLines.get(key).map(_.pgn) flatMap { fromPgn(_, config) }
+  private def byOpening(key: String, config: OpeningConfig) = {
+    Opening.shortestLines.get(key) orElse
+      lila.common.String
+        .decodeUriPath(key)
+        .map(FullOpening.nameToKey.apply)
+        .flatMap(Opening.shortestLines.get)
+  }.map(_.pgn) flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: String, config: OpeningConfig) = for {
     parsed <- chess.format.pgn.Reader.full(pgn).toOption
@@ -57,9 +62,4 @@ object OpeningQuery {
 
   val firstYear  = 2017
   val firstMonth = s"$firstYear-01"
-  // def lastMonth =
-  //   DateTimeFormat forPattern "yyyy-MM" print {
-  //     val now = DateTime.now
-  //     if (now.dayOfMonth.get > 7) now else now.minusMonths(1)
-  //   }
 }
