@@ -92,9 +92,10 @@ object OpeningSearch {
     Ordering.by[Match, Score] { case Match(_, score) => score }
 
   def apply(q: String, max: Int): List[FullOpening] = Chronometer.syncMon(_.opening.searchTime) {
+    val searchTokens = tokenize(q)
     index
       .flatMap { entry =>
-        scoreOf(tokenize(q), entry) map {
+        scoreOf(searchTokens, entry) map {
           Match(entry.opening, _)
         }
       }
