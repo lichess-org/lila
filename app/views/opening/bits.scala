@@ -41,11 +41,12 @@ private object bits {
 
   def configForm(config: OpeningConfig, thenTo: String)(implicit ctx: Context) = {
     import OpeningConfig._
-    details(cls := "opening__config")( // , attr("open") := true)(
+    details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         "Speed: ",
         span(cls := "opening__config__summary__speed")(config.showSpeeds),
-        " • ",
+        nbsp,
+        nbsp,
         "Rating: ",
         span(cls := "opening__config__summary__rating")(config.showRatings)
       ),
