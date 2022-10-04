@@ -38,6 +38,8 @@ object OpeningSearch {
     def apply(str: String): Set[Token] = {
       str
         .take(200)
+        .replace("_", " ")
+        .replace("-", " ")
         .split(' ')
         .view
         .map(_.trim)
@@ -67,9 +69,12 @@ object OpeningSearch {
     }.toList
 
   private def scoreOf(search: Set[Token], entry: Entry): Option[Score] = {
+    def exactMatch(token: Token) =
+      entry.tokens(token) ||
+        entry.tokens(s"${token}s") // King's and Queen's can be matched by king and queen
     search
       .foldLeft((search, 0)) { case ((remaining, score), token) =>
-        if (entry.tokens(token)) (remaining - token, score + token.size * 100)
+        if (exactMatch(token)) (remaining - token, score + token.size * 100)
         else (remaining, score)
       } match {
       case (remaining, score) =>

@@ -49,7 +49,7 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, cacheApi: CacheApi)(implicit 
 
   private val renderer =
     new lila.common.MarkdownRender(
-      autoLink = true,
+      autoLink = false,
       list = true,
       header = true,
       table = false,
