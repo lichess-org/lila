@@ -18,6 +18,9 @@
         line-height: 1.9em;
         background: mix($c-secondary, $c-bg-box, 40%);
         padding: 0 7px;
+        a {
+          font-weight: bold;
+        }
       }
     }
 
