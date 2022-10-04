@@ -13,7 +13,7 @@ object show {
 
   import bits._
 
-  def apply(page: OpeningPage, puzzle: Option[PuzzleOpening.FamilyWithCount])(implicit ctx: Context) =
+  def apply(page: OpeningPage, puzzleKey: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),
@@ -71,8 +71,8 @@ object show {
             div(
               cls := "opening__intro__actions"
             )(
-              puzzle.map { p =>
-                a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(p.family.key.value))(
+              puzzleKey.map { key =>
+                a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(key))(
                   "Train with puzzles"
                 )
               },
