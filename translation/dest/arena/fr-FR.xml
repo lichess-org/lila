@@ -36,7 +36,10 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   </plurals>
   <string name="thisIsPrivate">Ce tournoi est privé</string>
   <string name="shareUrl">Partagez cette URL pour permettre aux personnes de rejoindre : %s</string>
-  <string name="drawStreak">Séries de parties nulles : lorsqu\'un joueur fait des nulles consécutives dans une arène ou une bataille d\'équipes, seule la première nulle donnera un point, ou des nulles durant plus de %s coups. La série de nulles ne peut être interrompue que par une victoire, pas par une défaite ou une nulle.</string>
+  <string name="drawStreakStandard">Séries de parties nulles : lorsqu\'un joueur fait des nulles consécutives dans un tournoi arène, seule la première nulle , ou des nulles de plus de %s coups (parties standard), donnera un point. La série de nulles ne peut être interrompue que par une victoire, pas par une défaite ni une nulle.</string>
+  <string name="drawStreakVariants">Pour qu\'une partie nulle rapporte des points, elle doit avoir une durée minimale qui varie selon la variante. Le tableau ci-dessous indique la durée minimale pour chaque variante.</string>
+  <string name="variant">Variante</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Nombre de coups minimum de la partie</string>
   <string name="history">Historique des tournois d\'arène</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Voir l\'équipe</item>

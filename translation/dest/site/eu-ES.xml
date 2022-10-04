@@ -763,6 +763,7 @@
   <string name="bestWasX">Onena %s zen</string>
   <string name="youBrowsedAway">Beste batera joan zara</string>
   <string name="resumePractice">Itzuli praktikatzera</string>
+  <string name="drawByFiftyMoves">Partida berdinketarekin amaitu da 50 jokaldien araua dela-eta.</string>
   <string name="theGameIsADraw">Berdinketa.</string>
   <string name="computerThinking">Ordenagailua pentsatzen...</string>
   <string name="seeBestMove">Erakutsi jokaldi onena</string>

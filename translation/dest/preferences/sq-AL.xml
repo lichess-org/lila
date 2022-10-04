@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Personifikimet</string>
+  <string name="display">Shfaqje</string>
+  <string name="privacy">Privatësi</string>
   <string name="pieceAnimation">Animimi i figurave</string>
   <string name="materialDifference">Ndryshimi në material</string>
   <string name="boardHighlights">Nënvizo fushën, (lëvizjen e fundit dhe shah)</string>

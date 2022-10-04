@@ -675,7 +675,7 @@
   <string name="downloadImported">Ներբեռնել ներմուծվածը</string>
   <string name="crosstable">Հաշիվ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Քայլերը թերթելու համար կարելի է մկնիկի անիվը պտտել տախտակի վրա։</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Թերթեք տարբերակները դրանք դիտելու համար  </string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Թերթեք տարբերակները դրանք դիտելու համար:</string>
   <string name="analysisShapesHowTo">Խաղատախտակի վրա շրջանակներ և սլաքներ պատկերելու համար օգտագործեք Shift+մկնիկի ձախ կոճակը կամ աջ կոճակը։</string>
   <string name="letOtherPlayersMessageYou">Թույլ տալ այլ խաղացողներին Ձեզ հաղորդագրություններ ուղարկել</string>
   <string name="receiveForumNotifications">Ստանալ ծանուցումներ ֆորումում հիշատակվելու դեպքում</string>

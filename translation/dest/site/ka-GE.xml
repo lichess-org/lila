@@ -325,7 +325,7 @@
   <string name="gameAsGIF">თამაშის GIF-ად შენახვა</string>
   <string name="pasteTheFenStringHere">ჩასვით FEN ტექსტი</string>
   <string name="pasteThePgnStringHere">ჩასვით PGN ტექსტი</string>
-  <string name="orUploadPgnFile">ან გადმოწერე PNG ფაილი</string>
+  <string name="orUploadPgnFile">ან გადმოწერე PGN ფაილი</string>
   <string name="fromPosition">პოზიციიდან</string>
   <string name="continueFromHere">ამ პოზიციიდან გაგრძელება</string>
   <string name="toStudy">კვლევად გადაკეთება</string>
