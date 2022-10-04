@@ -63,24 +63,29 @@ object show {
           ),
           div(cls := "opening__intro__content")(
             wiki(page),
-            div(cls := "opening__popularity")(
+            div(cls := "opening__popularity-actions")(
+              div(
+                cls := "opening__actions"
+              )(
+                puzzleKey.map { key =>
+                  a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(key))(
+                    "Train with puzzles"
+                  )
+                },
+                a(
+                  cls      := "button text",
+                  dataIcon := "",
+                  href     := s"${routes.UserAnalysis.pgn(page.query.pgn mkString "_")}#explorer"
+                )(trans.openingExplorer())
+              ),
               if (page.explored.??(_.history).nonEmpty)
-                canvas(cls := "opening__popularity__chart")
-              else p(cls := "opening__error")("Couldn't fetch the popularity history, try again later.")
-            ),
-            div(
-              cls := "opening__intro__actions"
-            )(
-              puzzleKey.map { key =>
-                a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(key))(
-                  "Train with puzzles"
+                div(cls      := "opening__popularity opening__popularity--chart")(
+                  canvas(cls := "opening__popularity__chart")
                 )
-              },
-              a(
-                cls      := "button text",
-                dataIcon := "",
-                href     := s"${routes.UserAnalysis.pgn(page.query.pgn mkString "_")}#explorer"
-              )("View in opening explorer")
+              else
+                p(cls := "opening__popularity opening__error")(
+                  "Couldn't fetch the popularity history, try again later."
+                )
             )
           )
         ),

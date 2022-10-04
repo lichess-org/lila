@@ -1,3 +1,5 @@
+$op-col-many: $mq-x-small;
+$op-col-one: $mq-not-x-small;
 .opening {
   &__title {
     @extend %flex-center-nowrap;
@@ -16,7 +18,7 @@
     display: flex;
     flex-flow: column;
     align-items: stretch;
-    @include breakpoint($mq-x-small) {
+    @include breakpoint($op-col-many) {
       flex-flow: row;
       align-items: flex-start;
     }
@@ -24,7 +26,7 @@
     margin-bottom: 3em;
     &__result-lpv {
       flex: 0 0 100%;
-      @include breakpoint($mq-x-small) {
+      @include breakpoint($op-col-many) {
         flex: 0 0 calc(300px + #{$result-width});
       }
       display: flex;
@@ -37,7 +39,7 @@
     }
     .lpv {
       flex: 0 0 calc(100% - #{$result-width});
-      @include breakpoint($mq-x-small) {
+      @include breakpoint($op-col-many) {
         flex: 0 0 300px;
       }
     }
@@ -48,20 +50,35 @@
       align-self: stretch;
       gap: $block-gap;
     }
-    &__actions {
-      display: flex;
-      flex-flow: row wrap;
-      align-items: flex-start;
-      gap: 2em;
+  }
+  &__popularity-actions {
+    display: flex;
+    flex-flow: column;
+    @include breakpoint($op-col-many) {
+      flex-flow: row nowrap;
     }
+    align-items: stretch;
+    gap: 2em;
   }
   &__popularity {
+    flex: 1 1 auto;
     &__chart {
-      height: 10vh;
-      max-height: 150px;
+      height: 10em;
+      max-height: 10em;
     }
-    @include breakpoint($mq-not-xx-small) {
-      display: none;
+  }
+  &__actions {
+    display: flex;
+    flex-flow: row;
+    @include breakpoint($op-col-many) {
+      flex-flow: column;
+    }
+    align-items: stretch;
+    gap: 2em;
+    .button {
+      text-align: $start-direction;
+      max-width: 15em;
+      white-space: normal;
     }
   }
 }

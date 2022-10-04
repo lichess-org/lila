@@ -7,7 +7,9 @@ $c-op-panels: $c-brag;
     &__tab {
       @extend %button-none, %box-radius;
       color: $c-op-panels;
-      font-size: 1.3em;
+      @include breakpoint($op-col-many) {
+        font-size: 1.3em;
+      }
       padding: 0.4em 1em;
       &:hover {
         background: mix($c-op-panels, $c-bg-box, 20%);

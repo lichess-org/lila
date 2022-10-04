@@ -1,8 +1,18 @@
 $c-opcfg: $c-accent;
+$op-details-large: $mq-small;
 
 .opening__config {
   @extend %box-neat;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+  &[open] {
+    flex: 1 0 auto;
+  }
+  @include breakpoint($op-col-one) {
+    display: none;
+  }
+  @include breakpoint($op-details-large) {
+    flex: 1 0 auto;
+  }
   background: $c-bg-zebra;
   &:hover {
     outline: 3px solid mix($c-opcfg, $c-bg-box, 60%);
@@ -15,6 +25,24 @@ $c-opcfg: $c-accent;
     &__speed,
     &__rating {
       color: $c-opcfg;
+    }
+    &__large {
+      display: none;
+      .opening__config[open] & {
+        display: inline-block;
+      }
+      @include breakpoint($op-details-large) {
+        display: inline-block;
+      }
+    }
+    &__short {
+      display: inline-block;
+      @include breakpoint($op-details-large) {
+        display: none;
+      }
+      .opening__config[open] & {
+        display: none;
+      }
     }
   }
   &__form {

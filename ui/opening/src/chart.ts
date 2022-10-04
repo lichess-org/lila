@@ -43,7 +43,6 @@ export const renderHistoryChart = (data: OpeningPage) => {
           display: false,
         },
         y: {
-          min: 0,
           title: {
             display: true,
             text: 'Popularity over time, in %',

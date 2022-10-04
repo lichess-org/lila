@@ -43,12 +43,17 @@ private object bits {
     import OpeningConfig._
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
-        "Speed: ",
-        span(cls := "opening__config__summary__speed")(config.showSpeeds),
-        nbsp,
-        nbsp,
-        "Rating: ",
-        span(cls := "opening__config__summary__rating")(config.showRatings)
+        div(cls := "opening__config__summary__short")(
+          iconTag('')
+        ),
+        div(cls := "opening__config__summary__large")(
+          "Speed: ",
+          span(cls := "opening__config__summary__speed")(config.showSpeeds),
+          nbsp,
+          nbsp,
+          "Rating: ",
+          span(cls := "opening__config__summary__rating")(config.showRatings)
+        )
       ),
       postForm(
         cls    := "opening__config__form",
