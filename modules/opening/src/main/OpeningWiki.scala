@@ -13,6 +13,7 @@ import lila.common.Markdown
 import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
+import reactivemongo.api.ReadPreference
 
 case class OpeningWiki(markup: Option[String], revisions: List[OpeningWiki.Revision])
 
@@ -48,6 +49,25 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
         upsert = true
       )
       .void >>- cache.put(op.key, compute(op.key))
+
+  def popularOpeningsWithShortWiki: Fu[List[FullOpening]] =
+    coll
+      .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        Project($doc("popularity" -> true, "rev" -> $doc("$first" -> "$revisions"))) -> List(
+          AddFields($doc("len" -> $doc("$strLenBytes" -> $doc("$ifNull" -> $arr("$rev.text", ""))))),
+          Match($doc("len" $lt 300)),
+          Sort(Descending("popularity")),
+          Project($doc("_id" -> true))
+        )
+      }
+      .map { docs =>
+        for {
+          doc <- docs
+          id  <- doc string "_id"
+          op  <- Opening.shortestLines get id
+        } yield op
+      }
 
   private val renderer =
     new lila.common.MarkdownRender(

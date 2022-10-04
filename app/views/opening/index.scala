@@ -1,5 +1,6 @@
 package views.html.opening
 
+import chess.opening.FullOpening
 import controllers.routes
 import play.api.libs.json.{ JsArray, Json }
 
@@ -7,15 +8,15 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
+import lila.opening.OpeningConfig
 import lila.opening.{ OpeningPage, OpeningQuery }
 import lila.puzzle.PuzzleOpening
-import lila.opening.OpeningConfig
 
 object index {
 
   import bits._
 
-  def apply(page: OpeningPage)(implicit ctx: Context) =
+  def apply(page: OpeningPage, wikiMissing: List[FullOpening])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),
@@ -38,7 +39,8 @@ object index {
         h1("Chess openings (beta)"),
         search.resultsList(Nil),
         page.explored.map(whatsNext) |
-          p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
+          p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
+        isGranted(_.OpeningWiki) option wiki.showMissing(wikiMissing)
       )
     }
 

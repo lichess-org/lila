@@ -24,7 +24,9 @@ final class Opening(env: Env) extends LilaController(env) {
       } else
         env.opening.api.index flatMap {
           _ ?? { page =>
-            Ok(html.opening.index(page)).fuccess
+            isGranted(_.OpeningWiki).??(env.opening.wiki.popularOpeningsWithShortWiki) map { wikiMissing =>
+              Ok(html.opening.index(page, wikiMissing))
+            }
           }
         }
     }
@@ -66,7 +68,7 @@ final class Opening(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             _ => redirect.fuccess,
-            text => env.opening.wikiApi.write(op, text, me.user) inject redirect
+            text => env.opening.wiki.write(op, text, me.user) inject redirect
           )
       }
     }

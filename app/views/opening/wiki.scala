@@ -1,5 +1,6 @@
 package views.html.opening
 
+import chess.opening.FullOpening
 import controllers.routes
 
 import lila.api.Context
@@ -50,5 +51,15 @@ object wiki {
         }
       )
     }
+  )
+
+  def showMissing(ops: List[FullOpening]) = div(cls := "opening__wiki__missing")(
+    h2("Insufficient descriptions"),
+    p("Sorted by opening popularity"),
+    ul(
+      ops map { op =>
+        li(a(href := routes.Opening.query(op.key))(op.name))
+      }
+    )
   )
 }

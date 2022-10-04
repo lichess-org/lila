@@ -63,9 +63,7 @@ final private class OpeningExplorer(
         case res =>
           res
             .body[JsValue]
-            .pp
             .validate[Position](positionReads)
-            .pp
             .fold(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.sum.some)

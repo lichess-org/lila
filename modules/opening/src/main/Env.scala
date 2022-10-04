@@ -16,15 +16,10 @@ final class Env(
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     cacheApi: CacheApi,
-    mongoCache: MongoCache.Api,
     appConfig: Configuration,
     cookieBaker: lila.common.LilaCookie,
     ws: StandaloneWSClient
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
   private lazy val wikiColl    = db(CollName("opening_wiki")).taggedWith[WikiColl]
@@ -33,7 +28,7 @@ final class Env(
 
   lazy val config = wire[OpeningConfigStore]
 
-  lazy val wikiApi = wire[OpeningWikiApi]
+  lazy val wiki = wire[OpeningWikiApi]
 
   lazy val api = wire[OpeningApi]
 
