@@ -10,7 +10,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
 ) => {
   await loadHighcharts('highchart');
   acpl.update = (d: any, mainline: any[]) =>
-    el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline));
+    el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline) as any);
 
   const area = window.Highcharts.theme.lichess.area;
   const line = window.Highcharts.theme.lichess.line;
@@ -31,7 +31,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
         cp = node.eval.cp;
-      } else return { y: undefined };
+      } else return { y: null };
 
       const turn = Math.floor((node.ply - 1) / 2) + 1;
       const dots = isWhite ? '.' : '...';
