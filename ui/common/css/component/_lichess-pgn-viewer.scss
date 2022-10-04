@@ -13,4 +13,7 @@ $lpv-font-shy: $c-font-dim;
 
 .lpv {
   @extend %box-neat-force;
+  &__player__title {
+    color: $c-brag;
+  }
 }
