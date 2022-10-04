@@ -61,7 +61,7 @@ object authorize {
                   cls := List(
                     "danger" -> OAuthScope.dangerList(scope)
                   )
-                )(scope.name)
+                )(scope.name.txt())
               }
             ),
           form3.actions(

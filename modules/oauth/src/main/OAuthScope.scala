@@ -1,75 +1,76 @@
 package lila.oauth
 
-sealed abstract class OAuthScope(val key: String, val name: String) {
+import lila.i18n.I18nKey
+import lila.i18n.I18nKeys.{ oauthScope => trans }
+
+sealed abstract class OAuthScope(val key: String, val name: I18nKey) {
   override def toString = s"Scope($key)"
 }
 
 object OAuthScope {
 
   object Preference {
-    case object Read  extends OAuthScope("preference:read", "Read preferences")
-    case object Write extends OAuthScope("preference:write", "Write preferences")
+    case object Read  extends OAuthScope("preference:read", trans.preferenceRead)
+    case object Write extends OAuthScope("preference:write", trans.preferenceWrite)
   }
 
   object Email {
-    case object Read extends OAuthScope("email:read", "Read email address")
+    case object Read extends OAuthScope("email:read", trans.emailRead)
   }
 
   object Challenge {
-    case object Read  extends OAuthScope("challenge:read", "Read incoming challenges")
-    case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
-    case object Bulk  extends OAuthScope("challenge:bulk", "Create many games at once for other players")
+    case object Read  extends OAuthScope("challenge:read", trans.challengeRead)
+    case object Write extends OAuthScope("challenge:write", trans.challengeWrite)
+    case object Bulk  extends OAuthScope("challenge:bulk", trans.challengeBulk)
   }
 
   object Study {
-    case object Read  extends OAuthScope("study:read", "Read private studies and broadcasts")
-    case object Write extends OAuthScope("study:write", "Create, update, delete studies and broadcasts")
+    case object Read  extends OAuthScope("study:read", trans.studyRead)
+    case object Write extends OAuthScope("study:write", trans.studyWrite)
   }
 
   object Tournament {
-    case object Write extends OAuthScope("tournament:write", "Create, update and join tournaments")
+    case object Write extends OAuthScope("tournament:write", trans.tournamentWrite)
   }
 
   object Racer {
-    case object Write extends OAuthScope("racer:write", "Create and join puzzle races")
+    case object Write extends OAuthScope("racer:write", trans.racerWrite)
   }
 
   object Puzzle {
-    case object Read extends OAuthScope("puzzle:read", "Read puzzle activity")
+    case object Read extends OAuthScope("puzzle:read", trans.puzzleRead)
   }
 
   object Team {
-    case object Read  extends OAuthScope("team:read", "Read private team information")
-    case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
+    case object Read  extends OAuthScope("team:read", trans.teamRead)
+    case object Write extends OAuthScope("team:write", trans.teamWrite)
   }
 
   object Follow {
-    case object Read  extends OAuthScope("follow:read", "Read followed players")
-    case object Write extends OAuthScope("follow:write", "Follow and unfollow other players")
+    case object Read  extends OAuthScope("follow:read", trans.followRead)
+    case object Write extends OAuthScope("follow:write", trans.followWrite)
   }
 
   object Msg {
-    case object Write extends OAuthScope("msg:write", "Send private messages to other players")
+    case object Write extends OAuthScope("msg:write", trans.msgWrite)
   }
 
   object Board {
-    case object Play extends OAuthScope("board:play", "Play games with the board API")
+    case object Play extends OAuthScope("board:play", trans.boardPlay)
   }
 
   object Bot {
-    case object Play extends OAuthScope("bot:play", "Play games with the bot API")
+    case object Play extends OAuthScope("bot:play", trans.botPlay)
   }
 
   object Engine {
-    case object Read  extends OAuthScope("engine:read", "View and use your external engines")
-    case object Write extends OAuthScope("engine:write", "Create and update external engines")
+    case object Read  extends OAuthScope("engine:read", trans.engineRead)
+    case object Write extends OAuthScope("engine:write", trans.engineWrite)
   }
 
   object Web {
-    case object Login
-        extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
-    case object Mod
-        extends OAuthScope("web:mod", "Use moderator tools (within the bounds of your permissions)")
+    case object Login extends OAuthScope("web:login", trans.webLogin)
+    case object Mod   extends OAuthScope("web:mod", trans.webMod)
   }
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])

@@ -52,7 +52,7 @@ object create {
                   )
                 ),
                 label(`for` := id, st.title := disabled.option("You already have played games!"))(
-                  scope.name,
+                  scope.name.txt(),
                   em(scope.key)
                 )
               )
