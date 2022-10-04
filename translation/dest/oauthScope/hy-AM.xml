@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="preferenceRead">Կարդալ կարգավորումները</string>
+  <string name="preferenceWrite">Գրել կարգավորումները</string>
+  <string name="emailRead">Կարդալ էլփոստի հասցեները</string>
+  <string name="challengeRead">Կարդալ մուտքային մարտահրավերները</string>
+  <string name="challengeWrite">Գրել մուտքային մարտահրավերները</string>
+  <string name="challengeBulk">Ստեղծել բազմաթիվ պարտիաներ միանգամից այլ խաղացողների համար</string>
+  <string name="studyRead">Կարդալ փակ ստուդիաները և հեռարձակումները</string>
+  <string name="studyWrite">Ստեղծել, թարմացնել և հեռացնել ստուդիաները և հեռարձակումները</string>
+</resources>
