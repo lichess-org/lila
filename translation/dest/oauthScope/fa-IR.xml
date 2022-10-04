@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailRead">آدرس ایمیل را بخوانید</string>
+  <string name="studyWrite">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
+  <string name="tournamentWrite">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
+  <string name="racerWrite">مسابقات پازل را ایجاد کنید و به آن بپیوندید</string>
+  <string name="puzzleRead">فعالیت پازل را بخوانید</string>
+  <string name="teamRead">اطلاعات تیم خصوصی را بخوانید</string>
+  <string name="teamWrite">پیوستن، ترک کردن و مدیریت تیم</string>
+  <string name="followRead">بازیکنان دنبال شده را بخوانید</string>
+  <string name="followWrite">سایر بازیکنان را دنبال و آنفالو کنید</string>
+  <string name="msgWrite">برای سایر بازیکنان پیام خصوصی بفرستید</string>
+  <string name="engineRead">انجین خارجی خود را مشاهده و استفاده کنید</string>
+  <string name="engineWrite">ایجاد و به روز رسانی انجین خارجی</string>
+</resources>
