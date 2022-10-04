@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">Read preferences</string>
+  <string name="preferenceWrite">Write preference</string>
+  <string name="emailRead">Read email address</string>
+  <string name="challengeRead">Read incoming challenges</string>
+  <string name="challengeWrite">Write incoming challenges</string>
+  <string name="challengeBulk">Create many games at once for other players</string>
+  <string name="studyRead">Read private studies and broadcasts</string>
+  <string name="studyWrite">Create, update, delete studies and broadcasts</string>
+  <string name="tournamentWrite">Create, update, and join tournaments</string>
+  <string name="racerWrite">Create and join puzzle races</string>
+  <string name="puzzleRead">Read puzzle activity</string>
+  <string name="teamRead">Read private team information</string>
+  <string name="teamWrite">Join, leave, and manage team</string>
+  <string name="followRead">Read followed players</string>
+  <string name="followWrite">Follow and unfollow other players</string>
+  <string name="msgWrite">Send private message to other players</string>
+  <string name="boardPlay">Play games with board api</string>
+  <string name="botPlay">Play games with the bot api</string>
+  <string name="engineRead">View and use your external engine</string>
+  <string name="engineWrite">Create and update external engine</string>
+  <string name="webLogin">Create authenticated website sessions (grants full access!)</string>
+  <string name="webMod">Use moderator tools (within bounds of your permission)</string>
+</resources>

@@ -2433,4 +2433,30 @@ val `nbYearsAgo` = new I18nKey("timeago:nbYearsAgo")
 
 }
 
+object oauthScope {
+val `preferenceRead` = new I18nKey("oauthScope:preferenceRead")
+val `preferenceWrite` = new I18nKey("oauthScope:preferenceWrite")
+val `emailRead` = new I18nKey("oauthScope:emailRead")
+val `challengeRead` = new I18nKey("oauthScope:challengeRead")
+val `challengeWrite` = new I18nKey("oauthScope:challengeWrite")
+val `challengeBulk` = new I18nKey("oauthScope:challengeBulk")
+val `studyRead` = new I18nKey("oauthScope:studyRead")
+val `studyWrite` = new I18nKey("oauthScope:studyWrite")
+val `tournamentWrite` = new I18nKey("oauthScope:tournamentWrite")
+val `racerWrite` = new I18nKey("oauthScope:racerWrite")
+val `puzzleRead` = new I18nKey("oauthScope:puzzleRead")
+val `teamRead` = new I18nKey("oauthScope:teamRead")
+val `teamWrite` = new I18nKey("oauthScope:teamWrite")
+val `followRead` = new I18nKey("oauthScope:followRead")
+val `followWrite` = new I18nKey("oauthScope:followWrite")
+val `msgWrite` = new I18nKey("oauthScope:msgWrite")
+val `boardPlay` = new I18nKey("oauthScope:boardPlay")
+val `botPlay` = new I18nKey("oauthScope:botPlay")
+val `engineRead` = new I18nKey("oauthScope:engineRead")
+val `engineWrite` = new I18nKey("oauthScope:engineWrite")
+val `webLogin` = new I18nKey("oauthScope:webLogin")
+val `webMod` = new I18nKey("oauthScope:webMod")
+
+}
+
 }
