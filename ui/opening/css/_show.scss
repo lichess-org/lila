@@ -54,7 +54,7 @@ $op-col-one: $mq-not-x-small;
   &__popularity-actions {
     display: flex;
     flex-flow: column;
-    @include breakpoint($op-col-many) {
+    @include breakpoint($mq-small) {
       flex-flow: row nowrap;
     }
     align-items: stretch;
@@ -62,22 +62,27 @@ $op-col-one: $mq-not-x-small;
   }
   &__popularity {
     flex: 1 1 auto;
+    margin-top: -10px;
     &__chart {
-      height: 10em;
-      max-height: 10em;
+      $op-chart-height: calc(160px - 2vmin);
+      width: 100%;
+      height: $op-chart-height;
+      max-height: $op-chart-height;
     }
   }
   &__actions {
     display: flex;
     flex-flow: row;
-    @include breakpoint($op-col-many) {
+    @include breakpoint($mq-small) {
+      flex: 2 1 auto;
       flex-flow: column;
+      order: 1;
     }
     align-items: stretch;
     gap: 2em;
     .button {
       text-align: $start-direction;
-      max-width: 15em;
+      max-width: 17em;
       white-space: normal;
     }
   }

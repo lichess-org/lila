@@ -51,7 +51,7 @@ object show {
           )
         ),
         div(cls := "opening__intro")(
-          div(cls := "opening__intro__result-lpv")(
+          div(cls := "opening__intro__result-lpv lpv--moves-bottom")(
             div(cls := "opening__intro__result result-bar")(page.explored map { exp =>
               resultSegments(exp.result)
             }),
