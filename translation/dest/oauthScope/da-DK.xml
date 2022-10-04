@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferenceRead">Læsepræferencer</string>
+  <string name="preferenceWrite">Skrivepræference</string>
   <string name="emailRead">Læs e-mailadresse</string>
   <string name="challengeRead">Læs indgående udfordringer</string>
   <string name="challengeWrite">Skriv indgående udfordringer</string>
   <string name="challengeBulk">Opret mange partier på én gang for andre spillere</string>
+  <string name="studyRead">Læs private studier og udsendelser</string>
+  <string name="studyWrite">Opret, opdater, slet studier og udsendelser</string>
   <string name="tournamentWrite">Opret, opdater og deltag i turneringer</string>
+  <string name="racerWrite">Opret og deltag i opgave-race</string>
   <string name="puzzleRead">Læs opgaveaktivitet</string>
   <string name="teamRead">Læs privat holdinformation</string>
   <string name="teamWrite">Tilmeld, forlad og administrer hold</string>
+  <string name="followRead">Læs fulgte spillere</string>
+  <string name="followWrite">Følg og affølg andre spillere</string>
   <string name="msgWrite">Send privat besked til andre spillere</string>
   <string name="boardPlay">Spil partier med bræt-api</string>
   <string name="botPlay">Spil partier med bot-api</string>
