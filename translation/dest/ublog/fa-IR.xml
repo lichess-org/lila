@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">تارنگارِ %s</string>
+  <string name="xBlog">وبلاگ %s</string>
   <string name="newPost">نوشتهٔ جدید</string>
   <string name="editYourBlogPost">نوشتهٔ تارنگارِ خود را ویرایش نمایید</string>
   <string name="saveDraft">پیش‌نویس را ذخیره نمایید</string>
@@ -35,6 +35,7 @@
   <string name="uploadAnImageForYourPost">بارگذاری یک عکس برای پست شما</string>
   <string name="imageAlt">مقدار alternative برای عکس</string>
   <string name="imageCredit">منبع عکس</string>
+  <string name="deleteBlog">این پست وبلاگ را قطعا حذف کنید</string>
   <string name="deleteImage">حذف تصویر</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">استفاده از تصاویر از وب سایت های زیر بی خطر است:</string>
   <string name="selectPostTopics">موضوعی که پست شما درباره آن است انتخاب کنید</string>
