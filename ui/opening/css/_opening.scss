@@ -1,4 +1,3 @@
-@import 'index';
 @import 'result';
 @import 'show';
 @import 'config';
@@ -7,6 +6,7 @@
 @import 'next';
 @import 'games';
 @import 'wiki';
+@import 'tree';
 
 .opening {
   &__error {

@@ -118,9 +118,10 @@ GET   /blog/community/:lang            controllers.Ublog.community(lang, page: I
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
-POST  /opening/config/*q               controllers.Opening.config(q)
+POST  /opening/config/:q               controllers.Opening.config(q)
 POST  /opening/wiki/:key               controllers.Opening.wikiWrite(key)
-GET   /opening/*q                      controllers.Opening.query(q)
+GET   /opening/tree                    controllers.Opening.tree
+GET   /opening/:q                      controllers.Opening.query(q)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home

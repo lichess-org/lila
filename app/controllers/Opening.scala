@@ -74,4 +74,8 @@ final class Opening(env: Env) extends LilaController(env) {
       }
     }
   }
+
+  def tree = Open { implicit ctx =>
+    Ok(html.opening.tree(lila.opening.Opening.Tree.compute, env.opening.api.readConfig)).fuccess
+  }
 }

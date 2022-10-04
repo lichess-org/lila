@@ -17,6 +17,44 @@ object Opening {
 
   def isShortest(op: FullOpening) = shortestLines.get(op.key).has(op)
 
+  case class Tree(children: List[(Tree.NameOrOpening, Tree)])
+
+  object Tree {
+
+    type NameOrOpening = (String, Option[FullOpening])
+
+    private val emptyNode = TreeNode(Map.empty)
+
+    private case class TreeNode(children: Map[NameOrOpening, TreeNode]) {
+      def update(path: List[NameOrOpening]): TreeNode = path match {
+        case Nil         => this
+        case last :: Nil => copy(children = children.updatedWith(last)(_ orElse emptyNode.some))
+        case p :: rest =>
+          copy(children = children.updatedWith(p)(node => (node | emptyNode).update(rest).some))
+      }
+
+      def toTree: Tree = Tree(
+        children.toList
+          .sortBy(_._1._1)
+          .map { case (op, node) =>
+            (op, node.toTree)
+          }
+      )
+    }
+
+    lazy val compute: Tree =
+      shortestLines.values
+        .map { op =>
+          val sections = Opening.sectionsOf(op.name)
+          sections.toList.zipWithIndex map { case (name, i) =>
+            (name, Opening.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))))
+          }
+        }
+        .toList
+        .foldLeft(emptyNode)(_ update _)
+        .toTree
+  }
+
   /*
    * Given 2 opening names separated by a move,
    * shorten the next name to avoid repeating what's in the prev one.

@@ -36,7 +36,10 @@ object index {
     ) {
       main(cls := "page box box-pad opening opening--index")(
         searchAndConfig(page.query.config, "", "index"),
-        h1("Chess openings (beta)"),
+        div(cls := "box__top")(
+          h1("Chess openings"),
+          a(href := routes.Opening.tree)("Name tree")
+        ),
         search.resultsList(Nil),
         page.explored.map(whatsNext) |
           p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
