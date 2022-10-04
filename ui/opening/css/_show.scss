@@ -15,9 +15,10 @@
   &__intro {
     display: flex;
     flex-flow: column;
-    align-items: flex-start;
+    align-items: stretch;
     @include breakpoint($mq-x-small) {
       flex-flow: row;
+      align-items: flex-start;
     }
     gap: $block-gap;
     margin-bottom: 3em;
