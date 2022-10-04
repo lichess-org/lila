@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">Lire les préférences</string>
+  <string name="preferenceWrite">Écrire les préférences</string>
+  <string name="emailRead">Lire l\'adresse e-mail</string>
+  <string name="challengeRead">Lire les défis entrants</string>
+  <string name="challengeWrite">Écrire les défis entrants</string>
+  <string name="challengeBulk">Créer plusieurs parties à la fois pour d\'autres joueurs</string>
+  <string name="studyRead">Lire les études privées et les diffusions</string>
+  <string name="studyWrite">Créer, mettre à jour, supprimer les études et diffusions</string>
+  <string name="tournamentWrite">Créer, mettre à jour et rejoindre les tournois</string>
+  <string name="racerWrite">Créer et rejoindre les courses de problèmes</string>
+  <string name="puzzleRead">Lire l\'activité des problèmes</string>
+  <string name="teamRead">Lire les informations de l\'équipe privée</string>
+  <string name="teamWrite">Rejoindre, quitter et gérer l\'équipe</string>
+  <string name="followRead">Lire les joueurs suivis</string>
+  <string name="followWrite">Suivre ou ne plus suivre d\'autres joueurs</string>
+  <string name="msgWrite">Envoyer un message privé aux autres joueurs</string>
+  <string name="boardPlay">Jouer des parties avec l\'api d\'un plateau</string>
+  <string name="botPlay">Jouer des parties avec l\'api d\'un robot</string>
+  <string name="engineRead">Voir et utiliser votre moteur externe</string>
+  <string name="engineWrite">Créer et mettre à jour un moteur externe</string>
+  <string name="webLogin">Créer des sessions web authentifiées (donne un accès complet !)</string>
+  <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
+</resources>

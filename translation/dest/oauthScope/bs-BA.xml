@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">Pročitajte preference</string>
+  <string name="preferenceWrite">Napišite preference</string>
+  <string name="emailRead">Pročitajte adresu e-pošte</string>
+  <string name="challengeRead">Pročitajte dolazne izazove</string>
+  <string name="challengeWrite">Napišite dolazne izazove</string>
+  <string name="challengeBulk">Kreirajte mnogo igara odjednom za druge igrače</string>
+  <string name="studyRead">Čitajte privatne studije i emisije</string>
+  <string name="studyWrite">Kreirajte, ažurirajte, brišite studije i emisije</string>
+  <string name="tournamentWrite">Kreirajte, ažurirajte i pridružite se turnirima</string>
+  <string name="racerWrite">Kreirajte i pridružite se utrkama u problemima</string>
+  <string name="puzzleRead">Pročitajte aktivnost u vezi s problemima</string>
+  <string name="teamRead">Pročitajte informacije o privatnom timu</string>
+  <string name="teamWrite">Pridružite se timu, napustite ga i upravljajte njim</string>
+  <string name="followRead">Čitajte praćene igrače</string>
+  <string name="followWrite">Pratite i prestanite pratiti druge igrače</string>
+  <string name="msgWrite">Pošaljite privatnu poruku drugim igračima</string>
+  <string name="boardPlay">Igrajte partije s API-tablom</string>
+  <string name="botPlay">Igrajte partije s API-botom</string>
+  <string name="engineRead">Pogledajte i koristite Vaš vanjski šahovski program</string>
+  <string name="engineWrite">Kreirajte i ažurirajte vanjski šahovski program</string>
+  <string name="webLogin">Kreirajte autorizirane sesije na veb-sajtu (omogućava puni pristup!)</string>
+  <string name="webMod">Koristite moderatorske alate (u granicama Vaših dozvola)</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">Прочитать настройки</string>
+  <string name="preferenceWrite">Записать настройки</string>
+  <string name="emailRead">Прочитать адреса электронной почты</string>
+  <string name="challengeRead">Прочитать входящие вызовы</string>
+  <string name="challengeWrite">Записать входящие вызовы</string>
+  <string name="challengeBulk">Создать множество партий за раз для других игроков</string>
+  <string name="studyRead">Прочитать закрытые студии и трансляции</string>
+  <string name="studyWrite">Создать, обновить и удалить студии и трансляции</string>
+  <string name="tournamentWrite">Создать, обновить и присоединиться к турнирам</string>
+  <string name="racerWrite">Создать и присоединиться к гонкам задач</string>
+  <string name="puzzleRead">Читать активность в задачах</string>
+  <string name="teamRead">Читать информацию из закрытых клубов</string>
+  <string name="teamWrite">Присоединяться, покидать и управлять клубами</string>
+  <string name="followRead">Читать подписчиков</string>
+  <string name="followWrite">Подписаться и отписаться от других игроков</string>
+  <string name="msgWrite">Отправлять частные сообщения другим игрокам</string>
+  <string name="boardPlay">Играть партии с API электронных досок</string>
+  <string name="botPlay">Играть партии с API ботов</string>
+  <string name="engineRead">Смотреть и использовать ваш внешний движок</string>
+  <string name="engineWrite">Создавать и изменять внешние движки</string>
+  <string name="webLogin">Создать аутентифицированные сеансы веб-сайтов (предоставляет полный доступ!)</string>
+  <string name="webMod">Использовать инструменты модератора (в пределах вашего разрешения)</string>
+</resources>

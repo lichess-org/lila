@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">Lesepreferansar</string>
+  <string name="preferenceWrite">Skrivepreferansar</string>
+  <string name="emailRead">Les e-postadresse</string>
+  <string name="challengeRead">Les innkomne utfordringar</string>
+  <string name="challengeWrite">Skriv innkomne utfordringar</string>
+  <string name="challengeBulk">Opprett mange parti på ein gong for andre spelarar</string>
+  <string name="studyRead">Les private studiar og sendingar</string>
+  <string name="studyWrite">Opprett, oppdater, slett studiar og sendingar</string>
+  <string name="tournamentWrite">Opprett, oppdater og delta i turneringar</string>
+  <string name="racerWrite">Opprett og delta i oppgåvekappløp</string>
+  <string name="puzzleRead">Les oppgåveaktivitet</string>
+  <string name="teamRead">Les privat laginformasjon</string>
+  <string name="teamWrite">Delta i, forlat og administrer lag</string>
+  <string name="followRead">Les følgde spelarar</string>
+  <string name="followWrite">Følg/ikkje følg andre spelarar</string>
+  <string name="msgWrite">Send privat melding til andre spelarar</string>
+  <string name="boardPlay">Spel parti med brett-api</string>
+  <string name="botPlay">Spel parti med bot-api</string>
+  <string name="engineRead">Sjå og bruk din eksterne sjakkmotor</string>
+  <string name="engineWrite">Opprett og oppdater ekstern motor</string>
+  <string name="webLogin">Opprett autentiserte nettstadsesjonar (gjev full tilgjenge!)</string>
+  <string name="webMod">Bruk moderatorverktøy (som er innanfor dine tilgangsrettar)</string>
+</resources>

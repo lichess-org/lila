@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">Pročitajte postavke</string>
+  <string name="emailRead">Pročitajte adrese e-pošte</string>
+  <string name="challengeRead">Pročitajte dolazne izazove</string>
+  <string name="challengeBulk">Stvorite mnogo igara odjednom za druge igrače</string>
+  <string name="studyRead">Čitajte privatne studije i emisije</string>
+  <string name="studyWrite">Stvorite, ažurirajte, brišite studija i emisije</string>
+  <string name="tournamentWrite">Stvorite, ažurirajte i pridružite se turnirima</string>
+  <string name="racerWrite">Stvorite i pridružite se utrkama zagonetki</string>
+  <string name="teamRead">Pročitajte informacije o privatnom timu</string>
+  <string name="teamWrite">Pridružite se, napustite i upravljajte timom</string>
+</resources>

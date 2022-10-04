@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">Leer preferencias</string>
+  <string name="emailRead">Leer dirección de correo electrónico</string>
+  <string name="challengeRead">Leer desafíos entrantes</string>
+  <string name="challengeBulk">Crear varias partidas a la vez para otros jugadores</string>
+  <string name="studyRead">Leer estudios privados y transmisiones</string>
+  <string name="studyWrite">Crear, actualizar, eliminar estudios y emisiones</string>
+  <string name="tournamentWrite">Crear, actualizar y unirse a torneos</string>
+  <string name="teamRead">Leer información privada del equipo</string>
+  <string name="teamWrite">Unirse, salir y administrar el equipo</string>
+  <string name="followRead">Leer jugadores seguidos</string>
+  <string name="followWrite">Seguir y dejar de seguir a otros jugadores</string>
+  <string name="msgWrite">Enviar mensaje privado a otros jugadores</string>
+  <string name="boardPlay">Juega con la API del tablero</string>
+  <string name="botPlay">Juega con la API de bot</string>
+  <string name="engineRead">Ver y usar tu motor externo</string>
+  <string name="engineWrite">Crear y actualizar motor externo</string>
+  <string name="webLogin">Crear sesiones web autenticadas (¡concede acceso completo!)</string>
+  <string name="webMod">Usar herramientas de moderador (dentro de los límites de tu permiso)</string>
+</resources>
