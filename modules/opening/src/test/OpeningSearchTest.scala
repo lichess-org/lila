@@ -11,7 +11,7 @@ class OpeningSearchTest extends Specification {
       OpeningSearch.tokenize("foo") must_== Set("foo")
       OpeningSearch.tokenize("FoO") must_== Set("foo")
       OpeningSearch.tokenize("FoO bar") must_== Set("foo", "bar")
-      OpeningSearch.tokenize("FòO-_ b**-ar") must_== Set("foo", "bar")
+      OpeningSearch.tokenize("FòO-_ bar**-king") must_== Set("foo", "bar", "king")
     }
     "literal" in {
       search("Sicilian Defense").headOption.map(_.name) must beSome("Sicilian Defense")
