@@ -67,7 +67,7 @@ object OpeningSearch {
       clean.split(' ').toList.map(_.trim).filter(_.nonEmpty).grouped(2).toList.zipWithIndex.map {
         case (moves, index) => s"${index + 1}. ${moves mkString " "}"
       } mkString " "
-    Query(clean, numberedPgn, tokenize(clean)).pp
+    Query(clean, numberedPgn, tokenize(clean))
   }
   private case class Entry(opening: FullOpening, tokens: Set[Token])
   private case class Match(opening: FullOpening, score: Score)
