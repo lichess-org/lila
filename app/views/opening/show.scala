@@ -52,7 +52,9 @@ object show {
         ),
         div(cls := "opening__intro")(
           div(cls := "opening__intro__result-lpv")(
-            div(cls := "opening__intro__result result-bar")(resultSegments(page.explored.result)),
+            div(cls := "opening__intro__result result-bar")(page.explored map { exp =>
+              resultSegments(exp.result)
+            }),
             div(
               cls              := "lpv lpv--todo lpv--moves-bottom",
               st.data("pgn")   := page.query.pgnString,
@@ -88,10 +90,14 @@ object show {
                 )
               }
             ),
-            div(cls      := "opening__popularity")(
-              canvas(cls := "opening__popularity__chart")
+            div(cls := "opening__popularity")(
+              if (page.explored.??(_.history).nonEmpty)
+                canvas(cls := "opening__popularity__chart")
+              else p(cls := "opening__error")("Couldn't fetch the popularity history, try again later.")
             ),
-            div(cls := "opening__intro__actions")(
+            div(
+              cls := "opening__intro__actions"
+            )(
               puzzle.map { p =>
                 a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(p.family.key.value))(
                   "Train with puzzles"
@@ -107,7 +113,12 @@ object show {
         ),
         div(cls := "opening__panels")(
           views.html.base.bits.ariaTabList("opening", "next")(
-            ("next", "Popular continuations", whatsNext(page)),
+            (
+              "next",
+              "Popular continuations",
+              page.explored.map(whatsNext) |
+                p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
+            ),
             ("games", "Example games", exampleGames(page))
           )
         )
@@ -115,7 +126,7 @@ object show {
     }
 
   private def exampleGames(page: OpeningPage)(implicit ctx: Context) =
-    div(cls := "opening__games")(page.explored.games.map { game =>
+    div(cls := "opening__games")(page.explored.??(_.games).map { game =>
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom",
         st.data("pgn")   := game.pgn.toString,

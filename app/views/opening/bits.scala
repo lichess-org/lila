@@ -9,14 +9,14 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.opening.{ Opening, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.{ Opening, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
 import lila.opening.OpeningSearchResult
 
 private object bits {
 
-  def whatsNext(page: OpeningPage)(implicit ctx: Context) =
+  def whatsNext(explored: OpeningExplored)(implicit ctx: Context) =
     div(cls := "opening__nexts")(
-      page.explored.next.map { next =>
+      explored.next.map { next =>
         a(cls := "opening__next", href := queryUrl(next.query))(
           span(cls := "opening__next__popularity")(
             span(style := s"width:${percentNumber(next.percent)}%")(
@@ -68,7 +68,7 @@ private object bits {
       page match {
         case Some(p) =>
           s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> p.explored.history)
+              Json.obj("history" -> p.explored.??(_.history))
             )})"""
         case None =>
           s"""LichessOpening.search()"""

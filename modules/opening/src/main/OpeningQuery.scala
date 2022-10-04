@@ -35,7 +35,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
     case (_, moves)        => moves mkString " "
   }
 
-  override def toString = s"$pgn $opening"
+  override def toString = s"$key $config"
 }
 
 object OpeningQuery {

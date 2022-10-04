@@ -29,9 +29,9 @@ final class OpeningApi(
       explorer.queryHistory(query) zip
       allGamesHistory.get(query.config) zip
       query.opening.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap {
-        case (((Some(stats), history), allHistory), wiki) =>
+        case (((stats, history), allHistory), wiki) =>
           for {
-            games <- gameRepo.gamesFromSecondary(stats.games.map(_.id))
+            games <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
             withPgn <- games.map { g =>
               pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
             }.sequenceFu

@@ -37,7 +37,8 @@ object index {
         searchAndConfig(page.query.config, "", "index"),
         h1("Chess openings (beta)"),
         search.resultsList(Nil),
-        whatsNext(page)
+        page.explored.map(whatsNext) |
+          p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
       )
     }
 

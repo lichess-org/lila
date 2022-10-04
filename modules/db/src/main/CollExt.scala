@@ -77,7 +77,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[Map[I, D]] =
+    )(docId: D => I): Fu[Map[I, D]] = ids.nonEmpty ??
       projection
         .fold(coll find $inIds(ids)) { proj =>
           coll.find($inIds(ids), proj.some)
@@ -92,7 +92,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[List[D]] =
+    )(docId: D => I): Fu[List[D]] = ids.nonEmpty ??
       idsMap[D, I](ids, projection, readPreference)(docId) map { m =>
         ids.view.flatMap(m.get).toList
       }
@@ -101,7 +101,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[List[Option[D]]] =
+    )(docId: D => I): Fu[List[Option[D]]] = ids.nonEmpty ??
       idsMap[D, I](ids, projection, readPreference)(docId) map { m =>
         ids.view.map(m.get).toList
       }

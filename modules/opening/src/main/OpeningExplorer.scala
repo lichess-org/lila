@@ -18,9 +18,7 @@ final private class OpeningExplorer(
   def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        queryParameters(query) ::: List(
-          "moves" -> "12"
-        ): _*
+        queryParameters(query) ::: List("moves" -> "12"): _*
       )
       .get()
       .flatMap {
@@ -35,6 +33,10 @@ final private class OpeningExplorer(
               err => fufail(s"Couldn't parse opening data for $query: $err"),
               data => fuccess(data.some)
             )
+      }
+      .recover { case e: Exception =>
+        logger.warn(s"Opening stats $query", e)
+        none
       }
 
   def queryHistory(query: OpeningQuery): Fu[PopularityHistoryAbsolute] =
