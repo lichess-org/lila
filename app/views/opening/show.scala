@@ -5,9 +5,9 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.opening.{ OpeningPage, OpeningQuery, OpeningWiki }
-import lila.puzzle.PuzzleOpening
 import lila.opening.NamePart
+import lila.opening.{ OpeningPage, OpeningQuery }
+import lila.puzzle.PuzzleOpening
 
 object show {
 
@@ -62,34 +62,7 @@ object show {
             )(lpvPreload)
           ),
           div(cls := "opening__intro__content")(
-            div(cls := "opening__wiki")(
-              page.wiki
-                .flatMap(_.markup)
-                .fold(frag("No description of the opening, yet.")) { markup =>
-                  div(cls := "opening__wiki__markup")(raw(markup))
-                },
-              page.query.opening.ifTrue(isGranted(_.OpeningWiki)) map { op =>
-                details(cls := "opening__wiki__editor")(
-                  summary(cls := "opening__wiki__editor__summary")("Edit the description"),
-                  postForm(action := routes.Opening.wikiWrite(op.key))(
-                    form3.textarea(
-                      OpeningWiki.form
-                        .fill(~page.wiki.flatMap(_.revisions.headOption).map(_.text.value))("text")
-                    )(),
-                    form3.submit("Save and publish")
-                  ),
-                  details(cls := "opening__wiki__editor__revisions")(
-                    summary("Revision history"),
-                    page.wiki.??(_.revisions).map { rev =>
-                      div(cls := "opening__wiki__editor__revision")(
-                        div(momentFromNowOnce(rev.at), userIdLink(rev.by.some)),
-                        textarea(disabled := true)(rev.text)
-                      )
-                    }
-                  )
-                )
-              }
-            ),
+            wiki(page),
             div(cls := "opening__popularity")(
               if (page.explored.??(_.history).nonEmpty)
                 canvas(cls := "opening__popularity__chart")

@@ -28,7 +28,7 @@ final class OpeningApi(
     explorer.stats(query) zip
       explorer.queryHistory(query) zip
       allGamesHistory.get(query.config) zip
-      query.opening.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap {
+      query.openingAndExtraMoves._1.??(op => wikiApi(op, withWikiRevisions) dmap some) flatMap {
         case (((stats, history), allHistory), wiki) =>
           for {
             games <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
