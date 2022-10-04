@@ -60,6 +60,15 @@ object OpeningSearch {
         opening.pgn.split(' ').take(6).toSet
   }
 
+  private case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
+  private def makeQuery(userInput: String) = {
+    val clean = userInput.trim.toLowerCase
+    val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
+      clean.split(' ').toList.map(_.trim).filter(_.nonEmpty).grouped(2).toList.zipWithIndex.map {
+        case (moves, index) => s"${index + 1}. ${moves mkString " "}"
+      } mkString " "
+    Query(clean, numberedPgn, tokenize(clean)).pp
+  }
   private case class Entry(opening: FullOpening, tokens: Set[Token])
   private case class Match(opening: FullOpening, score: Score)
 
@@ -68,34 +77,40 @@ object OpeningSearch {
       Entry(op, tokenize(op))
     }.toList
 
-  private def scoreOf(search: Set[Token], entry: Entry): Option[Score] = {
+  private def scoreOf(query: Query, entry: Entry): Option[Score] = {
     def exactMatch(token: Token) =
       entry.tokens(token) ||
         entry.tokens(s"${token}s") // King's and Queen's can be matched by king and queen
-    search
-      .foldLeft((search, 0)) { case ((remaining, score), token) =>
-        if (exactMatch(token)) (remaining - token, score + token.size * 100)
-        else (remaining, score)
-      } match {
-      case (remaining, score) =>
-        score + remaining.map { t =>
-          entry.tokens.map { e =>
-            if (e startsWith t) t.size * 50
-            else if (e contains t) t.size * 20
-            else 0
+    if (
+      entry.opening.pgn.startsWith(query.raw) ||
+      entry.opening.pgn.startsWith(query.numberedPgn) ||
+      entry.opening.uci.startsWith(query.raw)
+    )
+      (query.raw.size * 1000 - entry.opening.nbMoves)
+    else
+      query.tokens
+        .foldLeft((query.tokens, 0)) { case ((remaining, score), token) =>
+          if (exactMatch(token)) (remaining - token, score + token.size * 100)
+          else (remaining, score)
+        } match {
+        case (remaining, score) =>
+          score + remaining.map { t =>
+            entry.tokens.map { e =>
+              if (e startsWith t) t.size * 50
+              else if (e contains t) t.size * 20
+              else 0
+            }.sum
           }.sum
-        }.sum
-    }
+      }
   }.some.filter(0 <).map(_ - entry.opening.key.size)
 
   private def searchOrdering =
     Ordering.by[Match, Score] { case Match(_, score) => score }
 
   def apply(q: String, max: Int): List[FullOpening] = Chronometer.syncMon(_.opening.searchTime) {
-    val searchTokens = tokenize(q)
     index
       .flatMap { entry =>
-        scoreOf(searchTokens, entry) map {
+        scoreOf(makeQuery(q), entry) map {
           Match(entry.opening, _)
         }
       }
