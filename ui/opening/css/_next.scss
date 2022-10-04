@@ -51,7 +51,7 @@
       }
       cg-board {
         box-shadow: none;
-        background-color: rgba($c-bg-box, 0.3);
+        background-color: rgba($c-bg-box, 0.4);
         @if $theme-dark {
           background-blend-mode: darken;
         } @else {
@@ -59,7 +59,7 @@
         }
       }
       piece {
-        opacity: 0.5;
+        opacity: 0.6;
         &.highlight {
           opacity: 1;
         }
