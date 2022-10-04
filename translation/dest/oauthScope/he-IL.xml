@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferenceRead">הקראת העדפות</string>
+  <string name="preferenceWrite">כתיבת העדפה</string>
+  <string name="emailRead">הקראת כתובת אימייל</string>
+  <string name="challengeRead">הקראת הזמנות ממתינות</string>
+  <string name="challengeWrite">כתיבת הזמנות ממתינות</string>
+  <string name="challengeBulk">יצירת מספר משחקים במקביל עבור שחקנים אחרים</string>
+  <string name="studyRead">הקראת לוחות למידה פרטיים והקרנות</string>
+  <string name="studyWrite">יצירה, עדכון ומחיקה של לוחות למידה והקרנות</string>
+  <string name="tournamentWrite">יצירה, עדכון והצטרפות לטורנירים</string>
+  <string name="racerWrite">יצירה והצטרפות למרוצי חידות</string>
+  <string name="puzzleRead">הקראה של פעילות החידות</string>
+  <string name="teamRead">הקראת מידע על קבוצות פרטיות</string>
+  <string name="teamWrite">הצטרפות, יצירה וניהול של קבוצה</string>
+  <string name="followRead">הקראה של השחקנים ברשימת המעקב</string>
+  <string name="followWrite">מעקב וביטול מעקב אחר שחקנים אחרים</string>
+  <string name="msgWrite">שליחת הודעה פרטית לשחקנים אחרים</string>
+  <string name="boardPlay">יצירת משחקים עם ה־API של הלוח</string>
+  <string name="botPlay">יצירת משחקים עם ה־API של הבוטים</string>
+  <string name="engineRead">צפייה ושימוש במנוע החיצוני שלך</string>
+  <string name="engineWrite">יצירה ועדכון של מנוע חיצוני</string>
+  <string name="webLogin">יצירה של התחברות מאובטחת לאתרים (עם גישה מלאה)!</string>
+  <string name="webMod">שימוש בכלים של מנהלים (במסגרת ההרשאות שלך)</string>
+</resources>
