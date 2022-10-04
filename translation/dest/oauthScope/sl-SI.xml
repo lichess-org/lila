@@ -13,4 +13,13 @@
   <string name="puzzleRead">Preberite dejavnost uganke</string>
   <string name="teamRead">Preberite informacije o zasebni ekipi</string>
   <string name="teamWrite">Pridružite se, zapustite in upravljajte ekipo</string>
+  <string name="followRead">Preberi spremljane igralce</string>
+  <string name="followWrite">Sledite in prenehajte slediti drugim igralcem</string>
+  <string name="msgWrite">Pošlji zasebno sporočilo drugim igralcem</string>
+  <string name="boardPlay">Igrajte igre z API-jem za deske</string>
+  <string name="botPlay">Igrajte igre z bot api</string>
+  <string name="engineRead">Oglejte si in uporabite svoj zunanji motor</string>
+  <string name="engineWrite">Ustvarite in posodobite zunanji motor</string>
+  <string name="webLogin">Ustvarite overjene seje spletnega mesta (omogoča popoln dostop!)</string>
+  <string name="webMod">Uporabite orodja moderatorja (v mejah vašega dovoljenja)</string>
 </resources>
