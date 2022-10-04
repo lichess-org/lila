@@ -56,7 +56,7 @@ object show {
               resultSegments(exp.result)
             }),
             div(
-              cls              := "lpv lpv--todo lpv--moves-bottom",
+              cls              := "lpv lpv--todo lpv--moves-false",
               st.data("pgn")   := page.query.pgnString,
               st.data("title") := page.opening.map(_.name)
             )(lpvPreload)
