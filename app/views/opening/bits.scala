@@ -99,7 +99,7 @@ private object bits {
   def percentNumber(v: Double) = f"${v}%1.2f"
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
 
-  def resultSegments(result: ResultCounts) = {
+  def resultSegments(result: ResultCounts) = result.sum > 0 option {
     import result._
     val (blackV, drawsV, whiteV) = exaggerateResults(result)
     frag(
