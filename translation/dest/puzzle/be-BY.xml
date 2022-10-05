@@ -13,7 +13,9 @@
   <string name="specialMoves">Адмысловыя хады</string>
   <string name="didYouLikeThisPuzzle">Ці спадабалася задача?</string>
   <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнай!</string>
-  <string name="yourPuzzleRatingWillNotChange">Ваш рэйтынг задач не зменіцца. Заўважце, што задачы гэта не спаборніцтва. Рэйтынг дапамагае абіраць найлепшыя задачы для вашага бягучага ўзроўня.</string>
+  <string name="upVote">Задача спадабалася</string>
+  <string name="downVote">Задача не спадабалася</string>
+  <string name="yourPuzzleRatingWillNotChange">Ваш рэйтынг задач не зменіцца. Заўважце, што задачы гэта не спаборніцтва. Рэйтынг дапамагае абіраць найлепшыя задачы для вашага бягучага ўзроўню.</string>
   <string name="findTheBestMoveForWhite">Знайдзіце найлепшы ход белых.</string>
   <string name="findTheBestMoveForBlack">Знайдзіце найлепшы ход чорных.</string>
   <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя задачы:</string>
