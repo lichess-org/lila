@@ -75,11 +75,11 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
   <string name="accounts">Kontoar</string>
   <string name="titlesAvailableOnLichess">Kva for titlar finst på Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess anerkjenner alle FIDE-titlar oppnådd etter OTB-spel (spel på fysiske brett), i tillegg til %1$s. Her er ei liste over FIDE-titlar:</string>
-  <string name="showYourTitle">Har du ein OTB-tittel kan du søkje om å få denne vist på kontoen din ved å fylle ut  %1$s, inkludert eit tydeleg bilde av eit identifikasjonsdokument/kort og ein selfie av deg sjølv med du held dokumentet/kortet.
+  <string name="showYourTitle">Har du ein OTB-tittel kan du søkje om å få denne vist på kontoen din ved å fylle ut %1$s, inkludert eit tydeleg bilde av eit identifikasjonsdokument/kort og ein selfie av deg sjølv der du held dokumentet/kortet.
 
  Spelarar med tittelen verifisert på Lichess får tilgjenge til å spele på \"Titled Arena \"-arrangementa.
 
- Det er også ein ærestittel:  %2$s tittelen.</string>
+ Det er også ein ærestittel: %2$s tittelen.</string>
   <string name="asWellAsManyNMtitles">mange nasjonale meistertitlar</string>
   <string name="verificationForm">skjema for verifisering</string>
   <string name="canIbecomeLM">Kan eg få tittelen Lichess Master (LM)?</string>
