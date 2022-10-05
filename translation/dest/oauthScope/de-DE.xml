@@ -7,4 +7,6 @@
   <string name="rememberTokenUse">Damit du dich daran erinnerst, wofür der Zugangsschlüssel gedacht ist</string>
   <string name="whatTheTokenCanDo">Was der Zugangsschlüssel in deinem Namen tun kann:</string>
   <string name="doNotShareIt">Der Zugangsschlüssel wird Zugriff auf dein Konto ermöglichen. Teile ihn mit NIEMANDEM!</string>
+  <string name="copyTokenNow">Stelle sicher, dass du deinen persönlichen Zugangsschlüssel jetzt kopierst. Du wirst ihn nicht erneut sehen können!</string>
+  <string name="teamLead">Verwalte von dir geleitete Teams: Sende PMs, entferne Mitglieder</string>
 </resources>
