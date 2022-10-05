@@ -96,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
   <string name="noGameFound">Nu a fost găsit nici un joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
+  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Deschideri</string>
   <string name="openingExplorer">Exploratorul de deschideri</string>
   <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
   <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
