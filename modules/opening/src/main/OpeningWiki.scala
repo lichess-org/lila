@@ -109,7 +109,16 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
     FullOpeningDB.shortestLines.get(key) ?? { op =>
       explorer.simplePopularity(op) flatMap {
         _ ?? { popularity =>
-          coll.update.one($id(key), $set("popularity" -> popularity), upsert = true).void
+          coll.update
+            .one(
+              $id(key),
+              $set(
+                "popularity"   -> popularity,
+                "popularityAt" -> DateTime.now
+              ),
+              upsert = true
+            )
+            .void
         }
       }
     }

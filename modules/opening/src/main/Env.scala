@@ -19,7 +19,7 @@ final class Env(
     appConfig: Configuration,
     cookieBaker: lila.common.LilaCookie,
     ws: StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
   private lazy val wikiColl    = db(CollName("opening_wiki")).taggedWith[WikiColl]
@@ -33,6 +33,14 @@ final class Env(
   lazy val api = wire[OpeningApi]
 
   lazy val search = wire[OpeningSearch]
+
+  scheduler.scheduleOnce(1 minute) {
+    lila.common.Future
+      .applySequentially(chess.opening.FullOpeningDB.shortestLines.values.toList) { op =>
+        lila.common.Future.delay(200 millis)(wiki(op, false)).void
+      }
+      .unit
+  }
 }
 
 trait ExplorerEndpoint
