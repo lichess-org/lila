@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Pots incloure més partides des del menú de preferències</string>
+  <string name="openings">Obertura</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="openingEndgameExplorer">Explorador d\'apertures i finals</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
