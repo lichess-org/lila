@@ -36,6 +36,7 @@
   </plurals>
   <string name="thisIsPrivate">Гэта прыватны турнір</string>
   <string name="shareUrl">Падзяліцеся гэтай спасылкай, каб запрасіць гульцоў: %s</string>
+  <string name="drawStreakStandard">Серыя нічыіх: Калі гулец мае некалькі паслядоўных нічыіх на Арэне, то толькі першая з іх прынясе ачко, або нічыя, якая працягнецца болей чым %s хадоў. Серыю нічыіх можна спыніць толькі перамогай, але не пройгрышам або яшчэ адной нічыёй.</string>
   <string name="drawStreakVariants">Мінімальны лік хадоў для нічыіх для налічэння ачкоў адрозніваецца ў залежнасці ад варыянту. У табліцы ніжэй пералічаны парогавыя значэнні для кожнага варыянту.</string>
   <string name="variant">Варыянт</string>
   <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Мінімальны лік хадоў</string>

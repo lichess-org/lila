@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Nov osebni žeton za dostop do API-ja</string>
+  <string name="tokenGrantsPermission">Žeton daje drugim osebam dovoljenje za uporabo vašega računa.</string>
+  <string name="carefullySelect">Previdno izberite, kaj sme storiti v vašem imenu.</string>
+  <string name="tokenDescription">Opis žetona</string>
+  <string name="rememberTokenUse">Torej se spomnite, čemu je ta žeton namenjen</string>
+  <string name="whatTheTokenCanDo">Torej se spomnite, čemu je ta žeton namenjen:</string>
+  <string name="doNotShareIt">Žeton bo omogočil dostop do vašega računa. NE delite z nikomer!</string>
+  <string name="copyTokenNow">Prepričajte se, da ste zdaj kopirali svoj novi žeton osebnega dostopa. Ne boste ga mogli več videti!</string>
   <string name="preferenceRead">Preberite nastavitve</string>
   <string name="preferenceWrite">Napišite prednost</string>
   <string name="emailRead">Preberi e-poštni naslov</string>
@@ -13,6 +21,7 @@
   <string name="puzzleRead">Preberite dejavnost uganke</string>
   <string name="teamRead">Preberite informacije o zasebni ekipi</string>
   <string name="teamWrite">Pridružite se, zapustite in upravljajte ekipo</string>
+  <string name="teamLead">Upravljajte ekipe, ki jih vodite: pošljite ZS, izbrišite člane</string>
   <string name="followRead">Preberi spremljane igralce</string>
   <string name="followWrite">Sledite in prenehajte slediti drugim igralcem</string>
   <string name="msgWrite">Pošlji zasebno sporočilo drugim igralcem</string>

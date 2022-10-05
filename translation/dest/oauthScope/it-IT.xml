@@ -8,4 +8,5 @@
   <string name="whatTheTokenCanDo">Cosa può fare il token in tua vece:</string>
   <string name="doNotShareIt">Il token permetterà l\'accesso al tuo account. NON condividerlo con nessuno!</string>
   <string name="copyTokenNow">Assicurati di copiare adesso il tuo nuovo token di accesso. Non potrai più visualizzarlo in seguito!</string>
+  <string name="teamLead">Gestisci le squadre di cui sei il capo: manda messaggi privati, espelli membri</string>
 </resources>

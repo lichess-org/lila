@@ -92,6 +92,7 @@
   <string name="dtzWithRounding">DTZ50\" med avrundning, baserat på antalet halvdrag till nästa slag eller bondedrag</string>
   <string name="noGameFound">Inget parti hittades</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
+  <string name="openings">Öppningar</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="openingEndgameExplorer">Öppning-/slutspelsutforskare</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
@@ -203,6 +204,8 @@
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenordet?</string>
+  <string name="accountClosed">Kontot %s är stängt.</string>
+  <string name="accountRegisteredWithoutEmail">Kontot %s registrerades utan e-post.</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -748,6 +751,7 @@ https://lichess. org/study</string>
   <string name="bestWasX">Bästa draget var %s</string>
   <string name="youBrowsedAway">Du scrollade iväg</string>
   <string name="resumePractice">Återuppta övning</string>
+  <string name="drawByFiftyMoves">Spelet är remi på grund av femtio drags regeln.</string>
   <string name="theGameIsADraw">Remiparti.</string>
   <string name="computerThinking">Datorn tänker...</string>
   <string name="seeBestMove">Visa det bästa draget</string>

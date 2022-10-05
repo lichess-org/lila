@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">Nuevo token de acceso de API personal</string>
+  <string name="tokenGrantsPermission">Un token otorga permiso a otras personas para usar tu cuenta.</string>
   <string name="preferenceRead">Leer preferencias</string>
   <string name="emailRead">Leer dirección de correo electrónico</string>
   <string name="challengeRead">Leer desafíos entrantes</string>
