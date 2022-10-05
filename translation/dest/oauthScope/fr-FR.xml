@@ -20,6 +20,6 @@
   <string name="botPlay">Jouer des parties avec l\'api d\'un robot</string>
   <string name="engineRead">Voir et utiliser votre moteur externe</string>
   <string name="engineWrite">Créer et mettre à jour un moteur externe</string>
-  <string name="webLogin">Créer des sessions web authentifiées (donne un accès complet !)</string>
+  <string name="webLogin">Créer des sessions Web authentifiées (donne un accès complet!)</string>
   <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
 </resources>
