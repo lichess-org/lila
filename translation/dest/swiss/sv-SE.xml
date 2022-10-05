@@ -70,6 +70,9 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="roundRobinA">Vi skulle vilja lägga till det, men tyvärr fungerar inte Round Robin online. Anledningen är att det inte finns något rättvist sätt att hantera när människor lämnar turneringen i förtid. Vi kan inte förvänta oss att alla spelare spelar alla sina partier i ett online-event. Det kommer bara inte att hända, och som ett resultat skulle de flesta Round Robin turneringar vara bristfälliga och orättvisa, vilket motverkar syftet med turneringen. Det närmaste du kan komma till Round Robin online är att spela en schweizisk turnering med ett mycket stort antal rundor. Då kommer alla möjliga parningar att spelas innan turneringen slutar.</string>
   <string name="otherSystemsQ">Vad med andra lottningssystem?</string>
   <string name="otherSystemsA">Vi planerar inte att lägga till fler lottningssystem på Lichess just nu.</string>
+  <string name="swissDescription">I en schweizer-turnering %1$s möter inte spelarna nödvändigtvis alla andra deltagare. Spelarna möts en-mot-en i varje runda och paras ihop genom ett system som säkerställer att varje deltagare möter någon med liknande antal poäng, utan att möta samma motståndare mer än en gång. Den vinner som samlat flest poäng genom alla rundor. Alla deltagare spelar i varje runda, förutom om det är ett udda antal spelare.</string>
+  <string name="teamOnly">Schweizer-turneringar kan bara skapas av lagledare, och bara lagmedlemmar kan delta.           
+%1$s för att börja spela i schweizerturneringar.</string>
   <string name="joinOrCreateTeam">Gå med eller skapa ett team</string>
   <string name="nowPlaying">Spelas nu</string>
   <string name="startingSoon">Börjar snart</string>
