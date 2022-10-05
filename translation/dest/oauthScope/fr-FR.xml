@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Nouveau jeton d\'accès personnel à l\'API</string>
+  <string name="tokenGrantsPermission">Un jeton autorise d\'autres personnes à utiliser votre compte.</string>
+  <string name="carefullySelect">Sélectionnez soigneusement ce qu\'il est permis de faire en votre nom.</string>
+  <string name="tokenDescription">Description du jeton</string>
+  <string name="rememberTokenUse">Afin de vous souvenir de l’usage de ce jeton</string>
+  <string name="whatTheTokenCanDo">Ce que le jeton peut faire en votre nom :</string>
+  <string name="doNotShareIt">Le jeton donnera l’accès à votre compte. NE le partagez PAS avec qui que ce soit !</string>
   <string name="preferenceRead">Lire les préférences</string>
   <string name="preferenceWrite">Écrire les préférences</string>
   <string name="emailRead">Lire l\'adresse courriel</string>
