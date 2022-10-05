@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' mit Rundig, basierend uf de Azahl Halbzüg bis zum nächschte Schlag- oder Pure-Zug</string>
   <string name="noGameFound">Keis Schpiel gfunde</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht sötted meh Schpiel vom Iischteligs Menü ibezoge werde?</string>
+  <string name="openings">Eröffnige</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
   <string name="openingEndgameExplorer">Eröffnigs- / Ändschpiel-Explorer</string>
   <string name="xOpeningExplorer">%s Eröffnigs-Explorer</string>
