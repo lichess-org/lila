@@ -7,6 +7,7 @@
   <string name="rememberTokenUse">Afin de vous souvenir de l’usage de ce jeton</string>
   <string name="whatTheTokenCanDo">Ce que le jeton peut faire en votre nom :</string>
   <string name="doNotShareIt">Le jeton donnera l’accès à votre compte. NE le partagez PAS avec qui que ce soit !</string>
+  <string name="copyTokenNow">Assurez-vous de copier votre nouveau jeton d\'accès personnel immédiatement. Vous ne pourrez pas le voir à nouveau !</string>
   <string name="preferenceRead">Lire les préférences</string>
   <string name="preferenceWrite">Écrire les préférences</string>
   <string name="emailRead">Lire l\'adresse courriel</string>
@@ -20,6 +21,7 @@
   <string name="puzzleRead">Lire l\'activité des problèmes</string>
   <string name="teamRead">Lire les informations de l\'équipe privée</string>
   <string name="teamWrite">Se joindre à une équipe, la quitter et la gérer</string>
+  <string name="teamLead">Gérer les équipes que vous dirigez : envoyer des MPs, expulser les membres</string>
   <string name="followRead">Lire les joueurs suivis</string>
   <string name="followWrite">Suivre ou ne plus suivre d\'autres joueurs</string>
   <string name="msgWrite">Envoyer un message privé aux autres joueurs</string>
