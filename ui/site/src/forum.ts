@@ -54,6 +54,8 @@ lichess.load.then(() => {
 
       const $post = $(this).closest('.forum-post'),
         $form = $post.find('form.edit-post-form').toggle();
+      const $textarea = $form.find('textarea.edit-post-box');
+      $textarea.get(0)!.scrollIntoView();
 
       ($form[0] as HTMLFormElement).reset();
     });
