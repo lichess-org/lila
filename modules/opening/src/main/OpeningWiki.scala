@@ -1,11 +1,12 @@
 package lila.opening
 
-import chess.opening.FullOpening
+import chess.opening.{ FullOpening, FullOpeningDB }
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import reactivemongo.api.bson.Macros
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
@@ -13,9 +14,12 @@ import lila.common.Markdown
 import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
-import reactivemongo.api.ReadPreference
 
-case class OpeningWiki(markup: Option[String], revisions: List[OpeningWiki.Revision])
+case class OpeningWiki(
+    markup: Option[String],
+    firstParagraph: Option[String],
+    revisions: List[OpeningWiki.Revision]
+)
 
 final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, cacheApi: CacheApi)(implicit
     ec: ExecutionContext
@@ -32,6 +36,9 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
   } yield wiki.copy(revisions = (~revisions) take 25)
+
+  def firstParagraph(op: FullOpening): Fu[Option[String]] =
+    apply(op, false).dmap(_.firstParagraph)
 
   def write(op: FullOpening, text: String, by: User): Funit =
     coll.update
@@ -65,7 +72,7 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
         for {
           doc <- docs
           id  <- doc string "_id"
-          op  <- Opening.shortestLines get id
+          op  <- FullOpeningDB.shortestLines get id
         } yield op
       }
 
@@ -78,11 +85,11 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
       strikeThrough = false
     )
 
-  private val cache = cacheApi[Opening.Key, OpeningWiki](1024, "opening.wiki") {
+  private val cache = cacheApi[FullOpening.Key, OpeningWiki](1024, "opening.wiki") {
     _.maximumSize(4096).buildAsyncFuture(compute)
   }
 
-  private def compute(key: Opening.Key): Fu[OpeningWiki] = for {
+  private def compute(key: FullOpening.Key): Fu[OpeningWiki] = for {
     docOpt <- coll
       .aggregateOne() { framework =>
         import framework._
@@ -90,11 +97,16 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
           List(Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
       }
     _ <- updatePopularity(key)
-    lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
-  } yield OpeningWiki(lastRev.map(_.text) map renderer(s"opening:op.key"), Nil)
+    lastRev  = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
+    markdown = lastRev.map(_.text)
+  } yield OpeningWiki(
+    markdown map renderer(s"opening:${key}"),
+    markdown.flatMap(_.value.split("\n").headOption).map(Markdown) map renderer(s"opening:${key}"),
+    Nil
+  )
 
-  private def updatePopularity(key: Opening.Key): Funit =
-    Opening.shortestLines.get(key) ?? { op =>
+  private def updatePopularity(key: FullOpening.Key): Funit =
+    FullOpeningDB.shortestLines.get(key) ?? { op =>
       explorer.simplePopularity(op) flatMap {
         _ ?? { popularity =>
           coll.update.one($id(key), $set("popularity" -> popularity), upsert = true).void

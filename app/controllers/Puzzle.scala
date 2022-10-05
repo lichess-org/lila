@@ -32,7 +32,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     if (apiVersion.exists(!_.puzzleV2))
       env.puzzle.jsonView.bc(puzzle = puzzle, user = newUser orElse ctx.me)
     else
-      env.puzzle.jsonView(puzzle = puzzle, angle = angle.some, replay = replay, user = newUser orElse ctx.me)
+      angle.opening.??(env.opening.wiki.firstParagraph) flatMap { openingParagraph =>
+        env.puzzle.jsonView(
+          puzzle = puzzle,
+          angle = angle.some,
+          replay = replay,
+          user = newUser orElse ctx.me,
+          openingParagraph = openingParagraph
+        )
+      }
 
   private def renderShow(
       puzzle: Puz,
@@ -73,7 +81,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     Action.async { implicit req =>
       env.puzzle.daily.get flatMap {
         _.fold(NotFound.fuccess) { daily =>
-          JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(reqLang))
+          JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none, none)(reqLang))
         }
       }
     }
@@ -224,7 +232,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   private def serveStreak(implicit ctx: Context) = NoBot {
     env.puzzle.streak.apply flatMap {
       _ ?? { case PuzzleStreak(ids, puzzle) =>
-        env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = ctx.me) map { preJson =>
+        env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = ctx.me, none) map { preJson =>
           val json = preJson ++ Json.obj("streak" -> ids)
           EnableSharedArrayBuffer {
             NoCache {

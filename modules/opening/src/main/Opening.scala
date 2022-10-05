@@ -5,18 +5,6 @@ import cats.data.NonEmptyList
 
 object Opening {
 
-  type Key = String
-
-  val shortestLines: Map[Key, FullOpening] = FullOpeningDB.all
-    .foldLeft(Map.empty[Key, FullOpening]) { case (acc, op) =>
-      acc.updatedWith(op.key) {
-        case Some(prev) if prev.uci.size < op.uci.size => prev.some
-        case _                                         => op.some
-      }
-    }
-
-  def isShortest(op: FullOpening) = shortestLines.get(op.key).has(op)
-
   case class Tree(children: List[(Tree.NameOrOpening, Tree)])
 
   object Tree {
@@ -43,11 +31,11 @@ object Opening {
     }
 
     lazy val compute: Tree =
-      shortestLines.values
+      FullOpeningDB.shortestLines.values
         .map { op =>
           val sections = Opening.sectionsOf(op.name)
           sections.toList.zipWithIndex map { case (name, i) =>
-            (name, Opening.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))))
+            (name, FullOpeningDB.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))))
           }
         }
         .toList

@@ -27,7 +27,7 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer) {
 // linear performance but it's fine for 3,067 unique openings
 object OpeningSearch {
 
-  private val openings: Vector[FullOpening] = Opening.shortestLines.values.toVector
+  private val openings: Vector[FullOpening] = FullOpeningDB.shortestLines.values.toVector
 
   private type Token = String
   private type Score = Int

@@ -30,7 +30,7 @@ case object NamePart {
     sections.toList.zipWithIndex map { case (name, i) =>
       NamePart(
         name,
-        Opening.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))).map(_.key)
+        FullOpeningDB.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))).map(_.key)
       )
     }
   }

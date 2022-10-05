@@ -17,7 +17,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
   def variant             = chess.variant.Standard
   val fen                 = Forsyth >> replay.state.situation
   val opening             = FullOpeningDB findByFen fen
-  val openingIfShortest   = opening filter Opening.isShortest
+  val openingIfShortest   = opening filter FullOpeningDB.isShortest
   val family              = opening.map(_.family)
   def pgnString           = pgn mkString " "
   val key                 = openingIfShortest.fold(pgn mkString "_")(_.key)
@@ -44,11 +44,11 @@ object OpeningQuery {
     byOpening(q, config) orElse fromPgn(q.replace("_", " "), config)
 
   private def byOpening(key: String, config: OpeningConfig) = {
-    Opening.shortestLines.get(key) orElse
+    FullOpeningDB.shortestLines.get(key) orElse
       lila.common.String
         .decodeUriPath(key)
         .map(FullOpening.nameToKey.apply)
-        .flatMap(Opening.shortestLines.get)
+        .flatMap(FullOpeningDB.shortestLines.get)
   }.map(_.pgn) flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: String, config: OpeningConfig) = for {

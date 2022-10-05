@@ -152,7 +152,11 @@ export interface Angle {
   name: string;
   desc: string;
   chapter?: string;
-  isOpening?: boolean;
+  opening?: {
+    key: string;
+    name: string;
+    paragraph?: string;
+  };
 }
 
 export interface PuzzleData {
