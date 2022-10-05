@@ -19,7 +19,8 @@
   <string name="racerWrite">Create and join puzzle races</string>
   <string name="puzzleRead">Read puzzle activity</string>
   <string name="teamRead">Read private team information</string>
-  <string name="teamWrite">Join, leave, and manage team</string>
+  <string name="teamWrite">Join and leave teams</string>
+  <string name="teamLead">Manage teams you lead: send PMs, kick members</string>
   <string name="followRead">Read followed players</string>
   <string name="followWrite">Follow and unfollow other players</string>
   <string name="msgWrite">Send private message to other players</string>

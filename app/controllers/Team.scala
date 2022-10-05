@@ -191,7 +191,7 @@ final class Team(
   private val kickLimitReportOnce = lila.memo.OnceEvery(10.minutes)
 
   def kickUser(teamId: String, userId: String) =
-    Scoped(_.Team.Write) { req => me =>
+    Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         ApiKickRateLimitPerIP[Fu[Api.ApiResult]](
           HTTPRequest ipAddress req,
@@ -521,7 +521,7 @@ final class Team(
     } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs))
 
   def pmAllSubmit(id: String) =
-    AuthOrScopedBody(_.Team.Write)(
+    AuthOrScopedBody(_.Team.Lead)(
       auth = implicit ctx =>
         me =>
           WithOwnedTeamEnabled(id) { team =>
@@ -614,7 +614,7 @@ final class Team(
     }
 
   def apiRequestProcess(teamId: String, userId: String, decision: String) =
-    Scoped(_.Team.Write) { req => me =>
+    Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api request lila.team.Request.makeId(team.id, UserModel normalize userId) flatMap {
           case None      => fuccess(Api.ClientError("No such team join request"))

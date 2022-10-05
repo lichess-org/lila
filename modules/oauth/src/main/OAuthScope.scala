@@ -44,6 +44,7 @@ object OAuthScope {
   object Team {
     case object Read  extends OAuthScope("team:read", trans.teamRead)
     case object Write extends OAuthScope("team:write", trans.teamWrite)
+    case object Lead  extends OAuthScope("team:lead", trans.teamLead)
   }
 
   object Follow {
@@ -91,6 +92,7 @@ object OAuthScope {
     Puzzle.Read,
     Team.Read,
     Team.Write,
+    Team.Lead,
     Follow.Read,
     Follow.Write,
     Msg.Write,
@@ -105,7 +107,7 @@ object OAuthScope {
   val allButWeb = all.filterNot(_.key startsWith "web:")
 
   val dangerList: Set[OAuthScope] = Set(
-    Team.Write,
+    Team.Lead,
     Web.Login,
     Web.Mod,
     Msg.Write
