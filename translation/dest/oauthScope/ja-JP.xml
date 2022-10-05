@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">新しい個人 API アクセストークン</string>
+  <string name="tokenGrantsPermission">トークンは他の人にあなたのアカウントへのアクセスを許可します。</string>
+  <string name="carefullySelect">他の人があなたの代わりに行なえる操作を慎重に選んでください。</string>
+  <string name="tokenDescription">トークンの説明</string>
+  <string name="rememberTokenUse">このトークンの目的を記録するため</string>
+  <string name="whatTheTokenCanDo">このトークンであなたの代わりに行える操作：</string>
+  <string name="doNotShareIt">トークンは他の人にあなたのアカウントへのアクセスを許可します。誰にもシェアしないように！</string>
   <string name="preferenceRead">設定を見る</string>
   <string name="preferenceWrite">設定を決める</string>
   <string name="emailRead">メールアドレスを見る</string>
