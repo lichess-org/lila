@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">Nytt personleg API tilgjengeteikn (\"token\")</string>
-  <string name="tokenGrantsPermission">Eit tilgjengeteikn gjev andre rett til å bruka din konto.</string>
+  <string name="tokenGrantsPermission">Eit tilgjengeteikn gjev andre rett til å bruka kontoen din.</string>
   <string name="carefullySelect">Bruk godt omdøme når du velgjer kva andre kan gjera på dine vegne.</string>
   <string name="tokenDescription">Beskriving av tilgjengeteiknet</string>
   <string name="rememberTokenUse">For at du skal hugsa kva dette tilgjengeteiknet gjeld</string>
@@ -21,6 +21,7 @@
   <string name="puzzleRead">Les oppgåveaktivitet</string>
   <string name="teamRead">Les privat laginformasjon</string>
   <string name="teamWrite">Delta i, forlat og administrer lag</string>
+  <string name="teamLead">Administrer lag du leier: send personlege meldingar, fjern medlemar frå laget</string>
   <string name="followRead">Les følgde spelarar</string>
   <string name="followWrite">Følg/ikkje følg andre spelarar</string>
   <string name="msgWrite">Send privat melding til andre spelarar</string>
