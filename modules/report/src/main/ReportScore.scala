@@ -38,14 +38,15 @@ final private class ReportScore(
     def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoBoost) baseScore * 1.5
       else if (c.isAutoComm) 42d
-      else if (c.isIrwinCheat) 60d
+      else if (c.isIrwinCheat) 45d
+      else if (c.isKaladinCheat) 25d
       else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScore * 2
       else score
 
     private val gameRegex = ReportForm gameLinkRegex domain
 
     def dropScoreIfCheatReportHasNoAnalyzedGames(c: Report.Candidate.Scored): Fu[Report.Candidate.Scored] =
-      if (c.candidate.isCheat) {
+      if (c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat) {
         val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(_.group(1))
         def isUsable(gameId: Game.ID) = gameRepo analysed gameId map { _.exists(_.turns > 30) }
         lila.common.Future.exists(gameIds)(isUsable) map {
