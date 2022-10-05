@@ -27,8 +27,8 @@
   <string name="msgWrite">Send private message to other players</string>
   <string name="boardPlay">Play games with board api</string>
   <string name="botPlay">Play games with the bot api</string>
-  <string name="engineRead">View and use your external engine</string>
-  <string name="engineWrite">Create and update external engine</string>
+  <string name="engineRead">View and use your external engines</string>
+  <string name="engineWrite">Create and update external engines</string>
   <string name="webLogin">Create authenticated website sessions (grants full access!)</string>
   <string name="webMod">Use moderator tools (within bounds of your permission)</string>
 </resources>
