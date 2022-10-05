@@ -58,20 +58,26 @@ object opening {
           as.name,
           "."
         ),
-        puzzle.map { p =>
-          a(
-            cls  := "button button-no-upper",
-            href := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
-          )(
-            "Train your tactical awareness with ",
-            p.family.name.value,
-            " puzzles"
-          )
-        }
+        div(cls := "button-set")(
+          report.family.full.map { op =>
+            a(cls := "button button-no-upper text", dataIcon := "", href := routes.Opening.query(op.key))(
+              "Learn about this opening"
+            )
+          },
+          puzzle.map { p =>
+            a(
+              cls      := "button button-no-upper text",
+              dataIcon := "",
+              href     := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
+            )(
+              "Train with ",
+              p.family.name.value,
+              " puzzles"
+            )
+          }
+        )
       ),
-      div(
-        cls := "tutor__pad"
-      )(
+      div(cls := "tutor__pad")(
         grade.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
         hr,
         grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
