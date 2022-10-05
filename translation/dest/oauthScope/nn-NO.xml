@@ -7,6 +7,7 @@
   <string name="rememberTokenUse">For at du skal hugsa kva dette tilgjengeteiknet gjeld</string>
   <string name="whatTheTokenCanDo">Kva tilgjengeteiknet kan gjera på dine vegne:</string>
   <string name="doNotShareIt">Teiknet gjer tilgjenge til din konto. Del det ikkje med nokon!</string>
+  <string name="copyTokenNow">Sørg for å kopiera eller skriva ned det nye tilgjengeteiknet med ein gong. Du vil ikkje få sjå det igjen!</string>
   <string name="preferenceRead">Lesepreferansar</string>
   <string name="preferenceWrite">Skrivepreferansar</string>
   <string name="emailRead">Les e-postadresse</string>
