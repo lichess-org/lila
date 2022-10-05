@@ -48,7 +48,8 @@ object show {
                 )
               )
             }
-          )
+          ),
+          beta
         ),
         div(cls := "opening__intro")(
           div(cls := "opening__intro__result-lpv")(

@@ -37,7 +37,7 @@ object index {
       main(cls := "page box box-pad opening opening--index")(
         searchAndConfig(page.query.config, "", "index"),
         div(cls := "box__top")(
-          h1("Chess openings"),
+          h1("Chess openings", beta),
           div(cls := "box__top__actions")(
             a(href := routes.Opening.tree)("Name tree"),
             a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")

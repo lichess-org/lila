@@ -14,6 +14,8 @@ import lila.opening.OpeningSearchResult
 
 private object bits {
 
+  def beta = div(cls := "opening__beta")("BETA")
+
   def whatsNext(explored: OpeningExplored)(implicit ctx: Context) =
     div(cls := "opening__nexts")(
       explored.next.map { next =>
