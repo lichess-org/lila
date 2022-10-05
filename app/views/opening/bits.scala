@@ -110,18 +110,20 @@ private object bits {
     import result._
     val (blackV, drawsV, whiteV) = exaggerateResults(result)
     frag(
-      resultSegment("black", blackPercent, blackV),
-      resultSegment("draws", drawsPercent, drawsV),
-      resultSegment("white", whitePercent, whiteV)
+      resultSegment("black", "Black wins", blackPercent, blackV),
+      resultSegment("draws", "Draws", drawsPercent, drawsV),
+      resultSegment("white", "White wins", whitePercent, whiteV)
     )
   }
 
-  def resultSegment(key: String, percent: Double, visualPercent: Double) = {
+  def resultSegment(key: String, help: String, percent: Double, visualPercent: Double) = {
     val visible = visualPercent > 7
     val text    = s"${Math.round(percent)}%"
-    span(cls := key, style := s"height:${percentNumber(visualPercent)}%", title := (!visible).option(text))(
-      visible option text
-    )
+    span(
+      cls   := key,
+      style := s"height:${percentNumber(visualPercent)}%",
+      title := s"$text $help"
+    )(visible option text)
   }
 
   private def exaggerateResults(result: ResultCounts) = {
