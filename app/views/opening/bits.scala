@@ -19,7 +19,7 @@ private object bits {
       explored.next.map { next =>
         a(cls := "opening__next", href := queryUrl(next.query))(
           span(cls := "opening__next__popularity")(
-            span(style := s"width:${percentNumber(next.percent)}%")(
+            span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(
               s"${Math.round(next.percent)}%"
             )
           ),
