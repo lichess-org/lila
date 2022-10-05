@@ -54,11 +54,7 @@ object OpeningQuery {
   private def fromPgn(pgn: String, config: OpeningConfig) = for {
     parsed <- chess.format.pgn.Reader.full(pgn).toOption
     replay <- parsed.valid.toOption
-    if replay.state.situation playable true
-  } yield OpeningQuery(
-    replay,
-    config
-  )
+  } yield OpeningQuery(replay, config)
 
   val firstYear  = 2017
   val firstMonth = s"$firstYear-01"
