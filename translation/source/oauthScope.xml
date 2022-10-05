@@ -24,7 +24,7 @@
   <string name="teamLead">Manage teams you lead: send PMs, kick members</string>
   <string name="followRead">Read followed players</string>
   <string name="followWrite">Follow and unfollow other players</string>
-  <string name="msgWrite">Send private message to other players</string>
+  <string name="msgWrite">Send private messages to other players</string>
   <string name="boardPlay">Play games with board api</string>
   <string name="botPlay">Play games with the bot api</string>
   <string name="engineRead">View and use your external engines</string>
