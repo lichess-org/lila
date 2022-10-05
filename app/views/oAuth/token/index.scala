@@ -51,13 +51,9 @@ object index {
             else iconTag("")(cls                   := "is-green"),
             div(
               if (token.isDangerous)
-                p(strong("The token will grant access to your account. Do NOT share it with anyone!"))
+                p(strong(trans.oauthScope.doNotShareIt()))
               else
-                p(
-                  "Make sure to copy your new personal access token now.",
-                  br,
-                  "You won’t be able to see it again!"
-                ),
+                p(trans.oauthScope.copyTokenNow()),
               code(token.plain.secret)
             )
           )
