@@ -107,11 +107,12 @@ object layout {
         "Disable"
       else "Enable"} blind mode</button></form>""")
 
-  private def zenToggle(implicit ctx: Context) =
+  private def zenZone(implicit ctx: Context) =
     spaceless(s"""
-  <a data-icon="" id="zentog" class="text fbt active">
-    ${trans.preferences.zenMode.txt()}
-  </a>""")
+<div id="zenzone">
+  <a href="/" class="zen-home"></a>
+  <a data-icon="" id="zentog" class="text fbt active">${trans.preferences.zenMode.txt()}</a>
+</div>""")
 
   private def dasher(me: lila.user.User) =
     div(cls := "dasher")(
@@ -326,7 +327,7 @@ object layout {
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
             .map(views.html.auth.bits.checkYourEmailBanner(_)),
-          zenable option zenToggle,
+          zenable option zenZone,
           siteHeader.apply,
           div(
             id := "main-wrap",
