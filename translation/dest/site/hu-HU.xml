@@ -195,12 +195,15 @@
   <string name="changeUsername">Felhasználónév váltás</string>
   <string name="changeUsernameNotSame">Csak a kis-nagy betűket cserélheted a névben. Pl. \"johndoe\" - \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kisbetű-nagybetű váltás engedélyezett a felhasználónévben.</string>
+  <string name="signupUsernameHint">Mindenképpen családbarát felhasználónevet válassz. Később már nem tudod megváltoztatni, a nem helyénvaló felhasználónevek fiókját zároljuk!</string>
   <string name="password">Jelszó</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>
   <string name="email">E-mail cím</string>
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
+  <string name="whatSignupUsername">Milyen felhasználónévvel regisztráltál?</string>
+  <string name="emailSent">Üzenetet küldtünk a %s címre.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Helyezés: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -337,7 +340,7 @@
   <string name="mustBeInTeam">Csak %s tagoknak</string>
   <string name="youAreNotInTeam">Nem vagy a %s csapatban</string>
   <string name="backToGame">Vissza a játékhoz</string>
-  <string name="siteDescription">Ingyenes online sakk játék letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések és pluginek telepítése sem szükséges. Játssz a gép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
+  <string name="siteDescription">Ingyenes online sakkszerver letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések, sem telepítendő bővítmények. Játssz számítógép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
   <string name="xStartedStreaming">%s elkezdte a közvetítést</string>
@@ -371,8 +374,8 @@
   <string name="retry">Újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s barát érhető el</item>
-    <item quantity="other">%s barát érhető el</item>
+    <item quantity="one">%s elérhető barát</item>
+    <item quantity="other">%s elérhető barát</item>
   </plurals>
   <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
