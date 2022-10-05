@@ -763,6 +763,7 @@
   <string name="bestWasX">Paras oli %s</string>
   <string name="youBrowsedAway">Selailit pois</string>
   <string name="resumePractice">Jatka harjoitusta</string>
+  <string name="drawByFiftyMoves">Peli päättyi tasapeliin 50 siirron säännön perusteella.</string>
   <string name="theGameIsADraw">Peli on tasapeli.</string>
   <string name="computerThinking">Tietokone miettii...</string>
   <string name="seeBestMove">Katso paras siirto</string>
