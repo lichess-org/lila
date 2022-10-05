@@ -7,6 +7,7 @@
   <string name="rememberTokenUse">このトークンの目的を記録するため</string>
   <string name="whatTheTokenCanDo">このトークンであなたの代わりに行える操作：</string>
   <string name="doNotShareIt">トークンは他の人にあなたのアカウントへのアクセスを許可します。誰にもシェアしないように！</string>
+  <string name="copyTokenNow">すぐに新しい個人アクセストークンをコピーしておいてください。二度と表示されませんので！</string>
   <string name="preferenceRead">設定を見る</string>
   <string name="preferenceWrite">設定を決める</string>
   <string name="emailRead">メールアドレスを見る</string>
@@ -20,6 +21,7 @@
   <string name="puzzleRead">タクティクス問題の活動を見る</string>
   <string name="teamRead">非公開のチーム情報を見る</string>
   <string name="teamWrite">チームに対する加入・脱退・管理</string>
+  <string name="teamLead">リーダーを務めるチームの管理：PM の送信、メンバーの追放</string>
   <string name="followRead">フォローした相手を見る</string>
   <string name="followWrite">フォローする、フォロー解除する</string>
   <string name="msgWrite">他の人にプライベートメッセージを送信する</string>
