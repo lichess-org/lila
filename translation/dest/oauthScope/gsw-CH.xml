@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferenceRead">Preferänze läse</string>
+  <string name="preferenceWrite">Preferänze schribe</string>
   <string name="emailRead">d\'E-Mail-Adrässe läse</string>
   <string name="challengeRead">iträffendi Useforderige läse</string>
   <string name="challengeWrite">iträffendi Useforderige schribe</string>
-  <string name="challengeBulk">Für anderi Schpiller viel Schpil uf eimal erschtelle</string>
+  <string name="challengeBulk">Für anderi Schpiller viel Schpiel uf eimal erschtelle</string>
   <string name="studyRead">Privati Schtudie und Sändige läse</string>
   <string name="studyWrite">Erschtell, aktualisier, lösch Schtudie und Sändige</string>
   <string name="tournamentWrite">Turnier erschtelle, aktualisiere und biträte</string>
@@ -12,9 +13,11 @@
   <string name="puzzleRead">Ufgabe Aktivitäte läse</string>
   <string name="teamRead">Privati Team Infos läse</string>
   <string name="teamWrite">Tritt bi, verlah, und organisier es Team</string>
-  <string name="followRead">Schpiler wo mer folgt läse</string>
-  <string name="followWrite">Folge und nümme folge vu andere Schpiler</string>
+  <string name="followRead">Schpiller wo mer folgt läse</string>
+  <string name="followWrite">Folge und nümme folge vu andere Schpiller</string>
   <string name="msgWrite">Andere Schpiller privati Nachrichte schicke</string>
+  <string name="boardPlay">Schpiel mit API-Brätt schpille</string>
+  <string name="botPlay">Schpiel mit em API-Bot schpille</string>
   <string name="engineRead">Zeig und benutz dini externi Engine</string>
   <string name="engineWrite">Erschtell und aktualisier e externi Engine</string>
   <string name="webLogin">Erschtelle vu authentifizierte Website-Sitzige (gewährt volle Zuegriff!)</string>
