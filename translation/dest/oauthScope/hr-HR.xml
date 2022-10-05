@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="copyTokenNow">Pobrinite se da odmah kopirate svoj novi token za osobni pristup. Nećete ga više moći vidjeti!</string>
+  <string name="newAccessToken">Novi osobni API pristupni bon</string>
+  <string name="tokenGrantsPermission">Bon drugim osobama daje dopuštenje za korištenje vašeg računa.</string>
+  <string name="carefullySelect">Pažljivo odaberite što je dopušteno učiniti u vaše ime.</string>
+  <string name="tokenDescription">Opis bona</string>
+  <string name="rememberTokenUse">Dakle, zapamtite čemu služi ovaj bon</string>
+  <string name="whatTheTokenCanDo">Što bon može učiniti u vaše ime:</string>
+  <string name="doNotShareIt">Bon će omogućiti pristup vašem računu. NEMOJTE to dijeliti ni s kim!</string>
+  <string name="copyTokenNow">Pobrinite se da odmah kopirate svoj novi bon za osobni pristup. Nećete ga više moći vidjeti!</string>
   <string name="preferenceRead">Pročitajte postavke</string>
   <string name="emailRead">Pročitajte adrese e-pošte</string>
   <string name="challengeRead">Pročitajte dolazne izazove</string>
@@ -11,4 +18,7 @@
   <string name="racerWrite">Stvorite i pridružite se utrkama zagonetki</string>
   <string name="teamRead">Pročitajte informacije o privatnom timu</string>
   <string name="teamWrite">Pridružite se, napustite i upravljajte timom</string>
+  <string name="teamLead">Upravljajte timovima koje vodite: šaljite osobne poruke, izbacite članove</string>
+  <string name="webLogin">Stvorite autentificirane sesije web stranice (omogućuje puni pristup!)</string>
+  <string name="webMod">Koristite moderatorske alate (unutar granica vašeg dopuštenja)</string>
 </resources>
