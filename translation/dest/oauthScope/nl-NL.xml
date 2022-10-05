@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Nieuwe persoonlijk API toegangstoken</string>
   <string name="tokenGrantsPermission">Een token geeft andere mensen toestemming om je account te gebruiken.</string>
   <string name="tokenDescription">Tokenbeschrijving</string>
   <string name="rememberTokenUse">Zo weet je nog waar deze token voor is</string>
