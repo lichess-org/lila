@@ -21,7 +21,10 @@ object tree {
         index.searchAndConfig(config, "", "tree"),
         div(cls := "box__top")(
           h1("Chess openings name tree"),
-          a(href := routes.Opening.index())("Browse openings")
+          div(cls := "box__top__actions")(
+            a(href := routes.Opening.index())("Opening pages"),
+            a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+          )
         ),
         search.resultsList(Nil),
         div(cls := "opening__tree")(
