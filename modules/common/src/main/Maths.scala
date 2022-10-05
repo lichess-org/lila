@@ -24,6 +24,11 @@ object Maths {
       a.size / a.foldLeft(0d) { case (acc, v) => acc + 1 / Math.max(1, v) }
     }
 
+  def arithmeticAndHarmonicMean(a: Iterable[Double]): Option[Double] = for {
+    arithmetic <- mean(a)
+    harmonic   <- harmonicMean(a)
+  } yield (arithmetic + harmonic) / 2
+
   def roundAt(n: Double, p: Int): BigDecimal = {
     BigDecimal(n).setScale(p, BigDecimal.RoundingMode.HALF_UP)
   }

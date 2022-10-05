@@ -66,6 +66,8 @@ for x in xs:
   def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
 
-  def harmonicMean(pov: SideAndStart, analysis: Analysis): Option[AccuracyPercent] =
-    Maths.harmonicMean(fromAnalysisAndPov(pov, analysis).map(_.value)) map AccuracyPercent.apply
+  private val gameAccuracyFormula: Iterable[Double] => Option[Double] = Maths.arithmeticAndHarmonicMean
+
+  def gameAccuracy(pov: SideAndStart, analysis: Analysis): Option[AccuracyPercent] =
+    gameAccuracyFormula(fromAnalysisAndPov(pov, analysis).map(_.value)) map AccuracyPercent.apply
 }
