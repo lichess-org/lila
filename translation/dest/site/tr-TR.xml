@@ -72,7 +72,7 @@
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Varyant yenilgisi</string>
-  <string name="variantWin">Varyant zaferi</string>
+  <string name="variantWin">Kazanç devam yolu</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\', bir sonraki yakalama veya piyon hamlesine kadar olan yarım hamle sayısına dayalı yuvarlama ile</string>
   <string name="noGameFound">Oyun bulunamadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
+  <string name="openings">Açılışlar</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
