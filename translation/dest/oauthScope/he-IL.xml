@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">כרטיס גישה אישי חדש ל-API</string>
-  <string name="tokenGrantsPermission">הכרטיס נותן לאנשים אחרים גישה להשתמש בחשבונך.</string>
+  <string name="newAccessToken">תו גישה אישי חדש ל-API</string>
+  <string name="tokenGrantsPermission">התו נותן לאנשים אחרים גישה להשתמש בחשבונך.</string>
   <string name="carefullySelect">בחרו בזהירות מה ניתן לעשות בשמכם בחשבונכם.</string>
-  <string name="tokenDescription">תיאור הכרטיס</string>
+  <string name="tokenDescription">תיאור התו</string>
   <string name="rememberTokenUse">כדי שתזכרו למה הוא משתמש</string>
-  <string name="whatTheTokenCanDo">מי ניתן לעשות בשמך:</string>
-  <string name="doNotShareIt">הכרטיס יתן גישה לחשבונך. בשום אופן אל תשתפו אותו עם אחרים!</string>
+  <string name="whatTheTokenCanDo">מה ניתן לעשות עם התו בשמך:</string>
+  <string name="doNotShareIt">התו יתן גישה לחשבונך. בשום אופן אל תשתפו אותו עם אחרים!</string>
   <string name="copyTokenNow">זכרו להעתיק את כרטיס הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
   <string name="preferenceRead">הקראת העדפות</string>
   <string name="preferenceWrite">כתיבת העדפה</string>
@@ -14,7 +14,7 @@
   <string name="challengeRead">הקראת הזמנות ממתינות</string>
   <string name="challengeWrite">כתיבת הזמנות ממתינות</string>
   <string name="challengeBulk">יצירת מספר משחקים במקביל עבור שחקנים אחרים</string>
-  <string name="studyRead">הקראת לוחות למידה פרטיים והקרנות</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">הקראת לוחות למידה פרטיים והקרנות</string>
   <string name="studyWrite">יצירה, עדכון ומחיקה של לוחות למידה והקרנות</string>
   <string name="tournamentWrite">יצירה, עדכון והצטרפות לטורנירים</string>
   <string name="racerWrite">יצירה והצטרפות למרוצי חידות</string>
