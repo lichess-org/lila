@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="copyTokenNow">Pobrinite se da odmah kopirate svoj novi token za osobni pristup. Nećete ga više moći vidjeti!</string>
   <string name="preferenceRead">Pročitajte postavke</string>
   <string name="emailRead">Pročitajte adrese e-pošte</string>
   <string name="challengeRead">Pročitajte dolazne izazove</string>
