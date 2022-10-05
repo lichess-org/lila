@@ -35,7 +35,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
               h('p', {
                 hook: innerHTML(angle.opening.paragraph, () => angle.opening!.paragraph!),
               }),
-              h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, ['Learn more about ', angle.opening.name]),
+              // h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, ['Learn more about ', angle.opening.name]),
             ]
           : [
               h('p', [
