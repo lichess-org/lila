@@ -5,7 +5,7 @@
   <string name="carefullySelect">Внимательно выберите, что разрешено делать от вашего имени.</string>
   <string name="tokenDescription">Описание токена</string>
   <string name="rememberTokenUse">Так, чтобы вы помнили, для чего этот токен</string>
-  <string name="whatTheTokenCanDo">Что с помощью токена можно делать от вашего имени:</string>
+  <string name="whatTheTokenCanDo">Действия, которые можно совершать с помощью токена от вашего имени:</string>
   <string name="doNotShareIt">Токен предоставит доступ к вашей учётной записи. НЕ передавайте его никому!</string>
   <string name="copyTokenNow">Убедитесь, что вы скопировали ваш новый токен персонального доступа. Вы не сможете увидеть его снова!</string>
   <string name="preferenceRead">Чтение настроек</string>
