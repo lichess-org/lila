@@ -692,7 +692,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Netzwerch-Verzögerig, zwüschet dir und Lichess (lag)</string>
+  <string name="networkLagBetweenYouAndLichess">Netzwerk-Verzögerig, zwüschet dir und Lichess (lag)</string>
   <string name="timeToProcessAMoveOnLichessServer">Zit zum en Zug uf em Lichess-Server z\'verarbeite</string>
   <string name="downloadAnnotated">Download mit Kommentär</string>
   <string name="downloadRaw">Download ohni Kommentär</string>
