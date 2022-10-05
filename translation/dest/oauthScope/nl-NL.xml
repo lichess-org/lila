@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="tokenGrantsPermission">Een token geeft andere mensen toestemming om je account te gebruiken.</string>
+  <string name="tokenDescription">Tokenbeschrijving</string>
+  <string name="rememberTokenUse">Zo weet je nog waar deze token voor is</string>
+  <string name="whatTheTokenCanDo">Wat de token voor je kan doen:</string>
+  <string name="doNotShareIt">De token geeft toegang tot uw account. Deel deze met niemand!</string>
+</resources>
