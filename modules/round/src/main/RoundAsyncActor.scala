@@ -1,9 +1,9 @@
 package lila.round
 
 import actorApi._, round._
+import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import org.joda.time.DateTime
-import alleycats.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
@@ -472,6 +472,7 @@ final private[round] class RoundAsyncActor(
     proxy.withPov(color) { pov =>
       fuccess {
         socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+        publishBoardGone(pov, gone option 0L)
       }
     }
 
@@ -479,8 +480,16 @@ final private[round] class RoundAsyncActor(
     proxy.withPov(color) { pov =>
       fuccess {
         socketSend(Protocol.Out.goneIn(FullId(pov.fullId), millis))
+        publishBoardGone(pov, millis.some)
       }
     }
+
+  private def publishBoardGone(pov: Pov, millis: Option[Long]) =
+    if (lila.game.Game.isBoardCompatible(pov.game))
+      lila.common.Bus.publish(
+        lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
+        lila.game.actorApi.BoardGone makeChan gameId
+      )
 
   private def handle(op: Game => Fu[Events]): Funit =
     proxy.withGame { g =>

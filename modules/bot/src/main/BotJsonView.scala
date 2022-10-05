@@ -74,6 +74,16 @@ final class BotJsonView(
       "text"     -> text
     )
 
+  def opponentGoneClaimIn(seconds: Int) = Json.obj(
+    "type"              -> "opponentGone",
+    "gone"              -> true,
+    "claimWinInSeconds" -> seconds
+  )
+  def opponentGoneIsBack = Json.obj(
+    "type" -> "opponentGone",
+    "gone" -> false
+  )
+
   private def playerJson(pov: Pov) = {
     val light = pov.player.userId flatMap lightUserApi.sync
     Json

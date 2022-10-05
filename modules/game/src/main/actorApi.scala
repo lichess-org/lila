@@ -44,3 +44,8 @@ case class BoardTakebackOffer(game: Game)
 object BoardTakebackOffer {
   def makeChan = BoardTakeback.makeChan _
 }
+
+case class BoardGone(pov: Pov, claimInSeconds: Option[Int])
+object BoardGone {
+  def makeChan(gameId: Game.ID) = s"boardGone:$gameId"
+}
