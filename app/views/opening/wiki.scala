@@ -57,11 +57,11 @@ object wiki {
     )
 
   def showMissing(ops: List[FullOpening]) = div(cls := "opening__wiki__missing")(
-    h2("Insufficient descriptions"),
-    p("Sorted by opening popularity"),
+    h2("Openings to explain"),
+    p("Sorted by popularity"),
     ul(
       ops map { op =>
-        li(a(href := routes.Opening.query(op.key))(op.name))
+        li(a(href := routes.Opening.query(op.key))(op.name), " ", op.pgn)
       }
     )
   )
