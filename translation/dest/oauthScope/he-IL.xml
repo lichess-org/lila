@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">כרטיס גישה אישי חדש ל-API</string>
+  <string name="tokenGrantsPermission">הכרטיס נותן לאנשים אחרים גישה להשתמש בחשבונך.</string>
+  <string name="carefullySelect">בחרו בזהירות מה ניתן לעשות בשמכם בחשבונכם.</string>
+  <string name="tokenDescription">תיאור הכרטיס</string>
+  <string name="rememberTokenUse">כדי שתזכרו למה הוא משתמש</string>
+  <string name="whatTheTokenCanDo">מי ניתן לעשות בשמך:</string>
+  <string name="doNotShareIt">הכרטיס יתן גישה לחשבונך. בשום אופן אל תשתפו אותו עם אחרים!</string>
+  <string name="copyTokenNow">זכרו להעתיק את כרטיס הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
   <string name="preferenceRead">הקראת העדפות</string>
   <string name="preferenceWrite">כתיבת העדפה</string>
   <string name="emailRead">הקראת כתובת אימייל</string>
@@ -13,6 +21,7 @@
   <string name="puzzleRead">הקראה של פעילות החידות</string>
   <string name="teamRead">הקראת מידע על קבוצות פרטיות</string>
   <string name="teamWrite">הצטרפות, יצירה וניהול של קבוצה</string>
+  <string name="teamLead">ניהול קבוצות בהובלתך: שליחת הודעות פרטיות, העפת חברים</string>
   <string name="followRead">הקראה של השחקנים ברשימת המעקב</string>
   <string name="followWrite">מעקב וביטול מעקב אחר שחקנים אחרים</string>
   <string name="msgWrite">שליחת הודעה פרטית לשחקנים אחרים</string>
