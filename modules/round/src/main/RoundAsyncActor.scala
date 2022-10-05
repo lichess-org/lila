@@ -472,7 +472,7 @@ final private[round] class RoundAsyncActor(
     proxy.withPov(color) { pov =>
       fuccess {
         socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
-        publishBoardGone(pov, gone option 0L)
+        publishBoardBotGone(pov, gone option 0L)
       }
     }
 
@@ -480,12 +480,12 @@ final private[round] class RoundAsyncActor(
     proxy.withPov(color) { pov =>
       fuccess {
         socketSend(Protocol.Out.goneIn(FullId(pov.fullId), millis))
-        publishBoardGone(pov, millis.some)
+        publishBoardBotGone(pov, millis.some)
       }
     }
 
-  private def publishBoardGone(pov: Pov, millis: Option[Long]) =
-    if (lila.game.Game.isBoardCompatible(pov.game))
+  private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
+    if (lila.game.Game.isBoardOrBotCompatible(pov.game))
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone makeChan gameId
