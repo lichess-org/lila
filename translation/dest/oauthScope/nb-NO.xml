@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">Ny tilgangsnøkkel for API</string>
+  <string name="tokenGrantsPermission">En tilgangsnøkkel gir andre lov til å bruke kontoen din.</string>
+  <string name="carefullySelect">Vær nøye med hva andre kan gjøre på dine vegne.</string>
+  <string name="tokenDescription">Beskrivelse av tilgangsnøkkelen</string>
+  <string name="rememberTokenUse">For at du skal huske hva denne tilgangsnøkkelen gjelder</string>
+  <string name="whatTheTokenCanDo">Hva tilgangsnøkkelen kan gjøre på dine vegne:</string>
+  <string name="doNotShareIt">Tilgangsnøkkelen gir tilgang til kontoen din. Ikke del den.</string>
+  <string name="copyTokenNow">Kopier tilgangsnøkkelen din. Den blir aldri vist igjen.</string>
+</resources>
