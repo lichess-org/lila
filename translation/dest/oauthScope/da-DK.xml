@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="copyTokenNow">Sørg for at kopiere din nye, personlige adgangstoken nu. Du vil ikke kunne få den vist igen!</string>
   <string name="preferenceRead">Læsepræferencer</string>
   <string name="preferenceWrite">Skrivepræference</string>
   <string name="emailRead">Læs e-mailadresse</string>
@@ -13,6 +14,7 @@
   <string name="puzzleRead">Læs opgaveaktivitet</string>
   <string name="teamRead">Læs privat holdinformation</string>
   <string name="teamWrite">Tilmeld, forlad og administrer hold</string>
+  <string name="teamLead">Administrer hold du leder: send PM\'er, smid medlemmer af holdet</string>
   <string name="followRead">Læs fulgte spillere</string>
   <string name="followWrite">Følg og affølg andre spillere</string>
   <string name="msgWrite">Send privat besked til andre spillere</string>
