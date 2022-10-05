@@ -8,7 +8,7 @@
   <string name="boardHighlights">Markierige ufem Brätt (letschte Zug und Schach)</string>
   <string name="pieceDestinations">Zilfälder markiere (gültigi Züg und Voruszüg)</string>
   <string name="boardCoordinates">Brättkoordinate (A - H / 1 - 8)</string>
-  <string name="moveListWhilePlaying">Zugslischte während em Schpil zeige</string>
+  <string name="moveListWhilePlaying">Zugslischte während em Schpiel zeige</string>
   <string name="pgnPieceNotation">Zugsnotation</string>
   <string name="chessPieceSymbol">Schachfigure Symbol</string>
   <string name="pgnLetter">Buechstabe (K - Q - R - B - N)</string>
@@ -24,14 +24,14 @@
   <string name="horizontalGreenProgressBars">Horizontali grüeni Fortschrittsbalke</string>
   <string name="soundWhenTimeGetsCritical">Warnig, bi wenig Zit</string>
   <string name="giveMoreTime">Gib meh Zit</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpilverhalte</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpielverhalte</string>
   <string name="howDoYouMovePieces">Wie wottsch Figure bewege?</string>
   <string name="clickTwoSquares">Klick Schtartfäld und Zielfäld</string>
   <string name="dragPiece">Figur mit Cursor zieh</string>
   <string name="bothClicksAndDrag">Beides</string>
   <string name="premovesPlayingDuringOpponentTurn">Voruszüg (Premoves), während de Gägner am Zug isch</string>
   <string name="takebacksWithOpponentApproval">Zugsrücknahm (mit Erlaubnis vom Gägner)</string>
-  <string name="inCasualGamesOnly">Nur in ungwertete Schpil</string>
+  <string name="inCasualGamesOnly">Nur in ungwertete Schpiel</string>
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Dame</string>
   <string name="explainPromoteToQueenAutomatically">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
   <string name="whenPremoving">Bim Voruszug</string>

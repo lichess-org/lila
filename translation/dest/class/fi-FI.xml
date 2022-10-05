@@ -25,7 +25,7 @@
   <string name="teachersOfTheClass">Luokan opettajat</string>
   <string name="addLichessUsernames">Kutsu käyttäjiä opettajiksi lisäämällä heidän Lichess-tunnuksensa. Yksi per rivi.</string>
   <string name="resetPassword">Nollaa salasana</string>
-  <string name="makeSureToCopy">Huolehdi nyt siitä, että kopioit tai kirjoitat ylös salasanasi. Et näe sitä enää toiste!</string>
+  <string name="makeSureToCopy">Huolehdi nyt siitä, että kopioit tai kirjoitat salasanasi talteen. Et näe sitä enää toiste!</string>
   <string name="passwordX">Salasana: %s</string>
   <string name="generateANewPassword">Luo oppilaalle uusi salasana</string>
   <string name="invitedToXByY">Kutsuttu %1$s-luokkaan (kutsuja: %2$s)</string>

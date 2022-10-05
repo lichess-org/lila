@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Token personal de acces API</string>
+  <string name="tokenGrantsPermission">Un token acordă altor persoane permisiunea de a vă utiliza contul.</string>
+  <string name="carefullySelect">Selectați cu atenție ce este permis în numele tău.</string>
+  <string name="tokenDescription">Descrierea tokenului</string>
+  <string name="rememberTokenUse">Ca să vă amintiți scopul tokenului</string>
+  <string name="whatTheTokenCanDo">Ce poate face tokenul în numele tău:</string>
+  <string name="doNotShareIt">Tokenul va permite accesul la contul tău. NU îl partaja cu nimeni!</string>
   <string name="preferenceRead">Preferinţe de lectură</string>
   <string name="preferenceWrite">Preferințe de scriere</string>
   <string name="emailRead">Citește adresa de e-mail</string>

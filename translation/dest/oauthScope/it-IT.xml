@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">Nuovo token personale per l\'accesso all\'API</string>
+  <string name="tokenGrantsPermission">Un token permette ad altre persone di usare il tuo account.</string>
+  <string name="carefullySelect">Scegli con attenzione ciò che permetti di fare in tua vece.</string>
+  <string name="tokenDescription">Descrizione del token</string>
+  <string name="rememberTokenUse">Per ricordarti a cosa serve questo token</string>
+  <string name="whatTheTokenCanDo">Cosa può fare il token in tua vece:</string>
+  <string name="doNotShareIt">Il token permetterà l\'accesso al tuo account. NON condividerlo con nessuno!</string>
+  <string name="copyTokenNow">Assicurati di copiare adesso il tuo nuovo token di accesso. Non potrai più visualizzarlo in seguito!</string>
+</resources>
