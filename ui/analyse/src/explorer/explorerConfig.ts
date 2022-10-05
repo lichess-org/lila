@@ -1,12 +1,11 @@
 import { h, VNode } from 'snabbdom';
 import { Prop, prop } from 'common';
-import { bind, dataIcon, onInsert } from 'common/snabbdom';
+import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
-import { iconTag } from '../view/util';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';

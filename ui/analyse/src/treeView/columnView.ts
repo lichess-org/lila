@@ -18,7 +18,7 @@ import {
   Ctx as BaseCtx,
   Opts as BaseOpts,
 } from './common';
-import { enrichText, innerHTML } from '../view/util';
+import { enrichText, innerHTML } from 'common/richText';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;

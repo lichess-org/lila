@@ -1,7 +1,7 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
+import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon, iconTag } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/mobile';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
@@ -31,7 +31,6 @@ import { render as renderTreeView } from '../treeView/treeView';
 import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 import type * as studyDeps from '../study/studyDeps';
-import { iconTag } from './util';
 import { renderNextChapter } from '../study/nextChapter';
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {

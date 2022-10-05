@@ -1,15 +1,10 @@
-import { dataIcon } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
 import { attributesModule, classModule, init, h } from 'snabbdom';
 import { plyToTurn } from '../util';
 
 export const patch = init([classModule, attributesModule]);
 
-export { autolink, innerHTML, enrichText, richHTML, toYouTubeEmbed, toTwitchEmbed } from 'common/richText';
-
 export const emptyRedButton = 'button.button.button-red.button-empty';
-
-export const iconTag = (icon: string) => h('i', { attrs: dataIcon(icon) });
 
 export const baseUrl = () => `${window.location.protocol}//${window.location.host}`;
 
