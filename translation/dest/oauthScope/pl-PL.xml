@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="tokenGrantsPermission">Token daje innym osobom uprawnienia do korzystania z Twojego konta.</string>
+  <string name="tokenDescription">Opis tokenu</string>
+  <string name="whatTheTokenCanDo">Co token może zrobić w Twoim imieniu:</string>
+  <string name="copyTokenNow">Upewnij się, że zapisałeś swój nowy osobisty token dostępu. Nie będziesz mógł go zobaczyć ponownie!</string>
   <string name="preferenceRead">Odczyt ustawień</string>
   <string name="preferenceWrite">Zapis ustawień</string>
   <string name="emailRead">Odczyt adresu email</string>
@@ -13,6 +17,7 @@
   <string name="puzzleRead">Odczyt aktywności w rozwiązywaniu zadań</string>
   <string name="teamRead">Odczyt prywatnych informacji o klubie</string>
   <string name="teamWrite">Dołączanie, opuszczanie i zarządzanie klubem</string>
+  <string name="teamLead">Zarządzaj klubami, którymi dowodzisz: wysyłaj wiadomości prywatne, wyrzucaj graczy </string>
   <string name="followRead">Odczyt listy obserwowanych graczy</string>
   <string name="followWrite">Rozpoczęcie i zakończenie obserwowania innych graczy</string>
   <string name="msgWrite">Wysyłanie prywatnych wiadomości do innych graczy</string>
