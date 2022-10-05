@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Nou t\'uquen personal d\'accés a l\'API</string>
+  <string name="tokenGrantsPermission">Un token dona permisos a altres persones per accedir al vostre compte.</string>
+  <string name="carefullySelect">Seleccioneu amb cura el que es pot fer en el vostre nom.</string>
+  <string name="tokenDescription">Descripció del token</string>
+  <string name="rememberTokenUse">Així recordeu perquè és el token</string>
+  <string name="whatTheTokenCanDo">Que pot fer el token en el vostre nom:</string>
+  <string name="doNotShareIt">El token dona accés al vostre compte. No el compartiu amb ningú!</string>
   <string name="preferenceRead">Llegir les preferències</string>
   <string name="preferenceWrite">Escriure les preferències</string>
   <string name="emailRead">Llegir el correu electrónic</string>

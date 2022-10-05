@@ -318,7 +318,7 @@
     <item quantity="other">%s מדורגים</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">ניצחון %s</item>
+    <item quantity="one">%s ניצחון</item>
     <item quantity="two">%s ניצחונות</item>
     <item quantity="many">%s ניצחונות</item>
     <item quantity="other">%s ניצחונות</item>

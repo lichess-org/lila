@@ -33,6 +33,7 @@ case class ReporterId(value: User.ID) extends AnyVal
 object ReporterId {
   def lichess                = ReporterId(lila.user.User.lichessId)
   def irwin                  = ReporterId("irwin")
+  def kaladin                = ReporterId("kaladin")
   implicit val reporterIdIso = lila.common.Iso.string[ReporterId](ReporterId.apply, _.value)
 }
 

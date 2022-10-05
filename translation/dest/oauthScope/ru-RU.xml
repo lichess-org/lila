@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Новый персональный токен доступа к API</string>
+  <string name="tokenGrantsPermission">Токен даёт другим людям разрешение на использование вашей учётной записи.</string>
+  <string name="carefullySelect">Внимательно выберите, что разрешено делать от вашего имени.</string>
+  <string name="tokenDescription">Описание токена</string>
+  <string name="rememberTokenUse">Так, чтобы вы помнили, для чего этот токен</string>
+  <string name="whatTheTokenCanDo">Что с помощью токена можно делать от вашего имени:</string>
+  <string name="doNotShareIt">Токен предоставит доступ к вашей учётной записи. НЕ передавайте его никому!</string>
+  <string name="copyTokenNow">Убедитесь, что вы скопировали ваш новый токен персонального доступа. Вы не сможете увидеть его снова!</string>
   <string name="preferenceRead">Прочитать настройки</string>
   <string name="preferenceWrite">Записать настройки</string>
-  <string name="emailRead">Прочитать адреса электронной почты</string>
+  <string name="emailRead">Прочитать адрес электронной почты</string>
   <string name="challengeRead">Прочитать входящие вызовы</string>
   <string name="challengeWrite">Записать входящие вызовы</string>
   <string name="challengeBulk">Создать множество партий за раз для других игроков</string>
@@ -13,6 +21,7 @@
   <string name="puzzleRead">Читать активность в задачах</string>
   <string name="teamRead">Читать информацию из закрытых клубов</string>
   <string name="teamWrite">Присоединяться, покидать и управлять клубами</string>
+  <string name="teamLead">Управлять клубами, которыми вы руководите: посылать персональные сообщения, исключать участников</string>
   <string name="followRead">Читать подписчиков</string>
   <string name="followWrite">Подписаться и отписаться от других игроков</string>
   <string name="msgWrite">Отправлять частные сообщения другим игрокам</string>

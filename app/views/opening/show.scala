@@ -51,12 +51,12 @@ object show {
           )
         ),
         div(cls := "opening__intro")(
-          div(cls := "opening__intro__result-lpv lpv--moves-bottom")(
+          div(cls := "opening__intro__result-lpv")(
             div(cls := "opening__intro__result result-bar")(page.explored map { exp =>
               resultSegments(exp.result)
             }),
             div(
-              cls              := "lpv lpv--todo lpv--moves-false",
+              cls              := "lpv lpv--todo lpv--moves-bottom",
               st.data("pgn")   := page.query.pgnString,
               st.data("title") := page.opening.map(_.name)
             )(lpvPreload)

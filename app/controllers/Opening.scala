@@ -34,8 +34,8 @@ final class Opening(env: Env) extends LilaController(env) {
   def query(q: String) =
     Open { implicit ctx =>
       env.opening.api.lookup(q, isGranted(_.OpeningWiki)) flatMap {
-        case None                                 => Redirect(routes.Opening.index()).fuccess
-        case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index()).fuccess
+        case None                                 => Redirect(routes.Opening.index(q.some)).fuccess
+        case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index(q.some)).fuccess
         case Some(page) if page.query.key != q    => Redirect(routes.Opening.query(page.query.key)).fuccess
         case Some(page) =>
           page.query.opening.??(f => env.puzzle.opening.getClosestTo(f)) map { puzzle =>

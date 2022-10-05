@@ -42,7 +42,7 @@ object JsonView {
           nag.toString.toLowerCase -> JsNumber(nb)
         })
           .add("acpl", lila.analyse.AccuracyCP.mean(pov, analysis))
-          .add("accuracy", lila.analyse.AccuracyPercent.harmonicMean(pov, analysis).map(_.toInt))
+          .add("accuracy", lila.analyse.AccuracyPercent.gameAccuracy(pov, analysis).map(_.toInt))
       }
 
   def bothPlayers(game: Game, analysis: Analysis) =

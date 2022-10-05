@@ -15,7 +15,7 @@ object wiki {
       div(cls := "opening__wiki__markup")(
         page.wiki
           .flatMap(_.markup)
-          .fold(frag("No description of the opening, yet.")) { markup =>
+          .fold(frag("No description of the opening, yet. We're working on it!")) { markup =>
             raw(markup)
           }
       ),
