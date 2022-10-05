@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Ny personlig API-adgangstoken</string>
+  <string name="tokenGrantsPermission">En token giver andre personer tilladelse til at bruge din konto.</string>
+  <string name="carefullySelect">Vælg omhyggeligt, hvad den har lov til at gøre på dine vegne.</string>
+  <string name="tokenDescription">Tokenbeskrivelse</string>
+  <string name="rememberTokenUse">Så du kan huske, hvad denne token er beregnet til</string>
+  <string name="whatTheTokenCanDo">Hvad token kan gøre på dine vegne:</string>
+  <string name="doNotShareIt">Denne token vil give adgang til din konto. Del den IKKE med nogen!</string>
   <string name="copyTokenNow">Sørg for at kopiere din nye, personlige adgangstoken nu. Du vil ikke kunne få den vist igen!</string>
   <string name="preferenceRead">Læsepræferencer</string>
   <string name="preferenceWrite">Skrivepræference</string>
