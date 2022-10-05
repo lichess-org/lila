@@ -43,7 +43,7 @@ lichess.load.then(() => {
       isDanger = !!form.find('.danger input:checked').length;
       submit.toggleClass('button-red confirm', isDanger);
       submit.attr('data-icon', isDanger ? '' : '');
-      submit.attr('title', isDanger ? 'The token will grant access to your account. Do NOT share it with anyone!' : '');
+      submit.attr('title', isDanger ? submit.data('danger-title') : '');
     };
     checkDanger();
     form.find('input').on('change', checkDanger);

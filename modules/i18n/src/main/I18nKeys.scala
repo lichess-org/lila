@@ -2434,6 +2434,13 @@ val `nbYearsAgo` = new I18nKey("timeago:nbYearsAgo")
 }
 
 object oauthScope {
+val `newAccessToken` = new I18nKey("oauthScope:newAccessToken")
+val `tokenGrantsPermission` = new I18nKey("oauthScope:tokenGrantsPermission")
+val `carefullySelect` = new I18nKey("oauthScope:carefullySelect")
+val `tokenDescription` = new I18nKey("oauthScope:tokenDescription")
+val `rememberTokenUse` = new I18nKey("oauthScope:rememberTokenUse")
+val `whatTheTokenCanDo` = new I18nKey("oauthScope:whatTheTokenCanDo")
+val `doNotShareIt` = new I18nKey("oauthScope:doNotShareIt")
 val `preferenceRead` = new I18nKey("oauthScope:preferenceRead")
 val `preferenceWrite` = new I18nKey("oauthScope:preferenceWrite")
 val `emailRead` = new I18nKey("oauthScope:emailRead")
