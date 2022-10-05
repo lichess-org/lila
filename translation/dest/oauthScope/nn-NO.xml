@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Nytt personleg API tilgjengeteikn (\"token\")</string>
+  <string name="tokenGrantsPermission">Eit tilgjengeteikn gjev andre rett til å bruka din konto.</string>
+  <string name="carefullySelect">Bruk godt omdøme når du velgjer kva andre kan gjera på dine vegne.</string>
+  <string name="tokenDescription">Beskriving av tilgjengeteiknet</string>
+  <string name="rememberTokenUse">For at du skal hugsa kva dette tilgjengeteiknet gjeld</string>
+  <string name="whatTheTokenCanDo">Kva tilgjengeteiknet kan gjera på dine vegne:</string>
+  <string name="doNotShareIt">Teiknet gjer tilgjenge til din konto. Del det ikkje med nokon!</string>
   <string name="preferenceRead">Lesepreferansar</string>
   <string name="preferenceWrite">Skrivepreferansar</string>
   <string name="emailRead">Les e-postadresse</string>
