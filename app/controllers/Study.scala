@@ -264,8 +264,8 @@ final class Study(
     }
 
   private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) = {
-    ctx.noKid && ctx.noBot // no public chats for kids and bots
-    ctx.me.fold(true) {    // anon can see public chats
+    ctx.noKid && ctx.noBot && // no public chats for kids and bots
+    ctx.me.fold(true) {       // anon can see public chats
       env.chat.panic.allowed
     }
   } ?? env.chat.api.userChat
