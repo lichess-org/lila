@@ -31,37 +31,42 @@ object create {
           br,
           h2(ot.whatTheTokenCanDo()),
           div(cls := "scopes")(
-            lila.oauth.OAuthScope.allButWeb.map { scope =>
-              val disabled = {
-                me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
-              } || {
-                me.isBot && scope == lila.oauth.OAuthScope.Board.Play
-              }
-              val hidden =
-                scope == lila.oauth.OAuthScope.Web.Mod && !(
-                  isGranted(_.Shusher) || isGranted(_.BoostHunter) || isGranted(_.CheatHunter)
-                )
-              val id = s"oauth-scope-${scope.key.replace(":", "_")}"
-              !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList(scope)))(
-                span(
-                  form3.cmnToggle(
-                    id,
-                    s"${form("scopes").name}[]",
-                    value = scope.key,
-                    checked = form.value.exists(_.scopes.contains(scope.key)),
-                    disabled = disabled
+            lila.oauth.OAuthScope.classified.map { case (categ, scopes) =>
+              fieldset(
+                legend(categ()),
+                scopes.map { scope =>
+                  val disabled = {
+                    me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
+                  } || {
+                    me.isBot && scope == lila.oauth.OAuthScope.Board.Play
+                  }
+                  val hidden =
+                    scope == lila.oauth.OAuthScope.Web.Mod && !(
+                      isGranted(_.Shusher) || isGranted(_.BoostHunter) || isGranted(_.CheatHunter)
+                    )
+                  val id = s"oauth-scope-${scope.key.replace(":", "_")}"
+                  !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList(scope)))(
+                    span(
+                      form3.cmnToggle(
+                        id,
+                        s"${form("scopes").name}[]",
+                        value = scope.key,
+                        checked = form.value.exists(_.scopes.contains(scope.key)),
+                        disabled = disabled
+                      )
+                    ),
+                    label(`for` := id, st.title := disabled.option("You already have played games!"))(
+                      scope.name(),
+                      em(scope.key)
+                    )
                   )
-                ),
-                label(`for` := id, st.title := disabled.option("You already have played games!"))(
-                  scope.name(),
-                  em(scope.key)
-                )
+                }
               )
             }
           ),
           form3.actions(
             a(href := routes.OAuthToken.index)("Cancel"),
-            form3.submit(trans.apply())(data("danger-title") := ot.doNotShareIt.txt())
+            form3.submit(trans.create())(data("danger-title") := ot.doNotShareIt.txt())
           ),
           br,
           br,

@@ -104,6 +104,17 @@ object OAuthScope {
     Web.Mod
   )
 
+  val classified: List[(I18nKey, List[OAuthScope])] = List(
+    new I18nKey("User account")    -> List(Email.Read, Preference.Read, Preference.Write),
+    new I18nKey("Interactions")    -> List(Follow.Read, Follow.Write, Msg.Write),
+    new I18nKey("Play games")      -> List(Challenge.Read, Challenge.Write, Challenge.Bulk, Tournament.Write),
+    new I18nKey("Teams")           -> List(Team.Read, Team.Write, Team.Lead),
+    new I18nKey("Puzzles")         -> List(Puzzle.Read, Racer.Write),
+    new I18nKey("Studies")         -> List(Study.Read, Study.Write),
+    new I18nKey("External play")   -> List(Board.Play, Bot.Play),
+    new I18nKey("External engine") -> List(Engine.Read, Engine.Write)
+  )
+
   val allButWeb = all.filterNot(_.key startsWith "web:")
 
   val dangerList: Set[OAuthScope] = Set(
