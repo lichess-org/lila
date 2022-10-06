@@ -9,7 +9,7 @@ import play.api.data.Forms._
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
-import lila.common.{ Bearer, Template }
+import lila.common.{ Bearer, Days, Template }
 import lila.game.{ Game, GameRule, IdGenerator }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User
@@ -22,7 +22,7 @@ object SetupBulk {
       tokens: String,
       variant: Variant,
       clock: Option[Clock.Config],
-      days: Option[Int],
+      days: Option[Days],
       rated: Boolean,
       pairAt: Option[DateTime],
       startClocksAt: Option[DateTime],
@@ -60,7 +60,7 @@ object SetupBulk {
           tokens: String,
           variant: Option[String],
           clock: Option[Clock.Config],
-          days: Option[Int],
+          days: Option[Days],
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
@@ -224,7 +224,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
                     by = me.id,
                     _,
                     data.variant,
-                    data.clock,
+                    data.clock.get, // #TODO #FIXME
                     Mode(data.rated),
                     pairAt = data.pairAt | DateTime.now,
                     startClocksAt = data.startClocksAt,

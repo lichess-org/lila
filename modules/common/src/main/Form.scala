@@ -237,6 +237,9 @@ object Form {
   implicit val variantFormat =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
 
+  implicit val daysFormat =
+    formatter.intFormatter[lila.common.Days](_.value, lila.common.Days.apply)
+
   object strings {
     def separator(sep: String) = of[List[String]](
       formatter
