@@ -48,9 +48,7 @@ final class MarkdownRender(
     code: Boolean = false,
     gameExpand: Option[MarkdownRender.GameExpand] = None
 ) {
-
-  private type Key  = String
-  private type Html = String
+  import MarkdownRender.{ Html, Key }
 
   private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]()
   if (table) extensions.add(TablesExtension.create())
@@ -108,6 +106,9 @@ final class MarkdownRender(
 }
 
 object MarkdownRender {
+
+  type Key  = String
+  type Html = String
 
   case class GameExpand(domain: config.NetDomain, getPgn: String => Option[String])
 
