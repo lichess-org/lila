@@ -171,7 +171,7 @@ object SetupForm {
         "rules" -> optional(gameRules)
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
-        .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)
+        .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
     )
   }
 }
