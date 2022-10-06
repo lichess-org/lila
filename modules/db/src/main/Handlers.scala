@@ -95,6 +95,13 @@ trait Handlers {
   def handlerBadValue[T](msg: String): Try[T] =
     Failure(new IllegalArgumentException(msg))
 
+  def eitherHandler[L, R](implicit leftHandler: BSONHandler[L], rightHandler: BSONHandler[R]) =
+    new BSONHandler[Either[L, R]] {
+      def readTry(bson: BSONValue) =
+        leftHandler.readTry(bson).map(Left.apply) orElse rightHandler.readTry(bson).map(Right.apply)
+      def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
+    }
+
   def stringMapHandler[V](implicit
       reader: BSONReader[Map[String, V]],
       writer: BSONWriter[Map[String, V]]

@@ -9,6 +9,7 @@ import play.api.data.Forms._
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
+import lila.common.Json.daysFormat
 import lila.common.{ Bearer, Days, Template }
 import lila.game.{ Game, GameRule, IdGenerator }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
@@ -28,7 +29,9 @@ object SetupBulk {
       startClocksAt: Option[DateTime],
       message: Option[Template],
       rules: Set[GameRule]
-  )
+  ) {
+    def clockOrDays = clock.toLeft(days | Days(3))
+  }
 
   private def timestampInNearFuture = longNumber(
     min = 0,
@@ -79,7 +82,10 @@ object SetupBulk {
           ~rules
         )
     }(_ => None)
-      .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
+      .verifying(
+        "clock or correspondence days required",
+        c => c.clock.isDefined || c.days.isDefined
+      )
   )
 
   private[setup] def extractTokenPairs(str: String): List[(Bearer, Bearer)] =
@@ -104,7 +110,7 @@ object SetupBulk {
       by: User.ID,
       games: List[ScheduledGame],
       variant: Variant,
-      clock: Clock.Config,
+      clock: Either[Clock.Config, Days],
       mode: Mode,
       pairAt: DateTime,
       startClocksAt: Option[DateTime],
@@ -139,17 +145,22 @@ object SetupBulk {
             "black" -> g.black
           )
         },
-        "variant" -> variant.key,
-        "clock" -> Json.obj(
-          "limit"     -> clock.limitSeconds,
-          "increment" -> clock.incrementSeconds
-        ),
+        "variant"       -> variant.key,
         "rated"         -> mode.rated,
         "pairAt"        -> pairAt,
         "startClocksAt" -> startClocksAt,
         "scheduledAt"   -> scheduledAt,
         "pairedAt"      -> pairedAt
       )
+      .add("clock" -> bulk.clock.left.toOption.map { c =>
+        Json.obj(
+          "limit"     -> c.limitSeconds,
+          "increment" -> c.incrementSeconds
+        )
+      })
+      .add("correspondence" -> bulk.clock.toOption.map { days =>
+        Json.obj("daysPerTurn" -> days)
+      })
       .add("message" -> message.map(_.value))
       .add("rules" -> nonEmptyRules)
   }
@@ -224,7 +235,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
                     by = me.id,
                     _,
                     data.variant,
-                    data.clock.get, // #TODO #FIXME
+                    data.clockOrDays,
                     Mode(data.rated),
                     pairAt = data.pairAt | DateTime.now,
                     startClocksAt = data.startClocksAt,
