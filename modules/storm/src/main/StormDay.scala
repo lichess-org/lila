@@ -2,9 +2,8 @@ package lila.storm
 
 import scala.concurrent.ExecutionContext
 
-import lila.common.Bus
 import lila.common.config.MaxPerPage
-import lila.common.Day
+import lila.common.{ Bus, LichessDay }
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
@@ -43,12 +42,12 @@ case class StormDay(
 
 object StormDay {
 
-  case class Id(userId: User.ID, day: Day)
+  case class Id(userId: User.ID, day: LichessDay)
   object Id {
-    def today(userId: User.ID)     = Id(userId, Day.today)
-    def lastWeek(userId: User.ID)  = Id(userId, Day daysAgo 7)
-    def lastMonth(userId: User.ID) = Id(userId, Day daysAgo 30)
-    def allTime(userId: User.ID)   = Id(userId, Day(0))
+    def today(userId: User.ID)     = Id(userId, LichessDay.today)
+    def lastWeek(userId: User.ID)  = Id(userId, LichessDay daysAgo 7)
+    def lastMonth(userId: User.ID) = Id(userId, LichessDay daysAgo 30)
+    def allTime(userId: User.ID)   = Id(userId, LichessDay(0))
   }
 
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0, 0)

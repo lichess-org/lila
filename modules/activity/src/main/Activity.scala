@@ -3,7 +3,7 @@ package lila.activity
 import activities._
 import org.joda.time.Interval
 
-import lila.common.Day
+import lila.common.LichessDay
 import lila.user.User
 
 case class Activity(
@@ -57,9 +57,9 @@ object Activity {
 
   val recentNb = 7
 
-  case class Id(userId: User.ID, day: Day)
+  case class Id(userId: User.ID, day: LichessDay)
   object Id {
-    def today(userId: User.ID) = Id(userId, Day.today)
+    def today(userId: User.ID) = Id(userId, LichessDay.today)
   }
 
   case class WithUserId(activity: Activity, userId: User.ID)
