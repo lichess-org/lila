@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.puzzle.Puzzle
 import scala.util.Success
-import lila.common.Day
+import lila.common.LichessDay
 
 object StormBsonHandlers {
 
@@ -28,7 +28,7 @@ object StormBsonHandlers {
     tryHandler[Id](
       { case BSONString(v) =>
         v split sep match {
-          case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
+          case Array(userId, dayStr) => Success(Id(userId, LichessDay(Integer.parseInt(dayStr))))
           case _                     => handlerBadValue(s"Invalid storm day id $v")
         }
       },
