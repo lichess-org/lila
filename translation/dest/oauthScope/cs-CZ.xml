@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">Nový osobní přístupový token pro API</string>
+  <string name="tokenGrantsPermission">Token dává někomu jinému oprávnění používat váš účet.</string>
+  <string name="carefullySelect">Pečlivě vyberte, co je mu povoleno dělat vaším jménem.</string>
+  <string name="tokenDescription">Popis tokenu</string>
+  <string name="rememberTokenUse">Pamatuješ si tedy, pro co je tento token</string>
+  <string name="whatTheTokenCanDo">Co token může udělat vaším jménem:</string>
+  <string name="doNotShareIt">Token umožní přístup k vašemu účtu. NESDÍLEJTE jej s nikým!</string>
+  <string name="copyTokenNow">Ujistěte se, že máte svůj nový osobní přístupový token uložený. Není možné ho znovu zobrazit!</string>
+  <string name="teamLead">Spravovat týmy, které vedete: posílat soukromé zprávy, vykopávat členy</string>
+</resources>
