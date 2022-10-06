@@ -8,4 +8,17 @@
   <string name="whatTheTokenCanDo">Hva tilgangsnøkkelen kan gjøre på dine vegne:</string>
   <string name="doNotShareIt">Tilgangsnøkkelen gir tilgang til kontoen din. Ikke del den.</string>
   <string name="copyTokenNow">Kopier tilgangsnøkkelen din. Den blir aldri vist igjen.</string>
+  <string name="preferenceRead">Lese innstillinger</string>
+  <string name="preferenceWrite">Skrive innstillinger</string>
+  <string name="emailRead">Lese e-postadresse</string>
+  <string name="challengeRead">Lese innkommende utfordringer</string>
+  <string name="challengeWrite">Sende, godta og avslå utfordringer</string>
+  <string name="challengeBulk">Opprette mange partier på én gang for andre spillere</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lese private studier og overføringer</string>
+  <string name="studyWrite">Opprette, oppdatere og slette studier og overføringer</string>
+  <string name="tournamentWrite">Opprette, oppdatere og delta i turneringer</string>
+  <string name="racerWrite">Opprette og delta i sjakknøttløp</string>
+  <string name="puzzleRead">Lese sjakknøttaktivitet</string>
+  <string name="teamRead">Lese privat laginformasjon</string>
+  <string name="teamWrite">Delta i og forlate lag</string>
 </resources>
