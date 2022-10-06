@@ -169,7 +169,9 @@ export default class AnalyseCtrl {
       if (this.music && set !== 'music') this.music = null;
     });
 
-    lichess.pubsub.on('analysis.change.trigger', this.onChange);
+    lichess.pubsub.on('ply.trigger', () =>
+      lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply)
+    );
     lichess.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
       this.redraw();
@@ -389,7 +391,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
-    lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply);
+    lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
   }
 
