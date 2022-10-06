@@ -1,12 +1,13 @@
 package lila.challenge
 
-import reactivemongo.api.bson._
-
 import chess.variant.Variant
+import reactivemongo.api.bson._
+import scala.util.Success
+
+import lila.common.Days
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
-import scala.util.Success
 
 private object BSONHandlers {
 
@@ -31,7 +32,7 @@ private object BSONHandlers {
       (r.intO("l"), r.intO("i")) mapN { (limit, inc) =>
         TimeControl.Clock(chess.Clock.Config(limit, inc))
       } orElse {
-        r intO "d" map TimeControl.Correspondence.apply
+        r.getO[Days]("d") map TimeControl.Correspondence.apply
       } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) =
       t match {

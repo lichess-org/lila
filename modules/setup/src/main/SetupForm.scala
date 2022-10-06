@@ -7,7 +7,7 @@ import play.api.data.Forms._
 
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
-import lila.common.{ Form => LilaForm }
+import lila.common.{ Days, Form => LilaForm }
 
 object SetupForm {
 
@@ -91,7 +91,7 @@ object SetupForm {
         timeMode = if (d.isDefined) TimeMode.Correspondence else TimeMode.RealTime,
         time = t | 10,
         increment = i | 5,
-        days = d | 7,
+        days = d | Days(7),
         mode = chess.Mode(~r),
         color = lila.lobby.Color.orDefault(c),
         ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)

@@ -1,10 +1,10 @@
 package lila.api
 
+import chess.format.Forsyth
 import play.api.i18n.Lang
 import play.api.libs.json._
 
-import chess.format.Forsyth
-import lila.common.Json.jodaWrites
+import lila.common.Json.{ daysFormat, jodaWrites }
 import lila.common.LightUser
 import lila.common.paginator.Paginator
 import lila.game.{ Game, PerfPicker }

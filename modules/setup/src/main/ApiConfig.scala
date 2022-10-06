@@ -3,18 +3,18 @@ package lila.setup
 import chess.format.{ FEN, Forsyth }
 import chess.variant.Chess960
 import chess.variant.FromPosition
+import chess.variant.Variant
 import chess.{ Clock, Speed }
 
+import lila.common.{ Days, Template }
 import lila.game.{ GameRule, PerfPicker }
 import lila.lobby.Color
 import lila.rating.PerfType
-import chess.variant.Variant
-import lila.common.Template
 
 final case class ApiConfig(
     variant: chess.variant.Variant,
     clock: Option[Clock.Config],
-    days: Option[Int],
+    days: Option[Days],
     rated: Boolean,
     color: Color,
     position: Option[FEN] = None,
@@ -49,7 +49,7 @@ object ApiConfig extends BaseHumanConfig {
   def from(
       v: Option[String],
       cl: Option[Clock.Config],
-      d: Option[Int],
+      d: Option[Days],
       r: Boolean,
       c: Option[String],
       pos: Option[FEN],

@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.memo.CacheApi._
 

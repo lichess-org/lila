@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 import scala.util.Try
 
 import chess.Centis
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.BSON.jodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
 
@@ -105,7 +105,7 @@ object GameDiff {
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
       dTry(s"$name$blursBits", player(_).blurs, Blurs.BlursBSONHandler.writeTry)
     }
-    dTry(movedAt, _.movedAt, BSONJodaDateTimeHandler.writeTry)
+    dTry(movedAt, _.movedAt, jodaDateTimeHandler.writeTry)
 
     (setBuilder.toList, unsetBuilder.toList)
   }

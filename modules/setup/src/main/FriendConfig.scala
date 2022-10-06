@@ -1,17 +1,19 @@
 package lila.setup
 
-import chess.Mode
 import chess.format.FEN
+import chess.Mode
+
+import lila.common.Days
+import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
-import lila.game.PerfPicker
 
 case class FriendConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
     time: Double,
     increment: Int,
-    days: Int,
+    days: Days,
     mode: Mode,
     color: Color,
     fen: Option[FEN] = None
@@ -29,7 +31,7 @@ case class FriendConfig(
 
 object FriendConfig extends BaseHumanConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[FEN]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, m: Option[Int], c: String, fen: Option[FEN]) =
     new FriendConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -46,7 +48,7 @@ object FriendConfig extends BaseHumanConfig {
     timeMode = TimeMode.Unlimited,
     time = 5d,
     increment = 8,
-    days = 2,
+    days = Days(2),
     mode = Mode.default,
     color = Color.default
   )
@@ -62,7 +64,7 @@ object FriendConfig extends BaseHumanConfig {
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r int "i",
-        days = r int "d",
+        days = r.get[Days]("d"),
         mode = Mode orDefault (r int "m"),
         color = Color.White,
         fen = r.getO[FEN]("f") filter (_.value.nonEmpty)

@@ -71,7 +71,7 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(implicit ec: scala.c
           streakDiff(a, b)(_.playStreak.time.max).map { set =>
             "playStreak.time.max" -> set
           },
-          b.playStreak.lastDate.flatMap(BSONJodaDateTimeHandler.writeOpt).map { date =>
+          b.playStreak.lastDate.flatMap(jodaDateTimeHandler.writeOpt).map { date =>
             "playStreak.lastDate" -> date
           }
         ).flatten

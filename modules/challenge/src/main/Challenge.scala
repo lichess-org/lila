@@ -5,6 +5,7 @@ import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
+import lila.common.Days
 import lila.game.{ Game, GameRule, PerfPicker }
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
@@ -173,10 +174,10 @@ object Challenge {
 
   sealed trait TimeControl
   object TimeControl {
-    def make(clock: Option[chess.Clock.Config], days: Option[Int]) =
+    def make(clock: Option[chess.Clock.Config], days: Option[Days]) =
       clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
     case object Unlimited                        extends TimeControl
-    case class Correspondence(days: Int)         extends TimeControl
+    case class Correspondence(days: Days)        extends TimeControl
     case class Clock(config: chess.Clock.Config) extends TimeControl {
       // All durations are expressed in seconds
       def limit     = config.limit

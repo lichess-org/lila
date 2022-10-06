@@ -48,7 +48,7 @@ object Form {
       d -> format(d)
     }
 
-  private def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
+  def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
 
   def numberIn(choices: Options[Int]) =
     number.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))

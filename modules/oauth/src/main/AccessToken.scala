@@ -46,7 +46,6 @@ object AccessToken {
 
   import lila.db.BSON
   import lila.db.dsl._
-  import BSON.BSONJodaDateTimeHandler
   import OAuthScope.scopeHandler
 
   private[oauth] val forAuthProjection = $doc(

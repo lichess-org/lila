@@ -1,9 +1,10 @@
 package lila.setup
 
-import chess.{ Clock, Game => ChessGame, Situation, Speed }
-import chess.variant.{ FromPosition, Variant }
 import chess.format.FEN
+import chess.variant.{ FromPosition, Variant }
+import chess.{ Clock, Game => ChessGame, Situation, Speed }
 
+import lila.common.Days
 import lila.game.Game
 import lila.lobby.Color
 
@@ -19,7 +20,7 @@ private[setup] trait Config {
   val increment: Int
 
   // Correspondence days per turn
-  val days: Int
+  val days: Days
 
   // Game variant code
   val variant: Variant
@@ -50,7 +51,7 @@ private[setup] trait Config {
   protected def justMakeClock =
     Clock.Config((time * 60).toInt, if (clockHasTime) increment else 1)
 
-  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
+  def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence) option days
 }
 
 trait Positional { self: Config =>

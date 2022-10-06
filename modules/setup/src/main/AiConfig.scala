@@ -3,6 +3,7 @@ package lila.setup
 import chess.format.FEN
 import scala.concurrent.ExecutionContext
 
+import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
@@ -12,7 +13,7 @@ case class AiConfig(
     timeMode: TimeMode,
     time: Double,
     increment: Int,
-    days: Int,
+    days: Days,
     level: Int,
     color: Color,
     fen: Option[FEN] = None
@@ -57,7 +58,7 @@ case class AiConfig(
 
 object AiConfig extends BaseConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, level: Int, c: String, fen: Option[FEN]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, level: Int, c: String, fen: Option[FEN]) =
     new AiConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -74,7 +75,7 @@ object AiConfig extends BaseConfig {
     timeMode = TimeMode.Unlimited,
     time = 5d,
     increment = 8,
-    days = 2,
+    days = Days(2),
     level = 1,
     color = Color.default
   )
@@ -96,7 +97,7 @@ object AiConfig extends BaseConfig {
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r int "i",
-        days = r int "d",
+        days = r.get[Days]("d"),
         level = r int "l",
         color = Color.White,
         fen = r.getO[FEN]("f").filter(_.value.nonEmpty)

@@ -7,7 +7,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.Bus
-import lila.common.Json.{ fenFormat, jodaWrites }
+import lila.common.Json.{ daysFormat, fenFormat, jodaWrites }
 import lila.game.Game
 import lila.user.User
 

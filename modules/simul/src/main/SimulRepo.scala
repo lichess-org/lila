@@ -1,12 +1,11 @@
 package lila.simul
 
+import chess.Status
+import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
-import chess.Status
-import chess.variant.Variant
 import lila.db.BSON
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.User
 
