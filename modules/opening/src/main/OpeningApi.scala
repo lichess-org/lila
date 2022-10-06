@@ -19,12 +19,23 @@ final class OpeningApi(
     configStore: OpeningConfigStore
 )(implicit ec: ExecutionContext) {
 
+  private val defaultCache = cacheApi.notLoading[String, Option[OpeningPage]](1024, "opening.defaultCache") {
+    _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
+  }
+
   def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] = lookup("", withWikiRevisions = false)
 
-  def lookup(q: String, withWikiRevisions: Boolean)(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, readConfig) ?? { lookup(_, withWikiRevisions) }
+  def lookup(q: String, withWikiRevisions: Boolean)(implicit req: RequestHeader): Fu[Option[OpeningPage]] = {
+    val config = readConfig
+    if (config.isDefault && !withWikiRevisions)
+      defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions))
+    else lookup(q, config, withWikiRevisions)
+  }
 
-  def lookup(query: OpeningQuery, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
+  private def lookup(q: String, config: OpeningConfig, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
+    OpeningQuery(q, config) ?? { compute(_, withWikiRevisions) }
+
+  private def compute(query: OpeningQuery, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
     explorer.stats(query) zip
       explorer.queryHistory(query) zip
       allGamesHistory.get(query.config) zip

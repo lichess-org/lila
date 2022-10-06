@@ -13,6 +13,8 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]) {
 
   override def toString = s"Speed: $showSpeeds; Rating: $showRatings"
 
+  def isDefault = this == OpeningConfig.default
+
   def showRatings: String =
     showContiguous(ratings.toList.sorted.map(_.toString), OpeningConfig.contiguousRatings)
   def showSpeeds: String =
