@@ -1,16 +1,14 @@
 import { loadHighcharts, MovePoint, selectPly } from './common';
 import divisionLines from './division';
-import { PlyChartHTMLElement } from './interface';
+import { AcplChart, AnalyseData, Player } from './interface';
 
 const acpl: Window['LichessChartGame']['acpl'] = async (
-  data: any,
-  mainline: any[],
-  trans: Trans,
-  el: PlyChartHTMLElement
+  el: HTMLElement,
+  data: AnalyseData,
+  mainline: Tree.Node[],
+  trans: Trans
 ) => {
   await loadHighcharts('highchart');
-  acpl.update = (d: any, mainline: any[]) =>
-    el.highcharts && el.highcharts.series[0].setData(makeSerieData(d, mainline) as any);
 
   const area = window.Highcharts.theme.lichess.area;
   const line = window.Highcharts.theme.lichess.line;
@@ -18,7 +16,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'white') blurs.reverse();
 
-  const makeSerieData = (d: any, mainline: any[]) => {
+  const makeSerieData = (d: AnalyseData, mainline: Tree.Node[]) => {
     const partial = !d.analysis || d.analysis.partial;
     return mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) == 1;
@@ -26,7 +24,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       let cp;
       if (node.eval && node.eval.mate) {
         cp = node.eval.mate > 0 ? Infinity : -Infinity;
-      } else if (node.san.includes('#')) {
+      } else if (node.san?.includes('#')) {
         cp = isWhite ? Infinity : -Infinity;
         if (d.game.variant.key === 'antichess') cp = -cp;
       } else if (node.eval && typeof node.eval.cp !== 'undefined') {
@@ -62,7 +60,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
   const disabled = { enabled: false };
   const noText = { text: null };
   const serieData = makeSerieData(data, mainline);
-  el.highcharts = window.Highcharts.chart(el, {
+  const chart: AcplChart = window.Highcharts.chart(el, {
     credits: disabled,
     legend: disabled,
     series: [
@@ -154,9 +152,15 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
       ],
     },
   });
-  el.highcharts.firstPly = data.treeParts[0].ply;
-  el.highcharts.selectPly = selectPly;
-  lichess.pubsub.emit('analysis.change.trigger');
+  chart.firstPly = data.treeParts[0].ply;
+  chart.selectPly = selectPly.bind(chart);
+  chart.updateData = (d: AnalyseData, mainline: Tree.Node[]) =>
+    chart.series[0].setData(makeSerieData(d, mainline) as any);
+
+  lichess.pubsub.on('ply', chart.selectPly);
+  lichess.pubsub.emit('ply.trigger');
+
+  return chart;
 };
 
 // the color prefixes below are mirrored in analyse/src/roundTraining.ts
@@ -168,6 +172,6 @@ const glyphProperties = (node: Tree.Node) => {
   else return [undefined, undefined];
 };
 
-const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
+const toBlurArray = (player: Player) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
 
 export default acpl;

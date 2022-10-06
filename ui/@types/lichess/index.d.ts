@@ -67,7 +67,6 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
-  movetimeChart: any;
   playMusic(): any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
@@ -259,16 +258,6 @@ interface Window {
   readonly LichessPuzzleNvui?: Nvui;
   readonly LichessAnalyseNvui?: (ctrl: any) => {
     render(): any;
-  };
-  readonly LichessChartGame: {
-    acpl: {
-      (data: any, mainline: Tree.Node[], trans: Trans, el: HTMLElement, hunter: boolean): Promise<void>;
-      update?(data: any, mainline: Tree.Node[]): void;
-    };
-    movetime: {
-      (data: any, trans: Trans, hunter: boolean): Promise<void>;
-      render?(): void;
-    };
   };
   readonly LichessChartRatingHistory?: any;
   readonly LichessKeyboardMove?: any;

@@ -1,4 +1,4 @@
-import type { PlyChartHTMLElement, PlyChart } from 'chart/dist/interface';
+import type { AcplChart } from 'chart/dist/interface';
 
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
@@ -18,8 +18,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
     positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement;
   let lastInputHash: string;
-  let advChart: PlyChart;
-  let timeChart: PlyChart;
+  let advChart: AcplChart;
+  let timeChartLoaded = false;
 
   const updateGifLinks = (fen: Fen) => {
     const ds = document.body.dataset;
@@ -44,7 +44,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         () => (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown'),
         50
       );
-      if (v) $('#acpl-chart').each((_, e) => (e as PlyChartHTMLElement).highcharts.reflow());
+      if (v) advChart?.reflow();
     });
     lichess.pubsub.on('analysis.change', (fen: Fen, _) => {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
@@ -54,13 +54,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         lastInputHash = nextInputHash;
       }
     });
-    lichess.pubsub.on('ply', (ply: number, mainlinePly: number) => {
-      advChart?.selectPly(mainlinePly, ply == mainlinePly);
-      timeChart?.selectPly(mainlinePly, ply == mainlinePly);
-    });
     lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!window.LichessChartGame) startAdvantageChart();
-      else if (window.LichessChartGame.acpl.update) window.LichessChartGame.acpl.update(d, ctrl.mainline);
+      else advChart?.updateData(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-loader').remove();
     });
   }
@@ -69,19 +65,17 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     `<div id="acpl-chart-loader"><span>Stockfish 15<br>server analysis</span>${lichess.spinnerHtml}</div>`;
 
   function startAdvantageChart() {
-    if (window.LichessChartGame?.acpl.update || window.LichessAnalyseNvui) return;
+    if (advChart || window.LichessAnalyseNvui) return;
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
-    lichess.loadModule('chart.game').then(() => {
-      window
-        .LichessChartGame!.acpl(data, ctrl.mainline, ctrl.trans, $('#acpl-chart')[0] as HTMLElement, ctrl.opts.hunter)
-        .then(() => {
-          advChart = ($('#acpl-chart')[0] as PlyChartHTMLElement).highcharts;
-          advChart?.selectPly(ctrl.node.ply, ctrl.tree.lastMainlineNode(ctrl.path).ply == ctrl.node.ply);
-        });
-    });
+    lichess
+      .loadModule('chart.game')
+      .then(() => window.LichessChartGame.acpl($('#acpl-chart')[0] as HTMLElement, data, ctrl.mainline, ctrl.trans))
+      .then(chart => {
+        advChart = chart;
+      });
   }
 
   const storage = lichess.storage.make('analysis.panel');
@@ -92,13 +86,11 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .removeClass('active')
       .filter('.' + panel)
       .addClass('active');
-    if ((panel == 'move-times' || ctrl.opts.hunter) && !window.LichessChartGame?.movetime.render)
-      lichess.loadModule('chart.game').then(() =>
-        window.LichessChartGame!.movetime(data, ctrl.trans, ctrl.opts.hunter).then(() => {
-          timeChart = ($('#movetimes-chart')[0] as PlyChartHTMLElement).highcharts;
-          timeChart?.selectPly(ctrl.node.ply, ctrl.tree.lastMainlineNode(ctrl.path).ply == ctrl.node.ply);
-        })
-      );
+    if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
+      lichess.loadModule('chart.game').then(() => {
+        timeChartLoaded = true;
+        window.LichessChartGame.movetime($('#movetimes-chart')[0] as HTMLElement, data, ctrl.trans, ctrl.opts.hunter);
+      });
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
       setTimeout(startAdvantageChart, 200);
   };
