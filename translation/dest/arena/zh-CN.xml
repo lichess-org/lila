@@ -35,6 +35,8 @@
   </plurals>
   <string name="thisIsPrivate">这是一个私人锦标赛</string>
   <string name="shareUrl">分享本链接让其他人加入本锦标赛：%s</string>
+  <string name="variant">变体</string>
+  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">最少棋局步数</string>
   <string name="history">竞技场历史</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">查看所有%s团队</item>

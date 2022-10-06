@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' mit Rundung, basierend auf der Anzahl der Halbzüge bis zum nächsten Schlag- oder Bauernzug</string>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
+  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="openingEndgameExplorer">Eröffnungs-/Endspiel Explorer</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
