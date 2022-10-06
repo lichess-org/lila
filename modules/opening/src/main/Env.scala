@@ -33,14 +33,6 @@ final class Env(
   lazy val api = wire[OpeningApi]
 
   lazy val search = wire[OpeningSearch]
-
-  scheduler.scheduleWithFixedDelay(27 minutes, 1 day) { () =>
-    lila.common.Future
-      .applySequentially(chess.opening.FullOpeningDB.shortestLines.values.toList) { op =>
-        lila.common.Future.delay(500 millis)(wiki(op, false)).void
-      }
-      .unit
-  }
 }
 
 trait ExplorerEndpoint
