@@ -4,10 +4,10 @@
   <string name="tokenGrantsPermission">התו נותן לאנשים אחרים גישה להשתמש בחשבונך.</string>
   <string name="carefullySelect">בחרו בזהירות מה ניתן לעשות בשמכם בחשבונכם.</string>
   <string name="tokenDescription">תיאור התו</string>
-  <string name="rememberTokenUse">כדי שתזכרו למה הוא משתמש</string>
+  <string name="rememberTokenUse">כדי שתזכרו למה הוא משמש</string>
   <string name="whatTheTokenCanDo">מה ניתן לעשות עם התו בשמך:</string>
   <string name="doNotShareIt">התו יתן גישה לחשבונך. בשום אופן אל תשתפו אותו עם אחרים!</string>
-  <string name="copyTokenNow">זכרו להעתיק את כרטיס הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
+  <string name="copyTokenNow">זכרו להעתיק את תו הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
   <string name="preferenceRead">הקראת העדפות</string>
   <string name="preferenceWrite">כתיבת העדפה</string>
   <string name="emailRead">הקראת כתובת אימייל</string>
