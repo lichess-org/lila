@@ -42,7 +42,7 @@ object show {
           span(cls := "opening__name")(
             page.nameParts.zipWithIndex map { case (NamePart(name, key), i) =>
               frag(
-                if (i == 1) ": " else if (i > 1) ", " else emptyFrag,
+                if (i == 0) emptyFrag else if (i == 1 && page.query.opening.isDefined) ": " else ", ",
                 key.fold(span(name))(q => a(href := routes.Opening.query(q))(name))(
                   cls := s"opening__name__section opening__name__section--${i + 1}"
                 )
