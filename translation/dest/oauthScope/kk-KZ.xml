@@ -21,7 +21,7 @@
   <string name="puzzleRead">Жұмбақ шешу белсенділігін оқу</string>
   <string name="teamRead">Жеке топ мәліметтерін оқу</string>
   <string name="teamWrite">Топқа қосылу, шығу</string>
-  <string name="teamLead">Сіздің қармағыңыздағы топтарды басқару: жеке хабар жіберу, мүшелерін шығару</string>
+  <string name="teamLead">Қоласты топтарыңызды басқару: жеке хабар жіберу, мүшелерін шығару</string>
   <string name="followRead">Серік болған ойыншыларды оқу</string>
   <string name="followWrite">Ойыншыларға серік болу, ажырау</string>
   <string name="msgWrite">Ойыншыларға жеке хабар жіберу</string>
