@@ -92,6 +92,7 @@
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
+  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>
   <string name="openingEndgameExplorer">序盤／終盤エクスプローラー</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
