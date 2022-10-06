@@ -2,8 +2,11 @@
 <resources>
   <string name="newAccessToken">Nowy osobisty token dostępu do API</string>
   <string name="tokenGrantsPermission">Token daje innym osobom uprawnienia do korzystania z Twojego konta.</string>
+  <string name="carefullySelect">Z rozwagą określ co można zrobić w Twoim imieniu.</string>
   <string name="tokenDescription">Opis tokenu</string>
+  <string name="rememberTokenUse">Pamiętaj więc do czego służy ten token</string>
   <string name="whatTheTokenCanDo">Co token może zrobić w Twoim imieniu:</string>
+  <string name="doNotShareIt">Token zapewni dostęp do Twojego konta. NIE udostępniaj go nikomu!</string>
   <string name="copyTokenNow">Upewnij się, że zapisałeś swój nowy osobisty token dostępu. Nie będziesz mógł go zobaczyć ponownie!</string>
   <string name="preferenceRead">Odczyt ustawień</string>
   <string name="preferenceWrite">Zapis ustawień</string>
