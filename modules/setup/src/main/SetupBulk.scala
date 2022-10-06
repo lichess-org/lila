@@ -21,7 +21,8 @@ object SetupBulk {
   case class BulkFormData(
       tokens: String,
       variant: Variant,
-      clock: Clock.Config,
+      clock: Option[Clock.Config],
+      days: Option[Int],
       rated: Boolean,
       pairAt: Option[DateTime],
       startClocksAt: Option[DateTime],
@@ -47,7 +48,8 @@ object SetupBulk {
           }
         ),
       SetupForm.api.variant,
-      "clock"         -> SetupForm.api.clockMapping,
+      SetupForm.api.clock,
+      SetupForm.api.optionalDays,
       "rated"         -> boolean,
       "pairAt"        -> optional(timestampInNearFuture),
       "startClocksAt" -> optional(timestampInNearFuture),
@@ -57,7 +59,8 @@ object SetupBulk {
       (
           tokens: String,
           variant: Option[String],
-          clock: Clock.Config,
+          clock: Option[Clock.Config],
+          days: Option[Int],
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
@@ -68,6 +71,7 @@ object SetupBulk {
           tokens,
           Variant orDefault ~variant,
           clock,
+          days,
           rated,
           pairTs.map { new DateTime(_) },
           clockTs.map { new DateTime(_) },
@@ -75,6 +79,7 @@ object SetupBulk {
           ~rules
         )
     }(_ => None)
+      .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
   )
 
   private[setup] def extractTokenPairs(str: String): List[(Bearer, Bearer)] =
