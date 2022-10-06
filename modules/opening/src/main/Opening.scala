@@ -5,11 +5,14 @@ import cats.data.NonEmptyList
 
 object Opening {
 
+  type NameSection = String
+  type PgnMove     = String
+
   case class Tree(children: List[(Tree.NameOrOpening, Tree)])
 
   object Tree {
 
-    type NameOrOpening = (String, Option[FullOpening])
+    type NameOrOpening = (NameSection, Option[FullOpening])
 
     private val emptyNode = TreeNode(Map.empty)
 
@@ -50,7 +53,7 @@ object Opening {
    * "Mieses Opening" -> "Mieses Opening: Reversed Rat" -> "Reversed Rat"
    * For harder ones, see modules/opening/src/test/OpeningTest.scala
    */
-  private[opening] def variationName(prev: String, next: String): String =
+  private[opening] def variationName(prev: String, next: String): NameSection =
     sectionsOf(prev).toList
       .zipAll(sectionsOf(next).toList, "", "")
       .dropWhile { case (a, b) => a == b }
@@ -59,14 +62,14 @@ object Opening {
       .filter(_.nonEmpty)
       .getOrElse(sectionsOf(next).last)
 
-  def variationName(prev: Option[FullOpening], next: Option[FullOpening]): Option[String] =
+  def variationName(prev: Option[FullOpening], next: Option[FullOpening]): Option[NameSection] =
     (prev, next) match {
       case (Some(p), Some(n)) => variationName(p.name, n.name).some
       case (None, Some(n))    => n.family.name.some
       case _                  => none
     }
 
-  def sectionsOf(openingName: String): NonEmptyList[String] =
+  def sectionsOf(openingName: String): NonEmptyList[NameSection] =
     openingName.split(":", 2) match {
       case Array(f, v) => NonEmptyList(f, v.split(",").toList.map(_.trim))
       case _           => NonEmptyList(openingName, Nil)

@@ -11,14 +11,16 @@
 .opening {
   h1 {
     @extend %flex-center;
+    gap: 1rem;
   }
   &__beta {
     @extend %box-radius;
     display: inline-block;
+    vertical-align: text-top;
+    margin-left: 1em;
     color: $c-brag;
     font-size: 1rem;
     font-weight: bold;
-    padding: 0.3em 1.5em;
   }
   &__error {
     @extend %box-neat;
