@@ -174,6 +174,7 @@
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
   <string name="signIn">Zaloguj się</string>
+  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">Zapamiętaj</string>
   <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Partie graczy komputerowych lub grających z jego pomocą są zabronione. Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz innych graczy. Odradzamy zakładanie wielu kont, a utrata umiaru w tym zakresie skutkować będzie zablokowaniem.</string>
