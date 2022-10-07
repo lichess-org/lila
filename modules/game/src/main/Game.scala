@@ -7,7 +7,7 @@ import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Castles, Centis, CheckCount, Clock, Color, Game => ChessGame, Mode, MoveOrDrop, Speed, Status }
 import org.joda.time.DateTime
 
-import lila.common.Sequence
+import lila.common.{ Days, Sequence }
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.rating.PerfType.Classical
@@ -20,7 +20,7 @@ case class Game(
     chess: ChessGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
-    daysPerTurn: Option[Int],
+    daysPerTurn: Option[Days],
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
     bookmarks: Int = 0,
@@ -262,7 +262,7 @@ case class Game(
 
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
-      val increment   = days * 24 * 60 * 60
+      val increment   = days.value * 24 * 60 * 60
       val secondsLeft = (movedAt.getSeconds + increment - nowSeconds).toInt max 0
       CorrespondenceClock(
         increment = increment,
@@ -708,8 +708,8 @@ object Game {
   val unplayedHours = 24
   def unplayedDate  = DateTime.now minusHours unplayedHours
 
-  val abandonedDays = 21
-  def abandonedDate = DateTime.now minusDays abandonedDays
+  val abandonedDays = Days(21)
+  def abandonedDate = DateTime.now minusDays abandonedDays.value
 
   def takeGameId(fullId: String)   = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
@@ -746,7 +746,7 @@ object Game {
       mode: Mode,
       source: Source,
       pgnImport: Option[PgnImport],
-      daysPerTurn: Option[Int] = None,
+      daysPerTurn: Option[Days] = None,
       rules: Set[GameRule] = Set.empty
   ): NewGame = {
     val createdAt = DateTime.now

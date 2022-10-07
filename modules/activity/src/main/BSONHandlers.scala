@@ -3,7 +3,7 @@ package lila.activity
 import reactivemongo.api.bson._
 import scala.util.Success
 
-import lila.common.{ Day, Iso }
+import lila.common.{ LichessDay, Iso }
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
@@ -26,7 +26,7 @@ private object BSONHandlers {
     tryHandler[Id](
       { case BSONString(v) =>
         v split idSep match {
-          case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
+          case Array(userId, dayStr) => Success(Id(userId, LichessDay(Integer.parseInt(dayStr))))
           case _                     => handlerBadValue(s"Invalid activity id $v")
         }
       },

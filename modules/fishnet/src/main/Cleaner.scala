@@ -6,7 +6,6 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 final private class Cleaner(

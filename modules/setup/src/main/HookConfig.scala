@@ -1,8 +1,9 @@
 package lila.setup
 
 import chess.Mode
-import lila.lobby.Color
-import lila.lobby.{ Hook, Seek }
+
+import lila.common.Days
+import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.RatingRange
 import lila.user.User
 
@@ -11,7 +12,7 @@ case class HookConfig(
     timeMode: TimeMode,
     time: Double,
     increment: Int,
-    days: Int,
+    days: Days,
     mode: Mode,
     color: Color,
     ratingRange: RatingRange
@@ -110,7 +111,7 @@ case class HookConfig(
 
 object HookConfig extends BaseHumanConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], e: Option[String], c: String) = {
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, m: Option[Int], e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
       variant = chess.variant.Variant(v) err s"Invalid game variant $v",
@@ -131,7 +132,7 @@ object HookConfig extends BaseHumanConfig {
     timeMode = TimeMode.RealTime,
     time = 5d,
     increment = 3,
-    days = 2,
+    days = Days(2),
     mode = Mode.default,
     ratingRange = RatingRange.default,
     color = Color.default
@@ -148,7 +149,7 @@ object HookConfig extends BaseHumanConfig {
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r int "i",
-        days = r int "d",
+        days = r.get[Days]("d"),
         mode = Mode orDefault (r int "m"),
         color = Color.Random,
         ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default

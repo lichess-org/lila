@@ -5,6 +5,7 @@ import io.mola.galimatias.IPv6Address.parseIPv6Address
 import play.api.mvc.Call
 import scala.concurrent.duration._
 import scala.util.Try
+import lila.base.LilaTypes
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
@@ -80,6 +81,8 @@ case class UserIds(value: List[String]) extends AnyVal
 case class Ints(value: List[Int])       extends AnyVal
 
 case class Template(value: String) extends AnyVal
+
+case class Days(value: Int) extends AnyVal with LilaTypes.IntValue
 
 case class Preload[A](value: Option[A]) extends AnyVal {
   def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)

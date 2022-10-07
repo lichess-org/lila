@@ -1,9 +1,6 @@
-interface Division {
-  middle?: number;
-  end?: number;
-}
+import { Division } from './interface';
 
-export default function (div: Division, trans: Trans) {
+export default function (div: Division | undefined, trans: Trans) {
   const lines = [];
   lines.push({
     color: window.Highcharts.theme.lichess.line.accent,
@@ -12,7 +9,7 @@ export default function (div: Division, trans: Trans) {
     zIndex: 6,
   });
   const textWeak = window.Highcharts.theme.lichess.text.weak;
-  if (div.middle) {
+  if (div?.middle) {
     lines.push({
       label: {
         text: trans('opening'),
@@ -44,7 +41,7 @@ export default function (div: Division, trans: Trans) {
       zIndex: 5,
     });
   }
-  if (div.end)
+  if (div?.end)
     lines.push({
       label: {
         text: trans('endgame'),

@@ -84,7 +84,7 @@ object BSON extends Handlers {
     def strO(s: String): Option[BSONString]    = if (s.nonEmpty) Some(BSONString(s)) else None
     def int(i: Int): BSONInteger               = BSONInteger(i)
     def intO(i: Int): Option[BSONInteger]      = if (i != 0) Some(BSONInteger(i)) else None
-    def date(d: DateTime): BSONValue           = BSONJodaDateTimeHandler.writeTry(d).get
+    def date(d: DateTime): BSONValue           = jodaDateTimeHandler.writeTry(d).get
     def byteArrayO(b: ByteArray): Option[BSONValue] =
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.writeOpt(b)
     def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))

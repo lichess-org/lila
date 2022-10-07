@@ -65,6 +65,7 @@ object Json {
 
   implicit val fenFormat: Format[FEN]           = stringIsoFormat[FEN](Iso.fenIso)
   implicit val markdownFormat: Format[Markdown] = stringIsoFormat[Markdown](Iso.markdownIso)
+  implicit val daysFormat: Format[Days]         = intIsoFormat[Days](Iso.daysIso)
 
   implicit val uciReads: Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")

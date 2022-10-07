@@ -75,7 +75,6 @@ private object AuthorizationApi {
 
   import lila.db.BSON
   import lila.db.dsl._
-  import BSON.BSONJodaDateTimeHandler
   import AuthorizationApi.{ BSONFields => F }
 
   implicit object PendingAuthorizationBSONHandler extends BSON[PendingAuthorization] {

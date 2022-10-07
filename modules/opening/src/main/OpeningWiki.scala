@@ -76,14 +76,23 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
         } yield op
       }
 
-  private val renderer =
-    new lila.common.MarkdownRender(
+  private object markdown {
+
+    private val renderer = new lila.common.MarkdownRender(
       autoLink = false,
       list = true,
       header = true,
       table = false,
       strikeThrough = false
     )
+
+    private val moveNumberRegex = """(\d+)\.""".r
+    def render(key: FullOpening.Key)(markdown: Markdown) = renderer(s"opening:$key") {
+      markdown { text =>
+        moveNumberRegex.replaceAllIn(text, "$1{DOT}")
+      }
+    }.replace("{DOT}", ".")
+  }
 
   private val cache = cacheApi[FullOpening.Key, OpeningWiki](1024, "opening.wiki") {
     _.maximumSize(4096).buildAsyncFuture(compute)
@@ -97,11 +106,11 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
           List(Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
       }
     _ <- updatePopularity(key)
-    lastRev  = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
-    markdown = lastRev.map(_.text)
+    lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
+    text    = lastRev.map(_.text)
   } yield OpeningWiki(
-    markdown map renderer(s"opening:${key}"),
-    markdown.flatMap(_.value.split("\n").headOption).map(Markdown) map renderer(s"opening:${key}"),
+    text map markdown.render(key),
+    text.flatMap(_.value.split("\n").headOption).map(Markdown) map markdown.render(key),
     Nil
   )
 

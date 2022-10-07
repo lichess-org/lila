@@ -17,24 +17,25 @@ case class OpeningPage(
   def opening = query.opening
   def name    = query.name
 
-  def nameParts = query.openingAndExtraMoves match {
+  def nameParts: NamePart.NamePartList = query.openingAndExtraMoves match {
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
   }
 }
 
-case class NamePart(name: String, path: Option[String])
-
 case object NamePart {
-  def from(op: FullOpening): List[NamePart] = {
+  type NamePartList = List[Either[Opening.PgnMove, (Opening.NameSection, Option[String])]]
+  def from(op: FullOpening): NamePartList = {
     val sections = Opening.sectionsOf(op.name)
     sections.toList.zipWithIndex map { case (name, i) =>
-      NamePart(
-        name,
-        FullOpeningDB.shortestLines.get(FullOpening.nameToKey(sections.take(i + 1).mkString("_"))).map(_.key)
+      Right(
+        name ->
+          FullOpeningDB.shortestLines
+            .get(FullOpening.nameToKey(sections.take(i + 1).mkString("_")))
+            .map(_.key)
       )
     }
   }
-  def from(moves: List[String]) = moves.map { m => NamePart(m, none) }
+  def from(moves: List[Opening.PgnMove]): NamePartList = moves.map(Left.apply)
 }
 
 case class ResultCounts(

@@ -64,7 +64,7 @@ object index {
               td(
                 strong(t.description | "Unnamed"),
                 br,
-                em(t.scopes.map(_.name).mkString(", "))
+                em(t.scopes.map(_.name.txt()).mkString(", "))
               ),
               td(cls := "date")(
                 t.createdAt.map { created =>

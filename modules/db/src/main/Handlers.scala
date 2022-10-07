@@ -11,11 +11,11 @@ import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso._
-import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
+import lila.common.{ Days, EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers {
 
-  implicit val BSONJodaDateTimeHandler = quickHandler[DateTime](
+  implicit val jodaDateTimeHandler = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
     v => BSONDateTime(v.getMillis)
   )
@@ -68,7 +68,7 @@ trait Handlers {
     bigDecimalIsoHandler(Iso(from, to))
 
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
-    BSONJodaDateTimeHandler.as[A](iso.from, iso.to)
+    jodaDateTimeHandler.as[A](iso.from, iso.to)
 
   def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] =
     new BSONHandler[T] {
@@ -94,6 +94,13 @@ trait Handlers {
 
   def handlerBadValue[T](msg: String): Try[T] =
     Failure(new IllegalArgumentException(msg))
+
+  def eitherHandler[L, R](implicit leftHandler: BSONHandler[L], rightHandler: BSONHandler[R]) =
+    new BSONHandler[Either[L, R]] {
+      def readTry(bson: BSONValue) =
+        leftHandler.readTry(bson).map(Left.apply) orElse rightHandler.readTry(bson).map(Right.apply)
+      def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
+    }
 
   def stringMapHandler[V](implicit
       reader: BSONReader[Map[String, V]],
@@ -154,8 +161,8 @@ trait Handlers {
 
   implicit val modeHandler = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
-  implicit val markdownHandler: BSONHandler[lila.common.Markdown] =
-    stringAnyValHandler(_.value, lila.common.Markdown.apply)
+  implicit val daysHandler     = isoHandler(Iso.daysIso)
+  implicit val markdownHandler = isoHandler(Iso.markdownIso)
 
   implicit def tuple2BSONHandler[T: BSONHandler] = tryHandler[(T, T)](
     { case arr: BSONArray => for { a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) } yield (a, b) },

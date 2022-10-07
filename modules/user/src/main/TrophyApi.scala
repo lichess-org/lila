@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.BSON.jodaDateTimeHandler
 import lila.db.dsl._
 import lila.memo._
 import org.joda.time.DateTime

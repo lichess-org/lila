@@ -36,20 +36,27 @@ object show {
         search.resultsList(Nil),
         h1(cls := "opening__title")(
           page.query.prev match {
-            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "", cls := "text")
-            case None       => a(href := routes.Opening.index(), dataIcon := "", cls := "text")
+            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "")
+            case None       => a(href := routes.Opening.index(), dataIcon := "")
           },
           span(cls := "opening__name")(
-            page.nameParts.zipWithIndex map { case (NamePart(name, key), i) =>
+            page.nameParts.zipWithIndex map { case (part, i) =>
               frag(
-                if (i == 1) ": " else if (i > 1) ", " else emptyFrag,
-                key.fold(span(name))(q => a(href := routes.Opening.query(q))(name))(
-                  cls := s"opening__name__section opening__name__section--${i + 1}"
-                )
+                part match {
+                  case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)
+                  case Right((name, key)) =>
+                    val className = s"opening__name__section opening__name__section--${i + 1}"
+                    frag(
+                      if (i == 0) emptyFrag else if (i == 1) ": " else ", ",
+                      key.fold(span(cls := className)(name)) { k =>
+                        a(href := routes.Opening.query(k))(cls := className)(name)
+                      }
+                    )
+                }
               )
-            }
-          ),
-          beta
+            },
+            beta
+          )
         ),
         div(cls := "opening__intro")(
           div(cls := "opening__intro__result-lpv")(

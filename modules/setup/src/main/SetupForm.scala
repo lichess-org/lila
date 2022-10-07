@@ -7,7 +7,7 @@ import play.api.data.Forms._
 
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
-import lila.common.{ Form => LilaForm }
+import lila.common.{ Days, Form => LilaForm }
 
 object SetupForm {
 
@@ -91,7 +91,7 @@ object SetupForm {
         timeMode = if (d.isDefined) TimeMode.Correspondence else TimeMode.RealTime,
         time = t | 10,
         increment = i | 5,
-        days = d | 7,
+        days = d | Days(7),
         mode = chess.Mode(~r),
         color = lila.lobby.Color.orDefault(c),
         ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
@@ -115,6 +115,8 @@ object SetupForm {
 
     lazy val clock = "clock" -> optional(clockMapping)
 
+    lazy val optionalDays = "days" -> optional(days)
+
     lazy val variant =
       "variant" -> optional(text.verifying(Variant.byKey.contains _))
 
@@ -134,7 +136,7 @@ object SetupForm {
       mapping(
         variant,
         clock,
-        "days"            -> optional(days),
+        optionalDays,
         "rated"           -> boolean,
         "color"           -> optional(color),
         "fen"             -> fenField,
@@ -151,7 +153,7 @@ object SetupForm {
         "level" -> level,
         variant,
         clock,
-        "days"  -> optional(days),
+        optionalDays,
         "color" -> optional(color),
         "fen"   -> fenField
       )(ApiAiConfig.from)(_ => none).verifying("invalidFen", _.validFen)
@@ -162,7 +164,7 @@ object SetupForm {
         "name" -> optional(LilaForm.cleanNonEmptyText(maxLength = 200)),
         variant,
         clock,
-        "days"  -> optional(days),
+        optionalDays,
         "rated" -> boolean,
         "fen"   -> fenField,
         "users" -> optional(
@@ -171,7 +173,7 @@ object SetupForm {
         "rules" -> optional(gameRules)
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
-        .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)
+        .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
     )
   }
 }

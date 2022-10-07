@@ -20,6 +20,7 @@ import scala.util.{ Success, Try }
 
 import lila.db.BSON
 import lila.db.dsl._
+import lila.common.Days
 
 object BSONHandlers {
 
@@ -167,7 +168,7 @@ object BSONHandlers {
             _ = lila.mon.game.loadClockHistory.increment()
           } yield history,
         status = light.status,
-        daysPerTurn = r intO F.daysPerTurn,
+        daysPerTurn = r.getO[Days](F.daysPerTurn),
         binaryMoveTimes = r bytesO F.moveTimes,
         mode = Mode(r boolD F.rated),
         bookmarks = r intD F.bookmarks,

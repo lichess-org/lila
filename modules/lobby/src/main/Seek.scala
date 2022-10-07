@@ -2,9 +2,11 @@ package lila.lobby
 
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
-import play.api.libs.json._
 import play.api.i18n.Lang
+import play.api.libs.json._
 
+import lila.common.Days
+import lila.common.Json.daysFormat
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.User
@@ -13,7 +15,7 @@ import lila.user.User
 case class Seek(
     _id: String,
     variant: Int,
-    daysPerTurn: Option[Int],
+    daysPerTurn: Option[Days],
     mode: Int,
     color: String,
     user: LobbyUser,
@@ -73,7 +75,7 @@ object Seek {
 
   def make(
       variant: chess.variant.Variant,
-      daysPerTurn: Option[Int],
+      daysPerTurn: Option[Days],
       mode: Mode,
       color: String,
       user: User,
@@ -104,7 +106,7 @@ object Seek {
     )
 
   import reactivemongo.api.bson._
-  import lila.db.BSON.BSONJodaDateTimeHandler
+  import lila.db.BSON.{ daysHandler, jodaDateTimeHandler }
   implicit val lobbyPerfBSONHandler =
     BSONIntegerHandler.as[LobbyPerf](
       b => LobbyPerf(b.abs, b < 0),

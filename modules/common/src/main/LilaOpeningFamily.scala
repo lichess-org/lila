@@ -3,6 +3,10 @@ package lila.common
 import chess.Color
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily }
 
+// Includes synthetic families without a concrete opening
+// Examples:
+// - King's Gambit Declined
+// - Barnes Opening
 case class LilaOpeningFamily(ref: OpeningFamily, full: Option[FullOpening]) {
   import LilaOpeningFamily._
   val name             = Name(ref.name)

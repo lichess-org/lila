@@ -48,7 +48,7 @@ object Form {
       d -> format(d)
     }
 
-  private def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
+  def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
 
   def numberIn(choices: Options[Int]) =
     number.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
@@ -236,6 +236,9 @@ object Form {
 
   implicit val variantFormat =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
+
+  implicit val daysFormat =
+    formatter.intFormatter[lila.common.Days](_.value, lila.common.Days.apply)
 
   object strings {
     def separator(sep: String) = of[List[String]](

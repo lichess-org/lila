@@ -24,7 +24,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
   def initial             = pgn.isEmpty
   def prev                = (pgn.sizeIs > 1) ?? OpeningQuery(pgn.init mkString " ", config)
 
-  val openingAndExtraMoves: (Option[FullOpening], List[String]) =
+  val openingAndExtraMoves: (Option[FullOpening], List[Opening.PgnMove]) =
     opening.map(_.some -> Nil) orElse FullOpeningDB.search(replay).map { case FullOpening.AtPly(op, ply) =>
       op.some -> pgn.drop(ply).toList
     } getOrElse (none, pgn.toList)

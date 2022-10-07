@@ -4,6 +4,7 @@ import chess.Clock
 import chess.format.FEN
 import chess.variant.{ FromPosition, Variant }
 
+import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
@@ -11,7 +12,7 @@ import lila.user.User
 final case class ApiAiConfig(
     variant: Variant,
     clock: Option[Clock.Config],
-    daysO: Option[Int],
+    daysO: Option[Days],
     color: Color,
     level: Int,
     fen: Option[FEN] = None
@@ -20,7 +21,7 @@ final case class ApiAiConfig(
 
   val strictFen = false
 
-  val days      = ~daysO
+  val days      = daysO | Days(2)
   val increment = clock.??(_.increment.roundSeconds)
   val time      = clock.??(_.limit.roundSeconds / 60)
   val timeMode =
@@ -69,7 +70,7 @@ object ApiAiConfig extends BaseConfig {
       l: Int,
       v: Option[String],
       cl: Option[Clock.Config],
-      d: Option[Int],
+      d: Option[Days],
       c: Option[String],
       pos: Option[FEN]
   ) =

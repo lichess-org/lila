@@ -33,7 +33,11 @@ object login {
           div(cls := "one-factor")(
             form3.globalError(form),
             auth.bits.formFields(form("username"), form("password"), none, register = false),
-            form3.submit(trans.signIn(), icon = none)
+            form3.submit(trans.signIn(), icon = none),
+            label(cls    := "login-remember")(
+              input(name := "remember", value := "true", tpe := "checkbox", checked),
+              trans.rememberMe()
+            )
           ),
           div(cls := "two-factor none")(
             form3.group(

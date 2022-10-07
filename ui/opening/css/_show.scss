@@ -2,16 +2,17 @@ $op-col-many: $mq-x-small;
 $op-col-one: $mq-not-x-small;
 .opening {
   &__title {
-    @extend %flex-center-nowrap;
+    flex-flow: row nowrap !important;
     margin-bottom: 3rem;
   }
   &__name {
     line-height: 1em;
-    &__section {
-      font-size: 0.8em;
-    }
+    font-size: 0.8em;
     &__section--1 {
-      font-size: 1em;
+      font-size: 1.15em;
+    }
+    &__move {
+      font-size: 0.8em;
     }
   }
   &__intro {

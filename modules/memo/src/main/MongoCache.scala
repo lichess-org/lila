@@ -1,12 +1,11 @@
 package lila.memo
 
+import CacheApi._
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import CacheApi._
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 /** To avoid recomputing very expensive values after deploy

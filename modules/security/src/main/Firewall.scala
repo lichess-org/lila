@@ -2,11 +2,10 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
 
 import lila.common.IpAddress
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 final class Firewall(

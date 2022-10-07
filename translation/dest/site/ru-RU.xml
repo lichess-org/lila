@@ -98,6 +98,7 @@
   <string name="dtzWithRounding">Правило 50 ходов: объявляется ничья, если на протяжении последних 50 ходов ни одна фигура не была взята и ни одна пешка не сделала хода</string>
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
+  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Дебюты</string>
   <string name="openingExplorer">База дебютов</string>
   <string name="openingEndgameExplorer">База дебютов/окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>

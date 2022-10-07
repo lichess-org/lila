@@ -4,6 +4,7 @@ import { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';
 import { init as searchEngine } from './search';
 import panels from './panels';
+import { Config } from 'chessground/config';
 
 export function page(data: OpeningPage) {
   $('.opening__intro .lpv').each(function (this: HTMLElement) {
@@ -13,6 +14,7 @@ export function page(data: OpeningPage) {
       showMoves: 'bottom',
       showClocks: false,
       showPlayers: false,
+      chessground: cgConfig,
       menu: {
         getPgn: {
           enabled: true,
@@ -32,6 +34,10 @@ export function page(data: OpeningPage) {
 
 export const search = searchEngine;
 
+const cgConfig: Config = {
+  coordinates: false,
+};
+
 const loadExampleGames = () =>
   $('.opening__games .lpv--todo')
     .removeClass('.lpv--todo')
@@ -42,6 +48,7 @@ const loadExampleGames = () =>
         showMoves: 'bottom',
         showClocks: false,
         showPlayers: true,
+        chessground: cgConfig,
         menu: {
           getPgn: {
             enabled: true,

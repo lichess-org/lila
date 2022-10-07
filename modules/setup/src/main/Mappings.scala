@@ -6,9 +6,11 @@ import chess.{ variant => V }
 import play.api.data.format.Formats._
 import play.api.data.Forms._
 
+import lila.common.Days
+import lila.common.Form._
+import lila.game.GameRule
 import lila.lobby.Color
 import lila.rating.RatingRange
-import lila.game.GameRule
 
 private object Mappings {
 
@@ -31,7 +33,8 @@ private object Mappings {
   val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)
   val time                     = of[Double].verifying(HookConfig validateTime _)
   val increment                = number.verifying(HookConfig validateIncrement _)
-  val days                     = lila.common.Form.numberIn(List(1, 2, 3, 5, 7, 10, 14))
+  val daysChoices              = List(1, 2, 3, 5, 7, 10, 14).map(Days)
+  val days                     = of[Days].verifying(mustBeOneOf(daysChoices), daysChoices.contains _)
   def timeMode                 = number.verifying(TimeMode.ids contains _)
   def mode(withRated: Boolean) = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) =

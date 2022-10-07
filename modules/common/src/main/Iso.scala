@@ -68,4 +68,6 @@ object Iso {
   implicit val fenIso = string[FEN](FEN.apply, _.value)
 
   implicit val markdownIso = string[Markdown](Markdown.apply, _.value)
+
+  implicit val daysIso = int[Days](Days.apply, _.value)
 }

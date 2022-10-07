@@ -171,7 +171,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
               Json.obj(
                 "userId"  -> t.userId,
                 "scopes"  -> t.scopes.map(_.key).mkString(","),
-                "expires" -> t.expiresOrFarFuture
+                "expires" -> t.expires
               )
             }
           }))

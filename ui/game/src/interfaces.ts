@@ -162,6 +162,7 @@ export interface Ctrl {
 export interface Blurs {
   nb: number;
   percent: number;
+  bits?: string;
 }
 
 export interface Trans {

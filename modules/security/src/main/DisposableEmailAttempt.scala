@@ -22,7 +22,7 @@ final class DisposableEmailAttempt(
     }
 
   private val byId =
-    cacheApi.notLoadingSync[User.ID, Set[Attempt]](64, "security.disposableEmailAttempt.ip") {
+    cacheApi.notLoadingSync[User.ID, Set[Attempt]](64, "security.disposableEmailAttempt.id") {
       _.expireAfterWrite(1 day).build()
     }
 
@@ -33,6 +33,7 @@ final class DisposableEmailAttempt(
   } {
     val id      = User normalize username
     val attempt = Attempt(id, email, ip)
+    byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
     byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
   }
 
