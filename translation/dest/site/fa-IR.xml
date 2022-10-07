@@ -157,6 +157,7 @@
   <string name="viewInFullSize">نمایش در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
+  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">مرا به خاطر بسپار</string>
   <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">كامپيوتر و بازيكناني كه از كامپيوتر كمك مي گيرند،مجاز به بازی نیستند.لطفا از انجین شطرنج يا دیتابیس شطرنج و يا بازيكنان ديگر كمک نگيريد. همچنین توجه کنید که داشتن چند حساب کاربری به شدت نهی شده است. استفاده فزاینده از چند حساب منجر به مسدود شدن حساب شما خواهد شد.</string>
