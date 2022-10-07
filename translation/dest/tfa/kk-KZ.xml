@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Екі-сатылы сәйкестік-тексеру</string>
-  <string name="twoFactorHelp">Екі-сатылы сәйкестік-тексеру тіркелгі сақтығын қосымша күшейтеді.</string>
+  <string name="twoFactorHelp">Екі-сатылы сәйкестік-тексеру тіркелгі қорғанысын қосымша күшейтеді.</string>
   <string name="twoFactorApp">Екі-сатылы сәйкестік-тексеретін қолданба алыңыз, мысалы, %1$s-қа – andOTP не %2$s-қа – Google Authenticator.</string>
   <string name="scanTheCode">QR кодты қолданбамен сканерлеңіз.</string>
   <string name="enterPassword">Орнатуды аяқтау үшін құпиясөзді әрі қолданба шығарған сәйкестік-тексеру кодын енгізіңіз. Тіркелгіге әр кірген сайын сәйкестік-тексеру коды керек болады.</string>
