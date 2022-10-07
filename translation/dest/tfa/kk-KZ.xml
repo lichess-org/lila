@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Екі-сатылы сәйкестік-тексеретін қолданба алыңыз, мысалы, %1$s-қа – andOTP не %2$s-қа – Google Authenticator.</string>
   <string name="scanTheCode">QR кодты қолданбамен сканерлеңіз.</string>
   <string name="enterPassword">Орнатуды аяқтау үшін құпиясөзді әрі қолданба шығарған сәйкестік-тексеру кодын енгізіңіз. Тіркелгіге әр кірген сайын сәйкестік-тексеру коды керек болады.</string>
-  <string name="ifYouCannotScanEnterX">Егер кодты сканерлеу мүмкін болмай тұрса, қолданбаңызға құпия %s-ты енгізіңіз.</string>
+  <string name="ifYouCannotScanEnterX">Егер кодты сканерлеу мүмкін болмай тұрса, қолданбаңызға құпия %s енгізіңіз.</string>
   <string name="authenticationCode">Сәйкестік-тексеру коды</string>
   <string name="ifYouLoseAccess">Ескерту: Егер сіз екі-сатылы сәйкестік-тексеру кодтарын жоғалтып алсаңыз, құпиясөзді пошта арқылы қайта орнатуыңызға болады.</string>
   <string name="enableTwoFactor">Екі-сатылы сәйкестік-тексеруді қосу</string>
