@@ -13,17 +13,19 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
 
   def generateSessionId() = SecureRandom nextString 22
 
-  def session(name: String, value: String)(implicit req: RequestHeader): Cookie =
-    withSession { s =>
+  def session(name: String, value: String, remember: Boolean = true)(implicit req: RequestHeader): Cookie =
+    withSession(remember) { s =>
       s + (name -> value)
     }
 
-  def newSession(implicit req: RequestHeader): Cookie = withSession(_ => Session.emptyCookie)
+  def newSession(implicit req: RequestHeader): Cookie =
+    withSession(remember = false)(_ => Session.emptyCookie)
 
-  def withSession(op: Session => Session)(implicit req: RequestHeader): Cookie =
+  def withSession(remember: Boolean)(op: Session => Session)(implicit req: RequestHeader): Cookie =
     cookie(
       baker.COOKIE_NAME,
-      baker.encode(baker.serialize(op(req.session)))
+      baker.encode(baker.serialize(op(req.session + (LilaCookie.sessionId -> generateSessionId())))),
+      if (remember) none else 0.some
     )
 
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(
@@ -32,7 +34,8 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
     Cookie(
       name,
       value,
-      maxAge orElse baker.maxAge orElse 86400.some,
+      if (maxAge has 0) none
+      else maxAge orElse baker.maxAge orElse 86400.some,
       "/",
       cookieDomain.some,
       baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),

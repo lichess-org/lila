@@ -50,6 +50,7 @@ final class SecurityApi(
       "password" -> nonEmptyText
     )
   )
+  lazy val rememberForm = Form(single("remember" -> boolean))
 
   private def loadedLoginForm(candidate: Option[LoginCandidate]) =
     Form(

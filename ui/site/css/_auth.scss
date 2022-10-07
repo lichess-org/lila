@@ -26,6 +26,14 @@
     @include breakpoint($mq-xx-small) {
       width: 30em;
     }
+
+    .login-remember {
+      @extend %flex-center-nowrap;
+      margin-top: 1em;
+      gap: 1ch;
+      cursor: pointer;
+      user-select: none;
+    }
   }
 
   .agreement label {
