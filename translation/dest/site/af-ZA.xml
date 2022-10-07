@@ -157,6 +157,7 @@
   <string name="viewInFullSize">Sien in volgrootte</string>
   <string name="logOut">Teken uit</string>
   <string name="signIn">Teken in</string>
+  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">Onthou my</string>
   <string name="youNeedAnAccountToDoThat">Jy het \'n rekening nodig om dit te doen</string>
   <string name="signUp">Registreer</string>
   <string name="computersAreNotAllowedToPlay">Rekenaars en rekenaargesteunde spelers word nie toegelaat om te speel. Moet asseblief nie die hulp van skaak enjins, databasisse, of uit ander spelers te kry, terwyl die speel van. Let ook daarop dat die maak van verskeie rekeninge is ten sterkste ontmoedig en oormatige multi-rekeningkunde sal lei tot verban.</string>
