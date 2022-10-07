@@ -540,7 +540,7 @@
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Түпнұсқалық растама коды қате</string>
+  <string name="invalidAuthenticationCode">Сәйкестік-тексеру коды қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
