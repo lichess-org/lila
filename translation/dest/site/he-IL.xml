@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' עם עיגול, בהתבסס על מספר חצאי-המסעים עד ההכאה הבאה או מסע עם חייל</string>
   <string name="noGameFound">אין משחק זמין</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">פתיחות</string>
+  <string name="openings">פתיחות</string>
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="openingEndgameExplorer">סייר פתיחות/סיומים</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
