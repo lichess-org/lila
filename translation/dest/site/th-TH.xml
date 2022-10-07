@@ -91,7 +91,7 @@
   </plurals>
   <string name="noGameFound">ไม่พบเกม</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">แนะนำให้ลองเพิ่มเกมที่เมนูตั้งค่า</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">การเปิดเกม</string>
+  <string name="openings">การเปิดเกม</string>
   <string name="openingExplorer">ชมการเปิดเกม</string>
   <string name="openingEndgameExplorer">ตัวสำรวจการเปิดเกม/จบเกม</string>
   <string name="xOpeningExplorer">ชมการเปิดเกมแบบ %s</string>
