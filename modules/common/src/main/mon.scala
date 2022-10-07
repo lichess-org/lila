@@ -35,7 +35,7 @@ object mon {
     val fingerPrint          = timer("http.fingerPrint.time").withoutTags()
     def jsmon(event: String) = counter("http.jsmon").withTag("event", event)
     val requestHandler       = timer("http.requestHandler").withoutTags()
-    val router               = timer("http.router").withoutTags()
+    def router(path: String) = timer("http.router").withTag("path", path)
   }
   object syncache {
     def miss(name: String)    = counter("syncache.miss").withTag("name", name)

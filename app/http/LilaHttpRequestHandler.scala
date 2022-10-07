@@ -18,7 +18,7 @@ final class LilaHttpRequestHandler(
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
     if (monitorPaths(request.path))
-      Chronometer.syncMon(_.http.router) {
+      Chronometer.syncMon(_.http.router(request.path)) {
         router handlerFor request
       }
     else router handlerFor request
