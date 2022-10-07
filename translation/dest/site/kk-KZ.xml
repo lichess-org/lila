@@ -94,7 +94,7 @@
   <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Бастаулар</string>
+  <string name="openings">Бастаулар</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
   <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
