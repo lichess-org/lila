@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">Правило 50 ходов: объявляется ничья, если на протяжении последних 50 ходов ни одна фигура не была взята и ни одна пешка не сделала хода</string>
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Дебюты</string>
+  <string name="openings">Дебюты</string>
   <string name="openingExplorer">База дебютов</string>
   <string name="openingEndgameExplorer">База дебютов/окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
@@ -174,6 +174,7 @@
   <string name="viewInFullSize">Посмотреть в полном размере</string>
   <string name="logOut">Выйти</string>
   <string name="signIn">Войти</string>
+  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">Запомнить меня</string>
   <string name="youNeedAnAccountToDoThat">Вам нужно зарегистрироваться, чтобы сделать это</string>
   <string name="signUp">Регистрация</string>
   <string name="computersAreNotAllowedToPlay">Создание учётных записей для ботов запрещено. Пожалуйста, во время игры не используйте шахматные движки, базы данных или подсказки других игроков. Также учтите, что создание нескольких аккаунтов не приветствуется и чрезмерное их количество приведёт к блокировке.</string>

@@ -174,6 +174,7 @@
   <string name="viewInFullSize">צפייה בגודל מלא</string>
   <string name="logOut">התנתק/י</string>
   <string name="signIn">התחבר/י</string>
+  <string name="rememberMe">זכור אותי</string>
   <string name="youNeedAnAccountToDoThat">את/ה צריך/ה חשבון כדי לעשות פעולה זו</string>
   <string name="signUp">הירשם/י</string>
   <string name="computersAreNotAllowedToPlay">מחשבים ושחקנים הנעזרים במחשב במשחקיהם אינם מורשים לשחק. אנא הימנעו מהיעזרות במנועי שחמט, מאגרי מידע או שחקנים אחרים במהלך המשחק. בנוסף, מומלץ להימנע מיצירת משתמשים מרובים, שכן יצירת כמות מוגזמת של משתמשים תביא לסילוק מהאתר.</string>
@@ -773,7 +774,7 @@
   <string name="withEverybody">עם כולם</string>
   <string name="kidMode">מצב ילדים</string>
   <string name="kidModeExplanation">בשביל הבטיחות. במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעילו אופציה זו עבור ילדיכם ועבור תלמידי בית ספר. זאת כדי להגן עליהם מפני משתמשים אחרים.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'ס מקבל אייקון %s, כדי שתדע שילדיך מוגנים.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'ס מקבל אייקון %s, כדי שתדעו שילדיכם מוגנים.</string>
   <string name="enableKidMode">הפעילו מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>

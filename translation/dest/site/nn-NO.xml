@@ -94,7 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antal halvtrekk fram til neste brikketaking eller bondetrekk</string>
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Opningar</string>
+  <string name="openings">Opningar</string>
   <string name="openingExplorer">Opningsbok</string>
   <string name="openingEndgameExplorer">Opnings-/sluttspelbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>

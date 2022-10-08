@@ -158,6 +158,7 @@
   <string name="viewInFullSize">Se i fuldskærm</string>
   <string name="logOut">Log ud</string>
   <string name="signIn">Log ind</string>
+  <string name="rememberMe">Husk mig</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
   <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>

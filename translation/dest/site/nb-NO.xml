@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antall halvtrekk til neste slag eller bondetrekk</string>
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
+  <string name="openings">Åpninger</string>
   <string name="openingExplorer">Åpningsutforsker</string>
   <string name="openingEndgameExplorer">Åpnings-/sluttspillsutforsker</string>
   <string name="xOpeningExplorer">Åpningsutforsker for %s</string>

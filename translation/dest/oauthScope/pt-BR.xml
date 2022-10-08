@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">Nova chave pessoal de acesso à API</string>
+  <string name="tokenGrantsPermission">Uma chave permite que outras pessoas usem sua conta.</string>
+  <string name="carefullySelect">Escolha com cuidado o que podem fazer em seu nome.</string>
+  <string name="tokenDescription">Descrição da chave</string>
+  <string name="rememberTokenUse">Lembrará para você qual a função da chave</string>
+  <string name="whatTheTokenCanDo">O que a chave pode fazer em seu nome:</string>
+  <string name="doNotShareIt">A chave dará acesso à sua conta. NÃO a compartilhe com ninguém!</string>
+  <string name="copyTokenNow">Copie e cole sua nova chave de acesso pessoal em um local seguro. Você não poderá mais vê-la!</string>
+  <string name="teamLead">Administre suas equipes: envie mensagens privadas, expulse membros</string>
+</resources>

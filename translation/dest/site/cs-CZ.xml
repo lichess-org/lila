@@ -98,6 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' s zaokrouhlením na základě počtu půltahů do dalšího braní nebo tahu pěšcem</string>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
+  <string name="openings">Zahájení</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
   <string name="openingEndgameExplorer">Průzkumník zahájení/koncovek</string>
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>

@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' met afronding, gebaseerd op het aantal halfzetten tot de volgende stukwinst of pionzet</string>
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
+  <string name="openings">Openingen</string>
   <string name="openingExplorer">Openingverkenner</string>
   <string name="openingEndgameExplorer">Opening-/eindspelverkenner</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Bekijk op volledige grootte</string>
   <string name="logOut">Afmelden</string>
   <string name="signIn">Aanmelden</string>
+  <string name="rememberMe">Mijn gegevens onthouden</string>
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
   <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van schaakengines mogen hier niet spelen. Maak a.u.b. geen gebruik van schaakengines, databases of de hulp van andere spelers terwijl je je partijen speelt.</string>

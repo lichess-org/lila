@@ -92,7 +92,7 @@
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">オープニング</string>
+  <string name="openings">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>
   <string name="openingEndgameExplorer">序盤／終盤エクスプローラー</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
@@ -150,6 +150,7 @@
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
   <string name="signIn">ログイン</string>
+  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">次から自動ログイン</string>
   <string name="youNeedAnAccountToDoThat">アカウントが必要です</string>
   <string name="signUp">登録</string>
   <string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中にチェスエンジン、データベース、他人の助言は厳禁です。また、複数アカウントの使用も追放の可能性があります。</string>

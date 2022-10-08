@@ -96,7 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' з акругленнем, заснавана на колькасці паўходаў да наступнага ўзяцця ці ходу пешкі</string>
   <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Дэбюты</string>
+  <string name="openings">Дэбюты</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
   <string name="openingEndgameExplorer">Даследчык дэбютаў/эндшпіляў</string>
   <string name="xOpeningExplorer">Аналіз дэбюту %s</string>

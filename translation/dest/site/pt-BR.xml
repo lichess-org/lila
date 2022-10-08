@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" com arredondamento, baseado no número de meias-jogadas até a próxima captura ou jogada de peão</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
+  <string name="openings">Aberturas</string>
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="openingEndgameExplorer">Explorador de Aberturas/Finais</string>
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
+  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">Lembrar de mim</string>
   <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
   <string name="signUp">Registrar</string>
   <string name="computersAreNotAllowedToPlay">A ajuda de software não é permitida. Por favor, não utilize programas de xadrez, bancos de dados ou o auxilio de outros jogadores durante a partida. Além disso, a criação de múltiplas contas é fortemente desaconselhada e sua prática excessiva acarretará em banimento.</string>

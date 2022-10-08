@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
+  <string name="openings">Бастаулар</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
   <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Жайып көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
+  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">Мені жадта сақтау</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасау - шектеуге әкеліп соқтырады.</string>
@@ -539,7 +541,7 @@
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Түпнұсқалық растама коды қате</string>
+  <string name="invalidAuthenticationCode">Сәйкестік-тексеру коды қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>

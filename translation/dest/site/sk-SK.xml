@@ -173,6 +173,7 @@
   <string name="viewInFullSize">Zobraziť v plnej veľkosti</string>
   <string name="logOut">Odhlásiť sa</string>
   <string name="signIn">Prihlásiť sa</string>
+  <string name="rememberMe">Zapamätať si ma</string>
   <string name="youNeedAnAccountToDoThat">Pre túto požiadavku musíte byť prihlásený</string>
   <string name="signUp">Zaregistrovať sa</string>
   <string name="computersAreNotAllowedToPlay">Hráči využívajúci pomoc počítačov nie sú vítaní. Počas partie nepoužívajte šachové programy, databázy ani rady iných hráčov. Vytváranie viacerých účtov sa silne neodporúča a nadmerné vytváranie účtov bude viesť k Vášmu zablokovaniu.</string>

@@ -94,7 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' pyöristettynä, puolisiirtojen määrä seuraavaan lyöntiin tai sotilaan siirtoon</string>
   <string name="noGameFound">Pelejä ei löytynyt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
-  <string name="openings" comment="openings&#10;Heading for a statistics page featuring different openings.">Avaukset</string>
+  <string name="openings">Avaukset</string>
   <string name="openingExplorer">Avaustietokanta</string>
   <string name="openingEndgameExplorer">Avaus- ja loppupeliselain</string>
   <string name="xOpeningExplorer">%s -avaustietokanta</string>
@@ -158,6 +158,7 @@
   <string name="viewInFullSize">Näytä täysikokoisena</string>
   <string name="logOut">Kirjaudu ulos</string>
   <string name="signIn">Kirjaudu sisään</string>
+  <string name="rememberMe">Muista minut</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
   <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneen avustamat pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätunnuksien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>

@@ -96,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' sa zaokruživanjem, na temelju broja polupoteza do sljedećeg hvatanja ili poteza pješaka</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
+  <string name="openings">Otvaranja</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="openingEndgameExplorer">Proučavanje otvaranja i završnica</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
@@ -165,6 +166,7 @@
   <string name="viewInFullSize">Pogledaj u punoj veličini</string>
   <string name="logOut">Odjavi se</string>
   <string name="signIn">Prijavi se</string>
+  <string name="rememberMe">Zapamti me</string>
   <string name="youNeedAnAccountToDoThat">Za ovo trebaš korisnički račun</string>
   <string name="signUp">Registriraj se</string>
   <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
