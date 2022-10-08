@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">Yeni kişisel API erişimi jetonu</string>
+  <string name="tokenGrantsPermission">Bir jeton diğer insanlara hesabınızı kullanma izni verir.</string>
+  <string name="carefullySelect">Senin adına neler yapılabileceğini dikkatli seç.</string>
+  <string name="tokenDescription">Jeton açıklaması</string>
+  <string name="rememberTokenUse">Jetonun ne için olduğunu hatırlayasın diye</string>
+  <string name="whatTheTokenCanDo">Jeton senin adına neler yapabilir:</string>
+  <string name="doNotShareIt">Jeton hesabına erişilmesini sağlayacak. Kimseyle paylaşma!</string>
+  <string name="copyTokenNow">Kişisel erişim jetonunu şimdiden kopyalamayı unutma. Bir daha göremeyebilirsin!</string>
+  <string name="preferenceRead">Oyun tercihlerini oku</string>
+  <string name="preferenceWrite">Oyun tercihlerini değiştir</string>
+  <string name="emailRead">E-posta adresini oku</string>
+  <string name="challengeRead">Gelen oyun tekliflerini oku</string>
+  <string name="challengeWrite">Oyun teklifleri gönder, kabul et veya reddet</string>
+</resources>
