@@ -6,7 +6,7 @@
   <string name="tokenDescription">Description du jeton</string>
   <string name="rememberTokenUse">Afin de vous souvenir de l’usage de ce jeton</string>
   <string name="whatTheTokenCanDo">Ce que le jeton peut faire en votre nom :</string>
-  <string name="doNotShareIt">Le jeton donnera l’accès à votre compte. Ne le partagez PAS avec qui que ce soit !</string>
+  <string name="doNotShareIt">Le jeton donne accès à votre compte. Ne le partagez PAS avec personne!</string>
   <string name="copyTokenNow">Assurez-vous de copier votre nouveau jeton d\'accès personnel immédiatement. Vous ne pourrez pas le voir à nouveau !</string>
   <string name="preferenceRead">Lire les préférences</string>
   <string name="preferenceWrite">Écrire les préférences</string>
@@ -14,7 +14,7 @@
   <string name="challengeRead">Lire les défis entrants</string>
   <string name="challengeWrite">Envoyer, accepter et décliner des défis</string>
   <string name="challengeBulk">Créer plusieurs parties à la fois pour d\'autres joueurs</string>
-  <string name="studyRead">Lire les études privées et les diffusions</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lire les études privées et les diffusions</string>
   <string name="studyWrite">Créer, modifier, supprimer les études et diffusions</string>
   <string name="tournamentWrite">Créer et modifier les tournois et y participer</string>
   <string name="racerWrite">Créer les courses de problèmes et y participer</string>
