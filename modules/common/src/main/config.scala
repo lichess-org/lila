@@ -44,6 +44,7 @@ object config {
       @ConfigName("asset.base_url") assetBaseUrl: AssetBaseUrl,
       @ConfigName("asset.minified") minifiedAssets: Boolean,
       @ConfigName("stage.banner") stageBanner: Boolean,
+      @ConfigName("site.name") siteName: String,
       @ConfigName("socket.domains") socketDomains: List[String],
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,

@@ -247,11 +247,7 @@ object layout {
           viewport,
           metaCsp(csp),
           metaThemeColor,
-          st.headTitle {
-            if (ctx.blind) "lichess"
-            else if (netConfig.isProd) fullTitle | s"$title • lichess.org"
-            else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
-          },
+          st.headTitle(fullTitle | s"$title • $siteName"),
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),
           ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
@@ -420,10 +416,7 @@ object layout {
           h1(cls := "site-title")(
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
-            a(href := langHref("/"))(
-              "lichess",
-              span(if (netConfig.isProd) ".org" else ".dev")
-            )
+            a(href := langHref("/"))(siteNameFrag)
           ),
           ctx.blind option h2("Navigation"),
           !ctx.isAppealUser option topnav()

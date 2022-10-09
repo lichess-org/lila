@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.DurationInt
 
 import lila.app.ui.ScalatagsTemplate._
 
@@ -36,6 +36,13 @@ object Environment
   def netBaseUrl          = env.net.baseUrl.value
   def contactEmailInClear = env.net.email.value
   implicit def netDomain  = env.net.domain
+
+  lazy val siteName: String =
+    if (env.net.siteName == "localhost:9663") "lichess.dev"
+    else env.net.siteName
+  lazy val siteNameFrag: Frag =
+    if (siteName == "lichess.org") frag("lichess", span(".org"))
+    else frag(siteName)
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
