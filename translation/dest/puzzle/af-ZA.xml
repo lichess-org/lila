@@ -61,4 +61,13 @@
   <string name="history">Kopkrapper geskiedenis</string>
   <string name="solved">opgelos</string>
   <string name="failed">gefaal</string>
+  <string name="streakDescription">Los toenemend moeiliker raaisels op en bou \'n wen reeks. Daar is nie \'n tydsfaktor nie, so vat dit rustig. Een verkeerde skuif en dit stuit! Maar jy kan \'n skuif per sessie oorslaan.</string>
+  <string name="yourStreakX">Jou wen reeks: %s</string>
+  <string name="streakSkipExplanation">Slaan die skuif oor, om jou reeks te behou! Werk slegs een keer per ronde.</string>
+  <string name="continueTheStreak">Gaan na die reeks</string>
+  <string name="newStreak">Nuwe reeks</string>
+  <string name="fromMyGames">Van my spelle</string>
+  <string name="lookupOfPlayer">Beloer raaisels van \'n speler se spelle</string>
+  <string name="fromXGames">Raaisels van %s se spelle</string>
+  <string name="searchPuzzles">Soek raaisels</string>
 </resources>
