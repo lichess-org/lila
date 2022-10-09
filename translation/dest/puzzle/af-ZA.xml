@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Legkaarte</string>
+  <string name="puzzles">Raaisels</string>
   <string name="puzzleThemes">Kopkrapper temas</string>
   <string name="recommended">Aanbeveel</string>
   <string name="phases">Fases</string>
@@ -11,10 +11,11 @@
   <string name="goals">Doelwitte</string>
   <string name="origin">Oorsprong</string>
   <string name="specialMoves">Spesiale bewegings</string>
-  <string name="didYouLikeThisPuzzle">Hou jy van hierdie legkaart?</string>
+  <string name="didYouLikeThisPuzzle">Hou jy van hierdie raaisel?</string>
   <string name="voteToLoadNextOne">Stem om die volgende een te laai!</string>
   <string name="upVote">Stem vir raaisel</string>
-  <string name="downVote">Stem raaisel af</string>
+  <string name="downVote">Stem teen raaisel</string>
+  <string name="yourPuzzleRatingWillNotChange">Jou raaisel gradeering sal nie verander nie. Neem kennis dat raaisels is nie \'n kompetisie nie. Jou gradeering help om die mees geskikte raaisels vir jou vermoë te kies.</string>
   <string name="findTheBestMoveForWhite">Vind die beste skuif vir wit.</string>
   <string name="findTheBestMoveForBlack">Vind die beste skuif vir swart.</string>
   <string name="toGetPersonalizedPuzzles">Om persoonlike raaisels te kry:</string>
@@ -40,10 +41,19 @@
   <string name="normal">Normaal</string>
   <string name="easier">Makliker</string>
   <string name="easiest">Maklikste</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Een punt onder jou raaisel gradering</item>
+    <item quantity="other">%s punte onder jou raaisel gradering</item>
+  </plurals>
   <string name="harder">Moeiliker</string>
   <string name="hardest">Moeilikste</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Een punt bo jou raaisel gradering</item>
+    <item quantity="other">%s punt bo jou raaisel gradering</item>
+  </plurals>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog \'n tema by</string>
+  <string name="nextPuzzle">Volgende raaisel</string>
   <string name="jumpToNextPuzzleImmediately">Spring onmiddellik na die volgende kopkrapper</string>
   <string name="puzzleDashboard">Kopkrapper paneelbord</string>
   <string name="improvementAreas">Areas van verbetering</string>
