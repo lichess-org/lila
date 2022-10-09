@@ -12,7 +12,7 @@ function list<T>(str: string, args: T[]): Array<string | T> {
     const singlePlaceholder = segments.indexOf('%s');
     if (singlePlaceholder !== -1) segments[singlePlaceholder] = args[0];
     else
-      for (let i = 0; 1 < args.length; i++) {
+      for (let i = 0; i < args.length; i++) {
         const placeholder = segments.indexOf('%' + (i + 1) + '$s');
         if (placeholder !== -1) segments[placeholder] = args[i];
       }
