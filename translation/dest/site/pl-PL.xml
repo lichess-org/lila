@@ -174,7 +174,7 @@
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
   <string name="signIn">Zaloguj się</string>
-  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">Zapamiętaj</string>
+  <string name="rememberMe">Zapamiętaj</string>
   <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Partie graczy komputerowych lub grających z jego pomocą są zabronione. Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz innych graczy. Odradzamy zakładanie wielu kont, a utrata umiaru w tym zakresie skutkować będzie zablokowaniem.</string>
@@ -239,7 +239,7 @@
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz email. Jeśli tak, oznacz go jako nie spam.</string>
   <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
-  <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
   <string name="waitForSignupHelp">Wkrótce wrócimy do Ciebie, aby pomóc Ci w dokończeniu rejestracji.</string>
   <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
   <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
