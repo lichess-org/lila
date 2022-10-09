@@ -158,6 +158,7 @@
   <string name="viewInFullSize">Se i full størrelse</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
+  <string name="rememberMe">Husk meg</string>
   <string name="youNeedAnAccountToDoThat">Du trenger en konto for å gjøre det</string>
   <string name="signUp">Registrer brukerkonto</string>
   <string name="computersAreNotAllowedToPlay">Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og kan lede til at du blir utstengt.</string>
