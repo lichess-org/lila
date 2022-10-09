@@ -11,7 +11,7 @@
   <string name="removedStudents">ବାହାର କରିଦିଆ ଯାଇଛନ୍ତି</string>
   <string name="aLinkToTheClassWillBeAdded">ବାର୍ତ୍ତା ଶେଷରେ ଶ୍ରେଣୀର ଏକ ଲିଙ୍କ୍ ସ୍ୱତଃସ୍ପୃତ ଭାବେ ଯୋଡ଼ାଯିବ, ତେଣୁ ଆପଣଙ୍କୁ ଏହାକୁ ନିଜେ ଅନ୍ତର୍ଭୁକ୍ତ କରିବାକୁ ପଡ଼ିବ ନାହିଁ।</string>
   <string name="className">ଶ୍ରେଣୀର ନା‍ଁ</string>
-  <string name="classDescription">ଶ୍ରେଣୀର ବର୍ଣ୍ଣନା</string>
+  <string name="classDescription">ଶ୍ରେଣୀର ଵର୍ଣ୍ଣନା</string>
   <string name="visibleByBothStudentsAndTeachers">ଶ୍ରେଣୀର ଉଭୟ ଶିକ୍ଷାବିତ ଓ ଛାତ୍ରଛାତ୍ରୀଙ୍କୁ ଦୃଶ୍ୟମାନ</string>
   <string name="teachersOfTheClass">ଶ୍ରେଣୀର ଶିକ୍ଷାବିତ୍</string>
   <string name="resetPassword">ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
@@ -32,7 +32,7 @@
   <string name="teachers">ଶିକ୍ଷାବିତ୍</string>
   <string name="students">ଛାତ୍ରଛାତ୍ରୀ</string>
   <string name="noRemovedStudents">କୌଣସି ବାହାର କରାଯାଇଥିବା ଛାତ୍ର ନାହାଁନ୍ତି।</string>
-  <string name="overview">ଅବଲୋକନ</string>
+  <string name="overview">ଅଵଲୋକନ</string>
   <string name="news">ଖବର</string>
   <string name="classNews">ଶ୍ରେଣୀର ଖବର</string>
   <string name="invite">ନିମନ୍ତ୍ରଣ</string>
