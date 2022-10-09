@@ -206,8 +206,8 @@
   <string name="email">ایمیل</string>
   <string name="passwordReset">بازیابی کلمه عبور</string>
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
-  <string name="emailConfirmHelp">کمک برای تایید ایمیل</string>
-  <string name="emailConfirmNotReceived">آیا تاییدیه ایمیل را بعد از ثبت نام دریافت نکردید؟</string>
+  <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
+  <string name="emailConfirmNotReceived">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
   <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
   <string name="usernameNotFound">ما هیچ کابری با این نام نیافتیم: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">شما می توانید از این نام کاربری برای ایجاد یک حساب کاربری جدید استفاده کنید</string>
