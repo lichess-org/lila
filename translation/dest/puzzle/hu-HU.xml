@@ -50,7 +50,7 @@
     <item quantity="other">%s ponttal az értékszámod felett</item>
   </plurals>
   <string name="example">Példa</string>
-  <string name="addAnotherTheme">Új téma hozzáadása</string>
+  <string name="addAnotherTheme">Másik téma hozzáadása</string>
   <string name="nextPuzzle">Következő feladvány</string>
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
   <string name="puzzleDashboard">Feladvány statisztika</string>
