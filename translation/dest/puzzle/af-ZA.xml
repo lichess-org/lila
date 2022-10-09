@@ -32,8 +32,8 @@
   <string name="ratingX">Gradering: %s</string>
   <string name="hidden">verborge</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Gespeel %s tyd</item>
-    <item quantity="other">Gespeel %s kere</item>
+    <item quantity="one">%s keer gespeel</item>
+    <item quantity="other">%s keer gespeel</item>
   </plurals>
   <string name="fromGameLink">Van spel %s</string>
   <string name="continueTraining">Gaan voort met opleiding</string>
