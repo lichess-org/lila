@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">sopas</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="one">in %s sekonde</item>
+    <item quantity="other">in %s sekondes</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">in %s minuut</item>
+    <item quantity="other">in %s minute</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">in %s uur</item>
+    <item quantity="other">in %s ure</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">in %s dag</item>
+    <item quantity="other">in %s dae</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">in %s week</item>
+    <item quantity="other">in %s weke</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">in %s maand</item>
+    <item quantity="other">in %s maande</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">in %s jaar</item>
+    <item quantity="other">in %s jare</item>
+  </plurals>
   <string name="rightNow">nou</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekonde gelede</item>
+    <item quantity="other">%s sekondes gelede</item>
+  </plurals>
 </resources>
