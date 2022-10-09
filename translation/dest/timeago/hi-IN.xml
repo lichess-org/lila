@@ -3,7 +3,7 @@
   <string name="justNow">अभी</string>
   <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
     <item quantity="one">%s सेकेंड में</item>
-    <item quantity="other">%s सेकंड्स में</item>
+    <item quantity="other">%s सेकंड में</item>
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">%s मिनट में</item>
@@ -17,11 +17,23 @@
     <item quantity="one">%s दिन में</item>
     <item quantity="other">%s दिनो में</item>
   </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s हफ़्ते में</item>
+    <item quantity="other">%s हफ़्तों में</item>
+  </plurals>
   <plurals name="inNbMonths">
     <item quantity="one">%s महीने बाद​</item>
     <item quantity="other">%s महीनो में</item>
   </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s साल में</item>
+    <item quantity="other">%s सालों में</item>
+  </plurals>
   <string name="rightNow">अभी</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s सेकंड पहले</item>
+    <item quantity="other">%s सेकंड पहले</item>
+  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s मिनट पहले</item>
     <item quantity="other">%s मिनटों पहले</item>
