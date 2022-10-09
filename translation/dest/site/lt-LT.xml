@@ -237,7 +237,7 @@
   <string name="refreshInboxAfterFiveMinutes">Palaukite penkias minutes ir atnaujinkite savo el. pašto dėžutę.</string>
   <string name="checkSpamFolder">Pasitikrinkite šlamtšo aplanką, laiškas galėjo atsirasti ir ten. Jei taip įvyko - pažymėkite kaip ne šlamštą.</string>
   <string name="emailForSignupHelp">Jei niekas nepavyko, atsiųskite mums tokį laišką:</string>
-  <string name="copyTextToEmail">Nukopijuokite tekstą viršuje ir atsiųskite į %s</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Nukopijuokite tekstą viršuje ir atsiųskite į %s</string>
   <string name="waitForSignupHelp">Ne už ilgo susisieksime su jumis ir padėsime užbaigti prisijungimo procesą.</string>
   <string name="accountConfirmed">Vartotojas %s sėkmingai patvirtintas.</string>
   <string name="accountCanLogin">Šiuo metu negalite prisijungti kaip %s.</string>
