@@ -26,7 +26,7 @@
   <string name="giveMoreTime">Gee meer tyd</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Spel gedrag</string>
   <string name="howDoYouMovePieces">Hoe beweeg jy stukke?</string>
-  <string name="clickTwoSquares">Kliek twee blokkies</string>
+  <string name="clickTwoSquares">Druk op twee selle</string>
   <string name="dragPiece">Sleep \'n stuk</string>
   <string name="bothClicksAndDrag">Albei</string>
   <string name="premovesPlayingDuringOpponentTurn">Vooraf-skuiwe (speel tydens opponent se beurt)</string>
