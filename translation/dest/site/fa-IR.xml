@@ -157,7 +157,7 @@
   <string name="viewInFullSize">نمایش در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
-  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">مرا به خاطر بسپار</string>
+  <string name="rememberMe">مرا به خاطر بسپار</string>
   <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">كامپيوتر و بازيكناني كه از كامپيوتر كمك مي گيرند،مجاز به بازی نیستند.لطفا از انجین شطرنج يا دیتابیس شطرنج و يا بازيكنان ديگر كمک نگيريد. همچنین توجه کنید که داشتن چند حساب کاربری به شدت نهی شده است. استفاده فزاینده از چند حساب منجر به مسدود شدن حساب شما خواهد شد.</string>
@@ -216,7 +216,7 @@
   <string name="refreshInboxAfterFiveMinutes">5 دقیقه صبر کنید و صندوق ورودی ایمیل خود را تازه کنید.</string>
   <string name="checkSpamFolder">پوشه اسپم خود را نیز بررسی کنید، ممکن است ایمیل را آنجا بیابید. اگر چنین است، آن را به عنوان غیر اسپم (امن) علامت گذاری کنید.</string>
   <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این ایمیل را برای ما ارسال کنید:</string>
-  <string name="copyTextToEmail">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
   <string name="waitForSignupHelp">ما به زودی با شما تماس خواهیم گرفت تا به شما کمک کنیم ثبت نام خود را تکمیل کنید.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
