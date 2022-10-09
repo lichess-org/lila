@@ -63,8 +63,6 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="goodIntroduction">guter ersten Eindruck</string>
   <string name="lichessTraining">Lichess-Training</string>
-  <string name="watchIMRosenCheckmateEnPassant">Sieh dir an, wie der Internationale Meister Eric Rosen den Gegner durch %s.</string>
-  <string name="checkmateEnPassant">en passant matt setzt</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
@@ -141,7 +139,4 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
 Klicke auf das Schlosssymbol neben der lichess.org Adresse in der URL-Leiste deines Browsers.
 
 Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
-  <string name="howToMakeABot">Einen Bot erstellen?</string>
-  <string name="toLearnHowToMakeABot">Um zu lernen, wie du einen %s erstellen kannst, </string>
-  <string name="pleaseRead">lies dir diesen %s durch.</string>
 </resources>
