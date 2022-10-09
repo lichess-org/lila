@@ -88,7 +88,6 @@ object BSONHandlers {
     def reads(r: BSON.Reader) =
       InsightEntry(
         id = r.str(id),
-        number = r.int(number),
         userId = r.str(userId),
         color = r.get[Color](color),
         perf = r.get[PerfType](perf),
@@ -110,7 +109,6 @@ object BSONHandlers {
     def writes(w: BSON.Writer, e: InsightEntry) =
       BSONDocument(
         id               -> e.id,
-        number           -> e.number,
         userId           -> e.userId,
         color            -> e.color,
         perf             -> e.perf,

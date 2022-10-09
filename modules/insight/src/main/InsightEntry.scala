@@ -9,8 +9,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class InsightEntry(
-    id: String,  // gameId + w/b
-    number: Int, // auto increment over userId
+    id: String, // gameId + w/b
     userId: User.ID,
     color: Color,
     perf: PerfType,

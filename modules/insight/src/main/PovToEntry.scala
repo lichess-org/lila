@@ -211,7 +211,6 @@ final private class PovToEntry(
       opening  = findOpening(from)
     } yield InsightEntry(
       id = InsightEntry povToId pov,
-      number = 0, // temporary :-/ the Indexer will set it
       userId = myId,
       color = pov.color,
       perf = perfType,
