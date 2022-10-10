@@ -167,7 +167,7 @@ object ServerEval {
 
   def toJson(chapter: Chapter, analysis: Analysis) =
     lila.analyse.JsonView.bothPlayers(
-      lila.game.Game.SideAndStart(chess.White, chapter.root.color, chapter.root.ply),
+      lila.game.Game.StartedAt(chapter.root.color, chapter.root.ply),
       analysis
     )
 }

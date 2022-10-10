@@ -233,7 +233,7 @@ final private[api] class RoundApi(
     json.add(
       "analysis",
       o.map { a =>
-        analysisJson.bothPlayers(g, a)
+        analysisJson.bothPlayers(g.startedAt, a)
       }
     )
 

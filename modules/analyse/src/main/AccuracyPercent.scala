@@ -1,16 +1,18 @@
 package lila.analyse
 
+import chess.Color
+
 import lila.common.Maths
-import lila.game.Game.SideAndStart
+import lila.game.Game
 import lila.tree.Eval
 import lila.tree.Eval.{ Cp, Mate }
 
 // Quality of a move, based on previous and next WinPercent
-case class AccuracyPercent private (value: Double) extends AnyVal with Percent
+case class AccuracyPercent private (value: Double) extends AnyVal with Percent {
+  def *(weight: Double) = copy(value * weight)
+}
 
 object AccuracyPercent {
-
-  import WinPercent.BeforeAfter
 
   def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
 
@@ -36,35 +38,72 @@ print(f"{a} * exp(-{k} * x) + {b}")
 for x in xs:
     print(f"f({x}) = {model_func(x, a, k, b)}");
    */
-  def fromWinPercentDelta(delta: WinPercent.Delta): AccuracyPercent = AccuracyPercent {
-    if (delta.value <= 0) 100d
+  def fromWinPercents(before: WinPercent, after: WinPercent): AccuracyPercent = AccuracyPercent {
+    if (after.value >= before.value) 100d
     else
       {
-        103.1668100711649 * Math.exp(-0.04354415386753951 * delta.value) + -3.166924740191411;
+        val winDiff = before.value - after.value
+        103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411;
       } atMost 100 atLeast 0
   }
 
   // returns None if one or more evals have no score (incomplete analysis)
-  def winPercents(pov: SideAndStart, evals: List[Eval]): Option[List[WinPercent]] = {
+  // def winPercents(pov: Game.SideAndStart, evals: List[Eval]): Option[List[WinPercent]] = {
+  //   val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
+  //   val alignedEvals = if (pov.color == pov.startColor) Eval.initial :: subjectiveEvals else subjectiveEvals
+  //   alignedEvals.flatMap(WinPercent.fromEval).some.filter(_.sizeCompare(evals) == 0)
+  // }
+
+  def fromEvalsAndPov(pov: Game.SideAndStart, evals: List[Eval]): List[AccuracyPercent] = {
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
     val alignedEvals = if (pov.color == pov.startColor) Eval.initial :: subjectiveEvals else subjectiveEvals
-    alignedEvals.flatMap(WinPercent.fromEval).some.filter(_.sizeCompare(evals) == 0)
+    alignedEvals
+      .grouped(2)
+      .collect { case List(e1, e2) =>
+        for {
+          before <- WinPercent.fromEval(e1)
+          after  <- WinPercent.fromEval(e2)
+        } yield AccuracyPercent.fromWinPercents(before, after)
+      }
+      .flatten
+      .toList
   }
 
-  def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): Option[List[AccuracyPercent]] =
-    winPercents(pov, evals) map WinPercent.deltas map {
-      _ map AccuracyPercent.fromWinPercentDelta
-    }
-
-  def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): Option[List[AccuracyPercent]] =
+  def fromAnalysisAndPov(pov: Game.SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
 
-  def gameAccuracy(pov: SideAndStart, analysis: Analysis): Option[AccuracyPercent] = for {
-    wins            <- winPercents(pov, analysis.infos.map(_.eval))
-    firstWinPercent <- wins.headOption
-    accuracies = WinPercent deltas wins map AccuracyPercent.fromWinPercentDelta
-    windowSize = 6
-    windows    = (List.fill(windowSize - 1)(firstWinPercent) ::: wins).map(_.value).sliding(windowSize).toList
-    weights    = windows map { xs => ~Maths.standardDeviation(xs) }
-  } yield ???
+  def gameAccuracy(startColor: Color, analysis: Analysis): Option[Color.Map[AccuracyPercent]] = {
+    val evalsWithInitial = Eval.initial :: analysis.infos.map(_.eval)
+    val allWinPercents   = evalsWithInitial flatMap WinPercent.fromEval
+    allWinPercents.headOption map { firstWinPercent =>
+      val windowSize = 6
+      val windows = {
+        List.fill(windowSize - 1)(firstWinPercent) ::: allWinPercents
+      }.map(_.value).sliding(windowSize).toList
+      val weights = windows map { xs => ~Maths.standardDeviation(xs) }
+      val weightedAccuracies: Iterable[((Double, Double), Color)] = allWinPercents
+        .sliding(2)
+        .zip(weights)
+        .zipWithIndex
+        .collect { case ((List(prev, next), weight), i) =>
+          val color    = Color.fromWhite((i % 2 == 0) == startColor.white)
+          val accuracy = AccuracyPercent.fromWinPercents(color.fold(prev, next), color.fold(next, prev)).value
+          ((accuracy, weight), color)
+        }
+        .to(Iterable)
+
+      evalsWithInitial.drop(1).map(_.forceAsCp.??(_.value)).zip(weightedAccuracies) foreach {
+        case (eval, ((acc, weight), color)) =>
+          println(s"$eval $color $weight $acc")
+      }
+
+      Color.Map.apply { color =>
+        new AccuracyPercent(~Maths.weightedMean {
+          weightedAccuracies collect {
+            case (weightedAccuracy, c) if c == color => weightedAccuracy
+          }
+        })
+      }
+    }
+  }
 }

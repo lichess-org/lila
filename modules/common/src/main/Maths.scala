@@ -24,6 +24,13 @@ object Maths {
       a.size / a.foldLeft(0d) { case (acc, v) => acc + 1 / Math.max(1, v) }
     }
 
+  def weightedMean(a: Iterable[(Double, Double)]): Option[Double] =
+    a.nonEmpty ?? {
+      a.foldLeft(0d -> 0d) { case ((av, aw), (v, w)) => (av + v * w, aw + w) } match {
+        case (v, w) => w != 0 option v / w
+      }
+    }
+
   def arithmeticAndHarmonicMean(a: Iterable[Double]): Option[Double] = for {
     arithmetic <- mean(a)
     harmonic   <- harmonicMean(a)

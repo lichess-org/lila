@@ -3,16 +3,9 @@ package lila.analyse
 import lila.tree.Eval
 
 // How likely one is to win a position, based on subjective Stockfish centipawns
-case class WinPercent(value: Double) extends AnyVal with Percent {
-
-  def delta(next: WinPercent) = WinPercent.Delta(value - next.value)
-}
+case class WinPercent(value: Double) extends AnyVal with Percent
 
 object WinPercent {
-
-  case class Delta(value: Double) extends AnyVal with Percent
-
-  def deltas(wins: List[WinPercent]) = wins.grouped(2).collect { case List(w1, w2) => w1 delta w2 }.toList
 
   def fromEval(eval: Eval): Option[WinPercent] =
     eval.cp.map(fromCentiPawns) orElse eval.mate.map(fromMate)
