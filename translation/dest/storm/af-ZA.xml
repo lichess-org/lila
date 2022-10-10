@@ -20,4 +20,6 @@
   </plurals>
   <string name="highscoreX">Hoë telling: %s</string>
   <string name="score">Telling</string>
+  <string name="waitForRematch">Wag vir herwedstryd</string>
+  <string name="joinRematch">Sluit by herwedstryd aan</string>
 </resources>
