@@ -36,38 +36,35 @@ print(f"{a} * exp(-{k} * x) + {b}")
 for x in xs:
     print(f"f({x}) = {model_func(x, a, k, b)}");
    */
-  def fromWinPercents(before: WinPercent, after: WinPercent): AccuracyPercent = AccuracyPercent {
-    if (after.value >= before.value) 100d
+  def fromWinPercentDelta(delta: WinPercent.Delta): AccuracyPercent = AccuracyPercent {
+    if (delta.value <= 0) 100d
     else
       {
-        val winDiff = before.value - after.value
-        103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411;
+        103.1668100711649 * Math.exp(-0.04354415386753951 * delta.value) + -3.166924740191411;
       } atMost 100 atLeast 0
   }
 
-  def fromWinPercents(both: BeforeAfter): AccuracyPercent =
-    fromWinPercents(both.before, both.after)
-
-  def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] = {
+  // returns None if one or more evals have no score (incomplete analysis)
+  def winPercents(pov: SideAndStart, evals: List[Eval]): Option[List[WinPercent]] = {
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
     val alignedEvals = if (pov.color == pov.startColor) Eval.initial :: subjectiveEvals else subjectiveEvals
-    alignedEvals
-      .grouped(2)
-      .collect { case List(e1, e2) =>
-        for {
-          before <- WinPercent.fromEval(e1)
-          after  <- WinPercent.fromEval(e2)
-        } yield AccuracyPercent.fromWinPercents(before, after)
-      }
-      .flatten
-      .toList
+    alignedEvals.flatMap(WinPercent.fromEval).some.filter(_.sizeCompare(evals) == 0)
   }
 
-  def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): List[AccuracyPercent] =
+  def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): Option[List[AccuracyPercent]] =
+    winPercents(pov, evals) map WinPercent.deltas map {
+      _ map AccuracyPercent.fromWinPercentDelta
+    }
+
+  def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): Option[List[AccuracyPercent]] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
 
-  private val gameAccuracyFormula: Iterable[Double] => Option[Double] = Maths.arithmeticAndHarmonicMean
-
-  def gameAccuracy(pov: SideAndStart, analysis: Analysis): Option[AccuracyPercent] =
-    gameAccuracyFormula(fromAnalysisAndPov(pov, analysis).map(_.value)) map AccuracyPercent.apply
+  def gameAccuracy(pov: SideAndStart, analysis: Analysis): Option[AccuracyPercent] = for {
+    wins            <- winPercents(pov, analysis.infos.map(_.eval))
+    firstWinPercent <- wins.headOption
+    accuracies = WinPercent deltas wins map AccuracyPercent.fromWinPercentDelta
+    windowSize = 6
+    windows    = (List.fill(windowSize - 1)(firstWinPercent) ::: wins).map(_.value).sliding(windowSize).toList
+    weights    = windows map { xs => ~Maths.standardDeviation(xs) }
+  } yield ???
 }
