@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Datum bygevoeg (oudste)</string>
   <string name="recentlyUpdated">Onlangs opgedateer</string>
   <string name="mostPopular">Mees gewilde</string>
+  <string name="alphabetical">Alfabeties</string>
   <string name="addNewChapter">Voeg \'n nuwe hoofstuk by</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Hoofstuk</item>
@@ -40,6 +41,7 @@
   <string name="youAreNowASpectator">Jy is nou \'n toeskouer</string>
   <string name="pgnTags">PGN etikette</string>
   <string name="like">Hou van</string>
+  <string name="unlike">Afkeer</string>
   <string name="newTag">Nuwe etiket</string>
   <string name="commentThisPosition">Lewer kommentaar op hierdie posisie</string>
   <string name="commentThisMove">Lewer kommentaar op hierdie skuif</string>
