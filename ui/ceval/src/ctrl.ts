@@ -1,5 +1,5 @@
 import throttle from 'common/throttle';
-import { AbstractWorker, WebWorker, ThreadedWasmWorker, ExternalWorker, ExternalEngine } from './worker';
+import { CevalState, CevalWorker, WebWorker, ThreadedWasmWorker, ExternalEngine } from './worker';
 import { Cache } from './cache';
 import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
 import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
@@ -46,10 +46,9 @@ export default class CevalCtrl {
   isDeeper = toggle(false);
 
   curEval: Tree.LocalEval | null = null;
-  running = false;
   lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
 
-  private worker: AbstractWorker<unknown> | undefined;
+  private worker: CevalWorker | undefined;
 
   constructor(readonly opts: CevalOpts) {
     this.possible = this.opts.possible;
@@ -164,8 +163,8 @@ export default class CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!this.worker) {
-      if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine);
-      else if (this.technology == 'nnue')
+      /* if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine);
+      else */ if (this.technology == 'nnue')
         this.worker = new ThreadedWasmWorker({
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
@@ -192,7 +191,6 @@ export default class CevalCtrl {
 
     this.worker.start(work);
 
-    this.running = true;
     this.lastStarted = {
       path,
       steps,
@@ -214,9 +212,7 @@ export default class CevalCtrl {
   };
 
   stop = () => {
-    if (!this.enabled() || !this.running) return;
     this.worker?.stop();
-    this.running = false;
   };
 
   showingCloud = (): boolean => {
@@ -230,8 +226,10 @@ export default class CevalCtrl {
     this.doStart(path, steps, !!threatMode);
   };
 
-  isLoaded = (): boolean => !!this.worker?.isLoaded();
-  initFailed = (): boolean => !!this.worker?.initFailed();
+  getState() {
+    return this.worker ? this.worker.getState() : CevalState.Initial;
+  }
+
   setThreads = (threads: number) => lichess.storage.set(this.storageKey('ceval.threads'), threads.toString());
   setHashSize = (hash: number) => lichess.storage.set(this.storageKey('ceval.hash-size'), hash.toString());
 
@@ -262,8 +260,7 @@ export default class CevalCtrl {
   canGoDeeper = () =>
     this.curDepth() < 99 &&
     !this.isDeeper() &&
-    ((!this.infinite() && !this.worker?.isComputing()) || this.showingCloud());
-  isComputing = () => !!this.running && !!this.worker?.isComputing();
+    ((!this.infinite() && this.getState() !== CevalState.Computing) || this.showingCloud());
   shortEngineName = () => engineName(this.technology, this.externalEngine);
   longEngineName = () => this.worker?.engineName();
   destroy = () => this.worker?.destroy();
