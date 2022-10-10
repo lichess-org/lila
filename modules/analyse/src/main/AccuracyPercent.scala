@@ -78,10 +78,12 @@ for x in xs:
   def gameAccuracy(startColor: Color, cps: List[Cp]): Option[Color.Map[AccuracyPercent]] = {
     val allWinPercents = (Cp.initial :: cps) map WinPercent.fromCentiPawns
     allWinPercents.headOption flatMap { firstWinPercent =>
-      val windowSize = 6
-      val windows = {
-        List.fill(windowSize - 1)(firstWinPercent) ::: allWinPercents
-      }.map(_.value).sliding(windowSize).toList
+      val windowSize          = (cps.size / 10) atLeast 2 atMost 6
+      val allWinPercentValues = allWinPercents.map(_.value)
+      val windows =
+        List
+          .fill((windowSize).atMost(allWinPercentValues.size) - 1)(allWinPercentValues take windowSize)
+          .toList ::: allWinPercentValues.sliding(windowSize).toList
       val weights = windows map { xs => ~Maths.standardDeviation(xs) atLeast 1 }
       val weightedAccuracies: Iterable[((Double, Double), Color)] = allWinPercents
         .sliding(2)
@@ -93,10 +95,6 @@ for x in xs:
           ((accuracy, weight), color)
         }
         .to(Iterable)
-
-      // cps.zip(weightedAccuracies) foreach { case (eval, ((acc, weight), color)) =>
-      //   println(s"$eval $color ${weight.toInt} ${acc.toInt}")
-      // }
 
       def colorAccuracy(color: Color) = Maths.weightedMean {
         weightedAccuracies collect {

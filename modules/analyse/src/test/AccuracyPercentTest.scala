@@ -10,7 +10,7 @@ class AccuracyPercentTest extends Specification {
 
   "game accuracy" should {
 
-    def compute(cps: List[Int], color: Color = Color.white) = gameAccuracy(color, cps.map(Cp.apply))
+    def compute(cps: List[Int]) = gameAccuracy(Color.white, cps.map(Cp.apply))
 
     "empty game" in {
       compute(Nil) must beNone
@@ -20,19 +20,19 @@ class AccuracyPercentTest extends Specification {
     }
     "two good moves" in {
       compute(List(15, 15)) must beSome.like { a =>
-        a.white.value must_== 100
-        a.black.value must_== 100
+        a.white.value must beCloseTo(100d, 1)
+        a.black.value must beCloseTo(100d, 1)
       }
     }
     "white blunders on first move" in {
       compute(List(-900, -900)) must beSome.like { a =>
         a.white.value must beCloseTo(10d, 5)
-        a.black.value must_== 100
+        a.black.value must beCloseTo(100d, 1)
       }
     }
     "black blunders on first move" in {
       compute(List(15, 900)) must beSome.like { a =>
-        a.white.value must_== 100
+        a.white.value must beCloseTo(100d, 1)
         a.black.value must beCloseTo(10d, 5)
       }
     }
@@ -44,26 +44,26 @@ class AccuracyPercentTest extends Specification {
     }
     "20 perfect moves" in {
       compute(List.fill(20)(15)) must beSome.like { a =>
-        a.white.value must_== 100
-        a.black.value must_== 100
+        a.white.value must beCloseTo(100d, 1)
+        a.black.value must beCloseTo(100d, 1)
       }
     }
     "20 perfect moves and a white blunder" in {
       compute(List.fill(20)(15) :+ -900) must beSome.like { a =>
         a.white.value must beCloseTo(90d, 5)
-        a.black.value must_== 100
+        a.black.value must beCloseTo(100d, 1)
       }
     }
     "21 perfect moves and a black blunder" in {
       compute(List.fill(21)(15) :+ 900) must beSome.like { a =>
-        a.white.value must_== 100
+        a.white.value must beCloseTo(100d, 1)
         a.black.value must beCloseTo(90d, 5)
       }
     }
     "20 perfect moves and a white blunder" in {
       compute(List.fill(20)(15) :+ -900) must beSome.like { a =>
         a.white.value must beCloseTo(90d, 5)
-        a.black.value must_== 100
+        a.black.value must beCloseTo(100d, 1)
       }
     }
     "5 average moves (65 cpl) on each side" in {
@@ -91,4 +91,41 @@ class AccuracyPercentTest extends Specification {
       }
     }
   }
+
+  "game accuracy, black moves first" should {
+
+    def compute(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp.apply))
+
+    "empty game" in {
+      compute(Nil) must beNone
+    }
+    "single move" in {
+      compute(List(15)) must beNone
+    }
+    "two good moves" in {
+      compute(List(15, 15)) must beSome.like { a =>
+        a.black.value must beCloseTo(100d, 1)
+        a.white.value must beCloseTo(100d, 1)
+      }
+    }
+    "black blunders on first move" in {
+      compute(List(900, 900)) must beSome.like { a =>
+        a.black.value must beCloseTo(10d, 5)
+        a.white.value must beCloseTo(100d, 1)
+      }
+    }
+    "white blunders on first move" in {
+      compute(List(15, -900)) must beSome.like { a =>
+        a.black.value must beCloseTo(100d, 1)
+        a.white.value must beCloseTo(10d, 5)
+      }
+    }
+    "both blunder on first move" in {
+      compute(List(900, 0)) must beSome.like { a =>
+        a.black.value must beCloseTo(10d, 5)
+        a.white.value must beCloseTo(10d, 5)
+      }
+    }
+  }
+
 }
