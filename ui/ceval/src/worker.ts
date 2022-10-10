@@ -245,7 +245,7 @@ export class ExternalWorker implements CevalWorker {
           sessionId: this.session,
           threads: work.threads,
           hash: work.hashSize || 16,
-          time: 90000,
+          deep: work.maxDepth >= 99,
           multiPv: work.multiPv,
           variant: work.variant,
           initialFen: work.initialFen,
