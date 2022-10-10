@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
+import com.roundeights.hasher.Algo
 
 import lila.common.Form._
 import lila.common.{ SecureRandom, ThreadLocalRandom }
@@ -20,7 +21,7 @@ case class ExternalEngine(
     maxHash: Int,
     variants: List[String],
     officialStockfish: Boolean,   // Admissible for cloud evals
-    providerSecret: String,       // Chosen at random by the provider, possibly shared between registrations
+    providerSelector: String,     // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
     userId: User.ID,              // The user it has been registered for
     clientSecret: String          // Secret unique id of the registration
@@ -44,7 +45,7 @@ object ExternalEngine {
       maxHash = maxHash,
       variants = variants.filter(_.nonEmpty) | List(chess.variant.Standard.key),
       officialStockfish = ~officialStockfish,
-      providerSecret = providerSecret,
+      providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
       providerData = providerData,
       userId = userId,
       clientSecret = s"ees_${SecureRandom.nextString(16)}"
