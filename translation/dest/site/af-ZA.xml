@@ -266,12 +266,12 @@
   <string name="casualTournament">Vriendskaplik</string>
   <string name="ratedTournament">Gegradeer</string>
   <string name="thisGameIsRated">Hierdie spel is gegradeer</string>
-  <string name="rematch">Speel weer</string>
-  <string name="rematchOfferSent">Speel weer aanbod gestuur</string>
-  <string name="rematchOfferAccepted">Speel weer aanbod aanvaar</string>
-  <string name="rematchOfferCanceled">Speel weer aanbod gekanselleer</string>
-  <string name="rematchOfferDeclined">Speel weer aanbod afgewys</string>
-  <string name="cancelRematchOffer">Wys speel weer aanbod af</string>
+  <string name="rematch">Herwedstryd</string>
+  <string name="rematchOfferSent">Herwedstryd aanbod gestuur</string>
+  <string name="rematchOfferAccepted">Herwedstryd aanbod aanvaar</string>
+  <string name="rematchOfferCanceled">Herwedstryd aanbod gekanselleer</string>
+  <string name="rematchOfferDeclined">Herwedstryd aanbod afgewys</string>
+  <string name="cancelRematchOffer">Wys herwedstryd aanbod af</string>
   <string name="viewRematch">Sien heruitdagingsaanbod</string>
   <string name="confirmMove">Bevestig skuif</string>
   <string name="play">Speel</string>
@@ -835,7 +835,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
   <string name="edit">Pas aan</string>
   <string name="rapid">Rapid</string>
-  <string name="classical">Klassiek</string>
+  <string name="classical">Klassieke</string>
   <string name="ultraBulletDesc">Bitter vinnige spelle: minder as 30 sekondes</string>
   <string name="bulletDesc">Baie vinnige spelle: minder as 3 minute</string>
   <string name="blitzDesc">Vinnige spelle: 3 tot 8 minute</string>
