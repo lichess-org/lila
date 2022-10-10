@@ -55,4 +55,15 @@ object Maths {
     if (normal > mean - deviation && normal < mean + deviation) normal.toInt
     else boxedNormalDistribution(mean, deviation, factor)
   }
+
+  // https://www.scribbr.com/statistics/standard-deviation/
+  // using population variance
+  def standardDeviation(a: Iterable[Double]): Option[Double] =
+    mean(a) map { mean =>
+      Math.sqrt {
+        a.foldLeft(0d) { case (sum, x) =>
+          sum + Math.pow(x - mean, 2)
+        } / a.size
+      }
+    }
 }
