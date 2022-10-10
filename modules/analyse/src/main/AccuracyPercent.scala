@@ -72,15 +72,17 @@ for x in xs:
   def fromAnalysisAndPov(pov: Game.SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
 
-  def gameAccuracy(startColor: Color, analysis: Analysis): Option[Color.Map[AccuracyPercent]] = {
-    val evalsWithInitial = Eval.initial :: analysis.infos.map(_.eval)
-    val allWinPercents   = evalsWithInitial flatMap WinPercent.fromEval
-    allWinPercents.headOption map { firstWinPercent =>
+  def gameAccuracy(startColor: Color, analysis: Analysis): Option[Color.Map[AccuracyPercent]] =
+    gameAccuracy(startColor, analysis.infos.map(_.eval).flatMap(_.forceAsCp))
+
+  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[Color.Map[AccuracyPercent]] = {
+    val allWinPercents = (Cp.initial :: cps) map WinPercent.fromCentiPawns
+    allWinPercents.headOption flatMap { firstWinPercent =>
       val windowSize = 6
       val windows = {
         List.fill(windowSize - 1)(firstWinPercent) ::: allWinPercents
       }.map(_.value).sliding(windowSize).toList
-      val weights = windows map { xs => ~Maths.standardDeviation(xs) }
+      val weights = windows map { xs => ~Maths.standardDeviation(xs) atLeast 1 }
       val weightedAccuracies: Iterable[((Double, Double), Color)] = allWinPercents
         .sliding(2)
         .zip(weights)
@@ -92,18 +94,20 @@ for x in xs:
         }
         .to(Iterable)
 
-      evalsWithInitial.drop(1).map(_.forceAsCp.??(_.value)).zip(weightedAccuracies) foreach {
-        case (eval, ((acc, weight), color)) =>
-          println(s"$eval $color $weight $acc")
-      }
+      // cps.zip(weightedAccuracies) foreach { case (eval, ((acc, weight), color)) =>
+      //   println(s"$eval $color ${weight.toInt} ${acc.toInt}")
+      // }
 
-      Color.Map.apply { color =>
-        new AccuracyPercent(~Maths.weightedMean {
-          weightedAccuracies collect {
-            case (weightedAccuracy, c) if c == color => weightedAccuracy
-          }
-        })
-      }
+      def colorAccuracy(color: Color) = Maths.weightedMean {
+        weightedAccuracies collect {
+          case (weightedAccuracy, c) if c == color => weightedAccuracy
+        }
+      } map AccuracyPercent.apply
+
+      for {
+        wa <- colorAccuracy(Color.white)
+        ba <- colorAccuracy(Color.black)
+      } yield Color.Map(wa, ba)
     }
   }
 }

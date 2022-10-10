@@ -1,0 +1,94 @@
+package lila.analyse
+import org.specs2.mutable.Specification
+
+import chess.Color
+import lila.tree.Eval.{ Cp, Mate }
+
+class AccuracyPercentTest extends Specification {
+
+  import AccuracyPercent._
+
+  "game accuracy" should {
+
+    def compute(cps: List[Int], color: Color = Color.white) = gameAccuracy(color, cps.map(Cp.apply))
+
+    "empty game" in {
+      compute(Nil) must beNone
+    }
+    "single move" in {
+      compute(List(15)) must beNone
+    }
+    "two good moves" in {
+      compute(List(15, 15)) must beSome.like { a =>
+        a.white.value must_== 100
+        a.black.value must_== 100
+      }
+    }
+    "white blunders on first move" in {
+      compute(List(-900, -900)) must beSome.like { a =>
+        a.white.value must beCloseTo(10d, 5)
+        a.black.value must_== 100
+      }
+    }
+    "black blunders on first move" in {
+      compute(List(15, 900)) must beSome.like { a =>
+        a.white.value must_== 100
+        a.black.value must beCloseTo(10d, 5)
+      }
+    }
+    "both blunder on first move" in {
+      compute(List(-900, 0)) must beSome.like { a =>
+        a.white.value must beCloseTo(10d, 5)
+        a.black.value must beCloseTo(10d, 5)
+      }
+    }
+    "20 perfect moves" in {
+      compute(List.fill(20)(15)) must beSome.like { a =>
+        a.white.value must_== 100
+        a.black.value must_== 100
+      }
+    }
+    "20 perfect moves and a white blunder" in {
+      compute(List.fill(20)(15) :+ -900) must beSome.like { a =>
+        a.white.value must beCloseTo(90d, 5)
+        a.black.value must_== 100
+      }
+    }
+    "21 perfect moves and a black blunder" in {
+      compute(List.fill(21)(15) :+ 900) must beSome.like { a =>
+        a.white.value must_== 100
+        a.black.value must beCloseTo(90d, 5)
+      }
+    }
+    "20 perfect moves and a white blunder" in {
+      compute(List.fill(20)(15) :+ -900) must beSome.like { a =>
+        a.white.value must beCloseTo(90d, 5)
+        a.black.value must_== 100
+      }
+    }
+    "5 average moves (65 cpl) on each side" in {
+      compute(List.fill(5)(List(-50, 15)).flatten) must beSome.like { a =>
+        a.white.value must beCloseTo(76d, 8)
+        a.black.value must beCloseTo(76d, 8)
+      }
+    }
+    "50 average moves (65 cpl) on each side" in {
+      compute(List.fill(50)(List(-50, 15)).flatten) must beSome.like { a =>
+        a.white.value must beCloseTo(76d, 8)
+        a.black.value must beCloseTo(76d, 8)
+      }
+    }
+    "50 mediocre moves (150 cpl) on each side" in {
+      compute(List.fill(50)(List(-135, 15)).flatten) must beSome.like { a =>
+        a.white.value must beCloseTo(54d, 8)
+        a.black.value must beCloseTo(54d, 8)
+      }
+    }
+    "50 terrible moves (500 cpl) on each side" in {
+      compute(List.fill(50)(List(-435, 15)).flatten) must beSome.like { a =>
+        a.white.value must beCloseTo(20d, 8)
+        a.black.value must beCloseTo(20d, 8)
+      }
+    }
+  }
+}
