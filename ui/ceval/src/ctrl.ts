@@ -1,5 +1,5 @@
 import throttle from 'common/throttle';
-import { CevalState, CevalWorker, WebWorker, ThreadedWasmWorker, ExternalEngine } from './worker';
+import { CevalState, CevalWorker, WebWorker, ThreadedWasmWorker, ExternalEngine, ExternalWorker } from './worker';
 import { Cache } from './cache';
 import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
 import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
@@ -63,7 +63,8 @@ export default class CevalCtrl {
     this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
 
     this.externalEngine = this.opts.externalEngines?.find(
-      e => e.id == this.selectedEngine() && (this.officialStockfish || e.variants.includes(this.rules))
+      e =>
+        e.id == this.selectedEngine() && (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
     );
     this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
     this.technology = this.platform.technology;
@@ -163,8 +164,8 @@ export default class CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!this.worker) {
-      /* if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine);
-      else */ if (this.technology == 'nnue')
+      if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine);
+      else if (this.technology == 'nnue')
         this.worker = new ThreadedWasmWorker({
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',

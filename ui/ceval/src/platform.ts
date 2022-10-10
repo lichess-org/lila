@@ -13,7 +13,7 @@ export interface CevalPlatform {
   maxHashSize: () => number;
 }
 
-// select nnue > hce > wasm > asmjs
+// select external > nnue > hce > wasm > asmjs
 export function detectPlatform(
   officialStockfish: boolean,
   enableNnue: boolean,

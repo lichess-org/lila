@@ -1,6 +1,7 @@
 import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
+import { readStream, CancellableStream } from 'common/stream';
 
 export enum CevalState {
   Initial,
@@ -207,7 +208,7 @@ export class ThreadedWasmWorker implements CevalWorker {
 export interface ExternalEngine {
   id: string;
   name: string;
-  variants: string;
+  variants: VariantKey[];
   maxThreads: number;
   maxHash: number;
   clientSecret: string;
@@ -215,17 +216,21 @@ export interface ExternalEngine {
   endpoint: string;
 }
 
-/*
-
 export class ExternalWorker implements CevalWorker {
-  private protocol = new Protocol();
+  private state = CevalState.Initial;
   private session = Math.random().toString(36).slice(2, 12);
+  private stream: CancellableStream | undefined;
 
   constructor(private opts: ExternalEngine) {}
 
-  private stream: CancellableStream;
+  getState() {
+    return this.state;
+  }
 
-  boot() {
+  start(work: Work) {
+    stop();
+    this.state = CevalState.Loading;
+
     const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
     fetch(url.href, {
       method: 'post',
@@ -238,37 +243,40 @@ export class ExternalWorker implements CevalWorker {
         clientSecret: this.opts.clientSecret,
         work: {
           sessionId: this.session,
-          // TODO
-          threads: this.opts.maxThreads,
-          hash: this.opts.maxHash,
-          maxDepth: 99,
-          multiPv: 1,
-          variant: 'standard',
-          initialFen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
-          moves: [],
+          threads: work.threads,
+          hash: work.hashSize || 16,
+          time: 90000,
+          multiPv: work.multiPv,
+          variant: work.variant,
+          initialFen: work.initialFen,
+          moves: work.moves,
         },
       }),
-    })
-      .then(res => {
-        // no need to call protocol.connected, ever
-        // but need to set bootSuccess
-        this.bootSuccess = true;
+    }).then(
+      res => {
         this.stream = readStream((line: string) => {
+          this.state = CevalState.Computing;
           console.log(line);
-          this.protocol.received(line);
         })(res);
-        // ws.onclose = () => {
-        //   this.protocol.disconnected();
-        //   if (this.ws) setTimeout(() => this.boot(), 10_000);
-        // };
-      })
-      .catch(err => {
+        this.stream.end.promise.then(() => (this.state = CevalState.Initial));
+      },
+      err => {
         console.error(err);
-        this.bootSuccess = false;
-      });
+        this.state = CevalState.Failed;
+      }
+    );
+  }
+
+  stop() {
+    this.stream?.cancel();
+    this.state = CevalState.Initial;
+  }
+
+  engineName() {
+    return this.opts.name;
   }
 
   destroy() {
-    this.stream.cancel();
+    this.stop();
   }
-} */
+}
