@@ -50,20 +50,14 @@ class AccuracyPercentTest extends Specification {
     }
     "20 perfect moves and a white blunder" in {
       compute(List.fill(20)(15) :+ -900) must beSome.like { a =>
-        a.white.value must beCloseTo(90d, 5)
+        a.white.value must beCloseTo(50d, 5)
         a.black.value must beCloseTo(100d, 1)
       }
     }
     "21 perfect moves and a black blunder" in {
       compute(List.fill(21)(15) :+ 900) must beSome.like { a =>
         a.white.value must beCloseTo(100d, 1)
-        a.black.value must beCloseTo(90d, 5)
-      }
-    }
-    "20 perfect moves and a white blunder" in {
-      compute(List.fill(20)(15) :+ -900) must beSome.like { a =>
-        a.white.value must beCloseTo(90d, 5)
-        a.black.value must beCloseTo(100d, 1)
+        a.black.value must beCloseTo(50d, 5)
       }
     }
     "5 average moves (65 cpl) on each side" in {
