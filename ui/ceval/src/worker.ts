@@ -1,7 +1,7 @@
 import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
-import { readNdJson, CancellableStream } from 'common/ndjson';
+import { readNdJson } from 'common/ndjson';
 
 export enum CevalState {
   Initial,
@@ -233,7 +233,7 @@ interface ExternalEngineOutput {
 export class ExternalWorker implements CevalWorker {
   private state = CevalState.Initial;
   private session = Math.random().toString(36).slice(2, 12);
-  private stream: CancellableStream | undefined;
+  private req: AbortController | undefined;
 
   constructor(private opts: ExternalEngine) {}
 
@@ -245,9 +245,11 @@ export class ExternalWorker implements CevalWorker {
     stop();
     this.state = CevalState.Loading;
 
+    this.req = new AbortController();
     const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
     const deep = work.maxDepth >= 99;
     fetch(url.href, {
+      signal: this.req.signal,
       method: 'post',
       cache: 'default',
       headers: {
@@ -267,9 +269,9 @@ export class ExternalWorker implements CevalWorker {
           moves: work.moves,
         },
       }),
-    }).then(
-      res => {
-        this.stream = readNdJson<ExternalEngineOutput>(line => {
+    })
+      .then(res =>
+        readNdJson<ExternalEngineOutput>(res, line => {
           this.state = CevalState.Computing;
           work.emit({
             fen: work.currentFen,
@@ -282,19 +284,23 @@ export class ExternalWorker implements CevalWorker {
             millis: line.time,
             pvs: line.pvs,
           });
-        })(res);
-        this.stream.end.promise.then(() => (this.state = CevalState.Initial));
-      },
-      err => {
-        console.error(err);
-        this.state = CevalState.Failed;
-      }
-    );
+        })
+      )
+      .then(
+        () => (this.state = CevalState.Initial),
+        err => {
+          if (err.name !== 'AbortError') {
+            console.error(err);
+            this.state = CevalState.Failed;
+          } else {
+            this.state = CevalState.Initial;
+          }
+        }
+      );
   }
 
   stop() {
-    this.stream?.cancel();
-    this.state = CevalState.Initial;
+    this.req?.abort();
   }
 
   engineName() {

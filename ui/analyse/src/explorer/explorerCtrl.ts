@@ -1,4 +1,4 @@
-import { Prop, prop } from 'common';
+import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
@@ -8,7 +8,6 @@ import { winnerOf, colorOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
-import { CancellableStream } from 'common/ndjson';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
 
@@ -45,7 +44,8 @@ export default class ExplorerCtrl {
   hovering = prop<Hovering | null>(null);
   movesAway = prop(0);
   gameMenu = prop<string | null>(null);
-  lastStream = prop<Sync<CancellableStream> | null>(null);
+  lastStream: Sync<true> | undefined;
+  abortController: AbortController | undefined;
   cache: Dictionary<ExplorerData> = {};
 
   constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
@@ -95,36 +95,37 @@ export default class ExplorerCtrl {
         this.root.redraw();
       };
       const onError = (err: Error) => {
-        this.loading(false);
-        this.failing(err);
-        this.root.redraw();
+        if (err.name !== 'AbortError') {
+          this.loading(false);
+          this.failing(err);
+          this.root.redraw();
+        }
       };
-      const prev = this.lastStream();
-      if (prev) prev.promise.then(stream => stream.cancel());
       if (this.withGames && this.tablebaseRelevant(this.effectiveVariant, fen))
         xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen).then(processData, onError);
-      else
-        this.lastStream(
-          sync(
-            xhr
-              .opening(
-                {
-                  ...this.baseXhrOpening(),
-                  db: this.db() as ExplorerDb,
-                  variant: this.effectiveVariant,
-                  rootFen: this.root.nodeList[0].fen,
-                  play: this.root.nodeList.slice(1).map(s => s.uci!),
-                  fen,
-                  withGames: this.withGames,
-                },
-                processData
-              )
-              .then(stream => {
-                stream.end.promise.then(res => (res !== true ? onError(res) : this.root.redraw()));
-                return stream;
-              })
-          )
+      else {
+        this.abortController?.abort();
+        this.abortController = new AbortController();
+        this.lastStream = sync(
+          xhr
+            .opening(
+              {
+                ...this.baseXhrOpening(),
+                db: this.db() as ExplorerDb,
+                variant: this.effectiveVariant,
+                rootFen: this.root.nodeList[0].fen,
+                play: this.root.nodeList.slice(1).map(s => s.uci!),
+                fen,
+                withGames: this.withGames,
+              },
+              processData,
+              this.abortController.signal
+            )
+            .catch(onError)
+            .then(_ => true)
         );
+        this.lastStream.promise.then(() => this.root.redraw());
+      }
     },
     250,
     true
@@ -186,10 +187,7 @@ export default class ExplorerCtrl {
       this.setNode();
     }
   };
-  isIndexing = () => {
-    const stream = this.lastStream();
-    return !!stream && (!stream.sync || !stream.sync.end.sync);
-  };
+  isIndexing = () => !!this.lastStream && !defined(this.lastStream.sync);
   fetchMasterOpening = (() => {
     const masterCache: Dictionary<OpeningData> = {};
     return (fen: Fen): Promise<OpeningData> => {
