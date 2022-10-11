@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xBlog">%s se webjoernaal</string>
-  <string name="newPost">Nuwe pos</string>
-  <string name="editYourBlogPost">Bewerk jou webjoernaal pos</string>
-  <string name="saveDraft">Stoor \'n voorlopinge weergave</string>
+  <string name="newPost">Nuwe inskrywing</string>
+  <string name="editYourBlogPost">Bewerk jou webjoernaal se inskrywing</string>
+  <string name="saveDraft">Stoor weergave</string>
   <string name="postTitle">Pos titel</string>
   <string name="postIntro">Pos inleiding</string>
   <string name="drafts">Voorlopinge weergawes</string>
