@@ -1,7 +1,7 @@
 import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
-import { readNdJson, CancellableStream } from 'common/stream';
+import { readNdJson, CancellableStream } from 'common/ndjson';
 
 export enum CevalState {
   Initial,
@@ -218,6 +218,18 @@ export interface ExternalEngine {
   endpoint: string;
 }
 
+interface ExternalEngineOutput {
+  time: number;
+  depth: number;
+  nodes: number;
+  pvs: {
+    depth: number;
+    cp?: number;
+    mate?: number;
+    moves: Uci[];
+  }[];
+}
+
 export class ExternalWorker implements CevalWorker {
   private state = CevalState.Initial;
   private session = Math.random().toString(36).slice(2, 12);
@@ -257,7 +269,7 @@ export class ExternalWorker implements CevalWorker {
       }),
     }).then(
       res => {
-        this.stream = readNdJson(line => {
+        this.stream = readNdJson<ExternalEngineOutput>(line => {
           this.state = CevalState.Computing;
           work.emit({
             fen: work.currentFen,
