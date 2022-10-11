@@ -36,6 +36,7 @@ object index {
     ) {
       main(cls := "page box box-pad opening opening--index")(
         searchAndConfig(page.query.config, "", "index"),
+        search.resultsList(Nil),
         div(cls := "box__top")(
           h1("Chess openings", beta),
           div(cls := "box__top__actions")(
@@ -43,7 +44,6 @@ object index {
             a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
           )
         ),
-        search.resultsList(Nil),
         page.explored.map(whatsNext) |
           p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
         isGranted(_.OpeningWiki) option wiki.showMissing(wikiMissing)
