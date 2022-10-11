@@ -55,7 +55,8 @@ object PieceSet extends PieceSetObject {
     "shapes",
     "letter",
     "horsey",
-    "anarcandy"
+    "anarcandy",
+    "halloween"
   ) map { name =>
     new PieceSet(name)
   }
