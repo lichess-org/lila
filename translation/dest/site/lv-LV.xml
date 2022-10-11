@@ -226,7 +226,7 @@
   <string name="refreshInboxAfterFiveMinutes">Pagaidiet 5 minūtes, un atsvaidziniet savu epasta iesūtni.</string>
   <string name="checkSpamFolder">Pārbaudiet arī mēstuļu nodalījumu – iespējams, mūsu ziņa tur nonākusi. Tādā gadījumā, lūdzu atzīmējiet, ka tā nav mēstule.</string>
   <string name="emailForSignupHelp">Ja nekas cits neizdodas, nosūtiet mums šo epastu:</string>
-  <string name="copyTextToEmail">Kopējiet augšup esošo tekstu un sūtiet to %s</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Kopējiet augšup esošo tekstu un sūtiet to %s</string>
   <string name="waitForSignupHelp">Drīz mēs jums pievērsīsimies un palīdzēsim pabeigt reģistrāciju.</string>
   <string name="accountConfirmed">Lietotājs %s ir veiksmīgi apstiprināts.</string>
   <string name="accountCanLogin">Tagad varat ierakstīties kā %s.</string>

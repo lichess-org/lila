@@ -24,7 +24,16 @@
   <string name="sortBy">Sorteer volgens</string>
   <string name="analysis">Analise</string>
   <string name="onlyAnalysed">Slegs wedstryde waarvan daar rekenaar analise beskikbaar is</string>
+  <string name="color">Kleur</string>
+  <string name="evaluation">Evaluering</string>
+  <string name="maxNumber">Maksimum aantal</string>
+  <string name="maxNumberExplanation">Die maksimum aantal spelle om terug te voer</string>
+  <string name="include">Voeg by</string>
   <string name="descending">Dalende</string>
   <string name="ascending">Stygende</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s spel gevind</item>
+    <item quantity="other">%s spelle gevind</item>
+  </plurals>
   <string name="ratingExplanation">Die gemiddelde gradering van albei spelers</string>
 </resources>

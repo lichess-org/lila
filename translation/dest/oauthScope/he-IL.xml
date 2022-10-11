@@ -10,19 +10,19 @@
   <string name="copyTokenNow">זכרו להעתיק את תו הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
   <string name="preferenceRead">הקראת העדפות</string>
   <string name="preferenceWrite">כתיבת העדפה</string>
-  <string name="emailRead">הקראת כתובת אימייל</string>
-  <string name="challengeRead">הקראת הזמנות ממתינות</string>
-  <string name="challengeWrite">כתיבת הזמנות ממתינות</string>
+  <string name="emailRead">קריאת כתובת אימייל</string>
+  <string name="challengeRead">קריאת הזמנות ממתינות</string>
+  <string name="challengeWrite">שליחה, אישור ודחייה של הזמנות למשחק</string>
   <string name="challengeBulk">יצירת מספר משחקים במקביל עבור שחקנים אחרים</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">הקראת לוחות למידה פרטיים והקרנות</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">קריאת לוחות למידה פרטיים והקרנות</string>
   <string name="studyWrite">יצירה, עדכון ומחיקה של לוחות למידה והקרנות</string>
   <string name="tournamentWrite">יצירה, עדכון והצטרפות לטורנירים</string>
   <string name="racerWrite">יצירה והצטרפות למרוצי חידות</string>
-  <string name="puzzleRead">הקראה של פעילות החידות</string>
-  <string name="teamRead">הקראת מידע על קבוצות פרטיות</string>
-  <string name="teamWrite">הצטרפות, יצירה וניהול של קבוצה</string>
+  <string name="puzzleRead">קריאה של פעילות החידות</string>
+  <string name="teamRead">קריאת מידע על קבוצות פרטיות</string>
+  <string name="teamWrite">הצטרפות, יצירה וניהול של קבוצות</string>
   <string name="teamLead">ניהול קבוצות בהובלתך: שליחת הודעות פרטיות, העפת חברים</string>
-  <string name="followRead">הקראה של השחקנים ברשימת המעקב</string>
+  <string name="followRead">קריאה של השחקנים ברשימת המעקב</string>
   <string name="followWrite">מעקב וביטול מעקב אחר שחקנים אחרים</string>
   <string name="msgWrite">שליחת הודעה פרטית לשחקנים אחרים</string>
   <string name="boardPlay">יצירת משחקים עם ה־API של הלוח</string>

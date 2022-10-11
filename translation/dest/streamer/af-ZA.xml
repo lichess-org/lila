@@ -18,6 +18,8 @@
   <string name="rule1">Sluit die sleutelwoord \"lichess.org\" in jou uitsendingstitel in wanneer jy op Lichss uitsaai.</string>
   <string name="rule2">Verwyder die sleutelwoord as jy nie-Lichess dinge uitsaai.</string>
   <string name="rule3">Lichess sal outomaties die uitsending opmerk en vir jou die volgende voordele gee:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lees ons %s om regverdige speel vir almal te verseker tydens jou uitsaaiing.</string>
+  <string name="streamingFairplayFAQ">uitsaaiings Regverdige spel FAQ</string>
   <string name="perks">Voordele om met die sleutelwoord uit te saai</string>
   <string name="perk1">Kry \'n vlam uitsaai ikoon op jou Lichess profiel.</string>
   <string name="perk2">Word na die bopunt van die aanbieders lys geneem.</string>

@@ -24,7 +24,7 @@
   <string name="clickToSolve">לחץ/י כדי לפתור</string>
   <string name="goodMove">מהלך טוב</string>
   <string name="bestMove">המהלך הטוב ביותר!</string>
-  <string name="keepGoing">המשך…</string>
+  <string name="keepGoing">המשיכו…</string>
   <string name="puzzleSuccess">כל הכבוד!</string>
   <string name="puzzleComplete">החידה הושלמה!</string>
   <string name="notTheMove">זה לא המהלך!</string>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Gevorderde pion</string>
-  <string name="advancedPawnDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
+  <string name="advancedPawnDescription">\'n Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
   <string name="advantage">Voordeel</string>
   <string name="advantageDescription">Gryp u kans aan om \'n deurslaggewende voordeel te behaal. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia se mat</string>
-  <string name="anastasiaMateDescription">\'n ruiter en \'n toring of \'n dame span saam om die opposisie koning tussen die kant van die bord en \'n vriendelike stuk vas te vang.</string>
-  <string name="arabianMate">Arabische Tijd</string>
+  <string name="anastasiaMateDescription">\'n Ruiter en \'n toring of \'n dame span saam om die opposisie koning tussen die kant van die bord en \'n vriendelike stuk vas te vang.</string>
+  <string name="arabianMate">Arebierse mat</string>
   <string name="arabianMateDescription">\'n Ruiter en \'n toring span saam om die opponerende koning in die hoek van die bord vas te vang.</string>
   <string name="attackingF2F7">Aanval f2 of f7</string>
-  <string name="attackingF2F7Description">\'N Aanval wat op die f2- of f7-pion fokus, soos in die gebraaide leweropening.</string>
+  <string name="attackingF2F7Description">\'n Aanval wat op die f2- of f7-pion fokus, soos in die gebraaide leweropening.</string>
   <string name="attraction">Aantrekkingskrag</string>
   <string name="attractionDescription">\'N Uitwisseling of opoffering wat \'n opponentstuk aanmoedig of dwing na \'n vierkant wat \'n opvolgtaktiek moontlik maak.</string>
   <string name="backRankMate">Agter rang mat</string>
@@ -27,6 +27,7 @@
   <string name="doubleBishopMate">Dubbel loper mat</string>
   <string name="doubleBishopMateDescription">Twee aanvallende lopers op aaneengrensende diagonale mat \'n koning wat deur sy eie stukke vasgekeer is.</string>
   <string name="dovetailMate">Duifstert mat</string>
+  <string name="dovetailMateDescription">\'n Dame mat \'n aangrensende koning, wie se twee onsnapping\'s blokkies deur sy eie stukke geblok is.</string>
   <string name="equality">Gelykheid</string>
   <string name="equalityDescription">Kom terug uit \'n verloorposisie en verseker \'n gelykopuitslag of \'n gebalanseerde posisie. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside aanval</string>
@@ -50,6 +51,8 @@
   <string name="forkDescription">\'N Beweging waar die bewegende stuk twee teenstanderstukke gelyktydig aanval.</string>
   <string name="hangingPiece">Hangstuk</string>
   <string name="hangingPieceDescription">\'N Taktiek waarby \'n teenstander onverdedig of onvoldoende verdedig word en vry is om vas te lê.</string>
+  <string name="hookMate">Haak mat</string>
+  <string name="hookMateDescription">Skaakmat deur \'n toring, ruiter en pion saam met een van die opponent se pione wat die ontsnapping keer.</string>
   <string name="interference">Inmenging</string>
   <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -118,4 +121,7 @@
   <string name="zugzwangDescription">Die opponent is beperk in die bewegings wat hulle kan maak, en alle bewegings vererger hul posisie.</string>
   <string name="healthyMix">Gesonde mengsel</string>
   <string name="healthyMixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
+  <string name="playerGames">Speler se spelle</string>
+  <string name="playerGamesDescription">Beloer kopkrappers wat ontstaan van jou spelle, of van ander se spelle af.</string>
+  <string name="puzzleDownloadInformation">Die raaisels is in openbare domain en kan afgelaai word vanaf %s.</string>
 </resources>
