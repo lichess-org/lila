@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' biribilkaketarekin, hurrengo harrapaketa edo peoi mugimendura arteko mugimendu erdietan oinarrituta</string>
   <string name="noGameFound">Ez da partidarik aurkitu</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
+  <string name="openings">Irekierak</string>
   <string name="openingExplorer">Hasiera-arakatzailea</string>
   <string name="openingEndgameExplorer">Hasiera/finalen bilatzailea</string>
   <string name="xOpeningExplorer">%s hasiera arakatzailea</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Pantaila osoa</string>
   <string name="logOut">Irten</string>
   <string name="signIn">Sartu</string>
+  <string name="rememberMe">Webgunean sartuta mantendu</string>
   <string name="youNeedAnAccountToDoThat">Kontu bat behar duzu hori egiteko</string>
   <string name="signUp">Izen ematea</string>
   <string name="computersAreNotAllowedToPlay">Xake-programen erabilera debekatuta dago. Mesedez, ez erabili beste jokalari, xake-programa edo datu-baseren laguntzariik. Kontuan izan kontu asko sortzea ere oso gaizki ikusita dagoela; kontu gehieg sortzeak zu kanporatzea ekar dezake.</string>
