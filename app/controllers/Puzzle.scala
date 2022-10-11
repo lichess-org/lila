@@ -308,8 +308,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   def openings(order: String) = Open { implicit ctx =>
     env.puzzle.opening.collection flatMap { collection =>
       ctx.me.?? { me =>
-        env.insight.insightUserApi.find(me.id) map {
-          _ ?? { insightUser =>
+        env.insight.api.insightUser(me) map {
+          _.some.filterNot(_.isEmpty) ?? { insightUser =>
             collection.makeMine(insightUser.families, insightUser.openings).some
           }
         }

@@ -15,7 +15,7 @@ object insight {
 
   def index(
       u: User,
-      cache: lila.insight.InsightUser,
+      insightUser: lila.insight.InsightUser,
       prefId: Int,
       ui: play.api.libs.json.JsObject,
       question: play.api.libs.json.JsObject,
@@ -35,7 +35,7 @@ object insight {
                 "i18n"            -> Json.obj(),
                 "myUserId"        -> ctx.userId,
                 "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
-                  "nbGames" -> cache.count,
+                  "nbGames" -> insightUser.count,
                   "stale"   -> stale,
                   "shareId" -> prefId
                 )),

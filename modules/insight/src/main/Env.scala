@@ -14,6 +14,7 @@ final class Env(
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
+    cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -39,8 +40,6 @@ final class Env(
   private lazy val povToEntry = wire[PovToEntry]
 
   private lazy val indexer: InsightIndexer = wire[InsightIndexer]
-
-  lazy val insightUserApi = new InsightUserApi(db(CollName("insight_user")))
 
   lazy val perfStatsApi = wire[InsightPerfStatsApi]
 
