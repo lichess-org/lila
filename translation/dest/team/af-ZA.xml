@@ -7,6 +7,7 @@
     <item quantity="other">%s lede</item>
   </plurals>
   <string name="allTeams">Alle spanne</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Begeleide spanne</string>
   <string name="newTeam">Nuwe span</string>
   <string name="myTeams">My spanne</string>
   <string name="noTeamFound">Geen span gevind nie</string>
@@ -28,8 +29,10 @@
   </plurals>
   <string name="willBeReviewed">Jou aansluitingsversoek sal deur die spanleier geëvalueer word.</string>
   <string name="beingReviewed">Jou aansluitingsversoek word tans deur die spanleier geëvalueer.</string>
+  <string name="requestDeclined">Jou aansluitings versoek was verwerp deur dei span leier.</string>
+  <string name="subToTeamMessages">Teken in vir die span boodskappe</string>
   <string name="teamBattle">Span Stryd</string>
-  <string name="teamBattleOverview">\'n Geveg tussen verskeie spanne, elke speler kry punte vir hulle span</string>
+  <string name="teamBattleOverview">\'n Stryd tussen verskeie spanne, elke speler kry punte vir hulle span</string>
   <string name="teamTournament">Span toernooi</string>
   <string name="teamTournamentOverview">\'n Arena toernooi waarby net mense van jou span kan aansluit</string>
   <string name="messageAllMembers">Stuur \'n boodskap aan alle lede</string>
