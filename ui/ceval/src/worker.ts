@@ -1,7 +1,7 @@
 import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
-import { readStream, CancellableStream } from 'common/stream';
+import { readNdJson, CancellableStream } from 'common/stream';
 
 export enum CevalState {
   Initial,
@@ -254,9 +254,19 @@ export class ExternalWorker implements CevalWorker {
       }),
     }).then(
       res => {
-        this.stream = readStream((line: string) => {
+        this.stream = readNdJson(line => {
           this.state = CevalState.Computing;
-          console.log(line);
+          work.emit({
+            fen: work.currentFen,
+            maxDepth: work.maxDepth,
+            depth: line.pvs[0]?.depth || 0,
+            knps: line.nodes / Math.max(line.time, 1),
+            nodes: line.nodes,
+            cp: line.pvs[0]?.cp,
+            mate: line.pvs[0]?.mate,
+            millis: line.time,
+            pvs: line.pvs,
+          });
         })(res);
         this.stream.end.promise.then(() => (this.state = CevalState.Initial));
       },
