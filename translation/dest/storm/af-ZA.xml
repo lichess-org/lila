@@ -20,6 +20,21 @@
   </plurals>
   <string name="highscoreX">Hoë telling: %s</string>
   <string name="score">Telling</string>
+  <string name="moves">Skuiwe</string>
+  <string name="accuracy">Akkuraatheid</string>
+  <string name="combo">Kombinasie</string>
+  <string name="time">Tyd</string>
+  <string name="timePerMove">Tyd per skuif</string>
+  <string name="highestSolved">Hoogste opgelos</string>
+  <string name="puzzlesPlayed">Raaisels opgelos</string>
+  <string name="newRun">Nuwe lopie (kortpad sleutel: spasie)</string>
+  <string name="endRun">Beëinding lopie (kortpad sleutel: \'Enter\')</string>
+  <string name="highscores">Hoë tellings</string>
+  <string name="viewBestRuns">Beloer beste lopies</string>
+  <string name="bestRunOfDay">Beste lopie van die dag</string>
+  <string name="runs">Lopies</string>
+  <string name="getReady">Wees gereed!</string>
+  <string name="waitingForMorePlayers">Wag vir meer spelers om aan te sluit...</string>
   <string name="waitForRematch">Wag vir herwedstryd</string>
   <string name="joinRematch">Sluit by herwedstryd aan</string>
 </resources>
