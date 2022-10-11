@@ -154,10 +154,10 @@
 רגלי = 1
 המלך לא יסולא בפז! אובדן המלך משמעותו הפסד במשחק.</string>
   <string name="queenOverBishop">עדיף לקחת מהיריב כלים יותר חזקים! מלכה &gt; רץ</string>
-  <string name="pieceValueExchange">אכול את הכלי החשוב ביותר!
-אל תקריב כלי שלך 
+  <string name="pieceValueExchange">אכלו את הכלי החשוב ביותר!
+אל תקריבו כלי שלכם
 כדי לאכול כלי יריב שערכו פחות.</string>
-  <string name="pieceValueLegal">קח את הכלי עם הערך הגבוה ביותר! וודא שהמהלך שלך חוקי!</string>
+  <string name="pieceValueLegal">קחו את הכלי עם הערך הגבוה ביותר! ודאו שהמהלך שלכם חוקי!</string>
   <string name="takeThePieceWithTheHighestValue">קח/י את הכלי החזק ביותר!</string>
   <string name="pieceValueComplete">יפה, את/ה מכיר/ה את הערך של הכלים! 
 מלכה=9, 
