@@ -87,7 +87,7 @@
   <string name="checkInOneIntro">כדי לעשות שח, עליך להתקיף את מלך היריב. הוא חייב להתגונן!</string>
   <string name="checkInOneGoal">האם את/ה יכול/ה לאיים על מלך היריב במסע יחיד!</string>
   <string name="checkInOneComplete">יפה, איימת בשח ויריבך חייב להגן על מלכו!</string>
-  <string name="outOfCheck">ההחלצות מאיום שח</string>
+  <string name="outOfCheck">החלצות מאיום שח</string>
   <string name="defendYourKing">הגנו על מלככם</string>
   <string name="outOfCheckIntro">את/ה בשח! עליך או לברוח עם המלך או להגן עליו.</string>
   <string name="escapeWithTheKing">ברחו עם מלככם!</string>
