@@ -2,15 +2,12 @@ package views.html.opening
 
 import chess.opening.FullOpening
 import controllers.routes
-import play.api.libs.json.{ JsArray, Json }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
-import lila.opening.OpeningConfig
-import lila.opening.{ OpeningPage, OpeningQuery }
-import lila.puzzle.PuzzleOpening
+import lila.opening.OpeningQuery.Query
+import lila.opening.{ OpeningConfig, OpeningPage }
 
 object index {
 
@@ -35,7 +32,7 @@ object index {
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening opening--index")(
-        searchAndConfig(page.query.config, "", "index"),
+        searchAndConfig(page.query.config, "", ""),
         search.resultsList(Nil),
         div(cls := "box__top")(
           h1("Chess openings", beta),

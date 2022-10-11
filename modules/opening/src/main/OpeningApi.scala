@@ -19,20 +19,29 @@ final class OpeningApi(
     configStore: OpeningConfigStore
 )(implicit ec: ExecutionContext) {
 
-  private val defaultCache = cacheApi.notLoading[String, Option[OpeningPage]](1024, "opening.defaultCache") {
+  import OpeningQuery.Query
+
+  private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache") {
     _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
   }
 
-  def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] = lookup("", withWikiRevisions = false)
+  def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
+    lookup(Query("", none), withWikiRevisions = false)
 
-  def lookup(q: String, withWikiRevisions: Boolean)(implicit req: RequestHeader): Fu[Option[OpeningPage]] = {
+  def lookup(q: Query, withWikiRevisions: Boolean)(implicit
+      req: RequestHeader
+  ): Fu[Option[OpeningPage]] = {
     val config = readConfig
     if (config.isDefault && !withWikiRevisions)
       defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions))
     else lookup(q, config, withWikiRevisions)
   }
 
-  private def lookup(q: String, config: OpeningConfig, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =
+  private def lookup(
+      q: Query,
+      config: OpeningConfig,
+      withWikiRevisions: Boolean
+  ): Fu[Option[OpeningPage]] =
     OpeningQuery(q, config) ?? { compute(_, withWikiRevisions) }
 
   private def compute(query: OpeningQuery, withWikiRevisions: Boolean): Fu[Option[OpeningPage]] =

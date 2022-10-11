@@ -25,7 +25,7 @@ object wiki {
           page.query.opening match {
             case Some(op) =>
               frag(
-                postForm(action := routes.Opening.wikiWrite(op.key))(
+                postForm(action := routes.Opening.wikiWrite(op.key, page.query.pgnUnderscored))(
                   form3.textarea(
                     OpeningWiki.form
                       .fill(~page.wiki.flatMap(_.revisions.headOption).map(_.text.value))("text")
@@ -46,7 +46,7 @@ object wiki {
               page.query.openingAndExtraMoves._1 map { canonical =>
                 p(
                   br,
-                  a(href := routes.Opening.query(canonical.key))(
+                  a(href := bits.keyUrl(canonical.key))(
                     "This is an unnamed variation. Go to the canonical opening page."
                   )
                 )
@@ -61,7 +61,7 @@ object wiki {
     p("Sorted by popularity"),
     ul(
       ops map { op =>
-        li(a(href := routes.Opening.query(op.key))(op.name), " ", op.pgn)
+        li(a(href := bits.openingUrl(op))(op.name), " ", op.pgn)
       }
     )
   )

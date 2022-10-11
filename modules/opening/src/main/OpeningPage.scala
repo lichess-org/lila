@@ -60,9 +60,7 @@ case class OpeningNext(
     percent: Double,
     opening: Option[FullOpening],
     shortName: Option[String]
-) {
-  val key = opening.fold(fen.value.replace(" ", "_"))(_.key)
-}
+)
 
 case class GameWithPgn(game: Game, pgn: Pgn)
 

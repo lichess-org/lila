@@ -32,7 +32,7 @@ object show {
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening")(
-        index.searchAndConfig(page.query.config, "", page.query.key),
+        index.searchAndConfig(page.query.config, "", page.query.query.key),
         search.resultsList(Nil),
         h1(cls := "opening__title")(
           page.query.prev match {
@@ -49,7 +49,7 @@ object show {
                     frag(
                       if (i == 0) emptyFrag else if (i == 1) ": " else ", ",
                       key.fold(span(cls := className)(name)) { k =>
-                        a(href := routes.Opening.query(k))(cls := className)(name)
+                        a(href := keyUrl(k))(cls := className)(name)
                       }
                     )
                 }

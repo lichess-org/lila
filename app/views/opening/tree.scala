@@ -39,7 +39,7 @@ object tree {
       val content = frag(
         (if (fold) summary else div)(op match {
           case (name, None)     => name
-          case (name, Some(op)) => a(href := routes.Opening.query(op.key))(name)
+          case (name, Some(op)) => a(href := openingUrl(op))(name)
         }),
         renderChildren(node, level + 1)
       )

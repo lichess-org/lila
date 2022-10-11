@@ -6,9 +6,8 @@ import views.html
 
 import lila.api.Context
 import lila.app._
-import lila.common.LilaOpeningFamily
-import lila.opening.OpeningQuery
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, LilaOpeningFamily }
+import lila.opening.OpeningQuery.queryFromUrl
 
 final class Opening(env: Env) extends LilaController(env) {
 
@@ -31,17 +30,22 @@ final class Opening(env: Env) extends LilaController(env) {
         }
     }
 
-  def query(q: String) =
+  def byKeyAndMoves(key: String, moves: String) =
     Open { implicit ctx =>
-      env.opening.api.lookup(q, isGranted(_.OpeningWiki)) flatMap {
-        case None                                 => Redirect(routes.Opening.index(q.some)).fuccess
-        case Some(page) if page.query.key.isEmpty => Redirect(routes.Opening.index(q.some)).fuccess
-        case Some(page) if page.query.key != q    => Redirect(routes.Opening.query(page.query.key)).fuccess
+      env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki)) flatMap {
+        case None => Redirect(routes.Opening.index(key.some)).fuccess
         case Some(page) =>
-          page.query.opening.??(f => env.puzzle.opening.getClosestTo(f)) map { puzzle =>
-            val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
-            Ok(html.opening.show(page, puzzleKey))
-          }
+          val query = page.query.query
+          if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).fuccess
+          else if (query.key != key)
+            Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).fuccess
+          else if (moves.nonEmpty && ~query.moves != moves)
+            Redirect(routes.Opening.byKeyAndMoves(query.key, ~query.moves)).fuccess
+          else
+            page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
+              val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
+              Ok(html.opening.show(page, puzzleKey))
+            }
       }
     }
 
@@ -50,9 +54,11 @@ final class Opening(env: Env) extends LilaController(env) {
       implicit val req = ctx.body
       val redir =
         Redirect {
-          if (thenTo.isEmpty || thenTo == "index") routes.Opening.index()
-          else if (thenTo startsWith "q:") routes.Opening.index(thenTo.drop(2).some)
-          else routes.Opening.query(thenTo)
+          lila.common.HTTPRequest.referer(req) | {
+            if (thenTo.isEmpty) routes.Opening.index().url
+            else if (thenTo startsWith "q:") routes.Opening.index(thenTo.drop(2).some).url
+            else routes.Opening.byKeyAndMoves(thenTo, "").url
+          }
         }
       lila.opening.OpeningConfig.form
         .bindFromRequest()
@@ -60,11 +66,13 @@ final class Opening(env: Env) extends LilaController(env) {
         .fuccess
     }
 
-  def wikiWrite(key: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
+  def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
     implicit val req = ctx.body
-    env.opening.api.lookup(key, isGranted(_.OpeningWiki)).map(_.flatMap(_.query.opening)) flatMap {
+    env.opening.api
+      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki))
+      .map(_.flatMap(_.query.opening)) flatMap {
       _ ?? { op =>
-        val redirect = Redirect(routes.Opening.query(key))
+        val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
         lila.opening.OpeningWiki.form
           .bindFromRequest()
           .fold(

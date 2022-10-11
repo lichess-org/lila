@@ -119,10 +119,11 @@ GET   /blog/community/$lang<[\w-]{2,6}> controllers.Ublog.communityLangBC(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
-POST  /opening/config/:q               controllers.Opening.config(q)
-POST  /opening/wiki/:key               controllers.Opening.wikiWrite(key)
+POST  /opening/config/:key             controllers.Opening.config(key)
+POST  /opening/wiki/:key/:moves        controllers.Opening.wikiWrite(key, moves)
 GET   /opening/tree                    controllers.Opening.tree
-GET   /opening/:q                      controllers.Opening.query(q)
+GET   /opening/:key                    controllers.Opening.byKeyAndMoves(key, moves = "")
+GET   /opening/:key/:moves             controllers.Opening.byKeyAndMoves(key, moves)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home

@@ -8,7 +8,10 @@ import lila.common.Chronometer
 import lila.common.Heapsort.implicits._
 import lila.memo.CacheApi
 
-case class OpeningSearchResult(opening: FullOpening)
+case class OpeningSearchResult(opening: FullOpening) {
+  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
+  def query = OpeningQuery.Query(opening.key, pgn.some)
+}
 
 final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer) {
 
@@ -26,6 +29,11 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer) {
 
 // linear performance but it's fine for 3,067 unique openings
 object OpeningSearch {
+
+  object removePgnMoveNumbers {
+    private val numbersRegex = """\d{1,2}\.{1,3}\s?""".r
+    def apply(pgn: String)   = pgn.replaceAllIn(numbersRegex, "").trim
+  }
 
   private val openings: Vector[FullOpening] = FullOpeningDB.shortestLines.values.toVector
 
