@@ -14,7 +14,7 @@ object wiki {
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki
-          .flatMap(_.markup)
+          .flatMap(_ markupForMove ~page.query.pgn.lastOption)
           .fold(frag("No description of the opening, yet. We're working on it!")) { markup =>
             raw(markup)
           }
