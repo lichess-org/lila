@@ -211,6 +211,8 @@ export interface ExternalEngine {
   variants: VariantKey[];
   maxThreads: number;
   maxHash: number;
+  shallowDepth: number;
+  deepDepth: number;
   clientSecret: string;
   officialStockfish?: boolean;
   endpoint: string;
@@ -232,6 +234,7 @@ export class ExternalWorker implements CevalWorker {
     this.state = CevalState.Loading;
 
     const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
+    const deep = work.maxDepth >= 99;
     fetch(url.href, {
       method: 'post',
       cache: 'default',
@@ -245,7 +248,7 @@ export class ExternalWorker implements CevalWorker {
           sessionId: this.session,
           threads: work.threads,
           hash: work.hashSize || 16,
-          deep: work.maxDepth >= 99,
+          deep,
           multiPv: work.multiPv,
           variant: work.variant,
           initialFen: work.initialFen,
@@ -258,7 +261,7 @@ export class ExternalWorker implements CevalWorker {
           this.state = CevalState.Computing;
           work.emit({
             fen: work.currentFen,
-            maxDepth: work.maxDepth,
+            maxDepth: deep ? this.opts.deepDepth : this.opts.shallowDepth,
             depth: line.pvs[0]?.depth || 0,
             knps: line.nodes / Math.max(line.time, 1),
             nodes: line.nodes,
