@@ -34,7 +34,7 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
   implicit val wikiHandler     = Macros.handler[OpeningWiki]
 
   def apply(op: FullOpening, withRevisions: Boolean): Fu[OpeningWiki] = for {
-    wiki <- cache.get(op.key)
+    wiki <- cache get op.key
     revisions <- withRevisions ?? {
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
@@ -142,10 +142,10 @@ object OpeningWiki {
 
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 
-  private val MoveLiRegex = """^<li>(\w{2,5}\+?):(.+)</li>""".r
+  private val MoveLiRegex = """(?i)^<li>(\w{2,5}\+?):(.+)</li>""".r
   private def filterMarkupForMove(move: String)(markup: String) =
     markup.linesIterator collect {
-      case MoveLiRegex(m, content) => if (m == move) s"<p>${content.trim}</p>" else ""
+      case MoveLiRegex(m, content) => if (m.toLowerCase == move.toLowerCase) s"<p>${content.trim}</p>" else ""
       case html                    => html
     } mkString "\n"
 }
