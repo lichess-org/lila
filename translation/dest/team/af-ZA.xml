@@ -34,18 +34,25 @@
   <string name="teamBattle">Span Stryd</string>
   <string name="teamBattleOverview">\'n Stryd tussen verskeie spanne, elke speler kry punte vir hulle span</string>
   <string name="teamTournament">Span toernooi</string>
-  <string name="teamTournamentOverview">\'n Arena toernooi waarby net mense van jou span kan aansluit</string>
+  <string name="teamTournamentOverview">\'n Arena toernooi waaraan slegs jou spanlede kan deelneem</string>
+  <string name="swissTournamentOverview">\'n Swiss toernooi waar slegs jou spanlede aan kan deelneem</string>
   <string name="messageAllMembers">Stuur \'n boodskap aan alle lede</string>
   <string name="messageAllMembersOverview">Stuur \'n private boodskap na elke lid van die span</string>
   <string name="messageAllMembersLongDescription">Stuur \'n privaat boodskap aan AL die lede van die span.
 U kan dit gebruik om spelers te roep om deel te neem aan \'n toernooi of \'n spanstryd.
-Spelers wat nie daarvan hou om u boodskappe te ontvang nie, kan die span verlaat.</string>
+Spelers wat nie daarvan hou om u boodskappe te ontvang nie, mag dalk die span verlaat.</string>
   <string name="teamsIlead">Spanne wat ek lei</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Wil u dalk een van hierdie komende toernooie koppel?</string>
   <string name="usersWhoCanManageThisTeam">Gebruikers wat hierdie span kan bestuur</string>
-  <string name="leadersChat">Leiers gesels</string>
+  <string name="leadersChat">Leiers se klets</string>
   <string name="closeTeam">Naby span</string>
-  <string name="closeTeamDescription">Sluit die span vir altyd.</string>
+  <string name="closeTeamDescription">Sluit die span vir ewig.</string>
+  <string name="entryCode">Span insluitings kode</string>
+  <string name="entryCodeDescriptionForLeader">(Opsioneel) \'n Insluitings kode wat die nuwe lede moet ken om aan hierdie span te kan deelneem.</string>
+  <string name="incorrectEntryCode">Verkeerde insluitings kode.</string>
   <string name="teamAlreadyExists">Hierdie span bestaan reeds.</string>
+  <string name="upcomingTourns">Opkomende toernooie</string>
+  <string name="completedTourns">Voltooide toernooie</string>
+  <string name="declinedRequests">Verwerpede Versoeke</string>
   <string name="joinLichessVariantTeam">Sluit aan by die amptelike %s-span vir nuus en gebeure</string>
 </resources>
