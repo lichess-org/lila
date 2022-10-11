@@ -35,7 +35,12 @@ object phases {
             ),
             div(cls := "tutor-card__content")(
               grade.peerGradeWithDetail(concept.accuracy, phase.accuracy, InsightPosition.Move),
-              grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move)
+              grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move),
+              a(
+                cls      := "button button-no-upper text",
+                dataIcon := "",
+                href     := routes.Puzzle.show(phase.phase.name)
+              )("Train with ", phase.phase.name, " puzzles")
             )
           )
         }
