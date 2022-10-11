@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">%s se webjoernaal</string>
+  <string name="newPost">Nuwe pos</string>
+  <string name="editYourBlogPost">Bewerk jou webjoernaal pos</string>
+  <string name="saveDraft">Stoor \'n voorlopinge weergave</string>
+  <string name="postTitle">Pos titel</string>
+  <string name="postIntro">Pos inleiding</string>
+  <string name="drafts">Voorlopinge weergawes</string>
+  <string name="published">Gepubliseerd</string>
   <string name="createBlogDiscussion">Aktiveer kommentaar</string>
   <string name="createBlogDiscussionHelp">\'n Forumgespreksonderwerp sal geskep word sodat ander kommentaar kan lewer op jou plasing</string>
+  <string name="publishOnYourBlog">Publiseer op jou webjoernaal</string>
   <string name="deleteBlog">Vee hierdie plasing volledig uit</string>
   <string name="deleteImage">Vee die prent uit</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Dit is veilig om prente van die volgende webtuistes te gebruik: </string>
