@@ -35,6 +35,7 @@
   <string name="runs">Lopies</string>
   <string name="getReady">Wees gereed!</string>
   <string name="waitingForMorePlayers">Wag vir meer spelers om aan te sluit...</string>
+  <string name="raceComplete">Wedren voltooid!</string>
   <string name="waitForRematch">Wag vir herwedstryd</string>
   <string name="joinRematch">Sluit by herwedstryd aan</string>
 </resources>
