@@ -148,16 +148,16 @@ akár a bástya lépett már.</string>
   <string name="youCannotCastleIfAttacked">Nem sáncolhatsz,
 ha a királyt útközben támadják.
 Blokkold a sakkot, és azután sáncolj!</string>
-  <string name="findAWayToCastleKingSide">Találd meg a módját hogy
-a király-szárnyra sáncolj!</string>
-  <string name="findAWayToCastleQueenSide">Találd meg a módját hogy
-a vezér-szárnyra sáncolj!</string>
+  <string name="findAWayToCastleKingSide">Találd meg a módját,
+hogy királyszárnyra sáncolj!</string>
+  <string name="findAWayToCastleQueenSide">Találd meg a módját,
+hogy vezérszárnyra sáncolj!</string>
   <string name="castlingComplete">Gratulálunk! Szinte minden partiban érdemes sáncolnod.</string>
   <string name="enPassant">En passant</string>
-  <string name="theSpecialPawnMove">A gyalog egyik speciális lépése</string>
-  <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, leütheted mintha csak egyet lépett volna.</string>
+  <string name="theSpecialPawnMove">A gyalog különleges lépése</string>
+  <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, leütheted úgy, mintha csak egyet lépett volna.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Sötét most lépett
-két mezőt a gyaloggal
+két mezőt a gyaloggal!
 Üsd le en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant ütés csak közvetlenül
 az ellenfél gyalog lépése
@@ -168,16 +168,16 @@ amikor a gyalogod az 5. sorban van.</string>
   <string name="enPassantComplete">Gratulálunk! Mos már tudsz en passant ütni.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">A döntetlen játszma</string>
-  <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt. A játszma döntetlen: senki sem győzött vagy vesztett.</string>
-  <string name="stalemateGoal">Ha pattot adunk a sötétnek:
-- Sötétnek nem tud lépni
-- Nincs sakkban</string>
-  <string name="stalemateComplete">Gratulálunk! Jobb ha pattot kapsz mintha mattot!</string>
+  <string name="stalemateIntro">Patt az, amikor a játékos nincs sakkban és nincs szabályos lépése sem. A játszma döntetlen: senki sem győzött, senki sem vesztett.</string>
+  <string name="stalemateGoal">Pattadás sötétnek:
+- Sötét nem tud lépni
+- Nincs sakkban sem.</string>
+  <string name="stalemateComplete">Gratulálunk! Jobb pattot kapni, mint mattot!</string>
   <string name="advanced">Haladó</string>
-  <string name="pieceValue">Figura érték</string>
+  <string name="pieceValue">Bábuk értéke</string>
   <string name="evaluatePieceStrength">Mérlegeld a figurák erősségét</string>
   <string name="pieceValueIntro">A mozgékonyabb figuráknak nagyobb az értéke!
-Királynő = 9
+Vezér = 9
 Bástya = 5
 Futó = 3
 Huszár = 3
@@ -187,10 +187,10 @@ A király a legértékesebb! Ha elesik, elveszett a játszma.</string>
 Vezér &gt; Futó</string>
   <string name="pieceValueExchange">Üsd le a legértékesebb figurát!
  Ne cserélj
- egy értékes figurát kevésbé értékesre.</string>
+ értékesebb figurát kevésbé értékesre.</string>
   <string name="pieceValueLegal">Üsd le a
 legértékesebb figurát!
-Ellenőrizd, hogy a lépésed szabályos!</string>
+Figyelj, hogy szabályosan lépj!</string>
   <string name="takeThePieceWithTheHighestValue">Üsd ki a legértékesebb figurát!</string>
   <string name="pieceValueComplete">Gratulálunk! Most már ismered a figurák anyagi értékét!
 Vezér = 9
@@ -201,14 +201,15 @@ Gyalog = 1</string>
   <string name="checkInTwo">Sakk két lépésben</string>
   <string name="twoMovesToGiveCheck">Adj sakkot két lépésből</string>
   <string name="checkInTwoIntro">Találd meg azt a kombinációt, ami két lépésben sakkot ad az ellenfél királyának!</string>
-  <string name="checkInTwoGoal">Támadd meg az ellenfél királyát két lépésből!</string>
+  <string name="checkInTwoGoal">Támadd meg az ellenfél királyát
+két lépésben!</string>
   <string name="checkInTwoComplete">Gratulálunk! Sakkban tartottad az ellenfeled, kénytelen volt védeni a királyát!</string>
   <string name="whatNext">Mi következik?</string>
   <string name="youKnowHowToPlayChess">Gratulálunk, már tudod hogyan sakkoz! Szeretnél erősebben játszani?</string>
   <string name="register">Regisztráció</string>
   <string name="getAFreeLichessAccount">Szerezz ingyenes Lichess fiókot</string>
   <string name="practice">Gyakorolj</string>
-  <string name="learnCommonChessPositions">Tanulj meg gyakori sakk állásokat</string>
+  <string name="learnCommonChessPositions">Ismerd meg a gyakori sakkállásokat</string>
   <string name="puzzles">Feladványok</string>
   <string name="exerciseYourTacticalSkills">Fejleszd a taktikai készséged</string>
   <string name="videos">Videók</string>
