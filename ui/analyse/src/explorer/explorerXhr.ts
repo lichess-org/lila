@@ -49,7 +49,6 @@ export async function opening(
     params.set('recentGames', '0');
   }
 
-  console.log('gonna fetch');
   const res = await fetch(url.href, {
     cache: 'default',
     headers: {}, // avoid default headers for cors
@@ -58,10 +57,7 @@ export async function opening(
   });
   if (!res.ok) throw new Error(`Status ${res.status}`);
 
-  console.log(res);
-
   return readNdJson<Partial<OpeningData>>(res, data => {
-    console.log(data);
     data.isOpening = true;
     data.fen = opts.fen;
     processData(data as OpeningData);
