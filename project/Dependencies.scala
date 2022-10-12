@@ -9,7 +9,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.8.0"
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "7.1.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.2.1"
-  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.11.1"
+  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.11.2"
   val chess       = "org.lichess"                  %% "scalachess"                      % "10.6.3"
   val compression = "org.lichess"                  %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"               %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
@@ -24,8 +24,8 @@ object Dependencies {
   val autoconfig   = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
   val scalatest    = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
   val uaparser     = "org.uaparser"               %% "uap-scala"         % "0.13.0"
-  val specs2Core   = "org.specs2"                 %% "specs2-core"       % "4.16.1" % Test
-  val specs2Cats   = "org.specs2"                 %% "specs2-cats"       % "4.16.1" % Test
+  val specs2Core   = "org.specs2"                 %% "specs2-core"       % "4.17.0" % Test
+  val specs2Cats   = "org.specs2"                 %% "specs2-cats"       % "4.17.0" % Test
   val specs2Bundle = Seq(specs2Core, specs2Cats)
   val apacheText   = "org.apache.commons"          % "commons-text"      % "1.9"
   val bloomFilter  = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
@@ -58,7 +58,7 @@ object Dependencies {
   }
 
   object play {
-    val version  = "2.8.16-lila_1.13"
+    val version  = "2.8.16-lila_1.14"
     val api      = "com.typesafe.play" %% "play"           % version
     val json     = "com.typesafe.play" %% "play-json"      % "2.9.3"
     val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.3"
@@ -66,7 +66,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.0-M1"
+    val version = "2.2.0-M2"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
