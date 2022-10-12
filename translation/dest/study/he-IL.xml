@@ -68,7 +68,7 @@
   <string name="studyPgn">הPGN של לוח הלמידה</string>
   <string name="downloadAllGames">הורדת כל המשחקים</string>
   <string name="chapterPgn">הPGN של הפרק</string>
-  <string name="downloadGame">הורד את המשחק</string>
+  <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
   <string name="youCanPasteThisInTheForumToEmbed">את/ה יכול/ה לפרסם את זה בפורום כדי להטמיע</string>
