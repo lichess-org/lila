@@ -23,7 +23,7 @@ final class Env(
     mode: play.api.Mode
 ) {
 
-  private lazy val coll = yoloDb(appConfig.get[CollName]("evalCache.collection.evalCache")).failingSilently()
+  private lazy val coll = yoloDb(CollName("eval_cache")).failingSilently()
 
   private lazy val truster = wire[EvalCacheTruster]
 
