@@ -1,7 +1,7 @@
 import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
-import { readStream, CancellableStream } from 'common/stream';
+import { readNdJson } from 'common/ndjson';
 
 export enum CevalState {
   Initial,
@@ -211,15 +211,29 @@ export interface ExternalEngine {
   variants: VariantKey[];
   maxThreads: number;
   maxHash: number;
+  shallowDepth: number;
+  deepDepth: number;
   clientSecret: string;
   officialStockfish?: boolean;
   endpoint: string;
 }
 
+interface ExternalEngineOutput {
+  time: number;
+  depth: number;
+  nodes: number;
+  pvs: {
+    depth: number;
+    cp?: number;
+    mate?: number;
+    moves: Uci[];
+  }[];
+}
+
 export class ExternalWorker implements CevalWorker {
   private state = CevalState.Initial;
   private session = Math.random().toString(36).slice(2, 12);
-  private stream: CancellableStream | undefined;
+  private req: AbortController | undefined;
 
   constructor(private opts: ExternalEngine) {}
 
@@ -231,8 +245,11 @@ export class ExternalWorker implements CevalWorker {
     stop();
     this.state = CevalState.Loading;
 
+    this.req = new AbortController();
     const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
+    const deep = work.maxDepth >= 99;
     fetch(url.href, {
+      signal: this.req.signal,
       method: 'post',
       cache: 'default',
       headers: {
@@ -245,31 +262,45 @@ export class ExternalWorker implements CevalWorker {
           sessionId: this.session,
           threads: work.threads,
           hash: work.hashSize || 16,
-          deep: work.maxDepth >= 99,
+          deep,
           multiPv: work.multiPv,
           variant: work.variant,
           initialFen: work.initialFen,
           moves: work.moves,
         },
       }),
-    }).then(
-      res => {
-        this.stream = readStream((line: string) => {
+    })
+      .then(res =>
+        readNdJson<ExternalEngineOutput>(res, line => {
           this.state = CevalState.Computing;
-          console.log(line);
-        })(res);
-        this.stream.end.promise.then(() => (this.state = CevalState.Initial));
-      },
-      err => {
-        console.error(err);
-        this.state = CevalState.Failed;
-      }
-    );
+          work.emit({
+            fen: work.currentFen,
+            maxDepth: deep ? this.opts.deepDepth : this.opts.shallowDepth,
+            depth: line.pvs[0]?.depth || 0,
+            knps: line.nodes / Math.max(line.time, 1),
+            nodes: line.nodes,
+            cp: line.pvs[0]?.cp,
+            mate: line.pvs[0]?.mate,
+            millis: line.time,
+            pvs: line.pvs,
+          });
+        })
+      )
+      .then(
+        () => (this.state = CevalState.Initial),
+        err => {
+          if (err.name !== 'AbortError') {
+            console.error(err);
+            this.state = CevalState.Failed;
+          } else {
+            this.state = CevalState.Initial;
+          }
+        }
+      );
   }
 
   stop() {
-    this.stream?.cancel();
-    this.state = CevalState.Initial;
+    this.req?.abort();
   }
 
   engineName() {
