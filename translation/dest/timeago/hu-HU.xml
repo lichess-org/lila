@@ -31,11 +31,11 @@
   </plurals>
   <string name="rightNow">épp most</string>
   <plurals name="nbSecondsAgo">
-    <item quantity="one">%s másodperccel ezelőtt</item>
+    <item quantity="one">%s másodperce</item>
     <item quantity="other">%s másodperccel ezelőtt</item>
   </plurals>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">%s perccel ezelőtt</item>
+    <item quantity="one">%s perce</item>
     <item quantity="other">%s perccel ezelőtt</item>
   </plurals>
   <plurals name="nbHoursAgo">

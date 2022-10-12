@@ -199,7 +199,7 @@ final private[round] class RoundAsyncActor(
             makeMessage(
               "analysisProgress",
               Json.obj(
-                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
+                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAt, a.analysis),
                 "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
                   TreeBuilder(
                     a.game,

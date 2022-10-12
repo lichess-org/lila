@@ -4,6 +4,15 @@ import chess.{ Centis, Clock, Color, Role }
 import scala.concurrent.duration.FiniteDuration
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
+
+case class InsightUser(
+    count: Int, // nb insight entries
+    families: List[LilaOpeningFamily],
+    openings: List[SimpleOpening]
+) {
+  def isEmpty = count == 0
+}
 
 case class MeanRating(value: Int) extends AnyVal
 

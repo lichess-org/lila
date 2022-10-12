@@ -4,6 +4,9 @@
       .tutor-card__top {
         justify-content: center;
       }
+      .tutor-card__content {
+        @extend %flex-column;
+      }
     }
   }
 }

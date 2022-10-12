@@ -12,6 +12,7 @@ import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
+import { CevalState } from './worker';
 import CevalCtrl from './ctrl';
 
 let gaugeLast = 0;
@@ -21,14 +22,16 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
+    state = ceval.getState(),
     trans = ctrl.trans;
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
-    if (ceval.initFailed()) return [trans.noarg('engineFailed')];
+    if (state == CevalState.Failed) return [trans.noarg('engineFailed')];
     const mb = ceval.downloadProgress() / 1024 / 1024;
-    const localEvalText = ceval.isLoaded()
-      ? trans.noarg('calculatingMoves')
-      : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '');
+    const localEvalText =
+      state == CevalState.Loading
+        ? trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : '')
+        : trans.noarg('calculatingMoves');
     return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : localEvalText];
   }
 
@@ -171,7 +174,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   } else {
     if (!enabled) pearl = h('i');
     else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
-    else if (instance.initFailed()) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
+    else if (instance.getState() === CevalState.Failed) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
     else pearl = h('i.ddloader');
     percent = 0;
   }
@@ -253,7 +256,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     'div.ceval' + (enabled ? '.enabled' : ''),
     {
       class: {
-        computing: percent < 100 && instance.isComputing(),
+        computing: percent < 100 && instance.getState() === CevalState.Computing,
       },
     },
     [progressBar, ...body, threatButton(ctrl), switchButton]

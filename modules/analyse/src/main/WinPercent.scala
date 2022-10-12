@@ -24,6 +24,4 @@ object WinPercent {
     val MULTIPLIER = -0.00368208 // https://github.com/lichess-org/lila/pull/11148
     2 / (1 + Math.exp(MULTIPLIER * cp.value)) - 1
   } atLeast -1 atMost +1
-
-  case class BeforeAfter(before: WinPercent, after: WinPercent)
 }

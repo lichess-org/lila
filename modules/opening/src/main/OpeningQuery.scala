@@ -17,16 +17,18 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
   def variant             = chess.variant.Standard
   val fen                 = Forsyth >> replay.state.situation
   val opening             = FullOpeningDB findByFen fen
-  val openingIfShortest   = opening filter FullOpeningDB.isShortest
   val family              = opening.map(_.family)
   def pgnString           = pgn mkString " "
-  val key                 = openingIfShortest.fold(pgn mkString "_")(_.key)
+  def pgnUnderscored      = pgn mkString "_"
   def initial             = pgn.isEmpty
-  def prev                = (pgn.sizeIs > 1) ?? OpeningQuery(pgn.init mkString " ", config)
+  def query = openingAndExtraMoves match {
+    case (op, _) => OpeningQuery.Query(op.fold("-")(_.key), pgnUnderscored.some)
+  }
+  def prev = (pgn.sizeIs > 1) ?? OpeningQuery(OpeningQuery.Query("", pgn.init.mkString(" ").some), config)
 
   val openingAndExtraMoves: (Option[FullOpening], List[Opening.PgnMove]) =
     opening.map(_.some -> Nil) orElse FullOpeningDB.search(replay).map { case FullOpening.AtPly(op, ply) =>
-      op.some -> pgn.drop(ply).toList
+      op.some -> pgn.drop(ply + 1).toList
     } getOrElse (none, pgn.toList)
 
   val name: String = openingAndExtraMoves match {
@@ -35,13 +37,19 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
     case (_, moves)        => moves mkString " "
   }
 
-  override def toString = s"$key $config"
+  override def toString = s"$query $config"
 }
 
 object OpeningQuery {
 
-  def apply(q: String, config: OpeningConfig): Option[OpeningQuery] =
-    byOpening(q, config) orElse fromPgn(q.replace("_", " "), config)
+  case class Query private (key: String, moves: Option[String])
+
+  def queryFromUrl(key: String, moves: Option[String]) =
+    Query(key, moves.map(_.trim.replace("_", " ")).filter(_.nonEmpty))
+
+  def apply(q: Query, config: OpeningConfig): Option[OpeningQuery] =
+    if (q.key.isEmpty && q.moves.isEmpty) fromPgn("", config)
+    else q.moves.flatMap(fromPgn(_, config)) orElse byOpening(q.key, config)
 
   private def byOpening(key: String, config: OpeningConfig) = {
     FullOpeningDB.shortestLines.get(key) orElse

@@ -24,6 +24,13 @@ object Maths {
       a.size / a.foldLeft(0d) { case (acc, v) => acc + 1 / Math.max(1, v) }
     }
 
+  def weightedMean(a: Iterable[(Double, Double)]): Option[Double] =
+    a.nonEmpty ?? {
+      a.foldLeft(0d -> 0d) { case ((av, aw), (v, w)) => (av + v * w, aw + w) } match {
+        case (v, w) => w != 0 option v / w
+      }
+    }
+
   def arithmeticAndHarmonicMean(a: Iterable[Double]): Option[Double] = for {
     arithmetic <- mean(a)
     harmonic   <- harmonicMean(a)
@@ -55,4 +62,15 @@ object Maths {
     if (normal > mean - deviation && normal < mean + deviation) normal.toInt
     else boxedNormalDistribution(mean, deviation, factor)
   }
+
+  // https://www.scribbr.com/statistics/standard-deviation/
+  // using population variance
+  def standardDeviation(a: Iterable[Double]): Option[Double] =
+    mean(a) map { mean =>
+      Math.sqrt {
+        a.foldLeft(0d) { case (sum, x) =>
+          sum + Math.pow(x - mean, 2)
+        } / a.size
+      }
+    }
 }

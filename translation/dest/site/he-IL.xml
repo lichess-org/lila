@@ -239,7 +239,7 @@
   <string name="refreshInboxAfterFiveMinutes">חכו 5 דקות ולאחר מכן בצעו ריענון לתיבת המייל.</string>
   <string name="checkSpamFolder">בדקו גם את תיבת דואר הזבל (״ספאם״). יתכן שההודעה הגיעה לשם בטעות. אם זה מה שקרה, סמנו אותה כלא־ספאם.</string>
   <string name="emailForSignupHelp">אם עדיין לא הצלחתם לפתור את הבעיה, שלחו לנו את המייל הבא:</string>
-  <string name="copyTextToEmail">הדביקו את הטקסט הנ״ל ושלחו אותו ל־%s</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">הדביקו את הטקסט הנ״ל ושלחו אותו ל־%s</string>
   <string name="waitForSignupHelp">אנו נחזור אליכם בהקדם כדי לסייע לכם להשלים את ההרשמה.</string>
   <string name="accountConfirmed">המשתמש %s אושר בהצלחה.</string>
   <string name="accountCanLogin">כעת תוכל/י להתחבר כ־%s.</string>

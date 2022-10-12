@@ -105,11 +105,6 @@ object String {
   // for inner text like study chapter names, possibly forum posts and team descriptions
   def softCleanUp(str: String) = removeChars(normalize(str.trim), isInvisibleChar)
 
-  // strip some elements of markdown for non-rendered summaries
-  private val markdownBegoneRe = raw"\[([^\]]*)\]\([^)]*\)|[\*_#]*".r
-  def markdownTake(str: String, len: Int = 204): String =
-    markdownBegoneRe.replaceAllIn(str take (len + len / 4), "$1").take(len)
-
   def decodeUriPath(input: String): Option[String] = {
     try {
       play.utils.UriEncoding.decodePath(input, "UTF-8").some

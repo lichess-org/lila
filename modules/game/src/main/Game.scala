@@ -624,6 +624,8 @@ case class Game(
     else None
   }
 
+  def startedAt = Game.StartedAt(startColor, chess.startedAtTurn)
+
   override def toString = s"""Game($id)"""
 }
 
@@ -643,6 +645,9 @@ object Game {
   case class WithInitialFen(game: Game, fen: Option[FEN])
 
   case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
+  case class StartedAt(startColor: Color, startedAtTurn: Int) {
+    def pov(color: Color) = SideAndStart(color, startColor, startedAtTurn)
+  }
 
   val syntheticId = "synthetic"
 

@@ -186,6 +186,12 @@ Die koning is van onskatbare waarde! Verloor die koning en jy verloor die spel.<
   <string name="queenOverBishop">Vat die stuk
 met die hoogste waarde!
 Dame &gt; Loper</string>
+  <string name="pieceValueExchange">Vat die stuk met die hoogste waarde!
+Moenie \'n stuk met hoor waarde
+vir \'n stuk met minder waarde verruil nie.</string>
+  <string name="pieceValueLegal">Vat die stuk 
+met die hoogste waarde!
+Maak seker jou skuif is wettig!</string>
   <string name="takeThePieceWithTheHighestValue">Vat die stuk
 met die hoogste waarde!</string>
   <string name="pieceValueComplete">Jy is aan die brand! Jy ken die waarde van materiaal!

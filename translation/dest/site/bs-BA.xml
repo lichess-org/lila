@@ -226,7 +226,7 @@
   <string name="refreshInboxAfterFiveMinutes">Pričekajte pet minuta i osvježite pristiglu poštu.</string>
   <string name="checkSpamFolder">Također provjerite neželjenu poštu, možda je poruka završila tamo. Ako jest, označite da nije neželjena.</string>
   <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu poruku:</string>
-  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst i pošaljite ga %s</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Kopirajte i zalijepite gornji tekst i pošaljite ga %s</string>
   <string name="waitForSignupHelp">Ubrzo ćemo Vam se javiti i pomoći Vam da završite Vašu registraciju.</string>
   <string name="accountConfirmed">Korisnik %s uspješno je potvrđen.</string>
   <string name="accountCanLogin">Možete se prijaviti odmah kao %s.</string>

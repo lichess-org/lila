@@ -212,7 +212,7 @@ lazy val bot = module("bot",
 
 lazy val analyse = module("analyse",
   Seq(common, hub, game, user, notifyModule, evalCache),
-  reactivemongo.bundle
+  specs2Bundle ++ reactivemongo.bundle
 )
 
 lazy val round = module("round",

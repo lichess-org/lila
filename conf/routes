@@ -111,17 +111,19 @@ GET   /blog.atom                       controllers.Blog.atom
 GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
-GET   /blog/community                  controllers.Ublog.community(lang = "all", page: Int ?= 1)
+GET   /blog/community                  controllers.Ublog.communityAll(page: Int ?= 1)
+GET   /$lang<\w\w>/blog/community      controllers.Ublog.communityLang(lang, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
-GET   /blog/community/:lang            controllers.Ublog.community(lang, page: Int ?= 1)
+GET   /blog/community/$lang<[\w-]{2,6}> controllers.Ublog.communityLangBC(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
-POST  /opening/config/:q               controllers.Opening.config(q)
-POST  /opening/wiki/:key               controllers.Opening.wikiWrite(key)
+POST  /opening/config/:key             controllers.Opening.config(key)
+POST  /opening/wiki/:key/:moves        controllers.Opening.wikiWrite(key, moves)
 GET   /opening/tree                    controllers.Opening.tree
-GET   /opening/:q                      controllers.Opening.query(q)
+GET   /opening/:key                    controllers.Opening.byKeyAndMoves(key, moves = "")
+GET   /opening/:key/:moves             controllers.Opening.byKeyAndMoves(key, moves)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home

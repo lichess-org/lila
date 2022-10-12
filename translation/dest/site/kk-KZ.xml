@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Жайып көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
-  <string name="rememberMe" comment="rememberMe&#10;&#10;Appears on the sign-in screen.">Мені жадта сақтау</string>
+  <string name="rememberMe">Мені жадта сақтау</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасау - шектеуге әкеліп соқтырады.</string>
@@ -217,7 +217,7 @@
   <string name="refreshInboxAfterFiveMinutes">5 минут күтіп, поштаңыздың бетін жаңартып көріңіз.</string>
   <string name="checkSpamFolder">Сонымен қатар, Спам қалтасында қарап көріңіз. Хат сонда болса, \"Спам емес\" деп белгілеу жөн болар.</string>
   <string name="emailForSignupHelp">Егер де осы амалдардың бәрі жарамаса, бізге осындай хат жіберіңіз:</string>
-  <string name="copyTextToEmail">Осы мәтінді көшіріп, %s жіберіңіз</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Осы мәтінді көшіріп, %s жіберіңіз</string>
   <string name="waitForSignupHelp">Тіркелуді аяқтау үшін біз тез арада жауап береміз.</string>
   <string name="accountConfirmed">%s тіркелгісі расталды.</string>
   <string name="accountCanLogin">%s атымен дәл қазір тіркелкіге кіре аласыз.</string>

@@ -60,9 +60,11 @@ object opening {
         ),
         div(cls := "button-set")(
           report.family.full.map { op =>
-            a(cls := "button button-no-upper text", dataIcon := "", href := routes.Opening.query(op.key))(
-              "Learn about this opening"
-            )
+            a(
+              cls      := "button button-no-upper text",
+              dataIcon := "",
+              href     := views.html.opening.bits.openingUrl(op)
+            )("Learn about this opening")
           },
           puzzle.map { p =>
             a(

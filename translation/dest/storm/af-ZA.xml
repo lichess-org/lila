@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Skuif om te begin</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Jy speel wit in al die raaisels</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Jy speel swart in al die raaisels</string>
+  <string name="puzzlesSolved">raaisels opgelos</string>
+  <string name="newDailyHighscore">Nuwe daaglikse hoë telling!</string>
+  <string name="newWeeklyHighscore">Nuwe weeklikse hoë telling!</string>
+  <string name="newMonthlyHighscore">Nuwe maandlike hoë telling!</string>
+  <string name="newAllTimeHighscore">Nuwe hoë telling vir alle tye!</string>
+  <string name="previousHighscoreWasX">Vorige hoë telling was %s</string>
+  <string name="playAgain">Speel weer</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 deurloop</item>
+    <item quantity="other">%s deurlope</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Speel een deurloop van %2$s</item>
+    <item quantity="other">Speel %1$s deurloop van %2$s</item>
+  </plurals>
+  <string name="highscoreX">Hoë telling: %s</string>
+  <string name="score">Telling</string>
+  <string name="waitForRematch">Wag vir herwedstryd</string>
+  <string name="joinRematch">Sluit by herwedstryd aan</string>
+</resources>

@@ -1,16 +1,16 @@
 package controllers
 
+import play.api.i18n.Lang
 import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
 import lila.app._
+import lila.common.config
+import lila.i18n.{ I18nLangPicker, LangList }
+import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.{ User => UserModel }
-import play.api.i18n.Lang
-import lila.i18n.LangList
-import lila.report.Suspect
-import lila.common.config
 
 final class Ublog(env: Env) extends LilaController(env) {
 
@@ -257,21 +257,43 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def community(code: String, page: Int) = Open { implicit ctx =>
+  def communityLang(language: String, page: Int = 1) =
+    Open { ctx =>
+      I18nLangPicker.byHref(language, ctx.req) match {
+        case I18nLangPicker.NotFound      => Redirect(routes.Ublog.communityAll(page)).fuccess
+        case I18nLangPicker.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).fuccess
+        case I18nLangPicker.Refused(lang) => communityIndex(lang.some, page)(ctx)
+        case I18nLangPicker.Found(lang) =>
+          if (ctx.isAuth) communityIndex(lang.some, page)(ctx)
+          else communityIndex(lang.some, page)(ctx withLang lang)
+      }
+    }
+
+  def communityAll(page: Int) = Open { implicit ctx =>
+    communityIndex(none, page)
+  }
+
+  def communityIndex(l: Option[Lang], page: Int)(implicit ctx: Context) =
     NotForKids {
-      val l = Lang.get(code).filter(LangList.popularNoRegion.contains)
       Reasonable(page, config.Max(8)) {
+        pageHit(ctx)
         env.ublog.paginator.liveByCommunity(l, page) map { posts =>
           Ok(html.ublog.index.community(l, posts))
         }
       }
     }
+
+  def communityLangBC(code: String) = Action {
+    val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
+    Redirect {
+      l.fold(routes.Ublog.communityAll())(l => routes.Ublog.communityLang(l.language))
+    }
   }
 
-  def communityAtom(code: String) = Action.async { implicit req =>
-    val lang = Lang.get(code).filter(LangList.popularNoRegion.contains)
-    env.ublog.paginator.liveByCommunity(lang, page = 1) map { posts =>
-      Ok(html.ublog.atom.community(code, posts.currentPageResults)) as XML
+  def communityAtom(language: String) = Action.async { implicit req =>
+    val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
+    env.ublog.paginator.liveByCommunity(l, page = 1) map { posts =>
+      Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
     }
   }
 

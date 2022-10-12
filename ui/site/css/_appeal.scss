@@ -76,6 +76,18 @@
     font-size: 1.2em;
   }
 
+  .root h2 {
+    padding: 0.7em;
+    text-align: center;
+    background: $c-good;
+    color: $c-good-over;
+  }
+
+  .marked .root h2 {
+    background: $c-bad;
+    color: $c-bad-over;
+  }
+
   .appeal-presets {
     margin-#{$end-direction}: 1em;
   }

@@ -55,14 +55,15 @@ final class Insight(env: Env) extends LilaController(env) {
       case Empty  => Ok(html.insight.empty(user)).fuccess
       case s =>
         for {
-          cache  <- env.insight.api insightUser user
-          prefId <- env.insight.share getPrefId user
+          insightUser <- env.insight.api insightUser user
+          prefId      <- env.insight.share getPrefId user
         } yield Ok(
           html.insight.index(
             u = user,
-            cache = cache,
+            insightUser = insightUser,
             prefId = prefId,
-            ui = env.insight.jsonView.ui(cache.families, cache.openings, asMod = isGranted(_.ViewBlurs)),
+            ui = env.insight.jsonView
+              .ui(insightUser.families, insightUser.openings, asMod = isGranted(_.ViewBlurs)),
             question = env.insight.jsonView.question(metric, dimension, filters),
             stale = s == Stale
           )

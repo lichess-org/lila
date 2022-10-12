@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">शतरंज जानें</string>
-  <string name="byPlaying">खेलकर!</string>
+  <string name="learnChess">शतरंज सीखें</string>
+  <string name="byPlaying">खेल कर!</string>
   <string name="menu">मेनू</string>
   <string name="progressX">प्रगति: %s</string>
   <string name="resetMyProgress">मेरी प्रगति को रीसेट करें</string>
   <string name="youWillLoseAllYourProgress">आप अपनी सारी प्रगति खो देंगे!</string>
-  <string name="play">खेलो!</string>
+  <string name="play">खेलें!</string>
   <string name="chessPieces">शतरंज के मोहरे</string>
   <string name="theRook">हाथी</string>
   <string name="itMovesInStraightLines">यह सीधी रेखा में चलता है</string>

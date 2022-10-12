@@ -4,15 +4,16 @@ import cats.data.NonEmptyList
 import chess.opening.FullOpening
 import controllers.routes
 import play.api.libs.json.{ JsArray, Json }
+import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
+import lila.opening.OpeningQuery.Query
 import lila.opening.{ Opening, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
-import lila.opening.OpeningSearchResult
 
-private object bits {
+object bits {
 
   def beta = span(cls := "opening__beta")("BETA")
 
@@ -99,7 +100,11 @@ private object bits {
         )
     }
 
-  def queryUrl(q: OpeningQuery) = routes.Opening.query(q.key)
+  def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
+  def queryUrl(q: Query): Call =
+    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.replace(" ", "_")))
+  def openingUrl(o: FullOpening) = keyUrl(o.key)
+  def keyUrl(key: String)        = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 

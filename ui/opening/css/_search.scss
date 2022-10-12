@@ -33,7 +33,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       grid-gap: $block-gap;
-      margin: 3em 0;
+      margin-bottom: var(--box-padding);
     }
     &__result {
       @extend %flex-column, %box-neat;

@@ -29,7 +29,7 @@ object search {
   def resultsList(results: List[OpeningSearchResult])(implicit ctx: Context) =
     div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
       results map { r =>
-        a(cls := "opening__search__result", href := routes.Opening.query(r.opening.key))(
+        a(cls := "opening__search__result", href := bits.queryUrl(r.query))(
           span(cls := "opening__search__result__title")(splitName(r.opening)),
           span(cls := "opening__search__result__board")(
             views.html.board.bits.mini(FEN(r.opening.fen), lastMove = ~r.opening.lastUci)(span)

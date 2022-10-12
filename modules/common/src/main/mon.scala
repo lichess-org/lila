@@ -357,6 +357,9 @@ object mon {
         counter("hcaptcha.form").withTags(Map("client" -> client, "result" -> result))
     }
   }
+  object shutup {
+    def analyzer = timer("shutup.analyzer.time").withoutTags()
+  }
   object tv {
     object streamer {
       def present(n: String) = gauge("tv.streamer.present").withTag("name", n)

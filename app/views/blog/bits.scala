@@ -12,7 +12,7 @@ object bits {
 
   def menu(year: Option[Int], active: Option[String])(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(cls := active.has("community").option("active"), href := routes.Ublog.community("all"))(
+      a(cls := active.has("community").option("active"), href := langHref(routes.Ublog.communityAll()))(
         "Community blogs"
       ),
       a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)("Blog topics"),

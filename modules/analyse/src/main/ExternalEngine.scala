@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
+import com.roundeights.hasher.Algo
 
 import lila.common.Form._
 import lila.common.{ SecureRandom, ThreadLocalRandom }
@@ -18,9 +19,11 @@ case class ExternalEngine(
     name: String,
     maxThreads: Int,
     maxHash: Int,
+    shallowDepth: Int,
+    deepDepth: Int,
     variants: List[String],
-    officialStockfish: Boolean,   // Admissible for cloud evals
-    providerSecret: String,       // Chosen at random by the provider, possibly shared between registrations
+    officialStockfish: Boolean, // Admissible for cloud evals
+    providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
     userId: User.ID,              // The user it has been registered for
     clientSecret: String          // Secret unique id of the registration
@@ -32,6 +35,8 @@ object ExternalEngine {
       name: String,
       maxThreads: Int,
       maxHash: Int,
+      shallowDepth: Int,
+      deepDepth: Int,
       variants: Option[List[String]],
       officialStockfish: Option[Boolean],
       providerSecret: String,
@@ -42,9 +47,11 @@ object ExternalEngine {
       name = name,
       maxThreads = maxThreads,
       maxHash = maxHash,
+      shallowDepth = shallowDepth,
+      deepDepth = deepDepth,
       variants = variants.filter(_.nonEmpty) | List(chess.variant.Standard.key),
       officialStockfish = ~officialStockfish,
-      providerSecret = providerSecret,
+      providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
       providerData = providerData,
       userId = userId,
       clientSecret = s"ees_${SecureRandom.nextString(16)}"
@@ -57,9 +64,11 @@ object ExternalEngine {
 
   val form = Form(
     mapping(
-      "name"       -> cleanNonEmptyText(3, 200),
-      "maxThreads" -> number(1, 65_536),
-      "maxHash"    -> number(1, 1_048_576),
+      "name"         -> cleanNonEmptyText(3, 200),
+      "maxThreads"   -> number(1, 65_536),
+      "maxHash"      -> number(1, 1_048_576),
+      "shallowDepth" -> number(0, 246),
+      "deepDepth"    -> number(0, 246),
       "variants" -> optional(list {
         stringIn(chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.key).toSet)
       }),
@@ -77,6 +86,8 @@ object ExternalEngine {
         "userId"       -> e.userId,
         "maxThreads"   -> e.maxThreads,
         "maxHash"      -> e.maxHash,
+        "shallowDepth" -> e.shallowDepth,
+        "deepDepth"    -> e.deepDepth,
         "variants"     -> e.variants,
         "providerData" -> e.providerData,
         "clientSecret" -> e.clientSecret

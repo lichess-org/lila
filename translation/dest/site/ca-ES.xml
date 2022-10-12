@@ -158,6 +158,7 @@
   <string name="viewInFullSize">Veure a mida completa</string>
   <string name="logOut">Tancar la sessió</string>
   <string name="signIn">Iniciar la sessió</string>
+  <string name="rememberMe">Mantenir-me connectat</string>
   <string name="youNeedAnAccountToDoThat">Necessites un compte per a fer això</string>
   <string name="signUp">Registrar-se</string>
   <string name="computersAreNotAllowedToPlay">No els està permès jugar ni als ordinadors ni als jugadors assistits per ordinador. Si us plau, no utilitzis l\'ajuda de programes informàtics d\'escacs, de bases de dades o d\'altres jugadors mentre juguis. També tingues en compte que la creació de més d\'un compte és severament descoratjada i que tal activitat pot significar que el teu compte sigui suspès.</string>
@@ -216,7 +217,7 @@
   <string name="refreshInboxAfterFiveMinutes">Espereu 5 minuts i refresqueu la bústia d\'entrada del vostre correu.</string>
   <string name="checkSpamFolder">Comproveu també la carpeta de correu brossa, pot estar allí. Si està allí marqueu-lo com no brossa.</string>
   <string name="emailForSignupHelp">Si tot això falla, envieu-nos aquest correu:</string>
-  <string name="copyTextToEmail">Copieu i pegueu el text a continuació i envieu-lo a %s</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Copieu i pegueu el text a continuació i envieu-lo a %s</string>
   <string name="waitForSignupHelp">Et contestarem el mes breument posible per ajudar-te a completar el registre.</string>
   <string name="accountConfirmed">El usuari %s esta confirmat correctament.</string>
   <string name="accountCanLogin">Podeu identificar-vos ara com a %s.</string>

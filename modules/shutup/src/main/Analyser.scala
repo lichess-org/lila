@@ -4,8 +4,8 @@ import lila.common.constants.bannedYoutubeIds
 
 object Analyser {
 
-  def apply(raw: String) = {
-    val lower = raw.toLowerCase
+  def apply(raw: String) = lila.common.Chronometer.syncMon(_.shutup.analyzer) {
+    val lower = raw.take(2000).toLowerCase
     TextAnalysis(
       lower,
       (

@@ -33,7 +33,7 @@ object atom {
   def community(code: String, posts: Seq[UblogPost.PreviewPost]) =
     views.html.base.atom(
       elems = posts,
-      htmlCall = routes.Ublog.community(code),
+      htmlCall = routes.Ublog.communityLang(code),
       atomCall = routes.Ublog.communityAtom(code),
       title = "Lichess community blogs",
       updated = posts.headOption.flatMap(_.lived).map(_.at)

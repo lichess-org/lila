@@ -215,7 +215,7 @@
   <string name="refreshInboxAfterFiveMinutes">Itxaron 5 minutu eta freskatu zure epostaren sarrera-ontzia.</string>
   <string name="checkSpamFolder">Zabor mezuen karpetan begiratu, batzuetan horra joaten dira-eta mezuak. Horrela bada, esan zaborra ez dela.</string>
   <string name="emailForSignupHelp">Beste guztiak huts egin badu, bidali guri mezu hau:</string>
-  <string name="copyTextToEmail">Kopiatu eta itsatsi goiko mezua eta bidali %s helbidera</string>
+  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Kopiatu eta itsatsi goiko mezua eta bidali %s helbidera</string>
   <string name="waitForSignupHelp">Laster jarriko gara zurekin harremanetan zure izen-ematea osatzeko.</string>
   <string name="accountConfirmed">%s erabiltzailea ondo baieztatu da.</string>
   <string name="accountCanLogin">Orain %s izena erabiliz sartu zaitezke.</string>
