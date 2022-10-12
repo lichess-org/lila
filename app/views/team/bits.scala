@@ -70,7 +70,7 @@ object bits {
           t.name,
           ctx.userId.exists(t.leaders.contains) option em("leader")
         ),
-        t.intro | shorten(removeMultibyteSymbols(markdownTake(t.description.value)), 200)
+        ~t.intro
       ),
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),

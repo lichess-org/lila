@@ -98,10 +98,10 @@ object form {
     form3.group(
       form("intro"),
       "Introduction",
-      help = frag("Brief description visible only in team listings.").some
+      help = frag("Brief description visible in team listings. Up to 200 chars.").some
     )(
       form3.textarea(_)(rows := 2)
-    ),
+    )(ctx)(cls := form("intro").value.isEmpty.option("accent")),
     form3.group(
       form("description"),
       trans.description(),
