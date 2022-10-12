@@ -1,6 +1,6 @@
 .tutor {
   &-grade {
-    margin-bottom: $block-gap;
+    margin-bottom: 2em;
     &:last-child {
       margin-bottom: 0;
     }
@@ -8,6 +8,10 @@
       font-weight: normal;
       font-size: 1.2em;
       margin-bottom: 0.5em;
+    }
+    &__concept {
+      @extend %roboto;
+      font-size: 0.9em;
     }
     &--detail .tutor-grade__name {
       text-transform: uppercase;
