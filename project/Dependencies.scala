@@ -21,14 +21,19 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.11.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.0.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.82.Final" classifier "linux-x86_64"
-  val autoconfig   = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
-  val scalatest    = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
-  val uaparser     = "org.uaparser"               %% "uap-scala"         % "0.13.0"
-  val specs2Core   = "org.specs2"                 %% "specs2-core"       % "4.17.0" % Test
-  val specs2Cats   = "org.specs2"                 %% "specs2-cats"       % "4.17.0" % Test
-  val specs2Bundle = Seq(specs2Core, specs2Cats)
-  val apacheText   = "org.apache.commons"          % "commons-text"      % "1.9"
-  val bloomFilter  = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
+  val autoconfig  = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
+  val scalatest   = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"         % "0.13.0"
+  val apacheText  = "org.apache.commons"          % "commons-text"      % "1.9"
+  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
+
+  object specs2 {
+    val version = "4.17.0"
+    val common  = "org.specs2" %% "specs2-common" % version % Test
+    val core    = "org.specs2" %% "specs2-core"   % version % Test
+    val cats    = "org.specs2" %% "specs2-cats"   % version % Test
+    val bundle  = Seq(common, core, cats)
+  }
 
   object flexmark {
     val version = "0.64.0"
