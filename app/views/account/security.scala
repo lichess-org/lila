@@ -93,7 +93,7 @@ object security {
               if (client.scopes.nonEmpty)
                 frag(
                   "Third party application with permissions: ",
-                  client.scopes.map(_.name).mkString(", ")
+                  client.scopes.map(_.name()).mkString(", ")
                 )
               else
                 frag("Third party application using only public data.")
