@@ -284,13 +284,14 @@ export class ExternalWorker implements CevalWorker {
             millis: line.time,
             pvs: line.pvs,
           });
+        }).catch(err => {
+          if (err.name != 'AbortError') throw err;
         })
       )
       .then(
         () => (this.state = CevalState.Initial),
         err => {
           if (err.name !== 'AbortError') {
-            console.error(err);
             this.state = CevalState.Failed;
           } else {
             this.state = CevalState.Initial;
@@ -300,7 +301,7 @@ export class ExternalWorker implements CevalWorker {
   }
 
   stop() {
-    this.req?.abort();
+    this.req?.abort('ceval stopped');
   }
 
   engineName() {
