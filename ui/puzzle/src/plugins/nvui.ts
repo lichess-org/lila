@@ -51,7 +51,9 @@ export default function (redraw: Redraw) {
       const ground = ctrl.ground() || createGround(ctrl);
 
       return h(
-        `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
+        `main.puzzle.puzzle--nvui.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${
+          ctrl.streak ? '.puzzle--streak' : ''
+        }`,
         h('div.nvui', [
           h('h1', `Puzzle: ${ctrl.vm.pov} to play.`),
           h('h2', 'Puzzle info'),

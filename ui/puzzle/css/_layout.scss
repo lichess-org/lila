@@ -17,6 +17,11 @@
   grid-area: main;
   display: grid;
 
+  &--nvui {
+    display: block;
+    max-width: 800px;
+  }
+
   &__side {
     @extend %zen;
     grid-area: side;
