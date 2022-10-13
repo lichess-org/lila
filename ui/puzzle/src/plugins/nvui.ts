@@ -284,8 +284,16 @@ function onSubmit(
       const uci = inputToLegalUci(input, ctrl.vm.node.fen, ground);
       if (uci) {
         ctrl.playUci(uci);
-        if (ctrl.vm.lastFeedback === 'fail') notify("That's not the move!");
-        else if (ctrl.vm.lastFeedback === 'win') notify('Success!');
+        switch (ctrl.vm.lastFeedback) {
+          case 'fail':
+            notify(ctrl.trans.noarg('notTheMove'));
+            break;
+          case 'good':
+            notify(ctrl.trans.noarg('bestMove'));
+            break;
+          case 'win':
+            notify(ctrl.trans.noarg('puzzleSuccess'));
+        }
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
       }
