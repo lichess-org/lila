@@ -124,27 +124,24 @@ final class Game(
   private def fileDate = DateTimeFormat forPattern "yyyy-MM-dd" print DateTime.now
 
   def apiExportByUserImportedGames(username: String) =
-    OpenOrScoped(_.Study.Read)(
-      open = ctx => handleExportByUserImportedGames(username, ctx.me, ctx.req),
-      scoped = req => me => handleExportByUserImportedGames(username, me.some, req)
+    AuthOrScoped()(
+      auth = ctx => me => handleExportByUserImportedGames(username, me, ctx.req),
+      scoped = req => me => handleExportByUserImportedGames(username, me, req)
     )
 
-  private def handleExportByUserImportedGames(
-      username: String,
-      me: Option[lila.user.User],
-      req: RequestHeader
-  ) = env.user.repo named username map {
-    _.filter(u => u.enabled || me.exists(_ is u)) ?? { user =>
-      apiC
-        .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(
-          env.api.gameApiV2.exportUserImportedGames(user)
-        ) { source =>
-          Ok.chunked(source)
-            .pipe(asAttachmentStream(s"lichess_${user.username}_$fileDate.imported.pgn"))
-            .as(pgnContentType)
-        }
+  private def handleExportByUserImportedGames(username: String, me: lila.user.User, req: RequestHeader) =
+    fuccess {
+      if (!me.is(username)) Forbidden("Imported games of other players cannot be downloaded")
+      else
+        apiC
+          .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some)(
+            env.api.gameApiV2.exportUserImportedGames(me)
+          ) { source =>
+            Ok.chunked(source)
+              .pipe(asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn"))
+              .as(pgnContentType)
+          }
     }
-  }
 
   def exportByIds =
     Action.async(parse.tolerantText) { req =>
