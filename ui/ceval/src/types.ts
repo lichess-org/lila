@@ -30,6 +30,8 @@ export interface EvalMeta {
   threatMode: boolean;
 }
 
+export type Redraw = () => void;
+
 export interface CevalOpts {
   storageKeyPrefix?: string;
   multiPvDefault?: number;
@@ -38,7 +40,7 @@ export interface CevalOpts {
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
-  redraw: () => void;
+  redraw: Redraw;
   externalEngines?: ExternalEngine[];
 }
 
