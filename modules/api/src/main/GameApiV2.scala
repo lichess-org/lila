@@ -234,7 +234,7 @@ final class GameApiV2(
       .sortedCursor(Query imported user.id, Query.importedSort, batchSize = 20)
       .documentSource()
       .throttle(20, 1 second)
-      .mapConcat(_.pgnImport.map(_.pgn).toList)
+      .mapConcat(_.pgnImport.map(_.pgn + "\n\n\n").toList)
 
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
