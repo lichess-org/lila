@@ -238,7 +238,7 @@ final private class PovToEntry(
   private def findOpening(from: RichPov): Option[SimpleOpening] =
     from.pov.game.variant.standard ??
       from.situations.tail.view
-        .takeWhile(_.board.actors.size > 16)
+        .takeWhile(_.board.actors.sizeIs >= 20)
         .foldRight(none[SimpleOpening]) {
           case (sit, None) =>
             FullOpeningDB
