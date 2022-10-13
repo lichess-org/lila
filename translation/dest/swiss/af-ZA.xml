@@ -36,6 +36,7 @@
   <string name="numberOfRoundsHelp">\'n Onewe aantal rondes voorsien optimale kleur balans.</string>
   <string name="roundInterval">Interval tussen rondes</string>
   <string name="forbiddenPairings">Voorbode indelings</string>
+  <string name="pointsCalculationQ">Hoe word punte toegeken?</string>
   <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s rondte Switsers</item>
     <item quantity="other">%1$s / %2$s rondtes Switsers</item>
