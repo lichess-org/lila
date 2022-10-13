@@ -30,4 +30,5 @@
   <string name="engineRead">Vise og bruke dine eksterne sjakkmotorer</string>
   <string name="engineWrite">Opprette og oppdatere eksterne sjakkmotorer</string>
   <string name="webLogin">Opprette autentiserte nettstedøkter (gir full tilgang!)</string>
+  <string name="webMod">Bruke moderatorverktøy (innenfor rammene av tillatelsene dine)</string>
 </resources>
