@@ -164,30 +164,40 @@ export default class CevalCtrl {
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     if (!this.worker) {
-      if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine);
+      if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine, this.opts.redraw);
       else if (this.technology == 'nnue')
-        this.worker = new ThreadedWasmWorker({
-          baseUrl: 'vendor/stockfish-nnue.wasm/',
-          module: 'Stockfish',
-          downloadProgress: throttle(200, mb => {
-            this.downloadProgress(mb);
-            this.opts.redraw();
-          }),
-          version: 'b6939d',
-          wasmMemory: sharedWasmMemory(2048, this.platform.maxWasmPages(2048)),
-          cache: window.indexedDB && new Cache('ceval-wasm-cache'),
-        });
+        this.worker = new ThreadedWasmWorker(
+          {
+            baseUrl: 'vendor/stockfish-nnue.wasm/',
+            module: 'Stockfish',
+            downloadProgress: throttle(200, mb => {
+              this.downloadProgress(mb);
+              this.opts.redraw();
+            }),
+            version: 'b6939d',
+            wasmMemory: sharedWasmMemory(2048, this.platform.maxWasmPages(2048)),
+            cache: window.indexedDB && new Cache('ceval-wasm-cache'),
+          },
+          this.opts.redraw
+        );
       else if (this.technology == 'hce')
-        this.worker = new ThreadedWasmWorker({
-          baseUrl: this.officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
-          module: this.officialStockfish ? 'Stockfish' : 'StockfishMv',
-          version: 'a022fa',
-          wasmMemory: sharedWasmMemory(1024, this.platform.maxWasmPages(1088)),
-        });
+        this.worker = new ThreadedWasmWorker(
+          {
+            baseUrl: this.officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
+            module: this.officialStockfish ? 'Stockfish' : 'StockfishMv',
+            version: 'a022fa',
+            wasmMemory: sharedWasmMemory(1024, this.platform.maxWasmPages(1088)),
+          },
+          this.opts.redraw
+        );
       else
-        this.worker = new WebWorker({
-          url: this.technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
-        });
+        this.worker = new WebWorker(
+          {
+            url:
+              this.technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
+          },
+          this.opts.redraw
+        );
     }
 
     this.worker.start(work);

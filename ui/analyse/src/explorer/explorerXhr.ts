@@ -55,9 +55,8 @@ export async function opening(
     credentials: 'omit',
     signal,
   });
-  if (!res.ok) throw new Error(`Status ${res.status}`);
 
-  return readNdJson<Partial<OpeningData>>(res, data => {
+  await readNdJson<Partial<OpeningData>>(res, data => {
     data.isOpening = true;
     data.fen = opts.fen;
     processData(data as OpeningData);
