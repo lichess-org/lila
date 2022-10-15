@@ -54,7 +54,8 @@ object HTTPRequest {
 
   def ipAddress(req: RequestHeader) =
     IpAddress.unchecked {
-      req.remoteAddress.split(", ").lastOption | req.remoteAddress // trusted
+      // chain of trusted proxies, strip scope id
+      req.remoteAddress.split(", ").last.split("%").head
     }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId

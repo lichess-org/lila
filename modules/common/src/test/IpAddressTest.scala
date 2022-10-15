@@ -11,6 +11,7 @@ class IpAddressTest extends Specification {
     }
     "ipv6" in {
       IpAddress.unchecked("::1").toString must_== "::1"
+      IpAddress.unchecked("0:0:0:0:0:0:0:1").toString must_== "::1"
       IpAddress.unchecked("2a09:bac0:23::815:b5f").toString must_== "2a09:bac0:23::815:b5f"
       IpAddress.unchecked("2A09:BAC0:0023:0000:0000:0000:0815:0B5F").toString must_== "2a09:bac0:23::815:b5f"
     }
