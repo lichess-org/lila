@@ -216,7 +216,7 @@
   <string name="refreshInboxAfterFiveMinutes">5 دقیقه صبر کنید و صندوق ورودی ایمیل خود را تازه کنید.</string>
   <string name="checkSpamFolder">پوشه اسپم خود را نیز بررسی کنید، ممکن است ایمیل را آنجا بیابید. اگر چنین است، آن را به عنوان غیر اسپم (امن) علامت گذاری کنید.</string>
   <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این ایمیل را برای ما ارسال کنید:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
+  <string name="copyTextToEmail">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
   <string name="waitForSignupHelp">ما به زودی با شما تماس خواهیم گرفت تا به شما کمک کنیم ثبت نام خود را تکمیل کنید.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
