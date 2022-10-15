@@ -204,7 +204,7 @@
   <string name="refreshInboxAfterFiveMinutes">稍等 5 分钟后刷新您的收件箱。</string>
   <string name="checkSpamFolder">尝试检查您的垃圾邮件文件夹，它可能最终会在那里。如果是，请将其标记为不是垃圾邮件。</string>
   <string name="emailForSignupHelp">如果还是不行，请向我们发送这封邮件：</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">复制上面的文本并发送到 %s</string>
+  <string name="copyTextToEmail">复制上面的文本并发送到 %s</string>
   <string name="waitForSignupHelp">我们将很快给你回复，帮助您完成注册。</string>
   <string name="accountConfirmed">用户 %s 已成功注册。</string>
   <string name="accountCanLogin">您现在可以使用 %s 登录。</string>
