@@ -214,7 +214,7 @@
   <string name="refreshInboxAfterFiveMinutes">Սպասեք 5 րոպե և թարմացրեք Ձեր էլփոստի մուտքային արկղը։</string>
   <string name="checkSpamFolder">Ստուգեք նաև սպամի պանակը, նամակը կարող է հայտնվել այնտեղ: Եթե ​​այդպես է, այն նշեք որպես ոչ սպամ:</string>
   <string name="emailForSignupHelp">Եթե ​​մնացած ամեն ինչը ձախողվի, ապա գրեք մեզ այս էլեկտրոնային հասցեով.</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Պատճենեք և տեղադրեք վերը նշված տեքստը և այն ուղարկեք %s-ին</string>
+  <string name="copyTextToEmail">Պատճենեք և տեղադրեք վերը նշված տեքստը և այն ուղարկեք %s-ին</string>
   <string name="waitForSignupHelp">Մենք շուտով կվերադառնանք Ձեզ, որպեսզի օգնենք լրացնել Ձեր գրանցումը:</string>
   <string name="accountConfirmed">%s օգտատերը հաջողությամբ հաստատվել է:</string>
   <string name="accountCanLogin">Դուք կարող եք մուտք գործել հենց հիմա որպես %s:</string>
