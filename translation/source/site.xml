@@ -86,7 +86,7 @@
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="masterDbExplanation">Two million OTB games of %1$s+ FIDE-rated players from %2$s to %3$s</string>
+  <string name="masterDbExplanation">OTB games of %1$s+ FIDE-rated players from %2$s to %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
