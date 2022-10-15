@@ -217,7 +217,7 @@
   <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
   <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
   <string name="emailForSignupHelp">Si rien ne marche, envoyez-nous ce courriel :</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Copiez et collez le texte ci-dessus et envoyez-le à %s</string>
+  <string name="copyTextToEmail">Copiez et collez le texte ci-dessus et envoyez-le à %s</string>
   <string name="waitForSignupHelp">Nous vous contacterons sous peu pour vous aider à compléter votre inscription.</string>
   <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
   <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
