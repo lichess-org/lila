@@ -279,7 +279,7 @@ final class Tournament(
 
   def form =
     Auth { implicit ctx => me =>
-      NoLameOrBot {
+      NoBot {
         env.team.api.lightsByLeader(me.id) map { teams =>
           Ok(html.tournament.form.create(forms.create(me, teams), teams))
         }
@@ -288,7 +288,7 @@ final class Tournament(
 
   def teamBattleForm(teamId: TeamID) =
     Auth { implicit ctx => me =>
-      NoLameOrBot {
+      NoBot {
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           env.team.api.leads(teamId, me.id) map {
             _ ?? {
@@ -335,32 +335,31 @@ final class Tournament(
     }(fail.fuccess)
   }
 
-  def create =
-    AuthBody { implicit ctx => me =>
-      NoLameOrBot {
-        env.team.api.lightsByLeader(me.id) flatMap { teams =>
-          implicit val req = ctx.body
-          negotiate(
-            html = forms
-              .create(me, teams)
-              .bindFromRequest()
-              .fold(
-                err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
-                setup =>
-                  rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
-                    api.createTournament(setup, me, teams) map { tour =>
-                      Redirect {
-                        if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
-                        else routes.Tournament.show(tour.id)
-                      }.flashSuccess
-                    }
+  def create = AuthBody { implicit ctx => me =>
+    NoBot {
+      env.team.api.lightsByLeader(me.id) flatMap { teams =>
+        implicit val req = ctx.body
+        negotiate(
+          html = forms
+            .create(me, teams)
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
+              setup =>
+                rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
+                  api.createTournament(setup, me, teams) map { tour =>
+                    Redirect {
+                      if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
+                      else routes.Tournament.show(tour.id)
+                    }.flashSuccess
                   }
-              ),
-            api = _ => doApiCreate(me)
-          )
-        }
+                }
+            ),
+          api = _ => doApiCreate(me)
+        )
       }
     }
+  }
 
   def apiCreate =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
