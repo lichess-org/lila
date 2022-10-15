@@ -83,7 +83,7 @@ final class TournamentApi(
         tournamentRepo.setForTeam(tour.id, teamId).void
       }
     } >> {
-      andJoin ?? join(
+      (andJoin && !me.isBot && !me.lame) ?? join(
         tour.id,
         me,
         TournamentForm.TournamentJoin(tour.password, setup.teamBattleByTeam),
