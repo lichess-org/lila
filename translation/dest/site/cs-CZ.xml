@@ -238,7 +238,7 @@
   <string name="refreshInboxAfterFiveMinutes">Počkejte 5 minut a obnovte vaši e-mailovou schránku.</string>
   <string name="checkSpamFolder">Také zkontrolujte složku nevyžádané pošty. Pokud ano, označte mail jako vyžádaný.</string>
   <string name="emailForSignupHelp">Pokud všechno ostatní selže, pošlete nám tento e-mail:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Zkopírujte a vložte výše uvedený text a pošlete jej na %s</string>
+  <string name="copyTextToEmail">Zkopírujte a vložte výše uvedený text a pošlete jej na %s</string>
   <string name="waitForSignupHelp">Brzy se k vám ozveme, abychom vám pomohli dokončit registraci.</string>
   <string name="accountConfirmed">Uživatel %s byl úspěšně potvrzen.</string>
   <string name="accountCanLogin">Nyní se můžete přihlásit jako %s.</string>
