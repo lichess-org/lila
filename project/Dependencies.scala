@@ -27,7 +27,7 @@ object Dependencies {
   val specs2Core   = "org.specs2"                 %% "specs2-core"       % "4.17.0" % Test
   val specs2Cats   = "org.specs2"                 %% "specs2-cats"       % "4.17.0" % Test
   val specs2Bundle = Seq(specs2Core, specs2Cats)
-  val apacheText   = "org.apache.commons"          % "commons-text"      % "1.9"
+  val apacheText   = "org.apache.commons"          % "commons-text"      % "1.10.0"
   val bloomFilter  = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
 
   object flexmark {
