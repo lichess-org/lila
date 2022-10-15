@@ -206,7 +206,7 @@
   <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
   <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
   <string name="emailForSignupHelp">どの手段もうまくいかない場合は、次のメールをこちらまで送信してください：</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">上のテキストをコピー＆ペーストして %s に送信します</string>
+  <string name="copyTextToEmail">上のテキストをコピー＆ペーストして %s に送信します</string>
   <string name="waitForSignupHelp">またこちらから連絡してサインアップ完了までお手伝いします。</string>
   <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
   <string name="accountCanLogin">すぐに %s としてログインできます。</string>
