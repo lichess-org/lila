@@ -217,7 +217,7 @@
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza tu bandeja de entrada.</string>
   <string name="checkSpamFolder">Comprueba tu carpeta de spam, puede que haya terminado ahí. Si es así, márcalo como no spam.</string>
   <string name="emailForSignupHelp">Si todo lo demás falla, envíanos este correo:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Copiar y pegar el texto de arriba y enviarlo a %s</string>
+  <string name="copyTextToEmail">Copiar y pegar el texto de arriba y enviarlo a %s</string>
   <string name="waitForSignupHelp">Volveremos contigo dentro de poco para ayudarte a completar tu registro.</string>
   <string name="accountConfirmed">El usuario %s fue confirmado con éxito.</string>
   <string name="accountCanLogin">Puedes iniciar sesión ahora como %s.</string>
