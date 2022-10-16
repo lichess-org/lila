@@ -218,7 +218,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="refreshInboxAfterFiveMinutes">Wart 5 Minute und check dini E-Mail-Inbox.</string>
   <string name="checkSpamFolder">Lueg au im Spam-Ordner, es chönnt det glandet si. Wänn ja, lösch d\'Spam-Markierig.</string>
   <string name="emailForSignupHelp">Wänn alles nöd gaht, schick eus die E-Mail:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Kopier de oberi Text, füeg en i und schick en an %s</string>
+  <string name="copyTextToEmail">Kopier de oberi Text, füeg en i und schick en an %s</string>
   <string name="waitForSignupHelp">Mir mälded eus in Chürzi, dass du dini Amäldig abschlüsse chasch.</string>
   <string name="accountConfirmed">De Benutzer %s isch erfolgrich beschtätigt.</string>
   <string name="accountCanLogin">Du chasch jetzt als %s ilogge.</string>

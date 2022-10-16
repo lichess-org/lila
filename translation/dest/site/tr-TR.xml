@@ -216,7 +216,7 @@
   <string name="refreshInboxAfterFiveMinutes">5 dakika bekleyip e-posta gelen kutunuzu yenileyin.</string>
   <string name="checkSpamFolder">Ayrıca spam klasörünü kontrol edin, orada olabilir. Eğer öyleyse spam değil olarak işaretleyin.</string>
   <string name="emailForSignupHelp">Hiçbiri işe yaramazsa, bize şu e-postayı gönderin:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Yukarıdaki metni kopyalayıp %s adresine gönderin</string>
+  <string name="copyTextToEmail">Yukarıdaki metni kopyalayıp %s adresine gönderin</string>
   <string name="waitForSignupHelp">Kaydınızı tamamlamanıza yardımcı olmak için kısa bir süre içinde size geri döneceğiz.</string>
   <string name="accountConfirmed">%s kullanıcısı başarıyla onaylandı.</string>
   <string name="accountCanLogin">Artık %s olarak giriş yapabilirsiniz.</string>

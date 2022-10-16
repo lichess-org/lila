@@ -228,7 +228,7 @@
   <string name="refreshInboxAfterFiveMinutes">Așteptați 5 minute și reîncărcați emailurile primite.</string>
   <string name="checkSpamFolder">De asemenea, verificați folderul de spam, ar putea ajunge acolo. În acel caz, marcați-l ca nefiind spam.</string>
   <string name="emailForSignupHelp">Dacă niciuna dintre variantele anterioare nu functioneaza, trimiteți-ne acest email:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Dați copy-paste la textul de mai sus și trimiteți-l la %s</string>
+  <string name="copyTextToEmail">Dați copy-paste la textul de mai sus și trimiteți-l la %s</string>
   <string name="waitForSignupHelp">Vom reveni în curând cu un răspuns pentru a vă ajuta să finalizați înregistrarea.</string>
   <string name="accountConfirmed">Utilizatorul %s a fost confirmat cu succes.</string>
   <string name="accountCanLogin">Vă puteți autentifica chiar acum ca %s.</string>

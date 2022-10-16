@@ -239,7 +239,7 @@
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
   <string name="checkSpamFolder">Также проверьте папку со спамом, письмо может оказаться там. Если это так, пометьте его как не спам.</string>
   <string name="emailForSignupHelp">Если ничего не получилось, отправьте нам это письмо:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Скопируйте и вставьте текст выше и отправьте его по адресу %s</string>
+  <string name="copyTextToEmail">Скопируйте и вставьте текст выше и отправьте его по адресу %s</string>
   <string name="waitForSignupHelp">Мы скоро вернёмся к вам чтобы помочь завершить регистрацию.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>

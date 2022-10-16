@@ -217,7 +217,7 @@
   <string name="refreshInboxAfterFiveMinutes">Wag 5 minute en verfris jou e-pos.</string>
   <string name="checkSpamFolder">Kyk ook in jou strooipos lêer, dit mag dalk daarin opeinding. In dien dit die geval is, merk dit as nie strooipos nie.</string>
   <string name="emailForSignupHelp">Indien niks werk nie, stuur die volgende boodskap:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Kopieer en plak die teks hierbo en stuur dit na %s</string>
+  <string name="copyTextToEmail">Kopieer en plak die teks hierbo en stuur dit na %s</string>
   <string name="waitForSignupHelp">Ons sal spoedig na jou terugkom en jou help met die intekenproses.</string>
   <string name="accountConfirmed">Die gebruiker %s is bevestig.</string>
   <string name="accountCanLogin">Jy kan nou inteken as %s.</string>

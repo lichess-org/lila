@@ -217,7 +217,7 @@
   <string name="refreshInboxAfterFiveMinutes">Vent fem minutter før du oppdaterer innboksen.</string>
   <string name="checkSpamFolder">Sjekk om meldingen havnet i søppelpostmappen. Merk i tilfelle meldingen som ikke søppelpost.</string>
   <string name="emailForSignupHelp">Send denne meldingen til oss som siste utvei:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Kopier og lim inn teksten ovenfor og send den til %s</string>
+  <string name="copyTextToEmail">Kopier og lim inn teksten ovenfor og send den til %s</string>
   <string name="waitForSignupHelp">Vi tar snart kontakt og hjelper deg med registreringen.</string>
   <string name="accountConfirmed">Brukeren %s er bekreftet.</string>
   <string name="accountCanLogin">Du kan nå logge inn som %s.</string>

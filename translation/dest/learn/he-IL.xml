@@ -87,7 +87,7 @@
   <string name="checkInOneIntro">כדי לעשות שח, עליך להתקיף את מלך היריב. הוא חייב להתגונן!</string>
   <string name="checkInOneGoal">האם את/ה יכול/ה לאיים על מלך היריב במסע יחיד!</string>
   <string name="checkInOneComplete">יפה, איימת בשח ויריבך חייב להגן על מלכו!</string>
-  <string name="outOfCheck">ההחלצות מאיום שח</string>
+  <string name="outOfCheck">החלצות מאיום שח</string>
   <string name="defendYourKing">הגנו על מלככם</string>
   <string name="outOfCheckIntro">את/ה בשח! עליך או לברוח עם המלך או להגן עליו.</string>
   <string name="escapeWithTheKing">ברחו עם מלככם!</string>
@@ -154,10 +154,10 @@
 רגלי = 1
 המלך לא יסולא בפז! אובדן המלך משמעותו הפסד במשחק.</string>
   <string name="queenOverBishop">עדיף לקחת מהיריב כלים יותר חזקים! מלכה &gt; רץ</string>
-  <string name="pieceValueExchange">אכול את הכלי החשוב ביותר!
-אל תקריב כלי שלך 
+  <string name="pieceValueExchange">אכלו את הכלי החשוב ביותר!
+אל תקריבו כלי שלכם
 כדי לאכול כלי יריב שערכו פחות.</string>
-  <string name="pieceValueLegal">קח את הכלי עם הערך הגבוה ביותר! וודא שהמהלך שלך חוקי!</string>
+  <string name="pieceValueLegal">קחו את הכלי עם הערך הגבוה ביותר! ודאו שהמהלך שלכם חוקי!</string>
   <string name="takeThePieceWithTheHighestValue">קח/י את הכלי החזק ביותר!</string>
   <string name="pieceValueComplete">יפה, את/ה מכיר/ה את הערך של הכלים! 
 מלכה=9, 

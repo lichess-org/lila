@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">ساخت توکن جدید</string>
+  <string name="tokenGrantsPermission">توکن اجازه دسترسی دیگران به اکانت شما را میدهد.</string>
+  <string name="carefullySelect">در انتخاب دسترسی های داده شده دقت کنید.</string>
+  <string name="tokenDescription">توضیحات توکن</string>
+  <string name="rememberTokenUse">میدانید این توکن برای چه کاربردی است</string>
+  <string name="whatTheTokenCanDo">انتخاب دسترسی های توکن:</string>
+  <string name="doNotShareIt">این توکن دسترسی به اکانت شما را فراهم میکند. با فرد دیگری به اشتراک گذاشته نشود!</string>
+  <string name="copyTokenNow">مطمعن شوید توکن را هم اکنون ذخیره کرده اید. در آینده دسترسی به آن امکان پذیر نیست!</string>
   <string name="preferenceRead">خواندن تنظیمات</string>
   <string name="preferenceWrite">ایجاد تنظیمات</string>
   <string name="emailRead">خواندن ایمیل</string>

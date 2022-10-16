@@ -203,7 +203,7 @@
   <string name="refreshInboxAfterFiveMinutes">Tunggu 5 menit dan refresh kotak masuk Anda.</string>
   <string name="checkSpamFolder">Cek juga folder spam Anda, mungkin ada disana. Jika ada, tandai sebagai bukan spam.</string>
   <string name="emailForSignupHelp">Jika semuanya gagal, kirim kami email ini:</string>
-  <string name="copyTextToEmail" comment="copyTextToEmail&#10;%s is the Lichess support email address, contact@lichess.org">Salin dan tempel teks diatas dan kirimkan ke %s</string>
+  <string name="copyTextToEmail">Salin dan tempel teks diatas dan kirimkan ke %s</string>
   <string name="waitForSignupHelp">Kami akan kembali sejenak untuk membantu penyelesaian signup anda.</string>
   <string name="accountConfirmed">User %s berhasil dikonfirmasi.</string>
   <string name="accountCanLogin">Anda sekarang dapat masuk sebagai %s.</string>

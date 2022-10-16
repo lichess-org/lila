@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Switserse Toernooie</string>
+  <string name="swissTournaments">Switserse toernooie</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Beloer die ronde</item>
     <item quantity="other">Beloer al %s rondes</item>
@@ -36,6 +36,16 @@
   <string name="numberOfRoundsHelp">\'n Onewe aantal rondes voorsien optimale kleur balans.</string>
   <string name="roundInterval">Interval tussen rondes</string>
   <string name="forbiddenPairings">Voorbode indelings</string>
+  <string name="pointsCalculationQ">Hoe word punte toegeken?</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger telling</string>
+  <string name="tiebreaksCalculationA">Met die %s.
+Tel die tellings van die spelers wat deur die speler gewen is op asook halfte van die spelers se tellings waarteen die speler gelykop gespeel het.</string>
+  <string name="pairingsQ">Hoe word die indelings bepaal?</string>
+  <string name="dutchSystem">Duitse stelsel</string>
+  <string name="FIDEHandbook">FIDE handboek</string>
+  <string name="pairingsA">Met die %1$s, geïmplementeer deur %2$s, ooreenstemmend met die %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Wat gebeur as die toernooi meer rondes as spelers het?</string>
+  <string name="moreRoundsThanPlayersA">Wanneer al moontlike indelings gespeel is, sal die toernooi geëndig word en `n wenner verklaar word.</string>
   <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">%1$s / %2$s rondte Switsers</item>
     <item quantity="other">%1$s / %2$s rondtes Switsers</item>

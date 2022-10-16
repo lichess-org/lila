@@ -8,7 +8,7 @@
   <string name="whatTheTokenCanDo">מה ניתן לעשות עם התו בשמך:</string>
   <string name="doNotShareIt">התו יתן גישה לחשבונך. בשום אופן אל תשתפו אותו עם אחרים!</string>
   <string name="copyTokenNow">זכרו להעתיק את תו הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
-  <string name="preferenceRead">הקראת העדפות</string>
+  <string name="preferenceRead">קריאת העדפות</string>
   <string name="preferenceWrite">כתיבת העדפה</string>
   <string name="emailRead">קריאת כתובת אימייל</string>
   <string name="challengeRead">קריאת הזמנות ממתינות</string>
