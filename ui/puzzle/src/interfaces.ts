@@ -155,7 +155,6 @@ export interface Angle {
   opening?: {
     key: string;
     name: string;
-    paragraph?: string;
   };
 }
 

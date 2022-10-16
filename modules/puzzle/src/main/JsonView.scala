@@ -22,8 +22,7 @@ final class JsonView(
       puzzle: Puzzle,
       angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay],
-      user: Option[User],
-      openingParagraph: Option[String]
+      user: Option[User]
   )(implicit lang: Lang): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,
@@ -51,7 +50,7 @@ final class JsonView(
               )
               .add("chapter" -> a.asTheme.flatMap(PuzzleTheme.studyChapterIds.get))
               .add("opening" -> a.opening.map { op =>
-                Json.obj("key" -> op.key, "name" -> op.name, "paragraph" -> openingParagraph)
+                Json.obj("key" -> op.key, "name" -> op.name)
               })
           }
         )

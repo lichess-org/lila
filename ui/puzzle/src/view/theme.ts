@@ -1,9 +1,8 @@
+import * as router from 'common/router';
 import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { renderColorForm } from './side';
-import * as router from 'common/router';
-import { innerHTML } from 'common/richText';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
@@ -30,29 +29,22 @@ export default function theme(ctrl: Controller): MaybeVNode {
             ['« ', angle.name]
           )
         ),
-        ...(angle.opening
-          ? [
-              h('p', {
-                hook: innerHTML(angle.opening.paragraph, () => angle.opening!.paragraph!),
-              }),
-              // h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, ['Learn more about ', angle.opening.name]),
-            ]
-          : [
-              h('p', [
-                angle.desc,
-                angle.chapter &&
-                  h(
-                    'a.puzzle__side__theme__chapter.text',
-                    {
-                      attrs: {
-                        href: `${studyUrl}/${angle.chapter}`,
-                        target: '_blank',
-                        rel: 'noopener',
-                      },
+        angle.opening
+          ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, ['Learn more about ', angle.opening.name])
+          : h('p', [
+              angle.desc,
+              angle.chapter &&
+                h(
+                  'a.puzzle__side__theme__chapter.text',
+                  {
+                    attrs: {
+                      href: `${studyUrl}/${angle.chapter}`,
+                      target: '_blank',
+                      rel: 'noopener',
                     },
-                    [' ', ctrl.trans.noarg('example')]
-                  ),
-              ]),
+                  },
+                  [' ', ctrl.trans.noarg('example')]
+                ),
             ]),
         showEditor
           ? h('div.puzzle__themes', editor(ctrl))

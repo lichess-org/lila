@@ -17,7 +17,6 @@ import lila.user.User
 
 case class OpeningWiki(
     markup: Option[String],
-    firstParagraph: Option[String],
     revisions: List[OpeningWiki.Revision]
 ) {
   def markupForMove(move: String): Option[String] =
@@ -39,9 +38,6 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
   } yield wiki.copy(revisions = (~revisions) take 25)
-
-  def firstParagraph(op: FullOpening): Fu[Option[String]] =
-    apply(op, false).dmap(_.firstParagraph)
 
   def write(op: FullOpening, text: String, by: User): Funit =
     coll.update
@@ -113,7 +109,6 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
     text    = lastRev.map(_.text)
   } yield OpeningWiki(
     text map markdown.render(key),
-    text.flatMap(_.value.split("\n").headOption).map(Markdown) map markdown.render(key),
     Nil
   )
 
