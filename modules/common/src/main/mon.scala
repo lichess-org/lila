@@ -309,7 +309,8 @@ object mon {
     def gameStream(event: String) = counter("bot.gameStream").withTag("event", event)
   }
   object cheat {
-    val cssBot                       = counter("cheat.cssBot").withoutTags()
+    def selfReport(name: String, auth: Boolean) =
+      counter("cheat.selfReport").withTags(tags("name" -> name, "auth" -> auth))
     val holdAlert                    = counter("cheat.holdAlert").withoutTags()
     def autoAnalysis(reason: String) = counter("cheat.autoAnalysis").withTag("reason", reason)
     val autoMark                     = counter("cheat.autoMark.count").withoutTags()

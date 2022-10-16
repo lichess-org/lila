@@ -30,7 +30,6 @@ final class SelfReport(
   ): Funit =
     userId ?? userRepo.named map { user =>
       val known = user.exists(_.marks.engine)
-      lila.mon.cheat.cssBot.increment()
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
@@ -40,6 +39,7 @@ final class SelfReport(
             s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
           }
           user.filter(u => onceEvery(u.id)) foreach { u =>
+            lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,
               path = fullId.value,
