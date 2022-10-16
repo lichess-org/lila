@@ -98,14 +98,6 @@ final class Main(
       NoContent.fuccess
     }
 
-  /** Event monitoring endpoint
-    */
-  def jsmon(event: String) =
-    Action {
-      lila.mon.http.jsmon(event).increment()
-      NoContent
-    }
-
   val robots = Action { req =>
     Ok {
       if (env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd) """User-agent: *

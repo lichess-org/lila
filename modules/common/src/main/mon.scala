@@ -35,7 +35,6 @@ object mon {
     def csrfError(tpe: String, action: String, client: String) =
       counter("http.csrf.error").withTags(tags("type" -> tpe, "action" -> action, "client" -> client))
     val fingerPrint          = timer("http.fingerPrint.time").withoutTags()
-    def jsmon(event: String) = counter("http.jsmon").withTag("event", event)
     val requestHandler       = timer("http.requestHandler").withoutTags()
     def router(path: String) = timer("http.router").withTag("path", path)
   }

@@ -840,7 +840,6 @@ POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 
 GET   /prismic-preview                 controllers.Blog.preview(token)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
-POST  /jsmon/:event                    controllers.Main.jsmon(event)
 
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, path="public", file)
 GET   /assets/*file                    controllers.ExternalAssets.at(path="public", file)
