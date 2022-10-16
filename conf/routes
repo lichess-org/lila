@@ -117,6 +117,7 @@ GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "a
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
 GET   /blog/community/$lang<[\w-]{2,6}> controllers.Ublog.communityLangBC(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
+GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
@@ -838,7 +839,6 @@ POST  /dgt/config/token                controllers.DgtCtrl.generateToken
 # Accessibility
 POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 
-GET   /prismic-preview                 controllers.Blog.preview(token)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, path="public", file)
