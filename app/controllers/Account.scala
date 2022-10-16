@@ -69,26 +69,25 @@ final class Account(
     Auth { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = _ => {
-          env.pref.api.getPref(me) zip
-            env.round.proxyRepo.urgentGames(me) zip
-            env.challenge.api.countInFor.get(me.id) zip
-            env.playban.api.currentBan(me.id) map { case (((prefs, povs), nbChallenges), playban) =>
-              Ok {
-                import lila.pref.JsonView._
-                env.user.jsonView.full(me, withOnline = true, withRating = ctx.pref.showRatings) ++ Json
-                  .obj(
-                    "prefs"        -> prefs,
-                    "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-                    "nbChallenges" -> nbChallenges
-                  )
-                  .add("kid" -> me.kid)
-                  .add("troll" -> me.marks.troll)
-                  .add("playban" -> playban)
-                  .add("announce" -> AnnounceStore.get.map(_.json))
-              }.withHeaders(CACHE_CONTROL -> "max-age=15")
-            }
-        }
+        api = _ =>
+          for {
+            povs         <- env.round.proxyRepo urgentGames me
+            nbChallenges <- env.challenge.api.countInFor get me.id
+            playban      <- env.playban.api currentBan me.id
+          } yield Ok {
+            import lila.pref.JsonView._
+            env.user.jsonView.full(me, withOnline = false, withRating = ctx.pref.showRatings) ++ Json
+              .obj(
+                "prefs"        -> ctx.pref,
+                "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
+                "nbChallenges" -> nbChallenges,
+                "online"       -> true
+              )
+              .add("kid" -> me.kid)
+              .add("troll" -> me.marks.troll)
+              .add("playban" -> playban)
+              .add("announce" -> AnnounceStore.get.map(_.json))
+          }.withHeaders(CACHE_CONTROL -> "max-age=15")
       )
     }
 
