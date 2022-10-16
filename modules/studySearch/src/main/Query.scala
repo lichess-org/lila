@@ -1,6 +1,8 @@
 package lila.studySearch
 
-private[studySearch] case class Query(text: String, userId: Option[String])
+import lila.user.User
+
+private[studySearch] case class Query(text: String, userId: Option[User.ID])
 
 object Query {
 

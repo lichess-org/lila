@@ -34,7 +34,7 @@ final class Env(
   lazy val api: ForumSearchApi = wire[ForumSearchApi]
 
   def apply(text: String, page: Int, troll: Boolean) =
-    paginatorBuilder(Query(text, troll), page)
+    paginatorBuilder(Query(text take 100, troll), page)
 
   def cli =
     new lila.common.Cli {
