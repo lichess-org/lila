@@ -1,6 +1,7 @@
 import { Work, Redraw } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
+import { randomToken } from 'common/random';
 import { readNdJson } from 'common/ndjson';
 
 export enum CevalState {
@@ -234,7 +235,7 @@ interface ExternalEngineOutput {
 
 export class ExternalWorker implements CevalWorker {
   private state = CevalState.Initial;
-  private session = Math.random().toString(36).slice(2, 12);
+  private sessionId = randomToken();
   private req: AbortController | undefined;
 
   constructor(private opts: ExternalEngine, private redraw: Redraw) {}
@@ -266,7 +267,7 @@ export class ExternalWorker implements CevalWorker {
         body: JSON.stringify({
           clientSecret: this.opts.clientSecret,
           work: {
-            sessionId: this.session,
+            sessionId: this.sessionId,
             threads: work.threads,
             hash: work.hashSize || 16,
             deep,
