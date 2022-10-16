@@ -849,7 +849,3 @@ GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
 GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username)
-
-# Should be handled by nginx mostly
-OPTIONS /                              controllers.Options.root
-OPTIONS /*url                          controllers.Options.all(url)

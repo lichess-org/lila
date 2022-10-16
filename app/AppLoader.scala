@@ -67,7 +67,8 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
       router,
       httpErrorHandler,
       httpConfiguration,
-      httpFilters
+      httpFilters,
+      controllerComponents
     )
 
   implicit def system = actorSystem
@@ -132,7 +133,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val notifyC: Notify                = wire[Notify]
   lazy val oAuth: OAuth                   = wire[OAuth]
   lazy val oAuthToken: OAuthToken         = wire[OAuthToken]
-  lazy val options: Options               = wire[Options]
   lazy val page: Page                     = wire[Page]
   lazy val plan: Plan                     = wire[Plan]
   lazy val practice: Practice             = wire[Practice]
