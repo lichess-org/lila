@@ -31,7 +31,7 @@ final class LilaHttpRequestHandler(
       if (lila.common.HTTPRequest.isApiOrApp(req))
         Results.NoContent.withHeaders(
           "Allow"                  -> ResponseHeaders.allowMethods,
-          "Access-Control-Max-Age" -> "1728000"
+          "Access-Control-Max-Age" -> "86400"
         )
       else Results.NotFound
     }
