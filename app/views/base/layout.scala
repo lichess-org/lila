@@ -63,7 +63,7 @@ object layout {
   private def boardPreload(implicit ctx: Context) = frag(
     preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d option
-      preload(s"images/staunton/board/${ctx.currentTheme3d.file}", "image", crossorigin = false)
+      preload(assetUrl(s"images/staunton/board/${ctx.currentTheme3d.file}"), "image", crossorigin = false)
   )
   private def piecesPreload(implicit ctx: Context) =
     env.pieceImageExternal.get() option raw {
