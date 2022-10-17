@@ -27,7 +27,7 @@ final class InsightApi(
       case 0 => fuccess(InsightUser(0, Nil, Nil))
       case count =>
         storage openings userId map { case (families, openings) =>
-          InsightUser(count, families, openings).pp
+          InsightUser(count, families, openings)
         }
     }
 
