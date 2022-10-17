@@ -159,8 +159,9 @@ object faq {
             )
           ),
           p(
-            watchIMRosenCheckmateEnPassant(
-              a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")(checkmateEnPassant()))
+            watchIMRosenCheckmate(),
+            a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")("en passant"),
+            "."
           )
         ),
         question(

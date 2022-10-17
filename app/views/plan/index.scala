@@ -290,7 +290,9 @@ object index {
         ),
         dt(otherMethods()),
         dd(
-          lichessIs(a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")(registeredWithBenevity())),
+          lichessIsRegisteredWith(),
+          a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity"),
+          ".",
           br,
           views.html.site.contact.contactEmailLinkEmpty()(bankTransfers()),
           ".",
