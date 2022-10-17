@@ -76,7 +76,8 @@ final class Account(
             playban      <- env.playban.api currentBan me.id
           } yield Ok {
             import lila.pref.JsonView._
-            env.user.jsonView.full(me, withOnline = false, withRating = ctx.pref.showRatings) ++ Json
+            env.user.jsonView
+              .full(me, withOnline = false, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
               .obj(
                 "prefs"        -> ctx.pref,
                 "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),

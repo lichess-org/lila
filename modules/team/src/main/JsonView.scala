@@ -34,7 +34,7 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView) {
   implicit val requestWithUserWrites = OWrites[RequestWithUser] { case RequestWithUser(req, user) =>
     Json.obj(
       "request" -> req,
-      "user"    -> userJson.full(user, withOnline = false, withRating = true)
+      "user"    -> userJson.full(user, withOnline = false, withRating = true, withProfile = false)
     )
   }
 }

@@ -76,7 +76,7 @@ final class Api(
       UsersRateLimitPerIP(ip, cost = cost) {
         lila.mon.api.users.increment(cost.toLong)
         env.user.repo named usernames map {
-          _.map { env.user.jsonView.full(_, none, withOnline = false, withRating = true) }
+          _.map { env.user.jsonView.full(_, none, withOnline = false, withRating = true, withProfile = true) }
         } map toApiResult map toHttp
       }(rateLimitedFu)
     }
