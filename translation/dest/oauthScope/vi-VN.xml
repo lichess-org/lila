@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">Access token API cá nhân mới</string>
+  <string name="tokenGrantsPermission">Một token cấp cho người khác quyền sử dụng tài khoản của bạn.</string>
+  <string name="carefullySelect">Cẩn thận khi lựa chọn những gì được phép làm thay bạn.</string>
+  <string name="tokenDescription">Mô tả token</string>
+  <string name="rememberTokenUse">Vì vậy bạn nhớ được token này dùng để</string>
+  <string name="whatTheTokenCanDo">Những gì token có thể làm thay bạn:</string>
+  <string name="doNotShareIt">Token sẽ cấp quyền truy cập vào tài khoản của bạn. KHÔNG chia sẻ nó với bất kỳ ai!</string>
+</resources>
