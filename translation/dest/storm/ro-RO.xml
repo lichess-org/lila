@@ -28,7 +28,7 @@
   <string name="time">Timp</string>
   <string name="timePerMove">Timp per mutare</string>
   <string name="highestSolved">Cel mai bun rezolvat</string>
-  <string name="puzzlesPlayed">Porbleme de șah jucate</string>
+  <string name="puzzlesPlayed">Probleme jucate</string>
   <string name="newRun">Încercare nouă (tasta: Space)</string>
   <string name="endRun">Încheie încercarea (tasta: Enter)</string>
   <string name="highscores">Scoruri de top</string>
@@ -54,6 +54,7 @@
   <string name="skipExplanation">Sări peste această mutare pentru a păstra combo-ul! Funcționează o singură dată pe cursă.</string>
   <string name="failedPuzzles">Probleme eșuate</string>
   <string name="slowPuzzles">Probleme lente</string>
+  <string name="skippedPuzzle">Probleme sărite</string>
   <string name="thisWeek">Săptămâna aceasta</string>
   <string name="thisMonth">Luna aceasta</string>
   <string name="allTime">De la început</string>
