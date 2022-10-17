@@ -34,9 +34,7 @@ object mon {
     val userGamesCost   = counter("http.userGames.cost").withoutTags()
     def csrfError(tpe: String, action: String, client: String) =
       counter("http.csrf.error").withTags(tags("type" -> tpe, "action" -> action, "client" -> client))
-    val fingerPrint          = timer("http.fingerPrint.time").withoutTags()
-    val requestHandler       = timer("http.requestHandler").withoutTags()
-    def router(path: String) = timer("http.router").withTag("path", path)
+    val fingerPrint = timer("http.fingerPrint.time").withoutTags()
   }
   object syncache {
     def miss(name: String)    = counter("syncache.miss").withTag("name", name)

@@ -15,14 +15,8 @@ final class LilaHttpRequestHandler(
     controllerComponents: ControllerComponents
 ) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters) {
 
-  private val monitorPaths = Set("/tv", "/robots.txt")
-
   override def routeRequest(request: RequestHeader): Option[Handler] =
-    if (monitorPaths(request.path))
-      Chronometer.syncMon(_.http.router(request.path)) {
-        router handlerFor request
-      }
-    else if (request.method == "OPTIONS") optionsHandler.some
+    if (request.method == "OPTIONS") optionsHandler.some
     else router handlerFor request
 
   // should be handled by nginx in production
