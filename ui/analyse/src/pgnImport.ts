@@ -1,6 +1,6 @@
 import { AnalyseData, Game } from './interfaces';
 import { makeFen } from 'chessops/fen';
-import { makeSanAndPlay, parseSan } from 'chessops/san';
+import { makeSan, makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeUci, Rules } from 'chessops';
 import { makeVariant, parsePgn, parseVariant, startingPosition } from 'chessops/pgn';
 import { Player } from 'game';
@@ -21,27 +21,41 @@ export default function (pgn: string): Partial<AnalyseData> {
       children: [],
     },
   ];
-  const mainline = Array.from(game.moves.mainline());
   const pos = start;
-  mainline.forEach((node, index) => {
-    const ply = initialPly + index + 1;
-    const move = parseSan(pos, node.san);
-    if (!move) throw `Can't replay move ${node.san} at ply ${ply}`;
-    const san = makeSanAndPlay(pos, move);
+  let node = game.moves;
+  let turns = 0;
+  console.log([...game.moves.mainline()]);
+  for (turns = 0; node.children.length; turns += 1) {
+    const ply = initialPly + turns + 1;
+    const [mainlineMove, ...children] = node.children;
+    const move = parseSan(pos, mainlineMove.data.san);
+    if (!move) throw `Can't replay parent move ${mainlineMove.data.san} at ply ${ply}`;
     treeParts.push({
       id: scalachessCharPair(move),
       ply,
       fen: makeFen(pos.toSetup()),
-      children: [],
-      san,
+      children: children.map(child => {
+        const move = parseSan(pos, child.data.san);
+        if (!move) throw `Can't replay child move ${child.data.san} at ply ${ply}`;
+        return {
+          id: scalachessCharPair(move),
+          ply,
+          fen,
+          san: makeSan(pos, move),
+          children: [],
+        };
+      }),
+      san: makeSanAndPlay(pos, move),
       uci: makeUci(move),
       check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
     });
-  });
+    node = mainlineMove;
+  }
   const rules: Rules = parseVariant(headers.get('variant')) || 'chess';
   const variantKey: VariantKey = rulesToVariantKey[rules] || rules;
   const variantName = makeVariant(rules) || variantKey;
   // TODO Improve types so that analysis data != game data
+  console.log(6);
   return {
     game: {
       fen,
@@ -49,7 +63,7 @@ export default function (pgn: string): Partial<AnalyseData> {
       opening: undefined, // TODO
       player: start.turn,
       status: { id: 20, name: 'started' },
-      turns: mainline.length,
+      turns,
       variant: {
         key: variantKey,
         name: variantName,
