@@ -88,7 +88,7 @@
   <string name="averageRatingX">דירוג ממוצע: %s</string>
   <string name="recentGames">משחקים אחרונים</string>
   <string name="topGames">המשחקים המובילים</string>
-  <string name="masterDbExplanation">שני מיליון משחקים על לוח פיזי של %1$s+ שחקני פידה מ %2$s עד %3$s</string>
+  <string name="masterDbExplanation">משחקים על־גבי לוח של שחקנים עם דירוג פיד״ה של %1$s+ מ-%2$s עד %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">מט בעוד חצי מהלך %s</item>
     <item quantity="two">מט בעוד %s חצאי מהלכים</item>
