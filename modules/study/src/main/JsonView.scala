@@ -24,16 +24,17 @@ final class JsonView(
       me: Option[User]
   ) = {
 
-    def allowed(selection: Settings.UserSelection): Boolean =
-      Settings.UserSelection.allows(selection, study, me.map(_.id))
+    def allowed(selection: Settings => Settings.UserSelection): Boolean =
+      Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
 
     me.?? { studyRepo.liked(study, _) } map { liked =>
       studyWrites.writes(study) ++ Json
         .obj(
           "liked" -> liked,
           "features" -> Json.obj(
-            "cloneable"   -> allowed(study.settings.cloneable),
-            "chat"        -> allowed(study.settings.chat),
+            "cloneable"   -> allowed(_.cloneable),
+            "shareable"   -> allowed(_.shareable),
+            "chat"        -> allowed(_.chat),
             "sticky"      -> study.settings.sticky,
             "description" -> study.settings.description
           ),
@@ -46,8 +47,8 @@ final class JsonView(
               "setup"   -> currentChapter.setup,
               "tags"    -> currentChapter.tags,
               "features" -> Json.obj(
-                "computer" -> allowed(study.settings.computer),
-                "explorer" -> allowed(study.settings.explorer)
+                "computer" -> allowed(_.computer),
+                "explorer" -> allowed(_.explorer)
               )
             )
             .add("description", currentChapter.description)

@@ -332,6 +332,7 @@ object BSONHandlers {
         computer = r.get[UserSelection]("computer"),
         explorer = r.get[UserSelection]("explorer"),
         cloneable = r.getO[UserSelection]("cloneable") | Settings.init.cloneable,
+        shareable = r.getO[UserSelection]("shareable") | Settings.init.shareable,
         chat = r.getO[UserSelection]("chat") | Settings.init.chat,
         sticky = r.getO[Boolean]("sticky") | Settings.init.sticky,
         description = r.getO[Boolean]("description") | Settings.init.description

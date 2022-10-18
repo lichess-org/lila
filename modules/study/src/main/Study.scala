@@ -135,24 +135,17 @@ object Study {
   case class Data(
       name: String,
       visibility: String,
-      computer: String,
-      explorer: String,
-      cloneable: String,
-      chat: String,
+      computer: Settings.UserSelection,
+      explorer: Settings.UserSelection,
+      cloneable: Settings.UserSelection,
+      shareable: Settings.UserSelection,
+      chat: Settings.UserSelection,
       sticky: String,
       description: String
   ) {
-    import Settings._
     def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
     def settings =
-      for {
-        comp <- UserSelection.byKey get computer
-        expl <- UserSelection.byKey get explorer
-        clon <- UserSelection.byKey get cloneable
-        chat <- UserSelection.byKey get chat
-        stic = sticky == "true"
-        desc = description == "true"
-      } yield Settings(comp, expl, clon, chat, stic, desc)
+      Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
   }
 
   case class WithChapter(study: Study, chapter: Chapter)

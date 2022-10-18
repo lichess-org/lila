@@ -810,7 +810,7 @@ final class StudyApi(
   def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) =
     sequenceStudy(studyId) { study =>
       canActAsOwner(study, who.u) flatMap { asOwner =>
-        data.settings.ifTrue(asOwner) ?? { settings =>
+        asOwner.option(data.settings) ?? { settings =>
           val newStudy = study.copy(
             name = Study toName data.name,
             settings = settings,

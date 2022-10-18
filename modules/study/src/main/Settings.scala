@@ -6,6 +6,7 @@ case class Settings(
     computer: Settings.UserSelection,
     explorer: Settings.UserSelection,
     cloneable: Settings.UserSelection,
+    shareable: Settings.UserSelection,
     chat: Settings.UserSelection,
     sticky: Boolean,
     description: Boolean
@@ -17,6 +18,7 @@ object Settings {
     computer = UserSelection.Everyone,
     explorer = UserSelection.Everyone,
     cloneable = UserSelection.Everyone,
+    shareable = UserSelection.Everyone,
     chat = UserSelection.Member,
     sticky = true,
     description = false

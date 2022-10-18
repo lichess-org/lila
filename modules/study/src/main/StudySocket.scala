@@ -453,9 +453,10 @@ object StudySocket {
         case class SetRole(userId: String, role: String)
         implicit val SetRoleReader: Reads[SetRole]               = Json.reads[SetRole]
         implicit val ChapterModeReader: Reads[ChapterMaker.Mode] = optRead(ChapterMaker.Mode.apply)
-        implicit val ChapterOrientationReader: Reads[ChapterMaker.Orientation] = stringRead(
-          ChapterMaker.Orientation.apply
-        )
+        implicit val ChapterOrientationReader: Reads[ChapterMaker.Orientation] =
+          stringRead(ChapterMaker.Orientation.apply)
+        implicit val UserSelectionReader: Reads[Settings.UserSelection] =
+          optRead(Settings.UserSelection.byKey.get)
         implicit val VariantReader: Reads[chess.variant.Variant] = optRead(chess.variant.Variant.apply)
         implicit val ChapterDataReader: Reads[ChapterMaker.Data] = Json.reads[ChapterMaker.Data]
         implicit val ChapterEditDataReader: Reads[ChapterMaker.EditData] = Json.reads[ChapterMaker.EditData]

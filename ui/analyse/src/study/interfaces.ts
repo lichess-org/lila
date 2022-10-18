@@ -127,6 +127,7 @@ export interface StudySettings {
   computer: UserSelection;
   explorer: UserSelection;
   cloneable: UserSelection;
+  shareable: UserSelection;
   chat: UserSelection;
   sticky: boolean;
   description: boolean;
@@ -144,6 +145,7 @@ export interface Position {
 
 export interface StudyFeatures {
   cloneable: boolean;
+  shareable: boolean;
   chat: boolean;
   sticky: boolean;
 }
