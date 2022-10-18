@@ -24,9 +24,9 @@ export default function (pgn: string): Partial<AnalyseData> {
   const pos = start;
   let node = game.moves;
   let turns = 0;
-  console.log([...game.moves.mainline()]);
-  for (turns = 0; node.children.length; turns += 1) {
-    const ply = initialPly + turns + 1;
+  while (node.children.length) {
+    turns += 1;
+    const ply = initialPly + turns;
     const [mainlineMove, ...children] = node.children;
     const move = parseSan(pos, mainlineMove.data.san);
     if (!move) throw `Can't replay parent move ${mainlineMove.data.san} at ply ${ply}`;
@@ -55,7 +55,6 @@ export default function (pgn: string): Partial<AnalyseData> {
   const variantKey: VariantKey = rulesToVariantKey[rules] || rules;
   const variantName = makeVariant(rules) || variantKey;
   // TODO Improve types so that analysis data != game data
-  console.log(6);
   return {
     game: {
       fen,
