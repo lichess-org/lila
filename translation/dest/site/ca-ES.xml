@@ -286,7 +286,7 @@
   <string name="incrementInSeconds">Increment en segons</string>
   <string name="freeOnlineChess">Escacs en línia gratis</string>
   <plurals name="nbRated">
-    <item quantity="one">%s puntuades</item>
+    <item quantity="one">%s puntuada</item>
     <item quantity="other">%s puntuades</item>
   </plurals>
   <plurals name="nbWins">
