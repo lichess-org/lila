@@ -239,17 +239,19 @@ final class Tournament(
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
       else
-        JoinLimitPerUser(me.id) {
-          val data = TournamentForm.joinForm
-            .bindFromRequest()
-            .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
-          doJoin(id, data, me) map { result =>
-            result.error match {
-              case None        => jsonOkResult
-              case Some(error) => BadRequest(Json.obj("error" -> error))
+        NoPlayban(me.id.some) {
+          JoinLimitPerUser(me.id) {
+            val data = TournamentForm.joinForm
+              .bindFromRequest()
+              .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+            doJoin(id, data, me) map { result =>
+              result.error match {
+                case None        => jsonOkResult
+                case Some(error) => BadRequest(Json.obj("error" -> error))
+              }
             }
-          }
-        }(rateLimitedJson.fuccess)
+          }(rateLimitedJson.fuccess)
+        }
     }
 
   private def doJoin(tourId: Tour.ID, data: TournamentForm.TournamentJoin, me: UserModel) =

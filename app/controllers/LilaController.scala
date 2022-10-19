@@ -341,17 +341,22 @@ abstract private[controllers] class LilaController(val env: Env)
       _.fold(a) { ban =>
         negotiate(
           html = keyPages.home(Results.Forbidden),
-          api = _ =>
-            fuccess {
-              Forbidden(
-                jsonError(
-                  s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."
-                )
-              ) as JSON
-            }
+          api = _ => playbanJsonError(ban)
         )
       }
     }
+  protected def NoPlayban(userId: Option[UserModel.ID])(a: => Fu[Result]): Fu[Result] =
+    userId.??(env.playban.api.currentBan) flatMap {
+      _.fold(a)(playbanJsonError)
+    }
+
+  private def playbanJsonError(ban: lila.playban.TempBan) = fuccess {
+    Forbidden(
+      jsonError(
+        s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."
+      )
+    ) as JSON
+  }
 
   protected def NoCurrentGame(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(env.preloader.currentGameMyTurn) flatMap {
