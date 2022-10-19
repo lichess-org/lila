@@ -17,8 +17,8 @@ export interface StudyShareCtrl {
   onMainline: () => boolean;
   withPly: Prop<boolean>;
   relay: RelayCtrl | undefined;
-  cloneable: boolean;
-  shareable: boolean;
+  cloneable(): boolean;
+  shareable(): boolean;
   redraw: () => void;
   trans: Trans;
 }
@@ -76,8 +76,8 @@ export function ctrl(
     onMainline,
     withPly,
     relay,
-    cloneable: data.features.cloneable,
-    shareable: data.features.shareable,
+    cloneable: () => data.features.cloneable,
+    shareable: () => data.features.shareable,
     redraw,
     trans,
   };
@@ -93,10 +93,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
     h('p.form-help.text', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'));
   return h(
     'div.study__share',
-    ctrl.shareable
+    ctrl.shareable()
       ? [
           h('div.downloads', [
-            ctrl.cloneable
+            ctrl.cloneable()
               ? h(
                   'a.button.text',
                   {
