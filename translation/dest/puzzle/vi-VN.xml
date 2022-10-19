@@ -2,7 +2,7 @@
 <resources>
   <string name="puzzles">Câu đố</string>
   <string name="puzzleThemes">Chủ đề câu đố</string>
-  <string name="recommended">Khuyến nghị</string>
+  <string name="recommended">Đề xuất</string>
   <string name="phases">Giai đoạn</string>
   <string name="motifs">Mô típ</string>
   <string name="advanced">Nâng cao</string>
@@ -11,7 +11,7 @@
   <string name="goals">Mục tiêu</string>
   <string name="origin">Nguồn gốc</string>
   <string name="specialMoves">Nước đi đặc biệt</string>
-  <string name="didYouLikeThisPuzzle">Bạn có thích câu đố này?</string>
+  <string name="didYouLikeThisPuzzle">Bạn thích câu đố này chứ?</string>
   <string name="voteToLoadNextOne">Bình chọn để mở câu đố tiếp theo!</string>
   <string name="upVote">Upvote câu đố</string>
   <string name="downVote">Downvote câu đố</string>
@@ -24,7 +24,7 @@
   <string name="clickToSolve">Click để giải</string>
   <string name="goodMove">Nước tốt</string>
   <string name="bestMove">Nước tối ưu!</string>
-  <string name="keepGoing">Tiếp tục…</string>
+  <string name="keepGoing">Hãy tiếp tục…</string>
   <string name="puzzleSuccess">Thành công!</string>
   <string name="puzzleComplete">Hoàn thành câu đố!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
