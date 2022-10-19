@@ -31,6 +31,8 @@ object SetupBulk {
       rules: Set[GameRule]
   ) {
     def clockOrDays = clock.toLeft(days | Days(3))
+
+    def allowMultiplePairingsPerUser = clock.isEmpty
   }
 
   private def timestampInNearFuture = longNumber(
@@ -42,14 +44,7 @@ object SetupBulk {
     mapping(
       "players" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
-        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames)
-        .verifying(
-          "Tokens must be unique",
-          t => {
-            val tokens = extractTokenPairs(t).view.flatMap { case (w, b) => Vector(w, b) }.toVector
-            tokens.size == tokens.distinct.size
-          }
-        ),
+        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames),
       SetupForm.api.variant,
       SetupForm.api.clock,
       SetupForm.api.optionalDays,
@@ -85,6 +80,14 @@ object SetupBulk {
       .verifying(
         "clock or correspondence days required",
         c => c.clock.isDefined || c.days.isDefined
+      )
+      .verifying(
+        "Tokens must be unique for real-time games (not correspondence)",
+        data =>
+          data.allowMultiplePairingsPerUser || {
+            val tokens = extractTokenPairs(data.tokens).view.flatMap { case (w, b) => Vector(w, b) }.toVector
+            tokens.size == tokens.distinct.size
+          }
       )
   )
 
@@ -201,7 +204,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
       .flatMap {
         case Left(errors) => fuccess(Left(BadTokens(errors.reverse)))
         case Right(allPlayers) =>
-          val dups = allPlayers
+          lazy val dups = allPlayers
             .groupBy(identity)
             .view
             .mapValues(_.size)
@@ -209,7 +212,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
               case (u, nb) if nb > 1 => u
             }
             .toList
-          if (dups.nonEmpty) fuccess(Left(DuplicateUsers(dups)))
+          if (!data.allowMultiplePairingsPerUser && dups.nonEmpty) fuccess(Left(DuplicateUsers(dups)))
           else {
             val pairs = allPlayers.reverse
               .grouped(2)
