@@ -98,6 +98,7 @@
   <string name="dtzWithRounding">DTZ50\" su apvalinimu remiantis pusėjimių iki kito kirtimo ar pėstininko ėjimo skaičiumi</string>
   <string name="noGameFound">Partijų nerasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
+  <string name="openings">Debiutai</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
   <string name="openingEndgameExplorer">Debiutų/endšpilių naršyklė</string>
   <string name="xOpeningExplorer">%s debiutų naršyklė</string>
@@ -173,6 +174,7 @@
   <string name="viewInFullSize">Žiūrėti visu dydžiu</string>
   <string name="logOut">Atsijungti</string>
   <string name="signIn">Prisijungti</string>
+  <string name="rememberMe">Likti prisijungus</string>
   <string name="youNeedAnAccountToDoThat">Norėdami tai atlikti, turite turėti paskyrą</string>
   <string name="signUp">Registruotis</string>
   <string name="computersAreNotAllowedToPlay">Kompiuteriams ir kompiuterių padedamiems žaidėjams žaisti draudžiama. Prašome nesinaudoti šachmatų programomis, duomenų bazėmis ar kitų žaidėjų pagalba partijos metu. Kartu norime pažymėti, kad keleto paskyrų turėjimas yra nepatartinas, o dėl perdėto jų naudojimo būsite užblokuoti.</string>
