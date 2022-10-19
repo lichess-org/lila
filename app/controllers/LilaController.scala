@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.FormBinding
 import play.api.http._
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsArray, JsObject, JsString, JsValue, Json, Writes }
+import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json, Writes }
 import play.api.mvc._
 import scala.annotation.nowarn
 import scalatags.Text.Frag
@@ -354,7 +354,7 @@ abstract private[controllers] class LilaController(val env: Env)
     Forbidden(
       jsonError(
         s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."
-      )
+      ) + ("minutes" -> JsNumber(ban.remainingMinutes))
     ) as JSON
   }
 
