@@ -8,7 +8,7 @@ import lila.common.Bus
 import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
+import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, RematchNo, RematchYes, Resign }
 import lila.round.actorApi.round.{ DrawNo, DrawYes, ResignForce, TakebackNo, TakebackYes }
 import lila.user.User
 
@@ -116,5 +116,11 @@ final class BotPlayer(
     } flatMap {
       case true => funit
       case _    => clientError("You cannot claim the win on this game")
+    }
+
+  def berserk(game: Game, me: User): Boolean =
+    game.berserkable ?? {
+      Bus.publish(Berserk(game.id, me.id), "berserk")
+      true
     }
 }

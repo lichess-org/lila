@@ -114,6 +114,13 @@ final class PlayApi(
           as(id, me) { pov =>
             env.bot.player.claimVictory(pov) pipe toResult
           }
+        case Array("game", id, "berserk") =>
+          as(id, me) { pov =>
+            fuccess {
+              if (env.bot.player.berserk(pov.game, me)) jsonOkResult
+              else JsonBadRequest(jsonError("Cannot berserk"))
+            }
+          }
         case _ => notFoundJson("No such command")
       }
   }

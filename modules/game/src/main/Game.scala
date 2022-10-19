@@ -360,7 +360,8 @@ case class Game(
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
   def abortableByUser = abortable && !metadata.hasRule(_.NoAbort)
 
-  def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
+  def berserkable =
+    isTournament && clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
   def goBerserk(color: Color): Option[Progress] =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
