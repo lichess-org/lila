@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
-  <string name="rememberMe">Lembrar de mim</string>
+  <string name="rememberMe">Continuar logado</string>
   <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
   <string name="signUp">Registrar</string>
   <string name="computersAreNotAllowedToPlay">A ajuda de software não é permitida. Por favor, não utilize programas de xadrez, bancos de dados ou o auxilio de outros jogadores durante a partida. Além disso, a criação de múltiplas contas é fortemente desaconselhada e sua prática excessiva acarretará em banimento.</string>
