@@ -1,9 +1,8 @@
 package lila.game
 
+import chess.format.UciDump
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
-
-import chess.format.UciDump
 
 final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -36,6 +35,10 @@ final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionC
   def drop(game: Game, nb: Int) = {
     val current = ~cache.getIfPresent(game.id)
     cache.put(game.id, current.take(current.size - nb))
+  }
+
+  def sign(game: Game): Fu[String] = get(game) map { uci =>
+    uci.takeRight(5).mkString(" ").takeRight(20).replace(" ", "")
   }
 
   private def compute(game: Game, max: Int): Fu[UciVector] =

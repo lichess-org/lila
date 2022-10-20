@@ -93,23 +93,32 @@ final private class Player(
     }
   }
 
-  private[round] def fishnet(game: Game, ply: Int, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
-    if (game.playable && game.player.isAi && game.playedTurns == ply) {
-      applyUci(game, uci, blur = false, metrics = fishnetLag)
-        .fold(errs => fufail(ClientError(errs)), fuccess)
-        .flatMap {
-          case Flagged => finisher.outOfTime(game)
-          case MoveApplied(progress, moveOrDrop, _) =>
-            proxy.save(progress) >>-
-              uciMemo.add(progress.game, moveOrDrop) >>-
-              lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
-              notifyMove(moveOrDrop, progress.game) >> {
-                if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
-                else
-                  fuccess(progress.events)
-              }
-        }
-    } else
+  private[round] def fishnet(game: Game, sign: String, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
+    if (game.playable && game.player.isAi)
+      uciMemo sign game flatMap { expectedSign =>
+        if ((expectedSign == sign).pp(s"$expectedSign == $sign"))
+          applyUci(game, uci, blur = false, metrics = fishnetLag)
+            .fold(errs => fufail(ClientError(errs)), fuccess)
+            .flatMap {
+              case Flagged => finisher.outOfTime(game)
+              case MoveApplied(progress, moveOrDrop, _) =>
+                proxy.save(progress) >>-
+                  uciMemo.add(progress.game, moveOrDrop) >>-
+                  lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
+                  notifyMove(moveOrDrop, progress.game) >> {
+                    if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+                    else
+                      fuccess(progress.events)
+                  }
+            }
+        else
+          fufail(
+            FishnetError(
+              s"Invalid game hash: $sign id: ${game.id} playable: ${game.playable} player: ${game.player}"
+            )
+          )
+      }
+    else
       fufail(
         FishnetError(
           s"Not AI turn move: $uci id: ${game.id} playable: ${game.playable} player: ${game.player}"

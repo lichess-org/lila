@@ -246,9 +246,9 @@ final private[round] class RoundAsyncActor(
       p.promise.foreach(_ completeWith res)
       res
 
-    case FishnetPlay(uci, ply) =>
+    case FishnetPlay(uci, hash) =>
       handle { game =>
-        player.fishnet(game, ply, uci)
+        player.fishnet(game, hash, uci)
       }.mon(_.round.move.time)
 
     case Abort(playerId) =>
