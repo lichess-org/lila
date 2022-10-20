@@ -105,7 +105,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
   }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.list[Challenge]($doc("expiresAt" $lt DateTime.now), max)
+    coll.list[Challenge]("expiresAt" $lt DateTime.now, max)
 
   def setSeenAgain(id: Challenge.ID) =
     coll.update
