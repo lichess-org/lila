@@ -97,10 +97,9 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
         $doc(
           "seenAt" $lt date,
           "status" -> Status.Created.id,
-          "timeControl" $exists true
+          "timeControl.l" $exists true
         )
       )
-      .hint(coll hint $doc("seenAt" -> 1)) // partial index
       .cursor[Challenge]()
       .list(max)
   }
