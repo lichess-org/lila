@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Riêng tư</string>
-  <string name="myStudies">Khóa học của tôi</string>
+  <string name="myStudies">Nghiên cứu của tôi</string>
   <string name="studiesIContributeTo">Các nghiên cứu tôi đóng góp</string>
   <string name="myPublicStudies">Nghiên cứu công khai của tôi</string>
   <string name="myPrivateStudies">Nghiên cứu cá nhân của tôi</string>
@@ -43,11 +43,11 @@
   <string name="commentThisPosition">Bình luận về thế cờ này</string>
   <string name="commentThisMove">Bình luận về nước đi này</string>
   <string name="annotateWithGlyphs">Chú thích bằng dấu</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để được phân tích.</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để có thể phân tích.</string>
   <string name="onlyContributorsCanRequestAnalysis">Chỉ có những người đóng góp mới có thể yêu cầu máy tính phân tích.</string>
   <string name="getAFullComputerAnalysis">Nhận một phân tích đầy đủ của biến chính từ máy tính phía server.</string>
   <string name="makeSureTheChapterIsComplete">Đảm bảo chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Tất cả các thành viên SYNC ở trên cùng một thế cờ</string>
+  <string name="allSyncMembersRemainOnTheSamePosition" comment="allSyncMembersRemainOnTheSamePosition&#10;&#10;This is a help text explaining the synchronization feature. When enabled, this synchronizes members so that everyone sees the same position.">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>
   <string name="playing">Đang chơi</string>
   <string name="first">Trang đầu</string>
