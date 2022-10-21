@@ -125,15 +125,10 @@ function rollupDone() {
 
 function rollupError(e: rup.RollupError, name: string) {
   const filename = e.loc?.file || e.id || '<unknown';
-  env.log(
-    c.red(e.code!) +
-      ' in ' +
-      (e.loc ? `line ${e.loc?.line} column ${e.loc?.column} of ` : '') +
-      `'${c.cyan(filename)}'\n` +
-      (e.frame ? c.magenta(e.frame) : ''),
-    { ctx: name }
-  );
+  const loc = e.loc ? `line ${e.loc.line} column ${e.loc.column} of ` : '';
+  env.log(`${c.red(e.code!)} in ${loc}'${c.cyan(filename)}'\n${e.frame ? c.red(e.frame) : ''}`, { ctx: name });
 }
+
 function rollupOptions(o: LichessRollup): rup.RollupWatchOptions {
   const modDir = o.hostMod.root;
   const plugins = (o.plugins || []).concat(
