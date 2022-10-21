@@ -306,20 +306,32 @@ final class User(
 
   def topNb(nb: Int, perfKey: String) =
     Open { implicit ctx =>
-      PerfType(perfKey) ?? { perfType =>
-        env.user.cached.top200Perf get perfType.id dmap { _ take (nb atLeast 1 atMost 200) } flatMap {
-          users =>
-            negotiate(
-              html = (nb == 200) ?? Ok(html.user.top(perfType, users)).fuccess,
-              api = _ =>
-                fuccess {
-                  implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
-                  Ok(Json.obj("users" -> users))
-                }
-            )
+      topNbUsers(nb, perfKey) flatMap {
+        _ ?? { case (users, perfType) =>
+          negotiate(
+            html = (nb == 200) ?? Ok(html.user.top(perfType, users)).fuccess,
+            api = _ => fuccess(topNbJson(users))
+          )
         }
       }
     }
+
+  def topNbApi(nb: Int, perfKey: String) =
+    Action.async {
+      topNbUsers(nb, perfKey) map { _ ?? { users => topNbJson(users._1) } }
+    }
+
+  private def topNbUsers(nb: Int, perfKey: String) =
+    PerfType(perfKey) ?? { perfType =>
+      env.user.cached.top200Perf get perfType.id dmap {
+        _.take(nb atLeast 1 atMost 200) -> perfType
+      } dmap some
+    }
+
+  private def topNbJson(users: List[UserModel.LightPerf]) = {
+    implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+    Ok(Json.obj("users" -> users))
+  }
 
   def topWeek =
     Open { implicit ctx =>
