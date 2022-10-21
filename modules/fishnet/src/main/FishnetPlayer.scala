@@ -25,8 +25,8 @@ final class FishnetPlayer(
       Future.delay(delayFor(game) | 0.millis) {
         openingBook(game, level) flatMap {
           case Some(move) =>
-            fuccess {
-              Bus.publish(Tell(game.id, FishnetPlay(move, game.playedTurns)), "roundSocket")
+            uciMemo sign game map { sign =>
+              Bus.publish(Tell(game.id, FishnetPlay(move, sign)), "roundSocket")
             }
           case None => makeWork(game, level) addEffect redis.request void
         }

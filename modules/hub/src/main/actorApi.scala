@@ -259,6 +259,7 @@ package user {
 }
 
 package round {
+
   case class MoveEvent(
       gameId: String,
       fen: String,
@@ -283,7 +284,7 @@ package round {
   case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
   case class TourStandingOld(data: JsArray)
   case class TourStanding(tourId: String, data: JsArray)
-  case class FishnetPlay(uci: Uci, ply: Int)
+  case class FishnetPlay(uci: Uci, sign: String)
   case object FishnetStart
   case class BotPlay(playerId: String, uci: Uci, promise: Option[Promise[Unit]] = None)
   case class RematchOffer(gameId: String)
