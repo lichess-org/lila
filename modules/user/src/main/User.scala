@@ -224,6 +224,7 @@ object User {
     def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
     def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
     def clasId: ClasId         = if (isKid) KidId(id) else NonKidId(id)
+    def isLichess              = _id == User.lichessId
   }
   case class Contacts(orig: Contact, dest: Contact) {
     def hasKid  = orig.isKid || dest.isKid
