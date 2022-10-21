@@ -50,6 +50,7 @@
   <string name="skipExplanation">手を飛ばすことで連続正解が続きます！ 1 レース中 1 回だけ有効。</string>
   <string name="failedPuzzles">不正解の問題</string>
   <string name="slowPuzzles">時間のかかった問題</string>
+  <string name="skippedPuzzle">飛ばした問題</string>
   <string name="thisWeek">今週</string>
   <string name="thisMonth">今月</string>
   <string name="allTime">全期間</string>
