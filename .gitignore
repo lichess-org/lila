@@ -5,6 +5,7 @@
 project/.bloop/
 conf/application.conf
 conf/version.conf
+ui/@build/bleep/bleep.config.json
 
 logs
 project/metals.sbt
@@ -24,6 +25,7 @@ data/
 dist/
 node_modules/
 local/
+ui/@build/bleep/.tsconfig/
 ui/common/**/*.js
 ui/common/**/*.d.ts
 ui/chess/**/*.js

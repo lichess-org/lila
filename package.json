@@ -78,6 +78,7 @@
     "ui/racer",
     "ui/opening",
     "ui/@build/rollupProject",
+    "ui/@build/bleep",
     "ui/@types/lichess",
     "ui/@types/cash"
   ]

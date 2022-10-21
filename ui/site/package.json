@@ -13,7 +13,6 @@
     "@types/lichess": "2.0.0",
     "@types/yaireo__tagify": "^4.16",
     "@types/zxcvbn": "^4.4.0",
-    "chessground": "^8.3.5",
     "rollup": "^2",
     "rollup-plugin-copy": "^3.3.0",
     "typescript": "^4"
