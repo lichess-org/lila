@@ -2,10 +2,13 @@ package lila.challenge
 
 import akka.actor.ActorSystem
 import akka.stream.scaladsl._
+import chess.format.Forsyth
+import chess.format.Forsyth.SituationPlus
 import chess.{ Situation, Speed }
 import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._
+import scala.util.chaining._
 
 import lila.common.{ Bus, Days, LilaStream, Template }
 import lila.db.dsl._
@@ -96,6 +99,25 @@ final class ChallengeBulkApi(
   }
 
   private def makePairings(bulk: ScheduledBulk): Funit = {
+    val clock = bulk.clock.left.toOption.map(_.toClock)
+    def makeChess(variant: chess.variant.Variant): chess.Game =
+      chess.Game(situation = Situation(variant), clock = clock)
+
+    val baseState = bulk.fen.ifTrue(bulk.variant.fromPosition || bulk.variant.chess960) flatMap {
+      Forsyth.<<<@(bulk.variant, _)
+    }
+    val (chessGame, state) = baseState.fold(makeChess(bulk.variant) -> none[SituationPlus]) {
+      case sp @ SituationPlus(sit, _) =>
+        val game = chess.Game(
+          situation = sit,
+          turns = sp.turns,
+          startedAtTurn = sp.turns,
+          clock = clock
+        )
+        if (bulk.variant.fromPosition && Forsyth.>>(game).initial)
+          makeChess(chess.variant.Standard) -> none
+        else game                           -> baseState
+    }
     val perfType = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8) { game =>
@@ -107,8 +129,7 @@ final class ChallengeBulkApi(
       .map { case (id, white, black) =>
         val game = Game
           .make(
-            chess = chess
-              .Game(situation = Situation(bulk.variant), clock = bulk.clock.left.toOption.map(_.toClock)),
+            chess = chessGame,
             whitePlayer = Player.make(chess.White, white.some, _(perfType)),
             blackPlayer = Player.make(chess.Black, black.some, _(perfType)),
             mode = bulk.mode,
@@ -118,6 +139,18 @@ final class ChallengeBulkApi(
             rules = bulk.rules
           )
           .withId(id)
+          .pipe { g =>
+            state.fold(g) { case sit @ SituationPlus(Situation(board, _), _) =>
+              g.copy(
+                chess = g.chess.copy(
+                  situation = g.situation.copy(
+                    board = g.board.copy(history = board.history)
+                  ),
+                  turns = sit.turns
+                )
+              )
+            }
+          }
           .start
         (game, white, black)
       }
