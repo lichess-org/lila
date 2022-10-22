@@ -74,7 +74,7 @@ final class IrcApi(
   }
 
   def usertableCheck(user: User, mod: Holder): Funit =
-    zulip(_.mod.usernames, "reports")(
+    zulip(_.mod.cafeteria, "reports")(
       s"**${markdown.userLink(user.username)}** usertable check (requested by ${markdown.userLink(mod.user.username)})"
     )
 
