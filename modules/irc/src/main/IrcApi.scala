@@ -59,7 +59,7 @@ final class IrcApi(
 
   def nameCloseVote(user: User, mod: Holder): Funit = {
     zulip
-      .sendAndGetLink(ZulipClient.stream.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
+      .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
       .flatMap {
         _ ?? { zulipLink =>
           noteApi.write(
@@ -72,6 +72,11 @@ final class IrcApi(
         }
       }
   }
+
+  def usertableCheck(user: User, mod: Holder): Funit =
+    zulip(_.mod.cafeteria, "reports")(
+      s"**${markdown.userLink(user.username)}** usertable check (requested by ${markdown.userLink(mod.user.username)})"
+    )
 
   def userModNote(modName: String, username: String, note: String): Funit =
     !User.isLichess(modName) ??
