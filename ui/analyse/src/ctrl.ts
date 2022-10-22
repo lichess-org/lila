@@ -256,6 +256,7 @@ export default class AnalyseCtrl {
     this.setShapes(this.node.shapes as DrawShape[] | undefined);
   }
 
+  // allows moving after game end - use pos.isEnd, if needed
   private getMoveDests(): sg.Dests {
     if (this.embed) return new Map();
     else

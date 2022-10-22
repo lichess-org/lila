@@ -6,7 +6,8 @@ import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
 import { Config } from 'shogiground/config';
 import { Position } from 'shogiops/shogi';
-import { opposite, parseUsi } from 'shogiops/util';
+import { makeUsi, opposite, parseUsi } from 'shogiops/util';
+import { Move } from 'shogiops/types';
 import { parseSfen, makeSfen } from 'shogiops/sfen';
 import { cubicRegressionEval, renderEval } from './util';
 import { usiToSquareNames } from 'shogiops/compat';
@@ -426,14 +427,15 @@ function renderPvWrapToggle(): VNode {
 function renderPvMoves(pos: Position, pv: Usi[], notation: Notation): VNode[] {
   let key = makeSfen(pos);
   const vnodes: VNode[] = [],
-    moves = pv.map(u => parseUsi(u)!),
+    moves = pv.map(u => parseUsi(u)).filter((m): m is Move => defined(m)),
     notationMoves = makeNotationLineWithPosition(notation, pos, moves, pos.lastMove),
     addColorIcon = notationsWithColor.includes(notation);
-  for (let i = 0; i < pv.length; i++) {
+
+  for (let i = 0; i < moves.length; i++) {
     const colorIcon = addColorIcon ? '.color-icon.' + pos.turn : '',
       moveNumber = `${pos.fullmoves}. `;
     pos.play(moves[i]);
-    const usi = pv[i],
+    const usi = makeUsi(moves[i]),
       sfen = makeSfen(pos);
     key += '|' + usi;
     vnodes.push(
