@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">תרום</string>
-	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="lishogiPatron">תורם לישוגי</string>
 	<string name="freeAccount">חשבון חינמי</string>
 	<string name="becomePatron">הפוך לתומך של ליצ\'ס</string>
 	<string name="xBecamePatron">%s הפך לתומך של ליצ\'ס</string>

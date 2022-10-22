@@ -35,7 +35,7 @@
   <string name="leaveTheStudy">Rời khỏi nghiên cứu</string>
   <string name="youAreNowAContributor">Bây giờ bạn là người đóng góp</string>
   <string name="youAreNowASpectator">Bây giờ bạn là khán giả</string>
-  <string name="tags">Tags</string>
+  <string name="tags">Nhãn</string>
   <string name="like">Thích</string>
   <string name="newTag">Nhãn mới</string>
   <string name="commentThisPosition">Bình luận về thế cờ này</string>
@@ -57,8 +57,8 @@
   <string name="downloadAllGames">Tải xuống tất cả các ván đấu</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
+  <string name="chapterKif">PGN chương</string>
+  <string name="chapterCsa">PGN chương</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="broadcastUrl">URL phát sóng</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
@@ -93,8 +93,8 @@
   <string name="editor">Biên tập viên</string>
   <string name="startFromCustomPosition">Bắt đầu từ thế cờ tùy chỉnh</string>
   <string name="loadAGameByUrl">Tải ván cờ bằng URL</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
-  <string name="loadAGameFromKif">Load games from KIF</string>
+  <string name="loadAPositionFromSfen">Tải thế cờ từ mã FEN</string>
+  <string name="loadAGameFromKif">Tải ván cờ từ PGN</string>
   <string name="automatic">Tự động</string>
   <string name="urlOfTheGame">URL tới ván đấu, mỗi URL một dòng</string>
   <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s</string>

@@ -7,7 +7,7 @@
 	<string name="trackStudentProgress">עקוב אחר ההתקדמות של התלמידים במשחקים ובחידות</string>
 	<string name="messageAllStudents">שלח הודעה לכל התלמידים על חומר לימוד חדש בכיתה</string>
 	<string name="freeForAllForever">100% חופשי לכולם, לנצח, בלי פרסומות או גששים</string>
-	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="applyToBeLishogiTeacher">הגש בקשה להיות מורה בלישוגי/ליצ\'ס</string>
 	<string name="noClassesYet">אין עדיין כיתות.</string>
 	<string name="teachersX">מורים: %s</string>
 	<string name="newClass">כיתה חדשה</string>

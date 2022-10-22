@@ -6,13 +6,13 @@
   <string name="visitThisPage">Провідай цю сторінку, щоб розвʼязати питання</string>
   <string name="iCantLogIn">Не можу ввійти</string>
   <string name="noConfirmationEmail">Не отримав підтверного листа</string>
-  <string name="forgotPassword">Забув ключа</string>
-  <string name="forgotUsername">Забув прізвиська</string>
+  <string name="forgotPassword">Забули ключа</string>
+  <string name="forgotUsername">Забули прізвиська</string>
   <string name="youCanLoginWithEmail">Можеш ввійти через е-пошту, котрою записалися</string>
   <string name="lost2FA">Втратив доступ до моїх кодів двофакторної автентифікації</string>
   <string name="doPasswordReset">Скинь ключа, щоб видалити двофакторну автентифікацію</string>
   <string name="accountSupport">Потребую підтримку щодо особівки</string>
-  <string name="wantTitle">Хочу відобразити мій чин на Лішьоґі</string>
+  <string name="wantTitle">Хочу відобразити мій чин на Lishogi</string>
   <string name="visitTitleConfirmation">Для показу твого чина ві твого видку Лішьоґі і участі в Чинових Аренах, звʼяжись з Лішьоґі через contact@lishogi.org</string>
   <string name="wantCloseAccount">Хочу закрити свою обліковку</string>
   <string name="closeYourAccount">Можеш закрити обліківку на цій сторінці</string>

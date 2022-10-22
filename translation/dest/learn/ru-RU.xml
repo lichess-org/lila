@@ -14,7 +14,7 @@
 	<string name="clickHereAfterYouveChosen">Нажмите здесь после выбора понравившегося дизайна.</string>
 	<string name="choosePieceDesign">Важно уметь различать фигуры, поэтому убедитесь, что вы выбрали правильный набор.
 Чтобы выбрать, кликните на шестерне или вашем имени пользователя (в верхнем правом углу), затем нажмите на \'Набор фигур\'.</string>
-	<string name="promotionZone">Когда некоторые ваши фишки входят в зону первых трёх строк территории вашего противника(или выходят из неё), вы можете перевернуть их и сделать сильнее.</string>
+	<string name="promotionZone">Когда некоторые ваши фигуры входят в зону первых трёх строк территории вашего противника (или выходят из неё), вы можете перевернуть их и сделать сильнее.</string>
 	<string name="senteGoesFirst">В сёги игрок, который ходит первым, называется сэнтэ, а игрок, ходящий вторым, готэ. Сэнтэ иногда обозначается черным цветом, а готэ белым. Сделайте любой ход за сэнтэ, чтобы продолжить.</string>
 	<string name="introComplete">Теперь вы знаете некоторые основы, но эта часть обучения всё ещё находится в стадии разработки. Давайте изучим, как ходят фигуры.</string>
 	<string name="introCompleteTwo">Теперь вы частично знаете основы! Теперь давайте изучим как ходит каждая фигура.</string>
@@ -23,17 +23,17 @@
 	<string name="rookIntro">Ладья — тяжёлая фигура. Сможете управлять ей?</string>
 	<string name="rookGoal">Щелкните на ладье, чтобы отправить её к звезде!</string>
 	<string name="grabAllTheStarsRemember">Заполучите все звезды! Помните смотреть и вне доски.</string>
-	<string name="rookPromotion">Перевернувшись, ладья становится могучим драконом. Не забывайте, что вы можете перевернуть фигуру выходя из зоны противника</string>
+	<string name="rookPromotion">Перевернувшись, ладья становится могучим драконом. Не забывайте, что вы можете перевернуть фигуру, выходя из зоны противника</string>
 	<string name="rookSummary">Ладья может ходить вверх, вниз, влево или вправо на сколько угодно клеток.</string>
 	<string name="dragonSummary">Она может двигаться точно так же, как и неперевёрнутая ладья, но также на одну клетку в любом направлении по диагонали, что делает её намного сильнее.</string>
-	<string name="dragonSummaryTwo">Дракон может ходить точно так же как и не повышенная ладья, однако он также двигается на одну клетку по диагонали в любую сторону, что делает его намного сильнее.</string>
+	<string name="dragonSummaryTwo">Дракон может ходить точно так же как и неповышенная ладья, однако он также двигается на одну клетку по диагонали в любую сторону, что делает его намного сильнее.</string>
 	<string name="grabAllTheStars">Соберите все звёзды!</string>
 	<string name="theFewerMoves">Чем меньше ходов вы сделаете, тем больше очков получите!</string>
 	<string name="rookComplete">Поздравляем! Вы мастерски овладели ладьёй.</string>
 	<string name="theBishop">Слон</string>
 	<string name="itMovesDiagonally">Двигается по диагонали</string>
 	<string name="bishopIntro">Теперь мы узнаем, как ходит слон!</string>
-	<string name="ehThereIsNoPiece">Что? На доске нет никаких фигур. Но смотрите за пределы доски, слон! Сюда попадают фигуры которые вы захватили. Вы можете положить их обратно на доску. Как обычно, соберите все звезды.</string>
+	<string name="ehThereIsNoPiece">Что? На доске нет никаких фигур. Но смотрите за пределы доски, слон! Сюда попадают фигуры, которые вы захватили. Вы можете поставить их обратно на доску. Как обычно, соберите все звезды.</string>
 	<string name="bishopPromotion">Перевёрнутый слон зовётся лошадью</string>
 	<string name="bishopSummary">Слон двигается по диагоналям на любое количество клеток</string>
 	<string name="horseSummary">Перевёрнутый слон так же двигается по диагоналям, но ещё на одну клетку вверх, вниз, вправо или влево.</string>
@@ -68,7 +68,7 @@
 	<string name="lancePromotion">После того как копьё переворачивается, оно ходит по-другому, но вы уже где-то это видели: оно ходит как золотой генерал.</string>
 	<string name="lanceSummary">Ходит вперёд, очень просто.</string>
 	<string name="planceSummary">Ходит так же, как золотой генерал</string>
-	<string name="planceSummaryTwo">Повышенное копье двигается так же как и золотой генерал.</string>
+	<string name="planceSummaryTwo">Повышенное копье двигается так же, как и золотой генерал.</string>
 	<string name="lanceComplete">Отлично!</string>
 	<string name="theGold">Золотой генерал</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">Золотой генерал движется в любом направлении, но НЕ диагонально назад.</string>
@@ -99,11 +99,11 @@
 	<string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться фигурами сёги!</string>
 	<string name="pieceDrops">Фигура сбрасывается</string>
 	<string name="reuseCapturedPieces">Повторно используйте захваченные фигуры!</string>
-	<string name="dropIntro">Еще раз, захватите все фигуры оппонента не теряя своих!</string>
+	<string name="dropIntro">Еще раз, захватите все фигуры оппонента, не теряя своих!</string>
 	<string name="capturedPiecesCanBeDropped">Захваченные вами фигуры могут быть сброшены на доску во время вашего хода!</string>
-	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Dropping a piece in promotion zone doesn\'t result in promotion.
-Take the enemy pieces!</string>
-	<string name="youCannotHaveTwoUnpromotedPawns">Вы не можете иметь две не повышенные пешки на одной линии.</string>
+	<string name="dropLimitations">Вы не можете сбросить фигуру на занятое поле или туда, где фигура будет без возможности хода. Фигура, вызванная в зону продвижения, в данный ход не улучшается.
+Скушайте чужие фигуры.</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">Вы не можете иметь две неповышенные пешки на одной линии.</string>
 	<string name="protection">Защита</string>
 	<string name="keepYourPiecesSafe">Защищайте ваши фигуры</string>
 	<string name="protectionIntro">Определите, какие ваши фигуры атакует противник, и защитите их!</string>
@@ -145,8 +145,8 @@ Take the enemy pieces!</string>
 	<string name="mateInOne">Мат</string>
 	<string name="defeatTheOpponentsKing">Разгромите короля противника</string>
 	<string name="mateInOneIntro">Вы выиграете, если ваш соперник не сможет защититься от шаха.</string>
-	<string name="toWinInShogi">Что бы выиграть в сеги, поставьте королю оппонента такой шах от которого он не сможет защититься. Это называется мат или тсуме.</string>
-	<string name="dropsCommonDeliverMate">Сброс фигуры это очень распространенный путь для того что бы поставить мат</string>
+	<string name="toWinInShogi">Что бы выиграть в сёги, поставьте королю оппонента такой шах от которого он не сможет защититься. Это называется мат или цумэ.</string>
+	<string name="dropsCommonDeliverMate">Сброс фигуры — это очень распространенный путь того, как поставить мат</string>
 	<string name="attackYourOpponentsKing">Атакуйте короля вашего противника так,
 чтобы его невозможно было защитить!</string>
 	<string name="chooseYourPieceCarefully">Выбирайте фигуру тщательно!</string>
@@ -155,25 +155,25 @@ Take the enemy pieces!</string>
 	<string name="mateInOneComplete">Поздравляем! Вот таким образом вы и будете побеждать!</string>
 	<string name="intermediate">Средний уровень</string>
 	<string name="boardSetup">Расстановка фигур</string>
-	<string name="howTheGameStarts">Начало шахматной партии</string>
+	<string name="howTheGameStarts">Начало партии сёги</string>
 	<string name="boardSetupIntro">Две армии, готовые к бою, встретились лицом к лицу.</string>
 	<string name="thisIsTheInitialPosition">Это начальная позиция в сёги! Сделайте любой ход, чтобы продолжить.</string>
 	<string name="firstPlaceTheKing">Есть два традиционных пути выставления фигур до игры. Мы научим вас стилю Оохаши (大橋), самому часто использующимся профессионалами. Король идет первым. Передвиньте короля в центральный квадрат вашего заднего ряда.</string>
 	<string name="dropAGold">Сбросьте золотого генерала по левую часть короля, затем выставьте другого золотого генерала по правую часть.</string>
 	<string name="thenPlaceASilver">Затем положите серебряного генерала рядом с левым золотым генералом и серебряного генерала с правым золотым генералом.</string>
-	<string name="dropTheKnights">Сбросьте коней так же как вы сделали это с серебряными генералами. Ваш оппонент будет использовать стиль Итоу (伊藤).</string>
+	<string name="dropTheKnights">Сбросьте коней так же, как вы сделали это с серебряными генералами. Ваш оппонент будет использовать стиль Итоу (伊藤).</string>
 	<string name="dropTheLances">Сбросьте копье. Ваш оппонент начнет с выставления пешек слева направо перед копьями. Это стиль Итоу.</string>
-	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
-	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
-	<string name="pushingThe3rdPawn">Движение третьей пешки для того что бы открыть диагональ слона считается самым частым первым ходом. Сделайте этот ход, что бы продолжить.</string>
+	<string name="placeTheBishopThenRook">Поместите слона перед левым конём, а потом ладью перед правым. Естественно, в настоящих партиях нет нужды в синхронности Вашего с оппонентом процесса расстановки.</string>
+	<string name="placeThePawns">А в конце, на 3-ем ряду, расположите пешки так же, как помещали фигуры заднего ряда. Кружок поможет.</string>
+	<string name="pushingThe3rdPawn">Движение третьей слева пешки для того, что бы открыть диагональ слона, считается самым частым первым ходом. Сделайте этот ход, чтобы продолжить.</string>
 	<string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на доске.</string>
 	<string name="repetition">Повторение</string>
 	<string name="fourfoldRepetitionIsADrawExcept">Четырехразовое повторение - это ничья, КРОМЕ...</string>
-	<string name="repetitionIntro">Четверное повторение это ничья. Вечный шах это проигрыш</string>
-	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
-	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
-	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
-	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
+	<string name="repetitionIntro">Четверное повторение — это ничья. Вечный шах — проигрыш</string>
+	<string name="ifTheSamePositionOccurs">Если похожая позиция повторяется четырежды в Сёги, автоматом выдаётся ничья. Это называется Сенничите (千日手). Делайте только возможный ход.</string>
+	<string name="perpetualCheckIsALoss">Но вечные шахи другому королю выйдут боком для стороны, их ставящей. К сожалению твоего оппонента, он сейчас не в курсе этого! Делайте только возможный ход.</string>
+	<string name="boardFlippedFindBestMove">Доска перевернулась. А дальше что лучше делать?</string>
+	<string name="repetitionComplete">Идея проигрыша за повторяющиеся шахи призвана предотвращать вынужденные ничьи.</string>
 	<string name="stalemate">Пат</string>
 	<string name="theGameIsADraw">Игра заканчивается вничью</string>
 	<string name="stalemateIntro">Если у игрока, чья очередь ходить, нет возможного хода, при этом его король не под шахом, тогда эта ситуация называется «пат». Игра заканчивается вничью: никто не выиграл, никто не проиграл.</string>
@@ -184,24 +184,23 @@ Take the enemy pieces!</string>
 	<string name="advanced">Продвинутый уровень</string>
 	<string name="pieceValue">Ценность фигур</string>
 	<string name="evaluatePieceStrength">Оцените силу фигуры</string>
-	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
-The king is priceless! Losing it means losing the game.</string>
+	<string name="pieceValueIntroNew">Фигуры с большей подвижностью больше стóят. Король безгранично дорог! Его потеря = проигрыш.</string>
 	<string name="queenOverBishop">Атакуйте фигуры с более высокой ценностью!
-Ферзь &gt; Слон</string>
-	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
-Take the most valuable piece.</string>
-	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
-Take the most valuable piece without losing your own.</string>
-	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
-Take the most valuable piece.</string>
+Ладья &gt; Слон</string>
+	<string name="pawnsAreTheLeastValuable">Пешки — самые дешёвые, после копий. Кони стоят чуточку дороже.
+Ешьте самую ценную фигуру.</string>
+	<string name="knightSilverGold">Конь &lt; Серебро &lt; Золото
+Ешьте самую ценную фигуру, не теряя своих.</string>
+	<string name="goldBishopRook">Золото &lt; Слон &lt; Ладья
+Ешьте самую ценную фигуру</string>
 	<string name="takeAllThePiecesStartingFromTheMost">Возьмите все фигуры в следующем порядке, начиная с самой ценной и заканчивая наименее ценной!</string>
-	<string name="anExchangeIs">Обмен это когда вы захватываете фигуру и теряете другую. Какой из обменов лучше? Серебряный генерал за ладью, или золотой генерал за коня?</string>
-	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="anExchangeIs">Обмен — это когда вы захватываете фигуру и теряете другую. Какой из обменов лучше? Серебряный генерал за ладью, или золотой генерал за коня?</string>
+	<string name="theOpponentJustGaveAway">Вам на блюдечке поднесли бесплатную ладью! Скушаете или воздержитесь?</string>
 	<string name="yourKingsValueIsInfinite">Цена короля бесконечна в сравнении с ладьей. Каким будет наилучший ход здесь?</string>
-	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
-	<string name="rememberWhichPieceIsTheMostValuable">Помните ли вы какая фигура самая ценная?</string>
+	<string name="twoGeneralsAreBetter">Два генерала иногда значат больше, чем одна мощная фигура, в то время как конь с копьём вкупе иногда лучше одного генерала. Найдите способ пожертвовать слоном ради двух генералов.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Помните ли вы, какая фигура самая ценная?</string>
 	<string name="takeThePieceWithTheHighestValue">Атакуйте фигуры с более высокой ценностью!</string>
-	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">Но король ценнее всех фигур, вместе взятых! Бывает ОТЛИЧНО жертвовать войсками для нападения на вражьего короля. Только про безопасность своего почаще вспоминайте!</string>
 	<string name="checkInTwo">Шах в два хода</string>
 	<string name="twoMovesToGiveCheck">Два хода на то, чтобы поставить шах</string>
 	<string name="checkInTwoIntro">Найдите комбинацию в два хода, чтобы поставить шах королю противника!</string>
@@ -220,7 +219,7 @@ Take the most valuable piece.</string>
 	<string name="videos">Видео</string>
 	<string name="watchInstructiveChessVideos">Посмотрите обучающие видеозаписи по сёги</string>
 	<string name="playPeople">Игроки</string>
-	<string name="opponentsFromAroundTheWorld">Сражайтесь с шахматистами со всего мира</string>
+	<string name="opponentsFromAroundTheWorld">Сражайтесь с людьми со всего мира</string>
 	<string name="playMachine">Компьютер</string>
 	<string name="testYourSkillsWithTheComputer">Проверьте свои навыки на искусственном интеллекте</string>
 	<string name="letsGo">Поехали!</string>

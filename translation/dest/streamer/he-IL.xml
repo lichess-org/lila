@@ -7,7 +7,7 @@
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Currently streaming: %s</string>
   <string name="lastStream">Last stream %s</string>
-  <string name="becomeStreamer">Become a Lishogi streamer</string>
+  <string name="becomeStreamer">תהפוך לסטרימר לישוגי</string>
   <string name="doYouHaveStream">Do you have a Twitch or YouTube channel?</string>
   <string name="hereWeGo">Here we go!</string>
   <string name="allStreamers">All streamers</string>
@@ -60,8 +60,8 @@ Streamer pages eventually expire if they are not used for a long time, also, you
   <string name="deletePicture">Delete picture</string>
   <string name="maxSize">Max size: %s</string>
   <string name="installBlocker">Install a malware blocker!</string>
-  <string name="beSafe">Be safe from ads and trackers
-infesting Twitch and YouTube.
-Lishogi recommends uBlock Origin
-which is free and open-source.</string>
+  <string name="beSafe">תהיה בטוח מפרסומות ומעקבים
+שמתפשטים ביוטיוב וטוויץ\'
+לישוגי ממליצים uBlock Origin
+שהוא חינמי וopen-source.</string>
 </resources>

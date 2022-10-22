@@ -11,7 +11,7 @@
 	<string name="theIntroduction">Giới thiệu</string>
 	<string name="introBasics">Hãy học những thứ cơ bản.</string>
 	<string name="introIntro">Cuộc hành trình của bạn bắt đầu từ đây</string>
-	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
+	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like</string>
 	<string name="choosePieceDesign">Việc bạn nhớ mặt quân rất quan trọng, nên hãy chắc chắn bạn chọn set quân cờ phù hợp.
 Để làm điều đó, nhấn vào hình bánh răng cưa hoặc vào tên người dùng của bạn ở góc trên phải, rồi chọn set quân cờ.</string>
 	<string name="promotionZone">Khi một quân của bạn chạm tới hoặc rời khỏi ba hàng đầu trong phần sân của đối phương, bạn có thể lựa chọn phong cấp quân và khiến chúng mạnh hơn.</string>
@@ -153,7 +153,7 @@ Take the enemy pieces!</string>
 	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
 	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
 	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
-	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
+	<string name="dropTheKnights">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
 	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
 	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
 	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>

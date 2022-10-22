@@ -28,12 +28,12 @@
   <string name="mateDescription">Chiến thắng ván cờ với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
   <string name="mateIn1Description">Dọa chiếu hết trong một nước.</string>
-  <string name="mateIn2">Mate in 2</string>
-  <string name="mateIn2Description">Deliver checkmate in two moves.</string>
+  <string name="mateIn2">Chiếu hết trong 2 nước</string>
+  <string name="mateIn2Description">Chiếu hết trong hai nước cờ.</string>
   <string name="mateIn3">Chiếu hết trong 3 nước</string>
   <string name="mateIn3Description">Dọa chiếu hết trong 3 nước.</string>
-  <string name="mateIn4">Mate in 4</string>
-  <string name="mateIn4Description">Deliver checkmate in four moves.</string>
+  <string name="mateIn4">Chiếu hết trong 4 nước</string>
+  <string name="mateIn4Description">Chiếu hết trong bốn nước cờ.</string>
   <string name="mateIn5">Chiếu hết trong 5 nước</string>
   <string name="mateIn5Description">Dọa chiếu hết trong 5 nước</string>
   <string name="mateIn7">Chiếu hết trong 7 nước</string>
@@ -51,7 +51,7 @@
   <string name="quietMove">Nước đi tĩnh</string>
   <string name="quietMoveDescription">Một nước cờ không chiếu hay ăn quân, nhưng lại tạo ra một sự đe dọa không thể tránh cho những nước đi sau.</string>
   <string name="rookEndgame">Tàn cuộc với Xe</string>
-  <string name="rookEndgameDescription">An endgame with only rooks and pawns.</string>
+  <string name="rookEndgameDescription">Một thế cờ tàn chỉ có xe và tốt.</string>
   <string name="sacrifice">Thí quân</string>
   <string name="sacrificeDescription">Một chiến thuật sử dụng việc thí quân, để giành lại lợi thế sau một chuỗi di chuyển bắt buộc.</string>
   <string name="short">Câu đố ngắn</string>
