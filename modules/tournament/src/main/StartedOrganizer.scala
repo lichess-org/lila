@@ -21,7 +21,7 @@ final private class StartedOrganizer(
 
     tournamentRepo
       .startedCursorWithNbPlayersGte {
-        if (doAllTournaments) none // every 20s, do all tournaments
+        if (doAllTournaments) none // every 15s, do all tournaments
         else if (runCounter % 2 == 0) 50.some // every 2s, do all decent tournaments
         else 1000.some // always do massive tournaments
       }
@@ -60,7 +60,7 @@ final private class StartedOrganizer(
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
         .flatMap { waiting =>
-          lila.mon.tournament.waitingPlayers(tour.id).record(waiting.size).unit
+          lila.mon.tournament.waitingPlayers.record(waiting.size).unit
           api.makePairings(tour, waiting, smallTourNbActivePlayers)
         }
 }
