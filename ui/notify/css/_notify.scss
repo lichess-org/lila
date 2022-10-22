@@ -10,6 +10,16 @@
     padding: 2rem 0;
   }
 
+  .clear {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      &:hover {
+        color: $c-bad;
+      }
+    }
+  }
+
   .spinner {
     margin: 50px auto;
   }

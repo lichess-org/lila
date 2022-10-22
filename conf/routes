@@ -362,7 +362,8 @@ POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: String
 POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: String)
 
 # Notify
-GET /notify                            controllers.Notify.recent(page: Int ?= 1)
+GET  /notify                           controllers.Notify.recent(page: Int ?= 1)
+POST /notify/clear                     controllers.Notify.clear
 
 # Video
 GET   /video                           controllers.Video.index
