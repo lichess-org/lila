@@ -251,7 +251,7 @@ final class Mod(
   def createNameCloseVote(username: String) = SendToZulip(username, env.irc.api.nameCloseVote)
   def askUsertableCheck(username: String)   = SendToZulip(username, env.irc.api.usertableCheck)
 
-  private def SendToZulip(username: String, method: (User, Holder) => Funit) =
+  private def SendToZulip(username: String, method: (UserModel, Holder) => Funit) =
     Secure(_.SendToZulip) { _ => me =>
       env.user.repo named username flatMap {
         _ ?? { user => method(user, me) inject NoContent }
