@@ -113,6 +113,9 @@
       text-transform: uppercase;
       margin: 0;
     }
+    group.anon {
+      display: none;
+    }
     group {
       margin-bottom: 2em;
       overflow: visible;

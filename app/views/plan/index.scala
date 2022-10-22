@@ -1,7 +1,5 @@
 package views.html.plan
 
-import play.api.i18n.Lang
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -134,7 +132,10 @@ object index {
 </form>"""),
                   patron.exists(_.isLifetime) option
                     p(style := "text-align:center;margin-bottom:1em")(makeExtraDonation()),
-                  st.group(cls := "radio buttons freq")(
+                  st.group(cls := List(
+                    "radio buttons freq" -> true,
+                    "anon" -> ctx.isAnon
+                  ))(
                     div(
                       st.title := payLifetimeOnce.txt(lila.plan.Cents.lifetime.usd),
                       cls      := List("lifetime-check" -> patron.exists(_.isLifetime)),
@@ -231,23 +232,21 @@ object index {
     }
   }
 
-  private def faq(implicit lang: Lang) =
+  private def faq(implicit ctx: Context) =
     div(cls := "faq")(
       dl(
         dt(changeMonthlySupport()),
         dd(
           changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
         ),
-        dt(otherMethods()),
-        dd(
-          bitcoin(code("13kg1w1K3TXr1y82cDQHKAGQJphz4qGUDH"))
-        )
       ),
       dl(
         dt(patronFeatures()),
         dd(
-          noPatronFeatures(),
-          br,
+          ctx.isAuth option div(
+            noPatronFeatures(),
+            br
+          ),
           a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
           "."
         )

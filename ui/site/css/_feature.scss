@@ -38,6 +38,9 @@
   .is::before {
     font-size: 1.4em;
   }
+  .header::before {
+    vertical-align: baseline;
+  }
 
   .price {
     font-size: 1.4em;

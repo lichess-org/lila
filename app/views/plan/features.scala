@@ -136,21 +136,11 @@ object features {
           //    strong("All features to come, forever")
           //  )
           // ),
-          header(h1("Support Lishogi")),
           tbody(cls := "support")(
-            st.tr(
-              th(
-                "Contribute to Lishogi and",
-                br,
-                "get a cool looking Patron icon"
-              ),
-              td("-"),
-              td(span(dataIcon := patronIconChar, cls := "is is-green text check")("Yes"))
-            ),
             st.tr(cls := "price")(
               th,
               td(cls := "green")("$0"),
-              td(a(href := routes.Plan.index, cls := "green button")("$5/month"))
+              td(a(href := routes.Plan.index, cls := "green button")(trans.patron.donate()))
             )
           )
         ),
@@ -172,7 +162,14 @@ object features {
 
   private def header(name: Frag)(implicit lang: Lang) =
     thead(
-      st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lishogiPatron()))
+      st.tr(
+        th(name),
+        th(trans.patron.freeAccount()),
+        th(
+          span(dataIcon := patronIconChar, cls := "is text header")
+          (trans.patron.lishogiPatron())
+        )
+      )
     )
 
   private val unlimited = span(dataIcon := "E", cls := "is is-green text unlimited")("Unlimited")
