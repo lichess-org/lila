@@ -110,10 +110,9 @@ class Env {
 
     const prefix = (
       (show?.time === false ? '' : prettyTime()) +
-      (!ctx || show?.ctx === false ? '' : `[${esc(ctx, colorForCtx(ctx, show?.color))}] `) +
+      (!ctx || show?.ctx === false ? '' : `[${hasColor(ctx) ? ctx : esc(ctx, colorForCtx(ctx, show?.color))}] `) +
       (show?.heap === true ? `${esc(rss + ' MB', rss > 5000 ? codes.red : codes.grey)} ` : '')
     ).trim();
-
     lines(text).forEach(line => console.log(`${prefix ? prefix + ' - ' : ''}${error ? esc(line, '31') : line}`));
   }
 }
@@ -136,6 +135,10 @@ const colorForCtx = (ctx: string, color: any): string =>
 
 const escape = (text: string, code: string): string => `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m`;
 
+function hasColor(text: string): boolean {
+  // eslint-disable-next-line no-control-regex
+  return text.match(/\x1b\[[0-9;]*m/) != null;
+}
 const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
 function stripColorEscapes(text: string) {
