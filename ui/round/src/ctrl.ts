@@ -179,7 +179,6 @@ export default class RoundController {
 
   private onUserMove = (orig: sg.Key, dest: sg.Key, prom: boolean, meta: sg.MoveMetadata) => {
     if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.move(this, meta);
-    this.sendMove(orig, dest, prom, meta);
 
     // to update hand immediately and not wait on apiMove
     if (meta.captured)
@@ -187,6 +186,7 @@ export default class RoundController {
         role: unpromote(this.data.game.variant.key)(meta.captured.role) || meta.captured.role,
         color: opposite(meta.captured.color),
       });
+    this.sendMove(orig, dest, prom, meta);
   };
 
   private onUserDrop = (piece: Piece, key: sg.Key, _prom: boolean, meta: sg.MoveMetadata) => {
