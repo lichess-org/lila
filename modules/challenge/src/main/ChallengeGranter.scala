@@ -21,6 +21,7 @@ object ChallengeDenied {
     case class RatingOutsideRange(perf: PerfType)  extends Reason
     case class RatingIsProvisional(perf: PerfType) extends Reason
     case object FriendsOnly                        extends Reason
+    case object SelfChallenge                      extends Reason
   }
 
   def translated(d: ChallengeDenied)(implicit lang: Lang): String =
@@ -32,6 +33,7 @@ object ChallengeDenied {
         I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
       case Reason.FriendsOnly => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.SelfChallenge             => "You cannot challenge yourself."
     }
 }
 
@@ -66,6 +68,7 @@ final class ChallengeGranter(
                 }
               }
             case (_, Pref.Challenge.ALWAYS) => none
+            case _ if from == dest          => SelfChallenge.some
             case _                          => none
           }
       }

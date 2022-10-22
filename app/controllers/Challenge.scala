@@ -190,7 +190,8 @@ final class Challenge(
               username =>
                 ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
                   env.user.repo named username flatMap {
-                    case None => Redirect(routes.Challenge.show(c.id)).fuccess
+                    case None                       => Redirect(routes.Challenge.show(c.id)).fuccess
+                    case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).fuccess
                     case Some(dest) =>
                       env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
                         case Some(denied) =>
