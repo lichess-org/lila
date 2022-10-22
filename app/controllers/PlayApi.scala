@@ -197,7 +197,7 @@ final class PlayApi(
           .botsByIdsCursor(env.bot.onlineApiUsers.get)
           .documentSource(getInt("nb", req) | Int.MaxValue)
           .throttle(50, 1 second)
-          .map { env.user.jsonView.full(_, withOnline = false, withRating = true, withProfile = true) }
+          .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
       }
     }
 }

@@ -30,7 +30,6 @@ final class Auth(
       Ok {
         env.user.jsonView.full(
           u,
-          withOnline = true,
           withRating = ctx.pref.showRatings,
           withProfile = true
         ) ++ Json.obj(
