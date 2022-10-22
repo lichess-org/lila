@@ -17,7 +17,6 @@ case class Post(
     text: String,
     number: Int,
     troll: Boolean,
-    hidden: Boolean,
     lang: Option[String],
     editHistory: Option[List[OldVersion]] = None,
     createdAt: DateTime,
@@ -122,7 +121,6 @@ object Post {
       number: Int,
       lang: Option[String],
       troll: Boolean,
-      hidden: Boolean,
       modIcon: Option[Boolean] = None
   ): Post = {
 
@@ -135,7 +133,6 @@ object Post {
       number = number,
       lang = lang,
       troll = troll,
-      hidden = hidden,
       createdAt = DateTime.now,
       categId = categId,
       modIcon = modIcon

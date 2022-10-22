@@ -34,8 +34,7 @@ final class CategApi(
       slug = slug + "-forum",
       name = name + " forum",
       userId = User.lichessId,
-      troll = false,
-      hidden = false
+      troll = false
     )
     val post = Post.make(
       topicId = topic.id,
@@ -44,7 +43,6 @@ final class CategApi(
       text = "Welcome to the %s forum!" format name,
       number = 1,
       troll = false,
-      hidden = topic.hidden,
       lang = "en".some,
       categId = categ.id,
       modIcon = None
