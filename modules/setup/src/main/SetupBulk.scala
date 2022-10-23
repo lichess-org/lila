@@ -1,7 +1,8 @@
 package lila.setup
 
 import akka.stream.scaladsl._
-import chess.variant.Variant
+import chess.variant.{ FromPosition, Variant }
+import chess.format.FEN
 import chess.{ Clock, Mode }
 import org.joda.time.DateTime
 import play.api.data._
@@ -9,7 +10,7 @@ import play.api.data.Forms._
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
-import lila.common.Json.daysFormat
+import lila.common.Json._
 import lila.common.{ Bearer, Days, Template }
 import lila.game.{ Game, GameRule, IdGenerator }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
@@ -28,11 +29,18 @@ object SetupBulk {
       pairAt: Option[DateTime],
       startClocksAt: Option[DateTime],
       message: Option[Template],
-      rules: Set[GameRule]
+      rules: Set[GameRule],
+      fen: Option[FEN] = None
   ) {
     def clockOrDays = clock.toLeft(days | Days(3))
 
     def allowMultiplePairingsPerUser = clock.isEmpty
+
+    def validFen = ApiConfig.validFen(variant, fen)
+
+    def autoVariant =
+      if (variant.standard && fen.exists(!_.initial)) copy(variant = FromPosition)
+      else this
   }
 
   private def timestampInNearFuture = longNumber(
@@ -48,6 +56,7 @@ object SetupBulk {
       SetupForm.api.variant,
       SetupForm.api.clock,
       SetupForm.api.optionalDays,
+      "fen"           -> Mappings.fenField,
       "rated"         -> boolean,
       "pairAt"        -> optional(timestampInNearFuture),
       "startClocksAt" -> optional(timestampInNearFuture),
@@ -59,6 +68,7 @@ object SetupBulk {
           variant: Option[String],
           clock: Option[Clock.Config],
           days: Option[Days],
+          fen: Option[FEN],
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
@@ -74,13 +84,15 @@ object SetupBulk {
           pairTs.map { new DateTime(_) },
           clockTs.map { new DateTime(_) },
           message map Template,
-          ~rules
-        )
+          ~rules,
+          fen
+        ).autoVariant
     }(_ => None)
       .verifying(
         "clock or correspondence days required",
         c => c.clock.isDefined || c.days.isDefined
       )
+      .verifying("invalidFen", _.validFen)
       .verifying(
         "Tokens must be unique for real-time games (not correspondence)",
         data =>
@@ -120,7 +132,8 @@ object SetupBulk {
       scheduledAt: DateTime,
       message: Option[Template],
       rules: Set[GameRule] = Set.empty,
-      pairedAt: Option[DateTime] = None
+      pairedAt: Option[DateTime] = None,
+      fen: Option[FEN] = None
   ) {
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
@@ -166,6 +179,7 @@ object SetupBulk {
       })
       .add("message" -> message.map(_.value))
       .add("rules" -> nonEmptyRules)
+      .add("fen" -> fen)
   }
 
 }
@@ -244,7 +258,8 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
                     startClocksAt = data.startClocksAt,
                     message = data.message,
                     rules = data.rules,
-                    scheduledAt = DateTime.now
+                    scheduledAt = DateTime.now,
+                    fen = data.fen
                   )
                 }
                 .dmap(Right.apply)
