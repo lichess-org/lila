@@ -1,4 +1,5 @@
 {
+  "gulp": true,
   "log": {
     "heap": false,
     "time": true,
