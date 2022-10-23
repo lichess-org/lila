@@ -142,16 +142,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     }
 
-  def toggleHideTopic(mod: User.ID, categ: String, topic: String, hidden: Boolean) =
-    add {
-      Modlog(
-        mod,
-        none,
-        if (hidden) Modlog.hideTopic else Modlog.showTopic,
-        details = s"$categ/$topic".some
-      )
-    }
-
   def toggleStickyTopic(mod: User.ID, categ: String, topic: String, sticky: Boolean) =
     add {
       Modlog(

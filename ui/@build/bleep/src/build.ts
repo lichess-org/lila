@@ -5,7 +5,7 @@ import * as ps from 'node:process';
 import * as cps from 'node:child_process';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 import { parseModules } from './parse';
 import { makeBleepConfig } from './tsconfig';
 import { LichessModule, LichessRollup, env, colorFuncs as c } from './env';
@@ -96,10 +96,13 @@ function rollupWatch(todo: LichessModule[]): void {
     return;
   }
   let moduleName = 'unknown';
+
   watcher = rup.watch(rollups).on('event', (e: rup.RollupWatcherEvent) => {
-    if (e.code == 'END') rollupDone();
-    else if (e.code == 'ERROR') rollupError(e.error, moduleName);
-    else if (e.code == 'BUNDLE_START') {
+    if (e.code == 'END') {
+      rollupDone();
+    } else if (e.code == 'ERROR') {
+      rollupError(e.error, moduleName);
+    } else if (e.code == 'BUNDLE_START') {
       if (!startTime) startTime = Date.now();
       const output = e.output.length > 0 ? e.output[0] : '';
       const hostMod = outputToHostMod.get(output);
@@ -109,9 +112,11 @@ function rollupWatch(todo: LichessModule[]): void {
       const output = e.output.length > 0 ? e.output[0] : '';
       const hostMod = outputToHostMod.get(output);
       if (triggerScriptCmds.has(output)) postModBuild(hostMod);
-      const modName = fs.existsSync(output) ? path.basename(output) : '<unknown>';
+      const result = fs.existsSync(output)
+        ? `bundled '${c.cyan(path.basename(output))}' - `
+        : `not found '${c.red(output)}' - `;
 
-      env.log(`bundled '${c.cyan(modName)}' - ` + c.grey(`${e.duration}ms`), { ctx: 'rollup' });
+      env.log(result + c.grey(`${e.duration}ms`), { ctx: 'rollup' });
       e.result?.close();
     }
   });
@@ -123,10 +128,16 @@ function rollupDone() {
   startTime = undefined;
 }
 
-function rollupError(e: rup.RollupError, name: string) {
-  const filename = e.loc?.file || e.id || '<unknown';
-  const loc = e.loc ? `line ${e.loc.line} column ${e.loc.column} of ` : '';
-  env.log(`${c.red(e.code!)} in ${loc}'${c.cyan(filename)}'\n${e.frame ? c.red(e.frame) : ''}`, { ctx: name });
+function rollupError(err: rup.RollupError, name: string) {
+  if (!err.code) {
+    env.log(err, { ctx: name, error: true });
+    return;
+  }
+  const filename = err.loc?.file || err.id || name;
+  const loc = err.loc ? `line ${err.loc.line} column ${err.loc.column} of ` : '';
+  const preamble = c.red(err.code) + ` in ${loc}'${c.cyan(filename)}'`;
+  env.log(`${preamble}\n${err.frame ? c.red(err.frame) : ''}`, { ctx: c.red(name) });
+  env.log(c.red(`*** ${name} module bundle failed! ***`), { ctx: c.red(name) });
 }
 
 function rollupOptions(o: LichessRollup): rup.RollupWatchOptions {

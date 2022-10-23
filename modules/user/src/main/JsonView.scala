@@ -15,7 +15,6 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
   def full(
       u: User,
       onlyPerf: Option[PerfType] = None,
-      withOnline: Boolean,
       withRating: Boolean,
       withProfile: Boolean
   ): JsObject =

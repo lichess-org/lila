@@ -153,12 +153,6 @@ object topic {
                 )
               )
             },
-            isGranted(_.ModerateForum) option
-              postForm(action := routes.ForumTopic.hide(categ.slug, topic.slug))(
-                button(cls := "button button-empty button-green")(
-                  if (topic.hidden) "Feature" else "Un-feature"
-                )
-              ),
             canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor)) option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(

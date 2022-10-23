@@ -21,7 +21,6 @@ case class Topic(
     lastPostIdTroll: String,
     troll: Boolean,
     closed: Boolean,
-    hidden: Boolean,
     sticky: Option[Boolean],
     userId: Option[User.ID] = None, // only since SB mutes
     ublogId: Option[String] = None
@@ -37,11 +36,9 @@ case class Topic(
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def open          = !closed
-  def visibleOnHome = !hidden
 
   def isTooBig = nbPosts > (if (Categ.isTeamSlug(categId)) 500 else 50)
 
-  def looksLikeTeamForum = Categ isTeamSlug categId
   def possibleTeamId     = Categ slugToTeamId categId
 
   def isSticky = ~sticky
@@ -86,7 +83,6 @@ object Topic {
       name: String,
       userId: User.ID,
       troll: Boolean,
-      hidden: Boolean,
       ublogId: Option[String] = None
   ): Topic =
     Topic(
@@ -104,7 +100,6 @@ object Topic {
       troll = troll,
       userId = userId.some,
       closed = false,
-      hidden = hidden,
       sticky = None,
       ublogId = ublogId
     )

@@ -21,5 +21,8 @@
     width: 70px;
     background: linear-gradient(to $end-direction, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
     animation: bar-glider-anim 3s linear infinite;
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
   }
 }
