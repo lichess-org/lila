@@ -99,26 +99,9 @@ final class ChallengeBulkApi(
   }
 
   private def makePairings(bulk: ScheduledBulk): Funit = {
-    val clock = bulk.clock.left.toOption.map(_.toClock)
-    def makeChess(variant: chess.variant.Variant): chess.Game =
-      chess.Game(situation = Situation(variant), clock = clock)
-
-    val baseState = bulk.fen.ifTrue(bulk.variant.fromPosition || bulk.variant.chess960) flatMap {
-      Forsyth.<<<@(bulk.variant, _)
-    }
-    val (chessGame, state) = baseState.fold(makeChess(bulk.variant) -> none[SituationPlus]) {
-      case sp @ SituationPlus(sit, _) =>
-        val game = chess.Game(
-          situation = sit,
-          turns = sp.turns,
-          startedAtTurn = sp.turns,
-          clock = clock
-        )
-        if (bulk.variant.fromPosition && Forsyth.>>(game).initial)
-          makeChess(chess.variant.Standard) -> none
-        else game                           -> baseState
-    }
-    val perfType = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
+    def timeControl = bulk.clock.fold(Challenge.TimeControl.Clock, Challenge.TimeControl.Correspondence)
+    val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
+    val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8) { game =>
         userRepo.pair(game.white, game.black) map2 { case (white, black) =>

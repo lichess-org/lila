@@ -172,13 +172,16 @@ object Challenge {
     case object Open                                   extends Challenger
   }
 
-  sealed trait TimeControl
+  sealed trait TimeControl {
+    def realTime: Option[chess.Clock.Config] = none
+  }
   object TimeControl {
     def make(clock: Option[chess.Clock.Config], days: Option[Days]) =
       clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
-    case object Unlimited                        extends TimeControl
-    case class Correspondence(days: Days)        extends TimeControl
+    case object Unlimited                 extends TimeControl
+    case class Correspondence(days: Days) extends TimeControl
     case class Clock(config: chess.Clock.Config) extends TimeControl {
+      override def realTime = config.some
       // All durations are expressed in seconds
       def limit     = config.limit
       def increment = config.increment

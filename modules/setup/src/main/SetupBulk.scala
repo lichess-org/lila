@@ -1,7 +1,7 @@
 package lila.setup
 
 import akka.stream.scaladsl._
-import chess.variant.{ Variant, FromPosition }
+import chess.variant.{ FromPosition, Variant }
 import chess.format.FEN
 import chess.{ Clock, Mode }
 import org.joda.time.DateTime
