@@ -122,18 +122,7 @@ final class ChallengeBulkApi(
             rules = bulk.rules
           )
           .withId(id)
-          .pipe { g =>
-            state.fold(g) { case sit @ SituationPlus(Situation(board, _), _) =>
-              g.copy(
-                chess = g.chess.copy(
-                  situation = g.situation.copy(
-                    board = g.board.copy(history = board.history)
-                  ),
-                  turns = sit.turns
-                )
-              )
-            }
-          }
+          .pipe(ChallengeJoiner.addGameHistory(state))
           .start
         (game, white, black)
       }

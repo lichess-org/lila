@@ -53,18 +53,7 @@ private object ChallengeJoiner {
         rules = c.rules
       )
       .withId(c.id)
-      .pipe { g =>
-        state.fold(g) { case sit @ SituationPlus(Situation(board, _), _) =>
-          g.copy(
-            chess = g.chess.copy(
-              situation = g.situation.copy(
-                board = g.board.copy(history = board.history)
-              ),
-              turns = sit.turns
-            )
-          )
-        }
-      }
+      .pipe(addGameHistory(state))
       .start
   }
 
@@ -93,4 +82,16 @@ private object ChallengeJoiner {
       else game                           -> baseState
     }
   }
+
+  def addGameHistory(position: Option[SituationPlus])(game: Game): Game =
+    position.fold(game) { case sit @ SituationPlus(Situation(board, _), _) =>
+      game.copy(
+        chess = game.chess.copy(
+          situation = game.situation.copy(
+            board = game.board.copy(history = board.history)
+          ),
+          turns = sit.turns
+        )
+      )
+    }
 }
