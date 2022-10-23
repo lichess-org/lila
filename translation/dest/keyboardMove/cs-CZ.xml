@@ -9,6 +9,7 @@
   <string name="readOutOpponentName">Přečíst jméno soupeře</string>
   <string name="otherCommands">Další příkazy</string>
   <string name="tips">Tipy</string>
+  <string name="includingAXToIndicateACapture">Zadání \"x\" pro označení braní je nepovinné</string>
   <string name="bothTheLetterOAndTheDigitZero">Písmeno „o“ i číslice nula „0“ mohou být použity pro rošádu</string>
   <string name="ifItIsLegalToCastleBothWays">Pokud jsou možné obě rošády, použijte klávesu Enter pro malou rošádu</string>
 </resources>

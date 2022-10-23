@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' կլորացումով` կախված կիսաքայլերի քանակից մինչև հաջորդ վերցնելը կամ զինվորի քայլը</string>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Փորձեք կարգավորումներում միացնել ավելի շատ խաղեր։</string>
+  <string name="openings">Սկզբնախաղեր</string>
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
   <string name="openingEndgameExplorer">Սկզբնախաղերի/վերջնախաղերի տեղեկատու</string>
   <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
@@ -156,6 +157,7 @@
   <string name="viewInFullSize">Մեծացնել չափը</string>
   <string name="logOut">Ելք</string>
   <string name="signIn">Մուտք</string>
+  <string name="rememberMe">Հիշել ինձ</string>
   <string name="youNeedAnAccountToDoThat">Դա անելու համար պետք է հաշիվ ունենալ</string>
   <string name="signUp">Գրանցվել</string>
   <string name="computersAreNotAllowedToPlay">Համակարգիչներն ու համակարգչից օգնություն վերցնող խաղացողներն իրավունք չունեն խաղալ։ Խնդրում ենք խաղալիս չօգտվել շախմատային ծրագրերից, տվյալների բազաներից և այլ մարդկանց օգնությունից:</string>

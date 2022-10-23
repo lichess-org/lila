@@ -23,7 +23,7 @@
   <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
   <string name="leavingGameWithoutResigningExplanation">אם יריבך מבטל משחקים או עוזב אותם לעיתים קרובות, הוא \"יושעה ממשחקים\", מה שאומר שיאסר עליו באופן זמני לשחק. זה לא יצוין באופן פומבי בפרופיל שלו. אם התנהגות זו תמשיך, אורך ההשעיה יעלה - והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלו לצמיתות.</string>
   <string name="howCanIBecomeModerator">איך אני יכול/ה להיות מנהל/ת?</string>
-  <string name="youCannotApply">לא ניתן להגיש בקשה להיות מנהל/ת. אם אנו רואים מישהו שלדעתנו יהיה טוב כמנהל, אנו ניצור עמו קשר ישירות.</string>
+  <string name="youCannotApply">לא ניתן להגיש בקשה להיות מנהל/ת. כשאנו רואים מישהו שלדעתנו יהיה טוב כמנהל, אנו יוצרים עמו קשר ישירות.</string>
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="pleaseReadFairPlayPage">לקבלת מידע נוסף, בבקשה קראו את %s שלנו</string>
   <string name="fairPlayPage">המדריך למשחק הוגן</string>
