@@ -115,6 +115,12 @@
   }
 }
 
-main.has-relay-tour .mchat {
-  height: 48vh;
+main.has-relay-tour {
+  @include breakpoint($mq-col3) {
+    /* ignore board zoom since this page has no board */
+    grid-template-columns: $col3-uniboard-side $block-gap auto var(--gauge-gap) $col3-uniboard-table;
+  }
+  .mchat {
+    height: 48vh;
+  }
 }
