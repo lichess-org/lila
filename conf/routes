@@ -542,6 +542,7 @@ POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(usernam
 POST  /mod/:username/email             controllers.Mod.setEmail(username)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip
 POST  /mod/:username/create-name-close-vote controllers.Mod.createNameCloseVote(username)
+POST  /mod/:username/ask-usertable-check controllers.Mod.askUsertableCheck(username)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period)
 GET   /mod/activity                    controllers.Mod.activity
@@ -582,7 +583,6 @@ POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId)
 GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, slug, page: Int ?= 1)
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
-POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug, slug)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug, id)

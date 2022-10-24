@@ -76,15 +76,6 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
   def removeByTopic(topicId: String): Funit =
     coll.delete.one(selectTopic(topicId)).void
 
-  def hideByTopic(topicId: String, value: Boolean): Funit =
-    coll.update
-      .one(
-        selectTopic(topicId),
-        $set("hidden" -> value),
-        multi = true
-      )
-      .void
-
   def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
 
   def selectCateg(categId: String)         = $doc("categId" -> categId) ++ trollFilter

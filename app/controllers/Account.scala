@@ -77,7 +77,7 @@ final class Account(
           } yield Ok {
             import lila.pref.JsonView._
             env.user.jsonView
-              .full(me, withOnline = false, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
+              .full(me, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
               .obj(
                 "prefs"        -> ctx.pref,
                 "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),

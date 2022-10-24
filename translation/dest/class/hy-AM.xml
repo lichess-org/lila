@@ -24,7 +24,10 @@
   <string name="visibleByBothStudentsAndTeachers">Երևում է ինչպես մարզչին, այնպես էլ խմբի աշակերտներին</string>
   <string name="teachersOfTheClass">Խմբի մարզիչները</string>
   <string name="addLichessUsernames">Ավելացրեք Lichess-ի օգտատերերի անունները` նրանց որպես մարզիչ հրավիրելու համար։ Ամեն տողում` մեկին։</string>
+  <string name="resetPassword">Չեղարկել գաղտնաբառը</string>
+  <string name="makeSureToCopy">Համոզվեք, որ գաղտնաբառը պատճենված է կամ գրված։ Դուք այն այլևս չեք կարող տեսնել։</string>
   <string name="passwordX">Գաղտնաբառն է %s</string>
+  <string name="generateANewPassword">Ստեղծել նոր գաղտնաբառ աշակերտի համար</string>
   <string name="invitedToXByY">Հրավերը %1$s ստացված է %2$sից</string>
   <string name="realName">Իսկական անունը</string>
   <string name="addStudent">Ավելացնել աշակերտ</string>

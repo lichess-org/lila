@@ -95,14 +95,6 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       }
     }
 
-  def hide(categSlug: String, slug: String) =
-    Secure(_.ModerateForum) { implicit ctx => me =>
-      OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.me)) { case (categ, topic, pag) =>
-        topicApi.toggleHide(categ, topic, me) inject
-          routes.ForumTopic.show(categSlug, slug, pag.nbPages)
-      }
-    }
-
   def sticky(categSlug: String, slug: String) =
     Auth { implicit ctx => me =>
       CategGrantMod(categSlug) {

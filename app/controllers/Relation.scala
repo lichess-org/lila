@@ -155,7 +155,7 @@ final class Relation(
     apiC.jsonStream {
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
-        .map(env.api.userApi.one(_, withOnline = false))
+        .map(env.api.userApi.one)
     }.fuccess
   }
 

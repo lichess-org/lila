@@ -124,7 +124,7 @@ final class Team(
               apiC.jsonStream(
                 env.team
                   .memberStream(team, config.MaxPerSecond(20))
-                  .map(env.api.userApi.one(_, withOnline = false))
+                  .map(env.api.userApi.one)
               )(req)
             case false => Unauthorized
           }

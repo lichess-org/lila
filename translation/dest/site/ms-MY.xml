@@ -91,6 +91,7 @@
   <string name="dtzWithRounding">DTZ50\" yang dibundar, mengikut jumlah pegerakkan separuh sehingga sebuah bidak dimakan atau pegerakkan pion seterusnya</string>
   <string name="noGameFound">Tiada perlawanan dijumpai</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mungki masukkan lebih banyak perlawanan daripada pilihan menu?</string>
+  <string name="openings">Pembukaan</string>
   <string name="openingExplorer">Membuka explorer</string>
   <string name="openingEndgameExplorer">Penjelajah pembukaan/akhir permainan</string>
   <string name="xOpeningExplorer">%s membuka explorer</string>
@@ -185,12 +186,16 @@
   <string name="changeUsername">Tukar nama pengguna</string>
   <string name="changeUsernameNotSame">Hanya huruf besar atau huruf kecil pada perkataan boleh ditukar. Contohnya, \"johndoe\" kepada \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Tukar nama pengguna. Tindakan ini hanya boleh dibuat sekali dan anda hanya dibenarkan menukar huruf besar/huruf kecil pada nama pengguna anda.</string>
+  <string name="signupUsernameHint">Pastikan anda memilih nama yang elok. Anda tidak boleh menukarnya kemudian dan jika sesuatu akaun menggunakan nama yang tidak elok, akaun tersebut akan ditutup!</string>
+  <string name="signupEmailHint">Kami hanya akan menggunakannya untuk penukaran kata laluan.</string>
   <string name="password">Kata kunci</string>
   <string name="changePassword">Tukar kata kunci</string>
   <string name="changeEmail">Tukar emel</string>
   <string name="email">Emel</string>
   <string name="passwordReset">Reset kata kunci</string>
   <string name="forgotPassword">Lupa kata kunci?</string>
+  <string name="whatSignupUsername">Nama apa yang awak gunakan untuk mendaftar?</string>
+  <string name="emailCanTakeSomeTime">Ia boleh mengambil masa untuk sampai.</string>
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -391,6 +396,7 @@
   <string name="tournamentPairingsAreNowClosed">Keseimbangan pertandingan sekarang ditutup.</string>
   <string name="standByX">Berada dengan %s, permain yang diseimbangkan, sila bersedia!</string>
   <string name="pause">Jeda</string>
+  <string name="resume">Sambung</string>
   <string name="youArePlaying">Anda sedang bermain!</string>
   <string name="winRate">Rate menang</string>
   <string name="berserkRate">Rate berserk</string>
@@ -401,12 +407,24 @@
   <string name="blackWins">Menang Hitam</string>
   <string name="draws">Seri</string>
   <string name="nextXTournament">Pertandingan %s seterusnya:</string>
+  <string name="averageOpponent">Pihak lawan purata</string>
+  <string name="boardEditor">Papan penyunting</string>
+  <string name="setTheBoard">Perbaiki papan catur</string>
   <string name="popularOpenings">Pembukaan terkenal</string>
   <string name="startPosition">Posisi permulaan</string>
+  <string name="isPrivate">Peribadi</string>
+  <string name="ifNoneLeaveEmpty">Jika tiada, biar kosong</string>
+  <string name="profile">Profil</string>
+  <string name="editProfile">Sunting profile</string>
+  <string name="firstName">Nama yang diberi</string>
+  <string name="lastName">Nama keluarga</string>
   <string name="biography">Biografi</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau bendera</string>
   <string name="thankYou">Terima kasih!</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
+  <string name="oneUrlPerLine">Satu URL setiap baris.</string>
+  <string name="inlineNotation">Notasi dalaman</string>
+  <string name="savingMoves">Penyimpanan sementara</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
   <plurals name="nbGamesInPlay">
@@ -478,7 +496,9 @@
     <item quantity="other">%s disekat</item>
   </plurals>
   <string name="listBlockedPlayers">Senarai pemain yang disekat</string>
+  <string name="human">Manusia</string>
   <string name="computer">Komputer</string>
+  <string name="side">Tepi</string>
   <string name="clock">Jam</string>
   <string name="opponent">Lawan</string>
   <string name="learnMenu">Belajar</string>
@@ -492,8 +512,11 @@
   <string name="error.email">Emel ini tidak sah</string>
   <string name="error.email_acceptable">Emel ini tidak diterima. Sila semak semula, dan cuba lagi.</string>
   <string name="error.email_unique">Emel tidak sah atau sudah diguna</string>
+  <string name="error.email_different">Ini merupakan emel anda</string>
   <string name="error.min">Sekurang-kurangnya %s</string>
   <string name="ifRatingIsPlusMinusX">Jika rating adalah ± %s</string>
+  <string name="ifRegistered">Jika berdaftar</string>
+  <string name="onlyExistingConversations">Hanya perbualan yang wujud</string>
   <string name="onlyFriends">Hanya rakan-rakan</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>

@@ -189,6 +189,11 @@ object inquiry {
               )
             },
             isGranted(_.SendToZulip) option {
+              postForm(action := routes.Mod.askUsertableCheck(in.user.username))(
+                submitButton(cls := "fbt")("Ask for usertable check")
+              )
+            },
+            isGranted(_.SendToZulip) option {
               postForm(action := routes.Mod.createNameCloseVote(in.user.username))(
                 submitButton(cls := "fbt")("Create name-close vote")
               )

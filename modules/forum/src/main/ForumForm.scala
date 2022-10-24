@@ -65,28 +65,7 @@ object ForumForm {
   case class TopicData(
       name: String,
       post: PostData
-  ) {
-
-    def looksLikeVenting =
-      List(name, post.text) exists { txt =>
-        mostlyUpperCase(txt) || ventingRegex.find(txt)
-      }
-  }
-
-  private def mostlyUpperCase(text: String) =
-    text.lengthIs > 5 && {
-      import java.lang.Character._
-      // true if >2/3 of the latin letters are upper
-      (text take 300).foldLeft(0) { (i, c) =>
-        getType(c) match {
-          case UPPERCASE_LETTER => i + 1
-          case LOWERCASE_LETTER => i - 2
-          case _                => i
-        }
-      } > 0
-    }
-
-  private val ventingRegex = """cheat|engine|rating|loser|banned|abort""".r
+  )
 
   case class PostEdit(changes: String)
 }
