@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Tattiche</string>
-  <string name="puzzleThemes">Temi tattici</string>
+  <string name="puzzleThemes">Problemi a tema</string>
   <string name="recommended">Consigliati</string>
   <string name="phases">Fasi</string>
   <string name="motifs">Temi</string>
@@ -18,16 +18,16 @@
   <string name="yourPuzzleRatingWillNotChange">Il tuo punteggio per le tattiche non cambierà. Nota che le tattiche non sono una competizione. Il punteggio ci aiuta a selezionare le migliori tattiche per il tuo livello di gioco.</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
-  <string name="toGetPersonalizedPuzzles">Per ottenere tattiche personalizzate:</string>
-  <string name="puzzleId">Tattica %s</string>
-  <string name="puzzleOfTheDay">Tattica del giorno</string>
+  <string name="toGetPersonalizedPuzzles">Per ottenere problemi personalizzati:</string>
+  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleOfTheDay">Problema del giorno</string>
   <string name="clickToSolve">Clicca per provare a risolverla</string>
   <string name="goodMove">Buona mossa</string>
   <string name="bestMove">La mossa migliore!</string>
   <string name="keepGoing">Continua…</string>
   <string name="puzzleSuccess">Risolto!</string>
-  <string name="puzzleComplete">Tattica risolta!</string>
-  <string name="notTheMove">La mossa non è questa!</string>
+  <string name="puzzleComplete">Problema completato!</string>
+  <string name="notTheMove">Non è la mossa esatta!</string>
   <string name="trySomethingElse">Prova qualcos\'altro.</string>
   <string name="ratingX">Punteggio: %s</string>
   <string name="hidden">nascosto</string>
@@ -58,7 +58,7 @@
   <string name="puzzleDashboard">Le tue tattiche</string>
   <string name="improvementAreas">Aree di miglioramento</string>
   <string name="strengths">Punti di forza</string>
-  <string name="history">Cronologia tattiche</string>
+  <string name="history">Cronologia dei puzzle</string>
   <string name="solved">risolto</string>
   <string name="failed">sbagliato</string>
   <string name="streakDescription">Risolvi tattiche progressivamente più difficili e accumula una serie di vittorie. Non c\'è orologio, quindi fai con calma. Appena fai una mossa sbagliata è finita! Puoi saltare una mossa per sessione.</string>
