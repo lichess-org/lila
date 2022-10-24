@@ -8,9 +8,7 @@ import lila.app._
 import lila.i18n.I18nLangPicker
 import lila.api.Context
 
-final class Lobby(
-    env: Env
-) extends LilaController(env) {
+final class Lobby(env: Env) extends LilaController(env) {
 
   private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
