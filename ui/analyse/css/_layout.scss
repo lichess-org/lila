@@ -25,12 +25,6 @@ body {
     grid-area: board;
   }
 
-  .relay-tour {
-    grid-row-start: board;
-    grid-row-end: tools;
-    grid-column: board;
-  }
-
   &__tools {
     grid-area: tools;
   }
@@ -105,10 +99,6 @@ body {
 
     .eval-gauge {
       display: block;
-    }
-
-    .relay-tour {
-      grid-row-end: under;
     }
   }
 
