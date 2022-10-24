@@ -42,7 +42,7 @@
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
 
     a {
       @extend %box-radius;
