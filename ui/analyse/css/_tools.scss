@@ -114,14 +114,18 @@
     }
 
     .jumps {
-      flex: 3 1 auto;
+      flex: 2.5 1 auto;
+    }
+
+    .features .fbt {
+      @extend %page-text;
+
+      flex: 1 1 2.5rem;
+      transition: visibility 0s;
     }
 
     .fbt {
-      @extend %page-text;
-
       flex: 0 0 2.5rem;
-      transition: visibility 0s;
     }
 
     .persistence {
@@ -138,7 +142,15 @@
       height: $col1-uniboard-controls;
 
       .fbt {
-        flex: 0 0 3.5rem;
+        flex: 0 0 3rem;
+      }
+
+      .jumps {
+        flex: 2.4 1 auto;
+      }
+
+      .features .fbt {
+        flex: 1 1 3.5rem;
       }
     }
   }
