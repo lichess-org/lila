@@ -11,6 +11,8 @@ trait Stream {
   def serviceName: String
   val status: String
   val streamer: Streamer
+  val language: String
+
   def is(s: Streamer): Boolean     = streamer.id == s.id
   def is(userId: User.ID): Boolean = streamer.userId == userId
   def twitch                       = serviceName == "twitch"
@@ -18,10 +20,14 @@ trait Stream {
 
   lazy val cleanStatus = removeMultibyteSymbols(status).trim
 
-  lazy val lang: String = cleanStatus match {
-    case Stream.LangRegex(code) => code.toLowerCase
-    case _                      => "en"
-  }
+  lazy val lang: String =
+    if (language.length == 2) language.toLowerCase // toLowerCase at least 17 times or it won't stick
+    else
+      cleanStatus match {
+        case Stream.LangRegex(code) => code.toLowerCase
+        case _                      => "en"
+      }
+
 }
 
 object Stream {
@@ -31,7 +37,7 @@ object Stream {
   }
 
   object Twitch {
-    case class TwitchStream(user_name: String, title: String, `type`: String) {
+    case class TwitchStream(user_name: String, title: String, `type`: String, language: String) {
       def name   = user_name
       def isLive = `type` == "live"
     }
@@ -39,7 +45,8 @@ object Stream {
     case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]) {
       def liveStreams = (~data).filter(_.isLive)
     }
-    case class Stream(userId: String, status: String, streamer: Streamer) extends lila.streamer.Stream {
+    case class Stream(userId: String, status: String, streamer: Streamer, language: String)
+        extends lila.streamer.Stream {
       def serviceName = "twitch"
     }
     object Reads {
@@ -50,7 +57,12 @@ object Stream {
   }
 
   object YouTube {
-    case class Snippet(channelId: String, title: String, liveBroadcastContent: String)
+    case class Snippet(
+        channelId: String,
+        title: String,
+        liveBroadcastContent: String,
+        defaultAudioLanguage: String // this might need to be defaultLanguage.  let's push live and find out
+    )
     case class Id(videoId: String)
     case class Item(id: Id, snippet: Snippet)
     case class Result(items: List[Item]) {
@@ -66,13 +78,19 @@ object Stream {
                 item.snippet.channelId,
                 unescapeHtml(item.snippet.title),
                 item.id.videoId,
-                _
+                _,
+                item.snippet.defaultAudioLanguage.toLowerCase
               )
             }
           }
     }
-    case class Stream(channelId: String, status: String, videoId: String, streamer: Streamer)
-        extends lila.streamer.Stream {
+    case class Stream(
+        channelId: String,
+        status: String,
+        videoId: String,
+        streamer: Streamer,
+        language: String
+    ) extends lila.streamer.Stream {
       def serviceName = "youTube"
     }
 

@@ -34,7 +34,7 @@ object show {
         st.aside(cls := "page-menu__menu")(
           s.streamer.approval.chatEnabled option div(cls := "streamer-chat")(
             s.stream match {
-              case Some(YouTube.Stream(_, _, videoId, _)) =>
+              case Some(YouTube.Stream(_, _, videoId, _, _)) =>
                 iframe(
                   st.frameborder  := "0",
                   frame.scrolling := "no",
@@ -54,7 +54,7 @@ object show {
         ),
         div(cls := "page-menu__content")(
           s.stream match {
-            case Some(YouTube.Stream(_, _, videoId, _)) =>
+            case Some(YouTube.Stream(_, _, videoId, _, _)) =>
               div(cls := "box embed youTube")(
                 iframe(
                   src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",

@@ -41,13 +41,13 @@ final private class Streaming(
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
         twitchApi.fetchStreams(streamers, 0, None) map {
-          _.collect { case Twitch.TwitchStream(name, title, _) =>
+          _.collect { case Twitch.TwitchStream(name, title, _, language) =>
             streamers.find { s =>
               s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
                 title.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured().value.contains(s.userId)
               }
-            } map { Twitch.Stream(name, title, _) }
+            } map { Twitch.Stream(name, title, _, language) }
           }.flatten
         } zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {

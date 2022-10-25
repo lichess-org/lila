@@ -37,8 +37,8 @@ case class Modlog(
       case Modlog.reopenAccount       => "reopen account"
       case Modlog.openTopic           => "reopen topic"
       case Modlog.closeTopic          => "close topic"
-      case Modlog.showTopic           => "show topic"       // BC
-      case Modlog.hideTopic           => "unfeature topic"  // BC
+      case Modlog.showTopic           => "show topic"         // BC
+      case Modlog.hideTopic           => "unfeature topic"    // BC
       case Modlog.stickyTopic         => "sticky topic"
       case Modlog.unstickyTopic       => "un-sticky topic"
       case Modlog.postAsAnonMod       => "post as a lichess moderator"
