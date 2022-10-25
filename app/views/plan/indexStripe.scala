@@ -32,11 +32,13 @@ object indexStripe {
       csp = defaultCsp.withStripe.some
     ) {
       main(cls := "box box-pad plan")(
-        h1(
-          userLink(me),
-          " • ",
-          if (patron.isLifetime) strong(lifetimePatron())
-          else patronForMonths(me.plan.months)
+        div(cls := "box__top")(
+          h1(
+            userLink(me),
+            " • ",
+            if (patron.isLifetime) strong(lifetimePatron())
+            else patronForMonths(me.plan.months)
+          )
         ),
         table(cls := "all")(
           tbody(

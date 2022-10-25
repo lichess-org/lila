@@ -16,7 +16,7 @@ object homeInner {
       finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) =
     div(cls := "box")(
-      h1(trans.simultaneousExhibitions()),
+      h1(cls := "box__top")(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
         pendings.nonEmpty option frag(
           thead(

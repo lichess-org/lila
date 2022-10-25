@@ -15,7 +15,7 @@ object username {
       active = "username"
     ) {
       div(cls := "account box box-pad")(
-        h1(trans.changeUsername()),
+        h1(cls := "box__top")(trans.changeUsername()),
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.usernameApply)(
           form3.globalError(form),

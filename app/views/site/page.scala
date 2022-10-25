@@ -32,7 +32,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     )(pageContent(doc, resolver))
 
   def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
-    h1(doc.getText("doc.title")),
+    h1(cls := "box__top")(doc.getText("doc.title")),
     div(cls := "body")(
       raw {
         ~doc
@@ -57,12 +57,12 @@ $('#asset-version-message').text(lichess.info.message);"""
     )(
       frag(
         st.section(cls := "box box-pad body")(
-          h1(title),
+          h1(cls := "box__top")(title),
           raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
         st.section(cls := "box")(
-          h1(id := "version")("lila version"),
+          h1(id := "version", cls := "box__top")("lila version"),
           table(cls := "slist slist-pad")(
             env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
               case ((date, commit), message) =>
@@ -107,8 +107,8 @@ $('#asset-version-message').text(lichess.info.message);"""
       contentCls = "page force-ltr"
     )(
       frag(
-        div(cls := "box box-pad developers body")(
-          h1("HTTP API"),
+        st.section(cls := "box box-pad developers body")(
+          h1(cls := "box__top")("HTTP API"),
           p(
             raw(
               """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
@@ -116,10 +116,10 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         ),
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
-            h1(id := "embed-tv")("Embed Lichess TV in your site"),
+            h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site"),
             div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
@@ -134,10 +134,10 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         },
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
-            h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
+            h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "center")(
               raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
             ),
@@ -165,10 +165,10 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         },
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
-            h1(id := "embed-study")("Embed a chess analysis in your site"),
+            h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
             raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
             p(
               "Create ",
@@ -180,10 +180,10 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         },
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
-            h1("Embed a chess game in your site"),
+            h1(cls := "box__top")("Embed a chess game in your site"),
             raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
             p(
               raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """),

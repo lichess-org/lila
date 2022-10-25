@@ -22,9 +22,11 @@ object topic {
       )
     ) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
-        h1(
-          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
-          categ.name
+        div(cls := "box__top")(
+          h1(
+            a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
+            categ.name
+          )
         ),
         st.section(cls := "warning")(
           h2(dataIcon := "", cls := "text")(trans.important()),
@@ -97,15 +99,17 @@ object topic {
       val pager = views.html.base.bits
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
       main(cls := "forum forum-topic page-small box box-pad")(
-        h1(
-          a(
-            href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
-              routes.Ublog.redirect(id).url
-            },
-            dataIcon := "",
-            cls      := "text"
-          ),
-          topic.name
+        div(cls := "box__top")(
+          h1(
+            a(
+              href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
+                routes.Ublog.redirect(id).url
+              },
+              dataIcon := "",
+              cls      := "text"
+            ),
+            topic.name
+          )
         ),
         pager,
         div(cls := "forum-topic__posts")(

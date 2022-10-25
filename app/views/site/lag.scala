@@ -20,7 +20,7 @@ object lag {
       )
     ) {
       div(cls := "box box-pad lag")(
-        h1(
+        h1(cls := "box__top")(
           isLichessLagging(),
           span(cls := "answer short")(
             span(cls := "waiting")(measurementInProgressThreeDot()),

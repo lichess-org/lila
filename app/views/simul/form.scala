@@ -21,7 +21,7 @@ object form {
       moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
-        h1(trans.hostANewSimul()),
+        h1(cls := "box__top")(trans.hostANewSimul()),
         postForm(cls := "form3", action := routes.Simul.create)(
           br,
           p(trans.whenCreateSimul()),
@@ -45,7 +45,7 @@ object form {
       moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
-        h1(s"Edit ${simul.fullName}"),
+        h1(cls := "box__top")("Edit ", simul.fullName),
         postForm(cls := "form3", action := routes.Simul.update(simul.id))(
           formContent(form, teams, simul.some),
           form3.actions(

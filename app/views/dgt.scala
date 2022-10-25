@@ -14,7 +14,7 @@ object dgt {
 
   def index(implicit ctx: Context) =
     layout("index")(
-      h1("Lichess <3 DGT"),
+      h1(cls := "box__top")("Lichess <3 DGT"),
       p(
         "This page allows you to connect your DGT board to Lichess, and to use it for playing games."
       ),
@@ -87,7 +87,7 @@ object dgt {
   def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
     layout("config", embedJsUnsafeLoadThen("LichessDgt.configPage()"))(
       div(cls := "account")(
-        h1("DGT - configure"),
+        h1(cls := "box__top")("DGT - configure"),
         form(action := routes.DgtCtrl.generateToken, method := "post")(
           st.section(
             h2("Lichess connectivity"),

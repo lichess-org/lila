@@ -44,7 +44,7 @@ object pref {
     ) {
       val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
       div(cls := "account box box-pad")(
-        h1(bits.categName(categ)),
+        h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
           categFieldset(PrefCateg.Display, categ)(
             setting(

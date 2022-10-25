@@ -222,8 +222,6 @@
 }
 
 .blog-cards {
-  @extend %box-padding;
-
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
   grid-gap: 3vmin;

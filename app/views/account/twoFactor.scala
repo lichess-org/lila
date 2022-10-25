@@ -25,7 +25,7 @@ object twoFactor {
       )
     ) {
       div(cls := "account twofactor box box-pad")(
-        h1(twoFactorAuth()),
+        h1(cls := "box__top")(twoFactorAuth()),
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.setupTwoFactor)(
           div(cls := "form-group")(twoFactorHelp()),

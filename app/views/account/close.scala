@@ -17,7 +17,7 @@ object close {
       active = "close"
     ) {
       div(cls := "account box box-pad")(
-        h1(dataIcon := "", cls := "text")(closeAccount()),
+        div(cls := "box__top")(h1(cls := "text", dataIcon := "")(closeAccount())),
         if (managed)
           p("Your account is managed, and cannot be closed.")
         else

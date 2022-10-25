@@ -20,7 +20,7 @@ object theme {
       main(cls := "page-menu")(
         bits.pageMenu("themes", ctx.me),
         div(cls := "page-menu__content box")(
-          h1(trans.puzzle.puzzleThemes()),
+          h1(cls := "box__top")(trans.puzzle.puzzleThemes()),
           div(cls := "puzzle-themes")(
             all.themes take 2 map { case (cat, themes) =>
               themeCategory(cat, themes)

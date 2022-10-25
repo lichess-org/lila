@@ -54,7 +54,7 @@ object index {
     )(
       main(cls := "page-menu")(
         bits.menu(year.some, none),
-        div(cls := "page-menu__content box force-ltr")(
+        div(cls := "page-menu__content box box-pad force-ltr")(
           div(cls := "box__top")(h1(s"Lichess blog posts from $year")),
           st.section(
             div(cls := "blog-cards")(posts map { bits.postCard(_) })

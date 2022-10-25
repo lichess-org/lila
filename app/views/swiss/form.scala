@@ -21,7 +21,7 @@ object form {
       val fields = new SwissFields(form, none)
       main(cls := "page-small")(
         div(cls := "swiss__form tour__form box box-pad")(
-          h1(trans.swiss.newSwiss()),
+          h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
@@ -56,7 +56,7 @@ object form {
       val fields = new SwissFields(form, swiss.some)
       main(cls := "page-small")(
         div(cls := "swiss__form box box-pad")(
-          h1("Edit ", swiss.name),
+          h1(cls := "box__top")("Edit ", swiss.name),
           postForm(cls := "form3", action := routes.Swiss.update(swiss.id.value))(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),

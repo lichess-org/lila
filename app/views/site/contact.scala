@@ -383,7 +383,7 @@ object contact {
       contentCls = "page box box-pad"
     )(
       frag(
-        h1(contactLichess()),
+        h1(cls := "box__top")(contactLichess()),
         div(cls := "nav-tree")(renderNode(menu, none))
       )
     )

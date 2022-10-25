@@ -25,7 +25,7 @@ object history {
       main(cls := "page-menu")(
         bits.pageMenu("history", user.some),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           div(cls := "puzzle-history")(
             div(cls := "infinite-scroll")(
               pager.currentPageResults map renderSession,
