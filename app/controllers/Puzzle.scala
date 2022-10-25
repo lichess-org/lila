@@ -77,8 +77,17 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   def apiDaily =
     Action.async { implicit req =>
       env.puzzle.daily.get flatMap {
-        _.fold(NotFound.fuccess) { daily =>
+        _.fold(notFoundJson()) { daily =>
           JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(reqLang))
+        }
+      }
+    }
+
+  def apiShow(id: String) =
+    Action.async { implicit req =>
+      env.puzzle.api.puzzle find Puz.Id(id) flatMap {
+        _.fold(notFoundJson()) { puzzle =>
+          JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(reqLang))
         }
       }
     }
