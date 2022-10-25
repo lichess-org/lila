@@ -80,8 +80,8 @@ final class Challenge(
           else
             (c.challengerUserId ?? env.user.repo.named) map { user =>
               Ok(html.challenge.theirs(c, json, user, color))
-            },
-        }
+            }
+        },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)
