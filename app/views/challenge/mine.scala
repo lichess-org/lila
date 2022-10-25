@@ -9,9 +9,12 @@ import controllers.routes
 
 object mine {
 
-  def apply(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit
-      ctx: Context
-  ) = {
+  def apply(
+      c: lila.challenge.Challenge,
+      json: play.api.libs.json.JsObject,
+      error: Option[String],
+      color: Option[chess.Color]
+  )(implicit ctx: Context) = {
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
@@ -30,7 +33,7 @@ object mine {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
               h1(if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()),
-              bits.details(c),
+              bits.details(c, color),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),

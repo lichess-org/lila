@@ -189,25 +189,25 @@ object Challenge {
     }
   }
 
-  sealed trait ColorChoice
+  sealed abstract class ColorChoice(val trans: I18nKey)
   object ColorChoice {
-    case object Random extends ColorChoice
-    case object White  extends ColorChoice
-    case object Black  extends ColorChoice
+    case object Random extends ColorChoice(I18nKeys.randomColor)
+    case object White  extends ColorChoice(I18nKeys.white)
+    case object Black  extends ColorChoice(I18nKeys.black)
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
   }
 
   case class Open(userIds: Option[(User.ID, User.ID)]) {
     def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
     def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
-    def colorFor(me: Option[User]): Option[Color] = for {
-      m        <- me
-      (u1, u2) <- userIds
-      color <-
-        if (m is u1) chess.White.some
-        else if (m is u2) chess.Black.some
-        else none
-    } yield color
+    def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
+      userIds.fold(requestedColor.fold(ColorChoice.Random)(ColorChoice.apply)) { case (u1, u2) =>
+        me flatMap { m =>
+          if (m is u1) ColorChoice.White.some
+          else if (m is u2) ColorChoice.Black.some
+          else none
+        }
+      }
   }
 
   private def speedOf(timeControl: TimeControl) =

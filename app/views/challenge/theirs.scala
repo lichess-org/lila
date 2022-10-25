@@ -38,7 +38,7 @@ object theirs {
                     )
                   )
               ),
-              bits.details(c),
+              bits.details(c, color),
               c.notableInitialFen.map { fen =>
                 div(cls := "board-preview", views.html.board.bits.mini(fen, !c.finalColor)(div))
               },
