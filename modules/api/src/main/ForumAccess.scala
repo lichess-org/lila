@@ -15,21 +15,16 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
 
   private def isGranted(categSlug: String, op: Operation)(implicit ctx: UserContext): Fu[Boolean] =
     Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
-      ctx.me ?? { me =>
-        teamCached.forumAccess.get(teamId).flatMap {
-          case Team.Access.NONE => fuFalse
-          case Team.Access.EVERYONE =>
-            op match {
-              case Read => fuTrue
-              case Write =>
-                teamApi.belongsTo(
-                  teamId,
-                  me.id
-                ) // when the team forum is open to everyone, you still need to belong to the team in order to post
-            }
-          case Team.Access.MEMBERS => teamApi.belongsTo(teamId, me.id)
-          case Team.Access.LEADERS => teamApi.leads(teamId, me.id)
-        }
+      teamCached.forumAccess get teamId flatMap {
+        case Team.Access.NONE     => fuFalse
+        case Team.Access.EVERYONE =>
+          // when the team forum is open to everyone, you still need to belong to the team in order to post
+          op match {
+            case Read  => fuTrue
+            case Write => ctx.userId ?? { teamApi.belongsTo(teamId, _) }
+          }
+        case Team.Access.MEMBERS => ctx.userId ?? { teamApi.belongsTo(teamId, _) }
+        case Team.Access.LEADERS => ctx.userId ?? { teamApi.leads(teamId, _) }
       }
     }
 
