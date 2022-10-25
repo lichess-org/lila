@@ -101,13 +101,13 @@ object mine {
                 p(c.anyDeclineReason.trans()),
                 footer(userIdLink(c.destUserId))
               ),
-              bits.details(c),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
               h1(trans.challenge.challengeAccepted()),
-              bits.details(c),
+              bits.details(c, color),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
                 trans.joinTheGame()
               )
@@ -115,7 +115,7 @@ object mine {
           case Status.Canceled =>
             div(cls := "follow-up")(
               h1(trans.challenge.challengeCanceled()),
-              bits.details(c),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }
