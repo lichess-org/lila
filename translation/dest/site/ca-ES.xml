@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Veure a mida completa</string>
   <string name="logOut">Tancar la sessió</string>
   <string name="signIn">Iniciar la sessió</string>
-  <string name="rememberMe">Mantenir-me connectat</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Mantenir-me connectat</string>
   <string name="youNeedAnAccountToDoThat">Necessites un compte per a fer això</string>
   <string name="signUp">Registrar-se</string>
   <string name="computersAreNotAllowedToPlay">No els està permès jugar ni als ordinadors ni als jugadors assistits per ordinador. Si us plau, no utilitzis l\'ajuda de programes informàtics d\'escacs, de bases de dades o d\'altres jugadors mentre juguis. També tingues en compte que la creació de més d\'un compte és severament descoratjada i que tal activitat pot significar que el teu compte sigui suspès.</string>
@@ -200,8 +200,8 @@
   <string name="changeUsernameNotSame">Només es pot canviar entre majúscules i minúscules. Per exemple, de \"perecullera\" a \"PereCullera\".</string>
   <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només canviant les lletres majúscules per minúscules.</string>
   <string name="signupUsernameHint">Assegureu-vos d\'escollir un nom d\'usuari amigable. No el podreu canviar més tard i qualsevol compte amb nom d\'usuaris inapropiats es tancarà!</string>
-  <string name="signupEmailHint">Només s\'utilitzarà per resetejar la contrassenya.</string>
-  <string name="password">Contrassenya</string>
+  <string name="signupEmailHint">Només s\'utilitzarà per reinicialitzar la contrasenya.</string>
+  <string name="password">Contrasenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
   <string name="email">Correu electrònic</string>
