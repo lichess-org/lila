@@ -38,7 +38,7 @@ final class TextLpvExpand(
         .get(url)
         .map { pgn =>
           div(
-            cls                      := "lpv--autostart",
+            cls                      := "lpv--autostart is2d",
             attr("data-pgn")         := pgn.toString,
             attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
             attr("data-ply")         := plyRegex.findFirstIn(url).fold("last")(_.substring(1))
