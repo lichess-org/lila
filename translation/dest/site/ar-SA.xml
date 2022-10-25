@@ -102,6 +102,7 @@
   <string name="dtzWithRounding">DTZ50\'\' مع تقريب ، استنادًا إلى عدد من نصف التحركات حتى التقاط أو نقل بياض التالي</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
+  <string name="openings">الافتتاح</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
@@ -189,6 +190,7 @@
   <string name="viewInFullSize">عرض بالحجم الكامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">دخول</string>
+  <string name="rememberMe">ابقني مسجل هنا</string>
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
   <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب لأن ذلك قد يؤدي إلى الحظر من الموقع.</string>
@@ -255,6 +257,17 @@
   <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">يمكنك استخدام اسم المستخدم هذا لإنشاء حساب جديد</string>
   <string name="emailSent">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
+  <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
+  <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
+  <string name="checkSpamFolder">تحقق ايضا من بريدك المهمل ربما وصل لهناك، اذا وجدت الرسالة هناك علمها ك\"غير مهمل\".</string>
+  <string name="emailForSignupHelp">اذا فشلت كل المحاولات ارسل لنا ايميل:</string>
+  <string name="copyTextToEmail">انسح النص اعلاه و ارسله للبريد التالي%s</string>
+  <string name="waitForSignupHelp">سنعود اليك قريباً لمساعدتك على اكمال التسجيل.</string>
+  <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
+  <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
+  <string name="accountClosed">هذا الحساب%s مغلق.</string>
+  <string name="accountRegisteredWithoutEmail">هذا الحساب%s تم تسجيله بدون ايميل.</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -913,6 +926,7 @@ https://lichess. org/study</string>
   <string name="bestWasX">النقلة الأفضل هي %s</string>
   <string name="youBrowsedAway">تصفحت نقلات مختلفة</string>
   <string name="resumePractice">استئناف التدريب</string>
+  <string name="drawByFiftyMoves">تم حسم هذا المباراة بالتعادل حسب قاعدة الخمسين حركة.</string>
   <string name="theGameIsADraw">المباراة تعادل.</string>
   <string name="computerThinking">الكمبيوتر يفكر ...</string>
   <string name="seeBestMove">شاهد افضل نقلة</string>
