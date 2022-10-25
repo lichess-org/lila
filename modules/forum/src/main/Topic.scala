@@ -35,11 +35,11 @@ case class Topic(
   def lastPostId(forUser: Option[User]): String =
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
-  def open          = !closed
+  def open = !closed
 
   def isTooBig = nbPosts > (if (Categ.isTeamSlug(categId)) 500 else 50)
 
-  def possibleTeamId     = Categ slugToTeamId categId
+  def possibleTeamId = Categ slugToTeamId categId
 
   def isSticky = ~sticky
 
