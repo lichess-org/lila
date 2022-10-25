@@ -378,7 +378,7 @@ final class Api(
   private def withIdsFromReqBody(req: Request[String], max: Int, transform: String => String = identity)(
       f: Set[String] => Result
   ): Result = {
-    val ids = req.body.split(',').view.map(s => transform(s.trim)).filter(_.nonEmpty).toSet
+    val ids = req.body.toLowerCase.split(',').view.map(s => transform(s.trim)).filter(_.nonEmpty).toSet
     if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
   }
