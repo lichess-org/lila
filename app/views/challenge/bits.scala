@@ -43,7 +43,7 @@ object bits {
       ),
       div(cls := "mode")(
         c.open.fold(c.colorChoice.some)(_.colorFor(ctx.me, requestedColor)) map { colorChoice =>
-          frag(colorChoice.trans, " • ")
+          frag(colorChoice.trans(), " • ")
         },
         modeName(c.mode)
       )
