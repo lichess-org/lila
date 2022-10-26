@@ -2,8 +2,16 @@ import play.sbt.PlayImport._
 import sbt._, Keys._
 
 object Dependencies {
+  val (os, notifier) = if (System.getProperty("os.name").toLowerCase.startsWith("mac"))
+    ("osx", "kqueue")
+  else
+    ("linux", "epoll")
+  val arch = if (System.getProperty("os.arch").toLowerCase.startsWith("aarch"))
+    "aarch_64"
+  else
+    "x86_64"
 
-  val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
+  val lilaMaven = "lila-maven" at "https://schlawg.org:30080"//"https://raw.githubusercontent.com/lichess-org/lila-maven/master"
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.8.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.8.0"
@@ -20,7 +28,7 @@ object Dependencies {
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.1.RELEASE"
-  val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.82.Final" classifier "linux-x86_64"
+  val nettyTransport = "io.netty" % s"netty-transport-native-$notifier" % "4.1.82.Final" classifier s"$os-$arch"
   val autoconfig   = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
   val scalatest    = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
   val uaparser     = "org.uaparser"               %% "uap-scala"         % "0.14.0"
@@ -52,13 +60,13 @@ object Dependencies {
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
-    val epoll  = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
+    val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-$os-x86-64"
     val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }
 
   object play {
-    val api      = "com.typesafe.play" %% "play"           % "2.8.16-lila_1.13.1"
+    val api      = "com.typesafe.play" %% "play"           % "2.8.16-lila_1.14.1-SNAPSHOT"
     val json     = "com.typesafe.play" %% "play-json"      % "2.9.3"
     val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.3"
     val mailer   = "com.typesafe.play" %% "play-mailer"    % "8.0.1"
