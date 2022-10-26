@@ -58,6 +58,7 @@
   <string name="depthX">Käik number %s</string>
   <string name="usingServerAnalysis">Kasutusel serveri analüüs</string>
   <string name="loadingEngine">Laen analüüsi...</string>
+  <string name="calculatingMoves">Käikude arvutamine...</string>
   <string name="cloudAnalysis">Pilve analüüs</string>
   <string name="goDeeper">Vaata põhjalikumalt</string>
   <string name="showThreat">Näita ohtu</string>
@@ -90,6 +91,7 @@
   </plurals>
   <string name="noGameFound">Ühtegi mängu ei leitud</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
+  <string name="openings">Avangud</string>
   <string name="openingExplorer">Avamiste otsija</string>
   <string name="xOpeningExplorer">%s avamiste otsija</string>
   <string name="winPreventedBy50MoveRule">50 käigu reegel ei lase võita</string>
@@ -113,6 +115,14 @@
   <string name="blunder">Viga</string>
   <string name="mistake">Eksimus</string>
   <string name="inaccuracy">Ebatäpsus</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s prohmakas</item>
+    <item quantity="other">%s prohmakat</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s viga</item>
+    <item quantity="other">%s viga</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s ebatäpsus</item>
     <item quantity="other">%s ebatäpsust</item>
@@ -139,6 +149,7 @@
   <string name="viewInFullSize">Vaata täisekraanil</string>
   <string name="logOut">Logi välja</string>
   <string name="signIn">Logi sisse</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Jää sisselogituks</string>
   <string name="youNeedAnAccountToDoThat">Sa vajad kasutajat, et seda teha</string>
   <string name="signUp">Registreeri</string>
   <string name="computersAreNotAllowedToPlay">Arvutid ja arvutiabi kasutavad mängijad on keelatud mängimast. Palun ära kasuta mängides maleprogrammide, andmebaaside ja teiste mängijate abi. Mitme kasutaja tegemine on ebasoositud ja räige mitme kasutaja kasutamine võib lõppeda kasutaja kinnipanemisega.</string>
@@ -185,6 +196,7 @@
   <string name="email">Email</string>
   <string name="passwordReset">Salasõna lähtestamine</string>
   <string name="forgotPassword">Unustasid salasõna?</string>
+  <string name="usernameNotFound">Ei suutnud leida kasutajat nimega %s.</string>
   <string name="rank">Koht</string>
   <string name="rankX">Koht: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -446,6 +458,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Riik või lipp</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
+  <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
   <string name="onlinePlayers">Mängijad kohal</string>
@@ -551,6 +564,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="increment">Lisaaeg</string>
   <string name="error.required">See väli on kohustuslik</string>
   <string name="ifRatingIsPlusMinusX">Kui reiting on ± %s</string>
+  <string name="ifRegistered">Registreeritud kasutajad</string>
   <string name="onlyExistingConversations">Ainult olemasolevad vestlused</string>
   <string name="onlyFriends">Ainult sõbrad</string>
   <string name="menu">Menüü</string>
@@ -599,6 +613,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentFAQ">Areena turniiride KKK</string>
   <string name="timeBeforeTournamentStarts">Aega turniiri alguseni</string>
   <string name="averageCentipawnLoss">Keskmine kaotus käigu kohta sajandiketturites</string>
+  <string name="accuracy">Täpsus</string>
   <string name="keyboardShortcuts">Klaviatuuri otseteed</string>
   <string name="keyMoveBackwardOrForward">liigu tagasi/edasi</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
@@ -809,8 +824,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="welcome">Tere tulemast!</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
+  <string name="estimatedStart">Eeldatav algusaeg</string>
   <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
   <string name="inYourLocalTimezone">Kohalikus ajavööndis</string>
   <string name="toggleLocalAnalysis">Lülita kohalik arvuti analüüs sisse/välja</string>
   <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
+  <string name="since">Alates</string>
+  <string name="until">Kuni</string>
 </resources>
