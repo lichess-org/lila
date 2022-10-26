@@ -18,7 +18,7 @@ case class ContentSecurityPolicy(
 
   def withWebAssembly =
     copy(
-      scriptSrc = "'unsafe-eval'" :: scriptSrc
+      scriptSrc = "'wasm-unsafe-eval'" :: scriptSrc
     )
 
   def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
