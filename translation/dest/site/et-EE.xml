@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">Nõua arvuti analüüsi</string>
   <string name="computerAnalysis">Arvuti analüüs</string>
   <string name="computerAnalysisAvailable">Arvuti analüüs saadaval</string>
+  <string name="computerAnalysisDisabled">Arvutianalüüs keelatud</string>
   <string name="analysis">Analüüs</string>
   <string name="depthX">Käik number %s</string>
   <string name="usingServerAnalysis">Kasutusel serveri analüüs</string>
@@ -137,6 +138,7 @@
     <item quantity="one">%s mängija</item>
     <item quantity="other">%s mängijat</item>
   </plurals>
+  <string name="drawByMutualAgreement">Viik kokkuleppel</string>
   <string name="currentGames">Hetkel mängitavad mängud</string>
   <plurals name="nbGames">
     <item quantity="one">%s mäng</item>
