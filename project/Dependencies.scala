@@ -11,7 +11,7 @@ object Dependencies {
   else
     "x86_64"
 
-  val lilaMaven = "lila-maven" at "https://schlawg.org:30080"//"https://raw.githubusercontent.com/lichess-org/lila-maven/master"
+  val lilaMaven = "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.8.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.8.0"
