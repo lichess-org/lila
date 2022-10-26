@@ -346,14 +346,15 @@ object faq {
         ),
         question(
           "make-a-bot",
-          howToMakeABot.txt(),
+          "Make a Lichess bot?",
           p(
-            toLearnHowToMakeABot(
-              a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot")
+            "To learn how to create a ",
+            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot"),
+            ", please read ",
+            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
+              "this blog post"
             ),
-            pleaseRead(
-              a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")("blog post")
-            )
+            "."
           )
         )
       )
