@@ -69,17 +69,19 @@ final class Challenge(
         else none
       val json = env.challenge.jsonView.show(c, version, direction)
       negotiate(
-        html =
+        html = {
+          val color = get("color") flatMap chess.Color.fromName
           if (mine) fuccess {
             error match {
-              case Some(e) => BadRequest(html.challenge.mine(c, json, e.some))
-              case None    => Ok(html.challenge.mine(c, json, none))
+              case Some(e) => BadRequest(html.challenge.mine(c, json, e.some, color))
+              case None    => Ok(html.challenge.mine(c, json, none, color))
             }
           }
           else
             (c.challengerUserId ?? env.user.repo.named) map { user =>
-              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.fromName))
-            },
+              Ok(html.challenge.theirs(c, json, user, color))
+            }
+        },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)

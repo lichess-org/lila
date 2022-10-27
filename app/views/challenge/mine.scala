@@ -9,9 +9,12 @@ import controllers.routes
 
 object mine {
 
-  def apply(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit
-      ctx: Context
-  ) = {
+  def apply(
+      c: lila.challenge.Challenge,
+      json: play.api.libs.json.JsObject,
+      error: Option[String],
+      color: Option[chess.Color]
+  )(implicit ctx: Context) = {
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
@@ -29,8 +32,10 @@ object mine {
         c.status match {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
-              h1(if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()),
-              bits.details(c),
+              h1(cls := "box__top")(
+                if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()
+              ),
+              bits.details(c, color),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
@@ -93,26 +98,26 @@ object mine {
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeDeclined()),
+              h1(cls := "box__top")(trans.challenge.challengeDeclined()),
               blockquote(cls := "challenge-reason pull-quote")(
                 p(c.anyDeclineReason.trans()),
                 footer(userIdLink(c.destUserId))
               ),
-              bits.details(c),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeAccepted()),
-              bits.details(c),
+              h1(cls := "box__top")(trans.challenge.challengeAccepted()),
+              bits.details(c, color),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
                 trans.joinTheGame()
               )
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeCanceled()),
-              bits.details(c),
+              h1(cls := "box__top")(trans.challenge.challengeCanceled()),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }

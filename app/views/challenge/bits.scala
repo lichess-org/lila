@@ -27,7 +27,7 @@ object bits {
         )})""")
     )
 
-  def details(c: Challenge)(implicit ctx: Context) =
+  def details(c: Challenge, requestedColor: Option[chess.Color])(implicit ctx: Context) =
     div(cls := "details")(
       div(cls := "variant", dataIcon := (if (c.initialFen.isDefined) '' else c.perfType.iconChar))(
         div(
@@ -42,10 +42,9 @@ object bits {
         )
       ),
       div(cls := "mode")(
-        c.open.map {
-          _.colorFor(ctx.me).fold("Restricted")(_.toString)
-        } | c.colorChoice.toString,
-        " • ",
+        c.open.fold(c.colorChoice.some)(_.colorFor(ctx.me, requestedColor)) map { colorChoice =>
+          frag(colorChoice.trans(), " • ")
+        },
         modeName(c.mode)
       )
     )
