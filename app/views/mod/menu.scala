@@ -21,6 +21,8 @@ object menu {
         a(cls := active.active("queues"), href := routes.Mod.queues("month"))("Queues stats"),
       isGranted(_.GamifyView) option
         a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame"),
+      isGranted(_.GamifyView) option
+        a(cls := active.active("log"), href := routes.Mod.log)("My logs"),
       isGranted(_.UserSearch) option
         a(cls := active.active("search"), href := routes.Mod.search)("Search users"),
       isGranted(_.SetEmail) option
