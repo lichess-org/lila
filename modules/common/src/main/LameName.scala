@@ -41,7 +41,6 @@ object LameName {
     "cunniling",
     "cunt",
     "cyka",
-    "dick",
     "douche",
     "fag",
     "fart",
