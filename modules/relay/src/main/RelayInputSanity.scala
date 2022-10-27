@@ -1,6 +1,7 @@
 package lila.relay
 
 import lila.study._
+import chess.format.Forsyth
 
 /* Try and detect variant ways for the input to be wrong */
 private object RelayInputSanity {
@@ -10,15 +11,18 @@ private object RelayInputSanity {
   case class Misplaced(gamePos: Int, chapterPos: Int)
       extends Fail(s"Game ${gamePos + 1} matches with Chapter ${chapterPos + 1}")
 
-  def apply(chapters: List[Chapter], games: RelayGames): Option[Fail] =
-    if (chapters.isEmpty) none
-    else if (isValidTCEC(chapters, games)) none
+  def apply(chapters: List[Chapter], games: RelayGames): Either[Fail, RelayGames] = {
+    if (chapters.isEmpty) Right(games)
+    else if (isValidTCEC(chapters, games)) Right(games)
     else {
       val relayChapters: List[RelayChapter] = chapters.flatMap { chapter =>
         chapter.relay map chapter.->
       }
-      detectMissingOrMisplaced(relayChapters, games)
+      detectMissingOrMisplaced(relayChapters, games) toLeft games
     }
+  } map fixDgtKingsInTheCenter
+
+  private type RelayChapter = (Chapter, Chapter.Relay)
 
   private def detectMissingOrMisplaced(chapters: List[RelayChapter], games: Vector[RelayGame]): Option[Fail] =
     chapters flatMap { case (chapter, relay) =>
@@ -43,5 +47,19 @@ private object RelayInputSanity {
       case _ => false
     }
 
-  private type RelayChapter = (Chapter, Chapter.Relay)
+  // DGT puts the kings in the center on game end
+  // and sends it as actual moves if the kings were close to the center
+  // so we need to remove the boggus king moves
+  private def fixDgtKingsInTheCenter(games: RelayGames): RelayGames = games map { game =>
+    game.copy(
+      root = game.root.takeMainlineWhile { node =>
+        !node.check || !dgtBoggusKingMoveRegex.matches(node.move.san) || ! {
+          Forsyth.<<@(game.variant, node.fen).fold(true) { sit =>
+            chess.Color.all.forall(sit.board.check) // both kings in check!
+          }
+        }
+      }
+    )
+  }
+  private val dgtBoggusKingMoveRegex = """^K[de][45]\+$""".r
 }

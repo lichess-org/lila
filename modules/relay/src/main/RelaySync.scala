@@ -20,8 +20,8 @@ final private class RelaySync(
     studyApi byId rt.round.studyId orFail "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         RelayInputSanity(chapters, games) match {
-          case Some(fail) => fufail(fail.msg)
-          case None =>
+          case Left(fail) => fufail(fail.msg)
+          case Right(games) =>
             lila.common.Future.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match {
                 case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some

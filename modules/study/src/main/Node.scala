@@ -221,6 +221,14 @@ object Node {
         case x => x
       })
 
+    def takeMainlineWhile(f: Node => Boolean): Children =
+      updateMainline { node =>
+        node.children.first.fold(node) { mainline =>
+          if (f(mainline)) node
+          else node.withoutChildren
+        }
+      }
+
     def countRecursive: Int =
       nodes.foldLeft(nodes.size) { case (count, n) =>
         count + n.children.countRecursive
@@ -326,6 +334,11 @@ object Node {
     def mainlinePath = Path(mainline.map(_.id))
 
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
+
+    def takeMainlineWhile(f: Node => Boolean) =
+      children.first.fold(this) { main =>
+        copy(children = children.takeMainlineWhile(f))
+      }
 
     def moveOption = none
 
