@@ -13,6 +13,8 @@
   <string name="specialMoves">Erilised käigud</string>
   <string name="didYouLikeThisPuzzle">Kas sulle meeldis see pusle?</string>
   <string name="voteToLoadNextOne">Hääleta, nii saad edasi!</string>
+  <string name="upVote">Hääleta poolt</string>
+  <string name="downVote">Hääleta vasatu</string>
   <string name="yourPuzzleRatingWillNotChange">Teie pusle reiting ei muutu. Pidage meeles, et pusled ei ole võistlus. Teie reiting aitab valida kõige sobilikumad pusled olenevalt teie oskustele.</string>
   <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
   <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
@@ -43,6 +45,7 @@
   <string name="hardest">Väga raske</string>
   <string name="example">Näide</string>
   <string name="addAnotherTheme">Lisa teine teema</string>
+  <string name="nextPuzzle">Järgmine pusle</string>
   <string name="jumpToNextPuzzleImmediately">Mine kohe järgmise pusle juurde</string>
   <string name="puzzleDashboard">Puslepaneel</string>
   <string name="improvementAreas">Paranda neid</string>
