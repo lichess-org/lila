@@ -29,7 +29,9 @@ object mine {
         c.status match {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
-              h1(if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()),
+              h1(cls := "box__top")(
+                if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()
+              ),
               bits.details(c),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
@@ -93,7 +95,7 @@ object mine {
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeDeclined()),
+              h1(cls := "box__top")(trans.challenge.challengeDeclined()),
               blockquote(cls := "challenge-reason pull-quote")(
                 p(c.anyDeclineReason.trans()),
                 footer(userIdLink(c.destUserId))
@@ -103,7 +105,7 @@ object mine {
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeAccepted()),
+              h1(cls := "box__top")(trans.challenge.challengeAccepted()),
               bits.details(c),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
                 trans.joinTheGame()
@@ -111,7 +113,7 @@ object mine {
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeCanceled()),
+              h1(cls := "box__top")(trans.challenge.challengeCanceled()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )

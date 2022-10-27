@@ -26,17 +26,19 @@ object theirs {
         c.status match {
           case Status.Created | Status.Offline =>
             frag(
-              h1(
-                if (c.isOpen) c.name | "Open challenge"
-                else
-                  user.fold[Frag]("Anonymous")(u =>
-                    frag(
-                      userLink(u),
-                      " (",
-                      u.perfs(c.perfType).glicko.display,
-                      ")"
+              div(cls := "box__top")(
+                h1(
+                  if (c.isOpen) c.name | "Open challenge"
+                  else
+                    user.fold[Frag]("Anonymous")(u =>
+                      frag(
+                        userLink(u),
+                        " (",
+                        u.perfs(c.perfType).glicko.display,
+                        ")"
+                      )
                     )
-                  )
+                )
               ),
               bits.details(c),
               c.notableInitialFen.map { fen =>
@@ -75,13 +77,13 @@ object theirs {
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeDeclined()),
+              h1(cls := "box__top")(trans.challenge.challengeDeclined()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeAccepted()),
+              h1(cls := "box__top")(trans.challenge.challengeAccepted()),
               bits.details(c),
               a(
                 id   := "challenge-redirect",
@@ -93,7 +95,7 @@ object theirs {
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeCanceled()),
+              h1(cls := "box__top")(trans.challenge.challengeCanceled()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
