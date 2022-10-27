@@ -17,6 +17,8 @@
   <string name="stalemate">સ્ટેલમેટ</string>
   <string name="white">સફેદ</string>
   <string name="black">કાળુ</string>
+  <string name="asWhite">સફેદ તરફથી</string>
+  <string name="asBlack">કાળા તરફથી</string>
   <string name="randomColor">કોઇ પણ બાજુ</string>
   <string name="createAGame">રમત બનાવો</string>
   <string name="whiteIsVictorious">સફેદ વિજય રહ્યો</string>
@@ -59,6 +61,7 @@
   <string name="depthX">ઊંડાઈ %s</string>
   <string name="usingServerAnalysis">સર્વર નું વિશ્લેષણ વપરાય છે</string>
   <string name="loadingEngine">રાહ જુઓ...</string>
+  <string name="calculatingMoves">ગણતરી ચાલુ...</string>
   <string name="cloudAnalysis">ક્લાઉડ વિશ્લેષણ</string>
   <string name="goDeeper">વધુ ઉંડાણપૂર્વક</string>
   <string name="showThreat">થ્રેટ જુઓ</string>
@@ -92,6 +95,7 @@
   <string name="dtzWithRounding">DTZ50\'\' રાઉન્ડિંગ સાથે, આગામી કેપ્ચર અથવા પ્યાદાની ચાલ સુધી અર્ધ-ચાલની સંખ્યાના આધારે</string>
   <string name="noGameFound">ડેટાબેઝમાં આવી કોઈ રમત નથી</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">પસંદગી મેનૂમાંથી વધુ રમતો શામેલ કરીને જોવો?</string>
+  <string name="openings">શરુઆતી ચાલો</string>
   <string name="openingExplorer">રમત પ્રારંભ સંશોધક</string>
   <string name="openingEndgameExplorer">ઓપનિંગ/એન્ડગેમ એક્સપ્લોરર</string>
   <string name="xOpeningExplorer">%s રમત પ્રારંભ સંશોધક</string>
@@ -179,6 +183,8 @@
   <string name="changeUsername">વપરાશર્તાનું નામ બદલો</string>
   <string name="changeUsernameNotSame">માત્ર અક્ષરોની સ્થિતી અપર/લોઅર કેસમાં બદલી શકાય. ઉદાહણરૂપે \"johndoe\" થી \"JohnDoe\".</string>
   <string name="changeUsernameDescription">તમારું વપરાશકર્તા નામ બદલો. આ માત્ર એક જ વાર થઈ શકે અને તમને ફક્ત વપરાશકર્તા નામ ના અક્ષરોની સ્થિતી અપર/લોઅર કેસમાં બદલવાની મંજૂરી છે.</string>
+  <string name="signupUsernameHint">કૃપા કરીને પારિવારિક નામ જ પસંદ કરો. એકાઉન્ટ બન્યા પછી નામ બદલી શકાશે નહી અને અયોગ્ય નામ વાળા એકાઉન્ટ બન્ધ કરવા માં આવશે!</string>
+  <string name="signupEmailHint">અમે ફક્ત પાસવર્ડ બદલવા ખાતર આનો ઉપયોગ કરીશું.</string>
   <string name="password">પાસવર્ડ</string>
   <string name="changePassword">પાસવર્ડ બદલો</string>
   <string name="changeEmail">ઇમેઇલ બદલો</string>
