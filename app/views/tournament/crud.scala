@@ -36,7 +36,7 @@ object crud {
       css = "mod.form"
     ) {
       div(cls := "crud page-menu__content box box-pad")(
-        h1("New tournament"),
+        h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form, none))
       )
     }
@@ -47,7 +47,7 @@ object crud {
       css = "mod.form"
     ) {
       div(cls := "crud edit page-menu__content box box-pad")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             a(href := routes.Tournament.show(tour.id))(tour.name()),
             " ",
@@ -139,7 +139,7 @@ object crud {
       evenMoreJs = infiniteScrollTag
     ) {
       div(cls := "crud page-menu__content box")(
-        div(cls := "box__top")(
+        boxTop(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
             a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "")

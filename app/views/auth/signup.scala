@@ -26,7 +26,7 @@ object signup {
       def referrerParameter =
         HTTPRequest.queryStringGet(ctx.req, "referrer").?? { ref => s"?referrer=${urlencode(ref)}" }
       main(cls := "auth auth-signup box box-pad")(
-        h1(trans.signUp()),
+        boxTop(trans.signUp()),
         postForm(
           id := "signup-form",
           cls := List(

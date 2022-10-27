@@ -27,7 +27,7 @@ object show {
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
         div(cls := s"blog page-menu__content box post force-ltr ${~doc.getText("blog.cssClasses")}")(
-          h1(doc.getText("blog.title")),
+          h1(cls := "box__top")(doc.getText("blog.title")),
           bits.metas(doc),
           doc.getImage("blog.image", "main").map { img =>
             div(cls := "illustration")(st.img(src := img.url))

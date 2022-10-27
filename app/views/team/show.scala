@@ -64,7 +64,7 @@ object show {
           data("socket-version") := v.value
         }
       )(
-        div(cls := "box__top")(
+        boxTop(
           h1(cls := "text", dataIcon := "")(t.name),
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")

@@ -19,7 +19,7 @@ object dev {
       main(cls := "page-menu")(
         mod.menu("setting"),
         div(id := "settings", cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           p("Tread lightly."),
           settings.map { s =>
             postForm(action := routes.Dev.settingsPost(s.id))(
@@ -56,7 +56,7 @@ object dev {
       main(cls := "page-menu")(
         views.html.mod.menu("cli"),
         div(id := "dev-cli", cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           p(
             "Run arbitrary lila commands.",
             br,

@@ -28,7 +28,7 @@ object form {
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
-          h1(trans.ublog.newPost()),
+          boxTop(h1(trans.ublog.newPost())),
           etiquette,
           inner(f, Left(user), captcha.some)
         )
@@ -45,7 +45,7 @@ object form {
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
-          div(cls := "box__top")(
+          boxTop(
             h1(
               if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"

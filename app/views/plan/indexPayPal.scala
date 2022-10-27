@@ -26,7 +26,7 @@ object indexPayPal {
       moreJs = frag(jsModule("plan"), embedJsUnsafeLoadThen("""plan.payPalStart()"""))
     ) {
       main(cls := "box box-pad plan")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             userLink(me),
             " • ",

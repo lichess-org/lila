@@ -23,7 +23,7 @@ object timeline {
       moreCss = cssTag("slist")
     )(
       main(cls := "timeline page-small box")(
-        h1(trans.timeline()),
+        h1(cls := "box__top")(trans.timeline()),
         table(cls := "slist slist-pad")(
           tbody(
             filterEntries(entries) map { e =>

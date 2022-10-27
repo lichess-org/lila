@@ -9,7 +9,7 @@
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-replace": "^4.0.0",
-    "rollup-plugin-typescript2": "^0.34.1",
+    "@rollup/plugin-typescript": "^9.0.2",
     "rollup": "^2",
     "rollup-plugin-copy": "^3.3.0",
     "tslib": "^2.3.1",

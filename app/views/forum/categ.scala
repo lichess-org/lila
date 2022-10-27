@@ -23,7 +23,7 @@ object categ {
         .some
     ) {
       main(cls := "forum index box")(
-        div(cls := "box__top")(
+        boxTop(
           h1(dataIcon := "", cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
@@ -83,8 +83,7 @@ object categ {
         .some
     ) {
       main(cls := "forum forum-categ box")(
-        div(
-          cls := "box__top",
+        boxTop(
           h1(
             a(
               href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),

@@ -15,7 +15,7 @@ object bits {
       title = trans.tournamentNotFound.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(trans.tournamentNotFound()),
+        h1(cls := "box__top")(trans.tournamentNotFound()),
         p(trans.tournamentDoesNotExist()),
         p(trans.tournamentMayHaveBeenCanceled()),
         br,

@@ -26,7 +26,7 @@ object importGame {
         .some
     ) {
       main(cls := "importer page-small box box-pad")(
-        h1(trans.importGame()),
+        h1(cls := "box__top")(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
         standardFlash(),
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(

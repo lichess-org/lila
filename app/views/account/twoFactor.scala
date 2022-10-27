@@ -66,9 +66,11 @@ object twoFactor {
       active = "twofactor"
     ) {
       div(cls := "account twofactor box box-pad")(
-        h1(
-          i(cls := "is-green text", dataIcon := ""),
-          twoFactorEnabled()
+        boxTop(
+          h1(
+            i(cls := "is-green text", dataIcon := ""),
+            twoFactorEnabled()
+          )
         ),
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.disableTwoFactor)(

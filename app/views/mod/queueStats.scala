@@ -24,9 +24,11 @@ object queueStats {
       main(cls := "page-menu")(
         views.html.mod.menu("queues"),
         div(cls := "page-menu__content index box mod-queues")(
-          h1(
-            " Queues this ",
-            periodSelector(p)
+          boxTop(
+            h1(
+              " Queues this ",
+              periodSelector(p)
+            )
           ),
           div(cls := "chart-grid")
         )

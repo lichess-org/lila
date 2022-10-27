@@ -23,7 +23,7 @@ object topic {
       main(cls := "page-menu")(
         views.html.study.list.menu("topic", Order.Mine, mine.??(_.value)),
         main(cls := "page-menu__content study-topics box box-pad")(
-          h1(trans.study.topics()),
+          h1(cls := "box__top")(trans.study.topics()),
           myForm.map { form =>
             frag(
               h2(trans.study.myTopics()),
@@ -56,7 +56,7 @@ object topic {
       main(cls := "page-menu")(
         views.html.study.list.menu(active, order, myTopics.??(_.value)),
         main(cls := "page-menu__content study-index box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(topic.value),
             bits.orderSelect(order, active, url),
             bits.newForm()

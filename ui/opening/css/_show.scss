@@ -52,7 +52,9 @@ $op-col-one: $mq-not-x-small;
       gap: $block-gap;
     }
   }
+  $op-chart-height: calc(160px - 2vmin);
   &__popularity-actions {
+    flex: 0 0 $op-chart-height;
     display: flex;
     flex-flow: column;
     @include breakpoint($mq-small) {
@@ -65,7 +67,6 @@ $op-col-one: $mq-not-x-small;
     flex: 1 1 auto;
     margin-top: -10px;
     &__chart {
-      $op-chart-height: calc(160px - 2vmin);
       width: 100%;
       height: $op-chart-height;
       max-height: $op-chart-height;
@@ -75,7 +76,7 @@ $op-col-one: $mq-not-x-small;
     display: flex;
     flex-flow: row;
     @include breakpoint($mq-small) {
-      flex: 2 1 auto;
+      flex: 0 0 auto;
       flex-flow: column;
       order: 1;
     }

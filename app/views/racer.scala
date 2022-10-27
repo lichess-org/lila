@@ -20,7 +20,7 @@ object racer {
       withHrefLangs = LangPath(routes.Racer.home).some
     ) {
       main(cls := "page page-small racer-home box box-pad")(
-        h1("Puzzle Racer"),
+        h1(cls := "box__top")("Puzzle Racer"),
         div(cls := "racer-home__buttons")(
           postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
             submitButton(cls := "button button-fat")(i(cls := "car")(0), s.joinPublicRace())

@@ -19,7 +19,7 @@ object reopen {
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "page-small box box-pad")(
-        h1(trans.reopenYourAccount()),
+        h1(cls := "box__top")(trans.reopenYourAccount()),
         p(trans.closedAccountChangedMind()),
         p(strong(trans.onlyWorksOnce())),
         p(trans.cantDoThisTwice()),
@@ -44,7 +44,7 @@ object reopen {
       title = trans.reopenYourAccount.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := ""))(trans.checkYourEmail()),
         p(trans.sentEmailWithLink()),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

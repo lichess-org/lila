@@ -27,11 +27,11 @@ object bots {
           case (featured, all) =>
             div(cls := "bots page-menu__content")(
               div(cls := "box bots__featured")(
-                div(cls := "box__top")(h1("Featured bots")),
+                h1(cls := "box__top")("Featured bots"),
                 botTable(featured)
               ),
               div(cls := "box")(
-                div(cls := "box__top")(
+                boxTop(
                   h1("Community bots"),
                   a(
                     cls  := "bots__about",

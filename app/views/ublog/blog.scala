@@ -32,7 +32,7 @@ object blog {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-index")(
-          div(cls := "box__top")(
+          boxTop(
             h1(trans.ublog.xBlog(userLink(user))),
             div(cls := "box__top__actions")(
               if (ctx is user)

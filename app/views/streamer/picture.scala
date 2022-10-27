@@ -23,7 +23,7 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
       moreCss = cssTag("streamer.form")
     ) {
       main(cls := "streamer-picture small-page box")(
-        h1(xStreamerPicture(userLink(s.user))),
+        boxTop(h1(xStreamerPicture(userLink(s.user)))),
         div(cls := "picture_wrap")(thumbnail(s.streamer, s.user)),
         div(cls := "forms")(
           error.map { badTag(_) },

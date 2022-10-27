@@ -24,7 +24,7 @@ object irwin {
       main(cls := "page-menu")(
         mod.menu("irwin"),
         div(cls := "irwin page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(
               "Irwin status: ",
               if (dashboard.seenRecently) span(cls := "up")("Operational")

@@ -26,7 +26,7 @@ object history {
           }
         ),
         div(cls := "page-menu__content box")(
-          h1(nameOf(freq), " tournaments"),
+          boxTop(h1(nameOf(freq), " tournaments")),
           div(cls := "arena-list")(
             table(cls := "slist slist-pad")(
               tbody(cls := "infinite-scroll")(

@@ -73,7 +73,7 @@ object index {
             div(cls := "banner one_time_active")(
               iconTag(patronIconChar),
               div(
-                h1(thankYou()),
+                h1(cls := "box__top")(thankYou()),
                 if (p.isLifetime) youHaveLifetime()
                 else
                   p.expiresAt.map { expires =>
@@ -89,7 +89,7 @@ object index {
           } getOrElse div(cls := "banner moto")(
             iconTag(patronIconChar),
             div(
-              h1(freeChess()),
+              h1(cls := "box__top")(freeChess()),
               p(noAdsNoSubs())
             ),
             iconTag(patronIconChar)

@@ -34,17 +34,19 @@ object opening {
       )
     )(
       cls := "tutor__opening box",
-      h1(
-        a(
-          href     := routes.Tutor.openings(user.username, perfReport.perf.key),
-          dataIcon := "",
-          cls      := "text"
-        ),
-        perfReport.perf.trans,
-        ": ",
-        report.family.name,
-        " as ",
-        as.name
+      boxTop(
+        h1(
+          a(
+            href     := routes.Tutor.openings(user.username, perfReport.perf.key),
+            dataIcon := "",
+            cls      := "text"
+          ),
+          perfReport.perf.trans,
+          ": ",
+          report.family.name,
+          " as ",
+          as.name
+        )
       ),
       bits.mascotSays(
         p(

@@ -28,7 +28,7 @@ object search {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
-          h1("Search users"),
+          h1(cls := "box__top")("Search users"),
           st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
             input(
               name := "q",
@@ -57,7 +57,7 @@ object search {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1("Fingerprint: ", fh.value),
             if (isGranted(_.Admin))
               postForm(cls := "box__top__actions", action := routes.Mod.printBan(!blocked, fh.value))(
@@ -98,7 +98,7 @@ object search {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1("IP address: ", renderIp(address)),
             if (isGranted(_.Admin))
               postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
@@ -133,7 +133,7 @@ object search {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1("Class ", a(href := clasRoutes.show(c.id.value))(c.name)),
             p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
           ),
@@ -152,7 +152,7 @@ object search {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1("Classes from", userIdLink(teacherId.some))
           ),
           br,

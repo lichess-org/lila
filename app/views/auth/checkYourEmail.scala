@@ -21,7 +21,7 @@ object checkYourEmail {
       main(
         cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}"
       )(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailClickTheLink()),
         h2("Not receiving it?"),
         ol(

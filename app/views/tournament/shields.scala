@@ -20,7 +20,7 @@ object shields {
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box box-pad")(
-          h1("Tournament shields"),
+          h1(cls := "box__top")("Tournament shields"),
           div(cls := "tournament-shields")(
             history.sorted.map { case (categ, awards) =>
               section(
@@ -51,10 +51,12 @@ object shields {
       main(cls := "page-menu page-small tournament-categ-shields")(
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box")(
-          h1(
-            a(href := routes.Tournament.shields, dataIcon := "", cls := "text"),
-            categ.name,
-            " shields"
+          boxTop(
+            h1(
+              a(href := routes.Tournament.shields, dataIcon := "", cls := "text"),
+              categ.name,
+              " shields"
+            )
           ),
           ol(awards.map { aw =>
             li(

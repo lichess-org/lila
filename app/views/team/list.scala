@@ -81,7 +81,7 @@ object list {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),
         div(cls := "page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(name),
             div(cls := "box__top__actions")(
               st.form(cls     := "search", action := routes.Team.search())(

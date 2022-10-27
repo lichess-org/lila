@@ -15,7 +15,7 @@ object download {
       moreJs = jsModule("userGamesDownload")
     ) {
       main(cls := "box page-small search")(
-        h1(userLink(user), s" • ${trans.exportGames.txt()}"),
+        boxTop(h1(userLink(user), s" • ${trans.exportGames.txt()}")),
         form(
           id  := "dl-form",
           cls := "box__pad search__form"

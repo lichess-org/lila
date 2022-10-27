@@ -283,7 +283,7 @@ object tree {
       val query    = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
       val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
       main(cls := "page page-small box box-pad appeal")(
-        h1("Appeal"),
+        h1(cls := "box__top")("Appeal"),
         div(cls := s"nav-tree${if (isMarked) " marked" else ""}")(
           if (me.disabled || query.contains("alt")) altScreen
           else

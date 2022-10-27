@@ -66,7 +66,7 @@ object index {
       main(cls                                                          := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
-          h1(dataIcon := "", cls := "text")(title),
+          boxTop(h1(dataIcon := "", cls := "text"))(title),
           !requests option div(cls := "list live")(
             live.map { s =>
               st.article(cls := "streamer")(widget(s.withoutStream, s.stream))

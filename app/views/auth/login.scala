@@ -25,7 +25,7 @@ object login {
     ) {
       def referrerParameter = referrer.?? { ref => s"?referrer=${urlencode(ref)}" }
       main(cls := "auth auth-login box box-pad")(
-        h1(trans.signIn()),
+        h1(cls := "box__top")(trans.signIn()),
         postForm(
           cls    := "form3",
           action := s"${routes.Auth.authenticate}$referrerParameter"

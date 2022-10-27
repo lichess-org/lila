@@ -125,7 +125,7 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
     }
 
   private def adminTop(t: lila.team.Team, i18n: lila.i18n.I18nKey)(implicit lang: Lang) =
-    div(cls := "box__top")(
+    boxTop(
       h1(a(href := routes.Team.show(t.slug))(t.name), " • ", i18n())
     )
 }

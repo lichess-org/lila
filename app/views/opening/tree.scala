@@ -20,7 +20,7 @@ object tree {
       main(cls := "page box box-pad opening opening--tree")(
         index.searchAndConfig(config, "", "tree"),
         search.resultsList(Nil),
-        div(cls := "box__top")(
+        boxTop(
           h1("Chess openings name tree"),
           div(cls := "box__top__actions")(
             a(href := routes.Opening.index())("Opening pages"),

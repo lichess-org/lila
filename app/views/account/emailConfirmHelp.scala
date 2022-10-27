@@ -20,7 +20,7 @@ object emailConfirmHelp {
     )(
       frag(
         main(cls := "page-small box box-pad email-confirm-help")(
-          h1(trans.emailConfirmHelp()),
+          h1(cls := "box__top")(trans.emailConfirmHelp()),
           p(trans.emailConfirmNotReceived()),
           st.form(cls := "form3", action := routes.Account.emailConfirmHelp, method := "get")(
             form3.split(

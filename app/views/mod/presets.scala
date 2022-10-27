@@ -19,13 +19,15 @@ object presets {
       main(cls := "page-menu")(
         views.html.mod.menu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
-          h1(
-            s"$group presets",
-            small(
-              " / ",
-              ModPresets.groups.filter(group !=).map { group =>
-                a(href := routes.Mod.presets(group))(s"$group presets")
-              }
+          boxTop(
+            h1(
+              s"$group presets",
+              small(
+                " / ",
+                ModPresets.groups.filter(group !=).map { group =>
+                  a(href := routes.Mod.presets(group))(s"$group presets")
+                }
+              )
             )
           ),
           standardFlash(),

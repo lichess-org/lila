@@ -20,7 +20,7 @@ object search {
       moreCss = cssTag("forum")
     )(
       main(cls := "box search")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             a(href := routes.ForumCateg.index, dataIcon := "", cls := "text"),
             title

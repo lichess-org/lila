@@ -36,7 +36,7 @@ object bits {
       title = s"$name • Free Chess Videos",
       control = control
     )(
-      div(cls := "box__top")(
+      boxTop(
         h1(
           a(cls := "is4 text", dataIcon := "", href := s"${routes.Video.index}?${control.queryString}"),
           name
@@ -74,7 +74,7 @@ object bits {
 
   def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(implicit ctx: Context) =
     layout(title = s"Tags • Free Chess Videos", control = control)(
-      div(cls := "box__top")(
+      boxTop(
         h1(
           a(cls := "text", dataIcon := "", href := s"${routes.Video.index}?${control.queryString}")(
             "All ",

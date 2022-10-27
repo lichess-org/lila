@@ -16,10 +16,12 @@ object time {
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "time"))(
       cls := "tutor__time box",
-      h1(
-        a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
-        report.perf.trans,
-        " time management"
+      boxTop(
+        h1(
+          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          report.perf.trans,
+          " time management"
+        )
       ),
       bits.mascotSays(
         ul(report timeHighlights 5 map compare.show)

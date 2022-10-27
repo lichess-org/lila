@@ -16,7 +16,7 @@ object create {
 
     views.html.account.layout(title = title.txt(), active = "oauth.token")(
       div(cls := "account oauth box box-pad")(
-        h1(title()),
+        h1(cls := "box__top")(title()),
         postForm(cls := "form3", action := routes.OAuthToken.create)(
           div(cls := "form-group")(
             p(ot.tokenGrantsPermission()),

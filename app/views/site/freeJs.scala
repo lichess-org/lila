@@ -38,7 +38,7 @@ object freeJs {
 
   def apply(): Frag =
     frag(
-      div(cls := "box__top")(
+      boxTop(
         h1("JavaScript modules")
       ),
       p(cls := "box__pad")(

@@ -97,7 +97,7 @@ object page {
   def disabled(u: User)(implicit ctx: Context) =
     views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
-        h1(u.username),
+        h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())
       )
     }

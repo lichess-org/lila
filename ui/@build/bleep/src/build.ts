@@ -5,7 +5,7 @@ import * as ps from 'node:process';
 import * as cps from 'node:child_process';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import { parseModules } from './parse';
 import { makeBleepConfig } from './tsconfig';
 import { LichessModule, LichessRollup, env, colorFuncs as c } from './env';

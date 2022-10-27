@@ -24,7 +24,7 @@ object kaladin {
       main(cls := "page-menu")(
         mod.menu("kaladin"),
         div(cls := "kaladin page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(
               "Kaladin status: ",
               if (dashboard.seenRecently) span(cls := "up")("Operational")

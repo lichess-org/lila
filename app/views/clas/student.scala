@@ -72,10 +72,12 @@ object student {
 
   private def top(clas: Clas, s: Student.WithUser)(implicit ctx: Context) =
     div(cls := "student-show__top")(
-      h1(dataIcon := "")(
-        span(
-          strong(s.user.username),
-          em(s.student.realName)
+      boxTop(
+        h1(dataIcon := "")(
+          span(
+            strong(s.user.username),
+            em(s.student.realName)
+          )
         )
       ),
       div(cls := "student-show__top__meta")(
@@ -127,9 +129,11 @@ object student {
   )(implicit ctx: Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add",
-      h1(
-        trans.clas.addStudent(),
-        s" ($nbStudents/${lila.clas.Clas.maxStudents})"
+      boxTop(
+        h1(
+          trans.clas.addStudent(),
+          s" ($nbStudents/${lila.clas.Clas.maxStudents})"
+        )
       ),
       nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
       created map { case Student.WithPassword(student, password) =>
@@ -217,7 +221,7 @@ object student {
   )(implicit ctx: Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add-many",
-      h1(trans.clas.createMultipleAccounts()),
+      h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
       maxStudentsWarning(clas),
       created.nonEmpty option frag(
         flashMessage(cls := "student-add-many__created")(

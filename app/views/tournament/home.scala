@@ -83,7 +83,7 @@ object home {
           )
         ),
         st.section(cls := "tour-home__schedule box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(trans.tournaments()),
             ctx.isAuth option div(cls := "box__top__actions")(
               a(
