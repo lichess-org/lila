@@ -31,7 +31,7 @@ object list {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
-          h1(myTeams()),
+          h1(cls := "box__top")(myTeams()),
           standardFlash(),
           ctx.me.filter(me => teams.size > lila.team.Team.maxJoin(me)) map { me =>
             flashMessage(cls := "flash-failure")(
@@ -51,7 +51,7 @@ object list {
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
         div(cls := "page-menu__content box")(
-          h1(teamsIlead()),
+          h1(cls := "box__top")(teamsIlead()),
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))

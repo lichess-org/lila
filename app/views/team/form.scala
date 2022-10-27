@@ -22,7 +22,7 @@ object form {
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
-          h1(newTeam()),
+          h1(cls := "box__top")(newTeam()),
           postForm(cls := "form3", action := routes.Team.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
@@ -43,7 +43,7 @@ object form {
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1("Edit team ", a(href := routes.Team.show(t.id))(t.name)),
+          h1(cls := "box__top")("Edit team ", a(href := routes.Team.show(t.id))(t.name)),
           standardFlash(),
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(

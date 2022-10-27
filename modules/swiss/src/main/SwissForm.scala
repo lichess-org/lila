@@ -95,7 +95,7 @@ final class SwissForm(implicit mode: Mode) {
 object SwissForm {
 
   val clockLimits: Seq[Int] = Seq(0, 15, 30, 45, 60, 90) ++ {
-    (120 to 420 by 60) ++ (600 to 1800 by 300) ++ (2400 to 10800 by 600)
+    (120 to 480 by 60) ++ (600 to 1800 by 300) ++ (2400 to 10800 by 600)
   }
 
   val clockLimitChoices = options(

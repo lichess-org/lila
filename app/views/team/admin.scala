@@ -3,6 +3,7 @@ package views.html.team
 import controllers.routes
 import play.api.data.Field
 import play.api.data.Form
+import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -13,16 +14,15 @@ object admin {
   import trans.team._
 
   def leaders(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
-    val title = s"${t.name} • ${trans.team.teamLeaders.txt()}"
     views.html.base.layout(
-      title = title,
+      title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       moreJs = jsModule("team.admin")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          adminTop(t, teamLeaders),
           p(
             "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team."
           ),
@@ -38,19 +38,16 @@ object admin {
     }
   }
 
-  def kick(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
-
-    val title = s"${t.name} • ${kickSomeone.txt()}"
-
+  def kick(t: lila.team.Team, form: Form[_])(implicit ctx: Context) =
     views.html.base.layout(
-      title = title,
+      title = s"${t.name} • ${kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       moreJs = jsModule("team.admin")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          adminTop(t, kickSomeone),
           postForm(action := routes.Team.kick(t.id))(
             form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
             form3.actions(
@@ -61,19 +58,15 @@ object admin {
         )
       )
     }
-  }
 
   private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
 
   def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament], unsubs: Int)(implicit
       ctx: Context
-  ) = {
-
-    val title = s"${t.name} • ${messageAllMembers.txt()}"
-
+  ) =
     views.html.base.layout(
-      title = title,
+      title = s"${t.name} • ${messageAllMembers.txt()}",
       moreCss = cssTag("team"),
       moreJs = embedJsUnsafeLoadThen("""
 $('.copy-url-button').on('click', function(e) {
@@ -83,7 +76,7 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          adminTop(t, messageAllMembers),
           p(messageAllMembersLongDescription()),
           tours.nonEmpty option div(cls := "tournaments")(
             p(youWayWantToLinkOneOfTheseTournaments()),
@@ -130,5 +123,9 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
         )
       )
     }
-  }
+
+  private def adminTop(t: lila.team.Team, i18n: lila.i18n.I18nKey)(implicit lang: Lang) =
+    div(cls := "box__top")(
+      h1(a(href := routes.Team.show(t.slug))(t.name), " • ", i18n())
+    )
 }
