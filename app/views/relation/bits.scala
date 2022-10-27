@@ -15,9 +15,11 @@ object bits {
 
   def friends(u: User, pag: Paginator[Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.friends.txt()}")(
-      h1(
-        a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
-        trans.friends()
+      div(cls := "box__top")(
+        h1(
+          a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
+          trans.friends()
+        )
       ),
       pagTable(pag, routes.Relation.following(u.username))
     )
@@ -26,21 +28,21 @@ object bits {
     layout(s"${u.username} • ${trans.blocks.pluralSameTxt(pag.nbResults)}")(
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
-        div(cls := "actions")(
-          trans.blocks.pluralSame(pag.nbResults)
-        )
+        div(cls := "actions")(trans.blocks.pluralSame(pag.nbResults))
       ),
       pagTable(pag, routes.Relation.blocks())
     )
 
   def opponents(u: User, sugs: List[lila.relation.Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.favoriteOpponents.txt()}")(
-      h1(
-        a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
-        trans.favoriteOpponents(),
-        " (",
-        trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
-        ")"
+      div(cls := "box__top")(
+        h1(
+          a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
+          trans.favoriteOpponents(),
+          " (",
+          trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
+          ")"
+        )
       ),
       table(cls := "slist slist-pad")(
         tbody(
