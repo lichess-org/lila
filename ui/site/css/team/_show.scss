@@ -6,10 +6,6 @@ $section-margin-more: 5vh;
 
   overflow: hidden;
 
-  .box__top {
-    margin-bottom: 1.7vh;
-  }
-
   h1 {
     @extend %break-word-hard, %zalgoverflow;
   }

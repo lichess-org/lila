@@ -26,10 +26,12 @@ object tournaments {
     ) {
       main(
         div(cls := "box")(
-          h1(
-            views.html.team.bits.link(t),
-            " • ",
-            trans.tournaments()
+          div(cls := "box__top")(
+            h1(
+              views.html.team.bits.link(t),
+              " • ",
+              trans.tournaments()
+            )
           ),
           div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
