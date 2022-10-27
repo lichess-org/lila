@@ -669,7 +669,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="revokeAllSessions">lõpetada kõik sessioonid</string>
   <string name="playChessEverywhere">Mängi malet kõikjal</string>
   <string name="asFreeAsLichess">Tasuta nagu Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Ehitatud armastusest male vastu, mitte raha</string>
+  <string name="builtForTheLoveOfChessNotMoney">Ehitatud armastusest male, mitte raha vastu</string>
   <string name="everybodyGetsAllFeaturesForFree">Kõik funktsioonid on kõigile tasuta</string>
   <string name="zeroAdvertisement">Mitte ühtegi reklaami</string>
   <string name="fullFeatured">Kõik omadused</string>
@@ -707,7 +707,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbriga või tähega.</string>
   <string name="usernameCharsInvalid">Kasutajanimi peab sisaldama ainult tähti, numbreid, allkriipse ja sidekriipse. Järjest allkriipsud ja sidekriipsud ei ole lubatud.</string>
   <string name="usernameUnacceptable">See kasutajanimi ei ole lubatud.</string>
-  <string name="playChessInStyle">Mängi malet stiiliga</string>
+  <string name="playChessInStyle">Mängi malet stiilselt</string>
   <string name="chessBasics">Male põhitõed</string>
   <string name="coaches">Treenerid</string>
   <string name="invalidPgn">Väär PGN</string>
@@ -740,7 +740,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="findBetterMoveForWhite">Leia parem käik valgele</string>
   <string name="findBetterMoveForBlack">Leia parem käik mustale</string>
   <string name="resumeLearning">Jätka õppimist</string>
-  <string name="youCanDoBetter">Mitte parim võimalik</string>
+  <string name="youCanDoBetter">Suudad paremini</string>
   <string name="tryAnotherMoveForWhite">Proovi mingisugust teist käiku valgele</string>
   <string name="tryAnotherMoveForBlack">Proovi mingisugust teist käiku mustale</string>
   <string name="solution">Lahendus</string>
@@ -778,11 +778,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="potentialProblem">Kui potentsiaalne probleem on avastatud siis me näitame seda sõnumit.</string>
   <string name="howToAvoidThis">Kuidas seda vältida?</string>
   <string name="playEveryGame">Mängi igat alustatud mängu.</string>
-  <string name="tryToWin">Proovi võita (või vähemalt mängida viiki) igat mängu mida mängid.</string>
+  <string name="tryToWin">Proovi võita (või vähemalt viigistada) iga mäng mida mängid.</string>
   <string name="resignLostGames">Alistu kaotatud mängud (ära lase kellal joosta lõpuni).</string>
   <string name="temporaryInconvenience">Me vabandame ajutise ebamugavuse pärast,</string>
   <string name="wishYouGreatGames">ja soovime häid mänge leheküljel lichess.org.</string>
-  <string name="thankYouForReading">Aitäh, et lugesid!</string>
+  <string name="thankYouForReading">Aitäh lugemast!</string>
   <string name="lifetimeScore">Kõikide mängude skoor</string>
   <string name="currentMatchScore">Praeguste mängude skoor</string>
   <string name="agreementAssistance">Ma nõustun, et mängin ilma abivahenditeta (ilma malearvuti, raamatu, andmebaasi või teise inimese abita).</string>
@@ -803,7 +803,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="yourQuestionMayHaveBeenAnswered">Sinu küsimusele võib juba vastus leiduda %1$s</string>
   <string name="inTheFAQ">KKK-s.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Et teatada sohitegijast või halvast käitumisest, %1$s</string>
-  <string name="useTheReportForm">kasuta selleks nähtud vormi</string>
+  <string name="useTheReportForm">kasuta selleks ettenähtud vormi</string>
   <string name="toRequestSupport">Abi saamiseks, %1$s</string>
   <string name="tryTheContactPage">kasutage kontakti lehte</string>
   <string name="thisTopicIsArchived">See teema on arhiveeritud ja sellele ei saa enam vastata.</string>
@@ -822,7 +822,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="refundXpointsTimeControlY">Tagastus: %1$s %2$s reitingupunkti.</string>
   <string name="timeAlmostUp">Aeg on peaaegu otsas!</string>
   <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>
-  <string name="download">Allalaadimine</string>
+  <string name="download">Lae alla</string>
   <string name="welcome">Tere tulemast!</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
