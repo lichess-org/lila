@@ -201,12 +201,13 @@ object Challenge {
     def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
     def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
     def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
-      userIds.fold(requestedColor.fold[ColorChoice](ColorChoice.Random)(ColorChoice.apply).some) { case (u1, u2) =>
-        me flatMap { m =>
-          if (m is u1) ColorChoice.White.some
-          else if (m is u2) ColorChoice.Black.some
-          else none
-        }
+      userIds.fold(requestedColor.fold[ColorChoice](ColorChoice.Random)(ColorChoice.apply).some) {
+        case (u1, u2) =>
+          me flatMap { m =>
+            if (m is u1) ColorChoice.White.some
+            else if (m is u2) ColorChoice.Black.some
+            else none
+          }
       }
   }
 

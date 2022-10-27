@@ -38,7 +38,7 @@ object theirs {
                         ")"
                       )
                     )
-                  )
+                )
               ),
               bits.details(c, color),
               c.notableInitialFen.map { fen =>
