@@ -336,6 +336,17 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     )
 
+  def recentBy(mod: Holder) =
+    coll.secondaryPreferred
+      .find(
+        $or(
+          $doc("mod" -> mod.id)
+        )
+      )
+      .sort($sort naturalDesc)
+      .cursor[Modlog]()
+      .gather[List](100)
+
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)

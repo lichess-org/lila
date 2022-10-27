@@ -538,6 +538,7 @@ POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)
 GET   /mod/:username/games             controllers.GameMod.index(username)
 POST  /mod/:username/games             controllers.GameMod.post(username)
 GET   /mod/table                       controllers.Mod.table
+GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username)
 POST  /mod/:username/email             controllers.Mod.setEmail(username)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip
