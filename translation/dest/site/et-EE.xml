@@ -191,7 +191,7 @@
   <string name="usernameOrEmail">Kasutajanimi või email</string>
   <string name="changeUsername">Muuda kasutajanime</string>
   <string name="changeUsernameNotSame">Muuta saab ainult tähe suurust. Näiteks \"karlsuur\" ja \"KarlSuur\".</string>
-  <string name="changeUsernameDescription">Muuda kasutajanime. Seda saad teha ainult korra ning muuta on võimalik ainult kasutajanimes leiduvate tähtede suurust.</string>
+  <string name="changeUsernameDescription">Muuda kasutajanime. Seda saad teha ainult ühe korra ning muuta on võimalik ainult kasutajanimes leiduvate tähtede suurust.</string>
   <string name="password">Salasõna</string>
   <string name="changePassword">Muuda salasõna</string>
   <string name="changeEmail">Muuda email</string>
@@ -468,7 +468,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tähelepanu, mäng on reitinguga aga ajakontrollita!</string>
   <string name="success">Edukas</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s mängu pooleli</item>
+    <item quantity="one">%s mäng pooleli</item>
     <item quantity="other">%s mängu pooleli</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Liigu automaatselt järgmise mängu juurde pärast käiku</string>
@@ -523,7 +523,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="privacyPolicy">Privaatsuspolitiika</string>
   <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
-  <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind õppima kutsuda</string>
   <string name="sound">Heli</string>
   <string name="none">Väljas</string>
   <string name="fast">Kiire</string>
@@ -598,7 +598,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="createdSimuls">Hiljuti loodud simultanid</string>
   <string name="hostANewSimul">Korralda uus simultaan</string>
   <string name="noSimulFound">Simultani ei leitud</string>
-  <string name="noSimulExplanation">Seda simultani ei ole olemas.</string>
+  <string name="noSimulExplanation">Seda simultaani ei ole olemas.</string>
   <string name="returnToSimulHomepage">Tagasi simultaanide lehele</string>
   <string name="aboutSimul">Simultaanides mängib üks maletaja samaaegselt paljude teiste vastu.</string>
   <string name="aboutSimulImage">Fischer võitis simultaanis 50 partiist 47, viigistas kaks ja kaotas ühe.</string>
