@@ -11,6 +11,7 @@ import lila.user.User
 final private class SwissDirector(
     colls: SwissColls,
     pairingSystem: PairingSystem,
+    manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
     onStart: Game.ID => Unit
 )(implicit
@@ -21,7 +22,7 @@ final private class SwissDirector(
 
   // sequenced by SwissApi
   private[swiss] def startRound(from: Swiss): Fu[Option[Swiss]] =
-    pairingSystem(from)
+    (manualPairing(from) | pairingSystem(from))
       .flatMap { pendings =>
         val pendingPairings = pendings.collect { case Right(p) => p }
         if (pendingPairings.isEmpty) fuccess(none) // terminate
@@ -46,7 +47,7 @@ final private class SwissDirector(
               colls.swiss.update
                 .one(
                   $id(swiss.id),
-                  $unset("nextRoundAt") ++ $set(
+                  $unset("nextRoundAt", "settings.mp") ++ $set(
                     "round"       -> swiss.round,
                     "nbOngoing"   -> pairings.size,
                     "lastRoundAt" -> DateTime.now

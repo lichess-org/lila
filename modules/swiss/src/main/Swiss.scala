@@ -79,6 +79,7 @@ object Swiss {
 
   val maxPlayers           = 4000
   val maxForbiddenPairings = 1000
+  val maxManualPairings    = 10_000
 
   case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue
@@ -104,7 +105,8 @@ object Swiss {
       password: Option[String] = None,
       conditions: SwissCondition.All,
       roundInterval: FiniteDuration,
-      forbiddenPairings: String
+      forbiddenPairings: String,
+      manualPairings: String
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
     def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual

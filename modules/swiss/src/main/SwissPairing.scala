@@ -37,10 +37,7 @@ object SwissPairing {
 
   val ongoing: Status = Left(Ongoing)
 
-  case class Pending(
-      white: User.ID,
-      black: User.ID
-  )
+  case class Pending(white: User.ID, black: User.ID)
   case class Bye(player: User.ID)
 
   type ByeOrPending = Either[Bye, Pending]

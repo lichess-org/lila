@@ -24,19 +24,16 @@ object form {
           h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             form3.split(fields.name, fields.nbRounds),
-            form3.split(fields.rated, fields.variant),
+            form3.split(fields.description, fields.rated),
             fields.clock,
-            form3.split(fields.description, fields.position),
-            form3.split(
-              fields.roundInterval,
-              fields.startsAt
+            form3.split(fields.roundInterval, fields.startsAt),
+            advancedSettings(
+              form3.split(fields.variant, fields.position),
+              form3.split(fields.chatFor, fields.entryCode),
+              condition(form, fields, swiss = none),
+              form3.split(fields.forbiddenPairings, fields.allowList),
+              form3.split(fields.manualPairings)
             ),
-            form3.split(
-              fields.chatFor,
-              fields.entryCode
-            ),
-            condition(form, fields, swiss = none),
-            form3.split(fields.forbiddenPairings, fields.allowList),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -59,19 +56,16 @@ object form {
           h1(cls := "box__top")("Edit ", swiss.name),
           postForm(cls := "form3", action := routes.Swiss.update(swiss.id.value))(
             form3.split(fields.name, fields.nbRounds),
-            form3.split(fields.rated, fields.variant),
+            form3.split(fields.description, fields.rated),
             fields.clock,
-            form3.split(fields.description, fields.position),
-            form3.split(
-              fields.roundInterval,
-              swiss.isCreated option fields.startsAt
+            form3.split(fields.roundInterval, swiss.isCreated option fields.startsAt),
+            advancedSettings(
+              form3.split(fields.variant, fields.position),
+              form3.split(fields.chatFor, fields.entryCode),
+              condition(form, fields, swiss = swiss.some),
+              form3.split(fields.forbiddenPairings, fields.allowList),
+              form3.split(fields.manualPairings)
             ),
-            form3.split(
-              fields.chatFor,
-              fields.entryCode
-            ),
-            condition(form, fields, swiss = swiss.some),
-            form3.split(fields.forbiddenPairings, fields.allowList),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
@@ -86,6 +80,9 @@ object form {
         )
       )
     }
+
+  private def advancedSettings(settings: Frag*) =
+    details(summary("Advanced settings"), settings)
 
   private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
     frag(
@@ -145,7 +142,8 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       form3.checkbox(
         form("rated"),
         trans.rated(),
-        help = trans.ratedFormHelp().some
+        help = trans.ratedFormHelp().some,
+        half = true
       ),
       st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
     )
@@ -220,6 +218,24 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       form("forbiddenPairings"),
       trans.swiss.forbiddenPairings(),
       help = trans.swiss.forbiddenPairingsHelp().some,
+      half = true
+    )(form3.textarea(_)(rows := 4))
+
+  def manualPairings =
+    form3.group(
+      form("manualPairings"),
+      "Manual pairings in next round",
+      help = frag(
+        "Specify all pairings of the next round manually. One player pair per line. Example:",
+        br,
+        "PlayerA PlayerB",
+        br,
+        "PlayerC PlayerD",
+        br,
+        "Missing players will be given a bye, which is worth 1 point.",
+        br,
+        "Leave empty to let lichess create pairings automatically."
+      ).some,
       half = true
     )(form3.textarea(_)(rows := 4))
 
