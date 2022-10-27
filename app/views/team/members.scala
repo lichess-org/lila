@@ -25,10 +25,12 @@ object members {
         .some
     ) {
       main(cls := "page-small box")(
-        h1(
-          views.html.team.bits.link(t),
-          " • ",
-          nbMembers.plural(t.nbMembers, t.nbMembers.localize)
+        boxTop(
+          h1(
+            views.html.team.bits.link(t),
+            " • ",
+            nbMembers.plural(t.nbMembers, t.nbMembers.localize)
+          )
         ),
         table(cls := "team-members slist slist-pad")(
           tbody(cls := "infinite-scroll")(

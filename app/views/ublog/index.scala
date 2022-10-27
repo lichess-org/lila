@@ -25,7 +25,7 @@ object index {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
-          div(cls := "box__top")(
+          boxTop(
             h1(trans.ublog.drafts()),
             div(cls := "box__top__actions")(
               a(href := routes.Ublog.index(user.username))(trans.ublog.published()),
@@ -88,7 +88,7 @@ object index {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
-          div(cls := "box__top")(
+          boxTop(
             h1("Community blogs"),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
@@ -135,7 +135,7 @@ object index {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "topics".some),
         div(cls := "page-menu__content box")(
-          div(cls := "box__top")(h1("All blog topics")),
+          boxTop(h1("All blog topics")),
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
@@ -168,7 +168,7 @@ object index {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, menuItem.some),
         div(cls := "page-menu__content box box-pad ublog-index")(
-          div(cls := "box__top")(h1(title)),
+          boxTop(h1(title)),
           if (posts.nbResults > 0)
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, showAuthor = true) },

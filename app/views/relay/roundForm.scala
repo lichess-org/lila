@@ -16,18 +16,20 @@ object roundForm {
 
   def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
-      h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound()),
+      boxTop(h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound())),
       standardFlash(),
       inner(form, routes.RelayRound.create(tour.id.value), tour, create = true)
     )
 
   def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
     layout(rt.fullName)(
-      h1(
-        "Edit ",
-        a(href := routes.RelayTour.edit(rt.tour.id.value))(rt.tour.name),
-        " > ",
-        a(href := rt.path)(rt.round.name)
+      boxTop(
+        h1(
+          "Edit ",
+          a(href := routes.RelayTour.edit(rt.tour.id.value))(rt.tour.name),
+          " > ",
+          a(href := rt.path)(rt.round.name)
+        )
       ),
       inner(form, routes.RelayRound.update(rt.round.id.value), rt.tour, create = false),
       div(cls := "relay-round__actions")(

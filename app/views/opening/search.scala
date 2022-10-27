@@ -49,7 +49,7 @@ object search {
     ) {
       main(cls := "page box box-pad opening opening--search")(
         index.searchAndConfig(config, q, s"q:$q", searchFocus = true),
-        h1("Chess openings"),
+        h1(cls := "box__top")("Chess openings"),
         resultsList(results)
       )
     }

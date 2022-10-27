@@ -45,9 +45,11 @@ object bits {
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
-        h1(
-          fail option span(cls := "is-red", dataIcon := ""),
-          trans.passwordReset()
+        boxTop(
+          h1(
+            fail option span(cls := "is-red", dataIcon := ""),
+            trans.passwordReset()
+          )
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
           form3.group(form("email"), trans.email())(
@@ -64,7 +66,7 @@ object bits {
       title = trans.passwordReset.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailTo(email)),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -84,14 +86,16 @@ object bits {
       )
     ) {
       main(cls := "page-small box box-pad")(
-        (ok match {
-          case Some(true)  => h1(cls := "is-green text", dataIcon := "")
-          case Some(false) => h1(cls := "is-red text", dataIcon := "")
-          case _           => h1
-        })(
-          userLink(u, withOnline = false),
-          " - ",
-          trans.changePassword()
+        boxTop(
+          (ok match {
+            case Some(true)  => h1(cls := "is-green text", dataIcon := "")
+            case Some(false) => h1(cls := "is-red text", dataIcon := "")
+            case _           => h1
+          })(
+            userLink(u, withOnline = false),
+            " - ",
+            trans.changePassword()
+          )
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token))(
           form3.hidden(form("token")),
@@ -117,9 +121,11 @@ object bits {
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
-        h1(
-          fail option span(cls := "is-red", dataIcon := ""),
-          "Log in by email"
+        boxTop(
+          h1(
+            fail option span(cls := "is-red", dataIcon := ""),
+            "Log in by email"
+          )
         ),
         p("We will send you an email containing a link to log you in."),
         postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
@@ -137,7 +143,7 @@ object bits {
       title = "Log in by email"
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -149,7 +155,7 @@ object bits {
       moreCss = cssTag("form3")
     ) {
       main(cls := "page-small box box-pad")(
-        h1("Log in as ", userLink(user)),
+        boxTop(h1("Log in as ", userLink(user))),
         postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
           form3.actions(
             a(href := routes.Lobby.home)(trans.cancel()),
@@ -197,7 +203,7 @@ body { margin-top: 45px; }
       title = "Tor exit node"
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "text", dataIcon := "2")("Ooops"),
+        boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
         p("Sorry, you can't signup to Lichess through Tor!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
       )
@@ -208,7 +214,7 @@ body { margin-top: 45px; }
       title = trans.logOut.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(trans.logOut()),
+        h1(cls := "box__top")(trans.logOut()),
         form(action := routes.Auth.logout, method := "post")(
           button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
         )

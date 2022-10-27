@@ -23,7 +23,7 @@ this.setSelectionRange(this.value.length, this.value.length);
       main(cls := "page-menu")(
         views.html.mod.menu("email"),
         div(cls := "mod-confirm page-menu__content box box-pad")(
-          h1("Confirm a user email"),
+          h1(cls := "box__top")("Confirm a user email"),
           p(
             "If you provide an email, it will confirm the corresponding account, if any.",
             br,

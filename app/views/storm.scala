@@ -83,13 +83,15 @@ object storm {
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
-          h1(
-            !ctx.is(user) option frag(
-              userLink(user),
-              " • "
-            ),
-            "Puzzle Storm • ",
-            trans.storm.highscores()
+          boxTop(
+            h1(
+              !ctx.is(user) option frag(
+                userLink(user),
+                " • "
+              ),
+              "Puzzle Storm • ",
+              trans.storm.highscores()
+            )
           ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)

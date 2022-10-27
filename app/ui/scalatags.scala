@@ -64,6 +64,7 @@ trait ScalatagsSnippets extends Cap {
   val svgTextTag                             = tag("text")
   val details                                = tag("details")
   val summary                                = tag("summary")
+  val boxTop                                 = div(cls := "box__top")
 
   def userTitleTag(t: Title) =
     span(

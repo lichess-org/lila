@@ -111,7 +111,7 @@ object dashboard {
       main(cls := "page-menu")(
         bits.pageMenu(path, user.some),
         div(cls := s"page-menu__content box box-pad $baseClass")(
-          div(cls := "box__top")(
+          boxTop(
             h1(
               title,
               strong(subtitle)

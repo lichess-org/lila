@@ -17,10 +17,12 @@ object phases {
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "phases"))(
       cls := "tutor__phases box",
-      h1(
-        a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
-        report.perf.trans,
-        " phases"
+      boxTop(
+        h1(
+          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          report.perf.trans,
+          " phases"
+        )
       ),
       bits.mascotSays(
         ul(report phaseHighlights 3 map compare.show)

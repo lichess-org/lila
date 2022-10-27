@@ -16,7 +16,7 @@ object home {
   def apply(full: TutorFullReport.Available, user: User)(implicit ctx: Context) =
     bits.layout(full, menu = menu(full, user, none))(
       cls := "tutor__home box",
-      h1("Lichess Tutor"),
+      boxTop(h1("Lichess Tutor")),
       if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
       else {
         bits.mascotSays(

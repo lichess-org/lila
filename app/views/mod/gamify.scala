@@ -31,7 +31,7 @@ object gamify {
       main(cls := "page-menu")(
         views.html.mod.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content index box")(
-          h1(title),
+          h1(cls := "box__top")(title),
           div(cls := "champs")(
             champion(leaderboards.daily.headOption, "reward1", Period.Day),
             champion(leaderboards.weekly.headOption, "reward2", Period.Week),
@@ -72,9 +72,11 @@ object gamify {
       main(cls := "page-menu")(
         views.html.mod.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content box")(
-          h1(
-            a(href := routes.Mod.gamify, dataIcon := ""),
-            title
+          boxTop(
+            h1(
+              a(href := routes.Mod.gamify, dataIcon := ""),
+              title
+            )
           ),
           div(cls := "period")(
             table(cls := "slist")(

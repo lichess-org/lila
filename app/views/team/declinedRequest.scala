@@ -22,12 +22,14 @@ object declinedRequest {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(
-            a(href := routes.Team.show(team.id))(
-              team.name
-            ),
-            " • ",
-            trans.team.declinedRequests()
+          boxTop(
+            h1(
+              a(href := routes.Team.show(team.id))(
+                team.name
+              ),
+              " • ",
+              trans.team.declinedRequests()
+            )
           ),
           pager,
           table(cls := "slist")(

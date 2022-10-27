@@ -35,18 +35,20 @@ object ratingDistribution {
       main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),
         div(cls := "rating-stats page-menu__content box box-pad")(
-          h1(
-            trans.weeklyPerfTypeRatingDistribution(
-              views.html.base.bits.mselect(
-                "variant-stats",
-                span(perfType.trans),
-                PerfType.leaderboardable map { pt =>
-                  a(
-                    dataIcon := pt.iconChar,
-                    cls      := (perfType == pt).option("current"),
-                    href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
-                  )(pt.trans)
-                }
+          boxTop(
+            h1(
+              trans.weeklyPerfTypeRatingDistribution(
+                views.html.base.bits.mselect(
+                  "variant-stats",
+                  span(perfType.trans),
+                  PerfType.leaderboardable map { pt =>
+                    a(
+                      dataIcon := pt.iconChar,
+                      cls      := (perfType == pt).option("current"),
+                      href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
+                    )(pt.trans)
+                  }
+                )
               )
             )
           ),

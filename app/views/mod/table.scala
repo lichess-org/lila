@@ -21,7 +21,7 @@ object table {
       main(cls := "page-menu")(
         views.html.mod.menu("mods"),
         div(id := "mod_table", cls := "page-menu__content box")(
-          h1(title),
+          h1(cls := "box__top")(title),
           st.table(cls := "slist slist-pad sortable")(
             thead(
               tr(

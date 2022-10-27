@@ -35,7 +35,7 @@ object games {
       moreJs = jsModule("mod.games")
     ) {
       main(cls := "mod-games box")(
-        div(cls := "box__top")(
+        boxTop(
           h1(userLink(user, params = "?mod"), " games"),
           div(cls := "box__top__actions")(
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(

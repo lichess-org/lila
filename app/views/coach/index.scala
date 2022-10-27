@@ -54,7 +54,7 @@ object index {
           )
         ),
         div(cls := "coach-list__main coach-main box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(lichessCoaches()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(

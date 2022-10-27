@@ -26,7 +26,7 @@ object tour {
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
         div(cls := "page-menu__content box")(
-          h1(cls := "box__top")(liveBroadcasts()),
+          boxTop(liveBroadcasts()),
           st.section(
             active.map { tr =>
               div(cls := s"relay-widget relay-widget--active ${tierClass(tr.tour)}", dataIcon := "")(
@@ -76,7 +76,7 @@ object tour {
       main(cls := "page-small page-menu")(
         pageMenu(active),
         div(cls := "page-menu__content box box-pad page")(
-          h1(cls := "box__top")(title),
+          boxTop(title),
           div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
         )
       )

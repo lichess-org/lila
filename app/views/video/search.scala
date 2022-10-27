@@ -11,7 +11,7 @@ object search {
 
   def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context) =
     layout(title = s"${control.query.getOrElse("Search")} • Free Chess Videos", control = control)(
-      div(cls := "box__top")(
+      boxTop(
         h1(pluralize("video", videos.nbResults), " found"),
         bits.searchForm(control.query)
       ),

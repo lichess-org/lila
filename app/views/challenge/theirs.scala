@@ -26,7 +26,7 @@ object theirs {
         c.status match {
           case Status.Created | Status.Offline =>
             frag(
-              div(cls := "box__top")(
+              boxTop(
                 h1(
                   if (c.isOpen) c.name | "Open challenge"
                   else

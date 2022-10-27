@@ -17,7 +17,7 @@ object mobile {
     ) {
       main(
         div(cls := "mobile page-small box box-pad")(
-          h1(trans.playChessEverywhere()),
+          h1(cls := "box__top")(trans.playChessEverywhere()),
           div(cls := "sides")(
             div(cls := "left-side")(
               div(cls := "stores")(

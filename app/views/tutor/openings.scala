@@ -22,10 +22,12 @@ object openings {
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "openings"))(
       cls := "tutor__openings box",
-      h1(
-        a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
-        report.perf.trans,
-        " openings"
+      boxTop(
+        h1(
+          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          report.perf.trans,
+          " openings"
+        )
       ),
       bits.mascotSays(report openingHighlights 3 map compare.show),
       div(cls := "tutor__openings__colors tutor__pad")(chess.Color.all.map { color =>

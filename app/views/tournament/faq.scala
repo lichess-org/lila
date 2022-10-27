@@ -17,9 +17,11 @@ object faq {
       moreCss = cssTag("page")
     ) {
       main(cls := "page-small box box-pad page")(
-        h1(
-          a(href := routes.Tournament.home, dataIcon := "", cls := "text"),
-          trans.tournamentFAQ()
+        boxTop(
+          h1(
+            a(href := routes.Tournament.home, dataIcon := "", cls := "text"),
+            trans.tournamentFAQ()
+          )
         ),
         div(cls := "body")(apply())
       )

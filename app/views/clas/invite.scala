@@ -19,7 +19,7 @@ object invite {
       title = c.name
     ) {
       main(cls := "page-small box box-pad page clas-invitation")(
-        h1(c.name),
+        h1(cls := "box__top")(c.name),
         p(c.desc),
         br,
         br,

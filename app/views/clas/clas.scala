@@ -22,7 +22,7 @@ object clas {
       title = trans.clas.lichessClasses.txt()
     ) {
       main(cls := "page-small box box-pad page clas-home")(
-        h1(trans.clas.lichessClasses()),
+        h1(cls := "box__top")(trans.clas.lichessClasses()),
         div(cls := "clas-home__doc body")(
           p(trans.clas.teachClassesOfChessStudents()),
           h2(trans.clas.features()),
@@ -47,7 +47,7 @@ object clas {
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
-        h1(trans.clas.lichessClasses()),
+        h1(cls := "box__top")(trans.clas.lichessClasses()),
         a(
           href     := clasRoutes.form,
           cls      := "new button button-empty",
@@ -74,7 +74,7 @@ object clas {
   def studentIndex(classes: List[Clas])(implicit ctx: Context) =
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
-      div(cls := "box__top")(h1(trans.clas.lichessClasses())),
+      boxTop(h1(trans.clas.lichessClasses())),
       renderClasses(classes)
     )
 
@@ -104,7 +104,7 @@ object clas {
   def create(form: Form[ClasData])(implicit ctx: Context) =
     bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
       cls := "box-pad",
-      h1(trans.clas.newClass()),
+      h1(cls := "box__top")(trans.clas.newClass()),
       innerForm(form, none)
     )
 

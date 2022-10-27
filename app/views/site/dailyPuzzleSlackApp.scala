@@ -13,8 +13,8 @@ object dailyPuzzleSlackApp {
       moreCss = cssTag("page")
     ) {
       main(cls := "page page-small box box-pad")(
+        h1(cls := "box__top")("Daily Chess Puzzle by Lichess (Slack App)"),
         div(cls := "body")(
-          h1("Daily Chess Puzzle by Lichess (Slack App)"),
           p(
             "Spice up your Slack workspace with a daily chess puzzle from ",
             a(href := "/")("lichess.org"),

@@ -27,7 +27,7 @@ object index {
       moreCss = cssTag("search")
     ) {
       main(cls := "box page-small search")(
-        h1(advancedSearch()),
+        h1(cls := "box__top")(advancedSearch()),
         st.form(
           noFollow,
           cls    := "box__pad search__form",

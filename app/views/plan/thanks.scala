@@ -22,7 +22,7 @@ object thanks {
       title = thankYou.txt()
     ) {
       main(cls := "page-small page box box-pad")(
-        h1(cls := "text", dataIcon := patronIconChar)(thankYou()),
+        boxTop(h1(cls := "text", dataIcon := patronIconChar)(thankYou())),
         div(cls := "body")(
           p(tyvm()),
           p(transactionCompleted()),

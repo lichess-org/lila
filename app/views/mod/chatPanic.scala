@@ -17,7 +17,7 @@ object chatPanic {
       main(cls := "page-menu")(
         views.html.mod.menu("panic"),
         div(id := "chat-panic", cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           p(
             "When Chat Panic is enabled, restrictions apply to public chats (tournament, simul) and PM",
             br,

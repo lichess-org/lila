@@ -15,7 +15,7 @@ object bits {
 
   def friends(u: User, pag: Paginator[Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.friends.txt()}")(
-      div(cls := "box__top")(
+      boxTop(
         h1(
           a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
           trans.friends()
@@ -26,7 +26,7 @@ object bits {
 
   def blocks(u: User, pag: Paginator[Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.blocks.pluralSameTxt(pag.nbResults)}")(
-      div(cls := "box__top")(
+      boxTop(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(trans.blocks.pluralSame(pag.nbResults))
       ),
@@ -35,7 +35,7 @@ object bits {
 
   def opponents(u: User, sugs: List[lila.relation.Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.favoriteOpponents.txt()}")(
-      div(cls := "box__top")(
+      boxTop(
         h1(
           a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
           trans.favoriteOpponents(),

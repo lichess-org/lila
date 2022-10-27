@@ -20,7 +20,7 @@ object form {
       moreJs = captchaTag
     ) {
       main(cls := "page-small box box-pad report")(
-        h1(trans.reportAUser()),
+        h1(cls := "box__top")(trans.reportAUser()),
         postForm(
           cls    := "form3",
           action := s"${reportRoutes.create}${reqUser.??(u => "?username=" + u.username)}"

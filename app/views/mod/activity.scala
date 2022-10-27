@@ -25,10 +25,12 @@ object activity {
       main(cls := "page-menu")(
         views.html.mod.menu("activity"),
         div(cls := "page-menu__content index box mod-activity")(
-          h1(
-            whoSelector(p),
-            " activity this ",
-            periodSelector(p)
+          boxTop(
+            h1(
+              whoSelector(p),
+              " activity this ",
+              periodSelector(p)
+            )
           ),
           div(cls := "chart chart-reports"),
           div(cls := "chart chart-actions")

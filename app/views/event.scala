@@ -17,7 +17,7 @@ object event {
   def create(form: Form[_])(implicit ctx: Context) =
     layout(title = "New event", css = "mod.form") {
       div(cls := "crud page-menu__content box box-pad")(
-        h1("New event"),
+        h1(cls := "box__top")("New event"),
         postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
       )
     }
@@ -25,7 +25,7 @@ object event {
   def edit(event: Event, form: Form[_])(implicit ctx: Context) =
     layout(title = event.title, css = "mod.form") {
       div(cls := "crud edit page-menu__content box box-pad")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             a(href := routes.Event.show(event.id))(event.title),
             span("Created by ", titleNameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt)),
@@ -56,7 +56,7 @@ object event {
       moreJs = jsTag("event-countdown.js")
     ) {
       main(cls := "page-small event box box-pad")(
-        div(cls := "box__top")(
+        boxTop(
           iconOf(e),
           div(
             h1(e.title),
@@ -93,7 +93,7 @@ object event {
     val title = "Event manager"
     layout(title = title) {
       div(cls := "crud page-menu__content box")(
-        div(cls := "box__top")(
+        boxTop(
           h1(title),
           div(cls := "box__top__actions")(
             a(cls := "button button-green", href := routes.Event.form, dataIcon := "")

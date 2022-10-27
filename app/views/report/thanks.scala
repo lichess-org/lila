@@ -26,7 +26,7 @@ fetch($button.data('action'), {method:'post'})
 
     views.html.base.layout(title = title, moreJs = moreJs) {
       main(cls := "page-small box box-pad")(
-        h1(title),
+        h1(cls := "box__top")(title),
         p("The moderators will review it very soon, and take appropriate action."),
         br,
         br,

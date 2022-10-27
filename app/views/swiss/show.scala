@@ -88,9 +88,11 @@ object show {
       val pager = views.html.base.bits
         .pagination(p => routes.Swiss.round(s.id.value, p).url, r.value, s.round.value, showPost = true)
       main(cls := "box swiss__round")(
-        h1(
-          a(href := routes.Swiss.show(s.id.value))(s.name),
-          s" • Round $r/${s.round}"
+        boxTop(
+          h1(
+            a(href := routes.Swiss.show(s.id.value))(s.name),
+            s" • Round $r/${s.round}"
+          )
         ),
         pager(cls := "pagination--top"),
         table(cls := "slist slist-pad")(

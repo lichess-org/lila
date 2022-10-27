@@ -22,7 +22,7 @@ object profile {
       active = "editProfile"
     ) {
       div(cls := "account box box-pad")(
-        h1(trans.editProfile()),
+        h1(cls := "box__top")(trans.editProfile()),
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),

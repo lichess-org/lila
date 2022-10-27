@@ -29,7 +29,7 @@ object index {
         .some,
       control = control
     )(
-      div(cls := "box__top")(
+      boxTop(
         h1(
           if (control.filter.tags.nonEmpty) frag(pluralize("video", videos.nbResults), " found")
           else "Chess videos"

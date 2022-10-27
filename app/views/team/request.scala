@@ -22,7 +22,7 @@ object request {
       main(cls := "page-menu page-small")(
         bits.menu("requests".some),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           div(cls := "team-show__desc")(bits.markdown(t, t.description)),
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
             !t.open ?? frag(
@@ -49,7 +49,7 @@ object request {
       main(cls := "page-menu")(
         bits.menu("requests".some),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           list(requests, none)
         )
       )

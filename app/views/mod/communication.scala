@@ -37,25 +37,27 @@ object communication {
       )
     ) {
       main(id := "communication", cls := "box box-pad")(
-        h1(
-          div(cls := "title")(userLink(u), " communications"),
-          div(cls := "actions")(
-            a(
-              cls  := "button button-empty mod-zone-toggle",
-              href := routes.User.mod(u.username),
-              titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := ""
-            ),
-            isGranted(_.ViewPrivateComms) option {
-              if (priv)
-                a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
-              else
-                a(
-                  cls   := "priv button",
-                  href  := routes.Mod.communicationPrivate(u.username),
-                  title := "View private messages. This will be logged in #commlog"
-                )("PMs")
-            }
+        boxTop(
+          h1(
+            div(cls := "title")(userLink(u), " communications"),
+            div(cls := "actions")(
+              a(
+                cls  := "button button-empty mod-zone-toggle",
+                href := routes.User.mod(u.username),
+                titleOrText("Mod zone (Hotkey: m)"),
+                dataIcon := ""
+              ),
+              isGranted(_.ViewPrivateComms) option {
+                if (priv)
+                  a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
+                else
+                  a(
+                    cls   := "priv button",
+                    href  := routes.Mod.communicationPrivate(u.username),
+                    title := "View private messages. This will be logged in #commlog"
+                  )("PMs")
+              }
+            )
           )
         ),
         isGranted(_.UserModView) option frag(

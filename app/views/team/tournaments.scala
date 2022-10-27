@@ -26,7 +26,7 @@ object tournaments {
     ) {
       main(
         div(cls := "box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(
               views.html.team.bits.link(t),
               " • ",

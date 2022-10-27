@@ -40,7 +40,7 @@ object perfStat {
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(user, ranks, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
-          div(cls := "box__top")(
+          boxTop(
             div(cls := "box__top__title")(
               bits.perfTrophies(user, ranks.view.filterKeys(perfType.==).toMap),
               h1(
