@@ -851,4 +851,5 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
   <string name="since">Alates</string>
   <string name="until">Kuni</string>
+  <string name="switchSides">Vaheta pooli</string>
 </resources>
