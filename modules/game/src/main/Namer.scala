@@ -38,9 +38,8 @@ object Namer {
         s"${playerTextUser(game.whitePlayer, wu, withRatings)} - ${playerTextUser(game.blackPlayer, bu, withRatings)}"
       }
 
-  def ratingString(p: Player) =
-    p.rating match {
-      case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"
-      case _            => "?"
+  def ratingString(p: Player): String =
+    p.rating.fold("?") { rating =>
+      s"$rating${p.provisional ?? "?"}"
     }
 }

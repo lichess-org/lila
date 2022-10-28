@@ -38,6 +38,11 @@
   &__players {
     margin-top: 0.3rem;
     font-size: 90%;
+
+    abbr {
+      text-decoration: none;
+      color: mix($c-font, $c-link, 50%);
+    }
   }
 
   .bookmark {

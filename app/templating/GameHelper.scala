@@ -96,8 +96,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       player.userId.flatMap(lightUser).fold[Frag](trans.anonymous.txt()) { user =>
         frag(
           titleTag(user.title ifTrue withTitle map Title.apply),
-          if (withRating) s"${user.name} (${lila.game.Namer ratingString player})"
-          else user.name
+          user.name,
+          withRating option frag(
+            " ",
+            player.rating.fold(frag("?")) { rating =>
+              if (player.provisional) abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
+              else rating
+            }
+          )
         )
       }
     ) { level =>
