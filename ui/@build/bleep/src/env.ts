@@ -2,9 +2,8 @@ import * as path from 'node:path';
 import * as ps from 'node:process';
 
 export interface BleepOpts {
+  defaultArgs?: string[]; // arguments when none are given
   gulp?: boolean; // build css, default = true
-  exclude?: string[]; // ignore modules (tutor)
-
   log?: {
     heap?: boolean; // show node rss in log statements, default = false
     time?: boolean; // show time in log statements, default = true
@@ -47,7 +46,6 @@ export function init(root: string, opts?: BleepOpts) {
       rollup: 'cyan',
     };
   }
-  if (!env.opts.exclude) env.opts.exclude = [];
 }
 
 const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());

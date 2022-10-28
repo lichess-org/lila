@@ -17,28 +17,27 @@ let startTime: number | undefined = Date.now();
 
 export async function build(moduleNames: string[]) {
   modules = new Map((await parseModules()).map(mod => [mod.name, mod]));
-
   for (const moduleName of moduleNames)
-    if (!known(moduleName)) {
+    if (!known(moduleName) && moduleName != 'all') {
       env.log(c.red('Argument error: ') + `unknown module '${c.magenta(moduleName)}'`);
       return;
     }
 
   buildDependencyList();
-  const buildModules =
-    moduleNames && moduleNames.length > 0 ? new Set(depsMany(moduleNames)) : new Set(modules.values());
 
-  const exclude = env.opts.exclude?.flatMap(reverseDeps) || [];
-  for (const mod of exclude)
-    if (moduleNames.includes(mod.name)) {
-      env.log(c.red('Config error: ') + `'${c.magenta(mod.name)}' depends on excluded module`);
-      return;
-    }
-  exclude.forEach(rm => buildModules.delete(rm));
+  if (moduleNames.length == 0)
+    modules.forEach(m => {
+      // we're just doing core
+      if (!m.hasTsconfig) return;
+      moduleNames.push(m.name);
+      m.rollup = undefined;
+    });
+
+  const buildModules = moduleNames.includes('all') ? [...modules.values()] : depsMany(moduleNames);
 
   if (env.opts.gulp !== false) gulpWatch();
-  await makeBleepConfig([...buildModules]);
-  typescriptWatch(() => rollupWatch([...buildModules]));
+  await makeBleepConfig(buildModules);
+  typescriptWatch(() => rollupWatch(buildModules));
 }
 
 function typescriptWatch(success: () => void) {
@@ -92,14 +91,16 @@ function rollupWatch(todo: LichessModule[]): void {
     });
   });
   if (!rollups.length) {
-    rollupDone();
+    rollupDone(0);
     return;
   }
   let moduleName = 'unknown';
+  let count = 0;
 
   watcher = rup.watch(rollups).on('event', (e: rup.RollupWatcherEvent) => {
     if (e.code == 'END') {
-      rollupDone();
+      rollupDone(count);
+      count = 0;
     } else if (e.code == 'ERROR') {
       rollupError(e.error, moduleName);
     } else if (e.code == 'BUNDLE_START') {
@@ -107,24 +108,25 @@ function rollupWatch(todo: LichessModule[]): void {
       const output = e.output.length > 0 ? e.output[0] : '';
       const hostMod = outputToHostMod.get(output);
       moduleName = hostMod?.name || 'unknown';
-      if (triggerScriptCmds.has(output)) preModBuild(hostMod);
+      if (triggerScriptCmds.has(output)) preModule(hostMod);
     } else if (e.code == 'BUNDLE_END') {
       const output = e.output.length > 0 ? e.output[0] : '';
       const hostMod = outputToHostMod.get(output);
-      if (triggerScriptCmds.has(output)) postModBuild(hostMod);
+      if (triggerScriptCmds.has(output)) postModule(hostMod);
       const result = fs.existsSync(output)
         ? `bundled '${c.cyan(path.basename(output))}' - `
         : `not found '${c.red(output)}' - `;
-
       env.log(result + c.grey(`${e.duration}ms`), { ctx: 'rollup' });
       e.result?.close();
+      count++;
     }
   });
 }
 
-function rollupDone() {
+function rollupDone(n: number) {
+  const results = n > 0 ? `Built ${n} module${n > 1 ? 's' : ''}` : 'Done';
   const elapsed = startTime ? `in ${c.green((Date.now() - startTime) / 1000 + '')}s ` : '';
-  env.log(`Rollup done ${elapsed}- watching...`);
+  env.log(`${results} ${elapsed}- watching...`);
   startTime = undefined;
 }
 
@@ -160,7 +162,7 @@ function rollupOptions(o: LichessRollup): rup.RollupWatchOptions {
   };
 }
 
-function postModBuild(mod: LichessModule | undefined) {
+function postModule(mod: LichessModule | undefined) {
   mod?.build.post?.forEach((args: string[]) => {
     env.log(c.blue(args.join(' ')), { ctx: mod.name });
     cps.exec(`${args.join(' ')}`, { cwd: mod.root }, (err, stdout, stderr) => {
@@ -171,7 +173,7 @@ function postModBuild(mod: LichessModule | undefined) {
   });
 }
 
-function preModBuild(mod: LichessModule | undefined) {
+function preModule(mod: LichessModule | undefined) {
   mod?.build.pre?.forEach((args: string[]) => {
     env.log(c.blue(args.join(' ')), { ctx: mod.name });
     // this must block, otherwise the rollup that may depend on this command
@@ -195,36 +197,12 @@ function buildDependencyList() {
 
 // don't worry about cycles because yarn install would fail
 function depsOne(modName: string): LichessModule[] {
-  const deps: LichessModule[] = [];
-  const collect = (modName: string) => {
-    moduleDeps.get(modName)?.forEach(dep => collect(dep));
-    deps.push(modules.get(modName)!);
-  };
-  collect(modName);
-  return deps;
+  const collect = (dep: string): string[] => [...(moduleDeps.get(dep) || []).flatMap(d => collect(d)), dep];
+  return unique(collect(modName).map(name => modules.get(name)));
 }
 
-const depsMany = (modNames: string[]): LichessModule[] => {
-  const deps: LichessModule[] = [];
-  modNames.filter(known).forEach(name => deps.push(...depsOne(name)));
-  return unique(deps);
-};
+const depsMany = (modNames: string[]): LichessModule[] => unique(modNames.flatMap(depsOne));
 
-function reverseDeps(modName: string): LichessModule[] {
-  if (!known(modName)) return [];
-  const depsReverse: LichessModule[] = [modules.get(modName)!];
-  const collect = (modName: string) => {
-    moduleDeps.forEach((deps, name) => {
-      if (deps.includes(modName)) {
-        depsReverse.push(modules.get(name)!);
-        collect(name);
-      }
-    });
-  };
-  collect(modName);
-  return unique(depsReverse);
-}
-
-const unique = (mods: LichessModule[]): LichessModule[] => [...new Set(mods)].filter(x => x);
+const unique = <T>(mods: (T | undefined)[]): T[] => [...new Set(mods.filter(x => x))] as T[];
 
 const known = (name: string): boolean => modules.has(name);
