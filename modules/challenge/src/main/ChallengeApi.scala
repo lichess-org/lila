@@ -107,8 +107,10 @@ final class ChallengeApi(
         val color = openFixedColor orElse requestedColor
         if (c.challengerIsOpen)
           repo.setChallenger(c.setChallenger(user, sid), color) inject Valid(none)
+        else if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
+          fuccess(Invalid("This color has already been chosen"))
         else
-          joiner(c, user, color).flatMap {
+          joiner(c, user).flatMap {
             case Valid(pov) =>
               (repo accept c) >>- {
                 uncacheAndNotify(c)
@@ -143,7 +145,7 @@ final class ChallengeApi(
     }
 
   def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
-    joiner(challenge, dest.some, none).map(_.map(_.game))
+    joiner(challenge, dest.some).map(_.map(_.game))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
     if (c.hasClock) fuFalse
