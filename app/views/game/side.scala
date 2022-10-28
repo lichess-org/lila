@@ -58,12 +58,7 @@ object side {
                       bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
                 ),
-                game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
-                  frag(
-                    if (game.isBeingPlayed) trans.playingRightNow()
-                    else momentFromNowWithPreload(game.createdAt)
-                  )
-                }
+                game.pgnImport.flatMap(_.date).map(frag(_)) | momentFromNowWithPreload(game.createdAt)
               ),
               game.pgnImport.flatMap(_.user).map { user =>
                 small(
