@@ -21,4 +21,8 @@ final class Env(
   lazy val annotator = new Annotator(net.domain)
 
   lazy val externalEngine = new ExternalEngineApi(db(CollName("external_engine")), cacheApi)
+
+  lila.common.Bus.subscribeFun("oauth") { case lila.hub.actorApi.oauth.TokenRevoke(id) =>
+    externalEngine onTokenRevoke id unit
+  }
 }

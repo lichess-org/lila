@@ -2,17 +2,18 @@ package lila.analyse
 
 import AnalyseBsonHandlers.externalEngineHandler
 import chess.variant.Variant
+import com.roundeights.hasher.Algo
 import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
-import com.roundeights.hasher.Algo
 
+import lila.common.Bearer
 import lila.common.Form._
 import lila.common.{ SecureRandom, ThreadLocalRandom }
 import lila.db.dsl._
-import lila.user.User
 import lila.memo.CacheApi
+import lila.user.User
 
 case class ExternalEngine(
     _id: String, // random
@@ -106,9 +107,12 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: Execu
 
   def list(by: User): Fu[List[ExternalEngine]] = userCache get by.id
 
-  def create(by: User, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
+  def create(by: User, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] = {
     val engine = data make by.id
-    coll.insert.one(engine) >>- reloadCache(by.id) inject engine
+    val bson = {
+      externalEngineHandler writeOpt engine err "external engine bson"
+    } ++ $doc("oauthToken" -> oauthTokenId)
+    coll.insert.one(bson) >>- reloadCache(by.id) inject engine
   }
 
   def find(by: User, id: String): Fu[Option[ExternalEngine]] =
@@ -123,5 +127,12 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: Execu
     coll.delete.one($doc("userId" -> by.id) ++ $id(id)) map { result =>
       reloadCache(by.id)
       result.n > 0
+    }
+
+  private[analyse] def onTokenRevoke(id: String) =
+    coll.primitiveOne[User.ID]($doc("oauthToken" -> id), "userId") flatMap {
+      _ ?? { userId =>
+        coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
+      }
     }
 }

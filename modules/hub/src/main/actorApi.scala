@@ -328,3 +328,7 @@ package plan {
 package push {
   case class TourSoon(tourId: String, tourName: String, userIds: Iterable[String], swiss: Boolean)
 }
+
+package oauth {
+  case class TokenRevoke(id: String)
+}

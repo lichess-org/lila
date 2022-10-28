@@ -8,6 +8,7 @@ import lila.common.Bearer
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 import reactivemongo.api.ReadPreference
+import lila.hub.actorApi.oauth.TokenRevoke
 
 final class AccessTokenApi(
     coll: Coll,
@@ -151,7 +152,7 @@ final class AccessTokenApi(
           F.userId -> user.id
         )
       )
-      .map(_ => invalidateCached(id))
+      .void >>- onRevoke(id)
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -173,12 +174,12 @@ final class AccessTokenApi(
               F.clientOrigin -> clientOrigin
             )
           )
-          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(invalidateCached))
+          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(onRevoke))
       }
 
   def revoke(bearer: Bearer) = {
-    val id = AccessToken.Id.from(bearer)
-    coll.delete.one($id(id)).map(_ => invalidateCached(id))
+    val id = AccessToken.Id from bearer
+    coll.delete.one($id(id)) >>- onRevoke(id)
   }
 
   def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
@@ -207,8 +208,10 @@ final class AccessTokenApi(
       fields = AccessToken.forAuthProjection.some
     )
 
-  private def invalidateCached(id: AccessToken.Id): Unit =
+  private def onRevoke(id: AccessToken.Id): Unit = {
     accessTokenCache.put(id, fuccess(none))
+    lila.common.Bus.publish(TokenRevoke(id.value), "oauth")
+  }
 }
 
 object AccessTokenApi {
