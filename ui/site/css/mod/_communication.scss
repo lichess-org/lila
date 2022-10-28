@@ -70,7 +70,8 @@
     padding: 6px;
   }
 
-  .player_chats .game .friend_title {
+  .player_chats .game .friend_title,
+  .thread .title .friend_title {
     color: green;
     font-style: italic;
   }

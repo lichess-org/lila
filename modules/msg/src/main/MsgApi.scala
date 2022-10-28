@@ -205,17 +205,16 @@ final class MsgApi(
           ),
           UnwindField("contact")
         )
-      } map { docs =>
-      for {
+      } flatMap { docs =>
+      (for {
         doc     <- docs
         msgs    <- doc.getAsOpt[List[Msg]]("msgs")
         contact <- doc.getAsOpt[User]("contact")
-      } yield ModMsgConvo(
-        contact,
-        msgs take 10,
-        lila.relation.Relations(none, none),
-        msgs.length == 11
-      )
+      } yield {
+        relationApi.fetchRelations(user.id, contact.id) map { relations =>
+          ModMsgConvo(contact, msgs take 10, relations, msgs.length == 11)
+        }
+      }).sequenceFu
     }
 
   def deleteAllBy(user: User): Funit =
