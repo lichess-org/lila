@@ -208,6 +208,7 @@ private object DisposableEmailDomain {
     "skole.hr",
     "freeshell.org",
     "hotmail.nl",
-    "live.nl"
+    "live.nl",
+    "startmail.com"
   )
 }
