@@ -10,4 +10,9 @@ if [ ! -f "$UI_DIR/../node_modules/@build/bleep/dist/main.js" ]; then
 fi
 
 cd "$UI_DIR/@build/bleep"
+
+if [ ! -f "bleep.config.json" ]; then
+  cp bleep.config.json.default bleep.config.json
+fi
+
 yarn --silent run go "$@"
