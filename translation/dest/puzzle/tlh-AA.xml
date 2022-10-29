@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ngajrun</string>
+  <string name="puzzleThemes">ngajrun Segh</string>
+  <string name="recommended">chuplu\'</string>
+  <string name="phases">bov</string>
+  <string name="motifs">tonSaw\'</string>
+  <string name="advanced">\'Itlh</string>
+  <string name="lengths">ngaj/nI\'</string>
+  <string name="mates">bertlham</string>
+  <string name="goals">ngoQ</string>
+  <string name="origin">mung</string>
+</resources>
