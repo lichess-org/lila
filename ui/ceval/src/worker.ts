@@ -254,7 +254,7 @@ export class ExternalWorker implements CevalWorker {
 
   private async analyse(work: Work, signal: AbortSignal): Promise<void> {
     try {
-      const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
+      const url = new URL(`https://engine.lichess.ovh:9443/api/external-engine/${this.opts.id}/analyse`);
       const deep = work.maxDepth >= 99;
       const res = await fetch(url.href, {
         signal,
