@@ -20,8 +20,7 @@ case class ExternalEngine(
     name: String,
     maxThreads: Int,
     maxHash: Int,
-    shallowDepth: Int,
-    deepDepth: Int,
+    defaultDepth: Int,
     variants: List[String],
     officialStockfish: Boolean, // Admissible for cloud evals
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
@@ -36,8 +35,7 @@ object ExternalEngine {
       name: String,
       maxThreads: Int,
       maxHash: Int,
-      shallowDepth: Int,
-      deepDepth: Int,
+      defaultDepth: Int,
       variants: Option[List[String]],
       officialStockfish: Option[Boolean],
       providerSecret: String,
@@ -48,8 +46,7 @@ object ExternalEngine {
       name = name,
       maxThreads = maxThreads,
       maxHash = maxHash,
-      shallowDepth = shallowDepth,
-      deepDepth = deepDepth,
+      defaultDepth = defaultDepth,
       variants = variants.filter(_.nonEmpty) | List(chess.variant.Standard.key),
       officialStockfish = ~officialStockfish,
       providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
@@ -68,8 +65,7 @@ object ExternalEngine {
       "name"         -> cleanNonEmptyText(3, 200),
       "maxThreads"   -> number(1, 65_536),
       "maxHash"      -> number(1, 1_048_576),
-      "shallowDepth" -> number(0, 246),
-      "deepDepth"    -> number(0, 246),
+      "defaultDepth" -> number(0, 246),
       "variants" -> optional(list {
         stringIn(chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.key).toSet)
       }),
@@ -87,8 +83,7 @@ object ExternalEngine {
         "userId"       -> e.userId,
         "maxThreads"   -> e.maxThreads,
         "maxHash"      -> e.maxHash,
-        "shallowDepth" -> e.shallowDepth,
-        "deepDepth"    -> e.deepDepth,
+        "defaultDepth" -> e.defaultDepth,
         "variants"     -> e.variants,
         "providerData" -> e.providerData,
         "clientSecret" -> e.clientSecret
