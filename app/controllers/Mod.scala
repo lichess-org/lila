@@ -264,7 +264,7 @@ final class Mod(
     }
 
   def log =
-    Secure(_.ModLog) { implicit ctx => me =>
+    Secure(_.GamifyView) { implicit ctx => me =>
       env.mod.logApi.recentBy(me) map { html.mod.log(_) }
     }
 
