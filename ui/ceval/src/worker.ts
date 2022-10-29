@@ -279,6 +279,8 @@ export class ExternalWorker implements CevalWorker {
         }),
       });
 
+      signal.addEventListener('abort', () => res.body?.cancel());
+
       await readNdJson<ExternalEngineOutput>(res, line => {
         this.state = CevalState.Computing;
         work.emit({
