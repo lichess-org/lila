@@ -2,7 +2,7 @@ import { Work, Redraw } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
 import { randomToken } from 'common/random';
-import { readNdJson } from 'common/ndjson';
+import { NdJsonSink } from 'common/ndjson';
 
 export enum CevalState {
   Initial,
@@ -215,7 +215,6 @@ export interface ExternalEngine {
   maxThreads: number;
   maxHash: number;
   shallowDepth: number;
-  deepDepth: number;
   clientSecret: string;
   officialStockfish?: boolean;
   endpoint: string;
@@ -279,20 +278,27 @@ export class ExternalWorker implements CevalWorker {
         }),
       });
 
-      await readNdJson<ExternalEngineOutput>(res, line => {
-        this.state = CevalState.Computing;
-        work.emit({
-          fen: work.currentFen,
-          maxDepth: deep ? this.opts.deepDepth : this.opts.shallowDepth,
-          depth: line.pvs[0]?.depth || 0,
-          knps: line.nodes / Math.max(line.time, 1),
-          nodes: line.nodes,
-          cp: line.pvs[0]?.cp,
-          mate: line.pvs[0]?.mate,
-          millis: line.time,
-          pvs: line.pvs,
-        });
-      });
+      if (!res.ok) throw new Error(`Status ${res.status}`);
+
+      await res.body!.pipeTo(
+        new WritableStream(
+          new NdJsonSink<ExternalEngineOutput>(line => {
+            this.state = CevalState.Computing;
+            work.emit({
+              fen: work.currentFen,
+              maxDepth: deep ? 99 : this.opts.shallowDepth,
+              depth: line.pvs[0]?.depth || 0,
+              knps: line.nodes / Math.max(line.time, 1),
+              nodes: line.nodes,
+              cp: line.pvs[0]?.cp,
+              mate: line.pvs[0]?.mate,
+              millis: line.time,
+              pvs: line.pvs,
+            });
+          })
+        ),
+        { signal }
+      );
 
       this.state = CevalState.Initial;
     } catch (err: unknown) {
@@ -307,7 +313,7 @@ export class ExternalWorker implements CevalWorker {
   }
 
   stop() {
-    this.req?.abort('ceval stopped');
+    this.req?.abort();
   }
 
   engineName() {
