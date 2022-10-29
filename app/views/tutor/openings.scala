@@ -32,7 +32,7 @@ object openings {
       bits.mascotSays(report openingHighlights 3 map compare.show),
       div(cls := "tutor__openings__colors tutor__pad")(chess.Color.all.map { color =>
         st.section(cls := "tutor__openings__color")(
-          h2("Your most played ", color.name, " openings"),
+          h2("Your ", color.name, " openings"),
           div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
             div(
               cls := "tutor__openings__opening tutor-card tutor-card--link",

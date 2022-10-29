@@ -19,10 +19,12 @@ object perf {
   ) =
     bits.layout(full, menu = menu(full, user, report, "perf"))(
       cls := "tutor__perf box",
-      h1(
-        a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
-        "Tutor: ",
-        report.perf.trans
+      boxTop(
+        h1(
+          a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+          "Tutor: ",
+          report.perf.trans
+        )
       ),
       bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
       div(cls := "tutor__perf__angles tutor-cards")(

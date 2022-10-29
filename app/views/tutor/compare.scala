@@ -20,7 +20,7 @@ private object compare {
       "Your ",
       perf.map(p => frag(p.trans, " ")),
       showMetric(comp),
-      " in the ",
+      " in ",
       strong(showDimension(comp.dimension)),
       " is ",
       showQuality(comp.grade),
@@ -49,7 +49,7 @@ private object compare {
     })
 
   private[tutor] def showDimension[D](dimension: D): String = dimension match {
-    case d: LilaOpeningFamily => d.name.value
+    case d: LilaOpeningFamily => s"the ${d.name.value}"
     case d: Phase             => d.name.toLowerCase
     case d                    => d.toString.toLowerCase
   }
