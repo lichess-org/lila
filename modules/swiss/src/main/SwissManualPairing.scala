@@ -26,3 +26,14 @@ final private class SwissManualPairing(colls: SwissColls)(implicit ec: scala.con
       }
     }
 }
+
+private object SwissManualPairing {
+  def validate(str: String) =
+    str.linesIterator
+      .map(_.trim.toLowerCase.split(' ').map(_.trim))
+      .foldLeft(Option(Set.empty[User.ID])) {
+        case (Some(prevIds), Array(w, b)) if w != b && !prevIds(w) && !prevIds(b) => Some(prevIds + w + b)
+        case _                                                                    => None
+      }
+      .isDefined
+}
