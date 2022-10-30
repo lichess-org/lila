@@ -306,7 +306,7 @@ export class ExternalWorker implements CevalWorker {
   }
 
   stop() {
-    this.req?.abort('ceval stopped');
+    this.req?.abort();
   }
 
   engineName() {
