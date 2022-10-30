@@ -2,10 +2,24 @@ import { AnalyseData, Game } from './interfaces';
 import { makeFen } from 'chessops/fen';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeUci, Rules } from 'chessops';
-import { makeVariant, parsePgn, parseVariant, startingPosition } from 'chessops/pgn';
+import { makeVariant, parsePgn, parseVariant, startingPosition, ChildNode, PgnNodeData } from 'chessops/pgn';
+import { Position } from 'chessops/chess';
 import { Player } from 'game';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeSquare } from 'chessops/util';
+
+const readNode = (node: ChildNode<PgnNodeData>, pos: Position, ply: number): Tree.Node => {
+  const move = parseSan(pos, node.data.san);
+  if (!move) throw `Can't replay move ${node.data.san} at ply ${ply}`;
+  return {
+    id: scalachessCharPair(move),
+    ply,
+    san: makeSanAndPlay(pos, move),
+    fen: makeFen(pos.toSetup()),
+    uci: makeUci(move),
+    children: node.children.map(child => readNode(child, pos.clone(), ply + 1)),
+  };
+};
 
 export default function (pgn: string): Partial<AnalyseData> {
   const game = parsePgn(pgn)[0];
@@ -21,13 +35,19 @@ export default function (pgn: string): Partial<AnalyseData> {
       children: [],
     },
   ];
-  const mainline = Array.from(game.moves.mainline());
+  let tree = game.moves;
   const pos = start;
-  mainline.forEach((node, index) => {
+  const sidelines: Tree.Node[][] = [[]];
+  let index = 0;
+  while (tree.children.length) {
+    const [mainline, ...variations] = tree.children;
     const ply = initialPly + index + 1;
+    const node = mainline.data;
     const move = parseSan(pos, node.san);
+    sidelines.push(variations.map(variation => readNode(variation, pos.clone(), ply)));
     if (!move) throw `Can't replay move ${node.san} at ply ${ply}`;
     const san = makeSanAndPlay(pos, move);
+
     treeParts.push({
       id: scalachessCharPair(move),
       ply,
@@ -37,7 +57,9 @@ export default function (pgn: string): Partial<AnalyseData> {
       uci: makeUci(move),
       check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
     });
-  });
+    tree = mainline;
+    index += 1;
+  }
   const rules: Rules = parseVariant(headers.get('variant')) || 'chess';
   const variantKey: VariantKey = rulesToVariantKey[rules] || rules;
   const variantName = makeVariant(rules) || variantKey;
@@ -49,7 +71,7 @@ export default function (pgn: string): Partial<AnalyseData> {
       opening: undefined, // TODO
       player: start.turn,
       status: { id: 20, name: 'started' },
-      turns: mainline.length,
+      turns: treeParts.length,
       variant: {
         key: variantKey,
         name: variantName,
@@ -59,6 +81,7 @@ export default function (pgn: string): Partial<AnalyseData> {
     player: { color: 'white' } as Player,
     opponent: { color: 'black' } as Player,
     treeParts,
+    sidelines,
     userAnalysis: true,
   };
 }
