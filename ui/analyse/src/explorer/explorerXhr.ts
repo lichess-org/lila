@@ -1,6 +1,6 @@
 import { ExplorerData, ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
-import { NdJsonSink } from 'common/ndjson';
+import { readNdJson } from 'common/ndjson';
 import { ExplorerConfigData } from './explorerConfig';
 
 interface OpeningXhrOpts {
@@ -56,18 +56,11 @@ export async function opening(
     signal,
   });
 
-  if (!res.ok) throw new Error(`Status ${res.status}`);
-
-  await res.body!.pipeTo(
-    new WritableStream(
-      new NdJsonSink<Partial<OpeningData>>(data => {
-        data.isOpening = true;
-        data.fen = opts.fen;
-        processData(data as OpeningData);
-      })
-    ),
-    { signal }
-  );
+  await readNdJson<Partial<OpeningData>>(res, data => {
+    data.isOpening = true;
+    data.fen = opts.fen;
+    processData(data as OpeningData);
+  });
 }
 
 export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
