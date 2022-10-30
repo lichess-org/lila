@@ -8,7 +8,12 @@ import { Player } from 'game';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeSquare } from 'chessops/util';
 
-const readNode = (node: ChildNode<PgnNodeData>, pos: Position, ply: number): Tree.Node => {
+const readNode = (
+  node: ChildNode<PgnNodeData>,
+  pos: Position,
+  ply: number,
+  withChildren: boolean = true
+): Tree.Node => {
   const move = parseSan(pos, node.data.san);
   if (!move) throw `Can't replay move ${node.data.san} at ply ${ply}`;
   return {
@@ -17,7 +22,8 @@ const readNode = (node: ChildNode<PgnNodeData>, pos: Position, ply: number): Tre
     san: makeSanAndPlay(pos, move),
     fen: makeFen(pos.toSetup()),
     uci: makeUci(move),
-    children: node.children.map(child => readNode(child, pos.clone(), ply + 1)),
+    children: withChildren ? node.children.map(child => readNode(child, pos.clone(), ply + 1)) : [],
+    check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
   };
 };
 
@@ -42,21 +48,8 @@ export default function (pgn: string): Partial<AnalyseData> {
   while (tree.children.length) {
     const [mainline, ...variations] = tree.children;
     const ply = initialPly + index + 1;
-    const node = mainline.data;
-    const move = parseSan(pos, node.san);
     sidelines.push(variations.map(variation => readNode(variation, pos.clone(), ply)));
-    if (!move) throw `Can't replay move ${node.san} at ply ${ply}`;
-    const san = makeSanAndPlay(pos, move);
-
-    treeParts.push({
-      id: scalachessCharPair(move),
-      ply,
-      fen: makeFen(pos.toSetup()),
-      children: [],
-      san,
-      uci: makeUci(move),
-      check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
-    });
+    treeParts.push(readNode(mainline, pos, ply, false));
     tree = mainline;
     index += 1;
   }
