@@ -99,4 +99,6 @@ O formato máis próximo a un torneo online de todos contra todos é un torneo s
   <string name="streaksAndBerserk">Rachas e Berserk</string>
   <string name="similarToOTB">Similar aos torneos OTB (Over The Board, no taboleiro)</string>
   <string name="unlimitedAndFree">Ilimitado e libre</string>
+  <string name="predefinedUsers">Só permitir xogar a usuario predefinidos</string>
+  <string name="forbiddedUsers">Se esta lista non está baleira, os usuarios que non estean nela non poderán unirse. Un usuario por liña.</string>
 </resources>
