@@ -208,7 +208,7 @@ final class Study(
           )
         } yield res
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
-    } map NoCache
+    } dmap (_.noCache)
 
   private[controllers] def getJsonData(sc: WithChapter)(implicit ctx: Context): Fu[(WithChapter, JsData)] =
     for {
@@ -402,7 +402,7 @@ final class Study(
             )
           } yield result
         }
-      } map NoCache
+      } dmap (_.noCache)
     }
 
   private def embedNotFound(implicit req: RequestHeader): Fu[Result] =

@@ -110,7 +110,7 @@ final class Coach(env: Env) extends LilaController(env) {
       OptionFuResult(api findOrInit me) { c =>
         env.msg.twoFactorReminder(me.id) >>
           api.reviews.pendingByCoach(c.coach) map { reviews =>
-            NoCache(Ok(html.coach.edit(c, CoachProfileForm edit c.coach, reviews)))
+            Ok(html.coach.edit(c, CoachProfileForm edit c.coach, reviews)).noCache
           }
       }
     }
@@ -132,7 +132,7 @@ final class Coach(env: Env) extends LilaController(env) {
   def picture =
     Secure(_.Coach) { implicit ctx => me =>
       OptionResult(api findOrInit me) { c =>
-        NoCache(Ok(html.coach.picture(c)))
+        Ok(html.coach.picture(c)).noCache
       }
     }
 

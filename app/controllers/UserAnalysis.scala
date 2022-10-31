@@ -102,16 +102,14 @@ final class UserAnalysis(
                   data <-
                     env.api.roundApi
                       .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
-                } yield NoCache(
-                  Ok(
-                    html.board
-                      .userAnalysis(
-                        data,
-                        pov,
-                        withForecast = owner && !pov.game.synthetic && pov.game.playable
-                      )
-                  )
-                )
+                } yield Ok(
+                  html.board
+                    .userAnalysis(
+                      data,
+                      pov,
+                      withForecast = owner && !pov.game.synthetic && pov.game.playable
+                    )
+                ).noCache
               },
             api = apiVersion => mobileAnalysis(pov, apiVersion)
           )

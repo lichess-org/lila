@@ -39,13 +39,17 @@ abstract private[controllers] class LilaController(val env: Env)
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
     def flashFailure: Result              = flashFailure("")
     def withCanonical(url: Call) = result.withHeaders(
-      "Link" -> s"<${env.net.baseUrl}${url.url}>; rel=\"canonical\""
+      LINK -> s"<${env.net.baseUrl}${url.url}>; rel=\"canonical\""
     )
     def enableSharedArrayBuffer(implicit req: RequestHeader) = result.withHeaders(
       "Cross-Origin-Opener-Policy" -> "same-origin",
       "Cross-Origin-Embedder-Policy" -> {
         if (HTTPRequest isChrome96Plus req) "credentialless" else "require-corp"
       }
+    )
+    def noCache = result.withHeaders(
+      CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
+      EXPIRES       -> "0"
     )
   }
 
@@ -75,12 +79,6 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
   implicit def netDomain                              = env.net.domain
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
-
-  protected def NoCache(res: Result): Result =
-    res.withHeaders(
-      CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
-      EXPIRES       -> "0"
-    )
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(parse.empty)(f)

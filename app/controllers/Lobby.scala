@@ -36,7 +36,7 @@ final class Lobby(env: Env) extends LilaController(env) {
   private def serveHtmlHome(implicit ctx: Context) =
     env.pageCache { () =>
       keyPages.homeHtml.dmap { html =>
-        NoCache(Ok(html))
+        Ok(html).noCache
       }
     } map env.lilaCookie.ensure(ctx.req)
 
