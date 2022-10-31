@@ -38,6 +38,9 @@ abstract private[controllers] class LilaController(val env: Env)
     def flashSuccess: Result              = flashSuccess("")
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
     def flashFailure: Result              = flashFailure("")
+    def withCanonical(url: Call) = result.withHeaders(
+      "Link" -> s"<${env.net.baseUrl}${url.url}>; rel=\"canonical\""
+    )
   }
 
   implicit protected def LilaFragToResult(frag: Frag): Result = Ok(frag)
