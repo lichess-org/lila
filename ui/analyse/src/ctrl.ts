@@ -188,7 +188,7 @@ export default class AnalyseCtrl {
     this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
-    this.tree = makeTree(util.treeReconstruct(this.data.treeParts));
+    this.tree = makeTree(util.treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
 
     this.autoplay = new Autoplay(this);
