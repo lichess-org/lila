@@ -41,6 +41,12 @@ abstract private[controllers] class LilaController(val env: Env)
     def withCanonical(url: Call) = result.withHeaders(
       "Link" -> s"<${env.net.baseUrl}${url.url}>; rel=\"canonical\""
     )
+    def enableSharedArrayBuffer(implicit req: RequestHeader) = result.withHeaders(
+      "Cross-Origin-Opener-Policy" -> "same-origin",
+      "Cross-Origin-Embedder-Policy" -> {
+        if (HTTPRequest isChrome96Plus req) "credentialless" else "require-corp"
+      }
+    )
   }
 
   implicit protected def LilaFragToResult(frag: Frag): Result = Ok(frag)
@@ -69,15 +75,6 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
   implicit def netDomain                              = env.net.domain
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
-
-  protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
-    res.withHeaders(
-      "Cross-Origin-Opener-Policy" -> "same-origin",
-      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest isChrome96Plus req)
-                                           "credentialless"
-                                         else
-                                           "require-corp")
-    )
 
   protected def NoCache(res: Result): Result =
     res.withHeaders(

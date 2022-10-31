@@ -45,7 +45,9 @@ final class UserAnalysis(
       val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
-        EnableSharedArrayBuffer(Ok(html.board.userAnalysis(data, pov)))
+        Ok(html.board.userAnalysis(data, pov))
+          .withCanonical(routes.UserAnalysis.index)
+          .enableSharedArrayBuffer
       }
     }
 
@@ -55,9 +57,7 @@ final class UserAnalysis(
       val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
-        EnableSharedArrayBuffer(
-          Ok(html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some))
-        )
+        Ok(html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)).enableSharedArrayBuffer
       }
     }
 
