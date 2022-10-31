@@ -38,16 +38,16 @@ abstract private[controllers] class LilaController(val env: Env)
     def flashSuccess: Result              = flashSuccess("")
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
     def flashFailure: Result              = flashFailure("")
-    def withCanonical(url: Call) = result.withHeaders(
-      LINK -> s"<${env.net.baseUrl}${url.url}>; rel=\"canonical\""
-    )
-    def enableSharedArrayBuffer(implicit req: RequestHeader) = result.withHeaders(
+    def withCanonical(url: String): Result =
+      result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
+    def withCanonical(url: Call): Result = withCanonical(url.url)
+    def enableSharedArrayBuffer(implicit req: RequestHeader): Result = result.withHeaders(
       "Cross-Origin-Opener-Policy" -> "same-origin",
       "Cross-Origin-Embedder-Policy" -> {
         if (HTTPRequest isChrome96Plus req) "credentialless" else "require-corp"
       }
     )
-    def noCache = result.withHeaders(
+    def noCache: Result = result.withHeaders(
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES       -> "0"
     )

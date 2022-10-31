@@ -43,7 +43,7 @@ final class Team(
   def show(id: String, page: Int, mod: Boolean) =
     Open { implicit ctx =>
       Reasonable(page) {
-        OptionFuOk(api team id) { renderTeam(_, page, mod) }
+        OptionFuResult(api team id) { renderTeam(_, page, mod) }
       }
     }
 
@@ -91,7 +91,8 @@ final class Team(
         team.leaders.toList ::: info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
-    } yield html.team.show(team, members, info, chat, version, requestModView, log)
+    } yield Ok(html.team.show(team, members, info, chat, version, requestModView, log))
+      .withCanonical(routes.Team.show(team.id))
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
       implicit ctx: Context
@@ -673,7 +674,7 @@ You received this because you are subscribed to messages of the team $url."""
   private def WithOwnedTeam(teamId: String)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api team teamId) { team =>
       if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
-      else renderTeam(team) map { Forbidden(_) }
+      else Redirect(routes.Team.show(team.id)).fuccess
     }
 
   private def WithOwnedTeamEnabled(

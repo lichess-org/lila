@@ -76,6 +76,7 @@ final class Practice(
             )
           )
       ).noCache.enableSharedArrayBuffer
+        .withCanonical(s"${us.url}/${us.study.chapter.id.value}")
     }
 
   def chapter(studyId: String, chapterId: String) =
