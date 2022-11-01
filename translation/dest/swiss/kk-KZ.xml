@@ -101,6 +101,7 @@
   <string name="streaksAndBerserk">Тізбектер мен Берсерк</string>
   <string name="similarToOTB">Шынайы жарыстарға ұқсас</string>
   <string name="unlimitedAndFree">Шектеусіз әрі тегін</string>
+  <string name="predefinedUsers">Тек алдын-ала бекітілген ойыншылар ғана қосыла алады</string>
   <plurals name="xOutOfYRoundsSwiss">
     <item quantity="one">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
     <item quantity="other">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
