@@ -29,6 +29,6 @@
   <string name="botPlay">Бот API-мен ойнау</string>
   <string name="engineRead">Бөтен есептеуіштерді көру, қолдану</string>
   <string name="engineWrite">Бөтен есептеуіштерді құру, жаңарту</string>
-  <string name="webLogin">Сайттың сәйкестік-тексерілген сессиясын құру (толық рұқсаты болады!)</string>
+  <string name="webLogin">Сайттың сәйкестік-расталған сессиясын құру (толық рұқсаты болады!)</string>
   <string name="webMod">Модератор құралдарын пайдалану (рұқсаттар аясында)</string>
 </resources>
