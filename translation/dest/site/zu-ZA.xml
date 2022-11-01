@@ -17,6 +17,8 @@
   <string name="stalemate">I-Stalemate</string>
   <string name="white">Okumhlophe</string>
   <string name="black">Mnyama</string>
+  <string name="asWhite">Ngokumhlophe</string>
+  <string name="asBlack">Ngokumnyama</string>
   <string name="randomColor">Okungahleliwe</string>
   <string name="createAGame">Dala umdlalo</string>
   <string name="whiteIsVictorious">Umhlophe unqobile</string>
@@ -24,6 +26,7 @@
   <string name="youPlayTheWhitePieces">Udlala izingcezu ezimhlophe</string>
   <string name="youPlayTheBlackPieces">Udlala izingcezu ezimnyama</string>
   <string name="itsYourTurn">Yithuba lakho!</string>
+  <string name="cheatDetected">Utholakala urobha</string>
   <string name="kingInTheCenter">Inkosi phakathi</string>
   <string name="threeChecks">Ukuhlola ezintathu</string>
   <string name="raceFinished">Umjaho uqedile</string>
@@ -42,13 +45,18 @@
   <string name="blackResigned">Okumnyama kususwe</string>
   <string name="whiteLeftTheGame">Umhlophe ushiye umdlalo</string>
   <string name="blackLeftTheGame">Omnyama ushiye umdlalo</string>
+  <string name="whiteDidntMove">Umhlophe akadlalanga</string>
+  <string name="blackDidntMove">Umnyama akadlalanga</string>
   <string name="requestAComputerAnalysis">Cela ukuhlaziywa kwekhompyutha</string>
   <string name="computerAnalysis">Ukuhlaziywa kwekhompyutha</string>
   <string name="computerAnalysisAvailable">Ukuhlaziywa kwekhompyutha kuyatholakala</string>
+  <string name="computerAnalysisDisabled">Kucinyiwe ukuhlaziywa kwekhompuyuthwa</string>
   <string name="analysis">Ibhodi Yokuhlola</string>
   <string name="depthX">Ukujula %s</string>
   <string name="usingServerAnalysis">Ukusebenzisa ukuhlaziywa kweseva</string>
   <string name="loadingEngine">Ilayisha injini ...</string>
+  <string name="calculatingMoves">Sibala imidlalo yakho...</string>
+  <string name="engineFailed">Injini iyahluleka ukuqhubeka</string>
   <string name="cloudAnalysis">Ukuhlaziywa kwamafu</string>
   <string name="goDeeper">Hamba ngokujulile</string>
   <string name="showThreat">Bonisa usongo</string>

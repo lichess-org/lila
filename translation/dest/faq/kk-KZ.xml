@@ -6,8 +6,8 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Личес деген live/light/libre деген сөз бен chess сөзінің қосындысы. Ол %1$s деп оқылады.</string>
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist">Маманның айтуын тыңдаңыз.</string>
-  <string name="whyLiveLightLibre">\"Live\" дегеннің мағынасы – ойындарды шын уақытта 24/7 ойнап, көруге болады; \"light\" пен \"libre\" деген сөздер Личестің түбір коды ашық, онымен қатар басқа веб-сайттардағыдай жекешелендіру сияқты қоқыстан еркін екендігін білдіреді.</string>
-  <string name="whyIsLilaCalledLila">Личестің түбір коды – %1$s сөзі, li[chess in sca]la-дан құралады. %2$s програмдау тілінде Личестің негізгі бөлігі жазылған.</string>
+  <string name="whyLiveLightLibre">\"Live\" дегеннің мағынасы – ойындарды шын уақытта 24/7 ойнап, көруге болады; \"light\" пен \"libre\" деген сөздер Личестің түбір коды ашық, онымен қатар басқа веб-сайттарды қаптаған жекешелендіру сияқты қоқыстан таза екендігін білдіреді.</string>
+  <string name="whyIsLilaCalledLila">Личестің түбір кодының атауы– %1$s, li[chess in sca]la-дан құралады. %2$s програмдау тілінде Личестің негізгі бөлігі жазылған.</string>
   <string name="howCanIContributeToLichess">Лическе қалайша жәрдем көрсетсем болады?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Личестің тірегі – демеу берушілер мен еріктілер тобы.</string>
   <string name="findMoreAndSeeHowHelp">%1$s туралы көбірек білуіңізге болады (%2$s қоса). Егер Лическе ерікті ретінде уақыт пен қабілетіңізбен көмек көрсетем десеңіз, %3$s бар.</string>
@@ -15,7 +15,7 @@
   <string name="breakdownOfOurCosts">біздің шығындар тізімі</string>
   <string name="otherWaysToHelp">көмектесудің басқа жолдары</string>
   <string name="areThereWebsitesBasedOnLichess">Личес негізінде жасалған веб-сайттар бар ма?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Иә. Личесте біздің %1$s, %2$s не %3$s қолданатын коды ашық басқа да сайттар бар.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Иә. Личесті үлгі көріп, біздің %1$s, %2$s не %3$s қолданатын коды ашық басқа да сайттар бар.</string>
   <string name="fairPlay">Адал ойын</string>
   <string name="whenAmIEligibleRatinRefund">Қандай жағдайда читер келтірген рейтинг шығынын өтеуге құқығым бар?</string>
   <string name="ratingRefundExplanation">Ойыншы читер деп белгіленген соң, бір минут ішінде оның кейінгі 3 күнде болған 40 ойны алынады. Егер олардың арасында сізбен ойнаған ойны болса, сіздің рейтингіңіз кемісе (жеңіліс не тепе-теңдік салдарынан), сонымен қатар рейтингіңіз болжамалы емес болса, сіз рейтинг шығынын өтеп аласыз. Өтеудің деңгейі сіздің ең жоғары рейтинг пен ойыннан кейінгі рейтинг өзгерісіне қарай анықталады.
