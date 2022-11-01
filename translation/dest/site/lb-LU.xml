@@ -490,6 +490,7 @@
   <string name="savingMoves">Temporär gespäichert Zich</string>
   <string name="savingMovesHelp">Mir späicheren deng Varianten an dengem Browser Cache.</string>
   <string name="makeAStudy">Fir Varianten laangfristeg ze haalen an ze deelen, consideréier eng Etüd ze kreéieren.</string>
+  <string name="clearSavedMoves">Zich läschen</string>
   <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
   <string name="onlinePlayers">Online Spiller</string>
   <string name="activePlayers">Aktiv Spiller</string>
@@ -604,6 +605,7 @@
   <string name="error.min">Muss mindestens %s sinn</string>
   <string name="error.max">Däerf maximal %s sinn</string>
   <string name="ifRatingIsPlusMinusX">Falls Wäertung ± %s</string>
+  <string name="ifRegistered">Wann registréiert</string>
   <string name="onlyExistingConversations">Just lafend Konversatiounen</string>
   <string name="onlyFriends">Just Frënn</string>
   <string name="menu">Menü</string>
@@ -652,6 +654,7 @@
   <string name="tournamentFAQ">Arena Turnéier FAQ</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>
+  <string name="accuracy">Prezisioun</string>
   <string name="keyboardShortcuts">Tastaturkürzel</string>
   <string name="keyMoveBackwardOrForward">zeréck/no fir beweegen</string>
   <string name="keyGoToStartOrEnd">bei Start/Schluss goen</string>
@@ -762,6 +765,7 @@
   <string name="bestWasX">Am Beschten war %s</string>
   <string name="youBrowsedAway">Du hues fortgebliedert</string>
   <string name="resumePractice">Übung fortsetzen</string>
+  <string name="drawByFiftyMoves">D\'Partie gouf duerch d\' 50 Zuch Reegel als Remis deklaréiert.</string>
   <string name="theGameIsADraw">D\'Partie ass Remis.</string>
   <string name="computerThinking">Computer iwwerleet ...</string>
   <string name="seeBestMove">Beschten Zuch gesinn</string>
@@ -825,6 +829,7 @@
   <string name="currentMatchScore">Aktuellen Match Score</string>
   <string name="agreementAssistance">Ech stëmmen zou dass ech zu kengem Zäitpunkt wärend mengen Partien Hëllef an Usproch huelen (duerch Computer, Buch, Datenbank oder eng aner Persoun).</string>
   <string name="agreementNice">Ech stëmmen zou dass ech aneren Spiller géigeniwwer ëmmer respektvoll agéieren wäert.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ech stëmmen zou dass ech net puer Konten kreéieren wäert (außer fir Zwecker genannt an den %s).</string>
   <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
