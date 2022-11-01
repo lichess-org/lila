@@ -3,7 +3,8 @@ import sbt._, Keys._
 
 object Dependencies {
   val arch = if (System.getProperty("os.arch").toLowerCase.startsWith("aarch")) "aarch_64" else "x86_64"
-  val (os, notifier) = if (System.getProperty("os.name").toLowerCase.startsWith("mac"))
+  val (os, notifier) =
+    if (System.getProperty("os.name").toLowerCase.startsWith("mac"))
       ("osx", "kqueue")
     else
       ("linux", "epoll")
@@ -15,7 +16,7 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "7.1.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.0"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "10.6.3"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "10.6.4"
   val compression = "org.lichess"                  %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"               %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19-THIB213"
@@ -25,7 +26,8 @@ object Dependencies {
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.1.RELEASE"
-  val nettyTransport = "io.netty" % s"netty-transport-native-$notifier" % "4.1.82.Final" classifier s"$os-$arch"
+  val nettyTransport =
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.82.Final" classifier s"$os-$arch"
   val autoconfig   = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
   val scalatest    = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
   val uaparser     = "org.uaparser"               %% "uap-scala"         % "0.14.0"

@@ -62,13 +62,11 @@ object ExternalEngine {
 
   val form = Form(
     mapping(
-      "name"         -> cleanNonEmptyText(3, 200),
-      "maxThreads"   -> number(1, 65_536),
-      "maxHash"      -> number(1, 1_048_576),
-      "defaultDepth" -> number(0, 246),
-      "variants" -> optional(list {
-        stringIn(chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.key).toSet)
-      }),
+      "name"              -> cleanNonEmptyText(3, 200),
+      "maxThreads"        -> number(1, 65_536),
+      "maxHash"           -> number(1, 1_048_576),
+      "defaultDepth"      -> number(0, 246),
+      "variants"          -> optional(list(stringIn(chess.variant.Variant.all.map(_.uciKey).toSet))),
       "officialStockfish" -> optional(boolean),
       "providerSecret"    -> nonEmptyText(16, 1024),
       "providerData"      -> optional(text(maxLength = 8192))
