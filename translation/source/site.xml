@@ -881,8 +881,7 @@ All operating costs, development, and content are funded solely by user donation
   <string name="cancelTournament">Cancel the tournament</string>
   <string name="tournDescription">Tournament description</string>
   <string name="tournDescriptionHelp">Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)</string>
-  <string name="ratedFormHelp">Games are rated
-and impact players ratings</string>
+  <string name="ratedFormHelp">If you choose to enable this option, the games will impact the participants' ratings</string>
   <string name="onlyMembersOfTeam">Only members of team</string>
   <string name="noRestriction">No restriction</string>
   <string name="minimumRatedGames">Minimum rated games</string>
