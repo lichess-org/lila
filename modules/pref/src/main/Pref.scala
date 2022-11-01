@@ -454,7 +454,7 @@ object Pref {
     soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
     autoQueen = AutoQueen.PREMOVE,
-    autoThreefold = AutoThreefold.TIME,
+    autoThreefold = AutoThreefold.ALWAYS,
     takeback = Takeback.ALWAYS,
     moretime = Moretime.ALWAYS,
     clockBar = true,
