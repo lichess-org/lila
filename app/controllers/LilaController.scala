@@ -321,7 +321,7 @@ abstract private[controllers] class LilaController(val env: Env)
     NoEngine(NoBooster(a))
 
   protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.message.noBot).fuccess else a
+    if (ctx.isBot) Forbidden(views.html.site.message.noBot).fuccess else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoLame(NoBot(a))
