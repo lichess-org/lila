@@ -14,10 +14,10 @@
   <string name="challengeRead">Lue saapuvat haasteet</string>
   <string name="challengeWrite">Lähetä, hyväksy ja hylkää haasteita</string>
   <string name="challengeBulk">Luo samalla kertaa monta peliä toisille pelaajille</string>
-  <string name="studyRead">Lue yksityiset tutkielmat ja lähetykset</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lue yksityiset tutkielmat ja lähetykset</string>
   <string name="studyWrite">Luo, päivitä ja poista tutkielmia ja lähetyksiä</string>
   <string name="tournamentWrite">Luo ja päivitä turnauksia ja osallistu turnauksiin</string>
-  <string name="racerWrite">Luo tehtäväkilpa-ajoja ja liity niihin</string>
+  <string name="racerWrite">Luo tehtäväkilpa-ajoja ja osallistu niihin</string>
   <string name="puzzleRead">Lue tehtävien ratkaisutoimet</string>
   <string name="teamRead">Lue yksityisen joukkueen tiedot</string>
   <string name="teamWrite">Liity joukkueeseen, poistu joukkueesta ja hallitse joukkuetta</string>
