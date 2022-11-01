@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="preferenceWrite">Scríobh rogha</string>
+  <string name="emailRead">Léigh seoladh ríomhphoist</string>
+  <string name="challengeRead">Léigh dúshláin ag teacht isteach</string>
+  <string name="challengeWrite">Dúshláin a sheoladh, a ghlacadh agus a dhiúltú</string>
+  <string name="challengeBulk">Cruthaigh roinnt cluichí ag an am céanna do imreoirí eile</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Léigh staidéir phríobháideacha agus craoltaí</string>
+  <string name="boardPlay">Imir cluichí le bord api</string>
+  <string name="botPlay">Imir cluichí le bota api</string>
+  <string name="engineRead">Féach ar agus úsáid do innill sheachtracha</string>
+</resources>
