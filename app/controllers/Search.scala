@@ -33,7 +33,7 @@ final class Search(env: Env) extends LilaController(env) {
             api = _ => Unauthorized(jsonError("Login required")).fuccess
           )
         else
-          OnlyHumans {
+          NoCrawlers {
             val page = p atLeast 1
             Reasonable(page, config.Max(100)) {
               val cost         = scala.math.sqrt(page.toDouble).toInt

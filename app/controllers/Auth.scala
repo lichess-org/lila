@@ -103,7 +103,7 @@ final class Auth(
 
   def authenticate =
     OpenBody { implicit ctx =>
-      OnlyHumans {
+      NoCrawlers {
         Firewall {
           def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
           implicit val req            = ctx.body

@@ -623,7 +623,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
 
-  protected def OnlyHumans(result: => Fu[Result])(implicit ctx: Context) =
+  protected def NoCrawlers(result: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) notFound else result
 
   protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =
