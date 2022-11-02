@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Hvítur</string>
   <string name="black">Svartur</string>
+  <string name="asWhite">sem hvítur</string>
+  <string name="asBlack">sem svartur</string>
   <string name="randomColor">Litur af handahófi</string>
   <string name="createAGame">Hefja leik</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
@@ -47,6 +49,8 @@
   <string name="blackResigned">Svartur gefst upp</string>
   <string name="whiteLeftTheGame">Hvítur hefur yfirgefið leikinn</string>
   <string name="blackLeftTheGame">Svartur hefur yfirgefið leikinn</string>
+  <string name="whiteDidntMove">Hvítur hóf ekki leik</string>
+  <string name="blackDidntMove">Svartur hóf ekki leik</string>
   <string name="requestAComputerAnalysis">Biðja um tölvugreiningu</string>
   <string name="computerAnalysis">Tölvugreining</string>
   <string name="computerAnalysisAvailable">Tölvugreining í boði</string>
@@ -87,6 +91,7 @@
   </plurals>
   <string name="noGameFound">Enginn leikur fannst</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
+  <string name="openings">Byrjanir</string>
   <string name="openingExplorer">Skoða opnanir</string>
   <string name="openingEndgameExplorer">Byrjana/endatafls könnuður</string>
   <string name="xOpeningExplorer">%s byrjanaskoðari</string>
@@ -187,6 +192,12 @@
   <string name="email">Tölvupóstfang</string>
   <string name="passwordReset">Breyta lykilorði</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
+  <string name="usernameNotFound">Við fundum engan með þessu notandanafni: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Þú getur notað þetta notandanafn til þess að stofna nýjan aðgang</string>
+  <string name="emailSent">Við höfum sent tölvupóst á %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
+  <string name="accountClosed">Aðgangurinn %s er lokaður.</string>
+  <string name="accountRegisteredWithoutEmail">Aðgangurinn %s var skráður með engu netfangi.</string>
   <string name="rank">Staða</string>
   <string name="rankX">Sæti: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -358,6 +369,8 @@
   <string name="follow">Fylgja</string>
   <string name="following">Fylgir</string>
   <string name="unfollow">Affylgja</string>
+  <string name="followX">Fylgja %s</string>
+  <string name="unfollowX">Affylgja %s</string>
   <string name="block">Blokkera</string>
   <string name="blocked">Blokkaður</string>
   <string name="unblock">Afblokka</string>
@@ -438,6 +451,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eða fáni</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="socialMediaLinks">Samfélagsmiðlatengill</string>
+  <string name="oneUrlPerLine">Eitt URL í hverri línu.</string>
   <string name="previouslyOnLichessTV">Áður á Lichessvarpinu</string>
   <string name="onlinePlayers">Tengdir notendur</string>
   <string name="activePlayers">Virkir notendur</string>

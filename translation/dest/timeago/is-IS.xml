@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">rétt í þessu</string>
+  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+    <item quantity="one">eftir %s sekúndu</item>
+    <item quantity="other">eftir %s sekúndur</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">eftir %s mínútu</item>
+    <item quantity="other">eftir %s mínútur</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">eftir %s klukkustund</item>
+    <item quantity="other">eftir %s klukkustundir</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">eftir %s dag</item>
+    <item quantity="other">eftir %s daga</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">eftir %s viku</item>
+    <item quantity="other">eftir %s vikur</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">eftir %s mánuð</item>
+    <item quantity="other">eftir %s mánuði</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">eftir %s ár</item>
+    <item quantity="other">eftir %s ár</item>
+  </plurals>
+  <string name="rightNow">einmitt núna</string>
+</resources>

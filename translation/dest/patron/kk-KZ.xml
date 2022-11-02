@@ -44,7 +44,7 @@
   <string name="otherMethods">Демеу берудің басқа жолдары бар ма?</string>
   <string name="bankTransfers">Сонымен қатар банк аударымдарын қабылдаймыз</string>
   <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
-  <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Уәде етеміз.
+  <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей, мәңгі тегін. Бұл біздің уәдеміз.
 Дегенмен, Қамқоршылар өз куәлігінде күшті таңбашаға ие болады.</string>
   <string name="featuresComparison">Артықшылықтардың салыстырмалы кестесін қарап көріңіз</string>
   <plurals name="patronForMonths">
@@ -72,8 +72,8 @@
   <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, түбіртек поштаңызға жіберілді.</string>
   <string name="permanentPatron">Енді сіз тұрақты Қамқоршы тіркелгісіне иесіз.</string>
   <string name="checkOutProfile">Куәлік парақшасын қарап көріңіз!</string>
-  <string name="nowLifetime">Енді сіз мәңгіге Личес Қамқоршысысыз!</string>
-  <string name="nowOneMonth">Енді сіз бір айлық Личес Қамқоршысысыз!</string>
+  <string name="nowLifetime">Енді сіз Лическе мәңгі Қамқоршысыз!</string>
+  <string name="nowOneMonth">Енді сіз бір ай Лическе Қамқоршысыз!</string>
   <string name="downgradeNextMonth">Айлардың бірінде төлем болмай қалса, Личес тіркелгіңіз қайттан жай тіркелгіге ауысады.</string>
   <string name="changeCurrency">Валюта өзгерту</string>
 </resources>
