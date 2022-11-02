@@ -86,11 +86,7 @@ object edit {
                   )
               ),
               ctx.is(s.user) option div(cls := "status")(
-                anotherLanguage(
-                  a(href := "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes")(
-                    "2-letter ISO 639-1 code"
-                  )
-                )
+                streamerLanguageSettings()
               ),
               modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
