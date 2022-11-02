@@ -96,7 +96,7 @@ final private class Player(
   private[round] def fishnet(game: Game, sign: String, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi)
       uciMemo sign game flatMap { expectedSign =>
-        if ((expectedSign == sign).pp(s"$expectedSign == $sign"))
+        if (expectedSign == sign)
           applyUci(game, uci, blur = false, metrics = fishnetLag)
             .fold(errs => fufail(ClientError(errs)), fuccess)
             .flatMap {
