@@ -2,6 +2,7 @@ package lila.swiss
 
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
+import com.softwaremill.tagging._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
@@ -10,7 +11,10 @@ import lila.db.dsl._
 import lila.hub.actorApi.push.TourSoon
 import lila.user.User
 
-final private class SwissNotify(colls: SwissColls)(implicit
+final private class SwissNotify(
+    swissColl: Coll @@ SwissColl,
+    playerColl: Coll @@ PlayerColl,
+)(implicit
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {
@@ -19,7 +23,7 @@ final private class SwissNotify(colls: SwissColls)(implicit
   private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
 
   LilaScheduler(_.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
-    colls.swiss
+    swissColl
       .find(
         $doc(
           "featurable" -> true,
@@ -35,7 +39,7 @@ final private class SwissNotify(colls: SwissColls)(implicit
         _.map { swiss =>
           doneMemo put swiss.id.value
           SwissPlayer.fields { f =>
-            colls.player
+            playerColl
               .distinctEasy[User.ID, List](f.userId, $doc(f.swissId -> swiss.id))
               .map { userIds =>
                 lila.common.Bus.publish(

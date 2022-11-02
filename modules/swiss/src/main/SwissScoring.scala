@@ -2,11 +2,14 @@ package lila.swiss
 
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
+import com.softwaremill.tagging._
 
 import lila.db.dsl._
 
 final private class SwissScoring(
-    colls: SwissColls
+    swissColl: Coll @@ SwissColl,
+    playerColl: Coll @@ PlayerColl,
+    pairingColl: Coll @@ PairingColl
 )(implicit scheduler: akka.actor.Scheduler, ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
 
   import BsonHandlers._
@@ -22,7 +25,7 @@ final private class SwissScoring(
     )
 
   private def recompute(id: Swiss.Id): Fu[Option[SwissScoring.Result]] =
-    colls.swiss.byId[Swiss](id.value) flatMap {
+    swissColl.byId[Swiss](id.value) flatMap {
       _.?? { swiss =>
         for {
           (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
@@ -57,7 +60,7 @@ final private class SwissScoring(
                 a != b
               }
               .map { case (_, player) =>
-                colls.player.update
+                playerColl.update
                   .one(
                     $id(player.id),
                     $set(
@@ -85,7 +88,7 @@ final private class SwissScoring(
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields { f =>
-      colls.player
+      playerColl
         .find($doc(f.swissId -> swiss.id))
         .sort($sort asc f.score)
         .cursor[SwissPlayer]()
@@ -94,7 +97,7 @@ final private class SwissScoring(
 
   private def fetchPairings(swiss: Swiss) =
     !swiss.isCreated ?? SwissPairing.fields { f =>
-      colls.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
+      pairingColl.list[SwissPairing]($doc(f.swissId -> swiss.id))
     }
 }
 
