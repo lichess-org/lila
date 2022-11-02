@@ -30,4 +30,20 @@
     <item quantity="other">eftir %s ár</item>
   </plurals>
   <string name="rightNow">einmitt núna</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekúnda síðan</item>
+    <item quantity="other">%s sekúndum síðan</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s mínúta síðan</item>
+    <item quantity="other">%s mínútum síðan</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s klukkstund síðan</item>
+    <item quantity="other">%s klukkustundum síðan</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s dagur síðan</item>
+    <item quantity="other">%s dögum síðan</item>
+  </plurals>
 </resources>
