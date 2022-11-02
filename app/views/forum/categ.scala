@@ -30,7 +30,7 @@ object categ {
         showCategs(categs.filterNot(_.categ.isTeam)),
         if (categs.exists(_.categ.isTeam))
           frag(
-            h1("Your Team Boards"),
+            h1(cls := "box__top")("Your Team Boards"),
             showCategs(categs.filter(_.categ.isTeam))
           )
       )
