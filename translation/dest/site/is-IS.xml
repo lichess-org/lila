@@ -192,6 +192,7 @@
   <string name="email">Tölvupóstfang</string>
   <string name="passwordReset">Breyta lykilorði</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
+  <string name="whatSignupUsername">Hvaða notandanafn notaðiru þegar þú nýskráðir aðganginn?</string>
   <string name="usernameNotFound">Við fundum engan með þessu notandanafni: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Þú getur notað þetta notandanafn til þess að stofna nýjan aðgang</string>
   <string name="emailSent">Við höfum sent tölvupóst á %s.</string>
@@ -341,6 +342,7 @@
   <string name="apply">Virkja</string>
   <string name="save">Vista</string>
   <string name="leaderboard">Stigaborð</string>
+  <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
   <string name="pasteTheFenStringHere">Límdu FEN strengnum hér</string>
   <string name="pasteThePgnStringHere">Límdu PGN strengnum hér</string>
   <string name="fromPosition">Frá staðsetningu</string>
@@ -419,6 +421,8 @@
   <string name="tournamentIsStarting">Mótin eru að byrja</string>
   <string name="tournamentPairingsAreNowClosed">Nú er pörun mótsins lokið.</string>
   <string name="standByX">Bíddu vid %s, pörun keppanda stendur yfir. Vertu tilbúin(n)!</string>
+  <string name="pause">Hlé</string>
+  <string name="resume">Halda áfram</string>
   <string name="youArePlaying">Þú ert að spila!</string>
   <string name="winRate">Sigurhlutfall</string>
   <string name="berserkRate">Berserkjahlutfall</string>
@@ -592,6 +596,7 @@
   <string name="tournamentFAQ">Leikvangsmót - Algengar spurningar</string>
   <string name="timeBeforeTournamentStarts">Tími áður en mót hefst</string>
   <string name="averageCentipawnLoss">Meðaltap í hundruði peðs</string>
+  <string name="accuracy">Nákvæmni</string>
   <string name="keyboardShortcuts">Stjórna með lyklaborði</string>
   <string name="keyMoveBackwardOrForward">áfram/aftur á bak</string>
   <string name="keyGoToStartOrEnd">fara á byrjun/lok</string>
@@ -750,4 +755,5 @@
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
   <string name="unsubscribe">Taka úr áskrift</string>
+  <string name="congratsYouWon">Til hamingju, þú vannst!</string>
 </resources>
