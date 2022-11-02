@@ -36,8 +36,7 @@ final class Round(
               gameC.preloadUsers(pov.game) zip
                 (pov.game.simulId ?? env.simul.repo.find) zip
                 getPlayerChat(pov.game, tour.map(_.tour)) zip
-                (ctx.noBlind ?? env.game.crosstableApi
-                  .withMatchup(pov.game)) zip
+                (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
                 (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
                 env.bookmark.api.exists(pov.game, ctx.me) zip
                 env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) map {
