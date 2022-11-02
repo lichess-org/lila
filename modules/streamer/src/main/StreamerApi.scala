@@ -3,6 +3,7 @@ package lila.streamer
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
+import play.api.i18n.Lang
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
@@ -56,11 +57,23 @@ final class StreamerApi(
         coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
 
-  def setLiveNow(ids: List[Streamer.Id]): Funit =
-    coll.update.one($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true) >>
-      cache.candidateIds.getUnit.map { candidateIds =>
-        if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
-      }
+  def setLangLiveNow(streams: List[Stream]): Funit = {
+    streams
+      .map({ s => // one by one now due to lastLanguageUsed
+        coll.update
+          .one(
+            $id(s.streamer.id),
+            $set(
+              "liveAt"         -> DateTime.now,
+              "lastStreamLang" -> Lang.get(s.lang).map(_.code.substring(0, 2))
+            )
+          )
+          .void
+      })
+      .sequenceFu >> cache.candidateIds.getUnit.map { candidateIds =>
+      if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
+    }
+  }
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)

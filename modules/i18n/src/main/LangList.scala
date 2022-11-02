@@ -144,6 +144,9 @@ object LangList {
     .toList
     .sortBy(_._1)
 
+  def displayName(code: String): Option[String] =
+    allChoices.find(_._1.toLowerCase.startsWith(code.toLowerCase)) map (_._2)
+
   private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
 
   def isRTL(lang: Lang): Boolean =

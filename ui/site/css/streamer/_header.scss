@@ -13,6 +13,7 @@
     }
 
     display: flex;
+    flex: auto;
     flex-flow: column;
     justify-content: space-between;
   }
@@ -54,5 +55,22 @@
 
   .service.live {
     color: $c-brag;
+  }
+}
+
+.streamer-title {
+  flex: initial;
+  display: grid;
+
+  @include breakpoint($mq-not-xx-small) {
+    grid-template-columns: auto;
+  }
+  @include breakpoint($mq-xx-small) {
+    grid-template-columns: auto min-content;
+  }
+
+  .streamer-lang {
+    margin-top: 0.3em;
+    margin-#{$end-direction}: 1em;
   }
 }

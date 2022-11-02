@@ -2,7 +2,7 @@ package lila.streamer
 
 import org.joda.time.DateTime
 
-import lila.memo.{ PicfitImage, PicfitUrl }
+import lila.memo.PicfitImage
 import lila.user.User
 
 case class Streamer(
@@ -18,7 +18,8 @@ case class Streamer(
     seenAt: DateTime,         // last seen online
     liveAt: Option[DateTime], // last seen streaming
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
+    lastStreamLang: Option[String] // valid 2 char language code or None
 ) {
 
   def id = _id
@@ -61,7 +62,8 @@ object Streamer {
       seenAt = DateTime.now,
       liveAt = none,
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
+      lastStreamLang = none
     )
 
   case class Id(value: User.ID)     extends AnyVal with StringValue

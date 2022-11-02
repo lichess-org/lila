@@ -1,5 +1,7 @@
 $mq-picture: $mq-medium;
 
+@import 'header';
+
 .streamer-list {
   h1 {
     &::before {
@@ -69,6 +71,7 @@ $mq-picture: $mq-medium;
   .overview {
     margin: 20px 10px 0 2.5vw;
     display: flex;
+    flex: auto;
     flex-flow: column;
     justify-content: space-between;
     padding-bottom: 15px;

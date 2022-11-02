@@ -2,10 +2,10 @@ package views.html.streamer
 
 import controllers.routes
 import play.api.i18n.Lang
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.i18n.LangList
 import lila.user.User
 
 object bits {
@@ -99,5 +99,14 @@ object bits {
         li(perk3()),
         li(perk4())
       )
+    )
+
+  def streamerTitle(s: lila.streamer.Streamer.WithUser)(implicit lang: Lang) =
+    span(cls := "streamer-title")(
+      h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
+      p(cls := "streamer-lang") {
+        val unknown = s"${trans.language.txt()}: ${trans.unknown.txt()}"
+        s.streamer.lastStreamLang.fold(unknown)((LangList.displayName(_).getOrElse(unknown)))
+      }
     )
 }

@@ -21,7 +21,6 @@ trait Stream {
   lazy val cleanStatus = removeMultibyteSymbols(status).trim
 
   lazy val lang: String = (language.length == 2) ?? language.toLowerCase
-  // provide language settings in twitch/youtube or no listing
 }
 
 object Stream {
