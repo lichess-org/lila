@@ -32,12 +32,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
 
   def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     if (u.disabled) disabled(u)
-    else
-      base(u, onlyPerf, withRating = withRating) ++ Json
-        .obj("online" -> isOnline(u.id))
-        .add("profile" -> u.profile.flatMap(_.country).map { country =>
-          Json.obj("country" -> country)
-        })
+    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline(u.id))
 
   private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     Json
