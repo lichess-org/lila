@@ -174,7 +174,7 @@ object Player {
   import lila.db.BSON
 
   type ID      = String
-  type UserId  = Option[String]
+  type UserId  = Option[User.ID]
   type Win     = Option[Boolean]
   type Builder = Color => ID => UserId => Win => Player
 

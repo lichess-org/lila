@@ -44,7 +44,7 @@ final private[api] class RoundApi(
           pov,
           ctx.pref,
           apiVersion,
-          ctx.me,
+          ctx.me.map(Right.apply),
           withFlags = ctxFlags,
           initialFen = initialFen,
           nvui = ctx.blind

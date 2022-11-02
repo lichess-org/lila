@@ -6,7 +6,7 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress, ThreadLocalRandom }
+import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress, ThreadLocalRandom }
 import lila.db.BSON.jodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.Glicko
@@ -26,6 +26,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
 
   def byId(id: ID): Fu[Option[User]] = User.noGhost(id) ?? coll.byId[User](id)
+
+  def byIdOrGhost(id: ID): Fu[Option[Either[LightUser.Ghost, User]]] =
+    if (User isGhost id) fuccess(Left(LightUser.ghost).some)
+    else
+      coll.byId[User](id).map2(Right.apply) recover { case _: exceptions.BSONValueNotFoundException =>
+        Left(LightUser.ghost).some
+      }
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
 
