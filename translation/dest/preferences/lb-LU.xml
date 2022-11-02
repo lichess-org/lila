@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Astellungen</string>
+  <string name="display">Usiicht</string>
   <string name="privacy">Privatsphär</string>
   <string name="pieceAnimation">Figurenanimatioun</string>
   <string name="materialDifference">Materialënnerscheed</string>
