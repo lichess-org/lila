@@ -33,6 +33,7 @@ final class SwissApi(
     scoring: SwissScoring,
     rankingApi: SwissRankingApi,
     standingApi: SwissStandingApi,
+    banApi: SwissBanApi,
     boardApi: SwissBoardApi,
     verify: SwissCondition.Verify,
     chatApi: lila.chat.ChatApi,
@@ -456,7 +457,7 @@ final class SwissApi(
                   } inject true
             } >>- cache.swissCache.clear(swiss.id)
       }.flatMap {
-        case true => recomputeAndUpdateAll(swissId)
+        case true => recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
         case _    => funit
       }
     }

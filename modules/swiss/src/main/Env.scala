@@ -34,9 +34,10 @@ final class Env(
     mode: play.api.Mode
 ) {
 
-  private val swiss   = db(CollName("swiss")).taggedWith[SwissColl]
-  private val player  = db(CollName("swiss_player")).taggedWith[PlayerColl]
-  private val pairing = db(CollName("swiss_pairing")).taggedWith[PairingColl]
+  private val swissColl   = db(CollName("swiss")).taggedWith[SwissColl]
+  private val playerColl  = db(CollName("swiss_player")).taggedWith[PlayerColl]
+  private val pairingColl = db(CollName("swiss_pairing")).taggedWith[PairingColl]
+  private val banColl     = db(CollName("swiss_ban")).taggedWith[BanColl]
 
   private val sheetApi = wire[SwissSheetApi]
 
@@ -55,6 +56,8 @@ final class Env(
   private val boardApi = wire[SwissBoardApi]
 
   private val statsApi = wire[SwissStatsApi]
+
+  private val banApi = wire[SwissBanApi]
 
   lazy val verify = wire[SwissCondition.Verify]
 
