@@ -13,7 +13,7 @@ import lila.user.User
 
 final private class SwissNotify(
     swissColl: Coll @@ SwissColl,
-    playerColl: Coll @@ PlayerColl,
+    playerColl: Coll @@ PlayerColl
 )(implicit
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
