@@ -20,14 +20,8 @@ trait Stream {
 
   lazy val cleanStatus = removeMultibyteSymbols(status).trim
 
-  lazy val lang: String =
-    if (language.length == 2) language.toLowerCase // toLowerCase at least 17 times or it won't stick
-    else
-      cleanStatus match {
-        case Stream.LangRegex(code) => code.toLowerCase
-        case _                      => "en"
-      }
-
+  lazy val lang: String = (language.length == 2) ?? language.toLowerCase
+  // provide language settings in twitch/youtube or no listing
 }
 
 object Stream {
