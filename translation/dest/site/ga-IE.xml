@@ -240,6 +240,16 @@
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">An ndearna tú dearmad ar do phasfhocal?</string>
   <string name="emailConfirmHelp">Cabhair le deimhniú ríomhphoist</string>
+  <string name="emailConfirmNotReceived">Nach bhfuair tú do ríomhphost deimhnithe tar éis síniú suas?</string>
+  <string name="whatSignupUsername">Cén t-ainm úsáideora a d\'úsáid tú chun clárú?</string>
+  <string name="usernameNotFound">Níorbh fhéidir linn aon úsáideoir leis an ainm seo a aimsiú: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Is féidir leat an t-ainm úsáideora seo a úsáid chun cuntas nua a chruthú</string>
+  <string name="emailSent">Tá ríomhphost seolta againn chuig %s.</string>
+  <string name="emailCanTakeSomeTime">Féadfaidh sé roinnt ama le teacht.</string>
+  <string name="refreshInboxAfterFiveMinutes">Fan 5 nóiméad agus athnuachan ríomhphoist.</string>
+  <string name="checkSpamFolder">Seiceáil freisin d\'fhillteán turscair. Más ansin é marcáil nach turscar é.</string>
+  <string name="emailForSignupHelp">Má theipeann ar gach rud eile, seol an ríomhphost seo chugainn:</string>
+  <string name="copyTextToEmail">Cóipeáil agus greamaigh an téacs thuas agus seol chuig %s é</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rangú: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -743,6 +753,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentFAQ">Ceisteanna Coitianta Comórtais Airéine</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula dtosnaíonn an comórtas</string>
   <string name="averageCentipawnLoss">Meán chaillteanas ceithearnach sa lár</string>
+  <string name="accuracy">Cruinneas</string>
   <string name="keyboardShortcuts">Aicearraí méarchláir</string>
   <string name="keyMoveBackwardOrForward">bog siar/ar aghaidh</string>
   <string name="keyGoToStartOrEnd">téigh chuig tús/deireadh</string>
@@ -862,6 +873,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="bestWasX">Ba é %s ab fhearr</string>
   <string name="youBrowsedAway">Bhí tú ag brabhsáil in áit éigin eile</string>
   <string name="resumePractice">Atosaigh cleachtadh</string>
+  <string name="drawByFiftyMoves">Tá an cluiche cothrom leis an riail caoga beart.</string>
   <string name="theGameIsADraw">Cluiche cothrom.</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
   <string name="seeBestMove">Féach an beart is fearr</string>

@@ -30,10 +30,7 @@
   <string name="pleaseFillIn">لطفاً اطلاعات جابجایی خود را پر کنید و تصویری بارگذاری کنید.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">زمانی که شما آماده‌اید تا در لیست استریم کننده‌های Lichess قرار گیرید، %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">درخواست بررسی مدیر کنید</string>
-  <string name="anotherLanguage">اگر زبان استریم شما زبانی غیر از انگلیسی است, برچسب زبان صحیح (%s) را که در پرانتز قرار دارد ، اضافه کنید.
-به عنوان مثال ، می توانید \"[RU]\" برای روسی ، \"[TR]\" برای ترکی ، \"[FR]\" برای فرانسوی و غیره وارد کنید.
-این را در صفحه ی استریم توییچ یا یوتیوب قرار دهید, یا در تنظیمات استریم لیچس 
-اگر استریم شما به انگلیسی است, نیازی به درج برچسب زبان نیست.</string>
+  <string name="streamerLanguageSettings">صفحه استریمر لیچس مخاطبان شما را با زبان ارائه شده توسط پلتفرم استریم شما هدف قرار می دهد. زبان پیش‌فرض صحیح را برای استریم های شطرنج خود در برنامه یا سرویسی که برای پخش استفاده می‌کنید، تنظیم کنید.</string>
   <string name="twitchUsername">نام کاربری شما در توییچ</string>
   <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
   <string name="youtubeChannel">ایدی شما در یوتیوب ویا کانال .</string>
