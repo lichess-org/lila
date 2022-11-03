@@ -194,11 +194,12 @@ final class Team(
   def kickUser(teamId: String, username: String) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
+        val userId = UserModel.normalize(username)
         ApiKickRateLimitPerIP[Fu[Api.ApiResult]](
           HTTPRequest ipAddress req,
           cost = if (me.isVerified || me.isApiHog) 0 else 1
         ) {
-          api.kick(team, UserModel.normalize(username), me) inject Api.Done
+          api.kick(team, userId, me) inject Api.Done
         } {
           if (kickLimitReportOnce(userId))
             lila
