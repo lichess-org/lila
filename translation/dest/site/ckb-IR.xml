@@ -152,4 +152,14 @@
   <string name="computersAreNotAllowedToPlay">کۆمپیوتەر و ئەو یاریزانە کۆمپیوتەریانەی بۆ یاری شەترەنج ئامادەکراون قەدەغەن یاریان پێبکرێت، تکایە خۆت بەدووربگرە لە وەرگرتنی یارمەتی لە بزوێنەرەکانی شەترەنج و یارزانی دیکە. هەروەها وەک تێبینیەک؛ با زۆرتر لە هەژمارێکت نەبێت بۆ یاریکردن، چونکە رەنگە بان بکرێیت و ڕێگەی یاریکردنت لێ بگیرێت.</string>
   <string name="games">یاریەکان</string>
   <string name="forum">مەکۆ</string>
+  <string name="xPostedInForumY">%1$s لەسەر بابەت پۆستێکی کرد %2$s</string>
+  <string name="latestForumPosts">دواین پۆستەکانی مەکۆ</string>
+  <string name="players">یاریزانان</string>
+  <string name="friends">هاوڕێکان</string>
+  <string name="discussions">گفتوگۆکان</string>
+  <string name="today">ئەمڕۆ</string>
+  <string name="yesterday">دوێنێ</string>
+  <string name="minutesPerSide">چەند دەقەیەک بۆ هەر لایەک</string>
+  <string name="variant">شێواز</string>
+  <string name="variants">شێوازەکان</string>
 </resources>
