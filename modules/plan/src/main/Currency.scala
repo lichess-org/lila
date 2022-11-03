@@ -68,7 +68,7 @@ final class CurrencyApi(
 
   def currencyByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Currency =
     countryCode
-      .flatMap { code => scala.util.Try(new java.util.Locale("", code)).toOption }
+      .flatMap { code => scala.util.Try(new Locale.Builder().setRegion(code).build()).toOption }
       .flatMap(currencyOption)
       .orElse(currencyOption(lang.locale))
       .getOrElse(USD)
