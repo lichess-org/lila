@@ -57,7 +57,7 @@ object insight {
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        boxTop(h1(cls := "text", dataIcon := ""))(trans.insight.xChessInsights(u.username)),
+        boxTop(h1(cls := "text", dataIcon := "")(trans.insight.xChessInsights(u.username))),
         p(trans.insight.xHasNoChessInsights(userLink(u))),
         refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
