@@ -239,9 +239,9 @@ final class RelayRound(
         chat      <- studyC.chatOf(sc.study)
         sVersion  <- env.study.version(sc.study.id)
         streamers <- studyC.streamersOf(sc.study)
-      } yield EnableSharedArrayBuffer(
-        Ok(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
-      )
+      } yield Ok(
+        html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers)
+      ).enableSharedArrayBuffer
     }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))
 
   implicit private def makeRelayId(id: String): RoundModel.Id           = RoundModel.Id(id)

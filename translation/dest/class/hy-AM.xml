@@ -31,6 +31,16 @@
   <string name="invitedToXByY">Հրավերը %1$s ստացված է %2$sից</string>
   <string name="realName">Իսկական անունը</string>
   <string name="addStudent">Ավելացնել աշակերտ</string>
+  <string name="inviteALichessAccount">Հրավիրել Lichess-ի մասնակցային հաշիվ</string>
+  <string name="inviteDesc1">Եթե աշակերտն արդեն ունի Lichess-ի մասնակցային հաշիվ, Դուք կարող եք նրան հրավիրել դասարան։</string>
+  <string name="inviteDesc2">Նրանք Lichess-ում կստանան դասարան մտնելու հղումով հաղորդագրություն։</string>
+  <string name="inviteDesc3">Կարևոր է. հրավիրեք միայն այն մասնակիցներին, որոնց ճանաչում եք, և որոնք իրոք ցանկանում են պարապել դասարանում։</string>
+  <string name="inviteDesc4">Երբեք մի՛ ուղարկեք անցանկալի հրավերներ պատահական խաղացողներին։</string>
+  <string name="createANewLichessAccount">Ստեղծել նոր հաշիվ Lichess-ում</string>
+  <string name="createDesc1">Եթե աշակերտը դեռևս չունի Lichess-ի մասնակցային հաշիվ, Դուք այն կարող եք ստեղծել այստեղ։</string>
+  <string name="createDesc2">Էլեկտրոնային փոստի հասցե պետք չէ։ Կձևավորվի պատահական գաղտնաբառ, որը պետք է ուղարկեք աշակերտին, որպեսզի նա կարողանա մուտք գործել համակարգ։</string>
+  <string name="createDesc3">Կարևոր է. աշակերտը չպետք է ունենա մի քանի մասնակցային հաշիվ։</string>
+  <string name="createDesc4">Եթե նրանք արդեն ունեն, օգտագործեք հրավերի ձևանմուշը։</string>
   <string name="createStudentWarning">Ստեղծեք մասնակցային հաշիվներ միայն իրական աշակերտների համար։ Այդ հնարավորությունը մի՛ օգտագործեք անձնական նպատակներով մասնակցային հաշիվներ ստեղծելու համար, այլապես կարգելափակվեք։</string>
   <string name="lichessUsername">Մասնակցային անունը Lichess-ում</string>
   <string name="generateANewUsername">Ստեղծել նոր մասնակցային անուն</string>

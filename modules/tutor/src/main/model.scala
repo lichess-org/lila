@@ -57,6 +57,7 @@ object TutorMetric {
   case object GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
   // time used when losing ((100 - clockPercent) on last move)
   case object ClockUsage  extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
+  case object Flagging    extends TutorMetric[ClockPercent](InsightMetric.Termination)
   case object Accuracy    extends TutorMetric[AccuracyPercent](InsightMetric.MeanAccuracy)
   case object Awareness   extends TutorMetric[GoodPercent](InsightMetric.Awareness)
   case object Performance extends TutorMetric[Rating](InsightMetric.Performance)

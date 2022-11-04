@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Vis i full storleik</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
-  <string name="rememberMe">Lagra mine påloggingsdata</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Lagra mine påloggingsdata</string>
   <string name="youNeedAnAccountToDoThat">For å gjera det treng du ein konto</string>
   <string name="signUp">Registrer deg</string>
   <string name="computersAreNotAllowedToPlay">Datamaskinar og spelarar som brukar sjakkprogram har ikkje lov til å spela. Ver venleg å ikkje ta i bruk hjelp frå sjakkprogram, databasar eller andre spelarar så lenge partiet er i gang. Merk at det vert sterkt frårådd å oppretta fleire kontoar. Oppretting av svært mange kontoar vil føra til utestenging.</string>
@@ -486,7 +486,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
-  <string name="oneUrlPerLine">Ei nettadresse (URL) på kvar line.</string>
+  <string name="oneUrlPerLine">Ein URL per line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
   <string name="savingMoves">Mellombels lagring av trekk</string>
   <string name="savingMovesHelp">Vi lagrar variantane dine i mellomlageret til nettlesaren.</string>
@@ -782,7 +782,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="xWasPlayed">%s vart spela</string>
   <string name="findBetterMoveForWhite">Finn eit betre trekk for kvit</string>
   <string name="findBetterMoveForBlack">Finn eit betre trekk for svart</string>
-  <string name="resumeLearning">Hald fram med læring</string>
+  <string name="resumeLearning">Fortsett læring</string>
   <string name="youCanDoBetter">Du kan gjera det betre</string>
   <string name="tryAnotherMoveForWhite">Prøv eit anna trekk for kvit</string>
   <string name="tryAnotherMoveForBlack">Prøv eit anna trekk for svart</string>
@@ -842,7 +842,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="rapidDesc">Snøggsjakk: 8 til 25 minutt</string>
   <string name="classicalDesc">Langsjakk: 25 minutt eller meir</string>
   <string name="correspondenceDesc">Korespondansesjakk: ein til fleire dagar per trekk</string>
-  <string name="puzzleDesc">Sjakktaktikk-øvingar</string>
+  <string name="puzzleDesc">Sjakktaktikk-trenar</string>
   <string name="important">Viktig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt kan allereie ha fått eit svar %1$s</string>
   <string name="inTheFAQ">I sidene for ofte stilte spørsmål</string>

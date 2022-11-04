@@ -150,7 +150,7 @@
     <item quantity="few">%s igrača</item>
     <item quantity="other">%s igrača</item>
   </plurals>
-  <string name="drawByMutualAgreement">Remi po uzajamnom dogovoru</string>
+  <string name="drawByMutualAgreement">Remi po dogovoru</string>
   <string name="fiftyMovesWithoutProgress">Pedeset poteza bez napretka</string>
   <string name="currentGames">Partije u toku</string>
   <plurals name="nbGames">
@@ -166,7 +166,7 @@
   <string name="viewInFullSize">Pogledajte u punoj veličini</string>
   <string name="logOut">Odjava</string>
   <string name="signIn">Prijava</string>
-  <string name="rememberMe">Zapamti me</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Zapamti me</string>
   <string name="youNeedAnAccountToDoThat">Treba Vam korisnički račun da biste to uradili</string>
   <string name="signUp">Registrujte se</string>
   <string name="computersAreNotAllowedToPlay">Računarima i igračima koji koriste pomoć računara nije dozvoljeno igrati. Molimo Vas da ne koristite pomoć šahovskih programa, baza podataka ili drugih igrača dok igrate. Takođe, korištenje više korisničkih računa se strogo kontroliše i pretjerano njihovo korištenje vodi blokadi svih računa.</string>
@@ -431,7 +431,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="following">Pratite</string>
   <string name="unfollow">Prestanite pratiti</string>
   <string name="followX">Prati %s</string>
-  <string name="unfollowX">Otprati %s</string>
+  <string name="unfollowX">Prestani pratiti %s</string>
   <string name="block">Blokirajte</string>
   <string name="blocked">Blokiran</string>
   <string name="unblock">Odblokiraj</string>
@@ -500,7 +500,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="setTheBoard">Postavite ploču</string>
   <string name="popularOpenings">Popularna otvaranja</string>
   <string name="endgamePositions">Završne pozicije</string>
-  <string name="chess960StartPosition">Chess960 početna pozicija: %s</string>
+  <string name="chess960StartPosition">Početna pozicija u šahu 960: %s</string>
   <string name="startPosition">Početna pozicija</string>
   <string name="clearBoard">Očistite ploču</string>
   <string name="loadPosition">Učitajte poziciju</string>
@@ -631,12 +631,12 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="increment">Dodatak</string>
   <string name="error.unknown">Neispravne vrijednosti</string>
   <string name="error.required">Ovo polje je obavezno</string>
-  <string name="error.email">Ova email adresa je nevažeća</string>
-  <string name="error.email_acceptable">Ova email adresa nije prihvatljiva. Molimo provjerite je, i pokušajte opet.</string>
-  <string name="error.email_unique">Email adresa nevažeća ili već zauzeta</string>
-  <string name="error.email_different">Već koristite ovu email adresu</string>
-  <string name="error.minLength">Mora sadržati minimalno %s znakova</string>
-  <string name="error.maxLength">Mora sadržati najviše %s znakova</string>
+  <string name="error.email">Ova je adresa e-pošte nevažeća</string>
+  <string name="error.email_acceptable">Ova adresa e-pošte nije prihvatljiva. Molimo, provjerite je i pokušajte opet.</string>
+  <string name="error.email_unique">Adresa e-pošte nevažeća ili već zauzeta</string>
+  <string name="error.email_different">Već koristite ovu adresu e-pošte</string>
+  <string name="error.minLength">Mora sadržavati minimalno %s znakova</string>
+  <string name="error.maxLength">Mora sadržavati najviše %s znakova</string>
   <string name="error.min">Mora biti najmanje %s</string>
   <string name="error.max">Mora biti najviše %s</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
@@ -729,10 +729,10 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="downloadImported">Preuzmite uneseno</string>
   <string name="crosstable">Tabela rezultata</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možete koristiti točak od Vašeg miša da brže pređete preko poteza za vrijeme analize partije.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Skrolajte preko računarskih varijanti da ih pregledate.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Zadržite miš na računarskim varijantama da ih pregledate.</string>
   <string name="analysisShapesHowTo">Pritisnite shift + lijevi ili desni klik miša kako bi ste nacrtali krugove i strelice na ploči.</string>
   <string name="letOtherPlayersMessageYou">Dopustite drugim igračima da Vam mogu poslati poruku</string>
-  <string name="receiveForumNotifications">Primajte obavijesti kada se spomenete na forumu</string>
+  <string name="receiveForumNotifications">Primajte obavijesti kad budete spomenuti na forumu</string>
   <string name="shareYourInsightsData">Podijelite Vašu šahovsku analitiku</string>
   <string name="withNobody">Ni sa kime</string>
   <string name="withFriends">Sa prijateljima</string>

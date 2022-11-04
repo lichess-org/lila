@@ -76,6 +76,7 @@
   <string name="studyNotFound">Etüd net fonnt</string>
   <string name="editChapter">Kapitel editéieren</string>
   <string name="newChapter">Neit Kapitel</string>
+  <string name="importFromChapterX">Importéieren aus %s</string>
   <string name="orientation">Orientatioun</string>
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Ugepinnten Kapitelkommentar</string>

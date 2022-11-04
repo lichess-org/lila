@@ -1,5 +1,6 @@
 package lila.swiss
 
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -14,7 +15,10 @@ import lila.socket.Socket.SocketVersion
 import lila.user.{ User, UserRepo }
 
 final class SwissJson(
-    colls: SwissColls,
+    swissColl: Coll @@ SwissColl,
+    playerColl: Coll @@ PlayerColl,
+    pairingColl: Coll @@ PairingColl,
+    pairingSystem: PairingSystem,
     standingApi: SwissStandingApi,
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,
@@ -73,13 +77,13 @@ final class SwissJson(
   }.monSuccess(_.swiss.json)
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
-    colls.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
+    playerColl.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
       _ ?? { player =>
         updatePlayerRating(swiss, player, me) >>
           SwissPairing.fields { f =>
             (swiss.nbOngoing > 0)
               .?? {
-                colls.pairing
+                pairingColl
                   .find(
                     $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
                     $doc(f.id -> true).some
@@ -102,7 +106,7 @@ final class SwissJson(
       .filter(_.intRating != player.rating)
       .?? { perf =>
         SwissPlayer.fields { f =>
-          colls.player.update
+          playerColl.update
             .one(
               $id(SwissPlayer.makeId(swiss.id, user.id)),
               $set(f.rating -> perf.intRating)
@@ -114,7 +118,7 @@ final class SwissJson(
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
     swiss.isFinished ?? {
       SwissPlayer.fields { f =>
-        colls.player
+        playerColl
           .find($doc(f.swissId -> swiss.id))
           .sort($sort desc f.score)
           .cursor[SwissPlayer]()
@@ -124,7 +128,7 @@ final class SwissJson(
             .map(_.userId)
             .filter(w => swiss.winnerId.fold(true)(w !=))
             .foreach {
-              colls.swiss.updateField($id(swiss.id), "winnerId", _).void
+              swissColl.updateField($id(swiss.id), "winnerId", _).void
             }
             .unit
           userRepo.filterLame(top3.map(_.userId)) map { lame =>

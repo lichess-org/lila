@@ -4,6 +4,7 @@ import play.api.libs.json._
 import User.{ LightPerf, PlayTime }
 
 import lila.common.Json.jodaWrites
+import lila.common.LightUser
 import lila.rating.{ Perf, PerfType }
 
 final class JsonView(isOnline: lila.socket.IsOnline) {
@@ -18,7 +19,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       withRating: Boolean,
       withProfile: Boolean
   ): JsObject =
-    if (u.disabled) disabled(u)
+    if (u.disabled) disabled(u.light)
     else
       base(u, onlyPerf, withRating = withRating) ++ Json
         .obj("createdAt" -> u.createdAt)
@@ -31,13 +32,8 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
         .add("playTime" -> u.playTime)
 
   def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
-    if (u.disabled) disabled(u)
-    else
-      base(u, onlyPerf, withRating = withRating) ++ Json
-        .obj("online" -> isOnline(u.id))
-        .add("profile" -> u.profile.flatMap(_.country).map { country =>
-          Json.obj("country" -> country)
-        })
+    if (u.disabled) disabled(u.light)
+    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline(u.id))
 
   private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     Json
@@ -54,11 +50,12 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
   def lightPerfIsOnline(lp: LightPerf) =
     lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 
-  def disabled(u: User) = Json.obj(
+  def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,
-    "username" -> u.username,
+    "username" -> u.name,
     "disabled" -> true
   )
+  def ghost = disabled(LightUser.ghost)
 }
 
 object JsonView {

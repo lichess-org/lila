@@ -1,6 +1,7 @@
 package lila.swiss
 
 import chess.{ Black, Color, White }
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.util.chaining._
 
@@ -9,7 +10,9 @@ import lila.game.Game
 import lila.user.User
 
 final private class SwissDirector(
-    colls: SwissColls,
+    swissColl: Coll @@ SwissColl,
+    playerColl: Coll @@ PlayerColl,
+    pairingColl: Coll @@ PairingColl,
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
@@ -30,7 +33,7 @@ final private class SwissDirector(
           val swiss = from.startRound
           for {
             players <- SwissPlayer.fields { f =>
-              colls.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
+              playerColl.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
             pairings = pendingPairings.zip(ids).map { case (SwissPairing.Pending(w, b), id) =>
@@ -44,7 +47,7 @@ final private class SwissDirector(
               )
             }
             _ <-
-              colls.swiss.update
+              swissColl.update
                 .one(
                   $id(swiss.id),
                   $unset("nextRoundAt", "settings.mp") ++ $set(
@@ -57,7 +60,7 @@ final private class SwissDirector(
             date = DateTime.now
             byes = pendings.collect { case Left(bye) => bye.player }
             _ <- SwissPlayer.fields { f =>
-              colls.player.update
+              playerColl.update
                 .one(
                   $doc(f.userId $in byes, f.swissId -> swiss.id),
                   $addToSet(f.byes                  -> swiss.round),
@@ -65,7 +68,7 @@ final private class SwissDirector(
                 )
                 .void
             }
-            _ <- colls.pairing.insert.many(pairings).void
+            _ <- pairingColl.insert.many(pairings).void
             games = pairings.map(makeGame(swiss, SwissPlayer.toMap(players)))
             _ <- lila.common.Future.applySequentially(games) { game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)

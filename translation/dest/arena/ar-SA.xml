@@ -27,10 +27,10 @@
   <string name="thereIsACountdown">هناك عد تنازلي لخطوتك الأولى. الفشل في اتخاذ خطوة خلال هذا الوقت ستخسر اللعبة لصالح خصمك.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="zero">اعلان التعادل في النقلات ال%s الاولى لن يكسب اللاعبين اي نقطه.</item>
-    <item quantity="one">اعلان التعادل خلال النقلات ال %s الاولى لن يكسب أي من اللاعبين أي نقاط.</item>
-    <item quantity="two">إعلان التعادل خلال النقلات ال %s الأولى لن يكسب أي لاعب أي نقطة.</item>
-    <item quantity="few">إعلان التعادل خلال ال%s نقلات الأولى لن يكسب أي من اللاعبين أي نقطة.</item>
-    <item quantity="many">Drawing the game within the first %s moves will earn neither player any points.</item>
+    <item quantity="one">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي من اللاعبين أي نِقَاط.</item>
+    <item quantity="two">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي لاعب أي نقطة.</item>
+    <item quantity="few">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي من اللاعبين أي نقطة.</item>
+    <item quantity="many">إعلان التعادل خلال النقلات %s الأولى لن يكسب اللاعبين أي نِقَاط.</item>
     <item quantity="other">اعلان التعادل خلال النقلات ال%s الأولى لن يكسب أي لاعب أي نقطة.</item>
   </plurals>
   <string name="thisIsPrivate">هذه بطولة خاصة</string>

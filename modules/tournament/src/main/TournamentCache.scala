@@ -77,7 +77,7 @@ final class TournamentCache(
   object battle {
 
     val teamStanding =
-      cacheApi[Tournament.ID, List[TeamBattle.RankedTeam]](8, "tournament.teamStanding") {
+      cacheApi[Tournament.ID, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding") {
         _.expireAfterWrite(1 second)
           .buildAsyncFuture { id =>
             tournamentRepo teamBattleOf id flatMap {

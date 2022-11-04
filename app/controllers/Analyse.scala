@@ -73,23 +73,21 @@ final class Analyse(
                     puzzles = true
                   )
                 ) map { data =>
-                  EnableSharedArrayBuffer(
-                    Ok(
-                      html.analyse.replay(
-                        pov,
-                        data,
-                        initialFen,
-                        env.analyse.annotator(pgn, pov.game, analysis).toString,
-                        analysis,
-                        analysisInProgress,
-                        simul,
-                        crosstable,
-                        userTv,
-                        chat,
-                        bookmarked = bookmarked
-                      )
+                  Ok(
+                    html.analyse.replay(
+                      pov,
+                      data,
+                      initialFen,
+                      env.analyse.annotator(pgn, pov.game, analysis).toString,
+                      analysis,
+                      analysisInProgress,
+                      simul,
+                      crosstable,
+                      userTv,
+                      chat,
+                      bookmarked = bookmarked
                     )
-                  )
+                  ).enableSharedArrayBuffer
                 }
             }
         }
@@ -106,13 +104,13 @@ final class Analyse(
           render {
             case AcceptsPgn() => Ok(pgn)
             case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
-          }
+          }.enableSharedArrayBuffer
         case _ =>
           render {
             case AcceptsPgn() => NotFound("*")
             case _            => NotFound(html.analyse.embed.notFound)
           }
-      } dmap EnableSharedArrayBuffer
+      }
     }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =

@@ -54,6 +54,12 @@ case class TutorPerfReport(
     List((perf, clockUsage))
   )
 
+  // lazy val flaggingCompare = TutorCompare[PerfType, ClockPercent](
+  //   InsightDimension.Perf,
+  //   TutorMetric.Flagging,
+  //   List((perf, flagging))
+  // )
+
   def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
 
   val clockCompares = List(globalPressureCompare, timeUsageCompare)

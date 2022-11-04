@@ -109,7 +109,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
         env.msg.twoFactorReminder(s.user.id) >>
           env.streamer.liveStreamApi.of(s).flatMap { sws =>
             modData(s.streamer) map { forMod =>
-              NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
+              Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)).noCache
             }
           }
       }
@@ -161,7 +161,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
   def picture =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
-        NoCache(Ok(html.streamer.picture(s))).fuccess
+        Ok(html.streamer.picture(s)).noCache.fuccess
       }
     }
 

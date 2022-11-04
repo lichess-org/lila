@@ -45,10 +45,15 @@ final class SwissForm(implicit mode: Mode) {
           )
         ),
         "manualPairings" -> optional(
-          cleanNonEmptyText.verifying(
-            s"Maximum manual pairings: ${Swiss.maxForbiddenPairings}",
-            str => str.linesIterator.size <= Swiss.maxForbiddenPairings
-          )
+          cleanNonEmptyText
+            .verifying(
+              s"Maximum manual pairings: ${Swiss.maxForbiddenPairings}",
+              str => str.linesIterator.size <= Swiss.maxForbiddenPairings
+            )
+            .verifying(
+              "Invalid pairings, maybe a player is paired twice?",
+              SwissManualPairing.validate _
+            )
         )
       )(SwissData.apply)(SwissData.unapply)
         .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)

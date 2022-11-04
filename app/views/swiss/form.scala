@@ -31,8 +31,8 @@ object form {
               form3.split(fields.variant, fields.position),
               form3.split(fields.chatFor, fields.entryCode),
               condition(form, fields, swiss = none),
-              form3.split(fields.forbiddenPairings, fields.allowList),
-              form3.split(fields.manualPairings)
+              form3.split(fields.playYourGames, fields.allowList),
+              form3.split(fields.forbiddenPairings, fields.manualPairings)
             ),
             form3.globalError(form),
             form3.actions(
@@ -63,8 +63,8 @@ object form {
               form3.split(fields.variant, fields.position),
               form3.split(fields.chatFor, fields.entryCode),
               condition(form, fields, swiss = swiss.some),
-              form3.split(fields.forbiddenPairings, fields.allowList),
-              form3.split(fields.manualPairings)
+              form3.split(fields.playYourGames, fields.allowList),
+              form3.split(fields.forbiddenPairings, fields.manualPairings)
             ),
             form3.globalError(form),
             form3.actions(
@@ -241,10 +241,20 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
 
   def allowList = form3.group(
     form("conditions.allowList"),
-    "Only allow pre-defined users to join",
-    help = raw(
-      "If this list is non-empty, then usernames absent from this list will be forbidden to join. One username per line."
-    ).some,
+    trans.swiss.predefinedUsers(),
+    help = trans.swiss.forbiddedUsers().some,
     half = true
   )(form3.textarea(_)(rows := 4))
+
+  def playYourGames = frag(
+    form3.checkbox(
+      form("conditions.playYourGames"),
+      "Must have played their last swiss game",
+      help = frag(
+        "Only let players join if they have played their last swiss game. If they failed to show up in a recent swiss event, they won't be able to enter yours. This results in a better swiss experience for the players who actually show up."
+      ).some,
+      half = true
+    ),
+    form3.hidden(form("conditions.playYourGames"), "false".some) // hack to allow disabling berserk
+  )
 }

@@ -92,7 +92,10 @@ final class Auth(
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
     referrer ifTrue ctx.isAuth match {
       case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
-      case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
+      case None =>
+        Ok(html.auth.login(api.loginForm, referrer))
+          .withCanonical(routes.Auth.login)
+          .fuccess
     }
   }
 
@@ -100,7 +103,7 @@ final class Auth(
 
   def authenticate =
     OpenBody { implicit ctx =>
-      OnlyHumans {
+      NoCrawlers {
         Firewall {
           def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
           implicit val req            = ctx.body

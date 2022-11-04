@@ -44,14 +44,14 @@ final private[api] class RoundApi(
           pov,
           ctx.pref,
           apiVersion,
-          ctx.me,
+          ctx.me.map(Right.apply),
           withFlags = ctxFlags,
           initialFen = initialFen,
           nvui = ctx.blind
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
+          (ctx.userId.ifTrue(ctx.isMobileApi) ?? (noteApi.get(pov.gameId, _))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
             case (((((json, simul), swiss), note), forecast), bookmarked) =>

@@ -31,10 +31,19 @@ final class JsonView(
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
 
-  private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
+  private def commonPlayerJson(
+      g: Game,
+      p: GamePlayer,
+      user: Option[Either[LightUser.Ghost, User]],
+      withFlags: WithFlags
+  ): JsObject =
     Json
       .obj("color" -> p.color.name)
-      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType, withRating = withFlags.rating) })
+      .add("user" -> user.map {
+        _.toOption.fold(userJsonView.ghost) { u =>
+          userJsonView.roundPlayer(u, g.perfType, withRating = withFlags.rating)
+        }
+      })
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
       .add("provisional" -> (p.provisional && withFlags.rating))
@@ -49,13 +58,13 @@ final class JsonView(
       pov: Pov,
       pref: Pref,
       apiVersion: ApiVersion,
-      playerUser: Option[User],
+      playerUser: Option[Either[LightUser.Ghost, User]],
       initialFen: Option[FEN],
       withFlags: WithFlags,
       nvui: Boolean
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
-      (pov.opponent.userId ?? userRepo.byId) zip
+      (pov.opponent.userId ?? userRepo.byIdOrGhost) zip
       takebacker.isAllowedIn(pov.game) zip
       moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
         import pov._

@@ -60,7 +60,7 @@
 אין צורך להכתיר.</string>
   <string name="pawnComplete">יפה, את/ה שולט/ת בחיל הרגלים.</string>
   <string name="pawnPromotion">הכתרת רגלי</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">הרגלי שלך הגיע לשורה האחרונה על הלוח!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">הרגלי שלך הגיע לשורה האחרונה בלוח!</string>
   <string name="itNowPromotesToAStrongerPiece">הוא עכשיו מוכתר לכלי חזק יותר.</string>
   <string name="selectThePieceYouWant">בחר/י את הכלי שאת/ה רוצה!</string>
   <string name="fundamentals">יסודות</string>
@@ -85,7 +85,7 @@
   <string name="checkInOne">שח במסע אחד</string>
   <string name="attackTheOpponentsKing">התקפה על מלך היריב</string>
   <string name="checkInOneIntro">כדי לעשות שח, עליך להתקיף את מלך היריב. הוא חייב להתגונן!</string>
-  <string name="checkInOneGoal">האם את/ה יכול/ה לאיים על מלך היריב במסע יחיד!</string>
+  <string name="checkInOneGoal">האם את/ה יכול/ה לאיים על מלך היריב במסע יחיד?</string>
   <string name="checkInOneComplete">יפה, איימת בשח ויריבך חייב להגן על מלכו!</string>
   <string name="outOfCheck">החלצות מאיום שח</string>
   <string name="defendYourKing">הגנו על מלככם</string>
