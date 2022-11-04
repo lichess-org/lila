@@ -39,7 +39,7 @@ private object compare {
   }
 
   private[tutor] def showQuality(quality: Grade) =
-    (if (quality.better) goodTag else if (quality.worse) badTag else span)(quality.wording.value)
+    (if (quality.better) goodTag else if (quality.worse) badTag else span) (quality.wording.value)
 
   private[tutor] def showMetric(comp: TutorCompare.AnyComparison): String =
     (comp.metric match {

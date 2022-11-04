@@ -191,7 +191,7 @@ object form {
         )(
           trans.cancel()
         ),
-        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft)())
+        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft) ())
       )
     )
 

@@ -85,7 +85,7 @@ object post {
             ),
             if (ctx is user)
               div(cls := "ublog-post__meta__owner")(
-                (if (post.live) goodTag else badTag)(
+                (if (post.live) goodTag else badTag) (
                   if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
                 ),
                 " ",
