@@ -28,7 +28,6 @@
     @extend %roboto;
 
     font-size: 2.2rem;
-    margin-bottom: 0.7em;
   }
 
   .headline {
@@ -59,18 +58,7 @@
 }
 
 .streamer-title {
-  flex: initial;
-  display: grid;
-
-  @include breakpoint($mq-not-xx-small) {
-    grid-template-columns: auto;
-  }
-  @include breakpoint($mq-xx-small) {
-    grid-template-columns: auto min-content;
-  }
-
-  .streamer-lang {
-    margin-top: 0.3em;
-    margin-#{$end-direction}: 1em;
-  }
+  @extend %flex-between;
+  gap: 1em;
+  margin: 1.5em var(--box-padding) 1em 0;
 }
