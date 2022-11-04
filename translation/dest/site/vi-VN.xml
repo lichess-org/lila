@@ -150,7 +150,7 @@
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
-  <string name="rememberMe">Duy trì trạng thái đăng nhập</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Duy trì trạng thái đăng nhập</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều này</string>
   <string name="signUp">Đăng kí</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn có thể bị cấm vĩnh viễn nếu tạo quá nhiều tài khoản.</string>
@@ -239,7 +239,7 @@
   <string name="accept">Đồng ý</string>
   <string name="decline">Từ chối</string>
   <string name="playingRightNow">Ván đấu đang đánh</string>
-  <string name="eventInProgress">Chơi từ đây</string>
+  <string name="eventInProgress">Đang diễn ra</string>
   <string name="finished">Hoàn thành</string>
   <string name="finishesX">kết thúc trong %s</string>
   <string name="abortGame">Hủy ván cờ</string>
@@ -255,10 +255,10 @@
   <string name="rematch">Đấu lại</string>
   <string name="rematchOfferSent">Yêu cầu đấu lại đã được gửi</string>
   <string name="rematchOfferAccepted">Yêu cầu đấu lại được chấp nhận</string>
-  <string name="rematchOfferCanceled">Hủy chơi lại</string>
-  <string name="rematchOfferDeclined">Không chấp nhận chơi lại</string>
-  <string name="cancelRematchOffer">Hủy đề nghị chơi lại</string>
-  <string name="viewRematch">Xem chơi lại</string>
+  <string name="rematchOfferCanceled">Yêu cầu đấu lại đã bị hủy</string>
+  <string name="rematchOfferDeclined">Không chấp nhận đấu lại</string>
+  <string name="cancelRematchOffer">Hủy yêu cầu đấu lại</string>
+  <string name="viewRematch">Xem đấu lại</string>
   <string name="confirmMove">Xác nhận nước đi</string>
   <string name="play">Chơi</string>
   <string name="inbox">Hộp thư</string>

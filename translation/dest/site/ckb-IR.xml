@@ -17,6 +17,8 @@
   <string name="stalemate">هەڵوێست</string>
   <string name="white">سپی</string>
   <string name="black">رەش</string>
+  <string name="asWhite">وەک سپی</string>
+  <string name="asBlack">وەک ڕەش</string>
   <string name="randomColor">لایەکی هەرەمەکی</string>
   <string name="createAGame">دروستکردن و ڕێکخستنی یاریەک</string>
   <string name="whiteIsVictorious">سپی براوەیە</string>
@@ -53,6 +55,8 @@
   <string name="depthX">قوڵایی%s</string>
   <string name="usingServerAnalysis">بەکارھێنانی شیکاری ڕاژەکاری</string>
   <string name="loadingEngine">بزوێنەرەکە لە باری هەڵگرتندایه...</string>
+  <string name="calculatingMoves">لێکدانەوەی جوڵەکان...</string>
+  <string name="engineFailed">هەڵەی باکردنی بزوێنەر</string>
   <string name="cloudAnalysis">شیکاری ئۆنڵاین</string>
   <string name="goDeeper">زیاتر</string>
   <string name="showThreat">پیشاندانی مەترسی</string>
@@ -82,6 +86,7 @@
   <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا زاڵبوونێکی دیکە یان جوڵەی سەرباز</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
+  <string name="openings">دەستپێک</string>
   <string name="openingExplorer">دۆزەرەوەی کردنەوەکان</string>
   <string name="openingEndgameExplorer">دۆزەرەوەی کردنەوەکان\کۆتاییەکانی یاری</string>
   <string name="xOpeningExplorer">%s دۆزەرەوەی کردنەوەکان</string>
@@ -128,6 +133,57 @@
   <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
   <string name="draw">یەکسان</string>
   <string name="drawByMutualAgreement">بە رەزاماندی هەردولا یەکسان بوون</string>
+  <string name="fiftyMovesWithoutProgress">پەنجا جوڵە بەبێ هیچ پێشکەوتنێک</string>
+  <string name="currentGames">یارییەکانی ئێستا</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s یاری</item>
+    <item quantity="other">%s یاریەکان</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s یاری خوازراو</item>
+    <item quantity="other">%s یارییە خوازراوەکان</item>
+  </plurals>
+  <string name="viewInFullSize">بە قەبارەی تەواو نیشانی بدە</string>
   <string name="logOut">دەرچوون</string>
   <string name="signIn">چوونە ناوە</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">لە چوونە ژوورەوە بمهێڵەوە</string>
+  <string name="youNeedAnAccountToDoThat">پێویستت بە هەژمارە بۆ ئەمە</string>
+  <string name="signUp">تۆمارکردن</string>
+  <string name="computersAreNotAllowedToPlay">کۆمپیوتەر و ئەو یاریزانە کۆمپیوتەریانەی بۆ یاری شەترەنج ئامادەکراون قەدەغەن یاریان پێبکرێت، تکایە خۆت بەدووربگرە لە وەرگرتنی یارمەتی لە بزوێنەرەکانی شەترەنج و یارزانی دیکە. هەروەها وەک تێبینیەک؛ با زۆرتر لە هەژمارێکت نەبێت بۆ یاریکردن، چونکە رەنگە بان بکرێیت و ڕێگەی یاریکردنت لێ بگیرێت.</string>
+  <string name="games">یاریەکان</string>
+  <string name="forum">مەکۆ</string>
+  <string name="xPostedInForumY">%1$s لەسەر بابەت پۆستێکی کرد %2$s</string>
+  <string name="latestForumPosts">دواین پۆستەکانی مەکۆ</string>
+  <string name="players">یاریزانان</string>
+  <string name="friends">هاوڕێکان</string>
+  <string name="discussions">گفتوگۆکان</string>
+  <string name="today">ئەمڕۆ</string>
+  <string name="yesterday">دوێنێ</string>
+  <string name="minutesPerSide">چەند دەقەیەک بۆ هەر لایەک</string>
+  <string name="variant">شێواز</string>
+  <string name="variants">شێوازەکان</string>
+  <string name="timeControl">کات دانان</string>
+  <string name="realTime">کاتی راستەقینە</string>
+  <string name="correspondence">نامە ناردن</string>
+  <string name="daysPerTurn">رۆژێک بۆ هەر جوڵەیەک</string>
+  <string name="oneDay">یەک رۆژ</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s رۆژ</item>
+    <item quantity="other">%s چەند رۆژێک</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s کاتژمێرێک</item>
+    <item quantity="other">%s چەند کاتژمێرێک</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s خولەکێک</item>
+    <item quantity="other">%s چەند خولەکێک</item>
+  </plurals>
+  <string name="time">کات</string>
+  <string name="rating">هەڵسەنگاندن</string>
+  <string name="ratingStats">ئاماری هەڵسەنگاندن</string>
+  <string name="username">ناوی بەکارهێنەر</string>
+  <string name="usernameOrEmail">ناوی بەکارهێنەر و ئیمێڵ</string>
+  <string name="changeUsername">گۆڕینی ناوی بەکارهێنەر</string>
+  <string name="changeUsernameNotSame">تەنها دەتوانی گەورە و بچوکی پیتەکان بگۆڕیت.</string>
 </resources>
