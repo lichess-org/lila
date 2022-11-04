@@ -235,4 +235,65 @@
   <string name="drawOfferCanceled">داخوازی یەکسانبوون رەتکرایەوە</string>
   <string name="whiteOffersDraw">سپی داوای یەکسانبوون پێشکەش دەکات</string>
   <string name="blackOffersDraw">رەش داوای یەکسانبوون پێشکەش دەکات</string>
+  <string name="whiteDeclinesDraw">سپی یەکسانبوون رەت دەکاتەوە</string>
+  <string name="blackDeclinesDraw">رەش یەکسانبوون رەتکردەوە</string>
+  <string name="yourOpponentOffersADraw">ڕکابەرەکەت داخوازی یەکسانبوون دەکات</string>
+  <string name="accept">قبوڵکردن</string>
+  <string name="decline">رەتکردنەوە</string>
+  <string name="playingRightNow">یارییەکانی ئێستا</string>
+  <string name="eventInProgress">ئێستا یاری دەکەن</string>
+  <string name="finished">تەواوبوو</string>
+  <string name="finishesX">تەواوبوو %s</string>
+  <string name="abortGame">هەڵوەشاندنەوەی یاری</string>
+  <string name="gameAborted">یارییەکە هەڵوەشایەوە</string>
+  <string name="standard">ئاسایی</string>
+  <string name="unlimited">بێسنوور</string>
+  <string name="mode">بار</string>
+  <string name="casual">بێ هەڵسەنگاندن</string>
+  <string name="rated">ریزبەند کراو</string>
+  <string name="casualTournament">بێ هەڵسەنگاندن</string>
+  <string name="ratedTournament">ریزبەند کراو</string>
+  <string name="thisGameIsRated">ئەو یارییە ریزبەندکراوە</string>
+  <string name="rematch">دووبارە یاریکردنەوە</string>
+  <string name="rematchOfferSent">داخوازی دووبار یایکردنەوە نێردرا</string>
+  <string name="rematchOfferAccepted">داخوازی دووبار یایکردنەوە قبوڵکرا</string>
+  <string name="rematchOfferCanceled">داخوازی دووبار یایکردنەوە قبوڵ نەکرا</string>
+  <string name="rematchOfferDeclined">داخوازی دووبار یایکردنەوە رەتکرایەوە</string>
+  <string name="cancelRematchOffer">داخوازی دووبارە یاریکردنەوە رەتبکەوە</string>
+  <string name="viewRematch">بینینی دووبارەکردبەوەی یارییەکە</string>
+  <string name="confirmMove">جوڵەکە پشتراستبکەوە</string>
+  <string name="play">یاری</string>
+  <string name="inbox">ئیمێڵ بۆکس</string>
+  <string name="chatRoom">ژووری چاتکردن</string>
+  <string name="loginToChat">چوونە ژوورەوە بۆ چات</string>
+  <string name="youHaveBeenTimedOut">کاتەکەت تەواو بوو.</string>
+  <string name="spectatorRoom">ژووری بینەر</string>
+  <string name="composeMessage">نامە نووسین</string>
+  <string name="subject">سەردێڕ</string>
+  <string name="send">ناردن</string>
+  <string name="incrementInSeconds">زیادکردن بە چرکە</string>
+  <string name="freeOnlineChess">شەترنج بە خۆڕایی لە ئینتەرنێت</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s هەڵسەنگێنراو</item>
+    <item quantity="other">%s هەڵسەنگێنراو</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s براوە</item>
+    <item quantity="other">%s بردنەوەکان</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s یەکسان</item>
+    <item quantity="other">%s یەکسانبووەکان</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s یاریکردن</item>
+    <item quantity="other">%s یاریکردن</item>
+  </plurals>
+  <string name="exportGames">یارییەکان هەناردەبکە</string>
+  <string name="ratingRange">مەودای هەڵسەنگاندن</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">پێیبدە %s چرکە</item>
+    <item quantity="other">پێیبدە %s چرکە</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">ئەم ئەکاونتە مەرجەکانی خزمەتگوزاری لیچێسی پێشێل کردووە</string>
 </resources>
