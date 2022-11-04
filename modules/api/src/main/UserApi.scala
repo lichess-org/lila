@@ -47,10 +47,8 @@ final class UserApi(
       as: Option[User],
       withFollows: Boolean,
       withTrophies: Boolean
-  )(implicit
-      lang: Lang
-  ): Fu[JsObject] =
-    if (u.disabled) fuccess(jsonView disabled u)
+  )(implicit lang: Lang): Fu[JsObject] =
+    if (u.disabled) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
         (as.filter(u !=) ?? { me =>

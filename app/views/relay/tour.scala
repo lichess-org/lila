@@ -26,7 +26,7 @@ object tour {
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
         div(cls := "page-menu__content box")(
-          boxTop(liveBroadcasts()),
+          boxTop(h1(liveBroadcasts())),
           st.section(
             active.map { tr =>
               div(cls := s"relay-widget relay-widget--active ${tierClass(tr.tour)}", dataIcon := "")(

@@ -45,7 +45,9 @@ final class UserAnalysis(
       val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
-        EnableSharedArrayBuffer(Ok(html.board.userAnalysis(data, pov)))
+        Ok(html.board.userAnalysis(data, pov))
+          .withCanonical(routes.UserAnalysis.index)
+          .enableSharedArrayBuffer
       }
     }
 
@@ -55,9 +57,7 @@ final class UserAnalysis(
       val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
-        EnableSharedArrayBuffer(
-          Ok(html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some))
-        )
+        Ok(html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)).enableSharedArrayBuffer
       }
     }
 
@@ -102,16 +102,14 @@ final class UserAnalysis(
                   data <-
                     env.api.roundApi
                       .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
-                } yield NoCache(
-                  Ok(
-                    html.board
-                      .userAnalysis(
-                        data,
-                        pov,
-                        withForecast = owner && !pov.game.synthetic && pov.game.playable
-                      )
-                  )
-                )
+                } yield Ok(
+                  html.board
+                    .userAnalysis(
+                      data,
+                      pov,
+                      withForecast = owner && !pov.game.synthetic && pov.game.playable
+                    )
+                ).noCache
               },
             api = apiVersion => mobileAnalysis(pov, apiVersion)
           )

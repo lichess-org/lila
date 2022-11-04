@@ -38,6 +38,19 @@ abstract private[controllers] class LilaController(val env: Env)
     def flashSuccess: Result              = flashSuccess("")
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
     def flashFailure: Result              = flashFailure("")
+    def withCanonical(url: String): Result =
+      result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
+    def withCanonical(url: Call): Result = withCanonical(url.url)
+    def enableSharedArrayBuffer(implicit req: RequestHeader): Result = result.withHeaders(
+      "Cross-Origin-Opener-Policy" -> "same-origin",
+      "Cross-Origin-Embedder-Policy" -> {
+        if (HTTPRequest isChrome96Plus req) "credentialless" else "require-corp"
+      }
+    )
+    def noCache: Result = result.withHeaders(
+      CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
+      EXPIRES       -> "0"
+    )
   }
 
   implicit protected def LilaFragToResult(frag: Frag): Result = Ok(frag)
@@ -66,21 +79,6 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
   implicit def netDomain                              = env.net.domain
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
-
-  protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
-    res.withHeaders(
-      "Cross-Origin-Opener-Policy" -> "same-origin",
-      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest isChrome96Plus req)
-                                           "credentialless"
-                                         else
-                                           "require-corp")
-    )
-
-  protected def NoCache(res: Result): Result =
-    res.withHeaders(
-      CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
-      EXPIRES       -> "0"
-    )
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(parse.empty)(f)
@@ -323,7 +321,7 @@ abstract private[controllers] class LilaController(val env: Env)
     NoEngine(NoBooster(a))
 
   protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.message.noBot).fuccess else a
+    if (ctx.isBot) Forbidden(views.html.site.message.noBot).fuccess else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoLame(NoBot(a))
@@ -625,7 +623,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
 
-  protected def OnlyHumans(result: => Fu[Result])(implicit ctx: Context) =
+  protected def NoCrawlers(result: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) notFound else result
 
   protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =

@@ -17,7 +17,7 @@
   <string name="sourceUrlHelp">הקישור שאנחנו בלִיצֶ\'ס נבדוק כדי לקלוט עדכונים ב-PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
   <string name="gameIdsHelp">לחלופין, ניתן להזין עד 64 IDs של משחקי ליצ׳ס, מופרדים ברווחים.</string>
   <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
-  <string name="startDateHelp">אופציונאלי, אם אתה יודע מתי האירוע צפוי להתחיל</string>
+  <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
   <string name="credits">תן/י קרדיט למקור</string>
   <string name="resetRound">אפס את הסיבוב הזה</string>
   <string name="deleteRound">מחק את הסיבוב הזה</string>

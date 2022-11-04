@@ -60,6 +60,7 @@
   <string name="usingServerAnalysis">Kasutusel serveri analüüs</string>
   <string name="loadingEngine">Laen analüüsi...</string>
   <string name="calculatingMoves">Käikude arvutamine...</string>
+  <string name="engineFailed">Arvuti laadimine ebaõnnestus</string>
   <string name="cloudAnalysis">Pilve analüüs</string>
   <string name="goDeeper">Vaata põhjalikumalt</string>
   <string name="showThreat">Näita ohtu</string>
@@ -90,6 +91,7 @@
     <item quantity="one">Šahh ja Matt %s käiguga</item>
     <item quantity="other">Šahh ja matt %s käiguga</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' ümardatult, põhineb poolkäikude arvul kuni järgmise löögi või etturi liigutuseni</string>
   <string name="noGameFound">Ühtegi mängu ei leitud</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
   <string name="openings">Avangud</string>
@@ -97,6 +99,7 @@
   <string name="xOpeningExplorer">%s avamiste otsija</string>
   <string name="winPreventedBy50MoveRule">50 käigu reegel ei lase võita</string>
   <string name="lossSavedBy50MoveRule">50 käigu reegel päästis kaotusest</string>
+  <string name="unknownDueToRounding">Võit/kaotus on tagatud ainult siis, kui on järgitud andmebaasi soovitatud käikude järjekorda alates viimasest löömisest või etturi liigutusest, sest Syzygy andmebaaside DTZ väärtused võivad olla ümardatud.</string>
   <string name="allSet">Valmis!</string>
   <string name="importPgn">Impordi PGN</string>
   <string name="delete">Kustuta</string>
@@ -583,6 +586,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tools">Tööriistad</string>
   <string name="increment">Lisaaeg</string>
   <string name="error.required">See väli on kohustuslik</string>
+  <string name="error.min">Arv peab olema vähemalt %s</string>
   <string name="ifRatingIsPlusMinusX">Kui reiting on ± %s</string>
   <string name="ifRegistered">Registreeritud kasutajad</string>
   <string name="onlyExistingConversations">Ainult olemasolevad vestlused</string>
@@ -671,6 +675,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="downloadImported">Lae imporditud PNG</string>
   <string name="crosstable">Skoor</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Samuti võid kerida käike laua peal hiirega skrollides.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Vii hiir arvutivariandi kohale, et saada eelvaade.</string>
   <string name="analysisShapesHowTo">Vajuta shift + click või paremat hiirenuppu, et joonistada lauale ringe ja nooli.</string>
   <string name="letOtherPlayersMessageYou">Luba teistel mängijatel saata sulle sõnumeid</string>
   <string name="shareYourInsightsData">Jaga oma Chess Insights andmeid</string>
@@ -835,18 +840,25 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invitedYouToX">kutsub sind \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s kutsub sind \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
+  <string name="youHaveJoinedTeamX">Oled liitunud meeskonnaga \"%1$s\".</string>
   <string name="congratsYouWon">Palju õnne, sa võitsid!</string>
+  <string name="gameVsX">Mängus %1$s vastu</string>
+  <string name="newPendingReview">Läbivaatus on pooleli</string>
   <string name="lostAgainstTOSViolator">Sa kaotasid kellegile, kes rikkus Lichessi kasutustingimusi</string>
   <string name="refundXpointsTimeControlY">Tagastus: %1$s %2$s reitingupunkti.</string>
   <string name="timeAlmostUp">Aeg on peaaegu otsas!</string>
   <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>
   <string name="download">Lae alla</string>
   <string name="welcome">Tere tulemast!</string>
+  <string name="coachManager">Treeneri seaded</string>
+  <string name="streamerManager">Striimeri seaded</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
+  <string name="onlyTitledHelp">Turniiriga liitumiseks vajalik ametlik tiitel</string>
   <string name="estimatedStart">Eeldatav algusaeg</string>
   <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
   <string name="inYourLocalTimezone">Kohalikus ajavööndis</string>
+  <string name="mouseTricks">Hiiretrikid</string>
   <string name="toggleLocalAnalysis">Lülita kohalik arvuti analüüs sisse/välja</string>
   <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
   <string name="since">Alates</string>

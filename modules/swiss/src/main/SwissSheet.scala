@@ -1,5 +1,14 @@
 package lila.swiss
 
+import akka.stream.scaladsl._
+import BsonHandlers._
+import com.softwaremill.tagging._
+import org.joda.time.DateTime
+import reactivemongo.akkastream.cursorProducer
+import reactivemongo.api.ReadPreference
+
+import lila.db.dsl._
+
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]) {
   import SwissSheet._
 
@@ -63,17 +72,10 @@ private object SwissSheet {
 
 }
 
-final private class SwissSheetApi(colls: SwissColls)(implicit
+final private class SwissSheetApi(playerColl: Coll @@ PlayerColl, pairingColl: Coll @@ PairingColl)(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
-
-  import akka.stream.scaladsl._
-  import org.joda.time.DateTime
-  import reactivemongo.akkastream.cursorProducer
-  import reactivemongo.api.ReadPreference
-  import lila.db.dsl._
-  import BsonHandlers._
 
   def source(
       swiss: Swiss,
@@ -85,15 +87,13 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
       else ReadPreference.primary
     SwissPlayer
       .fields { f =>
-        colls.player
-          .find($doc(f.swissId -> swiss.id))
-          .sort(sort)
+        playerColl.find($doc(f.swissId -> swiss.id)).sort(sort)
       }
       .cursor[SwissPlayer](readPreference)
       .documentSource()
       .mapAsync(4) { player =>
         SwissPairing.fields { f =>
-          colls.pairing.list[SwissPairing](
+          pairingColl.list[SwissPairing](
             $doc(f.swissId -> swiss.id, f.players -> player.userId),
             readPreference
           ) dmap { player -> _ }

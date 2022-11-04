@@ -53,13 +53,13 @@ private object RelayInputSanity {
   private def fixDgtKingsInTheCenter(games: RelayGames): RelayGames = games map { game =>
     game.copy(
       root = game.root.takeMainlineWhile { node =>
-        !node.check || !dgtBoggusKingMoveRegex.matches(node.move.san) || ! {
+        !dgtBoggusKingMoveRegex.matches(node.move.san) || ! {
           Forsyth.<<@(game.variant, node.fen).fold(true) { sit =>
-            chess.Color.all.forall(sit.board.check) // both kings in check!
+            sit.board check !sit.color // the king that moved is in check
           }
         }
       }
     )
   }
-  private val dgtBoggusKingMoveRegex = """^K[de][45]\+$""".r
+  private val dgtBoggusKingMoveRegex = """^K[de][45]""".r
 }

@@ -52,13 +52,12 @@ object PieceSet extends PieceSetObject {
     "governor",
     "dubrovny",
     "icpieces",
+    "horsey",
+    "anarcandy",
     "shapes",
     "letter",
-    "horsey",
-    "anarcandy"
-  ) map { name =>
-    new PieceSet(name)
-  }
+    "disguised"
+  ) map { new PieceSet(_) }
 }
 
 object PieceSet3d extends PieceSetObject {
@@ -77,7 +76,5 @@ object PieceSet3d extends PieceSetObject {
     "Experimental",
     "Staunton",
     "CubesAndPi"
-  ) map { name =>
-    new PieceSet(name)
-  }
+  ) map { new PieceSet(_) }
 }

@@ -53,9 +53,9 @@ final class Tournament(
           finished <- api.notableFinished
           winners  <- env.tournament.winners.all
           teamIds  <- ctx.userId.??(env.team.cached.teamIdsList)
-        } yield NoCache {
+        } yield {
           pageHit
-          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
+          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
         },
         api = _ => Ok(scheduleJson).fuccess
       )
@@ -124,7 +124,7 @@ final class Tournament(
                 shieldOwner <- env.tournament.shieldApi currentOwner tour
               } yield {
                 env.tournament.lilaHttp.hit(tour)
-                Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
+                Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)).noCache
               }
             }
             .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest clientName ctx.req)),
@@ -149,10 +149,10 @@ final class Tournament(
                   chat <- !partial ?? loadChat(tour, json)
                 } yield Ok(json.add("chat" -> chat.map { c =>
                   lila.chat.JsonView.mobile(chat = c.chat)
-                }))
+                })).noCache
               }
               .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
-        ) dmap NoCache
+        )
       }
     }
 

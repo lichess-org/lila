@@ -51,7 +51,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
               env.racer.json.data(race, player),
               env.storm.json.pref(ctx.pref)
             )
-          ).fuccess dmap NoCache
+          ).noCache.fuccess
       }
     }
 

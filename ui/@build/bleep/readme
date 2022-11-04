@@ -1,11 +1,5 @@
-Bleep is a script that builds and watches all ui source code and linked modules.  It is for
-dev builds only.
+Bleep watches ui source code and linked modules and triggers builds on code changes.
 
-Rename 'bleep.config.json.default' to 'bleep.config.json' and modify to tweak log format,
-turn off/change colors, or exclude modules (and anything that depends on them).
+Modify 'bleep.config.json' to tweak log format, turn off/change colors, or change default arguments.  If you don't want to build & watch css, set "gulp" to false.
 
-Specifying one or more modules to watch as arguments will include all of their dependencies.
-Passing a module as argument that depends on one excluded by bleep.config.json is an error.
-Pass no arguments to build & watch everything.
-
-So hit ui/bleep and begin coding.
+Specify one or more modules as arguments to build & watch them and their dependencies. Specify no modules to only run typescript watches (no rollups). The "defaultArgs" property in bleep.config.json defines a default argument list for bleep. It defaults to ["all"] which builds everything.

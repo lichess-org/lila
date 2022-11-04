@@ -137,4 +137,5 @@ object BsonHandlers {
 
   import Swiss.IdName
   implicit val SwissIdNameBSONHandler = Macros.handler[IdName]
+  implicit val SwissBanBSONHandler    = Macros.handler[SwissBan]
 }

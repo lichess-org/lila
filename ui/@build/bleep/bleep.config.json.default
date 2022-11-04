@@ -1,4 +1,5 @@
 {
+  "defaultArgs": ["all"],
   "gulp": true,
   "log": {
     "heap": false,
@@ -10,8 +11,5 @@
       "tsc": "yellow",
       "gulp": "magenta"
     }
-  },
-  "exclude": [
-    "tutor"
-  ]
+  }
 }

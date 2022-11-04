@@ -30,10 +30,6 @@
   <string name="pleaseFillIn">कृपया अपनी स्ट्रीमर जानकारी भरें, और एक तस्वीर अपलोड करें।</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">जब आप लिचेस स्ट्रीमर के रूप में सूचीबद्ध होने के लिए तैयार हैं, तो %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">मॉडरेटर समीक्षा का अनुरोध करें</string>
-  <string name="anotherLanguage">यदि आपकी स्ट्रीम अंग्रेजी के अलावा किसी अन्य भाषा में है, तो अपने स्ट्रीम शीर्षक की शुरुआत में, वर्ग कोष्ठक में संलग्न सही भाषा टैग (%s) शामिल करें।
-उदाहरण के लिए, आप रूसी के लिए \"[RU]\", तुर्की के लिए \"[TR]\", फ्रेंच के लिए \"[FR]\" आदि शामिल कर सकते हैं।
-इसे स्ट्रीम शीर्षक में YouTube या YouTube पृष्ठ पर रखें, लिचेस स्ट्रीम सेटिंग्स में नहीं।
-यदि आपकी स्ट्रीम अंग्रेजी में है, तो भाषा टैग शामिल करने की कोई आवश्यकता नहीं है</string>
   <string name="twitchUsername">आपका Twitch उपयोगकर्ता नाम या URL</string>
   <string name="optionalOrEmpty">वैकल्पिक। खाली छोड़ दो अगर कोई नहीं है</string>
   <string name="youtubeChannel">आपका YouTube चैनल आईडी या URL</string>

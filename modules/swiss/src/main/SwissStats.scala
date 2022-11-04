@@ -1,6 +1,7 @@
 package lila.swiss
 
 import akka.stream.scaladsl._
+import com.softwaremill.tagging._
 import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._
 
@@ -17,7 +18,7 @@ case class SwissStats(
 )
 
 final class SwissStatsApi(
-    colls: SwissColls,
+    swissColl: Coll @@ SwissColl,
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
 )(implicit
@@ -44,7 +45,7 @@ final class SwissStatsApi(
   }
 
   private def fetch(id: Swiss.Id): Fu[SwissStats] =
-    colls.swiss.byId[Swiss](id.value) flatMap {
+    swissColl.byId[Swiss](id.value) flatMap {
       _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
         sheetApi
           .source(swiss, sort = $empty)

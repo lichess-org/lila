@@ -20,14 +20,7 @@ trait Stream {
 
   lazy val cleanStatus = removeMultibyteSymbols(status).trim
 
-  lazy val lang: String =
-    if (language.length == 2) language.toLowerCase // toLowerCase at least 17 times or it won't stick
-    else
-      cleanStatus match {
-        case Stream.LangRegex(code) => code.toLowerCase
-        case _                      => "en"
-      }
-
+  lazy val lang: String = (language.length == 2) ?? language.toLowerCase
 }
 
 object Stream {
@@ -61,7 +54,7 @@ object Stream {
         channelId: String,
         title: String,
         liveBroadcastContent: String,
-        defaultAudioLanguage: String // this might need to be defaultLanguage.  let's push live and find out
+        defaultAudioLanguage: Option[String]
     )
     case class Id(videoId: String)
     case class Item(id: Id, snippet: Snippet)
@@ -79,7 +72,7 @@ object Stream {
                 unescapeHtml(item.snippet.title),
                 item.id.videoId,
                 _,
-                item.snippet.defaultAudioLanguage.toLowerCase
+                ~item.snippet.defaultAudioLanguage
               )
             }
           }

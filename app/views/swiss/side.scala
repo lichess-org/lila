@@ -83,7 +83,11 @@ object side {
                     "refused"   -> (ctx.isAuth && !v.verdict.accepted)
                   ),
                   title := v.verdict.reason.map(_(ctx.lang))
-                )(v.condition.name(s.perfType))
+                )(v.condition match {
+                  case SwissCondition.PlayYourGames if !v.verdict.accepted =>
+                    v.verdict.reason.map(_(ctx.lang))
+                  case c => c.name(s.perfType)
+                })
               }
             )
           )

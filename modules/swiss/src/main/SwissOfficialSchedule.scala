@@ -1,11 +1,12 @@
 package lila.swiss
 
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 
-final private class SwissOfficialSchedule(colls: SwissColls, cache: SwissCache)(implicit
+final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: SwissCache)(implicit
     ec: ExecutionContext
 ) {
   import SwissOfficialSchedule._
@@ -35,9 +36,9 @@ final private class SwissOfficialSchedule(colls: SwissColls, cache: SwissCache)(
     daySchedule.zipWithIndex
       .map { case (config, hour) =>
         val startAt = dayStart plusHours hour
-        colls.swiss.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
+        swissColl.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
           case true => fuFalse
-          case _ => colls.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
+          case _ => swissColl.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
         }
       }
       .sequenceFu

@@ -1,5 +1,6 @@
 package lila.swiss
 
+import org.joda.time.DateTime
 import play.api.i18n.Lang
 
 import lila.i18n.{ I18nKeys => trans }
@@ -20,13 +21,27 @@ object SwissCondition {
     def apply(user: User, perf: PerfType): SwissCondition.Verdict
   }
 
-  type GetMaxRating = PerfType => Fu[Int]
+  type GetMaxRating   = PerfType => Fu[Int]
+  type GetBannedUntil = User.ID => Fu[Option[DateTime]]
 
   sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
   case object Accepted                        extends Verdict(true, none)
   case class Refused(because: Lang => String) extends Verdict(false, because.some)
 
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
+
+  case object PlayYourGames extends SwissCondition {
+    def name(perf: PerfType)(implicit lang: Lang) = "Play your games"
+    def withBan(bannedUntil: Option[DateTime]) = withVerdict {
+      bannedUntil.fold[Verdict](Accepted) { until =>
+        Refused { implicit lang =>
+          val showUntil =
+            org.joda.time.format.DateTimeFormat.forStyle("MS").withLocale(lang.toLocale) print until
+          s"Because you missed your last swiss game, you cannot enter a new swiss tournament until $showUntil."
+        }
+      }
+    }
+  }
 
   case object Titled extends SwissCondition with FlatCond {
     def name(perf: PerfType)(implicit lang: Lang) = "Only titled players"
@@ -109,10 +124,12 @@ object SwissCondition {
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
       titled: Option[Titled.type],
-      allowList: Option[AllowList]
+      allowList: Option[AllowList],
+      playYourGames: Boolean = true
   ) {
 
-    lazy val list: List[SwissCondition] = List(nbRatedGame, maxRating, minRating, titled, allowList).flatten
+    lazy val list: List[SwissCondition] =
+      List(nbRatedGame, maxRating, minRating, titled, allowList, playYourGames option PlayYourGames).flatten
 
     def relevant = list.nonEmpty
 
@@ -120,13 +137,13 @@ object SwissCondition {
 
     def withVerdicts(
         perf: PerfType,
-        getMaxRating: GetMaxRating
-    )(user: User)(implicit
-        ec: scala.concurrent.ExecutionContext
-    ): Fu[All.WithVerdicts] =
+        getMaxRating: GetMaxRating,
+        getBannedUntil: GetBannedUntil
+    )(user: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[All.WithVerdicts] =
       list.map {
-        case c: MaxRating => c(perf, getMaxRating)(user) map c.withVerdict
-        case c: FlatCond  => fuccess(c withVerdict c(user, perf))
+        case PlayYourGames => getBannedUntil(user.id) map PlayYourGames.withBan
+        case c: MaxRating  => c(perf, getMaxRating)(user) map c.withVerdict
+        case c: FlatCond   => fuccess(c withVerdict c(user, perf))
       }.sequenceFu dmap All.WithVerdicts
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
@@ -146,7 +163,8 @@ object SwissCondition {
       maxRating = none,
       minRating = none,
       titled = none,
-      allowList = none
+      allowList = none,
+      playYourGames = false
     )
 
     case class WithVerdicts(list: List[WithVerdict]) extends AnyVal {
@@ -155,13 +173,14 @@ object SwissCondition {
     }
   }
 
-  final class Verify(historyApi: lila.history.HistoryApi) {
+  final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi) {
 
     def apply(swiss: Swiss, user: User)(implicit
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] = {
+      val getBan: GetBannedUntil     = banApi.bannedUntil
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
-      swiss.settings.conditions.withVerdicts(swiss.perfType, getMaxRating)(user)
+      swiss.settings.conditions.withVerdicts(swiss.perfType, getMaxRating, getBan)(user)
     }
   }
 
@@ -215,11 +234,12 @@ object SwissCondition {
     )(RatingSetup.apply)(RatingSetup.unapply)
     def all =
       mapping(
-        "nbRatedGame" -> optional(nbRatedGame),
-        "maxRating"   -> maxRating,
-        "minRating"   -> minRating,
-        "titled"      -> optional(boolean),
-        "allowList"   -> optional(allowList)
+        "nbRatedGame"   -> optional(nbRatedGame),
+        "maxRating"     -> maxRating,
+        "minRating"     -> minRating,
+        "titled"        -> optional(boolean),
+        "allowList"     -> optional(allowList),
+        "playYourGames" -> optional(boolean)
       )(AllSetup.apply)(AllSetup.unapply)
         .verifying("Invalid ratings", _.validRatings)
 
@@ -228,7 +248,8 @@ object SwissCondition {
         maxRating: RatingSetup,
         minRating: RatingSetup,
         titled: Option[Boolean],
-        allowList: Option[String]
+        allowList: Option[String],
+        playYourGames: Option[Boolean]
     ) {
 
       def validRatings =
@@ -242,7 +263,8 @@ object SwissCondition {
         maxRating.actualRating map MaxRating,
         minRating.actualRating map MinRating,
         ~titled option Titled,
-        allowList = allowList map AllowList
+        allowList = allowList map AllowList,
+        playYourGames = ~playYourGames
       )
     }
     object AllSetup {
@@ -251,7 +273,8 @@ object SwissCondition {
         maxRating = RatingSetup(none),
         minRating = RatingSetup(none),
         titled = none,
-        allowList = none
+        allowList = none,
+        playYourGames = true.some
       )
       def apply(all: All): AllSetup =
         AllSetup(
@@ -259,7 +282,8 @@ object SwissCondition {
           maxRating = RatingSetup(all.maxRating.map(_.rating)),
           minRating = RatingSetup(all.minRating.map(_.rating)),
           titled = all.titled has Titled option true,
-          allowList = all.allowList.map(_.value)
+          allowList = all.allowList.map(_.value),
+          playYourGames = all.playYourGames.some
         )
     }
   }

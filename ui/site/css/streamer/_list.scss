@@ -1,5 +1,7 @@
 $mq-picture: $mq-medium;
 
+@import 'header';
+
 .streamer-list {
   h1 {
     &::before {
@@ -21,11 +23,11 @@ $mq-picture: $mq-medium;
       overflow-x: hidden;
     }
 
+    .streamer-title {
+      margin: 0 1em 0.7em 0;
+    }
+
     h1 {
-      @extend %roboto;
-
-      margin-bottom: 0.7em;
-
       @include fluid-size('font-size', 23px, 40px);
 
       &::before {
@@ -69,6 +71,7 @@ $mq-picture: $mq-medium;
   .overview {
     margin: 20px 10px 0 2.5vw;
     display: flex;
+    flex: auto;
     flex-flow: column;
     justify-content: space-between;
     padding-bottom: 15px;

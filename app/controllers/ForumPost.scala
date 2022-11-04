@@ -139,7 +139,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def redirect(id: String) =
     Open { implicit ctx =>
       OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
-        Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
+        val call = routes.ForumTopic.show(categ, topic, page)
+        Redirect(s"$call#$number").withCanonical(call)
       }
     }
 }

@@ -58,6 +58,7 @@
   <string name="skipExplanation">Scipeáil an beart seo chun do sraithbhuille a chaomhnú! Ní oibríonn sé ach uair amháin in aon rás amháin.</string>
   <string name="failedPuzzles">Fadhbanna theip</string>
   <string name="slowPuzzles">Fadhbanna mall</string>
+  <string name="skippedPuzzle">Fadhb scipeáilte</string>
   <string name="thisWeek">An tseachtain seo</string>
   <string name="thisMonth">An mhí seo</string>
   <string name="allTime">Riamh</string>

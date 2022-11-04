@@ -158,7 +158,7 @@
   <string name="viewInFullSize">Жайып көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
-  <string name="rememberMe">Мені жадта сақтау</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Мені жадта сақтау</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасау - шектеуге әкеліп соқтырады.</string>
@@ -541,7 +541,7 @@
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Сәйкестік-тексеру коды қате</string>
+  <string name="invalidAuthenticationCode">Сәйкестік-растау құлыпсөзі қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
@@ -922,7 +922,7 @@
   <string name="cantDoThisTwice">Егер тіркелгіңізді екінші рет жапсаңыз, оны қайтару еш мүмкіндік болмайды.</string>
   <string name="emailAssociatedToaccount">Тіркелгіге байлаулы поштаңыз</string>
   <string name="sentEmailWithLink">Біз сілтемесі бар хат жібереміз.</string>
-  <string name="tournamentEntryCode">Жарысқа кіру коды</string>
+  <string name="tournamentEntryCode">Жарысқа кіру құпиясөзі</string>
   <string name="hangOn">Тоқтаңыз!</string>
   <string name="gameInProgress">%s сізді қазір ойында күтіп тұр.</string>
   <string name="abortTheGame">Ойынды үзу</string>

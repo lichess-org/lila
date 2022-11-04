@@ -1,6 +1,7 @@
 package lila.swiss
 
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import play.api.Configuration
 import scala.concurrent.duration._
 
@@ -33,7 +34,10 @@ final class Env(
     mode: play.api.Mode
 ) {
 
-  private val colls = wire[SwissColls]
+  private val swissColl   = db(CollName("swiss")).taggedWith[SwissColl]
+  private val playerColl  = db(CollName("swiss_player")).taggedWith[PlayerColl]
+  private val pairingColl = db(CollName("swiss_pairing")).taggedWith[PairingColl]
+  private val banColl     = db(CollName("swiss_ban")).taggedWith[BanColl]
 
   private val sheetApi = wire[SwissSheetApi]
 
@@ -52,6 +56,8 @@ final class Env(
   private val boardApi = wire[SwissBoardApi]
 
   private val statsApi = wire[SwissStatsApi]
+
+  private val banApi = wire[SwissBanApi]
 
   lazy val verify = wire[SwissCondition.Verify]
 
@@ -101,8 +107,7 @@ final class Env(
   LilaScheduler(_.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(officialSchedule.generate)
 }
 
-private class SwissColls(db: lila.db.Db) {
-  val swiss   = db(CollName("swiss"))
-  val player  = db(CollName("swiss_player"))
-  val pairing = db(CollName("swiss_pairing"))
-}
+private trait SwissColl
+private trait PlayerColl
+private trait PairingColl
+private trait BanColl

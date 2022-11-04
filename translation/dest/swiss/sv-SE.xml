@@ -91,4 +91,6 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Ja men kan minska antalet rundor</string>
   <string name="unlimitedAndFree">Obegränsad och gratis</string>
+  <string name="predefinedUsers">Tillåt endast fördefinierade användare att gå med</string>
+  <string name="forbiddedUsers">Om denna lista är icke-tom kommer användarnamn som inte finns i denna lista att förbjudas att gå med. Ett användarnamn per rad.</string>
 </resources>

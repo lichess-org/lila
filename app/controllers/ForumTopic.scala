@@ -78,7 +78,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
             res <-
               if (canRead)
-                Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)).fuccess
+                Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg))
+                  .withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page))
+                  .fuccess
               else notFound
           } yield res
         }

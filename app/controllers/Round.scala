@@ -36,8 +36,7 @@ final class Round(
               gameC.preloadUsers(pov.game) zip
                 (pov.game.simulId ?? env.simul.repo.find) zip
                 getPlayerChat(pov.game, tour.map(_.tour)) zip
-                (ctx.noBlind ?? env.game.crosstableApi
-                  .withMatchup(pov.game)) zip
+                (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
                 (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
                 env.bookmark.api.exists(pov.game, ctx.me) zip
                 env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) map {
@@ -54,7 +53,7 @@ final class Round(
                         chatOption = chatOption,
                         bookmarked = bookmarked
                       )
-                    )
+                    ).noCache
                 }
             }
           },
@@ -66,13 +65,11 @@ final class Round(
             gameC.preloadUsers(pov.game) zip
               env.api.roundApi.player(pov, tour, apiVersion) zip
               getPlayerChat(pov.game, none) map { case ((_, data), chat) =>
-                Ok {
-                  data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
-                }
+                Ok(data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))).noCache
               }
           }
       }
-    ) dmap NoCache
+    )
 
   def player(fullId: String) =
     Open { implicit ctx =>
@@ -205,7 +202,7 @@ final class Round(
                 .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
                 .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
             }
-        ) map { NoCache(_) }
+        ) dmap (_.noCache)
     }
 
   private[controllers] def getWatcherChat(
