@@ -450,7 +450,7 @@ final class Mod(
     Secure(_.PrintBan) { _ => me =>
       val hash = FingerHash(fh)
       env.security.printBan.toggle(hash, v) >>
-        env.security.api.recentUserIdsByFingerHash(hash) map { userIds =>
+        env.security.api.recentUserIdsByFingerHash(hash) flatMap { userIds =>
           env.irc.api.printBan(me, fh, v, userIds)
         } inject Redirect(routes.Mod.print(fh))
     }
@@ -475,7 +475,7 @@ final class Mod(
         else env.security.firewall.unblockIps _
       val ipAddr = IpAddress from ip
       op(ipAddr) >> (ipAddr ?? {
-        env.security.api.recentUserIdsByIp(_) map { userIds =>
+        env.security.api.recentUserIdsByIp(_) flatMap { userIds =>
           env.irc.api.ipBan(me, ip, v, userIds)
         }
       }) inject {
