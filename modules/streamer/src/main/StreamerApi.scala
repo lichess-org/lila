@@ -57,23 +57,20 @@ final class StreamerApi(
         coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
 
-  def setLangLiveNow(streams: List[Stream]): Funit = {
-    streams
-      .map({ s => // one by one now due to lastLanguageUsed
-        coll.update
-          .one(
-            $id(s.streamer.id),
-            $set(
-              "liveAt"         -> DateTime.now,
-              "lastStreamLang" -> Lang.get(s.lang).map(_.code.substring(0, 2))
-            )
+  def setLangLiveNow(streams: List[Stream]): Funit =
+    streams.map { s =>
+      coll.update
+        .one(
+          $id(s.streamer.id),
+          $set(
+            "liveAt"         -> DateTime.now,
+            "lastStreamLang" -> Lang.get(s.lang).map(_.language)
           )
-          .void
-      })
-      .sequenceFu >> cache.candidateIds.getUnit.map { candidateIds =>
+        )
+        .void
+    }.sequenceFu >> cache.candidateIds.getUnit.map { candidateIds =>
       if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
     }
-  }
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
