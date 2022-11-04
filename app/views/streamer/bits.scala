@@ -104,9 +104,8 @@ object bits {
   def streamerTitle(s: lila.streamer.Streamer.WithUser)(implicit lang: Lang) =
     span(cls := "streamer-title")(
       h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
-      p(cls := "streamer-lang") {
-        val unknown = s"${trans.language.txt()}: ${trans.unknown.txt()}"
-        s.streamer.lastStreamLang.fold(unknown)(LangList.nameByStr)
+      s.streamer.lastStreamLang map { language =>
+        span(cls := "streamer-lang")(LangList nameByStr language)
       }
     )
 }
