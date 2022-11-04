@@ -106,7 +106,7 @@ object bits {
       h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
       p(cls := "streamer-lang") {
         val unknown = s"${trans.language.txt()}: ${trans.unknown.txt()}"
-        s.streamer.lastStreamLang.fold(unknown)((LangList.displayName(_).getOrElse(unknown)))
+        s.streamer.lastStreamLang.fold(unknown)(LangList.nameByStr)
       }
     )
 }
