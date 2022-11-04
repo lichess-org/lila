@@ -55,7 +55,7 @@ final private class Streaming(
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }
-      _ <- api.setLiveNow(streamers.withFilter(streams.has).map(_.id))
+      _ <- api.setLangLiveNow(streams.streams)
     } yield publishStreams(streamers, streams)
   }
 

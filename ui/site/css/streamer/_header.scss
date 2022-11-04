@@ -13,6 +13,7 @@
     }
 
     display: flex;
+    flex: auto;
     flex-flow: column;
     justify-content: space-between;
   }
@@ -27,7 +28,6 @@
     @extend %roboto;
 
     font-size: 2.2rem;
-    margin-bottom: 0.7em;
   }
 
   .headline {
@@ -55,4 +55,10 @@
   .service.live {
     color: $c-brag;
   }
+}
+
+.streamer-title {
+  @extend %flex-between;
+  gap: 1em;
+  margin: 1.5em var(--box-padding) 1em 0;
 }
