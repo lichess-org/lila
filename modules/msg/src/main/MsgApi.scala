@@ -7,9 +7,9 @@ import reactivemongo.api.ReadPreference
 import scala.util.Try
 
 import lila.common.config.MaxPerPage
-import lila.common.LilaStream
-import lila.common.{ Bus, LightUser }
+import lila.common.{ Bus, LightUser, LilaStream }
 import lila.db.dsl._
+import lila.relation.Relations
 import lila.user.Holder
 import lila.user.{ User, UserRepo }
 
@@ -210,10 +210,8 @@ final class MsgApi(
         doc     <- docs
         msgs    <- doc.getAsOpt[List[Msg]]("msgs")
         contact <- doc.getAsOpt[User]("contact")
-      } yield {
-        relationApi.fetchRelations(user.id, contact.id) map { relations =>
-          ModMsgConvo(contact, msgs take 10, relations, msgs.length == 11)
-        }
+      } yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
+        ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
       }).sequenceFu
     }
 
