@@ -116,8 +116,21 @@ final class IrcApi(
       }
     }
 
-  // def printBan(mod: Holder, print: String, userIds: List[User.ID]): Funit =
-  //   logMod(mod.id, "footprints", s"Ban print $print of ${userIds} users: ${userIds map linkifyUsers}")
+  def printBan(mod: Holder, print: String, v: Boolean, userIds: List[User.ID]): Funit =
+    logMod(
+      mod.id,
+      "paw prints",
+      s"${if (v) "Banned" else "Unbanned"} print ${markdown
+          .printLink(print)} of ${userIds.length} user(s): ${userIds map markdown.userLink mkString ", "}"
+    )
+
+  def ipBan(mod: Holder, ip: String, v: Boolean, userIds: List[User.ID]): Funit =
+    logMod(
+      mod.id,
+      "1234",
+      s"${if (v) "Banned" else "Unbanned"} IP ${markdown
+          .ipLink(ip)} of ${userIds.length} user(s): ${userIds map markdown.userLink mkString ", "}"
+    )
 
   def chatPanic(mod: Holder, v: Boolean): Funit = {
     val msg =
@@ -239,6 +252,8 @@ object IrcApi {
     def modLink(name: String): String           = lichessLink(s"/@/$name", name)
     def modLink(user: User): String             = modLink(user.username)
     def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
+    def printLink(print: String)                = lichessLink(s"/mod/print/$print", print)
+    def ipLink(ip: String)                      = lichessLink(s"/mod/ip/$ip", ip)
     def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
     def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll (m => userLink(m.group(1)))
