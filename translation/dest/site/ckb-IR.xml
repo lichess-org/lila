@@ -162,4 +162,28 @@
   <string name="minutesPerSide">چەند دەقەیەک بۆ هەر لایەک</string>
   <string name="variant">شێواز</string>
   <string name="variants">شێوازەکان</string>
+  <string name="timeControl">کات دانان</string>
+  <string name="realTime">کاتی راستەقینە</string>
+  <string name="correspondence">نامە ناردن</string>
+  <string name="daysPerTurn">رۆژێک بۆ هەر جوڵەیەک</string>
+  <string name="oneDay">یەک رۆژ</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s رۆژ</item>
+    <item quantity="other">%s چەند رۆژێک</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s کاتژمێرێک</item>
+    <item quantity="other">%s چەند کاتژمێرێک</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s خولەکێک</item>
+    <item quantity="other">%s چەند خولەکێک</item>
+  </plurals>
+  <string name="time">کات</string>
+  <string name="rating">هەڵسەنگاندن</string>
+  <string name="ratingStats">ئاماری هەڵسەنگاندن</string>
+  <string name="username">ناوی بەکارهێنەر</string>
+  <string name="usernameOrEmail">ناوی بەکارهێنەر و ئیمێڵ</string>
+  <string name="changeUsername">گۆڕینی ناوی بەکارهێنەر</string>
+  <string name="changeUsernameNotSame">تەنها دەتوانی گەورە و بچوکی پیتەکان بگۆڕیت.</string>
 </resources>
