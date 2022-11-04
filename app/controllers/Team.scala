@@ -191,9 +191,10 @@ final class Team(
   )
   private val kickLimitReportOnce = lila.memo.OnceEvery(10.minutes)
 
-  def kickUser(teamId: String, userId: String) =
+  def kickUser(teamId: String, username: String) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
+        val userId = UserModel.normalize(username)
         ApiKickRateLimitPerIP[Fu[Api.ApiResult]](
           HTTPRequest ipAddress req,
           cost = if (me.isVerified || me.isApiHog) 0 else 1

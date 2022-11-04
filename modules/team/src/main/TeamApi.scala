@@ -260,14 +260,16 @@ final class TeamApi(
     }
 
   def kick(team: Team, userId: User.ID, me: User): Funit =
-    quit(team, userId) >>
-      (!team.leaders(me.id)).?? {
-        modLog.teamKick(me.id, userId, team.name)
-      } >>-
-      Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
+    (userId != team.createdBy) ?? {
+      quit(team, userId) >>
+        (!team.leaders(me.id)).?? {
+          modLog.teamKick(me.id, userId, team.name)
+        } >>-
+        Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
+    }
 
   def kickMembers(team: Team, json: String, me: User) =
-    (parseTagifyInput(json) - team.createdBy).map(kick(team, _, me))
+    parseTagifyInput(json).map(kick(team, _, me))
 
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
