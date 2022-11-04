@@ -449,8 +449,10 @@ final class Mod(
   def printBan(v: Boolean, fh: String) =
     Secure(_.PrintBan) { _ => me =>
       val hash = FingerHash(fh)
-      env.security.printBan.toggle(hash, v) >> env.security.api.recentUserIdsByFingerHash(hash) map env.ircApi
-        .printBan(me, fh, v, _) inject Redirect(routes.Mod.print(fh))
+      env.security.printBan.toggle(hash, v) >>
+        env.security.api.recentUserIdsByFingerHash(hash) map { userIds =>
+          env.ircApi.printBan(me, fh, v, userIds)
+        } inject Redirect(routes.Mod.print(fh))
     }
 
   def singleIp(ip: String) =
@@ -472,7 +474,9 @@ final class Mod(
         if (v) env.security.firewall.blockIps _
         else env.security.firewall.unblockIps _
       val ipAddr = IpAddress from ip
-      op(ipAddr) >> env.security.api.recentUserIdsByIp(ipAddr) map env.ircApi.ipBan(me, ip, v, _) inject {
+      op(ipAddr) >> env.security.api.recentUserIdsByIp(ipAddr) map { userIds =>
+        env.ircApi.ipBan(me, ip, v, userIds)
+      } inject {
         if (HTTPRequest isXhr ctx.req) jsonOkResult
         else Redirect(routes.Mod.singleIp(ip))
       }
