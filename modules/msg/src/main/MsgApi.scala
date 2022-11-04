@@ -7,9 +7,9 @@ import reactivemongo.api.ReadPreference
 import scala.util.Try
 
 import lila.common.config.MaxPerPage
-import lila.common.LilaStream
-import lila.common.{ Bus, LightUser }
+import lila.common.{ Bus, LightUser, LilaStream }
 import lila.db.dsl._
+import lila.relation.Relations
 import lila.user.Holder
 import lila.user.{ User, UserRepo }
 
@@ -205,17 +205,14 @@ final class MsgApi(
           ),
           UnwindField("contact")
         )
-      } map { docs =>
-      for {
+      } flatMap { docs =>
+      (for {
         doc     <- docs
         msgs    <- doc.getAsOpt[List[Msg]]("msgs")
         contact <- doc.getAsOpt[User]("contact")
-      } yield ModMsgConvo(
-        contact,
-        msgs take 10,
-        lila.relation.Relations(none, none),
-        msgs.length == 11
-      )
+      } yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
+        ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
+      }).sequenceFu
     }
 
   def deleteAllBy(user: User): Funit =

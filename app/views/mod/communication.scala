@@ -9,6 +9,7 @@ import lila.common.String.html.richText
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.hub.actorApi.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
+import lila.relation.Follow
 import lila.user.{ Holder, User }
 import lila.shutup.Analyser
 
@@ -158,7 +159,14 @@ object communication {
             h2("Recent inbox messages"),
             convos.map { modConvo =>
               div(cls := "thread")(
-                p(cls := "title")(strong(userLink(modConvo.contact), showSbMark(modConvo.contact))),
+                p(cls := "title")(
+                  strong(userLink(modConvo.contact)),
+                  showSbMark(modConvo.contact),
+                  modConvo.relations.in.has(Follow) option span(cls := "friend_title")(
+                    "is following this user",
+                    br
+                  )
+                ),
                 table(cls := "slist")(
                   tbody(
                     modConvo.truncated option div(cls := "truncated-convo")(
