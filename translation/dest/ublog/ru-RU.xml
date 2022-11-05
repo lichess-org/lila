@@ -6,7 +6,7 @@
   <string name="saveDraft">Сохранить черновик</string>
   <string name="postTitle">Название записи</string>
   <string name="postIntro">Цитата из записи</string>
-  <string name="postBody">Весь текст записи</string>
+  <string name="postBody">Полная запись</string>
   <string name="drafts">Черновики</string>
   <string name="published">Опубликовано</string>
   <string name="createBlogDiscussion">Включить комментарии</string>
