@@ -9,27 +9,22 @@ import { ColorChoice, TimeControl, CoordinateTrainerConfig, InputMethod, Mode, M
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
 
-const randomChoice = (max: number) => Math.floor(Math.random() * max)
+const randomChoice = (max: number) => Math.floor(Math.random() * max);
 
 const newKey = (oldKey: Key | '', selectedFiles: Files[] = [], selectedRanks: Ranks[] = []): Key => {
   const rand = randomChoice(2);
   let files = 'abcdefgh'.split('') as Files[];
   let rows = '12345678'.split('') as Ranks[];
 
-
   if (selectedFiles.length > 0) {
     files = files.filter((f: Files) => selectedFiles.includes(f));
   }
-  if (selectedRanks.length > 0)
-    rows = rows.filter((r: Ranks) => selectedRanks.includes(r));
+  if (selectedRanks.length > 0) rows = rows.filter((r: Ranks) => selectedRanks.includes(r));
 
   // disallow the previous coordinate's row or file from being selected
   // rand so we only change one of them
-  if (files.length > 1 && rand === 0)
-    files = files.filter(f => (f !== oldKey[0]));
-  if (rows.length > 1 && rand === 1)
-    rows = rows.filter(r => (r !== oldKey[1]));
-
+  if (files.length > 1 && rand === 0) files = files.filter(f => f !== oldKey[0]);
+  if (rows.length > 1 && rand === 1) rows = rows.filter(r => r !== oldKey[1]);
 
   return (files[randomChoice(files.length)] + rows[randomChoice(rows.length)]) as Key;
 };
@@ -118,27 +113,20 @@ export default class CoordinateTrainerCtrl {
     window.location.hash = `#${this.mode().substring(0, 4)}`;
   };
 
-  selectionEnabled = withEffect<boolean>(
-    storedBooleanProp('coordinateTrainer.selectionEnabled', false),
-    this.redraw
-  );
+  selectionEnabled = withEffect<boolean>(storedBooleanProp('coordinateTrainer.selectionEnabled', false), this.redraw);
 
-  selectedFiles: Files[] = []
+  selectedFiles: Files[] = [];
   selectedRanks: Ranks[] = [];
 
   onFilesChange = (file: Files) => {
-    if (this.selectedFiles.includes(file))
-      this.selectedFiles = this.selectedFiles.filter(f => f !== file);
-    else
-      this.selectedFiles.push(file);
-  }
+    if (this.selectedFiles.includes(file)) this.selectedFiles = this.selectedFiles.filter(f => f !== file);
+    else this.selectedFiles.push(file);
+  };
 
   onRanksChange = (rank: Ranks) => {
-    if (this.selectedRanks.includes(rank))
-      this.selectedRanks = this.selectedRanks.filter(r => r !== rank);
-    else
-      this.selectedRanks.push(rank);
-  }
+    if (this.selectedRanks.includes(rank)) this.selectedRanks = this.selectedRanks.filter(r => r !== rank);
+    else this.selectedRanks.push(rank);
+  };
 
   timeControl = withEffect(
     storedProp<TimeControl>(
@@ -222,10 +210,8 @@ export default class CoordinateTrainerCtrl {
 
   advanceCoordinates = () => {
     this.currentKey = this.nextKey;
-    if (this.selectionEnabled() === true)
-      this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
-    else
-      this.nextKey = newKey(this.nextKey, [], []);
+    if (this.selectionEnabled() === true) this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
+    else this.nextKey = newKey(this.nextKey, [], []);
 
     if (this.mode() === 'nameSquare')
       this.chessground?.setShapes([
