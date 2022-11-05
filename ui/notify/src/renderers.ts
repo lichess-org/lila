@@ -113,7 +113,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     ratingRefund: {
       html: n =>
-        generic(n, '/player/myself', '', [
+        generic(n, '/faq#rating-refund', '', [
           h('span', [h('strong', trans.noarg('lostAgainstTOSViolator')), drawTime(n)]),
           h('span', trans('refundXpointsTimeControlY', n.content.points, n.content.perf)),
         ]),
