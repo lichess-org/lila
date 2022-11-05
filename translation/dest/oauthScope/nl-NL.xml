@@ -14,4 +14,6 @@
   <string name="challengeWrite">Verzenden, accepteren en afwijzen van uitdagingen</string>
   <string name="tournamentWrite">Maak, update en neem deel aan toernooien</string>
   <string name="racerWrite">Maak en neem deel aan puzzelraces</string>
+  <string name="followWrite">Andere spelers volgen en ontvolgen</string>
+  <string name="msgWrite">Stuur privéberichten naar andere spelers</string>
 </resources>
