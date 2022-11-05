@@ -302,7 +302,7 @@ object layout {
             )
           },
           dataDev,
-          dataVapid    := vapidPublicKey,
+          dataVapid    := ctx.isAuth option vapidPublicKey,
           dataUser     := ctx.userId,
           dataSoundSet := ctx.currentSoundSet.toString,
           dataSocketDomains,
