@@ -23,9 +23,9 @@
   <string name="createAGame">Loo mäng</string>
   <string name="whiteIsVictorious">Võitis valge</string>
   <string name="blackIsVictorious">Võitis must</string>
-  <string name="youPlayTheWhitePieces">Sa mängid valgete nuppudega</string>
-  <string name="youPlayTheBlackPieces">Sa mängid mustade nuppudega</string>
-  <string name="itsYourTurn">Teie käik!</string>
+  <string name="youPlayTheWhitePieces">Sa mängid valgete malenditega</string>
+  <string name="youPlayTheBlackPieces">Sa mängid mustade malenditega</string>
+  <string name="itsYourTurn">Sinu kord!</string>
   <string name="cheatDetected">Sohk tuvastatud</string>
   <string name="kingInTheCenter">Kuningas jõudis keskele</string>
   <string name="threeChecks">Kolm tuld</string>
@@ -38,7 +38,7 @@
   <string name="blackPlays">Must mängib</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Vastane lahkus mängust. Saate panna vastase alistuma %s sekundi pärast.</item>
-    <item quantity="other">Vastane lahkus mängust. Saate panna vastase alistuma %s sekundi pärast.</item>
+    <item quantity="other">Vastane lahkus mängust. Saad panna vastase alistuma %s sekundi pärast.</item>
   </plurals>
   <string name="opponentLeftChoices">Vastane on lahkunud mängust. Võid sundida mängijat alistuma või ootadata.</string>
   <string name="forceResignation">Sunni alistuma</string>
@@ -100,8 +100,8 @@
   <string name="xOpeningExplorer">%s avamiste otsija</string>
   <string name="winPreventedBy50MoveRule">50 käigu reegel ei lase võita</string>
   <string name="lossSavedBy50MoveRule">50 käigu reegel päästis kaotusest</string>
-  <string name="winOr50MovesByPriorMistake">Võit või 50 käiku eelmise vea järgi</string>
-  <string name="lossOr50MovesByPriorMistake">Kaotus või 50 käiku eelmise vea järgi</string>
+  <string name="winOr50MovesByPriorMistake">Võit või 50 käiku eelneva vea tõttu</string>
+  <string name="lossOr50MovesByPriorMistake">Kaotus või 50 käiku eelneva vea tõttu</string>
   <string name="unknownDueToRounding">Võit/kaotus on tagatud ainult siis, kui on järgitud andmebaasi soovitatud käikude järjekorda alates viimasest löömisest või etturi liigutusest, sest Syzygy andmebaaside DTZ väärtused võivad olla ümardatud.</string>
   <string name="allSet">Valmis!</string>
   <string name="importPgn">Impordi PGN</string>
@@ -228,7 +228,7 @@
   <string name="rankX">Koht: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Reitingut uuendatakse iga minuti tagant</item>
-    <item quantity="other">Kohta uuendatakse iga %s minuti järel</item>
+    <item quantity="other">Reitingut uuendatakse iga %s minuti tagant</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ülesanne</item>
@@ -583,7 +583,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="one">%s blokeeritud kasutaja</item>
     <item quantity="other">%s blokeeritud kasutajat</item>
   </plurals>
-  <string name="listBlockedPlayers">Näita blokeeritud kasutajad</string>
+  <string name="listBlockedPlayers">Kuva blokeeritud kasutajad</string>
   <string name="human">Inimene</string>
   <string name="computer">Arvuti</string>
   <string name="side">Pool</string>
@@ -635,9 +635,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="simultaneousExhibitions">Simultaanid</string>
   <string name="host">Korraldaja</string>
   <string name="hostColorX">Korraldaja värv: %s</string>
-  <string name="createdSimuls">Hiljuti loodud simultanid</string>
+  <string name="createdSimuls">Hiljuti loodud simultaanid</string>
   <string name="hostANewSimul">Korralda uus simultaan</string>
-  <string name="noSimulFound">Simultani ei leitud</string>
+  <string name="noSimulFound">Simultaani ei leitud</string>
   <string name="noSimulExplanation">Seda simultaani ei ole olemas.</string>
   <string name="returnToSimulHomepage">Tagasi simultaanide lehele</string>
   <string name="aboutSimul">Simultaanides mängib üks maletaja samaaegselt paljude teiste vastu.</string>
@@ -746,7 +746,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="embedInYourWebsite">Sängita oma veebilehel</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
   <string name="usernamePrefixInvalid">Kasutajanimi peab algama tähega.</string>
-  <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbriga või tähega.</string>
+  <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbri või tähega.</string>
   <string name="usernameCharsInvalid">Kasutajanimi peab sisaldama ainult tähti, numbreid, allkriipse ja sidekriipse. Järjest allkriipsud ja sidekriipsud ei ole lubatud.</string>
   <string name="usernameUnacceptable">See kasutajanimi ei ole lubatud.</string>
   <string name="playChessInStyle">Mängi malet stiilselt</string>
@@ -862,9 +862,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xInvitedYouToY">%1$s kutsub sind \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
   <string name="youHaveJoinedTeamX">Oled liitunud meeskonnaga \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Keegi, kellest sa teatasid, sai mängukeelu</string>
   <string name="congratsYouWon">Palju õnne, sa võitsid!</string>
   <string name="gameVsX">Mängus %1$s vastu</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Keegi vaatas su treeneriprofiili üle.</string>
   <string name="newPendingReview">Läbivaatus on pooleli</string>
   <string name="lostAgainstTOSViolator">Sa kaotasid kellegile, kes rikkus Lichessi kasutustingimusi</string>
   <string name="refundXpointsTimeControlY">Tagastus: %1$s %2$s reitingupunkti.</string>
@@ -878,6 +880,9 @@ Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.<
   <string name="streamerManager">Striimeri seaded</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
+  <string name="tournDescriptionHelp">Kas soovid osalejatele midagi erilist öelda? Püüa hoida see lühike. Markdown lingid on saadaval: [name](https://url)</string>
+  <string name="ratedFormHelp">Mängud on reitinguga
+ja mõjutavad mängijate reitinguid</string>
   <string name="onlyMembersOfTeam">Ainult võistkonnaliikmed</string>
   <string name="noRestriction">Piiranguta</string>
   <string name="minimumRatedGames">Minimaalne reitinguga mängude arv</string>
@@ -890,12 +895,32 @@ See töötab ainult standardmängude, mitte variantide puhul.
 FEN-positsiooni genereerimiseks saab kasutada muudetavat lauda, seejärel selle siia kleepida.
 Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="cancelSimul">Tühista simultaan</string>
+  <string name="simulHostcolor">Korraldaja värv igas mängus</string>
   <string name="estimatedStart">Eeldatav algusaeg</string>
+  <string name="simulFeatured">Näita leheküljel %s</string>
+  <string name="simulFeaturedHelp">Näita oma simultaani kõigile Lichessis. Lülita välja privaatsete simultaanide jaoks.</string>
+  <string name="simulDescription">Simultaani kirjeldus</string>
+  <string name="simulDescriptionHelp">Tahad osalejatele midagi öelda?</string>
+  <string name="markdownAvailable">%s on saadaval täiendavate vormindusvõimaluste jaoks.</string>
   <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
   <string name="inYourLocalTimezone">Kohalikus ajavööndis</string>
+  <string name="tournChat">Turniiri vestlus</string>
+  <string name="noChat">Vestluseta</string>
+  <string name="onlyTeamLeaders">Ainult võistkonnajuhid</string>
+  <string name="onlyTeamMembers">Ainult võistkonnaliikmed</string>
+  <string name="navigateMoveTree">Navigeeri käiguloendis</string>
   <string name="mouseTricks">Hiiretrikid</string>
   <string name="toggleLocalAnalysis">Lülita kohalik arvuti analüüs sisse/välja</string>
   <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
+  <string name="playComputerMove">Tee parim arvutikäik</string>
+  <string name="analysisOptions">Analüüsi seaded</string>
+  <string name="focusChat">Fokuseeri vestlus</string>
+  <string name="showHelpDialog">Näita seda abiakent</string>
+  <string name="reopenYourAccount">Ava oma konto uuesti</string>
+  <string name="closedAccountChangedMind">Kui sulgesid oma konto, kuid oled vahepeal ümber mõelnud, on sul üks võimalus oma konto tagasi saada.</string>
+  <string name="onlyWorksOnce">See töötab ainult ühe korra.</string>
+  <string name="cantDoThisTwice">Kui te sulged oma konto teist korda, ei ole seda võimalik taastada.</string>
+  <string name="emailAssociatedToaccount">Kontoga seotud e-posti aadress</string>
   <string name="sentEmailWithLink">Saatsime teile lingiga e-kirja.</string>
   <string name="tournamentEntryCode">Turniiri osavõtukood</string>
   <string name="hangOn">Oota!</string>
