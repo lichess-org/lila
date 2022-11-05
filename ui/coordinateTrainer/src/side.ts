@@ -15,6 +15,82 @@ const timeControls: [TimeControl, string][] = [
   ['thirtySeconds', '0:30'],
 ];
 
+const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
+  ctrl.selectionEnabled() && ctrl.mode() === 'findSquare'
+    ? [
+        h('form.files.buttons', [
+          h(
+            'group.radio',
+            'abcdefgh'.split('').map((fileLetter: Files) =>
+              h('div.file_option', [
+                h('input', {
+                  attrs: {
+                    type: 'checkbox',
+                    id: `coord_file_${fileLetter}`,
+                    name: 'files_selection',
+                    value: fileLetter,
+                    checked: ctrl.selectedFiles.includes(fileLetter),
+                  },
+                  on: {
+                    change: e => {
+                      const target = e.target as HTMLInputElement;
+                      ctrl.onFilesChange(target.value as Files);
+                    },
+                    keyup: ctrl.onRadioInputKeyUp,
+                  },
+                }),
+                h(
+                  `label.file_${fileLetter}`,
+                  {
+                    attrs: {
+                      for: `coord_file_${fileLetter}`,
+                      title: fileLetter,
+                    },
+                  },
+                  fileLetter
+                ),
+              ])
+            )
+          ),
+        ]),
+        h('form.ranks.buttons', [
+          h(
+            'group.radio',
+            '12345678'.split('').map((rank: Ranks) =>
+              h('div.file_option', [
+                h('input', {
+                  attrs: {
+                    type: 'checkbox',
+                    id: `coord_rank_${rank}`,
+                    name: 'ranks_selection',
+                    value: rank,
+                    checked: ctrl.selectedRanks.includes(rank),
+                  },
+                  on: {
+                    change: e => {
+                      const target = e.target as HTMLInputElement;
+                      ctrl.onRanksChange(target.value as Ranks);
+                    },
+                    keyup: ctrl.onRadioInputKeyUp,
+                  },
+                }),
+                h(
+                  `label.rank_${rank}`,
+                  {
+                    attrs: {
+                      for: `coord_rank_${rank}`,
+                      title: rank,
+                    },
+                  },
+                  rank
+                ),
+              ])
+            )
+          ),
+        ]),
+      ]
+    : [];
+
 const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
   h('form.mode.buttons', [
     h(
@@ -121,6 +197,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
       )
     ),
   ]),
+  ...filesAndRanksSelection(ctrl),
 ];
 
 const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
@@ -176,6 +253,18 @@ const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans, redraw, showCoordinates, showPieces } = ctrl;
   return h('div.settings', [
+    ctrl.mode() === 'findSquare'
+      ? toggle(
+          {
+            name: 'Practice only a set of selected files & ranks',
+            id: 'enableSelection',
+            checked: ctrl.selectionEnabled(),
+            change: ctrl.selectionEnabled,
+          },
+          trans,
+          redraw
+        )
+      : null,
     toggle(
       { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
       trans,
