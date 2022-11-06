@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">הקישור לסבב הנוכחי</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
   <string name="downloadAllRounds">הורדת כל הסבבים</string>
+  <string name="definitivelyDeleteRound">מחיקת הסבב הזה והמשחקים שבו לצמיתות</string>
+  <string name="deleteAllGamesOfThisRound">מחיקת כל המשחקים בסבב הזה. כדי ליצור אותם מחדש, קישור המקור צריך להיות פעיל.</string>
 </resources>
