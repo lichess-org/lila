@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Enlace de la ronda actual</string>
   <string name="currentGameUrl">Enlace de la partida actual</string>
   <string name="downloadAllRounds">Descargar todas las rondas</string>
+  <string name="definitivelyDeleteRound">Eliminar definitivamente la ronda y sus partidas.</string>
+  <string name="deleteAllGamesOfThisRound">Eliminar todos las partidas de esta ronda. La fuente tendrá que estar activa para volver a crearlos.</string>
 </resources>
