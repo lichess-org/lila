@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">URL til noverande runde</string>
   <string name="currentGameUrl">URL til pågåande parti</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
+  <string name="definitivelyDeleteRound">Fjern for all framtid runden og tilhøyrande parti.</string>
+  <string name="deleteAllGamesOfThisRound">Fjern alle parti frå denne runden. Kjelda må vera aktiv om dei skal gjenopprettast.</string>
 </resources>
