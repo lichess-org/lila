@@ -17,8 +17,9 @@ object ResponseHeaders {
           "Origin",
           "Authorization",
           "If-Modified-Since",
-          "Cache-Control"
-        ) ::: appOrigin.isDefined.??(List("X-Requested-With", "sessionId", "Content-Type"))
+          "Cache-Control",
+          "Content-Type"
+        ) ::: appOrigin.isDefined.??(List("X-Requested-With", "sessionId"))
       }.mkString(", "),
       "Vary" -> "Origin"
     ) ::: appOrigin.isDefined.??(
