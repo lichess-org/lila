@@ -371,4 +371,39 @@
   </plurals>
   <string name="thisIsAChessCaptcha">ئەمە تاقیکردنەوەیەکی شەترەنجییە بۆ رێکخستنێک لە نێوان کۆمپیوتەر و مرۆڤ.</string>
   <string name="clickOnTheBoardToMakeYourMove">کلیک لەسەر شاشەکە بکە و جوڵەیەک ئەنجامبدە بۆ ئەوەی بیسەلمێنیت کە تۆ مرۆڤیت.</string>
+  <string name="captcha.fail">تکایە شیکاری شەترەنجی کاپتچە بکە</string>
+  <string name="notACheckmate">کش و مات نییە</string>
+  <string name="whiteCheckmatesInOneMove">کش و مات بۆ سپی بە یەک جووڵە</string>
+  <string name="blackCheckmatesInOneMove">کش و مات بۆ ڕەش بە یەک جووڵە</string>
+  <string name="retry">دووبارە هەوڵبدەوە</string>
+  <string name="reconnecting">دووبارە پەیوەندی کردنەوە</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s هاوڕێی سەرهێڵ</item>
+    <item quantity="other">%s هاوڕێیانی سەرهێڵ</item>
+  </plurals>
+  <string name="favoriteOpponents">رکابەری خوازراو</string>
+  <string name="follow">شوێنی بکەوە</string>
+  <string name="following">شوێن کەوتوو</string>
+  <string name="unfollow">لابردن شوێنکەوتن</string>
+  <string name="followX">شوێنکەوتن %s</string>
+  <string name="unfollowX">لابردنی شوێنکەوتن %s</string>
+  <string name="block">بلۆک</string>
+  <string name="blocked">بلۆککراو</string>
+  <string name="unblock">لابردنی بلۆک</string>
+  <string name="followsYou">شوێنکەوتووەکانت</string>
+  <string name="xStartedFollowingY">%1$s شوێنی تۆ کەوت %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s شوێنکەوتوو</item>
+    <item quantity="other">%s شوێنکەوتوو</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s شوێنکەوتوو</item>
+    <item quantity="other">%s شوێنکەوتوو</item>
+  </plurals>
+  <string name="more">زیاتر</string>
+  <string name="memberSince">ئەندامە لەوەتەی</string>
+  <string name="lastSeenActive">چالاک %s</string>
+  <string name="player">یاریزانان</string>
+  <string name="list">لیست</string>
+  <string name="graph">هێلکاری روونکردنەوە</string>
 </resources>
