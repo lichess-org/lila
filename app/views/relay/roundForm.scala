@@ -39,14 +39,14 @@ object roundForm {
           )(
             strong(resetRound()),
             em(
-              "Delete all games of this round. The source will need to be active in order to re-create them."
+              deleteAllGamesOfThisRound()
             )
           )
         ),
         postForm(action := routes.Study.delete(rt.round.id.value))(
           submitButton(
             cls := "button button-red button-empty confirm"
-          )(strong(deleteRound()), em("Definitively delete the round and its games."))
+          )(strong(deleteRound()), em(definitivelyDeleteRound()))
         )
       )
     )
