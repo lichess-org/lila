@@ -107,7 +107,9 @@ export function view(root: AnalyseCtrl): VNode {
   return h(
     'div.study__comments',
     {
-      hook: onInsert(() => root.enableWiki(true)),
+      hook: onInsert(() => {
+        root.data.game.variant.key == 'standard' ? root.enableWiki(true) : root.enableWiki(false);
+      }),
     },
     [
       currentComments(root, !study.members.canContribute()),
