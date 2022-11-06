@@ -1562,6 +1562,8 @@ val `broadcastUrl` = new I18nKey("broadcast:broadcastUrl")
 val `currentRoundUrl` = new I18nKey("broadcast:currentRoundUrl")
 val `currentGameUrl` = new I18nKey("broadcast:currentGameUrl")
 val `downloadAllRounds` = new I18nKey("broadcast:downloadAllRounds")
+val `definitivelyDeleteRound` = new I18nKey("broadcast:definitivelyDeleteRound")
+val `deleteAllGamesOfThisRound` = new I18nKey("broadcast:deleteAllGamesOfThisRound")
 
 }
 
