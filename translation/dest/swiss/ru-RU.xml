@@ -43,8 +43,8 @@
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Текущая партия</item>
     <item quantity="few">Текущие партии</item>
-    <item quantity="many">Текущие партии</item>
-    <item quantity="other">Текущие партии</item>
+    <item quantity="many">Текущих партий</item>
+    <item quantity="other">Текущих партий</item>
   </plurals>
   <string name="tournStartDate">Дата начала турнира</string>
   <string name="numberOfRounds">Количество туров</string>
