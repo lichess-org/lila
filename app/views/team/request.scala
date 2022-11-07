@@ -5,7 +5,6 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
 
 object request {
 
@@ -65,7 +64,7 @@ object request {
           tr(
             if (t.isEmpty) td(userLink(request.user), " ", teamLink(request.team))
             else td(userLink(request.user)),
-            td(richText(request.message)),
+            td(request.message),
             td(momentFromNow(request.date)),
             td(cls := "process")(
               postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
