@@ -729,7 +729,7 @@ object mod {
         table(cls := "slist spy_filter slist--sort")(
           thead(
             tr(
-              th(pluralize("IP", logins.prints.size)),
+              th(pluralize("IP", logins.ips.size)),
               sortNumberTh("Alts"),
               th,
               th("Client"),
