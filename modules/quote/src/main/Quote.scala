@@ -1,11 +1,11 @@
 package lila.quote
 
 import scala.util.Random
-import play.api.libs.json._
+import play.api.libs.json.*
 
 final class Quote(val text: String, val author: String)
 
-object Quote {
+object Quote:
 
   def one = all(Random.nextInt(all.size))
 
@@ -1592,4 +1592,3 @@ object Quote {
         "author" -> q.author
       )
     }
-}

@@ -6,8 +6,8 @@ object BuildSettings {
 
   import Dependencies._
 
-  val lilaVersion        = "3.2"
-  val globalScalaVersion = "2.13.8"
+  val lilaVersion        = "4.0"
+  val globalScalaVersion = "3.2.0"
 
   val shadedMongo = !System.getProperty("os.arch").toLowerCase.startsWith("aarch")
   if (shadedMongo) println("--- shaded native reactivemongo ---")
@@ -65,41 +65,14 @@ object BuildSettings {
     smallModule(name, deps, defaultLibs ++ libs)
 
   val compilerOptions = Seq(
+    "-encoding",
+    "utf-8",
+    "-rewrite",
+    "-source:future-migration",
+    "-indent",
     "-explaintypes",
     "-feature",
-    "-language:higherKinds",
-    "-language:implicitConversions",
-    "-language:postfixOps",
-    "-Ymacro-annotations",
-    // Warnings as errors!
-    "-Xfatal-warnings",
-    // Linting options
-    "-unchecked",
-    "-Xcheckinit",
-    "-Xlint:adapted-args",
-    "-Xlint:constant",
-    "-Xlint:delayedinit-select",
-    "-Xlint:deprecation",
-    "-Xlint:inaccessible",
-    "-Xlint:infer-any",
-    "-Xlint:missing-interpolator",
-    "-Xlint:nullary-unit",
-    "-Xlint:option-implicit",
-    "-Xlint:package-object-classes",
-    "-Xlint:poly-implicit-overload",
-    "-Xlint:private-shadow",
-    "-Xlint:stars-align",
-    "-Xlint:type-parameter-shadow",
-    "-Wdead-code",
-    "-Wextra-implicit",
-    // "-Wnumeric-widen",
-    // "-Wunused:imports",
-    // "-Wunused:locals",
-    "-Wunused:patvars",
-    // "-Wunused:privates",  // unfortunately doesn't work with wire macros
-    // "-Wunused:implicits", // unfortunately doesn't work with wire macros
-    // "-Wunused:params"     // unfortunately doesn't work with wire macros
-    "-Wvalue-discard"
+    "-language:postfixOps"
   )
 
   val srcMain = Seq(

@@ -29,7 +29,7 @@ evictionErrorLevel := Level.Warn
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
-  macwire.macros, macwire.util, play.json, jodaForms,
+  macwire.macros, macwire.util, play.json,
   chess, compression, scalalib, hasher,
   reactivemongo.driver, reactivemongo.kamon, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
@@ -138,7 +138,7 @@ lazy val common = smallModule("common",
   Seq(),
   Seq(
     scalalib, galimatias, chess, autoconfig,
-    kamon.core, scalatags, jodaForms, scaffeine, apacheText
+    kamon.core, scalatags, scaffeine, apacheText
   ) ++ specs2.bundle ++ reactivemongo.bundle ++ flexmark.bundle
 )
 

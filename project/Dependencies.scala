@@ -13,10 +13,10 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.8.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.8.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "7.1.0"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "8.1.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.1"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "10.6.4"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "11.2.0"
   val compression = "org.lichess"                  %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"               %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19-THIB213"
@@ -35,7 +35,7 @@ object Dependencies {
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
 
   object specs2 {
-    val version = "4.18.0"
+    val version = "4.17.0"
     val core    = "org.specs2" %% "specs2-core" % version % Test
     val cats    = "org.specs2" %% "specs2-cats" % version % Test
     val bundle  = Seq(core, cats)
@@ -59,7 +59,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.10"
+    val version = "1.1.0-RC6"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
@@ -69,9 +69,9 @@ object Dependencies {
   }
 
   object play {
-    val api      = "com.typesafe.play" %% "play"           % "2.8.16-lila_1.17"
-    val json     = "com.typesafe.play" %% "play-json"      % "2.9.3"
-    val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.3"
+    val api      = "com.typesafe.play" %% "play"           % "2.8.18-lila_3.0.1"
+    val json     = "com.typesafe.play" %% "play-json"      % "2.10.0-RC7"
+    val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.10.0-RC7"
     val mailer   = "com.typesafe.play" %% "play-mailer"    % "8.0.1"
   }
 
