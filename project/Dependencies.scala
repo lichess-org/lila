@@ -28,14 +28,18 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.1.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.84.Final" classifier s"$os-$arch"
-  val autoconfig   = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
-  val scalatest    = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
-  val uaparser     = "org.uaparser"               %% "uap-scala"         % "0.14.0"
-  val specs2Core   = "org.specs2"                 %% "specs2-core"       % "4.18.0" % Test
-  val specs2Cats   = "org.specs2"                 %% "specs2-cats"       % "4.18.0" % Test
-  val specs2Bundle = Seq(specs2Core, specs2Cats)
-  val apacheText   = "org.apache.commons"          % "commons-text"      % "1.10.0"
-  val bloomFilter  = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
+  val autoconfig  = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
+  val scalatest   = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"         % "0.14.0"
+  val apacheText  = "org.apache.commons"          % "commons-text"      % "1.10.0"
+  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
+
+  object specs2 {
+    val version = "4.18.0"
+    val core   = "org.specs2" %% "specs2-core"   % version % Test
+    val cats   = "org.specs2" %% "specs2-cats"   % version % Test
+    val bundle = Seq(core, cats)
+  }
 
   object flexmark {
     val version = "0.64.0"
@@ -65,7 +69,7 @@ object Dependencies {
   }
 
   object play {
-    val api      = "com.typesafe.play" %% "play"           % "2.8.16-lila_1.13.1"
+    val api      = "com.typesafe.play" %% "play"           % "2.8.16-lila_1.16"
     val json     = "com.typesafe.play" %% "play-json"      % "2.9.3"
     val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.3"
     val mailer   = "com.typesafe.play" %% "play-mailer"    % "8.0.1"
@@ -79,7 +83,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.5.8"
+    val version    = "2.5.11"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
