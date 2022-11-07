@@ -6,7 +6,7 @@ import chess.variant.Variant
 import play.api.i18n.Lang
 
 import lila.i18n.{ I18nKeys => trans }
-import lila.pref.Pref
+import lila.pref.{ NotificationPref, Pref }
 import lila.report.Reason
 import lila.setup.TimeMode
 
@@ -311,4 +311,11 @@ trait SetupHelper { self: I18nHelper =>
       Pref.Blindfold.NO  -> trans.no.txt(),
       Pref.Blindfold.YES -> trans.yes.txt()
     )
+
+  def translatedBooleanIntChoices(implicit lang: Lang) =
+    List(
+      0 -> trans.no.txt(),
+      1 -> trans.yes.txt()
+    )
+
 }

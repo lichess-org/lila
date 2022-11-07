@@ -3,7 +3,7 @@ package lila.study
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
+import lila.notify.NotifyApi
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
@@ -66,13 +66,16 @@ final private class StudyInvite(
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
-        val notificationContent = InvitedToStudy(
-          InvitedToStudy.InvitedBy(inviter.id),
-          InvitedToStudy.StudyName(study.name.value),
-          InvitedToStudy.StudyId(study.id.value)
-        )
-        val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
-        notifyApi.addNotification(notification).void
+        notifyApi
+          .notifyOne(
+            invited.id,
+            lila.notify.InvitedToStudy(
+              invitedBy = inviter.id,
+              studyName = study.name.value,
+              studyId = study.id.value
+            )
+          )
+          .void
       }(funit)
     } yield invited
 

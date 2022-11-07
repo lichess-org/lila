@@ -1,6 +1,6 @@
 package lila.mod
 
-import lila.notify.{ Notification, NotifyApi }
+import lila.notify.NotifyApi
 import lila.report.{ Mod, Suspect, Victim }
 
 final private class ModNotifier(
@@ -12,23 +12,14 @@ final private class ModNotifier(
     reportApi.recentReportersOf(sus) flatMap {
       _.filter(r => mod.user.id != r.value)
         .map { reporterId =>
-          notifyApi.addNotification(
-            Notification.make(
-              notifies = Notification.Notifies(reporterId.value),
-              content = lila.notify.ReportedBanned
-            )
-          )
+          notifyApi.notifyOne(reporterId.value, lila.notify.ReportedBanned)
         }
         .sequenceFu
         .void
     }
 
-  def refund(victim: Victim, pt: lila.rating.PerfType, points: Int): Funit =
-    notifyApi.addNotification {
-      implicit val lang = victim.user.realLang | lila.i18n.defaultLang
-      Notification.make(
-        notifies = Notification.Notifies(victim.user.id),
-        content = lila.notify.RatingRefund(pt.trans, points)
-      )
-    }.void
+  def refund(victim: Victim, pt: lila.rating.PerfType, points: Int): Funit = {
+    implicit val lang = victim.user.realLang | lila.i18n.defaultLang
+    notifyApi.notifyOne(victim.user.id, lila.notify.RatingRefund(perf = pt.trans, points))
+  }.void
 }

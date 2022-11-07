@@ -9,17 +9,20 @@ import scala.util.chaining._
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.common.config.Secret
+import lila.notify.StreamStart
+import lila.relation.SubscriptionRepo
 import lila.user.User
 
 final private class Streaming(
     ws: StandaloneWSClient,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
-    timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
-    twitchApi: TwitchApi
+    twitchApi: TwitchApi,
+    notifyApi: lila.notify.NotifyApi,
+    subsRepo: SubscriptionRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
@@ -69,14 +72,13 @@ final private class Streaming(
         import s.streamer.userId
         if (!streamStartMemo.get(userId)) {
           streamStartMemo.put(userId)
-          timeline ! {
-            import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
-            Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId
-          }
           Bus.publish(
             lila.hub.actorApi.streamer.StreamStart(userId),
             "streamStart"
           )
+          subsRepo.subscribersOnlineSince(userId, 7) map {
+            notifyApi.notifyMany(_, StreamStart(userId, s.streamer.name.value))
+          }
         }
       }
     }

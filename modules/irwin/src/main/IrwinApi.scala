@@ -158,12 +158,9 @@ final class IrwinApi(
     private[IrwinApi] def apply(report: IrwinReport): Funit =
       subs.get(report.suspectId) ?? { modIds =>
         subs = subs - report.suspectId
-        import lila.notify.{ IrwinDone, Notification }
         modIds
           .map { modId =>
-            notifyApi.addNotification(
-              Notification.make(Notification.Notifies(modId.value), IrwinDone(report.suspectId.value))
-            )
+            notifyApi.notifyOne(modId.value, lila.notify.IrwinDone(report.suspectId.value))
           }
           .sequenceFu
           .void

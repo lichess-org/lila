@@ -1,6 +1,5 @@
 package lila.push
 
-import akka.actor._
 import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
@@ -10,7 +9,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import scala.jdk.CollectionConverters._
 
 import lila.common.config._
-import FirebasePush.configLoader
+import lila.pref.NotifyAllows
 
 @Module
 final private class PushConfig(
@@ -28,7 +27,9 @@ final class Env(
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
-    gameRepo: lila.game.GameRepo
+    gameRepo: lila.game.GameRepo,
+    prefApi: lila.pref.PrefApi,
+    postApi: lila.forum.PostApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
@@ -71,12 +72,11 @@ final class Env(
   lila.common.Bus.subscribeFun(
     "finishGame",
     "moveEventCorres",
-    "newMessage",
-    "msgUnread",
     "challenge",
     "corresAlarm",
     "offerEventCorres",
-    "tourSoon"
+    "tourSoon",
+    "notifyPush"
   ) {
     case lila.game.actorApi.FinishGame(game, _, _) =>
       logUnit { pushApi finish game }
@@ -86,14 +86,14 @@ final class Env(
       logUnit { pushApi takebackOffer gameId }
     case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) =>
       logUnit { pushApi drawOffer gameId }
-    case lila.msg.MsgThread.Unread(t) =>
-      logUnit { pushApi newMsg t }
     case lila.challenge.Event.Create(c) =>
       logUnit { pushApi challengeCreate c }
     case lila.challenge.Event.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       logUnit { pushApi corresAlarm pov }
+    case lila.notify.PushNotification(to, content, params) =>
+      logUnit { pushApi notifyPush (to, content, params) }
     case t: lila.hub.actorApi.push.TourSoon =>
       logUnit { pushApi tourSoon t }
   }

@@ -1,7 +1,7 @@
 package lila.round
 
 import lila.hub.actorApi.timeline.{ GameEnd => TLGameEnd, Propagate }
-import lila.notify.{ GameEnd, Notification, NotifyApi }
+import lila.notify.NotifyApi
 
 import lila.game.Game
 import lila.user.User
@@ -26,14 +26,12 @@ final private class RoundNotifier(
       }
       isUserPresent(game, userId) foreach {
         case false =>
-          notifyApi.addNotification(
-            Notification.make(
-              Notification.Notifies(userId),
-              GameEnd(
-                GameEnd.GameId(game fullIdOf color),
-                game.opponent(color).userId map GameEnd.OpponentId.apply,
-                game.wonBy(color) map GameEnd.Win.apply
-              )
+          notifyApi.notifyOne(
+            userId,
+            lila.notify.GameEnd(
+              gameId = game fullIdOf color,
+              opponentId = game.opponent(color).userId,
+              win = game.wonBy(color)
             )
           )
         case _ =>

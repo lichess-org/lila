@@ -169,6 +169,50 @@
     }
   }
 
+  table.allows {
+    width: 100%;
+    margin: 2em 0 4em 0;
+    font-size: 1.1em;
+    table-layout: fixed;
+    border-collapse: collapse;
+
+    tr:nth-child(odd) td {
+      background-color: $c-bg-zebra;
+    }
+
+    th,
+    td {
+      width: 15%;
+      padding: 1em;
+      text-align: center;
+      border: solid $c-accent-faint;
+      border-width: 0 1px 1px 0;
+
+      &:first-child {
+        width: 55%;
+        text-align: left;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      div {
+        background: transparent;
+        color: c-dimmer($c-font-dimmer);
+      }
+
+      div.always-on {
+        color: $c-good;
+      }
+
+      div.toggle {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
   .saved {
     @extend %box-radius;
 

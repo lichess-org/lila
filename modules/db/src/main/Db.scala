@@ -45,7 +45,11 @@ final class Db(
       .fromString(uri)
       .flatMap { parsedUri =>
         driver
-          .connect(parsedUri, name.some)
+          .connect(
+            parsedUri.hosts.map(hostAndPort => s"${hostAndPort._1}:${hostAndPort._2}").toSeq,
+            MongoConnectionOptions.default.copy(failoverStrategy = FailoverStrategy(1.second, 5, _ * 1.5)),
+            name
+          )
           .flatMap(_ database parsedUri.db.getOrElse("lichess"))
       }
       .await(5.seconds, s"db:$name")

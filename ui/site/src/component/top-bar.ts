@@ -72,7 +72,7 @@ export default function () {
     const $toggle = $('#notify-toggle'),
       selector = '#notify-app';
 
-    const load = (data?: any, incoming = false) => {
+    const load = (data?: any) => {
       if (booted) return;
       booted = true;
       const $el = $('#notify-app').html(initiatingHtml);
@@ -80,10 +80,12 @@ export default function () {
       loadModule('notify').then(() => {
         instance = window.LichessNotify($el.empty()[0], {
           data,
-          incoming,
           isVisible: () => isVisible(selector),
-          setCount(nb: number) {
-            $toggle.find('span').data('count', nb);
+          updateUnread(nb: number | 'increment') {
+            const existing = ($toggle.find('span').data('count') as number) || 0;
+            if (nb == 'increment') nb = existing + 1;
+            $toggle.find('span').data('count', this.isVisible() ? 0 : nb);
+            return nb && nb != existing;
           },
           show() {
             if (!isVisible(selector)) $toggle.trigger('click');
@@ -103,13 +105,13 @@ export default function () {
       .on('click', () => {
         if ('Notification' in window) Notification.requestPermission();
         setTimeout(() => {
-          if (instance && isVisible(selector)) instance.setVisible();
+          if (instance && isVisible(selector)) instance.onShow();
         }, 200);
       });
 
     pubsub.on('socket.in.notifications', data => {
-      if (!instance) load(data, true);
-      else instance.update(data, true);
+      if (!instance) load(data);
+      else instance.update(data);
     });
     pubsub.on('notify-app.set-read', user => {
       if (!instance) load();

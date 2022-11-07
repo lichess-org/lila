@@ -119,7 +119,7 @@ final class LiveStreamApi(
   //     )
   //   )
 
-  def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] =
+  def of(s: Streamer.With): Fu[Streamer.WithUserAndStream] =
     all.map { live =>
       Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
     }

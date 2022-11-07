@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.PicfitApi
-import lila.notify.{ Notification, NotifyApi }
+import lila.notify.NotifyApi
 import lila.security.Granter
 import lila.user.{ Holder, User, UserRepo }
 
@@ -125,12 +125,8 @@ final class CoachApi(
         if (me.marks.troll) fuccess(review)
         else {
           reviewColl.update.one($id(id), review, upsert = true) >>
-            notifyApi.addNotification(
-              Notification.make(
-                notifies = Notification.Notifies(coach.id.value),
-                content = lila.notify.CoachReview
-              )
-            ) >> refreshCoachNbReviews(coach.id) inject review
+            notifyApi.notifyOne(coach.id.value, lila.notify.CoachReview) >>
+            refreshCoachNbReviews(coach.id) inject review
         }
       }
 
