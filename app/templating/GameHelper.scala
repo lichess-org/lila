@@ -98,11 +98,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           titleTag(user.title ifTrue withTitle map Title.apply),
           user.name,
           withRating option frag(
-            " ",
+            " (",
             player.rating.fold(frag("?")) { rating =>
               if (player.provisional) abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
               else rating
-            }
+            },
+            ")"
           )
         )
       }
