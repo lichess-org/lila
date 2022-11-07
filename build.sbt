@@ -11,7 +11,6 @@ lazy val root = Project("lila", file("."))
 
 // shorter prod classpath
 scriptClasspath             := Seq("*")
-maintainer                  := "contact@lichess.org"
 Compile / resourceDirectory := baseDirectory.value / "conf"
 
 /* Required because:
@@ -101,7 +100,7 @@ lazy val quote = smallModule("quote",
 
 lazy val video = smallModule("video",
   Seq(common, memo, hub, db, user),
-  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
+  reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val coach = module("coach",
@@ -116,7 +115,7 @@ lazy val streamer = module("streamer",
 
 lazy val coordinate = smallModule("coordinate",
   Seq(common, db, user),
-  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
+  reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val blog = module("blog",
@@ -137,7 +136,7 @@ lazy val evaluation = module("evaluation",
 lazy val common = smallModule("common",
   Seq(),
   Seq(
-    scalalib, galimatias, chess, autoconfig,
+    scalalib, galimatias, chess, 
     kamon.core, scalatags, scaffeine, apacheText
   ) ++ specs2.bundle ++ reactivemongo.bundle ++ flexmark.bundle
 )
@@ -164,12 +163,12 @@ lazy val db = smallModule("db",
 
 lazy val memo = smallModule("memo",
   Seq(common, db),
-  Seq(scaffeine, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle ++ macwire.bundle ++ playWs.bundle
+  Seq(scaffeine, scalatest, akka.testkit) ++ reactivemongo.bundle ++ macwire.bundle ++ playWs.bundle
 )
 
 lazy val search = smallModule("search",
   Seq(common, hub),
-  playWs.bundle ++ Seq(autoconfig) ++ macwire.bundle
+  playWs.bundle ++ macwire.bundle
 )
 
 lazy val chat = module("chat",
@@ -199,7 +198,7 @@ lazy val mod = module("mod",
 
 lazy val user = smallModule("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, autoconfig, galimatias) ++ specs2.bundle ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
+  Seq(hasher, galimatias) ++ specs2.bundle ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val game = module("game",
@@ -299,7 +298,7 @@ lazy val irwin = module("irwin",
 
 lazy val oauth = smallModule("oauth",
   Seq(common, db, user),
-  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
+  reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val security = module("security",
@@ -334,7 +333,7 @@ lazy val studySearch = module("studySearch",
 
 lazy val learn = smallModule("learn",
   Seq(common, db, user),
-  Seq(autoconfig) ++ reactivemongo.bundle
+  reactivemongo.bundle
 )
 
 lazy val evalCache = module("evalCache",
@@ -359,7 +358,7 @@ lazy val push = module("push",
 
 lazy val irc = smallModule("irc",
   Seq(common, hub, user),
-  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
+  reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val mailer = module("mailer",
