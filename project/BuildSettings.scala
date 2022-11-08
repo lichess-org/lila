@@ -58,7 +58,8 @@ object BuildSettings {
     "-indent",
     "-explaintypes",
     "-feature",
-    "-language:postfixOps"
+    "-language:postfixOps",
+    "-Xtarget:12"
   )
 
   val srcMain = Seq(
