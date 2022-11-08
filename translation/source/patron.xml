@@ -45,7 +45,6 @@ Or you can %s.</string>
   <string name="contactSupport">contact Lichess support</string>
   <string name="otherMethods">Other methods of donation?</string>
   <string name="lichessIsRegisteredWith">Lichess is registered with %s.</string>
-  <string name="registeredWithBenevity">registered with Benevity</string>
   <string name="bankTransfers">We also accept bank transfers</string>
   <string name="onlyDonationFromAbove">Please note that only the donation form above will grant the Patron status.</string>
   <string name="patronFeatures">Are some features reserved to Patrons?</string>
