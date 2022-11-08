@@ -51,11 +51,12 @@ final object RawHtml {
     if (m.find) {
       var idx = 0
       val buf = List.newBuilder[String]
-      do {
+      while {
         if (idx < m.start) buf += text.substring(idx, m.start)
         buf += s"${netDomain}/@/${m.group(1)}"
         idx = m.end
-      } while (m.find)
+        m.find
+      } do ()
       if (idx < text.length) buf += text.substring(idx)
       buf.result()
     } else List(text)
@@ -79,7 +80,7 @@ final object RawHtml {
         val sArr          = expanded.toCharArray
         var lastAppendIdx = 0
 
-        do {
+        while {
           val start = m.start
           escapeHtmlRawInPlace(sb, sArr, lastAppendIdx, start)
 
@@ -134,7 +135,8 @@ final object RawHtml {
           }
 
           lastAppendIdx = end
-        } while (m.find)
+          m.find
+        } do ()
 
         escapeHtmlRawInPlace(sb, sArr, lastAppendIdx, sArr.length)
         sb.toString

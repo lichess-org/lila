@@ -58,7 +58,7 @@ final class LilaFuture[A](private val fua: Fu[A]) extends AnyVal {
   def logFailure(logger: => lila.log.Logger)(implicit ec: EC): Fu[A] = logFailure(logger, _.toString)
 
   def addFailureEffect(effect: Throwable => Unit)(implicit ec: EC) = {
-    fua.failed.foreach { e: Throwable =>
+    fua.failed.foreach { (e: Throwable) =>
       effect(e)
     }
     fua

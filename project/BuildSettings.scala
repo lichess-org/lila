@@ -7,7 +7,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.2.0"
+  val globalScalaVersion = "3.2.1"
 
   val shadedMongo = !System.getProperty("os.arch").toLowerCase.startsWith("aarch")
   if (shadedMongo) println("--- shaded native reactivemongo ---")
@@ -62,8 +62,6 @@ object BuildSettings {
     smallModule(name, deps, defaultLibs ++ libs)
 
   val compilerOptions = Seq(
-    "-encoding",
-    "utf-8",
     "-rewrite",
     "-source:future-migration",
     "-indent",
