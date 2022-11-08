@@ -1,13 +1,13 @@
 package lila.hub
 
 import akka.pattern.ask
-import play.api.data._
-import scala.concurrent.duration._
+import play.api.data.*
+import scala.concurrent.duration.*
 
-import actorApi.captcha._
+import actorApi.captcha.*
 import lila.common.Captcha
 
-trait CaptchedForm {
+trait CaptchedForm:
 
   import makeTimeout.large
 
@@ -32,4 +32,3 @@ trait CaptchedForm {
     getCaptcha(data.gameId).await(2 seconds, "getCaptcha") valid data.move.trim.toLowerCase
 
   def captchaFailMessage = Captcha.failMessage
-}

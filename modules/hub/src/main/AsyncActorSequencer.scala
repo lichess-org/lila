@@ -10,13 +10,13 @@ final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: Str
     implicit
     scheduler: akka.actor.Scheduler,
     ec: ExecutionContext
-) {
+):
 
-  import AsyncActorSequencer._
+  import AsyncActorSequencer.*
 
-  def apply[A](fu: => Fu[A]): Fu[A] = run(() => fu)
+  def apply[A <: Matchable](fu: => Fu[A]): Fu[A] = run(() => fu)
 
-  def run[A](task: Task[A]): Fu[A] = asyncActor.ask[A](TaskWithPromise(task, _))
+  def run[A <: Matchable](task: Task[A]): Fu[A] = asyncActor.ask[A](TaskWithPromise(task, _))
 
   private[this] val asyncActor =
     new BoundedAsyncActor(
@@ -41,7 +41,6 @@ final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: Str
         }.future
       }
     )
-}
 
 // Distributes tasks to many sequencers
 final class AsyncActorSequencers(
@@ -53,19 +52,17 @@ final class AsyncActorSequencers(
 )(implicit
     scheduler: akka.actor.Scheduler,
     ec: ExecutionContext
-) {
+):
 
-  def apply[A](key: String)(task: => Fu[A]): Fu[A] =
+  def apply[A <: Matchable](key: String)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)
 
   private val sequencers: LoadingCache[String, AsyncActorSequencer] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
       .build(key => new AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))
-}
 
-object AsyncActorSequencer {
+object AsyncActorSequencer:
 
-  private type Task[A] = () => Fu[A]
-  private case class TaskWithPromise[A](task: Task[A], promise: Promise[A])
-}
+  private type Task[A <: Matchable] = () => Fu[A]
+  private case class TaskWithPromise[A <: Matchable](task: Task[A], promise: Promise[A])

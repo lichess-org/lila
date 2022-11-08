@@ -1,15 +1,14 @@
 package lila.hub
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import com.typesafe.config.Config
 import play.api.Configuration
 
-object actors {
-  trait Actor {
+object actors:
+  trait Actor:
     val actor: ActorSelection
-    val ! = actor ! _
-  }
+    val ! = actor.!
   case class GameSearch(actor: ActorSelection)  extends Actor
   case class ForumSearch(actor: ActorSelection) extends Actor
   case class TeamSearch(actor: ActorSelection)  extends Actor
@@ -20,15 +19,14 @@ object actors {
   case class Report(actor: ActorSelection)      extends Actor
   case class Renderer(actor: ActorSelection)    extends Actor
   case class Captcher(actor: ActorSelection)    extends Actor
-}
 
 @Module
 final class Env(
     appConfig: Configuration,
     system: ActorSystem
-) {
+):
 
-  import actors._
+  import actors.*
 
   private val config = appConfig.get[Config]("hub")
 
@@ -45,4 +43,3 @@ final class Env(
 
   private def select(name: String) =
     system.actorSelection("/user/" + config.getString(name))
-}

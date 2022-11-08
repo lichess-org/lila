@@ -11,11 +11,9 @@ import scala.concurrent.Promise
  */
 final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = true)(
     process: AsyncActor.ReceiveAsync
-)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BoundedAsyncActor._
+  import BoundedAsyncActor.*
 
   def !(msg: Any): Boolean =
     stateRef.getAndUpdate { state =>
@@ -25,27 +23,24 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
           else q enqueue msg
         }
       }
-    } match {
+    } match
       case None => // previous state was idle, we can run immediately
         run(msg)
         true
       case Some(q) =>
         val success = q.size < maxSize
-        if (!success) {
+        if (!success)
           lila.mon.asyncActor.overflow(name).increment()
           if (logging) lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
-        } else if (logging && q.size >= monitorQueueSize) {
+        else if (logging && q.size >= monitorQueueSize)
           lila.mon.asyncActor.queueSize(name).record(q.size)
-        }
         success
-    }
 
-  def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
+  def ask[A](makeMsg: Promise[A] => Any): Fu[A] =
     val promise = Promise[A]()
     val success = this ! makeMsg(promise)
     if (!success) promise failure new EnqueueException(s"The $name asyncActor queue is full ($maxSize)")
     promise.future
-  }
 
   def queueSize = stateRef.get().fold(0)(_.size + 1)
 
@@ -68,23 +63,19 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
     lila.log("asyncActor").warn(s"[$name] unhandled msg: $msg")
     funit
   }
-}
 
-object BoundedAsyncActor {
+object BoundedAsyncActor:
 
   final class EnqueueException(msg: String) extends Exception(msg)
 
-  private case class SizedQueue(queue: Queue[Any], size: Int) {
+  private case class SizedQueue(queue: Queue[Any], size: Int):
     def enqueue(a: Any) = SizedQueue(queue enqueue a, size + 1)
     def isEmpty         = size == 0
     def tailOption      = !isEmpty option SizedQueue(queue.tail, size - 1)
     def headOption      = queue.headOption
-  }
   private val emptyQueue = SizedQueue(Queue.empty, 0)
 
   private type State = Option[SizedQueue]
 
-  private val postRunUpdate = new UnaryOperator[State] {
+  private val postRunUpdate = new UnaryOperator[State]:
     override def apply(state: State): State = state.flatMap(_.tailOption)
-  }
-}
