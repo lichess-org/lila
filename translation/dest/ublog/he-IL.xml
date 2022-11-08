@@ -42,7 +42,7 @@
   <string name="imageAlt">תיאור התמונה</string>
   <string name="imageCredit">קרדיטים ליוצרי התמונה</string>
   <string name="deleteBlog">מחק/י את הפוסט הזה לצמיתות</string>
-  <string name="deleteImage">מחק את התמונה</string>
+  <string name="deleteImage">מחיקת התמונה</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">מומלץ להשתמש בתמונות מהאתרים הבאים: </string>
   <string name="selectPostTopics">בחר/י את הנושאים שהפוסט שלך עוסק בהם</string>
   <string name="useImagesYouMadeYourself">תוכל להשתמש בתמונות שצילמת או יצרת, צילומי מסך מתוך ליצ׳ס... כל מה שלא מוגן בזכויות יוצרים ושייך למישהו אחר.</string>
