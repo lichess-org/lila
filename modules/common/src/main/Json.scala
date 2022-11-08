@@ -19,7 +19,7 @@ object Json {
 
   def stringIsoReader[O](iso: Iso[String, O]): Reads[O] = Reads.of[String] map iso.from
 
-  def intIsoFormat[O](iso: Iso[Int, O]): Format[O] =
+  def intIsoFormat[O](using iso: Iso[Int, O]): Format[O] =
     Format[O](
       Reads.of[Int] map iso.from,
       Writes { o =>
@@ -27,7 +27,7 @@ object Json {
       }
     )
 
-  def stringIsoFormat[O](iso: Iso[String, O]): Format[O] =
+  def stringIsoFormat[O](using iso: Iso[String, O]): Format[O] =
     Format[O](
       Reads.of[String] map iso.from,
       Writes { o =>
@@ -53,28 +53,28 @@ object Json {
     Writes[O](o => JsString(to(o)))
   )
 
-  implicit val centisReads = Reads.of[Int] map chess.Centis.apply
+  given Reads[chess.Centis] = Reads.of[Int] map chess.Centis.apply
 
-  implicit val jodaWrites = Writes[DateTime] { time =>
+  given Writes[DateTime] = Writes[DateTime] { time =>
     JsNumber(time.getMillis)
   }
 
-  implicit val colorWrites: Writes[chess.Color] = Writes { c =>
+  given Writes[chess.Color] = Writes { c =>
     JsString(c.name)
   }
 
-  implicit val fenFormat: Format[FEN]           = stringIsoFormat[FEN](Iso.fenIso)
-  implicit val markdownFormat: Format[Markdown] = stringIsoFormat[Markdown](Iso.markdownIso)
-  implicit val daysFormat: Format[Days]         = intIsoFormat[Days](Iso.daysIso)
+  given Format[FEN]      = stringIsoFormat[FEN]
+  given Format[Markdown] = stringIsoFormat[Markdown]
+  given Format[Days]     = intIsoFormat[Days]
 
-  implicit val uciReads: Reads[Uci] = Reads.of[String] flatMapResult { str =>
+  given Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")
   }
-  implicit val uciWrites: Writes[Uci] = Writes { u =>
+  given Writes[Uci] = Writes { u =>
     JsString(u.uci)
   }
 
-  implicit def openingFamilyReads = Reads[LilaOpeningFamily] { f =>
+  given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily] { f =>
     f.get[String]("key")
       .flatMap(LilaOpeningFamily.find)
       .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))

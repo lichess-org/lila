@@ -46,5 +46,5 @@ object SimpleOpening {
 
   lazy val openingList = openings.values.toList.sortBy(_.name.value)
 
-  implicit val keyIso = Iso.string[Key](Key.apply, _.value)
+  given Iso.StringIso[Key] = Iso.string[Key](Key.apply, _.value)
 }

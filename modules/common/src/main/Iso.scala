@@ -50,24 +50,22 @@ object Iso {
       strs => strs.value mkString sep
     )
 
-  implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A], identity[A])
+  given [A]: Iso[A, A] = apply(identity[A], identity[A])
 
-  implicit val stringIsoIdentity: Iso[String, String] = isoIdentity[String]
+  given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
 
-  implicit val ipAddressIso = string[IpAddress](IpAddress.unchecked, _.value)
+  given StringIso[EmailAddress] = string[EmailAddress](EmailAddress.apply, _.value)
 
-  implicit val emailAddressIso = string[EmailAddress](EmailAddress.apply, _.value)
-
-  implicit val normalizedEmailAddressIso =
+  given StringIso[NormalizedEmailAddress] =
     string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)
 
-  implicit val centisIso = int[Centis](Centis.apply, _.centis)
+  given IntIso[Centis] = int[Centis](Centis.apply, _.centis)
 
-  implicit val langIso = string[Lang](Lang.apply, _.toString)
+  given StringIso[Lang] = string[Lang](Lang.apply, _.toString)
 
-  implicit val fenIso = string[FEN](FEN.apply, _.value)
+  given StringIso[FEN] = string[FEN](FEN.apply, _.value)
 
-  implicit val markdownIso = string[Markdown](Markdown.apply, _.value)
+  given StringIso[Markdown] = string[Markdown](Markdown.apply, _.value)
 
-  implicit val daysIso = int[Days](Days.apply, _.value)
+  given IntIso[Days] = int[Days](Days.apply, _.value)
 }

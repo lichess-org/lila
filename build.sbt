@@ -136,7 +136,7 @@ lazy val evaluation = module("evaluation",
 lazy val common = smallModule("common",
   Seq(),
   Seq(
-    akka.actor, scalalib, galimatias, chess, 
+    akka.actor, play.api, play.json, scalalib, galimatias, chess, 
     kamon.core, scalatags, scaffeine, apacheText
   ) ++ specs2.bundle ++ reactivemongo.bundle ++ flexmark.bundle
 )

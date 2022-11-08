@@ -205,8 +205,8 @@ object Form {
   }
 
   object fen {
-    implicit val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
-    val playableStrict     = playable(strict = true)
+    given Formatter[FEN] = formatter.stringFormatter[FEN](_.value, FEN.apply)
+    val playableStrict   = playable(strict = true)
     def playable(strict: Boolean) = of[FEN]
       .transform[FEN](f => FEN(f.value.trim), identity)
       .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
@@ -222,7 +222,7 @@ object Form {
   object url {
     import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
     private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
-    implicit val urlFormat = new Formatter[URL] {
+    given Formatter[URL] with
       def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { url =>
         Try(URL.parse(parser, url)).fold(
           err => Left(Seq(FormError(key, s"Invalid URL: $err", Nil))),
@@ -230,14 +230,14 @@ object Form {
         )
       }
       def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
-    }
+
     val field = of[URL]
   }
 
-  implicit val variantFormat =
+  given Formatter[chess.variant.Variant] =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
 
-  implicit val daysFormat =
+  given Formatter[lila.common.Days] =
     formatter.intFormatter[lila.common.Days](_.value, lila.common.Days.apply)
 
   object strings {
@@ -262,21 +262,21 @@ object Form {
     )
 
   object UTCDate {
-    val dateTimePattern         = "yyyy-MM-dd HH:mm"
-    val utcDate                 = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    val dateTimePattern       = "yyyy-MM-dd HH:mm"
+    val utcDate               = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODateTime {
-    val dateTimePattern         = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val formatter               = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
-    val isoDateTime             = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    val dateTimePattern       = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    val formatter             = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
+    val isoDateTime           = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODate {
-    val datePattern         = "yyyy-MM-dd"
-    val formatter           = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
-    val isoDateTime         = jodaDate(datePattern, DateTimeZone.UTC)
-    implicit val dateFormat = JodaFormats.jodaDateTimeFormat(datePattern)
+    val datePattern           = "yyyy-MM-dd"
+    val formatter             = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
+    val isoDateTime           = jodaDate(datePattern, DateTimeZone.UTC)
+    given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(datePattern)
   }
   object Timestamp {
     val formatter = new Formatter[org.joda.time.DateTime] {
