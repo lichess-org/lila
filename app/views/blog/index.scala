@@ -24,7 +24,7 @@ object index {
     )(
       main(cls := "page-menu")(
         bits.menu(none, "lichess".some),
-        div(cls := "blog index page-menu__content page-small box force-ltr")(
+        div(cls := "blog index page-menu__content page-small box box-pad force-ltr")(
           boxTop(
             h1("Lichess Official Blog"),
             a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := "")

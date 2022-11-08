@@ -9,6 +9,7 @@
 
     background: $c-bg-zebra;
     padding: 1.4rem var(--box-padding) 0.4rem var(--box-padding);
+    margin: 0 calc(-1 * var(--box-padding));
     text-align: center;
   }
 
@@ -144,8 +145,6 @@
     @extend %flex-column;
 
     h2 {
-      @extend %box-padding-horiz;
-
       margin: 2rem 0;
     }
 
@@ -162,8 +161,6 @@
     }
 
     .parts {
-      @extend %box-padding-horiz;
-
       margin-top: 3em;
 
       .illustration {
