@@ -4,7 +4,7 @@ import scala.Numeric.Implicits._
 import scala.reflect.ClassTag
 import scala.util.Sorting
 
-object Maths {
+object Maths:
 
   def mean[T](a: Iterable[T])(implicit n: Numeric[T]): Option[Double] =
     a.nonEmpty option (n.toDouble(a.sum) / a.size)
@@ -73,4 +73,3 @@ object Maths {
         } / a.size
       }
     }
-}

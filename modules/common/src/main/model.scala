@@ -82,7 +82,7 @@ case class Ints(value: List[Int])       extends AnyVal
 
 case class Template(value: String) extends AnyVal
 
-case class Days(value: Int) extends AnyVal with LilaTypes.IntValue
+case class Days(value: Int) extends AnyVal with IntValue
 
 case class Preload[A](value: Option[A]) extends AnyVal {
   def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)

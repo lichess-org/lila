@@ -53,27 +53,27 @@ object config {
     def isProd = domain == prodDomain
   }
 
-  implicit val maxLoader          = intLoader(Max)
-  implicit val maxPerPageLoader   = intLoader(MaxPerPage)
-  implicit val maxPerSecondLoader = intLoader(MaxPerSecond)
-  implicit val collNameLoader     = strLoader(CollName)
-  implicit val secretLoader       = strLoader(Secret)
-  implicit val baseUrlLoader      = strLoader(BaseUrl)
-  implicit val emailAddressLoader = strLoader(EmailAddress.apply)
-  implicit val netDomainLoader    = strLoader(NetDomain)
-  implicit val assetDomainLoader  = strLoader(AssetDomain)
-  implicit val assetBaseUrlLoader = strLoader(AssetBaseUrl)
-  implicit val rateLimitLoader    = boolLoader(RateLimit)
-  implicit val netLoader          = AutoConfig.loader[NetConfig]
+  given ConfigLoader[Max]          = intLoader(Max.apply)
+  given ConfigLoader[MaxPerPage]   = intLoader(MaxPerPage.apply)
+  given ConfigLoader[MaxPerSecond] = intLoader(MaxPerSecond.apply)
+  given ConfigLoader[CollName]     = strLoader(CollName.apply)
+  given ConfigLoader[Secret]       = strLoader(Secret.apply)
+  given ConfigLoader[BaseUrl]      = strLoader(BaseUrl.apply)
+  given ConfigLoader[EmailAddress] = strLoader(EmailAddress.apply)
+  given ConfigLoader[NetDomain]    = strLoader(NetDomain.apply)
+  given ConfigLoader[AssetDomain]  = strLoader(AssetDomain.apply)
+  given ConfigLoader[AssetBaseUrl] = strLoader(AssetBaseUrl.apply)
+  given ConfigLoader[RateLimit]    = boolLoader(RateLimit.apply)
+  given ConfigLoader[NetConfig]    = AutoConfig.loader[NetConfig]
 
-  implicit val strListLoader: ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)
+  given ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)
 
-  implicit def listLoader[A](implicit l: ConfigLoader[A]): ConfigLoader[List[A]] =
+  given [A](using l: ConfigLoader[A]): ConfigLoader[List[A]] =
     ConfigLoader { c => k =>
       c.getConfigList(k).asScala.toList map { l.load(_) }
     }
 
-  implicit def optionLoader[A](implicit loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
+  given [A](using loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
     ConfigLoader[Option[A]](c => k => if (c.hasPath(k)) Some(loader.load(c, k)) else None)
 
   def strLoader[A](f: String => A): ConfigLoader[A]              = ConfigLoader.stringLoader map f

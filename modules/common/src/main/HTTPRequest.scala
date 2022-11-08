@@ -67,9 +67,8 @@ object HTTPRequest {
   }
 
   case class UaMatcher(rStr: String) {
-    private val regex = rStr.r
-
-    def apply(req: RequestHeader): Boolean = userAgent(req) ?? regex.find
+    private val regex                      = rStr.r
+    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(regex.find)
   }
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"

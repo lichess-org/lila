@@ -13,7 +13,7 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.8.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.8.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "8.1.1"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "8.1.2"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.1"
   val chess       = "org.lichess"                  %% "scalachess"                      % "11.2.1"
@@ -68,7 +68,7 @@ object Dependencies {
   }
 
   object play {
-    val api      = "com.typesafe.play" %% "play"           % "2.8.18-lila_3.0.1"
+    val api      = "com.typesafe.play" %% "play"           % "2.8.18-lila_3.1"
     val json     = "com.typesafe.play" %% "play-json"      % "2.10.0-RC7"
     val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.10.0-RC7"
     val mailer   = "com.typesafe.play" %% "play-mailer"    % "8.0.1"
@@ -90,8 +90,8 @@ object Dependencies {
   }
   object akka {
     val version    = "2.6.20"
-    val actor       = "com.typesafe.akka" %% "akka-actor"       % version
-    val actorTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
+    val actor      = "com.typesafe.akka" %% "akka-actor"       % version
+    val actorTyped = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
     val akkaSlf4j  = "com.typesafe.akka" %% "akka-slf4j"       % version
     val testkit    = "com.typesafe.akka" %% "akka-testkit"     % version % Test

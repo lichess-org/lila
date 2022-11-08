@@ -21,55 +21,55 @@ import java.util.concurrent.TimeoutException
  * Can't be replaced with AsyncActorSequencer,
  * because this adds the concept of parallelism
  */
-final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int)(implicit
-    ec: ExecutionContext,
-    mat: Materializer
-) {
+// final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int)(implicit
+//     ec: ExecutionContext,
+//     mat: Materializer
+// ) {
 
-  type Task[A]                    = () => Fu[A]
-  private type TaskWithPromise[A] = (Task[A], Promise[A])
+//   type Task[A]                    = () => Fu[A]
+//   private type TaskWithPromise[A] = (Task[A], Promise[A])
 
-  def apply[A](future: => Fu[A]): Fu[A] = run(() => future)
+//   def apply[A](future: => Fu[A]): Fu[A] = run(() => future)
 
-  def run[A](task: Task[A]): Fu[A] = {
-    val promise = Promise[A]()
-    queue.offer(task -> promise) match {
-      case QueueOfferResult.Enqueued =>
-        promise.future
-      case result =>
-        lila.mon.workQueue.offerFail(name, result.toString).increment()
-        Future failed new WorkQueue.EnqueueException(s"Can't enqueue in $name: $result")
-    }
-  }
+//   def run[A](task: Task[A]): Fu[A] = {
+//     val promise = Promise[A]()
+//     queue.offer(task -> promise) match {
+//       case QueueOfferResult.Enqueued =>
+//         promise.future
+//       case result =>
+//         lila.mon.workQueue.offerFail(name, result.toString).increment()
+//         Future failed new WorkQueue.EnqueueException(s"Can't enqueue in $name: $result")
+//     }
+//   }
 
-  private val queue = Source
-    .queue[TaskWithPromise[_]](buffer)
-    .mapAsyncUnordered(parallelism) { case (task, promise) =>
-      task()
-        .withTimeout(timeout, new TimeoutException)(ec, mat.system.scheduler)
-        .tap(promise.completeWith)
-        .recover {
-          case e: TimeoutException =>
-            lila.mon.workQueue.timeout(name).increment()
-            lila.log(s"WorkQueue:$name").warn(s"task timed out after $timeout", e)
-          case e: Exception =>
-            lila.log(s"WorkQueue:$name").info("task failed", e)
-        }
-    }
-    .toMat(Sink.ignore)(Keep.left)
-    .run()
-}
+//   private val queue = Source
+//     .queue[TaskWithPromise[_]](buffer)
+//     .mapAsyncUnordered(parallelism) { case (task, promise) =>
+//       task()
+//         .withTimeout(timeout, new TimeoutException)(ec, mat.system.scheduler)
+//         .tap(e => promise.completeWith(e))
+//         .recover {
+//           case e: TimeoutException =>
+//             lila.mon.workQueue.timeout(name).increment()
+//             lila.log(s"WorkQueue:$name").warn(s"task timed out after $timeout", e)
+//           case e: Exception =>
+//             lila.log(s"WorkQueue:$name").info("task failed", e)
+//         }
+//     }
+//     .toMat(Sink.ignore)(Keep.left)
+//     .run()
+// }
 
-object WorkQueue {
+// object WorkQueue {
 
-  final class EnqueueException(msg: String) extends Exception(msg)
+//   final class EnqueueException(msg: String) extends Exception(msg)
 
-  // just reject if the previous future is still running
-  final class Unbuffered[K] {
-    private var ongoing = Set.empty[K]
-    def apply[A](key: K)(f: => Fu[A])(implicit ec: ExecutionContext): Option[Fu[A]] = !ongoing(key) option {
-      ongoing = ongoing + key
-      f addEffectAnyway { ongoing = ongoing - key }
-    }
-  }
-}
+//   // just reject if the previous future is still running
+//   final class Unbuffered[K] {
+//     private var ongoing = Set.empty[K]
+//     def apply[A](key: K)(f: => Fu[A])(implicit ec: ExecutionContext): Option[Fu[A]] = !ongoing(key) option {
+//       ongoing = ongoing + key
+//       f addEffectAnyway { ongoing = ongoing - key }
+//     }
+//   }
+// }

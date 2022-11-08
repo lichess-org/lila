@@ -10,11 +10,10 @@ import scala.concurrent.Future
 import scala.util.matching.Regex
 import scala.util.Try
 
-import LilaTypes._
 import cats.data.NonEmptyList
 import java.util.Base64
 
-trait LilaLibraryExtensions:
+trait LilaLibraryExtensions extends LilaTypes:
 
   extension [A](self: Option[A])
 

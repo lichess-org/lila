@@ -76,7 +76,17 @@ object Paginator {
 
   def empty[A]: Paginator[A] = new Paginator(0, MaxPerPage(0), Nil, 0)
 
-  implicit def zero[A] = Zero(empty[A])
+  given [A]: Zero[Paginator[A]] with
+    def zero = empty[A]
+
+  given cats.Functor[Paginator] with
+    def map[A, B](p: Paginator[A])(f: A => B) =
+      new Paginator(
+        currentPage = p.currentPage,
+        maxPerPage = p.maxPerPage,
+        currentPageResults = p.currentPageResults map f,
+        nbResults = p.nbResults
+      )
 
   def fromResults[A](
       currentPageResults: Seq[A],

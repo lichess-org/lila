@@ -7,13 +7,8 @@ import alleycats.Zero
 trait LilaPrimitiveExtensions:
 
   extension [A](self: A)
-    def unit: Unit = ()
-
+    def unit: Unit          = ()
     def ap[B](f: A => B): B = f(self)
-
-  extension (self: Boolean)
-    def ??[A](a: => A)(implicit z: Zero[A]): A = if (self) a else z.zero
-    def option[A](a: => A): Option[A]          = if (self) Some(a) else None
 
   extension (self: Long)
 

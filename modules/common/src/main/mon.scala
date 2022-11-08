@@ -775,7 +775,7 @@ object mon {
     val steals            = gauge("executor.steals").withTag("name", name)
   }
 
-  def chronoSync[A] = lila.common.Chronometer.syncMon[A] _
+  def chronoSync[A] = lila.common.Chronometer.syncMon[A]
 
   type TimerPath   = lila.mon.type => Timer
   type CounterPath = lila.mon.type => Counter
@@ -799,5 +799,6 @@ object mon {
 
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
+  import scala.language.implicitConversions
   implicit def mapToTags(m: Map[String, Any]): TagSet = TagSet from m
 }

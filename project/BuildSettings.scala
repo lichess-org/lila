@@ -26,7 +26,7 @@ object BuildSettings {
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false,
       Compile / run / fork                   := true,
-      javaOptions ++= Seq("-Xms64m", "-Xmx512m"),
+      javaOptions ++= Seq("-Xms64m", "-Xmx512m")
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
@@ -36,7 +36,7 @@ object BuildSettings {
       play.api,
       chess,
       scalalib,
-      jodaTime,
+      jodaTime
     )
 
   def smallModule(

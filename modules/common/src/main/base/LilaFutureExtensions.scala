@@ -4,13 +4,12 @@ import akka.actor.Scheduler
 import alleycats.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
-import scala.concurrent.{ Await, ExecutionContext => EC, Future }
+import scala.concurrent.{ Await, ExecutionContext as EC, Future }
 import scala.util.Try
 
 import lila.common.Chronometer
-import LilaTypes._
 
-trait LilaFutureExtensions:
+trait LilaFutureExtensions extends LilaTypes:
 
   extension [A](fua: Fu[A])
 
@@ -27,12 +26,12 @@ trait LilaFutureExtensions:
         fub
       }
 
-    @inline def void: Fu[Unit] =
+    inline def void: Fu[Unit] =
       dmap { _ =>
         ()
       }
 
-    @inline def inject[B](b: => B): Fu[B] =
+    inline def inject[B](b: => B): Fu[B] =
       dmap { _ =>
         b
       }
@@ -173,8 +172,8 @@ trait LilaFutureExtensions:
       }.result
     def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
 
-    def logTime(name: String): Chronometer[A]               = chronometer pp name
-    def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
+    def logTime(name: String): Fu[A]                               = chronometer pp name
+    def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
 
     def recoverDefault(implicit z: Zero[A], ec: EC): Fu[A] = recoverDefault(z.zero)
 
@@ -197,7 +196,7 @@ trait LilaFutureExtensions:
 
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
-  extension (fua: Fu[Option[A]])
+  extension [A](fua: Fu[Option[A]])
 
     def orFail(msg: => String)(implicit ec: EC): Fu[A] =
       fua flatMap {
