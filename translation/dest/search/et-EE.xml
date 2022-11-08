@@ -31,5 +31,9 @@
   <string name="include">Sisalda</string>
   <string name="descending">Kahanevalt</string>
   <string name="ascending">Kasvavalt</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Leiti %s partii</item>
+    <item quantity="other">Leiti %s partiid</item>
+  </plurals>
   <string name="ratingExplanation">Mõlema mängija keskmine reiting</string>
 </resources>
