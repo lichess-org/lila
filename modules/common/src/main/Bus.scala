@@ -8,11 +8,11 @@ import akka.actor.{ ActorRef, ActorSystem, Scheduler }
 
 object Bus:
 
-  case class Event(payload: Any, channel: String)
+  case class Event(payload: Matchable, channel: String)
   type Channel    = String
   type Subscriber = Tellable
 
-  def publish(payload: Any, channel: Channel): Unit = bus.publish(payload, channel)
+  def publish(payload: Matchable, channel: Channel): Unit = bus.publish(payload, channel)
 
   def subscribe = bus.subscribe
 
@@ -22,12 +22,12 @@ object Bus:
   def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
   def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
 
-  def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable =
+  def subscribeFun(to: Channel*)(f: PartialFunction[Matchable, Unit]): Tellable =
     val t = lila.common.Tellable(f)
     subscribe(t, to*)
     t
 
-  def subscribeFuns(subscriptions: (Channel, PartialFunction[Any, Unit])*): Unit =
+  def subscribeFuns(subscriptions: (Channel, PartialFunction[Matchable, Unit])*): Unit =
     subscriptions foreach { case (channel, subscriber) =>
       subscribeFun(channel)(subscriber)
     }
@@ -44,7 +44,7 @@ object Bus:
       bus.unsubscribe(Tellable.Actor(ref), _)
     }
 
-  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(implicit
+  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Matchable)(implicit
       ec: scala.concurrent.ExecutionContext,
       scheduler: Scheduler
   ): Fu[A] =

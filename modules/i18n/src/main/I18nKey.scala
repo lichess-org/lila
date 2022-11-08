@@ -5,10 +5,10 @@ import scalatags.Text.RawFrag
 
 final class I18nKey(val key: String):
 
-  def apply(args: Any*)(implicit lang: Lang): RawFrag =
+  def apply(args: Matchable*)(implicit lang: Lang): RawFrag =
     Translator.frag.literal(key, args, lang)
 
-  def plural(count: Count, args: Any*)(implicit lang: Lang): RawFrag =
+  def plural(count: Count, args: Matchable*)(implicit lang: Lang): RawFrag =
     Translator.frag.plural(key, count, args, lang)
 
   def pluralSame(count: Int)(implicit lang: Lang): RawFrag = plural(count, count)

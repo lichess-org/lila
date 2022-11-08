@@ -39,27 +39,18 @@ object BuildSettings {
       jodaTime
     )
 
-  def smallModule(
-      name: String,
-      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
-      libs: Seq[ModuleID]
-  ) =
-    Project(
-      name,
-      file("modules/" + name)
-    ).dependsOn(deps: _*)
-      .settings(
-        libraryDependencies ++= libs,
-        buildSettings,
-        srcMain
-      )
-
   def module(
       name: String,
       deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
       libs: Seq[ModuleID]
   ) =
-    smallModule(name, deps, defaultLibs ++ libs)
+    Project(name, file("modules/" + name))
+      .dependsOn(deps: _*)
+      .settings(
+        libraryDependencies ++= defaultLibs ++ libs,
+        buildSettings,
+        srcMain
+      )
 
   val compilerOptions = Seq(
     "-rewrite",

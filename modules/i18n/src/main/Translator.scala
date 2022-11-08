@@ -8,17 +8,17 @@ import lila.common.String.html.escapeHtml
 object Translator:
 
   object frag:
-    def literal(key: MessageKey, args: Seq[Any], lang: Lang): RawFrag =
+    def literal(key: MessageKey, args: Seq[Matchable], lang: Lang): RawFrag =
       translate(key, lang, I18nQuantity.Other /* grmbl */, args)
 
-    def plural(key: MessageKey, count: Count, args: Seq[Any], lang: Lang): RawFrag =
+    def plural(key: MessageKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag =
       translate(key, lang, I18nQuantity(lang, count), args)
 
     private def translate(
         key: MessageKey,
         lang: Lang,
         quantity: I18nQuantity,
-        args: Seq[Any]
+        args: Seq[Matchable]
     ): RawFrag =
       findTranslation(key, lang) flatMap { translation =>
         val htmlArgs = escapeArgs(args)
@@ -33,7 +33,7 @@ object Translator:
             Some(RawFrag(key))
       } getOrElse RawFrag(key)
 
-    private def escapeArgs(args: Seq[Any]): Seq[RawFrag] =
+    private def escapeArgs(args: Seq[Matchable]): Seq[RawFrag] =
       args.map {
         case s: String     => escapeHtml(s)
         case r: RawFrag    => r

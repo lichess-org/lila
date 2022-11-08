@@ -64,7 +64,7 @@ lazy val api = module("api",
   Test / aggregate := true  // Test <: Runtime
 ) aggregate (moduleRefs: _*)
 
-lazy val i18n = smallModule("i18n",
+lazy val i18n = module("i18n",
   Seq(common, db, hub),
   specs2.bundle ++ Seq(scalatags)
 ).settings(
@@ -93,12 +93,12 @@ lazy val racer = module("racer",
   reactivemongo.bundle
 )
 
-lazy val quote = smallModule("quote",
+lazy val quote = module("quote",
   Seq(),
   Seq(play.json)
 )
 
-lazy val video = smallModule("video",
+lazy val video = module("video",
   Seq(common, memo, hub, db, user),
   reactivemongo.bundle ++ macwire.bundle
 )
@@ -113,7 +113,7 @@ lazy val streamer = module("streamer",
   reactivemongo.bundle
 )
 
-lazy val coordinate = smallModule("coordinate",
+lazy val coordinate = module("coordinate",
   Seq(common, db, user),
   reactivemongo.bundle ++ macwire.bundle
 )
@@ -133,10 +133,10 @@ lazy val evaluation = module("evaluation",
   specs2.bundle ++ reactivemongo.bundle
 )
 
-lazy val common = smallModule("common",
+lazy val common = module("common",
   Seq(),
   Seq(
-    akka.actor, play.api, play.json, scalalib, galimatias, chess, 
+    scalalib, galimatias, chess, 
     kamon.core, scalatags, scaffeine, apacheText
   ) ++ specs2.bundle ++ reactivemongo.bundle ++ flexmark.bundle
 )
@@ -156,17 +156,17 @@ lazy val history = module("history",
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
-lazy val db = smallModule("db",
+lazy val db = module("db",
   Seq(common),
   Seq(hasher) ++ macwire.bundle ++ reactivemongo.bundle
 )
 
-lazy val memo = smallModule("memo",
+lazy val memo = module("memo",
   Seq(common, db),
   Seq(scaffeine, scalatest, akka.testkit) ++ reactivemongo.bundle ++ macwire.bundle ++ playWs.bundle
 )
 
-lazy val search = smallModule("search",
+lazy val search = module("search",
   Seq(common, hub),
   playWs.bundle ++ macwire.bundle
 )
@@ -196,7 +196,7 @@ lazy val mod = module("mod",
   reactivemongo.bundle
 )
 
-lazy val user = smallModule("user",
+lazy val user = module("user",
   Seq(common, memo, db, hub, rating, socket),
   Seq(hasher, galimatias) ++ specs2.bundle ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
 )
@@ -296,7 +296,7 @@ lazy val irwin = module("irwin",
   reactivemongo.bundle
 )
 
-lazy val oauth = smallModule("oauth",
+lazy val oauth = module("oauth",
   Seq(common, db, user),
   reactivemongo.bundle ++ macwire.bundle
 )
@@ -331,7 +331,7 @@ lazy val studySearch = module("studySearch",
   reactivemongo.bundle
 )
 
-lazy val learn = smallModule("learn",
+lazy val learn = module("learn",
   Seq(common, db, user),
   reactivemongo.bundle
 )
@@ -356,7 +356,7 @@ lazy val push = module("push",
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
-lazy val irc = smallModule("irc",
+lazy val irc = module("irc",
   Seq(common, hub, user),
   reactivemongo.bundle ++ macwire.bundle
 )
@@ -436,17 +436,17 @@ lazy val notifyModule = module("notify",
   reactivemongo.bundle
 )
 
-lazy val tree = smallModule("tree",
+lazy val tree = module("tree",
   Seq(common),
   Seq()
 )
 
-lazy val socket = smallModule("socket",
+lazy val socket = module("socket",
   Seq(common, hub, memo, tree),
   Seq(lettuce) ++ macwire.bundle
 )
 
-lazy val hub = smallModule("hub",
+lazy val hub = module("hub",
   Seq(common),
   Seq(scaffeine, macwire.util)
 )

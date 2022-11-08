@@ -114,7 +114,7 @@ private object I18nQuantity:
       else if (c == 2) Two
       else Other
 
-    @nowarn("cat=unused") def none(c: Count) = Other
+    def none(c: Count) = Other
 
   import selectors.*
 

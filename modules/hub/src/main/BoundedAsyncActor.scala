@@ -15,7 +15,7 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
 
   import BoundedAsyncActor.*
 
-  def !(msg: Any): Boolean =
+  def !(msg: Matchable): Boolean =
     stateRef.getAndUpdate { state =>
       Some {
         state.fold(emptyQueue) { q =>
@@ -36,7 +36,7 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
           lila.mon.asyncActor.queueSize(name).record(q.size)
         success
 
-  def ask[A](makeMsg: Promise[A] => Any): Fu[A] =
+  def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
     val promise = Promise[A]()
     val success = this ! makeMsg(promise)
     if (!success) promise failure new EnqueueException(s"The $name asyncActor queue is full ($maxSize)")
@@ -53,10 +53,10 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
    */
   private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
 
-  private[this] def run(msg: Any): Unit =
+  private[this] def run(msg: Matchable): Unit =
     process.applyOrElse(msg, fallback) onComplete postRun
 
-  private[this] val postRun = (_: Any) =>
+  private[this] val postRun = (_: Matchable) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
   private[this] lazy val fallback = { (msg: Any) =>
@@ -68,11 +68,11 @@ object BoundedAsyncActor:
 
   final class EnqueueException(msg: String) extends Exception(msg)
 
-  private case class SizedQueue(queue: Queue[Any], size: Int):
-    def enqueue(a: Any) = SizedQueue(queue enqueue a, size + 1)
-    def isEmpty         = size == 0
-    def tailOption      = !isEmpty option SizedQueue(queue.tail, size - 1)
-    def headOption      = queue.headOption
+  private case class SizedQueue(queue: Queue[Matchable], size: Int):
+    def enqueue(a: Matchable) = SizedQueue(queue enqueue a, size + 1)
+    def isEmpty               = size == 0
+    def tailOption            = !isEmpty option SizedQueue(queue.tail, size - 1)
+    def headOption            = queue.headOption
   private val emptyQueue = SizedQueue(Queue.empty, 0)
 
   private type State = Option[SizedQueue]
