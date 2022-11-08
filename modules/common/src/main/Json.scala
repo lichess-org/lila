@@ -1,10 +1,10 @@
 package lila.common
 
 import org.joda.time.DateTime
-import play.api.libs.json.{ Json => PlayJson, _ }
+import play.api.libs.json.{ Json as PlayJson, * }
 import chess.format.{ FEN, Uci }
 
-object Json {
+object Json:
 
   def anyValWriter[O, A: Writes](f: O => A) =
     Writes[O] { o =>
@@ -79,4 +79,3 @@ object Json {
       .flatMap(LilaOpeningFamily.find)
       .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
   }
-}

@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import alleycats.Zero
 import play.api.libs.json.{ JsError, JsObject, JsResult }
 
-trait LilaTypes {
+trait LilaTypes:
 
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]
@@ -33,6 +33,5 @@ trait LilaTypes {
   // given Zero[JsResult] with
   //   def zero = JsError(Seq.empty)
 
-  given Ordering[DateTime] with
-    def zero = Ordering.fromLessThan[DateTime](_ isBefore _)
-}
+  // given Ordering[DateTime] with
+  //   def compare = Ordering.fromLessThan[DateTime](_ isBefore _)

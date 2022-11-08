@@ -3,12 +3,11 @@ package lila.common
 import org.joda.time.{ DateTime, Days }
 
 // number of days since lichess
-case class LichessDay(value: Int) extends AnyVal {
+case class LichessDay(value: Int) extends AnyVal:
 
   def toDate = LichessDay.genesis.plusDays(value).withTimeAtStartOfDay
-}
 
-object LichessDay {
+object LichessDay:
 
   val genesis = new DateTime(2010, 1, 1, 0, 0).withTimeAtStartOfDay
 
@@ -23,4 +22,3 @@ object LichessDay {
       LichessDay(Days.daysBetween(genesis, DateTime.now.minusDays(delta).withTimeAtStartOfDay).getDays)
     }
 
-}

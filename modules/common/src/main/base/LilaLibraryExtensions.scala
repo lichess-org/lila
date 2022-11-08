@@ -5,7 +5,7 @@ import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import org.joda.time.{ DateTime, Duration }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.Future
 import scala.util.matching.Regex
 import scala.util.Try
@@ -58,26 +58,23 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension [A](v: Try[A])
 
     def fold[B](fe: Exception => B, fa: A => B): B =
-      v match {
+      v match
         case scala.util.Failure(e: Exception) => fe(e)
         case scala.util.Failure(e)            => throw e
         case scala.util.Success(a)            => fa(a)
-      }
 
     def future: Fu[A] = fold(Future.failed, fuccess)
 
     def toEither: Either[Throwable, A] =
-      v match {
+      v match
         case scala.util.Success(res) => Right(res)
         case scala.util.Failure(err) => Left(err)
-      }
 
   extension [A, B](v: Either[A, B])
     def orElse(other: => Either[A, B]): Either[A, B] =
-      v match {
+      v match
         case scala.util.Right(res) => Right(res)
         case scala.util.Left(_)    => other
-      }
 
   extension (d: FiniteDuration)
     def toCentis = chess.Centis {
@@ -99,14 +96,12 @@ trait LilaLibraryExtensions extends LilaTypes:
         other.indexOf(f(x)) < other.indexOf(f(y))
       }
     def toNel: Option[NonEmptyList[A]] =
-      list match {
+      list match
         case Nil           => None
         case first :: rest => Some(NonEmptyList(first, rest))
-      }
-    def tailOption: Option[List[A]] = list match {
+    def tailOption: Option[List[A]] = list match
       case Nil       => None
       case _ :: rest => Some(rest)
-    }
     def tailSafe: List[A]         = tailOption getOrElse Nil
     def indexOption(a: A)         = Option(list indexOf a).filter(0 <= _)
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))

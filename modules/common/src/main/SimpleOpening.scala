@@ -10,17 +10,16 @@ import chess.opening.FullOpening.nameToKey
  * even tho there are multiple FullOpening with that name.
  */
 
-case class SimpleOpening(ref: FullOpening, name: SimpleOpening.Name, family: LilaOpeningFamily) {
-  import SimpleOpening._
+case class SimpleOpening(ref: FullOpening, name: SimpleOpening.Name, family: LilaOpeningFamily):
+  import SimpleOpening.*
   val key            = Key(nameToKey(name.value))
   def isFamily       = ref.variation.isEmpty
   def familyKeyOrKey = if (isFamily) Key(family.key.value) else key
   def variation      = ref.variation | otherVariations
   lazy val nbMoves   = ref.uci.count(' ' == _) + 1
   lazy val lastUci   = ref.uci.split(' ').lastOption
-}
 
-object SimpleOpening {
+object SimpleOpening:
 
   case class Key(value: String)  extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
@@ -47,4 +46,3 @@ object SimpleOpening {
   lazy val openingList = openings.values.toList.sortBy(_.name.value)
 
   given Iso.StringIso[Key] = Iso.string[Key](Key.apply, _.value)
-}

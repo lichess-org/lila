@@ -1,9 +1,9 @@
 package lila.common
 package paginator
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-object PaginatorJson {
+object PaginatorJson:
 
   given Writes[config.MaxPerPage] with
     def writes(m: config.MaxPerPage) = JsNumber(m.value)
@@ -20,4 +20,3 @@ object PaginatorJson {
       "nextPage"           -> p.nextPage,
       "nbPages"            -> p.nbPages
     )
-}

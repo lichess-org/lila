@@ -1,11 +1,11 @@
 package lila.common
 
 import scala.concurrent.duration.FiniteDuration
-import io.methvin.play.autoconfig._
-import scala.jdk.CollectionConverters._
+import io.methvin.play.autoconfig.*
+import scala.jdk.CollectionConverters.*
 import play.api.ConfigLoader
 
-object config {
+object config:
 
   case class Every(value: FiniteDuration)  extends AnyVal
   case class AtMost(value: FiniteDuration) extends AnyVal
@@ -13,20 +13,17 @@ object config {
 
   case class CollName(value: String) extends AnyVal with StringValue
 
-  case class Secret(value: String) extends AnyVal {
+  case class Secret(value: String) extends AnyVal:
     override def toString = "Secret(****)"
-  }
 
   case class BaseUrl(value: String) extends AnyVal with StringValue
 
-  case class AppPath(value: java.io.File) extends AnyVal {
+  case class AppPath(value: java.io.File) extends AnyVal:
     override def toString = value.toString
-  }
 
-  case class Max(value: Int) extends AnyVal with IntValue with Ordered[Int] {
+  case class Max(value: Int) extends AnyVal with IntValue with Ordered[Int]:
     def compare(other: Int) = Integer.compare(value, other)
     def atMost(max: Int)    = Max(value atMost max)
-  }
   case class MaxPerPage(value: Int) extends AnyVal with IntValue
 
   case class MaxPerSecond(value: Int) extends AnyVal with IntValue
@@ -49,9 +46,8 @@ object config {
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,
       email: EmailAddress
-  ) {
+  ):
     def isProd = domain == prodDomain
-  }
 
   given ConfigLoader[Max]          = intLoader(Max.apply)
   given ConfigLoader[MaxPerPage]   = intLoader(MaxPerPage.apply)
@@ -80,4 +76,3 @@ object config {
   def intLoader[A](f: Int => A): ConfigLoader[A]                 = ConfigLoader.intLoader map f
   def boolLoader[A](f: Boolean => A): ConfigLoader[A]            = ConfigLoader.booleanLoader map f
   def durationLoader[A](f: FiniteDuration => A): ConfigLoader[A] = ConfigLoader.finiteDurationLoader map f
-}

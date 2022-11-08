@@ -1,11 +1,11 @@
 package lila.common
 
 import akka.NotUsed
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import scala.annotation.nowarn
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-object LilaStream {
+object LilaStream:
 
   def flowRate[T](
       metric: T => Int = (_: T) => 1,
@@ -35,4 +35,3 @@ object LilaStream {
     Flow[Option[A]] collect { case Some(a) =>
       a
     }
-}

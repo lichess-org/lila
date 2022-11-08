@@ -5,7 +5,6 @@ import com.github.blemale.scaffeine.Scaffeine
 import java.util.concurrent.Executor
 import play.api.Mode
 
-object LilaCache {
+object LilaCache:
 
   def scaffeine: Scaffeine[Any, Any] = Scaffeine().scheduler(Scheduler.systemScheduler)
-}

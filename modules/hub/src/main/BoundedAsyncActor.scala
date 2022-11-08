@@ -64,7 +64,7 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
   private[this] val postRun = (_: Any) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
-  private[this] lazy val fallback = { msg: Any =>
+  private[this] lazy val fallback = { (msg: Any) =>
     lila.log("asyncActor").warn(s"[$name] unhandled msg: $msg")
     funit
   }

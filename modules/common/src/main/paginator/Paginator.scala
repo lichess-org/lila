@@ -15,7 +15,7 @@ final class Paginator[A] private[paginator] (
     /** Returns the number of results. The result is cached.
       */
     val nbResults: Int
-) {
+):
 
   /** Returns the previous page.
     */
@@ -63,9 +63,8 @@ final class Paginator[A] private[paginator] (
       ec: scala.concurrent.ExecutionContext
   ): Fu[Paginator[B]] =
     f(currentPageResults) dmap withCurrentPageResults
-}
 
-object Paginator {
+object Paginator:
 
   def apply[A](
       adapter: AdapterLike[A],
@@ -116,4 +115,3 @@ object Paginator {
         // unfortunately can't do that without completing nbResults, so ig it's on them to check after
         results <- adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value)
       } yield new Paginator(safePage, maxPerPage, results, nbResults))
-}

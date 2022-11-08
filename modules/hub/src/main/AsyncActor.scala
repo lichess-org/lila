@@ -11,7 +11,7 @@ import scala.concurrent.Promise
  */
 abstract class AsyncActor(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Tellable {
 
-  import AsyncActor._
+  import AsyncActor.*
 
   // implement async behaviour here
   protected val process: ReceiveAsync
@@ -52,7 +52,7 @@ object AsyncActor {
       }
   }
 
-  private val fallback = { msg: Any =>
+  private val fallback = { (msg: Any) =>
     lila.log("asyncActor").warn(s"unhandled msg: $msg")
     funit
   }

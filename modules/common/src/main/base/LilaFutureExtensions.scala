@@ -3,7 +3,7 @@ package lila.base
 import akka.actor.Scheduler
 import alleycats.Zero
 import scala.collection.BuildFrom
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{ Await, ExecutionContext as EC, Future }
 import scala.util.Try
 
@@ -38,13 +38,12 @@ trait LilaFutureExtensions extends LilaTypes:
 
     def injectAnyway[B](b: => B)(implicit ec: EC): Fu[B] = fold(_ => b, _ => b)
 
-    def effectFold(fail: Exception => Unit, succ: A => Unit)(implicit ec: EC): Unit = {
+    def effectFold(fail: Exception => Unit, succ: A => Unit)(implicit ec: EC): Unit =
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
       }
-    }
 
     def fold[B](fail: Exception => B, succ: A => B)(implicit ec: EC): Fu[B] =
       fua map succ recover { case e: Exception => fail(e) }
@@ -58,38 +57,33 @@ trait LilaFutureExtensions extends LilaTypes:
       }
     def logFailure(logger: => lila.log.Logger)(implicit ec: EC): Fu[A] = logFailure(logger, _.toString)
 
-    def addFailureEffect(effect: Throwable => Unit)(implicit ec: EC) = {
+    def addFailureEffect(effect: Throwable => Unit)(implicit ec: EC) =
       fua.failed.foreach { (e: Throwable) =>
         effect(e)
       }
       fua
-    }
 
-    def addEffect(effect: A => Unit)(implicit ec: EC): Fu[A] = {
+    def addEffect(effect: A => Unit)(implicit ec: EC): Fu[A] =
       fua foreach effect
       fua
-    }
 
-    def addEffects(fail: Exception => Unit, succ: A => Unit)(implicit ec: EC): Fu[A] = {
+    def addEffects(fail: Exception => Unit, succ: A => Unit)(implicit ec: EC): Fu[A] =
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
       }
       fua
-    }
 
-    def addEffects(f: Try[A] => Unit)(implicit ec: EC): Fu[A] = {
+    def addEffects(f: Try[A] => Unit)(implicit ec: EC): Fu[A] =
       fua onComplete f
       fua
-    }
 
-    def addEffectAnyway(inAnyCase: => Unit)(implicit ec: EC): Fu[A] = {
+    def addEffectAnyway(inAnyCase: => Unit)(implicit ec: EC): Fu[A] =
       fua onComplete { _ =>
         inAnyCase
       }
       fua
-    }
 
     def mapFailure(f: Exception => Exception)(implicit ec: EC): Fu[A] =
       fua recoverWith { case cause: Exception =>
@@ -101,39 +95,35 @@ trait LilaFutureExtensions extends LilaTypes:
         LilaException(s"$p ${e.getMessage}")
       }
 
-    def thenPp(implicit ec: EC): Fu[A] = {
+    def thenPp(implicit ec: EC): Fu[A] =
       effectFold(
         e => println("[failure] " + e),
         a => println("[success] " + a)
       )
       fua
-    }
 
-    def thenPp(msg: String)(implicit ec: EC): Fu[A] = {
+    def thenPp(msg: String)(implicit ec: EC): Fu[A] =
       effectFold(
         e => println(s"[$msg] [failure] $e"),
         a => println(s"[$msg] [success] $a")
       )
       fua
-    }
 
     def await(duration: FiniteDuration, name: String): A =
       Chronometer.syncMon(_.blocking.time(name)) {
-        try {
+        try
           Await.result(fua, duration)
-        } catch {
+        catch
           case e: Exception =>
             lila.mon.blocking.timeout(name).increment()
             throw e
-        }
       }
 
     def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
-      try {
+      try
         await(duration, name)
-      } catch {
+      catch
         case _: Exception => default
-      }
 
     def withTimeout(duration: FiniteDuration)(implicit ec: EC, scheduler: Scheduler): Fu[A] =
       withTimeout(duration, LilaTimeout(s"Future timed out after $duration"))
@@ -141,22 +131,20 @@ trait LilaFutureExtensions extends LilaTypes:
     def withTimeout(
         duration: FiniteDuration,
         error: => Throwable
-    )(implicit ec: EC, scheduler: Scheduler): Fu[A] = {
+    )(implicit ec: EC, scheduler: Scheduler): Fu[A] =
       Future firstCompletedOf Seq(
         fua,
         akka.pattern.after(duration, scheduler)(Future failed error)
       )
-    }
 
     def withTimeoutDefault(
         duration: FiniteDuration,
         default: => A
-    )(implicit ec: EC, scheduler: Scheduler): Fu[A] = {
+    )(implicit ec: EC, scheduler: Scheduler): Fu[A] =
       Future firstCompletedOf Seq(
         fua,
         akka.pattern.after(duration, scheduler)(Future(default))
       )
-    }
 
     def delay(duration: FiniteDuration)(implicit ec: EC, scheduler: Scheduler) =
       lila.common.Future.delay(duration)(fua)
@@ -221,10 +209,9 @@ trait LilaFutureExtensions extends LilaTypes:
     def dmap2[B](f: A => B): Fu[Option[B]]                 = fua.map(_ map f)(EC.parasitic)
 
     def getIfPresent: Option[A] =
-      fua.value match {
+      fua.value match
         case Some(scala.util.Success(v)) => v
         case _                           => None
-      }
 
   extension [A, M[X] <: IterableOnce[X]](t: M[Fu[A]])
     def sequenceFu(implicit bf: BuildFrom[M[Fu[A]], A, M[A]], ec: EC): Fu[M[A]] = Future.sequence(t)

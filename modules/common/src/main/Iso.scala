@@ -4,17 +4,15 @@ import chess.Centis
 import chess.format.{ FEN, Uci }
 import play.api.i18n.Lang
 
-trait Iso[A, B] {
+trait Iso[A, B]:
   val from: A => B
   val to: B => A
 
-  def map[BB](mapFrom: B => BB, mapTo: BB => B) = new Iso[A, BB] {
+  def map[BB](mapFrom: B => BB, mapTo: BB => B) = new Iso[A, BB]:
     val from = a => mapFrom(Iso.this.from(a))
     val to   = bb => Iso.this.to(mapTo(bb))
-  }
-}
 
-object Iso {
+object Iso:
 
   type StringIso[B]     = Iso[String, B]
   type IntIso[B]        = Iso[Int, B]
@@ -24,10 +22,9 @@ object Iso {
   type BigDecimalIso[B] = Iso[BigDecimal, B]
 
   def apply[A, B](f: A => B, t: B => A): Iso[A, B] =
-    new Iso[A, B] {
+    new Iso[A, B]:
       val from = f
       val to   = t
-    }
 
   def string[B](from: String => B, to: B => String): StringIso[B] = apply(from, to)
   def int[B](from: Int => B, to: B => Int): IntIso[B]             = apply(from, to)
@@ -68,4 +65,3 @@ object Iso {
   given StringIso[Markdown] = string[Markdown](Markdown.apply, _.value)
 
   given IntIso[Days] = int[Days](Days.apply, _.value)
-}

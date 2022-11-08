@@ -1,10 +1,10 @@
 package lila.common
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ ExecutionContext, Future, Promise }
-import scala.util.chaining._
+import scala.util.chaining.*
 import java.util.concurrent.TimeoutException
 
 /* Sequences async tasks, so that:
@@ -43,11 +43,11 @@ import java.util.concurrent.TimeoutException
 //   }
 
 //   private val queue = Source
-//     .queue[TaskWithPromise[_]](buffer)
+//     .queue[TaskWithPromise[?]](buffer)
 //     .mapAsyncUnordered(parallelism) { case (task, promise) =>
 //       task()
 //         .withTimeout(timeout, new TimeoutException)(ec, mat.system.scheduler)
-//         .tap(e => promise.completeWith(e))
+//         .tap(promise.completeWith)
 //         .recover {
 //           case e: TimeoutException =>
 //             lila.mon.workQueue.timeout(name).increment()

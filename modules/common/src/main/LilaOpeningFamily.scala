@@ -7,14 +7,13 @@ import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily }
 // Examples:
 // - King's Gambit Declined
 // - Barnes Opening
-case class LilaOpeningFamily(ref: OpeningFamily, full: Option[FullOpening]) {
-  import LilaOpeningFamily._
+case class LilaOpeningFamily(ref: OpeningFamily, full: Option[FullOpening]):
+  import LilaOpeningFamily.*
   val name             = Name(ref.name)
   def key              = Key(ref.key)
   def as(color: Color) = LilaOpeningFamily.AsColor(this, color)
-}
 
-object LilaOpeningFamily {
+object LilaOpeningFamily:
 
   case class Key(value: String)  extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
@@ -26,14 +25,12 @@ object LilaOpeningFamily {
   lazy val families: Map[Key, LilaOpeningFamily] = FullOpeningDB.all
     .foldLeft(Map.empty[Key, LilaOpeningFamily]) { case (acc, fullOp) =>
       val fam = LilaOpeningFamily(fullOp.family, fullOp.variation.isEmpty option fullOp)
-      acc.get(fam.key) match {
+      acc.get(fam.key) match
         case Some(LilaOpeningFamily(_, None)) if fam.full.isDefined => acc.updated(fam.key, fam)
         case Some(_)                                                => acc
         case None                                                   => acc.updated(fam.key, fam)
-      }
     }
 
   lazy val familyList = families.values.toList.sortBy(_.name.value)
 
   given Iso.StringIso[Key] = Iso.string[Key](Key.apply, _.value)
-}
