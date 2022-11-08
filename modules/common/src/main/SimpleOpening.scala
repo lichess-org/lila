@@ -16,7 +16,7 @@ case class SimpleOpening(ref: FullOpening, name: SimpleOpening.Name, family: Lil
   def isFamily       = ref.variation.isEmpty
   def familyKeyOrKey = if (isFamily) Key(family.key.value) else key
   def variation      = ref.variation | otherVariations
-  lazy val nbMoves   = ref.uci.count(' ' ==) + 1
+  lazy val nbMoves   = ref.uci.count(' ' == _) + 1
   lazy val lastUci   = ref.uci.split(' ').lastOption
 }
 

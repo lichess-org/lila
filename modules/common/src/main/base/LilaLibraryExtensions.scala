@@ -108,7 +108,7 @@ trait LilaLibraryExtensions extends LilaTypes:
       case _ :: rest => Some(rest)
     }
     def tailSafe: List[A]         = tailOption getOrElse Nil
-    def indexOption(a: A)         = Option(list indexOf a).filter(0 <=)
+    def indexOption(a: A)         = Option(list indexOf a).filter(0 <= _)
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
     def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
 

@@ -17,8 +17,8 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
       lower.split('@') match {
         case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
           val normalizedName = name
-            .replace(".", "")  // remove all dots
-            .takeWhile('+' !=) // skip everything after the first '+'
+            .replace(".", "")    // remove all dots
+            .takeWhile('+' != _) // skip everything after the first '+'
           if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
         case _ => lower
       }
@@ -37,7 +37,7 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
 
   def looksLikeFakeEmail =
     domain.map(_.lower.value).exists(EmailAddress.gmailDomains.contains) &&
-      username.count('.' ==) >= 4
+      username.count('.' == _) >= 4
 
   // safer logs
   override def toString = "EmailAddress(****)"

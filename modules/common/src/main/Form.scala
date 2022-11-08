@@ -71,7 +71,7 @@ object Form {
         import scala.concurrent.duration._
         field.verifying(
           "This ID is already in use",
-          id => !exists(id).await(1 second, "tour crud unique ID")
+          id => !exists(id).await(1.second, "tour crud unique ID")
         )
     }
   }
@@ -253,7 +253,7 @@ object Form {
     nonEmptyText(maxLength = 100_1000)
       .transform[String](_.replace(',', '\n'), identity)
       .transform[String](_.linesIterator.map(_.trim).filter(_.nonEmpty).distinct mkString "\n", identity)
-      .verifying("5000 usernames max", _.count('\n' ==) <= 5_000)
+      .verifying("5000 usernames max", _.count('\n' == _) <= 5_000)
 
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(
