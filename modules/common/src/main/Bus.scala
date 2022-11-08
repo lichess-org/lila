@@ -24,7 +24,7 @@ object Bus:
 
   def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable =
     val t = lila.common.Tellable(f)
-    subscribe(t, to *)
+    subscribe(t, to*)
     t
 
   def subscribeFuns(subscriptions: (Channel, PartialFunction[Any, Unit])*): Unit =
@@ -58,7 +58,7 @@ object Bus:
       )(ec, scheduler)
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
 
-  private val bus = new EventBus[Any, Channel, Tellable](
+  private val bus = new EventBus[Matchable, Channel, Tellable](
     initialCapacity = 4096,
     publish = (tellable, event) => tellable ! event
   )

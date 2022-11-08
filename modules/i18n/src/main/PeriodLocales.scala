@@ -7,7 +7,7 @@ import org.joda.time.{ DurationFieldType, Period, PeriodType }
 import play.api.i18n.Lang
 import scala.collection.mutable
 
-object PeriodLocales {
+object PeriodLocales:
 
   private val periodFormatters = new ConcurrentHashMap[String, PeriodFormatter]
 
@@ -28,4 +28,3 @@ object PeriodLocales {
 
   def showPeriod(period: Period)(implicit lang: Lang): String =
     periodFormatter print period.normalizedStandard(periodType)
-}
