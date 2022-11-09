@@ -126,7 +126,6 @@ export default class AnalyseCtrl {
     this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
-    if (this.opts.wiki) this.wiki = wikiTheory();
 
     if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
 
@@ -221,7 +220,9 @@ export default class AnalyseCtrl {
 
   enableWiki = (v: boolean) => {
     this.wiki = v ? wikiTheory() : undefined;
-    if (this.wiki) this.wiki(this.nodeList);
+    if (this.wiki) {
+      this.wiki(this.nodeList);
+    } else $('.analyse__wiki').html('').toggleClass('empty', true);
   };
 
   private setPath = (path: Tree.Path): void => {
@@ -232,7 +233,7 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
-    if (this.wiki) this.wiki(this.nodeList);
+    if (this.wiki && this.data.game.variant.key == 'standard') this.wiki(this.nodeList);
     this.persistence?.save();
   };
 
