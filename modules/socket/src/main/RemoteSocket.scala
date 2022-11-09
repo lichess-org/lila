@@ -2,14 +2,14 @@ package lila.socket
 
 import akka.actor.{ CoordinatedShutdown, Scheduler }
 import chess.{ Centis, Color }
-import io.lettuce.core._
-import io.lettuce.core.pubsub.{ StatefulRedisPubSubConnection => PubSub }
+import io.lettuce.core.*
+import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 import scala.concurrent.{ Future, Promise }
-import scala.util.chaining._
+import scala.util.chaining.*
 import Socket.Sri
 
 import lila.common.{ Bus, Lilakka }
@@ -26,9 +26,9 @@ final class RemoteSocket(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: Scheduler
-) {
+):
 
-  import RemoteSocket._, Protocol._
+  import RemoteSocket.*, Protocol.*
 
   private var stopping = false
 
@@ -36,17 +36,16 @@ final class RemoteSocket(
 
   private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
-  def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] = {
+  def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
     val id = lila.common.ThreadLocalRandom.nextInt()
     sendReq(id)
     val promise = Promise[String]()
     requests.put(id, promise)
     promise.future map readRes
-  }
 
   val onlineUserIds: AtomicReference[Set[String]] = new AtomicReference(Set("lichess"))
 
-  val baseHandler: Handler = {
+  val baseHandler: Handler =
     case In.ConnectUser(userId) =>
       onlineUserIds.getAndUpdate(_ + userId).unit
     case In.DisconnectUsers(userIds) =>
@@ -54,7 +53,7 @@ final class RemoteSocket(
     case In.NotifiedBatch(userIds) =>
       Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
-      lags foreach (UserLagCache.put _).tupled
+      lags foreach (UserLagCache.put).tupled
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys).unit
     case In.TellSri(sri, userId, typ, msg) =>
@@ -75,7 +74,6 @@ final class RemoteSocket(
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds set Set("lichess")
-  }
 
   Bus.subscribeFun(
     "socketUsers",
@@ -119,37 +117,33 @@ final class RemoteSocket(
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
 
-  final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender {
-    def apply(msg: String)               = if (!stopping) send(channel, msg).unit
+  final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
+    def apply(msg: String)               = if (!stopping) super.send(channel, msg).unit
     def sticky(_id: String, msg: String) = apply(msg)
-  }
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
-      extends Sender {
+      extends Sender:
     def apply(msg: String): Unit = publish(msg.hashCode.abs % parallelism, msg)
     // use the ID to select the channel, not the entire message
     def sticky(id: String, msg: String): Unit = publish(id.hashCode.abs % parallelism, msg)
 
     private def publish(subChannel: Int, msg: String) =
       if (!stopping) conn.async.publish(s"$channel:$subChannel", msg).unit
-  }
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
     if (parallelism > 1) new RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)
     else new StoppableSender(redisClient.connectPubSub(), channel)
 
-  private val send: Send = makeSender("site-out").apply _
+  private val send: Send = makeSender("site-out").apply
 
   def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
     connectAndSubscribe(channel) { str =>
-      RawMsg(str) match {
+      RawMsg(str) match
         case None => logger.error(s"Invalid $channel $str")
         case Some(msg) =>
-          reader(msg) collect handler match {
+          reader(msg) collect handler match
             case Some(_) => // processed
             case None    => logger.warn(s"Unhandled $channel $str")
-          }
-      }
     }
 
   def subscribeRoundRobin(channel: Channel, reader: In.Reader, parallelism: Int)(
@@ -166,7 +160,7 @@ final class RemoteSocket(
         .void
     }
 
-  private def connectAndSubscribe(channel: Channel)(f: String => Unit): Funit = {
+  private def connectAndSubscribe(channel: Channel)(f: String => Unit): Funit =
     val conn = redisClient.connectPubSub()
     conn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
       override def message(_channel: String, message: String): Unit = f(message)
@@ -176,7 +170,6 @@ final class RemoteSocket(
       subPromise.success(())
     }
     subPromise.future
-  }
 
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping") { () =>
     request[Unit](
@@ -193,38 +186,34 @@ final class RemoteSocket(
       redisClient.shutdown()
     }
   }
-}
 
-object RemoteSocket {
+object RemoteSocket:
 
   private val logger = lila log "socket"
 
   type Send = String => Unit
 
-  trait Sender {
+  trait Sender:
     def apply(msg: String): Unit
     def sticky(_id: String, msg: String): Unit
 
     protected val conn: PubSub[String, String]
     protected def send(channel: Channel, msg: String) = conn.async.publish(channel, msg)
-  }
 
-  object Protocol {
+  object Protocol:
 
-    final class RawMsg(val path: Path, val args: Args) {
+    final class RawMsg(val path: Path, val args: Args):
       def get(nb: Int)(f: PartialFunction[Array[String], Option[In]]): Option[In] =
         f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
       def all = args split ' '
-    }
-    def RawMsg(msg: String): Option[RawMsg] = {
+    def RawMsg(msg: String): Option[RawMsg] =
       val parts = msg.split(" ", 2)
       parts.headOption map {
         new RawMsg(_, ~parts.lift(1))
       }
-    }
 
     trait In
-    object In {
+    object In:
 
       type Reader = RawMsg => Option[In]
 
@@ -242,7 +231,7 @@ object RemoteSocket {
       case class Ping(id: String)                                                      extends In
 
       val baseReader: Reader = raw =>
-        raw.path match {
+        raw.path match
           case "connect/user"     => ConnectUser(raw.args).some
           case "disconnect/users" => DisconnectUsers(commas(raw.args)).some
           case "connect/sris" =>
@@ -282,7 +271,6 @@ object RemoteSocket {
           case "ping" => Ping(raw.args).some
           case "boot" => WsBoot.some
           case _      => none
-        }
 
       def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
         for {
@@ -294,9 +282,8 @@ object RemoteSocket {
       def commas(str: String): Array[String]    = if (str == "-") Array.empty else str split ','
       def boolean(str: String): Boolean         = str == "+"
       def optional(str: String): Option[String] = if (str == "-") None else Some(str)
-    }
 
-    object Out {
+    object Out:
       def tellUser(userId: String, payload: JsObject) =
         s"tell/users $userId ${Json stringify payload}"
       def tellUsers(userIds: Set[String], payload: JsObject) =
@@ -329,11 +316,8 @@ object RemoteSocket {
       def optional(str: Option[String])       = str getOrElse "-"
       def color(c: Color): String             = c.fold("w", "b")
       def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
-    }
-  }
 
   type Channel = String
   type Path    = String
   type Args    = String
   type Handler = PartialFunction[Protocol.In, Unit]
-}

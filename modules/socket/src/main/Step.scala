@@ -3,7 +3,7 @@ package lila.socket
 import chess.format.{ FEN, Uci }
 import chess.Pos
 import chess.variant.Crazyhouse
-import play.api.libs.json._
+import play.api.libs.json.*
 
 case class Step(
     ply: Int,
@@ -14,19 +14,17 @@ case class Step(
     dests: Option[Map[Pos, List[Pos]]],
     drops: Option[List[Pos]],
     crazyData: Option[Crazyhouse.Data]
-) {
+):
 
   // who's color plays next
   def color = chess.Color.fromPly(ply)
 
   def toJson = Step.stepJsonWriter writes this
-}
 
-object Step {
+object Step:
 
-  case class Move(uci: Uci, san: String) {
+  case class Move(uci: Uci, san: String):
     def uciString = uci.uci
-  }
 
   // TODO copied from lila.game
   // put all that shit somewhere else
@@ -44,8 +42,8 @@ object Step {
   }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
-    import lila.common.Json._
-    import step._
+    import lila.common.Json.given
+    import step.*
     Json
       .obj(
         "ply" -> ply,
@@ -70,4 +68,3 @@ object Step {
       )
       .add("crazy", crazyData)
   }
-}

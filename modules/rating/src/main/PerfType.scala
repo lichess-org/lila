@@ -12,16 +12,15 @@ sealed abstract class PerfType(
     private val name: String,
     private val title: String,
     val iconChar: Char
-) {
+):
 
   def iconString = iconChar.toString
 
   def trans(implicit lang: Lang): String = PerfType.trans(this)
 
   def desc(implicit lang: Lang): String = PerfType.desc(this)
-}
 
-object PerfType {
+object PerfType:
 
   case object UltraBullet
       extends PerfType(
@@ -241,7 +240,7 @@ object PerfType {
   val standardWithUltra: List[PerfType] = UltraBullet :: standard
 
   def variantOf(pt: PerfType): chess.variant.Variant =
-    pt match {
+    pt match
       case Crazyhouse    => chess.variant.Crazyhouse
       case Chess960      => chess.variant.Chess960
       case KingOfTheHill => chess.variant.KingOfTheHill
@@ -251,10 +250,9 @@ object PerfType {
       case Horde         => chess.variant.Horde
       case RacingKings   => chess.variant.RacingKings
       case _             => chess.variant.Standard
-    }
 
   def byVariant(variant: chess.variant.Variant): Option[PerfType] =
-    variant match {
+    variant match
       case chess.variant.Standard      => none
       case chess.variant.FromPosition  => none
       case chess.variant.Crazyhouse    => Crazyhouse.some
@@ -265,16 +263,14 @@ object PerfType {
       case chess.variant.Atomic        => Atomic.some
       case chess.variant.Horde         => Horde.some
       case chess.variant.RacingKings   => RacingKings.some
-    }
 
-  def standardBySpeed(speed: Speed): PerfType = speed match {
+  def standardBySpeed(speed: Speed): PerfType = speed match
     case Speed.UltraBullet    => UltraBullet
     case Speed.Bullet         => Bullet
     case Speed.Blitz          => Blitz
     case Speed.Rapid          => Rapid
     case Speed.Classical      => Classical
     case Speed.Correspondence => Correspondence
-  }
 
   def apply(variant: chess.variant.Variant, speed: Speed): PerfType =
     byVariant(variant) getOrElse standardBySpeed(speed)
@@ -297,18 +293,17 @@ object PerfType {
     byVariant(variant).fold('')(_.iconChar)
 
   def trans(pt: PerfType)(implicit lang: Lang): String =
-    pt match {
+    pt match
       case Rapid          => I18nKeys.rapid.txt()
       case Classical      => I18nKeys.classical.txt()
       case Correspondence => I18nKeys.correspondence.txt()
       case Puzzle         => I18nKeys.puzzles.txt()
       case pt             => pt.name
-    }
 
   val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
 
   def desc(pt: PerfType)(implicit lang: Lang): String =
-    pt match {
+    pt match
       case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
       case Bullet         => I18nKeys.bulletDesc.txt()
       case Blitz          => I18nKeys.blitzDesc.txt()
@@ -317,5 +312,3 @@ object PerfType {
       case Correspondence => I18nKeys.correspondenceDesc.txt()
       case Puzzle         => I18nKeys.puzzleDesc.txt()
       case pt             => pt.title
-    }
-}

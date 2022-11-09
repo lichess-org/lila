@@ -4,10 +4,11 @@ import play.api.data.Form
 import play.api.data.Forms.{ single, text }
 
 import lila.memo.SettingStore.{ Formable, StringReader }
+import reactivemongo.api.bson.BSONHandler
 
 case class RatingFactor(value: Double) extends AnyVal with DoubleValue
 
-object RatingFactor {
+object RatingFactor:
 
   private val separator = ","
 
@@ -31,10 +32,7 @@ object RatingFactor {
     rf => write(rf)
   )
 
-  object implicits {
-    implicit val ratingFactorsBsonHandler  = lila.db.dsl.isoHandler(ratingFactorsIso)
-    implicit val ratingFactorsStringReader = StringReader.fromIso(ratingFactorsIso)
-    implicit val ratingFactorsFormable =
-      new Formable[RatingFactors](rfs => Form(single("v" -> text)) fill write(rfs))
-  }
-}
+  given BSONHandler[RatingFactors]  = lila.db.dsl.isoHandler
+  given StringReader[RatingFactors] = StringReader.fromIso(ratingFactorsIso)
+  given Formable[RatingFactors] =
+    new Formable[RatingFactors](rfs => Form(single("v" -> text)) fill write(rfs))

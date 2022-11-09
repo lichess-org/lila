@@ -2,7 +2,7 @@ package lila.socket
 
 import cats.data.Validated
 import chess.format.{ FEN, Uci, UciCharPair }
-import chess.opening._
+import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.JsObject
 
@@ -15,7 +15,7 @@ case class AnaDrop(
     fen: FEN,
     path: String,
     chapterId: Option[String]
-) extends AnaAny {
+) extends AnaAny:
 
   def branch: Validated[String, Branch] =
     chess.Game(variant.some, fen.some).drop(role, pos) flatMap { case (game, drop) =>
@@ -38,9 +38,8 @@ case class AnaDrop(
         )
       }
     }
-}
 
-object AnaDrop {
+object AnaDrop:
 
   def parse(o: JsObject) =
     for {
@@ -58,4 +57,3 @@ object AnaDrop {
       path = path,
       chapterId = d str "ch"
     )
-}

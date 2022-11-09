@@ -1,8 +1,8 @@
 package lila.rating
 
-import org.goochjs.glicko2._
+import org.goochjs.glicko2.*
 import org.joda.time.DateTime
-import reactivemongo.api.bson.BSONDocument
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
 
 import lila.db.BSON
 
@@ -10,7 +10,7 @@ case class Glicko(
     rating: Double,
     deviation: Double,
     volatility: Double
-) {
+):
 
   def intRating    = rating.toInt
   def intDeviation = deviation.toInt
@@ -60,9 +60,8 @@ case class Glicko(
   def display = s"$intRating${provisional ?? "?"}"
 
   override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
-}
 
-case object Glicko {
+case object Glicko:
 
   val minRating = 600
 
@@ -99,7 +98,7 @@ case object Glicko {
     system.previewDeviation(p.toRating, new DateTime, reverse)
   } atLeast minDeviation atMost maxDeviation
 
-  implicit val glickoBSONHandler = new BSON[Glicko] {
+  given BSONDocumentHandler[Glicko] = new BSON[Glicko]:
 
     def reads(r: BSON.Reader): Glicko =
       Glicko(
@@ -114,14 +113,10 @@ case object Glicko {
         "d" -> w.double(o.deviation),
         "v" -> w.double(o.volatility)
       )
-  }
 
-  sealed abstract class Result {
+  sealed abstract class Result:
     def negate: Result
-  }
-  object Result {
+  object Result:
     case object Win  extends Result { def negate = Loss }
     case object Loss extends Result { def negate = Win  }
     case object Draw extends Result { def negate = Draw }
-  }
-}

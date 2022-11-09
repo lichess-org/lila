@@ -2,9 +2,9 @@ package lila.socket
 
 import chess.Centis
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-object UserLagCache {
+object UserLagCache:
 
   private val cache: Cache[String, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(15 minutes)
@@ -28,4 +28,3 @@ object UserLagCache {
       case i if i <= Centis(50) => 2
       case _                    => 1
     }
-}
