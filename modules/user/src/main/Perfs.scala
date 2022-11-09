@@ -63,7 +63,7 @@ case class Perfs(
     }
   }
 
-  implicit private val ratingOrdering = Ordering.by[(PerfType, Perf), Int](_._2.intRating)
+  private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating)
 
   def bestPerfs(nb: Int): List[(PerfType, Perf)] = {
     val ps = PerfType.nonPuzzle map { pt =>
@@ -269,9 +269,9 @@ case object Perfs {
       case Speed.UltraBullet    => perfs => perfs.ultraBullet
     }
 
-  val perfsBSONHandler = new BSON[Perfs] {
+  given reactivemongo.api.bson.BSONDocumentHandler[Perfs] = new BSON[Perfs] {
 
-    implicit def perfHandler = Perf.perfBSONHandler
+    import Perf.given
 
     def reads(r: BSON.Reader): Perfs = {
       @inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default

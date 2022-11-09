@@ -372,7 +372,8 @@ object dsl extends dsl with Handlers:
     def gather[M[_]](upTo: Int = Int.MaxValue)(implicit cbf: Factory[A, M[A]]): Fu[M[A]] =
       c.collect[M](upTo, Cursor.ContOnError[M[A]]())
 
-    def list(limit: Int): Fu[List[A]] = gather[List](limit | Int.MaxValue)
+    def list(limit: Int): Fu[List[A]] = gather[List](limit)
+    def listAll(): Fu[List[A]]        = gather[List](Int.MaxValue)
 
     // like headOption, but with stopOnError defaulting to false
     def uno: Fu[Option[A]] =

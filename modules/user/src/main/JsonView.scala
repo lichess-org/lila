@@ -3,22 +3,22 @@ package lila.user
 import play.api.libs.json._
 import User.{ LightPerf, PlayTime }
 
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.common.LightUser
 import lila.rating.{ Perf, PerfType }
 
 final class JsonView(isOnline: lila.socket.IsOnline) {
 
-  import JsonView._
-  implicit private val profileWrites  = Json.writes[Profile]
-  implicit private val playTimeWrites = Json.writes[PlayTime]
+  import JsonView.{ *, given }
+  private given OWrites[Profile]  = Json.writes
+  private given OWrites[PlayTime] = Json.writes
 
   def full(
       u: User,
       onlyPerf: Option[PerfType] = None,
       withRating: Boolean,
       withProfile: Boolean
-  ): JsObject =
+  )(using profileWrites: OWrites[Profile]): JsObject =
     if (u.disabled) disabled(u.light)
     else
       base(u, onlyPerf, withRating = withRating) ++ Json
@@ -40,15 +40,16 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs"    -> (withRating ?? perfs(u, onlyPerf))
+        "perfs" -> (if (withRating) perfs(u, onlyPerf)
+                    else Json.obj())
       )
       .add("title" -> u.title)
       .add("tosViolation" -> u.lame)
       .add("patron" -> u.isPatron)
       .add("verified" -> u.isVerified)
 
-  def lightPerfIsOnline(lp: LightPerf) =
-    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
+  def lightPerfIsOnline(lp: LightPerf)(using wr: OWrites[LightPerf]) =
+    wr.writes(lp).add("online" -> isOnline(lp.user.id))
 
   def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,
@@ -60,13 +61,13 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
 
 object JsonView {
 
-  import Title.titleJsonWrites
+  import Title.given
 
-  implicit val nameWrites = Writes[User] { u =>
+  val nameWrites = Writes[User] { u =>
     JsString(u.username)
   }
 
-  implicit val lightPerfWrites = OWrites[LightPerf] { l =>
+  given OWrites[LightPerf] = OWrites[LightPerf] { l =>
     Json
       .obj(
         "id"       -> l.user.id,
@@ -79,7 +80,7 @@ object JsonView {
       .add("patron" -> l.user.isPatron)
   }
 
-  implicit val modWrites = OWrites[User] { u =>
+  val modWrites = OWrites[User] { u =>
     Json
       .obj(
         "id"       -> u.id,
@@ -91,7 +92,7 @@ object JsonView {
       .add("title" -> u.title)
   }
 
-  implicit val perfWrites: OWrites[Perf] = OWrites { o =>
+  given OWrites[Perf] = OWrites { o =>
     Json
       .obj(
         "games"  -> o.nb,
@@ -107,10 +108,10 @@ object JsonView {
   private def select(key: String, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)
 
-  def perfs(u: User, onlyPerf: Option[PerfType] = None) =
+  def perfs(u: User, onlyPerf: Option[PerfType] = None)(using wr: OWrites[Perf]): JsObject =
     JsObject(u.perfs.perfsMap collect {
       case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
-        key -> perfWrites.writes(perf)
+        key -> wr.writes(perf)
     }).add(
       "storm",
       u.perfs.storm.nonEmpty option Json.obj(
@@ -131,9 +132,9 @@ object JsonView {
       )
     )
 
-  def perfs(u: User, onlyPerfs: List[PerfType]) =
+  def perfs(u: User, onlyPerfs: List[PerfType])(using wr: OWrites[Perf]) =
     JsObject(onlyPerfs.map { perfType =>
-      perfType.key -> perfWrites.writes(u.perfs(perfType))
+      perfType.key -> wr.writes(u.perfs(perfType))
     })
 
   def notes(ns: List[Note])(implicit lightUser: LightUserApi) =

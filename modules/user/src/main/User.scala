@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
 import lila.hub.actorApi.user.{ ClasId, KidId, NonKidId }
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONHandler, Macros }
 
 case class User(
     id: String,
@@ -237,7 +238,7 @@ object User {
     def tvPeriod         = new Period(tv * 1000L)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
   }
-  implicit def playTimeHandler = reactivemongo.api.bson.Macros.handler[PlayTime]
+  given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
   // what existing usernames are like
   val historicalUsernameRegex = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
@@ -295,20 +296,18 @@ object User {
   def withFields[A](f: BSONFields.type => A): A = f(BSONFields)
 
   import lila.db.BSON
-  import lila.db.dsl._
+  import lila.db.dsl.{ *, given }
+  import Plan.given
 
-  implicit private def planHandler = Plan.planBSONHandler
-
-  implicit val userBSONHandler = new BSON[User] {
+  given BSONDocumentHandler[User] = new BSON[User] {
 
     import BSONFields._
-    import reactivemongo.api.bson.BSONDocument
-    import UserMarks.marksBsonHandler
-    import Title.titleBsonHandler
-    implicit private def countHandler      = Count.countBSONHandler
-    implicit private def profileHandler    = Profile.profileBSONHandler
-    implicit private def perfsHandler      = Perfs.perfsBSONHandler
-    implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
+    import UserMarks.given
+    import Title.given
+    import Count.given
+    import Profile.given
+    import Perfs.given
+    import TotpSecret.given
 
     def reads(r: BSON.Reader): User = {
       val userTitle = r.getO[Title](title)
@@ -358,8 +357,8 @@ object User {
       )
   }
 
-  implicit val speakerHandler = reactivemongo.api.bson.Macros.handler[Speaker]
-  implicit val contactHandler = reactivemongo.api.bson.Macros.handler[Contact]
+  given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]
+  given BSONDocumentHandler[Contact] = Macros.handler[Contact]
 
   private val firstRow: List[PerfType] =
     List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical)

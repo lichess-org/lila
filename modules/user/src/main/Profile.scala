@@ -61,6 +61,6 @@ object Profile {
 
   val default = Profile()
 
-  import reactivemongo.api.bson.Macros
-  private[user] val profileBSONHandler = Macros.handler[Profile]
+  import reactivemongo.api.bson.*
+  private[user] given BSONDocumentHandler[Profile] = Macros.handler[Profile]
 }

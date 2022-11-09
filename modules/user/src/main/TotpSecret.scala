@@ -50,7 +50,7 @@ object TotpSecret {
 
   def random = TotpSecret(SecureRandom.nextBytes(20))
 
-  private[user] val totpSecretBSONHandler = lila.db.dsl.quickHandler[TotpSecret](
+  private[user] given BSONHandler[TotpSecret] = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )

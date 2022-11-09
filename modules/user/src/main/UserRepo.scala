@@ -7,20 +7,19 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress, ThreadLocalRandom }
-import lila.db.BSON.jodaDateTimeHandler
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.Glicko
 import lila.rating.{ Perf, PerfType }
 
 final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import User.{ userBSONHandler, BSONFields => F, ID }
-  import Title.titleBsonHandler
-  import UserMark.markBsonHandler
+  import User.{ BSONFields => F, ID, given }
+  import Title.given
+  import UserMark.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
-  val normalize = User normalize _
+  val normalize = User.normalize
 
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
@@ -34,10 +33,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         Left(LightUser.ghost).some
       }
 
-  def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
+  def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byStringIds[User](ids)
 
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] =
-    coll.byIds[User](ids, ReadPreference.secondaryPreferred)
+    coll.byStringIds[User](ids, ReadPreference.secondaryPreferred)
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(
@@ -53,13 +52,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.countSel($doc(F.prevEmail -> email, F.createdAt $gt since))
 
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
-    coll.byIds[User](List(x, y).flatten) map { users =>
+    coll.byStringIds[User](List(x, y).flatten) map { users =>
       x.??(xx => users.find(_.id == xx)) ->
         y.??(yy => users.find(_.id == yy))
     }
 
   def pair(x: ID, y: ID): Fu[Option[(User, User)]] =
-    coll.byIds[User](List(x, y)) map { users =>
+    coll.byStringIds[User](List(x, y)) map { users =>
       for {
         xx <- users.find(_.id == x)
         yy <- users.find(_.id == y)
@@ -102,13 +101,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def named(usernames: List[String]): Fu[List[User]] =
-    coll.byIds[User](usernames filter User.noGhost map normalize)
+    coll.byStringIds[User](usernames filter User.noGhost map normalize)
 
   def enabledNameds(usernames: List[String]): Fu[List[User]] =
     coll
       .find($inIds(usernames map normalize) ++ enabledSelect)
       .cursor[User](ReadPreference.secondaryPreferred)
-      .list()
+      .listAll()
 
   def enabledNamed(username: String): Fu[Option[User]] = enabledById(normalize(username))
 
@@ -130,7 +129,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPreference.secondaryPreferred)
 
   def botsByIds(ids: Iterable[ID]): Fu[List[User]] =
-    botsByIdsCursor(ids).list()
+    botsByIdsCursor(ids).listAll()
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -148,7 +147,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(s"${F.count}.game" -> true).some
       )
       .cursor[Bdoc]()
-      .list() map { docs =>
+      .listAll() map { docs =>
       docs
         .sortBy {
           _.child(F.count).flatMap(_.int("game"))
@@ -198,15 +197,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val kaladinId = "kaladin"
   def kaladin   = byId(kaladinId)
 
-  def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
-    val diff = PerfType.all flatMap { pt =>
-      perfs(pt).nb != prev(pt).nb option {
-        BSONElement(
-          s"${F.perfs}.${pt.key}",
-          Perf.perfBSONHandler.write(perfs(pt))
-        )
-      }
-    }
+  def setPerfs(user: User, perfs: Perfs, prev: Perfs)(using wr: BSONHandler[Perf]) = {
+    val diff = for {
+      pt <- PerfType.all
+      if perfs(pt).nb != prev(pt).nb
+      bson <- wr.writeOpt(perfs(pt))
+    } yield BSONElement(s"${F.perfs}.${pt.key}", bson)
     diff.nonEmpty ?? coll.update
       .one(
         $id(user.id),
@@ -216,17 +212,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   }
 
   def setManagedUserInitialPerfs(id: User.ID) =
-    coll.updateField($id(id), F.perfs, Perfs.perfsBSONHandler.write(Perfs.defaultManaged)).void
+    coll.updateField($id(id), F.perfs, Perfs.defaultManaged).void
 
   def setPerf(userId: String, pt: PerfType, perf: Perf) =
-    coll.update
-      .one(
-        $id(userId),
-        $set(
-          s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perf)
-        )
-      )
-      .void
+    coll.updateField($id(userId), s"${F.perfs}.${pt.key}", perf).void
 
   def addStormRun  = addStormLikeRun("storm") _
   def addRacerRun  = addStormLikeRun("racer") _
@@ -244,12 +233,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   }
 
   def setProfile(id: ID, profile: Profile): Funit =
-    coll.update
-      .one(
-        $id(id),
-        $set(F.profile -> Profile.profileBSONHandler.writeTry(profile).get)
-      )
-      .void
+    coll.updateField($id(id), F.profile, profile).void
 
   def setUsernameCased(id: ID, username: String): Funit = {
     if (id == username.toLowerCase) {
@@ -486,7 +470,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .one[Bdoc]
       .map { _ ?? anyEmailOrPrevious }
 
-  def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
+  def enabledWithEmail(
+      email: NormalizedEmailAddress
+  )(using r: BSONHandler[User]): Fu[Option[(User, EmailAddress)]] =
     coll
       .find($doc(F.email -> email, F.enabled -> true))
       .one[Bdoc]
@@ -494,7 +480,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         for {
           doc         <- maybeDoc
           storedEmail <- anyEmail(doc)
-        } yield (userBSONHandler read doc, storedEmail)
+          user        <- r readOpt doc
+        } yield (user, storedEmail)
       }
 
   def prevEmail(id: ID): Fu[Option[EmailAddress]] =
@@ -510,34 +497,36 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         }
       }
 
-  def withEmails(name: String): Fu[Option[User.WithEmails]] =
+  def withEmails(name: String)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
     coll.find($id(normalize(name))).one[Bdoc].map {
       _ ?? { doc =>
-        User
-          .WithEmails(
-            userBSONHandler read doc,
-            User.Emails(
-              current = anyEmail(doc),
-              previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
+        r readOpt doc map {
+          User
+            .WithEmails(
+              _,
+              User.Emails(
+                current = anyEmail(doc),
+                previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
+              )
             )
-          )
-          .some
+        }
       }
     }
 
-  def withEmails(names: List[String]): Fu[List[User.WithEmails]] =
+  def withEmails(names: List[String])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] =
     coll
       .list[Bdoc]($inIds(names map normalize), ReadPreference.secondaryPreferred)
-      .map {
-        _ map { doc =>
-          User.WithEmails(
-            userBSONHandler read doc,
-            User.Emails(
-              current = anyEmail(doc),
-              previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
-            )
+      .map { docs =>
+        for {
+          doc  <- docs
+          user <- r readOpt doc
+        } yield User.WithEmails(
+          user,
+          User.Emails(
+            current = anyEmail(doc),
+            previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
           )
-        }
+        )
       }
 
   def withEmailsU(users: List[User]): Fu[List[User.WithEmails]] = withEmails(users.map(_.id))
@@ -549,7 +538,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list()
+      .listAll()
       .map { docs =>
         docs.view
           .flatMap { doc =>
@@ -569,7 +558,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       coll.update
         .one(
           $id(user.id),
-          $set(F.title -> Title.BOT, F.perfs -> Perfs.perfsBSONHandler.write(Perfs.defaultBot))
+          $set(F.title -> Title.BOT, F.perfs -> Perfs.defaultBot)
         )
         .void
 
@@ -589,7 +578,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def hasTitle(id: ID): Fu[Boolean] = getTitle(id).dmap(_.exists(Title.BOT !=))
 
   def setPlan(user: User, plan: Plan): Funit = {
-    implicit val pbw: BSONWriter[Plan] = Plan.planBSONHandler
+    import Plan.given
     coll.updateField($id(user.id), User.BSONFields.plan, plan).void
   }
   def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
@@ -615,7 +604,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(s"${F.perfs}.${perfType.key}" -> true).some
       )
       .cursor[Bdoc]()
-      .list()
+      .listAll()
       .map {
         _.view
           .map { doc =>
@@ -674,13 +663,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     F.marks    -> true
   )
 
-  def speaker(id: User.ID): Fu[Option[User.Speaker]] = {
-    import User.speakerHandler
+  def speaker(id: User.ID): Fu[Option[User.Speaker]] =
     coll.one[User.Speaker]($id(id), speakerProjection)
-  }
 
-  def contacts(orig: User.ID, dest: User.ID): Fu[Option[User.Contacts]] = {
-    import User.contactHandler
+  def contacts(orig: User.ID, dest: User.ID): Fu[Option[User.Contacts]] =
     coll.byOrderedIds[User.Contact, User.ID](
       List(orig, dest),
       $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true).some
@@ -688,7 +674,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       case List(o, d) => User.Contacts(o, d).some
       case _          => none
     }
-  }
 
   def isErased(user: User): Fu[User.Erased] =
     user.disabled ?? {
@@ -716,9 +701,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       mustConfirmEmail: Boolean,
       lang: Option[String]
   ) = {
-
-    implicit def countHandler = Count.countBSONHandler
-    import lila.db.BSON.jodaDateTimeHandler
+    import Count.given
+    import Authenticator.given
 
     val normalizedEmail = email.normalize
     $doc(

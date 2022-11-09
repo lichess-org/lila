@@ -4,9 +4,9 @@ case class Title(value: String) extends AnyVal with StringValue
 
 object Title {
 
-  implicit val titleIso         = lila.common.Iso.string[Title](Title.apply, _.value)
-  implicit val titleBsonHandler = lila.db.dsl.stringIsoHandler(Title.titleIso)
-  implicit val titleJsonWrites  = lila.common.Json.stringIsoWriter(Title.titleIso)
+  given lila.common.Iso[String, Title]            = lila.common.Iso.string[Title](Title.apply, _.value)
+  given reactivemongo.api.bson.BSONHandler[Title] = lila.db.dsl.stringIsoHandler
+  given play.api.libs.json.Writes[Title]          = lila.common.Json.stringIsoWriter
 
   val LM  = Title("LM")
   val BOT = Title("BOT")

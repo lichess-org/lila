@@ -14,7 +14,7 @@ final class LightUserApi(
     cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import LightUserApi._
+  import LightUserApi.{ *, given }
 
   val async = new LightUser.Getter(id =>
     if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id)
@@ -32,10 +32,10 @@ final class LightUserApi(
 
   val isBotSync = new LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
-  def invalidate = cache invalidate _
+  def invalidate = cache.invalidate
 
-  def preloadOne                     = cache preloadOne _
-  def preloadMany                    = cache preloadMany _
+  def preloadOne                     = cache.preloadOne
+  def preloadMany                    = cache.preloadMany
   def preloadUser(user: User)        = cache.set(user.id, user.light.some)
   def preloadUsers(users: Seq[User]) = users.foreach(preloadUser)
 
@@ -56,7 +56,7 @@ final class LightUserApi(
 
 private object LightUserApi {
 
-  implicit val lightUserBSONReader = new BSONDocumentReader[LightUser] {
+  given BSONDocumentReader[LightUser] = new BSONDocumentReader[LightUser] {
 
     def readDocument(doc: BSONDocument) = for {
       id   <- doc.getAsTry[String](F.id)

@@ -4,14 +4,14 @@ import com.roundeights.hasher.Implicits._
 import reactivemongo.api.bson._
 
 import lila.common.NormalizedEmailAddress
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User.{ BSONFields => F, ClearPassword, PasswordAndToken }
 
 final class Authenticator(
     passHasher: PasswordHasher,
     userRepo: UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
-  import Authenticator._
+  import Authenticator.{ *, given }
 
   def passEnc(p: ClearPassword): HashedPassword = passHasher.hash(p)
 
@@ -57,7 +57,7 @@ final class Authenticator(
   }
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] = {
-    userRepo.coll.one[AuthData](select, authProjection)(AuthDataBSONHandler) zip
+    userRepo.coll.one[AuthData](select, authProjection) zip
       userRepo.coll.one[User](select) map {
         case (Some(authData), Some(user)) => User.LoginCandidate(user, authWithBenefits(authData)).some
         case _                            => none
@@ -86,10 +86,10 @@ object Authenticator {
     F.sha512 -> true
   )
 
-  implicit private[user] val HashedPasswordBsonHandler = quickHandler[HashedPassword](
+  private[user] given BSONHandler[HashedPassword] = quickHandler[HashedPassword](
     { case v: BSONBinary => HashedPassword(v.byteArray) },
     v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
   )
 
-  implicit val AuthDataBSONHandler = Macros.handler[AuthData]
+  given BSONDocumentHandler[AuthData] = Macros.handler[AuthData]
 }

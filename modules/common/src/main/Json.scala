@@ -14,10 +14,10 @@ object Json:
   def intAnyValWriter[O](f: O => Int): Writes[O]       = anyValWriter[O, Int](f)
   def stringAnyValWriter[O](f: O => String): Writes[O] = anyValWriter[O, String](f)
 
-  def stringIsoWriter[O](iso: Iso[String, O]): Writes[O] = anyValWriter[O, String](iso.to)
-  def intIsoWriter[O](iso: Iso[Int, O]): Writes[O]       = anyValWriter[O, Int](iso.to)
+  def stringIsoWriter[O](using iso: Iso[String, O]): Writes[O] = anyValWriter[O, String](iso.to)
+  def intIsoWriter[O](using iso: Iso[Int, O]): Writes[O]       = anyValWriter[O, Int](iso.to)
 
-  def stringIsoReader[O](iso: Iso[String, O]): Reads[O] = Reads.of[String] map iso.from
+  def stringIsoReader[O](using iso: Iso[String, O]): Reads[O] = Reads.of[String] map iso.from
 
   def intIsoFormat[O](using iso: Iso[Int, O]): Format[O] =
     Format[O](
