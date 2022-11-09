@@ -3,7 +3,7 @@ package lila.memo
 import akka.actor.{ Cancellable, Scheduler }
 import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration.FiniteDuration
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 // calls a function when a key expires
 final class ExpireCallbackMemo(
@@ -11,7 +11,7 @@ final class ExpireCallbackMemo(
     ttl: FiniteDuration,
     callback: String => Unit,
     initialCapacity: Int = 4096
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
   private val timeouts = new ConcurrentHashMap[String, Cancellable](initialCapacity)
 
@@ -36,4 +36,3 @@ final class ExpireCallbackMemo(
   def count = timeouts.size
 
   def keySet: Set[String] = timeouts.keySet.asScala.toSet
-}

@@ -20,12 +20,12 @@ trait Handlers:
     v => BSONDateTime(v.getMillis)
   )
 
-  given isoHandler[A, B](using iso: Iso[B, A], handler: BSONHandler[B]): BSONHandler[A] =
+  given isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
     new BSONHandler[A]:
       def readTry(x: BSONValue) = handler.readTry(x) map iso.from
       def writeTry(x: A)        = handler writeTry iso.to(x)
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
-    isoHandler(using Iso(from, to), handler)
+    isoHandler(using Iso(from, to))(using handler)
 
   def stringIsoHandler[A](implicit iso: StringIso[A]): BSONHandler[A] =
     BSONStringHandler.as[A](iso.from, iso.to)

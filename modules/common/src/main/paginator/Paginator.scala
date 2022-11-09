@@ -110,7 +110,7 @@ object Paginator:
     else
       Validated.valid(for {
         nbResults <- adapter.nbResults
-        safePage = currentPage atMost Math.ceil(nbResults.toDouble / maxPerPage.value).toInt atLeast 1
+        safePage = currentPage.squeeze(1, Math.ceil(nbResults.toDouble / maxPerPage.value).toInt)
         // would rather let upstream code know the value they passed in was bad.
         // unfortunately can't do that without completing nbResults, so ig it's on them to check after
         results <- adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value)

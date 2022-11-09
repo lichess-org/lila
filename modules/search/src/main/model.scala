@@ -12,20 +12,17 @@ case class Size(value: Int)           extends AnyVal
 
 case class SearchResponse(ids: List[String]) extends AnyVal
 
-object SearchResponse {
+object SearchResponse:
   def apply(txt: String): SearchResponse                = SearchResponse(txt.split(',').toList)
   implicit val SearchResponseZero: Zero[SearchResponse] = Zero(SearchResponse(Nil))
-}
 
 case class CountResponse(count: Int) extends AnyVal
 
-object CountResponse {
+object CountResponse:
   def apply(txt: String): CountResponse               = CountResponse(~txt.toIntOption)
   implicit val CountResponseZero: Zero[CountResponse] = Zero(CountResponse(0))
-}
 
-object Date {
+object Date:
   import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
   val format                       = "yyyy-MM-dd HH:mm:ss"
   val formatter: DateTimeFormatter = DateTimeFormat forPattern format
-}

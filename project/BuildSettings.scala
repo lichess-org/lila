@@ -53,6 +53,7 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
+    "-nowarn", // during migration
     "-rewrite",
     "-source:future-migration",
     "-indent",

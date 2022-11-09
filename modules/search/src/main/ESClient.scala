@@ -1,11 +1,11 @@
 package lila.search
 
-import play.api.libs.json._
-import play.api.libs.ws._
-import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.json.*
+import play.api.libs.ws.*
+import play.api.libs.ws.JsonBodyWritables.*
 import scala.annotation.nowarn
 
-sealed trait ESClient {
+sealed trait ESClient:
 
   def search[Q: Writes](query: Q, from: From, size: Size): Fu[SearchResponse]
 
@@ -18,14 +18,13 @@ sealed trait ESClient {
   def deleteByIds(ids: List[Id]): Funit
 
   def refresh: Funit
-}
 
 final class ESClientHttp(
     ws: StandaloneWSClient,
     config: SearchConfig,
     val index: Index
 )(implicit ec: scala.concurrent.ExecutionContext)
-    extends ESClient {
+    extends ESClient:
 
   def store(id: Id, doc: JsObject) =
     config.writeable ?? monitor("store") {
@@ -76,9 +75,8 @@ final class ESClientHttp(
 
   private def monitor[A](op: String)(f: Fu[A]) =
     f.monTry(res => _.search.time(op, index.name, res.isSuccess))
-}
 
-final class ESClientStub extends ESClient {
+final class ESClientStub extends ESClient:
   def search[Q: Writes](query: Q, from: From, size: Size) = fuccess(SearchResponse(Nil))
   def count[Q: Writes](query: Q)                          = fuccess(CountResponse(0))
   def store(id: Id, doc: JsObject)                        = funit
@@ -88,4 +86,3 @@ final class ESClientStub extends ESClient {
   def deleteByIds(ids: List[Id])           = funit
   def putMapping                           = funit
   def refresh                              = funit
-}

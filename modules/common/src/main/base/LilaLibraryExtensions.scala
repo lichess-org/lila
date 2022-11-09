@@ -4,6 +4,7 @@ import alleycats.Zero
 import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
+import java.lang.Math.{ max, min }
 import org.joda.time.{ DateTime, Duration }
 import scala.concurrent.duration.*
 import scala.concurrent.Future
@@ -14,6 +15,34 @@ import cats.data.NonEmptyList
 import java.util.Base64
 
 trait LilaLibraryExtensions extends LilaTypes:
+
+  extension [A](self: A)
+    def unit: Unit          = ()
+    def ap[B](f: A => B): B = f(self)
+
+  extension (self: Long)
+    def atLeast(bottomValue: Long): Long       = max(self, bottomValue)
+    def atMost(topValue: Long): Long           = min(self, topValue)
+    def squeeze(bottom: Long, top: Long): Long = max(min(self, top), bottom)
+    def toSaturatedInt: Int =
+      if (self.toInt == self) self.toInt
+      else if (self > 0) Integer.MAX_VALUE
+      else Integer.MIN_VALUE
+
+  extension (self: Int)
+    def atLeast(bottomValue: Int): Int      = max(self, bottomValue)
+    def atMost(topValue: Int): Int          = min(self, topValue)
+    def squeeze(bottom: Int, top: Int): Int = max(min(self, top), bottom)
+
+  extension (self: Float)
+    def atLeast(bottomValue: Float): Float        = max(self, bottomValue)
+    def atMost(topValue: Float): Float            = min(self, topValue)
+    def squeeze(bottom: Float, top: Float): Float = max(min(self, top), bottom)
+
+  extension (self: Double)
+    def atLeast(bottomValue: Double): Double         = max(self, bottomValue)
+    def atMost(topValue: Double): Double             = min(self, topValue)
+    def squeeze(bottom: Double, top: Double): Double = max(min(self, top), bottom)
 
   extension [A](self: Option[A])
 
@@ -49,11 +78,11 @@ trait LilaLibraryExtensions extends LilaTypes:
     def duration(name: String): FiniteDuration = millis(name).millis
 
   extension (date: DateTime)
-    def getSeconds: Long         = date.getMillis / 1000
-    def getCentis: Long          = date.getMillis / 10
-    def toNow                    = new Duration(date, DateTime.now)
-    def atMost(other: DateTime)  = if (other isBefore date) other else date
-    def atLeast(other: DateTime) = if (other isAfter date) other else date
+    def getSeconds: Long                   = date.getMillis / 1000
+    def getCentis: Long                    = date.getMillis / 10
+    def toNow                              = new Duration(date, DateTime.now)
+    def atMost(other: DateTime): DateTime  = if (other isBefore date) other else date
+    def atLeast(other: DateTime): DateTime = if (other isAfter date) other else date
 
   extension [A](v: Try[A])
 

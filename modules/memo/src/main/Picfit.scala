@@ -5,13 +5,14 @@ import akka.util.ByteString
 import com.github.blemale.scaffeine.LoadingCache
 import org.joda.time.DateTime
 import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
-import reactivemongo.api.bson.Macros
-import scala.concurrent.duration._
+import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.config
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 case class PicfitImage(
     _id: PicfitImage.Id,
@@ -22,24 +23,24 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: DateTime
-) {
+):
 
   def id = _id
-}
 
-object PicfitImage {
+object PicfitImage:
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  implicit val imageIdBSONHandler = stringAnyValHandler[PicfitImage.Id](_.value, PicfitImage.Id.apply)
-  implicit val imageBSONHandler   = Macros.handler[PicfitImage]
-}
+  given BSONHandler[PicfitImage.Id] =
+    stringAnyValHandler[PicfitImage.Id](_.value, PicfitImage.Id.apply)
+  given BSONDocumentHandler[PicfitImage] = Macros.handler[PicfitImage]
 
-final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(implicit
+final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
     ec: ExecutionContext
-) {
+):
 
-  import PicfitApi._
+  import PicfitApi.*
+  import PicfitImage.*
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
   def uploadFile(rel: String, uploaded: FilePart, userId: String): Fu[PicfitImage] =
@@ -52,7 +53,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       part.contentType collect {
         case "image/png"  => "png"
         case "image/jpeg" => "jpg"
-      } match {
+      } match
         case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
         case Some(extension) => {
           val image = PicfitImage(
@@ -67,7 +68,6 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
             deleteByRel(image.rel) >>
             coll.insert.one(image) inject image
         }
-      }
 
   def deleteByRel(rel: String): Funit =
     coll
@@ -75,16 +75,16 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .flatMap { _.result[PicfitImage] ?? picfitServer.delete }
       .void
 
-  private object picfitServer {
-
-    import WSBodyWritables._
+  private object picfitServer:
 
     def store(image: PicfitImage, part: SourcePart): Funit =
       ws
         .url(s"${config.endpointPost}/upload")
-        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: List()))
+        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: List()))(using
+          WSBodyWritables.bodyWritable
+        )
         .flatMap {
-          case res if res.status != 200 => fufail(s"${res.statusText} ${res.body take 200}")
+          case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String] take 200}")
           case _ =>
             lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
@@ -96,36 +96,30 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         case res if res.status != 200 =>
           logger
             .branch("picfit")
-            .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body take 200}")
+            .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String] take 200}")
           funit
         case _ => funit
       }
-  }
-}
 
-object PicfitApi {
+object PicfitApi:
 
   val uploadMaxMb = 4
 
   type FilePart   = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
-  type ByteSource = Source[ByteString, _]
+  type ByteSource = Source[ByteString, ?]
   type SourcePart = MultipartFormData.FilePart[ByteSource]
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
-  object WSBodyWritables {
+  object WSBodyWritables:
     import play.api.libs.ws.BodyWritable
     import play.api.libs.ws.SourceBody
     import play.core.formatters.Multipart
-    implicit val bodyWritableOf_Multipart
-        : BodyWritable[Source[MultipartFormData.Part[Source[ByteString, _]], _]] = {
+    given bodyWritable: BodyWritable[Source[MultipartFormData.Part[Source[ByteString, ?]], ?]] =
       val boundary    = Multipart.randomBoundary()
       val contentType = s"multipart/form-data; boundary=$boundary"
       BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
-    }
-  }
-}
 
-final class PicfitUrl(config: PicfitConfig) {
+final class PicfitUrl(config: PicfitConfig):
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
@@ -149,13 +143,12 @@ final class PicfitUrl(config: PicfitConfig) {
   private def display(id: PicfitImage.Id, operation: String)(
       width: Int,
       height: Int
-  ) = {
+  ) =
     // parameters must be given in alphabetical order for the signature to work (!)
     val queryString = s"h=$height&op=$operation&path=$id&w=$width"
     s"${config.endpointGet}/display?${signQueryString(queryString)}"
-  }
 
-  private object signQueryString {
+  private object signQueryString:
     private val signer = com.roundeights.hasher.Algo hmac config.secretKey.value
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
@@ -163,5 +156,3 @@ final class PicfitUrl(config: PicfitConfig) {
         .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
 
     def apply(qs: String) = s"$qs&sig=${cache get qs}"
-  }
-}

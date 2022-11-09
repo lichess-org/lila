@@ -10,9 +10,9 @@ import lila.tree.Eval._
 
 object JsonHandlers {
 
-  implicit private val cpWriter     = intAnyValWriter[Cp](_.value)
-  implicit private val mateWriter   = intAnyValWriter[Mate](_.value)
-  implicit private val knodesWriter = intAnyValWriter[Knodes](_.value)
+  private given Writes[Cp]     = intAnyValWriter[Cp](_.value)
+  private given Writes[Mate]   = intAnyValWriter[Mate](_.value)
+  private given Writes[Knodes] = intAnyValWriter[Knodes](_.value)
 
   def writeEval(e: Eval, fen: FEN) =
     Json.obj(

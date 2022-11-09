@@ -15,7 +15,6 @@ trait Lilaisms
     with cats.syntax.ListSyntax
     with ornicar.scalalib.Zeros
     with ornicar.scalalib.ScalalibExtensions
-    with LilaPrimitiveExtensions
     with LilaLibraryExtensions
     with LilaFutureExtensions
     with LilaJsObjectExtensions:
