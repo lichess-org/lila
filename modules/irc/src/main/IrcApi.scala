@@ -75,7 +75,7 @@ final class IrcApi(
 
   def usertableCheck(user: User, mod: Holder): Funit =
     zulip(_.mod.cafeteria, "reports")(
-      s"**${markdown.userLink(user.username)}** usertable check (requested by ${markdown.userLink(mod.user.username)})"
+      s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.user.username)})"
     )
 
   def userModNote(modName: String, username: String, note: String): Funit =
@@ -249,6 +249,7 @@ object IrcApi {
     def lichessLink(path: String, name: String) = s"[$name](https://lichess.org$path)"
     def userLink(name: String): String          = lichessLink(s"/@/$name?mod&notes", name)
     def userLink(user: User): String            = userLink(user.username)
+    def userLinkNoNotes(name: String): String   = lichessLink(s"/@/$name?mod", name)
     def modLink(name: String): String           = lichessLink(s"/@/$name", name)
     def modLink(user: User): String             = modLink(user.username)
     def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
