@@ -1,10 +1,10 @@
 package lila.msg
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.team.IsLeaderOf
@@ -25,12 +25,12 @@ final private class MsgSecurity(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  import BsonHandlers._
-  import MsgSecurity._
+  import BsonHandlers.given
+  import MsgSecurity.*
 
-  private object limitCost {
+  private object limitCost:
     val normal   = 25
     val verified = 5
     val hog      = 1
@@ -40,7 +40,6 @@ final private class MsgSecurity(
       else if (u isDaysOld 3) normal
       else if (u isHoursOld 12) normal * 2
       else normal * 4
-  }
 
   private val CreateLimitPerUser = new RateLimit[User.ID](
     credits = 20 * limitCost.normal,
@@ -56,14 +55,14 @@ final private class MsgSecurity(
 
   private val dirtSpamDedup = lila.memo.OnceEvery.hashCode[String](1 minute)
 
-  object can {
+  object can:
 
     def post(
         contacts: User.Contacts,
         rawText: String,
         isNew: Boolean,
         unlimited: Boolean = false
-    ): Fu[Verdict] = {
+    ): Fu[Verdict] =
       val text = rawText.trim
       if (text.isEmpty) fuccess(Invalid)
       else if (contacts.orig.isLichess && !contacts.dest.isLichess) fuccess(Ok)
@@ -97,7 +96,6 @@ final private class MsgSecurity(
 
           case _ =>
         }
-    }
 
     private def isLimited(contacts: User.Contacts, isNew: Boolean, unlimited: Boolean): Fu[Option[Verdict]] =
       if (unlimited) fuccess(none)
@@ -126,9 +124,8 @@ final private class MsgSecurity(
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??
         !userRepo.isCreatedSince(user.id, DateTime.now.minusDays(30)) dmap { _ option Dirt }
-  }
 
-  object may {
+  object may:
 
     def post(orig: User.ID, dest: User.ID, isNew: Boolean): Fu[Boolean] =
       userRepo.contacts(orig, dest) flatMap {
@@ -165,13 +162,11 @@ final private class MsgSecurity(
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       if (!isNew || !contacts.hasKid) fuTrue
       else
-        (contacts.orig.clasId, contacts.dest.clasId) match {
+        (contacts.orig.clasId, contacts.dest.clasId) match
           case (a: KidId, b: KidId)    => Bus.ask[Boolean]("clas") { AreKidsInSameClass(a, b, _) }
           case (t: NonKidId, s: KidId) => isTeacherOf(t.id, s.id)
           case (s: KidId, t: NonKidId) => isTeacherOf(t.id, s.id)
           case _                       => fuFalse
-        }
-  }
 
   private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
     isTeacherOf(contacts.orig.id, contacts.dest.id)
@@ -181,9 +176,8 @@ final private class MsgSecurity(
 
   private def isLeaderOf(contacts: User.Contacts) =
     Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }
-}
 
-private object MsgSecurity {
+private object MsgSecurity:
 
   sealed trait Verdict
   sealed trait Reject                           extends Verdict
@@ -199,4 +193,3 @@ private object MsgSecurity {
   case object Limit           extends Reject
   case object Invalid         extends Reject
   case object BotUser         extends Reject
-}

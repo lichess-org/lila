@@ -1,6 +1,5 @@
 package lila
 
-package object msg extends PackageObject {
+package object msg extends PackageObject:
 
   private[msg] val logger = lila.log("msg")
-}

@@ -1,10 +1,10 @@
 package lila.msg
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.common.LightUser
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.common.Bus
 import lila.hub.actorApi.clas.ClasMatesAndTeachers
@@ -15,9 +15,9 @@ final class MsgSearch(
     userCache: lila.user.Cached,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def apply(me: User, q: String): Fu[MsgSearch.Result] =
     if (me.kid) forKid(me, q)
@@ -68,13 +68,11 @@ final class MsgSearch(
 
   private def searchUsers(me: User, q: String): Fu[List[LightUser]] =
     userCache.userIdsLike(q) flatMap lightUserApi.asyncMany dmap (_.flatten)
-}
 
-object MsgSearch {
+object MsgSearch:
 
   case class Result(
       threads: List[MsgThread],
       friends: List[LightUser],
       users: List[LightUser]
   )
-}

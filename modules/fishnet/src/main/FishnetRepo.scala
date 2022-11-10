@@ -1,19 +1,19 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 
 final private class FishnetRepo(
     analysisColl: Coll,
     clientColl: Coll,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   private val clientCache = cacheApi[Client.Key, Option[Client]](32, "fishnet.client") {
     _.expireAfterWrite(10 minutes)
@@ -47,12 +47,12 @@ final private class FishnetRepo(
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
   def updateOrGiveUpAnalysis(ana: Work.Analysis, update: Work.Analysis => Work.Analysis) =
-    if (ana.isOutOfTries) {
+    if (ana.isOutOfTries)
       logger.warn(s"Give up on analysis $ana")
       deleteAnalysis(ana)
-    } else updateAnalysis(update(ana))
+    else updateAnalysis(update(ana))
 
-  object status {
+  object status:
     private def system(v: Boolean)   = $doc("sender.system" -> v)
     private def acquired(v: Boolean) = $doc("acquired" $exists v)
     private def oldestSeconds(system: Boolean): Fu[Int] =
@@ -78,7 +78,6 @@ final private class FishnetRepo(
         user = Monitor.StatusFor(acquired = userAcquired, queued = userQueued, oldest = userOldest),
         system = Monitor.StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest)
       )
-  }
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.one[Work.Analysis]($doc("game.id" -> work.game.id))
@@ -94,4 +93,3 @@ final private class FishnetRepo(
       ),
       "_id"
     ) orFail "client not found" map Client.Key.apply
-}

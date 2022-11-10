@@ -2,7 +2,7 @@ package lila.fishnet
 
 import chess.format.Uci
 import chess.{ Black, Clock, White }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Future, ThreadLocalRandom }
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -18,7 +18,7 @@ final class FishnetPlayer(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
@@ -82,4 +82,3 @@ final class FishnetPlayer(
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")
-}

@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
@@ -16,7 +16,7 @@ final class Analyser(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   val maxPlies = 300
 
@@ -67,7 +67,7 @@ final class Analyser(
     analysisRepo exists req.chapterId flatMap {
       case true => fuccess(Analyser.Result.NoChapter)
       case _ =>
-        import req._
+        import req.*
         val sender = Work.Sender(req.userId, none, mod = false, system = false)
         (if (req.unlimited) fuccess(Analyser.Result.Ok)
          else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)) flatMap { result =>
@@ -127,14 +127,12 @@ final class Analyser(
       skipPositions = Nil,
       createdAt = DateTime.now
     )
-}
 
-object Analyser {
+object Analyser:
 
-  sealed abstract class Result(val error: Option[String]) {
+  sealed abstract class Result(val error: Option[String]):
     def ok = error.isEmpty
-  }
-  object Result {
+  object Result:
     case object Ok                 extends Result(none)
     case object NoGame             extends Result("Game not found".some)
     case object NoChapter          extends Result("Chapter not found".some)
@@ -144,5 +142,3 @@ object Analyser {
     case object WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
     case object DailyLimit         extends Result("You have reached the daily analysis limit".some)
     case object DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)
-  }
-}

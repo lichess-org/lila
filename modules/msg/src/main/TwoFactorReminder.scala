@@ -1,6 +1,6 @@
 package lila.msg
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.memo.MongoCache
@@ -8,7 +8,7 @@ import lila.user.{ User, UserRepo }
 
 final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: MsgApi)(implicit
     ec: ExecutionContext
-) {
+):
 
   def apply(userId: User.ID) = cache get userId
 
@@ -23,4 +23,3 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, ap
           }
         }
   }
-}

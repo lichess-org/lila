@@ -1,13 +1,13 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 import scala.util.{ Failure, Success, Try }
 
 import Client.Skill
 import lila.common.IpAddress
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final class FishnetApi(
     repo: FishnetRepo,
@@ -21,11 +21,11 @@ final class FishnetApi(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  import FishnetApi._
+  import FishnetApi.*
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
-  import BSONHandlers._
+  import BSONHandlers.given
 
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, name = "fishnetApi")
@@ -72,7 +72,7 @@ final class FishnetApi(
         .one[Work.Analysis]
         .flatMap {
           _ ?? { work =>
-            repo.updateAnalysis(work assignTo client) inject work.some
+            repo.updateAnalysis(work assignTo client) inject work.some: Fu[Option[Work.Analysis]]
           }
         }
     }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
@@ -110,7 +110,7 @@ final class FishnetApi(
                   }
                 case false => fuccess(PostAnalysisResult.UnusedPartial)
               }
-          }
+          }: Fu[PostAnalysisResult]
         case Some(work) =>
           Monitor.notAcquired(work, client)
           fufail(NotAcquired)
@@ -163,7 +163,7 @@ final class FishnetApi(
       )
     }
 
-  private[fishnet] def createClient(userId: Client.UserId): Fu[Client] = {
+  private[fishnet] def createClient(userId: Client.UserId): Fu[Client] =
     val client = Client(
       _id = Client.makeKey,
       userId = userId,
@@ -173,10 +173,8 @@ final class FishnetApi(
       createdAt = DateTime.now
     )
     repo addClient client inject client
-  }
-}
 
-object FishnetApi {
+object FishnetApi:
 
   import lila.base.LilaException
 
@@ -185,22 +183,17 @@ object FishnetApi {
       analysisNodes: Int
   )
 
-  case object WorkNotFound extends LilaException {
+  case object WorkNotFound extends LilaException:
     val message = "The work has disappeared"
-  }
 
-  case object GameNotFound extends LilaException {
+  case object GameNotFound extends LilaException:
     val message = "The game has disappeared"
-  }
 
-  case object NotAcquired extends LilaException {
+  case object NotAcquired extends LilaException:
     val message = "The work was distributed to someone else"
-  }
 
   sealed trait PostAnalysisResult
-  object PostAnalysisResult {
+  object PostAnalysisResult:
     case class Complete(analysis: lila.analyse.Analysis) extends PostAnalysisResult
     case class Partial(analysis: lila.analyse.Analysis)  extends PostAnalysisResult
     case object UnusedPartial                            extends PostAnalysisResult
-  }
-}

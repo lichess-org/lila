@@ -1,15 +1,15 @@
 package lila.fishnet
 
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import io.lettuce.core._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import io.lettuce.core.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
 import lila.game.Game
 
 @Module
@@ -43,8 +43,9 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler
-) {
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 
@@ -89,10 +90,9 @@ final class Env(
 
   private lazy val openingBook: FishnetOpeningBook = wire[FishnetOpeningBook]
 
-  lazy val player = {
+  lazy val player =
     def mk = (plies: Int) => wire[FishnetPlayer]
     mk(config.movePlies)
-  }
 
   private val limiter = wire[FishnetLimiter]
 
@@ -121,8 +121,8 @@ final class Env(
     repo toKey username flatMap { repo.enableClient(_, v = false) }
 
   def cli =
-    new lila.common.Cli {
-      def process = {
+    new lila.common.Cli:
+      def process =
         case "fishnet" :: "client" :: "create" :: name :: Nil =>
           val userId = lila.user.User normalize name
           userRepo.enabledById(userId).map(_.exists(_.marks.clean)) flatMap {
@@ -138,12 +138,9 @@ final class Env(
         case "fishnet" :: "client" :: "enable" :: key :: Nil =>
           repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
         case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
-      }
-    }
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId).unit
     case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId).unit
     case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId).unit
   }
-}

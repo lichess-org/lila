@@ -6,7 +6,7 @@ import chess.format.{ FEN, Uci }
 import chess.variant.Variant
 import lila.common.IpAddress
 
-sealed trait Work {
+sealed trait Work:
   def _id: Work.Id
   def game: Work.Game
   def tries: Int
@@ -26,9 +26,8 @@ sealed trait Work {
   def canAcquire(client: Client)   = lastTryByKey.fold(true)(client.key !=)
 
   def acquiredBefore(date: DateTime) = acquiredAt.??(_ isBefore date)
-}
 
-object Work {
+object Work:
 
   case class Id(value: String) extends AnyVal with StringValue
 
@@ -36,12 +35,11 @@ object Work {
       clientKey: Client.Key,
       userId: Client.UserId,
       date: DateTime
-  ) {
+  ):
 
     def ageInMillis = nowMillis - date.getMillis
 
     override def toString = s"by $userId at $date"
-  }
 
   private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
@@ -49,22 +47,20 @@ object Work {
       studyId: Option[String],
       variant: Variant,
       moves: String
-  ) {
+  ):
 
     def uciList: List[Uci] = ~(Uci readList moves)
-  }
 
   case class Sender(
       userId: lila.user.User.ID,
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
-  ) {
+  ):
 
     override def toString =
       if (system) lila.user.User.lichessId
       else userId
-  }
 
   case class Clock(wtime: Int, btime: Int, inc: Int)
 
@@ -85,7 +81,7 @@ object Work {
       acquired: Option[Acquired],
       skipPositions: List[Int],
       createdAt: DateTime
-  ) extends Work {
+  ) extends Work:
 
     def skill = Client.Skill.Analysis
 
@@ -111,7 +107,5 @@ object Work {
 
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
-  }
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
-}

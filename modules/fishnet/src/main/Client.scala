@@ -13,7 +13,7 @@ case class Client(
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
     createdAt: DateTime
-) {
+):
 
   def key = _id
 
@@ -31,9 +31,8 @@ case class Client(
   def disabled = !enabled
 
   override def toString = s"$key by $userId"
-}
 
-object Client {
+object Client:
 
   val offline = Client(
     _id = Key("offline"),
@@ -53,7 +52,7 @@ object Client {
       version: Version,
       ip: IpAddress,
       seenAt: DateTime
-  ) {
+  ):
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some
@@ -62,30 +61,26 @@ object Client {
       else none
 
     def seenRecently = seenAt isAfter Instance.recentSince
-  }
 
-  object Instance {
+  object Instance:
 
     def recentSince = DateTime.now.minusMinutes(15)
-  }
 
-  sealed trait Skill {
-    def key = toString.toLowerCase
-  }
-  object Skill {
+  sealed trait Skill:
+    def key = this.toString.toLowerCase
+  object Skill:
     case object Move     extends Skill
     case object Analysis extends Skill
     case object All      extends Skill
     val all                = List(Move, Analysis, All)
     def byKey(key: String) = all.find(_.key == key)
-  }
 
-  final class ClientVersion(minVersionString: String) {
+  final class ClientVersion(minVersionString: String):
 
     val minVersion = SemVer(minVersionString)
 
     def accept(v: Client.Version): Try[Unit] =
-      Try(SemVer(v.value)) match {
+      Try(SemVer(v.value)) match
         case Success(version) if version >= minVersion => Success(())
         case Success(_) =>
           Failure(
@@ -94,8 +89,5 @@ object Client {
             )
           )
         case Failure(error) => Failure(error)
-      }
-  }
 
   def makeKey = Key(SecureRandom.nextString(8))
-}
