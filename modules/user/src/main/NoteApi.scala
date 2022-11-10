@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
 
 case class Note(
@@ -11,10 +11,9 @@ case class Note(
     mod: Boolean,
     dox: Boolean,
     date: DateTime
-) {
+):
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id == from
-}
 
 final class NoteApi(
     userRepo: UserRepo,
@@ -22,11 +21,10 @@ final class NoteApi(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     ws: play.api.libs.ws.StandaloneWSClient
-) {
+):
 
-  import reactivemongo.api.bson._
-  import lila.db.BSON.jodaDateTimeHandler
-  implicit private val noteBSONHandler = Macros.handler[Note]
+  import reactivemongo.api.bson.*
+  private given BSONDocumentHandler[Note] = Macros.handler[Note]
 
   def get(user: User, me: User, isMod: Boolean): Fu[List[Note]] =
     coll
@@ -97,4 +95,3 @@ final class NoteApi(
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 
   def delete(id: String) = coll.delete.one($id(id))
-}

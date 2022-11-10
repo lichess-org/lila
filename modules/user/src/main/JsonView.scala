@@ -1,13 +1,13 @@
 package lila.user
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import User.{ LightPerf, PlayTime }
 
 import lila.common.Json.given
 import lila.common.LightUser
 import lila.rating.{ Perf, PerfType }
 
-final class JsonView(isOnline: lila.socket.IsOnline) {
+final class JsonView(isOnline: lila.socket.IsOnline):
 
   import JsonView.{ *, given }
   private given OWrites[Profile]  = Json.writes
@@ -57,9 +57,8 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
     "disabled" -> true
   )
   def ghost = disabled(LightUser.ghost)
-}
 
-object JsonView {
+object JsonView:
 
   import Title.given
 
@@ -172,4 +171,3 @@ object JsonView {
         "racingKings"   -> leaderboards.racingKings
       )
     }
-}

@@ -1,14 +1,14 @@
 package lila.user
 
-import play.api.data._
+import play.api.data.*
 import play.api.data.validation.Constraints
-import play.api.data.Forms._
+import play.api.data.Forms.*
 
 import User.ClearPassword
 import lila.common.LameName
 import lila.common.Form.{ cleanNonEmptyText, cleanText }
 
-final class UserForm(authenticator: Authenticator) {
+final class UserForm(authenticator: Authenticator):
 
   def username(user: User): Form[String] =
     Form(
@@ -41,7 +41,7 @@ final class UserForm(authenticator: Authenticator) {
       "cfcRating"  -> optional(number(min = 0, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
       "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
-    )(Profile.apply)(Profile.unapply)
+    )(Profile.apply)(unapply)
   )
 
   def profileOf(user: User) = profile fill user.profileOrDefault
@@ -52,9 +52,8 @@ final class UserForm(authenticator: Authenticator) {
       oldPasswd: String,
       newPasswd1: String,
       newPasswd2: String
-  ) {
+  ):
     def samePasswords = newPasswd1 == newPasswd2
-  }
 
   def passwd(u: User)(implicit ec: scala.concurrent.ExecutionContext) =
     authenticator loginCandidate u map { candidate =>
@@ -63,19 +62,19 @@ final class UserForm(authenticator: Authenticator) {
           "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
           "newPasswd1" -> text(minLength = 2),
           "newPasswd2" -> text(minLength = 2)
-        )(Passwd.apply)(Passwd.unapply).verifying("newPasswordsDontMatch", _.samePasswords)
+        )(Passwd.apply)(unapply)
+          .verifying("newPasswordsDontMatch", _.samePasswords)
       )
     }
-}
 
-object UserForm {
+object UserForm:
 
   val note = Form(
     mapping(
       "text" -> cleanText(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
       "dox"  -> optional(boolean)
-    )(NoteData.apply)(NoteData.unapply)
+    )(NoteData.apply)(unapply)
   )
 
   case class NoteData(text: String, mod: Boolean, dox: Option[Boolean])
@@ -87,5 +86,4 @@ object UserForm {
     Constraints maxLength 30,
     Constraints.pattern(regex = User.historicalUsernameRegex)
   )
-  lazy val historicalUsernameField = text.verifying(historicalUsernameConstraints: _*)
-}
+  lazy val historicalUsernameField = text.verifying(historicalUsernameConstraints *)

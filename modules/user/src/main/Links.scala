@@ -3,7 +3,7 @@ package lila.user
 import io.mola.galimatias.URL
 import scala.util.Try
 
-object Links {
+object Links:
 
   def make(text: String): List[Link] =
     text.linesIterator
@@ -22,21 +22,19 @@ object Links {
       Link.Site.Other(host),
       url.toString
     )
-}
 
 case class Link(site: Link.Site, url: String)
 
-object Link {
+object Link:
 
-  sealed abstract class Site(val name: String, val domains: List[String]) {
+  sealed abstract class Site(val name: String, val domains: List[String]):
 
     def matches(domain: String) =
       domains.exists { d =>
         domain == d || domain.endsWith(s".$d")
       }
-  }
 
-  object Site {
+  object Site:
     case object Twitter              extends Site("Twitter", List("twitter.com"))
     case object Facebook             extends Site("Facebook", List("facebook.com"))
     case object Instagram            extends Site("Instagram", List("instagram.com"))
@@ -61,5 +59,3 @@ object Link {
       Chess24,
       ChessTempo
     )
-  }
-}

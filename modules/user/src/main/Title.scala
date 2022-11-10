@@ -2,7 +2,7 @@ package lila.user
 
 case class Title(value: String) extends AnyVal with StringValue
 
-object Title {
+object Title:
 
   given lila.common.Iso[String, Title]            = lila.common.Iso.string[Title](Title.apply, _.value)
   given reactivemongo.api.bson.BSONHandler[Title] = lila.db.dsl.stringIsoHandler
@@ -37,7 +37,7 @@ object Title {
   def get(str: String): Option[Title]      = Title(str.toUpperCase).some filter names.contains
   def get(strs: List[String]): List[Title] = strs flatMap { get(_) }
 
-  object fromUrl {
+  object fromUrl:
 
     // https://ratings.fide.com/card.phtml?event=740411
     private val FideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
@@ -51,20 +51,16 @@ object Title {
     import play.api.libs.ws.StandaloneWSClient
 
     def toFideId(url: String): Option[Int] =
-      url.trim match {
+      url.trim match
         case FideProfileUrlRegex(id)    => id.toIntOption
         case NewFideProfileUrlRegex(id) => id.toIntOption
         case _                          => none
-      }
 
     def apply(url: String)(implicit ws: StandaloneWSClient): Fu[Option[Title]] =
       toFideId(url) ?? fromFideProfile
 
-    private def fromFideProfile(id: Int)(implicit ws: StandaloneWSClient): Fu[Option[Title]] = {
+    private def fromFideProfile(id: Int)(implicit ws: StandaloneWSClient): Fu[Option[Title]] =
       ws.url(s"""https://ratings.fide.com/profile/$id""").get().dmap(_.body) dmap {
         case FideProfileTitleRegex(name) => Title.fromNames get name
         case _                           => none
       }
-    }
-  }
-}

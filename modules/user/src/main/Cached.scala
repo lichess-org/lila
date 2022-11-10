@@ -1,12 +1,12 @@
 package lila.user
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.common.LightUser
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.db.dsl._
+import lila.db.dsl.*
 import User.{ LightCount, LightPerf }
 
 final class Cached(
@@ -18,7 +18,7 @@ final class Cached(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private given BSONDocumentHandler[LightUser]  = Macros.handler[LightUser]
   private given BSONDocumentHandler[LightPerf]  = Macros.handler[LightPerf]
@@ -102,8 +102,6 @@ final class Cached(
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
   }
 
-  def userIdsLike(text: String): Fu[List[User.ID]] = {
+  def userIdsLike(text: String): Fu[List[User.ID]] =
     if (text.lengthIs < 5) userIdsLikeCache get text
     else userIdsLikeFetch(text)
-  }
-}

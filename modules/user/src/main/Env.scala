@@ -1,14 +1,14 @@
 package lila.user
 
 import akka.actor.Scheduler
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.LightUser
 import lila.db.dsl.Coll
 
@@ -35,7 +35,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     scheduler: Scheduler,
     ws: StandaloneWSClient
-) {
+):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
@@ -51,10 +51,9 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val noteApi = {
+  lazy val noteApi =
     def mk = (coll: Coll) => wire[NoteApi]
     mk(db(config.collectionNote))
-  }
 
   lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
@@ -87,4 +86,3 @@ final class Env(
       rankingApi.remove(userId).unit
     }
   )
-}

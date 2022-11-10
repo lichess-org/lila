@@ -1,6 +1,6 @@
 package lila.user
 
-object Stat {
+object Stat:
 
   val minRating = lila.rating.Glicko.minRating
   val group     = 25
@@ -11,4 +11,3 @@ object Stat {
         if (minRating + i * group + group / 2 < rating) under + nb else under
       } -> (sum + nb)
     }
-}

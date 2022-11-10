@@ -3,7 +3,7 @@ package lila.user
 import play.api.mvc.{ Request, RequestHeader }
 import play.api.i18n.Lang
 
-sealed trait UserContext {
+sealed trait UserContext:
 
   val req: RequestHeader
 
@@ -35,14 +35,13 @@ sealed trait UserContext {
 
   def kid   = me.exists(_.kid)
   def noKid = !kid
-}
 
 sealed abstract class BaseUserContext(
     val req: RequestHeader,
     val me: Option[User],
     val impersonatedBy: Option[User],
     val lang: Lang
-) extends UserContext {
+) extends UserContext:
 
   def withLang(newLang: Lang): BaseUserContext
 
@@ -52,21 +51,18 @@ sealed abstract class BaseUserContext(
       req.remoteAddress,
       req.headers.get("User-Agent") | "?"
     )
-}
 
 final case class BodyUserContext[A](body: Request[A], m: Option[User], i: Option[User], l: Lang)
-    extends BaseUserContext(body, m, i, l) {
+    extends BaseUserContext(body, m, i, l):
 
   def withLang(newLang: Lang) = copy(l = newLang)
-}
 
 final case class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[User], l: Lang)
-    extends BaseUserContext(r, m, i, l) {
+    extends BaseUserContext(r, m, i, l):
 
   def withLang(newLang: Lang) = copy(l = newLang)
-}
 
-trait UserContextWrapper extends UserContext {
+trait UserContextWrapper extends UserContext:
   val userContext: UserContext
   val req            = userContext.req
   val me             = userContext.me
@@ -74,9 +70,8 @@ trait UserContextWrapper extends UserContext {
   def isBot          = me.exists(_.isBot)
   def noBot          = !isBot
   def isAppealUser   = me.exists(!_.enabled)
-}
 
-object UserContext {
+object UserContext:
 
   def apply(
       req: RequestHeader,
@@ -94,7 +89,5 @@ object UserContext {
   ): BodyUserContext[A] =
     new BodyUserContext(req, me, impersonatedBy, lang)
 
-  trait ToLang {
+  trait ToLang:
     implicit def ctxLang(implicit ctx: UserContext): Lang = ctx.lang
-  }
-}

@@ -1,18 +1,18 @@
 package lila.user
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 import scala.util.Success
 
 import lila.common.LightUser
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.memo.{ CacheApi, Syncache }
-import User.{ BSONFields => F }
+import User.{ BSONFields as F }
 
 final class LightUserApi(
     repo: UserRepo,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
   import LightUserApi.{ *, given }
 
@@ -25,7 +25,7 @@ final class LightUserApi(
   def asyncFallback(id: User.ID)      = async(id) dmap (_ | LightUser.fallback(id))
   def asyncFallbackName(name: String) = async(User normalize name) dmap (_ | LightUser.fallback(name))
 
-  def asyncMany = cache.asyncMany _
+  def asyncMany = cache.asyncMany
 
   def asyncManyFallback(ids: Seq[User.ID]): Fu[Seq[LightUser]] =
     ids.map(asyncFallback).sequenceFu
@@ -52,11 +52,10 @@ final class LightUserApi(
     strategy = Syncache.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfterWrite(20 minutes)
   )
-}
 
-private object LightUserApi {
+private object LightUserApi:
 
-  given BSONDocumentReader[LightUser] = new BSONDocumentReader[LightUser] {
+  given BSONDocumentReader[LightUser] = new BSONDocumentReader[LightUser]:
 
     def readDocument(doc: BSONDocument) = for {
       id   <- doc.getAsTry[String](F.id)
@@ -67,7 +66,5 @@ private object LightUserApi {
       title = doc.string(F.title),
       isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
     )
-  }
 
   val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
-}

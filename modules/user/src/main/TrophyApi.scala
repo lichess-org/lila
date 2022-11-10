@@ -1,36 +1,33 @@
 package lila.user
 
-import lila.db.BSON.jodaDateTimeHandler
-import lila.db.dsl._
-import lila.memo._
+import lila.db.dsl.{ *, given }
+import lila.memo.*
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  val kindCache = {
+  val kindCache =
     // careful of collisions with trophyKindStringBSONHandler
     val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 
     cacheApi.sync[String, TrophyKind](
       name = "trophy.kind",
       initialCapacity = 32,
-      compute = id => kindColl.byId[TrophyKind](id)(trophyKindObjectBSONHandler).dmap(_ | TrophyKind.Unknown),
+      compute = id => kindColl.byId[TrophyKind](id)(using trophyKindObjectBSONHandler).dmap(_ | TrophyKind.Unknown),
       default = _ => TrophyKind.Unknown,
       strategy = Syncache.WaitAfterUptime(20 millis),
       expireAfter = Syncache.ExpireAfterWrite(1 hour)
     )
-  }
 
-  implicit private val trophyKindStringBSONHandler =
-    BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
+  private given BSONHandler[TrophyKind] = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
 
-  implicit private val trophyBSONHandler = Macros.handler[Trophy]
+  private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
@@ -84,4 +81,3 @@ final class TrophyApi(
           "date" -> DateTime.now
         )
       ) void
-}

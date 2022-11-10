@@ -1,19 +1,19 @@
 package lila.user
 
-import cats.implicits._
+import cats.implicits.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api._
-import reactivemongo.api.bson._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress, ThreadLocalRandom }
 import lila.db.dsl.{ *, given }
 import lila.rating.Glicko
 import lila.rating.{ Perf, PerfType }
 
-final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import User.{ BSONFields => F, ID, given }
+  import User.{ BSONFields as F, ID, given }
   import Title.given
   import UserMark.given
 
@@ -140,7 +140,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def createdAtById(id: ID) =
     coll.primitiveOne[DateTime]($id(id), F.createdAt)
 
-  def orderByGameCount(u1: User.ID, u2: User.ID): Fu[Option[(User.ID, User.ID)]] = {
+  def orderByGameCount(u1: User.ID, u2: User.ID): Fu[Option[(User.ID, User.ID)]] =
     coll
       .find(
         $inIds(List(u1, u2)),
@@ -152,12 +152,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         .sortBy {
           _.child(F.count).flatMap(_.int("game"))
         }
-        .flatMap(_.string("_id")) match {
+        .flatMap(_.string("_id")) match
         case List(u1, u2) => (u1, u2).some
         case _            => none
-      }
     }
-  }
 
   def firstGetsWhite(u1: User.ID, u2: User.ID): Fu[Boolean] =
     coll
@@ -197,7 +195,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val kaladinId = "kaladin"
   def kaladin   = byId(kaladinId)
 
-  def setPerfs(user: User, perfs: Perfs, prev: Perfs)(using wr: BSONHandler[Perf]) = {
+  def setPerfs(user: User, perfs: Perfs, prev: Perfs)(using wr: BSONHandler[Perf]) =
     val diff = for {
       pt <- PerfType.all
       if perfs(pt).nb != prev(pt).nb
@@ -206,10 +204,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     diff.nonEmpty ?? coll.update
       .one(
         $id(user.id),
-        $doc("$set" -> $doc(diff: _*))
+        $doc("$set" -> $doc(diff *))
       )
       .void
-  }
 
   def setManagedUserInitialPerfs(id: User.ID) =
     coll.updateField($id(id), F.perfs, Perfs.defaultManaged).void
@@ -217,11 +214,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setPerf(userId: String, pt: PerfType, perf: Perf) =
     coll.updateField($id(userId), s"${F.perfs}.${pt.key}", perf).void
 
-  def addStormRun  = addStormLikeRun("storm") _
-  def addRacerRun  = addStormLikeRun("racer") _
-  def addStreakRun = addStormLikeRun("streak") _
+  def addStormRun  = addStormLikeRun("storm")
+  def addRacerRun  = addStormLikeRun("racer")
+  def addStreakRun = addStormLikeRun("streak")
 
-  private def addStormLikeRun(field: String)(userId: User.ID, score: Int): Funit = {
+  private def addStormLikeRun(field: String)(userId: User.ID, score: Int): Funit =
     val inc = $inc(s"perfs.$field.runs" -> 1)
     coll.update
       .one(
@@ -230,13 +227,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           $doc("$max"             -> $doc(s"perfs.$field.score" -> score))
       )
       .void
-  }
 
   def setProfile(id: ID, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 
-  def setUsernameCased(id: ID, username: String): Funit = {
-    if (id == username.toLowerCase) {
+  def setUsernameCased(id: ID, username: String): Funit =
+    if (id == username.toLowerCase)
       coll.update.one(
         $id(id) ++ (F.changedCase $exists false),
         $set(F.username -> username, F.changedCase -> true)
@@ -244,8 +240,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         if (result.n == 0) fufail(s"You have already changed your username")
         else funit
       }
-    } else fufail(s"Proposed username $username does not match old username $id")
-  }
+    else fufail(s"Proposed username $username does not match old username $id")
 
   def addTitle(id: ID, title: Title): Funit =
     coll.updateField($id(id), F.title, title).void
@@ -261,8 +256,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if (v) $doc(F.marks -> mark.key)
     else F.marks $ne mark.key
-  def engineSelect       = markSelect(UserMark.Engine) _
-  def trollSelect        = markSelect(UserMark.Troll) _
+  def engineSelect       = (() => markSelect(UserMark.Engine))
+  def trollSelect        = (() => markSelect(UserMark.Troll))
   val lame               = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key))
   val lameOrTroll        = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key))
   val notLame            = $doc(F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key))
@@ -291,7 +286,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       result: Int,
       totalTime: Option[Int],
       tvTime: Option[Int]
-  ) = {
+  ) =
     val incs: List[BSONElement] = List(
       "count.game".some,
       rated option "count.rated",
@@ -313,8 +308,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
     ).flatten
 
-    coll.update.one($id(id), $inc($doc(incs: _*)))
-  }
+    coll.update.one($id(id), $inc($doc(incs *)))
 
   def incToints(id: ID, nb: Int) = coll.update.one($id(id), $inc("toints" -> nb))
   def removeAllToints            = coll.update.one($empty, $unset("toints"), multi = true)
@@ -370,12 +364,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   private def setMark(mark: UserMark)(id: ID, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
 
-  def setEngine    = setMark(UserMark.Engine) _
-  def setBoost     = setMark(UserMark.Boost) _
-  def setTroll     = setMark(UserMark.Troll) _
-  def setReportban = setMark(UserMark.Reportban) _
-  def setRankban   = setMark(UserMark.Rankban) _
-  def setAlt       = setMark(UserMark.Alt) _
+  def setEngine    = (() => setMark(UserMark.Engine))
+  def setBoost     = (() => setMark(UserMark.Boost))
+  def setTroll     = (() => setMark(UserMark.Troll))
+  def setReportban = (() => setMark(UserMark.Reportban))
+  def setRankban   = (() => setMark(UserMark.Rankban))
+  def setAlt       = (() => setMark(UserMark.Alt))
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 
@@ -433,7 +427,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def isMonitoredMod(userId: User.ID) =
     coll.exists($id(userId) ++ $doc(F.roles -> "ROLE_MONITORED_MOD"))
 
-  import Authenticator._
+  import Authenticator.*
   def getPasswordHash(id: User.ID): Fu[Option[String]] =
     coll.byId[AuthData](id, authProjection) map {
       _.map { _.hashToken }
@@ -577,10 +571,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def hasTitle(id: ID): Fu[Boolean] = getTitle(id).dmap(_.exists(Title.BOT !=))
 
-  def setPlan(user: User, plan: Plan): Funit = {
+  def setPlan(user: User, plan: Plan): Funit =
     import Plan.given
     coll.updateField($id(user.id), User.BSONFields.plan, plan).void
-  }
   def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
 
   private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
@@ -700,7 +693,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
       lang: Option[String]
-  ) = {
+  ) =
     import Count.given
     import Authenticator.given
 
@@ -724,5 +717,3 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     } ++ {
       if (blind) $doc(F.blind -> true) else $empty
     }
-  }
-}

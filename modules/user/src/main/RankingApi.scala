@@ -1,13 +1,13 @@
 package lila.user
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 import scala.util.Success
 
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
@@ -16,10 +16,10 @@ final class RankingApi(
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
-  import RankingApi._
-  implicit private val rankingBSONHandler = Macros.handler[Ranking]
+  import RankingApi.*
+  private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
   def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
@@ -107,18 +107,17 @@ final class RankingApi(
       racingKings = racingKings
     )
 
-  object weeklyStableRanking {
+  object weeklyStableRanking:
 
     private type Rank = Int
 
     def of(userId: User.ID): Map[PerfType, Rank] =
-      cache.getUnit.value match {
+      cache.getUnit.value match
         case Some(Success(all)) =>
           all.flatMap { case (pt, ranking) =>
             ranking get userId map (pt -> _)
           }
         case _ => Map.empty
-      }
 
     private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
       _.refreshAfterWrite(15 minutes)
@@ -150,9 +149,8 @@ final class RankingApi(
         }
         .map(_._2.result())
     }
-  }
 
-  object weeklyRatingDistribution {
+  object weeklyRatingDistribution:
 
     private type NbUsers = Int
 
@@ -174,7 +172,7 @@ final class RankingApi(
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? coll {
         _.aggregateList(maxDocs = Int.MaxValue) { framework =>
-          import framework._
+          import framework.*
           Match($doc("perf" -> perfId)) -> List(
             Project(
               $doc(
@@ -216,7 +214,7 @@ final class RankingApi(
      * ...
      * rating.distribution.bullet.2800 => 0.9997
      */
-    private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
+    private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit =
       val total = nbUsersList.sum
       (Stat.minRating to 2800 by Stat.group).toList
         .zip(nbUsersList)
@@ -228,13 +226,8 @@ final class RankingApi(
           acc
         }
         .unit
-    }
-  }
-}
 
-object RankingApi {
+object RankingApi:
 
-  private case class Ranking(_id: String, rating: Int, prog: Option[Int]) {
+  private case class Ranking(_id: String, rating: Int, prog: Option[Int]):
     def user = _id.takeWhile(':' !=)
-  }
-}

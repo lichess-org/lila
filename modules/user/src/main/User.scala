@@ -2,7 +2,7 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
@@ -27,13 +27,12 @@ case class User(
     plan: Plan,
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty
-) extends Ordered[User] {
+) extends Ordered[User]:
 
   override def equals(other: Any) =
-    other match {
+    other match
       case u: User => id == u.id
       case _       => false
-    }
 
   override def hashCode: Int = id.hashCode
 
@@ -138,16 +137,15 @@ case class User(
   def isAdmin           = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
   def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
   def isVerifiedOrAdmin = isVerified || isAdmin
-}
 
-object User {
+object User:
 
   type ID = String
 
   type CredentialCheck = ClearPassword => Boolean
-  case class LoginCandidate(user: User, check: CredentialCheck) {
-    import LoginCandidate._
-    def apply(p: PasswordAndToken): Result = {
+  case class LoginCandidate(user: User, check: CredentialCheck):
+    import LoginCandidate.*
+    def apply(p: PasswordAndToken): Result =
       val res =
         if (check(p.password)) user.totpSecret.fold[Result](Success(user)) { tp =>
           p.token.fold[Result](MissingTotpToken) { token =>
@@ -157,18 +155,14 @@ object User {
         else InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
       res
-    }
     def option(p: PasswordAndToken): Option[User] = apply(p).toOption
-  }
-  object LoginCandidate {
-    sealed abstract class Result(val toOption: Option[User]) {
+  object LoginCandidate:
+    sealed abstract class Result(val toOption: Option[User]):
       def success = toOption.isDefined
-    }
     case class Success(user: User)        extends Result(user.some)
     case object InvalidUsernameOrPassword extends Result(none)
     case object MissingTotpToken          extends Result(none)
     case object InvalidTotpToken          extends Result(none)
-  }
 
   val anonymous                    = "Anonymous"
   val anonMod                      = "A Lichess Moderator"
@@ -186,14 +180,12 @@ object User {
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
   case class LightCount(user: LightUser, count: Int)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]) {
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
     def list = current.toList ::: previous.toList
-  }
   case class WithEmails(user: User, emails: Emails)
 
-  case class ClearPassword(value: String) extends AnyVal {
+  case class ClearPassword(value: String) extends AnyVal:
     override def toString = "ClearPassword(****)"
-  }
 
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
@@ -204,11 +196,10 @@ object User {
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
-  ) {
+  ):
     def isBot    = title has Title.BOT
     def isTroll  = marks.exists(_.troll)
     def isPatron = plan.exists(_.active)
-  }
 
   case class Contact(
       _id: ID,
@@ -216,7 +207,7 @@ object User {
       marks: Option[UserMarks],
       roles: Option[List[String]],
       createdAt: DateTime
-  ) {
+  ):
     def id                     = _id
     def isKid                  = ~kid
     def isTroll                = marks.exists(_.troll)
@@ -226,18 +217,15 @@ object User {
     def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
     def clasId: ClasId         = if (isKid) KidId(id) else NonKidId(id)
     def isLichess              = _id == User.lichessId
-  }
-  case class Contacts(orig: Contact, dest: Contact) {
+  case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
     def userIds = List(orig.id, dest.id)
-  }
 
-  case class PlayTime(total: Int, tv: Int) {
+  case class PlayTime(total: Int, tv: Int):
     import org.joda.time.Period
     def totalPeriod      = new Period(total * 1000L)
     def tvPeriod         = new Period(tv * 1000L)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
-  }
   given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
   // what existing usernames are like
@@ -259,7 +247,7 @@ object User {
 
   def noGhost(name: String) = !isGhost(name)
 
-  object BSONFields {
+  object BSONFields:
     val id                    = "_id"
     val username              = "username"
     val perfs                 = "perfs"
@@ -291,17 +279,17 @@ object User {
     val eraseAt               = "eraseAt"
     val erasedAt              = "erasedAt"
     val blind                 = "blind"
-  }
 
   def withFields[A](f: BSONFields.type => A): A = f(BSONFields)
 
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
   import Plan.given
+  import Title.given
 
-  given BSONDocumentHandler[User] = new BSON[User] {
+  given BSONDocumentHandler[User] = new BSON[User]:
 
-    import BSONFields._
+    import BSONFields.*
     import UserMarks.given
     import Title.given
     import Count.given
@@ -309,7 +297,7 @@ object User {
     import Perfs.given
     import TotpSecret.given
 
-    def reads(r: BSON.Reader): User = {
+    def reads(r: BSON.Reader): User =
       val userTitle = r.getO[Title](title)
       User(
         id = r str id,
@@ -333,7 +321,6 @@ object User {
         totpSecret = r.getO[TotpSecret](totpSecret),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
-    }
 
     def writes(w: BSON.Writer, o: User) =
       BSONDocument(
@@ -355,7 +342,6 @@ object User {
         totpSecret -> o.totpSecret,
         marks      -> o.marks.nonEmpty
       )
-  }
 
   given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]
   given BSONDocumentHandler[Contact] = Macros.handler[Contact]
@@ -374,4 +360,3 @@ object User {
     PerfType.Horde,
     PerfType.RacingKings
   )
-}
