@@ -1,18 +1,18 @@
 package lila.relation
 
 import org.joda.time.DateTime
-import reactivemongo.api._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.common.Heapsort.implicits._
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Follow => FollowUser, Propagate }
+import lila.common.Heapsort.botN
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.*
+import lila.hub.actorApi.timeline.{ Follow as FollowUser, Propagate }
 import lila.hub.actors
-import lila.memo.CacheApi._
-import lila.relation.BSONHandlers._
+import lila.memo.CacheApi.*
+import lila.relation.BSONHandlers.given
 import lila.user.User
 
 final class RelationApi(
@@ -23,7 +23,7 @@ final class RelationApi(
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
     config: RelationConfig
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import RelationRepo.makeId
 
@@ -34,20 +34,16 @@ final class RelationApi(
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
   def fetchRelations(u1: User.ID, u2: User.ID): Fu[Relations] =
-    fetchRelation(u2, u1) zip fetchRelation(u1, u2) dmap Relations.tupled
+    fetchRelation(u2, u1) zip fetchRelation(u1, u2) dmap Relations.apply
 
-  def fetchFollowing = repo following _
-
-  def freshFollowersFromSecondary = repo.freshFollowersFromSecondary _
-
-  def fetchBlocking = repo blocking _
+  export repo.{ blocking as fetchBlocking, following as fetchFollowing, freshFollowersFromSecondary }
 
   def fetchFriends(userId: ID) =
     coll
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         List(
           Match(
             $doc(
@@ -226,4 +222,3 @@ final class RelationApi(
 
   def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
     repo.followingLike(u.id, term) map { _ botN max } // alphabetical order
-}

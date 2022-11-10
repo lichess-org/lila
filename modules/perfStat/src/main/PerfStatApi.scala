@@ -12,9 +12,8 @@ case class PerfStatData(
     stat: PerfStat,
     ranks: UserRankMap,
     percentile: Option[Double]
-) {
+):
   def rank = ranks get stat.perfType
-}
 
 final class PerfStatApi(
     storage: PerfStatStorage,
@@ -25,7 +24,7 @@ final class PerfStatApi(
     lightUserApi: LightUserApi
 )(implicit
     ec: ExecutionContext
-) {
+):
 
   def data(name: String, perfKey: String, by: Option[User]): Fu[Option[PerfStatData]] =
     PerfType(perfKey) ?? { perfType =>
@@ -40,9 +39,8 @@ final class PerfStatApi(
               rankingApi.weeklyRatingDistribution(perfType) dmap some
             }
             percentile = distribution.map { distrib =>
-              lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating) match {
+              lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating) match
                 case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
-              }
             }
             _ = lightUserApi preloadUser u
             _ <- lightUserApi preloadMany perfStat.userIds.map(_.value)
@@ -53,4 +51,3 @@ final class PerfStatApi(
 
   def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
     storage.find(user.id, perfType) getOrElse indexer.userPerf(user, perfType)
-}

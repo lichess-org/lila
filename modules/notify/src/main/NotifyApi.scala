@@ -1,13 +1,13 @@
 package lila.notify
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.SendTo
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.user.UserRepo
 import lila.i18n.I18nLangPicker
 
@@ -17,10 +17,10 @@ final class NotifyApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers.{ NotificationBSONHandler, NotifiesHandler }
-  import jsonHandlers._
+  import BSONHandlers.given
+  import jsonHandlers.*
 
   def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] =
     Paginator(
@@ -35,7 +35,7 @@ final class NotifyApi(
     )
 
   def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
-    getNotifications(userId, page) zip unreadCount(userId) dmap (Notification.AndUnread.apply _).tupled
+    getNotifications(userId, page) zip unreadCount(userId) dmap (Notification.AndUnread.apply).tupled
 
   def markAllRead(userId: Notification.Notifies) =
     repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
@@ -75,17 +75,16 @@ final class NotifyApi(
     repo.markManyRead(selector ++ $doc("notifies" -> notifies, "read" -> false)) >>-
       unreadCountCache.invalidate(notifies)
 
-  def exists = repo.exists _
+  def exists = repo.exists
 
   private def shouldSkip(notification: Notification) =
     (!notification.isMsg ?? userRepo.isKid(notification.notifies.value)) >>| {
-      notification.content match {
+      notification.content match
         case MentionedInThread(_, _, topicId, _, _) =>
           repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(_, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(sender, _)     => repo.hasRecentPrivateMessageFrom(notification.notifies, sender)
         case _                             => fuFalse
-      }
     }
 
   /** Inserts notification into the repository. If the user already has an unread notification on the topic,
@@ -113,4 +112,3 @@ final class NotifyApi(
         "socketUsers"
       )
     }
-}

@@ -1,12 +1,12 @@
 package lila.notify
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
 
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 final class Env(
@@ -19,7 +19,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
-) {
+):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
@@ -46,4 +46,3 @@ final class Env(
         }
       }
   }
-}

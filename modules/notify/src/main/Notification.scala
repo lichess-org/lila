@@ -12,31 +12,27 @@ case class Notification(
     content: NotificationContent,
     read: Notification.NotificationRead,
     createdAt: DateTime
-) {
+):
   def id = _id
 
   def unread = !read.value
 
   def isMsg =
-    content match {
+    content match
       case _: PrivateMessage => true
       case _                 => false
-    }
-}
 
-object Notification {
+object Notification:
 
   case class UnreadCount(value: Int) extends AnyVal
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
   case class Notifies(value: String)          extends AnyVal with StringValue
   case class NotificationRead(value: Boolean) extends AnyVal
 
-  def make(notifies: Notification.Notifies, content: NotificationContent): Notification = {
+  def make(notifies: Notification.Notifies, content: NotificationContent): Notification =
     val idSize = 8
     val id     = lila.common.ThreadLocalRandom nextString idSize
     new Notification(id, notifies, content, NotificationRead(false), DateTime.now)
-  }
-}
 
 sealed abstract class NotificationContent(val key: String)
 
@@ -48,13 +44,12 @@ case class MentionedInThread(
     postId: PostId
 ) extends NotificationContent("mention")
 
-object MentionedInThread {
+object MentionedInThread:
   case class MentionedBy(value: String) extends AnyVal with StringValue
   case class Topic(value: String)       extends AnyVal with StringValue
   case class TopicId(value: String)     extends AnyVal with StringValue
   case class Category(value: String)    extends AnyVal with StringValue
   case class PostId(value: String)      extends AnyVal with StringValue
-}
 
 case class InvitedToStudy(
     invitedBy: InvitedToStudy.InvitedBy,
@@ -62,31 +57,28 @@ case class InvitedToStudy(
     studyId: InvitedToStudy.StudyId
 ) extends NotificationContent("invitedStudy")
 
-object InvitedToStudy {
+object InvitedToStudy:
   case class InvitedBy(value: String) extends AnyVal with StringValue
   case class StudyName(value: String) extends AnyVal with StringValue
   case class StudyId(value: String)   extends AnyVal with StringValue
-}
 
 case class PrivateMessage(
     user: PrivateMessage.Sender,
     text: PrivateMessage.Text
 ) extends NotificationContent("privateMessage")
 
-object PrivateMessage {
+object PrivateMessage:
   case class Sender(value: String) extends AnyVal with StringValue
   case class Text(value: String)   extends AnyVal with StringValue
-}
 
 case class TeamJoined(
     id: TeamJoined.Id,
     name: TeamJoined.Name
 ) extends NotificationContent("teamJoined")
 
-object TeamJoined {
+object TeamJoined:
   case class Id(value: String)   extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
-}
 
 case class TitledTournamentInvitation(
     id: String,
@@ -99,11 +91,10 @@ case class GameEnd(
     win: Option[GameEnd.Win]
 ) extends NotificationContent("gameEnd")
 
-object GameEnd {
+object GameEnd:
   case class GameId(value: String)     extends AnyVal
   case class OpponentId(value: String) extends AnyVal
   case class Win(value: Boolean)       extends AnyVal
-}
 
 case object ReportedBanned extends NotificationContent("reportedBanned")
 

@@ -2,8 +2,9 @@ package lila.shutup
 
 import org.joda.time.DateTime
 import scala.util.Success
+import lila.db.dsl.given
 
-import lila.hub.actorApi.shutup.{ PublicSource => Source }
+import lila.hub.actorApi.shutup.{ PublicSource as Source }
 
 case class PublicLine(
     text: String,
@@ -11,14 +12,14 @@ case class PublicLine(
     date: Option[DateTime]
 )
 
-object PublicLine {
+object PublicLine:
 
   def make(text: String, from: Source): PublicLine =
     PublicLine(text, from.some, DateTime.now.some)
 
-  import reactivemongo.api.bson._
-  import lila.db.dsl._
-  implicit private val SourceHandler = lila.db.dsl.tryHandler[Source](
+  import reactivemongo.api.bson.*
+  import lila.db.dsl.*
+  private given BSONHandler[Source] = lila.db.dsl.tryHandler[Source](
     { case BSONString(v) =>
       v split ':' match {
         case Array("t", id)     => Success(Source.Tournament(id))
@@ -43,7 +44,7 @@ object PublicLine {
 
   private val objectHandler = Macros.handler[PublicLine]
 
-  implicit val PublicLineBSONHandler = lila.db.dsl.tryHandler[PublicLine](
+  given BSONHandler[PublicLine] = lila.db.dsl.tryHandler[PublicLine](
     {
       case doc: BSONDocument => objectHandler readTry doc
       case BSONString(text)  => Success(PublicLine(text, none, none))
@@ -51,4 +52,3 @@ object PublicLine {
     },
     x => if (x.from.isDefined) objectHandler.writeTry(x).get else BSONString(x.text)
   )
-}

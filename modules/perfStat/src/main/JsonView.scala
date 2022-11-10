@@ -3,16 +3,16 @@ package lila.perfStat
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Json.{ jodaWrites => _, _ }
+import lila.common.Json.*
 import lila.common.LightUser
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
 
-final class JsonView(getLightUser: LightUser.GetterSync) {
+final class JsonView(getLightUser: LightUser.GetterSync):
 
-  import JsonView._
+  import JsonView.*
 
   implicit private val userIdWriter: OWrites[UserId] = OWrites { u =>
     val light = getLightUser(u.value)
@@ -23,18 +23,18 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     )
   }
 
-  implicit val ratingAtWrites                      = Json.writes[RatingAt]
-  implicit val gameAtWrites                        = Json.writes[GameAt]
-  implicit val resultWrites                        = Json.writes[Result]
-  implicit val resultsWrites                       = Json.writes[Results]
-  implicit val streakWrites                        = Json.writes[Streak]
-  implicit val streaksWrites                       = Json.writes[Streaks]
-  implicit val playStreakWrites                    = Json.writes[PlayStreak]
-  implicit val resultStreakWrites                  = Json.writes[ResultStreak]
-  implicit val countWrites                         = Json.writes[Count]
-  implicit def perfStatWrites(implicit lang: Lang) = Json.writes[PerfStat]
+  given Writes[RatingAt]               = Json.writes
+  given Writes[GameAt]                 = Json.writes
+  given Writes[Result]                 = Json.writes
+  given Writes[Results]                = Json.writes
+  given Writes[Streak]                 = Json.writes
+  given Writes[Streaks]                = Json.writes
+  given Writes[PlayStreak]             = Json.writes
+  given Writes[ResultStreak]           = Json.writes
+  given Writes[Count]                  = Json.writes
+  given (using Lang): Writes[PerfStat] = Json.writes
 
-  def apply(data: PerfStatData)(implicit lang: Lang) =
+  def apply(data: PerfStatData)(using lang: Lang) =
     Json.obj(
       "user"       -> data.user,
       "perf"       -> data.user.perfs(data.stat.perfType),
@@ -42,9 +42,8 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
       "percentile" -> data.percentile,
       "stat"       -> data.stat
     )
-}
 
-object JsonView {
+object JsonView:
 
   private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundDownAt(v, depth)
 
@@ -75,4 +74,3 @@ object JsonView {
         "name" -> pt.trans
       )
     }
-}

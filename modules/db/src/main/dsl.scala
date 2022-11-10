@@ -398,7 +398,7 @@ object dsl extends dsl with Handlers:
 
   import reactivemongo.api.WriteConcern as CWC
 
-  extension (coll: Coll)(using ec: scala.concurrent.ExecutionContext)
+  extension (coll: Coll)(using ec: ExecutionContext)
 
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary          = coll withReadPreference ReadPreference.secondary

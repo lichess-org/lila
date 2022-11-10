@@ -1,6 +1,6 @@
 package lila.perfStat
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import reactivemongo.api.ReadPreference
 
 import lila.game.{ Game, GameRepo, Pov, Query }
@@ -13,7 +13,7 @@ final class PerfStatIndexer(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 10 seconds, name = "perfStatIndexer")
@@ -58,4 +58,3 @@ final class PerfStatIndexer(
         }
       }
     }
-}

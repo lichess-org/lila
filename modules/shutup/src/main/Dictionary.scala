@@ -7,7 +7,7 @@ package lila.shutup
   *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
   *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
-private object Dictionary {
+private object Dictionary:
 
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|)
@@ -317,4 +317,3 @@ rape
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
-}

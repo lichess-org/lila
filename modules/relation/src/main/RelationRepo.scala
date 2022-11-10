@@ -1,17 +1,17 @@
 package lila.relation
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import org.joda.time.DateTime
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(implicit
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import RelationRepo._
+  import RelationRepo.*
 
   def following(userId: ID) = relating(userId, Follow)
 
@@ -21,7 +21,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
   def freshFollowersFromSecondary(userId: ID): Fu[List[User.ID]] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
+        import framework.*
         Match($doc("u2" -> userId, "r" -> Follow)) -> List(
           PipelineOperator(
             $lookup.pipeline(
@@ -36,9 +36,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
             )
           ),
           Match("follower" $ne $arr()),
-          Group(BSONNull)(
-            "ids" -> PushField("u1")
-          )
+          Group(BSONNull)("ids" -> PushField("u1"))
         )
       }
       .map(~_.flatMap(_.getAsOpt[List[User.ID]]("ids")))
@@ -113,9 +111,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
       } flatMap { ids =>
       coll.delete.one($inIds(ids)).void
     }
-}
 
-object RelationRepo {
+object RelationRepo:
 
   def makeId(u1: ID, u2: ID) = s"$u1/$u2"
-}

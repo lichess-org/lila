@@ -1,11 +1,11 @@
 package lila.notify
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
 
-final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def insert(notification: Notification) =
     coll.insert.one(notification).void
@@ -81,4 +81,3 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
   private def unreadOnlyQuery(userIds: Iterable[Notification.Notifies]) =
     $doc("notifies" $in userIds, "read" -> false)
 
-}
