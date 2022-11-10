@@ -12,7 +12,7 @@ case class Analysis(
     startPly: Int,
     date: DateTime,
     fk: Option[Analysis.FishnetKey]
-) {
+):
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect { case List(prev, info) =>
@@ -37,12 +37,10 @@ case class Analysis(
 
   def nbEmptyInfos       = infos.count(_.isEmpty)
   def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
-}
 
-object Analysis {
+object Analysis:
 
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
   type ID         = String
   type FishnetKey = String
-}

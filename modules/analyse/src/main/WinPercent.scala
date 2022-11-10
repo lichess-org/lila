@@ -5,7 +5,7 @@ import lila.tree.Eval
 // How likely one is to win a position, based on subjective Stockfish centipawns
 case class WinPercent(value: Double) extends AnyVal with Percent
 
-object WinPercent {
+object WinPercent:
 
   def fromEval(eval: Eval): Option[WinPercent] =
     eval.cp.map(fromCentiPawns) orElse eval.mate.map(fromMate)
@@ -24,4 +24,3 @@ object WinPercent {
     val MULTIPLIER = -0.00368208 // https://github.com/lichess-org/lila/pull/11148
     2 / (1 + Math.exp(MULTIPLIER * cp.value)) - 1
   } atLeast -1 atMost +1
-}

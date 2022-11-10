@@ -1,13 +1,13 @@
 package lila.analyse
 
 import lila.db.BSON
-import lila.db.dsl._
-import reactivemongo.api.bson._
+import lila.db.dsl.{ *, given }
+import reactivemongo.api.bson.*
 
-object AnalyseBsonHandlers {
+object AnalyseBsonHandlers:
 
-  implicit val analysisBSONHandler = new BSON[Analysis] {
-    def reads(r: BSON.Reader) = {
+  given BSON[Analysis] with
+    def reads(r: BSON.Reader) =
       val startPly = r intD "ply"
       val raw      = r str "data"
       Analysis(
@@ -18,7 +18,6 @@ object AnalyseBsonHandlers {
         date = r date "date",
         fk = r strO "fk"
       )
-    }
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
         "_id"     -> a.id,
@@ -28,11 +27,9 @@ object AnalyseBsonHandlers {
         "date"    -> w.date(a.date),
         "fk"      -> a.fk
       )
-  }
 
-  implicit val winPercentHandler = percentAsIntHandler[WinPercent](_.value, WinPercent.apply)
+  given BSONHandler[WinPercent] = percentAsIntHandler[WinPercent](_.value, WinPercent.apply)
 
-  implicit val accuracyPercentHandler = percentAsIntHandler[AccuracyPercent](_.value, AccuracyPercent.apply)
+  given BSONHandler[AccuracyPercent] = percentAsIntHandler[AccuracyPercent](_.value, AccuracyPercent.unsafe)
 
-  implicit val externalEngineHandler = Macros.handler[ExternalEngine]
-}
+  given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler

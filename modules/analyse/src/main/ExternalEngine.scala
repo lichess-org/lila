@@ -1,17 +1,17 @@
 package lila.analyse
 
-import AnalyseBsonHandlers.externalEngineHandler
+import AnalyseBsonHandlers.given
 import chess.variant.Variant
 import com.roundeights.hasher.Algo
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bearer
-import lila.common.Form._
+import lila.common.Form.*
 import lila.common.{ SecureRandom, ThreadLocalRandom }
-import lila.db.dsl._
+import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -29,7 +29,7 @@ case class ExternalEngine(
     clientSecret: String          // Secret unique id of the registration
 ) {}
 
-object ExternalEngine {
+object ExternalEngine:
 
   case class FormData(
       name: String,
@@ -40,7 +40,7 @@ object ExternalEngine {
       officialStockfish: Option[Boolean],
       providerSecret: String,
       providerData: Option[String]
-  ) {
+  ):
     def make(userId: User.ID) = ExternalEngine(
       _id = s"eei_${ThreadLocalRandom.nextString(12)}",
       name = name,
@@ -58,7 +58,6 @@ object ExternalEngine {
       _id = engine._id,
       clientSecret = engine.clientSecret
     )
-  }
 
   val form = Form(
     mapping(
@@ -70,7 +69,7 @@ object ExternalEngine {
       "officialStockfish" -> optional(boolean),
       "providerSecret"    -> nonEmptyText(16, 1024),
       "providerData"      -> optional(text(maxLength = 8192))
-    )(FormData.apply)(FormData.unapply)
+    )(FormData.apply)(lila.analyse.unapply)
   )
 
   implicit val jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
@@ -88,33 +87,31 @@ object ExternalEngine {
       )
       .add("officialStockfish" -> e.officialStockfish)
   }
-}
 
-final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: ExecutionContext):
 
   private val userCache = cacheApi[User.ID, List[ExternalEngine]](65_536, "externalEngine.user") {
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
   }
+  import lila.db.dsl.list
   private def doFetchList(userId: User.ID) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
   private def reloadCache(userId: User.ID) = userCache.put(userId, doFetchList(userId))
 
   def list(by: User): Fu[List[ExternalEngine]] = userCache get by.id
 
-  def create(by: User, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] = {
+  def create(by: User, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
     val engine = data make by.id
     val bson = {
-      externalEngineHandler writeOpt engine err "external engine bson"
+      engineHandler writeOpt engine err "external engine bson"
     } ++ $doc("oauthToken" -> oauthTokenId)
     coll.insert.one(bson) >>- reloadCache(by.id) inject engine
-  }
 
   def find(by: User, id: String): Fu[Option[ExternalEngine]] =
     list(by).map(_.find(_._id == id))
 
-  def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] = {
+  def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] =
     val engine = data update prev
     coll.update.one($id(engine._id), engine) >>- reloadCache(engine.userId) inject engine
-  }
 
   def delete(by: User, id: String): Fu[Boolean] =
     coll.delete.one($doc("userId" -> by.id) ++ $id(id)) map { result =>
@@ -128,4 +125,3 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: Execu
         coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
       }
     }
-}
