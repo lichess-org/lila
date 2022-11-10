@@ -1,7 +1,7 @@
 package lila.evalCache
 
 import org.joda.time.{ DateTime, Days }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
@@ -9,7 +9,7 @@ import lila.user.{ User, UserRepo }
 final private class EvalCacheTruster(
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
   import EvalCacheEntry.{ Trust, TrustedUser }
 
@@ -57,4 +57,3 @@ final private class EvalCacheTruster(
   // 1000 games = 2.16
   private def nbGamesBonus(user: User) =
     math.sqrt(user.count.game / 100) - 1
-}

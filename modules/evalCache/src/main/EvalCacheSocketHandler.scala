@@ -1,17 +1,17 @@
 package lila.evalCache
 
 import chess.variant.Variant
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import chess.format.FEN
-import lila.socket._
+import lila.socket.*
 import lila.user.User
 
 final private class EvalCacheSocketHandler(
     api: EvalCacheApi,
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
   def evalGet(
       sri: Socket.Sri,
@@ -23,7 +23,7 @@ final private class EvalCacheSocketHandler(
       variant = Variant orDefault ~d.str("variant")
       multiPv = (d int "mpv") | 1
       path <- d str "path"
-    } {
+    }
       def pushData(data: JsObject) = push(Socket.makeMessage("evalHit", data))
       api.getEvalJson(variant, fen, multiPv) foreach {
         _ foreach { json =>
@@ -31,7 +31,6 @@ final private class EvalCacheSocketHandler(
         }
       }
       if (d.value contains "up") upgrade.register(sri, variant, fen, multiPv, path)(pushData)
-    }
 
   def untrustedEvalPut(sri: Socket.Sri, userId: User.ID, data: JsObject): Unit =
     truster cachedTrusted userId foreach {
@@ -41,4 +40,3 @@ final private class EvalCacheSocketHandler(
         }
       }
     }
-}

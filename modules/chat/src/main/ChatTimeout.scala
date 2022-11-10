@@ -2,19 +2,19 @@ package lila.chat
 
 import org.joda.time.DateTime
 import play.api.data.Form
-import play.api.data.Forms._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import play.api.data.Forms.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class ChatTimeout(
     coll: Coll,
     duration: FiniteDuration
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import ChatTimeout._
+  import ChatTimeout.*
 
   private val global = new lila.memo.ExpireSetMemo(duration)
 
@@ -59,15 +59,13 @@ final class ChatTimeout(
       case objs =>
         coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
     }
-}
 
-object ChatTimeout {
+object ChatTimeout:
 
-  sealed abstract class Reason(val key: String, val name: String) {
+  sealed abstract class Reason(val key: String, val name: String):
     lazy val shortName = name.split(';').lift(0) | name
-  }
 
-  object Reason {
+  object Reason:
     case object PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
     case object Insult
         extends Reason("insult", "disrespecting other players; see lichess.org/page/chat-etiquette")
@@ -75,7 +73,6 @@ object ChatTimeout {
     case object Other extends Reason("other", "inappropriate behavior; see lichess.org/page/chat-etiquette")
     val all: List[Reason]  = List(PublicShaming, Insult, Spam, Other)
     def apply(key: String) = all.find(_.key == key)
-  }
   implicit val ReasonBSONHandler: BSONHandler[Reason] = tryHandler[Reason](
     { case BSONString(value) => Reason(value) toTry s"Invalid reason $value" },
     x => BSONString(x.key)
@@ -88,10 +85,9 @@ object ChatTimeout {
   implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader[UserEntry]
 
   sealed trait Scope
-  object Scope {
+  object Scope:
     case object Local  extends Scope
     case object Global extends Scope
-  }
 
   val form = Form(
     mapping(
@@ -100,8 +96,7 @@ object ChatTimeout {
       "userId" -> nonEmptyText,
       "reason" -> nonEmptyText,
       "text"   -> nonEmptyText
-    )(TimeoutFormData.apply)(TimeoutFormData.unapply)
+    )(TimeoutFormData.apply)(unapply)
   )
 
   case class TimeoutFormData(roomId: String, chan: String, userId: User.ID, reason: String, text: String)
-}

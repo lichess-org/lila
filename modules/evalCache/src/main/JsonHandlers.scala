@@ -1,14 +1,14 @@
 package lila.evalCache
 
-import cats.implicits._
+import cats.implicits.*
 import chess.format.{ FEN, Uci }
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Json._
-import lila.evalCache.EvalCacheEntry._
-import lila.tree.Eval._
+import lila.common.Json.{ *, given }
+import lila.evalCache.EvalCacheEntry.*
+import lila.tree.Eval.*
 
-object JsonHandlers {
+object JsonHandlers:
 
   private given Writes[Cp]     = intAnyValWriter[Cp](_.value)
   private given Writes[Mate]   = intAnyValWriter[Mate](_.value)
@@ -69,4 +69,3 @@ object JsonHandlers {
       mate = d int "mate" map Mate.apply
       score <- cp.map(Score.cp) orElse mate.map(Score.mate)
     } yield Pv(score, moves)
-}

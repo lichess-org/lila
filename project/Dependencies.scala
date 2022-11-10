@@ -17,7 +17,7 @@ object Dependencies {
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.1"
   val chess       = "org.lichess"                  %% "scalachess"                      % "11.2.1"
-  val compression = "org.lichess"                  %% "compression"                     % "1.6"
+  val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "3.0.2"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19-THIB213"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.1" % "compile"
