@@ -204,7 +204,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     diff.nonEmpty ?? coll.update
       .one(
         $id(user.id),
-        $doc("$set" -> $doc(diff *))
+        $doc("$set" -> $doc(diff*))
       )
       .void
 
@@ -256,8 +256,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if (v) $doc(F.marks -> mark.key)
     else F.marks $ne mark.key
-  def engineSelect       = (() => markSelect(UserMark.Engine))
-  def trollSelect        = (() => markSelect(UserMark.Troll))
+  def engineSelect       = markSelect(UserMark.Engine)
+  def trollSelect        = markSelect(UserMark.Troll)
   val lame               = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key))
   val lameOrTroll        = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key))
   val notLame            = $doc(F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key))
@@ -308,7 +308,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
     ).flatten
 
-    coll.update.one($id(id), $inc($doc(incs *)))
+    coll.update.one($id(id), $inc($doc(incs*)))
 
   def incToints(id: ID, nb: Int) = coll.update.one($id(id), $inc("toints" -> nb))
   def removeAllToints            = coll.update.one($empty, $unset("toints"), multi = true)
@@ -364,12 +364,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   private def setMark(mark: UserMark)(id: ID, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
 
-  def setEngine    = (() => setMark(UserMark.Engine))
-  def setBoost     = (() => setMark(UserMark.Boost))
-  def setTroll     = (() => setMark(UserMark.Troll))
-  def setReportban = (() => setMark(UserMark.Reportban))
-  def setRankban   = (() => setMark(UserMark.Rankban))
-  def setAlt       = (() => setMark(UserMark.Alt))
+  def setEngine    = setMark(UserMark.Engine)
+  def setBoost     = setMark(UserMark.Boost)
+  def setTroll     = setMark(UserMark.Troll)
+  def setReportban = setMark(UserMark.Reportban)
+  def setRankban   = setMark(UserMark.Rankban)
+  def setAlt       = setMark(UserMark.Alt)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 

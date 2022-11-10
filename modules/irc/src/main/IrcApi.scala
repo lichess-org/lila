@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 import lila.common.IpAddress
 import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
-import lila.hub.actorApi.irc._
+import lila.hub.actorApi.irc.*
 import lila.user.Holder
 import lila.user.User
 
@@ -12,22 +12,20 @@ final class IrcApi(
     zulip: ZulipClient,
     noteApi: lila.user.NoteApi,
     implicit val lightUser: LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import IrcApi._
+  import IrcApi.*
 
-  def commReportBurst(user: User): Funit = {
+  def commReportBurst(user: User): Funit =
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.username}")
     zulip(_.mod.commsPrivate, "burst")(md)
-  }
 
-  def inquiry(user: User, mod: Holder, domain: ModDomain, room: String): Funit = {
-    val stream = domain match {
+  def inquiry(user: User, mod: Holder, domain: ModDomain, room: String): Funit =
+    val stream = domain match
       case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
       case ModDomain.Cheat => ZulipClient.stream.mod.hunterCheat
       case ModDomain.Boost => ZulipClient.stream.mod.hunterBoost
       case _               => ZulipClient.stream.mod.adminGeneral
-    }
     noteApi
       .byUserForMod(user.id)
       .map(_.headOption.filter(_.date isAfter DateTime.now.minusMinutes(5)))
@@ -55,9 +53,8 @@ final class IrcApi(
           )
         }
       }
-  }
 
-  def nameCloseVote(user: User, mod: Holder): Funit = {
+  def nameCloseVote(user: User, mod: Holder): Funit =
     zulip
       .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
       .flatMap {
@@ -71,7 +68,6 @@ final class IrcApi(
           )
         }
       }
-  }
 
   def usertableCheck(user: User, mod: Holder): Funit =
     zulip(_.mod.cafeteria, "reports")(
@@ -132,11 +128,10 @@ final class IrcApi(
           .ipLink(ip)} of ${userIds.length} user(s): ${userIds map markdown.userLink mkString ", "}"
     )
 
-  def chatPanic(mod: Holder, v: Boolean): Funit = {
+  def chatPanic(mod: Holder, v: Boolean): Funit =
     val msg =
       s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
-  }
 
   def garbageCollector(msg: String): Funit =
     zulip(_.mod.adminLog, "garbage collector")(markdown linkifyUsers msg)
@@ -174,12 +169,11 @@ final class IrcApi(
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
-  def publishEvent(event: Event): Funit = event match {
+  def publishEvent(event: Event): Funit = event match
     case Error(msg)   => publishError(msg)
     case Warning(msg) => publishWarning(msg)
     case Info(msg)    => publishInfo(msg)
     case Victory(msg) => publishVictory(msg)
-  }
 
   def signupAfterTryingDisposableEmail(user: User, email: EmailAddress, previous: Set[EmailAddress]) =
     zulip(_.mod.adminLog, "disposable email")(
@@ -198,15 +192,15 @@ final class IrcApi(
   private[irc] def publishInfo(msg: String): Funit =
     zulip(_.general, "lila")(s":info: ${markdown linkifyUsers msg}")
 
-  object charge {
+  object charge:
     import lila.hub.actorApi.plan.ChargeEvent
     private var buffer: Vector[ChargeEvent] = Vector.empty
-    implicit private val amountOrdering     = Ordering.by[ChargeEvent, Int](_.cents)
+    private given Ordering[ChargeEvent]     = Ordering.by[ChargeEvent, Int](_.cents)
 
-    def apply(event: ChargeEvent): Funit = {
+    def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
       buffer.head.date.isBefore(DateTime.now.minusHours(12)) ?? {
-        val firsts    = Heapsort.topN(buffer, 10, amountOrdering).map(_.username).map(userAt).mkString(", ")
+        val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.cents).sum
         val patrons =
           if (firsts.lengthIs > 10) s"$firsts and, like, ${firsts.length - 10} others,"
@@ -217,7 +211,6 @@ final class IrcApi(
           buffer = Vector.empty
         }
       }
-    }
 
     private def displayMessage(text: String) =
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
@@ -227,24 +220,21 @@ final class IrcApi(
       else s"@$username"
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
-  }
-}
 
-object IrcApi {
+object IrcApi:
 
   sealed trait ModDomain
-  object ModDomain {
+  object ModDomain:
     case object Admin extends ModDomain
     case object Cheat extends ModDomain
     case object Boost extends ModDomain
     case object Comm  extends ModDomain
     case object Other extends ModDomain
-  }
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
-  private object markdown {
+  private object markdown:
     def link(url: String, name: String)         = s"[$name]($url)"
     def lichessLink(path: String, name: String) = s"[$name](https://lichess.org$path)"
     def userLink(name: String): String          = lichessLink(s"/@/$name?mod&notes", name)
@@ -261,5 +251,3 @@ object IrcApi {
     def linkifyPosts(msg: String)               = postRegex matcher msg replaceAll postReplace
     def linkifyPostsAndUsers(msg: String)       = linkifyPosts(linkifyUsers(msg))
     def fixImageUrl(url: String)                = url.replace("/display?", "/display.jpg?")
-  }
-}
