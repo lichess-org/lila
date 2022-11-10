@@ -2,20 +2,20 @@ package lila.history
 
 import chess.Speed
 import org.joda.time.{ DateTime, Days }
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Perfs, User, UserRepo }
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
     implicit ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import History._
+  import History.*
 
   def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = withColl { coll =>
     val days = daysBetween(user.createdAt, completedAt)
@@ -80,7 +80,9 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key).dmap(~_))
 
-  def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(Int, Int)]] =
+  def progresses(users: List[User], perfType: PerfType, days: Int)(using
+      reader: BSONDocumentReader[RatingsMap]
+  ): Fu[List[(Int, Int)]] =
     withColl(
       _.optionsByOrderedIds[Bdoc, User.ID](
         users.map(_.id),
@@ -90,7 +92,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
           val current      = user.perfs(perfType).intRating
           val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
           val previous =
-            doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
+            doc.flatMap(_ child perfType.key).flatMap(reader.readOpt).fold(current) { hist =>
               hist.foldLeft(hist.headOption.fold(current)(_._2)) {
                 case (_, (d, r)) if d < previousDate => r
                 case (acc, _)                        => acc
@@ -101,7 +103,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
       }
     )
 
-  object lastWeekTopRating {
+  object lastWeekTopRating:
 
     def apply(user: User, perf: PerfType): Fu[Int] = cache.get(user.id -> perf)
 
@@ -130,5 +132,3 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
           }
         }
     }
-  }
-}

@@ -1,7 +1,7 @@
 package lila.history
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
@@ -11,7 +11,7 @@ final class RatingChartApi(
     historyApi: HistoryApi,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
   def apply(user: User): Fu[Option[String]] =
     cache.get(user.id) dmap { chart =>
@@ -54,13 +54,12 @@ final class RatingChartApi(
         }
       }
     }
-}
 
-object RatingChartApi {
+object RatingChartApi:
 
   def bestPerfIndex(user: User): Int = user.bestPerf ?? { perfTypes indexOf _ }
 
-  import lila.rating.PerfType._
+  import lila.rating.PerfType.*
   private val perfTypes = List(
     Bullet,
     Blitz,
@@ -78,4 +77,3 @@ object RatingChartApi {
     Puzzle,
     UltraBullet
   )
-}

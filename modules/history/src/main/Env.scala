@@ -1,7 +1,7 @@
 package lila.history
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 
 import lila.common.config.CollName
 import akka.actor.ActorSystem
@@ -15,11 +15,10 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private lazy val coll = db(CollName("history4")).failingSilently()
 
   lazy val api = wire[HistoryApi]
 
   lazy val ratingChartApi = wire[RatingChartApi]
-}
