@@ -5,7 +5,7 @@ import view from './view';
 import { ChatOpts } from './interfaces';
 import { PresetCtrl } from './preset';
 
-export { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
+export type { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
 
 export default function LichessChat(
   element: Element,
@@ -27,3 +27,5 @@ export default function LichessChat(
 
   return ctrl;
 }
+
+(window as any).LichessChat = LichessChat; // esbuild

@@ -1,4 +1,4 @@
-import { Ctrl, NotifyData, Notification } from './interfaces';
+import { Ctrl, NotifyData, type Notification } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';

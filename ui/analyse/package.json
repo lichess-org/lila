@@ -28,6 +28,7 @@
     "@badrap/result": "^0.2",
     "@yaireo/tagify": "^4.16",
     "ceval": "2.0.0",
+    "chart": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
     "chessground": "^8.3.5",

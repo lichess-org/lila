@@ -1,6 +1,7 @@
 {
   "defaultArgs": ["all"],
-  "gulp": true,
+  "gulp": false,
+  "rollup": false,
   "log": {
     "heap": false,
     "time": true,
@@ -8,6 +9,7 @@
     "color": {
       "bleep": "green",
       "rollup": "cyan",
+      "esbuild": "blue",
       "tsc": "yellow",
       "gulp": "magenta"
     }

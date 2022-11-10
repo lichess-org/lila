@@ -136,12 +136,16 @@ export default function () {
     if (!$wrap.length) return;
     const $input = $wrap.find('input');
     let booted = false;
-    const boot = () => {
+    const boot = function () {
       if (booted) return;
       booted = true;
       loadModule('cli').then(
-        () => window.LichessCli.app($input[0]),
-        () => (booted = false)
+        function () {
+          window.LichessCli.app($input[0]);
+        },
+        function () {
+          booted = false;
+        }
       );
     };
     $input.on({
