@@ -1,11 +1,10 @@
 package lila.game
 
-sealed abstract class Source(val id: Int) {
+sealed abstract class Source(val id: Int):
 
   lazy val name = toString.toLowerCase
-}
 
-object Source {
+object Source:
 
   case object Lobby      extends Source(id = 1)
   case object Friend     extends Source(id = 2)
@@ -29,4 +28,3 @@ object Source {
   val expirable: Set[Source] = Set(Lobby, Tournament, Pool, Swiss)
 
   def apply(id: Int): Option[Source] = byId get id
-}

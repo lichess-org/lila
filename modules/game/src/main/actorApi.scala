@@ -9,9 +9,8 @@ case class FinishGame(
     game: Game,
     white: Option[User],
     black: Option[User]
-) {
+):
   def isVsSelf = white.isDefined && white == black
-}
 
 case class InsertGame(game: Game)
 
@@ -26,26 +25,21 @@ case class MoveGameEvent(
     fen: String,
     move: String
 )
-object MoveGameEvent {
+object MoveGameEvent:
   def makeChan(gameId: Game.ID) = s"moveEvent:$gameId"
-}
 
 case class BoardDrawOffer(game: Game)
-object BoardDrawOffer {
+object BoardDrawOffer:
   def makeChan(gameId: Game.ID) = s"boardDrawOffer:$gameId"
-}
 
 case class BoardTakeback(game: Game)
-object BoardTakeback {
+object BoardTakeback:
   def makeChan(gameId: Game.ID) = s"boardTakeback:$gameId"
-}
 
 case class BoardTakebackOffer(game: Game)
-object BoardTakebackOffer {
-  def makeChan = BoardTakeback.makeChan _
-}
+object BoardTakebackOffer:
+  def makeChan = BoardTakeback.makeChan
 
 case class BoardGone(pov: Pov, claimInSeconds: Option[Int])
-object BoardGone {
+object BoardGone:
   def makeChan(gameId: Game.ID) = s"boardGone:$gameId"
-}

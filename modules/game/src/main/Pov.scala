@@ -3,7 +3,7 @@ package lila.game
 import chess.Color
 import lila.user.User
 
-case class Pov(game: Game, color: Color) {
+case class Pov(game: Game, color: Color):
 
   def player = game player color
 
@@ -52,9 +52,8 @@ case class Pov(game: Game, color: Color) {
   )
 
   override def toString = ref.toString
-}
 
-object Pov {
+object Pov:
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
 
@@ -89,33 +88,28 @@ object Pov {
     else if (!a.hasMoved && b.hasMoved) true
     else if (!b.hasMoved && a.hasMoved) false
     else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
-}
 
-case class PovRef(gameId: Game.ID, color: Color) {
+case class PovRef(gameId: Game.ID, color: Color):
 
   def unary_! = PovRef(gameId, !color)
 
   override def toString = s"$gameId/${color.name}"
-}
 
 case class PlayerRef(gameId: Game.ID, playerId: String)
 
-object PlayerRef {
+object PlayerRef:
 
   def apply(fullId: String): PlayerRef = PlayerRef(Game takeGameId fullId, Game takePlayerId fullId)
-}
 
-case class LightPov(game: LightGame, color: Color) {
+case class LightPov(game: LightGame, color: Color):
   def gameId   = game.id
   def player   = game player color
   def opponent = game player !color
   def win      = game wonBy color
-}
 
-object LightPov {
+object LightPov:
 
   def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
 
   def ofUserId(game: LightGame, userId: User.ID): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }
-}

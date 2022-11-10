@@ -1,13 +1,13 @@
 package lila.game
 
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import chess.Division
 import chess.variant.Variant
 import chess.format.FEN
 
-final class Divider {
+final class Divider:
 
   private val cache: Cache[Game.ID, Division] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
@@ -29,4 +29,3 @@ final class Divider {
       )
       .toOption
       .fold(Division.empty)(chess.Divider.apply)
-}

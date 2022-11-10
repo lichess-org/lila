@@ -44,7 +44,7 @@ object Bus:
       bus.unsubscribe(Tellable.Actor(ref), _)
     }
 
-  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Matchable)(implicit
+  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Matchable)(using
       ec: scala.concurrent.ExecutionContext,
       scheduler: Scheduler
   ): Fu[A] =
@@ -55,7 +55,7 @@ object Bus:
       .withTimeout(
         timeout,
         Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
-      )(ec, scheduler)
+      )
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
 
   private val bus = new EventBus[Matchable, Channel, Tellable](

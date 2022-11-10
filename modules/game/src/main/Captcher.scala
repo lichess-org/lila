@@ -1,21 +1,20 @@
 package lila.game
 
-import akka.actor._
+import akka.actor.*
 import akka.pattern.pipe
 import cats.data.NonEmptyList
 import chess.format.pgn.{ Sans, Tags }
 import chess.format.{ pgn, Forsyth }
-import chess.{ Game => ChessGame }
+import chess.{ Game as ChessGame }
 import scala.util.Success
 
 import lila.common.Captcha
-import lila.hub.actorApi.captcha._
+import lila.hub.actorApi.captcha.*
 
 // only works with standard chess (not chess960)
-final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext)
-    extends Actor {
+final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext) extends Actor:
 
-  def receive = {
+  def receive =
 
     case AnyCaptcha => sender() ! Impl.current
 
@@ -25,15 +24,13 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
 
     case ValidCaptcha(id: String, solution: String) =>
       Impl.get(id).map(_ valid solution).pipeTo(sender()).unit
-  }
 
-  private object Impl {
+  private object Impl:
 
     def get(id: String): Fu[Captcha] =
-      find(id) match {
+      find(id) match
         case None    => getFromDb(id) map (c => (c | Captcha.default) ~ add)
         case Some(c) => fuccess(c)
-      }
 
     def current = challenges.head
 
@@ -48,9 +45,8 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
     private var challenges = NonEmptyList.one(Captcha.default)
 
     private def add(c: Captcha): Unit =
-      if (find(c.gameId).isEmpty) {
+      if (find(c.gameId).isEmpty)
         challenges = NonEmptyList(c, challenges.toList take capacity)
-      }
 
     private def find(id: String): Option[Captcha] =
       challenges.find(_.gameId == id)
@@ -99,12 +95,9 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         .flatMap(_.valid) map (_.state) toOption
 
     private def safeInit[A](list: List[A]): List[A] =
-      list match {
+      list match
         case _ :: Nil => Nil
         case x :: xs  => x :: safeInit(xs)
         case _        => Nil
-      }
 
     private def fen(game: ChessGame): String = Forsyth exportBoard game.board
-  }
-}

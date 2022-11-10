@@ -4,7 +4,7 @@ import chess.Color.{ Black, White }
 import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Castles, Centis, CheckCount, Clock, Color, Game => ChessGame, Mode, MoveOrDrop, Speed, Status }
+import chess.{ Castles, Centis, CheckCount, Clock, Color, Game as ChessGame, Mode, MoveOrDrop, Speed, Status }
 import org.joda.time.DateTime
 
 import lila.common.{ Days, Sequence }
@@ -27,7 +27,7 @@ case class Game(
     createdAt: DateTime = DateTime.now,
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
-) {
+):
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
   def situation = chess.situation
@@ -103,16 +103,14 @@ case class Game(
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    movedAt.getSeconds - createdAt.getSeconds match {
+    movedAt.getSeconds - createdAt.getSeconds match
       case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
       case seconds                           => seconds.toInt.some
-    }
 
   private def everyOther[A](l: List[A]): List[A] =
-    l match {
+    l match
       case a :: _ :: tail => a :: everyOther(tail)
       case _              => l
-    }
 
   def moveTimes(color: Color): Option[List[Centis]] = {
     for {
@@ -156,19 +154,18 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
-  def pgnMoves(color: Color): PgnMoves = {
+  def pgnMoves(color: Color): PgnMoves =
     val pivot = if (color == startColor) 0 else 1
     pgnMoves.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
-  }
 
   // apply a move
   def update(
       game: ChessGame, // new chess position
       moveOrDrop: MoveOrDrop,
       blur: Boolean = false
-  ): Progress = {
+  ): Progress =
 
     def copyPlayer(player: Player) =
       if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
@@ -227,7 +224,6 @@ case class Game(
     }
 
     Progress(this, updated, events)
-  }
 
   def lastMoveKeys: Option[String] =
     history.lastMove map {
@@ -493,22 +489,20 @@ case class Game(
 
   def timeForFirstMove: Centis =
     Centis ofSeconds {
-      import Speed._
-      val base = if (isTournament) speed match {
+      import Speed.*
+      val base = if (isTournament) speed match
         case UltraBullet => 11
         case Bullet      => 16
         case Blitz       => 21
         case Rapid       => 25
         case _           => 30
-      }
       else
-        speed match {
+        speed match
           case UltraBullet => 15
           case Bullet      => 20
           case Blitz       => 25
           case Rapid       => 30
           case _           => 35
-        }
       if (variant.chess960) base * 5 / 4
       else base
     }
@@ -524,11 +518,10 @@ case class Game(
     }
 
   def playerWhoDidNotMove: Option[Player] =
-    playedTurns match {
+    playedTurns match
       case 0 => player(startColor).some
       case 1 => player(!startColor).some
       case _ => none
-    }
 
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
@@ -575,11 +568,10 @@ case class Game(
   def userRatings = playerMaps(_.rating)
 
   def averageUsersRating =
-    userRatings match {
+    userRatings match
       case a :: b :: Nil => Some((a + b) / 2)
       case a :: Nil      => Some((a + 1500) / 2)
       case _             => None
-    }
 
   def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
   def withSwissId(id: String)      = copy(metadata = metadata.copy(swissId = id.some))
@@ -617,38 +609,33 @@ case class Game(
 
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
-  def drawReason = {
+  def drawReason =
     if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
     else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
     else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
     else if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
     else None
-  }
 
   def startedAt = Game.StartedAt(startColor, chess.startedAtTurn)
 
   override def toString = s"""Game($id)"""
-}
 
-object Game {
+object Game:
 
   type ID = String
 
-  case class Id(value: String) extends AnyVal with StringValue {
+  case class Id(value: String) extends AnyVal with StringValue:
     def full(playerId: PlayerId) = FullId(s"$value{$playerId.value}")
-  }
-  case class FullId(value: String) extends AnyVal with StringValue {
+  case class FullId(value: String) extends AnyVal with StringValue:
     def gameId   = Id(value take gameIdSize)
     def playerId = PlayerId(value drop gameIdSize)
-  }
   case class PlayerId(value: String) extends AnyVal with StringValue
 
   case class WithInitialFen(game: Game, fen: Option[FEN])
 
   case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
-  case class StartedAt(startColor: Color, startedAtTurn: Int) {
+  case class StartedAt(startColor: Color, startedAtTurn: Int):
     def pov(color: Color) = SideAndStart(color, startColor, startedAtTurn)
-  }
 
   val syntheticId = "synthetic"
 
@@ -754,7 +741,7 @@ object Game {
       pgnImport: Option[PgnImport],
       daysPerTurn: Option[Days] = None,
       rules: Set[GameRule] = Set.empty
-  ): NewGame = {
+  ): NewGame =
     val createdAt = DateTime.now
     NewGame(
       Game(
@@ -770,11 +757,10 @@ object Game {
         movedAt = createdAt
       )
     )
-  }
 
   def metadata(source: Source) = Metadata.empty.copy(source = source.some)
 
-  object BSONFields {
+  object BSONFields:
 
     val id                = "_id"
     val whitePlayer       = "p0"
@@ -817,35 +803,28 @@ object Game {
     val perfType          = "pt" // only set on student games for aggregation
     val drawOffers        = "do"
     val rules             = "rules"
-  }
-}
 
 case class CastleLastMove(castles: Castles, lastMove: Option[Uci])
 
-object CastleLastMove {
+object CastleLastMove:
 
   def init = CastleLastMove(Castles.all, None)
 
-  import reactivemongo.api.bson._
-  import lila.db.ByteArray.ByteArrayBSONHandler
+  import reactivemongo.api.bson.*
+  import lila.db.dsl.*
+  import lila.db.ByteArray.byteArrayHandler
 
-  implicit private[game] val castleLastMoveBSONHandler = new BSONHandler[CastleLastMove] {
-    def readTry(bson: BSONValue) =
-      bson match {
-        case bin: BSONBinary => ByteArrayBSONHandler readTry bin map BinaryFormat.castleLastMove.read
-        case b               => lila.db.BSON.handlerBadType(b)
-      }
-    def writeTry(clmt: CastleLastMove) =
-      ByteArrayBSONHandler writeTry {
-        BinaryFormat.castleLastMove write clmt
-      }
-  }
-}
+  private[game] given castleLastMoveHandler: BSONHandler[CastleLastMove] = tryHandler[CastleLastMove](
+    { case bin: BSONBinary =>
+      byteArrayHandler readTry bin map BinaryFormat.castleLastMove.read
+    },
+    clmt => byteArrayHandler writeTry { BinaryFormat.castleLastMove write clmt } get
+  )
 
 case class ClockHistory(
     white: Vector[Centis] = Vector.empty,
     black: Vector[Centis] = Vector.empty
-) {
+):
 
   def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
     color.fold(copy(white = f(white)), copy(black = f(black)))
@@ -867,12 +846,10 @@ case class ClockHistory(
       firstMoveBy.fold(white, black),
       firstMoveBy.fold(black, white)
     )
-}
 
 sealed trait DrawReason
-object DrawReason {
+object DrawReason:
   case object MutualAgreement      extends DrawReason
   case object FiftyMoves           extends DrawReason
   case object ThreefoldRepetition  extends DrawReason
   case object InsufficientMaterial extends DrawReason
-}

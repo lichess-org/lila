@@ -2,14 +2,14 @@ package lila.game
 
 import chess.Status
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-object Query {
+object Query:
 
-  import Game.{ BSONFields => F }
+  import Game.{ BSONFields as F }
 
   val rated: Bdoc = F.rated $eq true
 
@@ -126,12 +126,11 @@ object Query {
     F.createdAt $gte d
 
   def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc =
-    (since, until) match {
+    (since, until) match
       case (Some(since), None)        => createdSince(since)
       case (None, Some(until))        => F.createdAt $lt until
       case (Some(since), Some(until)) => F.createdAt $gte since $lt until
       case _                          => $empty
-    }
 
   val notSimul = F.simulId $exists false
 
@@ -139,4 +138,3 @@ object Query {
   val sortChronological: Bdoc     = $sort asc F.createdAt
   val sortAntiChronological: Bdoc = $sort desc F.createdAt
   val sortMovedAtNoIndex: Bdoc    = $sort desc F.movedAt
-}

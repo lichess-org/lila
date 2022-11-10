@@ -1,8 +1,8 @@
 package lila.game
 
-import cats.implicits._
+import cats.implicits.*
 import chess.Color
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.user.User
 
@@ -19,10 +19,10 @@ case class Player(
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
     provisional: Boolean = false,
-    blurs: Blurs = Blurs.blursZero.zero,
+    blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
     name: Option[String] = None
-) {
+):
 
   def playerUser =
     userId flatMap { uid =>
@@ -65,21 +65,19 @@ case class Player(
     }
 
   def before(other: Player) =
-    ((rating, id), (other.rating, other.id)) match {
+    ((rating, id), (other.rating, other.id)) match
       case ((Some(a), _), (Some(b), _)) if a != b => a > b
       case ((Some(_), _), (None, _))              => true
       case ((None, _), (Some(_), _))              => false
       case ((_, a), (_, b))                       => a < b
-    }
 
   def ratingAfter = rating map (_ + ~ratingDiff)
 
   def stableRating = rating ifFalse provisional
 
   def stableRatingAfter = stableRating map (_ + ~ratingDiff)
-}
 
-object Player {
+object Player:
 
   private val nameSplitRegex = """([^(]++)\((\d++)\)""".r
 
@@ -141,22 +139,22 @@ object Player {
       rating = rating
     )
 
-  case class HoldAlert(ply: Int, mean: Int, sd: Int) {
+  case class HoldAlert(ply: Int, mean: Int, sd: Int):
     def suspicious = HoldAlert.suspicious(ply)
-  }
-  object HoldAlert {
+  object HoldAlert:
     type Map = Color.Map[Option[HoldAlert]]
     val emptyMap: Map                 = Color.Map(none, none)
     def suspicious(ply: Int): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
-  }
 
   case class UserInfo(id: String, rating: Int, provisional: Boolean)
 
-  import reactivemongo.api.bson.Macros
-  implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]
+  import reactivemongo.api.bson.*
+  import lila.db.BSON
 
-  object BSONFields {
+  given BSONDocumentHandler[HoldAlert] = Macros.handler
+
+  object BSONFields:
 
     val aiLevel           = "ai"
     val isOfferingDraw    = "od"
@@ -168,10 +166,6 @@ object Player {
     val holdAlert         = "h"
     val berserk           = "be"
     val name              = "na"
-  }
-
-  import reactivemongo.api.bson._
-  import lila.db.BSON
 
   type ID      = String
   type UserId  = Option[User.ID]
@@ -181,13 +175,13 @@ object Player {
   private def safeRange(range: Range)(v: Int): Option[Int] =
     range.contains(v) option v
 
-  private val ratingRange     = safeRange(0 to 4000) _
-  private val ratingDiffRange = safeRange(-1000 to 1000) _
+  private val ratingRange     = safeRange(0 to 4000)
+  private val ratingDiffRange = safeRange(-1000 to 1000)
 
-  implicit val playerBSONHandler = new BSON[Builder] {
+  given playerHandler: BSON[Builder] = new BSON[Builder]:
 
-    import BSONFields._
-    import Blurs._
+    import BSONFields.*
+    import Blurs.*
 
     def reads(r: BSON.Reader) =
       color =>
@@ -205,7 +199,7 @@ object Player {
                 rating = r intO rating flatMap ratingRange,
                 ratingDiff = r intO ratingDiff flatMap ratingDiffRange,
                 provisional = r boolD provisional,
-                blurs = r.getD[Blurs](blursBits, blursZero.zero),
+                blurs = r.getD[Blurs](blursBits, Blurs.zeroBlurs.zero),
                 berserk = r boolD berserk,
                 name = r strO name
               )
@@ -219,9 +213,7 @@ object Player {
           rating            -> p.rating,
           ratingDiff        -> p.ratingDiff,
           provisional       -> w.boolO(p.provisional),
-          blursBits         -> p.blurs.nonEmpty.??(BlursBSONHandler writeOpt p.blurs),
+          blursBits         -> p.blurs.nonEmpty.??(p.blurs),
           name              -> p.name
         )
       }
-  }
-}

@@ -1,6 +1,6 @@
 package lila.game
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Status }
@@ -10,16 +10,16 @@ import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
 
 import lila.common.ThreadLocalRandom
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User
 import lila.common.config
 
-final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers._
-  import Game.{ BSONFields => F, ID }
-  import Player.holdAlertBSONHandler
+  import BSONHandlers.given
+  import Game.{ BSONFields as F, ID }
+  import Player.given
 
   val fixedColorLobbyCache = new lila.memo.ExpireSetMemo(2 hours)
 
@@ -32,7 +32,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def gameOptionsFromSecondary(gameIds: Seq[ID]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, ID](gameIds, none, ReadPreference.secondaryPreferred)(_.id)
 
-  object light {
+  object light:
 
     def game(gameId: ID): Fu[Option[LightGame]] = coll.byId[LightGame](gameId, LightGame.projection)
 
@@ -52,7 +52,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         projection = LightGame.projection.some,
         readPreference = ReadPreference.secondaryPreferred
       )(_.id)
-  }
 
   def finished(gameId: ID): Fu[Option[Game]] =
     coll.one[Game]($id(gameId) ++ Query.finished)
@@ -175,7 +174,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
 
   private def saveDiff(origin: Game, diff: GameDiff.Diff): Funit =
-    diff match {
+    diff match
       case (Nil, Nil) => funit
       case (sets, unsets) =>
         coll.update
@@ -184,7 +183,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
             nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
           )
           .void
-    }
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if (doc.isEmpty) $empty else $doc(mod -> doc)
@@ -294,7 +292,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .void
 
-  object holdAlert {
+  object holdAlert:
     private val holdAlertSelector = $or(
       holdAlertField(chess.White) $exists true,
       holdAlertField(chess.Black) $exists true
@@ -323,7 +321,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           holdAlertProjection.some
         )
         .cursor[Bdoc](ReadPreference.secondaryPreferred)
-        .list() map { docs =>
+        .listAll() map { docs =>
         val idColors = povs.view.map { p =>
           p.gameId -> p.color
         }.toMap
@@ -335,7 +333,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         } yield id -> holds
         holds.toMap
       }
-  }
 
   def hasHoldAlert(pov: Pov): Fu[Boolean] =
     coll.exists(
@@ -390,7 +387,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit = {
+  def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit =
     val g2 =
       if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
         g.copy(mode = chess.Mode.Casual)
@@ -414,7 +411,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.insert.one(bson) addFailureEffect {
       case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment().unit
     } void
-  }
 
   def removeRecentChallengesOf(userId: User.ID) =
     coll.delete.one(
@@ -469,13 +465,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       userId: User.ID,
       opponentLimit: Int,
       gameLimit: Int
-  ): Fu[List[(User.ID, Int)]] = {
+  ): Fu[List[(User.ID, Int)]] =
     coll
       .aggregateList(
         maxDocs = opponentLimit,
         ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         Match($doc(F.playerUids -> userId)) -> List(
           Match($doc(F.playerUids -> $doc("$size" -> 2))),
           Sort(Descending(F.createdAt)),
@@ -498,7 +494,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           obj.int("gs") map { id -> _ }
         }
       })
-  }
 
   def random: Fu[Option[Game]] =
     coll
@@ -556,4 +551,3 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     game.perfType ?? { pt =>
       coll.updateFieldUnchecked($id(game.id), F.perfType, pt.id)
     }
-}

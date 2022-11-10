@@ -2,7 +2,7 @@ package lila.game
 
 import lila.common.LightUser
 
-object Namer {
+object Namer:
 
   def playerTextBlocking(player: Player, withRating: Boolean = false)(implicit
       lightUser: LightUser.GetterSync
@@ -42,4 +42,3 @@ object Namer {
     p.rating.fold("?") { rating =>
       s"$rating${p.provisional ?? "?"}"
     }
-}

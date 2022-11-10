@@ -16,7 +16,7 @@ import scala.collection.Factory
 
 trait Handlers:
 
-  given BSONHandler[DateTime] = quickHandler[DateTime](
+  given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
     v => BSONDateTime(v.getMillis)
   )
@@ -68,7 +68,7 @@ trait Handlers:
     bigDecimalIsoHandler(Iso(from, to))
 
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
-    given_BSONHandler_DateTime.as[A](iso.from, iso.to)
+    dateTimeHandler.as[A](iso.from, iso.to)
 
   def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] =
     new BSONHandler[T]:

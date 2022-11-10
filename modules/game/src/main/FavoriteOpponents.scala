@@ -1,6 +1,6 @@
 package lila.game
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.user.{ User, UserRepo }
 
@@ -8,7 +8,7 @@ final class FavoriteOpponents(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
   private val userIdsCache = cacheApi[User.ID, List[(User.ID, Int)]](64, "favoriteOpponents") {
     _.expireAfterWrite(15 minutes)
@@ -28,9 +28,7 @@ final class FavoriteOpponents(
         } sortBy (-_._2)
       }
     }
-}
 
-object FavoriteOpponents {
+object FavoriteOpponents:
   private val opponentLimit = 30
   val gameLimit             = 1000
-}

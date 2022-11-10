@@ -9,7 +9,7 @@ case class LightGame(
     whitePlayer: Player,
     blackPlayer: Player,
     status: Status
-) {
+):
   def playable                                        = status < Status.Aborted
   def player(color: Color): Player                    = color.fold(whitePlayer, blackPlayer)
   def player(playerId: Player.ID): Option[Player]     = players find (_.id == playerId)
@@ -18,11 +18,10 @@ case class LightGame(
   def winner                                          = players find (_.wins)
   def wonBy(c: Color): Option[Boolean]                = winner.map(_.color == c)
   def finished                                        = status >= Status.Mate
-}
 
-object LightGame {
+object LightGame:
 
-  import Game.{ BSONFields => F }
+  import Game.{ BSONFields as F }
 
   def projection =
     lila.db.dsl.$doc(
@@ -32,4 +31,3 @@ object LightGame {
       F.winnerColor -> true,
       F.status      -> true
     )
-}

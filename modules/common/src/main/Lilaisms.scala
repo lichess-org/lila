@@ -16,7 +16,6 @@ trait Lilaisms
     with ornicar.scalalib.Zeros
     with ornicar.scalalib.ScalalibExtensions
     with LilaLibraryExtensions
-    with LilaFutureExtensions
     with LilaJsObjectExtensions:
 
   trait IntValue extends Any:
