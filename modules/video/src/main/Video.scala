@@ -13,7 +13,7 @@ case class Video(
     startTime: Int, // in seconds
     metadata: Youtube.Metadata,
     createdAt: DateTime
-) {
+):
 
   def id = _id
 
@@ -30,25 +30,21 @@ case class Video(
     }
 
   override def toString = s"[$id] $title ($author)"
-}
 
-object Target {
+object Target:
   val BEGINNER     = 1
   val INTERMEDIATE = 2
   val ADVANCED     = 3
   val EXPERT       = 4
 
   def name(target: Int) =
-    target match {
+    target match
       case BEGINNER     => "beginner"
       case INTERMEDIATE => "intermediate"
       case ADVANCED     => "advanced"
       case EXPERT       => "expert"
       case _            => ""
-    }
-}
 
-object Video {
+object Video:
 
   type ID = String
-}

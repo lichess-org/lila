@@ -30,6 +30,6 @@ object FingerHash {
     if (str.length % 2 != 0) s"${str}0" else str
   }
 
-  implicit val fingerHashIso     = Iso.string[FingerHash](FingerHash.apply, _.value)
-  implicit val fingerHashHandler = lila.db.BSON.isoHandler[FingerHash, String](fingerHashIso)
+  given Iso[String, FingerHash]                        = Iso.string[FingerHash](FingerHash.apply, _.value)
+  given reactivemongo.api.bson.BSONHandler[FingerHash] = lila.db.BSON.stringIsoHandler
 }

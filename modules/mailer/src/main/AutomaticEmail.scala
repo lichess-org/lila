@@ -2,15 +2,15 @@ package lila.mailer
 
 import org.joda.time.Period
 import play.api.i18n.Lang
-import scala.util.chaining._
-import scalatags.Text.all._
+import scala.util.chaining.*
+import scalatags.Text.all.*
 
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
 import lila.hub.actorApi.mailer.CorrespondenceOpponent
 import lila.i18n.PeriodLocales.showPeriod
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.user.{ User, UserRepo }
 import lila.base.LilaException
 
@@ -19,15 +19,15 @@ final class AutomaticEmail(
     mailer: Mailer,
     baseUrl: BaseUrl,
     lightUser: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Mailer.html._
+  import Mailer.html.*
 
   val regards = """Regards,
 
 The Lichess team"""
 
-  def welcomeEmail(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
+  def welcomeEmail(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     lila.mon.email.send.welcome.increment()
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
@@ -39,11 +39,10 @@ The Lichess team"""
         trans.welcome_text.txt(profileUrl, editUrl)
       ).some
     )
-  }
 
   def welcomePM(user: User): Funit = fuccess {
     alsoSendAsPrivateMessage(user) { implicit lang =>
-      import lila.i18n.I18nKeys._
+      import lila.i18n.I18nKeys.*
       s"""${welcome.txt()}\n${lichessPatronInfo.txt()}"""
     }.unit
   }
@@ -116,7 +115,7 @@ $regards
 """
     )
 
-  def gdprErase(user: User): Funit = {
+  def gdprErase(user: User): Funit =
     val body =
       s"""Hello,
 
@@ -135,7 +134,6 @@ $regards
         )
       }
     }
-  }
 
   def onPatronNew(userId: User.ID): Funit =
     userRepo named userId map {
@@ -220,19 +218,17 @@ $disableSettingNotice $disableLink"""
       }
     }
 
-  private def showGame(opponent: CorrespondenceOpponent)(implicit lang: Lang) = {
+  private def showGame(opponent: CorrespondenceOpponent)(implicit lang: Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:") { remainingTime =>
       s"You have ${showPeriod(remainingTime)} remaining in your game with $opponentName:"
     }
-  }
 
-  private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String = {
+  private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
     implicit val lang = userLang(user)
     body(userLang(user)) tap { txt =>
       lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
     }
-  }
 
   private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
     alsoSendAsPrivateMessage(user)(body) pipe { body =>
@@ -259,4 +255,3 @@ $disableSettingNotice $disableLink"""
     }
 
   private def userLang(user: User): Lang = user.realLang | lila.i18n.defaultLang
-}

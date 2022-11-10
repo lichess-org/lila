@@ -8,13 +8,12 @@ object BSONHandlers {
 
   import StageProgress.Score
 
-  implicit private val ScoreHandler = intAnyValHandler[Score](_.value, Score.apply)
-  implicit private val StageProgressHandler =
-    isoHandler[StageProgress, Vector[Score]](
-      (s: StageProgress) => s.scores,
-      StageProgress.apply _
-    )
+  private given BSONHandler[Score] = intAnyValHandler[Score](_.value, Score.apply)
+  private given BSONHandler[StageProgress] = isoHandler[StageProgress, Vector[Score]](
+    (s: StageProgress) => s.scores,
+    StageProgress.apply _
+  )
 
-  implicit val LearnProgressIdHandler = stringAnyValHandler[LearnProgress.Id](_.value, LearnProgress.Id.apply)
-  implicit val LearnProgressHandler   = Macros.handler[LearnProgress]
+  given BSONHandler[LearnProgress.Id] = stringAnyValHandler[LearnProgress.Id](_.value, LearnProgress.Id.apply)
+  given BSONHandler[LearnProgress]    = Macros.handler[LearnProgress]
 }

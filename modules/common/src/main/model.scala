@@ -6,6 +6,7 @@ import play.api.mvc.Call
 import scala.concurrent.duration.*
 import scala.util.Try
 import lila.base.LilaTypes
+import java.net.InetAddress
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion]:
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
@@ -30,9 +31,13 @@ object Bearer:
 
 sealed trait IpAddress:
   def value: String
+  def inet: Option[InetAddress]
   override def toString = value
-case class IpV4Address(value: String) extends IpAddress
-case class IpV6Address(value: String) extends IpAddress
+
+case class IpV4Address(value: String) extends IpAddress:
+  def inet = Try(InetAddress.getByAddress(value.split('.').map(_.toInt.toByte))).toOption
+case class IpV6Address(value: String) extends IpAddress:
+  def inet = Try(parseIPv6Address(value).toInetAddress).toOption
 
 object IpAddress:
   private def parse(str: String): Try[IpAddress] = Try {

@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi._
 import lila.user.User
 
@@ -13,7 +13,7 @@ final class EventApi(
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def promoteTo(req: RequestHeader): Fu[List[Event]] =
     promotable.getUnit map {

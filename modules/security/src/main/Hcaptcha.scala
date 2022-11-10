@@ -13,6 +13,7 @@ import scala.concurrent.duration._
 import lila.common.config._
 import lila.common.HTTPRequest
 import lila.common.IpAddress
+import play.api.ConfigLoader
 
 trait Hcaptcha {
 
@@ -45,7 +46,7 @@ object Hcaptcha {
   ) {
     def public = HcaptchaPublicConfig(publicKey, enabled)
   }
-  implicit private[security] val configLoader = AutoConfig.loader[Config]
+  private[security] given ConfigLoader[Config] = AutoConfig.loader[Config]
 }
 
 final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha {
@@ -68,7 +69,7 @@ final class HcaptchaReal(
   import Hcaptcha.Result
 
   private case class GoodResponse(success: Boolean, hostname: String)
-  implicit private val goodReader = Json.reads[GoodResponse]
+  private given Reads[GoodResponse] = Json.reads[GoodResponse]
 
   private case class BadResponse(
       `error-codes`: List[String]
@@ -76,7 +77,7 @@ final class HcaptchaReal(
     def missingInput      = `error-codes` contains "missing-input-response"
     override def toString = `error-codes` mkString ","
   }
-  implicit private val badReader = Json.reads[BadResponse]
+  private given Reads[BadResponse] = Json.reads[BadResponse]
 
   private object skip {
     private val memo = new lila.memo.HashCodeExpireSetMemo[IpAddress](24 hours)

@@ -12,6 +12,7 @@ import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 import lila.common.config
+import play.api.ConfigLoader
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -77,7 +78,7 @@ final class CurrencyApi(
 object CurrencyApi {
 
   case class Config(appId: config.Secret)
-  implicit val currencyConfigLoader = AutoConfig.loader[Config]
+  given ConfigLoader[Config] = AutoConfig.loader
 
   val acceptableCurrencies: Set[Currency] = payPalCurrencies intersect stripeCurrencies
 

@@ -11,6 +11,7 @@ import lila.common.config.Secret
 import lila.common.WebService
 import lila.user.User
 import lila.common.EmailAddress
+import play.api.ConfigLoader
 
 final private class StripeClient(
     ws: StandaloneWSClient,
@@ -19,8 +20,8 @@ final private class StripeClient(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import StripeClient._
-  import JsonHandlers._
-  import JsonHandlers.stripe._
+  import JsonHandlers.given
+  import JsonHandlers.stripe.given
   import WebService._
 
   private val STRIPE_VERSION = "2020-08-27"
@@ -30,7 +31,7 @@ final private class StripeClient(
       customerId: StripeCustomerId,
       currency: Currency,
       urls: NextUrls
-  ): List[(String, Any)] =
+  ): List[(String, Matchable)] =
     paymentMethods(mode, currency).toList.zipWithIndex.map { case (method, index) =>
       s"payment_method_types[$index]" -> method
     } :::
@@ -143,7 +144,7 @@ final private class StripeClient(
 
   private val logger = lila.plan.logger branch "stripe"
 
-  private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
+  private def getOne[A: Reads](url: String, queryString: (String, Matchable)*): Fu[Option[A]] =
     get[A](url, queryString) dmap some recover {
       case _: NotFoundException => None
       case e: DeletedException =>
@@ -151,25 +152,25 @@ final private class StripeClient(
         None
     }
 
-  private def getList[A: Reads](url: String, queryString: (String, Any)*): Fu[List[A]] =
+  private def getList[A: Reads](url: String, queryString: (String, Matchable)*): Fu[List[A]] =
     get[List[A]](url, queryString)(listReader[A])
 
-  private def postOne[A: Reads](url: String, data: (String, Any)*): Fu[A] = post[A](url, data)
+  private def postOne[A: Reads](url: String, data: (String, Matchable)*): Fu[A] = post[A](url, data)
 
-  private def deleteOne[A: Reads](url: String, queryString: (String, Any)*): Fu[A] =
+  private def deleteOne[A: Reads](url: String, queryString: (String, Matchable)*): Fu[A] =
     delete[A](url, queryString)
 
-  private def get[A: Reads](url: String, queryString: Seq[(String, Any)]): Fu[A] = {
+  private def get[A: Reads](url: String, queryString: Seq[(String, Matchable)]): Fu[A] = {
     logger.debug(s"GET $url ${debugInput(queryString)}")
     request(url).withQueryStringParameters(fixInput(queryString): _*).get() flatMap response[A]
   }
 
-  private def post[A: Reads](url: String, data: Seq[(String, Any)]): Fu[A] = {
+  private def post[A: Reads](url: String, data: Seq[(String, Matchable)]): Fu[A] = {
     logger.info(s"POST $url ${debugInput(data)}")
     request(url).post(fixInput(data).toMap) flatMap response[A]
   }
 
-  private def delete[A: Reads](url: String, data: Seq[(String, Any)]): Fu[A] = {
+  private def delete[A: Reads](url: String, data: Seq[(String, Matchable)]): Fu[A] = {
     logger.info(s"DELETE $url ${debugInput(data)}")
     request(url).withQueryStringParameters(fixInput(data): _*).delete() flatMap response[A]
   }
@@ -225,6 +226,6 @@ object StripeClient {
       @ConfigName("keys.secret") secretKey: Secret,
       products: ProductIds
   )
-  implicit private[plan] val productsLoader     = AutoConfig.loader[ProductIds]
-  implicit private[plan] val stripeConfigLoader = AutoConfig.loader[Config]
+  private[plan] given ConfigLoader[ProductIds] = AutoConfig.loader
+  private[plan] given ConfigLoader[Config]     = AutoConfig.loader
 }

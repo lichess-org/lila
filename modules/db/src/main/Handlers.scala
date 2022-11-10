@@ -12,6 +12,7 @@ import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso.*
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
+import scala.collection.Factory
 
 trait Handlers:
 
@@ -20,7 +21,7 @@ trait Handlers:
     v => BSONDateTime(v.getMillis)
   )
 
-  given isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
+  def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
     new BSONHandler[A]:
       def readTry(x: BSONValue) = handler.readTry(x) map iso.from
       def writeTry(x: A)        = handler writeTry iso.to(x)
@@ -124,20 +125,34 @@ trait Handlers:
       nel => listWriter.writeTry(nel.toList).get
     )
 
+  given listHandler[T: BSONHandler]: BSONHandler[List[T]] with
+    val reader                                 = collectionReader[List, T]
+    val writer                                 = BSONWriter.collectionWriter[T, List[T]]
+    def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
+    def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
+
+  // given collectionHandler[T, M[_], Repr <: Iterable[T]](using
+  //     handler: BSONHandler[T],
+  //     factory: Factory[T, M[T]]
+  // ): BSONHandler[M[T]] with
+  //   val reader                              = collectionReader[M, T]
+  //   val writer                              = BSONWriter.collectionWriter[T, Repr]
+  //   def readTry(bson: BSONValue): Try[M[T]] = reader.readTry(bson)
+  //   def writeTry(t: Repr): Try[BSONValue]   = writer.writeTry(t)
+
   given BSONWriter[BSONNull.type] with
     def writeTry(n: BSONNull.type) = Success(BSONNull)
 
-  given BSONHandler[IpAddress] = isoHandler[IpAddress, String]
+  given BSONHandler[IpAddress] = stringIsoHandler
 
-  given BSONHandler[EmailAddress] = isoHandler[EmailAddress, String]
+  given BSONHandler[EmailAddress] = stringIsoHandler
 
-  given BSONHandler[NormalizedEmailAddress] =
-    isoHandler[NormalizedEmailAddress, String]
+  given BSONHandler[NormalizedEmailAddress] = stringIsoHandler
 
   given BSONHandler[chess.Color]  = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
   given BSONHandler[chess.Centis] = intIsoHandler
 
-  given BSONHandler[FEN] = stringAnyValHandler[FEN](_.value, FEN.apply)
+  given BSONHandler[FEN] = stringIsoHandler
 
   import lila.common.{ LilaOpeningFamily, SimpleOpening }
   given BSONHandler[SimpleOpening.Key] = stringIsoHandler

@@ -3,13 +3,13 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.bson.{ BSONHandler, BSONNull, Macros }
+import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONHandler, BSONNull, Macros }
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import scala.concurrent.blocking
 import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
@@ -17,6 +17,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
 ) {
 
   import Store._
+  import FingerHash.given
 
   private val authCache = cacheApi[String, Option[AuthInfo]](65536, "security.authCache") {
     _.expireAfterAccess(5 minutes)
@@ -67,7 +68,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
           "date" -> DateTime.now,
           "up"   -> up,
           "api"  -> apiVersion.map(_.value),
-          "fp"   -> fp.flatMap(FingerHash.apply).flatMap(FingerHash.fingerHashHandler.writeOpt)
+          "fp"   -> fp.flatMap(FingerHash.apply)
         )
       )
       .void
@@ -106,7 +107,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       )
       .void >> uncacheAllOf(userId)
 
-  implicit private val UserSessionBSONHandler = Macros.handler[UserSession]
+  private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
     coll
       .find($doc("user" -> userId, "up" -> true))
@@ -143,7 +144,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some
       )
       .sort($sort desc "date")
-      .cursor[Info]()(InfoReader, implicitly[CursorProducer[Info]])
+      .cursor[Info]()
       .list(1000)
 
   // remains of never-confirmed accounts that got cleaned up
@@ -153,7 +154,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
   }
-  implicit private val DedupInfoReader = Macros.reader[DedupInfo]
+  private given BSONDocumentReader[DedupInfo] = Macros.reader
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
     coll
@@ -165,7 +166,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       )
       .sort($doc("date" -> -1))
       .cursor[DedupInfo]()
-      .list()
+      .list(1000)
       .flatMap { sessions =>
         val olds = sessions
           .groupBy(_.compositeKey)
@@ -177,7 +178,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
         coll.delete.one($inIds(olds)).void
       } >> uncacheAllOf(userId)
 
-  implicit private val IpAndFpReader = Macros.reader[IpAndFp]
+  private given BSONDocumentReader[IpAndFp] = Macros.reader
 
   def shareAnIpOrFp(u1: User.ID, u2: User.ID): Fu[Boolean] =
     coll.aggregateExists(ReadPreference.secondaryPreferred) { framework =>
@@ -227,7 +228,7 @@ object Store {
     def datedUa = Dated(ua, date)
   }
 
-  import FingerHash.fingerHashHandler
-  import UserAgent.userAgentHandler
-  implicit val InfoReader = Macros.reader[Info]
+  import FingerHash.given
+  import UserAgent.given
+  given BSONDocumentReader[Info] = Macros.reader[Info]
 }

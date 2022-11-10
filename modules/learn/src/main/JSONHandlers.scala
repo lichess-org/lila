@@ -6,9 +6,9 @@ import lila.common.Json._
 
 object JSONHandlers {
 
-  implicit private val StageProgressScoreWriter = intAnyValWriter[StageProgress.Score](_.value)
-  implicit val StageProgressWriter              = Json.writes[StageProgress]
+  private given Writes[StageProgress.Score] = intAnyValWriter[StageProgress.Score](_.value)
+  given OWrites[StageProgress]              = Json.writes
 
-  implicit private val LearnProgressIdWriter = stringAnyValWriter[LearnProgress.Id](_.value)
-  implicit val LearnProgressWriter           = Json.writes[LearnProgress]
+  private given Writes[LearnProgress.Id] = stringAnyValWriter[LearnProgress.Id](_.value)
+  given OWrites[LearnProgress]           = Json.writes
 }

@@ -7,7 +7,7 @@ import lila.db.dsl._
 
 private object PrefHandlers {
 
-  implicit val prefBSONHandler = new BSON[Pref] {
+  given BSONDocumentHandler[Pref] = new BSON[Pref] {
 
     def reads(r: BSON.Reader): Pref =
       Pref(

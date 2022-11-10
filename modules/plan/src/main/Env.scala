@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.common.Strings
-import lila.memo.SettingStore.Strings._
+import lila.memo.SettingStore.Strings.given
 
 @Module
 private class PlanConfig(

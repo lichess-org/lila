@@ -1,25 +1,24 @@
 package lila.security
 
 import com.github.blemale.scaffeine.LoadingCache
-import com.sanoma.cda.geoip.{ IpLocation, MaxMindIpGeo }
 import io.methvin.play.autoconfig._
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
+import com.maxmind.geoip2.DatabaseReader
+import scala.util.Try
+import play.api.ConfigLoader
+import com.maxmind.geoip2.model.CityResponse
 
 final class GeoIP(config: GeoIP.Config) {
 
-  private lazy val geoIp: Option[MaxMindIpGeo] =
-    config.file.nonEmpty ?? {
-      try {
-        val m = MaxMindIpGeo(config.file, 0)
-        logger.info("MaxMindIpGeo is enabled")
-        m.some
-      } catch {
-        case e: java.io.FileNotFoundException =>
-          logger.info(s"MaxMindIpGeo is disabled: $e")
-          none
-      }
+  val reader: Option[DatabaseReader] =
+    try {
+      config.file.nonEmpty option new DatabaseReader.Builder(new java.io.File(config.file)).build
+    } catch {
+      case e: Exception =>
+        logger.error("MaxMindIpGeo couldn't load", e)
+        none
     }
 
   private val cache: LoadingCache[IpAddress, Option[Location]] =
@@ -27,8 +26,11 @@ final class GeoIP(config: GeoIP.Config) {
       .expireAfterAccess(config.cacheTtl)
       .build(compute)
 
-  private def compute(ip: IpAddress): Option[Location] =
-    geoIp.flatMap(_ getLocation ip.value) map Location.apply
+  private def compute(ip: IpAddress): Option[Location] = for {
+    r    <- reader
+    inet <- ip.inet
+    res  <- Try(r city inet).toOption
+  } yield Location(res)
 
   def apply(ip: IpAddress): Option[Location] = cache get ip
 
@@ -40,7 +42,7 @@ object GeoIP {
       file: String,
       @ConfigName("cache_ttl") cacheTtl: FiniteDuration
   )
-  implicit val configLoader = AutoConfig.loader[Config]
+  given ConfigLoader[Config] = AutoConfig.loader
 }
 
 case class Location(
@@ -61,8 +63,13 @@ object Location {
 
   val tor = Location("Tor exit node", none, none, none)
 
-  def apply(ipLoc: IpLocation): Location =
-    Location(ipLoc.countryName | unknown.country, ipLoc.countryCode, ipLoc.region, ipLoc.city)
+  def apply(res: CityResponse): Location =
+    Location(
+      Option(res.getCountry).fold(unknown.country)(_.getName),
+      Option(res.getCountry).map(_.getIsoCode),
+      Option(res.getMostSpecificSubdivision).map(_.getName),
+      Option(res.getCity).map(_.getName)
+    )
 
   case class WithProxy(location: Location, proxy: Option[String])
 }

@@ -1,10 +1,11 @@
 package lila.security
 
 import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.DefaultBodyReadables.*
 
 import lila.common.IpAddress
 
-final class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(implicit
+final class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -12,7 +13,7 @@ final class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(implicit
 
   private[security] def refresh: Fu[Set[IpAddress]] =
     ws.url(config.providerUrl).get() map { res =>
-      ips = res.body.linesIterator.filterNot(_ startsWith "#").flatMap(IpAddress.from).toSet
+      ips = res.body[String].linesIterator.filterNot(_ startsWith "#").flatMap(IpAddress.from).toSet
       lila.mon.security.torNodes.update(ips.size)
       ips
     }

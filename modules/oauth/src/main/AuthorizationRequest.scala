@@ -3,12 +3,12 @@ package lila.oauth
 import cats.data.Validated
 import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.user.User
 
-object AuthorizationRequest {
-  import Protocol._
+object AuthorizationRequest:
+  import Protocol.*
 
   case class Raw(
       clientId: Option[String],
@@ -18,7 +18,7 @@ object AuthorizationRequest {
       codeChallengeMethod: Option[String],
       codeChallenge: Option[String],
       scope: Option[String]
-  ) {
+  ):
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
     def prompt: Validated[Error, Prompt] =
@@ -34,7 +34,6 @@ object AuthorizationRequest {
         codeChallenge = codeChallenge,
         scope = scope
       )
-  }
 
   case class Prompt(
       redirectUri: RedirectUri,
@@ -44,7 +43,7 @@ object AuthorizationRequest {
       codeChallengeMethod: Option[String],
       codeChallenge: Option[String],
       scope: Option[String]
-  ) {
+  ):
     def errorUrl(error: Error) = redirectUri.error(error, state)
 
     def cancelUrl = errorUrl(Error.AccessDenied)
@@ -90,7 +89,6 @@ object AuthorizationRequest {
           challenge
         )
       }
-  }
 
   case class Authorized(
       clientId: ClientId,
@@ -99,7 +97,5 @@ object AuthorizationRequest {
       user: User.ID,
       scopes: List[OAuthScope],
       challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
-  ) {
+  ):
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
-  }
-}

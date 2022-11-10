@@ -60,7 +60,7 @@ case class Appeal(
 object Appeal {
 
   sealed trait Status {
-    val key = toString.toLowerCase
+    val key = this.toString.toLowerCase
   }
   object Status {
     case object Unread extends Status

@@ -22,6 +22,10 @@ private class UserConfig(
     @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
 )
 
+object A:
+  object B:
+    val foo = "bar"
+
 @Module
 final class Env(
     appConfig: Configuration,

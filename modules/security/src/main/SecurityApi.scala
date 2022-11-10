@@ -12,7 +12,7 @@ import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate
 import lila.user.{ User, UserRepo }
@@ -108,7 +108,8 @@ final class SecurityApi(
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
-  def restoreUser(req: RequestHeader): Fu[Option[Either[AppealUser, FingerPrintedUser]]] =
+  private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
+  def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
       appeal.authenticate(sessionId) match {
         case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
@@ -120,7 +121,7 @@ final class SecurityApi(
               }
             }
           }
-      }
+      }: Fu[Option[AppealOrUser]]
     }
 
   def oauthScoped(

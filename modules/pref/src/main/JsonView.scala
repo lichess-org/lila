@@ -4,7 +4,7 @@ import play.api.libs.json._
 
 object JsonView {
 
-  implicit val prefJsonWriter = OWrites[Pref] { p =>
+  given OWrites[Pref] = OWrites[Pref] { p =>
     Json.obj(
       "dark"             -> (p.bg != Pref.Bg.LIGHT),
       "transp"           -> (p.bg == Pref.Bg.TRANSPARENT),

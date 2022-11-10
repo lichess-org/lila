@@ -18,7 +18,7 @@ object Dependencies {
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.1"
   val chess       = "org.lichess"                  %% "scalachess"                      % "11.2.1"
   val compression = "org.lichess"                  %% "compression"                     % "1.6"
-  val maxmind     = "com.sanoma.cda"               %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
+  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "3.0.2"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19-THIB213"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.1" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
@@ -68,10 +68,9 @@ object Dependencies {
   }
 
   object play {
-    val api      = "com.typesafe.play" %% "play"           % "2.8.18-lila_3.1"
+    val api      = "com.typesafe.play" %% "play"           % "2.8.18-lila_3.3"
     val json     = "com.typesafe.play" %% "play-json"      % "2.10.0-RC7"
     val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.10.0-RC7"
-    val mailer   = "com.typesafe.play" %% "play-mailer"    % "8.0.1"
   }
 
   object playWs {

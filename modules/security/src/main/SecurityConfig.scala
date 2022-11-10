@@ -7,6 +7,7 @@ import scala.concurrent.duration.FiniteDuration
 import lila.common.config._
 
 import SecurityConfig._
+import play.api.ConfigLoader
 
 @Module
 final private class SecurityConfig(
@@ -33,48 +34,48 @@ private object SecurityConfig {
       @ConfigName("print_ban") printBan: CollName,
       firewall: CollName
   )
-  implicit val collectionLoader = AutoConfig.loader[Collection]
+  given ConfigLoader[Collection] = AutoConfig.loader
 
   case class EmailConfirm(
       enabled: Boolean,
       secret: Secret,
       cookie: String
   )
-  implicit val emailConfirmLoader = AutoConfig.loader[EmailConfirm]
+  given ConfigLoader[EmailConfirm] = AutoConfig.loader
 
   case class Tor(
       @ConfigName("enabled") enabled: Boolean,
       @ConfigName("provider_url") providerUrl: String,
       @ConfigName("refresh_delay") refreshDelay: FiniteDuration
   )
-  implicit val torLoader = AutoConfig.loader[Tor]
+  given ConfigLoader[Tor] = AutoConfig.loader
 
   case class DisposableEmail(
       @ConfigName("enabled") enabled: Boolean,
       @ConfigName("provider_url") providerUrl: String,
       @ConfigName("refresh_delay") refreshDelay: FiniteDuration
   )
-  implicit val disposableLoader = AutoConfig.loader[DisposableEmail]
+  given ConfigLoader[DisposableEmail] = AutoConfig.loader
 
   case class DnsApi(
       url: String,
       timeout: FiniteDuration
   )
-  implicit val dnsLoader = AutoConfig.loader[DnsApi]
+  given ConfigLoader[DnsApi] = AutoConfig.loader
 
   case class CheckMail(
       url: String,
       key: Secret
   )
-  implicit val checkMailLoader = AutoConfig.loader[CheckMail]
+  given ConfigLoader[CheckMail] = AutoConfig.loader
 
   case class Ip2Proxy(
       enabled: Boolean,
       url: String
   )
-  implicit val ip2ProxyLoader = AutoConfig.loader[Ip2Proxy]
+  given ConfigLoader[Ip2Proxy] = AutoConfig.loader
 
-  implicit val lameNameCheckLoader = boolLoader(LameNameCheck.apply)
+  given ConfigLoader[LameNameCheck] = boolLoader(LameNameCheck.apply)
 
-  implicit val loader = AutoConfig.loader[SecurityConfig]
+  given ConfigLoader[SecurityConfig] = AutoConfig.loader
 }

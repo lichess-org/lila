@@ -5,7 +5,7 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 
 case class UserLogins(
@@ -103,7 +103,7 @@ final class UserLoginsApi(
     ipSet.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
-        import FingerHash.fingerHashHandler
+        import FingerHash.given
         Match(
           $doc(
             $or(
@@ -147,7 +147,8 @@ final class UserLoginsApi(
         )
       }
       .map { docs =>
-        import lila.user.User.userBSONHandler
+        import lila.user.User.given
+        import FingerHash.given
         for {
           doc  <- docs
           user <- doc.getAsOpt[User]("user")

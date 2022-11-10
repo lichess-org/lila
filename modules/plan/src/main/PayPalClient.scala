@@ -2,7 +2,8 @@ package lila.plan
 
 import play.api.libs.json._
 import play.api.libs.ws.DefaultBodyWritables._
-import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.DefaultBodyReadables.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.WSAuthScheme
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
@@ -15,19 +16,20 @@ import lila.user.User
 import java.util.Currency
 import play.api.libs.ws.StandaloneWSRequest
 import play.api.i18n.Lang
+import play.api.ConfigLoader
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
     config: PayPalClient.Config,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import PayPalClient._
-  import JsonHandlers._
-  import JsonHandlers.payPal._
+  import JsonHandlers.given
+  import JsonHandlers.payPal.given
   import WebService._
 
-  implicit private val moneyWrites = OWrites[Money] { money =>
+  given moneyWrites: OWrites[Money] = OWrites[Money] { money =>
     Json.obj(
       "currency_code" -> money.currencyCode,
       "value"         -> money.amount
@@ -222,10 +224,10 @@ final private class PayPalClient(
         .post(Map("grant_type" -> Seq("client_credentials")))
         .flatMap {
           case res if res.status != 200 =>
-            fufail(s"PayPal access token ${res.statusText} ${res.body take 200}")
+            fufail(s"PayPal access token ${res.statusText} ${res.body[String] take 200}")
           case res =>
             (res.body[JsValue] \ "access_token").validate[String] match {
-              case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body take 200}")
+              case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body[String] take 200}")
               case JsSuccess(token, _) => fuccess(AccessToken(token))
             }
         }
@@ -233,7 +235,7 @@ final private class PayPalClient(
     }
   }
 
-  private def debugInput(data: Seq[(String, Any)]) =
+  private def debugInput(data: Seq[(String, Matchable)]) =
     fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
 }
 
@@ -254,8 +256,7 @@ object PayPalClient {
       @ConfigName("keys.public") publicKey: String,
       @ConfigName("keys.secret") secretKey: config.Secret
   )
-  implicit private[plan] val productsLoader     = AutoConfig.loader[ProductIds]
-  implicit private[plan] val payPalConfigLoader = AutoConfig.loader[Config]
+  private[plan] given ConfigLoader[Config] = AutoConfig.loader
 
   def locale(lang: Lang): Option[String] =
     lang.locale.toString.some.filter(locales.contains)

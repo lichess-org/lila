@@ -652,7 +652,7 @@ object dsl extends dsl with Handlers:
     ): Fu[M[T]] =
       coll.withReadPreference(readPreference).distinct(key, selector.some, ReadConcern.Local, None)
 
-    def findAndUpdate[D](
+    def findAndUpdateSimplified[D: BSONDocumentReader](
         selector: coll.pack.Document,
         update: coll.pack.Document,
         fetchNewObject: Boolean = false,
@@ -660,7 +660,7 @@ object dsl extends dsl with Handlers:
         sort: Option[coll.pack.Document] = None,
         fields: Option[coll.pack.Document] = None,
         writeConcern: CWC = CWC.Acknowledged
-    )(using reader: BSONDocumentReader[D]): Fu[Option[D]] =
+    ): Fu[Option[D]] =
       coll.findAndUpdate(
         selector = selector,
         update = update,
@@ -674,15 +674,15 @@ object dsl extends dsl with Handlers:
         collation = none,
         arrayFilters = Seq.empty
       ) map {
-        _.value flatMap reader.readOpt
+        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
       }
 
-    def findAndRemove[D](
+    def findAndRemove[D: BSONDocumentReader](
         selector: coll.pack.Document,
         sort: Option[coll.pack.Document] = None,
         fields: Option[coll.pack.Document] = None,
         writeConcern: CWC = CWC.Acknowledged
-    )(using reader: BSONDocumentReader[D]): Fu[Option[D]] =
+    ): Fu[Option[D]] =
       coll.findAndRemove(
         selector = selector,
         sort = sort,
@@ -692,5 +692,5 @@ object dsl extends dsl with Handlers:
         collation = none,
         arrayFilters = Seq.empty
       ) map {
-        _.value flatMap reader.readOpt
+        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
       }
