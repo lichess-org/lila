@@ -2,31 +2,29 @@ package lila.security
 
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.user.{ User, UserRepo }
 import lila.mailer.Mailer
 
-trait EmailConfirm {
+trait EmailConfirm:
 
   def effective: Boolean
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit
 
   def confirm(token: String): Fu[EmailConfirm.Result]
-}
 
-final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm {
+final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang) = userRepo setEmailConfirmed user.id void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
-}
 
 final class EmailConfirmMailer(
     userRepo: UserRepo,
@@ -34,9 +32,9 @@ final class EmailConfirmMailer(
     baseUrl: BaseUrl,
     tokenerSecret: Secret
 )(implicit ec: scala.concurrent.ExecutionContext)
-    extends EmailConfirm {
+    extends EmailConfirm:
 
-  import Mailer.html._
+  import Mailer.html.*
 
   def effective = true
 
@@ -88,20 +86,18 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
     secret = tokenerSecret,
     getCurrentValue = id => userRepo email id dmap (_.??(_.value))
   )
-}
 
-object EmailConfirm {
+object EmailConfirm:
 
   sealed trait Result
-  object Result {
+  object Result:
     case class JustConfirmed(user: User)    extends Result
     case class AlreadyConfirmed(user: User) extends Result
     case object NotFound                    extends Result
-  }
 
   case class UserEmail(username: String, email: EmailAddress)
 
-  object cookie {
+  object cookie:
 
     val name        = "email_confirm"
     private val sep = ":"
@@ -118,9 +114,8 @@ object EmailConfirm {
       req.session get name map (_.split(sep, 2)) collect { case Array(username, email) =>
         UserEmail(username, EmailAddress(email))
       }
-  }
 
-  import scala.concurrent.duration._
+  import scala.concurrent.duration.*
   import play.api.mvc.RequestHeader
   import alleycats.Zero
   import lila.memo.RateLimit
@@ -153,7 +148,7 @@ object EmailConfirm {
       }(default)
     }(default)
 
-  object Help {
+  object Help:
 
     sealed trait Status { val name: String }
     case class NoSuchUser(name: String)                     extends Status
@@ -162,9 +157,9 @@ object EmailConfirm {
     case class NoEmail(name: String)                        extends Status
     case class EmailSent(name: String, email: EmailAddress) extends Status
 
-    import play.api.data._
+    import play.api.data.*
     import play.api.data.validation.Constraints
-    import play.api.data.Forms._
+    import play.api.data.Forms.*
 
     val helpForm = Form(
       single(
@@ -186,12 +181,9 @@ object EmailConfirm {
           else
             userRepo mustConfirmEmail user.id dmap {
               case true =>
-                emails.current match {
+                emails.current match
                   case None        => NoEmail(user.username)
                   case Some(email) => EmailSent(user.username, email)
-                }
               case false => Confirmed(user.username)
             }
       }
-  }
-}

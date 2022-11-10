@@ -1,11 +1,11 @@
 package lila.security
 
 import play.api.i18n.Lang
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.EmailAddress
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
@@ -14,9 +14,9 @@ final class PasswordReset(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import Mailer.html._
+  import Mailer.html.*
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make user.id flatMap { token =>
@@ -55,4 +55,3 @@ ${trans.common_orPaste.txt()}"""),
         email <- userRepo email id
       } yield ~hash + email.fold("")(_.value)
   )
-}

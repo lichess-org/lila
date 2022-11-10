@@ -1,7 +1,7 @@
 package lila.plan
 
 import org.joda.time.DateTime
-import cats.implicits._
+import cats.implicits.*
 
 import lila.user.User
 
@@ -15,7 +15,7 @@ case class Charge(
     money: Money,
     usd: Usd,
     date: DateTime
-) {
+):
 
   def id = _id
 
@@ -30,9 +30,8 @@ case class Charge(
     else "???"
 
   def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
-}
 
-object Charge {
+object Charge:
 
   def make(
       userId: Option[User.ID],
@@ -75,4 +74,3 @@ object Charge {
   )
 
   case class Gift(from: User.ID, to: User.ID, date: DateTime)
-}

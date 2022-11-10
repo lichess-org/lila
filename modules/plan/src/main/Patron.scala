@@ -13,7 +13,7 @@ case class Patron(
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
     lastLevelUp: Option[DateTime] = None
-) {
+):
 
   def id = _id
 
@@ -56,28 +56,23 @@ case class Patron(
   def isDefined = stripe.isDefined || payPal.isDefined
 
   def isLifetime = ~lifetime
-}
 
-object Patron {
+object Patron:
 
   case class UserId(value: String) extends AnyVal
 
   case class Stripe(customerId: StripeCustomerId)
-  case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId]) {
+  case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId]):
     def renew = subscriptionId.isDefined
-  }
 
   case class PayPalLegacy(
       email: Option[PayPalLegacy.Email],
       subId: Option[PayPalLegacy.SubId],
       lastCharge: DateTime
-  ) {
+  ):
     def renew = subId.isDefined
-  }
-  object PayPalLegacy {
+  object PayPalLegacy:
     case class Email(value: String) extends AnyVal
     case class SubId(value: String) extends AnyVal
-  }
 
   case class Free(at: DateTime, by: Option[User.ID])
-}

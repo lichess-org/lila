@@ -1,15 +1,15 @@
 package lila.security
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Invalid, Valid => FormValid, ValidationError }
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
 import play.api.Mode
 import play.api.mvc.RequestHeader
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
 import lila.db.dsl.{ *, given }
@@ -31,7 +31,7 @@ final class SecurityApi(
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: Mode
-) {
+):
 
   val AccessUri = "access_uri"
 
@@ -72,12 +72,11 @@ final class SecurityApi(
     )
 
   def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
-    emailValidator.validate(EmailAddress(str)) match {
+    emailValidator.validate(EmailAddress(str)) match
       case Some(EmailAddressValidator.Acceptable(email)) =>
         authenticator.loginCandidateByEmail(email.normalize)
       case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
       case _                                 => fuccess(none)
-    }
   } map loadedLoginForm
 
   @nowarn("cat=unused")
@@ -103,10 +102,9 @@ final class SecurityApi(
 
   def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
       req: RequestHeader
-  ): Funit = {
+  ): Funit =
     val sessionId = SecureRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
-  }
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
@@ -164,7 +162,7 @@ final class SecurityApi(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  def shareAnIpOrFp = store.shareAnIpOrFp _
+  def shareAnIpOrFp = store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
@@ -183,7 +181,7 @@ final class SecurityApi(
     )
 
   // special temporary auth for marked closed accounts so they can use appeal endpoints
-  object appeal {
+  object appeal:
 
     private type SessionId = String
 
@@ -196,16 +194,12 @@ final class SecurityApi(
     def authenticate(sessionId: SessionId): Option[User.ID] =
       sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
 
-    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] = {
+    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] =
       val sessionId = s"$prefix${SecureRandom nextString 22}"
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")
       fuccess(sessionId)
-    }
-  }
-}
 
-object SecurityApi {
+object SecurityApi:
 
   case class MustConfirmEmail(userId: User.ID) extends Exception
-}

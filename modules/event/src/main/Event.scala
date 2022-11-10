@@ -23,7 +23,7 @@ case class Event(
     hostedBy: Option[User.ID] = None,
     icon: Option[String] = None,
     countdown: Boolean
-) {
+):
 
   def willStartLater = startsAt.isAfterNow
 
@@ -45,11 +45,9 @@ case class Event(
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
 
   def id = _id
-}
 
-object Event {
+object Event:
 
   def makeId = lila.common.ThreadLocalRandom nextString 8
 
   case class UserId(value: String) extends AnyVal
-}

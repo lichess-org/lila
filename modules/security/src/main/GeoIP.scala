@@ -1,8 +1,8 @@
 package lila.security
 
 import com.github.blemale.scaffeine.LoadingCache
-import io.methvin.play.autoconfig._
-import scala.concurrent.duration._
+import io.methvin.play.autoconfig.*
+import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 import com.maxmind.geoip2.DatabaseReader
@@ -10,16 +10,15 @@ import scala.util.Try
 import play.api.ConfigLoader
 import com.maxmind.geoip2.model.CityResponse
 
-final class GeoIP(config: GeoIP.Config) {
+final class GeoIP(config: GeoIP.Config):
 
   val reader: Option[DatabaseReader] =
-    try {
+    try
       config.file.nonEmpty option new DatabaseReader.Builder(new java.io.File(config.file)).build
-    } catch {
+    catch
       case e: Exception =>
         logger.error("MaxMindIpGeo couldn't load", e)
         none
-    }
 
   private val cache: LoadingCache[IpAddress, Option[Location]] =
     lila.memo.CacheApi.scaffeineNoScheduler
@@ -35,29 +34,26 @@ final class GeoIP(config: GeoIP.Config) {
   def apply(ip: IpAddress): Option[Location] = cache get ip
 
   def orUnknown(ip: IpAddress): Location = apply(ip) | Location.unknown
-}
 
-object GeoIP {
+object GeoIP:
   case class Config(
       file: String,
       @ConfigName("cache_ttl") cacheTtl: FiniteDuration
   )
   given ConfigLoader[Config] = AutoConfig.loader
-}
 
 case class Location(
     country: String,
     countryCode: Option[String],
     region: Option[String],
     city: Option[String]
-) {
+):
 
   def shortCountry: String = ~country.split(',').headOption
 
   override def toString = List(shortCountry.some, region, city).flatten mkString " > "
-}
 
-object Location {
+object Location:
 
   val unknown = Location("Solar System", none, none, none)
 
@@ -72,4 +68,3 @@ object Location {
     )
 
   case class WithProxy(location: Location, proxy: Option[String])
-}

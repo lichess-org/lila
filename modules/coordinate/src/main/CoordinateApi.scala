@@ -1,13 +1,13 @@
 package lila.coordinate
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.user.User
-import lila.db.dsl._
+import lila.db.dsl.*
 import chess.Color
 
-final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.ExecutionContext):
 
   private given BSONDocumentHandler[Score] = Macros.handler[Score]
 
@@ -36,7 +36,7 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
         maxDocs = Int.MaxValue,
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         Match($doc("_id" $in userIds)) -> List(
           Project(
             $doc(
@@ -56,4 +56,3 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
           }
         }.toMap
       }
-}

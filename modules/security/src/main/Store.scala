@@ -6,7 +6,7 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONHandler, BSONNull, Macros }
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import scala.concurrent.blocking
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
@@ -14,9 +14,9 @@ import lila.user.User
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import Store._
+  import Store.*
   import FingerHash.given
 
   private val authCache = cacheApi[String, Option[AuthInfo]](65536, "security.authCache") {
@@ -122,7 +122,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       .cursor[UserSession](ReadPreference.secondaryPreferred)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
-    FingerHash(fp) match {
+    FingerHash(fp) match
       case None => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
         coll.updateField($id(id), "fp", hash) >>- {
@@ -132,7 +132,6 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
             }
           }
         } inject hash
-    }
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
     coll
@@ -151,9 +150,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
   private[security] def deletePreviousSessions(user: User) =
     coll.delete.one($doc("user" -> user.id, "date" $lt user.createdAt)).void
 
-  private case class DedupInfo(_id: String, ip: String, ua: String) {
+  private case class DedupInfo(_id: String, ip: String, ua: String):
     def compositeKey = s"$ip $ua"
-  }
   private given BSONDocumentReader[DedupInfo] = Macros.reader
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
@@ -182,7 +180,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
 
   def shareAnIpOrFp(u1: User.ID, u2: User.ID): Fu[Boolean] =
     coll.aggregateExists(ReadPreference.secondaryPreferred) { framework =>
-      import framework._
+      import framework.*
       Match($doc("user" $in List(u1, u2))) -> List(
         Limit(500),
         Project(
@@ -218,17 +216,14 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
         $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7))
       )
     }
-}
 
-object Store {
+object Store:
 
-  case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: DateTime) {
+  case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: DateTime):
     def datedIp = Dated(ip, date)
     def datedFp = fp.map { Dated(_, date) }
     def datedUa = Dated(ua, date)
-  }
 
   import FingerHash.given
   import UserAgent.given
   given BSONDocumentReader[Info] = Macros.reader[Info]
-}

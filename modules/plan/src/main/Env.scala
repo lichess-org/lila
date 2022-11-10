@@ -1,13 +1,13 @@
 package lila.plan
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.Strings
 import lila.memo.SettingStore.Strings.given
 
@@ -36,7 +36,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
@@ -96,17 +96,14 @@ final class Env(
   }
 
   def cli =
-    new lila.common.Cli {
-      def process = {
+    new lila.common.Cli:
+      def process =
         case "patron" :: "lifetime" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
         case "patron" :: "month" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.freeMonth } inject "ok"
         case "patron" :: "remove" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.remove } inject "ok"
-      }
-    }
-}
 
 private trait PatronColl
 private trait ChargeColl

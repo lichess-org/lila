@@ -2,7 +2,7 @@ package lila.pref
 
 import play.api.mvc.RequestHeader
 
-object RequestPref {
+object RequestPref:
 
   import Pref.default
 
@@ -11,7 +11,7 @@ object RequestPref {
       pref.copy(bg = bg)
     }
 
-  def fromRequest(req: RequestHeader): Pref = {
+  def fromRequest(req: RequestHeader): Pref =
 
     def paramOrSession(name: String): Option[String] =
       queryParam(req, name) orElse req.session.get(name)
@@ -26,10 +26,8 @@ object RequestPref {
       bgImg = paramOrSession("bgImg"),
       is3d = paramOrSession("is3d") has "true"
     )
-  }
 
   private def queryParam(req: RequestHeader, name: String): Option[String] =
     req.queryString.get(name).flatMap(_.headOption).filter { v =>
       v.nonEmpty && v != "auto"
     }
-}

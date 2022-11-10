@@ -6,9 +6,9 @@ import lila.common.Domain
 
 final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmailDomain)(implicit
     ec: scala.concurrent.ExecutionContext
-) extends lila.common.Cli {
+) extends lila.common.Cli:
 
-  def process = {
+  def process =
 
     case "security" :: "roles" :: uid :: Nil =>
       userRepo named uid dmap {
@@ -29,7 +29,6 @@ final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmai
             else "Accepted domain"
           }
       }
-  }
 
   private def perform(username: String, op: User => Funit): Fu[String] =
     userRepo named username flatMap { userOption =>
@@ -37,4 +36,3 @@ final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmai
         op(u) inject "User %s successfully updated".format(username)
       }
     }
-}

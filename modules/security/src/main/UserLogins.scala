@@ -2,7 +2,7 @@ package lila.security
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.db.dsl.{ *, given }
@@ -13,7 +13,7 @@ case class UserLogins(
     prints: List[UserLogins.FPData],
     uas: List[Dated[UserAgent]],
     otherUsers: List[UserLogins.OtherUser]
-) {
+):
 
   import UserLogins.OtherUser
 
@@ -28,7 +28,6 @@ case class UserLogins(
     }
 
   def distinctLocations = UserLogins.distinctRecent(ips.map(_.datedLocation).sortBy(-_.seconds))
-}
 
 final class UserLoginsApi(
     firewall: Firewall,
@@ -37,9 +36,9 @@ final class UserLoginsApi(
     geoIP: GeoIP,
     ip2proxy: Ip2Proxy,
     printBan: PrintBan
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import UserLogins._
+  import UserLogins.*
 
   def apply(user: User, maxOthers: Int): Fu[UserLogins] =
     store.chronoInfoByUser(user) flatMap { infos =>
@@ -102,7 +101,7 @@ final class UserLoginsApi(
   ): Fu[List[OtherUser]] =
     ipSet.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
+        import framework.*
         import FingerHash.given
         Match(
           $doc(
@@ -172,15 +171,13 @@ final class UserLoginsApi(
 
   private def nextValues(field: String, userId: User.ID): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
-}
 
-object UserLogins {
+object UserLogins:
 
-  case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]) {
+  case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]):
     val nbIps = ips.size
     val nbFps = fps.size
     val score = nbIps + nbFps + nbIps * nbFps
-  }
 
   // distinct values, keeping the most recent of duplicated values
   // assumes all is sorted by most recent first
@@ -193,7 +190,7 @@ object UserLogins {
       .view
       .map { case (v, date) => Dated(v, date) }
 
-  case class Alts(users: Set[User]) {
+  case class Alts(users: Set[User]):
     lazy val boosters = users.count(_.marks.boost)
     lazy val engines  = users.count(_.marks.engine)
     lazy val trolls   = users.count(_.marks.troll)
@@ -201,11 +198,9 @@ object UserLogins {
     lazy val closed   = users.count(u => u.disabled && u.marks.clean)
     lazy val cleans   = users.count(u => u.enabled && u.marks.clean)
     def score =
-      (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match {
+      (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match
         case 0 => -999999 // rank empty alts last
         case n => n
-      }
-  }
 
   case class IPData(
       ip: Dated[IpAddress],
@@ -214,9 +209,8 @@ object UserLogins {
       proxy: Option[String],
       alts: Alts,
       clients: Set[UserAgent.Client]
-  ) {
+  ):
     def datedLocation = Dated(Location.WithProxy(location, proxy), ip.date)
-  }
 
   case class FPData(
       fp: Dated[FingerHash],
@@ -246,4 +240,3 @@ object UserLogins {
       bans: Map[User.ID, Int],
       max: Int
   )
-}

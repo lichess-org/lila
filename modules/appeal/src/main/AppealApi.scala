@@ -2,7 +2,7 @@ package lila.appeal
 
 import org.joda.time.DateTime
 
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.user.{ Holder, NoteApi, User, UserRepo }
 import reactivemongo.api.ReadPreference
 
@@ -11,15 +11,15 @@ final class AppealApi(
     userRepo: UserRepo,
     noteApi: NoteApi,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def mine(me: User): Fu[Option[Appeal]] = coll.byId[Appeal](me.id)
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
-  def byUserIds(userIds: List[User.ID]) = coll.byIds[Appeal](userIds)
+  def byUserIds(userIds: List[User.ID]) = coll.byStringIds[Appeal](userIds)
 
   def byId(appealId: User.ID) = coll.byId[Appeal](appealId)
 
@@ -49,7 +49,7 @@ final class AppealApi(
         coll.update.one($id(appeal.id), appeal) inject appeal
     }
 
-  def reply(text: String, prev: Appeal, mod: Holder, preset: Option[String]) = {
+  def reply(text: String, prev: Appeal, mod: Holder, preset: Option[String]) =
     val appeal = prev.post(text, mod.user)
     coll.update.one($id(appeal.id), appeal) >> {
       preset ?? { note =>
@@ -58,7 +58,6 @@ final class AppealApi(
         }
       }
     } inject appeal
-  }
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
@@ -85,9 +84,9 @@ final class AppealApi(
         maxDocs = nb,
         ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         Match(selector) -> List(
-          Sort((if (ascending) Ascending.apply _ else Descending.apply _) ("firstUnrepliedAt")),
+          Sort((if (ascending) Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
           Limit(nb),
           PipelineOperator(
             $lookup.simple(
@@ -127,4 +126,3 @@ final class AppealApi(
 
   def snooze(mod: User, appealId: User.ID, duration: String): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.id, appealId), duration)
-}

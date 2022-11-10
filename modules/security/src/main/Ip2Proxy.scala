@@ -1,30 +1,27 @@
 package lila.security
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.IpAddress
 
-trait Ip2Proxy {
+trait Ip2Proxy:
 
   def apply(ip: IpAddress): Fu[IsProxy]
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]]
-}
 
-case class IsProxy(name: Option[String]) extends AnyVal {
+case class IsProxy(name: Option[String]) extends AnyVal:
   def is = name.isDefined
-}
 
-final class Ip2ProxySkip extends Ip2Proxy {
+final class Ip2ProxySkip extends Ip2Proxy:
 
   def apply(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy(none))
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
-}
 
 final class Ip2ProxyServer(
     ws: StandaloneWSClient,
@@ -33,7 +30,7 @@ final class Ip2ProxyServer(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) extends Ip2Proxy {
+) extends Ip2Proxy:
 
   def apply(ip: IpAddress): Fu[IsProxy] =
     cache.get(ip).recover { case e: Exception =>
@@ -55,9 +52,9 @@ final class Ip2ProxyServer(
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[IsProxy]] =
-    ips.distinct.take(50) match { // 50 * ipv6 length < max url length
-      case Nil      => fuccess(Seq.empty[IsProxy])
-      case List(ip) => apply(ip).dmap(Seq(_))
+    ips.distinct.take(50) match // 50 * ipv6 length < max url length
+      case Nil     => fuccess(Seq.empty[IsProxy])
+      case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
         ips.flatMap(cache.getIfPresent).sequenceFu flatMap { cached =>
           if (cached.sizeIs == ips.size) fuccess(cached)
@@ -82,7 +79,6 @@ final class Ip2ProxyServer(
                 }
               }
         }
-    }
 
   private val cache: AsyncLoadingCache[IpAddress, IsProxy] = cacheApi.scaffeine
     .expireAfterWrite(1 days)
@@ -107,4 +103,3 @@ final class Ip2ProxyServer(
       country = (js \ "country_short").asOpt[String]
     } yield s"$tpe:${country | "?"}"
   }
-}

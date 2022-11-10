@@ -1,14 +1,14 @@
 package lila.learn
 
 import reactivemongo.api.ReadPreference
-import cats.implicits._
+import cats.implicits.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def get(user: User): Fu[LearnProgress] =
     coll.one[LearnProgress]($id(user.id)) dmap { _ | LearnProgress.empty(LearnProgress.Id(user.id)) }
@@ -32,7 +32,7 @@ final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
         maxDocs = Int.MaxValue,
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         Match($doc("_id" $in userIds)) -> List(
           Project($doc("stages" -> $doc("$objectToArray" -> "$stages"))),
           UnwindField("stages"),
@@ -63,4 +63,3 @@ final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
           }
           .toMap
       }
-}

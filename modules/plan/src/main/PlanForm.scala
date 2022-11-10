@@ -1,10 +1,10 @@
 package lila.plan
 
-import cats.implicits._
-import play.api.data._
-import play.api.data.Forms._
+import cats.implicits.*
+import play.api.data.*
+import play.api.data.Forms.*
 
-object PlanForm {
+object PlanForm:
 
   private val txnTypes = Set("express_checkout", "web_accept", "recurring_payment", "subscr_payment")
   // ignored types = subscr_cancel, ...
@@ -21,7 +21,7 @@ object PlanForm {
       "first_name"        -> optional(text),
       "last_name"         -> optional(text),
       "residence_country" -> optional(text)
-    )(Ipn.apply)(Ipn.unapply)
+    )(Ipn.apply)(unapply)
   )
 
   case class Ipn(
@@ -35,7 +35,7 @@ object PlanForm {
       firstName: Option[String],
       lastName: Option[String],
       countryCode: Option[String]
-  ) {
+  ):
 
     def name = (firstName, lastName) mapN { _ + " " + _ }
 
@@ -45,10 +45,7 @@ object PlanForm {
       Money(gross, _)
     }
 
-    val (userId, giftTo) = custom.??(_.trim) match {
+    val (userId, giftTo) = custom.??(_.trim) match
       case s"$userId $giftTo" => (userId.some, giftTo.some)
       case s"$userId"         => (userId.some, none)
       case _                  => (none, none)
-    }
-  }
-}

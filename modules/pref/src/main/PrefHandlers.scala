@@ -1,13 +1,13 @@
 package lila.pref
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.*
 
-private object PrefHandlers {
+private object PrefHandlers:
 
-  given BSONDocumentHandler[Pref] = new BSON[Pref] {
+  given BSONDocumentHandler[Pref] = new BSON[Pref]:
 
     def reads(r: BSON.Reader): Pref =
       Pref(
@@ -100,5 +100,3 @@ private object PrefHandlers {
         "agreement"        -> o.agreement,
         "tags"             -> o.tags
       )
-  }
-}

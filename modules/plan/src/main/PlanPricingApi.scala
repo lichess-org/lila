@@ -1,10 +1,10 @@
 package lila.plan
 
-import cats.implicits._
+import cats.implicits.*
 import java.util.{ Currency, Locale }
 import scala.concurrent.ExecutionContext
 
-case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money) {
+case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
 
   val default = suggestions.lift(1) orElse suggestions.headOption getOrElse min
 
@@ -13,9 +13,8 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
 
   def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
-}
 
-final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext) {
+final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext):
 
   import currencyApi.{ EUR, USD }
 
@@ -56,9 +55,8 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionConte
     currencyApi.convert(money, to) map2 { case Money(amount, locale) =>
       Money(PlanPricingApi.nicelyRound(amount), locale)
     }
-}
 
-object PlanPricingApi {
+object PlanPricingApi:
 
   def nicelyRound(amount: BigDecimal): BigDecimal = {
     val double   = amount.toDouble
@@ -67,7 +65,7 @@ object PlanPricingApi {
     math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
   } atLeast 1
 
-  import play.api.libs.json._
+  import play.api.libs.json.*
   val pricingWrites = OWrites[PlanPricing] { p =>
     Json.obj(
       "currency"    -> p.currencyCode,
@@ -78,4 +76,3 @@ object PlanPricingApi {
       "suggestions" -> p.suggestions.map(_.amount)
     )
   }
-}

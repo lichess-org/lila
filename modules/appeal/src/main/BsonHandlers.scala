@@ -1,9 +1,9 @@
 package lila.appeal
 
-import lila.db.dsl._
-import reactivemongo.api.bson._
+import lila.db.dsl.{ *, given }
+import reactivemongo.api.bson.*
 
-private[appeal] object BsonHandlers {
+private[appeal] object BsonHandlers:
 
   import Appeal.Status
 
@@ -17,4 +17,3 @@ private[appeal] object BsonHandlers {
 
   given BSONDocumentHandler[AppealMsg] = Macros.handler
   given BSONDocumentHandler[Appeal]    = Macros.handler
-}

@@ -21,7 +21,7 @@ final class StringToken[A](
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     serializer: StringToken.Serializable[A]
-) {
+):
 
   def make(payload: A) =
     hashCurrentValue(payload) map { hashedValue =>
@@ -33,7 +33,7 @@ final class StringToken[A](
 
   def read(token: String): Fu[Option[A]] =
     (base64 decode token) ?? {
-      _ split separator match {
+      _ split separator match
         case Array(payloadStr, hashed, checksum) =>
           MessageDigest.isEqual(
             makeHash(signPayload(payloadStr, hashed)).getBytes(UTF_8),
@@ -46,7 +46,6 @@ final class StringToken[A](
             }) map { _ option payload }
           }
         case _ => fuccess(none)
-      }
     }
 
   private def makeHash(msg: String) = Algo.hmac(secret.value).sha256(msg).hex take fullHashSize
@@ -57,28 +56,22 @@ final class StringToken[A](
     }
 
   private def signPayload(payloadStr: String, hashedValue: String) = s"$payloadStr$separator$hashedValue"
-}
 
-object StringToken {
+object StringToken:
 
-  trait Serializable[A] {
+  trait Serializable[A]:
     def read(str: String): A
     def write(a: A): String
-  }
 
-  implicit final val stringSerializable = new Serializable[String] {
+  given Serializable[String] with
     def read(str: String) = str
     def write(a: String)  = a
-  }
 
   sealed trait ValueChecker
-  object ValueChecker {
+  object ValueChecker:
     case object Same                            extends ValueChecker
     case class Custom(f: String => Fu[Boolean]) extends ValueChecker
-  }
 
-  object DateStr {
+  object DateStr:
     def toStr(date: DateTime) = date.getMillis.toString
     def toDate(str: String)   = str.toLongOption map { new DateTime(_) }
-  }
-}

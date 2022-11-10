@@ -1,8 +1,8 @@
 package lila.pref
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-object JsonView {
+object JsonView:
 
   given OWrites[Pref] = OWrites[Pref] { p =>
     Json.obj(
@@ -44,4 +44,3 @@ object JsonView {
       "rookCastle"       -> p.rookCastle
     )
   }
-}

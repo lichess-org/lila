@@ -7,7 +7,7 @@ import lila.common.IpAddress
 
 final class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   private var ips = Set.empty[IpAddress]
 
@@ -19,4 +19,3 @@ final class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(using
     }
 
   def isExitNode(ip: IpAddress) = ips contains ip
-}

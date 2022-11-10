@@ -1,16 +1,16 @@
 package lila.plan
 
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
+import play.api.libs.json.*
+import play.api.libs.functional.syntax.*
 import java.util.Currency
 import scala.util.Try
 
-private object JsonHandlers {
+private object JsonHandlers:
 
   given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency getInstance code.toUpperCase))
   given Reads[Country]  = Reads.of[String].map(Country)
 
-  object stripe {
+  object stripe:
     given Reads[StripeSubscriptionId] = Reads.of[String].map(StripeSubscriptionId)
     given Reads[StripeSessionId]      = Reads.of[String].map(StripeSessionId)
     given Reads[StripeCustomerId]     = Reads.of[String].map(StripeCustomerId)
@@ -39,9 +39,9 @@ private object JsonHandlers {
     given Reads[StripePaymentMethod]         = Json.reads
     given Reads[StripeSetupIntent]           = Json.reads
     given Reads[StripeSessionWithIntent]     = Json.reads
-  }
 
-  object payPal {
+  object payPal:
+    import play.api.libs.json.JodaReads.given
     given Reads[PayPalPayerId]             = Reads.of[String].map(PayPalPayerId)
     given Reads[PayPalOrderId]             = Reads.of[String].map(PayPalOrderId)
     given Reads[PayPalSubscriptionId]      = Reads.of[String].map(PayPalSubscriptionId)
@@ -63,5 +63,3 @@ private object JsonHandlers {
     given Reads[PayPalCapture]             = Json.reads
     given Reads[PayPalSaleAmount]          = Json.reads
     given Reads[PayPalSale]                = Json.reads
-  }
-}

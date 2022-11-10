@@ -1,10 +1,10 @@
 package lila.security
 
-import play.api.data._
+import play.api.data.*
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
-import scala.concurrent.duration._
-import scala.util.chaining._
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.common.config.NetConfig
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
@@ -24,10 +24,10 @@ final class Signup(
     irc: lila.irc.IrcApi,
     disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
   sealed abstract private class MustConfirmEmail(val value: Boolean)
-  private object MustConfirmEmail {
+  private object MustConfirmEmail:
 
     case object Nope                   extends MustConfirmEmail(false)
     case object YesBecausePrintExists  extends MustConfirmEmail(true)
@@ -40,7 +40,7 @@ final class Signup(
 
     def apply(print: Option[FingerPrint], email: EmailAddress)(implicit
         req: RequestHeader
-    ): Fu[MustConfirmEmail] = {
+    ): Fu[MustConfirmEmail] =
       val ip = HTTPRequest ipAddress req
       store.recentByIpExists(ip, 7.days) flatMap { ipExists =>
         if (ipExists) fuccess(YesBecauseIpExists)
@@ -59,12 +59,10 @@ final class Signup(
             }
           }
       }
-    }
-  }
 
   def website(
       blind: Boolean
-  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  )(implicit req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.website flatMap {
       _.form
         .bindFromRequest()
@@ -113,19 +111,19 @@ final class Signup(
       apiVersion: Option[ApiVersion]
   )(user: User)(implicit req: RequestHeader, lang: Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
-      if (mustConfirm.value) {
+      if (mustConfirm.value)
         emailConfirm.send(user, email.acceptable) >> {
           if (emailConfirm.effective)
             api.saveSignup(user.id, apiVersion, fingerPrint) inject
               Signup.ConfirmEmail(user, email.acceptable)
           else fuccess(Signup.AllSet(user, email.acceptable))
         }
-      } else fuccess(Signup.AllSet(user, email.acceptable))
+      else fuccess(Signup.AllSet(user, email.acceptable))
     }
 
   def mobile(
       apiVersion: ApiVersion
-  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  )(implicit req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.mobile
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
@@ -160,7 +158,7 @@ final class Signup(
       )
 
   private def HasherRateLimit =
-    PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit) _
+    PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit)
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
     key = "account.create.ip",
@@ -186,7 +184,7 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
       mustConfirm: MustConfirmEmail
-  ) = {
+  ) =
     disposableEmailAttempt.onSuccess(user, email, HTTPRequest ipAddress req)
     authLog(
       user.username,
@@ -194,30 +192,26 @@ final class Signup(
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
           .??(_.value)} ip: ${HTTPRequest ipAddress req} api: ${apiVersion.??(_.value)}"
     )
-  }
 
-  private def signupErrLog(err: Form[_]) =
+  private def signupErrLog(err: Form[?]) =
     for {
       username <- err("username").value
       email    <- err("email").value
-    } {
+    }
       if (
         err.errors.exists(_.messages.contains("error.email_acceptable")) &&
         err("email").value.exists(EmailAddress.isValid)
       )
         authLog(username, email, "Signup with unacceptable email")
-    }
 
   private def authLog(user: String, email: String, msg: String) =
     lila.log("auth").info(s"$user $email $msg")
-}
 
-object Signup {
+object Signup:
 
   sealed trait Result
-  case class Bad(err: Form[_])                             extends Result
+  case class Bad(err: Form[?])                             extends Result
   case object MissingCaptcha                               extends Result
   case object RateLimited                                  extends Result
   case class ConfirmEmail(user: User, email: EmailAddress) extends Result
   case class AllSet(user: User, email: EmailAddress)       extends Result
-}

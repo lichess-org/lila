@@ -1,19 +1,19 @@
 package lila.pref
 
 import play.api.mvc.RequestHeader
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.*
+import lila.memo.CacheApi.*
 import lila.user.User
 
 final class PrefApi(
     val coll: Coll,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext):
 
-  import PrefHandlers._
+  import PrefHandlers.given
 
   private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
 
@@ -103,8 +103,6 @@ final class PrefApi(
         )
     )
 
-  def saveNewUserPrefs(user: User, req: RequestHeader): Funit = {
+  def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref fromRequest req
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
-  }
-}

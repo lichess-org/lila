@@ -22,7 +22,7 @@ final class Env(
     system: ActorSystem,
     scheduler: Scheduler
 ):
-  val baseUrl = net.baseUrl
+  export net.baseUrl
   import Mailer.given
 
   private val config = appConfig.get[Mailer.Config]("mailer")

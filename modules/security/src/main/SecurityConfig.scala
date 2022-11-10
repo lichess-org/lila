@@ -1,12 +1,12 @@
 package lila.security
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import scala.concurrent.duration.FiniteDuration
 
-import lila.common.config._
+import lila.common.config.*
 
-import SecurityConfig._
+import SecurityConfig.*
 import play.api.ConfigLoader
 
 @Module
@@ -27,7 +27,7 @@ final private class SecurityConfig(
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
 )
 
-private object SecurityConfig {
+private object SecurityConfig:
 
   case class Collection(
       security: CollName,
@@ -78,4 +78,3 @@ private object SecurityConfig {
   given ConfigLoader[LameNameCheck] = boolLoader(LameNameCheck.apply)
 
   given ConfigLoader[SecurityConfig] = AutoConfig.loader
-}

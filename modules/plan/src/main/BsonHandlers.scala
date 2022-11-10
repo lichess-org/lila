@@ -1,14 +1,14 @@
 package lila.plan
 
 import java.util.Currency
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-private object BsonHandlers {
+private object BsonHandlers:
 
   given BSONHandler[Currency]      = stringAnyValHandler[Currency](_.getCurrencyCode, Currency.getInstance)
-  given BSONDocumentHandler[Money] = Macros.handler[Money]
+  given BSONDocumentHandler[Money] = Macros.handler
   given BSONHandler[Usd]           = lila.db.dsl.bigDecimalAnyValHandler[Usd](_.value, Usd)
 
   given BSONHandler[StripeChargeId]   = stringAnyValHandler[StripeChargeId](_.value, StripeChargeId)
@@ -19,25 +19,22 @@ private object BsonHandlers {
   given BSONHandler[PayPalSubscriptionId] =
     stringAnyValHandler[PayPalSubscriptionId](_.value, PayPalSubscriptionId)
 
-  object PatronHandlers {
-    import Patron._
+  object PatronHandlers:
+    import Patron.*
     given BSONHandler[PayPalLegacy.Email] =
       stringAnyValHandler[PayPalLegacy.Email](_.value, PayPalLegacy.Email)
     given BSONHandler[PayPalLegacy.SubId] =
       stringAnyValHandler[PayPalLegacy.SubId](_.value, PayPalLegacy.SubId)
-    given BSONDocumentHandler[PayPalLegacy]   = Macros.handler[PayPalLegacy]
-    given BSONDocumentHandler[PayPalCheckout] = Macros.handler[PayPalCheckout]
-    given BSONDocumentHandler[Stripe]         = Macros.handler[Stripe]
-    given BSONDocumentHandler[Free]           = Macros.handler[Free]
+    given BSONDocumentHandler[PayPalLegacy]   = Macros.handler
+    given BSONDocumentHandler[PayPalCheckout] = Macros.handler
+    given BSONDocumentHandler[Stripe]         = Macros.handler
+    given BSONDocumentHandler[Free]           = Macros.handler
     given BSONHandler[UserId]                 = stringAnyValHandler[UserId](_.value, UserId)
-    given BSONDocumentHandler[Patron]         = Macros.handler[Patron]
-  }
+    given BSONDocumentHandler[Patron]         = Macros.handler
 
-  object ChargeHandlers {
-    import Charge._
-    given BSONDocumentHandler[Stripe]         = Macros.handler[Stripe]
-    given BSONDocumentHandler[PayPalLegacy]   = Macros.handler[PayPalLegacy]
-    given BSONDocumentHandler[PayPalCheckout] = Macros.handler[PayPalCheckout]
-    given BSONDocumentHandler[Charge]         = Macros.handler[Charge]
-  }
-}
+  object ChargeHandlers:
+    import Charge.*
+    given BSONDocumentHandler[Stripe]         = Macros.handler
+    given BSONDocumentHandler[PayPalLegacy]   = Macros.handler
+    given BSONDocumentHandler[PayPalCheckout] = Macros.handler
+    given BSONDocumentHandler[Charge]         = Macros.handler
