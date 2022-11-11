@@ -61,7 +61,7 @@ final class Env(
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,
     val mode: Mode
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler

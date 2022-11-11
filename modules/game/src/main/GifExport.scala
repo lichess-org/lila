@@ -29,8 +29,12 @@ final class GifExport(
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
           Json.obj(
-            "white" -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating = true)(lightUserApi.sync),
-            "black" -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "white" -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating = true)(using
+              lightUserApi.sync
+            ),
+            "black" -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(using
+              lightUserApi.sync
+            ),
             "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
             "orientation" -> pov.color.name,
             "delay"       -> targetMedianTime.centis, // default delay for frames
@@ -50,8 +54,8 @@ final class GifExport(
   def gameThumbnail(game: Game, theme: String, piece: String): Fu[Source[ByteString, ?]] =
     val query = List(
       "fen"         -> (Forsyth >> game.chess).value,
-      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
-      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(using lightUserApi.sync),
+      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(using lightUserApi.sync),
       "orientation" -> game.naturalOrientation.name
     ) ::: List(
       game.lastMoveKeys.map { "lastMove" -> _ },
@@ -63,7 +67,7 @@ final class GifExport(
     lightUserApi preloadMany game.userIds flatMap { _ =>
       ws.url(s"$url/image.gif")
         .withMethod("GET")
-        .withQueryStringParameters(query *)
+        .withQueryStringParameters(query*)
         .stream() flatMap {
         case res if res.status != 200 =>
           logger.warn(s"GifExport gameThumbnail ${game.id} ${res.status}")
@@ -92,7 +96,7 @@ final class GifExport(
 
     ws.url(s"$url/image.gif")
       .withMethod("GET")
-      .withQueryStringParameters(query *)
+      .withQueryStringParameters(query*)
       .stream() flatMap {
       case res if res.status != 200 =>
         logger.warn(s"GifExport thumbnail $fen ${res.status}")

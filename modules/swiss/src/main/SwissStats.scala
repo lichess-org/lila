@@ -21,12 +21,12 @@ final class SwissStatsApi(
     swissColl: Coll @@ SwissColl,
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Option[SwissStats]] =
     swiss.isFinished ?? cache.get(swiss.id).dmap(some).dmap(_.filter(_.games > 0))

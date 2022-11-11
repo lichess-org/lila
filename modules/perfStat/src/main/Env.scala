@@ -15,7 +15,7 @@ final class Env(
     rankingsOf: lila.user.RankingsOf,
     rankingApi: lila.user.RankingApi,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

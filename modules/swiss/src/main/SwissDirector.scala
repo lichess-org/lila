@@ -17,11 +17,11 @@ final private class SwissDirector(
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
     onStart: Game.ID => Unit
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator
 ) {
-  import BsonHandlers._
+  import BsonHandlers.given
 
   // sequenced by SwissApi
   private[swiss] def startRound(from: Swiss): Fu[Option[Swiss]] =

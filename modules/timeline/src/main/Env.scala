@@ -24,7 +24,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     memberRepo: lila.team.MemberRepo,
     teamCache: lila.team.Cached
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {

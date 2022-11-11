@@ -26,7 +26,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newUser: Option[UserModel] = None,
       apiVersion: Option[ApiVersion] = None
-  )(implicit
+  )(using
       ctx: Context
   ): Fu[JsObject] =
     if (apiVersion.exists(!_.puzzleV2))
@@ -102,7 +102,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       }
     }
 
-  private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Option[Color]])(implicit
+  private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Option[Color]])(using
       ctx: Context
   ): Fu[Puz] =
     ctx.me match {
@@ -139,7 +139,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       }
     }
 
-  private def onComplete[A](form: Form[RoundData])(id: Puz.Id, angle: PuzzleAngle, mobileBc: Boolean)(implicit
+  private def onComplete[A](form: Form[RoundData])(id: Puz.Id, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: BodyContext[A]
   ) = {
     implicit val req = ctx.body

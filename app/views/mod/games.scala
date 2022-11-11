@@ -26,7 +26,7 @@ object games {
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
       swisses: Seq[(Swiss.IdName, Int)]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(

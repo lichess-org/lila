@@ -17,7 +17,7 @@ import lila.user.{ User => UserModel }
 final class Tournament(
     env: Env,
     apiC: => Api
-)(implicit
+)(using
     mat: akka.stream.Materializer
 ) extends LilaController(env) {
 

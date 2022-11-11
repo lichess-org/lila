@@ -13,7 +13,7 @@ import lila.user.User
 final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurrent.ExecutionContext) {
 
   import InsightStorage._
-  import BSONHandlers._
+  import BSONHandlers.given
   import InsightEntry.{ BSONFields => F }
 
   def fetchFirst(userId: User.ID): Fu[Option[InsightEntry]] =

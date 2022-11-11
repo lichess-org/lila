@@ -60,7 +60,7 @@ object roundForm {
       main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(implicit
+  private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(using
       ctx: Context
   ) = {
     val isLcc = form("syncUrl").value.exists(LccRegex.matches)

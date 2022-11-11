@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.common.Json._
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.game.JsonView._
 import lila.game.{ Game, GameRepo, Pov }
 

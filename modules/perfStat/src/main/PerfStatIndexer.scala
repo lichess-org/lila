@@ -10,7 +10,7 @@ import lila.user.User
 final class PerfStatIndexer(
     gameRepo: GameRepo,
     storage: PerfStatStorage
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

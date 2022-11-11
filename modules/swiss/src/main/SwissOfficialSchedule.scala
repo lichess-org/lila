@@ -6,7 +6,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
 
-final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: SwissCache)(implicit
+final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: SwissCache)(using
     ec: ExecutionContext
 ) {
   import SwissOfficialSchedule._

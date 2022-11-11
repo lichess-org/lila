@@ -22,7 +22,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     mode: play.api.Mode

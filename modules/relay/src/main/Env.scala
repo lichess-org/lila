@@ -21,7 +21,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     irc: lila.irc.IrcApi,
     baseUrl: BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler

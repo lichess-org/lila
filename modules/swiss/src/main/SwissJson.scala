@@ -28,7 +28,7 @@ final class SwissJson(
 )(using ec: ExecutionContext) {
 
   import SwissJson._
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def api(swiss: Swiss) = statsApi(swiss) map { stats =>
     swissJsonBase(swiss) ++ Json.obj(

@@ -29,7 +29,7 @@ object bits {
       )
     )
 
-  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit
+  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using
       ctx: Context
   ) =
     layout(

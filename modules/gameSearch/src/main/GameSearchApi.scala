@@ -9,7 +9,7 @@ import lila.search.*
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) extends SearchReadApi[Game, Query]:

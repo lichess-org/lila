@@ -1,7 +1,7 @@
 package lila.tournament
 package crud
 
-import BSONHandlers._
+import BSONHandlers.given
 import org.joda.time.DateTime
 import scala.util.chaining._
 

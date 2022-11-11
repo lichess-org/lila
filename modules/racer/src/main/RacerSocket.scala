@@ -8,7 +8,7 @@ final private class RacerSocket(
     api: RacerApi,
     json: RacerJson,
     remoteSocketApi: lila.socket.RemoteSocket
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
 ) {

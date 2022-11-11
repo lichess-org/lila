@@ -15,13 +15,13 @@ final class TutorApi(
     builder: TutorBuilder,
     reportColl: Coll @@ ReportColl,
     cacheApi: CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: Mode
 ) {
 
-  import TutorBsonHandlers._
+  import TutorBsonHandlers.given
 
   def availability(user: User): Fu[TutorFullReport.Availability] =
     cache.get(user.id) flatMap {

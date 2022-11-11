@@ -6,7 +6,7 @@ import java.io.File
 import scala.concurrent.blocking
 import scala.sys.process._
 
-final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, executable: String)(implicit
+final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, executable: String)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {

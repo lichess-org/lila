@@ -17,7 +17,7 @@ final private class InsightIndexer(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     storage: InsightStorage
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer

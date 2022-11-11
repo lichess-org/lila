@@ -33,7 +33,7 @@ final private[api] class RoundApi(
     getLightUser: lila.common.LightUser.GetterSync
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(implicit
+  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(using
       ctx: Context
   ): Fu[JsObject] =
     gameRepo

@@ -34,7 +34,7 @@ object mod {
       a(href := "#identification_screen")("Identification")
     )
 
-  def actions(u: User, emails: User.Emails, erased: User.Erased, pmPresets: ModPresets)(implicit
+  def actions(u: User, emails: User.Emails, erased: User.Erased, pmPresets: ModPresets)(using
       ctx: Context
   ): Frag =
     mzSection("actions")(
@@ -389,7 +389,7 @@ object mod {
       )
     )
 
-  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(implicit
+  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using
       ctx: Context
   ): Frag =
     mzSection("assessments")(
@@ -550,7 +550,7 @@ object mod {
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td
 
-  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData, appeals: List[Appeal])(implicit
+  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData, appeals: List[Appeal])(using
       ctx: Context,
       renderIp: RenderIp
   ): Tag = {
@@ -661,7 +661,7 @@ object mod {
       case email                        => frag(email)
     }
 
-  def identification(mod: Holder, user: User, logins: UserLogins)(implicit
+  def identification(mod: Holder, user: User, logins: UserLogins)(using
       ctx: Context,
       renderIp: RenderIp
   ): Frag = {

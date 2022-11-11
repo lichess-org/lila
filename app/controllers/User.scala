@@ -349,7 +349,7 @@ final class User(
       modZoneOrRedirect(holder, username)
     }
 
-  protected[controllers] def modZoneOrRedirect(holder: Holder, username: String)(implicit
+  protected[controllers] def modZoneOrRedirect(holder: Holder, username: String)(using
       ctx: Context
   ): Fu[Result] =
     if (HTTPRequest isEventSource ctx.req) renderModZone(holder, username)
@@ -362,7 +362,7 @@ final class User(
         .map(Source.single)
     }
 
-  protected[controllers] def loginsTableData(user: UserModel, userLogins: UserLogins, max: Int)(implicit
+  protected[controllers] def loginsTableData(user: UserModel, userLogins: UserLogins, max: Int)(using
       ctx: Context
   ): Fu[UserLogins.TableData] = {
     val familyUserIds = user.id :: userLogins.otherUserIds
@@ -376,7 +376,7 @@ final class User(
       }
   }
 
-  protected[controllers] def renderModZone(holder: Holder, username: String)(implicit
+  protected[controllers] def renderModZone(holder: Holder, username: String)(using
       ctx: Context
   ): Fu[Result] = {
     env.user.repo withEmails username orFail s"No such user $username" map {

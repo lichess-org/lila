@@ -29,7 +29,7 @@ final private[forum] class TopicApi(
     cacheApi: CacheApi
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def show(
       categSlug: String,

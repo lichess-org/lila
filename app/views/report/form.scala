@@ -11,7 +11,7 @@ import lila.user.User
 
 object form {
 
-  def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(implicit
+  def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
       ctx: Context
   ) =
     views.html.base.layout(

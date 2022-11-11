@@ -97,7 +97,7 @@ final class SwissTrf(
   def fetchPlayerIds(swiss: Swiss): Fu[PlayerIds] =
     SwissPlayer
       .fields { p =>
-        import BsonHandlers._
+        import BsonHandlers.given
         playerColl
           .aggregateOne() { framework =>
             import framework._

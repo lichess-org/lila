@@ -3,14 +3,14 @@ package lila.tournament
 import play.api.i18n.Lang
 import play.api.libs.json._
 
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
 
 final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
-  import Condition.JSONHandlers._
+  import Condition.JSONHandlers.given
 
   def apply(tournaments: VisibleTournaments)(implicit lang: Lang): Fu[JsObject] =
     for {

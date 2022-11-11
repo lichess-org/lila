@@ -163,7 +163,7 @@ object PgnDump {
     }
   }.filterNot(_.isEmpty)
 
-  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(implicit
+  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using
       flags: WithFlags
   ): Vector[chessPgn.Turn] =
     line

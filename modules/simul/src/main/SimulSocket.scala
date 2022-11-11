@@ -13,7 +13,7 @@ final private class SimulSocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
 ) {

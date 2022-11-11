@@ -22,7 +22,7 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using ec: Exe
 
 /* For data we don't really care about,
  * this DB coll with fallback to default when any operation fails. */
-final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(implicit
+final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(using
     ec: ExecutionContext,
     scheduler: Scheduler
 ):

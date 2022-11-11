@@ -9,7 +9,7 @@ import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(implicit
+final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ):

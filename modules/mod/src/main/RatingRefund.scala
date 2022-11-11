@@ -5,7 +5,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl.{ *, given }
-import lila.game.BSONHandlers._
+import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
 import lila.perfStat.PerfStat
 import lila.rating.PerfType

@@ -11,13 +11,13 @@ final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     leaderboardRepo: LeaderboardRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
 
   import LeaderboardApi._
-  import BSONHandlers._
+  import BSONHandlers.given
 
   // def generateAll: Funit =
   //   leaderboardRepo.coll.delete.one($empty) >>

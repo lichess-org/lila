@@ -1,7 +1,7 @@
 package lila.swiss
 
 import akka.stream.scaladsl._
-import BsonHandlers._
+import BsonHandlers.given
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
@@ -72,7 +72,7 @@ private object SwissSheet {
 
 }
 
-final private class SwissSheetApi(playerColl: Coll @@ PlayerColl, pairingColl: Coll @@ PairingColl)(implicit
+final private class SwissSheetApi(playerColl: Coll @@ PlayerColl, pairingColl: Coll @@ PairingColl)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {

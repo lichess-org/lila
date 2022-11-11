@@ -116,7 +116,7 @@ final class JsonView(
 
   object bc:
 
-    def apply(puzzle: Puzzle, user: Option[User])(implicit
+    def apply(puzzle: Puzzle, user: Option[User])(using
         lang: Lang
     ): Fu[JsObject] =
       gameJson(
@@ -132,7 +132,7 @@ final class JsonView(
           .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))
       }
 
-    def batch(puzzles: Seq[Puzzle], user: Option[User])(implicit
+    def batch(puzzles: Seq[Puzzle], user: Option[User])(using
         lang: Lang
     ): Fu[JsObject] = for {
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))

@@ -28,7 +28,7 @@ final class StudyApi(
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {

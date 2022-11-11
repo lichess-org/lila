@@ -73,7 +73,7 @@ object perfStat {
 
   private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
-  private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit
+  private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(using
       ctx: Context
   ): Frag =
     st.section(cls := "glicko")(
@@ -201,7 +201,7 @@ object perfStat {
       )
     )
 
-  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(implicit
+  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(using
       lang: Lang
   ): Frag =
     opt match {
@@ -233,7 +233,7 @@ object perfStat {
       case None => nbsp
     }
 
-  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(implicit
+  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(using
       lang: Lang
   ): Frag =
     div(cls := "streak")(
@@ -246,7 +246,7 @@ object perfStat {
       fromTo(s)
     )
 
-  private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(implicit
+  private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(using
       lang: Lang
   ): Frag =
     div(
@@ -261,7 +261,7 @@ object perfStat {
       resultStreakSide(streak.loss, losingStreak(), "red")
     )
 
-  private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(implicit
+  private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(using
       lang: Lang
   ): Frag =
     div(

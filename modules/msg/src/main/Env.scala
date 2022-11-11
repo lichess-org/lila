@@ -23,10 +23,11 @@ final class Env(
     chatPanic: lila.chat.ChatPanic,
     shutup: lila.hub.actors.Shutup,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
+    materializer: akka.stream.Materializer
 ):
 
   private val colls = wire[MsgColls]

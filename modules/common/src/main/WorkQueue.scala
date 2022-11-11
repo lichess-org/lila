@@ -21,7 +21,7 @@ import java.util.concurrent.TimeoutException
  * Can't be replaced with AsyncActorSequencer,
  * because this adds the concept of parallelism
  */
-// final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int)(implicit
+// final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int)(using
 //     ec: ExecutionContext,
 //     mat: Materializer
 // ) {

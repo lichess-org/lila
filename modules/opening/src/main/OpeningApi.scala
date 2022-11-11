@@ -28,7 +28,7 @@ final class OpeningApi(
   def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
     lookup(Query("", none), withWikiRevisions = false)
 
-  def lookup(q: Query, withWikiRevisions: Boolean)(implicit
+  def lookup(q: Query, withWikiRevisions: Boolean)(using
       req: RequestHeader
   ): Fu[Option[OpeningPage]] =
     val config = readConfig

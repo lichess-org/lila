@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 
-final class ChallengeKeepAliveStream(api: ChallengeApi)(implicit
+final class ChallengeKeepAliveStream(api: ChallengeApi)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {

@@ -25,7 +25,7 @@ final class ChallengeBulkApi(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
     scheduler: akka.actor.Scheduler,

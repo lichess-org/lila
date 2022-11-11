@@ -7,11 +7,11 @@ import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class ChallengeRepo(colls: ChallengeColls)(implicit
+final private class ChallengeRepo(colls: ChallengeColls)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
   import Challenge._
 
   private val coll = colls.challenge

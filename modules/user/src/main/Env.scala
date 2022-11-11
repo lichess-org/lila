@@ -35,7 +35,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: Scheduler,
     ws: StandaloneWSClient

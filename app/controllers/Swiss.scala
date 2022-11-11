@@ -18,7 +18,7 @@ final class Swiss(
     env: Env,
     tourC: Tournament,
     apiC: Api
-)(implicit
+)(using
     mat: akka.stream.Materializer
 ) extends LilaController(env) {
 

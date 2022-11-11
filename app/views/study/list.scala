@@ -36,7 +36,7 @@ object list {
       url = o => routes.Study.byOwner(owner.username, o)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(using
       ctx: Context
   ) =
     layout(
@@ -62,7 +62,7 @@ object list {
       url = o => routes.Study.mineLikes(o)
     )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(using
       ctx: Context
   ) =
     layout(
@@ -141,7 +141,7 @@ object list {
         pagerNext(pager, np => addQueryParameter(url.url, "page", np))
       )
 
-  private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(implicit
+  private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(using
       ctx: Context
   ) = {
     val nonMineOrder = if (order == Order.Mine) Order.Hot else order

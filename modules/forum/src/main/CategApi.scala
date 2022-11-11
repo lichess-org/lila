@@ -10,11 +10,11 @@ final class CategApi(
     categRepo: CategRepo,
     paginator: ForumPaginator,
     config: ForumConfig
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def makeTeam(slug: String, name: String): Funit = {
     val categ = Categ(

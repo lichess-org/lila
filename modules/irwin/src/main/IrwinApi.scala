@@ -27,7 +27,7 @@ final class IrwinApi(
 
   lazy val thresholds = IrwinThresholds.makeSetting("irwin", settingStore)
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def dashboard: Fu[IrwinReport.Dashboard] =
     reportColl
@@ -121,7 +121,7 @@ final class IrwinApi(
     private[irwin] def topOnline(leaders: List[Suspect]): Funit =
       lila.common.Future.applySequentially(leaders) { insert(_, _.Leaderboard) }
 
-    import lila.game.BSONHandlers._
+    import lila.game.BSONHandlers.given
 
     private def baseQuery(suspect: Suspect) =
       Query.finished ++

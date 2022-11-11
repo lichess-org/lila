@@ -15,7 +15,7 @@ final class RevolutionApi(
 )(using ec: scala.concurrent.ExecutionContext) {
 
   import Revolution._
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def active(u: User): Fu[List[Award]] = cache.getUnit dmap { ~_.get(u.id) }
 

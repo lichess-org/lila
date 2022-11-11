@@ -12,7 +12,7 @@ import lila.rating.PerfType
 
 private object TutorBsonHandlers {
 
-  import lila.insight.BSONHandlers._
+  import lila.insight.BSONHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
   import lila.analyse.AnalyseBsonHandlers.accuracyPercentHandler
 
@@ -40,7 +40,7 @@ private object TutorBsonHandlers {
         } getOrElse BSONNull
     )
 
-  implicit def metricHandler[A](implicit
+  implicit def metricHandler[A](using
       handler: BSONHandler[A],
       ordering: Ordering[A]
   ): BSONHandler[TutorBothValues[A]] =
@@ -50,7 +50,7 @@ private object TutorBsonHandlers {
         metric => List(metric.mine.some, metric.peer)
       )
 
-  implicit def metricOptionHandler[A](implicit
+  implicit def metricOptionHandler[A](using
       handler: BSONHandler[A],
       ordering: Ordering[A]
   ): BSONHandler[TutorBothValueOptions[A]] =

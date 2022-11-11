@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 
 final private class RelayTourRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", DateTime.now).void

@@ -17,7 +17,7 @@ final class Env(
     chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
     makeClient: Index => ESClient
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,

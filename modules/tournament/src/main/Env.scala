@@ -39,7 +39,7 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,

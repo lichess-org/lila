@@ -1,6 +1,6 @@
 package lila.study
 
-import BSONHandlers._
+import BSONHandlers.given
 import chess.Color
 import chess.format.pgn.Tags
 import chess.format.{ FEN, Uci }

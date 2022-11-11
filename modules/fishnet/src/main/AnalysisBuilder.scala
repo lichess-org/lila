@@ -7,7 +7,7 @@ import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 
-final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
+final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using
     ec: scala.concurrent.ExecutionContext
 ):
 

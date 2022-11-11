@@ -5,7 +5,7 @@ import scala.concurrent.duration.*
 final private class Monitor(
     repo: FishnetRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ):

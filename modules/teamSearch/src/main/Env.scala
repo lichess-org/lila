@@ -18,7 +18,7 @@ final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
     teamRepo: lila.team.TeamRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {

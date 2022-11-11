@@ -14,7 +14,7 @@ final class StudyPager(
   val maxPerPage                = lila.common.config.MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
 
-  import BSONHandlers._
+  import BSONHandlers.given
   import studyRepo.{
     selectLiker,
     selectMemberId,

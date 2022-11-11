@@ -11,7 +11,7 @@ import lila.user.User
 
 final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   private val lightProjection = $doc("name" -> true).some
 

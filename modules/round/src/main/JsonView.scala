@@ -3,13 +3,13 @@ package lila.round
 import actorApi.SocketStatus
 import chess.format.{ FEN, Forsyth }
 import chess.{ Clock, Color }
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.math
 
 import lila.common.{ ApiVersion, LightUser }
-import lila.common.Json._
-import lila.game.JsonView._
-import lila.game.{ Game, Player => GamePlayer, Pov }
+import lila.common.Json.given
+import lila.game.JsonView.{ *, given }
+import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -24,9 +24,9 @@ final class JsonView(
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: Pov => Boolean
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import JsonView._
+  import JsonView.{ *, given }
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
@@ -67,7 +67,7 @@ final class JsonView(
       (pov.opponent.userId ?? userRepo.byIdOrGhost) zip
       takebacker.isAllowedIn(pov.game) zip
       moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
-        import pov._
+        import pov.*
         Json
           .obj(
             "game" -> gameJsonView(game, initialFen),
@@ -112,7 +112,7 @@ final class JsonView(
               .add("enablePremove" -> pref.premove)
               .add("showCaptured" -> pref.captured)
               .add("submitMove" -> {
-                import Pref.SubmitMove._
+                import Pref.SubmitMove.*
                 pref.submitMove match {
                   case _ if game.hasAi || nvui                            => false
                   case ALWAYS                                             => true
@@ -163,7 +163,7 @@ final class JsonView(
   ) =
     getSocketStatus(pov.game) zip
       userRepo.pair(pov.player.userId, pov.opponent.userId) map { case (socket, (playerUser, opponentUser)) =>
-        import pov._
+        import pov.*
         Json
           .obj(
             "game" -> gameJsonView(game, initialFen)
@@ -216,7 +216,7 @@ final class JsonView(
   def replayJson(pov: Pov, pref: Pref, initialFen: Option[FEN]) =
     pov.game.whitePlayer.userId.??(lightUserGet) zip pov.game.blackPlayer.userId.??(lightUserGet) map {
       case (white, black) =>
-        import pov._
+        import pov.*
         import LightUser.lightUserWrites
         Json
           .obj(
@@ -247,8 +247,8 @@ final class JsonView(
       owner: Boolean,
       me: Option[User],
       division: Option[chess.Division] = None
-  ) = {
-    import pov._
+  ) =
+    import pov.*
     val fen = Forsyth >> game.chess
     Json
       .obj(
@@ -288,16 +288,15 @@ final class JsonView(
         "userAnalysis" -> true
       )
       .add("evalPut" -> me.??(evalCache.shouldPut))
-  }
 
   private def blurs(game: Game, player: lila.game.Player) =
     player.blurs.nonEmpty option {
-      blursWriter.writes(player.blurs) +
+      Json.toJsObject(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
   private def clockJson(clock: Clock): JsObject =
-    clockWriter.writes(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
+    Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
     (pov.game playableBy pov.player) option
@@ -315,9 +314,8 @@ final class JsonView(
       if (pov.game.finished) 1
       else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
     }
-}
 
-object JsonView {
+object JsonView:
 
   case class WithFlags(
       opening: Boolean = false,
@@ -328,4 +326,3 @@ object JsonView {
       rating: Boolean = true,
       puzzles: Boolean = false
   )
-}

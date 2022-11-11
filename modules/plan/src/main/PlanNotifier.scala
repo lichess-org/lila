@@ -11,7 +11,7 @@ import lila.hub.actorApi.timeline.Atom
 
 final private[plan] class PlanNotifier(
     timeline: lila.hub.actors.Timeline
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ):

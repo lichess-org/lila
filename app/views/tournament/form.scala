@@ -107,7 +107,7 @@ object form {
       auto: Boolean,
       teams: List[LeaderTeam],
       tour: Option[Tournament]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     frag(

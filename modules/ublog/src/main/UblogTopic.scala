@@ -45,7 +45,7 @@ object UblogTopic {
 
 final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using ec: ExecutionContext) {
 
-  import UblogBsonHandlers._
+  import UblogBsonHandlers.given
 
   private val withPostsCache =
     cacheApi.unit[List[UblogTopic.WithPosts]](_.refreshAfterWrite(30 seconds).buildAsyncFuture { _ =>

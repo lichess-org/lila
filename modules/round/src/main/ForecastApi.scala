@@ -1,6 +1,6 @@
 package lila.round
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
@@ -11,12 +11,12 @@ import Forecast.Step
 import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }
 
-final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concurrent.ExecutionContext) {
+final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concurrent.ExecutionContext):
 
   private given BSONDocumentHandler[Step] = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler
 
-  private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
+  private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit =
     lila.mon.round.forecast.create.increment()
     coll.update
       .one(
@@ -29,14 +29,12 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
         upsert = true
       )
       .void
-  }
 
   def save(pov: Pov, steps: Forecast.Steps): Funit =
-    firstStep(steps) match {
+    firstStep(steps) match
       case None                                         => coll.delete.one($id(pov.fullId)).void
       case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
       case _                                            => fufail(Forecast.OutOfSync)
-    }
 
   def playAndSave(
       pov: Pov,
@@ -80,12 +78,11 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
       loadForPlay(Pov player g) flatMap {
         case None => fuccess(none)
         case Some(fc) =>
-          fc(g, last) match {
+          fc(g, last) match
             case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
               coll.update.one($id(fc._id), newFc) inject uciMove.some
             case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
             case _                  => clearPov(Pov player g) inject none
-          }
       }
     }
 
@@ -94,4 +91,3 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
   def clearGame(g: Game) = coll.delete.one($inIds(chess.Color.all.map(g.fullIdOf))).void
 
   def clearPov(pov: Pov) = coll.delete.one($id(pov.fullId)).void
-}

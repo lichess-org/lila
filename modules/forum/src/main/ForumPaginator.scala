@@ -14,9 +14,9 @@ final class ForumPaginator(
     textExpand: ForumTextExpand
 )(using ec: ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User])(implicit
+  def topicPosts(topic: Topic, page: Int, me: Option[User])(using
       netDomain: lila.common.config.NetDomain
   ): Fu[Paginator[Post.WithFrag]] =
     Paginator(

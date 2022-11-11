@@ -7,7 +7,7 @@ final private class TeamSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
     cached: Cached
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
 ) {

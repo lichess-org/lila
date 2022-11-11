@@ -29,7 +29,7 @@ final class RelayApi(
     leaderboard: RelayLeaderboardApi
 )(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
   import lila.study.BSONHandlers.{ StudyBSONHandler, StudyIdBSONHandler }
 
   def byId(id: RelayRound.Id) = roundRepo.coll.byId[RelayRound](id.value)

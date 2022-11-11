@@ -17,7 +17,7 @@ final private class FirebasePush(
     deviceApi: DeviceApi,
     ws: StandaloneWSClient,
     config: FirebasePush.Config
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {

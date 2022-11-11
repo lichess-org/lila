@@ -509,7 +509,7 @@ abstract private[controllers] class LilaController(val env: Env)
       api = _ => fuccess(forbiddenJsonResult)
     )(req)
 
-  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit
+  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using
       req: RequestHeader
   ): Fu[Result] =
     lila.api.Mobile.Api

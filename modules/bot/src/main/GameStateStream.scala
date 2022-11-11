@@ -28,7 +28,7 @@ import lila.common.HTTPRequest
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {
@@ -37,7 +37,7 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(implicit
+  def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(using
       lang: Lang,
       req: RequestHeader
   ): Source[Option[JsObject], _] = {

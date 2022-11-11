@@ -20,7 +20,7 @@ final class UblogApi(
     irc: lila.irc.IrcApi
 )(using ec: ExecutionContext) {
 
-  import UblogBsonHandlers._
+  import UblogBsonHandlers.given
 
   def create(data: UblogForm.UblogPostData, user: User): Fu[UblogPost] = {
     val post = data.create(user)

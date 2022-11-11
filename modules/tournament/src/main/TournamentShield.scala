@@ -14,7 +14,7 @@ final class TournamentShieldApi(
 )(using ec: scala.concurrent.ExecutionContext) {
 
   import TournamentShield._
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def active(u: User): Fu[List[Award]] =
     cache.getUnit dmap {

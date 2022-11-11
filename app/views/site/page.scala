@@ -21,7 +21,7 @@ object page {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })""")
 
-  def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
+  def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using
       ctx: Context
   ) =
     layout(

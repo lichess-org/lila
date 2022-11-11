@@ -8,7 +8,7 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 final private class ChallengeSocket(
     api: ChallengeApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
 ) {

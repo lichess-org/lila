@@ -24,7 +24,7 @@ object index {
       langCodes: Set[String],
       countryCodes: Set[String],
       country: Option[Country]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(

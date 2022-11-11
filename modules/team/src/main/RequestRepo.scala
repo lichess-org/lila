@@ -5,7 +5,7 @@ import lila.user.User
 
 final class RequestRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   type ID = String
 

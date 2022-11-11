@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 
 object games {
 
-  def apply(channel: lila.tv.Tv.Channel, povs: List[lila.game.Pov], champions: lila.tv.Tv.Champions)(implicit
+  def apply(channel: lila.tv.Tv.Channel, povs: List[lila.game.Pov], champions: lila.tv.Tv.Champions)(using
       ctx: Context
   ) =
     views.html.base.layout(

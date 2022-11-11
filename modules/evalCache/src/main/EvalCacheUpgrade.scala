@@ -15,7 +15,7 @@ import lila.memo.SettingStore
  * by remembering the last evalGet of each socket member,
  * and listening to new evals stored.
  */
-final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: akka.actor.Scheduler)(implicit
+final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: akka.actor.Scheduler)(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
 ):

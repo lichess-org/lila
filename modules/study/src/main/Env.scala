@@ -30,7 +30,7 @@ final class Env(
     mongo: lila.db.Env,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,

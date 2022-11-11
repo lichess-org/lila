@@ -11,7 +11,7 @@ import lila.db.paginator.Adapter
 
 final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(using ec: ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val maxPerPage = config.MaxPerPage(50)
 

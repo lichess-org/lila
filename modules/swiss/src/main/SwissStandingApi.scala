@@ -22,7 +22,7 @@ final class SwissStandingApi(
     lightUserApi: lila.user.LightUserApi
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val perPage = 10
 

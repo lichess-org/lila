@@ -200,7 +200,7 @@ object search {
       )
     }
 
-  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(implicit
+  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(using
       ctx: Context
   ) =
     users.nonEmpty option table(cls := "slist slist-pad")(

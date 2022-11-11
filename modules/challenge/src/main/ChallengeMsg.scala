@@ -5,7 +5,7 @@ import scala.concurrent.ExecutionContext
 import lila.common.{ LightUser, Template }
 import lila.user.{ LightUserApi, User }
 
-final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(implicit
+final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using
     ec: ExecutionContext
 ) {
 

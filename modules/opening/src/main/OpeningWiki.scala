@@ -22,7 +22,7 @@ case class OpeningWiki(
   def markupForMove(move: String): Option[String] =
     markup map OpeningWiki.filterMarkupForMove(move)
 
-final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, cacheApi: CacheApi)(implicit
+final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, cacheApi: CacheApi)(using
     ec: ExecutionContext
 ):
 

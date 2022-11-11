@@ -1,14 +1,15 @@
 package lila.round
 
-import akka.actor._
-import akka.stream.scaladsl._
+import akka.actor.*
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Query }
 import lila.round.actorApi.round.{ Abandon, QuietFlag }
+import scala.concurrent.ExecutionContext
 
 /*
  * Cleans up unfinished games
@@ -20,23 +21,21 @@ final private[round] class Titivate(
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi
 )(implicit mat: akka.stream.Materializer)
-    extends Actor {
+    extends Actor:
 
   private type GameOrFail = Either[(Game.ID, Throwable), Game]
 
   object Run
 
-  override def preStart(): Unit = {
+  override def preStart(): Unit =
     scheduleNext()
     context setReceiveTimeout 30.seconds
-  }
 
-  implicit def ec = context.system.dispatcher
-  def scheduler   = context.system.scheduler
+  given ExecutionContext = context.system.dispatcher
 
-  def scheduleNext(): Unit = scheduler.scheduleOnce(5 seconds, self, Run).unit
+  def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5 seconds, self, Run).unit
 
-  def receive = {
+  def receive =
     case ReceiveTimeout =>
       val msg = "Titivate timed out!"
       logBranch.error(msg)
@@ -62,7 +61,6 @@ final private[round] class Titivate(
           .logFailure(logBranch)
           .addEffectAnyway(scheduleNext().unit)
       }
-  }
 
   private val logBranch = logger branch "titivate"
 
@@ -75,7 +73,7 @@ final private[round] class Titivate(
       )
   }
 
-  private val gameFlow: Flow[GameOrFail, Unit, _] = Flow[GameOrFail].mapAsyncUnordered(8) {
+  private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8) {
 
     case Left((id, err)) =>
       lila.mon.round.titivate.broken(err.getClass.getSimpleName).increment()
@@ -83,7 +81,7 @@ final private[round] class Titivate(
       gameRepo unsetCheckAt id
 
     case Right(game) =>
-      game match {
+      game match
 
         case game if game.finished || game.isPgnImport || game.playedThenAborted =>
           gameRepo unsetCheckAt game.id
@@ -104,7 +102,7 @@ final private[round] class Titivate(
           gameRepo remove game.id
 
         case game =>
-          game.clock match {
+          game.clock match
 
             case Some(clock) if clock.isRunning =>
               val minutes = clock.estimateTotalSeconds / 60
@@ -117,7 +115,4 @@ final private[round] class Titivate(
             case None =>
               val days = game.daysPerTurn | Game.abandonedDays
               gameRepo.setCheckAt(game, DateTime.now plusDays days.value).void
-          }
-      }
   }
-}

@@ -15,7 +15,7 @@ final class FishnetPlayer(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

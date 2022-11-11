@@ -25,7 +25,7 @@ final class Env(
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

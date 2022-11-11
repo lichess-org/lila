@@ -156,7 +156,7 @@ object activity {
       )
     )
 
-  private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(implicit
+  private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(using
       ctx: Context
   ) =
     ctx.noKid option entryTag(

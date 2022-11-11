@@ -13,7 +13,7 @@ final private class DnsApi(
     ws: StandaloneWSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

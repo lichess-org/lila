@@ -2,7 +2,7 @@ package lila.round
 package actorApi
 
 import scala.concurrent.Promise
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import chess.format.Uci
 import chess.{ Color, MoveMetrics }
@@ -19,15 +19,14 @@ case class SocketStatus(
     whiteIsGone: Boolean,
     blackOnGame: Boolean,
     blackIsGone: Boolean
-) {
+):
   def onGame(color: Color)     = color.fold(whiteOnGame, blackOnGame)
   def isGone(color: Color)     = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
-}
 case class RoomCrowd(white: Boolean, black: Boolean)
 case class BotConnected(color: Color, v: Boolean)
 
-package round {
+package round:
 
   case class HumanPlay(
       playerId: PlayerId,
@@ -61,4 +60,3 @@ package round {
   case object NoStart
   case object StartClock
   case object TooManyPlies
-}

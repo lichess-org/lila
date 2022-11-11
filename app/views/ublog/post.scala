@@ -21,7 +21,7 @@ object post {
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followed: Boolean
-  )(implicit
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(

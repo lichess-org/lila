@@ -16,7 +16,7 @@ final class PracticeApi(
     studyApi: lila.study.StudyApi
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def get(user: Option[User]): Fu[UserPractice] =
     for {

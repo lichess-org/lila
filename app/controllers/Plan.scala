@@ -67,7 +67,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       renderIndex(email, patron = none)
     }
 
-  private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(implicit
+  private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(using
       ctx: Context
   ): Fu[Result] =
     for {
@@ -88,7 +88,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       )
     )
 
-  private def indexStripePatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit
+  private def indexStripePatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(using
       ctx: Context
   ) = for {
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)

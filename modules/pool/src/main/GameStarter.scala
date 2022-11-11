@@ -11,7 +11,7 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: Game.Id => Unit
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

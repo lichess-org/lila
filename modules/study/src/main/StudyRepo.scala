@@ -9,12 +9,12 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class StudyRepo(private[study] val coll: AsyncColl)(implicit
+final class StudyRepo(private[study] val coll: AsyncColl)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   private object F {
     val uids      = "uids"

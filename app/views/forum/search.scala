@@ -10,7 +10,7 @@ import lila.team.Team
 
 object search {
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(implicit
+  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using
       ctx: Context
   ) = {
     val title = s"""${trans.search.search.txt()} "${text.trim}""""

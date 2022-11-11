@@ -1,12 +1,12 @@
 package lila.round
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 
-final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   def collName  = coll.name
   val noteField = "t"
@@ -34,4 +34,3 @@ final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
     }
 
   private def makeId(gameId: String, userId: String) = s"$gameId$userId"
-}

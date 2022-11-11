@@ -18,7 +18,7 @@ case class Note(
 final class NoteApi(
     userRepo: UserRepo,
     coll: Coll
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     ws: play.api.libs.ws.StandaloneWSClient
 ):

@@ -112,7 +112,7 @@ object Condition {
 
   case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition {
     def name(implicit lang: Lang) = trans.mustBeInTeam.txt(teamName)
-    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
         ec: scala.concurrent.ExecutionContext
     ) =
       getUserTeamIds(user) map { userTeamIds =>
@@ -156,7 +156,7 @@ object Condition {
 
     def withVerdicts(
         getMaxRating: GetMaxRating
-    )(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+    )(user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       list.map {
@@ -165,7 +165,7 @@ object Condition {
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.sequenceFu dmap All.WithVerdicts.apply
 
-    def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+    def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       list.map {
@@ -201,13 +201,13 @@ object Condition {
   }
 
   final class Verify(historyApi: lila.history.HistoryApi) {
-    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     }
-    def rejoin(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+    def rejoin(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       all.withRejoinVerdicts(user, getUserTeamIds)

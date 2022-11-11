@@ -23,7 +23,7 @@ final class MsgApi(
     security: MsgSecurity,
     shutup: lila.hub.actors.Shutup,
     spam: lila.security.Spam
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ):

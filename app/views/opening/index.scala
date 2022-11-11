@@ -47,7 +47,7 @@ object index {
       )
     }
 
-  def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(implicit
+  def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(using
       ctx: Context
   ) =
     div(cls := "opening__search-config")(

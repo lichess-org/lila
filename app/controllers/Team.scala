@@ -75,7 +75,7 @@ final class Team(
       }
     }
 
-  private def renderTeam(team: TeamModel, page: Int = 1, requestModView: Boolean = false)(implicit
+  private def renderTeam(team: TeamModel, page: Int = 1, requestModView: Boolean = false)(using
       ctx: Context
   ) =
     for {
@@ -103,7 +103,7 @@ final class Team(
       (isGranted(_.Shusher) && requestModView)
     }
 
-  private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(implicit
+  private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(using
       ctx: Context
   ): Boolean =
     team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
@@ -625,7 +625,7 @@ final class Team(
       }
     }
 
-  private def doPmAll(team: TeamModel, me: UserModel)(implicit
+  private def doPmAll(team: TeamModel, me: UserModel)(using
       req: Request[_]
   ): Either[Form[_], Fu[RateLimit.Result]] =
     forms.pmAll

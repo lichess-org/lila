@@ -149,7 +149,7 @@ object SetupBulk {
 
   def toJson(bulk: ScheduledBulk) = {
     import bulk._
-    import lila.common.Json.jodaWrites
+    import lila.common.Json.given
     import lila.game.JsonView.ruleWriter
     Json
       .obj(
@@ -184,7 +184,7 @@ object SetupBulk {
 
 }
 
-final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit
+final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {

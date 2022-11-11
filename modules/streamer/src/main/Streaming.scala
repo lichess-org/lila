@@ -21,7 +21,7 @@ final private class Streaming(
     alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
     twitchApi: TwitchApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

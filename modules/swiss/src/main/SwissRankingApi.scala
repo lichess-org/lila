@@ -12,7 +12,7 @@ final private class SwissRankingApi(
     playerColl: Coll @@ PlayerColl,
     cacheApi: CacheApi
 )(using ec: scala.concurrent.ExecutionContext) {
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Ranking] =
     fuccess(scoreCache.getIfPresent(swiss.id)) getOrElse {

@@ -27,7 +27,7 @@ final class SecurityApi(
     emailValidator: EmailAddressValidator,
     oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: Mode
@@ -89,7 +89,7 @@ final class SecurityApi(
       _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
     }
 
-  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit
+  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
@@ -100,7 +100,7 @@ final class SecurityApi(
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
   ): Funit =
     val sessionId = SecureRandom nextString 22

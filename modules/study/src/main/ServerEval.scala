@@ -77,7 +77,7 @@ object ServerEval {
                     } ?? { case (newParent, subTree) =>
                       chapterRepo.addSubTree(subTree, newParent, path)(chapter)
                     } >> {
-                      import BSONHandlers._
+                      import BSONHandlers.given
                       import Node.{ BsonFields => F }
                       ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
                         chapterRepo

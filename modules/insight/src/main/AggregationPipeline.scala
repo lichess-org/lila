@@ -6,11 +6,11 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.common.config
 
-final private class AggregationPipeline(store: InsightStorage)(implicit
+final private class AggregationPipeline(store: InsightStorage)(using
     ec: scala.concurrent.ExecutionContext
 ) {
   import InsightStorage._
-  import BSONHandlers._
+  import BSONHandlers.given
 
   val maxGames = config.Max(10_000)
 

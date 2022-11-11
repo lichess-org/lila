@@ -55,7 +55,7 @@ object request {
     }
   }
 
-  private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(implicit
+  private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(using
       ctx: Context
   ) =
     table(cls := "slist requests @if(t.isEmpty){all}else{for-team} datatable")(

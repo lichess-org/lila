@@ -21,7 +21,7 @@ final class Env(
     makeClient: Index => ESClient,
     postApi: lila.forum.PostApi,
     postRepo: lila.forum.PostRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     mat: akka.stream.Materializer

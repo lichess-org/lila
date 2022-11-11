@@ -32,7 +32,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode

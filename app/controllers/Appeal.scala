@@ -97,7 +97,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       }
     }
 
-  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(implicit
+  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(using
       ctx: Context
   ) =
     for {

@@ -8,7 +8,7 @@ import scala.concurrent.{ ExecutionContext, Promise }
  * Only processes one computation at a time
  * and only enqueues one.
  */
-final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: String)(implicit
+final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: String)(using
     scheduler: akka.actor.Scheduler,
     ec: scala.concurrent.ExecutionContext
 ) extends SyncActor:
@@ -69,7 +69,7 @@ final class AskPipelines[K, R](
     expiration: FiniteDuration,
     timeout: FiniteDuration,
     name: String
-)(implicit
+)(using
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

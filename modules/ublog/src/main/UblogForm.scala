@@ -10,7 +10,7 @@ import lila.user.User
 import play.api.i18n.Lang
 import lila.common.Markdown
 
-final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(implicit
+final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
     ec: scala.concurrent.ExecutionContext
 ) extends lila.hub.CaptchedForm {
 

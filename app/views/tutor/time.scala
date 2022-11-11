@@ -11,7 +11,7 @@ import lila.tutor.{ TutorFullReport, TutorPerfReport }
 
 object time {
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
       ctx: Context
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "time"))(

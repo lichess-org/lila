@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
-final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
+final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
     ec: ExecutionContext,
     scheduler: Scheduler,
     mat: Materializer

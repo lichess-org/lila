@@ -21,7 +21,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ):

@@ -62,7 +62,7 @@ object admin {
   private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
 
-  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament], unsubs: Int)(implicit
+  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament], unsubs: Int)(using
       ctx: Context
   ) =
     views.html.base.layout(

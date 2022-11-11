@@ -22,7 +22,7 @@ final class Env(
     teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi,
     lightUserApi: lila.user.LightUserApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {

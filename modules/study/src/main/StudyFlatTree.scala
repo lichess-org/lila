@@ -1,6 +1,6 @@
 package lila.study
 
-import BSONHandlers._
+import BSONHandlers.given
 import Node.Children
 
 import lila.common.Chronometer

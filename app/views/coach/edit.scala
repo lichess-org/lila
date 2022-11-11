@@ -29,7 +29,7 @@ object edit {
     }
   }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit
+  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(using
       ctx: Context
   ) = {
     views.html.account.layout(

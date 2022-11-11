@@ -10,7 +10,7 @@ import lila.app._
 
 final class Learn(env: Env) extends LilaController(env) {
 
-  import lila.learn.JSONHandlers._
+  import lila.learn.JSONHandlers.given
 
   def index     = Open(serveIndex(_))
   def indexLang = LangPage(routes.Learn.index)(serveIndex(_)) _

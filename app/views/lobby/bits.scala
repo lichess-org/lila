@@ -84,7 +84,7 @@ object bits {
       )
     )
 
-  def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(implicit
+  def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(using
       ctx: Context
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(

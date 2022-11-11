@@ -19,7 +19,7 @@ final class UblogPaginator(
     cacheApi: lila.memo.CacheApi
 )(using ec: ExecutionContext) {
 
-  import UblogBsonHandlers._
+  import UblogBsonHandlers.given
   import UblogPost.PreviewPost
 
   val maxPerPage = MaxPerPage(9)

@@ -16,7 +16,7 @@ final class Env(
     getLightUser: lila.common.LightUser.Getter,
     getLightUserSync: lila.common.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ):
@@ -35,7 +35,7 @@ final class Env(
       api.markAllRead(userIds.map(Notification.Notifies.apply)).unit
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       pov.player.userId ?? { userId =>
-        lila.game.Namer.playerText(pov.opponent)(getLightUser) foreach { opponent =>
+        lila.game.Namer.playerText(pov.opponent)(using getLightUser) foreach { opponent =>
           api addNotification Notification.make(
             Notification.Notifies(userId),
             CorresAlarm(

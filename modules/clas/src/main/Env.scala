@@ -17,7 +17,7 @@ final class Env(
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,

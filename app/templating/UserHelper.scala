@@ -257,7 +257,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
         "ulpt"      -> withPowerTip
       )
 
-  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using
       lang: Lang
   ): Frag =
     if (filter == GameFilter.Search) frag(iconTag(""), br, trans.search.advancedSearch())
@@ -266,7 +266,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   private def transLocalize(key: I18nKey, number: Int)(implicit lang: Lang) =
     key.pluralSameTxt(number)
 
-  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
+  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using
       lang: Lang
   ): String =
     filter match {

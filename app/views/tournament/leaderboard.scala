@@ -19,7 +19,7 @@ object leaderboard {
 
   private val section = st.section(cls := "tournament-leaderboards__item")
 
-  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(implicit
+  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(using
       lang: Lang
   ) =
     section(

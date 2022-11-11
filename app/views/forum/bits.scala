@@ -18,7 +18,7 @@ object bits {
       )
     )
 
-  def authorLink(post: Post, cssClass: Option[String] = None, withOnline: Boolean = true)(implicit
+  def authorLink(post: Post, cssClass: Option[String] = None, withOnline: Boolean = true)(using
       ctx: Context
   ): Frag =
     if (!(ctx.me ?? Granter(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")

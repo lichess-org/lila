@@ -14,7 +14,7 @@ final class Env(
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     oauthServer: OAuthServer
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator

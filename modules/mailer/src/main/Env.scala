@@ -17,7 +17,7 @@ final class Env(
     userRepo: UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     lightUser: lila.user.LightUserApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler

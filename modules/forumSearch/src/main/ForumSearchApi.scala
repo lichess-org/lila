@@ -3,7 +3,7 @@ package lila.forumSearch
 import akka.stream.scaladsl._
 import play.api.libs.json._
 
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.forum.{ Post, PostApi, PostLiteView, PostRepo, PostView }
 import lila.search._
 
@@ -11,7 +11,7 @@ final class ForumSearchApi(
     client: ESClient,
     postApi: PostApi,
     postRepo: PostRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) extends SearchReadApi[PostView, Query] {

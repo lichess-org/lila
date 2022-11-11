@@ -87,7 +87,7 @@ final class Env(
     val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
     val controllerComponents: ControllerComponents
-)(implicit
+)(using
     val system: ActorSystem,
     val scheduler: akka.actor.Scheduler,
     val executionContext: ExecutionContext,
@@ -161,7 +161,7 @@ final class EnvBoot(
     controllerComponents: ControllerComponents,
     cookieBacker: SessionCookieBaker,
     shutdown: CoordinatedShutdown
-)(implicit
+)(using
     ec: ExecutionContext,
     system: ActorSystem,
     ws: StandaloneWSClient

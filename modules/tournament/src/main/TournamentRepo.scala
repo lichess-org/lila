@@ -11,10 +11,10 @@ import lila.game.Game
 import lila.hub.LightTeam.TeamID
 import lila.user.User
 
-final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
+final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
     ec: scala.concurrent.ExecutionContext
 ) {
-  import BSONHandlers._
+  import BSONHandlers.given
 
   private val enterableSelect                  = $doc("status" $lt Status.Finished.id)
   private val createdSelect                    = $doc("status" -> Status.Created.id)

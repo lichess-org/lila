@@ -12,7 +12,7 @@ import lila.common.Json._
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.game.BSONHandlers._
+import lila.game.BSONHandlers.given
 import lila.game.Game.{ BSONFields => G }
 import lila.game.JsonView._
 import lila.game.{ CrosstableApi, Game, PerfPicker }

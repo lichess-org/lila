@@ -23,7 +23,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler

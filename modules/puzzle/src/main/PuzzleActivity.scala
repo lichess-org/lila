@@ -13,7 +13,7 @@ import lila.user.User
 
 final class PuzzleActivity(
     colls: PuzzleColls
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ):

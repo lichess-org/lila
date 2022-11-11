@@ -28,7 +28,7 @@ final class PostApi(
     detectLanguage: DetectLanguage
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def makePost(
       categ: Categ,

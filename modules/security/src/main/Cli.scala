@@ -4,7 +4,7 @@ import lila.user.{ User, UserRepo }
 import lila.common.EmailAddress
 import lila.common.Domain
 
-final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmailDomain)(implicit
+final private[security] class Cli(userRepo: UserRepo, disposable: DisposableEmailDomain)(using
     ec: scala.concurrent.ExecutionContext
 ) extends lila.common.Cli:
 

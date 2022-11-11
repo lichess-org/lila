@@ -14,7 +14,7 @@ object thanks {
       patron: Option[lila.plan.Patron],
       stripeCustomer: Option[lila.plan.StripeCustomer],
       gift: Option[lila.plan.Patron]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(

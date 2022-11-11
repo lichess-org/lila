@@ -175,7 +175,7 @@ object SwissCondition {
 
   final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi) {
 
-    def apply(swiss: Swiss, user: User)(implicit
+    def apply(swiss: Swiss, user: User)(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] = {
       val getBan: GetBannedUntil     = banApi.bannedUntil

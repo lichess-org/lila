@@ -23,7 +23,7 @@ case class ValueCount[V](value: V, count: Int) {
   def double(implicit number: TutorNumber[V]) = ValueCount[Double](number double value, count)
 }
 
-case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])(implicit
+case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])(using
     o: Ordering[A]
 ) {
   // def map[B: Ordering](f: A => B)                           = TutorBothValuesAvailable(mine map f, peer map f)
@@ -35,7 +35,7 @@ case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
   def toOption                    = TutorBothValueOptions(mine.some, peer)
 }
-case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(implicit
+case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(using
     o: Ordering[A]
 ) {
   def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine map (_ map f), peer map (_ map f))

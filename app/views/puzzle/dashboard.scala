@@ -135,7 +135,7 @@ object dashboard {
       )
     )
 
-  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit
+  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
       ctx: Context
   ) =
     themes.map { case (key, results) =>
@@ -150,7 +150,7 @@ object dashboard {
       )
     }
 
-  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(implicit
+  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
       ctx: Context
   ) =
     div(cls := s"${baseClass}__metrics")(

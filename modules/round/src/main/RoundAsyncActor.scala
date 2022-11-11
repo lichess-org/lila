@@ -1,16 +1,16 @@
 package lila.round
 
-import actorApi._, round._
+import actorApi.*, round.*
 import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import org.joda.time.DateTime
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.game.Game.{ FullId, PlayerId }
-import lila.game.{ Event, Game, GameRepo, Player => GamePlayer, Pov, Progress }
+import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
 import lila.hub.actorApi.round.{
   Abort,
   BotPlay,
@@ -22,7 +22,7 @@ import lila.hub.actorApi.round.{
   Resign
 }
 import lila.hub.AsyncActor
-import lila.room.RoomSocket.{ Protocol => RP, _ }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
 import lila.socket.UserLagCache
 import lila.user.User
@@ -32,20 +32,20 @@ final private[round] class RoundAsyncActor(
     gameId: Game.ID,
     socketSend: String => Unit,
     private var version: SocketVersion
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     proxy: GameProxy
-) extends AsyncActor {
+) extends AsyncActor:
 
   import RoundSocket.Protocol
-  import RoundAsyncActor._
-  import dependencies._
+  import RoundAsyncActor.*
+  import dependencies.*
 
   private var takebackSituation: Option[TakebackSituation] = None
 
   private var mightBeSimul = true // until proven otherwise
 
-  final private class Player(color: Color) {
+  final private class Player(color: Color):
 
     private var offlineSince: Option[Long] = nowMillis.some
     // wether the player closed the window intentionally
@@ -59,14 +59,12 @@ final private[round] class RoundAsyncActor(
 
     def isOnline = offlineSince.isEmpty || botConnected
 
-    def setOnline(on: Boolean): Unit = {
+    def setOnline(on: Boolean): Unit =
       isLongGone foreach { _ ?? notifyGone(color, gone = false) }
       offlineSince = if (on) None else offlineSince orElse nowMillis.some
       bye = bye && !on
-    }
-    def setBye(): Unit = {
+    def setBye(): Unit =
       bye = true
-    }
 
     private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? isSimulHost
 
@@ -87,7 +85,7 @@ final private[round] class RoundAsyncActor(
 
     def showMillisToGone: Fu[Option[Long]] =
       if (botConnected) fuccess(none)
-      else {
+      else
         val now = nowMillis
         offlineSince.filter { since =>
           bye || (now - since) > 5000
@@ -96,11 +94,9 @@ final private[round] class RoundAsyncActor(
             !_ option (timeoutMillis + since - now)
           }
         }
-      }
 
     def setBotConnected(v: Boolean) =
       botConnections = Math.max(0, botConnections + (if (v) 1 else -1))
-  }
 
   private val whitePlayer = new Player(White)
   private val blackPlayer = new Player(Black)
@@ -108,7 +104,7 @@ final private[round] class RoundAsyncActor(
   def getGame: Fu[Option[Game]]          = proxy.game
   def updateGame(f: Game => Game): Funit = proxy update f
 
-  val process: AsyncActor.ReceiveAsync = {
+  val process: AsyncActor.ReceiveAsync =
 
     case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
       fuccess {
@@ -220,10 +216,9 @@ final private[round] class RoundAsyncActor(
       handle(p.playerId) { pov =>
         if (pov.player.isAi) fufail(s"player $pov can't play AI")
         else if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else {
+        else
           recordLag(pov)
           player.human(p, this)(pov)
-        }
       }.chronometer.lap.addEffects(
         err => {
           p.promise.foreach(_ failure err)
@@ -440,25 +435,23 @@ final private[round] class RoundAsyncActor(
       proxy.withGameOptionSync { g =>
         (g.forceResignable && g.bothPlayersHaveMoved) ?? fuccess {
           Color.all.foreach { c =>
-            if (!getPlayer(c).isOnline && getPlayer(!c).isOnline) {
+            if (!getPlayer(c).isOnline && getPlayer(!c).isOnline)
               getPlayer(c).showMillisToGone foreach {
                 _ ?? { millis =>
                   if (millis <= 0) notifyGone(c, gone = true)
                   else g.clock.exists(_.remainingTime(c).millis > millis + 3000) ?? notifyGoneIn(c, millis)
                 }
               }
-            }
           }
         }
       } | funit
 
     case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
-  }
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   private def recordLag(pov: Pov): Unit =
-    if ((pov.game.playedTurns & 30) == 10) {
+    if ((pov.game.playedTurns & 30) == 10)
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for {
@@ -466,7 +459,6 @@ final private[round] class RoundAsyncActor(
         clock <- pov.game.clock
         lag   <- clock.lag(pov.color).lagMean
       } UserLagCache.put(user, lag)
-    }
 
   private def notifyGone(color: Color, gone: Boolean): Funit =
     proxy.withPov(color) { pov =>
@@ -519,7 +511,7 @@ final private[round] class RoundAsyncActor(
     }
 
   private def publish[A](events: Events): Unit =
-    if (events.nonEmpty) {
+    if (events.nonEmpty)
       events foreach { e =>
         version = version.inc
         socketSend {
@@ -532,9 +524,8 @@ final private[round] class RoundAsyncActor(
           case _             => false
         }
       ) this ! Threefold
-    }
 
-  private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
+  private def errorHandler(name: String): PartialFunction[Throwable, Unit] =
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet.increment().unit
@@ -544,12 +535,10 @@ final private[round] class RoundAsyncActor(
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
       lila.mon.round.error.other.increment().unit
-  }
 
   def roomId = RoomId(gameId)
-}
 
-object RoundAsyncActor {
+object RoundAsyncActor:
 
   case class HasUserId(userId: User.ID, promise: Promise[Boolean])
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
@@ -558,7 +547,7 @@ object RoundAsyncActor {
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
-  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {
+  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]):
 
     def decline = TakebackSituation(nbDeclined + 1, DateTime.now.some)
 
@@ -567,7 +556,6 @@ object RoundAsyncActor {
     def offerable = lastDeclined.fold(true) { _ isBefore DateTime.now.minusSeconds(delaySeconds) }
 
     def reset = takebackSituationZero.zero
-  }
 
   implicit private[round] val takebackSituationZero: Zero[TakebackSituation] =
     Zero(TakebackSituation(0, none))
@@ -584,4 +572,3 @@ object RoundAsyncActor {
       val forecastApi: ForecastApi,
       val isSimulHost: IsSimulHost
   )
-}

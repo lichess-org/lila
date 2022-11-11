@@ -14,11 +14,11 @@ import lila.user.User
 final private class SwissNotify(
     swissColl: Coll @@ SwissColl,
     playerColl: Coll @@ PlayerColl
-)(implicit
+)(using
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
 

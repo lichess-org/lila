@@ -8,7 +8,7 @@ import lila.user.User
 
 final class MemberRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   // expensive with thousands of members!
   def userIdsByTeam(teamId: Team.ID): Fu[List[User.ID]] =

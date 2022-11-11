@@ -12,7 +12,7 @@ final private class SwissScoring(
     pairingColl: Coll @@ PairingColl
 )(implicit scheduler: akka.actor.Scheduler, ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def apply(id: Swiss.Id): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
 

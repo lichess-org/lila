@@ -1,9 +1,9 @@
 package lila.storm
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
-object StormForm {
+object StormForm:
 
   case class RunData(
       puzzles: Int,
@@ -33,4 +33,3 @@ object StormForm {
 
   val notAnExploit =
     "Yes, we know that you can send whatever score you like. That's why there's no leaderboards and no competition."
-}

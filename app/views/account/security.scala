@@ -16,7 +16,7 @@ object security {
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(implicit
+  )(using
       ctx: Context
   ) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {

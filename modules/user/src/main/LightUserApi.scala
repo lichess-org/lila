@@ -7,7 +7,7 @@ import scala.util.Success
 import lila.common.LightUser
 import lila.db.dsl.*
 import lila.memo.{ CacheApi, Syncache }
-import User.{ BSONFields as F }
+import User.BSONFields as F
 
 final class LightUserApi(
     repo: UserRepo,
@@ -30,7 +30,7 @@ final class LightUserApi(
   def asyncManyFallback(ids: Seq[User.ID]): Fu[Seq[LightUser]] =
     ids.map(asyncFallback).sequenceFu
 
-  val isBotSync = new LightUser.IsBotSync(id => sync(id).exists(_.isBot))
+  val isBotSync: LightUser.IsBotSync = new LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
   def invalidate = cache.invalidate
 
@@ -55,8 +55,7 @@ final class LightUserApi(
 
 private object LightUserApi:
 
-  given BSONDocumentReader[LightUser] = new BSONDocumentReader[LightUser]:
-
+  given BSONDocumentReader[LightUser] with
     def readDocument(doc: BSONDocument) = for {
       id   <- doc.getAsTry[String](F.id)
       name <- doc.getAsTry[String](F.username)

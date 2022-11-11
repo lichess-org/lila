@@ -24,7 +24,7 @@ final class Env(
     insightApi: lila.insight.InsightApi,
     db: lila.db.Db,
     insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {

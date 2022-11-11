@@ -146,7 +146,7 @@ object String:
 
   object html:
 
-    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(implicit
+    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using
         netDomain: config.NetDomain
     ): Frag =
       raw {

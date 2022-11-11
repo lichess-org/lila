@@ -14,7 +14,7 @@ final class TournamentCache(
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 

@@ -12,7 +12,7 @@ import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection
 
 object opening {
 
-  def all(openings: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine], order: Order)(implicit
+  def all(openings: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine], order: Order)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -61,7 +61,7 @@ object opening {
       )
     })
 
-  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(implicit
+  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using
       ctx: Context
   ) =
     openings map { case (fam, openings) =>

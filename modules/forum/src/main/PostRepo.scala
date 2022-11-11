@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
+final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 

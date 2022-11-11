@@ -38,7 +38,7 @@ object search {
       }
     )
 
-  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(implicit
+  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using
       ctx: Context
   ) =
     views.html.base.layout(

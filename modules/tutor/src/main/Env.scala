@@ -20,7 +20,7 @@ final class Env(
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode,

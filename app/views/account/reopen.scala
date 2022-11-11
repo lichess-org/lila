@@ -9,7 +9,7 @@ import controllers.routes
 
 object reopen {
 
-  def form(form: lila.security.HcaptchaForm[_], error: Option[String] = None)(implicit
+  def form(form: lila.security.HcaptchaForm[_], error: Option[String] = None)(using
       ctx: Context
   ) =
     views.html.base.layout(

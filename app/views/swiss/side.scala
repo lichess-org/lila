@@ -18,7 +18,7 @@ object side {
       verdicts: SwissCondition.All.WithVerdicts,
       streamers: List[lila.user.User.ID],
       chat: Boolean
-  )(implicit
+  )(using
       ctx: Context
   ) =
     frag(

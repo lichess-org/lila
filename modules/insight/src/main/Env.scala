@@ -16,7 +16,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer

@@ -51,7 +51,7 @@ private case object TutorOpening {
   val nbOpeningsPerColor  = 8
   private val peerNbGames = config.Max(10_000)
 
-  def compute(user: TutorUser)(implicit
+  def compute(user: TutorUser)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[Color.Map[TutorColorOpenings]] = for {
@@ -59,7 +59,7 @@ private case object TutorOpening {
     blackOpenings <- computeOpenings(user, Color.Black)
   } yield Color.Map(whiteOpenings, blackOpenings)
 
-  def computeOpenings(user: TutorUser, color: Color)(implicit
+  def computeOpenings(user: TutorUser, color: Color)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[TutorColorOpenings] = {

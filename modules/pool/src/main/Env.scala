@@ -11,7 +11,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     idGenerator: lila.game.IdGenerator,
     playbanApi: lila.playban.PlaybanApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler

@@ -42,7 +42,7 @@ final class JsonView(
       })
     )
 
-  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(implicit
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using
       lang: Lang
   ) =
     Json.obj(

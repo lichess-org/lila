@@ -37,7 +37,7 @@ final class JsonView(
 )(using ec: ExecutionContext) {
 
   import JsonView._
-  import Condition.JSONHandlers._
+  import Condition.JSONHandlers.given
 
   def apply(
       tour: Tournament,

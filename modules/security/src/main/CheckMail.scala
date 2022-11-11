@@ -17,7 +17,7 @@ final private class CheckMail(
     ws: StandaloneWSClient,
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

@@ -25,7 +25,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,

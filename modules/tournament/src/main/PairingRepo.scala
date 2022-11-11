@@ -2,7 +2,7 @@ package lila.tournament
 
 import akka.stream.Materializer
 import akka.stream.scaladsl._
-import BSONHandlers._
+import BSONHandlers.given
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson._

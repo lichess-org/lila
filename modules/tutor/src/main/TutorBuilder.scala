@@ -37,7 +37,7 @@ final private class TutorBuilder(
     reportColl: Coll @@ ReportColl
 )(using ec: ExecutionContext) {
 
-  import TutorBsonHandlers._
+  import TutorBsonHandlers.given
   import TutorBuilder._
   implicit private val insightApiImplicit = insightApi
 
@@ -98,14 +98,14 @@ private object TutorBuilder {
 
   val peerNbGames = config.Max(5_000)
 
-  def answerMine[Dim](question: Question[Dim], user: TutorUser)(implicit
+  def answerMine[Dim](question: Question[Dim], user: TutorUser)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[AnswerMine[Dim]] = insightApi
     .ask(question filter perfFilter(user.perfType), user.user, withPovs = false)
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key)) map AnswerMine.apply
 
-  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(implicit
+  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[AnswerPeer[Dim]] = insightApi
@@ -121,7 +121,7 @@ private object TutorBuilder {
     peer <- answerPeer(question, user, nbPeerGames)
   } yield Answers(mine, peer)
 
-  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(implicit
+  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(using
       insightApi: InsightApi,
       ec: ExecutionContext
   ): Fu[Answers[Dim]] = for {

@@ -49,7 +49,7 @@ final class AsyncActorSequencers(
     timeout: FiniteDuration,
     name: String,
     logging: Boolean = true
-)(implicit
+)(using
     scheduler: akka.actor.Scheduler,
     ec: ExecutionContext
 ):

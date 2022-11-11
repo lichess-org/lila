@@ -65,7 +65,7 @@ object tour {
       )
     }
 
-  def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(implicit
+  def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
       ctx: Context
   ) = {
     val title = ~doc.getText("doc.title")

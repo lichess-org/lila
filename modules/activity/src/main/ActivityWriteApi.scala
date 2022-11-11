@@ -14,7 +14,7 @@ final class ActivityWriteApi(
 )(using ec: scala.concurrent.ExecutionContext) {
 
   import Activity._
-  import BSONHandlers._
+  import BSONHandlers.given
   import activities._
   import model._
 

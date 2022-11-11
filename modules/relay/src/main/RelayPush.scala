@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import lila.study.MultiPgn
 
-final class RelayPush(sync: RelaySync, api: RelayApi)(implicit
+final class RelayPush(sync: RelaySync, api: RelayApi)(using
     system: ActorSystem,
     ec: scala.concurrent.ExecutionContext
 ) {

@@ -11,7 +11,7 @@ import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(implicit
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 

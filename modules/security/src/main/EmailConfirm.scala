@@ -171,7 +171,7 @@ object EmailConfirm:
       )
     )
 
-    def getStatus(userRepo: UserRepo, username: String)(implicit
+    def getStatus(userRepo: UserRepo, username: String)(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[Status] =
       userRepo withEmails username flatMap {

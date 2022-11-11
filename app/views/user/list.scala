@@ -96,7 +96,7 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(implicit
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(using
       ctx: Context
   ) =
     st.section(cls := "user-top")(

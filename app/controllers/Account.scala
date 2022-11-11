@@ -401,7 +401,7 @@ final class Account(
           env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
     }
 
-  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(implicit
+  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(using
       ctx: Context
   ) =
     env.security.forms.reopen map { baseForm =>

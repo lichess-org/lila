@@ -117,7 +117,7 @@ final class UserAnalysis(
       }
     }
 
-  private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit
+  private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(using
       ctx: Context
   ): Fu[Result] =
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>

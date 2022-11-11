@@ -155,7 +155,7 @@ object discussion {
         )
       )
 
-  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
+  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(using
       ctx: Context
   ) =
     postForm(st.action := action)(

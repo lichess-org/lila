@@ -35,7 +35,7 @@ object pref {
       }.toList
     )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(implicit
+  def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(using
       ctx: Context
   ) =
     account.layout(

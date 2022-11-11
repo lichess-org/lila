@@ -9,7 +9,7 @@ import lila.db.dsl.{ *, given }
 
 final private class RelayRoundRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def byTourOrdered(tour: RelayTour): Fu[List[RelayRound]] =
     coll

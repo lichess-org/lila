@@ -3,12 +3,12 @@ package lila.round
 import org.joda.time.Period
 
 import lila.game.{ Game, PlayerRef, Pov }
-import lila.hub.actorApi.mailer._
+import lila.hub.actorApi.mailer.*
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
     roundSocket: RoundSocket
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
 
@@ -37,7 +37,7 @@ final class GameProxyRepo(
     games.map(upgradeIfPresent).sequenceFu
 
   // update the proxied game
-  def updateIfPresent = roundSocket.updateIfPresent _
+  def updateIfPresent = roundSocket.updateIfPresent
 
   def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
     gameIfPresent(gameId) dmap2 { Pov(_, color) }
@@ -52,13 +52,11 @@ final class GameProxyRepo(
       _.map { pov =>
         gameIfPresent(pov.gameId) dmap { _.fold(pov)(pov.withGame) }
       }.sequenceFu map { povs =>
-        try {
+        try
           povs sortWith Pov.priority
-        } catch {
+        catch
           case e: IllegalArgumentException =>
             lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
             povs.sortBy(-_.game.movedAt.getSeconds)
-        }
       }
     }
-}

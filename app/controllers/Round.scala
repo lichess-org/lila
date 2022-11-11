@@ -144,7 +144,7 @@ final class Round(
       env.round.proxyRepo.pov(gameId, _)
     }
 
-  private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit
+  private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
   ): Fu[Result] =
     playablePovForReq(pov.game) match {
@@ -220,7 +220,7 @@ final class Round(
     }
   }
 
-  private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(implicit
+  private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using
       ctx: Context
   ): Fu[Option[Chat.GameOrEvent]] =
     ctx.noKid ?? {

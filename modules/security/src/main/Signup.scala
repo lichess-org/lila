@@ -38,7 +38,7 @@ final class Signup(
     case object YesBecauseUA           extends MustConfirmEmail(true)
     case object YesBecauseEmailDomain  extends MustConfirmEmail(true)
 
-    def apply(print: Option[FingerPrint], email: EmailAddress)(implicit
+    def apply(print: Option[FingerPrint], email: EmailAddress)(using
         req: RequestHeader
     ): Fu[MustConfirmEmail] =
       val ip = HTTPRequest ipAddress req

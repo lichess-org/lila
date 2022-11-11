@@ -9,7 +9,7 @@ import lila.study.MultiPgn
 import lila.memo.CacheApi
 import lila.memo.CacheApi._
 
-final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(implicit
+final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 

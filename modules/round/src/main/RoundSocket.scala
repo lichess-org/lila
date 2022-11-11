@@ -1,12 +1,12 @@
 package lila.round
 
-import actorApi._
-import actorApi.round._
+import actorApi.*
+import actorApi.round.*
 import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext, Promise }
 
 import lila.chat.{ BusChan, Chat }
@@ -18,8 +18,8 @@ import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, 
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
-import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.room.RoomSocket.{ Protocol as RP, * }
+import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, SocketVersion }
 import lila.user.User
 import reactivemongo.api.Cursor
@@ -32,12 +32,12 @@ final class RoundSocket(
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
     shutdown: CoordinatedShutdown
-)(implicit
+)(using
     ec: ExecutionContext,
     system: ActorSystem
-) {
+):
 
-  import RoundSocket._
+  import RoundSocket.*
 
   private var stopping = false
 
@@ -75,14 +75,14 @@ final class RoundSocket(
     initialCapacity = 65536
   )
 
-  private def makeRoundActor(id: Game.ID, version: SocketVersion, gameFu: Fu[Option[Game]]) = {
+  private def makeRoundActor(id: Game.ID, version: SocketVersion, gameFu: Fu[Option[Game]]) =
     val proxy = new GameProxy(id, proxyDependencies, gameFu)
     val roundActor = new RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
       version = version
-    )(ec, proxy)
+    )(using ec, proxy)
     terminationDelay schedule Game.Id(id)
     gameFu dforeach {
       _ foreach { game =>
@@ -93,15 +93,14 @@ final class RoundSocket(
       }
     }
     roundActor
-  }
 
   private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
-  private lazy val roundHandler: Handler = {
+  private lazy val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
       tellRound(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(id, tpe) if !stopping =>
-      tpe match {
+      tpe match
         case "moretime"     => tellRound(id.gameId, Moretime(id.playerId))
         case "rematch-yes"  => tellRound(id.gameId, RematchYes(id.playerId.value))
         case "rematch-no"   => tellRound(id.gameId, RematchNo(id.playerId.value))
@@ -116,7 +115,6 @@ final class RoundSocket(
         case "abort"        => tellRound(id.gameId, Abort(id.playerId.value))
         case "outoftime"    => tellRound(id.gameId, QuietFlag) // mobile app BC
         case t              => logger.warn(s"Unhandled round socket message: $t")
-      }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
       gameIfPresent(id.value) foreach {
@@ -159,7 +157,6 @@ final class RoundSocket(
         terminationDelay schedule Game.Id(id)
       }
       rounds.tellAll(RoundAsyncActor.WsBoot)
-  }
 
   private def finishRound(gameId: Game.Id): Unit =
     rounds.terminate(gameId.value, _ ! RoundAsyncActor.Stop)
@@ -194,7 +191,7 @@ final class RoundSocket(
   }
 
   {
-    import lila.chat.actorApi._
+    import lila.chat.actorApi.*
     Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan) {
       case ChatLine(Chat.Id(id), l) =>
         val line = RoundLine(l, id endsWith "/w")
@@ -217,7 +214,7 @@ final class RoundSocket(
 
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
-  private def preloadRoundsWithVersions(rooms: Iterable[(Game.ID, SocketVersion)]) = {
+  private def preloadRoundsWithVersions(rooms: Iterable[(Game.ID, SocketVersion)]) =
     val bootLog = lila log "boot"
 
     // load all actors synchronously, giving them game futures from promises we'll fulfill later
@@ -259,23 +256,20 @@ final class RoundSocket(
       .andThen {
         case scala.util.Success(loadedIds) =>
           val missingIds = gamePromises.keySet -- loadedIds
-          if (missingIds.nonEmpty) {
+          if (missingIds.nonEmpty)
             bootLog.warn(
               s"RoundSocket ${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
             )
             missingIds.foreach { id =>
               gamePromises.get(id).foreach(_ success none)
             }
-          }
         case scala.util.Failure(err) =>
           bootLog.error(s"RoundSocket Can't load ${gamePromises.size} round games", err)
       }
       .chronometer
       .log(bootLog)(ids => s"RoundSocket Done loading ${ids.size}/${gamePromises.size} round games")
-  }
-}
 
-object RoundSocket {
+object RoundSocket:
 
   val tickSeconds       = 5
   val tickInterval      = tickSeconds.seconds
@@ -284,25 +278,23 @@ object RoundSocket {
 
   def povDisconnectTimeout(pov: Pov): FiniteDuration =
     disconnectTimeout * {
-      pov.game.speed match {
+      pov.game.speed match
         case Speed.Classical => 3
         case Speed.Rapid     => 2
         case _               => 1
-      }
     } / {
-      import chess.variant._
-      (pov.game.chess.board.materialImbalance, pov.game.variant) match {
+      import chess.variant.*
+      (pov.game.chess.board.materialImbalance, pov.game.variant) match
         case (_, Antichess | Crazyhouse | Horde)                                   => 1
         case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
         case _                                                                     => 1
-      }
     } / {
       if (pov.player.hasUser) 1 else 2
     }
 
-  object Protocol {
+  object Protocol:
 
-    object In {
+    object In:
 
       case class PlayerOnlines(onlines: Iterable[(Game.Id, Option[RoomCrowd])])        extends P.In
       case class PlayerDo(fullId: FullId, tpe: String)                                 extends P.In
@@ -318,17 +310,16 @@ object RoundSocket {
       case class WsLatency(millis: Int)                                                           extends P.In
 
       val reader: P.In.Reader = raw =>
-        raw.path match {
+        raw.path match
           case "r/ons" =>
             PlayerOnlines {
               P.In.commas(raw.args) map {
-                _ splitAt Game.gameIdSize match {
+                _ splitAt Game.gameIdSize match
                   case (gameId, cs) =>
                     (
                       Game.Id(gameId),
                       if (cs.isEmpty) None else Some(RoomCrowd(cs(0) == '+', cs(1) == '+'))
                     )
-                }
               }
             }.some
           case "r/do" =>
@@ -384,7 +375,6 @@ object RoundSocket {
             }
           case "r/latency" => raw.args.toIntOption map WsLatency
           case _           => RP.In.reader(raw)
-        }
 
       private def centis(s: String): Option[Centis] =
         if (s == "-") none
@@ -394,18 +384,16 @@ object RoundSocket {
         if (s == "w") Some(White)
         else if (s == "b") Some(Black)
         else None
-    }
 
-    object Out {
+    object Out:
 
       def resyncPlayer(fullId: FullId)        = s"r/resync/player $fullId"
       def gone(fullId: FullId, gone: Boolean) = s"r/gone $fullId ${P.Out.boolean(gone)}"
-      def goneIn(fullId: FullId, millis: Long) = {
+      def goneIn(fullId: FullId, millis: Long) =
         val seconds = Math.ceil(millis / 1000d / tickSeconds).toInt * tickSeconds
         s"r/goneIn $fullId $seconds"
-      }
 
-      def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) = {
+      def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) =
         val flags = new StringBuilder(2)
         if (e.watcher) flags += 's'
         else if (e.owner) flags += 'p'
@@ -416,7 +404,6 @@ object RoundSocket {
         if (e.troll) flags += 't'
         if (flags.isEmpty) flags += '-'
         s"r/ver $roomId $version $flags ${e.typ} ${e.data}"
-      }
 
       def tvSelect(gameId: Game.ID, speed: chess.Speed, data: JsObject) =
         s"tv/select $gameId ${speed.id} ${Json stringify data}"
@@ -432,14 +419,12 @@ object RoundSocket {
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
 
       def versioningReady = "r/versioning-ready"
-    }
-  }
 
   final private class TerminationDelay(
       scheduler: Scheduler,
       duration: FiniteDuration,
       terminate: Game.Id => Unit
-  )(using ec: scala.concurrent.ExecutionContext) {
+  )(using ec: scala.concurrent.ExecutionContext):
     import java.util.concurrent.ConcurrentHashMap
 
     private[this] val terminations = new ConcurrentHashMap[String, Cancellable](65536)
@@ -460,5 +445,3 @@ object RoundSocket {
 
     def cancel(gameId: Game.Id): Unit =
       Option(terminations remove gameId.value).foreach(_.cancel())
-  }
-}

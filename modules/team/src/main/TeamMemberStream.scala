@@ -12,7 +12,7 @@ import lila.user.{ User, UserRepo }
 final class TeamMemberStream(
     memberRepo: MemberRepo,
     userRepo: UserRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {

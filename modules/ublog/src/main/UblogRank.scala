@@ -19,7 +19,7 @@ final class UblogRank(
     timeline: lila.hub.actors.Timeline
 )(using ec: ExecutionContext, mat: akka.stream.Materializer) {
 
-  import UblogBsonHandlers._
+  import UblogBsonHandlers.given
 
   private def selectLiker(userId: User.ID) = $doc("likers" -> userId)
 

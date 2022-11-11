@@ -18,7 +18,7 @@ final private[team] class PaginatorBuilder(
   private val maxUserPerPage     = MaxPerPage(30)
   private val maxRequestsPerPage = MaxPerPage(10)
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def popularTeams(page: Int): Fu[Paginator[Team]] =
     Paginator(

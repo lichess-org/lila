@@ -35,12 +35,12 @@ final class KaladinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   lazy val thresholds = IrwinThresholds.makeSetting("kaladin", settingStore)
 

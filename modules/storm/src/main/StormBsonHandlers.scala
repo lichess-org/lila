@@ -1,18 +1,18 @@
 package lila.storm
 
 import chess.format.{ FEN, Uci }
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.puzzle.Puzzle
 import scala.util.Success
 import lila.common.LichessDay
 
-object StormBsonHandlers {
+object StormBsonHandlers:
 
-  import lila.puzzle.BsonHandlers.PuzzleIdBSONHandler
+  import lila.puzzle.BsonHandlers.given
 
-  implicit val StormPuzzleBSONReader = new BSONDocumentReader[StormPuzzle] {
+  given puzzleReader: BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[Puzzle.Id]("_id")
       fen     <- r.getAsTry[FEN]("fen")
@@ -20,21 +20,17 @@ object StormBsonHandlers {
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       rating  <- r.getAsTry[Int]("rating")
     } yield StormPuzzle(id, fen, line, rating)
-  }
 
-  implicit lazy val stormDayIdHandler = {
-    import StormDay.Id
+  given BSONHandler[StormDay.Id] =
     val sep = ':'
-    tryHandler[Id](
+    tryHandler[StormDay.Id](
       { case BSONString(v) =>
         v split sep match {
-          case Array(userId, dayStr) => Success(Id(userId, LichessDay(Integer.parseInt(dayStr))))
+          case Array(userId, dayStr) => Success(StormDay.Id(userId, LichessDay(Integer.parseInt(dayStr))))
           case _                     => handlerBadValue(s"Invalid storm day id $v")
         }
       },
       id => BSONString(s"${id.userId}$sep${id.day.value}")
     )
-  }
 
   given BSONDocumentHandler[StormDay] = Macros.handler
-}

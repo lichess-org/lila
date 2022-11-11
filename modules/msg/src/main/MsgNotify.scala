@@ -12,7 +12,7 @@ import lila.user.User
 final private class MsgNotify(
     colls: MsgColls,
     notifyApi: lila.notify.NotifyApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

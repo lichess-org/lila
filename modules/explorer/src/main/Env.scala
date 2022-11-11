@@ -14,7 +14,7 @@ final class Env(
     getBotUserIds: lila.user.GetBotIds,
     settingStore: lila.memo.SettingStore.Builder,
     ws: play.api.libs.ws.StandaloneWSClient
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {

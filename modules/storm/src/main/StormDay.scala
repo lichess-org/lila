@@ -22,7 +22,7 @@ case class StormDay(
     time: Int,
     highest: Int,
     runs: Int
-) {
+):
 
   def add(run: StormForm.RunData) = {
     if (run.score > score)
@@ -38,32 +38,29 @@ case class StormDay(
   }.copy(runs = runs + 1)
 
   def accuracyPercent: Float = 100 * (moves - errors) / moves.toFloat
-}
 
-object StormDay {
+object StormDay:
 
   case class Id(userId: User.ID, day: LichessDay)
-  object Id {
+  object Id:
     def today(userId: User.ID)     = Id(userId, LichessDay.today)
     def lastWeek(userId: User.ID)  = Id(userId, LichessDay daysAgo 7)
     def lastMonth(userId: User.ID) = Id(userId, LichessDay daysAgo 30)
     def allTime(userId: User.ID)   = Id(userId, LichessDay(0))
-  }
 
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0, 0)
-}
 
-final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(implicit
+final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(using
     ctx: ExecutionContext
-) {
+):
 
-  import StormDay._
-  import StormBsonHandlers._
+  import StormDay.*
+  import StormBsonHandlers.given
 
-  def addRun(data: StormForm.RunData, user: Option[User]): Fu[Option[StormHigh.NewHigh]] = {
+  def addRun(data: StormForm.RunData, user: Option[User]): Fu[Option[StormHigh.NewHigh]] =
     lila.mon.storm.run.score(user.isDefined).record(data.score).unit
     user ?? { u =>
-      if (sign.check(u, ~data.signed)) {
+      if (sign.check(u, ~data.signed))
         Bus.publish(lila.hub.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
         highApi get u.id flatMap { prevHigh =>
           val todayId = Id today u.id
@@ -80,8 +77,8 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
               userRepo.addStormRun(u.id, data.score) inject high
             }
         }
-      } else {
-        if (data.time > 40) {
+      else
+        if (data.time > 40)
           if (data.score > 99) logger.warn(s"badly signed run from ${u.username} $data")
           lila.mon.storm.run
             .sign(data.signed match {
@@ -91,11 +88,8 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
               case _                 => "wrong"
             })
             .increment()
-        }
         fuccess(none)
-      }
     }
-  }
 
   def history(userId: User.ID, page: Int): Fu[Paginator[StormDay]] =
     Paginator(
@@ -117,4 +111,3 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
       .list(days)
 
   private def idRegexFor(userId: User.ID) = $doc("_id" $startsWith s"${userId}:")
-}

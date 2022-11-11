@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(implicit
+final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
     ec: scala.concurrent.ExecutionContext
 ):
 

@@ -15,7 +15,7 @@ final class SwissCache(
     cacheApi: CacheApi
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   object swissCache {
 

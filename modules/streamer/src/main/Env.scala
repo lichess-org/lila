@@ -30,7 +30,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

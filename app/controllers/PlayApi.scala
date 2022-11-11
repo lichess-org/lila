@@ -12,7 +12,7 @@ import lila.user.{ User => UserModel }
 final class PlayApi(
     env: Env,
     apiC: => Api
-)(implicit
+)(using
     mat: akka.stream.Materializer
 ) extends LilaController(env) {
 

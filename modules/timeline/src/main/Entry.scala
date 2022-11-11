@@ -5,7 +5,7 @@ import play.api.libs.json._
 import reactivemongo.api.bson._
 import scala.util.{ Failure, Success, Try }
 
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline._
 
@@ -35,7 +35,7 @@ object Entry {
   private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 
   private[timeline] def make(data: Atom): Entry = {
-    import atomBsonHandlers._
+    import atomBsonHandlers.given
     data match {
       case d: Follow        => "follow"          -> toBson(d)
       case d: TeamJoin      => "team-join"       -> toBson(d)

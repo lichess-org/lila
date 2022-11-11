@@ -1,6 +1,6 @@
 package lila.round
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.{ LocalTime, Period }
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
@@ -9,14 +9,14 @@ import lila.common.Bus
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.mailer._
+import lila.hub.actorApi.mailer.*
 import lila.pref.PrefApi
 import lila.user.UserRepo
 
-final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, prefApi: PrefApi)(implicit
+final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, prefApi: PrefApi)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:11")
 
@@ -36,7 +36,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
   private def opponentStream =
     prefApi.coll
       .aggregateWith(readPreference = ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         // hit partial index
         List(
           Match($doc("corresEmailNotif" -> true)),
@@ -66,7 +66,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       }
       .documentSource()
       .mapConcat { doc =>
-        import lila.game.BSONHandlers._
+        import lila.game.BSONHandlers.given
         (for {
           userId <- doc string "_id"
           games  <- doc.getAsOpt[List[Game]]("games")
@@ -84,4 +84,3 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           }
         } yield CorrespondenceOpponents(userId, opponents)).toList
       }
-}

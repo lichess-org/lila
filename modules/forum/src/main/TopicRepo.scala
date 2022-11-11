@@ -6,7 +6,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 import scala.concurrent.duration._
 
-final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
+final class TopicRepo(val coll: Coll, filter: Filter = Safe)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 

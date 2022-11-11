@@ -1,9 +1,10 @@
 package lila.round
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
+import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }
 import lila.db.dsl.{ *, given }
@@ -13,11 +14,11 @@ final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
     proxyGame: Game.ID => Fu[Option[Game]]
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
-) {
+):
 
   private case class Alarm(
       _id: String,       // game id
@@ -25,7 +26,7 @@ final private class CorresAlarm(
       expiresAt: DateTime
   )
 
-  implicit private val AlarmHandler = reactivemongo.api.bson.Macros.handler[Alarm]
+  private given BSONDocumentHandler[Alarm] = Macros.handler
 
   Bus.subscribeFun("finishGame") { case lila.game.actorApi.FinishGame(game, _, _) =>
     if (game.hasCorrespondenceClock && !game.hasAi) coll.delete.one($id(game.id)).unit
@@ -74,4 +75,3 @@ final private class CorresAlarm(
       .mon(_.round.alarm.time)
       .void
   }
-}

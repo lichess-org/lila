@@ -9,7 +9,7 @@ import lila.team.{ Team, TeamRepo }
 final class TeamSearchApi(
     client: ESClient,
     teamRepo: TeamRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) extends SearchReadApi[Team, Query] {

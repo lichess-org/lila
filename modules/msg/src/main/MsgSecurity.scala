@@ -22,7 +22,7 @@ final private class MsgSecurity(
     relationApi: lila.relation.RelationApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

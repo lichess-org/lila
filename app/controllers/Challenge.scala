@@ -57,7 +57,7 @@ final class Challenge(
       c: ChallengeModel,
       error: Option[String] = None,
       justCreated: Boolean = false
-  )(implicit
+  )(using
       ctx: Context
   ): Fu[Result] =
     env.challenge version c.id flatMap { version =>

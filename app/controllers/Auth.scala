@@ -46,7 +46,7 @@ final class Auth(
 
   private def getReferrer(implicit ctx: Context): String = getReferrerOption | routes.Lobby.home.url
 
-  def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(implicit
+  def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(using
       ctx: Context
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
@@ -58,7 +58,7 @@ final class Auth(
       ) map authenticateCookie(sessionId, remember)
     } recoverWith authRecovery
 
-  private def authenticateAppealUser(u: UserModel, redirect: String => Result)(implicit
+  private def authenticateAppealUser(u: UserModel, redirect: String => Result)(using
       ctx: Context
   ): Fu[Result] =
     api.appeal.saveAuthentication(u.id) flatMap { sessionId =>
@@ -238,7 +238,7 @@ final class Auth(
       }
     }
 
-  private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(implicit
+  private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
       ctx: Context
   ): Funit = {
     garbageCollect(user, email)
@@ -346,7 +346,7 @@ final class Auth(
       } inject NoContent
     }
 
-  private def renderPasswordReset(form: Option[play.api.data.Form[PasswordReset]], fail: Boolean)(implicit
+  private def renderPasswordReset(form: Option[play.api.data.Form[PasswordReset]], fail: Boolean)(using
       ctx: Context
   ) =
     env.security.forms.passwordReset map { baseForm =>
@@ -432,7 +432,7 @@ final class Auth(
       }
     }
 
-  private def renderMagicLink(form: Option[play.api.data.Form[MagicLink]], fail: Boolean)(implicit
+  private def renderMagicLink(form: Option[play.api.data.Form[MagicLink]], fail: Boolean)(using
       ctx: Context
   ) =
     env.security.forms.magicLink map { baseForm =>

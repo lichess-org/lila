@@ -6,7 +6,7 @@ import play.api.data.Form
 
 import lila.db.dsl.*
 
-final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(implicit
+final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(using
     ec: scala.concurrent.ExecutionContext,
     loader: ConfigLoader[A]
 ):
@@ -64,7 +64,7 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
 
 object ConfigStore:
 
-  final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(implicit
+  final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(using
       ec: scala.concurrent.ExecutionContext
   ):
     private val coll = db(config.configColl)

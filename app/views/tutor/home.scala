@@ -47,7 +47,7 @@ object home {
     }
   )
 
-  private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(implicit
+  private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(using
       ctx: Context
   ) =
     st.article(

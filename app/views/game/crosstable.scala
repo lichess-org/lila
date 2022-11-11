@@ -12,7 +12,7 @@ object crosstable {
   def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(implicit ctx: Context): Frag =
     apply(ct.crosstable, ct.matchup, currentId)(ctx)
 
-  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(implicit
+  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(using
       ctx: Context
   ): Frag = {
     val matchup = trueMatchup.filter(_.users != ct.users)

@@ -6,7 +6,7 @@ import io.lettuce.core.*
 import play.api.Configuration
 
 @Module
-final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(implicit
+final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: Scheduler
 ):

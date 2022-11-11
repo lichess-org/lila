@@ -19,7 +19,7 @@ object RoomSocket:
   case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false):
     def msg = makeMessage(tpe, data)
 
-  final class RoomState(roomId: RoomId, send: Send)(implicit
+  final class RoomState(roomId: RoomId, send: Send)(using
       ec: ExecutionContext
   ) extends SyncActor:
 
@@ -40,7 +40,7 @@ object RoomSocket:
       super.stop()
       send(Protocol.Out.stop(roomId))
 
-  def makeRoomMap(send: Send)(implicit
+  def makeRoomMap(send: Send)(using
       ec: ExecutionContext,
       mode: play.api.Mode
   ) =

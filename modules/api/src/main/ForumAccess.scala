@@ -5,7 +5,7 @@ import lila.security.{ Granter, Permission }
 import lila.team.Team
 import lila.user.{ User, UserContext }
 
-final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(implicit
+final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -32,7 +32,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
     if (ctx.me ?? Granter(Permission.Shusher)) fuTrue
     else isGranted(categSlug, Read)
 
-  def isGrantedWrite(categSlug: String, tryingToPostAsMod: Boolean = false)(implicit
+  def isGrantedWrite(categSlug: String, tryingToPostAsMod: Boolean = false)(using
       ctx: UserContext
   ): Fu[Boolean] =
     if (tryingToPostAsMod && ctx.me ?? Granter(Permission.Shusher)) fuTrue

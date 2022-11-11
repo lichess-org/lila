@@ -111,7 +111,7 @@ final class MsgCompat(
         }
       )
 
-  def reply(me: User, userId: User.ID)(implicit
+  def reply(me: User, userId: User.ID)(using
       req: play.api.mvc.Request[?],
       formBinding: FormBinding
   ): Either[Form[?], Funit] =

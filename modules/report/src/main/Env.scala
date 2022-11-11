@@ -1,12 +1,12 @@
 package lila.report
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 private class ReportConfig(
@@ -32,11 +32,11 @@ final class Env(
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler
-) {
+):
 
   private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)
 
@@ -47,8 +47,8 @@ final class Env(
   lazy val discordScoreThresholdSetting = ReportThresholds makeDiscordSetting settingStore
 
   private val thresholds = Thresholds(
-    score = scoreThresholdsSetting.get _,
-    discord = discordScoreThresholdSetting.get _
+    score = (() => scoreThresholdsSetting.get()),
+    discord = (() => discordScoreThresholdSetting.get())
   )
 
   lazy val forms = wire[ReportForm]
@@ -83,4 +83,3 @@ final class Env(
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     api.inquiries.expire.unit
   }
-}

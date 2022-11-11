@@ -22,7 +22,7 @@ final class ClasApi(
     baseUrl: BaseUrl
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   object clas {
 

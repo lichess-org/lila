@@ -46,7 +46,7 @@ final class Insight(env: Env) extends LilaController(env) {
       Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
     }
 
-  private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(implicit
+  private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(using
       ctx: Context
   ) = {
     import lila.insight.InsightApi.UserStatus._

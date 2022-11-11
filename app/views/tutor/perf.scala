@@ -14,7 +14,7 @@ import lila.user.User
 
 object perf {
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(using
       ctx: Context
   ) =
     bits.layout(full, menu = menu(full, user, report, "perf"))(
@@ -59,7 +59,7 @@ object perf {
       user: User,
       report: TutorPerfReport,
       active: String
-  )(implicit
+  )(using
       ctx: Context
   ) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(

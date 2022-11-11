@@ -1,7 +1,7 @@
 package lila.round
 
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 import scala.util.matching.Regex
 
 import lila.common.{ IpAddress, Strings }
@@ -18,7 +18,7 @@ final class SelfReport(
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
-)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
   private val onceEvery = lila.memo.OnceEvery(1 hour)
 
@@ -34,7 +34,7 @@ final class SelfReport(
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
       def doLog(): Unit =
-        if (name != "ceval") {
+        if (name != "ceval")
           lila.log("cheat").branch("jslog").info {
             s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
           }
@@ -47,7 +47,6 @@ final class SelfReport(
               ip = ip
             )
           }
-        }
       if (fullId.value == "____________") doLog()
       else
         proxyRepo.pov(fullId.value) foreach {
@@ -71,4 +70,3 @@ final class SelfReport(
           }
         }
     }
-}

@@ -6,7 +6,7 @@ import scala.concurrent.ExecutionContext
 import lila.memo.MongoCache
 import lila.user.{ User, UserRepo }
 
-final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: MsgApi)(implicit
+final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: MsgApi)(using
     ec: ExecutionContext
 ):
 

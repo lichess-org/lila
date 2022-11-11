@@ -151,7 +151,7 @@ object JsonView:
       }
     }
 
-  implicit def leaderboardsWrites(implicit
+  implicit def leaderboardsWrites(using
       lightPerfWrites: OWrites[User.LightPerf]
   ): Writes[Perfs.Leaderboards] =
     Writes[Perfs.Leaderboards] { leaderboards =>

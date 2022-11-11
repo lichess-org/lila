@@ -3,10 +3,10 @@ package lila.swiss
 import com.softwaremill.tagging._
 
 import lila.db.dsl.{ *, given }
-import lila.swiss.BsonHandlers._
+import lila.swiss.BsonHandlers.given
 import lila.user.User
 
-final private class SwissManualPairing(playerColl: Coll @@ PlayerColl)(implicit
+final private class SwissManualPairing(playerColl: Coll @@ PlayerColl)(using
     ec: scala.concurrent.ExecutionContext
 ) {
 

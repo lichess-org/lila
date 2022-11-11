@@ -40,7 +40,7 @@ final class Env(
     sink: lila.analyse.Analyser,
     userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler,

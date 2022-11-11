@@ -11,7 +11,7 @@ import lila.common.config.Secret
 import lila.common.String.urlencode
 import play.api.ConfigLoader
 
-final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(implicit
+final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     ec: scala.concurrent.ExecutionContext
 ):
   private val dedupMsg = lila.memo.OnceEvery.hashCode[ZulipMessage](15 minutes)

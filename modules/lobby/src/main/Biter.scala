@@ -10,7 +10,7 @@ import lila.user.User
 final private class Biter(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator
 ) {

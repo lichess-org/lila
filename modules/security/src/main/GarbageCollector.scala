@@ -14,7 +14,7 @@ final class GarbageCollector(
     irc: lila.irc.IrcApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
 ):

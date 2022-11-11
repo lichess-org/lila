@@ -12,7 +12,7 @@ import lila.user.User
 
 object bits {
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit
+  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(using
       ctx: Context
   ) =
     frag(
@@ -72,7 +72,7 @@ object bits {
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit
+  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(using
       ctx: Context
   ) =
     views.html.base.layout(

@@ -6,9 +6,7 @@ import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl.*
 import play.api.data.*, Forms.*
-import lila.common.Strings
-import lila.common.UserIds
-import lila.common.Ints
+import lila.common.{ Ints, Iso, Strings, UserIds }
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
@@ -67,27 +65,27 @@ object SettingStore:
       case "off" | "no" | "false" | "0" => false.some
       case _                            => none
     })
-    given StringReader[Int]                         = new StringReader[Int](_.toIntOption)
-    given StringReader[Float]                       = new StringReader[Float](_.toFloatOption)
-    given StringReader[String]                      = new StringReader[String](some)
-    def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
+    given StringReader[Int]                     = new StringReader[Int](_.toIntOption)
+    given StringReader[Float]                   = new StringReader[Float](_.toFloatOption)
+    given StringReader[String]                  = new StringReader[String](some)
+    def fromIso[A](using iso: Iso.StringIso[A]) = new StringReader[A](v => iso.from(v).some)
 
   object Strings:
-    val stringsIso              = lila.common.Iso.strings(",")
+    val stringsIso              = Iso.strings(",")
     given BSONHandler[Strings]  = lila.db.dsl.isoHandler
-    given StringReader[Strings] = StringReader.fromIso(stringsIso)
+    given StringReader[Strings] = StringReader.fromIso(using stringsIso)
   object UserIds:
-    val userIdsIso              = lila.common.Iso.userIds(",")
+    val userIdsIso              = Iso.userIds(",")
     given BSONHandler[UserIds]  = lila.db.dsl.isoHandler
-    given StringReader[UserIds] = StringReader.fromIso(userIdsIso)
+    given StringReader[UserIds] = StringReader.fromIso(using userIdsIso)
   object Ints:
-    val intsIso              = lila.common.Iso.ints(",")
+    val intsIso              = Iso.ints(",")
     given BSONHandler[Ints]  = lila.db.dsl.isoHandler
-    given StringReader[Ints] = StringReader.fromIso(intsIso)
+    given StringReader[Ints] = StringReader.fromIso(using intsIso)
   object Regex:
-    val regexIso              = lila.common.Iso.string[Regex](_.r, _.toString)
+    val regexIso              = Iso.string[Regex](_.r, _.toString)
     given BSONHandler[Regex]  = lila.db.dsl.isoHandler
-    given StringReader[Regex] = StringReader.fromIso(regexIso)
+    given StringReader[Regex] = StringReader.fromIso(using regexIso)
 
   final class Formable[A](val form: A => Form[?])
   object Formable:

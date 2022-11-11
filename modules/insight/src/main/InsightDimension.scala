@@ -29,10 +29,10 @@ sealed abstract class InsightDimension[A: BSONHandler](
 
 object InsightDimension {
 
-  import BSONHandlers._
+  import BSONHandlers.given
   import InsightPosition._
   import InsightEntry.{ BSONFields => F }
-  import lila.analyse.AnalyseBsonHandlers._
+  import lila.analyse.AnalyseBsonHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period

@@ -12,7 +12,7 @@ import lila.simul.SimulForm
 
 object form {
 
-  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(implicit
+  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -36,7 +36,7 @@ object form {
       )
     }
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(implicit
+  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -61,7 +61,7 @@ object form {
       )
     }
 
-  private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(implicit
+  private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(using
       ctx: Context
   ) = {
     import lila.simul.SimulForm._

@@ -12,7 +12,7 @@ final class Env(
     isOfferingRematch: lila.round.IsOfferingRematch,
     spam: lila.security.Spam,
     isOnline: IsOnline
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,

@@ -25,7 +25,7 @@ final class Env(
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: lila.common.config.BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,

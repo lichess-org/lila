@@ -63,7 +63,7 @@ object grade {
       )
     }
 
-  private def gradeVisual[A](c: TutorConcept, metric: TutorBothValuesAvailable[A])(implicit
+  private def gradeVisual[A](c: TutorConcept, metric: TutorBothValuesAvailable[A])(using
       number: TutorNumber[A]
   ) = {
     val grade = metric.grade

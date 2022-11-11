@@ -17,7 +17,7 @@ final private class ExplorerIndexer(
     getBotUserIds: lila.user.GetBotIds,
     ws: play.api.libs.ws.StandaloneWSClient,
     internalEndpoint: InternalEndpoint
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {

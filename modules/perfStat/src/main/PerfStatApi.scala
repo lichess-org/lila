@@ -22,7 +22,7 @@ final class PerfStatApi(
     rankingsOf: RankingsOf,
     rankingApi: RankingApi,
     lightUserApi: LightUserApi
-)(implicit
+)(using
     ec: ExecutionContext
 ):
 

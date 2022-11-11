@@ -63,7 +63,7 @@ final class WinnersApi(
     scheduler: akka.actor.Scheduler
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
   implicit private val WinnerHandler      = reactivemongo.api.bson.Macros.handler[Winner]
   implicit private val FreqWinnersHandler = reactivemongo.api.bson.Macros.handler[FreqWinners]
   implicit private val AllWinnersHandler  = reactivemongo.api.bson.Macros.handler[AllWinners]

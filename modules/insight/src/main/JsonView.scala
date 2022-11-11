@@ -12,7 +12,7 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(families: List[LilaOpeningFamily], openings: List[SimpleOpening], asMod: Boolean)(implicit
+  def ui(families: List[LilaOpeningFamily], openings: List[SimpleOpening], asMod: Boolean)(using
       lang: Lang
   ) = {
 

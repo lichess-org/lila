@@ -16,7 +16,7 @@ final private class TournamentSocket(
     waitingUsers: WaitingUsersApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler,

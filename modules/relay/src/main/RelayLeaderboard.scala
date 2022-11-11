@@ -26,12 +26,12 @@ final class RelayLeaderboardApi(
     roundRepo: RelayRoundRepo,
     chapterRepo: ChapterRepo,
     cacheApi: CacheApi
-)(implicit
+)(using
     ec: ExecutionContext,
     scheduler: Scheduler
 ) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def apply(tour: RelayTour): Fu[Option[RelayLeaderboard]] = tour.autoLeaderboard ?? {
     cache get tour.id dmap some

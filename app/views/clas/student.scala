@@ -310,7 +310,7 @@ object student {
       )
     )
 
-  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(implicit
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(using
       ctx: Context
   ) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
@@ -338,7 +338,7 @@ object student {
       )
     )
 
-  def close(clas: Clas, students: List[Student], s: Student.WithUser)(implicit
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using
       ctx: Context
   ) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(

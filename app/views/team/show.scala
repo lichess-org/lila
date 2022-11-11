@@ -24,7 +24,7 @@ object show {
       socketVersion: Option[lila.socket.Socket.SocketVersion],
       requestedModView: Boolean = false,
       log: List[Modlog] = Nil
-  )(implicit
+  )(using
       ctx: Context
   ) =
     bits.layout(

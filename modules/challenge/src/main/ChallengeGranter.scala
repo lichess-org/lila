@@ -48,7 +48,7 @@ final class ChallengeGranter(
 
   val ratingThreshold = 300
 
-  def isDenied(fromOption: Option[User], dest: User, perfType: Option[PerfType])(implicit
+  def isDenied(fromOption: Option[User], dest: User, perfType: Option[PerfType])(using
       ec: scala.concurrent.ExecutionContext
   ): Fu[Option[ChallengeDenied]] =
     fromOption

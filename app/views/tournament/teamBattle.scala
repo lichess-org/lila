@@ -86,7 +86,7 @@ object teamBattle {
       )
     )
 
-  def teamInfo(tour: Tournament, team: lila.team.Team.Mini, info: TeamBattle.TeamInfo)(implicit
+  def teamInfo(tour: Tournament, team: lila.team.Team.Mini, info: TeamBattle.TeamInfo)(using
       ctx: Context
   ) =
     views.html.base.layout(

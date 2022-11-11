@@ -32,7 +32,7 @@ final class GameApiV2(
     getLightUser: LightUser.Getter,
     realPlayerApi: RealPlayerApi,
     gameProxy: GameProxyRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {

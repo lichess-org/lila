@@ -39,7 +39,7 @@ final class SwissApi(
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
@@ -54,7 +54,7 @@ final class SwissApi(
       name = "swiss.api"
     )
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def fetchByIdNoCache(id: Swiss.Id) = swissColl.byId[Swiss](id.value)
 

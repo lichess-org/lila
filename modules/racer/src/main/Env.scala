@@ -19,7 +19,7 @@ final class Env(
     lightUserGetter: LightUser.GetterSync,
     remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode

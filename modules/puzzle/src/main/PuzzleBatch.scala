@@ -6,7 +6,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 // mobile app BC
-final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(implicit
+final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(using
     ec: ExecutionContext
 ):
 

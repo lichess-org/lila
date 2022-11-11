@@ -4,11 +4,11 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.config.BaseUrl
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.study.Chapter
 import scala.concurrent.ExecutionContext
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(implicit
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
     ec: ExecutionContext
 ) {
 

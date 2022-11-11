@@ -8,12 +8,12 @@ import reactivemongo.api.bson._
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 
-final class ChapterRepo(val coll: AsyncColl)(implicit
+final class ChapterRepo(val coll: AsyncColl)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll(_.byId[Chapter, Chapter.Id](id))
 

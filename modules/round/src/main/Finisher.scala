@@ -7,7 +7,7 @@ import lila.game.actorApi.{ AbortedBy, FinishGame }
 import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserRepo }
-import lila.i18n.{ defaultLang, I18nKeys => trans }
+import lila.i18n.{ defaultLang, I18nKeys as trans }
 
 final private class Finisher(
     gameRepo: GameRepo,
@@ -19,9 +19,9 @@ final private class Finisher(
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
     recentTvGames: RecentTvGames
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val chatLang = defaultLang
+  private given play.api.i18n.Lang = defaultLang
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     apply(pov.game, _.Aborted, None) >>- {
@@ -43,19 +43,18 @@ final private class Finisher(
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     if (
       !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
-    ) {
+    )
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
 
-    } else if (game.player(!game.player.color).isOfferingDraw) {
+    else if (game.player(!game.player.color).isOfferingDraw)
       apply(game, _.Draw, None, Messenger.Persistent(trans.drawOfferAccepted.txt()).some)
-    } else {
+    else
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
       apply(game, _.Outoftime, winner) >>-
         winner.foreach { w =>
           playban.flag(game, !w)
         }
-    }
 
   def noStart(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     game.playerWhoDidNotMove ?? { culprit =>
@@ -87,8 +86,8 @@ final private class Finisher(
       compEstStdErr <- lt.compEstStdErr
       quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
       compEstOvers = lt.compEstOvers.centis
-    } {
-      import lila.mon.round.move.{ lag => lRec }
+    }
+      import lila.mon.round.move.{ lag as lRec }
       lRec.mean.record(Math.round(10 * mean))
       lRec.stdDev.record(Math.round(10 * sd))
       // wikipedia.org/wiki/Coefficient_of_variation#Estimation
@@ -97,19 +96,17 @@ final private class Finisher(
       uncompStats.stdDev foreach { v =>
         lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
       }
-      lt.lagEstimator match {
+      lt.lagEstimator match
         case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
-      }
       lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
       lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
-    }
 
   private def apply(
       prev: Game,
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
       message: Option[Messenger.SystemMessage] = None
-  )(implicit proxy: GameProxy): Fu[Events] = {
+  )(implicit proxy: GameProxy): Fu[Events] =
     val status = makeStatus(Status)
     val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
     val game   = prog.game
@@ -148,11 +145,10 @@ final private class Finisher(
             List(lila.game.Event.EndData(game, ratingDiffs))
           }
         }
-  }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
-      import cats.implicits._
+      import cats.implicits.*
       (finish.white, finish.black).mapN((_, _)) ?? { case (white, black) =>
         crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
       } zip
@@ -172,4 +168,3 @@ final private class Finisher(
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
         .void
     }
-}

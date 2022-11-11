@@ -29,7 +29,7 @@ final class ActivityReadApi(
     getTourName: lila.tournament.GetTourName
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
   import model._
 
   implicit private val ordering = scala.math.Ordering.Double.TotalOrdering

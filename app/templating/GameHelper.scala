@@ -89,7 +89,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def modeNameNoCtx(mode: Mode): String = modeName(mode)(defaultLang)
 
-  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit
+  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(using
       lang: Lang
   ): Frag =
     player.aiLevel.fold[Frag](

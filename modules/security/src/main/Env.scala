@@ -28,7 +28,7 @@ final class Env(
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
     db: lila.db.Db
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler,

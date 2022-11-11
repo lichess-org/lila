@@ -20,7 +20,7 @@ final class EventStream(
     gameJsonView: lila.game.JsonView,
     rematches: Rematches,
     lightUserApi: LightUserApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: akka.actor.Scheduler

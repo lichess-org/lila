@@ -309,7 +309,7 @@ final class Study(
         )
     }
 
-  private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(implicit
+  private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(using
       ctx: Context
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {

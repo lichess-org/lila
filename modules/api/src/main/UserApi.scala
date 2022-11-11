@@ -7,7 +7,7 @@ import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.user.{ Trophy, User }
 import lila.rating.{ PerfType, UserRankMap }
 import play.api.i18n.Lang
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.security.Granter
 
 final class UserApi(

@@ -32,7 +32,7 @@ final class TeamApi(
     chatApi: ChatApi
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def team(id: Team.ID) = teamRepo byId id
 

@@ -18,7 +18,7 @@ final class StringToken[A](
     fullHashSize: Int = 14,
     currentValueHashSize: Option[Int] = Some(6), // won't hash if None
     separator: Char = '|'
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     serializer: StringToken.Serializable[A]
 ):

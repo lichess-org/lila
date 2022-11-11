@@ -11,7 +11,7 @@ import lila.memo.CacheApi
 import lila.user.User
 import reactivemongo.core.errors.DatabaseException
 
-final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(implicit
+final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(using
     ec: ExecutionContext,
     mode: Mode
 ) {

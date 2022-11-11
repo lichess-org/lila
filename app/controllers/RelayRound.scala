@@ -112,7 +112,7 @@ final class RelayRound(
           }
     )
 
-  private def doUpdate(id: String, me: UserModel)(implicit
+  private def doUpdate(id: String, me: UserModel)(using
       req: Request[_]
   ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
     env.relay.api.byIdAndContributor(id, me) flatMap {
@@ -223,7 +223,7 @@ final class RelayRound(
       }
     }
 
-  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(implicit
+  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
       ctx: Context
   ): Fu[Result] =
     studyC.CanView(oldSc.study, ctx.me) {

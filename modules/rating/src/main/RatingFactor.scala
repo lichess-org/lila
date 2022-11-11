@@ -5,6 +5,7 @@ import play.api.data.Forms.{ single, text }
 
 import lila.memo.SettingStore.{ Formable, StringReader }
 import reactivemongo.api.bson.BSONHandler
+import lila.common.Iso
 
 case class RatingFactor(value: Double) extends AnyVal with DoubleValue
 
@@ -27,12 +28,8 @@ object RatingFactor:
       case _ => None
     } toMap
 
-  private val ratingFactorsIso = lila.common.Iso[String, RatingFactors](
-    str => read(str),
-    rf => write(rf)
-  )
+  private given Iso.StringIso[RatingFactors] = Iso.string(read, write)
 
   given BSONHandler[RatingFactors]  = lila.db.dsl.isoHandler
-  given StringReader[RatingFactors] = StringReader.fromIso(ratingFactorsIso)
-  given Formable[RatingFactors] =
-    new Formable[RatingFactors](rfs => Form(single("v" -> text)) fill write(rfs))
+  given StringReader[RatingFactors] = StringReader.fromIso
+  given Formable[RatingFactors]     = new Formable(rfs => Form(single("v" -> text)) fill write(rfs))

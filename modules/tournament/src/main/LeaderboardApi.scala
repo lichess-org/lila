@@ -18,7 +18,7 @@ final class LeaderboardApi(
 )(using ec: scala.concurrent.ExecutionContext) {
 
   import LeaderboardApi._
-  import BSONHandlers._
+  import BSONHandlers.given
 
   private val maxPerPage = MaxPerPage(15)
 

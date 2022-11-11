@@ -32,7 +32,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.irc.IrcApi,
     msgApi: lila.msg.MsgApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler

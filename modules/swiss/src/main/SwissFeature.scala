@@ -17,7 +17,7 @@ final class SwissFeature(
     swissCache: SwissCache
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   val onHomepage = cacheApi.unit[Option[Swiss]] {
     _.refreshAfterWrite(1 minute)

@@ -1,22 +1,20 @@
 package lila.round
 
 import actorApi.{ GetSocketStatus, SocketStatus }
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import io.methvin.play.autoconfig.*
+import play.api.{ ConfigLoader, Configuration }
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.{ Bus, Strings, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
 import lila.memo.SettingStore
-import lila.memo.SettingStore.Strings._
-import lila.memo.SettingStore.Regex._
 import lila.user.User
 import scala.util.matching.Regex
 
@@ -56,16 +54,19 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
     shutdown: akka.actor.CoordinatedShutdown
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler
-) {
+    scheduler: akka.actor.Scheduler,
+    materializer: akka.stream.Materializer
+):
 
-  import lightUserApi._
+  export lightUserApi.isBotSync
+  export lightUserApi.async
+  export lightUserApi.sync
 
-  implicit private val animationLoader = durationLoader(AnimationDuration)
-  private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  private given ConfigLoader[AnimationDuration] = durationLoader(AnimationDuration)
+  private val config                            = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
@@ -136,8 +137,9 @@ final class Env(
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 
-  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { correspondenceEmail.tick _ }
+  scheduler.scheduleAtFixedRate(10 minute, 10 minute) { (() => correspondenceEmail.tick()) }
 
+  import SettingStore.Regex.given
   val selfReportEndGame = settingStore[Regex](
     "selfReportEndGame",
     default = "-".r,
@@ -209,7 +211,6 @@ final class Env(
   def resign(pov: Pov): Unit =
     if (pov.game.abortableByUser) tellRound(pov.gameId, Abort(pov.playerId))
     else if (pov.game.resignable) tellRound(pov.gameId, Resign(pov.playerId))
-}
 
 trait SelfReportEndGame
 trait SelfReportMarkUser
