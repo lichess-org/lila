@@ -39,7 +39,7 @@ final private class TutorBuilder(
 
   import TutorBsonHandlers.given
   import TutorBuilder._
-  implicit private val insightApiImplicit = insightApi
+  private given InsightApi = insightApi
 
   val maxTime = fishnet.maxTime + 3.minutes
 
@@ -52,7 +52,7 @@ final private class TutorBuilder(
       for {
         lap    <- chrono.lap
         report <- Future fromTry lap.result
-        doc = reportHandler.writeOpt(report).get ++ $doc(
+        doc = bsonWriteObjTry(report).get ++ $doc(
           "_id"    -> s"${report.user}:${dateFormatter print report.at}",
           "millis" -> lap.millis
         )
@@ -80,7 +80,7 @@ final private class TutorBuilder(
       user.perfs(pt).latest.exists(_ isAfter DateTime.now.minusMonths(2))
     }
 
-  private def hasFreshReport(user: User) = reportColl.exists(
+  private def hasFreshReport(user: User): Fu[Boolean] = reportColl.exists(
     $doc(
       TutorFullReport.F.user -> user.id,
       TutorFullReport.F.at $gt DateTime.now.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)

@@ -121,10 +121,8 @@ final class PerfsUpdater(
       case Glicko.Result.Draw => results.addDraw(white, black)
       case Glicko.Result.Win  => results.addWin(white, black)
       case Glicko.Result.Loss => results.addWin(black, white)
-    try
-      Glicko.system.updateRatings(results, true)
-    catch
-      case e: Exception => logger.error(s"update ratings #${game.id}", e)
+    try Glicko.system.updateRatings(results, true)
+    catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
   private def mkPerfs(ratings: Ratings, users: (User, User), game: Game): Perfs =
     users match
@@ -159,7 +157,7 @@ final class PerfsUpdater(
           correspondence =
             addRatingIf(isStd && speed == Speed.Correspondence, perfs.correspondence, ratings.correspondence)
         )
-        val r = (() => RatingRegulator(ratingFactors()))
+        val r = RatingRegulator(ratingFactors())
         val perfs2 = perfs1.copy(
           chess960 = r(PT.Chess960, perfs.chess960, perfs1.chess960),
           kingOfTheHill = r(PT.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),

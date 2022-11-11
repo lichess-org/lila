@@ -1,8 +1,10 @@
 package lila
 
-package object tutor extends PackageObject {
+import lila.insight.ClockPercent
 
-  private[tutor] val logger = lila.log("tutor")
+package object tutor extends lila.PackageObject:
 
-  implicit val clockPercentOrdering = Ordering.by[insight.ClockPercent, Double](_.value)
-}
+  private val logger = lila.log("tutor")
+
+  private given clockPercentOrdering: Ordering[ClockPercent] =
+    Ordering.by[ClockPercent, Double](_.value)

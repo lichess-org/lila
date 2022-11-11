@@ -1,9 +1,9 @@
 package lila.tutor
 
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import play.api.Mode
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
@@ -19,7 +19,7 @@ final class TutorApi(
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: Mode
-) {
+):
 
   import TutorBsonHandlers.given
 
@@ -28,25 +28,23 @@ final class TutorApi(
       case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
       case Some(report) => queue.status(user) dmap some map { TutorFullReport.Available(report, _) }
       case None =>
-        builder.eligiblePerfTypesOf(user) match {
+        builder.eligiblePerfTypesOf(user) match
           case Nil => fuccess(TutorFullReport.InsufficientGames)
           case _   => queue.status(user) map TutorFullReport.Empty
-        }
     }
 
   def request(user: User, availability: TutorFullReport.Availability): Fu[TutorFullReport.Availability] =
-    availability match {
+    availability match
       case TutorFullReport.Empty(TutorQueue.NotInQueue) => queue.enqueue(user) dmap TutorFullReport.Empty
       case TutorFullReport.Available(report, Some(TutorQueue.NotInQueue)) =>
         queue.enqueue(user) dmap some map { TutorFullReport.Available(report, _) }
       case availability => fuccess(availability)
-    }
 
   LilaScheduler(_.Every(1 second), _.AtMost(10 seconds), _.Delay(3 seconds))(pollQueue)
 
   private def pollQueue = queue.next flatMap {
     _ ?? { next =>
-      next.startedAt match {
+      next.startedAt match
         case None => buildThenRemoveFromQueue(next.userId)
         case Some(at)
             if at.isBefore(DateTime.now minusSeconds builder.maxTime.toSeconds.toInt) || at.isBefore(
@@ -58,7 +56,6 @@ final class TutorApi(
             _    <- next.map(_.userId) ?? buildThenRemoveFromQueue
           } yield lila.mon.tutor.buildTimeout.increment().unit
         case _ => funit
-      }
     }
   }
 
@@ -82,4 +79,3 @@ final class TutorApi(
     .find($doc(TutorFullReport.F.user -> userId))
     .sort($sort desc TutorFullReport.F.at)
     .one[TutorFullReport]
-}

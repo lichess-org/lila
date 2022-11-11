@@ -44,7 +44,7 @@ object BSONHandlers:
 
   private[insight] given BSONDocumentHandler[lila.insight.DateRange] = Macros.handler
   private[insight] given BSONHandler[Period]                         = intAnyValHandler(_.days, Period.apply)
-  private[insight] given BSONHandler[ClockPercent] = percentAsIntHandler(_.value, ClockPercent.fromPercent)
+  given BSONHandler[ClockPercent] = percentAsIntHandler(_.value, ClockPercent.fromPercent)
 
   given BSON[InsightMove] with
     def reads(r: BSON.Reader) =

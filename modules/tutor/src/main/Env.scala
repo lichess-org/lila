@@ -1,8 +1,8 @@
 package lila.tutor
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 
 import lila.common.config
 import lila.db.dsl.Coll
@@ -25,7 +25,7 @@ final class Env(
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode,
     mat: akka.stream.Materializer
-) {
+):
 
   private val reportColl = db(config.CollName("tutor_report")).taggedWith[ReportColl]
   private val queueColl  = db(config.CollName("tutor_queue")).taggedWith[QueueColl]
@@ -41,7 +41,6 @@ final class Env(
   private lazy val queue   = wire[TutorQueue]
 
   lazy val api = wire[TutorApi]
-}
 
 trait ReportColl
 trait QueueColl

@@ -18,6 +18,9 @@ trait Lilaisms
     with LilaLibraryExtensions
     with LilaJsObjectExtensions:
 
+  export Lilaisms.*
+
+object Lilaisms:
   trait IntValue extends Any:
     def value: Int
     override def toString = value.toString
