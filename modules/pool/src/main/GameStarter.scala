@@ -1,6 +1,6 @@
 package lila.pool
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
@@ -14,9 +14,9 @@ final private class GameStarter(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  import PoolApi._
+  import PoolApi.*
 
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 32, timeout = 10 seconds, name = "gameStarter")
@@ -27,7 +27,7 @@ final private class GameStarter(
         val userIds = couples.flatMap(_.userIds)
         userRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size) flatMap {
           case (perfs, ids) =>
-            couples.zip(ids).map((one(pool, perfs) _).tupled).sequenceFu.map { pairings =>
+            couples.zip(ids).map((one(pool, perfs)).tupled).sequenceFu.map { pairings =>
               lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
             }
         }
@@ -37,9 +37,9 @@ final private class GameStarter(
   private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(
       couple: MatchMaking.Couple,
       id: Game.ID
-  ): Fu[Option[Pairing]] = {
-    import couple._
-    import cats.implicits._
+  ): Fu[Option[Pairing]] =
+    import couple.*
+    import cats.implicits.*
     (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? { case (perf1, perf2) =>
       for {
         p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
@@ -52,16 +52,14 @@ final private class GameStarter(
           blackMember.userId -> blackPerf
         ).start
         _ <- gameRepo insertDenormalized game
-      } yield {
+      } yield
         onStart(Game.Id(game.id))
         Pairing(
           game,
           whiteSri = whiteMember.sri,
           blackSri = blackMember.sri
         ).some
-      }
     }
-  }
 
   private def makeGame(
       id: Game.ID,
@@ -82,4 +80,3 @@ final private class GameStarter(
       daysPerTurn = none,
       metadata = Game.metadata(lila.game.Source.Pool)
     )
-}

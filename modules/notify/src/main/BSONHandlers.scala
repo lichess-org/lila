@@ -3,7 +3,6 @@ package lila.notify
 import chess.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.db.dsl.{ BSON }
 import lila.notify.InvitedToStudy.{ InvitedBy, StudyId, StudyName }
 import lila.notify.MentionedInThread.*
 import lila.notify.Notification.*
@@ -52,7 +51,7 @@ private object BSONHandlers:
   private given KaladinDoneHandler: BSONDocumentHandler[KaladinDone]   = Macros.handler
   private given GenericLinkHandler: BSONDocumentHandler[GenericLink]   = Macros.handler
 
-  given BSON[NotificationContent] with
+  given lila.db.BSON[NotificationContent] with
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match
         case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>

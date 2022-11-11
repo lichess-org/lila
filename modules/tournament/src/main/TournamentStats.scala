@@ -15,7 +15,7 @@ final class TournamentStatsApi(
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
     tournament.isFinished ?? cache.get(tournament.id).dmap(some)
 
-  implicit private val statsBSONHandler = Macros.handler[TournamentStats]
+  private given BSONDocumentHandler[TournamentStats] = Macros.handler
 
   private val cache = mongoCache[Tournament.ID, TournamentStats](
     64,

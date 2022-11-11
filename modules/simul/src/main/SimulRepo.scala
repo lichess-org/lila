@@ -21,10 +21,10 @@ final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.
     x => BSONInteger(x.id)
   )
   import chess.Clock.Config
-  implicit private val clockHandler         = Macros.handler[Config]
-  implicit private val ClockBSONHandler     = Macros.handler[SimulClock]
-  implicit private val PlayerBSONHandler    = Macros.handler[SimulPlayer]
-  implicit private val ApplicantBSONHandler = Macros.handler[SimulApplicant]
+  private given BSONDocumentHandler[Config] = Macros.handler
+  private given BSONDocumentHandler[SimulClock] = Macros.handler
+  private given BSONDocumentHandler[SimulPlayer] = Macros.handler
+  private given BSONDocumentHandler[SimulApplicant] = Macros.handler
   implicit private val SimulPairingBSONHandler = new BSON[SimulPairing] {
     def reads(r: BSON.Reader) =
       SimulPairing(
@@ -44,7 +44,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.
       )
   }
 
-  implicit private val SimulBSONHandler = Macros.handler[Simul]
+  private given BSONDocumentHandler[Simul] = Macros.handler
 
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect  = $doc("status" -> SimulStatus.Started.id)

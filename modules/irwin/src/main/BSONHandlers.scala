@@ -36,7 +36,7 @@ object BSONHandlers {
       )
   }
 
-  implicit private val GameReportBSONHandler = Macros.handler[GameReport]
+  private given BSONDocumentHandler[GameReport] = Macros.handler
   // private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
   // private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   given BSONDocumentHandler[IrwinReport] = Macros.handler

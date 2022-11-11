@@ -49,7 +49,7 @@ object BSONHandlers {
       )
   )
 
-  implicit private val spotlightBSONHandler = Macros.handler[Spotlight]
+  private given BSONDocumentHandler[Spotlight] = Macros.handler
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler
 

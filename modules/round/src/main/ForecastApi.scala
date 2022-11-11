@@ -13,8 +13,8 @@ import lila.game.{ Game, Pov }
 
 final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val stepBSONHandler     = Macros.handler[Step]
-  implicit private val forecastBSONHandler = Macros.handler[Forecast]
+  private given BSONDocumentHandler[Step] = Macros.handler
+  private given BSONDocumentHandler[Forecast] = Macros.handler
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
     lila.mon.round.forecast.create.increment()

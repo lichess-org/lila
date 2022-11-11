@@ -1,12 +1,12 @@
 package lila.streamer
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import play.api.{ ConfigLoader, Configuration }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 private class StreamerConfig(
@@ -33,7 +33,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword)
@@ -41,7 +41,7 @@ final class Env(
 
   private lazy val streamerColl = db(config.streamerColl)
 
-  lazy val alwaysFeaturedSetting = {
+  lazy val alwaysFeaturedSetting =
     import lila.memo.SettingStore.UserIds.given
     import lila.common.UserIds
     settingStore[UserIds](
@@ -49,7 +49,6 @@ final class Env(
       default = UserIds(Nil),
       text = "Twitch streamers featured without the keyword - lichess usernames separated by a comma".some
     )
-  }
 
   lazy val homepageMaxSetting =
     settingStore[Int](
@@ -70,7 +69,7 @@ final class Env(
     isOnline = isOnline,
     timeline = timeline,
     keyword = config.keyword,
-    alwaysFeatured = alwaysFeaturedSetting.get _,
+    alwaysFeatured = (() => alwaysFeaturedSetting.get()),
     googleApiKey = config.googleApiKey,
     twitchApi = twitchApi
   )
@@ -84,4 +83,3 @@ final class Env(
   scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
   }
-}

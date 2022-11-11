@@ -28,7 +28,7 @@ case class Query(
     analysed: Option[Boolean] = None,
     whiteUser: Option[String] = None,
     blackUser: Option[String] = None
-) {
+):
 
   def nonEmpty =
     user1.nonEmpty ||
@@ -48,14 +48,13 @@ case class Query(
       duration.nonEmpty ||
       clock.nonEmpty ||
       analysed.nonEmpty
-}
 
-object Query {
+object Query:
 
-  import lila.common.Form._
-  import play.api.libs.json._
+  import lila.common.Form.*
+  import play.api.libs.json.*
   import play.api.i18n.Lang
-  import lila.i18n.{ I18nKeys => trans }
+  import lila.i18n.{ I18nKeys as trans }
 
   import Range.given
   private given Writes[Sorting]  = Json.writes
@@ -139,4 +138,3 @@ object Query {
     case s if s.is(_.VariantEnd)    => Some(s.id -> "Variant End")
     case s                          => Some(s.id -> s.toString)
   }
-}

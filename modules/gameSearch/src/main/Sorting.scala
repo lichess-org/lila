@@ -1,11 +1,11 @@
 package lila.gameSearch
 
 import play.api.i18n.Lang
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKeys as trans }
 
 case class Sorting(f: String, order: String)
 
-object Sorting {
+object Sorting:
 
   def fields(implicit lang: Lang) = List(
     Fields.date          -> trans.search.date.txt(),
@@ -19,4 +19,3 @@ object Sorting {
   )
 
   val default = Sorting(Fields.date, "desc")
-}

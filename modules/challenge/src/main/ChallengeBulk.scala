@@ -33,12 +33,12 @@ final class ChallengeBulkApi(
 ) {
 
   import lila.game.BSONHandlers.RulesHandler
-  implicit private val gameHandler        = Macros.handler[ScheduledGame]
+  private given BSONDocumentHandler[ScheduledGame] = Macros.handler
   implicit private val variantHandler     = variantByKeyHandler
   implicit private val clockHandler       = clockConfigHandler
   implicit private val clockOrDaysHandler = eitherHandler[chess.Clock.Config, Days]
   implicit private val messageHandler     = stringAnyValHandler[Template](_.value, Template.apply)
-  implicit private val bulkHandler        = Macros.handler[ScheduledBulk]
+  private given BSONDocumentHandler[ScheduledBulk] = Macros.handler
 
   private val coll = colls.bulk
 

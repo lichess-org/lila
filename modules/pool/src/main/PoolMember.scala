@@ -13,7 +13,7 @@ case class PoolMember(
     blocking: PoolMember.BlockedUsers,
     rageSitCounter: Int,
     misses: Int = 0 // how many waves they missed
-) {
+):
 
   def incMisses = copy(misses = misses + 1)
 
@@ -24,9 +24,8 @@ case class PoolMember(
     else copy(ratingRange = r, misses = 0)
 
   def hasRange = ratingRange.isDefined
-}
 
-object PoolMember {
+object PoolMember:
 
   case class BlockedUsers(ids: Set[User.ID]) extends AnyVal
 
@@ -40,4 +39,3 @@ object PoolMember {
       blocking = BlockedUsers(joiner.blocking),
       rageSitCounter = rageSit.counter / 10
     )
-}

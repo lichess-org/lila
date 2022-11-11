@@ -1,21 +1,22 @@
 package lila.pool
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import lila.common.ThreadLocalRandom
 
-import akka.actor._
+import akka.actor.*
 import akka.pattern.pipe
 
 import lila.socket.Socket.Sris
 import lila.user.User
+import scala.concurrent.ExecutionContext
 
 final private class PoolActor(
     config: PoolConfig,
     hookThieve: HookThieve,
     gameStarter: GameStarter
-) extends Actor {
+) extends Actor:
 
-  import PoolActor._
+  import PoolActor.*
 
   var members = Vector.empty[PoolMember]
 
@@ -23,7 +24,7 @@ final private class PoolActor(
 
   var nextWave: Cancellable = _
 
-  implicit def ec = context.dispatcher
+  given ExecutionContext = context.dispatcher
 
   def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
@@ -34,13 +35,13 @@ final private class PoolActor(
 
   scheduleWave()
 
-  def receive = {
+  def receive =
 
     case Join(joiner, _) if lastPairedUserIds(joiner.userId) =>
     // don't pair someone twice in a row, it's probably a client error
 
     case Join(joiner, rageSit) =>
-      members.find(joiner.is) match {
+      members.find(joiner.is) match
         case None =>
           members = members :+ PoolMember(joiner, config, rageSit)
           if (members.sizeIs >= config.wave.players.value) self ! FullWave
@@ -50,7 +51,6 @@ final private class PoolActor(
             case m                => m
           }
         case _ => // no change
-      }
 
     case Leave(userId) =>
       members.find(_.userId == userId) foreach { member =>
@@ -105,13 +105,11 @@ final private class PoolActor(
       members = members.filter { m =>
         sris contains m.sri
       }
-  }
 
   val monitor = lila.mon.lobby.pool.wave
   val monId   = config.id.value.replace('+', '_')
-}
 
-private object PoolActor {
+private object PoolActor:
 
   case class Join(joiner: PoolApi.Joiner, rageSit: lila.playban.RageSit)
   case class Leave(userId: User.ID) extends AnyVal
@@ -119,4 +117,3 @@ private object PoolActor {
   case object ScheduledWave
   case object FullWave
   case object RunWave
-}

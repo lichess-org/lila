@@ -1,6 +1,6 @@
 package lila.pool
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.game.Game
@@ -15,7 +15,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private lazy val hookThieve = wire[HookThieve]
 
@@ -26,4 +26,3 @@ final class Env(
   lazy val api = wire[PoolApi]
 
   def poolConfigs = PoolList.all
-}

@@ -1,9 +1,9 @@
 package lila.streamer
 
 import lila.db.dsl.{ *, given }
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-private object BsonHandlers {
+private object BsonHandlers:
 
   given BSONHandler[Streamer.Id]               = stringAnyValHandler(_.value, Streamer.Id.apply)
   given BSONHandler[Streamer.Listed]           = booleanAnyValHandler(_.value, Streamer.Listed.apply)
@@ -14,4 +14,3 @@ private object BsonHandlers {
   given BSONDocumentHandler[Streamer.YouTube]  = Macros.handler
   given BSONDocumentHandler[Streamer.Approval] = Macros.handler
   given BSONDocumentHandler[Streamer]          = Macros.handler
-}

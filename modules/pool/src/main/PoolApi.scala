@@ -1,6 +1,6 @@
 package lila.pool
 
-import akka.actor._
+import akka.actor.*
 
 import lila.game.Game
 import lila.rating.{ PerfType, RatingRange }
@@ -13,10 +13,10 @@ final class PoolApi(
     gameStarter: GameStarter,
     playbanApi: lila.playban.PlaybanApi,
     system: ActorSystem
-) {
+):
 
-  import PoolApi._
-  import PoolActor._
+  import PoolApi.*
+  import PoolActor.*
 
   private val actors: Map[PoolConfig.Id, ActorRef] = configs.map { config =>
     config.id -> system.actorOf(
@@ -47,9 +47,8 @@ final class PoolApi(
 
   private def sendTo(poolId: PoolConfig.Id, msg: Any) =
     actors get poolId foreach { _ ! msg }
-}
 
-object PoolApi {
+object PoolApi:
 
   case class Joiner(
       userId: User.ID,
@@ -58,13 +57,10 @@ object PoolApi {
       ratingRange: Option[RatingRange],
       lame: Boolean,
       blocking: Set[User.ID]
-  ) {
+  ):
 
     def is(member: PoolMember) = userId == member.userId
-  }
 
-  case class Pairing(game: Game, whiteSri: Sri, blackSri: Sri) {
+  case class Pairing(game: Game, whiteSri: Sri, blackSri: Sri):
     def sri(color: chess.Color) = color.fold(whiteSri, blackSri)
-  }
   case class Pairings(pairings: List[Pairing])
-}

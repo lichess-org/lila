@@ -103,7 +103,7 @@ object BSONHandlers {
       case Comment.Author.Unknown        => BSONString("")
     }
   )
-  implicit private val CommentBSONHandler = Macros.handler[Comment]
+  private given BSONDocumentHandler[Comment] = Macros.handler
 
   implicit val CommentsBSONHandler: BSONHandler[Comments] =
     isoHandler[Comments, List[Comment]]((s: Comments) => s.value, Comments(_))
@@ -268,7 +268,7 @@ object BSONHandlers {
     t => BSONString(s"${t.name}:${t.value}")
   )
   implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
-  implicit private val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
+  private given BSONDocumentHandler[Chapter.Setup] = Macros.handler
   given BSONDocumentHandler[Chapter.Relay] = Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
   import Chapter.Ply
@@ -284,7 +284,7 @@ object BSONHandlers {
     x => BSONString(x.id)
   )
   private case class DbMember(role: StudyMember.Role) extends AnyVal
-  implicit private val DbMemberBSONHandler = Macros.handler[DbMember]
+  private given BSONDocumentHandler[DbMember] = Macros.handler
   implicit private[study] val StudyMemberBSONWriter = new BSONWriter[StudyMember] {
     def writeTry(x: StudyMember) = DbMemberBSONHandler writeTry DbMember(x.role)
   }

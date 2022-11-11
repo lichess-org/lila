@@ -73,7 +73,7 @@ object JsonView {
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
 
-  implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
+  given Writes[SyncLog.Event] = Json.writes
 
   implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
     JsString(id.value)

@@ -58,7 +58,7 @@ object Forecast {
 
   implicit val forecastStepJsonFormat = Json.format[Step]
 
-  implicit val forecastJsonWriter = Json.writes[Forecast]
+  given Writes[Forecast] = Json.writes
 
   case object OutOfSync extends lila.base.LilaException {
     val message = "Forecast out of sync"

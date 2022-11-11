@@ -3,9 +3,9 @@ package lila.playban
 import chess.{ Centis, Color, Status }
 import org.joda.time.DateTime
 import play.api.Mode
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl.{ *, given }
@@ -21,17 +21,15 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(using ec: scala.concurrent.ExecutionContext, mode: Mode) {
+)(using ec: scala.concurrent.ExecutionContext, mode: Mode):
 
-  import lila.db.BSON.jodaDateTimeHandler
-  import reactivemongo.api.bson.Macros
-  implicit private val OutcomeBSONHandler = tryHandler[Outcome](
+  private given BSONHandler[Outcome] = tryHandler(
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
     x => BSONInteger(x.id)
   )
-  implicit private val RageSitBSONHandler    = intIsoHandler(Iso.int[RageSit](RageSit.apply, _.counter))
-  implicit private val BanBSONHandler        = Macros.handler[TempBan]
-  implicit private val UserRecordBSONHandler = Macros.handler[UserRecord]
+  private given BSONHandler[RageSit]            = intAnyValHandler(_.counter, RageSit)
+  private given BSONDocumentHandler[TempBan]    = Macros.handler
+  private given BSONDocumentHandler[UserRecord] = Macros.handler
 
   private case class Blame(player: Player, outcome: Outcome)
 
@@ -70,7 +68,7 @@ final class PlaybanApi(
       }
     }
 
-  def flag(game: Game, flaggerColor: Color): Funit = {
+  def flag(game: Game, flaggerColor: Color): Funit =
 
     def unreasonableTime =
       game.clock map { c =>
@@ -108,7 +106,6 @@ final class PlaybanApi(
         sitMoving getOrElse
         good(game, flaggerColor)
     }
-  }
 
   private def propagateSitting(game: Game, userId: User.ID): Funit =
     rageSitCache get userId map { rageSit =>
@@ -173,7 +170,7 @@ final class PlaybanApi(
 
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
     coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-      import framework._
+      import framework.*
       Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
       )
@@ -187,7 +184,7 @@ final class PlaybanApi(
 
   def bans(userId: User.ID): Fu[Int] =
     coll.aggregateOne(ReadPreference.secondaryPreferred) { framework =>
-      import framework._
+      import framework.*
       Match($id(userId) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
       )
@@ -210,8 +207,8 @@ final class PlaybanApi(
   ): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
     for {
-      withOutcome <- coll.ext
-        .findAndUpdate[UserRecord](
+      withOutcome <- coll
+        .findAndUpdateSimplified[UserRecord](
           selector = $id(userId),
           update = $doc(
             $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
@@ -225,14 +222,13 @@ final class PlaybanApi(
           fetchNewObject = true,
           upsert = true
         ) orFail s"can't find newly created record for user $userId"
-      withBan <- {
+      withBan <-
         if (outcome == Outcome.Good) fuccess(withOutcome)
         else
           for {
             createdAt <- userRepo.createdAtById(userId) orFail s"Missing user creation date $userId"
             withBan   <- legiferate(withOutcome, createdAt, source)
           } yield withBan
-      }
       _ <- registerRageSit(withBan, rsUpdate)
     } yield ()
   }.void logFailure lila.log("playban")
@@ -249,8 +245,8 @@ final class PlaybanApi(
             .Playban(record.userId, ban.mins, inTournament = source has Source.Tournament),
           "playban"
         )
-        coll.ext
-          .findAndUpdate[UserRecord](
+        coll
+          .findAndUpdateSimplified[UserRecord](
             selector = $id(record.userId),
             update = $unset("o") ++ $push(
               "b" -> $doc(
@@ -264,7 +260,7 @@ final class PlaybanApi(
       .map(_ | record) >>- cleanUserIds.remove(record.userId)
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
-    update match {
+    update match
       case RageSit.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0 && record.rageSit.isVeryBad) ?? {
@@ -286,5 +282,3 @@ final class PlaybanApi(
           }
         }
       case _ => funit
-    }
-}

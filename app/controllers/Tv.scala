@@ -36,7 +36,7 @@ final class Tv(
   def channels =
     apiC.ApiRequest { _ =>
       import play.api.libs.json._
-      implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
+      given Writes[lila.tv.Tv.Champion] = Json.writes
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
       } map { Json.toJson(_) } dmap Api.Data.apply

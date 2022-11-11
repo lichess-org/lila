@@ -1,10 +1,10 @@
 package lila.gameSearch
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo }
-import lila.search._
+import lila.search.*
 
 final class GameSearchApi(
     client: ESClient,
@@ -12,7 +12,7 @@ final class GameSearchApi(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) extends SearchReadApi[Game, Query] {
+) extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -67,4 +67,3 @@ final class GameSearchApi(
         Fields.source        -> game.source.map(_.id)
       )
       .noNull
-}

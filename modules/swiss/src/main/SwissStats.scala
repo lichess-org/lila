@@ -31,7 +31,7 @@ final class SwissStatsApi(
   def apply(swiss: Swiss): Fu[Option[SwissStats]] =
     swiss.isFinished ?? cache.get(swiss.id).dmap(some).dmap(_.filter(_.games > 0))
 
-  implicit private val statsBSONHandler = Macros.handler[SwissStats]
+  private given BSONDocumentHandler[SwissStats] = Macros.handler
 
   private val cache = mongoCache[Swiss.Id, SwissStats](
     64,

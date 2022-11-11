@@ -27,7 +27,7 @@ final class JsonView(
     }
     implicit val perfTypeWrites   = Writes[PerfType](pt => JsString(pt.key))
     implicit val ratingWrites     = intIsoWriter(Iso.int[Rating](Rating.apply, _.value))
-    implicit val ratingProgWrites = Json.writes[RatingProg]
+    given Writes[RatingProg] = Json.writes
     implicit val scoreWrites      = Json.writes[Score]
     implicit val gamesWrites = OWrites[Games] { games =>
       JsObject {
@@ -86,14 +86,14 @@ final class JsonView(
         "opponent" -> p.opponent
       )
     }
-    implicit val followListWrites = Json.writes[FollowList]
+    given Writes[FollowList] = Json.writes
     implicit val followsWrites    = Json.writes[Follows]
     implicit val teamsWrites = Writes[Teams] { s =>
       JsArray(s.value.map { id =>
         Json.obj("url" -> s"/team/$id", "name" -> getTeamName(id))
       })
     }
-    implicit val patronWrites = Json.writes[Patron]
+    given Writes[Patron] = Json.writes
   }
   import Writers._
 

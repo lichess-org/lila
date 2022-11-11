@@ -1,14 +1,14 @@
 package lila.streamer
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
 import lila.common.Form.{ constraint, formatter }
 import play.api.data.format.Formatter
 
-object StreamerForm {
+object StreamerForm:
 
   import Streamer.{ Description, Headline, Listed, Name, Twitch, YouTube }
 
@@ -71,9 +71,9 @@ object StreamerForm {
       youTube: Option[String],
       listed: Boolean,
       approval: Option[ApprovalData]
-  ) {
+  ):
 
-    def apply(streamer: Streamer, asMod: Boolean) = {
+    def apply(streamer: Streamer, asMod: Boolean) =
       val newStreamer = streamer.copy(
         name = name,
         headline = headline,
@@ -105,8 +105,6 @@ object StreamerForm {
             )
         }
       )
-    }
-  }
 
   case class ApprovalData(
       granted: Boolean,
@@ -115,13 +113,12 @@ object StreamerForm {
       ignored: Boolean,
       chat: Boolean,
       quick: Option[String] = None
-  ) {
+  ):
     def resolve =
       quick.fold(this) {
         case "approve" => copy(granted = true, requested = false)
         case "decline" => copy(granted = false, requested = false)
       }
-  }
 
   private given Formatter[Headline]    = formatter.stringFormatter(_.value, Headline)
   private def headlineField            = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
@@ -133,4 +130,3 @@ object StreamerForm {
       constraint.minLength[Name](_.value)(3),
       constraint.maxLength[Name](_.value)(30)
     )
-}
