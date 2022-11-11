@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
 import lila.user.User
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.swiss.BsonHandlers.SwissBanBSONHandler
 import lila.game.Game
 
@@ -16,7 +16,7 @@ case class SwissBan(_id: User.ID, until: DateTime, hours: Int)
  * Consecutive failures result in doubling ban duration.
  * Playing a swiss game resets the duration.
  */
-final class SwissBanApi(coll: Coll @@ BanColl)(implicit ec: ExecutionContext) {
+final class SwissBanApi(coll: Coll @@ BanColl)(using ec: ExecutionContext) {
 
   def bannedUntil(user: User.ID): Fu[Option[DateTime]] =
     coll.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt DateTime.now), "until")

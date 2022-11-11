@@ -14,7 +14,7 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
 
-final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext):
+final class PlanPricingApi(currencyApi: CurrencyApi)(using ec: ExecutionContext):
 
   import currencyApi.{ EUR, USD }
 

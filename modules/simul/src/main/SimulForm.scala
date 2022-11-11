@@ -101,7 +101,7 @@ object SimulForm {
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"             -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
         "featured"         -> optional(boolean)
-      )(Setup.apply)(Setup.unapply)
+      )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
     )
 

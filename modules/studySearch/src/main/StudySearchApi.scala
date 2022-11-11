@@ -125,7 +125,7 @@ final class StudySearchApi(
           }
           logger.info(s"Index to ${c.index.name} since $since")
           val retryLogger = logger.branch("index")
-          import lila.db.dsl._
+          import lila.db.dsl.{ *, given }
           Source
             .futureSource {
               studyRepo

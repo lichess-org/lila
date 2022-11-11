@@ -11,7 +11,7 @@ final class ExpireCallbackMemo(
     ttl: FiniteDuration,
     callback: String => Unit,
     initialCapacity: Int = 4096
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val timeouts = new ConcurrentHashMap[String, Cancellable](initialCapacity)
 

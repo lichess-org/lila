@@ -1,9 +1,9 @@
 package lila.coach
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter
@@ -16,9 +16,9 @@ final class CoachApi(
     picfitApi: PicfitApi,
     cacheApi: lila.memo.CacheApi,
     notifyApi: NotifyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def byId(id: Coach.Id): Fu[Option[Coach]] = coachColl.byId[Coach](id.value)
 
@@ -97,12 +97,12 @@ final class CoachApi(
 
   private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 
-  object reviews {
+  object reviews:
 
     def add(me: User, coach: Coach, data: CoachReviewForm.Data): Fu[CoachReview] =
       find(me, coach).flatMap { existing =>
         val id = CoachReview.makeId(me, coach)
-        val review = existing match {
+        val review = existing match
           case None =>
             CoachReview(
               _id = id,
@@ -121,9 +121,8 @@ final class CoachApi(
               approved = false,
               updatedAt = DateTime.now
             )
-        }
         if (me.marks.troll) fuccess(review)
-        else {
+        else
           reviewColl.update.one($id(id), review, upsert = true) >>
             notifyApi.addNotification(
               Notification.make(
@@ -131,7 +130,6 @@ final class CoachApi(
                 content = lila.notify.CoachReview
               )
             ) >> refreshCoachNbReviews(coach.id) inject review
-        }
       }
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)
@@ -191,5 +189,3 @@ final class CoachApi(
         .sort($sort desc "createdAt")
         .cursor[CoachReview]()
         .list(100) map CoachReview.Reviews.apply
-  }
-}

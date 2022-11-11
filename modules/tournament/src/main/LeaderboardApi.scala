@@ -7,7 +7,7 @@ import reactivemongo.api.ReadPreference
 import lila.common.config.MaxPerPage
 import lila.common.Maths
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.rating.PerfType
 import lila.user.User
@@ -15,7 +15,7 @@ import lila.user.User
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import LeaderboardApi._
   import BSONHandlers._

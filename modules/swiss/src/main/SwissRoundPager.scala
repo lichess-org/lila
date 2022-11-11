@@ -6,10 +6,10 @@ import com.softwaremill.tagging._
 
 import lila.common.config
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 
-final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(implicit ec: ExecutionContext) {
+final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(using ec: ExecutionContext) {
 
   import BsonHandlers._
 

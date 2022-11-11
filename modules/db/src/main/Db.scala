@@ -12,7 +12,7 @@ final class AsyncDb(
     name: String,
     uri: String,
     driver: AsyncDriver
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   private lazy val connection: Fu[(MongoConnection, Option[String])] =
     MongoConnection.fromString(uri) flatMap { parsedUri =>
@@ -35,7 +35,7 @@ final class Db(
     name: String,
     uri: String,
     driver: AsyncDriver
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val logger = lila.db.logger branch name
 

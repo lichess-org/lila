@@ -7,7 +7,7 @@ final class LastPostCache(
     notifier: Notifier,
     config: BlogConfig,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private val cache = cacheApi.sync[Boolean, Option[MiniPost]](
     name = "blog.lastPost",

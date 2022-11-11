@@ -10,7 +10,7 @@ import lila.user.User
 final class CrosstableApi(
     coll: Coll,
     matchupColl: AsyncCollFailingSilently
-)(implicit ec: ExecutionContext):
+)(using ec: ExecutionContext):
 
   import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields as F }

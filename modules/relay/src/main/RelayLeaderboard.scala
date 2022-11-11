@@ -4,7 +4,7 @@ import chess.format.pgn.Tags
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
 import akka.actor.Scheduler

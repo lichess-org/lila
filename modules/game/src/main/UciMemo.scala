@@ -4,7 +4,7 @@ import chess.format.UciDump
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration.*
 
-final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext):
+final class UciMemo(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext):
 
   type UciVector = Vector[String]
 

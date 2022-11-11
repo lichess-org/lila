@@ -4,13 +4,13 @@ import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._
 
 import chess.Color
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final class TournamentStatsApi(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
     tournament.isFinished ?? cache.get(tournament.id).dmap(some)

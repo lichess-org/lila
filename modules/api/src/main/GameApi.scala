@@ -10,7 +10,7 @@ import lila.analyse.{ Analysis, JsonView => analysisJson }
 import lila.common.config._
 import lila.common.Json._
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
@@ -25,7 +25,7 @@ final private[api] class GameApi(
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
     crosstableApi: CrosstableApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import GameApi.WithFlags
 

@@ -7,7 +7,7 @@ import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.common.LilaStream
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.mailer._
 import lila.pref.PrefApi

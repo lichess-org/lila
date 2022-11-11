@@ -13,7 +13,7 @@ final class ModApi(
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =
     for {

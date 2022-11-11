@@ -17,7 +17,7 @@ final private class TutorFishnet(
     analyser: Analyser,
     awaiter: FishnetAwaiter,
     nbAnalysis: SettingStore[Int] @@ NbAnalysis
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   def maxToAnalyse       = config.Max(nbAnalysis.get())
   def maxGamesToConsider = config.Max(maxToAnalyse.value * 2)

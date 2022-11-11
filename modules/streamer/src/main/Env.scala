@@ -3,7 +3,7 @@ package lila.streamer
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
+import play.api.{ ConfigLoader, Configuration }
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -35,20 +35,19 @@ final class Env(
     scheduler: akka.actor.Scheduler
 ) {
 
-  implicit private val twitchLoader  = AutoConfig.loader[TwitchConfig]
-  implicit private val keywordLoader = strLoader(Stream.Keyword.apply)
-  private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
+  private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
+  private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword)
+  private val config                         = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)
 
   lazy val alwaysFeaturedSetting = {
-    import lila.memo.SettingStore.UserIds._
+    import lila.memo.SettingStore.UserIds.given
     import lila.common.UserIds
     settingStore[UserIds](
       "streamerAlwaysFeatured",
       default = UserIds(Nil),
-      text =
-        "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
+      text = "Twitch streamers featured without the keyword - lichess usernames separated by a comma".some
     )
   }
 

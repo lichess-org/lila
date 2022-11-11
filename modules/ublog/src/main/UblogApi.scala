@@ -5,7 +5,7 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
 import lila.memo.{ PicfitApi, PicfitUrl }
 import lila.security.Granter
@@ -18,7 +18,7 @@ final class UblogApi(
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import UblogBsonHandlers._
 

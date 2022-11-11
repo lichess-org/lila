@@ -9,7 +9,7 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
 import lila.memo.SettingStore
 import lila.user.User
@@ -17,7 +17,7 @@ import lila.user.User
 final class UblogRank(
     colls: UblogColls,
     timeline: lila.hub.actors.Timeline
-)(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
+)(using ec: ExecutionContext, mat: akka.stream.Materializer) {
 
   import UblogBsonHandlers._
 

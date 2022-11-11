@@ -5,7 +5,7 @@ import com.softwaremill.tagging._
 import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 case class SwissStats(
     games: Int = 0,

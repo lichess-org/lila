@@ -18,7 +18,7 @@ object ServerEval {
       fishnet: lila.hub.actors.Fishnet,
       chapterRepo: ChapterRepo,
       userRepo: UserRepo
-  )(implicit ec: scala.concurrent.ExecutionContext) {
+  )(using ec: scala.concurrent.ExecutionContext) {
 
     private val onceEvery = lila.memo.OnceEvery(5 minutes)
 
@@ -60,7 +60,7 @@ object ServerEval {
       socket: StudySocket,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
-  )(implicit ec: scala.concurrent.ExecutionContext) {
+  )(using ec: scala.concurrent.ExecutionContext) {
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
       analysis.studyId.map(Study.Id.apply) ?? { studyId =>

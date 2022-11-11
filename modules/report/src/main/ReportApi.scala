@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, Heapsort }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi._
 import lila.user.{ Holder, User, UserRepo }

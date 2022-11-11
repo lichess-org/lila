@@ -6,10 +6,10 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private[simul] class SimulRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val SimulStatusBSONHandler = tryHandler[SimulStatus](
     { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },

@@ -10,7 +10,7 @@ import scala.util.Try
 
 final class BlogApi(
     config: BlogConfig
-)(implicit ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient) {
+)(using ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient) {
 
   import BlogApi.looksLikePrismicId
 

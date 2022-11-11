@@ -5,12 +5,12 @@ import reactivemongo.api.bson._
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.AsyncColl
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 import lila.user.User
 
-final private class InsightStorage(val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurrent.ExecutionContext) {
 
   import InsightStorage._
   import BSONHandlers._

@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.Future
 import lila.db.AsyncColl
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 case class StudyTopic(value: String) extends AnyVal with StringValue
@@ -98,7 +98,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     }
 
   private case class TagifyTopic(value: String)
-  implicit private val TagifyTopicReads = Json.reads[TagifyTopic]
+  private given Reads[TagifyTopic] = Json.reads
 
   def userTopics(user: User, json: String): Funit = {
     val topics =

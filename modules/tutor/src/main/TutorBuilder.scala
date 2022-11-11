@@ -9,7 +9,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.IpAddress
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.insight.{
   Answer => InsightAnswer,
@@ -35,7 +35,7 @@ final private class TutorBuilder(
     userRepo: UserRepo,
     fishnet: TutorFishnet,
     reportColl: Coll @@ ReportColl
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import TutorBsonHandlers._
   import TutorBuilder._

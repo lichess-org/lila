@@ -5,7 +5,7 @@ import reactivemongo.api._
 
 import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
 import lila.security.Permission
 import lila.user.{ Authenticator, User, UserRepo }
@@ -20,7 +20,7 @@ final class ClasApi(
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 

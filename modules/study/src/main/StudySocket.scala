@@ -451,20 +451,20 @@ object StudySocket {
             (__ \ "ch").read[Chapter.Id]
         )(AtPosition.apply _)
         case class SetRole(userId: String, role: String)
-        implicit val SetRoleReader: Reads[SetRole]               = Json.reads[SetRole]
+        given Reads[SetRole]               = Json.reads
         implicit val ChapterModeReader: Reads[ChapterMaker.Mode] = optRead(ChapterMaker.Mode.apply)
         implicit val ChapterOrientationReader: Reads[ChapterMaker.Orientation] =
           stringRead(ChapterMaker.Orientation.apply)
         implicit val UserSelectionReader: Reads[Settings.UserSelection] =
           optRead(Settings.UserSelection.byKey.get)
         implicit val VariantReader: Reads[chess.variant.Variant] = optRead(chess.variant.Variant.apply)
-        implicit val ChapterDataReader: Reads[ChapterMaker.Data] = Json.reads[ChapterMaker.Data]
-        implicit val ChapterEditDataReader: Reads[ChapterMaker.EditData] = Json.reads[ChapterMaker.EditData]
-        implicit val ChapterDescDataReader: Reads[ChapterMaker.DescData] = Json.reads[ChapterMaker.DescData]
-        implicit val StudyDataReader: Reads[Study.Data]                  = Json.reads[Study.Data]
-        implicit val setTagReader: Reads[actorApi.SetTag]                = Json.reads[actorApi.SetTag]
-        implicit val gamebookReader: Reads[Gamebook]                     = Json.reads[Gamebook]
-        implicit val explorerGame: Reads[actorApi.ExplorerGame]          = Json.reads[actorApi.ExplorerGame]
+        given Reads[ChapterMaker.Data] = Json.reads
+        given Reads[ChapterMaker.EditData] = Json.reads
+        given Reads[ChapterMaker.DescData] = Json.reads
+        given Reads[Study.Data]                  = Json.reads
+        given Reads[actorApi.SetTag]                = Json.reads
+        given Reads[Gamebook]                     = Json.reads
+        given Reads[actorApi.ExplorerGame]          = Json.reads
       }
     }
 

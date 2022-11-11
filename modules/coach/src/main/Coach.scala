@@ -15,7 +15,7 @@ case class Coach(
     languages: List[String],
     createdAt: DateTime,
     updatedAt: DateTime
-) {
+):
 
   def id = _id
 
@@ -24,9 +24,8 @@ case class Coach(
   def hasPicture = picture.isDefined
 
   def daysOld = Days.daysBetween(createdAt, DateTime.now).getDays
-}
 
-object Coach {
+object Coach:
 
   val imageSize = 350
 
@@ -44,12 +43,10 @@ object Coach {
       updatedAt = DateTime.now
     )
 
-  case class WithUser(coach: Coach, user: lila.user.User) {
+  case class WithUser(coach: Coach, user: lila.user.User):
     def isListed = coach.listed.value && user.enabled && user.marks.clean
-  }
 
   case class Id(value: String)         extends AnyVal with StringValue
   case class Listed(value: Boolean)    extends AnyVal
   case class Available(value: Boolean) extends AnyVal
   case class User(rating: Int, seenAt: DateTime)
-}

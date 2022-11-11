@@ -11,7 +11,7 @@ final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     nameGenerator: NameGenerator
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import ClasForm._
 
@@ -30,7 +30,7 @@ final class ClasForm(
             }
           }
         )
-      )(ClasData.apply)(ClasData.unapply)
+      )(ClasData.apply)(unapply)
     )
 
     def create = form
@@ -54,7 +54,7 @@ final class ClasForm(
         mapping(
           "create-username" -> securityForms.signup.username,
           "create-realName" -> cleanNonEmptyText(maxLength = 100)
-        )(NewStudent.apply)(NewStudent.unapply)
+        )(NewStudent.apply)(unapply)
       )
 
     def generate: Fu[Form[NewStudent]] =
@@ -73,7 +73,7 @@ final class ClasForm(
             .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
             .verifying("This is a teacher", u => !c.teachers.toList.contains(u.toLowerCase)),
           "realName" -> cleanNonEmptyText
-        )(NewStudent.apply)(NewStudent.unapply)
+        )(NewStudent.apply)(unapply)
       )
 
     def edit(s: Student) =
@@ -81,7 +81,7 @@ final class ClasForm(
         mapping(
           "realName" -> cleanNonEmptyText,
           "notes"    -> text(maxLength = 20000)
-        )(StudentData.apply)(StudentData.unapply)
+        )(StudentData.apply)(unapply)
       ) fill StudentData(s.realName, s.notes)
 
     def release =
@@ -95,7 +95,7 @@ final class ClasForm(
       Form(
         mapping(
           "realNames" -> cleanNonEmptyText
-        )(ManyNewStudent.apply)(ManyNewStudent.unapply).verifying(
+        )(ManyNewStudent.apply)(unapply).verifying(
           s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
           _.realNames.lengthIs <= max
         )

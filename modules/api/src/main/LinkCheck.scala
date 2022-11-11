@@ -31,7 +31,7 @@ final private class LinkCheck(
     simulApi: SimulApi,
     swissApi: SwissApi,
     studyRepo: StudyRepo
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import LinkCheck._
 

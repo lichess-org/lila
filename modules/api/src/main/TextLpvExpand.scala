@@ -16,7 +16,7 @@ final class TextLpvExpand(
     analysisRepo: AnalysisRepo,
     pgnDump: PgnDump,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   def getPgn(id: Game.ID) = pgnCache get id
 

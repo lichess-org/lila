@@ -9,7 +9,7 @@ import lila.api.Context
 import lila.api.GameApiV2
 import lila.app._
 import lila.common.config
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.Holder
 
@@ -154,7 +154,7 @@ object GameMod {
         "speed"      -> optional(nonEmptyText),
         "opponents"  -> optional(nonEmptyText),
         "nbGamesOpt" -> optional(number(min = 1, max = 500))
-      )(Filter.apply)(Filter.unapply _)
+      )(Filter.apply)(unapply)
     )
 
   val actionForm =

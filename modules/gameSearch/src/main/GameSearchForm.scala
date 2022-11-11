@@ -20,7 +20,7 @@ final private[gameSearch] class GameSearchForm {
         "loser"  -> optional(nonEmptyText),
         "white"  -> optional(nonEmptyText),
         "black"  -> optional(nonEmptyText)
-      )(SearchPlayer.apply)(SearchPlayer.unapply),
+      )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
       "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
       "source"      -> optional(numberIn(Query.sources)),
@@ -39,7 +39,7 @@ final private[gameSearch] class GameSearchForm {
         "initMax" -> optional(numberIn(Query.clockInits)),
         "incMin"  -> optional(numberIn(Query.clockIncs)),
         "incMax"  -> optional(numberIn(Query.clockIncs))
-      )(SearchClock.apply)(SearchClock.unapply _),
+      )(SearchClock.apply)(unapply),
       "dateMin"  -> GameSearchForm.dateField,
       "dateMax"  -> GameSearchForm.dateField,
       "status"   -> optional(numberIn(Query.statuses)),
@@ -48,9 +48,9 @@ final private[gameSearch] class GameSearchForm {
         mapping(
           "field" -> stringIn(Sorting.fields),
           "order" -> stringIn(Sorting.orders)
-        )(SearchSort.apply)(SearchSort.unapply)
+        )(SearchSort.apply)(unapply)
       )
-    )(SearchData.apply)(SearchData.unapply _)
+    )(SearchData.apply)(unapply)
   ) fill SearchData()
 }
 

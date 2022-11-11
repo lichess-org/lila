@@ -6,7 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
 
 import lila.db.AsyncColl
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final class ChapterRepo(val coll: AsyncColl)(implicit
     ec: scala.concurrent.ExecutionContext,

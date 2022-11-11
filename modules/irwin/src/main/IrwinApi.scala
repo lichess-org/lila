@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import lila.analyse.Analysis
 import lila.analyse.AnalysisRepo
 import lila.common.Bus
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
 import lila.tournament.{ Tournament, TournamentTop }
@@ -23,7 +23,7 @@ final class IrwinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   lazy val thresholds = IrwinThresholds.makeSetting("irwin", settingStore)
 

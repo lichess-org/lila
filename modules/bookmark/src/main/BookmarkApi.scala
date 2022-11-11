@@ -3,7 +3,7 @@ package lila.bookmark
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
@@ -14,7 +14,7 @@ final class BookmarkApi(
     gameRepo: GameRepo,
     gameProxyRepo: lila.round.GameProxyRepo,
     paginator: PaginatorBuilder
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private def exists(gameId: Game.ID, userId: User.ID): Fu[Boolean] =
     coll exists selectId(gameId, userId)

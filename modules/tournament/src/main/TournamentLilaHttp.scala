@@ -96,7 +96,7 @@ final class TournamentLilaHttp(
       sheet: arena.Sheet,
       rankedPlayer: RankedPlayer,
       streakable: Boolean
-  )(implicit ec: ExecutionContext): Fu[JsObject] = {
+  )(using ec: ExecutionContext): Fu[JsObject] = {
     val p = rankedPlayer.player
     lightUserApi async p.userId map { light =>
       Json

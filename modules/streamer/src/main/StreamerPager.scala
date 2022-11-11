@@ -3,16 +3,16 @@ package lila.streamer
 import reactivemongo.api._
 
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 
 final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
     maxPerPage: lila.common.config.MaxPerPage
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def notLive(
       page: Int,

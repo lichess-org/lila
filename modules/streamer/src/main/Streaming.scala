@@ -3,6 +3,7 @@ package lila.streamer
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.DefaultBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 import scala.util.chaining._
@@ -26,11 +27,11 @@ final private class Streaming(
 ) {
 
   import Stream._
-  import YouTube.Reads._
+  import YouTube.given
 
   private var liveStreams = LiveStreams(Nil)
 
-  def getLiveStreams = liveStreams
+  def getLiveStreams: LiveStreams = liveStreams
 
   LilaScheduler(_.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
     for {
@@ -113,11 +114,11 @@ final private class Streaming(
             )
             .get()
             .flatMap { res =>
-              res.body[JsValue].validate[YouTube.Result](youtubeResultReads) match {
+              res.body[JsValue].validate[YouTube.Result] match {
                 case JsSuccess(data, _) =>
                   fuccess(YouTube.StreamsFetched(data.streams(keyword, youtubeStreamers), now))
                 case JsError(err) =>
-                  fufail(s"youtube ${res.status} $err ${res.body.take(200)}")
+                  fufail(s"youtube ${res.status} $err ${res.body[String].take(200)}")
               }
             }
             .monSuccess(_.tv.streamer.youTube)

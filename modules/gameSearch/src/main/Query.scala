@@ -3,7 +3,7 @@ package lila.gameSearch
 import chess.{ Mode, Status }
 import org.joda.time.DateTime
 
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.rating.RatingRange
 import lila.search.Range
 
@@ -57,10 +57,10 @@ object Query {
   import play.api.i18n.Lang
   import lila.i18n.{ I18nKeys => trans }
 
-  import Range.rangeJsonWriter
-  implicit private val sortingJsonWriter  = Json.writes[Sorting]
-  implicit private val clockingJsonWriter = Json.writes[Clocking]
-  implicit val jsonWriter                 = Json.writes[Query]
+  import Range.given
+  private given Writes[Sorting]  = Json.writes
+  private given Writes[Clocking] = Json.writes
+  given Writes[Query]            = Json.writes
 
   def durations(implicit lang: Lang): List[(Int, String)] =
     ((30, trans.nbSeconds.pluralSameTxt(30)) ::

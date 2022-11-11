@@ -4,7 +4,7 @@ import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: SwissCache)(implicit
     ec: ExecutionContext

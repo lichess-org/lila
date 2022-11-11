@@ -7,7 +7,7 @@ import scala.util.Success
 import lila.common.Days
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 private object BSONHandlers {
 
@@ -79,6 +79,6 @@ private object BSONHandlers {
   }
 
   implicit private val OpenForIdsBSONHandler = tuple2BSONHandler[lila.user.User.ID]
-  implicit val ChallengeOpenBSONHandler      = Macros.handler[Challenge.Open]
-  implicit val ChallengeBSONHandler          = Macros.handler[Challenge]
+  given BSONDocumentHandler[Challenge.Open] = Macros.handler
+  given BSONDocumentHandler[Challenge] = Macros.handler
 }

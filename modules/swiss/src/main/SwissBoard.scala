@@ -21,7 +21,7 @@ final private class SwissBoardApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     gameProxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private val displayBoards = 6
 

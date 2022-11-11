@@ -9,7 +9,7 @@ import lila.user.User
 final class RealPlayerApi(
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def apply(url: String): Fu[Option[RealPlayers]] = cache get url
 

@@ -7,7 +7,7 @@ import chess.variant.Variant
 import reactivemongo.api.bson._
 
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
 
@@ -51,7 +51,7 @@ object BSONHandlers {
 
   implicit private val spotlightBSONHandler = Macros.handler[Spotlight]
 
-  implicit val battleBSONHandler = Macros.handler[TeamBattle]
+  given BSONDocumentHandler[TeamBattle] = Macros.handler
 
   implicit private val leaderboardRatio =
     BSONIntegerHandler.as[LeaderboardApi.Ratio](
@@ -223,5 +223,5 @@ object BSONHandlers {
   }
 
   import LeaderboardApi.ChartData.AggregationResult
-  implicit val leaderboardAggregationResultBSONHandler = Macros.handler[AggregationResult]
+  given BSONDocumentHandler[AggregationResult] = Macros.handler
 }

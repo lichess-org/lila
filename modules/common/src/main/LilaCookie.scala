@@ -49,7 +49,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
     if (req.session.data.contains(LilaCookie.sessionId)) res
     else res withCookies makeSessionId(req)
 
-  def ensureAndGet(req: RequestHeader)(res: String => Fu[Result])(implicit ec: ExecutionContext): Fu[Result] =
+  def ensureAndGet(req: RequestHeader)(res: String => Fu[Result])(using ec: ExecutionContext): Fu[Result] =
     req.session.data.get(LilaCookie.sessionId) match
       case Some(sessionId) => res(sessionId)
       case None =>

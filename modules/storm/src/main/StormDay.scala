@@ -5,7 +5,7 @@ import scala.concurrent.ExecutionContext
 import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LichessDay }
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.user.UserRepo

@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.PerfType
 import lila.user.User
@@ -26,7 +26,7 @@ object InsightPerfStats {
 final class InsightPerfStatsApi(
     storage: InsightStorage,
     pipeline: AggregationPipeline
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def apply(
       user: User,

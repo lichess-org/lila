@@ -5,11 +5,11 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.LeaderTeam
 import lila.user.User
 
-final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

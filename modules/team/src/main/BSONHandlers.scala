@@ -7,8 +7,8 @@ import lila.hub.LeaderTeam
 private object BSONHandlers {
 
   import lila.db.dsl.{ jodaDateTimeHandler, markdownHandler }
-  implicit val TeamBSONHandler       = Macros.handler[Team]
-  implicit val RequestBSONHandler    = Macros.handler[Request]
-  implicit val MemberBSONHandler     = Macros.handler[TeamMember]
-  implicit val LeaderTeamBSONHandler = Macros.handler[LeaderTeam]
+  given BSONDocumentHandler[Team] = Macros.handler
+  given BSONDocumentHandler[Request] = Macros.handler
+  given BSONDocumentHandler[TeamMember] = Macros.handler
+  given BSONDocumentHandler[LeaderTeam] = Macros.handler
 }

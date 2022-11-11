@@ -9,7 +9,7 @@ import lila.log.Logger
 /** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran as early as
   * possible. Also saves work and runs it after cooldown.
   */
-final class EarlyMultiThrottler(logger: Logger)(implicit ec: ExecutionContext, system: ActorSystem):
+final class EarlyMultiThrottler(logger: Logger)(using ec: ExecutionContext, system: ActorSystem):
 
   private val actor = system.actorOf(Props(new EarlyMultiThrottlerActor(logger)))
 
@@ -17,7 +17,7 @@ final class EarlyMultiThrottler(logger: Logger)(implicit ec: ExecutionContext, s
     actor ! EarlyMultiThrottlerActor.Work(id, run = () => run, cooldown)
 
 // actor based implementation
-final private class EarlyMultiThrottlerActor(logger: Logger)(implicit ec: ExecutionContext) extends Actor:
+final private class EarlyMultiThrottlerActor(logger: Logger)(using ec: ExecutionContext) extends Actor:
 
   import EarlyMultiThrottlerActor.*
 

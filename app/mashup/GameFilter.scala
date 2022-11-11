@@ -2,7 +2,7 @@ package lila.app
 package mashup
 
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Query }
 import lila.user.User
 
@@ -91,7 +91,7 @@ object GameFilterMenu {
       gameRepo: lila.game.GameRepo,
       gameProxyRepo: lila.round.GameProxyRepo,
       bookmarkApi: lila.bookmark.BookmarkApi
-  )(implicit ec: scala.concurrent.ExecutionContext) {
+  )(using ec: scala.concurrent.ExecutionContext) {
 
     def apply(
         user: User,

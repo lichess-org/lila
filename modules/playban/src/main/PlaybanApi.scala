@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, Iso, Uptime }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.NoteApi
@@ -21,7 +21,7 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
+)(using ec: scala.concurrent.ExecutionContext, mode: Mode) {
 
   import lila.db.BSON.jodaDateTimeHandler
   import reactivemongo.api.bson.Macros

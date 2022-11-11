@@ -6,7 +6,7 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
 import lila.common.config.CollName
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
 import lila.user.User

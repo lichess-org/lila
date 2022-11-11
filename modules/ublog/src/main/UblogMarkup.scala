@@ -15,7 +15,7 @@ final class UblogMarkup(
     assetBaseUrl: config.AssetBaseUrl,
     cacheApi: CacheApi,
     netDomain: config.NetDomain
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler, mode: Mode) {
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler, mode: Mode) {
 
   import UblogMarkup._
 

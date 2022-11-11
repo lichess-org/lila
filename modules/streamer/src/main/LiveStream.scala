@@ -63,13 +63,13 @@ object LiveStreams {
       )
   }
 
-  implicit val zero = alleycats.Zero(WithTitles(LiveStreams(Nil), Map.empty))
+  given alleycats.Zero[WithTitles] = alleycats.Zero(WithTitles(LiveStreams(Nil), Map.empty))
 }
 
 final class LiveStreamApi(
     cacheApi: lila.memo.CacheApi,
     streaming: Streaming
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private val cache = cacheApi.unit[LiveStreams] {
     _.refreshAfterWrite(2 seconds)

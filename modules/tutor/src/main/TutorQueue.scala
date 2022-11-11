@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.IpAddress
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -16,7 +16,7 @@ final private class TutorQueue(
     reportColl: Coll @@ ReportColl,
     queueColl: Coll @@ QueueColl,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   import TutorQueue._
 

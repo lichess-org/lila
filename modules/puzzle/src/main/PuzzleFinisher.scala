@@ -1,15 +1,14 @@
 package lila.puzzle
 
-import cats.implicits._
+import cats.implicits.*
 import org.goochjs.glicko2.{ GameRatingPeriodResults, Rating, RatingCalculator }
 import org.joda.time.DateTime
-import scala.concurrent.duration._
-import scala.util.chaining._
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.common.Bus
-import lila.db.dsl._
-import lila.rating.Perf
-import lila.rating.{ Glicko, PerfType }
+import lila.db.dsl.{ *, given }
+import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
 import chess.Mode
 
@@ -18,9 +17,9 @@ final private[puzzle] class PuzzleFinisher(
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
     colls: PuzzleColls
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler, mode: play.api.Mode) {
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler, mode: play.api.Mode):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val sequencer =
     new lila.hub.AsyncActorSequencers(
@@ -53,7 +52,7 @@ final private[puzzle] class PuzzleFinisher(
               val now              = DateTime.now
               val formerUserRating = user.perfs.puzzle.intRating
 
-              val (round, newPuzzleGlicko, userPerf) = prevRound match {
+              val (round, newPuzzleGlicko, userPerf) = prevRound match
                 case Some(prev) =>
                   (
                     prev.updateWithWin(result.win),
@@ -109,14 +108,13 @@ final private[puzzle] class PuzzleFinisher(
                       )
                     }
                   (round, newPuzzleGlicko, userPerf)
-              }
               api.round.upsert(round, angle) zip
                 colls.puzzle {
                   _.update
                     .one(
                       $id(puzzle.id),
                       $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.?? { glicko =>
-                        $set(Puzzle.BSONFields.glicko -> Glicko.glickoBSONHandler.write(glicko))
+                        $set(Puzzle.BSONFields.glicko -> glicko)
                       }
                     )
                     .void
@@ -136,7 +134,7 @@ final private[puzzle] class PuzzleFinisher(
         }
       }
 
-  private object ponder {
+  private object ponder:
 
     // themes that don't hint at the solution
     private val nonHintingThemes: Set[PuzzleTheme.Key] = Set(
@@ -168,26 +166,23 @@ final private[puzzle] class PuzzleFinisher(
     private def weightOf(angle: PuzzleAngle, result: PuzzleResult) =
       angle.asTheme.fold(1f) { theme =>
         if (theme == PuzzleTheme.mix.key) 1
-        else if (isObvious(theme)) {
+        else if (isObvious(theme))
           if (result.win) 0.2f else 0.6f
-        } else if (isHinting(theme)) {
+        else if (isHinting(theme))
           if (result.win) 0.3f else 0.7f
-        } else {
+        else
           if (result.win) 0.7f else 0.8f
-        }
       }
 
-    def player(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), puzzle: Glicko) = {
+    def player(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), puzzle: Glicko) =
       val provisionalPuzzle = puzzle.provisional ?? {
         if (result.win) -0.2f else -0.7f
       }
       glicko._1.average(glicko._2, (weightOf(angle, result) + provisionalPuzzle) atLeast 0.1f)
-    }
 
     def puzzle(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), player: Glicko) =
       if (player.clueless) glicko._1
       else glicko._1.average(glicko._2, weightOf(angle, result))
-  }
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU        = 0.75d
@@ -196,18 +191,14 @@ final private[puzzle] class PuzzleFinisher(
   def incPuzzlePlays(puzzleId: Puzzle.Id): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
-  private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
+  private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit =
     val results = new GameRatingPeriodResults()
-    result match {
+    result match
       case Glicko.Result.Draw => results.addDraw(u1, u2)
       case Glicko.Result.Win  => results.addWin(u1, u2)
       case Glicko.Result.Loss => results.addWin(u2, u1)
-    }
-    try {
+    try
       calculator.updateRatings(results)
-    } catch {
+    catch
       case e: Exception => logger.error("finisher", e)
-    }
-  }
 
-}

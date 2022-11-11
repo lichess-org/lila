@@ -31,7 +31,7 @@ final class EmailConfirmMailer(
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(using ec: scala.concurrent.ExecutionContext)
     extends EmailConfirm:
 
   import Mailer.html.*

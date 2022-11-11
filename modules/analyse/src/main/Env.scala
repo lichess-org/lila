@@ -10,7 +10,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   lazy val analysisRepo = new AnalysisRepo(db(CollName("analysis2")))
 

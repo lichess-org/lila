@@ -13,7 +13,7 @@ final class OAuthServer(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     originBlocklist: SettingStore[Strings]
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import OAuthServer.*
 

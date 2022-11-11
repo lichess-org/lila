@@ -1,36 +1,35 @@
 package lila.opening
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import reactivemongo.api.bson.Macros
+import play.api.data.*
+import play.api.data.Forms.*
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.Markdown
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
 case class OpeningWiki(
     markup: Option[String],
     revisions: List[OpeningWiki.Revision]
-) {
+):
   def markupForMove(move: String): Option[String] =
     markup map OpeningWiki.filterMarkupForMove(move)
-}
 
 final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, cacheApi: CacheApi)(implicit
     ec: ExecutionContext
-) {
+):
 
   import OpeningWiki.Revision
 
-  implicit val revisionHandler = Macros.handler[Revision]
-  implicit val wikiHandler     = Macros.handler[OpeningWiki]
+  given BSONDocumentHandler[Revision]    = Macros.handler
+  given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
   def apply(op: FullOpening, withRevisions: Boolean): Fu[OpeningWiki] = for {
     wiki <- cache get op.key
@@ -59,7 +58,7 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
   def popularOpeningsWithShortWiki: Fu[List[FullOpening]] =
     coll
       .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         Project($doc("popularity" -> true, "rev" -> $doc("$first" -> "$revisions"))) -> List(
           AddFields($doc("len" -> $doc("$strLenBytes" -> $doc("$ifNull" -> $arr("$rev.text", ""))))),
           Match($doc("len" $lt 300)),
@@ -75,7 +74,7 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
         } yield op
       }
 
-  private object markdown {
+  private object markdown:
 
     private val renderer = new lila.common.MarkdownRender(
       autoLink = false,
@@ -91,7 +90,6 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
         moveNumberRegex.replaceAllIn(text, "$1{DOT}")
       }
     }.replace("{DOT}", ".")
-  }
 
   private val cache = cacheApi[FullOpening.Key, OpeningWiki](1024, "opening.wiki") {
     _.maximumSize(4096).buildAsyncFuture(compute)
@@ -100,7 +98,7 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
   private def compute(key: FullOpening.Key): Fu[OpeningWiki] = for {
     docOpt <- coll
       .aggregateOne() { framework =>
-        import framework._
+        import framework.*
         Match($id(key)) ->
           List(Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
       }
@@ -129,9 +127,8 @@ final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, ca
         }
       }
     }
-}
 
-object OpeningWiki {
+object OpeningWiki:
 
   case class Revision(text: Markdown, by: User.ID, at: DateTime)
 
@@ -143,4 +140,3 @@ object OpeningWiki {
       case MoveLiRegex(m, content) => if (m.toLowerCase == move.toLowerCase) s"<p>${content.trim}</p>" else ""
       case html                    => html
     } mkString "\n"
-}

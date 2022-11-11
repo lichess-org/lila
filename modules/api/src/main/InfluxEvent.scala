@@ -7,7 +7,7 @@ final class InfluxEvent(
     ws: StandaloneWSClient,
     endpoint: String,
     env: String
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private val seed = lila.common.ThreadLocalRandom.nextString(6)
 

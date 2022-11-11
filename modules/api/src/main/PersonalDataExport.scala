@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.chat.Chat
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.streamer.Streamer
 import lila.user.User
@@ -30,7 +30,7 @@ final class PersonalDataExport(
     coachApi: lila.coach.CoachApi,
     picfitUrl: lila.memo.PicfitUrl,
     mongoCacheApi: lila.memo.MongoCache.Api
-)(implicit ec: ExecutionContext, mat: Materializer) {
+)(using ec: ExecutionContext, mat: Materializer) {
 
   private val lightPerSecond = 60
   private val heavyPerSecond = 30

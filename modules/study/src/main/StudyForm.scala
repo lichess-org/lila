@@ -25,7 +25,7 @@ object StudyForm {
         "pgn"         -> optional(nonEmptyText),
         "variant"     -> optional(of[Variant]),
         "as"          -> optional(nonEmptyText)
-      )(Data.apply)(Data.unapply)
+      )(Data.apply)(unapply)
     )
 
     case class Data(
@@ -72,7 +72,7 @@ object StudyForm {
         "sticky"        -> boolean,
         "pgn"           -> nonEmptyText,
         "isDefaultName" -> boolean
-      )(Data.apply)(Data.unapply)
+      )(Data.apply)(unapply)
     )
 
     case class Data(

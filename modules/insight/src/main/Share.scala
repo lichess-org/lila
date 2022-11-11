@@ -7,7 +7,7 @@ import lila.user.User
 final class Share(
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def getPrefId(insighted: User) = prefApi.getPref(insighted.id, _.insightShare)
 

@@ -3,7 +3,7 @@ package lila.storm
 import chess.format.{ FEN, Uci }
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.puzzle.Puzzle
 import scala.util.Success
 import lila.common.LichessDay
@@ -36,5 +36,5 @@ object StormBsonHandlers {
     )
   }
 
-  implicit val stormDayBSONHandler = Macros.handler[StormDay]
+  given BSONDocumentHandler[StormDay] = Macros.handler
 }

@@ -1,7 +1,7 @@
 package lila.insight
 
 import reactivemongo.api.bson._
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 object AggregationClusters {
 

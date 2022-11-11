@@ -58,7 +58,7 @@ final class HcaptchaReal(
     ws: StandaloneWSClient,
     netDomain: NetDomain,
     config: Hcaptcha.Config
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(using ec: scala.concurrent.ExecutionContext)
     extends Hcaptcha:
 
   import Hcaptcha.Result

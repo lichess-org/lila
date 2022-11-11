@@ -11,7 +11,7 @@ import lila.analyse.{ Analysis, JsonView => analysisJson }
 import lila.common.config.MaxPerSecond
 import lila.common.Json._
 import lila.common.{ HTTPRequest, LightUser }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.JsonView._
 import lila.game.PgnDump.WithFlags
 import lila.game.{ Game, PerfPicker, Query }

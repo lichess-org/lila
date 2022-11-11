@@ -4,9 +4,9 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-final private class RelayTourRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class RelayTourRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

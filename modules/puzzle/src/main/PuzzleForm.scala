@@ -1,12 +1,12 @@
 package lila.puzzle
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
 import lila.common.Form.{ numberIn, stringIn }
 import chess.Color
 
-object PuzzleForm {
+object PuzzleForm:
 
   case class RoundData(
       win: Boolean,
@@ -15,11 +15,10 @@ object PuzzleForm {
       streakId: Option[String],
       streakScore: Option[Int],
       color: Option[Color]
-  ) {
+  ):
     def result         = PuzzleResult(win)
     def streakPuzzleId = streakId flatMap Puzzle.toId
     def mode           = chess.Mode(rated)
-  }
 
   val round = Form(
     mapping(
@@ -29,7 +28,7 @@ object PuzzleForm {
       "streakId"    -> optional(nonEmptyText),
       "streakScore" -> optional(number(min = 0, max = 250)),
       "color"       -> optional(lila.common.Form.color.mapping)
-    )(RoundData.apply)(RoundData.unapply)
+    )(RoundData.apply)(unapply)
   )
 
   val vote = Form(
@@ -44,7 +43,7 @@ object PuzzleForm {
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
   )
 
-  object bc {
+  object bc:
 
     val round = Form(
       mapping(
@@ -56,12 +55,10 @@ object PuzzleForm {
       single("vote" -> numberIn(Set(0, 1)))
     )
 
-    import play.api.libs.json._
+    import play.api.libs.json.*
 
     case class Solution(id: Long, win: Boolean)
     case class SolveData(solutions: List[Solution])
 
-    implicit val SolutionReads  = Json.reads[Solution]
-    implicit val SolveDataReads = Json.reads[SolveData]
-  }
-}
+    given Reads[Solution]  = Json.reads
+    given Reads[SolveData] = Json.reads

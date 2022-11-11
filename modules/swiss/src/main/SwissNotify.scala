@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ Bus, LilaScheduler }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.push.TourSoon
 import lila.user.User
 

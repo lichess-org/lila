@@ -12,7 +12,7 @@ final class JsonView(
     getLightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val simulTeamWriter = Json.writes[SimulTeam]
 

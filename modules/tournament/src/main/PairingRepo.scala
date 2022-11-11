@@ -8,11 +8,11 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.user.User
 
-final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext, mat: Materializer) {
+final class PairingRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext, mat: Materializer) {
 
   def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   def selectUser(userId: User.ID)       = $doc("u" -> userId)

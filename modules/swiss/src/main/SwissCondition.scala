@@ -69,7 +69,7 @@ object SwissCondition {
 
     def apply(perf: PerfType, getMaxRating: GetMaxRating)(
         user: User
-    )(implicit ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
+    )(using ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
       if (user.perfs(perf).provisional) fuccess(Refused { implicit lang =>
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
       })
@@ -139,7 +139,7 @@ object SwissCondition {
         perf: PerfType,
         getMaxRating: GetMaxRating,
         getBannedUntil: GetBannedUntil
-    )(user: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[All.WithVerdicts] =
+    )(user: User)(using ec: scala.concurrent.ExecutionContext): Fu[All.WithVerdicts] =
       list.map {
         case PlayYourGames => getBannedUntil(user.id) map PlayYourGames.withBan
         case c: MaxRating  => c(perf, getMaxRating)(user) map c.withVerdict
@@ -186,7 +186,7 @@ object SwissCondition {
 
   object BSONHandlers {
     import reactivemongo.api.bson._
-    import lila.db.dsl._
+    import lila.db.dsl.{ *, given }
     implicit private val NbRatedGameHandler = Macros.handler[NbRatedGame]
     implicit private val MaxRatingHandler   = Macros.handler[MaxRating]
     implicit private val MinRatingHandler   = Macros.handler[MinRating]
@@ -195,7 +195,7 @@ object SwissCondition {
       _ => BSONBoolean(true)
     )
     implicit private val AllowListHandler = Macros.handler[AllowList]
-    implicit val AllBSONHandler           = Macros.handler[All]
+    given BSONDocumentHandler[All] = Macros.handler
   }
 
   object DataForm {
@@ -214,7 +214,7 @@ object SwissCondition {
     }
     val nbRatedGame = mapping(
       "nb" -> number(min = 0, max = ~nbRatedGames.lastOption)
-    )(NbRatedGame.apply)(NbRatedGame.unapply)
+    )(NbRatedGame.apply)(unapply)
     case class RatingSetup(rating: Option[Int]) {
       def actualRating = rating.filter(r => r > 600 && r < 3000)
     }
@@ -224,14 +224,14 @@ object SwissCondition {
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
       "rating" -> optional(numberIn(maxRatings))
-    )(RatingSetup.apply)(RatingSetup.unapply)
+    )(RatingSetup.apply)(unapply)
     val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
       2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
       "rating" -> optional(numberIn(minRatings))
-    )(RatingSetup.apply)(RatingSetup.unapply)
+    )(RatingSetup.apply)(unapply)
     def all =
       mapping(
         "nbRatedGame"   -> optional(nbRatedGame),
@@ -240,7 +240,7 @@ object SwissCondition {
         "titled"        -> optional(boolean),
         "allowList"     -> optional(allowList),
         "playYourGames" -> optional(boolean)
-      )(AllSetup.apply)(AllSetup.unapply)
+      )(AllSetup.apply)(unapply)
         .verifying("Invalid ratings", _.validRatings)
 
     case class AllSetup(

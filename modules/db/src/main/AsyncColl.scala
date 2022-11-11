@@ -9,7 +9,7 @@ import scala.util.{ Failure, Success }
 import lila.common.config.CollName
 import lila.db.dsl.*
 
-final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(implicit ec: ExecutionContext):
+final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using ec: ExecutionContext):
 
   def get: Fu[Coll] = resolve()
 

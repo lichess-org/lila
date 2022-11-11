@@ -7,7 +7,7 @@ import play.api.libs.ws.JsonBodyWritables._
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.LilaStream
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Player }
 import lila.user.{ User, UserRepo }
 

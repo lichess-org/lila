@@ -93,9 +93,9 @@ case class Branch(
   def idOption   = Some(id)
   def moveOption = Some(move)
 
-  def addChild(branch: Branch)     = copy(children = children :+ branch)
-  def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild               = copy(children = if (children.isEmpty) children else children.tail)
+  def addChild(branch: Branch): Branch = copy(children = children :+ branch)
+  def prependChild(branch: Branch)     = copy(children = branch :: children)
+  def dropFirstChild                   = copy(children = if (children.isEmpty) children else children.tail)
 
   def setComp = copy(comp = true)
 

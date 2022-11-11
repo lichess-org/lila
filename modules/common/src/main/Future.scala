@@ -9,7 +9,7 @@ object Future:
 
   def fold[T, R](
       list: List[T]
-  )(zero: R)(op: (R, T) => Fu[R])(implicit ec: ExecutionContext): Fu[R] =
+  )(zero: R)(op: (R, T) => Fu[R])(using ec: ExecutionContext): Fu[R] =
     list match
       case head :: rest =>
         op(zero, head) flatMap { res =>
@@ -19,7 +19,7 @@ object Future:
 
   def lazyFold[T, R](
       futures: LazyList[Fu[T]]
-  )(zero: R)(op: (R, T) => R)(implicit ec: ExecutionContext): Fu[R] =
+  )(zero: R)(op: (R, T) => R)(using ec: ExecutionContext): Fu[R] =
     LazyList.cons.unapply(futures).fold(fuccess(zero)) { case (future, rest) =>
       future flatMap { f =>
         lazyFold(rest)(op(zero, f))(op)
@@ -28,7 +28,7 @@ object Future:
 
   def filter[A](
       list: List[A]
-  )(f: A => Fu[Boolean])(implicit ec: ExecutionContext): Fu[List[A]] =
+  )(f: A => Fu[Boolean])(using ec: ExecutionContext): Fu[List[A]] =
     ScalaFu
       .sequence {
         list.map { element =>
@@ -39,7 +39,7 @@ object Future:
 
   def filterNot[A](
       list: List[A]
-  )(f: A => Fu[Boolean])(implicit ec: ExecutionContext): Fu[List[A]] =
+  )(f: A => Fu[Boolean])(using ec: ExecutionContext): Fu[List[A]] =
     filter(list)(a => !f(a))
 
   def linear[A, B, M[B] <: Iterable[B]](
@@ -53,14 +53,14 @@ object Future:
 
   def applySequentially[A](
       list: List[A]
-  )(f: A => Funit)(implicit ec: ExecutionContext): Funit =
+  )(f: A => Funit)(using ec: ExecutionContext): Funit =
     list match
       case h :: t => f(h) >> applySequentially(t)(f)
       case Nil    => funit
 
   def find[A](
       list: List[A]
-  )(f: A => Fu[Boolean])(implicit ec: ExecutionContext): Fu[Option[A]] =
+  )(f: A => Fu[Boolean])(using ec: ExecutionContext): Fu[Option[A]] =
     list match
       case Nil => fuccess(none)
       case h :: t =>
@@ -75,18 +75,18 @@ object Future:
 
   def delay[A](
       duration: FiniteDuration
-  )(run: => Fu[A])(implicit ec: ExecutionContext, scheduler: Scheduler): Fu[A] =
+  )(run: => Fu[A])(using ec: ExecutionContext, scheduler: Scheduler): Fu[A] =
     if (duration == 0.millis) run
     else akka.pattern.after(duration, scheduler)(run)
 
-  def sleep(duration: FiniteDuration)(implicit ec: ExecutionContext, scheduler: Scheduler): Funit =
+  def sleep(duration: FiniteDuration)(using ec: ExecutionContext, scheduler: Scheduler): Funit =
     val p = Promise[Unit]()
     scheduler.scheduleOnce(duration)(p success {})
     p.future
 
   def makeItLast[A](
       duration: FiniteDuration
-  )(run: => Fu[A])(implicit ec: ExecutionContext, scheduler: Scheduler): Fu[A] =
+  )(run: => Fu[A])(using ec: ExecutionContext, scheduler: Scheduler): Fu[A] =
     if (duration == 0.millis) run
     else run zip akka.pattern.after(duration, scheduler)(funit) dmap (_._1)
 

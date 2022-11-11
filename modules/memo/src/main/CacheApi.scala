@@ -9,7 +9,7 @@ import scala.concurrent.ExecutionContext
 
 final class CacheApi(
     mode: Mode
-)(implicit ec: ExecutionContext, system: ActorSystem):
+)(using ec: ExecutionContext, system: ActorSystem):
 
   import CacheApi.*
 
@@ -102,7 +102,7 @@ object CacheApi:
   private[memo] def startMonitor(
       name: String,
       cache: caffeine.cache.Cache[?, ?]
-  )(implicit ec: ExecutionContext, system: ActorSystem): Unit =
+  )(using ec: ExecutionContext, system: ActorSystem): Unit =
     system.scheduler
       .scheduleWithFixedDelay(1 minute, 1 minute) { () =>
         lila.mon.caffeineStats(cache, name)

@@ -21,7 +21,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: OnStart,
     rematches: Rematches
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang = defaultLang
 

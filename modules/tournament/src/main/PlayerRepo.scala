@@ -5,12 +5,12 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
 
-final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   private def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =

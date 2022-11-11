@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.config.Secret
 
-final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(implicit ec: ExecutionContext) {
+final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(using ec: ExecutionContext) {
 
   import Stream.Twitch
   import Twitch.Reads._

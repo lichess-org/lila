@@ -2,8 +2,8 @@ package lila.puzzle
 
 import chess.format.Forsyth
 import chess.format.UciCharPair
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
@@ -12,7 +12,7 @@ final private class GameJson(
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(gameId: Game.ID, plies: Int, bc: Boolean): Fu[JsObject] =
     (if (bc) bcCache else cache) get writeKey(gameId, plies)
@@ -23,10 +23,9 @@ final private class GameJson(
     }
 
   private def readKey(k: String): (Game.ID, Int) =
-    k.drop(Game.gameIdSize).toIntOption match {
+    k.drop(Game.gameIdSize).toIntOption match
       case Some(ply) => (k take Game.gameIdSize, ply)
       case _         => sys error s"puzzle.GameJson invalid key: $k"
-    }
   private def writeKey(id: Game.ID, ply: Int) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
@@ -68,13 +67,12 @@ final private class GameJson(
       )
       .add("clock", game.clock.map(_.config.show))
 
-  private def perfJson(game: Game) = {
+  private def perfJson(game: Game) =
     val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
     Json.obj(
       "icon" -> perfType.iconChar.toString,
       "name" -> perfType.trans(defaultLang)
     )
-  }
 
   private def playersJson(game: Game) = JsArray(game.players.map { p =>
     val userId = p.userId | "anon"
@@ -116,4 +114,3 @@ final private class GameJson(
         }
       )
       .add("clock", game.clock.map(_.config.show))
-}

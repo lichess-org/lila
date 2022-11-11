@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.common.{ Bus, Days, LilaStream, Template }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
 import lila.hub.actorApi.map.TellMany
 import lila.hub.AsyncActorSequencers

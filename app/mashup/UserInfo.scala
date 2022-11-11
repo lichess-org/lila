@@ -123,7 +123,7 @@ object UserInfo {
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share,
       playbanApi: lila.playban.PlaybanApi
-  )(implicit ec: ExecutionContext) {
+  )(using ec: ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context, withUblog: Boolean = true): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip

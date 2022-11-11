@@ -7,7 +7,7 @@ import reactivemongo.api.ReadPreference
 import scala.util.chaining._
 
 import lila.common.Bus
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
 import lila.security.{ Granter => MasterGranter }
@@ -26,7 +26,7 @@ final class PostApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

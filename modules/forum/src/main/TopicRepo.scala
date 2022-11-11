@@ -2,7 +2,7 @@ package lila.forum
 
 import org.joda.time.DateTime
 import Filter._
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import scala.concurrent.duration._
 

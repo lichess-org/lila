@@ -3,7 +3,7 @@ package lila.bookmark
 import reactivemongo.api.ReadPreference
 
 import lila.common.paginator._
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.game.GameRepo
 import lila.user.User
@@ -11,7 +11,7 @@ import lila.user.User
 final class PaginatorBuilder(
     coll: Coll,
     gameRepo: GameRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def byUser(user: User, page: Int): Fu[Paginator[Game]] =
     Paginator(

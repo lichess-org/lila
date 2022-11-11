@@ -10,7 +10,7 @@ import scalatags.Text.all._
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
 sealed abstract class InsightDimension[A: BSONHandler](

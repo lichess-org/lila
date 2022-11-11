@@ -11,7 +11,7 @@ import scala.concurrent.ExecutionContext
  * That mechanism is used by bots/boards who receive
  * rematch offers as challenges.
  */
-final class Rematches(idGenerator: IdGenerator)(implicit ec: ExecutionContext):
+final class Rematches(idGenerator: IdGenerator)(using ec: ExecutionContext):
 
   import Rematches.*
 

@@ -11,7 +11,7 @@ import lila.user.User
 final class PrefApi(
     val coll: Coll,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import PrefHandlers.given
 

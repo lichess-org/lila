@@ -14,7 +14,7 @@ final class PgnDump(
     simulApi: lila.simul.SimulApi,
     getTournamentName: lila.tournament.GetTourName,
     getSwissName: lila.swiss.GetSwissName
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val lang = lila.i18n.defaultLang
 

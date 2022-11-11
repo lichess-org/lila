@@ -16,7 +16,7 @@ final class PgnDump(
     annotator: lila.analyse.Annotator,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import PgnDump._
 

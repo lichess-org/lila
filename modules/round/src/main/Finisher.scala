@@ -19,7 +19,7 @@ final private class Finisher(
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
     recentTvGames: RecentTvGames
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang = defaultLang
 

@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.Glicko
 import lila.rating.{ Perf, PerfType }
 
-final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext):
+final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   import User.{ BSONFields as F, ID, given }
   import Title.given

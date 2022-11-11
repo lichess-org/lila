@@ -26,7 +26,7 @@ final class SwissForm(implicit mode: Mode) {
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
           "increment" -> number(min = 0, max = 120)
-        )(ClockConfig.apply)(ClockConfig.unapply)
+        )(ClockConfig.apply)(unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
         "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
@@ -55,7 +55,7 @@ final class SwissForm(implicit mode: Mode) {
               SwissManualPairing.validate _
             )
         )
-      )(SwissData.apply)(SwissData.unapply)
+      )(SwissData.apply)(unapply)
         .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
     )
 

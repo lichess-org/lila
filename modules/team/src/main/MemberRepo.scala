@@ -3,10 +3,10 @@ package lila.team
 import reactivemongo.api.bson._
 import reactivemongo.api.commands.WriteResult
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class MemberRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

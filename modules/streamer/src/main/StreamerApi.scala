@@ -5,7 +5,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 import play.api.i18n.Lang
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi._
 import lila.memo.PicfitApi
 import lila.user.{ User, UserRepo }
@@ -16,14 +16,14 @@ final class StreamerApi(
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
   def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
-  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer](ids.map(_.value))
+  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byStringIds[Streamer](ids.map(_.value))
 
   def find(username: String): Fu[Option[Streamer.WithUser]] =
     userRepo named username flatMap { _ ?? find }

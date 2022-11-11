@@ -10,7 +10,7 @@ import lila.relation.Relations
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   implicit private val lastMsgWrites: OWrites[Msg.Last]    = Json.writes[Msg.Last]
   implicit private val relationsWrites: OWrites[Relations] = Json.writes[Relations]

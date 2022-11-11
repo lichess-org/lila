@@ -12,7 +12,7 @@ final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
     val captcher: lila.hub.actors.Captcher,
     domain: config.NetDomain
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(using ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink") { setup =>
     if (setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined)
@@ -51,7 +51,7 @@ final private[report] class ReportForm(
       "username" -> lila.user.UserForm.historicalUsernameField,
       "resource" -> nonEmptyText,
       "text"     -> text(minLength = 3, maxLength = 140)
-    )(ReportFlag.apply)(ReportFlag.unapply)
+    )(ReportFlag.apply)(unapply)
   )
 
   private def blockingFetchUser(username: String) =

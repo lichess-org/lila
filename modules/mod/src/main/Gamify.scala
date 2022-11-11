@@ -5,7 +5,7 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi._
 import lila.report.Room
 import lila.user.User
@@ -16,7 +16,7 @@ final class Gamify(
     modApi: lila.mod.ModApi,
     cacheApi: lila.memo.CacheApi,
     historyRepo: HistoryRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import Gamify._
   import lila.report.BSONHandlers.RoomBSONHandler

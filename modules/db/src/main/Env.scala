@@ -17,7 +17,7 @@ trait YoloDb
 final class Env(
     appConfig: Configuration,
     shutdown: CoordinatedShutdown
-)(implicit ec: ExecutionContext):
+)(using ec: ExecutionContext):
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 

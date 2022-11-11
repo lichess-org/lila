@@ -34,7 +34,7 @@ final class JsonView(
     standingApi: TournamentStandingApi,
     pause: Pause,
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import JsonView._
   import Condition.JSONHandlers._
@@ -528,7 +528,7 @@ object JsonView {
       sheets: Map[User.ID, arena.Sheet],
       streakable: Boolean,
       withScores: Boolean
-  )(rankedPlayer: RankedPlayer)(implicit ec: ExecutionContext): Fu[JsObject] =
+  )(rankedPlayer: RankedPlayer)(using ec: ExecutionContext): Fu[JsObject] =
     playerJson(
       lightUserApi,
       sheets get rankedPlayer.player.userId,
@@ -543,7 +543,7 @@ object JsonView {
       rankedPlayer: RankedPlayer,
       streakable: Boolean,
       withScores: Boolean
-  )(implicit ec: ExecutionContext): Fu[JsObject] = {
+  )(using ec: ExecutionContext): Fu[JsObject] = {
     val p = rankedPlayer.player
     lightUserApi async p.userId map { light =>
       Json

@@ -4,11 +4,11 @@ import org.joda.time.DateTime
 
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import reactivemongo.api.ReadPreference
 
-final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   private[push] def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
     coll

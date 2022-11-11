@@ -24,7 +24,7 @@ final class JsonView(
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: Pov => Boolean
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
 

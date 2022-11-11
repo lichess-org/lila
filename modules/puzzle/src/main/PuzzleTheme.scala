@@ -1,11 +1,11 @@
 package lila.puzzle
 
-import lila.i18n.I18nKeys.{ puzzleTheme => i }
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.I18nKeys.{ puzzleTheme as i }
+import lila.i18n.{ I18nKey, I18nKeys as trans }
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
 
-object PuzzleTheme {
+object PuzzleTheme:
 
   case class Key(value: String) extends AnyVal with StringValue
 
@@ -239,5 +239,5 @@ object PuzzleTheme {
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
 
-  implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
-}
+  import lila.common.Iso
+  given Iso.StringIso[Key] = Iso.string(Key.apply, _.value)

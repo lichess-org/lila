@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.memo.CacheApi._
 
@@ -13,7 +13,7 @@ final class SeekApi(
     biter: Biter,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
   import config._
 
   private type CacheKey = Boolean

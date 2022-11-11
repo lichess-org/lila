@@ -74,7 +74,7 @@ object Condition {
 
     def apply(
         getMaxRating: GetMaxRating
-    )(user: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
+    )(user: User)(using ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
       if (user.perfs(perf).provisional) fuccess(Refused { implicit lang =>
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
       })
@@ -213,13 +213,13 @@ object Condition {
       all.withRejoinVerdicts(user, getUserTeamIds)
     def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
         tour: Tournament
-    )(implicit ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
+    )(using ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
       apply(tour.conditions, user, getUserTeamIds).dmap(_.accepted)
   }
 
   object BSONHandlers {
     import reactivemongo.api.bson._
-    import lila.db.dsl._
+    import lila.db.dsl.{ *, given }
     implicit private val NbRatedGameHandler = Macros.handler[NbRatedGame]
     implicit private val MaxRatingHandler   = Macros.handler[MaxRating]
     implicit private val MinRatingHandler   = Macros.handler[MinRating]
@@ -229,7 +229,7 @@ object Condition {
     )
     implicit private val TeamMemberHandler = Macros.handler[TeamMember]
     implicit private val AllowListHandler  = Macros.handler[AllowList]
-    implicit val AllBSONHandler            = Macros.handler[All]
+    given BSONDocumentHandler[All] = Macros.handler
   }
 
   object JSONHandlers {
@@ -282,7 +282,7 @@ object Condition {
     val nbRatedGame = mapping(
       "perf" -> optional(text.verifying(perfKeys.contains _)),
       "nb"   -> numberIn(nbRatedGameChoices)
-    )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
+    )(NbRatedGameSetup.apply)(unapply)
     case class NbRatedGameSetup(perf: Option[String], nb: Int) {
       def convert(tourPerf: PerfType): Option[NbRatedGame] =
         nb > 0 option NbRatedGame(
@@ -310,7 +310,7 @@ object Condition {
     val maxRating = mapping(
       "perf"   -> optional(text.verifying(perfKeys.contains _)),
       "rating" -> optional(numberIn(maxRatings))
-    )(RatingSetup.apply)(RatingSetup.unapply)
+    )(RatingSetup.apply)(unapply)
     val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
       2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
@@ -318,11 +318,11 @@ object Condition {
     val minRating = mapping(
       "perf"   -> optional(text.verifying(perfKeys.contains _)),
       "rating" -> optional(numberIn(minRatings))
-    )(RatingSetup.apply)(RatingSetup.unapply)
+    )(RatingSetup.apply)(unapply)
     def teamMember(leaderTeams: List[LeaderTeam]) =
       mapping(
         "teamId" -> optional(text.verifying(id => leaderTeams.exists(_.id == id)))
-      )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
+      )(TeamMemberSetup.apply)(unapply)
     case class TeamMemberSetup(teamId: Option[TeamID]) {
       def convert(teams: Map[TeamID, TeamName]): Option[TeamMember] =
         teamId flatMap { id =>
@@ -340,7 +340,7 @@ object Condition {
         "titled"      -> optional(boolean),
         "teamMember"  -> optional(teamMember(leaderTeams)),
         "allowList"   -> optional(allowList)
-      )(AllSetup.apply)(AllSetup.unapply)
+      )(AllSetup.apply)(unapply)
         .verifying("Invalid ratings", _.validRatings)
 
     case class AllSetup(

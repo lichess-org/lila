@@ -5,14 +5,14 @@ import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 
 import chess.variant.Variant
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.memo.CacheApi._
 
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import Revolution._
   import BSONHandlers._

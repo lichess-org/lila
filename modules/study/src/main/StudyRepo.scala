@@ -6,7 +6,7 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 
 import lila.db.AsyncColl
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class StudyRepo(private[study] val coll: AsyncColl)(implicit

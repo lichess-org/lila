@@ -1,8 +1,8 @@
 package lila.coach
 
-object UrlList {
+object UrlList:
 
-  object youtube {
+  object youtube:
 
     val max = 6
 
@@ -18,13 +18,11 @@ object UrlList {
      * https://www.youtube.com/embed/wEwoyYp_iw8
      */
     private def toUrl(line: String): Option[Url] =
-      line match {
+      line match
         case UrlRegex(id) => Url(s"https://www.youtube.com/embed/$id").some
         case _            => none
-      }
-  }
 
-  object study {
+  object study:
 
     val max = 6
 
@@ -36,9 +34,6 @@ object UrlList {
       text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty) flatMap toId take max to List
 
     private def toId(line: String): Option[StudyId] =
-      line match {
+      line match
         case UrlRegex(id) => StudyId(id).some
         case _            => none
-      }
-  }
-}

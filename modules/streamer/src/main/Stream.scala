@@ -42,11 +42,9 @@ object Stream {
         extends lila.streamer.Stream {
       def serviceName = "twitch"
     }
-    object Reads {
-      implicit private val twitchStreamReads = Json.reads[TwitchStream]
-      implicit private val paginationReads   = Json.reads[Pagination]
-      implicit val twitchResultReads         = Json.reads[Result]
-    }
+    private given Reads[TwitchStream] = Json.reads
+    private given Reads[Pagination]   = Json.reads
+    given Reads[Result]               = Json.reads
   }
 
   object YouTube {
@@ -87,12 +85,10 @@ object Stream {
       def serviceName = "youTube"
     }
 
-    object Reads {
-      implicit private val youtubeSnippetReads = Json.reads[Snippet]
-      implicit private val youtubeIdReads      = Json.reads[Id]
-      implicit private val youtubeItemReads    = Json.reads[Item]
-      implicit val youtubeResultReads          = Json.reads[Result]
-    }
+    private given Reads[Snippet] = Json.reads
+    private given Reads[Id]      = Json.reads
+    private given Reads[Item]    = Json.reads
+    given Reads[Result]          = Json.reads
 
     case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
   }

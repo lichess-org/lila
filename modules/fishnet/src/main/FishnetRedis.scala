@@ -15,7 +15,7 @@ final class FishnetRedis(
     chanIn: String,
     chanOut: String,
     shutdown: CoordinatedShutdown
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   val connIn  = client.connectPubSub()
   val connOut = client.connectPubSub()

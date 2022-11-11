@@ -11,7 +11,7 @@ final class PublicChat(
     tournamentApi: lila.tournament.TournamentApi,
     swissFeature: lila.swiss.SwissFeature,
     userRepo: UserRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def all: Fu[(List[(Tournament, UserChat)], List[(Swiss, UserChat)])] =
     tournamentChats zip swissChats

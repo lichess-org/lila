@@ -14,11 +14,11 @@ import lila.common.config.Secret
 final class DetectLanguage(
     ws: StandaloneWSClient,
     config: DetectLanguage.Config
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import DetectLanguage.Detection
 
-  implicit private val DetectionReads = Json.reads[Detection]
+  private given Reads[Detection] = Json.reads
 
   private val messageMaxLength = 2000
 

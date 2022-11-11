@@ -10,7 +10,7 @@ import org.joda.time.format.DateTimeFormat
 
 import lila.common.LilaOpeningFamily
 
-case class OpeningQuery(replay: Replay, config: OpeningConfig) {
+case class OpeningQuery(replay: Replay, config: OpeningConfig):
   val pgn: Vector[String] = replay.state.pgnMoves
   val uci: Vector[Uci]    = replay.moves.view.map(_.fold(_.toUci, _.toUci)).reverse.toVector
   def position            = replay.state.situation
@@ -21,9 +21,8 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
   def pgnString           = pgn mkString " "
   def pgnUnderscored      = pgn mkString "_"
   def initial             = pgn.isEmpty
-  def query = openingAndExtraMoves match {
+  def query = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key), pgnUnderscored.some)
-  }
   def prev = (pgn.sizeIs > 1) ?? OpeningQuery(OpeningQuery.Query("", pgn.init.mkString(" ").some), config)
 
   val openingAndExtraMoves: (Option[FullOpening], List[Opening.PgnMove]) =
@@ -31,18 +30,16 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig) {
       op.some -> pgn.drop(ply + 1).toList
     } getOrElse (none, pgn.toList)
 
-  val name: String = openingAndExtraMoves match {
+  val name: String = openingAndExtraMoves match
     case (Some(op), Nil)   => op.name
     case (Some(op), moves) => s"${op.name}, ${moves mkString " "}"
     case (_, moves)        => moves mkString " "
-  }
 
   override def toString = s"$query $config"
-}
 
-object OpeningQuery {
+object OpeningQuery:
 
-  case class Query private (key: String, moves: Option[String])
+  case class Query(key: String, moves: Option[String])
 
   def queryFromUrl(key: String, moves: Option[String]) =
     Query(key, moves.map(_.trim.replace("_", " ")).filter(_.nonEmpty))
@@ -66,4 +63,3 @@ object OpeningQuery {
 
   val firstYear  = 2017
   val firstMonth = s"$firstYear-01"
-}

@@ -34,7 +34,7 @@ final class CrudForm(repo: TournamentRepo) {
       "streakable"     -> boolean,
       "teamBattle"     -> boolean,
       "hasChat"        -> boolean
-    )(Data.apply)(Data.unapply)
+    )(Data.apply)(unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
   ) fill Data(

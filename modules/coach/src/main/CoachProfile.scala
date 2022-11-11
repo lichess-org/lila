@@ -12,7 +12,7 @@ case class CoachProfile(
     youtubeVideos: Option[String] = None,
     youtubeChannel: Option[String] = None,
     publicStudies: Option[String] = None
-) {
+):
 
   lazy val youtubeUrls = youtubeVideos ?? UrlList.youtube.apply
 
@@ -33,9 +33,7 @@ case class CoachProfile(
   ) collect { case (k, Some(v)) =>
     s"$k: $v"
   }
-}
 
-object CoachProfile {
+object CoachProfile:
 
   case class RichText(value: String) extends AnyVal with StringValue
-}

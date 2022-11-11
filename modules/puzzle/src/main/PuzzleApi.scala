@@ -1,12 +1,12 @@
 package lila.puzzle
 
-import cats.implicits._
+import cats.implicits.*
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.paginator.Paginator
 import lila.common.config.MaxPerPage
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 
@@ -15,12 +15,12 @@ final class PuzzleApi(
     trustApi: PuzzleTrustApi,
     countApi: PuzzleCountApi,
     openingApi: PuzzleOpeningApi
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
-  import Puzzle.{ BSONFields => F }
-  import BsonHandlers._
+  import Puzzle.{ BSONFields as F }
+  import BsonHandlers.given
 
-  object puzzle {
+  object puzzle:
 
     def find(id: Puzzle.Id): Fu[Option[Puzzle]] =
       colls.puzzle(_.byId[Puzzle](id.value))
@@ -38,9 +38,8 @@ final class PuzzleApi(
           MaxPerPage(30)
         )
       }
-  }
 
-  private[puzzle] object round {
+  private[puzzle] object round:
 
     def find(user: User, puzzleId: Puzzle.Id): Fu[Option[PuzzleRound]] =
       colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzleId).toString))
@@ -48,17 +47,15 @@ final class PuzzleApi(
     private[PuzzleApi] def exists(user: User, puzzleId: Puzzle.Id): Fu[Boolean] =
       colls.round(_.exists($id(PuzzleRound.Id(user.id, puzzleId).toString)))
 
-    def upsert(r: PuzzleRound, angle: PuzzleAngle): Funit = {
-      val roundDoc = RoundHandler.write(r) ++
+    def upsert(r: PuzzleRound, angle: PuzzleAngle): Funit =
+      val roundDoc = roundHandler.write(r) ++
         $doc(
           PuzzleRound.BSONFields.user  -> r.id.userId,
           PuzzleRound.BSONFields.theme -> angle.some.filter(_ != PuzzleAngle.mix)
         )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
-    }
-  }
 
-  object vote {
+  object vote:
 
     private val sequencer =
       new lila.hub.AsyncActorSequencers(
@@ -91,7 +88,7 @@ final class PuzzleApi(
 
     private def updatePuzzle(puzzleId: Puzzle.Id, newVote: Int, prevVote: Option[Int]): Funit =
       colls.puzzle { coll =>
-        import Puzzle.{ BSONFields => F }
+        import Puzzle.{ BSONFields as F }
         coll.one[Bdoc](
           $id(puzzleId.value),
           $doc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
@@ -119,14 +116,13 @@ final class PuzzleApi(
           }
         }
       }
-  }
 
   def angles: Fu[PuzzleAngle.All] = for {
     themes   <- theme.categorizedWithCount
     openings <- openingApi.collection
   } yield PuzzleAngle.All(themes, openings)
 
-  object theme {
+  object theme:
 
     private[PuzzleApi] def categorizedWithCount: Fu[List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])]] =
       countApi.countsByTheme map { counts =>
@@ -141,12 +137,12 @@ final class PuzzleApi(
       round.find(user, id) flatMap {
         _ ?? { round =>
           round.themeVote(theme, vote) ?? { newThemes =>
-            import PuzzleRound.{ BSONFields => F }
+            import PuzzleRound.{ BSONFields as F }
             val update =
               if (newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes))
                 fuccess($unset(F.themes, F.puzzle).some)
               else
-                vote match {
+                vote match
                   case None =>
                     fuccess(
                       $set(
@@ -161,7 +157,6 @@ final class PuzzleApi(
                         F.weight -> weight
                       )
                     }
-                }
             update flatMap {
               _ ?? { up =>
                 lila.mon.puzzle.vote.theme(theme.value, vote, round.win).increment()
@@ -172,9 +167,8 @@ final class PuzzleApi(
           }
         }
       }
-  }
 
-  object casual {
+  object casual:
 
     private val store = new lila.memo.ExpireSetMemo(30 minutes)
 
@@ -186,5 +180,3 @@ final class PuzzleApi(
       }
 
     def apply(user: User, id: Puzzle.Id) = store.get(key(user, id))
-  }
-}

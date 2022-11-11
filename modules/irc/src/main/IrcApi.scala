@@ -12,7 +12,7 @@ final class IrcApi(
     zulip: ZulipClient,
     noteApi: lila.user.NoteApi,
     implicit val lightUser: LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import IrcApi.*
 

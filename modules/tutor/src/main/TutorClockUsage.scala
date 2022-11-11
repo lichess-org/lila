@@ -14,7 +14,7 @@ object TutorClockUsage {
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
   )(implicit insightApi: InsightApi, ec: ExecutionContext): Fu[TutorBuilder.Answers[PerfType]] = {
-    import lila.db.dsl._
+    import lila.db.dsl.{ *, given }
     import lila.rating.BSONHandlers.perfTypeIdHandler
     import lila.insight.{ Insight, Cluster, Answer, InsightStorage, Point }
     import lila.insight.InsightEntry.{ BSONFields => F }

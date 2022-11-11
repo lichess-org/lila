@@ -4,7 +4,7 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 import com.softwaremill.tagging._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final private class SwissScoring(
     swissColl: Coll @@ SwissColl,

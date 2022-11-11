@@ -4,14 +4,14 @@ import com.softwaremill.tagging._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
 final private class SwissRankingApi(
     playerColl: Coll @@ PlayerColl,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
   import BsonHandlers._
 
   def apply(swiss: Swiss): Fu[Ranking] =

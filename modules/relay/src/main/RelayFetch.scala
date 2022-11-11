@@ -280,9 +280,9 @@ private object RelayFetch {
         )
     }
     case class RoundJson(pairings: List[RoundJsonPairing])
-    implicit val pairingPlayerReads = Json.reads[PairingPlayer]
-    implicit val roundPairingReads  = Json.reads[RoundJsonPairing]
-    implicit val roundReads         = Json.reads[RoundJson]
+    given Reads[PairingPlayer] = Json.reads
+    given Reads[RoundJsonPairing] = Json.reads
+    given Reads[RoundJson] = Json.reads
 
     case class GameJson(moves: List[String], result: Option[String]) {
       def toPgn(extraTags: Tags = Tags.empty) = {
@@ -295,7 +295,7 @@ private object RelayFetch {
         s"$extraTags\n\n$strMoves"
       }
     }
-    implicit val gameReads = Json.reads[GameJson]
+    given Reads[GameJson] = Json.reads
   }
 
   object multiPgnToGames {

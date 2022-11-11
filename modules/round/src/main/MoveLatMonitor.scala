@@ -22,7 +22,7 @@ private object MoveLatMonitor {
     def set(millis: Int) = latestMillis = millis
   }
 
-  def start(scheduler: Scheduler)(implicit ec: scala.concurrent.ExecutionContext) =
+  def start(scheduler: Scheduler)(using ec: scala.concurrent.ExecutionContext) =
     scheduler.scheduleWithFixedDelay(10 second, 2 second) { () =>
       val full = latency.getAndSet(Latency()).average + wsLatency.latestMillis
       lila.common.Bus.publish(lila.hub.actorApi.round.Mlat(full), "mlat")

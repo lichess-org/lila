@@ -24,7 +24,7 @@ final class RelayTourForm {
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
       "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply)))
-    )(Data.apply)(Data.unapply)
+    )(Data.apply)(unapply)
   )
 
   def create = form

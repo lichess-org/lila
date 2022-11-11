@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.memo.CacheApi
 import lila.security.{ Granter => MasterGranter }
@@ -27,7 +27,7 @@ final private[forum] class TopicApi(
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

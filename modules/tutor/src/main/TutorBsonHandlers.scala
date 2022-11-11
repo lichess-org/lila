@@ -6,7 +6,7 @@ import scala.concurrent.duration.FiniteDuration
 
 import lila.common.Iso
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.insight.{ InsightPerfStats, MeanRating }
 import lila.rating.PerfType
 
@@ -59,17 +59,17 @@ private object TutorBsonHandlers {
       metric => List(metric.mine, metric.peer)
     )
 
-  // implicit val timeReportHandler    = Macros.handler[TutorTimeReport]
-  implicit val openingFamilyHandler = Macros.handler[TutorOpeningFamily]
-  implicit val colorOpeningsHandler = Macros.handler[TutorColorOpenings]
-  // implicit val openingsHandler      = Macros.handler[Color.Map[TutorColorOpenings]]
+  // given BSONDocumentHandler[TutorTimeReport] = Macros.handler
+  given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
+  given BSONDocumentHandler[TutorColorOpenings] = Macros.handler
+  // given BSONDocumentHandler[Color.Map[TutorColorOpenings]] = Macros.handler
 
-  implicit val phaseHandler = Macros.handler[TutorPhase]
+  given BSONDocumentHandler[TutorPhase] = Macros.handler
 
-  implicit val flaggingHandler = Macros.handler[TutorFlagging]
-  // implicit val phasesHandler = Macros.handler[TutorPhases]
+  given BSONDocumentHandler[TutorFlagging] = Macros.handler
+  // given BSONDocumentHandler[TutorPhases] = Macros.handler
 
-  // implicit val perfReportHandler = Macros.handler[TutorPerfReport]
+  // given BSONDocumentHandler[TutorPerfReport] = Macros.handler
 
   // implicit val perfsHandler: BSONHandler[TutorFullReport.PerfMap] =
   //   implicitly[BSONHandler[Map[String, TutorPerfReport]]].as[TutorFullReport.PerfMap](
@@ -78,9 +78,9 @@ private object TutorBsonHandlers {
   //     },
   //     _.mapKeys(_.key)
   //   )
-  implicit val meanRatingHandler = intAnyValHandler[MeanRating](_.value, MeanRating.apply)
-  implicit val perfStatsHandler  = Macros.handler[InsightPerfStats]
-  implicit val perfReportHandler = Macros.handler[TutorPerfReport]
-  implicit val reportHandler     = Macros.handler[TutorFullReport]
+  given BSONHandler[MeanRating] = intAnyValHandler(_.value, MeanRating.apply)
+  given BSONDocumentHandler[InsightPerfStats] = Macros.handler
+  given BSONDocumentHandler[TutorPerfReport] = Macros.handler
+  given BSONDocumentHandler[TutorFullReport] = Macros.handler
 
 }

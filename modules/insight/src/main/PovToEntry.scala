@@ -27,7 +27,7 @@ case class RichPov(
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def apply(game: Game, userId: User.ID, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
     enrich(game, userId, provisional) map

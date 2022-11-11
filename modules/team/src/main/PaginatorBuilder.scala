@@ -3,7 +3,7 @@ package lila.team
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
 import lila.common.LightUser
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator._
 import org.joda.time.DateTime
 
@@ -13,7 +13,7 @@ final private[team] class PaginatorBuilder(
     requestRepo: RequestRepo,
     userRepo: lila.user.UserRepo,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
   private val maxPerPage         = MaxPerPage(15)
   private val maxUserPerPage     = MaxPerPage(30)
   private val maxRequestsPerPage = MaxPerPage(10)

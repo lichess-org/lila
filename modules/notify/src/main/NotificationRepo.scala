@@ -3,7 +3,7 @@ package lila.notify
 import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
 
-final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext):
+final private class NotificationRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 

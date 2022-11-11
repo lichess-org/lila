@@ -11,7 +11,7 @@ import scala.util.Success
 import lila.common.Iso
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
@@ -74,7 +74,7 @@ object BSONHandlers {
   )
 
   import Study.IdName
-  implicit val StudyIdNameBSONHandler = Macros.handler[IdName]
+  given BSONDocumentHandler[IdName] = Macros.handler
 
   import Uci.WithSan
 
@@ -108,7 +108,7 @@ object BSONHandlers {
   implicit val CommentsBSONHandler: BSONHandler[Comments] =
     isoHandler[Comments, List[Comment]]((s: Comments) => s.value, Comments(_))
 
-  implicit val GamebookBSONHandler = Macros.handler[Gamebook]
+  given BSONDocumentHandler[Gamebook] = Macros.handler
 
   implicit private def CrazyDataBSONHandler: BSON[Crazyhouse.Data] =
     new BSON[Crazyhouse.Data] {
@@ -269,11 +269,11 @@ object BSONHandlers {
   )
   implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
   implicit private val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
-  implicit val ChapterRelayBSONHandler         = Macros.handler[Chapter.Relay]
-  implicit val ChapterServerEvalBSONHandler    = Macros.handler[Chapter.ServerEval]
+  given BSONDocumentHandler[Chapter.Relay] = Macros.handler
+  given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
   import Chapter.Ply
   implicit val PlyBSONHandler     = intAnyValHandler[Ply](_.value, Ply.apply)
-  implicit val ChapterBSONHandler = Macros.handler[Chapter]
+  given BSONDocumentHandler[Chapter] = Macros.handler
 
   implicit val PositionRefBSONHandler = tryHandler[Position.Ref](
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },
@@ -342,12 +342,12 @@ object BSONHandlers {
   }
 
   import Study.Likes
-  implicit val LikesBSONHandler = intAnyValHandler[Likes](_.value, Likes.apply)
+  given BSONHandler[Likes] = intAnyValHandler(_.value, Likes.apply)
   import Study.Rank
   implicit private[study] val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 
   // implicit val StudyBSONHandler = BSON.LoggingHandler(logger)(Macros.handler[Study])
-  implicit val StudyBSONHandler = Macros.handler[Study]
+  given BSONDocumentHandler[Study] = Macros.handler
 
   implicit val lightStudyBSONReader = new BSONDocumentReader[Study.LightStudy] {
     def readDocument(doc: BSONDocument) =

@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson._
 
 object BSONHandlers {
@@ -8,10 +8,10 @@ object BSONHandlers {
   implicit val ReasonBSONHandler = isoHandler[Reason, String](Reason.reasonIso)
   implicit val RoomBSONHandler   = isoHandler[Room, String](Room.roomIso)
   import Report.{ Atom, Done, Inquiry, Score }
-  implicit val InquiryBSONHandler    = Macros.handler[Inquiry]
-  implicit val DoneBSONHandler       = Macros.handler[Done]
+  given BSONDocumentHandler[Inquiry] = Macros.handler
+  given BSONDocumentHandler[Done] = Macros.handler
   implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   implicit val ScoreIdBSONHandler    = doubleIsoHandler[Score](Report.scoreIso)
-  implicit val AtomBSONHandler       = Macros.handler[Atom]
-  implicit val ReportBSONHandler     = Macros.handler[Report]
+  given BSONDocumentHandler[Atom] = Macros.handler
+  given BSONDocumentHandler[Report] = Macros.handler
 }

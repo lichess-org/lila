@@ -20,7 +20,7 @@ final class CurrencyApi(
     ws: StandaloneWSClient,
     mongoCache: lila.memo.MongoCache.Api,
     config: CurrencyApi.Config
-)(implicit ec: ExecutionContext, mode: Mode):
+)(using ec: ExecutionContext, mode: Mode):
 
   import CurrencyApi.*
 

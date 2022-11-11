@@ -13,7 +13,7 @@ final private class TournamentBusHandler(
     shieldApi: TournamentShieldApi,
     winnersApi: WinnersApi,
     tournamentRepo: TournamentRepo
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   lila.common.Bus.subscribeFun(
     "finishGame",

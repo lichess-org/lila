@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import scala.annotation.nowarn
 
 import lila.common.config.Max
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final private class ChallengeRepo(colls: ChallengeColls)(implicit

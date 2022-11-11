@@ -6,7 +6,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import org.joda.time.DateTime
@@ -17,7 +17,7 @@ final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import UblogBsonHandlers._
   import UblogPost.PreviewPost

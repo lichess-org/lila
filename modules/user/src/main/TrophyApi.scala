@@ -10,7 +10,7 @@ final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   val kindCache =
     // careful of collisions with trophyKindStringBSONHandler

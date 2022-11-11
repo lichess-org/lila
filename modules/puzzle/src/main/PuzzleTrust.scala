@@ -3,12 +3,12 @@ package lila.puzzle
 import org.joda.time.DateTime
 import org.joda.time.Days
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class PuzzleTrustApi(colls: PuzzleColls)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.*
 
   def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] = {
     val w = base(user, round) + {
@@ -69,4 +69,3 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
 
   private def lameBonus(user: User) =
     if (user.lameOrTroll) -30 else 0
-}

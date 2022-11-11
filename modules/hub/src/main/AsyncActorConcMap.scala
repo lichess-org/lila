@@ -39,7 +39,7 @@ final class AsyncActorConcMap[D <: AsyncActor](
   def foreachKey(f: String => Unit): Unit =
     asyncActors.forEachKey(16, k => f(k))
 
-  def tellAllWithAck(makeMsg: Promise[Unit] => Matchable)(implicit ec: ExecutionContext): Fu[Int] =
+  def tellAllWithAck(makeMsg: Promise[Unit] => Matchable)(using ec: ExecutionContext): Fu[Int] =
     asyncActors.values.asScala
       .map(_ ask makeMsg)
       .sequenceFu

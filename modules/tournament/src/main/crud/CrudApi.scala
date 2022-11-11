@@ -7,7 +7,7 @@ import scala.util.chaining._
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 
@@ -54,7 +54,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm) {
       startsAt = DateTime.now plusDays 7
     )
 
-  def paginator(page: Int)(implicit ec: scala.concurrent.ExecutionContext) =
+  def paginator(page: Int)(using ec: scala.concurrent.ExecutionContext) =
     Paginator[Tournament](
       adapter = new Adapter[Tournament](
         collection = tournamentRepo.coll,

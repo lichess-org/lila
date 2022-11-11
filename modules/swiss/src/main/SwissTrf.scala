@@ -4,7 +4,7 @@ import akka.stream.scaladsl._
 import com.softwaremill.tagging._
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
@@ -12,7 +12,7 @@ final class SwissTrf(
     sheetApi: SwissSheetApi,
     playerColl: Coll @@ PlayerColl,
     baseUrl: lila.common.config.BaseUrl
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private type Bits = List[(Int, String)]
 

@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.common.config.MaxPerSecond
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
@@ -27,7 +27,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BSONHandlers._
   import lila.study.BSONHandlers.{ StudyBSONHandler, StudyIdBSONHandler }

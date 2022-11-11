@@ -72,7 +72,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
       "client_id"     -> optional(text),
       "redirect_uri"  -> optional(text),
       "client_secret" -> optional(text)
-    )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
+    )(AccessTokenRequest.Raw.apply)(unapply)
   )
 
   def tokenApply =

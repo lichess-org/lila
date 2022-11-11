@@ -26,7 +26,7 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     net: NetConfig
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def one(u: User): JsObject =
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++

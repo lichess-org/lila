@@ -10,7 +10,7 @@ import scala.concurrent.{ ExecutionContext, Future, Promise }
  * Uses an Atomic Reference backend for sequentiality.
  * Has an unbounded (!) Queue of messages.
  */
-abstract class SyncActor(implicit ec: ExecutionContext) extends lila.common.Tellable:
+abstract class SyncActor(using ec: ExecutionContext) extends lila.common.Tellable:
 
   import SyncActor.*
 
@@ -70,7 +70,7 @@ object SyncActor:
         if (q.isEmpty) None else Some(q.tail)
       }
 
-  def stub(implicit ec: ExecutionContext) =
+  def stub(using ec: ExecutionContext) =
     new SyncActor:
       val process: Receive = { case msg =>
         lila.log("trouper").warn(s"stub trouper received: $msg")

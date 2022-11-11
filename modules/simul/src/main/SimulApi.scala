@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, Debouncer }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.hub.LightTeam.TeamID

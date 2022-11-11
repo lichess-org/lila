@@ -7,7 +7,7 @@ import lila.analyse.AnalyseBsonHandlers._
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
@@ -43,7 +43,7 @@ object BSONHandlers {
     v => (v.id * TimeVariance.intFactor).toInt
   )
 
-  implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
+  given BSONDocumentHandler[lila.insight.DateRange] = Macros.handler
   implicit val PeriodBSONHandler    = intAnyValHandler[Period](_.days, Period.apply)
   implicit val clockPercentHandler: BSONHandler[ClockPercent] =
     percentAsIntHandler[ClockPercent](_.value, ClockPercent.apply)

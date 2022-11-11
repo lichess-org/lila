@@ -8,7 +8,7 @@ import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ GreatPlayer, LightUser }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.quote.Quote.quoteWriter
 import lila.socket.Socket.SocketVersion
@@ -25,7 +25,7 @@ final class SwissJson(
     statsApi: SwissStatsApi,
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import SwissJson._
   import BsonHandlers._

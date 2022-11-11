@@ -12,7 +12,7 @@ final private[round] class Drawer(
     finisher: Finisher,
     prefApi: PrefApi,
     isBotSync: lila.common.LightUser.IsBotSync
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang = defaultLang
 

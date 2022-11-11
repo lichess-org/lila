@@ -14,13 +14,13 @@ import lila.common.Form.{
   toMarkdown
 }
 import lila.common.Markdown
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
     lightUserApi: lila.user.LightUserApi,
     val captcher: lila.hub.actors.Captcher
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(using ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
 
   private object Fields {
@@ -57,7 +57,7 @@ final private[team] class TeamForm(
       Fields.request,
       Fields.gameId,
       Fields.move
-    )(TeamSetup.apply)(TeamSetup.unapply)
+    )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha _)
   )
@@ -73,7 +73,7 @@ final private[team] class TeamForm(
         Fields.chat,
         Fields.forum,
         Fields.hideMembers
-      )(TeamEdit.apply)(TeamEdit.unapply)
+      )(TeamEdit.apply)(unapply)
     ) fill TeamEdit(
       password = team.password,
       intro = team.intro,
@@ -89,7 +89,7 @@ final private[team] class TeamForm(
     mapping(
       Fields.requestMessage(team),
       Fields.passwordCheck(team)
-    )(RequestSetup.apply)(RequestSetup.unapply)
+    )(RequestSetup.apply)(unapply)
   ) fill RequestSetup(
     message = Request.defaultMessage.some,
     password = None
@@ -99,7 +99,7 @@ final private[team] class TeamForm(
     mapping(
       Fields.requestMessage(team),
       Fields.passwordCheck(team)
-    )(RequestSetup.apply)(RequestSetup.unapply)
+    )(RequestSetup.apply)(unapply)
   )
 
   val processRequest = Form(

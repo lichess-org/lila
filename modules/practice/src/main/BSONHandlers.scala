@@ -2,7 +2,7 @@ package lila.practice
 
 import reactivemongo.api.bson.{ BSONHandler, Macros }
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.study.Chapter
 
 object BSONHandlers {
@@ -16,5 +16,5 @@ object BSONHandlers {
 
   implicit val practiceProgressIdHandler =
     stringAnyValHandler[PracticeProgress.Id](_.value, PracticeProgress.Id.apply)
-  implicit val practiceProgressHandler = Macros.handler[PracticeProgress]
+  given BSONDocumentHandler[PracticeProgress] = Macros.handler
 }

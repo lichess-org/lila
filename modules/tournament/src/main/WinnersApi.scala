@@ -5,7 +5,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import chess.variant.{ FromPosition, Standard, Variant }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import Schedule.{ Freq, Speed }
 import lila.user.User
 
@@ -61,7 +61,7 @@ final class WinnersApi(
     tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Api,
     scheduler: akka.actor.Scheduler
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   implicit private val WinnerHandler      = reactivemongo.api.bson.Macros.handler[Winner]

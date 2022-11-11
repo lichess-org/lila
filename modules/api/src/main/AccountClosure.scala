@@ -29,7 +29,7 @@ final class AccountClosure(
     appealApi: lila.appeal.AppealApi,
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail
-)(implicit ec: ExecutionContext, scheduler: Scheduler) {
+)(using ec: ExecutionContext, scheduler: Scheduler) {
 
   Bus.subscribeFuns(
     "garbageCollect" -> { case lila.hub.actorApi.security.GarbageCollect(userId) =>

@@ -1,7 +1,7 @@
 package lila.common
 package paginator
 
-abstract class AdapterLike[A](implicit ec: scala.concurrent.ExecutionContext):
+abstract class AdapterLike[A](using ec: scala.concurrent.ExecutionContext):
 
   /** Returns the total number of results.
     */

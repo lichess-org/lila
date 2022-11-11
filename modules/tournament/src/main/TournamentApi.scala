@@ -532,7 +532,7 @@ final class TournamentApi(
   private[tournament] def recomputeEntireTournament(id: Tournament.ID): Funit =
     tournamentRepo.byId(id) flatMap {
       _ ?? { tour =>
-        import lila.db.dsl._
+        import lila.db.dsl.{ *, given }
         import reactivemongo.api.ReadPreference
         playerRepo
           .sortedCursor(tour.id, 64, ReadPreference.primary)

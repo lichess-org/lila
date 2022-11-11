@@ -15,7 +15,7 @@ final class InsightApi(
     gameRepo: GameRepo,
     indexer: InsightIndexer,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import InsightApi._
 

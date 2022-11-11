@@ -4,7 +4,7 @@ import dsl.*
 
 object Util:
 
-  def findNextId(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext): Fu[Int] =
+  def findNextId(coll: Coll)(using ec: scala.concurrent.ExecutionContext): Fu[Int] =
     coll
       .find($empty, $id(true).some)
       .sort($sort desc "_id")

@@ -8,14 +8,14 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.mod.ModActivity.{ dateFormat, Period }
 import lila.report.Room
 
 final class ModQueueStats(
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import ModQueueStats._
 

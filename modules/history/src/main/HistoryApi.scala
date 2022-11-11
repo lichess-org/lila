@@ -12,7 +12,7 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ Perfs, User, UserRepo }
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
-    implicit ec: scala.concurrent.ExecutionContext
+    using ec: scala.concurrent.ExecutionContext
 ):
 
   import History.*

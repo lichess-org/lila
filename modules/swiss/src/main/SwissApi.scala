@@ -15,7 +15,7 @@ import scala.util.chaining._
 import lila.chat.Chat
 import lila.common.config.MaxPerSecond
 import lila.common.{ Bus, GreatPlayer, LightUser }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.hub.LightTeam.TeamID
 import lila.round.actorApi.round.QuietFlag

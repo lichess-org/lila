@@ -5,7 +5,7 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,

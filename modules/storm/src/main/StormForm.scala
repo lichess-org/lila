@@ -28,7 +28,7 @@ object StormForm {
       "highest"      -> number(min = lila.rating.Glicko.minRating, max = 4000),
       "notAnExploit" -> nonEmptyText.verifying(_ == notAnExploit),
       "signed"       -> optional(nonEmptyText)
-    )(RunData.apply)(RunData.unapply)
+    )(RunData.apply)(unapply)
   )
 
   val notAnExploit =

@@ -5,7 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 /*
  * Getting a standing page of a tournament can be very expensive
@@ -20,7 +20,7 @@ final class SwissStandingApi(
     pairingSystem: PairingSystem,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 

@@ -5,7 +5,7 @@ import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.util.chaining._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.user.User
 

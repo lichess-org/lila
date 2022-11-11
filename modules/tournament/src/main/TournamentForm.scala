@@ -102,7 +102,7 @@ final class TournamentForm {
       "streakable"       -> optional(boolean),
       "description"      -> optional(cleanNonEmptyText),
       "hasChat"          -> optional(boolean)
-    )(TournamentSetup.apply)(TournamentSetup.unapply)
+    )(TournamentSetup.apply)(unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
@@ -155,7 +155,7 @@ object TournamentForm {
         "team"       -> optional(nonEmptyText),
         "password"   -> optional(nonEmptyText),
         "pairMeAsap" -> optional(boolean)
-      )(TournamentJoin.apply)(TournamentJoin.unapply)
+      )(TournamentJoin.apply)(unapply)
     )
 
   case class TournamentJoin(

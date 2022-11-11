@@ -110,7 +110,7 @@ object SetupForm {
       mapping(
         "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
         "increment" -> increment
-      )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
+      )(chess.Clock.Config.apply)(unapply)
         .verifying("Invalid clock", c => c.estimateTotalTime > chess.Centis(0))
 
     lazy val clock = "clock" -> optional(clockMapping)

@@ -23,7 +23,7 @@ final class ESClientHttp(
     ws: StandaloneWSClient,
     config: SearchConfig,
     val index: Index
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(using ec: scala.concurrent.ExecutionContext)
     extends ESClient:
 
   def store(id: Id, doc: JsObject) =

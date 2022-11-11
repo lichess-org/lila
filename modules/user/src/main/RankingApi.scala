@@ -16,7 +16,7 @@ final class RankingApi(
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]

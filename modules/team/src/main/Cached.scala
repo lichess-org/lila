@@ -4,7 +4,7 @@ import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
 import lila.user.User
 
@@ -13,7 +13,7 @@ final class Cached(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   val nameCache = cacheApi.sync[String, Option[String]](
     name = "team.name",

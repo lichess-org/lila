@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 object BsonHandlers {
@@ -14,11 +14,11 @@ object BsonHandlers {
   implicit val variantHandler       = variantByKeyHandler
   implicit val clockHandler         = clockConfigHandler
   implicit val swissPointsHandler   = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
-  implicit val swissTieBreakHandler = doubleAnyValHandler[Swiss.TieBreak](_.value, Swiss.TieBreak.apply)
+  given BSONHandler[Swiss.TieBreak] = doubleAnyValHandler(_.value, Swiss.TieBreak.apply)
   implicit val swissPerformanceHandler =
     floatAnyValHandler[Swiss.Performance](_.value, Swiss.Performance.apply)
   implicit val swissScoreHandler  = intAnyValHandler[Swiss.Score](_.value, Swiss.Score.apply)
-  implicit val roundNumberHandler = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
+  given BSONHandler[SwissRound.Number] = intAnyValHandler(_.value, SwissRound.Number.apply)
   implicit val swissIdHandler     = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
   implicit val playerIdHandler    = stringAnyValHandler[SwissPlayer.Id](_.value, SwissPlayer.Id.apply)
 
@@ -124,7 +124,7 @@ object BsonHandlers {
       )
   }
 
-  implicit val swissHandler = Macros.handler[Swiss]
+  given BSONDocumentHandler[Swiss] = Macros.handler
 
   // "featurable" mostly means that the tournament isn't over yet
   def addFeaturable(s: Swiss) =
@@ -136,6 +136,6 @@ object BsonHandlers {
     }
 
   import Swiss.IdName
-  implicit val SwissIdNameBSONHandler = Macros.handler[IdName]
-  implicit val SwissBanBSONHandler    = Macros.handler[SwissBan]
+  given BSONDocumentHandler[IdName] = Macros.handler
+  given BSONDocumentHandler[SwissBan] = Macros.handler
 }

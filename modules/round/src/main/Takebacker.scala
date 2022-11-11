@@ -12,7 +12,7 @@ final private class Takebacker(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     prefApi: PrefApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang = defaultLang
 

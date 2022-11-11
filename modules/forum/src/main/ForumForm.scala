@@ -8,7 +8,7 @@ import lila.user.User
 final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
     val captcher: lila.hub.actors.Captcher
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(using ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
 
   import ForumForm._
@@ -19,7 +19,7 @@ final private[forum] class ForumForm(
       "gameId"  -> text,
       "move"    -> text,
       "modIcon" -> optional(boolean)
-    )(PostData.apply)(PostData.unapply)
+    )(PostData.apply)(unapply)
       .verifying(captchaFailMessage, validateCaptcha _)
 
   def post(user: User, inOwnTeam: Boolean) = Form(postMapping(user, inOwnTeam))
@@ -28,7 +28,7 @@ final private[forum] class ForumForm(
     Form(
       mapping(
         "changes" -> userTextMapping(user, inOwnTeam, previousText.some)
-      )(PostEdit.apply)(PostEdit.unapply)
+      )(PostEdit.apply)(unapply)
     )
 
   def postWithCaptcha(user: User, inOwnTeam: Boolean) = withCaptcha(post(user, inOwnTeam))
@@ -38,7 +38,7 @@ final private[forum] class ForumForm(
       mapping(
         "name" -> cleanText(minLength = 3, maxLength = 100),
         "post" -> postMapping(user, inOwnTeam)
-      )(TopicData.apply)(TopicData.unapply)
+      )(TopicData.apply)(unapply)
     )
 
   val deleteWithReason = Form(

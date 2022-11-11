@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi._
 import lila.study.{ Chapter, Study }
 import lila.user.User
@@ -14,7 +14,7 @@ final class PracticeApi(
     configStore: lila.memo.ConfigStore[PracticeConfig],
     cacheApi: lila.memo.CacheApi,
     studyApi: lila.study.StudyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

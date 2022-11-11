@@ -20,7 +20,7 @@ final private class LobbySyncActor(
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(using ec: scala.concurrent.ExecutionContext)
     extends SyncActor {
 
   import LobbySyncActor._
@@ -206,7 +206,7 @@ private object LobbySyncActor {
       resyncIdsPeriod: FiniteDuration
   )(
       makeTrouper: () => LobbySyncActor
-  )(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) = {
+  )(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) = {
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
     scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)

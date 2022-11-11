@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.*
 import lila.user.User
 
-final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext):
+final class AuthorizationApi(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
   import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }
 
   def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] =

@@ -7,7 +7,7 @@ import reactivemongo.api.ReadPreference
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.ThreadLocalRandom
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment }
 import lila.game.{ Game, Player, Pov, Source }
@@ -22,7 +22,7 @@ final class AssessApi(
     fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
     analysisRepo: AnalysisRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 

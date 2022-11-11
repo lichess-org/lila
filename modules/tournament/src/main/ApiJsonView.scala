@@ -7,7 +7,7 @@ import lila.common.Json.jodaWrites
 import lila.rating.PerfType
 import lila.user.LightUserApi
 
-final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurrent.ExecutionContext) {
+final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
   import Condition.JSONHandlers._

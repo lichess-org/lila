@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.forum.Categ
 import lila.game.LightPov
 import lila.practice.PracticeStructure
@@ -27,7 +27,7 @@ final class ActivityReadApi(
     teamRepo: lila.team.TeamRepo,
     lightUserApi: lila.user.LightUserApi,
     getTourName: lila.tournament.GetTourName
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   import model._

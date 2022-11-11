@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.common.config.Max
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Atom
 import lila.memo.CacheApi._
 import lila.user.User
@@ -15,7 +15,7 @@ final class EntryApi(
     coll: Coll,
     userMax: Max,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import Entry._
 

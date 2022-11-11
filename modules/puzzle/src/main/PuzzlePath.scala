@@ -2,30 +2,29 @@ package lila.puzzle
 
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import org.joda.time.DateTime
+import lila.common.Iso
 
-object PuzzlePath {
+object PuzzlePath:
 
   val sep = '|'
 
-  case class Id(value: String) {
+  case class Id(value: String):
 
     val parts = value split sep
 
     private[puzzle] def tier = PuzzleTier.from(~parts.lift(1))
 
     def angle = PuzzleAngle.findOrMix(~parts.headOption)
-  }
 
-  implicit val pathIdIso = lila.common.Iso.string[Id](Id.apply, _.value)
-}
+  given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
 
-final private class PuzzlePathApi(colls: PuzzleColls)(implicit ec: ExecutionContext) {
+final private class PuzzlePathApi(colls: PuzzleColls)(using ec: ExecutionContext):
 
-  import BsonHandlers._
-  import PuzzlePath._
+  import BsonHandlers.given
+  import PuzzlePath.{ *, given }
 
   def nextFor(
       user: User,
@@ -41,7 +40,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(implicit ec: ExecutionCont
     colls
       .path {
         _.aggregateOne() { framework =>
-          import framework._
+          import framework.*
           val rating     = user.perfs.puzzle.glicko.intRating + difficulty.ratingDelta
           val ratingFlex = (100 + math.abs(1500 - rating) / 4) * compromise.atMost(4)
           Match(
@@ -74,4 +73,3 @@ final private class PuzzlePathApi(colls: PuzzleColls)(implicit ec: ExecutionCont
     _.fold(true)(_ < DateTime.now.minusDays(1).getMillis)
   }
 
-}

@@ -15,7 +15,7 @@ final class EmailAddressValidator(
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
     checkMail: CheckMail
-)(implicit ec: ExecutionContext):
+)(using ec: ExecutionContext):
 
   private def isAcceptable(email: EmailAddress): Boolean =
     email.domain exists disposable.isOk

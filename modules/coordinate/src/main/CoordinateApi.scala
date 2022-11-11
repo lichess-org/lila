@@ -7,7 +7,7 @@ import lila.user.User
 import lila.db.dsl.*
 import chess.Color
 
-final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.ExecutionContext):
+final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private given BSONDocumentHandler[Score] = Macros.handler[Score]
 

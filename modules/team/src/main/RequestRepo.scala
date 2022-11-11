@@ -1,9 +1,9 @@
 package lila.team
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class RequestRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

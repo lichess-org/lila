@@ -4,6 +4,7 @@ import cats.data.NonEmptyList
 import chess.format.{ FEN, Forsyth, Uci }
 
 import lila.rating.Glicko
+import lila.common.Iso
 
 case class Puzzle(
     id: Puzzle.Id,
@@ -14,7 +15,7 @@ case class Puzzle(
     plays: Int,
     vote: Float, // denormalized ratio of voteUp/voteDown
     themes: Set[PuzzleTheme.Key]
-) {
+):
   // ply after "initial move" when we start solving
   def initialPly: Int =
     fen.fullMove ?? { fm =>
@@ -32,9 +33,8 @@ case class Puzzle(
   def color = fen.color.fold[chess.Color](chess.White)(!_)
 
   def hasTheme(anyOf: PuzzleTheme*) = anyOf.exists(t => themes(t.key))
-}
 
-object Puzzle {
+object Puzzle:
 
   val idSize = 5
 
@@ -45,7 +45,7 @@ object Puzzle {
   /* The mobile app requires numerical IDs.
    * We convert string ids from and to Longs using base 62
    */
-  object numericalId {
+  object numericalId:
 
     private val powers: List[Long] =
       (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
@@ -66,19 +66,17 @@ object Puzzle {
       (str.size == idSize) option Id(str)
     }
 
-    private def charToInt(c: Char) = {
+    private def charToInt(c: Char) =
       val i = c.toInt
       if (i > 96) i - 71
       else if (i > 64) i - 65
       else i + 4
-    }
 
     private def intToChar(i: Int): Char = {
       if (i < 26) i + 65
       else if (i < 52) i + 71
       else i - 4
     }.toChar
-  }
 
   case class UserResult(
       puzzleId: Id,
@@ -87,7 +85,7 @@ object Puzzle {
       rating: (Int, Int)
   )
 
-  object BSONFields {
+  object BSONFields:
     val id       = "_id"
     val gameId   = "gameId"
     val fen      = "fen"
@@ -103,7 +101,5 @@ object Puzzle {
     val issue    = "issue"
     val dirty    = "dirty" // themes need to be denormalized
     val tagMe    = "tagMe" // pending phase & opening
-  }
 
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
-}
+  given Iso.StringIso[Id] = Iso.string[Id](Id.apply, _.value)

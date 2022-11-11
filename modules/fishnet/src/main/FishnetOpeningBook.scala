@@ -20,7 +20,7 @@ final private class FishnetOpeningBook(
     ws: StandaloneWSClient,
     depth: SettingStore[Int] @@ FishnetOpeningBook.Depth,
     config: FishnetConfig
-)(implicit ec: ExecutionContext):
+)(using ec: ExecutionContext):
 
   import FishnetOpeningBook.{ *, given }
 

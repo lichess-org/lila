@@ -69,7 +69,7 @@ object ExternalEngine:
       "officialStockfish" -> optional(boolean),
       "providerSecret"    -> nonEmptyText(16, 1024),
       "providerData"      -> optional(text(maxLength = 8192))
-    )(FormData.apply)(lila.analyse.unapply)
+    )(FormData.apply)(lila.common.unapply)
   )
 
   implicit val jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
@@ -88,7 +88,7 @@ object ExternalEngine:
       .add("officialStockfish" -> e.officialStockfish)
   }
 
-final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(implicit ec: ExecutionContext):
+final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using ec: ExecutionContext):
 
   private val userCache = cacheApi[User.ID, List[ExternalEngine]](65_536, "externalEngine.user") {
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)

@@ -30,7 +30,7 @@ final class Learn(env: Env) extends LilaController(env) {
       "stage" -> nonEmptyText,
       "level" -> number,
       "score" -> number
-    )(Tuple3.apply)(Tuple3.unapply)
+    )(Tuple3.apply)(unapply)
   )
 
   def score =

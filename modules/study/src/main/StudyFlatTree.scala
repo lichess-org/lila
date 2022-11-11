@@ -4,7 +4,7 @@ import BSONHandlers._
 import Node.Children
 
 import lila.common.Chronometer
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 private object StudyFlatTree {
 

@@ -10,7 +10,7 @@ final private class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
-)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer) {
+)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer) {
 
   LilaScheduler(_.Every(2 seconds), _.AtMost(20 seconds), _.Delay(18 seconds)) {
     tournamentRepo.shouldStartCursor

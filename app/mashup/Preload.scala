@@ -34,7 +34,7 @@ final class Preload(
     lastPostCache: lila.blog.LastPostCache,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
 

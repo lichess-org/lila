@@ -1,22 +1,17 @@
 package lila.streamer
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson._
 
 private object BsonHandlers {
 
-  implicit val StreamerIdBSONHandler = stringAnyValHandler[Streamer.Id](_.value, Streamer.Id.apply)
-  implicit val StreamerListedBSONHandler =
-    booleanAnyValHandler[Streamer.Listed](_.value, Streamer.Listed.apply)
-  implicit val StreamerNameBSONHandler = stringAnyValHandler[Streamer.Name](_.value, Streamer.Name.apply)
-  implicit val StreamerHeadlineBSONHandler =
-    stringAnyValHandler[Streamer.Headline](_.value, Streamer.Headline.apply)
-  implicit val StreamerDescriptionBSONHandler =
-    stringAnyValHandler[Streamer.Description](_.value, Streamer.Description.apply)
-
-  import Streamer.{ Approval, Twitch, YouTube }
-  implicit val StreamerTwitchBSONHandler   = Macros.handler[Twitch]
-  implicit val StreamerYouTubeBSONHandler  = Macros.handler[YouTube]
-  implicit val StreamerApprovalBSONHandler = Macros.handler[Approval]
-  implicit val StreamerBSONHandler         = Macros.handler[Streamer]
+  given BSONHandler[Streamer.Id]               = stringAnyValHandler(_.value, Streamer.Id.apply)
+  given BSONHandler[Streamer.Listed]           = booleanAnyValHandler(_.value, Streamer.Listed.apply)
+  given BSONHandler[Streamer.Name]             = stringAnyValHandler(_.value, Streamer.Name.apply)
+  given BSONHandler[Streamer.Headline]         = stringAnyValHandler(_.value, Streamer.Headline.apply)
+  given BSONHandler[Streamer.Description]      = stringAnyValHandler(_.value, Streamer.Description.apply)
+  given BSONDocumentHandler[Streamer.Twitch]   = Macros.handler
+  given BSONDocumentHandler[Streamer.YouTube]  = Macros.handler
+  given BSONDocumentHandler[Streamer.Approval] = Macros.handler
+  given BSONDocumentHandler[Streamer]          = Macros.handler
 }

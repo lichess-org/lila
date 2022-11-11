@@ -2,7 +2,7 @@ package lila.round
 
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
@@ -11,7 +11,7 @@ import Forecast.Step
 import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }
 
-final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.concurrent.ExecutionContext) {
+final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val stepBSONHandler     = Macros.handler[Step]
   implicit private val forecastBSONHandler = Macros.handler[Forecast]

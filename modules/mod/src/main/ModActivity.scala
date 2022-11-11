@@ -9,13 +9,13 @@ import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.report.Report
 import lila.report.Room
 import lila.user.User
 
 final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cacheApi: lila.memo.CacheApi)(
-    implicit ec: ExecutionContext
+    using ec: ExecutionContext
 ) {
 
   import ModActivity._

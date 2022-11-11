@@ -3,7 +3,7 @@ package lila.mod
 import org.joda.time.DateTime
 import reactivemongo.api._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.irc.IrcApi
 import lila.msg.MsgPreset

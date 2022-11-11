@@ -21,7 +21,7 @@ final class ChatApi(
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
   import Chat.given
 

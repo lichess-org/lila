@@ -12,7 +12,7 @@ import lila.user.User
 final class ChatTimeout(
     coll: Coll,
     duration: FiniteDuration
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import ChatTimeout.*
 

@@ -13,12 +13,12 @@ import scala.concurrent.duration._
 import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 final class StudyMultiBoard(
     chapterRepo: ChapterRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   private val maxPerPage = MaxPerPage(9)
 

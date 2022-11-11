@@ -6,7 +6,7 @@ import com.softwaremill.tagging._
 import scala.concurrent.duration._
 
 import lila.common.Heapsort
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi
 import lila.memo.CacheApi._
@@ -15,7 +15,7 @@ final class SwissFeature(
     swissColl: Coll @@ SwissColl,
     cacheApi: CacheApi,
     swissCache: SwissCache
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 

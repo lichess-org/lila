@@ -18,7 +18,7 @@ final class SelfReport(
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   private val onceEvery = lila.memo.OnceEvery(1 hour)
 

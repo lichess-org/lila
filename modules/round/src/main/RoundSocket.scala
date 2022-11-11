@@ -439,7 +439,7 @@ object RoundSocket {
       scheduler: Scheduler,
       duration: FiniteDuration,
       terminate: Game.Id => Unit
-  )(implicit ec: scala.concurrent.ExecutionContext) {
+  )(using ec: scala.concurrent.ExecutionContext) {
     import java.util.concurrent.ConcurrentHashMap
 
     private[this] val terminations = new ConcurrentHashMap[String, Cancellable](65536)

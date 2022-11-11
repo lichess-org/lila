@@ -6,7 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 
 final private class CorresAlarm(

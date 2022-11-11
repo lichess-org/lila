@@ -3,10 +3,10 @@ package lila.push
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class DeviceApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   implicit private val DeviceBSONHandler = Macros.handler[Device]
 

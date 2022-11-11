@@ -13,7 +13,7 @@ import lila.user.User
 final class JsonView(
     studyRepo: StudyRepo,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
 

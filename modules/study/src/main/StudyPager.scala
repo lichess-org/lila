@@ -1,7 +1,7 @@
 package lila.study
 
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.user.User
@@ -9,7 +9,7 @@ import lila.user.User
 final class StudyPager(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   val maxPerPage                = lila.common.config.MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4

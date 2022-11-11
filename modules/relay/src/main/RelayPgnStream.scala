@@ -13,7 +13,7 @@ final class RelayPgnStream(
     studyRepo: StudyRepo,
     studyChapterRepo: ChapterRepo,
     studyPgnDump: PgnDump
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   def exportFullTour(tour: RelayTour): Source[String, _] =
     Source futureSource {

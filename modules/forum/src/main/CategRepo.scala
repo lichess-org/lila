@@ -1,9 +1,9 @@
 package lila.forum
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import reactivemongo.api.ReadPreference
 
-final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class CategRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers.CategBSONHandler
 

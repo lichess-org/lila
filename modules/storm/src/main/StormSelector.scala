@@ -3,7 +3,7 @@ package lila.storm
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
 
@@ -11,7 +11,7 @@ import lila.puzzle.PuzzleColls
  * Be very careful when adjusting the selector.
  * Use the grafana average rating per slice chart.
  */
-final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using ec: ExecutionContext) {
 
   import StormBsonHandlers._
   import lila.puzzle.PuzzlePath.sep

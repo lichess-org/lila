@@ -10,7 +10,7 @@ import scala.util.Try
 
 import lila.chat.ChatApi
 import lila.common.Bus
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam, LeaveTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
@@ -30,7 +30,7 @@ final class TeamApi(
     indexer: lila.hub.actors.TeamSearch,
     modLog: ModlogApi,
     chatApi: ChatApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -272,7 +272,7 @@ final class TeamApi(
     parseTagifyInput(json).map(kick(team, _, me))
 
   private case class TagifyUser(value: String)
-  implicit private val TagifyUserReads = Json.reads[TagifyUser]
+  private given Reads[TagifyUser] = Json.reads
 
   private def parseTagifyInput(json: String) = Try {
     json.trim.nonEmpty ?? {

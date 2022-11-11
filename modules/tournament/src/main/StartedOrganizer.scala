@@ -11,7 +11,7 @@ final private class StartedOrganizer(
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     socket: TournamentSocket
-)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer) {
+)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer) {
 
   var runCounter = 0
 

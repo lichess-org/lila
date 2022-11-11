@@ -2,11 +2,11 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -15,19 +15,18 @@ case class PuzzleReplay(
     theme: PuzzleTheme.Key,
     nb: Int,
     remaining: Vector[Puzzle.Id]
-) {
+):
 
   def i = nb - remaining.size
 
   def step = copy(remaining = remaining drop 1)
-}
 
 final class PuzzleReplayApi(
     colls: PuzzleColls,
     cacheApi: CacheApi
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val maxPuzzles = 100
 
@@ -69,7 +68,7 @@ final class PuzzleReplayApi(
     colls
       .round {
         _.aggregateOne() { framework =>
-          import framework._
+          import framework.*
           Match(
             $doc(
               "u" -> user.id,
@@ -124,4 +123,3 @@ final class PuzzleReplayApi(
         $doc("$project" -> $doc("_id" -> true))
       )
     )
-}

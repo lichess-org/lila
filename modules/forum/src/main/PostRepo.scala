@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit

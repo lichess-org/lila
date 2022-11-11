@@ -12,7 +12,7 @@ import User.{ BSONFields as F }
 final class LightUserApi(
     repo: UserRepo,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import LightUserApi.{ *, given }
 

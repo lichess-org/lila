@@ -36,7 +36,7 @@ final class UserLoginsApi(
     geoIP: GeoIP,
     ip2proxy: Ip2Proxy,
     printBan: PrintBan
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import UserLogins.*
 
@@ -225,7 +225,7 @@ object UserLogins:
       userRepo: UserRepo,
       me: User,
       userLogins: UserLogins
-  )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
+  )(using ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
     userRepo.emailMap(me.id :: userLogins.otherUsers.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
         OtherUser(me, userLogins.rawIps.toSet, userLogins.rawFps.toSet) :: userLogins.otherUsers,

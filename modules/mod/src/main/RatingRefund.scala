@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers._
 import lila.game.{ Game, GameRepo, Query }
 import lila.perfStat.PerfStat
@@ -21,7 +21,7 @@ final private class RatingRefund(
     rankingApi: lila.user.RankingApi,
     logApi: ModlogApi,
     perfStat: lila.perfStat.PerfStatApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import RatingRefund._
 

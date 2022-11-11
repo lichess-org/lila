@@ -8,7 +8,7 @@ import lila.hub.actorApi.map.TellIfExists
 final class Analyser(
     gameRepo: GameRepo,
     analysisRepo: AnalysisRepo
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import AnalyseBsonHandlers.*
 

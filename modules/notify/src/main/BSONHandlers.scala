@@ -3,7 +3,7 @@ package lila.notify
 import chess.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.db.{ BSON }
+import lila.db.dsl.{ BSON }
 import lila.notify.InvitedToStudy.{ InvitedBy, StudyId, StudyName }
 import lila.notify.MentionedInThread.*
 import lila.notify.Notification.*

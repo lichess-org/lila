@@ -4,7 +4,7 @@ import reactivemongo.api.bson._
 import scala.util.Success
 
 import lila.common.{ Iso, LichessDay }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
 import lila.study.BSONHandlers.StudyIdBSONHandler

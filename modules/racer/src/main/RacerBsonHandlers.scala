@@ -4,7 +4,7 @@ import chess.format.FEN
 import chess.format.Uci
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.puzzle.BsonHandlers.PuzzleIdBSONHandler
 import lila.puzzle.Puzzle
 import lila.storm.StormPuzzle

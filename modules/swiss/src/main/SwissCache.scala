@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import com.softwaremill.tagging._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.LightTeam.TeamID
 import lila.memo._
 import lila.memo.CacheApi._
@@ -13,7 +13,7 @@ import lila.memo.CacheApi._
 final class SwissCache(
     swissColl: Coll @@ SwissColl,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 

@@ -17,7 +17,7 @@ final private class StripeClient(
     ws: StandaloneWSClient,
     config: StripeClient.Config,
     paymentMethods: StripePaymentMethods
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import StripeClient.*
   import JsonHandlers.given

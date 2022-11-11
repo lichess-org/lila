@@ -2,7 +2,7 @@ package lila.swiss
 
 import com.softwaremill.tagging._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.swiss.BsonHandlers._
 import lila.user.User
 

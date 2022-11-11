@@ -67,7 +67,7 @@ import java.util.concurrent.TimeoutException
 //   // just reject if the previous future is still running
 //   final class Unbuffered[K] {
 //     private var ongoing = Set.empty[K]
-//     def apply[A](key: K)(f: => Fu[A])(implicit ec: ExecutionContext): Option[Fu[A]] = !ongoing(key) option {
+//     def apply[A](key: K)(f: => Fu[A])(using ec: ExecutionContext): Option[Fu[A]] = !ongoing(key) option {
 //       ongoing = ongoing + key
 //       f addEffectAnyway { ongoing = ongoing - key }
 //     }

@@ -9,7 +9,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.AsyncColl
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi

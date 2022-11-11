@@ -4,7 +4,7 @@ import org.joda.time.{ DateTime, Period }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
@@ -45,7 +45,7 @@ final class ClasProgressApi(
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
     studentCache: ClasStudentCache
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   case class PlayStats(nb: Int, wins: Int, millis: Long)
 

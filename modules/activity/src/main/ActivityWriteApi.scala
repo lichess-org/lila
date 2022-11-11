@@ -3,7 +3,7 @@ package lila.activity
 import reactivemongo.api.bson._
 
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.study.Study
 import lila.user.User
@@ -11,7 +11,7 @@ import lila.user.User
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
     studyApi: lila.study.StudyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import Activity._
   import BSONHandlers._

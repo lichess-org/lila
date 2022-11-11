@@ -11,7 +11,7 @@ import lila.base.LilaInvalid
 final class GifExport(
     ws: StandaloneWSClient,
     url: String
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
   def ofChapter(chapter: Chapter, theme: Option[String], piece: Option[String]): Fu[Source[ByteString, _]] =
     ws.url(s"$url/game.gif")
       .withMethod("POST")

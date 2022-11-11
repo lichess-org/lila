@@ -31,7 +31,7 @@ final class MongoRateLimit[K](
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]
-  )(default: => A)(implicit ec: ExecutionContext): Fu[A] =
+  )(default: => A)(using ec: ExecutionContext): Fu[A] =
     if (cost < 1) op
     else
       val dbKey = makeDbKey(k)

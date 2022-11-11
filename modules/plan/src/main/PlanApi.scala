@@ -27,7 +27,7 @@ final class PlanApi(
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi
-)(implicit ec: scala.concurrent.ExecutionContext):
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given

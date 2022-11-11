@@ -11,7 +11,7 @@ final class LobbyApi(
     gameProxyRepo: lila.round.GameProxyRepo,
     gameJson: lila.game.JsonView,
     lobbySocket: LobbySocket
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip

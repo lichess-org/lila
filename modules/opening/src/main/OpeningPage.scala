@@ -13,18 +13,16 @@ case class OpeningPage(
     query: OpeningQuery,
     explored: Option[OpeningExplored],
     wiki: Option[OpeningWiki]
-) {
+):
   def opening = query.opening
   def name    = query.name
 
-  def nameParts: NamePart.NamePartList = query.openingAndExtraMoves match {
+  def nameParts: NamePart.NamePartList = query.openingAndExtraMoves match
     case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
-  }
-}
 
-case object NamePart {
+case object NamePart:
   type NamePartList = List[Either[Opening.PgnMove, (Opening.NameSection, Option[String])]]
-  def from(op: FullOpening): NamePartList = {
+  def from(op: FullOpening): NamePartList =
     val sections = Opening.sectionsOf(op.name)
     sections.toList.zipWithIndex map { case (name, i) =>
       Right(
@@ -34,22 +32,19 @@ case object NamePart {
             .map(_.key)
       )
     }
-  }
   def from(moves: List[Opening.PgnMove]): NamePartList = moves.map(Left.apply)
-}
 
 case class ResultCounts(
     white: Int,
     draws: Int,
     black: Int
-) {
+):
   lazy val sum: Int = white + draws + black
 
   def whitePercent                     = percentOf(white)
   def drawsPercent                     = percentOf(draws)
   def blackPercent                     = percentOf(black)
   private def percentOf(v: Int): Float = (v.toFloat * 100 / sum)
-}
 
 case class OpeningNext(
     san: String,
@@ -71,7 +66,7 @@ case class OpeningExplored(
     history: PopularityHistoryPercent
 )
 
-object OpeningPage {
+object OpeningPage:
   def apply(
       query: OpeningQuery,
       exploredPosition: Option[OpeningExplorer.Position],
@@ -110,4 +105,3 @@ object OpeningPage {
       },
       wiki
     )
-}

@@ -46,7 +46,7 @@ final class TeamInfoApi(
     swissApi: SwissApi,
     simulApi: SimulApi,
     requestRepo: RequestRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext) {
 
   import TeamInfo._
 

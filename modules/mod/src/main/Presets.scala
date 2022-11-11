@@ -11,7 +11,7 @@ import reactivemongo.api.bson.BSONHandler
 
 final class ModPresetsApi(
     settingStore: lila.memo.SettingStore.Builder
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext) {
 
   import ModPresets.setting._
 

@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]) {
   import SwissSheet._

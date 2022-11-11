@@ -29,7 +29,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "discuss"     -> boolean,
       "gameId"      -> text,
       "move"        -> text
-    )(UblogPostData.apply)(UblogPostData.unapply)
+    )(UblogPostData.apply)(unapply)
 
   val create = Form(
     base.verifying(captchaFailMessage, validateCaptcha _)
