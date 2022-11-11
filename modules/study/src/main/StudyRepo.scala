@@ -1,9 +1,9 @@
 package lila.study
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api._
+import reactivemongo.api.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
@@ -12,18 +12,17 @@ import lila.user.User
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   import BSONHandlers.given
 
-  private object F {
+  private object F:
     val uids      = "uids"
     val likers    = "likers"
     val rank      = "rank"
     val likes     = "likes"
     val topics    = "topics"
     val createdAt = "createdAt"
-  }
 
   private[study] val projection = $doc(
     F.uids   -> false,
@@ -71,7 +70,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def countByOwner(ownerId: User.ID) = coll(_.countSel(selectOwnerId(ownerId)))
 
-  def sourceByOwner(ownerId: User.ID, isMe: Boolean): Source[Study, _] =
+  def sourceByOwner(ownerId: User.ID, isMe: Boolean): Source[Study, ?] =
     Source futureSource {
       coll map {
         _.find(selectOwnerId(ownerId) ++ (!isMe ?? selectPublic))
@@ -252,7 +251,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
     coll {
       _.aggregateWith[Bdoc]() { framework =>
-        import framework._
+        import framework.*
         List(
           Match($id(studyId)),
           Project(
@@ -271,4 +270,3 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         createdAt <- doc.getAsOpt[DateTime](F.createdAt)
       } yield likes -> createdAt
     }
-}

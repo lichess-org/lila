@@ -4,12 +4,12 @@ import actorApi.Who
 import cats.data.Validated
 import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.room.RoomSocket.{ Protocol as RP, * }
+import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
@@ -24,12 +24,9 @@ final private class StudySocket(
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
-) {
+):
 
-  import StudySocket._
-
-  given Conversion[RoomId, Study.Id] = id => Study.Id(id.value)
-  given Conversion[Study.Id, RoomId] = id => RoomId(id.value)
+  import StudySocket.{ *, given }
 
   lazy val rooms = makeRoomMap(send)
 
@@ -42,10 +39,10 @@ final private class StudySocket(
     )
 
   def onServerEval(studyId: Study.Id, eval: ServerEval.Progress): Unit =
-    eval match {
+    eval match
       case ServerEval.Progress(chapterId, tree, analysis, division) =>
         import lila.game.JsonView.given
-        import JsonView._
+        import JsonView.given
         send(
           RP.Out.tellRoom(
             studyId,
@@ -60,15 +57,14 @@ final private class StudySocket(
             )
           )
         )
-    }
 
-  private lazy val studyHandler: Handler = {
+  private lazy val studyHandler: Handler =
     case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
     case RP.In.TellRoomSri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
-      import Protocol.In.Data._
-      import JsonView.shapeReader
+      import Protocol.In.{ *, given }
+      import JsonView.given
       def who = user map { Who(_, sri) }
-      tpe match {
+      tpe match
         case "setPath" =>
           reading[AtPosition](o) { position =>
             who foreach api.setPath(studyId, position.ref)
@@ -221,8 +217,6 @@ final private class StudySocket(
             Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
           }
         case t => logger.warn(s"Unhandled study socket message: $t")
-      }
-  }
 
   private lazy val rHandler: Handler = roomHandler(
     rooms,
@@ -237,7 +231,7 @@ final private class StudySocket(
   )
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) =
-    m.branch match {
+    m.branch match
       case Validated.Valid(branch) if branch.ply < Node.MAX_PLIES =>
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
@@ -248,9 +242,8 @@ final private class StudySocket(
           )(who)
         }
       case _ =>
-    }
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply _
+  private lazy val send: String => Unit = (() => remoteSocketApi.makeSender("study-out").apply)
 
   remoteSocketApi.subscribe("study-in", RP.In.reader)(
     studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
@@ -258,16 +251,9 @@ final private class StudySocket(
 
   // send API
 
-  import JsonView._
-  import jsonView.membersWrites
-  import lila.tree.Node.{
-    clockWrites,
-    commentWriter,
-    defaultNodeJsonWriter,
-    glyphsWriter,
-    openingWriter,
-    shapesWrites
-  }
+  import JsonView.given
+  import jsonView.given
+  import lila.tree.Node.{ defaultNodeJsonWriter, given }
   private type SendToStudy = Study.Id => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
@@ -284,7 +270,7 @@ final private class StudySocket(
       sticky: Boolean,
       relay: Option[Chapter.Relay],
       who: Who
-  ) = {
+  ) =
     val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
     version(
       "addNode",
@@ -299,7 +285,6 @@ final private class StudySocket(
         )
         .add("relay", relay)
     )
-  }
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
     version(
@@ -424,54 +409,46 @@ final private class StudySocket(
   )
 
   api registerSocket this
-}
 
-object StudySocket {
+object StudySocket:
 
-  object Protocol {
+  given Conversion[RoomId, Study.Id] = id => Study.Id(id.value)
+  given Conversion[Study.Id, RoomId] = id => RoomId(id.value)
 
-    object In {
+  object Protocol:
 
-      object Data {
-        import lila.common.Json._
-        import play.api.libs.functional.syntax._
+    object In:
+      import lila.common.Json.{*,given}
+      import play.api.libs.functional.syntax.*
 
-        def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
-          o obj "d" flatMap { d =>
-            reader.reads(d).asOpt
-          } foreach f
+      def reading[A](o: JsValue)(f: A => Unit)(using reader: Reads[A]): Unit =
+        o obj "d" flatMap { d =>
+          reader.reads(d).asOpt
+        } foreach f
 
-        case class AtPosition(path: String, chapterId: Chapter.Id) {
-          def ref = Position.Ref(chapterId, Path(path))
-        }
-        import Chapter.given
-        given Reads[Chapter.Id]   = stringIsoReader
-        given Reads[Chapter.Name] = stringIsoReader
-        given Reads[AtPosition] = (
-          (__ \ "path").read[String] and
-            (__ \ "ch").read[Chapter.Id]
-        )(AtPosition.apply _)
-        case class SetRole(userId: String, role: String)
-        given Reads[SetRole]                                     = Json.reads
-        implicit val ChapterModeReader: Reads[ChapterMaker.Mode] = optRead(ChapterMaker.Mode.apply)
-        implicit val ChapterOrientationReader: Reads[ChapterMaker.Orientation] =
-          stringRead(ChapterMaker.Orientation.apply)
-        implicit val UserSelectionReader: Reads[Settings.UserSelection] =
-          optRead(Settings.UserSelection.byKey.get)
-        implicit val VariantReader: Reads[chess.variant.Variant] = optRead(chess.variant.Variant.apply)
-        given Reads[ChapterMaker.Data]                           = Json.reads
-        given Reads[ChapterMaker.EditData]                       = Json.reads
-        given Reads[ChapterMaker.DescData]                       = Json.reads
-        given studyDataReads: Reads[Study.Data]                  = Json.reads
-        given Reads[actorApi.SetTag]                             = Json.reads
-        given Reads[Gamebook]                                    = Json.reads
-        given Reads[actorApi.ExplorerGame]                       = Json.reads
-      }
-    }
+      case class AtPosition(path: String, chapterId: Chapter.Id):
+        def ref = Position.Ref(chapterId, Path(path))
+      import Chapter.given
+      given Reads[Chapter.Id]   = stringIsoReader
+      given Reads[Chapter.Name] = stringIsoReader
+      given Reads[AtPosition] = (
+        (__ \ "path").read[String] and
+          (__ \ "ch").read[Chapter.Id]
+      )(AtPosition.apply)
+      case class SetRole(userId: String, role: String)
+      given Reads[SetRole]                    = Json.reads
+      given Reads[ChapterMaker.Mode]          = optRead(ChapterMaker.Mode.apply)
+      given Reads[ChapterMaker.Orientation]   = stringRead(ChapterMaker.Orientation.apply)
+      given Reads[Settings.UserSelection]     = optRead(Settings.UserSelection.byKey.get)
+      given Reads[chess.variant.Variant]      = optRead(chess.variant.Variant.apply)
+      given Reads[ChapterMaker.Data]          = Json.reads
+      given Reads[ChapterMaker.EditData]      = Json.reads
+      given Reads[ChapterMaker.DescData]      = Json.reads
+      given studyDataReads: Reads[Study.Data] = Json.reads
+      given Reads[actorApi.SetTag]            = Json.reads
+      given Reads[Gamebook]                   = Json.reads
+      given Reads[actorApi.ExplorerGame]      = Json.reads
 
-    object Out {
+    object Out:
       def getIsPresent(reqId: Int, studyId: Study.Id, userId: User.ID) =
         s"room/present $reqId $studyId $userId"
-    }
-  }
-}

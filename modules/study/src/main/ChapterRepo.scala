@@ -1,9 +1,9 @@
 package lila.study
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.format.pgn.Tags
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 final class ChapterRepo(val coll: AsyncColl)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   import BSONHandlers.{ writeNode, given }
 
@@ -52,7 +52,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         .list(300)
     }
 
-  def orderedByStudySource(studyId: Study.Id): Source[Chapter, _] =
+  def orderedByStudySource(studyId: Study.Id): Source[Chapter, ?] =
     Source futureSource {
       coll map {
         _.find($studyId(studyId))
@@ -62,7 +62,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
       }
     }
 
-  def byIdsSource(ids: Iterable[Chapter.Id]): Source[Chapter, _] =
+  def byIdsSource(ids: Iterable[Chapter.Id]): Source[Chapter, ?] =
     Source futureSource {
       coll map {
         _.find($inIds(ids))
@@ -126,30 +126,29 @@ final class ChapterRepo(val coll: AsyncColl)(using
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
 
   def setShapes(shapes: lila.tree.Node.Shapes) =
-    setNodeValue(Node.BsonFields.shapes, shapes.value.nonEmpty option shapes) _
+    (() => setNodeValue(Node.BsonFields.shapes, shapes.value.nonEmpty option shapes))
 
   def setComments(comments: lila.tree.Node.Comments) =
-    setNodeValue(Node.BsonFields.comments, comments.value.nonEmpty option comments) _
+    (() => setNodeValue(Node.BsonFields.comments, comments.value.nonEmpty option comments))
 
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
-    setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook) _
+    (() => setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook))
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty) _
+  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = (() => setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty))
 
-  def setClock(clock: Option[chess.Centis]) = setNodeValue(Node.BsonFields.clock, clock) _
+  def setClock(clock: Option[chess.Centis]) = (() => setNodeValue(Node.BsonFields.clock, clock))
 
-  def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true) _
+  def forceVariation(force: Boolean) = (() => setNodeValue(Node.BsonFields.forceVariation, force option true))
 
   // insert node and its children
   // and sets the parent order field
-  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: Path)(chapter: Chapter): Funit = {
+  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: Path)(chapter: Chapter): Funit =
     val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++ {
       (newParent.children.nodes.sizeIs > 1) ?? $doc(
         pathToField(parentPath, Node.BsonFields.order) -> newParent.children.nodes.map(_.id)
       )
     }
     coll(_.update.one($id(chapter.id), $set(set))).void
-  }
 
   private def subTreeToBsonElements(parentPath: Path, subTree: Node): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ?? {
@@ -160,7 +159,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
     }
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
-  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit = {
+  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit =
 
     val set: Bdoc = {
       (children.nodes.sizeIs > 1) ?? $doc(
@@ -169,7 +168,6 @@ final class ChapterRepo(val coll: AsyncColl)(using
     } ++ $doc(childrenTreeToBsonElements(path, children))
 
     coll(_.update.one($id(chapter.id), $set(set))).void
-  }
 
   private def childrenTreeToBsonElements(parentPath: Path, children: Node.Children): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ??
@@ -197,7 +195,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
   ): Funit =
     values.collect { case (field, Some(v)) =>
       pathToField(path, field) -> v
-    } match {
+    } match
       case Nil => funit
       case sets =>
         coll {
@@ -208,7 +206,6 @@ final class ChapterRepo(val coll: AsyncColl)(using
             )
             .void
         }
-    }
 
   // root.path.subField
   private def pathToField(path: Path, subField: String): String = s"${path.toDbField}.$subField"
@@ -229,12 +226,11 @@ final class ChapterRepo(val coll: AsyncColl)(using
       .map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) { case (hash, doc) =>
           doc.getAsOpt[Study.Id]("studyId").fold(hash) { studyId =>
-            hash get studyId match {
+            hash get studyId match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
               case maybe =>
                 val chapters = ~maybe
                 hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
-            }
           }
         }
       }
@@ -286,4 +282,3 @@ final class ChapterRepo(val coll: AsyncColl)(using
   def delete(c: Chapter): Funit     = delete(c.id)
 
   private def $studyId(id: Study.Id) = $doc("studyId" -> id)
-}

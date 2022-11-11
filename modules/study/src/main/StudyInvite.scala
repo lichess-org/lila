@@ -1,6 +1,6 @@
 package lila.study
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
@@ -15,7 +15,7 @@ final private class StudyInvite(
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
     credits = 500,
@@ -85,4 +85,3 @@ final private class StudyInvite(
             $addToSet("uids"         -> user.id)
         )
     }.void
-}

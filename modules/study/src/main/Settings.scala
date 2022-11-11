@@ -12,7 +12,7 @@ case class Settings(
     description: Boolean
 )
 
-object Settings {
+object Settings:
 
   val init = Settings(
     computer = UserSelection.Everyone,
@@ -24,10 +24,9 @@ object Settings {
     description = false
   )
 
-  sealed trait UserSelection {
-    lazy val key = toString.toLowerCase
-  }
-  object UserSelection {
+  sealed trait UserSelection:
+    lazy val key = UserSelection.this.toString.toLowerCase
+  object UserSelection:
     case object Nobody      extends UserSelection
     case object Owner       extends UserSelection
     case object Contributor extends UserSelection
@@ -38,12 +37,9 @@ object Settings {
     }.toMap
 
     def allows(sel: UserSelection, study: Study, userId: Option[User.ID]): Boolean =
-      sel match {
+      sel match
         case Nobody      => false
         case Everyone    => true
         case Member      => userId ?? study.isMember
         case Contributor => userId ?? study.canContribute
         case Owner       => userId ?? study.isOwner
-      }
-  }
-}

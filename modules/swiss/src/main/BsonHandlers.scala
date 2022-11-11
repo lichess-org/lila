@@ -11,18 +11,17 @@ import lila.user.User
 
 object BsonHandlers {
 
-  implicit val variantHandler       = variantByKeyHandler
-  implicit val clockHandler         = clockConfigHandler
-  implicit val swissPointsHandler   = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
-  given BSONHandler[Swiss.TieBreak] = doubleAnyValHandler(_.value, Swiss.TieBreak.apply)
-  implicit val swissPerformanceHandler =
-    floatAnyValHandler[Swiss.Performance](_.value, Swiss.Performance.apply)
-  implicit val swissScoreHandler  = intAnyValHandler[Swiss.Score](_.value, Swiss.Score.apply)
-  given BSONHandler[SwissRound.Number] = intAnyValHandler(_.value, SwissRound.Number.apply)
-  implicit val swissIdHandler     = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
-  implicit val playerIdHandler    = stringAnyValHandler[SwissPlayer.Id](_.value, SwissPlayer.Id.apply)
+  given BSONHandler[chess.variant.Variant] = variantByKeyHandler
+  given BSONHandler[chess.Clock.Config]    = clockConfigHandler
+  given BSONHandler[Swiss.Points]          = intAnyValHandler(_.double, Swiss.Points.apply)
+  given BSONHandler[Swiss.TieBreak]        = doubleAnyValHandler(_.value, Swiss.TieBreak.apply)
+  given BSONHandler[Swiss.Performance]     = floatAnyValHandler(_.value, Swiss.Performance.apply)
+  given BSONHandler[Swiss.Score]           = intAnyValHandler(_.value, Swiss.Score.apply)
+  given idHandler: BSONHandler[Swiss.Id]   = stringAnyValHandler(_.value, Swiss.Id.apply)
+  given BSONHandler[SwissRound.Number]     = intAnyValHandler(_.value, SwissRound.Number.apply)
+  given BSONHandler[SwissPlayer.Id]        = stringAnyValHandler(_.value, SwissPlayer.Id.apply)
 
-  implicit val playerHandler = new BSON[SwissPlayer] {
+  given BSON[SwissPlayer] with
     import SwissPlayer.Fields._
     def reads(r: BSON.Reader) =
       SwissPlayer(
@@ -52,9 +51,8 @@ object BsonHandlers {
         absent      -> w.boolO(o.absent),
         byes        -> o.byes.some.filter(_.nonEmpty)
       )
-  }
 
-  implicit val pairingStatusHandler = lila.db.dsl.quickHandler[SwissPairing.Status](
+  given BSONHandler[SwissPairing.Status] = lila.db.dsl.quickHandler(
     {
       case BSONBoolean(true)  => Left(SwissPairing.Ongoing)
       case BSONInteger(index) => Right(Color.fromWhite(index == 0).some)
@@ -66,7 +64,7 @@ object BsonHandlers {
       case _              => BSONNull
     }
   )
-  implicit val pairingHandler = new BSON[SwissPairing] {
+  given BSON[SwissPairing] with
     import SwissPairing.Fields._
     def reads(r: BSON.Reader) =
       r.get[List[User.ID]](players) match {
@@ -91,11 +89,10 @@ object BsonHandlers {
         status    -> o.status,
         isForfeit -> w.boolO(o.isForfeit)
       )
-  }
 
-  import SwissCondition.BSONHandlers.AllBSONHandler
+  import SwissCondition.BSONHandlers.given
 
-  implicit val settingsHandler = new BSON[Swiss.Settings] {
+  given BSON[Swiss.Settings] with
     def reads(r: BSON.Reader) =
       Swiss.Settings(
         nbRounds = r.get[Int]("n"),
@@ -122,13 +119,12 @@ object BsonHandlers {
         "fp" -> s.forbiddenPairings.some.filter(_.nonEmpty),
         "mp" -> s.manualPairings.some.filter(_.nonEmpty)
       )
-  }
 
   given BSONDocumentHandler[Swiss] = Macros.handler
 
   // "featurable" mostly means that the tournament isn't over yet
   def addFeaturable(s: Swiss) =
-    swissHandler.writeTry(s).get ++ {
+    bsonWriteObjTry[Swiss](s).get ++ {
       s.isNotFinished ?? $doc(
         "featurable" -> true,
         "garbage"    -> s.unrealisticSettings.option(true)
@@ -136,6 +132,6 @@ object BsonHandlers {
     }
 
   import Swiss.IdName
-  given BSONDocumentHandler[IdName] = Macros.handler
+  given BSONDocumentHandler[IdName]   = Macros.handler
   given BSONDocumentHandler[SwissBan] = Macros.handler
 }

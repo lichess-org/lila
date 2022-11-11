@@ -26,7 +26,7 @@ case class Chapter(
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
     createdAt: DateTime
-) extends Chapter.Like {
+) extends Chapter.Like:
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
     f(root) map { newRoot =>
@@ -94,9 +94,8 @@ case class Chapter(
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
-}
 
-object Chapter {
+object Chapter:
 
   // I've seen chapters with 35,000 nodes on prod.
   // It works but could be used for DoS.
@@ -108,35 +107,32 @@ object Chapter {
   case class Name(value: String) extends AnyVal with StringValue
   given Iso.StringIso[Name] = Iso.string(Name, _.value)
 
-  sealed trait Like {
+  sealed trait Like:
     val _id: Chapter.Id
     val name: Chapter.Name
     val setup: Chapter.Setup
     def id = _id
 
     def initialPosition = Position.Ref(id, Path.root)
-  }
 
   case class Setup(
       gameId: Option[lila.game.Game.ID],
       variant: Variant,
       orientation: Color,
       fromFen: Option[Boolean] = None
-  ) {
+  ):
     def isFromFen = ~fromFen
-  }
 
   case class Relay(
       index: Int, // game index in the source URL
       path: Path,
       lastMoveAt: DateTime
-  ) {
+  ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
-  }
 
   case class ServerEval(path: Path, done: Boolean)
 
-  case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
+  case class RelayAndTags(id: Id, relay: Relay, tags: Tags):
 
     def looksAlive =
       tags.outcome.isEmpty &&
@@ -147,7 +143,6 @@ object Chapter {
         }
 
     def looksOver = !looksAlive
-  }
 
   case class Metadata(
       _id: Id,
@@ -155,18 +150,16 @@ object Chapter {
       setup: Setup,
       outcome: Option[Option[Outcome]],
       hasRelayPath: Boolean
-  ) extends Like {
+  ) extends Like:
 
     def looksOngoing = outcome.exists(_.isEmpty) && hasRelayPath
 
     def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
-  }
 
   case class IdName(id: Id, name: Name)
 
-  case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
+  case class Ply(value: Int) extends AnyVal with Ordered[Ply]:
     def compare(that: Ply) = Integer.compare(value, that.value)
-  }
 
   def defaultName(order: Int) = Name(s"Chapter $order")
 
@@ -207,4 +200,3 @@ object Chapter {
       relay = relay,
       createdAt = DateTime.now
     )
-}

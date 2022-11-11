@@ -28,7 +28,9 @@ trait dsl:
   type Bdoc = BSONDocument
   type Barr = BSONArray
 
-  def bsonWriteOpt[A](using writer: BSONWriter[A])(a: A) = writer writeOpt a
+  def bsonWriteObjTry[A](using writer: BSONDocumentWriter[A])(a: A) = writer writeTry a
+  def bsonWriteTry[A](using writer: BSONWriter[A])(a: A)            = writer writeTry a
+  def bsonWriteOpt[A](using writer: BSONWriter[A])(a: A)            = writer writeOpt a
 
   // **********************************************************************************************//
   // Helpers

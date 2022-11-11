@@ -1,31 +1,30 @@
 package lila.study
 
-import play.api.libs.json._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.common.Future
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
+import lila.common.Iso
 
 case class StudyTopic(value: String) extends AnyVal with StringValue
 
-object StudyTopic {
+object StudyTopic:
 
   val minLength = 2
   val maxLength = 50
 
   def fromStr(str: String): Option[StudyTopic] =
-    str.trim match {
+    str.trim match
       case s if s.lengthIs >= minLength && s.lengthIs <= maxLength => StudyTopic(s).some
       case _                                                       => none
-    }
 
-  implicit val topicIso = lila.common.Iso.string[StudyTopic](StudyTopic.apply, _.value)
-}
+  given Iso.StringIso[StudyTopic] = Iso.string(StudyTopic, _.value)
 
-case class StudyTopics(value: List[StudyTopic]) extends AnyVal {
+case class StudyTopics(value: List[StudyTopic]) extends AnyVal:
 
   def diff(other: StudyTopics) =
     StudyTopics {
@@ -36,9 +35,8 @@ case class StudyTopics(value: List[StudyTopic]) extends AnyVal {
     StudyTopics {
       value.toSet.++(other.value.toSet).toList
     }
-}
 
-object StudyTopics {
+object StudyTopics:
 
   val studyMax = 30
   val userMax  = 128
@@ -53,7 +51,6 @@ object StudyTopics {
         .toList
         .distinct
     }
-}
 
 final private class StudyTopicRepo(val coll: AsyncColl)
 final private class StudyUserTopicRepo(val coll: AsyncColl)
@@ -62,9 +59,9 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  import BSONHandlers.{ StudyTopicBSONHandler, StudyTopicsBSONHandler }
+  import BSONHandlers.given
 
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }
@@ -100,14 +97,13 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   private case class TagifyTopic(value: String)
   private given Reads[TagifyTopic] = Json.reads
 
-  def userTopics(user: User, json: String): Funit = {
+  def userTopics(user: User, json: String): Funit =
     val topics =
       if (json.trim.isEmpty) StudyTopics.empty
       else
-        Json.parse(json).validate[List[TagifyTopic]] match {
+        Json.parse(json).validate[List[TagifyTopic]] match
           case JsSuccess(topics, _) => StudyTopics.fromStrs(topics.map(_.value), StudyTopics.userMax)
           case _                    => StudyTopics.empty
-        }
     userTopicRepo.coll {
       _.update.one(
         $id(user.id),
@@ -115,7 +111,6 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
         upsert = true
       )
     }.void
-  }
 
   def userTopicsAdd(userId: User.ID, topics: StudyTopics): Funit =
     topics.value.nonEmpty ?? userTopics(userId).flatMap { prev =>
@@ -158,7 +153,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   private def recomputeNow: Funit =
     studyRepo.coll {
       _.aggregateWith[Bdoc]() { framework =>
-        import framework._
+        import framework.*
         List(
           Match(
             $doc(
@@ -174,4 +169,3 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
         )
       }.headOption
     }.void
-}

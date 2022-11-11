@@ -4,9 +4,9 @@ import chess.format.FEN
 import lila.game.Game
 import lila.round.JsonView.WithFlags
 
-private object GameToRoot {
+private object GameToRoot:
 
-  def apply(game: Game, initialFen: Option[FEN], withClocks: Boolean): Node.Root = {
+  def apply(game: Game, initialFen: Option[FEN], withClocks: Boolean): Node.Root =
     val root = Node.Root.fromRoot {
       lila.round.TreeBuilder(
         game = game,
@@ -18,7 +18,6 @@ private object GameToRoot {
     endComment(game).fold(root) { comment =>
       root updateMainlineLast { _.setComment(comment) }
     }
-  }
 
   private def endComment(game: Game) =
     game.finished option {
@@ -28,4 +27,3 @@ private object GameToRoot {
       val text   = s"$result $status"
       Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
     }
-}

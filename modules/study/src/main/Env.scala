@@ -1,10 +1,10 @@
 package lila.study
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config._
+import lila.common.config.*
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
@@ -35,7 +35,7 @@ final class Env(
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
 
@@ -83,16 +83,14 @@ final class Env(
   lazy val gifExport = new GifExport(ws, appConfig.get[String]("game.gifUrl"))
 
   def cli =
-    new lila.common.Cli {
+    new lila.common.Cli:
       def process = { case "study" :: "rank" :: "reset" :: Nil =>
         api.resetAllRanks.map { count =>
           s"$count done"
         }
       }
-    }
 
   lila.common.Bus.subscribeFun("studyAnalysisProgress") {
     case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
       serverEvalMerger(analysis, complete).unit
   }
-}

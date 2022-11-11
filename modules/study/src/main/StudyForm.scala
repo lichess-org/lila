@@ -2,20 +2,21 @@ package lila.study
 
 import chess.format.FEN
 import chess.variant.Variant
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, formatter, variantFormat }
+import lila.common.Form.{ cleanNonEmptyText, formatter, given }
+import play.api.data.format.Formatter
 
-object StudyForm {
+object StudyForm:
 
-  implicit private val modeFormat =
-    formatter.stringOptionFormatter[ChapterMaker.Mode](_.key, ChapterMaker.Mode.apply)
+  private given Formatter[ChapterMaker.Mode] =
+    formatter.stringOptionFormatter(_.key, ChapterMaker.Mode.apply)
 
-  implicit private val orientationFormat =
-    formatter.stringFormatter[ChapterMaker.Orientation](_.key, ChapterMaker.Orientation.apply)
+  private given Formatter[ChapterMaker.Orientation] =
+    formatter.stringFormatter(_.key, ChapterMaker.Orientation.apply)
 
-  object importGame {
+  object importGame:
 
     lazy val form = Form(
       mapping(
@@ -35,12 +36,11 @@ object StudyForm {
         pgnStr: Option[String] = None,
         variant: Option[Variant] = None,
         asStr: Option[String] = None
-    ) {
+    ):
       def as: As =
-        asStr match {
+        asStr match
           case None | Some("study") => AsNewStudy
           case Some(studyId)        => AsChapterOf(Study.Id(studyId))
-        }
 
       def toChapterData =
         ChapterMaker.Data(
@@ -53,14 +53,12 @@ object StudyForm {
           mode = ChapterMaker.Mode.Normal,
           initial = false
         )
-    }
 
     sealed trait As
     case object AsNewStudy                    extends As
     case class AsChapterOf(studyId: Study.Id) extends As
-  }
 
-  object importPgn {
+  object importPgn:
 
     lazy val form = Form(
       mapping(
@@ -84,9 +82,9 @@ object StudyForm {
         sticky: Boolean,
         pgn: String,
         isDefaultName: Boolean
-    ) {
+    ):
 
-      def toChapterDatas = {
+      def toChapterDatas =
         val pgns = MultiPgn.split(pgn, max = 32).value
         pgns.zipWithIndex map { case (onePgn, index) =>
           ChapterMaker.Data(
@@ -100,12 +98,8 @@ object StudyForm {
             isDefaultName = index > 0 || isDefaultName
           )
         }
-      }
-    }
-  }
 
   def topicsForm = Form(single("topics" -> text))
 
   def topicsForm(topics: StudyTopics) =
     Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(",")
-}

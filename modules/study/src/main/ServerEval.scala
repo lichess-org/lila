@@ -2,25 +2,25 @@ package lila.study
 
 import chess.format.pgn.Glyphs
 import chess.format.{ Forsyth, Uci, UciCharPair }
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.security.Granter
 import lila.tree.Node.Comment
 import lila.user.{ User, UserRepo }
-import lila.{ tree => T }
+import lila.{ tree as T }
 import lila.db.dsl.bsonWriteOpt
 import reactivemongo.api.bson.BSONHandler
 
-object ServerEval {
+object ServerEval:
 
   final class Requester(
       fishnet: lila.hub.actors.Fishnet,
       chapterRepo: ChapterRepo,
       userRepo: UserRepo
-  )(using ec: scala.concurrent.ExecutionContext) {
+  )(using ec: scala.concurrent.ExecutionContext):
 
     private val onceEvery = lila.memo.OnceEvery(5 minutes)
 
@@ -55,14 +55,13 @@ object ServerEval {
           }
         }
       }
-  }
 
   final class Merger(
       sequencer: StudySequencer,
       socket: StudySocket,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
-  )(using ec: scala.concurrent.ExecutionContext) {
+  )(using ec: scala.concurrent.ExecutionContext):
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
       analysis.studyId.map(Study.Id.apply) ?? { studyId =>
@@ -80,7 +79,7 @@ object ServerEval {
                       chapterRepo.addSubTree(subTree, newParent, path)(chapter)
                     } >> {
                       import BSONHandlers.given
-                      import Node.{ BsonFields => F }
+                      import Node.{ BsonFields as F }
                       ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
                         chapterRepo
                           .setNodeValues(
@@ -138,18 +137,16 @@ object ServerEval {
       )
 
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
-      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match {
+      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match
         case (_, games, error) =>
           error foreach { logger.info(_) }
-          games.reverse match {
+          games.reverse match
             case Nil => none
             case (g, m) :: rest =>
               rest
                 .foldLeft[Node](makeBranch(g, m)) { case (node, (g, m)) =>
                   makeBranch(g, m) addChild node
                 } some
-          }
-      }
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Node(
@@ -163,7 +160,6 @@ object ServerEval {
         children = Node.emptyChildren,
         forceVariation = false
       )
-  }
 
   case class Progress(chapterId: Chapter.Id, tree: T.Root, analysis: JsObject, division: chess.Division)
 
@@ -172,4 +168,3 @@ object ServerEval {
       lila.game.Game.StartedAt(chapter.root.color, chapter.root.ply),
       analysis
     )
-}

@@ -9,7 +9,7 @@ final private class StudyMaker(
     gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker,
     pgnDump: lila.game.PgnDump
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
@@ -27,7 +27,7 @@ final private class StudyMaker(
       sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
     }
 
-  private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] = {
+  private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
     chapterMaker.fromFenOrPgnOrBlank(
       study,
@@ -46,7 +46,6 @@ final private class StudyMaker(
     ) map { chapter =>
       Study.WithChapter(study withChapter chapter, chapter)
     }
-  }
 
   private def createFromPov(
       data: StudyMaker.ImportGame,
@@ -76,15 +75,13 @@ final private class StudyMaker(
         gamebook = false,
         conceal = None
       )
-    } yield {
+    } yield
       Study.WithChapter(study withChapter chapter, chapter)
-    }
   } addEffect { swc =>
     chapterMaker.notifyChat(swc.study, pov.game, user.id)
   }
-}
 
-object StudyMaker {
+object StudyMaker:
 
   case class ImportGame(
       form: StudyForm.importGame.Data = StudyForm.importGame.Data(),
@@ -93,4 +90,3 @@ object StudyMaker {
       settings: Option[Settings] = None,
       from: Option[Study.From] = None
   )
-}

@@ -19,9 +19,9 @@ case class Study(
     topics: Option[StudyTopics] = None,
     createdAt: DateTime,
     updatedAt: DateTime
-) {
+):
 
-  import Study._
+  import Study.*
 
   def id = _id
 
@@ -51,7 +51,7 @@ case class Study(
 
   def isOld = (nowSeconds - updatedAt.getSeconds) > 20 * 60
 
-  def cloneFor(user: User): Study = {
+  def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     copy(
       _id = Study.makeId,
@@ -63,7 +63,6 @@ case class Study(
       createdAt = DateTime.now,
       updatedAt = DateTime.now
     )
-  }
 
   def nbMembers = members.members.size
 
@@ -77,9 +76,8 @@ case class Study(
     copy(
       topics = topics.fold(ts)(_ ++ ts).some
     )
-}
 
-object Study {
+object Study:
 
   val maxChapters = 64
 
@@ -92,30 +90,27 @@ object Study {
   case class Name(value: String) extends AnyVal with StringValue
   given Iso.StringIso[Name] = Iso.string(Name, _.value)
 
-  case class IdName(_id: Id, name: Name) {
+  case class IdName(_id: Id, name: Name):
     def id = _id
-  }
 
   def toName(str: String) = Name(lila.common.String.fullCleanUp(str) take 100)
 
-  sealed trait Visibility {
+  sealed trait Visibility:
     lazy val key = Visibility.this.toString.toLowerCase
-  }
-  object Visibility {
+  object Visibility:
     case object Private  extends Visibility
     case object Unlisted extends Visibility
     case object Public   extends Visibility
     val byKey = List(Private, Unlisted, Public).map { v =>
       v.key -> v
     }.toMap
-  }
 
   case class Likes(value: Int) extends AnyVal
   case class Liking(likes: Likes, me: Boolean)
   val emptyLiking = Liking(Likes(0), me = false)
 
   case class Rank(value: DateTime) extends AnyVal
-  object Rank {
+  object Rank:
     def compute(likes: Likes, createdAt: DateTime) =
       Rank {
         createdAt plusHours likesToHours(likes)
@@ -123,15 +118,13 @@ object Study {
     private def likesToHours(likes: Likes): Int =
       if (likes.value < 1) 0
       else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
-  }
 
   sealed trait From
-  object From {
+  object From:
     case object Scratch                      extends From
     case class Game(id: String)              extends From
     case class Study(id: Id)                 extends From
     case class Relay(clonedFrom: Option[Id]) extends From
-  }
 
   case class Data(
       name: String,
@@ -143,11 +136,10 @@ object Study {
       chat: Settings.UserSelection,
       sticky: String,
       description: String
-  ) {
+  ):
     def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
     def settings =
       Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
-  }
 
   case class WithChapter(study: Study, chapter: Chapter)
 
@@ -171,7 +163,7 @@ object Study {
       id: Option[Study.Id] = None,
       name: Option[Name] = None,
       settings: Option[Settings] = None
-  ) = {
+  ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
       _id = id | makeId,
@@ -186,5 +178,3 @@ object Study {
       createdAt = DateTime.now,
       updatedAt = DateTime.now
     )
-  }
-}

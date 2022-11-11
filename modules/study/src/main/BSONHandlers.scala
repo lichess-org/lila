@@ -5,7 +5,7 @@ import chess.format.{ FEN, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Color, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import scala.util.Success
 
 import lila.common.Iso
@@ -17,7 +17,7 @@ import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 import chess.Outcome
 
-object BSONHandlers {
+object BSONHandlers:
 
   import Study.given
   import Chapter.given
@@ -36,17 +36,15 @@ object BSONHandlers {
   )
 
   given BSON[Shape] with
-    def reads(r: Reader) = {
+    def reads(r: Reader) =
       val brush = r str "b"
       r.getO[Pos]("p") map { pos =>
         Shape.Circle(brush, pos)
       } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
-    }
     def writes(w: Writer, t: Shape) =
-      t match {
+      t match
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
-      }
 
   given chessRoleHandler: BSONHandler[PromotableRole] = tryHandler[PromotableRole](
     { case BSONString(v) => v.headOption flatMap Role.allPromotableByForsyth.get toTry s"No such role: $v" },
@@ -127,7 +125,7 @@ object BSONHandlers {
         "b" -> w.strO(writePocket(s.pockets.black))
       )
 
-  given BSONHandler[Glyphs] = {
+  given BSONHandler[Glyphs] =
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
       { case arr: Barr =>
@@ -137,9 +135,8 @@ object BSONHandlers {
       },
       x => BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
     )
-  }
 
-  given BSONHandler[Score] = {
+  given BSONHandler[Score] =
     val mateFactor = 1000000
     BSONIntegerHandler.as[Score](
       v =>
@@ -152,10 +149,9 @@ object BSONHandlers {
         mate => mate.value * mateFactor
       )
     )
-  }
 
-  def readNode(doc: Bdoc, id: UciCharPair): Option[Node] = {
-    import Node.{ BsonFields => F }
+  def readNode(doc: Bdoc, id: UciCharPair): Option[Node] =
+    import Node.{ BsonFields as F }
     for {
       ply <- doc.getAsOpt[Int](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
@@ -186,10 +182,9 @@ object BSONHandlers {
       Node.emptyChildren,
       forceVariation
     )
-  }
 
-  def writeNode(n: Node) = {
-    import Node.BsonFields._
+  def writeNode(n: Node) =
+    import Node.BsonFields.*
     val w = new Writer
     $doc(
       ply            -> n.ply,
@@ -209,12 +204,11 @@ object BSONHandlers {
         (n.children.nodes.sizeIs > 1) option n.children.nodes.map(_.id)
       }
     )
-  }
 
   import Node.Root
   private[study] given BSON[Root] with
-    import Node.BsonFields._
-    def reads(fullReader: Reader) = {
+    import Node.BsonFields.*
+    def reads(fullReader: Reader) =
       val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
       val r        = new Reader(rootNode)
       Root(
@@ -230,7 +224,6 @@ object BSONHandlers {
         crazyData = r.getO[Crazyhouse.Data](crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
-    }
     def writes(w: Writer, r: Root) = $doc(
       StudyFlatTree.writer.rootChildren(r) appended {
         Path.rootDbKey -> $doc(
@@ -278,7 +271,7 @@ object BSONHandlers {
     { case BSONString(v) => StudyMember.Role.byId get v toTry s"Invalid role $v" },
     x => BSONString(x.id)
   )
-  private[study] case class DbMember(role: StudyMember.Role) extends AnyVal
+  private[study] case class DbMember(role: StudyMember.Role)
   private[study] given dbMemberHandler: BSONDocumentHandler[DbMember] = Macros.handler
   private[study] given BSONDocumentWriter[StudyMember] with
     def writeTry(x: StudyMember) = Success($doc("role" -> x.role))
@@ -364,4 +357,3 @@ object BSONHandlers {
         }
       hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
     } yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)
-}
