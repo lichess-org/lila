@@ -27,7 +27,7 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.1.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.84.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.85.Final" classifier s"$os-$arch"
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"         % "0.14.0"
