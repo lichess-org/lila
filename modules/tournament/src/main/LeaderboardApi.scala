@@ -1,7 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerPage
@@ -15,9 +15,9 @@ import lila.user.User
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import LeaderboardApi._
+  import LeaderboardApi.*
   import BSONHandlers.given
 
   private val maxPerPage = MaxPerPage(15)
@@ -36,21 +36,21 @@ final class LeaderboardApi(
       )
       .sort($sort desc "d")
       .cursor[Entry]()
-      .list()
+      .list(100)
 
-  def chart(user: User): Fu[ChartData] = {
+  def chart(user: User): Fu[ChartData] =
     repo.coll
       .aggregateList(
         maxDocs = Int.MaxValue,
         ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         Match($doc("u" -> user.id)) -> List(
           GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
         )
       }
       .map {
-        _ flatMap leaderboardAggregationResultBSONHandler.readOpt
+        _ flatMap leaderboardAggResult.readOpt
       }
       .map { aggs =>
         ChartData {
@@ -67,7 +67,6 @@ final class LeaderboardApi(
             .sortLike(PerfType.leaderboardable, _._1)
         }
       }
-  }
 
   def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
     repo.coll.list[Entry](
@@ -89,7 +88,7 @@ final class LeaderboardApi(
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match(selector) -> List(
                 Sort(if (sortBest) Ascending("w") else Descending("d")),
                 Skip(offset),
@@ -114,17 +113,15 @@ final class LeaderboardApi(
             }
       }
     )
-}
 
-object LeaderboardApi {
+object LeaderboardApi:
 
   private val rankRatioMultiplier = 100 * 1000
 
   case class TourEntry(tour: Tournament, entry: Entry)
 
-  case class Ratio(value: Double) extends AnyVal {
+  case class Ratio(value: Double) extends AnyVal:
     def percent = (value * 100).toInt atLeast 1
-  }
 
   case class Entry(
       id: String, // same as tournament player id
@@ -140,9 +137,9 @@ object LeaderboardApi {
       date: DateTime
   )
 
-  case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]) {
-    import ChartData._
-    lazy val allPerfResults: PerfResult = perfResults.map(_._2) match {
+  case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]):
+    import ChartData.*
+    lazy val allPerfResults: PerfResult = perfResults.map(_._2) match
       case head :: tail =>
         tail.foldLeft(head) { case (acc, res) =>
           PerfResult(
@@ -152,24 +149,18 @@ object LeaderboardApi {
           )
         }
       case Nil => PerfResult(0, Ints(Nil), Ints(Nil))
-    }
-  }
 
-  object ChartData {
+  object ChartData:
 
-    case class Ints(v: List[Int]) {
+    case class Ints(v: List[Int]):
       def mean         = Maths.mean(v)
       def median       = Maths.median(v)
       def sum          = v.sum
       def :::(i: Ints) = Ints(v ::: i.v)
-    }
 
-    case class PerfResult(nb: Int, points: Ints, rank: Ints) {
+    case class PerfResult(nb: Int, points: Ints, rank: Ints):
       private def rankPercent(n: Double) = (n * 100 / rankRatioMultiplier).toInt
       def rankPercentMean                = rank.mean map rankPercent
       def rankPercentMedian              = rank.median map rankPercent
-    }
 
     case class AggregationResult(_id: Int, nb: Int, points: List[Int], ratios: List[Int])
-  }
-}

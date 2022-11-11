@@ -1,6 +1,6 @@
 package lila.tournament
 
-import play.api.data._
+import play.api.data.*
 
 import lila.hub.LightTeam.TeamID
 import lila.user.User
@@ -8,14 +8,13 @@ import lila.user.User
 case class TeamBattle(
     teams: Set[TeamID],
     nbLeaders: Int
-) {
+):
   def hasEnoughTeams     = teams.sizeIs > 1
   lazy val sortedTeamIds = teams.toList.sorted
 
   def hasTooManyTeams = teams.sizeIs > TeamBattle.displayTeams
-}
 
-object TeamBattle {
+object TeamBattle:
 
   val maxTeams     = 200
   val displayTeams = 10
@@ -31,21 +30,18 @@ object TeamBattle {
       val teamId: TeamID,
       val leaders: List[TeamLeader],
       val score: Int
-  ) extends Ordered[RankedTeam] {
+  ) extends Ordered[RankedTeam]:
     private def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
     def this(rank: Int, teamId: TeamID, leaders: List[TeamLeader]) =
       this(rank, teamId, leaders, leaders.foldLeft(0)(_ + _.score))
     def updateRank(newRank: Int) = new RankedTeam(newRank, teamId, leaders, score)
-    override def compare(that: RankedTeam) = {
+    override def compare(that: RankedTeam) =
       if (this.score > that.score) -1
       else if (this.score < that.score) 1
       else that.magicScore - this.magicScore
-    }
-  }
 
-  case class TeamLeader(userId: User.ID, magicScore: Int) {
+  case class TeamLeader(userId: User.ID, magicScore: Int):
     def score: Int = magicScore / 10000
-  }
 
   case class TeamInfo(
       teamId: TeamID,
@@ -56,13 +52,13 @@ object TeamBattle {
       topPlayers: List[Player]
   )
 
-  object DataForm {
-    import play.api.data.Forms._
+  object DataForm:
+    import play.api.data.Forms.*
 
     val fields = mapping(
       "teams"     -> nonEmptyText,
       "nbLeaders" -> number(min = 1, max = 20)
-    )(Setup.apply)(unapply)
+    )(Setup.apply)(lila.common.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.sizeIs > 1)
       .verifying(
         s"In this version of team battles, no more than $maxTeams teams can be allowed.",
@@ -78,15 +74,11 @@ object TeamBattle {
     case class Setup(
         teams: String,
         nbLeaders: Int
-    ) {
+    ):
       // guess if newline or comma separated
-      def potentialTeamIds: Set[TeamID] = {
+      def potentialTeamIds: Set[TeamID] =
         val lines = teams.linesIterator.toList
         val dirtyIds =
           if (lines.sizeIs > 1) lines.map(_.takeWhile(' ' !=))
           else lines.headOption.??(_.split(',').toList)
         dirtyIds.map(_.trim).filter(_.nonEmpty).toSet
-      }
-    }
-  }
-}

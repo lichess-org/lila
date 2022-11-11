@@ -3,7 +3,7 @@ package crud
 
 import BSONHandlers.given
 import org.joda.time.DateTime
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 
-final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm) {
+final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
   def list = tournamentRepo uniques 50
 
@@ -43,10 +43,9 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm) {
 
   def createForm = crudForm(none)
 
-  def create(data: CrudForm.Data, owner: User): Fu[Tournament] = {
+  def create(data: CrudForm.Data, owner: User): Fu[Tournament] =
     val tour = updateTour(empty, data).copy(id = data.id, createdBy = owner.id)
     tournamentRepo insert tour inject tour
-  }
 
   def clone(old: Tournament) =
     old.copy(
@@ -85,8 +84,8 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm) {
       hasChat = true
     )
 
-  private def updateTour(tour: Tournament, data: CrudForm.Data) = {
-    import data._
+  private def updateTour(tour: Tournament, data: CrudForm.Data) =
+    import data.*
     val clock = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
     tour.copy(
       name = name,
@@ -118,5 +117,3 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm) {
         data.conditions.convert(tour.perfType, Map.empty)
       ) // the CRUD form doesn't support team restrictions so Map.empty is fine
     }
-  }
-}

@@ -1,15 +1,15 @@
 package lila.tournament
 
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
 
-final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.ExecutionContext) {
+final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.ExecutionContext):
 
-  import JsonView._
+  import JsonView.*
   import Condition.JSONHandlers.given
 
   def apply(tournaments: VisibleTournaments)(implicit lang: Lang): Fu[JsObject] =
@@ -89,7 +89,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.E
     )
 
   private val perfPositions: Map[PerfType, Int] = {
-    import PerfType._
+    import PerfType.*
     List(Bullet, Blitz, Rapid, Classical, UltraBullet) ::: variants
   }.zipWithIndex.toMap
 
@@ -98,7 +98,6 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using ec: scala.concurrent.E
       .obj(
         "key"      -> p.key,
         "name"     -> p.trans,
-        "position" -> ~perfPositions.get(p)
+        "position" -> { ~perfPositions.get(p): Int }
       )
       .add("icon" -> mobileBcIcons.get(p)) // mobile BC only
-}

@@ -1,11 +1,11 @@
 package lila.tournament
 
-import chess.Clock.{ Config => ClockConfig }
+import chess.Clock.{ Config as ClockConfig }
 import chess.format.FEN
 import chess.{ Mode, Speed }
 import org.joda.time.{ DateTime, Duration, Interval }
 import play.api.i18n.Lang
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.common.GreatPlayer
 import lila.common.ThreadLocalRandom
@@ -37,7 +37,7 @@ case class Tournament(
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
-) {
+):
 
   def isCreated   = status == Status.Created
   def isStarted   = status == Status.Started
@@ -48,12 +48,11 @@ case class Tournament(
 
   def isTeamBattle = teamBattle.isDefined
 
-  def name(full: Boolean = true)(implicit lang: Lang): String = {
+  def name(full: Boolean = true)(implicit lang: Lang): String =
     if (isMarathon || isUnique) name
     else if (isTeamBattle && full) lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
     else if (isTeamBattle) name
     else schedule.fold(if (full) s"$name Arena" else name)(_.name(full))
-  }
 
   def isMarathon =
     schedule.map(_.freq) exists {
@@ -101,10 +100,9 @@ case class Tournament(
   def overlaps(other: Tournament) = interval overlaps other.interval
 
   def similarTo(other: Tournament) =
-    (schedule, other.schedule) match {
+    (schedule, other.schedule) match
       case (Some(s1), Some(s2)) if s1 similarTo s2 => true
       case _                                       => false
-    }
 
   def speed = Speed(clock)
 
@@ -143,11 +141,10 @@ case class Tournament(
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
   override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
-}
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
-object Tournament {
+object Tournament:
 
   type ID = String
 
@@ -220,15 +217,12 @@ object Tournament {
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 
-  sealed abstract class JoinResult(val error: Option[String]) {
+  sealed abstract class JoinResult(val error: Option[String]):
     def ok = error.isEmpty
-  }
-  object JoinResult {
+  object JoinResult:
     case object Ok             extends JoinResult(none)
     case object WrongEntryCode extends JoinResult("Wrong entry code".some)
     case object Paused         extends JoinResult("Your pause is not over yet".some)
     case object Verdicts       extends JoinResult("Tournament restrictions".some)
     case object MissingTeam    extends JoinResult("Missing team".some)
     case object Nope           extends JoinResult("Couldn't join for some reason?".some)
-  }
-}

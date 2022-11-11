@@ -1,20 +1,20 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import reactivemongo.api.ReadPreference
 
 import chess.variant.Variant
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Revolution._
+  import Revolution.*
   import BSONHandlers.given
 
   def active(u: User): Fu[List[Award]] = cache.getUnit dmap { ~_.get(u.id) }
@@ -27,15 +27,15 @@ final class RevolutionApi(
         tournamentRepo.coll
           .find(
             $doc(
-              "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Unique).get,
+              "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
               "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
               "name" $regex Revolution.namePattern,
-              "status" -> statusBSONHandler.writeTry(Status.Finished).get
+              "status" -> (Status.Finished: Status)
             ),
             $doc("winner" -> true, "variant" -> true).some
           )
           .cursor[Bdoc](ReadPreference.secondaryPreferred)
-          .list() map { docOpt =>
+          .list(300) map { docOpt =>
           val awards =
             for {
               doc     <- docOpt
@@ -51,9 +51,8 @@ final class RevolutionApi(
         }
       }
   }
-}
 
-object Revolution {
+object Revolution:
 
   val namePattern = """ Revolution #\d+$"""
   val nameRegex   = namePattern.r
@@ -64,9 +63,7 @@ object Revolution {
       owner: User.ID,
       variant: Variant,
       tourId: Tournament.ID
-  ) {
+  ):
     val iconChar = lila.rating.PerfType iconByVariant variant
-  }
 
   type PerOwner = Map[User.ID, List[Award]]
-}

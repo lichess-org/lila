@@ -1,11 +1,11 @@
 package lila.tournament
 
-import akka.stream.scaladsl._
-import com.softwaremill.tagging._
+import akka.stream.scaladsl.*
+import com.softwaremill.tagging.*
 import io.lettuce.core.RedisClient
-import play.api.libs.json._
+import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ LilaScheduler, LilaStream }
@@ -23,7 +23,7 @@ final class TournamentLilaHttp(
     pause: Pause,
     lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
-)(implicit mat: akka.stream.Materializer, scheduler: akka.actor.Scheduler, ec: ExecutionContext) {
+)(implicit mat: akka.stream.Materializer, scheduler: akka.actor.Scheduler, ec: ExecutionContext):
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
   def handledIds                = isOnLilaHttp.keys
@@ -84,9 +84,11 @@ final class TournamentLilaHttp(
   } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
       "id" -> tour.id,
-      "ongoingUserGames" -> duelStore
-        .get(tour.id)
-        .?? { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") },
+      "ongoingUserGames" -> {
+        duelStore
+          .get(tour.id)
+          .?? { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") }: String
+      },
       "standing" -> fullStanding
     )
     .add("noStreak" -> tour.noStreak)
@@ -96,7 +98,7 @@ final class TournamentLilaHttp(
       sheet: arena.Sheet,
       rankedPlayer: RankedPlayer,
       streakable: Boolean
-  )(using ec: ExecutionContext): Fu[JsObject] = {
+  )(using ec: ExecutionContext): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi async p.userId map { light =>
       Json
@@ -115,5 +117,3 @@ final class TournamentLilaHttp(
           p.withdraw ?? pause.remainingDelay(p.userId, tour).map(_.seconds)
         })
     }
-  }
-}

@@ -1,11 +1,11 @@
 package lila.tournament
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.user.User
 
 /*
@@ -22,7 +22,7 @@ final class TournamentStandingApi(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   private val perPage = 10
 
@@ -47,12 +47,11 @@ final class TournamentStandingApi(
       .run()
       .map(JsArray(_))
 
-  def apply(tour: Tournament, forPage: Int, withScores: Boolean): Fu[JsObject] = {
+  def apply(tour: Tournament, forPage: Int, withScores: Boolean): Fu[JsObject] =
     val page = forPage atMost Math.ceil(tour.nbPlayers.toDouble / perPage).toInt atLeast 1
     if (page == 1) first get tour.id
     else if (page > 50 && tour.isCreated) createdCache.get(tour.id -> page)
     else compute(tour, page, withScores)
-  }
 
   private val first = cacheApi[Tournament.ID, JsObject](64, "tournament.page.first") {
     _.expireAfterWrite(1 second)
@@ -67,10 +66,9 @@ final class TournamentStandingApi(
       }
   }
 
-  def clearCache(tour: Tournament): Unit = {
+  def clearCache(tour: Tournament): Unit =
     first invalidate tour.id
     // no need to invalidate createdCache, these are only cached when tour.isCreated
-  }
 
   private def compute(id: Tournament.ID, page: Int, withScores: Boolean): Fu[JsObject] =
     cached.tourCache.byId(id) orFail s"No such tournament: $id" flatMap { compute(_, page, withScores) }
@@ -82,10 +80,9 @@ final class TournamentStandingApi(
 
   private def compute(tour: Tournament, page: Int, withScores: Boolean): Fu[JsObject] =
     for {
-      rankedPlayers <- {
+      rankedPlayers <-
         if (page < 10) playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
         else playerIdsOnPage(tour, page) flatMap { playerRepo.byPlayerIdsOnPage(tour.id, _, page) }
-      }
       sheets <- rankedPlayers
         .map { p =>
           cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }
@@ -99,4 +96,3 @@ final class TournamentStandingApi(
       "page"    -> page,
       "players" -> players
     )
-}

@@ -1,9 +1,9 @@
 package lila.tournament
 
 import chess.{ Black, Color, White }
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.game.{ Game, GameRepo, Player => GamePlayer, Source }
+import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
 import lila.user.User
 
 final class AutoPairing(
@@ -11,9 +11,9 @@ final class AutoPairing(
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
     onStart: Game.ID => Unit
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] = {
+  def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
     val clock = tour.clock.toClock
     val game = Game
       .make(
@@ -45,11 +45,9 @@ final class AutoPairing(
         ranking = ranking
       )
     } inject game
-  }
 
   private def makePlayer(color: Color, player: Player) =
     GamePlayer.make(color, player.userId, player.rating, player.provisional)
 
   private def usernameOf(userId: User.ID) =
     lightUserApi.sync(userId).fold(userId)(_.name)
-}

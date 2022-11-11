@@ -2,7 +2,7 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl.{ *, given }
@@ -21,7 +21,7 @@ case class FreqWinners(
     monthly: Option[Winner],
     weekly: Option[Winner],
     daily: Option[Winner]
-) {
+):
 
   lazy val top: Option[Winner] =
     daily.filter(_.date isAfter DateTime.now.minusHours(2)) orElse
@@ -30,7 +30,6 @@ case class FreqWinners(
       yearly orElse monthly orElse weekly orElse daily
 
   def userIds = List(yearly, monthly, weekly, daily).flatten.map(_.userId)
-}
 
 case class AllWinners(
     hyperbullet: FreqWinners,
@@ -41,7 +40,7 @@ case class AllWinners(
     elite: List[Winner],
     marathon: List[Winner],
     variants: Map[String, FreqWinners]
-) {
+):
 
   lazy val top: List[Winner] = List(
     List(hyperbullet, bullet, superblitz, blitz, rapid).flatMap(_.top),
@@ -55,18 +54,18 @@ case class AllWinners(
     List(hyperbullet, bullet, superblitz, blitz, rapid).flatMap(_.userIds) :::
       elite.map(_.userId) ::: marathon.map(_.userId) :::
       variants.values.toList.flatMap(_.userIds)
-}
 
 final class WinnersApi(
     tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Api,
     scheduler: akka.actor.Scheduler
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
-  implicit private val WinnerHandler      = reactivemongo.api.bson.Macros.handler[Winner]
-  implicit private val FreqWinnersHandler = reactivemongo.api.bson.Macros.handler[FreqWinners]
-  implicit private val AllWinnersHandler  = reactivemongo.api.bson.Macros.handler[AllWinners]
+  import reactivemongo.api.bson.*
+  private given BSONDocumentHandler[Winner]      = Macros.handler
+  private given BSONDocumentHandler[FreqWinners] = Macros.handler
+  private given BSONDocumentHandler[AllWinners]  = Macros.handler
 
   private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] =
     tournamentRepo.coll
@@ -99,7 +98,7 @@ final class WinnersApi(
       dailies   <- fetchLastFreq(Freq.Daily, DateTime.now.minusDays(2))
       elites    <- fetchLastFreq(Freq.Weekend, DateTime.now.minusWeeks(3))
       marathons <- fetchLastFreq(Freq.Marathon, DateTime.now.minusMonths(13))
-    } yield {
+    } yield
       def standardFreqWinners(speed: Speed): FreqWinners =
         FreqWinners(
           yearly = firstStandardWinner(yearlies, speed),
@@ -124,7 +123,6 @@ final class WinnersApi(
           )
         }.toMap
       )
-    }
 
   private val allCache = mongoCache.unit[AllWinners](
     "tournament:winner:all",
@@ -144,12 +142,10 @@ final class WinnersApi(
   private[tournament] def clearAfterMarking(userId: User.ID): Funit = all map { winners =>
     if (winners.userIds contains userId) allCache.invalidate {}.unit
   }
-}
 
-object WinnersApi {
+object WinnersApi:
 
   val variants = Variant.all.filter {
     case Standard | FromPosition => false
     case _                       => true
   }
-}

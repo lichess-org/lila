@@ -1,14 +1,14 @@
 package lila.tournament
 
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
-import io.methvin.play.autoconfig._
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
@@ -46,7 +46,7 @@ final class Env(
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[TournamentConfig]("tournament")(AutoConfig.loader)
 
@@ -144,8 +144,8 @@ final class Env(
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
 
   def cli =
-    new lila.common.Cli {
-      def process = {
+    new lila.common.Cli:
+      def process =
         // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
@@ -154,9 +154,6 @@ final class Env(
           api.toggleFeaturing(id, false) inject "Done!"
         case "tournament" :: "recompute" :: id :: Nil =>
           api.recomputeEntireTournament(id) inject "Done!"
-      }
-    }
-}
 
 trait TournamentReloadDelay
 trait TournamentReloadEndpoint

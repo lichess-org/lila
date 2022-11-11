@@ -2,18 +2,18 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import TournamentShield._
+  import TournamentShield.*
   import BSONHandlers.given
 
   def active(u: User): Fu[List[Award]] =
@@ -45,7 +45,7 @@ final class TournamentShieldApi(
   private[tournament] def clear(): Unit = cache.invalidateUnit().unit
 
   private[tournament] def clearAfterMarking(userId: User.ID): Funit = cache.getUnit map { hist =>
-    import cats.implicits._
+    import cats.implicits.*
     if (hist.value.exists(_._2.exists(_.owner.value === userId))) clear()
   }
 
@@ -55,13 +55,13 @@ final class TournamentShieldApi(
         tournamentRepo.coll
           .find(
             $doc(
-              "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
-              "status"        -> statusBSONHandler.writeTry(Status.Finished).get
+              "schedule.freq" -> (Schedule.Freq.Shield: Schedule.Freq),
+              "status"        -> (Status.Finished: Status)
             )
           )
           .sort($sort asc "startsAt")
           .cursor[Tournament](ReadPreference.secondaryPreferred)
-          .list() map { tours =>
+          .list(100) map { tours =>
           for {
             tour   <- tours
             categ  <- Category of tour
@@ -79,9 +79,8 @@ final class TournamentShieldApi(
         } dmap History.apply
       }
   }
-}
 
-object TournamentShield {
+object TournamentShield:
 
   case class OwnerId(value: String) extends AnyVal
 
@@ -92,7 +91,7 @@ object TournamentShield {
       tourId: Tournament.ID
   )
   // newer entry first
-  case class History(value: Map[Category, List[Award]]) {
+  case class History(value: Map[Category, List[Award]]):
 
     def sorted: List[(Category, List[Award])] =
       Category.all map { categ =>
@@ -107,14 +106,13 @@ object TournamentShield {
       copy(
         value = value.view.mapValues(_ take max).toMap
       )
-  }
 
   private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
 
   sealed abstract class Category(
       val of: SpeedOrVariant,
       val iconChar: Char
-  ) {
+  ):
     def key  = of.fold(_.key, _.key)
     def name = of.fold(_.name, _.name)
     def matches(tour: Tournament) =
@@ -123,9 +121,8 @@ object TournamentShield {
         categSpeed <- of.left.toOption
       } yield tourSpeed == categSpeed)
       else of.toOption.has(tour.variant)
-  }
 
-  object Category {
+  object Category:
 
     case object UltraBullet
         extends Category(
@@ -238,7 +235,6 @@ object TournamentShield {
     def of(t: Tournament): Option[Category] = all.find(_ matches t)
 
     def byKey(k: String): Option[Category] = all.find(_.key == k)
-  }
 
   def spotlight(name: String) =
     Spotlight(
@@ -250,4 +246,3 @@ The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""",
       homepageHours = 6.some
     )
-}

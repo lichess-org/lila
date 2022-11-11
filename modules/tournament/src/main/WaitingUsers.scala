@@ -1,8 +1,8 @@
 package lila.tournament
 
-import chess.Clock.{ Config => TournamentClock }
+import chess.Clock.{ Config as TournamentClock }
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.memo.ExpireSetMemo
@@ -13,7 +13,7 @@ private case class WaitingUsers(
     apiUsers: Option[ExpireSetMemo],
     clock: TournamentClock,
     date: DateTime
-) {
+):
 
   // ultrabullet -> 8
   // hyperbullet -> 10
@@ -32,10 +32,9 @@ private case class WaitingUsers(
   def isOdd = size % 2 == 1
 
   // skips the most recent user if odd
-  def evenNumber: Set[User.ID] = {
+  def evenNumber: Set[User.ID] =
     if (isOdd) all - hash.maxBy(_._2.getMillis)._1
     else all
-  }
 
   lazy val haveWaitedEnough: Boolean =
     size > 100 || {
@@ -44,7 +43,7 @@ private case class WaitingUsers(
       nbConnectedLongEnoughUsers > 1
     }
 
-  def update(fromWebSocket: Set[User.ID]) = {
+  def update(fromWebSocket: Set[User.ID]) =
     val newDate      = DateTime.now
     val withApiUsers = fromWebSocket ++ apiUsers.??(_.keySet)
     copy(
@@ -54,23 +53,19 @@ private case class WaitingUsers(
           withApiUsers.filterNot(hash.contains).map { _ -> newDate }
       }.toMap
     )
-  }
 
   def hasUser(userId: User.ID) = hash contains userId
 
-  def addApiUser(userId: User.ID) = {
+  def addApiUser(userId: User.ID) =
     val memo = apiUsers | new ExpireSetMemo(70 seconds)
     memo put userId
     if (apiUsers.isEmpty) copy(apiUsers = memo.some) else this
-  }
 
-  def removePairedUsers(us: Set[User.ID]) = {
+  def removePairedUsers(us: Set[User.ID]) =
     apiUsers.foreach(_ removeAll us)
     copy(hash = hash -- us)
-  }
-}
 
-final private class WaitingUsersApi {
+final private class WaitingUsersApi:
 
   private val store = new java.util.concurrent.ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
@@ -114,8 +109,6 @@ final private class WaitingUsersApi {
           )
         )
     )
-}
 
-private object WaitingUsers {
+private object WaitingUsers:
   case class WithNext(waiting: WaitingUsers, next: Option[Promise[WaitingUsers]])
-}

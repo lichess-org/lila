@@ -13,7 +13,7 @@ import lila.user.User
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
   import BSONHandlers.given
 
   private val enterableSelect                  = $doc("status" $lt Status.Finished.id)
@@ -101,7 +101,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   private[tournament] def upcomingAdapterExpensiveCacheMe(userId: User.ID, max: Int) =
     coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
+        import framework.*
         Match(enterableSelect ++ nonEmptySelect) -> List(
           PipelineOperator(lookupPlayer(userId, $doc("tid" -> true, "_id" -> false).some)),
           Match("player" $ne $arr()),
@@ -161,7 +161,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   ): Fu[List[Tournament.ID]] =
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
+        import framework.*
         Match(enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect)) -> List(
           PipelineOperator(lookupPlayer(userId, none)),
           Match("player" $ne $arr()),
@@ -234,15 +234,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   private def canShowOnHomepage(tour: Tournament): Boolean =
     tour.schedule exists { schedule =>
       tour.startsAt isBefore DateTime.now.plusMinutes {
-        import Schedule.Freq._
-        val base = schedule.freq match {
-          case Unique                     => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60 *)
+        import Schedule.Freq.*
+        val base = schedule.freq match
+          case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)((_: Int) * 60)
           case Unique | Yearly | Marathon => 24 * 60
           case Monthly | Shield           => 6 * 60
           case Weekly | Weekend           => 3 * 60
           case Daily                      => 1 * 60
           case _                          => 30
-        }
         if (tour.variant.exotic && schedule.freq != Unique) base / 3 else base
       }
     }
@@ -273,14 +272,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       .find(scheduledSelect ++ unfinishedSelect)
       .sort($doc("startsAt" -> 1))
       .cursor[Tournament]()
-      .list()
+      .listAll()
 
   def allScheduledDedup: Fu[List[Tournament]] =
     coll
       .find(createdSelect ++ scheduledSelect)
       .sort($doc("startsAt" -> 1))
       .cursor[Tournament]()
-      .list() map {
+      .listAll() map {
       _.flatMap { tour =>
         tour.schedule map (tour -> _)
       }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
@@ -322,7 +321,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def update(tour: Tournament) =
     coll.update.one(
       $id(tour.id),
-      $set(tournamentHandler.write(tour)) ++ $unset(
+      $set(tourHandler.write(tour)) ++ $unset(
         List(
           // tour.conditions.titled.isEmpty option "conditions.titled",
           tour.isRated option "mode",
@@ -338,10 +337,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
     )
 
   def setSchedule(tourId: Tournament.ID, schedule: Option[Schedule]) =
-    schedule match {
+    schedule match
       case None    => coll.unsetField($id(tourId), "schedule").void
       case Some(s) => coll.updateField($id(tourId), "schedule", s).void
-    }
 
   def insert(tour: Tournament) = coll.insert.one(tour)
 
@@ -360,7 +358,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       )
       .sort($sort asc "startsAt")
       .cursor[Tournament](ReadPreference.secondaryPreferred)
-      .list()
+      .list(500)
 
   private[tournament] def sortedCursor(
       owner: lila.user.User,
@@ -373,4 +371,3 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       .sort($sort desc "startsAt")
       .batchSize(batchSize)
       .cursor[Tournament](readPreference)
-}

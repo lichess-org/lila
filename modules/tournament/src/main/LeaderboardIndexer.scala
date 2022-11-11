@@ -1,9 +1,9 @@
 package lila.tournament
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api._
-import reactivemongo.api.bson._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 
@@ -14,9 +14,9 @@ final private class LeaderboardIndexer(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
-  import LeaderboardApi._
+  import LeaderboardApi.*
   import BSONHandlers.given
 
   // def generateAll: Funit =
@@ -41,11 +41,7 @@ final private class LeaderboardIndexer(
       generateTourEntries(tour) flatMap saveEntries
 
   private def saveEntries(entries: Seq[Entry]): Funit =
-    entries.nonEmpty ?? leaderboardRepo.coll.insert
-      .many(
-        entries.flatMap(BSONHandlers.leaderboardEntryHandler.writeOpt)
-      )
-      .void
+    entries.nonEmpty ?? leaderboardRepo.coll.insert.many(entries).void
 
   private def generateTourEntries(tour: Tournament): Fu[List[Entry]] =
     for {
@@ -68,4 +64,3 @@ final private class LeaderboardIndexer(
         )
       }
     }
-}

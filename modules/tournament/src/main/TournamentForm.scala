@@ -1,23 +1,23 @@
 package lila.tournament
 
-import cats.implicits._
+import cats.implicits.*
 import chess.format.FEN
 import chess.{ Mode, StartingPosition }
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation
 import play.api.data.validation.Constraint
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.common.Form._
+import lila.common.Form.*
 import lila.hub.LeaderTeam
-import lila.hub.LightTeam._
+import lila.hub.LightTeam.*
 import lila.user.User
 
-final class TournamentForm {
+final class TournamentForm:
 
-  import TournamentForm._
+  import TournamentForm.*
 
   def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamID] = None) =
     form(user, leaderTeams, none) fill TournamentSetup(
@@ -107,11 +107,10 @@ final class TournamentForm {
       .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
       .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
-}
 
-object TournamentForm {
+object TournamentForm:
 
-  import chess.variant._
+  import chess.variant.*
 
   val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ {
     (2 to 8 by 1) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
@@ -163,7 +162,6 @@ object TournamentForm {
       password: Option[String],
       pairMeAsap: Option[Boolean] = None
   )
-}
 
 private[tournament] case class TournamentSetup(
     name: Option[String],
@@ -183,7 +181,7 @@ private[tournament] case class TournamentSetup(
     streakable: Option[Boolean],
     description: Option[String],
     hasChat: Option[Boolean]
-) {
+):
 
   def validClock = (clockTime + clockIncrement) > 0
 
@@ -217,7 +215,7 @@ private[tournament] case class TournamentSetup(
 
   // update all fields and use default values for missing fields
   // meant for HTML form updates
-  def updateAll(old: Tournament): Tournament = {
+  def updateAll(old: Tournament): Tournament =
     val newVariant = if (old.isCreated && variant.isDefined) realVariant else old.variant
     old
       .copy(
@@ -238,11 +236,10 @@ private[tournament] case class TournamentSetup(
         description = description,
         hasChat = hasChat | true
       )
-  }
 
   // update only fields that are specified
   // meant for API updates
-  def updatePresent(old: Tournament): Tournament = {
+  def updatePresent(old: Tournament): Tournament =
     val newVariant = if (old.isCreated) realVariant else old.variant
     old
       .copy(
@@ -263,7 +260,6 @@ private[tournament] case class TournamentSetup(
         description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
         hasChat = hasChat | old.hasChat
       )
-  }
 
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
 
@@ -272,4 +268,3 @@ private[tournament] case class TournamentSetup(
   private def estimatedGameSeconds: Double = {
     (60 * clockTime + 30 * clockIncrement) * 2 * 0.8
   } + 15
-}

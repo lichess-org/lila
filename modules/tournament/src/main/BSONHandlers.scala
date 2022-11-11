@@ -1,17 +1,17 @@
 package lila.tournament
 
-import chess.Clock.{ Config => ClockConfig }
+import chess.Clock.{ Config as ClockConfig }
 import chess.format.FEN
 import chess.Mode
 import chess.variant.Variant
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
 
-object BSONHandlers {
+object BSONHandlers:
 
   private[tournament] given BSONHandler[Status] = tryHandler(
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
@@ -60,8 +60,8 @@ object BSONHandlers {
 
   import Condition.BSONHandlers.given
 
-  given BSON[Tournament] with
-    def reads(r: BSON.Reader) = {
+  given tourHandler: BSON[Tournament] with
+    def reads(r: BSON.Reader) =
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
       val position: Option[FEN] =
         r.getO[FEN]("fen").filterNot(_.initial) orElse
@@ -97,7 +97,6 @@ object BSONHandlers {
         description = r strO "description",
         hasChat = r boolO "chat" getOrElse true
       )
-    }
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
         "_id"         -> o.id,
@@ -154,8 +153,8 @@ object BSONHandlers {
         "t"   -> o.team
       )
 
-  given BSON[Pairing] with
-    def reads(r: BSON.Reader) = {
+  given pairingHandler: BSON[Pairing] with
+    def reads(r: BSON.Reader) =
       val users = r strsD "u"
       val user1 = users.headOption err "tournament pairing first user"
       val user2 = users lift 1 err "tournament pairing second user"
@@ -173,7 +172,6 @@ object BSONHandlers {
         berserk1 = r.intO("b1").fold(r.boolD("b1"))(1 ==), // it used to be int = 0/1
         berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)
       )
-    }
     def writes(w: BSON.Writer, o: Pairing) =
       $doc(
         "_id" -> o.id,
@@ -217,5 +215,4 @@ object BSONHandlers {
         "d"   -> w.date(o.date)
       )
 
-  given BSONDocumentHandler[LeaderboardApi.ChartData.AggregationResult] = Macros.handler
-}
+  given leaderboardAggResult: BSONDocumentHandler[LeaderboardApi.ChartData.AggregationResult] = Macros.handler

@@ -1,21 +1,21 @@
 package lila.tournament
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import org.joda.time.DateTime
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer, LightUser }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.LeaderTeam
-import lila.hub.LightTeam._
+import lila.hub.LightTeam.*
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
@@ -49,7 +49,7 @@ final class TournamentApi(
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
-) {
+):
 
   def get(id: Tournament.ID) = tournamentRepo byId id
 
@@ -58,7 +58,7 @@ final class TournamentApi(
       me: User,
       leaderTeams: List[LeaderTeam],
       andJoin: Boolean = true
-  ): Fu[Tournament] = {
+  ): Fu[Tournament] =
     val tour = Tournament.make(
       by = Right(me),
       name = setup.name,
@@ -92,7 +92,6 @@ final class TournamentApi(
         none
       )
     } inject tour
-  }
 
   def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] =
     updateTour(old, data, data updateAll old, leaderTeams)
@@ -105,7 +104,7 @@ final class TournamentApi(
       data: TournamentSetup,
       tour: Tournament,
       leaderTeams: List[LeaderTeam]
-  ): Fu[Tournament] = {
+  ): Fu[Tournament] =
     val finalized = tour.copy(
       conditions = data.conditions
         .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
@@ -113,7 +112,6 @@ final class TournamentApi(
       mode = if (tour.position.isDefined) chess.Mode.Casual else tour.mode
     )
     tournamentRepo.update(finalized) >>- cached.tourCache.clear(tour.id) inject finalized
-  }
 
   def teamBattleUpdate(
       tour: Tournament,
@@ -175,21 +173,19 @@ final class TournamentApi(
           .result
       }
 
-  private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit = {
-    import cats.implicits._
+  private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
+    import cats.implicits.*
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
         pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank) ?? {
           bestCandidate =>
             def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
-            curOption.filter(_.pairing.playing) match {
+            curOption.filter(_.pairing.playing) match
               case Some(current) if bestCandidate.bestRank < current.bestRank => switch
               case Some(_)                                                    => funit
               case _                                                          => switch
-            }
         }
       }
-  }
 
   private[tournament] def start(oldTour: Tournament): Funit =
     Parallel(oldTour.id, "start")(cached.tourCache.created) { tour =>
@@ -220,7 +216,7 @@ final class TournamentApi(
             _      <- pairingRepo removePlaying tour.id
             winner <- playerRepo winner tour.id
             _      <- winner.??(p => tournamentRepo.setWinnerId(tour.id, p.userId))
-          } yield {
+          } yield
             cached.tourCache clear tour.id
             callbacks.clearJsonViewCache(tour)
             socket.finish(tour.id)
@@ -235,20 +231,18 @@ final class TournamentApi(
             callbacks.clearWinnersCache(tour)
             callbacks.clearTrophyCache(tour)
             duelStore.remove(tour)
-          }
       }
     }
 
   private[tournament] val killSchedule = scala.collection.mutable.Set.empty[Tournament.ID]
 
-  def kill(tour: Tournament): Funit = {
+  def kill(tour: Tournament): Funit =
     if (tour.isStarted) fuccess(killSchedule add tour.id).void
     else if (tour.isCreated) destroy(tour)
     else funit
-  }
 
-  private def awardTrophies(tour: Tournament): Funit = {
-    import lila.user.TrophyKind._
+  private def awardTrophies(tour: Tournament): Funit =
+    import lila.user.TrophyKind.*
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.exists(_.freq == Schedule.Freq.Marathon) ?? {
       playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
@@ -267,7 +261,6 @@ final class TournamentApi(
           .void
       }
     }
-  }
 
   def getVerdicts(
       tour: Tournament,
@@ -275,12 +268,11 @@ final class TournamentApi(
       getUserTeamIds: User => Fu[List[TeamID]],
       playerExists: Boolean
   ): Fu[Condition.All.WithVerdicts] =
-    me match {
+    me match
       case None => fuccess(tour.conditions.accepted)
       case Some(user) =>
         if (tour.isStarted && playerExists) verify.rejoin(tour.conditions, user, getUserTeamIds)
         else verify(tour.conditions, user, getUserTeamIds)
-    }
 
   private[tournament] def join(
       tourId: Tournament.ID,
@@ -306,12 +298,12 @@ final class TournamentApi(
             getVerdicts(tour, me.some, getUserTeamIds, prevPlayer.isDefined) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
               else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
-              else {
+              else
                 def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
                   playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
                     updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
                 tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
-                  data.team match {
+                  data.team match
                     case None if prevPlayer.isDefined => proceedWithTeam(none)
                     case Some(team) if battle.teams contains team =>
                       getUserTeamIds(me) flatMap { myTeams =>
@@ -319,19 +311,16 @@ final class TournamentApi(
                         else fuccess(JoinResult.MissingTeam)
                       }
                     case _ => fuccess(JoinResult.MissingTeam)
-                  }
                 }
-              }
             }
           else
             fuccess(JoinResult.WrongEntryCode)
         fuResult map { result =>
-          if (result.ok) {
+          if (result.ok)
             data.team.ifTrue(asLeader && tour.isTeamBattle) foreach {
               tournamentRepo.setForTeam(tour.id, _)
             }
             if (~data.pairMeAsap) waitingUsers.addApiUser(tour, me)
-          }
           socket.reload(tour.id)
           promise.foreach(_ success result)
         }
@@ -344,11 +333,10 @@ final class TournamentApi(
       data: TournamentForm.TournamentJoin,
       getUserTeamIds: User => Fu[List[TeamID]],
       isLeader: Boolean
-  ): Fu[Tournament.JoinResult] = {
+  ): Fu[Tournament.JoinResult] =
     val promise = Promise[Tournament.JoinResult]()
     join(tourId, me, data, getUserTeamIds, isLeader, promise.some)
     promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
-  }
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
     cached ranking tour map {
@@ -357,12 +345,11 @@ final class TournamentApi(
       }
     }
 
-  private object updateNbPlayers {
+  private object updateNbPlayers:
     private val onceEvery = lila.memo.OnceEvery(1 second)
     def apply(tourId: Tournament.ID): Funit = onceEvery(tourId) ?? {
       playerRepo count tourId flatMap { tournamentRepo.setNbPlayers(tourId, _) }
     }
-  }
 
   def selfPause(tourId: Tournament.ID, userId: User.ID): Funit =
     withdraw(tourId, userId, isPause = true, isStalling = false)
@@ -387,11 +374,10 @@ final class TournamentApi(
             if (isPause) cached.ranking(tour).map { _.ranking get userId exists (7 >) }
             else
               fuccess(isStalling)
-        } yield {
+        } yield
           if (pausable) pause.add(userId)
           socket.reload(tour.id)
           publish()
-        }
       case _ => funit
     }
 
@@ -581,7 +567,7 @@ final class TournamentApi(
   def tournamentTop(tourId: Tournament.ID): Fu[TournamentTop] =
     tournamentTopCache get tourId
 
-  object gameView {
+  object gameView:
 
     def player(pov: Pov): Fu[Option[GameView]] =
       (pov.game.tournamentId ?? get) flatMap {
@@ -631,22 +617,20 @@ final class TournamentApi(
       }
 
     private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] =
-      ~ {
+      ~
         game.whitePlayer.userId.ifTrue(tour.isStarted) flatMap { whiteId =>
           game.blackPlayer.userId map { blackId =>
             cached ranking tour map { ranking =>
-              import cats.implicits._
+              import cats.implicits.*
               (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
                 GameRanks(whiteR + 1, blackR + 1)
               }
             }
           }
         }
-      }
 
     private def getTeamVs(tour: Tournament, game: Game): Fu[Option[TeamBattle.TeamVs]] =
       tour.isTeamBattle ?? playerRepo.teamVs(tour.id, game)
-  }
 
   def notableFinished = cached.notableFinishedCache.get {}
 
@@ -682,10 +666,9 @@ final class TournamentApi(
         .dmap(_.toMap)
     }
 
-  def calendar: Fu[List[Tournament]] = {
+  def calendar: Fu[List[Tournament]] =
     val from = DateTime.now.minusDays(1)
     tournamentRepo.calendar(from = from, to = from plusYears 1)
-  }
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =
     Paginator(
@@ -694,7 +677,7 @@ final class TournamentApi(
       maxPerPage = MaxPerPage(20)
     )
 
-  def resultStream(tour: Tournament, perSecond: MaxPerSecond, nb: Int): Source[Player.Result, _] =
+  def resultStream(tour: Tournament, perSecond: MaxPerSecond, nb: Int): Source[Player.Result, ?] =
     playerRepo
       .sortedCursor(tour.id, perSecond.value)
       .documentSource(nb)
@@ -711,7 +694,7 @@ final class TournamentApi(
       status: List[Status],
       perSecond: MaxPerSecond,
       nb: Int
-  ): Source[Tournament, _] =
+  ): Source[Tournament, ?] =
     tournamentRepo
       .sortedCursor(owner, status, perSecond.value)
       .documentSource(nb)
@@ -724,7 +707,7 @@ final class TournamentApi(
       maxPerPage = MaxPerPage(20)
     )
 
-  object upcomingByPlayerPager {
+  object upcomingByPlayerPager:
 
     private val max = 20
 
@@ -744,12 +727,11 @@ final class TournamentApi(
           maxPerPage = MaxPerPage(max)
         )
       }
-  }
 
   def visibleByTeam(teamId: TeamID, nbPast: Int, nbNext: Int): Fu[Tournament.PastAndNext] =
     tournamentRepo.finishedByTeam(teamId, nbPast) zip
       tournamentRepo.upcomingByTeam(teamId, nbNext) map
-      (Tournament.PastAndNext.apply _).tupled
+      (Tournament.PastAndNext.apply).tupled
 
   def toggleFeaturing(tourId: Tournament.ID, v: Boolean): Funit =
     if (v)
@@ -779,7 +761,7 @@ final class TournamentApi(
       }
     }
 
-  private object publish {
+  private object publish:
     private val debouncer = new Debouncer[Unit](
       15 seconds,
       1
@@ -793,9 +775,8 @@ final class TournamentApi(
       }
     })
     def apply() = debouncer.push(()).unit
-  }
 
-  private object updateTournamentStanding {
+  private object updateTournamentStanding:
 
     // last published top hashCode
     private val lastPublished = lila.memo.CacheApi.scaffeineNoScheduler
@@ -806,23 +787,20 @@ final class TournamentApi(
     private def publishNow(tourId: Tournament.ID) =
       tournamentTop(tourId) map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
-        if (lastHash != top.hashCode) {
+        if (lastHash != top.hashCode)
           Bus.publish(
             lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
             "tourStanding"
           )
           lastPublished.put(tourId, top.hashCode)
-        }
       }
 
     private val throttler = new lila.hub.EarlyMultiThrottler(logger)
 
     def apply(tour: Tournament): Unit =
       if (!tour.isTeamBattle) throttler(tour.id, 15.seconds) { publishNow(tour.id) }
-  }
-}
 
-private object TournamentApi {
+private object TournamentApi:
 
   case class Callbacks(
       clearJsonViewCache: Tournament => Unit,
@@ -830,4 +808,3 @@ private object TournamentApi {
       clearTrophyCache: Tournament => Unit,
       indexLeaderboard: Tournament => Funit
   )
-}

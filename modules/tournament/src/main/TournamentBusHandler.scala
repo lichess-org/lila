@@ -1,6 +1,6 @@
 package lila.tournament
 
-import akka.actor._
+import akka.actor.*
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
@@ -13,7 +13,7 @@ final private class TournamentBusHandler(
     shieldApi: TournamentShieldApi,
     winnersApi: WinnersApi,
     tournamentRepo: TournamentRepo
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   lila.common.Bus.subscribeFun(
     "finishGame",
@@ -56,4 +56,3 @@ final private class TournamentBusHandler(
         api.ejectLameFromEnterable(_, userId)
       }.sequenceFu
     }
-}
