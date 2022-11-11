@@ -13,7 +13,7 @@ private object UblogBsonHandlers {
   import lila.memo.PicfitImage.imageIdBSONHandler
   import UblogPost.{ LightPost, Likes, PreviewPost, Rank, Recorded, Views }
 
-  implicit val blogIdHandler = tryHandler[UblogBlog.Id](
+  given BSONHandler[UblogBlog.Id] = tryHandler(
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },
     id => BSONString(id.full)
   )

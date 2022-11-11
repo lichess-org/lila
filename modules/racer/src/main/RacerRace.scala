@@ -12,7 +12,7 @@ case class RacerRace(
     countdownSeconds: Int,
     startsAt: Option[DateTime],
     rematch: Option[RacerRace.Id]
-) {
+):
 
   def id = _id
 
@@ -45,9 +45,8 @@ case class RacerRace(
   def finished = finishesAt.exists(_.isBeforeNow)
 
   def isLobby = owner == RacerPlayer.lichess
-}
 
-object RacerRace {
+object RacerRace:
 
   val duration   = 90
   val maxPlayers = 10
@@ -63,4 +62,3 @@ object RacerRace {
     startsAt = none,
     rematch = none
   )
-}

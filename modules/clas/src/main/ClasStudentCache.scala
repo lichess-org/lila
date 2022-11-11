@@ -2,11 +2,11 @@ package lila.clas
 
 import akka.actor.Scheduler
 import akka.stream.Materializer
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
@@ -17,7 +17,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
     ec: ExecutionContext,
     scheduler: Scheduler,
     mat: Materializer
-) {
+):
 
   private val falsePositiveRate = 0.00003
   private var bloomFilter       = BloomFilter[User.ID](10, 0.1) // temporary empty filter
@@ -47,5 +47,4 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
         .unit
     }
 
-  scheduler.scheduleWithFixedDelay(23 seconds, 1 hour) { rebuildBloomFilter _ }.unit
-}
+  scheduler.scheduleWithFixedDelay(23 seconds, 1 hour) { (() => rebuildBloomFilter()) }.unit

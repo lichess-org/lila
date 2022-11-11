@@ -11,6 +11,8 @@ import lila.security.Granter
 import lila.tree.Node.Comment
 import lila.user.{ User, UserRepo }
 import lila.{ tree => T }
+import lila.db.dsl.bsonWriteOpt
+import reactivemongo.api.bson.BSONHandler
 
 object ServerEval {
 
@@ -90,7 +92,7 @@ object ServerEval {
                                   node.score.isEmpty ||
                                   advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
                                 }
-                                .flatMap(EvalScoreBSONHandler.writeOpt),
+                                .flatMap(bsonWriteOpt),
                               F.comments -> advOpt
                                 .map { adv =>
                                   node.comments + Comment(
@@ -99,12 +101,12 @@ object ServerEval {
                                     Comment.Author.Lichess
                                   )
                                 }
-                                .flatMap(CommentsBSONHandler.writeOpt),
+                                .flatMap(bsonWriteOpt),
                               F.glyphs -> advOpt
                                 .map { adv =>
                                   node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
                                 }
-                                .flatMap(GlyphsBSONHandler.writeOpt)
+                                .flatMap(bsonWriteOpt)
                             )
                           )
                     } inject path + node
@@ -143,7 +145,7 @@ object ServerEval {
             case Nil => none
             case (g, m) :: rest =>
               rest
-                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+                .foldLeft[Node](makeBranch(g, m)) { case (node, (g, m)) =>
                   makeBranch(g, m) addChild node
                 } some
           }

@@ -5,7 +5,7 @@ import chess.Pos
 import play.api.libs.json._
 import scala.util.chaining._
 
-import lila.common.Json._
+import lila.common.Json.given
 import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
 import lila.user.User
@@ -15,7 +15,7 @@ final class JsonView(
     lightUserApi: lila.user.LightUserApi
 )(using ec: scala.concurrent.ExecutionContext) {
 
-  import JsonView._
+  import JsonView.{ *, given }
 
   def apply(
       study: Study,
@@ -86,18 +86,18 @@ final class JsonView(
       .add("gamebook", c.isGamebook)
       .add("conceal", c.conceal)
 
-  implicit private[study] val memberRoleWrites = Writes[StudyMember.Role] { r =>
+  private[study] given Writes[StudyMember.Role] = Writes { r =>
     JsString(r.id)
   }
-  implicit private[study] val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
+  private[study] given Writes[StudyMember] = Writes { m =>
     Json.obj("user" -> lightUserApi.syncFallback(m.id), "role" -> m.role)
   }
 
-  implicit private[study] val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
+  private[study] given Writes[StudyMembers] = Writes { m =>
     Json toJson m.members
   }
 
-  implicit private val studyWrites = OWrites[Study] { s =>
+  private given OWrites[Study] = OWrites { s =>
     Json
       .obj(
         "id"                 -> s.id,
@@ -120,13 +120,13 @@ object JsonView {
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  implicit val studyIdWrites: Writes[Study.Id]     = stringIsoWriter(Study.idIso)
-  implicit val studyNameWrites: Writes[Study.Name] = stringIsoWriter(Study.nameIso)
+  given Writes[Study.Id]   = stringIsoWriter(Study.idIso)
+  given Writes[Study.Name] = stringIsoWriter(Study.nameIso)
   implicit val studyIdNameWrites = OWrites[Study.IdName] { s =>
     Json.obj("id" -> s._id, "name" -> s.name)
   }
-  implicit val chapterIdWrites: Writes[Chapter.Id]     = stringIsoWriter(Chapter.idIso)
-  implicit val chapterNameWrites: Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
+  given Writes[Chapter.Id]   = stringIsoWriter(Chapter.idIso)
+  given Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
 
   implicit private val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.fromKey).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
@@ -171,7 +171,7 @@ object JsonView {
   implicit private val variantWrites = OWrites[chess.variant.Variant] { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
   }
-  implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
+  given Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
     Json.arr(t.name.toString, t.value)
   }
   implicit val pgnTagsWrites = Writes[chess.format.pgn.Tags] { tags =>
@@ -192,7 +192,7 @@ object JsonView {
   }
   implicit private[study] val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
 
-  implicit val relayWrites = OWrites[Chapter.Relay] { r =>
+  given OWrites[Chapter.Relay] = OWrites { r =>
     Json.obj(
       "path"                 -> r.path,
       "secondsSinceLastMove" -> r.secondsSinceLastMove
@@ -205,8 +205,8 @@ object JsonView {
     Json.obj("u" -> w.u, "s" -> w.sri)
   }
 
-  implicit val topicWrites: Writes[StudyTopic] = stringIsoWriter(StudyTopic.topicIso)
-  implicit val topicsWrites: Writes[StudyTopics] = Writes[StudyTopics] { topics =>
+  given Writes[StudyTopic] = stringIsoWriter(StudyTopic.topicIso)
+  given Writes[StudyTopics] = Writes[StudyTopics] { topics =>
     JsArray(topics.value map topicWrites.writes)
   }
 }

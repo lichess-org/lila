@@ -19,22 +19,23 @@ import chess.Outcome
 
 object BSONHandlers {
 
-  import Chapter._
+  import Study.given
+  import Chapter.given
 
-  implicit val StudyIdBSONHandler     = stringIsoHandler(Study.idIso)
-  implicit val StudyNameBSONHandler   = stringIsoHandler(Study.nameIso)
-  implicit val ChapterIdBSONHandler   = stringIsoHandler(Chapter.idIso)
-  implicit val ChapterNameBSONHandler = stringIsoHandler(Chapter.nameIso)
-  implicit val StudyTopicBSONHandler  = stringIsoHandler(StudyTopic.topicIso)
-  implicit val StudyTopicsBSONHandler =
-    implicitly[BSONHandler[List[StudyTopic]]].as[StudyTopics](StudyTopics.apply, _.value)
+  given idHandler: BSONHandler[Study.Id]              = stringIsoHandler
+  given nameHandler: BSONHandler[Study.Name]          = stringIsoHandler
+  given chapterIdHandler: BSONHandler[Chapter.Id]     = stringIsoHandler
+  given chapterNameHandler: BSONHandler[Chapter.Name] = stringIsoHandler
+  given topicHandler: BSONHandler[StudyTopic]         = stringIsoHandler
+  given (using listHandler: BSONHandler[List[StudyTopic]]): BSONHandler[StudyTopics] =
+    listHandler.as[StudyTopics](StudyTopics.apply, _.value)
 
-  implicit private val PosBSONHandler = tryHandler[Pos](
+  private given BSONHandler[Pos] = tryHandler[Pos](
     { case BSONString(v) => Pos.fromKey(v) toTry s"No such pos: $v" },
     x => BSONString(x.key)
   )
 
-  implicit val ShapeBSONHandler = new BSON[Shape] {
+  given BSON[Shape] with
     def reads(r: Reader) = {
       val brush = r str "b"
       r.getO[Pos]("p") map { pos =>
@@ -46,24 +47,23 @@ object BSONHandlers {
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
       }
-  }
 
-  implicit val PromotableRoleHandler = tryHandler[PromotableRole](
+  given chessRoleHandler: BSONHandler[PromotableRole] = tryHandler[PromotableRole](
     { case BSONString(v) => v.headOption flatMap Role.allPromotableByForsyth.get toTry s"No such role: $v" },
     x => BSONString(x.forsyth.toString)
   )
 
-  implicit val RoleHandler = tryHandler[Role](
+  given BSONHandler[Role] = tryHandler[Role](
     { case BSONString(v) => v.headOption flatMap Role.allByForsyth.get toTry s"No such role: $v" },
     x => BSONString(x.forsyth.toString)
   )
 
-  implicit val UciHandler = tryHandler[Uci](
+  given BSONHandler[Uci] = tryHandler[Uci](
     { case BSONString(v) => Uci(v) toTry s"Bad UCI: $v" },
     x => BSONString(x.uci)
   )
 
-  implicit val UciCharPairHandler = tryHandler[UciCharPair](
+  given BSONHandler[UciCharPair] = tryHandler[UciCharPair](
     { case BSONString(v) =>
       v.toArray match {
         case Array(a, b) => Success(UciCharPair(a, b))
@@ -78,12 +78,12 @@ object BSONHandlers {
 
   import Uci.WithSan
 
-  implicit val ShapesBSONHandler: BSONHandler[Shapes] =
-    isoHandler[Shapes, List[Shape]]((s: Shapes) => s.value, Shapes(_))
+  given BSONHandler[Shapes] = isoHandler[Shapes, List[Shape]](_.value, Shapes)
 
-  implicit private val CommentIdBSONHandler   = stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
-  implicit private val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
-  implicit val CommentAuthorBSONHandler = quickHandler[Comment.Author](
+  private given commentIdHandler: BSONHandler[Comment.Id] =
+    stringAnyValHandler[Comment.Id](_.value, Comment.Id)
+  private given BSONHandler[Comment.Text] = stringAnyValHandler[Comment.Text](_.value, Comment.Text)
+  given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
       case BSONString(lila.user.User.lichessId | "l") => Comment.Author.Lichess
       case BSONString(name)                           => Comment.Author.External(name)
@@ -105,32 +105,29 @@ object BSONHandlers {
   )
   private given BSONDocumentHandler[Comment] = Macros.handler
 
-  implicit val CommentsBSONHandler: BSONHandler[Comments] =
-    isoHandler[Comments, List[Comment]]((s: Comments) => s.value, Comments(_))
+  given BSONHandler[Comments] = isoHandler[Comments, List[Comment]](_.value, Comments)
 
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
-  implicit private def CrazyDataBSONHandler: BSON[Crazyhouse.Data] =
-    new BSON[Crazyhouse.Data] {
-      private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
-      def reads(r: Reader) =
-        Crazyhouse.Data(
-          promoted = r.getsD[Pos]("o").toSet,
-          pockets = Crazyhouse.Pockets(
-            white = readPocket(r.strD("w")),
-            black = readPocket(r.strD("b"))
-          )
+  private given BSON[Crazyhouse.Data] with
+    private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
+    private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+    def reads(r: Reader) =
+      Crazyhouse.Data(
+        promoted = r.getsD[Pos]("o").toSet,
+        pockets = Crazyhouse.Pockets(
+          white = readPocket(r.strD("w")),
+          black = readPocket(r.strD("b"))
         )
-      def writes(w: Writer, s: Crazyhouse.Data) =
-        $doc(
-          "o" -> w.listO(s.promoted.toList),
-          "w" -> w.strO(writePocket(s.pockets.white)),
-          "b" -> w.strO(writePocket(s.pockets.black))
-        )
-    }
+      )
+    def writes(w: Writer, s: Crazyhouse.Data) =
+      $doc(
+        "o" -> w.listO(s.promoted.toList),
+        "w" -> w.strO(writePocket(s.pockets.white)),
+        "b" -> w.strO(writePocket(s.pockets.black))
+      )
 
-  implicit val GlyphsBSONHandler = {
+  given BSONHandler[Glyphs] = {
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
       { case arr: Barr =>
@@ -142,7 +139,7 @@ object BSONHandlers {
     )
   }
 
-  implicit val EvalScoreBSONHandler = {
+  given BSONHandler[Score] = {
     val mateFactor = 1000000
     BSONIntegerHandler.as[Score](
       v =>
@@ -215,7 +212,7 @@ object BSONHandlers {
   }
 
   import Node.Root
-  implicit private[study] lazy val NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
+  private[study] given BSON[Root] with
     import Node.BsonFields._
     def reads(fullReader: Reader) = {
       val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
@@ -250,15 +247,14 @@ object BSONHandlers {
         )
       }
     )
-  }
 
-  implicit val PathBSONHandler = BSONStringHandler.as[Path](Path.apply, _.toString)
-  implicit val VariantBSONHandler = tryHandler[Variant](
+  given BSONHandler[Path] = BSONStringHandler.as[Path](Path.apply, _.toString)
+  given BSONHandler[Variant] = tryHandler[Variant](
     { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
     x => BSONInteger(x.id)
   )
 
-  implicit val PgnTagBSONHandler = tryHandler[Tag](
+  given BSONHandler[Tag] = tryHandler[Tag](
     { case BSONString(v) =>
       v.split(":", 2) match {
         case Array(name, value) => Success(Tag(name, value))
@@ -267,29 +263,27 @@ object BSONHandlers {
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
-  implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
-  private given BSONDocumentHandler[Chapter.Setup] = Macros.handler
-  given BSONDocumentHandler[Chapter.Relay] = Macros.handler
-  given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
-  import Chapter.Ply
-  implicit val PlyBSONHandler     = intAnyValHandler[Ply](_.value, Ply.apply)
-  given BSONDocumentHandler[Chapter] = Macros.handler
+  given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags, _.value)
+  private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
+  given BSONDocumentHandler[Chapter.Relay]                         = Macros.handler
+  given BSONDocumentHandler[Chapter.ServerEval]                    = Macros.handler
+  given BSONHandler[Chapter.Ply]                                   = intAnyValHandler(_.value, Chapter.Ply)
+  given BSONDocumentHandler[Chapter]                               = Macros.handler
 
-  implicit val PositionRefBSONHandler = tryHandler[Position.Ref](
+  given BSONHandler[Position.Ref] = tryHandler(
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },
     x => BSONString(x.encode)
   )
-  implicit val StudyMemberRoleBSONHandler = tryHandler[StudyMember.Role](
+  given studyRoleHandler: BSONHandler[StudyMember.Role] = tryHandler(
     { case BSONString(v) => StudyMember.Role.byId get v toTry s"Invalid role $v" },
     x => BSONString(x.id)
   )
-  private case class DbMember(role: StudyMember.Role) extends AnyVal
-  private given BSONDocumentHandler[DbMember] = Macros.handler
-  implicit private[study] val StudyMemberBSONWriter = new BSONWriter[StudyMember] {
-    def writeTry(x: StudyMember) = DbMemberBSONHandler writeTry DbMember(x.role)
-  }
-  implicit private[study] val MembersBSONHandler: BSONHandler[StudyMembers] =
-    implicitly[BSONHandler[Map[String, DbMember]]].as[StudyMembers](
+  private[study] case class DbMember(role: StudyMember.Role) extends AnyVal
+  private[study] given dbMemberHandler: BSONDocumentHandler[DbMember] = Macros.handler
+  private[study] given BSONDocumentWriter[StudyMember] with
+    def writeTry(x: StudyMember) = Success($doc("role" -> x.role))
+  private[study] given (using handler: BSONHandler[Map[String, DbMember]]): BSONHandler[StudyMembers] =
+    handler.as[StudyMembers](
       members =>
         StudyMembers(members map { case (id, dbMember) =>
           id -> StudyMember(id, dbMember.role)
@@ -297,12 +291,12 @@ object BSONHandlers {
       _.members.view.mapValues(m => DbMember(m.role)).toMap
     )
   import Study.Visibility
-  implicit private[study] val VisibilityHandler = tryHandler[Visibility](
+  private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey get v toTry s"Invalid visibility $v" },
     v => BSONString(v.key)
   )
   import Study.From
-  implicit private[study] val FromHandler = tryHandler[From](
+  private[study] given BSONHandler[From] = tryHandler[From](
     { case BSONString(v) =>
       v.split(' ') match {
         case Array("scratch")   => Success(From.Scratch)
@@ -322,11 +316,11 @@ object BSONHandlers {
       })
   )
   import Settings.UserSelection
-  implicit private[study] val UserSelectionHandler = tryHandler[UserSelection](
+  private[study] given BSONHandler[UserSelection] = tryHandler[UserSelection](
     { case BSONString(v) => UserSelection.byKey get v toTry s"Invalid user selection $v" },
     x => BSONString(x.key)
   )
-  implicit val SettingsBSONHandler = new BSON[Settings] {
+  given BSON[Settings] with
     def reads(r: Reader) =
       Settings(
         computer = r.get[UserSelection]("computer"),
@@ -339,17 +333,15 @@ object BSONHandlers {
       )
     private val writer                 = Macros.writer[Settings]
     def writes(w: Writer, s: Settings) = writer.writeTry(s).get
-  }
 
   import Study.Likes
   given BSONHandler[Likes] = intAnyValHandler(_.value, Likes.apply)
   import Study.Rank
-  implicit private[study] val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
+  private[study] given BSONHandler[Rank] = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 
-  // implicit val StudyBSONHandler = BSON.LoggingHandler(logger)(Macros.handler[Study])
-  given BSONDocumentHandler[Study] = Macros.handler
+  given studyHandler: BSONDocumentHandler[Study] = Macros.handler
 
-  implicit val lightStudyBSONReader = new BSONDocumentReader[Study.LightStudy] {
+  given BSONDocumentReader[Study.LightStudy] with
     def readDocument(doc: BSONDocument) =
       Success(
         Study.LightStudy(
@@ -357,9 +349,8 @@ object BSONHandlers {
           contributors = doc.getAsOpt[StudyMembers]("members").??(_.contributorIds)
         )
       )
-  }
 
-  implicit val ChapterMetadataBSONReader = new BSONDocumentReader[Chapter.Metadata] {
+  given BSONDocumentReader[Chapter.Metadata] with
     def readDocument(doc: Bdoc) = for {
       id    <- doc.getAsTry[Chapter.Id]("_id")
       name  <- doc.getAsTry[Chapter.Name]("name")
@@ -373,5 +364,4 @@ object BSONHandlers {
         }
       hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
     } yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)
-  }
 }

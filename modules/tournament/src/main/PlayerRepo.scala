@@ -1,6 +1,5 @@
 package lila.tournament
 
-import BSONHandlers.given
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
@@ -9,6 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
+import lila.tournament.BSONHandlers.given
 
 final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
 
@@ -29,7 +29,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext) 
       playerIds: List[Player.ID],
       page: Int
   ): Fu[RankedPlayers] =
-    coll.find($inIds(playerIds)).cursor[Player]().list() map { players =>
+    coll.find($inIds(playerIds)).cursor[Player]().listAll() map { players =>
       playerIds.flatMap(id => players.find(_._id == id)).zipWithIndex.map { case (player, index) =>
         RankedPlayer((page - 1) * 10 + index + 1, player)
       }
@@ -92,7 +92,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext) 
           for {
             teamId      <- doc.getAsOpt[TeamID]("_id")
             leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
-            leaders = leadersBson.flatMap { p: Bdoc =>
+            leaders = leadersBson.flatMap { p =>
               for {
                 id    <- p.getAsOpt[User.ID]("u")
                 magic <- p.int("m")
@@ -165,7 +165,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext) 
     coll
       .find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
       .cursor[Bdoc]()
-      .list()
+      .listAll()
       .map {
         _.flatMap { doc =>
           doc.getAsOpt[User.ID]("uid") flatMap { userId =>

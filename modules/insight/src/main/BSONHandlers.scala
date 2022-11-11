@@ -13,7 +13,7 @@ import lila.rating.PerfType
 
 object BSONHandlers {
 
-  implicit val RoleBSONHandler = tryHandler[Role](
+  given BSONHandler[Role] = tryHandler(
     { case BSONString(v) => Role.allByForsyth get v.head toTry s"Invalid role $v" },
     e => BSONString(e.forsyth.toString)
   )

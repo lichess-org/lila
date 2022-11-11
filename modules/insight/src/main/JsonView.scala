@@ -145,7 +145,7 @@ final class JsonView {
         )
       }
 
-    implicit val metricWriter: Writes[InsightMetric] = Writes { m =>
+    given Writes[InsightMetric] = Writes { m =>
       Json.obj(
         "key"         -> m.key,
         "name"        -> m.name,
@@ -154,7 +154,7 @@ final class JsonView {
       )
     }
 
-    implicit val positionWriter: Writes[InsightPosition] = Writes { p =>
+    given Writes[InsightPosition] = Writes { p =>
       JsString(p.name)
     }
   }

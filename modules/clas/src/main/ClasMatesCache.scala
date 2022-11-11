@@ -3,7 +3,7 @@ package lila.clas
 import play.api.Mode
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
@@ -14,7 +14,7 @@ import reactivemongo.core.errors.DatabaseException
 final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(using
     ec: ExecutionContext,
     mode: Mode
-) {
+):
 
   def get(studentId: User.ID): Fu[Set[User.ID]] =
     studentCache.isStudent(studentId) ?? cache.get(studentId)
@@ -27,7 +27,7 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
   private def fetchMatesAndTeachers(studentId: User.ID): Fu[Set[User.ID]] =
     colls.student
       .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         Match($doc("userId" -> studentId)) -> List(
           Group(BSONNull)("classes" -> PushField("clasId")),
           Facet(
@@ -102,4 +102,3 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
         // can happen, probably in case of student cache bloom filter false positive
         case e: DatabaseException if e.getMessage.contains("resulting value was: MISSING") => Set.empty
       }
-}

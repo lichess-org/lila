@@ -19,7 +19,7 @@ case class Step(
   // who's color plays next
   def color = chess.Color.fromPly(ply)
 
-  def toJson = Step.stepJsonWriter writes this
+  def toJson = Json toJson this
 
 object Step:
 
@@ -28,7 +28,7 @@ object Step:
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  implicit private val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
+  given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
       Crazyhouse.storableRoles.flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
@@ -37,11 +37,11 @@ object Step:
       }
     )
   }
-  implicit private val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+  given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 
-  implicit val stepJsonWriter: Writes[Step] = Writes { step =>
+  given Writes[Step] = Writes { step =>
     import lila.common.Json.given
     import step.*
     Json

@@ -28,6 +28,8 @@ trait dsl:
   type Bdoc = BSONDocument
   type Barr = BSONArray
 
+  def bsonWriteOpt[A](using writer: BSONWriter[A])(a: A) = writer writeOpt a
+
   // **********************************************************************************************//
   // Helpers
   val $empty: Bdoc = document.asStrict

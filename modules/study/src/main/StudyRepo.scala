@@ -58,11 +58,10 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] def selectOwnerId(ownerId: User.ID)   = $doc("ownerId" -> ownerId)
   private[study] def selectMemberId(memberId: User.ID) = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc(
-    "visibility" -> VisibilityHandler.writeTry(Study.Visibility.Public).get
+    "visibility" -> (Study.Visibility.Public: Study.Visibility)
   )
-  private[study] val selectPrivateOrUnlisted = "visibility" $ne VisibilityHandler
-    .writeTry(Study.Visibility.Public)
-    .get
+  private[study] val selectPrivateOrUnlisted =
+    "visibility" $ne (Study.Visibility.Public: Study.Visibility)
   private[study] def selectLiker(userId: User.ID) = $doc(F.likers -> userId)
   private[study] def selectContributorId(userId: User.ID) =
     selectMemberId(userId) ++ // use the index
@@ -85,7 +84,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def insert(s: Study): Funit =
     coll {
       _.insert.one {
-        StudyBSONHandler.writeTry(s).get ++ $doc(
+        studyHandler.writeTry(s).get ++ $doc(
           F.uids   -> s.members.ids,
           F.likers -> List(s.ownerId),
           F.rank   -> Study.Rank.compute(s.likes, s.createdAt)
@@ -176,7 +175,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private val idNameProjection = $doc("name" -> true)
 
   def publicIdNames(ids: List[Study.Id]): Fu[List[Study.IdName]] =
-    coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[Study.IdName]().list())
+    coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[Study.IdName]().listAll())
 
   def recentByOwner(userId: User.ID, nb: Int) =
     coll {

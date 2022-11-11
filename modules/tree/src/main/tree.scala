@@ -218,16 +218,16 @@ object Node extends lila.base.LilaJsObjectExtensions:
     Json.toJson(gs.toList)
   }
 
-  implicit val clockWrites: Writes[Centis] = Writes { clock =>
+  given Writes[Centis] = Writes { clock =>
     JsNumber(clock.centis)
   }
-  implicit val commentIdWrites: Writes[Comment.Id] = Writes { id =>
+  given Writes[Comment.Id] = Writes { id =>
     JsString(id.value)
   }
-  implicit val commentTextWrites: Writes[Comment.Text] = Writes { text =>
+  given Writes[Comment.Text] = Writes { text =>
     JsString(text.value)
   }
-  implicit val commentAuthorWrites: Writes[Comment.Author] = Writes[Comment.Author] {
+  given Writes[Comment.Author] = Writes[Comment.Author] {
     case Comment.Author.User(id, name) => Json.obj("id" -> id, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
     case Comment.Author.Lichess        => JsString("lichess")
@@ -302,7 +302,7 @@ object Node extends lila.base.LilaJsObjectExtensions:
     }
     sb.toString
 
-  implicit val destsJsonWriter: Writes[Map[Pos, List[Pos]]] = Writes { dests =>
+  given Writes[Map[Pos, List[Pos]]] = Writes { dests =>
     JsString(destString(dests))
   }
 

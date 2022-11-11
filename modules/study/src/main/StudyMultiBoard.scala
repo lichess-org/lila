@@ -108,19 +108,19 @@ final class StudyMultiBoard(
 
     import lila.common.Json._
 
-    implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
+    given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
       Json
         .obj("name" -> p.name)
         .add("title" -> p.title)
         .add("rating" -> p.rating)
     }
 
-    implicit val previewPlayersWriter: Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] {
+    given Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] {
       players =>
         Json.obj("white" -> players.white, "black" -> players.black)
     }
 
-    implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
+    given Writes[ChapterPreview] = Json.writes[ChapterPreview]
   }
 }
 

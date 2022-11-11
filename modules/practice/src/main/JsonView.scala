@@ -9,8 +9,8 @@ object JsonView {
 
   case class JsData(study: JsObject, analysis: JsObject, practice: JsObject)
 
-  implicit val nbMovesWrites: Writes[PracticeProgress.NbMoves] = intAnyValWriter(_.value)
-  implicit val practiceStudyWrites: Writes[PracticeStudy] = OWrites { ps =>
+  given Writes[PracticeProgress.NbMoves] = intAnyValWriter(_.value)
+  given Writes[PracticeStudy] = OWrites { ps =>
     Json.obj(
       "id"   -> ps.id,
       "name" -> ps.name,
@@ -18,7 +18,7 @@ object JsonView {
     )
   }
   import PracticeGoal._
-  implicit val practiceGoalWrites: Writes[PracticeGoal] = OWrites {
+  given Writes[PracticeGoal] = OWrites {
     case Mate              => Json.obj("result" -> "mate")
     case MateIn(moves)     => Json.obj("result" -> "mateIn", "moves" -> moves)
     case DrawIn(moves)     => Json.obj("result" -> "drawIn", "moves" -> moves)

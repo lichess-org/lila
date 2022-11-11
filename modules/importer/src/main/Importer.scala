@@ -6,9 +6,9 @@ import org.lichess.compression.game.Encoder
 
 import lila.game.{ Game, GameRepo }
 
-final class Importer(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext) {
+final class Importer(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(data: ImportData, user: Option[String], forceId: Option[String] = None): Fu[Game] = {
+  def apply(data: ImportData, user: Option[String], forceId: Option[String] = None): Fu[Game] =
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
       gameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
@@ -28,5 +28,3 @@ final class Importer(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionCon
         } inject game
       }
     }
-  }
-}

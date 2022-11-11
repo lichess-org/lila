@@ -75,11 +75,11 @@ object JsonView {
 
   given Writes[SyncLog.Event] = Json.writes
 
-  implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
+  given Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
     JsString(id.value)
   }
 
-  implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>
+  given Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>
     JsString(id.value)
   }
 

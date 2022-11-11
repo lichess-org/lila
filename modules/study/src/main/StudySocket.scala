@@ -28,8 +28,8 @@ final private class StudySocket(
 
   import StudySocket._
 
-  implicit def roomIdToStudyId(roomId: RoomId)    = Study.Id(roomId.value)
-  implicit def studyIdToRoomId(studyId: Study.Id) = RoomId(studyId.value)
+  given Conversion[RoomId, Study.Id] = id => Study.Id(id.value)
+  given Conversion[Study.Id, RoomId] = id => RoomId(id.value)
 
   lazy val rooms = makeRoomMap(send)
 
@@ -44,7 +44,7 @@ final private class StudySocket(
   def onServerEval(studyId: Study.Id, eval: ServerEval.Progress): Unit =
     eval match {
       case ServerEval.Progress(chapterId, tree, analysis, division) =>
-        import lila.game.JsonView.divisionWriter
+        import lila.game.JsonView.given
         import JsonView._
         send(
           RP.Out.tellRoom(
@@ -444,27 +444,28 @@ object StudySocket {
         case class AtPosition(path: String, chapterId: Chapter.Id) {
           def ref = Position.Ref(chapterId, Path(path))
         }
-        implicit val chapterIdReader: Reads[Chapter.Id]     = stringIsoReader(Chapter.idIso)
-        implicit val chapterNameReader: Reads[Chapter.Name] = stringIsoReader(Chapter.nameIso)
-        implicit val atPositionReader: Reads[AtPosition] = (
+        import Chapter.given
+        given Reads[Chapter.Id]   = stringIsoReader
+        given Reads[Chapter.Name] = stringIsoReader
+        given Reads[AtPosition] = (
           (__ \ "path").read[String] and
             (__ \ "ch").read[Chapter.Id]
         )(AtPosition.apply _)
         case class SetRole(userId: String, role: String)
-        given Reads[SetRole]               = Json.reads
+        given Reads[SetRole]                                     = Json.reads
         implicit val ChapterModeReader: Reads[ChapterMaker.Mode] = optRead(ChapterMaker.Mode.apply)
         implicit val ChapterOrientationReader: Reads[ChapterMaker.Orientation] =
           stringRead(ChapterMaker.Orientation.apply)
         implicit val UserSelectionReader: Reads[Settings.UserSelection] =
           optRead(Settings.UserSelection.byKey.get)
         implicit val VariantReader: Reads[chess.variant.Variant] = optRead(chess.variant.Variant.apply)
-        given Reads[ChapterMaker.Data] = Json.reads
-        given Reads[ChapterMaker.EditData] = Json.reads
-        given Reads[ChapterMaker.DescData] = Json.reads
-        given Reads[Study.Data]                  = Json.reads
-        given Reads[actorApi.SetTag]                = Json.reads
-        given Reads[Gamebook]                     = Json.reads
-        given Reads[actorApi.ExplorerGame]          = Json.reads
+        given Reads[ChapterMaker.Data]                           = Json.reads
+        given Reads[ChapterMaker.EditData]                       = Json.reads
+        given Reads[ChapterMaker.DescData]                       = Json.reads
+        given studyDataReads: Reads[Study.Data]                  = Json.reads
+        given Reads[actorApi.SetTag]                             = Json.reads
+        given Reads[Gamebook]                                    = Json.reads
+        given Reads[actorApi.ExplorerGame]                       = Json.reads
       }
     }
 

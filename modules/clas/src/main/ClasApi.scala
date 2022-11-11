@@ -1,7 +1,7 @@
 package lila.clas
 
 import org.joda.time.DateTime
-import reactivemongo.api._
+import reactivemongo.api.*
 
 import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
@@ -20,11 +20,11 @@ final class ClasApi(
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
 
-  object clas {
+  object clas:
 
     val coll = colls.clas
 
@@ -42,14 +42,13 @@ final class ClasApi(
         .find($inIds(clasIds))
         .sort($sort desc "createdAt")
         .cursor[Clas]()
-        .list()
+        .listAll()
 
-    def create(data: ClasForm.ClasData, teacher: User): Fu[Clas] = {
+    def create(data: ClasForm.ClasData, teacher: User): Fu[Clas] =
       val clas = Clas.make(teacher, data.name, data.desc)
       coll.insert.one(clas) inject clas
-    }
 
-    def update(from: Clas, data: ClasForm.ClasData): Fu[Clas] = {
+    def update(from: Clas, data: ClasForm.ClasData): Fu[Clas] =
       val clas = data update from
       userRepo.filterEnabled(clas.teachers.toList) flatMap { filtered =>
         val checked = clas.copy(
@@ -57,14 +56,13 @@ final class ClasApi(
         )
         coll.update.one($id(clas.id), checked) inject checked
       }
-    }
 
     def updateWall(clas: Clas, text: Markdown): Funit =
       coll.updateField($id(clas.id), "wall", text).void
 
     def getAndView(id: Clas.Id, teacher: User): Fu[Option[Clas]] =
-      coll.ext
-        .findAndUpdate[Clas](
+      coll
+        .findAndUpdateSimplified[Clas](
           selector = $id(id) ++ $doc("teachers" -> teacher.id),
           update = $set("viewedAt" -> DateTime.now),
           fetchNewObject = true
@@ -80,7 +78,7 @@ final class ClasApi(
       fuccess(studentCache.isStudent(kid1.id) && studentCache.isStudent(kid2.id)) >>&
         colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred) {
           implicit framework =>
-            import framework._
+            import framework.*
             Match($doc("userId" $in List(kid1.id, kid2.id))) -> List(
               GroupField("clasId")("nb" -> SumAll),
               Match($doc("nb" -> 2)),
@@ -91,7 +89,7 @@ final class ClasApi(
     def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
       studentCache.isStudent(student) ?? colls.student
         .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-          import framework._
+          import framework.*
           Match($doc("userId" -> student)) -> List(
             Project($doc("clasId" -> true)),
             PipelineOperator(
@@ -121,9 +119,8 @@ final class ClasApi(
           else $unset("archived")
         )
         .void
-  }
 
-  object student {
+  object student:
 
     import User.ClearPassword
 
@@ -135,7 +132,7 @@ final class ClasApi(
     def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
       colls.student
         .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-          import framework._
+          import framework.*
           Match($doc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
               $lookup.simple(
@@ -198,7 +195,7 @@ final class ClasApi(
       else
         colls.student
           .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
-            import framework._
+            import framework.*
             Match($doc("userId" -> s.user.id, "managed" -> true)) -> List(
               PipelineOperator(
                 $lookup.simple(
@@ -216,16 +213,15 @@ final class ClasApi(
           }
     } map { Student.WithUserAndManagingClas(s, _) }
 
-    def update(from: Student, data: ClasForm.StudentData): Fu[Student] = {
+    def update(from: Student, data: ClasForm.StudentData): Fu[Student] =
       val student = data update from
       coll.update.one($id(student.id), student) inject student
-    }
 
     def create(
         clas: Clas,
         data: ClasForm.NewStudent,
         teacher: User
-    ): Fu[Student.WithPassword] = {
+    ): Fu[Student.WithPassword] =
       val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.student.create(teacher.id).increment()
@@ -249,7 +245,6 @@ final class ClasApi(
             sendWelcomeMessage(teacher.id, user, clas) inject
             Student.WithPassword(student, password)
         }
-    }
 
     def manyCreate(
         clas: Clas,
@@ -268,14 +263,13 @@ final class ClasApi(
         }
       }
 
-    def resetPassword(s: Student): Fu[ClearPassword] = {
+    def resetPassword(s: Student): Fu[ClearPassword] =
       val password = Student.password.generate
       authenticator.setPassword(s.userId, password) inject password
-    }
 
     def archive(sId: Student.Id, by: Holder, v: Boolean): Fu[Option[Student]] =
-      coll.ext
-        .findAndUpdate[Student](
+      coll
+        .findAndUpdateSimplified[Student](
           selector = $id(sId),
           update =
             if (v) $set("archived" -> Clas.Recorded(by.id, DateTime.now))
@@ -300,11 +294,10 @@ ${clas.desc}""",
           multi = true
         )
         .void
-  }
 
-  object invite {
+  object invite:
 
-    import ClasInvite.Feedback._
+    import ClasInvite.Feedback.*
 
     def create(clas: Clas, user: User, realName: String, teacher: Holder): Fu[ClasInvite.Feedback] =
       student
@@ -351,8 +344,8 @@ ${clas.desc}""",
       }
 
     def decline(id: ClasInvite.Id): Fu[Option[ClasInvite]] =
-      colls.invite.ext
-        .findAndUpdate[ClasInvite](
+      colls.invite
+        .findAndUpdateSimplified[ClasInvite](
           selector = $id(id),
           update = $set("accepted" -> false)
         )
@@ -372,11 +365,11 @@ ${clas.desc}""",
         student: User,
         clas: Clas,
         invite: ClasInvite
-    ): Fu[ClasInvite.Feedback] = {
+    ): Fu[ClasInvite.Feedback] =
       val url = s"$baseUrl/class/invitation/${invite._id}"
       if (student.kid) fuccess(ClasInvite.Feedback.CantMsgKid(url))
-      else {
-        import lila.i18n.I18nKeys.clas._
+      else
+        import lila.i18n.I18nKeys.clas.*
         implicit val lang = student.realLang | lila.i18n.defaultLang
         msgApi
           .post(
@@ -389,9 +382,5 @@ ${clickToViewInvitation.txt()}
 $url""",
             multi = true
           ) inject ClasInvite.Feedback.Invited
-      }
-    }
-  }
 
   private def selectArchived(v: Boolean) = $doc("archived" $exists v)
-}

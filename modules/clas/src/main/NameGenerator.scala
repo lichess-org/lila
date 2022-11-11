@@ -4,9 +4,9 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.CuteNameGenerator
 
-final class NameGenerator(userRepo: lila.user.UserRepo)(using ec: ExecutionContext) {
+final class NameGenerator(userRepo: lila.user.UserRepo)(using ec: ExecutionContext):
 
-  def apply(maxSize: Int = 17, triesLeft: Int = 20): Fu[Option[String]] = {
+  def apply(maxSize: Int = 17, triesLeft: Int = 20): Fu[Option[String]] =
     CuteNameGenerator.make(maxSize) ?? { name =>
       userRepo.nameExists(name) flatMap {
         case true if triesLeft > 0 => apply(maxSize, triesLeft - 1)
@@ -14,5 +14,3 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(using ec: ExecutionConte
         case _                     => fuccess(name.some)
       }
     }
-  }
-}

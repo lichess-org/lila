@@ -53,7 +53,7 @@ case class Node(
 
   def withoutChildren = copy(children = Node.emptyChildren)
 
-  def addChild(child: Node) = copy(children = children addNode child)
+  def addChild(child: Node): Node = copy(children = children addNode child)
 
   def withClock(centis: Option[Centis])  = copy(clock = centis)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
@@ -147,9 +147,9 @@ object Node {
 
     def deleteNodeAt(path: Path): Option[Children] =
       path.split flatMap {
-        case (head, Path(Nil)) if has(head) => Children(nodes.filterNot(_.id == head)).some
-        case (_, Path(Nil))                 => none
-        case (head, tail)                   => updateChildren(head, _.deleteNodeAt(tail))
+        case (head, Path(Vector())) if has(head) => Children(nodes.filterNot(_.id == head)).some
+        case (_, Path(Vector()))                 => none
+        case (head, tail)                        => updateChildren(head, _.deleteNodeAt(tail))
       }
 
     def promoteToMainlineAt(path: Path): Option[Children] =
@@ -181,8 +181,8 @@ object Node {
 
     def updateAt(path: Path, f: Node => Node): Option[Children] =
       path.split flatMap {
-        case (head, Path(Nil)) => updateWith(head, n => Some(f(n)))
-        case (head, tail)      => updateChildren(head, _.updateAt(tail, f))
+        case (head, Path(Vector())) => updateWith(head, n => Some(f(n)))
+        case (head, tail)           => updateChildren(head, _.updateAt(tail, f))
       }
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)

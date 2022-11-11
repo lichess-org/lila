@@ -39,7 +39,7 @@ object JsonView:
 
     given Writes[Chat.Id] = stringIsoWriter
 
-    implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
+    given Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
       Json.obj("key" -> r.key, "name" -> r.name)
     }
 

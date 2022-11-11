@@ -1,9 +1,9 @@
 package lila.racer
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-final class RacerLobby(api: RacerApi)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler) {
+final class RacerLobby(api: RacerApi)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler):
 
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue {
     currentRace flatMap {
@@ -29,8 +29,6 @@ final class RacerLobby(api: RacerApi)(using ec: ExecutionContext, scheduler: akk
 
   private def currentRace: Fu[RacerRace] = currentId.map(api.get) dmap { _ | fallbackRace }
 
-  private def makeNewRace(countdownSeconds: Int): Fu[RacerRace.Id] = {
+  private def makeNewRace(countdownSeconds: Int): Fu[RacerRace.Id] =
     currentId = api.create(RacerPlayer.lichess, countdownSeconds)
     currentId
-  }
-}

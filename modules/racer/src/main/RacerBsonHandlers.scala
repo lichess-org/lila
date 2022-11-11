@@ -2,16 +2,16 @@ package lila.racer
 
 import chess.format.FEN
 import chess.format.Uci
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.puzzle.BsonHandlers.PuzzleIdBSONHandler
+import lila.puzzle.BsonHandlers.given
 import lila.puzzle.Puzzle
 import lila.storm.StormPuzzle
 
-private object RacerBsonHandlers {
+private object RacerBsonHandlers:
 
-  implicit val StormPuzzleBSONReader = new BSONDocumentReader[StormPuzzle] {
+  given BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[Puzzle.Id]("_id")
       fen     <- r.getAsTry[FEN]("fen")
@@ -20,5 +20,3 @@ private object RacerBsonHandlers {
       glicko  <- r.getAsTry[Bdoc]("glicko")
       rating  <- glicko.getAsTry[Double]("r")
     } yield StormPuzzle(id, fen, line, rating.toInt)
-  }
-}

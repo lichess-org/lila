@@ -15,7 +15,7 @@ case class Student(
     managed: Boolean, // created for the class by the teacher
     created: Clas.Recorded,
     archived: Option[Clas.Recorded]
-) {
+):
 
   def id = _id
 
@@ -24,9 +24,8 @@ case class Student(
 
   def isArchived = archived.isDefined
   def isActive   = !isArchived
-}
 
-object Student {
+object Student:
 
   def id(userId: User.ID, clasId: Clas.Id) = Id(s"$userId:$clasId")
 
@@ -46,16 +45,15 @@ object Student {
 
   case class WithUser(student: Student, user: User)
 
-  case class WithUserAndManagingClas(withUser: WithUser, managingClas: Option[Clas]) {
+  case class WithUserAndManagingClas(withUser: WithUser, managingClas: Option[Clas]):
     def student = withUser.student
     def user    = withUser.user
-  }
 
   case class WithPassword(student: Student, password: User.ClearPassword)
 
   case class ManagedInfo(createdBy: User, clas: Clas)
 
-  private[clas] object password {
+  private[clas] object password:
 
     private val chars      = ('2' to '9') ++ (('a' to 'z').toSet - 'l') mkString
     private val nbChars    = chars.length
@@ -65,5 +63,3 @@ object Student {
       User.ClearPassword {
         new String(Array.fill(7)(secureChar))
       }
-  }
-}

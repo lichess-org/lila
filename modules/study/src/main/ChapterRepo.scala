@@ -13,7 +13,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
     mat: akka.stream.Materializer
 ) {
 
-  import BSONHandlers.given
+  import BSONHandlers.{ writeNode, given }
 
   def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll(_.byId[Chapter, Chapter.Id](id))
 
@@ -49,7 +49,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
       _.find($studyId(studyId), metadataProjection)
         .sort($sort asc "order")
         .cursor[Chapter.Metadata]()
-        .list()
+        .list(300)
     }
 
   def orderedByStudySource(studyId: Study.Id): Source[Chapter, _] =
@@ -77,7 +77,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
       _.find($studyId(studyId))
         .sort($sort asc "order")
         .cursor[Chapter]()
-        .list()
+        .list(300)
     }
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
@@ -87,7 +87,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         $doc("relay" -> true, "tags" -> true).some
       )
         .cursor[Bdoc]()
-        .list() map { docs =>
+        .list(300) map { docs =>
         for {
           doc   <- docs
           id    <- doc.getAsOpt[Chapter.Id]("_id")

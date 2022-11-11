@@ -80,19 +80,18 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key).dmap(~_))
 
-  def progresses(users: List[User], perfType: PerfType, days: Int)(using
-      reader: BSONDocumentReader[RatingsMap]
-  ): Fu[List[(Int, Int)]] =
+  def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(Int, Int)]] =
     withColl(
       _.optionsByOrderedIds[Bdoc, User.ID](
         users.map(_.id),
         $doc(perfType.key -> true).some
       )(~_.string("_id")) map { hists =>
+        import History.ratingsReader
         users zip hists map { case (user, doc) =>
           val current      = user.perfs(perfType).intRating
           val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
           val previous =
-            doc.flatMap(_ child perfType.key).flatMap(reader.readOpt).fold(current) { hist =>
+            doc.flatMap(_ child perfType.key).flatMap(ratingsReader.readOpt).fold(current) { hist =>
               hist.foldLeft(hist.headOption.fold(current)(_._2)) {
                 case (_, (d, r)) if d < previousDate => r
                 case (acc, _)                        => acc

@@ -15,7 +15,7 @@ object BSONHandlers {
   given BSONDocumentHandler[UpstreamUrl] = Macros.handler
   given BSONDocumentHandler[UpstreamIds] = Macros.handler
 
-  implicit val upstreamHandler = tryHandler[Upstream](
+  given BSONHandler[Upstream] = tryHandler(
     {
       case d: BSONDocument if d.contains("url") => upstreamUrlHandler readTry d
       case d: BSONDocument if d.contains("ids") => upstreamIdsHandler readTry d

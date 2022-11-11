@@ -1,8 +1,8 @@
 package lila.clas
 
-import play.api.data._
-import play.api.data.Forms._
-import scala.concurrent.duration._
+import play.api.data.*
+import play.api.data.Forms.*
+import scala.concurrent.duration.*
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, toMarkdown }
 import lila.user.User
@@ -11,11 +11,11 @@ final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     nameGenerator: NameGenerator
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import ClasForm._
+  import ClasForm.*
 
-  object clas {
+  object clas:
 
     val form = Form(
       mapping(
@@ -45,9 +45,8 @@ final class ClasForm(
     def wall = Form(single("wall" -> toMarkdown(text(maxLength = 100_000))))
 
     def notifyText = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 300)))
-  }
 
-  object student {
+  object student:
 
     val create: Form[NewStudent] =
       Form(
@@ -95,18 +94,16 @@ final class ClasForm(
       Form(
         mapping(
           "realNames" -> cleanNonEmptyText
-        )(ManyNewStudent.apply)(unapply).verifying(
+        )(ManyNewStudent.apply)(_.realNamesText.some).verifying(
           s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
           _.realNames.lengthIs <= max
         )
       )
-  }
 
   private def blockingFetchUser(username: String) =
     lightUserAsync(User normalize username).await(1 second, "clasInviteUser")
-}
 
-object ClasForm {
+object ClasForm:
 
   private val realNameMaxSize = 100
 
@@ -114,7 +111,7 @@ object ClasForm {
       name: String,
       desc: String,
       teachers: String
-  ) {
+  ):
     def update(c: Clas) =
       c.copy(
         name = name,
@@ -123,7 +120,6 @@ object ClasForm {
       )
 
     def teacherIds = readTeacherIds(teachers)
-  }
 
   private def readTeacherIds(str: String) =
     str.linesIterator.map(_.trim).filter(_.nonEmpty).map(User.normalize).distinct.toList
@@ -136,16 +132,13 @@ object ClasForm {
   case class StudentData(
       realName: String,
       notes: String
-  ) {
+  ):
     def update(c: Student) =
       c.copy(
         realName = realName,
         notes = notes
       )
-  }
 
-  case class ManyNewStudent(realNamesText: String) {
+  case class ManyNewStudent(realNamesText: String):
     def realNames =
       realNamesText.linesIterator.map(_.trim take realNameMaxSize).filter(_.nonEmpty).distinct.toList
-  }
-}

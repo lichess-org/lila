@@ -1,9 +1,9 @@
 package lila.explorer
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyWritables.*
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.LilaStream
@@ -20,7 +20,7 @@ final private class ExplorerIndexer(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd"
   private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
@@ -32,13 +32,13 @@ final private class ExplorerIndexer(
       }
     }
 
-  private object flowBuffer {
+  private object flowBuffer:
     private val max = 30
     private val buf = scala.collection.mutable.ArrayBuffer.empty[JsObject]
-    def apply(game: JsObject): Unit = {
+    def apply(game: JsObject): Unit =
       buf += game
       val startAt = nowMillis
-      if (buf.sizeIs >= max) {
+      if (buf.sizeIs >= max)
         ws.url(internalEndPointUrl).put(JsArray(buf)) andThen {
           case Success(res) if res.status == 200 =>
             lila.mon.explorer.index.time.record((nowMillis - startAt) / max)
@@ -51,9 +51,6 @@ final private class ExplorerIndexer(
             lila.mon.explorer.index.count(false).increment(max)
         }
         buf.clear()
-      }
-    }
-  }
 
   private def valid(game: Game) =
     game.finished &&
@@ -64,8 +61,8 @@ final private class ExplorerIndexer(
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
   // probability of the game being indexed, between 0 and 100
-  private def probability(game: Game, rating: Int): Int = {
-    import lila.rating.PerfType._
+  private def probability(game: Game, rating: Int): Int =
+    import lila.rating.PerfType.*
     game.perfType ?? {
       case Correspondence | Classical => 100
 
@@ -93,7 +90,6 @@ final private class ExplorerIndexer(
       case _ if rating >= 1600 => 100 // variant games
       case _                   => 50  // noob variant games
     }
-  }
 
   private def makeJson(game: Game, botUserIds: Set[User.ID]): Fu[Option[JsObject]] =
     ~(for {
@@ -134,4 +130,3 @@ final private class ExplorerIndexer(
     })
 
   private val logger = lila.log("explorer")
-}

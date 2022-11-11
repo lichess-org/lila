@@ -47,7 +47,7 @@ object History:
 
   import reactivemongo.api.bson.*
 
-  private[history] given BSONDocumentReader[RatingsMap] with
+  private[history] given ratingsReader: BSONDocumentReader[RatingsMap] with
     def readDocument(doc: BSONDocument) =
       Success(
         doc.elements

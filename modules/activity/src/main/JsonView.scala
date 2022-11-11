@@ -22,63 +22,61 @@ final class JsonView(
 ) {
 
   private object Writers {
-    implicit val intervalWrites = OWrites[Interval] { i =>
+    given OWrites[Interval] = OWrites { i =>
       Json.obj("start" -> i.getStart, "end" -> i.getEnd)
     }
-    implicit val perfTypeWrites   = Writes[PerfType](pt => JsString(pt.key))
-    implicit val ratingWrites     = intIsoWriter(Iso.int[Rating](Rating.apply, _.value))
+    given Writes[PerfType]   = Writes(pt => JsString(pt.key))
+    given Writes[Rating]     = intIsoWriter(Iso.int[Rating](Rating.apply, _.value))
     given Writes[RatingProg] = Json.writes
-    implicit val scoreWrites      = Json.writes[Score]
-    implicit val gamesWrites = OWrites[Games] { games =>
+    given Writes[Score]      = Json.writes
+    given OWrites[Games] = OWrites { games =>
       JsObject {
         games.value.toList.sortBy(-_._2.size).map { case (pt, score) =>
           pt.key -> scoreWrites.writes(score)
         }
       }
     }
-    implicit val variantWrites: Writes[chess.variant.Variant] = Writes { v =>
+    given Writes[chess.variant.Variant] = Writes { v =>
       JsString(v.key)
     }
     // writes as percentage
-    implicit val tourRatioWrites = Writes[TourRatio] { r =>
+    given Writes[TourRatio] = Writes { r =>
       JsNumber((r.value * 100).toInt atLeast 1)
     }
-    implicit def tourEntryWrites(implicit lang: Lang) =
-      OWrites[TourEntry] { e =>
-        Json.obj(
-          "tournament" -> Json.obj(
-            "id"   -> e.tourId,
-            "name" -> ~getTourName.sync(e.tourId)
-          ),
-          "nbGames"     -> e.nbGames,
-          "score"       -> e.score,
-          "rank"        -> e.rank,
-          "rankPercent" -> e.rankRatio
-        )
-      }
-    implicit def toursWrites(implicit lang: Lang) = Json.writes[ActivityView.Tours]
-    implicit val puzzlesWrites                    = Json.writes[Puzzles]
-    implicit val stormWrites                      = Json.writes[Storm]
-    implicit val racerWrites                      = Json.writes[Racer]
-    implicit val streakWrites                     = Json.writes[Streak]
-    implicit def simulWrites(user: User) =
-      OWrites[Simul] { s =>
-        Json.obj(
-          "id"       -> s.id,
-          "name"     -> s.name,
-          "isHost"   -> (s.hostId == user.id),
-          "variants" -> s.variants,
-          "score"    -> Score(s.wins, s.losses, s.draws, none)
-        )
-      }
-    implicit val playerWrites = OWrites[lila.game.Player] { p =>
+    given (using lang: Lang): OWrites[TourEntry] = OWrites { e =>
+      Json.obj(
+        "tournament" -> Json.obj(
+          "id"   -> e.tourId,
+          "name" -> ~getTourName.sync(e.tourId)
+        ),
+        "nbGames"     -> e.nbGames,
+        "score"       -> e.score,
+        "rank"        -> e.rank,
+        "rankPercent" -> e.rankRatio
+      )
+    }
+    given (using lang: Lang): Writes[ActivityView.Tours] = Json.writes
+    given Writes[Puzzles]                                = Json.writes
+    given Writes[Storm]                                  = Json.writes
+    given Writes[Racer]                                  = Json.writes
+    given Writes[Streak]                                 = Json.writes
+    def simulWrites(user: User) = OWrites[Simul] { s =>
+      Json.obj(
+        "id"       -> s.id,
+        "name"     -> s.name,
+        "isHost"   -> (s.hostId == user.id),
+        "variants" -> s.variants,
+        "score"    -> Score(s.wins, s.losses, s.draws, none)
+      )
+    }
+    given OWrites[lila.game.Player] = OWrites { p =>
       Json
         .obj()
         .add("aiLevel" -> p.aiLevel)
         .add("user" -> p.userId)
         .add("rating" -> p.rating)
     }
-    implicit val lightPovWrites = OWrites[LightPov] { p =>
+    given OWrites[LightPov] = OWrites { p =>
       Json.obj(
         "id"       -> p.game.id,
         "color"    -> p.color,
@@ -87,8 +85,8 @@ final class JsonView(
       )
     }
     given Writes[FollowList] = Json.writes
-    implicit val followsWrites    = Json.writes[Follows]
-    implicit val teamsWrites = Writes[Teams] { s =>
+    given Writes[Follows]    = Json.writes
+    given Writes[Teams] = Writes { s =>
       JsArray(s.value.map { id =>
         Json.obj("url" -> s"/team/$id", "name" -> getTeamName(id))
       })

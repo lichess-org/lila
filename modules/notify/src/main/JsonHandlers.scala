@@ -2,7 +2,7 @@ package lila.notify
 
 import lila.common.LightUser
 import play.api.libs.json.*
-import lila.i18n.{ I18nKeys as trans }
+import lila.i18n.I18nKeys as trans
 
 import lila.common.Json.given
 import play.api.i18n.Lang
@@ -89,13 +89,14 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
   given Writes[Notification.UnreadCount] = Writes { v =>
     JsNumber(v.value)
   }
-  implicit val andUnreadWrites: OWrites[Notification.AndUnread] = Json.writes[Notification.AndUnread]
+  given OWrites[Notification.AndUnread] = Json.writes
 
-  implicit val newNotificationWrites: Writes[NewNotification] = (newNotification: NewNotification) =>
+  given OWrites[NewNotification] = OWrites { newNotification =>
     Json.obj(
       "notification" -> newNotification.notification,
       "unread"       -> newNotification.unreadNotifications
     )
+  }
 
   private val i18nKeys: List[lila.i18n.MessageKey] = List(
     trans.mentionedYouInX,
@@ -120,6 +121,6 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
   ).map(_.key)
 
   def apply(notify: Notification.AndUnread)(implicit lang: Lang) =
-    andUnreadWrites.writes(notify) ++ Json.obj(
+    Json.toJsObject(notify) ++ Json.obj(
       "i18n" -> JsDump.keysToObject(i18nKeys, lang)
     )
