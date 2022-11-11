@@ -15,9 +15,9 @@ trait StringHelper { self: NumberHelper =>
 
   def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
 
-  def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
+  def pluralize(s: String, n: Int) = s"$n $s${if (n != 1) "s" else ""}"
 
-  def pluralizeLocalize(s: String, n: Int)(implicit lang: Lang) = s"${n.localize} $s${if (n > 1) "s" else ""}"
+  def pluralizeLocalize(s: String, n: Int)(implicit lang: Lang) = s"${n.localize} $s${if (n != 1) "s" else ""}"
 
   def showNumber(n: Int): String = if (n > 0) s"+$n" else n.toString
 
