@@ -1,8 +1,8 @@
 package lila.tv
 
-import akka.pattern.{ ask => actorAsk }
+import akka.pattern.{ ask as actorAsk }
 import play.api.libs.json.Json
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.common.{ Bus, LightUser }
@@ -16,9 +16,9 @@ final private[tv] class TvSyncActor(
     gameProxyRepo: lila.round.GameProxyRepo,
     rematches: lila.game.Rematches
 )(using ec: scala.concurrent.ExecutionContext)
-    extends SyncActor {
+    extends SyncActor:
 
-  import TvSyncActor._
+  import TvSyncActor.*
 
   Bus.subscribe(this, "startGame")
 
@@ -37,7 +37,7 @@ final private[tv] class TvSyncActor(
   private def forward[A](channel: Tv.Channel, msg: Any) =
     channelTroupers get channel foreach { _ ! msg }
 
-  protected val process: SyncActor.Receive = {
+  protected val process: SyncActor.Receive =
 
     case GetGameId(channel, promise) =>
       forward(channel, ChannelSyncActor.GetGameId(promise))
@@ -54,18 +54,17 @@ final private[tv] class TvSyncActor(
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
     case lila.game.actorApi.StartGame(g) =>
-      if (g.hasClock) {
+      if (g.hasClock)
         val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
         channelTroupers collect {
           case (chan, trouper) if chan filter candidate => trouper
         } foreach (_ addCandidate g)
-      }
 
     case s @ TvSyncActor.Select => channelTroupers.foreach(_._2 ! s)
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
-      import cats.implicits._
+      import cats.implicits.*
       val player = game.players.sortBy { p =>
         ~p.rating + ~p.userId.flatMap(lightUserApi.sync).flatMap(_.title).flatMap(Tv.titleScores.get)
       }.lastOption | game.player(game.naturalOrientation)
@@ -87,28 +86,25 @@ final private[tv] class TvSyncActor(
         }
       )
       Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
-      if (channel == Tv.Channel.Best) {
-        implicit def timeout = makeTimeout(100 millis)
-        actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach { case html: String =>
-          val pov = Pov naturalOrientation game
-          val event = lila.round.ChangeFeatured(
-            pov,
-            makeMessage(
-              "featured",
-              Json.obj(
-                "html"  -> html,
-                "color" -> pov.color.name,
-                "id"    -> game.id
+      if (channel == Tv.Channel.Best)
+        actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game))(makeTimeout(100 millis)) foreach {
+          case html: String =>
+            val pov = Pov naturalOrientation game
+            val event = lila.round.ChangeFeatured(
+              pov,
+              makeMessage(
+                "featured",
+                Json.obj(
+                  "html"  -> html,
+                  "color" -> pov.color.name,
+                  "id"    -> game.id
+                )
               )
             )
-          )
-          Bus.publish(event, "changeFeaturedGame")
+            Bus.publish(event, "changeFeaturedGame")
         }
-      }
-  }
-}
 
-private[tv] object TvSyncActor {
+private[tv] object TvSyncActor:
 
   case class GetGameId(channel: Tv.Channel, promise: Promise[Option[Game.ID]])
   case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[Game.ID]])
@@ -125,4 +121,3 @@ private[tv] object TvSyncActor {
   case class Selected(channel: Tv.Channel, game: Game)
 
   case class GetChampions(promise: Promise[Tv.Champions])
-}

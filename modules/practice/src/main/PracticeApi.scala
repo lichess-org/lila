@@ -1,11 +1,11 @@
 package lila.practice
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.study.{ Chapter, Study }
 import lila.user.User
 
@@ -14,7 +14,7 @@ final class PracticeApi(
     configStore: lila.memo.ConfigStore[PracticeConfig],
     cacheApi: lila.memo.CacheApi,
     studyApi: lila.study.StudyApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -64,13 +64,12 @@ final class PracticeApi(
       if publishedChapters.exists(_.id == sc.chapter.id)
     } yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
 
-  object config {
+  object config:
     def get  = configStore.get dmap (_ | PracticeConfig.empty)
-    def set  = configStore.set _
+    def set  = configStore.set
     def form = configStore.makeForm
-  }
 
-  object structure {
+  object structure:
     private val cache = cacheApi.unit[PracticeStructure] {
       _.expireAfterAccess(3.hours)
         .buildAsyncFuture { _ =>
@@ -87,9 +86,8 @@ final class PracticeApi(
       get foreach { structure =>
         if (structure.hasStudy(study.id)) clear()
       }
-  }
 
-  object progress {
+  object progress:
 
     import PracticeProgress.NbMoves
 
@@ -120,7 +118,7 @@ final class PracticeApi(
           maxDocs = Int.MaxValue,
           readPreference = ReadPreference.secondaryPreferred
         ) { framework =>
-          import framework._
+          import framework.*
           Match($doc("_id" $in userIds)) -> List(
             Project(
               $doc(
@@ -136,12 +134,10 @@ final class PracticeApi(
         .map {
           _.view
             .flatMap { obj =>
-              import cats.implicits._
+              import cats.implicits.*
               (obj.string("_id"), obj.int("nb")) mapN { (k, v) =>
                 k -> (v * 100f / PracticeStructure.totalChapters).toInt
               }
             }
             .toMap
         }
-  }
-}

@@ -4,7 +4,7 @@ import lila.study.{ Chapter, Study }
 
 case class PracticeStructure(
     sections: List[PracticeSection]
-) {
+):
 
   def study(id: Study.Id): Option[PracticeStudy] =
     sections.flatMap(_ study id).headOption
@@ -32,14 +32,13 @@ case class PracticeStructure(
   def findSection(id: Study.Id): Option[PracticeSection] = sectionsByStudyIds get id
 
   def hasStudy(id: Study.Id) = studiesByIds contains id
-}
 
 case class PracticeSection(
     id: String,
     hide: Boolean,
     name: String,
     studies: List[PracticeStudy]
-) {
+):
 
   lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
     studies.view.map { s =>
@@ -47,7 +46,6 @@ case class PracticeSection(
     }.toMap
 
   def study(id: Study.Id): Option[PracticeStudy] = studiesByIds get id
-}
 
 case class PracticeStudy(
     id: Study.Id, // study ID
@@ -55,14 +53,13 @@ case class PracticeStudy(
     name: String,
     desc: String,
     chapters: List[Chapter.IdName]
-) {
+):
 
   val slug = lila.common.String slugify name
 
   def chapterIds = chapters.map(_.id)
-}
 
-object PracticeStructure {
+object PracticeStructure:
 
   val totalChapters = 233
 
@@ -92,4 +89,3 @@ object PracticeStructure {
         )
       }
     )
-}

@@ -4,13 +4,14 @@ import org.joda.time.DateTime
 
 import lila.user.User
 import lila.study.{ Chapter, Study }
+import lila.common.Iso
 
 case class PracticeProgress(
     _id: PracticeProgress.Id,
     chapters: PracticeProgress.ChapterNbMoves,
     createdAt: DateTime,
     updatedAt: DateTime
-) {
+):
 
   import PracticeProgress.NbMoves
 
@@ -36,14 +37,13 @@ case class PracticeProgress(
     } orElse metas.find { c =>
       !PracticeStructure.isChapterNameCommented(c.name)
     }
-}
 
-object PracticeProgress {
+object PracticeProgress:
 
   case class Id(value: String) extends AnyVal
 
   case class NbMoves(value: Int) extends AnyVal
-  implicit val nbMovesIso = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
+  given Iso.IntIso[NbMoves] = Iso.int[NbMoves](NbMoves.apply, _.value)
 
   case class OnComplete(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id)
 
@@ -58,4 +58,3 @@ object PracticeProgress {
     )
 
   def anon = empty(Id("anon"))
-}

@@ -1,26 +1,24 @@
 package lila.practice
 
-import io.methvin.play.autoconfig._
+import io.methvin.play.autoconfig.*
 import play.api.ConfigLoader
 
-import lila.common.config._
+import lila.common.config.*
 import lila.study.Study
 
 final class PracticeConfig(
     val sections: List[PracticeConfigSection]
-) {
+):
 
-  def studyIds = sections.flatMap(_.studies.map(_.id)) map Study.Id.apply
-}
+  def studyIds = sections.flatMap(_.studies.map(_.id)) map Study.Id
 
-object PracticeConfig {
+object PracticeConfig:
   val empty = new PracticeConfig(Nil)
 
-  implicit private val studyLoader   = AutoConfig.loader[PracticeConfigStudy]
-  implicit private val sectionLoader = AutoConfig.loader[PracticeConfigSection]
+  private given ConfigLoader[PracticeConfigStudy]   = AutoConfig.loader[PracticeConfigStudy]
+  private given ConfigLoader[PracticeConfigSection] = AutoConfig.loader[PracticeConfigSection]
 
-  implicit val loader = AutoConfig.loader[PracticeConfig]
-}
+  given ConfigLoader[PracticeConfig] = AutoConfig.loader[PracticeConfig]
 
 final class PracticeConfigSection(
     val id: String,

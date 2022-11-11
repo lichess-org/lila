@@ -93,7 +93,7 @@ trait Handlers:
   def handlerBadValue[T](msg: String): Try[T] =
     Failure(new IllegalArgumentException(msg))
 
-  def eitherHandler[L, R](implicit leftHandler: BSONHandler[L], rightHandler: BSONHandler[R]) =
+  def eitherHandler[L, R](using leftHandler: BSONHandler[L], rightHandler: BSONHandler[R]) =
     new BSONHandler[Either[L, R]]:
       def readTry(bson: BSONValue) =
         leftHandler.readTry(bson).map(Left.apply) orElse rightHandler.readTry(bson).map(Right.apply)
@@ -107,7 +107,7 @@ trait Handlers:
       def readTry(bson: BSONValue)    = reader readTry bson
       def writeTry(v: Map[String, V]) = writer writeTry v
 
-  def typedMapHandler[K, V: BSONReader: BSONWriter](keyIso: StringIso[K]) =
+  def typedMapHandler[K, V: BSONReader: BSONWriter](using keyIso: StringIso[K]) =
     stringMapHandler[V].as[Map[K, V]](
       _.map { case (k, v) => keyIso.from(k) -> v },
       _.map { case (k, v) => keyIso.to(k) -> v }

@@ -8,12 +8,12 @@ final class Tv(
     gameRepo: GameRepo,
     trouper: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Tv._
-  import ChannelSyncActor._
+  import Tv.*
+  import ChannelSyncActor.*
 
-  private def roundProxyGame = gameProxyRepo.game _
+  private def roundProxyGame = gameProxyRepo.game
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
     trouper.ask[Option[Game.ID]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
@@ -53,16 +53,14 @@ final class Tv(
 
   def getChampions: Fu[Champions] =
     trouper.ask[Champions](TvSyncActor.GetChampions.apply)
-}
 
-object Tv {
-  import chess.{ variant => V, Speed => S }
-  import lila.rating.{ PerfType => P }
+object Tv:
+  import chess.{ variant as V, Speed as S }
+  import lila.rating.{ PerfType as P }
 
   case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
-  case class Champions(channels: Map[Channel, Champion]) {
-    def get = channels.get _
-  }
+  case class Champions(channels: Map[Channel, Champion]):
+    def get = channels.get
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
 
@@ -71,12 +69,11 @@ object Tv {
       val icon: String,
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
-  ) {
+  ):
     def isFresh(g: Game): Boolean     = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
     val key                           = s"${toString.head.toLower}${toString.drop(1)}"
-  }
-  object Channel {
+  object Channel:
     case object Best
         extends Channel(
           name = "Top Rated",
@@ -210,7 +207,6 @@ object Tv {
     val byKey = all.map { c =>
       c.key -> c
     }.toMap
-  }
 
   private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
@@ -240,4 +236,3 @@ object Tv {
     "WCM" -> 100,
     "WNM" -> 100
   )
-}

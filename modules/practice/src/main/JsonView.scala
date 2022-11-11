@@ -1,11 +1,11 @@
 package lila.practice
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Json._
-import lila.study.JsonView._
+import lila.common.Json.*
+import lila.study.JsonView.given
 
-object JsonView {
+object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject, practice: JsObject)
 
@@ -17,7 +17,7 @@ object JsonView {
       "desc" -> ps.desc
     )
   }
-  import PracticeGoal._
+  import PracticeGoal.*
   given Writes[PracticeGoal] = OWrites {
     case Mate              => Json.obj("result" -> "mate")
     case MateIn(moves)     => Json.obj("result" -> "mateIn", "moves" -> moves)
@@ -34,7 +34,7 @@ object JsonView {
       "completion" -> JsObject {
         us.practiceStudy.chapters.flatMap { c =>
           us.practice.progress.chapters collectFirst {
-            case (id, nbMoves) if id == c.id => id.value -> nbMovesWrites.writes(nbMoves)
+            case (id, nbMoves) if id == c.id => id.value -> Json.toJson(nbMoves)
           }
         }
       },
@@ -52,4 +52,3 @@ object JsonView {
         )
       }
     )
-}

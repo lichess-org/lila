@@ -2,7 +2,7 @@ package lila.practice
 
 sealed trait PracticeGoal
 
-object PracticeGoal {
+object PracticeGoal:
 
   case object Mate                         extends PracticeGoal
   case class MateIn(nbMoves: Int)          extends PracticeGoal
@@ -34,4 +34,3 @@ object PracticeGoal {
       case PromotionR(cpStr) => cpStr.toIntOption map Promotion.apply
       case _                 => none
     } | Mate // default to mate
-}
