@@ -1,10 +1,10 @@
 package lila.insight
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
-import reactivemongo.api._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
@@ -21,7 +21,7 @@ final private class InsightIndexer(
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
-) {
+):
 
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 2 minutes, name = "insightIndexer")
@@ -95,4 +95,3 @@ final private class InsightIndexer(
         .run()
     } void
 
-}

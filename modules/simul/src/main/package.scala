@@ -1,11 +1,9 @@
 package lila
 
-package object simul extends PackageObject {
+package object simul extends PackageObject:
 
   private[simul] val logger = lila.log("simul")
 
-}
 
-package simul {
+package simul:
   case class SimulTeam(id: String, name: String, isIn: Boolean)
-}

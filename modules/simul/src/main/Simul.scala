@@ -30,7 +30,7 @@ case class Simul(
     text: String,
     team: Option[String],
     featurable: Option[Boolean]
-) {
+):
   def id = _id
 
   def fullName = s"$name simul"
@@ -140,9 +140,8 @@ case class Simul(
   def ongoing = pairings.count(_.ongoing)
 
   def pairingOf(userId: User.ID) = pairings.find(_ is userId)
-}
 
-object Simul {
+object Simul:
 
   type ID = String
 
@@ -190,4 +189,3 @@ object Simul {
       team = team,
       featurable = featurable
     )
-}

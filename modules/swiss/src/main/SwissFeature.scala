@@ -2,20 +2,20 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 
 import lila.common.Heapsort
 import lila.db.dsl.{ *, given }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 
 final class SwissFeature(
     swissColl: Coll @@ SwissColl,
     cacheApi: CacheApi,
     swissCache: SwissCache
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
 
@@ -41,15 +41,14 @@ final class SwissFeature(
 
   private def getForTeams(teams: Seq[TeamID]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).sequenceFu.dmap(_.flatten) flatMap { ids =>
-      swissColl.byIds[Swiss](ids.map(_.value), ReadPreference.secondaryPreferred)
+      swissColl.byStringIds[Swiss](ids.map(_.value), ReadPreference.secondaryPreferred)
     } map {
-      _.filter(_.isNotFinished).partition(_.isCreated) match {
+      _.filter(_.isNotFinished).partition(_.isCreated) match
         case (created, started) =>
           FeaturedSwisses(
-            created = Heapsort.topN(created, 10, startsAtOrdering.reverse),
-            started = Heapsort.topN(started, 10, startsAtOrdering)
+            created = Heapsort.topN(created, 10)(using startsAtOrdering.reverse),
+            started = Heapsort.topN(started, 10)(using startsAtOrdering)
           )
-      }
     }
 
   private val cache = cacheApi.unit[FeaturedSwisses] {
@@ -67,7 +66,7 @@ final class SwissFeature(
   private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
     swissColl
       .aggregateList(nb, ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         Match(
           $doc(
             "featurable" -> true,
@@ -95,4 +94,3 @@ final class SwissFeature(
         )
       }
       .map { _.flatMap(_.asOpt[Swiss]) }
-}

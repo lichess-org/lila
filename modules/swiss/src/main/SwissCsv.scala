@@ -2,9 +2,9 @@ package lila.swiss
 
 import akka.stream.scaladsl.Source
 
-object SwissCsv {
+object SwissCsv:
 
-  def apply(results: Source[SwissPlayer.WithUserAndRank, _]): Source[String, _] =
+  def apply(results: Source[SwissPlayer.WithUserAndRank, ?]): Source[String, ?] =
     Source(
       List(
         toCsv(
@@ -31,4 +31,3 @@ object SwissCsv {
   )
 
   private def toCsv(values: String*) = values mkString ","
-}

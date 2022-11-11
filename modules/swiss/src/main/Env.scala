@@ -1,11 +1,11 @@
 package lila.swiss
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.LilaScheduler
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
@@ -32,7 +32,7 @@ final class Env(
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
     mode: play.api.Mode
-) {
+):
 
   private val swissColl   = db(CollName("swiss")).taggedWith[SwissColl]
   private val playerColl  = db(CollName("swiss_player")).taggedWith[PlayerColl]
@@ -65,7 +65,7 @@ final class Env(
 
   lazy val roundPager = wire[SwissRoundPager]
 
-  private def teamOf = api.teamOf _
+  private def teamOf = api.teamOf
 
   private lazy val socket = wire[SwissSocket]
 
@@ -105,7 +105,6 @@ final class Env(
   LilaScheduler(_.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(api.checkOngoingGames)
 
   LilaScheduler(_.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(officialSchedule.generate)
-}
 
 private trait SwissColl
 private trait PlayerColl

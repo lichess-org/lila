@@ -2,14 +2,14 @@ package lila.swiss
 
 import reactivemongo.api.ReadPreference
 import scala.concurrent.ExecutionContext
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 
 import lila.common.config
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 
-final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(using ec: ExecutionContext) {
+final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(using ec: ExecutionContext):
 
   import BsonHandlers.given
 
@@ -29,4 +29,3 @@ final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(using ec: Executio
       currentPage = page,
       maxPerPage = maxPerPage
     )
-}

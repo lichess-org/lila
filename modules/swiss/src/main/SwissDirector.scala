@@ -1,9 +1,9 @@
 package lila.swiss
 
 import chess.{ Black, Color, White }
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -20,7 +20,7 @@ final private class SwissDirector(
 )(using
     ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator
-) {
+):
   import BsonHandlers.given
 
   // sequenced by SwissApi
@@ -29,7 +29,7 @@ final private class SwissDirector(
       .flatMap { pendings =>
         val pendingPairings = pendings.collect { case Right(p) => p }
         if (pendingPairings.isEmpty) fuccess(none) // terminate
-        else {
+        else
           val swiss = from.startRound
           for {
             players <- SwissPlayer.fields { f =>
@@ -74,15 +74,13 @@ final private class SwissDirector(
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
             }
           } yield swiss.some
-        }
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
         if (msg contains "The number of rounds is larger than the reported number of rounds.") none
-        else {
+        else
           logger.warn(s"BBPairing ${from.id} $msg")
           logger.info(s"BBPairing ${from.id} $input")
           from.some
-        }
       }
       .monSuccess(_.swiss.startRound)
 
@@ -112,4 +110,3 @@ final private class SwissDirector(
 
   private def makePlayer(color: Color, player: SwissPlayer) =
     lila.game.Player.make(color, player.userId, player.rating, player.provisional)
-}

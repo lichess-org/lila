@@ -6,7 +6,7 @@ import chess.{ Centis, Clock, Color }
 case class SimulClock(
     config: Clock.Config,
     hostExtraTime: Int
-) {
+):
 
   def chessClockOf(hostColor: Color) =
     config.toClock.giveTime(
@@ -21,4 +21,3 @@ case class SimulClock(
   def valid =
     if (config.limitSeconds + hostExtraTime == 0) config.incrementSeconds >= 10
     else config.limitSeconds + hostExtraTime > 0
-}

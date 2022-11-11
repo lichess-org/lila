@@ -1,18 +1,18 @@
 package lila.simul
 
-import cats.implicits._
+import cats.implicits.*
 import chess.format.FEN
 import chess.StartingPosition
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation.Constraint
 
-import lila.common.Form._
+import lila.common.Form.*
 import lila.hub.LeaderTeam
 import lila.user.User
 
-object SimulForm {
+object SimulForm:
 
   val clockTimes       = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
   val clockTimeDefault = 20
@@ -92,7 +92,7 @@ object SimulForm {
         "clockExtra"     -> numberIn(clockExtraChoices),
         "variants" -> list {
           number.verifying(
-            chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.id).contains _
+            (() => chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.id).contains)
           )
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),
@@ -125,7 +125,7 @@ object SimulForm {
       estimatedStartAt: Option[DateTime] = None,
       team: Option[String],
       featured: Option[Boolean]
-  ) {
+  ):
 
     def clock =
       SimulClock(
@@ -136,5 +136,3 @@ object SimulForm {
     def actualVariants = variants.flatMap { chess.variant.Variant(_) }
 
     def realPosition = position.filterNot(_.initial)
-  }
-}

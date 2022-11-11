@@ -1,7 +1,7 @@
 package lila.insight
 
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.LightUser
@@ -16,7 +16,7 @@ case class Chart(
     games: List[JsObject]
 )
 
-object Chart {
+object Chart:
 
   case class Xaxis(
       name: String,
@@ -38,9 +38,9 @@ object Chart {
 
   def fromAnswer[X](
       getLightUser: LightUser.Getter
-  )(answer: Answer[X])(implicit lang: Lang, ec: ExecutionContext): Fu[Chart] = {
+  )(answer: Answer[X])(implicit lang: Lang, ec: ExecutionContext): Fu[Chart] =
 
-    import answer._, question._
+    import answer.*, question.*
 
     def xAxis(implicit lang: Lang) =
       Xaxis(
@@ -60,7 +60,7 @@ object Chart {
     def series =
       clusters
         .foldLeft(Map.empty[String, Serie]) { case (acc, cluster) =>
-          cluster.insight match {
+          cluster.insight match
             case Insight.Single(point) =>
               val key = metric.name
               acc.updated(
@@ -93,7 +93,6 @@ object Chart {
                   }
                 )
               }
-          }
         }
         .map { case (_, serie) =>
           serie.copy(data = serie.data.reverse)
@@ -102,10 +101,9 @@ object Chart {
 
     def sortedSeries =
       answer.clusters.headOption.fold(series) {
-        _.insight match {
+        _.insight match
           case Insight.Single(_)       => series
           case Insight.Stacked(points) => series.sortLike(points.map(_._1.name), _.name)
-        }
       }
 
     def gameUserJson(player: lila.game.Player): Fu[JsObject] =
@@ -124,7 +122,7 @@ object Chart {
         "id"       -> pov.gameId,
         "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
         "color"    -> pov.player.color.name,
-        "lastMove" -> ~pov.game.lastMoveKeys,
+        "lastMove" -> (pov.game.lastMoveKeys | ""),
         "user1"    -> user1,
         "user2"    -> user2
       )
@@ -139,5 +137,3 @@ object Chart {
         games = games
       )
     }
-  }
-}

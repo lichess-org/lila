@@ -1,9 +1,9 @@
 package lila.swiss
 
-import akka.stream.scaladsl._
-import com.softwaremill.tagging._
-import reactivemongo.api.bson.Macros
-import scala.concurrent.duration._
+import akka.stream.scaladsl.*
+import com.softwaremill.tagging.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 
@@ -24,7 +24,7 @@ final class SwissStatsApi(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   import BsonHandlers.given
 
@@ -82,4 +82,3 @@ final class SwissStatsApi(
           .dmap { s => s.copy(games = s.games / 2, averageRating = s.averageRating / swiss.nbPlayers) }
       }
     }
-}

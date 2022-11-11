@@ -1,8 +1,8 @@
 package lila.insight
 
 import chess.{ Centis, Color }
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config
@@ -15,18 +15,16 @@ case class InsightPerfStats(
     rating: MeanRating,
     nbGames: Color.Map[Int],
     time: FiniteDuration
-) {
+):
   def totalNbGames = nbGames.white + nbGames.black
-}
 
-object InsightPerfStats {
+object InsightPerfStats:
   case class WithGameIds(stats: InsightPerfStats, gameIds: List[Game.ID])
-}
 
 final class InsightPerfStatsApi(
     storage: InsightStorage,
     pipeline: AggregationPipeline
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(
       user: User,
@@ -35,8 +33,8 @@ final class InsightPerfStatsApi(
   ): Fu[Map[PerfType, InsightPerfStats.WithGameIds]] =
     storage.coll {
       _.aggregateList(perfTypes.size) { framework =>
-        import framework._
-        import InsightEntry.{ BSONFields => F }
+        import framework.*
+        import InsightEntry.{ BSONFields as F }
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
         Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
           Sort(Descending(F.date)),
@@ -81,4 +79,3 @@ final class InsightPerfStatsApi(
         )
       }.map(_.toMap)
     }
-}

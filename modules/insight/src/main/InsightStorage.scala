@@ -1,7 +1,7 @@
 package lila.insight
 
 import chess.format.FEN
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.AsyncColl
@@ -10,11 +10,11 @@ import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 import lila.user.User
 
-final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurrent.ExecutionContext) {
+final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurrent.ExecutionContext):
 
-  import InsightStorage._
+  import InsightStorage.*
   import BSONHandlers.given
-  import InsightEntry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields as F }
 
   def fetchFirst(userId: User.ID): Fu[Option[InsightEntry]] =
     coll(_.find(selectUserId(userId)).sort(sortChronological).one[InsightEntry])
@@ -28,11 +28,7 @@ final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurre
   def insert(p: InsightEntry) = coll(_.insert.one(p).void)
 
   def bulkInsert(ps: Seq[InsightEntry]) =
-    coll {
-      _.insert.many(
-        ps.flatMap(BSONHandlers.EntryBSONHandler.writeOpt)
-      )
-    }
+    coll { _.insert.many(ps) }
 
   def update(p: InsightEntry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
 
@@ -45,7 +41,7 @@ final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurre
   private[insight] def openings(userId: User.ID): Fu[(List[LilaOpeningFamily], List[SimpleOpening])] =
     coll {
       _.aggregateOne() { framework =>
-        import framework._
+        import framework.*
         Match(selectUserId(userId) ++ $doc(F.opening $exists true)) -> List(
           Facet(
             List(
@@ -67,7 +63,7 @@ final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurre
   def nbByPerf(userId: User.ID): Fu[Map[PerfType, Int]] =
     coll {
       _.aggregateList(PerfType.nonPuzzle.size) { framework =>
-        import framework._
+        import framework.*
         Match($doc(F.userId -> userId)) -> List(
           GroupField(F.perf)("nb" -> SumAll)
         )
@@ -80,11 +76,10 @@ final private class InsightStorage(val coll: AsyncColl)(using ec: scala.concurre
         }.toMap
       }
     }
-}
 
-object InsightStorage {
+object InsightStorage:
 
-  import InsightEntry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields as F }
 
   def selectId(id: String)               = $doc(F.id -> id)
   def selectUserId(id: User.ID)          = $doc(F.userId -> id)
@@ -96,4 +91,3 @@ object InsightStorage {
     docs.foldLeft(BSONDocument()) { case (acc, doc) =>
       acc ++ doc
     }
-}

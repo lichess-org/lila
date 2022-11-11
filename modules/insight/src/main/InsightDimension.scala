@@ -4,9 +4,9 @@ import chess.format.FEN
 import chess.opening.FullOpeningDB
 import chess.{ Color, Role }
 import play.api.i18n.Lang
-import play.api.libs.json._
-import reactivemongo.api.bson._
-import scalatags.Text.all._
+import play.api.libs.json.*
+import reactivemongo.api.bson.*
+import scalatags.Text.all.*
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
@@ -19,19 +19,18 @@ sealed abstract class InsightDimension[A: BSONHandler](
     val dbKey: String,
     val position: InsightPosition,
     val description: String
-) {
+):
 
   def bson = implicitly[BSONHandler[A]]
 
   def isInGame = position == InsightPosition.Game
   def isInMove = position == InsightPosition.Move
-}
 
-object InsightDimension {
+object InsightDimension:
 
   import BSONHandlers.given
-  import InsightPosition._
-  import InsightEntry.{ BSONFields => F }
+  import InsightPosition.*
+  import InsightEntry.{ BSONFields as F }
   import lila.analyse.AnalyseBsonHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
@@ -242,14 +241,13 @@ object InsightDimension {
         "Time left on the player clock, accounting for increment. 100% = full clock, 0% = flagging."
       )
 
-  def requiresStableRating(d: InsightDimension[_]) =
-    d match {
+  def requiresStableRating(d: InsightDimension[?]) =
+    d match
       case OpponentStrength => true
       case _                => false
-    }
 
   def valuesOf[X](d: InsightDimension[X]): List[X] =
-    d match {
+    d match
       case Period                  => lila.insight.Period.selector
       case Date                    => Nil // Period is used instead
       case Perf                    => PerfType.nonPuzzle
@@ -272,10 +270,9 @@ object InsightDimension {
       case ClockPercentRange       => lila.insight.ClockPercentRange.all.toList
       case Blur                    => lila.insight.Blur.all
       case TimeVariance            => lila.insight.TimeVariance.all
-    }
 
   def valueByKey[X](d: InsightDimension[X], key: String): Option[X] =
-    d match {
+    d match
       case Period                  => key.toIntOption map lila.insight.Period.apply
       case Date                    => None
       case Perf                    => PerfType.byKey get key
@@ -298,14 +295,12 @@ object InsightDimension {
       case ClockPercentRange       => key.toIntOption flatMap lila.insight.ClockPercentRange.byPercent.get
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
-    }
 
-  def valueToJson[X](d: InsightDimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
+  def valueToJson[X](d: InsightDimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject =
     play.api.libs.json.Json.obj(
       "key"  -> valueKey(d)(v),
       "name" -> valueJson(d)(v)
     )
-  }
 
   def valueKey[X](d: InsightDimension[X])(v: X): String =
     (d match {
@@ -334,7 +329,7 @@ object InsightDimension {
     }).toString
 
   def valueJson[X](d: InsightDimension[X])(v: X)(implicit lang: Lang): JsValue =
-    d match {
+    d match
       case Date                    => JsNumber(v.min.getSeconds)
       case Period                  => JsString(v.toString)
       case Perf                    => JsString(v.trans)
@@ -357,12 +352,11 @@ object InsightDimension {
       case ClockPercentRange       => JsString(v.name)
       case Blur                    => JsString(v.name)
       case TimeVariance            => JsString(v.name)
-    }
 
-  def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc = {
-    import cats.implicits._
+  def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc =
+    import cats.implicits.*
 
-    def percentRange[V: BSONWriter](toRange: X => (V, V), fromPercent: Int => V) = selected match {
+    def percentRange[V: BSONWriter](toRange: X => (V, V), fromPercent: Int => V) = selected match
       case Nil => $empty
       case many =>
         $doc(
@@ -372,10 +366,9 @@ object InsightDimension {
             case (min, max)                            => $doc(d.dbKey $gte min $lt max)
           }
         )
-    }
-    d match {
+    d match
       case InsightDimension.MovetimeRange =>
-        selected match {
+        selected match
           case Nil => $empty
           case many =>
             $doc(
@@ -383,13 +376,12 @@ object InsightDimension {
                 $doc(d.dbKey $gte range._1 $lt range._2)
               }
             )
-        }
       case InsightDimension.Period =>
         selected.maximumByOption(_.days).fold($empty) { period =>
           $doc(d.dbKey $gt period.min)
         }
       case InsightDimension.MaterialRange =>
-        selected match {
+        selected match
           case Nil => $empty
           case many =>
             $doc(
@@ -402,9 +394,8 @@ object InsightDimension {
                   $doc(d.dbKey $gt intRange._1 $lte intRange._2)
               }
             )
-        }
       case InsightDimension.EvalRange =>
-        selected match {
+        selected match
           case Nil => $empty
           case many =>
             $doc(
@@ -416,7 +407,6 @@ object InsightDimension {
                   $doc(d.dbKey $gt intRange._1 $lte intRange._2)
               }
             )
-        }
       case InsightDimension.WinPercentRange =>
         percentRange(lila.insight.WinPercentRange.toRange, WinPercent.fromPercent)
       case InsightDimension.AccuracyPercentRange =>
@@ -424,7 +414,7 @@ object InsightDimension {
       case InsightDimension.ClockPercentRange =>
         percentRange(lila.insight.ClockPercentRange.toRange, ClockPercent.fromPercent)
       case InsightDimension.TimeVariance =>
-        selected match {
+        selected match
           case Nil => $empty
           case many =>
             $doc(
@@ -432,31 +422,24 @@ object InsightDimension {
                 $doc(d.dbKey $gt range._1 $lte range._2)
               }
             )
-        }
       case _ =>
-        selected flatMap d.bson.writeOpt match {
+        selected flatMap d.bson.writeOpt match
           case Nil     => $empty
           case List(x) => $doc(d.dbKey -> x)
           case xs      => d.dbKey $in xs
-        }
-    }
-  }
 
-  def requiresAnalysis(d: InsightDimension[_]) =
-    d match {
+  def requiresAnalysis(d: InsightDimension[?]) =
+    d match
       case CplRange             => true
       case AccuracyPercentRange => true
       case EvalRange            => true
       case WinPercentRange      => true
       case _                    => false
-    }
 
   def dataTypeOf[X](d: InsightDimension[X]): String =
-    d match {
+    d match
       case Date => "date"
       case _    => "text"
-    }
 
   // these are not always present in an insight entry
-  val optionalDimensions = List[InsightDimension[_]](OpeningFamily, OpeningVariation, OpponentStrength)
-}
+  val optionalDimensions = List[InsightDimension[?]](OpeningFamily, OpeningVariation, OpponentStrength)

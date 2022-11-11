@@ -184,6 +184,10 @@ trait Handlers:
     },
     v => BSONString(v.key)
   )
+  val variantByIdHandler: BSONHandler[Variant] = tryHandler(
+    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
+    x => BSONInteger(x.id)
+  )
 
   val clockConfigHandler = tryHandler[chess.Clock.Config](
     { case doc: BSONDocument =>

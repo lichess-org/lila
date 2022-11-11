@@ -1,10 +1,10 @@
 package lila.swiss
 
-import chess.Clock.{ Config => ClockConfig }
+import chess.Clock.{ Config as ClockConfig }
 import chess.format.FEN
 import chess.Speed
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
@@ -26,7 +26,7 @@ case class Swiss(
     nextRoundAt: Option[DateTime],
     finishedAt: Option[DateTime],
     winnerId: Option[User.ID] = None
-) {
+):
   def id = _id
 
   def isCreated          = round.value == 0
@@ -55,11 +55,10 @@ case class Swiss(
     (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * settings.nbRounds
   }.toInt.seconds
 
-  def estimatedDurationString = {
+  def estimatedDurationString =
     val minutes = estimatedDuration.toMinutes
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${minutes % 60}m" else "")
-  }
 
   def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)
 
@@ -73,9 +72,8 @@ case class Swiss(
       clock.estimateTotalSeconds * 2 * settings.nbRounds > 3600 * 8
 
   lazy val looksLikePrize = lila.common.String.looksLikePrize(s"$name ${~settings.description}")
-}
 
-object Swiss {
+object Swiss:
 
   val maxPlayers           = 4000
   val maxForbiddenPairings = 1000
@@ -84,17 +82,15 @@ object Swiss {
   case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue
 
-  case class Points(double: Int) extends AnyVal {
+  case class Points(double: Int) extends AnyVal:
     def value: Float = double / 2f
     def +(p: Points) = Points(double + p.double)
-  }
   case class TieBreak(value: Double)   extends AnyVal
   case class Performance(value: Float) extends AnyVal
   case class Score(value: Int)         extends AnyVal
 
-  case class IdName(_id: Id, name: String) {
+  case class IdName(_id: Id, name: String):
     def id = _id
-  }
 
   case class Settings(
       nbRounds: Int,
@@ -107,25 +103,22 @@ object Swiss {
       roundInterval: FiniteDuration,
       forbiddenPairings: String,
       manualPairings: String
-  ) {
+  ):
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
     def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual
     def dailyInterval = (!manualRounds && intervalSeconds >= 24 * 3600) option intervalSeconds / 3600 / 24
-  }
 
   type ChatFor = Int
-  object ChatFor {
+  object ChatFor:
     val NONE    = 0
     val LEADERS = 10
     val MEMBERS = 20
     val ALL     = 30
     val default = MEMBERS
-  }
 
-  object RoundInterval {
+  object RoundInterval:
     val auto   = -1
     val manual = 99999999
-  }
 
   def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) =
     Score(
@@ -140,4 +133,3 @@ object Swiss {
       teamId: TeamID,
       chatFor: ChatFor
   )
-}

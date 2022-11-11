@@ -27,16 +27,15 @@ case class InsightEntry(
     analysed: Boolean,
     provisional: Boolean,
     date: DateTime
-) {
+):
 
   def gameId = id take Game.gameIdSize
-}
 
-case object InsightEntry {
+case object InsightEntry:
 
   def povToId(pov: Pov) = pov.gameId + pov.color.letter
 
-  object BSONFields {
+  object BSONFields:
     val id                       = "_id"
     val number                   = "n"
     val userId                   = "u"
@@ -58,5 +57,3 @@ case object InsightEntry {
     val analysed                 = "a"
     val provisional              = "pr"
     val date                     = "d"
-  }
-}

@@ -1,12 +1,12 @@
 package lila.swiss
 
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
 import lila.user.User
 import lila.db.dsl.{ *, given }
-import lila.swiss.BsonHandlers.SwissBanBSONHandler
+import lila.swiss.BsonHandlers.given
 import lila.game.Game
 
 case class SwissBan(_id: User.ID, until: DateTime, hours: Int)
@@ -16,7 +16,7 @@ case class SwissBan(_id: User.ID, until: DateTime, hours: Int)
  * Consecutive failures result in doubling ban duration.
  * Playing a swiss game resets the duration.
  */
-final class SwissBanApi(coll: Coll @@ BanColl)(using ec: ExecutionContext) {
+final class SwissBanApi(coll: Coll @@ BanColl)(using ec: ExecutionContext):
 
   def bannedUntil(user: User.ID): Fu[Option[DateTime]] =
     coll.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt DateTime.now), "until")
@@ -44,4 +44,3 @@ final class SwissBanApi(coll: Coll @@ BanColl)(using ec: ExecutionContext) {
   }
 
   private def onGoodGame(user: User.ID) = coll.delete.one($id(user))
-}

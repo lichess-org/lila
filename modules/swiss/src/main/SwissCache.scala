@@ -1,23 +1,22 @@
 package lila.swiss
 
-import cats.implicits._
 import org.joda.time.DateTime
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.LightTeam.TeamID
-import lila.memo._
-import lila.memo.CacheApi._
+import lila.memo.*
+import lila.memo.CacheApi.*
 
 final class SwissCache(
     swissColl: Coll @@ SwissColl,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
 
-  object swissCache {
+  object swissCache:
 
     private val cache = cacheApi[Swiss.Id, Option[Swiss]](512, "swiss.swiss") {
       _.expireAfterWrite(1 second)
@@ -25,11 +24,10 @@ final class SwissCache(
     }
     def clear(id: Swiss.Id) = cache invalidate id
 
-    def byId                          = cache.get _
+    def byId                          = cache.get
     def notFinishedById(id: Swiss.Id) = byId(id).dmap(_.filter(_.isNotFinished))
     def createdById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isCreated))
     def startedById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isStarted))
-  }
 
   val name = cacheApi.sync[Swiss.Id, Option[String]](
     name = "swiss.name",
@@ -47,7 +45,7 @@ final class SwissCache(
       }
   }
 
-  private[swiss] object featuredInTeam {
+  private[swiss] object featuredInTeam:
     private val compute = (teamId: TeamID) => {
       val max = 5
       for {
@@ -72,5 +70,3 @@ final class SwissCache(
 
     def get(teamId: TeamID)        = cache get teamId
     def invalidate(teamId: TeamID) = cache.put(teamId, compute(teamId))
-  }
-}

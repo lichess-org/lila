@@ -2,8 +2,8 @@ package lila.swiss
 
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ Bus, LilaScheduler }
@@ -17,7 +17,7 @@ final private class SwissNotify(
 )(using
     ec: ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
   import BsonHandlers.given
 
   private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
@@ -51,4 +51,3 @@ final private class SwissNotify(
         }.sequenceFu.void
       }
   }
-}

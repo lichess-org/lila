@@ -1,12 +1,12 @@
 package lila.simul
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -34,7 +34,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
@@ -91,8 +91,6 @@ final class Env(
       )
     }
   )
-}
 
-final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean) {
+final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean):
   def apply(simul: Simul) = f(simul)
-}

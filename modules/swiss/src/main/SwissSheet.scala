@@ -1,24 +1,23 @@
 package lila.swiss
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import BsonHandlers.given
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 
-private case class SwissSheet(outcomes: List[SwissSheet.Outcome]) {
-  import SwissSheet._
+private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
+  import SwissSheet.*
 
   def points =
     Swiss.Points {
       outcomes.foldLeft(0) { case (acc, out) => acc + pointsFor(out) }
     }
-}
 
-private object SwissSheet {
+private object SwissSheet:
 
   sealed trait Outcome
   case object Bye         extends Outcome
@@ -32,11 +31,10 @@ private object SwissSheet {
   case object ForfeitWin  extends Outcome
 
   def pointsFor(outcome: Outcome) =
-    outcome match {
+    outcome match
       case Win | Bye | ForfeitWin => 2
       case Late | Draw            => 1
       case _                      => 0
-    }
 
   def many(
       swiss: Swiss,
@@ -54,33 +52,30 @@ private object SwissSheet {
   ): SwissSheet =
     SwissSheet {
       swiss.allRounds.map { round =>
-        pairingMap get round match {
+        pairingMap get round match
           case Some(pairing) =>
-            pairing.status match {
+            pairing.status match
               case Left(_)     => Ongoing
               case Right(None) => Draw
               case Right(Some(color)) if pairing.isForfeit =>
                 if (pairing(color) == player.userId) ForfeitWin else ForfeitLoss
               case Right(Some(color)) => if (pairing(color) == player.userId) Win else Loss
-            }
           case None if player.byes(round) => Bye
           case None if round.value == 1   => Late
           case None                       => Absent
-        }
       }
     }
 
-}
 
 final private class SwissSheetApi(playerColl: Coll @@ PlayerColl, pairingColl: Coll @@ PairingColl)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
   def source(
       swiss: Swiss,
       sort: Bdoc
-  ): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] = {
+  ): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), ?] =
     val readPreference =
       if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
         ReadPreference.secondaryPreferred
@@ -105,5 +100,3 @@ final private class SwissSheetApi(playerColl: Coll @@ PlayerColl, pairingColl: C
         }.toMap
         (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
       }
-  }
-}

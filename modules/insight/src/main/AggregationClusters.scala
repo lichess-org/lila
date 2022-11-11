@@ -1,9 +1,9 @@
 package lila.insight
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 
-object AggregationClusters {
+object AggregationClusters:
 
   def apply[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     postSort(question) {
@@ -24,7 +24,7 @@ object AggregationClusters {
     doc.get("_id") flatMap reader.readOpt
 
   private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
-  implicit private val StackEntryBSONReader = Macros.reader[StackEntry]
+  private given BSONDocumentReader[StackEntry] = Macros.reader
 
   private def stacked[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     for {
@@ -46,9 +46,7 @@ object AggregationClusters {
     } yield Cluster(x, Insight.Stacked(percents), total, ids)
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] =
-    q.dimension match {
+    q.dimension match
       case InsightDimension.OpeningFamily    => clusters
       case InsightDimension.OpeningVariation => clusters
       case _                                 => clusters.sortLike(InsightDimension.valuesOf(q.dimension), _.x)
-    }
-}

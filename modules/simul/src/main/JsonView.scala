@@ -1,9 +1,9 @@
 package lila.simul
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.common.LightUser
-import lila.common.Json._
+import lila.common.Json.given
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
@@ -12,9 +12,9 @@ final class JsonView(
     getLightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val simulTeamWriter = Json.writes[SimulTeam]
+  private given Writes[SimulTeam] = Json.writes
 
   private def fetchGames(simul: Simul) =
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
@@ -131,7 +131,7 @@ final class JsonView(
         "id"       -> g.id,
         "status"   -> g.status.id,
         "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
-        "lastMove" -> ~g.lastMoveKeys,
+        "lastMove" -> g.lastMoveKeys.|(""),
         "orient"   -> g.playerByUserId(hostId).map(_.color)
       )
       .add(
@@ -157,4 +157,3 @@ final class JsonView(
           .some
       }
     }
-}

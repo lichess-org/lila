@@ -1,6 +1,6 @@
 package lila.swiss
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.LightUser
 import lila.game.Game
@@ -11,17 +11,16 @@ private case class SwissBoard(
     black: SwissBoard.Player
 )
 
-private object SwissBoard {
+private object SwissBoard:
   case class Player(user: LightUser, rank: Int, rating: Int)
   case class WithGame(board: SwissBoard, game: Game)
-}
 
 final private class SwissBoardApi(
     rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     gameProxyRepo: lila.round.GameProxyRepo
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val displayBoards = 6
 
@@ -40,7 +39,7 @@ final private class SwissBoardApi(
     }
 
   def update(data: SwissScoring.Result): Funit =
-    data match {
+    data match
       case SwissScoring.Result(swiss, leaderboard, playerMap, pairings) =>
         rankingApi(swiss) map { ranks =>
           boardsCache
@@ -74,5 +73,3 @@ final private class SwissBoardApi(
                 }
             )
         }
-    }
-}

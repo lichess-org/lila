@@ -2,7 +2,7 @@ package lila
 
 import lila.user.User
 
-package object swiss extends PackageObject {
+package object swiss extends PackageObject:
 
   val lichessTeamId = "lichess-swiss"
 
@@ -13,4 +13,3 @@ package object swiss extends PackageObject {
   // FIDE TRF player IDs
   private[swiss] type PlayerIds = Map[User.ID, Int]
   private[swiss] type IdPlayers = Map[Int, User.ID]
-}

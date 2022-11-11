@@ -1,10 +1,10 @@
 package lila.simul
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.game.{ Game, Pov }
-import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.room.RoomSocket.{ Protocol as RP, * }
+import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
 import lila.user.User
 
@@ -16,7 +16,7 @@ final private class SimulSocket(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
-) {
+):
 
   def hostIsOn(simulId: Simul.ID, gameId: Game.ID): Unit =
     rooms.tell(simulId, NotifyVersion("hostGame", gameId))
@@ -70,19 +70,15 @@ final private class SimulSocket(
       }
     )
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply _
+  private lazy val send: String => Unit = (() => remoteSocketApi.makeSender("simul-out").apply)
 
   remoteSocketApi.subscribe("simul-in", RP.In.reader)(
     handler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
-}
 
-private object SimulSocket {
-  object Protocol {
-    object Out {
+private object SimulSocket:
+  object Protocol:
+    object Out:
       import lila.socket.RemoteSocket.Protocol.Out.commas
       def filterPresent(reqId: Int, simulId: Simul.ID, userIds: Set[User.ID]) =
         s"room/filter-present $reqId $simulId ${commas(userIds)}"
-    }
-  }
-}

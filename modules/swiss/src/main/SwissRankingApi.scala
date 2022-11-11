@@ -1,8 +1,8 @@
 package lila.swiss
 
-import com.softwaremill.tagging._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -11,7 +11,7 @@ import lila.user.User
 final private class SwissRankingApi(
     playerColl: Coll @@ PlayerColl,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
   import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Ranking] =
@@ -47,4 +47,3 @@ final private class SwissRankingApi(
         }
         .toMap
     }
-}

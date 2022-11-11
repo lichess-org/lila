@@ -1,8 +1,8 @@
 package lila.insight
 
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 sealed abstract class InsightMetric(
     val key: String,
@@ -14,21 +14,19 @@ sealed abstract class InsightMetric(
     val description: String
 )
 
-object InsightMetric {
+object InsightMetric:
 
-  sealed trait DataType {
+  sealed trait DataType:
     def name = toString.toLowerCase
-  }
-  object DataType {
+  object DataType:
     case object Seconds extends DataType
     case object Count   extends DataType
     case object Average extends DataType
     case object Percent extends DataType
-  }
 
-  import DataType._
-  import InsightPosition._
-  import InsightEntry.{ BSONFields => F }
+  import DataType.*
+  import InsightPosition.*
+  import InsightEntry.{ BSONFields as F }
 
   case object MeanCpl
       extends InsightMetric(
@@ -240,25 +238,22 @@ object InsightMetric {
     (p.key, p)
   } toMap
 
-  def requiresAnalysis(m: InsightMetric) = m match {
+  def requiresAnalysis(m: InsightMetric) = m match
     case MeanCpl | CplBucket | MeanAccuracy => true
     case _                                  => false
-  }
 
-  def requiresStableRating(m: InsightMetric) = m match {
+  def requiresStableRating(m: InsightMetric) = m match
     case Performance | RatingDiff | OpponentRating => true
     case _                                         => false
-  }
 
-  def isStacked(m: InsightMetric) = m match {
+  def isStacked(m: InsightMetric) = m match
     case Result      => true
     case Termination => true
     case PieceRole   => true
     case CplBucket   => true
     case _           => false
-  }
 
-  def valuesOf(metric: InsightMetric): List[MetricValue] = metric match {
+  def valuesOf(metric: InsightMetric): List[MetricValue] = metric match
     case Result =>
       lila.insight.Result.all.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))
@@ -276,8 +271,6 @@ object InsightMetric {
         MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
       }
     case _ => Nil
-  }
 
   case class MetricValueName(name: String) extends AnyVal
   case class MetricValue(key: BSONValue, name: MetricValueName)
-}

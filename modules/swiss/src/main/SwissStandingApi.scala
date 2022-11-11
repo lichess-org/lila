@@ -1,8 +1,8 @@
 package lila.swiss
 
-import com.softwaremill.tagging._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
@@ -20,7 +20,7 @@ final class SwissStandingApi(
     pairingSystem: PairingSystem,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
 
@@ -30,13 +30,12 @@ final class SwissStandingApi(
     .expireAfterWrite(60 minutes)
     .build[(Swiss.Id, Int), JsObject]()
 
-  def apply(swiss: Swiss, forPage: Int): Fu[JsObject] = {
+  def apply(swiss: Swiss, forPage: Int): Fu[JsObject] =
     val page = forPage atMost Math.ceil(swiss.nbPlayers.toDouble / perPage).toInt atLeast 1
     fuccess(pageCache.getIfPresent(swiss.id -> page)) getOrElse {
       if (page == 1) first get swiss.id
       else compute(swiss, page)
     }
-  }
 
   def update(res: SwissScoring.Result): Funit =
     lightUserApi.asyncMany(res.leaderboard.map(_._1.userId)) map {
@@ -87,7 +86,7 @@ final class SwissStandingApi(
           .find($doc(f.swissId -> swiss.id, f.players $in rankedPlayers.map(_.player.userId)))
           .sort($sort asc f.round)
           .cursor[SwissPairing]()
-          .list()
+          .listAll()
           .map(SwissPairing.toMap)
       }
       sheets = SwissSheet.many(swiss, rankedPlayers.map(_.player), pairings)
@@ -132,4 +131,3 @@ final class SwissStandingApi(
         .cursor[SwissPlayer]()
         .list(nb)
     }
-}

@@ -1,8 +1,8 @@
 package lila.swiss
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
-import com.softwaremill.tagging._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
+import com.softwaremill.tagging.*
 
 import lila.db.dsl.{ *, given }
 
@@ -10,7 +10,7 @@ final private class SwissScoring(
     swissColl: Coll @@ SwissColl,
     playerColl: Coll @@ PlayerColl,
     pairingColl: Coll @@ PairingColl
-)(implicit scheduler: akka.actor.Scheduler, ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(implicit scheduler: akka.actor.Scheduler, ec: scala.concurrent.ExecutionContext, mode: play.api.Mode):
 
   import BsonHandlers.given
 
@@ -92,16 +92,15 @@ final private class SwissScoring(
         .find($doc(f.swissId -> swiss.id))
         .sort($sort asc f.score)
         .cursor[SwissPlayer]()
-        .list()
+        .listAll()
     }
 
   private def fetchPairings(swiss: Swiss) =
     !swiss.isCreated ?? SwissPairing.fields { f =>
       pairingColl.list[SwissPairing]($doc(f.swissId -> swiss.id))
     }
-}
 
-private object SwissScoring {
+private object SwissScoring:
 
   case class Result(
       swiss: Swiss,
@@ -109,4 +108,3 @@ private object SwissScoring {
       playerMap: SwissPlayer.PlayerMap,
       pairings: SwissPairing.PairingMap
   )
-}

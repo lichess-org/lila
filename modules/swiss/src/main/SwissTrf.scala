@@ -1,8 +1,8 @@
 package lila.swiss
 
-import akka.stream.scaladsl._
-import com.softwaremill.tagging._
-import reactivemongo.api.bson._
+import akka.stream.scaladsl.*
+import com.softwaremill.tagging.*
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -12,20 +12,20 @@ final class SwissTrf(
     sheetApi: SwissSheetApi,
     playerColl: Coll @@ PlayerColl,
     baseUrl: lila.common.config.BaseUrl
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private type Bits = List[(Int, String)]
 
-  def apply(swiss: Swiss, sorted: Boolean): Source[String, _] = Source futureSource {
+  def apply(swiss: Swiss, sorted: Boolean): Source[String, ?] = Source futureSource {
     fetchPlayerIds(swiss) map { apply(swiss, _, sorted) }
   }
 
-  def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, _] =
+  def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, ?] =
     SwissPlayer.fields { f =>
       tournamentLines(swiss) concat
         forbiddenPairings(swiss, playerIds) concat sheetApi
           .source(swiss, sort = sorted.??($doc(f.rating -> -1)))
-          .map((playerLine(swiss, playerIds) _).tupled)
+          .map((playerLine(swiss, playerIds)).tupled)
           .map(formatLine)
     }
 
@@ -62,7 +62,7 @@ final class SwissTrf(
           95 -> pairing.map(_ opponentOf p.userId).flatMap(playerIds.get).??(_.toString),
           97 -> pairing.map(_ colorOf p.userId).??(_.fold("w", "b")),
           99 -> {
-            import SwissSheet._
+            import SwissSheet.*
             outcome match {
               case Absent      => "-"
               case Late        => "H"
@@ -100,7 +100,7 @@ final class SwissTrf(
         import BsonHandlers.given
         playerColl
           .aggregateOne() { framework =>
-            import framework._
+            import framework.*
             Match($doc(p.swissId -> swiss.id)) -> List(
               Sort(Descending(p.rating)),
               Group(BSONNull)("us" -> PushField(p.userId))
@@ -118,19 +118,17 @@ final class SwissTrf(
           }
       }
 
-  private def forbiddenPairings(swiss: Swiss, playerIds: PlayerIds): Source[String, _] =
+  private def forbiddenPairings(swiss: Swiss, playerIds: PlayerIds): Source[String, ?] =
     if (swiss.settings.forbiddenPairings.isEmpty) Source.empty[String]
     else
       Source.fromIterator { () =>
         swiss.settings.forbiddenPairings.linesIterator.flatMap {
-          _.trim.toLowerCase.split(' ').map(_.trim) match {
+          _.trim.toLowerCase.split(' ').map(_.trim) match
             case Array(u1, u2) if u1 != u2 =>
               for {
                 id1 <- playerIds.get(u1)
                 id2 <- playerIds.get(u2)
               } yield s"XXP $id1 $id2"
             case _ => none
-          }
         }
       }
-}

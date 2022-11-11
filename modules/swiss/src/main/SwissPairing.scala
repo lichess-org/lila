@@ -12,7 +12,7 @@ case class SwissPairing(
     black: User.ID,
     status: SwissPairing.Status,
     isForfeit: Boolean = false
-) {
+):
   def apply(c: Color)             = c.fold(white, black)
   def gameId                      = id
   def players                     = List(white, black)
@@ -27,9 +27,8 @@ case class SwissPairing(
   def isDraw                      = status == Right(None)
   def strResultOf(color: Color)   = status.fold(_ => "*", _.fold("1/2")(c => if (c == color) "1" else "0"))
   def forfeit(userId: User.ID)    = copy(status = Right(Some(!colorOf(userId))), isForfeit = true)
-}
 
-object SwissPairing {
+object SwissPairing:
 
   sealed trait Ongoing
   case object Ongoing extends Ongoing
@@ -46,7 +45,7 @@ object SwissPairing {
 
   case class View(pairing: SwissPairing, player: SwissPlayer.WithUser)
 
-  object Fields {
+  object Fields:
     val id        = "_id"
     val swissId   = "s"
     val round     = "r"
@@ -54,7 +53,6 @@ object SwissPairing {
     val players   = "p"
     val status    = "t"
     val isForfeit = "f"
-  }
   def fields[A](f: Fields.type => A): A = f(Fields)
 
   def toMap(pairings: List[SwissPairing]): PairingMap =
@@ -65,4 +63,3 @@ object SwissPairing {
         }
       }
     }
-}

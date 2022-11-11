@@ -1,6 +1,6 @@
 package lila.swiss
 
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
@@ -8,8 +8,8 @@ import lila.db.dsl.{ *, given }
 
 final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: SwissCache)(using
     ec: ExecutionContext
-) {
-  import SwissOfficialSchedule._
+):
+  import SwissOfficialSchedule.*
 
   private val classical   = Config("Classical", 30, 0, 5, 5)
   private val rapid       = Config("Rapid", 10, 0, 7, 8)
@@ -31,7 +31,7 @@ final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: S
   private def daySchedule =
     (0 to 23).toList.flatMap(i => schedule.lift(i % schedule.length))
 
-  def generate: Funit = {
+  def generate: Funit =
     val dayStart = DateTime.now.plusDays(3).withTimeAtStartOfDay
     daySchedule.zipWithIndex
       .map { case (config, hour) =>
@@ -45,7 +45,6 @@ final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: S
       .map { res =>
         if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
       }
-  }
 
   private def makeSwiss(config: Config, startAt: DateTime) =
     Swiss(
@@ -76,16 +75,13 @@ final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: S
         manualPairings = ""
       )
     )
-}
 
-private object SwissOfficialSchedule {
+private object SwissOfficialSchedule:
   case class Config(
       name: String,
       clockMinutes: Double,
       clockSeconds: Int,
       nbRounds: Int,
       minGames: Int
-  ) {
+  ):
     def clock = chess.Clock.Config((clockMinutes * 60).toInt, clockSeconds)
-  }
-}

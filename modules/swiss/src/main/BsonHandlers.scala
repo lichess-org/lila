@@ -2,14 +2,14 @@ package lila.swiss
 
 import chess.Color
 import chess.format.FEN
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-object BsonHandlers {
+object BsonHandlers:
 
   given BSONHandler[chess.variant.Variant] = variantByKeyHandler
   given BSONHandler[chess.Clock.Config]    = clockConfigHandler
@@ -22,7 +22,7 @@ object BsonHandlers {
   given BSONHandler[SwissPlayer.Id]        = stringAnyValHandler(_.value, SwissPlayer.Id.apply)
 
   given BSON[SwissPlayer] with
-    import SwissPlayer.Fields._
+    import SwissPlayer.Fields.*
     def reads(r: BSON.Reader) =
       SwissPlayer(
         id = r.get[SwissPlayer.Id](id),
@@ -65,9 +65,9 @@ object BsonHandlers {
     }
   )
   given BSON[SwissPairing] with
-    import SwissPairing.Fields._
+    import SwissPairing.Fields.*
     def reads(r: BSON.Reader) =
-      r.get[List[User.ID]](players) match {
+      r.get[List[User.ID]](players) match
         case List(w, b) =>
           SwissPairing(
             id = r str id,
@@ -79,7 +79,6 @@ object BsonHandlers {
             isForfeit = r.boolD(isForfeit)
           )
         case _ => sys error "Invalid swiss pairing users"
-      }
     def writes(w: BSON.Writer, o: SwissPairing) =
       $doc(
         id        -> o.id,
@@ -123,7 +122,7 @@ object BsonHandlers {
   given BSONDocumentHandler[Swiss] = Macros.handler
 
   // "featurable" mostly means that the tournament isn't over yet
-  def addFeaturable(s: Swiss) =
+  def addFeaturable(s: Swiss): Bdoc =
     bsonWriteObjTry[Swiss](s).get ++ {
       s.isNotFinished ?? $doc(
         "featurable" -> true,
@@ -134,4 +133,3 @@ object BsonHandlers {
   import Swiss.IdName
   given BSONDocumentHandler[IdName]   = Macros.handler
   given BSONDocumentHandler[SwissBan] = Macros.handler
-}

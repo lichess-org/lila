@@ -1,16 +1,16 @@
 package lila.swiss
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import alleycats.Zero
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
-import scala.util.chaining._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.chat.Chat
 import lila.common.config.MaxPerSecond
@@ -44,21 +44,20 @@ final class SwissApi(
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
-  private val sequencer =
-    new lila.hub.AsyncActorSequencers(
-      maxSize = 1024, // queue many game finished events
-      expiration = 20 minutes,
-      timeout = 10 seconds,
-      name = "swiss.api"
-    )
+  private val sequencer = new lila.hub.AsyncActorSequencers(
+    maxSize = 1024, // queue many game finished events
+    expiration = 20 minutes,
+    timeout = 10 seconds,
+    name = "swiss.api"
+  )
 
-  import BsonHandlers.given
+  import BsonHandlers.{ *, given }
 
   def fetchByIdNoCache(id: Swiss.Id) = swissColl.byId[Swiss](id.value)
 
-  def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] = {
+  def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] =
     val swiss = Swiss(
       _id = Swiss.makeId,
       name = data.name | GreatPlayer.randomName,
@@ -89,7 +88,6 @@ final class SwissApi(
     )
     swissColl.insert.one(addFeaturable(swiss)) >>-
       cache.featuredInTeam.invalidate(swiss.teamId) inject swiss
-  }
 
   def update(swissId: Swiss.Id, data: SwissForm.SwissData): Fu[Option[Swiss]] =
     Sequencing(swissId)(cache.swissCache.byId) { old =>
@@ -170,10 +168,9 @@ final class SwissApi(
     }
 
   def verdicts(swiss: Swiss, me: Option[User]): Fu[SwissCondition.All.WithVerdicts] =
-    me match {
+    me match
       case None       => fuccess(swiss.settings.conditions.accepted)
       case Some(user) => verify(swiss, user)
-    }
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
@@ -202,7 +199,7 @@ final class SwissApi(
       swissId: Swiss.Id,
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  ): Source[Game.ID, _] =
+  ): Source[Game.ID, ?] =
     SwissPairing.fields { f =>
       pairingColl
         .find($doc(f.swissId -> swissId), $id(true).some)
@@ -235,7 +232,7 @@ final class SwissApi(
           .cursor[Swiss]()
           .list(nbSoon)
       } map
-      (Swiss.PastAndNext.apply _).tupled
+      (Swiss.PastAndNext.apply).tupled
 
   def playerInfo(swiss: Swiss, userId: User.ID): Fu[Option[SwissPlayer.ViewExt]] =
     userRepo named userId flatMap {
@@ -247,7 +244,7 @@ final class SwissApi(
                 .find($doc(f.swissId -> swiss.id, f.players -> player.userId))
                 .sort($sort asc f.round)
                 .cursor[SwissPairing]()
-                .list()
+                .listAll()
             } flatMap {
               pairingViews(_, player)
             } flatMap { pairings =>
@@ -326,18 +323,17 @@ final class SwissApi(
     }
 
   private def getGameRanks(swiss: Swiss, game: Game): Fu[Option[GameRanks]] =
-    ~ {
+    ~
       game.whitePlayer.userId.ifTrue(swiss.isStarted) flatMap { whiteId =>
         game.blackPlayer.userId map { blackId =>
           rankingApi(swiss) map { ranking =>
-            import cats.implicits._
+            import cats.implicits.*
             (ranking.get(whiteId), ranking.get(blackId)) mapN { (whiteR, blackR) =>
               GameRanks(whiteR, blackR)
             }
           }
         }
       }
-    }
 
   private[swiss] def leaveTeam(teamId: TeamID, userId: User.ID) =
     joinedPlayableSwissIds(userId, List(teamId))
@@ -352,7 +348,7 @@ final class SwissApi(
   def joinedPlayableSwissIds(userId: User.ID, teamIds: List[TeamID]): Fu[List[Swiss.Id]] =
     swissColl
       .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         Match($doc("teamId" $in teamIds, "featurable" -> true)) -> List(
           PipelineOperator(
             $lookup.pipeline(
@@ -407,15 +403,15 @@ final class SwissApi(
   private[swiss] def finishGame(game: Game): Funit =
     game.swissId.map(Swiss.Id) ?? { swissId =>
       Sequencing(swissId)(cache.swissCache.byId) { swiss =>
-        if (!swiss.isStarted) {
+        if (!swiss.isStarted)
           logger.info(s"Removing pairing ${game.id} finished after swiss ${swiss.id}")
           pairingColl.delete.one($id(game.id)) inject false
-        } else
+        else
           pairingColl
             .updateField(
               $id(game.id),
               SwissPairing.Fields.status,
-              pairingStatusHandler.writeTry(Right(game.winnerColor)).get
+              Right(game.winnerColor): SwissPairing.Status
             )
             .flatMap { result =>
               if (result.nModified == 0) fuccess(false) // dedup
@@ -522,7 +518,7 @@ final class SwissApi(
     else funit
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
 
-  def roundInfo = cache.roundInfo.get _
+  def roundInfo = cache.roundInfo.get
 
   def byTeamCursor(teamId: TeamID) =
     swissColl
@@ -555,10 +551,10 @@ final class SwissApi(
             if (swiss.round.value >= swiss.settings.nbRounds) doFinish(swiss)
             else if (swiss.nbPlayers >= 2)
               countPresentPlayers(swiss) flatMap { nbPresent =>
-                if (nbPresent < 2) {
+                if (nbPresent < 2)
                   systemChat(swiss.id, "Not enough players left.")
                   doFinish(swiss)
-                } else
+                else
                   director.startRound(swiss).flatMap {
                     _.fold {
                       systemChat(swiss.id, "All possible pairings were played.")
@@ -575,15 +571,13 @@ final class SwissApi(
                     }
                   } >>- cache.swissCache.clear(swiss.id)
               }
-            else {
+            else
               if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
-              else {
+              else
                 systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
                 swissColl.update
                   .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(121)))
                   .void >>- cache.swissCache.clear(swiss.id)
-              }
-            }
           } >> recomputeAndUpdateAll(id)
         }
       }
@@ -598,7 +592,7 @@ final class SwissApi(
       .fields { f =>
         pairingColl
           .aggregateList(100) { framework =>
-            import framework._
+            import framework.*
             Match($doc(f.status -> SwissPairing.ongoing)) -> List(
               GroupField(f.swissId)("ids" -> PushField(f.id)),
               Limit(100)
@@ -643,7 +637,7 @@ final class SwissApi(
   def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
     swissColl
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
+        import framework.*
         Match($doc("finishedAt" $exists false, "nbPlayers" $gt 0, "teamId" $in teamIds)) -> List(
           PipelineOperator(
             $lookup.pipelineFull(
@@ -688,7 +682,7 @@ final class SwissApi(
         }
       }
 
-  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[SwissPlayer.WithRank, _] =
+  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[SwissPlayer.WithRank, ?] =
     SwissPlayer.fields { f =>
       playerColl
         .find($doc(f.swissId -> swiss.id))
@@ -706,9 +700,9 @@ final class SwissApi(
   private val idNameProjection = $doc("name" -> true)
 
   def idNames(ids: List[Swiss.Id]): Fu[List[Swiss.IdName]] =
-    swissColl.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().list()
+    swissColl.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().listAll()
 
-  private def Sequencing[A: Zero](
+  private def Sequencing[A <: Matchable: Zero](
       id: Swiss.Id
   )(fetch: Swiss.Id => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =
     sequencer(id.value) {
@@ -716,4 +710,3 @@ final class SwissApi(
         _ ?? run
       }
     }
-}
