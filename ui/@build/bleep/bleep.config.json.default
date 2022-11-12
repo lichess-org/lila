@@ -1,17 +1,10 @@
 {
   "defaultArgs": ["all"],
-  "gulp": false,
-  "rollup": false,
+  "sass": true,
+  "esbuild": true,
   "log": {
     "heap": false,
     "time": true,
-    "ctx": true,
-    "color": {
-      "bleep": "green",
-      "rollup": "cyan",
-      "esbuild": "blue",
-      "tsc": "yellow",
-      "gulp": "magenta"
-    }
+    "ctx": true
   }
 }

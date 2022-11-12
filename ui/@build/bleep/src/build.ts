@@ -38,11 +38,11 @@ export async function build(moduleNames: string[]) {
   await fs.promises.mkdir(env.jsDir, { recursive: true });
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
-  if (env.gulp) gulpWatch();
-  else sassWatch();
+  if (env.sass) sassWatch();
+  else gulpWatch();
 
   await makeBleepConfig(buildModules);
-  typescriptWatch(() => (env.rollup ? rollupWatch(buildModules) : esbuildWatch(buildModules)));
+  typescriptWatch(() => (env.esbuild ? esbuildWatch(buildModules) : rollupWatch(buildModules)));
 }
 
 export function resetTimer(clear = false) {
@@ -61,7 +61,6 @@ export function bundleDone(n: number) {
 export function preModule(mod: LichessModule | undefined) {
   mod?.build.forEach((args: string[]) => {
     env.log(`[${c.grey(mod.name)}] exec - ${c.cyanBold(args.join(' '))}`);
-    // this must block, otherwise the next bundles will begin executing
     const stdout = cps.execSync(`${args.join(' ')}`, { cwd: mod.root });
     if (stdout) env.log(stdout, { ctx: mod.name });
   });
@@ -86,7 +85,6 @@ export function preModule(mod: LichessModule | undefined) {
 
 function buildDependencyList() {}
 
-// don't worry about cycles because yarn install would fail
 function depsOne(modName: string): LichessModule[] {
   const collect = (dep: string): string[] => [...(moduleDeps.get(dep) || []).flatMap(d => collect(d)), dep];
   return unique(collect(modName).map(name => modules.get(name)));
