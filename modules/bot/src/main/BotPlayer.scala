@@ -1,7 +1,7 @@
 package lila.bot
 
 import chess.format.Uci
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.common.Bus
@@ -20,7 +20,7 @@ final class BotPlayer(
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
 
@@ -29,7 +29,7 @@ final class BotPlayer(
       Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")) { uci =>
         lila.mon.bot.moves(me.username).increment()
         if (!pov.isMyTurn) clientError("Not your turn, or game already over")
-        else {
+        else
           val promise = Promise[Unit]()
           if (pov.player.isOfferingDraw && offeringDraw.has(false)) declineDraw(pov)
           else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
@@ -37,7 +37,6 @@ final class BotPlayer(
           promise.future recover {
             case _: lila.round.GameIsFinishedError if ~offeringDraw => ()
           }
-        }
       }
     }
 
@@ -64,7 +63,7 @@ final class BotPlayer(
         // delay so it feels more natural
         lila.common.Future.delay(if (accept) 100.millis else 1.second) {
           fuccess {
-            tellRound(pov.gameId, (if (accept) RematchYes else RematchNo) (pov.playerId))
+            tellRound(pov.gameId, if (accept) RematchYes(pov.playerId) else RematchNo(pov.playerId))
           }
         }
         true
@@ -103,7 +102,8 @@ final class BotPlayer(
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
     if (pov.game.playable && pov.game.canTakebackOrAddTime)
-      tellRound(pov.gameId, (if (v) TakebackYes else TakebackNo) (PlayerId(pov.playerId)))
+      val p = PlayerId(pov.playerId)
+      tellRound(pov.gameId, if (v) TakebackYes(p) else TakebackNo(p))
 
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin ?? {
@@ -123,4 +123,3 @@ final class BotPlayer(
       Bus.publish(Berserk(game.id, me.id), "berserk")
       true
     }
-}

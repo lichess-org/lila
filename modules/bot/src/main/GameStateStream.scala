@@ -1,10 +1,10 @@
 package lila.bot
 
-import akka.actor._
-import akka.stream.scaladsl._
+import akka.actor.*
+import akka.stream.scaladsl.*
 import play.api.i18n.Lang
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.chat.Chat
 import lila.chat.UserLine
@@ -31,8 +31,8 @@ final class GameStateStream(
 )(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
-) {
-  import GameStateStream._
+):
+  import GameStateStream.*
 
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
@@ -40,7 +40,7 @@ final class GameStateStream(
   def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(using
       lang: Lang,
       req: RequestHeader
-  ): Source[Option[JsObject], _] = {
+  ): Source[Option[JsObject], ?] =
 
     // terminate previous one if any
     Bus.publish(PoisonPill, uniqChan(init.game pov as))
@@ -54,7 +54,6 @@ final class GameStateStream(
         actor ! PoisonPill
       }
     }
-  }
 
   private def uniqChan(pov: Pov)(implicit req: RequestHeader) =
     s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
@@ -65,7 +64,7 @@ final class GameStateStream(
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
   )(implicit lang: Lang, req: RequestHeader) =
-    new Actor {
+    new Actor:
 
       val id = init.game.id
 
@@ -83,7 +82,7 @@ final class GameStateStream(
       ) :::
         user.isBot.option(Chat chanOf Chat.Id(s"$id/w")).toList
 
-      override def preStart(): Unit = {
+      override def preStart(): Unit =
         super.preStart()
         Bus.subscribe(self, classifiers)
         jsonView gameFull init foreach { json =>
@@ -95,9 +94,8 @@ final class GameStateStream(
         }
         lila.mon.bot.gameStream("start").increment()
         Bus.publish(Tell(init.game.id, BotConnected(as, v = true)), "roundSocket")
-      }
 
-      override def postStop(): Unit = {
+      override def postStop(): Unit =
         super.postStop()
         Bus.unsubscribe(self, classifiers)
         // hang around if game is over
@@ -107,9 +105,8 @@ final class GameStateStream(
         }
         queue.complete()
         lila.mon.bot.gameStream("stop").increment().unit
-      }
 
-      def receive = {
+      def receive =
         case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g).unit
         case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, _, text, false, false)) =>
           pushChatLine(username, text, chatId.value.lengthIs == Game.gameIdSize).unit
@@ -129,7 +126,6 @@ final class GameStateStream(
               Bus.publish(Tell(id, QuietFlag), "roundSocket")
             }
             .unit
-      }
 
       def pushState(g: Game): Funit =
         jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer void
@@ -146,11 +142,8 @@ final class GameStateStream(
           gameOver = true
           self ! PoisonPill
         }
-    }
-}
 
-private object GameStateStream {
+private object GameStateStream:
 
   private case object SetOnline
   private case class User(id: lila.user.User.ID, isBot: Boolean)
-}
