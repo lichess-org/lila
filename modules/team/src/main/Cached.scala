@@ -24,9 +24,7 @@ final class Cached(
     expireAfter = Syncache.ExpireAfterAccess(10 minutes)
   )
 
-  def blockingTeamName(id: Team.ID) = nameCache sync id
-
-  def preloadSet = nameCache preloadSet _
+  export nameCache.{ preloadSet, sync as blockingTeamName }
 
   private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
@@ -62,12 +60,9 @@ final class Cached(
     expireAfter = Syncache.ExpireAfterWrite(40 minutes)
   )
 
-  def syncTeamIds                  = teamIdsCache sync _
-  def teamIds                      = teamIdsCache async _
+  export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
   def teamIdsList(userId: User.ID) = teamIds(userId).dmap(_.toList)
   def teamIdsSet(userId: User.ID)  = teamIds(userId).dmap(_.toSet)
-
-  def invalidateTeamIds = teamIdsCache invalidate _
 
   val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
     _.expireAfterAccess(40 minutes)

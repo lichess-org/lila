@@ -1,16 +1,16 @@
 package lila.forum
 
-import actorApi._
+import actorApi.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
-import lila.security.{ Granter => MasterGranter }
+import lila.security.{ Granter as MasterGranter }
 import lila.user.User
 
 final class PostApi(
@@ -26,7 +26,7 @@ final class PostApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -116,8 +116,8 @@ final class PostApi(
   def react(categSlug: String, postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
     Post.Reaction.set(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
-      postRepo.coll.ext
-        .findAndUpdate[Post](
+      postRepo.coll
+        .findAndUpdateSimplified[Post](
           selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
           update = {
             if (v) $addToSet(s"reactions.$reaction" -> me.id)
@@ -129,12 +129,12 @@ final class PostApi(
 
   def views(posts: List[Post]): Fu[List[PostView]] =
     for {
-      topics <- topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
-      categs <- categRepo.coll.byIds[Categ](topics.map(_.categId).distinct)
+      topics <- topicRepo.coll.byStringIds[Topic](posts.map(_.topicId).distinct)
+      categs <- categRepo.coll.byStringIds[Categ](topics.map(_.categId).distinct)
     } yield posts flatMap { post =>
       for {
-        topic <- topics find (_.id == post.topicId)
-        categ <- categs find (_.slug == topic.categId)
+        topic <- topics.find(_.id == post.topicId)
+        categ <- categs.find(_.slug == topic.categId)
       } yield PostView(post, topic, categ)
     }
 
@@ -145,7 +145,7 @@ final class PostApi(
     views(List(post)) dmap (_.headOption)
 
   def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
-    topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+    topicRepo.coll.byStringIds[Topic](posts.map(_.topicId).distinct) map { topics =>
       posts flatMap { post =>
         topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
       }
@@ -157,9 +157,9 @@ final class PostApi(
     liteViews(List(post)) dmap (_.headOption)
 
   def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] =
-    topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+    topicRepo.coll.byStringIds[Topic](posts.map(_.topicId).distinct) map { topics =>
       posts flatMap { post =>
-        topics find (_.id == post.topicId) map { topic =>
+        topics.find(_.id == post.topicId) map { topic =>
           MiniForumPost(
             isTeam = post.isTeam,
             postId = post.id,
@@ -233,4 +233,3 @@ final class PostApi(
         edit
       )
     }
-}

@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.common.paginator._
+import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -12,11 +12,11 @@ final class CategApi(
     config: ForumConfig
 )(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   import BSONHandlers.given
 
-  def makeTeam(slug: String, name: String): Funit = {
+  def makeTeam(slug: String, name: String): Funit =
     val categ = Categ(
       _id = teamSlug(slug),
       name = name,
@@ -51,7 +51,6 @@ final class CategApi(
       postRepo.coll.insert.one(post).void >>
       topicRepo.coll.insert.one(topic withPost post).void >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
-  }
 
   def show(
       slug: String,
@@ -87,4 +86,3 @@ final class CategApi(
           )
           .void
     } yield ()
-}

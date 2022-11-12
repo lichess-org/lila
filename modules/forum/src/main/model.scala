@@ -8,7 +8,7 @@ case class CategView(
     categ: Categ,
     lastPost: Option[(Topic, Post, Int)],
     forUser: Option[User]
-) {
+):
 
   def nbTopics       = categ nbTopics forUser
   def nbPosts        = categ nbPosts forUser
@@ -18,7 +18,6 @@ case class CategView(
   def slug = categ.slug
   def name = categ.name
   def desc = categ.desc
-}
 
 case class TopicView(
     categ: Categ,
@@ -26,7 +25,7 @@ case class TopicView(
     lastPost: Option[Post],
     lastPage: Int,
     forUser: Option[User]
-) {
+):
 
   def updatedAt      = topic updatedAt forUser
   def nbPosts        = topic nbPosts forUser
@@ -38,20 +37,17 @@ case class TopicView(
   def slug      = topic.slug
   def name      = topic.name
   def createdAt = topic.createdAt
-}
 
 case class PostView(
     post: Post,
     topic: Topic,
     categ: Categ
-) {
+):
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
-}
 
-object PostView {
+object PostView:
   case class WithReadPerm(view: PostView, canRead: Boolean)
-}
 
 case class PostLiteView(post: Post, topic: Topic)
 
@@ -66,9 +62,8 @@ case class MiniForumPost(
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
 
-object Filter {
+object Filter:
   sealed trait Filter
   case object Safe                   extends Filter
   case class SafeAnd(userId: String) extends Filter
   case object Unsafe                 extends Filter
-}

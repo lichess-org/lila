@@ -16,7 +16,7 @@ case class Categ(
     lastPostIdTroll: String,
     quiet: Boolean = false,
     hidden: Boolean = false
-) {
+):
 
   def id = _id
 
@@ -39,13 +39,11 @@ case class Categ(
     )
 
   def slug = id
-}
 
-object Categ {
+object Categ:
 
   val ublogSlug = "community-blog-discussions"
 
   def isTeamSlug(slug: String) = slug.startsWith("team-")
 
   def slugToTeamId(slug: String) = isTeamSlug(slug) option slug.drop(5)
-}

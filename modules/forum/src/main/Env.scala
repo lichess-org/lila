@@ -1,11 +1,11 @@
 package lila.forum
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config._
+import lila.common.config.*
 import lila.forum.actorApi.RemovePost
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
@@ -44,7 +44,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer
-) {
+):
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
@@ -78,9 +78,7 @@ final class Env(
     case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user).unit
   }
-}
 
 final class RecentTeamPosts(f: String => Fu[List[MiniForumPost]])
-    extends (String => Fu[List[MiniForumPost]]) {
+    extends (String => Fu[List[MiniForumPost]]):
   def apply(teamId: String) = f(teamId)
-}

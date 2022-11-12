@@ -1,9 +1,9 @@
 package lila.forum
 
 import lila.db.dsl.{ *, given }
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-private object BSONHandlers {
+private object BSONHandlers:
 
   given BSONDocumentHandler[Categ] = Macros.handler
 
@@ -11,4 +11,3 @@ private object BSONHandlers {
   given BSONDocumentHandler[Post] = Macros.handler
 
   given BSONDocumentHandler[Topic] = Macros.handler
-}

@@ -1,15 +1,15 @@
 package lila.forum
 
-import actorApi._
-import scala.concurrent.duration._
+import actorApi.*
+import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.common.paginator._
+import lila.common.paginator.*
 import lila.common.String.noShouting
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.memo.CacheApi
-import lila.security.{ Granter => MasterGranter }
+import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Holder, User }
 
 final private[forum] class TopicApi(
@@ -27,7 +27,7 @@ final private[forum] class TopicApi(
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -51,18 +51,16 @@ final private[forum] class TopicApi(
       }
     } yield res
 
-  object findDuplicate {
+  object findDuplicate:
     private val cache = cacheApi.notLoadingSync[(User.ID, String), Topic.ID](64, "forum.topic.duplicate") {
       _.expireAfterWrite(1 hour).build()
     }
-    def apply(topic: Topic): Fu[Option[Topic]] = {
+    def apply(topic: Topic): Fu[Option[Topic]] =
       val key = (~topic.userId, topic.name)
-      cache.getIfPresent(key) ?? topicRepo.coll.byId[Topic] orElse {
+      cache.getIfPresent(key) ?? { topicRepo.coll.byId[Topic](_) } orElse {
         cache.put(key, topic.id)
         fuccess(none)
       }
-    }
-  }
 
   def makeTopic(
       categ: Categ,
@@ -143,7 +141,7 @@ final private[forum] class TopicApi(
       }
     }
 
-  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String) = {
+  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String) =
     val topic = Topic.make(
       categId = categ.slug,
       slug = slug,
@@ -163,15 +161,13 @@ final private[forum] class TopicApi(
       modIcon = true.some
     )
     makeNewTopic(categ, topic, post)
-  }
 
-  private def makeNewTopic(categ: Categ, topic: Topic, post: Post) = {
+  private def makeNewTopic(categ: Categ, topic: Topic, post: Post) =
     postRepo.coll.insert.one(post) >>
       topicRepo.coll.insert.one(topic withPost post) >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
       (indexer ! InsertPost(post)) >>-
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
-  }
 
   def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ) flatMap { topics =>
@@ -216,4 +212,3 @@ final private[forum] class TopicApi(
           )
           .void
     } yield ()
-}

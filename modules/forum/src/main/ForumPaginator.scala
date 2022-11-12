@@ -2,7 +2,7 @@ package lila.forum
 
 import scala.concurrent.ExecutionContext
 import reactivemongo.api.ReadPreference
-import lila.common.paginator._
+import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
@@ -12,7 +12,7 @@ final class ForumPaginator(
     postRepo: PostRepo,
     config: ForumConfig,
     textExpand: ForumTextExpand
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   import BSONHandlers.given
 
@@ -47,7 +47,7 @@ final class ForumPaginator(
         def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
           topicRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
                 Skip(offset),
@@ -73,4 +73,3 @@ final class ForumPaginator(
         private def selector = topicRepo.forUser(forUser) byCategNotStickyQuery categ
       }
     )
-}

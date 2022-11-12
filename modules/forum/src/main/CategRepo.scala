@@ -3,9 +3,9 @@ package lila.forum
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.ReadPreference
 
-final class CategRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final class CategRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers.CategBSONHandler
+  import BSONHandlers.given
 
   def bySlug(slug: String) = coll.byId[Categ](slug)
 
@@ -18,8 +18,7 @@ final class CategRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContex
         )
       )
       .cursor[Categ](ReadPreference.secondaryPreferred)
-      .list()
+      .list(100)
 
   def nbPosts(id: String): Fu[Int] =
     coll.primitiveOne[Int]($id(id), "nbPosts").dmap(~_)
-}

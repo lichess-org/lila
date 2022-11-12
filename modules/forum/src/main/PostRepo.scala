@@ -1,6 +1,6 @@
 package lila.forum
 
-import Filter._
+import Filter.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
@@ -10,7 +10,7 @@ import lila.user.User
 
 final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   def forUser(user: Option[User]) =
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
@@ -19,16 +19,15 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
   def withFilter(f: Filter) = if (f == filter) this else new PostRepo(coll, f)
   def unsafe                = withFilter(Unsafe)
 
-  import BSONHandlers.PostBSONHandler
+  import BSONHandlers.given
 
   private val noTroll = $doc("troll" -> false)
-  private val trollFilter = filter match {
+  private val trollFilter = filter match
     case Safe       => noTroll
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe     => $empty
-  }
 
-  def byIds(ids: Seq[Post.ID]) = coll.byIds[Post](ids)
+  def byIds(ids: Seq[Post.ID]) = coll.byStringIds[Post](ids)
 
   def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
     coll.one[Post](selectCateg(categSlug) ++ $id(id))
@@ -113,4 +112,3 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
     coll
       .find($doc("userId" $ne User.ghostId))
       .cursor[Post](ReadPreference.secondaryPreferred)
-}

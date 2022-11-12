@@ -1,16 +1,16 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import Filter._
+import Filter.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 final class TopicRepo(val coll: Coll, filter: Filter = Safe)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import BSONHandlers.TopicBSONHandler
+  import BSONHandlers.given
 
   def forUser(user: Option[User]) =
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
@@ -20,11 +20,10 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def unsafe                = withFilter(Unsafe)
 
   private val noTroll = $doc("troll" -> false)
-  private val trollFilter = filter match {
+  private val trollFilter = filter match
     case Safe       => noTroll
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe     => $empty
-  }
 
   private lazy val notStickyQuery = $doc("sticky" $ne true)
   private lazy val stickyQuery    = $doc("sticky" -> true)
@@ -55,15 +54,13 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def stickyByCateg(categ: Categ): Fu[List[Topic]] =
     coll.list[Topic](byCategQuery(categ) ++ stickyQuery)
 
-  def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
+  def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] =
     val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)
     // also take troll topic into accounts
     unsafe.byTree(categ.slug, slug) flatMap { found =>
       if (found.isDefined) nextSlug(categ, name, it + 1)
       else fuccess(slug)
     }
-  }
 
   def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
-}

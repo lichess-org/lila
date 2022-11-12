@@ -1,10 +1,10 @@
 package lila.forum
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 
-import lila.forum.actorApi._
-import lila.security.{ Granter => MasterGranter }
+import lila.forum.actorApi.*
+import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Holder, User }
 
 final class ForumDelete(
@@ -16,7 +16,7 @@ final class ForumDelete(
     topicApi: TopicApi,
     categApi: CategApi,
     modLog: lila.mod.ModlogApi
-)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
 
   def post(categSlug: String, postId: String, mod: User): Funit =
     postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
@@ -66,4 +66,3 @@ final class ForumDelete(
           (categApi denormalize view.categ) >>-
           (indexer ! RemovePost(view.post.id))
     }
-}

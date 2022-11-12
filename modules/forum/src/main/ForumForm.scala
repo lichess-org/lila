@@ -1,17 +1,17 @@
 package lila.forum
 
 import lila.common.Form.cleanText
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import lila.user.User
 
 final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
     val captcher: lila.hub.actors.Captcher
 )(using ec: scala.concurrent.ExecutionContext)
-    extends lila.hub.CaptchedForm {
+    extends lila.hub.CaptchedForm:
 
-  import ForumForm._
+  import ForumForm.*
 
   def postMapping(user: User, inOwnTeam: Boolean) =
     mapping(
@@ -20,7 +20,7 @@ final private[forum] class ForumForm(
       "move"    -> text,
       "modIcon" -> optional(boolean)
     )(PostData.apply)(unapply)
-      .verifying(captchaFailMessage, validateCaptcha _)
+      .verifying(captchaFailMessage, validateCaptcha)
 
   def post(user: User, inOwnTeam: Boolean) = Form(postMapping(user, inOwnTeam))
 
@@ -28,7 +28,7 @@ final private[forum] class ForumForm(
     Form(
       mapping(
         "changes" -> userTextMapping(user, inOwnTeam, previousText.some)
-      )(PostEdit.apply)(unapply)
+      )(PostEdit.apply)(_.changes.some)
     )
 
   def postWithCaptcha(user: User, inOwnTeam: Boolean) = withCaptcha(post(user, inOwnTeam))
@@ -51,9 +51,8 @@ final private[forum] class ForumForm(
         "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(user)(t, previousText)
       )
-}
 
-object ForumForm {
+object ForumForm:
 
   case class PostData(
       text: String,
@@ -68,4 +67,3 @@ object ForumForm {
   )
 
   case class PostEdit(changes: String)
-}

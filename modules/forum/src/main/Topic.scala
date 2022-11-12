@@ -1,7 +1,7 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.common.config.MaxPerPage
 import lila.common.ThreadLocalRandom
@@ -24,7 +24,7 @@ case class Topic(
     sticky: Option[Boolean],
     userId: Option[User.ID] = None, // only since SB mutes
     ublogId: Option[String] = None
-) {
+):
 
   def id = _id
 
@@ -63,9 +63,8 @@ case class Topic(
 
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value
-}
 
-object Topic {
+object Topic:
 
   type ID = String
 
@@ -103,4 +102,3 @@ object Topic {
       sticky = None,
       ublogId = ublogId
     )
-}
