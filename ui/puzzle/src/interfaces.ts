@@ -11,6 +11,7 @@ import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
 import { KeyboardMove } from 'keyboardMove';
+import * as Prefs from 'common/prefs';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];

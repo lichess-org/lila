@@ -27,13 +27,13 @@
     "flatpickr": "^4.6.9",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
+    "lichess-pgn-viewer": "^1",
     "prop-types": "^15.8.1",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
-    "zxcvbn": "^4.4.2",
-    "lichess-pgn-viewer": "^1"
+    "zxcvbn": "^4.4.2"
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",

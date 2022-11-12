@@ -50,7 +50,7 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (ctrl: AnalyseController) {
+export default (window as any).LichessAnalyseNvui = function (ctrl: AnalyseController) {
   const notify = new Notify(ctrl.redraw),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
@@ -280,7 +280,7 @@ export default function (ctrl: AnalyseController) {
       ]);
     },
   };
-}
+};
 
 const NOT_ALLOWED = 'local evaluation not allowed';
 const NOT_POSSIBLE = 'local evaluation not possible';

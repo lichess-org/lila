@@ -34,7 +34,6 @@ lichess.load.then(() => {
     timeago.updateRegularly(1000);
     pubsub.on('content-loaded', timeago.findAndRender);
   });
-
   requestIdleCallback(() => {
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);

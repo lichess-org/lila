@@ -297,4 +297,6 @@ const formatClock = (centis: number) => {
   return result;
 };
 
+(window as any).LichessChartGame.movetime = movetime;
+
 export default movetime;

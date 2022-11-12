@@ -1,3 +1,5 @@
+export {}; // for tsc isolatedModules
+
 lichess.load.then(() => {
   const form = document.querySelector('.search__form') as HTMLFormElement,
     $form = $(form),

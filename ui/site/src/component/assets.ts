@@ -39,7 +39,7 @@ export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> 
 
 export const loadModule = (name: string): Promise<void> => loadScript(jsModule(name));
 export const loadIife = async (name: string, iife: keyof Window) => {
-  await loadModule(name);
+  loadModule(name);
   return window[iife];
 };
 

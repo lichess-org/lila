@@ -1,6 +1,7 @@
 import * as cg from 'chessground/types';
 import * as xhr from './xhr';
 import debounce from './debounce';
+import * as Prefs from './prefs';
 
 type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 

@@ -1,12 +1,12 @@
 import modal from 'common/modal';
 
 export function app(input: HTMLInputElement) {
-  lichess.userComplete().then(uac => {
-    uac({
+  lichess.userComplete().then(function () {
+    window.UserComplete({
       input,
       friend: true,
       focus: true,
-      onSelect: r => execute(r.name),
+      onSelect: (r: any) => execute(r.name),
     });
     $(input).on('keydown', (e: KeyboardEvent) => {
       if (e.code == 'Enter') {
@@ -74,3 +74,5 @@ function help() {
     class: 'clinput-help',
   });
 }
+
+(window as any).LichessCli = { app }; // esbuild
