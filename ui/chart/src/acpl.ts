@@ -176,4 +176,5 @@ const toBlurArray = (player: Player) => (player.blurs && player.blurs.bits ? pla
 
 export default acpl;
 
-(window as any).LichessChartGame = { acpl }; // esbuild
+if (!window.LichessChartGame) (window as any).LichessChartGame = [];
+(window as any).LichessChartGame.acpl = acpl; // esbuild
