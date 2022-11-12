@@ -20,4 +20,4 @@ lichess.load.then(() => {
   });
 });
 
-export default (window as any).LichessFlatpickr = flatpickr;
+export default (window as any).LichessFlatpickr = flatpickr; // esbuild
