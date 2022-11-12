@@ -63,14 +63,17 @@ object Dependencies {
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
     val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-$os-x86-64"
-    val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
+    // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }
 
   object play {
-    val api      = "com.typesafe.play" %% "play"           % "2.8.18-lila_3.3"
-    val json     = "com.typesafe.play" %% "play-json"      % "2.10.0-RC7"
-    val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.10.0-RC7"
+    val playVersion = "2.8.18-lila_3.3"
+    val api         = "com.typesafe.play" %% "play"              % playVersion
+    val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC7"
+    val jsonJoda    = "com.typesafe.play" %% "play-json-joda"    % "2.10.0-RC7"
+    val server      = "com.typesafe.play" %% "play-server"       % playVersion
+    val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
   }
 
   object playWs {

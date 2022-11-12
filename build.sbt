@@ -1,10 +1,13 @@
-import com.typesafe.sbt.packager.Keys.scriptClasspath
+import com.typesafe.sbt.packager.Keys.{ bashScriptExtraDefines, scriptClasspath }
+import play.sbt.PlayCommands
+import play.sbt.PlayInternalKeys.playDependencyClasspath
+import play.sbt.routes.RoutesKeys
 
 import BuildSettings._
 import Dependencies._
 
 lazy val root = Project("lila", file("."))
-  .enablePlugins(PlayScala, PlayNettyServer)
+  .enablePlugins(JavaServerAppPackaging)
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
@@ -12,6 +15,27 @@ lazy val root = Project("lila", file("."))
 // shorter prod classpath
 scriptClasspath             := Seq("*")
 Compile / resourceDirectory := baseDirectory.value / "conf"
+// the following settings come from the PlayScala plugin, which I removed
+shellPrompt := PlayCommands.playPrompt
+// all dependencies from outside the project (all dependency jars)
+playDependencyClasspath := (Runtime / externalDependencyClasspath).value
+// playCommonClassloader   := PlayCommands.playCommonClassloaderTask.value
+// playCompileEverything := PlayCommands.playCompileEverythingTask.value.asInstanceOf[Seq[Analysis]]
+ivyLoggingLevel     := UpdateLogging.DownloadOnly
+Compile / mainClass := Some("play.core.server.ProdServerStart")
+// Adds the Play application directory to the command line args passed to Play
+bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
+// by default, compile any routes files in the root named "routes" or "*.routes"
+Compile / RoutesKeys.routes / sources ++= {
+  val dirs = (Compile / unmanagedResourceDirectories).value
+  (dirs * "routes").get ++ (dirs * "*.routes").get
+}
+target                      := baseDirectory.value / "target"
+Compile / sourceDirectory   := baseDirectory.value / "app"
+Test / sourceDirectory      := baseDirectory.value / "test"
+Compile / scalaSource       := baseDirectory.value / "app"
+Test / scalaSource          := baseDirectory.value / "test"
+Universal / sourceDirectory := baseDirectory.value / "dist"
 
 /* Required because:
 [error] stack trace is suppressed; run last update for the full output
@@ -28,9 +52,9 @@ evictionErrorLevel := Level.Warn
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
-  macwire.macros, macwire.util, play.json,
+  macwire.macros, macwire.util, play.json, play.server, play.netty,
   chess, compression, scalalib, hasher,
-  reactivemongo.driver, reactivemongo.kamon, maxmind, prismic, scalatags,
+  reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport
 ) ++ {
