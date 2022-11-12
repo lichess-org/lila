@@ -2,14 +2,14 @@ package lila.team
 
 import org.joda.time.{ DateTime, Period }
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api._
-import reactivemongo.api.bson._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.LeaderTeam
 import lila.user.User
 
-final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -101,7 +101,7 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def countRequestsOfLeader(userId: User.ID, requestColl: Coll): Fu[Int] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
+        import framework.*
         Match($doc("leaders" -> userId)) -> List(
           Group(BSONNull)("ids" -> PushField("_id")),
           PipelineOperator(
@@ -144,4 +144,3 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   private[team] val enabledSelect = $doc("enabled" -> true)
 
   private[team] val sortPopular = $sort desc "nbMembers"
-}

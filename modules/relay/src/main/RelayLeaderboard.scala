@@ -1,7 +1,7 @@
 package lila.relay
 
 import chess.format.pgn.Tags
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
@@ -12,14 +12,13 @@ import chess.Outcome
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
 
-object RelayLeaderboard {
+object RelayLeaderboard:
   case class Player(name: String, score: Double, played: Int, rating: Option[Int])
 
-  import play.api.libs.json._
+  import play.api.libs.json.*
   given OWrites[Player] = OWrites { p =>
     Json.obj("name" -> p.name, "score" -> p.score, "played" -> p.played).add("rating", p.rating)
   }
-}
 
 final class RelayLeaderboardApi(
     tourRepo: RelayTourRepo,
@@ -29,7 +28,7 @@ final class RelayLeaderboardApi(
 )(using
     ec: ExecutionContext,
     scheduler: Scheduler
-) {
+):
 
   import BSONHandlers.given
 
@@ -61,13 +60,12 @@ final class RelayLeaderboardApi(
             }
             val rating = game(s"${color}Elo").flatMap(_.toIntOption)
             val title  = game(s"${color}Title")
-            lead.getOrElse(name, (0d, 0, none, none)) match {
+            lead.getOrElse(name, (0d, 0, none, none)) match
               case (prevScore, prevPlayed, prevRating, prevTitle) =>
                 lead.updated(
                   name,
                   (prevScore + score, prevPlayed + played, rating orElse prevRating, title orElse prevTitle)
                 )
-            }
           }
         }
     }
@@ -77,4 +75,3 @@ final class RelayLeaderboardApi(
       RelayLeaderboard.Player(fullName, score, played, rating)
     }
   }
-}

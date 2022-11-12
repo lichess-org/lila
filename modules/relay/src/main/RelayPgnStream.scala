@@ -1,8 +1,8 @@
 package lila.relay
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.format.DateTimeFormat
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.study.{ Chapter, ChapterRepo, PgnDump, Study, StudyRepo }
@@ -13,9 +13,9 @@ final class RelayPgnStream(
     studyRepo: StudyRepo,
     studyChapterRepo: ChapterRepo,
     studyPgnDump: PgnDump
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  def exportFullTour(tour: RelayTour): Source[String, _] =
+  def exportFullTour(tour: RelayTour): Source[String, ?] =
     Source futureSource {
       roundRepo.idsByTourOrdered(tour) flatMap { ids =>
         studyRepo.byOrderedIds(ids.map(_.value).map(Study.Id)) map { studies =>
@@ -28,12 +28,11 @@ final class RelayPgnStream(
   private val fileR      = """[\s,]""".r
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
 
-  def filename(tour: RelayTour): String = {
+  def filename(tour: RelayTour): String =
     val date = dateFormat.print(tour.syncedAt | tour.createdAt)
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
-  }
 
-  def streamRoundGames(rt: RelayRound.WithTourAndStudy): Source[String, _] = {
+  def streamRoundGames(rt: RelayRound.WithTourAndStudy): Source[String, ?] = {
     if (rt.relay.hasStarted) studyPgnDump(rt.study, flags)
     else Source.empty[String]
   } concat Source
@@ -52,4 +51,3 @@ final class RelayPgnStream(
     .flatMapConcat(studyChapterRepo.byIdsSource)
     .throttle(16, 1 second)
     .mapAsync(1)(studyPgnDump.ofChapter(rt.study, flags))
-}

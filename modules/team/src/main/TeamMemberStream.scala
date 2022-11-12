@@ -1,9 +1,9 @@
 package lila.team
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
@@ -15,14 +15,14 @@ final class TeamMemberStream(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
+):
 
-  def apply(team: Team, perSecond: MaxPerSecond): Source[User, _] =
+  def apply(team: Team, perSecond: MaxPerSecond): Source[User, ?] =
     idsBatches(team, perSecond)
       .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)
 
-  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[User.ID, _] =
+  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[User.ID, ?] =
     idsBatches(team, perSecond, $doc("unsub" $ne true))
       .mapConcat(identity)
 
@@ -30,7 +30,7 @@ final class TeamMemberStream(
       team: Team,
       perSecond: MaxPerSecond,
       selector: Bdoc = $empty
-  ): Source[Seq[User.ID], _] =
+  ): Source[Seq[User.ID], ?] =
     memberRepo.coll
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true).some)
       .sort($sort desc "date")
@@ -40,4 +40,3 @@ final class TeamMemberStream(
       .grouped(perSecond.value)
       .map(_.flatMap(_.getAsOpt[User.ID]("user")))
       .throttle(1, 1 second)
-}

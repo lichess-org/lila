@@ -1,20 +1,20 @@
 package lila.relay
 
 import io.mola.galimatias.URL
-import play.api.libs.json._
+import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.study.MultiPgn
 import lila.memo.CacheApi
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 
 final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import RelayFormat._
+  import RelayFormat.*
   import RelayRound.Sync.UpstreamUrl
 
   private val cache = cacheApi[UpstreamUrl.WithRound, RelayFormat](8, "relay.format") {
@@ -33,7 +33,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
 
     // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
     def guessLcc(url: URL): Fu[Option[RelayFormat]] =
-      url.toString match {
+      url.toString match
         case UpstreamUrl.LccRegex(id) =>
           guessManyFiles(
             URL.parse(
@@ -41,7 +41,6 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
             )
           )
         case _ => fuccess(none)
-      }
 
     def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
@@ -90,23 +89,20 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
   private def looksLikePgn(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
 
   private def looksLikeJson(body: String): Boolean =
-    try {
+    try
       Json.parse(body) != JsNull
-    } catch {
+    catch
       case _: Exception => false
-    }
   private def looksLikeJson(url: URL): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
-}
 
 sealed private trait RelayFormat
 
-private object RelayFormat {
+private object RelayFormat:
 
   sealed trait DocFormat
-  object DocFormat {
+  object DocFormat:
     case object Json extends DocFormat
     case object Pgn  extends DocFormat
-  }
 
   case class Doc(url: URL, format: DocFormat)
 
@@ -117,13 +113,11 @@ private object RelayFormat {
 
   type GameNumberToDoc = Int => Doc
 
-  case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat {
+  case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat:
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
-  }
 
   def addPart(url: URL, part: String)             = url.withPath(s"${url.path}/$part")
   def replaceLastPart(url: URL, withPart: String) = url.withPath(s"${url.path}/../$withPart")
 
   val mostCommonSingleFileName = "games.pgn"
   val mostCommonIndexNames     = List("round.json", "index.json")
-}

@@ -1,10 +1,10 @@
 package lila.relay
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 
-object BSONHandlers {
+object BSONHandlers:
 
   given BSONHandler[RelayRound.Id]               = stringAnyValHandler(_.value, RelayRound.Id)
   given tourIdHandler: BSONHandler[RelayTour.Id] = stringAnyValHandler(_.value, RelayTour.Id)
@@ -41,4 +41,3 @@ object BSONHandlers {
     round <- doc.asOpt[RelayRound]
     tour  <- doc.getAsOpt[RelayTour]("tour")
   } yield RelayRound.WithTour(round, tour)
-}

@@ -1,9 +1,9 @@
 package lila.team
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation.Constraints
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Form.{
   cleanNonEmptyText,
@@ -21,9 +21,9 @@ final private[team] class TeamForm(
     lightUserApi: lila.user.LightUserApi,
     val captcher: lila.hub.actors.Captcher
 )(using ec: scala.concurrent.ExecutionContext)
-    extends lila.hub.CaptchedForm {
+    extends lila.hub.CaptchedForm:
 
-  private object Fields {
+  private object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
@@ -45,7 +45,6 @@ final private[team] class TeamForm(
     val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
     val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
-  }
 
   val create = Form(
     mapping(
@@ -59,7 +58,7 @@ final private[team] class TeamForm(
       Fields.move
     )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
-      .verifying(captchaFailMessage, validateCaptcha _)
+      .verifying(captchaFailMessage, validateCaptcha)
   )
 
   def edit(team: Team) =
@@ -135,7 +134,6 @@ final private[team] class TeamForm(
 
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.name))
-}
 
 private[team] case class TeamSetup(
     name: String,
@@ -146,9 +144,8 @@ private[team] case class TeamSetup(
     request: Boolean,
     gameId: String,
     move: String
-) {
+):
   def isOpen = !request
-}
 
 private[team] case class TeamEdit(
     password: Option[String],
@@ -159,7 +156,7 @@ private[team] case class TeamEdit(
     chat: Team.Access,
     forum: Team.Access,
     hideMembers: Boolean
-) {
+):
 
   def isOpen = !request
 
@@ -168,7 +165,6 @@ private[team] case class TeamEdit(
       description = description,
       descPrivate = descPrivate.filter(_.value.nonEmpty)
     )
-}
 
 private[team] case class RequestSetup(
     message: Option[String],

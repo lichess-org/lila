@@ -1,12 +1,12 @@
 package lila.team
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class MemberRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final class MemberRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -54,4 +54,3 @@ final class MemberRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionConte
   def teamQuery(teamId: Team.ID)                         = $doc("team" -> teamId)
   private def selectId(teamId: Team.ID, userId: User.ID) = $id(TeamMember.makeId(teamId, userId))
   private def userQuery(userId: User.ID)                 = $doc("user" -> userId)
-}

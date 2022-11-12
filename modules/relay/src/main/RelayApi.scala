@@ -3,12 +3,12 @@ package lila.relay
 import akka.stream.scaladsl.Source
 import alleycats.Zero
 import org.joda.time.DateTime
-import play.api.libs.json._
+import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
-import scala.util.chaining._
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
@@ -27,7 +27,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi
-)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import lila.study.BSONHandlers.given
@@ -38,7 +38,7 @@ final class RelayApi(
   def byIdWithTour(id: RelayRound.Id): Fu[Option[RelayRound.WithTour]] =
     roundRepo.coll
       .aggregateOne() { framework =>
-        import framework._
+        import framework.*
         Match($id(id)) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
           UnwindField("tour")
@@ -90,7 +90,7 @@ final class RelayApi(
       .buildAsyncFuture { _ =>
         tourRepo.coll
           .aggregateList(40) { framework =>
-            import framework._
+            import framework.*
             Match(tourRepo.selectors.officialActive) -> List(
               Sort(Descending("tier")),
               PipelineOperator(
@@ -126,7 +126,7 @@ final class RelayApi(
   private[relay] def toSync(official: Boolean, maxDocs: Int = 30) =
     roundRepo.coll
       .aggregateList(maxDocs, ReadPreference.primary) { framework =>
-        import framework._
+        import framework.*
         Match(
           $doc(
             "sync.until" $exists true,
@@ -142,10 +142,9 @@ final class RelayApi(
       }
       .map(_ flatMap readRoundWithTour)
 
-  def tourCreate(data: RelayTourForm.Data, user: User): Fu[RelayTour] = {
+  def tourCreate(data: RelayTourForm.Data, user: User): Fu[RelayTour] =
     val tour = data.make(user)
     tourRepo.coll.insert.one(tour) inject tour
-  }
 
   def tourUpdate(tour: RelayTour, data: RelayTourForm.Data, user: User): Funit =
     tourRepo.coll.update.one($id(tour.id), data.update(tour, user)).void >>-
@@ -194,7 +193,7 @@ final class RelayApi(
       } void
     }
 
-  def update(from: RelayRound)(f: RelayRound => RelayRound): Fu[RelayRound] = {
+  def update(from: RelayRound)(f: RelayRound => RelayRound): Fu[RelayRound] =
     val round = f(from) pipe { r =>
       if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
@@ -215,7 +214,6 @@ final class RelayApi(
           }
         } inject round
     }
-  }
 
   def reset(old: RelayRound, by: User): Funit =
     WithRelay(old.id) { relay =>
@@ -252,7 +250,7 @@ final class RelayApi(
         }
       }
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, _] = {
+  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, ?] =
 
     val lookup = $lookup.pipeline(
       from = roundRepo.coll,
@@ -263,7 +261,7 @@ final class RelayApi(
     )
     val activeStream = tourRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         List(
           Match(tourRepo.selectors.officialActive),
           Sort(Descending("tier")),
@@ -274,7 +272,7 @@ final class RelayApi(
 
     val inactiveStream = tourRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         List(
           Match(tourRepo.selectors.officialInactive),
           Sort(Descending("syncedAt")),
@@ -294,7 +292,6 @@ final class RelayApi(
       }
       .throttle(perSecond.value, 1 second)
       .take(nb)
-  }
 
   private[relay] def autoStart: Funit =
     roundRepo.coll.list[RelayRound](
@@ -345,4 +342,3 @@ final class RelayApi(
         lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")
       }
     }
-}

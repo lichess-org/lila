@@ -3,7 +3,7 @@ package lila.team
 import org.joda.time.DateTime
 import java.security.MessageDigest
 import java.nio.charset.StandardCharsets.UTF_8
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.user.User
 import org.joda.time.Days
@@ -25,7 +25,7 @@ case class Team(
     chat: Team.Access,
     forum: Team.Access,
     hideMembers: Option[Boolean]
-) {
+):
 
   def id = _id
 
@@ -45,9 +45,8 @@ case class Team(
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 
   def isOnlyLeader(userId: User.ID) = leaders == Set(userId)
-}
 
-object Team {
+object Team:
 
   type ID = String
 
@@ -69,16 +68,15 @@ object Team {
       } atMost maxJoinCeiling
 
   type Access = Int
-  object Access {
+  object Access:
     val NONE      = 0
     val LEADERS   = 10
     val MEMBERS   = 20
     val EVERYONE  = 30
     val allInTeam = List(NONE, LEADERS, MEMBERS)
     val all       = EVERYONE :: allInTeam
-  }
 
-  case class IdsStr(value: String) extends AnyVal {
+  case class IdsStr(value: String) extends AnyVal:
 
     import IdsStr.separator
 
@@ -91,16 +89,14 @@ object Team {
     def toArray: Array[String] = value split IdsStr.separator
     def toList                 = value.nonEmpty ?? toArray.toList
     def toSet                  = value.nonEmpty ?? toArray.toSet
-  }
 
-  object IdsStr {
+  object IdsStr:
 
     private val separator = ' '
 
     val empty = IdsStr("")
 
     def apply(ids: Iterable[ID]): IdsStr = IdsStr(ids mkString separator.toString)
-  }
 
   def make(
       id: String,
@@ -137,4 +133,3 @@ object Team {
     }
 
   private[team] def randomId() = lila.common.ThreadLocalRandom nextString 8
-}

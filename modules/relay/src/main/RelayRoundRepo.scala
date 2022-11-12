@@ -1,13 +1,13 @@
 package lila.relay
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 
-final private class RelayRoundRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final private class RelayRoundRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -32,13 +32,10 @@ final private class RelayRoundRepo(val coll: Coll)(using ec: scala.concurrent.Ex
       .sort(sort.reverseChrono)
       .one[RelayRound]
 
-  private[relay] object sort {
+  private[relay] object sort:
     val chrono        = $doc("createdAt" -> 1)
     val reverseChrono = $doc("createdAt" -> -1)
     val start         = $doc("startedAt" -> -1, "startsAt" -> -1, "name" -> -1)
-  }
 
-  private[relay] object selectors {
+  private[relay] object selectors:
     def tour(id: RelayTour.Id) = $doc("tourId" -> id)
-  }
-}

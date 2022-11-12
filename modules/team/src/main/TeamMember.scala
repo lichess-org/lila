@@ -10,15 +10,14 @@ private[team] case class TeamMember(
     team: Team.ID,
     user: User.ID,
     date: DateTime
-) {
+):
 
   def is(userId: String): Boolean = user == userId
   def is(user: User): Boolean     = is(user.id)
 
   def id = _id
-}
 
-object TeamMember {
+object TeamMember:
 
   case class UserAndDate(user: LightUser, date: DateTime)
 
@@ -31,4 +30,3 @@ object TeamMember {
       team = team,
       date = DateTime.now
     )
-}

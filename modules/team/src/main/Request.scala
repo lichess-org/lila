@@ -11,12 +11,11 @@ case class Request(
     message: String,
     date: DateTime,
     declined: Boolean
-) {
+):
 
   def id = _id
-}
 
-object Request {
+object Request:
 
   type ID = String
   def makeId(team: Team.ID, user: User.ID) = s"$user@$team"
@@ -32,18 +31,15 @@ object Request {
       date = DateTime.now,
       declined = false
     )
-}
 
-case class RequestWithUser(request: Request, user: User) {
+case class RequestWithUser(request: Request, user: User):
   def id      = request.id
   def message = request.message
   def date    = request.date
   def team    = request.team
-}
 
 sealed trait Requesting
-object Requesting {
+object Requesting:
   case object Joined       extends Requesting
   case object NeedRequest  extends Requesting
   case object NeedPassword extends Requesting
-}

@@ -2,7 +2,7 @@ package lila.team
 
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
@@ -13,7 +13,7 @@ final class Cached(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   val nameCache = cacheApi.sync[String, Option[String]](
     name = "team.name",
@@ -32,7 +32,7 @@ final class Cached(
     compute = u =>
       memberRepo.coll
         .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { framework =>
-          import framework._
+          import framework.*
           Match($doc("_id" $startsWith s"$u@")) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.size + 1, -1)))),
             PipelineOperator(
@@ -90,4 +90,3 @@ final class Cached(
   val unsubs = cacheApi[Team.ID, Int](512, "team.unsubs") {
     _.expireAfterWrite(1 hour).buildAsyncFuture(id => memberRepo.countUnsub(id))
   }
-}

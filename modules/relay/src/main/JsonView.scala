@@ -1,7 +1,7 @@
 package lila.relay
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.config.BaseUrl
 import lila.common.Json.given
@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext
 
 final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
     ec: ExecutionContext
-) {
+):
 
   import JsonView.given
   import lila.study.JsonView.given
@@ -67,9 +67,8 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
       analysis = studyData.analysis
     )
   }
-}
 
-object JsonView {
+object JsonView:
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
 
@@ -87,4 +86,3 @@ object JsonView {
         case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
       }
   }
-}

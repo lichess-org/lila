@@ -1,10 +1,10 @@
 package lila.team
 
 import lila.common.config.MaxPerPage
-import lila.common.paginator._
+import lila.common.paginator.*
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
-import lila.db.paginator._
+import lila.db.paginator.*
 import org.joda.time.DateTime
 
 final private[team] class PaginatorBuilder(
@@ -13,7 +13,7 @@ final private[team] class PaginatorBuilder(
     requestRepo: RequestRepo,
     userRepo: lila.user.UserRepo,
     lightUserApi: lila.user.LightUserApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
   private val maxPerPage         = MaxPerPage(15)
   private val maxUserPerPage     = MaxPerPage(30)
   private val maxRequestsPerPage = MaxPerPage(10)
@@ -46,14 +46,13 @@ final private[team] class PaginatorBuilder(
       maxUserPerPage
     )
 
-  private trait MembersAdapter {
+  private trait MembersAdapter:
     val team: Team
     val nbResults = fuccess(team.nbMembers)
     val sorting   = $sort desc "date"
     val selector  = memberRepo teamQuery team.id
-  }
 
-  final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter {
+  final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
       for {
         docs <-
@@ -66,11 +65,10 @@ final private[team] class PaginatorBuilder(
         userIds = docs.flatMap(_ string "user")
         users <- lightUserApi asyncMany userIds
       } yield users.flatten
-  }
 
   final private class TeamAdapterWithDate(val team: Team)
       extends AdapterLike[TeamMember.UserAndDate]
-      with MembersAdapter {
+      with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[TeamMember.UserAndDate]] =
       for {
         docs <-
@@ -84,7 +82,6 @@ final private[team] class PaginatorBuilder(
         dates   = docs.flatMap(_.getAsOpt[DateTime]("date"))
         users <- lightUserApi asyncMany userIds
       } yield users.flatten.zip(dates) map { case (u, d) => TeamMember.UserAndDate(u, d) }
-  }
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
     Paginator(
@@ -92,12 +89,12 @@ final private[team] class PaginatorBuilder(
       page,
       maxRequestsPerPage
     )
-  final private class DeclinedRequestAdapter(team: Team) extends AdapterLike[RequestWithUser] {
+  final private class DeclinedRequestAdapter(team: Team) extends AdapterLike[RequestWithUser]:
     val nbResults        = requestRepo countDeclinedByTeam team.id
     private def selector = requestRepo teamDeclinedQuery team.id
     private def sorting  = $sort desc "date"
 
-    def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] = {
+    def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =
       for {
         requests <- requestRepo.coll
           .find(selector)
@@ -107,7 +104,4 @@ final private[team] class PaginatorBuilder(
           .list(length)
         users <- userRepo usersFromSecondary requests.map(_.user)
       } yield requests zip users map { case (request, user) => RequestWithUser(request, user) }
-    }
-  }
 
-}

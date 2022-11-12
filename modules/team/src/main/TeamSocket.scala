@@ -1,7 +1,7 @@
 package lila.team
 
-import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.room.RoomSocket.{ Protocol as RP, * }
+import lila.socket.RemoteSocket.{ Protocol as P, * }
 
 final private class TeamSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -10,7 +10,7 @@ final private class TeamSocket(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
-) {
+):
 
   lazy val rooms = makeRoomMap(send)
 
@@ -28,9 +28,8 @@ final private class TeamSocket(
       chatBusChan = _.Team
     )
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("team-out").apply _
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("team-out").apply
 
   remoteSocketApi.subscribe("team-in", RP.In.reader)(
     handler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
-}

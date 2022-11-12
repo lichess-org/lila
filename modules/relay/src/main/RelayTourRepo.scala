@@ -1,12 +1,12 @@
 package lila.relay
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 
-final private class RelayTourRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final private class RelayTourRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -18,11 +18,9 @@ final private class RelayTourRepo(val coll: Coll)(using ec: scala.concurrent.Exe
 
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
 
-  private[relay] object selectors {
+  private[relay] object selectors:
     val official         = $doc("tier" $exists true)
     val active           = $doc("active" -> true)
     val inactive         = $doc("active" -> false)
     val officialActive   = official ++ active
     val officialInactive = official ++ inactive
-  }
-}

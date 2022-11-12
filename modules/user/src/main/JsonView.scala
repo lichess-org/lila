@@ -18,7 +18,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
       onlyPerf: Option[PerfType] = None,
       withRating: Boolean,
       withProfile: Boolean
-  )(using profileWrites: OWrites[Profile]): JsObject =
+  ): JsObject =
     if (u.disabled) disabled(u.light)
     else
       base(u, onlyPerf, withRating = withRating) ++ Json
@@ -26,7 +26,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
         .add(
           "profile" -> u.profile
             .ifTrue(withProfile)
-            .map(p => profileWrites.writes(p.filterTroll(u.marks.troll)).noNull)
+            .map(p => Json.toJsObject(p.filterTroll(u.marks.troll)).noNull)
         )
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)

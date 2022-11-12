@@ -1,14 +1,14 @@
 package lila.relay
 
-import akka.actor._
-import scala.concurrent.duration._
+import akka.actor.*
+import scala.concurrent.duration.*
 
 import lila.study.MultiPgn
 
 final class RelayPush(sync: RelaySync, api: RelayApi)(using
     system: ActorSystem,
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   private val throttler = new lila.hub.EarlyMultiThrottler(logger)
 
@@ -42,4 +42,3 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using
               .void
           }
       }
-}

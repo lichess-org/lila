@@ -1,11 +1,11 @@
 package lila.team
 
-import actorApi._
+import actorApi.*
 import org.joda.time.DateTime
 import org.joda.time.Period
-import play.api.libs.json.{ JsSuccess, Json }
+import play.api.libs.json.{ JsSuccess, Json, Reads }
 import reactivemongo.api.{ Cursor, ReadPreference }
-import scala.util.chaining._
+import scala.util.chaining.*
 import scala.util.Try
 
 import lila.chat.ChatApi
@@ -14,7 +14,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam, LeaveTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
 import lila.security.Granter
@@ -30,7 +30,7 @@ final class TeamApi(
     indexer: lila.hub.actors.TeamSearch,
     modLog: ModlogApi,
     chatApi: ChatApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
@@ -40,11 +40,11 @@ final class TeamApi(
 
   def leaderTeam(id: Team.ID) = teamRepo.coll.byId[LeaderTeam](id, $doc("name" -> true))
 
-  def lightsByLeader = teamRepo.lightsByLeader _
+  def lightsByLeader = teamRepo.lightsByLeader
 
   def request(id: Request.ID) = requestRepo.coll.byId[Request](id)
 
-  def create(setup: TeamSetup, me: User): Fu[Team] = {
+  def create(setup: TeamSetup, me: User): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
     chatApi.exists(bestId) map {
       case true  => Team.randomId()
@@ -70,7 +70,6 @@ final class TeamApi(
           Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
         } inject team
     }
-  }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit =
     team.copy(
@@ -95,9 +94,9 @@ final class TeamApi(
   def mine(me: User): Fu[List[Team]] =
     cached teamIdsList me.id flatMap teamRepo.byIdsSortPopular
 
-  def isSubscribed = memberRepo.isSubscribed _
+  def isSubscribed = memberRepo.isSubscribed
 
-  def subscribe = memberRepo.subscribe _
+  def subscribe = memberRepo.subscribe
 
   def countTeamsOf(me: User) =
     cached teamIdsList me.id dmap (_.size)
@@ -150,10 +149,10 @@ final class TeamApi(
     }
 
   def join(team: Team, me: User, request: Option[String], password: Option[String]): Fu[Requesting] =
-    if (team.open) {
+    if (team.open)
       if (team.passwordMatches(~password)) doJoin(team, me) inject Requesting.Joined
       else fuccess(Requesting.NeedPassword)
-    } else motivateOrJoin(team, me, request)
+    else motivateOrJoin(team, me, request)
 
   private def motivateOrJoin(team: Team, me: User, msg: Option[String]) =
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)) { txt =>
@@ -227,7 +226,7 @@ final class TeamApi(
 
   def teamsOf(username: String) =
     cached.teamIdsList(User normalize username) flatMap {
-      teamRepo.coll.byIds[Team](_, ReadPreference.secondaryPreferred)
+      teamRepo.coll.byStringIds[Team](_, ReadPreference.secondaryPreferred)
     }
 
   def quit(team: Team, userId: User.ID): Funit =
@@ -276,17 +275,16 @@ final class TeamApi(
 
   private def parseTagifyInput(json: String) = Try {
     json.trim.nonEmpty ?? {
-      Json.parse(json).validate[List[TagifyUser]] match {
+      Json.parse(json).validate[List[TagifyUser]] match
         case JsSuccess(users, _) =>
           users
             .map(_.value.toLowerCase.trim)
             .toSet
         case _ => Set.empty[User.ID]
-      }
     }
   } getOrElse Set.empty
 
-  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
+  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit =
     val leaders: Set[User.ID] = parseTagifyInput(json) take 30
     for {
       allIds               <- memberRepo.filterUserIdsInTeam(team.id, leaders)
@@ -299,17 +297,15 @@ final class TeamApi(
       _ <- ids.nonEmpty ?? {
         if (
           ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
-        ) {
+        )
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
-        } else {
+        else
           logger.info(s"invalid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           funit
-        }
       }
     } yield ()
-  }
 
   def isLeaderOf(leader: User.ID, member: User.ID) =
     cached.teamIdsList(member) flatMap { teamIds =>
@@ -320,7 +316,7 @@ final class TeamApi(
     if (
       lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
       (team.leaders(by.id) && !team.leaders(team.createdBy))
-    ) {
+    )
       logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}: $explain")
       if (team.enabled)
         teamRepo.disable(team).void >>
@@ -329,7 +325,7 @@ final class TeamApi(
           (indexer ! RemoveTeam(team.id))
       else
         teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
-    } else
+    else
       teamRepo.setLeaders(team.id, team.leaders - by.id)
 
   // delete for ever, with members but not forums
@@ -365,4 +361,3 @@ final class TeamApi(
       .list(max)
 
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
-}
