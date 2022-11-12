@@ -1,8 +1,8 @@
 package lila.push
 
-import akka.actor._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import akka.actor.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
@@ -23,7 +23,7 @@ final private class PushApi(
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -294,8 +294,8 @@ final private class PushApi(
         monitor(lila.mon.push.send)("firebase", res.isSuccess)
       } void
 
-  private def describeChallenge(c: Challenge) = {
-    import lila.challenge.Challenge.TimeControl._
+  private def describeChallenge(c: Challenge) =
+    import lila.challenge.Challenge.TimeControl.*
     List(
       c.mode.fold("Casual", "Rated"),
       c.timeControl match {
@@ -305,7 +305,6 @@ final private class PushApi(
       },
       c.variant.name
     ) mkString " • "
-  }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus.ask[Boolean]("roundSocket") { p =>
@@ -316,9 +315,8 @@ final private class PushApi(
     }
 
   private def asyncOpponentName(pov: Pov): Fu[String] = Namer playerText pov.opponent
-}
 
-private object PushApi {
+private object PushApi:
 
   case class Data(
       title: String,
@@ -327,4 +325,3 @@ private object PushApi {
       payload: JsObject,
       iosBadge: Option[Int] = None
   )
-}

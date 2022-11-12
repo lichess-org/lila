@@ -7,11 +7,9 @@ final private case class Device(
     platform: String, // cordova platform (android, ios, firebase)
     userId: String,
     seenAt: DateTime
-) {
+):
 
   def deviceId =
-    platform match {
+    platform match
       case "ios" => _id.grouped(8).mkString("<", " ", ">")
       case _     => _id
-    }
-}

@@ -2,13 +2,13 @@ package lila.push
 
 import org.joda.time.DateTime
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
 import reactivemongo.api.ReadPreference
 
-final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private[push] def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
     coll
@@ -41,11 +41,8 @@ final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionC
       )
       .void
 
-  def unsubscribeBySession(sessionId: String): Funit = {
+  def unsubscribeBySession(sessionId: String): Funit =
     coll.delete.one($id(sessionId)).void
-  }
 
-  def unsubscribeByUser(user: User): Funit = {
+  def unsubscribeByUser(user: User): Funit =
     coll.delete.one($doc("userId" -> user.id)).void
-  }
-}
