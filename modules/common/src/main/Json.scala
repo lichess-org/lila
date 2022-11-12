@@ -6,16 +6,10 @@ import chess.format.{ FEN, Uci }
 
 object Json:
 
-  def anyValWriter[O, A: Writes](f: O => A) =
-    Writes[O] { o =>
-      PlayJson toJson f(o)
-    }
+  def writeAs[O, A: Writes](f: O => A) = Writes[O](o => PlayJson toJson f(o))
 
-  def intAnyValWriter[O](f: O => Int): Writes[O]       = anyValWriter[O, Int](f)
-  def stringAnyValWriter[O](f: O => String): Writes[O] = anyValWriter[O, String](f)
-
-  def stringIsoWriter[O](using iso: Iso[String, O]): Writes[O] = anyValWriter[O, String](iso.to)
-  def intIsoWriter[O](using iso: Iso[Int, O]): Writes[O]       = anyValWriter[O, Int](iso.to)
+  def stringIsoWriter[O](using iso: Iso[String, O]): Writes[O] = writeAs[O, String](iso.to)
+  def intIsoWriter[O](using iso: Iso[Int, O]): Writes[O]       = writeAs[O, Int](iso.to)
 
   def stringIsoReader[O](using iso: Iso[String, O]): Reads[O] = Reads.of[String] map iso.from
 

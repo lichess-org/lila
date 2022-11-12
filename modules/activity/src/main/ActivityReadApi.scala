@@ -27,12 +27,12 @@ final class ActivityReadApi(
     teamRepo: lila.team.TeamRepo,
     lightUserApi: lila.user.LightUserApi,
     getTourName: lila.tournament.GetTourName
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers.given
-  import model._
+  import BSONHandlers.{ *, given }
+  import model.*
 
-  implicit private val ordering = scala.math.Ordering.Double.TotalOrdering
+  private given Ordering[Double] = scala.math.Ordering.Double.TotalOrdering
 
   def recentAndPreload(u: User)(implicit lang: Lang): Fu[Vector[ActivityView]] =
     for {
@@ -122,9 +122,7 @@ final class ActivityReadApi(
           .dmap { entries =>
             entries.nonEmpty option ActivityView.Tours(
               nb = entries.size,
-              best = Heapsort.topN(
-                entries,
-                activities.maxSubEntries,
+              best = Heapsort.topN(entries, activities.maxSubEntries)(using
                 Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
               )
             )
@@ -180,7 +178,7 @@ final class ActivityReadApi(
         }
       }
 
-  private def addSignup(at: DateTime, recent: Vector[ActivityView]) = {
+  private def addSignup(at: DateTime, recent: Vector[ActivityView]) =
     val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
@@ -191,7 +189,6 @@ final class ActivityReadApi(
         signup = true
       )
     else views
-  }
 
   private def getLightPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[LightPov]]] =
     gameIds.nonEmpty ?? {
@@ -199,4 +196,3 @@ final class ActivityReadApi(
         _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
       }
     }
-}

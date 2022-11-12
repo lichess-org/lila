@@ -107,7 +107,7 @@ trait Handlers:
       def readTry(bson: BSONValue)    = reader readTry bson
       def writeTry(v: Map[String, V]) = writer writeTry v
 
-  def typedMapHandler[K, V: BSONReader: BSONWriter](using keyIso: StringIso[K]) =
+  def typedMapHandler[K, V: BSONHandler](using keyIso: StringIso[K]) =
     stringMapHandler[V].as[Map[K, V]](
       _.map { case (k, v) => keyIso.from(k) -> v },
       _.map { case (k, v) => keyIso.to(k) -> v }

@@ -2,37 +2,37 @@ package lila.activity
 
 import org.joda.time.Interval
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.common.Iso
-import lila.common.Json._
+import lila.common.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType
 import lila.simul.Simul
-import lila.study.JsonView.studyIdNameWrites
-import lila.tournament.LeaderboardApi.{ Entry => TourEntry, Ratio => TourRatio }
+import lila.study.JsonView.given
+import lila.tournament.LeaderboardApi.{ Entry as TourEntry, Ratio as TourRatio }
 import lila.user.User
 
-import activities._
-import model._
+import activities.*
+import model.*
 
 final class JsonView(
     getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName
-) {
+):
 
-  private object Writers {
+  private object Writers:
     given OWrites[Interval] = OWrites { i =>
       Json.obj("start" -> i.getStart, "end" -> i.getEnd)
     }
-    given Writes[PerfType]   = Writes(pt => JsString(pt.key))
-    given Writes[Rating]     = intIsoWriter(Iso.int[Rating](Rating.apply, _.value))
+    given Writes[PerfType]   = writeAs(_.key)
+    given Writes[Rating]     = writeAs(_.value)
     given Writes[RatingProg] = Json.writes
     given Writes[Score]      = Json.writes
     given OWrites[Games] = OWrites { games =>
       JsObject {
         games.value.toList.sortBy(-_._2.size).map { case (pt, score) =>
-          pt.key -> scoreWrites.writes(score)
+          pt.key -> Json.toJson(score)
         }
       }
     }
@@ -44,10 +44,11 @@ final class JsonView(
       JsNumber((r.value * 100).toInt atLeast 1)
     }
     given (using lang: Lang): OWrites[TourEntry] = OWrites { e =>
+      val name = getTourName.sync(e.tourId).orZero
       Json.obj(
         "tournament" -> Json.obj(
           "id"   -> e.tourId,
-          "name" -> ~getTourName.sync(e.tourId)
+          "name" -> name
         ),
         "nbGames"     -> e.nbGames,
         "score"       -> e.score,
@@ -92,8 +93,7 @@ final class JsonView(
       })
     }
     given Writes[Patron] = Json.writes
-  }
-  import Writers._
+  import Writers.{ *, given }
 
   def apply(a: ActivityView, user: User)(implicit lang: Lang): Fu[JsObject] =
     fuccess {
@@ -146,4 +146,3 @@ final class JsonView(
         .add("patron" -> a.patron)
         .add("stream" -> a.stream)
     }
-}

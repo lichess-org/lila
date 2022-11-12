@@ -1,6 +1,6 @@
 package lila.activity
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
@@ -11,12 +11,12 @@ import lila.user.User
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
     studyApi: lila.study.StudyApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Activity._
-  import BSONHandlers.given
-  import activities._
-  import model._
+  import Activity.*
+  import BSONHandlers.{ *, given }
+  import activities.*
+  import model.*
 
   def game(game: Game): Funit =
     (for {
@@ -184,4 +184,3 @@ final class ActivityWriteApi(
           .void
       }
     }
-}

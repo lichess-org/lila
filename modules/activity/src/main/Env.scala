@@ -1,10 +1,10 @@
 package lila.activity
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.hub.actorApi.round.CorresMoveEvent
 
 @Module
@@ -25,7 +25,7 @@ final class Env(
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()
 
@@ -81,4 +81,3 @@ final class Env(
     case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId).unit
     case lila.swiss.SwissFinish(swissId, ranking)         => write.swiss(swissId, ranking).unit
   }
-}

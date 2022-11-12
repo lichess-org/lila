@@ -9,7 +9,7 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject, practice: JsObject)
 
-  given Writes[PracticeProgress.NbMoves] = intAnyValWriter(_.value)
+  given Writes[PracticeProgress.NbMoves] = writeAs(_.value)
   given Writes[PracticeStudy] = OWrites { ps =>
     Json.obj(
       "id"   -> ps.id,
