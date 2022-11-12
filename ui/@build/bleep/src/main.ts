@@ -21,8 +21,8 @@ export function main() {
 
 export interface BleepOpts {
   defaultArgs?: string[]; // arguments when none are given
-  gulp?: boolean; // use gulp rather than esbuild for css, default = false
-  rollup?: boolean; // use rollup rather than esbuild, default = false
+  sass?: boolean; // use dart-sass rather than gulp for scss, default = true
+  esbuild?: boolean; // use esbuild rather than rollup, default = true
   log?: {
     heap?: boolean; // show node rss in log statements, default = false
     time?: boolean; // show time in log statements, default = true
@@ -101,11 +101,11 @@ class Env {
   rootDir: string; // absolute path to lila project root
   opts: BleepOpts; // configure logging mostly
 
-  get gulp(): boolean {
-    return this.opts.gulp === true;
+  get sass(): boolean {
+    return this.opts.sass !== false;
   }
-  get rollup(): boolean {
-    return this.opts.rollup === true;
+  get esbuild(): boolean {
+    return this.opts.esbuild !== false;
   }
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');

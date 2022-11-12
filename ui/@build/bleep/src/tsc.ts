@@ -19,8 +19,8 @@ export async function makeBleepConfig(buildModules: LichessModule[]): Promise<vo
   });
 
   for (const mod of buildModules) {
-    const tsconfig = await makeTsConfig(mod, !env.rollup || !!mod.tscOptions, !mod.tscOptions);
-    if (!env.rollup || mod.tscOptions) tsc.push(tsconfig);
+    const tsconfig = await makeTsConfig(mod, env.esbuild || !!mod.tscOptions, !mod.tscOptions);
+    if (env.esbuild || mod.tscOptions) tsc.push(tsconfig);
   }
   const cfg: any = {};
   cfg.files = [];
