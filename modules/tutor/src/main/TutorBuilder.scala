@@ -1,10 +1,10 @@
 package lila.tutor
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.Color
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.analyse.{ Analysis, AnalysisRepo }
@@ -12,7 +12,7 @@ import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.insight.{
-  Answer => InsightAnswer,
+  Answer as InsightAnswer,
   Cluster,
   Filter,
   Insight,
@@ -35,38 +35,37 @@ final private class TutorBuilder(
     userRepo: UserRepo,
     fishnet: TutorFishnet,
     reportColl: Coll @@ ReportColl
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   import TutorBsonHandlers.given
-  import TutorBuilder._
+  import TutorBuilder.*
   private given InsightApi = insightApi
 
   val maxTime = fishnet.maxTime + 3.minutes
 
   def apply(userId: User.ID): Fu[Option[TutorFullReport]] = for {
-    user     <- userRepo named userId orFail s"No such user $userId"
-    hasFresh <- hasFreshReport(user)
-    report <- !hasFresh ?? {
-      val chrono = lila.common.Chronometer.lapTry(produce(user))
-      chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
-      for {
-        lap    <- chrono.lap
-        report <- Future fromTry lap.result
-        doc = bsonWriteObjTry(report).get ++ $doc(
-          "_id"    -> s"${report.user}:${dateFormatter print report.at}",
-          "millis" -> lap.millis
-        )
-        _ <- reportColl.insert.one(doc).void
-      } yield report.some
-    }
-  } yield report
+    user <- userRepo named userId orFail s"No such user $userId"
+    // hasFresh <- hasFreshReport(user)
+    // hasFresh <- fuFalse
+    // report <- !hasFresh ?? {
+    //   val chrono = lila.common.Chronometer.lapTry(produce(user))
+    //   chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
+    //   for {
+    //     lap    <- chrono.lap
+    //     report <- Future fromTry lap.result
+    //     doc = bsonWriteObjTry(report).get ++ $doc(
+    //       "_id"    -> s"${report.user}:${dateFormatter print report.at}",
+    //       "millis" -> lap.millis
+    //     )
+    //     _ <- reportColl.insert.one(doc).void
+    //   } yield report.some
+    // }
+  } yield none
 
   private def produce(user: User): Fu[TutorFullReport] = for {
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
-      .monSuccess(
-        _.tutor buildSegment "perf-stats"
-      )
+      .monSuccess(_.tutor buildSegment "perf-stats")
     tutorUsers = perfStats
       .map { case (pt, stats) => TutorUser(user, pt, stats.stats) }
       .toList
@@ -88,9 +87,8 @@ final private class TutorBuilder(
   )
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern "yyyy-MM-dd"
-}
 
-private object TutorBuilder {
+private object TutorBuilder:
 
   type Value = Double
   type Count = Int
@@ -136,7 +134,7 @@ private object TutorBuilder {
     peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
   } yield Answers(mine, peer)
 
-  sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]) {
+  sealed abstract class Answer[Dim](answer: InsightAnswer[Dim]):
 
     val list: List[(Dim, Pair)] =
       answer.clusters.view.collect { case Cluster(dimension, Insight.Single(point), nbGames, _) =>
@@ -145,23 +143,20 @@ private object TutorBuilder {
 
     lazy val map: Map[Dim, Pair] = list.toMap
 
-    def get = map.get _
+    def get = map.get
 
     def dimensions = list.map(_._1)
 
     def alignedQuestion = answer.question filter Filter(answer.question.dimension, dimensions)
-  }
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
   case class AnswerPeer[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
 
-  case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]) {
+  case class Answers[Dim](mine: AnswerMine[Dim], peer: AnswerPeer[Dim]):
 
     def valueMetric(dim: Dim, myValue: Pair) = TutorBothValues(myValue, peer.get(dim))
 
     def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
-  }
 
   def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))
   def perfFilter(perfType: PerfType)             = Filter(InsightDimension.Perf, List(perfType))
   def perfsFilter(perfTypes: Iterable[PerfType]) = Filter(InsightDimension.Perf, perfTypes.toList)
-}
