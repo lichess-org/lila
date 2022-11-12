@@ -16,7 +16,7 @@ export async function sassWatch(): Promise<void> {
   debounceMap.forEach((timeout: NodeJS.Timeout) => clearTimeout(timeout));
   debounceMap.clear();
   importMap.clear();
-  
+
   await buildThemedScss();
 
   const themedSources = new Set<string>(await globArray('./*/css/**/[^_]*.scss', { abs: false }));
@@ -38,9 +38,8 @@ export async function sassWatch(): Promise<void> {
 async function buildThemedScss() {
   env.log('Building themed scss', { ctx: 'sass' });
   // cwd is env.uiDir
-  const partials: string[] = 
-    (await globArray('./*/css/build/_*.scss', { abs: false })).filter(
-      (f: string) => !f.endsWith('.abstract.scss')
+  const partials: string[] = (await globArray('./*/css/build/_*.scss', { abs: false })).filter(
+    (f: string) => !f.endsWith('.abstract.scss')
   );
   for (const file of partials) {
     const match = partialRe.exec(file);
@@ -133,7 +132,7 @@ async function parseImports(src: string, depth = 1, processed = new Set<string>(
   }
   if (processed.has(src)) return;
   processed.add(src);
-  
+
   try {
     for (const match of (await fs.promises.readFile(src, 'utf8')).matchAll(importRe)) {
       if (match.length != 2) continue;

@@ -42,9 +42,7 @@ export async function build(moduleNames: string[]) {
   else sassWatch();
 
   await makeBleepConfig(buildModules);
-  typescriptWatch(
-    () => (env.rollup ? rollupWatch(buildModules) : esbuildWatch(buildModules))
-  );
+  typescriptWatch(() => (env.rollup ? rollupWatch(buildModules) : esbuildWatch(buildModules)));
 }
 
 export function resetTimer(clear = false) {
