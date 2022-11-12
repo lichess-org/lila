@@ -19,7 +19,7 @@ final private class RacerSocket(
     Protocol.Out.publishState(race.id, json state race)
   )
 
-  private lazy val send: String => Unit = (() => remoteSocketApi.makeSender("racer-out").apply)
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("racer-out").apply
 
   lazy val rooms = makeRoomMap(send)
 

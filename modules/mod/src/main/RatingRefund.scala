@@ -2,7 +2,7 @@ package lila.mod
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.given
@@ -21,9 +21,9 @@ final private class RatingRefund(
     rankingApi: lila.user.RankingApi,
     logApi: ModlogApi,
     perfStat: lila.perfStat.PerfStatApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import RatingRefund._
+  import RatingRefund.*
 
   def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus).unit).unit
 
@@ -59,13 +59,12 @@ final private class RatingRefund(
             perfs.highest.fold(100) { _.int - curRating + 20 }
         }.squeeze(0, 150)
 
-        def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
+        def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit =
           val newPerf = victim.user.perfs(pt) refund points
           userRepo.setPerf(victim.user.id, pt, newPerf) >>
             historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>
             rankingApi.save(victim.user, pt, newPerf) >>
             notifier.refund(victim, pt, points)
-        }
 
         def applyRefund(ref: Refund) =
           userRepo byId ref.victim flatMap {
@@ -83,23 +82,19 @@ final private class RatingRefund(
 
         lastGames map makeRefunds flatMap { _.all.map(applyRefund).sequenceFu } void
     }
-}
 
-private object RatingRefund {
+private object RatingRefund:
 
   val delay = 1 minute
 
-  case class Refund(victim: User.ID, perf: PerfType, diff: Int, topRating: Int) {
+  case class Refund(victim: User.ID, perf: PerfType, diff: Int, topRating: Int):
     def is(v: User.ID, p: PerfType): Boolean = v == victim && p == perf
     def is(r: Refund): Boolean               = is(r.victim, r.perf)
     def add(d: Int, r: Int)                  = copy(diff = diff + d, topRating = topRating max r)
-  }
 
-  case class Refunds(all: List[Refund]) {
+  case class Refunds(all: List[Refund]):
     def add(victim: User.ID, perf: PerfType, diff: Int, rating: Int) =
       copy(all = all.find(_.is(victim, perf)) match {
         case None    => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_ is r)
       })
-  }
-}

@@ -14,7 +14,6 @@ trait Lilaisms
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
     with ornicar.scalalib.Zeros
-    with ornicar.scalalib.ScalalibExtensions
     with LilaLibraryExtensions
     with LilaJsObjectExtensions:
 

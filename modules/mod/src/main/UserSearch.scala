@@ -1,7 +1,7 @@
 package lila.mod
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, UserRepo }
@@ -9,7 +9,7 @@ import lila.user.{ User, UserRepo }
 final class UserSearch(
     securityApi: lila.security.SecurityApi,
     userRepo: UserRepo
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(query: String): Fu[List[User.WithEmails]] =
     EmailAddress.from(query).map(searchEmail) orElse
@@ -21,19 +21,16 @@ final class UserSearch(
 
   private def searchUsername(username: String) = userRepo named username map (_.toList)
 
-  private def searchEmail(email: EmailAddress): Fu[List[User]] = {
+  private def searchEmail(email: EmailAddress): Fu[List[User]] =
     val normalized = email.normalize
     userRepo.byEmail(normalized) flatMap { current =>
       userRepo.byPrevEmail(normalized) map current.toList.:::
     }
-  }
-}
 
-object UserSearch {
+object UserSearch:
 
   val form = Form(
     single(
       "q" -> lila.common.Form.trim(nonEmptyText)
     )
   )
-}

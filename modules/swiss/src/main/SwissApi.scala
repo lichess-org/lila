@@ -323,17 +323,16 @@ final class SwissApi(
     }
 
   private def getGameRanks(swiss: Swiss, game: Game): Fu[Option[GameRanks]] =
-    ~
-      game.whitePlayer.userId.ifTrue(swiss.isStarted) flatMap { whiteId =>
-        game.blackPlayer.userId map { blackId =>
-          rankingApi(swiss) map { ranking =>
-            import cats.implicits.*
-            (ranking.get(whiteId), ranking.get(blackId)) mapN { (whiteR, blackR) =>
-              GameRanks(whiteR, blackR)
-            }
+    game.whitePlayer.userId.ifTrue(swiss.isStarted) flatMap { whiteId =>
+      game.blackPlayer.userId map { blackId =>
+        rankingApi(swiss) map { ranking =>
+          import cats.implicits.*
+          (ranking.get(whiteId), ranking.get(blackId)) mapN { (whiteR, blackR) =>
+            GameRanks(whiteR, blackR)
           }
         }
       }
+    } orZero
 
   private[swiss] def leaveTeam(teamId: TeamID, userId: User.ID) =
     joinedPlayableSwissIds(userId, List(teamId))
@@ -571,13 +570,12 @@ final class SwissApi(
                     }
                   } >>- cache.swissCache.clear(swiss.id)
               }
+            else if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
             else
-              if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
-              else
-                systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
-                swissColl.update
-                  .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(121)))
-                  .void >>- cache.swissCache.clear(swiss.id)
+              systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
+              swissColl.update
+                .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(121)))
+                .void >>- cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
         }
       }

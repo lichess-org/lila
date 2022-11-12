@@ -92,7 +92,7 @@ object SimulForm:
         "clockExtra"     -> numberIn(clockExtraChoices),
         "variants" -> list {
           number.verifying(
-            (() => chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.id).contains)
+            chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map(_.id).contains
           )
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),

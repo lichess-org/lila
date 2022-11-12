@@ -2,9 +2,9 @@ package lila.mod
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.json._
+import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
@@ -15,9 +15,9 @@ import lila.report.Room
 final class ModQueueStats(
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import ModQueueStats._
+  import ModQueueStats.*
 
   def apply(period: String): Fu[Result] =
     cache.get(Period(period))
@@ -39,7 +39,7 @@ final class ModQueueStats(
     repo.coll
       .find($doc("_id" $gte dateFormat.print(Period dateSince period)))
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list()
+      .listAll()
       .map { docs =>
         for {
           doc     <- docs
@@ -89,9 +89,8 @@ final class ModQueueStats(
           )
         )
       }
-}
 
-object ModQueueStats {
+object ModQueueStats:
 
   type Score = Int
   type Nb    = Int
@@ -99,4 +98,3 @@ object ModQueueStats {
   val scores = List[Score](20, 40, 60, 80)
 
   case class Result(period: Period, json: JsObject)
-}

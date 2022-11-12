@@ -6,7 +6,7 @@ import lila.report.{ Mod, Suspect, Victim }
 final private class ModNotifier(
     notifyApi: NotifyApi,
     reportApi: lila.report.ReportApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def reporters(mod: Mod, sus: Suspect): Funit =
     reportApi.recentReportersOf(sus) flatMap {
@@ -31,4 +31,3 @@ final private class ModNotifier(
         content = lila.notify.RatingRefund(pt.trans, points)
       )
     }.void
-}

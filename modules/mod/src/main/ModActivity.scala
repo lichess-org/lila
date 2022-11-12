@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Json
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.ExecutionContext
 import scala.util.Try
@@ -16,9 +16,9 @@ import lila.user.User
 
 final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cacheApi: lila.memo.CacheApi)(
     using ec: ExecutionContext
-) {
+):
 
-  import ModActivity._
+  import ModActivity.*
 
   def apply(who: String, period: String)(me: User): Fu[Result] =
     cache.get((Who(who, me), Period(period)))
@@ -35,7 +35,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         },
       update = (_, _, current) => current,
       read = (_, _, current) => current
-    ).buildAsyncFuture((compute _).tupled)
+    ).buildAsyncFuture((compute).tupled)
   }
 
   private val maxDocs = 10_1000
@@ -46,7 +46,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         maxDocs = maxDocs,
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
-        import framework._
+        import framework.*
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
 
@@ -116,9 +116,8 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           }
         )
       }
-}
 
-object ModActivity {
+object ModActivity:
 
   case class Result(
       who: Who,
@@ -126,17 +125,15 @@ object ModActivity {
       data: List[(DateTime, Day)]
   )
 
-  case class Day(actions: Map[Action, Int], reports: Map[Room, Int]) {
+  case class Day(actions: Map[Action, Int], reports: Map[Room, Int]):
     def set(action: Action, nb: Int) = copy(actions = actions.updated(action, nb))
     def set(room: Room, nb: Int)     = copy(reports = reports.updated(room, nb))
-  }
 
   val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
 
-  sealed trait Period {
+  sealed trait Period:
     def key = toString.toLowerCase
-  }
-  object Period {
+  object Period:
     case object Week  extends Period
     case object Month extends Period
     case object Year  extends Period
@@ -145,23 +142,20 @@ object ModActivity {
       if (str == "year") Year
       else if (str == "month") Month
       else Week
-    def dateSince(period: Period) = period match {
+    def dateSince(period: Period) = period match
       case Period.Week  => DateTime.now.minusWeeks(1)
       case Period.Month => DateTime.now.minusMonths(1)
       case Period.Year  => DateTime.now.minusYears(1)
-    }
-  }
 
   sealed abstract class Who(val key: String)
-  object Who {
+  object Who:
     case class Me(userId: User.ID) extends Who("me")
     case object Team               extends Who("team")
     def apply(who: String, me: User) =
       if (who == "me") Me(me.id) else Team
-  }
 
   sealed trait Action
-  object Action {
+  object Action:
     case object Message      extends Action
     case object MarkCheat    extends Action
     case object MarkTroll    extends Action
@@ -194,9 +188,8 @@ object ModActivity {
       "closeTopic"      -> ForumAdmin
     )
     val all = dbMap.values.toList.distinct.sortBy(_.toString)
-  }
 
-  object json {
+  object json:
     def apply(result: Result) = Json.obj(
       "common" -> Json.obj(
         "xaxis" -> result.data.map(_._1.getMillis)
@@ -216,5 +209,3 @@ object ModActivity {
       "name" -> name,
       "data" -> data
     )
-  }
-}

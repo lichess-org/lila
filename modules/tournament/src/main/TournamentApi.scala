@@ -617,17 +617,16 @@ final class TournamentApi(
       }
 
     private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] =
-      ~
-        game.whitePlayer.userId.ifTrue(tour.isStarted) flatMap { whiteId =>
-          game.blackPlayer.userId map { blackId =>
-            cached ranking tour map { ranking =>
-              import cats.implicits.*
-              (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
-                GameRanks(whiteR + 1, blackR + 1)
-              }
+      game.whitePlayer.userId.ifTrue(tour.isStarted) ?? { whiteId =>
+        game.blackPlayer.userId ?? { blackId =>
+          cached ranking tour map { ranking =>
+            import cats.implicits.*
+            (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
+              GameRanks(whiteR + 1, blackR + 1)
             }
           }
         }
+      }
 
     private def getTeamVs(tour: Tournament, game: Game): Fu[Option[TeamBattle.TeamVs]] =
       tour.isTeamBattle ?? playerRepo.teamVs(tour.id, game)

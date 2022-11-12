@@ -126,19 +126,19 @@ final class ChapterRepo(val coll: AsyncColl)(using
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
 
   def setShapes(shapes: lila.tree.Node.Shapes) =
-    (() => setNodeValue(Node.BsonFields.shapes, shapes.value.nonEmpty option shapes))
+    setNodeValue(Node.BsonFields.shapes, shapes.value.nonEmpty option shapes)
 
   def setComments(comments: lila.tree.Node.Comments) =
-    (() => setNodeValue(Node.BsonFields.comments, comments.value.nonEmpty option comments))
+    setNodeValue(Node.BsonFields.comments, comments.value.nonEmpty option comments)
 
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
-    (() => setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook))
+    setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook)
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = (() => setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty))
+  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty)
 
-  def setClock(clock: Option[chess.Centis]) = (() => setNodeValue(Node.BsonFields.clock, clock))
+  def setClock(clock: Option[chess.Centis]) = setNodeValue(Node.BsonFields.clock, clock)
 
-  def forceVariation(force: Boolean) = (() => setNodeValue(Node.BsonFields.forceVariation, force option true))
+  def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true)
 
   // insert node and its children
   // and sets the parent order field

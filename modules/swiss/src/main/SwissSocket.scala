@@ -51,7 +51,7 @@ final private class SwissSocket(
       chatBusChan = _.Swiss
     )
 
-  private lazy val send: String => Unit = (() => remoteSocketApi.makeSender("swiss-out").apply)
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("swiss-out").apply
 
   remoteSocketApi.subscribe("swiss-in", RP.In.reader)(
     handler orElse remoteSocketApi.baseHandler

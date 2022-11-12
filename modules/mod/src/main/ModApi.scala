@@ -13,7 +13,7 @@ final class ModApi(
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =
     for {
@@ -21,9 +21,8 @@ final class ModApi(
       sus = prev.set(_.withMarks(_.set(_.Alt, v)))
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.alt(mod, sus, v)
-    } yield {
+    } yield
       if (v) notifier.reporters(mod, sus).unit
-    }
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit =
     (prev.user.marks.engine != v) ?? {
@@ -32,13 +31,11 @@ final class ModApi(
         sus = prev.set(_.withMarks(_.set(_.Engine, v)))
         _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
         _ <- logApi.engine(mod, sus, v)
-      } yield {
+      } yield
         Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
-        if (v) {
+        if (v)
           notifier.reporters(mod, sus)
           refunder schedule sus
-        }
-      }
     }
 
   def autoMark(suspectId: SuspectId, modId: ModId, note: String): Funit =
@@ -64,15 +61,13 @@ final class ModApi(
         sus = prev.set(_.withMarks(_.set(_.Boost, v)))
         _ <- reportApi.process(mod, sus, Set(Room.Other))
         _ <- logApi.booster(mod, sus, v)
-      } yield {
-        if (v) {
+      } yield
+        if (v)
           Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
           notifier.reporters(mod, sus)
-        }
         sus
-      }
 
-  def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
+  def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] =
     val changed = value != prev.user.marks.troll
     val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
     changed ?? {
@@ -84,7 +79,6 @@ final class ModApi(
       reportApi.process(mod, sus, Set(Room.Comm)) >>- {
         if (value) notifier.reporters(mod, sus).unit
       } inject sus
-  }
 
   def autoTroll(sus: Suspect, note: String): Funit =
     reportApi.getLichessMod flatMap { mod =>
@@ -120,7 +114,7 @@ final class ModApi(
 
   def setTitle(mod: String, username: String, title: Option[Title]): Funit =
     withUser(username) { user =>
-      title match {
+      title match
         case None =>
           userRepo.removeTitle(user.id) >>
             logApi.removeTitle(mod, user.id) >>-
@@ -131,7 +125,6 @@ final class ModApi(
               logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
               lightUserApi.invalidate(user.id)
           }
-      }
     }
 
   def setEmail(mod: String, username: String, email: EmailAddress): Funit =
@@ -172,4 +165,3 @@ final class ModApi(
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     userRepo named username orFail s"[mod] missing user $username" flatMap op
-}

@@ -1,7 +1,8 @@
 package lila.mod
 
 import org.joda.time.DateTime
-import reactivemongo.api._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -13,11 +14,11 @@ import lila.user.{ Holder, User, UserRepo }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   private def coll = repo.coll
 
-  implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
+  private given BSONDocumentHandler[Modlog] = Macros.handler[Modlog]
 
   private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
@@ -343,19 +344,18 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       .cursor[Modlog]()
       .list(100)
 
-  private def add(m: Modlog): Funit = {
+  private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
     m.notable ?? {
       coll.insert.one {
-        ModlogBSONHandler.writeTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
+        bsonWriteObjTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
       } >> (m.notableZulip ?? zulipMonitor(m))
     }
-  }
 
-  private def zulipMonitor(m: Modlog): Funit = {
-    import lila.mod.{ Modlog => M }
-    val icon = m.action match {
+  private def zulipMonitor(m: Modlog): Funit =
+    import lila.mod.{ Modlog as M }
+    val icon = m.action match
       case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
       case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
       case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
@@ -365,11 +365,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
       case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
-    }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
     userRepo.isMonitoredMod(m.mod) flatMap {
       _ ?? {
-        val monitorType = m.action match {
+        val monitorType = m.action match
           case M.closeAccount | M.alt => None
           case M.engine | M.unengine | M.reopenAccount | M.unalt =>
             Some(IrcApi.ModDomain.Cheat)
@@ -379,12 +378,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
               M.blogPostEdit =>
             Some(IrcApi.ModDomain.Comm)
           case _ => Some(IrcApi.ModDomain.Other)
-        }
         monitorType ?? {
           ircApi.monitorMod(m.mod, icon = icon, text = text, _)
         }
       }
     }
     ircApi.logMod(m.mod, icon = icon, text = text)
-  }
-}

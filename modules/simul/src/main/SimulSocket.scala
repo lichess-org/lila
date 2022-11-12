@@ -70,7 +70,7 @@ final private class SimulSocket(
       }
     )
 
-  private lazy val send: String => Unit = (() => remoteSocketApi.makeSender("simul-out").apply)
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply
 
   remoteSocketApi.subscribe("simul-in", RP.In.reader)(
     handler orElse remoteSocketApi.baseHandler

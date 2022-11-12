@@ -1,11 +1,11 @@
 package lila.mod
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 import lila.user.User
 
 @Module
@@ -36,7 +36,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     scheduler: Scheduler
-) {
+):
   private lazy val logRepo        = new ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = new AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo    = new HistoryRepo(db(CollName("mod_gaming_history")))
@@ -77,7 +77,7 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
-        import cats.implicits._
+        import cats.implicits.*
         (whiteUserOption.filter(_.enabled), blackUserOption.filter(_.enabled)) mapN {
           (whiteUser, blackUser) =>
             sandbagWatch(game)
@@ -116,4 +116,3 @@ final class Env(
       logApi.chatTimeout(mod, user, reason, text).unit
     }
   )
-}

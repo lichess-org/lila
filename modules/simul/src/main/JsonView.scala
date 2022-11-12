@@ -125,13 +125,16 @@ final class JsonView(
       )
     }
 
+  lila.simul.orZero(Option(1))
+  Option("a").orZero
+
   private def gameJson(hostId: User.ID, g: Game) =
     Json
       .obj(
         "id"       -> g.id,
         "status"   -> g.status.id,
         "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
-        "lastMove" -> g.lastMoveKeys.|(""),
+        "lastMove" -> (g.lastMoveKeys.orZero: String),
         "orient"   -> g.playerByUserId(hostId).map(_.color)
       )
       .add(

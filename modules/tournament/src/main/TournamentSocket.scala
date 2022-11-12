@@ -73,7 +73,7 @@ final private class TournamentSocket(
     waitingUsers.registerWaitingUsers(roomId.value, users).unit
   }
 
-  private lazy val send: String => Unit = (() => remoteSocketApi.makeSender("tour-out").apply)
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply
 
   remoteSocketApi.subscribe("tour-in", Protocol.In.reader)(
     tourHandler orElse handler orElse remoteSocketApi.baseHandler

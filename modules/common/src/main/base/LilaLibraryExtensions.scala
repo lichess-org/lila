@@ -16,8 +16,9 @@ import java.util.Base64
 import akka.actor.Scheduler
 import lila.common.Chronometer
 import scala.collection.BuildFrom
+import ornicar.scalalib.ScalalibExtensions
 
-trait LilaLibraryExtensions extends LilaTypes:
+trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
 
   extension [A](self: A)
     def unit: Unit          = ()
@@ -333,6 +334,7 @@ trait LilaLibraryExtensions extends LilaTypes:
       }
 
     def getOrElse(other: => Fu[A])(using ec: EC): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
+    def orZeroFu(using z: Zero[A]): Fu[A]               = fua.map(_ getOrElse z.zero)(EC.parasitic)
 
     def map2[B](f: A => B)(using ec: EC): Fu[Option[B]] = fua.map(_ map f)
     def dmap2[B](f: A => B): Fu[Option[B]]              = fua.map(_ map f)(EC.parasitic)

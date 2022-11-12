@@ -243,7 +243,7 @@ final private class StudySocket(
         }
       case _ =>
 
-  private lazy val send: String => Unit = (() => remoteSocketApi.makeSender("study-out").apply)
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply
 
   remoteSocketApi.subscribe("study-in", RP.In.reader)(
     studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
@@ -418,7 +418,7 @@ object StudySocket:
   object Protocol:
 
     object In:
-      import lila.common.Json.{*,given}
+      import lila.common.Json.{ *, given }
       import play.api.libs.functional.syntax.*
 
       def reading[A](o: JsValue)(f: A => Unit)(using reader: Reads[A]): Unit =

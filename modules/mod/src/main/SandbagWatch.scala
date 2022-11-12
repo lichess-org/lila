@@ -2,7 +2,7 @@ package lila.mod
 
 import chess.Color
 import com.github.blemale.scaffeine.Cache
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.game.Game
 import lila.msg.{ MsgApi, MsgPreset }
@@ -14,9 +14,9 @@ final private class SandbagWatch(
     messenger: MsgApi,
     reportApi: ReportApi,
     modLogApi: ModlogApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import SandbagWatch._
+  import SandbagWatch.*
 
   private val messageOnceEvery = lila.memo.OnceEvery(1 hour)
 
@@ -24,23 +24,21 @@ final private class SandbagWatch(
     loser <- game.loser.map(_.color)
     if game.rated && !game.fromApi
     userId <- game.userIds
-  } {
-    (records getIfPresent userId, outcomeOf(game, loser, userId)) match {
+  }
+    (records getIfPresent userId, outcomeOf(game, loser, userId)) match
       case (None, Good)         =>
       case (Some(record), Good) => setRecord(userId, record + Good, game)
       case (record, outcome)    => setRecord(userId, (record | emptyRecord) + outcome, game)
-    }
-  }
 
   private def setRecord(userId: User.ID, record: Record, game: Game): Funit =
     if (record.immaculate) fuccess {
       records invalidate userId
     }
-    else if (game.isTournament && game.winnerUserId.has(userId)) {
+    else if (game.isTournament && game.winnerUserId.has(userId))
       // if your opponent always resigns to you in a tournament
       // we'll assume you're not boosting
       funit
-    } else {
+    else
       records.put(userId, record)
       modLogApi.countRecentRatingManipulationsWarnings(userId) flatMap { nbWarnings =>
         {
@@ -58,7 +56,6 @@ final private class SandbagWatch(
           else funit
         }
       }
-    }
 
   private def sendMessage(userId: User.ID, preset: MsgPreset): Funit =
     messageOnceEvery(userId) ?? {
@@ -91,9 +88,8 @@ final private class SandbagWatch(
       if (game.variant == chess.variant.Atomic) 3
       else 8
     } && game.winner ?? (~_.ratingDiff > 0)
-}
 
-private object SandbagWatch {
+private object SandbagWatch:
 
   sealed trait Outcome
   case object Good                      extends Outcome
@@ -102,7 +98,7 @@ private object SandbagWatch {
 
   val maxOutcomes = 7
 
-  case class Record(outcomes: List[Outcome]) {
+  case class Record(outcomes: List[Outcome]):
 
     def +(outcome: Outcome) = copy(outcomes = outcome :: outcomes.take(maxOutcomes - 1))
 
@@ -134,7 +130,5 @@ private object SandbagWatch {
         }
       case _ => 0
     }
-  }
 
   val emptyRecord = Record(Nil)
-}
