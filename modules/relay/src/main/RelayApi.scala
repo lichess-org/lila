@@ -29,8 +29,9 @@ final class RelayApi(
     leaderboard: RelayLeaderboardApi
 )(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
-  import BSONHandlers.given
-  import lila.study.BSONHandlers.{ StudyBSONHandler, StudyIdBSONHandler }
+  import BSONHandlers.{ readRoundWithTour, given }
+  import lila.study.BSONHandlers.given
+  import JsonView.given
 
   def byId(id: RelayRound.Id) = roundRepo.coll.byId[RelayRound](id.value)
 
@@ -210,7 +211,7 @@ final class RelayApi(
           (round.finished != from.finished) ?? denormalizeTourActive(round.tourId)
         } >>- {
           round.sync.log.events.lastOption.ifTrue(round.sync.log != from.sync.log).foreach { event =>
-            sendToContributors(round.id, "relayLog", JsonView.syncLogEventWrites writes event)
+            sendToContributors(round.id, "relayLog", Json.toJsObject(event))
           }
         } inject round
     }
@@ -338,7 +339,7 @@ final class RelayApi(
     studyApi members Study.Id(id.value) map {
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
-        import JsonView.roundIdWrites
+        import JsonView.given
         import lila.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
         lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")

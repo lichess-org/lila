@@ -190,7 +190,7 @@ final private class RelayFetch(
           case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
           // maybe a single JSON game? Why not
           case RelayFormat.DocFormat.Json =>
-            httpGetJson[GameJson](doc.url)(gameReads) map { game =>
+            httpGetJson[GameJson](doc.url) map { game =>
               MultiPgn(List(game.toPgn()))
             }
         }
@@ -280,9 +280,9 @@ private object RelayFetch {
         )
     }
     case class RoundJson(pairings: List[RoundJsonPairing])
-    given Reads[PairingPlayer] = Json.reads
+    given Reads[PairingPlayer]    = Json.reads
     given Reads[RoundJsonPairing] = Json.reads
-    given Reads[RoundJson] = Json.reads
+    given Reads[RoundJson]        = Json.reads
 
     case class GameJson(moves: List[String], result: Option[String]) {
       def toPgn(extraTags: Tags = Tags.empty) = {

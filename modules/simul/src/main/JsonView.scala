@@ -125,9 +125,6 @@ final class JsonView(
       )
     }
 
-  lila.simul.orZero(Option(1))
-  Option("a").orZero
-
   private def gameJson(hostId: User.ID, g: Game) =
     Json
       .obj(

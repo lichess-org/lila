@@ -17,6 +17,7 @@ import akka.actor.Scheduler
 import lila.common.Chronometer
 import scala.collection.BuildFrom
 import ornicar.scalalib.ScalalibExtensions
+import scala.annotation.targetName
 
 trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
 
@@ -334,7 +335,8 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
       }
 
     def getOrElse(other: => Fu[A])(using ec: EC): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
-    def orZeroFu(using z: Zero[A]): Fu[A]               = fua.map(_ getOrElse z.zero)(EC.parasitic)
+    @targetName("orZeroFu")
+    def orZeroFu(using z: Zero[A]): Fu[A] = fua.map(_ getOrElse z.zero)(EC.parasitic)
 
     def map2[B](f: A => B)(using ec: EC): Fu[Option[B]] = fua.map(_ map f)
     def dmap2[B](f: A => B): Fu[Option[B]]              = fua.map(_ map f)(EC.parasitic)

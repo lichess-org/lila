@@ -323,16 +323,14 @@ final class SwissApi(
     }
 
   private def getGameRanks(swiss: Swiss, game: Game): Fu[Option[GameRanks]] =
-    game.whitePlayer.userId.ifTrue(swiss.isStarted) flatMap { whiteId =>
-      game.blackPlayer.userId map { blackId =>
+    game.whitePlayer.userId.ifTrue(swiss.isStarted) ?? { whiteId =>
+      game.blackPlayer.userId ?? { blackId =>
         rankingApi(swiss) map { ranking =>
           import cats.implicits.*
-          (ranking.get(whiteId), ranking.get(blackId)) mapN { (whiteR, blackR) =>
-            GameRanks(whiteR, blackR)
-          }
+          (ranking.get(whiteId), ranking.get(blackId)) mapN GameRanks
         }
       }
-    } orZero
+    }
 
   private[swiss] def leaveTeam(teamId: TeamID, userId: User.ID) =
     joinedPlayableSwissIds(userId, List(teamId))

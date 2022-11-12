@@ -6,14 +6,14 @@ import lila.db.dsl.{ *, given }
 
 object BSONHandlers {
 
-  implicit val relayIdHandler      = stringAnyValHandler[RelayRound.Id](_.value, RelayRound.Id.apply)
-  implicit val relayTourIdHandler  = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
-  given BSONHandler[RelayPlayers] = stringAnyValHandler(_.text, RelayPlayers.apply)
+  given BSONHandler[RelayRound.Id]               = stringAnyValHandler(_.value, RelayRound.Id)
+  given tourIdHandler: BSONHandler[RelayTour.Id] = stringAnyValHandler(_.value, RelayTour.Id)
+  given BSONHandler[RelayPlayers]                = stringAnyValHandler(_.text, RelayPlayers)
 
   import RelayRound.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
-  given BSONDocumentHandler[UpstreamUrl] = Macros.handler
-  given BSONDocumentHandler[UpstreamIds] = Macros.handler
+  given upstreamUrlHandler: BSONDocumentHandler[UpstreamUrl] = Macros.handler
+  given upstreamIdsHandler: BSONDocumentHandler[UpstreamIds] = Macros.handler
 
   given BSONHandler[Upstream] = tryHandler(
     {
@@ -29,7 +29,7 @@ object BSONHandlers {
   import SyncLog.Event
   given BSONDocumentHandler[Event] = Macros.handler
 
-  implicit val syncLogHandler = isoHandler[SyncLog, Vector[Event]]((s: SyncLog) => s.events, SyncLog.apply _)
+  given BSONHandler[SyncLog] = isoHandler[SyncLog, Vector[Event]](_.events, SyncLog)
 
   given BSONDocumentHandler[Sync] = Macros.handler
 

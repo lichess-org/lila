@@ -16,7 +16,7 @@ object RelayLeaderboard {
   case class Player(name: String, score: Double, played: Int, rating: Option[Int])
 
   import play.api.libs.json._
-  implicit def playerWrites = Writes[Player] { p =>
+  given OWrites[Player] = OWrites { p =>
     Json.obj("name" -> p.name, "score" -> p.score, "played" -> p.played).add("rating", p.rating)
   }
 }
