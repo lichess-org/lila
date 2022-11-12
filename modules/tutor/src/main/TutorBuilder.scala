@@ -46,20 +46,20 @@ final private class TutorBuilder(
   def apply(userId: User.ID): Fu[Option[TutorFullReport]] = for {
     user <- userRepo named userId orFail s"No such user $userId"
     // hasFresh <- hasFreshReport(user)
-    // hasFresh <- fuFalse
-    // report <- !hasFresh ?? {
-    //   val chrono = lila.common.Chronometer.lapTry(produce(user))
-    //   chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
-    //   for {
-    //     lap    <- chrono.lap
-    //     report <- Future fromTry lap.result
-    //     doc = bsonWriteObjTry(report).get ++ $doc(
-    //       "_id"    -> s"${report.user}:${dateFormatter print report.at}",
-    //       "millis" -> lap.millis
-    //     )
-    //     _ <- reportColl.insert.one(doc).void
-    //   } yield report.some
-    // }
+    hasFresh <- fuFalse
+    report <- !hasFresh ?? {
+      val chrono = lila.common.Chronometer.lapTry(produce(user))
+      chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
+      for {
+        lap    <- chrono.lap
+        report <- Future fromTry lap.result
+        doc = bsonWriteObjTry(report).get ++ $doc(
+          "_id"    -> s"${report.user}:${dateFormatter print report.at}",
+          "millis" -> lap.millis
+        )
+        _ <- reportColl.insert.one(doc).void
+      } yield report.some
+    }
   } yield none
 
   private def produce(user: User): Fu[TutorFullReport] = for {
