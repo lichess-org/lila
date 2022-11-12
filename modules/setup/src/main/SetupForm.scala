@@ -2,16 +2,16 @@ package lila.setup
 
 import chess.format.FEN
 import chess.variant.Variant
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
-import lila.common.{ Days, Form => LilaForm }
+import lila.common.{ Days, Form as LilaForm }
 
-object SetupForm {
+object SetupForm:
 
-  import Mappings._
+  import Mappings.*
 
   val filter = Form(single("local" -> text))
 
@@ -104,11 +104,11 @@ object SetupForm {
       )
   )
 
-  object api {
+  object api:
 
     lazy val clockMapping =
       mapping(
-        "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
+        "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains),
         "increment" -> increment
       )(chess.Clock.Config.apply)(unapply)
         .verifying("Invalid clock", c => c.estimateTotalTime > chess.Centis(0))
@@ -118,7 +118,7 @@ object SetupForm {
     lazy val optionalDays = "days" -> optional(days)
 
     lazy val variant =
-      "variant" -> optional(text.verifying(Variant.byKey.contains _))
+      "variant" -> optional(text.verifying(Variant.byKey.contains))
 
     lazy val message = optional(
       nonEmptyText(maxLength = 8_000).verifying(
@@ -175,5 +175,3 @@ object SetupForm {
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
     )
-  }
-}

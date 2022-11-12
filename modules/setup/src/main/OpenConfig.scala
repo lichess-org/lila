@@ -18,7 +18,7 @@ final case class OpenConfig(
     position: Option[FEN],
     userIds: Option[(User.ID, User.ID)],
     rules: Set[GameRule] = Set.empty
-) {
+):
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
 
@@ -27,9 +27,8 @@ final case class OpenConfig(
   def autoVariant =
     if (variant.standard && position.exists(!_.initial)) copy(variant = FromPosition)
     else this
-}
 
-object OpenConfig {
+object OpenConfig:
 
   def from(
       n: Option[String],
@@ -53,4 +52,3 @@ object OpenConfig {
       },
       rules = ~rules
     ).autoVariant
-}

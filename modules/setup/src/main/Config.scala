@@ -2,13 +2,13 @@ package lila.setup
 
 import chess.format.FEN
 import chess.variant.{ FromPosition, Variant }
-import chess.{ Clock, Game => ChessGame, Situation, Speed }
+import chess.{ Clock, Game as ChessGame, Situation, Speed }
 
 import lila.common.Days
 import lila.game.Game
 import lila.lobby.Color
 
-private[setup] trait Config {
+private[setup] trait Config:
 
   // Whether or not to use a clock
   val timeMode: TimeMode
@@ -52,7 +52,6 @@ private[setup] trait Config {
     Clock.Config((time * 60).toInt, if (clockHasTime) increment else 1)
 
   def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence) option days
-}
 
 trait Positional { self: Config =>
 
@@ -68,7 +67,7 @@ trait Positional { self: Config =>
     }
   }
 
-  def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] = {
+  def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] =
     val baseState = fen ifTrue (variant.fromPosition) flatMap {
       Forsyth.<<<@(FromPosition, _)
     }
@@ -98,12 +97,11 @@ trait Positional { self: Config =>
         )
       }
     }
-  }
 }
 
 object Config extends BaseConfig
 
-trait BaseConfig {
+trait BaseConfig:
   val variants       = List(chess.variant.Standard.id, chess.variant.Chess960.id)
   val variantDefault = chess.variant.Standard
 
@@ -140,4 +138,3 @@ trait BaseConfig {
   private val incrementMin      = 0
   private val incrementMax      = 180
   def validateIncrement(i: Int) = i >= incrementMin && i <= incrementMax
-}

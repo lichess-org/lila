@@ -12,7 +12,7 @@ final private[setup] class Processor(
     gameRepo: GameRepo,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
-)(using ec: scala.concurrent.ExecutionContext, idGenerator: IdGenerator) {
+)(using ec: scala.concurrent.ExecutionContext, idGenerator: IdGenerator):
 
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = for {
     pov <- config pov ctx.me
@@ -33,40 +33,33 @@ final private[setup] class Processor(
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
       blocking: Set[String]
-  )(implicit ctx: UserContext): Fu[Processor.HookResult] = {
-    import Processor.HookResult._
+  )(implicit ctx: UserContext): Fu[Processor.HookResult] =
+    import Processor.HookResult.*
     val config = configBase.fixColor
-    config.hook(sri, ctx.me, sid, blocking) match {
+    config.hook(sri, ctx.me, sid, blocking) match
       case Left(hook) =>
         fuccess {
           Bus.publish(AddHook(hook), "lobbyActor")
           Created(hook.id)
         }
       case Right(Some(seek)) =>
-        ctx.userId match {
+        ctx.userId match
           case None         => fuccess(Refused)
           case Some(userId) => createSeekIfAllowed(seek, userId)
-        }
       case _ => fuccess(Refused)
-    }
-  }
 
   def createSeekIfAllowed(seek: Seek, userId: User.ID): Fu[Processor.HookResult] =
     gameCache.nbPlaying(userId) map { nbPlaying =>
-      import Processor.HookResult._
+      import Processor.HookResult.*
       if (nbPlaying >= lila.game.Game.maxPlaying) Refused
-      else {
+      else
         Bus.publish(AddSeek(seek), "lobbyActor")
         Created(seek.id)
-      }
     }
-}
 
-object Processor {
+object Processor:
 
   sealed trait HookResult
-  object HookResult {
+  object HookResult:
     case class Created(id: String) extends HookResult
     case object Refused            extends HookResult
-  }
-}

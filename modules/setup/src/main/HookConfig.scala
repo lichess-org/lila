@@ -16,7 +16,7 @@ case class HookConfig(
     mode: Mode,
     color: Color,
     ratingRange: RatingRange
-) extends HumanConfig {
+) extends HumanConfig:
 
   def withinLimits(user: Option[User]): HookConfig =
     (for {
@@ -49,12 +49,11 @@ case class HookConfig(
     (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
 
   def withTimeModeString(tc: Option[String]) =
-    tc match {
+    tc match
       case Some("realTime")       => copy(timeMode = TimeMode.RealTime)
       case Some("correspondence") => copy(timeMode = TimeMode.Correspondence)
       case Some("unlimited")      => copy(timeMode = TimeMode.Unlimited)
       case _                      => this
-    }
 
   def hook(
       sri: lila.socket.Socket.Sri,
@@ -62,7 +61,7 @@ case class HookConfig(
       sid: Option[String],
       blocking: Set[String]
   ): Either[Hook, Option[Seek]] =
-    timeMode match {
+    timeMode match
       case TimeMode.RealTime =>
         val clock = justMakeClock
         Left(
@@ -90,7 +89,6 @@ case class HookConfig(
             ratingRange = ratingRange
           )
         })
-    }
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 
@@ -107,11 +105,10 @@ case class HookConfig(
   def withRatingRange(ratingRange: String) = copy(ratingRange = RatingRange orDefault ratingRange)
   def withRatingRange(rating: Option[Int], deltaMin: Option[String], deltaMax: Option[String]) =
     copy(ratingRange = RatingRange orDefault (rating, deltaMin, deltaMax))
-}
 
-object HookConfig extends BaseHumanConfig {
+object HookConfig extends BaseHumanConfig:
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, m: Option[Int], e: Option[String], c: String) = {
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Days, m: Option[Int], e: Option[String], c: String) =
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
       variant = chess.variant.Variant(v) err s"Invalid game variant $v",
@@ -123,7 +120,6 @@ object HookConfig extends BaseHumanConfig {
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
       color = Color(c) err s"Invalid color $c"
     )
-  }
 
   def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
 
@@ -141,7 +137,7 @@ object HookConfig extends BaseHumanConfig {
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
 
-  implicit private[setup] val hookConfigBSONHandler = new BSON[HookConfig] {
+  private[setup] given BSON[HookConfig] with
 
     def reads(r: BSON.Reader): HookConfig =
       HookConfig(
@@ -165,5 +161,3 @@ object HookConfig extends BaseHumanConfig {
         "m"  -> o.mode.id,
         "e"  -> o.ratingRange.toString
       )
-  }
-}

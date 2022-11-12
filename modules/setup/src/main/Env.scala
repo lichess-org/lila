@@ -1,9 +1,9 @@
 package lila.setup
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 import lila.oauth.OAuthServer
 
 @Module
@@ -18,11 +18,10 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator
-) {
+):
 
   lazy val forms = SetupForm
 
   lazy val processor = wire[Processor]
 
   lazy val bulk = wire[SetupBulkApi]
-}
