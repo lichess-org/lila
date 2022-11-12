@@ -1,11 +1,11 @@
 package lila.irwin
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.report.Suspect
 import lila.tournament.TournamentApi
 
@@ -27,7 +27,7 @@ final class Env(
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private lazy val irwinReportColl = db(CollName("irwin_report")).taggedWith[IrwinColl]
 
@@ -39,7 +39,7 @@ final class Env(
 
   val kaladinApi = wire[KaladinApi]
 
-  if (appConfig.get[Boolean]("kaladin.enabled")) {
+  if (appConfig.get[Boolean]("kaladin.enabled"))
 
     scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
       (for {
@@ -71,8 +71,6 @@ final class Env(
     scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       kaladinApi.monitorQueued.unit
     }
-  }
-}
 
 trait IrwinColl
 trait KaladinColl

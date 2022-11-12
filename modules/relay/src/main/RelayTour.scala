@@ -50,7 +50,7 @@ object RelayTour {
       BEST.toString   -> "Official: best tier"
     )
     def name(tier: Tier) = options.collectFirst {
-      case (t, n) if t == tier => n
+      case (t, n) if t == tier.toString => n
     } | "???"
   }
 

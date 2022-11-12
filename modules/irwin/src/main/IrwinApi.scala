@@ -1,8 +1,8 @@
 package lila.irwin
 
-import com.softwaremill.tagging._
+import com.softwaremill.tagging.*
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.analyse.Analysis
@@ -23,7 +23,7 @@ final class IrwinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   lazy val thresholds = IrwinThresholds.makeSetting("irwin", settingStore)
 
@@ -36,17 +36,16 @@ final class IrwinApi(
       .cursor[IrwinReport]()
       .list(20) dmap IrwinReport.Dashboard.apply
 
-  object reports {
+  object reports:
 
     def insert(data: IrwinReport) = for {
       prev <- get(data.userId)
       report = prev.fold(data)(_ add data)
       _ <- reportColl.update.one($id(report._id), report, upsert = true)
       _ <- markOrReport(report)
-    } yield {
+    } yield
       notification(report)
       lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
-    }
 
     def get(user: User): Fu[Option[IrwinReport]] =
       get(user.id)
@@ -88,16 +87,14 @@ final class IrwinApi(
         } yield lila.mon.mod.irwin.report.increment().unit
         else funit
       }
-  }
 
-  object requests {
+  object requests:
 
     import IrwinRequest.Origin
 
-    def fromMod(suspect: Suspect, mod: Holder) = {
+    def fromMod(suspect: Suspect, mod: Holder) =
       notification.add(suspect.id, ModId(mod.id))
       insert(suspect, _.Moderator)
-    }
 
     private[irwin] def insert(suspect: Suspect, origin: Origin.type => Origin): Funit =
       for {
@@ -146,9 +143,8 @@ final class IrwinApi(
           .sort(Query.sortCreated)
           .cursor[Game](ReadPreference.secondaryPreferred)
           .list(nb)
-  }
 
-  object notification {
+  object notification:
 
     private var subs = Map.empty[SuspectId, Set[ModId]]
 
@@ -168,5 +164,3 @@ final class IrwinApi(
           .sequenceFu
           .void
       }
-  }
-}

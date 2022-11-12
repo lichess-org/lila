@@ -1,12 +1,12 @@
 package lila.irwin
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.Bus
 
-final class IrwinStream {
+final class IrwinStream:
 
   private val channel = "irwin"
 
@@ -21,7 +21,7 @@ final class IrwinStream {
       }
       .keepAlive(60.seconds, () => keepAliveMsg)
 
-  def apply(): Source[String, _] =
+  def apply(): Source[String, ?] =
     blueprint mapMaterializedValue { queue =>
       val sub = Bus.subscribeFun(channel) { case req: IrwinRequest =>
         lila.mon.mod.irwin.streamEventType("request").increment()
@@ -44,12 +44,13 @@ final class IrwinStream {
         "games"  -> req.suspect.user.count.rated
       ),
       "games" -> req.games.map { case (game, analysis) =>
+        val moveTimes = game.clockHistory.isDefined ?? game.moveTimes.map(_.map(_.centis))
         Json.obj(
           "id"    -> game.id,
           "white" -> game.whitePlayer.userId,
           "black" -> game.blackPlayer.userId,
           "pgn"   -> game.pgnMoves.mkString(" "),
-          "emts"  -> game.clockHistory.isDefined ?? game.moveTimes.map(_.map(_.centis)),
+          "emts"  -> moveTimes,
           "analysis" -> analysis.map {
             _.infos.map { info =>
               info.cp.map { cp =>
@@ -64,4 +65,3 @@ final class IrwinStream {
         )
       }
     )
-}

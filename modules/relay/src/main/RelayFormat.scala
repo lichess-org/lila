@@ -3,6 +3,7 @@ package lila.relay
 import io.mola.galimatias.URL
 import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.DefaultBodyReadables.*
 import scala.concurrent.duration._
 
 import lila.study.MultiPgn
@@ -78,7 +79,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
       .withRequestTimeout(4.seconds)
       .get()
       .map {
-        case res if res.status == 200 => res.body.some
+        case res if res.status == 200 => res.body[String].some
         case _                        => none
       }
 

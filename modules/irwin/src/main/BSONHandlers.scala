@@ -1,15 +1,15 @@
 package lila.irwin
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.db.BSON
 
-object BSONHandlers {
+object BSONHandlers:
 
-  import IrwinReport._
+  import IrwinReport.*
 
-  implicit private val MoveReportBSONHandler = new BSON[MoveReport] {
+  private given BSON[MoveReport] with
 
     private val activation = "a"
     private val rank       = "r"
@@ -34,7 +34,6 @@ object BSONHandlers {
         odds       -> w.intO(o.odds),
         loss       -> w.intO(o.loss)
       )
-  }
 
   private given BSONDocumentHandler[GameReport] = Macros.handler
   // private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
@@ -42,7 +41,7 @@ object BSONHandlers {
   given BSONDocumentHandler[IrwinReport] = Macros.handler
 
   import KaladinUser.{ Pred, Requester, Response }
-  implicit private val KaladinRequesterBSONHandler = quickHandler[Requester](
+  private given BSONHandler[Requester] = quickHandler[Requester](
     {
       case BSONString("TournamentLeader") => Requester.TournamentLeader
       case BSONString("TopOnline")        => Requester.TopOnline
@@ -54,7 +53,6 @@ object BSONHandlers {
       case other                => BSONString(other.name)
     }
   )
-  given BSONDocumentHandler[Pred] = Macros.handler
-  given BSONDocumentHandler[Response] = Macros.handler
+  given BSONDocumentHandler[Pred]        = Macros.handler
+  given BSONDocumentHandler[Response]    = Macros.handler
   given BSONDocumentHandler[KaladinUser] = Macros.handler
-}

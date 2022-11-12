@@ -1,8 +1,7 @@
 package lila.forumSearch
 
-private[forumSearch] case class Query(text: String, troll: Boolean)
+import play.api.libs.json.*
 
-object Query {
+private case class Query(text: String, troll: Boolean)
 
-  implicit val jsonWriter = play.api.libs.json.Json.writes[Query]
-}
+given Writes[Query] = Json.writes[Query]

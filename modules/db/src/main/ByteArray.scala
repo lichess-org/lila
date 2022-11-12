@@ -29,7 +29,7 @@ object ByteArray:
     v => BSONBinary(v.value, subtype)
   )
 
-  // implicit def fromBytes(value: Array[Byte]): ByteArray = new ByteArray(value)
+  given Conversion[Array[Byte], ByteArray] = ByteArray(_)
 
   def parseBytes(s: List[String]) = ByteArray(s.map(parseByte).toArray)
 

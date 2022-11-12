@@ -1,11 +1,11 @@
 package lila.forumSearch
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.forum.{ Post, PostApi, PostLiteView, PostRepo, PostView }
-import lila.search._
+import lila.search.*
 
 final class ForumSearchApi(
     client: ESClient,
@@ -14,7 +14,7 @@ final class ForumSearchApi(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) extends SearchReadApi[PostView, Query] {
+) extends SearchReadApi[PostView, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -32,17 +32,18 @@ final class ForumSearchApi(
     }
 
   private def toDoc(view: PostLiteView) =
+    val author = ~(view.post.userId orElse view.post.author map (_.toLowerCase))
     Json.obj(
       Fields.body    -> view.post.text.take(10000),
       Fields.topic   -> view.topic.name,
-      Fields.author  -> ~(view.post.userId orElse view.post.author map (_.toLowerCase)),
+      Fields.author  -> author,
       Fields.topicId -> view.topic.id,
       Fields.troll   -> view.post.troll,
       Fields.date    -> view.post.createdAt
     )
 
   def reset =
-    client match {
+    client match
       case c: ESClientHttp =>
         c.putMapping >> {
           postRepo.nonGhostCursor
@@ -57,5 +58,3 @@ final class ForumSearchApi(
         } >> client.refresh
 
       case _ => funit
-    }
-}
