@@ -30,44 +30,39 @@ case class Challenge(
     name: Option[String] = None,
     declineReason: Option[Challenge.DeclineReason] = None,
     rules: Set[GameRule] = Set.empty
-) {
+):
 
-  import Challenge._
+  import Challenge.*
 
   def id = _id
 
   def challengerUser =
-    challenger match {
+    challenger match
       case u: Challenger.Registered => u.some
       case _                        => none
-    }
   def challengerUserId = challengerUser.map(_.id)
   def challengerIsAnon =
-    challenger match {
+    challenger match
       case _: Challenger.Anonymous => true
       case _                       => false
-    }
   def challengerIsOpen =
-    challenger match {
+    challenger match
       case Challenger.Open => true
       case _               => false
-    }
   def destUserId = destUser.map(_.id)
 
   def userIds = List(challengerUserId, destUserId).flatten
 
   def daysPerTurn =
-    timeControl match {
+    timeControl match
       case TimeControl.Correspondence(d) => d.some
       case _                             => none
-    }
   def unlimited = timeControl == TimeControl.Unlimited
 
   def clock =
-    timeControl match {
+    timeControl match
       case c: TimeControl.Clock => c.some
       case _                    => none
-    }
 
   def hasClock = clock.isDefined
 
@@ -91,10 +86,9 @@ case class Challenge(
   def speed = speedOf(timeControl)
 
   def notableInitialFen: Option[FEN] =
-    variant match {
+    variant match
       case FromPosition | Horde | RacingKings | Chess960 => initialFen
       case _                                             => none
-    }
 
   def isOpen = open.isDefined
 
@@ -113,16 +107,14 @@ case class Challenge(
   def isBotCompatible: Boolean   = speed >= Speed.Bullet
 
   def nonEmptyRules = rules.nonEmpty option rules
-}
 
-object Challenge {
+object Challenge:
 
   type ID = String
 
-  sealed abstract class Status(val id: Int) {
-    val name = toString.toLowerCase
-  }
-  object Status {
+  sealed abstract class Status(val id: Int):
+    val name = Status.this.toString.toLowerCase
+  object Status:
     case object Created  extends Status(10)
     case object Offline  extends Status(15)
     case object Canceled extends Status(20)
@@ -130,13 +122,11 @@ object Challenge {
     case object Accepted extends Status(40)
     val all  = List[Status](Created, Offline, Canceled, Declined, Accepted)
     val byId = all.map { s => s.id -> s }.toMap
-  }
 
-  sealed abstract class DeclineReason(val trans: I18nKey) {
-    val key = toString.toLowerCase
-  }
+  sealed abstract class DeclineReason(val trans: I18nKey):
+    val key = DeclineReason.this.toString.toLowerCase
 
-  object DeclineReason {
+  object DeclineReason:
     case object Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
     case object Later       extends DeclineReason(I18nKeys.challenge.declineLater)
     case object TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
@@ -156,48 +146,40 @@ object Challenge {
     val allExceptBot: List[DeclineReason] =
       all.filterNot(r => r == NoBot || r == OnlyBot)
     def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.key == key } | Generic
-  }
 
-  case class Rating(int: Int, provisional: Boolean) {
+  case class Rating(int: Int, provisional: Boolean):
     def show = s"$int${if (provisional) "?" else ""}"
-  }
-  object Rating {
+  object Rating:
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
-  }
 
   sealed trait Challenger
-  object Challenger {
+  object Challenger:
     case class Registered(id: User.ID, rating: Rating) extends Challenger
     case class Anonymous(secret: String)               extends Challenger
     case object Open                                   extends Challenger
-  }
 
-  sealed trait TimeControl {
+  sealed trait TimeControl:
     def realTime: Option[chess.Clock.Config] = none
-  }
-  object TimeControl {
+  object TimeControl:
     def make(clock: Option[chess.Clock.Config], days: Option[Days]) =
       clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
     case object Unlimited                 extends TimeControl
     case class Correspondence(days: Days) extends TimeControl
-    case class Clock(config: chess.Clock.Config) extends TimeControl {
+    case class Clock(config: chess.Clock.Config) extends TimeControl:
       override def realTime = config.some
       // All durations are expressed in seconds
       def limit     = config.limit
       def increment = config.increment
       def show      = config.show
-    }
-  }
 
   sealed abstract class ColorChoice(val trans: I18nKey)
-  object ColorChoice {
+  object ColorChoice:
     case object Random extends ColorChoice(I18nKeys.randomColor)
     case object White  extends ColorChoice(I18nKeys.white)
     case object Black  extends ColorChoice(I18nKeys.black)
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
-  }
 
-  case class Open(userIds: Option[(User.ID, User.ID)]) {
+  case class Open(userIds: Option[(User.ID, User.ID)]):
     def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
     def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
     def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
@@ -209,13 +191,11 @@ object Challenge {
             else none
           }
       }
-  }
 
   private def speedOf(timeControl: TimeControl) =
-    timeControl match {
+    timeControl match
       case TimeControl.Clock(config) => Speed(config)
       case _                         => Speed.Correspondence
-    }
 
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
     PerfPicker
@@ -254,16 +234,14 @@ object Challenge {
       id: Option[String] = None,
       openToUserIds: Option[(User.ID, User.ID)] = None,
       rules: Set[GameRule] = Set.empty
-  ): Challenge = {
-    val (colorChoice, finalColor) = color match {
+  ): Challenge =
+    val (colorChoice, finalColor) = color match
       case "white" => ColorChoice.White  -> chess.White
       case "black" => ColorChoice.Black  -> chess.Black
       case _       => ColorChoice.Random -> randomColor
-    }
-    val finalMode = timeControl match {
+    val finalMode = timeControl match
       case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
       case _                                                                           => mode
-    }
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
       _id = id | randomId,
@@ -289,5 +267,3 @@ object Challenge {
       name = name,
       rules = rules
     )
-  }
-}

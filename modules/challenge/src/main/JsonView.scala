@@ -1,11 +1,11 @@
 package lila.challenge
 
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Json._
-import lila.game.JsonView._
-import lila.i18n.{ I18nKeys => trans }
+import lila.common.Json.given
+import lila.game.JsonView.given
+import lila.i18n.{ I18nKeys as trans }
 import lila.socket.Socket.SocketVersion
 import lila.socket.UserLagCache
 
@@ -13,11 +13,11 @@ final class JsonView(
     baseUrl: lila.common.config.BaseUrl,
     getLightUser: lila.common.LightUser.GetterSync,
     isOnline: lila.socket.IsOnline
-) {
+):
 
-  import Challenge._
+  import Challenge.{ *, given }
 
-  implicit private val RegisteredWrites = OWrites[Challenger.Registered] { r =>
+  private given OWrites[Challenger.Registered] = OWrites { r =>
     val light = getLightUser(r.id)
     Json
       .obj(
@@ -32,7 +32,7 @@ final class JsonView(
       .add("lag" -> UserLagCache.getLagRating(r.id))
   }
 
-  def apply(a: AllChallenges)(implicit lang: Lang): JsObject =
+  def apply(a: AllChallenges)(using lang: Lang): JsObject =
     Json.obj(
       "in"   -> a.in.map(apply(Direction.In.some)),
       "out"  -> a.out.map(apply(Direction.Out.some)),
@@ -50,9 +50,9 @@ final class JsonView(
       "socketVersion" -> socketVersion
     )
 
-  implicit private val openWrites = Json.writes[Challenge.Open]
+  private given OWrites[Challenge.Open] = Json.writes
 
-  def apply(direction: Option[Direction])(c: Challenge)(implicit lang: Lang): JsObject =
+  def apply(direction: Option[Direction])(c: Challenge)(using lang: Lang): JsObject =
     Json
       .obj(
         "id"         -> c.id,
@@ -105,4 +105,3 @@ final class JsonView(
     trans.viewInFullSize,
     trans.cancel
   ).map(_.key)
-}

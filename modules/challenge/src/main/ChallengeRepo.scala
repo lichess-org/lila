@@ -9,10 +9,10 @@ import lila.user.User
 
 final private class ChallengeRepo(colls: ChallengeColls)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   import BSONHandlers.given
-  import Challenge._
+  import Challenge.*
 
   private val coll = colls.challenge
 
@@ -91,7 +91,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
 
-  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] = {
+  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll
       .find(
         $doc(
@@ -102,7 +102,6 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       )
       .cursor[Challenge]()
       .list(max)
-  }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
     coll.list[Challenge]("expiresAt" $lt DateTime.now, max)
@@ -156,4 +155,3 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   private[challenge] def remove(id: Challenge.ID) = coll.delete.one($id(id)).void
 
   private val selectCreated = $doc("status" -> Status.Created.id)
-}

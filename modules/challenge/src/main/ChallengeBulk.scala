@@ -1,14 +1,14 @@
 package lila.challenge
 
 import akka.actor.ActorSystem
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.{ Situation, Speed }
 import org.joda.time.DateTime
-import reactivemongo.api.bson.Macros
-import scala.concurrent.duration._
-import scala.util.chaining._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.common.{ Bus, Days, LilaStream, Template }
 import lila.db.dsl.{ *, given }
@@ -18,6 +18,7 @@ import lila.hub.AsyncActorSequencers
 import lila.rating.PerfType
 import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame }
 import lila.user.User
+import chess.Clock
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
@@ -30,15 +31,15 @@ final class ChallengeBulkApi(
     mat: akka.stream.Materializer,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
-) {
+):
 
-  import lila.game.BSONHandlers.RulesHandler
-  private given BSONDocumentHandler[ScheduledGame] = Macros.handler
-  implicit private val variantHandler     = variantByKeyHandler
-  implicit private val clockHandler       = clockConfigHandler
-  implicit private val clockOrDaysHandler = eitherHandler[chess.Clock.Config, Days]
-  implicit private val messageHandler     = stringAnyValHandler[Template](_.value, Template.apply)
-  private given BSONDocumentHandler[ScheduledBulk] = Macros.handler
+  import lila.game.BSONHandlers.given
+  private given BSONDocumentHandler[ScheduledGame]      = Macros.handler
+  private given BSONHandler[chess.variant.Variant]      = variantByKeyHandler
+  private given BSONHandler[Clock.Config]               = clockConfigHandler
+  private given BSONHandler[Either[Clock.Config, Days]] = eitherHandler[Clock.Config, Days]
+  private given BSONHandler[Template]                   = stringAnyValHandler(_.value, Template)
+  private given BSONDocumentHandler[ScheduledBulk]      = Macros.handler
 
   private val coll = colls.bulk
 
@@ -93,12 +94,11 @@ final class ChallengeBulkApi(
       }
     }
 
-  private def startClocksNow(bulk: ScheduledBulk): Funit = {
+  private def startClocksNow(bulk: ScheduledBulk): Funit =
     Bus.publish(TellMany(bulk.games.map(_.id), lila.round.actorApi.round.StartClock), "roundSocket")
     coll.delete.one($id(bulk._id)).void
-  }
 
-  private def makePairings(bulk: ScheduledBulk): Funit = {
+  private def makePairings(bulk: ScheduledBulk): Funit =
     def timeControl = bulk.clock.fold(Challenge.TimeControl.Clock, Challenge.TimeControl.Correspondence)
     val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
@@ -143,5 +143,3 @@ final class ChallengeBulkApi(
         coll.updateField($id(bulk._id), "pairedAt", DateTime.now)
       else coll.delete.one($id(bulk._id))
     }.void
-  }
-}
