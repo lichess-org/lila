@@ -1,9 +1,9 @@
 package lila.teamSearch
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
 
-import lila.search._
+import lila.search.*
 import lila.team.{ Team, TeamRepo }
 
 final class TeamSearchApi(
@@ -12,7 +12,7 @@ final class TeamSearchApi(
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) extends SearchReadApi[Team, Query] {
+) extends SearchReadApi[Team, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -31,7 +31,7 @@ final class TeamSearchApi(
     )
 
   def reset =
-    client match {
+    client match
       case c: ESClientHttp =>
         c.putMapping >> {
 
@@ -47,5 +47,3 @@ final class TeamSearchApi(
             .run()
         } >> client.refresh
       case _ => funit
-    }
-}

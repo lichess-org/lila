@@ -10,14 +10,13 @@ private[lobby] case class LobbyUser(
     bot: Boolean,
     perfMap: LobbyUser.PerfMap,
     blocking: Set[User.ID]
-) {
+):
 
   def perfAt(pt: PerfType): LobbyPerf = perfMap.get(pt.key) | LobbyPerf.default
 
   def ratingAt(pt: PerfType): Int = perfAt(pt).rating
-}
 
-private[lobby] object LobbyUser {
+private[lobby] object LobbyUser:
 
   type PerfMap = Map[Perf.Key, LobbyPerf]
 
@@ -36,11 +35,9 @@ private[lobby] object LobbyUser {
       case (key, perf) if key != PerfType.Puzzle.key && perf.nonEmpty =>
         key -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
-}
 
 case class LobbyPerf(rating: Int, provisional: Boolean)
 
-object LobbyPerf {
+object LobbyPerf:
 
   val default = LobbyPerf(Glicko.default.intRating, provisional = true)
-}

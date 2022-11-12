@@ -1,7 +1,7 @@
 package lila.blog
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import io.methvin.play.autoconfig.*
 import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
 
@@ -19,7 +19,7 @@ final class Env(
 )(using
     ec: scala.concurrent.ExecutionContext,
     ws: play.api.libs.ws.StandaloneWSClient
-) {
+):
 
   private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)
 
@@ -28,4 +28,3 @@ final class Env(
   private lazy val notifier = wire[Notifier]
 
   lazy val lastPostCache = wire[LastPostCache]
-}

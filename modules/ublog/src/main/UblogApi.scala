@@ -1,8 +1,8 @@
 package lila.ublog
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api._
-import scala.concurrent.duration._
+import reactivemongo.api.*
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl.{ *, given }
@@ -18,23 +18,20 @@ final class UblogApi(
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import UblogBsonHandlers.given
+  import UblogBsonHandlers.{ *, given }
 
-  def create(data: UblogForm.UblogPostData, user: User): Fu[UblogPost] = {
+  def create(data: UblogForm.UblogPostData, user: User): Fu[UblogPost] =
     val post = data.create(user)
     colls.post.insert.one(
-      postBSONHandler.writeTry(post).get ++ $doc(
-        "likers" -> List(user.id)
-      )
+      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(user.id))
     ) inject post
-  }
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost, user: User): Fu[UblogPost] =
     getUserBlog(user, insertMissing = true) flatMap { blog =>
       val post = data.update(user, prev)
-      colls.post.update.one($id(prev.id), $set(postBSONHandler.writeTry(post).get)) >> {
+      colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
         (post.live && prev.lived.isEmpty) ?? onFirstPublish(user, blog, post)
       } inject post
     }
@@ -44,12 +41,11 @@ final class UblogApi(
       colls.post.updateField($id(post.id), "rank", rank).void
     } >>- {
       lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-      if (blog.visible) {
+      if (blog.visible)
         timeline ! Propagate(
           lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
         ).toFollowersOf(user.id)
         if (blog.modTier.isEmpty) sendPostToZulip(user, blog, post).unit
-      }
     }
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
@@ -77,17 +73,16 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def userBlogPreviewFor(user: User, nb: Int, forUser: Option[User]): Fu[Option[UblogPost.BlogPreview]] = {
+  def userBlogPreviewFor(user: User, nb: Int, forUser: Option[User]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(forUser exists user.is) >>|
       colls.blog.primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier").dmap(~_ >= UblogBlog.Tier.VISIBLE)
     canView flatMap { _ ?? blogPreview(blogId, nb).dmap(some) }
-  }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
     colls.post.countSel($doc("blog" -> blogId, "live" -> true)) zip
       latestPosts(blogId, nb) map
-      (UblogPost.BlogPreview.apply _).tupled
+      (UblogPost.BlogPreview.apply).tupled
 
   def latestPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
@@ -132,7 +127,7 @@ final class UblogApi(
     colls.post
       .find($inIds(ids) ++ $doc("live" -> true), lightPostProjection.some)
       .cursor[UblogPost.LightPost]()
-      .list()
+      .list(30)
 
   def delete(post: UblogPost): Funit =
     colls.post.delete.one($id(post.id)) >>
@@ -157,4 +152,3 @@ final class UblogApi(
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
-}

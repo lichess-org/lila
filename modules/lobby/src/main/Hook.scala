@@ -3,7 +3,7 @@ package lila.lobby
 import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -23,7 +23,7 @@ case class Hook(
     ratingRange: String,
     createdAt: DateTime,
     boardApi: Boolean
-) {
+):
 
   val realColor = Color orDefault color
 
@@ -102,9 +102,8 @@ case class Hook(
     )
 
   private lazy val speed = Speed(clock)
-}
 
-object Hook {
+object Hook:
 
   val idSize = 8
 
@@ -133,4 +132,3 @@ object Hook {
       createdAt = DateTime.now,
       boardApi = boardApi
     )
-}

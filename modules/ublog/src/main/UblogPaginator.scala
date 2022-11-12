@@ -1,7 +1,7 @@
 package lila.ublog
 
-import scala.concurrent.duration._
-import reactivemongo.api._
+import scala.concurrent.duration.*
+import reactivemongo.api.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
@@ -17,9 +17,9 @@ final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
-  import UblogBsonHandlers.given
+  import UblogBsonHandlers.{ *, given }
   import UblogPost.PreviewPost
 
   val maxPerPage = MaxPerPage(9)
@@ -77,7 +77,7 @@ final class UblogPaginator(
 
   private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int) = colls.post
     .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-      import framework._
+      import framework.*
       Match(select ++ $doc("live" -> true)) -> List(
         Sort(Descending("rank")),
         PipelineOperator(
@@ -105,7 +105,7 @@ final class UblogPaginator(
       } yield post
     }
 
-  object liveByFollowed {
+  object liveByFollowed:
 
     def apply(user: User, page: Int): Fu[Paginator[PreviewPost]] =
       Paginator(
@@ -122,7 +122,7 @@ final class UblogPaginator(
         .buildAsyncFuture { case (userId, offset, length) =>
           relationApi.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match($doc("u1" -> userId, "r" -> lila.relation.Follow)) -> List(
                 Group(BSONNull)("ids" -> PushField("u2")),
                 PipelineOperator(
@@ -161,5 +161,3 @@ final class UblogPaginator(
             }
         }
     )
-  }
-}

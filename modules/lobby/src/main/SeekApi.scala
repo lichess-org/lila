@@ -1,20 +1,20 @@
 package lila.lobby
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 
 final class SeekApi(
     config: SeekApi.Config,
     biter: Biter,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext) {
-  import config._
+)(using ec: scala.concurrent.ExecutionContext):
+  import config.*
 
   private type CacheKey = Boolean
   private val ForAnon = false
@@ -30,14 +30,13 @@ final class SeekApi(
     _.refreshAfterWrite(3 seconds)
       .buildAsyncFuture {
         case false => allCursor.list(maxPerPage.value)
-        case true  => allCursor.list()
+        case true  => allCursor.list(500)
       }
   }
 
-  private def cacheClear() = {
+  private def cacheClear() =
     cache invalidate ForAnon
     cache invalidate ForUser
-  }
 
   def forAnon = cache get ForAnon
 
@@ -80,20 +79,19 @@ final class SeekApi(
       .find($doc("user.id" -> userId))
       .sort($sort desc "createdAt")
       .cursor[Seek]()
-      .list()
+      .list(100)
 
   def remove(seek: Seek) =
     coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear()
 
-  def archive(seek: Seek, gameId: String) = {
-    val archiveDoc = Seek.seekBSONHandler.writeTry(seek).get ++ $doc(
+  def archive(seek: Seek, gameId: String) =
+    val archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
       "gameId"     -> gameId,
       "archivedAt" -> DateTime.now
     )
     coll.delete.one($doc("_id" -> seek.id)).void >>-
       cacheClear() >>
       archiveColl.insert.one(archiveDoc)
-  }
 
   def findArchived(gameId: String): Fu[Option[Seek]] =
     archiveColl.find($doc("gameId" -> gameId)).one[Seek]
@@ -110,9 +108,8 @@ final class SeekApi(
 
   def removeByUser(user: User) =
     coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear()
-}
 
-private object SeekApi {
+private object SeekApi:
 
   final class Config(
       val coll: Coll,
@@ -120,4 +117,3 @@ private object SeekApi {
       val maxPerPage: MaxPerPage,
       val maxPerUser: Max
   )
-}

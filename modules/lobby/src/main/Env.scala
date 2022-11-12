@@ -1,10 +1,10 @@
 package lila.lobby
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 final class Env(
@@ -24,7 +24,7 @@ final class Env(
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     idGenerator: lila.game.IdGenerator
-) {
+):
 
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),
@@ -53,4 +53,3 @@ final class Env(
   lila.common.Bus.subscribeFun("abortGame") { case lila.game.actorApi.AbortedBy(pov) =>
     abortListener(pov).unit
   }
-}

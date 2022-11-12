@@ -1,13 +1,13 @@
 package lila.ublog
 
 import bloomfilter.mutable.BloomFilter
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 
-final class UblogViewCounter(colls: UblogColls)(using ec: ExecutionContext) {
+final class UblogViewCounter(colls: UblogColls)(using ec: ExecutionContext):
 
   private val bloomFilter = BloomFilter[String](
     numberOfItems = 200_000,
@@ -26,4 +26,3 @@ final class UblogViewCounter(colls: UblogColls)(using ec: ExecutionContext) {
       }
     })
     else post
-}

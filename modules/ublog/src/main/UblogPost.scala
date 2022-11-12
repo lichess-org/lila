@@ -23,16 +23,15 @@ case class UblogPost(
     lived: Option[UblogPost.Recorded],
     likes: UblogPost.Likes,
     views: UblogPost.Views
-) extends UblogPost.BasePost {
+) extends UblogPost.BasePost:
 
   def isBy(u: User) = created.by == u.id
 
   def indexable = live && topics.exists(t => UblogTopic.chessExists(t.value))
-}
 
 case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 
-object UblogPost {
+object UblogPost:
 
   case class Id(value: String) extends AnyVal with StringValue
 
@@ -44,12 +43,11 @@ object UblogPost {
 
   case class Create(post: UblogPost) extends AnyVal
 
-  case class LightPost(_id: UblogPost.Id, title: String) {
+  case class LightPost(_id: UblogPost.Id, title: String):
     def id   = _id
     def slug = UblogPost slug title
-  }
 
-  trait BasePost {
+  trait BasePost:
     val _id: UblogPost.Id
     val blog: UblogBlog.Id
     val title: String
@@ -59,7 +57,6 @@ object UblogPost {
     val lived: Option[Recorded]
     def id   = _id
     def slug = UblogPost slug title
-  }
 
   case class PreviewPost(
       _id: UblogPost.Id,
@@ -74,20 +71,16 @@ object UblogPost {
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
 
-  def slug(title: String) = {
+  def slug(title: String) =
     val s = lila.common.String slugify title
     if (s.isEmpty) "-" else s
-  }
 
-  object thumbnail {
-    sealed abstract class Size(val width: Int) {
+  object thumbnail:
+    sealed abstract class Size(val width: Int):
       def height = width * 10 / 16
-    }
     case object Large extends Size(880)
     case object Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 
     def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
-  }
-}

@@ -1,11 +1,11 @@
 package lila.timeline
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class UnsubApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
+final class UnsubApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private def makeId(channel: String, userId: User.ID) = s"$userId@$channel"
 
@@ -30,4 +30,3 @@ final class UnsubApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext) {
     ) dmap { unsubs =>
       userIds diff unsubs.map(_ takeWhile ('@' !=))
     }
-}

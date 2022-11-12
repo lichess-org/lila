@@ -1,8 +1,8 @@
 package lila.ublog
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown }
 import lila.i18n.{ defaultLang, LangList }
@@ -12,9 +12,9 @@ import lila.common.Markdown
 
 final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
     ec: scala.concurrent.ExecutionContext
-) extends lila.hub.CaptchedForm {
+) extends lila.hub.CaptchedForm:
 
-  import UblogForm._
+  import UblogForm.*
 
   private val base =
     mapping(
@@ -32,7 +32,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
     )(UblogPostData.apply)(unapply)
 
   val create = Form(
-    base.verifying(captchaFailMessage, validateCaptcha _)
+    base.verifying(captchaFailMessage, validateCaptcha)
   )
 
   def edit(post: UblogPost) =
@@ -55,9 +55,8 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
   // $$something$$ breaks the TUI editor WYSIWYG
   private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
   private def removeLatex(markdown: Markdown) = markdown(m => latexRegex.replaceAllIn(m, """\$\$ $1 \$\$"""))
-}
 
-object UblogForm {
+object UblogForm:
 
   case class UblogPostData(
       title: String,
@@ -71,7 +70,7 @@ object UblogForm {
       discuss: Boolean,
       gameId: String,
       move: String
-  ) {
+  ):
 
     def realLanguage = language flatMap Lang.get
 
@@ -109,7 +108,5 @@ object UblogForm {
         updated = UblogPost.Recorded(user.id, DateTime.now).some,
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
       )
-  }
 
   val tier = Form(single("tier" -> number(min = UblogBlog.Tier.HIDDEN, max = UblogBlog.Tier.BEST)))
-}
