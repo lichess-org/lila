@@ -135,7 +135,7 @@ async function parseImports(src: string, depth = 1, processed = new Set<string>(
 
   try {
     for (const match of (await fs.promises.readFile(src, 'utf8')).matchAll(importRe)) {
-      if (match.length != 2) continue;
+      if (match.length !== 2) continue;
       const absDep = path.resolve(path.dirname(src), resolvePartial(match[1]));
       if (!absDep.startsWith(env.uiDir)) continue;
       const dep = absDep.slice(env.uiDir.length + 1);
