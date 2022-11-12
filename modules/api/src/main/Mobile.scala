@@ -4,9 +4,9 @@ import play.api.mvc.RequestHeader
 
 import lila.common.{ ApiVersion, HTTPRequest }
 
-object Mobile {
+object Mobile:
 
-  object AppVersion {
+  object AppVersion:
 
     def mustUpgrade(v: String) = mustUpgradeFromVersions(v)
 
@@ -17,9 +17,8 @@ object Mobile {
       "5.2.0"
     )
 
-  }
 
-  object Api {
+  object Api:
 
     val currentVersion = ApiVersion(6)
 
@@ -29,5 +28,3 @@ object Mobile {
       HTTPRequest apiVersion req filter acceptedVersions.contains
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
-  }
-}

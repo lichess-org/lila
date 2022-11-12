@@ -2,19 +2,19 @@ package lila.api
 
 import chess.format.FEN
 import org.joda.time.DateTime
-import play.api.libs.json._
-import reactivemongo.api.bson._
+import play.api.libs.json.*
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.analyse.{ Analysis, JsonView => analysisJson }
-import lila.common.config._
-import lila.common.Json._
+import lila.analyse.{ Analysis, JsonView as analysisJson }
+import lila.common.config.*
+import lila.common.Json.given
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.game.BSONHandlers.given
-import lila.game.Game.{ BSONFields => G }
-import lila.game.JsonView._
+import lila.game.Game.{ BSONFields as G }
+import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game, PerfPicker }
 import lila.user.User
 
@@ -25,7 +25,7 @@ final private[api] class GameApi(
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
     crosstableApi: CrosstableApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   import GameApi.WithFlags
 
@@ -173,7 +173,7 @@ final private[api] class GameApi(
 
   private def makeUrl(game: Game) = s"${net.baseUrl}/${game.id}/${game.naturalOrientation.name}"
 
-  private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] = {
+  private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] =
     val allAnalysis =
       if (withFlags.analysis) analysisRepo byIds games.map(_.id)
       else fuccess(List.fill(games.size)(none[Analysis]))
@@ -184,7 +184,6 @@ final private[api] class GameApi(
         }
       }
     }
-  }
 
   private def checkToken(withFlags: WithFlags) = withFlags applyToken apiToken.value
 
@@ -233,8 +232,8 @@ final private[api] class GameApi(
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
-        "opening"  -> withFlags.opening.??(g.opening),
-        "fens" -> (withFlags.fens && g.finished) ?? {
+        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.FullOpening.AtPly]),
+        "fens" -> ((withFlags.fens && g.finished).?? {
           chess.Replay
             .boards(
               moveStrs = g.pgnMoves,
@@ -244,14 +243,13 @@ final private[api] class GameApi(
             .toOption map { boards =>
             JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
           }
-        },
+        }: Option[JsArray]),
         "winner" -> g.winnerColor.map(_.name),
         "url"    -> makeUrl(g)
       )
       .noNull
-}
 
-object GameApi {
+object GameApi:
 
   case class WithFlags(
       analysis: Boolean = false,
@@ -261,11 +259,9 @@ object GameApi {
       moveTimes: Boolean = false,
       blurs: Boolean = false,
       token: Option[String] = none
-  ) {
+  ):
 
     def applyToken(validToken: String) =
       copy(
         blurs = token has validToken
       )
-  }
-}

@@ -11,7 +11,7 @@ final class LobbyApi(
     gameProxyRepo: lila.round.GameProxyRepo,
     gameJson: lila.game.JsonView,
     lobbySocket: LobbySocket
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
@@ -39,4 +39,3 @@ final class LobbyApi(
       }
 
   def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(lightUserApi.sync)
-}

@@ -18,7 +18,7 @@ final private[api] class Cli(
     puzzle: lila.puzzle.Env,
     accountClosure: AccountClosure
 )(using ec: scala.concurrent.ExecutionContext)
-    extends lila.common.Cli {
+    extends lila.common.Cli:
 
   private val logger = lila.log("cli")
 
@@ -29,7 +29,7 @@ final private[api] class Cli(
       }
     }
 
-  def process = {
+  def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
       import lila.common.AssetVersion
@@ -42,7 +42,7 @@ final private[api] class Cli(
       Bus.publish(AnnounceStore.cancel, "announce")
       fuccess("Removed announce")
     case "announce" :: msgWords =>
-      AnnounceStore.set(msgWords mkString " ") match {
+      AnnounceStore.set(msgWords mkString " ") match
         case Some(announce) =>
           Bus.publish(announce, "announce")
           fuccess(announce.json.toString)
@@ -50,11 +50,9 @@ final private[api] class Cli(
           fuccess(
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
           )
-      }
     case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
       puzzle.opening.recomputeAll
       fuccess("started in background")
-  }
 
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
@@ -75,4 +73,3 @@ final private[api] class Cli(
       msg.cli.process orElse
       video.cli.process orElse
       process
-}

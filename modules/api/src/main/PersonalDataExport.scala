@@ -1,12 +1,12 @@
 package lila.api
 
 import akka.stream.Materializer
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.chat.Chat
@@ -30,12 +30,12 @@ final class PersonalDataExport(
     coachApi: lila.coach.CoachApi,
     picfitUrl: lila.memo.PicfitUrl,
     mongoCacheApi: lila.memo.MongoCache.Api
-)(using ec: ExecutionContext, mat: Materializer) {
+)(using ec: ExecutionContext, mat: Materializer):
 
   private val lightPerSecond = 60
   private val heavyPerSecond = 30
 
-  def apply(user: User): Source[String, _] = {
+  def apply(user: User): Source[String, ?] =
 
     val intro =
       Source.futureSource {
@@ -133,7 +133,7 @@ final class PersonalDataExport(
     def gameChatsLookup(lookup: Bdoc) =
       gameEnv.gameRepo.coll
         .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
-          import framework._
+          import framework.*
           List(
             Match($doc(Game.BSONFields.playerUids -> user.id)),
             Project($id(true)),
@@ -177,7 +177,7 @@ final class PersonalDataExport(
           .aggregateWith[Bdoc](
             readPreference = ReadPreference.secondaryPreferred
           ) { framework =>
-            import framework._
+            import framework.*
             List(
               Match($doc(Game.BSONFields.playerUids -> user.id)),
               Project($id(true)),
@@ -235,7 +235,6 @@ final class PersonalDataExport(
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
       .keepAlive(15 seconds, () => " ")
-  }
 
   private val bigSep = "\n------------------------------------------\n"
 
@@ -243,4 +242,3 @@ final class PersonalDataExport(
 
   private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
   private def textDate(date: DateTime) = englishDateTimeFormatter print date
-}

@@ -34,7 +34,7 @@ final class Env(
     scheduler: Scheduler,
     mode: play.api.Mode
 ):
-  export net.{ baseUrl, domain }
+  private val (baseUrl, domain) = (net.baseUrl, net.domain)
 
   private val config = appConfig.get[SecurityConfig]("security")
 

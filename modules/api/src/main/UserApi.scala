@@ -1,8 +1,8 @@
 package lila.api
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.user.{ Trophy, User }
 import lila.rating.{ PerfType, UserRankMap }
@@ -26,7 +26,7 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     net: NetConfig
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def one(u: User): JsObject =
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
@@ -146,15 +146,12 @@ final class UserApi(
     js.add("streaming", liveStreamApi.isStreaming(id))
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
-}
 
-object UserApi {
+object UserApi:
   case class TrophiesAndAwards(
       ranks: UserRankMap,
       trophies: List[Trophy],
       shields: List[lila.tournament.TournamentShield.Award],
       revolutions: List[lila.tournament.Revolution.Award]
-  ) {
+  ):
     def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
-  }
-}

@@ -55,12 +55,12 @@ sealed abstract class BaseUserContext(
 final case class BodyUserContext[A](body: Request[A], m: Option[User], i: Option[User], l: Lang)
     extends BaseUserContext(body, m, i, l):
 
-  def withLang(newLang: Lang) = copy(l = newLang)
+  def withLang(newLang: Lang): BodyUserContext[A] = copy(l = newLang)
 
 final case class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[User], l: Lang)
     extends BaseUserContext(r, m, i, l):
 
-  def withLang(newLang: Lang) = copy(l = newLang)
+  def withLang(newLang: Lang): HeaderUserContext = copy(l = newLang)
 
 trait UserContextWrapper extends UserContext:
   val userContext: UserContext

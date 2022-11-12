@@ -7,6 +7,7 @@ import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
+import play.api.i18n.Lang
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -14,9 +15,9 @@ final class PgnDump(
     simulApi: lila.simul.SimulApi,
     getTournamentName: lila.tournament.GetTourName,
     getSwissName: lila.swiss.GetSwissName
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val lang = lila.i18n.defaultLang
+  private given Lang = lila.i18n.defaultLang
 
   def apply(
       game: Game,
@@ -50,4 +51,3 @@ final class PgnDump(
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
     ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap annotator.toPgnString
-}

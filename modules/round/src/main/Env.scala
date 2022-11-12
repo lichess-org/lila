@@ -60,10 +60,7 @@ final class Env(
     scheduler: akka.actor.Scheduler,
     materializer: akka.stream.Materializer
 ):
-
-  export lightUserApi.isBotSync
-  export lightUserApi.async
-  export lightUserApi.sync
+  private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
 
   private given ConfigLoader[AnimationDuration] = durationLoader(AnimationDuration)
   private val config                            = appConfig.get[RoundConfig]("round")(AutoConfig.loader)

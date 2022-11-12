@@ -1,7 +1,7 @@
 package lila.api
 
 import akka.actor.Scheduler
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
@@ -29,7 +29,7 @@ final class AccountClosure(
     appealApi: lila.appeal.AppealApi,
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail
-)(using ec: ExecutionContext, scheduler: Scheduler) {
+)(using ec: ExecutionContext, scheduler: Scheduler):
 
   Bus.subscribeFuns(
     "garbageCollect" -> { case lila.hub.actorApi.security.GarbageCollect(userId) =>
@@ -85,4 +85,3 @@ final class AccountClosure(
       case None    => fuccess(Left("No such user."))
       case Some(u) => (u.enabled ?? close(u, by)) >> eraseClosed(u.username)
     }
-}

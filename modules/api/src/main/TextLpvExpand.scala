@@ -2,9 +2,9 @@ package lila.api
 
 import chess.format.pgn.Pgn
 import play.api.Mode
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
 import lila.analyse.AnalysisRepo
 import lila.common.config
@@ -16,7 +16,7 @@ final class TextLpvExpand(
     analysisRepo: AnalysisRepo,
     pgnDump: PgnDump,
     cacheApi: CacheApi
-)(using ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   def getPgn(id: Game.ID) = pgnCache get id
 
@@ -46,7 +46,7 @@ final class TextLpvExpand(
         }
     }
 
-  def gamePgnsFromText(text: String): Fu[Map[Game.ID, String]] = {
+  def gamePgnsFromText(text: String): Fu[Map[Game.ID, String]] =
     val gameIds = gameRegex
       .findAllMatchIn(text)
       .toList
@@ -55,7 +55,6 @@ final class TextLpvExpand(
     pgnCache getAll gameIds map {
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
-  }
 
   private val gameRegex =
     s"""/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b""".r
@@ -83,4 +82,3 @@ final class TextLpvExpand(
         }
       }
     }
-}

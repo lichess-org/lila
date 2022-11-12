@@ -2,9 +2,9 @@ package lila.api
 
 import chess.format.FEN
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.analyse.{ Analysis, JsonView => analysisJson }
+import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.ApiVersion
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
@@ -13,8 +13,8 @@ import lila.round.JsonView.WithFlags
 import lila.round.{ Forecast, JsonView }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.swiss.{ GameView => SwissView }
-import lila.tournament.{ GameView => TourView }
+import lila.swiss.{ GameView as SwissView }
+import lila.tournament.{ GameView as TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
 
@@ -31,7 +31,7 @@ final private[api] class RoundApi(
     externalEngineApi: lila.analyse.ExternalEngineApi,
     getTeamName: lila.team.GetTeamName,
     getLightUser: lila.common.LightUser.GetterSync
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(using
       ctx: Context
@@ -56,7 +56,7 @@ final private[api] class RoundApi(
           bookmarkApi.exists(pov.game, ctx.me) map {
             case (((((json, simul), swiss), note), forecast), bookmarked) =>
               (
-                withTournament(pov, tour) _ compose
+                withTournament(pov, tour) compose
                   withSwiss(swiss) compose
                   withSimul(simul) compose
                   withSteps(pov, initialFen) compose
@@ -93,7 +93,7 @@ final private[api] class RoundApi(
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
           bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
-              withTournament(pov, tour) _ compose
+              withTournament(pov, tour) compose
                 withSwiss(swiss) compose
                 withSimul(simul) compose
                 withNote(note) compose
@@ -137,7 +137,7 @@ final private[api] class RoundApi(
       bookmarkApi.exists(pov.game, ctx.me) map {
         case (((((((json, tour), simul), swiss), note), fco), puzzleOpening), bookmarked) =>
           (
-            withTournament(pov, tour) _ compose
+            withTournament(pov, tour) compose
               withSwiss(swiss) compose
               withSimul(simul) compose
               withNote(note) compose
@@ -221,7 +221,7 @@ final private[api] class RoundApi(
       json + (
         "forecast" -> {
           if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
-            import Forecast.forecastJsonWriter
+            import Forecast.given
             Json toJson fc
           }
           else Json.obj("onMyTurn" -> true)
@@ -306,4 +306,3 @@ final private[api] class RoundApi(
         )
       }
     )
-}
