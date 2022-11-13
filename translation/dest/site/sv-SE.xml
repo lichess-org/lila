@@ -215,6 +215,8 @@
   <string name="emailSent">Vi har skickat ett mejl till %s.</string>
   <string name="emailCanTakeSomeTime">Det kan ta en stund för det att komma.</string>
   <string name="refreshInboxAfterFiveMinutes">Vänta 5 minuter och uppdatera din inkorg.</string>
+  <string name="checkSpamFolder">Kontrollera även din skräppost, det kan hamna där. I så fall, markera det som ej skräppost.</string>
+  <string name="emailForSignupHelp">Om allt annat misslyckas, skicka oss denna mejl:</string>
   <string name="accountClosed">Kontot %s är stängt.</string>
   <string name="accountRegisteredWithoutEmail">Kontot %s registrerades utan e-post.</string>
   <string name="rank">Rankning</string>
