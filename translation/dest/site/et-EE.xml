@@ -109,7 +109,7 @@
   <string name="deleteThisImportedGame">Kustuta imporditud mäng?</string>
   <string name="replayMode">Kordusrežiim</string>
   <string name="realtimeReplay">Reaalajas</string>
-  <string name="byCPL">ESK järgi</string>
+  <string name="byCPL">CPL järgi</string>
   <string name="openStudy">Ava uuring</string>
   <string name="enable">Luba</string>
   <string name="bestMoveArrow">Parima käigu nool</string>
