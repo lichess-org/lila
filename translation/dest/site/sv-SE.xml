@@ -254,7 +254,7 @@
   <string name="decline">Avböj</string>
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
-  <string name="finished">Avslutade</string>
+  <string name="finished">Slut</string>
   <string name="finishesX">slutar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
@@ -418,7 +418,7 @@
   </plurals>
   <string name="more">Visa mer</string>
   <string name="memberSince">Medlem sedan</string>
-  <string name="lastSeenActive">Aktiv %s</string>
+  <string name="lastSeenActive">Senast aktiv %s</string>
   <string name="player">Spelare</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
@@ -499,7 +499,7 @@ https://lichess. org/study</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activePlayers">Mest aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
-  <string name="success">Rätt</string>
+  <string name="success">Slutfört</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spelas</item>
     <item quantity="other">%s partier spelas</item>
@@ -632,7 +632,7 @@ https://lichess. org/study</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en gratis (%2$s), oberoende och reklamfri schackserver med öppen källkod.</string>
   <string name="really">på riktigt</string>
-  <string name="contribute">Hjälp till</string>
+  <string name="contribute">Bidra</string>
   <string name="termsOfService">Användarvillkor</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
