@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Inställningar</string>
-  <string name="display">Visa</string>
+  <string name="display">Visningsalternativ</string>
   <string name="privacy">Sekretess</string>
   <string name="pieceAnimation">Pjäsanimation</string>
   <string name="materialDifference">Materialskillnad</string>
