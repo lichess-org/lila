@@ -4,14 +4,15 @@ import akka.actor._
 import com.softwaremill.macwire._
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment }
+import play.api.{ Configuration, Environment, Mode }
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.common.config._
 import lila.common.{ Bus, Strings, UserIds }
-import lila.memo.SettingStore.Strings._
-import lila.memo.SettingStore.UserIds._
+import lila.memo.SettingStore.Strings.given
+import lila.memo.SettingStore.UserIds.given
+import lila.game.IdGenerator
 
 final class Env(
     val config: Configuration,
@@ -167,13 +168,13 @@ final class EnvBoot(
     ws: StandaloneWSClient
 ) {
 
-  implicit def scheduler   = system.scheduler
-  implicit def mode        = environment.mode
-  def appPath              = AppPath(environment.rootPath)
-  val netConfig            = config.get[NetConfig]("net")
-  def netDomain            = netConfig.domain
-  def baseUrl              = netConfig.baseUrl
-  implicit def idGenerator = game.idGenerator
+  given Scheduler   = system.scheduler
+  given Mode        = environment.mode
+  given IdGenerator = game.idGenerator
+  def appPath       = AppPath(environment.rootPath)
+  val netConfig     = config.get[NetConfig]("net")
+  def netDomain     = netConfig.domain
+  def baseUrl       = netConfig.baseUrl
 
   // lazy load the Uptime object to fix a precise date
   lila.common.Uptime.startedAt.unit

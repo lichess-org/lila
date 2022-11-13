@@ -1,6 +1,6 @@
 package lila.app
 
-import akka.actor.CoordinatedShutdown
+import akka.actor.{ ActorSystem, CoordinatedShutdown }
 import com.softwaremill.macwire._
 import play.api._
 import play.api.http.HttpRequestHandler
@@ -10,6 +10,7 @@ import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
 import scala.annotation.nowarn
+import play.api.http.FileMimeTypes
 
 final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
@@ -18,7 +19,7 @@ final class AppLoader extends ApplicationLoader {
 final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx) {
 
   // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
-  implicit val ec: scala.concurrent.ExecutionContext =
+  given scala.concurrent.ExecutionContext =
     scala.concurrent.ExecutionContext.getClass
       .getDeclaredMethod("opportunistic")
       .invoke(scala.concurrent.ExecutionContext)
@@ -71,7 +72,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
       controllerComponents
     )
 
-  implicit def system = actorSystem
+  given ActorSystem = actorSystem
 
   implicit lazy val httpClient: StandaloneWSClient = {
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
@@ -91,10 +92,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   }
 
   // dev assets
-  implicit def mimeTypes       = fileMimeTypes
+  given FileMimeTypes          = fileMimeTypes
   lazy val devAssetsController = wire[ExternalAssets]
 
-  lazy val shutdown = CoordinatedShutdown(system)
+  lazy val shutdown = CoordinatedShutdown
 
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env      = boot.env

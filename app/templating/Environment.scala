@@ -32,10 +32,10 @@ object Environment
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
-  def netConfig           = env.net
-  def netBaseUrl          = env.net.baseUrl.value
-  def contactEmailInClear = env.net.email.value
-  implicit def netDomain  = env.net.domain
+  def netConfig                      = env.net
+  def netBaseUrl                     = env.net.baseUrl.value
+  def contactEmailInClear            = env.net.email.value
+  given lila.common.config.NetDomain = env.net.domain
 
   lazy val siteName: String =
     if (env.net.siteName == "localhost:9663") "lichess.dev"

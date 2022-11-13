@@ -1,11 +1,11 @@
 package lila.app
-
 package ui
 
 import alleycats.Zero
 import scalatags.Text.all._
 import scalatags.text.Builder
-import scalatags.Text.{ Aggregate, Cap }
+import scalatags.Text.GenericAttr
+// import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
 import lila.user.Title
@@ -41,7 +41,7 @@ trait ScalatagsAttrs {
 }
 
 // collection of lila snippets
-trait ScalatagsSnippets extends Cap {
+trait ScalatagsSnippets {
   this: ScalatagsExtensions with ScalatagsAttrs =>
 
   import scalatags.Text.all._
@@ -83,16 +83,11 @@ trait ScalatagsSnippets extends Cap {
 }
 
 // basic imports from scalatags
-trait ScalatagsBundle
-    extends Cap
-    with Attrs
-    with scalatags.text.Tags
-    // with DataConverters
-    with Aggregate
+trait ScalatagsBundle extends Attrs with scalatags.text.Tags
 
 // short prefix
 trait ScalatagsPrefix {
-  object st extends Cap with Attrs with scalatags.text.Tags {
+  object st extends Attrs with scalatags.text.Tags {
     val group     = tag("group")
     val headTitle = tag("title")
     val nav       = tag("nav")
@@ -119,7 +114,7 @@ trait ScalatagsTemplate
   def cssHeight = scalatags.Text.styles.height
 
   /* Convert play URLs to scalatags attributes with toString */
-  implicit val playCallAttr = genericAttr[play.api.mvc.Call]
+  given GenericAttr[play.api.mvc.Call] = genericAttr[play.api.mvc.Call]
 }
 
 object ScalatagsTemplate extends ScalatagsTemplate
@@ -129,29 +124,26 @@ trait ScalatagsExtensions {
 
   implicit def stringValueFrag(sv: StringValue): Frag = new StringFrag(sv.value)
 
-  implicit val stringValueAttr = new AttrValue[StringValue] {
+  given AttrValue[StringValue] with
     def apply(t: scalatags.text.Builder, a: Attr, v: StringValue): Unit =
       t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
-  }
 
-  implicit val charAttr       = genericAttr[Char]
-  implicit val bigDecimalAttr = genericAttr[BigDecimal]
+  given GenericAttr[Char]       = GenericAttr[Char]
+  given GenericAttr[BigDecimal] = GenericAttr
 
-  implicit val optionStringAttr = new AttrValue[Option[String]] {
+  given AttrValue[Option[String]] with
     def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit = {
       v foreach { s =>
         t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(s))
       }
     }
-  }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
-  implicit val classesAttr = new AttrValue[List[(String, Boolean)]] {
+  given AttrValue[List[(String, Boolean)]] with
     def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {
       val cls = m collect { case (s, true) => s } mkString " "
       if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
     }
-  }
 
   val emptyFrag: Frag                   = new RawFrag("")
   implicit val LilaFragZero: Zero[Frag] = Zero(emptyFrag)
@@ -174,7 +166,7 @@ trait ScalatagsExtensions {
   }
 
   def titleOrText(blind: Boolean, v: String): Modifier = (t: Builder) =>
-    if (blind) t.addChild(v)
+    if (blind) t.addChild(frag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
   def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
