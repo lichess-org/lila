@@ -18,6 +18,6 @@
   },
   "scripts": {
     "dev": "tsc && node dist/main.js",
-    "go": "node dist/main.js"
+    "go": "tsc --incremental && node dist/main.js"
   }
 }
