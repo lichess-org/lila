@@ -140,12 +140,8 @@ export default function () {
       if (booted) return;
       booted = true;
       loadModule('cli').then(
-        function () {
-          window.LichessCli.app($input[0]);
-        },
-        function () {
-          booted = false;
-        }
+        () => window.LichessCli.app($input[0]),
+        () => (booted = false)
       );
     };
     $input.on({
