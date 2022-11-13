@@ -4,9 +4,9 @@ package html.forum
 import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.forum.Post
 

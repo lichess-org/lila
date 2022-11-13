@@ -4,9 +4,9 @@ import controllers.routes
 import play.api.libs.json._
 import play.api.mvc.Call
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.implicits._
 import lila.tutor.TutorCompare.comparisonOrdering
 import lila.tutor.{ TutorFullReport, TutorPerfReport }

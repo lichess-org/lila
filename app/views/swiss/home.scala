@@ -3,9 +3,9 @@ package views.html.swiss
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
 object home {

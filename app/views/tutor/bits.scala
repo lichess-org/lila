@@ -5,9 +5,9 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import scalatags.Text
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
 import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
 

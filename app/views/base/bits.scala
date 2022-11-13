@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import play.api.mvc.Call
 
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 object bits {

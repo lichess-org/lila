@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import scala.util.chaining._
 
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gameSearch.{ Query, Sorting }
 
 private object bits {

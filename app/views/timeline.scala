@@ -3,9 +3,9 @@ package views.html
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.actorApi.timeline._
 
 object timeline {
@@ -40,7 +40,7 @@ object timeline {
 
   private def userLink(userId: lila.user.User.ID)(implicit ctx: Context) =
     ctx.me match {
-      case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(ctx.lang)(cls := "online")
+      case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
       case _                         => userIdLink(userId.some, withOnline = true)
     }
 

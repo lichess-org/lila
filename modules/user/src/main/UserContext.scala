@@ -90,4 +90,5 @@ object UserContext:
     new BodyUserContext(req, me, impersonatedBy, lang)
 
   trait ToLang:
-    given (using ctx: UserContext): Lang = ctx.lang
+    given (using ctx: UserContext): Lang                  = ctx.lang
+    implicit def ctxLang(implicit ctx: UserContext): Lang = ctx.lang

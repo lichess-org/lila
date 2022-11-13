@@ -6,9 +6,9 @@ import controllers.routes
 import play.api.libs.json.{ JsArray, Json }
 import play.api.mvc.Call
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ Opening, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }

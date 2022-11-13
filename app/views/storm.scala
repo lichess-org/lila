@@ -4,9 +4,9 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json._
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue

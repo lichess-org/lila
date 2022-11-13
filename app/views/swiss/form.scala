@@ -3,9 +3,9 @@ package views.html.swiss
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LightTeam.TeamID
 import lila.swiss.{ Swiss, SwissCondition, SwissForm }
 import lila.tournament.TournamentForm

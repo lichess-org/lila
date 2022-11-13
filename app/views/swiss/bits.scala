@@ -1,8 +1,8 @@
 package views.html.swiss
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKeys => trans }
 import lila.swiss.Swiss
 import play.api.i18n.Lang

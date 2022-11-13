@@ -4,9 +4,9 @@ import chess.format.{ FEN, Forsyth }
 import controllers.routes
 import play.api.libs.json.{ JsObject, JsString, Json }
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
 object bits {

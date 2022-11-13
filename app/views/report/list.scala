@@ -4,9 +4,9 @@ import controllers.routes
 import controllers.appeal.routes.{ Appeal => appealRoutes }
 import controllers.report.routes.{ Report => reportRoutes }
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 import lila.user.Holder
 

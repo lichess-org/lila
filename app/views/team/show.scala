@@ -3,10 +3,10 @@ package views.html.team
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 import lila.team.Team

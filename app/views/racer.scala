@@ -3,9 +3,9 @@ package views.html
 import controllers.routes
 import play.api.libs.json._
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.i18n.I18nKeys.{ storm => s }

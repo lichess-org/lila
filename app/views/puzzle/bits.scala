@@ -5,9 +5,9 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, Json }
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.MessageKey
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 import lila.user.User

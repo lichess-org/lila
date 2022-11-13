@@ -3,11 +3,11 @@ package views.html.user.show
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.game.Game
 import lila.user.User

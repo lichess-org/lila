@@ -5,9 +5,9 @@ import chess.variant.{ Crazyhouse, Variant }
 import controllers.routes
 import scala.util.chaining._
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.common.LangPath
 

@@ -5,9 +5,9 @@ import controllers.routes
 import controllers.appeal.routes.{ Appeal => appealRoutes }
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import views.html.appeal.tree
 import lila.appeal.Appeal
 import lila.common.String.html.richText

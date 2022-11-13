@@ -6,7 +6,7 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.mvc.Call
 
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.config.BaseUrl
 
 object atom {

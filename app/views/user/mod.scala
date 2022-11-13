@@ -6,9 +6,9 @@ import controllers.report.routes.{ Report => reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.common.EmailAddress
 import lila.evaluation.Display

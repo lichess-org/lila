@@ -3,7 +3,7 @@ package views.html.tutor
 import scalatags.Text.tags2.abbr
 
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.{ InsightDimension, InsightMetric, Phase }
 import lila.tutor.TutorNumber
 
