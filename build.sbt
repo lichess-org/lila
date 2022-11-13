@@ -7,7 +7,7 @@ import BuildSettings._
 import Dependencies._
 
 lazy val root = Project("lila", file("."))
-  .enablePlugins(JavaServerAppPackaging)
+  .enablePlugins(JavaServerAppPackaging, RoutesCompiler)
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
