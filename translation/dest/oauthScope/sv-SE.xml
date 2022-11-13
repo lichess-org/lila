@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Ny personlig API-åtkomsttoken</string>
+  <string name="preferenceRead">Se inställningar</string>
+  <string name="preferenceWrite">Ändra inställningar</string>
+  <string name="emailRead">Läsa e-postadress</string>
+  <string name="challengeRead">Se inkommande utmaningar</string>
+  <string name="challengeWrite">Skicka, acceptera och avvisa utmaningar</string>
+  <string name="challengeBulk">Skapa många partier samtidigt för andra spelare</string>
+  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Se privata studier och sändningar</string>
+  <string name="studyWrite">Skapa, uppdatera, radera studier och sändningar</string>
+  <string name="tournamentWrite">Skapa, uppdatera och gå med i turneringar</string>
+  <string name="racerWrite">Skapa och gå med i pussellopp</string>
+  <string name="puzzleRead">Se pusselaktivitet</string>
+  <string name="teamRead">Se privat laginformation</string>
+  <string name="teamWrite">Gå med i och lämna lag</string>
+  <string name="teamLead">Hantera lag som du leder: skicka privata meddelanden, sparka medlemmar</string>
+  <string name="followRead">Se följda spelare</string>
+  <string name="followWrite">Följa och sluta följa andra spelare</string>
+  <string name="msgWrite">Skicka privata meddelanden till andra spelare</string>
+  <string name="boardPlay">Spela partier med bräd-api</string>
+  <string name="botPlay">Spela partier med bot-api</string>
   <string name="engineRead">Visa och använd dina externa schackmotorer</string>
   <string name="engineWrite">Skapa och uppdatera externa schackmotorer</string>
 </resources>
