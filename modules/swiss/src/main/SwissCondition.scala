@@ -1,15 +1,16 @@
 package lila.swiss
 
 import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Lang
 
-import lila.i18n.{ I18nKeys as trans }
+import lila.i18n.I18nKeys as trans
 import lila.rating.PerfType
 import lila.user.{ Title, User }
 
 sealed trait SwissCondition:
 
-  def name(perf: PerfType)(implicit lang: Lang): String
+  def name(perf: PerfType)(using lang: Lang): String
 
   def withVerdict(verdict: SwissCondition.Verdict) = SwissCondition.WithVerdict(this, verdict)
 
@@ -29,22 +30,21 @@ object SwissCondition:
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
 
   case object PlayYourGames extends SwissCondition:
-    def name(perf: PerfType)(implicit lang: Lang) = "Play your games"
+    def name(perf: PerfType)(using lang: Lang) = "Play your games"
     def withBan(bannedUntil: Option[DateTime]) = withVerdict {
       bannedUntil.fold[Verdict](Accepted) { until =>
-        Refused { implicit lang =>
-          val showUntil =
-            org.joda.time.format.DateTimeFormat.forStyle("MS").withLocale(lang.toLocale) print until
+        Refused { lang =>
+          val showUntil = DateTimeFormat.forStyle("MS").withLocale(lang.toLocale) print until
           s"Because you missed your last swiss game, you cannot enter a new swiss tournament until $showUntil."
         }
       }
     }
 
   case object Titled extends SwissCondition with FlatCond:
-    def name(perf: PerfType)(implicit lang: Lang) = "Only titled players"
+    def name(perf: PerfType)(using lang: Lang) = "Only titled players"
     def apply(user: User, perf: PerfType) =
       if (user.title.exists(_ != Title.LM)) Accepted
-      else Refused(name(perf)(_))
+      else Refused(lang => name(perf)(using lang))
 
   case class NbRatedGame(nb: Int) extends SwissCondition with FlatCond:
 
@@ -52,12 +52,13 @@ object SwissCondition:
       if (user.hasTitle) Accepted
       else if (user.perfs(perf).nb >= nb) Accepted
       else
-        Refused { implicit lang =>
+        Refused { lang =>
+          given Lang  = lang
           val missing = nb - user.perfs(perf).nb
           trans.needNbMorePerfGames.pluralTxt(missing, missing, perf.trans)
         }
 
-    def name(perf: PerfType)(implicit lang: Lang) =
+    def name(perf: PerfType)(using lang: Lang) =
       trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, perf.trans)
 
   case class MaxRating(rating: Int) extends SwissCondition:
@@ -65,17 +66,20 @@ object SwissCondition:
     def apply(perf: PerfType, getMaxRating: GetMaxRating)(
         user: User
     )(using ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
-      if (user.perfs(perf).provisional) fuccess(Refused { implicit lang =>
+      if (user.perfs(perf).provisional) fuccess(Refused { lang =>
+        given Lang = lang
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
       })
-      else if (user.perfs(perf).intRating > rating) fuccess(Refused { implicit lang =>
+      else if (user.perfs(perf).intRating > rating) fuccess(Refused { lang =>
+        given Lang = lang
         trans.yourPerfRatingIsTooHigh.txt(perf.trans, user.perfs(perf).intRating)
       })
       else
         getMaxRating(perf) map {
           case r if r <= rating => Accepted
           case r =>
-            Refused { implicit lang =>
+            Refused { lang =>
+              given Lang = lang
               trans.yourTopWeeklyPerfRatingIsTooHigh.txt(perf.trans, r)
             }
         }
@@ -83,20 +87,22 @@ object SwissCondition:
     def maybe(user: User, perf: PerfType): Boolean =
       !user.perfs(perf).provisional && user.perfs(perf).intRating <= rating
 
-    def name(perf: PerfType)(implicit lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
+    def name(perf: PerfType)(using lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
 
   case class MinRating(rating: Int) extends SwissCondition with FlatCond:
 
     def apply(user: User, perf: PerfType) =
-      if (user.perfs(perf).provisional) Refused { implicit lang =>
+      if (user.perfs(perf).provisional) Refused { lang =>
+        given Lang = lang
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
       }
-      else if (user.perfs(perf).intRating < rating) Refused { implicit lang =>
+      else if (user.perfs(perf).intRating < rating) Refused { lang =>
+        given Lang = lang
         trans.yourPerfRatingIsTooLow.txt(perf.trans, user.perfs(perf).intRating)
       }
       else Accepted
 
-    def name(perf: PerfType)(implicit lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
+    def name(perf: PerfType)(using lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
 
   case class AllowList(value: String) extends SwissCondition with FlatCond:
 
@@ -109,7 +115,7 @@ object SwissCondition:
       else if (allowAnyTitledUser && user.hasTitle) Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
 
-    def name(perf: PerfType)(implicit lang: Lang) = "Fixed line-up"
+    def name(perf: PerfType)(using lang: Lang) = "Fixed line-up"
 
   case class All(
       nbRatedGame: Option[NbRatedGame],
@@ -189,7 +195,7 @@ object SwissCondition:
     import lila.common.Form.*
     val perfAuto = "auto" -> "Auto"
     val perfKeys = "auto" :: PerfType.nonPuzzle.map(_.key)
-    def perfChoices(implicit lang: Lang) =
+    def perfChoices(using lang: Lang) =
       perfAuto :: PerfType.nonPuzzle.map { pt =>
         pt.key -> pt.trans
       }
