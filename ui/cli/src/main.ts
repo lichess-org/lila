@@ -1,12 +1,12 @@
 import modal from 'common/modal';
 
 export function app(input: HTMLInputElement) {
-  lichess.userComplete().then(function () {
-    window.UserComplete({
+  lichess.userComplete().then(uac => {
+    uac({
       input,
       friend: true,
       focus: true,
-      onSelect: (r: any) => execute(r.name),
+      onSelect: r => execute(r.name),
     });
     $(input).on('keydown', (e: KeyboardEvent) => {
       if (e.code == 'Enter') {
