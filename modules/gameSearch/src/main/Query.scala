@@ -61,7 +61,7 @@ object Query:
   private given Writes[Clocking] = Json.writes
   given Writes[Query]            = Json.writes
 
-  def durations(implicit lang: Lang): List[(Int, String)] =
+  def durations(using lang: Lang): List[(Int, String)] =
     ((30, trans.nbSeconds.pluralSameTxt(30)) ::
       options(
         List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30),
@@ -71,7 +71,7 @@ object Query:
       (60 * 60 * 2 -> trans.nbHours.pluralSameTxt(2)) :+
       (60 * 60 * 3 -> trans.nbHours.pluralSameTxt(3))
 
-  def clockInits(implicit lang: Lang) = List(
+  def clockInits(using lang: Lang) = List(
     (30, trans.nbSeconds.pluralSameTxt(30)),
     (45, trans.nbSeconds.pluralSameTxt(45))
   ) ::: options(
@@ -94,19 +94,19 @@ object Query:
     i => trans.nbMinutes.pluralSameTxt(i / 60)
   ).toList
 
-  def clockIncs(implicit lang: Lang) =
+  def clockIncs(using lang: Lang) =
     options(
       List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180),
       i => trans.nbSeconds.pluralSameTxt(i)
     ).toList
 
-  def winnerColors(implicit lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
+  def winnerColors(using lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
 
   val sources = lila.game.Source.searchable map { v =>
     v.id -> v.name.capitalize
   }
 
-  def modes(implicit lang: Lang) = List(0 -> trans.casual.txt(), 1 -> trans.rated.txt())
+  def modes(using lang: Lang) = List(0 -> trans.casual.txt(), 1 -> trans.rated.txt())
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
@@ -117,7 +117,7 @@ object Query:
     e -> e.toString
   }
 
-  def hasAis(implicit lang: Lang) = List(0 -> trans.human.txt(), 1 -> trans.computer.txt())
+  def hasAis(using lang: Lang) = List(0 -> trans.human.txt(), 1 -> trans.computer.txt())
 
   val aiLevels = (1 to 8) map { l =>
     l -> s"level $l"

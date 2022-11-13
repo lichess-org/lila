@@ -6,9 +6,7 @@ import scalatags.Text.Frag
 
 package object app extends PackageObject {
 
-  implicit def contentTypeOfFrag(implicit codec: Codec): ContentTypeOf[Frag] =
-    ContentTypeOf[Frag](Some(ContentTypes.HTML))
+  given (using codec: Codec): ContentTypeOf[Frag] = ContentTypeOf(Some(ContentTypes.HTML))
 
-  implicit def writeableOfFrag(implicit codec: Codec): Writeable[Frag] =
-    Writeable(frag => codec.encode(frag.render))
+  given (using codec: Codec): Writeable[Frag] = Writeable(frag => codec.encode(frag.render))
 }

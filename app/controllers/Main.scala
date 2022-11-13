@@ -8,7 +8,7 @@ import scala.annotation.nowarn
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
 
 final class Main(

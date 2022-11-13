@@ -42,7 +42,7 @@ final private class StripeClient(
         "customer"    -> customerId.value
       )
 
-  def createOneTimeSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] =
+  def createOneTimeSession(data: CreateStripeSession)(using lang: Lang): Fu[StripeSession] =
     val args = sessionArgs("payment", data.customerId, data.checkout.money.currency, data.urls) ::: List(
       "line_items[0][price_data][product]" -> {
         if (data.giftTo.isDefined) config.products.gift

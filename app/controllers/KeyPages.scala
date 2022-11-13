@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import scalatags.Text.all.Frag
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ *, given }
 import lila.memo.CacheApi._
 import views._
 

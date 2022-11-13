@@ -7,13 +7,13 @@ case class Sorting(f: String, order: String)
 
 object Sorting:
 
-  def fields(implicit lang: Lang) = List(
+  def fields(using lang: Lang) = List(
     Fields.date          -> trans.search.date.txt(),
     Fields.turns         -> trans.search.nbTurns.txt(),
     Fields.averageRating -> trans.rating.txt()
   )
 
-  def orders(implicit lang: Lang) = List(
+  def orders(using lang: Lang) = List(
     "desc" -> trans.search.descending.txt(),
     "asc"  -> trans.search.ascending.txt()
   )

@@ -24,7 +24,7 @@ object ChallengeDenied:
     case object BotUltraBullet                     extends Reason
     case object SelfChallenge                      extends Reason
 
-  def translated(d: ChallengeDenied)(implicit lang: Lang): String =
+  def translated(d: ChallengeDenied)(using lang: Lang): String =
     d.reason match
       case Reason.YouAreAnon               => trans.registerToSendChallenges.txt()
       case Reason.YouAreBlocked            => trans.youCannotChallengeX.txt(d.dest.titleUsername)

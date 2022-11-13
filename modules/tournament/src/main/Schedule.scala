@@ -18,7 +18,7 @@ case class Schedule(
     conditions: Condition.All = Condition.All.empty
 ):
 
-  def name(full: Boolean = true)(implicit lang: Lang): String =
+  def name(full: Boolean = true)(using lang: Lang): String =
     import Schedule.Freq.*
     import Schedule.Speed.*
     import lila.i18n.I18nKeys.tourname.*
@@ -192,7 +192,7 @@ object Schedule:
   sealed abstract class Speed(val id: Int):
     val name = Speed.this.toString
     val key  = lila.common.String lcfirst name
-    def trans(implicit lang: Lang): String = this match
+    def trans(using lang: Lang): String = this match
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name

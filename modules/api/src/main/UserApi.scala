@@ -37,7 +37,7 @@ final class UserApi(
       as: Option[User],
       withFollows: Boolean,
       withTrophies: Boolean
-  )(implicit lang: Lang): Fu[Option[JsObject]] =
+  )(using lang: Lang): Fu[Option[JsObject]] =
     userRepo named username flatMap {
       _ ?? { extended(_, as, withFollows, withTrophies) dmap some }
     }
@@ -47,7 +47,7 @@ final class UserApi(
       as: Option[User],
       withFollows: Boolean,
       withTrophies: Boolean
-  )(implicit lang: Lang): Fu[JsObject] =
+  )(using lang: Lang): Fu[JsObject] =
     if (u.disabled) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
@@ -116,7 +116,7 @@ final class UserApi(
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
     }
 
-  private def trophiesJson(all: UserApi.TrophiesAndAwards)(implicit lang: Lang): JsArray =
+  private def trophiesJson(all: UserApi.TrophiesAndAwards)(using lang: Lang): JsArray =
     JsArray {
       all.ranks.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
@@ -135,7 +135,7 @@ final class UserApi(
       }
     }
 
-  private def perfTopTrophy(perf: PerfType, top: Int, name: String)(implicit lang: Lang) = Json.obj(
+  private def perfTopTrophy(perf: PerfType, top: Int, name: String)(using lang: Lang) = Json.obj(
     "type" -> "perfTop",
     "perf" -> perf.key,
     "top"  -> top,

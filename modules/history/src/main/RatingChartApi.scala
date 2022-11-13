@@ -45,7 +45,7 @@ final class RatingChartApi(
             Json.toJson {
               RatingChartApi.perfTypes map { pt =>
                 Json.obj(
-                  "name"   -> pt.trans(lila.i18n.defaultLang),
+                  "name"   -> pt.trans(using lila.i18n.defaultLang),
                   "points" -> ratingsMapToJson(userId, createdAt, history(pt))
                 )
               }

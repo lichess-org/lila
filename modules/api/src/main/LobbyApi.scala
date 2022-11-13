@@ -13,7 +13,7 @@ final class LobbyApi(
     lobbySocket: LobbySocket
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
+  def apply(using ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
       (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
         val displayedPovs = povs take 9

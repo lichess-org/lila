@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.Clock.{ Config as ClockConfig }
+import chess.Clock.Config as ClockConfig
 import chess.format.FEN
 import chess.{ Mode, Speed }
 import org.joda.time.{ DateTime, Duration, Interval }
@@ -48,7 +48,7 @@ case class Tournament(
 
   def isTeamBattle = teamBattle.isDefined
 
-  def name(full: Boolean = true)(implicit lang: Lang): String =
+  def name(full: Boolean = true)(using lang: Lang): String =
     if (isMarathon || isUnique) name
     else if (isTeamBattle && full) lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
     else if (isTeamBattle) name
@@ -140,7 +140,8 @@ case class Tournament(
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
-  override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
+  override def toString =
+    s"$id $startsAt ${name()(using defaultLang)} $minutes minutes, $clock, $nbPlayers players"
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
@@ -196,7 +197,7 @@ object Tournament:
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
-      name = sched.name(full = false)(defaultLang),
+      name = sched.name(full = false)(using defaultLang),
       status = Status.Created,
       clock = Schedule clockFor sched,
       minutes = minutes,

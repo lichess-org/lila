@@ -104,8 +104,8 @@ final class NotifyApi(
           notifies.value,
           "notifications",
           () => {
-            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { implicit lang =>
-              jsonHandlers(msg)
+            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { lang =>
+              jsonHandlers(msg)(using lang)
             }
           }
         ),

@@ -18,7 +18,7 @@ final class PasswordReset(
 
   import Mailer.html.*
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
       val url = s"$baseUrl/password/reset/confirm/$token"

@@ -16,9 +16,9 @@ sealed abstract class PerfType(
 
   def iconString = iconChar.toString
 
-  def trans(implicit lang: Lang): String = PerfType.trans(this)
+  def trans(using lang: Lang): String = PerfType.trans(this)
 
-  def desc(implicit lang: Lang): String = PerfType.desc(this)
+  def desc(using lang: Lang): String = PerfType.desc(this)
 
 object PerfType:
 
@@ -292,7 +292,7 @@ object PerfType:
   def iconByVariant(variant: chess.variant.Variant): Char =
     byVariant(variant).fold('')(_.iconChar)
 
-  def trans(pt: PerfType)(implicit lang: Lang): String =
+  def trans(pt: PerfType)(using lang: Lang): String =
     pt match
       case Rapid          => I18nKeys.rapid.txt()
       case Classical      => I18nKeys.classical.txt()
@@ -302,7 +302,7 @@ object PerfType:
 
   val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
 
-  def desc(pt: PerfType)(implicit lang: Lang): String =
+  def desc(pt: PerfType)(using lang: Lang): String =
     pt match
       case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
       case Bullet         => I18nKeys.bulletDesc.txt()

@@ -29,4 +29,4 @@ final class UserGameSearch(
   def requestForm(implicit req: Request[?], formBinding: FormBinding, lang: Lang) =
     forms.search.bindFromRequest()
 
-  def defaultForm(implicit lang: Lang) = forms.search
+  def defaultForm(using lang: Lang) = forms.search

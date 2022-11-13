@@ -63,7 +63,7 @@ final class GameStateStream(
       as: chess.Color,
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
-  )(implicit lang: Lang, req: RequestHeader) =
+  )(using lang: Lang, req: RequestHeader) =
     new Actor:
 
       val id = init.game.id

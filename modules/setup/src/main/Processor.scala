@@ -14,7 +14,7 @@ final private[setup] class Processor(
     onStart: lila.round.OnStart
 )(using ec: scala.concurrent.ExecutionContext, idGenerator: IdGenerator):
 
-  def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = for {
+  def ai(config: AiConfig)(using ctx: UserContext): Fu[Pov] = for {
     pov <- config pov ctx.me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
@@ -33,7 +33,7 @@ final private[setup] class Processor(
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
       blocking: Set[String]
-  )(implicit ctx: UserContext): Fu[Processor.HookResult] =
+  )(using ctx: UserContext): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor
     config.hook(sri, ctx.me, sid, blocking) match

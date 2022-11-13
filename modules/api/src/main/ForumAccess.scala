@@ -13,7 +13,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   case object Read  extends Operation
   case object Write extends Operation
 
-  private def isGranted(categSlug: String, op: Operation)(implicit ctx: UserContext): Fu[Boolean] =
+  private def isGranted(categSlug: String, op: Operation)(using ctx: UserContext): Fu[Boolean] =
     Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
       teamCached.forumAccess get teamId flatMap {
         case Team.Access.NONE     => fuFalse
@@ -27,7 +27,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
       }
     }
 
-  def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
+  def isGrantedRead(categSlug: String)(using ctx: UserContext): Fu[Boolean] =
     if (ctx.me ?? Granter(Permission.Shusher)) fuTrue
     else isGranted(categSlug, Read)
 
@@ -42,7 +42,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
 
-  def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
+  def isGrantedMod(categSlug: String)(using ctx: UserContext): Fu[Boolean] =
     if (ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
     else
       Categ.slugToTeamId(categSlug) ?? { teamId =>

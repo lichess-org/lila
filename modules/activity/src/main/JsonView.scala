@@ -95,7 +95,7 @@ final class JsonView(
     given Writes[Patron] = Json.writes
   import Writers.{ *, given }
 
-  def apply(a: ActivityView, user: User)(implicit lang: Lang): Fu[JsObject] =
+  def apply(a: ActivityView, user: User)(using lang: Lang): Fu[JsObject] =
     fuccess {
       Json
         .obj("interval" -> a.interval)

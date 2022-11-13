@@ -120,7 +120,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
     trans.timeAlmostUp
   ).map(_.key)
 
-  def apply(notify: Notification.AndUnread)(implicit lang: Lang) =
+  def apply(notify: Notification.AndUnread)(using lang: Lang) =
     Json.toJsObject(notify) ++ Json.obj(
       "i18n" -> JsDump.keysToObject(i18nKeys, lang)
     )

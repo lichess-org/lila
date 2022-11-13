@@ -160,7 +160,7 @@ final class PlanApi(
     def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
       patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
-    def createSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] =
+    def createSession(data: CreateStripeSession)(using lang: Lang): Fu[StripeSession] =
       data.checkout.freq match
         case Freq.Onetime => stripeClient.createOneTimeSession(data)
         case Freq.Monthly => stripeClient.createMonthlySession(data)

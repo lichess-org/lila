@@ -14,7 +14,7 @@ trait EmailConfirm:
 
   def effective: Boolean
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit
 
   def confirm(token: String): Fu[EmailConfirm.Result]
 
@@ -22,7 +22,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang) = userRepo setEmailConfirmed user.id void
+  def send(user: User, email: EmailAddress)(using lang: Lang) = userRepo setEmailConfirmed user.id void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
@@ -40,7 +40,7 @@ final class EmailConfirmMailer(
 
   val maxTries = 3
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     !email.looksLikeFakeEmail ?? {
       tokener make user.id flatMap { token =>
         lila.mon.email.send.confirmation.increment()

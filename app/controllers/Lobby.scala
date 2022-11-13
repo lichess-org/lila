@@ -4,7 +4,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import views._
 
-import lila.app._
+import lila.app.{ *, given }
 import lila.i18n.I18nLangPicker
 import lila.api.Context
 

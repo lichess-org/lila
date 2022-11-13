@@ -43,7 +43,7 @@ object BSON extends Handlers:
       doc.getAsTry[A](k).get
     def getO[A: BSONReader](k: String): Option[A] =
       doc.getAsOpt[A](k)
-    def getD[A](k: String)(implicit zero: Zero[A], reader: BSONReader[A]): A =
+    def getD[A](k: String)(using zero: Zero[A], reader: BSONReader[A]): A =
       doc.getAsOpt[A](k) getOrElse zero.zero
     def getD[A: BSONReader](k: String, default: => A): A =
       doc.getAsOpt[A](k) getOrElse default
@@ -97,13 +97,13 @@ object BSON extends Handlers:
         case List("", "") => None
         case List(a, "")  => Some(List(a))
         case full         => Some(full)
-    def listO[A](list: List[A])(implicit writer: BSONWriter[A]): Option[Barr] =
+    def listO[A](list: List[A])(using writer: BSONWriter[A]): Option[Barr] =
       if (list.isEmpty) None
       else Some(BSONArray(list flatMap writer.writeOpt))
-    def docO(o: Bdoc): Option[Bdoc]                      = if (o.isEmpty) None else Some(o)
-    def double(i: Double): BSONDouble                    = BSONDouble(i)
-    def doubleO(i: Double): Option[BSONDouble]           = if (i != 0) Some(BSONDouble(i)) else None
-    def zero[A](a: A)(implicit zero: Zero[A]): Option[A] = if (zero.zero == a) None else Some(a)
+    def docO(o: Bdoc): Option[Bdoc]                   = if (o.isEmpty) None else Some(o)
+    def double(i: Double): BSONDouble                 = BSONDouble(i)
+    def doubleO(i: Double): Option[BSONDouble]        = if (i != 0) Some(BSONDouble(i)) else None
+    def zero[A](a: A)(using zero: Zero[A]): Option[A] = if (zero.zero == a) None else Some(a)
 
   val writer = new Writer
 

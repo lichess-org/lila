@@ -10,7 +10,7 @@ import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
 import lila.hub.actorApi.mailer.CorrespondenceOpponent
 import lila.i18n.PeriodLocales.showPeriod
-import lila.i18n.I18nKeys.{ emails as trans }
+import lila.i18n.I18nKeys.emails as trans
 import lila.user.{ User, UserRepo }
 import lila.base.LilaException
 
@@ -27,7 +27,7 @@ final class AutomaticEmail(
 
 The Lichess team"""
 
-  def welcomeEmail(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+  def welcomeEmail(user: User, email: EmailAddress)(using lang: Lang): Funit =
     lila.mon.email.send.welcome.increment()
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
@@ -41,7 +41,8 @@ The Lichess team"""
     )
 
   def welcomePM(user: User): Funit = fuccess {
-    alsoSendAsPrivateMessage(user) { implicit lang =>
+    alsoSendAsPrivateMessage(user) { lang =>
+      given Lang = lang
       import lila.i18n.I18nKeys.*
       s"""${welcome.txt()}\n${lichessPatronInfo.txt()}"""
     }.unit
@@ -52,7 +53,8 @@ The Lichess team"""
       user        <- userRepo named username orFail s"No such user $username"
       emailOption <- userRepo email user.id
       title       <- fuccess(user.title) orFail "User doesn't have a title!"
-      body = alsoSendAsPrivateMessage(user) { implicit lang =>
+      body = alsoSendAsPrivateMessage(user) { lang =>
+        given Lang = lang
         s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
@@ -218,7 +220,7 @@ $disableSettingNotice $disableLink"""
       }
     }
 
-  private def showGame(opponent: CorrespondenceOpponent)(implicit lang: Lang) =
+  private def showGame(opponent: CorrespondenceOpponent)(using lang: Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:") { remainingTime =>
       s"You have ${showPeriod(remainingTime)} remaining in your game with $opponentName:"

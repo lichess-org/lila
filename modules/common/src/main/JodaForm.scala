@@ -70,7 +70,7 @@ object JodaFormats:
     * @param data
     *   Field data
     */
-  private def parsing[T](parse: String => T, errMsg: String, errArgs: Seq[Any])(
+  private def parsing[T](parse: String => T, errMsg: String, errArgs: Seq[Matchable])(
       key: String,
       data: Map[String, String]
   ): Either[Seq[FormError], T] =

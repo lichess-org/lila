@@ -34,7 +34,7 @@ final class ActivityReadApi(
 
   private given Ordering[Double] = scala.math.Ordering.Double.TotalOrdering
 
-  def recentAndPreload(u: User)(implicit lang: Lang): Fu[Vector[ActivityView]] =
+  def recentAndPreload(u: User)(using lang: Lang): Fu[Vector[ActivityView]] =
     for {
       activities <-
         coll(
@@ -53,7 +53,7 @@ final class ActivityReadApi(
       _ <- preloadAll(views)
     } yield addSignup(u.createdAt, views)
 
-  private def preloadAll(views: Seq[ActivityView])(implicit lang: Lang) = for {
+  private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for {
     _ <- lightUserApi.preloadMany(views.flatMap(_.follows.??(_.allUserIds)))
     _ <- getTourName.preload(views.flatMap(_.tours.??(_.best.map(_.tourId))))
   } yield ()

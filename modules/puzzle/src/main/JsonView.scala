@@ -23,7 +23,7 @@ final class JsonView(
       angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay],
       user: Option[User]
-  )(implicit lang: Lang): Fu[JsObject] =
+  )(using lang: Lang): Fu[JsObject] =
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
@@ -95,7 +95,7 @@ final class JsonView(
       "is3d"         -> p.is3d
     )
 
-  def dashboardJson(dash: PuzzleDashboard, days: Int)(implicit lang: Lang) = Json.obj(
+  def dashboardJson(dash: PuzzleDashboard, days: Int)(using lang: Lang) = Json.obj(
     "days"   -> days,
     "global" -> dashboardResults(dash.global),
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { case (key, res) =>

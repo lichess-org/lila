@@ -20,7 +20,7 @@ object ApiConfig:
       blindCookieSalt: Secret
   ):
     val blindCookieMaxAge = 365 days
-    def hash(implicit ctx: lila.user.UserContext) =
+    def hash(using ctx: lila.user.UserContext) =
       import com.roundeights.hasher.Implicits.*
       (ctx.userId | "anon").salt(blindCookieSalt.value).md5.hex
 

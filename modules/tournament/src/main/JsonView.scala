@@ -50,7 +50,7 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
-  )(implicit lang: Lang): Fu[JsObject] =
+  )(using lang: Lang): Fu[JsObject] =
     for {
       data   <- cachableData get tour.id
       myInfo <- myInfo.orLoad(me ?? { fetchMyInfo(tour, _) })
@@ -606,7 +606,7 @@ object JsonView:
       .add("iconFont" -> s.iconFont)
   }
 
-  implicit private[tournament] def perfTypeWrites(implicit lang: Lang): OWrites[PerfType] =
+  implicit private[tournament] def perfTypeWrites(using lang: Lang): OWrites[PerfType] =
     OWrites { pt =>
       Json
         .obj("key" -> pt.key, "name" -> pt.trans)

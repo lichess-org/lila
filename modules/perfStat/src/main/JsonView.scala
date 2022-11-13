@@ -67,7 +67,7 @@ object JsonView:
   implicit private val avgWriter: Writes[Avg] = Writes { a =>
     JsNumber(round(a.avg))
   }
-  implicit def perfTypeWriter(implicit lang: Lang): OWrites[PerfType] =
+  implicit def perfTypeWriter(using lang: Lang): OWrites[PerfType] =
     OWrites { pt =>
       Json.obj(
         "key"  -> pt.key,

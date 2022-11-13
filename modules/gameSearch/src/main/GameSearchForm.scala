@@ -11,7 +11,7 @@ import lila.search.Range
 
 final private[gameSearch] class GameSearchForm:
 
-  def search(implicit lang: Lang) = Form(
+  def search(using lang: Lang) = Form(
     mapping(
       "players" -> mapping(
         "a"      -> optional(nonEmptyText),

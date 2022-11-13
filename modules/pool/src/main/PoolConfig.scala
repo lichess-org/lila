@@ -28,6 +28,6 @@ object PoolConfig:
       "id"   -> p.id.value,
       "lim"  -> p.clock.limitInMinutes,
       "inc"  -> p.clock.incrementSeconds,
-      "perf" -> p.perfType.trans(lila.i18n.defaultLang)
+      "perf" -> p.perfType.trans(using lila.i18n.defaultLang)
     )
   }

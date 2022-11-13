@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 import lila.hub.LeaderTeam
 import lila.hub.LightTeam.*
-import lila.i18n.{ I18nKeys as trans }
+import lila.i18n.I18nKeys as trans
 import lila.rating.BSONHandlers.perfTypeKeyHandler
 import lila.rating.PerfType
 import lila.user.{ Title, User }

@@ -35,7 +35,7 @@ final class TournamentCache(
     name = "tournament.name",
     initialCapacity = 65536,
     compute = { case (id, lang) =>
-      tournamentRepo byId id dmap2 { _.name()(lang) }
+      tournamentRepo byId id dmap2 { _.name()(using lang) }
     },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),

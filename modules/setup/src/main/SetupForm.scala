@@ -35,7 +35,7 @@ object SetupForm:
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
-  def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Form[FriendConfig] =
+  def friendFilled(fen: Option[FEN])(using ctx: UserContext): Form[FriendConfig] =
     friend(ctx) fill fen.foldLeft(FriendConfig.default) { case (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
@@ -57,10 +57,10 @@ object SetupForm:
         .verifying("invalidFen", _.validFen)
     )
 
-  def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
+  def hookFilled(timeModeString: Option[String])(using ctx: UserContext): Form[HookConfig] =
     hook fill HookConfig.default(ctx.isAuth).withTimeModeString(timeModeString)
 
-  def hook(implicit ctx: UserContext) =
+  def hook(using ctx: UserContext) =
     Form(
       mapping(
         "variant"     -> variantWithVariants,

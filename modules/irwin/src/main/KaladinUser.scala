@@ -67,7 +67,7 @@ object KaladinUser:
     def perf    = PerfType(tc)
 
     def note: String = {
-      s"Kaladin activation: $percent in ${perf.fold("?")(_.trans(lila.i18n.defaultLang))}, because:" :: insights
+      s"Kaladin activation: $percent in ${perf.fold("?")(_.trans(using lila.i18n.defaultLang))}, because:" :: insights
     } mkString ", "
 
   case class Dashboard(recent: List[KaladinUser]):

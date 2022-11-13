@@ -296,7 +296,7 @@ object InsightDimension:
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
 
-  def valueToJson[X](d: InsightDimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject =
+  def valueToJson[X](d: InsightDimension[X])(v: X)(using lang: Lang): play.api.libs.json.JsObject =
     play.api.libs.json.Json.obj(
       "key"  -> valueKey(d)(v),
       "name" -> valueJson(d)(v)
@@ -328,7 +328,7 @@ object InsightDimension:
       case TimeVariance            => v.id
     }).toString
 
-  def valueJson[X](d: InsightDimension[X])(v: X)(implicit lang: Lang): JsValue =
+  def valueJson[X](d: InsightDimension[X])(v: X)(using lang: Lang): JsValue =
     d match
       case Date                    => JsNumber(v.min.getSeconds)
       case Period                  => JsString(v.toString)

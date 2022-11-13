@@ -91,12 +91,12 @@ object Mailer:
 
   object txt:
 
-    private def serviceNote(implicit lang: Lang): String = s"""
+    private def serviceNote(using lang: Lang): String = s"""
 ${trans.common_note("https://lichess.org").render}
 
 ${trans.common_contact("https://lichess.org/contact").render}"""
 
-    def addServiceNote(body: String)(implicit lang: Lang) = s"""$body
+    def addServiceNote(body: String)(using lang: Lang) = s"""$body
 
 $serviceNote"""
 
@@ -121,7 +121,7 @@ $serviceNote"""
       href     := "https://lichess.org/"
     )(span(itemprop := "name")("lichess.org"))
 
-    def serviceNote(implicit lang: Lang) =
+    def serviceNote(using lang: Lang) =
       publisher(
         small(
           trans.common_note(Mailer.html.noteLink),
@@ -136,13 +136,13 @@ $serviceNote"""
         )
       )
 
-    def standardEmail(body: String)(implicit lang: Lang): Frag =
+    def standardEmail(body: String)(using lang: Lang): Frag =
       emailMessage(
         pDesc(nl2br(body)),
         serviceNote
       )
 
-    def url(u: String, clickOrPaste: Boolean = true)(implicit lang: Lang) =
+    def url(u: String, clickOrPaste: Boolean = true)(using lang: Lang) =
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),

@@ -38,11 +38,11 @@ object Chart:
 
   def fromAnswer[X](
       getLightUser: LightUser.Getter
-  )(answer: Answer[X])(implicit lang: Lang, ec: ExecutionContext): Fu[Chart] =
+  )(answer: Answer[X])(using lang: Lang, ec: ExecutionContext): Fu[Chart] =
 
     import answer.*, question.*
 
-    def xAxis(implicit lang: Lang) =
+    def xAxis(using lang: Lang) =
       Xaxis(
         name = dimension.name,
         categories = clusters.map(_.x).map(InsightDimension.valueJson(dimension)),

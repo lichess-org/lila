@@ -20,7 +20,7 @@ case class Money(amount: BigDecimal, currency: Currency):
     val format = NumberFormat.getCurrencyInstance(locale)
     format setCurrency currency
     format format amount
-  def display(implicit lang: Lang): String = display(lang.locale)
+  def display(using lang: Lang): String = display(lang.locale)
   def currencyCode                         = currency.getCurrencyCode
   def code                                 = s"${currencyCode}_$amount"
   override def toString                    = code

@@ -27,7 +27,7 @@ object StormHigh:
     case class Month(previous: Int)   extends NewHigh("month")
     case class AllTime(previous: Int) extends NewHigh("allTime")
 
-final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: ExecutionContext):
+final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using ctx: ExecutionContext):
 
   import StormBsonHandlers.given
   import StormHigh.NewHigh
