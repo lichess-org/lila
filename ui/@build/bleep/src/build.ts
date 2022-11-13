@@ -3,8 +3,6 @@ import * as path from 'node:path';
 import * as cps from 'node:child_process';
 import { parseModules } from './parse';
 import { makeBleepConfig, typescriptWatch } from './tsc';
-import { rollupWatch } from './rollup';
-import { gulpWatch } from './gulp';
 import { sassWatch } from './sass';
 import { esbuildWatch } from './esbuild';
 import { LichessModule, env, colors as c } from './main';
@@ -39,10 +37,11 @@ export async function build(moduleNames: string[]) {
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
   if (env.sass) sassWatch();
-  else gulpWatch();
 
   await makeBleepConfig(buildModules);
-  typescriptWatch(() => (env.esbuild ? esbuildWatch(buildModules) : rollupWatch(buildModules)));
+  typescriptWatch(() => {
+    if (env.esbuild) esbuildWatch(buildModules);
+  });
 }
 
 export function resetTimer(clear = false) {

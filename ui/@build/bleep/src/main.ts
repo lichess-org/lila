@@ -23,6 +23,7 @@ export interface BleepOpts {
   defaultArgs?: string[]; // arguments when none are given
   sass?: boolean; // use dart-sass rather than gulp for scss, default = true
   esbuild?: boolean; // use esbuild rather than rollup, default = true
+  tsc?: boolean; // use tsc for type checking, default = true
   log?: {
     heap?: boolean; // show node rss in log statements, default = false
     time?: boolean; // show time in log statements, default = true
@@ -55,8 +56,6 @@ export interface LichessBundle {
   input: string; // abs path to source
   output: string; // abs path to bundle destination
   importName?: string; // might as well be isAnalysisBoard boolean
-  plugins?: any[]; // currently just to copy/replace stuff in site bundle
-  onWarn?: (w: any, wf: any) => any; // to suppress 'this is undefined'
   isMain: boolean; // false for plugin bundles
 }
 
@@ -66,10 +65,8 @@ export function init(root: string, opts?: BleepOpts) {
   if (env.opts.log && env.opts.log.color !== false) {
     env.opts.log.color = {
       bleep: 'green',
-      gulp: 'magenta',
       sass: 'magenta',
       tsc: 'yellow',
-      rollup: 'blue',
       esbuild: 'blue',
     };
   }
@@ -79,7 +76,7 @@ export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x
 
 const colorLines = (text: string, code: string) =>
   lines(text)
-    .map(t => escape(t, code))
+    .map(t => (env.opts?.log?.color !== false ? escape(t, code) : t))
     .join('\n');
 
 export const colors = {
@@ -106,6 +103,9 @@ class Env {
   }
   get esbuild(): boolean {
     return this.opts.esbuild !== false;
+  }
+  get tsc(): boolean {
+    return this.opts.tsc !== false;
   }
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');
@@ -148,13 +148,10 @@ class Env {
         : JSON.stringify(d, undefined, 2);
 
     const show = this.opts.log;
-    const esc = show?.color ? escape : (text: string, _: any) => text;
+    const esc = show?.color !== false ? escape : (text: string, _: any) => text;
     const rss = Math.round(ps.memoryUsage.rss() / (1000 * 1000));
 
-    if (!show?.color) text = stripColorEscapes(text);
-
-    // strip the time displays from these contexts for consistent formatting
-    if (ctx === 'gulp') text = text.replace(/\[\d\d:\d\d:\d\d] /, '');
+    if (show?.color === false) text = stripColorEscapes(text);
 
     const prefix = (
       (show?.time === false ? '' : prettyTime()) +

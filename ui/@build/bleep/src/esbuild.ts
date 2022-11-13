@@ -1,6 +1,6 @@
+import * as cps from 'node:child_process';
 import * as path from 'node:path';
 import * as es from 'esbuild';
-import { replaceValues } from './parse';
 import { preModule, bundleDone } from './build';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
@@ -18,7 +18,13 @@ export async function esbuildWatch(todo: LichessModule[]): Promise<void> {
   try {
     await es.build({
       sourcemap: 'inline',
-      define: replaceValues,
+      define: {
+        __info__: JSON.stringify({
+          date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
+          commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
+          message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
+        }),
+      },
       format: 'iife',
       target: 'es2018',
       logLevel: 'silent',

@@ -1,16 +1,13 @@
 import * as fs from 'node:fs';
-import * as cps from 'node:child_process';
 import * as path from 'node:path';
 import * as fg from 'fast-glob';
-import pluginCopy from 'rollup-plugin-copy';
-import pluginReplace from '@rollup/plugin-replace';
 import { LichessModule, env } from './main';
 
 export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<string, string[]>]> => {
   const moduleList: LichessModule[] = [];
 
-  for await (const moduleDir of findModules(env.uiDir)) {
-    if (moduleDir !== env.uiDir) moduleList.push(await parseModule(moduleDir));
+  for (const dir of (await globArray('*/package.json')).map(pkg => path.dirname(pkg))) {
+    moduleList.push(await parseModule(dir));
   }
   const modules = new Map(moduleList.map(mod => [mod.name, mod]));
   const moduleDeps = new Map<string, string[]>();
@@ -30,31 +27,10 @@ export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<s
   return [modules, moduleDeps];
 };
 
-export const replaceValues = {
-  // from site/rollup.config.js
-  __info__: JSON.stringify({
-    date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-    commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
-    message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
-  }),
-};
-
 export async function globArray(glob: string, { cwd = env.uiDir, abs = true } = {}): Promise<string[]> {
   const files: string[] = [];
   for await (const file of fg.stream(glob, { cwd: cwd, absolute: abs })) files.push(file.toString('utf8'));
   return files;
-}
-
-async function* findModules(dirpath: string): AsyncGenerator<string> {
-  const walkFilter = ['@build', '@types', 'node_modules'];
-
-  for (const file of await fs.promises.readdir(dirpath, { withFileTypes: true })) {
-    if (walkFilter.includes(file.name) || file.name[0] === '.') continue;
-
-    const fullpath = path.resolve(dirpath, file.name);
-    if (file.isDirectory()) yield* findModules(fullpath);
-    else if (file.name === 'package.json' && dirpath !== env.uiDir) yield dirpath;
-  }
 }
 
 async function parseModule(moduleDir: string): Promise<LichessModule> {
@@ -88,8 +64,6 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
       input: cfg.input,
       output: cfg.output,
       importName: cfg.name ? cfg.name : cfg.output,
-      plugins: cfg.plugins,
-      onWarn: cfg.onwarn,
       isMain: key === 'main' || cfg.output === mod.name,
     });
   }
@@ -98,22 +72,18 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
 
 // context to interpret the objects in rollup.config.js
 function parseObject(o: string | null) {
-  const copy = pluginCopy;
-  const replace = (_: any) =>
-    pluginReplace({
-      values: replaceValues,
-      preventAssignment: true,
-    });
-  const suppressThisIsUndefined = (warning: any, warn: any) => warning.code !== 'THIS_IS_UNDEFINED' && warn(warning);
   const dirname = path.dirname;
-  const execSync = (_: any, __: any) => ''; // can't execSync in an eval
+  const copy = (_: any) => {};
+  const replace = (_: any) => {};
+  const suppressThisIsUndefined = (_: any, __: any) => {};
   const require = { resolve: (mod: string) => path.resolve(env.nodeDir, mod) };
-  copy, replace, dirname, require, suppressThisIsUndefined, execSync; // suppress unused
+  const execSync = (_: any, __: any) => '';
+  copy, replace, dirname, require, suppressThisIsUndefined, execSync;
   return eval(`(${o})`) || {};
 }
 
 // TODO - just subtract yarn/rollup/tsc commands from script contents, don't overparse the string.
-// many build steps need shell interpretation via exec/execSync which don't provide array arguments.
+// build steps need shell interpretation via exec/execSync which don't provide array arguments.
 function tokenizeArgs(argstr: string): string[] {
   const args: string[] = [];
   const reducer = (a: any[], ch: string) => {

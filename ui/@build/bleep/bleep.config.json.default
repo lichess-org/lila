@@ -2,6 +2,7 @@
   "defaultArgs": ["all"],
   "sass": true,
   "esbuild": true,
+  "tsc": true,
   "log": {
     "heap": false,
     "time": true,

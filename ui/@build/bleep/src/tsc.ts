@@ -19,8 +19,8 @@ export async function makeBleepConfig(buildModules: LichessModule[]): Promise<vo
   });
 
   for (const mod of buildModules) {
-    const tsconfig = await makeTsConfig(mod, env.esbuild || !!mod.tscOptions, !mod.tscOptions);
-    if (env.esbuild || mod.tscOptions) tsc.push(tsconfig);
+    const tsconfig = await makeTsConfig(mod, env.tsc || !!mod.tscOptions, !mod.tscOptions);
+    if (env.tsc || mod.tscOptions) tsc.push(tsconfig);
   }
   const cfg: any = {};
   cfg.files = [];
@@ -30,7 +30,6 @@ export async function makeBleepConfig(buildModules: LichessModule[]): Promise<vo
 
 export function typescriptWatch(success: () => void) {
   let watching = false;
-
   const tsc = cps.spawn(
     'tsc',
     ['-b', path.join(env.tsconfigDir, 'bleep.tsconfig.json'), '--incremental', '-w', '--preserveWatchOutput'],
