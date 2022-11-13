@@ -4,7 +4,7 @@ package templating
 import chess.{ Board, Color, Pos }
 import lila.api.Context
 
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
 trait ChessgroundHelper {
@@ -14,7 +14,7 @@ trait ChessgroundHelper {
   private val cgBoard     = tag("cg-board")
   val cgWrapContent       = cgContainer(cgBoard)
 
-  def chessground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag =
+  def chessground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(using ctx: Context): Frag =
     wrap {
       cgBoard {
         raw {
@@ -38,7 +38,7 @@ trait ChessgroundHelper {
       }
     }
 
-  def chessground(pov: Pov)(implicit ctx: Context): Frag =
+  def chessground(pov: Pov)(using ctx: Context): Frag =
     chessground(
       board = pov.game.board,
       orient = pov.color,

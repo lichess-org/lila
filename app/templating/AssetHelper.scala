@@ -4,7 +4,7 @@ package templating
 import play.api.mvc.RequestHeader
 
 import lila.api.Context
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
@@ -27,7 +27,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
-  def cssTag(name: String)(implicit ctx: Context): Frag =
+  def cssTag(name: String)(using ctx: Context): Frag =
     cssTagWithDirAndTheme(name, isRTL, ctx.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
@@ -50,14 +50,14 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def depsTag = jsAt("compiled/deps.min.js")
 
   def roundTag                            = jsModule("round")
-  def roundNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("round.nvui")
+  def roundNvuiTag(using ctx: Context) = ctx.blind option jsModule("round.nvui")
 
   def analyseTag                            = jsModule("analysisBoard")
   def analyseStudyTag                       = jsModule("analysisBoard.study")
-  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
+  def analyseNvuiTag(using ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
   def puzzleTag                            = jsModule("puzzle")
-  def puzzleNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("puzzle.nvui")
+  def puzzleNvuiTag(using ctx: Context) = ctx.blind option jsModule("puzzle.nvui")
 
   def captchaTag          = jsModule("captcha")
   def infiniteScrollTag   = jsModule("infiniteScroll")
@@ -67,7 +67,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
-  def prismicJs(implicit ctx: Context): Frag =
+  def prismicJs(using ctx: Context): Frag =
     raw {
       isGranted(_.Prismic) ?? {
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
@@ -94,15 +94,15 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     )
   }
 
-  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
+  def defaultCsp(using ctx: Context): ContentSecurityPolicy = {
     val csp = basicCsp(ctx.req)
     ctx.nonce.fold(csp)(csp.withNonce(_))
   }
 
-  def analysisCsp(implicit ctx: Context): ContentSecurityPolicy =
+  def analysisCsp(using ctx: Context): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
 
-  def embedJsUnsafe(js: String)(implicit ctx: Context): Frag =
+  def embedJsUnsafe(js: String)(using ctx: Context): Frag =
     raw {
       val nonce = ctx.nonce ?? { nonce =>
         s""" nonce="$nonce""""
@@ -115,7 +115,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       s"""<script nonce="$nonce">$js</script>"""
     }
 
-  def embedJsUnsafeLoadThen(js: String)(implicit ctx: Context): Frag =
+  def embedJsUnsafeLoadThen(js: String)(using ctx: Context): Frag =
     embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
 
   def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =

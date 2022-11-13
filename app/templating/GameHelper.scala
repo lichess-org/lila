@@ -6,7 +6,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ defaultLang, I18nKeys => trans }
 import lila.user.Title
@@ -70,24 +70,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def shortClockName(clock: Option[Clock.Config])(implicit lang: Lang): Frag =
+  def shortClockName(clock: Option[Clock.Config])(using lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
-  def shortClockName(game: Game)(implicit lang: Lang): Frag =
+  def shortClockName(game: Game)(using lang: Lang): Frag =
     game.correspondenceClock
       .map(c => trans.nbDays(c.daysPerTurn)) orElse
       game.clock.map(_.config).map(shortClockName) getOrElse
       trans.unlimited()
 
-  def modeName(mode: Mode)(implicit lang: Lang): String =
+  def modeName(mode: Mode)(using lang: Lang): String =
     mode match {
       case Mode.Casual => trans.casual.txt()
       case Mode.Rated  => trans.rated.txt()
     }
 
-  def modeNameNoCtx(mode: Mode): String = modeName(mode)(defaultLang)
+  def modeNameNoCtx(mode: Mode): String = modeName(mode)(using defaultLang)
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(using
       lang: Lang
@@ -112,10 +112,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
 
   def playerText(player: Player, withRating: Boolean = false) =
-    Namer.playerTextBlocking(player, withRating)(lightUser)
+    Namer.playerTextBlocking(player, withRating)(using lightUser)
 
   def gameVsText(game: Game, withRatings: Boolean = false): String =
-    Namer.gameVsTextBlocking(game, withRatings)(lightUser)
+    Namer.gameVsTextBlocking(game, withRatings)(using lightUser)
 
   val berserkIconSpan = iconTag("")
 
@@ -129,7 +129,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(implicit ctx: Context): Frag = {
+  )(using ctx: Context): Frag = {
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match {
       case None =>
@@ -164,7 +164,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }
 
-  def gameEndStatus(game: Game)(implicit lang: Lang): String =
+  def gameEndStatus(game: Game)(using lang: Lang): String =
     game.status match {
       case S.Aborted => trans.gameAborted.txt()
       case S.Mate    => trans.checkmate.txt()
@@ -233,7 +233,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false
-  )(implicit ctx: Context): String = {
+  )(using ctx: Context): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
     if (tv) routes.Tv.index
     else
@@ -242,9 +242,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       }
   }.toString
 
-  def gameLink(pov: Pov)(implicit ctx: Context): String = gameLink(pov.game, pov.color)
+  def gameLink(pov: Pov)(using ctx: Context): String = gameLink(pov.game, pov.color)
 
-  def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: Context) = {
+  def challengeTitle(c: lila.challenge.Challenge)(using ctx: Context) = {
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
@@ -261,7 +261,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$speed$variant ${c.mode.name} Chess • $players"
   }
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit ctx: Context) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(using ctx: Context) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

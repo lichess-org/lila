@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import controllers.routes
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
@@ -27,21 +27,21 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     }
   }
 
-  def tournamentLink(tour: Tournament)(implicit lang: Lang): Frag =
+  def tournamentLink(tour: Tournament)(using lang: Lang): Frag =
     a(
       dataIcon := "",
       cls      := (if (tour.isScheduled) "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id).url
     )(tour.name())
 
-  def tournamentLink(tourId: String)(implicit lang: Lang): Frag =
+  def tournamentLink(tourId: String)(using lang: Lang): Frag =
     a(
       dataIcon := "",
       cls      := "text",
       href     := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: String)(implicit lang: Lang) =
+  def tournamentIdToName(id: String)(using lang: Lang) =
     env.tournament.getTourName sync id getOrElse "Tournament"
 
   object scheduledTournamentNameShortHtml {
@@ -52,7 +52,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
       "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
-      pt.trans(lila.i18n.defaultLang) -> icon(pt.iconChar)
+      pt.trans(using lila.i18n.defaultLang) -> icon(pt.iconChar)
     }
 
     def apply(name: String): Frag =

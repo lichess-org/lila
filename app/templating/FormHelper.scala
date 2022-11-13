@@ -5,21 +5,21 @@ import play.api.data._
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 trait FormHelper { self: I18nHelper =>
 
-  def errMsg(form: Field)(implicit ctx: Context): Frag = errMsg(form.errors)
+  def errMsg(form: Field)(using ctx: Context): Frag = errMsg(form.errors)
 
-  def errMsg(form: Form[_])(implicit ctx: Context): Frag = errMsg(form.errors)
+  def errMsg(form: Form[_])(using ctx: Context): Frag = errMsg(form.errors)
 
-  def errMsg(error: FormError)(implicit ctx: Context): Frag =
+  def errMsg(error: FormError)(using ctx: Context): Frag =
     p(cls := "error")(transKey(error.message, error.args))
 
-  def errMsg(errors: Seq[FormError])(implicit ctx: Context): Frag =
+  def errMsg(errors: Seq[FormError])(using ctx: Context): Frag =
     errors map errMsg
 
-  def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
+  def globalError(form: Form[_])(using ctx: Context): Option[Frag] =
     form.globalError map errMsg
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
@@ -27,7 +27,7 @@ trait FormHelper { self: I18nHelper =>
   val postForm     = form(method := "post")
   val submitButton = button(tpe := "submit")
 
-  def markdownAvailable(implicit lang: Lang) =
+  def markdownAvailable(using lang: Lang) =
     trans.markdownAvailable(
       a(
         href := "https://guides.github.com/features/mastering-markdown/",
@@ -65,9 +65,9 @@ trait FormHelper { self: I18nHelper =>
     private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
     private val helper                   = small(cls := "form-help")
 
-    private def errors(errs: Seq[FormError])(implicit ctx: Context): Frag = errs.distinct map error
-    private def errors(field: Field)(implicit ctx: Context): Frag         = errors(field.errors)
-    private def error(err: FormError)(implicit ctx: Context): Frag =
+    private def errors(errs: Seq[FormError])(using ctx: Context): Frag = errs.distinct map error
+    private def errors(field: Field)(using ctx: Context): Frag         = errors(field.errors)
+    private def error(err: FormError)(using ctx: Context): Frag =
       p(cls := "error")(transKey(err.message, err.args))
 
     private def validationModifiers(field: Field): Seq[Modifier] =
@@ -91,7 +91,7 @@ trait FormHelper { self: I18nHelper =>
         klass: String = "",
         half: Boolean = false,
         help: Option[Frag] = None
-    )(content: Field => Frag)(implicit ctx: Context): Tag =
+    )(content: Field => Frag)(using ctx: Context): Tag =
       div(
         cls := List(
           "form-group" -> true,
@@ -106,7 +106,7 @@ trait FormHelper { self: I18nHelper =>
         help map { helper(_) }
       )
 
-    def input(field: Field, typ: String = "", klass: String = ""): BaseTagType =
+    def input(field: Field, typ: String = "", klass: String = "") /*: BaseTagType*/ =
       st.input(
         st.id := id(field),
         name  := field.name,
@@ -188,7 +188,7 @@ trait FormHelper { self: I18nHelper =>
         st.id := id(field),
         name  := field.name,
         cls   := List("form-control" -> true, klass -> klass.nonEmpty)
-      )(validationModifiers(field))(modifiers)(~field.value)
+      )(validationModifiers(field))(modifiers)((field.value.orZero: String))
 
     val actions = div(cls := "form-actions")
     val action  = div(cls := "form-actions single")
@@ -221,7 +221,7 @@ trait FormHelper { self: I18nHelper =>
         tpe      := "hidden"
       )
 
-    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
+    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
 
     def passwordComplexityMeter(labelContent: Frag): Frag =
@@ -233,7 +233,7 @@ trait FormHelper { self: I18nHelper =>
         )
       )
 
-    def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
+    def globalError(form: Form[_])(using ctx: Context): Option[Frag] =
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))
       }

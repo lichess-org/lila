@@ -9,7 +9,7 @@ import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period }
 import play.api.i18n.Lang
 import scala.collection.mutable
 
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.PeriodLocales
 
 trait DateHelper { self: I18nHelper with StringHelper =>
@@ -25,25 +25,25 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   private val englishDateFormatter     = DateTimeFormat forStyle dateStyle
   private val englishDateTimeFormatter = DateTimeFormat forStyle dateTimeStyle
 
-  private def dateTimeFormatter(implicit lang: Lang): DateTimeFormatter =
+  private def dateTimeFormatter(using lang: Lang): DateTimeFormatter =
     dateTimeFormatters.computeIfAbsent(
       lang.code,
       _ => DateTimeFormat.forStyle(dateTimeStyle).withLocale(lang.toLocale)
     )
 
-  private def dateFormatter(implicit lang: Lang): DateTimeFormatter =
+  private def dateFormatter(using lang: Lang): DateTimeFormatter =
     dateFormatters.computeIfAbsent(
       lang.code,
       _ => DateTimeFormat.forStyle(dateStyle).withLocale(lang.toLocale)
     )
 
-  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit lang: Lang): String =
+  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(using lang: Lang): String =
     dateTimeFormatter print date.toDateTime(zone)
 
-  def showDateTimeUTC(date: DateTime)(implicit lang: Lang): String =
+  def showDateTimeUTC(date: DateTime)(using lang: Lang): String =
     showDateTimeZone(date, DateTimeZone.UTC)
 
-  def showDate(date: DateTime)(implicit lang: Lang): String =
+  def showDate(date: DateTime)(using lang: Lang): String =
     if (lang.language == "ar") dateFormatter print date replaceAll ("\u200f", "")
     else dateFormatter print date
 
@@ -52,13 +52,13 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   def showEnglishDateTime(date: DateTime): String =
     englishDateTimeFormatter print date
 
-  def semanticDate(date: DateTime)(implicit lang: Lang): Tag =
+  def semanticDate(date: DateTime)(using lang: Lang): Tag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
-  def showPeriod(period: Period)(implicit lang: Lang): String =
+  def showPeriod(period: Period)(using lang: Lang): String =
     PeriodLocales.showPeriod(period)
 
-  def showMinutes(minutes: Int)(implicit lang: Lang): String =
+  def showMinutes(minutes: Int)(using lang: Lang): String =
     showPeriod(new Period(minutes * 60 * 1000L))
 
   def isoDate(date: DateTime): String = isoFormatter print date

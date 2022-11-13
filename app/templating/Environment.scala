@@ -3,7 +3,7 @@ package templating
 
 import scala.concurrent.duration.DurationInt
 
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object Environment
     extends lila.Lilaisms

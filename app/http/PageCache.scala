@@ -13,7 +13,7 @@ final class PageCache(cacheApi: lila.memo.CacheApi) {
     _.expireAfterWrite(1.seconds).buildAsync()
   }
 
-  def apply(compute: () => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  def apply(compute: () => Fu[Result])(using ctx: Context): Fu[Result] =
     if (ctx.isAnon && langs(ctx.lang.language) && defaultPrefs(ctx.req) && !hasCookies(ctx.req))
       cache.getFuture(cacheKey(ctx), _ => compute())
     else

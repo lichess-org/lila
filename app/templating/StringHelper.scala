@@ -3,7 +3,7 @@ package templating
 
 import chess.format.FEN
 import play.api.i18n.Lang
-import ui.ScalatagsTemplate._
+import ui.ScalatagsTemplate.{ *, given }
 
 trait StringHelper { self: NumberHelper =>
 
@@ -17,14 +17,14 @@ trait StringHelper { self: NumberHelper =>
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
-  def pluralizeLocalize(s: String, n: Int)(implicit lang: Lang) = s"${n.localize} $s${if (n > 1) "s" else ""}"
+  def pluralizeLocalize(s: String, n: Int)(using lang: Lang) = s"${n.localize} $s${if (n > 1) "s" else ""}"
 
   def showNumber(n: Int): String = if (n > 0) s"+$n" else n.toString
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex  = """\s(\d++)$""".r.unanchored
 
-  def splitNumber(s: Frag)(implicit lang: Lang): Frag = {
+  def splitNumber(s: Frag)(using lang: Lang): Frag = {
     val rendered = s.render
     rendered match {
       case NumberFirstRegex(number, html) =>

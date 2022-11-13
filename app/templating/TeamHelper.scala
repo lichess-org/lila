@@ -5,12 +5,12 @@ package templating
 import scalatags.Text.all.Tag
 import controllers.routes
 import lila.api.Context
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.Team.nameToId
 
 trait TeamHelper { self: HasEnv =>
 
-  def isMyTeamSync(teamId: String)(implicit ctx: Context): Boolean =
+  def isMyTeamSync(teamId: String)(using ctx: Context): Boolean =
     ctx.userId.?? { env.team.api.syncBelongsTo(teamId, _) }
 
   def teamIdToName(id: String): String = env.team.getTeamName(id).getOrElse(id)

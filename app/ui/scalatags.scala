@@ -5,7 +5,7 @@ import alleycats.Zero
 import scalatags.Text.all._
 import scalatags.text.Builder
 import scalatags.Text.GenericAttr
-// import scalatags.Text.{ Aggregate, Cap }
+import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
 import lila.user.Title
@@ -102,7 +102,9 @@ trait ScalatagsPrefix {
 
 // what to import in a pure scalatags template
 trait ScalatagsTemplate
-    extends ScalatagsBundle
+    extends Cap
+    with Aggregate
+    with ScalatagsBundle
     with ScalatagsAttrs
     with ScalatagsExtensions
     with ScalatagsSnippets
@@ -114,7 +116,7 @@ trait ScalatagsTemplate
   def cssHeight = scalatags.Text.styles.height
 
   /* Convert play URLs to scalatags attributes with toString */
-  given GenericAttr[play.api.mvc.Call] = genericAttr[play.api.mvc.Call]
+  given GenericAttr[play.api.mvc.Call] = GenericAttr[play.api.mvc.Call]
 }
 
 object ScalatagsTemplate extends ScalatagsTemplate
@@ -122,14 +124,14 @@ object ScalatagsTemplate extends ScalatagsTemplate
 // generic extensions
 trait ScalatagsExtensions {
 
-  implicit def stringValueFrag(sv: StringValue): Frag = new StringFrag(sv.value)
+  given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
   given AttrValue[StringValue] with
     def apply(t: scalatags.text.Builder, a: Attr, v: StringValue): Unit =
       t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
 
   given GenericAttr[Char]       = GenericAttr[Char]
-  given GenericAttr[BigDecimal] = GenericAttr
+  given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
 
   given AttrValue[Option[String]] with
     def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit = {
@@ -145,8 +147,8 @@ trait ScalatagsExtensions {
       if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
     }
 
-  val emptyFrag: Frag                   = new RawFrag("")
-  implicit val LilaFragZero: Zero[Frag] = Zero(emptyFrag)
+  val emptyFrag: Frag = new RawFrag("")
+  given Zero[Frag]    = Zero(emptyFrag)
 
   val targetBlank: Modifier = (t: Builder) => {
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted
@@ -166,10 +168,10 @@ trait ScalatagsExtensions {
   }
 
   def titleOrText(blind: Boolean, v: String): Modifier = (t: Builder) =>
-    if (blind) t.addChild(frag(v))
+    if (blind) t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
+  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrText(ctx.blind, v)
 }
 
 object ScalatagsExtensions extends ScalatagsExtensions

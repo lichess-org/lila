@@ -21,7 +21,7 @@ final class LilaHttpRequestHandler(
 
   // should be handled by nginx in production
   private val optionsHandler =
-    controllerComponents.actionBuilder { req =>
+    controllerComponents.actionBuilder { (req: RequestHeader) =>
       if (lila.common.HTTPRequest.isApiOrApp(req))
         Results.NoContent.withHeaders(
           "Allow"                  -> ResponseHeaders.allowMethods,
