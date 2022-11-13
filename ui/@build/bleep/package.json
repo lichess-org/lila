@@ -6,12 +6,6 @@
   "license": "AGPL-3.0-or-later",
   "type": "commonjs",
   "devDependencies": {
-    "rollup": "^2",
-    "rollup-plugin-copy": "^3.3.0",
-    "@rollup/plugin-commonjs": "^22.0.1",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "@rollup/plugin-replace": "^4.0.0",
-    "@rollup/plugin-typescript": "^9.0.2",
     "typescript": "^4",
     "esbuild": "^0.15.13",
     "fast-glob": "^3"
