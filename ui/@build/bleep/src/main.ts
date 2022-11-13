@@ -13,14 +13,10 @@ export function main() {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
     return;
   }
-
-  ps.chdir(env.uiDir);
-
-  build(env.opts.defaultArgs && ps.argv.length == 2 ? env.opts.defaultArgs : ps.argv.slice(2));
+  build(ps.argv.slice(2));
 }
 
 export interface BleepOpts {
-  defaultArgs?: string[]; // arguments when none are given
   sass?: boolean; // use dart-sass rather than gulp for scss, default = true
   esbuild?: boolean; // use esbuild rather than rollup, default = true
   tsc?: boolean; // use tsc for type checking, default = true

@@ -1,11 +1,12 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cps from 'node:child_process';
+import * as ps from 'node:process';
 import { parseModules } from './parse';
 import { makeBleepConfig, typescriptWatch } from './tsc';
 import { sassWatch } from './sass';
 import { esbuildWatch } from './esbuild';
-import { LichessModule, env, colors as c } from './main';
+import { LichessModule, env, errorMark, colors as c } from './main';
 
 export let moduleDeps: Map<string, string[]>;
 export let modules: Map<string, LichessModule>;
@@ -14,24 +15,19 @@ let startTime: number | undefined = Date.now();
 
 export async function build(moduleNames: string[]) {
   env.log(`Parsing modules in '${c.cyan(env.uiDir)}'`);
+
+  ps.chdir(env.uiDir);
+
   [modules, moduleDeps] = await parseModules();
 
-  for (const moduleName of moduleNames)
-    if (!known(moduleName) && moduleName !== 'all') {
-      env.log(c.red('Argument error: ') + `unknown module '${c.magenta(moduleName)}'`);
-      return;
-    }
+  if (moduleNames.find(x => !known(x))) {
+    env.log(`${errorMark} - unknown module '${c.magenta(moduleNames.find(x => !known(x))!)}'`);
+    return;
+  }
 
   buildDependencyList();
 
-  if (moduleNames.length === 0)
-    modules.forEach(m => {
-      if (!m.hasTsconfig) return;
-      moduleNames.push(m.name);
-      m.bundle = undefined;
-    });
-
-  const buildModules = moduleNames.includes('all') ? [...modules.values()] : depsMany(moduleNames);
+  const buildModules = moduleNames.length === 0 ? [...modules.values()] : depsMany(moduleNames);
 
   await fs.promises.mkdir(env.jsDir, { recursive: true });
   await fs.promises.mkdir(env.cssDir, { recursive: true });
