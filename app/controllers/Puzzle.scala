@@ -92,7 +92,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def home = Open(serveHome(_))
 
-  def homeLang = (() => LangPage(routes.Puzzle.home.url)(serveHome(_)))
+  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome(_))
 
   private def serveHome(implicit ctx: Context) =
     NoBot {
@@ -230,7 +230,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
 
   def streak     = Open(serveStreak(_))
-  def streakLang = (() => LangPage(routes.Puzzle.streak)(serveStreak(_)))
+  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(_))
   private def serveStreak(implicit ctx: Context) = NoBot {
     env.puzzle.streak.apply flatMap {
       _ ?? { case PuzzleStreak(ids, puzzle) =>
@@ -296,7 +296,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def themes = Open(serveThemes(_))
 
-  def themesLang = (() => LangPage(routes.Puzzle.themes)(serveThemes(_)))
+  def themesLang = LangPage(routes.Puzzle.themes)(serveThemes(_))
 
   private def serveThemes(implicit ctx: Context) =
     env.puzzle.api.angles map { all =>

@@ -13,7 +13,7 @@ final class Coach(env: Env) extends LilaController(env):
   private def api = env.coach.api
 
   def homeLang =
-    (() => LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1)(_)))
+    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1)(_))
 
   def all(page: Int) = search("all", CoachPager.Order.Login.key, "all", page)
 

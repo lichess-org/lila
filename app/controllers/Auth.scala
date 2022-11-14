@@ -86,7 +86,7 @@ final class Auth(
       }
 
   def login     = Open(serveLogin(_))
-  def loginLang = (() => LangPage(routes.Auth.login)(serveLogin(_)))
+  def loginLang = LangPage(routes.Auth.login)(serveLogin(_))
   private def serveLogin(implicit ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
     referrer ifTrue ctx.isAuth match
@@ -182,7 +182,7 @@ final class Auth(
     }
 
   def signup     = Open(serveSignup(_))
-  def signupLang = (() => LangPage(routes.Auth.signup)(serveSignup(_)))
+  def signupLang = LangPage(routes.Auth.signup)(serveSignup(_))
   private def serveSignup(implicit ctx: Context) =
     NoTor {
       forms.signup.website map { form =>

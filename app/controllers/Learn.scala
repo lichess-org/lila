@@ -13,7 +13,7 @@ final class Learn(env: Env) extends LilaController(env):
   import lila.learn.JSONHandlers.given
 
   def index     = Open(serveIndex(_))
-  def indexLang = (() => LangPage(routes.Learn.index)(serveIndex(_)))
+  def indexLang = LangPage(routes.Learn.index)(serveIndex(_))
   private def serveIndex(implicit ctx: Context) = NoBot {
     pageHit
     ctx.me

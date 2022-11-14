@@ -8,7 +8,7 @@ import lila.app.{ given, * }
 final class Coordinate(env: Env) extends LilaController(env):
 
   def home     = Open(serveHome(_))
-  def homeLang = (() => LangPage(routes.Coordinate.home)(serveHome(_)))
+  def homeLang = LangPage(routes.Coordinate.home)(serveHome(_))
   private def serveHome(implicit ctx: Context): Fu[Result] =
     ctx.userId ?? { userId =>
       env.coordinate.api getScore userId map (_.some)

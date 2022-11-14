@@ -25,7 +25,7 @@ final class Swiss(
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
 
   def home     = Open(serveHome(_))
-  def homeLang = (() => LangPage(routes.Swiss.home)(serveHome(_)))
+  def homeLang = LangPage(routes.Swiss.home)(serveHome(_))
   private def serveHome(implicit ctx: Context) = NoBot {
     ctx.userId.??(env.team.cached.teamIdsList) flatMap
       env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
@@ -182,7 +182,8 @@ final class Swiss(
 
   def apiJoin(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
+      if (me.lame || me.isBot)
+        Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
       else doJoin(me, SwissId(id), bodyPassword)
     }
 

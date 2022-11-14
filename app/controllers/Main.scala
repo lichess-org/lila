@@ -71,7 +71,7 @@ final class Main(
     }
 
   def mobile     = Open(serveMobile(_))
-  def mobileLang = (() => LangPage(routes.Main.mobile)(serveMobile(_)))
+  def mobileLang = LangPage(routes.Main.mobile)(serveMobile(_))
   private def serveMobile(implicit ctx: Context) =
     pageHit
     OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>

@@ -36,7 +36,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def home     = Open(serveHome(_))
-  def homeLang = (() => LangPage(routes.Tournament.home)(serveHome(_)))
+  def homeLang = LangPage(routes.Tournament.home)(serveHome(_))
   private def serveHome(implicit ctx: Context) = NoBot {
     for {
       (visible, scheduled) <- upcomingCache.getUnit

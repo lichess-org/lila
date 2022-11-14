@@ -13,7 +13,7 @@ import play.api.libs.json.Json
 final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
   def home     = Open(serveHome(_))
-  def homeLang = (() => LangPage(routes.Racer.home)(serveHome(_)))
+  def homeLang = LangPage(routes.Racer.home)(serveHome(_))
   private def serveHome(implicit ctx: Context) = NoBot {
     Ok(html.racer.home).toFuccess
   }

@@ -46,7 +46,7 @@ final class Study(
     }
 
   def homeLang =
-    (() => LangPage(routes.Study.allDefault())(allResults(Order.Hot.key, 1)(_)))
+    LangPage(routes.Study.allDefault())(allResults(Order.Hot.key, 1)(_))
 
   def allDefault(page: Int) = all(Order.Hot.key, page)
 
