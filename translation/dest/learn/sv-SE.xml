@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Lär dig spela schack</string>
+  <string name="learnChess">Lär dig schack</string>
   <string name="byPlaying">genom att spela!</string>
   <string name="menu">Meny</string>
   <string name="progressX">Framsteg: %s</string>
@@ -9,7 +9,7 @@
   <string name="play">spela!</string>
   <string name="chessPieces">Schackpjäser</string>
   <string name="theRook">Tornet</string>
-  <string name="itMovesInStraightLines">Den rör sig i raka linjer</string>
+  <string name="itMovesInStraightLines">Det rör sig i raka linjer</string>
   <string name="rookIntro">Tornet är en kraftfull pjäs. Är du redo att styra det?</string>
   <string name="rookGoal">Klicka på tornet för att föra det till stjärnan!</string>
   <string name="grabAllTheStars">Ta alla stjärnor!</string>
@@ -61,7 +61,7 @@ Du behöver bägge!</string>
   <string name="takeTheBlackPieces">Slå de svarta pjäserna!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Slå de svarta pjäserna! Och förlora inte dina egna.</string>
   <string name="captureComplete">Grattis! Du vet nu hur man slåss med schackpjäser!</string>
-  <string name="protection">Gardering</string>
+  <string name="protection">Försvar</string>
   <string name="keepYourPiecesSafe">Gardera dina pjäser</string>
   <string name="protectionIntro">Hitta pjäserna som din motståndare attackerar, och försvara dem!</string>
   <string name="protectionComplete">Grattis! En pjäs du inte förlorar är en pjäs du vinner!</string>
@@ -160,8 +160,8 @@ Bonde = 1</string>
   <string name="checkInTwoIntro">Hitta rätt dragföljd som schackar motståndarens kung i två drag!</string>
   <string name="checkInTwoGoal">Hota motståndarens kung i två drag!</string>
   <string name="checkInTwoComplete">Grattis! Du schackade din motståndare och tvingade denne att försvara sin kung!</string>
-  <string name="whatNext">Vad kommer härnäst?</string>
-  <string name="youKnowHowToPlayChess">Grattis! Nu vet du hur man spelar schack. Vill du bli en starkare spelare?</string>
+  <string name="whatNext">Vad kommer nu?</string>
+  <string name="youKnowHowToPlayChess">Grattis! Nu kan du spela schack. Vill du bli en bättre spelare?</string>
   <string name="register">Registrera dig</string>
   <string name="getAFreeLichessAccount">Skaffa ett gratis Lichesskonto</string>
   <string name="practice">Öva</string>
