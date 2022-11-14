@@ -68,8 +68,8 @@ object download {
   private def color(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
     td(cls := "single")(
-      select(id         := "dl-color", name := "color")(
-        st.option(value := ""),
+      select(id      := "dl-color", name := "color")(
+        option(value := ""),
         option(value := "white")(trans.white()),
         option(value := "black")(trans.black())
       )

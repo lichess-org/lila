@@ -169,9 +169,9 @@ object discussion {
         form3.actions(
           div(
             select(cls := "appeal-presets")(
-              st.option(st.value := "")("Presets"),
+              option(st.value := "")("Presets"),
               ps.value.map { case ModPreset(name, text, _) =>
-                st.option(
+                option(
                   st.value := text,
                   st.title := text
                 )(name)

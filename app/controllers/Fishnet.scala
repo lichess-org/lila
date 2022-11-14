@@ -6,8 +6,8 @@ import scala.util.{ Failure, Success }
 
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.fishnet.JsonApi.readers._
-import lila.fishnet.JsonApi.writers._
+import lila.fishnet.JsonApi.readers.given
+import lila.fishnet.JsonApi.writers.given
 import lila.fishnet.{ JsonApi, Work }
 
 final class Fishnet(env: Env) extends LilaController(env) {

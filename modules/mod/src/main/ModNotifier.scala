@@ -25,7 +25,7 @@ final private class ModNotifier(
 
   def refund(victim: Victim, pt: lila.rating.PerfType, points: Int): Funit =
     notifyApi.addNotification {
-      implicit val lang = victim.user.realLang | lila.i18n.defaultLang
+      given play.api.i18n.Lang = victim.user.realLang | lila.i18n.defaultLang
       Notification.make(
         notifies = Notification.Notifies(victim.user.id),
         content = lila.notify.RatingRefund(pt.trans, points)

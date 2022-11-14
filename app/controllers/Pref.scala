@@ -17,7 +17,7 @@ final class Pref(env: Env) extends LilaController(env) {
       env.pref.api.getPref(me) map { prefs =>
         JsonOk {
           import play.api.libs.json._
-          import lila.pref.JsonView._
+          import lila.pref.JsonView.given
           Json.obj("prefs" -> prefs).add("language" -> me.lang)
         }
       }
@@ -68,7 +68,7 @@ final class Pref(env: Env) extends LilaController(env) {
           if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)
         }
       } else {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         (setters get name) ?? { case (form, fn) =>
           FormResult(form) { v =>
             fn(v, ctx) map { cookie =>
@@ -94,5 +94,5 @@ final class Pref(env: Env) extends LilaController(env) {
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
       api.setPrefString(_, name, value)
-    } inject env.lilaCookie.session(name, value)(ctx.req)
+    } inject env.lilaCookie.session(name, value)(using ctx.req)
 }

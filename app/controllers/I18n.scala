@@ -17,7 +17,7 @@ final class I18n(env: Env) extends LilaController(env) {
 
   def select =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       form
         .bindFromRequest()
         .fold(

@@ -51,7 +51,7 @@ final class Opening(env: Env) extends LilaController(env) {
 
   def config(thenTo: String) =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       val redir =
         Redirect {
           lila.common.HTTPRequest.referer(req) | {
@@ -67,7 +67,7 @@ final class Opening(env: Env) extends LilaController(env) {
     }
 
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
-    implicit val req = ctx.body
+    given play.api.mvc.Request[?] = ctx.body
     env.opening.api
       .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki))
       .map(_.flatMap(_.query.opening)) flatMap {

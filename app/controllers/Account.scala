@@ -148,7 +148,7 @@ final class Account(
   def passwdApply =
     AuthBody { implicit ctx => me =>
       auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.user.forms passwd me flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.passwd(err))
@@ -197,7 +197,7 @@ final class Account(
   def emailApply =
     AuthBody { implicit ctx => me =>
       auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.email(err))
@@ -243,7 +243,7 @@ final class Account(
         case None if get("username").isEmpty =>
           Ok(html.account.emailConfirmHelp(helpForm, none)).toFuccess
         case None =>
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           helpForm
             .bindFromRequest()
             .fold(
@@ -271,7 +271,7 @@ final class Account(
   def setupTwoFactor =
     AuthBody { implicit ctx => me =>
       auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.security.forms.setupTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.twoFactor.setup(me, err))
@@ -286,7 +286,7 @@ final class Account(
   def disableTwoFactor =
     AuthBody { implicit ctx => me =>
       auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.security.forms.disableTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.twoFactor.disable(me, err))
@@ -310,7 +310,7 @@ final class Account(
   def closeConfirm =
     AuthBody { implicit ctx => me =>
       NotManaged {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         auth.HasherRateLimit(me.username, ctx.req) { _ =>
           env.security.forms closeAccount me flatMap { form =>
             FormFuResult(form) { err =>
@@ -341,7 +341,7 @@ final class Account(
   def kidPost =
     AuthBody { implicit ctx => me =>
       NotManaged {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.security.forms toggleKid me flatMap { form =>
           form
             .bindFromRequest()
@@ -417,7 +417,7 @@ final class Account(
 
   def reopenApply =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.security.hcaptcha.verify() flatMap { captcha =>
         if (captcha.ok)
           env.security.forms.reopen flatMap {

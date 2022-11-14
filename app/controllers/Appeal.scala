@@ -44,7 +44,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def post =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       form
         .bindFromRequest()
         .fold(
@@ -78,7 +78,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   def reply(username: String) =
     SecureBody(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         form
           .bindFromRequest()
           .fold(

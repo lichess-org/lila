@@ -64,7 +64,7 @@ $regards
 """
       }
       _ <- emailOption ?? { email =>
-        implicit val lang = userLang(user)
+        given play.api.i18n.Lang = userLang(user)
         mailer send Mailer.Message(
           to = email,
           subject = s"$title title confirmed on lichess.org",
@@ -127,7 +127,7 @@ $regards
 """
     userRepo emailOrPrevious user.id flatMap {
       _ ?? { email =>
-        implicit val lang = userLang(user)
+        given play.api.i18n.Lang = userLang(user)
         mailer send Mailer.Message(
           to = email,
           subject = "lichess.org account erasure",
@@ -187,7 +187,7 @@ To make a new donation, head to $baseUrl/patron"""
       _ ?? { userWithEmail =>
         lightUser.preloadMany(opponents.flatMap(_.opponentId)) >>
           userWithEmail.emails.current.filterNot(_.isNoReply) ?? { email =>
-            implicit val lang = userLang(userWithEmail.user)
+            given play.api.i18n.Lang = userLang(userWithEmail.user)
             val hello =
               "Hello and thank you for playing correspondence chess on Lichess!"
             val disableSettingNotice =
@@ -227,7 +227,7 @@ $disableSettingNotice $disableLink"""
     }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
-    implicit val lang = userLang(user)
+    given play.api.i18n.Lang = userLang(user)
     body(userLang(user)) tap { txt =>
       lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
     }
@@ -236,7 +236,7 @@ $disableSettingNotice $disableLink"""
     alsoSendAsPrivateMessage(user)(body) pipe { body =>
       userRepo email user.id flatMap {
         _ ?? { email =>
-          implicit val lang = userLang(user)
+          given lang: play.api.i18n.Lang = userLang(user)
           mailer send Mailer.Message(
             to = email,
             subject = subject(lang),

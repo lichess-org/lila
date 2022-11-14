@@ -5,7 +5,7 @@ import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.practice.JsonView._
+import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Study => StudyModel }
@@ -138,7 +138,7 @@ final class Practice(
 
   def configSave =
     SecureBody(_.PracticeConfig) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       api.config.form.flatMap { form =>
         FormFuResult(form) { err =>
           api.structure.get map { html.practice.config(_, err) }

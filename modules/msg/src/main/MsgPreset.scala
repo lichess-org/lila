@@ -57,9 +57,9 @@ Thank you for your understanding."""
 
     def byModerator = compose("A moderator")
 
-    def byTeamLeader(teamSlug: String) = (() => compose(s"A team leader of https://lichess.org/forum/$teamSlug"))
+    def byTeamLeader(teamSlug: String) = compose(s"A team leader of https://lichess.org/forum/$teamSlug")
 
-    def byBlogAuthor(authorId: String) = (() => compose(by = s"The community blog author $authorId"))
+    def byBlogAuthor(authorId: String) = compose(by = s"The community blog author $authorId")
 
     private def compose(by: String)(reason: String) =
       s"""$by deleted one of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette"""

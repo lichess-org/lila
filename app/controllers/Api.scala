@@ -446,7 +446,7 @@ final class Api(
     }
 
   def perfStat(username: String, perfKey: String) = ApiRequest { req =>
-    implicit val lang = reqLang(req)
+    given play.api.i18n.Lang = reqLang(req)
     env.perfStat.api.data(username, perfKey, none) map {
       _.fold[ApiResult](NoData) { data => Data(env.perfStat.jsonView(data)) }
     }

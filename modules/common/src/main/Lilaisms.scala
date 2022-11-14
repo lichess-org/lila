@@ -17,6 +17,7 @@ trait Lilaisms
     with LilaLibraryExtensions:
 
   export Lilaisms.*
+  export ornicar.scalalib.OrnicarBooleanWrapper
 
 object Lilaisms:
   trait IntValue extends Any:

@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.data._
-import play.api.data.Forms._
+import play.api.data.Forms.{ list => formList, * }
 import scala.concurrent.duration._
 import scala.util.chaining._
 
@@ -20,9 +20,9 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   def index(username: String) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
-        implicit def req = ctx.body
-        val form         = filterForm.bindFromRequest()
-        val filter       = form.fold(_ => emptyFilter, identity)
+        given play.api.mvc.Request[?] = ctx.body
+        val form                      = filterForm.bindFromRequest()
+        val filter                    = form.fold(_ => emptyFilter, identity)
         env.tournament.leaderboardApi.recentByUser(user, 1) zip
           env.activity.read.recentSwissRanks(user.id) zip
           fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
@@ -57,7 +57,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   def post(username: String) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
-        implicit val body = ctx.body
+        implicit val body: play.api.mvc.Request[?] = ctx.body
         actionForm
           .bindFromRequest()
           .fold(
@@ -160,7 +160,7 @@ object GameMod {
   val actionForm =
     Form(
       tuple(
-        "game"   -> list(nonEmptyText),
+        "game"   -> formList(nonEmptyText),
         "action" -> optional(lila.common.Form.stringIn(Set("pgn", "analyse")))
       )
     )

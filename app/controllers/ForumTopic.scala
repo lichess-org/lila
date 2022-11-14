@@ -36,7 +36,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     AuthBody { implicit ctx => me =>
       NoBot {
         CategGrantWrite(categSlug) {
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
             categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
               forms

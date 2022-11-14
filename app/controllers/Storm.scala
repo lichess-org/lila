@@ -26,7 +26,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   def record =
     OpenBody { implicit ctx =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.storm.forms.run
           .bindFromRequest()
           .fold(

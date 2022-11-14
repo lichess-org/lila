@@ -59,7 +59,7 @@ final class Coach(env: Env) extends LilaController(env) {
       OptionFuResult(api find username) { c =>
         NoBot {
           WithVisibleCoach(c) {
-            implicit val req = ctx.body
+            given play.api.mvc.Request[?] = ctx.body
             lila.coach.CoachReviewForm.form
               .bindFromRequest()
               .fold(
@@ -118,7 +118,7 @@ final class Coach(env: Env) extends LilaController(env) {
   def editApply =
     SecureBody(_.Coach) { implicit ctx => me =>
       OptionFuResult(api findOrInit me) { c =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         CoachProfileForm
           .edit(c.coach)
           .bindFromRequest()

@@ -24,7 +24,7 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
   def update(id: String) =
     SecureBody(_.ManageTournament) { implicit ctx => _ =>
       OptionFuResult(crud one id) { tour =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         crud
           .editForm(tour)
           .bindFromRequest()
@@ -42,7 +42,7 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
 
   def create =
     SecureBody(_.ManageTournament) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       crud.createForm
         .bindFromRequest()
         .fold(

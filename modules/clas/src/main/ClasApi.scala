@@ -370,7 +370,7 @@ ${clas.desc}""",
       if (student.kid) fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.i18n.I18nKeys.clas.*
-        implicit val lang = student.realLang | lila.i18n.defaultLang
+        given play.api.i18n.Lang = student.realLang | lila.i18n.defaultLang
         msgApi
           .post(
             orig = teacher.id,

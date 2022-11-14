@@ -22,7 +22,7 @@ final class MagicLink(
     tokener make user.id flatMap { token =>
       lila.mon.email.send.magicLink.increment()
       val url           = s"$baseUrl/auth/magic-link/login/$token"
-      implicit val lang = user.realLang | lila.i18n.defaultLang
+      given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
       mailer send Mailer.Message(
         to = email,
         subject = trans.logInToLichess.txt(user.username),

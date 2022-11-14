@@ -601,7 +601,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
 
   def invitationAccept(id: String) =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       Form(single("v" -> boolean))
         .bindFromRequest()
         .fold(

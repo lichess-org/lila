@@ -3,7 +3,7 @@ package views.html.opening
 import cats.data.NonEmptyList
 import chess.opening.FullOpening
 import controllers.routes
-import play.api.libs.json.{ JsArray, Json }
+import play.api.libs.json.{ JsArray, Json, JsObject }
 import play.api.mvc.Call
 
 import lila.api.{ Context, given }
@@ -77,7 +77,7 @@ object bits {
       page match {
         case Some(p) =>
           s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> p.explored.??(_.history))
+              Json.obj("history" -> (p.explored.??(_.history): List[Float]))
             )})"""
         case None =>
           s"""LichessOpening.search()"""

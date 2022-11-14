@@ -90,7 +90,7 @@ final class RelayRound(
     AuthOrScopedBody(_.Study.Write)(
       auth = implicit ctx =>
         me =>
-          doUpdate(id, me)(ctx.body) flatMap {
+          doUpdate(id, me)(using ctx.body) flatMap {
             case None => notFound
             case Some(res) =>
               res
@@ -102,7 +102,7 @@ final class RelayRound(
           },
       scoped = req =>
         me =>
-          doUpdate(id, me)(req) map {
+          doUpdate(id, me)(using req) map {
             case None => NotFound(jsonError("No such broadcast"))
             case Some(res) =>
               res.fold(

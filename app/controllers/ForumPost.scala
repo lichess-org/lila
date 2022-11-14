@@ -36,7 +36,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def create(categSlug: String, slug: String, page: Int) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
           if (topic.closed) fuccess(BadRequest("This topic is closed"))
           else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
@@ -73,7 +73,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def edit(postId: String) =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
         teamId.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
           postApi getPost postId flatMap {
@@ -106,7 +106,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
           else
             TopicGrantModById(categSlug, me, post.topicId) {
               env.forum.delete.post(categSlug, id, me) inject {
-                implicit val req = ctx.body
+                given play.api.mvc.Request[?] = ctx.body
                 for {
                   userId    <- post.userId
                   reasonOpt <- forms.deleteWithReason.bindFromRequest().value

@@ -197,7 +197,7 @@ final class Auth(
 
   def signupPost =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       NoTor {
         Firewall {
           forms.preloadEmailDns >> negotiate(
@@ -268,7 +268,7 @@ final class Auth(
   def fixEmail =
     OpenBody { implicit ctx =>
       lila.security.EmailConfirm.cookie.get(ctx.req) ?? { userEmail =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.preloadEmailDns >> forms
           .fixEmail(userEmail.email)
           .bindFromRequest()
@@ -360,7 +360,7 @@ final class Auth(
 
   def passwordResetApply =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.security.hcaptcha.verify() flatMap { captcha =>
         if (captcha.ok)
           forms.passwordReset flatMap {
@@ -412,7 +412,7 @@ final class Auth(
           lila.mon.user.auth.passwordResetConfirm("tokenPostFail").increment()
           notFound
         case Some(user) =>
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           FormFuResult(forms.passwdReset) { err =>
             fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
           } { data =>
@@ -449,7 +449,7 @@ final class Auth(
   def magicLinkApply =
     OpenBody { implicit ctx =>
       Firewall {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.security.hcaptcha.verify() flatMap { captcha =>
           if (captcha.ok)
             forms.magicLink flatMap {

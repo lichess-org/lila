@@ -63,7 +63,7 @@ object communication {
         ),
         isGranted(_.UserModView) option frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(mod, u, logins, appeals)(ctx, renderIp)(
+          views.html.user.mod.otherUsers(mod, u, logins, appeals)(using ctx, renderIp)(
             cls := "mod-zone communication__logins"
           )
         ),

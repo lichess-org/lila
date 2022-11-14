@@ -7,7 +7,7 @@ import lila.user.LightUserApi
 
 final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
 
-  given OWrites[Team] = OWrites { team =>
+  given teamWrites: OWrites[Team] = OWrites { team =>
     Json
       .obj(
         "id"          -> team.id,
@@ -31,7 +31,7 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
       .add("declined" -> req.declined)
   }
 
-  given OWrites[RequestWithUser] = OWrites { case RequestWithUser(req, user) =>
+  given requestWithUserWrites: OWrites[RequestWithUser] = OWrites { case RequestWithUser(req, user) =>
     Json.obj(
       "request" -> req,
       "user"    -> userJson.full(user, withRating = true, withProfile = false)

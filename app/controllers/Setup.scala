@@ -52,7 +52,7 @@ final class Setup(
   def ai = OpenBody { implicit ctx =>
     BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.ai
           .bindFromRequest()
           .fold(
@@ -74,7 +74,7 @@ final class Setup(
 
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       PostRateLimit(ctx.ip) {
         forms
           .friend(ctx)
@@ -141,7 +141,7 @@ final class Setup(
   def hook(sri: String) =
     OpenBody { implicit ctx =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         NoPlaybanOrCurrent {
           forms
             .hook(ctx)
@@ -208,7 +208,7 @@ final class Setup(
   )
   def boardApiHook =
     ScopedBody(_.Board.Play) { implicit req => me =>
-      implicit val lang = reqLang
+      given play.api.i18n.Lang = reqLang
       if (me.isBot) notForBotAccounts.toFuccess
       else
         forms.boardApiHook
@@ -252,7 +252,7 @@ final class Setup(
 
   def apiAi =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
-      implicit val lang = reqLang
+      given play.api.i18n.Lang = reqLang
       BotAiRateLimit(me.id, cost = me.isBot ?? 1) {
         PostRateLimit(HTTPRequest ipAddress req) {
           forms.api.ai

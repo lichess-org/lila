@@ -155,7 +155,7 @@ final class JsonView:
   private given Writes[Chart.Xaxis] = Json.writes
   private given Writes[Chart.Yaxis] = Json.writes
   private given Writes[Chart.Serie] = Json.writes
-  private given Writes[Chart]       = Json.writes
+  given chartWrites: Writes[Chart]  = Json.writes
 
   def question(metric: String, dimension: String, filters: String) =
     Json.obj(

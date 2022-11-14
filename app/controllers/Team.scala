@@ -154,7 +154,7 @@ final class Team(
   def update(id: String) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms
           .edit(team)
           .bindFromRequest()
@@ -175,7 +175,7 @@ final class Team(
   def kick(id: String) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).sequenceFu } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
@@ -220,7 +220,7 @@ final class Team(
   def leaders(id: String) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.leaders(team).bindFromRequest().value ?? {
           api.setLeaders(team, _, me, isGranted(_.ManageTeam))
         } inject Redirect(
@@ -232,7 +232,7 @@ final class Team(
   def close(id: String) =
     SecureBody(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        implicit val body = ctx.body
+        implicit val body: play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -247,7 +247,7 @@ final class Team(
   def disable(id: String) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        implicit val body = ctx.body
+        implicit val body: play.api.mvc.Request[?] = ctx.body
         forms.explain
           .bindFromRequest()
           .fold(
@@ -269,32 +269,34 @@ final class Team(
       }
     }
 
-  private val OneAtAtATime = new lila.common.WorkQueue.Unbuffered[UserModel.ID]
-
-  def create =
-    AuthBody { implicit ctx => implicit me =>
-      OneAtAtATime(me.id) {
-        api hasJoinedTooManyTeams me flatMap { tooMany =>
-          if (tooMany) tooManyTeams(me)
-          else
-            LimitPerWeek(me) {
-              implicit val req = ctx.body
-              forms.create
-                .bindFromRequest()
-                .fold(
-                  err =>
-                    forms.anyCaptcha map { captcha =>
-                      BadRequest(html.team.form.create(err, captcha))
-                    },
-                  data =>
-                    api.create(data, me) map { team =>
-                      Redirect(routes.Team.show(team.id)).flashSuccess
-                    }
-                )
-            }
-        }
-      } | rateLimitedFu
+  private val OneAtATime = new lila.memo.FutureConcurrencyLimit[UserModel.ID](
+    key = "team.concurrency.user",
+    ttl = 10.minutes,
+    maxConcurrency = 1
+  )
+  def create = AuthBody { implicit ctx => implicit me =>
+    OneAtATime(me.id, rateLimitedFu) {
+      api hasJoinedTooManyTeams me flatMap { tooMany =>
+        if (tooMany) tooManyTeams(me)
+        else
+          LimitPerWeek(me) {
+            given play.api.mvc.Request[?] = ctx.body
+            forms.create
+              .bindFromRequest()
+              .fold(
+                err =>
+                  forms.anyCaptcha map { captcha =>
+                    BadRequest(html.team.form.create(err, captcha))
+                  },
+                data =>
+                  api.create(data, me) map { team =>
+                    Redirect(routes.Team.show(team.id)).flashSuccess
+                  }
+              )
+          }
+      }
     }
+  }
 
   def mine =
     Auth { implicit ctx => me =>
@@ -319,7 +321,7 @@ final class Team(
         me =>
           api.teamEnabled(id) flatMap {
             _ ?? { team =>
-              OneAtAtATime(me.id) {
+              OneAtATime(me.id, rateLimitedFu) {
                 api hasJoinedTooManyTeams me flatMap { tooMany =>
                   if (tooMany)
                     negotiate(
@@ -330,7 +332,7 @@ final class Team(
                     negotiate(
                       html = webJoin(team, me, request = none, password = none),
                       api = _ => {
-                        implicit val body = ctx.body
+                        implicit val body: play.api.mvc.Request[?] = ctx.body
                         forms
                           .apiRequest(team)
                           .bindFromRequest()
@@ -349,21 +351,21 @@ final class Team(
                       }
                     )
                 }
-              } | rateLimitedFu
+              }
             }
           },
       scoped = implicit req =>
         me =>
           api.team(id) flatMap {
             _ ?? { team =>
-              implicit val lang = reqLang
+              given play.api.i18n.Lang = reqLang
               forms
                 .apiRequest(team)
                 .bindFromRequest()
                 .fold(
                   newJsonFormError,
                   setup =>
-                    OneAtAtATime(me.id) {
+                    OneAtATime(me.id, rateLimitedFu) {
                       api.join(team, me, setup.message, setup.password) flatMap {
                         case Requesting.Joined => jsonOkResult.toFuccess
                         case Requesting.NeedPassword =>
@@ -375,7 +377,7 @@ final class Team(
                             )
                           ).toFuccess
                       }
-                    } | rateLimitedJson.toFuccess
+                    }
                 )
             }
           }
@@ -409,7 +411,7 @@ final class Team(
   def requestCreate(id: String) =
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms
           .request(team)
           .bindFromRequest()
@@ -439,7 +441,7 @@ final class Team(
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
       } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.processRequest
           .bindFromRequest()
           .fold(
@@ -527,7 +529,7 @@ final class Team(
       auth = implicit ctx =>
         me =>
           WithOwnedTeamEnabled(id) { team =>
-            doPmAll(team, me)(ctx.body).fold(
+            doPmAll(team, me)(using ctx.body).fold(
               err => renderPmAll(team, err),
               _ map { res =>
                 Redirect(routes.Team.show(team.id))
@@ -543,7 +545,7 @@ final class Team(
           api teamEnabled id flatMap {
             _.filter(_ leaders me.id) ?? { team =>
               doPmAll(team, me).fold(
-                err => BadRequest(errorsAsJson(err)(reqLang)).toFuccess,
+                err => BadRequest(errorsAsJson(err)(using reqLang)).toFuccess,
                 _ map {
                   case RateLimit.Through => jsonOkResult
                   case RateLimit.Limited => rateLimitedJson
@@ -557,8 +559,8 @@ final class Team(
 
   def apiAll(page: Int) =
     Action.async {
-      import env.team.jsonView._
-      import lila.common.paginator.PaginatorJson._
+      import env.team.jsonView.given
+      import lila.common.paginator.PaginatorJson.given
       JsonOk {
         paginator popularTeams page flatMap { pager =>
           env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
@@ -588,8 +590,8 @@ final class Team(
 
   def apiSearch(text: String, page: Int) =
     Action.async {
-      import env.team.jsonView._
-      import lila.common.paginator.PaginatorJson._
+      import env.team.jsonView.given
+      import lila.common.paginator.PaginatorJson.given
       JsonOk {
         if (text.trim.isEmpty) paginator popularTeams page
         else env.teamSearch(text, page)
@@ -598,7 +600,7 @@ final class Team(
 
   def apiTeamsOf(username: String) =
     Action.async {
-      import env.team.jsonView._
+      import env.team.jsonView.given
       JsonOk {
         api teamsOf username flatMap { teams =>
           env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams

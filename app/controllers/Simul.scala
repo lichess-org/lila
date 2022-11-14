@@ -126,7 +126,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def setText(simulId: String) =
     OpenBody { implicit ctx =>
       AsHost(simulId) { simul =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.setText
           .bindFromRequest()
           .fold(
@@ -148,7 +148,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def create =
     AuthBody { implicit ctx => implicit me =>
       NoLameOrBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
             .create(me, teams)
@@ -199,7 +199,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def update(id: String) =
     AuthBody { implicit ctx => me =>
       WithEditableSimul(id, me) { simul =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
             .edit(me, teams, simul)

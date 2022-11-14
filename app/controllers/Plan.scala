@@ -130,7 +130,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def switch =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
         lila.plan.Switch
           .form(pricing)
@@ -216,7 +216,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def stripeCheckout =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       CheckoutRateLimit(ctx.ip) {
         env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
           env.plan.checkoutForm
@@ -251,7 +251,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def updatePayment =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       CaptureRateLimit(ctx.ip) {
         env.plan.api.stripe.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
@@ -284,7 +284,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def payPalCheckout =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       CheckoutRateLimit(ctx.ip) {
         env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
           env.plan.checkoutForm

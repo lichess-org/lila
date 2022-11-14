@@ -199,7 +199,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { implicit ctx => me =>
     UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMap {
       _ ?? { blog =>
-        implicit val body = ctx.body
+        implicit val body: play.api.mvc.Request[?] = ctx.body
         lila.ublog.UblogForm.tier
           .bindFromRequest()
           .fold(
@@ -333,7 +333,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     env.user.repo.enabledNamed(username) flatMap {
       case None => NotFound.toFuccess
       case Some(user) =>
-        implicit val lang = reqLang
+        given play.api.i18n.Lang = reqLang
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
             Ok(html.ublog.atom.user(user, blog, posts.currentPageResults)) as XML

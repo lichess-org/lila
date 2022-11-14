@@ -26,7 +26,7 @@ final class Main(
 
   def toggleBlindMode =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       fuccess {
         blindForm
           .bindFromRequest()
@@ -98,7 +98,7 @@ final class Main(
       NoContent.toFuccess
     }
 
-  val robots = Action { req =>
+  val robots = Action { (req: RequestHeader) =>
     Ok {
       if (env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd) """User-agent: *
 Allow: /
@@ -153,13 +153,13 @@ Allow: /
     }
 
   def costs =
-    Action { req =>
+    Action { (req: RequestHeader) =>
       pageHit(req)
       Redirect("https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview")
     }
 
   def verifyTitle =
-    Action { req =>
+    Action { (req: RequestHeader) =>
       pageHit(req)
       Redirect(
         "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"

@@ -44,7 +44,7 @@ final class Dev(env: Env) extends LilaController(env) {
   def settingsPost(id: String) =
     SecureBody(_.Settings) { implicit ctx => me =>
       settingsList.find(_.id == id) ?? { setting =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         setting.form
           .bindFromRequest()
           .fold(
@@ -68,7 +68,7 @@ final class Dev(env: Env) extends LilaController(env) {
 
   def cliPost =
     SecureBody(_.Cli) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       commandForm
         .bindFromRequest()
         .fold(

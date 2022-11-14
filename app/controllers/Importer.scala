@@ -30,7 +30,7 @@ final class Importer(env: Env) extends LilaController(env) {
 
   def sendGame =
     OpenBody { implicit ctx =>
-      implicit def req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.importer.forms.importForm
         .bindFromRequest()
         .fold(
@@ -41,7 +41,7 @@ final class Importer(env: Env) extends LilaController(env) {
             ),
           data =>
             ImportRateLimitPerIP(ctx.ip, cost = 1) {
-              doImport(data, req, ctx.me) flatMap {
+              doImport(data, ctx.req, ctx.me) flatMap {
                 case Right(game) =>
                   ctx.me.ifTrue(data.analyse.isDefined && game.analysable) ?? { me =>
                     env.fishnet

@@ -39,7 +39,7 @@ final private[api] class RoundApi(
     gameRepo
       .initialFen(pov.game)
       .flatMap { initialFen =>
-        implicit val lang = ctx.lang
+        given play.api.i18n.Lang = ctx.lang
         jsonView.playerJson(
           pov,
           ctx.pref,
@@ -78,7 +78,7 @@ final private[api] class RoundApi(
     initialFenO
       .fold(gameRepo initialFen pov.game)(fuccess)
       .flatMap { initialFen =>
-        implicit val lang = ctx.lang
+        given play.api.i18n.Lang = ctx.lang
         jsonView.watcherJson(
           pov,
           ctx.pref,
@@ -116,7 +116,7 @@ final private[api] class RoundApi(
       withFlags: WithFlags,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
-    implicit val lang = ctx.lang
+    given play.api.i18n.Lang = ctx.lang
     jsonView.watcherJson(
       pov,
       ctx.pref,

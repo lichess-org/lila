@@ -91,7 +91,7 @@ final class Msg(
       auth = implicit ctx =>
         me =>
           env.msg.compat
-            .reply(me, userId)(ctx.body, formBinding)
+            .reply(me, userId)(using ctx.body, formBinding)
             .fold(
               jsonFormError,
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))

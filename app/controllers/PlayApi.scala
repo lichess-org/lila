@@ -16,7 +16,7 @@ final class PlayApi(
     mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
-  implicit private def autoReqLang(implicit req: RequestHeader) = reqLang(req)
+  private given (using req: RequestHeader): play.api.i18n.Lang = reqLang(req)
 
   // bot endpoints
 
@@ -191,13 +191,13 @@ final class PlayApi(
     }
 
   def botOnlineApi =
-    Action { implicit req =>
+    Action { (req: RequestHeader) =>
       apiC.jsonStream {
         env.user.repo
           .botsByIdsCursor(env.bot.onlineApiUsers.get)
           .documentSource(getInt("nb", req) | Int.MaxValue)
           .throttle(50, 1 second)
           .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
-      }
+      }(req)
     }
 }

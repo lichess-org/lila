@@ -27,7 +27,7 @@ final class OAuthToken(env: Env) extends LilaController(env) {
 
   def createApply =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       OAuthTokenForm.create
         .bindFromRequest()
         .fold(

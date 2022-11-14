@@ -26,7 +26,7 @@ final class Mod(
   private def modApi    = env.mod.api
   private def assessApi = env.mod.assessApi
 
-  implicit private def asMod(holder: Holder) = AsMod(holder.user)
+  private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
 
   def alt(username: String, v: Boolean) =
     OAuthModBody(_.CloseAccount) { me =>
@@ -186,7 +186,7 @@ final class Mod(
 
   def setTitle(username: String) =
     SecureBody(_.SetTitle) { implicit ctx => me =>
-      implicit def req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       lila.user.UserForm.title
         .bindFromRequest()
         .fold(
@@ -201,7 +201,7 @@ final class Mod(
 
   def setEmail(username: String) =
     SecureBody(_.SetEmail) { implicit ctx => me =>
-      implicit def req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       OptionFuResult(env.user.repo named username) { user =>
         env.security.forms
           .modEmail(user)
@@ -411,8 +411,8 @@ final class Mod(
 
   def search =
     SecureBody(_.UserSearch) { implicit ctx => me =>
-      implicit def req = ctx.body
-      val f            = UserSearch.form
+      given play.api.mvc.Request[?] = ctx.body
+      val f                         = UserSearch.form
       f.bindFromRequest()
         .fold(
           err => BadRequest(html.mod.search(me, err, Nil)).toFuccess,
@@ -501,7 +501,7 @@ final class Mod(
 
   def savePermissions(username: String) =
     SecureBody(_.ChangePermission) { implicit ctx => me =>
-      implicit def req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       import lila.security.Permission
       OptionFuResult(env.user.repo named username) { user =>
         Form(
@@ -573,7 +573,7 @@ final class Mod(
 
   def presetsUpdate(group: String) =
     SecureBody(_.Presets) { implicit ctx => _ =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.mod.presets.get(group).fold(notFound) { setting =>
         setting.form
           .bindFromRequest()
@@ -593,7 +593,7 @@ final class Mod(
 
   def apiUserLog(username: String) =
     SecureScoped(_.ModLog) { implicit req => me =>
-      import lila.common.Json._
+      import lila.common.Json.given
       env.user.repo named username flatMap {
         _ ?? { user =>
           for {

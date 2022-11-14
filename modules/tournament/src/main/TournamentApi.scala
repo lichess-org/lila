@@ -765,7 +765,7 @@ final class TournamentApi(
       15 seconds,
       1
     )(_ => {
-      implicit val lang = lila.i18n.defaultLang
+      given play.api.i18n.Lang = lila.i18n.defaultLang
       fetchUpdateTournaments flatMap apiJsonView.apply foreach { json =>
         Bus.publish(
           SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),

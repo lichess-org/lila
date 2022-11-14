@@ -289,7 +289,7 @@ final class Round(
     AuthBody { implicit ctx => me =>
       import play.api.data.Forms._
       import play.api.data._
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       Form(single("text" -> text))
         .bindFromRequest()
         .fold(

@@ -18,7 +18,7 @@ final class Coordinate(env: Env) extends LilaController(env) {
 
   def score =
     AuthBody { implicit ctx => me =>
-      implicit val body = ctx.body
+      implicit val body: play.api.mvc.Request[?] = ctx.body
       env.coordinate.forms.score
         .bindFromRequest()
         .fold(

@@ -11,21 +11,17 @@ import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
-import lila.tournament.{ Tournament => Tour, TournamentForm, VisibleTournaments }
+import lila.tournament.{ Tournament => Tour, TournamentForm, VisibleTournaments, MyInfo }
 import lila.user.{ User => UserModel }
 
-final class Tournament(
-    env: Env,
-    apiC: => Api
-)(using
-    mat: akka.stream.Materializer
-) extends LilaController(env) {
+final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
+    extends LilaController(env) {
 
   private def repo       = env.tournament.tournamentRepo
   private def api        = env.tournament.api
   private def jsonView   = env.tournament.jsonView
   private def forms      = env.tournament.forms
-  private def cachedTour = env.tournament.cached.tourCache byId _
+  private def cachedTour = env.tournament.cached.tourCache.byId
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
@@ -114,7 +110,7 @@ final class Tournament(
                   socketVersion = version.some,
                   partial = false,
                   withScores = true,
-                  myInfo = Preload(myInfo)
+                  myInfo = Preload[Option[MyInfo]](myInfo)
                 ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
                 chat <- loadChat(tour, json)
                 _ <- tour.teamBattle ?? { b =>
@@ -341,7 +337,7 @@ final class Tournament(
   def create = AuthBody { implicit ctx => me =>
     NoBot {
       env.team.api.lightsByLeader(me.id) flatMap { teams =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         negotiate(
           html = forms
             .create(me, teams)
@@ -391,7 +387,7 @@ final class Tournament(
                     none,
                     partial = false,
                     withScores = false
-                  )(reqLang) map { Ok(_) }
+                  )(using reqLang) map { Ok(_) }
                 }
               }
             }
@@ -400,7 +396,7 @@ final class Tournament(
 
   def apiUpdate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      implicit val lang = reqLang
+      given play.api.i18n.Lang = reqLang
       cachedTour(id) flatMap {
         _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
           env.team.api.lightsByLeader(me.id) flatMap { teams =>
@@ -421,7 +417,7 @@ final class Tournament(
                       none,
                       partial = false,
                       withScores = true
-                    )(reqLang) map { Ok(_) }
+                    )(using reqLang) map { Ok(_) }
                   }
               )
           }
@@ -472,7 +468,7 @@ final class Tournament(
       cachedTour(id) flatMap {
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
-            implicit val req = ctx.body
+            given play.api.mvc.Request[?] = ctx.body
             lila.tournament.TeamBattle.DataForm.empty
               .bindFromRequest()
               .fold(
@@ -488,7 +484,7 @@ final class Tournament(
 
   def apiTeamBattleUpdate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      implicit val lang = reqLang
+      given play.api.i18n.Lang = reqLang
       cachedTour(id) flatMap {
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
@@ -575,7 +571,7 @@ final class Tournament(
   def update(id: String) =
     AuthBody { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
             .edit(me, teams, tour)
@@ -600,7 +596,7 @@ final class Tournament(
 
   def byTeam(id: String) =
     Action.async { implicit req =>
-      implicit val lang = reqLang
+      given play.api.i18n.Lang = reqLang
       apiC.jsonStream {
         repo
           .byTeamCursor(id)

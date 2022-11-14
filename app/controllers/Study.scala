@@ -278,7 +278,7 @@ final class Study(
 
   def createAs =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       lila.study.StudyForm.importGame.form
         .bindFromRequest()
         .fold(
@@ -300,7 +300,7 @@ final class Study(
 
   def create =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       lila.study.StudyForm.importGame.form
         .bindFromRequest()
         .fold(
@@ -339,7 +339,7 @@ final class Study(
 
   def importPgn(id: String) =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       get("sri") ?? { sri =>
         lila.study.StudyForm.importPgn.form
           .bindFromRequest()
@@ -564,7 +564,7 @@ final class Study(
       get("term", req).filter(_.nonEmpty) match {
         case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
-          import lila.study.JsonView._
+          import lila.study.JsonView.given
           env.study.topicApi.findLike(term, get("user", req)) map { JsonOk(_) }
       }
     }
@@ -580,7 +580,7 @@ final class Study(
 
   def setTopics =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       lila.study.StudyForm.topicsForm
         .bindFromRequest()
         .fold(

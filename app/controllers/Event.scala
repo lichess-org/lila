@@ -31,7 +31,7 @@ final class Event(env: Env) extends LilaController(env) {
   def update(id: String) =
     SecureBody(_.ManageEvent) { implicit ctx => me =>
       OptionFuResult(api one id) { event =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         api
           .editForm(event)
           .bindFromRequest()
@@ -49,7 +49,7 @@ final class Event(env: Env) extends LilaController(env) {
 
   def create =
     SecureBody(_.ManageEvent) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       api.createForm
         .bindFromRequest()
         .fold(

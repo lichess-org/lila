@@ -76,7 +76,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     Action.async { implicit req =>
       env.puzzle.daily.get flatMap {
         _.fold(notFoundJson()) { daily =>
-          JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(reqLang))
+          JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(using reqLang))
         }
       }
     }
@@ -85,7 +85,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     Action.async { implicit req =>
       env.puzzle.api.puzzle find Puz.Id(id) flatMap {
         _.fold(notFoundJson()) { puzzle =>
-          JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(reqLang))
+          JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(using reqLang))
         }
       }
     }
@@ -142,7 +142,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   private def onComplete[A](form: Form[RoundData])(id: Puz.Id, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: BodyContext[A]
   ) = {
-    implicit val req = ctx.body
+    given play.api.mvc.Request[?] = ctx.body
     form
       .bindFromRequest()
       .fold(
@@ -256,7 +256,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   def vote(id: String) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.puzzle.forms.vote
           .bindFromRequest()
           .fold(
@@ -270,7 +270,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
     AuthBody { implicit ctx => me =>
       NoBot {
         PuzzleTheme.findDynamic(themeStr) ?? { theme =>
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           env.puzzle.forms.themeVote
             .bindFromRequest()
             .fold(
@@ -284,7 +284,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   def setDifficulty(theme: String) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.puzzle.forms.difficulty
           .bindFromRequest()
           .fold(
@@ -432,7 +432,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       negotiate(
         html = notFound,
         _ => {
-          import lila.puzzle.JsonView._
+          import lila.puzzle.JsonView.given
           Reasonable(page) {
             env.puzzle.history(me, page) map { historyPaginator =>
               Ok(lila.common.paginator.PaginatorJson(historyPaginator))
@@ -530,7 +530,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       negotiate(
         html = notFound,
         api = v => {
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           env.puzzle.forms.bc.vote
             .bindFromRequest()
             .fold(

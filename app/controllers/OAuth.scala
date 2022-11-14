@@ -47,7 +47,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
     }
 
   def legacyAuthorize =
-    Action { req =>
+    Action { (req: RequestHeader) =>
       MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
     }
 
@@ -131,7 +131,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
 
   def revokeClient =
     AuthBody { implicit ctx => me =>
-      implicit def body = ctx.body
+      implicit def body: play.api.mvc.Request[?] = ctx.body
       revokeClientForm
         .bindFromRequest()
         .fold(

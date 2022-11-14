@@ -12,7 +12,7 @@ import lila.user.User
 
 final class JsonView(getLightUser: LightUser.GetterSync):
 
-  import JsonView.*
+  import JsonView.{ given, * }
 
   implicit private val userIdWriter: OWrites[UserId] = OWrites { u =>
     val light = getLightUser(u.value)
@@ -48,29 +48,28 @@ object JsonView:
   private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundDownAt(v, depth)
 
   private val isoFormatter = ISODateTimeFormat.dateTime
-  implicit private val dateWriter: Writes[DateTime] = Writes { d =>
+  private given Writes[DateTime] = Writes { d =>
     JsString(isoFormatter print d)
   }
-  implicit private val userWriter: OWrites[User] = OWrites { u =>
+  given OWrites[User] = OWrites { u =>
     Json.obj("name" -> u.username)
   }
-  implicit val glickoWriter: OWrites[Glicko] = OWrites { p =>
+  given OWrites[Glicko] = OWrites { p =>
     Json.obj(
       "rating"      -> round(p.rating),
       "deviation"   -> round(p.deviation),
       "provisional" -> p.provisional
     )
   }
-  implicit val perfWriter: OWrites[Perf] = OWrites { p =>
+  given OWrites[Perf] = OWrites { p =>
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
   }
-  implicit private val avgWriter: Writes[Avg] = Writes { a =>
+  private given Writes[Avg] = Writes { a =>
     JsNumber(round(a.avg))
   }
-  implicit def perfTypeWriter(using lang: Lang): OWrites[PerfType] =
-    OWrites { pt =>
-      Json.obj(
-        "key"  -> pt.key,
-        "name" -> pt.trans
-      )
-    }
+  given (using lang: Lang): OWrites[PerfType] = OWrites { pt =>
+    Json.obj(
+      "key"  -> pt.key,
+      "name" -> pt.trans
+    )
+  }

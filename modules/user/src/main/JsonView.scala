@@ -3,7 +3,7 @@ package lila.user
 import play.api.libs.json.*
 import User.{ LightPerf, PlayTime }
 
-import lila.common.Json.given
+import lila.common.Json.{ writeAs, given }
 import lila.common.LightUser
 import lila.rating.{ Perf, PerfType }
 
@@ -62,9 +62,7 @@ object JsonView:
 
   import Title.given
 
-  val nameWrites = Writes[User] { u =>
-    JsString(u.username)
-  }
+  val nameWrites: Writes[User] = writeAs(_.username)
 
   given OWrites[LightPerf] = OWrites[LightPerf] { l =>
     Json
@@ -91,7 +89,7 @@ object JsonView:
       .add("title" -> u.title)
   }
 
-  given OWrites[Perf] = OWrites { o =>
+  given perfWrites: OWrites[Perf] = OWrites { o =>
     Json
       .obj(
         "games"  -> o.nb,
@@ -107,10 +105,10 @@ object JsonView:
   private def select(key: String, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)
 
-  def perfs(u: User, onlyPerf: Option[PerfType] = None)(using wr: OWrites[Perf]): JsObject =
+  def perfs(u: User, onlyPerf: Option[PerfType] = None): JsObject =
     JsObject(u.perfs.perfsMap collect {
       case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
-        key -> wr.writes(perf)
+        key -> perfWrites.writes(perf)
     }).add(
       "storm",
       u.perfs.storm.nonEmpty option Json.obj(
@@ -131,9 +129,9 @@ object JsonView:
       )
     )
 
-  def perfs(u: User, onlyPerfs: List[PerfType])(using wr: OWrites[Perf]) =
+  def perfs(u: User, onlyPerfs: List[PerfType]) =
     JsObject(onlyPerfs.map { perfType =>
-      perfType.key -> wr.writes(u.perfs(perfType))
+      perfType.key -> perfWrites.writes(u.perfs(perfType))
     })
 
   def notes(ns: List[Note])(implicit lightUser: LightUserApi) =

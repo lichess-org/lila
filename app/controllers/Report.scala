@@ -172,7 +172,7 @@ final class Report(
 
   def create =
     AuthBody { implicit ctx => implicit me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.report.forms.create
         .bindFromRequest()
         .fold(
@@ -192,7 +192,7 @@ final class Report(
 
   def flag =
     AuthBody { implicit ctx => implicit me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.report.forms.flag
         .bindFromRequest()
         .fold(

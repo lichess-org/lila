@@ -218,7 +218,7 @@ final class Swiss(
   def update(id: String) =
     AuthBody { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.swiss.forms
           .edit(me, swiss)
           .bindFromRequest()
@@ -231,7 +231,7 @@ final class Swiss(
 
   def apiUpdate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      implicit val lang = reqLang
+      given play.api.i18n.Lang = reqLang
       WithEditableSwiss(
         id,
         me,
@@ -256,7 +256,7 @@ final class Swiss(
   def scheduleNextRound(id: String) =
     AuthBody { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.swiss.forms.nextRound
           .bindFromRequest()
           .fold(

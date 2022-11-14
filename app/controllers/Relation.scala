@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, Writes }
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -160,10 +160,10 @@ final class Relation(
   }
 
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {
-    import lila.user.JsonView.nameWrites
-    import lila.relation.JsonView.relatedWrites
+    given Writes[UserModel] = lila.user.JsonView.nameWrites
+    import lila.relation.JsonView.given
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
-      relatedWrites.writes(r) ++ Json
+      Json.toJsObject(r) ++ Json
         .obj(
           "perfs" -> r.user.perfs.bestPerfType.map { best =>
             lila.user.JsonView.perfs(r.user, best.some)

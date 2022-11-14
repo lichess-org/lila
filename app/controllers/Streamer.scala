@@ -119,7 +119,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
     AuthBody { implicit ctx => me =>
       AsStreamer { s =>
         env.streamer.liveStreamApi of s flatMap { sws =>
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           StreamerForm
             .userForm(sws.streamer)
             .bindFromRequest()
