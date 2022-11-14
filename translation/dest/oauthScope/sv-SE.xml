@@ -10,7 +10,7 @@
   <string name="copyTokenNow">Se till att kopiera din nya personliga åtkomsttoken nu. Du kommer inte kunna se den igen!</string>
   <string name="preferenceRead">Se inställningar</string>
   <string name="preferenceWrite">Ändra inställningar</string>
-  <string name="emailRead">Läsa e-postadress</string>
+  <string name="emailRead">Se e-postadress</string>
   <string name="challengeRead">Se inkommande utmaningar</string>
   <string name="challengeWrite">Skicka, acceptera och avvisa utmaningar</string>
   <string name="challengeBulk">Skapa många partier samtidigt för andra spelare</string>
