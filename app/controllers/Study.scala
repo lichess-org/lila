@@ -290,7 +290,7 @@ final class Study(
               res <-
                 if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
                 else {
-                  val back = HTTPRequest.referer(req) orElse
+                  val back = HTTPRequest.referer(ctx.req) orElse
                     data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
                   Ok(html.study.create(data, owner, contrib, back)).toFuccess
                 }
@@ -654,7 +654,7 @@ final class Study(
 
   def glyphs(lang: String) = Action {
     import chess.format.pgn.Glyph
-    import lila.tree.Node.glyphWriter
+    import lila.tree.Node.given
     import lila.i18n.{ I18nKeys => trans }
 
     play.api.i18n.Lang.get(lang) ?? { implicit lang =>

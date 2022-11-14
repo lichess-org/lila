@@ -48,8 +48,8 @@ final class JsonView(isOnline: lila.socket.IsOnline):
       .add("patron" -> u.isPatron)
       .add("verified" -> u.isVerified)
 
-  def lightPerfIsOnline(lp: LightPerf)(using wr: OWrites[LightPerf]) =
-    wr.writes(lp).add("online" -> isOnline(lp.user.id))
+  def lightPerfIsOnline(lp: LightPerf) =
+    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 
   def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,
@@ -64,7 +64,7 @@ object JsonView:
 
   val nameWrites: Writes[User] = writeAs(_.username)
 
-  given OWrites[LightPerf] = OWrites[LightPerf] { l =>
+  given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf] { l =>
     Json
       .obj(
         "id"       -> l.user.id,
@@ -149,10 +149,8 @@ object JsonView:
       }
     }
 
-  implicit def leaderboardsWrites(using
-      lightPerfWrites: OWrites[User.LightPerf]
-  ): Writes[Perfs.Leaderboards] =
-    Writes[Perfs.Leaderboards] { leaderboards =>
+  given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[Perfs.Leaderboards] =
+    OWrites { leaderboards =>
       Json.obj(
         "bullet"        -> leaderboards.bullet,
         "blitz"         -> leaderboards.blitz,

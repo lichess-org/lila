@@ -24,7 +24,7 @@ final class Tutor(env: Env) extends LilaController(env) {
 
   def perf(username: String, perf: String) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.perf(report, perf, me)).toFuccess
+      Ok(views.html.tutor.perf(report, perf, me)).toFuccess: Fu[Result]
   }
 
   def openings(username: String, perf: String) = TutorPerfPage(username, perf) {

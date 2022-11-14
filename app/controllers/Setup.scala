@@ -58,7 +58,7 @@ final class Setup(
           .fold(
             jsonFormError,
             config =>
-              processor.ai(config)(ctx) flatMap { pov =>
+              processor.ai(config) flatMap { pov =>
                 negotiate(
                   html = fuccess(redirectPov(pov)),
                   api = apiVersion =>
@@ -100,7 +100,7 @@ final class Setup(
                       timeControl = timeControl,
                       mode = config.mode,
                       color = config.color.name,
-                      challenger = (ctx.me, HTTPRequest sid req) match {
+                      challenger = (ctx.me, HTTPRequest sid ctx.req) match {
                         case (Some(user), _) => toRegistered(config.variant, timeControl)(user)
                         case (_, Some(sid))  => Challenger.Anonymous(sid)
                         case _               => Challenger.Open
@@ -143,8 +143,7 @@ final class Setup(
       NoBot {
         given play.api.mvc.Request[?] = ctx.body
         NoPlaybanOrCurrent {
-          forms
-            .hook(ctx)
+          forms.hook
             .bindFromRequest()
             .fold(
               jsonFormError,
@@ -155,7 +154,7 @@ final class Setup(
                       processor.hook(
                         userConfig withinLimits ctx.me,
                         Sri(sri),
-                        HTTPRequest sid req,
+                        HTTPRequest sid ctx.req,
                         blocking
                       ) map hookResponse
                     }

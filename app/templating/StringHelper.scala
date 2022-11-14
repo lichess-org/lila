@@ -5,13 +5,9 @@ import chess.format.FEN
 import play.api.i18n.Lang
 import ui.ScalatagsTemplate.{ *, given }
 
-trait StringHelper { self: NumberHelper =>
+trait StringHelper { self: I18nHelper with NumberHelper =>
 
-  val slugify = lila.common.String.slugify _
-
-  val urlencode = lila.common.String.urlencode _
-
-  def underscoreFen = lila.common.String.underscoreFen _
+  export lila.common.String.{ slugify, urlencode, underscoreFen }
 
   def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
 

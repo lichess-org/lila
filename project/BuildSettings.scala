@@ -57,7 +57,7 @@ object BuildSettings {
     "-rewrite",
     "-source:future-migration",
     "-indent",
-    "-explaintypes",
+    // "-explaintypes",
     "-feature",
     "-language:postfixOps",
     "-Xtarget:12"

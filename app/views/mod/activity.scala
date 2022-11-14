@@ -89,10 +89,10 @@ object activity {
             tr(
               th(showDate(date)),
               Room.all.map { r =>
-                td(~row.reports.get(r))
+                td(~row.reports.get(r): Int)
               },
               Action.all.map { a =>
-                td(~row.actions.get(a))
+                td(~row.actions.get(a): Int)
               }
             )
           }

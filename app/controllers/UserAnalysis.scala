@@ -125,7 +125,7 @@ final class UserAnalysis(
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
         env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
-          import lila.game.JsonView.crosstableWrites
+          import lila.game.JsonView.given
           env.api.roundApi.review(
             pov,
             apiVersion,

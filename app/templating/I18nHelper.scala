@@ -9,7 +9,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKey, JsDump, LangList, MessageKey, Translator }
 import lila.user.UserContext
 
-trait I18nHelper extends HasEnv with UserContext.ToLang {
+trait I18nHelper {
+
+  export LangList.{ nameByStr as langName }
 
   def transKey(key: MessageKey, args: Seq[Matchable] = Nil)(using lang: Lang): Frag =
     Translator.frag.literal(key, args, lang)
@@ -19,8 +21,6 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
 
   def i18nOptionJsObject(keys: Option[I18nKey]*)(using lang: Lang): JsObject =
     JsDump.keysToObject(keys.collect { case Some(k) => k.key }, lang)
-
-  def langName = LangList.nameByStr _
 
   def shortLangName(str: String) = langName(str).takeWhile(','.!=)
 

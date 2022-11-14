@@ -68,14 +68,13 @@ case class TutorPerfReport(
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare)
   }
 
-  lazy val allCompares: List[TutorCompare[?, ?]] =
-    openingCompares ::: phaseCompares
+  lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
 
-  val openingHighlights = (() => TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons)))
+  val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons))
 
-  val phaseHighlights = (() => TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons)))
+  val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons))
 
-  val timeHighlights = (() => TutorCompare.mixedBag(clockCompares.flatMap(_.peerComparisons)))
+  val timeHighlights = TutorCompare.mixedBag(clockCompares.flatMap(_.peerComparisons))
 
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::

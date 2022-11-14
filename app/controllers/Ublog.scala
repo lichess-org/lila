@@ -16,7 +16,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
   import views.html.ublog.blog.urlOfBlog
-  import lila.common.paginator.Paginator.zero
+  import lila.common.paginator.Paginator.given
 
   def index(username: String, page: Int) = Open { implicit ctx =>
     NotForKids {
@@ -284,7 +284,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
 
   def communityLangBC(code: String) = Action {
-    val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
+    val l = LangList.popularNoRegion.find(l => l.code == code)
     Redirect {
       l.fold(routes.Ublog.communityAll())(l => routes.Ublog.communityLang(l.language))
     }

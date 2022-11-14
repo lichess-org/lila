@@ -165,7 +165,8 @@ final class EnvBoot(
 )(using
     ec: ExecutionContext,
     system: ActorSystem,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    materializer: akka.stream.Materializer
 ) {
 
   given Scheduler   = system.scheduler

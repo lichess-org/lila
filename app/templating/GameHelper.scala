@@ -136,9 +136,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match {
-            case (Some(level), _) => aiNameFrag(level)
+            case (Some(level), _) => aiNameFrag(level)(using ctx.lang)
             case (_, Some(name))  => name
-            case _                => trans.anonymous()
+            case _                => trans.anonymous()(using ctx.lang)
           },
           player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
           statusIcon
@@ -149,14 +149,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             cls  := userClass(user.id, cssClass, withOnline),
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
-            withOnline option frag(lineIcon(user), " "),
-            playerUsername(player, withRating && ctx.pref.showRatings),
+            withOnline option frag(lineIcon(user)(using ctx.lang), " "),
+            playerUsername(player, withRating && ctx.pref.showRatings)(using ctx.lang),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
             engine option span(
               cls   := "tos_violation",
-              title := trans.thisAccountViolatedTos.txt()
+              title := trans.thisAccountViolatedTos.txt()(using ctx.lang)
             )
           ),
           statusIcon
@@ -249,7 +249,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
-    val challenger = c.challengerUser.fold(trans.anonymous.txt()) { reg =>
+    val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)) { reg =>
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings ?? s" (${reg.rating.show})"}"
     }
     val players =

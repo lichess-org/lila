@@ -47,7 +47,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def show(id: String) =
     Open { implicit ctx =>
       env.simul.repo find id flatMap {
-        _.fold(simulNotFound.toFuccess) { sim =>
+        _.fold[Fu[Result]](simulNotFound.toFuccess) { sim =>
           for {
             team    <- sim.team ?? env.team.api.team
             version <- env.simul.version(sim.id)

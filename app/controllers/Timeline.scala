@@ -7,7 +7,7 @@ import views._
 import lila.app.{ given, * }
 import lila.common.config.Max
 import lila.common.HTTPRequest
-import lila.timeline.Entry.entryWrites
+import lila.timeline.Entry.given
 
 final class Timeline(env: Env) extends LilaController(env) {
 

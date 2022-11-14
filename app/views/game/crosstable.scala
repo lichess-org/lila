@@ -9,8 +9,8 @@ import controllers.routes
 
 object crosstable {
 
-  def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(implicit ctx: Context): Frag =
-    apply(ct.crosstable, ct.matchup, currentId)(ctx)
+  def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(using ctx: Context): Frag =
+    apply(ct.crosstable, ct.matchup, currentId)
 
   def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(using
       ctx: Context

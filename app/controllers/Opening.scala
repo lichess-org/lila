@@ -54,7 +54,7 @@ final class Opening(env: Env) extends LilaController(env) {
       given play.api.mvc.Request[?] = ctx.body
       val redir =
         Redirect {
-          lila.common.HTTPRequest.referer(req) | {
+          lila.common.HTTPRequest.referer(ctx.req) | {
             if (thenTo.isEmpty) routes.Opening.index().url
             else if (thenTo startsWith "q:") routes.Opening.index(thenTo.drop(2).some).url
             else routes.Opening.byKeyAndMoves(thenTo, "").url

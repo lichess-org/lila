@@ -87,7 +87,7 @@ trait ScalatagsBundle extends Attrs with scalatags.text.Tags
 
 // short prefix
 trait ScalatagsPrefix {
-  object st extends Attrs with scalatags.text.Tags {
+  object st extends Cap with Attrs with scalatags.text.Tags {
     val group     = tag("group")
     val headTitle = tag("title")
     val nav       = tag("nav")

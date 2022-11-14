@@ -12,7 +12,7 @@ trait FlashHelper { self: I18nHelper =>
   def successFlash(modifiers: Seq[Modifier])(using ctx: Context): Option[Frag] =
     ctx.flash("success").map { msg =>
       flashMessage(modifiers ++ Seq(cls := "flash-success"))(
-        if (msg.isEmpty) trans.success() else msg
+        if (msg.isEmpty) trans.success()(using ctx.lang) else msg
       )
     }
 

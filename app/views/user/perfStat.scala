@@ -30,7 +30,7 @@ object perfStat {
           frag(
             jsModule("chart.ratingHistory"),
             embedJsUnsafeLoadThen {
-              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans(lila.i18n.defaultLang)}'});"
+              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans}'});"
             }
           )
         }

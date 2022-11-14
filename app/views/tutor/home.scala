@@ -5,9 +5,9 @@ import controllers.routes
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Heapsort.implicits._
+import lila.common.Heapsort.given
 import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
-import lila.tutor.TutorCompare.comparisonOrdering
+import lila.tutor.TutorCompare.given
 import lila.user.User
 import lila.insight.Phase
 

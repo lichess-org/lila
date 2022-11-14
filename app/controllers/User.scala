@@ -182,7 +182,7 @@ final class User(
                       .withHeaders(CACHE_CONTROL -> "max-age=5")
                   },
                   api = _ => {
-                    import lila.game.JsonView.crosstableWrites
+                    import lila.game.JsonView.given
                     fuccess(
                       Ok(
                         Json.obj(
@@ -288,7 +288,7 @@ final class User(
             ),
           api = _ =>
             fuccess {
-              implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+              given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
               import lila.user.JsonView.leaderboardsWrites
               JsonOk(leaderboards)
             }
@@ -298,7 +298,7 @@ final class User(
 
   def apiList = Action.async {
     env.user.cached.top10.get {} map { leaderboards =>
-      implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+      given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
       import lila.user.JsonView.leaderboardsWrites
       JsonOk(leaderboards)
     }
@@ -329,7 +329,7 @@ final class User(
     }
 
   private def topNbJson(users: List[UserModel.LightPerf]) = {
-    implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+    given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
     Ok(Json.obj("users" -> users))
   }
 
@@ -382,7 +382,7 @@ final class User(
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         import html.user.{ mod => view }
-        import lila.app.ui.ScalatagsExtensions.LilaFragZero
+        import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
         implicit val renderIp = env.mod.ipRender(holder)
 
         val nbOthers = getInt("nbOthers") | 100
@@ -392,7 +392,11 @@ final class User(
           appeal  <- isGranted(_.Appeals) ?? env.appeal.api.get(user)
         } yield view.modLog(history, appeal)
 
-        val plan = isGranted(_.Admin) ?? env.plan.api.recentChargesOf(user).map(view.plan(user)).dmap(~_)
+        val plan =
+          isGranted(_.Admin) ?? env.plan.api
+            .recentChargesOf(user)
+            .map(view.plan(user))
+            .dmap(_ | emptyFrag): Fu[Frag]
 
         val student = env.clas.api.student.findManaged(user).map2(view.student).dmap(~_)
 

@@ -28,7 +28,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
   def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithDirAndTheme(name, isRTL, ctx.currentBg)
+    cssTagWithDirAndTheme(name, isRTL(using ctx.lang), ctx.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
     cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
@@ -49,14 +49,14 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def depsTag = jsAt("compiled/deps.min.js")
 
-  def roundTag                            = jsModule("round")
+  def roundTag                         = jsModule("round")
   def roundNvuiTag(using ctx: Context) = ctx.blind option jsModule("round.nvui")
 
-  def analyseTag                            = jsModule("analysisBoard")
-  def analyseStudyTag                       = jsModule("analysisBoard.study")
+  def analyseTag                         = jsModule("analysisBoard")
+  def analyseStudyTag                    = jsModule("analysisBoard.study")
   def analyseNvuiTag(using ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
-  def puzzleTag                            = jsModule("puzzle")
+  def puzzleTag                         = jsModule("puzzle")
   def puzzleNvuiTag(using ctx: Context) = ctx.blind option jsModule("puzzle.nvui")
 
   def captchaTag          = jsModule("captcha")

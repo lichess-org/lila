@@ -49,7 +49,7 @@ object TutorCompare:
 
     override def toString = s"(${grade.value}) $dimensionType $metric ${value.value} vs $reference"
 
-  private given compOrder: Ordering[AnyComparison] = Ordering.by(_.importance.abs)
+  given compOrder: Ordering[AnyComparison] = Ordering.by(_.importance.abs)
 
   type AnyComparison = Comparison[?, ?]
   type AnyCompare    = TutorCompare[?, ?]

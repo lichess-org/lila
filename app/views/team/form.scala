@@ -101,7 +101,7 @@ object form {
       help = frag("Brief description visible in team listings. Up to 200 chars.").some
     )(
       form3.textarea(_)(rows := 2)
-    )(ctx)(cls := form("intro").value.isEmpty.option("accent")),
+    )(cls := form("intro").value.isEmpty.option("accent")),
     form3.group(
       form("description"),
       trans.description(),

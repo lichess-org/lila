@@ -4,6 +4,7 @@ package templating
 import scala.concurrent.duration.DurationInt
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.user.UserContext
 
 object Environment
     extends lila.Lilaisms
@@ -22,7 +23,8 @@ object Environment
     with TeamHelper
     with TournamentHelper
     with FlashHelper
-    with ChessgroundHelper {
+    with ChessgroundHelper
+    with UserContext.ToLang {
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = { envVar = Some(e) }

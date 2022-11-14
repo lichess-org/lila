@@ -23,7 +23,7 @@ object bits {
   ): Frag =
     if (!(ctx.me ?? Granter(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")
     else
-      userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)(ctx.lang)
+      userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)
 
   private[forum] val dataTopic = attr("data-topic")
   private[forum] val dataUnsub = attr("data-unsub")
