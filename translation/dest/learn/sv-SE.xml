@@ -14,8 +14,8 @@
   <string name="rookGoal">Klicka på tornet för att föra det till stjärnan!</string>
   <string name="grabAllTheStars">Ta alla stjärnor!</string>
   <string name="theFewerMoves">Ju färre drag du gör desto fler poäng vinner du!</string>
-  <string name="useTwoRooks">Använd två torn för att snabba på det hela!</string>
-  <string name="rookComplete">Grattis! Du behärskar framgångsrikt tornet.</string>
+  <string name="useTwoRooks">Använd två torn så går det snabbare!</string>
+  <string name="rookComplete">Grattis! Du har bemästrat tornet.</string>
   <string name="theBishop">Löparen</string>
   <string name="itMovesDiagonally">Den rör sig diagonalt</string>
   <string name="bishopIntro">Härnäst kommer vi lära dig att manövrera en löpare!</string>
@@ -62,7 +62,7 @@ Du behöver bägge!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Slå de svarta pjäserna! Och förlora inte dina egna.</string>
   <string name="captureComplete">Grattis! Du vet nu hur man slåss med schackpjäser!</string>
   <string name="protection">Försvar</string>
-  <string name="keepYourPiecesSafe">Gardera dina pjäser</string>
+  <string name="keepYourPiecesSafe">Skydda dina pjäser</string>
   <string name="protectionIntro">Hitta pjäserna som din motståndare attackerar, och försvara dem!</string>
   <string name="protectionComplete">Grattis! En pjäs du inte förlorar är en pjäs du vinner!</string>
   <string name="escape">Du är under attack! Fly undan hotet!</string>
@@ -92,7 +92,7 @@ Du behöver bägge!</string>
   <string name="attackYourOpponentsKing">Attackera motståndarens kung på ett sätt som inte kan försvaras!</string>
   <string name="mateInOneComplete">Grattis! Så här vinner du ett schackparti!</string>
   <string name="intermediate">Medelsvår</string>
-  <string name="boardSetup">Brädets uppsättning</string>
+  <string name="boardSetup">Utgångsställningen</string>
   <string name="howTheGameStarts">Hur partiet startar</string>
   <string name="boardSetupIntro">De två arméerna möter varandra, redo för strid.</string>
   <string name="thisIsTheInitialPosition">Detta är den inledande placeringen av varje schackparti! Göra ett drag för att fortsätta.</string>
@@ -116,7 +116,7 @@ Du behöver bägge!</string>
   <string name="findAWayToCastleKingSide">Hitta ett sätt att rockera kort!</string>
   <string name="findAWayToCastleQueenSide">Hitta ett sätt att rockera långt!</string>
   <string name="castlingComplete">Grattis! Du bör nästan alltid rockera.</string>
-  <string name="enPassant">En passant (slag i förbigående)</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Det speciella bondedraget</string>
   <string name="enPassantIntro">Om din motståndare flyttat en bonde två steg, så kan du ta den som om den flyttat bara ett steg.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svart har flyttat bonden två steg! Ta den en passant (i förbigående).</string>
@@ -132,7 +132,7 @@ Du behöver bägge!</string>
 - svart inte är i schack.</string>
   <string name="stalemateComplete">Grattis! Bättre att vara patt än schackmatt!</string>
   <string name="advanced">Avancerat</string>
-  <string name="pieceValue">Pjäsernas värdering</string>
+  <string name="pieceValue">Pjäsernas värden</string>
   <string name="evaluatePieceStrength">Värdera pjäser</string>
   <string name="pieceValueIntro">Ju högre rörlighet - desto högre värde har en pjäs!
 Dam = 9
@@ -165,9 +165,9 @@ Bonde = 1</string>
   <string name="register">Registrera dig</string>
   <string name="getAFreeLichessAccount">Skaffa ett gratis Lichesskonto</string>
   <string name="practice">Öva</string>
-  <string name="learnCommonChessPositions">Lär dig vanligt förekommande schackställningar</string>
+  <string name="learnCommonChessPositions">Lär dig vanliga schackställningar</string>
   <string name="puzzles">Schackproblem</string>
-  <string name="exerciseYourTacticalSkills">Öva din taktiska färdighet</string>
+  <string name="exerciseYourTacticalSkills">Öva dina taktiska färdigheter</string>
   <string name="videos">Videor</string>
   <string name="watchInstructiveChessVideos">Titta på lärorika schackvideor</string>
   <string name="playPeople">Spela mot människor</string>
