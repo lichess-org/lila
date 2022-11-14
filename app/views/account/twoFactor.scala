@@ -2,7 +2,7 @@ package views.html
 package account
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
@@ -41,7 +41,7 @@ object twoFactor {
           qrCode,
           div(cls := "form-group")(
             ifYouCannotScanEnterX(
-              span(style := "background:black;color:black;")(~form("secret").value)
+              span(style := "background:black;color:black;")(form("secret").value.orZero: String)
             )
           ),
           div(cls := "form-group explanation")(enterPassword()),

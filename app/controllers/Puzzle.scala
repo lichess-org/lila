@@ -9,7 +9,7 @@ import views._
 
 import lila.api.BodyContext
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.i18n.I18nLangPicker
@@ -351,7 +351,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       val angle = PuzzleAngle.findOrMix(angleKey)
       OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
         if (angle.asTheme.exists(theme => !puzzle.themes.contains(theme)))
-          Redirect(routes.Puzzle.show(puzzle.id.value)).fuccess
+          Redirect(routes.Puzzle.show(puzzle.id.value)).toFuccess
         else
           ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
             renderShow(puzzle, angle)
@@ -361,7 +361,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   def angleAndColor(angleKey: String, colorKey: String) = Open { implicit ctx =>
     NoBot {
-      PuzzleAngle.find(angleKey).fold(Redirect(routes.Puzzle.openings()).fuccess) { angle =>
+      PuzzleAngle.find(angleKey).fold(Redirect(routes.Puzzle.openings()).toFuccess) { angle =>
         val color = Color fromName colorKey
         nextPuzzleForMe(angle, color.some) flatMap {
           renderShow(_, angle, color = color)
@@ -390,7 +390,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
           source =>
             Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
         }
-        .fuccess
+        .toFuccess
     }
 
   def apiDashboard(days: Int) = {
@@ -422,7 +422,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
       env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
         case None =>
-          Redirect(routes.Puzzle.dashboard(days, "home", none)).fuccess
+          Redirect(routes.Puzzle.dashboard(days, "home", none)).toFuccess
         case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
       }
     }
@@ -504,7 +504,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
           ctx.body.body
             .validate[SolveData]
             .fold(
-              err => BadRequest(err.toString).fuccess,
+              err => BadRequest(err.toString).toFuccess,
               data =>
                 data.solutions.lastOption
                   .flatMap { solution =>
@@ -546,7 +546,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   def help =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.puzzle).fuccess
+      Ok(html.site.keyboardHelpModal.puzzle).toFuccess
     }
 
   private def DashboardPage(username: Option[String])(f: Context => UserModel => Fu[Result]) =

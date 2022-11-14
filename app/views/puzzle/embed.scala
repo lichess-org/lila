@@ -3,7 +3,7 @@ package views.html.puzzle
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.DailyPuzzle

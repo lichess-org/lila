@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -31,14 +31,14 @@ final class Study(
         if (text.trim.isEmpty)
           env.study.pager.all(ctx.me, Order.default, page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
-              html = Ok(html.study.list.all(pag, Order.default)).fuccess,
+              html = Ok(html.study.list.all(pag, Order.default)).toFuccess,
               api = _ => apiStudies(pag)
             )
           }
         else
           env.studySearch(ctx.me)(text, page) flatMap { pag =>
             negotiate(
-              html = Ok(html.study.list.search(pag, text)).fuccess,
+              html = Ok(html.study.list.search(pag, text)).toFuccess,
               api = _ => apiStudies(pag)
             )
           }
@@ -59,11 +59,11 @@ final class Study(
     Reasonable(page) {
       Order(o) match {
         case order if !Order.withoutSelector.contains(order) =>
-          Redirect(routes.Study.allDefault(page)).fuccess
+          Redirect(routes.Study.allDefault(page)).toFuccess
         case order =>
           env.study.pager.all(ctx.me, order, page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
-              html = Ok(html.study.list.all(pag, order)).fuccess,
+              html = Ok(html.study.list.all(pag, order)).toFuccess,
               api = _ => apiStudies(pag)
             )
           }
@@ -78,7 +78,7 @@ final class Study(
         _.fold(notFound(ctx)) { owner =>
           env.study.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
-              html = Ok(html.study.list.byOwner(pag, Order(order), owner)).fuccess,
+              html = Ok(html.study.list.byOwner(pag, Order(order), owner)).toFuccess,
               api = _ => apiStudies(pag)
             )
           }
@@ -102,7 +102,7 @@ final class Study(
     Auth { implicit ctx => me =>
       env.study.pager.minePublic(me, Order(order), page) flatMap { pag =>
         preloadMembers(pag) >> negotiate(
-          html = Ok(html.study.list.minePublic(pag, Order(order), me)).fuccess,
+          html = Ok(html.study.list.minePublic(pag, Order(order), me)).toFuccess,
           api = _ => apiStudies(pag)
         )
       }
@@ -112,7 +112,7 @@ final class Study(
     Auth { implicit ctx => me =>
       env.study.pager.minePrivate(me, Order(order), page) flatMap { pag =>
         preloadMembers(pag) >> negotiate(
-          html = Ok(html.study.list.minePrivate(pag, Order(order), me)).fuccess,
+          html = Ok(html.study.list.minePrivate(pag, Order(order), me)).toFuccess,
           api = _ => apiStudies(pag)
         )
       }
@@ -134,7 +134,7 @@ final class Study(
     Auth { implicit ctx => me =>
       env.study.pager.mineLikes(me, Order(order), page) flatMap { pag =>
         preloadMembers(pag) >> negotiate(
-          html = Ok(html.study.list.mineLikes(pag, Order(order))).fuccess,
+          html = Ok(html.study.list.mineLikes(pag, Order(order))).toFuccess,
           api = _ => apiStudies(pag)
         )
       }
@@ -164,7 +164,7 @@ final class Study(
     implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
       env.study.jsonView.pagerData(s)
     }
-    Ok(Json.obj("paginator" -> PaginatorJson(pager))).fuccess
+    Ok(Json.obj("paginator" -> PaginatorJson(pager))).toFuccess
   }
 
   private def orRelay(id: String, chapterId: Option[String] = None)(
@@ -172,7 +172,7 @@ final class Study(
   )(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.RelayRound.Id(id)) flatMap {
       _.fold(f) { rt =>
-        Redirect(chapterId.map(Chapter.Id).fold(rt.path)(rt.path)).fuccess
+        Redirect(chapterId.map(Chapter.Id).fold(rt.path)(rt.path)).toFuccess
       }
     }
     else f
@@ -282,7 +282,7 @@ final class Study(
       lila.study.StudyForm.importGame.form
         .bindFromRequest()
         .fold(
-          _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+          _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
           data =>
             for {
               owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
@@ -292,7 +292,7 @@ final class Study(
                 else {
                   val back = HTTPRequest.referer(req) orElse
                     data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
-                  Ok(html.study.create(data, owner, contrib, back)).fuccess
+                  Ok(html.study.create(data, owner, contrib, back)).toFuccess
                 }
             } yield res
         )
@@ -304,7 +304,7 @@ final class Study(
       lila.study.StudyForm.importGame.form
         .bindFromRequest()
         .fold(
-          _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+          _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
           data => createStudy(data, me)
         )
     }
@@ -314,7 +314,7 @@ final class Study(
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
       _.fold(notFound) { sc =>
-        Redirect(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).fuccess
+        Redirect(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).toFuccess
       }
     }
 
@@ -397,8 +397,8 @@ final class Study(
             )
             data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
             result <- negotiate(
-              html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
-              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+              html = Ok(html.study.embed(study, chapter, chapters, data)).toFuccess,
+              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).toFuccess
             )
           } yield result
         }
@@ -412,7 +412,7 @@ final class Study(
     Auth { implicit ctx => _ =>
       OptionFuResult(env.study.api.byId(id)) { study =>
         CanView(study, ctx.me) {
-          Ok(html.study.clone(study)).fuccess
+          Ok(html.study.clone(study)).toFuccess
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
       }
     }
@@ -456,7 +456,7 @@ final class Study(
       PgnRateLimitPerIp(ctx.ip, msg = id) {
         OptionFuResult(env.study.api byId id) { study =>
           CanView(study, ctx.me) {
-            doPgn(study, ctx.req).fuccess
+            doPgn(study, ctx.req).toFuccess
           }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }
       }(rateLimitedFu)
@@ -523,7 +523,7 @@ final class Study(
           .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
           .as(pgnContentType)
       }
-      .fuccess
+      .toFuccess
   }
 
   private def requestPgnFlags(req: RequestHeader) =
@@ -555,14 +555,14 @@ final class Study(
       OptionFuResult(env.study.api byId id) { study =>
         CanView(study, ctx.me) {
           env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
-        }(privateUnauthorizedJson.fuccess, privateForbiddenJson.fuccess)
+        }(privateUnauthorizedJson.toFuccess, privateForbiddenJson.toFuccess)
       }
     }
 
   def topicAutocomplete =
     Action.async { req =>
       get("term", req).filter(_.nonEmpty) match {
-        case None => BadRequest("No search term provided").fuccess
+        case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
           import lila.study.JsonView._
           env.study.topicApi.findLike(term, get("user", req)) map { JsonOk(_) }
@@ -584,7 +584,7 @@ final class Study(
       lila.study.StudyForm.topicsForm
         .bindFromRequest()
         .fold(
-          _ => Redirect(routes.Study.topics).fuccess,
+          _ => Redirect(routes.Study.topics).toFuccess,
           topics =>
             env.study.topicApi.userTopics(me, topics) inject
               Redirect(routes.Study.topics)

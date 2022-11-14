@@ -8,7 +8,7 @@ import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }

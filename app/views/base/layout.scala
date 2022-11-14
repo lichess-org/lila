@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.{ AnnounceStore, Context }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.common.LangPath

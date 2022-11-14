@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList }
 import lila.report.Suspect
@@ -32,7 +32,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def drafts(username: String, page: Int) = Auth { implicit ctx => me =>
     NotForKids {
-      if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).fuccess
+      if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).toFuccess
       else
         env.ublog.paginator.byUser(me, false, page) map { posts =>
           Ok(html.ublog.index.drafts(me, posts))
@@ -46,7 +46,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           env.ublog.api.findByIdAndBlog(UblogPost.Id(id), blog.id) flatMap {
             _.filter(canViewPost(user, blog)).fold(notFound) { post =>
-              if (slug != post.slug) Redirect(urlOfPost(post)).fuccess
+              if (slug != post.slug) Redirect(urlOfPost(post)).toFuccess
               else {
                 env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
                   ctx.me.??(env.ublog.rank.liked(post)) zip
@@ -89,7 +89,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   def form(username: String) = Auth { implicit ctx => me =>
     NotForKids {
       if (env.ublog.api.canBlog(me)) {
-        if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).fuccess
+        if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).toFuccess
         else
           env.ublog.form.anyCaptcha map { captcha =>
             Ok(html.ublog.form.create(me, env.ublog.form.create, captcha))
@@ -99,7 +99,7 @@ final class Ublog(env: Env) extends LilaController(env) {
           html.site.message.notYet(
             "Please play a few games and wait 2 days before you can create blog posts."
           )
-        ).fuccess
+        ).toFuccess
     }
   }
 
@@ -145,7 +145,7 @@ final class Ublog(env: Env) extends LilaController(env) {
             .edit(prev)
             .bindFromRequest()(ctx.body, formBinding)
             .fold(
-              err => BadRequest(html.ublog.form.edit(prev, err)).fuccess,
+              err => BadRequest(html.ublog.form.edit(prev, err)).toFuccess,
               data =>
                 env.ublog.api.update(data, prev, me) flatMap { post =>
                   logModAction(post, "edit") inject
@@ -191,7 +191,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   def redirect(id: String) = Open { implicit ctx =>
     env.ublog.api.postPreview(UblogPost.Id(id)) flatMap {
       _.fold(notFound) { post =>
-        Redirect(urlOfPost(post)).fuccess
+        Redirect(urlOfPost(post)).toFuccess
       }
     }
   }
@@ -203,7 +203,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         lila.ublog.UblogForm.tier
           .bindFromRequest()
           .fold(
-            err => Redirect(urlOfBlog(blog)).flashFailure.fuccess,
+            err => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
             tier =>
               for {
                 user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect
@@ -260,8 +260,8 @@ final class Ublog(env: Env) extends LilaController(env) {
   def communityLang(language: String, page: Int = 1) =
     Open { ctx =>
       I18nLangPicker.byHref(language, ctx.req) match {
-        case I18nLangPicker.NotFound      => Redirect(routes.Ublog.communityAll(page)).fuccess
-        case I18nLangPicker.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).fuccess
+        case I18nLangPicker.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
+        case I18nLangPicker.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
         case I18nLangPicker.Refused(lang) => communityIndex(lang.some, page)(ctx)
         case I18nLangPicker.Found(lang) =>
           if (ctx.isAuth) communityIndex(lang.some, page)(ctx)
@@ -331,7 +331,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def userAtom(username: String) = Action.async { implicit req =>
     env.user.repo.enabledNamed(username) flatMap {
-      case None => NotFound.fuccess
+      case None => NotFound.toFuccess
       case Some(user) =>
         implicit val lang = reqLang
         env.ublog.api.getUserBlog(user) flatMap { blog =>

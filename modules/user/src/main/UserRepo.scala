@@ -464,9 +464,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .one[Bdoc]
       .map { _ ?? anyEmailOrPrevious }
 
-  def enabledWithEmail(
-      email: NormalizedEmailAddress
-  )(using r: BSONHandler[User]): Fu[Option[(User, EmailAddress)]] =
+  def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
       .find($doc(F.email -> email, F.enabled -> true))
       .one[Bdoc]
@@ -474,7 +472,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         for {
           doc         <- maybeDoc
           storedEmail <- anyEmail(doc)
-          user        <- r readOpt doc
+          user        <- summon[BSONHandler[User]] readOpt doc
         } yield (user, storedEmail)
       }
 

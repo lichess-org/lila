@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import chess.format.FEN
 import lila.api.{ BodyContext, Context }
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
 import lila.rating.Glicko
@@ -87,9 +87,9 @@ final class Setup(
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = Forbidden(jsonError(message)).fuccess,
+                      html = Forbidden(jsonError(message)).toFuccess,
                       // 403 tells setupCtrl.ts to close the setup modal
-                      api = _ => BadRequest(jsonError(message)).fuccess
+                      api = _ => BadRequest(jsonError(message)).toFuccess
                     )
                   case None =>
                     import lila.challenge.Challenge._
@@ -209,7 +209,7 @@ final class Setup(
   def boardApiHook =
     ScopedBody(_.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      if (me.isBot) notForBotAccounts.fuccess
+      if (me.isBot) notForBotAccounts.toFuccess
       else
         forms.boardApiHook
           .bindFromRequest()
@@ -223,7 +223,7 @@ final class Setup(
                     PostRateLimit(HTTPRequest ipAddress req) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(
                         env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                      )(apiC.sourceToNdJsonOption).fuccess
+                      )(apiC.sourceToNdJsonOption).toFuccess
                     }(rateLimitedFu)
                   case Right(Some(seek)) =>
                     env.setup.processor.createSeekIfAllowed(seek, me.id) map {
@@ -245,8 +245,8 @@ final class Setup(
   def validateFen =
     Open { implicit ctx =>
       get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match {
-        case None    => BadRequest.fuccess
-        case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).fuccess
+        case None    => BadRequest.toFuccess
+        case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).toFuccess
       }
     }
 

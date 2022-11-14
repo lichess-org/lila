@@ -11,7 +11,7 @@ import scalatags.Text.all.stringFrag
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
 
@@ -32,7 +32,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
     reqToAuthorizationRequest(ctx.req).prompt match {
       case Validated.Valid(prompt) => f(prompt)
       case Validated.Invalid(error) =>
-        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).fuccess
+        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).toFuccess
     }
 
   def authorize =
@@ -59,7 +59,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
             env.oAuth.authorizationApi.create(authorized) map { code =>
               SeeOther(authorized.redirectUrl(code))
             }
-          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).fuccess
+          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
         }
       }
     }
@@ -91,9 +91,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
               }
-            case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+            case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
           }
-        case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+        case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
       }
     }
 
@@ -114,9 +114,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
               }
-            case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+            case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
           }
-        case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+        case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
       }
     }
 
@@ -135,7 +135,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
       revokeClientForm
         .bindFromRequest()
         .fold(
-          _ => BadRequest.fuccess,
+          _ => BadRequest.toFuccess,
           origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
         )
     }
@@ -146,13 +146,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
         lila.oauth.OAuthTokenForm.adminChallengeTokens
           .bindFromRequest()
           .fold(
-            err => BadRequest(apiFormError(err)).fuccess,
+            err => BadRequest(apiFormError(err)).toFuccess,
             data =>
               env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
                 JsonOk(tokens.view.mapValues(t => t.plain.secret).toMap)
               }
           )
-      else Unauthorized(jsonError("Missing permission")).fuccess
+      else Unauthorized(jsonError("Missing permission")).toFuccess
     }
 
   private val testTokenRateLimit = new lila.memo.RateLimit[IpAddress](

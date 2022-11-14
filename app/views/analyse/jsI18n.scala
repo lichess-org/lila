@@ -2,7 +2,7 @@ package views.html.analyse
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.i18n.{ I18nKeys => trans, MessageKey }
 import views.html.board.{ userAnalysisI18n => board }
 

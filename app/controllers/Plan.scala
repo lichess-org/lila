@@ -6,7 +6,7 @@ import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ EmailAddress, HTTPRequest }
 import lila.plan.StripeClient.StripeException
 import lila.plan.{
@@ -36,7 +36,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       ctx.me.fold(indexAnon) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser => Redirect(routes.Plan.index).fuccess
+          case ReloadUser => Redirect(routes.Plan.index).toFuccess
           case Synced(Some(patron), None, None) =>
             env.user.repo email me.id flatMap { email =>
               renderIndex(email, patron.some)
@@ -50,12 +50,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def list =
     Open { implicit ctx =>
-      ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
+      ctx.me.fold(Redirect(routes.Plan.index).toFuccess) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser            => Redirect(routes.Plan.list).fuccess
+          case ReloadUser            => Redirect(routes.Plan.list).toFuccess
           case Synced(Some(_), _, _) => indexFreeUser(me)
-          case _                     => Redirect(routes.Plan.index).fuccess
+          case _                     => Redirect(routes.Plan.index).toFuccess
         }
       }
     }
@@ -96,7 +96,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     gifts   <- env.plan.api.giftsFrom(me)
     res <- info match {
       case Some(info: MonthlyCustomerInfo) =>
-        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).fuccess
+        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).toFuccess
       case Some(info: OneTimeCustomerInfo) =>
         renderIndex(info.customer.email map EmailAddress.apply, patron.some)
       case None =>
@@ -225,7 +225,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             .fold(
               err => {
                 logger.info(s"Plan.stripeCheckout 400: $err")
-                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).fuccess
+                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
               },
               data => {
                 val checkout = data.fixFreq
@@ -293,7 +293,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             .fold(
               err => {
                 logger.info(s"Plan.payPalCheckout 400: $err")
-                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).fuccess
+                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
               },
               data => {
                 val checkout = data.fixFreq

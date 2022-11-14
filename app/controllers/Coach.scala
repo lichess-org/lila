@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.coach.{ Coach => CoachModel, CoachPager, CoachProfileForm }
 import views._
 import lila.user.Countries
@@ -63,7 +63,7 @@ final class Coach(env: Env) extends LilaController(env) {
             lila.coach.CoachReviewForm.form
               .bindFromRequest()
               .fold(
-                _ => Redirect(routes.Coach.show(c.user.username)).fuccess,
+                _ => Redirect(routes.Coach.show(c.user.username)).toFuccess,
                 data => {
                   if (data.score < 4 && !me.marks.reportban)
                     env.report.api.create(

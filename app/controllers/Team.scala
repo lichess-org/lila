@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.team.{ Requesting, Team => TeamModel }
@@ -159,7 +159,7 @@ final class Team(
           .edit(team)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.team.form.edit(team, err)).fuccess,
+            err => BadRequest(html.team.form.edit(team, err)).toFuccess,
             data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
           )
       }
@@ -168,7 +168,7 @@ final class Team(
   def kickForm(id: String) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
-        Ok(html.team.admin.kick(team, forms.members)).fuccess
+        Ok(html.team.admin.kick(team, forms.members)).toFuccess
       }
     }
 
@@ -213,7 +213,7 @@ final class Team(
   def leadersForm(id: String) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
-        Ok(html.team.admin.leaders(team, forms leaders team)).fuccess
+        Ok(html.team.admin.leaders(team, forms leaders team)).toFuccess
       }
     }
 
@@ -324,7 +324,7 @@ final class Team(
                   if (tooMany)
                     negotiate(
                       html = tooManyTeams(me),
-                      api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
+                      api = _ => BadRequest(jsonError("You have joined too many teams")).toFuccess
                     )
                   else
                     negotiate(
@@ -338,11 +338,11 @@ final class Team(
                             newJsonFormError,
                             setup =>
                               api.join(team, me, setup.message, setup.password) flatMap {
-                                case Requesting.Joined => jsonOkResult.fuccess
+                                case Requesting.Joined => jsonOkResult.toFuccess
                                 case Requesting.NeedRequest =>
-                                  BadRequest(jsonError("This team requires confirmation.")).fuccess
+                                  BadRequest(jsonError("This team requires confirmation.")).toFuccess
                                 case Requesting.NeedPassword =>
-                                  BadRequest(jsonError("This team requires a password.")).fuccess
+                                  BadRequest(jsonError("This team requires a password.")).toFuccess
                                 case _ => notFoundJson("Team not found")
                               }
                           )
@@ -365,17 +365,17 @@ final class Team(
                   setup =>
                     OneAtAtATime(me.id) {
                       api.join(team, me, setup.message, setup.password) flatMap {
-                        case Requesting.Joined => jsonOkResult.fuccess
+                        case Requesting.Joined => jsonOkResult.toFuccess
                         case Requesting.NeedPassword =>
-                          Forbidden(jsonError("This team requires a password.")).fuccess
+                          Forbidden(jsonError("This team requires a password.")).toFuccess
                         case Requesting.NeedRequest =>
                           Forbidden(
                             jsonError(
                               "This team requires confirmation, and is not owned by the oAuth app owner."
                             )
-                          ).fuccess
+                          ).toFuccess
                       }
-                    } | rateLimitedJson.fuccess
+                    } | rateLimitedJson.toFuccess
                 )
             }
           }
@@ -414,7 +414,7 @@ final class Team(
           .request(team)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.team.request.requestForm(team, err)).fuccess,
+            err => BadRequest(html.team.request.requestForm(team, err)).toFuccess,
             setup =>
               if (team.open) webJoin(team, me, request = none, password = setup.password)
               else
@@ -427,9 +427,9 @@ final class Team(
 
   private def webJoin(team: TeamModel, me: UserModel, request: Option[String], password: Option[String]) =
     api.join(team, me, request = request, password = password) flatMap {
-      case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
+      case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess.toFuccess
       case Requesting.NeedRequest | Requesting.NeedPassword =>
-        Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
+        Redirect(routes.Team.requestForm(team.id)).flashSuccess.toFuccess
     }
 
   def requestProcess(requestId: String) =
@@ -469,14 +469,14 @@ final class Team(
               negotiate(
                 html = Redirect(routes.Team.edit(team.id))
                   .flashFailure(lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt())
-                  .fuccess,
-                api = _ => jsonOkResult.fuccess
+                  .toFuccess,
+                api = _ => jsonOkResult.toFuccess
               )
             else
               api.cancelRequestOrQuit(team, me) >>
                 negotiate(
-                  html = Redirect(routes.Team.mine).flashSuccess.fuccess,
-                  api = _ => jsonOkResult.fuccess
+                  html = Redirect(routes.Team.mine).flashSuccess.toFuccess,
+                  api = _ => jsonOkResult.toFuccess
                 )
           }(ctx),
       scoped = _ =>
@@ -491,7 +491,7 @@ final class Team(
   def autocomplete =
     Action.async { req =>
       get("term", req).filter(_.nonEmpty) match {
-        case None => BadRequest("No search term provided").fuccess
+        case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
           for {
             teams <- api.autocomplete(term, 10)
@@ -543,7 +543,7 @@ final class Team(
           api teamEnabled id flatMap {
             _.filter(_ leaders me.id) ?? { team =>
               doPmAll(team, me).fold(
-                err => BadRequest(errorsAsJson(err)(reqLang)).fuccess,
+                err => BadRequest(errorsAsJson(err)(reqLang)).toFuccess,
                 _ map {
                   case RateLimit.Through => jsonOkResult
                   case RateLimit.Limited => rateLimitedJson
@@ -669,13 +669,13 @@ You received this because you are subscribed to messages of the team $url."""
           (isGranted(_.Teacher) && count < 10) ||
           count < 3
       if (allow) a
-      else Forbidden(views.html.site.message.teamCreateLimit).fuccess
+      else Forbidden(views.html.site.message.teamCreateLimit).toFuccess
     }
 
   private def WithOwnedTeam(teamId: String)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api team teamId) { team =>
       if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
-      else Redirect(routes.Team.show(team.id)).fuccess
+      else Redirect(routes.Team.show(team.id)).toFuccess
     }
 
   private def WithOwnedTeamEnabled(

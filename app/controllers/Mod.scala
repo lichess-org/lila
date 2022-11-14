@@ -9,7 +9,7 @@ import scala.annotation.nowarn
 import views._
 
 import lila.api.{ BodyContext, Context }
-import lila.app._
+import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
@@ -207,7 +207,7 @@ final class Mod(
           .modEmail(user)
           .bindFromRequest()
           .fold(
-            err => BadRequest(err.toString).fuccess,
+            err => BadRequest(err.toString).toFuccess,
             rawEmail => {
               val email = env.security.emailAddressValidator
                 .validate(EmailAddress(rawEmail)) err s"Invalid email $rawEmail"
@@ -220,7 +220,7 @@ final class Mod(
   def inquiryToZulip =
     Secure(_.SendToZulip) { _ => me =>
       env.report.api.inquiries ofModId me.id flatMap {
-        case None => Redirect(report.routes.Report.list).fuccess
+        case None => Redirect(report.routes.Report.list).toFuccess
         case Some(report) =>
           env.user.repo named report.user flatMap {
             _ ?? { user =>
@@ -415,7 +415,7 @@ final class Mod(
       val f            = UserSearch.form
       f.bindFromRequest()
         .fold(
-          err => BadRequest(html.mod.search(me, err, Nil)).fuccess,
+          err => BadRequest(html.mod.search(me, err, Nil)).toFuccess,
           query => env.mod.search(query) map { html.mod.search(me, f.fill(query), _) }
         )
     }
@@ -508,7 +508,7 @@ final class Mod(
           single("permissions" -> list(text.verifying(Permission.allByDbKey.contains _)))
         ).bindFromRequest()
           .fold(
-            _ => BadRequest(html.mod.permissions(user, me)).fuccess,
+            _ => BadRequest(html.mod.permissions(user, me)).toFuccess,
             permissions => {
               val newPermissions = Permission(permissions) diff Permission(user.roles)
               modApi.setPermissions(me, user.username, Permission(permissions)) >> {
@@ -525,7 +525,7 @@ final class Mod(
   def emailConfirm =
     SecureBody(_.SetEmail) { implicit ctx => me =>
       get("q") match {
-        case None => Ok(html.mod.emailConfirm("", none, none)).fuccess
+        case None => Ok(html.mod.emailConfirm("", none, none)).toFuccess
         case Some(rawQuery) =>
           val query = rawQuery.trim.split(' ').toList
           val email = query.headOption
@@ -547,13 +547,13 @@ final class Mod(
             tryWith(em.acceptable, em.acceptable.value) orElse {
               username ?? { tryWith(em.acceptable, _) }
             } recover lila.db.recoverDuplicateKey(_ => none)
-          } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).fuccess
+          } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).toFuccess
       }
     }
 
   def chatPanic =
     Secure(_.Shadowban) { implicit ctx => _ =>
-      Ok(html.mod.chatPanic(env.chat.panic.get)).fuccess
+      Ok(html.mod.chatPanic(env.chat.panic.get)).toFuccess
     }
 
   def chatPanicPost =
@@ -562,12 +562,12 @@ final class Mod(
       env.chat.panic.set(v)
       env.irc.api.chatPanic(me, v)
       fuccess(().some)
-    }(_ => _ => _ => Redirect(routes.Mod.chatPanic).fuccess)
+    }(_ => _ => _ => Redirect(routes.Mod.chatPanic).toFuccess)
 
   def presets(group: String) =
     Secure(_.Presets) { implicit ctx => _ =>
       env.mod.presets.get(group).fold(notFound) { setting =>
-        Ok(html.mod.presets(group, setting, setting.form)).fuccess
+        Ok(html.mod.presets(group, setting, setting.form)).toFuccess
       }
     }
 
@@ -578,7 +578,7 @@ final class Mod(
         setting.form
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.mod.presets(group, setting, err)).fuccess,
+            err => BadRequest(html.mod.presets(group, setting, err)).toFuccess,
             v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
           )
       }
@@ -587,7 +587,7 @@ final class Mod(
   def eventStream =
     Scoped() { req => me =>
       IfGranted(_.Admin, req, me) {
-        noProxyBuffer(Ok.chunked(env.mod.stream())).fuccess
+        noProxyBuffer(Ok.chunked(env.mod.stream())).toFuccess
       }
     }
 

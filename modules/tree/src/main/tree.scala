@@ -99,7 +99,7 @@ case class Branch(
 
   def setComp = copy(comp = true)
 
-object Node extends lila.base.LilaJsObjectExtensions:
+object Node:
 
   sealed trait Shape
   object Shape:
@@ -236,6 +236,9 @@ object Node extends lila.base.LilaJsObjectExtensions:
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.given
+
+  implicit private inline def toLilaJsObject(jo: JsObject): lila.base.LilaJsObject =
+    new lila.base.LilaJsObject(jo)
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 

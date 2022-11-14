@@ -7,7 +7,7 @@ import scala.util.chaining._
 
 import lila.api.Context
 import lila.api.GameApiV2
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
@@ -61,9 +61,9 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
         actionForm
           .bindFromRequest()
           .fold(
-            err => BadRequest(err.toString).fuccess,
+            err => BadRequest(err.toString).toFuccess,
             {
-              case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).fuccess
+              case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).toFuccess
               case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
                 multipleAnalysis(me, gameIds)
               case _ => notFound

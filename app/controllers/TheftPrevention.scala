@@ -1,7 +1,7 @@
 package controllers
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.{ AnonCookie, Game => GameModel, Pov }
 import play.api.mvc._
 

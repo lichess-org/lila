@@ -4,7 +4,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import views._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.Max
 import lila.common.HTTPRequest
 import lila.timeline.Entry.entryWrites

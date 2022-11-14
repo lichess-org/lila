@@ -4,7 +4,7 @@ package coach
 import controllers.routes
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.coach.Coach
 import lila.user.User

@@ -3,7 +3,7 @@ package controllers
 import play.api.data._, Forms._
 import views._
 
-import lila.app._
+import lila.app.{ given, * }
 
 final class Dev(env: Env) extends LilaController(env) {
 
@@ -38,7 +38,7 @@ final class Dev(env: Env) extends LilaController(env) {
 
   def settings =
     Secure(_.Settings) { implicit ctx => _ =>
-      Ok(html.dev.settings(settingsList)).fuccess
+      Ok(html.dev.settings(settingsList)).toFuccess
     }
 
   def settingsPost(id: String) =
@@ -48,7 +48,7 @@ final class Dev(env: Env) extends LilaController(env) {
         setting.form
           .bindFromRequest()
           .fold(
-            _ => BadRequest(html.dev.settings(settingsList)).fuccess,
+            _ => BadRequest(html.dev.settings(settingsList)).toFuccess,
             v => {
               lila
                 .log("setting")
@@ -63,7 +63,7 @@ final class Dev(env: Env) extends LilaController(env) {
 
   def cli =
     Secure(_.Cli) { implicit ctx => _ =>
-      Ok(html.dev.cli(commandForm, none)).fuccess
+      Ok(html.dev.cli(commandForm, none)).toFuccess
     }
 
   def cliPost =
@@ -72,7 +72,7 @@ final class Dev(env: Env) extends LilaController(env) {
       commandForm
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
+          err => BadRequest(html.dev.cli(err, "Invalid command".some)).toFuccess,
           command =>
             runAs(me.id, command) map { res =>
               Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))

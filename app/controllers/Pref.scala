@@ -4,7 +4,7 @@ import play.api.mvc._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 
 final class Pref(env: Env) extends LilaController(env) {
@@ -36,7 +36,7 @@ final class Pref(env: Env) extends LilaController(env) {
           lila.pref.PrefCateg(categSlug) match {
             case None => notFound
             case Some(categ) =>
-              Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).fuccess
+              Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).toFuccess
           }
         }
     }
@@ -52,7 +52,7 @@ final class Pref(env: Env) extends LilaController(env) {
             forms.pref
               .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
               .fold(
-                err => BadRequest(err.toString).fuccess,
+                err => BadRequest(err.toString).toFuccess,
                 onSuccess
               ),
           onSuccess
@@ -62,7 +62,7 @@ final class Pref(env: Env) extends LilaController(env) {
   def set(name: String) =
     OpenBody { implicit ctx =>
       if (name == "zoom") {
-        Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).fuccess
+        Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
       } else if (name == "agreement") {
         ctx.me ?? api.agree inject {
           if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)

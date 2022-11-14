@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 import views._
 
 final class Event(env: Env) extends LilaController(env) {
@@ -36,7 +36,7 @@ final class Event(env: Env) extends LilaController(env) {
           .editForm(event)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.event.edit(event, err)).fuccess,
+            err => BadRequest(html.event.edit(event, err)).toFuccess,
             data => api.update(event, data, me.user) inject Redirect(routes.Event.edit(id)).flashSuccess
           )
       }
@@ -44,7 +44,7 @@ final class Event(env: Env) extends LilaController(env) {
 
   def form =
     Secure(_.ManageEvent) { implicit ctx => _ =>
-      Ok(html.event.create(api.createForm)).fuccess
+      Ok(html.event.create(api.createForm)).toFuccess
     }
 
   def create =
@@ -53,7 +53,7 @@ final class Event(env: Env) extends LilaController(env) {
       api.createForm
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.event.create(err)).fuccess,
+          err => BadRequest(html.event.create(err)).toFuccess,
           data =>
             api.create(data, me.id) map { event =>
               Redirect(routes.Event.edit(event.id)).flashSuccess
@@ -65,7 +65,7 @@ final class Event(env: Env) extends LilaController(env) {
     Secure(_.ManageEvent) { implicit ctx => _ =>
       OptionFuResult(api one id) { old =>
         val event = api clone old
-        Ok(html.event.create(api editForm event)).fuccess
+        Ok(html.event.create(api editForm event)).toFuccess
       }
     }
 }

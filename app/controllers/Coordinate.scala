@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.Result
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 
 final class Coordinate(env: Env) extends LilaController(env) {
 

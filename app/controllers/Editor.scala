@@ -6,7 +6,7 @@ import chess.variant.Variant
 import play.api.libs.json._
 import views._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.Json._
 
 final class Editor(env: Env) extends LilaController(env) {

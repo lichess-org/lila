@@ -3,7 +3,7 @@ package views.html
 import play.api.libs.json.Json
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKeys
 
@@ -16,7 +16,7 @@ object chat {
     div(cls := "mchat__content")
   )
 
-  import lila.chat.JsonView.writers.chatIdWrites
+  import lila.chat.JsonView.writers.given
 
   def restrictedJson(
       chat: lila.chat.Chat.Restricted,

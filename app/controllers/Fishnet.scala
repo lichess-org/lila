@@ -4,7 +4,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.util.{ Failure, Success }
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers._
 import lila.fishnet.JsonApi.writers._
@@ -74,11 +74,11 @@ final class Fishnet(env: Env) extends LilaController(env) {
         .fold(
           err => {
             logger.warn(s"Malformed request: $err\n${req.body}")
-            BadRequest(jsonError(JsError toJson err)).fuccess
+            BadRequest(jsonError(JsError toJson err)).toFuccess
           },
           data =>
             api.authenticateClient(data, HTTPRequest ipAddress req) flatMap {
-              case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).fuccess
+              case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).toFuccess
               case Success(client) =>
                 f(data)(client).map {
                   case Right(Some(work)) => Accepted(Json toJson work)

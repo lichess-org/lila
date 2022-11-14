@@ -4,7 +4,7 @@ import play.api.mvc._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.simul.{ Simul => Sim }
@@ -20,7 +20,7 @@ final class Simul(env: Env) extends LilaController(env) {
   private def serveHome(implicit ctx: Context) = NoBot {
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
-      Ok(html.simul.home(pending, created, started, finished)).fuccess
+      Ok(html.simul.home(pending, created, started, finished)).toFuccess
     }
   }
 
@@ -47,7 +47,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def show(id: String) =
     Open { implicit ctx =>
       env.simul.repo find id flatMap {
-        _.fold(simulNotFound.fuccess) { sim =>
+        _.fold(simulNotFound.toFuccess) { sim =>
           for {
             team    <- sim.team ?? env.team.api.team
             version <- env.simul.version(sim.id)
@@ -130,7 +130,7 @@ final class Simul(env: Env) extends LilaController(env) {
         forms.setText
           .bindFromRequest()
           .fold(
-            _ => BadRequest.fuccess,
+            _ => BadRequest.toFuccess,
             text => env.simul.api.setText(simul.id, text) inject jsonOkResult
           )
       }
@@ -205,7 +205,7 @@ final class Simul(env: Env) extends LilaController(env) {
             .edit(me, teams, simul)
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.simul.form.edit(err, teams, simul)).fuccess,
+              err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
               data => env.simul.api.update(simul, data, me) inject Redirect(routes.Simul.show(id))
             )
         }
@@ -223,7 +223,7 @@ final class Simul(env: Env) extends LilaController(env) {
       f: Sim => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     AsHost(id) { sim =>
-      if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).fuccess
+      if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)
     }
 }

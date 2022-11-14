@@ -6,7 +6,7 @@ import play.api.libs.json._
 import scalatags.Text
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
 import lila.tutor.{

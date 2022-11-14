@@ -8,7 +8,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov

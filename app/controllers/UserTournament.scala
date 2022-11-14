@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 import views._
 
 final class UserTournament(env: Env) extends LilaController(env) {
@@ -33,7 +33,7 @@ final class UserTournament(env: Env) extends LilaController(env) {
               }
             case "upcoming" =>
               ctx.me.fold(notFound) { me =>
-                Redirect(routes.UserTournament.path(me.username, "upcoming")).fuccess
+                Redirect(routes.UserTournament.path(me.username, "upcoming")).toFuccess
               }
             case _ => notFound
           }

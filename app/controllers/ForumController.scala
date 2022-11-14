@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.forum.Topic
 import lila.user.User
 

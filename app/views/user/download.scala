@@ -1,7 +1,7 @@
 package views.html.user
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
@@ -68,8 +68,8 @@ object download {
   private def color(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
     td(cls := "single")(
-      select(id      := "dl-color", name := "color")(
-        option(value := ""),
+      select(id         := "dl-color", name := "color")(
+        st.option(value := ""),
         option(value := "white")(trans.white()),
         option(value := "black")(trans.black())
       )

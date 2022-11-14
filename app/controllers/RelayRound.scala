@@ -5,7 +5,7 @@ import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 
 // import lila.common.config.MaxPerSecond
 import lila.relay.{ RelayRound => RoundModel, RelayRoundForm, RelayTour => TourModel }
@@ -23,7 +23,7 @@ final class RelayRound(
     Auth { implicit ctx => me =>
       NoLameOrBot {
         WithTourAndRoundsCanUpdate(tourId) { trs =>
-          Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).fuccess
+          Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).toFuccess
         }
       }
     }
@@ -39,7 +39,7 @@ final class RelayRound(
                 .create(trs)
                 .bindFromRequest()(ctx.body, formBinding)
                 .fold(
-                  err => BadRequest(html.relay.roundForm.create(err, tour)).fuccess,
+                  err => BadRequest(html.relay.roundForm.create(err, tour)).toFuccess,
                   setup =>
                     rateLimitCreation(
                       me,
@@ -63,7 +63,7 @@ final class RelayRound(
                     .create(trs)
                     .bindFromRequest()(req, formBinding)
                     .fold(
-                      err => BadRequest(apiFormError(err)).fuccess,
+                      err => BadRequest(apiFormError(err)).toFuccess,
                       setup =>
                         rateLimitCreation(me, req, rateLimited) {
                           JsonOk {
@@ -82,7 +82,7 @@ final class RelayRound(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).fuccess
+        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).toFuccess
       }
     }
 
@@ -98,7 +98,7 @@ final class RelayRound(
                   { case (old, err) => BadRequest(html.relay.roundForm.edit(old, err)) },
                   rt => Redirect(rt.path)
                 )
-                .fuccess
+                .toFuccess
           },
       scoped = req =>
         me =>
@@ -176,8 +176,8 @@ final class RelayRound(
             ) { source =>
               noProxyBuffer(Ok chunked source.keepAlive(60.seconds, () => " ") as pgnContentType)
             }
-            .fuccess
-        }(Unauthorized.fuccess, Forbidden.fuccess)
+            .toFuccess
+        }(Unauthorized.toFuccess, Forbidden.toFuccess)
       }
     }
   }
@@ -203,7 +203,7 @@ final class RelayRound(
       f: RoundModel.WithTour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
-      if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).fuccess
+      if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).toFuccess
       else f(rt)
     }
 
@@ -273,7 +273,7 @@ final class RelayRound(
     CreateLimitPerUser(me.id, cost = cost) {
       CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
         create
-      }(fail.fuccess)
-    }(fail.fuccess)
+      }(fail.toFuccess)
+    }(fail.toFuccess)
   }
 }

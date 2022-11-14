@@ -6,7 +6,7 @@ import play.api.mvc._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
@@ -169,7 +169,7 @@ final class Analyse(
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
-            err => newJsonFormError(err)(me.realLang | reqLang),
+            err => newJsonFormError(err)(using me.realLang | reqLang),
             data =>
               env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
                 Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -185,7 +185,7 @@ final class Analyse(
           lila.analyse.ExternalEngine.form
             .bindFromRequest()
             .fold(
-              err => newJsonFormError(err)(me.realLang | reqLang),
+              err => newJsonFormError(err)(using me.realLang | reqLang),
               data =>
                 env.analyse.externalEngine.update(engine, data) map { engine =>
                   JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))

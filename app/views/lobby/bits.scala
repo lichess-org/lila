@@ -3,7 +3,7 @@ package views.html.lobby
 import controllers.routes
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost
 
@@ -98,7 +98,7 @@ object bits {
           ),
           span(cls := "ublog-post-card__content")(
             h2(cls := "ublog-post-card__title")(post.title),
-            semanticDate(post.date)(ctx.lang)(cls := "ublog-post-card__over-image")
+            semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
           )
         )
       },

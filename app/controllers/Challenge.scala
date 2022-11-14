@@ -2,13 +2,13 @@ package controllers
 
 import cats.data.Validated
 import play.api.libs.json.Json
-import play.api.mvc.Result
+import play.api.mvc.{ Request, Result }
 import scala.annotation.nowarn
 import scala.concurrent.duration._
 import views.html
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ Bearer, HTTPRequest, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
@@ -82,7 +82,7 @@ final class Challenge(
               Ok(html.challenge.theirs(c, json, user, color))
             }
         },
-        api = _ => Ok(json).fuccess
+        api = _ => Ok(json).toFuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)
 
@@ -106,12 +106,12 @@ final class Challenge(
           .flatMap {
             case Validated.Valid(Some(pov)) =>
               negotiate(
-                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).fuccess,
+                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).toFuccess,
                 api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
               ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
             case invalid =>
               negotiate(
-                html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).fuccess,
+                html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).toFuccess,
                 api = _ =>
                   notFoundJson(invalid match {
                     case Validated.Invalid(err) => err
@@ -126,7 +126,7 @@ final class Challenge(
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
       def tryRematch =
         env.bot.player.rematchAccept(id, me) flatMap {
-          case true => jsonOkResult.fuccess
+          case true => jsonOkResult.toFuccess
           case _    => notFoundJson()
         }
       api.byId(id) flatMap {
@@ -178,7 +178,7 @@ final class Challenge(
       api.activeByIdFor(id, me) flatMap {
         case None =>
           env.bot.player.rematchDecline(id, me) flatMap {
-            case true => jsonOkResult.fuccess
+            case true => jsonOkResult.toFuccess
             case _    => notFoundJson()
           }
         case Some(c) =>
@@ -217,10 +217,10 @@ final class Challenge(
               } flatMap {
                 case Some(pov) if pov.game.abortableByUser =>
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
-                  jsonOkResult.fuccess
+                  jsonOkResult.toFuccess
                 case Some(pov) if pov.game.playable =>
                   get("opponentToken", req).map(Bearer.apply) match {
-                    case None => BadRequest(jsonError("The game can no longer be aborted")).fuccess
+                    case None => BadRequest(jsonError("The game can no longer be aborted")).toFuccess
                     case Some(bearer) =>
                       env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
                         case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
@@ -284,7 +284,7 @@ final class Challenge(
     AuthBody { implicit ctx => _ =>
       import play.api.data._
       import play.api.data.Forms._
-      implicit def req = ctx.body
+      implicit val req: Request[?] = ctx.body
       OptionFuResult(api byId id) { c =>
         if (isMine(c))
           Form(
@@ -297,8 +297,8 @@ final class Challenge(
               username =>
                 ChallengeIpRateLimit(ctx.ip) {
                   env.user.repo named username flatMap {
-                    case None                       => Redirect(routes.Challenge.show(c.id)).fuccess
-                    case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).fuccess
+                    case None                       => Redirect(routes.Challenge.show(c.id)).toFuccess
+                    case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).toFuccess
                     case Some(dest) =>
                       env.challenge.granter.isDenied(ctx.me, dest, c.perfType.some) flatMap {
                         case Some(denied) =>
@@ -323,7 +323,7 @@ final class Challenge(
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
               env.user.repo enabledByName username flatMap {
-                case None => JsonBadRequest(jsonError(s"No such user: $username")).fuccess
+                case None => JsonBadRequest(jsonError(s"No such user: $username")).toFuccess
                 case Some(destUser) =>
                   val cost = if (me.isApiHog) 0 else if (destUser.isBot) 1 else 5
                   BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) 1 else 0) {
@@ -337,7 +337,7 @@ final class Challenge(
                             case Some(denied) =>
                               JsonBadRequest(
                                 jsonError(lila.challenge.ChallengeDenied.translated(denied))
-                              ).fuccess
+                              ).toFuccess
                             case _ =>
                               env.challenge.api create challenge map {
                                 case true =>
@@ -388,7 +388,7 @@ final class Challenge(
       req.some
     ) flatMap {
       _.fold(
-        err => BadRequest(jsonError(err.message)).fuccess,
+        err => BadRequest(jsonError(err.message)).toFuccess,
         scoped =>
           if (scoped.user is dest) env.challenge.api.oauthAccept(dest, challenge) flatMap {
             case Validated.Valid(g) =>
@@ -401,9 +401,9 @@ final class Challenge(
                   }
                 )
               )
-            case Validated.Invalid(err) => BadRequest(jsonError(err)).fuccess
+            case Validated.Invalid(err) => BadRequest(jsonError(err)).toFuccess
           }
-          else BadRequest(jsonError("dest and accept user don't match")).fuccess
+          else BadRequest(jsonError("dest and accept user don't match")).toFuccess
       )
     }
 
@@ -413,7 +413,7 @@ final class Challenge(
       env.setup.forms.api.open
         .bindFromRequest()
         .fold(
-          err => BadRequest(apiFormError(err)).fuccess,
+          err => BadRequest(apiFormError(err)).toFuccess,
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req) {
               import lila.challenge.Challenge._
@@ -451,7 +451,7 @@ final class Challenge(
           Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMap {
             _ ?? { opponent =>
               env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
-                case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).fuccess
+                case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).toFuccess
                 case _ =>
                   api.offerRematchForGame(g, me) map {
                     case true => jsonOkResult

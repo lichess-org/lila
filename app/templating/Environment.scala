@@ -24,8 +24,6 @@ object Environment
     with FlashHelper
     with ChessgroundHelper {
 
-  // #TODO holy shit fix me
-  // requires injecting all the templates!!
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = { envVar = Some(e) }
   def env: Env                    = envVar.get

@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 
 final class Page(
     env: Env,
@@ -47,7 +47,7 @@ final class Page(
               "key"  -> v.key,
               "name" -> v.name
             )
-          })).fuccess
+          })).toFuccess
       )
     }
 

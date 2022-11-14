@@ -2,7 +2,7 @@ package controllers
 
 import play.api.libs.json._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 
 final class Msg(
@@ -26,12 +26,12 @@ final class Msg(
 
   def convo(username: String, before: Option[Long] = None) =
     Auth { implicit ctx => me =>
-      if (username == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).fuccess
+      if (username == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).toFuccess
       else
         env.msg.api.convoWith(me, username, before).flatMap {
           case None =>
             negotiate(
-              html = Redirect(routes.Msg.home).fuccess,
+              html = Redirect(routes.Msg.home).toFuccess,
               api = _ => notFoundJson()
             )
           case Some(c) =>

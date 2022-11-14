@@ -1,13 +1,13 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.oauth.OAuthScope
 
 final class DgtCtrl(env: Env) extends LilaController(env) {
 
   def index =
     Auth { implicit ctx => _ =>
-      Ok(views.html.dgt.index).fuccess
+      Ok(views.html.dgt.index).toFuccess
     }
 
   def config =

@@ -4,7 +4,7 @@ import play.api.libs.json._
 import scala.annotation.nowarn
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.practice.JsonView._
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
@@ -23,7 +23,7 @@ final class Practice(
     Open { implicit ctx =>
       pageHit
       api.get(ctx.me) flatMap { up =>
-        Ok(html.practice.index(up)).noCache.fuccess
+        Ok(html.practice.index(up)).noCache.toFuccess
       }
     }
 
@@ -57,7 +57,7 @@ final class Practice(
       api.structure.get.flatMap { struct =>
         struct.sections.find(_.id == sectionId).fold(notFound) { section =>
           select(section) ?? { study =>
-            Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).fuccess
+            Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).toFuccess
           }
         }
       }

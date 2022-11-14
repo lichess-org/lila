@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 import views._
 import lila.common.config
 import lila.team.Team
@@ -33,7 +33,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
               stickyPosts <- (page == 1) ?? env.forum.topicApi.getSticky(categ, ctx.me)
               _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
               res <-
-                if (canRead) Ok(html.forum.categ.show(categ, topics, canWrite, stickyPosts)).fuccess
+                if (canRead) Ok(html.forum.categ.show(categ, topics, canWrite, stickyPosts)).toFuccess
                 else notFound
             } yield res
           }

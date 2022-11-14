@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 
 final class Irwin(env: Env) extends LilaController(env) {
 
@@ -28,7 +28,7 @@ final class Irwin(env: Env) extends LilaController(env) {
   def eventStream =
     Scoped() { req => me =>
       IfGranted(_.Admin, req, me) {
-        noProxyBuffer(Ok.chunked(env.irwin.irwinStream())).fuccess
+        noProxyBuffer(Ok.chunked(env.irwin.irwinStream())).toFuccess
       }
     }
 

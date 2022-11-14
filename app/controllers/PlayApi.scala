@@ -4,7 +4,7 @@ import play.api.mvc._
 import scala.concurrent.duration._
 import scala.util.chaining._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.Pov
 import lila.user.{ User => UserModel }
 
@@ -159,26 +159,26 @@ final class PlayApi(
           jsonError(
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
           )
-        ).fuccess
+        ).toFuccess
       else if (!lila.game.Game.isBotCompatible(pov.game))
-        BadRequest(jsonError("This game cannot be played with the Bot API.")).fuccess
+        BadRequest(jsonError("This game cannot be played with the Bot API.")).toFuccess
       else f(pov)
     }
 
   private def WithPovAsBoard(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
-      if (me.isBot) notForBotAccounts.fuccess
+      if (me.isBot) notForBotAccounts.toFuccess
       else if (!lila.game.Game.isBoardCompatible(pov.game))
-        BadRequest(jsonError("This game cannot be played with the Board API.")).fuccess
+        BadRequest(jsonError("This game cannot be played with the Board API.")).toFuccess
       else f(pov)
     }
 
   private def WithPov(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
     env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
-      case None => NotFound(jsonError("No such game")).fuccess
+      case None => NotFound(jsonError("No such game")).toFuccess
       case Some(game) =>
         Pov(game, me) match {
-          case None      => NotFound(jsonError("Not your game")).fuccess
+          case None      => NotFound(jsonError("Not your game")).toFuccess
           case Some(pov) => f(pov)
         }
     }

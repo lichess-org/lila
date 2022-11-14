@@ -14,8 +14,7 @@ trait Lilaisms
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
     with ornicar.scalalib.Zeros
-    with LilaLibraryExtensions
-    with LilaJsObjectExtensions:
+    with LilaLibraryExtensions:
 
   export Lilaisms.*
 
@@ -41,3 +40,6 @@ object Lilaisms:
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
     Some(Tuple.fromProductTyped(p))
+
+  implicit inline def toLilaJsObject(jo: JsObject): LilaJsObject = new LilaJsObject(jo)
+  implicit inline def toLilaJsValue(jv: JsValue): LilaJsValue    = new LilaJsValue(jv)

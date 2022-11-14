@@ -5,7 +5,7 @@ import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import views._
 
 import lila.api.{ BodyContext, Context }
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.report.{ Mod => AsMod, Report => ReportModel, Reporter, Room, Suspect }
 import lila.user.{ Holder, User => UserModel }
@@ -84,10 +84,10 @@ final class Report(
       case None =>
         inquiry match {
           case None =>
-            goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
+            goTo.fold(Redirect(routes.Report.list).toFuccess) { s =>
               userC.modZoneOrRedirect(me, s.user.username)
             }
-          case Some(prev) if prev.isSpontaneous => Redirect(modC.userUrl(prev.user, mod = true)).fuccess
+          case Some(prev) if prev.isSpontaneous => Redirect(modC.userUrl(prev.user, mod = true)).toFuccess
           case Some(prev) =>
             val dataOpt = ctx.body.body match {
               case AnyContentAsFormUrlEncoded(data) => data.some
@@ -99,10 +99,10 @@ final class Report(
                 case url       => url.some
               }
             thenGoTo match {
-              case Some(url) => Redirect(url).fuccess
+              case Some(url) => Redirect(url).toFuccess
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-                if (prev.isAppeal) Redirect(appeal.routes.Appeal.queue).fuccess
+                if (prev.isAppeal) Redirect(appeal.routes.Appeal.queue).toFuccess
                 else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
                   api.inquiries.toggleNext(me, prev.room) map {
                     _.fold(redirectToList)(onInquiryStart)
@@ -155,7 +155,7 @@ final class Report(
   def form =
     Auth { implicit ctx => _ =>
       get("username") ?? env.user.repo.named flatMap { user =>
-        if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).fuccess
+        if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
         else
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
             val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {
@@ -196,11 +196,11 @@ final class Report(
       env.report.forms.flag
         .bindFromRequest()
         .fold(
-          _ => BadRequest.fuccess,
+          _ => BadRequest.toFuccess,
           data =>
             env.user.repo named data.username flatMap {
               _ ?? { user =>
-                if (user == me) BadRequest.fuccess
+                if (user == me) BadRequest.toFuccess
                 else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
               }
             }

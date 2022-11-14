@@ -5,7 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import views._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.user.Holder
 
@@ -80,7 +80,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               if (canRead)
                 Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg))
                   .withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page))
-                  .fuccess
+                  .toFuccess
               else notFound
           } yield res
         }

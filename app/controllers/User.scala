@@ -13,7 +13,7 @@ import scalatags.Text.Frag
 import views._
 
 import lila.api.{ BodyContext, Context }
-import lila.app._
+import lila.app.{ given, * }
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
@@ -41,7 +41,7 @@ final class User(
         currentlyPlaying(user) orElse lastPlayed(user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             ctx.me ifFalse pov.game.bothPlayersHaveMoved flatMap { Pov(pov.game, _) } match {
-              case Some(mine) => Redirect(routes.Round.player(mine.fullId)).fuccess
+              case Some(mine) => Redirect(routes.Round.player(mine.fullId)).toFuccess
               case _          => roundC.watch(pov, userTv = user.some)
             }
           }
@@ -54,7 +54,7 @@ final class User(
       val userId = UserModel normalize username
       env.game.cached.lastPlayedPlayingId(userId) orElse
         env.game.gameRepo.quickLastPlayedId(userId) flatMap {
-          case None         => NotFound("No ongoing game").fuccess
+          case None         => NotFound("No ongoing game").toFuccess
           case Some(gameId) => gameC.exportGame(gameId, req)
         }
     }
@@ -107,8 +107,8 @@ final class User(
         EnabledUser(username) { u =>
           if (filter == "search" && ctx.isAnon)
             negotiate(
-              html = Unauthorized(html.search.login(u.count.game)).fuccess,
-              api = _ => Unauthorized(jsonError("Login required")).fuccess
+              html = Unauthorized(html.search.login(u.count.game)).toFuccess,
+              api = _ => Unauthorized(jsonError("Login required")).toFuccess
             )
           else
             negotiate(
@@ -149,7 +149,7 @@ final class User(
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     if (UserModel.isGhost(username))
       negotiate(
-        html = Ok(html.site.bits.ghost).fuccess,
+        html = Ok(html.site.bits.ghost).toFuccess,
         api = _ => notFoundJson("Deleted user")
       )
     else
@@ -161,7 +161,7 @@ final class User(
           negotiate(
             html = env.user.repo isErased u flatMap { erased =>
               if (erased.value) notFound
-              else NotFound(html.user.show.page.disabled(u)).fuccess
+              else NotFound(html.user.show.page.disabled(u)).toFuccess
             },
             api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
           )
@@ -309,7 +309,7 @@ final class User(
       topNbUsers(nb, perfKey) flatMap {
         _ ?? { case (users, perfType) =>
           negotiate(
-            html = (nb == 200) ?? Ok(html.user.top(perfType, users)).fuccess,
+            html = (nb == 200) ?? Ok(html.user.top(perfType, users)).toFuccess,
             api = _ => fuccess(topNbJson(users))
           )
         }
@@ -473,7 +473,7 @@ final class User(
   def writeNote(username: String) =
     AuthBody { implicit ctx => me =>
       doWriteNote(username, me)(
-        err => BadRequest(err.errors.toString).fuccess,
+        err => BadRequest(err.errors.toString).toFuccess,
         user =>
           if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
             Ok(views.html.mod.inquiry.noteZone(user, notes))
@@ -500,7 +500,7 @@ final class User(
     ScopedBody() { implicit req => me =>
       doWriteNote(username, me)(
         jsonFormErrorDefaultLang,
-        suc = _ => jsonOkResult.fuccess
+        suc = _ => jsonOkResult.toFuccess
       )
     }
 
@@ -579,7 +579,7 @@ final class User(
   def autocomplete =
     Open { implicit ctx =>
       get("term", ctx.req).filter(_.nonEmpty).filter(lila.user.User.couldBeUsername) match {
-        case None => BadRequest("No search term provided").fuccess
+        case None => BadRequest("No search term provided").toFuccess
         case Some(term) if getBool("exists") =>
           env.user.repo nameExists term map { r =>
             Ok(JsBoolean(r))

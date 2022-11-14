@@ -1,7 +1,7 @@
 package views.html.simul
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import play.api.i18n.Lang
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 

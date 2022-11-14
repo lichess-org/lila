@@ -4,7 +4,7 @@ import play.api.mvc._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.racer.RacerPlayer
 import lila.racer.RacerRace
@@ -15,7 +15,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   def home     = Open(serveHome(_))
   def homeLang = LangPage(routes.Racer.home)(serveHome(_)) _
   private def serveHome(implicit ctx: Context) = NoBot {
-    Ok(html.racer.home).fuccess
+    Ok(html.racer.home).toFuccess
   }
 
   def create =
@@ -41,7 +41,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   def show(id: String) =
     WithPlayerId { implicit ctx => playerId =>
       env.racer.api.get(RacerRace.Id(id)) match {
-        case None => Redirect(routes.Racer.home).fuccess
+        case None => Redirect(routes.Racer.home).toFuccess
         case Some(r) =>
           val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
           val player = race.player(playerId) | RacerPlayer.make(playerId)
@@ -51,14 +51,14 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
               env.racer.json.data(race, player),
               env.storm.json.pref(ctx.pref)
             )
-          ).noCache.fuccess
+          ).noCache.toFuccess
       }
     }
 
   def rematch(id: String) =
     WithPlayerId { implicit ctx => playerId =>
       env.racer.api.get(RacerRace.Id(id)) match {
-        case None => Redirect(routes.Racer.home).fuccess
+        case None => Redirect(routes.Racer.home).toFuccess
         case Some(race) =>
           env.racer.api.rematch(race, playerId) map { rematchId =>
             Redirect(routes.Racer.show(rematchId.value))

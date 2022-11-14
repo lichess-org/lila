@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
@@ -57,14 +57,14 @@ final class Tournament(
           pageHit
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
         },
-        api = _ => Ok(scheduleJson).fuccess
+        api = _ => Ok(scheduleJson).toFuccess
       )
     } yield response
   }
 
   def help(@nowarn("cat=unused") sysStr: Option[String]) =
     Open { implicit ctx =>
-      Ok(html.tournament.faq.page).fuccess
+      Ok(html.tournament.faq.page).toFuccess
     }
 
   def leaderboard =
@@ -99,7 +99,7 @@ final class Tournament(
             }
         negotiate(
           html = tourOption
-            .fold(tournamentNotFound.fuccess) { tour =>
+            .fold(tournamentNotFound.toFuccess) { tour =>
               for {
                 myInfo   <- ctx.me.?? { jsonView.fetchMyInfo(tour, _) }
                 verdicts <- api.getVerdicts(tour, ctx.me, getUserTeamIds, myInfo.isDefined)
@@ -230,14 +230,15 @@ final class Tournament(
               case None        => jsonOkResult
               case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
             }
-          }(rateLimitedJson.fuccess)
+          }(rateLimitedJson.toFuccess)
         }
       }
     }
 
   def apiJoin(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
+      if (me.lame || me.isBot)
+        Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
       else
         NoPlayban(me.id.some) {
           JoinLimitPerUser(me.id) {
@@ -250,7 +251,7 @@ final class Tournament(
                 case Some(error) => BadRequest(Json.obj("error" -> error))
               }
             }
-          }(rateLimitedJson.fuccess)
+          }(rateLimitedJson.toFuccess)
         }
     }
 
@@ -333,8 +334,8 @@ final class Tournament(
     CreateLimitPerUser(me.id, cost = cost) {
       CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost, msg = me.username) {
         create
-      }(fail.fuccess)
-    }(fail.fuccess)
+      }(fail.toFuccess)
+    }(fail.toFuccess)
   }
 
   def create = AuthBody { implicit ctx => me =>
@@ -346,7 +347,7 @@ final class Tournament(
             .create(me, teams)
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
+              err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
               setup =>
                 rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
                   api.createTournament(setup, me, teams) map { tour =>
@@ -399,7 +400,7 @@ final class Tournament(
 
   def apiUpdate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      implicit def lang = reqLang
+      implicit val lang = reqLang
       cachedTour(id) flatMap {
         _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
           env.team.api.lightsByLeader(me.id) flatMap { teams =>
@@ -436,7 +437,7 @@ final class Tournament(
             api
               .kill(tour)
               .map(_ => jsonOkResult)
-          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).fuccess
+          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
         }
       }
     }
@@ -457,11 +458,11 @@ final class Tournament(
                     },
                     battle.nbLeaders
                   )
-                  Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
+                  Ok(html.tournament.teamBattle.edit(tour, form)).toFuccess
                 }
               }
             }
-          case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
+          case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
         }
       }
     }
@@ -475,19 +476,19 @@ final class Tournament(
             lila.tournament.TeamBattle.DataForm.empty
               .bindFromRequest()
               .fold(
-                err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
+                err => BadRequest(html.tournament.teamBattle.edit(tour, err)).toFuccess,
                 res =>
                   api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
                     Redirect(routes.Tournament.show(tour.id))
               )
-          case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
+          case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
         }
       }
     }
 
   def apiTeamBattleUpdate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      implicit def lang = reqLang
+      implicit val lang = reqLang
       cachedTour(id) flatMap {
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
@@ -512,7 +513,7 @@ final class Tournament(
                     } map { Ok(_) }
                   }
               )
-          case _ => BadRequest(jsonError("Can't update that tournament.")).fuccess
+          case _ => BadRequest(jsonError("Can't update that tournament.")).toFuccess
         }
       }
     }
@@ -580,7 +581,7 @@ final class Tournament(
             .edit(me, teams, tour)
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.tournament.form.edit(tour, err, teams)).fuccess,
+              err => BadRequest(html.tournament.form.edit(tour, err, teams)).toFuccess,
               data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
             )
         }
@@ -606,7 +607,7 @@ final class Tournament(
           .documentSource(getInt("max", req) | 100)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           .throttle(20, 1.second)
-      }.fuccess
+      }.toFuccess
     }
 
   def battleTeams(id: String) =
@@ -626,7 +627,7 @@ final class Tournament(
     cachedTour(id) flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)
-      case Some(t) => Redirect(routes.Tournament.show(t.id)).fuccess
+      case Some(t) => Redirect(routes.Tournament.show(t.id)).toFuccess
       case _       => notFound
     }
 

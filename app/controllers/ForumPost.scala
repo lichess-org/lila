@@ -3,7 +3,7 @@ package controllers
 import scala.concurrent.duration._
 import views._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.msg.MsgPreset
 
@@ -20,7 +20,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
       NotForKids {
-        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
+        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).toFuccess
         else
           for {
             paginator <- env.forumSearch(text, page, ctx.troll)
@@ -82,7 +82,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 .postEdit(me, inOwnTeam, post.text)
                 .bindFromRequest()
                 .fold(
-                  _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+                  _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
                   data =>
                     CreateRateLimit(ctx.ip) {
                       postApi.editPost(postId, data.changes, me).map { post =>

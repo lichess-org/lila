@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils
 import play.api.mvc._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.blog.BlogApi
 import lila.common.config.MaxPerPage
 

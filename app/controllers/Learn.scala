@@ -6,7 +6,7 @@ import play.api.libs.json._
 import views.html
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 
 final class Learn(env: Env) extends LilaController(env) {
 
@@ -39,7 +39,7 @@ final class Learn(env: Env) extends LilaController(env) {
       scoreForm
         .bindFromRequest()
         .fold(
-          _ => BadRequest.fuccess,
+          _ => BadRequest.toFuccess,
           { case (stage, level, s) =>
             val score = lila.learn.StageProgress.Score(s)
             env.learn.api.setScore(me, stage, level, score) >>

@@ -8,7 +8,7 @@ import views.html
 
 import lila.api.AnnounceStore
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.user.{ Holder, TotpSecret, User => UserModel }
@@ -22,12 +22,12 @@ final class Account(
 
   def profile =
     Auth { implicit ctx => me =>
-      Ok(html.account.profile(me, env.user.forms profileOf me)).fuccess
+      Ok(html.account.profile(me, env.user.forms profileOf me)).toFuccess
     }
 
   def username =
     Auth { implicit ctx => me =>
-      Ok(html.account.username(me, env.user.forms usernameOf me)).fuccess
+      Ok(html.account.username(me, env.user.forms usernameOf me)).toFuccess
     }
 
   def profileApply =
@@ -75,7 +75,7 @@ final class Account(
             nbChallenges <- env.challenge.api.countInFor get me.id
             playban      <- env.playban.api currentBan me.id
           } yield Ok {
-            import lila.pref.JsonView._
+            import lila.pref.JsonView.given
             env.user.jsonView
               .full(me, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
               .obj(
@@ -107,7 +107,7 @@ final class Account(
         me.some,
         withFollows = apiC.userWithFollows(req),
         withTrophies = false
-      )(I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying =
@@ -128,7 +128,7 @@ final class Account(
         api = _ =>
           env.pref.api.getPref(me) map { prefs =>
             Ok {
-              import lila.pref.JsonView._
+              import lila.pref.JsonView.given
               lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
                 "coach" -> isGranted(_.Coach),
                 "prefs" -> prefs
@@ -175,7 +175,7 @@ final class Account(
 
   def email =
     Auth { implicit ctx => me =>
-      if (getBool("check")) Ok(renderCheckYourEmail).fuccess
+      if (getBool("check")) Ok(renderCheckYourEmail).toFuccess
       else
         emailForm(me) map { form =>
           Ok(html.account.email(form))
@@ -239,15 +239,15 @@ final class Account(
       import lila.security.EmailConfirm.Help._
       ctx.me match {
         case Some(me) =>
-          Redirect(routes.User.show(me.username)).fuccess
+          Redirect(routes.User.show(me.username)).toFuccess
         case None if get("username").isEmpty =>
-          Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
+          Ok(html.account.emailConfirmHelp(helpForm, none)).toFuccess
         case None =>
           implicit val req = ctx.body
           helpForm
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
+              err => BadRequest(html.account.emailConfirmHelp(err, none)).toFuccess,
               username =>
                 getStatus(env.user.repo, username) map { status =>
                   Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
@@ -335,7 +335,7 @@ final class Account(
     }
   def apiKid =
     Scoped(_.Preference.Read) { _ => me =>
-      JsonOk(Json.obj("kid" -> me.kid)).fuccess
+      JsonOk(Json.obj("kid" -> me.kid)).toFuccess
     }
 
   def kidPost =
@@ -348,14 +348,14 @@ final class Account(
             .fold(
               err =>
                 negotiate(
-                  html = BadRequest(html.account.kid(me, err, managed = false)).fuccess,
-                  api = _ => BadRequest(errorsAsJson(err)).fuccess
+                  html = BadRequest(html.account.kid(me, err, managed = false)).toFuccess,
+                  api = _ => BadRequest(errorsAsJson(err)).toFuccess
                 ),
               _ =>
                 env.user.repo.setKid(me, getBool("v")) >>
                   negotiate(
-                    html = Redirect(routes.Account.kid).flashSuccess.fuccess,
-                    api = _ => jsonOkResult.fuccess
+                    html = Redirect(routes.Account.kid).flashSuccess.toFuccess,
+                    api = _ => jsonOkResult.toFuccess
                   )
             )
         }
@@ -365,7 +365,7 @@ final class Account(
   def apiKidPost =
     Scoped(_.Preference.Write) { req => me =>
       getBoolOpt("v", req) match {
-        case None    => BadRequest(jsonError("Missing v parameter")).fuccess
+        case None    => BadRequest(jsonError("Missing v parameter")).toFuccess
         case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
       }
     }

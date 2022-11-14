@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 

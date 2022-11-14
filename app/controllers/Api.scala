@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.api.{ Context, GameApiV2 }
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
 import lila.game.GamesByIdsStream
@@ -33,7 +33,7 @@ final class Api(
     )
   }
 
-  val status = Action { req =>
+  val status = Action { (req: RequestHeader) =>
     val appVersion  = get("v", req)
     val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
@@ -50,7 +50,7 @@ final class Api(
       me,
       withFollows = userWithFollows(req),
       withTrophies = getBool("trophies", req)
-    )(lang) map toApiResult map toHttp
+    )(using lang) map toApiResult map toHttp
     OpenOrScoped()(
       ctx => get(ctx.req, ctx.lang, ctx.me),
       req => me => get(req, me.realLang | reqLang(req), me.some)
@@ -203,7 +203,7 @@ final class Api(
 
   def currentTournaments =
     ApiRequest { implicit req =>
-      implicit val lang = reqLang
+      implicit val lang: Lang = reqLang
       env.tournament.api.fetchVisibleTournaments flatMap
         env.tournament.apiJsonView.apply map Data.apply
     }
@@ -223,7 +223,7 @@ final class Api(
             socketVersion = none,
             partial = false,
             withScores = true
-          )(reqLang) map some
+          )(using reqLang) map some
         }
       } map toApiResult
     }
@@ -246,7 +246,7 @@ final class Api(
             Ok.chunked(source)
               .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
               .as(gameC gameContentType config)
-          }.fuccess
+          }.toFuccess
         }
       }
     }
@@ -286,7 +286,7 @@ final class Api(
 
   def tournamentsByOwner(name: String, status: List[Int]) =
     Action.async { implicit req =>
-      implicit val lang = reqLang
+      given Lang = reqLang
       (name != lila.user.User.lichessId) ?? env.user.repo.named(name) flatMap {
         _ ?? { user =>
           val nb = getInt("nb", req) | Int.MaxValue
@@ -294,7 +294,7 @@ final class Api(
             env.tournament.api
               .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
               .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-          }.fuccess
+          }.toFuccess
         }
       }
     }
@@ -316,7 +316,7 @@ final class Api(
             Ok.chunked(source)
               .pipe(asAttachmentStream(filename))
               .as(gameC gameContentType config)
-          }.fuccess
+          }.toFuccess
         }
       }
     }
@@ -347,7 +347,7 @@ final class Api(
             env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
           )
         )(sourceToNdJsonOption)
-      }.fuccess
+      }.toFuccess
     }
 
   def gamesByIdsStream(streamId: String) =
@@ -362,7 +362,7 @@ final class Api(
             )
           )
         )(sourceToNdJsonOption)
-      }.fuccess
+      }.toFuccess
     }
 
   def gamesByIdsStreamAddIds(streamId: String) =
@@ -370,7 +370,7 @@ final class Api(
       withIdsFromReqBody(req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
         env.game.gamesByIdsStream.addGameIds(streamId, ids)
         jsonOkResult
-      }.fuccess
+      }.toFuccess
     }
 
   private def gamesByIdsMax(me: Option[lila.user.User]) =
@@ -413,7 +413,7 @@ final class Api(
 
   def activity(name: String) =
     ApiRequest { implicit req =>
-      implicit val lang = reqLang
+      given Lang = reqLang
       UserActivityRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         lila.mon.api.activity.increment(1)
         env.user.repo named name flatMap {

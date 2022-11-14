@@ -5,7 +5,7 @@ import scala.util.chaining._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.Pov
 
 final class Tv(

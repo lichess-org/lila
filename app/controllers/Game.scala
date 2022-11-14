@@ -6,7 +6,7 @@ import play.api.mvc._
 import scala.util.chaining._
 
 import lila.api.GameApiV2
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel }
@@ -41,7 +41,7 @@ final class Game(
 
   private[controllers] def exportGame(gameId: GameModel.ID, req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
-      case None => NotFound.fuccess
+      case None => NotFound.toFuccess
       case Some(game) =>
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
@@ -102,7 +102,7 @@ final class Game(
             Ok.chunked(env.api.gameApiV2.exportByUser(config))
               .pipe(noProxyBuffer)
               .as(gameContentType(config))
-              .fuccess
+              .toFuccess
           else
             apiC
               .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
@@ -115,7 +115,7 @@ final class Game(
                     )
                     .as(gameContentType(config))
               }
-              .fuccess
+              .toFuccess
 
         }
       }
@@ -158,7 +158,7 @@ final class Game(
         ) { source =>
           noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
         }
-        .fuccess
+        .toFuccess
     }
 
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =

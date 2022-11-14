@@ -5,7 +5,7 @@ import controllers.appeal.routes.{ Appeal => appealRoutes }
 import controllers.report.routes.{ Report => reportRoutes }
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 import lila.user.Holder
@@ -121,7 +121,7 @@ object list {
                     scores.get(room).filter(20 <=).map(scoreTag(_))
                   )
                 }
-              },
+              }: List[Frag],
               (appeals > 0 && isGranted(_.Appeals)) option a(
                 href := appealRoutes.queue,
                 cls := List(

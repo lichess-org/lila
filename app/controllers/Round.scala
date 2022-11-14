@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, PgnDump, Pov }
@@ -129,10 +129,10 @@ final class Round(
           get("pov").map(UserModel.normalize).fold(watch(pov)) { requestedPov =>
             (pov.player.userId, pov.opponent.userId) match {
               case (Some(_), Some(opponent)) if opponent == requestedPov =>
-                Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
+                Redirect(routes.Round.watcher(gameId, (!pov.color).name)).toFuccess
               case (Some(player), Some(_)) if player == requestedPov =>
-                Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
-              case _ => Redirect(routes.Round.watcher(gameId, "white")).fuccess
+                Redirect(routes.Round.watcher(gameId, pov.color.name)).toFuccess
+              case _ => Redirect(routes.Round.watcher(gameId, "white")).toFuccess
             }
           }
         case None => userC.tryRedirect(gameId) getOrElse challengeC.showId(gameId)
@@ -151,7 +151,7 @@ final class Round(
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
       case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
         if (userTv.isDefined) watch(!pov, userTv)
-        else Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess
+        else Redirect(routes.Round.watcher(pov.gameId, "white")).toFuccess
       case _ =>
         negotiate(
           html = {
@@ -348,7 +348,7 @@ final class Round(
   def apiAddTime(anyId: String, seconds: Int) =
     Scoped(_.Challenge.Write) { implicit req => me =>
       import lila.round.actorApi.round.Moretime
-      if (seconds < 1 || seconds > 86400) BadRequest.fuccess
+      if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
       else
         env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
           _.flatMap { Pov(_, me) }.?? { pov =>
@@ -364,6 +364,6 @@ final class Round(
 
   def help =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.round).fuccess
+      Ok(html.site.keyboardHelpModal.round).toFuccess
     }
 }

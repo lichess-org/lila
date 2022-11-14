@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogBlog, UblogPost }
@@ -188,8 +188,8 @@ object post {
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
         showIntro option span(cls := "ublog-post-card__intro")(shorten(post.intro, 100)),
-        post.lived map { live => semanticDate(live.at)(ctx.lang)(cls := "ublog-post-card__over-image") },
-        showAuthor option userIdSpanMini(post.created.by)(ctx.lang)(cls := "ublog-post-card__over-image")
+        post.lived map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        showAuthor option userIdSpanMini(post.created.by)(cls := "ublog-post-card__over-image")
       )
     )
 

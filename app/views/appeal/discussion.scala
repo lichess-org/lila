@@ -6,7 +6,7 @@ import controllers.appeal.routes.{ Appeal => appealRoutes }
 import play.api.data.Form
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import views.html.appeal.tree
 import lila.appeal.Appeal
@@ -100,7 +100,7 @@ object discussion {
       as.left.toOption map { m =>
         frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(ctx, m.renderIp)(
+          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(using ctx, m.renderIp)(
             cls := "mod-zone communication__logins"
           )
         )
@@ -169,9 +169,9 @@ object discussion {
         form3.actions(
           div(
             select(cls := "appeal-presets")(
-              option(st.value := "")("Presets"),
+              st.option(st.value := "")("Presets"),
               ps.value.map { case ModPreset(name, text, _) =>
-                option(
+                st.option(
                   st.value := text,
                   st.title := text
                 )(name)

@@ -5,7 +5,7 @@ import play.api.mvc._
 import views.html
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, LilaOpeningFamily }
 import lila.opening.OpeningQuery.queryFromUrl
 
@@ -19,7 +19,7 @@ final class Opening(env: Env) extends LilaController(env) {
         Ok {
           if (HTTPRequest isXhr ctx.req) html.opening.search.resultsList(results)
           else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
-        }.fuccess
+        }.toFuccess
       } else
         env.opening.api.index flatMap {
           _ ?? { page =>
@@ -33,14 +33,14 @@ final class Opening(env: Env) extends LilaController(env) {
   def byKeyAndMoves(key: String, moves: String) =
     Open { implicit ctx =>
       env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki)) flatMap {
-        case None => Redirect(routes.Opening.index(key.some)).fuccess
+        case None => Redirect(routes.Opening.index(key.some)).toFuccess
         case Some(page) =>
           val query = page.query.query
-          if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).fuccess
+          if (query.key.isEmpty) Redirect(routes.Opening.index(key.some)).toFuccess
           else if (query.key != key)
-            Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).fuccess
+            Redirect(routes.Opening.byKeyAndMoves(query.key, moves)).toFuccess
           else if (moves.nonEmpty && ~query.moves != moves)
-            Redirect(routes.Opening.byKeyAndMoves(query.key, ~query.moves)).fuccess
+            Redirect(routes.Opening.byKeyAndMoves(query.key, ~query.moves)).toFuccess
           else
             page.query.opening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
               val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
@@ -63,7 +63,7 @@ final class Opening(env: Env) extends LilaController(env) {
       lila.opening.OpeningConfig.form
         .bindFromRequest()
         .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
-        .fuccess
+        .toFuccess
     }
 
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
@@ -76,7 +76,7 @@ final class Opening(env: Env) extends LilaController(env) {
         lila.opening.OpeningWiki.form
           .bindFromRequest()
           .fold(
-            _ => redirect.fuccess,
+            _ => redirect.toFuccess,
             text => env.opening.wiki.write(op, text, me.user) inject redirect
           )
       }
@@ -84,6 +84,6 @@ final class Opening(env: Env) extends LilaController(env) {
   }
 
   def tree = Open { implicit ctx =>
-    Ok(html.opening.tree(lila.opening.Opening.Tree.compute, env.opening.api.readConfig)).fuccess
+    Ok(html.opening.tree(lila.opening.Opening.Tree.compute, env.opening.api.readConfig)).toFuccess
   }
 }

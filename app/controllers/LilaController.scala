@@ -34,7 +34,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected given Zero[Result] = Zero(Results.NotFound)
 
   extension (result: Result)
-    def fuccess                           = scala.concurrent.Future successful result
+    def toFuccess                         = scala.concurrent.Future successful result
     def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
     def flashSuccess: Result              = flashSuccess("")
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
@@ -55,14 +55,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected given Conversion[Frag, Result]    = Ok(_)
   protected given Conversion[Int, ApiVersion] = ApiVersion(_)
-  protected given FormBinding                 = parse.formBinding(parse.DefaultMaxTextLength)
+  protected given formBinding: FormBinding    = parse.formBinding(parse.DefaultMaxTextLength)
 
   protected val keyPages        = new KeyPages(env)
   protected val renderNotFound  = keyPages.notFound _
   protected val rateLimitedMsg  = "Too many requests. Try again later."
   protected val rateLimited     = Results.TooManyRequests(rateLimitedMsg)
   protected val rateLimitedJson = Results.TooManyRequests(jsonError(rateLimitedMsg))
-  protected val rateLimitedFu   = rateLimited.fuccess
+  protected val rateLimitedFu   = rateLimited.toFuccess
 
   implicit protected def LilaFunitToResult(
       @nowarn("cat=unused") funit: Funit
@@ -79,10 +79,10 @@ abstract private[controllers] class LilaController(val env: Env)
   given lila.common.config.NetDomain              = env.net.domain
 
   // we can't move to `using` yet, because we can't do `Open { using ctx =>`
-  implicit def ctxLang(implicit ctx: Context): Lang         = ctx.lang
-  implicit def ctxReq(implicit ctx: Context): RequestHeader          = ctx.req
+  implicit def ctxLang(implicit ctx: Context): Lang                   = ctx.lang
+  implicit def ctxReq(implicit ctx: Context): RequestHeader           = ctx.req
   implicit def reqConfig(implicit req: RequestHeader): ui.EmbedConfig = ui.EmbedConfig(req)
-  def reqLang(implicit req: RequestHeader): Lang            = I18nLangPicker(req)
+  def reqLang(implicit req: RequestHeader): Lang                      = I18nLangPicker(req)
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(parse.empty)(f)
@@ -262,10 +262,10 @@ abstract private[controllers] class LilaController(val env: Env)
         .responseHeaders(scopes, available) {
           Unauthorized(jsonError(e.message))
         }
-        .fuccess
+        .toFuccess
     case e =>
       lila.mon.user.oauth.request(false).increment()
-      OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
+      OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.toFuccess
   }
 
   protected def SecureOrScoped(perm: Permission.Selector)(
@@ -308,31 +308,31 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def Firewall[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if (env.security.firewall accepts ctx.req) a
-    else keyPages.blacklisted.fuccess
+    else keyPages.blacklisted.toFuccess
 
   protected def NoTor(res: => Fu[Result])(using ctx: Context) =
     if (env.security.tor isExitNode ctx.ip)
-      Unauthorized(views.html.auth.bits.tor()).fuccess
+      Unauthorized(views.html.auth.bits.tor()).toFuccess
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.marks.engine)) Forbidden(views.html.site.message.noEngine).fuccess else a
+    if (ctx.me.exists(_.marks.engine)) Forbidden(views.html.site.message.noEngine).toFuccess else a
 
   protected def NoBooster[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.marks.boost)) Forbidden(views.html.site.message.noBooster).fuccess else a
+    if (ctx.me.exists(_.marks.boost)) Forbidden(views.html.site.message.noBooster).toFuccess else a
 
   protected def NoLame[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
 
   protected def NoBot[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
-    if (ctx.isBot) Forbidden(views.html.site.message.noBot).fuccess else a
+    if (ctx.isBot) Forbidden(views.html.site.message.noBot).toFuccess else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     NoLame(NoBot(a))
 
   protected def NoLameOrBot[A <: Result](me: UserModel)(a: => Fu[A]): Fu[Result] =
-    if (me.isBot) notForBotAccounts.fuccess
-    else if (me.lame) Forbidden.fuccess
+    if (me.isBot) notForBotAccounts.toFuccess
+    else if (me.lame) Forbidden.toFuccess
     else a
 
   protected def NoShadowban[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
@@ -401,9 +401,9 @@ abstract private[controllers] class LilaController(val env: Env)
         op
       )
 
-  protected def FormFuResult[A](
+  protected def FormFuResult[A, B: Writeable: ContentTypeOf](
       form: Form[A]
-  )(err: Form[A] => Fu[Result])(op: A => Fu[Result])(implicit req: Request[_]) =
+  )(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[_]) =
     form
       .bindFromRequest()
       .fold(
@@ -413,17 +413,17 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def FuRedirect(fua: Fu[Call]) = fua map { Redirect(_) }
 
-  protected def OptionOk[A](
+  protected def OptionOk[A, B: Writeable: ContentTypeOf](
       fua: Fu[Option[A]]
-  )(op: A => Result)(implicit ctx: Context): Fu[Result] =
+  )(op: A => B)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(fua) { a =>
       fuccess(op(a))
     }
 
-  protected def OptionFuOk[A](
+  protected def OptionFuOk[A, B: Writeable: ContentTypeOf](
       fua: Fu[Option[A]]
-  )(op: A => Fu[Result])(implicit ctx: Context) =
-    fua flatMap { _.fold(notFound(ctx))(a => op(a) map { Ok(_) }) }
+  )(op: A => Fu[B])(implicit ctx: Context) =
+    fua flatMap { _.fold(notFound(ctx))(a => op(a) dmap { Ok(_) }) }
 
   protected def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(implicit ctx: Context) =
     fua flatMap {
@@ -494,7 +494,7 @@ abstract private[controllers] class LilaController(val env: Env)
           .ensure(ctx.req) {
             Unauthorized(jsonError("Login required"))
           }
-          .fuccess
+          .toFuccess
     )
 
   private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
@@ -605,7 +605,7 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   protected val csrfCheck           = env.security.csrfRequestHandler.check _
-  protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
+  protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").toFuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
     if (csrfCheck(req)) f else csrfForbiddenResult
@@ -615,12 +615,12 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def XhrOrRedirectHome(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res
-    else Redirect(routes.Lobby.home).fuccess
+    else Redirect(routes.Lobby.home).toFuccess
 
   protected def Reasonable(
       page: Int,
       max: config.Max = config.Max(40),
-      errorPage: => Fu[Result] = BadRequest("resource too old").fuccess
+      errorPage: => Fu[Result] = BadRequest("resource too old").toFuccess
   )(result: => Fu[Result]): Fu[Result] =
     if (max > page && page > 0) result else errorPage
 
@@ -694,13 +694,13 @@ abstract private[controllers] class LilaController(val env: Env)
     LangPage(call.url)(f)(langCode)
   protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
     Open { ctx =>
-      if (ctx.isAuth) redirectWithQueryString(path)(ctx.req).fuccess
+      if (ctx.isAuth) redirectWithQueryString(path)(ctx.req).toFuccess
       else
         I18nLangPicker.byHref(langCode, ctx.req) match {
           case I18nLangPicker.NotFound => notFound(ctx)
           case I18nLangPicker.Redir(code) =>
-            redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).fuccess
-          case I18nLangPicker.Refused(_) => redirectWithQueryString(path)(ctx.req).fuccess
+            redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).toFuccess
+          case I18nLangPicker.Refused(_) => redirectWithQueryString(path)(ctx.req).toFuccess
           case I18nLangPicker.Found(lang) =>
             val langCtx = ctx withLang lang
             pageHit(langCtx)
@@ -724,5 +724,5 @@ abstract private[controllers] class LilaController(val env: Env)
     "donate"  -> "/patron"
   )
   protected def staticRedirect(key: String): Option[Fu[Result]] =
-    movedMap get key map { MovedPermanently(_).fuccess }
+    movedMap get key map { MovedPermanently(_).toFuccess }
 }

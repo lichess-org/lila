@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, Json }
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.MessageKey
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
@@ -23,7 +23,7 @@ object bits {
     if (streak) i18nJsObject(streakI18nKeys)
     else
       i18nJsObject(trainingI18nKeys) + (PuzzleTheme.enPassant.key.value -> JsString(
-        PuzzleTheme.enPassant.name.txt()(lila.i18n.defaultLang)
+        PuzzleTheme.enPassant.name.txt()
       ))
 
   lazy val jsonThemes = PuzzleTheme.visible

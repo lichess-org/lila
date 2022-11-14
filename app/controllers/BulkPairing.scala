@@ -2,7 +2,7 @@ package controllers
 
 import play.api.libs.json.Json
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.setup.SetupBulk
 
 final class BulkPairing(env: Env) extends LilaController(env) {
@@ -17,7 +17,7 @@ final class BulkPairing(env: Env) extends LilaController(env) {
   def delete(id: String) =
     ScopedBody(_.Challenge.Bulk) { implicit req => me =>
       env.challenge.bulk.deleteBy(id, me) flatMap {
-        case true => jsonOkResult.fuccess
+        case true => jsonOkResult.toFuccess
         case _    => notFoundJson()
       }
     }
@@ -25,7 +25,7 @@ final class BulkPairing(env: Env) extends LilaController(env) {
   def startClocks(id: String) =
     ScopedBody(_.Challenge.Bulk) { implicit req => me =>
       env.challenge.bulk.startClocks(id, me) flatMap {
-        case true => jsonOkResult.fuccess
+        case true => jsonOkResult.toFuccess
         case _    => notFoundJson()
       }
     }
@@ -43,7 +43,7 @@ final class BulkPairing(env: Env) extends LilaController(env) {
               case Left(SetupBulk.RateLimited) =>
                 TooManyRequests(
                   jsonError(s"Ratelimited! Max games per 10 minutes: ${SetupBulk.maxGames}")
-                ).fuccess
+                ).toFuccess
               case Left(SetupBulk.BadTokens(tokens)) =>
                 import lila.setup.SetupBulk.BadToken
                 import play.api.libs.json._
@@ -55,9 +55,9 @@ final class BulkPairing(env: Env) extends LilaController(env) {
                       }
                     }
                   )
-                ).fuccess
+                ).toFuccess
               case Left(SetupBulk.DuplicateUsers(users)) =>
-                BadRequest(Json.obj("duplicateUsers" -> users)).fuccess
+                BadRequest(Json.obj("duplicateUsers" -> users)).toFuccess
               case Right(bulk) =>
                 env.challenge.bulk.schedule(bulk) map {
                   case Left(error) => BadRequest(jsonError(error))

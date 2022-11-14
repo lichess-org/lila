@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.json.Json
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 
 final class I18n(env: Env) extends LilaController(env) {
@@ -43,8 +43,8 @@ final class I18n(env: Env) extends LilaController(env) {
                 }
                 if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
                 else redir
-              }.fuccess,
-              api = _ => Ok(Json.obj("lang" -> lang.code)).fuccess
+              }.toFuccess,
+              api = _ => Ok(Json.obj("lang" -> lang.code)).toFuccess
             )
           }
         )

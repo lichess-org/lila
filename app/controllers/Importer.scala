@@ -6,7 +6,7 @@ import play.api.mvc._
 import scala.concurrent.duration._
 import views._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 
 final class Importer(env: Env) extends LilaController(env) {
@@ -36,8 +36,8 @@ final class Importer(env: Env) extends LilaController(env) {
         .fold(
           failure =>
             negotiate( // used by mobile app
-              html = Ok(html.game.importGame(failure)).fuccess,
-              api = _ => BadRequest(jsonError("Invalid PGN")).fuccess
+              html = Ok(html.game.importGame(failure)).toFuccess,
+              api = _ => BadRequest(jsonError("Invalid PGN")).toFuccess
             ),
           data =>
             ImportRateLimitPerIP(ctx.ip, cost = 1) {
@@ -56,7 +56,7 @@ final class Importer(env: Env) extends LilaController(env) {
                       )
                       .void
                   } inject Redirect(routes.Round.watcher(game.id, "white"))
-                case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).fuccess
+                case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).toFuccess
               }
             }(rateLimitedFu)
         )
@@ -68,7 +68,7 @@ final class Importer(env: Env) extends LilaController(env) {
         env.importer.forms.importForm
           .bindFromRequest()(req, formBinding)
           .fold(
-            err => BadRequest(apiFormError(err)).fuccess,
+            err => BadRequest(apiFormError(err)).toFuccess,
             data =>
               doImport(data, req, me) map {
                 case Left(error) => BadRequest(jsonError(error))

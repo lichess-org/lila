@@ -8,7 +8,7 @@ import scala.util.chaining._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.{ ChatFor, Id => SwissId }
 import lila.swiss.{ Swiss => SwissModel, SwissForm }
@@ -36,7 +36,7 @@ final class Swiss(
       env.swiss.cache.swissCache.byId(SwissId(id)) flatMap { swissOption =>
         val page = getInt("page").filter(0.<)
         negotiate(
-          html = swissOption.fold(swissNotFound.fuccess) { swiss =>
+          html = swissOption.fold(swissNotFound.toFuccess) { swiss =>
             for {
               verdicts <- env.swiss.api.verdicts(swiss, ctx.me)
               version  <- env.swiss.version(swiss.id)
@@ -115,7 +115,7 @@ final class Swiss(
     Auth { implicit ctx => me =>
       NoLameOrBot {
         CheckTeamLeader(teamId) {
-          Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).fuccess
+          Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).toFuccess
         }
       }
     }
@@ -128,7 +128,7 @@ final class Swiss(
             .create(me)
             .bindFromRequest()(ctx.body, formBinding)
             .fold(
-              err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
+              err => BadRequest(html.swiss.form.create(err, teamId)).toFuccess,
               data =>
                 tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
                   env.swiss.api.create(data, me, teamId) map { swiss =>
@@ -168,7 +168,7 @@ final class Swiss(
             env.swiss.api
               .kill(swiss)
               .map(_ => jsonOkResult)
-          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).fuccess
+          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
         }
       }
     }
@@ -182,7 +182,7 @@ final class Swiss(
 
   def apiJoin(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
+      if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
       else doJoin(me, SwissId(id), bodyPassword)
     }
 
@@ -203,7 +203,7 @@ final class Swiss(
     Auth { implicit ctx => me =>
       env.swiss.api.withdraw(SwissId(id), me.id) >>
         negotiate(
-          html = Redirect(routes.Swiss.show(id)).fuccess,
+          html = Redirect(routes.Swiss.show(id)).toFuccess,
           api = _ => fuccess(jsonOkResult)
         )
     }
@@ -211,7 +211,7 @@ final class Swiss(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
-        Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))).fuccess
+        Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))).toFuccess
       }
     }
 
@@ -223,7 +223,7 @@ final class Swiss(
           .edit(me, swiss)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
+            err => BadRequest(html.swiss.form.edit(swiss, err)).toFuccess,
             data => env.swiss.api.update(swiss.id, data) inject Redirect(routes.Swiss.show(id))
           )
       }
@@ -235,7 +235,7 @@ final class Swiss(
       WithEditableSwiss(
         id,
         me,
-        _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).fuccess
+        _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).toFuccess
       ) { swiss =>
         env.swiss.forms
           .edit(me, swiss)
@@ -260,7 +260,7 @@ final class Swiss(
         env.swiss.forms.nextRound
           .bindFromRequest()
           .fold(
-            _ => Redirect(routes.Swiss.show(id)).fuccess,
+            _ => Redirect(routes.Swiss.show(id)).toFuccess,
             date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))
           )
       }
@@ -324,7 +324,7 @@ final class Swiss(
           .documentSource(getInt("max", req) | 100)
           .mapAsync(4)(env.swiss.json.api)
           .throttle(20, 1.second)
-      }.fuccess
+      }.toFuccess
     }
 
   private def WithSwiss(id: String)(f: SwissModel => Fu[Result]): Fu[Result] =
@@ -333,7 +333,7 @@ final class Swiss(
   private def WithEditableSwiss(
       id: String,
       me: UserModel,
-      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id.value)).fuccess
+      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id.value)).toFuccess
   )(
       f: SwissModel => Fu[Result]
   ): Fu[Result] =

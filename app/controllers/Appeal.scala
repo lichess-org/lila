@@ -5,7 +5,7 @@ import play.api.mvc.Result
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.report.Suspect
 import play.api.data.Form
 

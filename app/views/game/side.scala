@@ -2,7 +2,7 @@ package views.html
 package game
 
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
@@ -91,7 +91,7 @@ object side {
             }
           )
         },
-        game.variant.chess960 ??
+        game.variant.chess960.?? {
           chess.variant.Chess960
             .positionNumber(initialFen | chess.format.Forsyth.initial)
             .map { number =>
@@ -103,7 +103,8 @@ object side {
                   )(number)
                 )
               )
-            },
+            }
+        },
         userTv.map { u =>
           st.section(cls := "game__tv")(
             h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := "")(u.titleUsername)

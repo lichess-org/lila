@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.Pov
 import lila.round.JsonView.WithFlags
 
@@ -94,7 +94,7 @@ final class UserAnalysis(
           val pov = Pov(game, chess.Color.fromName(color) | White)
           negotiate(
             html =
-              if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
+              if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).toFuccess
               else {
                 val owner = isMyPov(pov)
                 for {
@@ -157,7 +157,7 @@ final class UserAnalysis(
           ctx.body.body
             .validate[Forecast.Steps]
             .fold(
-              err => BadRequest(err.toString).fuccess,
+              err => BadRequest(err.toString).toFuccess,
               forecasts =>
                 env.round.forecastApi.save(pov, forecasts) >>
                   env.round.forecastApi.loadForDisplay(pov) map {
@@ -179,7 +179,7 @@ final class UserAnalysis(
           ctx.body.body
             .validate[Forecast.Steps]
             .fold(
-              err => BadRequest(err.toString).fuccess,
+              err => BadRequest(err.toString).toFuccess,
               forecasts => {
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
                 env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
@@ -192,6 +192,6 @@ final class UserAnalysis(
 
   def help =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.analyse(getBool("study"))).fuccess
+      Ok(html.site.keyboardHelpModal.analyse(getBool("study"))).toFuccess
     }
 }

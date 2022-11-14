@@ -3,7 +3,7 @@ package controllers
 import play.api.libs.json._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
 

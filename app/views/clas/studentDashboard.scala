@@ -2,7 +2,7 @@ package views.html.clas
 
 import controllers.routes
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText

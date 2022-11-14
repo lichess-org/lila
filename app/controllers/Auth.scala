@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ EmailAddress, HTTPRequest }
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
@@ -63,9 +63,9 @@ final class Auth(
   ): Fu[Result] =
     api.appeal.saveAuthentication(u.id) flatMap { sessionId =>
       negotiate(
-        html = redirect(appeal.routes.Appeal.landing.url).fuccess map
+        html = redirect(appeal.routes.Appeal.landing.url).toFuccess map
           authenticateCookie(sessionId, remember = false),
-        api = _ => NotFound.fuccess
+        api = _ => NotFound.toFuccess
       )
     } recoverWith authRecovery
 
@@ -91,11 +91,11 @@ final class Auth(
   private def serveLogin(implicit ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
     referrer ifTrue ctx.isAuth match {
-      case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
+      case Some(url) => Redirect(url).toFuccess // redirect immediately if already logged in
       case None =>
         Ok(html.auth.login(api.loginForm, referrer))
           .withCanonical(routes.Auth.login)
-          .fuccess
+          .toFuccess
     }
   }
 
@@ -113,8 +113,8 @@ final class Auth(
             .fold(
               err =>
                 negotiate(
-                  html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
-                  api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                  html = Unauthorized(html.auth.login(api.loginForm, referrer)).toFuccess,
+                  api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                 ),
               usernameOrEmail =>
                 HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
@@ -126,24 +126,24 @@ final class Auth(
                           negotiate(
                             html = fuccess {
                               err.errors match {
-                                case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
+                                case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
                                 case _ => Unauthorized(html.auth.login(err, referrer))
                               }
                             },
                             api = _ =>
-                              Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                              Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
                           )
                         },
                         result =>
                           result.toOption match {
-                            case None => InternalServerError("Authentication error").fuccess
+                            case None => InternalServerError("Authentication error").toFuccess
                             case Some(u) if u.disabled =>
                               negotiate(
                                 html = env.mod.logApi.closedByMod(u) flatMap {
                                   case true => authenticateAppealUser(u, redirectTo)
-                                  case _    => redirectTo(routes.Account.reopen.url).fuccess
+                                  case _    => redirectTo(routes.Account.reopen.url).toFuccess
                                 },
-                                api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
+                                api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
                               )
                             case Some(u) =>
                               env.user.repo.email(u.id) foreach {
@@ -166,8 +166,8 @@ final class Auth(
       env.security.store.delete(currentSessionId) >>
         env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
         negotiate(
-          html = Redirect(routes.Auth.login).fuccess,
-          api = _ => Ok(Json.obj("ok" -> true)).fuccess
+          html = Redirect(routes.Auth.login).toFuccess,
+          api = _ => Ok(Json.obj("ok" -> true)).toFuccess
         ).dmap(_.withCookies(env.lilaCookie.newSession))
     }
 
@@ -175,10 +175,10 @@ final class Auth(
   def logoutGet =
     Auth { implicit ctx => _ =>
       negotiate(
-        html = Ok(html.auth.bits.logout()).fuccess,
+        html = Ok(html.auth.bits.logout()).toFuccess,
         api = _ => {
           ctxReq.session get api.sessionIdKey foreach env.security.store.delete
-          Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).fuccess
+          Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).toFuccess
         }
       )
     }
@@ -204,7 +204,7 @@ final class Auth(
             html = env.security.signup
               .website(ctx.blind)
               .flatMap {
-                case Signup.RateLimited => limitedDefault.zero.fuccess
+                case Signup.RateLimited => limitedDefault.zero.toFuccess
                 case Signup.MissingCaptcha =>
                   forms.signup.website map { form =>
                     BadRequest(html.auth.signup(form))
@@ -226,10 +226,10 @@ final class Auth(
               env.security.signup
                 .mobile(apiVersion)
                 .flatMap {
-                  case Signup.RateLimited        => limitedDefault.zero.fuccess
+                  case Signup.RateLimited        => limitedDefault.zero.toFuccess
                   case Signup.MissingCaptcha     => fuccess(BadRequest(jsonError("Missing captcha?!")))
                   case Signup.Bad(err)           => jsonFormError(err)
-                  case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).fuccess
+                  case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).toFuccess
                   case Signup.AllSet(user, email) =>
                     welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user, remember = true)
                 }
@@ -254,10 +254,10 @@ final class Auth(
     Open { implicit ctx =>
       RedirectToProfileIfLoggedIn {
         lila.security.EmailConfirm.cookie get ctx.req match {
-          case None => Ok(accountC.renderCheckYourEmail).fuccess
+          case None => Ok(accountC.renderCheckYourEmail).toFuccess
           case Some(userEmail) =>
             env.user.repo nameExists userEmail.username map {
-              case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(ctx.req)
+              case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
               case true  => Ok(accountC.renderCheckYourEmail)
             }
         }
@@ -273,12 +273,12 @@ final class Auth(
           .fixEmail(userEmail.email)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
+            err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).toFuccess,
             email =>
               env.user.repo.named(userEmail.username) flatMap {
-                _.fold(Redirect(routes.Auth.signup).fuccess) { user =>
+                _.fold(Redirect(routes.Auth.signup).toFuccess) { user =>
                   env.user.repo.mustConfirmEmail(user.id) flatMap {
-                    case false => Redirect(routes.Auth.login).fuccess
+                    case false => Redirect(routes.Auth.login).toFuccess
                     case _ =>
                       val newUserEmail = userEmail.copy(email = EmailAddress(email))
                       EmailConfirmRateLimit(newUserEmail, ctx.req) {
@@ -305,9 +305,9 @@ final class Auth(
           lila.mon.user.register.confirmEmailResult(false).increment()
           notFound
         case Result.AlreadyConfirmed(user) if ctx.is(user) =>
-          Redirect(routes.User.show(user.username)).fuccess
+          Redirect(routes.User.show(user.username)).toFuccess
         case Result.AlreadyConfirmed(_) =>
-          Redirect(routes.Auth.login).fuccess
+          Redirect(routes.Auth.login).toFuccess
         case Result.JustConfirmed(user) =>
           lila.mon.user.register.confirmEmailResult(true).increment()
           env.user.repo.email(user.id).flatMap {
@@ -322,7 +322,7 @@ final class Auth(
   private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
-        html = Redirect(getReferrerOption | routes.User.show(user.username).url).fuccess,
+        html = Redirect(getReferrerOption | routes.User.show(user.username).url).toFuccess,
         api = _ => mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId, remember = true)
     } recoverWith authRecovery
@@ -377,7 +377,7 @@ final class Auth(
                       )
                     case _ =>
                       lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                      Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).fuccess
+                      Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).toFuccess
                   }
               )
           }
@@ -458,19 +458,18 @@ final class Auth(
                 .fold(
                   err => renderMagicLink(err.some, fail = true) map { BadRequest(_) },
                   data =>
-                    env.user.repo.enabledWithEmail(data.realEmail.normalize)
-                      flatMap {
-                        case Some((user, storedEmail)) =>
-                          MagicLinkRateLimit(user, storedEmail, ctx.req) {
-                            lila.mon.user.auth.magicLinkRequest("success").increment()
-                            env.security.magicLink.send(user, storedEmail) inject Redirect(
-                              routes.Auth.magicLinkSent(storedEmail.value)
-                            )
-                          }(rateLimitedFu)
-                        case _ =>
-                          lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                          Redirect(routes.Auth.magicLinkSent(data.realEmail.value)).fuccess
-                      }
+                    env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
+                      case Some((user, storedEmail)) =>
+                        MagicLinkRateLimit(user, storedEmail, ctx.req) {
+                          lila.mon.user.auth.magicLinkRequest("success").increment()
+                          env.security.magicLink.send(user, storedEmail) inject Redirect(
+                            routes.Auth.magicLinkSent(storedEmail.value)
+                          )
+                        }(rateLimitedFu)
+                      case _ =>
+                        lila.mon.user.auth.magicLinkRequest("no_email").increment()
+                        Redirect(routes.Auth.magicLinkSent(data.realEmail.value)).toFuccess
+                    }
                 )
             }
           else
@@ -494,7 +493,7 @@ final class Auth(
 
   def magicLinkLogin(token: String) =
     Open { implicit ctx =>
-      if (ctx.isAuth) Redirect(routes.Lobby.home).fuccess
+      if (ctx.isAuth) Redirect(routes.Lobby.home).toFuccess
       else
         Firewall {
           magicLinkLoginRateLimitPerToken(token) {
@@ -532,7 +531,7 @@ final class Auth(
 
   def loginWithToken(token: String) =
     Open { implicit ctx =>
-      if (ctx.isAuth) Redirect(getReferrer).fuccess
+      if (ctx.isAuth) Redirect(getReferrer).toFuccess
       else
         Firewall {
           consumingToken(token) { user =>
@@ -545,7 +544,7 @@ final class Auth(
 
   def loginWithTokenPost(token: String, referrer: Option[String]) =
     Open { implicit ctx =>
-      if (ctx.isAuth) Redirect(getReferrer).fuccess
+      if (ctx.isAuth) Redirect(getReferrer).toFuccess
       else
         Firewall {
           consumingToken(token) { authenticateUser(_, remember = true) }
@@ -558,11 +557,11 @@ final class Auth(
         BadRequest {
           import scalatags.Text.all.stringFrag
           html.site.message("This token has expired.")(stringFrag("Please go back and try again."))
-        }.fuccess
+        }.toFuccess
       case Some(user) => f(user)
     }
 
-  implicit private val limitedDefault = Zero[Result](rateLimited)
+  private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
   private[controllers] def HasherRateLimit =
     PasswordHasher.rateLimit[Result](enforce = env.net.rateLimit) _
@@ -573,7 +572,7 @@ final class Auth(
 
   private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     ctx.me match {
-      case Some(me) => Redirect(routes.User.show(me.username)).fuccess
+      case Some(me) => Redirect(routes.User.show(me.username)).toFuccess
       case None     => f
     }
 }

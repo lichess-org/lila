@@ -2,7 +2,7 @@ package controllers
 
 import views._
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.oauth.{ AccessToken, OAuthTokenForm }
 
 final class OAuthToken(env: Env) extends LilaController(env) {
@@ -22,7 +22,7 @@ final class OAuthToken(env: Env) extends LilaController(env) {
         description = ~get("description"),
         scopes = (~ctx.req.queryString.get("scopes[]")).toList
       )
-      Ok(html.oAuth.token.create(form, me)).fuccess
+      Ok(html.oAuth.token.create(form, me)).toFuccess
     }
 
   def createApply =
@@ -31,7 +31,7 @@ final class OAuthToken(env: Env) extends LilaController(env) {
       OAuthTokenForm.create
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
+          err => BadRequest(html.oAuth.token.create(err, me)).toFuccess,
           setup =>
             tokenApi.create(setup, me, env.clas.studentCache.isStudent(me.id)) inject
               Redirect(routes.OAuthToken.index).flashSuccess

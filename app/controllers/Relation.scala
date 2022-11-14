@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
 import lila.relation.Related
@@ -128,10 +128,10 @@ final class Relation(
             negotiate(
               html = {
                 if (ctx.is(user) || isGranted(_.CloseAccount))
-                  Ok(html.relation.bits.friends(user, pag)).fuccess
-                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).fuccess)
+                  Ok(html.relation.bits.friends(user, pag)).toFuccess
+                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).toFuccess)
               },
-              api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
+              api = _ => Ok(jsonRelatedPaginator(pag)).toFuccess
             )
           }
         }
@@ -145,7 +145,7 @@ final class Relation(
         api = _ =>
           Reasonable(page, config.Max(20)) {
             RelatedPager(api.followersPaginatorAdapter(UserModel normalize username), page) flatMap { pag =>
-              Ok(jsonRelatedPaginator(pag)).fuccess
+              Ok(jsonRelatedPaginator(pag)).toFuccess
             }
           }
       )
@@ -156,7 +156,7 @@ final class Relation(
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
         .map(env.api.userApi.one)
-    }.fuccess
+    }.toFuccess
   }
 
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {

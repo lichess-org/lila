@@ -4,7 +4,7 @@ package html.tournament
 import chess.variant.{ FromPosition, Standard }
 import controllers.routes
 import lila.api.{ Context, given }
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.tournament.{ TeamBattle, Tournament, TournamentShield }

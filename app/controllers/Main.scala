@@ -95,7 +95,7 @@ final class Main(
         fullId = lila.game.Game.FullId(id),
         name = get("n", ctx.req) | "?"
       )
-      NoContent.fuccess
+      NoContent.toFuccess
     }
 
   val robots = Action { req =>
@@ -149,7 +149,7 @@ Allow: /
   def getFishnet =
     Open { implicit ctx =>
       pageHit
-      Ok(html.site.bits.getFishnet()).fuccess
+      Ok(html.site.bits.getFishnet()).toFuccess
     }
 
   def costs =
@@ -169,18 +169,18 @@ Allow: /
   def contact =
     Open { implicit ctx =>
       pageHit
-      Ok(html.site.contact()).fuccess
+      Ok(html.site.contact()).toFuccess
     }
 
   def faq =
     Open { implicit ctx =>
       pageHit
-      Ok(html.site.faq()).fuccess
+      Ok(html.site.faq()).toFuccess
     }
 
   def keyboardMoveHelp =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.keyboardMove).fuccess
+      Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess
     }
 
   def movedPermanently(to: String) =
@@ -226,7 +226,7 @@ Allow: /
           case 122  => s"$faq#marks"
           case _    => faq
         }
-      }.fuccess
+      }.toFuccess
     }
 
   def devAsset(@nowarn("cat=unused") v: String, path: String, file: String) = assetsC.at(path, file)
