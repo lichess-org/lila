@@ -5,6 +5,7 @@ import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._
 import scala.util.{ Failure, Success, Try }
+import java.util.concurrent.atomic.AtomicReference
 
 import lila.common.LilaStream
 import lila.db.dsl._
@@ -33,24 +34,26 @@ final private class ExplorerIndexer(
     }
 
   private object flowBuffer {
-    private val max = 30
-    private val buf = scala.collection.mutable.ArrayBuffer.empty[JsObject]
+    private val max       = 30
+    private val bufferRef = new AtomicReference[Vector[JsObject]](Vector.empty)
+
     def apply(game: JsObject): Unit = {
-      buf += game
-      val startAt = nowMillis
-      if (buf.sizeIs >= max) {
-        ws.url(internalEndPointUrl).put(JsArray(buf)) andThen {
-          case Success(res) if res.status == 200 =>
-            lila.mon.explorer.index.time.record((nowMillis - startAt) / max)
-            lila.mon.explorer.index.count(true).increment(max)
-          case Success(res) =>
-            logger.warn(s"[${res.status}]")
-            lila.mon.explorer.index.count(false).increment(max)
-          case Failure(err) =>
-            logger.warn(s"$err", err)
-            lila.mon.explorer.index.count(false).increment(max)
+      if (bufferRef.updateAndGet(_ :+ game).size >= max) {
+        val buffer = bufferRef.getAndSet(Vector.empty)
+        if (buffer.nonEmpty) {
+          val startAt = nowMillis
+          ws.url(internalEndPointUrl).put(JsArray(buffer)) andThen {
+            case Success(res) if res.status == 200 =>
+              lila.mon.explorer.index.time.record((nowMillis - startAt) / buffer.size)
+              lila.mon.explorer.index.count(true).increment(buffer.size)
+            case Success(res) =>
+              logger.warn(s"[${res.status}]")
+              lila.mon.explorer.index.count(false).increment(buffer.size)
+            case Failure(err) =>
+              logger.warn(s"$err", err)
+              lila.mon.explorer.index.count(false).increment(buffer.size)
+          } unit
         }
-        buf.clear()
       }
     }
   }
