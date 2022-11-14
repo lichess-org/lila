@@ -1,6 +1,7 @@
 import { updateElements } from './clockView';
 import { RoundData } from '../interfaces';
 import * as game from 'game';
+import * as Prefs from 'common/prefs';
 
 export type Seconds = number;
 export type Centis = number;

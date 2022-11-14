@@ -71,6 +71,8 @@ export default function LichessLobby(opts: LobbyOpts) {
   suggestBgSwitch();
 }
 
+(window as any).LichessLobby = LichessLobby; // esbuild
+
 function suggestBgSwitch() {
   const m = window.matchMedia('(prefers-color-scheme: dark)');
   if (m.media == 'not all') return;

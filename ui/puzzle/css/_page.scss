@@ -9,7 +9,6 @@ h2#openings {
     font-size: 1rem;
   }
 }
-
 .help {
   @extend %box-padding-horiz, %box-radius;
   padding-top: 2em;
@@ -24,10 +23,10 @@ h2#openings {
   }
 }
 @media (hover: none) {
-  &-touchscreen {
+  .help-touchscreen {
     display: block;
   }
-  &-keyboard {
+  .help-keyboard {
     display: none;
   }
 }

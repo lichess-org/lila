@@ -6,17 +6,12 @@
   "license": "AGPL-3.0-or-later",
   "type": "commonjs",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.1",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "@rollup/plugin-replace": "^4.0.0",
-    "@rollup/plugin-typescript": "^9.0.2",
-    "rollup": "^2",
-    "rollup-plugin-copy": "^3.3.0",
-    "tslib": "^2.3.1",
-    "typescript": "^4"
+    "typescript": "^4",
+    "esbuild": "^0.15.13",
+    "fast-glob": "^3"
   },
   "scripts": {
-    "dev": "tsc && node --max-old-space-size=6400 dist/main.js",
-    "go": "node --max-old-space-size=6400 dist/main.js"
+    "dev": "tsc && node dist/main.js",
+    "go": "tsc --incremental && node dist/main.js"
   }
 }

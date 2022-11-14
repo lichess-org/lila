@@ -34,3 +34,5 @@ function hackFix(msg: string): string {
 export function step(s: { san?: San }, cut?: boolean) {
   lichess.sound.say(s.san ? renderSan(s.san) : 'Game start', cut);
 }
+
+(window as any).LichessSpeech = { step }; // esbuild

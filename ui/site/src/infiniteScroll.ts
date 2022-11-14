@@ -1,10 +1,10 @@
 import * as xhr from 'common/xhr';
 
-export default function InfiniteScroll(selector: string) {
+export default (window as any).InfiniteScroll = function InfiniteScroll(selector: string) {
   $(selector).each(function (this: HTMLElement) {
     register(this, selector);
   });
-}
+};
 
 function register(el: HTMLElement, selector: string, backoff = 500) {
   const nav = el.querySelector('.pager') as HTMLAnchorElement | null,

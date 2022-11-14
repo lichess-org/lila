@@ -12,7 +12,6 @@ export default function LichessMsg(opts: MsgOpts) {
     appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);
   window.addEventListener('resize', appHeight);
   appHeight();
-
   const ctrl = new MsgCtrl(upgradeData(opts.data), lichess.trans(opts.i18n), redraw);
 
   const blueprint = view(ctrl);
@@ -25,3 +24,5 @@ export default function LichessMsg(opts: MsgOpts) {
 
   redraw();
 }
+
+(window as any).LichessMsg = LichessMsg; // esbuild

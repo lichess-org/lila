@@ -32,6 +32,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 import type * as studyDeps from '../study/studyDeps';
 import { renderNextChapter } from '../study/nextChapter';
+import * as Prefs from 'common/prefs';
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =

@@ -1,5 +1,5 @@
+/// <reference types="../types/tablesort" />
 import tablesort from 'tablesort';
-
 import { loadScript } from './component/assets';
 import extendTablesortNumber from 'common/tablesort-number';
 import * as xhr from 'common/xhr';

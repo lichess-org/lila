@@ -9,10 +9,11 @@ import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
 import { ExternalEngine } from 'ceval';
+import * as Prefs from 'common/prefs';
 
 export type Seconds = number;
 
-export { Key, Piece } from 'chessground/types';
+export type { Key, Piece } from 'chessground/types';
 
 export interface NvuiPlugin {
   render(): VNode;

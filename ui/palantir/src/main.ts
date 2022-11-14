@@ -239,3 +239,5 @@ export function palantir(opts: PalantirOpts): Palantir | undefined {
     },
   };
 }
+
+(window as any).Palantir = { palantir }; // esbuild
