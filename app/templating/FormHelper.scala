@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import play.api.data._
+import play.api.data.*
 import play.api.i18n.Lang
 
 import lila.api.Context
@@ -11,7 +11,7 @@ trait FormHelper { self: I18nHelper =>
 
   def errMsg(form: Field)(using Lang): Frag = errMsg(form.errors)
 
-  def errMsg(form: Form[_])(using Lang): Frag = errMsg(form.errors)
+  def errMsg(form: Form[?])(using Lang): Frag = errMsg(form.errors)
 
   def errMsg(error: FormError)(using Lang): Frag =
     p(cls := "error")(transKey(error.message, error.args))
@@ -19,7 +19,7 @@ trait FormHelper { self: I18nHelper =>
   def errMsg(errors: Seq[FormError])(using Lang): Frag =
     errors map errMsg
 
-  def globalError(form: Form[_])(using Lang): Option[Frag] =
+  def globalError(form: Form[?])(using Lang): Option[Frag] =
     form.globalError map errMsg
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
@@ -56,7 +56,7 @@ trait FormHelper { self: I18nHelper =>
     }.toList
   )
 
-  object form3 {
+  object form3:
 
     private val idPrefix = "form3"
 
@@ -233,7 +233,7 @@ trait FormHelper { self: I18nHelper =>
         )
       )
 
-    def globalError(form: Form[_])(using Lang): Option[Frag] =
+    def globalError(form: Form[?])(using Lang): Option[Frag] =
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))
       }
@@ -257,10 +257,8 @@ trait FormHelper { self: I18nHelper =>
         }
       )
 
-    object file {
+    object file:
       def image(name: String): Frag =
         st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg")
       def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-    }
-  }
 }

@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object editor {
+object editor:
 
   def apply(
       fen: Option[String],
@@ -42,4 +42,3 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
         )
       )
     )
-}

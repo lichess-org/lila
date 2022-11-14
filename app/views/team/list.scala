@@ -7,9 +7,9 @@ import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object list {
+object list:
 
-  import trans.team._
+  import trans.team.*
 
   def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) =
     list(
@@ -101,4 +101,3 @@ object list {
         )
       )
     }
-}

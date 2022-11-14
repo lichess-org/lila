@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def link(simulId: lila.simul.Simul.ID): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
@@ -72,4 +72,3 @@ object bits {
     trans.signIn,
     trans.mustBeInTeam
   ).map(_.key)
-}

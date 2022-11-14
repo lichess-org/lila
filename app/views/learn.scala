@@ -10,9 +10,9 @@ import lila.common.String.html.safeJsonValue
 import controllers.routes
 import lila.common.LangPath
 
-object index {
+object index:
 
-  import trans.learn.{ play => _, _ }
+  import trans.learn.{ play as _, * }
 
   def apply(data: Option[play.api.libs.json.JsValue])(implicit ctx: Context) =
     views.html.base.layout(
@@ -218,4 +218,3 @@ object index {
       puzzleFailed,
       retry
     ).map(_.key)
-}

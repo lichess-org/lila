@@ -11,9 +11,9 @@ import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
 import lila.puzzle.PuzzleTheme
 import lila.user.User
 
-object history {
+object history:
 
-  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) = {
+  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) =
     val title =
       if (ctx is user) trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"
@@ -35,7 +35,6 @@ object history {
         )
       )
     )
-  }
 
   private def renderSession(session: PuzzleSession)(implicit ctx: Context) =
     div(cls := "puzzle-history__session")(
@@ -59,4 +58,3 @@ object history {
         span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id.value}")
       )
     )
-}

@@ -9,11 +9,11 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object login {
+object login:
 
-  import trans.tfa._
+  import trans.tfa.*
 
-  def apply(form: Form[_], referrer: Option[String])(implicit ctx: Context) =
+  def apply(form: Form[?], referrer: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signIn.txt(),
       moreJs = frag(
@@ -58,4 +58,3 @@ object login {
         )
       )
     }
-}

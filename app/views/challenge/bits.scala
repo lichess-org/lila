@@ -10,7 +10,7 @@ import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean, color: Option[chess.Color] = None)(
       implicit ctx: Context
@@ -48,4 +48,3 @@ object bits {
         modeName(c.mode)
       )
     )
-}

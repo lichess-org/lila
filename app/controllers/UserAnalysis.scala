@@ -5,9 +5,9 @@ import chess.format.{ FEN, Forsyth }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Black, Situation, White }
 import play.api.libs.json.Json
-import play.api.mvc._
-import scala.concurrent.duration._
-import views._
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -18,22 +18,20 @@ final class UserAnalysis(
     env: Env,
     gameC: => Game
 ) extends LilaController(env)
-    with TheftPrevention {
+    with TheftPrevention:
 
   def index = load("", Standard)
 
   def parseArg(arg: String) =
-    arg.split("/", 2) match {
+    arg.split("/", 2) match
       case Array(key) => load("", Variant orDefault key)
       case Array(key, fen) =>
-        Variant.byKey get key match {
+        Variant.byKey get key match
           case Some(variant) if variant != Standard       => load(fen, variant)
           case _ if FEN.clean(fen) == Standard.initialFen => load("", Standard)
           case Some(Standard)                             => load(fen, FromPosition)
           case _                                          => load(arg, FromPosition)
-        }
       case _ => load("", Standard)
-    }
 
   def load(urlFen: String, variant: Variant) =
     Open { implicit ctx =>
@@ -194,4 +192,3 @@ final class UserAnalysis(
     Open { implicit ctx =>
       Ok(html.site.keyboardHelpModal.analyse(getBool("study"))).toFuccess
     }
-}

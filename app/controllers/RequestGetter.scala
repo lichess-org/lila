@@ -7,7 +7,7 @@ import lila.common.Form.trueish
 import lila.common.{ HTTPRequest, IsMobile }
 import lila.user.UserContext
 
-trait RequestGetter {
+trait RequestGetter:
 
   protected def get(name: String)(implicit ctx: UserContext): Option[String] = get(name, ctx.req)
 
@@ -43,4 +43,3 @@ trait RequestGetter {
 
   protected def getMobile(implicit ctx: UserContext) =
     IsMobile(getBool("mobile"))
-}

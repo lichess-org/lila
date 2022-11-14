@@ -2,14 +2,14 @@ package controllers
 
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsValue, Json }
-import play.api.mvc._
-import views._
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.insight.{ InsightDimension, InsightMetric }
 
-final class Insight(env: Env) extends LilaController(env) {
+final class Insight(env: Env) extends LilaController(env):
 
   def refresh(username: String) =
     OpenOrScoped()(
@@ -24,7 +24,7 @@ final class Insight(env: Env) extends LilaController(env) {
           }
     )
 
-  def index(username: String) = {
+  def index(username: String) =
     def jsonStatus(user: lila.user.User) =
       env.insight.api userStatus user map { status =>
         Ok(Json.obj("status" -> status.toString))
@@ -39,7 +39,6 @@ final class Insight(env: Env) extends LilaController(env) {
         },
       scoped = req => me => AccessibleApi(username)(me.some)(jsonStatus)
     )
-  }
 
   def path(username: String, metric: String, dimension: String, filters: String) =
     Open { implicit ctx =>
@@ -48,8 +47,8 @@ final class Insight(env: Env) extends LilaController(env) {
 
   private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(using
       ctx: Context
-  ) = {
-    import lila.insight.InsightApi.UserStatus._
+  ) =
+    import lila.insight.InsightApi.UserStatus.*
     env.insight.api userStatus user flatMap {
       case NoGame => Ok(html.site.message.insightNoGames(user)).toFuccess
       case Empty  => Ok(html.insight.empty(user)).toFuccess
@@ -69,7 +68,6 @@ final class Insight(env: Env) extends LilaController(env) {
           )
         )
     }
-  }
 
   def json(username: String) =
     OpenOrScopedBody(parse.json)(Nil)(
@@ -85,8 +83,8 @@ final class Insight(env: Env) extends LilaController(env) {
           }
     )
 
-  private def processQuestion(user: lila.user.User, body: Request[JsValue])(implicit lang: Lang) = {
-    import lila.insight.JsonQuestion, JsonQuestion._
+  private def processQuestion(user: lila.user.User, body: Request[JsValue])(implicit lang: Lang) =
+    import lila.insight.JsonQuestion, JsonQuestion.*
     body.body
       .validate[JsonQuestion]
       .fold(
@@ -97,7 +95,6 @@ final class Insight(env: Env) extends LilaController(env) {
             env.insight.jsonView.chartWrites.writes map { Ok(_) }
         }
       )
-  }
 
   private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
     env.user.repo named username flatMap {
@@ -118,4 +115,3 @@ final class Insight(env: Env) extends LilaController(env) {
         }
       }
     }
-}

@@ -11,7 +11,7 @@ import lila.insight.{ InsightDimension, Phase }
 import lila.rating.PerfType
 import lila.tutor.{ Grade, TutorCompare, TutorMetric }
 
-private object compare {
+private object compare:
 
   def show(comp: TutorCompare.AnyComparison)(implicit lang: Lang) = showWithPerf(comp, none)
 
@@ -32,11 +32,10 @@ private object compare {
       "."
     )
 
-  private def otherDims[D](dimension: InsightDimension[D]) = dimension match {
+  private def otherDims[D](dimension: InsightDimension[D]) = dimension match
     case InsightDimension.Phase         => "other phases"
     case InsightDimension.OpeningFamily => "other openings"
     case _                              => "others"
-  }
 
   private[tutor] def showQuality(quality: Grade) =
     (if (quality.better) goodTag else if (quality.worse) badTag else span) (quality.wording.value)
@@ -48,9 +47,7 @@ private object compare {
       case metric                  => metric.metric.name.toLowerCase
     })
 
-  private[tutor] def showDimension[D](dimension: D): String = dimension match {
+  private[tutor] def showDimension[D](dimension: D): String = dimension match
     case d: LilaOpeningFamily => s"the ${d.name.value}"
     case d: Phase             => d.name.toLowerCase
     case d                    => d.toString.toLowerCase
-  }
-}

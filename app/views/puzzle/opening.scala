@@ -10,7 +10,7 @@ import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
 import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
 
-object opening {
+object opening:
 
   def all(openings: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine], order: Order)(using
       ctx: Context
@@ -93,7 +93,7 @@ object opening {
     dataFen := family.full.map(_.fen)
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
-  def orderSelect(order: Order)(implicit ctx: Context) = {
+  def orderSelect(order: Order)(implicit ctx: Context) =
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
@@ -101,5 +101,3 @@ object opening {
         a(href := routes.Puzzle.openings(o.key), cls := (order == o).option("current"))(o.name())
       }
     )
-  }
-}

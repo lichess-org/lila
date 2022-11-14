@@ -8,7 +8,7 @@ import lila.security.Permission
 
 import controllers.routes
 
-object permissions {
+object permissions:
 
   def apply(u: User, me: Holder)(implicit ctx: Context) =
     views.html.base.layout(
@@ -63,4 +63,3 @@ object permissions {
         )
       )
     }
-}

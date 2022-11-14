@@ -7,7 +7,7 @@ import lila.study.Study
 
 import controllers.routes
 
-object create {
+object create:
 
   private def studyButton(s: Study.IdName) =
     submitButton(name := "as", value := s.id.value, cls := "submit button")(s.name.value)
@@ -53,4 +53,3 @@ object create {
         )
       )
     }
-}

@@ -7,9 +7,9 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-object declinedRequest {
+object declinedRequest:
 
-  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser])(implicit ctx: Context) = {
+  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser])(implicit ctx: Context) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
 
     views.html.base.layout(
@@ -61,6 +61,4 @@ object declinedRequest {
         )
       )
     }
-  }
 
-}

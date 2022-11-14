@@ -1,6 +1,6 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import play.api.data.Form
 import play.api.i18n.Lang
 
@@ -11,7 +11,7 @@ import lila.clas.{ Clas, Student }
 import lila.clas.ClasForm.ClasData
 import controllers.routes
 
-object clas {
+object clas:
 
   def home(implicit ctx: Context) =
     views.html.base.layout(
@@ -41,7 +41,7 @@ object clas {
       )
     }
 
-  def teacherIndex(classes: List[Clas], closed: Boolean)(implicit ctx: Context) = {
+  def teacherIndex(classes: List[Clas], closed: Boolean)(implicit ctx: Context) =
     val (active, archived) = classes.partition(_.isActive)
     val (current, others)  = if (closed) (archived, active) else (active, archived)
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
@@ -69,7 +69,6 @@ object clas {
         )
       )
     )
-  }
 
   def studentIndex(classes: List[Clas])(implicit ctx: Context) =
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
@@ -124,7 +123,7 @@ object clas {
       )
     )
 
-  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[_])(implicit ctx: Context) =
+  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(implicit ctx: Context) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
@@ -169,4 +168,3 @@ object clas {
         form3.submit(trans.apply())
       )
     )
-}

@@ -11,7 +11,7 @@ import lila.common.String.html.{ richText, safeJsonValue }
 
 import controllers.routes
 
-object edit {
+object edit:
 
   private val dataTab   = attr("data-tab")
   private val dataValue = attr("data-value")
@@ -29,9 +29,9 @@ object edit {
     }
   }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(using
+  def apply(c: lila.coach.Coach.WithUser, form: Form[?], reviews: lila.coach.CoachReview.Reviews)(using
       ctx: Context
-  ) = {
+  ) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
@@ -193,5 +193,3 @@ object edit {
         )
       )
     )
-  }
-}

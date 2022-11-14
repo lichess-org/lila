@@ -1,6 +1,6 @@
 package views.html.report
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
 
@@ -9,9 +9,9 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object form {
+object form:
 
-  def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
+  def apply(form: Form[?], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -64,4 +64,3 @@ object form {
         )
       )
     }
-}

@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
 
-object theme {
+object theme:
 
   def list(all: PuzzleAngle.All)(implicit ctx: Context) =
     views.html.base.layout(
@@ -70,4 +70,3 @@ object theme {
           )
       )
     )
-}

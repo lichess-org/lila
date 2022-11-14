@@ -2,11 +2,11 @@ package controllers
 
 import alleycats.Zero
 import play.api.data.FormError
-import play.api.libs.json._
-import play.api.mvc._
+import play.api.libs.json.*
+import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.concurrent.duration._
-import views._
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -15,12 +15,12 @@ import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
-import lila.user.{ PasswordHasher, User => UserModel }
+import lila.user.{ PasswordHasher, User as UserModel }
 
 final class Auth(
     env: Env,
     accountC: => Account
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private def api   = env.security.api
   private def forms = env.security.forms
@@ -78,25 +78,23 @@ final class Auth(
       }
     )
 
-  private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
+  private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] =
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
       fuccess {
         if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
         else BadRequest(accountC.renderCheckYourEmail)
       }
-  }
 
   def login     = Open(serveLogin(_))
-  def loginLang = LangPage(routes.Auth.login)(serveLogin(_)) _
+  def loginLang = (() => LangPage(routes.Auth.login)(serveLogin(_)))
   private def serveLogin(implicit ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
-    referrer ifTrue ctx.isAuth match {
+    referrer ifTrue ctx.isAuth match
       case Some(url) => Redirect(url).toFuccess // redirect immediately if already logged in
       case None =>
         Ok(html.auth.login(api.loginForm, referrer))
           .withCanonical(routes.Auth.login)
           .toFuccess
-    }
   }
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
@@ -184,7 +182,7 @@ final class Auth(
     }
 
   def signup     = Open(serveSignup(_))
-  def signupLang = LangPage(routes.Auth.signup)(serveSignup(_)) _
+  def signupLang = (() => LangPage(routes.Auth.signup)(serveSignup(_)))
   private def serveSignup(implicit ctx: Context) =
     NoTor {
       forms.signup.website map { form =>
@@ -240,12 +238,11 @@ final class Auth(
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
       ctx: Context
-  ): Funit = {
+  ): Funit =
     garbageCollect(user, email)
     if (sendWelcomeEmail) env.mailer.automaticEmail.welcomeEmail(user, email)
     env.mailer.automaticEmail.welcomePM(user)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
-  }
 
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
     env.security.garbageCollector.delay(user, email, ctx.req)
@@ -253,14 +250,13 @@ final class Auth(
   def checkYourEmail =
     Open { implicit ctx =>
       RedirectToProfileIfLoggedIn {
-        lila.security.EmailConfirm.cookie get ctx.req match {
+        lila.security.EmailConfirm.cookie get ctx.req match
           case None => Ok(accountC.renderCheckYourEmail).toFuccess
           case Some(userEmail) =>
             env.user.repo nameExists userEmail.username map {
               case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
               case true  => Ok(accountC.renderCheckYourEmail)
             }
-        }
       }
     }
 
@@ -319,14 +315,13 @@ final class Auth(
       }
     }
 
-  private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
+  private def redirectNewUser(user: UserModel)(implicit ctx: Context) =
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(getReferrerOption | routes.User.show(user.username).url).toFuccess,
         api = _ => mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId, remember = true)
     } recoverWith authRecovery
-  }
 
   def setFingerPrint(fp: String, ms: Int) =
     Auth { ctx => me =>
@@ -564,15 +559,13 @@ final class Auth(
   private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
   private[controllers] def HasherRateLimit =
-    PasswordHasher.rateLimit[Result](enforce = env.net.rateLimit) _
+    PasswordHasher.rateLimit[Result](enforce = env.net.rateLimit)
 
-  private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result] _
+  private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]
 
-  private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result] _
+  private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result]
 
   private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    ctx.me match {
+    ctx.me match
       case Some(me) => Redirect(routes.User.show(me.username)).toFuccess
       case None     => f
-    }
-}

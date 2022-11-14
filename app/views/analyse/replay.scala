@@ -13,7 +13,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object replay {
+object replay:
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
@@ -31,9 +31,9 @@ object replay {
       userTv: Option[lila.user.User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
-    import pov._
+    import pov.*
 
     val chatJson = chatOption map { c =>
       views.html.chat.json(
@@ -228,5 +228,3 @@ object replay {
           )
       )
     )
-  }
-}

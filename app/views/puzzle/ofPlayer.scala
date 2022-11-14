@@ -10,7 +10,7 @@ import lila.common.paginator.Paginator
 import lila.puzzle.Puzzle
 import lila.user.User
 
-object ofPlayer {
+object ofPlayer:
 
   def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: Context) =
     views.html.base.layout(
@@ -73,4 +73,3 @@ object ofPlayer {
         )
       )
     )
-}

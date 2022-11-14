@@ -1,7 +1,7 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
+import play.api.libs.json.*
+import play.api.mvc.*
 import scala.util.{ Failure, Success }
 
 import lila.app.{ given, * }
@@ -10,7 +10,7 @@ import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
 import lila.fishnet.{ JsonApi, Work }
 
-final class Fishnet(env: Env) extends LilaController(env) {
+final class Fishnet(env: Env) extends LilaController(env):
 
   private def api    = env.fishnet.api
   private val logger = lila.log("fishnet")
@@ -24,7 +24,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
 
   def analysis(workId: String, slow: Boolean = false, stop: Boolean = false) =
     ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
-      import lila.fishnet.FishnetApi._
+      import lila.fishnet.FishnetApi.*
       def onComplete =
         if (stop) fuccess(Left(NoContent))
         else api.acquire(client, slow) map Right.apply
@@ -88,4 +88,3 @@ final class Fishnet(env: Env) extends LilaController(env) {
             }
         )
     }
-}

@@ -1,12 +1,12 @@
 package controllers
 
-import play.api.mvc._
-import scala.concurrent.duration._
-import scala.util.chaining._
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.app.{ given, * }
 import lila.game.Pov
-import lila.user.{ User => UserModel }
+import lila.user.{ User as UserModel }
 
 // both bot & board APIs
 final class PlayApi(
@@ -14,7 +14,7 @@ final class PlayApi(
     apiC: => Api
 )(using
     mat: akka.stream.Materializer
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private given (using req: RequestHeader): play.api.i18n.Lang = reqLang(req)
 
@@ -32,7 +32,7 @@ final class PlayApi(
 
   def botCommand(cmd: String) =
     ScopedBody(_.Bot.Play) { implicit req => me =>
-      cmd.split('/') match {
+      cmd.split('/') match
         case Array("account", "upgrade") =>
           env.user.repo.isManaged(me.id) flatMap {
             case true => notFoundJson()
@@ -48,7 +48,6 @@ final class PlayApi(
                 }
           }
         case _ => impl.command(me, cmd)(WithPovAsBot)
-      }
     }
 
   // board endpoints
@@ -71,7 +70,7 @@ final class PlayApi(
     }
 
   // common code for bot & board APIs
-  private object impl {
+  private object impl:
 
     def gameStream(me: UserModel, pov: Pov)(implicit req: RequestHeader) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
@@ -83,8 +82,8 @@ final class PlayApi(
 
     def command(me: UserModel, cmd: String)(
         as: (String, UserModel) => (Pov => Fu[Result]) => Fu[Result]
-    )(implicit req: Request[_]): Fu[Result] =
-      cmd.split('/') match {
+    )(implicit req: Request[?]): Fu[Result] =
+      cmd.split('/') match
         case Array("game", id, "chat") =>
           as(id, me) { pov =>
             env.bot.form.chat
@@ -122,23 +121,19 @@ final class PlayApi(
             }
           }
         case _ => notFoundJson("No such command")
-      }
-  }
 
   def boardCommandGet(cmd: String) =
     ScopedBody(_.Board.Play) { implicit req => me =>
-      cmd.split('/') match {
+      cmd.split('/') match
         case Array("game", id, "chat") => WithPovAsBoard(id, me)(getChat)
         case _                         => notFoundJson("No such command")
-      }
     }
 
   def botCommandGet(cmd: String) =
     ScopedBody(_.Bot.Play) { implicit req => me =>
-      cmd.split('/') match {
+      cmd.split('/') match
         case Array("game", id, "chat") => WithPovAsBot(id, me)(getChat)
         case _                         => notFoundJson("No such command")
-      }
     }
 
   private def getChat(pov: Pov) =
@@ -177,10 +172,9 @@ final class PlayApi(
     env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
       case None => NotFound(jsonError("No such game")).toFuccess
       case Some(game) =>
-        Pov(game, me) match {
+        Pov(game, me) match
           case None      => NotFound(jsonError("Not your game")).toFuccess
           case Some(pov) => f(pov)
-        }
     }
 
   def botOnline =
@@ -200,4 +194,3 @@ final class PlayApi(
           .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
       }(req)
     }
-}

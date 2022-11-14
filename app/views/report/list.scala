@@ -1,8 +1,8 @@
 package views.html.report
 
 import controllers.routes
-import controllers.appeal.routes.{ Appeal => appealRoutes }
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
@@ -10,7 +10,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 import lila.user.Holder
 
-object list {
+object list:
 
   def apply(
       reports: List[lila.report.Report.WithSuspect],
@@ -143,4 +143,3 @@ object list {
         )
       )
     }
-}

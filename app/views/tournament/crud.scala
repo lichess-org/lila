@@ -11,7 +11,7 @@ import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
 import lila.tournament.{ Tournament, TournamentForm }
 
-object crud {
+object crud:
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
@@ -30,7 +30,7 @@ object crud {
       )
     }
 
-  def create(form: Form[_])(implicit ctx: Context) =
+  def create(form: Form[?])(implicit ctx: Context) =
     layout(
       title = "New tournament",
       css = "mod.form"
@@ -41,7 +41,7 @@ object crud {
       )
     }
 
-  def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
     layout(
       title = tour.name(),
       css = "mod.form"
@@ -64,7 +64,7 @@ object crud {
       )
     }
 
-  private def inForm(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) =
+  private def inForm(form: Form[?], tour: Option[Tournament])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
@@ -178,4 +178,3 @@ object crud {
         )
       )
     }
-}

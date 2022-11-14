@@ -5,9 +5,9 @@ import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.pref.SoundSet
 
-object embed {
+object embed:
 
-  import EmbedConfig.implicits._
+  import EmbedConfig.implicits.*
 
   def apply(title: String, cssModule: String)(body: Modifier*)(implicit config: EmbedConfig) =
     frag(
@@ -31,4 +31,3 @@ object embed {
         )
       )
     )
-}

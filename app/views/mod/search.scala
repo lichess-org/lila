@@ -1,6 +1,6 @@
 package views.html.mod
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 import play.api.data.Form
 
@@ -14,12 +14,12 @@ import lila.security.Granter
 import lila.user.Holder
 import lila.user.User
 
-object search {
+object search:
 
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(mod: Holder, form: Form[_], users: List[User.WithEmails])(implicit ctx: Context) =
+  def apply(mod: Holder, form: Form[?], users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -254,4 +254,3 @@ object search {
         }
       )
     )
-}

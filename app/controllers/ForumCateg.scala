@@ -1,11 +1,11 @@
 package controllers
 
 import lila.app.{ given, * }
-import views._
+import views.*
 import lila.common.config
 import lila.team.Team
 
-final class ForumCateg(env: Env) extends LilaController(env) with ForumController {
+final class ForumCateg(env: Env) extends LilaController(env) with ForumController:
 
   def index =
     Open { implicit ctx =>
@@ -40,4 +40,3 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
         }
       }
     }
-}

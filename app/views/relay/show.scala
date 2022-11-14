@@ -10,7 +10,7 @@ import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       rt: lila.relay.RelayRound.WithTourAndStudy,
@@ -66,4 +66,3 @@ object show {
         views.html.study.bits.streamers(streamers)
       )
     )
-}

@@ -7,9 +7,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.streamer.Stream.YouTube
 
-object show {
+object show:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
@@ -83,4 +83,3 @@ object show {
         )
       )
     )
-}

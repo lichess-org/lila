@@ -2,9 +2,9 @@ package controllers
 
 import lila.app.{ given, * }
 import lila.push.WebSubscription
-import lila.push.WebSubscription.readers._
+import lila.push.WebSubscription.readers.*
 
-final class Push(env: Env) extends LilaController(env) {
+final class Push(env: Env) extends LilaController(env):
 
   def mobileRegister(platform: String, deviceId: String) =
     Auth { implicit ctx => me =>
@@ -26,4 +26,3 @@ final class Push(env: Env) extends LilaController(env) {
           data => env.push.webSubscriptionApi.subscribe(me, data, currentSessionId) inject NoContent
         )
     }
-}

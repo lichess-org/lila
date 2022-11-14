@@ -1,21 +1,21 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
+import play.api.libs.json.*
+import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.concurrent.duration._
-import views._
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
-import lila.hub.LightTeam._
-import lila.memo.CacheApi._
-import lila.tournament.{ Tournament => Tour, TournamentForm, VisibleTournaments, MyInfo }
-import lila.user.{ User => UserModel }
+import lila.hub.LightTeam.*
+import lila.memo.CacheApi.*
+import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
+import lila.user.{ User as UserModel }
 
 final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
-    extends LilaController(env) {
+    extends LilaController(env):
 
   private def repo       = env.tournament.tournamentRepo
   private def api        = env.tournament.api
@@ -36,7 +36,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def home     = Open(serveHome(_))
-  def homeLang = LangPage(routes.Tournament.home)(serveHome(_)) _
+  def homeLang = (() => LangPage(routes.Tournament.home)(serveHome(_)))
   private def serveHome(implicit ctx: Context) = NoBot {
     for {
       (visible, scheduled) <- upcomingCache.getUnit
@@ -242,10 +242,9 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               .bindFromRequest()
               .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
             doJoin(id, data, me) map { result =>
-              result.error match {
+              result.error match
                 case None        => jsonOkResult
                 case Some(error) => BadRequest(Json.obj("error" -> error))
-              }
             }
           }(rateLimitedJson.toFuccess)
         }
@@ -317,7 +316,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       fail: => Result
   )(
       create: => Fu[Result]
-  ): Fu[Result] = {
+  ): Fu[Result] =
     val cost =
       if (isGranted(_.ManageTournament, me)) 2
       else if (
@@ -332,7 +331,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         create
       }(fail.toFuccess)
     }(fail.toFuccess)
-  }
 
   def create = AuthBody { implicit ctx => me =>
     NoBot {
@@ -366,7 +364,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       else doApiCreate(me)
     }
 
-  private def doApiCreate(me: UserModel)(implicit req: Request[_]): Fu[Result] =
+  private def doApiCreate(me: UserModel)(implicit req: Request[?]): Fu[Result] =
     env.team.api.lightsByLeader(me.id) flatMap { teams =>
       forms
         .create(me, teams)
@@ -648,4 +646,3 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   private def getUserTeamIds(user: UserModel): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)
-}

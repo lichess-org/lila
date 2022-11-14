@@ -10,9 +10,9 @@ import lila.hub.LightTeam.TeamID
 import lila.swiss.{ Swiss, SwissCondition, SwissForm }
 import lila.tournament.TournamentForm
 
-object form {
+object form:
 
-  def create(form: Form[_], teamId: TeamID)(implicit ctx: Context) =
+  def create(form: Form[?], teamId: TeamID)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
@@ -44,7 +44,7 @@ object form {
       )
     }
 
-  def edit(swiss: Swiss, form: Form[_])(implicit ctx: Context) =
+  def edit(swiss: Swiss, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
@@ -84,7 +84,7 @@ object form {
   private def advancedSettings(settings: Frag*) =
     details(summary("Advanced settings"), settings)
 
-  private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
+  private def condition(form: Form[?], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
@@ -108,9 +108,8 @@ object form {
         )
       )
     )
-}
 
-final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ctx: Context) {
+final private class SwissFields(form: Form[?], swiss: Option[Swiss])(implicit ctx: Context):
 
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 
@@ -257,4 +256,3 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
     ),
     form3.hidden(form("conditions.playYourGames"), "false".some) // hack to allow disabling berserk
   )
-}

@@ -1,15 +1,15 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.libs.json.Json
 
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 
-final class I18n(env: Env) extends LilaController(env) {
+final class I18n(env: Env) extends LilaController(env):
 
-  private def toLang = lila.i18n.I18nLangPicker.byStr _
+  private def toLang = lila.i18n.I18nLangPicker.byStr
 
   private val form = Form(single("lang" -> text.verifying { code =>
     toLang(code).isDefined
@@ -49,4 +49,3 @@ final class I18n(env: Env) extends LilaController(env) {
           }
         )
     }
-}

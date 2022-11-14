@@ -9,7 +9,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object captcha {
+object captcha:
 
   private val dataCheckUrl = attr("data-check-url")
   private val dataMoves    = attr("data-moves")
@@ -66,4 +66,3 @@ object captcha {
     form3.hidden(form("gameId")),
     form3.hidden(form("move"))
   )
-}

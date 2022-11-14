@@ -5,7 +5,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.{ Granter, Permission }
 import lila.user.{ User, UserContext }
 
-trait SecurityHelper {
+trait SecurityHelper:
 
   def isGranted(permission: Permission.Selector)(using ctx: UserContext): Boolean =
     isGranted(permission(Permission))
@@ -19,11 +19,10 @@ trait SecurityHelper {
   def isGranted(permission: Permission, user: User): Boolean =
     Granter(permission)(user)
 
-  def canGrant = Granter.canGrant _
+  def canGrant = Granter.canGrant
 
   def canViewRoles(user: User)(using ctx: UserContext): Boolean =
     isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
 
   def reportScore(score: lila.report.Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
-}

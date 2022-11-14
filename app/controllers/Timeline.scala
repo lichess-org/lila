@@ -1,15 +1,15 @@
 package controllers
 
-import play.api.libs.json._
-import scala.concurrent.duration._
-import views._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
+import views.*
 
 import lila.app.{ given, * }
 import lila.common.config.Max
 import lila.common.HTTPRequest
 import lila.timeline.Entry.given
 
-final class Timeline(env: Env) extends LilaController(env) {
+final class Timeline(env: Env) extends LilaController(env):
 
   def home =
     Auth { implicit ctx => me =>
@@ -38,4 +38,3 @@ final class Timeline(env: Env) extends LilaController(env) {
     Auth { implicit ctx => me =>
       env.timeline.unsubApi.set(channel, me.id, ~get("unsub") == "on")
     }
-}

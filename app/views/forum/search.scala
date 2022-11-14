@@ -8,11 +8,11 @@ import lila.common.paginator.Paginator
 import controllers.routes
 import lila.team.Team
 
-object search {
+object search:
 
   def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using
       ctx: Context
-  ) = {
+  ) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -67,5 +67,3 @@ object search {
         )
       )
     )
-  }
-}

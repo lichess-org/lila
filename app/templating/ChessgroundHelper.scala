@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
-trait ChessgroundHelper {
+trait ChessgroundHelper:
 
   private val cgWrap      = div(cls := "cg-wrap")
   private val cgContainer = tag("cg-container")
@@ -19,7 +19,7 @@ trait ChessgroundHelper {
       cgBoard {
         raw {
           if (ctx.pref.is3d) ""
-          else {
+          else
             def top(p: Pos)  = orient.fold(7 - p.rank.index, p.rank.index) * 12.5
             def left(p: Pos) = orient.fold(p.file.index, 7 - p.file.index) * 12.5
             val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
@@ -33,7 +33,6 @@ trait ChessgroundHelper {
                   s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
                 } mkString ""
             s"$highlights$pieces"
-          }
         }
       }
     }
@@ -55,4 +54,3 @@ trait ChessgroundHelper {
     }
 
   lazy val chessgroundBoard = wrap(cgBoard)
-}

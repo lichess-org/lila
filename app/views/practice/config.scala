@@ -8,9 +8,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object config {
+object config:
 
-  def apply(structure: lila.practice.PracticeStructure, form: Form[_])(implicit ctx: Context) =
+  def apply(structure: lila.practice.PracticeStructure, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Practice structure",
       moreCss = cssTag("mod.misc")
@@ -60,4 +60,3 @@ object config {
         )
       )
     )
-}

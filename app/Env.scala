@@ -1,14 +1,14 @@
 package lila.app
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext, Future }
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
@@ -93,7 +93,7 @@ final class Env(
     val scheduler: akka.actor.Scheduler,
     val executionContext: ExecutionContext,
     val mode: play.api.Mode
-) {
+):
 
   val explorerEndpoint       = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint      = config.get[String]("explorer.tablebase_endpoint")
@@ -154,7 +154,6 @@ final class Env(
     }
 
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
-}
 
 final class EnvBoot(
     config: Configuration,
@@ -167,7 +166,7 @@ final class EnvBoot(
     system: ActorSystem,
     ws: StandaloneWSClient,
     materializer: akka.stream.Materializer
-) {
+):
 
   given Scheduler   = system.scheduler
   given Mode        = environment.mode
@@ -253,11 +252,9 @@ final class EnvBoot(
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 
-  val env: lila.app.Env = {
+  val env: lila.app.Env =
     val c = lila.common.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
-  }
 
   templating.Environment setEnv env
-}

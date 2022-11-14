@@ -13,7 +13,7 @@ import lila.game.Game
 import lila.user.User
 import lila.history.RatingChartApi
 
-object page {
+object page:
 
   def activity(
       u: User,
@@ -53,7 +53,7 @@ object page {
       info: UserInfo,
       games: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
-      searchForm: Option[Form[_]],
+      searchForm: Option[Form[?]],
       social: lila.app.mashup.UserInfo.Social,
       notes: Map[Game.ID, String]
   )(implicit ctx: Context) =
@@ -103,4 +103,3 @@ object page {
     }
 
   private val dataUsername = attr("data-username")
-}

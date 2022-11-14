@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object index {
+object index:
 
   def apply(data: lila.practice.UserPractice)(implicit ctx: Context) =
     views.html.base.layout(
@@ -65,4 +65,3 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         )
       )
     }
-}

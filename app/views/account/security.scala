@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 import play.api.i18n.Lang
 
-object security {
+object security:
 
   def apply(
       u: lila.user.User,
@@ -124,4 +124,3 @@ object security {
         )
       )
     )
-}

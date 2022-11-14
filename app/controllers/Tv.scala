@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.http.ContentTypes
-import scala.util.chaining._
-import views._
+import scala.util.chaining.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -12,10 +12,10 @@ final class Tv(
     env: Env,
     apiC: => Api,
     gameC: => Game
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def index     = Open(serveIndex(_))
-  def indexLang = LangPage(routes.Tv.index)(serveIndex(_)) _
+  def indexLang = (() => LangPage(routes.Tv.index)(serveIndex(_)))
   private def serveIndex(implicit ctx: Context) =
     serveChannel(lila.tv.Tv.Channel.Best.key)
 
@@ -35,7 +35,7 @@ final class Tv(
 
   def channels =
     apiC.ApiRequest { _ =>
-      import play.api.libs.json._
+      import play.api.libs.json.*
       given Writes[lila.tv.Tv.Champion] = Json.writes
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
@@ -123,4 +123,3 @@ final class Tv(
         case Some(game) => Ok(views.html.tv.embed(Pov naturalOrientation game))
       }
     }
-}

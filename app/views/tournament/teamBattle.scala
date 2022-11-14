@@ -10,9 +10,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TeamBattle
 import lila.tournament.Tournament
 
-object teamBattle {
+object teamBattle:
 
-  def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -136,4 +136,3 @@ object teamBattle {
         )
       )
     )
-}

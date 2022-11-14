@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
 
-object show {
+object show:
 
   def apply(
       puzzle: lila.puzzle.Puzzle,
@@ -17,7 +17,7 @@ object show {
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
       langPath: Option[lila.common.LangPath] = None
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
@@ -76,5 +76,3 @@ object show {
         div(cls := "puzzle__controls")
       )
     }
-  }
-}

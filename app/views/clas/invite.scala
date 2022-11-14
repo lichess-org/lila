@@ -1,6 +1,6 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
 import lila.api.{ Context, given }
@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite }
 
-object invite {
+object invite:
 
   def show(
       c: Clas,
@@ -48,4 +48,3 @@ object invite {
           )
       )
     }
-}

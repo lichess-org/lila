@@ -1,15 +1,15 @@
 package controllers
 
-import cats.implicits._
-import play.api.libs.json._
-import scala.concurrent.duration._
-import views._
+import cats.implicits.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
+import views.*
 
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.user.Holder
 
-final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
+final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
     new lila.memo.RateLimit[IpAddress](
@@ -116,4 +116,3 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         usernames <- env.user.repo usernamesByIds userIds
       } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
     }
-}

@@ -1,6 +1,6 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
@@ -11,7 +11,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
 
-object student {
+object student:
 
   def show(
       clas: Clas,
@@ -112,7 +112,7 @@ object student {
       )
     )
 
-  private def realNameField(form: Form[_], fieldName: String = "realName")(implicit ctx: Context) =
+  private def realNameField(form: Form[?], fieldName: String = "realName")(implicit ctx: Context) =
     form3.group(
       form(fieldName),
       trans.clas.realName(),
@@ -122,8 +122,8 @@ object student {
   def form(
       clas: Clas,
       students: List[Student],
-      invite: Form[_],
-      create: Form[_],
+      invite: Form[?],
+      create: Form[?],
       nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
   )(implicit ctx: Context) =
@@ -215,7 +215,7 @@ object student {
   def manyForm(
       clas: Clas,
       students: List[Student],
-      form: Form[_],
+      form: Form[?],
       nbStudents: Int,
       created: Seq[lila.clas.Student.WithPassword] = Nil
   )(implicit ctx: Context) =
@@ -274,7 +274,7 @@ object student {
       )
     )
 
-  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(implicit ctx: Context) =
+  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(implicit ctx: Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -310,7 +310,7 @@ object student {
       )
     )
 
-  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(using
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using
       ctx: Context
   ) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
@@ -358,4 +358,3 @@ object student {
         )
       )
     )
-}

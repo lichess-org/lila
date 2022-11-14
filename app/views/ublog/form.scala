@@ -12,9 +12,9 @@ import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
 
-object form {
+object form:
 
-  import views.html.ublog.{ post => postView }
+  import views.html.ublog.{ post as postView }
 
   private def moreCss(implicit ctx: Context) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
@@ -215,4 +215,3 @@ object form {
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())
-}

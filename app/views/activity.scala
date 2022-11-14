@@ -2,15 +2,15 @@ package views.html
 
 import controllers.routes
 
-import lila.activity.activities._
-import lila.activity.model._
+import lila.activity.activities.*
+import lila.activity.model.*
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 import lila.swiss.Swiss
 
-object activity {
+object activity:
 
   def apply(u: User, as: Iterable[lila.activity.ActivityView])(implicit ctx: Context) =
     div(cls := "activity")(
@@ -58,7 +58,7 @@ object activity {
       )
     )
 
-  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(implicit ctx: Context) = {
+  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(implicit ctx: Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
       iconTag(""),
@@ -70,17 +70,15 @@ object activity {
         }
       )
     )
-  }
 
   private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) =
-    tup match {
+    tup match
       case (study, nb) =>
         val href = routes.Practice.show("-", study.slug, study.id.value)
         frag(
           trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
           br
         )
-    }
 
   private def renderPuzzles(u: User)(p: Puzzles)(implicit ctx: Context) =
     entryTag(
@@ -373,4 +371,3 @@ object activity {
 
   private val wrapNumberRegex         = """(\d++)""".r
   private def wrapNumber(str: String) = wrapNumberRegex.replaceAllIn(str, "<strong>$1</strong>")
-}

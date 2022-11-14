@@ -9,7 +9,7 @@ import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       s: lila.study.Study,
@@ -69,4 +69,3 @@ object show {
     )
 
   def socketUrl(id: String) = s"/study/$id/socket/v$apiVersion"
-}

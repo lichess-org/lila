@@ -9,9 +9,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.i18n.MessageKey
 
-object embed {
+object embed:
 
-  import EmbedConfig.implicits._
+  import EmbedConfig.implicits.*
 
   def lpv(pgn: String, orientation: Option[chess.Color])(implicit config: EmbedConfig) =
     views.html.base.embed(
@@ -48,4 +48,3 @@ object embed {
         h1("Game not found")
       )
     )
-}

@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKeys
 
-object chat {
+object chat:
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
@@ -103,4 +103,3 @@ object chat {
       aria.live     := "off",
       aria.relevant := "additions removals text"
     )
-}

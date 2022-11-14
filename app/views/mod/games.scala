@@ -4,7 +4,7 @@ import controllers.GameMod
 import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
@@ -16,7 +16,7 @@ import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.user.User
 
-object games {
+object games:
 
   private val sortNoneTh = th(attr("data-sort-method") := "none")
 
@@ -191,4 +191,3 @@ object games {
         )
       )
     }
-}

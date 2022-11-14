@@ -2,8 +2,8 @@ package controllers
 
 import chess.format.FEN
 import play.api.libs.json.JsArray
-import play.api.mvc._
-import views._
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -16,7 +16,7 @@ final class Analyse(
     env: Env,
     gameC: => Game,
     roundC: => Round
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def requestAnalysis(id: String) =
     Auth { implicit ctx => me =>
@@ -30,10 +30,9 @@ final class Analyse(
             system = false
           )
         ) map { result =>
-          result.error match {
+          result.error match
             case None        => NoContent
             case Some(error) => BadRequest(error)
-          }
         }
       }
     }
@@ -201,4 +200,3 @@ final class Analyse(
         if (res) jsonOkResult else notFoundJsonSync()
       }
     }
-}

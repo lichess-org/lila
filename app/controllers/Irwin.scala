@@ -2,7 +2,7 @@ package controllers
 
 import lila.app.{ given, * }
 
-final class Irwin(env: Env) extends LilaController(env) {
+final class Irwin(env: Env) extends LilaController(env):
 
   import lila.irwin.JSONHandlers.reportReader
 
@@ -38,4 +38,3 @@ final class Irwin(env: Env) extends LilaController(env) {
         Ok(views.html.kaladin.dashboard(d))
       }
     }
-}

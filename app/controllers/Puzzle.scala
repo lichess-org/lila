@@ -2,10 +2,10 @@ package controllers
 
 import chess.Color
 import play.api.data.Form
-import play.api.libs.json._
+import play.api.libs.json.*
 import play.api.mvc.Result
-import scala.util.chaining._
-import views._
+import scala.util.chaining.*
+import views.*
 
 import lila.api.BodyContext
 import lila.api.Context
@@ -14,11 +14,11 @@ import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.i18n.I18nLangPicker
 import lila.puzzle.PuzzleForm.RoundData
-import lila.puzzle.{ Puzzle => Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme }
-import lila.user.{ User => UserModel }
+import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme }
+import lila.user.{ User as UserModel }
 import lila.common.LangPath
 
-final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
+final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def renderJson(
       puzzle: Puz,
@@ -92,7 +92,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   def home = Open(serveHome(_))
 
-  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome(_)) _
+  def homeLang = (() => LangPage(routes.Puzzle.home.url)(serveHome(_)))
 
   private def serveHome(implicit ctx: Context) =
     NoBot {
@@ -105,13 +105,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Option[Color]])(using
       ctx: Context
   ): Fu[Puz] =
-    ctx.me match {
+    ctx.me match
       case Some(me) =>
         color.?? { colorChoice =>
           env.puzzle.session.setAngleAndColor(me, angle, colorChoice)
         } >> env.puzzle.selector.nextPuzzleFor(me, angle)
       case None => env.puzzle.anon.getOneFor(angle, ~color) orFail "Couldn't find a puzzle for anon!"
-    }
 
   def complete(angleStr: String, id: String) =
     OpenBody { implicit ctx =>
@@ -141,7 +140,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   private def onComplete[A](form: Form[RoundData])(id: Puz.Id, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: BodyContext[A]
-  ) = {
+  ) =
     given play.api.mvc.Request[?] = ctx.body
     form
       .bindFromRequest()
@@ -229,10 +228,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
             }
           } dmap JsonOk
       )
-  }
 
   def streak     = Open(serveStreak(_))
-  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(_)) _
+  def streakLang = (() => LangPage(routes.Puzzle.streak)(serveStreak(_)))
   private def serveStreak(implicit ctx: Context) = NoBot {
     env.puzzle.streak.apply flatMap {
       _ ?? { case PuzzleStreak(ids, puzzle) =>
@@ -298,7 +296,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
 
   def themes = Open(serveThemes(_))
 
-  def themesLang = LangPage(routes.Puzzle.themes)(serveThemes(_)) _
+  def themesLang = (() => LangPage(routes.Puzzle.themes)(serveThemes(_)))
 
   private def serveThemes(implicit ctx: Context) =
     env.puzzle.api.angles map { all =>
@@ -326,7 +324,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
   private def serveShow(angleOrId: String)(implicit ctx: Context) =
     NoBot {
       val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
-      PuzzleAngle find angleOrId match {
+      PuzzleAngle find angleOrId match
         case Some(angle) =>
           nextPuzzleForMe(angle, none) flatMap {
             renderShow(_, angle, langPath = langPath)
@@ -343,7 +341,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
             case None      => Redirect(routes.Puzzle.home)
             case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
           }
-      }
     }
 
   def showWithAngle(angleKey: String, id: String) = Open { implicit ctx =>
@@ -393,7 +390,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
         .toFuccess
     }
 
-  def apiDashboard(days: Int) = {
+  def apiDashboard(days: Int) =
     def render(me: UserModel)(implicit lang: play.api.i18n.Lang) = JsonOptionOk {
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
     }
@@ -401,18 +398,16 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       auth = ctx => me => render(me)(ctx.lang),
       scoped = req => me => render(me)(reqLang(req))
     )
-  }
 
   def dashboard(days: Int, path: String = "home", u: Option[String]) =
     DashboardPage(u) { implicit ctx => user =>
       env.puzzle.dashboard(user, days) map { dashboard =>
-        path match {
+        path match
           case "dashboard" => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
           case "improvementAreas" =>
             Ok(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
           case "strengths" => Ok(views.html.puzzle.dashboard.strengths(user, dashboard, days))
           case _ => Redirect(routes.Puzzle.dashboard(days, "dashboard", !ctx.is(user) option user.username))
-        }
       }
     }
 
@@ -499,7 +494,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
       negotiate(
         html = notFound,
         api = v => {
-          import lila.puzzle.PuzzleForm.bc._
+          import lila.puzzle.PuzzleForm.bc.*
           import lila.puzzle.PuzzleResult
           ctx.body.body
             .validate[SolveData]
@@ -564,4 +559,3 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env) {
         .dmap(_ | me)
         .flatMap(f(ctx))
     }
-}

@@ -13,7 +13,7 @@ import lila.relation.Follow
 import lila.user.{ Holder, User }
 import lila.shutup.Analyser
 
-object communication {
+object communication:
 
   def apply(
       mod: Holder,
@@ -190,15 +190,12 @@ object communication {
     }
 
   // incompatible with richText
-  def highlightBad(text: String): Frag = {
+  def highlightBad(text: String): Frag =
     val words = Analyser(text).badWords
     if (words.isEmpty) frag(text)
-    else {
+    else
       val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
-    }
-  }
 
   private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(""))
-}

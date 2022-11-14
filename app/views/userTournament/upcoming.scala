@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.user.User
 
-object upcoming {
+object upcoming:
 
   def apply(u: User, pager: Paginator[lila.tournament.Tournament])(implicit ctx: Context) =
     bits.layout(
@@ -40,4 +40,3 @@ object upcoming {
           )
         )
     }
-}

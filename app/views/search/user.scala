@@ -9,13 +9,13 @@ import lila.user.User
 
 import controllers.routes
 
-object user {
+object user:
 
-  import trans.search._
+  import trans.search.*
 
-  def apply(u: User, form: Form[_])(implicit ctx: Context) = {
+  def apply(u: User, form: Form[?])(implicit ctx: Context) =
     val commons = bits of form
-    import commons._
+    import commons.*
     st.form(
       noFollow,
       cls    := "search__form",
@@ -56,5 +56,3 @@ object user {
         )
       )
     )
-  }
-}

@@ -7,7 +7,7 @@ import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object bits {
+object bits:
 
   private[video] def card(vv: lila.video.VideoView, control: lila.video.UserControl) =
     a(cls := "card paginated", href := s"${routes.Video.show(vv.video.id)}?${control.queryStringUnlessBot}")(
@@ -92,4 +92,3 @@ object bits {
         }
       )
     )
-}

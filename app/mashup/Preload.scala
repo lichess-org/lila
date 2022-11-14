@@ -2,7 +2,7 @@ package lila.app
 package mashup
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.Context
 import lila.event.Event
@@ -34,9 +34,9 @@ final class Preload(
     lastPostCache: lila.blog.LastPostCache,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi
-)(using ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Preload._
+  import Preload.*
 
   def apply(
       tours: Fu[List[Tournament]],
@@ -112,9 +112,8 @@ final class Preload(
           CurrentGame(pov = pov, opponent = opponent).some
         }
     }
-}
 
-object Preload {
+object Preload:
 
   case class Homepage(
       data: JsObject,
@@ -138,4 +137,3 @@ object Preload {
   )
 
   case class CurrentGame(pov: Pov, opponent: String)
-}

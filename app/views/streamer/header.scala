@@ -6,9 +6,9 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object header {
+object header:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def apply(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context) =
     div(cls := "streamer-header")(
@@ -62,4 +62,3 @@ object header {
         )
       )
     )
-}

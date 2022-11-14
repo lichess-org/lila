@@ -6,12 +6,12 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.mod.ModActivity._
+import lila.mod.ModActivity.*
 import lila.report.Room
 
-object activity {
+object activity:
 
-  def apply(p: Result)(implicit ctx: Context) = {
+  def apply(p: Result)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),
@@ -37,7 +37,6 @@ object activity {
         )
       )
     }
-  }
 
   private def whoSelector(p: Result) =
     views.html.base.bits
@@ -99,4 +98,3 @@ object activity {
           .toList
       )
     )
-}

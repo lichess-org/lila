@@ -13,9 +13,9 @@ import lila.user.Countries
 import lila.user.Country
 import lila.common.LangPath
 
-object index {
+object index:
 
-  import trans.coach._
+  import trans.coach.*
 
   def apply(
       pager: Paginator[lila.coach.Coach.WithUser],
@@ -112,4 +112,3 @@ object index {
         )
       )
     }
-}

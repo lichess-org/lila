@@ -6,11 +6,11 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object table {
+object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(implicit ctx: Context) = {
+  def apply(users: List[lila.user.User])(implicit ctx: Context) =
 
     val title = "All mods"
 
@@ -47,5 +47,3 @@ object table {
         )
       )
     }
-  }
-}

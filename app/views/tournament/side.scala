@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
 
-object side {
+object side:
 
   private val separator = " • "
 
@@ -131,4 +131,3 @@ object side {
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag(""))
       )
     )
-}

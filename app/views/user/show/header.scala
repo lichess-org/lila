@@ -1,6 +1,6 @@
 package views.html.user.show
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
 import lila.api.{ Context, given }
@@ -10,7 +10,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.user.User
 
-object header {
+object header:
 
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
@@ -298,4 +298,3 @@ object header {
       )
     }
   )
-}

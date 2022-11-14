@@ -10,7 +10,7 @@ import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object index {
+object index:
 
   def apply(
       channel: lila.tv.Tv.Channel,
@@ -65,4 +65,3 @@ object index {
         )
       )
     )
-}

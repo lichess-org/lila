@@ -1,8 +1,8 @@
 package views.html.user
 
-import controllers.appeal.{ routes => appealRoutes }
-import controllers.clas.routes.{ Clas => clasRoutes }
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.appeal.{ routes as appealRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -19,7 +19,7 @@ import lila.security.Granter
 import lila.security.{ Permission, UserLogins }
 import lila.user.{ Holder, User }
 
-object mod {
+object mod:
   private def mzSection(key: String) =
     div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
@@ -555,8 +555,8 @@ object mod {
   def otherUsers(mod: Holder, u: User, data: UserLogins.TableData, appeals: List[Appeal])(using
       ctx: Context,
       renderIp: RenderIp
-  ): Tag = {
-    import data._
+  ): Tag =
+    import data.*
     mzSection("others")(
       table(cls := "slist")(
         thead(
@@ -655,7 +655,6 @@ object mod {
         )
       )
     )
-  }
 
   private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails)(u: User) =
     emails.emails.get(u.id).map(_.value) map {
@@ -666,7 +665,7 @@ object mod {
   def identification(mod: Holder, user: User, logins: UserLogins)(using
       ctx: Context,
       renderIp: RenderIp
-  ): Frag = {
+  ): Frag =
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
     val canLocate = isGranted(_.Admin)
@@ -795,7 +794,6 @@ object mod {
         )
       )
     )
-  }
 
   private def parts(ps: Option[String]*) = ps.flatten.distinct mkString " "
 
@@ -823,4 +821,3 @@ object mod {
       o.disabled option closed,
       o.marks.reportban option reportban
     )
-}

@@ -4,24 +4,24 @@ import cats.data.Validated
 import play.api.libs.json.Json
 import play.api.mvc.{ Request, Result }
 import scala.annotation.nowarn
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import views.html
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.challenge.{ Challenge => ChallengeModel }
+import lila.challenge.{ Challenge as ChallengeModel }
 import lila.common.{ Bearer, HTTPRequest, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
 import lila.setup.ApiConfig
 import lila.socket.Socket.SocketVersion
-import lila.user.{ User => UserModel }
+import lila.user.{ User as UserModel }
 import play.api.mvc.RequestHeader
 
 final class Challenge(
     env: Env,
     apiC: Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def api = env.challenge.api
 
@@ -87,11 +87,10 @@ final class Challenge(
     } map env.lilaCookie.ensure(ctx.req)
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
-    challenge.challenger match {
+    challenge.challenger match
       case lila.challenge.Challenge.Challenger.Anonymous(secret) => HTTPRequest sid ctx.req contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
       case lila.challenge.Challenge.Challenger.Open                  => false
-    }
 
   private def isForMe(challenge: ChallengeModel, me: Option[UserModel]) =
     challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
@@ -130,14 +129,13 @@ final class Challenge(
           case _    => notFoundJson()
         }
       api.byId(id) flatMap {
-        _.filter(isForMe(_, me.some)) match {
+        _.filter(isForMe(_, me.some)) match
           case None                  => tryRematch
           case Some(c) if c.accepted => tryRematch
           case Some(c) =>
             api.accept(c, me.some, none) map {
               _.fold(err => BadRequest(jsonError(err)), _ => jsonOkResult)
             }
-        }
       }
     }
 
@@ -219,7 +217,7 @@ final class Challenge(
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
                   jsonOkResult.toFuccess
                 case Some(pov) if pov.game.playable =>
-                  get("opponentToken", req).map(Bearer.apply) match {
+                  get("opponentToken", req).map(Bearer.apply) match
                     case None => BadRequest(jsonError("The game can no longer be aborted")).toFuccess
                     case Some(bearer) =>
                       env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
@@ -229,7 +227,6 @@ final class Challenge(
                         case Right(_)  => BadRequest(jsonError("Not the opponent token"))
                         case Left(err) => BadRequest(jsonError(err.message))
                       }
-                  }
                 case _ => notFoundJson()
               }
           }
@@ -238,7 +235,7 @@ final class Challenge(
 
   def apiStartClocks(id: String) =
     Action.async { req =>
-      import cats.implicits._
+      import cats.implicits.*
       val scopes = List(OAuthScope.Challenge.Write)
       (get("token1", req) map Bearer.apply, get("token2", req) map Bearer.apply).mapN {
         env.oAuth.server.authBoth(scopes, req)
@@ -282,8 +279,8 @@ final class Challenge(
 
   def toFriend(id: String) =
     AuthBody { implicit ctx => _ =>
-      import play.api.data._
-      import play.api.data.Forms._
+      import play.api.data.*
+      import play.api.data.Forms.*
       implicit val req: Request[?] = ctx.body
       OptionFuResult(api byId id) { c =>
         if (isMine(c))
@@ -360,8 +357,8 @@ final class Challenge(
         )
     }
 
-  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) = {
-    import lila.challenge.Challenge._
+  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
+    import lila.challenge.Challenge.*
     val timeControl = TimeControl.make(config.clock, config.days)
     lila.challenge.Challenge
       .make(
@@ -375,7 +372,6 @@ final class Challenge(
         rematchOf = none,
         rules = config.rules
       )
-  }
 
   private def apiChallengeAccept(
       dest: UserModel,
@@ -416,7 +412,7 @@ final class Challenge(
           err => BadRequest(apiFormError(err)).toFuccess,
           config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req) {
-              import lila.challenge.Challenge._
+              import lila.challenge.Challenge.*
               val challenge = lila.challenge.Challenge.make(
                 variant = config.variant,
                 initialFen = config.position,
@@ -463,4 +459,3 @@ final class Challenge(
         }
       }
     }
-}

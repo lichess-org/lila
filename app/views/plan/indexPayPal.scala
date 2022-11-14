@@ -7,9 +7,9 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
-object indexPayPal {
+object indexPayPal:
 
-  import trans.patron._
+  import trans.patron.*
 
   private val dataForm = attr("data-form")
 
@@ -93,4 +93,3 @@ object indexPayPal {
         )
       )
     }
-}

@@ -8,9 +8,9 @@ import lila.common.String.html.richText
 
 import controllers.routes
 
-object show {
+object show:
 
-  import trans.coach._
+  import trans.coach.*
 
   private def section(title: Frag, text: Option[lila.coach.CoachProfile.RichText]) =
     text.map { t =>
@@ -26,7 +26,7 @@ object show {
       studies: Seq[lila.study.Study.WithChaptersAndLiked],
       posts: Seq[lila.ublog.UblogPost.PreviewPost],
       myReview: Option[lila.coach.CoachReview]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)
@@ -109,5 +109,3 @@ object show {
         )
       )
     }
-  }
-}

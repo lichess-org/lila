@@ -1,14 +1,14 @@
 package controllers
 
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 
-final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
+final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
   def home     = Open(serveHome(_))
-  def homeLang = LangPage(routes.Storm.home)(serveHome(_)) _
+  def homeLang = (() => LangPage(routes.Storm.home)(serveHome(_)))
   private def serveHome(implicit ctx: Context) = NoBot {
     env.storm.selector.apply flatMap { puzzles =>
       ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
@@ -68,4 +68,3 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
           }
       }
     }
-}

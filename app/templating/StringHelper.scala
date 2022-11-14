@@ -20,9 +20,9 @@ trait StringHelper { self: I18nHelper with NumberHelper =>
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex  = """\s(\d++)$""".r.unanchored
 
-  def splitNumber(s: Frag)(using lang: Lang): Frag = {
+  def splitNumber(s: Frag)(using lang: Lang): Frag =
     val rendered = s.render
-    rendered match {
+    rendered match
       case NumberFirstRegex(number, html) =>
         frag(
           strong((~number.toIntOption).localize),
@@ -36,26 +36,22 @@ trait StringHelper { self: I18nHelper with NumberHelper =>
           strong((~n.toIntOption).localize)
         )
       case h => raw(h.replaceIf('\n', "<br>"))
-    }
-  }
 
   def addQueryParameter(url: String, key: String, value: Any) =
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"
 
   def fragList(frags: List[Frag], separator: String = ", "): Frag =
-    frags match {
+    frags match
       case Nil        => emptyFrag
       case one :: Nil => one
       case first :: rest =>
         RawFrag(
           frag(first :: rest.map { frag(separator, _) }).render
         )
-    }
 
   implicit def lilaRichString(str: String): LilaRichString = new LilaRichString(str)
 }
 
-final class LilaRichString(val str: String) extends AnyVal {
+final class LilaRichString(val str: String) extends AnyVal:
   def active(other: String, one: String = "active")  = if (str == other) one else ""
   def activeO(other: String, one: String = "active") = if (str == other) Some(one) else None
-}

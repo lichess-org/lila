@@ -9,7 +9,7 @@ import lila.rating.PerfType
 
 import controllers.routes
 
-object leaderboard {
+object leaderboard:
 
   private def freqWinner(w: lila.tournament.Winner, freq: String)(implicit lang: Lang) =
     li(
@@ -96,4 +96,3 @@ object leaderboard {
         )
       )
     }
-}

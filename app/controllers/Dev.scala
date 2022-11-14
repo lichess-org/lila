@@ -1,13 +1,13 @@
 package controllers
 
-import play.api.data._, Forms._
-import views._
+import play.api.data.*, Forms.*
+import views.*
 
 import lila.app.{ given, * }
 
-final class Dev(env: Env) extends LilaController(env) {
+final class Dev(env: Env) extends LilaController(env):
 
-  private lazy val settingsList = List[lila.memo.SettingStore[_]](
+  private lazy val settingsList = List[lila.memo.SettingStore[?]](
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
     env.oAuth.originBlocklistSetting,
@@ -90,4 +90,3 @@ final class Dev(env: Env) extends LilaController(env) {
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
     env.mod.logApi.cli(user, command) >>
       env.api.cli(command.split(" ").toList)
-}

@@ -8,9 +8,9 @@ import lila.pref.PrefCateg
 
 import controllers.routes
 
-object pref {
+object pref:
 
-  import trans.preferences._
+  import trans.preferences.*
 
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
@@ -35,7 +35,7 @@ object pref {
       }.toList
     )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(using
+  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using
       ctx: Context
   ) =
     account.layout(
@@ -206,4 +206,3 @@ object pref {
         )
       )
     }
-}

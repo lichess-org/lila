@@ -13,7 +13,7 @@ import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
 import lila.user.User
 
-object list {
+object list:
 
   def all(pag: Paginator[WithChaptersAndLiked], order: Order)(implicit ctx: Context) =
     layout(
@@ -143,7 +143,7 @@ object list {
 
   private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(using
       ctx: Context
-  ) = {
+  ) =
     val nonMineOrder = if (order == Order.Mine) Order.Hot else order
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
@@ -161,7 +161,6 @@ object list {
         trans.study.whatAreStudies()
       )
     )
-  }
 
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls           := "search", action    := routes.Study.search(), method := "get")(
@@ -203,4 +202,3 @@ object list {
         )
       )
     }
-}

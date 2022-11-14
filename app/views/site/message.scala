@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object message {
+object message:
 
   def apply(
       title: String,
@@ -107,4 +107,3 @@ object message {
 
   def notYet(text: String)(implicit ctx: Context) =
     apply("Not yet available")(text)
-}

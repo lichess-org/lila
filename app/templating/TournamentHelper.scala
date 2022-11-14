@@ -10,11 +10,12 @@ import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
 
-trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
+trait TournamentHelper extends HasEnv:
+  self: I18nHelper with DateHelper with UserHelper with StringHelper with NumberHelper =>
 
   def netBaseUrl: String
 
-  def tournamentJsData(tour: Tournament, version: Int, user: Option[User]) = {
+  def tournamentJsData(tour: Tournament, version: Int, user: Option[User]) =
 
     val data = Json.obj(
       "tournament" -> Json.obj("id" -> tour.id),
@@ -25,7 +26,6 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
         data ++ Json.obj("username" -> u.username)
       }
     }
-  }
 
   def tournamentLink(tour: Tournament)(using lang: Lang): Frag =
     a(
@@ -44,7 +44,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
   def tournamentIdToName(id: String)(using lang: Lang) =
     env.tournament.getTourName sync id getOrElse "Tournament"
 
-  object scheduledTournamentNameShortHtml {
+  object scheduledTournamentNameShortHtml:
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
       "Lichess "    -> "",
@@ -61,11 +61,8 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
           n.replace(from, to)
         }
       }
-  }
 
   def tournamentIconChar(tour: Tournament): String =
-    tour.schedule.map(_.freq) match {
+    tour.schedule.map(_.freq) match
       case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => ""
       case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.iconChar.toString
-    }
-}

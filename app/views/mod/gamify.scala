@@ -9,11 +9,11 @@ import lila.mod.Gamify.Period
 
 import controllers.routes
 
-object gamify {
+object gamify:
 
   def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(using
       ctx: Context
-  ) = {
+  ) =
     val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
       tr(cls := "year")(
@@ -59,11 +59,10 @@ object gamify {
         )
       )
     }
-  }
 
   def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(using
       ctx: Context
-  ) = {
+  ) =
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(
       title = title,
@@ -104,7 +103,6 @@ object gamify {
         )
       )
     }
-  }
 
   def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(using
       lang: Lang
@@ -139,4 +137,3 @@ object gamify {
         " leaderboard"
       )
     )
-}

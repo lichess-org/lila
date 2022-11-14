@@ -9,9 +9,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ OpeningConfig, OpeningPage }
 
-object index {
+object index:
 
-  import bits._
+  import bits.*
 
   def apply(page: OpeningPage, wikiMissing: List[FullOpening])(implicit ctx: Context) =
     views.html.base.layout(
@@ -54,4 +54,3 @@ object index {
       search.form(q, searchFocus),
       configForm(config, thenTo)
     )
-}

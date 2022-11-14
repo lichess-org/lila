@@ -1,7 +1,7 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 import play.api.mvc.Call
 
 import lila.api.{ Context, given }
@@ -12,7 +12,7 @@ import lila.tutor.TutorCompare.given
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
 
-object perf {
+object perf:
 
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(using
       ctx: Context
@@ -85,4 +85,3 @@ object perf {
       ),
       div(cls := "tutor-card__content")(content)
     )
-}

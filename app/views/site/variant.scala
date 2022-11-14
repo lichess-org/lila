@@ -6,7 +6,7 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object variant {
+object variant:
 
   def show(
       doc: io.prismic.Document,
@@ -71,4 +71,3 @@ object variant {
         div(cls := s"page-menu__content box $klass")(body)
       )
     )
-}

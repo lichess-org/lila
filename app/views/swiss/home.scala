@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
-object home {
+object home:
 
   def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
     views.html.base.layout(
@@ -239,4 +239,3 @@ object home {
       )
     )
   )
-}

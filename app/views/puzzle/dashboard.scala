@@ -13,7 +13,7 @@ import lila.puzzle.PuzzleDashboard
 import lila.puzzle.PuzzleTheme
 import lila.user.User
 
-object dashboard {
+object dashboard:
 
   private val baseClass      = "puzzle-dashboard"
   private val metricClass    = s"${baseClass}__metric"
@@ -177,4 +177,3 @@ object dashboard {
         iconTag(if (results.canReplay) '' else '')
       )
     )
-}

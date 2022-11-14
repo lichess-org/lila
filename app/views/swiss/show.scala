@@ -13,7 +13,7 @@ import lila.swiss.SwissRound
 import lila.common.paginator.Paginator
 import lila.swiss.SwissPairing
 
-object show {
+object show:
 
   private def fullName(s: Swiss) = s"${s.name} by ${teamIdToName(s.teamId)}"
 
@@ -24,7 +24,7 @@ object show {
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[lila.user.User.ID],
       isLocalMod: Boolean
-  )(implicit ctx: Context): Frag = {
+  )(implicit ctx: Context): Frag =
     val isDirector       = ctx.userId.has(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
@@ -78,7 +78,6 @@ object show {
         div(cls := "swiss__main")(div(cls := "box"))
       )
     )
-  }
 
   def round(s: Swiss, r: SwissRound.Number, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
     views.html.base.layout(
@@ -109,4 +108,3 @@ object show {
         pager(cls := "pagination--bottom")
       )
     }
-}

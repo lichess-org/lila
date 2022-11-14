@@ -13,7 +13,7 @@ final class LilaHttpRequestHandler(
     configuration: HttpConfiguration,
     filters: Seq[EssentialFilter],
     controllerComponents: ControllerComponents
-) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters) {
+) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters):
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
     if (request.method == "OPTIONS") optionsHandler.some
@@ -29,4 +29,3 @@ final class LilaHttpRequestHandler(
         )
       else Results.NotFound
     }
-}

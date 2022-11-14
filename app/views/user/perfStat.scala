@@ -11,15 +11,15 @@ import lila.user.User
 
 import controllers.routes
 
-object perfStat {
+object perfStat:
 
-  import trans.perfStat._
+  import trans.perfStat.*
 
   def apply(
       data: PerfStatData,
       ratingChart: Option[String]
-  )(implicit ctx: Context) = {
-    import data._
+  )(implicit ctx: Context) =
+    import data.*
     import stat.perfType
     views.html.base.layout(
       title = s"${user.username} - ${perfStats.txt(perfType.trans)}",
@@ -69,7 +69,6 @@ object perfStat {
         )
       )
     }
-  }
 
   private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
@@ -132,9 +131,8 @@ object perfStat {
       )
     )
 
-  private def pct(num: Int, denom: Int): String = {
+  private def pct(num: Int, denom: Int): String =
     (denom != 0) ?? s"${Math.round(num * 100.0 / denom)}%"
-  }
 
   private def counter(count: lila.perfStat.Count)(implicit lang: Lang): Frag =
     st.section(cls := "counter split")(
@@ -204,14 +202,13 @@ object perfStat {
   private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(using
       lang: Lang
   ): Frag =
-    opt match {
+    opt match
       case Some(r) =>
         div(
           h2(title(strong(tag(color)(r.int)))),
           a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at))
         )
       case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
-    }
 
   private def highlow(stat: PerfStat)(implicit lang: Lang): Frag =
     st.section(cls := "highlow split")(
@@ -220,7 +217,7 @@ object perfStat {
     )
 
   private def fromTo(s: lila.perfStat.Streak)(implicit lang: Lang): Frag =
-    s.from match {
+    s.from match
       case Some(from) =>
         fromXToY(
           a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientDateTime(from.at)),
@@ -231,7 +228,6 @@ object perfStat {
           }
         )
       case None => nbsp
-    }
 
   private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(using
       lang: Lang
@@ -336,4 +332,3 @@ object perfStat {
       h2(span(title := lessThanOneHour.txt())(maxTimePlaying())),
       playStreakTimeStreaks(playStreak.time)
     )
-}

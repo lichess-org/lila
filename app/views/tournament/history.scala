@@ -9,7 +9,7 @@ import lila.common.paginator.Paginator
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
 
-object history {
+object history:
 
   def apply(freq: Freq, pager: Paginator[Tournament])(implicit ctx: Context) =
     views.html.base.layout(
@@ -53,4 +53,3 @@ object history {
     Freq.Eastern,
     Freq.Hourly
   )
-}

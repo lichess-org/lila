@@ -3,7 +3,7 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Results
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import chess.format.FEN
 import lila.api.{ BodyContext, Context }
@@ -14,7 +14,7 @@ import lila.rating.Glicko
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
-import views._
+import views.*
 
 final class Setup(
     env: Env,
@@ -22,7 +22,7 @@ final class Setup(
     challengeC: => Challenge,
     apiC: => Api
 ) extends LilaController(env)
-    with TheftPrevention {
+    with TheftPrevention:
 
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
@@ -92,7 +92,7 @@ final class Setup(
                       api = _ => BadRequest(jsonError(message)).toFuccess
                     )
                   case None =>
-                    import lila.challenge.Challenge._
+                    import lila.challenge.Challenge.*
                     val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
                     val challenge = lila.challenge.Challenge.make(
                       variant = config.variant,
@@ -127,7 +127,7 @@ final class Setup(
     }
 
   private def hookResponse(res: HookResult) =
-    res match {
+    res match
       case HookResult.Created(id) =>
         JsonOk(
           Json.obj(
@@ -136,7 +136,6 @@ final class Setup(
           )
         )
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
-    }
 
   def hook(sri: String) =
     OpenBody { implicit ctx =>
@@ -243,10 +242,9 @@ final class Setup(
 
   def validateFen =
     Open { implicit ctx =>
-      get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match {
+      get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match
         case None    => BadRequest.toFuccess
         case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).toFuccess
-      }
     }
 
   def apiAi =
@@ -267,7 +265,7 @@ final class Setup(
       }(rateLimitedFu)
     }
 
-  private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
+  private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) =
     val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
     if (ctx.isAuth) redir
     else
@@ -277,5 +275,3 @@ final class Setup(
         maxAge = AnonCookie.maxAge.some,
         httpOnly = false.some
       )
-  }
-}

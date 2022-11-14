@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKey, JsDump, LangList, MessageKey, Translator }
 import lila.user.UserContext
 
-trait I18nHelper {
+trait I18nHelper:
 
   export LangList.{ nameByStr as langName }
 
@@ -29,9 +29,7 @@ trait I18nHelper {
   def langHref(call: Call)(using ctx: lila.api.Context): String = langHref(call.url)
   def langHref(path: String)(using ctx: lila.api.Context): String =
     if (ctx.isAuth || ctx.lang.language == "en") path
-    else {
+    else
       val code = lila.i18n.fixJavaLanguageCode(ctx.lang)
       if (path == "/") s"/$code"
       else s"/$code$path"
-    }
-}

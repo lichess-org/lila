@@ -1,8 +1,8 @@
 package views.html.mod
 
 import cats.data.NonEmptyList
-import controllers.appeal.routes.{ Appeal => appealRoutes }
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import scala.util.matching.Regex
 
@@ -14,26 +14,24 @@ import lila.report.Reason
 import lila.report.Report
 import lila.user.User
 
-object inquiry {
+object inquiry:
 
   // simul game study relay tournament
   private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)""".r
 
   private def renderAtomText(text: String, highlight: Boolean) =
     text.split("\n").map { line =>
-      val (link, text) = line match {
+      val (link, text) = line match
         case commFlagRegex(tpe, id, text) =>
-          val path = tpe match {
+          val path = tpe match
             case "game"       => routes.Round.watcher(id, "white").url
             case "relay"      => routes.RelayRound.show("-", "-", id).url
             case "tournament" => routes.Tournament.show(id).url
             case "swiss"      => routes.Swiss.show(id).url
             case "forum"      => routes.ForumPost.redirect(id).url
             case _            => s"/$tpe/$id"
-          }
           a(href := path)(path).some -> text
         case text => None -> text
-      }
       frag(
         link,
         " ",
@@ -42,7 +40,7 @@ object inquiry {
       )
     }
 
-  def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
+  def apply(in: lila.mod.Inquiry)(implicit ctx: Context) =
     def renderReport(r: Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
@@ -237,7 +235,6 @@ object inquiry {
         )
       )
     )
-  }
 
   def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(
     cls := List(
@@ -314,4 +311,3 @@ object inquiry {
         form3.hidden("then", "profile")
       )
     )
-}

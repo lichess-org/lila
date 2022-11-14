@@ -11,7 +11,7 @@ import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
 import lila.common.LangPath
 
-object home {
+object home:
 
   def apply(
       scheduled: List[Tournament],
@@ -109,4 +109,3 @@ object home {
         )
       )
     }
-}

@@ -12,7 +12,7 @@ import lila.rating.PerfType.iconByVariant
 
 import controllers.routes
 
-object userAnalysis {
+object userAnalysis:
 
   def apply(
       data: JsObject,
@@ -78,4 +78,3 @@ object userAnalysis {
         div(cls := "analyse__controls")
       )
     }
-}

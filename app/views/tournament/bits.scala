@@ -3,12 +3,12 @@ package views.html.tournament
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKeys as trans }
 import lila.tournament.Tournament
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
@@ -81,4 +81,3 @@ object bits {
     trans.tournamentEntryCode,
     trans.arena.viewAllXTeams
   ).map(_.key)
-}

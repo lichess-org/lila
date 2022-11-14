@@ -1,19 +1,19 @@
 package controllers
 
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.coach.{ Coach => CoachModel, CoachPager, CoachProfileForm }
-import views._
+import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
+import views.*
 import lila.user.Countries
 
-final class Coach(env: Env) extends LilaController(env) {
+final class Coach(env: Env) extends LilaController(env):
 
   private def api = env.coach.api
 
   def homeLang =
-    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1)(_)) _
+    (() => LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1)(_)))
 
   def all(page: Int) = search("all", CoachPager.Order.Login.key, "all", page)
 
@@ -22,7 +22,7 @@ final class Coach(env: Env) extends LilaController(env) {
       searchResults(l, o, c, page)
     }
 
-  private def searchResults(l: String, o: String, c: String, page: Int)(implicit ctx: Context) = {
+  private def searchResults(l: String, o: String, c: String, page: Int)(implicit ctx: Context) =
     pageHit
     val order   = CoachPager.Order(o)
     val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
@@ -32,7 +32,6 @@ final class Coach(env: Env) extends LilaController(env) {
       countryCodes <- env.coach.api.allCountries
       pager        <- env.coach.pager(lang, order, country, page)
     } yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
-  }
 
   def show(username: String) =
     Open { implicit ctx =>
@@ -46,10 +45,9 @@ final class Coach(env: Env) extends LilaController(env) {
             posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
             reviews  <- api.reviews.approvedByCoach(c.coach)
             myReview <- ctx.me.?? { api.reviews.find(_, c.coach) }
-          } yield {
+          } yield
             lila.mon.coach.pageView.profile(c.coach.id.value).increment()
             Ok(html.coach.show(c, reviews, studies, posts, myReview))
-          }
         }
       }
     }
@@ -139,13 +137,11 @@ final class Coach(env: Env) extends LilaController(env) {
   def pictureApply =
     SecureBody(parse.multipartFormData)(lila.security.Permission.Coach) { implicit ctx => me =>
       OptionFuResult(api findOrInit me) { c =>
-        ctx.body.body.file("picture") match {
+        ctx.body.body.file("picture") match
           case Some(pic) =>
             api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
               BadRequest(html.coach.picture(c, e.message.some))
             } inject Redirect(routes.Coach.edit)
           case None => fuccess(Redirect(routes.Coach.edit))
-        }
       }
     }
-}

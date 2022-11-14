@@ -7,9 +7,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object passwd {
+object passwd:
 
-  def apply(form: play.api.data.Form[_])(implicit ctx: Context) =
+  def apply(form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = trans.changePassword.txt(),
       active = "password",
@@ -38,4 +38,3 @@ object passwd {
         )
       )
     }
-}

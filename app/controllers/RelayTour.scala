@@ -1,21 +1,21 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc._
+import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.concurrent.duration._
-import scala.util.chaining._
-import views._
+import scala.concurrent.duration.*
+import scala.util.chaining.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.{ HTTPRequest, IpAddress }
-import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
-import lila.user.{ User => UserModel }
+import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.user.{ User as UserModel }
 import lila.common.config
 
-final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env) {
+final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
   def index(page: Int) =
     Open { implicit ctx =>
@@ -203,7 +203,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       fail: => Result
   )(
       create: => Fu[Result]
-  ): Fu[Result] = {
+  ): Fu[Result] =
     val cost =
       if (isGranted(_.Relay, me)) 2
       else if (me.hasTitle || me.isVerified) 5
@@ -213,5 +213,3 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         create
       }(fail.toFuccess)
     }(fail.toFuccess)
-  }
-}

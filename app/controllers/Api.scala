@@ -1,11 +1,11 @@
 package controllers
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import play.api.i18n.Lang
-import play.api.libs.json._
-import play.api.mvc._
-import scala.concurrent.duration._
-import scala.util.chaining._
+import play.api.libs.json.*
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.api.{ Context, GameApiV2 }
 import lila.app.{ given, * }
@@ -16,14 +16,14 @@ import lila.game.GamesByIdsStream
 final class Api(
     env: Env,
     gameC: => Game
-) extends LilaController(env) {
+) extends LilaController(env):
 
-  import Api._
+  import Api.*
 
   private val userApi = env.api.userApi
   private val gameApi = env.api.gameApi
 
-  private lazy val apiStatusJson = {
+  private lazy val apiStatusJson =
     val api = lila.api.Mobile.Api
     Json.obj(
       "api" -> Json.obj(
@@ -31,7 +31,6 @@ final class Api(
         "olds"    -> Json.arr()
       )
     )
-  }
 
   val status = Action { (req: RequestHeader) =>
     val appVersion  = get("v", req)
@@ -44,7 +43,7 @@ final class Api(
       Ok(views.html.site.bits.api)
     }
 
-  def user(name: String) = {
+  def user(name: String) =
     def get(req: RequestHeader, lang: Lang, me: Option[lila.user.User]) = userApi.extended(
       name,
       me,
@@ -55,7 +54,6 @@ final class Api(
       ctx => get(ctx.req, ctx.lang, ctx.me),
       req => me => get(req, me.realLang | reqLang(req), me.some)
     )
-  }
 
   private[controllers] def userWithFollows(req: RequestHeader) =
     HTTPRequest.apiVersion(req).exists(_ < 6) && !getBool("noFollows", req)
@@ -119,7 +117,7 @@ final class Api(
     key = "user_games.api.global"
   )
 
-  private def UserGamesRateLimit(cost: Int, req: RequestHeader)(run: => Fu[ApiResult]) = {
+  private def UserGamesRateLimit(cost: Int, req: RequestHeader)(run: => Fu[ApiResult]) =
     val ip = HTTPRequest ipAddress req
     UserGamesRateLimitPerIP(ip, cost = cost) {
       UserGamesRateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
@@ -128,7 +126,6 @@ final class Api(
         }(fuccess(Limited))
       }(fuccess(Limited))
     }(fuccess(Limited))
-  }
 
   private def gameFlagsFromRequest(req: RequestHeader) =
     lila.api.GameApi.WithFlags(
@@ -377,11 +374,10 @@ final class Api(
     me.fold(500) { u => if (u.id == "challengermode") 10_000 else 1000 }
   private def withIdsFromReqBody(req: Request[String], max: Int, transform: String => String = identity)(
       f: Set[String] => Result
-  ): Result = {
+  ): Result =
     val ids = req.body.toLowerCase.split(',').view.map(s => transform(s.trim)).filter(_.nonEmpty).toSet
     if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
-  }
 
   def cloudEval =
     Action.async { req =>
@@ -470,42 +466,41 @@ final class Api(
   def toApiResult(json: Seq[JsValue]): ApiResult    = Data(JsArray(json))
 
   def toHttp(result: ApiResult): Result =
-    result match {
+    result match
       case Limited          => rateLimitedJson
       case ClientError(msg) => BadRequest(jsonError(msg))
       case NoData           => notFoundJsonSync()
       case Custom(result)   => result
       case Done             => jsonOkResult
       case Data(json)       => JsonOk(json)
-    }
 
-  def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =
+  def jsonStream(makeSource: => Source[JsValue, ?])(implicit req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJson)
 
-  def addKeepAlive(source: Source[JsValue, _]): Source[Option[JsValue], _] =
+  def addKeepAlive(source: Source[JsValue, ?]): Source[Option[JsValue], ?] =
     source
       .map(some)
       .keepAlive(50.seconds, () => none) // play's idleTimeout = 75s
 
-  def sourceToNdJson(source: Source[JsValue, _]): Result =
+  def sourceToNdJson(source: Source[JsValue, ?]): Result =
     sourceToNdJsonString {
       source.map { o =>
         Json.stringify(o) + "\n"
       }
     }
 
-  def sourceToNdJsonOption(source: Source[Option[JsValue], _]): Result =
+  def sourceToNdJsonOption(source: Source[Option[JsValue], ?]): Result =
     sourceToNdJsonString {
       source.map { _ ?? Json.stringify + "\n" }
     }
 
-  private def sourceToNdJsonString(source: Source[String, _]): Result =
+  private def sourceToNdJsonString(source: Source[String, ?]): Result =
     Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
 
-  def csvStream(makeSource: => Source[String, _])(implicit req: RequestHeader): Result =
+  def csvStream(makeSource: => Source[String, ?])(implicit req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToCsv)
 
-  private def sourceToCsv(source: Source[String, _]): Result =
+  private def sourceToCsv(source: Source[String, ?]): Result =
     Ok.chunked(source.map(_ + "\n")).as(csvContentType) pipe noProxyBuffer
 
   private[controllers] val GlobalConcurrencyLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
@@ -530,17 +525,16 @@ final class Api(
   private[controllers] def GlobalConcurrencyLimitPerIpAndUserOption[T](
       req: RequestHeader,
       me: Option[lila.user.User]
-  )(makeSource: => Source[T, _])(makeResult: Source[T, _] => Result): Result =
+  )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result): Result =
     GlobalConcurrencyLimitPerIP.compose[T](HTTPRequest ipAddress req) flatMap { limitIp =>
       GlobalConcurrencyLimitPerUserOption[T](me) map { limitUser =>
         makeResult(limitIp(limitUser(makeSource)))
       }
     } getOrElse lila.memo.ConcurrencyLimit.limitedDefault(1)
 
-  private type SourceIdentity[T] = Source[T, _] => Source[T, _]
-}
+  private type SourceIdentity[T] = Source[T, ?] => Source[T, ?]
 
-private[controllers] object Api {
+private[controllers] object Api:
 
   sealed trait ApiResult
   case class Data(json: JsValue)      extends ApiResult
@@ -549,4 +543,3 @@ private[controllers] object Api {
   case object Done                    extends ApiResult
   case object Limited                 extends ApiResult
   case class Custom(result: Result)   extends ApiResult
-}

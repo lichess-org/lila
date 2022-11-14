@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object notFound {
+object notFound:
 
   def apply()(implicit ctx: Context) =
     layout(
@@ -43,4 +43,3 @@ object notFound {
         )
       )
     }
-}

@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningPage, OpeningWiki }
 
-object wiki {
+object wiki:
 
   def apply(page: OpeningPage)(implicit ctx: Context) =
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
@@ -65,4 +65,3 @@ object wiki {
       }
     )
   )
-}

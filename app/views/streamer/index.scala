@@ -8,9 +8,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 
-object index {
+object index:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   private val dataDedup = attr("data-dedup")
 
@@ -18,7 +18,7 @@ object index {
       live: List[lila.streamer.Streamer.WithUserAndStream],
       pager: Paginator[lila.streamer.Streamer.WithUser],
       requests: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
 
@@ -91,5 +91,3 @@ object index {
         )
       )
     }
-  }
-}

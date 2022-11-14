@@ -8,9 +8,9 @@ import lila.user.User
 
 import controllers.routes
 
-object top {
+object top:
 
-  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(implicit ctx: Context) = {
+  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(implicit ctx: Context) =
 
     val title = s"${perfType.trans} top 200"
 
@@ -43,6 +43,4 @@ object top {
         )
       )
     )
-  }
 
-}

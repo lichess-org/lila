@@ -5,7 +5,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 
-object dailyPuzzleSlackApp {
+object dailyPuzzleSlackApp:
 
   def apply()(implicit ctx: Context) =
     views.html.base.layout(
@@ -72,4 +72,3 @@ object dailyPuzzleSlackApp {
         )
       )
     }
-}

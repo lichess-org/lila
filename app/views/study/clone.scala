@@ -6,7 +6,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object clone {
+object clone:
 
   def apply(s: lila.study.Study)(implicit ctx: Context) =
     views.html.site.message(
@@ -30,4 +30,3 @@ object clone {
         )
       )
     }
-}

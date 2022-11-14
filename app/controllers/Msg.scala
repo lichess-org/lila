@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
@@ -8,7 +8,7 @@ import lila.common.LightUser.lightUserWrites
 final class Msg(
     env: Env,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def home =
     Auth { implicit ctx => me =>
@@ -51,10 +51,9 @@ final class Msg(
 
   def search(q: String) =
     Auth { ctx => me =>
-      q.trim.some.filter(lila.user.User.couldBeUsername) match {
+      q.trim.some.filter(lila.user.User.couldBeUsername) match
         case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
         case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
-      }
     }
 
   def unreadCount =
@@ -84,7 +83,7 @@ final class Msg(
       }
     }
 
-  def apiPost(username: String) = {
+  def apiPost(username: String) =
     val userId = lila.user.User normalize username
     AuthOrScopedBody(_.Msg.Write)(
       // compat: reply
@@ -100,8 +99,8 @@ final class Msg(
       scoped = implicit req =>
         me =>
           (!me.kid && !me.is(userId)) ?? {
-            import play.api.data._
-            import play.api.data.Forms._
+            import play.api.data.*
+            import play.api.data.Forms.*
             Form(single("text" -> nonEmptyText))
               .bindFromRequest()
               .fold(
@@ -115,7 +114,6 @@ final class Msg(
               )
           }
     )
-  }
 
   private def inboxJson(me: lila.user.User) =
     env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me) map { threads =>
@@ -124,4 +122,3 @@ final class Msg(
         "contacts" -> threads
       )
     }
-}

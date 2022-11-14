@@ -8,11 +8,11 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object checkYourEmail {
+object checkYourEmail:
 
   def apply(
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
-      form: Option[Form[_]] = None
+      form: Option[Form[?]] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Check your email",
@@ -73,4 +73,3 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
         )
       )
     }
-}

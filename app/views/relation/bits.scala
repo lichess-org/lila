@@ -11,7 +11,7 @@ import lila.game.FavoriteOpponents
 import lila.relation.Related
 import lila.user.User
 
-object bits {
+object bits:
 
   def friends(u: User, pag: Paginator[Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.friends.txt()}")(
@@ -93,4 +93,3 @@ object bits {
         )
       else tbody(tr(td(colspan := 2)(trans.none())))
     )
-}

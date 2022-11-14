@@ -1,12 +1,12 @@
 package controllers
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.Color
 import chess.format.{ FEN, Forsyth, Uci }
 import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -14,7 +14,7 @@ import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }
 import lila.puzzle.Puzzle.Id
 
-final class Export(env: Env) extends LilaController(env) {
+final class Export(env: Env) extends LilaController(env):
 
   private val ExportImageRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 600,
@@ -94,10 +94,9 @@ final class Export(env: Env) extends LilaController(env) {
     }
 
   private def stream(contentType: String = "image/gif", cacheSeconds: Int = 1209600)(
-      stream: Source[ByteString, _]
+      stream: Source[ByteString, ?]
   ) =
     Ok.chunked(stream)
       .withHeaders(noProxyBufferHeader)
       .withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
       .as(contentType)
-}

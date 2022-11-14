@@ -11,7 +11,7 @@ import lila.user.User
 
 import controllers.routes
 
-object list {
+object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
@@ -108,4 +108,3 @@ object list {
         )
       })
     )
-}

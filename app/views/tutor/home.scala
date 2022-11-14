@@ -11,7 +11,7 @@ import lila.tutor.TutorCompare.given
 import lila.user.User
 import lila.insight.Phase
 
-object home {
+object home:
 
   def apply(full: TutorFullReport.Available, user: User)(implicit ctx: Context) =
     bits.layout(full, menu = menu(full, user, none))(
@@ -83,4 +83,3 @@ object home {
         bits.seeMore
       )
     )
-}

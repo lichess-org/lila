@@ -1,22 +1,22 @@
 package controllers
 
-import play.api.mvc._
-import views._
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.simul.{ Simul => Sim }
+import lila.simul.{ Simul as Sim }
 
-final class Simul(env: Env) extends LilaController(env) {
+final class Simul(env: Env) extends LilaController(env):
 
   private def forms = lila.simul.SimulForm
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
   def home     = Open(serveHome(_))
-  def homeLang = LangPage(routes.Simul.home)(serveHome(_)) _
+  def homeLang = (() => LangPage(routes.Simul.home)(serveHome(_)))
   private def serveHome(implicit ctx: Context) = NoBot {
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
@@ -226,4 +226,3 @@ final class Simul(env: Env) extends LilaController(env) {
       if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)
     }
-}

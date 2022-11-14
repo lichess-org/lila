@@ -9,15 +9,15 @@ import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object index {
+object index:
 
-  import trans.search._
+  import trans.search.*
 
-  def apply(form: Form[_], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
+  def apply(form: Form[?], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
       ctx: Context
-  ) = {
+  ) =
     val commons = bits of form
-    import commons._
+    import commons.*
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
       moreJs = frag(
@@ -98,5 +98,3 @@ object index {
         )
       )
     }
-  }
-}

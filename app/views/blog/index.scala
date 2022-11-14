@@ -8,11 +8,11 @@ import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object index {
+object index:
 
   def apply(
       pager: Paginator[io.prismic.Document]
-  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) = {
+  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
 
     val primaryPost = (pager.currentPage == 1).??(pager.currentPageResults.headOption)
 
@@ -44,7 +44,6 @@ object index {
         )
       )
     )
-  }
 
   def byYear(year: Int, posts: List[MiniPost])(implicit ctx: Context) =
     views.html.base.layout(
@@ -93,4 +92,3 @@ object index {
         )
       )
     )
-}

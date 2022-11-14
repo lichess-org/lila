@@ -11,10 +11,10 @@ import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object home {
+object home:
 
-  def apply(homepage: Homepage)(implicit ctx: Context) = {
-    import homepage._
+  def apply(homepage: Homepage)(implicit ctx: Context) =
+    import homepage.*
     views.html.base.layout(
       title = "",
       fullTitle = Some {
@@ -156,7 +156,6 @@ object home {
         )
       )
     }
-  }
 
   private val i18nKeys = List(
     trans.realTime,
@@ -201,4 +200,3 @@ object home {
     trans.randomColor,
     trans.black
   ).map(_.key)
-}

@@ -8,9 +8,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object dev {
+object dev:
 
-  def settings(settings: List[lila.memo.SettingStore[_]])(implicit ctx: Context) = {
+  def settings(settings: List[lila.memo.SettingStore[?]])(implicit ctx: Context) =
     val title = "Settings"
     views.html.base.layout(
       title = title,
@@ -45,9 +45,8 @@ object dev {
         )
       )
     )
-  }
 
-  def cli(form: Form[_], res: Option[String])(implicit ctx: Context) = {
+  def cli(form: Form[?], res: Option[String])(implicit ctx: Context) =
     val title = "Command Line Interface"
     views.html.base.layout(
       title = title,
@@ -93,5 +92,3 @@ video sheet
         )
       )
     }
-  }
-}

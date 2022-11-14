@@ -8,7 +8,7 @@ import lila.challenge.Challenge.Status
 
 import controllers.routes
 
-object theirs {
+object theirs:
 
   def apply(
       c: Challenge,
@@ -102,4 +102,3 @@ object theirs {
         }
       )
     }
-}

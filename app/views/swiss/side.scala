@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.swiss.{ Swiss, SwissCondition }
 
-object side {
+object side:
 
   private val separator = " • "
 
@@ -101,4 +101,3 @@ object side {
       ),
       chat option views.html.chat.frag
     )
-}

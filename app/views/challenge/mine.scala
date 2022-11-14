@@ -7,14 +7,14 @@ import lila.challenge.Challenge.Status
 
 import controllers.routes
 
-object mine {
+object mine:
 
   def apply(
       c: lila.challenge.Challenge,
       json: play.api.libs.json.JsObject,
       error: Option[String],
       color: Option[chess.Color]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
@@ -123,5 +123,3 @@ object mine {
         }
       )
     }
-  }
-}

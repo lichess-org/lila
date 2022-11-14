@@ -1,7 +1,7 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
@@ -15,7 +15,7 @@ import lila.tutor.{
   ValueCount
 }
 
-object openings {
+object openings:
 
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
       ctx: Context
@@ -61,4 +61,3 @@ object openings {
     )
 
   private val pieceTag = tag("piece")
-}

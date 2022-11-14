@@ -4,22 +4,22 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.data.Form
 import play.api.i18n.Lang
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gameSearch.{ Query, Sorting }
 
-private object bits {
+private object bits:
 
-  import trans.search._
+  import trans.search.*
 
   private val dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
   private val dateMin       = "2011-01-01"
   private def dateMinMax: List[Modifier] =
     List(min := dateMin, max := dateFormatter.print(DateTime.now.plusDays(1)))
 
-  final class SearchForm(form: Form[_])(implicit lang: Lang) {
+  final class SearchForm(form: Form[?])(implicit lang: Lang):
 
     def dataReqs =
       List("winner", "loser", "white", "black").map { f =>
@@ -185,8 +185,8 @@ private object bits {
       tr(cls := "date")(
         th(label(trans.search.date())),
         td(cls := "two-columns")(
-          div(from(), " ", form3.input(form("dateMin"), "date")(dateMinMax: _*)),
-          div(to(), " ", form3.input(form("dateMax"), "date")(dateMinMax: _*))
+          div(from(), " ", form3.input(form("dateMin"), "date")(dateMinMax *)),
+          div(to(), " ", form3.input(form("dateMax"), "date")(dateMinMax *))
         )
       )
 
@@ -199,7 +199,7 @@ private object bits {
         )
       )
 
-    def analysed = {
+    def analysed =
       val field = form("analysed")
       tr(
         th(
@@ -213,9 +213,6 @@ private object bits {
           form3.cmnToggle(form3.id(field), field.name, checked = field.value.has("1"), value = "1")
         )
       )
-    }
-  }
 
-  def of(form: Form[_])(implicit lang: Lang) =
+  def of(form: Form[?])(implicit lang: Lang) =
     new SearchForm(form)
-}

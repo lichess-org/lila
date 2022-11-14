@@ -9,7 +9,7 @@ import lila.user.User
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def best(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context) =
     layout(
@@ -61,4 +61,3 @@ object bits {
         div(cls := "page-menu__content box")(body)
       )
     }
-}

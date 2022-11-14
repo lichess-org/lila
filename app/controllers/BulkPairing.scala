@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import lila.app.{ given, * }
 import lila.setup.SetupBulk
 
-final class BulkPairing(env: Env) extends LilaController(env) {
+final class BulkPairing(env: Env) extends LilaController(env):
 
   def list =
     ScopedBody(_.Challenge.Bulk) { implicit req => me =>
@@ -46,7 +46,7 @@ final class BulkPairing(env: Env) extends LilaController(env) {
                 ).toFuccess
               case Left(SetupBulk.BadTokens(tokens)) =>
                 import lila.setup.SetupBulk.BadToken
-                import play.api.libs.json._
+                import play.api.libs.json.*
                 BadRequest(
                   Json.obj(
                     "tokens" -> JsObject {
@@ -66,4 +66,3 @@ final class BulkPairing(env: Env) extends LilaController(env) {
             }
         )
     }
-}

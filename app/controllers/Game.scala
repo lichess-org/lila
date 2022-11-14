@@ -2,19 +2,19 @@ package controllers
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.mvc._
-import scala.util.chaining._
+import play.api.mvc.*
+import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
-import lila.game.{ Game => GameModel }
+import lila.game.{ Game as GameModel }
 
 final class Game(
     env: Env,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def bookmark(gameId: String) =
     Auth { implicit ctx => me =>
@@ -24,13 +24,13 @@ final class Game(
   def delete(gameId: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game gameId) { game =>
-        if (game.pgnImport.flatMap(_.user) ?? (me.id.==)) {
+        if (game.pgnImport.flatMap(_.user) ?? (me.id.==))
           env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
           (env.game.gameRepo remove game.id) >>
             (env.analyse.analysisRepo remove game.id) >>
             env.game.cached.clearNbImportedByCache(me.id) inject
             Redirect(routes.User.show(me.username))
-        } else
+        else
           fuccess {
             Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
           }
@@ -54,7 +54,7 @@ final class Game(
             Ok(content)
               .pipe(asAttachment(filename))
               .withHeaders(
-                lila.app.http.ResponseHeaders.headersForApiOrApp(req): _*
+                lila.app.http.ResponseHeaders.headersForApiOrApp(req) *
               ) as gameContentType(config)
           }
         }
@@ -162,14 +162,13 @@ final class Game(
     }
 
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
-    get("vs", req) match {
+    get("vs", req) match
       case None => f(none)
       case Some(name) =>
         env.user.repo named name flatMap {
           case None       => notFoundJson(s"No such opponent: $name")
           case Some(user) => f(user.some)
         }
-    }
 
   private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
     lila.game.PgnDump.WithFlags(
@@ -187,15 +186,12 @@ final class Game(
     !get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
-    config.format match {
+    config.format match
       case GameApiV2.Format.PGN => pgnContentType
       case GameApiV2.Format.JSON =>
-        config match {
+        config match
           case _: GameApiV2.OneConfig => JSON
           case _                      => ndJsonContentType
-        }
-    }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
     env.user.lightUserApi preloadMany game.userIds
-}

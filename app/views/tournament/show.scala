@@ -12,7 +12,7 @@ import lila.user.User
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       tour: Tournament,
@@ -77,4 +77,3 @@ object show {
         )
       )
     )
-}

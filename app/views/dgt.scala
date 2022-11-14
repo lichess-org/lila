@@ -1,14 +1,14 @@
 package views.html
 
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.oauth.AccessToken
 
-object dgt {
+object dgt:
 
   private val liveChessVersion = "2.2.5+"
 
@@ -234,4 +234,3 @@ object dgt {
         div(cls := s"page-menu__content box box-pad dgt__$path")(body)
       )
     )
-}

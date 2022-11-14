@@ -1,6 +1,6 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
 import lila.api.{ Context, given }
@@ -11,7 +11,7 @@ import lila.common.String.html.richText
 import lila.rating.PerfType
 import lila.user.User
 
-object teacherDashboard {
+object teacherDashboard:
 
   private[clas] def layout(
       c: Clas,
@@ -311,4 +311,3 @@ object teacherDashboard {
         )
       )
     )
-}

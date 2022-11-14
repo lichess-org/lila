@@ -9,9 +9,9 @@ import lila.app.mashup.TeamInfo
 
 import controllers.routes
 
-object tournaments {
+object tournaments:
 
-  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(implicit ctx: Context) = {
+  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${t.name} • ${trans.tournaments.txt()}",
       openGraph = lila.app.ui
@@ -50,7 +50,6 @@ object tournaments {
         )
       )
     }
-  }
 
   def renderList(tours: List[TeamInfo.AnyTour])(implicit ctx: Context) =
     tbody(
@@ -118,4 +117,3 @@ object tournaments {
   private def renderStartsAt(any: TeamInfo.AnyTour)(implicit lang: Lang): Frag =
     if (any.isEnterable && any.startsAt.isBeforeNow) trans.playingRightNow()
     else momentFromNowOnce(any.startsAt)
-}

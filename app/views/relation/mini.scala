@@ -6,7 +6,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object mini {
+object mini:
 
   def apply(
       userId: lila.user.User.ID,
@@ -14,7 +14,7 @@ object mini {
       followable: Boolean,
       relation: Option[lila.relation.Relation] = None
   )(implicit ctx: Context) =
-    relation match {
+    relation match
       case None if followable && !blocked =>
         val name   = trans.follow.txt()
         val isLong = name.sizeIs > 8
@@ -39,5 +39,3 @@ object mini {
           dataIcon := ""
         )(trans.blocked())
       case _ => emptyFrag
-    }
-}

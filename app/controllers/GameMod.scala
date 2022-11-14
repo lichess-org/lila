@@ -1,9 +1,9 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms.{ list => formList, * }
-import scala.concurrent.duration._
-import scala.util.chaining._
+import play.api.data.*
+import play.api.data.Forms.{ list as formList, * }
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.api.Context
 import lila.api.GameApiV2
@@ -13,9 +13,9 @@ import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.Holder
 
-final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
+final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
-  import GameMod._
+  import GameMod.*
 
   def index(username: String) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
@@ -37,9 +37,9 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       }
     }
 
-  private def fetchGames(user: lila.user.User, filter: Filter) = {
+  private def fetchGames(user: lila.user.User, filter: Filter) =
     val select = toDbSelect(filter) ++ lila.game.Query.finished
-    import akka.stream.scaladsl._
+    import akka.stream.scaladsl.*
     env.game.gameRepo
       .recentGamesByUserFromSecondaryCursor(user, select)
       .documentSource(10_000)
@@ -52,7 +52,6 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       .run()
       .map(_.toList)
 
-  }
 
   def post(username: String) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
@@ -104,9 +103,8 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       .as(pgnContentType)
 
   private def guessSwisses(user: lila.user.User): Fu[Seq[lila.swiss.Swiss]] = fuccess(Nil)
-}
 
-object GameMod {
+object GameMod:
 
   case class Filter(
       arena: Option[String],
@@ -114,7 +112,7 @@ object GameMod {
       perf: Option[String],
       opponents: Option[String],
       nbGamesOpt: Option[Int]
-  ) {
+  ):
     def opponentIds: List[lila.user.User.ID] =
       (~opponents)
         .take(800)
@@ -128,7 +126,6 @@ object GameMod {
         .distinct
 
     def nbGames = nbGamesOpt | 100
-  }
 
   val emptyFilter = Filter(none, none, none, none, none)
 
@@ -164,4 +161,3 @@ object GameMod {
         "action" -> optional(lila.common.Form.stringIn(Set("pgn", "analyse")))
       )
     )
-}

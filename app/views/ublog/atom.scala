@@ -9,7 +9,7 @@ import lila.common.paginator.Paginator
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
-object atom {
+object atom:
 
   import views.html.base.atom.{ atomDate, category }
   import views.html.ublog.blog.urlOfBlog
@@ -67,7 +67,5 @@ object atom {
       tag("author")(tag("name")(authorName))
     )
 
-  private def authorOfBlog(blogId: UblogBlog.Id): String = blogId match {
+  private def authorOfBlog(blogId: UblogBlog.Id): String = blogId match
     case UblogBlog.Id.User(userId) => titleNameOrId(userId)
-  }
-}

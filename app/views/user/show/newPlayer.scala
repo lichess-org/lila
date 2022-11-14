@@ -6,7 +6,7 @@ import lila.user.User
 
 import controllers.routes
 
-object newPlayer {
+object newPlayer:
 
   def apply(u: User) =
     div(cls := "new-player")(
@@ -49,4 +49,3 @@ object newPlayer {
         li("Explore the site and have fun :)")
       )
     )
-}

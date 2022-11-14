@@ -6,7 +6,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object chart {
+object chart:
 
   def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(implicit ctx: Context) =
     bits.layout(
@@ -58,4 +58,3 @@ object chart {
         )
       )
     }
-}

@@ -1,18 +1,18 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import scala.concurrent.duration._
-import views._
+import play.api.libs.json.*
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.game.{ Game => GameModel, PgnDump, Pov }
-import lila.swiss.Swiss.{ Id => SwissId }
-import lila.tournament.{ Tournament => Tour }
-import lila.user.{ User => UserModel }
+import lila.game.{ Game as GameModel, PgnDump, Pov }
+import lila.swiss.Swiss.{ Id as SwissId }
+import lila.tournament.{ Tournament as Tour }
+import lila.user.{ User as UserModel }
 
 final class Round(
     env: Env,
@@ -23,7 +23,7 @@ final class Round(
     swissC: => Swiss,
     userC: => User
 ) extends LilaController(env)
-    with TheftPrevention {
+    with TheftPrevention:
 
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
     negotiate(
@@ -127,13 +127,12 @@ final class Round(
       proxyPov(gameId, color) flatMap {
         case Some(pov) =>
           get("pov").map(UserModel.normalize).fold(watch(pov)) { requestedPov =>
-            (pov.player.userId, pov.opponent.userId) match {
+            (pov.player.userId, pov.opponent.userId) match
               case (Some(_), Some(opponent)) if opponent == requestedPov =>
                 Redirect(routes.Round.watcher(gameId, (!pov.color).name)).toFuccess
               case (Some(player), Some(_)) if player == requestedPov =>
                 Redirect(routes.Round.watcher(gameId, pov.color.name)).toFuccess
               case _ => Redirect(routes.Round.watcher(gameId, "white")).toFuccess
-            }
           }
         case None => userC.tryRedirect(gameId) getOrElse challengeC.showId(gameId)
       }
@@ -147,7 +146,7 @@ final class Round(
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
   ): Fu[Result] =
-    playablePovForReq(pov.game) match {
+    playablePovForReq(pov.game) match
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
       case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
         if (userTv.isDefined) watch(!pov, userTv)
@@ -203,7 +202,6 @@ final class Round(
                 .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
             }
         ) dmap (_.noCache)
-    }
 
   private[controllers] def getWatcherChat(
       game: GameModel
@@ -235,7 +233,7 @@ final class Round(
             )
           )
           .some
-      (game.tournamentId, game.simulId, game.swissId) match {
+      (game.tournamentId, game.simulId, game.swissId) match
         case (Some(tid), _, _) =>
           {
             ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
@@ -268,7 +266,6 @@ final class Round(
                 .some
             }
           }
-      }
     }
 
   def sides(gameId: String, color: String) =
@@ -287,8 +284,8 @@ final class Round(
 
   def writeNote(gameId: String) =
     AuthBody { implicit ctx => me =>
-      import play.api.data.Forms._
-      import play.api.data._
+      import play.api.data.Forms.*
+      import play.api.data.*
       given play.api.mvc.Request[?] = ctx.body
       Form(single("text" -> text))
         .bindFromRequest()
@@ -319,14 +316,13 @@ final class Round(
   def resign(fullId: String) =
     Open { implicit ctx =>
       OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
-        if (isTheft(pov)) {
+        if (isTheft(pov))
           lila.log("round").warn(s"theft resign $fullId ${ctx.ip}")
           fuccess(routes.Lobby.home)
-        } else {
+        else
           env.round resign pov
-          import scala.concurrent.duration._
+          import scala.concurrent.duration.*
           akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
-        }
       }
     }
 
@@ -366,4 +362,3 @@ final class Round(
     Open { implicit ctx =>
       Ok(html.site.keyboardHelpModal.round).toFuccess
     }
-}

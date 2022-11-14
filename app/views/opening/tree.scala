@@ -7,9 +7,9 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ Opening, OpeningConfig }
 
-object tree {
+object tree:
 
-  import bits._
+  import bits.*
 
   def apply(root: Opening.Tree, config: OpeningConfig)(implicit ctx: Context) =
     views.html.base.layout(
@@ -45,4 +45,3 @@ object tree {
       )
       if (fold) details(content) else content
     }
-}

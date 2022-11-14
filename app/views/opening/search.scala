@@ -8,9 +8,9 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningSearchResult }
 
-object search {
+object search:
 
-  import bits._
+  import bits.*
 
   def form(q: String, focus: Boolean = false)(implicit ctx: Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
@@ -53,4 +53,3 @@ object search {
         resultsList(results)
       )
     }
-}

@@ -2,7 +2,7 @@ package controllers
 package appeal
 
 import play.api.mvc.Result
-import views._
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -10,7 +10,7 @@ import lila.report.Suspect
 import play.api.data.Form
 
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
-    extends LilaController(env) {
+    extends LilaController(env):
 
   private def form(implicit ctx: Context) =
     if (isGranted(_.Appeals)) lila.appeal.Appeal.modForm
@@ -23,12 +23,12 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def landing =
     Auth { implicit ctx => me =>
-      if (ctx.isAppealUser || isGranted(_.Appeals)) {
+      if (ctx.isAppealUser || isGranted(_.Appeals))
         pageHit
         OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
           views.html.site.page.lone(doc, resolver)
         }
-      } else notFound
+      else notFound
     }
 
   private def renderAppealOrTree(
@@ -158,4 +158,3 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     } flatMap {
       _.fold(notFound)(fuccess)
     }
-}

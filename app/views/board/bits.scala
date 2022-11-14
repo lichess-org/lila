@@ -9,7 +9,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
-object bits {
+object bits:
 
   private val dataState = attr("data-state")
 
@@ -17,11 +17,11 @@ object bits {
     if (pov.game.variant == chess.variant.RacingKings) chess.White else pov.player.color
 
   def mini(pov: Pov): Tag => Tag =
-    mini(
+    (() => mini(
       FEN(Forsyth.boardAndColor(pov.game.situation)),
       miniOrientation(pov),
       ~pov.game.lastMoveKeys
-    ) _
+    ))
 
   def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
     tag(
@@ -74,4 +74,3 @@ object bits {
     trans.analysis,
     trans.toStudy
   ).map(_.key)
-}

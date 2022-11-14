@@ -2,8 +2,8 @@ package controllers
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.game.{ AnonCookie, Game => GameModel, Pov }
-import play.api.mvc._
+import lila.game.{ AnonCookie, Game as GameModel, Pov }
+import play.api.mvc.*
 
 private[controllers] trait TheftPrevention { self: LilaController =>
 
@@ -13,13 +13,12 @@ private[controllers] trait TheftPrevention { self: LilaController =>
 
   protected def isTheft(pov: Pov)(implicit ctx: Context) =
     pov.game.isPgnImport || pov.player.isAi || {
-      (pov.player.userId, ctx.userId) match {
+      (pov.player.userId, ctx.userId) match
         case (Some(_), None)                    => true
         case (Some(playerUserId), Some(userId)) => playerUserId != userId
         case (None, _) =>
           !lila.api.Mobile.Api.requested(ctx.req) &&
           !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)
-      }
     }
 
   protected def isMyPov(pov: Pov)(implicit ctx: Context) = !isTheft(pov)

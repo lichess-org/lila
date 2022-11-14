@@ -2,16 +2,16 @@ package lila.app
 package templating
 
 import controllers.routes
-import mashup._
+import mashup.*
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
 
-trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
+trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper =>
 
   def ratingProgress(progress: Int): Option[Frag] =
     if (progress > 0) goodTag(cls := "rp")(progress).some
@@ -71,11 +71,10 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     }
 
   def showRatingDiff(diff: Int): Frag =
-    diff match {
+    diff match
       case 0          => span("±0")
       case d if d > 0 => goodTag(s"+$d")
       case d          => badTag(s"−${-d}")
-    }
 
   def lightUser = env.user.lightUserSync
 
@@ -209,7 +208,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       userRating(user, withPerfRating, withBestRating)
     )
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false)(using lang: Lang): Tag = {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false)(using lang: Lang): Tag =
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     span(
@@ -220,7 +219,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       user.map(u => titleTag(u.title map Title)),
       name
     )
-  }
 
   private def renderRating(perf: Perf): Frag =
     frag(
@@ -231,14 +229,13 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     )
 
   private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean): Frag =
-    withPerfRating match {
+    withPerfRating match
       case Some(perfType) => renderRating(user.perfs(perfType))
       case _ if withBestRating =>
         user.perfs.bestPerf ?? { case (_, perf) =>
           renderRating(perf)
         }
       case _ => ""
-    }
 
   private def userUrl(username: String, params: String = ""): Option[String] =
     (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
@@ -269,7 +266,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using
       lang: Lang
   ): String =
-    filter match {
+    filter match
       case GameFilter.All      => transLocalize(trans.nbGames, u.count.game)
       case GameFilter.Me       => nbs.withMe ?? { transLocalize(trans.nbGamesWithYou, _) }
       case GameFilter.Rated    => transLocalize(trans.nbRated, u.count.rated)
@@ -280,9 +277,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case GameFilter.Bookmark => transLocalize(trans.nbBookmarks, nbs.bookmark)
       case GameFilter.Imported => transLocalize(trans.nbImportedGames, nbs.imported)
       case GameFilter.Search   => trans.search.advancedSearch.txt()
-    }
 
-  def describeUser(user: User)(using lang: Lang) = {
+  def describeUser(user: User)(using lang: Lang) =
     val name      = user.titleUsername
     val nbGames   = user.count.game
     val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
@@ -290,7 +286,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       s" Current ${pt.trans} rating: ${perf.intRating}."
     }
     s"$name played $nbGames games since $createdAt.$currentRating"
-  }
 
   val patronIconChar = ""
   val lineIconChar   = ""

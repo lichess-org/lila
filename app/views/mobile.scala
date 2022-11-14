@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 
-object mobile {
+object mobile:
 
   def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
@@ -93,4 +93,3 @@ object mobile {
 </a>
 """
   )
-}

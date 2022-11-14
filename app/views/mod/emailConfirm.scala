@@ -6,7 +6,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object emailConfirm {
+object emailConfirm:
 
   def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(using
       ctx: Context
@@ -70,4 +70,3 @@ this.setSelectionRange(this.value.length, this.value.length);
         )
       )
     }
-}

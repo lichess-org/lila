@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost
 
-object bits {
+object bits:
 
   val lobbyApp = div(cls := "lobby__app")(
     div(cls := "tabs-horiz")(span(nbsp)),
@@ -192,4 +192,3 @@ object bits {
         )
       )
     )
-}

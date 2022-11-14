@@ -9,9 +9,9 @@ import lila.opening.NamePart
 import lila.opening.{ OpeningPage, OpeningQuery }
 import lila.puzzle.PuzzleOpening
 
-object show {
+object show:
 
-  import bits._
+  import bits.*
 
   def apply(page: OpeningPage, puzzleKey: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
@@ -120,4 +120,3 @@ object show {
         st.data("title") := titleGame(game.game)
       )(lpvPreload)
     })
-}

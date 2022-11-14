@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object homeInner {
+object homeInner:
 
   def apply(
       pendings: List[lila.simul.Simul],
@@ -113,4 +113,3 @@ object homeInner {
         strong(sim.hostRating)
       )
     )
-}

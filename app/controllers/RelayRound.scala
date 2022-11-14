@@ -1,23 +1,23 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc._
-import scala.concurrent.duration._
+import play.api.mvc.*
+import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 
 // import lila.common.config.MaxPerSecond
-import lila.relay.{ RelayRound => RoundModel, RelayRoundForm, RelayTour => TourModel }
-import lila.user.{ User => UserModel }
-import views._
+import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
+import lila.user.{ User as UserModel }
+import views.*
 import lila.common.HTTPRequest
 
 final class RelayRound(
     env: Env,
     studyC: => Study,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def form(tourId: String) =
     Auth { implicit ctx => me =>
@@ -113,7 +113,7 @@ final class RelayRound(
     )
 
   private def doUpdate(id: String, me: UserModel)(using
-      req: Request[_]
+      req: Request[?]
   ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
     env.relay.api.byIdAndContributor(id, me) flatMap {
       _ ?? { rt =>
@@ -265,7 +265,7 @@ final class RelayRound(
       fail: => Result
   )(
       create: => Fu[Result]
-  ): Fu[Result] = {
+  ): Fu[Result] =
     val cost =
       if (isGranted(_.Relay, me)) 2
       else if (me.hasTitle || me.isVerified) 5
@@ -275,5 +275,3 @@ final class RelayRound(
         create
       }(fail.toFuccess)
     }(fail.toFuccess)
-  }
-}

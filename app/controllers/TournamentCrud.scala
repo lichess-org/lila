@@ -1,9 +1,9 @@
 package controllers
 
 import lila.app.{ given, * }
-import views._
+import views.*
 
-final class TournamentCrud(env: Env) extends LilaController(env) {
+final class TournamentCrud(env: Env) extends LilaController(env):
 
   private def crud = env.tournament.crudApi
 
@@ -65,4 +65,3 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
       }
     }
 
-}

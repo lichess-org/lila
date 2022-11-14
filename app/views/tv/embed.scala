@@ -4,7 +4,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object embed {
+object embed:
 
   private val dataStreamUrl = attr("data-stream-url") := "/tv/feed?bc=1"
 
@@ -20,4 +20,3 @@ object embed {
       cashTag,
       jsModule("tvEmbed")
     )
-}

@@ -1,9 +1,9 @@
 package controllers
 
 import lila.app.{ given, * }
-import views._
+import views.*
 
-final class Event(env: Env) extends LilaController(env) {
+final class Event(env: Env) extends LilaController(env):
 
   private def api = env.event.api
 
@@ -68,4 +68,3 @@ final class Event(env: Env) extends LilaController(env) {
         Ok(html.event.create(api editForm event)).toFuccess
       }
     }
-}

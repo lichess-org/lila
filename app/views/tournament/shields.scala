@@ -7,7 +7,7 @@ import lila.tournament.TournamentShield
 
 import controllers.routes
 
-object shields {
+object shields:
 
   private val section = st.section(cls := "tournament-shields__item")
 
@@ -68,4 +68,3 @@ object shields {
         )
       )
     }
-}

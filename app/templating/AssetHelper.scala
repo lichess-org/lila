@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
-trait AssetHelper { self: I18nHelper with SecurityHelper =>
+trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -75,7 +75,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       }
     }
 
-  def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
+  def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy =
     val assets  = assetDomain.value
     val sockets = socketDomains map { x => s"wss://$x${!req.secure ?? s" ws://$x"}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
@@ -92,12 +92,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       fontSrc = List("'self'", assets),
       baseUri = List("'none'")
     )
-  }
 
-  def defaultCsp(using ctx: Context): ContentSecurityPolicy = {
+  def defaultCsp(using ctx: Context): ContentSecurityPolicy =
     val csp = basicCsp(ctx.req)
     ctx.nonce.fold(csp)(csp.withNonce(_))
-  }
 
   def analysisCsp(using ctx: Context): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)

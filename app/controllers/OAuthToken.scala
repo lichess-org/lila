@@ -1,11 +1,11 @@
 package controllers
 
-import views._
+import views.*
 
 import lila.app.{ given, * }
 import lila.oauth.{ AccessToken, OAuthTokenForm }
 
-final class OAuthToken(env: Env) extends LilaController(env) {
+final class OAuthToken(env: Env) extends LilaController(env):
 
   private val tokenApi = env.oAuth.tokenApi
 
@@ -42,4 +42,3 @@ final class OAuthToken(env: Env) extends LilaController(env) {
     Auth { _ => me =>
       tokenApi.revokeById(AccessToken.Id(id), me) inject Redirect(routes.OAuthToken.index).flashSuccess
     }
-}

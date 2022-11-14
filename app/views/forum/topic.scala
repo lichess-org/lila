@@ -1,7 +1,7 @@
 package views.html
 package forum
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
 
@@ -10,9 +10,9 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-object topic {
+object topic:
 
-  def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
+  def form(categ: lila.forum.Categ, form: Form[?], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -224,4 +224,3 @@ object topic {
         )
       )
     )
-}

@@ -8,9 +8,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object thanks {
+object thanks:
 
-  def apply(userId: String, blocked: Boolean)(implicit ctx: Context) = {
+  def apply(userId: String, blocked: Boolean)(implicit ctx: Context) =
 
     val title = "Thanks for the report"
 
@@ -48,5 +48,3 @@ fetch($button.data('action'), {method:'post'})
       )
 
     }
-  }
-}

@@ -6,7 +6,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object actions {
+object actions:
 
   private val dataHoverText = data("hover-text")
 
@@ -73,4 +73,3 @@ object actions {
         )
       }
     )
-}

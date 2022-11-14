@@ -2,7 +2,7 @@ package lila.app
 package ui
 
 import alleycats.Zero
-import scalatags.Text.all._
+import scalatags.Text.all.*
 import scalatags.text.Builder
 import scalatags.Text.GenericAttr
 import scalatags.Text.{ Aggregate, Cap }
@@ -11,7 +11,7 @@ import lila.api.Context
 import lila.user.Title
 
 // collection of lila attrs
-trait ScalatagsAttrs {
+trait ScalatagsAttrs:
   val dataTag                = attr("data-tag")
   val dataIcon               = attr("data-icon")
   val dataHref               = attr("data-href")
@@ -30,21 +30,19 @@ trait ScalatagsAttrs {
   def attrData(name: String) = attr(s"data-$name")
   def aria(key: String)      = attr(s"aria-$key")
 
-  object frame {
+  object frame:
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
-  }
 
   val dataSortNumberTh = th(attr("data-sort-method") := "number")
   val dataSort         = attr("data-sort")
   val dataSortDefault  = attr("data-sort-default").empty
-}
 
 // collection of lila snippets
-trait ScalatagsSnippets {
+trait ScalatagsSnippets:
   this: ScalatagsExtensions with ScalatagsAttrs =>
 
-  import scalatags.Text.all._
+  import scalatags.Text.all.*
 
   val nbsp: Frag                             = raw("&nbsp;")
   val amp: Frag                              = raw("&amp;")
@@ -80,14 +78,13 @@ trait ScalatagsSnippets {
       targetBlank,
       title := "Coordinated Universal Time"
     )("UTC")
-}
 
 // basic imports from scalatags
 trait ScalatagsBundle extends Attrs with scalatags.text.Tags
 
 // short prefix
-trait ScalatagsPrefix {
-  object st extends Cap with Attrs with scalatags.text.Tags {
+trait ScalatagsPrefix:
+  object st extends Cap with Attrs with scalatags.text.Tags:
     val group     = tag("group")
     val headTitle = tag("title")
     val nav       = tag("nav")
@@ -97,8 +94,6 @@ trait ScalatagsPrefix {
     val rating    = tag("rating")
 
     val frameborder = attr("frameborder")
-  }
-}
 
 // what to import in a pure scalatags template
 trait ScalatagsTemplate
@@ -108,7 +103,7 @@ trait ScalatagsTemplate
     with ScalatagsAttrs
     with ScalatagsExtensions
     with ScalatagsSnippets
-    with ScalatagsPrefix {
+    with ScalatagsPrefix:
 
   val trans     = lila.i18n.I18nKeys
   def main      = scalatags.Text.tags2.main
@@ -117,12 +112,11 @@ trait ScalatagsTemplate
 
   /* Convert play URLs to scalatags attributes with toString */
   given GenericAttr[play.api.mvc.Call] = GenericAttr[play.api.mvc.Call]
-}
 
 object ScalatagsTemplate extends ScalatagsTemplate
 
 // generic extensions
-trait ScalatagsExtensions {
+trait ScalatagsExtensions:
 
   given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
@@ -134,18 +128,16 @@ trait ScalatagsExtensions {
   given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
 
   given AttrValue[Option[String]] with
-    def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit = {
+    def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit =
       v foreach { s =>
         t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(s))
       }
-    }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
   given AttrValue[List[(String, Boolean)]] with
-    def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {
+    def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit =
       val cls = m collect { case (s, true) => s } mkString " "
       if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
-    }
 
   val emptyFrag: Frag = new RawFrag("")
   given Zero[Frag]    = Zero(emptyFrag)
@@ -172,6 +164,5 @@ trait ScalatagsExtensions {
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
   def titleOrText(v: String)(using ctx: Context): Modifier = titleOrText(ctx.blind, v)
-}
 
 object ScalatagsExtensions extends ScalatagsExtensions

@@ -6,7 +6,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
 
-object widgets {
+object widgets:
 
   private val separator = " • "
 
@@ -155,4 +155,3 @@ object widgets {
         }
       }
     )
-}

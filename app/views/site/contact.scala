@@ -1,19 +1,19 @@
 package views.html
 package site
 
-import controllers.appeal.routes.{ Appeal => appealRoutes }
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object contact {
+object contact:
 
-  import trans.contact._
-  import views.html.base.navTree._
+  import trans.contact.*
+  import views.html.base.navTree.*
 
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
@@ -387,4 +387,3 @@ object contact {
         div(cls := "nav-tree")(renderNode(menu, none))
       )
     )
-}

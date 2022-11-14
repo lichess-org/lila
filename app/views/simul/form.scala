@@ -10,7 +10,7 @@ import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
 
-object form {
+object form:
 
   def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using
       ctx: Context
@@ -63,8 +63,8 @@ object form {
 
   private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(using
       ctx: Context
-  ) = {
-    import lila.simul.SimulForm._
+  ) =
+    import lila.simul.SimulForm.*
     frag(
       globalError(form),
       form3.group(form("name"), trans.name()) { f =>
@@ -145,5 +145,3 @@ object form {
         help = trans.simulFeaturedHelp("lichess.org/simul").some
       )
     )
-  }
-}

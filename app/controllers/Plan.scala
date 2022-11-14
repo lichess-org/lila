@@ -1,9 +1,9 @@
 package controllers
 
 import java.util.Currency
-import play.api.libs.json._
-import play.api.mvc._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import play.api.mvc.*
+import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -23,10 +23,10 @@ import lila.plan.{
   StripeCustomer,
   StripeCustomerId
 }
-import lila.user.{ User => UserModel }
-import views._
+import lila.user.{ User as UserModel }
+import views.*
 
-final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env) {
+final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env):
 
   private val logger = lila.log("plan")
 
@@ -34,7 +34,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     Open { implicit ctx =>
       pageHit
       ctx.me.fold(indexAnon) { me =>
-        import lila.plan.PlanApi.SyncResult._
+        import lila.plan.PlanApi.SyncResult.*
         env.plan.api.sync(me) flatMap {
           case ReloadUser => Redirect(routes.Plan.index).toFuccess
           case Synced(Some(patron), None, None) =>
@@ -51,7 +51,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def list =
     Open { implicit ctx =>
       ctx.me.fold(Redirect(routes.Plan.index).toFuccess) { me =>
-        import lila.plan.PlanApi.SyncResult._
+        import lila.plan.PlanApi.SyncResult.*
         env.plan.api.sync(me) flatMap {
           case ReloadUser            => Redirect(routes.Plan.list).toFuccess
           case Synced(Some(_), _, _) => indexFreeUser(me)
@@ -94,7 +94,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
     info    <- env.plan.api.stripe.customerInfo(me, customer)
     gifts   <- env.plan.api.giftsFrom(me)
-    res <- info match {
+    res <- info match
       case Some(info: MonthlyCustomerInfo) =>
         Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).toFuccess
       case Some(info: OneTimeCustomerInfo) =>
@@ -103,7 +103,6 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         env.user.repo email me.id flatMap { email =>
           renderIndex(email, patron.some)
         }
-    }
   } yield res
 
   private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, subscription: PayPalSubscription)(
@@ -346,4 +345,3 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             ) inject Ok
         )
     }
-}

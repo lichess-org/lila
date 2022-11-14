@@ -1,11 +1,11 @@
 package controllers
 
 import akka.pattern.ask
-import play.api.data._, Forms._
-import play.api.libs.json._
-import play.api.mvc._
+import play.api.data.*, Forms.*
+import play.api.libs.json.*
+import play.api.mvc.*
 import scala.annotation.nowarn
-import views._
+import views.*
 
 import lila.api.Context
 import lila.app.{ *, given }
@@ -15,7 +15,7 @@ final class Main(
     env: Env,
     prismicC: Prismic,
     assetsC: ExternalAssets
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private lazy val blindForm = Form(
     tuple(
@@ -71,13 +71,12 @@ final class Main(
     }
 
   def mobile     = Open(serveMobile(_))
-  def mobileLang = LangPage(routes.Main.mobile)(serveMobile(_)) _
-  private def serveMobile(implicit ctx: Context) = {
+  def mobileLang = (() => LangPage(routes.Main.mobile)(serveMobile(_)))
+  private def serveMobile(implicit ctx: Context) =
     pageHit
     OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
       html.mobile(doc, resolver)
     }
-  }
 
   def dailyPuzzleSlackApp =
     Open { implicit ctx =>
@@ -206,7 +205,7 @@ Allow: /
     Open { _ =>
       MovedPermanently {
         val faq = routes.Main.faq.url
-        id match {
+        id match
           case 103  => s"$faq#acpl"
           case 258  => s"$faq#marks"
           case 13   => s"$faq#titles"
@@ -225,9 +224,7 @@ Allow: /
           case 46   => s"$faq#name"
           case 122  => s"$faq#marks"
           case _    => faq
-        }
       }.toFuccess
     }
 
   def devAsset(@nowarn("cat=unused") v: String, path: String, file: String) = assetsC.at(path, file)
-}

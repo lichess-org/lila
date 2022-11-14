@@ -7,7 +7,7 @@ import lila.user.User
 
 import controllers.routes
 
-object mini {
+object mini:
 
   def apply(
       u: User,
@@ -90,4 +90,3 @@ object mini {
         views.html.game.mini(_)
       }
     )
-}

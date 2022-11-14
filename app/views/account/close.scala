@@ -7,11 +7,11 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object close {
+object close:
 
-  import trans.settings._
+  import trans.settings.*
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], managed: Boolean)(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${closeAccount.txt()}",
       active = "close"
@@ -38,4 +38,3 @@ object close {
           )
       )
     }
-}

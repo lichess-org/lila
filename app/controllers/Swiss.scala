@@ -2,17 +2,17 @@ package controllers
 
 import play.api.i18n.Lang
 import play.api.libs.json.Json
-import play.api.mvc._
-import scala.concurrent.duration._
-import scala.util.chaining._
-import views._
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.swiss.Swiss.{ ChatFor, Id => SwissId }
-import lila.swiss.{ Swiss => SwissModel, SwissForm }
-import lila.user.{ User => UserModel }
+import lila.swiss.Swiss.{ ChatFor, Id as SwissId }
+import lila.swiss.{ Swiss as SwissModel, SwissForm }
+import lila.user.{ User as UserModel }
 
 final class Swiss(
     env: Env,
@@ -20,12 +20,12 @@ final class Swiss(
     apiC: Api
 )(using
     mat: akka.stream.Materializer
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
 
   def home     = Open(serveHome(_))
-  def homeLang = LangPage(routes.Swiss.home)(serveHome(_)) _
+  def homeLang = (() => LangPage(routes.Swiss.home)(serveHome(_)))
   private def serveHome(implicit ctx: Context) = NoBot {
     ctx.userId.??(env.team.cached.teamIdsList) flatMap
       env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
@@ -186,7 +186,7 @@ final class Swiss(
       else doJoin(me, SwissId(id), bodyPassword)
     }
 
-  private def bodyPassword(implicit req: Request[_]) =
+  private def bodyPassword(implicit req: Request[?]) =
     SwissForm.joinForm.bindFromRequest().fold(_ => none, identity)
 
   private def doJoin(me: UserModel, id: SwissId, password: Option[String]) =
@@ -348,13 +348,12 @@ final class Swiss(
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
     (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
-      swiss.chatFor match {
+      swiss.chatFor match
         case ChatFor.NONE                  => fuFalse
         case _ if isGranted(_.ChatTimeout) => fuTrue
         case ChatFor.LEADERS               => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
         case ChatFor.MEMBERS               => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
         case _                             => fuTrue
-      }
     }
 
   private val streamerCache =
@@ -367,4 +366,3 @@ final class Swiss(
           }
         }
     }
-}

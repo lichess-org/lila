@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.libs.json.Json
-import play.api.mvc._
+import play.api.mvc.*
 import views.html
 
 import lila.api.Context
@@ -9,18 +9,18 @@ import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, LilaOpeningFamily }
 import lila.opening.OpeningQuery.queryFromUrl
 
-final class Opening(env: Env) extends LilaController(env) {
+final class Opening(env: Env) extends LilaController(env):
 
   def index(q: Option[String] = None) =
     Open { implicit ctx =>
       val searchQuery = ~q
-      if (searchQuery.nonEmpty) {
+      if (searchQuery.nonEmpty)
         val results = env.opening.search(searchQuery)
         Ok {
           if (HTTPRequest isXhr ctx.req) html.opening.search.resultsList(results)
           else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
         }.toFuccess
-      } else
+      else
         env.opening.api.index flatMap {
           _ ?? { page =>
             isGranted(_.OpeningWiki).??(env.opening.wiki.popularOpeningsWithShortWiki) map { wikiMissing =>
@@ -86,4 +86,3 @@ final class Opening(env: Env) extends LilaController(env) {
   def tree = Open { implicit ctx =>
     Ok(html.opening.tree(lila.opening.Opening.Tree.compute, env.opening.api.readConfig)).toFuccess
   }
-}

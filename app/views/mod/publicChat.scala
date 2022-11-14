@@ -9,7 +9,7 @@ import play.api.mvc.Call
 import lila.chat.UserChat
 import lila.chat.ChatTimeout
 
-object publicChat {
+object publicChat:
 
   def apply(
       tourChats: List[(lila.tournament.Tournament, UserChat)],
@@ -86,4 +86,3 @@ object publicChat {
       a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name),
       span(cls := s"tournament-status ${tournament.status.name.toLowerCase}")(tournament.status.name)
     )
-}

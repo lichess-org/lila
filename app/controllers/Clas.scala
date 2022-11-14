@@ -1,22 +1,22 @@
 package controllers
 package clas
 
-import akka.stream.scaladsl._
-import play.api.data._
-import play.api.data.Forms._
-import play.api.mvc._
-import views._
+import akka.stream.scaladsl.*
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.user.Holder
 
-final class Clas(env: Env, authC: Auth) extends LilaController(env) {
+final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def index =
     Open { implicit ctx =>
       NoBot {
-        ctx.me match {
+        ctx.me match
           case _ if getBool("home") => renderHome
           case None                 => renderHome
           case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
@@ -33,7 +33,6 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
                   }
               case _ => renderHome
             }
-        }
       }
     }
 
@@ -351,10 +350,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
         ctx.req.flash.get("created").?? {
           _.split('/').toList
             .flatMap {
-              _.split(' ') match {
+              _.split(' ') match
                 case Array(u, p) => (u, p).some
                 case _           => none
-              }
             }
             .map { case (u, p) =>
               env.clas.api.student
@@ -426,8 +424,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
             data =>
               env.user.repo enabledNamed data.username flatMap {
                 _ ?? { user =>
-                  import lila.clas.ClasInvite.{ Feedback => F }
-                  import lila.i18n.{ I18nKeys => trans }
+                  import lila.clas.ClasInvite.{ Feedback as F }
+                  import lila.i18n.{ I18nKeys as trans }
                   env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
                     Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
                       feedback match {
@@ -584,13 +582,12 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
     }
 
   private def couldBeTeacher(implicit ctx: Context) =
-    ctx.me match {
+    ctx.me match
       case None                 => fuTrue
       case Some(me) if me.isBot => fuFalse
       case Some(me) if me.kid   => fuFalse
       case _ if ctx.hasClas     => fuTrue
       case Some(me)             => !env.mod.logApi.wasUnteachered(me.id)
-    }
 
   def invitation(id: String) =
     Auth { implicit ctx => me =>
@@ -661,4 +658,3 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
   private def SafeTeacher(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     if (ctx.me.exists(!_.lameOrTroll)) f
     else Redirect(routes.Clas.index).toFuccess
-}

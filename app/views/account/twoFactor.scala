@@ -7,15 +7,15 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object twoFactor {
+object twoFactor:
 
-  import trans.tfa._
+  import trans.tfa.*
 
   private val qrCode = raw(
     """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""
   )
 
-  def setup(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
+  def setup(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${twoFactorAuth.txt()}",
       active = "twofactor",
@@ -60,7 +60,7 @@ object twoFactor {
       )
     }
 
-  def disable(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
+  def disable(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${twoFactorAuth.txt()}",
       active = "twofactor"
@@ -83,4 +83,3 @@ object twoFactor {
         )
       )
     }
-}

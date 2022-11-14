@@ -2,21 +2,21 @@ package controllers
 package report
 
 import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
-import views._
+import views.*
 
 import lila.api.{ BodyContext, Context }
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.report.{ Mod => AsMod, Report => ReportModel, Reporter, Room, Suspect }
-import lila.user.{ Holder, User => UserModel }
+import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
+import lila.user.{ Holder, User as UserModel }
 
-import play.api.data._
+import play.api.data.*
 
 final class Report(
     env: Env,
     userC: => User,
     modC: => Mod
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private def api = env.report.api
 
@@ -78,27 +78,26 @@ final class Report(
       me: Holder,
       goTo: Option[Suspect],
       force: Boolean = false
-  )(implicit ctx: BodyContext[_]): Fu[Result] =
-    goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
+  )(implicit ctx: BodyContext[?]): Fu[Result] =
+    goTo.ifTrue(HTTPRequest isXhr ctx.req) match
       case Some(suspect) => userC.renderModZoneActions(suspect.user.username)
       case None =>
-        inquiry match {
+        inquiry match
           case None =>
             goTo.fold(Redirect(routes.Report.list).toFuccess) { s =>
               userC.modZoneOrRedirect(me, s.user.username)
             }
           case Some(prev) if prev.isSpontaneous => Redirect(modC.userUrl(prev.user, mod = true)).toFuccess
           case Some(prev) =>
-            val dataOpt = ctx.body.body match {
+            val dataOpt = ctx.body.body match
               case AnyContentAsFormUrlEncoded(data) => data.some
               case _                                => none
-            }
             def thenGoTo =
               dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
                 case "profile" => modC.userUrl(prev.user, mod = true).some
                 case url       => url.some
               }
-            thenGoTo match {
+            thenGoTo match
               case Some(url) => Redirect(url).toFuccess
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
@@ -116,9 +115,6 @@ final class Report(
                         else redirectToList
                       )(onInquiryStart)
                   }
-            }
-        }
-    }
 
   def process(id: String) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
@@ -158,13 +154,12 @@ final class Report(
         if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
         else
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
-            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {
+            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
               case (Some(u), Some(pid)) =>
                 form.fill(
                   lila.report.ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", "", "")
                 )
               case _ => form
-            }
             Ok(html.report.form(filledForm, user, captcha))
           }
       }
@@ -213,4 +208,3 @@ final class Report(
         html.report.thanks(reported, blocked)
       }
     }
-}

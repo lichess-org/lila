@@ -9,9 +9,9 @@ import lila.memo.SettingStore
 import play.api.data.Form
 import lila.mod.ModPresets
 
-object presets {
+object presets:
 
-  def apply(group: String, setting: SettingStore[ModPresets], form: Form[_])(implicit ctx: Context) =
+  def apply(group: String, setting: SettingStore[ModPresets], form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"$group presets",
       moreCss = frag(cssTag("mod.misc"), cssTag("form3"))
@@ -46,4 +46,3 @@ object presets {
         )
       )
     )
-}

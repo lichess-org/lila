@@ -2,7 +2,7 @@ package views.html.tutor
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 import scalatags.Text
 
 import lila.api.{ Context, given }
@@ -18,7 +18,7 @@ import lila.tutor.{
   ValueCount
 }
 
-object grade {
+object grade:
 
   def peerGrade[A](
       c: TutorConcept,
@@ -65,7 +65,7 @@ object grade {
 
   private def gradeVisual[A](c: TutorConcept, metric: TutorBothValuesAvailable[A])(using
       number: TutorNumber[A]
-  ) = {
+  ) =
     val grade = metric.grade
     div(
       cls   := s"tutor-grade__visual tutor-grade__visual--${grade.wording.id}",
@@ -75,5 +75,3 @@ object grade {
         div(cls := (grade.wording >= gw).option("lit"))
       }
     )
-  }
-}

@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.i18n.Lang
-import scala.concurrent.duration._
-import views._
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -10,9 +10,9 @@ import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost }
-import lila.user.{ User => UserModel }
+import lila.user.{ User as UserModel }
 
-final class Ublog(env: Env) extends LilaController(env) {
+final class Ublog(env: Env) extends LilaController(env):
 
   import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
   import views.html.ublog.blog.urlOfBlog
@@ -47,7 +47,7 @@ final class Ublog(env: Env) extends LilaController(env) {
           env.ublog.api.findByIdAndBlog(UblogPost.Id(id), blog.id) flatMap {
             _.filter(canViewPost(user, blog)).fold(notFound) { post =>
               if (slug != post.slug) Redirect(urlOfPost(post)).toFuccess
-              else {
+              else
                 env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
                   ctx.me.??(env.ublog.rank.liked(post)) zip
                   ctx.userId.??(env.relation.api.fetchFollows(_, user.id)) zip
@@ -55,7 +55,6 @@ final class Ublog(env: Env) extends LilaController(env) {
                     val viewedPost = env.ublog.viewCounter(post, ctx.ip)
                     Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed))
                   }
-              }
             }
           }
         }
@@ -88,13 +87,13 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def form(username: String) = Auth { implicit ctx => me =>
     NotForKids {
-      if (env.ublog.api.canBlog(me)) {
+      if (env.ublog.api.canBlog(me))
         if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).toFuccess
         else
           env.ublog.form.anyCaptcha map { captcha =>
             Ok(html.ublog.form.create(me, env.ublog.form.create, captcha))
           }
-      } else
+      else
         Unauthorized(
           html.site.message.notYet(
             "Please play a few games and wait 2 days before you can create blog posts."
@@ -228,7 +227,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
       env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
         _ ?? { post =>
-          ctx.body.body.file("image") match {
+          ctx.body.body.file("image") match
             case Some(image) =>
               ImageRateLimitPerIp(ctx.ip) {
                 env.ublog.api.uploadImage(me, post, image) map { newPost =>
@@ -242,7 +241,6 @@ final class Ublog(env: Env) extends LilaController(env) {
                 logModAction(newPost, "delete image") inject
                   Ok(html.ublog.form.formImage(newPost))
               }
-          }
         }
       }
     }
@@ -259,14 +257,13 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def communityLang(language: String, page: Int = 1) =
     Open { ctx =>
-      I18nLangPicker.byHref(language, ctx.req) match {
+      I18nLangPicker.byHref(language, ctx.req) match
         case I18nLangPicker.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
         case I18nLangPicker.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
         case I18nLangPicker.Refused(lang) => communityIndex(lang.some, page)(ctx)
         case I18nLangPicker.Found(lang) =>
           if (ctx.isAuth) communityIndex(lang.some, page)(ctx)
           else communityIndex(lang.some, page)(ctx withLang lang)
-      }
     }
 
   def communityAll(page: Int) = Open { implicit ctx =>
@@ -349,4 +346,3 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(implicit ctx: Context) =
     canViewBlogOf(user, blog) && (ctx.is(user) || post.live)
-}

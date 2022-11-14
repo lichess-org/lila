@@ -1,19 +1,19 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.libs.json._
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.libs.json.*
 import views.html
 
 import lila.api.Context
 import lila.app.{ given, * }
 
-final class Learn(env: Env) extends LilaController(env) {
+final class Learn(env: Env) extends LilaController(env):
 
   import lila.learn.JSONHandlers.given
 
   def index     = Open(serveIndex(_))
-  def indexLang = LangPage(routes.Learn.index)(serveIndex(_)) _
+  def indexLang = (() => LangPage(routes.Learn.index)(serveIndex(_)))
   private def serveIndex(implicit ctx: Context) = NoBot {
     pageHit
     ctx.me
@@ -52,4 +52,3 @@ final class Learn(env: Env) extends LilaController(env) {
     AuthBody { _ => me =>
       env.learn.api.reset(me) inject Ok(Json.obj("ok" -> true))
     }
-}

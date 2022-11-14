@@ -6,7 +6,7 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object games {
+object games:
 
   def apply(channel: lila.tv.Tv.Channel, povs: List[lila.game.Pov], champions: lila.tv.Tv.Champions)(using
       ctx: Context
@@ -28,4 +28,3 @@ object games {
         )
       )
     }
-}

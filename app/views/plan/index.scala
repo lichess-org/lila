@@ -9,9 +9,9 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object index {
+object index:
 
-  import trans.patron._
+  import trans.patron.*
 
   private[plan] val stripeScript = script(src := "https://js.stripe.com/v3/")
 
@@ -26,7 +26,7 @@ object index {
       bestIds: List[String],
       pricing: lila.plan.PlanPricing,
       methods: Set[String]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
@@ -260,7 +260,6 @@ object index {
         )
       )
     }
-  }
 
   private def showCurrency(cur: Currency)(implicit ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
@@ -310,4 +309,3 @@ object index {
         )
       )
     )
-}

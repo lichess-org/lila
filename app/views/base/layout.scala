@@ -1,6 +1,6 @@
 package views.html.base
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -12,9 +12,9 @@ import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.common.{ ContentSecurityPolicy, Nonce }
 
-object layout {
+object layout:
 
-  object bits {
+  object bits:
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
     val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
@@ -39,8 +39,7 @@ object layout {
         href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
         rel  := "stylesheet"
       )
-  }
-  import bits._
+  import bits.*
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
@@ -96,16 +95,16 @@ object layout {
       )
   }
   private def blindModeForm(implicit ctx: Context) =
-    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (
-        ctx.blind
-      )
-        0
-      else
-        1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
-        ctx.blind
-      )
-        "Disable"
-      else "Enable"} blind mode</button></form>""")
+    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
+        if (ctx.blind)
+          0
+        else
+          1
+      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${
+        if (ctx.blind)
+          "Disable"
+        else "Enable"
+      } blind mode</button></form>""")
 
   private def zenZone(implicit ctx: Context) =
     spaceless(s"""
@@ -364,7 +363,7 @@ object layout {
       )
     )
 
-  object siteHeader {
+  object siteHeader:
 
     private val topnavToggle = spaceless(
       """
@@ -375,7 +374,7 @@ object layout {
 
     private def reports(implicit ctx: Context) =
       if (isGranted(_.SeeReport)) {
-        blockingReportScores match {
+        blockingReportScores match
           case (score, mid, high) =>
             a(
               cls := List(
@@ -388,7 +387,6 @@ object layout {
               dataCount := score,
               dataIcon  := ""
             )
-        }
       }.some
       else
         (isGranted(_.PublicChatView)) option
@@ -435,9 +433,8 @@ object layout {
             } getOrElse { !ctx.pageData.error option anonDasher }
         )
       )
-  }
 
-  object inlineJs {
+  object inlineJs:
 
     private val i18nKeys = List(
       trans.pause.key,
@@ -472,5 +469,3 @@ object layout {
 
     def apply(nonce: Nonce)(implicit lang: Lang) =
       embedJsUnsafe(jsCode, nonce)
-  }
-}

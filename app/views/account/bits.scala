@@ -8,7 +8,7 @@ import lila.pref.PrefCateg
 import lila.user.User
 import controllers.routes
 
-object bits {
+object bits:
 
   def data(u: User)(implicit ctx: Context) =
     account.layout(title = s"${u.username} - personal data", active = "security") {
@@ -24,10 +24,8 @@ object bits {
     }
 
   def categName(categ: lila.pref.PrefCateg)(implicit ctx: Context): String =
-    categ match {
+    categ match
       case PrefCateg.Display      => trans.preferences.display.txt()
       case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()
       case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()
       case PrefCateg.Privacy      => trans.preferences.privacy.txt()
-    }
-}

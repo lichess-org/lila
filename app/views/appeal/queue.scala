@@ -2,7 +2,7 @@ package views.html
 package appeal
 
 import controllers.routes
-import controllers.appeal.routes.{ Appeal => appealRoutes }
+import controllers.appeal.routes.{ Appeal as appealRoutes }
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
@@ -11,7 +11,7 @@ import lila.appeal.Appeal
 import lila.report.Report.Inquiry
 import lila.user.User
 
-object queue {
+object queue:
 
   def apply(
       appeals: List[Appeal.WithUser],
@@ -60,4 +60,3 @@ object queue {
         )
       )
     )
-}

@@ -9,9 +9,9 @@ import lila.common.paginator.Paginator
 import lila.team.{ Team, TeamMember }
 import lila.relation.Relation
 
-object members {
+object members:
 
-  import trans.team._
+  import trans.team.*
 
   def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(implicit ctx: Context) =
     bits.layout(
@@ -45,4 +45,3 @@ object members {
         )
       )
     }
-}

@@ -1,7 +1,7 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorQueue }
 import lila.user.User
 
-object empty {
+object empty:
 
   def start(user: User)(implicit ctx: Context) =
     bits.layout(TutorFullReport.Empty(TutorQueue.NotInQueue), menu = emptyFrag, pageSmall = true)(
@@ -71,4 +71,3 @@ object empty {
 
   def mascotSaysInsufficient =
     bits.mascotSays("Not enough rated games to examine! Go and play some more chess.")
-}

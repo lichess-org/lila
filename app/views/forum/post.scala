@@ -1,7 +1,7 @@
 package views
 package html.forum
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
 import lila.api.{ Context, given }
@@ -10,7 +10,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.forum.Post
 
-object post {
+object post:
 
   def recent(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context) =
     ol(
@@ -40,7 +40,7 @@ object post {
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
-  )(implicit ctx: Context) = postWithFrag match {
+  )(implicit ctx: Context) = postWithFrag match
     case Post.WithFrag(post, body) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
@@ -130,9 +130,8 @@ object post {
             )
           )
       )
-  }
 
-  def reactions(post: Post, canReact: Boolean)(implicit ctx: Context) = {
+  def reactions(post: Post, canReact: Boolean)(implicit ctx: Context) =
     val mine             = ctx.me ?? { Post.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
@@ -156,5 +155,3 @@ object post {
         )
       }
     )
-  }
-}

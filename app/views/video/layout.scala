@@ -6,7 +6,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object layout {
+object layout:
 
   def apply(
       title: String,
@@ -48,4 +48,3 @@ object layout {
         div(cls := "page-menu__content box")(body)
       )
     }
-}

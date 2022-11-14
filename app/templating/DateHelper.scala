@@ -12,7 +12,7 @@ import scala.collection.mutable
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.PeriodLocales
 
-trait DateHelper { self: I18nHelper with StringHelper =>
+trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   private val dateTimeStyle = "MS"
   private val dateStyle     = "M-"
@@ -65,10 +65,9 @@ trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
-  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Tag = {
+  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
     else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDate(date))(nbsp)
-  }
 
   def momentFromNowWithPreload(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Frag =
     momentFromNow(date, alwaysRelative, once)(momentFromNowServerText(date))
@@ -84,7 +83,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   def momentFromNowServer(date: DateTime): Frag =
     timeTag(title := f"${showEnglishDateTime(date)} UTC")(momentFromNowServerText(date))
 
-  def momentFromNowServerText(date: DateTime): Frag = {
+  def momentFromNowServerText(date: DateTime): Frag =
     val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
     val seconds           = (nowSec - dateSec).toInt atLeast 0
     val minutes           = seconds / 60
@@ -100,5 +99,4 @@ trait DateHelper { self: I18nHelper with StringHelper =>
     else if (months == 0) s"${pluralize("week", weeks)} ago"
     else if (years == 0) s"${pluralize("month", months)} ago"
     else s"${pluralize("year", years)} ago"
-  }
 }

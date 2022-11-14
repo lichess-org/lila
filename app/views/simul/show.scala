@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object show {
+object show:
 
   def apply(
       sim: lila.simul.Simul,
@@ -109,4 +109,3 @@ object show {
         div(cls := "simul__main box")(spinner)
       )
     }
-}

@@ -1,7 +1,7 @@
 package controllers
 
-import scala.concurrent.duration._
-import views._
+import scala.concurrent.duration.*
+import views.*
 
 import play.api.i18n.Lang
 
@@ -9,7 +9,7 @@ import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.common.config
 
-final class Search(env: Env) extends LilaController(env) {
+final class Search(env: Env) extends LilaController(env):
 
   def searchForm(implicit lang: Lang) = env.gameSearch.forms.search
 
@@ -95,4 +95,3 @@ final class Search(env: Env) extends LilaController(env) {
           }
       }
     }
-}

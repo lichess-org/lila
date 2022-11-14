@@ -1,9 +1,9 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
+import play.api.libs.json.*
+import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.util.chaining._
+import scala.util.chaining.*
 import views.html
 
 import lila.api.AnnounceStore
@@ -11,14 +11,14 @@ import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ Holder, TotpSecret, User => UserModel }
+import lila.user.{ Holder, TotpSecret, User as UserModel }
 import lila.i18n.I18nLangPicker
 
 final class Account(
     env: Env,
     auth: Auth,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def profile =
     Auth { implicit ctx => me =>
@@ -32,7 +32,7 @@ final class Account(
 
   def profileApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[_] = ctx.body
+      implicit val req: Request[?] = ctx.body
       FormFuResult(env.user.forms.profile) { err =>
         fuccess(html.account.profile(me, err))
       } { profile =>
@@ -53,7 +53,7 @@ final class Account(
 
   def usernameApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[_] = ctx.body
+      implicit val req: Request[?] = ctx.body
       FormFuResult(env.user.forms.username(me)) { err =>
         fuccess(html.account.username(me, err))
       } { username =>
@@ -236,8 +236,8 @@ final class Account(
 
   def emailConfirmHelp =
     OpenBody { implicit ctx =>
-      import lila.security.EmailConfirm.Help._
-      ctx.me match {
+      import lila.security.EmailConfirm.Help.*
+      ctx.me match
         case Some(me) =>
           Redirect(routes.User.show(me.username)).toFuccess
         case None if get("username").isEmpty =>
@@ -253,7 +253,6 @@ final class Account(
                   Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
                 }
             )
-      }
     }
 
   def twoFactor =
@@ -364,10 +363,9 @@ final class Account(
 
   def apiKidPost =
     Scoped(_.Preference.Write) { req => me =>
-      getBoolOpt("v", req) match {
+      getBoolOpt("v", req) match
         case None    => BadRequest(jsonError("Missing v parameter")).toFuccess
         case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
-      }
     }
 
   private def currentSessionId(implicit ctx: Context) =
@@ -483,4 +481,3 @@ final class Account(
         }
       }
     }
-}

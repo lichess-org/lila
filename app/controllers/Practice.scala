@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.annotation.nowarn
 
 import lila.api.Context
@@ -8,14 +8,14 @@ import lila.app.{ given, * }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Study => StudyModel }
+import lila.study.{ Chapter, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
-import views._
+import views.*
 
 final class Practice(
     env: Env,
     userAnalysisC: => UserAnalysis
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private val api = env.practice.api
 
@@ -94,7 +94,7 @@ final class Practice(
     }
 
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] =
-    us match {
+    us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
           val initialFen = chapter.root.fen.some
@@ -116,7 +116,6 @@ final class Practice(
           )
           (analysis, studyJson)
         }
-    }
 
   def complete(chapterId: String, nbMoves: Int) =
     Auth { implicit ctx => me =>
@@ -152,4 +151,3 @@ final class Practice(
 
   implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
-}

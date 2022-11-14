@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object side {
+object side:
 
   private val separator  = " • "
   private val dataUserTv = attr("data-user-tv")
@@ -35,7 +35,7 @@ object side {
       bookmarked: Boolean
   )(implicit ctx: Context): Option[Frag] =
     ctx.noBlind option {
-      import pov._
+      import pov.*
       div(cls := "game__meta")(
         st.section(
           div(cls := "game__meta__infos", dataIcon := bits.gameIcon(game))(
@@ -128,4 +128,3 @@ object side {
         }
       )
     }
-}

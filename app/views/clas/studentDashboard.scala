@@ -8,7 +8,7 @@ import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
 import lila.user.User
 
-object studentDashboard {
+object studentDashboard:
 
   def apply(
       c: Clas,
@@ -99,7 +99,7 @@ object studentDashboard {
 
   private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
     if (ctx is user) td
-    else {
+    else
       val online = isOnline(user.id)
       td(
         a(
@@ -109,5 +109,3 @@ object studentDashboard {
           href     := online option s"${routes.Lobby.home}?user=${user.username}#friend"
         )(trans.play())
       )
-    }
-}

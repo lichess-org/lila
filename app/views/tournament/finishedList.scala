@@ -7,7 +7,7 @@ import lila.tournament.Tournament
 
 import controllers.routes
 
-object finishedList {
+object finishedList:
 
   def apply(finished: List[Tournament])(implicit ctx: Context): Tag =
     tbody(finished map apply)
@@ -42,4 +42,3 @@ object finishedList {
         )
       )
     )
-}

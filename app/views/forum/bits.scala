@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.Post
 import lila.security.{ Granter, Permission }
 
-object bits {
+object bits:
 
   def searchForm(search: String = "")(implicit ctx: Context) =
     div(cls := "box__top__actions")(
@@ -27,4 +27,3 @@ object bits {
 
   private[forum] val dataTopic = attr("data-topic")
   private[forum] val dataUnsub = attr("data-unsub")
-}

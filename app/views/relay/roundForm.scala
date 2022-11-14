@@ -10,9 +10,9 @@ import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
 import lila.relay.RelayRoundForm.Data
 import lila.relay.{ RelayRound, RelayTour }
 
-object roundForm {
+object roundForm:
 
-  import trans.broadcast._
+  import trans.broadcast.*
 
   def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
@@ -62,7 +62,7 @@ object roundForm {
 
   private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(using
       ctx: Context
-  ) = {
+  ) =
     val isLcc = form("syncUrl").value.exists(LccRegex.matches)
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
@@ -106,5 +106,3 @@ object roundForm {
         form3.submit(trans.apply())
       )
     )
-  }
-}

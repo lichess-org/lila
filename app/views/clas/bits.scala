@@ -6,7 +6,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
-object bits {
+object bits:
 
   def layout(
       title: String,
@@ -54,4 +54,3 @@ object bits {
       " ",
       momentFromNowOnce(archived.at)
     )
-}

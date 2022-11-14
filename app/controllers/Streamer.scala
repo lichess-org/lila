@@ -1,15 +1,15 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import scala.concurrent.duration._
-import views._
+import play.api.libs.json.*
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
+import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
 
-final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
+final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   private def api = env.streamer.api
 
@@ -175,7 +175,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
   def pictureApply =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
       AsStreamer { s =>
-        ctx.body.body.file("picture") match {
+        ctx.body.body.file("picture") match
           case Some(pic) =>
             ImageRateLimitPerIp(ctx.ip) {
               api.uploadPicture(s.streamer, pic, me) recover { case e: Exception =>
@@ -183,7 +183,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
               } inject Redirect(routes.Streamer.edit)
             }(rateLimitedFu)
           case None => Redirect(routes.Streamer.edit).flashFailure.toFuccess
-        }
       }
     }
 
@@ -206,4 +205,3 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
       if (s.streamer.isListed || ctx.me.??(s.streamer.is) || isGranted(_.Admin)) f
       else notFound
     }
-}

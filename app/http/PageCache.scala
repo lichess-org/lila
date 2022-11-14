@@ -1,13 +1,13 @@
 package lila.app
 package http
 
-import play.api.mvc._
-import scala.concurrent.duration._
+import play.api.mvc.*
+import scala.concurrent.duration.*
 
 import lila.common.HTTPRequest
 import lila.api.Context
 
-final class PageCache(cacheApi: lila.memo.CacheApi) {
+final class PageCache(cacheApi: lila.memo.CacheApi):
 
   private val cache = cacheApi.notLoading[String, Result](16, "pageCache") {
     _.expireAfterWrite(1.seconds).buildAsync()
@@ -30,4 +30,3 @@ final class PageCache(cacheApi: lila.memo.CacheApi) {
 
   private def hasCookies(req: RequestHeader) =
     lila.security.EmailConfirm.cookie.has(req)
-}

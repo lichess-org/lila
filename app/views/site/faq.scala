@@ -6,9 +6,9 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object faq {
+object faq:
 
-  import trans.faq._
+  import trans.faq.*
 
   val fideHandbookUrl = "https://handbook.fide.com/chapter/E012018"
 
@@ -363,4 +363,3 @@ object faq {
         )
       )
     }
-}

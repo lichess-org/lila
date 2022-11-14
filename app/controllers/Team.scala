@@ -1,23 +1,23 @@
 package controllers
 
 import play.api.data.Form
-import play.api.data.Forms._
-import play.api.libs.json._
-import play.api.mvc._
-import scala.concurrent.duration._
-import views._
+import play.api.data.Forms.*
+import play.api.libs.json.*
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
-import lila.team.{ Requesting, Team => TeamModel }
-import lila.user.{ Holder, User => UserModel }
+import lila.team.{ Requesting, Team as TeamModel }
+import lila.user.{ Holder, User as UserModel }
 
 final class Team(
     env: Env,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private def forms     = env.team.forms
   private def api       = env.team.api
@@ -383,8 +383,8 @@ final class Team(
           }
     )
 
-  def subscribe(teamId: String) = {
-    def doSub(req: Request[_], me: UserModel) =
+  def subscribe(teamId: String) =
+    def doSub(req: Request[?], me: UserModel) =
       Form(single("subscribe" -> optional(boolean)))
         .bindFromRequest()(req, formBinding)
         .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
@@ -392,11 +392,10 @@ final class Team(
       auth = ctx => me => doSub(ctx.body, me) inject jsonOkResult,
       scoped = req => me => doSub(req, me) inject jsonOkResult
     )
-  }
 
   def requests =
     Auth { implicit ctx => me =>
-      import lila.memo.CacheApi._
+      import lila.memo.CacheApi.*
       env.team.cached.nbRequests invalidate me.id
       api requestsWithUsers me map { html.team.request.all(_) }
     }
@@ -436,7 +435,7 @@ final class Team(
 
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
-      import cats.implicits._
+      import cats.implicits.*
       OptionFuRedirectUrl(for {
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
@@ -492,7 +491,7 @@ final class Team(
 
   def autocomplete =
     Action.async { req =>
-      get("term", req).filter(_.nonEmpty) match {
+      get("term", req).filter(_.nonEmpty) match
         case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
           for {
@@ -508,7 +507,6 @@ final class Team(
               )
             })
           }
-      }
     }
 
   def pmAll(id: String) =
@@ -518,7 +516,7 @@ final class Team(
       }
     }
 
-  private def renderPmAll(team: TeamModel, form: Form[_])(implicit ctx: Context) =
+  private def renderPmAll(team: TeamModel, form: Form[?])(implicit ctx: Context) =
     for {
       tours  <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
       unsubs <- env.team.cached.unsubs.get(team.id)
@@ -628,8 +626,8 @@ final class Team(
     }
 
   private def doPmAll(team: TeamModel, me: UserModel)(using
-      req: Request[_]
-  ): Either[Form[_], Fu[RateLimit.Result]] =
+      req: Request[?]
+  ): Either[Form[?], Fu[RateLimit.Result]] =
     forms.pmAll
       .bindFromRequest()
       .fold(
@@ -696,4 +694,3 @@ You received this because you are subscribed to messages of the team $url."""
       case Some(_)                          => fuccess(Api.ClientError("Not your team"))
       case None                             => fuccess(Api.NoData)
     } map apiC.toHttp
-}

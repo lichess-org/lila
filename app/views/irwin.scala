@@ -6,15 +6,14 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object irwin {
+object irwin:
 
   private def percentClass(percent: Int) =
-    percent match {
+    percent match
       case p if p < 30 => "green"
       case p if p < 60 => "yellow"
       case p if p < 80 => "orange"
       case _           => "red"
-    }
 
   def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(implicit ctx: Context) =
     views.html.base.layout(
@@ -142,4 +141,3 @@ object irwin {
         )
       )
     )
-}

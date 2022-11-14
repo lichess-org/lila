@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object impersonate {
+object impersonate:
 
   def apply(user: lila.user.User)(implicit lang: Lang) =
     div(id := "impersonate")(
@@ -21,4 +21,3 @@ object impersonate {
         )
       )
     )
-}

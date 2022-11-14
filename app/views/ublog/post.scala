@@ -1,6 +1,6 @@
 package views.html.ublog
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.mvc.Call
 
@@ -11,7 +11,7 @@ import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
-object post {
+object post:
 
   def apply(
       user: User,
@@ -134,7 +134,7 @@ object post {
     dataIcon := ""
   )(trans.edit())
 
-  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(implicit ctx: Context) = {
+  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(implicit ctx: Context) =
     val text = if (liked) trans.study.unlike.txt() else trans.study.like.txt()
     button(
       tpe := "button",
@@ -154,7 +154,6 @@ object post {
         attr("data-i18n-unlike") := trans.study.unlike.txt()
       )(text)
     )
-  }
 
   private def followButton(user: User, post: UblogPost, followed: Boolean)(implicit ctx: Context) =
     div(
@@ -164,8 +163,8 @@ object post {
       )
     )(
       List(
-        ("yes", trans.unfollowX, routes.Relation.unfollow _, ""),
-        ("no", trans.followX, routes.Relation.follow _, "")
+        ("yes", trans.unfollowX, routes.Relation.unfollow, ""),
+        ("no", trans.followX, routes.Relation.follow, "")
       ).map { case (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",
@@ -199,10 +198,9 @@ object post {
       h3(cls := "ublog-post-card__title")(post.title)
     )
 
-  def urlOfPost(post: UblogPost.BasePost) = post.blog match {
+  def urlOfPost(post: UblogPost.BasePost) = post.blog match
     case UblogBlog.Id.User(userId) =>
       routes.Ublog.post(usernameOrId(userId), post.slug, post.id.value)
-  }
 
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
 
@@ -215,7 +213,7 @@ object post {
     )
   }
 
-  object thumbnail {
+  object thumbnail:
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       img(
         cls     := "ublog-post-image",
@@ -225,9 +223,6 @@ object post {
       )(src := url(post, size))
 
     def url(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
-      post.image match {
+      post.image match
         case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
         case _           => assetUrl("images/user-blog-default.png")
-      }
-  }
-}

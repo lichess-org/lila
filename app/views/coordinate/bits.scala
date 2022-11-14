@@ -7,7 +7,7 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object bits {
+object bits:
 
   def coordinateConfig(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) = Json.obj(
     "i18n"       -> i18nJsObject(i18nKeys),
@@ -51,4 +51,3 @@ object bits {
     trans.youPlayTheWhitePieces,
     trans.youPlayTheBlackPieces
   ).map(_.key)
-}

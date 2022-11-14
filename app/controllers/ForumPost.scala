@@ -1,13 +1,13 @@
 package controllers
 
-import scala.concurrent.duration._
-import views._
+import scala.concurrent.duration.*
+import views.*
 
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.msg.MsgPreset
 
-final class ForumPost(env: Env) extends LilaController(env) with ForumController {
+final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
     new lila.memo.RateLimit[IpAddress](
@@ -143,4 +143,3 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         Redirect(s"$call#$number").withCanonical(call)
       }
     }
-}

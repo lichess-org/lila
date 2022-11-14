@@ -1,9 +1,9 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import scala.concurrent.duration._
-import scala.util.chaining._
+import play.api.libs.json.*
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import scala.util.chaining.*
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -13,9 +13,9 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Study => StudyModel }
+import lila.study.{ Chapter, Order, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
-import views._
+import views.*
 
 final class Study(
     env: Env,
@@ -23,7 +23,7 @@ final class Study(
     userAnalysisC: => UserAnalysis,
     apiC: => Api,
     prismicC: Prismic
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
@@ -46,7 +46,7 @@ final class Study(
     }
 
   def homeLang =
-    LangPage(routes.Study.allDefault())(allResults(Order.Hot.key, 1)(_)) _
+    (() => LangPage(routes.Study.allDefault())(allResults(Order.Hot.key, 1)(_)))
 
   def allDefault(page: Int) = all(Order.Hot.key, page)
 
@@ -57,7 +57,7 @@ final class Study(
 
   private def allResults(o: String, page: Int)(implicit ctx: Context) =
     Reasonable(page) {
-      Order(o) match {
+      Order(o) match
         case order if !Order.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page)).toFuccess
         case order =>
@@ -67,7 +67,6 @@ final class Study(
               api = _ => apiStudies(pag)
             )
           }
-      }
     }
 
   def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
@@ -142,14 +141,13 @@ final class Study(
 
   def byTopic(name: String, order: String, page: Int) =
     Open { implicit ctx =>
-      lila.study.StudyTopic fromStr name match {
+      lila.study.StudyTopic fromStr name match
         case None => notFound
         case Some(topic) =>
           env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
             ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) flatMap { case (pag, topics) =>
               preloadMembers(pag) inject Ok(html.study.topic.show(topic, pag, Order(order), topics))
             }
-      }
     }
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
@@ -160,12 +158,11 @@ final class Study(
         .toSeq
     )
 
-  private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) = {
+  private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
     implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
       env.study.jsonView.pagerData(s)
     }
     Ok(Json.obj("paginator" -> PaginatorJson(pager))).toFuccess
-  }
 
   private def orRelay(id: String, chapterId: Option[String] = None)(
       f: => Fu[Result]
@@ -474,11 +471,10 @@ final class Study(
     }
   }
 
-  private def doPgn(study: StudyModel, req: RequestHeader) = {
+  private def doPgn(study: StudyModel, req: RequestHeader) =
     Ok.chunked(env.study.pgnDump(study, requestPgnFlags(req)))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
-  }
 
   def chapterPgn(id: String, chapterId: String) =
     Open { implicit ctx =>
@@ -505,7 +501,7 @@ final class Study(
       username: String,
       me: Option[lila.user.User],
       req: RequestHeader
-  ) = {
+  ) =
     val name   = if (username == "me") me.fold("me")(_.username) else username
     val userId = lila.user.User normalize name
     val flags  = requestPgnFlags(req)
@@ -524,7 +520,6 @@ final class Study(
           .as(pgnContentType)
       }
       .toFuccess
-  }
 
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(
@@ -561,12 +556,11 @@ final class Study(
 
   def topicAutocomplete =
     Action.async { req =>
-      get("term", req).filter(_.nonEmpty) match {
+      get("term", req).filter(_.nonEmpty) match
         case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
           import lila.study.JsonView.given
           env.study.topicApi.findLike(term, get("user", req)) map { JsonOk(_) }
-      }
     }
 
   def topics =
@@ -615,12 +609,11 @@ final class Study(
   def CanView[A](study: StudyModel, me: Option[lila.user.User])(
       f: => A
   )(unauthorized: => A, forbidden: => A): A =
-    me match {
+    me match
       case _ if !study.isPrivate                     => f
       case None                                      => unauthorized
       case Some(me) if study.members.contains(me.id) => f
       case _                                         => forbidden
-    }
 
   implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
@@ -655,7 +648,7 @@ final class Study(
   def glyphs(lang: String) = Action {
     import chess.format.pgn.Glyph
     import lila.tree.Node.given
-    import lila.i18n.{ I18nKeys => trans }
+    import lila.i18n.{ I18nKeys as trans }
 
     play.api.i18n.Lang.get(lang) ?? { implicit lang =>
       JsonOk(
@@ -696,4 +689,3 @@ final class Study(
       ).withHeaders(CACHE_CONTROL -> "max-age=3600")
     }
   }
-}

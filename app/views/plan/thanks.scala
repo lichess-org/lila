@@ -6,9 +6,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object thanks {
+object thanks:
 
-  import trans.patron._
+  import trans.patron.*
 
   def apply(
       patron: Option[lila.plan.Patron],
@@ -82,4 +82,3 @@ object thanks {
         )
       )
     }
-}

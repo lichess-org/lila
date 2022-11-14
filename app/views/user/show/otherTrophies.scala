@@ -7,7 +7,7 @@ import lila.user.{ Trophy, TrophyKind }
 
 import controllers.routes
 
-object otherTrophies {
+object otherTrophies:
 
   def apply(info: lila.app.mashup.UserInfo)(implicit ctx: Context) =
     frag(
@@ -97,4 +97,3 @@ object otherTrophies {
       img(src           := assetUrl("images/trophy/zug-trophy.png"))
     )
   )
-}

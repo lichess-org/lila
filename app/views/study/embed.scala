@@ -7,11 +7,11 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKeys as trans }
 
-object embed {
+object embed:
 
-  import EmbedConfig.implicits._
+  import EmbedConfig.implicits.*
 
   def apply(
       s: lila.study.Study,
@@ -77,4 +77,3 @@ document.getElementById('chapter-selector').onchange = function() {
         h1(trans.study.studyNotFound())
       )
     )
-}

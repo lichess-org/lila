@@ -5,17 +5,16 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object navTree {
+object navTree:
 
-  sealed trait Node {
+  sealed trait Node:
     val id: String
     val name: Frag
-  }
   case class Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None) extends Node
   case class Leaf(id: String, name: Frag, content: Frag)                                        extends Node
 
   def renderNode(node: Node, parent: Option[Node])(implicit ctx: Context): Frag =
-    node match {
+    node match
       case Leaf(id, name, content) =>
         List(
           div(makeId(id), cls := "node leaf")(
@@ -36,7 +35,6 @@ object navTree {
           ),
           children map { renderNode(_, b.some) }
         )
-    }
 
   private def makeId(id: String) = st.id := s"help-$id"
 
@@ -44,4 +42,3 @@ object navTree {
 
   private def goBack(parent: Node): Frag =
     a(makeLink(parent.id), cls := "back", dataIcon := "", title := "Go back")
-}

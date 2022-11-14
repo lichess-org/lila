@@ -11,7 +11,7 @@ import play.api.i18n.Lang
 
 import controllers.routes
 
-object insight {
+object insight:
 
   def index(
       u: User,
@@ -86,4 +86,3 @@ object insight {
         p(strong(trans.insight.crunchingData()))
       )
     )
-}

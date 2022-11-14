@@ -10,7 +10,7 @@ import lila.user.User
 
 import controllers.routes
 
-object list {
+object list:
 
   def apply(
       u: User,
@@ -57,4 +57,3 @@ object list {
           )
         )
       )
-}

@@ -9,7 +9,7 @@ import lila.common.paginator.Paginator
 import lila.game.{ Game, Pov }
 import lila.user.User
 
-object gamesContent {
+object gamesContent:
 
   def apply(
       u: User,
@@ -62,4 +62,3 @@ object gamesContent {
           )
       )
     )
-}

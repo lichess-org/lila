@@ -1,22 +1,22 @@
 package controllers
 
 import play.api.libs.json.{ Json, Writes }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
 import lila.relation.Related
-import lila.relation.RelationStream._
-import lila.user.{ User => UserModel }
-import views._
+import lila.relation.RelationStream.*
+import lila.user.{ User as UserModel }
+import views.*
 import lila.common.config
 
 final class Relation(
     env: Env,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   val api = env.relation.api
 
@@ -159,7 +159,7 @@ final class Relation(
     }.toFuccess
   }
 
-  private def jsonRelatedPaginator(pag: Paginator[Related]) = {
+  private def jsonRelatedPaginator(pag: Paginator[Related]) =
     given Writes[UserModel] = lila.user.JsonView.nameWrites
     import lila.relation.JsonView.given
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
@@ -171,7 +171,6 @@ final class Relation(
         )
         .add("online" -> env.socket.isOnline(r.user.id))
     }))
-  }
 
   def blocks(page: Int) =
     Auth { implicit ctx => me =>
@@ -199,4 +198,3 @@ final class Relation(
         }.sequenceFu
       }
     }
-}

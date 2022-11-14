@@ -12,7 +12,7 @@ import play.api.i18n.Lang
 import controllers.routes
 import lila.common.LangPath
 
-object show {
+object show:
 
   def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
@@ -47,4 +47,3 @@ object show {
         )
       )
     )
-}

@@ -7,9 +7,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object email {
+object email:
 
-  def apply(form: play.api.data.Form[_])(implicit ctx: Context) =
+  def apply(form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = trans.changeEmail.txt(),
       active = "email"
@@ -24,4 +24,3 @@ object email {
         )
       )
     }
-}

@@ -1,11 +1,11 @@
 package controllers
 
-import io.prismic.{ Api => PrismicApi, _ }
+import io.prismic.{ Api as PrismicApi, * }
 import lila.app.{ given, * }
 
 final class Prismic(
     env: Env
-)(using ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.StandaloneWSClient) {
+)(using ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.StandaloneWSClient):
 
   private val logger = lila.log("prismic")
 
@@ -49,4 +49,3 @@ final class Prismic(
         _.results.headOption map (_ -> makeLinkResolver(api))
       }
     }
-}

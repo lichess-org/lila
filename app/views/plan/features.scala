@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object features {
+object features:
 
   val engineFullName = "Stockfish 15 NNUE"
 
@@ -213,4 +213,3 @@ object features {
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
   private val title = "Lichess features"
-}

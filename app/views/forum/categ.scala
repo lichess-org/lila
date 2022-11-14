@@ -8,7 +8,7 @@ import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object categ {
+object categ:
 
   def index(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     views.html.base.layout(
@@ -43,7 +43,7 @@ object categ {
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
       stickyPosts: List[lila.forum.TopicView]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val newTopicButton = canWrite option
       a(
@@ -115,7 +115,6 @@ object categ {
         )
       )
     }
-  }
 
   private def showCategs(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     table(cls := "categs slist slist-pad")(
@@ -151,4 +150,3 @@ object categ {
         }
       )
     )
-}

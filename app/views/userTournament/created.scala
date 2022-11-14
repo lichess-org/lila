@@ -9,7 +9,7 @@ import lila.user.User
 
 import controllers.routes
 
-object created {
+object created:
 
   private val path = "created"
 
@@ -50,4 +50,3 @@ object created {
           )
         )
     }
-}
