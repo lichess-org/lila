@@ -20,7 +20,7 @@ final case class ConfigName(name: String) extends StaticAnnotation:
 
 given [A](using loader: ConfigLoader[A]): ConfigLoader[Seq[A]] =
   ConfigLoader.seqConfigLoader.map(_.map { loader.load(_, "") })
-given [A](using loader: ConfigLoader[A]): ConfigLoader[List[A]] =
+given [A: ConfigLoader]: ConfigLoader[List[A]] =
   summon[ConfigLoader[Seq[A]]].map(_.toList)
 
 object AutoConfig:
@@ -50,7 +50,6 @@ object AutoConfig:
               .collectFirst {
                 case a if a.tpe.derivesFrom(TypeRepr.of[ConfigName].typeSymbol) =>
                   val annot = a.asExprOf[ConfigName]
-
                   annot
               }
               .map(ac => '{ $ac.name })
