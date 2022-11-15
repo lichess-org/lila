@@ -9,7 +9,7 @@ const patch = init([classModule, attributesModule]);
 
 registerMultipleSelect();
 
-export default function (element: Element, opts: Env) {
+export default (window as any).LichessInsight = function (element: Element, opts: Env) {
   const ctrl = new Ctrl(opts, element, redraw);
 
   const blueprint = view(ctrl);
@@ -24,4 +24,4 @@ export default function (element: Element, opts: Env) {
   }
 
   return ctrl;
-}
+};

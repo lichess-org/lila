@@ -67,3 +67,5 @@ const highlightNextPieces = () => {
       });
   });
 };
+
+(window as any).LichessOpening = { page, search }; // esbuild
