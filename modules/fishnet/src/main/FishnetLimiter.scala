@@ -37,7 +37,6 @@ final private class FishnetLimiter(
             $doc("sender.userId" -> userId)
           )
         )
-      case _ => fuFalse
 
   private def perDayCheck(sender: Work.Sender): Fu[Analyser.Result] =
     sender match
