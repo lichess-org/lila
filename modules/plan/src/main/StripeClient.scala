@@ -209,7 +209,7 @@ object StripeClient:
   class NotFoundException(status: Int, msg: String)       extends StatusException(status, msg)
   class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
 
-  import io.methvin.play.autoconfig.*
+  import lila.common.autoconfig.*
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,

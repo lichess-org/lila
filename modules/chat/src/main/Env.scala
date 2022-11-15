@@ -1,7 +1,7 @@
 package lila.chat
 
 import com.softwaremill.macwire.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
 

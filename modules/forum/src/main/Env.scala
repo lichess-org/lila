@@ -1,7 +1,7 @@
 package lila.forum
 
 import com.softwaremill.macwire.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 

@@ -1,6 +1,6 @@
 package lila.security
 
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.data.Forms.*
 import play.api.data.{ Form, FormBinding }
 import play.api.libs.json.*

@@ -1,7 +1,7 @@
 package lila.security
 
 import com.softwaremill.macwire.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config.*

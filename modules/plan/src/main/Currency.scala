@@ -1,6 +1,6 @@
 package lila.plan
 
-import io.methvin.play.autoconfig.AutoConfig
+import lila.common.autoconfig.AutoConfig
 import java.util.{ Currency, Locale }
 import play.api.i18n.Lang
 import play.api.libs.json.*

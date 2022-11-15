@@ -1,7 +1,7 @@
 package lila.push
 
 import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient

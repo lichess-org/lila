@@ -4,7 +4,7 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 

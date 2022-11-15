@@ -18,6 +18,11 @@ import scala.Symbol
 final case class ConfigName(name: String) extends StaticAnnotation:
   assert(name != null && name.nonEmpty)
 
+given [A](using loader: ConfigLoader[A]): ConfigLoader[Seq[A]] =
+  ConfigLoader.seqConfigLoader.map(_.map { loader.load(_, "") })
+given [A](using loader: ConfigLoader[A]): ConfigLoader[List[A]] =
+  summon[ConfigLoader[Seq[A]]].map(_.toList)
+
 object AutoConfig:
 
   inline def loader[T] = ${ impl[T] }

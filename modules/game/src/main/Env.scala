@@ -3,7 +3,7 @@ package lila.game
 import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration.*
