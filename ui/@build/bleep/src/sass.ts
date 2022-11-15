@@ -5,12 +5,8 @@ import * as path from 'node:path';
 import { env, colors as c, lines, errorMark } from './main';
 import { globArray } from './parse';
 
-const params = ['--no-error-css', '--no-color', '--quiet', '--quiet-deps'];
-const partialRe = /(.*)\/_(.*)\.scss$/;
-const importRe = /@import ['"](.*)['"]/g;
-
 const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
-const debounceMap = new Map<string, NodeJS.Timeout>(); //
+const debounceMap = new Map<string, NodeJS.Timeout>(); // fs.watch platform idiosyncracies
 
 export async function sassWatch(): Promise<void> {
   debounceMap.forEach((timeout: NodeJS.Timeout) => clearTimeout(timeout));
@@ -35,9 +31,11 @@ export async function sassWatch(): Promise<void> {
   return;
 }
 
+const partialRe = /(.*)\/_(.*)\.scss$/;
+
 async function buildThemedScss() {
   env.log('Building themed scss', { ctx: 'sass' });
-  // cwd is env.uiDir
+
   const partials: string[] = (await globArray('./*/css/build/_*.scss', { abs: false })).filter(
     (f: string) => !f.endsWith('.abstract.scss')
   );
@@ -68,6 +66,8 @@ async function buildThemedScss() {
   }
 }
 
+const params = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+
 function sassBuild(sources: string[], tellTheWorld = true) {
   if (tellTheWorld) {
     for (const srcFile of sources) {
@@ -92,9 +92,15 @@ function sassBuild(sources: string[], tellTheWorld = true) {
 const sassArgument = (src: string) =>
   `${src}:${path.join(env.cssDir, src.slice(src.lastIndexOf(path.sep) + 1).replace(/(.*)scss$/, '$1dev.css'))}`;
 
-function sassError(err: string) {
-  if (err.startsWith('Error:')) err = `${errorMark} -${err.slice(6)}`;
-  env.log(err, { ctx: 'sass' });
+const hrule = '---------------------------------------------------------------------------';
+
+function sassError(error: string) {
+  for (const err of lines(error)) {
+    if (err.startsWith('Error:')) {
+      env.log(c.grey(hrule), { ctx: 'sass' });
+      env.log(`${errorMark} -${err.slice(7)}`, { ctx: 'sass' });
+    } else env.log(err, { ctx: 'sass' });
+  }
 }
 
 function imports(srcFile: string, bset = new Set<string>()): Set<string> {
@@ -119,15 +125,17 @@ function onChanges(themedSources: Set<string>, dir: string, eventType: string, s
     );
   } else if (eventType === 'rename') {
     // TODO - a new or deleted scss file requires the sets/maps to be rebuilt and maybe
-    // new themedSources to be generated, so a full sass rebuild.  skip for now.
+    // new themedSources to be generated, basically a full sass rebuild.  skip for now.
     env.log(`'${c.cyan(dir)}' ${c.error('Folder entries changed')} - relaunch bleep`);
   }
 }
 
+const importRe = /@import ['"](.*)['"]/g;
+
 async function parseImports(src: string, depth = 1, processed = new Set<string>()) {
   if (depth > 10) {
     // arbitrary
-    env.log(`${errorMark} '${c.cyan(src)}' - max @import depth exceeded (${depth})`);
+    env.log(`${errorMark} '${c.cyan(src)}' - max depth exceeded (${depth})`);
     ps.exit(-2);
   }
   if (processed.has(src)) return;

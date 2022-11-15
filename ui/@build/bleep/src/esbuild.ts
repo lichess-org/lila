@@ -10,7 +10,7 @@ export async function esbuildWatch(todo: LichessModule[]): Promise<void> {
   for (const mod of todo) {
     if (mod.bundle)
       for (const r of mod.bundle) {
-        entryPoints[r.output] = path.resolve(mod.root, r.input);
+        entryPoints[r.output] = path.join(mod.root, r.input);
         importNames.push(r.importName || r.output);
         if (r.isMain) preModule(mod);
       }
