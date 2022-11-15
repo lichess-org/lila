@@ -3,7 +3,7 @@ package lila.video
 import play.api.libs.ws.StandaloneWSClient
 import play.api.Mode
 import com.softwaremill.macwire.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.Configuration
 import scala.concurrent.duration.*
 

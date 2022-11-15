@@ -4,7 +4,7 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.{ ConfigLoader, Configuration }
 import scala.concurrent.duration.*
 

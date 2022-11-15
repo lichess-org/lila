@@ -443,41 +443,38 @@ final class Account(
       }
     }
 
-  def reopenSent(@nowarn("cat=unused") email: String) =
-    Open { implicit ctx =>
-      fuccess {
-        Ok(html.account.reopen.sent)
-      }
+  def reopenSent(email: String) = Open { implicit ctx =>
+    fuccess {
+      Ok(html.account.reopen.sent)
     }
+  }
 
-  def reopenLogin(token: String) =
-    Open { implicit ctx =>
-      env.security.reopen confirm token flatMap {
-        case None =>
-          lila.mon.user.auth.reopenConfirm("token_fail").increment()
-          notFound
-        case Some(user) =>
-          env.report.api.reopenReports(lila.report.Suspect(user)) >>
-            auth.authenticateUser(user, remember = true) >>-
-            lila.mon.user.auth.reopenConfirm("success").increment().unit
-      }
+  def reopenLogin(token: String) = Open { implicit ctx =>
+    env.security.reopen confirm token flatMap {
+      case None =>
+        lila.mon.user.auth.reopenConfirm("token_fail").increment()
+        notFound
+      case Some(user) =>
+        env.report.api.reopenReports(lila.report.Suspect(user)) >>
+          auth.authenticateUser(user, remember = true) >>-
+          lila.mon.user.auth.reopenConfirm("success").increment().unit
     }
+  }
 
-  def data =
-    Auth { implicit ctx => me =>
-      val userId = get("user")
-        .map(lila.user.User.normalize)
-        .filter(id => me.id == id || isGranted(_.Impersonate)) | me.id
-      env.user.repo byId userId map {
-        _ ?? { user =>
-          if (getBool("text"))
-            apiC.GlobalConcurrencyLimitUser(me.id)(
-              env.api.personalDataExport(user)
-            ) { source =>
-              Ok.chunked(source.map(_ + "\n"))
-                .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
-            }
-          else Ok(html.account.bits.data(user))
-        }
+  def data = Auth { implicit ctx => me =>
+    val userId = get("user")
+      .map(lila.user.User.normalize)
+      .filter(id => me.id == id || isGranted(_.Impersonate)) | me.id
+    env.user.repo byId userId map {
+      _ ?? { user =>
+        if (getBool("text"))
+          apiC.GlobalConcurrencyLimitUser(me.id)(
+            env.api.personalDataExport(user)
+          ) { source =>
+            Ok.chunked(source.map(_ + "\n"))
+              .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
+          }
+        else Ok(html.account.bits.data(user))
       }
     }
+  }

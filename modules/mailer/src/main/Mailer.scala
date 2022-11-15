@@ -1,7 +1,7 @@
 package lila.mailer
 
 import akka.actor.ActorSystem
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.i18n.Lang
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scala.concurrent.duration.{ span as _, * }

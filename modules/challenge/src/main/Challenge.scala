@@ -162,7 +162,7 @@ object Challenge:
     def realTime: Option[chess.Clock.Config] = none
   object TimeControl:
     def make(clock: Option[chess.Clock.Config], days: Option[Days]) =
-      clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
+      clock.map(Clock.apply).orElse(days map Correspondence.apply).getOrElse(Unlimited)
     case object Unlimited                 extends TimeControl
     case class Correspondence(days: Days) extends TimeControl
     case class Clock(config: chess.Clock.Config) extends TimeControl:

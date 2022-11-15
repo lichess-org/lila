@@ -125,8 +125,7 @@ final private class PayPalClient(
   def getEvent(id: PayPalEventId): Fu[Option[PayPalEvent]] =
     getOne[PayPalEvent](s"${path.events}/$id")
 
-  private val plansPerPage              = 20
-  private given Reads[List[PayPalPlan]] = (__ \ "plans").read[List[PayPalPlan]]
+  private val plansPerPage = 20
 
   def getPlans(page: Int = 1): Fu[List[PayPalPlan]] =
     val current = get[List[PayPalPlan]](
@@ -246,7 +245,7 @@ object PayPalClient:
   case class CantParseException(json: JsValue, err: JsError)
       extends PayPalException(s"[payPal] Can't parse $json --- ${err.errors}")
 
-  import io.methvin.play.autoconfig.*
+  import lila.common.autoconfig.*
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,

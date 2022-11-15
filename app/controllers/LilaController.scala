@@ -64,9 +64,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val rateLimitedJson = Results.TooManyRequests(jsonError(rateLimitedMsg))
   protected val rateLimitedFu   = rateLimited.toFuccess
 
-  implicit protected def LilaFunitToResult(
-      @nowarn("cat=unused") funit: Funit
-  )(implicit req: RequestHeader): Fu[Result] =
+  implicit protected def LilaFunitToResult(funit: Funit)(implicit req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)

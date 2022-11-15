@@ -68,7 +68,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
 private object ZulipClient:
 
   case class Config(domain: String, user: String, pass: Secret)
-  import io.methvin.play.autoconfig.*
+  import lila.common.autoconfig.*
   given ConfigLoader[Config] = AutoConfig.loader[Config]
 
   object stream:

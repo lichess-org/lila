@@ -1,7 +1,7 @@
 package lila.security
 
 import com.github.blemale.scaffeine.LoadingCache
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import scala.concurrent.duration.*
 
 import lila.common.IpAddress

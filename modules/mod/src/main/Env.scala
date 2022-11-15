@@ -2,7 +2,7 @@ package lila.mod
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import io.methvin.play.autoconfig.*
+import lila.common.autoconfig.*
 import play.api.Configuration
 
 import lila.common.config.*

@@ -32,7 +32,7 @@ private object BSONHandlers:
     id => BSONString(s"${id.userId}$idSep${id.day.value}")
   )
 
-  private given BSONHandler[Rating] = BSONIntegerHandler.as(Rating, _.value)
+  private given BSONHandler[Rating] = BSONIntegerHandler.as(Rating.apply, _.value)
   private given BSONHandler[RatingProg] = tryHandler(
     { case v: BSONArray =>
       for {
@@ -65,17 +65,17 @@ private object BSONHandlers:
         rp   -> o.rp
       )
 
-  private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games, _.value)
+  private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games.apply, _.value)
 
-  private given BSONHandler[GameId] = BSONStringHandler.as(GameId, _.value)
+  private given BSONHandler[GameId] = BSONStringHandler.as(GameId.apply, _.value)
 
-  private given BSONHandler[ForumPostId] = BSONStringHandler.as(ForumPostId, _.value)
-  given BSONHandler[ForumPosts]          = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts)
+  private given BSONHandler[ForumPostId] = BSONStringHandler.as(ForumPostId.apply, _.value)
+  given BSONHandler[ForumPosts] = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts.apply)
 
-  private given BSONHandler[UblogPostId] = BSONStringHandler.as(UblogPostId, _.value)
-  given BSONHandler[UblogPosts]          = isoHandler[UblogPosts, List[UblogPostId]](_.value, UblogPosts)
+  private given BSONHandler[UblogPostId] = BSONStringHandler.as(UblogPostId.apply, _.value)
+  given BSONHandler[UblogPosts] = isoHandler[UblogPosts, List[UblogPostId]](_.value, UblogPosts.apply)
 
-  given BSONHandler[Puzzles] = isoHandler[Puzzles, Score](_.score, Puzzles)
+  given BSONHandler[Puzzles] = isoHandler[Puzzles, Score](_.score, Puzzles.apply)
 
   given lila.db.BSON[Storm] with
     def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))
@@ -89,17 +89,17 @@ private object BSONHandlers:
     def reads(r: lila.db.BSON.Reader)             = Streak(r.intD("r"), r.intD("s"))
     def writes(w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
 
-  private given Iso.StringIso[Learn.Stage] = Iso.string(Learn.Stage, _.value)
-  given BSONHandler[Learn]                 = typedMapHandler[Learn.Stage, Int].as(Learn, _.value)
+  private given Iso.StringIso[Learn.Stage] = Iso.string(Learn.Stage.apply, _.value)
+  given BSONHandler[Learn]                 = typedMapHandler[Learn.Stage, Int].as(Learn.apply, _.value)
 
-  private given Iso.StringIso[Study.Id] = Iso.string(Study.Id, _.value)
-  given BSONHandler[Practice]           = typedMapHandler[Study.Id, Int].as[Practice](Practice, _.value)
+  private given Iso.StringIso[Study.Id] = Iso.string(Study.Id.apply, _.value)
+  given BSONHandler[Practice]           = typedMapHandler[Study.Id, Int].as[Practice](Practice.apply, _.value)
 
-  given BSONHandler[SimulId] = BSONStringHandler.as(SimulId, _.value)
-  given BSONHandler[Simuls]  = isoHandler[Simuls, List[SimulId]](_.value, Simuls)
+  given BSONHandler[SimulId] = BSONStringHandler.as(SimulId.apply, _.value)
+  given BSONHandler[Simuls]  = isoHandler[Simuls, List[SimulId]](_.value, Simuls.apply)
 
   given BSONDocumentHandler[Corres] = Macros.handler
-  given BSONHandler[Patron]         = BSONIntegerHandler.as(Patron, _.months)
+  given BSONHandler[Patron]         = BSONIntegerHandler.as(Patron.apply, _.months)
 
   given BSONDocumentHandler[FollowList] = Macros.handler[FollowList]
 
@@ -115,14 +115,14 @@ private object BSONHandlers:
         "o" -> o.out
       )
 
-  given BSONHandler[Studies] = isoHandler[Studies, List[Study.Id]](_.value, Studies)
-  given BSONHandler[Teams]   = isoHandler[Teams, List[String]](_.value, Teams)
+  given BSONHandler[Studies] = isoHandler[Studies, List[Study.Id]](_.value, Studies.apply)
+  given BSONHandler[Teams]   = isoHandler[Teams, List[String]](_.value, Teams.apply)
 
   given lila.db.BSON[SwissRank] with
     def reads(r: lila.db.BSON.Reader)                = SwissRank(Swiss.Id(r.str("i")), r.intD("r"))
     def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
 
-  given BSONHandler[Swisses] = isoHandler[Swisses, List[SwissRank]](_.value, Swisses)
+  given BSONHandler[Swisses] = isoHandler[Swisses, List[SwissRank]](_.value, Swisses.apply)
 
   object ActivityFields:
     val id         = "_id"

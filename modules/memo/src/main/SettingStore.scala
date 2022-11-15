@@ -72,19 +72,19 @@ object SettingStore:
 
   object Strings:
     val stringsIso              = Iso.strings(",")
-    given BSONHandler[Strings]  = lila.db.dsl.isoHandler
+    given BSONHandler[Strings]  = lila.db.dsl.isoHandler(using stringsIso)
     given StringReader[Strings] = StringReader.fromIso(using stringsIso)
   object UserIds:
     val userIdsIso              = Iso.userIds(",")
-    given BSONHandler[UserIds]  = lila.db.dsl.isoHandler
+    given BSONHandler[UserIds]  = lila.db.dsl.isoHandler(using userIdsIso)
     given StringReader[UserIds] = StringReader.fromIso(using userIdsIso)
   object Ints:
     val intsIso              = Iso.ints(",")
-    given BSONHandler[Ints]  = lila.db.dsl.isoHandler
+    given BSONHandler[Ints]  = lila.db.dsl.isoHandler(using intsIso)
     given StringReader[Ints] = StringReader.fromIso(using intsIso)
   object Regex:
     val regexIso              = Iso.string[Regex](_.r, _.toString)
-    given BSONHandler[Regex]  = lila.db.dsl.isoHandler
+    given BSONHandler[Regex]  = lila.db.dsl.isoHandler(using regexIso)
     given StringReader[Regex] = StringReader.fromIso(using regexIso)
 
   final class Formable[A](val form: A => Form[?])

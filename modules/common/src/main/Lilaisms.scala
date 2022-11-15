@@ -42,5 +42,7 @@ object Lilaisms:
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
     Some(Tuple.fromProductTyped(p))
 
-  implicit inline def toLilaJsObject(jo: JsObject): LilaJsObject = new LilaJsObject(jo)
-  implicit inline def toLilaJsValue(jv: JsValue): LilaJsValue    = new LilaJsValue(jv)
+  // can't use extensions because of method name shadowing :(
+  import scala.language.implicitConversions
+  implicit def toLilaJsObject(jo: JsObject): LilaJsObject = new LilaJsObject(jo)
+  implicit def toLilaJsValue(jv: JsValue): LilaJsValue    = new LilaJsValue(jv)
