@@ -24,7 +24,7 @@ object AuthorizationRequest:
     def prompt: Validated[Error, Prompt] =
       for {
         redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
-        clientId    <- clientId.map(ClientId).toValid(Error.ClientIdRequired)
+        clientId    <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
       } yield Prompt(
         redirectUri,
         state.map(State.apply),
@@ -73,7 +73,10 @@ object AuthorizationRequest:
           )
         case Some(method) =>
           fuccess(CodeChallengeMethod.from(method).andThen { _ =>
-            codeChallenge.map(CodeChallenge).toValid[Error](Error.CodeChallengeRequired).map(Right.apply)
+            codeChallenge
+              .map(CodeChallenge.apply)
+              .toValid[Error](Error.CodeChallengeRequired)
+              .map(Right.apply)
           })
       }) dmap { challenge =>
         for {

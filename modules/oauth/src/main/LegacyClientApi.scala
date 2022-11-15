@@ -15,7 +15,7 @@ final class LegacyClientApi(val coll: Coll)(using ec: scala.concurrent.Execution
         $set(F.usedAt -> DateTime.now)
       )
       .map {
-        _.result[Bdoc].flatMap(_.getAsOpt[String](F.hashedSecret)).map(HashedClientSecret)
+        _.result[Bdoc].flatMap(_.getAsOpt[String](F.hashedSecret)).map(HashedClientSecret.apply)
       }
 
 object LegacyClientApi:

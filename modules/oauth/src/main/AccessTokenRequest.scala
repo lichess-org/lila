@@ -36,7 +36,7 @@ object AccessTokenRequest:
         code      <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
         clientId  <- clientId.map(ClientId.apply).orElse(auth.map(_.clientId)).toValid(Error.ClientIdRequired)
         clientSecret <- clientSecret
-          .map(LegacyClientApi.ClientSecret)
+          .map(LegacyClientApi.ClientSecret.apply)
           .orElse(auth.map(_.clientSecret))
           .toValid(LegacyClientApi.ClientSecretRequired)
         redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)

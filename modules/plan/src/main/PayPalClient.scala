@@ -125,8 +125,7 @@ final private class PayPalClient(
   def getEvent(id: PayPalEventId): Fu[Option[PayPalEvent]] =
     getOne[PayPalEvent](s"${path.events}/$id")
 
-  private val plansPerPage              = 20
-  private given Reads[List[PayPalPlan]] = (__ \ "plans").read[List[PayPalPlan]]
+  private val plansPerPage = 20
 
   def getPlans(page: Int = 1): Fu[List[PayPalPlan]] =
     val current = get[List[PayPalPlan]](
