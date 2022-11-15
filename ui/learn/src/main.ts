@@ -29,7 +29,7 @@ interface LearnServerOpts {
   i18n: I18nDict;
 }
 
-export default function (element: Element, { data, i18n }: LearnServerOpts) {
+export default (window as any).LichessLearn = function (element: Element, { data, i18n }: LearnServerOpts) {
   const _storage = storage(data);
 
   const opts: LearnOpts = {
@@ -61,4 +61,4 @@ export default function (element: Element, { data, i18n }: LearnServerOpts) {
   } as _mithril.MithrilRoutes<any>);
 
   return {};
-}
+};

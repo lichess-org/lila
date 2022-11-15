@@ -103,3 +103,5 @@ function merge(base: any, extend: any): void {
 function isObject(o: unknown): boolean {
   return typeof o === 'object';
 }
+
+(window as any).LichessModActivity = { activity, queues }; // esbuild
