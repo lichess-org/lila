@@ -51,8 +51,8 @@ Universal / sourceDirectory := baseDirectory.value / "dist"
 evictionErrorLevel := Level.Warn
 
 // format: off
-libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
-  macwire.macros, macwire.util, play.json, play.server, play.netty,
+libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
+  play.json, play.server, play.netty,
   chess, compression, scalalib, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
@@ -192,7 +192,7 @@ lazy val memo = module("memo",
 
 lazy val search = module("search",
   Seq(common, hub),
-  playWs.bundle ++ macwire.bundle
+  playWs.bundle
 )
 
 lazy val chat = module("chat",
@@ -222,7 +222,7 @@ lazy val mod = module("mod",
 
 lazy val user = module("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, galimatias) ++ specs2.bundle ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
+  Seq(hasher, galimatias) ++ specs2.bundle ++ playWs.bundle ++ reactivemongo.bundle
 )
 
 lazy val game = module("game",
@@ -322,7 +322,7 @@ lazy val irwin = module("irwin",
 
 lazy val oauth = module("oauth",
   Seq(common, db, user),
-  reactivemongo.bundle ++ macwire.bundle
+  reactivemongo.bundle
 )
 
 lazy val security = module("security",
@@ -382,7 +382,7 @@ lazy val push = module("push",
 
 lazy val irc = module("irc",
   Seq(common, hub, user),
-  reactivemongo.bundle ++ macwire.bundle
+  reactivemongo.bundle
 )
 
 lazy val mailer = module("mailer",
@@ -402,7 +402,7 @@ lazy val relation = module("relation",
 
 lazy val pref = module("pref",
   Seq(common, db, user),
-  Seq(macwire.util) ++ reactivemongo.bundle
+  reactivemongo.bundle
 )
 
 lazy val msg = module("msg",
@@ -467,10 +467,10 @@ lazy val tree = module("tree",
 
 lazy val socket = module("socket",
   Seq(common, hub, memo, tree),
-  Seq(lettuce) ++ macwire.bundle
+  Seq(lettuce)
 )
 
 lazy val hub = module("hub",
   Seq(common),
-  Seq(scaffeine, macwire.util)
+  Seq(scaffeine)
 )
