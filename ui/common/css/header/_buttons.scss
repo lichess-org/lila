@@ -1,7 +1,10 @@
+@use "../abstract/variables";
+@use "../abstract/z-index";
+
 %top-icon {
   display: block;
-  height: $site-header-height;
-  line-height: $site-header-height;
+  height: variables.$site-header-height;
+  line-height: variables.$site-header-height;
 }
 
 .site-buttons {
@@ -49,7 +52,7 @@
     #{$end-direction}: 0;
     top: var(--dropdown-top);
     background: $c-bg-header-dropdown;
-    z-index: z('dropdown');
+    z-index: z-index.z('dropdown');
 
     a,
     button {

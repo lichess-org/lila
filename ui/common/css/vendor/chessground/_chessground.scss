@@ -1,5 +1,6 @@
-@import 'board-2d';
-@import 'dark-board';
+@use 'board-2d';
+@use 'dark-board';
+@use "../../abstract/z-index";
 
 cg-board {
   @extend %box-shadow, %abs-100;
@@ -110,21 +111,21 @@ piece {
   width: 12.5%;
   height: 12.5%;
   background-size: cover;
-  z-index: z('cg__piece');
+  z-index: z-index.z('cg__piece');
   will-change: transform;
   pointer-events: none;
 
   &.dragging {
     cursor: move;
-    z-index: z('cg__piece.dragging') !important;
+    z-index: z-index.z('cg__piece.dragging') !important;
   }
 
   &.anim {
-    z-index: z('cg__piece.anim');
+    z-index: z-index.z('cg__piece.anim');
   }
 
   &.fading {
-    z-index: z('cg__piece.fading');
+    z-index: z-index.z('cg__piece.fading');
     opacity: 0.5;
   }
 
@@ -156,11 +157,11 @@ cg-auto-pieces {
 
 cg-container .cg-shapes {
   opacity: 0.6;
-  z-index: z('cg__svg.cg-shapes');
+  z-index: z-index.z('cg__svg.cg-shapes');
 }
 
 cg-container .cg-custom-svgs {
-  z-index: z('cg__svg.cg-custom-svgs');
+  z-index: z-index.z('cg__svg.cg-custom-svgs');
 }
 
 cg-container .cg-shapes {
@@ -172,7 +173,7 @@ cg-container .cg-custom-svgs svg {
 }
 
 cg-auto-pieces {
-  z-index: z('cg__cg-auto-pieces');
+  z-index: z-index.z('cg__cg-auto-pieces');
 
   piece {
     opacity: 0.3;

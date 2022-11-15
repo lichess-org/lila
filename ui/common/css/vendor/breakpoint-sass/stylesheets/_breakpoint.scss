@@ -1,0 +1,111 @@
+//////////////////////////////
+// Default Variables
+//////////////////////////////
+$Breakpoint-Settings: (
+  'default media': all,
+  'default feature': min-width,
+  'default pair': width,
+
+  'force all media type': false,
+  'to ems': false,
+  'transform resolutions': true,
+
+  'no queries': false,
+  'no query fallbacks': false,
+
+  'base font size': 16px,
+
+  'legacy syntax': false,
+);
+
+$breakpoint: () !default;
+
+//////////////////////////////
+// Imports
+//////////////////////////////
+@use 'sass:map';
+@use 'sass:meta';
+@use 'breakpoint/settings';
+@use 'breakpoint/context';
+@use 'breakpoint/helpers';
+@use 'breakpoint/parsers';
+@use 'breakpoint/no-query';
+
+@use 'breakpoint/respond-to';
+
+@use 'breakpoint/legacy-settings';
+
+//////////////////////////////
+// Breakpoint Mixin
+//////////////////////////////
+
+@mixin breakpoint($query, $no-query: false) {
+  @include legacy-settings.legacy-settings-warning;
+
+  // Reset contexts
+  @include context.private-breakpoint-reset-contexts();
+
+  $breakpoint: parsers.breakpoint($query, false);
+
+  $query-string: map.get($breakpoint, 'query');
+  $query-fallback: map.get($breakpoint, 'fallback');
+
+  context.$private-breakpoint-context-holder: map.get($breakpoint, 'context holder'); //!global;
+  context.$private-breakpoint-query-count: map.get($breakpoint, 'query count'); //!global;
+
+  // Allow for an as-needed override or usage of no query fallback.
+  @if $no-query != false {
+    $query-fallback: $no-query;
+  }
+
+  @if $query-fallback != false {
+    $context-setter: context.private-breakpoint-set-context('no-query', $query-fallback);
+  }
+
+  // Print Out Query String
+  @if not settings.breakpoint-get('no queries') {
+    @media #{$query-string} {
+      @content;
+    }
+  }
+
+  @if settings.breakpoint-get('no query fallbacks') != false or settings.breakpoint-get('no queries') == true {
+    $type: meta.type-of(settings.breakpoint-get('no query fallbacks'));
+    $print: false;
+
+    @if ($type == 'bool') {
+      $print: true;
+    } @else if ($type == 'string') {
+      @if $query-fallback == settings.breakpoint-get('no query fallbacks') {
+        $print: true;
+      }
+    } @else if ($type == 'list') {
+      @each $wrapper in settings.breakpoint-get('no query fallbacks') {
+        @if $query-fallback == $wrapper {
+          $print: true;
+        }
+      }
+    }
+
+    // Write Fallback
+    @if ($query-fallback != false) and ($print == true) {
+      $type-fallback: meta.type-of($query-fallback);
+
+      @if ($type-fallback != 'bool') {
+        #{$query-fallback} & {
+          @content;
+        }
+      } @else {
+        @content;
+      }
+    }
+  }
+
+  @include context.private-breakpoint-reset-contexts();
+}
+
+@mixin mq($query, $no-query: false) {
+  @include breakpoint($query, $no-query) {
+    @content;
+  }
+}

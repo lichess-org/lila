@@ -1,19 +1,25 @@
+@use "sass:color";
+@use "../abstract/media-queries";
+@use "../abstract/mixins";
+@use "../abstract/variables";
+@use "../abstract/z-index";
+
 #friend_box {
   display: none;
 
-  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+  @include breakpoint(media-queries.$mq-topnav-visible media-queries.$mq-site-header-tall) {
     display: block;
   }
 
   position: fixed;
   bottom: 0;
   #{$end-direction}: 0;
-  z-index: z('friend-box');
+  z-index: z-index.z('friend-box');
   background: $c-bg-popup;
   border: $border;
   border-#{$end-direction}: 0;
   border-bottom: 0;
-  border-top-left-radius: $box-radius-size;
+  border-top-left-radius: variables.$box-radius-size;
   font-size: 0.9rem;
   min-width: 150px;
   max-height: 95%;
@@ -21,7 +27,7 @@
   /* improve scroll perfs */
   backface-visibility: hidden;
 
-  @include hoverflow;
+  @include mixins.hoverflow;
 
   .friend_box_title {
     @extend %metal;
@@ -44,7 +50,7 @@
       display: flex;
 
       &:hover {
-        background: mix($c-secondary, $c-bg-popup, 10%);
+        background: color.mix($c-secondary, $c-bg-popup, 10%);
       }
     }
 

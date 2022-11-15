@@ -1,0 +1,79 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
+@use '../breakpoint';
+
+//////////////////////////////
+// Has Setting
+//////////////////////////////
+@function breakpoint-has($setting) {
+  @if map.has-key(breakpoint.$breakpoint, $setting) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+//////////////////////////////
+// Get Settings
+//////////////////////////////
+@function breakpoint-get($setting) {
+  @if breakpoint-has($setting) {
+    @return map.get(breakpoint.$breakpoint, $setting);
+  } @else {
+    @return map.get(breakpoint.$Breakpoint-Settings, $setting);
+  }
+}
+
+//////////////////////////////
+// Set Settings
+//////////////////////////////
+@function breakpoint-set($setting, $value) {
+  @if (string.index($setting, '-') or string.index($setting, '_')) and string.index($setting, ' ') == null {
+    @warn "Words in Breakpoint settings should be separated by spaces, not dashes or underscores. Please replace dashes and underscores between words with spaces. Settings will not work as expected until changed.";
+  }
+  $breakpoint: map.merge(
+    breakpoint.$breakpoint,
+    (
+      $setting: $value,
+    )
+  ); //!global;
+  @return true;
+}
+
+@mixin breakpoint-change($setting, $value) {
+  $breakpoint-change: breakpoint-set($setting, $value);
+}
+
+@mixin breakpoint-set($setting, $value) {
+  @include breakpoint-change($setting, $value);
+}
+
+@mixin bkpt-change($setting, $value) {
+  @include breakpoint-change($setting, $value);
+}
+@mixin bkpt-set($setting, $value) {
+  @include breakpoint-change($setting, $value);
+}
+
+//////////////////////////////
+// Remove Setting
+//////////////////////////////
+@function breakpoint-reset($settings...) {
+  @if list.length($settings) == 1 {
+    $settings: list.nth($settings, 1);
+  }
+
+  @each $setting in $settings {
+    $breakpoint: map.remove($breakpoint, $setting); //!global;
+  }
+  @return true;
+}
+
+@mixin breakpoint-reset($settings...) {
+  $breakpoint-reset: breakpoint-reset($settings);
+}
+
+@mixin bkpt-reset($settings...) {
+  $breakpoint-reset: breakpoint-reset($settings);
+}

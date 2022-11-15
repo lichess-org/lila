@@ -1,0 +1,22 @@
+@use "../../context";
+@use "../../helpers";
+@use "../../settings";
+
+@function breakpoint-parse-triple-default($feature, $first, $second) {
+
+  // Sort into min and max
+  $min: min($first, $second);
+  $max: max($first, $second);
+
+  // Set Context
+  $context-setter: context.private-breakpoint-set-context(min-#{$feature}, $min);
+  $context-setter: context.private-breakpoint-set-context(max-#{$feature}, $max);
+
+  // Make them EMs if need be
+  @if (settings.breakpoint-get('to ems') == true) {
+    $min: helpers.breakpoint-to-base-em($min);
+    $max: helpers.breakpoint-to-base-em($max);
+  }
+
+  @return '(min-#{$feature}: #{$min}) and (max-#{$feature}: #{$max})';
+}

@@ -1,5 +1,5 @@
 /* Common imports for all CSS modules */
 
-@import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
+@use 'vendor/breakpoint-sass/stylesheets/breakpoint';
 
-@import 'abstract/all';
+@use 'abstract/all';

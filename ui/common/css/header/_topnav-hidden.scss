@@ -1,4 +1,9 @@
-@include breakpoint($mq-topnav-hidden) {
+@use "../abstract/media-queries";
+@use "../abstract/mixins";
+@use "../abstract/variables";
+@use "../abstract/z-index";
+
+@include breakpoint(media-queries.$mq-topnav-hidden) {
   .topnav-toggle {
     display: block;
     position: absolute;
@@ -10,10 +15,10 @@
     position: absolute;
     top: 0;
     #{$start-direction}: 0;
-    width: $site-header-height;
-    height: $site-header-height;
+    width: variables.$site-header-height;
+    height: variables.$site-header-height;
     cursor: pointer;
-    z-index: z('topnav');
+    z-index: z-index.z('topnav');
 
     &__in {
       &,
@@ -27,7 +32,7 @@
         border-radius: 3px;
         background-color: $c-font-dim;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include breakpoint(media-queries.$mq-site-header-tall) {
           width: 34px;
           height: 3px;
         }
@@ -36,7 +41,7 @@
       top: 50%;
       #{$start-direction}: 8.5px;
 
-      @include breakpoint($mq-site-header-tall) {
+      @include breakpoint(media-queries.$mq-site-header-tall) {
         #{$start-direction}: 13px;
       }
 
@@ -50,7 +55,7 @@
       &::before {
         top: -6px;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include breakpoint(media-queries.$mq-site-header-tall) {
           top: -9px;
         }
 
@@ -60,7 +65,7 @@
       &::after {
         bottom: -7px;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include breakpoint(media-queries.$mq-site-header-tall) {
           bottom: -10px;
         }
 
@@ -96,13 +101,13 @@
     display: flex;
     flex-flow: row wrap;
     position: fixed;
-    top: $site-header-height;
+    top: variables.$site-header-height;
     bottom: 0;
     #{$start-direction}: 0;
     background: $c-bg-high;
     transform: translateX(calc(-100% * #{$transform-direction} - 10px * #{$transform-direction}));
 
-    @include transition(transform, 200ms);
+    @include mixins.transition(transform, 200ms);
 
     padding-bottom: 1.2rem;
     overflow-y: auto;
@@ -111,11 +116,11 @@
     border-radius: 0 3px 0 0;
     max-width: 80%;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint(media-queries.$mq-xx-small) {
       max-width: 70%;
     }
 
-    z-index: z('topnav');
+    z-index: z-index.z('topnav');
 
     a {
       color: $c-font;
@@ -123,7 +128,7 @@
       padding: 0.7em 0;
       opacity: 0;
 
-      @include transition(opacity);
+      @include mixins.transition(opacity);
     }
 
     section {

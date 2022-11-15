@@ -1,38 +1,39 @@
 /* Common imports for all pages */
 
-@import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
+@use 'vendor/breakpoint-sass/stylesheets/breakpoint';
 
-@import 'abstract/all';
+@use "sass:meta";
+@use 'abstract/all';
 
-@import 'base/elements';
-@import 'base/form';
-@import 'base/fonts';
-@import 'base/typography';
-@import 'base/data-icon';
-@import 'base/unread';
-@import 'base/util';
+@use 'base/elements';
+@use 'base/form';
+@use 'base/fonts';
+@use 'base/typography';
+@use 'base/data-icon';
+@use 'base/unread';
+@use 'base/util';
 
 @include theme-style;
 
-@import 'layout/base';
-@import 'layout/page-menu';
+@include meta.load-css('layout/base');
+@include meta.load-css('layout/page-menu');
 
-@import 'vendor/chessground/chessground';
+@include meta.load-css('vendor/chessground/chessground');
 
-@import 'header/header';
-@import '../../cli/css/clinput';
+@include meta.load-css('header/header');
+@include meta.load-css('../../cli/css/clinput');
 
-@import 'component/board';
-@import 'component/box';
-@import 'component/button';
-@import 'component/user-link';
-@import 'component/blind-mode';
-@import 'component/friend-box';
-@import 'component/signal';
-@import 'component/power-tip';
-@import 'component/mini-game';
-@import 'component/btn-rack';
-@import 'component/loader';
-@import 'component/reconnecting';
-@import 'component/announce';
-@import 'component/agreement';
+@include meta.load-css('component/board');
+@include meta.load-css('component/box');
+@include meta.load-css('component/button');
+@include meta.load-css('component/user-link');
+@include meta.load-css('component/blind-mode');
+@include meta.load-css('component/friend-box');
+@include meta.load-css('component/signal');
+@include meta.load-css('component/power-tip');
+@include meta.load-css('component/mini-game');
+@include meta.load-css('component/btn-rack');
+@include meta.load-css('component/loader');
+@include meta.load-css('component/reconnecting');
+@include meta.load-css('component/announce');
+@include meta.load-css('component/agreement');

@@ -1,18 +1,23 @@
+fluid-size.@use "../abstract/fluid-size";
+@use "../abstract/media-queries";
+@use "../abstract/mixins";
+@use "../abstract/variables";
+
 $vp-min-width: 320px;
-$vp-max-width: 1200px;
+fluid-size.$vp-max-width: 1200px;
 
 .box {
   @extend %box-shadow;
 
   background: $c-bg-box;
 
-  @include fluid-size('--box-padding', 15px, 60px);
+  @include fluid-size.fluid-size('--box-padding', 15px, 60px);
 
   &-pad {
     @extend %box-padding;
 
     .box__top {
-      padding: 0 0 $box-padding-vert 0;
+      padding: 0 0 variables.$box-padding-vert 0;
     }
   }
 
@@ -42,8 +47,8 @@ $vp-max-width: 1200px;
   }
 }
 
-@include breakpoint($mq-main-margin) {
+@include breakpoint(media-queries.$mq-main-margin) {
   .box {
-    @include box-radius;
+    @include mixins.box-radius;
   }
 }

@@ -1,3 +1,5 @@
+@use "../abstract/z-index";
+
 #agreement {
   @extend %flex-center-nowrap;
 
@@ -8,7 +10,7 @@
   background: $c-bg-box;
   border-top: $border;
   padding: 0.7rem 2vw;
-  z-index: z('tour-reminder');
+  z-index: z-index.z('tour-reminder');
 
   button {
     margin-#{$start-direction}: 1em;

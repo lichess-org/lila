@@ -1,3 +1,6 @@
+@use "../abstract/media-queries";
+@use "../abstract/z-index";
+
 #announce {
   @extend %flex-between, %popup-shadow;
 
@@ -8,10 +11,10 @@
   background: $c-primary;
   color: $c-primary-over;
   padding: 0.7rem 1rem;
-  z-index: z('tour-reminder');
+  z-index: z-index.z('tour-reminder');
   width: 100%;
 
-  @include breakpoint($mq-xx-small) {
+  @include breakpoint(media-queries.$mq-xx-small) {
     width: auto;
     border-top-right-radius: 3px;
   }

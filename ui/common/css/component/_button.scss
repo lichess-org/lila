@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../abstract/mixins";
+
 .button {
   @extend %roboto-fat, %button-shadow, %box-radius;
 
@@ -11,7 +14,7 @@
   white-space: nowrap;
   display: inline-block;
 
-  @include transition;
+  @include mixins.transition;
 
   &,
   &:visited,
@@ -23,7 +26,7 @@
     @extend %button-raised-shadow;
 
     color: $c-primary-over;
-    background: lighten($c-primary, 7);
+    background: color.adjust($c-primary, $lightness: 7);
   }
 
   &:not(.disabled):focus {
@@ -47,7 +50,7 @@
     background: $c-secondary;
 
     &:not(.disabled):hover {
-      background: lighten($c-secondary, 4);
+      background: color.adjust($c-secondary, $lightness: 4);
     }
   }
 
@@ -55,7 +58,7 @@
     background: $c-error;
 
     &:not(.disabled):hover {
-      background: lighten($c-error, 11);
+      background: color.adjust($c-error, $lightness: 11);
     }
   }
 

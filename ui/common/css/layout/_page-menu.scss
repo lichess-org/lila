@@ -1,10 +1,11 @@
-@import '../component/subnav';
+@use '../component/subnav';
+@use "../abstract/media-queries";
 
 .page-menu {
   display: grid;
   grid-template-areas: 'menu' 'content';
 
-  @include breakpoint($mq-subnav-side) {
+  @include breakpoint(media-queries.$mq-subnav-side) {
     grid-template-columns: max-content auto;
     grid-template-rows: min-content;
     grid-template-areas: 'menu content';

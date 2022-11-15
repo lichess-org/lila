@@ -1,3 +1,9 @@
+@use "sass:color";
+@use "media-queries";
+@use "mixins";
+@use "variables";
+@use "z-index";
+
 %base-font-fallback {
   font-family: 'Noto Sans', Sans-Serif;
 }
@@ -81,7 +87,7 @@
 }
 
 %active-hover {
-  background: mix(white, $c-accent, 20%);
+  background: color.mix(white, $c-accent, 20%);
 }
 
 %active-soft {
@@ -153,7 +159,7 @@
 }
 
 %box-padding {
-  padding: $box-padding-vert var(--box-padding);
+  padding: variables.$box-padding-vert var(--box-padding);
 }
 
 %box-padding-horiz {
@@ -179,7 +185,7 @@
 }
 
 %ellipsis {
-  @include ellipsis;
+  @include mixins.ellipsis;
 }
 
 %square {
@@ -208,7 +214,7 @@
 }
 
 %game-embed {
-  @include breakpoint($mq-not-xx-small) {
+  @include breakpoint(media-queries.$mq-not-xx-small) {
     padding-bottom: 160%;
   }
 }
@@ -238,7 +244,7 @@
   bottom: 0;
   #{$end-direction}: 0;
   background: $c-page-mask;
-  z-index: z('fullscreen-mask');
+  z-index: z-index.z('fullscreen-mask');
 }
 
 %link-overlay {
@@ -247,7 +253,7 @@
   #{$start-direction}: 0;
   width: 100%;
   height: 100%;
-  z-index: z('link-overlay');
+  z-index: z-index.z('link-overlay');
 }
 
 %abs-100 {

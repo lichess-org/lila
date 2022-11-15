@@ -1,19 +1,22 @@
+@use "media-queries";
+@use "variables";
+
 /* Uniboard: keep the same page layout across pages */
 
-$mq-board-resizable: $mq-small;
-$mq-col1-uniboard: $mq-not-small $mq-portrait;
-$mq-col2-uniboard: $mq-small, $mq-landscape;
-$mq-col3-uniboard: $mq-x-large;
+$mq-board-resizable: media-queries.$mq-small;
+$mq-col1-uniboard: media-queries.$mq-not-small media-queries.$mq-portrait;
+$mq-col2-uniboard: media-queries.$mq-small, media-queries.$mq-landscape;
+$mq-col3-uniboard: media-queries.$mq-x-large;
 
 /* when the width is appropriate for col1, but landscape prevents it */
-$mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
+$mq-col2-uniboard-squeeze: media-queries.$mq-not-small media-queries.$mq-landscape;
 
 $col3-uniboard-side: minmax(230px, 350px);
 $col3-uniboard-table: minmax(240px, 400px);
 $col3-uniboard-controls: 3rem;
 
 $col3-uniboard-min-width: calc(70vmin * var(--board-scale));
-$col3-uniboard-max-width: calc(100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls});
+$col3-uniboard-max-width: calc(100vh * var(--board-scale) - #{variables.$site-header-outer-height} - #{$col3-uniboard-controls});
 $col3-uniboard-width: minmax($col3-uniboard-min-width, $col3-uniboard-max-width);
 
 $col3-uniboard-default-scale: 0.9;
@@ -21,7 +24,7 @@ $col3-uniboard-default-scale: 0.9;
 // zoom: 85%
 $col3-uniboard-default-min-width: 500px;
 $col3-uniboard-default-max-width: calc(
-  100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
+  100vh * #{$col3-uniboard-default-scale} - #{variables.$site-header-outer-height} - #{$col3-uniboard-controls}
 );
 $col3-uniboard-default-width: minmax(#{$col3-uniboard-default-min-width}, #{$col3-uniboard-default-max-width});
 
@@ -31,6 +34,6 @@ $col2-uniboard-width: $col3-uniboard-width;
 $col2-uniboard-default-width: $col3-uniboard-default-width;
 
 $col2-uniboard-squeeze-table: minmax(200px, 240px);
-$col2-uniboard-squeeze-width: minmax(calc(55vmin), calc(100vh - #{$site-header-outer-height} - #{$block-gap}));
+$col2-uniboard-squeeze-width: minmax(calc(55vmin), calc(100vh - #{variables.$site-header-outer-height} - #{variables.$block-gap}));
 
 $col1-uniboard-controls: 5rem;

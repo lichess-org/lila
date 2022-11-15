@@ -1,9 +1,14 @@
+@use "sass:color";
+@use "../abstract/media-queries";
+@use "../abstract/mixins";
+@use "../abstract/z-index";
+
 .subnav {
   a {
     @extend %nowrap-hidden, %page-text;
   }
 
-  @include breakpoint($mq-subnav-top) {
+  @include breakpoint(media-queries.$mq-subnav-top) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
     grid-gap: 3px;
@@ -11,7 +16,7 @@
     background: $c-bg-page;
 
     a {
-      @include box-neat;
+      @include mixins.box-neat;
 
       font-family: roboto;
       display: flex;
@@ -36,9 +41,9 @@
     }
   }
 
-  @include breakpoint($mq-subnav-side) {
+  @include breakpoint(media-queries.$mq-subnav-side) {
     margin-top: 5px;
-    z-index: z('subnav-side');
+    z-index: z-index.z('subnav-side');
 
     /* active border must go over the page content */
     a {
@@ -49,14 +54,14 @@
 
       &::after {
         content: '';
-        background: fade-out($c-accent, 0.4);
+        background: color.adjust($c-accent, $alpha: -0.4);
         width: 3px;
         position: absolute;
         height: 98%;
         top: 1%;
         #{$end-direction}: -1px;
 
-        @include transition(all, 0.25s);
+        @include mixins.transition(all, 0.25s);
 
         transform: scale(0);
       }

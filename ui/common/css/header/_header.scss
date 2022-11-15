@@ -1,20 +1,23 @@
-@import 'topnav-hidden';
-@import 'topnav-visible';
-@import 'title';
-@import 'buttons';
+@use 'topnav-hidden';
+@use 'topnav-visible';
+@use 'title';
+@use 'buttons';
+@use "../abstract/media-queries";
+@use "../abstract/variables";
+@use "../abstract/z-index";
 
 #top {
-  height: $site-header-height;
+  height: variables.$site-header-height;
   display: flex;
   justify-content: space-between;
   position: relative;
-  z-index: z('site-header');
+  z-index: z-index.z('site-header');
   max-width: 1800px;
   margin: 0 auto;
   user-select: none;
   --dropdown-top: 40px;
 
-  @include breakpoint($mq-site-header-tall) {
+  @include breakpoint(media-queries.$mq-site-header-tall) {
     --dropdown-top: 60px;
   }
 }

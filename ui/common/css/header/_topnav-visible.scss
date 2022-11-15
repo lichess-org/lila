@@ -1,4 +1,7 @@
-@include breakpoint($mq-topnav-visible) {
+@use "../abstract/media-queries";
+@use "../abstract/variables";
+
+@include breakpoint(media-queries.$mq-topnav-visible) {
   .hbg,
   .site-title-nav .fullscreen-mask,
   .topnav-toggle {
@@ -9,7 +12,7 @@
     --nav-section: 26px;
     --nav-section-hover: 35px;
 
-    @include breakpoint($mq-site-header-tall) {
+    @include breakpoint(media-queries.$mq-site-header-tall) {
       --nav-section: 48px;
       --nav-section-hover: 53px;
     }
@@ -25,7 +28,7 @@
         text-shadow: $text-shadow;
         display: block;
         height: var(--nav-section);
-        line-height: $site-header-height;
+        line-height: variables.$site-header-height;
         padding: 0 0.7rem;
         text-transform: uppercase;
         border-#{$start-direction}: 2px solid transparent;

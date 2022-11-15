@@ -1,3 +1,5 @@
+@use "../abstract/z-index";
+
 $recon-height: 2.5rem;
 
 @keyframes reconnected {
@@ -26,7 +28,7 @@ $recon-height: 2.5rem;
   height: $recon-height;
   padding: 0 1rem;
   border-top-right-radius: 3px;
-  z-index: z('reconnecting');
+  z-index: z-index.z('reconnecting');
   opacity: 0;
   transform: translateY($recon-height);
 

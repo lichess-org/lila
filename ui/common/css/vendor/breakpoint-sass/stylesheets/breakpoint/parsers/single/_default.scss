@@ -1,0 +1,18 @@
+@use "sass:meta";
+@use "../../context";
+@use "../../helpers";
+@use "../../settings";
+
+@function breakpoint-parse-default($feature) {
+  $default: settings.breakpoint-get('default feature');
+
+  // Set Context
+  $context-setter: context.private-breakpoint-set-context($default, $feature);
+
+  @if (settings.breakpoint-get('to ems') == true) and (meta.type-of($feature) == 'number') {
+    @return '#{$default}: #{helpers.breakpoint-to-base-em($feature)}';
+  }
+  @else {
+    @return '#{$default}: #{$feature}';
+  }
+}

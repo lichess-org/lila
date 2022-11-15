@@ -1,11 +1,15 @@
+fluid-size.@use "../abstract/fluid-size";
+@use "../abstract/media-queries";
+@use "../abstract/variables";
+
 $vp-min-width: 320px;
-$vp-max-width: 1200px;
+fluid-size.$vp-max-width: 1200px;
 
 body {
-  --site-header-height: #{$site-header-short-height};
+  --site-header-height: #{variables.$site-header-short-height};
 
-  @include breakpoint($mq-site-header-tall) {
-    --site-header-height: #{$site-header-tall-height};
+  @include breakpoint(media-queries.$mq-site-header-tall) {
+    --site-header-height: #{variables.$site-header-tall-height};
   }
 
   --site-header-margin: 0px;
@@ -16,17 +20,17 @@ body {
 
   --main-margin: 0;
 
-  @include breakpoint($mq-main-margin) {
+  @include breakpoint(media-queries.$mq-main-margin) {
     --main-margin: 1vw;
-    margin-bottom: $block-gap;
+    margin-bottom: variables.$block-gap;
   }
 }
 
 #main-wrap {
   display: grid;
   grid-template-areas: '. . main . .';
-  --main-max-width: #{$main-max-width};
-  grid-template-columns: $main-margin 1fr minmax(auto, var(--main-max-width)) 1fr $main-margin;
+  --main-max-width: #{variables.$main-max-width};
+  grid-template-columns: variables.$main-margin 1fr minmax(auto, var(--main-max-width)) 1fr variables.$main-margin;
 
   &.full-screen {
     --main-max-width: auto;
@@ -36,7 +40,7 @@ body {
     --main-max-width: 100%;
   }
 
-  margin-top: $site-header-margin;
+  margin-top: variables.$site-header-margin;
 
   @media (hover: none) {
     body.clinput & {

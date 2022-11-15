@@ -1,0 +1,25 @@
+@use "../../context";
+@use "../../helpers";
+
+@function breakpoint-parse-double-string($first, $second) {
+  $feature: '';
+  $value: '';
+
+  // Test to see which is the feature and which is the value
+  @if (helpers.breakpoint-string-value($first) == true) {
+    $feature: $first;
+    $value: $second;
+  }
+  @else if (helpers.breakpoint-string-value($second) == true) {
+    $feature: $second;
+    $value: $first;
+  }
+  @else {
+    @warn "Neither #{$first} nor #{$second} is a valid media query name.";
+  }
+
+  // Set Context
+  $context-setter: context.private-breakpoint-set-context($feature, $value);
+
+  @return '(#{$feature}: #{$value})';
+}

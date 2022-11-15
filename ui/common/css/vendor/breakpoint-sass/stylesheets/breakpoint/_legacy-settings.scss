@@ -1,0 +1,53 @@
+@use "sass:meta";
+@use "settings";
+
+@mixin legacy-settings-warning {
+  $legacyVars: (
+    'default-media': 'default media',
+    'default-feature': 'default feature',
+    'force-media-all': 'force all media type',
+    'to-ems': 'to ems',
+    'resolutions': 'transform resolutions',
+    'no-queries': 'no queries',
+    'no-query-fallbacks': 'no query fallbacks',
+    'base-font-size': 'base font size',
+    'legacy-syntax': 'legacy syntax'
+  );
+
+  @each $legacy, $new in $legacyVars {
+    @if meta.global-variable-exists('breakpoint-' + $legacy) {
+      @warn "In order to avoid variable namspace collisions, we have updated the way to change settings for Breakpoint. Please change all instances of `$breakpoint-#{$legacy}: {{setting}}` to `@include breakpoint-set('#{$new}', {{setting}})`. Variable settings, as well as this warning will be deprecated in a future release."
+    }
+  };
+
+  //////////////////////////////
+  // Hand correct each setting
+  //////////////////////////////
+  @if meta.global-variable-exists('breakpoint-default-media') and $breakpoint-default-media != settings.breakpoint-get('default media') {
+    @include settings.breakpoint-set('default media', $breakpoint-default-media);
+  }
+  @if meta.global-variable-exists('breakpoint-default-feature') and $breakpoint-default-feature != settings.breakpoint-get('default feature') {
+    @include settings.breakpoint-set('default feature', $breakpoint-default-feature);
+  }
+  @if meta.global-variable-exists('breakpoint-force-media-all') and $breakpoint-force-media-all != settings.breakpoint-get('force all media type') {
+    @include settings.breakpoint-set('force all media type', $breakpoint-force-media-all);
+  }
+  @if meta.global-variable-exists('breakpoint-to-ems') and $breakpoint-to-ems != settings.breakpoint-get('to ems') {
+    @include settings.breakpoint-set('to ems', $breakpoint-to-ems);
+  }
+  @if meta.global-variable-exists('breakpoint-resolutions') and $breakpoint-resolutions != settings.breakpoint-get('transform resolutions') {
+    @include settings.breakpoint-set('transform resolutions', $breakpoint-resolutions);
+  }
+  @if meta.global-variable-exists('breakpoint-no-queries') and $breakpoint-no-queries != settings.breakpoint-get('no queries') {
+    @include settings.breakpoint-set('no queries', $breakpoint-no-queries);
+  }
+  @if meta.global-variable-exists('breakpoint-no-query-fallbacks') and $breakpoint-no-query-fallbacks != settings.breakpoint-get('no query fallbacks') {
+    @include settings.breakpoint-set('no query fallbacks', $breakpoint-no-query-fallbacks);
+  }
+  @if meta.global-variable-exists('breakpoint-base-font-size') and $breakpoint-base-font-size != settings.breakpoint-get('base font size') {
+    @include settings.breakpoint-set('base font size', $breakpoint-base-font-size);
+  }
+  @if meta.global-variable-exists('breakpoint-legacy-syntax') and $breakpoint-legacy-syntax != settings.breakpoint-get('legacy syntax') {
+    @include settings.breakpoint-set('legacy syntax', $breakpoint-legacy-syntax);
+  }
+}
