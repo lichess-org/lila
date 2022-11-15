@@ -1,7 +1,6 @@
 package lila.memo
 
 import com.softwaremill.macwire.*
-import io.methvin.play.autoconfig.*
 import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.config.*
@@ -27,6 +26,7 @@ final class Env(
     ws: play.api.libs.ws.StandaloneWSClient
 )(using ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem):
 
+  import lila.common.AutoConfig.*
   given ConfigLoader[PicfitConfig] = AutoConfig.loader[PicfitConfig]
   private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 
