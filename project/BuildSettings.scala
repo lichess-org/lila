@@ -36,7 +36,8 @@ object BuildSettings {
       play.api,
       chess,
       scalalib,
-      jodaTime
+      jodaTime,
+      pureconfig
     )
 
   def module(

@@ -28,10 +28,11 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.1.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.85.Final" classifier s"$os-$arch"
-  val scalatest   = "org.scalatest"              %% "scalatest"    % "3.2.11" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"    % "0.14.0"
-  val apacheText  = "org.apache.commons"          % "commons-text" % "1.10.0"
-  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
+  val scalatest   = "org.scalatest"              %% "scalatest"       % "3.2.11" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"       % "0.14.0"
+  val apacheText  = "org.apache.commons"          % "commons-text"    % "1.10.0"
+  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"    % "0.13.1_lila-1"
+  val pureconfig  = "com.github.pureconfig"      %% "pureconfig-core" % "0.17.2"
 
   object specs2 {
     val version = "4.17.0"

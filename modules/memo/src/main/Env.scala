@@ -1,23 +1,22 @@
 package lila.memo
 
 import com.softwaremill.macwire.*
-import io.methvin.play.autoconfig.*
+import pureconfig._
+import pureconfig.generic.derivation.default._
 import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.config.*
+import com.typesafe.config.Config
 
-final class MemoConfig(
-    @ConfigName("collection.cache") val cacheColl: CollName,
-    @ConfigName("collection.config") val configColl: CollName,
-    val picfit: PicfitConfig
-)
+case class MemoCollectionConfig(cache: CollName, config: CollName) derives ConfigReader
+case class MemoConfig(collection: MemoCollectionConfig, picfit: PicfitConfig) derives ConfigReader
 
-final class PicfitConfig(
+case class PicfitConfig(
     val collection: CollName,
     val endpointGet: String,
     val endpointPost: String,
     val secretKey: Secret
-)
+) derives ConfigReader
 
 @Module
 final class Env(
@@ -27,8 +26,11 @@ final class Env(
     ws: play.api.libs.ws.StandaloneWSClient
 )(using ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem):
 
-  given ConfigLoader[PicfitConfig] = AutoConfig.loader[PicfitConfig]
-  private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
+  given [A](using ConfigReader[A]): ConfigLoader[A] with
+    def load(config: Config, path: String = ""): A =
+      summon[ConfigReader[A]].from(ConfigSource.fromConfig(config.getConfig(path)).config())
+
+  private val config = appConfig.get[MemoConfig]("memo")
 
   lazy val configStore = wire[ConfigStore.Builder]
 
