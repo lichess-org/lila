@@ -37,19 +37,6 @@ Compile / scalaSource       := baseDirectory.value / "app"
 Test / scalaSource          := baseDirectory.value / "test"
 Universal / sourceDirectory := baseDirectory.value / "dist"
 
-/* Required because:
-[error] stack trace is suppressed; run last update for the full output
-[error] (update) found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
-[error]
-[error] 	* org.scala-lang.modules:scala-xml_2.13:2.1.0 (early-semver) is selected over 1.2.0
-[error] 	    +- com.typesafe.play:twirl-api_2.13:1.6.0-M7          (depends on 2.1.0)
-[error] 	    +- org.specs2:specs2-common_2.13:4.8.1                (depends on 1.2.0)
-[error]
-[error]
-[error] this can be overridden using libraryDependencySchemes or evictionErrorLevel
- */
-evictionErrorLevel := Level.Warn
-
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, play.server, play.netty,
