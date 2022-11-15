@@ -89,10 +89,10 @@ private object BSONHandlers:
     def reads(r: lila.db.BSON.Reader)             = Streak(r.intD("r"), r.intD("s"))
     def writes(w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
 
-  private given Iso.StringIso[Learn.Stage] = Iso.string(Learn.apply.Stage, _.value)
+  private given Iso.StringIso[Learn.Stage] = Iso.string(Learn.Stage.apply, _.value)
   given BSONHandler[Learn]                 = typedMapHandler[Learn.Stage, Int].as(Learn.apply, _.value)
 
-  private given Iso.StringIso[Study.Id] = Iso.string(Study.apply.Id, _.value)
+  private given Iso.StringIso[Study.Id] = Iso.string(Study.Id.apply, _.value)
   given BSONHandler[Practice]           = typedMapHandler[Study.Id, Int].as[Practice](Practice.apply, _.value)
 
   given BSONHandler[SimulId] = BSONStringHandler.as(SimulId.apply, _.value)
