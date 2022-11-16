@@ -1,6 +1,5 @@
 package lila.swiss
 
-import com.softwaremill.tagging.*
 import reactivemongo.api.bson.*
 import scala.concurrent.duration.*
 
@@ -9,7 +8,7 @@ import lila.memo.CacheApi
 import lila.user.User
 
 final private class SwissRankingApi(
-    playerColl: Coll @@ PlayerColl,
+    mongo: SwissMongo,
     cacheApi: CacheApi
 )(using ec: scala.concurrent.ExecutionContext):
   import BsonHandlers.given
@@ -39,7 +38,7 @@ final private class SwissRankingApi(
 
   private def computeRanking(id: Swiss.Id): Fu[Ranking] =
     SwissPlayer.fields { f =>
-      playerColl.primitive[User.ID]($doc(f.swissId -> id), $sort desc f.score, f.userId)
+      mongo.player.primitive[User.ID]($doc(f.swissId -> id), $sort desc f.score, f.userId)
     } map {
       _.view.zipWithIndex
         .map { case (user, i) =>

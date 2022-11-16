@@ -2,7 +2,6 @@ package lila.tutor
 
 import akka.stream.scaladsl.*
 import chess.Color
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext, Future }
@@ -34,7 +33,7 @@ final private class TutorBuilder(
     perfStatsApi: InsightPerfStatsApi,
     userRepo: UserRepo,
     fishnet: TutorFishnet,
-    reportColl: Coll @@ ReportColl
+    reportColl: Coll
 )(using ec: ExecutionContext):
 
   import TutorBsonHandlers.given

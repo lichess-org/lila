@@ -1,7 +1,6 @@
 package lila.irwin
 
 import chess.Speed
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor
@@ -26,7 +25,7 @@ import lila.user.UserRepo
 import lila.report.SuspectId
 
 final class KaladinApi(
-    coll: AsyncColl @@ KaladinColl,
+    coll: AsyncColl,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: CacheApi,

@@ -58,7 +58,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     } yield response
   }
 
-  def help(@nowarn("cat=unused") sysStr: Option[String]) =
+  def help(sysStr: Option[String]) =
     Open { implicit ctx =>
       Ok(html.tournament.faq.page).toFuccess
     }

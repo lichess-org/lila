@@ -473,7 +473,7 @@ final class Auth(
       }
     }
 
-  def magicLinkSent(@nowarn("cat=unused") email: String) =
+  def magicLinkSent(email: String) =
     Open { implicit ctx =>
       fuccess {
         Ok(html.auth.bits.magicLinkSent)

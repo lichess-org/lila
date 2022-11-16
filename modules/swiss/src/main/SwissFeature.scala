@@ -2,7 +2,6 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import com.softwaremill.tagging.*
 import scala.concurrent.duration.*
 
 import lila.common.Heapsort
@@ -12,7 +11,7 @@ import lila.memo.CacheApi
 import lila.memo.CacheApi.*
 
 final class SwissFeature(
-    swissColl: Coll @@ SwissColl,
+    mongo: SwissMongo,
     cacheApi: CacheApi,
     swissCache: SwissCache
 )(using ec: scala.concurrent.ExecutionContext):
@@ -22,7 +21,7 @@ final class SwissFeature(
   val onHomepage = cacheApi.unit[Option[Swiss]] {
     _.refreshAfterWrite(1 minute)
       .buildAsyncFuture { _ =>
-        swissColl
+        mongo.swiss
           .find($doc("teamId" -> lichessTeamId, "startsAt" $gt DateTime.now.minusMinutes(10)))
           .sort($sort asc "startsAt")
           .one[Swiss]
@@ -41,7 +40,7 @@ final class SwissFeature(
 
   private def getForTeams(teams: Seq[TeamID]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).sequenceFu.dmap(_.flatten) flatMap { ids =>
-      swissColl.byStringIds[Swiss](ids.map(_.value), ReadPreference.secondaryPreferred)
+      mongo.swiss.byStringIds[Swiss](ids.map(_.value), ReadPreference.secondaryPreferred)
     } map {
       _.filter(_.isNotFinished).partition(_.isCreated) match
         case (created, started) =>
@@ -64,7 +63,7 @@ final class SwissFeature(
 
   // causes heavy team reads
   private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
-    swissColl
+    mongo.swiss
       .aggregateList(nb, ReadPreference.secondaryPreferred) { framework =>
         import framework.*
         Match(

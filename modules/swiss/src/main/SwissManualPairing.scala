@@ -1,12 +1,10 @@
 package lila.swiss
 
-import com.softwaremill.tagging.*
-
 import lila.db.dsl.{ *, given }
 import lila.swiss.BsonHandlers.given
 import lila.user.User
 
-final private class SwissManualPairing(playerColl: Coll @@ PlayerColl)(using
+final private class SwissManualPairing(mongo: SwissMongo)(using
     ec: scala.concurrent.ExecutionContext
 ):
 
@@ -14,7 +12,7 @@ final private class SwissManualPairing(playerColl: Coll @@ PlayerColl)(using
     swiss.settings.manualPairings.some.filter(_.nonEmpty) map { str =>
       SwissPlayer.fields { p =>
         val selectPresentPlayers = $doc(p.swissId -> swiss.id, p.absent $ne true)
-        playerColl.distinctEasy[User.ID, Set](p.userId, selectPresentPlayers) map { presentUserIds =>
+        mongo.player.distinctEasy[User.ID, Set](p.userId, selectPresentPlayers) map { presentUserIds =>
           val pairings = str.linesIterator.flatMap {
             _.trim.toLowerCase.split(' ').map(_.trim) match
               case Array(u1, u2) if presentUserIds(u1) && presentUserIds(u2) && u1 != u2 =>

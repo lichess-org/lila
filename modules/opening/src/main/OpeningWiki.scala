@@ -1,7 +1,6 @@
 package lila.opening
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
@@ -22,7 +21,7 @@ case class OpeningWiki(
   def markupForMove(move: String): Option[String] =
     markup map OpeningWiki.filterMarkupForMove(move)
 
-final class OpeningWikiApi(coll: Coll @@ WikiColl, explorer: OpeningExplorer, cacheApi: CacheApi)(using
+final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using
     ec: ExecutionContext
 ):
 

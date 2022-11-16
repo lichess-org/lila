@@ -22,7 +22,7 @@ final class Env(
 )(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
-  private lazy val wikiColl    = db(CollName("opening_wiki")).taggedWith[WikiColl]
+  private lazy val wikiColl    = db(CollName("opening_wiki"))
 
   private lazy val explorer = wire[OpeningExplorer]
 
@@ -35,4 +35,3 @@ final class Env(
   lazy val search = wire[OpeningSearch]
 
 trait ExplorerEndpoint
-private trait WikiColl

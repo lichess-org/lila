@@ -2,14 +2,13 @@ package lila.swiss
 
 import reactivemongo.api.ReadPreference
 import scala.concurrent.ExecutionContext
-import com.softwaremill.tagging.*
 
 import lila.common.config
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 
-final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(using ec: ExecutionContext):
+final class SwissRoundPager(mongo: SwissMongo)(using ec: ExecutionContext):
 
   import BsonHandlers.given
 
@@ -18,7 +17,7 @@ final class SwissRoundPager(pairingColl: Coll @@ PairingColl)(using ec: Executio
   def apply(swiss: Swiss, round: SwissRound.Number, page: Int): Fu[Paginator[SwissPairing]] =
     Paginator(
       adapter = new Adapter[SwissPairing](
-        collection = pairingColl,
+        collection = mongo.pairing,
         selector = SwissPairing.fields { f =>
           $doc(f.swissId -> swiss.id, f.round -> round)
         },

@@ -1,7 +1,6 @@
 package lila.swiss
 
 import org.joda.time.DateTime
-import com.softwaremill.tagging.*
 import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
@@ -10,7 +9,7 @@ import lila.memo.*
 import lila.memo.CacheApi.*
 
 final class SwissCache(
-    swissColl: Coll @@ SwissColl,
+    mongo: SwissMongo,
     cacheApi: CacheApi
 )(using ec: scala.concurrent.ExecutionContext):
 
@@ -20,7 +19,7 @@ final class SwissCache(
 
     private val cache = cacheApi[Swiss.Id, Option[Swiss]](512, "swiss.swiss") {
       _.expireAfterWrite(1 second)
-        .buildAsyncFuture(id => swissColl.byId[Swiss](id.value))
+        .buildAsyncFuture(id => mongo.swiss.byId[Swiss](id.value))
     }
     def clear(id: Swiss.Id) = cache invalidate id
 
@@ -32,7 +31,7 @@ final class SwissCache(
   val name = cacheApi.sync[Swiss.Id, Option[String]](
     name = "swiss.name",
     initialCapacity = 4096,
-    compute = id => swissColl.primitiveOne[String]($id(id), "name"),
+    compute = id => mongo.swiss.primitiveOne[String]($id(id), "name"),
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(20 minutes)
@@ -41,7 +40,7 @@ final class SwissCache(
   val roundInfo = cacheApi[Swiss.Id, Option[Swiss.RoundInfo]](32, "swiss.roundInfo") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture { id =>
-        swissColl.byId[Swiss](id.value).map2(_.roundInfo)
+        mongo.swiss.byId[Swiss](id.value).map2(_.roundInfo)
       }
   }
 
@@ -49,13 +48,13 @@ final class SwissCache(
     private val compute = (teamId: TeamID) => {
       val max = 5
       for {
-        enterable <- swissColl.primitive[Swiss.Id](
+        enterable <- mongo.swiss.primitive[Swiss.Id](
           $doc("teamId" -> teamId, "finishedAt" $exists false),
           $sort asc "startsAt",
           nb = max,
           "_id"
         )
-        finished <- swissColl.primitive[Swiss.Id](
+        finished <- mongo.swiss.primitive[Swiss.Id](
           $doc("teamId" -> teamId, "finishedAt" $exists true),
           $sort desc "startsAt",
           nb = max - enterable.size,

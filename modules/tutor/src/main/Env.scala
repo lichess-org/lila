@@ -27,8 +27,7 @@ final class Env(
     mat: akka.stream.Materializer
 ):
 
-  private val reportColl = db(config.CollName("tutor_report")).taggedWith[ReportColl]
-  private val queueColl  = db(config.CollName("tutor_queue")).taggedWith[QueueColl]
+  private val reportColl = db(config.CollName("tutor_report"))
 
   lazy val nbAnalysisSetting = settingStore[Int](
     "tutorNbAnalysis",
@@ -38,7 +37,8 @@ final class Env(
 
   private lazy val fishnet = wire[TutorFishnet]
   private lazy val builder = wire[TutorBuilder]
-  private lazy val queue   = wire[TutorQueue]
+  private lazy val queue =
+    TutorQueue(reportColl = reportColl, queueColl = db(config.CollName("tutor_queue")), cacheApi = cacheApi)
 
   lazy val api = wire[TutorApi]
 

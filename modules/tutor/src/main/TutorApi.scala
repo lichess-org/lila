@@ -1,6 +1,5 @@
 package lila.tutor
 
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import play.api.Mode
 import scala.concurrent.duration.*
@@ -13,7 +12,7 @@ import lila.user.User
 final class TutorApi(
     queue: TutorQueue,
     builder: TutorBuilder,
-    reportColl: Coll @@ ReportColl,
+    reportColl: Coll,
     cacheApi: CacheApi
 )(using
     ec: scala.concurrent.ExecutionContext,

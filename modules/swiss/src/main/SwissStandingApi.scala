@@ -1,6 +1,5 @@
 package lila.swiss
 
-import com.softwaremill.tagging.*
 import play.api.libs.json.*
 import scala.concurrent.duration.*
 
@@ -14,9 +13,7 @@ import lila.db.dsl.{ *, given }
  * overloading mongodb.
  */
 final class SwissStandingApi(
-    swissColl: Coll @@ SwissColl,
-    playerColl: Coll @@ PlayerColl,
-    pairingColl: Coll @@ PairingColl,
+    mongo: SwissMongo,
     pairingSystem: PairingSystem,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
@@ -76,13 +73,13 @@ final class SwissStandingApi(
   }
 
   private def compute(id: Swiss.Id, page: Int): Fu[JsObject] =
-    swissColl.byId[Swiss](id.value) orFail s"No such tournament: $id" flatMap { compute(_, page) }
+    mongo.swiss.byId[Swiss](id.value) orFail s"No such tournament: $id" flatMap { compute(_, page) }
 
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for {
       rankedPlayers <- bestWithRankByPage(swiss.id, perPage, page atLeast 1)
       pairings <- !swiss.isCreated ?? SwissPairing.fields { f =>
-        pairingColl
+        mongo.pairing
           .find($doc(f.swissId -> swiss.id, f.players $in rankedPlayers.map(_.player.userId)))
           .sort($sort asc f.round)
           .cursor[SwissPairing]()
@@ -124,7 +121,7 @@ final class SwissStandingApi(
 
   private def best(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer]] =
     SwissPlayer.fields { f =>
-      playerColl
+      mongo.player
         .find($doc(f.swissId -> id))
         .sort($sort desc f.score)
         .skip(skip)

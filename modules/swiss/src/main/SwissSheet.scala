@@ -2,7 +2,6 @@ package lila.swiss
 
 import akka.stream.scaladsl.*
 import BsonHandlers.given
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
@@ -66,8 +65,7 @@ private object SwissSheet:
       }
     }
 
-
-final private class SwissSheetApi(playerColl: Coll @@ PlayerColl, pairingColl: Coll @@ PairingColl)(using
+final private class SwissSheetApi(mongo: SwissMongo)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ):
@@ -82,13 +80,13 @@ final private class SwissSheetApi(playerColl: Coll @@ PlayerColl, pairingColl: C
       else ReadPreference.primary
     SwissPlayer
       .fields { f =>
-        playerColl.find($doc(f.swissId -> swiss.id)).sort(sort)
+        mongo.player.find($doc(f.swissId -> swiss.id)).sort(sort)
       }
       .cursor[SwissPlayer](readPreference)
       .documentSource()
       .mapAsync(4) { player =>
         SwissPairing.fields { f =>
-          pairingColl.list[SwissPairing](
+          mongo.pairing.list[SwissPairing](
             $doc(f.swissId -> swiss.id, f.players -> player.userId),
             readPreference
           ) dmap { player -> _ }

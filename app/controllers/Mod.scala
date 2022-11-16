@@ -637,6 +637,6 @@ final class Mod(
 
   private def actionResult(
       username: String
-  )(ctx: Context)(@nowarn("cat=unused") user: Holder)(@nowarn("cat=unused") res: Any) =
+  )(ctx: Context)(user: Holder)(res: Any) =
     if (HTTPRequest isSynchronousHttp ctx.req) fuccess(redirect(username))
     else userC.renderModZoneActions(username)(ctx)

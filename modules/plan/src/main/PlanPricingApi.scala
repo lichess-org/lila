@@ -42,7 +42,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using ec: ExecutionContext)
         min      <- convertAndRound(usdPricing.min, currency)
         max      <- convertAndRound(usdPricing.max, currency)
         lifetime <- convertAndRound(usdPricing.lifetime, currency)
-      } yield (suggestions, min, max, lifetime).mapN(PlanPricing)
+      } yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 

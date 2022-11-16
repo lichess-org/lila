@@ -2,7 +2,6 @@ package lila.swiss
 
 import akka.stream.scaladsl.*
 import alleycats.Zero
-import com.softwaremill.tagging.*
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import org.joda.time.DateTime
@@ -22,9 +21,7 @@ import lila.round.actorApi.round.QuietFlag
 import lila.user.{ User, UserRepo }
 
 final class SwissApi(
-    swissColl: Coll @@ SwissColl,
-    playerColl: Coll @@ PlayerColl,
-    pairingColl: Coll @@ PairingColl,
+    mongo: SwissMongo,
     pairingSystem: PairingSystem,
     cache: SwissCache,
     userRepo: UserRepo,
@@ -55,7 +52,7 @@ final class SwissApi(
 
   import BsonHandlers.{ *, given }
 
-  def fetchByIdNoCache(id: Swiss.Id) = swissColl.byId[Swiss](id.value)
+  def fetchByIdNoCache(id: Swiss.Id) = mongo.swiss.byId[Swiss](id.value)
 
   def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] =
     val swiss = Swiss(
@@ -86,7 +83,7 @@ final class SwissApi(
         manualPairings = ~data.manualPairings
       )
     )
-    swissColl.insert.one(addFeaturable(swiss)) >>-
+    mongo.swiss.insert.one(addFeaturable(swiss)) >>-
       cache.featuredInTeam.invalidate(swiss.teamId) inject swiss
 
   def update(swissId: Swiss.Id, data: SwissForm.SwissData): Fu[Option[Swiss]] =
@@ -126,7 +123,7 @@ final class SwissApi(
             s.copy(nextRoundAt = none)
           else s
         }
-      swissColl.update.one($id(old.id), addFeaturable(swiss)).void >> {
+      mongo.swiss.update.one($id(old.id), addFeaturable(swiss)).void >> {
         (swiss.perfType != old.perfType) ?? recomputePlayerRatings(swiss)
       } >>- {
         cache.swissCache clear swiss.id
@@ -138,7 +135,7 @@ final class SwissApi(
   private def recomputePlayerRatings(swiss: Swiss): Funit = for {
     ranking <- rankingApi(swiss)
     perfs   <- userRepo.perfOf(ranking.keys, swiss.perfType)
-    update = playerColl.update(ordered = false)
+    update = mongo.player.update(ordered = false)
     elements <- perfs.map { case (userId, perf) =>
       update.element(
         q = $id(SwissPlayer.makeId(swiss.id, userId)),
@@ -154,9 +151,9 @@ final class SwissApi(
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
     Sequencing(swiss.id)(cache.swissCache.notFinishedById) { old =>
       old.settings.manualRounds ?? {
-        if (old.isCreated) swissColl.updateField($id(old.id), "startsAt", date).void
+        if (old.isCreated) mongo.swiss.updateField($id(old.id), "startsAt", date).void
         else if (old.isStarted && old.nbOngoing == 0)
-          swissColl.updateField($id(old.id), "nextRoundAt", date).void >>- {
+          mongo.swiss.updateField($id(old.id), "nextRoundAt", date).void >>- {
             val show = org.joda.time.format.DateTimeFormat.forStyle("MS") print date
             systemChat(swiss.id, s"Round ${swiss.round.value + 1} scheduled at $show UTC")
           }
@@ -179,13 +176,13 @@ final class SwissApi(
           MessageDigest.isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
         ) && isInTeam(swiss.teamId)
       )
-        playerColl // try a rejoin first
+        mongo.player // try a rejoin first
           .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
           .flatMap { rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
               verify(swiss, me).dmap(_.accepted && swiss.isEnterable) >>& {
-                playerColl.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
-                  swissColl.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) >>-
+                mongo.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
+                  mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) >>-
                   cache.swissCache.clear(swiss.id) inject true
               }
             }
@@ -201,7 +198,7 @@ final class SwissApi(
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Source[Game.ID, ?] =
     SwissPairing.fields { f =>
-      pairingColl
+      mongo.pairing
         .find($doc(f.swissId -> swissId), $id(true).some)
         .sort($sort asc f.round)
         .batchSize(batchSize)
@@ -212,19 +209,19 @@ final class SwissApi(
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
     cache.featuredInTeam.get(teamId) flatMap { ids =>
-      swissColl.byOrderedIds[Swiss, Swiss.Id](ids)(_.id)
+      mongo.swiss.byOrderedIds[Swiss, Swiss.Id](ids)(_.id)
     }
 
   def visibleByTeam(teamId: TeamID, nbPast: Int, nbSoon: Int): Fu[Swiss.PastAndNext] =
     (nbPast > 0).?? {
-      swissColl
+      mongo.swiss
         .find($doc("teamId" -> teamId, "finishedAt" $exists true))
         .sort($sort desc "startsAt")
         .cursor[Swiss]()
         .list(nbPast)
     } zip
       (nbSoon > 0).?? {
-        swissColl
+        mongo.swiss
           .find(
             $doc("teamId" -> teamId, "startsAt" $gt DateTime.now.minusWeeks(2), "finishedAt" $exists false)
           )
@@ -237,10 +234,10 @@ final class SwissApi(
   def playerInfo(swiss: Swiss, userId: User.ID): Fu[Option[SwissPlayer.ViewExt]] =
     userRepo named userId flatMap {
       _ ?? { user =>
-        playerColl.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMap {
+        mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMap {
           _ ?? { player =>
             SwissPairing.fields { f =>
-              pairingColl
+              mongo.pairing
                 .find($doc(f.swissId -> swiss.id, f.players -> player.userId))
                 .sort($sort asc f.round)
                 .cursor[SwissPairing]()
@@ -249,7 +246,7 @@ final class SwissApi(
               pairingViews(_, player)
             } flatMap { pairings =>
               SwissPlayer.fields { f =>
-                playerColl.countSel($doc(f.swissId -> swiss.id, f.score $gt player.score)).dmap(1.+)
+                mongo.player.countSel($doc(f.swissId -> swiss.id, f.score $gt player.score)).dmap(1.+)
               } map { rank =>
                 val pairingMap = pairings.view.map { p =>
                   p.pairing.round -> p
@@ -272,7 +269,7 @@ final class SwissApi(
 
   def pairingViews(pairings: Seq[SwissPairing], player: SwissPlayer): Fu[Seq[SwissPairing.View]] =
     pairings.headOption ?? { first =>
-      playerColl
+      mongo.player
         .list[SwissPlayer]($inIds(pairings.map(_ opponentOf player.userId).map {
           SwissPlayer.makeId(first.swissId, _)
         }))
@@ -294,7 +291,7 @@ final class SwissApi(
   def searchPlayers(id: Swiss.Id, term: String, nb: Int): Fu[List[User.ID]] =
     User.validateId(term) ?? { valid =>
       SwissPlayer.fields { f =>
-        playerColl.primitive[User.ID](
+        mongo.player.primitive[User.ID](
           selector = $doc(
             f.swissId -> id,
             f.userId $startsWith valid
@@ -343,14 +340,14 @@ final class SwissApi(
       .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 
   def joinedPlayableSwissIds(userId: User.ID, teamIds: List[TeamID]): Fu[List[Swiss.Id]] =
-    swissColl
+    mongo.swiss
       .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
         import framework.*
         Match($doc("teamId" $in teamIds, "featurable" -> true)) -> List(
           PipelineOperator(
             $lookup.pipeline(
               as = "player",
-              from = playerColl.name,
+              from = mongo.player.name,
               local = "_id",
               foreign = "s",
               pipe = List($doc("$match" -> $doc("u" -> userId)))
@@ -371,12 +368,12 @@ final class SwissApi(
       SwissPlayer.fields { f =>
         val selId = $id(SwissPlayer.makeId(swiss.id, userId))
         if (swiss.isStarted)
-          playerColl.updateField(selId, f.absent, true) >>
+          mongo.player.updateField(selId, f.absent, true) >>
             forfeit.?? { forfeitPairings(swiss, userId) }
         else
-          playerColl.delete.one(selId) flatMap { res =>
+          mongo.player.delete.one(selId) flatMap { res =>
             (res.n == 1) ?? {
-              swissColl.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void >>-
+              mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void >>-
                 cache.swissCache.clear(swiss.id)
             }
           }
@@ -385,12 +382,12 @@ final class SwissApi(
 
   private def forfeitPairings(swiss: Swiss, userId: User.ID): Funit =
     SwissPairing.fields { F =>
-      pairingColl
+      mongo.pairing
         .list[SwissPairing]($doc(F.swissId -> swiss.id, F.players -> userId))
         .flatMap {
           _.filter(p => p.isDraw || p.winner.has(userId))
             .map { pairing =>
-              pairingColl.update.one($id(pairing.id), pairing forfeit userId)
+              mongo.pairing.update.one($id(pairing.id), pairing forfeit userId)
             }
             .sequenceFu
             .void
@@ -402,9 +399,9 @@ final class SwissApi(
       Sequencing(swissId)(cache.swissCache.byId) { swiss =>
         if (!swiss.isStarted)
           logger.info(s"Removing pairing ${game.id} finished after swiss ${swiss.id}")
-          pairingColl.delete.one($id(game.id)) inject false
+          mongo.pairing.delete.one($id(game.id)) inject false
         else
-          pairingColl
+          mongo.pairing
             .updateField(
               $id(game.id),
               SwissPairing.Fields.status,
@@ -415,7 +412,7 @@ final class SwissApi(
               else
                 {
                   if (swiss.nbOngoing > 0)
-                    swissColl.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
+                    mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
                   else
                     fuccess {
                       logger.warn(s"swiss ${swiss.id} nbOngoing = ${swiss.nbOngoing}")
@@ -423,7 +420,7 @@ final class SwissApi(
                 } >>
                   game.playerWhoDidNotMove.flatMap(_.userId).?? { absent =>
                     SwissPlayer.fields { f =>
-                      playerColl
+                      mongo.player
                         .updateField($doc(f.swissId -> swiss.id, f.userId -> absent), f.absent, true)
                         .void
                     }
@@ -434,7 +431,7 @@ final class SwissApi(
                         systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
                       }
                       else
-                        swissColl
+                        mongo.swiss
                           .updateField(
                             $id(swiss.id),
                             "nextRoundAt",
@@ -456,15 +453,15 @@ final class SwissApi(
     }
 
   private[swiss] def destroy(swiss: Swiss): Funit =
-    swissColl.delete.one($id(swiss.id)) >>
-      pairingColl.delete.one($doc(SwissPairing.Fields.swissId -> swiss.id)) >>
-      playerColl.delete.one($doc(SwissPairing.Fields.swissId -> swiss.id)).void >>-
+    mongo.swiss.delete.one($id(swiss.id)) >>
+      mongo.pairing.delete.one($doc(SwissPairing.Fields.swissId -> swiss.id)) >>
+      mongo.player.delete.one($doc(SwissPairing.Fields.swissId -> swiss.id)).void >>-
       cache.swissCache.clear(swiss.id) >>-
       socket.reload(swiss.id)
 
   private[swiss] def finish(oldSwiss: Swiss): Funit =
     Sequencing(oldSwiss.id)(cache.swissCache.startedById) { swiss =>
-      pairingColl.exists($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
+      mongo.pairing.exists($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
         if (_) doFinish(swiss)
         else destroy(swiss)
       }
@@ -472,10 +469,10 @@ final class SwissApi(
   private def doFinish(swiss: Swiss): Funit =
     SwissPlayer
       .fields { f =>
-        playerColl.primitiveOne[User.ID]($doc(f.swissId -> swiss.id), $sort desc f.score, f.userId)
+        mongo.player.primitiveOne[User.ID]($doc(f.swissId -> swiss.id), $sort desc f.score, f.userId)
       }
       .flatMap { winnerUserId =>
-        swissColl.update
+        mongo.swiss.update
           .one(
             $id(swiss.id),
             $unset("nextRoundAt", "lastRoundAt", "featurable") ++ $set(
@@ -486,7 +483,7 @@ final class SwissApi(
           )
           .void zip
           SwissPairing.fields { f =>
-            pairingColl.delete.one($doc(f.swissId -> swiss.id, f.status -> true)) map { res =>
+            mongo.pairing.delete.one($doc(f.swissId -> swiss.id, f.status -> true)) map { res =>
               if (res.n > 0) logger.warn(s"Swiss ${swiss.id} finished with ${res.n} ongoing pairings")
             }
           } void
@@ -518,13 +515,13 @@ final class SwissApi(
   def roundInfo = cache.roundInfo.get
 
   def byTeamCursor(teamId: TeamID) =
-    swissColl
+    mongo.swiss
       .find($doc("teamId" -> teamId))
       .sort($sort desc "startsAt")
       .cursor[Swiss]()
 
   def teamOf(id: Swiss.Id): Fu[Option[TeamID]] =
-    swissColl.primitiveOne[TeamID]($id(id), "teamId")
+    mongo.swiss.primitiveOne[TeamID]($id(id), "teamId")
 
   private def recomputeAndUpdateAll(id: Swiss.Id): Funit =
     scoring(id).flatMap {
@@ -537,7 +534,7 @@ final class SwissApi(
     }
 
   private[swiss] def startPendingRounds: Funit =
-    swissColl
+    mongo.swiss
       .find($doc("nextRoundAt" $lt DateTime.now), $id(true).some)
       .cursor[Bdoc]()
       .list(10)
@@ -562,7 +559,7 @@ final class SwissApi(
                         funit
                       case s =>
                         systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
-                        swissColl.update
+                        mongo.swiss.update
                           .one($id(s.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
                           .void
                     }
@@ -571,7 +568,7 @@ final class SwissApi(
             else if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
             else
               systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
-              swissColl.update
+              mongo.swiss.update
                 .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(121)))
                 .void >>- cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
@@ -580,13 +577,13 @@ final class SwissApi(
       .monSuccess(_.swiss.tick)
 
   private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields { f =>
-    playerColl.countSel($doc(f.swissId -> swiss.id, f.absent $ne true))
+    mongo.player.countSel($doc(f.swissId -> swiss.id, f.absent $ne true))
   }
 
   private[swiss] def checkOngoingGames: Funit =
     SwissPairing
       .fields { f =>
-        pairingColl
+        mongo.pairing
           .aggregateList(100) { framework =>
             import framework.*
             Match($doc(f.status -> SwissPairing.ongoing)) -> List(
@@ -618,7 +615,7 @@ final class SwissApi(
               if (flagged.nonEmpty)
                 Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
               if (missingIds.nonEmpty)
-                pairingColl.delete.one($inIds(missingIds))
+                mongo.pairing.delete.one($inIds(missingIds))
               finished
             }
           } flatMap {
@@ -631,13 +628,13 @@ final class SwissApi(
     chatApi.userChat.service(Chat.Id(id.value), text, _.Swiss, isVolatile = volatile)
 
   def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
-    swissColl
+    mongo.swiss
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*
         Match($doc("finishedAt" $exists false, "nbPlayers" $gt 0, "teamId" $in teamIds)) -> List(
           PipelineOperator(
             $lookup.pipelineFull(
-              from = playerColl.name,
+              from = mongo.player.name,
               let = $doc("s" -> "$_id"),
               as = "player",
               pipe = List(
@@ -662,13 +659,13 @@ final class SwissApi(
       }
 
   def isUnfinished(id: Swiss.Id): Fu[Boolean] =
-    swissColl.exists($id(id) ++ $doc("finishedAt" $exists false))
+    mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false))
 
   def filterPlaying(id: Swiss.Id, userIds: Seq[User.ID]): Fu[List[User.ID]] =
     userIds.nonEmpty ??
-      swissColl.exists($id(id) ++ $doc("finishedAt" $exists false)) flatMap {
+      mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false)) flatMap {
         _ ?? SwissPlayer.fields { f =>
-          playerColl.distinctEasy[User.ID, List](
+          mongo.player.distinctEasy[User.ID, List](
             f.userId,
             $doc(
               f.id $in userIds.map(SwissPlayer.makeId(id, _)),
@@ -680,7 +677,7 @@ final class SwissApi(
 
   def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[SwissPlayer.WithRank, ?] =
     SwissPlayer.fields { f =>
-      playerColl
+      mongo.player
         .find($doc(f.swissId -> swiss.id))
         .sort($sort desc f.score)
         .batchSize(perSecond.value)
@@ -696,7 +693,7 @@ final class SwissApi(
   private val idNameProjection = $doc("name" -> true)
 
   def idNames(ids: List[Swiss.Id]): Fu[List[Swiss.IdName]] =
-    swissColl.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().listAll()
+    mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().listAll()
 
   private def Sequencing[A <: Matchable: Zero](
       id: Swiss.Id

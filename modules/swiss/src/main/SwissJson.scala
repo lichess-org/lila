@@ -1,6 +1,5 @@
 package lila.swiss
 
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -15,9 +14,7 @@ import lila.socket.Socket.SocketVersion
 import lila.user.{ User, UserRepo }
 
 final class SwissJson(
-    swissColl: Coll @@ SwissColl,
-    playerColl: Coll @@ PlayerColl,
-    pairingColl: Coll @@ PairingColl,
+    mongo: SwissMongo,
     pairingSystem: PairingSystem,
     standingApi: SwissStandingApi,
     rankingApi: SwissRankingApi,
@@ -77,13 +74,13 @@ final class SwissJson(
   }.monSuccess(_.swiss.json)
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
-    playerColl.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
+    mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
       _ ?? { player =>
         updatePlayerRating(swiss, player, me) >>
           SwissPairing.fields { f =>
             (swiss.nbOngoing > 0)
               .?? {
-                pairingColl
+                mongo.pairing
                   .find(
                     $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
                     $doc(f.id -> true).some
@@ -106,7 +103,7 @@ final class SwissJson(
       .filter(_.intRating != player.rating)
       .?? { perf =>
         SwissPlayer.fields { f =>
-          playerColl.update
+          mongo.player.update
             .one(
               $id(SwissPlayer.makeId(swiss.id, user.id)),
               $set(f.rating -> perf.intRating)
@@ -118,7 +115,7 @@ final class SwissJson(
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
     swiss.isFinished ?? {
       SwissPlayer.fields { f =>
-        playerColl
+        mongo.player
           .find($doc(f.swissId -> swiss.id))
           .sort($sort desc f.score)
           .cursor[SwissPlayer]()
@@ -128,7 +125,7 @@ final class SwissJson(
             .map(_.userId)
             .filter(w => swiss.winnerId.fold(true)(w !=))
             .foreach {
-              swissColl.updateField($id(swiss.id), "winnerId", _).void
+              mongo.swiss.updateField($id(swiss.id), "winnerId", _).void
             }
             .unit
           userRepo.filterLame(top3.map(_.userId)) map { lame =>

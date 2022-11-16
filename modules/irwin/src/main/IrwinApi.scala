@@ -1,6 +1,5 @@
 package lila.irwin
 
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
@@ -15,7 +14,7 @@ import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ Holder, User, UserRepo }
 
 final class IrwinApi(
-    reportColl: Coll @@ IrwinColl,
+    reportColl: Coll,
     gameRepo: GameRepo,
     userRepo: UserRepo,
     analysisRepo: AnalysisRepo,

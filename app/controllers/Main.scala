@@ -201,7 +201,7 @@ Allow: /
         }
     }
 
-  def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) =
+  def legacyQaQuestion(id: Int, slug: String) =
     Open { _ =>
       MovedPermanently {
         val faq = routes.Main.faq.url
@@ -227,4 +227,4 @@ Allow: /
       }.toFuccess
     }
 
-  def devAsset(@nowarn("cat=unused") v: String, path: String, file: String) = assetsC.at(path, file)
+  def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)

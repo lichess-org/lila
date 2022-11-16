@@ -2,7 +2,6 @@ package lila.plan
 
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.*
-import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration.*
@@ -10,6 +9,7 @@ import scala.concurrent.duration.*
 import lila.common.config.*
 import lila.common.Strings
 import lila.memo.SettingStore.Strings.given
+import lila.db.dsl.Coll
 
 @Module
 private class PlanConfig(
@@ -55,8 +55,10 @@ final class Env(
     text = "Stripe payment methods, separated by commas".some
   )
 
-  private lazy val patronColl = db(config.patronColl).taggedWith[PatronColl]
-  private lazy val chargeColl = db(config.chargeColl).taggedWith[ChargeColl]
+  private lazy val mongo = PlanMongo(
+    patron = db(config.patronColl),
+    charge = db(config.chargeColl)
+  )
 
   lazy val stripePaymentMethods: StripePaymentMethods = wire[StripePaymentMethods]
 
@@ -74,7 +76,7 @@ final class Env(
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
     getGoal = () => Usd(donationGoalSetting.get()),
-    chargeColl = chargeColl
+    chargeColl = mongo.charge
   )
 
   lazy val api: PlanApi = wire[PlanApi]
@@ -83,7 +85,7 @@ final class Env(
 
   private lazy val expiration = new Expiration(
     userRepo,
-    patronColl,
+    mongo.patron,
     notifier
   )
 
@@ -105,5 +107,4 @@ final class Env(
         case "patron" :: "remove" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.remove } inject "ok"
 
-private trait PatronColl
-private trait ChargeColl
+final private class PlanMongo(val patron: Coll, val charge: Coll)

@@ -1,7 +1,6 @@
 package lila.swiss
 
 import akka.stream.scaladsl.*
-import com.softwaremill.tagging.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -10,7 +9,7 @@ import lila.user.User
 // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
 final class SwissTrf(
     sheetApi: SwissSheetApi,
-    playerColl: Coll @@ PlayerColl,
+    mongo: SwissMongo,
     baseUrl: lila.common.config.BaseUrl
 )(using ec: scala.concurrent.ExecutionContext):
 
@@ -98,7 +97,7 @@ final class SwissTrf(
     SwissPlayer
       .fields { p =>
         import BsonHandlers.given
-        playerColl
+        mongo.player
           .aggregateOne() { framework =>
             import framework.*
             Match($doc(p.swissId -> swiss.id)) -> List(

@@ -8,6 +8,8 @@ import scala.concurrent.duration.*
 import lila.common.config.*
 import lila.report.Suspect
 import lila.tournament.TournamentApi
+import lila.db.dsl.Coll
+import lila.db.AsyncColl
 
 final class Env(
     appConfig: Configuration,
@@ -29,15 +31,15 @@ final class Env(
     scheduler: akka.actor.Scheduler
 ):
 
-  private lazy val irwinReportColl = db(CollName("irwin_report")).taggedWith[IrwinColl]
-
   lazy val irwinStream = wire[IrwinStream]
 
-  val irwinApi = wire[IrwinApi]
+  val irwinApi =
+    def mk = (coll: Coll) => wire[IrwinApi]
+    mk(db(CollName("irwin_report")))
 
-  private lazy val kaladinColl = insightDb(CollName("kaladin_queue")).taggedWith[KaladinColl]
-
-  val kaladinApi = wire[KaladinApi]
+  val kaladinApi =
+    def mk = (coll: AsyncColl) => wire[KaladinApi]
+    mk(insightDb(CollName("kaladin_queue")))
 
   if (appConfig.get[Boolean]("kaladin.enabled"))
 
@@ -71,6 +73,3 @@ final class Env(
     scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       kaladinApi.monitorQueued.unit
     }
-
-trait IrwinColl
-trait KaladinColl

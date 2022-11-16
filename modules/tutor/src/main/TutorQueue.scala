@@ -1,6 +1,5 @@
 package lila.tutor
 
-import com.softwaremill.tagging.*
 import org.joda.time.DateTime
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -13,8 +12,8 @@ import lila.memo.CacheApi
 import lila.user.User
 
 final private class TutorQueue(
-    reportColl: Coll @@ ReportColl,
-    queueColl: Coll @@ QueueColl,
+    reportColl: Coll,
+    queueColl: Coll,
     cacheApi: CacheApi
 )(using ec: ExecutionContext, scheduler: akka.actor.Scheduler):
 

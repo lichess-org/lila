@@ -45,7 +45,7 @@ final class Challenge(
       }
     }
 
-  def show(id: String, @nowarn("cat=unused") _color: Option[String]) =
+  def show(id: String, _color: Option[String]) =
     Open { implicit ctx =>
       showId(id)
     }
@@ -57,9 +57,7 @@ final class Challenge(
       c: ChallengeModel,
       error: Option[String] = None,
       justCreated: Boolean = false
-  )(using
-      ctx: Context
-  ): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     env.challenge version c.id flatMap { version =>
       val mine = justCreated || isMine(c)
       import lila.challenge.Direction
