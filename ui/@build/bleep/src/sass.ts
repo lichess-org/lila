@@ -66,7 +66,7 @@ async function buildThemedScss() {
   }
 }
 
-const params = ['--no-error-css', '--embed-sources', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+const params = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
 
 function sassBuild(sources: string[], tellTheWorld = true) {
   if (tellTheWorld) {
