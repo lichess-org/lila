@@ -1,6 +1,5 @@
 package lila.rating
 
-import org.goochjs.glicko2.*
 import org.joda.time.DateTime
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
 
@@ -92,7 +91,7 @@ case object Glicko:
   val maxRatingDelta = 700
 
   val tau    = 0.75d
-  val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
+  val system = glicko2.RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
     system.previewDeviation(p.toRating, new DateTime, reverse)

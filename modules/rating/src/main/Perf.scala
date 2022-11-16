@@ -1,6 +1,5 @@
 package lila.rating
 
-import org.goochjs.glicko2.Rating
 import org.joda.time.DateTime
 import reactivemongo.api.bson.{ BSONDocument, Macros }
 
@@ -32,17 +31,17 @@ case class Perf(
       latest = date.some
     )
 
-  def add(r: Rating, date: DateTime): Option[Perf] =
+  def add(r: glicko2.Rating, date: DateTime): Option[Perf] =
     val newGlicko = Glicko(
-      rating = r.getRating
+      rating = r.rating
         .atMost(glicko.rating + Glicko.maxRatingDelta)
         .atLeast(glicko.rating - Glicko.maxRatingDelta),
-      deviation = r.getRatingDeviation,
-      volatility = r.getVolatility
+      deviation = r.ratingDeviation,
+      volatility = r.volatility
     )
     newGlicko.sanityCheck option add(newGlicko, date)
 
-  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: Rating, date: DateTime): Perf =
+  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: glicko2.Rating, date: DateTime): Perf =
     add(r, date) | {
       lila.log("rating").error(s"Crazy Glicko2 $msg")
       monitor(lila.mon).increment()
@@ -63,12 +62,12 @@ case class Perf(
   def clearRecent = copy(recent = Nil)
 
   def toRating =
-    new Rating(
+    glicko2.Rating(
       math.max(Glicko.minRating, glicko.rating),
       glicko.deviation,
       glicko.volatility,
       nb,
-      latest.orNull
+      latest
     )
 
   def isEmpty  = latest.isEmpty

@@ -1,7 +1,7 @@
 package lila.rating
 
 import org.specs2.mutable.Specification
-import org.goochjs.glicko2.*
+import glicko2.*
 import chess.{ Color, White, Black }
 
 class RatingCalculatorTest extends Specification {
@@ -24,34 +24,34 @@ class RatingCalculatorTest extends Specification {
         val wr = Perf.default.toRating
         val br = Perf.default.toRating
         updateRatings(wr, br, White.some)
-        wr.getRating must beCloseTo(1741d, 1d)
-        br.getRating must beCloseTo(1258d, 1d)
-        wr.getRatingDeviation must beCloseTo(396d, 1d)
-        br.getRatingDeviation must beCloseTo(396d, 1d)
-        wr.getVolatility must beCloseTo(0.08999, 0.00001d)
-        br.getVolatility must beCloseTo(0.08999, 0.00001d)
+        wr.rating must beCloseTo(1741d, 1d)
+        br.rating must beCloseTo(1258d, 1d)
+        wr.ratingDeviation must beCloseTo(396d, 1d)
+        br.ratingDeviation must beCloseTo(396d, 1d)
+        wr.volatility must beCloseTo(0.08999, 0.00001d)
+        br.volatility must beCloseTo(0.08999, 0.00001d)
       }
       "black wins" in {
         val wr = Perf.default.toRating
         val br = Perf.default.toRating
         updateRatings(wr, br, Black.some)
-        wr.getRating must beCloseTo(1258d, 1d)
-        br.getRating must beCloseTo(1741d, 1d)
-        wr.getRatingDeviation must beCloseTo(396d, 1d)
-        br.getRatingDeviation must beCloseTo(396d, 1d)
-        wr.getVolatility must beCloseTo(0.08999, 0.00001d)
-        br.getVolatility must beCloseTo(0.08999, 0.00001d)
+        wr.rating must beCloseTo(1258d, 1d)
+        br.rating must beCloseTo(1741d, 1d)
+        wr.ratingDeviation must beCloseTo(396d, 1d)
+        br.ratingDeviation must beCloseTo(396d, 1d)
+        wr.volatility must beCloseTo(0.08999, 0.00001d)
+        br.volatility must beCloseTo(0.08999, 0.00001d)
       }
       "draw" in {
         val wr = Perf.default.toRating
         val br = Perf.default.toRating
         updateRatings(wr, br, None)
-        wr.getRating must beCloseTo(1500d, 1d)
-        br.getRating must beCloseTo(1500d, 1d)
-        wr.getRatingDeviation must beCloseTo(396d, 1d)
-        br.getRatingDeviation must beCloseTo(396d, 1d)
-        wr.getVolatility must beCloseTo(0.08999, 0.00001d)
-        br.getVolatility must beCloseTo(0.08999, 0.00001d)
+        wr.rating must beCloseTo(1500d, 1d)
+        br.rating must beCloseTo(1500d, 1d)
+        wr.ratingDeviation must beCloseTo(396d, 1d)
+        br.ratingDeviation must beCloseTo(396d, 1d)
+        wr.volatility must beCloseTo(0.08999, 0.00001d)
+        br.volatility must beCloseTo(0.08999, 0.00001d)
       }
     }
     "low deviation" in {
@@ -65,34 +65,34 @@ class RatingCalculatorTest extends Specification {
         val wr = perf.toRating
         val br = perf.toRating
         updateRatings(wr, br, White.some)
-        wr.getRating must beCloseTo(1517d, 1d)
-        br.getRating must beCloseTo(1482d, 1d)
-        wr.getRatingDeviation must beCloseTo(78d, 1d)
-        br.getRatingDeviation must beCloseTo(78d, 1d)
-        wr.getVolatility must beCloseTo(0.06, 0.00001d)
-        br.getVolatility must beCloseTo(0.06, 0.00001d)
+        wr.rating must beCloseTo(1517d, 1d)
+        br.rating must beCloseTo(1482d, 1d)
+        wr.ratingDeviation must beCloseTo(78d, 1d)
+        br.ratingDeviation must beCloseTo(78d, 1d)
+        wr.volatility must beCloseTo(0.06, 0.00001d)
+        br.volatility must beCloseTo(0.06, 0.00001d)
       }
       "black wins" in {
         val wr = perf.toRating
         val br = perf.toRating
         updateRatings(wr, br, Black.some)
-        wr.getRating must beCloseTo(1482d, 1d)
-        br.getRating must beCloseTo(1517d, 1d)
-        wr.getRatingDeviation must beCloseTo(78d, 1d)
-        br.getRatingDeviation must beCloseTo(78d, 1d)
-        wr.getVolatility must beCloseTo(0.06, 0.00001d)
-        br.getVolatility must beCloseTo(0.06, 0.00001d)
+        wr.rating must beCloseTo(1482d, 1d)
+        br.rating must beCloseTo(1517d, 1d)
+        wr.ratingDeviation must beCloseTo(78d, 1d)
+        br.ratingDeviation must beCloseTo(78d, 1d)
+        wr.volatility must beCloseTo(0.06, 0.00001d)
+        br.volatility must beCloseTo(0.06, 0.00001d)
       }
       "draw" in {
         val wr = perf.toRating
         val br = perf.toRating
         updateRatings(wr, br, None)
-        wr.getRating must beCloseTo(1500d, 1d)
-        br.getRating must beCloseTo(1500d, 1d)
-        wr.getRatingDeviation must beCloseTo(78d, 1d)
-        br.getRatingDeviation must beCloseTo(78d, 1d)
-        wr.getVolatility must beCloseTo(0.06, 0.00001d)
-        br.getVolatility must beCloseTo(0.06, 0.00001d)
+        wr.rating must beCloseTo(1500d, 1d)
+        br.rating must beCloseTo(1500d, 1d)
+        wr.ratingDeviation must beCloseTo(78d, 1d)
+        br.ratingDeviation must beCloseTo(78d, 1d)
+        wr.volatility must beCloseTo(0.06, 0.00001d)
+        br.volatility must beCloseTo(0.06, 0.00001d)
       }
     }
     "mixed ratings and deviations" in {
@@ -114,34 +114,34 @@ class RatingCalculatorTest extends Specification {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, White.some)
-        wr.getRating must beCloseTo(1422d, 1d)
-        br.getRating must beCloseTo(1506d, 1d)
-        wr.getRatingDeviation must beCloseTo(77d, 1d)
-        br.getRatingDeviation must beCloseTo(105d, 1d)
-        wr.getVolatility must beCloseTo(0.06, 0.00001d)
-        br.getVolatility must beCloseTo(0.065, 0.00001d)
+        wr.rating must beCloseTo(1422d, 1d)
+        br.rating must beCloseTo(1506d, 1d)
+        wr.ratingDeviation must beCloseTo(77d, 1d)
+        br.ratingDeviation must beCloseTo(105d, 1d)
+        wr.volatility must beCloseTo(0.06, 0.00001d)
+        br.volatility must beCloseTo(0.065, 0.00001d)
       }
       "black wins" in {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, Black.some)
-        wr.getRating must beCloseTo(1389d, 1d)
-        br.getRating must beCloseTo(1568d, 1d)
-        wr.getRatingDeviation must beCloseTo(78d, 1d)
-        br.getRatingDeviation must beCloseTo(105d, 1d)
-        wr.getVolatility must beCloseTo(0.06, 0.00001d)
-        br.getVolatility must beCloseTo(0.065, 0.00001d)
+        wr.rating must beCloseTo(1389d, 1d)
+        br.rating must beCloseTo(1568d, 1d)
+        wr.ratingDeviation must beCloseTo(78d, 1d)
+        br.ratingDeviation must beCloseTo(105d, 1d)
+        wr.volatility must beCloseTo(0.06, 0.00001d)
+        br.volatility must beCloseTo(0.065, 0.00001d)
       }
       "draw" in {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, None)
-        wr.getRating must beCloseTo(1406d, 1d)
-        br.getRating must beCloseTo(1537d, 1d)
-        wr.getRatingDeviation must beCloseTo(78d, 1d)
-        br.getRatingDeviation must beCloseTo(105.87d, 0.01d)
-        wr.getVolatility must beCloseTo(0.06, 0.00001d)
-        br.getVolatility must beCloseTo(0.065, 0.00001d)
+        wr.rating must beCloseTo(1406d, 1d)
+        br.rating must beCloseTo(1537d, 1d)
+        wr.ratingDeviation must beCloseTo(78d, 1d)
+        br.ratingDeviation must beCloseTo(105.87d, 0.01d)
+        wr.volatility must beCloseTo(0.06, 0.00001d)
+        br.volatility must beCloseTo(0.065, 0.00001d)
       }
     }
   }
