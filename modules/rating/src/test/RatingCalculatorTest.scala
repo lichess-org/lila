@@ -11,11 +11,14 @@ class RatingCalculatorTest extends Specification {
       case Some(chess.White) => Glicko.Result.Win
       case Some(chess.Black) => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
-    val results = new GameRatingPeriodResults()
-    result match
-      case Glicko.Result.Draw => results.addDraw(wRating, bRating)
-      case Glicko.Result.Win  => results.addWin(wRating, bRating)
-      case Glicko.Result.Loss => results.addWin(bRating, wRating)
+    val results = GameRatingPeriodResults(
+      List(
+        result match
+          case Glicko.Result.Draw => GameResult(wRating, bRating, true)
+          case Glicko.Result.Win  => GameResult(wRating, bRating, false)
+          case Glicko.Result.Loss => GameResult(bRating, wRating, false)
+      )
+    )
     Glicko.system.updateRatings(results, true)
 
   "compute rating" in {

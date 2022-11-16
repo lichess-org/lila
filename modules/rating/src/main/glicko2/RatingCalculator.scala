@@ -1,9 +1,7 @@
 package lila.rating
 package glicko2
 
-import java.util.List
 import org.joda.time.{ DateTime, Duration }
-import scala.jdk.CollectionConverters.*
 
 // rewrite from java https://github.com/goochjs/glicko2
 object RatingCalculator:
@@ -50,7 +48,7 @@ final class RatingCalculator(
     players foreach { player =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
       if (results.getResults(player).sizeIs > 0) {
-        calculateNewRating(player, results.getResults(player).asJava, elapsedRatingPeriods)
+        calculateNewRating(player, results.getResults(player), elapsedRatingPeriods)
       } else {
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
@@ -138,7 +136,7 @@ final class RatingCalculator(
     if (iterations == ITERATION_MAX) {
       println(String.format("Convergence fail at %d iterations", iterations))
       println(player.toString())
-      results.asScala foreach println
+      results foreach println
       throw new RuntimeException("Convergence fail")
     }
 
@@ -157,7 +155,7 @@ final class RatingCalculator(
     player.workingRating =
       player.getGlicko2Rating + (Math.pow(newPhi, 2) * outcomeBasedRating(player, results))
     player.workingRatingDeviation = newPhi
-    player.incrementNumberOfResults(results.size())
+    player.incrementNumberOfResults(results.size)
 
   private def f(x: Double, delta: Double, phi: Double, v: Double, a: Double, tau: Double) =
     (Math.exp(x) * (Math.pow(delta, 2) - Math.pow(phi, 2) - v - Math.exp(x)) /
@@ -178,7 +176,7 @@ final class RatingCalculator(
     */
   private def vOf(player: Rating, results: List[Result]) =
     var v = 0.0d
-    for result <- results.asScala do
+    for result <- results do
       v = v + ((Math.pow(g(result.getOpponent(player).getGlicko2RatingDeviation), 2))
         * E(
           player.getGlicko2Rating,
@@ -204,7 +202,7 @@ final class RatingCalculator(
     */
   private def outcomeBasedRating(player: Rating, results: List[Result]) =
     var outcomeBasedRating = 0d
-    for result <- results.asScala do
+    for result <- results do
       outcomeBasedRating = outcomeBasedRating
         + (g(result.getOpponent(player).getGlicko2RatingDeviation)
           * (result.getScore(player) - E(

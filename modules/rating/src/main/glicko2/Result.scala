@@ -41,13 +41,13 @@ final class GameResult(winner: Rating, loser: Rating, isDraw: Boolean) extends R
     */
   def getScore(player: Rating): Double =
     if isDraw then POINTS_FOR_DRAW
-    else if winner equals player then POINTS_FOR_WIN
-    else if loser equals player then POINTS_FOR_LOSS
+    else if winner == player then POINTS_FOR_WIN
+    else if loser == player then POINTS_FOR_LOSS
     else throw new IllegalArgumentException("Player did not participate in match");
 
   def getOpponent(player: Rating) =
-    if winner equals player then loser
-    else if loser equals player then winner
+    if winner == player then loser
+    else if loser == player then winner
     else throw new IllegalArgumentException("Player did not participate in match");
 
   override def toString = s"$winner vs $loser = $isDraw"
