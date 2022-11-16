@@ -120,7 +120,14 @@ object MarkdownRender:
         .unit
   private object WhitelistedImageNodeRenderer extends NodeRenderer:
     override def getNodeRenderingHandlers() =
-      new java.util.HashSet(Arrays.asList(new NodeRenderingHandler(classOf[Image], render)))
+      new java.util.HashSet(
+        Arrays.asList(
+          new NodeRenderingHandler(
+            classOf[Image],
+            render _
+          )
+        )
+      )
 
     private val whitelist =
       List(
@@ -189,8 +196,8 @@ object MarkdownRender:
     override def getNodeRenderingHandlers() =
       new java.util.HashSet(
         Arrays.asList(
-          new NodeRenderingHandler(classOf[Link], renderLink),
-          new NodeRenderingHandler(classOf[AutoLink], renderAutoLink)
+          new NodeRenderingHandler(classOf[Link], renderLink _),
+          new NodeRenderingHandler(classOf[AutoLink], renderAutoLink _)
         )
       )
 
@@ -203,7 +210,7 @@ object MarkdownRender:
         context.renderChildren(node)
       else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
-        def justAsLink() = renderLink(node, context, html, link)
+        def justAsLink() = renderLinkWithBase(node, context, html, link)
         link.getUrl match
           case gameRegex(id, color, ply) =>
             expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
@@ -219,13 +226,13 @@ object MarkdownRender:
         context.renderChildren(node)
       else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
-        def justAsLink() = renderLink(node, context, html, link)
+        def justAsLink() = renderLinkWithBase(node, context, html, link)
         link.getUrl match
           case gameRegex(id, color, ply) =>
             expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
 
-    private def renderLink(
+    private def renderLinkWithBase(
         node: LinkNode,
         context: NodeRendererContext,
         html: HtmlWriter,
