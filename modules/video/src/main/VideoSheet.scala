@@ -51,7 +51,6 @@ final private class VideoSheet(
                 )
                 logger.info(s"sheet insert $video")
                 api.video.save(video)
-              case _ => funit
             }
             .recover { case e: Exception =>
               logger.warn("sheet update", e)

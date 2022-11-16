@@ -24,7 +24,7 @@ final private[plan] class PlanNotifier(
     system.scheduler.scheduleOnce(5 seconds) {
       Bus.publish(lila.hub.actorApi.plan.PlanStart(user.id), "planStart")
     }
-    pushTimeline(user)(lila.hub.actorApi.timeline.PlanStart)
+    pushTimeline(user)(lila.hub.actorApi.timeline.PlanStart.apply)
 
   private def onRenew(user: User): Unit =
     pushTimeline(user)(lila.hub.actorApi.timeline.PlanRenew(_, user.plan.months))
@@ -33,7 +33,7 @@ final private[plan] class PlanNotifier(
     Bus.publish(lila.hub.actorApi.plan.PlanExpire(user.id), "planExpire")
 
   def onGift(from: User, to: User, isLifetime: Boolean): Unit =
-    pushTimeline(to)(lila.hub.actorApi.timeline.PlanStart)
+    pushTimeline(to)(lila.hub.actorApi.timeline.PlanStart.apply)
     Bus.publish(lila.hub.actorApi.plan.MonthInc(to.id, to.plan.months), "plan")
     Bus.publish(lila.hub.actorApi.plan.PlanGift(from.id, to.id, isLifetime), "planStart")
 

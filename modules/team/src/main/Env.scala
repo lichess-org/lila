@@ -46,7 +46,7 @@ final class Env(
   private val teamSocket = wire[TeamSocket]
 
   def version(teamId: Team.ID) =
-    teamSocket.rooms.ask[SocketVersion](teamId)(GetVersion)
+    teamSocket.rooms.ask[SocketVersion](teamId)(GetVersion.apply)
 
   private lazy val notifier = wire[Notifier]
 

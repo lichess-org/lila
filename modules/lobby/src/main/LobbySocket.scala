@@ -285,7 +285,7 @@ private object LobbySocket:
           case "counters" =>
             import cats.implicits.*
             raw.get(2) { case Array(m, r) =>
-              (m.toIntOption, r.toIntOption).mapN(Counters)
+              (m.toIntOption, r.toIntOption).mapN(Counters.apply)
             }
           case _ => P.In.baseReader(raw)
     object Out:

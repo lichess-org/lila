@@ -15,7 +15,7 @@ final private class ReportScore(
         impl.reporterScore(candidate.reporter) +
         impl.autoScore(candidate)
     } map impl.fixedAutoScore(candidate) map
-      Report.Score map
+      Report.Score.apply map
       (_.withinBounds) map
       candidate.scored flatMap
       impl.dropScoreIfCheatReportHasNoAnalyzedGames map

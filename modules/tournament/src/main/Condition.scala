@@ -338,7 +338,7 @@ object Condition:
           minRating.convert(perf)(MinRating.apply),
           ~titled option Titled,
           teamMember.flatMap(_ convert teams),
-          allowList = allowList map AllowList
+          allowList = allowList map AllowList.apply
         )
     object AllSetup:
       val default = AllSetup(

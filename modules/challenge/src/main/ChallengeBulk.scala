@@ -38,7 +38,7 @@ final class ChallengeBulkApi(
   private given BSONHandler[chess.variant.Variant]      = variantByKeyHandler
   private given BSONHandler[Clock.Config]               = clockConfigHandler
   private given BSONHandler[Either[Clock.Config, Days]] = eitherHandler[Clock.Config, Days]
-  private given BSONHandler[Template]                   = stringAnyValHandler(_.value, Template)
+  private given BSONHandler[Template]                   = stringAnyValHandler(_.value, Template.apply)
   private given BSONDocumentHandler[ScheduledBulk]      = Macros.handler
 
   private val coll = colls.bulk
@@ -99,7 +99,8 @@ final class ChallengeBulkApi(
     coll.delete.one($id(bulk._id)).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
-    def timeControl = bulk.clock.fold(Challenge.TimeControl.Clock, Challenge.TimeControl.Correspondence)
+    def timeControl =
+      bulk.clock.fold(Challenge.TimeControl.Clock.apply, Challenge.TimeControl.Correspondence.apply)
     val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)

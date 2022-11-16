@@ -13,5 +13,5 @@ object BSONHandlers:
   private given BSONHandler[NbMoves]        = isoHandler
   private given BSONHandler[ChapterNbMoves] = typedMapHandler[Chapter.Id, NbMoves]
 
-  given BSONHandler[PracticeProgress.Id]      = stringAnyValHandler(_.value, PracticeProgress.Id)
+  given BSONHandler[PracticeProgress.Id]      = stringAnyValHandler(_.value, PracticeProgress.Id.apply)
   given BSONDocumentHandler[PracticeProgress] = Macros.handler

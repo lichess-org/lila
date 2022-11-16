@@ -324,7 +324,7 @@ final class SwissApi(
       game.blackPlayer.userId ?? { blackId =>
         rankingApi(swiss) map { ranking =>
           import cats.implicits.*
-          (ranking.get(whiteId), ranking.get(blackId)) mapN GameRanks
+          (ranking.get(whiteId), ranking.get(blackId)) mapN GameRanks.apply
         }
       }
     }
@@ -395,7 +395,7 @@ final class SwissApi(
     }
 
   private[swiss] def finishGame(game: Game): Funit =
-    game.swissId.map(Swiss.Id) ?? { swissId =>
+    game.swissId.map(Swiss.Id.apply) ?? { swissId =>
       Sequencing(swissId)(cache.swissCache.byId) { swiss =>
         if (!swiss.isStarted)
           logger.info(s"Removing pairing ${game.id} finished after swiss ${swiss.id}")

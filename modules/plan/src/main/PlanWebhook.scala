@@ -79,9 +79,8 @@ final class PlanWebhook(api: PlanApi)(using ec: scala.concurrent.ExecutionContex
               )
           case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
-            event.resourceId.map(PayPalSubscriptionId) ?? api.payPal.subscriptionUser flatMap {
+            event.resourceId.map(PayPalSubscriptionId.apply) ?? api.payPal.subscriptionUser flatMap {
               _ ?? api.cancel
             }
           case _ => funit
     }
-

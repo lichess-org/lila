@@ -27,7 +27,7 @@ final class PlaybanApi(
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
     x => BSONInteger(x.id)
   )
-  private given BSONHandler[RageSit]            = intAnyValHandler(_.counter, RageSit)
+  private given BSONHandler[RageSit]            = intAnyValHandler(_.counter, RageSit.apply)
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 

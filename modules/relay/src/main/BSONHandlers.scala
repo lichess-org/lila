@@ -6,9 +6,9 @@ import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 
-  given BSONHandler[RelayRound.Id]               = stringAnyValHandler(_.value, RelayRound.Id)
-  given tourIdHandler: BSONHandler[RelayTour.Id] = stringAnyValHandler(_.value, RelayTour.Id)
-  given BSONHandler[RelayPlayers]                = stringAnyValHandler(_.text, RelayPlayers)
+  given BSONHandler[RelayRound.Id]               = stringAnyValHandler(_.value, RelayRound.Id.apply)
+  given tourIdHandler: BSONHandler[RelayTour.Id] = stringAnyValHandler(_.value, RelayTour.Id.apply)
+  given BSONHandler[RelayPlayers]                = stringAnyValHandler(_.text, RelayPlayers.apply)
 
   import RelayRound.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
@@ -29,7 +29,7 @@ object BSONHandlers:
   import SyncLog.Event
   given BSONDocumentHandler[Event] = Macros.handler
 
-  given BSONHandler[SyncLog] = isoHandler[SyncLog, Vector[Event]](_.events, SyncLog)
+  given BSONHandler[SyncLog] = isoHandler[SyncLog, Vector[Event]](_.events, SyncLog.apply)
 
   given BSONDocumentHandler[Sync] = Macros.handler
 

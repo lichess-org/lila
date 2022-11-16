@@ -79,7 +79,6 @@ final class SecurityApi(
       case _                                 => fuccess(none)
   } map loadedLoginForm
 
-  @nowarn("cat=unused")
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       _username: String,
       password: String,

@@ -25,19 +25,8 @@ object dev:
             postForm(action := routes.Dev.settingsPost(s.id))(
               p(s.text | s.id),
               s.form.value match {
-                case Some(v: Boolean) =>
-                  div(
-                    span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v))
-                  )
-                case v =>
-                  input(
-                    name := "v",
-                    value := (v match {
-                      case None    => ""
-                      case Some(x) => x.toString
-                      case x       => x.toString
-                    })
-                  )
+                case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
+                case v                => input(name := "v", value := v.map(_.toString))
               },
               submitButton(cls := "button button-empty", dataIcon := "")
             )

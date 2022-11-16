@@ -29,12 +29,13 @@ final class TutorApi(
       case None =>
         builder.eligiblePerfTypesOf(user) match
           case Nil => fuccess(TutorFullReport.InsufficientGames)
-          case _   => queue.status(user) map TutorFullReport.Empty
+          case _   => queue.status(user) map TutorFullReport.Empty.apply
     }
 
   def request(user: User, availability: TutorFullReport.Availability): Fu[TutorFullReport.Availability] =
     availability match
-      case TutorFullReport.Empty(TutorQueue.NotInQueue) => queue.enqueue(user) dmap TutorFullReport.Empty
+      case TutorFullReport.Empty(TutorQueue.NotInQueue) =>
+        queue.enqueue(user) dmap TutorFullReport.Empty.apply
       case TutorFullReport.Available(report, Some(TutorQueue.NotInQueue)) =>
         queue.enqueue(user) dmap some map { TutorFullReport.Available(report, _) }
       case availability => fuccess(availability)

@@ -55,7 +55,6 @@ final class OpeningApi(
               pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
             }.sequenceFu
           } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory), wiki).some
-        case _ => fuccess(none)
       }
 
   def readConfig(implicit req: RequestHeader) = configStore.read

@@ -23,7 +23,7 @@ final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
   def apply(q: String): List[OpeningSearchResult] = cache get q
 
   def doSearch(q: String): List[OpeningSearchResult] =
-    OpeningSearch(q, max).map(OpeningSearchResult)
+    OpeningSearch(q, max).map(OpeningSearchResult.apply)
 
 // linear performance but it's fine for 3,067 unique openings
 object OpeningSearch:

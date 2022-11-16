@@ -10,13 +10,13 @@ final class PracticeConfig(
     val sections: List[PracticeConfigSection]
 ):
 
-  def studyIds = sections.flatMap(_.studies.map(_.id)) map Study.Id
+  def studyIds = sections.flatMap(_.studies.map(_.id)) map Study.Id.apply
 
 object PracticeConfig:
   val empty = new PracticeConfig(Nil)
 
-  private given studyLoader: ConfigLoader[PracticeConfigStudy] = AutoConfig.loader[PracticeConfigStudy]
-  private given ConfigLoader[PracticeConfigSection]            = AutoConfig.loader[PracticeConfigSection]
+  private given studyLoader: ConfigLoader[PracticeConfigStudy] = AutoConfig.loader
+  private given ConfigLoader[PracticeConfigSection]            = AutoConfig.loader
 
   given ConfigLoader[PracticeConfig] = AutoConfig.loader
 

@@ -82,7 +82,7 @@ object SetupBulk:
           rated,
           pairTs.map { new DateTime(_) },
           clockTs.map { new DateTime(_) },
-          message map Template,
+          message map Template.apply,
           ~rules,
           fen
         ).autoVariant

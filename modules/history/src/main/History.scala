@@ -41,7 +41,6 @@ case class History(
       case PerfType.Crazyhouse     => crazyhouse
       case PerfType.Puzzle         => puzzle
       case PerfType.UltraBullet    => ultraBullet
-      case x                       => sys error s"No history for perf $x"
 
 object History:
 

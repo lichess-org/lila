@@ -51,12 +51,12 @@ final private class LinkCheck(
       f: (String, FullSource) => Fu[Boolean]
   )(id: String, line: UserLine): Fu[Boolean] = {
     source match
-      case PublicSource.Tournament(id) => tournamentRepo byId id map2 FullSource.TournamentSource
-      case PublicSource.Simul(id)      => simulApi find id map2 FullSource.SimulSource
-      case PublicSource.Swiss(id)      => swissApi fetchByIdNoCache Swiss.Id(id) map2 FullSource.SwissSource
-      case PublicSource.Team(id)       => teamRepo byId id map2 FullSource.TeamSource
-      case PublicSource.Study(id)      => studyRepo byId Study.Id(id) map2 FullSource.StudySource
-      case _                           => fuccess(none)
+      case PublicSource.Tournament(id) => tournamentRepo byId id map2 FullSource.TournamentSource.apply
+      case PublicSource.Simul(id)      => simulApi find id map2 FullSource.SimulSource.apply
+      case PublicSource.Swiss(id) => swissApi fetchByIdNoCache Swiss.Id(id) map2 FullSource.SwissSource.apply
+      case PublicSource.Team(id)  => teamRepo byId id map2 FullSource.TeamSource.apply
+      case PublicSource.Study(id) => studyRepo byId Study.Id(id) map2 FullSource.StudySource.apply
+      case _                      => fuccess(none)
   } flatMap {
     _ ?? { source =>
       // the owners of a chat can post whichever link they like

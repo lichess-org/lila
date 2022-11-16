@@ -205,7 +205,7 @@ final class Ublog(env: Env) extends LilaController(env):
             err => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
             tier =>
               for {
-                user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect
+                user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
                 _    <- env.ublog.api.setTier(blog.id, tier)
                 _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
                 _ <- env.mod.logApi

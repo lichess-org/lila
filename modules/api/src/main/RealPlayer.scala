@@ -40,7 +40,7 @@ final class RealPlayerApi(
                 }
                 .toMap
                 .some
-                .map(RealPlayers)
+                .map(RealPlayers.apply)
             }
           }
           .recoverDefault

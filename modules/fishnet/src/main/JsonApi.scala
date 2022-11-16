@@ -133,9 +133,9 @@ object JsonApi:
 
   object readers:
     import play.api.libs.functional.syntax.*
-    given Reads[Client.Version]           = Reads.of[String].map(Client.Version)
-    given Reads[Client.Python]            = Reads.of[String].map(Client.Python)
-    given Reads[Client.Key]               = Reads.of[String].map(Client.Key)
+    given Reads[Client.Version]           = Reads.of[String].map(Client.Version.apply)
+    given Reads[Client.Python]            = Reads.of[String].map(Client.Python.apply)
+    given Reads[Client.Key]               = Reads.of[String].map(Client.Key.apply)
     given Reads[Request.Stockfish]        = Json.reads
     given Reads[Request.Fishnet]          = Json.reads
     given Reads[Request.Acquire]          = Json.reads

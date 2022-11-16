@@ -122,7 +122,7 @@ final class KaladinApi(
 
     def sendReport = for {
       suspect <- getSuspect(user.suspectId.value)
-      kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod
+      kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod.apply
       _ <- reportApi.create(
         Report
           .Candidate(
@@ -233,7 +233,7 @@ final class KaladinApi(
     lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
 
   private def getSuspect(suspectId: User.ID) =
-    userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect
+    userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
     getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report) unit

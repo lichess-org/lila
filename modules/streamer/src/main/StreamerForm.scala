@@ -120,11 +120,11 @@ object StreamerForm:
         case "decline" => copy(granted = false, requested = false)
       }
 
-  private given Formatter[Headline]    = formatter.stringFormatter(_.value, Headline)
+  private given Formatter[Headline]    = formatter.stringFormatter(_.value, Headline.apply)
   private def headlineField            = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
-  private given Formatter[Description] = formatter.stringFormatter(_.value, Description)
+  private given Formatter[Description] = formatter.stringFormatter(_.value, Description.apply)
   private def descriptionField  = of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
-  private given Formatter[Name] = formatter.stringFormatter(_.value, Name)
+  private given Formatter[Name] = formatter.stringFormatter(_.value, Name.apply)
   private def nameField =
     of[Name].verifying(
       constraint.minLength[Name](_.value)(3),

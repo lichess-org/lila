@@ -373,7 +373,7 @@ object RoundSocket:
                 Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
               }
             }
-          case "r/latency" => raw.args.toIntOption map WsLatency
+          case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)
 
       private def centis(s: String): Option[Centis] =

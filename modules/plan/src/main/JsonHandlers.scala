@@ -8,13 +8,13 @@ import scala.util.Try
 private object JsonHandlers:
 
   given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency getInstance code.toUpperCase))
-  given Reads[Country]  = Reads.of[String].map(Country)
+  given Reads[Country]  = Reads.of[String].map(Country.apply)
 
   object stripe:
-    given Reads[StripeSubscriptionId] = Reads.of[String].map(StripeSubscriptionId)
-    given Reads[StripeSessionId]      = Reads.of[String].map(StripeSessionId)
-    given Reads[StripeCustomerId]     = Reads.of[String].map(StripeCustomerId)
-    given Reads[StripeChargeId]       = Reads.of[String].map(StripeChargeId)
+    given Reads[StripeSubscriptionId] = Reads.of[String].map(StripeSubscriptionId.apply)
+    given Reads[StripeSessionId]      = Reads.of[String].map(StripeSessionId.apply)
+    given Reads[StripeCustomerId]     = Reads.of[String].map(StripeCustomerId.apply)
+    given Reads[StripeChargeId]       = Reads.of[String].map(StripeChargeId.apply)
     given Reads[StripeAmount]         = Reads.of[Int].map(StripeAmount.apply)
     given Reads[StripePrice]          = Json.reads
     given Reads[StripeItem]           = Json.reads
@@ -42,12 +42,12 @@ private object JsonHandlers:
 
   object payPal:
     import play.api.libs.json.JodaReads.given
-    given Reads[PayPalPayerId]             = Reads.of[String].map(PayPalPayerId)
-    given Reads[PayPalOrderId]             = Reads.of[String].map(PayPalOrderId)
-    given Reads[PayPalSubscriptionId]      = Reads.of[String].map(PayPalSubscriptionId)
-    given Reads[PayPalEventId]             = Reads.of[String].map(PayPalEventId)
-    given Reads[PayPalPlanId]              = Reads.of[String].map(PayPalPlanId)
-    given Reads[PayPalTransactionId]       = Reads.of[String].map(PayPalTransactionId)
+    given Reads[PayPalPayerId]             = Reads.of[String].map(PayPalPayerId.apply)
+    given Reads[PayPalOrderId]             = Reads.of[String].map(PayPalOrderId.apply)
+    given Reads[PayPalSubscriptionId]      = Reads.of[String].map(PayPalSubscriptionId.apply)
+    given Reads[PayPalEventId]             = Reads.of[String].map(PayPalEventId.apply)
+    given Reads[PayPalPlanId]              = Reads.of[String].map(PayPalPlanId.apply)
+    given Reads[PayPalTransactionId]       = Reads.of[String].map(PayPalTransactionId.apply)
     given Reads[PayPalOrderCreated]        = Json.reads
     given Reads[PayPalSubscriptionCreated] = Json.reads
     given Reads[PayPalAmount]              = Json.reads

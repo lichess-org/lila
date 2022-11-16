@@ -79,7 +79,6 @@ object GameFilterMenu:
       case Draw     => user.count.draw.some
       case Search   => user.count.game.some
       case Playing  => nbs.map(_.playing)
-      case _        => None
 
   final class PaginatorBuilder(
       userGameSearch: lila.gameSearch.UserGameSearch,

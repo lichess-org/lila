@@ -53,14 +53,14 @@ final class Env(
               .map(_._1.userId)
               .take(20)
           }
-          .map(_.flatten.map(Suspect))
+          .map(_.flatten.map(Suspect.apply))
         _ <- irwinApi.requests.fromTournamentLeaders(suspects)
         _ <- kaladinApi.tournamentLeaders(suspects)
       } yield ()).unit
     }
     scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
       (for {
-        topOnline <- userCache.getTop50Online.map(_ map Suspect)
+        topOnline <- userCache.getTop50Online.map(_ map Suspect.apply)
         _         <- irwinApi.requests.topOnline(topOnline)
         _         <- kaladinApi.topOnline(topOnline)
       } yield ()).unit

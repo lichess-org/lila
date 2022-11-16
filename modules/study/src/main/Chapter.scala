@@ -102,10 +102,10 @@ object Chapter:
   val maxNodes = 3000
 
   case class Id(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Id] = Iso.string(Id, _.value)
+  given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
 
   case class Name(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Name] = Iso.string(Name, _.value)
+  given Iso.StringIso[Name] = Iso.string(Name.apply, _.value)
 
   sealed trait Like:
     val _id: Chapter.Id

@@ -17,7 +17,7 @@ final class PublicChat(
     tournamentChats zip swissChats
 
   def deleteAll(userId: User.ID): Funit =
-    userRepo byId userId map2 Suspect flatMap { _ ?? deleteAll }
+    userRepo byId userId map2 Suspect.apply flatMap { _ ?? deleteAll }
 
   def deleteAll(suspect: Suspect): Funit =
     all.flatMap { case (tours, simuls) =>
@@ -30,7 +30,7 @@ final class PublicChat(
 
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap { visibleTournaments =>
-      val ids = visibleTournaments.all.map(_.id) map Chat.Id
+      val ids = visibleTournaments.all.map(_.id) map Chat.Id.apply
       chatApi.userChat.findAll(ids).map { chats =>
         chats.flatMap { chat =>
           visibleTournaments.all.find(_.id == chat.id.value).map(_ -> chat)
@@ -41,7 +41,7 @@ final class PublicChat(
   private def swissChats: Fu[List[(Swiss, UserChat)]] =
     swissFeature.get(Nil).flatMap { swisses =>
       val all = swisses.created ::: swisses.started
-      val ids = all.map(_.id.value) map Chat.Id
+      val ids = all.map(_.id.value) map Chat.Id.apply
       chatApi.userChat.findAll(ids).map { chats =>
         chats.flatMap { chat =>
           all.find(_.id.value == chat.id.value).map(_ -> chat)

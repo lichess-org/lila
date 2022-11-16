@@ -345,7 +345,6 @@ final class Team(
                                   BadRequest(jsonError("This team requires confirmation.")).toFuccess
                                 case Requesting.NeedPassword =>
                                   BadRequest(jsonError("This team requires a password.")).toFuccess
-                                case _ => notFoundJson("Team not found")
                               }
                           )
                       }

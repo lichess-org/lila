@@ -100,7 +100,7 @@ final private class LobbySyncActor(
     case Tick(promise) =>
       hookRepo.truncateIfNeeded()
       socket
-        .ask[Sris](GetSrisP)
+        .ask[Sris](GetSrisP.apply)
         .chronometer
         .logIfSlow(100, logger) { r =>
           s"GetSris size=${r.sris.size}"
@@ -204,6 +204,6 @@ private object LobbySyncActor:
     Bus.subscribe(trouper, "lobbyActor")
     scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
     lila.common.LilaScheduler(_.Every(broomPeriod), _.AtMost(10 seconds), _.Delay(7 seconds)) {
-      trouper.ask[Unit](Tick)
+      trouper.ask[Unit](Tick.apply)
     }
     trouper

@@ -216,7 +216,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       dataHref := userUrl(name)
     )(
       withOnline ?? lineIcon(user),
-      user.map(u => titleTag(u.title map Title)),
+      user.map(u => titleTag(u.title map Title.apply)),
       name
     )
 

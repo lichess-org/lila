@@ -76,11 +76,11 @@ object BSONHandlers:
 
   import Uci.WithSan
 
-  given BSONHandler[Shapes] = isoHandler[Shapes, List[Shape]](_.value, Shapes)
+  given BSONHandler[Shapes] = isoHandler[Shapes, List[Shape]](_.value, Shapes.apply)
 
   private given commentIdHandler: BSONHandler[Comment.Id] =
-    stringAnyValHandler[Comment.Id](_.value, Comment.Id)
-  private given BSONHandler[Comment.Text] = stringAnyValHandler[Comment.Text](_.value, Comment.Text)
+    stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
+  private given BSONHandler[Comment.Text] = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
       case BSONString(lila.user.User.lichessId | "l") => Comment.Author.Lichess
@@ -103,7 +103,7 @@ object BSONHandlers:
   )
   private given BSONDocumentHandler[Comment] = Macros.handler
 
-  given BSONHandler[Comments] = isoHandler[Comments, List[Comment]](_.value, Comments)
+  given BSONHandler[Comments] = isoHandler[Comments, List[Comment]](_.value, Comments.apply)
 
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
@@ -256,12 +256,12 @@ object BSONHandlers:
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
-  given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags, _.value)
+  given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
   given BSONDocumentHandler[Chapter.Relay]                         = Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval]                    = Macros.handler
-  given BSONHandler[Chapter.Ply]                                   = intAnyValHandler(_.value, Chapter.Ply)
-  given BSONDocumentHandler[Chapter]                               = Macros.handler
+  given BSONHandler[Chapter.Ply]     = intAnyValHandler(_.value, Chapter.Ply.apply)
+  given BSONDocumentHandler[Chapter] = Macros.handler
 
   given BSONHandler[Position.Ref] = tryHandler(
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },

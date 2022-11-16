@@ -18,7 +18,7 @@ final class RelayPgnStream(
   def exportFullTour(tour: RelayTour): Source[String, ?] =
     Source futureSource {
       roundRepo.idsByTourOrdered(tour) flatMap { ids =>
-        studyRepo.byOrderedIds(ids.map(_.value).map(Study.Id)) map { studies =>
+        studyRepo.byOrderedIds(ids.map(_.value).map(Study.Id.apply)) map { studies =>
           Source(studies).flatMapConcat { studyPgnDump(_, flags) }
         }
       }

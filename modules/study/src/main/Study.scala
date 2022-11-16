@@ -85,10 +85,10 @@ object Study:
   val previewNbChapters = 4
 
   case class Id(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Id] = Iso.string(Id, _.value)
+  given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
 
   case class Name(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Name] = Iso.string(Name, _.value)
+  given Iso.StringIso[Name] = Iso.string(Name.apply, _.value)
 
   case class IdName(_id: Id, name: Name):
     def id = _id

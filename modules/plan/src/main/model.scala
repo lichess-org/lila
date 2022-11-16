@@ -21,9 +21,9 @@ case class Money(amount: BigDecimal, currency: Currency):
     format setCurrency currency
     format format amount
   def display(using lang: Lang): String = display(lang.locale)
-  def currencyCode                         = currency.getCurrencyCode
-  def code                                 = s"${currencyCode}_$amount"
-  override def toString                    = code
+  def currencyCode                      = currency.getCurrencyCode
+  def code                              = s"${currencyCode}_$amount"
+  override def toString                 = code
 
 case class Usd(value: BigDecimal) extends AnyVal:
   def cents = (value * 100).toInt
@@ -100,7 +100,7 @@ case class StripeCharge(
     billing_details: Option[StripeCharge.BillingDetails],
     metadata: Map[String, String]
 ):
-  def country                 = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+  def country                 = billing_details.flatMap(_.address).flatMap(_.country).map(Country.apply)
   def giftTo: Option[User.ID] = metadata get "giftTo"
 
 object StripeCharge:

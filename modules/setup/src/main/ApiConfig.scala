@@ -65,7 +65,7 @@ object ApiConfig extends BaseHumanConfig:
       color = Color.orDefault(~c),
       position = pos,
       acceptByToken = tok,
-      message = msg map Template,
+      message = msg map Template.apply,
       keepAliveStream = ~keepAliveStream,
       rules = ~rules
     ).autoVariant

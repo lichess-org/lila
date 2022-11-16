@@ -22,7 +22,7 @@ object StudyTopic:
       case s if s.lengthIs >= minLength && s.lengthIs <= maxLength => StudyTopic(s).some
       case _                                                       => none
 
-  given Iso.StringIso[StudyTopic] = Iso.string(StudyTopic, _.value)
+  given Iso.StringIso[StudyTopic] = Iso.string(StudyTopic.apply, _.value)
 
 case class StudyTopics(value: List[StudyTopic]) extends AnyVal:
 
