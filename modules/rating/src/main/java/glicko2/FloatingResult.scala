@@ -2,16 +2,6 @@ package org.goochjs.glicko2
 
 import scala.jdk.CollectionConverters.*
 
-trait Result:
-
-  def getScore(player: Rating): Double
-
-  def getOpponent(player: Rating): Rating
-
-  def participated(player: Rating): Boolean
-
-  def getPlayers(): java.util.List[Rating]
-
 // score from 0 (opponent wins) to 1 (player wins)
 class FloatingResult(player: Rating, opponent: Rating, score: Float) extends Result:
 
