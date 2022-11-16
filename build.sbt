@@ -39,7 +39,7 @@ Universal / sourceDirectory := baseDirectory.value / "dist"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
-  play.json, play.server, play.netty,
+  play.json, play.server, play.netty, play.logback,
   chess, compression, scalalib, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
