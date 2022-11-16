@@ -154,7 +154,7 @@ lazy val common = module("common",
 
 lazy val rating = module("rating",
   Seq(common, db, memo, i18n),
-  reactivemongo.bundle
+  reactivemongo.bundle ++ specs2.bundle 
 )
 
 lazy val perfStat = module("perfStat",
