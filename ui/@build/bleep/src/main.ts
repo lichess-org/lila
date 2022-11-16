@@ -70,11 +70,6 @@ export function init(root: string, opts?: BleepOpts) {
 
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
 
-const colorLines = (text: string, code: string) =>
-  lines(text)
-    .map(t => (env.opts?.log?.color !== false ? escape(t, code) : t))
-    .join('\n');
-
 export const colors = {
   red: (text: string): string => colorLines(text, codes.red),
   green: (text: string): string => colorLines(text, codes.green),
@@ -88,7 +83,10 @@ export const colors = {
   warn: (text: string): string => colorLines(text, codes.warn),
   good: (text: string): string => colorLines(text, codes.green + ';1'),
   cyanBold: (text: string): string => colorLines(text, codes.cyan + ';1'),
+  hilite: (text: string): string => colorLines(text, codes.hilite),
 };
+
+export const errorMark = colors.red('✘ ') + colors.error('[ERROR]');
 
 class Env {
   rootDir: string; // absolute path to lila project root
@@ -143,8 +141,11 @@ class Env {
         ? d.join('\n')
         : JSON.stringify(d, undefined, 2);
 
+    // if anyone knows a hack-free way to use console.log's formatting of random objects,
+    // that would be awesome.  using JSON.stringify for now.
+
     const show = this.opts.log;
-    const esc = show?.color !== false ? escape : (text: string, _: any) => text;
+    const esc = show?.color !== false ? escape : (s: string) => s;
     const rss = Math.round(ps.memoryUsage.rss() / (1000 * 1000));
 
     if (show?.color === false) text = stripColorEscapes(text);
@@ -165,7 +166,7 @@ class Env {
 
 export const env = new Env();
 
-export const codes: any = {
+const codes: any = {
   black: '30',
   red: '31',
   green: '32',
@@ -176,29 +177,34 @@ export const codes: any = {
   grey: '90',
   error: '31;41',
   warn: '33;43',
+  hilite: '30;43',
 };
 
 const colorForCtx = (ctx: string, color: any): string =>
   color && ctx in color && color[ctx] in codes ? codes[color[ctx]] : codes.grey;
 
+const colorLines = (text: string, code: string) =>
+  lines(text)
+    .map(t => (env.opts?.log?.color !== false ? escape(t, code) : t))
+    .join('\n');
+
 const escape = (text: string, code: string): string => `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m`;
+
+const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+
+function prettyTime() {
+  const now = new Date();
+  return `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())} `;
+}
 
 function hasColor(text: string): boolean {
   // eslint-disable-next-line no-control-regex
   return text.match(/\x1b\[[0-9;]*m/) !== null;
 }
-const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
 function stripColorEscapes(text: string) {
   // eslint-disable-next-line no-control-regex
   return text.replace(/\x1b\[[0-9;]*m/, '');
-}
-
-export const errorMark = colors.red('✘ ') + colors.error('[ERROR]');
-
-function prettyTime() {
-  const now = new Date();
-  return `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())} `;
 }
 
 main();
