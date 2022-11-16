@@ -38,4 +38,4 @@ object Heapsort:
 
   extension [A](l: List[A])(using ord: Ordering[A])
     def topN(nb: Int): List[A] = Heapsort.topNToList(l, nb)
-    def botN(nb: Int): List[A] = Heapsort.topNToList(l, nb)
+    def botN(nb: Int): List[A] = Heapsort.topNToList(l, nb)(using ord.reverse)

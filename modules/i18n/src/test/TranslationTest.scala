@@ -9,8 +9,8 @@ class TranslationTest extends Specification {
     "be valid" in {
       val en     = Registry.all.get(defaultLang).get
       var tested = 0
-      val errors: List[String] = LangList.all.flatMap { case (l, name) =>
-        given play.api.i18n.Lang = l
+      val errors: List[String] = LangList.all.flatMap { case (lang, name) =>
+        given play.api.i18n.Lang = lang
         Registry.all.get(lang).get.asScala.toMap flatMap { case (k, v) =>
           try {
             val enTrans: String = en.get(k) match {

@@ -3,11 +3,12 @@ package lila.base
 import org.specs2.mutable.Specification
 // import scalatags.Text.all._
 
+import lila.common.config
 import RawHtml._
 
 class RawHtmlTest extends Specification {
 
-  implicit def netDomain = lila.common.config.NetDomain("lichess.org")
+  given config.NetDomain = config.NetDomain("lichess.org")
 
   val htmlTags = "<[^>]++>".r
   def copyLinkConsistency(text: String) = {

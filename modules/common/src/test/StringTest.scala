@@ -7,7 +7,7 @@ import org.specs2.execute.Result
 
 class StringTest extends Specification {
 
-  implicit def netDomain = lila.common.config.NetDomain("lichess.org")
+  given config.NetDomain = config.NetDomain("lichess.org")
 
   val i18nValidStrings = List(
     """éâòöÌÒÒçÇ""",

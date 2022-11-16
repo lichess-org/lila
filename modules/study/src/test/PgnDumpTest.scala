@@ -8,7 +8,7 @@ import org.specs2.mutable._
 
 class PgnDumpTest extends Specification {
 
-  implicit private val flags = PgnDump.WithFlags(true, true, true)
+  given PgnDump.WithFlags = PgnDump.WithFlags(true, true, true)
 
   val P = PgnDump
 
