@@ -38,3 +38,5 @@ export function start(opts: SwissOpts) {
 // without having to include it a second time
 window.Chessground = Chessground;
 window.LichessChat = LichessChat;
+
+(window as any).LichessSwiss = { start };

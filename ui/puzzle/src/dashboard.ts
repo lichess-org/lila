@@ -57,3 +57,5 @@ export function renderRadar(data: RadarData) {
     },
   });
 }
+
+(window as any).LichessPuzzleDashboard = { renderRadar };

@@ -33,3 +33,5 @@ export function stripeStart(publicKey: string) {
 export function payPalStart() {
   changeForm();
 }
+
+(window as any).plan = { payPalStart, stripeStart };

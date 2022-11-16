@@ -6,12 +6,12 @@ import { LichessModule, env, errorMark, colors as c } from './main';
 
 export async function esbuildWatch(todo: LichessModule[]): Promise<void> {
   const entryPoints: { [key: string]: string } = {};
-  const importNames = [];
   for (const mod of todo) {
     if (mod.bundle)
       for (const r of mod.bundle) {
-        entryPoints[r.output] = path.resolve(mod.root, r.input);
-        importNames.push(r.importName || r.output);
+        entryPoints[r.output] = path.join(mod.root, r.input);
+        // if/when globalName option becomes an array or a field in entryPoints, use r.importName
+        // and we can remove the (window as any).LichessModule = stuff from the module typescript
         if (r.isMain) preModule(mod);
       }
   }
