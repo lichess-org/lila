@@ -76,7 +76,7 @@ final private[puzzle] class PuzzleFinisher(
                     puzzle.plays,
                     none
                   )
-                  updateRatings(userRating, puzzleRating, result.glicko)
+                  updateRatings(userRating, puzzleRating, result)
                   val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
                     .puzzle(
                       angle,
@@ -191,11 +191,12 @@ final private[puzzle] class PuzzleFinisher(
   def incPuzzlePlays(puzzleId: Puzzle.Id): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
-  private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, result: Glicko.Result): Unit =
-    val results = new glicko2.GameRatingPeriodResults()
-    result match
-      case Glicko.Result.Draw => results.addDraw(u1, u2)
-      case Glicko.Result.Win  => results.addWin(u1, u2)
-      case Glicko.Result.Loss => results.addWin(u2, u1)
+  private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, result: PuzzleResult): Unit =
+    val results = glicko2.GameRatingPeriodResults(
+      List(
+        if result.win then glicko2.GameResult(u1, u2, false)
+        else glicko2.GameResult(u2, u1, false)
+      )
+    )
     try calculator.updateRatings(results)
     catch case e: Exception => logger.error("finisher", e)

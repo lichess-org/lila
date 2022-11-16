@@ -112,15 +112,14 @@ final class PerfsUpdater(
     )
 
   private def updateRatings(white: glicko2.Rating, black: glicko2.Rating, game: Game): Unit =
-    val result = game.winnerColor match
-      case Some(chess.White) => Glicko.Result.Win
-      case Some(chess.Black) => Glicko.Result.Loss
-      case None              => Glicko.Result.Draw
-    val results = new glicko2.GameRatingPeriodResults()
-    result match
-      case Glicko.Result.Draw => results.addDraw(white, black)
-      case Glicko.Result.Win  => results.addWin(white, black)
-      case Glicko.Result.Loss => results.addWin(black, white)
+    val results = glicko2.GameRatingPeriodResults(
+      List(
+        game.winnerColor match
+          case None              => glicko2.GameResult(white, black, true)
+          case Some(chess.White) => glicko2.GameResult(white, black, false)
+          case Some(chess.Black) => glicko2.GameResult(black, white, false)
+      )
+    )
     try Glicko.system.updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 

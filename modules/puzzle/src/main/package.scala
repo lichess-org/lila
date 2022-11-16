@@ -9,5 +9,4 @@ package object puzzle extends PackageObject:
 package puzzle:
 
   case class PuzzleResult(win: Boolean) extends AnyVal:
-    def loss   = !win
-    def glicko = if (win) Glicko.Result.Win else Glicko.Result.Loss
+    def loss = !win
