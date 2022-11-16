@@ -22,9 +22,6 @@ abstract class RatingPeriodResults[R <: Result](participants: Set[Rating] = Set.
     */
   def addParticipants(rating: Rating) = participants.add(rating)
 
-  def clear() =
-    results.clear()
-
 class GameRatingPeriodResults(participants: Set[Rating] = Set.empty)
     extends RatingPeriodResults[GameResult]():
 

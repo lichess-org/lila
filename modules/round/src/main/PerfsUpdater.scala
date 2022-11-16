@@ -1,8 +1,8 @@
 package lila.round
 
 import chess.{ Color, Speed }
-import org.goochjs.glicko2.*
 
+import lila.rating.glicko2
 import lila.game.{ Game, GameRepo, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator }
@@ -77,20 +77,20 @@ final class PerfsUpdater(
     }
 
   private case class Ratings(
-      chess960: Rating,
-      kingOfTheHill: Rating,
-      threeCheck: Rating,
-      antichess: Rating,
-      atomic: Rating,
-      horde: Rating,
-      racingKings: Rating,
-      crazyhouse: Rating,
-      ultraBullet: Rating,
-      bullet: Rating,
-      blitz: Rating,
-      rapid: Rating,
-      classical: Rating,
-      correspondence: Rating
+      chess960: glicko2.Rating,
+      kingOfTheHill: glicko2.Rating,
+      threeCheck: glicko2.Rating,
+      antichess: glicko2.Rating,
+      atomic: glicko2.Rating,
+      horde: glicko2.Rating,
+      racingKings: glicko2.Rating,
+      crazyhouse: glicko2.Rating,
+      ultraBullet: glicko2.Rating,
+      bullet: glicko2.Rating,
+      blitz: glicko2.Rating,
+      rapid: glicko2.Rating,
+      classical: glicko2.Rating,
+      correspondence: glicko2.Rating
   )
 
   private def mkRatings(perfs: Perfs) =
@@ -111,12 +111,12 @@ final class PerfsUpdater(
       correspondence = perfs.correspondence.toRating
     )
 
-  private def updateRatings(white: Rating, black: Rating, game: Game): Unit =
+  private def updateRatings(white: glicko2.Rating, black: glicko2.Rating, game: Game): Unit =
     val result = game.winnerColor match
       case Some(chess.White) => Glicko.Result.Win
       case Some(chess.Black) => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
-    val results = new GameRatingPeriodResults()
+    val results = new glicko2.GameRatingPeriodResults()
     result match
       case Glicko.Result.Draw => results.addDraw(white, black)
       case Glicko.Result.Win  => results.addWin(white, black)
@@ -131,7 +131,7 @@ final class PerfsUpdater(
         val speed            = game.speed
         val isStd            = game.ratingVariant.standard
         val isHumanVsMachine = player.noBot && opponent.isBot
-        def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
+        def addRatingIf(cond: Boolean, perf: Perf, rating: glicko2.Rating) =
           if (cond)
             val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
             if (isHumanVsMachine)

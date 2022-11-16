@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import cats.implicits.*
-import org.goochjs.glicko2.{ GameRatingPeriodResults, Rating, RatingCalculator }
+import lila.rating.glicko2
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
 import scala.util.chaining.*
@@ -69,12 +69,12 @@ final private[puzzle] class PuzzleFinisher(
                   (round, none, user.perfs.puzzle)
                 case None =>
                   val userRating = user.perfs.puzzle.toRating
-                  val puzzleRating = new Rating(
+                  val puzzleRating = new glicko2.Rating(
                     puzzle.glicko.rating atLeast Glicko.minRating,
                     puzzle.glicko.deviation,
                     puzzle.glicko.volatility,
                     puzzle.plays,
-                    null
+                    none
                   )
                   updateRatings(userRating, puzzleRating, result.glicko)
                   val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
@@ -82,11 +82,11 @@ final private[puzzle] class PuzzleFinisher(
                       angle,
                       result,
                       puzzle.glicko -> Glicko(
-                        rating = puzzleRating.getRating
+                        rating = puzzleRating.rating
                           .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
                           .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
-                        deviation = puzzleRating.getRatingDeviation,
-                        volatility = puzzleRating.getVolatility
+                        deviation = puzzleRating.ratingDeviation,
+                        volatility = puzzleRating.volatility
                       ).cap,
                       player = user.perfs.puzzle.glicko
                     )
@@ -170,8 +170,8 @@ final private[puzzle] class PuzzleFinisher(
           if (result.win) 0.2f else 0.6f
         else if (isHinting(theme))
           if (result.win) 0.3f else 0.7f
-        else
-          if (result.win) 0.7f else 0.8f
+        else if (result.win) 0.7f
+        else 0.8f
       }
 
     def player(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), puzzle: Glicko) =
@@ -186,19 +186,16 @@ final private[puzzle] class PuzzleFinisher(
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU        = 0.75d
-  private val calculator = new RatingCalculator(VOLATILITY, TAU)
+  private val calculator = glicko2.RatingCalculator(VOLATILITY, TAU)
 
   def incPuzzlePlays(puzzleId: Puzzle.Id): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
-  private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit =
-    val results = new GameRatingPeriodResults()
+  private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, result: Glicko.Result): Unit =
+    val results = new glicko2.GameRatingPeriodResults()
     result match
       case Glicko.Result.Draw => results.addDraw(u1, u2)
       case Glicko.Result.Win  => results.addWin(u1, u2)
       case Glicko.Result.Loss => results.addWin(u2, u1)
-    try
-      calculator.updateRatings(results)
-    catch
-      case e: Exception => logger.error("finisher", e)
-
+    try calculator.updateRatings(results)
+    catch case e: Exception => logger.error("finisher", e)

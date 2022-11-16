@@ -1,4 +1,5 @@
-package lila.rating.glicko2
+package lila.rating
+package glicko2
 
 import java.util.List
 import org.joda.time.{ DateTime, Duration }
@@ -23,9 +24,9 @@ object RatingCalculator:
     (ratingDeviation / MULTIPLIER)
 
 final class RatingCalculator(
-    tau: Double = 0.75d,
     defaultVolatility: Double = 0.06d,
-    ratingPeriodsPerDay: Double
+    tau: Double = 0.75d,
+    ratingPeriodsPerDay: Double = 0
 ):
 
   import RatingCalculator.*
@@ -63,9 +64,6 @@ final class RatingCalculator(
     // now iterate through the participants and confirm their new ratings
     players foreach { _.finaliseRating() }
 
-    // lastly, clear the result set down in anticipation of the next rating period
-    results.clear()
-
   /** This is the formula defined in step 6. It is also used for players who have not competed during the
     * rating period.
     *
@@ -77,8 +75,8 @@ final class RatingCalculator(
     */
   def previewDeviation(player: Rating, ratingPeriodEndDate: DateTime, reverse: Boolean): Double =
     var elapsedRatingPeriods = 0d
-    if (ratingPeriodsPerMilli != 0 && player.lastRatingPeriodEnd.isDefined) {
-      val interval = new Duration(player.lastRatingPeriodEnd.get, ratingPeriodEndDate)
+    player.lastRatingPeriodEnd.ifTrue(ratingPeriodsPerMilli > 0) foreach { periodEnd =>
+      val interval = new Duration(periodEnd, ratingPeriodEndDate)
       elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli
     }
     if (reverse) {
@@ -123,7 +121,7 @@ final class RatingCalculator(
     var iterations = 0
     while (Math.abs(B - A) > CONVERGENCE_TOLERANCE && iterations < ITERATION_MAX) {
       iterations = iterations + 1
-      // System.out.println(String.format("%f - %f (%f) > %f", B, A, Math.abs(B - A), CONVERGENCE_TOLERANCE))
+      // println(String.format("%f - %f (%f) > %f", B, A, Math.abs(B - A), CONVERGENCE_TOLERANCE))
       val C  = A + (((A - B) * fA) / (fB - fA))
       val fC = f(C, delta, phi, v, a, tau)
 
@@ -138,8 +136,8 @@ final class RatingCalculator(
       fB = fC
     }
     if (iterations == ITERATION_MAX) {
-      System.out.println(String.format("Convergence fail at %d iterations", iterations))
-      System.out.println(player.toString())
+      println(String.format("Convergence fail at %d iterations", iterations))
+      println(player.toString())
       results.asScala foreach println
       throw new RuntimeException("Convergence fail")
     }
