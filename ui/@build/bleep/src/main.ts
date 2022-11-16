@@ -88,7 +88,6 @@ export const colors = {
   warn: (text: string): string => colorLines(text, codes.warn),
   good: (text: string): string => colorLines(text, codes.green + ';1'),
   cyanBold: (text: string): string => colorLines(text, codes.cyan + ';1'),
-  hilite: (text: string): string => colorLines(text, codes.hilite),
 };
 
 class Env {
@@ -177,7 +176,6 @@ export const codes: any = {
   grey: '90',
   error: '31;41',
   warn: '33;43',
-  hilite: '30;43',
 };
 
 const colorForCtx = (ctx: string, color: any): string =>

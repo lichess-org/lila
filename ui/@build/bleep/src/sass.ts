@@ -115,18 +115,36 @@ function onChanges(themedSources: Set<string>, dir: string, eventType: string, s
   if (eventType === 'change') {
     srcFile = path.join(dir, srcFile);
     if (debounceMap.has(srcFile)) return;
-    env.log(`Modified '${c.magenta(srcFile)}'`);
+    env.log(`File '${c.cyanBold(srcFile)}' changed`);
     debounceMap.set(
       srcFile,
       setTimeout(() => {
-        sassBuild([...imports(srcFile)].filter(x => themedSources.has(x)));
+        const sources = imports(srcFile);
+        if (sources.size) sassBuild([...sources].filter(x => themedSources.has(x)));
         debounceMap.delete(srcFile);
       }, 200)
     );
   } else if (eventType === 'rename') {
-    // TODO - a new or deleted scss file requires the sets/maps to be rebuilt and maybe
-    // new themedSources to be generated, basically a full sass rebuild.  skip for now.
-    env.log(`'${c.cyan(dir)}' ${c.error('Folder entries changed')} - relaunch bleep`);
+    // for now, let's just debounce for a sec and then touch all.  but probably need complete rebuild
+    if (debounceMap.has(dir)) return;
+    env.log(`Directory '${c.cyanBold(dir)}' changed`);
+    debounceMap.set(
+      dir,
+      setTimeout(
+        () =>
+          globArray('*.scss', { cwd: dir, abs: false }).then((touched: string[]) => {
+            const sources = touched
+              .map(s => imports(path.join(dir, s)))
+              .reduce((prev, cur) => {
+                for (const src of prev) cur.add(src);
+                return cur;
+              }, new Set<string>());
+            if (sources.size) sassBuild([...sources].filter(x => themedSources.has(x)));
+            debounceMap.delete(dir);
+          }),
+        2000
+      )
+    );
   }
 }
 
