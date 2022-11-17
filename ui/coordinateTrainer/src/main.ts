@@ -22,8 +22,8 @@ export default function LichessCoordinateTrainer(element: HTMLElement, config: C
   menuHover();
 }
 
-(window as any).LichessCoordinateTrainer = LichessCoordinateTrainer; // esbuild
-
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
+
+(window as any).LichessCoordinateTrainer = LichessCoordinateTrainer; // esbuild

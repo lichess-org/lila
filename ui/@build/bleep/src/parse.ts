@@ -34,7 +34,7 @@ export async function globArray(glob: string, { cwd = env.uiDir, abs = true } = 
 }
 
 async function parseModule(moduleDir: string): Promise<LichessModule> {
-  const pkg = JSON.parse(await fs.promises.readFile(path.resolve(moduleDir, 'package.json'), 'utf8'));
+  const pkg = JSON.parse(await fs.promises.readFile(path.join(moduleDir, 'package.json'), 'utf8'));
   const copyMeJsonPath = path.join(moduleDir, 'copy-me.json');
   const mod: LichessModule = {
     pkg: pkg,
@@ -76,7 +76,7 @@ function parseObject(o: string | null) {
   const copy = (_: any) => {};
   const replace = (_: any) => {};
   const suppressThisIsUndefined = (_: any, __: any) => {};
-  const require = { resolve: (mod: string) => path.resolve(env.nodeDir, mod) };
+  const require = { resolve: (mod: string) => path.join(env.nodeDir, mod) };
   const execSync = (_: any, __: any) => '';
   copy, replace, dirname, require, suppressThisIsUndefined, execSync;
   return eval(`(${o})`) || {};

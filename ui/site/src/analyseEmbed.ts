@@ -17,3 +17,5 @@ export default function embed(opts: any) {
       )
     );
 }
+
+(window as any).analyseEmbed = embed;
