@@ -5,8 +5,8 @@ import scala.jdk.CollectionConverters._
 
 class TranslationTest extends Specification {
 
-  "translations" should {
-    "be valid" in {
+  "translations" >> {
+    "be valid" >> {
       val en     = Registry.all.get(defaultLang).get
       var tested = 0
       val errors: List[String] = LangList.all.flatMap { case (lang, name) =>

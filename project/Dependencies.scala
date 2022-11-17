@@ -34,9 +34,9 @@ object Dependencies {
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
 
   object specs2 {
-    val version = "4.17.0"
-    val core    = "org.specs2" %% "specs2-core" % version % Test
-    val cats    = "org.specs2" %% "specs2-cats" % version % Test
+    val version = "5.2.0"
+    val core    = "org.specs2" %% "specs2-core" % version  % Test
+    val cats    = "org.specs2" %% "specs2-cats" % "4.19.0" % Test
     val bundle  = Seq(core, cats)
   }
 

@@ -7,8 +7,8 @@ import lila.game.Game
 
 final class JoinerTest extends Specification {
 
-  "create empty game" should {
-    "started at turn 0" in {
+  "create empty game" >> {
+    "started at turn 0" >> {
       val challenge = Challenge.make(
         variant = Standard,
         initialFen = None,
@@ -20,10 +20,10 @@ final class JoinerTest extends Specification {
         rematchOf = None
       )
       ChallengeJoiner.createGame(challenge, None, None) must beLike { case g: Game =>
-        g.chess.startedAtTurn must_== 0
+        g.chess.startedAtTurn === 0
       }
     }
-    "started at turn from position" in {
+    "started at turn from position" >> {
       val position = "r1bqkbnr/ppp2ppp/2npp3/8/8/2NPP3/PPP2PPP/R1BQKBNR w KQkq - 2 4"
       val challenge = Challenge.make(
         variant = FromPosition,
@@ -36,7 +36,7 @@ final class JoinerTest extends Specification {
         rematchOf = None
       )
       ChallengeJoiner.createGame(challenge, None, None) must beLike { case g: Game =>
-        g.chess.startedAtTurn must_== 6
+        g.chess.startedAtTurn === 6
       }
     }
   }

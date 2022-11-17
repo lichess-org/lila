@@ -1,6 +1,6 @@
 package lila.common
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.*
 import play.api.data._
 import play.api.data.format._
 import play.api.data.format.Formats._
@@ -12,8 +12,8 @@ import lila.common.Form._
 
 class FormTest extends Specification {
 
-  "trim" should {
-    "apply before validation" in {
+  "trim" >> {
+    "apply before validation" >> {
 
       FieldMapping("t", List(Constraints.minLength(1)))
         .bind(Map("t" -> " "))
@@ -43,8 +43,8 @@ class FormTest extends Specification {
     }
   }
 
-  "garbage chars" should {
-    "be removed before validation" in {
+  "garbage chars" >> {
+    "be removed before validation" >> {
 
       val chars = List('\u200b', '\u200c', '\u200d', '\u200e', '\u200f', '\u202e', '\u1160')
 

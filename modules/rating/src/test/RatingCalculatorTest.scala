@@ -21,9 +21,9 @@ class RatingCalculatorTest extends Specification {
     )
     Glicko.system.updateRatings(results, true)
 
-  "compute rating" in {
-    "default deviation" in {
-      "white wins" in {
+  "compute rating" >> {
+    "default deviation" >> {
+      "white wins" >> {
         val wr = Perf.default.toRating
         val br = Perf.default.toRating
         updateRatings(wr, br, White.some)
@@ -34,7 +34,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.0899983, 0.00000001d)
         br.volatility must beCloseTo(0.0899983, 0.0000001d)
       }
-      "black wins" in {
+      "black wins" >> {
         val wr = Perf.default.toRating
         val br = Perf.default.toRating
         updateRatings(wr, br, Black.some)
@@ -45,7 +45,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.0899983, 0.00000001d)
         br.volatility must beCloseTo(0.0899983, 0.0000001d)
       }
-      "draw" in {
+      "draw" >> {
         val wr = Perf.default.toRating
         val br = Perf.default.toRating
         updateRatings(wr, br, None)
@@ -57,14 +57,14 @@ class RatingCalculatorTest extends Specification {
         br.volatility must beCloseTo(0.0899954, 0.0000001d)
       }
     }
-    "low deviation" in {
+    "low deviation" >> {
       val perf = Perf.default.copy(glicko =
         Glicko.default.copy(
           deviation = 80,
           volatility = 0.06
         )
       )
-      "white wins" in {
+      "white wins" >> {
         val wr = perf.toRating
         val br = perf.toRating
         updateRatings(wr, br, White.some)
@@ -75,7 +75,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.06, 0.00001d)
         br.volatility must beCloseTo(0.06, 0.00001d)
       }
-      "black wins" in {
+      "black wins" >> {
         val wr = perf.toRating
         val br = perf.toRating
         updateRatings(wr, br, Black.some)
@@ -86,7 +86,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.06, 0.00001d)
         br.volatility must beCloseTo(0.06, 0.00001d)
       }
-      "draw" in {
+      "draw" >> {
         val wr = perf.toRating
         val br = perf.toRating
         updateRatings(wr, br, None)
@@ -98,7 +98,7 @@ class RatingCalculatorTest extends Specification {
         br.volatility must beCloseTo(0.06, 0.00001d)
       }
     }
-    "mixed ratings and deviations" in {
+    "mixed ratings and deviations" >> {
       val wP = Perf.default.copy(glicko =
         Glicko.default.copy(
           rating = 1400,
@@ -113,7 +113,7 @@ class RatingCalculatorTest extends Specification {
           volatility = 0.065
         )
       )
-      "white wins" in {
+      "white wins" >> {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, White.some)
@@ -124,7 +124,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.06, 0.00001d)
         br.volatility must beCloseTo(0.065, 0.00001d)
       }
-      "black wins" in {
+      "black wins" >> {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, Black.some)
@@ -135,7 +135,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.06, 0.00001d)
         br.volatility must beCloseTo(0.065, 0.00001d)
       }
-      "draw" in {
+      "draw" >> {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, None)
@@ -147,7 +147,7 @@ class RatingCalculatorTest extends Specification {
         br.volatility must beCloseTo(0.065, 0.00001d)
       }
     }
-    "more mixed ratings and deviations" in {
+    "more mixed ratings and deviations" >> {
       val wP = Perf.default.copy(glicko =
         Glicko.default.copy(
           rating = 1200,
@@ -162,7 +162,7 @@ class RatingCalculatorTest extends Specification {
           volatility = 0.062
         )
       )
-      "white wins" in {
+      "white wins" >> {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, White.some)
@@ -173,7 +173,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.053013, 0.000001d)
         br.volatility must beCloseTo(0.062028, 0.000001d)
       }
-      "black wins" in {
+      "black wins" >> {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, Black.some)
@@ -184,7 +184,7 @@ class RatingCalculatorTest extends Specification {
         wr.volatility must beCloseTo(0.052999, 0.000001d)
         br.volatility must beCloseTo(0.061999, 0.000001d)
       }
-      "draw" in {
+      "draw" >> {
         val wr = wP.toRating
         val br = bP.toRating
         updateRatings(wr, br, None)
