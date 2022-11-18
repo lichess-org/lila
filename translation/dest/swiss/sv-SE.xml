@@ -9,6 +9,10 @@
     <item quantity="one">%s rundor</item>
     <item quantity="other">%s rundor</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s rond schweiziskt</item>
+    <item quantity="other">%s ronder schweiziskt</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">En runda per dag</item>
     <item quantity="other">En runda varje %s dagar</item>
@@ -86,11 +90,23 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="pairingSystem">Parkopplingssystem</string>
   <string name="pairingSystemArena">Alla tillgängliga motståndare med liknande ranking</string>
   <string name="pairingSystemSwiss">Bästa lottningen baserat på poäng och särskiljning</string>
+  <string name="pairingWaitTime">Väntetid för parning</string>
+  <string name="pairingWaitTimeArena">Snabb: väntar inte på alla spelare</string>
+  <string name="pairingWaitTimeSwiss">Långsam: väntar på alla spelare</string>
+  <string name="identicalPairing">Identisk parning</string>
+  <string name="possibleButNotConsecutive">Möjlig, men inte konsekutiv</string>
   <string name="identicalForbidden">Förbjuden</string>
   <string name="lateJoin">Sent anslöt</string>
+  <string name="lateJoinUntil">Ja, tills över hälften av rundorna har startat</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Ja men kan minska antalet rundor</string>
+  <string name="streaksAndBerserk">Vinstserier och Berserk</string>
+  <string name="similarToOTB">Liknar OTB-turneringar</string>
   <string name="unlimitedAndFree">Obegränsad och gratis</string>
   <string name="predefinedUsers">Tillåt endast fördefinierade användare att gå med</string>
   <string name="forbiddedUsers">Om denna lista är icke-tom kommer användarnamn som inte finns i denna lista att förbjudas att gå med. Ett användarnamn per rad.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s av %2$s rond schweiziskt</item>
+    <item quantity="other">%1$s av %2$s ronder schweiziskt</item>
+  </plurals>
 </resources>

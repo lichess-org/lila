@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">URL for denne runden</string>
   <string name="currentGameUrl">URL for dette partiet</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
+  <string name="definitivelyDeleteRound">Slett runden og tilhørende partier ugjenkallelig.</string>
+  <string name="deleteAllGamesOfThisRound">Slett alle partiene i denne runden. Kilden må være aktiv for å gjenopprette dem.</string>
 </resources>

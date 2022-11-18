@@ -16,6 +16,7 @@
   <string name="areThereWebsitesBasedOnLichess">Ĉu estas retejoj bazitaj sur Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jes. Lichess efektive inspiris aliajn malfermkodajn retejojn, kiuj uzas niajn %1$s, %2$s aŭ %3$s.</string>
   <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
+  <string name="gameplay">Ludmaniero</string>
   <string name="basedOnGameDuration">Lichess tempokontroloj baziĝas sur laŭtaksa daŭro de ludo = %1$s
 Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj.</string>
   <string name="durationFormula">(horloĝa komenca horo) + 40 × (horloĝa pliigo)</string>
@@ -35,6 +36,7 @@ Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj
   <string name="accounts">Kontoj</string>
   <string name="noUpperCaseDot">Ne.</string>
   <string name="guidelines">gvidlinioj</string>
+  <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>

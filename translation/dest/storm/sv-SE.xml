@@ -52,6 +52,7 @@
   <string name="skipExplanation">Skippa detta drag för att bevara din kombo! Detta fungerar bara en gång per lopp.</string>
   <string name="failedPuzzles">Ej lösta schackproblem</string>
   <string name="slowPuzzles">Långsamma schackproblem</string>
+  <string name="skippedPuzzle">Skippat pussel</string>
   <string name="thisWeek">Denna vecka</string>
   <string name="thisMonth">Denna månad</string>
   <string name="allTime">Genom alla tider</string>

@@ -318,7 +318,7 @@
   <string name="takebackPropositionSent">Framlegg om å gjera om trekket blei sendt</string>
   <string name="takebackPropositionDeclined">Framlegget om å gjera om trekket blei avslått</string>
   <string name="takebackPropositionAccepted">Framlegget om å gjera om trekket blei godteke</string>
-  <string name="takebackPropositionCanceled">Framlegget om å få gjera om att trekket vart kansellert</string>
+  <string name="takebackPropositionCanceled">Framlegget om å gjera om trekket blei avbrote</string>
   <string name="yourOpponentProposesATakeback">Motstandaren gjer framlegg om å gjera om trekket</string>
   <string name="bookmarkThisGame">Bokmerk denne sida</string>
   <string name="tournament">Turnering</string>
@@ -370,11 +370,11 @@
   <string name="reset">Attendestill</string>
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
-  <string name="leaderboard">Rangliste</string>
+  <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
-  <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
-  <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
+  <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
+  <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
   <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>

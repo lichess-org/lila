@@ -56,7 +56,7 @@
   <string name="interference">קטיעת קו הגנה</string>
   <string name="interferenceDescription">הזזת כלי בין שני כלים יריבים על מנת להותיר אותם לא מוגנים, למשל פרש על משבצת מוגנת בין שני צריחים.</string>
   <string name="intermezzo">אינטרמצו</string>
-  <string name="intermezzoDescription">במקום ביצוע המסע הצפוי, ביצוע מסע אחר שמציב איום מיידי שהיריב חייב להתגונן נגדו. נקרא גם \"בין לבין\" או מגרמנית \"זווישנזוג\".</string>
+  <string name="intermezzoDescription">טקטיקה בה במקום לבצע את המהלך הצפוי, מבצעים מהלך ביניים המציב איום הדורש תגובה מיידית מהיריב. נקראת גם \"מסע ביניים\" או מגרמנית \"זווישנזוג\".</string>
   <string name="knightEndgame">סיום פרשים</string>
   <string name="knightEndgameDescription">סיום עם פרשים ורגלים בלבד.</string>
   <string name="long">פאזל ארוך</string>
