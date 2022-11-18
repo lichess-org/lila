@@ -6,9 +6,12 @@ import alleycats.Zero
 
 object Socket extends Socket:
 
-  case class Sri(value: String) extends AnyVal with StringValue
+  opaque type Sri = String
+  object Sri:
+    def apply(v: String): Sri = v
+  extension (s: Sri) def value: String = s
 
-  val sriIso        = lila.common.Iso.string[Sri](Sri.apply, _.value)
+  val sriIso        = lila.common.Iso.isoIdentity[Sri]
   given Format[Sri] = lila.common.Json.stringIsoFormat(using sriIso)
 
   case class Sris(sris: Set[Sri])

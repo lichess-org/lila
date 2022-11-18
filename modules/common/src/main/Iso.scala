@@ -47,7 +47,7 @@ object Iso:
       strs => strs.value mkString sep
     )
 
-  given [A]: Iso[A, A] = apply(identity[A], identity[A])
+  given isoIdentity[A]: Iso[A, A] = apply(identity[A], identity[A])
 
   given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
 
