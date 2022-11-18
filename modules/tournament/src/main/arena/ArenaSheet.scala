@@ -14,9 +14,10 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
       scores.lift(1).exists(_.res == Result.Win)
 
   def addResult(userId: User.ID, p: Pairing, version: Version, streakable: Streakable): Sheet =
-    val berserk = if (p berserkOf userId)
-      if (p.notSoQuickFinish) Berserk.Valid else Berserk.Invalid
-    else Berserk.No
+    val berserk =
+      if (p berserkOf userId)
+        if p.notSoQuickFinish then Berserk.Valid else Berserk.Invalid
+      else Berserk.No
     val score = p.winner match
       case None if p.quickDraw => Score(Result.DQ, Flag.Normal, berserk)
       case None =>
@@ -57,15 +58,11 @@ object Sheet:
       sheet.addResult(userId, pairing, version, streakable)
     }
 
-  // #TODO opaque types for perf
-
-  case class Version private (id: Int) extends AnyVal
+  opaque type Version = Int
   object Version:
-    val V1 = Version(1)
-    val V2 = Version(2)
-
-    private val v2date = new DateTime(2020, 4, 21, 0, 0, 0)
-
+    val V1: Version        = 1
+    val V2: Version        = 2
+    private val v2date     = new DateTime(2020, 4, 21, 0, 0, 0)
     def of(date: DateTime) = if (date isBefore v2date) V1 else V2
 
   case class Streakable(value: Boolean) extends AnyVal
