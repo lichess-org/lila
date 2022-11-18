@@ -10,6 +10,7 @@ object Dependencies {
       ("linux", "epoll")
 
   val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
+  val sonashots = "sonashots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
@@ -58,11 +59,11 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.1.0-RC6"
+    val version = "1.1.0-275c4ca-RC7-SNAPSHOT"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
-    val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-$os-x86-64"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC6"
+    val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"1.1.0-RC6-$os-x86-64"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }

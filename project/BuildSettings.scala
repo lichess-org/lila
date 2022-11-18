@@ -16,7 +16,7 @@ object BuildSettings {
     Defaults.coreDefaultSettings ++ Seq(
       version      := lilaVersion,
       organization := "org.lichess",
-      resolvers += lilaMaven,
+      resolvers ++= Seq(lilaMaven, sonashots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       // No bloop project for tests
