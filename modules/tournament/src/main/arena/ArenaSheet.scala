@@ -23,7 +23,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
       case None =>
         Score(
           Result.Draw,
-          if (streakable.value && isOnFire) Flag.Double
+          if (streakable.encodedStreakable && isOnFire) Flag.Double
           else if (version != Version.V1 && !p.longGame(variant) && isDrawStreak(scores)) Flag.Null
           else Flag.Normal,
           berserk
@@ -31,7 +31,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
       case Some(w) if userId == w =>
         Score(
           Result.Win,
-          if (!streakable.value) Flag.Normal
+          if (!streakable.encodedStreakable) Flag.Normal
           else if (isOnFire) Flag.Double
           else Flag.StreakStarter,
           berserk
@@ -65,62 +65,72 @@ object Sheet:
     private val v2date     = new DateTime(2020, 4, 21, 0, 0, 0)
     def of(date: DateTime) = if (date isBefore v2date) V1 else V2
 
-  case class Streakable(value: Boolean) extends AnyVal
+  opaque type Streakable = Boolean
+  object Streakable:
+    def apply(v: Boolean): Streakable = v
+  extension (s: Streakable) def encodedStreakable: Boolean = s
 
-  case class Flag(value: Int) extends AnyVal
+  opaque type Flag = Int
   object Flag:
-    val Null          = Flag(0)
-    val Normal        = Flag(1)
-    val StreakStarter = Flag(2)
-    val Double        = Flag(3)
+    def apply(v: Int): Flag = v
+    val Null                = Flag(0)
+    val Normal              = Flag(1)
+    val StreakStarter       = Flag(2)
+    val Double              = Flag(3)
+  extension (s: Flag) def encodedFlag: Int = s
 
-  case class Berserk private[Sheet] (encoded: Int) extends AnyVal
+  opaque type Berserk = Int
   object Berserk:
-    val No      = Berserk(0 << 2)
-    val Valid   = Berserk(1 << 2)
-    val Invalid = Berserk(2 << 2)
+    def apply(v: Int): Berserk = v
+    val No                     = Berserk(0 << 2)
+    val Valid                  = Berserk(1 << 2)
+    val Invalid                = Berserk(2 << 2)
+  extension (o: Berserk) def encodedBerserk: Int = o
 
-  case class Result private[Sheet] (encoded: Int) extends AnyVal
+  opaque type Result = Int
   object Result:
-    val Win  = Result(0 << 4)
-    val Draw = Result(1 << 4)
-    val Loss = Result(2 << 4)
-    val DQ   = Result(3 << 4)
+    def apply(v: Int): Result = v
+    val Win                   = Result(0 << 4)
+    val Draw                  = Result(1 << 4)
+    val Loss                  = Result(2 << 4)
+    val DQ                    = Result(3 << 4)
+  extension (o: Result) def encodedResult: Int = o
 
-  final case class Score private (encoded: Int) extends AnyVal:
+  opaque type Score = Int
+  object Score:
+    def apply(v: Int): Score = v
+    def apply(res: Result, flag: Flag, berserk: Berserk): Score =
+      Score(flag.encodedFlag | berserk.encodedBerserk | res.encodedResult)
+  extension (s: Score)
     // flag:    2 bits
     // berserk: 2 bits
     // result:  2 bits
-    def flag    = Flag(encoded & 0x3) // value is public
-    def berserk = Berserk(encoded & (0x3 << 2))
-    def res     = Result(encoded & (0x3 << 4))
+    def flag: Flag       = Flag(s & 0x3) // value is public
+    def berserk: Berserk = Berserk(s & (0x3 << 2))
+    def res: Result      = Result(s & (0x3 << 4))
 
-    def isBerserk = berserk != Berserk.No
+    def isBerserk: Boolean = berserk != Berserk.No
 
-    def isWin =
+    def isWin: Option[Boolean] =
       res match
         case Result.Win  => Some(true)
         case Result.Loss => Some(false)
         case _           => None
 
-    def isDraw = res == Result.Draw
+    def isDraw: Boolean = res == Result.Draw
 
-    def value = ((res, flag) match {
+    def value: Int = ((res, flag) match
       case (Result.Win, Flag.Double)  => 4
       case (Result.Win, _)            => 2
       case (Result.Draw, Flag.Double) => 2
       case (Result.Draw, Flag.Null)   => 0
       case (Result.Draw, _)           => 1
       case _                          => 0
-    }) + {
-      if (res == Result.Win && berserk == Berserk.Valid) 1 else 0
+    ) + {
+      if res == Result.Win && berserk == Berserk.Valid then 1 else 0
     }
 
-    def withFlag(newFlag: Flag) = Score(res, newFlag, berserk)
-  object Score:
-    def apply(res: Result, flag: Flag, berserk: Berserk): Score = Score(
-      flag.value | berserk.encoded | res.encoded
-    )
+    def withFlag(newFlag: Flag): Score = Score(res, newFlag, berserk)
 
   @scala.annotation.tailrec
   private def isDrawStreak(scores: List[Score]): Boolean =
