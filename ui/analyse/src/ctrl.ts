@@ -39,7 +39,7 @@ import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
-import wikiTheory, { WikiTheory } from './wiki';
+import wikiTheory, { wikiClear, WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
@@ -126,7 +126,7 @@ export default class AnalyseCtrl {
     this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
-
+    if (this.opts.wiki) this.wiki = wikiTheory();
     if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
 
     this.instanciateEvalCache();
@@ -220,9 +220,8 @@ export default class AnalyseCtrl {
 
   enableWiki = (v: boolean) => {
     this.wiki = v ? wikiTheory() : undefined;
-    if (this.wiki) {
-      this.wiki(this.nodeList);
-    } else $('.analyse__wiki').html('').toggleClass('empty', true);
+    if (this.wiki) this.wiki(this.nodeList);
+    else wikiClear();
   };
 
   private setPath = (path: Tree.Path): void => {
