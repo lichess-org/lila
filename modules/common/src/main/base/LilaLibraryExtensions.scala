@@ -150,12 +150,12 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
     inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)
     inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
 
-    def >>-(sideEffect: => Unit)(using ec: EC): Fu[A] =
+    def >>-(sideEffect: => Unit)(using EC): Fu[A] =
       fua andThen { case _ =>
         sideEffect
       }
 
-    def >>[B](fub: => Fu[B])(using ec: EC): Fu[B] =
+    def >>[B](fub: => Fu[B])(using EC): Fu[B] =
       fua flatMap { _ =>
         fub
       }
@@ -170,38 +170,38 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
         b
       }
 
-    def injectAnyway[B](b: => B)(using ec: EC): Fu[B] = fold(_ => b, _ => b)
+    def injectAnyway[B](b: => B)(using EC): Fu[B] = fold(_ => b, _ => b)
 
-    def effectFold(fail: Exception => Unit, succ: A => Unit)(using ec: EC): Unit =
+    def effectFold(fail: Exception => Unit, succ: A => Unit)(using EC): Unit =
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
       }
 
-    def fold[B](fail: Exception => B, succ: A => B)(using ec: EC): Fu[B] =
+    def fold[B](fail: Exception => B, succ: A => B)(using EC): Fu[B] =
       fua map succ recover { case e: Exception => fail(e) }
 
-    def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B])(using ec: EC): Fu[B] =
+    def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B])(using EC): Fu[B] =
       fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
-    def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using ec: EC): Fu[A] =
+    def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using EC): Fu[A] =
       addFailureEffect { e =>
         logger.warn(msg(e), e)
       }
-    def logFailure(logger: => lila.log.Logger)(using ec: EC): Fu[A] = logFailure(logger, _.toString)
+    def logFailure(logger: => lila.log.Logger)(using EC): Fu[A] = logFailure(logger, _.toString)
 
-    def addFailureEffect(effect: Throwable => Unit)(using ec: EC) =
+    def addFailureEffect(effect: Throwable => Unit)(using EC) =
       fua.failed.foreach { (e: Throwable) =>
         effect(e)
       }
       fua
 
-    def addEffect(effect: A => Unit)(using ec: EC): Fu[A] =
+    def addEffect(effect: A => Unit)(using EC): Fu[A] =
       fua foreach effect
       fua
 
-    def addEffects(fail: Exception => Unit, succ: A => Unit)(using ec: EC): Fu[A] =
+    def addEffects(fail: Exception => Unit, succ: A => Unit)(using EC): Fu[A] =
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
@@ -209,34 +209,34 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
       }
       fua
 
-    def addEffects(f: Try[A] => Unit)(using ec: EC): Fu[A] =
+    def addEffects(f: Try[A] => Unit)(using EC): Fu[A] =
       fua onComplete f
       fua
 
-    def addEffectAnyway(inAnyCase: => Unit)(using ec: EC): Fu[A] =
+    def addEffectAnyway(inAnyCase: => Unit)(using EC): Fu[A] =
       fua onComplete { _ =>
         inAnyCase
       }
       fua
 
-    def mapFailure(f: Exception => Exception)(using ec: EC): Fu[A] =
+    def mapFailure(f: Exception => Exception)(using EC): Fu[A] =
       fua recoverWith { case cause: Exception =>
         fufail(f(cause))
       }
 
-    def prefixFailure(p: => String)(using ec: EC): Fu[A] =
+    def prefixFailure(p: => String)(using EC): Fu[A] =
       mapFailure { e =>
         LilaException(s"$p ${e.getMessage}")
       }
 
-    def thenPp(using ec: EC): Fu[A] =
+    def thenPp(using EC): Fu[A] =
       effectFold(
         e => println("[failure] " + e),
         a => println("[success] " + a)
       )
       fua
 
-    def thenPp(msg: String)(using ec: EC): Fu[A] =
+    def thenPp(msg: String)(using EC): Fu[A] =
       effectFold(
         e => println(s"[$msg] [failure] $e"),
         a => println(s"[$msg] [success] $a")
@@ -256,13 +256,13 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
       try await(duration, name)
       catch case _: Exception => default
 
-    def withTimeout(duration: FiniteDuration)(using ec: EC, scheduler: Scheduler): Fu[A] =
+    def withTimeout(duration: FiniteDuration)(using EC, Scheduler): Fu[A] =
       withTimeout(duration, LilaTimeout(s"Future timed out after $duration"))
 
     def withTimeout(
         duration: FiniteDuration,
         error: => Throwable
-    )(using ec: EC, scheduler: Scheduler): Fu[A] =
+    )(using EC)(using scheduler: Scheduler): Fu[A] =
       Future firstCompletedOf Seq(
         fua,
         akka.pattern.after(duration, scheduler)(Future failed error)
@@ -271,13 +271,13 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
     def withTimeoutDefault(
         duration: FiniteDuration,
         default: => A
-    )(using ec: EC, scheduler: Scheduler): Fu[A] =
+    )(using EC)(using scheduler: Scheduler): Fu[A] =
       Future firstCompletedOf Seq(
         fua,
         akka.pattern.after(duration, scheduler)(Future(default))
       )
 
-    def delay(duration: FiniteDuration)(using ec: EC, scheduler: Scheduler) =
+    def delay(duration: FiniteDuration)(using EC, Scheduler) =
       lila.common.Future.delay(duration)(fua)
 
     def chronometer    = Chronometer(fua)
@@ -294,9 +294,9 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
     def logTime(name: String): Fu[A]                               = chronometer pp name
     def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
 
-    def recoverDefault(using z: Zero[A], ec: EC): Fu[A] = recoverDefault(z.zero)
+    def recoverDefault(using EC)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
 
-    def recoverDefault(default: => A)(using ec: EC): Fu[A] =
+    def recoverDefault(using EC)(default: => A): Fu[A] =
       fua recover {
         case _: LilaException                         => default
         case _: java.util.concurrent.TimeoutException => default
@@ -317,29 +317,29 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
 
   extension [A](fua: Fu[Option[A]])
 
-    def orFail(msg: => String)(using ec: EC): Fu[A] =
+    def orFail(msg: => String)(using EC): Fu[A] =
       fua flatMap {
         _.fold[Fu[A]](fufail(msg))(fuccess)
       }
 
-    def orFailWith(err: => Exception)(using ec: EC): Fu[A] =
+    def orFailWith(err: => Exception)(using EC): Fu[A] =
       fua flatMap {
         _.fold[Fu[A]](fufail(err))(fuccess)
       }
 
-    def orElse(other: => Fu[Option[A]])(using ec: EC): Fu[Option[A]] =
+    def orElse(other: => Fu[Option[A]])(using EC): Fu[Option[A]] =
       fua flatMap {
         _.fold(other) { x =>
           fuccess(Some(x))
         }
       }
 
-    def getOrElse(other: => Fu[A])(using ec: EC): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
+    def getOrElse(other: => Fu[A])(using EC): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
     @targetName("orZeroFu")
     def orZeroFu(using z: Zero[A]): Fu[A] = fua.map(_ getOrElse z.zero)(EC.parasitic)
 
-    def map2[B](f: A => B)(using ec: EC): Fu[Option[B]] = fua.map(_ map f)
-    def dmap2[B](f: A => B): Fu[Option[B]]              = fua.map(_ map f)(EC.parasitic)
+    def map2[B](f: A => B)(using EC): Fu[Option[B]] = fua.map(_ map f)
+    def dmap2[B](f: A => B): Fu[Option[B]]          = fua.map(_ map f)(EC.parasitic)
 
     def getIfPresent: Option[A] =
       fua.value match
@@ -347,4 +347,4 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
         case _                           => None
 
   extension [A, M[X] <: IterableOnce[X]](t: M[Fu[A]])
-    def sequenceFu(using bf: BuildFrom[M[Fu[A]], A, M[A]], ec: EC): Fu[M[A]] = Future.sequence(t)
+    def sequenceFu(using BuildFrom[M[Fu[A]], A, M[A]], EC): Fu[M[A]] = Future.sequence(t)
