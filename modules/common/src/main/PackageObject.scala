@@ -23,3 +23,5 @@ trait PackageObject extends Lilaisms:
     def minutes(m: Int): Timeout        = Timeout(m.minutes)
 
   def some[A](a: A): Option[A] = Some(a)
+
+object Lila extends PackageObject

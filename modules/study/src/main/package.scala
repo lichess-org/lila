@@ -1,13 +1,13 @@
-package lila
+package lila.study
 
 import reactivemongo.api.ReadPreference
 
-package object study extends PackageObject:
+export lila.Lila.{ *, given }
 
-  private[study] val logger = lila.log("study")
+private val logger = lila.log("study")
 
-  private[study] type ChapterMap = Map[lila.study.Chapter.Id, lila.study.Chapter]
+private type ChapterMap = Map[lila.study.Chapter.Id, lila.study.Chapter]
 
-  private[study] val readPref = ReadPreference.primary
+private val readPref = ReadPreference.primary
 
-  given studyIdString: Conversion[Study.Id, String] = _.id
+given studyIdString: Conversion[Study.Id, String] = _.id
