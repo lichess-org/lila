@@ -2,7 +2,7 @@ package lila.blog
 
 export lila.Lila.{ *, given }
 
-private def logger = lila.log("blog")
+private val logger = lila.log("blog")
 
 lazy val thisYear = org.joda.time.DateTime.now.getYear
 

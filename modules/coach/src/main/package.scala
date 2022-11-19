@@ -2,4 +2,4 @@ package lila.coach
 
 export lila.Lila.{ *, given }
 
-private def logger = lila.log("coach")
+private val logger = lila.log("coach")

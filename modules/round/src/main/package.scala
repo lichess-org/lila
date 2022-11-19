@@ -5,7 +5,7 @@ import lila.game.Event
 export lila.Lila.{ *, given }
 
 private type Events = List[Event]
-private def logger = lila.log("round")
+private val logger = lila.log("round")
 
 trait BenignError                        extends lila.base.LilaException
 case class ClientError(message: String)  extends BenignError

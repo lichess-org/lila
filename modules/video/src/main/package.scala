@@ -6,4 +6,4 @@ type Target = Int
 type Tag    = String
 type Lang   = String
 
-private def logger = lila.log("video")
+private val logger = lila.log("video")

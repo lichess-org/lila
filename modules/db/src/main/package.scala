@@ -12,4 +12,4 @@ def ignoreDuplicateKey: PartialFunction[Throwable, Unit] =
 
 def isDuplicateKey(wr: WriteResult) = wr.code.contains(11000)
 
-private def logger = lila.log("db")
+private val logger = lila.log("db")

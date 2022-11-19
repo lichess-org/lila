@@ -2,4 +2,4 @@ package lila.memo
 
 export lila.Lila.{ *, given }
 
-private def logger = lila.log("memo")
+private val logger = lila.log("memo")

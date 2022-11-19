@@ -2,4 +2,4 @@ package lila.gameSearch
 
 export lila.Lila.{ *, given }
 
-private def logger = lila.log("gameSearch")
+private val logger = lila.log("gameSearch")

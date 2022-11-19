@@ -2,4 +2,4 @@ package lila.streamer
 
 export lila.Lila.{ *, given }
 
-private def logger = lila.log("streamer")
+private val logger = lila.log("streamer")
