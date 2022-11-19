@@ -222,7 +222,7 @@ object index:
                         a(
                           cls  := "button",
                           href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
-                        )("Log in to donate")
+                        )(logInToDonate())
                     ),
                     ctx.isAuth option div(cls := "other-choices")(
                       a(cls := "currency-toggle")(trans.patron.changeCurrency()),
@@ -289,14 +289,12 @@ object index:
         ),
         dt(otherMethods()),
         dd(
-          "Lichess is ",
-          a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("registered with Benevity"),
-          ".",
+          lichessIsRegisteredWith(a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")), 
           br,
           views.html.site.contact.contactEmailLinkEmpty()(bankTransfers()),
           ".",
           br,
-          strong("Please note that only the donation form above will grant the Patron status.")
+          strong(onlyDonationFromAbove())
         )
       ),
       dl(

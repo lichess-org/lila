@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Қазіргі айналым сілтемесі</string>
   <string name="currentGameUrl">Қазіргі ойын сілтемесі</string>
   <string name="downloadAllRounds">Барлық айналымдарды жүктеп алу</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Айналым мен оның ойындарын толығымен жою.</string>
+  <string name="deleteAllGamesOfThisRound">Айналымның бүкіл ойындарын жою. Оларды қайта құру үшін қайнар көзі белсенді болуы керек.</string>
 </resources>

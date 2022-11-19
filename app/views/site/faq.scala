@@ -159,11 +159,7 @@ object faq:
             )
           ),
           p(
-            "Watch International Master Eric Rosen ",
-            a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")(
-              "checkmate en passant"
-            ),
-            "."
+            watchIMRosenCheckmate(a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")("en passant"))
           )
         ),
         question(

@@ -21,10 +21,19 @@
   <string name="result">Tulemus</string>
   <string name="winnerColor">Võitja värv</string>
   <string name="date">Kuupäev</string>
-  <string name="sortBy">Sorteerimine</string>
+  <string name="sortBy">Sorteeri</string>
   <string name="analysis">Analüüs</string>
   <string name="onlyAnalysed">Ainult partiid, mille kohta on tehtud arvutianalüüs</string>
   <string name="color">Värv</string>
   <string name="evaluation">Hindamine</string>
   <string name="maxNumber">Suurim number</string>
+  <string name="maxNumberExplanation">Suurim partiide arv mida tagastada</string>
+  <string name="include">Sisalda</string>
+  <string name="descending">Kahanevalt</string>
+  <string name="ascending">Kasvavalt</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Leiti %s partii</item>
+    <item quantity="other">Leiti %s partiid</item>
+  </plurals>
+  <string name="ratingExplanation">Mõlema mängija keskmine reiting</string>
 </resources>

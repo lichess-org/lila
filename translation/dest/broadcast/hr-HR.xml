@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">URL trenutne runde</string>
   <string name="currentGameUrl">URL trenutne igre</string>
   <string name="downloadAllRounds">Preuzmite sve igre</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Definitivno izbrišite rundu i njezine igre.</string>
+  <string name="deleteAllGamesOfThisRound">Izbriši sve igre ovog kola. Izvor mora biti aktivan kako bi ih se ponovno stvorilo.</string>
 </resources>

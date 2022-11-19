@@ -89,7 +89,7 @@
   <string name="saveChapter">שמור פרק</string>
   <string name="clearAnnotations">נקה הערות</string>
   <string name="clearVariations">נקה וריאציות</string>
-  <string name="deleteChapter">מחק פרק</string>
+  <string name="deleteChapter">מחיקת הפרק</string>
   <string name="deleteThisChapter">למחוק את הפרק? אין דרך חזרה!</string>
   <string name="clearAllCommentsInThisChapter">ניקוי כל ההערות, הרישומים והציורים בפרק זה</string>
   <string name="rightUnderTheBoard">ממש מתחת ללוח</string>
