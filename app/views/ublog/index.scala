@@ -97,10 +97,10 @@ object index:
                 langSelections
                   .map { case (language, name) =>
                     a(
-                      href := (language match {
-                        case "all" => routes.Ublog.communityAll()
-                        case _     => routes.Ublog.communityLang(language)
-                      }),
+                      href := {
+                        if language == "all" then routes.Ublog.communityAll()
+                        else routes.Ublog.communityLang(language)
+                      },
                       cls := (language == lang.fold("all")(_.language)).option("current")
                     )(name)
                   }
