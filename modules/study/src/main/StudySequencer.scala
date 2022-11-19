@@ -18,7 +18,7 @@ final private class StudySequencer(
     new AsyncActorSequencers(maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
 
   def sequenceStudy[A <: Matchable: Zero](studyId: Study.Id)(f: Study => Fu[A]): Fu[A] =
-    workQueue(studyId.value) {
+    workQueue(studyId) {
       studyRepo.byId(studyId) flatMap {
         _ ?? { f(_) }
       }

@@ -45,7 +45,7 @@ object show:
                   localMod = ctx.userId exists s.canContribute
                 )
               },
-              "socketUrl"     -> socketUrl(s.id.value),
+              "socketUrl"     -> socketUrl(s.id),
               "socketVersion" -> socketVersion.value
             ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
@@ -57,7 +57,7 @@ object show:
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,
-          url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
+          url = s"$netBaseUrl${routes.Study.show(s.id).url}",
           description = s"A chess study by ${titleNameOrId(s.ownerId)}"
         )
         .some
@@ -68,4 +68,4 @@ object show:
       )
     )
 
-  def socketUrl(id: String) = s"/study/$id/socket/v$apiVersion"
+  def socketUrl(id: lila.study.Study.Id) = s"/study/$id/socket/v$apiVersion"

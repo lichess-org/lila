@@ -13,7 +13,7 @@ object clone:
       title = s"Clone ${s.name}",
       icon = Some("")
     ) {
-      postForm(action := routes.Study.cloneApply(s.id.value))(
+      postForm(action := routes.Study.cloneApply(s.id))(
         p("This will create a new private study with the same chapters."),
         p("You will be the owner of that new study."),
         p("The two studies can be updated separately."),
@@ -26,7 +26,7 @@ object clone:
           )("Clone the study")
         ),
         p(
-          a(href := routes.Study.show(s.id.value), cls := "text", dataIcon := "")(trans.cancel())
+          a(href := routes.Study.show(s.id), cls := "text", dataIcon := "")(trans.cancel())
         )
       )
     }

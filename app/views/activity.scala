@@ -74,7 +74,7 @@ object activity:
   private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) =
     tup match
       case (study, nb) =>
-        val href = routes.Practice.show("-", study.slug, study.id.value)
+        val href = routes.Practice.show("-", study.slug, study.id)
         frag(
           trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
           br
@@ -268,7 +268,7 @@ object activity:
         trans.activity.createdNbStudies.pluralSame(studies.size),
         subTag(
           studies.map { s =>
-            frag(a(href := routes.Study.show(s.id.value))(s.name.value), br)
+            frag(a(href := routes.Study.show(s.id))(s.name.value), br)
           }
         )
       )

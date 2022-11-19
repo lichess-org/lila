@@ -92,7 +92,7 @@ private object BSONHandlers:
   private given Iso.StringIso[Learn.Stage] = Iso.string(Learn.Stage.apply, _.value)
   given BSONHandler[Learn]                 = typedMapHandler[Learn.Stage, Int].as(Learn.apply, _.value)
 
-  private given Iso.StringIso[Study.Id] = Iso.string(Study.Id.apply, _.value)
+  private given Iso.StringIso[Study.Id] = Iso.string(Study.Id.apply, _.id)
   given BSONHandler[Practice]           = typedMapHandler[Study.Id, Int].as[Practice](Practice.apply, _.value)
 
   given BSONHandler[SimulId] = BSONStringHandler.as(SimulId.apply, _.value)

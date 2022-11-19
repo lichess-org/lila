@@ -105,6 +105,8 @@ trait ScalatagsTemplate
     with ScalatagsSnippets
     with ScalatagsPrefix:
 
+  export lila.study.studyIdString
+
   val trans     = lila.i18n.I18nKeys
   def main      = scalatags.Text.tags2.main
   def cssWidth  = scalatags.Text.styles.width

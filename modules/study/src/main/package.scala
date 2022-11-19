@@ -9,3 +9,5 @@ package object study extends PackageObject:
   private[study] type ChapterMap = Map[lila.study.Chapter.Id, lila.study.Chapter]
 
   private[study] val readPref = ReadPreference.primary
+
+  given studyIdString: Conversion[Study.Id, String] = _.id

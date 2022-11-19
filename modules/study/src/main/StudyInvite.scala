@@ -8,6 +8,7 @@ import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Holder, User }
+import lila.study.BSONHandlers.given
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -69,7 +70,7 @@ final private class StudyInvite(
         val notificationContent = InvitedToStudy(
           InvitedToStudy.InvitedBy(inviter.id),
           InvitedToStudy.StudyName(study.name.value),
-          InvitedToStudy.StudyId(study.id.value)
+          InvitedToStudy.StudyId(study.id)
         )
         val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
         notifyApi.addNotification(notification).void
@@ -80,7 +81,7 @@ final private class StudyInvite(
     studyRepo.coll {
       _.update
         .one(
-          $id(study.id.value),
+          $id(study.id),
           $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
             $addToSet("uids"         -> user.id)
         )

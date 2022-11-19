@@ -28,6 +28,7 @@ trait Handlers:
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
     isoHandler(using Iso(from, to))(using handler)
 
+  export BSONStringHandler.as as stringHandler
   def stringIsoHandler[A](implicit iso: StringIso[A]): BSONHandler[A] =
     BSONStringHandler.as[A](iso.from, iso.to)
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =

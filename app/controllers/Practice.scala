@@ -8,7 +8,7 @@ import lila.app.{ given, * }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Study as StudyModel }
+import lila.study.{ Chapter, studyIdString, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 
@@ -57,7 +57,7 @@ final class Practice(
       api.structure.get.flatMap { struct =>
         struct.sections.find(_.id == sectionId).fold(notFound) { section =>
           select(section) ?? { study =>
-            Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).toFuccess
+            Redirect(routes.Practice.show(section.id, study.slug, study.id)).toFuccess
           }
         }
       }

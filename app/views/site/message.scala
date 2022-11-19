@@ -54,7 +54,7 @@ object message:
       back = routes.Study.allDefault(1).url.some
     )(
       "Sorry! This study is private, you cannot access it.",
-      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id.value))(
+      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id))(
         submitButton("View as admin")(cls            := "button button-red")
       )
     )

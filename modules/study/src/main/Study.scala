@@ -84,8 +84,10 @@ object Study:
   val previewNbMembers  = 4
   val previewNbChapters = 4
 
-  case class Id(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
+  opaque type Id = String
+  object Id:
+    def apply(v: String): Id = v
+  extension (o: Id) def id: String = o
 
   case class Name(value: String) extends AnyVal with StringValue
   given Iso.StringIso[Name] = Iso.string(Name.apply, _.value)

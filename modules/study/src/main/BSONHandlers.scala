@@ -22,7 +22,7 @@ object BSONHandlers:
   import Study.given
   import Chapter.given
 
-  given idHandler: BSONHandler[Study.Id]              = stringIsoHandler
+  given BSONHandler[Study.Id]                         = stringHandler(Study.Id.apply, _.id)
   given nameHandler: BSONHandler[Study.Name]          = stringIsoHandler
   given chapterIdHandler: BSONHandler[Chapter.Id]     = stringIsoHandler
   given chapterNameHandler: BSONHandler[Chapter.Name] = stringIsoHandler

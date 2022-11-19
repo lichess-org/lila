@@ -167,7 +167,7 @@ final class StudyApi(
           val study = study1 rewindTo first
           studyRepo.insert(study) >>
             chatApi.userChat.system(
-              Chat.Id(study.id.value),
+              Chat.Id(study.id),
               s"Cloned from lichess.org/study/${prev.id}",
               _.Study
             ) inject study.some
@@ -188,10 +188,10 @@ final class StudyApi(
       _ foreach { study =>
         (study canChat userId) ?? {
           chatApi.userChat.write(
-            Chat.Id(studyId.value),
+            Chat.Id(studyId),
             userId = userId,
             text = text,
-            publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId.value).some,
+            publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId).some,
             busChan = _.Study
           )
         }
@@ -819,7 +819,7 @@ final class StudyApi(
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))
       if (v) studyRepo byId studyId foreach {
         _.filter(_.isPublic) foreach { study =>
-          timeline ! (Propagate(StudyLike(who.u, study.id.value, study.name.value)) toFollowersOf who.u)
+          timeline ! (Propagate(StudyLike(who.u, study.id, study.name.value)) toFollowersOf who.u)
         }
       }
     }

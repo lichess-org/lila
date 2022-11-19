@@ -70,8 +70,8 @@ final class JsonView(
 
   def pagerData(s: Study.WithChaptersAndLiked) =
     Json.obj(
-      "id"        -> s.study.id.value,
-      "name"      -> s.study.name.value,
+      "id"        -> s.study.id,
+      "name"      -> s.study.name,
       "liked"     -> s.liked,
       "likes"     -> s.study.likes.value,
       "updatedAt" -> s.study.updatedAt,
@@ -119,7 +119,8 @@ object JsonView:
   case class JsData(study: JsObject, analysis: JsObject)
 
   import Study.given
-  given idWrites: Writes[Study.Id]     = stringIsoWriter
+
+  given Format[Study.Id]               = stringFormat.bimap(Study.Id.apply, _.id)
   given nameWrites: Writes[Study.Name] = stringIsoWriter
   given OWrites[Study.IdName] = OWrites { s =>
     Json.obj("id" -> s._id, "name" -> s.name)

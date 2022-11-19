@@ -35,17 +35,17 @@ object config:
                         li(
                           i(cls := s"practice icon ${stud.id}")(
                             h3(
-                              a(href := routes.Study.show(stud.id.value))(
+                              a(href := routes.Study.show(stud.id))(
                                 stud.name,
                                 "#",
-                                stud.id,
+                                stud.id.id,
                                 stud.hide ?? " [hidden]"
                               )
                             ),
                             em(stud.desc),
                             ol(
                               stud.chapters.map { cha =>
-                                li(a(href := routes.Study.chapter(stud.id.value, cha.id.value))(cha.name))
+                                li(a(href := routes.Study.chapter(stud.id, cha.id.value))(cha.name))
                               }
                             )
                           )

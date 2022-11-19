@@ -13,7 +13,7 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Study as StudyModel }
+import lila.study.{ Chapter, Order, studyIdString, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 
@@ -186,7 +186,7 @@ final class Study(
                 sVersion  <- env.study.version(sc.study.id)
                 streamers <- streamersOf(sc.study)
               } yield Ok(html.study.show(sc.study, data, chat, sVersion, streamers))
-                .withCanonical(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value))
+                .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id.value))
                 .enableSharedArrayBuffer,
             api = _ =>
               chatOf(sc.study).map { chatOpt =>
@@ -257,7 +257,7 @@ final class Study(
   def chapterMeta(id: String, chapterId: String) =
     Open { _ =>
       env.study.chapterRepo.byId(chapterId).map {
-        _.filter(_.studyId.value == id) ?? { chapter =>
+        _.filter(_.studyId.id == id) ?? { chapter =>
           Ok(env.study.jsonView.chapterConfig(chapter))
         }
       }
@@ -269,7 +269,7 @@ final class Study(
       env.chat.panic.allowed
     }
   } ?? env.chat.api.userChat
-    .findMine(Chat.Id(study.id.value), ctx.me)
+    .findMine(Chat.Id(study.id), ctx.me)
     .dmap(some)
     .mon(_.chat.fetch("study"))
 
@@ -311,7 +311,7 @@ final class Study(
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
       _.fold(notFound) { sc =>
-        Redirect(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).toFuccess
+        Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id.value)).toFuccess
       }
     }
 
@@ -434,7 +434,7 @@ final class Study(
           OptionFuResult(env.study.api.byId(id)) { prev =>
             CanView(prev, me.some) {
               env.study.api.clone(me, prev) map { study =>
-                Redirect(routes.Study.show((study | prev).id.value))
+                Redirect(routes.Study.show((study | prev).id))
               }
             }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
           }

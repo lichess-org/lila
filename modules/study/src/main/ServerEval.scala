@@ -36,7 +36,7 @@ object ServerEval:
         unlimitedFu flatMap { unlimited =>
           chapterRepo.startServerEval(chapter) >>- {
             fishnet ! StudyChapterRequest(
-              studyId = study.id.value,
+              studyId = study.id,
               chapterId = chapter.id.value,
               initialFen = chapter.root.fen.some,
               variant = chapter.setup.variant,

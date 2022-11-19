@@ -27,7 +27,7 @@ object embed:
         main(cls := "analyse")
       ),
       footer {
-        val url = routes.Study.chapter(s.id.value, chapter.id.value)
+        val url = routes.Study.chapter(s.id, chapter.id.value)
         frag(
           div(cls := "left")(
             select(id := "chapter-selector")(chapters.map { c =>

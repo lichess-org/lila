@@ -10,7 +10,7 @@ import scala.concurrent.duration.*
 
 import lila.hub.LateMultiThrottler
 import lila.search.*
-import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
+import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo, studyIdString }
 import lila.tree.Node.Comments
 
 final class StudySearchApi(
@@ -34,7 +34,7 @@ final class StudySearchApi(
   def store(study: Study) =
     fuccess {
       indexThrottler ! LateMultiThrottler.work(
-        id = study.id.value,
+        id = study.id,
         run = studyRepo byId study.id flatMap { _ ?? doStore },
         delay = 30.seconds.some
       )
@@ -43,9 +43,9 @@ final class StudySearchApi(
   private def doStore(study: Study) =
     getChapters(study)
       .flatMap { s =>
-        client.store(Id(s.study.id.value), toDoc(s))
+        client.store(Id(s.study.id), toDoc(s))
       }
-      .prefixFailure(study.id.value)
+      .prefixFailure(study.id)
 
   private def toDoc(s: Study.WithActualChapters) =
     Json.obj(
