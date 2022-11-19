@@ -8,7 +8,7 @@ object JSONHandlers:
 
   import IrwinReport.*
 
-  implicit val moveReader: Reads[MoveReport] = (
+  given Reads[MoveReport] = (
     (__ \ "a").read[Int] and           // activation
       (__ \ "r").readNullable[Int] and // rank
       (__ \ "m").read[Int] and         // ambiguity
@@ -18,7 +18,7 @@ object JSONHandlers:
 
   private given Reads[GameReport] = Json.reads
 
-  implicit val reportReader: Reads[IrwinReport] = (
+  given Reads[IrwinReport] = (
     (__ \ "userId").read[String] and
       (__ \ "activation").read[Int] and
       (__ \ "games").read[List[GameReport]] and
