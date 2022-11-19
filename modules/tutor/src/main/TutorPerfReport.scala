@@ -103,7 +103,7 @@ private object TutorPerfReport:
     awareness   <- answerManyPerfs(awarenessQuestion, users)
     globalClock <- answerManyPerfs(globalClockQuestion, users)
     clockUsage  <- TutorClockUsage compute users
-    perfReports <- users.toList.map { user =>
+    perfReports <- scala.concurrent.Future sequence users.toList.map { user =>
       for {
         openings <- TutorOpening compute user
         phases   <- TutorPhases compute user
@@ -119,6 +119,6 @@ private object TutorPerfReport:
         phases,
         flagging
       )
-    }.sequenceFu
+    }
 
   } yield perfReports

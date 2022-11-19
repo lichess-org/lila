@@ -1,7 +1,7 @@
-package lila
+package lila.team
 
-package object team extends PackageObject:
+export lila.Lila.{ *, given }
 
-  private[team] def logger = lila.log("team")
+private def logger = lila.log("team")
 
-  type GameTeams = chess.Color.Map[Team.ID]
+type GameTeams = chess.Color.Map[Team.ID]

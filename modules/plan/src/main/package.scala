@@ -1,5 +1,5 @@
-package lila
+package lila.plan
 
-package object plan extends PackageObject:
+export lila.Lila.{ *, given }
 
-  private[plan] def logger = lila.log("plan")
+private def logger = lila.log("plan")

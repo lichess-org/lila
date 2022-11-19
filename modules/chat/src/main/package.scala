@@ -1,7 +1,6 @@
-package lila
+package lila.chat
 
-package object chat extends PackageObject:
+export lila.Lila.{ *, given }
 
-  private[chat] def logger = lila.log("chat")
-
-  private[chat] val systemUserId = "lichess"
+private def logger       = lila.log("chat")
+private val systemUserId = "lichess"

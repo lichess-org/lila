@@ -1,3 +1,3 @@
-package lila
+package lila.socket
 
-package object socket extends PackageObject
+export lila.Lila.{ *, given }

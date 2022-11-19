@@ -1,6 +1,6 @@
 package lila
 
-trait PackageObject extends Lilaisms:
+object Lila extends Lilaisms:
 
   def nowNanos: Long  = System.nanoTime()
   def nowMillis: Long = System.currentTimeMillis()
@@ -23,5 +23,3 @@ trait PackageObject extends Lilaisms:
     def minutes(m: Int): Timeout        = Timeout(m.minutes)
 
   def some[A](a: A): Option[A] = Some(a)
-
-object Lila extends PackageObject

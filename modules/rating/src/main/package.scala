@@ -1,7 +1,6 @@
-package lila
+package lila.rating
 
-package object rating extends PackageObject:
+export lila.Lila.{ *, given }
 
-  type UserRankMap = Map[lila.rating.PerfType, Int]
-
-  type RatingFactors = Map[lila.rating.PerfType, RatingFactor]
+type UserRankMap   = Map[lila.rating.PerfType, Int]
+type RatingFactors = Map[lila.rating.PerfType, RatingFactor]

@@ -4,6 +4,7 @@ import akka.actor.{ ActorSystem, Scheduler }
 import scala.collection.BuildFrom
 import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext, Future as ScalaFu, Promise }
+import lila.Lila.Fu
 
 object Future:
 

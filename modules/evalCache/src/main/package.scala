@@ -1,5 +1,5 @@
-package lila
+package lila.evalCache
 
-package object evalCache extends PackageObject:
+export lila.Lila.{ *, given }
 
-  private[evalCache] val logger = lila.log("evalCache")
+private val logger = lila.log("evalCache")

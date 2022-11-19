@@ -1,3 +1,3 @@
-package lila
+package lila.explorer
 
-package object explorer extends PackageObject {}
+export lila.Lila.{ *, given }

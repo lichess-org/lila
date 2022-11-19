@@ -1,15 +1,14 @@
-package lila
+package lila.swiss
 
 import lila.user.User
+export lila.Lila.{ *, given }
 
-package object swiss extends PackageObject:
+val lichessTeamId = "lichess-swiss"
 
-  val lichessTeamId = "lichess-swiss"
+type Ranking = Map[lila.user.User.ID, Int]
 
-  type Ranking = Map[lila.user.User.ID, Int]
+private val logger = lila.log("swiss")
 
-  private[swiss] val logger = lila.log("swiss")
-
-  // FIDE TRF player IDs
-  private[swiss] type PlayerIds = Map[User.ID, Int]
-  private[swiss] type IdPlayers = Map[Int, User.ID]
+// FIDE TRF player IDs
+private type PlayerIds = Map[User.ID, Int]
+private type IdPlayers = Map[Int, User.ID]
