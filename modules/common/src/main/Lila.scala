@@ -1,6 +1,6 @@
 package lila
 
-object Lila extends Lilaisms:
+object Lila extends Lila:
 
   def nowNanos: Long  = System.nanoTime()
   def nowMillis: Long = System.currentTimeMillis()
@@ -23,3 +23,38 @@ object Lila extends Lilaisms:
     def minutes(m: Int): Timeout        = Timeout(m.minutes)
 
   def some[A](a: A): Option[A] = Some(a)
+
+trait Lila
+    extends lila.base.LilaTypes
+    with cats.syntax.OptionSyntax
+    with cats.syntax.ListSyntax
+    with ornicar.scalalib.Zeros
+    with lila.base.LilaLibraryExtensions:
+
+  export ornicar.scalalib.OrnicarBooleanWrapper
+
+  trait IntValue extends Any:
+    def value: Int
+    override def toString = value.toString
+  trait BooleanValue extends Any:
+    def value: Boolean
+    override def toString = value.toString
+  trait DoubleValue extends Any:
+    def value: Double
+    override def toString = value.toString
+  trait StringValue extends Any:
+    def value: String
+    override def toString = value
+  trait Percent extends Any:
+    def value: Double
+    def toInt = Math.round(value).toInt // round to closest
+
+  // replaces Product.unapply in play forms
+  def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
+    Some(Tuple.fromProductTyped(p))
+
+  import play.api.libs.json.{ JsObject, JsValue }
+  import lila.base.{ LilaJsObject, LilaJsValue }
+  // can't use extensions because of method name shadowing :(
+  implicit def toLilaJsObject(jo: JsObject): LilaJsObject = new LilaJsObject(jo)
+  implicit def toLilaJsValue(jv: JsValue): LilaJsValue    = new LilaJsValue(jv)

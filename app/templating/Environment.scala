@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.UserContext
 
 object Environment
-    extends lila.Lilaisms
+    extends lila.Lila
     with StringHelper
     with AssetHelper
     with DateHelper
