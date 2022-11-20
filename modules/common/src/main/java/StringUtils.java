@@ -149,4 +149,9 @@ public class StringUtils {
 
         return v0[len2];
     }
+
+    public static String ignoreBetweenSquareBrackets(final String s) {
+        return s.replaceAll("\\[(.*)\\]", "");
+    } 
+
 }

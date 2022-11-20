@@ -4,6 +4,7 @@ import scalatags.Text.all._
 
 import org.specs2.mutable.Specification
 import org.specs2.execute.Result
+import lila.common.base.StringUtils.ignoreBetweenSquareBrackets
 
 class StringTest extends Specification {
 
@@ -116,6 +117,17 @@ class StringTest extends Specification {
         extractPosts("yes/no/maybe") must_== List()
         extractPosts("go/to/some/very/long/path") must_== List()
         extractPosts("Answer me yes/no?") must_== List()
+      }
+    }
+
+    "ignore between square brackets" should {
+      "return the string without the parts between square brackets" in {
+        var s : String = "This is a post that has [ key = value ]a part"
+        ignoreBetweenSquareBrackets(s) must_== "This is a post that has a part"
+      }
+      "doesn't care about nested square brackets, should ignore anyway" in {
+        var s : String = "This is a post that has nested [ [key = value] ]brackets"
+        ignoreBetweenSquareBrackets(s) must_== "This is a post that has nested brackets"
       }
     }
   }
