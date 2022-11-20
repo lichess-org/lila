@@ -4,7 +4,7 @@ import lila.app.{ given, * }
 
 final class Irwin(env: Env) extends LilaController(env):
 
-  import lila.irwin.JSONHandlers.reportReader
+  import lila.irwin.JSONHandlers.given
 
   def dashboard =
     Secure(_.MarkEngine) { implicit ctx => _ =>
