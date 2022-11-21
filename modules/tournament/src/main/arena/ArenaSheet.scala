@@ -23,7 +23,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
       case None =>
         Score(
           Result.Draw,
-          if (streakable.encodedStreakable && isOnFire) Flag.Double
+          if (streakable && isOnFire) Flag.Double
           else if (version != Version.V1 && !p.longGame(variant) && isDrawStreak(scores)) Flag.Null
           else Flag.Normal,
           berserk
@@ -31,7 +31,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
       case Some(w) if userId == w =>
         Score(
           Result.Win,
-          if (!streakable.encodedStreakable) Flag.Normal
+          if (!streakable) Flag.Normal
           else if (isOnFire) Flag.Double
           else Flag.StreakStarter,
           berserk
@@ -65,42 +65,37 @@ object Sheet:
     private val v2date     = new DateTime(2020, 4, 21, 0, 0, 0)
     def of(date: DateTime) = if (date isBefore v2date) V1 else V2
 
-  opaque type Streakable = Boolean
+  opaque type Streakable <: Boolean = Boolean
   object Streakable:
     def apply(v: Boolean): Streakable = v
-  extension (s: Streakable) def encodedStreakable: Boolean = s
 
-  opaque type Flag = Int
+  opaque type Flag <: Int = Int
   object Flag:
     def apply(v: Int): Flag = v
     val Null                = Flag(0)
     val Normal              = Flag(1)
     val StreakStarter       = Flag(2)
     val Double              = Flag(3)
-  extension (s: Flag) def encodedFlag: Int = s
 
-  opaque type Berserk = Int
+  opaque type Berserk <: Int = Int
   object Berserk:
     def apply(v: Int): Berserk = v
     val No                     = Berserk(0 << 2)
     val Valid                  = Berserk(1 << 2)
     val Invalid                = Berserk(2 << 2)
-  extension (o: Berserk) def encodedBerserk: Int = o
 
-  opaque type Result = Int
+  opaque type Result <: Int = Int
   object Result:
     def apply(v: Int): Result = v
     val Win                   = Result(0 << 4)
     val Draw                  = Result(1 << 4)
     val Loss                  = Result(2 << 4)
     val DQ                    = Result(3 << 4)
-  extension (o: Result) def encodedResult: Int = o
 
-  opaque type Score = Int
+  opaque type Score <: Int = Int
   object Score:
-    def apply(v: Int): Score = v
-    def apply(res: Result, flag: Flag, berserk: Berserk): Score =
-      Score(flag.encodedFlag | berserk.encodedBerserk | res.encodedResult)
+    def apply(v: Int): Score                                    = v
+    def apply(res: Result, flag: Flag, berserk: Berserk): Score = Score(flag | berserk | res)
   extension (s: Score)
     // flag:    2 bits
     // berserk: 2 bits
