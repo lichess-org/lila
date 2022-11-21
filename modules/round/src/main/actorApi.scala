@@ -9,7 +9,7 @@ import chess.{ Color, MoveMetrics }
 
 import lila.common.IpAddress
 import lila.game.Game.PlayerId
-import lila.socket.Socket.SocketVersion
+import lila.socket.SocketVersion
 
 case class ByePlayer(playerId: PlayerId)
 case class GetSocketStatus(promise: Promise[SocketStatus])

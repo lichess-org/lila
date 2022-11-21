@@ -10,7 +10,7 @@ import lila.common.{ GreatPlayer, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.quote.Quote.given
-import lila.socket.Socket.SocketVersion
+import lila.socket.{ SocketVersion, given }
 import lila.user.{ User, UserRepo }
 
 final class SwissJson(
@@ -64,7 +64,7 @@ final class SwissJson(
       .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
       .add("me" -> myInfo.map(myInfoJson))
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
-      .add("socketVersion" -> socketVersion.map(_.value))
+      .add("socketVersion" -> socketVersion)
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
       .add("stats" -> stats)

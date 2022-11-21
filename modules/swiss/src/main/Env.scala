@@ -6,7 +6,7 @@ import scala.concurrent.duration.*
 
 import lila.common.config.*
 import lila.common.LilaScheduler
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.{ GetVersion, SocketVersion }
 import lila.db.dsl.Coll
 
 @Module

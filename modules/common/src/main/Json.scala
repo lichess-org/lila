@@ -7,6 +7,7 @@ import chess.format.{ FEN, Uci }
 object Json:
 
   val stringFormat: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
+  val intFormat: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)
 
   def writeAs[O, A: Writes](f: O => A) = Writes[O](o => PlayJson toJson f(o))
 

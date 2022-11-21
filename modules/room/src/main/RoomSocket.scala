@@ -4,8 +4,9 @@ import lila.chat.{ BusChan, Chat, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ SyncActor, SyncActorMap }
 import lila.log.Logger
+import lila.socket.{ SocketVersion, GetVersion, incVersion }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
+import lila.socket.Socket.{ makeMessage }
 import lila.user.User
 
 import play.api.libs.json.*
@@ -29,7 +30,7 @@ object RoomSocket:
       case GetVersion(promise) => promise success version
       case SetVersion(v)       => version = v
       case nv: NotifyVersion[?] =>
-        version = version.inc
+        version = version.incVersion
         send {
           val tell =
             if (chatMsgs(nv.tpe)) Protocol.Out.tellRoomChat

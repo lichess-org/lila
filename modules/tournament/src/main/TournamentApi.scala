@@ -17,7 +17,6 @@ import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.LeaderTeam
 import lila.hub.LightTeam.*
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
-import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 
 final class TournamentApi(
@@ -768,7 +767,7 @@ final class TournamentApi(
       given play.api.i18n.Lang = lila.i18n.defaultLang
       fetchUpdateTournaments flatMap apiJsonView.apply foreach { json =>
         Bus.publish(
-          SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
+          lila.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
           "sendToFlag"
         )
       }

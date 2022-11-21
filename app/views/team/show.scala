@@ -11,6 +11,8 @@ import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 import lila.team.Team
 import lila.mod.Modlog
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
 object show:
 
@@ -21,7 +23,7 @@ object show:
       members: Paginator[lila.common.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: Option[lila.socket.Socket.SocketVersion],
+      socketVersion: Option[SocketVersion],
       requestedModView: Boolean = false,
       log: List[Modlog] = Nil
   )(using
@@ -41,7 +43,7 @@ object show:
         embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
             Json
               .obj("id" -> t.id)
-              .add("socketVersion" -> socketVersion.map(_.value))
+              .add("socketVersion" -> socketVersion)
               .add("chat" -> chatOption.map { chat =>
                 views.html.chat.json(
                   chat.chat,
@@ -61,7 +63,7 @@ object show:
       main(
         cls := "team-show box",
         socketVersion.map { v =>
-          data("socket-version") := v.value
+          data("socket-version") := (v: Int)
         }
       )(
         boxTop(

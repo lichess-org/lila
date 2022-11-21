@@ -16,7 +16,7 @@ import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
-import lila.socket.Socket.SocketVersion
+import lila.socket.{ SocketVersion, given }
 import lila.user.{ LightUserApi, User }
 
 final class JsonView(
@@ -90,7 +90,7 @@ final class JsonView(
       .obj("standing" -> stand)
       .add("me" -> myInfo.map(myInfoJson(me, pauseDelay)))
       .add("playerInfo" -> playerInfoJson)
-      .add("socketVersion" -> socketVersion.map(_.value))
+      .add("socketVersion" -> socketVersion)
       .add("myTeam" -> myTeam) ++
       full.?? {
         Json

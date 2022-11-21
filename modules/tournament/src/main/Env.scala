@@ -9,7 +9,7 @@ import play.api.Configuration
 import scala.concurrent.duration.*
 
 import lila.common.config.*
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
 @Module

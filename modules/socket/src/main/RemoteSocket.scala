@@ -100,7 +100,7 @@ final class RemoteSocket(
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
     case Mlat(millis) =>
       send(Out.mlat(millis))
-    case Socket.SendToFlag(flag, payload) =>
+    case SendToFlag(flag, payload) =>
       send(Out.tellFlag(flag, payload))
     case TellSriOut(sri, payload) =>
       send(Out.tellSri(Sri(sri), payload))

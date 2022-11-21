@@ -23,8 +23,7 @@ import lila.hub.actorApi.round.{
 }
 import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
-import lila.socket.UserLagCache
+import lila.socket.{ Socket, SocketVersion, GetVersion, UserLagCache, incVersion }
 import lila.user.User
 
 final private[round] class RoundAsyncActor(
@@ -192,7 +191,7 @@ final private[round] class RoundAsyncActor(
         socketSend(
           RP.Out.tellRoom(
             roomId,
-            makeMessage(
+            Socket.makeMessage(
               "analysisProgress",
               Json.obj(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAt, a.analysis),
@@ -513,7 +512,7 @@ final private[round] class RoundAsyncActor(
   private def publish[A](events: Events): Unit =
     if (events.nonEmpty)
       events foreach { e =>
-        version = version.inc
+        version = version.incVersion
         socketSend {
           Protocol.Out.tellVersion(roomId, version, e)
         }

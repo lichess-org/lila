@@ -14,7 +14,8 @@ import lila.common.{ Bearer, HTTPRequest, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
 import lila.setup.ApiConfig
-import lila.socket.Socket.SocketVersion
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 import lila.user.{ User as UserModel }
 import play.api.mvc.RequestHeader
 

@@ -7,12 +7,14 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
 object show:
 
   def apply(
       sim: lila.simul.Simul,
-      socketVersion: lila.socket.Socket.SocketVersion,
+      socketVersion: SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
@@ -27,7 +29,7 @@ object show:
             Json.obj(
               "data"          -> data,
               "i18n"          -> bits.jsI18n(),
-              "socketVersion" -> socketVersion.value,
+              "socketVersion" -> socketVersion,
               "userId"        -> ctx.userId,
               "chat" -> chatOption.map { c =>
                 views.html.chat.json(

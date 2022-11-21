@@ -20,7 +20,7 @@ import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ makeMessage, SocketVersion }
+import lila.socket.{ Socket, SocketVersion }
 import lila.user.User
 import reactivemongo.api.Cursor
 
@@ -197,9 +197,9 @@ final class RoundSocket(
         val line = RoundLine(l, id endsWith "/w")
         rounds.tellIfPresent(if (line.watcher) id take Game.gameIdSize else id, line)
       case OnTimeout(Chat.Id(id), userId) =>
-        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), makeMessage("chat_timeout", userId)))
+        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), Socket.makeMessage("chat_timeout", userId)))
       case OnReinstate(Chat.Id(id), userId) =>
-        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), makeMessage("chat_reinstate", userId)))
+        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), Socket.makeMessage("chat_reinstate", userId)))
     }
   }
 

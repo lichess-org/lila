@@ -12,6 +12,7 @@ import lila.game.JsonView.{ *, given }
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
+import lila.socket.SocketVersion.given
 
 final class JsonView(
     userRepo: UserRepo,
@@ -74,7 +75,7 @@ final class JsonView(
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id"      -> playerId,
-                "version" -> socket.version.value
+                "version" -> socket.version
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> {
@@ -175,7 +176,7 @@ final class JsonView(
             "correspondence" -> game.correspondenceClock,
             "player" -> {
               commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
-                "version"   -> socket.version.value,
+                "version"   -> socket.version,
                 "spectator" -> true,
                 "id"        -> me.flatMap(game.player).map(_.id)
               )

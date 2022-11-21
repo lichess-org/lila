@@ -11,7 +11,7 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi.*
-import lila.socket.Socket.SendToFlag
+import lila.socket.SendToFlag
 import lila.user.{ User, UserRepo }
 
 final class SimulApi(

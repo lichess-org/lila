@@ -7,6 +7,8 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
 import controllers.routes
 
@@ -16,7 +18,7 @@ object show:
       rt: lila.relay.RelayRound.WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: lila.socket.Socket.SocketVersion,
+      socketVersion: SocketVersion,
       streamers: List[lila.user.User.ID]
   )(implicit ctx: Context) =
     views.html.base.layout(
@@ -46,7 +48,7 @@ object show:
                 )
               ),
               "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id),
-              "socketVersion" -> socketVersion.value
+              "socketVersion" -> socketVersion
             ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
