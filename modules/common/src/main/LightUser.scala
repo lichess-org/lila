@@ -47,8 +47,12 @@ object LightUser:
   object Getter:
     def apply(f: GetterType): Getter = f
 
-  final class GetterSync(f: UserID => Option[LightUser]) extends (UserID => Option[LightUser]):
-    def apply(u: UserID) = f(u)
+  private type GetterSyncType              = UserID => Option[LightUser]
+  opaque type GetterSync <: GetterSyncType = GetterSyncType
+  object GetterSync:
+    def apply(f: GetterSyncType): GetterSync = f
 
-  final class IsBotSync(f: UserID => Boolean) extends (UserID => Boolean):
-    def apply(userId: UserID) = f(userId)
+  private type IsBotSyncType             = UserID => Boolean
+  opaque type IsBotSync <: IsBotSyncType = IsBotSyncType
+  object IsBotSync:
+    def apply(f: IsBotSyncType): IsBotSync = f

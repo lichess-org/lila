@@ -28,7 +28,7 @@ final class LightUserApi(
   def asyncManyFallback(ids: Seq[User.ID]): Fu[Seq[LightUser]] =
     ids.map(asyncFallback).sequenceFu
 
-  val isBotSync: LightUser.IsBotSync = new LightUser.IsBotSync(id => sync(id).exists(_.isBot))
+  val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
   def invalidate = cache.invalidate
 
