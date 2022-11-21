@@ -14,7 +14,7 @@ final class PracticeApi(
     configStore: lila.memo.ConfigStore[PracticeConfig],
     cacheApi: lila.memo.CacheApi,
     studyApi: lila.study.StudyApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 

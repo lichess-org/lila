@@ -23,6 +23,10 @@ given [A](using loader: ConfigLoader[A]): ConfigLoader[Seq[A]] =
 given [A: ConfigLoader]: ConfigLoader[List[A]] =
   summon[ConfigLoader[Seq[A]]].map(_.toList)
 
+def optionalConfig[A](using valueLoader: ConfigLoader[A]): ConfigLoader[Option[A]] = (config, path) =>
+  if !config.hasPath(path) || config.getIsNull(path) then None
+  else Some(valueLoader.load(config, path))
+
 object AutoConfig:
 
   inline def loader[T] = ${ impl[T] }

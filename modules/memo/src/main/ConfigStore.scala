@@ -65,7 +65,7 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
 object ConfigStore:
 
   final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(using
-      ec: scala.concurrent.ExecutionContext
+      scala.concurrent.ExecutionContext
   ):
     private val coll = db(config.configColl)
 

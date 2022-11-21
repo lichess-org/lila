@@ -6,17 +6,16 @@ import play.api.ConfigLoader
 import lila.common.config.*
 import lila.study.Study
 
-final class PracticeConfig(
-    val sections: List[PracticeConfigSection]
-):
+final class PracticeConfig(val sections: List[PracticeConfigSection]):
 
   def studyIds = sections.flatMap(_.studies.map(_.id)) map Study.Id.apply
 
 object PracticeConfig:
-  val empty = new PracticeConfig(Nil)
+  val empty = PracticeConfig(Nil)
 
-  private given studyLoader: ConfigLoader[PracticeConfigStudy] = AutoConfig.loader
-  private given ConfigLoader[PracticeConfigSection]            = AutoConfig.loader
+  private given [A](using ConfigLoader[A]): ConfigLoader[Option[A]] = optionalConfig[A]
+  private given studyLoader: ConfigLoader[PracticeConfigStudy]      = AutoConfig.loader
+  private given ConfigLoader[PracticeConfigSection]                 = AutoConfig.loader
 
   given ConfigLoader[PracticeConfig] = AutoConfig.loader
 
