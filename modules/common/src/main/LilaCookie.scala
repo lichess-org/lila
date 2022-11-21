@@ -7,7 +7,7 @@ import lila.common.config.NetDomain
 
 final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
 
-  private val cookieDomain = domain.value.split(":").head
+  private val cookieDomain = domain.split(":").head
 
   val makeSessionId = (req: RequestHeader) ?=> session(LilaCookie.sessionId, generateSessionId())
 

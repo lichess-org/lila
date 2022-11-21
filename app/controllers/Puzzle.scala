@@ -30,7 +30,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   )(using
       ctx: Context
   ): Fu[JsObject] =
-    if (apiVersion.exists(!_.puzzleV2))
+    if (apiVersion.exists(v => !ApiVersion.puzzleV2(v)))
       env.puzzle.jsonView.bc(puzzle = puzzle, user = newUser orElse ctx.me)
     else
       env.puzzle.jsonView(

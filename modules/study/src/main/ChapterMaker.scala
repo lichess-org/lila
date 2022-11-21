@@ -176,7 +176,7 @@ final private class ChapterMaker(
     }
 
   private val UrlRegex = {
-    val escapedDomain = net.domain.value.replace(".", "\\.")
+    val escapedDomain = net.domain.replace(".", "\\.")
     s"""$escapedDomain/(\\w{8,12})"""
   }.r.unanchored
 

@@ -172,7 +172,7 @@ object Event:
   object PossibleMoves:
 
     def json(moves: Map[Pos, List[Pos]], apiVersion: ApiVersion) =
-      if (apiVersion gte 4) newJson(moves)
+      if (apiVersion >= 4) newJson(moves)
       else oldJson(moves)
 
     def newJson(moves: Map[Pos, List[Pos]]) =

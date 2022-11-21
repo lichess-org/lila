@@ -114,5 +114,5 @@ final private[round] class Titivate(
 
             case None =>
               val days = game.daysPerTurn | Game.abandonedDays
-              gameRepo.setCheckAt(game, DateTime.now plusDays days.value).void
+              gameRepo.setCheckAt(game, DateTime.now plusDays days).void
   }

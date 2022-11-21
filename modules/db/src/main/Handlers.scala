@@ -11,7 +11,7 @@ import scala.concurrent.duration.*
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso.*
-import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
+import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress, Days }
 import scala.collection.Factory
 
 trait Handlers:
@@ -28,6 +28,7 @@ trait Handlers:
   given BSONHandler[SwissId]      = stringHandler(SwissId.apply)
   given BSONHandler[TourPlayerId] = stringHandler(TourPlayerId.apply)
   given BSONHandler[PuzzleId]     = stringHandler(PuzzleId.apply)
+  given BSONHandler[Days]         = intHandler(Days.apply)
 
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
     new BSONHandler[A]:
@@ -182,7 +183,6 @@ trait Handlers:
 
   given BSONHandler[chess.Mode] = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
-  given BSONHandler[lila.common.Days]     = isoHandler[lila.common.Days, Int]
   given BSONHandler[lila.common.Markdown] = isoHandler[lila.common.Markdown, String]
 
   given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](

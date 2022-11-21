@@ -24,10 +24,9 @@ final class Api(
   private val gameApi = env.api.gameApi
 
   private lazy val apiStatusJson =
-    val api = lila.api.Mobile.Api
     Json.obj(
       "api" -> Json.obj(
-        "current" -> api.currentVersion.value,
+        "current" -> (lila.api.Mobile.Api.currentVersion: Int),
         "olds"    -> Json.arr()
       )
     )

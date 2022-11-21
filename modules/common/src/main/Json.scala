@@ -9,6 +9,7 @@ object Json:
   given Format[GameId]   = stringFormat(GameId.apply)
   given Format[StudyId]  = stringFormat(StudyId.apply)
   given Format[PuzzleId] = stringFormat(PuzzleId.apply)
+  given Format[Days]     = intFormat(Days.apply)
 
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
   private val intFormatBase: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)
@@ -69,7 +70,6 @@ object Json:
 
   given Format[FEN]      = stringIsoFormat[FEN]
   given Format[Markdown] = stringIsoFormat[Markdown]
-  given Format[Days]     = intIsoFormat[Days]
 
   given Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")

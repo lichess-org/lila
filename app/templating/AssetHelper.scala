@@ -18,7 +18,7 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
 
   lazy val picfitUrl = env.memo.picfitUrl
 
-  lazy val sameAssetDomain = netDomain.value == assetDomain.value
+  lazy val sameAssetDomain = netDomain == assetDomain
 
   def assetVersion = AssetVersion.current
 
@@ -76,20 +76,19 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
     }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy =
-    val assets  = assetDomain.value
     val sockets = socketDomains map { x => s"wss://$x${!req.secure ?? s" ws://$x"}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = !req.secure ?? List("http://127.0.0.1:3000")
     ContentSecurityPolicy(
-      defaultSrc = List("'self'", assets),
+      defaultSrc = List("'self'", assetDomain),
       connectSrc =
-        "'self'" :: assets :: sockets ::: env.explorerEndpoint :: "https://utumno.backscattering.de" :: env.tablebaseEndpoint :: localDev,
-      styleSrc = List("'self'", "'unsafe-inline'", assets),
-      frameSrc = List("'self'", assets, "www.youtube.com", "player.twitch.tv"),
-      workerSrc = List("'self'", assets),
+        "'self'" :: assetDomain :: sockets ::: env.explorerEndpoint :: "https://utumno.backscattering.de" :: env.tablebaseEndpoint :: localDev,
+      styleSrc = List("'self'", "'unsafe-inline'", assetDomain),
+      frameSrc = List("'self'", assetDomain, "www.youtube.com", "player.twitch.tv"),
+      workerSrc = List("'self'", assetDomain),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", assets),
-      fontSrc = List("'self'", assets),
+      scriptSrc = List("'self'", assetDomain),
+      fontSrc = List("'self'", assetDomain),
       baseUri = List("'none'")
     )
 

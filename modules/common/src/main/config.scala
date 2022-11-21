@@ -28,8 +28,12 @@ object config:
 
   case class MaxPerSecond(value: Int) extends AnyVal with IntValue
 
-  case class NetDomain(value: String)    extends AnyVal with StringValue
-  case class AssetDomain(value: String)  extends AnyVal with StringValue
+  opaque type NetDomain <: String = String
+  object NetDomain { def apply(v: String): NetDomain = v }
+
+  opaque type AssetDomain <: String = String
+  object AssetDomain { def apply(v: String): AssetDomain = v }
+
   case class AssetBaseUrl(value: String) extends AnyVal with StringValue
   case class RateLimit(value: Boolean)   extends AnyVal
 
@@ -56,8 +60,6 @@ object config:
   given ConfigLoader[Secret]       = strLoader(Secret.apply)
   given ConfigLoader[BaseUrl]      = strLoader(BaseUrl.apply)
   given ConfigLoader[EmailAddress] = strLoader(EmailAddress.apply)
-  given ConfigLoader[NetDomain]    = strLoader(NetDomain.apply)
-  given ConfigLoader[AssetDomain]  = strLoader(AssetDomain.apply)
   given ConfigLoader[AssetBaseUrl] = strLoader(AssetBaseUrl.apply)
   given ConfigLoader[RateLimit]    = boolLoader(RateLimit.apply)
   given ConfigLoader[NetConfig]    = AutoConfig.loader[NetConfig]

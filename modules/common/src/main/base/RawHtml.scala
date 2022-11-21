@@ -95,7 +95,7 @@ object RawHtml:
             }
           )
 
-          val isTldInternal = netDomain.value == domain
+          val isTldInternal = netDomain == domain
 
           val csb = new jStringBuilder()
           if (!isTldInternal) csb.append(domain)

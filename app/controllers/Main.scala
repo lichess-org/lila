@@ -99,7 +99,7 @@ final class Main(
 
   val robots = Action { (req: RequestHeader) =>
     Ok {
-      if (env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd) """User-agent: *
+      if (env.net.crawlable && req.domain == env.net.domain && env.net.isProd) """User-agent: *
 Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
@@ -117,7 +117,7 @@ Allow: /
     Action {
       JsonOk {
         Json.obj(
-          "name"             -> env.net.domain.value,
+          "name"             -> env.net.domain,
           "short_name"       -> "Lichess",
           "start_url"        -> "/",
           "display"          -> "standalone",
@@ -126,7 +126,7 @@ Allow: /
           "description"      -> "The (really) free, no-ads, open source chess server.",
           "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
             Json.obj(
-              "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lichess-favicon-$size.png",
+              "src"   -> s"//${env.net.assetDomain}/assets/logo/lichess-favicon-$size.png",
               "sizes" -> s"${size}x$size",
               "type"  -> "image/png"
             )

@@ -8,20 +8,17 @@ import scala.util.Try
 import lila.base.LilaTypes
 import java.net.InetAddress
 
-case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion]:
-  def compare(other: ApiVersion) = Integer.compare(value, other.value)
-  def gt(other: Int)             = value > other
-  def gte(other: Int)            = value >= other
-  def puzzleV2                   = value >= 6
+opaque type ApiVersion <: Int = Int
+object ApiVersion:
+  def apply(v: Int): ApiVersion = v
+  def puzzleV2(v: ApiVersion)   = v >= 6
 
-case class AssetVersion(value: String) extends AnyVal with StringValue
-
+opaque type AssetVersion <: String = String
 object AssetVersion:
-  var current        = random
-  def change()       = { current = random }
-  private def random = AssetVersion(SecureRandom nextString 6)
-
-case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
+  def apply(v: String): AssetVersion = v
+  var current                        = random
+  def change()                       = { current = random }
+  private def random                 = apply(SecureRandom nextString 6)
 
 case class Bearer(secret: String) extends AnyVal:
   override def toString = "Bearer(***)"
@@ -68,8 +65,10 @@ object Domain:
   case class Lower(value: String) extends AnyVal with StringValue:
     def domain = Domain(value)
 
-case class LangPath(value: String) extends AnyVal
-object LangPath { def apply(call: Call): LangPath = LangPath(call.url) }
+opaque type LangPath <: String = String
+object LangPath:
+  def apply(l: String): LangPath  = l
+  def apply(call: Call): LangPath = LangPath(call.url)
 
 case class Strings(value: List[String]) extends AnyVal
 case class UserIds(value: List[String]) extends AnyVal
@@ -77,7 +76,8 @@ case class Ints(value: List[Int])       extends AnyVal
 
 case class Template(value: String) extends AnyVal
 
-case class Days(value: Int) extends AnyVal with IntValue
+opaque type Days <: Int = Int
+object Days { def apply(d: Int): Days = d }
 
 case class Preload[A](value: Option[A]) extends AnyVal:
   def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)

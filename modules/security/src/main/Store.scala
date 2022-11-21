@@ -67,7 +67,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
           "date" -> DateTime.now,
           "up"   -> up,
-          "api"  -> apiVersion.map(_.value),
+          "api"  -> (apiVersion: Option[Int]),
           "fp"   -> fp.flatMap(FingerHash.apply)
         )
       )

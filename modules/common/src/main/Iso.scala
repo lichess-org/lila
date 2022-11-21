@@ -67,5 +67,3 @@ object Iso:
   given StringIso[FEN] = string[FEN](FEN.apply, _.value)
 
   given StringIso[Markdown] = string[Markdown](Markdown.apply, _.value)
-
-  given IntIso[Days] = int[Days](Days.apply, _.value)

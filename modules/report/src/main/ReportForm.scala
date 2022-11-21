@@ -61,7 +61,7 @@ final private[report] class ReportForm(
     lightUserAsync(User normalize username).await(1 second, "reportUser")
 
 object ReportForm:
-  def gameLinkRegex(domain: config.NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  def gameLinkRegex(domain: config.NetDomain) = (domain + """/(\w{8}|\w{12})""").r
 
 private[report] case class ReportFlag(
     username: String,

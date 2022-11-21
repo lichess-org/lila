@@ -7,9 +7,7 @@ import play.api.Mode
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-final class CacheApi(
-    mode: Mode
-)(using ec: ExecutionContext, system: ActorSystem):
+final class CacheApi(mode: Mode)(using ExecutionContext, ActorSystem):
 
   import CacheApi.*
 

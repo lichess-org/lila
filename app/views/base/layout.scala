@@ -193,8 +193,8 @@ object layout:
     s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
 
   private def hrefLangs(path: LangPath)(implicit ctx: Context) = raw {
-    val pathEnd = if (path.value == "/") "" else path.value
-    hrefLang("x-default", path.value) + hrefLang("en", path.value) +
+    val pathEnd = if (path == "/") "" else path
+    hrefLang("x-default", path) + hrefLang("en", path) +
       lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
         hrefLang(lang, s"/$lang$pathEnd")
       }.mkString
@@ -306,7 +306,7 @@ object layout:
           dataSoundSet := ctx.currentSoundSet.toString,
           dataSocketDomains,
           dataAssetUrl,
-          dataAssetVersion := assetVersion.value,
+          dataAssetVersion := str(assetVersion),
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := ctx.currentBg,
           dataBoardTheme   := ctx.currentTheme.name,

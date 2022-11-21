@@ -706,7 +706,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       F.count                 -> Count.default,
       F.enabled               -> true,
       F.createdAt             -> DateTime.now,
-      F.createdWithApiVersion -> mobileApiVersion.map(_.value),
+      F.createdWithApiVersion -> (mobileApiVersion: Option[Int]),
       F.seenAt                -> DateTime.now,
       F.playTime              -> User.PlayTime(0, 0),
       F.lang                  -> lang

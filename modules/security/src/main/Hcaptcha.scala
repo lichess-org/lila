@@ -53,7 +53,6 @@ final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha:
 
   def verify(response: String)(implicit req: RequestHeader) = fuccess(Hcaptcha.Result.Valid)
 
-
 final class HcaptchaReal(
     ws: StandaloneWSClient,
     netDomain: NetDomain,
@@ -102,7 +101,7 @@ final class HcaptchaReal(
         res.body[JsValue].validate[GoodResponse] match
           case JsSuccess(res, _) =>
             lila.mon.security.hCaptcha.hit(client, "success").increment()
-            if (res.success && res.hostname == netDomain.value) Result.Valid
+            if (res.success && res.hostname == netDomain) Result.Valid
             else Result.Fail
           case JsError(err) =>
             res.body[JsValue].validate[BadResponse].asOpt match
