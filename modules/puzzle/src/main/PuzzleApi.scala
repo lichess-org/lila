@@ -158,7 +158,7 @@ final class PuzzleApi(
                     }
             update flatMap {
               _ ?? { up =>
-                lila.mon.puzzle.vote.theme(theme.value, vote, round.win).increment()
+                lila.mon.puzzle.vote.theme(theme, vote, round.win).increment()
                 colls.round(_.update.one($id(round.id), up)) zip
                   colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
               }

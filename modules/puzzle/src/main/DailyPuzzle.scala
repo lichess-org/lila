@@ -83,7 +83,7 @@ final private[puzzle] class DailyPuzzle(
                       Puzzle.BSONFields.plays $gt 9000,
                       Puzzle.BSONFields.day $exists false,
                       Puzzle.BSONFields.issue $exists false,
-                      Puzzle.BSONFields.themes $nin forbiddenThemes.map(_.key.value)
+                      Puzzle.BSONFields.themes $nin forbiddenThemes.map(_.key)
                     )
                   )
                 )

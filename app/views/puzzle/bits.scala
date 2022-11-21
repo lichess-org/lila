@@ -22,7 +22,7 @@ object bits:
   def jsI18n(streak: Boolean)(implicit lang: Lang) =
     if (streak) i18nJsObject(streakI18nKeys)
     else
-      i18nJsObject(trainingI18nKeys) + (PuzzleTheme.enPassant.key.value -> JsString(
+      i18nJsObject(trainingI18nKeys) + (PuzzleTheme.enPassant.key -> JsString(
         PuzzleTheme.enPassant.name.txt()
       ))
 
@@ -31,8 +31,8 @@ object bits:
     .partition(PuzzleTheme.staticThemes.contains) match
     case (static, dynamic) =>
       Json.obj(
-        "dynamic" -> dynamic.map(_.value).sorted.mkString(" "),
-        "static"  -> static.map(_.value).mkString(" ")
+        "dynamic" -> dynamic.sorted.mkString(" "),
+        "static"  -> static.mkString(" ")
       )
 
   def pageMenu(active: String, user: Option[User], days: Int = 30)(implicit ctx: Context) =

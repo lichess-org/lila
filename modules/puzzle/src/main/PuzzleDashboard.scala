@@ -121,11 +121,11 @@ final class PuzzleDashboardApi(
           Unwind("puzzle"),
           Facet(
             List(
-              "global" -> List(Group(BSONNull)(resultsGroup *)),
+              "global" -> List(Group(BSONNull)(resultsGroup*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
                 Match(relevantThemesSelect),
-                GroupField("puzzle.themes")(resultsGroup *)
+                GroupField("puzzle.themes")(resultsGroup*)
               )
             )
           )
@@ -161,6 +161,5 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   } yield Results(nb, wins, fixes, rating.toInt)
 
-  val relevantThemesSelect = $doc(
-    "puzzle.themes" $nin irrelevantThemes.map(_.value)
-  )
+  import BsonHandlers.given
+  val relevantThemesSelect = $doc("puzzle.themes" $nin irrelevantThemes)

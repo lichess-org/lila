@@ -142,7 +142,7 @@ object dashboard:
       div(cls := themeClass)(
         div(cls := s"${themeClass}__meta")(
           h3(cls := s"${themeClass}__name")(
-            a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name())
+            a(href := routes.Puzzle.show(key))(PuzzleTheme(key).name())
           ),
           p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
         ),
@@ -169,7 +169,7 @@ object dashboard:
       ),
       a(
         cls  := s"$metricClass $metricClass--fix",
-        href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
+        href := results.canReplay.option(routes.Puzzle.replay(days, theme).url)
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))

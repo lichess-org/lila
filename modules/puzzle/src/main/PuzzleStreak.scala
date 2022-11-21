@@ -35,7 +35,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using ec: Ex
     2799 -> 21
   )
   private val poolSize = buckets.map(_._2).sum
-  private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
+  private val theme    = lila.puzzle.PuzzleTheme.mix.key
 
   private val current = cacheApi.unit[Option[PuzzleStreak]] {
     _.refreshAfterWrite(30 seconds)

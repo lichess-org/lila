@@ -7,7 +7,9 @@ case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey
 
 object PuzzleTheme:
 
-  case class Key(value: String) extends AnyVal with StringValue
+  opaque type Key <: String = String
+  object Key:
+    def apply(v: String): Key = v
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
@@ -173,7 +175,7 @@ object PuzzleTheme:
   }.toMap
 
   private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.view.map { t =>
-    t.key.value.toLowerCase -> t
+    t.key.toLowerCase -> t
   }.toMap
 
   // themes that can't be voted by players
@@ -240,4 +242,4 @@ object PuzzleTheme:
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
 
   import lila.common.Iso
-  given Iso.StringIso[Key] = Iso.string(Key.apply, _.value)
+  given Iso.StringIso[Key] = Iso.opaque(Key.apply)

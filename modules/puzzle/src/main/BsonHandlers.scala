@@ -83,7 +83,7 @@ object BsonHandlers:
   private[puzzle] given pathIdHandler: BSONHandler[PuzzlePath.Id] = stringIsoHandler
 
   import PuzzleTheme.given
-  private[puzzle] given BSONHandler[PuzzleTheme.Key] = stringIsoHandler
+  private[puzzle] given BSONHandler[PuzzleTheme.Key] = stringHandler(PuzzleTheme.Key.apply)
 
   import PuzzleAngle.given
   private[puzzle] given BSONHandler[PuzzleAngle] = stringIsoHandler

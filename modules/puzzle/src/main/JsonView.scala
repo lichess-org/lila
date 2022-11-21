@@ -78,7 +78,7 @@ final class JsonView(
       .add("vote" -> round.vote)
       .add("themes" -> round.nonEmptyThemes.map { rt =>
         JsObject(rt.map { t =>
-          t.theme.value -> JsBoolean(t.vote)
+          t.theme -> JsBoolean(t.vote)
         })
       })
 
@@ -99,7 +99,7 @@ final class JsonView(
     "days"   -> days,
     "global" -> dashboardResults(dash.global),
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { case (key, res) =>
-      key.value -> Json.obj(
+      key -> Json.obj(
         "theme"   -> PuzzleTheme(key).name.txt(),
         "results" -> dashboardResults(res)
       )
@@ -196,7 +196,7 @@ object JsonView:
 
   import Puzzle.given
   import PuzzleTheme.given
-  given Writes[PuzzleId]          = stringIsoWriter
+  given Writes[PuzzleId]           = stringIsoWriter
   given Writes[PuzzleTheme.Key]    = stringIsoWriter
   given OWrites[PuzzleRound.Theme] = Json.writes
   given OWrites[PuzzleRound.Id]    = Json.writes
