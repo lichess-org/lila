@@ -8,13 +8,13 @@ import scala.concurrent.Promise
 
 import chess.format.Uci
 import Forecast.Step
-import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }
 
 final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concurrent.ExecutionContext):
 
-  private given BSONDocumentHandler[Step] = Macros.handler
+  private given BSONDocumentHandler[Step]     = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler
+  private given BSONHandler[GameFullId]       = stringHandler(GameFullId.apply)
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit =
     lila.mon.round.forecast.create.increment()
@@ -48,7 +48,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
         tellRound(
           pov.gameId,
           actorApi.round.HumanPlay(
-            playerId = PlayerId(pov.playerId),
+            playerId = pov.playerId,
             uci = uci,
             blur = true,
             promise = promise.some

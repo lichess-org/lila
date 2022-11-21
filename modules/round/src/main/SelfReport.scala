@@ -25,7 +25,7 @@ final class SelfReport(
   def apply(
       userId: Option[User.ID],
       ip: IpAddress,
-      fullId: Game.FullId,
+      fullId: GameFullId,
       name: String
   ): Funit =
     userId ?? userRepo.named map { user =>

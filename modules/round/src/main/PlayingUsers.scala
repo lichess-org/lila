@@ -7,7 +7,7 @@ import lila.common.Bus
 
 final class PlayingUsers:
 
-  private val playing = new lila.memo.ExpireSetMemo(4 hours)
+  private val playing = lila.memo.ExpireSetMemo[User.ID](4 hours)
 
   def apply(userId: User.ID): Boolean = playing get userId
 

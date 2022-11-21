@@ -5,8 +5,8 @@ import lila.game.Game
 import lila.user.User
 
 case class SwissPairing(
-    id: Game.Id,
-    swissId: Swiss.Id,
+    id: GameId,
+    swissId: SwissId,
     round: SwissRound.Number,
     white: User.ID,
     black: User.ID,

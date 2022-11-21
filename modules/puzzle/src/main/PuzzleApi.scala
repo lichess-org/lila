@@ -57,14 +57,13 @@ final class PuzzleApi(
 
   object vote:
 
-    private val sequencer =
-      new lila.hub.AsyncActorSequencers(
-        maxSize = 32,
-        expiration = 1 minute,
-        timeout = 3 seconds,
-        name = "puzzle.vote",
-        logging = false
-      )
+    private val sequencer = lila.hub.AsyncActorSequencers[String](
+      maxSize = 32,
+      expiration = 1 minute,
+      timeout = 3 seconds,
+      name = "puzzle.vote",
+      logging = false
+    )
 
     def update(id: Puzzle.Id, user: User, vote: Boolean): Funit =
       sequencer(id.value) {
@@ -170,7 +169,7 @@ final class PuzzleApi(
 
   object casual:
 
-    private val store = new lila.memo.ExpireSetMemo(30 minutes)
+    private val store = lila.memo.ExpireSetMemo[String](30 minutes)
 
     private def key(user: User, id: Puzzle.Id) = s"${user.id}:${id}"
 

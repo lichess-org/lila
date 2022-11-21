@@ -17,7 +17,7 @@ object gamesContent:
       pager: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       filterName: String,
-      notes: Map[Game.Id, String]
+      notes: Map[GameId, String]
   )(implicit ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(

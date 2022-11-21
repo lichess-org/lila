@@ -7,7 +7,7 @@ import lila.game.Game
 import lila.user.User
 
 case class Duel(
-    gameId: Game.Id,
+    gameId: GameId,
     p1: Duel.DuelPlayer,
     p2: Duel.DuelPlayer,
     averageRating: Duel.Rating
@@ -33,8 +33,8 @@ object Duel:
     }
 
   private[tournament] val ratingOrdering               = Ordering.by[Duel, Int](_.averageRating.value)
-  private[tournament] val gameIdOrdering               = Ordering.by[Duel, Game.Id](_.gameId)
-  private[tournament] def emptyGameId(gameId: Game.Id) = Duel(gameId, null, null, Rating(0))
+  private[tournament] val gameIdOrdering               = Ordering.by[Duel, GameId](_.gameId)
+  private[tournament] def emptyGameId(gameId: GameId) = Duel(gameId, null, null, Rating(0))
 
 final private class DuelStore:
 
@@ -49,7 +49,7 @@ final private class DuelStore:
       lila.common.Heapsort.topNToList(_, nb)(using ratingOrdering)
     }
 
-  def find(tour: Tournament, user: User): Option[Game.Id] =
+  def find(tour: Tournament, user: User): Option[GameId] =
     get(tour.id) flatMap { _.find(_ has user).map(_.gameId) }
 
   def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit =

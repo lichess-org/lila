@@ -7,7 +7,7 @@ import lila.user.User
 import lila.common.ThreadLocalRandom
 
 case class Pairing(
-    id: Game.Id,
+    id: GameId,
     tourId: Tournament.ID,
     status: chess.Status,
     user1: User.ID,
@@ -70,7 +70,7 @@ private[tournament] object Pairing:
   case class WithPlayers(pairing: Pairing, player1: Player, player2: Player)
 
   private def make(
-      gameId: Game.Id,
+      gameId: GameId,
       tourId: Tournament.ID,
       u1: User.ID,
       u2: User.ID
@@ -88,7 +88,7 @@ private[tournament] object Pairing:
     )
 
   case class Prep(player1: Player, player2: Player):
-    def toPairing(tourId: Tournament.ID, gameId: Game.Id): Pairing.WithPlayers =
+    def toPairing(tourId: Tournament.ID, gameId: GameId): Pairing.WithPlayers =
       WithPlayers(make(gameId, tourId, player1.userId, player2.userId), player1, player2)
 
   def prepWithColor(p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =

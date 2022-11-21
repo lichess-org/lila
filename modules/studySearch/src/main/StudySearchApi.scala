@@ -10,7 +10,7 @@ import scala.concurrent.duration.*
 
 import lila.hub.LateMultiThrottler
 import lila.search.*
-import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo, studyIdString }
+import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
 import lila.tree.Node.Comments
 
 final class StudySearchApi(
@@ -26,7 +26,7 @@ final class StudySearchApi(
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      studyRepo byOrderedIds res.ids.map(Study.Id.apply)
+      studyRepo byOrderedIds res.ids.map(StudyId.apply)
     }
 
   def count(query: Query) = client.count(query).dmap(_.count)
@@ -49,7 +49,7 @@ final class StudySearchApi(
 
   private def toDoc(s: Study.WithActualChapters) =
     Json.obj(
-      Fields.name    -> s.study.name.value,
+      Fields.name    -> s.study.name,
       Fields.owner   -> s.study.ownerId,
       Fields.members -> s.study.members.ids,
       Fields.chapterNames ->

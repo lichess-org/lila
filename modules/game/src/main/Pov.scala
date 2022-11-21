@@ -9,8 +9,6 @@ case class Pov(game: Game, color: Color):
 
   def playerId = player.id
 
-  def typedPlayerId = Game.PlayerId(player.id)
-
   def fullId = game fullIdOf color
 
   def gameId = game.id
@@ -63,7 +61,7 @@ object Pov:
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
-  def apply(game: Game, playerId: Player.ID): Option[Pov] =
+  def apply(game: Game, playerId: GamePlayerId): Option[Pov] =
     game player playerId map { apply(game, _) }
 
   def apply(game: Game, user: User): Option[Pov] =
@@ -89,17 +87,17 @@ object Pov:
     else if (!b.hasMoved && a.hasMoved) false
     else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
 
-case class PovRef(gameId: Game.Id, color: Color):
+case class PovRef(gameId: GameId, color: Color):
 
   def unary_! = PovRef(gameId, !color)
 
   override def toString = s"$gameId/${color.name}"
 
-case class PlayerRef(gameId: Game.Id, playerId: String)
+case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
 
 object PlayerRef:
 
-  def apply(fullId: String): PlayerRef = PlayerRef(Game takeGameId fullId, Game takePlayerId fullId)
+  def apply(fullId: GameFullId): PlayerRef = PlayerRef(Game takeGameId fullId, Game takePlayerId fullId)
 
 case class LightPov(game: LightGame, color: Color):
   def gameId   = game.id

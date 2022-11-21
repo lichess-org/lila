@@ -55,8 +55,8 @@ object activities:
     case class Stage(value: String) extends AnyVal
   given Zero[Learn] = Zero(Learn(Map.empty))
 
-  case class Practice(value: Map[Study.Id, Int]):
-    def +(studyId: Study.Id) =
+  case class Practice(value: Map[StudyId, Int]):
+    def +(studyId: StudyId) =
       copy(
         value = value + (studyId -> value.get(studyId).fold(1)(1 +))
       )
@@ -97,15 +97,15 @@ object activities:
     def isEmpty             = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
     def allUserIds          = in.??(_.ids) ::: out.??(_.ids)
 
-  case class Studies(value: List[Study.Id]) extends AnyVal:
-    def +(s: Study.Id) = copy(value = (s :: value) take maxSubEntries)
+  case class Studies(value: List[StudyId]) extends AnyVal:
+    def +(s: StudyId) = copy(value = (s :: value) take maxSubEntries)
   given Zero[Studies] = Zero(Studies(Nil))
 
   case class Teams(value: List[String]) extends AnyVal:
     def +(s: String) = copy(value = (s :: value).distinct take maxSubEntries)
   given Zero[Teams] = Zero(Teams(Nil))
 
-  case class SwissRank(id: Swiss.Id, rank: Int)
+  case class SwissRank(id: SwissId, rank: Int)
   case class Swisses(value: List[SwissRank]) extends AnyVal:
     def +(s: SwissRank) = copy(value = (s :: value) take maxSubEntries)
   given Zero[Swisses] = Zero(Swisses(Nil))

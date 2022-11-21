@@ -183,7 +183,7 @@ final private class ChapterMaker(
   @scala.annotation.tailrec
   private def parseGame(str: String): Fu[Option[Game]] =
     str match
-      case s if s.lengthIs == Game.gameIdSize => gameRepo game s
+      case s if s.lengthIs == Game.gameIdSize => gameRepo game GameId(s)
       case s if s.lengthIs == Game.fullIdSize => gameRepo game Game.takeGameId(s)
       case UrlRegex(id)                       => parseGame(id)
       case _                                  => fuccess(none)

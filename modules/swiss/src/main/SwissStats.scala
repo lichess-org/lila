@@ -32,19 +32,14 @@ final class SwissStatsApi(
 
   private given BSONDocumentHandler[SwissStats] = Macros.handler
 
-  private val cache = mongoCache[Swiss.Id, SwissStats](
-    64,
-    "swiss:stats",
-    60 days,
-    _.value
-  ) { loader =>
+  private val cache = mongoCache[SwissId, SwissStats](64, "swiss:stats", 60 days, identity) { loader =>
     _.expireAfterAccess(5 seconds)
       .maximumSize(256)
       .buildAsyncFuture(loader(fetch))
   }
 
-  private def fetch(id: Swiss.Id): Fu[SwissStats] =
-    mongo.swiss.byId[Swiss](id.value) flatMap {
+  private def fetch(id: SwissId): Fu[SwissStats] =
+    mongo.swiss.byId[Swiss](id) flatMap {
       _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
         sheetApi
           .source(swiss, sort = $empty)

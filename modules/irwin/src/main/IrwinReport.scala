@@ -30,7 +30,7 @@ case class IrwinReport(
 object IrwinReport:
 
   case class GameReport(
-      gameId: Game.Id,
+      gameId: GameId,
       activation: Int,
       moves: List[MoveReport]
   )
@@ -49,7 +49,7 @@ object IrwinReport:
     override def toString =
       s"Rank: ${rank.fold("-")(_.toString)}, ambiguity: $ambiguity, odds: $odds, loss: $loss"
 
-  case class WithPovs(report: IrwinReport, povs: Map[Game.Id, Pov]):
+  case class WithPovs(report: IrwinReport, povs: Map[GameId, Pov]):
 
     def withPovs: List[GameReport.WithPov] =
       report.games.flatMap { gameReport =>

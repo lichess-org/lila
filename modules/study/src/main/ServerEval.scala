@@ -64,7 +64,7 @@ object ServerEval:
   )(using ec: scala.concurrent.ExecutionContext):
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
-      analysis.studyId.map(Study.Id.apply) ?? { studyId =>
+      analysis.studyId.map(StudyId.apply) ?? { studyId =>
         sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
@@ -130,7 +130,7 @@ object ServerEval:
 
     def divisionOf(chapter: Chapter) =
       divider(
-        id = chapter.id.value,
+        id = GameId(chapter.id.value),
         pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
         variant = chapter.setup.variant,
         initialFen = chapter.root.fen.some

@@ -43,7 +43,7 @@ final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: Str
     )
 
 // Distributes tasks to many sequencers
-final class AsyncActorSequencers(
+final class AsyncActorSequencers[K <: String](
     maxSize: Int,
     expiration: FiniteDuration,
     timeout: FiniteDuration,
@@ -54,10 +54,10 @@ final class AsyncActorSequencers(
     ec: ExecutionContext
 ):
 
-  def apply[A <: Matchable](key: String)(task: => Fu[A]): Fu[A] =
+  def apply[A <: Matchable](key: K)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)
 
-  private val sequencers: LoadingCache[String, AsyncActorSequencer] =
+  private val sequencers: LoadingCache[K, AsyncActorSequencer] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
       .build(key => new AsyncActorSequencer(maxSize, timeout, s"$name:$key", logging))

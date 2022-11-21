@@ -17,18 +17,18 @@ final class SwissCache(
 
   object swissCache:
 
-    private val cache = cacheApi[Swiss.Id, Option[Swiss]](512, "swiss.swiss") {
+    private val cache = cacheApi[SwissId, Option[Swiss]](512, "swiss.swiss") {
       _.expireAfterWrite(1 second)
-        .buildAsyncFuture(id => mongo.swiss.byId[Swiss](id.value))
+        .buildAsyncFuture(id => mongo.swiss.byId[Swiss](id))
     }
-    def clear(id: Swiss.Id) = cache invalidate id
+    def clear(id: SwissId) = cache invalidate id
 
-    def byId                          = cache.get
-    def notFinishedById(id: Swiss.Id) = byId(id).dmap(_.filter(_.isNotFinished))
-    def createdById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isCreated))
-    def startedById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isStarted))
+    def byId                         = cache.get
+    def notFinishedById(id: SwissId) = byId(id).dmap(_.filter(_.isNotFinished))
+    def createdById(id: SwissId)     = byId(id).dmap(_.filter(_.isCreated))
+    def startedById(id: SwissId)     = byId(id).dmap(_.filter(_.isStarted))
 
-  val name = cacheApi.sync[Swiss.Id, Option[String]](
+  val name = cacheApi.sync[SwissId, Option[String]](
     name = "swiss.name",
     initialCapacity = 4096,
     compute = id => mongo.swiss.primitiveOne[String]($id(id), "name"),
@@ -37,10 +37,10 @@ final class SwissCache(
     expireAfter = Syncache.ExpireAfterAccess(20 minutes)
   )
 
-  val roundInfo = cacheApi[Swiss.Id, Option[Swiss.RoundInfo]](32, "swiss.roundInfo") {
+  val roundInfo = cacheApi[SwissId, Option[Swiss.RoundInfo]](32, "swiss.roundInfo") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture { id =>
-        mongo.swiss.byId[Swiss](id.value).map2(_.roundInfo)
+        mongo.swiss.byId[Swiss](id).map2(_.roundInfo)
       }
   }
 
@@ -48,13 +48,13 @@ final class SwissCache(
     private val compute = (teamId: TeamID) => {
       val max = 5
       for {
-        enterable <- mongo.swiss.primitive[Swiss.Id](
+        enterable <- mongo.swiss.primitive[SwissId](
           $doc("teamId" -> teamId, "finishedAt" $exists false),
           $sort asc "startsAt",
           nb = max,
           "_id"
         )
-        finished <- mongo.swiss.primitive[Swiss.Id](
+        finished <- mongo.swiss.primitive[SwissId](
           $doc("teamId" -> teamId, "finishedAt" $exists true),
           $sort desc "startsAt",
           nb = max - enterable.size,
@@ -62,7 +62,7 @@ final class SwissCache(
         )
       } yield enterable ::: finished
     }
-    private val cache = cacheApi[TeamID, List[Swiss.Id]](256, "swiss.visibleByTeam") {
+    private val cache = cacheApi[TeamID, List[SwissId]](256, "swiss.visibleByTeam") {
       _.expireAfterAccess(30 minutes)
         .buildAsyncFuture(compute)
     }

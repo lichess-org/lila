@@ -17,23 +17,23 @@ final class ChapterRepo(val coll: AsyncColl)(using
 
   def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll(_.byId[Chapter, Chapter.Id](id))
 
-  def studyIdOf(chapterId: Chapter.Id): Fu[Option[Study.Id]] =
-    coll(_.primitiveOne[Study.Id]($id(chapterId), "studyId"))
+  def studyIdOf(chapterId: Chapter.Id): Fu[Option[StudyId]] =
+    coll(_.primitiveOne[StudyId]($id(chapterId), "studyId"))
 
   def deleteByStudy(s: Study): Funit = coll(_.delete.one($studyId(s.id))).void
 
-  def deleteByStudyIds(ids: List[Study.Id]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
+  def deleteByStudyIds(ids: List[StudyId]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
 
-  def byIdAndStudy(id: Chapter.Id, studyId: Study.Id): Fu[Option[Chapter]] =
+  def byIdAndStudy(id: Chapter.Id, studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.byId[Chapter, Chapter.Id](id)).dmap { _.filter(_.studyId == studyId) }
 
-  def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
+  def firstByStudy(studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.find($studyId(studyId)).sort($sort asc "order").one[Chapter])
 
-  private[study] def lastByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
+  private[study] def lastByStudy(studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.find($studyId(studyId)).sort($sort desc "order").one[Chapter])
 
-  def existsByStudy(studyId: Study.Id): Fu[Boolean] =
+  def existsByStudy(studyId: StudyId): Fu[Boolean] =
     coll(_ exists $studyId(studyId))
 
   private val metadataProjection =
@@ -44,7 +44,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
       "tags"       -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
     ).some
 
-  def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
+  def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =
     coll {
       _.find($studyId(studyId), metadataProjection)
         .sort($sort asc "order")
@@ -52,7 +52,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         .list(300)
     }
 
-  def orderedByStudySource(studyId: Study.Id): Source[Chapter, ?] =
+  def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =
     Source futureSource {
       coll map {
         _.find($studyId(studyId))
@@ -72,7 +72,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
     }
 
   // loads all study chapters in memory!
-  def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
+  def orderedByStudy(studyId: StudyId): Fu[List[Chapter]] =
     coll {
       _.find($studyId(studyId))
         .sort($sort asc "order")
@@ -80,7 +80,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         .list(300)
     }
 
-  def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
+  def relaysAndTagsByStudyId(studyId: StudyId): Fu[List[Chapter.RelayAndTags]] =
     coll {
       _.find(
         $studyId(studyId),
@@ -107,7 +107,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         .void
     }
 
-  def nextOrderByStudy(studyId: Study.Id): Fu[Int] =
+  def nextOrderByStudy(studyId: StudyId): Fu[Int] =
     coll(_.primitiveOne[Int]($studyId(studyId), $sort desc "order", "order")) dmap { ~_ + 1 }
 
   def setConceal(chapterId: Chapter.Id, conceal: Chapter.Ply) =
@@ -211,9 +211,9 @@ final class ChapterRepo(val coll: AsyncColl)(using
   private def pathToField(path: Path, subField: String): String = s"${path.toDbField}.$subField"
 
   private[study] def idNamesByStudyIds(
-      studyIds: Seq[Study.Id],
+      studyIds: Seq[StudyId],
       nbChaptersPerStudy: Int
-  ): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
+  ): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
     studyIds.nonEmpty ?? coll {
       _.find(
         $doc("studyId" $in studyIds),
@@ -224,8 +224,8 @@ final class ChapterRepo(val coll: AsyncColl)(using
         .list(nbChaptersPerStudy * studyIds.size)
     }
       .map { docs =>
-        docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) { case (hash, doc) =>
-          doc.getAsOpt[Study.Id]("studyId").fold(hash) { studyId =>
+        docs.foldLeft(Map.empty[StudyId, Vector[Chapter.IdName]]) { case (hash, doc) =>
+          doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
             hash get studyId match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
               case maybe =>
@@ -235,7 +235,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
         }
       }
 
-  def idNames(studyId: Study.Id): Fu[List[Chapter.IdName]] =
+  def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
     coll {
       _.find(
         $studyId(studyId),
@@ -253,7 +253,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
       name <- doc.getAsOpt[Chapter.Name]("name")
     } yield Chapter.IdName(id, name)
 
-  def tagsByStudyIds(studyIds: Iterable[Study.Id]): Fu[List[Tags]] =
+  def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
     studyIds.nonEmpty ?? coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
 
   def startServerEval(chapter: Chapter) =
@@ -271,7 +271,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
   def completeServerEval(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "serverEval.done", true)).void
 
-  def countByStudyId(studyId: Study.Id): Fu[Int] =
+  def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
 
   def insert(s: Chapter): Funit = coll(_.insert one s).void
@@ -281,4 +281,4 @@ final class ChapterRepo(val coll: AsyncColl)(using
   def delete(id: Chapter.Id): Funit = coll(_.delete.one($id(id))).void
   def delete(c: Chapter): Funit     = delete(c.id)
 
-  private def $studyId(id: Study.Id) = $doc("studyId" -> id)
+  private def $studyId(id: StudyId) = $doc("studyId" -> id)

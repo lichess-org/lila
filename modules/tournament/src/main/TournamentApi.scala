@@ -44,13 +44,13 @@ final class TournamentApi(
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer
+    scala.concurrent.ExecutionContext,
+    akka.actor.ActorSystem,
+    akka.actor.Scheduler,
+    akka.stream.Materializer
 ):
 
-  def get(id: Tournament.ID) = tournamentRepo byId id
+  export tournamentRepo.{ byId as get }
 
   def createTournament(
       setup: TournamentSetup,
@@ -125,7 +125,7 @@ final class TournamentApi(
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamID): Fu[Option[TeamBattle.TeamInfo]] =
     tour.teamBattle.exists(_ teams teamId) ?? cached.teamInfo.get(tour.id -> teamId)
 
-  private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
+  private val hadPairings = lila.memo.ExpireSetMemo[Tournament.ID](1 hour)
 
   private[tournament] def makePairings(
       forTour: Tournament,
@@ -387,7 +387,7 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  private[tournament] def berserk(gameId: Game.Id, userId: User.ID): Funit =
+  private[tournament] def berserk(gameId: GameId, userId: User.ID): Funit =
     proxyRepo game gameId flatMap {
       _.filter(_.berserkable) ?? { game =>
         game.tournamentId ?? { tourId =>

@@ -13,7 +13,7 @@ final private class SwissDirector(
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
-    onStart: Game.Id => Unit
+    onStart: GameId => Unit
 )(using
     ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator
@@ -102,7 +102,7 @@ final private class SwissDirector(
         pgnImport = None
       )
       .withId(pairing.gameId)
-      .withSwissId(swiss.id.value)
+      .withSwissId(swiss.id)
       .start
 
   private def makePlayer(color: Color, player: SwissPlayer) =

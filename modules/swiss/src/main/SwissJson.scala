@@ -8,7 +8,6 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.{ GreatPlayer, LightUser }
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 import lila.quote.Quote.given
 import lila.socket.{ SocketVersion, given }
 import lila.user.{ User, UserRepo }
@@ -61,7 +60,7 @@ final class SwissJson(
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)
       )
-      .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
+      .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id)))
       .add("me" -> myInfo.map(myInfoJson))
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
       .add("socketVersion" -> socketVersion)
@@ -86,7 +85,7 @@ final class SwissJson(
                     $doc(f.id -> true).some
                   )
                   .one[Bdoc]
-                  .dmap { _.flatMap(_.getAsOpt[Game.Id](f.id)) }
+                  .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
               }
               .flatMap { gameId =>
                 rankingApi(swiss).dmap(_ get player.userId) map2 { rank =>
@@ -164,7 +163,7 @@ object SwissJson:
   private def swissJsonBase(swiss: Swiss) =
     Json
       .obj(
-        "id"        -> swiss.id.value,
+        "id"        -> swiss.id,
         "createdBy" -> swiss.createdBy,
         "startsAt"  -> formatDate(swiss.startsAt),
         "name"      -> swiss.name,

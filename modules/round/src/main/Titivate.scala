@@ -23,7 +23,7 @@ final private[round] class Titivate(
 )(implicit mat: akka.stream.Materializer)
     extends Actor:
 
-  private type GameOrFail = Either[(Game.Id, Throwable), Game]
+  private type GameOrFail = Either[(GameId, Throwable), Game]
 
   object Run
 
@@ -68,7 +68,7 @@ final private[round] class Titivate(
     lila.game.BSONHandlers.gameBSONHandler
       .readDocument(doc)
       .fold[GameOrFail](
-        err => Left(~doc.string("_id") -> err),
+        err => Left(GameId(~doc.string("_id")) -> err),
         Right.apply
       )
   }

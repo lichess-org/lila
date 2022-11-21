@@ -41,10 +41,10 @@ final class PublicChat(
   private def swissChats: Fu[List[(Swiss, UserChat)]] =
     swissFeature.get(Nil).flatMap { swisses =>
       val all = swisses.created ::: swisses.started
-      val ids = all.map(_.id.value) map Chat.Id.apply
+      val ids = all.map(_.id) map Chat.Id.apply
       chatApi.userChat.findAll(ids).map { chats =>
         chats.flatMap { chat =>
-          all.find(_.id.value == chat.id.value).map(_ -> chat)
+          all.find(_.id == chat.id.value).map(_ -> chat)
         }
       }
     }

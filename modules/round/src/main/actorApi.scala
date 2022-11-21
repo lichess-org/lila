@@ -8,10 +8,9 @@ import chess.format.Uci
 import chess.{ Color, MoveMetrics }
 
 import lila.common.IpAddress
-import lila.game.Game.PlayerId
 import lila.socket.SocketVersion
 
-case class ByePlayer(playerId: PlayerId)
+case class ByePlayer(playerId: GamePlayerId)
 case class GetSocketStatus(promise: Promise[SocketStatus])
 case class SocketStatus(
     version: SocketVersion,
@@ -29,7 +28,7 @@ case class BotConnected(color: Color, v: Boolean)
 package round:
 
   case class HumanPlay(
-      playerId: PlayerId,
+      playerId: GamePlayerId,
       uci: Uci,
       blur: Boolean,
       moveMetrics: MoveMetrics = MoveMetrics(),
@@ -41,21 +40,21 @@ package round:
   case object AbortForce
   case object Threefold
   case object ResignAi
-  case class ResignForce(playerId: PlayerId)
-  case class DrawForce(playerId: PlayerId)
-  case class DrawClaim(playerId: PlayerId)
-  case class DrawYes(playerId: PlayerId)
-  case class DrawNo(playerId: PlayerId)
-  case class TakebackYes(playerId: PlayerId)
-  case class TakebackNo(playerId: PlayerId)
+  case class ResignForce(playerId: GamePlayerId)
+  case class DrawForce(playerId: GamePlayerId)
+  case class DrawClaim(playerId: GamePlayerId)
+  case class DrawYes(playerId: GamePlayerId)
+  case class DrawNo(playerId: GamePlayerId)
+  case class TakebackYes(playerId: GamePlayerId)
+  case class TakebackNo(playerId: GamePlayerId)
   object Moretime { val defaultDuration = 15.seconds }
-  case class Moretime(playerId: PlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
+  case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
   case object QuietFlag
-  case class ClientFlag(color: Color, fromPlayerId: Option[PlayerId])
+  case class ClientFlag(color: Color, fromPlayerId: Option[GamePlayerId])
   case object Abandon
   case class ForecastPlay(lastMove: chess.Move)
   case class Cheat(color: Color)
-  case class HoldAlert(playerId: PlayerId, mean: Int, sd: Int, ip: IpAddress)
+  case class HoldAlert(playerId: GamePlayerId, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color, promise: Promise[Boolean])
   case object NoStart
   case object StartClock

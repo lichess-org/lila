@@ -16,11 +16,13 @@ object StudyForm:
   private given Formatter[ChapterMaker.Orientation] =
     formatter.stringFormatter(_.key, ChapterMaker.Orientation.apply)
 
+  private given Formatter[GameId] = formatter.string(GameId.apply)
+
   object importGame:
 
     lazy val form = Form(
       mapping(
-        "gameId"      -> optional(nonEmptyText),
+        "gameId"      -> optional(of[GameId]),
         "orientation" -> optional(of[ChapterMaker.Orientation]),
         "fen"         -> optional(lila.common.Form.fen.playable(strict = false)),
         "pgn"         -> optional(nonEmptyText),
@@ -30,7 +32,7 @@ object StudyForm:
     )
 
     case class Data(
-        gameId: Option[String] = None,
+        gameId: Option[GameId] = None,
         orientation: Option[ChapterMaker.Orientation] = None,
         fen: Option[FEN] = None,
         pgnStr: Option[String] = None,
@@ -40,7 +42,7 @@ object StudyForm:
       def as: As =
         asStr match
           case None | Some("study") => AsNewStudy
-          case Some(studyId)        => AsChapterOf(Study.Id(studyId))
+          case Some(studyId)        => AsChapterOf(StudyId(studyId))
 
       def toChapterData =
         ChapterMaker.Data(
@@ -55,8 +57,8 @@ object StudyForm:
         )
 
     sealed trait As
-    case object AsNewStudy                    extends As
-    case class AsChapterOf(studyId: Study.Id) extends As
+    case object AsNewStudy                   extends As
+    case class AsChapterOf(studyId: StudyId) extends As
 
   object importPgn:
 

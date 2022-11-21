@@ -6,8 +6,14 @@ import chess.format.{ FEN, Uci }
 
 object Json:
 
-  val stringFormat: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
-  val intFormat: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)
+  given Format[GameId]  = stringFormat(GameId.apply)
+  given Format[StudyId] = stringFormat(StudyId.apply)
+
+  private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
+  private val intFormatBase: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)
+
+  def stringFormat[A <: String](f: String => A): Format[A] = stringFormatBase.bimap(f, identity)
+  def intFormat[A <: Int](f: Int => A): Format[A]          = intFormatBase.bimap(f, identity)
 
   def writeAs[O, A: Writes](f: O => A) = Writes[O](o => PlayJson toJson f(o))
 

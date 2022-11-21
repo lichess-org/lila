@@ -11,7 +11,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Swiss(
-    _id: Swiss.Id,
+    _id: SwissId,
     name: String,
     clock: ClockConfig,
     variant: chess.variant.Variant,
@@ -79,7 +79,6 @@ object Swiss:
   val maxForbiddenPairings = 1000
   val maxManualPairings    = 10_000
 
-  case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue
 
   case class Points(double: Int) extends AnyVal:
@@ -89,7 +88,7 @@ object Swiss:
   case class Performance(value: Float) extends AnyVal
   case class Score(value: Int)         extends AnyVal
 
-  case class IdName(_id: Id, name: String):
+  case class IdName(_id: SwissId, name: String):
     def id = _id
 
   case class Settings(
@@ -125,7 +124,7 @@ object Swiss:
       (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt
     )
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = SwissId(lila.common.ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 

@@ -26,7 +26,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private[tournament] def byPlayerIdsOnPage(
       tourId: Tournament.ID,
-      playerIds: List[Player.ID],
+      playerIds: List[TourPlayerId],
       page: Int
   ): Fu[RankedPlayers] =
     coll.find($inIds(playerIds)).cursor[Player]().listAll() map { players =>
@@ -263,13 +263,13 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
         _.flatMap(_.getAsOpt[BSONArray]("all"))
           .fold(FullRanking(Map.empty, Array.empty)) { all =>
             // mutable optimized implementation
-            val playerIndex = new Array[Player.ID](all.size)
+            val playerIndex = new Array[TourPlayerId](all.size)
             val ranking     = Map.newBuilder[User.ID, Int]
             var r           = 0
             for (u <- all.values)
               val both   = u.asInstanceOf[BSONString].value
               val userId = both.drop(8)
-              playerIndex(r) = both.take(8)
+              playerIndex(r) = TourPlayerId(both.take(8))
               ranking += (userId -> r)
               r = r + 1
             FullRanking(ranking.result(), playerIndex)
@@ -352,4 +352,3 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       .sort($sort desc "m")
       .batchSize(batchSize)
       .cursor[Player](readPreference)
-

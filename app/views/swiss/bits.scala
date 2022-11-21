@@ -12,15 +12,15 @@ import controllers.routes
 object bits:
 
   def link(swiss: Swiss): Frag      = link(swiss.id, swiss.name)
-  def link(swissId: Swiss.Id): Frag = link(swissId, idToName(swissId))
-  def link(swissId: Swiss.Id, name: String): Frag =
+  def link(swissId: SwissId): Frag = link(swissId, idToName(swissId))
+  def link(swissId: SwissId, name: String): Frag =
     a(
       dataIcon := "",
       cls      := "text",
       href     := routes.Swiss.show(swissId.value).url
     )(name)
 
-  def idToName(id: Swiss.Id): String = env.swiss.getName sync id getOrElse "Tournament"
+  def idToName(id: SwissId): String = env.swiss.getName sync id getOrElse "Tournament"
   def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
 
   def notFound()(implicit ctx: Context) =

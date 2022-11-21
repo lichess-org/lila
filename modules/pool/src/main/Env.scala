@@ -19,7 +19,7 @@ final class Env(
 
   private lazy val hookThieve = wire[HookThieve]
 
-  private val onStart = (gameId: Game.Id) => Bus.publish(Game.OnStart(gameId), "gameStartId")
+  private val onStart = (gameId: GameId) => Bus.publish(Game.OnStart(gameId), "gameStartId")
 
   private lazy val gameStarter = wire[GameStarter]
 

@@ -31,7 +31,7 @@ final class PgnDump(
       if (flags.tags)
         (game.simulId ?? simulApi.idToName)
           .orElse(game.tournamentId ?? getTournamentName.async)
-          .orElse(game.swissId.map(lila.swiss.Swiss.Id.apply) ?? getSwissName.async) map {
+          .orElse(game.swissId.map(SwissId.apply) ?? getSwissName.async) map {
           _.fold(pgn)(pgn.withEvent)
         }
       else fuccess(pgn)

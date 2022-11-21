@@ -13,18 +13,18 @@ final private class SwissScoring(mongo: SwissMongo)(using
 
   import BsonHandlers.given
 
-  def apply(id: Swiss.Id): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
+  def apply(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
 
   private val sequencer =
-    new lila.hub.AskPipelines[Swiss.Id, Option[SwissScoring.Result]](
+    new lila.hub.AskPipelines[SwissId, Option[SwissScoring.Result]](
       compute = recompute,
       expiration = 1 minute,
       timeout = 10 seconds,
       name = "swiss.scoring"
     )
 
-  private def recompute(id: Swiss.Id): Fu[Option[SwissScoring.Result]] =
-    mongo.swiss.byId[Swiss](id.value) flatMap {
+  private def recompute(id: SwissId): Fu[Option[SwissScoring.Result]] =
+    mongo.swiss.byId[Swiss](id) flatMap {
       _.?? { swiss =>
         for {
           (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)

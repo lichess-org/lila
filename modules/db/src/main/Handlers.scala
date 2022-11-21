@@ -21,6 +21,12 @@ trait Handlers:
     v => BSONDateTime(v.getMillis)
   )
 
+  given BSONHandler[GameId]       = stringHandler(GameId.apply)
+  given BSONHandler[GamePlayerId] = stringHandler(GamePlayerId.apply)
+  given BSONHandler[StudyId]      = stringHandler(StudyId.apply)
+  given BSONHandler[SwissId]      = stringHandler(SwissId.apply)
+  given BSONHandler[TourPlayerId] = stringHandler(TourPlayerId.apply)
+
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
     new BSONHandler[A]:
       def readTry(x: BSONValue) = handler.readTry(x) map iso.from
@@ -28,7 +34,6 @@ trait Handlers:
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
     isoHandler(using Iso(from, to))(using handler)
 
-  export BSONStringHandler.as as stringHandler
   def stringIsoHandler[A](implicit iso: StringIso[A]): BSONHandler[A] =
     BSONStringHandler.as[A](iso.from, iso.to)
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
@@ -48,6 +53,9 @@ trait Handlers:
     doubleIsoHandler(Iso(from, to))
   def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
     intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
+
+  def stringHandler[A <: String](f: String => A) = BSONStringHandler.as(f, identity)
+  def intHandler[A <: Int](f: Int => A)          = BSONIntegerHandler.as(f, identity)
 
   val percentBsonMultiplier = 1000
   val ratioBsonMultiplier   = 100_000
@@ -87,6 +95,10 @@ trait Handlers:
           (b: BSONValue) => handlerBadType(b)
         )
       def writeTry(t: T) = Success(write(t))
+
+  def tryReader[T](read: PartialFunction[BSONValue, Try[T]]): BSONReader[T] =
+    new BSONReader[T]:
+      def readTry(bson: BSONValue) = read.applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
 
   def handlerBadType[T](b: BSONValue): Try[T] =
     Failure(TypeDoesNotMatchException("BSONValue", b.getClass.getSimpleName))

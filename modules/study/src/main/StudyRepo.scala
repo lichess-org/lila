@@ -36,11 +36,11 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     "members"    -> true
   )
 
-  def byId(id: Study.Id) = coll(_.find($id(id), projection.some).one[Study])
+  def byId(id: StudyId) = coll(_.find($id(id), projection.some).one[Study])
 
-  def byOrderedIds(ids: Seq[Study.Id]) = coll(_.byOrderedIds[Study, Study.Id](ids)(_.id))
+  def byOrderedIds(ids: Seq[StudyId]) = coll(_.byOrderedIds[Study, StudyId](ids)(_.id))
 
-  def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
+  def lightById(id: StudyId): Fu[Option[Study.LightStudy]] =
     coll(_.find($id(id), lightProjection.some).one[Study.LightStudy])
 
   def sortedCursor(
@@ -50,7 +50,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   ): Fu[AkkaStreamCursor[Study]] =
     coll.map(_.find(selector).sort(sort).cursor[Study](readPreference))
 
-  def exists(id: Study.Id) = coll(_.exists($id(id)))
+  def exists(id: StudyId) = coll(_.exists($id(id)))
 
   def lookup(local: String) = $lookup.simple(coll, "study", local, "_id")
 
@@ -118,15 +118,15 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def delete(s: Study): Funit = coll(_.delete.one($id(s.id))).void
 
-  def deleteByIds(ids: List[Study.Id]): Funit = coll(_.delete.one($inIds(ids))).void
+  def deleteByIds(ids: List[StudyId]): Funit = coll(_.delete.one($inIds(ids))).void
 
-  def membersById(id: Study.Id): Fu[Option[StudyMembers]] =
+  def membersById(id: StudyId): Fu[Option[StudyMembers]] =
     coll(_.primitiveOne[StudyMembers]($id(id), "members"))
 
-  def membersByIds(ids: Iterable[Study.Id]): Fu[List[StudyMembers]] =
+  def membersByIds(ids: Iterable[StudyId]): Fu[List[StudyMembers]] =
     coll(_.primitive[StudyMembers]($inIds(ids), "members"))
 
-  def setPosition(studyId: Study.Id, position: Position.Ref): Funit =
+  def setPosition(studyId: StudyId, position: Position.Ref): Funit =
     coll(
       _.update
         .one(
@@ -168,12 +168,12 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         )
     }.void
 
-  def uids(studyId: Study.Id): Fu[Set[User.ID]] =
+  def uids(studyId: StudyId): Fu[Set[User.ID]] =
     coll(_.primitiveOne[Set[User.ID]]($id(studyId), F.uids)) dmap (~_)
 
   private val idNameProjection = $doc("name" -> true)
 
-  def publicIdNames(ids: List[Study.Id]): Fu[List[Study.IdName]] =
+  def publicIdNames(ids: List[StudyId]): Fu[List[Study.IdName]] =
     coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[Study.IdName]().listAll())
 
   def recentByOwner(userId: User.ID, nb: Int) =
@@ -192,13 +192,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         .list(nb)
     }
 
-  def isContributor(studyId: Study.Id, userId: User.ID) =
+  def isContributor(studyId: StudyId, userId: User.ID) =
     coll(_.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w")))
 
-  def isMember(studyId: Study.Id, userId: User.ID) =
+  def isMember(studyId: StudyId, userId: User.ID) =
     coll(_.exists($id(studyId) ++ (s"members.$userId" $exists true)))
 
-  def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
+  def like(studyId: StudyId, userId: User.ID, v: Boolean): Fu[Study.Likes] =
     coll { c =>
       c.update.one($id(studyId), if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)) >> {
         countLikes(studyId).flatMap {
@@ -219,9 +219,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def liked(study: Study, user: User): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ selectLiker(user.id)))
 
-  def filterLiked(user: User, studyIds: Seq[Study.Id]): Fu[Set[Study.Id]] =
+  def filterLiked(user: User, studyIds: Seq[StudyId]): Fu[Set[StudyId]] =
     studyIds.nonEmpty ??
-      coll(_.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet))
+      coll(_.primitive[StudyId]($inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet))
 
   def resetAllRanks: Fu[Int] =
     coll {
@@ -232,7 +232,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         .cursor[Bdoc]()
         .foldWhileM(0) { (count, doc) =>
           ~(for {
-            id        <- doc.getAsOpt[Study.Id]("_id")
+            id        <- doc.getAsOpt[StudyId]("_id")
             likes     <- doc.getAsOpt[Study.Likes](F.likes)
             createdAt <- doc.getAsOpt[DateTime](F.createdAt)
           } yield coll {
@@ -248,7 +248,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] def isAdminMember(study: Study, userId: User.ID): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true)))
 
-  private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
+  private def countLikes(studyId: StudyId): Fu[Option[(Study.Likes, DateTime)]] =
     coll {
       _.aggregateWith[Bdoc]() { framework =>
         import framework.*

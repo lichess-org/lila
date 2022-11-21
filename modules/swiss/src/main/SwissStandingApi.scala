@@ -25,7 +25,7 @@ final class SwissStandingApi(
 
   private val pageCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[(Swiss.Id, Int), JsObject]()
+    .build[(SwissId, Int), JsObject]()
 
   def apply(swiss: Swiss, forPage: Int): Fu[JsObject] =
     val page = forPage atMost Math.ceil(swiss.nbPlayers.toDouble / perPage).toInt atLeast 1
@@ -67,13 +67,13 @@ final class SwissStandingApi(
       pageCache.invalidate(res.swiss.id -> (lastPage + 1))
     }
 
-  private val first = cacheApi[Swiss.Id, JsObject](256, "swiss.page.first") {
+  private val first = cacheApi[SwissId, JsObject](256, "swiss.page.first") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture { compute(_, 1) }
   }
 
-  private def compute(id: Swiss.Id, page: Int): Fu[JsObject] =
-    mongo.swiss.byId[Swiss](id.value) orFail s"No such tournament: $id" flatMap { compute(_, page) }
+  private def compute(id: SwissId, page: Int): Fu[JsObject] =
+    mongo.swiss.byId[Swiss](id) orFail s"No such tournament: $id" flatMap { compute(_, page) }
 
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for {
@@ -107,7 +107,7 @@ final class SwissStandingApi(
         }
     )
 
-  private def bestWithRank(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer.WithRank]] =
+  private def bestWithRank(id: SwissId, nb: Int, skip: Int): Fu[List[SwissPlayer.WithRank]] =
     best(id, nb, skip).map { res =>
       res
         .foldRight(List.empty[SwissPlayer.WithRank] -> (res.size + skip)) { case (p, (res, rank)) =>
@@ -116,10 +116,10 @@ final class SwissStandingApi(
         ._1
     }
 
-  private def bestWithRankByPage(id: Swiss.Id, nb: Int, page: Int): Fu[List[SwissPlayer.WithRank]] =
+  private def bestWithRankByPage(id: SwissId, nb: Int, page: Int): Fu[List[SwissPlayer.WithRank]] =
     bestWithRank(id, nb, (page - 1) * nb)
 
-  private def best(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer]] =
+  private def best(id: SwissId, nb: Int, skip: Int): Fu[List[SwissPlayer]] =
     SwissPlayer.fields { f =>
       mongo.player
         .find($doc(f.swissId -> id))

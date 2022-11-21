@@ -79,7 +79,7 @@ final class ActivityWriteApi(
       simulParticipant(simul, _)
     }
 
-  def corresMove(gameId: Game.Id, userId: User.ID) = update(userId) { a =>
+  def corresMove(gameId: GameId, userId: User.ID) = update(userId) { a =>
     $doc(ActivityFields.corres -> { (~a.corres).add(GameId(gameId), moved = true, ended = false) })
   }
 
@@ -117,7 +117,7 @@ final class ActivityWriteApi(
       }
     }
 
-  def study(id: Study.Id) =
+  def study(id: StudyId) =
     studyApi byId id flatMap {
       _.filter(_.isPublic) ?? { s =>
         update(s.ownerId) { a =>
@@ -136,7 +136,7 @@ final class ActivityWriteApi(
       $doc(ActivityFields.stream -> true)
     }
 
-  def swiss(id: lila.swiss.Swiss.Id, ranking: lila.swiss.Ranking) =
+  def swiss(id: SwissId, ranking: lila.swiss.Ranking) =
     lila.common.Future.applySequentially(ranking.toList) { case (userId, rank) =>
       update(userId) { a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })

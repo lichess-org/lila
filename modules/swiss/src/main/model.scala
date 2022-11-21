@@ -7,12 +7,11 @@ object SwissRound:
 
   case class Number(value: Int) extends AnyVal with IntValue
 
-case class MyInfo(rank: Int, gameId: Option[Game.Id], user: User, player: SwissPlayer):
+case class MyInfo(rank: Int, gameId: Option[GameId], user: User, player: SwissPlayer):
   def page = (rank + 9) / 10
 
-final class GetSwissName(cache: lila.memo.Syncache[Swiss.Id, Option[String]]):
-  def sync(id: Swiss.Id)  = cache sync id
-  def async(id: Swiss.Id) = cache async id
+final class GetSwissName(cache: lila.memo.Syncache[SwissId, Option[String]]):
+  export cache.{ sync, async }
 
 case class GameView(
     swiss: Swiss,
@@ -25,4 +24,4 @@ case class FeaturedSwisses(
     started: List[Swiss]
 )
 
-case class SwissFinish(id: Swiss.Id, ranking: Ranking)
+case class SwissFinish(id: SwissId, ranking: Ranking)

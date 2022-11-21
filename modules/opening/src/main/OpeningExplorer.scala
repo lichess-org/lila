@@ -126,9 +126,9 @@ object OpeningExplorer:
   case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int):
     def sum = white + draws + black
 
-  case class GameRef(id: Game.Id)
+  case class GameRef(id: GameId)
 
-  import lila.game.JsonView.idFormat
+  import lila.common.Json.given
   private given Reads[Move]     = Json.reads
   private given Reads[GameRef]  = Json.reads
   private given Reads[Position] = Json.reads

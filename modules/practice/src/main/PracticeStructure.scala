@@ -6,10 +6,10 @@ case class PracticeStructure(
     sections: List[PracticeSection]
 ):
 
-  def study(id: Study.Id): Option[PracticeStudy] =
+  def study(id: StudyId): Option[PracticeStudy] =
     sections.flatMap(_ study id).headOption
 
-  lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
+  lazy val studiesByIds: Map[StudyId, PracticeStudy] =
     sections.view
       .flatMap(_.studies)
       .map { s =>
@@ -17,7 +17,7 @@ case class PracticeStructure(
       }
       .toMap
 
-  lazy val sectionsByStudyIds: Map[Study.Id, PracticeSection] =
+  lazy val sectionsByStudyIds: Map[StudyId, PracticeSection] =
     sections.view.flatMap { sec =>
       sec.studies.map { stu =>
         stu.id -> sec
@@ -29,9 +29,9 @@ case class PracticeStructure(
   lazy val nbUnhiddenChapters =
     sections.filterNot(_.hide).flatMap(_.studies).filterNot(_.hide).map(_.chapterIds.size).sum
 
-  def findSection(id: Study.Id): Option[PracticeSection] = sectionsByStudyIds get id
+  def findSection(id: StudyId): Option[PracticeSection] = sectionsByStudyIds get id
 
-  def hasStudy(id: Study.Id) = studiesByIds contains id
+  def hasStudy(id: StudyId) = studiesByIds contains id
 
 case class PracticeSection(
     id: String,
@@ -40,15 +40,15 @@ case class PracticeSection(
     studies: List[PracticeStudy]
 ):
 
-  lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
+  lazy val studiesByIds: Map[StudyId, PracticeStudy] =
     studies.view.map { s =>
       s.id -> s
     }.toMap
 
-  def study(id: Study.Id): Option[PracticeStudy] = studiesByIds get id
+  def study(id: StudyId): Option[PracticeStudy] = studiesByIds get id
 
 case class PracticeStudy(
-    id: Study.Id, // study ID
+    id: StudyId, // study ID
     hide: Boolean,
     name: String,
     desc: String,
@@ -65,7 +65,7 @@ object PracticeStructure:
 
   def isChapterNameCommented(name: Chapter.Name) = name.value.startsWith("//")
 
-  def make(conf: PracticeConfig, chapters: Map[Study.Id, Vector[Chapter.IdName]]) =
+  def make(conf: PracticeConfig, chapters: Map[StudyId, Vector[Chapter.IdName]]) =
     PracticeStructure(
       sections = conf.sections.map { sec =>
         PracticeSection(
@@ -73,7 +73,7 @@ object PracticeStructure:
           hide = ~sec.hide,
           name = sec.name,
           studies = sec.studies.map { stu =>
-            val id = Study.Id(stu.id)
+            val id = StudyId(stu.id)
             PracticeStudy(
               id = id,
               hide = ~stu.hide,

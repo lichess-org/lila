@@ -39,7 +39,7 @@ final class Coach(env: Env) extends LilaController(env):
         WithVisibleCoach(c) {
           for {
             stu <- env.study.api.publicByIds {
-              c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
+              c.coach.profile.studyIds.map(_.value).map(lila.study.StudyId.apply)
             }
             studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
             posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)

@@ -97,7 +97,7 @@ final private class PushApi(
       }
     }
 
-  def takebackOffer(gameId: Game.Id): Funit =
+  def takebackOffer(gameId: GameId): Funit =
     Future.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
@@ -129,7 +129,7 @@ final private class PushApi(
       }
     }
 
-  def drawOffer(gameId: Game.Id): Funit =
+  def drawOffer(gameId: GameId): Funit =
     Future.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>

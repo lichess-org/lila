@@ -52,7 +52,6 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       .run()
       .map(_.toList)
 
-
   def post(username: String) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
@@ -71,7 +70,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       }
     }
 
-  private def multipleAnalysis(me: Holder, gameIds: Seq[lila.game.Game.Id])(implicit ctx: Context) =
+  private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(implicit ctx: Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet
@@ -88,7 +87,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
-  private def downloadPgn(user: lila.user.User, gameIds: Seq[lila.game.Game.Id]) =
+  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId]) =
     Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(

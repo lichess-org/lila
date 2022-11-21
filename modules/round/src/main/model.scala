@@ -8,11 +8,11 @@ import play.api.libs.json.JsObject
 
 private case class AnimationDuration(value: FiniteDuration) extends AnyVal
 
-final class OnStart(f: Game.Id => Unit) extends (Game.Id => Unit):
-  def apply(g: Game.Id) = f(g)
+final class OnStart(f: GameId => Unit) extends (GameId => Unit):
+  def apply(g: GameId) = f(g)
 
-final class TellRound(f: (Game.Id, Any) => Unit) extends ((Game.Id, Any) => Unit):
-  def apply(g: Game.Id, msg: Any) = f(g, msg)
+final class TellRound(f: (GameId, Any) => Unit) extends ((GameId, Any) => Unit):
+  def apply(g: GameId, msg: Any) = f(g, msg)
 
 final class IsSimulHost(f: User.ID => Fu[Boolean]) extends (User.ID => Fu[Boolean]):
   def apply(u: User.ID) = f(u)

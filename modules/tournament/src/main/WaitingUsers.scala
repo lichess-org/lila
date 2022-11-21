@@ -10,7 +10,7 @@ import lila.user.User
 
 private case class WaitingUsers(
     hash: Map[User.ID, DateTime],
-    apiUsers: Option[ExpireSetMemo],
+    apiUsers: Option[ExpireSetMemo[User.ID]],
     clock: TournamentClock,
     date: DateTime
 ):

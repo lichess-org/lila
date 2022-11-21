@@ -9,7 +9,6 @@ import scala.concurrent.duration.*
 import scala.concurrent.Promise
 import scala.util.chaining.*
 
-import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
 import lila.hub.actorApi.round.{
   Abort,
@@ -28,7 +27,7 @@ import lila.user.User
 
 final private[round] class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
-    gameId: Game.Id,
+    gameId: GameId,
     socketSend: String => Unit,
     private var version: SocketVersion
 )(using
@@ -172,7 +171,7 @@ final private[round] class RoundAsyncActor(
       }
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
-      handle(fullId.playerId) { pov =>
+      handle(Game takePlayerId fullId) { pov =>
         gameRepo hasHoldAlert pov flatMap {
           case true => funit
           case false =>
@@ -221,7 +220,7 @@ final private[round] class RoundAsyncActor(
       }.chronometer.lap.addEffects(
         err => {
           p.promise.foreach(_ failure err)
-          socketSend(Protocol.Out.resyncPlayer(Game.Id(gameId) full p.playerId))
+          socketSend(Protocol.Out.resyncPlayer(Game.fullId(gameId, p.playerId)))
         },
         lap => {
           p.promise.foreach(_ success {})
@@ -231,7 +230,7 @@ final private[round] class RoundAsyncActor(
       )
 
     case p: BotPlay =>
-      val res = proxy.withPov(PlayerId(p.playerId)) {
+      val res = proxy.withPov(p.playerId) {
         _ ?? { pov =>
           if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
           else player.bot(p.uci, this)(pov)
@@ -246,12 +245,12 @@ final private[round] class RoundAsyncActor(
       }.mon(_.round.move.time)
 
     case Abort(playerId) =>
-      handle(PlayerId(playerId)) { pov =>
+      handle(playerId) { pov =>
         pov.game.abortableByUser ?? finisher.abort(pov)
       }
 
     case Resign(playerId) =>
-      handle(PlayerId(playerId)) { pov =>
+      handle(playerId) { pov =>
         pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
       }
 
@@ -307,7 +306,7 @@ final private[round] class RoundAsyncActor(
     case ClientFlag(color, from) =>
       handle { game =>
         (game.turnColor == color) ?? {
-          val toSelf = from has PlayerId(game.player(color).id)
+          val toSelf = from has game.player(color).id
           game.outoftime(withGrace = !toSelf) ?? finisher.outOfTime(game)
         }
       }
@@ -337,13 +336,13 @@ final private[round] class RoundAsyncActor(
       proxy withGame { game =>
         drawer autoThreefold game map {
           _ foreach { pov =>
-            this ! DrawClaim(PlayerId(pov.player.id))
+            this ! DrawClaim(pov.player.id)
           }
         }
       }
 
-    case RematchYes(playerId) => handle(PlayerId(playerId))(rematcher.yes)
-    case RematchNo(playerId)  => handle(PlayerId(playerId))(rematcher.no)
+    case RematchYes(playerId) => handle(playerId)(rematcher.yes)
+    case RematchNo(playerId)  => handle(playerId)(rematcher.no)
 
     case TakebackYes(playerId) =>
       handle(playerId) { pov =>
@@ -373,7 +372,7 @@ final private[round] class RoundAsyncActor(
       handle { game =>
         forecastApi.nextMove(game, lastMove) map { mOpt =>
           mOpt foreach { move =>
-            this ! HumanPlay(PlayerId(game.player.id), move, blur = false)
+            this ! HumanPlay(game.player.id, move, blur = false)
           }
           Nil
         }
@@ -462,7 +461,7 @@ final private[round] class RoundAsyncActor(
   private def notifyGone(color: Color, gone: Boolean): Funit =
     proxy.withPov(color) { pov =>
       fuccess {
-        socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+        socketSend(Protocol.Out.gone(pov.fullId, gone))
         publishBoardBotGone(pov, gone option 0L)
       }
     }
@@ -470,7 +469,7 @@ final private[round] class RoundAsyncActor(
   private def notifyGoneIn(color: Color, millis: Long): Funit =
     proxy.withPov(color) { pov =>
       fuccess {
-        socketSend(Protocol.Out.goneIn(FullId(pov.fullId), millis))
+        socketSend(Protocol.Out.goneIn(pov.fullId, millis))
         publishBoardBotGone(pov, millis.some)
       }
     }
@@ -487,7 +486,7 @@ final private[round] class RoundAsyncActor(
       handleAndPublish(op(g))
     }
 
-  private def handle(playerId: PlayerId)(op: Pov => Fu[Events]): Funit =
+  private def handle(playerId: GamePlayerId)(op: Pov => Fu[Events]): Funit =
     proxy.withPov(playerId) {
       _ ?? { pov =>
         handleAndPublish(op(pov))

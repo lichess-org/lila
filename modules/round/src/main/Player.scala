@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
-import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov, Progress, UciMemo }
 import lila.user.User
 
@@ -78,15 +77,14 @@ final private class Player(
     if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
     if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
-    else
-      if (progress.game.playableByAi) requestFishnet(progress.game, round)
-      if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
-      if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
-      if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
-        round ! ForecastPlay(move)
-      }
-      scheduleExpiration(progress.game)
-      fuccess(progress.events)
+    else if (progress.game.playableByAi) requestFishnet(progress.game, round)
+    if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+    if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+    if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
+      round ! ForecastPlay(move)
+    }
+    scheduleExpiration(progress.game)
+    fuccess(progress.events)
 
   private[round] def fishnet(game: Game, sign: String, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi)

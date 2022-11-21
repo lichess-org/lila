@@ -9,7 +9,7 @@ import lila.game.{ Game, GameRepo, Pov, Progress }
 
 // NOT thread safe
 final private class GameProxy(
-    id: Game.Id,
+    id: GameId,
     dependencies: GameProxy.Dependencies,
     private[this] var cache: Fu[Option[Game]]
 )(using ec: scala.concurrent.ExecutionContext):
@@ -48,7 +48,7 @@ final private class GameProxy(
   def withPov[A](color: Color)(f: Pov => Fu[A]): Fu[A] =
     withGame(g => f(Pov(g, color)))
 
-  def withPov[A](playerId: Game.PlayerId)(f: Option[Pov] => Fu[A]): Fu[A] =
+  def withPov[A](playerId: GamePlayerId)(f: Option[Pov] => Fu[A]): Fu[A] =
     withGame(g => f(Pov(g, playerId)))
 
   def withGame[A](f: Game => Fu[A]): Fu[A] =

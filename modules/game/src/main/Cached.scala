@@ -19,9 +19,9 @@ final class Cached(
 
   def nbTotal: Fu[Long] = nbTotalCache.get {}
 
-  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.Id]] = lastPlayedPlayingIdCache get userId
+  def lastPlayedPlayingId(userId: User.ID): Fu[Option[GameId]] = lastPlayedPlayingIdCache get userId
 
-  private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[Game.Id]]] =
+  private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[GameId]]] =
     CacheApi.scaffeineNoScheduler
       .expireAfterWrite(11 seconds)
       .build(gameRepo.lastPlayedPlayingId)

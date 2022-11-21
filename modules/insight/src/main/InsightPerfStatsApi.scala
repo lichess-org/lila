@@ -19,7 +19,7 @@ case class InsightPerfStats(
   def totalNbGames = nbGames.white + nbGames.black
 
 object InsightPerfStats:
-  case class WithGameIds(stats: InsightPerfStats, gameIds: List[Game.Id])
+  case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])
 
 final class InsightPerfStatsApi(
     storage: InsightStorage,

@@ -64,7 +64,7 @@ object Crosstable:
       else if (user1.score < user2.score) Some(user2.id)
       else None
 
-  case class Result(gameId: Game.Id, winnerId: Option[lila.user.User.ID])
+  case class Result(gameId: GameId, winnerId: Option[lila.user.User.ID])
 
   case class Matchup(users: Users): // score is x10
     def fromPov(userId: lila.user.User.ID) = copy(users = users fromPov userId)
@@ -100,9 +100,9 @@ object Crosstable:
             users = Users(User(u1Id, r intD score1), User(u2Id, r intD score2)),
             results = r.get[List[String]](results).map { r =>
               r drop 8 match {
-                case ""  => Result(Game.Id(r), Some(u1Id))
-                case "-" => Result(Game.Id(r take 8), Some(u2Id))
-                case "=" => Result(Game.Id(r take 8), none)
+                case ""  => Result(GameId(r), Some(u1Id))
+                case "-" => Result(GameId(r take 8), Some(u2Id))
+                case "=" => Result(GameId(r take 8), none)
                 case _   => sys error s"Invalid result string $r"
               }
             }

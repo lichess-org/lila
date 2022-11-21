@@ -23,12 +23,12 @@ final class Messenger(api: ChatApi):
     else api.userChat.volatile(Chat.Id(game.id), message, _.Round)
   }.unit
 
-  def watcher(gameId: Game.Id, userId: User.ID, text: String) =
+  def watcher(gameId: GameId, userId: User.ID, text: String) =
     api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId).some, _.Round)
 
   private val whisperCommands = List("/whisper ", "/w ", "/W ")
 
-  def owner(gameId: Game.Id, userId: User.ID, text: String): Funit =
+  def owner(gameId: GameId, userId: User.ID, text: String): Funit =
     whisperCommands.collectFirst {
       case command if text startsWith command =>
         val source = PublicSource.Watcher(gameId)
@@ -60,7 +60,7 @@ final class Messenger(api: ChatApi):
   )
 
   private def chatWatcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
-  private def gameWatcherId(gameId: Game.Id) = Chat.Id(s"$gameId/w")
+  private def gameWatcherId(gameId: GameId) = Chat.Id(s"$gameId/w")
 
 private object Messenger:
 

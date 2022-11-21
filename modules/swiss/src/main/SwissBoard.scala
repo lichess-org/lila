@@ -6,7 +6,7 @@ import lila.common.LightUser
 import lila.game.Game
 
 private case class SwissBoard(
-    gameId: Game.Id,
+    gameId: GameId,
     white: SwissBoard.Player,
     black: SwissBoard.Player
 )
@@ -26,9 +26,9 @@ final private class SwissBoardApi(
 
   private val boardsCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[Swiss.Id, List[SwissBoard]]()
+    .build[SwissId, List[SwissBoard]]()
 
-  def apply(id: Swiss.Id): Fu[List[SwissBoard.WithGame]] =
+  def apply(id: SwissId): Fu[List[SwissBoard.WithGame]] =
     boardsCache.getIfPresent(id) ?? {
       _.map { board =>
         gameProxyRepo.game(board.gameId) map2 {

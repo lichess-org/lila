@@ -244,7 +244,7 @@ final class RelayApi(
 
   def canUpdate(user: User, tour: RelayTour): Fu[Boolean] =
     fuccess(Granter(_.Relay)(user) || tour.ownerId == user.id) >>|
-      roundRepo.coll.distinctEasy[Study.Id, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
+      roundRepo.coll.distinctEasy[StudyId, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
         studyRepo.membersByIds(ids) map {
           _.exists(_ contributorIds user.id)
         }
@@ -333,7 +333,7 @@ final class RelayApi(
     roundRepo.coll.delete.one($id(RelayRound.Id(studyId))).void
 
   private def sendToContributors(id: RelayRound.Id, t: String, msg: JsObject): Funit =
-    studyApi members Study.Id(id.value) map {
+    studyApi members StudyId(id.value) map {
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
         import JsonView.given

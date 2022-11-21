@@ -64,7 +64,7 @@ case class RelayRound(
 object RelayRound:
 
   case class Id(value: String) extends AnyVal with StringValue:
-    def studyId = Study.Id(value)
+    def studyId = StudyId(value)
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 
@@ -122,7 +122,7 @@ object RelayRound:
     object UpstreamUrl:
       case class WithRound(url: String, round: Option[Int])
       val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
-    case class UpstreamIds(ids: List[lila.game.Game.Id]) extends Upstream
+    case class UpstreamIds(ids: List[GameId]) extends Upstream
 
   trait AndTour:
     val round: RelayRound

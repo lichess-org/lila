@@ -45,7 +45,7 @@ object PracticeProgress:
   case class NbMoves(value: Int) extends AnyVal
   given Iso.IntIso[NbMoves] = Iso.int[NbMoves](NbMoves.apply, _.value)
 
-  case class OnComplete(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id)
+  case class OnComplete(userId: User.ID, studyId: StudyId, chapterId: Chapter.Id)
 
   type ChapterNbMoves = Map[Chapter.Id, NbMoves]
 

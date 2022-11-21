@@ -9,5 +9,3 @@ private val logger = lila.log("study")
 private type ChapterMap = Map[lila.study.Chapter.Id, lila.study.Chapter]
 
 private val readPref = ReadPreference.primary
-
-given studyIdString: Conversion[Study.Id, String] = _.id

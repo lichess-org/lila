@@ -8,7 +8,7 @@ import lila.common.Iso
 
 case class Puzzle(
     id: Puzzle.Id,
-    gameId: lila.game.Game.Id,
+    gameId: GameId,
     fen: FEN,
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,

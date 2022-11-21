@@ -69,7 +69,7 @@ final class Env(
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
         _ ?? {
-          api.requestPlay(RelayRound.Id(id.id), v)
+          api.requestPlay(RelayRound.Id(id), v)
         }
       }
     },

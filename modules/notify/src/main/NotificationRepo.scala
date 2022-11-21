@@ -37,7 +37,7 @@ final private class NotificationRepo(val coll: Coll)(using ec: scala.concurrent.
   private def hasOldOrUnread =
     $doc("$or" -> List(hasOld, hasUnread))
 
-  def hasRecentStudyInvitation(userId: Notification.Notifies, studyId: InvitedToStudy.StudyId): Fu[Boolean] =
+  def hasRecentStudyInvitation(userId: Notification.Notifies, studyId: StudyId): Fu[Boolean] =
     coll.exists(
       $doc(
         "notifies"        -> userId,
@@ -80,4 +80,3 @@ final private class NotificationRepo(val coll: Coll)(using ec: scala.concurrent.
   private def unreadOnlyQuery(userId: Notification.Notifies) = $doc("notifies" -> userId, "read" -> false)
   private def unreadOnlyQuery(userIds: Iterable[Notification.Notifies]) =
     $doc("notifies" $in userIds, "read" -> false)
-

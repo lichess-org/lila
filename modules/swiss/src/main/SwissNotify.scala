@@ -16,7 +16,7 @@ final private class SwissNotify(mongo: SwissMongo)(using
 ):
   import BsonHandlers.given
 
-  private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
+  private val doneMemo = lila.memo.ExpireSetMemo[SwissId](10 minutes)
 
   LilaScheduler(_.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     mongo.swiss
@@ -33,13 +33,13 @@ final private class SwissNotify(mongo: SwissMongo)(using
       .list(5)
       .flatMap {
         _.map { swiss =>
-          doneMemo put swiss.id.value
+          doneMemo put swiss.id
           SwissPlayer.fields { f =>
             mongo.player
               .distinctEasy[User.ID, List](f.userId, $doc(f.swissId -> swiss.id))
               .map { userIds =>
                 lila.common.Bus.publish(
-                  TourSoon(tourId = swiss.id.value, tourName = swiss.name, userIds, swiss = true),
+                  TourSoon(tourId = swiss.id, tourName = swiss.name, userIds, swiss = true),
                   "tourSoon"
                 )
               }

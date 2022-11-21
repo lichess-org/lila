@@ -11,10 +11,10 @@ final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
   def collName  = coll.name
   val noteField = "t"
 
-  def get(gameId: Game.Id, userId: String): Fu[String] =
+  def get(gameId: GameId, userId: String): Fu[String] =
     coll.primitiveOne[String]($id(makeId(gameId, userId)), noteField) dmap (~_)
 
-  def set(gameId: Game.Id, userId: String, text: String) = {
+  def set(gameId: GameId, userId: String, text: String) = {
     if (text.isEmpty) coll.delete.one($id(makeId(gameId, userId)))
     else
       coll.update.one(
@@ -24,13 +24,13 @@ final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       )
   }.void
 
-  def byGameIds(gameIds: Seq[Game.Id], userId: String): Fu[Map[Game.Id, String]] =
+  def byGameIds(gameIds: Seq[GameId], userId: String): Fu[Map[GameId, String]] =
     coll.byIds(gameIds.map(makeId(_, userId)), ReadPreference.secondaryPreferred) map { docs =>
       (for {
         doc    <- docs
-        noteId <- doc.getAsOpt[String]("_id")
-        note   <- doc.getAsOpt[String](noteField)
-      } yield (noteId take Game.gameIdSize, note)).toMap
+        noteId <- doc.string("_id")
+        note   <- doc.string(noteField)
+      } yield (Game takeGameId noteId, note)).toMap
     }
 
   private def makeId(gameId: String, userId: String) = s"$gameId$userId"

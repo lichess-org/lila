@@ -70,4 +70,4 @@ object show:
       )
     )
 
-  def socketUrl(id: lila.study.Study.Id) = s"/study/$id/socket/v$apiVersion"
+  def socketUrl(id: lila.study.StudyId) = s"/study/$id/socket/v$apiVersion"

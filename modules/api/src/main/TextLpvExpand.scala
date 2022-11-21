@@ -18,7 +18,7 @@ final class TextLpvExpand(
     cacheApi: CacheApi
 )(using ec: ExecutionContext):
 
-  def getPgn(id: Game.Id) = pgnCache get id
+  def getPgn(id: GameId) = pgnCache get id
 
   def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
     gameRegex
@@ -30,7 +30,7 @@ final class TextLpvExpand(
         } map (m.matched -> _)
       }
       .map { case (matched, id) =>
-        pgnCache.get(id) map2 { matched -> _ }
+        pgnCache.get(GameId(id)) map2 { matched -> _ }
       }
       .sequenceFu
       .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
@@ -46,12 +46,13 @@ final class TextLpvExpand(
         }
     }
 
-  def gamePgnsFromText(text: String): Fu[Map[Game.Id, String]] =
+  def gamePgnsFromText(text: String): Fu[Map[GameId, String]] =
     val gameIds = gameRegex
       .findAllMatchIn(text)
       .toList
       .flatMap { m => Option(m group 1) filterNot notGames.contains }
       .distinct
+      .map(GameId.apply)
     pgnCache getAll gameIds map {
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
@@ -70,11 +71,11 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val pgnCache = cacheApi[Game.Id, Option[String]](512, "textLpvExpand.pgn") {
+  private val pgnCache = cacheApi[GameId, Option[String]](512, "textLpvExpand.pgn") {
     _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
   }
 
-  private def gameIdToPgn(id: Game.Id): Fu[Option[Pgn]] =
+  private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMap {
       _ ?? { g =>
         analysisRepo.byId(id) flatMap { analysis =>

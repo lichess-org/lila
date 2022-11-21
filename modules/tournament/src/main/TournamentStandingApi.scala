@@ -6,7 +6,6 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
 
 import lila.memo.CacheApi.*
-import lila.user.User
 
 /*
  * Getting a standing page of a tournament can be very expensive
@@ -73,7 +72,7 @@ final class TournamentStandingApi(
   private def compute(id: Tournament.ID, page: Int, withScores: Boolean): Fu[JsObject] =
     cached.tourCache.byId(id) orFail s"No such tournament: $id" flatMap { compute(_, page, withScores) }
 
-  private def playerIdsOnPage(tour: Tournament, page: Int): Fu[List[User.ID]] =
+  private def playerIdsOnPage(tour: Tournament, page: Int): Fu[List[TourPlayerId]] =
     cached.ranking(tour).map { ranking =>
       ((page - 1) * perPage until page * perPage).toList.flatMap(ranking.playerIndex.lift)
     }

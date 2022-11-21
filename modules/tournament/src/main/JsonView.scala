@@ -207,7 +207,7 @@ final class JsonView(
           }
         )
 
-  private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[Game.Id]] =
+  private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[GameId]] =
     if (Uptime.startedSinceSeconds(60)) fuccess(duelStore.find(tour, user))
     else pairingRepo.playingByTourAndUserId(tour.id, user.id)
 

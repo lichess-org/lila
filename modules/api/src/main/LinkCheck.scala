@@ -53,9 +53,9 @@ final private class LinkCheck(
     source match
       case PublicSource.Tournament(id) => tournamentRepo byId id map2 FullSource.TournamentSource.apply
       case PublicSource.Simul(id)      => simulApi find id map2 FullSource.SimulSource.apply
-      case PublicSource.Swiss(id) => swissApi fetchByIdNoCache Swiss.Id(id) map2 FullSource.SwissSource.apply
+      case PublicSource.Swiss(id) => swissApi fetchByIdNoCache SwissId(id) map2 FullSource.SwissSource.apply
       case PublicSource.Team(id)  => teamRepo byId id map2 FullSource.TeamSource.apply
-      case PublicSource.Study(id) => studyRepo byId Study.Id(id) map2 FullSource.StudySource.apply
+      case PublicSource.Study(id) => studyRepo byId StudyId(id) map2 FullSource.StudySource.apply
       case _                      => fuccess(none)
   } flatMap {
     _ ?? { source =>
@@ -83,7 +83,7 @@ final private class LinkCheck(
     }
 
   private def swissLink(swissId: String, source: FullSource) =
-    swissApi teamOf Swiss.Id(swissId) map {
+    swissApi teamOf SwissId(swissId) map {
       _ exists source.teamId.has
     }
 

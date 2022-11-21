@@ -12,7 +12,7 @@ import lila.common.Iso
 
 case class Chapter(
     _id: Chapter.Id,
-    studyId: Study.Id,
+    studyId: StudyId,
     name: Chapter.Name,
     setup: Chapter.Setup,
     root: Node.Root,
@@ -116,7 +116,7 @@ object Chapter:
     def initialPosition = Position.Ref(id, Path.root)
 
   case class Setup(
-      gameId: Option[lila.game.Game.Id],
+      gameId: Option[GameId],
       variant: Variant,
       orientation: Color,
       fromFen: Option[Boolean] = None
@@ -173,7 +173,7 @@ object Chapter:
   def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
 
   def make(
-      studyId: Study.Id,
+      studyId: StudyId,
       name: Name,
       setup: Setup,
       root: Node.Root,

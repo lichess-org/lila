@@ -32,13 +32,13 @@ final private class StudySocket(
 
   subscribeChat(rooms, _.Study)
 
-  def isPresent(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
+  def isPresent(studyId: StudyId, userId: User.ID): Fu[Boolean] =
     remoteSocketApi.request[Boolean](
       id => send(Protocol.Out.getIsPresent(id, studyId, userId)),
       _ == "true"
     )
 
-  def onServerEval(studyId: Study.Id, eval: ServerEval.Progress): Unit =
+  def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     eval match
       case ServerEval.Progress(chapterId, tree, analysis, division) =>
         import lila.game.JsonView.given
@@ -230,7 +230,7 @@ final private class StudySocket(
     chatBusChan = _.Study
   )
 
-  private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) =
+  private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(who: Who) =
     m.branch match
       case Validated.Valid(branch) if branch.ply < Node.MAX_PLIES =>
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
@@ -254,7 +254,7 @@ final private class StudySocket(
   import JsonView.given
   import jsonView.given
   import lila.tree.Node.{ defaultNodeJsonWriter, given }
-  private type SendToStudy = Study.Id => Unit
+  private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
   private def notify[A: Writes](tpe: String, data: A): SendToStudy =
@@ -306,7 +306,7 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def reloadMembers(members: StudyMembers, sendTo: Iterable[User.ID])(studyId: Study.Id) =
+  def reloadMembers(members: StudyMembers, sendTo: Iterable[User.ID])(studyId: StudyId) =
     send(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
 
   def setComment(pos: Position.Ref, comment: Comment, who: Who) =
@@ -412,8 +412,8 @@ final private class StudySocket(
 
 object StudySocket:
 
-  given Conversion[RoomId, Study.Id] = id => Study.Id(id.value)
-  given Conversion[Study.Id, RoomId] = id => RoomId(id.value)
+  given Conversion[RoomId, StudyId] = id => StudyId(id.value)
+  given Conversion[StudyId, RoomId] = id => RoomId(id)
 
   object Protocol:
 
@@ -450,5 +450,5 @@ object StudySocket:
       given Reads[actorApi.ExplorerGame]      = Json.reads
 
     object Out:
-      def getIsPresent(reqId: Int, studyId: Study.Id, userId: User.ID) =
+      def getIsPresent(reqId: Int, studyId: StudyId, userId: User.ID) =
         s"room/present $reqId $studyId $userId"

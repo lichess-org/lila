@@ -6,7 +6,7 @@ import lila.user.User
 
 case class SwissPlayer(
     id: SwissPlayer.Id, // swissId:userId
-    swissId: Swiss.Id,
+    swissId: SwissId,
     userId: User.ID,
     rating: Int,
     provisional: Boolean,
@@ -31,10 +31,10 @@ object SwissPlayer:
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  def makeId(swissId: Swiss.Id, userId: User.ID) = Id(s"$swissId:$userId")
+  def makeId(swissId: SwissId, userId: User.ID) = Id(s"$swissId:$userId")
 
   private[swiss] def make(
-      swissId: Swiss.Id,
+      swissId: SwissId,
       user: User,
       perf: PerfType
   ): SwissPlayer =

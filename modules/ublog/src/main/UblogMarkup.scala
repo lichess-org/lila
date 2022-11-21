@@ -19,7 +19,7 @@ final class UblogMarkup(
 
   import UblogMarkup.*
 
-  private val pgnCache = cacheApi.notLoadingSync[Game.Id, String](256, "ublogMarkup.pgn") {
+  private val pgnCache = cacheApi.notLoadingSync[GameId, String](256, "ublogMarkup.pgn") {
     _.expireAfterWrite(1 second).build()
   }
 

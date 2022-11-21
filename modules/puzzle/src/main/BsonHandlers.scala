@@ -13,14 +13,13 @@ object BsonHandlers:
 
   import Puzzle.given
   import Puzzle.BSONFields.*
-  import lila.game.BSONHandlers.idHandler
 
   given BSONHandler[Puzzle.Id] = stringIsoHandler
 
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[Puzzle.Id](id)
-      gameId  <- r.getAsTry[Game.Id](gameId)
+      gameId  <- r.getAsTry[GameId](gameId)
       fen     <- r.getAsTry[FEN](fen)
       lineStr <- r.getAsTry[String](line)
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")

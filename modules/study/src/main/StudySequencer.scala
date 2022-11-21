@@ -8,23 +8,19 @@ import lila.hub.AsyncActorSequencers
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mode: play.api.Mode
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
 
   private val workQueue =
-    new AsyncActorSequencers(maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
+    AsyncActorSequencers[StudyId](maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
 
-  def sequenceStudy[A <: Matchable: Zero](studyId: Study.Id)(f: Study => Fu[A]): Fu[A] =
+  def sequenceStudy[A <: Matchable: Zero](studyId: StudyId)(f: Study => Fu[A]): Fu[A] =
     workQueue(studyId) {
       studyRepo.byId(studyId) flatMap {
         _ ?? { f(_) }
       }
     }
 
-  def sequenceStudyWithChapter[A <: Matchable: Zero](studyId: Study.Id, chapterId: Chapter.Id)(
+  def sequenceStudyWithChapter[A <: Matchable: Zero](studyId: StudyId, chapterId: Chapter.Id)(
       f: Study.WithChapter => Fu[A]
   ): Fu[A] =
     sequenceStudy(studyId) { study =>

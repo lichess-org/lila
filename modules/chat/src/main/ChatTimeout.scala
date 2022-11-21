@@ -16,7 +16,7 @@ final class ChatTimeout(
 
   import ChatTimeout.*
 
-  private val global = new lila.memo.ExpireSetMemo(duration)
+  private val global = new lila.memo.ExpireSetMemo[String](duration)
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
     isActive(chat.id, user.id) flatMap {

@@ -5,14 +5,14 @@ import chess.{ Color, Status }
 import lila.user.User
 
 case class LightGame(
-    id: Game.Id,
+    id: GameId,
     whitePlayer: Player,
     blackPlayer: Player,
     status: Status
 ):
   def playable                                        = status < Status.Aborted
   def player(color: Color): Player                    = color.fold(whitePlayer, blackPlayer)
-  def player(playerId: Player.ID): Option[Player]     = players find (_.id == playerId)
+  def player(playerId: GamePlayerId): Option[Player]     = players find (_.id == playerId)
   def players                                         = List(whitePlayer, blackPlayer)
   def playerByUserId(userId: User.ID): Option[Player] = players.find(_.userId contains userId)
   def winner                                          = players find (_.wins)

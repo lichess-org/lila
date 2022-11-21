@@ -8,7 +8,7 @@ import lila.study.Study
 
 final class PracticeConfig(val sections: List[PracticeConfigSection]):
 
-  def studyIds = sections.flatMap(_.studies.map(_.id)) map Study.Id.apply
+  def studyIds = sections.flatMap(_.studies.map(_.id)) map StudyId.apply
 
 object PracticeConfig:
   val empty = PracticeConfig(Nil)

@@ -10,7 +10,7 @@ final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
-    onStart: Game.Id => Unit
+    onStart: GameId => Unit
 )(using ec: scala.concurrent.ExecutionContext):
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =

@@ -79,7 +79,7 @@ final private[api] class GameApi(
       }
     }
 
-  def one(id: String, withFlags: WithFlags): Fu[Option[JsObject]] =
+  def one(id: GameId, withFlags: WithFlags): Fu[Option[JsObject]] =
     gameRepo game id flatMap {
       _ ?? { g =>
         gamesJson(withFlags)(List(g)) map (_.headOption)

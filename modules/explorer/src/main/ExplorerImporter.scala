@@ -15,7 +15,7 @@ final class ExplorerImporter(
 
   private val masterGameEncodingFixedAt = new DateTime(2016, 3, 9, 0, 0)
 
-  def apply(id: Game.Id): Fu[Option[Game]] =
+  def apply(id: GameId): Fu[Option[Game]] =
     gameRepo game id flatMap {
       case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) =>
         fuccess(game.some)

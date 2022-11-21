@@ -42,10 +42,10 @@ final private class ColorHistoryApi(cacheApi: CacheApi):
 
   private val cache = cacheApi.scaffeine
     .expireAfterAccess(1 hour)
-    .build[Player.ID, ColorHistory]()
+    .build[TourPlayerId, ColorHistory]()
 
   private val default = ColorHistory(0, 0)
 
-  def get(playerId: Player.ID) = cache.getIfPresent(playerId) | default
+  def get(playerId: TourPlayerId) = cache.getIfPresent(playerId) | default
 
-  def inc(playerId: Player.ID, color: Color) = cache.put(playerId, get(playerId) inc color)
+  def inc(playerId: TourPlayerId, color: Color) = cache.put(playerId, get(playerId) inc color)

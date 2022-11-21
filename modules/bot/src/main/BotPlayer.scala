@@ -5,7 +5,6 @@ import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.common.Bus
-import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, RematchNo, RematchYes, Resign }
@@ -40,7 +39,7 @@ final class BotPlayer(
       }
     }
 
-  def chat(gameId: Game.Id, me: User, d: BotForm.ChatData) =
+  def chat(gameId: GameId, me: User, d: BotForm.ChatData) =
     !spam.detect(d.text) ??
       fuccess {
         lila.mon.bot.chats(me.username).increment()
@@ -53,11 +52,11 @@ final class BotPlayer(
         chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
       }
 
-  def rematchAccept(id: Game.Id, me: User): Fu[Boolean] = rematch(id, me, accept = true)
+  def rematchAccept(id: GameId, me: User): Fu[Boolean] = rematch(id, me, accept = true)
 
-  def rematchDecline(id: Game.Id, me: User): Fu[Boolean] = rematch(id, me, accept = false)
+  def rematchDecline(id: GameId, me: User): Fu[Boolean] = rematch(id, me, accept = false)
 
-  private def rematch(challengeId: Game.Id, me: User, accept: Boolean): Fu[Boolean] =
+  private def rematch(challengeId: GameId, me: User, accept: Boolean): Fu[Boolean] =
     rematches.prevGameIdOffering(challengeId) ?? gameRepo.game map {
       _.flatMap(Pov(_, me)) ?? { pov =>
         // delay so it feels more natural
@@ -70,7 +69,7 @@ final class BotPlayer(
       }
     }
 
-  private def tellRound(id: Game.Id, msg: Any) =
+  private def tellRound(id: GameId, msg: Any) =
     Bus.publish(Tell(id, msg), "roundSocket")
 
   def abort(pov: Pov): Funit =
@@ -91,23 +90,22 @@ final class BotPlayer(
 
   private def declineDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.opponent.isOfferingDraw)
-      tellRound(pov.gameId, DrawNo(PlayerId(pov.playerId)))
+      tellRound(pov.gameId, DrawNo(pov.playerId))
 
   private def offerDraw(pov: Pov): Unit =
     if (pov.game.drawable && (pov.game.playerCanOfferDraw(pov.color) || pov.opponent.isOfferingDraw))
-      tellRound(pov.gameId, DrawYes(PlayerId(pov.playerId)))
+      tellRound(pov.gameId, DrawYes(pov.playerId))
 
   def setDraw(pov: Pov, v: Boolean): Unit =
     if (v) offerDraw(pov) else declineDraw(pov)
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
     if (pov.game.playable && pov.game.canTakebackOrAddTime)
-      val p = PlayerId(pov.playerId)
-      tellRound(pov.gameId, if (v) TakebackYes(p) else TakebackNo(p))
+      tellRound(pov.gameId, if v then TakebackYes(pov.playerId) else TakebackNo(pov.playerId))
 
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin ?? {
-      tellRound(pov.gameId, ResignForce(pov.typedPlayerId))
+      tellRound(pov.gameId, ResignForce(pov.playerId))
       lila.common.Future.delay(500 millis) {
         gameRepo.finished(pov.gameId) map {
           _.exists(_.winner.map(_.id) has pov.playerId)

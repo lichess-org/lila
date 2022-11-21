@@ -40,7 +40,7 @@ final class SwissFeature(
 
   private def getForTeams(teams: Seq[TeamID]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).sequenceFu.dmap(_.flatten) flatMap { ids =>
-      mongo.swiss.byStringIds[Swiss](ids.map(_.value), ReadPreference.secondaryPreferred)
+      mongo.swiss.byStringIds[Swiss](ids, ReadPreference.secondaryPreferred)
     } map {
       _.filter(_.isNotFinished).partition(_.isCreated) match
         case (created, started) =>

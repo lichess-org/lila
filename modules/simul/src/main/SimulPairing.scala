@@ -4,7 +4,7 @@ import lila.game.IdGenerator
 
 final case class SimulPairing(
     player: SimulPlayer,
-    gameId: String,
+    gameId: GameId,
     status: chess.Status,
     wins: Option[Boolean],
     hostColor: chess.Color

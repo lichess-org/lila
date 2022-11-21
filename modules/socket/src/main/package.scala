@@ -9,7 +9,7 @@ export lila.Lila.{ *, given }
 opaque type SocketVersion <: Int = Int
 object SocketVersion:
   def apply(v: Int): SocketVersion = v
-  given Format[SocketVersion]      = lila.common.Json.intFormat
+  given Format[SocketVersion]      = lila.common.Json.intFormat(SocketVersion.apply)
   given Zero[SocketVersion]        = Zero(SocketVersion(0))
 extension (o: SocketVersion)
   def socketVersion: Int = o

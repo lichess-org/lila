@@ -13,14 +13,14 @@ final private class ExplorerGame(
     net: lila.common.config.NetConfig
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def quote(gameId: Game.Id): Fu[Option[Comment]] =
+  def quote(gameId: GameId): Fu[Option[Comment]] =
     importer(gameId) map {
       _ ?? { game =>
         gameComment(game).some
       }
     }
 
-  def insert(study: Study, position: Position, gameId: Game.Id): Fu[Option[(Chapter, Path)]] =
+  def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, Path)]] =
     if (position.chapter.isOverweight)
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)

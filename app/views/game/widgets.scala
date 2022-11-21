@@ -12,7 +12,7 @@ object widgets:
 
   def apply(
       games: Seq[Game],
-      notes: Map[Game.Id, String] = Map(),
+      notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(implicit ctx: Context): Frag =
@@ -54,7 +54,7 @@ object widgets:
                   frag(separator, views.html.simul.bits.link(simulId))
                 } orElse
                 g.swissId.map { swissId =>
-                  frag(separator, views.html.swiss.bits.link(lila.swiss.Swiss.Id(swissId)))
+                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
                 }
             )
           ),

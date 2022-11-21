@@ -127,7 +127,7 @@ object BSONHandlers:
   given BSON[Player] with
     def reads(r: BSON.Reader) =
       Player(
-        _id = r str "_id",
+        _id = r.get[TourPlayerId]("_id"),
         tourId = r str "tid",
         userId = r str "uid",
         rating = r int "r",
@@ -159,7 +159,7 @@ object BSONHandlers:
       val user1 = users.headOption err "tournament pairing first user"
       val user2 = users lift 1 err "tournament pairing second user"
       Pairing(
-        id = r str "_id",
+        id = r.get[GameId]("_id"),
         tourId = r str "tid",
         status = chess.Status(r int "s") err "tournament pairing status",
         user1 = user1,

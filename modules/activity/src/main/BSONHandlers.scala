@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 import scala.util.Success
 
 import lila.common.{ Iso, LichessDay }
+import lila.common.Iso.given
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.given
 import lila.rating.PerfType
@@ -67,8 +68,6 @@ private object BSONHandlers:
 
   private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games.apply, _.value)
 
-  private given BSONHandler[GameId] = BSONStringHandler.as(GameId.apply, _.value)
-
   private given BSONHandler[ForumPostId] = BSONStringHandler.as(ForumPostId.apply, _.value)
   given BSONHandler[ForumPosts] = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts.apply)
 
@@ -92,8 +91,7 @@ private object BSONHandlers:
   private given Iso.StringIso[Learn.Stage] = Iso.string(Learn.Stage.apply, _.value)
   given BSONHandler[Learn]                 = typedMapHandler[Learn.Stage, Int].as(Learn.apply, _.value)
 
-  private given Iso.StringIso[Study.Id] = Iso.string(Study.Id.apply, _.id)
-  given BSONHandler[Practice]           = typedMapHandler[Study.Id, Int].as[Practice](Practice.apply, _.value)
+  given BSONHandler[Practice] = typedMapHandler[StudyId, Int].as[Practice](Practice.apply, _.value)
 
   given BSONHandler[SimulId] = BSONStringHandler.as(SimulId.apply, _.value)
   given BSONHandler[Simuls]  = isoHandler[Simuls, List[SimulId]](_.value, Simuls.apply)
@@ -115,11 +113,11 @@ private object BSONHandlers:
         "o" -> o.out
       )
 
-  given BSONHandler[Studies] = isoHandler[Studies, List[Study.Id]](_.value, Studies.apply)
+  given BSONHandler[Studies] = isoHandler[Studies, List[StudyId]](_.value, Studies.apply)
   given BSONHandler[Teams]   = isoHandler[Teams, List[String]](_.value, Teams.apply)
 
   given lila.db.BSON[SwissRank] with
-    def reads(r: lila.db.BSON.Reader)                = SwissRank(Swiss.Id(r.str("i")), r.intD("r"))
+    def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), r.intD("r"))
     def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
 
   given BSONHandler[Swisses] = isoHandler[Swisses, List[SwissRank]](_.value, Swisses.apply)

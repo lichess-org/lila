@@ -13,15 +13,15 @@ import lila.game.{ Game, Pov }
 final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
-    proxyGame: Game.Id => Fu[Option[Game]]
+    proxyGame: GameId => Fu[Option[Game]]
 )(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer
+    scala.concurrent.ExecutionContext,
+    akka.actor.Scheduler,
+    akka.stream.Materializer
 ):
 
   private case class Alarm(
-      _id: String,       // game id
+      _id: GameId,
       ringsAt: DateTime, // when to notify the player
       expiresAt: DateTime
   )

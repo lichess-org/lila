@@ -24,7 +24,7 @@ final class PracticeApi(
       prog   <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
     } yield UserPractice(struct, prog)
 
-  def getStudyWithFirstOngoingChapter(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] =
+  def getStudyWithFirstOngoingChapter(user: Option[User], studyId: StudyId): Fu[Option[UserStudy]] =
     for {
       up       <- get(user)
       chapters <- studyApi.chapterMetadatas(studyId)
@@ -36,7 +36,7 @@ final class PracticeApi(
 
   def getStudyWithChapter(
       user: Option[User],
-      studyId: Study.Id,
+      studyId: StudyId,
       chapterId: Chapter.Id
   ): Fu[Option[UserStudy]] =
     for {

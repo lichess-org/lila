@@ -106,7 +106,7 @@ object MarkdownRender:
   type Key  = String
   type Html = String
 
-  case class GameExpand(domain: config.NetDomain, getPgn: String => Option[String])
+  case class GameExpand(domain: config.NetDomain, getPgn: GameId => Option[String])
 
   private val rel = "nofollow noopener noreferrer"
 
@@ -213,7 +213,7 @@ object MarkdownRender:
         def justAsLink() = renderLinkWithBase(node, context, html, link)
         link.getUrl match
           case gameRegex(id, color, ply) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
 
     private def renderAutoLink(
@@ -229,7 +229,7 @@ object MarkdownRender:
         def justAsLink() = renderLinkWithBase(node, context, html, link)
         link.getUrl match
           case gameRegex(id, color, ply) =>
-            expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
           case _ => justAsLink()
 
     private def renderLinkWithBase(

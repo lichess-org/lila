@@ -6,7 +6,7 @@ import lila.user.User
 import lila.common.Iso
 
 case class Study(
-    _id: Study.Id,
+    _id: StudyId,
     name: Study.Name,
     members: StudyMembers,
     position: Position.Ref,
@@ -84,15 +84,12 @@ object Study:
   val previewNbMembers  = 4
   val previewNbChapters = 4
 
-  opaque type Id = String
-  object Id:
-    def apply(v: String): Id = v
-  extension (o: Id) def id: String = o
+  opaque type Name <: String = String
+  object Name:
+    def apply(v: String): Name = v
+  given Iso.StringIso[Name] = Iso.opaque(Name.apply)
 
-  case class Name(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Name] = Iso.string(Name.apply, _.value)
-
-  case class IdName(_id: Id, name: Name):
+  case class IdName(_id: StudyId, name: Name):
     def id = _id
 
   def toName(str: String) = Name(lila.common.String.fullCleanUp(str) take 100)
@@ -123,10 +120,10 @@ object Study:
 
   sealed trait From
   object From:
-    case object Scratch                      extends From
-    case class Game(id: String)              extends From
-    case class Study(id: Id)                 extends From
-    case class Relay(clonedFrom: Option[Id]) extends From
+    case object Scratch                           extends From
+    case class Game(id: String)                   extends From
+    case class Study(id: StudyId)                 extends From
+    case class Relay(clonedFrom: Option[StudyId]) extends From
 
   case class Data(
       name: String,
@@ -157,12 +154,12 @@ object Study:
 
   val idSize = 8
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
+  def makeId = StudyId(lila.common.ThreadLocalRandom nextString idSize)
 
   def make(
       user: User,
       from: From,
-      id: Option[Study.Id] = None,
+      id: Option[StudyId] = None,
       name: Option[Name] = None,
       settings: Option[Settings] = None
   ) =

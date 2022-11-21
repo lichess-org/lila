@@ -12,7 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.user.User
 
-final class PairingRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext, mat: Materializer):
+final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Materializer):
 
   def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   def selectUser(userId: User.ID)       = $doc("u" -> userId)
@@ -78,7 +78,7 @@ final class PairingRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext,
           .toSet
       }
 
-  def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[Tournament.ID]] =
+  def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[GameId]] =
     coll
       .find(
         selectTourUser(tourId, userId),
@@ -88,10 +88,10 @@ final class PairingRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext,
       .cursor[Bdoc]()
       .list(nb)
       .dmap {
-        _.flatMap(_.getAsOpt[Game.Id]("_id"))
+        _.flatMap(_.getAsOpt[GameId]("_id"))
       }
 
-  def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[Game.Id]] =
+  def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[GameId]] =
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectPlaying,
@@ -100,7 +100,7 @@ final class PairingRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext,
       .sort(recentSort)
       .one[Bdoc]
       .dmap {
-        _.flatMap(_.getAsOpt[Game.Id]("_id"))
+        _.flatMap(_.getAsOpt[GameId]("_id"))
       }
 
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void

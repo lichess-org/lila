@@ -6,15 +6,14 @@ import play.api.libs.json.*
 import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.db.dsl.*
+import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.game.BSONHandlers.idHandler
 
 final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
     mat: akka.stream.Materializer,
     ec: scala.concurrent.ExecutionContext
 ):
-  def apply(streamId: String, initialIds: Set[Game.Id], maxGames: Int): Source[JsValue, ?] =
+  def apply(streamId: String, initialIds: Set[GameId], maxGames: Int): Source[JsValue, ?] =
     val startStream = Source.queue[Game](
       bufferSize = maxGames,
       akka.stream.OverflowStrategy.dropHead
@@ -42,12 +41,12 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
       .mapAsync(1)(gameRepo.withInitialFen)
       .map(GameStream.gameWithInitialFenWriter.writes)
 
-  def addGameIds(streamId: String, gameIds: Set[Game.Id]) =
+  def addGameIds(streamId: String, gameIds: Set[GameId]) =
     Bus.publish(WatchGames(gameIds), streamChan(streamId))
 
-  private case class WatchGames(ids: Set[Game.Id])
+  private case class WatchGames(ids: Set[GameId])
   private def streamChan(streamId: String) = s"gamesByIdsStream:$streamId"
 
-  private def gameSource(ids: Set[Game.Id]) =
+  private def gameSource(ids: Set[GameId]) =
     if (ids.isEmpty) Source.empty[Game]
     else gameRepo.cursor($inIds(ids)).documentSource().throttle(50, 1.second)

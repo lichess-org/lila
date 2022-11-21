@@ -4,9 +4,9 @@ import scala.concurrent.duration.FiniteDuration
 
 object OnceEvery:
 
-  def apply(ttl: FiniteDuration): String => Boolean =
+  def apply[K <: String](ttl: FiniteDuration): K => Boolean =
 
-    val cache = new ExpireSetMemo(ttl)
+    val cache = new ExpireSetMemo[K](ttl)
 
     key => {
       val isNew = !cache.get(key)

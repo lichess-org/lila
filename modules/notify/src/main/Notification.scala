@@ -54,13 +54,12 @@ object MentionedInThread:
 case class InvitedToStudy(
     invitedBy: InvitedToStudy.InvitedBy,
     studyName: InvitedToStudy.StudyName,
-    studyId: InvitedToStudy.StudyId
+    studyId: StudyId
 ) extends NotificationContent("invitedStudy")
 
 object InvitedToStudy:
   case class InvitedBy(value: String) extends AnyVal with StringValue
   case class StudyName(value: String) extends AnyVal with StringValue
-  case class StudyId(value: String)   extends AnyVal with StringValue
 
 case class PrivateMessage(
     user: PrivateMessage.Sender,
@@ -106,7 +105,7 @@ case class PlanStart(userId: String)  extends NotificationContent("planStart")  
 case class PlanExpire(userId: String) extends NotificationContent("planExpire") // BC
 
 case class CorresAlarm(
-    gameId: lila.game.Game.Id,
+    gameId: GameId,
     opponent: String
 ) extends NotificationContent("corresAlarm")
 

@@ -23,15 +23,15 @@ final class TournamentLilaHttp(
     pause: Pause,
     lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
-)(implicit mat: akka.stream.Materializer, scheduler: akka.actor.Scheduler, ec: ExecutionContext):
+)(using akka.stream.Materializer, akka.actor.Scheduler, ExecutionContext):
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
   def handledIds                = isOnLilaHttp.keys
   def hit(tour: Tournament) =
     if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
-  private val isOnLilaHttp = new ExpireSetMemo(3 hours)
-  private val hitCounter   = new FrequencyThreshold[Tournament.ID](10, 20 seconds)
+  private val isOnLilaHttp = ExpireSetMemo[Tournament.ID](3 hours)
+  private val hitCounter   = FrequencyThreshold[Tournament.ID](10, 20 seconds)
 
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()

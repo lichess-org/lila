@@ -18,15 +18,15 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
 
     case AnyCaptcha => sender() ! Impl.current
 
-    case GetCaptcha(id) => Impl.get(Game.Id(id)).pipeTo(sender()).unit
+    case GetCaptcha(id) => Impl.get(GameId(id)).pipeTo(sender()).unit
 
     case actorApi.NewCaptcha => Impl.refresh.unit
 
-    case ValidCaptcha(id, solution) => Impl.get(Game.Id(id)).map(_ valid solution).pipeTo(sender()).unit
+    case ValidCaptcha(id, solution) => Impl.get(GameId(id)).map(_ valid solution).pipeTo(sender()).unit
 
   private object Impl:
 
-    def get(id: Game.Id): Fu[Captcha] =
+    def get(id: GameId): Fu[Captcha] =
       find(id) match
         case None    => getFromDb(id) map (c => (c | Captcha.default) ~ add)
         case Some(c) => fuccess(c)
@@ -56,7 +56,7 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
       gameRepo findRandomStandardCheckmate distribution
 
-    private def getFromDb(id: Game.Id): Fu[Option[Captcha]] =
+    private def getFromDb(id: GameId): Fu[Option[Captcha]] =
       gameRepo game id flatMap { _ ?? fromGame }
 
     private def fromGame(game: Game): Fu[Option[Captcha]] =

@@ -23,29 +23,29 @@ final class StudyMultiBoard(
 
   import StudyMultiBoard.*
 
-  def json(studyId: Study.Id, page: Int, playing: Boolean): Fu[JsObject] = {
+  def json(studyId: StudyId, page: Int, playing: Boolean): Fu[JsObject] = {
     if (page == 1 && !playing) firstPageCache.get(studyId)
     else fetch(studyId, page, playing)
   } map { PaginatorJson(_) }
 
-  def invalidate(studyId: Study.Id): Unit = firstPageCache.synchronous().invalidate(studyId)
+  def invalidate(studyId: StudyId): Unit = firstPageCache.synchronous().invalidate(studyId)
 
-  private val firstPageCache: AsyncLoadingCache[Study.Id, Paginator[ChapterPreview]] =
+  private val firstPageCache: AsyncLoadingCache[StudyId, Paginator[ChapterPreview]] =
     cacheApi.scaffeine
       .refreshAfterWrite(4 seconds)
       .expireAfterAccess(10 minutes)
-      .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
+      .buildAsyncFuture[StudyId, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
 
   private val playingSelector = $doc("tags" -> "Result:*", "relay.path" $ne "")
 
-  private def fetch(studyId: Study.Id, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
+  private def fetch(studyId: StudyId, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
       new ChapterPreviewAdapter(studyId, playing),
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
-  final private class ChapterPreviewAdapter(studyId: Study.Id, playing: Boolean)
+  final private class ChapterPreviewAdapter(studyId: StudyId, playing: Boolean)
       extends AdapterLike[ChapterPreview]:
 
     private val selector = $doc("studyId" -> studyId) ++ playing.??(playingSelector)

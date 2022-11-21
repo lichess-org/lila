@@ -14,7 +14,7 @@ final private class GameJson(
     lightUserApi: lila.user.LightUserApi
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(gameId: Game.Id, plies: Int, bc: Boolean): Fu[JsObject] =
+  def apply(gameId: GameId, plies: Int, bc: Boolean): Fu[JsObject] =
     (if (bc) bcCache else cache) get writeKey(gameId, plies)
 
   def noCacheBc(game: Game, plies: Int): Fu[JsObject] =
@@ -22,11 +22,11 @@ final private class GameJson(
       generateBc(game, plies)
     }
 
-  private def readKey(k: String): (Game.Id, Int) =
+  private def readKey(k: String): (GameId, Int) =
     k.drop(Game.gameIdSize).toIntOption match
       case Some(ply) => (Game takeGameId k, ply)
       case _         => sys error s"puzzle.GameJson invalid key: $k"
-  private def writeKey(id: Game.Id, ply: Int) = s"$id$ply"
+  private def writeKey(id: GameId, ply: Int) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
@@ -48,7 +48,7 @@ final private class GameJson(
       )
   }
 
-  private def generate(gameId: Game.Id, plies: Int, bc: Boolean): Fu[JsObject] =
+  private def generate(gameId: GameId, plies: Int, bc: Boolean): Fu[JsObject] =
     gameRepo gameFromSecondary gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
       lightUserApi preloadMany game.userIds map { _ =>
         if (bc) generateBc(game, plies)

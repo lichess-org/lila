@@ -12,11 +12,11 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(us
   def onApiPair(challenge: Challenge)(managedBy: User, template: Option[Template]): Funit =
     challenge.userIds.map(lightUserApi.async).sequenceFu.flatMap {
       _.flatten match
-        case List(u1, u2) => onApiPair(challenge.id, u1, u2)(managedBy.id, template)
+        case List(u1, u2) => onApiPair(GameId(challenge.id), u1, u2)(managedBy.id, template)
         case _            => funit
     }
 
-  def onApiPair(gameId: lila.game.Game.Id, u1: LightUser, u2: LightUser)(
+  def onApiPair(gameId: GameId, u1: LightUser, u2: LightUser)(
       managedById: User.ID,
       template: Option[Template]
   ): Funit =

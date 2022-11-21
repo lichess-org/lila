@@ -22,7 +22,6 @@ object BSONHandlers:
   import Study.given
   import Chapter.given
 
-  given BSONHandler[Study.Id]                         = stringHandler(Study.Id.apply, _.id)
   given nameHandler: BSONHandler[Study.Name]          = stringIsoHandler
   given chapterIdHandler: BSONHandler[Chapter.Id]     = stringIsoHandler
   given chapterNameHandler: BSONHandler[Chapter.Name] = stringIsoHandler
@@ -294,9 +293,9 @@ object BSONHandlers:
       v.split(' ') match {
         case Array("scratch")   => Success(From.Scratch)
         case Array("game", id)  => Success(From.Game(id))
-        case Array("study", id) => Success(From.Study(Study.Id(id)))
+        case Array("study", id) => Success(From.Study(StudyId(id)))
         case Array("relay")     => Success(From.Relay(none))
-        case Array("relay", id) => Success(From.Relay(Study.Id(id).some))
+        case Array("relay", id) => Success(From.Relay(StudyId(id).some))
         case _                  => handlerBadValue(s"Invalid from $v")
       }
     },

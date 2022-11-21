@@ -16,7 +16,7 @@ final class FishnetApi(
     analysisColl: Coll,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
-    socketExists: Game.Id => Fu[Boolean],
+    socketExists: GameId => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
 )(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
@@ -100,7 +100,7 @@ final class FishnetApi(
               }
             case partial: PartialAnalysis =>
               {
-                fuccess(work.game.studyId.isDefined) >>| socketExists(Game.Id(work.game.id))
+                fuccess(work.game.studyId.isDefined) >>| socketExists(GameId(work.game.id))
               } flatMap {
                 case true =>
                   analysisBuilder.partial(client, work, partial.analysis) map { analysis =>

@@ -106,13 +106,13 @@ final private[tv] class TvSyncActor(
 
 private[tv] object TvSyncActor:
 
-  case class GetGameId(channel: Tv.Channel, promise: Promise[Option[Game.Id]])
-  case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[Game.Id]])
+  case class GetGameId(channel: Tv.Channel, promise: Promise[Option[GameId]])
+  case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[GameId]])
   case class GetReplacementGameId(
       channel: Tv.Channel,
-      oldId: Game.Id,
-      exclude: List[Game.Id],
-      promise: Promise[Option[Game.Id]]
+      oldId: GameId,
+      exclude: List[GameId],
+      promise: Promise[Option[GameId]]
   )
 
   case class GetGameIdAndHistory(channel: Tv.Channel, promise: Promise[ChannelSyncActor.GameIdAndHistory])

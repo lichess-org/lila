@@ -28,15 +28,15 @@ final private class SwissRankingApi(
 
   private val scoreCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[Swiss.Id, Ranking]()
+    .build[SwissId, Ranking]()
 
-  private val dbCache = cacheApi[Swiss.Id, Ranking](512, "swiss.ranking") {
+  private val dbCache = cacheApi[SwissId, Ranking](512, "swiss.ranking") {
     _.expireAfterAccess(1 hour)
       .maximumSize(1024)
       .buildAsyncFuture(computeRanking)
   }
 
-  private def computeRanking(id: Swiss.Id): Fu[Ranking] =
+  private def computeRanking(id: SwissId): Fu[Ranking] =
     SwissPlayer.fields { f =>
       mongo.player.primitive[User.ID]($doc(f.swissId -> id), $sort desc f.score, f.userId)
     } map {

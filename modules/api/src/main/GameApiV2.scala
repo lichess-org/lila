@@ -385,7 +385,7 @@ object GameApiV2:
       } && analysed.fold(true)(g.metadata.analysed ==)
 
   case class ByIdsConfig(
-      ids: Seq[Game.Id],
+      ids: Seq[GameId],
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond,
@@ -400,7 +400,7 @@ object GameApiV2:
   ) extends Config
 
   case class BySwissConfig(
-      swissId: lila.swiss.Swiss.Id,
+      swissId: SwissId,
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond

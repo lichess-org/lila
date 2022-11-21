@@ -19,7 +19,7 @@ final private class ChallengeJoiner(
 )(using ec: scala.concurrent.ExecutionContext):
 
   def apply(c: Challenge, destUser: Option[User]): Fu[Validated[String, Pov]] =
-    gameRepo exists c.id flatMap {
+    gameRepo exists GameId(c.id) flatMap {
       case true => fuccess(Invalid("The challenge has already been accepted"))
       case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { origUser =>
@@ -48,7 +48,7 @@ private object ChallengeJoiner:
         pgnImport = None,
         rules = c.rules
       )
-      .withId(c.id)
+      .withId(GameId(c.id))
       .pipe(addGameHistory(state))
       .start
 

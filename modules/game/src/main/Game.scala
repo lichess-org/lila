@@ -14,7 +14,7 @@ import lila.rating.PerfType.Classical
 import lila.user.User
 
 case class Game(
-    id: Game.Id,
+    id: GameId,
     whitePlayer: Player,
     blackPlayer: Player,
     chess: ChessGame,
@@ -28,8 +28,6 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ):
-
-  import Game.Id
 
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
@@ -45,7 +43,7 @@ case class Game(
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
-  def player(playerId: Player.ID): Option[Player] =
+  def player(playerId: GamePlayerId): Option[Player] =
     players find (_.id == playerId)
 
   def player(user: User): Option[Player] =
@@ -83,10 +81,10 @@ case class Game(
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
-  def fullIdOf(player: Player): Option[String] =
-    (players contains player) option s"$id${player.id}"
+  def fullIdOf(player: Player): Option[GameFullId] =
+    (players contains player) option GameFullId(s"$id${player.id}")
 
-  def fullIdOf(color: Color): String = s"$id${player(color).id}"
+  def fullIdOf(color: Color) = GameFullId(s"$id${player(color).id}")
 
   def tournamentId = metadata.tournamentId
   def simulId      = metadata.simulId
@@ -581,7 +579,7 @@ case class Game(
 
   def withSimulId(id: String) = copy(metadata = metadata.copy(simulId = id.some))
 
-  def withId(newId: Id) = copy(id = newId)
+  def withId(newId: GameId) = copy(id = newId)
 
   def source = metadata.source
 
@@ -601,12 +599,12 @@ case class Game(
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap f
 
-  def pov(c: Color)                                 = Pov(this, c)
-  def playerIdPov(playerId: Player.ID): Option[Pov] = player(playerId) map { Pov(this, _) }
-  def whitePov                                      = pov(White)
-  def blackPov                                      = pov(Black)
-  def playerPov(p: Player)                          = pov(p.color)
-  def loserPov                                      = loser map playerPov
+  def pov(c: Color)                                    = Pov(this, c)
+  def playerIdPov(playerId: GamePlayerId): Option[Pov] = player(playerId) map { Pov(this, _) }
+  def whitePov                                         = pov(White)
+  def blackPov                                         = pov(Black)
+  def playerPov(p: Player)                             = pov(p.color)
+  def loserPov                                         = loser map playerPov
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 
@@ -625,23 +623,11 @@ case class Game(
 
 object Game:
 
-  opaque type Id <: String = String
-  object Id:
-    def apply(v: String): Id = v
-  extension (id: Id) def full(playerId: PlayerId) = FullId(s"$id{$playerId}")
+  def gameId(fullId: GameFullId)                     = GameId(fullId take gameIdSize)
+  def playerId(fullId: GameFullId)                   = GamePlayerId(fullId drop gameIdSize)
+  def fullId(gameId: GameId, playerId: GamePlayerId) = GameFullId(s"$gameId$playerId")
 
-  opaque type FullId <: String = String
-  object FullId:
-    def apply(v: String): FullId = v
-  extension (fullId: FullId)
-    def gameId   = Id(fullId take gameIdSize)
-    def playerId = PlayerId(fullId drop gameIdSize)
-
-  opaque type PlayerId <: String = String
-  object PlayerId:
-    def apply(v: String): PlayerId = v
-
-  case class OnStart(id: Id)
+  case class OnStart(id: GameId)
   case class WithInitialFen(game: Game, fen: Option[FEN])
 
   case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
@@ -715,11 +701,11 @@ object Game:
   val abandonedDays = Days(21)
   def abandonedDate = DateTime.now minusDays abandonedDays.value
 
-  def takeGameId(fullId: String)   = Id(fullId take gameIdSize)
-  def takePlayerId(fullId: String) = PlayerId(fullId drop gameIdSize)
+  def takeGameId(fullId: String)   = GameId(fullId take gameIdSize)
+  def takePlayerId(fullId: String) = GamePlayerId(fullId drop gameIdSize)
 
-  val idRegex         = """[\w-]{8}""".r
-  def validId(id: Id) = idRegex matches id
+  val idRegex             = """[\w-]{8}""".r
+  def validId(id: GameId) = idRegex matches id
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>

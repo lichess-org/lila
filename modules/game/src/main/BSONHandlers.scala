@@ -26,8 +26,6 @@ object BSONHandlers:
 
   import lila.db.ByteArray.byteArrayHandler
 
-  given idHandler: BSONHandler[Game.Id] = stringHandler(Game.Id.apply, identity)
-
   private[game] given checkCountWriter: BSONWriter[CheckCount] with
     def writeTry(cc: CheckCount) = Success(BSONArray(cc.white, cc.black))
 
@@ -78,9 +76,6 @@ object BSONHandlers:
     },
     offers => BSONArray((offers.white ++ offers.black.map(-_)).view.map(BSONInteger.apply).toIndexedSeq)
   )
-
-  import Player.{ playerHandler, given }
-  private val emptyPlayerBuilder = playerHandler.read($empty)
 
   given gameBSONHandler: BSON[Game] with
     import Game.BSONFields as F
@@ -183,19 +178,11 @@ object BSONHandlers:
 
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
-        F.id         -> o.id,
-        F.playerIds  -> (o.whitePlayer.id + o.blackPlayer.id),
-        F.playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
-        F.whitePlayer -> w.docO(
-          playerHandler write ((_: Color) =>
-            (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer
-          )
-        ),
-        F.blackPlayer -> w.docO(
-          playerHandler write ((_: Color) =>
-            (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer
-          )
-        ),
+        F.id            -> o.id,
+        F.playerIds     -> (o.whitePlayer.id + o.blackPlayer.id),
+        F.playerUids    -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
+        F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
+        F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),
         F.status        -> o.status,
         F.turns         -> o.chess.turns,
         F.startedAtTurn -> w.intO(o.chess.startedAtTurn),
@@ -236,7 +223,8 @@ object BSONHandlers:
   given lightGameHandler: lila.db.BSONReadOnly[LightGame] with
 
     import Game.BSONFields as F
-    import Player.playerHandler
+
+    private val emptyPlayerBuilder = Player.builderRead($empty)
 
     def reads(r: BSON.Reader): LightGame =
       lila.mon.game.fetchLight.increment()
@@ -247,11 +235,11 @@ object BSONHandlers:
       val winC                 = r boolO F.winnerColor map Color.fromWhite
       val uids                 = ~r.getO[List[lila.user.User.ID]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
-      def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player =
-        val builder = r.getO[Player.Builder](field)(using playerHandler) | emptyPlayerBuilder
-        builder(color)(id)(uid)(winC map (_ == color))
+      def makePlayer(field: String, color: Color, id: String, uid: Player.UserId): Player =
+        val builder = r.getO[Player.Builder](field)(using Player.playerReader) | emptyPlayerBuilder
+        builder(color)(GamePlayerId(id))(uid)(winC map (_ == color))
       LightGame(
-        id = r.get[Game.Id](F.id),
+        id = r.get[GameId](F.id),
         whitePlayer = makePlayer(F.whitePlayer, White, whiteId, whiteUid),
         blackPlayer = makePlayer(F.blackPlayer, Black, blackId, blackUid),
         status = r.get[Status](F.status)

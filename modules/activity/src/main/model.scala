@@ -46,5 +46,3 @@ object model:
         case (score, _) => score
       }
   given Zero[Score] = Zero(Score(0, 0, 0, none))
-
-  case class GameId(value: String) extends AnyVal

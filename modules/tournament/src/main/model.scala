@@ -26,7 +26,7 @@ case class GameView(
 ):
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.Id], teamId: Option[TeamID]):
+case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[GameId], teamId: Option[TeamID]):
   def page = (rank + 9) / 10
 
 case class VisibleTournaments(
@@ -51,7 +51,7 @@ case class PlayerInfoExt(
     recentPovs: List[lila.game.LightPov]
 )
 
-case class FullRanking(ranking: Map[User.ID, Int], playerIndex: Array[Player.ID])
+case class FullRanking(ranking: Map[User.ID, Int], playerIndex: Array[TourPlayerId])
 
 case class GameRanks(whiteRank: Int, blackRank: Int)
 
@@ -74,7 +74,7 @@ case class RankedPlayer(rank: Int, player: Player):
 
   def is(other: RankedPlayer) = player is other.player
 
-  def withColorHistory(getHistory: Player.ID => ColorHistory) =
+  def withColorHistory(getHistory: TourPlayerId => ColorHistory) =
     RankedPlayerWithColorHistory(rank, player, getHistory(player.id))
 
   override def toString = s"$rank. ${player.userId}[${player.rating}]"

@@ -268,7 +268,7 @@ object activity:
         trans.activity.createdNbStudies.pluralSame(studies.size),
         subTag(
           studies.map { s =>
-            frag(a(href := routes.Study.show(s.id))(s.name.value), br)
+            frag(a(href := routes.Study.show(s.id))(s.name), br)
           }
         )
       )
@@ -327,7 +327,7 @@ object activity:
             )(
               trans.activity.rankedInSwissTournament(
                 strong(rank),
-                a(href := routes.Swiss.show(swiss.id.value))(swiss.name)
+                a(href := routes.Swiss.show(swiss.id))(swiss.name)
               ),
               br
             )

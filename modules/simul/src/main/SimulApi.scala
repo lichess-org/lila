@@ -29,13 +29,12 @@ final class SimulApi(
     mode: play.api.Mode
 ):
 
-  private val workQueue =
-    new lila.hub.AsyncActorSequencers(
-      maxSize = 128,
-      expiration = 10 minutes,
-      timeout = 10 seconds,
-      name = "simulApi"
-    )
+  private val workQueue = lila.hub.AsyncActorSequencers[Simul.ID](
+    maxSize = 128,
+    expiration = 10 minutes,
+    timeout = 10 seconds,
+    name = "simulApi"
+  )
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get {}
 

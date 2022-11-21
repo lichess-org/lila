@@ -9,7 +9,7 @@ import lila.user.User
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
 case class Player(
-    id: Player.ID,
+    id: GamePlayerId,
     color: Color,
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
@@ -167,53 +167,51 @@ object Player:
     val berserk           = "be"
     val name              = "na"
 
-  type ID      = String
-  type UserId  = Option[User.ID]
-  type Win     = Option[Boolean]
-  type Builder = Color => ID => UserId => Win => Player
+  type UserId                = Option[User.ID]
+  type Win                   = Option[Boolean]
+  private[game] type Builder = Color => GamePlayerId => UserId => Win => Player
 
-  private def safeRange(range: Range)(v: Int): Option[Int] =
-    range.contains(v) option v
+  private def safeRange(range: Range)(v: Int): Option[Int] = range.contains(v) option v
+  private val ratingRange                                  = safeRange(0 to 4000)
+  private val ratingDiffRange                              = safeRange(-1000 to 1000)
 
-  private val ratingRange     = safeRange(0 to 4000)
-  private val ratingDiffRange = safeRange(-1000 to 1000)
+  import lila.db.dsl.*
 
-  given playerHandler: BSON[Builder] = new BSON[Builder]:
+  given playerReader: BSONDocumentReader[Builder] with
+    import scala.util.{ Try, Success }
+    def readDocument(doc: Bdoc): Try[Builder] = Success(builderRead(doc))
 
+  def builderRead(doc: Bdoc): Builder = color =>
+    id =>
+      userId =>
+        win =>
+          import BSONFields.*
+          Player(
+            id = id,
+            color = color,
+            aiLevel = doc int aiLevel,
+            isOfferingDraw = doc booleanLike isOfferingDraw getOrElse false,
+            proposeTakebackAt = doc int proposeTakebackAt getOrElse 0,
+            userId = userId,
+            rating = doc int rating flatMap ratingRange,
+            ratingDiff = doc int ratingDiff flatMap ratingDiffRange,
+            provisional = doc booleanLike provisional getOrElse false,
+            blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
+            berserk = doc booleanLike berserk getOrElse false,
+            name = doc string name
+          )
+
+  def playerWrite(p: Player) = {
     import BSONFields.*
     import Blurs.*
-
-    def reads(r: BSON.Reader) =
-      color =>
-        id =>
-          userId =>
-            win =>
-              Player(
-                id = id,
-                color = color,
-                aiLevel = r intO aiLevel,
-                isWinner = win,
-                isOfferingDraw = r boolD isOfferingDraw,
-                proposeTakebackAt = r intD proposeTakebackAt,
-                userId = userId,
-                rating = r intO rating flatMap ratingRange,
-                ratingDiff = r intO ratingDiff flatMap ratingDiffRange,
-                provisional = r boolD provisional,
-                blurs = r.getD[Blurs](blursBits, Blurs.zeroBlurs.zero),
-                berserk = r boolD berserk,
-                name = r strO name
-              )
-
-    def writes(w: BSON.Writer, o: Builder) =
-      o(chess.White)("0000")(none)(none) pipe { p =>
-        BSONDocument(
-          aiLevel           -> p.aiLevel,
-          isOfferingDraw    -> w.boolO(p.isOfferingDraw),
-          proposeTakebackAt -> w.intO(p.proposeTakebackAt),
-          rating            -> p.rating,
-          ratingDiff        -> p.ratingDiff,
-          provisional       -> w.boolO(p.provisional),
-          blursBits         -> p.blurs.nonEmpty.??(p.blurs),
-          name              -> p.name
-        )
-      }
+    $doc(
+      aiLevel           -> p.aiLevel,
+      isOfferingDraw    -> p.isOfferingDraw.option(true),
+      proposeTakebackAt -> p.proposeTakebackAt.some.filter(_ > 0),
+      rating            -> p.rating,
+      ratingDiff        -> p.ratingDiff,
+      provisional       -> p.provisional.option(true),
+      blursBits         -> p.blurs.nonEmpty.??(p.blurs),
+      name              -> p.name
+    )
+  }

@@ -2,7 +2,7 @@ package lila.game
 
 // Wrapper around newly created games. We do not know if the id is unique, yet.
 case class NewGame(sloppy: Game) extends AnyVal:
-  def withId(id: Game.Id): Game = sloppy.withId(id)
+  def withId(id: GameId): Game = sloppy.withId(id)
   def withUniqueId(implicit idGenerator: IdGenerator): Fu[Game] =
     idGenerator.game dmap sloppy.withId
 

@@ -283,7 +283,7 @@ final private[api] class RoundApi(
     json.add("swiss" -> sv.map { s =>
       Json
         .obj(
-          "id"      -> s.swiss.id.value,
+          "id"      -> s.swiss.id,
           "running" -> s.swiss.isStarted
         )
         .add("ranks" -> s.ranks.map { r =>

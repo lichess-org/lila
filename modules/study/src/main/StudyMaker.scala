@@ -85,7 +85,7 @@ object StudyMaker:
 
   case class ImportGame(
       form: StudyForm.importGame.Data = StudyForm.importGame.Data(),
-      id: Option[Study.Id] = None,
+      id: Option[StudyId] = None,
       name: Option[Study.Name] = None,
       settings: Option[Settings] = None,
       from: Option[Study.From] = None

@@ -7,7 +7,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.common.config.CollName
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 import lila.hub.LightTeam.TeamID
 import lila.user.User
 
@@ -180,7 +179,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def setWinnerId(tourId: Tournament.ID, userId: User.ID) =
     coll.updateField($id(tourId), "winner", userId).void
 
-  def setFeaturedGameId(tourId: Tournament.ID, gameId: Game.Id) =
+  def setFeaturedGameId(tourId: Tournament.ID, gameId: GameId) =
     coll.updateField($id(tourId), "featured", gameId).void
 
   def setTeamBattle(tourId: Tournament.ID, battle: TeamBattle) =
@@ -192,7 +191,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def isTeamBattle(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ $doc("teamBattle" $exists true))
 
-  def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.Id]($id(tourId), "featured")
+  def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[GameId]($id(tourId), "featured")
 
   private def startingSoonSelect(aheadMinutes: Int) =
     createdSelect ++

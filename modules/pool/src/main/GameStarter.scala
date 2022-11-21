@@ -10,7 +10,7 @@ final private class GameStarter(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
-    onStart: Game.Id => Unit
+    onStart: GameId => Unit
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
@@ -36,7 +36,7 @@ final private class GameStarter(
 
   private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(
       couple: MatchMaking.Couple,
-      id: Game.Id
+      id: GameId
   ): Fu[Option[Pairing]] =
     import couple.*
     import cats.implicits.*
@@ -53,7 +53,7 @@ final private class GameStarter(
         ).start
         _ <- gameRepo insertDenormalized game
       } yield
-        onStart(Game.Id(game.id))
+        onStart(GameId(game.id))
         Pairing(
           game,
           whiteSri = whiteMember.sri,
@@ -62,7 +62,7 @@ final private class GameStarter(
     }
 
   private def makeGame(
-      id: Game.Id,
+      id: GameId,
       pool: PoolConfig,
       whiteUser: (User.ID, Perf),
       blackUser: (User.ID, Perf)

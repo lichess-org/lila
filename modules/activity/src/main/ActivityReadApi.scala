@@ -192,7 +192,7 @@ final class ActivityReadApi(
 
   private def getLightPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[LightPov]]] =
     gameIds.nonEmpty ?? {
-      gameRepo.light.gamesFromSecondary(gameIds.map(_.value)).dmap {
+      gameRepo.light.gamesFromSecondary(gameIds).dmap {
         _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
       }
     }

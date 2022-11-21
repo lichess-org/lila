@@ -55,8 +55,8 @@ object LateMultiThrottler:
 
   case class Done(id: String)
 
-  def work(
-      id: String,
+  def work[K <: String](
+      id: K,
       run: => Funit,
       delay: Option[FiniteDuration] = None,
       timeout: Option[FiniteDuration] = None

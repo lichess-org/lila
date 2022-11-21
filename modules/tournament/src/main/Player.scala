@@ -6,7 +6,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 private[tournament] case class Player(
-    _id: Player.ID, // random
+    _id: TourPlayerId, // random
     tourId: Tournament.ID,
     userId: User.ID,
     rating: Int,
@@ -35,8 +35,6 @@ private[tournament] case class Player(
 
 private[tournament] object Player:
 
-  type ID = String
-
   case class WithUser(player: Player, user: User)
 
   case class Result(player: Player, lightUser: LightUser, rank: Int)
@@ -48,7 +46,7 @@ private[tournament] object Player:
       team: Option[TeamID]
   ): Player =
     new Player(
-      _id = lila.common.ThreadLocalRandom.nextString(8),
+      _id = TourPlayerId(lila.common.ThreadLocalRandom.nextString(8)),
       tourId = tourId,
       userId = user.id,
       rating = user.perfs(perfType).intRating,

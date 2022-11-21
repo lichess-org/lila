@@ -17,7 +17,6 @@ object BsonHandlers:
   given BSONHandler[Swiss.TieBreak]        = doubleAnyValHandler(_.value, Swiss.TieBreak.apply)
   given BSONHandler[Swiss.Performance]     = floatAnyValHandler(_.value, Swiss.Performance.apply)
   given BSONHandler[Swiss.Score]           = intAnyValHandler(_.value, Swiss.Score.apply)
-  given idHandler: BSONHandler[Swiss.Id]   = stringAnyValHandler(_.value, Swiss.Id.apply)
   given BSONHandler[SwissRound.Number]     = intAnyValHandler(_.value, SwissRound.Number.apply)
   given BSONHandler[SwissPlayer.Id]        = stringAnyValHandler(_.value, SwissPlayer.Id.apply)
 
@@ -26,7 +25,7 @@ object BsonHandlers:
     def reads(r: BSON.Reader) =
       SwissPlayer(
         id = r.get[SwissPlayer.Id](id),
-        swissId = r.get[Swiss.Id](swissId),
+        swissId = r.get[SwissId](swissId),
         userId = r str userId,
         rating = r int rating,
         provisional = r boolD provisional,
@@ -70,8 +69,8 @@ object BsonHandlers:
       r.get[List[User.ID]](players) match
         case List(w, b) =>
           SwissPairing(
-            id = r str id,
-            swissId = r.get[Swiss.Id](swissId),
+            id = r.get[GameId](id),
+            swissId = r.get[SwissId](swissId),
             round = r.get[SwissRound.Number](round),
             white = w,
             black = b,

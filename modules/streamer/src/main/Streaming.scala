@@ -60,7 +60,7 @@ final private class Streaming(
     } yield publishStreams(streamers, streams)
   }
 
-  private val streamStartMemo = new lila.memo.ExpireSetMemo(2 hour)
+  private val streamStartMemo = lila.memo.ExpireSetMemo[User.ID](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     if (newStreams != liveStreams)

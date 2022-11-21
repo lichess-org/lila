@@ -159,20 +159,21 @@ object Form:
     pattern.replace("{s}", if (nb == 1) "" else "s")
 
   object formatter:
-    def stringFormatter[A](from: A => String, to: String => A): Formatter[A] =
-      new Formatter[A]:
-        def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
-        def unbind(key: String, value: A)                = stringFormat.unbind(key, from(value))
+    private def bimap[A, B](base: Formatter[A], from: B => A, to: A => B): Formatter[B] = new Formatter[B]:
+      def bind(key: String, data: Map[String, String]) = base.bind(key, data) map to
+      def unbind(key: String, value: B)                = base.unbind(key, from(value))
+    private val strBase                                                      = stringFormat
+    private val intBase                                                      = intFormat
+    def string[A <: String](to: String => A): Formatter[A]                   = bimap(strBase, identity, to)
+    def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = bimap(strBase, from, to)
     def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] =
       new Formatter[A]:
-        def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { str =>
+        def bind(key: String, data: Map[String, String]) = strBase.bind(key, data) flatMap { str =>
           to(str) toRight Seq(FormError(key, s"Invalid value: $str", Nil))
         }
-        def unbind(key: String, value: A) = stringFormat.unbind(key, from(value))
-    def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] =
-      new Formatter[A]:
-        def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data) map to
-        def unbind(key: String, value: A)                = intFormat.unbind(key, from(value))
+        def unbind(key: String, value: A) = strBase.unbind(key, from(value))
+    def int[A <: Int](to: Int => A): Formatter[A]                   = bimap(intBase, identity, to)
+    def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = bimap(intBase, from, to)
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean]:
       override val format = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =

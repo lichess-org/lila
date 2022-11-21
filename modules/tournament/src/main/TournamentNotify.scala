@@ -10,11 +10,11 @@ import lila.common.LilaScheduler
 import lila.hub.actorApi.push.TourSoon
 
 final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(using
-    ec: ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    ExecutionContext,
+    akka.actor.Scheduler
 ):
 
-  private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
+  private val doneMemo = lila.memo.ExpireSetMemo[Tournament.ID](10 minutes)
 
   LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     repo

@@ -12,7 +12,7 @@ import lila.socket.Socket.makeMessage
 final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
-    teamOf: Swiss.Id => Fu[Option[TeamID]]
+    teamOf: SwissId => Fu[Option[TeamID]]
 )(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -22,11 +22,11 @@ final private class SwissSocket(
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)
 
-  def reload(id: Swiss.Id): Unit =
+  def reload(id: SwissId): Unit =
     reloadThrottler ! LateMultiThrottler.work(
-      id = id.value,
+      id = id,
       run = fuccess {
-        send(RP.Out.tellRoom(RoomId(id.value), makeMessage("reload")))
+        send(RP.Out.tellRoom(RoomId(id), makeMessage("reload")))
       },
       delay = 1.seconds.some
     )
@@ -42,7 +42,7 @@ final private class SwissSocket(
       logger,
       roomId => _.Swiss(roomId.value).some,
       localTimeout = Some { (roomId, modId, _) =>
-        teamOf(Swiss.Id(roomId.value)) flatMap {
+        teamOf(SwissId(roomId.value)) flatMap {
           _ ?? { teamId =>
             lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(teamId, modId, _) }
           }

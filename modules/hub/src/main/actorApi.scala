@@ -98,7 +98,7 @@ package captcha:
   case class ValidCaptcha(id: String, solution: String)
 
 package lpv:
-  case class GamePgnsFromText(text: String, promise: Promise[Map[String, String]])
+  case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, String]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 
 package simul:
@@ -178,7 +178,7 @@ package timeline:
     private def add(p: Propagation)      = copy(propagations = p :: propagations)
 
 package tv:
-  case class TvSelect(gameId: String, speed: chess.Speed, data: JsObject)
+  case class TvSelect(gameId: GameId, speed: chess.Speed, data: JsObject)
 
 package notify:
   case class NotifiedBatch(userIds: Iterable[String])
@@ -217,7 +217,7 @@ package user:
 package round:
 
   case class MoveEvent(
-      gameId: String,
+      gameId: GameId,
       fen: String,
       move: String
   )
@@ -228,27 +228,27 @@ package round:
       alarmable: Boolean,
       unlimited: Boolean
   )
-  case class CorresTakebackOfferEvent(gameId: String)
-  case class CorresDrawOfferEvent(gameId: String)
-  case class BoardDrawEvent(gameId: String)
+  case class CorresTakebackOfferEvent(gameId: GameId)
+  case class CorresDrawOfferEvent(gameId: GameId)
+  case class BoardDrawEvent(gameId: GameId)
   case class SimulMoveEvent(
       move: MoveEvent,
       simulId: String,
       opponentUserId: String
   )
-  case class Berserk(gameId: String, userId: String)
+  case class Berserk(gameId: GameId, userId: String)
   case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
   case class TourStandingOld(data: JsArray)
   case class TourStanding(tourId: String, data: JsArray)
   case class FishnetPlay(uci: Uci, sign: String)
   case object FishnetStart
-  case class BotPlay(playerId: String, uci: Uci, promise: Option[Promise[Unit]] = None)
-  case class RematchOffer(gameId: String)
-  case class RematchCancel(gameId: String)
-  case class RematchYes(playerId: String)
-  case class RematchNo(playerId: String)
-  case class Abort(playerId: String)
-  case class Resign(playerId: String)
+  case class BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
+  case class RematchOffer(gameId: GameId)
+  case class RematchCancel(gameId: GameId)
+  case class RematchYes(playerId: GamePlayerId)
+  case class RematchNo(playerId: GamePlayerId)
+  case class Abort(playerId: GamePlayerId)
+  case class Resign(playerId: GamePlayerId)
   case class Mlat(millis: Int)
 
 package evaluation:
@@ -256,8 +256,8 @@ package evaluation:
   case class Refresh(userId: String)
 
 package bookmark:
-  case class Toggle(gameId: String, userId: String)
-  case class Remove(gameId: String)
+  case class Toggle(gameId: GameId, userId: String)
+  case class Remove(gameId: GameId)
 
 package relation:
   case class Block(u1: String, u2: String)

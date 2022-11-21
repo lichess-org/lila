@@ -120,7 +120,6 @@ object JsonView:
 
   import Study.given
 
-  given Format[Study.Id]               = stringFormat.bimap(Study.Id.apply, _.id)
   given nameWrites: Writes[Study.Name] = stringIsoWriter
   given OWrites[Study.IdName] = OWrites { s =>
     Json.obj("id" -> s._id, "name" -> s.name)
