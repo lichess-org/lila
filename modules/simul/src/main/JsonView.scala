@@ -16,7 +16,7 @@ final class JsonView(
 
   private given Writes[SimulTeam] = Json.writes
 
-  private def fetchGames(simul: Simul) =
+  private def fetchGames(simul: Simul): Fu[List[Game]] =
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
     else simul.gameIds.map(proxyRepo.game).sequenceFu.dmap(_.flatten)
 

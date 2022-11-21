@@ -28,7 +28,7 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
-)(implicit context: ExecutionContext, scheduler: akka.actor.Scheduler):
+)(using ExecutionContext, akka.actor.Scheduler):
 
   LilaScheduler(_.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
     syncRelays(official = true)
@@ -44,9 +44,10 @@ final private class RelayFetch(
       .flatMap { relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
         relays.map { rt =>
-          if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
-            api.update(rt.round)(_ => newRelay)
-          }
+          if (rt.round.sync.ongoing)
+            processRelay(rt) flatMap { newRelay =>
+              api.update(rt.round)(_ => newRelay)
+            }
           else if (rt.round.hasStarted)
             logger.info(s"Finish by lack of activity ${rt.round}")
             api.update(rt.round)(_.finish)

@@ -145,6 +145,13 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
 
   extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 
+  extension [A](list: List[Fu[A]]) def sequenceFu(using EC): Fu[List[A]]         = Future sequence list
+  extension [A](vec: Vector[Fu[A]]) def sequenceFu(using EC): Fu[Vector[A]]      = Future sequence vec
+  extension [A](set: Set[Fu[A]]) def sequenceFu(using EC): Fu[Set[A]]            = Future sequence set
+  extension [A](seq: Seq[Fu[A]]) def sequenceFu(using EC): Fu[Seq[A]]            = Future sequence seq
+  extension [A](iter: Iterable[Fu[A]]) def sequenceFu(using EC): Fu[Iterable[A]] = Future sequence iter
+  extension [A](iter: Iterator[Fu[A]]) def sequenceFu(using EC): Fu[Iterator[A]] = Future sequence iter
+
   extension [A](fua: Fu[A])
 
     inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)

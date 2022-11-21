@@ -25,5 +25,4 @@ object OnlineIds:
   def apply(f: () => Set[String]): OnlineIds = f
 
 case class GetVersion(promise: Promise[SocketVersion])
-
 case class SendToFlag(flag: String, message: JsObject)

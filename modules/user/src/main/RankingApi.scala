@@ -70,8 +70,7 @@ final class RankingApi(
                   )
                 }
               }
-            }.sequenceFu
-              .dmap(_.flatten)
+            }.sequenceFu.dmap(_.flatten)
           }
       }
     }

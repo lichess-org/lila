@@ -34,8 +34,7 @@ final private class SwissBoardApi(
         gameProxyRepo.game(board.gameId) map2 {
           SwissBoard.WithGame(board, _)
         }
-      }.sequenceFu
-        .dmap(_.flatten)
+      }.sequenceFu.dmap(_.flatten)
     }
 
   def update(data: SwissScoring.Result): Funit =

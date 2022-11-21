@@ -20,9 +20,9 @@ final class Cached(
     scheduler: akka.actor.Scheduler
 ):
 
-  private given BSONDocumentHandler[LightUser]  = Macros.handler[LightUser]
-  private given BSONDocumentHandler[LightPerf]  = Macros.handler[LightPerf]
-  private given BSONDocumentHandler[LightCount] = Macros.handler[LightCount]
+  private given BSONDocumentHandler[LightUser]  = Macros.handler
+  private given BSONDocumentHandler[LightPerf]  = Macros.handler
+  private given BSONDocumentHandler[LightCount] = Macros.handler
 
   val top10 = cacheApi.unit[Perfs.Leaderboards] {
     _.refreshAfterWrite(2 minutes)

@@ -42,8 +42,10 @@ object LightUser:
 
   def normalize(name: String) = name.toLowerCase
 
-  final class Getter(f: UserID => Fu[Option[LightUser]]) extends (UserID => Fu[Option[LightUser]]):
-    def apply(u: UserID) = f(u)
+  private type GetterType          = UserID => Fu[Option[LightUser]]
+  opaque type Getter <: GetterType = GetterType
+  object Getter:
+    def apply(f: GetterType): Getter = f
 
   final class GetterSync(f: UserID => Option[LightUser]) extends (UserID => Option[LightUser]):
     def apply(u: UserID) = f(u)

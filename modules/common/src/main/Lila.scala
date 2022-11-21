@@ -58,17 +58,3 @@ trait Lila
   // can't use extensions because of method name shadowing :(
   implicit def toLilaJsObject(jo: JsObject): LilaJsObject = new LilaJsObject(jo)
   implicit def toLilaJsValue(jv: JsValue): LilaJsValue    = new LilaJsValue(jv)
-
-  /* Scala compiler obscure bug:
-   * sometimes when something doesn't compile, the compiler will blame users of `.sequenceFu`
-   * saying it can't instanciate the extension. Instead of pointing out the actual compile error.
-   * A clean compile is required to work around it.
-   * So we fallback to the implicit def instead.
-
-   // code triggering the compiler bug:
-   extension [A, M[X] <: IterableOnce[X]](t: M[Fu[A]])
-     def sequenceFu(using BuildFrom[M[Fu[A]], A, M[A]], EC): Fu[M[A]] = Future.sequence(t)
-   */
-  import lila.common.LilaIterableFuture
-  implicit def toLilaIterableFuture[A, M[X] <: IterableOnce[X]](t: M[Fu[A]]): LilaIterableFuture[A, M] =
-    new LilaIterableFuture(t)
