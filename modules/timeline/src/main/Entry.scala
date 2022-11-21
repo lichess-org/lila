@@ -33,7 +33,7 @@ object Entry:
 
   private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 
-  private[timeline] def make(data: Atom): Entry =
+  private[timeline] def make(data: Atom): Entry = {
     import atomBsonHandlers.given
     data match
       case d: Follow        => "follow"          -> toBson(d)
@@ -51,7 +51,7 @@ object Entry:
       case d: BlogPost      => "blog-post"       -> toBson(d)
       case d: UblogPostLike => "ublog-post-like" -> toBson(d)
       case d: StreamStart   => "stream-start"    -> toBson(d)
-  match
+  } match
     case (typ, bson) =>
       new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, DateTime.now)
 
