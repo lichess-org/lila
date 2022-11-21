@@ -21,8 +21,7 @@ final class ModApi(
       sus = prev.set(_.withMarks(_.set(_.Alt, v)))
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.alt(mod, sus, v)
-    } yield
-      if (v) notifier.reporters(mod, sus).unit
+    } yield if (v) notifier.reporters(mod, sus).unit
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit =
     (prev.user.marks.engine != v) ?? {
@@ -112,7 +111,7 @@ final class ModApi(
       }
     }
 
-  def setTitle(mod: String, username: String, title: Option[Title]): Funit =
+  def setTitle(mod: String, username: String, title: Option[UserTitle]): Funit =
     withUser(username) { user =>
       title match
         case None =>

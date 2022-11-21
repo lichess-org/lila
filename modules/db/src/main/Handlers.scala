@@ -29,6 +29,7 @@ trait Handlers:
   given BSONHandler[TourPlayerId] = stringHandler(TourPlayerId.apply)
   given BSONHandler[PuzzleId]     = stringHandler(PuzzleId.apply)
   given BSONHandler[Days]         = intHandler(Days.apply)
+  given BSONHandler[UserTitle]    = stringHandler(UserTitle.apply)
 
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
     new BSONHandler[A]:

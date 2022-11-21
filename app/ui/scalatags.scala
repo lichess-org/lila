@@ -65,7 +65,7 @@ trait ScalatagsSnippets:
   val abbr                                   = tag("abbr")
   val boxTop                                 = div(cls := "box__top")
 
-  def userTitleTag(t: Title) =
+  def userTitleTag(t: UserTitle) =
     span(
       cls := "utitle",
       t == lila.user.Title.BOT option dataBotAttr,

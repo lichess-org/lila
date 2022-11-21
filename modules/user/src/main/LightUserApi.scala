@@ -5,7 +5,7 @@ import scala.concurrent.duration.*
 import scala.util.Success
 
 import lila.common.LightUser
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.memo.{ CacheApi, Syncache }
 import User.BSONFields as F
 
@@ -60,7 +60,7 @@ private object LightUserApi:
     } yield LightUser(
       id = id,
       name = name,
-      title = doc.string(F.title),
+      title = doc.getAsOpt[UserTitle](F.title),
       isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
     )
 

@@ -1,41 +1,38 @@
 package lila.user
 
-case class Title(value: String) extends AnyVal with StringValue
-
 object Title:
 
-  given lila.common.Iso[String, Title]            = lila.common.Iso.string[Title](Title.apply, _.value)
-  given reactivemongo.api.bson.BSONHandler[Title] = lila.db.dsl.stringIsoHandler
-  given play.api.libs.json.Writes[Title]          = lila.common.Json.stringIsoWriter
+  given reactivemongo.api.bson.BSONHandler[UserTitle] = lila.db.dsl.stringHandler(UserTitle.apply)
+  given play.api.libs.json.Format[UserTitle]          = lila.common.Json.stringFormat(UserTitle.apply)
 
-  val LM  = Title("LM")
-  val BOT = Title("BOT")
+  val LM  = UserTitle("LM")
+  val BOT = UserTitle("BOT")
 
   // important: names are as stated on FIDE profile pages
   val all = Seq(
-    Title("GM")  -> "Grandmaster",
-    Title("WGM") -> "Woman Grandmaster",
-    Title("IM")  -> "International Master",
-    Title("WIM") -> "Woman Intl. Master",
-    Title("FM")  -> "FIDE Master",
-    Title("WFM") -> "Woman FIDE Master",
-    Title("NM")  -> "National Master",
-    Title("CM")  -> "Candidate Master",
-    Title("WCM") -> "Woman Candidate Master",
-    Title("WNM") -> "Woman National Master",
-    LM           -> "Lichess Master",
-    BOT          -> "Chess Robot"
+    UserTitle("GM")  -> "Grandmaster",
+    UserTitle("WGM") -> "Woman Grandmaster",
+    UserTitle("IM")  -> "International Master",
+    UserTitle("WIM") -> "Woman Intl. Master",
+    UserTitle("FM")  -> "FIDE Master",
+    UserTitle("WFM") -> "Woman FIDE Master",
+    UserTitle("NM")  -> "National Master",
+    UserTitle("CM")  -> "Candidate Master",
+    UserTitle("WCM") -> "Woman Candidate Master",
+    UserTitle("WNM") -> "Woman National Master",
+    LM               -> "Lichess Master",
+    BOT              -> "Chess Robot"
   )
 
   val names          = all.toMap
   lazy val fromNames = all.map(_.swap).toMap
 
-  val acronyms = all.map { case (Title(a), _) => a }
+  val acronyms = all.map(_._1)
 
-  def titleName(title: Title): String = names.getOrElse(title, title.value)
+  def titleName(title: UserTitle): String = names.getOrElse(title, title)
 
-  def get(str: String): Option[Title]      = Title(str.toUpperCase).some filter names.contains
-  def get(strs: List[String]): List[Title] = strs flatMap { get(_) }
+  def get(str: String): Option[UserTitle]      = UserTitle(str.toUpperCase).some filter names.contains
+  def get(strs: List[String]): List[UserTitle] = strs flatMap { get(_) }
 
   object fromUrl:
 
@@ -56,11 +53,11 @@ object Title:
         case NewFideProfileUrlRegex(id) => id.toIntOption
         case _                          => none
 
-    def apply(url: String)(implicit ws: StandaloneWSClient): Fu[Option[Title]] =
+    def apply(url: String)(implicit ws: StandaloneWSClient): Fu[Option[UserTitle]] =
       toFideId(url) ?? fromFideProfile
 
-    private def fromFideProfile(id: Int)(implicit ws: StandaloneWSClient): Fu[Option[Title]] =
+    private def fromFideProfile(id: Int)(implicit ws: StandaloneWSClient): Fu[Option[UserTitle]] =
       ws.url(s"""https://ratings.fide.com/profile/$id""").get().dmap(_.body) dmap {
-        case FideProfileTitleRegex(name) => Title.fromNames get name
+        case FideProfileTitleRegex(name) => fromNames get name
         case _                           => none
       }

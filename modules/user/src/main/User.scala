@@ -19,7 +19,7 @@ case class User(
     profile: Option[Profile] = None,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
-    title: Option[Title] = None,
+    title: Option[UserTitle] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
@@ -39,7 +39,7 @@ case class User(
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${!enabled ?? " closed"}"
 
-  def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
+  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
 
@@ -192,7 +192,7 @@ object User:
 
   case class Speaker(
       username: String,
-      title: Option[Title],
+      title: Option[UserTitle],
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
@@ -298,7 +298,7 @@ object User:
     import TotpSecret.given
 
     def reads(r: BSON.Reader): User =
-      val userTitle = r.getO[Title](title)
+      val userTitle = r.getO[UserTitle](title)
       User(
         id = r str id,
         username = r str username,

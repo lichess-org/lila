@@ -242,7 +242,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       }
     else fufail(s"Proposed username $username does not match old username $id")
 
-  def addTitle(id: ID, title: Title): Funit =
+  def addTitle(id: ID, title: UserTitle): Funit =
     coll.updateField($id(id), F.title, title).void
 
   def removeTitle(id: ID): Funit =
@@ -565,7 +565,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       ReadPreference.secondaryPreferred
     )
 
-  def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
+  def getTitle(id: ID): Fu[Option[UserTitle]] = coll.primitiveOne[UserTitle]($id(id), F.title)
 
   def hasTitle(id: ID): Fu[Boolean] = getTitle(id).dmap(_.exists(Title.BOT !=))
 

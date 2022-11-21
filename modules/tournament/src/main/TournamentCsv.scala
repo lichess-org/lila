@@ -24,7 +24,7 @@ object TournamentCsv:
     case Player.Result(player, user, rank) =>
       toCsv(
         rank.toString,
-        ~user.title,
+        user.title.??(_.toString),
         user.name,
         player.rating.toString,
         player.score.toString,

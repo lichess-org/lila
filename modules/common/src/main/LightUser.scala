@@ -5,7 +5,7 @@ import play.api.libs.json.*
 case class LightUser(
     id: String,
     name: String,
-    title: Option[String],
+    title: Option[UserTitle],
     isPatron: Boolean
 ):
 

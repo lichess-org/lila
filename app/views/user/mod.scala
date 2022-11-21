@@ -199,7 +199,7 @@ object mod:
       isGranted(_.SetTitle) option {
         postForm(cls := "fide-title", action := routes.Mod.setTitle(u.username))(
           form3.select(
-            lila.user.UserForm.title.fill(u.title.map(_.value))("title"),
+            lila.user.UserForm.title.fill(u.title)("title"),
             lila.user.Title.acronyms.map(t => t -> t),
             "No title".some
           )

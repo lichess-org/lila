@@ -16,7 +16,7 @@ sealed trait Line:
 
 case class UserLine(
     username: String,
-    title: Option[Title],
+    title: Option[UserTitle],
     patron: Boolean,
     text: String,
     troll: Boolean,
@@ -85,7 +85,7 @@ object Line:
       else if (x.deleted) deletedChar
       else if (x.patron) patronChar
       else " "
-    val tit = x.title.??(_.value + titleSep)
+    val tit = x.title.??(_ + titleSep)
     s"$tit${x.username}$sep${x.text}"
 
   def strToLine(str: String): Option[Line] =

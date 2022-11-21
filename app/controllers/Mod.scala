@@ -191,7 +191,7 @@ final class Mod(
         .fold(
           _ => fuccess(redirect(username, mod = true)),
           title =>
-            modApi.setTitle(me.id, username, title map Title.apply) >>
+            modApi.setTitle(me.id, username, title map UserTitle.apply) >>
               env.mailer.automaticEmail.onTitleSet(username) >>-
               env.user.lightUserApi.invalidate(UserModel normalize username) inject
               redirect(username, mod = false)

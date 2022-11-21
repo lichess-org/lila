@@ -41,3 +41,7 @@ trait LilaModel:
   opaque type PuzzleId <: String = String
   object PuzzleId:
     def apply(v: String): PuzzleId = v
+
+  opaque type UserTitle <: String = String
+  object UserTitle:
+    def apply(v: String): UserTitle = v

@@ -6,7 +6,7 @@ import scala.concurrent.duration.*
 import lila.common.LightUser
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import User.{ LightCount, LightPerf }
 
 final class Cached(
@@ -15,10 +15,7 @@ final class Cached(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   private given BSONDocumentHandler[LightUser]  = Macros.handler
   private given BSONDocumentHandler[LightPerf]  = Macros.handler

@@ -112,7 +112,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
         userId = user.id,
         username = user.name,
         isPatron = user.isPatron,
-        title = withTitle ?? user.title map Title.apply,
+        title = withTitle ?? user.title,
         cssClass = cssClass,
         withOnline = withOnline,
         truncate = truncate,
@@ -133,7 +133,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       userId = user.id,
       username = user.name,
       isPatron = user.isPatron,
-      title = withTitle ?? user.title map Title.apply,
+      title = withTitle ?? user.title,
       cssClass = cssClass,
       withOnline = withOnline,
       truncate = truncate,
@@ -141,11 +141,11 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       modIcon = false
     )
 
-  def titleTag(title: Option[Title]): Option[Frag] =
+  def titleTag(title: Option[UserTitle]): Option[Frag] =
     title map { t =>
       frag(userTitleTag(t), nbsp)
     }
-  def titleTag(lu: LightUser): Frag = titleTag(lu.title map Title.apply)
+  def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
   private def userIdNameLink(
       userId: String,
@@ -154,7 +154,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       cssClass: Option[String],
       withOnline: Boolean,
       truncate: Option[Int],
-      title: Option[Title],
+      title: Option[UserTitle],
       params: String,
       modIcon: Boolean
   )(using lang: Lang): Tag =
@@ -216,7 +216,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       dataHref := userUrl(name)
     )(
       withOnline ?? lineIcon(user),
-      user.map(u => titleTag(u.title map Title.apply)),
+      user.map(titleTag),
       name
     )
 

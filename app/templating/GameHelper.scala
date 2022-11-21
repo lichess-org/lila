@@ -92,7 +92,7 @@ trait GameHelper:
     player.aiLevel.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](trans.anonymous.txt()) { (user: LightUser) =>
         frag(
-          titleTag(user.title ifTrue withTitle map Title.apply),
+          titleTag(user.title ifTrue withTitle),
           user.name,
           withRating option frag(
             " (",
