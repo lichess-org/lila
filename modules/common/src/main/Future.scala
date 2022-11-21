@@ -6,7 +6,7 @@ import scala.concurrent.duration.*
 import scala.concurrent.{ ExecutionContext as EC, Future as ScalaFu, Promise }
 import lila.Lila.Fu
 
-final class LilaIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
+final class LilaIterableFuture[A, M[X] <: IterableOnce[X]](t: M[Fu[A]]) extends AnyVal {
   def sequenceFu(implicit bf: BuildFrom[M[Fu[A]], A, M[A]], ec: EC): Fu[M[A]] = ScalaFu.sequence(t)
 }
 

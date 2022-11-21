@@ -239,7 +239,7 @@ final class JsonView(
 
   private def duelsJson(tourId: Tournament.ID): Fu[(List[Duel], JsArray)] =
     val duels = duelStore.bestRated(tourId, 6)
-    duels.map(duelJson).sequenceFu map { jsons =>
+    (duels.map(duelJson).sequenceFu: Fu[List[JsObject]]) map { jsons =>
       (duels, JsArray(jsons))
     }
 
@@ -342,7 +342,7 @@ final class JsonView(
                     "nb" -> sheetNbs(sheet)
                   )
                   .add("performance" -> player.performanceOption)
-              }.sequenceFu
+              }.sequenceFu: Fu[List[JsObject]]
             } map { l =>
               JsArray(l).some
             }
