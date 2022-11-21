@@ -8,16 +8,6 @@ import scala.util.Success
 
 import lila.common.Uptime
 
-class Foo:
-  def bar(a: Int) =
-    println(a)
-    val b = a
-    val c = if a == 2 then 3 else 4
-    b.toString
-
-  val f = (i: Int) => i.toString
-  val c = f(23)
-
 /** A synchronous cache from asynchronous computations. It will attempt to serve cached responses
   * synchronously. If none is available, it starts an async computation, and either waits for the result or
   * serves a default value.
@@ -76,12 +66,7 @@ final class Syncache[K, V](
             else default(k)
 
   // maybe optimize later with cache batching
-  def asyncMany(ks: List[K]): Fu[List[V]] = {
-    import scala.collection.BuildFrom
-    val bf                  = summon[BuildFrom[List[Fu[V]], V, List[V]]]
-    val asyncs: List[Fu[V]] = ks.map(async)
-    lila.memo.sequenceFu(asyncs)
-  }
+  def asyncMany(ks: List[K]): Fu[List[V]] = ks.map(async).sequenceFu
 
   def invalidate(k: K): Unit = cache invalidate k
 
