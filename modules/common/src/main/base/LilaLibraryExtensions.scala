@@ -345,6 +345,3 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
       fua.value match
         case Some(scala.util.Success(v)) => v
         case _                           => None
-
-  extension [A, M[X] <: IterableOnce[X]](t: M[Fu[A]])
-    def sequenceFu(using BuildFrom[M[Fu[A]], A, M[A]], EC): Fu[M[A]] = Future.sequence(t)
