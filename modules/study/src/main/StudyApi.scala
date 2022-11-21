@@ -70,7 +70,7 @@ final class StudyApi(
       }
     }
 
-  def byIdWithChapter(id: StudyId, chapterId: Chapter.Id): Fu[Option[Study.WithChapter]] =
+  def byIdWithChapter(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
     byId(id) flatMap {
       _ ?? { study =>
         chapterRepo byId chapterId map {
@@ -104,7 +104,7 @@ final class StudyApi(
         case _ =>
           chapterMaker.fromFenOrPgnOrBlank(
             study,
-            ChapterMaker.Data(Chapter.Name("Chapter 1")),
+            ChapterMaker.Data(StudyChapterName("Chapter 1")),
             order = 1,
             userId = study.ownerId
           ) flatMap chapterRepo.insert
@@ -299,7 +299,7 @@ final class StudyApi(
       }
     }
 
-  def clearAnnotations(studyId: StudyId, chapterId: Chapter.Id)(who: Who) =
+  def clearAnnotations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
         chapterRepo.update(chapter.updateRoot { root =>
@@ -308,7 +308,7 @@ final class StudyApi(
       }
     }
 
-  def clearVariations(studyId: StudyId, chapterId: Chapter.Id)(who: Who) =
+  def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
         chapterRepo.update(chapter.copy(root = chapter.root.clearVariations)) >>-
@@ -457,7 +457,7 @@ final class StudyApi(
       }
     }
 
-  def setTags(studyId: StudyId, chapterId: Chapter.Id, tags: Tags)(who: Who) =
+  def setTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
         doSetTags(study, chapter, tags, who)
@@ -631,12 +631,12 @@ final class StudyApi(
       studyRepo.updateNow(study) >>-
       indexStudy(study)
 
-  def setChapter(studyId: StudyId, chapterId: Chapter.Id)(who: Who) =
+  def setChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudy(studyId) { study =>
       study.canContribute(who.u) ?? doSetChapter(study, chapterId, who)
     }
 
-  private def doSetChapter(study: Study, chapterId: Chapter.Id, who: Who) =
+  private def doSetChapter(study: Study, chapterId: StudyChapterId, who: Who) =
     (study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
@@ -716,7 +716,7 @@ final class StudyApi(
       }
     }
 
-  def deleteChapter(studyId: StudyId, chapterId: Chapter.Id)(who: Who) =
+  def deleteChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudy(studyId) { study =>
       Contribute(who.u, study) {
         chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
@@ -726,7 +726,7 @@ final class StudyApi(
               if (chaps.sizeIs < 2)
                 chapterMaker(
                   study,
-                  ChapterMaker.Data(Chapter.Name("Chapter 1")),
+                  ChapterMaker.Data(StudyChapterName("Chapter 1")),
                   1,
                   who.u,
                   withRatings = true
@@ -746,7 +746,7 @@ final class StudyApi(
       }
     }
 
-  def sortChapters(studyId: StudyId, chapterIds: List[Chapter.Id])(who: Who) =
+  def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who) =
     sequenceStudy(studyId) { study =>
       Contribute(who.u, study) {
         chapterRepo.sort(study, chapterIds) >>- reloadChapters(study)
@@ -842,7 +842,7 @@ final class StudyApi(
 
   def analysisRequest(
       studyId: StudyId,
-      chapterId: Chapter.Id,
+      chapterId: StudyChapterId,
       userId: User.ID,
       unlimited: Boolean = false
   ): Funit =
@@ -865,7 +865,7 @@ final class StudyApi(
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")
 
-  private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: Chapter.Id) =
+  private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: StudyChapterId) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
 
   def reloadChapters(study: Study) =

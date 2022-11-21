@@ -75,7 +75,7 @@ final class Practice(
             )
           )
       ).noCache.enableSharedArrayBuffer
-        .withCanonical(s"${us.url}/${us.study.chapter.id.value}")
+        .withCanonical(s"${us.url}/${us.study.chapter.id}")
     }
 
   def chapter(studyId: StudyId, chapterId: String) =
@@ -148,4 +148,4 @@ final class Practice(
       }
     }
 
-  implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)
+  implicit private def makeChapterId(id: String): lila.study.StudyChapterId = lila.study.StudyChapterId(id)

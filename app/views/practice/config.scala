@@ -45,7 +45,7 @@ object config:
                             em(stud.desc),
                             ol(
                               stud.chapters.map { cha =>
-                                li(a(href := routes.Study.chapter(stud.id, cha.id.value))(cha.name))
+                                li(a(href := routes.Study.chapter(stud.id, cha.id))(cha.name))
                               }
                             )
                           )

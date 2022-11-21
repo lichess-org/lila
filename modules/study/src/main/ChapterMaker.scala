@@ -28,7 +28,7 @@ final private class ChapterMaker(
         }
       case Some(game) => fromGame(study, game, data, order, userId, withRatings)
     } map { (c: Chapter) =>
-      if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
+      if (c.name.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
@@ -48,10 +48,10 @@ final private class ChapterMaker(
         parsed
           .tags(_.Black)
           .ifTrue {
-            data.name.value.isEmpty || data.isDefaultName
+            data.name.isEmpty || data.isDefaultName
           }
           .map { black =>
-            Chapter.Name(s"$white - $black")
+            StudyChapterName(s"$white - $black")
           }
       } | data.name,
       setup = Chapter.Setup(
@@ -128,7 +128,7 @@ final private class ChapterMaker(
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
         if (data.isDefaultName)
-          Namer.gameVsText(game, withRatings)(lightUser.async) dmap Chapter.Name.apply
+          Namer.gameVsText(game, withRatings)(lightUser.async) dmap StudyChapterName.apply
         else fuccess(data.name)
       _ = notifyChat(study, game, userId)
     } yield Chapter.make(
@@ -216,7 +216,7 @@ private[study] object ChapterMaker:
     def apply(str: String) = Color.fromName(str).fold[Orientation](Auto)(Fixed.apply)
 
   case class Data(
-      name: Chapter.Name,
+      name: StudyChapterName,
       game: Option[String] = None,
       variant: Option[Variant] = None,
       fen: Option[FEN] = None,
@@ -237,13 +237,13 @@ private[study] object ChapterMaker:
         .filter(_.sizeIs > 1)
 
   case class EditData(
-      id: Chapter.Id,
-      name: Chapter.Name,
+      id: StudyChapterId,
+      name: StudyChapterName,
       orientation: Orientation,
       mode: ChapterMaker.Mode,
       description: String // boolean
   ) extends ChapterData:
     def hasDescription = description.nonEmpty
 
-  case class DescData(id: Chapter.Id, desc: String):
+  case class DescData(id: StudyChapterId, desc: String):
     lazy val clean = lila.common.String.fullCleanUp(desc)

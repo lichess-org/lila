@@ -44,7 +44,7 @@ object StudyForm:
 
       def toChapterData =
         ChapterMaker.Data(
-          name = Chapter.Name(""),
+          name = StudyChapterName(""),
           game = gameId,
           variant = variant,
           fen = fen,
@@ -89,7 +89,7 @@ object StudyForm:
         pgns.zipWithIndex map { case (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
-            name = Chapter.Name((index == 0) ?? name),
+            name = StudyChapterName((index == 0) ?? name),
             variant = variant,
             pgn = onePgn.some,
             orientation = orientation | ChapterMaker.Orientation.Auto,

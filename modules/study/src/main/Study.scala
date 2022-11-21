@@ -139,11 +139,11 @@ object Study:
 
   case class WithChapter(study: Study, chapter: Chapter)
 
-  case class WithChapters(study: Study, chapters: Seq[Chapter.Name])
+  case class WithChapters(study: Study, chapters: Seq[StudyChapterName])
 
   case class WithActualChapters(study: Study, chapters: Seq[Chapter])
 
-  case class WithChaptersAndLiked(study: Study, chapters: Seq[Chapter.Name], liked: Boolean)
+  case class WithChaptersAndLiked(study: Study, chapters: Seq[StudyChapterName], liked: Boolean)
 
   case class WithLiked(study: Study, liked: Boolean)
 
@@ -165,7 +165,7 @@ object Study:
       _id = id | makeId,
       name = name | StudyName(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
-      position = Position.Ref(Chapter.Id(""), Path.root),
+      position = Position.Ref(StudyChapterId(""), Path.root),
       ownerId = user.id,
       visibility = Visibility.Public,
       settings = settings | Settings.init,

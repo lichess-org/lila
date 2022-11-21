@@ -22,9 +22,9 @@ object BSONHandlers:
   import Study.given
   import Chapter.given
 
-  given chapterIdHandler: BSONHandler[Chapter.Id]     = stringIsoHandler
-  given chapterNameHandler: BSONHandler[Chapter.Name] = stringIsoHandler
-  given topicHandler: BSONHandler[StudyTopic]         = stringIsoHandler
+  given BSONHandler[StudyChapterId]           = stringIsoHandler
+  given BSONHandler[StudyChapterName]         = stringIsoHandler
+  given topicHandler: BSONHandler[StudyTopic] = stringIsoHandler
   given (using listHandler: BSONHandler[List[StudyTopic]]): BSONHandler[StudyTopics] =
     listHandler.as[StudyTopics](StudyTopics.apply, _.value)
 
@@ -343,8 +343,8 @@ object BSONHandlers:
 
   given BSONDocumentReader[Chapter.Metadata] with
     def readDocument(doc: Bdoc) = for {
-      id    <- doc.getAsTry[Chapter.Id]("_id")
-      name  <- doc.getAsTry[Chapter.Name]("name")
+      id    <- doc.getAsTry[StudyChapterId]("_id")
+      name  <- doc.getAsTry[StudyChapterName]("name")
       setup <- doc.getAsTry[Chapter.Setup]("setup")
       outcome = doc
         .getAsOpt[List[String]]("tags")

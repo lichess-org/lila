@@ -18,11 +18,8 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer
-) extends SearchReadApi[Study, Query]:
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, akka.stream.Materializer)
+    extends SearchReadApi[Study, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -54,7 +51,7 @@ final class StudySearchApi(
       Fields.members -> s.study.members.ids,
       Fields.chapterNames ->
         s.chapters
-          .collect { case c if !Chapter.isDefaultName(c.name) => c.name.value }
+          .collect { case c if !Chapter.isDefaultName(c.name) => c.name }
           .mkString(" "),
       Fields.chapterTexts -> noMultiSpace {
         noKeyword {

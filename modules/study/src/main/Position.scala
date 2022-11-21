@@ -10,7 +10,7 @@ case class Position(chapter: Chapter, path: Path):
 
 case object Position:
 
-  case class Ref(chapterId: Chapter.Id, path: Path):
+  case class Ref(chapterId: StudyChapterId, path: Path):
 
     def encode = s"$chapterId $path"
 
@@ -22,6 +22,6 @@ case object Position:
 
     def decode(str: String): Option[Ref] =
       str.split(' ') match
-        case Array(chapterId, path) => Ref(Chapter.Id(chapterId), Path(path)).some
-        case Array(chapterId)       => Ref(Chapter.Id(chapterId), Path.root).some
+        case Array(chapterId, path) => Ref(StudyChapterId(chapterId), Path(path)).some
+        case Array(chapterId)       => Ref(StudyChapterId(chapterId), Path.root).some
         case _                      => none

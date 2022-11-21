@@ -124,7 +124,7 @@ final private class StudySocket(
             who foreach api.addChapter(studyId, data, sticky = sticky, withRatings = true)
           }
         case "setChapter" =>
-          o.get[Chapter.Id]("d") foreach { chapterId =>
+          o.get[StudyChapterId]("d") foreach { chapterId =>
             who foreach api.setChapter(studyId, chapterId)
           }
         case "editChapter" =>
@@ -140,19 +140,19 @@ final private class StudySocket(
             who foreach api.descChapter(studyId, data)
           }
         case "deleteChapter" =>
-          o.get[Chapter.Id]("d") foreach { id =>
+          o.get[StudyChapterId]("d") foreach { id =>
             who foreach api.deleteChapter(studyId, id)
           }
         case "clearAnnotations" =>
-          o.get[Chapter.Id]("d") foreach { id =>
+          o.get[StudyChapterId]("d") foreach { id =>
             who foreach api.clearAnnotations(studyId, id)
           }
         case "clearVariations" =>
-          o.get[Chapter.Id]("d") foreach { id =>
+          o.get[StudyChapterId]("d") foreach { id =>
             who foreach api.clearVariations(studyId, id)
           }
         case "sortChapters" =>
-          o.get[List[Chapter.Id]]("d") foreach { ids =>
+          o.get[List[StudyChapterId]]("d") foreach { ids =>
             who foreach api.sortChapters(studyId, ids)
           }
         case "editStudy" =>
@@ -196,7 +196,7 @@ final private class StudySocket(
             who foreach api.explorerGame(studyId, data)
           }
         case "requestAnalysis" =>
-          o.get[Chapter.Id]("d") foreach { chapterId =>
+          o.get[StudyChapterId]("d") foreach { chapterId =>
             user foreach { api.analysisRequest(studyId, chapterId, _) }
           }
         case "invite" =>
@@ -236,7 +236,7 @@ final private class StudySocket(
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,
-            Position.Ref(Chapter.Id(chapterId), Path(m.path)),
+            Position.Ref(StudyChapterId(chapterId), Path(m.path)),
             Node.fromBranch(branch) withClock opts.clock,
             opts
           )(who)
@@ -271,7 +271,7 @@ final private class StudySocket(
       relay: Option[Chapter.Relay],
       who: Who
   ) =
-    val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
+    val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.some)
     version(
       "addNode",
       Json
@@ -357,9 +357,9 @@ final private class StudySocket(
   private[study] def reloadChapters(chapters: List[Chapter.Metadata]) = version("chapters", chapters)
   def reloadAll                                                       = version("reload", JsNull)
   def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
-  def updateChapter(chapterId: Chapter.Id, who: Who) =
+  def updateChapter(chapterId: StudyChapterId, who: Who) =
     version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
-  def descChapter(chapterId: Chapter.Id, desc: Option[String], who: Who) =
+  def descChapter(chapterId: StudyChapterId, desc: Option[String], who: Who) =
     version(
       "descChapter",
       Json.obj(
@@ -388,7 +388,7 @@ final private class StudySocket(
         "ply" -> ply.map(_.value)
       )
     )
-  def setTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, who: Who) =
+  def setTags(chapterId: StudyChapterId, tags: chess.format.pgn.Tags, who: Who) =
     version(
       "setTags",
       Json.obj(
@@ -398,7 +398,7 @@ final private class StudySocket(
       )
     )
   def reloadSri(sri: Sri) = notifySri(sri, "reload", JsNull)
-  def reloadSriBecauseOf(sri: Sri, chapterId: Chapter.Id) =
+  def reloadSriBecauseOf(sri: Sri, chapterId: StudyChapterId) =
     notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
   def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
 
@@ -426,14 +426,14 @@ object StudySocket:
           reader.reads(d).asOpt
         } foreach f
 
-      case class AtPosition(path: String, chapterId: Chapter.Id):
+      case class AtPosition(path: String, chapterId: StudyChapterId):
         def ref = Position.Ref(chapterId, Path(path))
       import Chapter.given
-      given Reads[Chapter.Id]   = stringIsoReader
-      given Reads[Chapter.Name] = stringIsoReader
+      given Reads[StudyChapterId]   = stringIsoReader
+      given Reads[StudyChapterName] = stringIsoReader
       given Reads[AtPosition] = (
         (__ \ "path").read[String] and
-          (__ \ "ch").read[Chapter.Id]
+          (__ \ "ch").read[StudyChapterId]
       )(AtPosition.apply)
       case class SetRole(userId: String, role: String)
       given Reads[SetRole]                    = Json.reads

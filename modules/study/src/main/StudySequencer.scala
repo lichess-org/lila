@@ -20,7 +20,7 @@ final private class StudySequencer(
       }
     }
 
-  def sequenceStudyWithChapter[A <: Matchable: Zero](studyId: StudyId, chapterId: Chapter.Id)(
+  def sequenceStudyWithChapter[A <: Matchable: Zero](studyId: StudyId, chapterId: StudyChapterId)(
       f: Study.WithChapter => Fu[A]
   ): Fu[A] =
     sequenceStudy(studyId) { study =>

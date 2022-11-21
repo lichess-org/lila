@@ -27,14 +27,14 @@ object embed:
         main(cls := "analyse")
       ),
       footer {
-        val url = routes.Study.chapter(s.id, chapter.id.value)
+        val url = routes.Study.chapter(s.id, chapter.id)
         frag(
           div(cls := "left")(
             select(id := "chapter-selector")(chapters.map { c =>
               option(
-                value := c.id.value,
+                value := c.id,
                 (c.id == chapter.id) option selected
-              )(c.name.value)
+              )(c.name)
             }),
             a(targetBlank, href := url)(h1(s.name))
           ),

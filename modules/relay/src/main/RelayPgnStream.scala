@@ -36,7 +36,7 @@ final class RelayPgnStream(
     if (rt.relay.hasStarted) studyPgnDump(rt.study, flags)
     else Source.empty[String]
   } concat Source
-    .queue[Set[Chapter.Id]](8, akka.stream.OverflowStrategy.dropHead)
+    .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
     .mapMaterializedValue { queue =>
       val chan = SyncResult busChannel rt.relay.id
       val sub = Bus.subscribeFun(chan) { case SyncResult.Ok(chapters, _) =>

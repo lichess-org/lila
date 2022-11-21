@@ -130,7 +130,7 @@ object RelayRound:
     def fullName = s"${tour.name} • ${round.name}"
     def path: String =
       s"/broadcast/${tour.slug}/${if (round.slug == tour.slug) "-" else round.slug}/${round.id}"
-    def path(chapterId: Chapter.Id): String = s"$path/$chapterId"
+    def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
 
   case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)

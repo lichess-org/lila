@@ -169,7 +169,7 @@ final class Study(
   )(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.RelayRound.Id(id)) flatMap {
       _.fold(f) { rt =>
-        Redirect(chapterId.map(Chapter.Id.apply).fold(rt.path)(rt.path)).toFuccess
+        Redirect(chapterId.map(StudyChapterId.apply).fold(rt.path)(rt.path)).toFuccess
       }
     }
     else f
@@ -186,7 +186,7 @@ final class Study(
                 sVersion  <- env.study.version(sc.study.id)
                 streamers <- streamersOf(sc.study)
               } yield Ok(html.study.show(sc.study, data, chat, sVersion, streamers))
-                .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id.value))
+                .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enableSharedArrayBuffer,
             api = _ =>
               chatOf(sc.study).map { chatOpt =>
@@ -214,7 +214,7 @@ final class Study(
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-      analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
+      analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData <- env.api.roundApi.withExternalEngines(
         ctx.me,
@@ -311,7 +311,7 @@ final class Study(
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
       _.fold(notFound) { sc =>
-        Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id.value)).toFuccess
+        Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id)).toFuccess
       }
     }
 
@@ -615,7 +615,7 @@ final class Study(
       case Some(me) if study.members.contains(me.id) => f
       case _                                         => forbidden
 
-  implicit private def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)
+  implicit private def makeChapterId(id: String): StudyChapterId = StudyChapterId(id)
 
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 

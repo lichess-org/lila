@@ -17,10 +17,10 @@ case class PracticeProgress(
 
   def id = _id
 
-  def apply(chapterId: Chapter.Id): Option[NbMoves] =
+  def apply(chapterId: StudyChapterId): Option[NbMoves] =
     chapters get chapterId
 
-  def withNbMoves(chapterId: Chapter.Id, nbMoves: PracticeProgress.NbMoves) =
+  def withNbMoves(chapterId: StudyChapterId, nbMoves: PracticeProgress.NbMoves) =
     copy(
       chapters = chapters - chapterId + {
         chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
@@ -28,7 +28,7 @@ case class PracticeProgress(
       updatedAt = DateTime.now
     )
 
-  def countDone(chapterIds: List[Chapter.Id]): Int =
+  def countDone(chapterIds: List[StudyChapterId]): Int =
     chapterIds count chapters.contains
 
   def firstOngoingIn(metas: List[Chapter.Metadata]): Option[Chapter.Metadata] =
@@ -45,9 +45,9 @@ object PracticeProgress:
   case class NbMoves(value: Int) extends AnyVal
   given Iso.IntIso[NbMoves] = Iso.int[NbMoves](NbMoves.apply, _.value)
 
-  case class OnComplete(userId: User.ID, studyId: StudyId, chapterId: Chapter.Id)
+  case class OnComplete(userId: User.ID, studyId: StudyId, chapterId: StudyChapterId)
 
-  type ChapterNbMoves = Map[Chapter.Id, NbMoves]
+  type ChapterNbMoves = Map[StudyChapterId, NbMoves]
 
   def empty(id: Id) =
     PracticeProgress(

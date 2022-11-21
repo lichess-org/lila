@@ -11,7 +11,7 @@ object BSONHandlers:
   import Chapter.given
 
   private given BSONHandler[NbMoves]        = isoHandler
-  private given BSONHandler[ChapterNbMoves] = typedMapHandler[Chapter.Id, NbMoves]
+  private given BSONHandler[ChapterNbMoves] = typedMapHandler[StudyChapterId, NbMoves]
 
   given BSONHandler[PracticeProgress.Id]      = stringAnyValHandler(_.value, PracticeProgress.Id.apply)
   given BSONDocumentHandler[PracticeProgress] = Macros.handler

@@ -26,7 +26,7 @@ object ServerEval:
 
     def apply(study: Study, chapter: Chapter, userId: User.ID, unlimited: Boolean = false): Funit =
       chapter.serverEval.fold(true) { eval =>
-        !eval.done && onceEvery(chapter.id.value)
+        !eval.done && onceEvery(chapter.id)
       } ?? {
         val unlimitedFu =
           fuccess(unlimited) >>|
@@ -37,7 +37,7 @@ object ServerEval:
           chapterRepo.startServerEval(chapter) >>- {
             fishnet ! StudyChapterRequest(
               studyId = study.id,
-              chapterId = chapter.id.value,
+              chapterId = chapter.id,
               initialFen = chapter.root.fen.some,
               variant = chapter.setup.variant,
               moves = chess.format
@@ -65,7 +65,7 @@ object ServerEval:
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
       analysis.studyId.map(StudyId.apply) ?? { studyId =>
-        sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
+        sequencer.sequenceStudyWithChapter(studyId, StudyChapterId(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.Future
@@ -111,7 +111,7 @@ object ServerEval:
                     } inject path + node
                 } void
             } >>- {
-              chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
+              chapterRepo.byId(StudyChapterId(analysis.id)).foreach {
                 _ ?? { chapter =>
                   socket.onServerEval(
                     studyId,
@@ -130,7 +130,7 @@ object ServerEval:
 
     def divisionOf(chapter: Chapter) =
       divider(
-        id = GameId(chapter.id.value),
+        id = GameId(chapter.id),
         pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
         variant = chapter.setup.variant,
         initialFen = chapter.root.fen.some
@@ -161,7 +161,7 @@ object ServerEval:
         forceVariation = false
       )
 
-  case class Progress(chapterId: Chapter.Id, tree: T.Root, analysis: JsObject, division: chess.Division)
+  case class Progress(chapterId: StudyChapterId, tree: T.Root, analysis: JsObject, division: chess.Division)
 
   def toJson(chapter: Chapter, analysis: Analysis) =
     lila.analyse.JsonView.bothPlayers(

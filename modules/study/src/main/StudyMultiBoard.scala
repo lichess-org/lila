@@ -83,8 +83,8 @@ final class StudyMultiBoard(
         .map { r =>
           for {
             doc  <- r
-            id   <- doc.getAsOpt[Chapter.Id]("_id")
-            name <- doc.getAsOpt[Chapter.Name]("name")
+            id   <- doc.getAsOpt[StudyChapterId]("_id")
+            name <- doc.getAsOpt[StudyChapterName]("name")
             comp <- doc.getAsOpt[Bdoc]("comp")
             node <- comp.getAsOpt[Bdoc]("node")
             fen  <- node.getAsOpt[FEN]("fen")
@@ -120,8 +120,8 @@ final class StudyMultiBoard(
 object StudyMultiBoard:
 
   case class ChapterPreview(
-      id: Chapter.Id,
-      name: Chapter.Name,
+      id: StudyChapterId,
+      name: StudyChapterName,
       players: Option[ChapterPreview.Players],
       orientation: Color,
       fen: FEN,

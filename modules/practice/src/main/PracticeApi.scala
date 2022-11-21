@@ -37,7 +37,7 @@ final class PracticeApi(
   def getStudyWithChapter(
       user: Option[User],
       studyId: StudyId,
-      chapterId: Chapter.Id
+      chapterId: StudyChapterId
   ): Fu[Option[UserStudy]] =
     for {
       up          <- get(user)
@@ -99,7 +99,7 @@ final class PracticeApi(
     private def save(p: PracticeProgress): Funit =
       coll.update.one($id(p.id), p, upsert = true).void
 
-    def setNbMoves(user: User, chapterId: Chapter.Id, score: NbMoves): Funit = {
+    def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit = {
       get(user) flatMap { prog =>
         save(prog.withNbMoves(chapterId, score))
       }

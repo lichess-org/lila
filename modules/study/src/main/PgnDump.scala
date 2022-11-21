@@ -27,7 +27,7 @@ final class PgnDump(
       .mapAsync(1)(ofChapter(study, flags))
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[String] =
-    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
+    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id) map { analysis =>
       val pgn = Pgn(
         tags = makeTags(study, chapter),
         turns = toTurns(chapter.root)(flags).toList,
@@ -52,11 +52,11 @@ final class PgnDump(
   def filename(study: Study, chapter: Chapter): String =
     val date = dateFormat.print(chapter.createdAt)
     fileR.replaceAllIn(
-      s"lichess_study_${slugify(study.name)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_$date",
+      s"lichess_study_${slugify(study.name)}_${slugify(chapter.name)}_by_${ownerName(study)}_$date",
       ""
     )
 
-  private def chapterUrl(studyId: StudyId, chapterId: Chapter.Id) =
+  private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"

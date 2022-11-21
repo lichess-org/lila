@@ -173,7 +173,7 @@ final private class RelaySync(
       } orElse game.tags("board") getOrElse "?"
       val chapter = Chapter.make(
         studyId = study.id,
-        name = Chapter.Name(name),
+        name = StudyChapterName(name),
         setup = Chapter.Setup(
           none,
           game.variant,
@@ -224,6 +224,6 @@ object SyncResult:
   case class Error(msg: String) extends SyncResult:
     val reportKey = "error"
 
-  case class ChapterResult(id: Chapter.Id, tagUpdate: Boolean, newMoves: Int)
+  case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int)
 
   def busChannel(roundId: RelayRound.Id) = s"relaySyncResult:$roundId"

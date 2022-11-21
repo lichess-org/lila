@@ -11,9 +11,9 @@ import lila.user.User
 import lila.common.Iso
 
 case class Chapter(
-    _id: Chapter.Id,
+    _id: StudyChapterId,
     studyId: StudyId,
-    name: Chapter.Name,
+    name: StudyChapterName,
     setup: Chapter.Setup,
     root: Node.Root,
     tags: Tags,
@@ -101,15 +101,12 @@ object Chapter:
   // It works but could be used for DoS.
   val maxNodes = 3000
 
-  case class Id(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
-
-  case class Name(value: String) extends AnyVal with StringValue
-  given Iso.StringIso[Name] = Iso.string(Name.apply, _.value)
+  given Iso.StringIso[StudyChapterId]   = Iso.opaque(StudyChapterId.apply)
+  given Iso.StringIso[StudyChapterName] = Iso.opaque(StudyChapterName.apply)
 
   sealed trait Like:
-    val _id: Chapter.Id
-    val name: Chapter.Name
+    val _id: StudyChapterId
+    val name: StudyChapterName
     val setup: Chapter.Setup
     def id = _id
 
@@ -132,7 +129,7 @@ object Chapter:
 
   case class ServerEval(path: Path, done: Boolean)
 
-  case class RelayAndTags(id: Id, relay: Relay, tags: Tags):
+  case class RelayAndTags(id: StudyChapterId, relay: Relay, tags: Tags):
 
     def looksAlive =
       tags.outcome.isEmpty &&
@@ -145,8 +142,8 @@ object Chapter:
     def looksOver = !looksAlive
 
   case class Metadata(
-      _id: Id,
-      name: Name,
+      _id: StudyChapterId,
+      name: StudyChapterName,
       setup: Setup,
       outcome: Option[Option[Outcome]],
       hasRelayPath: Boolean
@@ -156,25 +153,25 @@ object Chapter:
 
     def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
 
-  case class IdName(id: Id, name: Name)
+  case class IdName(id: StudyChapterId, name: StudyChapterName)
 
   case class Ply(value: Int) extends AnyVal with Ordered[Ply]:
     def compare(that: Ply) = Integer.compare(value, that.value)
 
-  def defaultName(order: Int) = Name(s"Chapter $order")
+  def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
 
-  private val defaultNameRegex = """Chapter \d+""".r
-  def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
+  private val defaultNameRegex           = """Chapter \d+""".r
+  def isDefaultName(n: StudyChapterName) = n.isEmpty || defaultNameRegex.matches(n)
 
-  def fixName(n: Name) = Name(lila.common.String.softCleanUp(n.value) take 80)
+  def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n) take 80)
 
   val idSize = 8
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
+  def makeId = StudyChapterId(lila.common.ThreadLocalRandom nextString idSize)
 
   def make(
       studyId: StudyId,
-      name: Name,
+      name: StudyChapterName,
       setup: Setup,
       root: Node.Root,
       tags: Tags,

@@ -29,3 +29,11 @@ trait LilaModel:
   opaque type StudyName <: String = String
   object StudyName:
     def apply(v: String): StudyName = v
+
+  opaque type StudyChapterId <: String = String
+  object StudyChapterId:
+    def apply(v: String): StudyChapterId = v
+
+  opaque type StudyChapterName <: String = String
+  object StudyChapterName:
+    def apply(v: String): StudyChapterName = v

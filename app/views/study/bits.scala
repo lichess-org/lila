@@ -11,6 +11,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.removeMultibyteSymbols
 import lila.study.{ Order, Study }
 
+given AttrValue[StudyChapterId] = stringAttrValue
+
 object bits:
 
   def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) =
@@ -70,8 +72,8 @@ object bits:
         ol(cls := "chapters")(
           s.chapters.map { name =>
             li(cls := "text", dataIcon := "")(
-              if (ctx.userId.exists(s.study.isMember)) name.value
-              else removeMultibyteSymbols(name.value)
+              if (ctx.userId.exists(s.study.isMember)) name
+              else removeMultibyteSymbols(name)
             )
           }
         ),

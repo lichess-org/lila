@@ -15,17 +15,17 @@ final class ChapterRepo(val coll: AsyncColl)(using
 
   import BSONHandlers.{ writeNode, given }
 
-  def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll(_.byId[Chapter, Chapter.Id](id))
+  def byId(id: StudyChapterId): Fu[Option[Chapter]] = coll(_.byId[Chapter](id))
 
-  def studyIdOf(chapterId: Chapter.Id): Fu[Option[StudyId]] =
+  def studyIdOf(chapterId: StudyChapterId): Fu[Option[StudyId]] =
     coll(_.primitiveOne[StudyId]($id(chapterId), "studyId"))
 
   def deleteByStudy(s: Study): Funit = coll(_.delete.one($studyId(s.id))).void
 
   def deleteByStudyIds(ids: List[StudyId]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
 
-  def byIdAndStudy(id: Chapter.Id, studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.byId[Chapter, Chapter.Id](id)).dmap { _.filter(_.studyId == studyId) }
+  def byIdAndStudy(id: StudyChapterId, studyId: StudyId): Fu[Option[Chapter]] =
+    coll(_.byId[Chapter](id)).dmap { _.filter(_.studyId == studyId) }
 
   def firstByStudy(studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.find($studyId(studyId)).sort($sort asc "order").one[Chapter])
@@ -62,7 +62,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
       }
     }
 
-  def byIdsSource(ids: Iterable[Chapter.Id]): Source[Chapter, ?] =
+  def byIdsSource(ids: Iterable[StudyChapterId]): Source[Chapter, ?] =
     Source futureSource {
       coll map {
         _.find($inIds(ids))
@@ -90,14 +90,14 @@ final class ChapterRepo(val coll: AsyncColl)(using
         .list(300) map { docs =>
         for {
           doc   <- docs
-          id    <- doc.getAsOpt[Chapter.Id]("_id")
+          id    <- doc.getAsOpt[StudyChapterId]("_id")
           relay <- doc.getAsOpt[Chapter.Relay]("relay")
           tags  <- doc.getAsOpt[Tags]("tags")
         } yield Chapter.RelayAndTags(id, relay, tags)
       }
     }
 
-  def sort(study: Study, ids: List[Chapter.Id]): Funit =
+  def sort(study: Study, ids: List[StudyChapterId]): Funit =
     coll { c =>
       ids.zipWithIndex
         .map { case (id, index) =>
@@ -110,16 +110,16 @@ final class ChapterRepo(val coll: AsyncColl)(using
   def nextOrderByStudy(studyId: StudyId): Fu[Int] =
     coll(_.primitiveOne[Int]($studyId(studyId), $sort desc "order", "order")) dmap { ~_ + 1 }
 
-  def setConceal(chapterId: Chapter.Id, conceal: Chapter.Ply) =
+  def setConceal(chapterId: StudyChapterId, conceal: Chapter.Ply) =
     coll(_.updateField($id(chapterId), "conceal", conceal)).void
 
-  def removeConceal(chapterId: Chapter.Id) =
+  def removeConceal(chapterId: StudyChapterId) =
     coll(_.unsetField($id(chapterId), "conceal")).void
 
-  def setRelay(chapterId: Chapter.Id, relay: Chapter.Relay) =
+  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
     coll(_.updateField($id(chapterId), "relay", relay)).void
 
-  def setRelayPath(chapterId: Chapter.Id, path: Path) =
+  def setRelayPath(chapterId: StudyChapterId, path: Path) =
     coll(_.updateField($id(chapterId), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
@@ -249,8 +249,8 @@ final class ChapterRepo(val coll: AsyncColl)(using
 
   private def readIdName(doc: Bdoc) =
     for {
-      id   <- doc.getAsOpt[Chapter.Id]("_id")
-      name <- doc.getAsOpt[Chapter.Name]("name")
+      id   <- doc.getAsOpt[StudyChapterId]("_id")
+      name <- doc.getAsOpt[StudyChapterName]("name")
     } yield Chapter.IdName(id, name)
 
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
@@ -278,7 +278,7 @@ final class ChapterRepo(val coll: AsyncColl)(using
 
   def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c)).void
 
-  def delete(id: Chapter.Id): Funit = coll(_.delete.one($id(id))).void
-  def delete(c: Chapter): Funit     = delete(c.id)
+  def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
+  def delete(c: Chapter): Funit         = delete(c.id)
 
   private def $studyId(id: StudyId) = $doc("studyId" -> id)

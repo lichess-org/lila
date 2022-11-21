@@ -24,7 +24,7 @@ case class PracticeStructure(
       }
     }.toMap
 
-  lazy val chapterIds: List[Chapter.Id] = sections.flatMap(_.studies).flatMap(_.chapterIds)
+  lazy val chapterIds: List[StudyChapterId] = sections.flatMap(_.studies).flatMap(_.chapterIds)
 
   lazy val nbUnhiddenChapters =
     sections.filterNot(_.hide).flatMap(_.studies).filterNot(_.hide).map(_.chapterIds.size).sum
@@ -63,7 +63,7 @@ object PracticeStructure:
 
   val totalChapters = 233
 
-  def isChapterNameCommented(name: Chapter.Name) = name.value.startsWith("//")
+  def isChapterNameCommented(name: StudyChapterName) = name.startsWith("//")
 
   def make(conf: PracticeConfig, chapters: Map[StudyId, Vector[Chapter.IdName]]) =
     PracticeStructure(
