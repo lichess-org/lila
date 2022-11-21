@@ -8,6 +8,7 @@ import scala.util.{ Failure, Success, Try }
 import Client.Skill
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
+import lila.game.Game
 
 final class FishnetApi(
     repo: FishnetRepo,
@@ -15,13 +16,10 @@ final class FishnetApi(
     analysisColl: Coll,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
-    socketExists: String => Fu[Boolean],
+    socketExists: Game.Id => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   import FishnetApi.*
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
@@ -102,7 +100,7 @@ final class FishnetApi(
               }
             case partial: PartialAnalysis =>
               {
-                fuccess(work.game.studyId.isDefined) >>| socketExists(work.game.id)
+                fuccess(work.game.studyId.isDefined) >>| socketExists(Game.Id(work.game.id))
               } flatMap {
                 case true =>
                   analysisBuilder.partial(client, work, partial.analysis) map { analysis =>

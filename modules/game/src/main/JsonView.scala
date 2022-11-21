@@ -73,7 +73,9 @@ final class JsonView(rematches: Rematches):
 
 object JsonView:
 
-  implicit val statusWrites: OWrites[chess.Status] = OWrites { s =>
+  given idFormat: Format[Game.Id] = stringFormat.bimap(Game.Id.apply, identity)
+
+  given OWrites[chess.Status] = OWrites { s =>
     Json.obj(
       "id"   -> s.id,
       "name" -> s.name

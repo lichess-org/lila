@@ -26,7 +26,7 @@ case class GameView(
 ):
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID], teamId: Option[TeamID]):
+case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.Id], teamId: Option[TeamID]):
   def page = (rank + 9) / 10
 
 case class VisibleTournaments(

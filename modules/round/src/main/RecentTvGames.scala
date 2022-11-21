@@ -10,7 +10,7 @@ final class RecentTvGames(
   private val fast = new lila.memo.ExpireSetMemo(7 minutes)
   private val slow = new lila.memo.ExpireSetMemo(2 hours)
 
-  def get(gameId: Game.ID) = fast.get(gameId) || slow.get(gameId)
+  def get(gameId: Game.Id) = fast.get(gameId) || slow.get(gameId)
 
   def put(game: Game) =
     gameRepo.setTv(game.id)

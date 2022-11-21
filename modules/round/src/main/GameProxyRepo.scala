@@ -10,20 +10,20 @@ final class GameProxyRepo(
     roundSocket: RoundSocket
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
+  def game(gameId: Game.Id): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
 
-  def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
+  def pov(gameId: Game.Id, user: lila.user.User): Fu[Option[Pov]] =
     game(gameId) dmap { _ flatMap { Pov(_, user) } }
 
-  def pov(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+  def pov(gameId: Game.Id, color: chess.Color): Fu[Option[Pov]] =
     game(gameId) dmap2 { Pov(_, color) }
 
-  def pov(fullId: Game.ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
+  def pov(fullId: Game.Id): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
     game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
 
-  def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = roundSocket gameIfPresent gameId
+  def gameIfPresent(gameId: Game.Id): Fu[Option[Game]] = roundSocket gameIfPresent gameId
 
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
@@ -39,10 +39,10 @@ final class GameProxyRepo(
   // update the proxied game
   def updateIfPresent = roundSocket.updateIfPresent
 
-  def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+  def povIfPresent(gameId: Game.Id, color: chess.Color): Fu[Option[Pov]] =
     gameIfPresent(gameId) dmap2 { Pov(_, color) }
 
-  def povIfPresent(fullId: Game.ID): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))
+  def povIfPresent(fullId: Game.Id): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))
 
   def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
     gameIfPresent(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }

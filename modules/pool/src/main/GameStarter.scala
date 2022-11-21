@@ -36,7 +36,7 @@ final private class GameStarter(
 
   private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(
       couple: MatchMaking.Couple,
-      id: Game.ID
+      id: Game.Id
   ): Fu[Option[Pairing]] =
     import couple.*
     import cats.implicits.*
@@ -62,7 +62,7 @@ final private class GameStarter(
     }
 
   private def makeGame(
-      id: Game.ID,
+      id: Game.Id,
       pool: PoolConfig,
       whiteUser: (User.ID, Perf),
       blackUser: (User.ID, Perf)

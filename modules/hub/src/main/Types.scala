@@ -1,7 +1,7 @@
 package lila.hub
 
-trait TellMap:
-  def tell(id: String, msg: Matchable): Unit
+trait TellMap[Id <: String]:
+  def tell(id: Id, msg: Matchable): Unit
 
 object LightTeam:
   type TeamID   = String

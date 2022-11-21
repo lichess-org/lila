@@ -13,7 +13,7 @@ import lila.game.{ Game, Pov }
 final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
-    proxyGame: Game.ID => Fu[Option[Game]]
+    proxyGame: Game.Id => Fu[Option[Game]]
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,

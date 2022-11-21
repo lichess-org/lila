@@ -5,7 +5,7 @@ import chess.{ Color, Status }
 import lila.user.User
 
 case class LightGame(
-    id: Game.ID,
+    id: Game.Id,
     whitePlayer: Player,
     blackPlayer: Player,
     status: Status

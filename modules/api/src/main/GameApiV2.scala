@@ -385,7 +385,7 @@ object GameApiV2:
       } && analysed.fold(true)(g.metadata.analysed ==)
 
   case class ByIdsConfig(
-      ids: Seq[Game.ID],
+      ids: Seq[Game.Id],
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond,

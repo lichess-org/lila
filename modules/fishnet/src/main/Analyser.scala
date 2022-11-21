@@ -58,7 +58,7 @@ final class Analyser(
         }
     }
 
-  def apply(gameId: String, sender: Work.Sender): Fu[Analyser.Result] =
+  def apply(gameId: Game.Id, sender: Work.Sender): Fu[Analyser.Result] =
     gameRepo game gameId flatMap {
       _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame))(apply(_, sender))
     }

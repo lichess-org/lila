@@ -7,7 +7,7 @@ object SwissRound:
 
   case class Number(value: Int) extends AnyVal with IntValue
 
-case class MyInfo(rank: Int, gameId: Option[Game.ID], user: User, player: SwissPlayer):
+case class MyInfo(rank: Int, gameId: Option[Game.Id], user: User, player: SwissPlayer):
   def page = (rank + 9) / 10
 
 final class GetSwissName(cache: lila.memo.Syncache[Swiss.Id, Option[String]]):

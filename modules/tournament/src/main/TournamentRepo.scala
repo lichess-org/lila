@@ -180,7 +180,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def setWinnerId(tourId: Tournament.ID, userId: User.ID) =
     coll.updateField($id(tourId), "winner", userId).void
 
-  def setFeaturedGameId(tourId: Tournament.ID, gameId: Game.ID) =
+  def setFeaturedGameId(tourId: Tournament.ID, gameId: Game.Id) =
     coll.updateField($id(tourId), "featured", gameId).void
 
   def setTeamBattle(tourId: Tournament.ID, battle: TeamBattle) =
@@ -192,7 +192,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def isTeamBattle(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ $doc("teamBattle" $exists true))
 
-  def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.ID]($id(tourId), "featured")
+  def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.Id]($id(tourId), "featured")
 
   private def startingSoonSelect(aheadMinutes: Int) =
     createdSelect ++

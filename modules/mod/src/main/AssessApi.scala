@@ -61,14 +61,14 @@ final class AssessApi(
 
   private def buildMissing(povs: List[Pov]): Funit =
     assessRepo.coll
-      .distinctEasy[Game.ID, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}"))) flatMap {
+      .distinctEasy[Game.Id, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}"))) flatMap {
       existingIds =>
         val missing = povs collect {
           case pov if pov.game.metadata.analysed && !existingIds.contains(pov.gameId) => pov.gameId
         }
         missing.nonEmpty ??
           analysisRepo.coll
-            .idsMap[Analysis, Game.ID](missing)(_.id)
+            .idsMap[Analysis, Game.Id](missing)(_.id)
             .flatMap { ans =>
               povs
                 .flatMap { pov =>
@@ -89,7 +89,7 @@ final class AssessApi(
   ): Fu[List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]] =
     buildMissing(povs) >>
       assessRepo.coll
-        .idsMap[PlayerAssessment, Game.ID](
+        .idsMap[PlayerAssessment, Game.Id](
           ids = povs.map(p => s"${p.gameId}/${p.color.name}"),
           readPreference = ReadPreference.secondaryPreferred
         )(_.gameId)

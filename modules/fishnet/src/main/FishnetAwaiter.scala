@@ -12,7 +12,7 @@ final class FishnetAwaiter(using ec: ExecutionContext, scheduler: akka.actor.Sch
 
   private val busChannel = "analysisReady"
 
-  def apply(gameIds: Seq[Game.ID], atMost: FiniteDuration): Funit =
+  def apply(gameIds: Seq[Game.Id], atMost: FiniteDuration): Funit =
     gameIds.nonEmpty ?? {
       val promise      = Promise[Unit]()
       var remainingIds = gameIds.toSet
@@ -26,4 +26,4 @@ final class FishnetAwaiter(using ec: ExecutionContext, scheduler: akka.actor.Sch
       }
     }
 
-  def apply(gameId: Game.ID, atMost: FiniteDuration): Funit = apply(List(gameId), atMost)
+  def apply(gameId: Game.Id, atMost: FiniteDuration): Funit = apply(List(gameId), atMost)

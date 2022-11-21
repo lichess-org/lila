@@ -23,7 +23,7 @@ final private[round] class Titivate(
 )(implicit mat: akka.stream.Materializer)
     extends Actor:
 
-  private type GameOrFail = Either[(Game.ID, Throwable), Game]
+  private type GameOrFail = Either[(Game.Id, Throwable), Game]
 
   object Run
 

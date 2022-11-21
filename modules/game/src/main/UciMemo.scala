@@ -8,9 +8,9 @@ final class UciMemo(gameRepo: GameRepo)(using ec: scala.concurrent.ExecutionCont
 
   type UciVector = Vector[String]
 
-  private val cache: Cache[Game.ID, UciVector] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache: Cache[Game.Id, UciVector] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
-    .build[Game.ID, UciVector]()
+    .build[Game.Id, UciVector]()
 
   private val hardLimit = 300
 

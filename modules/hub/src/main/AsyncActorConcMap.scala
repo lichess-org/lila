@@ -6,37 +6,37 @@ import alleycats.Zero
 import scala.concurrent.{ ExecutionContext, Promise }
 import scala.jdk.CollectionConverters.*
 
-final class AsyncActorConcMap[D <: AsyncActor](
-    mkAsyncActor: String => D,
+final class AsyncActorConcMap[Id <: String, D <: AsyncActor](
+    mkAsyncActor: Id => D,
     initialCapacity: Int
-) extends TellMap:
+) extends TellMap[Id]:
 
-  def getOrMake(id: String): D = asyncActors.computeIfAbsent(id, loadFunction)
+  def tell(id: Id, msg: Matchable): Unit = getOrMake(id) ! msg
 
-  def getIfPresent(id: String): Option[D] = Option(asyncActors get id)
+  def getOrMake(id: Id): D = asyncActors.computeIfAbsent(id, loadFunction)
 
-  def tell(id: String, msg: Matchable): Unit = getOrMake(id) ! msg
+  def getIfPresent(id: Id): Option[D] = Option(asyncActors get id)
 
-  def tellIfPresent(id: String, msg: => Matchable): Unit = getIfPresent(id) foreach (_ ! msg)
+  def tellIfPresent(id: Id, msg: => Matchable): Unit = getIfPresent(id) foreach (_ ! msg)
 
   def tellAll(msg: Matchable) =
     asyncActors.forEachValue(16, _ ! msg)
 
-  def tellIds(ids: Seq[String], msg: Matchable): Unit = ids foreach { tell(_, msg) }
+  def tellIds(ids: Seq[Id], msg: Matchable): Unit = ids foreach { tell(_, msg) }
 
-  def ask[A](id: String)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
+  def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
-  def askIfPresent[A](id: String)(makeMsg: Promise[A] => Matchable): Fu[Option[A]] =
+  def askIfPresent[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[Option[A]] =
     getIfPresent(id) ?? {
       _ ask makeMsg dmap some
     }
 
-  def askIfPresentOrZero[A: Zero](id: String)(makeMsg: Promise[A] => Matchable): Fu[A] =
+  def askIfPresentOrZero[A: Zero](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] =
     askIfPresent(id)(makeMsg) dmap (~_)
 
-  def exists(id: String): Boolean = asyncActors.get(id) != null
+  def exists(id: Id): Boolean = asyncActors.get(id) != null
 
-  def foreachKey(f: String => Unit): Unit =
+  def foreachKey(f: Id => Unit): Unit =
     asyncActors.forEachKey(16, k => f(k))
 
   def tellAllWithAck(makeMsg: Promise[Unit] => Matchable)(using ec: ExecutionContext): Fu[Int] =
@@ -47,7 +47,7 @@ final class AsyncActorConcMap[D <: AsyncActor](
 
   def size: Int = asyncActors.size()
 
-  def loadOrTell(id: String, load: () => D, tell: D => Unit): Unit =
+  def loadOrTell(id: Id, load: () => D, tell: D => Unit): Unit =
     asyncActors
       .compute(
         id,
@@ -59,7 +59,7 @@ final class AsyncActorConcMap[D <: AsyncActor](
       )
       .unit
 
-  def terminate(id: String, lastWill: AsyncActor => Unit): Unit =
+  def terminate(id: Id, lastWill: AsyncActor => Unit): Unit =
     asyncActors
       .computeIfPresent(
         id,
@@ -70,10 +70,10 @@ final class AsyncActorConcMap[D <: AsyncActor](
       )
       .unit
 
-  private[this] val asyncActors = new ConcurrentHashMap[String, D](initialCapacity)
+  private[this] val asyncActors = new ConcurrentHashMap[Id, D](initialCapacity)
 
-  private val loadFunction = new Function[String, D]:
-    def apply(k: String) = mkAsyncActor(k)
+  private val loadFunction = new Function[Id, D]:
+    def apply(k: Id) = mkAsyncActor(k)
 
   // used to remove entries
   private[this] var nullD: D = _

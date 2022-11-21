@@ -16,11 +16,11 @@ final class Tv(
   private def roundProxyGame = gameProxyRepo.game
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[Game.ID]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[Game.Id]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
 
-  def getReplacementGame(channel: Tv.Channel, oldId: Game.ID, exclude: List[Game.ID]): Fu[Option[Game]] =
+  def getReplacementGame(channel: Tv.Channel, oldId: Game.Id, exclude: List[Game.Id]): Fu[Option[Game]] =
     trouper
-      .ask[Option[Game.ID]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
+      .ask[Option[Game.Id]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
       .flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
@@ -44,8 +44,8 @@ final class Tv(
       _.map(roundProxyGame).sequenceFu.map(_.flatten)
     }
 
-  def getGameIds(channel: Tv.Channel, max: Int): Fu[List[Game.ID]] =
-    trouper.ask[List[Game.ID]](TvSyncActor.GetGameIds(channel, max, _))
+  def getGameIds(channel: Tv.Channel, max: Int): Fu[List[Game.Id]] =
+    trouper.ask[List[Game.Id]](TvSyncActor.GetGameIds(channel, max, _))
 
   def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
 
@@ -58,7 +58,7 @@ object Tv:
   import chess.{ variant as V, Speed as S }
   import lila.rating.{ PerfType as P }
 
-  case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
+  case class Champion(user: LightUser, rating: Int, gameId: Game.Id)
   case class Champions(channels: Map[Channel, Champion]):
     def get = channels.get
 

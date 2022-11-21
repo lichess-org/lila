@@ -18,7 +18,7 @@ final class TextLpvExpand(
     cacheApi: CacheApi
 )(using ec: ExecutionContext):
 
-  def getPgn(id: Game.ID) = pgnCache get id
+  def getPgn(id: Game.Id) = pgnCache get id
 
   def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
     gameRegex
@@ -46,7 +46,7 @@ final class TextLpvExpand(
         }
     }
 
-  def gamePgnsFromText(text: String): Fu[Map[Game.ID, String]] =
+  def gamePgnsFromText(text: String): Fu[Map[Game.Id, String]] =
     val gameIds = gameRegex
       .findAllMatchIn(text)
       .toList
@@ -70,11 +70,11 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val pgnCache = cacheApi[Game.ID, Option[String]](512, "textLpvExpand.pgn") {
+  private val pgnCache = cacheApi[Game.Id, Option[String]](512, "textLpvExpand.pgn") {
     _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
   }
 
-  private def gameIdToPgn(id: Game.ID): Fu[Option[Pgn]] =
+  private def gameIdToPgn(id: Game.Id): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMap {
       _ ?? { g =>
         analysisRepo.byId(id) flatMap { analysis =>

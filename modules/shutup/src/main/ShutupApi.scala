@@ -3,7 +3,7 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.*
-import lila.game.GameRepo
+import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.{ User, UserRepo }
 
@@ -32,7 +32,7 @@ final class ShutupApi(
     record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: User.ID, text: String) =
-    gameRepo.getSourceAndUserIds(chatId) flatMap {
+    gameRepo.getSourceAndUserIds(Game.Id(chatId)) flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))

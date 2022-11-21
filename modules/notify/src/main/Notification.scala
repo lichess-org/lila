@@ -106,7 +106,7 @@ case class PlanStart(userId: String)  extends NotificationContent("planStart")  
 case class PlanExpire(userId: String) extends NotificationContent("planExpire") // BC
 
 case class CorresAlarm(
-    gameId: lila.game.Game.ID,
+    gameId: lila.game.Game.Id,
     opponent: String
 ) extends NotificationContent("corresAlarm")
 

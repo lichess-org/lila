@@ -18,48 +18,48 @@ import lila.common.config
 final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
-  import Game.{ BSONFields as F, ID }
+  import Game.{ BSONFields as F, Id }
   import Player.given
 
   val fixedColorLobbyCache = new lila.memo.ExpireSetMemo(2 hours)
 
-  def game(gameId: ID): Fu[Option[Game]]              = coll.byId[Game](gameId)
-  def gameFromSecondary(gameId: ID): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
+  def game(gameId: Id): Fu[Option[Game]]              = coll.byId[Game](gameId)
+  def gameFromSecondary(gameId: Id): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
 
-  def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
-    coll.byOrderedIds[Game, ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+  def gamesFromSecondary(gameIds: Seq[Id]): Fu[List[Game]] =
+    coll.byOrderedIds[Game, Id](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
-  def gameOptionsFromSecondary(gameIds: Seq[ID]): Fu[List[Option[Game]]] =
-    coll.optionsByOrderedIds[Game, ID](gameIds, none, ReadPreference.secondaryPreferred)(_.id)
+  def gameOptionsFromSecondary(gameIds: Seq[Id]): Fu[List[Option[Game]]] =
+    coll.optionsByOrderedIds[Game, Id](gameIds, none, ReadPreference.secondaryPreferred)(_.id)
 
   object light:
 
-    def game(gameId: ID): Fu[Option[LightGame]] = coll.byId[LightGame](gameId, LightGame.projection)
+    def game(gameId: Id): Fu[Option[LightGame]] = coll.byId[LightGame](gameId, LightGame.projection)
 
-    def pov(gameId: ID, color: Color): Fu[Option[LightPov]] =
+    def pov(gameId: Id, color: Color): Fu[Option[LightPov]] =
       game(gameId) dmap2 { (game: LightGame) =>
         LightPov(game, game player color)
       }
 
     def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
 
-    def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, ID](gameIds, projection = LightGame.projection.some)(_.id)
+    def gamesFromPrimary(gameIds: Seq[Id]): Fu[List[LightGame]] =
+      coll.byOrderedIds[LightGame, Id](gameIds, projection = LightGame.projection.some)(_.id)
 
-    def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, ID](
+    def gamesFromSecondary(gameIds: Seq[Id]): Fu[List[LightGame]] =
+      coll.byOrderedIds[LightGame, Id](
         gameIds,
         projection = LightGame.projection.some,
         readPreference = ReadPreference.secondaryPreferred
       )(_.id)
 
-  def finished(gameId: ID): Fu[Option[Game]] =
+  def finished(gameId: Id): Fu[Option[Game]] =
     coll.one[Game]($id(gameId) ++ Query.finished)
 
-  def player(gameId: ID, color: Color): Fu[Option[Player]] =
+  def player(gameId: Id, color: Color): Fu[Option[Player]] =
     game(gameId) dmap2 { _ player color }
 
-  def player(gameId: ID, playerId: ID): Fu[Option[Player]] =
+  def player(gameId: Id, playerId: Player.ID): Fu[Option[Player]] =
     game(gameId) dmap { gameOption =>
       gameOption flatMap { _ player playerId }
     }
@@ -67,29 +67,29 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def player(playerRef: PlayerRef): Fu[Option[Player]] =
     player(playerRef.gameId, playerRef.playerId)
 
-  def pov(gameId: ID, color: Color): Fu[Option[Pov]] =
+  def pov(gameId: Id, color: Color): Fu[Option[Pov]] =
     game(gameId) dmap2 { (game: Game) =>
       Pov(game, game player color)
     }
 
-  def pov(gameId: ID, color: String): Fu[Option[Pov]] =
+  def pov(gameId: Id, color: String): Fu[Option[Pov]] =
     Color.fromName(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
     game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
 
-  def pov(fullId: ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
+  def pov(fullId: Game.FullId): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
-  def remove(id: ID) = coll.delete.one($id(id)).void
+  def remove(id: Id) = coll.delete.one($id(id)).void
 
   def userPovsByGameIds(
-      gameIds: List[Game.ID],
+      gameIds: List[Game.Id],
       user: User,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[List[Pov]] =
-    coll.byOrderedIds[Game, ID](gameIds, readPreference = readPreference)(_.id) dmap {
+    coll.byOrderedIds[Game, Id](gameIds, readPreference = readPreference)(_.id) dmap {
       _.flatMap(g => Pov(g, user))
     }
 
@@ -132,7 +132,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def unanalysedGames(gameIds: Seq[ID], max: config.Max = config.Max(100)): Fu[List[Game]] =
+  def unanalysedGames(gameIds: Seq[Id], max: config.Max = config.Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
       .cursor[Game](ReadPreference.secondaryPreferred)
@@ -158,7 +158,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   ): AkkaStreamCursor[Game] =
     coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
 
-  def byIdsCursor(ids: Iterable[Game.ID]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
+  def byIdsCursor(ids: Iterable[Game.Id]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
   def goBerserk(pov: Pov): Funit =
     coll.update
@@ -187,7 +187,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if (doc.isEmpty) $empty else $doc(mod -> doc)
 
-  def setRatingDiffs(id: ID, diffs: RatingDiffs) =
+  def setRatingDiffs(id: Id, diffs: RatingDiffs) =
     coll.update.one(
       $id(id),
       $set(
@@ -218,19 +218,19 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       )
       .dmap(_.toInt)
 
-  def playingRealtimeNoAi(user: User): Fu[List[Game.ID]] =
-    coll.distinctEasy[Game.ID, List](
+  def playingRealtimeNoAi(user: User): Fu[List[Game.Id]] =
+    coll.distinctEasy[Game.Id, List](
       F.id,
       Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true),
       ReadPreference.secondaryPreferred
     )
 
-  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =
+  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.Id]] =
     coll
       .find(Query recentlyPlaying userId, $id(true).some)
       .sort(Query.sortMovedAtNoIndex)
       .one[Bdoc](readPreference = ReadPreference.primary)
-      .dmap { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
+      .dmap { _.flatMap(_.getAsOpt[Game.Id](F.id)) }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
     coll
@@ -247,12 +247,12 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         _.sortBy(_.movedAt).lastOption flatMap { Pov(_, user) }
       }
 
-  def quickLastPlayedId(userId: User.ID): Fu[Option[Game.ID]] =
+  def quickLastPlayedId(userId: User.ID): Fu[Option[Game.Id]] =
     coll
       .find(Query user userId, $id(true).some)
       .sort($sort desc F.createdAt)
       .one[Bdoc]
-      .dmap { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
+      .dmap { _.flatMap(_.getAsOpt[Game.Id](F.id)) }
 
   def lastFinishedRatedNotFromPosition(user: User): Fu[Option[Game]] =
     coll
@@ -266,21 +266,21 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .sort(Query.sortAntiChronological)
       .one[Game]
 
-  def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
+  def setTv(id: Id) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
 
-  def setAnalysed(id: ID): Funit  = coll.updateField($id(id), F.analysed, true).void
-  def setUnanalysed(id: ID): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
+  def setAnalysed(id: Id): Funit  = coll.updateField($id(id), F.analysed, true).void
+  def setUnanalysed(id: Id): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
 
-  def isAnalysed(id: ID): Fu[Boolean] =
+  def isAnalysed(id: Id): Fu[Boolean] =
     coll.exists($id(id) ++ Query.analysed(true))
 
-  def analysed(id: ID) = coll.one[Game]($id(id) ++ Query.analysed(true))
+  def analysed(id: Id) = coll.one[Game]($id(id) ++ Query.analysed(true))
 
-  def exists(id: ID) = coll.exists($id(id))
+  def exists(id: Id) = coll.exists($id(id))
 
-  def tournamentId(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)
+  def tournamentId(id: Id): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)
 
-  def incBookmarks(id: ID, value: Int) =
+  def incBookmarks(id: Id, value: Int) =
     coll.update.one($id(id), $inc(F.bookmarks -> value)).void
 
   def setHoldAlert(pov: Pov, alert: Player.HoldAlert): Funit =
@@ -314,7 +314,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         }
       }
 
-    def povs(povs: Seq[Pov]): Fu[Map[Game.ID, Player.HoldAlert]] =
+    def povs(povs: Seq[Pov]): Fu[Map[Game.Id, Player.HoldAlert]] =
       coll
         .find(
           $doc($inIds(povs.map(_.gameId)), holdAlertSelector),
@@ -327,7 +327,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         }.toMap
         val holds = for {
           doc   <- docs
-          id    <- doc string "_id"
+          id    <- doc.getAsOpt[Id]("_id")
           color <- idColors get id
           holds <- holdAlertOf(doc, color)
         } yield id -> holds
@@ -355,7 +355,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   )
 
   def finish(
-      id: ID,
+      id: Id,
       winnerColor: Option[Color],
       winnerId: Option[User.ID],
       status: Status
@@ -421,7 +421,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def setCheckAt(g: Game, at: DateTime) =
     coll.updateField($id(g.id), F.checkAt, at).void
 
-  def unsetCheckAt(id: Game.ID): Funit =
+  def unsetCheckAt(id: Game.Id): Funit =
     coll.unsetField($id(id), F.checkAt).void
 
   def unsetPlayingUids(g: Game): Unit =
@@ -431,7 +431,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def setImportCreatedAt(g: Game) =
     coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
-  def initialFen(gameId: ID): Fu[Option[FEN]] =
+  def initialFen(gameId: Id): Fu[Option[FEN]] =
     coll.primitiveOne[FEN]($id(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[FEN]] =
@@ -441,7 +441,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     }
     else fuccess(none)
 
-  def gameWithInitialFen(gameId: ID): Fu[Option[Game.WithInitialFen]] =
+  def gameWithInitialFen(gameId: Id): Fu[Option[Game.WithInitialFen]] =
     game(gameId) flatMap {
       _ ?? { game =>
         initialFen(game) dmap { fen =>
@@ -507,7 +507,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
     )
 
-  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
+  def getOptionPgn(id: Id): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
 
   def lastGameBetween(u1: User.ID, u2: User.ID, since: DateTime): Fu[Option[Game]] =
     coll.one[Game](
@@ -527,7 +527,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         nb
       )
 
-  def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
+  def getSourceAndUserIds(id: Id): Fu[(Option[Source], List[User.ID])] =
     coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) dmap {
       _.fold(none[Source] -> List.empty[User.ID]) { doc =>
         (doc.int(F.source) flatMap Source.apply, ~doc.getAsOpt[List[User.ID]](F.playerUids))

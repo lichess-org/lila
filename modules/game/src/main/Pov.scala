@@ -89,13 +89,13 @@ object Pov:
     else if (!b.hasMoved && a.hasMoved) false
     else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
 
-case class PovRef(gameId: Game.ID, color: Color):
+case class PovRef(gameId: Game.Id, color: Color):
 
   def unary_! = PovRef(gameId, !color)
 
   override def toString = s"$gameId/${color.name}"
 
-case class PlayerRef(gameId: Game.ID, playerId: String)
+case class PlayerRef(gameId: Game.Id, playerId: String)
 
 object PlayerRef:
 

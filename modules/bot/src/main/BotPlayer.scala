@@ -40,7 +40,7 @@ final class BotPlayer(
       }
     }
 
-  def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) =
+  def chat(gameId: Game.Id, me: User, d: BotForm.ChatData) =
     !spam.detect(d.text) ??
       fuccess {
         lila.mon.bot.chats(me.username).increment()
@@ -53,11 +53,11 @@ final class BotPlayer(
         chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
       }
 
-  def rematchAccept(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, accept = true)
+  def rematchAccept(id: Game.Id, me: User): Fu[Boolean] = rematch(id, me, accept = true)
 
-  def rematchDecline(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, accept = false)
+  def rematchDecline(id: Game.Id, me: User): Fu[Boolean] = rematch(id, me, accept = false)
 
-  private def rematch(challengeId: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
+  private def rematch(challengeId: Game.Id, me: User, accept: Boolean): Fu[Boolean] =
     rematches.prevGameIdOffering(challengeId) ?? gameRepo.game map {
       _.flatMap(Pov(_, me)) ?? { pov =>
         // delay so it feels more natural
@@ -70,7 +70,7 @@ final class BotPlayer(
       }
     }
 
-  private def tellRound(id: Game.ID, msg: Any) =
+  private def tellRound(id: Game.Id, msg: Any) =
     Bus.publish(Tell(id, msg), "roundSocket")
 
   def abort(pov: Pov): Funit =

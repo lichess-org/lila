@@ -112,11 +112,11 @@ final class Env(
     }
   )
 
-  lazy val tellRound: TellRound = new TellRound((gameId: Game.ID, msg: Any) =>
+  lazy val tellRound: TellRound = new TellRound((gameId: Game.Id, msg: Any) =>
     roundSocket.rounds.tell(gameId, msg)
   )
 
-  lazy val onStart: OnStart = new OnStart((gameId: Game.ID) =>
+  lazy val onStart: OnStart = new OnStart((gameId: Game.Id) =>
     proxyRepo game gameId foreach {
       _ foreach { game =>
         lightUserApi.preloadMany(game.userIds) >>- {

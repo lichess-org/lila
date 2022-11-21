@@ -20,7 +20,7 @@ final private class OpeningExplorer(
   def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        queryParameters(query) ::: List("moves" -> "12") *
+        queryParameters(query) ::: List("moves" -> "12")*
       )
       .get()
       .flatMap {
@@ -76,7 +76,7 @@ final private class OpeningExplorer(
 
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
-      .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth) *)
+      .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth)*)
       .get()
       .flatMap {
         case res if res.status != 200 =>
@@ -126,8 +126,9 @@ object OpeningExplorer:
   case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int):
     def sum = white + draws + black
 
-  case class GameRef(id: Game.ID)
+  case class GameRef(id: Game.Id)
 
+  import lila.game.JsonView.idFormat
   private given Reads[Move]     = Json.reads
   private given Reads[GameRef]  = Json.reads
   private given Reads[Position] = Json.reads

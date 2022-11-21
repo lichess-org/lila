@@ -14,7 +14,7 @@ import lila.rating.PerfType.Classical
 import lila.user.User
 
 case class Game(
-    id: Game.ID,
+    id: Game.Id,
     whitePlayer: Player,
     blackPlayer: Player,
     chess: ChessGame,
@@ -28,6 +28,9 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ):
+
+  import Game.Id
+
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
   def situation = chess.situation
@@ -578,7 +581,7 @@ case class Game(
 
   def withSimulId(id: String) = copy(metadata = metadata.copy(simulId = id.some))
 
-  def withId(newId: String) = copy(id = newId)
+  def withId(newId: Id) = copy(id = newId)
 
   def source = metadata.source
 
@@ -621,8 +624,6 @@ case class Game(
   override def toString = s"""Game($id)"""
 
 object Game:
-
-  type ID = String
 
   opaque type Id <: String = String
   object Id:
@@ -714,11 +715,11 @@ object Game:
   val abandonedDays = Days(21)
   def abandonedDate = DateTime.now minusDays abandonedDays.value
 
-  def takeGameId(fullId: String)   = fullId take gameIdSize
-  def takePlayerId(fullId: String) = fullId drop gameIdSize
+  def takeGameId(fullId: String)   = Id(fullId take gameIdSize)
+  def takePlayerId(fullId: String) = PlayerId(fullId drop gameIdSize)
 
   val idRegex         = """[\w-]{8}""".r
-  def validId(id: ID) = idRegex matches id
+  def validId(id: Id) = idRegex matches id
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>

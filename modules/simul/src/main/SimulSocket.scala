@@ -18,7 +18,7 @@ final private class SimulSocket(
     mode: play.api.Mode
 ):
 
-  def hostIsOn(simulId: Simul.ID, gameId: Game.ID): Unit =
+  def hostIsOn(simulId: Simul.ID, gameId: Game.Id): Unit =
     rooms.tell(simulId, NotifyVersion("hostGame", gameId))
 
   def reload(simulId: Simul.ID): Unit =

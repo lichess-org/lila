@@ -7,6 +7,7 @@ import lila.notify.InvitedToStudy.{ InvitedBy, StudyId, StudyName }
 import lila.notify.MentionedInThread.*
 import lila.notify.Notification.*
 import reactivemongo.api.bson.*
+import lila.game.BSONHandlers.idHandler
 
 private object BSONHandlers:
 

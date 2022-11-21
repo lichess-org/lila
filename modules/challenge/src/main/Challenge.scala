@@ -22,7 +22,7 @@ case class Challenge(
     finalColor: chess.Color,
     challenger: Challenge.Challenger,
     destUser: Option[Challenge.Challenger.Registered],
-    rematchOf: Option[Game.ID],
+    rematchOf: Option[Game.Id],
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
@@ -229,7 +229,7 @@ object Challenge:
       color: String,
       challenger: Challenger,
       destUser: Option[User],
-      rematchOf: Option[Game.ID],
+      rematchOf: Option[Game.Id],
       name: Option[String] = None,
       id: Option[String] = None,
       openToUserIds: Option[(User.ID, User.ID)] = None,

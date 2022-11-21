@@ -285,7 +285,7 @@ object Event:
     def data           = reloadOr("rematchOffer", by)
     override def owner = true
 
-  case class RematchTaken(nextId: Game.ID) extends Event:
+  case class RematchTaken(nextId: Game.Id) extends Event:
     def typ  = "reload"
     def data = reloadOr("rematchTaken", nextId)
 

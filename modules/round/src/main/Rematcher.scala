@@ -60,7 +60,7 @@ final private class Rematcher(
     rematches.drop(pov.gameId)
     fuccess(List(Event.RematchOffer(by = none)))
 
-  private def rematchExists(pov: Pov)(nextId: Game.ID): Fu[Events] =
+  private def rematchExists(pov: Pov)(nextId: Game.Id): Fu[Events] =
     gameRepo game nextId flatMap {
       _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
     }
@@ -76,7 +76,7 @@ final private class Rematcher(
 
   private def rematchJoin(pov: Pov): Fu[Events] =
 
-    def createGame(withId: Option[Game.ID]) = for {
+    def createGame(withId: Option[Game.Id]) = for {
       nextGame <- returnGame(pov, withId).map(_.start)
       _ = rematches.accept(pov.gameId, nextGame.id)
       _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
@@ -91,7 +91,7 @@ final private class Rematcher(
       case Some(Rematches.Accepted(id))   => gameRepo game id map { _ ?? redirectEvents }
       case Some(Rematches.Offered(_, id)) => createGame(id.some)
 
-  private def returnGame(pov: Pov, withId: Option[Game.ID]): Fu[Game] =
+  private def returnGame(pov: Pov, withId: Option[Game.Id]): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
       situation = initialFen flatMap Forsyth.<<<

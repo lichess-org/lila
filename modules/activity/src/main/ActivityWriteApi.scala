@@ -79,7 +79,7 @@ final class ActivityWriteApi(
       simulParticipant(simul, _)
     }
 
-  def corresMove(gameId: Game.ID, userId: User.ID) = update(userId) { a =>
+  def corresMove(gameId: Game.Id, userId: User.ID) = update(userId) { a =>
     $doc(ActivityFields.corres -> { (~a.corres).add(GameId(gameId), moved = true, ended = false) })
   }
 

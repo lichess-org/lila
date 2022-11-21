@@ -6,7 +6,7 @@ import lila.common.LightUser
 import lila.game.Game
 
 private case class SwissBoard(
-    gameId: Game.ID,
+    gameId: Game.Id,
     white: SwissBoard.Player,
     black: SwissBoard.Player
 )

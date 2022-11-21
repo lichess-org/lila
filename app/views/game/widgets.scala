@@ -12,7 +12,7 @@ object widgets:
 
   def apply(
       games: Seq[Game],
-      notes: Map[Game.ID, String] = Map(),
+      notes: Map[Game.Id, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(implicit ctx: Context): Frag =

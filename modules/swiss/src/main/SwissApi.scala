@@ -196,7 +196,7 @@ final class SwissApi(
       swissId: Swiss.Id,
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  ): Source[Game.ID, ?] =
+  ): Source[Game.Id, ?] =
     SwissPairing.fields { f =>
       mongo.pairing
         .find($doc(f.swissId -> swissId), $id(true).some)
@@ -596,7 +596,7 @@ final class SwissApi(
         _.flatMap { doc =>
           for {
             swissId <- doc.getAsOpt[Swiss.Id]("_id")
-            gameIds <- doc.getAsOpt[List[Game.ID]]("ids")
+            gameIds <- doc.getAsOpt[List[Game.Id]]("ids")
           } yield swissId -> gameIds
         }
       }

@@ -11,8 +11,8 @@ import lila.hub.SyncActor
 final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,
     onSelect: TvSyncActor.Selected => Unit,
-    proxyGame: Game.ID => Fu[Option[Game]],
-    rematchOf: Game.ID => Option[Game.ID],
+    proxyGame: Game.Id => Fu[Option[Game]],
+    rematchOf: Game.Id => Option[Game.Id],
     lightUserSync: LightUser.GetterSync
 )(using ec: scala.concurrent.ExecutionContext)
     extends SyncActor:
@@ -21,12 +21,12 @@ final private[tv] class ChannelSyncActor(
 
   // games featured on this channel
   // first entry is the current game
-  private var history = List.empty[Game.ID]
+  private var history = List.empty[Game.Id]
 
   private def oneId = history.headOption
 
   // the list of candidates by descending rating order
-  private var manyIds = List.empty[Game.ID]
+  private var manyIds = List.empty[Game.Id]
 
   private val candidateIds = new lila.memo.ExpireSetMemo(3 minutes)
 
@@ -116,10 +116,10 @@ final private[tv] class ChannelSyncActor(
 
 object ChannelSyncActor:
 
-  case class GetGameId(promise: Promise[Option[Game.ID]])
-  case class GetGameIds(max: Int, promise: Promise[List[Game.ID]])
-  case class GetReplacementGameId(oldId: Game.ID, exclude: List[Game.ID], promise: Promise[Option[Game.ID]])
+  case class GetGameId(promise: Promise[Option[Game.Id]])
+  case class GetGameIds(max: Int, promise: Promise[List[Game.Id]])
+  case class GetReplacementGameId(oldId: Game.Id, exclude: List[Game.Id], promise: Promise[Option[Game.Id]])
   private case class SetGame(game: Game)
 
   case class GetGameIdAndHistory(promise: Promise[GameIdAndHistory])
-  case class GameIdAndHistory(gameId: Option[Game.ID], history: List[Game.ID])
+  case class GameIdAndHistory(gameId: Option[Game.Id], history: List[Game.Id])

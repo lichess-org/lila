@@ -26,6 +26,8 @@ object BSONHandlers:
 
   import lila.db.ByteArray.byteArrayHandler
 
+  given idHandler: BSONHandler[Game.Id] = stringHandler(Game.Id.apply, identity)
+
   private[game] given checkCountWriter: BSONWriter[CheckCount] with
     def writeTry(cc: CheckCount) = Success(BSONArray(cc.white, cc.black))
 
@@ -249,7 +251,7 @@ object BSONHandlers:
         val builder = r.getO[Player.Builder](field)(using playerHandler) | emptyPlayerBuilder
         builder(color)(id)(uid)(winC map (_ == color))
       LightGame(
-        id = r str F.id,
+        id = r.get[Game.Id](F.id),
         whitePlayer = makePlayer(F.whitePlayer, White, whiteId, whiteUid),
         blackPlayer = makePlayer(F.blackPlayer, Black, blackId, blackUid),
         status = r.get[Status](F.status)

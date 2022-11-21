@@ -13,7 +13,7 @@ final private class SwissDirector(
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
-    onStart: Game.ID => Unit
+    onStart: Game.Id => Unit
 )(using
     ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator

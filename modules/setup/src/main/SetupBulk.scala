@@ -117,7 +117,7 @@ object SetupBulk:
 
   case class BadToken(token: Bearer, error: OAuthServer.AuthError)
 
-  case class ScheduledGame(id: Game.ID, white: User.ID, black: User.ID)
+  case class ScheduledGame(id: Game.Id, white: User.ID, black: User.ID)
 
   case class ScheduledBulk(
       _id: String,

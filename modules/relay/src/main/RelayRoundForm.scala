@@ -42,7 +42,7 @@ final class RelayRoundForm:
 
 object RelayRoundForm:
 
-  case class GameIds(ids: List[Game.ID])
+  case class GameIds(ids: List[Game.Id])
 
   private def toGameIds(ids: String): Option[GameIds] =
     val list = ids.split(' ').view.map(_.trim take Game.gameIdSize).filter(Game.validId).toList

@@ -20,7 +20,7 @@ final class Analyser(
   def save(analysis: Analysis): Funit =
     analysis.studyId match
       case None =>
-        gameRepo game analysis.id flatMap {
+        gameRepo game Game.Id(analysis.id) flatMap {
           _ ?? { prev =>
             val game = prev.setAnalysed
             gameRepo.setAnalysed(game.id) >>
@@ -40,7 +40,7 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.studyId match
       case None =>
-        gameRepo gameWithInitialFen analysis.id map {
+        gameRepo gameWithInitialFen Game.Id(analysis.id) map {
           _ ?? { g =>
             Bus.publish(
               TellIfExists(

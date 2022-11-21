@@ -55,7 +55,7 @@ object page:
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: lila.app.mashup.UserInfo.Social,
-      notes: Map[Game.ID, String]
+      notes: Map[Game.Id, String]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title =

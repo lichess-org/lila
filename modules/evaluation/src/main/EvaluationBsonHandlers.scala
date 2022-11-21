@@ -4,6 +4,8 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.game.Game
+import lila.game.BSONHandlers.idHandler
 
 object EvaluationBsonHandlers:
 
@@ -36,7 +38,7 @@ object EvaluationBsonHandlers:
   given BSON[PlayerAssessment] with
     def reads(r: BSON.Reader): PlayerAssessment = PlayerAssessment(
       _id = r str "_id",
-      gameId = r str "gameId",
+      gameId = r.get[Game.Id]("gameId"),
       userId = r str "userId",
       color = chess.Color.fromWhite(r bool "white"),
       assessment = r.get[GameAssessment]("assessment"),

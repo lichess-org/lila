@@ -26,15 +26,15 @@ case class MoveGameEvent(
     move: String
 )
 object MoveGameEvent:
-  def makeChan(gameId: Game.ID) = s"moveEvent:$gameId"
+  def makeChan(gameId: Game.Id) = s"moveEvent:$gameId"
 
 case class BoardDrawOffer(game: Game)
 object BoardDrawOffer:
-  def makeChan(gameId: Game.ID) = s"boardDrawOffer:$gameId"
+  def makeChan(gameId: Game.Id) = s"boardDrawOffer:$gameId"
 
 case class BoardTakeback(game: Game)
 object BoardTakeback:
-  def makeChan(gameId: Game.ID) = s"boardTakeback:$gameId"
+  def makeChan(gameId: Game.Id) = s"boardTakeback:$gameId"
 
 case class BoardTakebackOffer(game: Game)
 object BoardTakebackOffer:
@@ -42,4 +42,4 @@ object BoardTakebackOffer:
 
 case class BoardGone(pov: Pov, claimInSeconds: Option[Int])
 object BoardGone:
-  def makeChan(gameId: Game.ID) = s"boardGone:$gameId"
+  def makeChan(gameId: Game.Id) = s"boardGone:$gameId"

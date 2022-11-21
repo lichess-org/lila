@@ -48,34 +48,34 @@ final class RoundSocket(
     }
   }
 
-  def getGame(gameId: Game.ID): Fu[Option[Game]] =
+  def getGame(gameId: Game.Id): Fu[Option[Game]] =
     rounds.getOrMake(gameId).getGame addEffect { g =>
       if (g.isEmpty) finishRound(Game.Id(gameId))
     }
-  def getGames(gameIds: List[Game.ID]): Fu[List[(Game.ID, Option[Game])]] =
+  def getGames(gameIds: List[Game.Id]): Fu[List[(Game.Id, Option[Game])]] =
     gameIds.map { id =>
       rounds.getOrMake(id).getGame dmap { id -> _ }
     }.sequenceFu
 
-  def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
+  def gameIfPresent(gameId: Game.Id): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
 
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
     rounds.getIfPresent(game.id).fold(fuccess(game))(_.getGame.dmap(_ | game))
 
   // update the proxied game
-  def updateIfPresent(gameId: Game.ID)(f: Game => Game): Funit =
+  def updateIfPresent(gameId: Game.Id)(f: Game => Game): Funit =
     rounds.getIfPresent(gameId) ?? {
       _ updateGame f
     }
 
-  val rounds = new AsyncActorConcMap[RoundAsyncActor](
+  val rounds = new AsyncActorConcMap[Game.Id, RoundAsyncActor](
     mkAsyncActor = id =>
       makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo game id recoverDefault none),
     initialCapacity = 65536
   )
 
-  private def makeRoundActor(id: Game.ID, version: SocketVersion, gameFu: Fu[Option[Game]]) =
+  private def makeRoundActor(id: Game.Id, version: SocketVersion, gameFu: Fu[Option[Game]]) =
     val proxy = new GameProxy(id, proxyDependencies, gameFu)
     val roundActor = new RoundAsyncActor(
       dependencies = roundDependencies,
@@ -163,15 +163,17 @@ final class RoundSocket(
 
   private lazy val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 8)
 
-  private lazy val sendForGameId: Game.ID => String => Unit = gameId => msg => send.sticky(gameId, msg)
+  private lazy val sendForGameId: Game.Id => String => Unit = gameId => msg => send.sticky(gameId, msg)
 
   remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame") {
-    case TvSelect(gameId, speed, json) => sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
-    case Tell(gameId, e @ BotConnected(color, v)) =>
+    case TvSelect(gameId, speed, json) =>
+      sendForGameId(Game.Id(gameId))(Protocol.Out.tvSelect(gameId, speed, json))
+    case Tell(id, e @ BotConnected(color, v)) =>
+      val gameId = Game.Id(id)
       rounds.tell(gameId, e)
       sendForGameId(gameId)(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)          => rounds.tell(gameId, msg)
@@ -214,18 +216,19 @@ final class RoundSocket(
 
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
-  private def preloadRoundsWithVersions(rooms: Iterable[(Game.ID, SocketVersion)]) =
+  private def preloadRoundsWithVersions(rooms: Iterable[(String, SocketVersion)]) =
     val bootLog = lila log "boot"
 
     // load all actors synchronously, giving them game futures from promises we'll fulfill later
-    val gamePromises: Map[Game.ID, Promise[Option[Game]]] = rooms.view.map { case (id, version) =>
+    val gamePromises: Map[Game.Id, Promise[Option[Game]]] = rooms.view.map { case (id, version) =>
       val promise = Promise[Option[Game]]()
+      val gameId  = Game.Id(id)
       rounds.loadOrTell(
-        id,
-        load = () => makeRoundActor(id, version, promise.future),
+        gameId,
+        load = () => makeRoundActor(gameId, version, promise.future),
         tell = _ ! SetVersion(version)
       )
-      id -> promise
+      gameId -> promise
     }.toMap
 
     // fullfill the promises with batched DB requests
@@ -234,10 +237,10 @@ final class RoundSocket(
       .grouped(1024)
       .map { ids =>
         roundDependencies.gameRepo
-          .byIdsCursor(ids)
-          .foldWhile[Set[Game.ID]](Set.empty[Game.ID])(
+          .byIdsCursor(ids map Game.Id.apply)
+          .foldWhile[Set[Game.Id]](Set.empty[Game.Id])(
             (ids, game) =>
-              Cursor.Cont[Set[Game.ID]] {
+              Cursor.Cont[Set[Game.Id]] {
                 gamePromises.get(game.id).foreach(_ success game.some)
                 ids + game.id
               },
@@ -405,17 +408,17 @@ object RoundSocket:
         if (flags.isEmpty) flags += '-'
         s"r/ver $roomId $version $flags ${e.typ} ${e.data}"
 
-      def tvSelect(gameId: Game.ID, speed: chess.Speed, data: JsObject) =
+      def tvSelect(gameId: Game.Id, speed: chess.Speed, data: JsObject) =
         s"tv/select $gameId ${speed.id} ${Json stringify data}"
 
-      def botConnected(gameId: Game.ID, color: Color, v: Boolean) =
+      def botConnected(gameId: Game.Id, color: Color, v: Boolean) =
         s"r/bot/online $gameId ${P.Out.color(color)} ${P.Out.boolean(v)}"
 
       def tourStanding(tourId: String, data: JsValue) =
         s"r/tour/standing $tourId ${Json stringify data}"
 
       def startGame(users: List[User.ID]) = s"r/start ${P.Out.commas(users)}"
-      def finishGame(gameId: Game.ID, winner: Option[Color], users: List[User.ID]) =
+      def finishGame(gameId: Game.Id, winner: Option[Color], users: List[User.ID]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
 
       def versioningReady = "r/versioning-ready"

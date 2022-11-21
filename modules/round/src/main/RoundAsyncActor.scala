@@ -28,7 +28,7 @@ import lila.user.User
 
 final private[round] class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
-    gameId: Game.ID,
+    gameId: Game.Id,
     socketSend: String => Unit,
     private var version: SocketVersion
 )(using

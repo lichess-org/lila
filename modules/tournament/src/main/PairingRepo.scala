@@ -88,10 +88,10 @@ final class PairingRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext,
       .cursor[Bdoc]()
       .list(nb)
       .dmap {
-        _.flatMap(_.getAsOpt[Game.ID]("_id"))
+        _.flatMap(_.getAsOpt[Game.Id]("_id"))
       }
 
-  def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[Game.ID]] =
+  def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[Game.Id]] =
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectPlaying,
@@ -100,7 +100,7 @@ final class PairingRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext,
       .sort(recentSort)
       .one[Bdoc]
       .dmap {
-        _.flatMap(_.getAsOpt[Game.ID]("_id"))
+        _.flatMap(_.getAsOpt[Game.Id]("_id"))
       }
 
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void

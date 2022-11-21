@@ -14,7 +14,7 @@ final class ChallengeMaker(
     rematches: Rematches
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def makeRematchFor(gameId: Game.ID, dest: User): Fu[Option[Challenge]] =
+  def makeRematchFor(gameId: Game.Id, dest: User): Fu[Option[Challenge]] =
     gameRepo game gameId flatMap {
       _ ?? { game =>
         game.opponentByUserId(dest.id).flatMap(_.userId) ?? userRepo.byId flatMap {

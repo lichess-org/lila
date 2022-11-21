@@ -86,7 +86,7 @@ final class SwissJson(
                     $doc(f.id -> true).some
                   )
                   .one[Bdoc]
-                  .dmap { _.flatMap(_.getAsOpt[Game.ID](f.id)) }
+                  .dmap { _.flatMap(_.getAsOpt[Game.Id](f.id)) }
               }
               .flatMap { gameId =>
                 rankingApi(swiss).dmap(_ get player.userId) map2 { rank =>

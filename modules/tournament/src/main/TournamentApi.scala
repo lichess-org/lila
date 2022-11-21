@@ -387,7 +387,7 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  private[tournament] def berserk(gameId: Game.ID, userId: User.ID): Funit =
+  private[tournament] def berserk(gameId: Game.Id, userId: User.ID): Funit =
     proxyRepo game gameId flatMap {
       _.filter(_.berserkable) ?? { game =>
         game.tournamentId ?? { tourId =>

@@ -16,7 +16,7 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(us
         case _            => funit
     }
 
-  def onApiPair(gameId: lila.game.Game.ID, u1: LightUser, u2: LightUser)(
+  def onApiPair(gameId: lila.game.Game.Id, u1: LightUser, u2: LightUser)(
       managedById: User.ID,
       template: Option[Template]
   ): Funit =

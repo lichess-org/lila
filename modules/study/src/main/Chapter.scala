@@ -116,7 +116,7 @@ object Chapter:
     def initialPosition = Position.Ref(id, Path.root)
 
   case class Setup(
-      gameId: Option[lila.game.Game.ID],
+      gameId: Option[lila.game.Game.Id],
       variant: Variant,
       orientation: Color,
       fromFen: Option[Boolean] = None
