@@ -7,6 +7,7 @@ export default class {
   ui: UI;
   user: EnvUser;
   own: boolean;
+  userAsked = false;
   domElement: Element;
   redraw: () => void;
 
@@ -40,6 +41,7 @@ export default class {
       broken: false,
       answer: null,
       panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
+      view: this.isWide() ? 'combined' : 'questions',
     };
   }
 
@@ -47,8 +49,17 @@ export default class {
 
   private findDimension = (key: string) => this.dimensions.find(x => x.key === key);
 
+  isWide() {
+    return Math.min(window.innerWidth, window.screen.width) >= 650;
+  }
+
   setPanel(p: 'filter' | 'preset') {
     this.vm.panel = p;
+    this.redraw();
+  }
+
+  setView(view: 'questions' | 'filters' | 'answers' | 'combined') {
+    this.vm.view = view;
     this.redraw();
   }
 
@@ -83,9 +94,12 @@ export default class {
                 (answer: Chart) => {
                   this.vm.answer = answer;
                   this.vm.loading = false;
+                  if (this.userAsked) this.vm.view = 'answers';
+                  this.userAsked = false;
                   this.redraw();
                 },
                 () => {
+                  this.userAsked = false;
                   this.vm.loading = false;
                   this.vm.broken = true;
                   this.redraw();
@@ -150,8 +164,9 @@ export default class {
     this.vm.metric = this.findMetric(q.metric)!;
     this.vm.filters = {
       ...q.filters,
-      variant: this.vm.filters.variant || q.filters.variant,
+      variant: (this.vm.view === 'combined' && this.vm.filters.variant) || q.filters.variant,
     };
+    this.userAsked = true;
     this.askQuestion();
     $(this.domElement).find('select.ms').multipleSelect('open');
     setTimeout(() => {

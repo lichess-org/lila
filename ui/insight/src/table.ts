@@ -20,24 +20,27 @@ function formatSerieName(dt: string, n: number) {
 export function vert(ctrl: Ctrl) {
   const answer = ctrl.vm.answer;
   if (!answer) return null;
-  return h('table.slist', [
-    h(
-      'thead',
-      h('tr', [
-        h('th', answer.xAxis.name),
-        ...answer.series.map(serie => h('th', serie.name)),
-        h('th', answer.sizeYaxis.name),
-      ])
-    ),
-    h(
-      'tbody',
-      answer.xAxis.categories.map((c, i) => {
-        return h('tr', [
-          h('th', formatSerieName(answer.xAxis.dataType, c)),
-          ...answer.series.map(serie => h('td.data', formatNumber(serie.dataType, serie.data[i]))),
-          h('td.size', formatNumber(answer.sizeSerie.dataType, answer.sizeSerie.data[i])),
-        ]);
-      })
-    ),
-  ]);
+  return h(
+    'div.hscroll',
+    h('table.slist', [
+      h(
+        'thead',
+        h('tr', [
+          h('th', answer.xAxis.name),
+          ...answer.series.map(serie => h('th', serie.name)),
+          h('th', answer.sizeYaxis.name),
+        ])
+      ),
+      h(
+        'tbody',
+        answer.xAxis.categories.map((c, i) => {
+          return h('tr', [
+            h('th', formatSerieName(answer.xAxis.dataType, c)),
+            ...answer.series.map(serie => h('td.data', formatNumber(serie.dataType, serie.data[i]))),
+            h('td.size', formatNumber(answer.sizeSerie.dataType, answer.sizeSerie.data[i])),
+          ]);
+        })
+      ),
+    ])
+  );
 }

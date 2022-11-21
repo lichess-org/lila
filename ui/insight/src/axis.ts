@@ -7,7 +7,7 @@ const selectData = (onClick: (v: { value: string }) => void, getValue: () => str
   hook: {
     insert: vnode =>
       $(vnode.elm).multipleSelect({
-        width: '200px',
+        width: 'var(--hdr-drop-btn-width)',
         single: true,
         onClick,
       }),
