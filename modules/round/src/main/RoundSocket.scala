@@ -102,17 +102,17 @@ final class RoundSocket(
     case Protocol.In.PlayerDo(id, tpe) if !stopping =>
       tpe match
         case "moretime"     => tellRound(id.gameId, Moretime(id.playerId))
-        case "rematch-yes"  => tellRound(id.gameId, RematchYes(id.playerId.value))
-        case "rematch-no"   => tellRound(id.gameId, RematchNo(id.playerId.value))
+        case "rematch-yes"  => tellRound(id.gameId, RematchYes(id.playerId))
+        case "rematch-no"   => tellRound(id.gameId, RematchNo(id.playerId))
         case "takeback-yes" => tellRound(id.gameId, TakebackYes(id.playerId))
         case "takeback-no"  => tellRound(id.gameId, TakebackNo(id.playerId))
         case "draw-yes"     => tellRound(id.gameId, DrawYes(id.playerId))
         case "draw-no"      => tellRound(id.gameId, DrawNo(id.playerId))
         case "draw-claim"   => tellRound(id.gameId, DrawClaim(id.playerId))
-        case "resign"       => tellRound(id.gameId, Resign(id.playerId.value))
+        case "resign"       => tellRound(id.gameId, Resign(id.playerId))
         case "resign-force" => tellRound(id.gameId, ResignForce(id.playerId))
         case "draw-force"   => tellRound(id.gameId, DrawForce(id.playerId))
-        case "abort"        => tellRound(id.gameId, Abort(id.playerId.value))
+        case "abort"        => tellRound(id.gameId, Abort(id.playerId))
         case "outoftime"    => tellRound(id.gameId, QuietFlag) // mobile app BC
         case t              => logger.warn(s"Unhandled round socket message: $t")
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))

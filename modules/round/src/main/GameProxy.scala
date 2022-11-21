@@ -49,7 +49,7 @@ final private class GameProxy(
     withGame(g => f(Pov(g, color)))
 
   def withPov[A](playerId: Game.PlayerId)(f: Option[Pov] => Fu[A]): Fu[A] =
-    withGame(g => f(Pov(g, playerId.value)))
+    withGame(g => f(Pov(g, playerId)))
 
   def withGame[A](f: Game => Fu[A]): Fu[A] =
     cache.value match

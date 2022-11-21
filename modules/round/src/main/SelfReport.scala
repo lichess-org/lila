@@ -42,14 +42,14 @@ final class SelfReport(
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,
-              path = fullId.value,
+              path = fullId,
               user = u,
               ip = ip
             )
           }
-      if (fullId.value == "____________") doLog()
+      if (fullId == "____________") doLog()
       else
-        proxyRepo.pov(fullId.value) foreach {
+        proxyRepo.pov(fullId) foreach {
           _ ?? { pov =>
             if (!known) doLog()
             user foreach { u =>
