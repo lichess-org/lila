@@ -11,6 +11,7 @@ import lila.api.BodyContext
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.ApiVersion
+import lila.common.Json.given
 import lila.common.config.MaxPerSecond
 import lila.i18n.I18nLangPicker
 import lila.puzzle.PuzzleForm.RoundData
@@ -81,9 +82,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def apiShow(id: String) =
+  def apiShow(id: PuzzleId) =
     Action.async { implicit req =>
-      env.puzzle.api.puzzle find Puz.Id(id) flatMap {
+      env.puzzle.api.puzzle find id flatMap {
         _.fold(notFoundJson()) { puzzle =>
           JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(using reqLang))
         }
@@ -112,7 +113,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         } >> env.puzzle.selector.nextPuzzleFor(me, angle)
       case None => env.puzzle.anon.getOneFor(angle, ~color) orFail "Couldn't find a puzzle for anon!"
 
-  def complete(angleStr: String, id: String) =
+  def complete(angleStr: String, id: PuzzleId) =
     OpenBody { implicit ctx =>
       NoBot {
         Puz.toId(id) ?? { pid =>
@@ -138,7 +139,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  private def onComplete[A](form: Form[RoundData])(id: Puz.Id, angle: PuzzleAngle, mobileBc: Boolean)(using
+  private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: BodyContext[A]
   ) =
     given play.api.mvc.Request[?] = ctx.body
@@ -251,7 +252,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def vote(id: String) =
+  def vote(id: PuzzleId) =
     AuthBody { implicit ctx => me =>
       NoBot {
         given play.api.mvc.Request[?] = ctx.body
@@ -259,12 +260,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           .bindFromRequest()
           .fold(
             jsonFormError,
-            vote => env.puzzle.api.vote.update(Puz.Id(id), me, vote) inject jsonOkResult
+            vote => env.puzzle.api.vote.update(id, me, vote) inject jsonOkResult
           )
       }
     }
 
-  def voteTheme(id: String, themeStr: String) =
+  def voteTheme(id: PuzzleId, themeStr: String) =
     AuthBody { implicit ctx => me =>
       NoBot {
         PuzzleTheme.findDynamic(themeStr) ?? { theme =>
@@ -273,7 +274,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             .bindFromRequest()
             .fold(
               jsonFormError,
-              vote => env.puzzle.api.theme.vote(me, Puz.Id(id), theme.key, vote) inject jsonOkResult
+              vote => env.puzzle.api.theme.vote(me, id, theme.key, vote) inject jsonOkResult
             )
         }
       }
@@ -329,26 +330,28 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           nextPuzzleForMe(angle, none) flatMap {
             renderShow(_, angle, langPath = langPath)
           }
-        case _ if angleOrId.size == Puz.idSize =>
-          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(angleOrId)) { puzzle =>
-            ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
-              renderShow(puzzle, PuzzleAngle.mix, langPath = langPath)
-          }
         case _ =>
-          angleOrId.toLongOption
-            .flatMap(Puz.numericalId.apply)
-            .??(env.puzzle.api.puzzle.find) map {
-            case None      => Redirect(routes.Puzzle.home)
-            case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
-          }
+          lila.puzzle.Puzzle toId angleOrId match
+            case Some(id) =>
+              OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
+                ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
+                  renderShow(puzzle, PuzzleAngle.mix, langPath = langPath)
+              }
+            case _ =>
+              angleOrId.toLongOption
+                .flatMap(Puz.numericalId.apply)
+                .??(env.puzzle.api.puzzle.find) map {
+                case None      => Redirect(routes.Puzzle.home)
+                case Some(puz) => Redirect(routes.Puzzle.show(puz.id))
+              }
     }
 
-  def showWithAngle(angleKey: String, id: String) = Open { implicit ctx =>
+  def showWithAngle(angleKey: String, id: PuzzleId) = Open { implicit ctx =>
     NoBot {
       val angle = PuzzleAngle.findOrMix(angleKey)
-      OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
+      OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
         if (angle.asTheme.exists(theme => !puzzle.themes.contains(theme)))
-          Redirect(routes.Puzzle.show(puzzle.id.value)).toFuccess
+          Redirect(routes.Puzzle.show(puzzle.id)).toFuccess
         else
           ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
             renderShow(puzzle, angle)

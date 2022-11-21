@@ -21,7 +21,7 @@ final class PuzzleSelector(
     case object PathMissing                        extends NextPuzzleResult("pathMissing")
     case object PathEnded                          extends NextPuzzleResult("pathEnded")
     case class WrongColor(puzzle: Puzzle)          extends NextPuzzleResult("wrongColor")
-    case class PuzzleMissing(id: Puzzle.Id)        extends NextPuzzleResult("puzzleMissing")
+    case class PuzzleMissing(id: PuzzleId)        extends NextPuzzleResult("puzzleMissing")
     case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
 
@@ -116,7 +116,7 @@ final class PuzzleSelector(
       .map { docOpt =>
         import NextPuzzleResult.*
         docOpt.fold[NextPuzzleResult](PathMissing) { doc =>
-          doc.getAsOpt[Puzzle.Id]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
+          doc.getAsOpt[PuzzleId]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
             doc
               .getAsOpt[List[Puzzle]]("puzzle")
               .flatMap(_.headOption)

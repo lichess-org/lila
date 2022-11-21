@@ -14,11 +14,11 @@ object BsonHandlers:
   import Puzzle.given
   import Puzzle.BSONFields.*
 
-  given BSONHandler[Puzzle.Id] = stringIsoHandler
+  given BSONHandler[PuzzleId] = stringIsoHandler
 
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with
     def readDocument(r: BSONDocument) = for {
-      id      <- r.getAsTry[Puzzle.Id](id)
+      id      <- r.getAsTry[PuzzleId](id)
       gameId  <- r.getAsTry[GameId](gameId)
       fen     <- r.getAsTry[FEN](fen)
       lineStr <- r.getAsTry[String](line)
@@ -41,7 +41,7 @@ object BsonHandlers:
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
       v split PuzzleRound.idSep match {
-        case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, Puzzle.Id(puzzleId)))
+        case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, PuzzleId(puzzleId)))
         case _                       => handlerBadValue(s"Invalid puzzle round id $v")
       }
     },

@@ -8,3 +8,4 @@ given Conversion[String, GameId]         = lila.game.Game.takeGameId
 given Conversion[String, GameFullId]     = GameFullId.apply
 given Conversion[String, StudyId]        = StudyId.apply
 given Conversion[String, StudyChapterId] = StudyChapterId.apply
+given Conversion[String, PuzzleId]       = PuzzleId.apply

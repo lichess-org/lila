@@ -55,7 +55,7 @@ object ofPlayer:
                           )(
                             a(
                               cls  := s"puzzle-of-player__puzzle__board",
-                              href := routes.Puzzle.show(puzzle.id.value)
+                              href := routes.Puzzle.show(puzzle.id)
                             )
                           ),
                           span(cls   := "puzzle-of-player__puzzle__meta")(

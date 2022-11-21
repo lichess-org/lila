@@ -6,8 +6,9 @@ import chess.format.{ FEN, Uci }
 
 object Json:
 
-  given Format[GameId]  = stringFormat(GameId.apply)
-  given Format[StudyId] = stringFormat(StudyId.apply)
+  given Format[GameId]   = stringFormat(GameId.apply)
+  given Format[StudyId]  = stringFormat(StudyId.apply)
+  given Format[PuzzleId] = stringFormat(PuzzleId.apply)
 
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
   private val intFormatBase: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)

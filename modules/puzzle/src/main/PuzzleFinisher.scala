@@ -21,16 +21,15 @@ final private[puzzle] class PuzzleFinisher(
 
   import BsonHandlers.given
 
-  private val sequencer =
-    new lila.hub.AsyncActorSequencers[String](
-      maxSize = 64,
-      expiration = 5 minutes,
-      timeout = 5 seconds,
-      name = "puzzle.finish"
-    )
+  private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
+    maxSize = 64,
+    expiration = 5 minutes,
+    timeout = 5 seconds,
+    name = "puzzle.finish"
+  )
 
   def apply(
-      id: Puzzle.Id,
+      id: PuzzleId,
       angle: PuzzleAngle,
       user: User,
       result: PuzzleResult,
@@ -45,7 +44,7 @@ final private[puzzle] class PuzzleFinisher(
       ) -> user.perfs.puzzle
     } dmap some
     else
-      sequencer(id.value) {
+      sequencer(id) {
         api.round.find(user, id) flatMap { prevRound =>
           api.puzzle.find(id) flatMap {
             _ ?? { puzzle =>
@@ -188,7 +187,7 @@ final private[puzzle] class PuzzleFinisher(
   private val TAU        = 0.75d
   private val calculator = glicko2.RatingCalculator(VOLATILITY, TAU)
 
-  def incPuzzlePlays(puzzleId: Puzzle.Id): Funit =
+  def incPuzzlePlays(puzzleId: PuzzleId): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, result: PuzzleResult): Unit =

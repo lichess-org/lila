@@ -42,7 +42,7 @@ final class PuzzleActivity(
 
   private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle {
-      _.primitiveMap[Puzzle.Id, Double](
+      _.primitiveMap[PuzzleId, Double](
         ids = rounds.map(_.id.puzzleId),
         field = s"${Puzzle.BSONFields.glicko}.r",
         fieldExtractor = _.child("glicko").flatMap(_ double "r")

@@ -44,7 +44,7 @@ object PuzzleRound:
 
   val idSep = ':'
 
-  case class Id(userId: User.ID, puzzleId: Puzzle.Id):
+  case class Id(userId: User.ID, puzzleId: PuzzleId):
 
     override def toString = s"${userId}$idSep${puzzleId}"
 

@@ -6,7 +6,7 @@ import chess.format.{ FEN, Forsyth, Uci }
 import lila.puzzle.Puzzle
 
 case class StormPuzzle(
-    id: Puzzle.Id,
+    id: PuzzleId,
     fen: FEN,
     line: NonEmptyList[Uci.Move],
     rating: Int

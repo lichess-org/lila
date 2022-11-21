@@ -7,7 +7,7 @@ import lila.rating.Glicko
 import lila.common.Iso
 
 case class Puzzle(
-    id: Puzzle.Id,
+    id: PuzzleId,
     gameId: GameId,
     fen: FEN,
     line: NonEmptyList[Uci.Move],
@@ -38,9 +38,7 @@ object Puzzle:
 
   val idSize = 5
 
-  case class Id(value: String) extends AnyVal with StringValue
-
-  def toId(id: String) = id.size == idSize option Id(id)
+  def toId(id: String) = id.size == idSize option PuzzleId(id)
 
   /* The mobile app requires numerical IDs.
    * We convert string ids from and to Longs using base 62
@@ -50,20 +48,20 @@ object Puzzle:
     private val powers: List[Long] =
       (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
 
-    def apply(id: Id): Long = id.value.toList
+    def apply(id: PuzzleId): Long = id.toList
       .zip(powers)
       .foldLeft(0L) { case (l, (char, pow)) =>
         l + charToInt(char) * pow
       }
 
-    def apply(l: Long): Option[Id] = (l > 130_000) ?? {
+    def apply(l: Long): Option[PuzzleId] = (l > 130_000) ?? {
       val str = powers.reverse
         .foldLeft(("", l)) { case ((id, rest), pow) =>
           val frac = rest / pow
           (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
         }
         ._1
-      (str.size == idSize) option Id(str)
+      (str.size == idSize) option PuzzleId(str)
     }
 
     private def charToInt(c: Char) =
@@ -79,7 +77,7 @@ object Puzzle:
     }.toChar
 
   case class UserResult(
-      puzzleId: Id,
+      puzzleId: PuzzleId,
       userId: lila.user.User.ID,
       result: PuzzleResult,
       rating: (Int, Int)
@@ -102,4 +100,4 @@ object Puzzle:
     val dirty    = "dirty" // themes need to be denormalized
     val tagMe    = "tagMe" // pending phase & opening
 
-  given Iso.StringIso[Id] = Iso.string[Id](Id.apply, _.value)
+  given Iso.StringIso[PuzzleId] = Iso.opaque(PuzzleId.apply)

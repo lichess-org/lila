@@ -19,7 +19,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(using ec: scala.concurren
     (w > 0) ?? {
       user.perfs.puzzle.glicko.establishedIntRating.fold(fuccess(-2)) { userRating =>
         colls
-          .puzzle(_.primitiveOne[Float]($id(round.id.puzzleId.value), s"${Puzzle.BSONFields.glicko}.r"))
+          .puzzle(_.primitiveOne[Float]($id(round.id.puzzleId), s"${Puzzle.BSONFields.glicko}.r"))
           .map {
             _.fold(-2) { puzzleRating =>
               (math.abs(puzzleRating - userRating) > 300) ?? -4

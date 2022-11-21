@@ -12,7 +12,6 @@ import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }
-import lila.puzzle.Puzzle.Id
 
 final class Export(env: Env) extends LilaController(env):
 
@@ -63,7 +62,7 @@ final class Export(env: Env) extends LilaController(env):
     }
 
   def puzzleThumbnail(id: String, theme: Option[String], piece: Option[String]) =
-    exportImageOf(env.puzzle.api.puzzle find Id(id)) { puzzle =>
+    exportImageOf(env.puzzle.api.puzzle find PuzzleId(id)) { puzzle =>
       env.game.gifExport.thumbnail(
         fen = puzzle.fenAfterInitialMove,
         lastMove = puzzle.line.head.uci.some,

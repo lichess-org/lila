@@ -196,7 +196,7 @@ object JsonView:
 
   import Puzzle.given
   import PuzzleTheme.given
-  given Writes[Puzzle.Id]          = stringIsoWriter
+  given Writes[PuzzleId]          = stringIsoWriter
   given Writes[PuzzleTheme.Key]    = stringIsoWriter
   given OWrites[PuzzleRound.Theme] = Json.writes
   given OWrites[PuzzleRound.Id]    = Json.writes

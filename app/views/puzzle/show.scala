@@ -46,12 +46,12 @@ object show:
       openGraph = lila.app.ui
         .OpenGraph(
           image = cdnUrl(
-            routes.Export.puzzleThumbnail(puzzle.id.value, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+            routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
           ).some,
           title =
             if (isStreak) "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
           description =
             if (isStreak) trans.puzzle.streakDescription.txt()
             else

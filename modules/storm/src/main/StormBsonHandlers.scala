@@ -14,7 +14,7 @@ object StormBsonHandlers:
 
   given puzzleReader: BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for {
-      id      <- r.getAsTry[Puzzle.Id]("_id")
+      id      <- r.getAsTry[PuzzleId]("_id")
       fen     <- r.getAsTry[FEN]("fen")
       lineStr <- r.getAsTry[String]("line")
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")

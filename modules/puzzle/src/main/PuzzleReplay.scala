@@ -14,7 +14,7 @@ case class PuzzleReplay(
     days: PuzzleDashboard.Days,
     theme: PuzzleTheme.Key,
     nb: Int,
-    remaining: Vector[Puzzle.Id]
+    remaining: Vector[PuzzleId]
 ):
 
   def i = nb - remaining.size
@@ -45,7 +45,7 @@ final class PuzzleReplayApi(
         else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
       } flatMap { replay =>
         replay.remaining.headOption ?? { id =>
-          colls.puzzle(_.byId[Puzzle](id.value)) map2 (_ -> replay)
+          colls.puzzle(_.byId[Puzzle](id)) map2 (_ -> replay)
         }
       }
     } getOrElse fuccess(None)
@@ -108,7 +108,7 @@ final class PuzzleReplayApi(
         }
       }
       .map {
-        ~_.flatMap(_.getAsOpt[Vector[Puzzle.Id]]("ids"))
+        ~_.flatMap(_.getAsOpt[Vector[PuzzleId]]("ids"))
       } map { ids =>
       PuzzleReplay(days, theme, ids.size, ids)
     }
