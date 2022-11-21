@@ -22,13 +22,13 @@ object PublicLine:
   private given BSONHandler[Source] = lila.db.dsl.tryHandler[Source](
     { case BSONString(v) =>
       v split ':' match {
-        case Array("t", id)     => Success(Source.Tournament(id))
-        case Array("s", id)     => Success(Source.Simul(id))
-        case Array("w", gameId) => Success(Source.Watcher(gameId))
-        case Array("u", id)     => Success(Source.Study(id))
-        case Array("e", id)     => Success(Source.Team(id))
-        case Array("i", id)     => Success(Source.Swiss(id))
-        case _                  => lila.db.BSON.handlerBadValue(s"Invalid PublicLine source $v")
+        case Array("t", id) => Success(Source.Tournament(id))
+        case Array("s", id) => Success(Source.Simul(id))
+        case Array("w", id) => Success(Source.Watcher(GameId(id)))
+        case Array("u", id) => Success(Source.Study(StudyId(id)))
+        case Array("e", id) => Success(Source.Team(id))
+        case Array("i", id) => Success(Source.Swiss(SwissId(id)))
+        case _              => lila.db.BSON.handlerBadValue(s"Invalid PublicLine source $v")
       }
     },
     x =>

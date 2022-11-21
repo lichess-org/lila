@@ -154,9 +154,10 @@ object GameMod:
     )
 
   val actionForm =
+    import lila.common.Form.{ stringIn, given }
     Form(
       tuple(
-        "game"   -> formList(nonEmptyText),
-        "action" -> optional(lila.common.Form.stringIn(Set("pgn", "analyse")))
+        "game"   -> formList(of[GameId]),
+        "action" -> optional(stringIn(Set("pgn", "analyse")))
       )
     )

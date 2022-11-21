@@ -95,7 +95,7 @@ final class Importer(env: Env) extends LilaController(env):
       Left("The PGN contains illegal and/or ambiguous moves.")
     }
 
-  def masterGame(id: String, orientation: String) =
+  def masterGame(id: GameId, orientation: String) =
     Open { implicit ctx =>
       env.explorer.importer(id) map {
         _ ?? { game =>

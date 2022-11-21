@@ -36,7 +36,7 @@ object publicChat:
               h2("Swiss Chats"),
               div(cls := "player_chats")(
                 swissChats.map { case (swiss, chat) =>
-                  div(cls := "game", dataChan := "swiss", dataRoom := swiss.id.value)(
+                  div(cls := "game", dataChan := "swiss", dataRoom := str(swiss.id))(
                     chatOf(swissTitle(swiss), chat)
                   )
                 }
@@ -79,7 +79,7 @@ object publicChat:
     )
 
   private def swissTitle(swiss: lila.swiss.Swiss) =
-    a(cls := "title", href := routes.Swiss.show(swiss.id.value))(swiss.name)
+    a(cls := "title", href := routes.Swiss.show(swiss.id))(swiss.name)
 
   private def tournamentTitle(tournament: lila.tournament.Tournament) =
     div(cls := "title-time")(

@@ -18,7 +18,7 @@ final class Analyse(
     roundC: => Round
 ) extends LilaController(env):
 
-  def requestAnalysis(id: String) =
+  def requestAnalysis(id: GameId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game id) { game =>
         env.fishnet.analyser(
@@ -92,11 +92,11 @@ final class Analyse(
         }
       }
 
-  def embed(gameId: String, color: String) = embedReplayGame(gameId, color)
+  def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)
 
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 
-  def embedReplayGame(gameId: String, color: String) =
+  def embedReplayGame(gameId: GameId, color: String) =
     Action.async { implicit req =>
       env.api.textLpvExpand.getPgn(gameId) map {
         case Some(pgn) =>

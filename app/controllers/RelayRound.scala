@@ -163,8 +163,8 @@ final class RelayRound(
           }
     )
 
-  def pgn(ts: String, rs: String, id: String) = studyC.pgn(id)
-  def apiPgn(id: String)                      = studyC.apiPgn(id)
+  def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
+  def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
   def stream(id: String) = AnonOrScoped() { req => me =>
     env.relay.api.byIdWithStudy(id) flatMap {
@@ -182,7 +182,7 @@ final class RelayRound(
     }
   }
 
-  def chapter(ts: String, rs: String, id: String, chapterId: String) =
+  def chapter(ts: String, rs: String, id: StudyId, chapterId: String) =
     Open { implicit ctx =>
       WithRoundAndTour(ts, rs, id) { rt =>
         env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMap {

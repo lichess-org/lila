@@ -10,7 +10,7 @@ import controllers.routes
 object create:
 
   private def studyButton(s: Study.IdName) =
-    submitButton(name := "as", value := s.id.id, cls := "submit button")(s.name.value)
+    submitButton(name := "as", value := s.id, cls := "submit button")(s.name)
 
   def apply(
       data: lila.study.StudyForm.importGame.Data,

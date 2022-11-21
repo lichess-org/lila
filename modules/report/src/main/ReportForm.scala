@@ -6,6 +6,7 @@ import play.api.data.validation.*
 import scala.concurrent.duration.*
 
 import lila.common.{ config, LightUser }
+import lila.common.Form.given
 import lila.user.User
 
 final private[report] class ReportForm(
@@ -31,7 +32,7 @@ final private[report] class ReportForm(
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
       "text"   -> text(minLength = 5, maxLength = 2000),
-      "gameId" -> text,
+      "gameId" -> of[GameId],
       "move"   -> text
     ) { case (username, reason, text, gameId, move) =>
       ReportSetup(
@@ -72,7 +73,7 @@ case class ReportSetup(
     user: LightUser,
     reason: String,
     text: String,
-    gameId: String,
+    gameId: GameId,
     move: String
 ):
 

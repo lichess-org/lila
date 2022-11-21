@@ -16,8 +16,6 @@ object StudyForm:
   private given Formatter[ChapterMaker.Orientation] =
     formatter.stringFormatter(_.key, ChapterMaker.Orientation.apply)
 
-  private given Formatter[GameId] = formatter.string(GameId.apply)
-
   object importGame:
 
     lazy val form = Form(

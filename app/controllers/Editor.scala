@@ -58,7 +58,7 @@ final class Editor(env: Env) extends LilaController(env):
       }
     }
 
-  def game(id: String) =
+  def game(id: GameId) =
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {

@@ -51,7 +51,7 @@ object home:
           tr(
             td(cls := "icon")(iconTag(bits.iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Swiss.show(s.id.value))(
+              a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
                 trans.by(span(cls := "team")(teamIdToName(s.teamId)))
               )

@@ -105,8 +105,6 @@ trait ScalatagsTemplate
     with ScalatagsSnippets
     with ScalatagsPrefix:
 
-  export lila.study.studyIdString
-
   val trans     = lila.i18n.I18nKeys
   def main      = scalatags.Text.tags2.main
   def cssWidth  = scalatags.Text.styles.width
@@ -122,24 +120,31 @@ trait ScalatagsExtensions:
 
   given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
+  given AttrValue[GameId]    = stringAttrValue
+  given AttrValue[StudyId]   = stringAttrValue
+  given AttrValue[StudyName] = stringAttrValue
+
+  def str[A <: String](a: A): String = a
+
+  def stringAttrValue[A <: String]: AttrValue[A] = new AttrValue[A] {
+    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, v: String)
+  }
+
   given AttrValue[StringValue] with
-    def apply(t: scalatags.text.Builder, a: Attr, v: StringValue): Unit =
-      t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
+    def apply(t: Builder, a: Attr, v: StringValue): Unit =
+      t.setAttr(a.name, Builder.GenericAttrValueSource(v.value))
 
   given GenericAttr[Char]       = GenericAttr[Char]
   given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
 
-  given AttrValue[Option[String]] with
-    def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit =
-      v foreach { s =>
-        t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(s))
-      }
+  given [A](using av: AttrValue[A]): AttrValue[Option[A]] with
+    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v foreach { av.apply(t, a, _) }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
   given AttrValue[List[(String, Boolean)]] with
-    def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit =
+    def apply(t: Builder, a: Attr, m: List[(String, Boolean)]): Unit =
       val cls = m collect { case (s, true) => s } mkString " "
-      if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
+      if (cls.nonEmpty) t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
 
   val emptyFrag: Frag = new RawFrag("")
   given Zero[Frag]    = Zero(emptyFrag)

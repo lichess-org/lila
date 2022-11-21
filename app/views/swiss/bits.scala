@@ -11,16 +11,16 @@ import controllers.routes
 
 object bits:
 
-  def link(swiss: Swiss): Frag      = link(swiss.id, swiss.name)
+  def link(swiss: Swiss): Frag     = link(swiss.id, swiss.name)
   def link(swissId: SwissId): Frag = link(swissId, idToName(swissId))
   def link(swissId: SwissId, name: String): Frag =
     a(
       dataIcon := "",
       cls      := "text",
-      href     := routes.Swiss.show(swissId.value).url
+      href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId): String = env.swiss.getName sync id getOrElse "Tournament"
+  def idToName(id: SwissId): String  = env.swiss.getName sync id getOrElse "Tournament"
   def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
 
   def notFound()(implicit ctx: Context) =
@@ -49,7 +49,7 @@ object bits:
           )(
             td(cls := "icon")(iconTag(iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Swiss.show(s.id.value))(
+              a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
                 span(cls := "setup")(
                   s.clock.show,
@@ -81,7 +81,7 @@ object bits:
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
   def homepageSpotlight(s: Swiss)(implicit ctx: Context) =
-    a(href                     := routes.Swiss.show(s.id.value), cls := "tour-spotlight little")(
+    a(href                     := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(iconChar(s))(cls := "img icon"),
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),

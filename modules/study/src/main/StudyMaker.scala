@@ -58,7 +58,7 @@ final private class StudyMaker(
       root <- chapterMaker.getBestRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
       name <- Namer.gameVsText(pov.game, withRatings)(lightUserApi.async) dmap Chapter.Name.apply
-      study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
+      study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
       chapter = Chapter.make(
         studyId = study.id,
         name = name,
@@ -75,8 +75,7 @@ final private class StudyMaker(
         gamebook = false,
         conceal = None
       )
-    } yield
-      Study.WithChapter(study withChapter chapter, chapter)
+    } yield Study.WithChapter(study withChapter chapter, chapter)
   } addEffect { swc =>
     chapterMaker.notifyChat(swc.study, pov.game, user.id)
   }
@@ -86,7 +85,7 @@ object StudyMaker:
   case class ImportGame(
       form: StudyForm.importGame.Data = StudyForm.importGame.Data(),
       id: Option[StudyId] = None,
-      name: Option[Study.Name] = None,
+      name: Option[StudyName] = None,
       settings: Option[Settings] = None,
       from: Option[Study.From] = None
   )

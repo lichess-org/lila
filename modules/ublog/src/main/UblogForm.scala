@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
@@ -27,7 +27,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "topics"      -> optional(text),
       "live"        -> boolean,
       "discuss"     -> boolean,
-      "gameId"      -> text,
+      "gameId"      -> of[GameId],
       "move"        -> text
     )(UblogPostData.apply)(unapply)
 
@@ -47,7 +47,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         topics = post.topics.map(_.value).mkString(", ").some,
         live = post.live,
         discuss = ~post.discuss,
-        gameId = "",
+        gameId = GameId(""),
         move = ""
       )
     )
@@ -68,7 +68,7 @@ object UblogForm:
       topics: Option[String],
       live: Boolean,
       discuss: Boolean,
-      gameId: String,
+      gameId: GameId,
       move: String
   ):
 

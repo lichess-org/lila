@@ -10,7 +10,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.swiss.Swiss.{ ChatFor, Id as SwissId }
+import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
 import lila.user.{ User as UserModel }
 
@@ -53,7 +53,7 @@ final class Swiss(
               canChat <- canHaveChat(swiss)
               chat <-
                 canChat ?? env.chat.api.userChat.cached
-                  .findMine(lila.chat.Chat.Id(swiss.id.value), ctx.me)
+                  .findMine(lila.chat.Chat.Id(swiss.id), ctx.me)
                   .dmap(some)
               _ <- chat ?? { c =>
                 env.user.lightUserApi.preloadMany(c.chat.userIds)
@@ -132,7 +132,7 @@ final class Swiss(
               data =>
                 tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
                   env.swiss.api.create(data, me, teamId) map { swiss =>
-                    Redirect(routes.Swiss.show(swiss.id.value))
+                    Redirect(routes.Swiss.show(swiss.id))
                   }
                 }
             )
@@ -334,7 +334,7 @@ final class Swiss(
   private def WithEditableSwiss(
       id: String,
       me: UserModel,
-      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id.value)).toFuccess
+      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id)).toFuccess
   )(
       f: SwissModel => Fu[Result]
   ): Fu[Result] =
@@ -358,7 +358,7 @@ final class Swiss(
     }
 
   private val streamerCache =
-    env.memo.cacheApi[SwissModel.Id, List[UserModel.ID]](64, "swiss.streamers") {
+    env.memo.cacheApi[SwissId, List[UserModel.ID]](64, "swiss.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(64)
         .buildAsyncFuture { id =>

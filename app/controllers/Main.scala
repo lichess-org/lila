@@ -46,7 +46,7 @@ final class Main(
 
   def handlerNotFound(req: RequestHeader) = reqToCtx(req) map renderNotFound
 
-  def captchaCheck(id: String) =
+  def captchaCheck(id: GameId) =
     Open { implicit ctx =>
       import makeTimeout.large
       env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
@@ -86,12 +86,12 @@ final class Main(
       }
     }
 
-  def jslog(id: String) =
+  def jslog(id: GameFullId) =
     Open { ctx =>
       env.round.selfReport(
         userId = ctx.userId,
         ip = ctx.ip,
-        fullId = lila.game.Game.FullId(id),
+        fullId = id,
         name = get("n", ctx.req) | "?"
       )
       NoContent.toFuccess

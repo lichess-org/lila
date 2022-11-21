@@ -157,7 +157,8 @@ final class Report(
             val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
               case (Some(u), Some(pid)) =>
                 form.fill(
-                  lila.report.ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", "", "")
+                  lila.report
+                    .ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", GameId(""), "")
                 )
               case _ => form
             Ok(html.report.form(filledForm, user, captcha))

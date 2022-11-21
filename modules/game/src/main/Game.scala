@@ -51,7 +51,7 @@ case class Game(
 
   def player(c: Color.type => Color): Player = player(c(Color))
 
-  def isPlayerFullId(player: Player, fullId: String): Boolean =
+  def isPlayerFullId(player: Player, fullId: GameFullId): Boolean =
     (fullId.lengthIs == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)

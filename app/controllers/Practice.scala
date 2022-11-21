@@ -8,7 +8,6 @@ import lila.app.{ given, * }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, studyIdString, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 
@@ -30,7 +29,7 @@ final class Practice(
   def show(
       sectionId: String,
       studySlug: String,
-      studyId: String
+      studyId: StudyId
   ) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
@@ -39,7 +38,7 @@ final class Practice(
   def showChapter(
       sectionId: String,
       studySlug: String,
-      studyId: String,
+      studyId: StudyId,
       chapterId: String
   ) =
     Open { implicit ctx =>
@@ -79,7 +78,7 @@ final class Practice(
         .withCanonical(s"${us.url}/${us.study.chapter.id.value}")
     }
 
-  def chapter(studyId: String, chapterId: String) =
+  def chapter(studyId: StudyId, chapterId: String) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
         analysisJson(us) map { case (analysisJson, studyJson) =>
@@ -149,5 +148,4 @@ final class Practice(
       }
     }
 
-  implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
-  implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
+  implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)

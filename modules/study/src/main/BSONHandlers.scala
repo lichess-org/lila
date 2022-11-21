@@ -22,7 +22,6 @@ object BSONHandlers:
   import Study.given
   import Chapter.given
 
-  given nameHandler: BSONHandler[Study.Name]          = stringIsoHandler
   given chapterIdHandler: BSONHandler[Chapter.Id]     = stringIsoHandler
   given chapterNameHandler: BSONHandler[Chapter.Name] = stringIsoHandler
   given topicHandler: BSONHandler[StudyTopic]         = stringIsoHandler

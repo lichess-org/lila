@@ -78,7 +78,7 @@ object tournaments:
                   )
                 ),
               s =>
-                a(href := routes.Swiss.show(s.id.value))(
+                a(href := routes.Swiss.show(s.id))(
                   span(cls := "name")(s.name),
                   span(cls := "setup")(
                     s.clock.show,

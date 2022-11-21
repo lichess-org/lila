@@ -80,12 +80,12 @@ final class UserAnalysis(
           source = lila.game.Source.Api,
           pgnImport = None
         )
-        .withId("synthetic"),
+        .withId(GameId("synthetic")),
       from.situation.color
     )
 
   // correspondence premove aka forecast
-  def game(id: String, color: String) =
+  def game(id: GameId, color: String) =
     Open { implicit ctx =>
       OptionFuResult(env.game.gameRepo game id) { g =>
         env.round.proxyRepo upgradeIfPresent g flatMap { game =>
@@ -146,7 +146,7 @@ final class UserAnalysis(
 
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
-  def forecasts(fullId: String) =
+  def forecasts(fullId: GameFullId) =
     AuthBody(parse.json) { implicit ctx => _ =>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
@@ -168,7 +168,7 @@ final class UserAnalysis(
       }
     }
 
-  def forecastsOnMyTurn(fullId: String, uci: String) =
+  def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
     AuthBody(parse.json) { implicit ctx => _ =>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId) { pov =>

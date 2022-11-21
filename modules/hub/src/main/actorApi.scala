@@ -73,10 +73,10 @@ package shutup:
   object PublicSource:
     case class Tournament(id: String)  extends PublicSource("tournament")
     case class Simul(id: String)       extends PublicSource("simul")
-    case class Study(id: String)       extends PublicSource("study")
-    case class Watcher(gameId: String) extends PublicSource("watcher")
+    case class Study(id: StudyId)      extends PublicSource("study")
+    case class Watcher(gameId: GameId) extends PublicSource("watcher")
     case class Team(id: String)        extends PublicSource("team")
-    case class Swiss(id: String)       extends PublicSource("swiss")
+    case class Swiss(id: SwissId)      extends PublicSource("swiss")
 
 package mod:
   case class MarkCheater(userId: String, value: Boolean)
@@ -94,8 +94,8 @@ package playban:
 
 package captcha:
   case object AnyCaptcha
-  case class GetCaptcha(id: String)
-  case class ValidCaptcha(id: String, solution: String)
+  case class GetCaptcha(id: GameId)
+  case class ValidCaptcha(id: GameId, solution: String)
 
 package lpv:
   case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, String]])
@@ -103,10 +103,10 @@ package lpv:
 
 package simul:
   case class GetHostIds(promise: Promise[Set[String]])
-  case class PlayerMove(gameId: String)
+  case class PlayerMove(gameId: GameId)
 
 package mailer:
-  case class CorrespondenceOpponent(opponentId: Option[String], remainingTime: Option[Period], gameId: String)
+  case class CorrespondenceOpponent(opponentId: Option[String], remainingTime: Option[Period], gameId: GameId)
   case class CorrespondenceOpponents(userId: String, opponents: List[CorrespondenceOpponent])
 
 package irc:
@@ -143,7 +143,7 @@ package timeline:
     def userIds = List(userId)
   case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true):
     def userIds = List(userId)
-  case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true):
+  case class StudyLike(userId: String, studyId: StudyId, studyName: String) extends Atom("studyLike", true):
     def userIds = List(userId)
   case class PlanStart(userId: String) extends Atom("planStart", true):
     def userIds = List(userId)
@@ -193,10 +193,10 @@ package team:
   case class TeamIdsJoinedBy(userId: String, promise: Promise[List[LightTeam.TeamID]])
 
 package fishnet:
-  case class AutoAnalyse(gameId: String)
+  case class AutoAnalyse(gameId: GameId)
   case class NewKey(userId: String, key: String)
   case class StudyChapterRequest(
-      studyId: String,
+      studyId: StudyId,
       chapterId: String,
       initialFen: Option[chess.format.FEN],
       variant: chess.variant.Variant,
@@ -266,7 +266,7 @@ package relation:
   case class UnFollow(u1: String, u2: String)
 
 package study:
-  case class RemoveStudy(studyId: String, contributors: Set[String])
+  case class RemoveStudy(studyId: StudyId, contributors: Set[String])
 
 package plan:
   case class ChargeEvent(username: String, cents: Int, percent: Int, date: DateTime)

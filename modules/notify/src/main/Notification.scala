@@ -53,13 +53,12 @@ object MentionedInThread:
 
 case class InvitedToStudy(
     invitedBy: InvitedToStudy.InvitedBy,
-    studyName: InvitedToStudy.StudyName,
+    studyName: StudyName,
     studyId: StudyId
 ) extends NotificationContent("invitedStudy")
 
 object InvitedToStudy:
   case class InvitedBy(value: String) extends AnyVal with StringValue
-  case class StudyName(value: String) extends AnyVal with StringValue
 
 case class PrivateMessage(
     user: PrivateMessage.Sender,

@@ -36,7 +36,7 @@ object embed:
                 (c.id == chapter.id) option selected
               )(c.name.value)
             }),
-            a(targetBlank, href := url)(h1(s.name.value))
+            a(targetBlank, href := url)(h1(s.name))
           ),
           a(
             targetBlank,

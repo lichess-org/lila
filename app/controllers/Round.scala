@@ -10,7 +10,6 @@ import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, PgnDump, Pov }
-import lila.swiss.Swiss.{ Id as SwissId }
 import lila.tournament.{ Tournament as Tour }
 import lila.user.{ User as UserModel }
 
@@ -71,7 +70,7 @@ final class Round(
       }
     )
 
-  def player(fullId: String) =
+  def player(fullId: GameFullId) =
     Open { implicit ctx =>
       env.round.proxyRepo.pov(fullId) flatMap {
         case Some(pov) => renderPlayer(pov)
@@ -93,7 +92,7 @@ final class Round(
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
     }
 
-  def whatsNext(fullId: String) =
+  def whatsNext(fullId: GameFullId) =
     Open { implicit ctx =>
       OptionFuResult(env.round.proxyRepo.pov(fullId)) { currentPov =>
         if (currentPov.isMyTurn) fuccess {
@@ -106,7 +105,7 @@ final class Round(
       }
     }
 
-  def next(gameId: String) =
+  def next(gameId: GameId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
         otherPovs(currentGame) map getNext(currentGame) map {
@@ -122,7 +121,7 @@ final class Round(
       }
     }
 
-  def watcher(gameId: String, color: String) =
+  def watcher(gameId: GameId, color: String) =
     Open { implicit ctx =>
       proxyPov(gameId, color) flatMap {
         case Some(pov) =>
@@ -138,7 +137,7 @@ final class Round(
       }
     }
 
-  private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] =
+  private def proxyPov(gameId: GameId, color: String): Fu[Option[Pov]] =
     chess.Color.fromName(color) ?? {
       env.round.proxyRepo.pov(gameId, _)
     }
@@ -268,7 +267,7 @@ final class Round(
           }
     }
 
-  def sides(gameId: String, color: String) =
+  def sides(gameId: GameId, color: String) =
     Open { implicit ctx =>
       OptionFuResult(proxyPov(gameId, color)) { pov =>
         env.tournament.api.gameView.withTeamVs(pov.game) zip
@@ -282,7 +281,7 @@ final class Round(
       }
     }
 
-  def writeNote(gameId: String) =
+  def writeNote(gameId: GameId) =
     AuthBody { implicit ctx => me =>
       import play.api.data.Forms.*
       import play.api.data.*
@@ -295,12 +294,12 @@ final class Round(
         )
     }
 
-  def readNote(gameId: String) =
+  def readNote(gameId: GameId) =
     Auth { _ => me =>
       env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
     }
 
-  def continue(id: String, mode: String) =
+  def continue(id: GameId, mode: String) =
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect(
@@ -313,7 +312,7 @@ final class Round(
       }
     }
 
-  def resign(fullId: String) =
+  def resign(fullId: GameFullId) =
     Open { implicit ctx =>
       OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
         if (isTheft(pov))
@@ -326,7 +325,7 @@ final class Round(
       }
     }
 
-  def mini(gameId: String, color: String) =
+  def mini(gameId: GameId, color: String) =
     Open { implicit ctx =>
       OptionOk(
         chess.Color.fromName(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
@@ -334,7 +333,7 @@ final class Round(
       )(html.game.mini(_))
     }
 
-  def miniFullId(fullId: String) =
+  def miniFullId(fullId: GameFullId) =
     Open { implicit ctx =>
       OptionOk(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
         html.game.mini(_)
@@ -350,7 +349,7 @@ final class Round(
           _.flatMap { Pov(_, me) }.?? { pov =>
             env.round.moretimer.isAllowedIn(pov.game) map {
               case true =>
-                env.round.tellRound(pov.gameId, Moretime(pov.typedPlayerId, seconds.seconds))
+                env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
                 jsonOkResult
               case false => BadRequest(jsonError("This game doesn't allow giving time"))
             }

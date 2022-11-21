@@ -40,7 +40,7 @@ final class Export(env: Env) extends LilaController(env):
       }
     }
 
-  def gif(id: String, color: String, theme: Option[String], piece: Option[String]) =
+  def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
       env.game.gifExport.fromPov(
         Pov(g.game, Color.fromName(color) | Color.white),
@@ -51,12 +51,12 @@ final class Export(env: Env) extends LilaController(env):
         stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
-  def legacyGameThumbnail(id: String, theme: Option[String], piece: Option[String]) =
+  def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     Action {
       MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
     }
 
-  def gameThumbnail(id: String, theme: Option[String], piece: Option[String]) =
+  def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>
       env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet(piece).name) map
         stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)

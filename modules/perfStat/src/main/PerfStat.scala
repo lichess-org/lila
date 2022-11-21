@@ -162,11 +162,11 @@ case class Avg(avg: Double, pop: Int):
       pop = pop + 1
     )
 
-case class GameAt(at: DateTime, gameId: String)
+case class GameAt(at: DateTime, gameId: GameId)
 object GameAt:
   def agg(pov: Pov) = GameAt(pov.game.movedAt, pov.gameId)
 
-case class RatingAt(int: Int, at: DateTime, gameId: String)
+case class RatingAt(int: Int, at: DateTime, gameId: GameId)
 object RatingAt:
   def agg(cur: Option[RatingAt], pov: Pov, comp: Int) =
     pov.player.stableRatingAfter
@@ -179,7 +179,7 @@ object RatingAt:
         RatingAt(_, pov.game.movedAt, pov.gameId)
       } orElse cur
 
-case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
+case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: GameId)
 
 case class Results(results: List[Result]):
   def agg(pov: Pov, comp: Int) =

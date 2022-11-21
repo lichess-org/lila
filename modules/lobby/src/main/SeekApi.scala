@@ -93,7 +93,7 @@ final class SeekApi(
       cacheClear() >>
       archiveColl.insert.one(archiveDoc)
 
-  def findArchived(gameId: String): Fu[Option[Seek]] =
+  def findArchived(gameId: GameId): Fu[Option[Seek]] =
     archiveColl.find($doc("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: String) =

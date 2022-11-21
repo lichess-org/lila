@@ -16,12 +16,12 @@ final class Game(
     apiC: => Api
 ) extends LilaController(env):
 
-  def bookmark(gameId: String) =
+  def bookmark(gameId: GameId) =
     Auth { implicit ctx => me =>
       env.bookmark.api.toggle(gameId, me.id)
     }
 
-  def delete(gameId: String) =
+  def delete(gameId: GameId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game gameId) { game =>
         if (game.pgnImport.flatMap(_.user) ?? (me.id.==))
@@ -37,9 +37,9 @@ final class Game(
       }
     }
 
-  def exportOne(id: String) = Action.async { exportGame(GameModel takeGameId id, _) }
+  def exportOne(id: GameId) = Action.async { exportGame(GameModel takeGameId id, _) }
 
-  private[controllers] def exportGame(gameId: GameModel.ID, req: RequestHeader): Fu[Result] =
+  private[controllers] def exportGame(gameId: GameId, req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
       case None => NotFound.toFuccess
       case Some(game) =>
@@ -54,7 +54,7 @@ final class Game(
             Ok(content)
               .pipe(asAttachment(filename))
               .withHeaders(
-                lila.app.http.ResponseHeaders.headersForApiOrApp(req) *
+                lila.app.http.ResponseHeaders.headersForApiOrApp(req)*
               ) as gameContentType(config)
           }
         }
@@ -146,7 +146,7 @@ final class Game(
   def exportByIds =
     Action.async(parse.tolerantText) { req =>
       val config = GameApiV2.ByIdsConfig(
-        ids = req.body.split(',').view.take(300).toSeq,
+        ids = req.body.split(',').view.take(300).toSeq map GameId.apply,
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
         perSecond = MaxPerSecond(30),

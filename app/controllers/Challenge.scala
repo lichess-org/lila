@@ -120,7 +120,7 @@ final class Challenge(
       }
     }
 
-  def apiAccept(id: String) =
+  def apiAccept(id: GameId) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
       def tryRematch =
         env.bot.player.rematchAccept(id, me) flatMap {
@@ -142,7 +142,7 @@ final class Challenge(
       res: Result
   )(implicit ctx: Context): Fu[Result] =
     cond ?? {
-      env.game.gameRepo.game(c.id).map {
+      env.game.gameRepo.game(GameId(c.id)).map {
         _ map { game =>
           env.lilaCookie.cookie(
             AnonCookie.name,
@@ -156,7 +156,7 @@ final class Challenge(
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: String) =
+  def decline(id: GameId) =
     AuthBody { implicit ctx => _ =>
       OptionFuResult(api byId id) { c =>
         given play.api.mvc.Request[?] = ctx.body
@@ -169,7 +169,7 @@ final class Challenge(
           )
       }
     }
-  def apiDecline(id: String) =
+  def apiDecline(id: GameId) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
       api.activeByIdFor(id, me) flatMap {
@@ -188,7 +188,7 @@ final class Challenge(
       }
     }
 
-  def cancel(id: String) =
+  def cancel(id: GameId) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
         if (isMine(c)) api cancel c
@@ -196,7 +196,7 @@ final class Challenge(
       }
     }
 
-  def apiCancel(id: String) =
+  def apiCancel(id: GameId) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req => me =>
       api.activeByIdBy(id, me) flatMap {
         case Some(c) => api.cancel(c) inject jsonOkResult
@@ -232,7 +232,7 @@ final class Challenge(
       }
     }
 
-  def apiStartClocks(id: String) =
+  def apiStartClocks(id: GameId) =
     Action.async { req =>
       import cats.implicits.*
       val scopes = List(OAuthScope.Challenge.Write)
@@ -257,13 +257,13 @@ final class Challenge(
       }
     }
 
-  private val ChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
+  private val ChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
     500,
     10.minute,
     key = "challenge.create.ip"
   )
 
-  private val BotChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
+  private val BotChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
     400,
     1.day,
     key = "challenge.bot.create.ip"
@@ -439,7 +439,7 @@ final class Challenge(
         )
     }
 
-  def offerRematchForGame(gameId: String) =
+  def offerRematchForGame(gameId: GameId) =
     Auth { implicit ctx => me =>
       NoBot {
         OptionFuResult(env.game.gameRepo game gameId) { g =>

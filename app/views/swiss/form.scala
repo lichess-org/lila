@@ -54,7 +54,7 @@ object form:
       main(cls := "page-small")(
         div(cls := "swiss__form box box-pad")(
           h1(cls := "box__top")("Edit ", swiss.name),
-          postForm(cls := "form3", action := routes.Swiss.update(swiss.id.value))(
+          postForm(cls := "form3", action := routes.Swiss.update(swiss.id))(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.description, fields.rated),
             fields.clock,
@@ -68,11 +68,11 @@ object form:
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
+              a(href := routes.Swiss.show(swiss.id))(trans.cancel()),
               form3.submit(trans.save(), icon = "".some)
             )
           ),
-          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
+          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
             submitButton(dataIcon := "", cls := "text button button-red confirm")(
               trans.cancelTournament()
             )

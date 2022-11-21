@@ -220,6 +220,8 @@ object Form:
 
     val field = of[URL]
 
+  given Formatter[GameId] = formatter.string(GameId.apply)
+
   given Formatter[chess.variant.Variant] =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
 

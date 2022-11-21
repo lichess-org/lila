@@ -24,7 +24,7 @@ final class Tv(
   private def serveChannel(chanKey: String)(implicit ctx: Context) =
     lila.tv.Tv.Channel.byKey.get(chanKey) ?? lichessTv
 
-  def sides(gameId: String, color: String) =
+  def sides(gameId: GameId, color: String) =
     Open { implicit ctx =>
       OptionFuResult(chess.Color.fromName(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
         env.game.crosstableApi.withMatchup(pov.game) map { ct =>
@@ -71,7 +71,7 @@ final class Tv(
       }
     }
 
-  def gameChannelReplacement(chanKey: String, gameId: String, exclude: List[String]) =
+  def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[GameId]) =
     Open { implicit ctx =>
       val gameFu = lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
         env.tv.tv.getReplacementGame(channel, gameId, exclude)

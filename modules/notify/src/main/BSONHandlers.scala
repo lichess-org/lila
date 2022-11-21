@@ -3,7 +3,7 @@ package lila.notify
 import chess.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.notify.InvitedToStudy.{ InvitedBy, StudyName }
+import lila.notify.InvitedToStudy.InvitedBy
 import lila.notify.MentionedInThread.*
 import lila.notify.Notification.*
 import reactivemongo.api.bson.*
@@ -19,7 +19,6 @@ private object BSONHandlers:
   given BSONHandler[PostId]      = stringAnyValHandler[PostId](_.value, PostId.apply)
 
   given BSONHandler[InvitedBy] = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
-  given BSONHandler[StudyName] = stringAnyValHandler[StudyName](_.value, StudyName.apply)
   given BSONHandler[StudyId]   = stringHandler(StudyId.apply)
   given BSONHandler[NotificationRead] =
     booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)

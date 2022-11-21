@@ -12,7 +12,7 @@ trait CaptchedForm:
   import makeTimeout.large
 
   type CaptchedData = {
-    def gameId: String
+    def gameId: GameId
     def move: String
   }
 
@@ -21,10 +21,10 @@ trait CaptchedForm:
   def anyCaptcha: Fu[Captcha] =
     (captcher.actor ? AnyCaptcha).mapTo[Captcha]
 
-  def getCaptcha(id: String): Fu[Captcha] =
+  def getCaptcha(id: GameId): Fu[Captcha] =
     (captcher.actor ? GetCaptcha(id)).mapTo[Captcha]
 
-  def withCaptcha[A](form: Form[A])(using ec: scala.concurrent.ExecutionContext): Fu[(Form[A], Captcha)] =
+  def withCaptcha[A](form: Form[A])(using scala.concurrent.ExecutionContext): Fu[(Form[A], Captcha)] =
     anyCaptcha map (form -> _)
 
   import scala.language.reflectiveCalls

@@ -11,7 +11,8 @@ import lila.common.Form.{
   cleanTextWithSymbols,
   mustNotContainLichess,
   numberIn,
-  toMarkdown
+  toMarkdown,
+  given
 }
 import lila.common.Markdown
 import lila.db.dsl.{ *, given }
@@ -40,7 +41,7 @@ final private[team] class TeamForm(
     val descPrivate =
       "descPrivate" -> optional(toMarkdown(cleanNonEmptyText(maxLength = 4000)))
     val request     = "request"     -> boolean
-    val gameId      = "gameId"      -> text
+    val gameId      = "gameId"      -> of[GameId]
     val move        = "move"        -> text
     val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
     val forum       = "forum"       -> numberIn(Team.Access.all)
@@ -142,7 +143,7 @@ private[team] case class TeamSetup(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
-    gameId: String,
+    gameId: GameId,
     move: String
 ):
   def isOpen = !request

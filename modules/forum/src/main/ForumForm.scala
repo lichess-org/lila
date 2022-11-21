@@ -4,6 +4,7 @@ import lila.common.Form.cleanText
 import play.api.data.*
 import play.api.data.Forms.*
 import lila.user.User
+import lila.common.Form.given
 
 final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
@@ -16,7 +17,7 @@ final private[forum] class ForumForm(
   def postMapping(user: User, inOwnTeam: Boolean) =
     mapping(
       "text"    -> userTextMapping(user, inOwnTeam),
-      "gameId"  -> text,
+      "gameId"  -> of[GameId],
       "move"    -> text,
       "modIcon" -> optional(boolean)
     )(PostData.apply)(unapply)
@@ -56,7 +57,7 @@ object ForumForm:
 
   case class PostData(
       text: String,
-      gameId: String,
+      gameId: GameId,
       move: String,
       modIcon: Option[Boolean]
   )

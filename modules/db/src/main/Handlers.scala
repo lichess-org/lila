@@ -24,6 +24,7 @@ trait Handlers:
   given BSONHandler[GameId]       = stringHandler(GameId.apply)
   given BSONHandler[GamePlayerId] = stringHandler(GamePlayerId.apply)
   given BSONHandler[StudyId]      = stringHandler(StudyId.apply)
+  given BSONHandler[StudyName]    = stringHandler(StudyName.apply)
   given BSONHandler[SwissId]      = stringHandler(SwissId.apply)
   given BSONHandler[TourPlayerId] = stringHandler(TourPlayerId.apply)
 

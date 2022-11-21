@@ -609,7 +609,7 @@ final class StudyApi(
           }
         }
 
-  def rename(studyId: StudyId, name: Study.Name): Funit =
+  def rename(studyId: StudyId, name: StudyName): Funit =
     sequenceStudy(studyId) { old =>
       val study = old.copy(name = name)
       studyRepo.updateSomeFields(study) >>- indexStudy(study)

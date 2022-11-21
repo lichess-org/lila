@@ -64,7 +64,7 @@ object games:
               form3.select(
                 filterForm("swiss"),
                 swisses.map { case (swiss, rank) =>
-                  swiss.id.value -> s"rank ${rank} / ${swiss.name}"
+                  swiss.id -> s"rank ${rank} / ${swiss.name}"
                 },
                 s"${swisses.size} swiss".some,
                 disabled = swisses.isEmpty

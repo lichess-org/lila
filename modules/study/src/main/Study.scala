@@ -7,7 +7,7 @@ import lila.common.Iso
 
 case class Study(
     _id: StudyId,
-    name: Study.Name,
+    name: StudyName,
     members: StudyMembers,
     position: Position.Ref,
     ownerId: User.ID,
@@ -84,15 +84,12 @@ object Study:
   val previewNbMembers  = 4
   val previewNbChapters = 4
 
-  opaque type Name <: String = String
-  object Name:
-    def apply(v: String): Name = v
-  given Iso.StringIso[Name] = Iso.opaque(Name.apply)
+  given Iso.StringIso[StudyName] = Iso.opaque(StudyName.apply)
 
-  case class IdName(_id: StudyId, name: Name):
+  case class IdName(_id: StudyId, name: StudyName):
     def id = _id
 
-  def toName(str: String) = Name(lila.common.String.fullCleanUp(str) take 100)
+  def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
 
   sealed trait Visibility:
     lazy val key = Visibility.this.toString.toLowerCase
@@ -160,13 +157,13 @@ object Study:
       user: User,
       from: From,
       id: Option[StudyId] = None,
-      name: Option[Name] = None,
+      name: Option[StudyName] = None,
       settings: Option[Settings] = None
   ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
       _id = id | makeId,
-      name = name | Name(s"${user.username}'s Study"),
+      name = name | StudyName(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(Chapter.Id(""), Path.root),
       ownerId = user.id,

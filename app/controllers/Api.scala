@@ -167,11 +167,11 @@ final class Api(
     key = "game.api.one.ip"
   )
 
-  def game(id: String) =
+  def game(id: GameId) =
     ApiRequest { req =>
       GameRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         lila.mon.api.game.increment(1)
-        gameApi.one(id take lila.game.Game.gameIdSize, gameFlagsFromRequest(req)) map toApiResult
+        gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
       }(fuccess(Limited))
     }
 
@@ -372,9 +372,12 @@ final class Api(
 
   private def gamesByIdsMax(me: Option[lila.user.User]) =
     me.fold(500) { u => if (u.id == "challengermode") 10_000 else 1000 }
-  private def withIdsFromReqBody(req: Request[String], max: Int, transform: String => String = identity)(
-      f: Set[String] => Result
-  ): Result =
+
+  private def withIdsFromReqBody[Id <: String](
+      req: Request[String],
+      max: Int,
+      transform: String => Id = identity
+  )(f: Set[Id] => Result): Result =
     val ids = req.body.toLowerCase.split(',').view.map(s => transform(s.trim)).filter(_.nonEmpty).toSet
     if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
@@ -430,7 +433,7 @@ final class Api(
       maxConcurrency = 8
     )
 
-  def moveStream(gameId: String) =
+  def moveStream(gameId: GameId) =
     Action.async { req =>
       env.round.proxyRepo.gameIfPresent(gameId) map {
         case None => NotFound

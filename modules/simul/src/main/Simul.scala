@@ -87,7 +87,7 @@ case class Simul(
       hostSeenAt = none
     )
 
-  def updatePairing(gameId: String, f: SimulPairing => SimulPairing) =
+  def updatePairing(gameId: GameId, f: SimulPairing => SimulPairing) =
     copy(
       pairings = pairings collect {
         case p if p.gameId == gameId => f(p)
@@ -129,7 +129,7 @@ case class Simul(
 
   def hostColor: Option[Color] = color flatMap chess.Color.fromName
 
-  def setPairingHostColor(gameId: String, hostColor: chess.Color) =
+  def setPairingHostColor(gameId: GameId, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this

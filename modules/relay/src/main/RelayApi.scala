@@ -160,7 +160,7 @@ final class RelayApi(
         studyApi.create(
           StudyMaker.ImportGame(
             id = relay.studyId.some,
-            name = Study.Name(relay.name).some,
+            name = StudyName(relay.name).some,
             settings = lastStudy
               .fold(
                 Settings.init
@@ -197,7 +197,7 @@ final class RelayApi(
     val round = f(from) pipe { r =>
       if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
-    studyApi.rename(round.studyId, Study.Name(round.name)) >> {
+    studyApi.rename(round.studyId, StudyName(round.name)) >> {
       if (round == from) fuccess(round)
       else
         roundRepo.coll.update.one($id(round.id), round).void >> {
@@ -329,7 +329,7 @@ final class RelayApi(
   private[relay] def WithRelay[A: Zero](id: RelayRound.Id)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id) flatMap { _ ?? f }
 
-  private[relay] def onStudyRemove(studyId: String) =
+  private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one($id(RelayRound.Id(studyId))).void
 
   private def sendToContributors(id: RelayRound.Id, t: String, msg: JsObject): Funit =

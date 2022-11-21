@@ -38,7 +38,7 @@ object config:
                               a(href := routes.Study.show(stud.id))(
                                 stud.name,
                                 "#",
-                                stud.id.id,
+                                stud.id,
                                 stud.hide ?? " [hidden]"
                               )
                             ),

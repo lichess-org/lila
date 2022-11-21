@@ -136,7 +136,7 @@ final class FishnetApi(
       }
     }
 
-  def userAnalysisExists(gameId: String) =
+  def userAnalysisExists(gameId: GameId) =
     analysisColl.exists(
       $doc(
         "game.id"       -> gameId,

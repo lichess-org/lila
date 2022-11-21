@@ -164,7 +164,7 @@ final class Setup(
       }
     }
 
-  def like(sri: String, gameId: String) =
+  def like(sri: String, gameId: GameId) =
     Open { implicit ctx =>
       NoBot {
         PostRateLimit(ctx.ip) {

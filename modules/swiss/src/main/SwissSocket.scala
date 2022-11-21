@@ -40,7 +40,7 @@ final private class SwissSocket(
       rooms,
       chat,
       logger,
-      roomId => _.Swiss(roomId.value).some,
+      roomId => _.Swiss(SwissId(roomId.value)).some,
       localTimeout = Some { (roomId, modId, _) =>
         teamOf(SwissId(roomId.value)) flatMap {
           _ ?? { teamId =>

@@ -61,7 +61,7 @@ object RoomSocket:
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
       localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None,
       chatBusChan: BusChan.Select
-  )(using ec: ExecutionContext): Handler =
+  )(using ExecutionContext): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat

@@ -7,8 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.UserContext
 
 object Environment
-    extends lila.Lila
-    with StringHelper
+    extends StringHelper
     with AssetHelper
     with DateHelper
     with NumberHelper
@@ -25,6 +24,8 @@ object Environment
     with FlashHelper
     with ChessgroundHelper
     with UserContext.ToLang:
+
+  export lila.Lila.{ *, given }
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = { envVar = Some(e) }

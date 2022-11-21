@@ -30,7 +30,7 @@ private[controllers] trait TheftPrevention { self: LilaController =>
         .orElse {
           ctx.req.cookies
             .get(AnonCookie.name)
-            .map(_.value)
+            .map(c => GamePlayerId(c.value))
             .flatMap(game.player)
             .filterNot(_.hasUser)
         }

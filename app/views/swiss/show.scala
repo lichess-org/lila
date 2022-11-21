@@ -61,7 +61,7 @@ object show:
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${fullName(s)}: ${s.variant.name} ${s.clock.show} #${s.id}",
-          url = s"$netBaseUrl${routes.Swiss.show(s.id.value).url}",
+          url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
           description =
             s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
               s"organized by ${teamIdToName(s.teamId)}. " +
@@ -85,11 +85,11 @@ object show:
       moreCss = cssTag("swiss.show")
     ) {
       val pager = views.html.base.bits
-        .pagination(p => routes.Swiss.round(s.id.value, p).url, r.value, s.round.value, showPost = true)
+        .pagination(p => routes.Swiss.round(s.id, p).url, r.value, s.round.value, showPost = true)
       main(cls := "box swiss__round")(
         boxTop(
           h1(
-            a(href := routes.Swiss.show(s.id.value))(s.name),
+            a(href := routes.Swiss.show(s.id))(s.name),
             s" • Round $r/${s.round}"
           )
         ),

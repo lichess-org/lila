@@ -25,3 +25,7 @@ trait LilaModel:
   opaque type StudyId <: String = String
   object StudyId:
     def apply(v: String): StudyId = v
+
+  opaque type StudyName <: String = String
+  object StudyName:
+    def apply(v: String): StudyName = v

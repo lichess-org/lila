@@ -13,7 +13,7 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, studyIdString, Study as StudyModel }
+import lila.study.{ Chapter, Order, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 
@@ -164,7 +164,7 @@ final class Study(
     }
     Ok(Json.obj("paginator" -> PaginatorJson(pager))).toFuccess
 
-  private def orRelay(id: String, chapterId: Option[String] = None)(
+  private def orRelay(id: StudyId, chapterId: Option[String] = None)(
       f: => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.RelayRound.Id(id)) flatMap {
@@ -240,24 +240,24 @@ final class Study(
         .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
     )
 
-  def show(id: String) =
+  def show(id: StudyId) =
     Open { implicit ctx =>
       orRelay(id) {
         showQuery(env.study.api byIdWithChapter id)
       }
     }
 
-  def chapter(id: String, chapterId: String) =
+  def chapter(id: StudyId, chapterId: String) =
     Open { implicit ctx =>
       orRelay(id, chapterId.some) {
         showQuery(env.study.api.byIdWithChapter(id, chapterId))
       }
     }
 
-  def chapterMeta(id: String, chapterId: String) =
+  def chapterMeta(id: StudyId, chapterId: String) =
     Open { _ =>
       env.study.chapterRepo.byId(chapterId).map {
-        _.filter(_.studyId.id == id) ?? { chapter =>
+        _.filter(_.studyId == id) ?? { chapter =>
           Ok(env.study.jsonView.chapterConfig(chapter))
         }
       }
@@ -315,7 +315,7 @@ final class Study(
       }
     }
 
-  def delete(id: String) =
+  def delete(id: StudyId) =
     Auth { _ => me =>
       env.study.api.byIdAndOwnerOrAdmin(id, me) flatMap {
         _ ?? { study =>
@@ -327,14 +327,14 @@ final class Study(
       }
     }
 
-  def clearChat(id: String) =
+  def clearChat(id: StudyId) =
     Auth { _ => me =>
       env.study.api.isOwnerOrAdmin(id, me) flatMap {
         _ ?? env.chat.api.userChat.clear(Chat.Id(id))
       } inject Redirect(routes.Study.show(id))
     }
 
-  def importPgn(id: String) =
+  def importPgn(id: StudyId) =
     AuthBody { implicit ctx => me =>
       given play.api.mvc.Request[?] = ctx.body
       get("sri") ?? { sri =>
@@ -344,7 +344,7 @@ final class Study(
             jsonFormError,
             data =>
               env.study.api.importPgns(
-                StudyModel.Id(id),
+                id,
                 data.toChapterDatas,
                 sticky = data.sticky,
                 ctx.pref.showRatings
@@ -353,13 +353,13 @@ final class Study(
       }
     }
 
-  def admin(id: String) =
+  def admin(id: StudyId) =
     Secure(_.StudyAdmin) { ctx => me =>
       env.study.api.adminInvite(id, me) inject (if (HTTPRequest isXhr ctx.req) NoContent
                                                 else Redirect(routes.Study.show(id)))
     }
 
-  def embed(id: String, chapterId: String) =
+  def embed(id: StudyId, chapterId: String) =
     Action.async { implicit req =>
       val studyWithChapter =
         if (chapterId == "autochap") env.study.api.byIdWithChapter(id)
@@ -405,7 +405,7 @@ final class Study(
   private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
     fuccess(NotFound(html.study.embed.notFound))
 
-  def cloneStudy(id: String) =
+  def cloneStudy(id: StudyId) =
     Auth { implicit ctx => _ =>
       OptionFuResult(env.study.api.byId(id)) { study =>
         CanView(study, ctx.me) {
@@ -426,7 +426,7 @@ final class Study(
     key = "study.clone.ip"
   )
 
-  def cloneApply(id: String) =
+  def cloneApply(id: StudyId) =
     Auth { implicit ctx => me =>
       val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
       CloneLimitPerUser(me.id, cost = cost) {
@@ -448,7 +448,7 @@ final class Study(
     key = "export.study.pgn.ip"
   )
 
-  def pgn(id: String) =
+  def pgn(id: StudyId) =
     Open { implicit ctx =>
       PgnRateLimitPerIp(ctx.ip, msg = id) {
         OptionFuResult(env.study.api byId id) { study =>
@@ -459,7 +459,7 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  def apiPgn(id: String) = AnonOrScoped(_.Study.Read) { req => me =>
+  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
     env.study.api.byId(id).map {
       _.fold(NotFound(jsonError("Study not found"))) { study =>
         PgnRateLimitPerIp(HTTPRequest ipAddress req, msg = id) {
@@ -476,7 +476,7 @@ final class Study(
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
 
-  def chapterPgn(id: String, chapterId: String) =
+  def chapterPgn(id: StudyId, chapterId: String) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
@@ -528,7 +528,7 @@ final class Study(
       clocks = getBoolOpt("clocks", req) | true
     )
 
-  def chapterGif(id: String, chapterId: String, theme: Option[String], piece: Option[String]) =
+  def chapterGif(id: StudyId, chapterId: String, theme: Option[String], piece: Option[String]) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
@@ -545,7 +545,7 @@ final class Study(
       }
     }
 
-  def multiBoard(id: String, page: Int) =
+  def multiBoard(id: StudyId, page: Int) =
     Open { implicit ctx =>
       OptionFuResult(env.study.api byId id) { study =>
         CanView(study, ctx.me) {
@@ -615,13 +615,12 @@ final class Study(
       case Some(me) if study.members.contains(me.id) => f
       case _                                         => forbidden
 
-  implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
-  implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
+  implicit private def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)
 
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 
   private val streamerCache =
-    env.memo.cacheApi[StudyModel.Id, List[lila.user.User.ID]](64, "study.streamers") {
+    env.memo.cacheApi[StudyId, List[lila.user.User.ID]](64, "study.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(512)
         .buildAsyncFuture { studyId =>

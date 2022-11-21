@@ -47,10 +47,10 @@ object bits:
 
   def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) =
     frag(
-      a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name.value),
+      a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
       div(cls := "top", dataIcon := "")(
         div(
-          tag(cls := "study-name")(s.study.name.value),
+          tag(cls := "study-name")(s.study.name),
           span(
             !s.study.isPublic option frag(
               iconTag("")(cls := "private", ariaTitle(trans.study.`private`.txt())),
