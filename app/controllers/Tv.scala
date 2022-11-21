@@ -71,10 +71,10 @@ final class Tv(
       }
     }
 
-  def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[GameId]) =
+  def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[String]) =
     Open { implicit ctx =>
       val gameFu = lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
-        env.tv.tv.getReplacementGame(channel, gameId, exclude)
+        env.tv.tv.getReplacementGame(channel, gameId, exclude map GameId.apply)
       }
       OptionResult(gameFu) { game =>
         JsonOk {
