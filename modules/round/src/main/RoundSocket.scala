@@ -94,7 +94,7 @@ final class RoundSocket(
     }
     roundActor
 
-  private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
+  private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId, msg)
 
   private lazy val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
@@ -117,7 +117,7 @@ final class RoundSocket(
         case t              => logger.warn(s"Unhandled round socket message: $t")
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
-      gameIfPresent(id.value) foreach {
+      gameIfPresent(id) foreach {
         _ foreach {
           messenger.owner(_, color, msg).unit
         }
@@ -128,14 +128,14 @@ final class RoundSocket(
       messenger.watcher(id, userId, msg).unit
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
       messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text).unit
-    case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId.value, userId), "berserk")
+    case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId, userId), "berserk")
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
         case (gameId, Some(on)) =>
           tellRound(gameId, on)
           terminationDelay cancel gameId
         case (gameId, _) =>
-          if (rounds exists gameId.value) terminationDelay schedule gameId
+          if (rounds exists gameId) terminationDelay schedule gameId
       }
     case Protocol.In.Bye(fullId) => tellRound(fullId.gameId, ByePlayer(fullId.playerId))
     case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
@@ -159,7 +159,7 @@ final class RoundSocket(
       rounds.tellAll(RoundAsyncActor.WsBoot)
 
   private def finishRound(gameId: Game.Id): Unit =
-    rounds.terminate(gameId.value, _ ! RoundAsyncActor.Stop)
+    rounds.terminate(gameId, _ ! RoundAsyncActor.Stop)
 
   private lazy val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 8)
 
@@ -432,7 +432,7 @@ object RoundSocket:
     def schedule(gameId: Game.Id): Unit =
       terminations
         .compute(
-          gameId.value,
+          gameId,
           (id, canc) => {
             Option(canc).foreach(_.cancel())
             scheduler.scheduleOnce(duration) {
@@ -444,4 +444,4 @@ object RoundSocket:
         .unit
 
     def cancel(gameId: Game.Id): Unit =
-      Option(terminations remove gameId.value).foreach(_.cancel())
+      Option(terminations remove gameId).foreach(_.cancel())

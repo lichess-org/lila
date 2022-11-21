@@ -101,7 +101,7 @@ final class Env(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
-    "gameStartId" -> { case Game.Id(gameId) =>
+    "gameStartId" -> { case Game.OnStart(gameId) =>
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
@@ -180,7 +180,8 @@ final class Env(
 
   lazy val messenger = wire[Messenger]
 
-  lazy val getSocketStatus = (game: Game) => roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus.apply)
+  lazy val getSocketStatus = (game: Game) =>
+    roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus.apply)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
     roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundAsyncActor.HasUserId(userId, _))

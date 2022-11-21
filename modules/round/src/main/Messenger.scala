@@ -24,18 +24,18 @@ final class Messenger(api: ChatApi):
   }.unit
 
   def watcher(gameId: Game.Id, userId: User.ID, text: String) =
-    api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId.value).some, _.Round)
+    api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId).some, _.Round)
 
   private val whisperCommands = List("/whisper ", "/w ", "/W ")
 
   def owner(gameId: Game.Id, userId: User.ID, text: String): Funit =
     whisperCommands.collectFirst {
       case command if text startsWith command =>
-        val source = PublicSource.Watcher(gameId.value)
+        val source = PublicSource.Watcher(gameId)
         api.userChat.write(gameWatcherId(gameId), userId, text drop command.length, source.some, _.Round)
     } getOrElse {
       !text.startsWith("/") ?? // mistyped command?
-        api.userChat.write(Chat.Id(gameId.value), userId, text, publicSource = none, _.Round)
+        api.userChat.write(Chat.Id(gameId), userId, text, publicSource = none, _.Round)
     }
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =

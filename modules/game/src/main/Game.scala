@@ -624,8 +624,10 @@ object Game:
 
   type ID = String
 
-  case class Id(value: String) extends AnyVal with StringValue:
-    def full(playerId: PlayerId) = FullId(s"$value{$playerId.value}")
+  opaque type Id <: String = String
+  object Id:
+    def apply(v: String): Id = v
+  extension (id: Id) def full(playerId: PlayerId) = FullId(s"$id{$playerId}")
 
   opaque type FullId <: String = String
   object FullId:
@@ -638,6 +640,7 @@ object Game:
   object PlayerId:
     def apply(v: String): PlayerId = v
 
+  case class OnStart(id: Id)
   case class WithInitialFen(game: Game, fen: Option[FEN])
 
   case class SideAndStart(color: Color, startColor: Color, startedAtTurn: Int)
