@@ -1585,10 +1585,9 @@ object Quote:
     new Quote("I never lose. I either win or learn.", "Nelson Mandela")
   )
 
-  implicit def quoteWriter: OWrites[Quote] =
-    OWrites { q =>
-      Json.obj(
-        "text"   -> q.text,
-        "author" -> q.author
-      )
-    }
+  given OWrites[Quote] = OWrites { q =>
+    Json.obj(
+      "text"   -> q.text,
+      "author" -> q.author
+    )
+  }

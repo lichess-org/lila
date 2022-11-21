@@ -16,6 +16,6 @@ final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using
 
   remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
-  val onlineIds = new OnlineIds(() => remoteSocket.onlineUserIds.get)
+  val onlineIds = OnlineIds(() => remoteSocket.onlineUserIds.get)
 
-  val isOnline = new IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)
+  val isOnline = IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)

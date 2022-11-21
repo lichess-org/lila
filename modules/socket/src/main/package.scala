@@ -15,11 +15,14 @@ extension (o: SocketVersion)
   def socketVersion: Int = o
   def incVersion         = SocketVersion(o + 1)
 
-final class IsOnline(f: (String => Boolean)) extends (String => Boolean):
-  def apply(id: String) = f(id)
+private type IsOnlineType            = String => Boolean
+opaque type IsOnline <: IsOnlineType = IsOnlineType
+object IsOnline:
+  def apply(f: IsOnlineType): IsOnline = f
 
-final class OnlineIds(f: () => Set[String]) extends (() => Set[String]):
-  def apply() = f()
+opaque type OnlineIds <: () => Set[String] = () => Set[String]
+object OnlineIds:
+  def apply(f: () => Set[String]): OnlineIds = f
 
 case class GetVersion(promise: Promise[SocketVersion])
 
