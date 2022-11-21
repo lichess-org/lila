@@ -23,6 +23,27 @@ class AutoConfigTest extends Specification {
     config.get[Foo]("foo") === Foo("string", 7)
   }
 
+  "option" >> {
+    case class Foo(str: String, int: Option[Int])
+    given ConfigLoader[Foo] = AutoConfig.loader
+
+    given [A](using valueLoader: ConfigLoader[A]): ConfigLoader[Option[A]] = (config, path) =>
+      if !config.hasPath(path) || config.getIsNull(path) then None
+      else Some(valueLoader.load(config, path))
+
+    parse("""
+      |foo = {
+      |  str = string
+      |}
+    """).get[Foo]("foo") === Foo("string", None)
+    parse("""
+      |foo = {
+      |  str = string
+      |  int = 43
+      |}
+    """).get[Foo]("foo") === Foo("string", Some(43))
+  }
+
   "named keys" >> {
 
     final class BarApiConfig(
