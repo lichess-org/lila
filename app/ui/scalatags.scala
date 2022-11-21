@@ -70,7 +70,7 @@ trait ScalatagsSnippets:
       cls := "utitle",
       t == lila.user.Title.BOT option dataBotAttr,
       title := Title titleName t
-    )(t.value)
+    )(t)
 
   val utcLink =
     a(

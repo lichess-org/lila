@@ -171,7 +171,6 @@ final class EnvBoot(
   given Scheduler   = system.scheduler
   given Mode        = environment.mode
   given IdGenerator = game.idGenerator
-  def appPath       = AppPath(environment.rootPath)
   val netConfig     = config.get[NetConfig]("net")
   def netDomain     = netConfig.domain
   def baseUrl       = netConfig.baseUrl
