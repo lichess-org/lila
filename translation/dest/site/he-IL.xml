@@ -174,7 +174,7 @@
   <string name="viewInFullSize">צפייה בגודל מלא</string>
   <string name="logOut">התנתק/י</string>
   <string name="signIn">התחבר/י</string>
-  <string name="rememberMe">זכור אותי</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">זכור אותי</string>
   <string name="youNeedAnAccountToDoThat">את/ה צריך/ה חשבון כדי לעשות פעולה זו</string>
   <string name="signUp">הירשם/י</string>
   <string name="computersAreNotAllowedToPlay">מחשבים ושחקנים הנעזרים במחשב במשחקיהם אינם מורשים לשחק. אנא הימנעו מהיעזרות במנועי שחמט, מאגרי מידע או שחקנים אחרים במהלך המשחק. בנוסף, מומלץ להימנע מיצירת משתמשים מרובים, שכן יצירת כמות מוגזמת של משתמשים תביא לסילוק מהאתר.</string>
@@ -686,7 +686,7 @@
     <item quantity="many">%s פוסטים בפורום</item>
     <item quantity="other">%s פוסטים בפורום</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">זמן במשחק : %s</string>
+  <string name="tpTimeSpentPlaying">זמן במשחק: %s</string>
   <string name="watchGames">צפייה במשחקים</string>
   <string name="tpTimeSpentOnTV">זמן בטלוויזיה: %s</string>
   <string name="watch">צפו</string>
