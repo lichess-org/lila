@@ -73,6 +73,7 @@ final class Game(
     env.user.repo named username flatMap {
       _.filter(u => u.enabled || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
+        import lila.rating.{ Perf, PerfType }
         WithVs(req) { vs =>
           val finished = getBoolOpt("finished", req) | true
           val config = GameApiV2.ByUserConfig(
@@ -83,7 +84,7 @@ final class Game(
             until = getTimestamp("until", req),
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
-            perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
+            perfType = (~get("perfType", req) split "," map Perf.Key.apply flatMap PerfType.apply).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             flags = requestPgnFlags(req, extended = false),

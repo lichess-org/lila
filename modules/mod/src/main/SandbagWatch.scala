@@ -14,11 +14,11 @@ final private class SandbagWatch(
     messenger: MsgApi,
     reportApi: ReportApi,
     modLogApi: ModlogApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import SandbagWatch.*
 
-  private val messageOnceEvery = lila.memo.OnceEvery(1 hour)
+  private val messageOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(game: Game): Unit = for {
     loser <- game.loser.map(_.color)
@@ -31,9 +31,10 @@ final private class SandbagWatch(
       case (record, outcome)    => setRecord(userId, (record | emptyRecord) + outcome, game)
 
   private def setRecord(userId: User.ID, record: Record, game: Game): Funit =
-    if (record.immaculate) fuccess {
-      records invalidate userId
-    }
+    if (record.immaculate)
+      fuccess {
+        records invalidate userId
+      }
     else if (game.isTournament && game.winnerUserId.has(userId))
       // if your opponent always resigns to you in a tournament
       // we'll assume you're not boosting
@@ -58,7 +59,7 @@ final private class SandbagWatch(
       }
 
   private def sendMessage(userId: User.ID, preset: MsgPreset): Funit =
-    messageOnceEvery(userId) ?? {
+    messageOnceEvery(UserId(userId)) ?? {
       lila.common.Bus.publish(lila.hub.actorApi.mod.AutoWarning(userId, preset.name), "autoWarning")
       messenger.postPreset(userId, preset).void
     }

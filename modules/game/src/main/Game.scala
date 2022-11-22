@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 
 import lila.common.{ Days, Sequence }
 import lila.db.ByteArray
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.rating.PerfType.Classical
 import lila.user.User
 
@@ -273,8 +273,8 @@ case class Game(
 
   def speed = Speed(chess.clock.map(_.config))
 
-  def perfKey  = PerfPicker.key(this)
-  def perfType = PerfType(perfKey)
+  def perfKey: Perf.Key = PerfPicker.key(this)
+  def perfType          = PerfType(perfKey)
 
   def started = status >= Status.Started
 

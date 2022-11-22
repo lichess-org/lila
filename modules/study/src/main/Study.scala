@@ -84,8 +84,6 @@ object Study:
   val previewNbMembers  = 4
   val previewNbChapters = 4
 
-  given Iso.StringIso[StudyName] = Iso.opaque(StudyName.apply)
-
   case class IdName(_id: StudyId, name: StudyName):
     def id = _id
 

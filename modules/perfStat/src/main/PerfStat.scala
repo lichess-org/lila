@@ -202,5 +202,3 @@ case class Results(results: List[Result]):
   def userIds = results.map(_.opId)
 object Results:
   val nb = 5
-
-case class UserId(value: String) extends AnyVal

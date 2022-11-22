@@ -43,13 +43,14 @@ final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: Str
     )
 
 // Distributes tasks to many sequencers
-final class AsyncActorSequencers[K <: String](
+final class AsyncActorSequencers[K](
     maxSize: Int,
     expiration: FiniteDuration,
     timeout: FiniteDuration,
     name: String,
     logging: Boolean = true
 )(using
+    ev: K =:= String,
     scheduler: akka.actor.Scheduler,
     ec: ExecutionContext
 ):

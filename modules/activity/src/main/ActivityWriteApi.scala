@@ -149,7 +149,7 @@ final class ActivityWriteApi(
 
   private def update(userId: User.ID)(makeSetters: Activity => Bdoc): Funit =
     withColl { coll =>
-      coll.byId[Activity, Id](Id today userId).dmap { _ | Activity.make(userId) } flatMap { activity =>
+      coll.byId[Activity](Id today userId).dmap { _ | Activity.make(userId) } flatMap { activity =>
         val setters = makeSetters(activity)
         !setters.isEmpty ?? {
           coll.update

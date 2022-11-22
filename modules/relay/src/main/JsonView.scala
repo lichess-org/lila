@@ -76,13 +76,13 @@ object JsonView:
   given Writes[RelayRound.Id]              = Writes(id => JsString(id.value))
   given tourIdWrites: Writes[RelayTour.Id] = Writes(id => JsString(id.value))
 
-  implicit private val syncWrites: OWrites[RelayRound.Sync] = OWrites[RelayRound.Sync] { s =>
+  private given OWrites[RelayRound.Sync] = OWrites { s =>
     Json.obj(
       "ongoing" -> s.ongoing,
       "log"     -> s.log.events
     ) ++
       s.upstream.?? {
         case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
-        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
+        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids.map(_.value))
       }
   }

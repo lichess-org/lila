@@ -345,8 +345,8 @@ final class TournamentApi(
     }
 
   private object updateNbPlayers:
-    private val onceEvery = lila.memo.OnceEvery(1 second)
-    def apply(tourId: Tournament.ID): Funit = onceEvery(tourId) ?? {
+    private val onceEvery = lila.memo.OnceEvery[TourId](1 second)
+    def apply(tourId: Tournament.ID): Funit = onceEvery(TourId(tourId)) ?? {
       playerRepo count tourId flatMap { tournamentRepo.setNbPlayers(tourId, _) }
     }
 

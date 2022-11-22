@@ -44,7 +44,7 @@ object Work:
   private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
       initialFen: Option[FEN],
-      studyId: Option[String],
+      studyId: Option[StudyId],
       variant: Variant,
       moves: String
   ):

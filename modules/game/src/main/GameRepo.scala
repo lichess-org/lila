@@ -24,7 +24,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   val fixedColorLobbyCache = lila.memo.ExpireSetMemo[GameId](2 hours)
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
-  def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game, GameId](gameId)
+  def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
 
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)

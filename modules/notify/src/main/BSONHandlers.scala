@@ -19,7 +19,6 @@ private object BSONHandlers:
   given BSONHandler[PostId]      = stringAnyValHandler[PostId](_.value, PostId.apply)
 
   given BSONHandler[InvitedBy] = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
-  given BSONHandler[StudyId]   = stringHandler(StudyId.apply)
   given BSONHandler[NotificationRead] =
     booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 

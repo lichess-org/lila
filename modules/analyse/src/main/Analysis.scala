@@ -7,7 +7,7 @@ import lila.user.User
 
 case class Analysis(
     id: Analysis.ID, // game ID, or chapter ID if studyId is set
-    studyId: Option[String],
+    studyId: Option[StudyId],
     infos: List[Info],
     startPly: Int,
     date: DateTime,

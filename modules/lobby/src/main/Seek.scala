@@ -8,7 +8,7 @@ import play.api.libs.json.*
 import lila.common.Days
 import lila.common.Json.given
 import lila.game.PerfPicker
-import lila.rating.RatingRange
+import lila.rating.{ Perf, RatingRange }
 import lila.user.User
 
 // correspondence chess, persistent
@@ -80,29 +80,27 @@ object Seek:
       user: User,
       ratingRange: RatingRange,
       blocking: Set[String]
-  ): Seek =
-    new Seek(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
-      variant = variant.id,
-      daysPerTurn = daysPerTurn,
-      mode = mode.id,
-      color = color,
-      user = LobbyUser.make(user, blocking),
-      ratingRange = ratingRange.toString,
-      createdAt = DateTime.now
-    )
+  ): Seek = Seek(
+    _id = lila.common.ThreadLocalRandom nextString idSize,
+    variant = variant.id,
+    daysPerTurn = daysPerTurn,
+    mode = mode.id,
+    color = color,
+    user = LobbyUser.make(user, blocking),
+    ratingRange = ratingRange.toString,
+    createdAt = DateTime.now
+  )
 
-  def renew(seek: Seek) =
-    new Seek(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
-      variant = seek.variant,
-      daysPerTurn = seek.daysPerTurn,
-      mode = seek.mode,
-      color = seek.color,
-      user = seek.user,
-      ratingRange = seek.ratingRange,
-      createdAt = DateTime.now
-    )
+  def renew(seek: Seek) = Seek(
+    _id = lila.common.ThreadLocalRandom nextString idSize,
+    variant = seek.variant,
+    daysPerTurn = seek.daysPerTurn,
+    mode = seek.mode,
+    color = seek.color,
+    user = seek.user,
+    ratingRange = seek.ratingRange,
+    createdAt = DateTime.now
+  )
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.{ *, given }
@@ -110,5 +108,6 @@ object Seek:
     b => LobbyPerf(b.abs, b < 0),
     x => x.rating * (if (x.provisional) -1 else 1)
   )
+  given (String => Perf.Key)                          = Perf.Key.apply
   private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler
   private[lobby] given BSONDocumentHandler[Seek]      = Macros.handler

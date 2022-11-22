@@ -120,6 +120,8 @@ trait ScalatagsExtensions:
 
   given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
+  implicit def opaqueFrag[A](a: A)(implicit bts: BasicallyTheSame[A, String]): Frag = stringFrag(bts(a))
+
   given [A](using bts: BasicallyTheSame[A, String]): AttrValue[A] with
     def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, bts(v))
 

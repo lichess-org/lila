@@ -87,7 +87,7 @@ object timeline:
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          lila.rating.PerfType(perfKey) map { perf =>
+          lila.rating.PerfType(lila.rating.Perf.Key(perfKey)) map { perf =>
             (win match {
               case Some(true)  => trans.victoryVsYInZ
               case Some(false) => trans.defeatVsYInZ

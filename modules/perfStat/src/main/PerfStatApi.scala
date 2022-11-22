@@ -2,7 +2,7 @@ package lila.perfStat
 
 import scala.concurrent.ExecutionContext
 
-import lila.rating.{ PerfType, UserRankMap }
+import lila.rating.{ Perf, PerfType, UserRankMap }
 import lila.security.Granter
 import lila.user.User
 import lila.user.{ LightUserApi, RankingApi, RankingsOf, User, UserRepo }
@@ -26,7 +26,7 @@ final class PerfStatApi(
     ec: ExecutionContext
 ):
 
-  def data(name: String, perfKey: String, by: Option[User]): Fu[Option[PerfStatData]] =
+  def data(name: String, perfKey: Perf.Key, by: Option[User]): Fu[Option[PerfStatData]] =
     PerfType(perfKey) ?? { perfType =>
       userRepo named name flatMap {
         _.filter { u =>

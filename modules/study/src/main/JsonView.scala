@@ -120,7 +120,6 @@ object JsonView:
 
   import Study.given
 
-  given nameWrites: Writes[StudyName] = stringIsoWriter
   given OWrites[Study.IdName] = OWrites { s =>
     Json.obj("id" -> s._id, "name" -> s.name)
   }

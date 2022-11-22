@@ -6,8 +6,15 @@ import chess.format.{ FEN, Uci }
 
 object Json:
 
-  inline given [A, T](using ev: A =:= T, format: Format[A]): Format[T] =
-    format.bimap(ev.apply, ev.flip.apply)
+  // inline given [A, T](using ev: A =:= T, format: Format[A]): Format[T] =
+  //   format.bimap(ev.apply, ev.flip.apply)
+
+  inline given [A, T](using
+      bts: BasicallyTheSame[A, T],
+      stb: BasicallyTheSame[T, A],
+      format: Format[A]
+  ): Format[T] =
+    format.bimap(bts.apply, stb.apply)
 
   given Format[PuzzleId] = stringFormat(PuzzleId.apply)
   given Format[Days]     = intFormat(Days.apply)

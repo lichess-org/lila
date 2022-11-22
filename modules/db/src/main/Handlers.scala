@@ -16,8 +16,12 @@ import scala.collection.Factory
 
 trait Handlers:
 
-  inline given [A, T](using ev: A =:= T, handler: BSONHandler[A]): BSONHandler[T] =
-    handler.as(ev.apply, ev.flip.apply)
+  inline given [A, T](using
+      bts: BasicallyTheSame[A, T],
+      stb: BasicallyTheSame[T, A],
+      handler: BSONHandler[A]
+  ): BSONHandler[T] =
+    handler.as(bts.apply, stb.apply)
 
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
@@ -124,12 +128,6 @@ trait Handlers:
       def readTry(bson: BSONValue)    = reader readTry bson
       def writeTry(v: Map[String, V]) = writer writeTry v
 
-  def typedMapHandler[K, V: BSONHandler](using keyIso: StringIso[K]) =
-    stringMapHandler[V].as[Map[K, V]](
-      _.map { case (k, v) => keyIso.from(k) -> v },
-      _.map { case (k, v) => keyIso.to(k) -> v }
-    )
-
   given [T: BSONHandler]: BSONHandler[NonEmptyList[T]] =
     def listWriter = BSONWriter.collectionWriter[T, List[T]]
     def listReader = collectionReader[List, T]
@@ -154,11 +152,11 @@ trait Handlers:
     def readTry(bson: BSONValue): Try[Vector[T]] = reader.readTry(bson)
     def writeTry(t: Vector[T]): Try[BSONValue]   = writer.writeTry(t)
 
-  given arrayHandler[T: BSONHandler]: BSONHandler[Array[T]] with
-    val reader                                  = collectionReader[Array, T]
-    val writer                                  = BSONWriter.collectionWriter[T, Array[T]]
-    def readTry(bson: BSONValue): Try[Array[T]] = reader.readTry(bson)
-    def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
+  // given arrayHandler[T: BSONHandler]: BSONHandler[Array[T]] with
+  //   val reader                                  = collectionReader[Array, T]
+  //   val writer                                  = BSONWriter.collectionWriter[T, Array[T]]
+  //   def readTry(bson: BSONValue): Try[Array[T]] = reader.readTry(bson)
+  //   def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
     def writeTry(n: BSONNull.type) = Success(BSONNull)

@@ -25,7 +25,7 @@ object PerfType:
   case object UltraBullet
       extends PerfType(
         0,
-        key = "ultraBullet",
+        key = Perf.Key("ultraBullet"),
         name = Speed.UltraBullet.name,
         title = Speed.UltraBullet.title,
         iconChar = ''
@@ -34,7 +34,7 @@ object PerfType:
   case object Bullet
       extends PerfType(
         1,
-        key = "bullet",
+        key = Perf.Key("bullet"),
         name = Speed.Bullet.name,
         title = Speed.Bullet.title,
         iconChar = ''
@@ -43,7 +43,7 @@ object PerfType:
   case object Blitz
       extends PerfType(
         2,
-        key = "blitz",
+        key = Perf.Key("blitz"),
         name = Speed.Blitz.name,
         title = Speed.Blitz.title,
         iconChar = ''
@@ -52,7 +52,7 @@ object PerfType:
   case object Rapid
       extends PerfType(
         6,
-        key = "rapid",
+        key = Perf.Key("rapid"),
         name = Speed.Rapid.name,
         title = Speed.Rapid.title,
         iconChar = ''
@@ -61,7 +61,7 @@ object PerfType:
   case object Classical
       extends PerfType(
         3,
-        key = "classical",
+        key = Perf.Key("classical"),
         name = Speed.Classical.name,
         title = Speed.Classical.title,
         iconChar = ''
@@ -70,7 +70,7 @@ object PerfType:
   case object Correspondence
       extends PerfType(
         4,
-        key = "correspondence",
+        key = Perf.Key("correspondence"),
         name = "Correspondence",
         title = Speed.Correspondence.title,
         iconChar = ''
@@ -79,7 +79,7 @@ object PerfType:
   case object Standard
       extends PerfType(
         5,
-        key = "standard",
+        key = Perf.Key("standard"),
         name = chess.variant.Standard.name,
         title = "Standard rules of chess",
         iconChar = ''
@@ -88,7 +88,7 @@ object PerfType:
   case object Chess960
       extends PerfType(
         11,
-        key = "chess960",
+        key = Perf.Key("chess960"),
         name = chess.variant.Chess960.name,
         title = "Chess960 variant",
         iconChar = ''
@@ -97,7 +97,7 @@ object PerfType:
   case object KingOfTheHill
       extends PerfType(
         12,
-        key = "kingOfTheHill",
+        key = Perf.Key("kingOfTheHill"),
         name = chess.variant.KingOfTheHill.name,
         title = "King of the Hill variant",
         iconChar = ''
@@ -106,7 +106,7 @@ object PerfType:
   case object Antichess
       extends PerfType(
         13,
-        key = "antichess",
+        key = Perf.Key("antichess"),
         name = chess.variant.Antichess.name,
         title = "Antichess variant",
         iconChar = ''
@@ -115,7 +115,7 @@ object PerfType:
   case object Atomic
       extends PerfType(
         14,
-        key = "atomic",
+        key = Perf.Key("atomic"),
         name = chess.variant.Atomic.name,
         title = "Atomic variant",
         iconChar = ''
@@ -124,7 +124,7 @@ object PerfType:
   case object ThreeCheck
       extends PerfType(
         15,
-        key = "threeCheck",
+        key = Perf.Key("threeCheck"),
         name = chess.variant.ThreeCheck.name,
         title = "Three-check variant",
         iconChar = ''
@@ -133,7 +133,7 @@ object PerfType:
   case object Horde
       extends PerfType(
         16,
-        key = "horde",
+        key = Perf.Key("horde"),
         name = chess.variant.Horde.name,
         title = "Horde variant",
         iconChar = ''
@@ -142,7 +142,7 @@ object PerfType:
   case object RacingKings
       extends PerfType(
         17,
-        key = "racingKings",
+        key = Perf.Key("racingKings"),
         name = chess.variant.RacingKings.name,
         title = "Racing kings variant",
         iconChar = ''
@@ -151,7 +151,7 @@ object PerfType:
   case object Crazyhouse
       extends PerfType(
         18,
-        key = "crazyhouse",
+        key = Perf.Key("crazyhouse"),
         name = chess.variant.Crazyhouse.name,
         title = "Crazyhouse variant",
         iconChar = ''
@@ -160,7 +160,7 @@ object PerfType:
   case object Puzzle
       extends PerfType(
         20,
-        key = "puzzle",
+        key = Perf.Key("puzzle"),
         name = "Training",
         title = "Chess tactics trainer",
         iconChar = ''

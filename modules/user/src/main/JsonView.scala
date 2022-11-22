@@ -100,9 +100,9 @@ object JsonView:
       .add("prov" -> o.glicko.provisional)
   }
 
-  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).to(Set)
+  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
 
-  private def select(key: String, perf: Perf) =
+  private def select(key: Perf.Key, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)
 
   def perfs(u: User, onlyPerf: Option[PerfType] = None): JsObject =

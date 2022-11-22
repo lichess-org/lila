@@ -214,7 +214,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def progress(id: String, key: String, days: Int) =
+  def progress(id: String, key: lila.rating.Perf.Key, days: Int) =
     Secure(_.Teacher) { implicit ctx => me =>
       lila.rating.PerfType(key) ?? { perfType =>
         WithClass(me, id) { clas =>

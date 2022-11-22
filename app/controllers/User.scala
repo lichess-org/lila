@@ -18,7 +18,7 @@ import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Game as GameModel, Pov }
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.security.UserLogins
 import lila.socket.UserLagCache
 import lila.user.{ Holder, User as UserModel }
@@ -302,7 +302,7 @@ final class User(
     }
   }
 
-  def topNb(nb: Int, perfKey: String) =
+  def topNb(nb: Int, perfKey: Perf.Key) =
     Open { implicit ctx =>
       topNbUsers(nb, perfKey) flatMap {
         _ ?? { case (users, perfType) =>
@@ -314,12 +314,12 @@ final class User(
       }
     }
 
-  def topNbApi(nb: Int, perfKey: String) =
+  def topNbApi(nb: Int, perfKey: Perf.Key) =
     Action.async {
       topNbUsers(nb, perfKey) map { _ ?? { users => topNbJson(users._1) } }
     }
 
-  private def topNbUsers(nb: Int, perfKey: String) =
+  private def topNbUsers(nb: Int, perfKey: Perf.Key) =
     PerfType(perfKey) ?? { perfType =>
       env.user.cached.top200Perf get perfType.id dmap {
         _.take(nb atLeast 1 atMost 200) -> perfType
@@ -554,7 +554,7 @@ final class User(
         }
     }
 
-  def perfStat(username: String, perfKey: String) =
+  def perfStat(username: String, perfKey: Perf.Key) =
     Open { implicit ctx =>
       env.perfStat.api.data(username, perfKey, ctx.me) flatMap {
         _ ?? { data =>

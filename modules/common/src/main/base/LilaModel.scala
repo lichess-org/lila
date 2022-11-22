@@ -2,24 +2,23 @@ package lila.base
 
 trait LilaModel extends NewTypes:
 
-  opaque type GameId = String
+  opaque type UserId = String
+  object UserId extends OpaqueString[UserId]
+
+  opaque type GameId <: String = String
   object GameId extends OpaqueString[GameId]
 
   opaque type GameFullId <: String = String
-  object GameFullId:
-    def apply(v: String): GameFullId = v
+  object GameFullId extends OpaqueString[GameFullId]
 
   opaque type GamePlayerId <: String = String
-  object GamePlayerId:
-    def apply(v: String): GamePlayerId = v
+  object GamePlayerId extends OpaqueString[GamePlayerId]
 
   opaque type TourPlayerId <: String = String
-  object TourPlayerId:
-    def apply(v: String): TourPlayerId = v
+  object TourPlayerId extends OpaqueString[TourPlayerId]
 
   opaque type SwissId <: String = String
-  object SwissId:
-    def apply(v: String): SwissId = v
+  object SwissId extends OpaqueString[SwissId]
 
   opaque type StudyId = String
   object StudyId extends OpaqueString[StudyId]
@@ -28,17 +27,16 @@ trait LilaModel extends NewTypes:
   object StudyName extends OpaqueString[StudyName]
 
   opaque type StudyChapterId <: String = String
-  object StudyChapterId:
-    def apply(v: String): StudyChapterId = v
+  object StudyChapterId extends OpaqueString[StudyChapterId]
 
   opaque type StudyChapterName <: String = String
-  object StudyChapterName:
-    def apply(v: String): StudyChapterName = v
+  object StudyChapterName extends OpaqueString[StudyChapterName]
 
   opaque type PuzzleId <: String = String
-  object PuzzleId:
-    def apply(v: String): PuzzleId = v
+  object PuzzleId extends OpaqueString[PuzzleId]
 
   opaque type UserTitle <: String = String
-  object UserTitle:
-    def apply(v: String): UserTitle = v
+  object UserTitle extends OpaqueString[UserTitle]
+
+  opaque type TourId = String
+  object TourId extends OpaqueString[TourId]

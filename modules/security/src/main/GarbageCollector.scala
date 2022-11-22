@@ -21,7 +21,7 @@ final class GarbageCollector(
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = lila.memo.OnceEvery[User.ID](10 minutes)
+  private val justOnce = lila.memo.OnceEvery[UserId](10 minutes)
 
   private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader):
     override def toString = s"${user.username} $ip ${email.value} $req"
@@ -91,7 +91,7 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
-  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id) ?? {
+  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(UserId(user.id)) ?? {
     hasBeenCollectedBefore(user) flatMap {
       case true => funit
       case _ =>

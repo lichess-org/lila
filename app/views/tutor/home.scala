@@ -41,7 +41,7 @@ object home:
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map { p =>
       a(
-        cls  := p.perf.key.active(report.??(_.perf.key)),
+        cls  := p.perf.key.value.active(report.??(_.perf.key.value)),
         href := routes.Tutor.perf(user.username, p.perf.key)
       )(p.perf.trans)
     }

@@ -46,7 +46,7 @@ final class RelayLeaderboardApi(
   }
 
   private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for {
-    tour     <- tourRepo.coll.byId[RelayTour, RelayTour.Id](id) orFail s"No such relay tour $id"
+    tour     <- tourRepo.coll.byId[RelayTour](id) orFail s"No such relay tour $id"
     roundIds <- roundRepo.idsByTourOrdered(tour)
     tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.studyId))
     players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int], Option[String])]) {

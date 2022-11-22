@@ -7,11 +7,9 @@ import lila.study.Chapter
 
 object BSONHandlers:
 
-  import PracticeProgress.{ ChapterNbMoves, NbMoves, given }
-  import Chapter.given
+  import PracticeProgress.{ ChapterNbMoves, NbMoves }
 
-  private given BSONHandler[NbMoves]        = isoHandler
-  private given BSONHandler[ChapterNbMoves] = typedMapHandler[StudyChapterId, NbMoves]
+  private given (String => StudyChapterId) = StudyChapterId.apply
 
   given BSONHandler[PracticeProgress.Id]      = stringAnyValHandler(_.value, PracticeProgress.Id.apply)
   given BSONDocumentHandler[PracticeProgress] = Macros.handler

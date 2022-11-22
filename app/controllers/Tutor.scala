@@ -6,7 +6,7 @@ import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.user.{ User as UserModel }
 import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 import lila.common.LilaOpeningFamily
@@ -22,17 +22,17 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok(views.html.tutor.home(av, me)).toFuccess
   }
 
-  def perf(username: String, perf: String) = TutorPerfPage(username, perf) {
+  def perf(username: String, perf: Perf.Key) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.perf(report, perf, me)).toFuccess: Fu[Result]
   }
 
-  def openings(username: String, perf: String) = TutorPerfPage(username, perf) {
+  def openings(username: String, perf: Perf.Key) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.openings(report, perf, me)).toFuccess
   }
 
-  def opening(username: String, perf: String, colName: String, opName: String) =
+  def opening(username: String, perf: Perf.Key, colName: String, opName: String) =
     TutorPerfPage(username, perf) { implicit ctx => me => report => perf =>
       chess.Color
         .fromName(colName)
@@ -48,12 +48,12 @@ final class Tutor(env: Env) extends LilaController(env):
         }
     }
 
-  def phases(username: String, perf: String) = TutorPerfPage(username, perf) {
+  def phases(username: String, perf: Perf.Key) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.phases(report, perf, me)).toFuccess
   }
 
-  def time(username: String, perf: String) = TutorPerfPage(username, perf) {
+  def time(username: String, perf: Perf.Key) = TutorPerfPage(username, perf) {
     implicit ctx => me => report => perf =>
       Ok(views.html.tutor.time(report, perf, me)).toFuccess
   }
@@ -86,7 +86,7 @@ final class Tutor(env: Env) extends LilaController(env):
         case available: TutorFullReport.Available => f(ctx)(user)(available)
     }
 
-  private def TutorPerfPage(username: String, perf: String)(
+  private def TutorPerfPage(username: String, perf: Perf.Key)(
       f: Context => UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ) =
     TutorPage(username) { ctx => me => availability =>

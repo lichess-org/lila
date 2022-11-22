@@ -5,8 +5,7 @@ import play.api.i18n.Lang
 import lila.hub.LeaderTeam
 import lila.hub.LightTeam.*
 import lila.i18n.I18nKeys as trans
-import lila.rating.BSONHandlers.perfTypeKeyHandler
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
 
 sealed trait Condition:
@@ -204,6 +203,7 @@ object Condition:
   object BSONHandlers:
     import reactivemongo.api.bson.*
     import lila.db.dsl.{ *, given }
+    import lila.rating.BSONHandlers.perfTypeKeyHandler
     private given BSONDocumentHandler[NbRatedGame] = Macros.handler
     private given BSONDocumentHandler[MaxRating]   = Macros.handler
     private given BSONDocumentHandler[MinRating]   = Macros.handler
@@ -247,7 +247,7 @@ object Condition:
 
   object DataForm:
     import play.api.data.Forms.*
-    import lila.common.Form.*
+    import lila.common.Form.{ *, given }
     val perfAuto = "auto" -> "Auto"
     val perfKeys = "auto" :: PerfType.nonPuzzle.map(_.key)
     def perfChoices(using lang: Lang) =
@@ -260,18 +260,19 @@ object Condition:
       case x      => x
     }
     val nbRatedGame = mapping(
-      "perf" -> optional(text.verifying(perfKeys.contains)),
+      "perf" -> optional(of[Perf.Key].verifying(perfKeys.contains)),
       "nb"   -> numberIn(nbRatedGameChoices)
     )(NbRatedGameSetup.apply)(unapply)
-    case class NbRatedGameSetup(perf: Option[String], nb: Int):
+    case class NbRatedGameSetup(perf: Option[Perf.Key], nb: Int):
       def convert(tourPerf: PerfType): Option[NbRatedGame] =
         nb > 0 option NbRatedGame(
-          if (perf has perfAuto._1) tourPerf.some else PerfType(~perf),
+          if (perf has perfAuto._1) tourPerf.some
+          else perf.flatMap(PerfType.apply),
           nb
         )
     object NbRatedGameSetup:
       def apply(x: NbRatedGame): NbRatedGameSetup = NbRatedGameSetup(x.perf.map(_.key), x.nb)
-    case class RatingSetup(perf: Option[String], rating: Option[Int]):
+    case class RatingSetup(perf: Option[Perf.Key], rating: Option[Int]):
       def actualRating = rating.filter(r => r > 600 && r < 3000)
       def convert[A](tourPerf: PerfType)(f: (PerfType, Int) => A): Option[A] =
         actualRating map { r =>
@@ -284,7 +285,7 @@ object Condition:
     val maxRatingChoices = ("", "No restriction") ::
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
-      "perf"   -> optional(text.verifying(perfKeys.contains)),
+      "perf"   -> optional(of[Perf.Key].verifying(perfKeys.contains)),
       "rating" -> optional(numberIn(maxRatings))
     )(RatingSetup.apply)(unapply)
     val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
@@ -292,7 +293,7 @@ object Condition:
     val minRatingChoices = ("", "No restriction") ::
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
-      "perf"   -> optional(text.verifying(perfKeys.contains)),
+      "perf"   -> optional(of[Perf.Key].verifying(perfKeys.contains)),
       "rating" -> optional(numberIn(minRatings))
     )(RatingSetup.apply)(unapply)
     def teamMember(leaderTeams: List[LeaderTeam]) =

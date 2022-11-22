@@ -6,10 +6,11 @@ import alleycats.Zero
 import scala.concurrent.{ ExecutionContext, Promise }
 import scala.jdk.CollectionConverters.*
 
-final class AsyncActorConcMap[Id <: String, D <: AsyncActor](
+final class AsyncActorConcMap[Id, D <: AsyncActor](
     mkAsyncActor: Id => D,
     initialCapacity: Int
-) extends TellMap[Id]:
+)(using Id =:= String)
+    extends TellMap[Id]:
 
   def tell(id: Id, msg: Matchable): Unit = getOrMake(id) ! msg
 
@@ -19,8 +20,7 @@ final class AsyncActorConcMap[Id <: String, D <: AsyncActor](
 
   def tellIfPresent(id: Id, msg: => Matchable): Unit = getIfPresent(id) foreach (_ ! msg)
 
-  def tellAll(msg: Matchable) =
-    asyncActors.forEachValue(16, _ ! msg)
+  def tellAll(msg: Matchable) = asyncActors.forEachValue(16, _ ! msg)
 
   def tellIds(ids: Seq[Id], msg: Matchable): Unit = ids foreach { tell(_, msg) }
 

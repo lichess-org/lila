@@ -88,7 +88,7 @@ case class User(
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-  def lightPerf(key: String) =
+  def lightPerf(key: Perf.Key) =
     perfs(key) map { perf =>
       User.LightPerf(light, key, perf.intRating, perf.progress)
     }
@@ -177,7 +177,7 @@ object User:
   case class GDPRErase(user: User)  extends AnyVal
   case class Erased(value: Boolean) extends AnyVal
 
-  case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
+  case class LightPerf(user: LightUser, perfKey: Perf.Key, rating: Int, progress: Int)
   case class LightCount(user: LightUser, count: Int)
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):

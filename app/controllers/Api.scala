@@ -443,7 +443,7 @@ final class Api(
       }
     }
 
-  def perfStat(username: String, perfKey: String) = ApiRequest { req =>
+  def perfStat(username: String, perfKey: lila.rating.Perf.Key) = ApiRequest { req =>
     given play.api.i18n.Lang = reqLang(req)
     env.perfStat.api.data(username, perfKey, none) map {
       _.fold[ApiResult](NoData) { data => Data(env.perfStat.jsonView(data)) }

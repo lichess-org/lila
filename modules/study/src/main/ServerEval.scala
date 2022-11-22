@@ -22,11 +22,11 @@ object ServerEval:
       userRepo: UserRepo
   )(using ec: scala.concurrent.ExecutionContext):
 
-    private val onceEvery = lila.memo.OnceEvery(5 minutes)
+    private val onceEvery = lila.memo.OnceEvery[StudyChapterId](5 minutes)
 
     def apply(study: Study, chapter: Chapter, userId: User.ID, unlimited: Boolean = false): Funit =
       chapter.serverEval.fold(true) { eval =>
-        !eval.done && onceEvery(chapter.id)
+        !eval.done && onceEvery(StudyChapterId(chapter.id))
       } ?? {
         val unlimitedFu =
           fuccess(unlimited) >>|
@@ -64,7 +64,7 @@ object ServerEval:
   )(using ec: scala.concurrent.ExecutionContext):
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
-      analysis.studyId.map(StudyId.apply) ?? { studyId =>
+      analysis.studyId ?? { studyId =>
         sequencer.sequenceStudyWithChapter(studyId, StudyChapterId(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {

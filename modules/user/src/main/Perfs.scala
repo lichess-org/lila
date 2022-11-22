@@ -29,25 +29,24 @@ case class Perfs(
     streak: Perf.Streak
 ):
 
-  def perfs =
-    List(
-      "standard"       -> standard,
-      "chess960"       -> chess960,
-      "kingOfTheHill"  -> kingOfTheHill,
-      "threeCheck"     -> threeCheck,
-      "antichess"      -> antichess,
-      "atomic"         -> atomic,
-      "horde"          -> horde,
-      "racingKings"    -> racingKings,
-      "crazyhouse"     -> crazyhouse,
-      "ultraBullet"    -> ultraBullet,
-      "bullet"         -> bullet,
-      "blitz"          -> blitz,
-      "rapid"          -> rapid,
-      "classical"      -> classical,
-      "correspondence" -> correspondence,
-      "puzzle"         -> puzzle
-    )
+  def perfs = List[(Perf.Key, Perf)](
+    Perf.Key("standard")       -> standard,
+    Perf.Key("chess960")       -> chess960,
+    Perf.Key("kingOfTheHill")  -> kingOfTheHill,
+    Perf.Key("threeCheck")     -> threeCheck,
+    Perf.Key("antichess")      -> antichess,
+    Perf.Key("atomic")         -> atomic,
+    Perf.Key("horde")          -> horde,
+    Perf.Key("racingKings")    -> racingKings,
+    Perf.Key("crazyhouse")     -> crazyhouse,
+    Perf.Key("ultraBullet")    -> ultraBullet,
+    Perf.Key("bullet")         -> bullet,
+    Perf.Key("blitz")          -> blitz,
+    Perf.Key("rapid")          -> rapid,
+    Perf.Key("classical")      -> classical,
+    Perf.Key("correspondence") -> correspondence,
+    Perf.Key("puzzle")         -> puzzle
+  )
 
   def bestPerf: Option[(PerfType, Perf)] =
     val ps = PerfType.nonPuzzle map { pt =>
@@ -104,29 +103,29 @@ case class Perfs(
       if (p > max) p else max
     }
 
-  lazy val perfsMap: Map[String, Perf] = Map(
-    "chess960"       -> chess960,
-    "kingOfTheHill"  -> kingOfTheHill,
-    "threeCheck"     -> threeCheck,
-    "antichess"      -> antichess,
-    "atomic"         -> atomic,
-    "horde"          -> horde,
-    "racingKings"    -> racingKings,
-    "crazyhouse"     -> crazyhouse,
-    "ultraBullet"    -> ultraBullet,
-    "bullet"         -> bullet,
-    "blitz"          -> blitz,
-    "rapid"          -> rapid,
-    "classical"      -> classical,
-    "correspondence" -> correspondence,
-    "puzzle"         -> puzzle
+  lazy val perfsMap: Map[Perf.Key, Perf] = Map(
+    Perf.Key("chess960")       -> chess960,
+    Perf.Key("kingOfTheHill")  -> kingOfTheHill,
+    Perf.Key("threeCheck")     -> threeCheck,
+    Perf.Key("antichess")      -> antichess,
+    Perf.Key("atomic")         -> atomic,
+    Perf.Key("horde")          -> horde,
+    Perf.Key("racingKings")    -> racingKings,
+    Perf.Key("crazyhouse")     -> crazyhouse,
+    Perf.Key("ultraBullet")    -> ultraBullet,
+    Perf.Key("bullet")         -> bullet,
+    Perf.Key("blitz")          -> blitz,
+    Perf.Key("rapid")          -> rapid,
+    Perf.Key("classical")      -> classical,
+    Perf.Key("correspondence") -> correspondence,
+    Perf.Key("puzzle")         -> puzzle
   )
 
-  def ratingMap: Map[String, Int] = perfsMap.view.mapValues(_.intRating).toMap
+  def ratingMap: Map[Perf.Key, Int] = perfsMap.view.mapValues(_.intRating).toMap
 
-  def ratingOf(pt: String): Option[Int] = perfsMap get pt map (_.intRating)
+  def ratingOf(pt: Perf.Key): Option[Int] = perfsMap get pt map (_.intRating)
 
-  def apply(key: String): Option[Perf] = perfsMap get key
+  def apply(key: Perf.Key): Option[Perf] = perfsMap get key
 
   def apply(perfType: PerfType): Perf = perfType match
     case PerfType.Standard       => standard

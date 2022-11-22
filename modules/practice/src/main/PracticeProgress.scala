@@ -42,8 +42,8 @@ object PracticeProgress:
 
   case class Id(value: String) extends AnyVal
 
-  case class NbMoves(value: Int) extends AnyVal
-  given Iso.IntIso[NbMoves] = Iso.int[NbMoves](NbMoves.apply, _.value)
+  opaque type NbMoves = Int
+  object NbMoves extends OpaqueInt[NbMoves]
 
   case class OnComplete(userId: User.ID, studyId: StudyId, chapterId: StudyChapterId)
 

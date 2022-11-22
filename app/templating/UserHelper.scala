@@ -58,7 +58,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def showPerfRating(u: User, perfType: PerfType)(using lang: Lang): Frag =
     showPerfRating(perfType, u perfs perfType)
 
-  def showPerfRating(u: User, perfKey: String)(using lang: Lang): Option[Frag] =
+  def showPerfRating(u: User, perfKey: Perf.Key)(using lang: Lang): Option[Frag] =
     PerfType(perfKey) map { showPerfRating(u, _) }
 
   def showBestPerf(u: User)(using lang: Lang): Option[Frag] =

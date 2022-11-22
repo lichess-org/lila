@@ -11,8 +11,6 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.removeMultibyteSymbols
 import lila.study.{ Order, Study }
 
-given AttrValue[StudyChapterId] = stringAttrValue
-
 object bits:
 
   def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) =

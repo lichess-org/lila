@@ -39,5 +39,5 @@ trait NewTypes {
       inline def yes: Boolean   = a == Yes
   end YesNo
 
-  given [A]: BasicallyTheSame[A, A] = a => a
+  // given BasicallyTheSame[String, String] = a => a
 }

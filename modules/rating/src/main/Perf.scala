@@ -82,8 +82,10 @@ case class Perf(
 
 case object Perf:
 
-  type Key = String
-  type ID  = Int
+  opaque type Key <: String = String
+  object Key extends OpaqueString[Key]
+
+  type ID = Int
 
   case class Typed(perf: Perf, perfType: PerfType)
 

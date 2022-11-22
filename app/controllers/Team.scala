@@ -189,7 +189,7 @@ final class Team(
     ("fast", 10, 2.minutes),
     ("slow", 50, 1.day)
   )
-  private val kickLimitReportOnce = lila.memo.OnceEvery(10.minutes)
+  private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
   def kickUser(teamId: String, username: String) =
     Scoped(_.Team.Lead) { req => me =>
@@ -201,7 +201,7 @@ final class Team(
         ) {
           api.kick(team, userId, me) inject Api.Done
         } {
-          if (kickLimitReportOnce(userId))
+          if (kickLimitReportOnce(UserId(userId)))
             lila
               .log("security")
               .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${HTTPRequest ipAddress req}")

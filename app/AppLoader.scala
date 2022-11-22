@@ -167,10 +167,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val opening: Opening               = wire[Opening]
 
   // eagerly wire up all controllers
-  private val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
-  private val reportRouter: _root_.report.Routes = wire[_root_.report.Routes]
-  private val clasRouter: _root_.clas.Routes     = wire[_root_.clas.Routes]
-  val router: Router                             = wire[_root_.router.Routes]
+  private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]
+  private val reportRouter: _root_.router.report.Routes = wire[_root_.router.report.Routes]
+  private val clasRouter: _root_.router.clas.Routes     = wire[_root_.router.clas.Routes]
+  val router: Router                                    = wire[_root_.router.router.Routes]
 
   if (configuration.get[Boolean]("kamon.enabled"))
     lila.log("boot").info("Kamon is enabled")

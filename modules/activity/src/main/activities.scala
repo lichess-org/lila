@@ -52,7 +52,8 @@ object activities:
         value = value + (stage -> value.get(stage).fold(1)(1 +))
       )
   object Learn:
-    case class Stage(value: String) extends AnyVal
+    opaque type Stage = String
+    object Stage extends OpaqueString[Stage]
   given Zero[Learn] = Zero(Learn(Map.empty))
 
   case class Practice(value: Map[StudyId, Int]):

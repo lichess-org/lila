@@ -20,7 +20,7 @@ final class SelfReport(
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
 )(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
-  private val onceEvery = lila.memo.OnceEvery(1 hour)
+  private val onceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(
       userId: Option[User.ID],
@@ -38,7 +38,7 @@ final class SelfReport(
           lila.log("cheat").branch("jslog").info {
             s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
           }
-          user.filter(u => onceEvery(u.id)) foreach { u =>
+          user.filter(u => onceEvery(UserId(u.id))) foreach { u =>
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,
