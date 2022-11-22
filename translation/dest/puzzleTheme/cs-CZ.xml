@@ -10,6 +10,7 @@
   <string name="arabianMateDescription">Jezdec a věž dají mat soupeřovu králi na kraji šachovnice.</string>
   <string name="attackingF2F7">Útok na f2 či f7</string>
   <string name="attackingF2F7Description">Útok zaměřený na pěšce f2, resp. f7, například jako při tzv. Šustrmatu (Ovčáckém matu).</string>
+  <string name="attraction">Zavlečení</string>
   <string name="attractionDescription">Výměna nebo obětování figur, která podpoří nebo vynutí figuru protihráče postoupit na pole, jenž umožňuje další taktický postup.</string>
   <string name="backRankMate">Mat na poslední řadě</string>
   <string name="backRankMateDescription">Mat krále na poslední řadě, kde je uvězněn vlastními figurami.</string>
@@ -21,6 +22,7 @@
   <string name="castlingDescription">Schovejte krále do bezpečí a vyviňte věž.</string>
   <string name="capturingDefender">Odstranění obránce</string>
   <string name="capturingDefenderDescription">Sebrání figury, která brání jinou figuru, a poté dalším tahem dobereme tuto nechráněnou figuru.</string>
+  <string name="crushing">Potrestání</string>
   <string name="crushingDescription">Odhalte chybu soupeře a získejte drtivou výhodu. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat dvěma střelci</string>
   <string name="doubleBishopMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi.</string>
@@ -78,6 +80,7 @@
   <string name="pin">Vazba</string>
   <string name="pinDescription">Taktika zahrnující vazby, kde se figura nemůže pohnout bez odhalení útoku na figuru vyšší hodnoty.</string>
   <string name="promotion">Proměna figury</string>
+  <string name="promotionDescription">Proměna pěšce v dámu nebo lehkou figuru.</string>
   <string name="queenEndgame">Dámské koncovky</string>
   <string name="queenEndgameDescription">Koncovka jen s dámy a pěšci.</string>
   <string name="queenRookEndgame">Královna a věž</string>
@@ -92,6 +95,7 @@
   <string name="sacrificeDescription">Taktika zahrnující krátkodobé vzdání materiálu, s cílem získat opět výhodu po vynucené sekvenci tahů.</string>
   <string name="short">Krátká úloha</string>
   <string name="shortDescription">Dva tahy do výhry.</string>
+  <string name="skewer">Napíchnutí</string>
   <string name="skewerDescription">Motiv zahrnující útok na figuru vyšší hodnoty, která útoku uhne, ale dovolí tak útok nebo sebrání figury nižší hodnoty za ní, opak vazby.</string>
   <string name="smotheredMate">Dušený mat</string>
   <string name="superGM">Úlohy Super GM</string>
