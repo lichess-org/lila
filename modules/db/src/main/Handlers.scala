@@ -130,7 +130,7 @@ trait Handlers:
       _.map { case (k, v) => keyIso.to(k) -> v }
     )
 
-  given [T](using handler: BSONHandler[T]): BSONHandler[NonEmptyList[T]] =
+  given [T: BSONHandler]: BSONHandler[NonEmptyList[T]] =
     def listWriter = BSONWriter.collectionWriter[T, List[T]]
     def listReader = collectionReader[List, T]
     tryHandler[NonEmptyList[T]](
@@ -148,11 +148,17 @@ trait Handlers:
     def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
     def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
 
-  given vectorHandler[T](using handler: BSONHandler[T]): BSONHandler[Vector[T]] with
+  given vectorHandler[T: BSONHandler]: BSONHandler[Vector[T]] with
     val reader                                   = collectionReader[Vector, T]
     val writer                                   = BSONWriter.collectionWriter[T, Vector[T]]
     def readTry(bson: BSONValue): Try[Vector[T]] = reader.readTry(bson)
     def writeTry(t: Vector[T]): Try[BSONValue]   = writer.writeTry(t)
+
+  given arrayHandler[T: BSONHandler]: BSONHandler[Array[T]] with
+    val reader                                  = collectionReader[Array, T]
+    val writer                                  = BSONWriter.collectionWriter[T, Array[T]]
+    def readTry(bson: BSONValue): Try[Array[T]] = reader.readTry(bson)
+    def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
     def writeTry(n: BSONNull.type) = Success(BSONNull)
