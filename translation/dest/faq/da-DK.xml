@@ -63,6 +63,7 @@ Det beskrives i sektion 3.7 (d) af de %2$s:
 Tjek %3$s for dette træk og for at øve det.</string>
   <string name="goodIntroduction">god introduktion</string>
   <string name="lichessTraining">Lichess træning</string>
+  <string name="watchIMRosenCheckmate">Se International Mester Eric Rosen sætte %s skakmat.</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>
