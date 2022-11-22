@@ -191,7 +191,7 @@ final class Mod(
         .fold(
           _ => fuccess(redirect(username, mod = true)),
           title =>
-            modApi.setTitle(me.id, username, title map UserTitle.apply) >>
+            modApi.setTitle(me.id, username, title) >>
               env.mailer.automaticEmail.onTitleSet(username) >>-
               env.user.lightUserApi.invalidate(UserModel normalize username) inject
               redirect(username, mod = false)
@@ -279,7 +279,7 @@ final class Mod(
           .flatMap { povs =>
             priv.?? {
               env.chat.api.playerChat
-                .optionsByOrderedIds(povs.map(_.gameId).map(Chat.Id.apply))
+                .optionsByOrderedIds(povs.map(_.gameId).map(ChatId.apply))
                 .mon(_.mod.comm.segment("playerChats"))
             } zip
               priv.?? {

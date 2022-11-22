@@ -23,6 +23,6 @@ final private class PlaybanFeedback(
     pov.player.userId foreach { userId =>
       lightUser(userId) foreach { light =>
         val message = template.replace("{user}", light.fold(userId)(_.name))
-        chatApi.userChat.volatile(Chat.Id(pov.gameId), message, _.Round)
+        chatApi.userChat.volatile(ChatId(pov.gameId), message, _.Round)
       }
     }

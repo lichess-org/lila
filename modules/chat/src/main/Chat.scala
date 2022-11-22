@@ -7,7 +7,7 @@ import lila.common.Iso
 import reactivemongo.api.bson.BSONDocumentHandler
 
 sealed trait AnyChat:
-  def id: Chat.Id
+  def id: ChatId
   def lines: List[Line]
 
   val loginRequired: Boolean
@@ -19,12 +19,12 @@ sealed trait AnyChat:
   def userIds: List[User.ID]
 
 sealed trait Chat[L <: Line] extends AnyChat:
-  def id: Chat.Id
+  def id: ChatId
   def lines: List[L]
   def nonEmpty = lines.exists(_.isHuman)
 
 case class UserChat(
-    id: Chat.Id,
+    id: ChatId,
     lines: List[UserLine]
 ) extends Chat[UserLine]:
 
@@ -58,7 +58,7 @@ object UserChat:
     def truncate(max: Int) = copy(chat = chat truncate max)
 
 case class MixedChat(
-    id: Chat.Id,
+    id: ChatId,
     lines: List[Line]
 ) extends Chat[Line]:
 
@@ -81,14 +81,12 @@ case class MixedChat(
 
 object Chat:
 
-  case class Id(value: String) extends AnyVal with StringValue
-
   case class ResourceId(value: String) extends AnyVal with StringValue
 
-  case class Setup(id: Id, publicSource: PublicSource)
+  case class Setup(id: ChatId, publicSource: PublicSource)
 
-  def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))
-  def simulSetup(simulId: String)     = Setup(Id(simulId), PublicSource.Simul(simulId))
+  def tournamentSetup(tourId: TourId) = Setup(tourId into ChatId, PublicSource.Tournament(tourId))
+  def simulSetup(simulId: SimulId)    = Setup(simulId into ChatId, PublicSource.Simul(simulId))
 
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, restricted: Boolean)
@@ -100,10 +98,10 @@ object Chat:
 
   import lila.db.BSON
 
-  def makeUser(id: Chat.Id)  = UserChat(id, Nil)
-  def makeMixed(id: Chat.Id) = MixedChat(id, Nil)
+  def makeUser(id: ChatId)  = UserChat(id, Nil)
+  def makeMixed(id: ChatId) = MixedChat(id, Nil)
 
-  def chanOf(id: Chat.Id) = s"chat:$id"
+  def chanOf(id: ChatId) = s"chat:$id"
 
   object BSONFields:
     val id    = "_id"
@@ -114,13 +112,10 @@ object Chat:
   import Line.given
   import lila.db.dsl.{ *, given }
 
-  given Iso.StringIso[Id] = Iso.string[Id](Id.apply, _.value)
-  given BSONHandler[Id]   = lila.db.BSON.stringIsoHandler
-
   given BSONDocumentHandler[MixedChat] = new BSON[MixedChat]:
     def reads(r: BSON.Reader): MixedChat =
       MixedChat(
-        id = r.get[Id](id),
+        id = r.get[ChatId](id),
         lines = r.get[List[Line]](lines)
       )
     def writes(w: BSON.Writer, o: MixedChat) =
@@ -132,7 +127,7 @@ object Chat:
   given BSONDocumentHandler[UserChat] = new BSON[UserChat]:
     def reads(r: BSON.Reader): UserChat =
       UserChat(
-        id = r.get[Id](id),
+        id = r.get[ChatId](id),
         lines = r.get[List[UserLine]](lines)
       )
     def writes(w: BSON.Writer, o: UserChat) =

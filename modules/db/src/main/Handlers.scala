@@ -28,13 +28,6 @@ trait Handlers:
     v => BSONDateTime(v.getMillis)
   )
 
-  given BSONHandler[GamePlayerId] = stringHandler(GamePlayerId.apply)
-  given BSONHandler[SwissId]      = stringHandler(SwissId.apply)
-  given BSONHandler[TourPlayerId] = stringHandler(TourPlayerId.apply)
-  given BSONHandler[PuzzleId]     = stringHandler(PuzzleId.apply)
-  given BSONHandler[Days]         = intHandler(Days.apply)
-  given BSONHandler[UserTitle]    = stringHandler(UserTitle.apply)
-
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
     new BSONHandler[A]:
       def readTry(x: BSONValue) = handler.readTry(x) map iso.from

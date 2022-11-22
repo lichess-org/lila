@@ -18,10 +18,10 @@ final private class SimulSocket(
     mode: play.api.Mode
 ):
 
-  def hostIsOn(simulId: Simul.ID, gameId: GameId): Unit =
+  def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId, NotifyVersion("hostGame", gameId))
 
-  def reload(simulId: Simul.ID): Unit =
+  def reload(simulId: SimulId): Unit =
     repo find simulId foreach {
       _ foreach { simul =>
         jsonView(simul, none) foreach { obj =>
@@ -30,7 +30,7 @@ final private class SimulSocket(
       }
     }
 
-  def aborted(simulId: Simul.ID): Unit =
+  def aborted(simulId: SimulId): Unit =
     rooms.tell(simulId, NotifyVersion("aborted", Json.obj()))
 
   def startSimul(simul: Simul, firstGame: Game): Unit =
@@ -63,10 +63,10 @@ final private class SimulSocket(
       rooms,
       chat,
       logger,
-      roomId => _.Simul(roomId.value).some,
+      roomId => _.Simul(roomId into SimulId).some,
       chatBusChan = _.Simul,
       localTimeout = Some { (roomId, modId, _) =>
-        repo.hostId(roomId.value).map(_ has modId)
+        repo.hostId(roomId into SimulId).map(_ has modId)
       }
     )
 
@@ -80,5 +80,5 @@ private object SimulSocket:
   object Protocol:
     object Out:
       import lila.socket.RemoteSocket.Protocol.Out.commas
-      def filterPresent(reqId: Int, simulId: Simul.ID, userIds: Set[User.ID]) =
+      def filterPresent(reqId: Int, simulId: SimulId, userIds: Set[User.ID]) =
         s"room/filter-present $reqId $simulId ${commas(userIds)}"

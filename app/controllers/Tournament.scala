@@ -89,7 +89,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       cachedTour(id) flatMap { tourOption =>
         def loadChat(tour: Tour, json: JsObject) =
           canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
-            .findMine(lila.chat.Chat.Id(tour.id), ctx.me)
+            .findMine(ChatId(tour.id), ctx.me)
             .flatMap { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds) inject c.some
             }

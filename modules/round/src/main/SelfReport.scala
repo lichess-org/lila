@@ -47,7 +47,7 @@ final class SelfReport(
               ip = ip
             )
           }
-      if (fullId == "____________") doLog()
+      if (fullId.value == "____________") doLog()
       else
         proxyRepo.pov(fullId) foreach {
           _ ?? { pov =>

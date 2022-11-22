@@ -10,7 +10,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Simul(
-    _id: Simul.ID,
+    _id: SimulId,
     name: String,
     status: SimulStatus,
     clock: SimulClock,
@@ -143,8 +143,6 @@ case class Simul(
 
 object Simul:
 
-  type ID = String
-
   case class OnStart(simul: Simul) extends AnyVal
 
   def make(
@@ -160,7 +158,7 @@ object Simul:
       featurable: Option[Boolean]
   ): Simul =
     Simul(
-      _id = lila.common.ThreadLocalRandom nextString 8,
+      _id = SimulId(lila.common.ThreadLocalRandom nextString 8),
       name = name,
       status = SimulStatus.Created,
       clock = clock,

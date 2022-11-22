@@ -85,7 +85,7 @@ final class Team(
       hasChat = canHaveChat(team, info, requestModView)
       chat <-
         hasChat ?? env.chat.api.userChat.cached
-          .findMine(lila.chat.Chat.Id(team.id), ctx.me)
+          .findMine(ChatId(team.id), ctx.me)
           .map(some)
       _ <- env.user.lightUserApi preloadMany {
         team.leaders.toList ::: info.userIds ::: chat.??(_.chat.userIds)

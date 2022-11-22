@@ -54,7 +54,7 @@ case class LiveStreams(streams: List[Stream]):
 
 object LiveStreams:
 
-  case class WithTitles(live: LiveStreams, titles: Map[User.ID, String]):
+  case class WithTitles(live: LiveStreams, titles: Map[User.ID, UserTitle]):
     def titleName(s: Stream) = s"${titles.get(s.streamer.userId).fold("")(_ + " ")}${s.streamer.name}"
     def excludeUsers(userIds: List[User.ID]) =
       copy(

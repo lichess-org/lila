@@ -168,8 +168,8 @@ object BSONHandlers:
           source = r intO F.source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](F.pgnImport),
           tournamentId = r strO F.tournamentId,
-          swissId = r strO F.swissId,
-          simulId = r strO F.simulId,
+          swissId = r.getO[SwissId](F.swissId),
+          simulId = r.getO[SimulId](F.simulId),
           analysed = r boolD F.analysed,
           drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty),
           rules = r.getD(F.rules, Set.empty)

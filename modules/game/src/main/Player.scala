@@ -69,7 +69,7 @@ case class Player(
       case ((Some(a), _), (Some(b), _)) if a != b => a > b
       case ((Some(_), _), (None, _))              => true
       case ((None, _), (Some(_), _))              => false
-      case ((_, a), (_, b))                       => a < b
+      case ((_, a), (_, b))                       => a.value < b.value
 
   def ratingAfter = rating map (_ + ~ratingDiff)
 
@@ -81,26 +81,18 @@ object Player:
 
   private val nameSplitRegex = """([^(]++)\((\d++)\)""".r
 
-  def make(
-      color: Color,
-      aiLevel: Option[Int] = None
-  ): Player =
-    Player(
-      id = IdGenerator.player(color),
-      color = color,
-      aiLevel = aiLevel
-    )
+  def make(color: Color, aiLevel: Option[Int] = None): Player = Player(
+    id = IdGenerator.player(color),
+    color = color,
+    aiLevel = aiLevel
+  )
 
-  def make(
-      color: Color,
-      userPerf: (User.ID, lila.rating.Perf)
-  ): Player =
-    make(
-      color = color,
-      userId = userPerf._1,
-      rating = userPerf._2.intRating,
-      provisional = userPerf._2.glicko.provisional
-    )
+  def make(color: Color, userPerf: (User.ID, lila.rating.Perf)): Player = make(
+    color = color,
+    userId = userPerf._1,
+    rating = userPerf._2.intRating,
+    provisional = userPerf._2.glicko.provisional
+  )
 
   def make(
       color: Color,

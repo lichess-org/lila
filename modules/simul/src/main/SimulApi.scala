@@ -29,7 +29,7 @@ final class SimulApi(
     mode: play.api.Mode
 ):
 
-  private val workQueue = lila.hub.AsyncActorSequencers[Simul.ID](
+  private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
     maxSize = 128,
     expiration = 10 minutes,
     timeout = 10 seconds,
@@ -38,8 +38,7 @@ final class SimulApi(
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get {}
 
-  def find  = repo.find
-  def byIds = repo.byIds
+  export repo.{ find, byIds }
 
   private val currentHostIdsCache = cacheApi.unit[Set[User.ID]] {
     _.refreshAfterWrite(5 minutes)
@@ -79,7 +78,7 @@ final class SimulApi(
     )
     repo.update(simul) >>- publish() inject simul
 
-  def addApplicant(simulId: Simul.ID, user: User, isInTeam: TeamID => Boolean, variantKey: String): Funit =
+  def addApplicant(simulId: SimulId, user: User, isInTeam: TeamID => Boolean, variantKey: String): Funit =
     WithSimul(repo.findCreated, simulId) { simul =>
       if (simul.nbAccepted < Game.maxPlayingRealtime && simul.team.forall(isInTeam))
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
@@ -99,17 +98,17 @@ final class SimulApi(
       else simul
     }
 
-  def removeApplicant(simulId: Simul.ID, user: User): Funit =
+  def removeApplicant(simulId: SimulId, user: User): Funit =
     WithSimul(repo.findCreated, simulId) { _ removeApplicant user.id }
 
-  def accept(simulId: Simul.ID, userId: String, v: Boolean): Funit =
+  def accept(simulId: SimulId, userId: String, v: Boolean): Funit =
     userRepo byId userId flatMap {
       _ ?? { user =>
         WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
       }
     }
 
-  def start(simulId: Simul.ID): Funit =
+  def start(simulId: SimulId): Funit =
     workQueue(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
@@ -137,7 +136,7 @@ final class SimulApi(
       repo.setHostGameId(simul, game.id)
       socket.hostIsOn(simul.id, game.id)
 
-  def abort(simulId: Simul.ID): Funit =
+  def abort(simulId: SimulId): Funit =
     workQueue(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
@@ -146,7 +145,7 @@ final class SimulApi(
       }
     }
 
-  def setText(simulId: Simul.ID, text: String): Funit =
+  def setText(simulId: SimulId, text: String): Funit =
     workQueue(simulId) {
       repo.find(simulId) flatMap {
         _ ?? { simul =>
@@ -219,10 +218,10 @@ final class SimulApi(
 
   def byTeamLeaders = repo.byTeamLeaders
 
-  def idToName(id: Simul.ID): Fu[Option[String]] =
+  def idToName(id: SimulId): Fu[Option[String]] =
     repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
 
-  def teamOf(id: Simul.ID): Fu[Option[TeamID]] =
+  def teamOf(id: SimulId): Fu[Option[TeamID]] =
     repo.coll.primitiveOne[TeamID]($id(id), "team")
 
   private def makeGame(simul: Simul, host: User)(
@@ -269,8 +268,8 @@ final class SimulApi(
     repo.update(simul) >>- socket.reload(simul.id) >>- publish()
 
   private def WithSimul(
-      finding: Simul.ID => Fu[Option[Simul]],
-      simulId: Simul.ID
+      finding: SimulId => Fu[Option[Simul]],
+      simulId: SimulId
   )(updating: Simul => Simul): Funit =
     workQueue(simulId) {
       finding(simulId) flatMap {

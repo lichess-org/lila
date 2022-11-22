@@ -30,7 +30,7 @@ final class PublicChat(
 
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap { visibleTournaments =>
-      val ids = visibleTournaments.all.map(_.id) map Chat.Id.apply
+      val ids = visibleTournaments.all.map(t => ChatId(t.id))
       chatApi.userChat.findAll(ids).map { chats =>
         chats.flatMap { chat =>
           visibleTournaments.all.find(_.id == chat.id.value).map(_ -> chat)
@@ -41,10 +41,10 @@ final class PublicChat(
   private def swissChats: Fu[List[(Swiss, UserChat)]] =
     swissFeature.get(Nil).flatMap { swisses =>
       val all = swisses.created ::: swisses.started
-      val ids = all.map(_.id) map Chat.Id.apply
+      val ids = all.map(_.id into ChatId)
       chatApi.userChat.findAll(ids).map { chats =>
         chats.flatMap { chat =>
-          all.find(_.id == chat.id.value).map(_ -> chat)
+          all.find(_.id.value == chat.id.value).map(_ -> chat)
         }
       }
     }

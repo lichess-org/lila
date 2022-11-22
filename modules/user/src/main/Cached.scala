@@ -11,7 +11,7 @@ import User.{ LightCount, LightPerf }
 
 final class Cached(
     userRepo: UserRepo,
-    onlineUserIds: () => Set[User.ID],
+    onlineUserIds: lila.socket.OnlineIds,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi

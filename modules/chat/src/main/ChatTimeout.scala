@@ -37,7 +37,7 @@ final class ChatTimeout(
           ) inject true
     }
 
-  def isActive(chatId: Chat.Id, userId: User.ID): Fu[Boolean] =
+  def isActive(chatId: ChatId, userId: User.ID): Fu[Boolean] =
     fuccess(global.get(userId)) >>| coll.exists(
       $doc(
         "chat" -> chatId,
@@ -84,14 +84,13 @@ object ChatTimeout:
   case class UserEntry(mod: String, reason: Reason, createdAt: DateTime)
   implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader[UserEntry]
 
-  sealed trait Scope
-  object Scope:
-    case object Local  extends Scope
-    case object Global extends Scope
+  enum Scope:
+    case Local, Global
 
+  import lila.common.Form.given
   val form = Form(
     mapping(
-      "roomId" -> nonEmptyText,
+      "roomId" -> of[RoomId],
       "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "study")),
       "userId" -> nonEmptyText,
       "reason" -> nonEmptyText,
@@ -99,4 +98,4 @@ object ChatTimeout:
     )(TimeoutFormData.apply)(unapply)
   )
 
-  case class TimeoutFormData(roomId: String, chan: String, userId: User.ID, reason: String, text: String)
+  case class TimeoutFormData(roomId: RoomId, chan: String, userId: User.ID, reason: String, text: String)

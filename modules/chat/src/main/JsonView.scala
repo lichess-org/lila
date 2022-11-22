@@ -37,8 +37,6 @@ object JsonView:
 
   object writers:
 
-    given Writes[Chat.Id] = stringIsoWriter
-
     given Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
       Json.obj("key" -> r.key, "name" -> r.name)
     }

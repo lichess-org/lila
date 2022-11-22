@@ -19,7 +19,7 @@ import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.{ Socket, SocketVersion }
+import lila.socket.{ Socket, SocketVersion, SocketSend }
 import lila.user.User
 import reactivemongo.api.Cursor
 
@@ -126,7 +126,7 @@ final class RoundSocket(
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
       messenger.watcher(id, userId, msg).unit
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
-      messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text).unit
+      messenger.timeout(ChatId(s"$roomId/w"), modId, suspect, reason, text).unit
     case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId, userId), "berserk")
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
@@ -162,7 +162,7 @@ final class RoundSocket(
 
   private lazy val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 8)
 
-  private lazy val sendForGameId: GameId => String => Unit = gameId => msg => send.sticky(gameId, msg)
+  private lazy val sendForGameId: GameId => SocketSend = gameId => SocketSend(msg => send.sticky(gameId, msg))
 
   remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
     roundHandler orElse remoteSocketApi.baseHandler
@@ -194,13 +194,17 @@ final class RoundSocket(
   {
     import lila.chat.actorApi.*
     Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan) {
-      case ChatLine(Chat.Id(id), l) =>
-        val line = RoundLine(l, id endsWith "/w")
+      case ChatLine(id, l) =>
+        val line = RoundLine(l, id.value endsWith "/w")
         rounds.tellIfPresent(if (line.watcher) Game.takeGameId(id) else GameId(id), line)
-      case OnTimeout(Chat.Id(id), userId) =>
-        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), Socket.makeMessage("chat_timeout", userId)))
-      case OnReinstate(Chat.Id(id), userId) =>
-        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), Socket.makeMessage("chat_reinstate", userId)))
+      case OnTimeout(id, userId) =>
+        send(
+          RP.Out.tellRoom(Game takeGameId id.value into RoomId, Socket.makeMessage("chat_timeout", userId))
+        )
+      case OnReinstate(id, userId) =>
+        send(
+          RP.Out.tellRoom(Game takeGameId id.value into RoomId, Socket.makeMessage("chat_reinstate", userId))
+        )
     }
   }
 

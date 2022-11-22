@@ -167,7 +167,7 @@ final class StudyApi(
           val study = study1 rewindTo first
           studyRepo.insert(study) >>
             chatApi.userChat.system(
-              Chat.Id(study.id),
+              study.id into ChatId,
               s"Cloned from lichess.org/study/${prev.id}",
               _.Study
             ) inject study.some
@@ -188,7 +188,7 @@ final class StudyApi(
       _ foreach { study =>
         (study canChat userId) ?? {
           chatApi.userChat.write(
-            Chat.Id(studyId),
+            study.id into ChatId,
             userId = userId,
             text = text,
             publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId).some,

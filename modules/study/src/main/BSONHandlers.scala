@@ -19,11 +19,6 @@ import chess.Outcome
 
 object BSONHandlers:
 
-  import Study.given
-  import Chapter.given
-
-  given BSONHandler[StudyChapterId]           = stringIsoHandler
-  given BSONHandler[StudyChapterName]         = stringIsoHandler
   given topicHandler: BSONHandler[StudyTopic] = stringIsoHandler
   given (using listHandler: BSONHandler[List[StudyTopic]]): BSONHandler[StudyTopics] =
     listHandler.as[StudyTopics](StudyTopics.apply, _.value)

@@ -211,7 +211,7 @@ final class Round(
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } ?? {
-    val id = Chat.Id(s"${game.id}/w")
+    val id = ChatId(s"${game.id}/w")
     env.chat.api.userChat.findMineIf(id, ctx.me, !game.justCreated) flatMap { chat =>
       env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
     }
@@ -237,22 +237,24 @@ final class Round(
           {
             ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
           } ?? env.chat.api.userChat.cached
-            .findMine(Chat.Id(tid), ctx.me)
+            .findMine(ChatId(tid), ctx.me)
             .dmap(toEventChat(s"tournament/$tid"))
         case (_, Some(sid), _) =>
-          env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"simul/$sid"))
+          env.chat.api.userChat.cached.findMine(sid into ChatId, ctx.me).dmap(toEventChat(s"simul/$sid"))
         case (_, _, Some(sid)) =>
           env.swiss.api
             .roundInfo(SwissId(sid))
             .flatMap { _ ?? swissC.canHaveChat }
             .flatMap {
               _ ?? {
-                env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"swiss/$sid"))
+                env.chat.api.userChat.cached
+                  .findMine(sid into ChatId, ctx.me)
+                  .dmap(toEventChat(s"swiss/$sid"))
               }
             }
         case _ =>
           game.hasChat ?? {
-            env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated) map { chat =>
+            env.chat.api.playerChat.findIf(ChatId(game.id), !game.justCreated) map { chat =>
               Chat
                 .GameOrEvent(
                   Left(

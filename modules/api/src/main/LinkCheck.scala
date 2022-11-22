@@ -77,8 +77,8 @@ final private class LinkCheck(
       }
     }
 
-  private def simulLink(simulId: Tournament.ID, source: FullSource) =
-    simulApi teamOf simulId map {
+  private def simulLink(simulId: String, source: FullSource) =
+    simulApi teamOf SimulId(simulId) map {
       _ exists source.teamId.has
     }
 

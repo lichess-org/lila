@@ -13,7 +13,7 @@ sealed abstract class PuzzleAngle(val key: String):
   def opening: Option[FullOpening]
 
 object PuzzleAngle:
-  case class Theme(theme: PuzzleTheme.Key) extends PuzzleAngle(theme):
+  case class Theme(theme: PuzzleTheme.Key) extends PuzzleAngle(theme.value):
     val name        = PuzzleTheme(theme).name
     val description = PuzzleTheme(theme).description
     def asTheme     = theme.some

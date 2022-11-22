@@ -7,9 +7,8 @@ case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey
 
 object PuzzleTheme:
 
-  opaque type Key <: String = String
-  object Key:
-    def apply(v: String): Key = v
+  opaque type Key = String
+  object Key extends OpaqueString[Key]
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
@@ -240,6 +239,3 @@ object PuzzleTheme:
   def findOrMix(key: String) = find(key) | mix
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
-
-  import lila.common.Iso
-  given Iso.StringIso[Key] = Iso.opaque(Key.apply)

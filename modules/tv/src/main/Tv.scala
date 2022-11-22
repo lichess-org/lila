@@ -224,7 +224,7 @@ object Tv:
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
-  private[tv] val titleScores = Map(
+  private[tv] val titleScores: Map[UserTitle, Int] = List(
     "GM"  -> 500,
     "WGM" -> 500,
     "IM"  -> 300,
@@ -235,4 +235,4 @@ object Tv:
     "CM"  -> 100,
     "WCM" -> 100,
     "WNM" -> 100
-  )
+  ).map { (t, s) => UserTitle(t) -> s }.toMap

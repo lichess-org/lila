@@ -101,9 +101,6 @@ object Chapter:
   // It works but could be used for DoS.
   val maxNodes = 3000
 
-  given Iso.StringIso[StudyChapterId]   = Iso.opaque(StudyChapterId.apply)
-  given Iso.StringIso[StudyChapterName] = Iso.opaque(StudyChapterName.apply)
-
   sealed trait Like:
     val _id: StudyChapterId
     val name: StudyChapterName

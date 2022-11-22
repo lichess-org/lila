@@ -72,7 +72,7 @@ package shutup:
   sealed abstract class PublicSource(val parentName: String)
   object PublicSource:
     case class Tournament(id: String)  extends PublicSource("tournament")
-    case class Simul(id: String)       extends PublicSource("simul")
+    case class Simul(id: SimulId)      extends PublicSource("simul")
     case class Study(id: StudyId)      extends PublicSource("study")
     case class Watcher(gameId: GameId) extends PublicSource("watcher")
     case class Team(id: String)        extends PublicSource("team")

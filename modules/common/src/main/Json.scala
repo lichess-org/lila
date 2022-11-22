@@ -16,9 +16,6 @@ object Json:
   ): Format[T] =
     format.bimap(bts.apply, stb.apply)
 
-  given Format[PuzzleId] = stringFormat(PuzzleId.apply)
-  given Format[Days]     = intFormat(Days.apply)
-
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
   private val intFormatBase: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)
 

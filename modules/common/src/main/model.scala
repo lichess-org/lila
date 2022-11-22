@@ -63,9 +63,8 @@ object Domain:
   case class Lower(value: String) extends AnyVal with StringValue:
     def domain = Domain(value)
 
-opaque type LangPath <: String = String
-object LangPath:
-  def apply(l: String): LangPath  = l
+opaque type LangPath = String
+object LangPath extends OpaqueString[LangPath]:
   def apply(call: Call): LangPath = LangPath(call.url)
 
 case class Strings(value: List[String]) extends AnyVal
@@ -74,8 +73,8 @@ case class Ints(value: List[Int])       extends AnyVal
 
 case class Template(value: String) extends AnyVal
 
-opaque type Days <: Int = Int
-object Days { def apply(d: Int): Days = d }
+opaque type Days = Int
+object Days extends OpaqueInt[Days]
 
 case class Preload[A](value: Option[A]) extends AnyVal:
   def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)

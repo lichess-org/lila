@@ -66,7 +66,7 @@ final class Env(
     log = false
   )
 
-  def version(simulId: Simul.ID) =
+  def version(simulId: SimulId) =
     simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion.apply)
 
   Bus.subscribeFuns(

@@ -123,9 +123,6 @@ object JsonView:
   given OWrites[Study.IdName] = OWrites { s =>
     Json.obj("id" -> s._id, "name" -> s.name)
   }
-  import Chapter.given
-  given Writes[StudyChapterId]   = stringIsoWriter
-  given Writes[StudyChapterName] = stringIsoWriter
 
   private given Reads[Pos] = Reads { v =>
     (v.asOpt[String] flatMap Pos.fromKey).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))

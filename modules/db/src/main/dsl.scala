@@ -431,7 +431,7 @@ object dsl extends dsl with Handlers:
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
-        readPreference: ReadPreference
+        readPreference: ReadPreference = ReadPreference.primary
     ): Fu[List[D]] =
       list[D]($inIds(ids), readPreference)
 

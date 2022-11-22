@@ -311,7 +311,7 @@ final class SwissApi(
     }
 
   def gameView(pov: Pov): Fu[Option[GameView]] =
-    (pov.game.swissId.map(SwissId.apply) ?? cache.swissCache.byId) flatMap {
+    (pov.game.swissId ?? cache.swissCache.byId) flatMap {
       _ ?? { swiss =>
         getGameRanks(swiss, pov.game) dmap {
           GameView(swiss, _).some
@@ -395,7 +395,7 @@ final class SwissApi(
     }
 
   private[swiss] def finishGame(game: Game): Funit =
-    game.swissId.map(SwissId.apply) ?? { swissId =>
+    game.swissId ?? { swissId =>
       Sequencing(swissId)(cache.swissCache.byId) { swiss =>
         if (!swiss.isStarted)
           logger.info(s"Removing pairing ${game.id} finished after swiss ${swiss.id}")
@@ -625,7 +625,7 @@ final class SwissApi(
       }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(Chat.Id(id), text, _.Swiss, isVolatile = volatile)
+    chatApi.userChat.service(ChatId(id), text, _.Swiss, isVolatile = volatile)
 
   def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
     mongo.swiss

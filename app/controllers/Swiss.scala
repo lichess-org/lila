@@ -53,7 +53,7 @@ final class Swiss(
               canChat <- canHaveChat(swiss)
               chat <-
                 canChat ?? env.chat.api.userChat.cached
-                  .findMine(lila.chat.Chat.Id(swiss.id), ctx.me)
+                  .findMine(swiss.id into ChatId, ctx.me)
                   .dmap(some)
               _ <- chat ?? { c =>
                 env.user.lightUserApi.preloadMany(c.chat.userIds)

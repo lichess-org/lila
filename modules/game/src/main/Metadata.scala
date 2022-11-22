@@ -9,16 +9,16 @@ private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
     tournamentId: Option[String],
-    swissId: Option[String],
-    simulId: Option[String],
+    swissId: Option[SwissId],
+    simulId: Option[SimulId],
     analysed: Boolean,
     drawOffers: GameDrawOffers,
     rules: Set[GameRule]
 ):
 
-  def pgnDate = pgnImport flatMap (_.date)
+  def pgnDate = pgnImport.flatMap(_.date)
 
-  def pgnUser = pgnImport flatMap (_.user)
+  def pgnUser = pgnImport.flatMap(_.user)
 
   def isEmpty = this == Metadata.empty
 

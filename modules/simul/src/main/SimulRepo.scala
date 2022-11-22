@@ -46,19 +46,19 @@ final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.
   private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
   private val createdSort    = $sort desc "createdAt"
 
-  def find(id: Simul.ID): Fu[Option[Simul]] =
+  def find(id: SimulId): Fu[Option[Simul]] =
     coll.byId[Simul](id)
 
-  def byIds(ids: List[Simul.ID]): Fu[List[Simul]] =
-    coll.byStringIds[Simul](ids)
+  def byIds(ids: List[SimulId]): Fu[List[Simul]] =
+    coll.byIds[Simul, SimulId](ids)
 
-  def exists(id: Simul.ID): Fu[Boolean] =
+  def exists(id: SimulId): Fu[Boolean] =
     coll.exists($id(id))
 
-  def findStarted(id: Simul.ID): Fu[Option[Simul]] =
+  def findStarted(id: SimulId): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
 
-  def findCreated(id: Simul.ID): Fu[Option[Simul]] =
+  def findCreated(id: SimulId): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
   def findPending(hostId: User.ID): Fu[List[Simul]] =
@@ -74,7 +74,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.
       .cursor[Simul]()
       .listAll()
 
-  def hostId(id: Simul.ID): Fu[Option[User.ID]] =
+  def hostId(id: SimulId): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($id(id), "hostId")
 
   private val featurableSelect = $doc("featurable" -> true)

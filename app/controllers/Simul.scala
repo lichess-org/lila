@@ -44,7 +44,7 @@ final class Simul(env: Env) extends LilaController(env):
       env.simul.repo.allStarted zip
       env.simul.repo.allFinishedFeaturable(20)
 
-  def show(id: String) =
+  def show(id: SimulId) =
     Open { implicit ctx =>
       env.simul.repo find id flatMap {
         _.fold[Fu[Result]](simulNotFound.toFuccess) { sim =>
@@ -64,7 +64,7 @@ final class Simul(env: Env) extends LilaController(env):
               }
             )
             chat <-
-              canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
+              canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(sim.id into ChatId, ctx.me).map(some)
             _ <- chat ?? { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             }
@@ -84,21 +84,21 @@ final class Simul(env: Env) extends LilaController(env):
         }
       }
 
-  def hostPing(simulId: String) =
+  def hostPing(simulId: SimulId) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api hostPing simul inject jsonOkResult
       }
     }
 
-  def start(simulId: String) =
+  def start(simulId: SimulId) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api start simul.id inject jsonOkResult
       }
     }
 
-  def abort(simulId: String) =
+  def abort(simulId: SimulId) =
     Auth { implicit ctx => me =>
       AsHost(simulId) { simul =>
         env.simul.api abort simul.id inject {
@@ -109,21 +109,21 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  def accept(simulId: String, userId: String) =
+  def accept(simulId: SimulId, userId: String) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api.accept(simul.id, userId, v = true) inject jsonOkResult
       }
     }
 
-  def reject(simulId: String, userId: String) =
+  def reject(simulId: SimulId, userId: String) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api.accept(simul.id, userId, v = false) inject jsonOkResult
       }
     }
 
-  def setText(simulId: String) =
+  def setText(simulId: SimulId) =
     OpenBody { implicit ctx =>
       AsHost(simulId) { simul =>
         given play.api.mvc.Request[?] = ctx.body
@@ -167,7 +167,7 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  def join(id: String, variant: String) =
+  def join(id: SimulId, variant: String) =
     Auth { implicit ctx => implicit me =>
       NoLameOrBot {
         env.team.cached.teamIds(me.id) flatMap { teamIds =>
@@ -179,7 +179,7 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  def withdraw(id: String) =
+  def withdraw(id: SimulId) =
     Auth { implicit ctx => me =>
       env.simul.api.removeApplicant(id, me) inject {
         if (HTTPRequest isXhr ctx.req) jsonOkResult
@@ -187,7 +187,7 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  def edit(id: String) =
+  def edit(id: SimulId) =
     Auth { implicit ctx => me =>
       WithEditableSimul(id, me) { simul =>
         env.team.api.lightsByLeader(me.id) map { teams =>
@@ -196,7 +196,7 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  def update(id: String) =
+  def update(id: SimulId) =
     AuthBody { implicit ctx => me =>
       WithEditableSimul(id, me) { simul =>
         given play.api.mvc.Request[?] = ctx.body
@@ -212,14 +212,14 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  private def AsHost(simulId: Sim.ID)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.simul.repo.find(simulId) flatMap {
       case None                                                                    => notFound
       case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
       case _                                                                       => fuccess(Unauthorized)
     }
 
-  private def WithEditableSimul(id: String, me: lila.user.User)(
+  private def WithEditableSimul(id: SimulId, me: lila.user.User)(
       f: Sim => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     AsHost(id) { sim =>

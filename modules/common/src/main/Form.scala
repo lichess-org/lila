@@ -233,8 +233,6 @@ object Form:
   given Formatter[chess.variant.Variant] =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)
 
-  given Formatter[lila.common.Days] = formatter.int(Days.apply)
-
   object strings:
     def separator(sep: String) = of[List[String]](
       formatter

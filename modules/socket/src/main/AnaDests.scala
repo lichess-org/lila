@@ -11,7 +11,7 @@ case class AnaDests(
     variant: Variant,
     fen: FEN,
     path: String,
-    chapterId: Option[String]
+    chapterId: Option[StudyChapterId]
 ):
 
   def isInitial = variant.standard && fen.initial && path == ""
@@ -40,9 +40,11 @@ object AnaDests:
   private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
 
   def parse(o: JsObject) =
+    import lila.common.Json.given
     for {
       d <- o obj "d"
       variant = chess.variant.Variant orDefault ~d.str("variant")
       fen  <- d str "fen"
       path <- d str "path"
-    } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = d str "ch")
+      chapterId = d.get[StudyChapterId]("ch")
+    } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = chapterId)

@@ -22,13 +22,13 @@ import lila.hub.actorApi.round.{
 }
 import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.{ Socket, SocketVersion, GetVersion, UserLagCache, incVersion }
+import lila.socket.{ Socket, SocketVersion, SocketSend, GetVersion, UserLagCache }
 import lila.user.User
 
 final private[round] class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: GameId,
-    socketSend: String => Unit,
+    socketSend: SocketSend,
     private var version: SocketVersion
 )(using
     ec: scala.concurrent.ExecutionContext,

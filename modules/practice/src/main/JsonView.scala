@@ -34,7 +34,7 @@ object JsonView:
       "completion" -> JsObject {
         us.practiceStudy.chapters.flatMap { c =>
           us.practice.progress.chapters collectFirst {
-            case (id, nbMoves) if id == c.id => id -> Json.toJson(nbMoves)
+            case (id, nbMoves) if id == c.id => id.value -> Json.toJson(nbMoves)
           }
         }
       },

@@ -6,14 +6,9 @@ import alleycats.Zero
 object Socket extends Socket:
 
   opaque type Sri = String
-  object Sri:
-    def apply(v: String): Sri = v
-  extension (s: Sri) def value: String = s
+  object Sri extends OpaqueString[Sri]
 
-  val sriIso        = lila.common.Iso.isoIdentity[Sri]
-  given Format[Sri] = lila.common.Json.stringIsoFormat(using sriIso)
-
-  case class Sris(sris: Set[Sri])
+  case class Sris(sris: Set[Sri]) // pattern matched
 
 private[socket] trait Socket:
 

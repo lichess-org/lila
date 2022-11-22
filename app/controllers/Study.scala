@@ -269,7 +269,7 @@ final class Study(
       env.chat.panic.allowed
     }
   } ?? env.chat.api.userChat
-    .findMine(Chat.Id(study.id), ctx.me)
+    .findMine(study.id into ChatId, ctx.me)
     .dmap(some)
     .mon(_.chat.fetch("study"))
 
@@ -330,7 +330,7 @@ final class Study(
   def clearChat(id: StudyId) =
     Auth { _ => me =>
       env.study.api.isOwnerOrAdmin(id, me) flatMap {
-        _ ?? env.chat.api.userChat.clear(Chat.Id(id))
+        _ ?? env.chat.api.userChat.clear(id into ChatId)
       } inject Redirect(routes.Study.show(id))
     }
 

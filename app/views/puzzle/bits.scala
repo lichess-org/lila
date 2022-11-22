@@ -22,16 +22,16 @@ object bits:
   def jsI18n(streak: Boolean)(implicit lang: Lang) =
     if (streak) i18nJsObject(streakI18nKeys)
     else
-      i18nJsObject(trainingI18nKeys) + (PuzzleTheme.enPassant.key -> JsString(
-        PuzzleTheme.enPassant.name.txt()
-      ))
+      i18nJsObject(trainingI18nKeys) + {
+        PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt())
+      }
 
   lazy val jsonThemes = PuzzleTheme.visible
     .collect { case t if t != PuzzleTheme.mix => t.key }
     .partition(PuzzleTheme.staticThemes.contains) match
     case (static, dynamic) =>
       Json.obj(
-        "dynamic" -> dynamic.sorted.mkString(" "),
+        "dynamic" -> dynamic.map(_.value).sorted.mkString(" "),
         "static"  -> static.mkString(" ")
       )
 

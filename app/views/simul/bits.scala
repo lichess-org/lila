@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def link(simulId: lila.simul.Simul.ID): Frag =
+  def link(simulId: lila.simul.SimulId): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
   def jsI18n()(implicit lang: Lang) = i18nJsObject(baseTranslations)

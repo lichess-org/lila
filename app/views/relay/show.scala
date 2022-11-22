@@ -7,6 +7,7 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given
 

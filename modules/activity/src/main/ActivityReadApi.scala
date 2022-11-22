@@ -106,7 +106,7 @@ final class ActivityReadApi(
       simuls <-
         a.simuls
           .?? { simuls =>
-            simulApi byIds simuls.value.map(_.value) dmap some
+            simulApi byIds simuls.value dmap some
           }
           .dmap(_.filter(_.nonEmpty))
       studies <-

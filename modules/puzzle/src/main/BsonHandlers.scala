@@ -14,8 +14,6 @@ object BsonHandlers:
   import Puzzle.given
   import Puzzle.BSONFields.*
 
-  given BSONHandler[PuzzleId] = stringIsoHandler
-
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[PuzzleId](id)
@@ -81,9 +79,6 @@ object BsonHandlers:
 
   import PuzzlePath.given
   private[puzzle] given pathIdHandler: BSONHandler[PuzzlePath.Id] = stringIsoHandler
-
-  import PuzzleTheme.given
-  private[puzzle] given BSONHandler[PuzzleTheme.Key] = stringHandler(PuzzleTheme.Key.apply)
 
   import PuzzleAngle.given
   private[puzzle] given BSONHandler[PuzzleAngle] = stringIsoHandler

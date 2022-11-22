@@ -14,7 +14,6 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using ec: scala.concur
 
   private given BSONDocumentHandler[Step]     = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler
-  private given BSONHandler[GameFullId]       = stringHandler(GameFullId.apply)
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit =
     lila.mon.round.forecast.create.increment()

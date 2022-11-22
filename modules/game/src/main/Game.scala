@@ -51,9 +51,6 @@ case class Game(
 
   def player(c: Color.type => Color): Player = player(c(Color))
 
-  def isPlayerFullId(player: Player, fullId: GameFullId): Boolean =
-    (fullId.lengthIs == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
-
   def player: Player = player(turnColor)
 
   def playerByUserId(userId: User.ID): Option[Player]   = players.find(_.userId contains userId)
@@ -575,9 +572,8 @@ case class Game(
       case _             => None
 
   def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
-  def withSwissId(id: String)      = copy(metadata = metadata.copy(swissId = id.some))
-
-  def withSimulId(id: String) = copy(metadata = metadata.copy(simulId = id.some))
+  def withSwissId(id: SwissId)     = copy(metadata = metadata.copy(swissId = id.some))
+  def withSimulId(id: SimulId)     = copy(metadata = metadata.copy(simulId = id.some))
 
   def withId(newId: GameId) = copy(id = newId)
 
@@ -623,8 +619,8 @@ case class Game(
 
 object Game:
 
-  def gameId(fullId: GameFullId)                     = GameId(fullId take gameIdSize)
-  def playerId(fullId: GameFullId)                   = GamePlayerId(fullId drop gameIdSize)
+  def gameId(fullId: GameFullId)                     = GameId(fullId.value take gameIdSize)
+  def playerId(fullId: GameFullId)                   = GamePlayerId(fullId.value drop gameIdSize)
   def fullId(gameId: GameId, playerId: GamePlayerId) = GameFullId(s"$gameId$playerId")
 
   case class OnStart(id: GameId)

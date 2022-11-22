@@ -43,7 +43,7 @@ final class BotPlayer(
     !spam.detect(d.text) ??
       fuccess {
         lila.mon.bot.chats(me.username).increment()
-        val chatId = lila.chat.Chat.Id {
+        val chatId = ChatId {
           if (d.room == "player") gameId else s"$gameId/w"
         }
         val source = d.room == "spectator" option {

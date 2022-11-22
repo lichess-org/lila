@@ -114,7 +114,7 @@ object widgets:
       game.daysPerTurn
         .map { days =>
           span(title := trans.correspondence.txt())(
-            if (days == 1) trans.oneDay()
+            if (days.value == 1) trans.oneDay()
             else trans.nbDays.pluralSame(days)
           )
         }

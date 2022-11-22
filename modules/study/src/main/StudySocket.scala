@@ -8,6 +8,7 @@ import play.api.libs.json.*
 import scala.concurrent.duration.*
 
 import lila.common.Bus
+import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri }
@@ -418,7 +419,6 @@ object StudySocket:
   object Protocol:
 
     object In:
-      import lila.common.Json.{ *, given }
       import play.api.libs.functional.syntax.*
 
       def reading[A](o: JsValue)(f: A => Unit)(using reader: Reads[A]): Unit =
@@ -428,9 +428,6 @@ object StudySocket:
 
       case class AtPosition(path: String, chapterId: StudyChapterId):
         def ref = Position.Ref(chapterId, Path(path))
-      import Chapter.given
-      given Reads[StudyChapterId]   = stringIsoReader
-      given Reads[StudyChapterName] = stringIsoReader
       given Reads[AtPosition] = (
         (__ \ "path").read[String] and
           (__ \ "ch").read[StudyChapterId]

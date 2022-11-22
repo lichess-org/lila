@@ -48,7 +48,7 @@ object Puzzle:
     private val powers: List[Long] =
       (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
 
-    def apply(id: PuzzleId): Long = id.toList
+    def apply(id: PuzzleId): Long = id.value.toList
       .zip(powers)
       .foldLeft(0L) { case (l, (char, pow)) =>
         l + charToInt(char) * pow
@@ -99,5 +99,3 @@ object Puzzle:
     val issue    = "issue"
     val dirty    = "dirty" // themes need to be denormalized
     val tagMe    = "tagMe" // pending phase & opening
-
-  given Iso.StringIso[PuzzleId] = Iso.opaque(PuzzleId.apply)

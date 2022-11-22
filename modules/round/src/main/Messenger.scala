@@ -18,9 +18,9 @@ final class Messenger(api: ChatApi):
     case Messenger.Volatile(msg)   => system(persistent = false)(game, msg)
 
   def system(persistent: Boolean)(game: Game, message: String): Unit = if (game.nonAi) {
-    api.userChat.volatile(chatWatcherId(Chat.Id(game.id)), message, _.Round)
-    if (persistent) api.userChat.system(Chat.Id(game.id), message, _.Round)
-    else api.userChat.volatile(Chat.Id(game.id), message, _.Round)
+    api.userChat.volatile(chatWatcherId(ChatId(game.id)), message, _.Round)
+    if (persistent) api.userChat.system(ChatId(game.id), message, _.Round)
+    else api.userChat.volatile(ChatId(game.id), message, _.Round)
   }.unit
 
   def watcher(gameId: GameId, userId: User.ID, text: String) =
@@ -35,14 +35,14 @@ final class Messenger(api: ChatApi):
         api.userChat.write(gameWatcherId(gameId), userId, text drop command.length, source.some, _.Round)
     } getOrElse {
       !text.startsWith("/") ?? // mistyped command?
-        api.userChat.write(Chat.Id(gameId), userId, text, publicSource = none, _.Round)
+        api.userChat.write(ChatId(gameId), userId, text, publicSource = none, _.Round)
     }
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =
     (game.fromFriend || presets.contains(text)) ??
-      api.playerChat.write(Chat.Id(game.id), anonColor, text, _.Round)
+      api.playerChat.write(ChatId(game.id), anonColor, text, _.Round)
 
-  def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String, text: String): Funit =
+  def timeout(chatId: ChatId, modId: User.ID, suspect: User.ID, reason: String, text: String): Funit =
     ChatTimeout.Reason(reason) ?? { r =>
       api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
     }
@@ -59,8 +59,8 @@ final class Messenger(api: ChatApi):
     "Bye!"
   )
 
-  private def chatWatcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
-  private def gameWatcherId(gameId: GameId) = Chat.Id(s"$gameId/w")
+  private def chatWatcherId(chatId: ChatId) = ChatId(s"$chatId/w")
+  private def gameWatcherId(gameId: GameId) = ChatId(s"$gameId/w")
 
 private object Messenger:
 

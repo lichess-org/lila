@@ -9,4 +9,6 @@ given Conversion[String, GameFullId]           = GameFullId.apply
 given Conversion[String, StudyId]              = StudyId.apply
 given Conversion[String, StudyChapterId]       = StudyChapterId.apply
 given Conversion[String, PuzzleId]             = PuzzleId.apply
+given Conversion[String, SimulId]              = SimulId.apply
+given Conversion[String, SwissId]              = SwissId.apply
 given Conversion[String, lila.rating.Perf.Key] = lila.rating.Perf.Key.apply

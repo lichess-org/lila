@@ -9,6 +9,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
 import lila.team.Team
 import lila.mod.Modlog
 import lila.socket.SocketVersion

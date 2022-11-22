@@ -2,14 +2,11 @@ package lila.user
 
 object Title:
 
-  given reactivemongo.api.bson.BSONHandler[UserTitle] = lila.db.dsl.stringHandler(UserTitle.apply)
-  given play.api.libs.json.Format[UserTitle]          = lila.common.Json.stringFormat(UserTitle.apply)
-
   val LM  = UserTitle("LM")
   val BOT = UserTitle("BOT")
 
   // important: names are as stated on FIDE profile pages
-  val all = Seq(
+  val all = Seq[(UserTitle, String)](
     UserTitle("GM")  -> "Grandmaster",
     UserTitle("WGM") -> "Woman Grandmaster",
     UserTitle("IM")  -> "International Master",

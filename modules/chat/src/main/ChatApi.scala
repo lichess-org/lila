@@ -7,7 +7,7 @@ import scala.concurrent.duration.*
 import lila.common.Bus
 import lila.common.config.NetDomain
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.db.dsl.*
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi.*
 import lila.user.{ Holder, User, UserRepo }
@@ -32,43 +32,43 @@ final class ChatApi(
     // only use for public, multi-user chats - tournaments, simuls
     object cached:
 
-      private val cache = cacheApi[Chat.Id, UserChat](1024, "chat.user") {
+      private val cache = cacheApi[ChatId, UserChat](1024, "chat.user") {
         _.expireAfterWrite(1 minute).buildAsyncFuture(find)
       }
 
       def invalidate = cache.invalidate
 
-      def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] =
+      def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] =
         me match
           case Some(user) => findMine(chatId, user)
           case None       => cache.get(chatId) dmap { UserChat.Mine(_, timeout = false) }
 
-      private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
+      private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
         cache get chatId flatMap { chat =>
           (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
             UserChat.Mine(chat forUser me.some, _)
           }
         }
 
-    def findOption(chatId: Chat.Id): Fu[Option[UserChat]] =
+    def findOption(chatId: ChatId): Fu[Option[UserChat]] =
       coll.byId[UserChat](chatId.value)
 
-    def find(chatId: Chat.Id): Fu[UserChat] =
+    def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) dmap (_ | Chat.makeUser(chatId))
 
-    def findAll(chatIds: List[Chat.Id]): Fu[List[UserChat]] =
+    def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byStringIds[UserChat](chatIds.map(_.value), ReadPreference.secondaryPreferred)
 
-    def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, cond = true)
+    def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, cond = true)
 
-    def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
+    def findMineIf(chatId: ChatId, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
       me match
         case Some(user) if cond => findMine(chatId, user)
         case Some(user)   => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, timeout = false))
         case None if cond => find(chatId) dmap { UserChat.Mine(_, timeout = false) }
         case None         => fuccess(UserChat.Mine(Chat.makeUser(chatId), timeout = false))
 
-    private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
+    private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
       find(chatId) flatMap { chat =>
         (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
           UserChat.Mine(chat forUser me.some, _)
@@ -76,7 +76,7 @@ final class ChatApi(
       }
 
     def write(
-        chatId: Chat.Id,
+        chatId: ChatId,
         userId: User.ID,
         text: String,
         publicSource: Option[PublicSource],
@@ -113,9 +113,9 @@ final class ChatApi(
         Bus.ask("chatLinkCheck") { GetLinkCheck(line, s, _) }
       }
 
-    def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
+    def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
-    def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit =
+    def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
       val line = UserLine(systemUserId, None, false, text, troll = false, deleted = false)
       persistLine(chatId, line) >>- {
         cached.invalidate(chatId)
@@ -123,15 +123,15 @@ final class ChatApi(
       }
 
     // like system, but not persisted.
-    def volatile(chatId: Chat.Id, text: String, busChan: BusChan.Select): Unit =
+    def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
       val line = UserLine(systemUserId, None, false, text, troll = false, deleted = false)
       publish(chatId, actorApi.ChatLine(chatId, line), busChan)
 
-    def service(chatId: Chat.Id, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
+    def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
       (if (isVolatile) volatile else system) (chatId, text, busChan).unit
 
     def timeout(
-        chatId: Chat.Id,
+        chatId: ChatId,
         modId: User.ID,
         userId: User.ID,
         reason: ChatTimeout.Reason,
@@ -151,7 +151,7 @@ final class ChatApi(
     def publicTimeout(data: ChatTimeout.TimeoutFormData, me: Holder): Funit =
       ChatTimeout.Reason(data.reason) ?? { reason =>
         timeout(
-          chatId = Chat.Id(data.roomId),
+          chatId = data.roomId into ChatId,
           modId = me.id,
           userId = data.userId,
           reason = reason,
@@ -233,10 +233,10 @@ final class ChatApi(
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach { r =>
-        Bus.publish(actorApi.OnReinstate(Chat.Id(r.chat), r.user), BusChan.Global.chan)
+        Bus.publish(actorApi.OnReinstate(ChatId(r.chat), r.user), BusChan.Global.chan)
       }
 
-    private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
+    private[ChatApi] def makeLine(chatId: ChatId, userId: String, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
           Writer.preprocessUserInput(t1, user.username.some) flatMap { t2 =>
@@ -259,23 +259,23 @@ final class ChatApi(
 
   object playerChat:
 
-    def findOption(chatId: Chat.Id): Fu[Option[MixedChat]] =
+    def findOption(chatId: ChatId): Fu[Option[MixedChat]] =
       coll.byId[MixedChat](chatId.value)
 
-    def find(chatId: Chat.Id): Fu[MixedChat] =
+    def find(chatId: ChatId): Fu[MixedChat] =
       findOption(chatId) dmap (_ | Chat.makeMixed(chatId))
 
-    def findIf(chatId: Chat.Id, cond: Boolean): Fu[MixedChat] =
+    def findIf(chatId: ChatId, cond: Boolean): Fu[MixedChat] =
       if (cond) find(chatId)
       else fuccess(Chat.makeMixed(chatId))
 
-    def findNonEmpty(chatId: Chat.Id): Fu[Option[MixedChat]] =
+    def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
       findOption(chatId) dmap (_ filter (_.nonEmpty))
 
-    def optionsByOrderedIds(chatIds: List[Chat.Id]): Fu[List[Option[MixedChat]]] =
-      coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
+    def optionsByOrderedIds(chatIds: List[ChatId]): Fu[List[Option[MixedChat]]] =
+      coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
 
-    def write(chatId: Chat.Id, color: Color, text: String, busChan: BusChan.Select): Funit =
+    def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
         persistLine(chatId, line) >>- {
           publish(chatId, actorApi.ChatLine(chatId, line), busChan)
@@ -283,21 +283,21 @@ final class ChatApi(
         }
       }
 
-    private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
+    private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
       Writer.preprocessUserInput(t1, none) flatMap { t2 =>
         flood.allowMessage(s"$chatId/${color.letter}", t2) option
           PlayerLine(color, t2)
       }
 
-  private def publish(chatId: Chat.Id, msg: Any, busChan: BusChan.Select): Unit =
+  private def publish(chatId: ChatId, msg: Any, busChan: BusChan.Select): Unit =
     Bus.publish(msg, busChan(BusChan).chan)
     Bus.publish(msg, Chat chanOf chatId)
 
-  def remove(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
+  def remove(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
-  def removeAll(chatIds: List[Chat.Id]) = coll.delete.one($inIds(chatIds)).void
+  def removeAll(chatIds: List[ChatId]) = coll.delete.one($inIds(chatIds)).void
 
-  private def persistLine(chatId: Chat.Id, line: Line): Funit =
+  private def persistLine(chatId: ChatId, line: Line): Funit =
     coll.update
       .one(
         $id(chatId),

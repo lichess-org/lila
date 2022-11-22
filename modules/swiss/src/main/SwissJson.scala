@@ -7,6 +7,7 @@ import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ GreatPlayer, LightUser }
+import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.quote.Quote.given
 import lila.socket.{ SocketVersion, given }

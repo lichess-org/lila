@@ -4,7 +4,7 @@ import lila.chat.{ BusChan, Chat, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ SyncActor, SyncActorMap }
 import lila.log.Logger
-import lila.socket.{ SocketVersion, GetVersion, incVersion }
+import lila.socket.{ SocketVersion, GetVersion }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage }
 import lila.user.User
@@ -15,14 +15,10 @@ import scala.concurrent.ExecutionContext
 
 object RoomSocket:
 
-  case class RoomId(value: String) extends AnyVal with StringValue
-
   case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false):
     def msg = makeMessage(tpe, data)
 
-  final class RoomState(roomId: RoomId, send: Send)(using
-      ec: ExecutionContext
-  ) extends SyncActor:
+  final class RoomState(roomId: RoomId, send: Send)(using ExecutionContext) extends SyncActor:
 
     private var version = SocketVersion(0)
 
@@ -41,10 +37,7 @@ object RoomSocket:
       super.stop()
       send(Protocol.Out.stop(roomId))
 
-  def makeRoomMap(send: Send)(using
-      ec: ExecutionContext,
-      mode: play.api.Mode
-  ) =
+  def makeRoomMap(send: Send)(using ExecutionContext, play.api.Mode) =
     new SyncActorMap(
       mkActor = roomId =>
         new RoomState(
@@ -66,7 +59,7 @@ object RoomSocket:
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat
           .write(
-            Chat.Id(roomId.value),
+            roomId into ChatId,
             userId,
             msg,
             publicSource(roomId)(PublicSource),
@@ -78,7 +71,7 @@ object RoomSocket:
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
             val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
-              Chat.Id(roomId.value),
+              roomId into ChatId,
               modId,
               suspect,
               r,

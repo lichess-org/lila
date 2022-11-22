@@ -98,7 +98,7 @@ final private[round] class Titivate(
 
         case game if game.unplayed =>
           bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-          chatApi.remove(lila.chat.Chat.Id(game.id))
+          chatApi.remove(ChatId(game.id))
           gameRepo remove game.id
 
         case game =>

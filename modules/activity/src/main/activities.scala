@@ -63,7 +63,6 @@ object activities:
       )
   given Zero[Practice] = Zero(Practice(Map.empty))
 
-  case class SimulId(value: String) extends AnyVal
   case class Simuls(value: List[SimulId]) extends AnyVal:
     def +(s: SimulId) = copy(value = s :: value)
   given Zero[Simuls] = Zero(Simuls(Nil))

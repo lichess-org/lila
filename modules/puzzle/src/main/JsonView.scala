@@ -78,7 +78,7 @@ final class JsonView(
       .add("vote" -> round.vote)
       .add("themes" -> round.nonEmptyThemes.map { rt =>
         JsObject(rt.map { t =>
-          t.theme -> JsBoolean(t.vote)
+          t.theme.value -> JsBoolean(t.vote)
         })
       })
 
@@ -99,7 +99,7 @@ final class JsonView(
     "days"   -> days,
     "global" -> dashboardResults(dash.global),
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { case (key, res) =>
-      key -> Json.obj(
+      key.value -> Json.obj(
         "theme"   -> PuzzleTheme(key).name.txt(),
         "results" -> dashboardResults(res)
       )
@@ -194,10 +194,6 @@ final class JsonView(
 
 object JsonView:
 
-  import Puzzle.given
-  import PuzzleTheme.given
-  given Writes[PuzzleId]           = stringIsoWriter
-  given Writes[PuzzleTheme.Key]    = stringIsoWriter
   given OWrites[PuzzleRound.Theme] = Json.writes
   given OWrites[PuzzleRound.Id]    = Json.writes
   given OWrites[PuzzleRound]       = Json.writes
@@ -214,14 +210,14 @@ object JsonView:
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
 
-  implicit val sessionRoundWrites: OWrites[PuzzleHistory.SessionRound] = OWrites { sessionRound =>
+  given OWrites[PuzzleHistory.SessionRound] = OWrites { sessionRound =>
     Json.obj(
       "round"  -> sessionRound.round,
       "puzzle" -> puzzleJson(sessionRound.puzzle),
       "theme"  -> sessionRound.theme
     )
   }
-  implicit val puzzleSessionWrites: OWrites[PuzzleHistory.PuzzleSession] = OWrites { puzzleSession =>
+  given OWrites[PuzzleHistory.PuzzleSession] = OWrites { puzzleSession =>
     Json.obj(
       "theme"   -> puzzleSession.theme,
       "puzzles" -> puzzleSession.puzzles.toList

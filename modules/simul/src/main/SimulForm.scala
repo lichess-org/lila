@@ -44,7 +44,7 @@ object SimulForm:
         if (
           t.toUpperCase.split(' ').exists { word =>
             lila.user.Title.all.exists { case (title, name) =>
-              !host.title.has(title) && (title == word || name.toUpperCase == word)
+              !host.title.has(title) && (title.value == word || name.toUpperCase == word)
             }
           }
         )

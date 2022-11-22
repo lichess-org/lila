@@ -18,7 +18,7 @@ private[controllers] trait TheftPrevention { self: LilaController =>
         case (Some(playerUserId), Some(userId)) => playerUserId != userId
         case (None, _) =>
           !lila.api.Mobile.Api.requested(ctx.req) &&
-          !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)
+          !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId.value)
     }
 
   protected def isMyPov(pov: Pov)(implicit ctx: Context) = !isTheft(pov)
