@@ -29,6 +29,7 @@
   <string name="otherAmount">Otro</string>
   <string name="pleaseEnterAmountInX">Especifica un importe en %s</string>
   <string name="withCreditCard">Tarjeta de crédito</string>
+  <string name="logInToDonate">Inicia sesión para donar</string>
   <string name="weAreSmallTeam">Somos un equipo pequeño, ¡por eso tu apoyo marca una gran diferencia!</string>
   <string name="celebratedPatrons">Los célebres patrones que hacen posible Lichess</string>
   <string name="whereMoneyGoes">¿A dónde va el dinero?</string>
@@ -42,7 +43,9 @@ Luego pagamos a un desarrollador a tiempo completo: %s, el fundador de Lichess.<
 O puedes %s.</string>
   <string name="contactSupport">ponerte en contacto con el soporte de Lichess</string>
   <string name="otherMethods">¿Hay otras maneras de donar?</string>
+  <string name="lichessIsRegisteredWith">Lichess está registrado con %s.</string>
   <string name="bankTransfers">También aceptamos transferencias bancarias</string>
+  <string name="onlyDonationFromAbove">Ten en cuenta que solo el formulario de donación anterior otorgará el estado de Patrón.</string>
   <string name="patronFeatures">¿Hay algunas características reservadas a los patrones?</string>
   <string name="noPatronFeatures">No, porque Lichess es completamente gratuito, para siempre y para todos. Prometido.
 Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfil.</string>
