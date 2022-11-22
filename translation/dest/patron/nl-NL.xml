@@ -43,7 +43,9 @@ Daarnaast betalen we een voltijds ontwikkelaar: %s, de oprichter van Lichess.</s
 Of u kunt %s.</string>
   <string name="contactSupport">contact opnemen met de Lichess helpdesk</string>
   <string name="otherMethods">Andere vormen van donatie?</string>
+  <string name="lichessIsRegisteredWith">Lichess is geregistreerd bij %s.</string>
   <string name="bankTransfers">We accepteren ook bankoverschrijvingen</string>
+  <string name="onlyDonationFromAbove">Houd er rekening mee dat alleen het donatieformulier hierboven de Patron-status geeft.</string>
   <string name="patronFeatures">Zijn sommige functies enkel beschikbaar voor Patronen?</string>
   <string name="noPatronFeatures">Nee, omdat Lichess altijd gratis is, en voor iedereen. Dat is een belofte.
 Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waardering.</string>
