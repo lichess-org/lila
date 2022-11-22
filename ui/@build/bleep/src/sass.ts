@@ -6,20 +6,18 @@ import { env, colors as c, lines, errorMark } from './main';
 import { globArray } from './parse';
 
 const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
-const debounceMap = new Map<string, NodeJS.Timeout>(); // fs.watch platform idiosyncracies
 
 export async function sassWatch(): Promise<void> {
-  debounceMap.forEach((timeout: NodeJS.Timeout) => clearTimeout(timeout));
-  debounceMap.clear();
+  builder.clear();
   importMap.clear();
 
   await buildThemedScss();
 
-  const themedSources = new Set<string>(await globArray('./*/css/**/[^_]*.scss', { abs: false }));
+  builder.themedSources = new Set<string>(await globArray('./*/css/**/[^_]*.scss', { abs: false }));
 
-  for (const dir of [...importMap.keys()].map(d => path.dirname(d))) {
+  for (const dir of [...importMap.keys()].map(path.dirname)) {
     const watcher = fs.watch(dir);
-    watcher.on('change', onChanges.bind(null, themedSources, dir));
+    watcher.on('change', onChanges.bind(null, dir));
     watcher.on('error', (err: Error) => env.error(err, 'sass'));
     watcher.on('close', () => {
       env.error('Watch done. Exiting', 'sass');
@@ -27,7 +25,7 @@ export async function sassWatch(): Promise<void> {
     });
   }
   env.log('Building css', { ctx: 'sass' });
-  sassBuild([...themedSources], false);
+  sassBuild([...builder.themedSources], false);
   return;
 }
 
@@ -98,7 +96,7 @@ function sassError(error: string) {
   for (const err of lines(error)) {
     if (err.startsWith('Error:')) {
       env.log(c.grey(hrule), { ctx: 'sass' });
-      env.log(`${errorMark} -${err.slice(7)}`, { ctx: 'sass' });
+      env.log(`${errorMark} - ${err.slice(7)}`, { ctx: 'sass' });
     } else env.log(err, { ctx: 'sass' });
   }
 }
@@ -110,43 +108,44 @@ function imports(srcFile: string, bset = new Set<string>()): Set<string> {
   return bset;
 }
 
-// fs.watch fires multiple times on some platforms, we must debounce per filename
-function onChanges(themedSources: Set<string>, dir: string, eventType: string, srcFile: string): void {
+function onChanges(dir: string, eventType: string, srcFile: string): void {
   if (eventType === 'change') {
-    srcFile = path.join(dir, srcFile);
-    if (debounceMap.has(srcFile)) return;
-    env.log(`File '${c.cyanBold(srcFile)}' changed`);
-    debounceMap.set(
-      srcFile,
-      setTimeout(() => {
-        const sources = imports(srcFile);
-        if (sources.size) sassBuild([...sources].filter(x => themedSources.has(x)));
-        debounceMap.delete(srcFile);
-      }, 200)
-    );
+    if (builder.add([path.join(dir, srcFile)])) env.log(`File '${c.cyanBold(srcFile)}' changed`);
   } else if (eventType === 'rename') {
-    // for now, let's just debounce for a sec and then touch all.  but probably need complete rebuild
-    if (debounceMap.has(dir)) return;
-    env.log(`Directory '${c.cyanBold(dir)}' changed`);
-    debounceMap.set(
-      dir,
-      setTimeout(
-        () =>
-          globArray('*.scss', { cwd: dir, abs: false }).then((touched: string[]) => {
-            const sources = touched
-              .map(s => imports(path.join(dir, s)))
-              .reduce((prev, cur) => {
-                for (const src of prev) cur.add(src);
-                return cur;
-              }, new Set<string>());
-            if (sources.size) sassBuild([...sources].filter(x => themedSources.has(x)));
-            debounceMap.delete(dir);
-          }),
-        2000
-      )
-    );
+    globArray('*.scss', { cwd: dir, abs: false }).then(files => {
+      if (builder.add(files.map(f => path.join(dir, f)))) {
+        env.log(`Directory '${c.cyanBold(dir)}' changed`);
+      }
+    });
   }
 }
+
+const builder = new (class {
+  fileSet = new Set<string>();
+  timeout: NodeJS.Timeout | undefined;
+  themedSources: Set<string>;
+
+  clear() {
+    clearTimeout(this.timeout);
+    this.timeout = undefined;
+    this.fileSet.clear();
+  }
+
+  add(files: string[]): boolean {
+    // filenames relative to lila/ui
+    const oldCount = this.fileSet.size;
+    files.forEach(src => imports(src).forEach(dest => this.fileSet.add(dest)));
+    if (!this.timeout) {
+      this.timeout = setTimeout(this.fire.bind(this), 200);
+    }
+    return this.fileSet.size > oldCount;
+  }
+
+  fire() {
+    sassBuild([...this.fileSet].filter(x => this.themedSources.has(x)));
+    this.clear();
+  }
+})();
 
 const importRe = /@import ['"](.*)['"]/g;
 
