@@ -41,12 +41,9 @@ final private class Finisher(
       }
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] =
-    if (
-      !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
-    )
+    if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt))
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
-
     else if (game.player(!game.player.color).isOfferingDraw)
       apply(game, _.Draw, None, Messenger.Persistent(trans.drawOfferAccepted.txt()).some)
     else
@@ -72,34 +69,34 @@ final private class Finisher(
   )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
-  private def recordLagStats(game: Game): Unit =
-    for {
-      clock  <- game.clock
-      player <- clock.players.all
-      lt    = player.lag
-      stats = lt.lagStats
-      moves = lt.moves if moves > 4
-      sd <- stats.stdDev
-      mean        = stats.mean if mean > 0
-      uncompStats = lt.uncompStats
-      uncompAvg   = Math.round(10 * uncompStats.mean)
-      compEstStdErr <- lt.compEstStdErr
-      quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
-      compEstOvers = lt.compEstOvers.centis
+  private def recordLagStats(game: Game) = for {
+    clock  <- game.clock
+    player <- clock.players.all
+    lt    = player.lag
+    stats = lt.lagStats
+    moves = lt.moves if moves > 4
+    sd <- stats.stdDev
+    mean        = stats.mean if mean > 0
+    uncompStats = lt.uncompStats
+    uncompAvg   = Math.round(10 * uncompStats.mean)
+    compEstStdErr <- lt.compEstStdErr
+    quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
+    compEstOvers = lt.compEstOvers.centis
+  } {
+    import lila.mon.round.move.{ lag as lRec }
+    lRec.mean.record(Math.round(10 * mean))
+    lRec.stdDev.record(Math.round(10 * sd))
+    // wikipedia.org/wiki/Coefficient_of_variation#Estimation
+    lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
+    lRec.uncomped(quotaStr).record(uncompAvg)
+    uncompStats.stdDev foreach { v =>
+      lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
     }
-      import lila.mon.round.move.{ lag as lRec }
-      lRec.mean.record(Math.round(10 * mean))
-      lRec.stdDev.record(Math.round(10 * sd))
-      // wikipedia.org/wiki/Coefficient_of_variation#Estimation
-      lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
-      lRec.uncomped(quotaStr).record(uncompAvg)
-      uncompStats.stdDev foreach { v =>
-        lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
-      }
-      lt.lagEstimator match
-        case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
-      lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
-      lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
+    lt.lagEstimator match
+      case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
+    lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
+    lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
+  }
 
   private def apply(
       prev: Game,
