@@ -337,7 +337,7 @@ final class Api(
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
       val max = me.fold(300) { u => if (u.id == "lichess4545") 900 else 500 }
-      withIdsFromReqBody(req, max) { ids =>
+      withIdsFromReqBody[lila.user.User.ID](req, max, identity) { ids =>
         GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           addKeepAlive(
             env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
@@ -348,7 +348,7 @@ final class Api(
 
   def gamesByIdsStream(streamId: String) =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody(req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
+      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
         GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           addKeepAlive(
             env.game.gamesByIdsStream(
@@ -363,7 +363,7 @@ final class Api(
 
   def gamesByIdsStreamAddIds(streamId: String) =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody(req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
+      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
         env.game.gamesByIdsStream.addGameIds(streamId, ids)
         jsonOkResult
       }.toFuccess
@@ -372,12 +372,12 @@ final class Api(
   private def gamesByIdsMax(me: Option[lila.user.User]) =
     me.fold(500) { u => if (u.id == "challengermode") 10_000 else 1000 }
 
-  private def withIdsFromReqBody[Id <: String](
+  private def withIdsFromReqBody[Id](
       req: Request[String],
       max: Int,
-      transform: String => Id = identity
+      transform: String => Id
   )(f: Set[Id] => Result): Result =
-    val ids = req.body.toLowerCase.split(',').view.map(s => transform(s.trim)).filter(_.nonEmpty).toSet
+    val ids = req.body.toLowerCase.split(',').view.filter(_.nonEmpty).map(s => transform(s.trim)).toSet
     if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
 

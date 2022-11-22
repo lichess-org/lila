@@ -30,6 +30,7 @@ final class InsightApi(
           InsightUser(count, families, openings)
         }
     }
+  private given Ordering[GameId] = stringOrdering
 
   def insightUser(user: User): Fu[InsightUser] = userCache get user.id
 

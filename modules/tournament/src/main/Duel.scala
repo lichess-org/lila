@@ -32,8 +32,8 @@ object Duel:
       DuelPlayer(Name(p._1), Rating(p._2), Rank(rank + 1))
     }
 
-  private[tournament] val ratingOrdering               = Ordering.by[Duel, Int](_.averageRating.value)
-  private[tournament] val gameIdOrdering               = Ordering.by[Duel, GameId](_.gameId)
+  private[tournament] val ratingOrdering              = Ordering.by[Duel, Int](_.averageRating.value)
+  private[tournament] val gameIdOrdering              = Ordering.by[Duel, GameId](_.gameId)(stringOrdering)
   private[tournament] def emptyGameId(gameId: GameId) = Duel(gameId, null, null, Rating(0))
 
 final private class DuelStore:

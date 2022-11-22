@@ -45,7 +45,7 @@ object StudyForm:
       def toChapterData =
         ChapterMaker.Data(
           name = StudyChapterName(""),
-          game = gameId,
+          game = gameId.map(_.value),
           variant = variant,
           fen = fen,
           pgn = pgnStr,

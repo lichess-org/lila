@@ -214,7 +214,7 @@ object Challenge:
 
   private val idSize = 8
 
-  private def randomId = lila.common.ThreadLocalRandom nextString idSize
+  private def randomId = GameId(lila.common.ThreadLocalRandom nextString idSize)
 
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
@@ -231,7 +231,7 @@ object Challenge:
       destUser: Option[User],
       rematchOf: Option[GameId],
       name: Option[String] = None,
-      id: Option[String] = None,
+      id: Option[GameId] = None,
       openToUserIds: Option[(User.ID, User.ID)] = None,
       rules: Set[GameRule] = Set.empty
   ): Challenge =

@@ -279,7 +279,7 @@ final class Mod(
           .flatMap { povs =>
             priv.?? {
               env.chat.api.playerChat
-                .optionsByOrderedIds(povs.map(_.gameId).map(ChatId.apply))
+                .optionsByOrderedIds(povs.map(_.gameId into ChatId))
                 .mon(_.mod.comm.segment("playerChats"))
             } zip
               priv.?? {

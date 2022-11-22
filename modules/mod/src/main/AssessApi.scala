@@ -94,7 +94,7 @@ final class AssessApi(
           readPreference = ReadPreference.secondaryPreferred
         )(_.gameId)
         .flatMap { fulls =>
-          val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId))
+          val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId.value))
           gameRepo.holdAlert.povs(basicsPovs) map { holds =>
             povs map { pov =>
               pov -> {

@@ -5,7 +5,7 @@ trait LilaModel extends NewTypes:
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]
 
-  opaque type GameId <: String = String
+  opaque type GameId = String
   object GameId extends OpaqueString[GameId]
 
   opaque type GameFullId = String

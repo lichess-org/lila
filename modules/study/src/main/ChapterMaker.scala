@@ -152,8 +152,8 @@ final private class ChapterMaker(
     )
 
   def notifyChat(study: Study, game: Game, userId: User.ID) =
-    if (study.isPublic) List(game hasUserId userId option game.id, s"${game.id}/w".some).flatten foreach {
-      chatId =>
+    if (study.isPublic)
+      List(game hasUserId userId option game.id.value, s"${game.id}/w".some).flatten foreach { chatId =>
         chatApi.userChat.write(
           chatId = ChatId(chatId),
           userId = userId,
@@ -162,7 +162,7 @@ final private class ChapterMaker(
           _.Round,
           persist = false
         )
-    }
+      }
 
   private[study] def getBestRoot(game: Game, pgnOpt: Option[String], initialFen: Option[FEN]): Fu[Node.Root] =
     initialFen.fold(gameRepo initialFen game) { fen =>
@@ -176,7 +176,7 @@ final private class ChapterMaker(
     }
 
   private val UrlRegex = {
-    val escapedDomain = net.domain.replace(".", "\\.")
+    val escapedDomain = net.domain.value.replace(".", "\\.")
     s"""$escapedDomain/(\\w{8,12})"""
   }.r.unanchored
 

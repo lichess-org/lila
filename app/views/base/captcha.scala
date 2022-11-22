@@ -17,7 +17,7 @@ object captcha:
 
   def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(implicit ctx: Context) =
     frag(
-      form3.hidden(form("gameId"), captcha.gameId.some),
+      form3.hidden(form("gameId"), captcha.gameId.value.some),
       if (ctx.blind) form3.hidden(form("move"), captcha.solutions.head.some)
       else {
         val url = netBaseUrl + routes.Round.watcher(captcha.gameId, if (captcha.white) "white" else "black")

@@ -22,6 +22,8 @@ trait NewTypes {
 
   inline def sameOrdering[A, T](using bts: BasicallyTheSame[T, A], ord: Ordering[A]): Ordering[T] =
     Ordering.by(bts.apply)
+  inline def stringOrdering[T](using BasicallyTheSame[T, String], Ordering[String]): Ordering[T] =
+    sameOrdering[String, T]
 
   trait OpaqueString[A](using A =:= String) extends TotalWrapper[A, String]
   trait OpaqueInt[A](using ev: A =:= Int) extends TotalWrapper[A, Int]:
