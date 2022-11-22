@@ -19,7 +19,7 @@ object JsonHandlers:
       "fen"    -> fen,
       "knodes" -> e.knodes,
       "depth"  -> e.depth,
-      "pvs"    -> e.pvs.toList.map(writePv)
+      "pvs"    -> JsArray(e.pvs.toList.map(writePv))
     )
 
   private def writePv(pv: Pv) =
