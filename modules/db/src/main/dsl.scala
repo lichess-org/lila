@@ -24,6 +24,11 @@ import scala.concurrent.ExecutionContext
 
 trait dsl:
 
+  // #TODO FIXME
+  // should be secondaryPreferred
+  // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
+  val temporarilyPrimary = ReadPreference.primary
+
   type Coll = reactivemongo.api.bson.collection.BSONCollection
   type Bdoc = BSONDocument
   type Barr = BSONArray

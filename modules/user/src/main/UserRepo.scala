@@ -126,10 +126,10 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .list(nb)
 
   def botsByIdsCursor(ids: Iterable[ID]): AkkaStreamCursor[User] =
-    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPreference.secondaryPreferred)
+    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary)
 
   def botsByIds(ids: Iterable[ID]): Fu[List[User]] =
-    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPreference.secondaryPreferred).listAll()
+    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary).listAll()
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
