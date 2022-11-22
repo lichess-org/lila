@@ -28,6 +28,7 @@
   <string name="otherAmount">その他</string>
   <string name="pleaseEnterAmountInX">金額（%s）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
+  <string name="logInToDonate">ログインして寄付する</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
   <string name="celebratedPatrons">Lichess の実現に貢献しているパトロンのみなさん</string>
   <string name="whereMoneyGoes">このお金は何に使われますか？</string>
@@ -42,6 +43,7 @@
   <string name="contactSupport">Lichess サポートに連絡</string>
   <string name="otherMethods">寄付するのにほかの方法は？</string>
   <string name="bankTransfers">銀行振込もできます</string>
+  <string name="onlyDonationFromAbove">ただしパトロンの資格が得られるのは上の寄付フォームを使った場合だけなのでご注意を。</string>
   <string name="patronFeatures">パトロン限定の機能はありますか？</string>
   <string name="noPatronFeatures">いいえ、Lichess は誰に対しても永久に無料です。これは約束です。
 ただパトロンになるとプロフィールに翼マークがついて自慢できます。</string>
