@@ -4,7 +4,7 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import scala.concurrent.duration.*
 

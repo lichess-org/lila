@@ -1,7 +1,7 @@
 package lila.security
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config.*

@@ -1,7 +1,7 @@
 package lila.plan
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration.*

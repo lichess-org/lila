@@ -1,7 +1,7 @@
 package lila.forum
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
@@ -79,6 +79,5 @@ final class Env(
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user).unit
   }
 
-final class RecentTeamPosts(f: String => Fu[List[MiniForumPost]])
-    extends (String => Fu[List[MiniForumPost]]):
+final class RecentTeamPosts(f: String => Fu[List[MiniForumPost]]) extends (String => Fu[List[MiniForumPost]]):
   def apply(teamId: String) = f(teamId)

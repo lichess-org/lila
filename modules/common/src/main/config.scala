@@ -7,32 +7,42 @@ import play.api.ConfigLoader
 
 object config:
 
-  case class Every(value: FiniteDuration)  extends AnyVal
-  case class AtMost(value: FiniteDuration) extends AnyVal
-  case class Delay(value: FiniteDuration)  extends AnyVal
+  opaque type Every = FiniteDuration
+  object Every extends OpaqueDuration[Every]
+  opaque type AtMost = FiniteDuration
+  object AtMost extends OpaqueDuration[AtMost]
+  opaque type Delay = FiniteDuration
+  object Delay extends OpaqueDuration[Delay]
 
-  case class CollName(value: String) extends AnyVal with StringValue
+  opaque type CollName = String
+  object CollName extends OpaqueString[CollName]
 
   case class Secret(value: String) extends AnyVal:
     override def toString = "Secret(****)"
 
-  case class BaseUrl(value: String) extends AnyVal with StringValue
+  opaque type BaseUrl = String
+  object BaseUrl extends OpaqueString[BaseUrl]
 
-  case class Max(value: Int) extends AnyVal with IntValue with Ordered[Int]:
-    def compare(other: Int) = Integer.compare(value, other)
-    def atMost(max: Int)    = Max(value atMost max)
-  case class MaxPerPage(value: Int) extends AnyVal with IntValue
+  opaque type Max = Int
+  object Max extends OpaqueInt[Max]
 
-  case class MaxPerSecond(value: Int) extends AnyVal with IntValue
+  opaque type MaxPerPage = Int
+  object MaxPerPage extends OpaqueInt[MaxPerPage]
 
-  opaque type NetDomain <: String = String
-  object NetDomain { def apply(v: String): NetDomain = v }
+  opaque type MaxPerSecond = Int
+  object MaxPerSecond extends OpaqueInt[MaxPerSecond]
 
-  opaque type AssetDomain <: String = String
-  object AssetDomain { def apply(v: String): AssetDomain = v }
+  opaque type NetDomain = String
+  object NetDomain extends OpaqueString[NetDomain]
 
-  case class AssetBaseUrl(value: String) extends AnyVal with StringValue
-  case class RateLimit(value: Boolean)   extends AnyVal
+  opaque type AssetDomain = String
+  object AssetDomain extends OpaqueString[AssetDomain]
+
+  opaque type AssetBaseUrl = String
+  object AssetBaseUrl extends OpaqueString[AssetBaseUrl]
+
+  opaque type RateLimit = Boolean
+  object RateLimit extends YesNo[RateLimit]
 
   case class NetConfig(
       domain: NetDomain,
@@ -50,15 +60,8 @@ object config:
   ):
     def isProd = domain == prodDomain
 
-  given ConfigLoader[Max]          = intLoader(Max.apply)
-  given ConfigLoader[MaxPerPage]   = intLoader(MaxPerPage.apply)
-  given ConfigLoader[MaxPerSecond] = intLoader(MaxPerSecond.apply)
-  given ConfigLoader[CollName]     = strLoader(CollName.apply)
   given ConfigLoader[Secret]       = strLoader(Secret.apply)
-  given ConfigLoader[BaseUrl]      = strLoader(BaseUrl.apply)
   given ConfigLoader[EmailAddress] = strLoader(EmailAddress.apply)
-  given ConfigLoader[AssetBaseUrl] = strLoader(AssetBaseUrl.apply)
-  given ConfigLoader[RateLimit]    = boolLoader(RateLimit.apply)
   given ConfigLoader[NetConfig]    = AutoConfig.loader[NetConfig]
 
   given ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)
@@ -71,7 +74,6 @@ object config:
   given [A](using loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
     ConfigLoader[Option[A]](c => k => if (c.hasPath(k)) Some(loader.load(c, k)) else None)
 
-  def strLoader[A](f: String => A): ConfigLoader[A]              = ConfigLoader.stringLoader map f
-  def intLoader[A](f: Int => A): ConfigLoader[A]                 = ConfigLoader.intLoader map f
-  def boolLoader[A](f: Boolean => A): ConfigLoader[A]            = ConfigLoader.booleanLoader map f
-  def durationLoader[A](f: FiniteDuration => A): ConfigLoader[A] = ConfigLoader.finiteDurationLoader map f
+  def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader map f
+  def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader map f
+  def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader.booleanLoader map f

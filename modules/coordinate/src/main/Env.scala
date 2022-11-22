@@ -4,6 +4,7 @@ import play.api.Configuration
 import com.softwaremill.macwire.*
 
 import lila.common.config.CollName
+import lila.common.autoconfig.given
 
 final class Env(
     appConfig: Configuration,

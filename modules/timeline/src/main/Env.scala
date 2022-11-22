@@ -2,7 +2,7 @@ package lila.timeline
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*

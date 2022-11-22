@@ -2,7 +2,8 @@ package lila.learn
 
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.common.config.CollName
+import lila.common.autoconfig.given
 
 final class Env(
     appConfig: Configuration,

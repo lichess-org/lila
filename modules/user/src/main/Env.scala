@@ -3,7 +3,7 @@ package lila.user
 import akka.actor.Scheduler
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration.*

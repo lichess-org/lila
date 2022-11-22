@@ -3,7 +3,7 @@ package lila.push
 import akka.actor.*
 import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import java.nio.charset.StandardCharsets.UTF_8

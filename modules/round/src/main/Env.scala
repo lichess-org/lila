@@ -4,7 +4,7 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import lila.common.autoconfig.*
+import lila.common.autoconfig.{ *, given }
 import play.api.{ ConfigLoader, Configuration }
 import scala.concurrent.duration.*
 
@@ -62,8 +62,8 @@ final class Env(
 ):
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
 
-  private given ConfigLoader[AnimationDuration] = durationLoader(AnimationDuration.apply)
-  private val config                            = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  // private given ConfigLoader[AnimationDuration] = durationLoader(AnimationDuration.apply)
+  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)

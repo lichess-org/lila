@@ -80,15 +80,15 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = !req.secure ?? List("http://127.0.0.1:3000")
     ContentSecurityPolicy(
-      defaultSrc = List("'self'", assetDomain),
+      defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
-        "'self'" :: assetDomain :: sockets ::: env.explorerEndpoint :: "https://utumno.backscattering.de" :: env.tablebaseEndpoint :: localDev,
-      styleSrc = List("'self'", "'unsafe-inline'", assetDomain),
-      frameSrc = List("'self'", assetDomain, "www.youtube.com", "player.twitch.tv"),
-      workerSrc = List("'self'", assetDomain),
+        "'self'" :: assetDomain.value :: sockets ::: env.explorerEndpoint :: "https://utumno.backscattering.de" :: env.tablebaseEndpoint :: localDev,
+      styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
+      frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
+      workerSrc = List("'self'", assetDomain.value),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", assetDomain),
-      fontSrc = List("'self'", assetDomain),
+      scriptSrc = List("'self'", assetDomain.value),
+      fontSrc = List("'self'", assetDomain.value),
       baseUri = List("'none'")
     )
 

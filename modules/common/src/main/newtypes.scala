@@ -24,8 +24,11 @@ trait NewTypes {
     Ordering.by(bts.apply)
 
   trait OpaqueString[A](using A =:= String) extends TotalWrapper[A, String]
+  trait OpaqueInt[A](using ev: A =:= Int) extends TotalWrapper[A, Int]:
+    extension (a: A) inline def atMost(most: Int): A = apply(java.lang.Math.min(raw(a), most))
 
-  trait OpaqueInt[A](using A =:= Int) extends TotalWrapper[A, Int]
+  import scala.concurrent.duration.FiniteDuration
+  trait OpaqueDuration[A](using A =:= FiniteDuration) extends TotalWrapper[A, FiniteDuration]
 
   abstract class YesNo[A](using ev: Boolean =:= A):
     val Yes: A                             = ev.apply(true)
