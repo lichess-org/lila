@@ -190,6 +190,7 @@ object Player:
             id = id,
             color = color,
             aiLevel = doc int aiLevel,
+            isWinner = win,
             isOfferingDraw = doc booleanLike isOfferingDraw getOrElse false,
             proposeTakebackAt = doc int proposeTakebackAt getOrElse 0,
             userId = userId,
