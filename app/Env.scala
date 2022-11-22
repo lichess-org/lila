@@ -12,7 +12,6 @@ import lila.common.config.*
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
-import lila.game.IdGenerator
 
 final class Env(
     val config: Configuration,
@@ -168,12 +167,10 @@ final class EnvBoot(
     materializer: akka.stream.Materializer
 ):
 
-  given Scheduler   = system.scheduler
-  given Mode        = environment.mode
-  given IdGenerator = game.idGenerator
-  val netConfig     = config.get[NetConfig]("net")
-  def netDomain     = netConfig.domain
-  def baseUrl       = netConfig.baseUrl
+  given Scheduler = system.scheduler
+  given Mode      = environment.mode
+  val netConfig   = config.get[NetConfig]("net")
+  export netConfig.{ domain, baseUrl }
 
   // lazy load the Uptime object to fix a precise date
   lila.common.Uptime.startedAt.unit
