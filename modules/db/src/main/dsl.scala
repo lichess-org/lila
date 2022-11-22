@@ -423,17 +423,11 @@ object dsl extends dsl with Handlers:
     def list[D: BSONDocumentReader](selector: Bdoc, limit: Int): Fu[List[D]] =
       coll.find(selector, none[Bdoc]).cursor[D]().list(limit = limit)
 
-    def byTypedId[I: BSONWriter, D: BSONDocumentReader](id: I): Fu[Option[D]] =
-      one[D]($id(id))
-
     def byId[D](using BSONDocumentReader[D]): [I] => I => BSONWriter[I] ?=> Fu[Option[D]] =
       [I] => (id: I) => one[D]($id(id))
 
-    def byTypedId[I: BSONWriter, D: BSONDocumentReader](id: I, projection: Bdoc): Fu[Option[D]] =
-      one[D]($id(id), projection)
-
     def byIdProj[D](using BSONDocumentReader[D]): [I] => (I, Bdoc) => BSONWriter[I] ?=> Fu[Option[D]] =
-      [I] => (id: I, projection: Bdoc) => byTypedId[I, D](id, projection)
+      [I] => (id: I, projection: Bdoc) => one[D]($id(id), projection)
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
