@@ -8,10 +8,9 @@ import scala.util.Try
 import lila.base.LilaTypes
 import java.net.InetAddress
 
-opaque type ApiVersion <: Int = Int
-object ApiVersion:
-  def apply(v: Int): ApiVersion = v
-  def puzzleV2(v: ApiVersion)   = v >= 6
+opaque type ApiVersion = Int
+object ApiVersion extends OpaqueInt[ApiVersion]:
+  def puzzleV2(v: ApiVersion) = v >= 6
 
 opaque type AssetVersion <: String = String
 object AssetVersion:

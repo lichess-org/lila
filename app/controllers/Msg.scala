@@ -18,7 +18,7 @@ final class Msg(
         },
         api = v =>
           {
-            if (v >= 5) inboxJson(me)
+            if (v.value >= 5) inboxJson(me)
             else env.msg.compat.inbox(me, getInt("page"))
           } map { Ok(_) }
       )
@@ -42,7 +42,7 @@ final class Msg(
               },
               api = v =>
                 {
-                  if (v >= 5) newJson
+                  if (v.value >= 5) newJson
                   else fuccess(env.msg.compat.thread(me, c))
                 } map { Ok(_) }
             )

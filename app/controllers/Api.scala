@@ -26,7 +26,7 @@ final class Api(
   private lazy val apiStatusJson =
     Json.obj(
       "api" -> Json.obj(
-        "current" -> (lila.api.Mobile.Api.currentVersion: Int),
+        "current" -> lila.api.Mobile.Api.currentVersion.value,
         "olds"    -> Json.arr()
       )
     )
@@ -55,7 +55,7 @@ final class Api(
     )
 
   private[controllers] def userWithFollows(req: RequestHeader) =
-    HTTPRequest.apiVersion(req).exists(_ < 6) && !getBool("noFollows", req)
+    HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows", req)
 
   private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
     key = "users.api.ip",

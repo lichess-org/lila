@@ -26,6 +26,7 @@ object Lila extends Lila:
 
 trait Lila
     extends lila.base.LilaTypes
+    with lila.base.NewTypes
     with lila.base.LilaModel
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
