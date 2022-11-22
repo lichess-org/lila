@@ -220,7 +220,9 @@ object Form:
 
     val field = of[URL]
 
-  given Formatter[GameId] = formatter.string(GameId.apply)
+  inline given [A, T](using ev: A =:= T, base: Formatter[A]): Formatter[T] with
+    def bind(key: String, data: Map[String, String]) = base.bind(key, data) map ev.apply
+    def unbind(key: String, value: T)                = base.unbind(key, ev.flip(value))
 
   given Formatter[chess.variant.Variant] =
     formatter.stringFormatter[chess.variant.Variant](_.key, chess.variant.Variant.orDefault)

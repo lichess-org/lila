@@ -10,6 +10,7 @@ trait NewTypes {
   trait TotalWrapper[Newtype, Impl](using ev: Newtype =:= Impl):
     def raw(a: Newtype): Impl             = ev.apply(a)
     def apply(s: Impl): Newtype           = ev.flip.apply(s)
+    given =:=[Newtype, Impl]              = ev
     given BasicallyTheSame[Newtype, Impl] = ev.apply(_)
     given BasicallyTheSame[Impl, Newtype] = ev.flip.apply(_)
 
@@ -19,7 +20,7 @@ trait NewTypes {
       inline def map(inline f: Impl => Impl): Newtype            = apply(f(raw(a)))
   end TotalWrapper
 
-  inline given [A, T](using bts: BasicallyTheSame[T, A], ord: Ordering[A]): Ordering[T] =
+  inline def sameOrdering[A, T](using bts: BasicallyTheSame[T, A], ord: Ordering[A]): Ordering[T] =
     Ordering.by(bts.apply)
 
   trait OpaqueString[A](using A =:= String) extends TotalWrapper[A, String]
@@ -37,4 +38,6 @@ trait NewTypes {
       inline def value: Boolean = a == Yes
       inline def yes: Boolean   = a == Yes
   end YesNo
+
+  given [A]: BasicallyTheSame[A, A] = a => a
 }

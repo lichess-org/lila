@@ -51,7 +51,7 @@ final class PgnDump(
       Pgn(ts, turns)
     }
 
-  private def gameUrl(id: String) = s"$baseUrl/$id"
+  private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)

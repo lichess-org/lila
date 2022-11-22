@@ -16,15 +16,15 @@ import scala.collection.Factory
 
 trait Handlers:
 
+  inline given [A, T](using ev: A =:= T, handler: BSONHandler[A]): BSONHandler[T] =
+    handler.as(ev.apply, ev.flip.apply)
+
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
     v => BSONDateTime(v.getMillis)
   )
 
-  given BSONHandler[GameId]       = stringHandler(GameId.apply)
   given BSONHandler[GamePlayerId] = stringHandler(GamePlayerId.apply)
-  given BSONHandler[StudyId]      = stringHandler(StudyId.apply)
-  given BSONHandler[StudyName]    = stringHandler(StudyName.apply)
   given BSONHandler[SwissId]      = stringHandler(SwissId.apply)
   given BSONHandler[TourPlayerId] = stringHandler(TourPlayerId.apply)
   given BSONHandler[PuzzleId]     = stringHandler(PuzzleId.apply)
@@ -148,14 +148,11 @@ trait Handlers:
     def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
     def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
 
-  // given collectionHandler[T, M[_], Repr <: Iterable[T]](using
-  //     handler: BSONHandler[T],
-  //     factory: Factory[T, M[T]]
-  // ): BSONHandler[M[T]] with
-  //   val reader                              = collectionReader[M, T]
-  //   val writer                              = BSONWriter.collectionWriter[T, Repr]
-  //   def readTry(bson: BSONValue): Try[M[T]] = reader.readTry(bson)
-  //   def writeTry(t: Repr): Try[BSONValue]   = writer.writeTry(t)
+  given vectorHandler[T](using handler: BSONHandler[T]): BSONHandler[Vector[T]] with
+    val reader                                   = collectionReader[Vector, T]
+    val writer                                   = BSONWriter.collectionWriter[T, Vector[T]]
+    def readTry(bson: BSONValue): Try[Vector[T]] = reader.readTry(bson)
+    def writeTry(t: Vector[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
     def writeTry(n: BSONNull.type) = Success(BSONNull)

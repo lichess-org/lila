@@ -24,7 +24,7 @@ object embed:
         st.body(cls := s"base highlight ${config.board}")(
           layout.dataSoundSet := SoundSet.silent.key,
           layout.dataAssetUrl,
-          layout.dataAssetVersion := str(assetVersion),
+          layout.dataAssetVersion := assetVersion.value,
           layout.dataTheme        := config.bg,
           layout.dataPieceSet     := config.pieceSet.name,
           body

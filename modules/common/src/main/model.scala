@@ -12,12 +12,11 @@ opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:
   def puzzleV2(v: ApiVersion) = v >= 6
 
-opaque type AssetVersion <: String = String
-object AssetVersion:
-  def apply(v: String): AssetVersion = v
-  var current                        = random
-  def change()                       = { current = random }
-  private def random                 = apply(SecureRandom nextString 6)
+opaque type AssetVersion = String
+object AssetVersion extends OpaqueString[AssetVersion]:
+  var current        = random
+  def change()       = { current = random }
+  private def random = AssetVersion(SecureRandom nextString 6)
 
 case class Bearer(secret: String) extends AnyVal:
   override def toString = "Bearer(***)"

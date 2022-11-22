@@ -120,15 +120,8 @@ trait ScalatagsExtensions:
 
   given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
-  given AttrValue[GameId]    = stringAttrValue
-  given AttrValue[StudyId]   = stringAttrValue
-  given AttrValue[StudyName] = stringAttrValue
-
-  def str[A <: String](a: A): String = a
-
-  def stringAttrValue[A <: String]: AttrValue[A] = new AttrValue[A] {
-    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, v: String)
-  }
+  given [A](using bts: BasicallyTheSame[A, String]): AttrValue[A] with
+    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, bts(v))
 
   given AttrValue[StringValue] with
     def apply(t: Builder, a: Attr, v: StringValue): Unit =

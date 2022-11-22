@@ -306,7 +306,7 @@ object layout:
           dataSoundSet := ctx.currentSoundSet.toString,
           dataSocketDomains,
           dataAssetUrl,
-          dataAssetVersion := str(assetVersion),
+          dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := ctx.currentBg,
           dataBoardTheme   := ctx.currentTheme.name,

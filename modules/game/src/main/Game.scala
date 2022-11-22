@@ -634,7 +634,7 @@ object Game:
   case class StartedAt(startColor: Color, startedAtTurn: Int):
     def pov(color: Color) = SideAndStart(color, startColor, startedAtTurn)
 
-  val syntheticId = "synthetic"
+  val syntheticId = GameId("synthetic")
 
   val maxPlaying         = 200 // including correspondence
   val maxPlayingRealtime = 100
@@ -704,8 +704,8 @@ object Game:
   def takeGameId(fullId: String)   = GameId(fullId take gameIdSize)
   def takePlayerId(fullId: String) = GamePlayerId(fullId drop gameIdSize)
 
-  val idRegex             = """[\w-]{8}""".r
-  def validId(id: GameId) = idRegex matches id
+  private val idRegex     = """[\w-]{8}""".r
+  def validId(id: GameId) = idRegex matches id.value
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>

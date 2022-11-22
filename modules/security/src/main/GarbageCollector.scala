@@ -21,7 +21,7 @@ final class GarbageCollector(
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = lila.memo.OnceEvery(10 minutes)
+  private val justOnce = lila.memo.OnceEvery[User.ID](10 minutes)
 
   private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader):
     override def toString = s"${user.username} $ip ${email.value} $req"

@@ -80,7 +80,7 @@ final class UserAnalysis(
           source = lila.game.Source.Api,
           pgnImport = None
         )
-        .withId(GameId("synthetic")),
+        .withId(lila.game.Game.syntheticId),
       from.situation.color
     )
 

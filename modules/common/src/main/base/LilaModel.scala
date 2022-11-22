@@ -1,10 +1,9 @@
 package lila.base
 
-trait LilaModel:
+trait LilaModel extends NewTypes:
 
-  opaque type GameId <: String = String
-  object GameId:
-    def apply(v: String): GameId = v
+  opaque type GameId = String
+  object GameId extends OpaqueString[GameId]
 
   opaque type GameFullId <: String = String
   object GameFullId:
@@ -22,13 +21,11 @@ trait LilaModel:
   object SwissId:
     def apply(v: String): SwissId = v
 
-  opaque type StudyId <: String = String
-  object StudyId:
-    def apply(v: String): StudyId = v
+  opaque type StudyId = String
+  object StudyId extends OpaqueString[StudyId]
 
-  opaque type StudyName <: String = String
-  object StudyName:
-    def apply(v: String): StudyName = v
+  opaque type StudyName = String
+  object StudyName extends OpaqueString[StudyName]
 
   opaque type StudyChapterId <: String = String
   object StudyChapterId:

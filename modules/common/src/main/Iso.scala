@@ -49,8 +49,6 @@ object Iso:
 
   def opaque[A <: String](from: String => A): StringIso[A] = apply(from, identity)
 
-  given StringIso[StudyId] = opaque(StudyId.apply)
-
   given isoIdentity[A]: Iso[A, A] = apply(identity[A], identity[A])
 
   given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)

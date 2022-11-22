@@ -135,7 +135,7 @@ object JsonView:
     })
 
   def notes(ns: List[Note])(implicit lightUser: LightUserApi) =
-    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject Json.arr {
+    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(
       ns.map { note =>
         Json
           .obj(
@@ -147,7 +147,7 @@ object JsonView:
           .add("mod", note.mod)
           .add("dox", note.dox)
       }
-    }
+    )
 
   given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[Perfs.Leaderboards] =
     OWrites { leaderboards =>

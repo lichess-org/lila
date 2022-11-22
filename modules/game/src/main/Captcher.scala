@@ -18,11 +18,11 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
 
     case AnyCaptcha => sender() ! Impl.current
 
-    case GetCaptcha(id) => Impl.get(GameId(id)).pipeTo(sender()).unit
+    case GetCaptcha(id) => Impl.get(id).pipeTo(sender()).unit
 
     case actorApi.NewCaptcha => Impl.refresh.unit
 
-    case ValidCaptcha(id, solution) => Impl.get(GameId(id)).map(_ valid solution).pipeTo(sender()).unit
+    case ValidCaptcha(id, solution) => Impl.get(id).map(_ valid solution).pipeTo(sender()).unit
 
   private object Impl:
 
@@ -47,7 +47,7 @@ final private class Captcher(gameRepo: GameRepo)(using ec: scala.concurrent.Exec
       if (find(c.gameId).isEmpty)
         challenges = NonEmptyList(c, challenges.toList take capacity)
 
-    private def find(id: String): Option[Captcha] =
+    private def find(id: GameId): Option[Captcha] =
       challenges.find(_.gameId == id)
 
     private def createFromDb: Fu[Option[Captcha]] =
