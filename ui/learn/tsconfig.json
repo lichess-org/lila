@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "skipLibCheck": true,
     "paths": {
       "chessground": ["@types/chessground"]
     },

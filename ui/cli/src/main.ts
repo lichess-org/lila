@@ -74,3 +74,5 @@ function help() {
     class: 'clinput-help',
   });
 }
+
+(window as any).LichessCli = { app }; // esbuild

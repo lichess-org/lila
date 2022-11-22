@@ -28,3 +28,5 @@ export function app(element: HTMLElement, opts: Opts) {
 
   redraw();
 }
+
+(window as any).LichessTournamentCalendar = { app };

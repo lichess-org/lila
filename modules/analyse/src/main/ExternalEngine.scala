@@ -62,7 +62,7 @@ object ExternalEngine {
 
   val form = Form(
     mapping(
-      "name"              -> cleanNonEmptyText(3, 200),
+      "name"              -> cleanNonEmptyText(1, 200),
       "maxThreads"        -> number(1, 65_536),
       "maxHash"           -> number(1, 1_048_576),
       "defaultDepth"      -> number(0, 246),

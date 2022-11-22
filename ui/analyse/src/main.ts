@@ -14,3 +14,5 @@ export const boot = makeBoot(start);
 // without having to include it a second time
 window.Chessground = Chessground;
 window.LichessChat = LichessChat;
+
+(window as any).LichessAnalyse = { start, boot }; // esbuild

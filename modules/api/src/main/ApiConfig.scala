@@ -9,8 +9,6 @@ final class ApiConfig(
     val influxEventEndpoint: String,
     val influxEventEnv: String,
     val prismicApiUrl: String,
-    val explorerEndpoint: String,
-    val tablebaseEndpoint: String,
     val accessibility: ApiConfig.Accessibility,
     val pagerDuty: ApiConfig.PagerDuty
 )
@@ -36,8 +34,6 @@ object ApiConfig {
       c.get[String]("api.influx_event.endpoint"),
       c.get[String]("api.influx_event.env"),
       c.get[String]("prismic.api_url"),
-      c.get[String]("explorer.endpoint"),
-      c.get[String]("explorer.tablebase.endpoint"),
       new Accessibility(
         c.get[String]("accessibility.blind.cookie.name"),
         c.get[Secret]("accessibility.blind.cookie.salt")

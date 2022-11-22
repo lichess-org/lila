@@ -1,3 +1,5 @@
+export {}; // for tsc isolatedModules
+
 const searchParams = new URL(self.location.href).searchParams;
 const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
 

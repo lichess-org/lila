@@ -29,3 +29,5 @@ export default function LichessChallenge(element: Element, opts: ChallengeOpts) 
     update,
   };
 }
+
+(window as any).LichessChallenge = LichessChallenge; // esbuild

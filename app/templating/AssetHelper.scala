@@ -83,7 +83,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
       connectSrc =
-        "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
+        "'self'" :: assets :: sockets ::: env.explorerEndpoint :: "https://utumno.backscattering.de" :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
       frameSrc = List("'self'", assets, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assets),

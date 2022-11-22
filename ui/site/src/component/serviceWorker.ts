@@ -39,8 +39,8 @@ export default function () {
                       },
                       body: JSON.stringify(sub),
                     }).then(res => {
-                      if (res.ok) store.set('' + Date.now());
-                      else console.log('submitting push subscription failed', res.statusText);
+                      if (res.ok && !res.redirected) store.set('' + Date.now());
+                      else sub.unsubscribe();
                     }),
                   err => {
                     console.log('push subscribe failed', err.message);

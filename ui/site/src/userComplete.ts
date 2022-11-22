@@ -18,7 +18,7 @@ interface Opts {
   swiss?: string;
 }
 
-export default function (opts: Opts): void {
+export default (window as any).UserComplete = function userComplete(opts: Opts): void {
   const debounced = debounce(
     (term: string) =>
       xhr
@@ -66,4 +66,4 @@ export default function (opts: Opts): void {
     onSelect: opts.onSelect,
     regex: /^[a-z][\w-]{2,29}$/i,
   });
-}
+};

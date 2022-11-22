@@ -175,3 +175,6 @@ const glyphProperties = (node: Tree.Node) => {
 const toBlurArray = (player: Player) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
 
 export default acpl;
+
+if (!window.LichessChartGame) (window as any).LichessChartGame = [];
+(window as any).LichessChartGame.acpl = acpl; // esbuild

@@ -65,3 +65,7 @@ export default function wikiTheory(): WikiTheory {
     true
   );
 }
+
+export function wikiClear() {
+  $('.analyse__wiki').html('').toggleClass('empty', true);
+}

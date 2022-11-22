@@ -518,44 +518,6 @@ declare namespace PowerTip {
   }
 }
 
-declare namespace Prefs {
-  const enum Coords {
-    Hidden = 0,
-    Inside = 1,
-    Outside = 2,
-  }
-
-  const enum AutoQueen {
-    Never = 1,
-    OnPremove = 2,
-    Always = 3,
-  }
-
-  const enum ShowClockTenths {
-    Never = 0,
-    Below10Secs = 1,
-    Always = 2,
-  }
-
-  const enum ShowResizeHandle {
-    Never = 0,
-    OnlyAtStart = 1,
-    Always = 2,
-  }
-
-  const enum MoveEvent {
-    Click = 0,
-    Drag = 1,
-    ClickOrDrag = 2,
-  }
-
-  const enum Replay {
-    Never = 0,
-    OnlySlowGames = 1,
-    Always = 2,
-  }
-}
-
 interface Dictionary<T> {
   [key: string]: T | undefined;
 }

@@ -181,7 +181,7 @@ object contact {
               illegalPawnCapture(),
               frag(
                 p(calledEnPassant()),
-                p(a(href := "/learn#/15")(tryEnPassant()), ".")
+                p(a(href := "/learn#/15")(tryEnPassant()))
               )
             ),
             Leaf(
