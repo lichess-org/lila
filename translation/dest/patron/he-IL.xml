@@ -65,7 +65,7 @@
   <string name="update">עדכן</string>
   <string name="changeMonthlyAmount">שנה את הסכום החודשי (%s)</string>
   <string name="cancelSupport">בטלו את תמיכתכם</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s או %2$s</string>
+  <string name="xOrY">%1$s או %2$s</string>
   <string name="decideHowMuch">החליטו מה ליצ\'ס שווה בשבילכם:</string>
   <string name="stopPayments">משכו את כרטיס האשראי שלכם ועצרו את התשלומים:</string>
   <string name="stopPaymentsPayPal">בטלו את מינוי הPayPal ועצרו את התשלומים:</string>
