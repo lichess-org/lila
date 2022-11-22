@@ -64,6 +64,7 @@ Wichtig isch, dass die Schlagart \"en passant\" nur diräkt nach dem Uswichversu
 Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="goodIntroduction">guete erschte Idruck</string>
   <string name="lichessTraining">Lichess-Träning</string>
+  <string name="watchIMRosenCheckmate">Lueg zue, wie de IM Eric Rosen de %s schachmatt setzt.</string>
   <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
   <string name="threefoldRepetitionExplanation">Bi drümal glicher Stellig, chann en Schpiller es Remis dur %1$s reklamiere. Lichess setzt die offiziell FIDE Regle, wo im Artikel 9.2 (d) vum %2$s beschribe isch, um.</string>
   <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>
