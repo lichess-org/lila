@@ -11,7 +11,7 @@ import lila.memo.CacheApi.*
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import TournamentShield.*
   import BSONHandlers.given
@@ -61,7 +61,7 @@ final class TournamentShieldApi(
           )
           .sort($sort asc "startsAt")
           .cursor[Tournament](ReadPreference.secondaryPreferred)
-          .list(100) map { tours =>
+          .listAll() map { tours =>
           for {
             tour   <- tours
             categ  <- Category of tour
