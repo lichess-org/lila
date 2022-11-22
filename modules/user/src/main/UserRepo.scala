@@ -129,7 +129,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPreference.secondaryPreferred)
 
   def botsByIds(ids: Iterable[ID]): Fu[List[User]] =
-    botsByIdsCursor(ids).listAll()
+    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPreference.secondaryPreferred).listAll()
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)

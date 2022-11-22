@@ -58,7 +58,7 @@ object BuildSettings {
     // "-source:future-migration",
     // "-indent",
     // "-explaintypes",
-    "-explain",
+    // "-explain",
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
