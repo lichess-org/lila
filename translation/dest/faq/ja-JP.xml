@@ -55,6 +55,7 @@
 %3$sでアンパッサンを練習することができます。</string>
   <string name="goodIntroduction">参考</string>
   <string name="lichessTraining">Lichess のトレーニング機能</string>
+  <string name="watchIMRosenCheckmate">IM Eric Rosen が %s をメイトするところをご覧ください。</string>
   <string name="threefoldRepetition">同形三復について</string>
   <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
   <string name="threefoldRepetitionLowerCase">同形三復</string>
