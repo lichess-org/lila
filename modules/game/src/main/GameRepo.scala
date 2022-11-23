@@ -30,7 +30,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     coll.byOrderedIds[Game, GameId](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
-    coll.optionsByOrderedIds[Game, GameId](gameIds, none, ReadPreference.secondaryPreferred)(_.id)
+    coll.optionsByOrderedIds[Game, GameId](gameIds, none, temporarilyPrimary)(_.id)
 
   object light:
 
@@ -146,7 +146,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   def docCursor(
       selector: Bdoc,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Bdoc] =
     coll.find(selector).cursor[Bdoc](readPreference)
 
@@ -154,7 +154,7 @@ final class GameRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       selector: Bdoc,
       sort: Bdoc,
       batchSize: Int = 0,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Game] =
     coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
 
