@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Şu anki turun linki</string>
   <string name="currentGameUrl">Şu anki oyunun linki</string>
   <string name="downloadAllRounds">Bütün maçları indir</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Turu ve oyunlarını tamamen sil.</string>
+  <string name="deleteAllGamesOfThisRound">Bu turdaki tüm oyunları sil. Tekrardan yapılabilmesi için kaynağın aktif olması gerekir.</string>
 </resources>
