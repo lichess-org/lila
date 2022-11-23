@@ -26,7 +26,7 @@ class MarkdownTest extends Specification {
   }
   "markdown game embeds" >> {
     val domain     = config.NetDomain("http://l.org")
-    val gameId     = "abcdefgh"
+    val gameId     = GameId("abcdefgh")
     val pgn        = "e2 e4"
     val pgns       = Map(gameId -> pgn)
     val expander   = MarkdownRender.GameExpand(domain, pgns.get)
