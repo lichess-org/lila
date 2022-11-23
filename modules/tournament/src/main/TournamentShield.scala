@@ -60,7 +60,7 @@ final class TournamentShieldApi(
             )
           )
           .sort($sort asc "startsAt")
-          .cursor[Tournament](ReadPreference.secondaryPreferred)
+          .cursor[Tournament](temporarilyPrimary)
           .listAll() map { tours =>
           for {
             tour   <- tours
