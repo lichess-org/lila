@@ -16,7 +16,7 @@ sealed trait Work:
 
   def skill: Client.Skill
 
-  def id = _id
+  inline def id = _id
 
   def acquiredAt                   = acquired.map(_.date)
   def acquiredByKey                = acquired.map(_.clientKey)

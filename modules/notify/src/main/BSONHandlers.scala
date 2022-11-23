@@ -31,7 +31,6 @@ private object BSONHandlers:
   given BSONHandler[TeamJoined.Name] = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
   private given TeamJoinedHandler: BSONDocumentHandler[TeamJoined] = Macros.handler
 
-  given BSONHandler[GameEnd.GameId] = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
   given BSONHandler[GameEnd.OpponentId] =
     stringAnyValHandler[GameEnd.OpponentId](_.value, GameEnd.OpponentId.apply)
   given BSONHandler[GameEnd.Win] = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)

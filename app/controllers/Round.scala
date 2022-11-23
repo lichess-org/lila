@@ -342,12 +342,12 @@ final class Round(
       )
     }
 
-  def apiAddTime(anyId: String, seconds: Int) =
+  def apiAddTime(anyId: GameAnyId, seconds: Int) =
     Scoped(_.Challenge.Write) { implicit req => me =>
       import lila.round.actorApi.round.Moretime
       if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
       else
-        env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
+        env.round.proxyRepo.game(lila.game.Game anyToId anyId) flatMap {
           _.flatMap { Pov(_, me) }.?? { pov =>
             env.round.moretimer.isAllowedIn(pov.game) map {
               case true =>

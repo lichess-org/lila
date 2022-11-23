@@ -15,7 +15,7 @@ private[team] case class TeamMember(
   def is(userId: String): Boolean = user == userId
   def is(user: User): Boolean     = is(user.id)
 
-  def id = _id
+  inline def id = _id
 
 object TeamMember:
 

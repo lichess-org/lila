@@ -6,9 +6,9 @@ import lila.study.{ Chapter, Study }
 import lila.user.User
 
 case class RelayRound(
-    _id: RelayRound.Id,
+    _id: RelayRoundId,
     tourId: RelayTour.Id,
-    name: String,
+    name: RelayRoundName,
     sync: RelayRound.Sync,
     /* When it's planned to start */
     startsAt: Option[DateTime],
@@ -20,12 +20,12 @@ case class RelayRound(
     createdAt: DateTime
 ):
 
-  def id = _id
+  inline def id = _id
 
-  def studyId = id.studyId
+  inline def studyId = id into StudyId
 
   lazy val slug =
-    val s = lila.common.String slugify name
+    val s = lila.common.String slugify name.value
     if (s.isEmpty) "-" else s
 
   def finish =
@@ -63,10 +63,7 @@ case class RelayRound(
 
 object RelayRound:
 
-  case class Id(value: String) extends AnyVal with StringValue:
-    def studyId = StudyId(value)
-
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = RelayRoundId(lila.common.ThreadLocalRandom nextString 8)
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN

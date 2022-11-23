@@ -142,7 +142,7 @@ object dashboard:
       div(cls := themeClass)(
         div(cls := s"${themeClass}__meta")(
           h3(cls := s"${themeClass}__name")(
-            a(href := routes.Puzzle.show(key))(PuzzleTheme(key).name())
+            a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name())
           ),
           p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
         ),

@@ -85,7 +85,7 @@ object Line:
       else if (x.deleted) deletedChar
       else if (x.patron) patronChar
       else " "
-    val tit = x.title.??(_ + titleSep)
+    val tit = x.title.??(_.value + titleSep)
     s"$tit${x.username}$sep${x.text}"
 
   def strToLine(str: String): Option[Line] =

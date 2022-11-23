@@ -15,6 +15,8 @@ import scala.concurrent.ExecutionContext
 
 object RoomSocket:
 
+  type RoomsMap = SyncActorMap[RoomId, RoomState]
+
   case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false):
     def msg = makeMessage(tpe, data)
 
@@ -38,17 +40,13 @@ object RoomSocket:
       send(Protocol.Out.stop(roomId))
 
   def makeRoomMap(send: Send)(using ExecutionContext, play.api.Mode) =
-    new SyncActorMap(
-      mkActor = roomId =>
-        new RoomState(
-          RoomId(roomId),
-          send
-        ),
+    SyncActorMap[RoomId, RoomState](
+      mkActor = roomId => new RoomState(roomId, send),
       accessTimeout = 5 minutes
     )
 
   def roomHandler(
-      rooms: SyncActorMap[RoomState],
+      rooms: RoomsMap,
       chat: ChatApi,
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
@@ -83,30 +81,27 @@ object RoomSocket:
         }
     }: Handler) orElse minRoomHandler(rooms, logger)
 
-  def minRoomHandler(rooms: SyncActorMap[RoomState], logger: Logger): Handler =
-    case Protocol.In.KeepAlives(roomIds) =>
-      roomIds foreach { roomId =>
-        rooms touchOrMake roomId.value
-      }
+  def minRoomHandler(rooms: RoomsMap, logger: Logger): Handler =
+    case Protocol.In.KeepAlives(roomIds) => roomIds foreach rooms.touchOrMake
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
     // rooms.killAll // apparently not
     case Protocol.In.SetVersions(versions) =>
       versions foreach { case (roomId, version) =>
-        rooms.tell(roomId, SetVersion(version))
+        rooms.tell(RoomId(roomId), SetVersion(version))
       }
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: SyncActorMap[RoomState], busChan: BusChan.Select) =
+  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select) =
     import lila.chat.actorApi.*
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan) {
       case ChatLine(id, line: UserLine) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
+        rooms.tellIfPresent(id into RoomId, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
       case OnTimeout(id, userId) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("chat_timeout", userId, troll = false))
+        rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_timeout", userId, troll = false))
       case OnReinstate(id, userId) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("chat_reinstate", userId, troll = false))
+        rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_reinstate", userId, troll = false))
     }
 
   object Protocol:

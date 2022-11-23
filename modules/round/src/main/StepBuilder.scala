@@ -12,14 +12,14 @@ object StepBuilder:
   private val logger = lila.round.logger.branch("StepBuilder")
 
   def apply(
-      id: String,
+      id: GameId,
       pgnMoves: Vector[String],
       variant: Variant,
       initialFen: FEN
   ): JsArray =
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logChessError(id.value)
         JsArray {
           val initStep = Step(
             ply = init.turns,

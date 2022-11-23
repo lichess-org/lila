@@ -27,6 +27,8 @@ abstract private[controllers] class LilaController(val env: Env)
     with RequestGetter
     with ResponseWriter:
 
+  export _root_.router.ReverseRouterConversions.given
+
   def controllerComponents   = env.controllerComponents
   given ExecutionContext     = env.executionContext
   given akka.actor.Scheduler = env.scheduler
@@ -616,7 +618,7 @@ abstract private[controllers] class LilaController(val env: Env)
       max: config.Max = config.Max(40),
       errorPage: => Fu[Result] = BadRequest("resource too old").toFuccess
   )(result: => Fu[Result]): Fu[Result] =
-    if (max > page && page > 0) result else errorPage
+    if (page < max.value && page > 0) result else errorPage
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f

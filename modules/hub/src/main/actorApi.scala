@@ -71,7 +71,7 @@ package shutup:
 
   sealed abstract class PublicSource(val parentName: String)
   object PublicSource:
-    case class Tournament(id: String)  extends PublicSource("tournament")
+    case class Tournament(id: TourId)  extends PublicSource("tournament")
     case class Simul(id: SimulId)      extends PublicSource("simul")
     case class Study(id: StudyId)      extends PublicSource("study")
     case class Watcher(gameId: GameId) extends PublicSource("watcher")
@@ -135,15 +135,16 @@ package timeline:
     def userIds = List(userId)
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true):
     def userIds = List(userId)
-  case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String)
+  case class GameEnd(fullId: GameFullId, opponent: Option[String], win: Option[Boolean], perf: String)
       extends Atom("gameEnd", true):
     def userIds = opponent.toList
-  case class SimulCreate(userId: String, simulId: String, simulName: String)
+  case class SimulCreate(userId: String, simulId: SimulId, simulName: String)
       extends Atom("simulCreate", true):
     def userIds = List(userId)
-  case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true):
+  case class SimulJoin(userId: String, simulId: SimulId, simulName: String) extends Atom("simulJoin", true):
     def userIds = List(userId)
-  case class StudyLike(userId: String, studyId: StudyId, studyName: String) extends Atom("studyLike", true):
+  case class StudyLike(userId: String, studyId: StudyId, studyName: StudyName)
+      extends Atom("studyLike", true):
     def userIds = List(userId)
   case class PlanStart(userId: String) extends Atom("planStart", true):
     def userIds = List(userId)
@@ -197,7 +198,7 @@ package fishnet:
   case class NewKey(userId: String, key: String)
   case class StudyChapterRequest(
       studyId: StudyId,
-      chapterId: String,
+      chapterId: StudyChapterId,
       initialFen: Option[chess.format.FEN],
       variant: chess.variant.Variant,
       moves: List[Uci],
@@ -231,11 +232,7 @@ package round:
   case class CorresTakebackOfferEvent(gameId: GameId)
   case class CorresDrawOfferEvent(gameId: GameId)
   case class BoardDrawEvent(gameId: GameId)
-  case class SimulMoveEvent(
-      move: MoveEvent,
-      simulId: String,
-      opponentUserId: String
-  )
+  case class SimulMoveEvent(move: MoveEvent, simulId: SimulId, opponentUserId: String)
   case class Berserk(gameId: GameId, userId: String)
   case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
   case class TourStandingOld(data: JsArray)

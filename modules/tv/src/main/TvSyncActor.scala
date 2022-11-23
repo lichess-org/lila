@@ -6,6 +6,7 @@ import scala.concurrent.duration.*
 import scala.concurrent.Promise
 
 import lila.common.{ Bus, LightUser }
+import lila.common.Json.given
 import lila.game.{ Game, Pov }
 import lila.hub.SyncActor
 

@@ -33,9 +33,9 @@ final class RelayApi(
   import lila.study.BSONHandlers.given
   import JsonView.given
 
-  def byId(id: RelayRound.Id) = roundRepo.coll.byId[RelayRound](id.value)
+  def byId(id: RelayRoundId) = roundRepo.coll.byId[RelayRound](id.value)
 
-  def byIdWithTour(id: RelayRound.Id): Fu[Option[RelayRound.WithTour]] =
+  def byIdWithTour(id: RelayRoundId): Fu[Option[RelayRound.WithTour]] =
     roundRepo.coll
       .aggregateOne() { framework =>
         import framework.*
@@ -46,7 +46,7 @@ final class RelayApi(
       }
       .map(_ flatMap readRoundWithTour)
 
-  def byIdAndContributor(id: RelayRound.Id, me: User) =
+  def byIdAndContributor(id: RelayRoundId, me: User) =
     byIdWithStudy(id) map {
       _ collect {
         case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me.id) =>
@@ -54,7 +54,7 @@ final class RelayApi(
       }
     }
 
-  def byIdWithStudy(id: RelayRound.Id): Fu[Option[RelayRound.WithTourAndStudy]] =
+  def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id) flatMap {
       _ ?? { case RelayRound.WithTour(relay, tour) =>
         studyApi.byId(relay.studyId) dmap2 {
@@ -160,7 +160,7 @@ final class RelayApi(
         studyApi.create(
           StudyMaker.ImportGame(
             id = relay.studyId.some,
-            name = StudyName(relay.name).some,
+            name = relay.name.into(StudyName).some,
             settings = lastStudy
               .fold(
                 Settings.init
@@ -185,7 +185,7 @@ final class RelayApi(
         studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
     }
 
-  def requestPlay(id: RelayRound.Id, v: Boolean): Funit =
+  def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id) { relay =>
       relay.sync.upstream.flatMap(_.asUrl).map(_.withRound) foreach formatApi.refresh
       update(relay) { r =>
@@ -197,7 +197,7 @@ final class RelayApi(
     val round = f(from) pipe { r =>
       if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
-    studyApi.rename(round.studyId, StudyName(round.name)) >> {
+    studyApi.rename(round.studyId, round.name into StudyName) >> {
       if (round == from) fuccess(round)
       else
         roundRepo.coll.update.one($id(round.id), round).void >> {
@@ -227,7 +227,7 @@ final class RelayApi(
       }
     } >> requestPlay(old.id, v = true)
 
-  def deleteRound(roundId: RelayRound.Id): Fu[Option[RelayTour]] =
+  def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
     byIdWithTour(roundId) flatMap {
       _ ?? { rt =>
         roundRepo.coll.delete.one($id(rt.round.id)) >>
@@ -235,7 +235,7 @@ final class RelayApi(
       }
     }
 
-  def getOngoing(id: RelayRound.Id): Fu[Option[RelayRound.WithTour]] =
+  def getOngoing(id: RelayRoundId): Fu[Option[RelayRound.WithTour]] =
     roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMap {
       _ ?? { relay =>
         tourById(relay.tourId) map2 relay.withTour
@@ -326,13 +326,13 @@ final class RelayApi(
       }.sequenceFu.void
     }
 
-  private[relay] def WithRelay[A: Zero](id: RelayRound.Id)(f: RelayRound => Fu[A]): Fu[A] =
+  private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id) flatMap { _ ?? f }
 
   private[relay] def onStudyRemove(studyId: StudyId) =
-    roundRepo.coll.delete.one($id(RelayRound.Id(studyId))).void
+    roundRepo.coll.delete.one($id(studyId into RelayRoundId)).void
 
-  private def sendToContributors(id: RelayRound.Id, t: String, msg: JsObject): Funit =
+  private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi members StudyId(id.value) map {
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos

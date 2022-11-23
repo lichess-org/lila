@@ -9,7 +9,7 @@ import scala.jdk.CollectionConverters.*
 final class AsyncActorConcMap[Id, D <: AsyncActor](
     mkAsyncActor: Id => D,
     initialCapacity: Int
-)(using Id =:= String)
+)(using BasicallyTheSame[Id, String])
     extends TellMap[Id]:
 
   def tell(id: Id, msg: Matchable): Unit = getOrMake(id) ! msg

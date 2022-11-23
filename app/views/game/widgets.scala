@@ -115,7 +115,7 @@ object widgets:
         .map { days =>
           span(title := trans.correspondence.txt())(
             if (days.value == 1) trans.oneDay()
-            else trans.nbDays.pluralSame(days)
+            else trans.nbDays.pluralSame(days.value)
           )
         }
         .getOrElse {

@@ -123,21 +123,23 @@ final class LobbySocket(
     private def tellActiveHookSubscribers(msg: JsObject): Unit =
       send(P.Out.tellSris(hookSubscriberSris diff idleSris map Sri.apply, msg))
 
-    private def gameStartRedirect(pov: Pov) =
-      makeMessage(
-        "redirect",
-        Json
-          .obj(
-            "id"  -> pov.fullId,
-            "url" -> s"/${pov.fullId}"
-          )
-          .add("cookie" -> lila.game.AnonCookie.json(pov))
-      )
+    import lila.common.Json.given
+    private def gameStartRedirect(pov: Pov) = makeMessage(
+      "redirect",
+      Json
+        .obj(
+          "id"  -> pov.fullId,
+          "url" -> s"/${pov.fullId}"
+        )
+        .add("cookie" -> lila.game.AnonCookie.json(pov))
+    )
 
     private def quit(sri: Sri): Unit =
       members invalidate sri.value
       idleSris -= sri.value
       hookSubscriberSris -= sri.value
+
+  end actor
 
   // solve circular reference
   lobby ! LobbySyncActor.SetSocket(actor)

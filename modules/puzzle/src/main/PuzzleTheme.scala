@@ -174,7 +174,7 @@ object PuzzleTheme:
   }.toMap
 
   private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.view.map { t =>
-    t.key.toLowerCase -> t
+    t.key.value.toLowerCase -> t
   }.toMap
 
   // themes that can't be voted by players
@@ -236,6 +236,6 @@ object PuzzleTheme:
 
   def find(key: String) = byLowerKey get key.toLowerCase
 
-  def findOrMix(key: String) = find(key) | mix
+  def findOrMix(key: Key) = find(key) | mix
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))

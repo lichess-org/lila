@@ -13,7 +13,7 @@ case class Notification(
     read: Notification.NotificationRead,
     createdAt: DateTime
 ):
-  def id = _id
+  inline def id = _id
 
   def unread = !read.value
 
@@ -84,13 +84,12 @@ case class TitledTournamentInvitation(
 ) extends NotificationContent("titledTourney")
 
 case class GameEnd(
-    gameId: GameEnd.GameId,
+    fullId: GameFullId,
     opponentId: Option[GameEnd.OpponentId],
     win: Option[GameEnd.Win]
 ) extends NotificationContent("gameEnd")
 
 object GameEnd:
-  case class GameId(value: String)     extends AnyVal
   case class OpponentId(value: String) extends AnyVal
   case class Win(value: Boolean)       extends AnyVal
 

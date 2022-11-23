@@ -85,7 +85,8 @@ final class RelationApi(
 
   def countFollowing(userId: ID) = countFollowingCache get userId
 
-  def reachedMaxFollowing(userId: ID): Fu[Boolean] = countFollowingCache get userId map (config.maxFollow <=)
+  def reachedMaxFollowing(userId: ID): Fu[Boolean] =
+    countFollowingCache get userId map (_ >= config.maxFollow.value)
 
   private val countFollowersCache = cacheApi[ID, Int](32_768, "relation.count.followers") {
     _.maximumSize(32_768)
@@ -155,7 +156,7 @@ final class RelationApi(
 
   private def limitFollow(u: ID) =
     countFollowing(u) flatMap { nb =>
-      (config.maxFollow < nb) ?? {
+      (nb > config.maxFollow.value) ?? {
         limitFollowRateLimiter(u) {
           fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(DateTime.now.minusDays(90))
         }(fuccess(Nil)) flatMap {
@@ -169,7 +170,7 @@ final class RelationApi(
 
   private def limitBlock(u: ID) =
     countBlocking(u) flatMap { nb =>
-      (config.maxBlock < nb) ?? repo.drop(u, false, nb - config.maxBlock.value)
+      (nb > config.maxBlock.value) ?? repo.drop(u, false, nb - config.maxBlock.value)
     }
 
   def block(u1: ID, u2: ID): Funit =

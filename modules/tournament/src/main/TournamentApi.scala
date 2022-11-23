@@ -125,7 +125,7 @@ final class TournamentApi(
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamID): Fu[Option[TeamBattle.TeamInfo]] =
     tour.teamBattle.exists(_ teams teamId) ?? cached.teamInfo.get(tour.id -> teamId)
 
-  private val hadPairings = lila.memo.ExpireSetMemo[Tournament.ID](1 hour)
+  private val hadPairings = lila.memo.ExpireSetMemo[TourId](1 hour)
 
   private[tournament] def makePairings(
       forTour: Tournament,
@@ -133,7 +133,7 @@ final class TournamentApi(
       smallTourNbActivePlayers: Option[Int]
   ): Funit =
     (users.size > 1 && (
-      !hadPairings.get(forTour.id) ||
+      !hadPairings.get(TourId(forTour.id)) ||
         users.haveWaitedEnough ||
         smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
     )) ??
@@ -161,7 +161,7 @@ final class TournamentApi(
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
                       waitingUsers.registerPairedUsers(tour.id, pairings.view.flatMap(_.pairing.users).toSet)
                       socket.reload(tour.id)
-                      hadPairings put tour.id
+                      hadPairings put TourId(tour.id)
                       featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
                     }
               }

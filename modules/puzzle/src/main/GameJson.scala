@@ -7,6 +7,7 @@ import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
+import lila.common.Json.given
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -24,7 +25,7 @@ final private class GameJson(
 
   private def readKey(k: String): (GameId, Int) =
     k.drop(Game.gameIdSize).toIntOption match
-      case Some(ply) => (Game takeGameId k, ply)
+      case Some(ply) => (Game strToId k, ply)
       case _         => sys error s"puzzle.GameJson invalid key: $k"
   private def writeKey(id: GameId, ply: Int) = s"$id$ply"
 

@@ -29,7 +29,7 @@ final class ActivityWriteApi(
           .add(pt, Score.make(game wonBy player.color, RatingProg make player))
       )
       val setCorres = game.hasCorrespondenceClock ?? $doc(
-        ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
+        ActivityFields.corres -> a.corres.orDefault.add(game.id, moved = false, ended = true)
       )
       setGames ++ setCorres
     }).sequenceFu.void
@@ -80,7 +80,7 @@ final class ActivityWriteApi(
     }
 
   def corresMove(gameId: GameId, userId: User.ID) = update(userId) { a =>
-    $doc(ActivityFields.corres -> { (~a.corres).add(GameId(gameId), moved = true, ended = false) })
+    $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
   }
 
   def plan(userId: User.ID, months: Int) = update(userId) { a =>
@@ -144,7 +144,7 @@ final class ActivityWriteApi(
     }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: User.ID) = update(userId) { a =>
-    $doc(ActivityFields.simuls -> { ~a.simuls + SimulId(simul.id) })
+    $doc(ActivityFields.simuls -> { ~a.simuls + simul.id })
   }
 
   private def update(userId: User.ID)(makeSetters: Activity => Bdoc): Funit =

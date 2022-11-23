@@ -8,6 +8,7 @@ import scala.util.{ Failure, Success, Try }
 import java.util.concurrent.atomic.AtomicReference
 
 import lila.common.LilaStream
+import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Player }
 import lila.user.{ User, UserRepo }

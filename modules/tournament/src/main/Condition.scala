@@ -7,6 +7,7 @@ import lila.hub.LightTeam.*
 import lila.i18n.I18nKeys as trans
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
+import lila.common.Json.given
 
 sealed trait Condition:
 

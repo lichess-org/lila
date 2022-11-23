@@ -55,7 +55,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
 
   def makeData(
       trs: RelayTour.WithRounds,
-      currentRoundId: RelayRound.Id,
+      currentRoundId: RelayRoundId,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
   ) = leaderboardApi(trs.tour) map { leaderboard =>
@@ -73,7 +73,7 @@ object JsonView:
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
 
   given OWrites[SyncLog.Event]             = Json.writes
-  given Writes[RelayRound.Id]              = Writes(id => JsString(id.value))
+  given Writes[RelayRoundId]              = Writes(id => JsString(id.value))
   given tourIdWrites: Writes[RelayTour.Id] = Writes(id => JsString(id.value))
 
   private given OWrites[RelayRound.Sync] = OWrites { s =>

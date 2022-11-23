@@ -7,6 +7,7 @@ import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
 import lila.user.User
+import lila.common.Json.given
 
 final private class SimulSocket(
     repo: SimulRepo,
@@ -19,19 +20,19 @@ final private class SimulSocket(
 ):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
-    rooms.tell(simulId, NotifyVersion("hostGame", gameId))
+    rooms.tell(simulId into RoomId, NotifyVersion("hostGame", gameId.value))
 
   def reload(simulId: SimulId): Unit =
     repo find simulId foreach {
       _ foreach { simul =>
         jsonView(simul, none) foreach { obj =>
-          rooms.tell(simulId, NotifyVersion("reload", obj))
+          rooms.tell(simulId into RoomId, NotifyVersion("reload", obj))
         }
       }
     }
 
   def aborted(simulId: SimulId): Unit =
-    rooms.tell(simulId, NotifyVersion("aborted", Json.obj()))
+    rooms.tell(simulId into RoomId, NotifyVersion("aborted", Json.obj()))
 
   def startSimul(simul: Simul, firstGame: Game): Unit =
     firstGame.playerByUserId(simul.hostId) foreach { player =>
@@ -51,7 +52,7 @@ final private class SimulSocket(
 
   private def redirectPlayer(simul: Simul, pov: Pov): Unit =
     pov.player.userId foreach { userId =>
-      send(RP.Out.tellRoomUser(RoomId(simul.id), userId, makeMessage("redirect", pov.fullId)))
+      send(RP.Out.tellRoomUser(simul.id into RoomId, userId, makeMessage("redirect", pov.fullId)))
     }
 
   lazy val rooms = makeRoomMap(send)

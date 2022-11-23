@@ -15,7 +15,7 @@ import lila.user.User
 final private class Streaming(
     ws: StandaloneWSClient,
     api: StreamerApi,
-    isOnline: User.ID => Boolean,
+    isOnline: lila.socket.IsOnline,
     timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
@@ -37,7 +37,7 @@ final private class Streaming(
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
-        liveStreams.has(id) || isOnline(id.value)
+        liveStreams.has(id) || isOnline.value(id.value)
       }
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
@@ -60,7 +60,7 @@ final private class Streaming(
     } yield publishStreams(streamers, streams)
   }
 
-  private val streamStartMemo = lila.memo.ExpireSetMemo[User.ID](2 hour)
+  private val streamStartMemo = lila.memo.ExpireSetMemo[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     if (newStreams != liveStreams)
@@ -68,8 +68,8 @@ final private class Streaming(
         liveStreams has s.streamer
       } foreach { s =>
         import s.streamer.userId
-        if (!streamStartMemo.get(userId))
-          streamStartMemo.put(userId)
+        if (!streamStartMemo.get(UserId(userId)))
+          streamStartMemo.put(UserId(userId))
           timeline ! {
             import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
             Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId

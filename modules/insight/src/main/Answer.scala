@@ -17,7 +17,7 @@ case class Cluster[X](
     insightIds: List[String]
 ):
 
-  def gameIds = insightIds.map(Game.takeGameId)
+  def gameIds = insightIds.map { Game.strToId(_) }
 
 sealed trait Insight
 object Insight:

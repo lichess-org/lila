@@ -19,7 +19,7 @@ case class PerfStat(
     playStreak: PlayStreak
 ):
 
-  def id = _id
+  inline def id = _id
 
   def agg(pov: Pov) =
     if (!pov.game.finished) this

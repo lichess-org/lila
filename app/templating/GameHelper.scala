@@ -13,7 +13,13 @@ import lila.user.Title
 import lila.common.LightUser
 
 trait GameHelper:
-  self: I18nHelper with UserHelper with AiHelper with StringHelper with NumberHelper with ChessgroundHelper =>
+  self: RouterHelper
+    with I18nHelper
+    with UserHelper
+    with AiHelper
+    with StringHelper
+    with NumberHelper
+    with ChessgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String

@@ -5,6 +5,7 @@ import scala.concurrent.duration.*
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }
+import lila.common.config.Max
 
 final private class GameStarter(
     userRepo: UserRepo,
@@ -19,7 +20,7 @@ final private class GameStarter(
   import PoolApi.*
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 32, timeout = 10 seconds, name = "gameStarter")
+    lila.hub.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.nonEmpty ?? {
@@ -53,7 +54,7 @@ final private class GameStarter(
         ).start
         _ <- gameRepo insertDenormalized game
       } yield
-        onStart(GameId(game.id))
+        onStart(game.id)
         Pairing(
           game,
           whiteSri = whiteMember.sri,

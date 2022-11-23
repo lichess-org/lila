@@ -7,7 +7,7 @@ import play.api.data.Forms.*
 import scala.util.Try
 import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
@@ -20,7 +20,7 @@ final class RelayRoundForm:
 
   val roundMapping =
     mapping(
-      "name" -> cleanText(minLength = 3, maxLength = 80),
+      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
       },
@@ -36,7 +36,9 @@ final class RelayRoundForm:
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
-  }.fill(Data(name = s"Round ${trs.rounds.size + 1}", syncUrlRound = Some(trs.rounds.size + 1)))
+  }.fill(
+    Data(name = RelayRoundName(s"Round ${trs.rounds.size + 1}"), syncUrlRound = Some(trs.rounds.size + 1))
+  )
 
   def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
 
@@ -45,7 +47,7 @@ object RelayRoundForm:
   case class GameIds(ids: List[GameId])
 
   private def toGameIds(ids: String): Option[GameIds] =
-    val list = ids.split(' ').view.map(i => Game takeGameId i.trim).filter(Game.validId).toList
+    val list = ids.split(' ').view.map(i => Game strToId i.trim).filter(Game.validId).toList
     (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
 
   private def validSource(source: String): Boolean =
@@ -84,7 +86,7 @@ object RelayRoundForm:
   )
 
   case class Data(
-      name: String,
+      name: RelayRoundName,
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[DateTime] = None,

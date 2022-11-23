@@ -10,6 +10,7 @@ import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.user.User
+import lila.common.config.Max
 
 final private class TutorQueue(
     reportColl: Coll,
@@ -19,8 +20,7 @@ final private class TutorQueue(
 
   import TutorQueue.*
 
-  private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 5 seconds, "tutorQueue")
+  private val workQueue = lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 5 seconds, "tutorQueue")
 
   private val durationCache = cacheApi.unit[FiniteDuration] {
     _.refreshAfterWrite(1 minutes)

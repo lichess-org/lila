@@ -30,7 +30,7 @@ final class NoteApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
         doc    <- docs
         noteId <- doc.string("_id")
         note   <- doc.string(noteField)
-      } yield (Game takeGameId noteId, note)).toMap
+      } yield (Game strToId noteId, note)).toMap
     }
 
-  private def makeId(gameId: String, userId: String) = s"$gameId$userId"
+  private def makeId(gameId: GameId, userId: String) = s"$gameId$userId"

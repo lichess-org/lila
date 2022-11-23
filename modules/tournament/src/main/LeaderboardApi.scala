@@ -124,7 +124,7 @@ object LeaderboardApi:
     def percent = (value * 100).toInt atLeast 1
 
   case class Entry(
-      id: String, // same as tournament player id
+      id: TourPlayerId,
       userId: User.ID,
       tourId: Tournament.ID,
       nbGames: Int,

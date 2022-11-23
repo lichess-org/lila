@@ -32,7 +32,7 @@ final class SwissStatsApi(
 
   private given BSONDocumentHandler[SwissStats] = Macros.handler
 
-  private val cache = mongoCache[SwissId, SwissStats](64, "swiss:stats", 60 days, identity) { loader =>
+  private val cache = mongoCache[SwissId, SwissStats](64, "swiss:stats", 60 days, _.value) { loader =>
     _.expireAfterAccess(5 seconds)
       .maximumSize(256)
       .buildAsyncFuture(loader(fetch))

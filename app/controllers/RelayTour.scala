@@ -119,7 +119,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     )
 
   def redirectOrApiTour(@nowarn("msg=unused") slug: String, anyId: String) = Open { implicit ctx =>
-    env.relay.api byIdWithTour RoundModel.Id(anyId) flatMap {
+    env.relay.api byIdWithTour RelayRoundId(anyId) flatMap {
       case Some(rt) => Redirect(rt.path).toFuccess // BC old broadcast URLs
       case None =>
         env.relay.api tourById TourModel.Id(anyId) flatMap {

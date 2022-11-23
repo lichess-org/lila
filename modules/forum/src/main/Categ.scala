@@ -18,7 +18,7 @@ case class Categ(
     hidden: Boolean = false
 ):
 
-  def id = _id
+  inline def id = _id
 
   def nbTopics(forUser: Option[User]): Int = if (forUser.exists(_.marks.troll)) nbTopicsTroll else nbTopics
   def nbPosts(forUser: Option[User]): Int  = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts

@@ -63,7 +63,7 @@ object PracticeStructure:
 
   val totalChapters = 233
 
-  def isChapterNameCommented(name: StudyChapterName) = name.startsWith("//")
+  def isChapterNameCommented(name: StudyChapterName) = name.value.startsWith("//")
 
   def make(conf: PracticeConfig, chapters: Map[StudyId, Vector[Chapter.IdName]]) =
     PracticeStructure(

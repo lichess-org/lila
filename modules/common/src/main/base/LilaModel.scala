@@ -5,6 +5,9 @@ trait LilaModel extends NewTypes:
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]
 
+  opaque type GameAnyId = String
+  object GameAnyId extends OpaqueString[GameAnyId]
+
   opaque type GameId = String
   object GameId extends OpaqueString[GameId]
 
@@ -35,6 +38,12 @@ trait LilaModel extends NewTypes:
   opaque type StudyChapterName = String
   object StudyChapterName extends OpaqueString[StudyChapterName]
 
+  opaque type RelayRoundId = String
+  object RelayRoundId extends OpaqueString[RelayRoundId]
+
+  opaque type RelayRoundName = String
+  object RelayRoundName extends OpaqueString[RelayRoundName]
+
   opaque type PuzzleId = String
   object PuzzleId extends OpaqueString[PuzzleId]
 
@@ -49,3 +58,6 @@ trait LilaModel extends NewTypes:
 
   opaque type RoomId = String
   object RoomId extends OpaqueString[RoomId]
+
+  opaque type CacheKey = String
+  object CacheKey extends OpaqueString[CacheKey]

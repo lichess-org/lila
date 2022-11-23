@@ -10,6 +10,7 @@ import views.html
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
+import lila.challenge.Challenge.ID
 import lila.common.{ Bearer, HTTPRequest, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
@@ -95,7 +96,7 @@ final class Challenge(
     challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
       !challenge.challengerUserId.??(orig => me.exists(_ is orig))
 
-  def accept(id: String, color: Option[String]) =
+  def accept(id: ID, color: Option[String]) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
         val cc = color flatMap chess.Color.fromName
@@ -120,10 +121,10 @@ final class Challenge(
       }
     }
 
-  def apiAccept(id: GameId) =
+  def apiAccept(id: ID) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
       def tryRematch =
-        env.bot.player.rematchAccept(id, me) flatMap {
+        env.bot.player.rematchAccept(GameId(id), me) flatMap {
           case true => jsonOkResult.toFuccess
           case _    => notFoundJson()
         }
@@ -146,7 +147,7 @@ final class Challenge(
         _ map { game =>
           env.lilaCookie.cookie(
             AnonCookie.name,
-            game.player(if (owner) c.finalColor else !c.finalColor).id,
+            game.player(if (owner) c.finalColor else !c.finalColor).id.value,
             maxAge = AnonCookie.maxAge.some,
             httpOnly = false.some
           )
@@ -156,7 +157,7 @@ final class Challenge(
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: GameId) =
+  def decline(id: ID) =
     AuthBody { implicit ctx => _ =>
       OptionFuResult(api byId id) { c =>
         given play.api.mvc.Request[?] = ctx.body
@@ -169,12 +170,12 @@ final class Challenge(
           )
       }
     }
-  def apiDecline(id: GameId) =
+  def apiDecline(id: ID) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
       api.activeByIdFor(id, me) flatMap {
         case None =>
-          env.bot.player.rematchDecline(id, me) flatMap {
+          env.bot.player.rematchDecline(GameId(id), me) flatMap {
             case true => jsonOkResult.toFuccess
             case _    => notFoundJson()
           }
@@ -188,7 +189,7 @@ final class Challenge(
       }
     }
 
-  def cancel(id: GameId) =
+  def cancel(id: ID) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
         if (isMine(c)) api cancel c
@@ -196,7 +197,7 @@ final class Challenge(
       }
     }
 
-  def apiCancel(id: GameId) =
+  def apiCancel(id: ID) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req => me =>
       api.activeByIdBy(id, me) flatMap {
         case Some(c) => api.cancel(c) inject jsonOkResult
@@ -207,7 +208,7 @@ final class Challenge(
               import lila.hub.actorApi.map.Tell
               import lila.hub.actorApi.round.Abort
               import lila.round.actorApi.round.AbortForce
-              env.game.gameRepo game id dmap {
+              env.game.gameRepo game GameId(id) dmap {
                 _ flatMap { Pov.ofUserId(_, me.id) }
               } flatMap {
                 _ ?? { p => env.round.proxyRepo.upgradeIfPresent(p) dmap some }

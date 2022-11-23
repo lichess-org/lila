@@ -27,7 +27,7 @@ case class Team(
     hideMembers: Option[Boolean]
 ):
 
-  def id = _id
+  inline def id = _id
 
   def slug = id
 

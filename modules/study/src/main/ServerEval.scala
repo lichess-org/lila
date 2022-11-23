@@ -26,7 +26,7 @@ object ServerEval:
 
     def apply(study: Study, chapter: Chapter, userId: User.ID, unlimited: Boolean = false): Funit =
       chapter.serverEval.fold(true) { eval =>
-        !eval.done && onceEvery(StudyChapterId(chapter.id))
+        !eval.done && onceEvery(chapter.id)
       } ?? {
         val unlimitedFu =
           fuccess(unlimited) >>|
@@ -130,7 +130,7 @@ object ServerEval:
 
     def divisionOf(chapter: Chapter) =
       divider(
-        id = GameId(chapter.id),
+        id = chapter.id into GameId,
         pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
         variant = chapter.setup.variant,
         initialFen = chapter.root.fen.some

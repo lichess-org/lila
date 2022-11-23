@@ -26,7 +26,7 @@ case class UserSession(
     date: Option[DateTime]
 ):
 
-  def id = _id
+  inline def id = _id
 
   def isMobile = api.isDefined
 

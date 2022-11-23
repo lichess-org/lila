@@ -31,7 +31,7 @@ case class Simul(
     team: Option[String],
     featurable: Option[Boolean]
 ):
-  def id = _id
+  inline def id = _id
 
   def fullName = s"$name simul"
 

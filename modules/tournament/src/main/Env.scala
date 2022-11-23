@@ -136,7 +136,7 @@ final class Env(
   val lilaHttp            = wire[TournamentLilaHttp]
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](tourId)(GetVersion.apply)
+    socket.rooms.ask[SocketVersion](RoomId(tourId))(GetVersion.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)

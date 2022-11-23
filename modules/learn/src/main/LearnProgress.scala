@@ -9,7 +9,7 @@ case class LearnProgress(
     updatedAt: DateTime
 ):
 
-  def id = _id
+  inline def id = _id
 
   def withScore(stage: String, level: Int, s: StageProgress.Score) =
     copy(

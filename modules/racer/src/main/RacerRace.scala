@@ -14,7 +14,7 @@ case class RacerRace(
     rematch: Option[RacerRace.Id]
 ):
 
-  def id = _id
+  inline def id = _id
 
   def has(id: RacerPlayer.Id) = players.exists(_.id == id)
 

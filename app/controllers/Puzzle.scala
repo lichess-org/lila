@@ -414,7 +414,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def replay(days: Int, themeKey: String) =
+  def replay(days: Int, themeKey: PuzzleTheme.Key) =
     Auth { implicit ctx => me =>
       val theme         = PuzzleTheme.findOrMix(themeKey)
       val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)

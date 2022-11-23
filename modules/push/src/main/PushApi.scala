@@ -7,6 +7,7 @@ import scala.concurrent.duration.*
 import lila.challenge.Challenge
 import lila.common.String.shorten
 import lila.common.{ Future, LightUser }
+import lila.common.Json.given
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.push.TourSoon
@@ -20,10 +21,7 @@ final private class PushApi(
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -308,7 +306,7 @@ final private class PushApi(
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus.ask[Boolean]("roundSocket") { p =>
-      Tell(pov.gameId, IsOnGame(pov.color, p))
+      Tell(pov.gameId.value, IsOnGame(pov.color, p))
     } flatMap {
       case true  => funit
       case false => f

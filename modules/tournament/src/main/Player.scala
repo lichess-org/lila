@@ -18,7 +18,7 @@ private[tournament] case class Player(
     team: Option[TeamID] = None
 ):
 
-  def id = _id
+  inline def id = _id
 
   def active = !withdraw
 

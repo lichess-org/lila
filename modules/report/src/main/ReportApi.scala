@@ -10,6 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
 import lila.user.{ Holder, User, UserRepo }
+import lila.common.config.Max
 
 final class ReportApi(
     val coll: Coll,
@@ -463,7 +464,7 @@ final class ReportApi(
       reports
         .flatMap { r =>
           users.find(_.id == r.user) map { u =>
-            Report.WithSuspect(r, Suspect(u), isOnline(u.id))
+            Report.WithSuspect(r, Suspect(u), isOnline.value(u.id))
           }
         }
         .sortBy(-_.urgency)
@@ -535,12 +536,11 @@ final class ReportApi(
 
   object inquiries:
 
-    private val workQueue =
-      new lila.hub.AsyncActorSequencer(
-        maxSize = 32,
-        timeout = 20 seconds,
-        name = "report.inquiries"
-      )
+    private val workQueue = lila.hub.AsyncActorSequencer(
+      maxSize = Max(32),
+      timeout = 20 seconds,
+      name = "report.inquiries"
+    )
 
     def allBySuspect: Fu[Map[User.ID, Report.Inquiry]] =
       coll.list[Report]($doc("inquiry.mod" $exists true)) map {

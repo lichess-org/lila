@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
 import lila.user.{ User, UserRepo }
+import lila.common.config.Max
 
 final private class InsightIndexer(
     povToEntry: PovToEntry,
@@ -24,7 +25,7 @@ final private class InsightIndexer(
 ):
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 2 minutes, name = "insightIndexer")
+    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 2 minutes, name = "insightIndexer")
 
   def all(user: User): Funit =
     workQueue {
@@ -94,4 +95,3 @@ final private class InsightIndexer(
         .toMat(Sink.ignore)(Keep.right)
         .run()
     } void
-

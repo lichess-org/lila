@@ -7,6 +7,7 @@ import views.*
 import lila.app.{ *, given }
 import lila.i18n.I18nLangPicker
 import lila.api.Context
+import lila.common.Json.given
 
 final class Lobby(env: Env) extends LilaController(env):
 

@@ -28,7 +28,7 @@ final private class ChapterMaker(
         }
       case Some(game) => fromGame(study, game, data, order, userId, withRatings)
     } map { (c: Chapter) =>
-      if (c.name.isEmpty) c.copy(name = Chapter defaultName order) else c
+      if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
@@ -48,7 +48,7 @@ final private class ChapterMaker(
         parsed
           .tags(_.Black)
           .ifTrue {
-            data.name.isEmpty || data.isDefaultName
+            data.name.value.isEmpty || data.isDefaultName
           }
           .map { black =>
             StudyChapterName(s"$white - $black")
@@ -184,7 +184,7 @@ final private class ChapterMaker(
   private def parseGame(str: String): Fu[Option[Game]] =
     str match
       case s if s.lengthIs == Game.gameIdSize => gameRepo game GameId(s)
-      case s if s.lengthIs == Game.fullIdSize => gameRepo game Game.takeGameId(s)
+      case s if s.lengthIs == Game.fullIdSize => gameRepo game Game.strToId(s)
       case UrlRegex(id)                       => parseGame(id)
       case _                                  => fuccess(none)
 

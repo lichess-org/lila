@@ -11,10 +11,7 @@ final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     leaderboardRepo: LeaderboardRepo
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
-):
+)(using scala.concurrent.ExecutionContext, akka.stream.Materializer):
 
   import LeaderboardApi.*
   import BSONHandlers.given

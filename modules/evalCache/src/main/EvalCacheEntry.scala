@@ -18,7 +18,7 @@ case class EvalCacheEntry(
 
   import EvalCacheEntry.*
 
-  def id = _id
+  inline def id = _id
 
   def add(eval: Eval) =
     copy(

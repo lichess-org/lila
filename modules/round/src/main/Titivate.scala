@@ -98,7 +98,7 @@ final private[round] class Titivate(
 
         case game if game.unplayed =>
           bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-          chatApi.remove(ChatId(game.id))
+          chatApi.remove(game.id into ChatId)
           gameRepo remove game.id
 
         case game =>
@@ -114,5 +114,5 @@ final private[round] class Titivate(
 
             case None =>
               val days = game.daysPerTurn | Game.abandonedDays
-              gameRepo.setCheckAt(game, DateTime.now plusDays days).void
+              gameRepo.setCheckAt(game, DateTime.now plusDays days.value).void
   }

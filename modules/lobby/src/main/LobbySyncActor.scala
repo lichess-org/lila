@@ -166,8 +166,8 @@ final private class LobbySyncActor(
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs register g
 
   private object recentlyAbortedUserIdPairs:
-    private val cache                                     = lila.memo.ExpireSetMemo[String](1 hour)
-    private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
+    private val cache                             = lila.memo.ExpireSetMemo[CacheKey](1 hour)
+    private def makeKey(u1: User.ID, u2: User.ID) = CacheKey(if (u1 < u2) s"$u1/$u2" else s"$u2/$u1")
     def register(g: Game) =
       for {
         w <- g.whitePlayer.userId

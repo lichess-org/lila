@@ -329,8 +329,8 @@ final class ChatApi(
         ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username)
       else in
 
-    private val gameUrlRegex   = (Pattern.quote(netDomain) + """\b/(\w{8})\w{4}\b""").r
-    private val gameUrlReplace = Matcher.quoteReplacement(netDomain) + "/$1"
+    private val gameUrlRegex   = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
+    private val gameUrlReplace = Matcher.quoteReplacement(netDomain.value) + "/$1"
 
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private val multilineRegex                    = """\n\n{1,}+""".r

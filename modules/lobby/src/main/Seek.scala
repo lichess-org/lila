@@ -23,7 +23,7 @@ case class Seek(
     createdAt: DateTime
 ):
 
-  def id = _id
+  inline def id = _id
 
   val realColor = Color orDefault color
 

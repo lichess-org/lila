@@ -226,4 +226,4 @@ object SyncResult:
 
   case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int)
 
-  def busChannel(roundId: RelayRound.Id) = s"relaySyncResult:$roundId"
+  def busChannel(roundId: RelayRoundId) = s"relaySyncResult:$roundId"

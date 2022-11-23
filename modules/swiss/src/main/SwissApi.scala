@@ -19,6 +19,7 @@ import lila.game.{ Game, Pov }
 import lila.hub.LightTeam.TeamID
 import lila.round.actorApi.round.QuietFlag
 import lila.user.{ User, UserRepo }
+import lila.common.config.Max
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -44,7 +45,7 @@ final class SwissApi(
 ):
 
   private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
-    maxSize = 1024, // queue many game finished events
+    maxSize = Max(1024), // queue many game finished events
     expiration = 20 minutes,
     timeout = 10 seconds,
     name = "swiss.api"
@@ -613,7 +614,7 @@ final class SwissApi(
               lila.mon.swiss.games("flagged").record(flagged.size)
               lila.mon.swiss.games("missing").record(missingIds.size)
               if (flagged.nonEmpty)
-                Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
+                Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag), "roundSocket")
               if (missingIds.nonEmpty)
                 mongo.pairing.delete.one($inIds(missingIds))
               finished
@@ -625,7 +626,7 @@ final class SwissApi(
       }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(ChatId(id), text, _.Swiss, isVolatile = volatile)
+    chatApi.userChat.service(id into ChatId, text, _.Swiss, isVolatile = volatile)
 
   def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
     mongo.swiss

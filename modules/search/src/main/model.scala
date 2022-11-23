@@ -4,7 +4,8 @@ import alleycats.Zero
 
 case class Index(name: String) extends AnyVal
 
-case class Id(value: String) extends AnyVal
+opaque type Id = String
+object Id extends OpaqueString[Id]
 
 case class StringQuery(value: String) extends AnyVal
 case class From(value: Int)           extends AnyVal

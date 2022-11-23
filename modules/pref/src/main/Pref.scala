@@ -51,7 +51,7 @@ case class Pref(
 
   import Pref.*
 
-  def id = _id
+  inline def id = _id
 
   def realTheme      = Theme(theme)
   def realPieceSet   = PieceSet(pieceSet)

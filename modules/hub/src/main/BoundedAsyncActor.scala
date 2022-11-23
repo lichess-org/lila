@@ -4,12 +4,13 @@ import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
 import scala.concurrent.Promise
+import lila.common.config.Max
 
 /*
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = true)(
+final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = true)(
     process: AsyncActor.ReceiveAsync
 )(using ec: scala.concurrent.ExecutionContext):
 
@@ -19,7 +20,7 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
     stateRef.getAndUpdate { state =>
       Some {
         state.fold(emptyQueue) { q =>
-          if (q.size >= maxSize) q
+          if (q.size >= maxSize.value) q
           else q enqueue msg
         }
       }
@@ -28,7 +29,7 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
         run(msg)
         true
       case Some(q) =>
-        val success = q.size < maxSize
+        val success = q.size < maxSize.value
         if (!success)
           lila.mon.asyncActor.overflow(name).increment()
           if (logging) lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
@@ -44,7 +45,7 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
 
   def queueSize = stateRef.get().fold(0)(_.size + 1)
 
-  private val monitorQueueSize = maxSize / 4
+  private val monitorQueueSize = maxSize.value / 4
 
   /*
    * Idle: None

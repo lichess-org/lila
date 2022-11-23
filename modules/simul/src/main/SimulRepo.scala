@@ -130,7 +130,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.
   def remove(simul: Simul) =
     coll.delete.one($id(simul.id)).void
 
-  def setHostGameId(simul: Simul, gameId: String) =
+  def setHostGameId(simul: Simul, gameId: GameId) =
     coll.update
       .one(
         $id(simul.id),

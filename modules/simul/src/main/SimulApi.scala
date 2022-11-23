@@ -13,6 +13,8 @@ import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
 import lila.user.{ User, UserRepo }
+import lila.common.config.Max
+import lila.common.Json.given
 
 final class SimulApi(
     userRepo: UserRepo,
@@ -30,7 +32,7 @@ final class SimulApi(
 ):
 
   private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
-    maxSize = 128,
+    maxSize = Max(128),
     expiration = 10 minutes,
     timeout = 10 seconds,
     name = "simulApi"

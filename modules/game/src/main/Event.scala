@@ -214,7 +214,7 @@ object Event:
 
   case class RedirectOwner(
       color: Color,
-      id: String,
+      id: GameFullId,
       cookie: Option[JsObject]
   ) extends Event:
     def typ = "redirect"

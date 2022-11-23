@@ -8,6 +8,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
+import lila.common.Json.given
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 

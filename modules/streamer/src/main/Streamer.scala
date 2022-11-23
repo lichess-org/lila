@@ -22,7 +22,7 @@ case class Streamer(
     lastStreamLang: Option[String] // valid 2 char language code or None
 ):
 
-  def id = _id
+  inline def id = _id
 
   def userId = _id.value
 

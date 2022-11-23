@@ -6,7 +6,7 @@ import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 
-  given BSONHandler[RelayRound.Id]               = stringAnyValHandler(_.value, RelayRound.Id.apply)
+  given BSONHandler[RelayRoundId]               = stringAnyValHandler(_.value, RelayRoundId.apply)
   given tourIdHandler: BSONHandler[RelayTour.Id] = stringAnyValHandler(_.value, RelayTour.Id.apply)
   given BSONHandler[RelayPlayers]                = stringAnyValHandler(_.text, RelayPlayers.apply)
 

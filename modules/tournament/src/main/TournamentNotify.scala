@@ -14,15 +14,15 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
     akka.actor.Scheduler
 ):
 
-  private val doneMemo = lila.memo.ExpireSetMemo[Tournament.ID](10 minutes)
+  private val doneMemo = lila.memo.ExpireSetMemo[TourId](10 minutes)
 
   LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     repo
-      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
+      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys.map(_.value))
       .flatMap {
         _.map { tour =>
           lila.mon.tournament.notifier.tournaments.increment()
-          doneMemo put tour.id
+          doneMemo put TourId(tour.id)
           cached ranking tour map { ranking =>
             if (ranking.ranking.nonEmpty)
               Bus

@@ -8,11 +8,7 @@ import chess.Move
 import lila.common.Json.given
 import lila.game.Game
 
-case class Forecast(
-    _id: String, // player full id
-    steps: Forecast.Steps,
-    date: DateTime
-):
+case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: DateTime):
 
   def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
     nextMove(g, lastMove) map { move =>

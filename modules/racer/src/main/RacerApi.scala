@@ -7,6 +7,7 @@ import lila.memo.CacheApi
 import lila.storm.StormSelector
 import lila.user.{ User, UserRepo }
 import lila.common.Bus
+import lila.common.config.Max
 
 final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserRepo, cacheApi: CacheApi)(
     implicit
@@ -45,12 +46,11 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
       race.id
     }
 
-  private val rematchQueue =
-    new lila.hub.AsyncActorSequencer(
-      maxSize = 32,
-      timeout = 20 seconds,
-      name = "racer.rematch"
-    )
+  private val rematchQueue = lila.hub.AsyncActorSequencer(
+    maxSize = Max(32),
+    timeout = 20 seconds,
+    name = "racer.rematch"
+  )
 
   def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match
     case Some(found) if found.finished => rematch(found, player)

@@ -129,6 +129,6 @@ final class MsgCompat(
 
   private def renderUser(user: LightUser) =
     LightUser.lightUserWrites.writes(user) ++ Json.obj(
-      "online"   -> isOnline(user.id),
+      "online"   -> isOnline.value(user.id),
       "username" -> user.name // for mobile app BC
     )

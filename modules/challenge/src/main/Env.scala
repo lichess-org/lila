@@ -36,7 +36,7 @@ final class Env(
   private val colls = wire[ChallengeColls]
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](challengeId)(GetVersion.apply)
+    socket.rooms.ask[SocketVersion](RoomId(challengeId))(GetVersion.apply)
 
   private lazy val joiner = wire[ChallengeJoiner]
 

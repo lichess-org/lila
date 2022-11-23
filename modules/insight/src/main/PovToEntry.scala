@@ -35,7 +35,7 @@ final private class PovToEntry(
   private def removeWrongAnalysis(game: Game): Boolean =
     if (game.metadata.analysed && !game.analysable)
       gameRepo setUnanalysed game.id
-      analysisRepo remove game.id
+      analysisRepo remove game.id.value
       true
     else false
 
@@ -44,7 +44,7 @@ final private class PovToEntry(
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (fen, an) =>
+          (game.metadata.analysed ?? analysisRepo.byId(game.id.value)) map { case (fen, an) =>
             for {
               situations <-
                 chess.Replay

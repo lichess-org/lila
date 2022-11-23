@@ -42,10 +42,10 @@ final class StormJson(sign: StormSign):
     "days" -> days
   )
 
-
 object StormJson:
 
   import lila.puzzle.JsonView.given
+  import lila.common.Json.given
 
   given OWrites[StormHigh] = Json.writes
 

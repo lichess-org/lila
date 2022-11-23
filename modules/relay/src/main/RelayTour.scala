@@ -17,7 +17,7 @@ case class RelayTour(
     autoLeaderboard: Boolean = true,
     players: Option[RelayPlayers] = None
 ):
-  def id = _id
+  inline def id = _id
 
   lazy val slug =
     val s = lila.common.String slugify name

@@ -86,7 +86,7 @@ final class Api(
         def toJson(u: LightUser) =
           lila.common.LightUser.lightUserWrites
             .writes(u)
-            .add("online" -> env.socket.isOnline(u.id))
+            .add("online" -> env.socket.isOnline.value(u.id))
             .add("playing" -> env.round.playing(u.id))
             .add("streaming" -> streamingIds(u.id))
         if (getBool("withGameIds", req)) users.map { u =>
@@ -348,7 +348,7 @@ final class Api(
 
   def gamesByIdsStream(streamId: String) =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
+      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToId(_)) { ids =>
         GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           addKeepAlive(
             env.game.gamesByIdsStream(
@@ -363,7 +363,7 @@ final class Api(
 
   def gamesByIdsStreamAddIds(streamId: String) =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.takeGameId) { ids =>
+      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToId(_)) { ids =>
         env.game.gamesByIdsStream.addGameIds(streamId, ids)
         jsonOkResult
       }.toFuccess

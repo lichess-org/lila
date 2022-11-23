@@ -169,7 +169,7 @@ final class Relation(
             lila.user.JsonView.perfs(r.user, best.some)
           }
         )
-        .add("online" -> env.socket.isOnline(r.user.id))
+        .add("online" -> env.socket.isOnline.value(r.user.id))
     }))
 
   def blocks(page: Int) =

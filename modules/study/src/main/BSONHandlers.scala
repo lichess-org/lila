@@ -286,7 +286,7 @@ object BSONHandlers:
     { case BSONString(v) =>
       v.split(' ') match {
         case Array("scratch")   => Success(From.Scratch)
-        case Array("game", id)  => Success(From.Game(id))
+        case Array("game", id)  => Success(From.Game(GameId(id)))
         case Array("study", id) => Success(From.Study(StudyId(id)))
         case Array("relay")     => Success(From.Relay(none))
         case Array("relay", id) => Success(From.Relay(StudyId(id).some))

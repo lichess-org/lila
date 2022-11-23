@@ -12,6 +12,7 @@ import lila.hub.LateMultiThrottler
 import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
 import lila.tree.Node.Comments
+import lila.common.Json.given
 
 final class StudySearchApi(
     client: ESClient,
@@ -28,21 +29,20 @@ final class StudySearchApi(
 
   def count(query: Query) = client.count(query).dmap(_.count)
 
-  def store(study: Study) =
-    fuccess {
-      indexThrottler ! LateMultiThrottler.work(
-        id = study.id,
-        run = studyRepo byId study.id flatMap { _ ?? doStore },
-        delay = 30.seconds.some
-      )
-    }
+  def store(study: Study) = fuccess {
+    indexThrottler ! LateMultiThrottler.work(
+      id = study.id.value,
+      run = studyRepo byId study.id flatMap { _ ?? doStore },
+      delay = 30.seconds.some
+    )
+  }
 
   private def doStore(study: Study) =
     getChapters(study)
       .flatMap { s =>
-        client.store(Id(s.study.id), toDoc(s))
+        client.store(s.study.id into Id, toDoc(s))
       }
-      .prefixFailure(study.id)
+      .prefixFailure(study.id.value)
 
   private def toDoc(s: Study.WithActualChapters) =
     Json.obj(

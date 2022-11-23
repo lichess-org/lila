@@ -26,7 +26,7 @@ case class Topic(
     ublogId: Option[String] = None
 ):
 
-  def id = _id
+  inline def id = _id
 
   def updatedAt(forUser: Option[User]): DateTime =
     if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt

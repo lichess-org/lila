@@ -187,7 +187,7 @@ object BSONHandlers:
   given BSON[LeaderboardApi.Entry] with
     def reads(r: BSON.Reader) =
       LeaderboardApi.Entry(
-        id = r str "_id",
+        id = r.get[TourPlayerId]("_id"),
         userId = r str "u",
         tourId = r str "t",
         nbGames = r int "g",

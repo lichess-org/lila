@@ -5,7 +5,7 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.Json.*
+import lila.common.Json.{ *, given }
 import lila.common.LightUser
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User

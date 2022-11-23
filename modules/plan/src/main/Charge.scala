@@ -17,7 +17,7 @@ case class Charge(
     date: DateTime
 ):
 
-  def id = _id
+  inline def id = _id
 
   def isPayPalLegacy   = payPal.nonEmpty
   def isPayPalCheckout = payPalCheckout.nonEmpty

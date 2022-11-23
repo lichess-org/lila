@@ -275,7 +275,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .one[Bdoc]
       .dmap {
         _.flatMap(_ child F.perfs)
-          .flatMap(_ child perfType.key)
+          .flatMap(_ child perfType.key.value)
           .flatMap(_.getAsOpt[Glicko]("gl")) | Glicko.default
       }
 
@@ -575,7 +575,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
 
   private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
-    doc.child(F.perfs).flatMap(_.getAsOpt[Perf](perfType.key))
+    doc.child(F.perfs).flatMap(_.getAsOpt[Perf](perfType.key.value))
 
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] =
     coll

@@ -72,7 +72,7 @@ final class InsightPerfStatsApi(
           nb = ~doc.int("nb")
           t   <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
-          gameIds = ids map Game.takeGameId
+          gameIds = ids map { Game.strToId(_) }
         } yield pt -> InsightPerfStats.WithGameIds(
           InsightPerfStats(MeanRating(ra.toInt), Color.Map(nw, nb), t.toDuration),
           gameIds

@@ -149,10 +149,10 @@ final class PlaybanApi(
     }
 
   // memorize users without any ban to save DB reads
-  private val cleanUserIds = lila.memo.ExpireSetMemo[User.ID](30 minutes)
+  private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] =
-    !cleanUserIds.get(userId) ?? {
+    !cleanUserIds.get(UserId(userId)) ?? {
       coll
         .find(
           $doc("_id" -> userId, "b.0" $exists true),
@@ -162,7 +162,7 @@ final class PlaybanApi(
         .dmap {
           _.flatMap(_.getAsOpt[List[TempBan]]("b")).??(_.find(_.inEffect))
         } addEffect { ban =>
-        if (ban.isEmpty) cleanUserIds put userId
+        if (ban.isEmpty) cleanUserIds put UserId(userId)
       }
     }
 
@@ -257,7 +257,7 @@ final class PlaybanApi(
             fetchNewObject = true
           )
       }
-      .map(_ | record) >>- cleanUserIds.remove(record.userId)
+      .map(_ | record) >>- cleanUserIds.remove(UserId(record.userId))
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
     update match

@@ -27,7 +27,7 @@ case class Swiss(
     finishedAt: Option[DateTime],
     winnerId: Option[User.ID] = None
 ):
-  def id = _id
+  inline def id = _id
 
   def isCreated          = round.value == 0
   def isStarted          = !isCreated && !isFinished
@@ -89,7 +89,7 @@ object Swiss:
   case class Score(value: Int)         extends AnyVal
 
   case class IdName(_id: SwissId, name: String):
-    def id = _id
+    inline def id = _id
 
   case class Settings(
       nbRounds: Int,

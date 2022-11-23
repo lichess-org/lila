@@ -78,7 +78,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   def get(userId: String): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
-    withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key).dmap(~_))
+    withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
 
   def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(Int, Int)]] =
     withColl(
@@ -91,7 +91,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
           val current      = user.perfs(perfType).intRating
           val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
           val previous =
-            doc.flatMap(_ child perfType.key).flatMap(ratingsReader.readOpt).fold(current) { hist =>
+            doc.flatMap(_ child perfType.key.value).flatMap(ratingsReader.readOpt).fold(current) { hist =>
               hist.foldLeft(hist.headOption.fold(current)(_._2)) {
                 case (_, (d, r)) if d < previousDate => r
                 case (acc, _)                        => acc
@@ -120,7 +120,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
             }
             withColl(_.find($id(user.id), project.some).one[Bdoc].map {
               _.flatMap {
-                _.child(perf.key) map {
+                _.child(perf.key.value) map {
                   _.elements.foldLeft(currentRating) {
                     case (max, BSONElement(_, BSONInteger(v))) if v > max => v
                     case (max, _)                                         => max

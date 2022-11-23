@@ -1,6 +1,7 @@
 package lila.common
 
 import play.api.libs.json.*
+import lila.common.Json.given
 
 case class LightUser(
     id: String,
@@ -9,7 +10,7 @@ case class LightUser(
     isPatron: Boolean
 ):
 
-  def titleName = title.fold(name)(_ + " " + name)
+  def titleName = title.fold(name)(_.value + " " + name)
 
   def isBot = title has "BOT"
 

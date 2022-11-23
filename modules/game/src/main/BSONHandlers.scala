@@ -179,7 +179,7 @@ object BSONHandlers:
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
         F.id            -> o.id,
-        F.playerIds     -> (o.whitePlayer.id + o.blackPlayer.id),
+        F.playerIds     -> (o.whitePlayer.id.value + o.blackPlayer.id.value),
         F.playerUids    -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
         F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
         F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),

@@ -64,7 +64,7 @@ object show:
       main(
         cls := "team-show box",
         socketVersion.map { v =>
-          data("socket-version") := (v: Int)
+          data("socket-version") := v
         }
       )(
         boxTop(

@@ -9,6 +9,7 @@ import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ LilaScheduler, LilaStream }
+import lila.common.Json.given
 import lila.memo.SettingStore
 import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 
@@ -30,7 +31,7 @@ final class TournamentLilaHttp(
   def hit(tour: Tournament) =
     if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
-  private val isOnLilaHttp = ExpireSetMemo[Tournament.ID](3 hours)
+  private val isOnLilaHttp = ExpireSetMemo[Tournament.ID](3 hours)(using stringIsString)
   private val hitCounter   = FrequencyThreshold[Tournament.ID](10, 20 seconds)
 
   private val channel = "http-out"

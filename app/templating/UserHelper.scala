@@ -82,19 +82,13 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def titleNameOrId(userId: String)           = lightUser(userId).fold(userId)(_.titleName)
   def titleNameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
 
-  def isOnline(userId: String) = env.socket isOnline userId
+  def isOnline(userId: String) = env.socket.isOnline.value(userId)
 
   def isStreaming(userId: String) = env.streamer.liveStreamApi isStreaming userId
 
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
-    span(
-      cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined)
-    )(
-      if (modIcon)
-        frag(
-          moderatorIcon,
-          User.anonMod
-        )
+    span(cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined))(
+      if (modIcon) frag(moderatorIcon, User.anonMod)
       else User.anonymous
     )
 

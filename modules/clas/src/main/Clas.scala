@@ -17,7 +17,7 @@ case class Clas(
     archived: Option[Clas.Recorded]
 ):
 
-  def id = _id
+  inline def id = _id
 
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 

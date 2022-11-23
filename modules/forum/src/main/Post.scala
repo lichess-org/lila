@@ -29,7 +29,7 @@ case class Post(
   private val permitEditsFor  = 4 hours
   private val showEditFormFor = 3 hours
 
-  def id = _id
+  inline def id = _id
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | (if (~modIcon) User.anonymous else User.anonMod)
 

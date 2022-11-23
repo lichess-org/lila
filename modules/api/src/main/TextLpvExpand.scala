@@ -78,7 +78,7 @@ final class TextLpvExpand(
   private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMap {
       _ ?? { g =>
-        analysisRepo.byId(id) flatMap { analysis =>
+        analysisRepo.byId(id.value) flatMap { analysis =>
           pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
         }
       }

@@ -18,9 +18,9 @@ final class Messenger(api: ChatApi):
     case Messenger.Volatile(msg)   => system(persistent = false)(game, msg)
 
   def system(persistent: Boolean)(game: Game, message: String): Unit = if (game.nonAi) {
-    api.userChat.volatile(chatWatcherId(ChatId(game.id)), message, _.Round)
-    if (persistent) api.userChat.system(ChatId(game.id), message, _.Round)
-    else api.userChat.volatile(ChatId(game.id), message, _.Round)
+    api.userChat.volatile(chatWatcherId(game.id into ChatId), message, _.Round)
+    if (persistent) api.userChat.system(game.id into ChatId, message, _.Round)
+    else api.userChat.volatile(game.id into ChatId, message, _.Round)
   }.unit
 
   def watcher(gameId: GameId, userId: User.ID, text: String) =
@@ -35,12 +35,12 @@ final class Messenger(api: ChatApi):
         api.userChat.write(gameWatcherId(gameId), userId, text drop command.length, source.some, _.Round)
     } getOrElse {
       !text.startsWith("/") ?? // mistyped command?
-        api.userChat.write(ChatId(gameId), userId, text, publicSource = none, _.Round)
+        api.userChat.write(gameId into ChatId, userId, text, publicSource = none, _.Round)
     }
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =
     (game.fromFriend || presets.contains(text)) ??
-      api.playerChat.write(ChatId(game.id), anonColor, text, _.Round)
+      api.playerChat.write(game.id into ChatId, anonColor, text, _.Round)
 
   def timeout(chatId: ChatId, modId: User.ID, suspect: User.ID, reason: String, text: String): Funit =
     ChatTimeout.Reason(reason) ?? { r =>

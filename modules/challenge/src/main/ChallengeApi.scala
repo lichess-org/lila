@@ -84,7 +84,7 @@ final class ChallengeApi(
     }
 
   private val acceptQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
+    lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 5 seconds, "challengeAccept")
 
   def accept(
       c: Challenge,

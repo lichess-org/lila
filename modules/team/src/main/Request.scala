@@ -13,7 +13,7 @@ case class Request(
     declined: Boolean
 ):
 
-  def id = _id
+  inline def id = _id
 
 object Request:
 

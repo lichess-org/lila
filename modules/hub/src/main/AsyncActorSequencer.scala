@@ -5,11 +5,12 @@ import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ ExecutionContext, Promise }
 
 import lila.base.LilaTimeout
+import lila.common.config.Max
 
-final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: String, logging: Boolean = true)(
-    implicit
-    scheduler: akka.actor.Scheduler,
-    ec: ExecutionContext
+final class AsyncActorSequencer(maxSize: Max, timeout: FiniteDuration, name: String, logging: Boolean = true)(
+    using
+    akka.actor.Scheduler,
+    ExecutionContext
 ):
 
   import AsyncActorSequencer.*
@@ -19,11 +20,7 @@ final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: Str
   def run[A <: Matchable](task: Task[A]): Fu[A] = asyncActor.ask[A](TaskWithPromise(task, _))
 
   private[this] val asyncActor =
-    new BoundedAsyncActor(
-      maxSize,
-      name,
-      logging
-    )(
+    new BoundedAsyncActor(maxSize, name, logging)(
       { case TaskWithPromise(task, promise) =>
         promise.completeWith {
           task()
@@ -44,16 +41,12 @@ final class AsyncActorSequencer(maxSize: Int, timeout: FiniteDuration, name: Str
 
 // Distributes tasks to many sequencers
 final class AsyncActorSequencers[K](
-    maxSize: Int,
+    maxSize: Max,
     expiration: FiniteDuration,
     timeout: FiniteDuration,
     name: String,
     logging: Boolean = true
-)(using
-    ev: K =:= String,
-    scheduler: akka.actor.Scheduler,
-    ec: ExecutionContext
-):
+)(using BasicallyString[K], akka.actor.Scheduler, ExecutionContext):
 
   def apply[A <: Matchable](key: K)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)

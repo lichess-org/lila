@@ -79,14 +79,14 @@ final class RelayRound(
           }
     )
 
-  def edit(id: String) =
+  def edit(id: RelayRoundId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
         Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).toFuccess
       }
     }
 
-  def update(id: String) =
+  def update(id: RelayRoundId) =
     AuthOrScopedBody(_.Study.Write)(
       auth = implicit ctx =>
         me =>
@@ -112,7 +112,7 @@ final class RelayRound(
           }
     )
 
-  private def doUpdate(id: String, me: UserModel)(using
+  private def doUpdate(id: RelayRoundId, me: UserModel)(using
       req: Request[?]
   ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
     env.relay.api.byIdAndContributor(id, me) flatMap {
@@ -128,14 +128,14 @@ final class RelayRound(
       }
     }
 
-  def reset(id: String) =
+  def reset(id: RelayRoundId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
         env.relay.api.reset(rt.round, me) inject Redirect(rt.path)
       }
     }
 
-  def show(ts: String, rs: String, id: String) =
+  def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read)(
       open = implicit ctx => {
         pageHit
@@ -166,7 +166,7 @@ final class RelayRound(
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
-  def stream(id: String) = AnonOrScoped() { req => me =>
+  def stream(id: RelayRoundId) = AnonOrScoped() { req => me =>
     env.relay.api.byIdWithStudy(id) flatMap {
       _ ?? { rt =>
         studyC.CanView(rt.study, me) {
@@ -182,7 +182,7 @@ final class RelayRound(
     }
   }
 
-  def chapter(ts: String, rs: String, id: StudyId, chapterId: String) =
+  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
       WithRoundAndTour(ts, rs, id) { rt =>
         env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMap {
@@ -191,7 +191,7 @@ final class RelayRound(
       }
     }
 
-  def push(id: String) =
+  def push(id: RelayRoundId) =
     ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req => me =>
       env.relay.api.byIdAndContributor(id, me) flatMap {
         case None     => notFoundJson()
@@ -199,7 +199,7 @@ final class RelayRound(
       }
     }
 
-  private def WithRoundAndTour(ts: String, rs: String, id: String)(
+  private def WithRoundAndTour(ts: String, rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
@@ -244,16 +244,13 @@ final class RelayRound(
       ).enableSharedArrayBuffer
     }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))
 
-  implicit private def makeRelayId(id: String): RoundModel.Id           = RoundModel.Id(id)
-  implicit private def makeChapterId(id: String): lila.study.StudyChapterId = lila.study.StudyChapterId(id)
-
-  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserModel.ID](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.user"
   )
 
-  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.ip"
