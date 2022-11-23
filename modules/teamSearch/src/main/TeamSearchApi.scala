@@ -16,12 +16,12 @@ final class TeamSearchApi(
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      teamRepo byOrderedIds res.ids
+      teamRepo byOrderedIds TeamId.from(res.ids)
     }
 
   def count(query: Query) = client.count(query).dmap(_.value)
 
-  def store(team: Team) = client.store(Id(team.id), toDoc(team))
+  def store(team: Team) = client.store(team.id into Id, toDoc(team))
 
   private def toDoc(team: Team) =
     Json.obj(
@@ -40,7 +40,7 @@ final class TeamSearchApi(
           teamRepo.cursor
             .documentSource()
             .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
-            .map(t => Id(t.id) -> toDoc(t))
+            .map(t => t.id.into(Id) -> toDoc(t))
             .grouped(200)
             .mapAsync(1)(c.storeBulk)
             .toMat(Sink.ignore)(Keep.right)

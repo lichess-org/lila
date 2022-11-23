@@ -102,7 +102,7 @@ private object LinkCheck:
 
   sealed trait FullSource:
     def owners: Set[User.ID]
-    def teamId: Option[Team.ID]
+    def teamId: Option[TeamId]
 
   object FullSource:
     case class TournamentSource(value: Tournament) extends FullSource:

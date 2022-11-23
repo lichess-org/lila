@@ -4,7 +4,6 @@ import play.api.i18n.Lang
 import scala.concurrent.duration.*
 
 import chess.variant.Variant
-import lila.hub.LightTeam.TeamID
 import lila.memo.*
 import lila.memo.CacheApi.*
 import lila.user.User
@@ -65,7 +64,7 @@ final class TournamentCache(
   }
 
   private[tournament] val teamInfo =
-    cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
+    cacheApi[(Tournament.ID, TeamId), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
       _.expireAfterWrite(5 seconds)
         .maximumSize(64)
         .buildAsyncFuture { case (tourId, teamId) =>

@@ -7,6 +7,7 @@ import scala.concurrent.duration.*
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
 import lila.user.User
+import lila.hub.LightTeam.TeamName
 
 final class Cached(
     teamRepo: TeamRepo,
@@ -15,7 +16,7 @@ final class Cached(
     cacheApi: lila.memo.CacheApi
 )(using ec: scala.concurrent.ExecutionContext):
 
-  val nameCache = cacheApi.sync[String, Option[String]](
+  val nameCache = cacheApi.sync[TeamId, Option[TeamName]](
     name = "team.name",
     initialCapacity = 32768,
     compute = teamRepo.name,
@@ -53,7 +54,7 @@ final class Cached(
           )
         }
         .map { doc =>
-          Team.IdsStr(~doc.flatMap(_.getAsOpt[List[Team.ID]]("ids")))
+          Team.IdsStr(~doc.flatMap(_.getAsOpt[List[TeamId]]("ids")))
         },
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
@@ -61,8 +62,8 @@ final class Cached(
   )
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
-  def teamIdsList(userId: User.ID) = teamIds(userId).dmap(_.toList)
-  def teamIdsSet(userId: User.ID)  = teamIds(userId).dmap(_.toSet)
+  def teamIdsList(userId: User.ID): Fu[List[TeamId]] = teamIds(userId).dmap(_.toList)
+  def teamIdsSet(userId: User.ID): Fu[Set[TeamId]]   = teamIds(userId).dmap(_.toSet)
 
   val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
     _.expireAfterAccess(40 minutes)
@@ -74,19 +75,19 @@ final class Cached(
       }
   }
 
-  val leaders = cacheApi[Team.ID, Set[User.ID]](128, "team.leaders") {
+  val leaders = cacheApi[TeamId, Set[User.ID]](128, "team.leaders") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture(teamRepo.leadersOf)
   }
 
-  def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
+  def isLeader(teamId: TeamId, userId: User.ID): Fu[Boolean] =
     leaders.get(teamId).dmap(_ contains userId)
 
-  val forumAccess = cacheApi[Team.ID, Team.Access](1024, "team.forum.access") {
+  val forumAccess = cacheApi[TeamId, Team.Access](1024, "team.forum.access") {
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
   }
 
-  val unsubs = cacheApi[Team.ID, Int](512, "team.unsubs") {
+  val unsubs = cacheApi[TeamId, Int](512, "team.unsubs") {
     _.expireAfterWrite(1 hour).buildAsyncFuture(id => memberRepo.countUnsub(id))
   }

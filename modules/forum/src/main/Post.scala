@@ -35,7 +35,7 @@ case class Post(
 
   def showUserIdOrAuthor = if (erased) "<erased>" else userId | showAuthor
 
-  def isTeam = categId startsWith teamSlug("")
+  def isTeam = categId startsWith teamSlug(TeamId(""))
 
   def isAnonModPost = !userId.isDefined && ~modIcon
 
@@ -119,7 +119,6 @@ object Post:
       troll: Boolean,
       modIcon: Option[Boolean] = None
   ): Post =
-
     Post(
       _id = lila.common.ThreadLocalRandom nextString idSize,
       topicId = topicId,

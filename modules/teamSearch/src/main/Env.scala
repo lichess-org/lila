@@ -44,10 +44,10 @@ final class Env(
 
   system.actorOf(
     Props(new Actor {
-      import lila.team.actorApi.*
+      import lila.team.{ InsertTeam, RemoveTeam }
       def receive = {
         case InsertTeam(team) => api.store(team).unit
-        case RemoveTeam(id)   => client.deleteById(Id(id)).unit
+        case RemoveTeam(id)   => client.deleteById(id into Id).unit
       }
     }),
     name = config.actorName

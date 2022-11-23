@@ -14,8 +14,10 @@ trait NewTypes:
   type StringRuntime[A] = SameRuntime[A, String]
 
   trait TotalWrapper[Newtype, Impl](using ev: Newtype =:= Impl):
-    inline def raw(inline a: Newtype): Impl   = a.asInstanceOf[Impl]
-    inline def apply(inline s: Impl): Newtype = s.asInstanceOf[Newtype]
+    inline def raw(inline a: Newtype): Impl         = a.asInstanceOf[Impl]
+    inline def apply(inline s: Impl): Newtype       = s.asInstanceOf[Newtype]
+    inline def from(a: Array[Impl]): Array[Newtype] = a.asInstanceOf[Array[Newtype]]
+    inline def from(a: List[Impl]): List[Newtype]   = a.asInstanceOf[List[Newtype]]
 
     given SameRuntime[Newtype, Impl] = new:
       def apply(a: Newtype): Impl = a.asInstanceOf[Impl]

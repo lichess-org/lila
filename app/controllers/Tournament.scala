@@ -9,6 +9,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
+import lila.common.Json.given
 import lila.hub.LightTeam.*
 import lila.memo.CacheApi.*
 import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
@@ -41,7 +42,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     for {
       (visible, scheduled) <- upcomingCache.getUnit
       teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
-      allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
+      allTeamIds = (TeamId.from(env.featuredTeamsSetting.get().value) ++ teamIds).distinct
       teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
       scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
       response <- negotiate(
@@ -105,7 +106,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                   page = page,
                   me = ctx.me,
                   getUserTeamIds = getUserTeamIds,
-                  getTeamName = env.team.getTeamName,
+                  getTeamName = env.team.getTeamName.value,
                   playerInfoExt = none,
                   socketVersion = version.some,
                   partial = false,
@@ -136,7 +137,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     page = page,
                     me = ctx.me,
                     getUserTeamIds = getUserTeamIds,
-                    getTeamName = env.team.getTeamName,
+                    getTeamName = env.team.getTeamName.value,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
                     partial = partial,
@@ -187,7 +188,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def teamInfo(tourId: String, teamId: TeamID) =
+  def teamInfo(tourId: String, teamId: TeamId) =
     Open { implicit ctx =>
       cachedTour(tourId) flatMap {
         _ ?? { tour =>
@@ -220,7 +221,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           JoinLimitPerUser(me.id) {
             val data = TournamentForm.TournamentJoin(
               password = ctx.body.body.\("p").asOpt[String],
-              team = ctx.body.body.\("team").asOpt[String]
+              team = ctx.body.body.\("team").asOpt[TeamId]
             )
             doJoin(id, data, me).dmap(_.error) map {
               case None        => jsonOkResult
@@ -284,7 +285,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def teamBattleForm(teamId: TeamID) =
+  def teamBattleForm(teamId: TeamId) =
     Auth { implicit ctx => me =>
       NoBot {
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
@@ -380,7 +381,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     none,
                     getUserTeamIds = _ => fuccess(teams.map(_.id)),
-                    env.team.getTeamName,
+                    env.team.getTeamName.value,
                     none,
                     none,
                     partial = false,
@@ -410,7 +411,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                       none,
                       none,
                       getUserTeamIds = _ => fuccess(teams.map(_.id)),
-                      env.team.getTeamName,
+                      env.team.getTeamName.value,
                       none,
                       none,
                       partial = false,
@@ -498,7 +499,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                         none,
                         none,
                         getUserTeamIds = getUserTeamIds,
-                        env.team.getTeamName,
+                        env.team.getTeamName.value,
                         none,
                         none,
                         partial = false,
@@ -592,7 +593,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def byTeam(id: String) =
+  def byTeam(id: TeamId) =
     Action.async { implicit req =>
       given play.api.i18n.Lang = reqLang
       apiC.jsonStream {
@@ -644,5 +645,5 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
   }
 
-  private def getUserTeamIds(user: UserModel): Fu[List[TeamID]] =
+  private def getUserTeamIds(user: UserModel): Fu[List[TeamId]] =
     env.team.cached.teamIdsList(user.id)

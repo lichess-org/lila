@@ -64,12 +64,9 @@ final private[simul] class SimulRepo(val coll: Coll)(using ec: scala.concurrent.
   def findPending(hostId: User.ID): Fu[List[Simul]] =
     coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
 
-  def byTeamLeaders(teamId: String, hostIds: Seq[User.ID]): Fu[List[Simul]] =
+  def byTeamLeaders(teamId: TeamId, hostIds: Seq[User.ID]): Fu[List[Simul]] =
     coll
-      .find(
-        createdSelect ++
-          $doc("hostId" $in hostIds, "team" $in List(BSONString(teamId)))
-      )
+      .find(createdSelect ++ $doc("hostId" $in hostIds, "team" -> teamId))
       .hint(coll hint $doc("hostId" -> 1))
       .cursor[Simul]()
       .listAll()

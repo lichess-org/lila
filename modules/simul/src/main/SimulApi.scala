@@ -9,7 +9,6 @@ import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
-import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
 import lila.user.{ User, UserRepo }
@@ -25,11 +24,7 @@ final class SimulApi(
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
-    mode: play.api.Mode
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
 
   private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
@@ -40,7 +35,7 @@ final class SimulApi(
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get {}
 
-  export repo.{ find, byIds }
+  export repo.{ find, byIds, byTeamLeaders }
 
   private val currentHostIdsCache = cacheApi.unit[Set[User.ID]] {
     _.refreshAfterWrite(5 minutes)
@@ -80,7 +75,7 @@ final class SimulApi(
     )
     repo.update(simul) >>- publish() inject simul
 
-  def addApplicant(simulId: SimulId, user: User, isInTeam: TeamID => Boolean, variantKey: String): Funit =
+  def addApplicant(simulId: SimulId, user: User, isInTeam: TeamId => Boolean, variantKey: String): Funit =
     WithSimul(repo.findCreated, simulId) { simul =>
       if (simul.nbAccepted < Game.maxPlayingRealtime && simul.team.forall(isInTeam))
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
@@ -218,13 +213,11 @@ final class SimulApi(
       }
     }
 
-  def byTeamLeaders = repo.byTeamLeaders
-
   def idToName(id: SimulId): Fu[Option[String]] =
     repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
 
-  def teamOf(id: SimulId): Fu[Option[TeamID]] =
-    repo.coll.primitiveOne[TeamID]($id(id), "team")
+  def teamOf(id: SimulId): Fu[Option[TeamId]] =
+    repo.coll.primitiveOne[TeamId]($id(id), "team")
 
   private def makeGame(simul: Simul, host: User)(
       pairingAndNumber: (SimulPairing, Int)

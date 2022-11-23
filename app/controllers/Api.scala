@@ -214,7 +214,7 @@ final class Api(
             page = page.some,
             me = none,
             getUserTeamIds = _ => fuccess(Nil),
-            getTeamName = env.team.getTeamName.apply,
+            getTeamName = env.team.getTeamName.value,
             playerInfoExt = none,
             socketVersion = none,
             partial = false,

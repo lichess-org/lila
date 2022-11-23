@@ -5,7 +5,6 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
 import lila.tournament.BSONHandlers.given
@@ -90,7 +89,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       .map {
         _.flatMap { doc =>
           for {
-            teamId      <- doc.getAsOpt[TeamID]("_id")
+            teamId      <- doc.getAsOpt[TeamId]("_id")
             leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
             leaders = leadersBson.flatMap { p =>
               for {
@@ -117,7 +116,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
   // very expensive
   private[tournament] def teamInfo(
       tourId: Tournament.ID,
-      teamId: TeamID
+      teamId: TeamId
   ): Fu[TeamBattle.TeamInfo] =
     coll
       .aggregateOne() { framework =>
@@ -153,13 +152,13 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       }
       .dmap(_ | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil))
 
-  def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamID, nb: Int): Fu[List[Player]] =
+  def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamId, nb: Int): Fu[List[Player]] =
     coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").cursor[Player]().list(nb)
 
-  def countTeamPlayers(tourId: Tournament.ID, teamId: TeamID): Fu[Int] =
+  def countTeamPlayers(tourId: Tournament.ID, teamId: TeamId): Fu[Int] =
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
 
-  def teamsOfPlayers(tourId: Tournament.ID, userIds: Seq[User.ID]): Fu[List[(User.ID, TeamID)]] =
+  def teamsOfPlayers(tourId: Tournament.ID, userIds: Seq[User.ID]): Fu[List[(User.ID, TeamId)]] =
     coll
       .find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
       .cursor[Bdoc]()
@@ -167,7 +166,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       .map {
         _.flatMap { doc =>
           doc.getAsOpt[User.ID]("uid") flatMap { userId =>
-            doc.getAsOpt[TeamID]("t") map { (userId, _) }
+            doc.getAsOpt[TeamId]("t") map { (userId, _) }
           }
         }
       }
@@ -216,7 +215,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       tourId: Tournament.ID,
       user: User,
       perfType: PerfType,
-      team: Option[TeamID],
+      team: Option[TeamId],
       prev: Option[Player]
   ) =
     prev match

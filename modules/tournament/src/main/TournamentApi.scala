@@ -85,7 +85,7 @@ final class TournamentApi(
       (andJoin && !me.isBot && !me.lame) ?? join(
         tour.id,
         me,
-        TournamentForm.TournamentJoin(tour.password, setup.teamBattleByTeam),
+        TournamentForm.TournamentJoin(setup.teamBattleByTeam, tour.password),
         getUserTeamIds = _ => fuccess(leaderTeams.map(_.id)),
         asLeader = false,
         none
@@ -115,14 +115,14 @@ final class TournamentApi(
   def teamBattleUpdate(
       tour: Tournament,
       data: TeamBattle.DataForm.Setup,
-      filterExistingTeamIds: Set[TeamID] => Fu[Set[TeamID]]
+      filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
   ): Funit =
-    filterExistingTeamIds(data.potentialTeamIds.filter(!TeamBattle.blacklist(_))) flatMap { teamIds =>
+    filterExistingTeamIds(data.potentialTeamIds.filterNot(TeamBattle.blacklist.contains)) flatMap { teamIds =>
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders)) >>-
         cached.tourCache.clear(tour.id)
     }
 
-  def teamBattleTeamInfo(tour: Tournament, teamId: TeamID): Fu[Option[TeamBattle.TeamInfo]] =
+  def teamBattleTeamInfo(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.TeamInfo]] =
     tour.teamBattle.exists(_ teams teamId) ?? cached.teamInfo.get(tour.id -> teamId)
 
   private val hadPairings = lila.memo.ExpireSetMemo[TourId](1 hour)
@@ -264,7 +264,7 @@ final class TournamentApi(
   def getVerdicts(
       tour: Tournament,
       me: Option[User],
-      getUserTeamIds: User => Fu[List[TeamID]],
+      getUserTeamIds: User => Fu[List[TeamId]],
       playerExists: Boolean
   ): Fu[Condition.All.WithVerdicts] =
     me match
@@ -277,7 +277,7 @@ final class TournamentApi(
       tourId: Tournament.ID,
       me: User,
       data: TournamentForm.TournamentJoin,
-      getUserTeamIds: User => Fu[List[TeamID]],
+      getUserTeamIds: User => Fu[List[TeamId]],
       asLeader: Boolean,
       promise: Option[Promise[Tournament.JoinResult]]
   ): Funit =
@@ -298,7 +298,7 @@ final class TournamentApi(
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
               else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
               else
-                def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
+                def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] =
                   playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
                     updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
                 tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
@@ -330,7 +330,7 @@ final class TournamentApi(
       tourId: Tournament.ID,
       me: User,
       data: TournamentForm.TournamentJoin,
-      getUserTeamIds: User => Fu[List[TeamID]],
+      getUserTeamIds: User => Fu[List[TeamId]],
       isLeader: Boolean
   ): Fu[Tournament.JoinResult] =
     val promise = Promise[Tournament.JoinResult]()
@@ -466,7 +466,7 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  private[tournament] def kickFromTeam(teamId: TeamID, userId: User.ID): Funit =
+  private[tournament] def kickFromTeam(teamId: TeamId, userId: User.ID): Funit =
     tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam") flatMap {
       _.map { tourId =>
         Parallel(tourId, "kickFromTeam")(tournamentRepo.byId) { tour =>
@@ -726,7 +726,7 @@ final class TournamentApi(
         )
       }
 
-  def visibleByTeam(teamId: TeamID, nbPast: Int, nbNext: Int): Fu[Tournament.PastAndNext] =
+  def visibleByTeam(teamId: TeamId, nbPast: Int, nbNext: Int): Fu[Tournament.PastAndNext] =
     tournamentRepo.finishedByTeam(teamId, nbPast) zip
       tournamentRepo.upcomingByTeam(teamId, nbNext) map
       (Tournament.PastAndNext.apply).tupled

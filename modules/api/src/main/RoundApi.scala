@@ -30,7 +30,7 @@ final private[api] class RoundApi(
     simulApi: lila.simul.SimulApi,
     puzzleOpeningApi: lila.puzzle.PuzzleOpeningApi,
     externalEngineApi: lila.analyse.ExternalEngineApi,
-    getTeamName: lila.team.GetTeamName,
+    getTeamName: lila.team.GetTeamNameSync,
     getLightUser: lila.common.LightUser.GetterSync
 )(using ec: scala.concurrent.ExecutionContext):
 
@@ -275,7 +275,7 @@ final private[api] class RoundApi(
         .add(
           "team",
           v.teamVs.map(_.teams(pov.color)) map { id =>
-            Json.obj("name" -> getTeamName(id))
+            Json.obj("name" -> getTeamName.value(id))
           }
         )
     })

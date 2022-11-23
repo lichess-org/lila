@@ -4,7 +4,6 @@ import scala.concurrent.duration.*
 
 import lila.hub.actorApi.team.IsLeader
 import lila.hub.LateMultiThrottler
-import lila.hub.LightTeam.TeamID
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
@@ -12,7 +11,7 @@ import lila.socket.Socket.makeMessage
 final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
-    teamOf: SwissId => Fu[Option[TeamID]]
+    teamOf: SwissId => Fu[Option[TeamId]]
 )(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,

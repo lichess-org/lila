@@ -27,8 +27,6 @@ private object BSONHandlers:
   given BSONHandler[Text]   = stringAnyValHandler[Text](_.value, Text.apply)
   private given PrivateMessageHandler: BSONDocumentHandler[PrivateMessage] = Macros.handler
 
-  given BSONHandler[TeamJoined.Id]   = stringAnyValHandler[TeamJoined.Id](_.value, TeamJoined.Id.apply)
-  given BSONHandler[TeamJoined.Name] = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
   private given TeamJoinedHandler: BSONDocumentHandler[TeamJoined] = Macros.handler
 
   given BSONHandler[GameEnd.OpponentId] =

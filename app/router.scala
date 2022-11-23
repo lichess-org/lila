@@ -14,6 +14,7 @@ inline given Conversion[String, StudyChapterId]             = StudyChapterId(_)
 inline given Conversion[String, PuzzleId]                   = PuzzleId(_)
 inline given Conversion[String, SimulId]                    = SimulId(_)
 inline given Conversion[String, SwissId]                    = SwissId(_)
+inline given Conversion[String, TeamId]                     = TeamId(_)
 inline given Conversion[String, RelayRoundId]               = RelayRoundId(_)
 inline given perfKey: Conversion[String, Perf.Key]          = Perf.Key(_)
 inline given puzzleKey: Conversion[String, PuzzleTheme.Key] = PuzzleTheme.Key(_)
@@ -29,6 +30,7 @@ object ReverseRouterConversions:
   inline given Conversion[PuzzleId, String]                   = _.value
   inline given Conversion[SimulId, String]                    = _.value
   inline given Conversion[SwissId, String]                    = _.value
+  inline given Conversion[TeamId, String]                     = _.value
   inline given Conversion[RelayRoundId, String]               = _.value
   inline given perfKey: Conversion[Perf.Key, String]          = _.value
   inline given puzzleKey: Conversion[PuzzleTheme.Key, String] = _.value

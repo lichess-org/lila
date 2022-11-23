@@ -6,7 +6,6 @@ import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
 
-import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
 
@@ -20,7 +19,7 @@ case class Swiss(
     nbOngoing: Int,
     createdAt: DateTime,
     createdBy: User.ID,
-    teamId: TeamID,
+    teamId: TeamId,
     startsAt: DateTime,
     settings: Swiss.Settings,
     nextRoundAt: Option[DateTime],
@@ -129,6 +128,6 @@ object Swiss:
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 
   case class RoundInfo(
-      teamId: TeamID,
+      teamId: TeamId,
       chatFor: ChatFor
   )

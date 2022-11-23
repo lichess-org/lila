@@ -33,27 +33,23 @@ object LightUser:
       .add("title" -> u.title)
       .add("patron" -> u.isPatron)
 
-  def fallback(name: String) =
-    LightUser(
-      id = normalize(name),
-      name = name,
-      title = None,
-      isPatron = false
-    )
+  def fallback(name: String) = LightUser(
+    id = normalize(name),
+    name = name,
+    title = None,
+    isPatron = false
+  )
 
   def normalize(name: String) = name.toLowerCase
 
   private type GetterType          = UserID => Fu[Option[LightUser]]
   opaque type Getter <: GetterType = GetterType
-  object Getter:
-    def apply(f: GetterType): Getter = f
+  object Getter extends TotalWrapper[Getter, GetterType]
 
   private type GetterSyncType              = UserID => Option[LightUser]
   opaque type GetterSync <: GetterSyncType = GetterSyncType
-  object GetterSync:
-    def apply(f: GetterSyncType): GetterSync = f
+  object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
 
   private type IsBotSyncType             = UserID => Boolean
   opaque type IsBotSync <: IsBotSyncType = IsBotSyncType
-  object IsBotSync:
-    def apply(f: IsBotSyncType): IsBotSync = f
+  object IsBotSync extends TotalWrapper[IsBotSync, IsBotSyncType]

@@ -25,7 +25,7 @@ final class ChatApi(
 
   import Chat.given
 
-  def exists(id: String) = coll.exists($id(id))
+  def exists(id: ChatId) = coll.exists($id(id))
 
   object userChat:
 

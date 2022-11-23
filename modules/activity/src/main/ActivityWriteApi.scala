@@ -126,7 +126,7 @@ final class ActivityWriteApi(
       }
     }
 
-  def team(id: String, userId: User.ID) =
+  def team(id: TeamId, userId: User.ID) =
     update(userId) { a =>
       $doc(ActivityFields.teams -> { ~a.teams + id })
     }

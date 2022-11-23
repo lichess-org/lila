@@ -75,7 +75,7 @@ package shutup:
     case class Simul(id: SimulId)      extends PublicSource("simul")
     case class Study(id: StudyId)      extends PublicSource("study")
     case class Watcher(gameId: GameId) extends PublicSource("watcher")
-    case class Team(id: String)        extends PublicSource("team")
+    case class Team(id: TeamId)        extends PublicSource("team")
     case class Swiss(id: SwissId)      extends PublicSource("swiss")
 
 package mod:
@@ -123,9 +123,9 @@ package timeline:
     def userIds: List[String]
   case class Follow(u1: String, u2: String) extends Atom("follow", true):
     def userIds = List(u1, u2)
-  case class TeamJoin(userId: String, teamId: String) extends Atom("teamJoin", false):
+  case class TeamJoin(userId: String, teamId: TeamId) extends Atom("teamJoin", false):
     def userIds = List(userId)
-  case class TeamCreate(userId: String, teamId: String) extends Atom("teamCreate", false):
+  case class TeamCreate(userId: String, teamId: TeamId) extends Atom("teamCreate", false):
     def userIds = List(userId)
   case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String)
       extends Atom(s"forum:${~topicId}", false):
@@ -162,7 +162,7 @@ package timeline:
     case class Users(users: List[String]) extends Propagation
     case class Followers(user: String)    extends Propagation
     case class Friends(user: String)      extends Propagation
-    case class WithTeam(teamId: String)   extends Propagation
+    case class WithTeam(teamId: TeamId)   extends Propagation
     case class ExceptUser(user: String)   extends Propagation
     case class ModsOnly(value: Boolean)   extends Propagation
 
@@ -173,7 +173,7 @@ package timeline:
     def toUser(id: String)               = add(Users(List(id)))
     def toFollowersOf(id: String)        = add(Followers(id))
     def toFriendsOf(id: String)          = add(Friends(id))
-    def withTeam(teamId: Option[String]) = teamId.fold(this)(id => add(WithTeam(id)))
+    def withTeam(teamId: Option[TeamId]) = teamId.fold(this)(id => add(WithTeam(id)))
     def exceptUser(id: String)           = add(ExceptUser(id))
     def modsOnly(value: Boolean)         = add(ModsOnly(value))
     private def add(p: Propagation)      = copy(propagations = p :: propagations)
@@ -185,13 +185,13 @@ package notify:
   case class NotifiedBatch(userIds: Iterable[String])
 
 package team:
-  case class CreateTeam(id: String, name: String, userId: String)
-  case class JoinTeam(id: String, userId: String)
-  case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
+  case class CreateTeam(id: TeamId, name: String, userId: String)
+  case class JoinTeam(id: TeamId, userId: String)
+  case class IsLeader(id: TeamId, userId: String, promise: Promise[Boolean])
   case class IsLeaderOf(leaderId: String, memberId: String, promise: Promise[Boolean])
-  case class KickFromTeam(teamId: String, userId: String)
-  case class LeaveTeam(teamId: String, userId: String)
-  case class TeamIdsJoinedBy(userId: String, promise: Promise[List[LightTeam.TeamID]])
+  case class KickFromTeam(teamId: TeamId, userId: String)
+  case class LeaveTeam(teamId: TeamId, userId: String)
+  case class TeamIdsJoinedBy(userId: String, promise: Promise[List[TeamId]])
 
 package fishnet:
   case class AutoAnalyse(gameId: GameId)

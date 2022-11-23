@@ -15,11 +15,11 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   private val lightProjection = $doc("name" -> true).some
 
-  def byId(id: Team.ID) = coll.byId[Team](id)
+  def byId(id: TeamId) = coll.byId[Team](id)
 
-  def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
+  def byOrderedIds(ids: Seq[TeamId]) = coll.byOrderedIds[Team, TeamId](ids)(_.id)
 
-  def byLeader(id: Team.ID, leaderId: User.ID): Fu[Option[Team]] =
+  def byLeader(id: TeamId, leaderId: User.ID): Fu[Option[Team]] =
     coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
 
   def lightsByLeader(leaderId: User.ID): Fu[List[LeaderTeam]] =
@@ -29,9 +29,9 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .cursor[LeaderTeam](ReadPreference.secondaryPreferred)
       .list(100)
 
-  def enabled(id: Team.ID) = coll.one[Team]($id(id) ++ enabledSelect)
+  def enabled(id: TeamId) = coll.one[Team]($id(id) ++ enabledSelect)
 
-  def byIdsSortPopular(ids: Seq[Team.ID]): Fu[List[Team]] =
+  def byIdsSortPopular(ids: Seq[TeamId]): Fu[List[Team]] =
     coll
       .find($inIds(ids))
       .sort(sortPopular)
@@ -45,27 +45,27 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       .cursor[Team](ReadPreference.secondaryPreferred)
       .list(100)
 
-  def enabledTeamIdsByLeader(userId: User.ID): Fu[List[Team.ID]] =
+  def enabledTeamIdsByLeader(userId: User.ID): Fu[List[TeamId]] =
     coll
-      .primitive[Team.ID](
+      .primitive[TeamId](
         $doc("leaders" -> userId) ++ enabledSelect,
         sortPopular,
         "_id"
       )
 
-  def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
+  def leadersOf(teamId: TeamId): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
 
-  def setLeaders(teamId: Team.ID, leaders: Set[User.ID]): Funit =
+  def setLeaders(teamId: TeamId, leaders: Set[User.ID]): Funit =
     coll.updateField($id(teamId), "leaders", leaders).void
 
-  def leads(teamId: Team.ID, userId: User.ID) =
+  def leads(teamId: TeamId, userId: User.ID) =
     coll.exists($id(teamId) ++ $doc("leaders" -> userId))
 
-  def name(id: Team.ID): Fu[Option[String]] =
+  def name(id: TeamId): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")
 
-  def mini(id: Team.ID): Fu[Option[Team.Mini]] =
+  def mini(id: TeamId): Fu[Option[Team.Mini]] =
     name(id) map2 { Team.Mini(id, _) }
 
   private[team] def countCreatedSince(userId: String, duration: Period): Fu[Int] =
@@ -76,7 +76,7 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       )
     )
 
-  def incMembers(teamId: Team.ID, by: Int): Funit =
+  def incMembers(teamId: TeamId, by: Int): Funit =
     coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 
   def enable(team: Team): Funit =
@@ -85,7 +85,7 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def disable(team: Team): Funit =
     coll.updateField($id(team.id), "enabled", false).void
 
-  def addRequest(teamId: Team.ID, request: Request): Funit =
+  def addRequest(teamId: TeamId, request: Request): Funit =
     coll.update
       .one(
         $id(teamId) ++ $doc("requests.user" $ne request.user),
@@ -130,16 +130,16 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       }
       .map(~_.flatMap(_.int("nb")))
 
-  def forumAccess(id: Team.ID): Fu[Option[Team.Access]] =
+  def forumAccess(id: TeamId): Fu[Option[Team.Access]] =
     coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
 
-  def filterHideMembers(ids: Iterable[Team.ID]): Fu[Set[Team.ID]] =
+  def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty ?? coll.secondaryPreferred
-      .distinctEasy[Team.ID, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
+      .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
 
-  def filterHideForum(ids: Iterable[Team.ID]): Fu[Set[Team.ID]] =
+  def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty ?? coll.secondaryPreferred
-      .distinctEasy[Team.ID, Set]("_id", $inIds(ids) ++ $doc("forum" $ne Team.Access.EVERYONE))
+      .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum" $ne Team.Access.EVERYONE))
 
   private[team] val enabledSelect = $doc("enabled" -> true)
 

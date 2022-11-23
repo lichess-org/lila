@@ -136,7 +136,7 @@ object BSONHandlers:
         score = r intD "s",
         fire = r boolD "f",
         performance = r intD "e",
-        team = r strO "t"
+        team = r.getO[TeamId]("t")
       )
     def writes(w: BSON.Writer, o: Player) =
       $doc(

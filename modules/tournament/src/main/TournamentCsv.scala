@@ -29,7 +29,7 @@ object TournamentCsv:
         player.rating.toString,
         player.score.toString,
         player.performanceOption.??(_.toString),
-        ~player.team
+        ~player.team.map(_.value)
       )
 
   private def toCsv(values: String*) = values mkString ","

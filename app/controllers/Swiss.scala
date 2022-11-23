@@ -93,7 +93,7 @@ final class Swiss(
       }
     }
 
-  private def isUserInTheTeam(teamId: lila.team.Team.ID)(user: UserModel) =
+  private def isUserInTheTeam(teamId: lila.team.TeamId)(user: UserModel) =
     env.team.cached.teamIds(user.id).dmap(_ contains teamId)
 
   def round(id: SwissId, round: Int) =
@@ -108,10 +108,10 @@ final class Swiss(
       }
     }
 
-  private def CheckTeamLeader(teamId: String)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMap { _ ?? f }
 
-  def form(teamId: String) =
+  def form(teamId: TeamId) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
         CheckTeamLeader(teamId) {
@@ -120,7 +120,7 @@ final class Swiss(
       }
     }
 
-  def create(teamId: String) =
+  def create(teamId: TeamId) =
     AuthBody { implicit ctx => me =>
       NoLameOrBot {
         CheckTeamLeader(teamId) {
@@ -140,7 +140,7 @@ final class Swiss(
       }
     }
 
-  def apiCreate(teamId: String) =
+  def apiCreate(teamId: TeamId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
       else
@@ -317,7 +317,7 @@ final class Swiss(
       }
     }
 
-  def byTeam(id: String) =
+  def byTeam(id: TeamId) =
     Action.async { implicit req =>
       apiC.jsonStream {
         env.swiss.api

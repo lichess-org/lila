@@ -53,6 +53,9 @@ trait LilaModel extends NewTypes:
   opaque type TourId = String
   object TourId extends OpaqueString[TourId]
 
+  opaque type TeamId = String
+  object TeamId extends OpaqueString[TeamId]
+
   opaque type ChatId = String
   object ChatId extends OpaqueString[ChatId]
 

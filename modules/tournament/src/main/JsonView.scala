@@ -12,7 +12,6 @@ import scala.concurrent.ExecutionContext
 import lila.common.Json.given
 import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
 import lila.game.{ Game, LightPov }
-import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
@@ -38,13 +37,14 @@ final class JsonView(
 
   import JsonView.*
   import Condition.JSONHandlers.given
+  private given Ordering[TeamId] = stringOrdering
 
   def apply(
       tour: Tournament,
       page: Option[Int],
       me: Option[User],
-      getUserTeamIds: User => Fu[List[TeamID]],
-      getTeamName: TeamID => Option[String],
+      getUserTeamIds: User => Fu[List[TeamId]],
+      getTeamName: TeamId => Option[String],
       playerInfoExt: Option[PlayerInfoExt],
       socketVersion: Option[SocketVersion],
       partial: Boolean,
@@ -122,7 +122,7 @@ final class JsonView(
             Json
               .obj(
                 "teams" -> JsObject(battle.sortedTeamIds.map { id =>
-                  id -> JsString(getTeamName(id).getOrElse(id))
+                  id.value -> JsString(getTeamName(id).getOrElse(id.value))
                 }),
                 "nbLeaders" -> battle.nbLeaders
               )
@@ -252,8 +252,8 @@ final class JsonView(
             (duels, jsonDuels) <- duelsJson(id)
             duelTeams <- tour.exists(_.isTeamBattle) ?? {
               playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds)) map { teams =>
-                JsObject(teams map { case (userId, teamId) =>
-                  (userId, JsString(teamId))
+                JsObject(teams map { (userId, teamId) =>
+                  (userId, JsString(teamId.value))
                 }).some
               }
             }
@@ -409,14 +409,14 @@ final class JsonView(
     )
   }
 
-  private def getMyRankedTeam(tour: Tournament, teamId: TeamID): Fu[Option[TeamBattle.RankedTeam]] =
+  private def getMyRankedTeam(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.RankedTeam]] =
     tour.teamBattle.exists(_.hasTooManyTeams) ??
       cached.battle.teamStanding.get(tour.id) map {
         _.find(_.teamId == teamId)
       }
 
   private val teamInfoCache =
-    cacheApi[(Tournament.ID, TeamID), Option[JsObject]](16, "tournament.teamInfo.json") {
+    cacheApi[(Tournament.ID, TeamId), Option[JsObject]](16, "tournament.teamInfo.json") {
       _.expireAfterWrite(5 seconds)
         .maximumSize(32)
         .buildAsyncFuture { case (tourId, teamId) =>
@@ -448,7 +448,7 @@ final class JsonView(
         }
     }
 
-  def teamInfo(tour: Tournament, teamId: TeamID): Fu[Option[JsObject]] =
+  def teamInfo(tour: Tournament, teamId: TeamId): Fu[Option[JsObject]] =
     tour.isTeamBattle ?? {
       teamInfoCache get (tour.id -> teamId)
     }

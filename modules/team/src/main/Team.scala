@@ -8,9 +8,10 @@ import scala.util.chaining.*
 import lila.user.User
 import org.joda.time.Days
 import lila.common.Markdown
+import lila.hub.LightTeam.TeamName
 
 case class Team(
-    _id: Team.ID, // also the url slug
+    _id: TeamId, // also the url slug
     name: String,
     password: Option[String],
     intro: Option[String],
@@ -27,11 +28,9 @@ case class Team(
     hideMembers: Option[Boolean]
 ):
 
-  inline def id = _id
-
-  def slug = id
-
-  def disabled = !enabled
+  inline def id       = _id
+  inline def slug     = id
+  inline def disabled = !enabled
 
   def isChatFor(f: Team.Access.type => Team.Access) =
     chat == f(Team.Access)
@@ -48,9 +47,7 @@ case class Team(
 
 object Team:
 
-  type ID = String
-
-  case class Mini(id: Team.ID, name: String)
+  case class Mini(id: TeamId, name: String)
 
   val variants: Map[chess.variant.Variant, Mini] = chess.variant.Variant.all.view collect {
     case v if v.exotic =>
@@ -80,13 +77,13 @@ object Team:
 
     import IdsStr.separator
 
-    def contains(teamId: ID) =
-      value == teamId ||
+    def contains(teamId: TeamId) =
+      value == teamId.value ||
         value.startsWith(s"$teamId$separator") ||
         value.endsWith(s"$separator$teamId") ||
         value.contains(s"$separator$teamId$separator")
 
-    def toArray: Array[String] = value split IdsStr.separator
+    def toArray: Array[TeamId] = TeamId.from(value split IdsStr.separator)
     def toList                 = value.nonEmpty ?? toArray.toList
     def toSet                  = value.nonEmpty ?? toArray.toSet
 
@@ -96,40 +93,39 @@ object Team:
 
     val empty = IdsStr("")
 
-    def apply(ids: Iterable[ID]): IdsStr = IdsStr(ids mkString separator.toString)
+    def apply(ids: Iterable[TeamId]): IdsStr = IdsStr(ids mkString separator.toString)
 
   def make(
-      id: String,
-      name: String,
+      id: TeamId,
+      name: TeamName,
       password: Option[String],
       intro: Option[String],
       description: Markdown,
       descPrivate: Option[Markdown],
       open: Boolean,
       createdBy: User
-  ): Team =
-    new Team(
-      _id = id,
-      name = name,
-      password = password,
-      intro = intro,
-      description = description,
-      descPrivate = descPrivate,
-      nbMembers = 1,
-      enabled = true,
-      open = open,
-      createdAt = DateTime.now,
-      createdBy = createdBy.id,
-      leaders = Set(createdBy.id),
-      chat = Access.MEMBERS,
-      forum = Access.MEMBERS,
-      hideMembers = none
-    )
+  ): Team = new Team(
+    _id = id,
+    name = name,
+    password = password,
+    intro = intro,
+    description = description,
+    descPrivate = descPrivate,
+    nbMembers = 1,
+    enabled = true,
+    open = open,
+    createdAt = DateTime.now,
+    createdBy = createdBy.id,
+    leaders = Set(createdBy.id),
+    chat = Access.MEMBERS,
+    forum = Access.MEMBERS,
+    hideMembers = none
+  )
 
   def nameToId(name: String) =
-    (lila.common.String slugify name) pipe { slug =>
+    lila.common.String.slugify(name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.lengthIs > (name.length / 2)) slug else randomId()
+      if (slug.lengthIs > (name.length / 2)) TeamId(slug) else randomId()
     }
 
-  private[team] def randomId() = lila.common.ThreadLocalRandom nextString 8
+  private[team] def randomId() = TeamId(lila.common.ThreadLocalRandom nextString 8)

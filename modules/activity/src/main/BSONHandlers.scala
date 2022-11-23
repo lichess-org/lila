@@ -116,7 +116,7 @@ private object BSONHandlers:
       )
 
   given BSONHandler[Studies] = isoHandler[Studies, List[StudyId]](_.value, Studies.apply)
-  given BSONHandler[Teams]   = isoHandler[Teams, List[String]](_.value, Teams.apply)
+  given BSONHandler[Teams]   = isoHandler[Teams, List[TeamId]](_.value, Teams.apply)
 
   given lila.db.BSON[SwissRank] with
     def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), r.intD("r"))

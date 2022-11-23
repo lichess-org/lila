@@ -28,7 +28,7 @@ case class Simul(
     hostSeenAt: Option[DateTime],
     color: Option[String],
     text: String,
-    team: Option[String],
+    team: Option[TeamId],
     featurable: Option[Boolean]
 ):
   inline def id = _id
@@ -43,11 +43,11 @@ case class Simul(
 
   def isRunning = status == SimulStatus.Started
 
-  def hasApplicant(userId: String) = applicants.exists(_ is userId)
+  def hasApplicant(userId: User.ID) = applicants.exists(_ is userId)
 
-  def hasPairing(userId: String) = pairings.exists(_ is userId)
+  def hasPairing(userId: User.ID) = pairings.exists(_ is userId)
 
-  def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
+  def hasUser(userId: User.ID) = hasApplicant(userId) || hasPairing(userId)
 
   def addApplicant(applicant: SimulApplicant) =
     Created {
@@ -56,12 +56,12 @@ case class Simul(
       else this
     }
 
-  def removeApplicant(userId: String) =
+  def removeApplicant(userId: User.ID) =
     Created {
       copy(applicants = applicants.filterNot(_ is userId))
     }
 
-  def accept(userId: String, v: Boolean) =
+  def accept(userId: User.ID, v: Boolean) =
     Created {
       copy(applicants = applicants map {
         case a if a is userId => a.copy(accepted = v)
@@ -69,7 +69,7 @@ case class Simul(
       })
     }
 
-  def removePairing(userId: String) =
+  def removePairing(userId: User.ID) =
     copy(pairings = pairings.filterNot(_ is userId)).finishIfDone
 
   def nbAccepted = applicants.count(_.accepted)
@@ -95,7 +95,7 @@ case class Simul(
       }
     ).finishIfDone
 
-  def ejectCheater(userId: String): Option[Simul] =
+  def ejectCheater(userId: User.ID): Option[Simul] =
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
   private def finishIfDone =
@@ -154,7 +154,7 @@ object Simul:
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime],
-      team: Option[String],
+      team: Option[TeamId],
       featurable: Option[Boolean]
   ): Simul =
     Simul(

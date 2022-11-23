@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import scala.concurrent.duration.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam.TeamID
 import lila.memo.*
 import lila.memo.CacheApi.*
 
@@ -45,7 +44,7 @@ final class SwissCache(
   }
 
   private[swiss] object featuredInTeam:
-    private val compute = (teamId: TeamID) => {
+    private val compute = (teamId: TeamId) => {
       val max = 5
       for {
         enterable <- mongo.swiss.primitive[SwissId](
@@ -62,10 +61,10 @@ final class SwissCache(
         )
       } yield enterable ::: finished
     }
-    private val cache = cacheApi[TeamID, List[SwissId]](256, "swiss.visibleByTeam") {
+    private val cache = cacheApi[TeamId, List[SwissId]](256, "swiss.visibleByTeam") {
       _.expireAfterAccess(30 minutes)
         .buildAsyncFuture(compute)
     }
 
-    def get(teamId: TeamID)        = cache get teamId
-    def invalidate(teamId: TeamID) = cache.put(teamId, compute(teamId))
+    def get(teamId: TeamId)        = cache get teamId
+    def invalidate(teamId: TeamId) = cache.put(teamId, compute(teamId))

@@ -92,7 +92,7 @@ object Sheet:
     val Loss                  = Result(2 << 4)
     val DQ                    = Result(3 << 4)
 
-  opaque type Score <: Int = Int
+  opaque type Score = Int
   object Score:
     def apply(v: Int): Score                                    = v
     def apply(res: Result, flag: Flag, berserk: Berserk): Score = Score(flag | berserk | res)
@@ -131,7 +131,7 @@ object Sheet:
   private def isDrawStreak(scores: List[Score]): Boolean =
     scores match
       case Nil => false
-      case s :: more =>
+      case (s: Score) :: more =>
         s.isWin match
           case None        => true
           case Some(true)  => false

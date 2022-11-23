@@ -40,14 +40,14 @@ final class Team(
       }
     }
 
-  def show(id: String, page: Int, mod: Boolean) =
+  def show(id: TeamId, page: Int, mod: Boolean) =
     Open { implicit ctx =>
       Reasonable(page) {
         OptionFuResult(api team id) { renderTeam(_, page, mod) }
       }
     }
 
-  def members(id: String, page: Int) =
+  def members(id: TeamId, page: Int) =
     Open { implicit ctx =>
       Reasonable(page, config.Max(50)) {
         OptionFuResult(api teamEnabled id) { team =>
@@ -113,7 +113,7 @@ final class Team(
       (isGranted(_.ModerateForum) && requestModView)
     }
 
-  def users(teamId: String) =
+  def users(teamId: TeamId) =
     AnonOrScoped(_.Team.Read) { req => me =>
       api teamEnabled teamId flatMap {
         _ ?? { team =>
@@ -133,7 +133,7 @@ final class Team(
       }
     }
 
-  def tournaments(teamId: String) =
+  def tournaments(teamId: TeamId) =
     Open { implicit ctx =>
       api teamEnabled teamId flatMap {
         _ ?? { team =>
@@ -144,14 +144,14 @@ final class Team(
       }
     }
 
-  def edit(id: String) =
+  def edit(id: TeamId) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
         fuccess(html.team.form.edit(team, forms edit team))
       }
     }
 
-  def update(id: String) =
+  def update(id: TeamId) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         given play.api.mvc.Request[?] = ctx.body
@@ -165,14 +165,14 @@ final class Team(
       }
     }
 
-  def kickForm(id: String) =
+  def kickForm(id: TeamId) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
         Ok(html.team.admin.kick(team, forms.members)).toFuccess
       }
     }
 
-  def kick(id: String) =
+  def kick(id: TeamId) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         given play.api.mvc.Request[?] = ctx.body
@@ -191,7 +191,7 @@ final class Team(
   )
   private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
-  def kickUser(teamId: String, username: String) =
+  def kickUser(teamId: TeamId, username: String) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         val userId = UserModel.normalize(username)
@@ -210,14 +210,14 @@ final class Team(
       }
     }
 
-  def leadersForm(id: String) =
+  def leadersForm(id: TeamId) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
         Ok(html.team.admin.leaders(team, forms leaders team)).toFuccess
       }
     }
 
-  def leaders(id: String) =
+  def leaders(id: TeamId) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         given play.api.mvc.Request[?] = ctx.body
@@ -229,7 +229,7 @@ final class Team(
       }
     }
 
-  def close(id: String) =
+  def close(id: TeamId) =
     SecureBody(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
         implicit val body: play.api.mvc.Request[?] = ctx.body
@@ -244,7 +244,7 @@ final class Team(
       }
     }
 
-  def disable(id: String) =
+  def disable(id: TeamId) =
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         implicit val body: play.api.mvc.Request[?] = ctx.body
@@ -315,7 +315,7 @@ final class Team(
       }
     }
 
-  def join(id: String) =
+  def join(id: TeamId) =
     AuthOrScopedBody(_.Team.Write)(
       auth = implicit ctx =>
         me =>
@@ -382,7 +382,7 @@ final class Team(
           }
     )
 
-  def subscribe(teamId: String) =
+  def subscribe(teamId: TeamId) =
     def doSub(req: Request[?], me: UserModel) =
       Form(single("subscribe" -> optional(boolean)))
         .bindFromRequest()(req, formBinding)
@@ -399,14 +399,14 @@ final class Team(
       api requestsWithUsers me map { html.team.request.all(_) }
     }
 
-  def requestForm(id: String) =
+  def requestForm(id: TeamId) =
     Auth { implicit ctx => me =>
       OptionFuOk(api.requestable(id, me)) { team =>
         fuccess(html.team.request.requestForm(team, forms.request(team)))
       }
     }
 
-  def requestCreate(id: String) =
+  def requestCreate(id: TeamId) =
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
         given play.api.mvc.Request[?] = ctx.body
@@ -451,7 +451,7 @@ final class Team(
       }
     }
 
-  def declinedRequests(id: String, page: Int) =
+  def declinedRequests(id: TeamId, page: Int) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
         paginator.declinedRequests(team, page) map { requests =>
@@ -460,7 +460,7 @@ final class Team(
       }
     }
 
-  def quit(id: String) =
+  def quit(id: TeamId) =
     AuthOrScoped(_.Team.Write)(
       auth = implicit ctx =>
         me =>
@@ -508,7 +508,7 @@ final class Team(
           }
     }
 
-  def pmAll(id: String) =
+  def pmAll(id: TeamId) =
     Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
         renderPmAll(team, forms.pmAll)
@@ -521,7 +521,7 @@ final class Team(
       unsubs <- env.team.cached.unsubs.get(team.id)
     } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs))
 
-  def pmAllSubmit(id: String) =
+  def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
       auth = implicit ctx =>
         me =>
@@ -565,7 +565,7 @@ final class Team(
       }
     }
 
-  def apiShow(id: String) =
+  def apiShow(id: TeamId) =
     Open { ctx =>
       JsonOptionOk {
         api teamEnabled id flatMap {
@@ -605,7 +605,7 @@ final class Team(
       }
     }
 
-  def apiRequests(teamId: String) =
+  def apiRequests(teamId: TeamId) =
     Scoped(_.Team.Read) { _ => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api.requestsWithUsers(team) map { reqs =>
@@ -614,7 +614,7 @@ final class Team(
       }
     }
 
-  def apiRequestProcess(teamId: String, userId: String, decision: String) =
+  def apiRequestProcess(teamId: TeamId, userId: String, decision: String) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api request lila.team.Request.makeId(team.id, UserModel normalize userId) flatMap {
@@ -654,7 +654,7 @@ You received this because you are subscribed to messages of the team $url."""
       )
 
   private val pmAllCost = 5
-  private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.Team.ID](
+  private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.TeamId](
     "team.pm.all",
     credits = 7 * pmAllCost,
     duration = 7.days
@@ -671,21 +671,21 @@ You received this because you are subscribed to messages of the team $url."""
       else Forbidden(views.html.site.message.teamCreateLimit).toFuccess
     }
 
-  private def WithOwnedTeam(teamId: String)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api team teamId) { team =>
       if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
       else Redirect(routes.Team.show(team.id)).toFuccess
     }
 
   private def WithOwnedTeamEnabled(
-      teamId: String
+      teamId: TeamId
   )(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     WithOwnedTeam(teamId) { team =>
       if (team.enabled || isGranted(_.ManageTeam)) f(team)
       else notFound
     }
 
-  private def WithOwnedTeamEnabledApi(teamId: String, me: UserModel)(
+  private def WithOwnedTeamEnabledApi(teamId: TeamId, me: UserModel)(
       f: TeamModel => Fu[Api.ApiResult]
   ): Fu[Result] =
     api teamEnabled teamId flatMap {

@@ -10,18 +10,16 @@ final class CategApi(
     categRepo: CategRepo,
     paginator: ForumPaginator,
     config: ForumConfig
-)(using
-    ec: scala.concurrent.ExecutionContext
-):
+)(using scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
-  def makeTeam(slug: String, name: String): Funit =
+  def makeTeam(teamId: TeamId, name: String): Funit =
     val categ = Categ(
-      _id = teamSlug(slug),
+      _id = teamSlug(teamId),
       name = name,
       desc = "Forum of the team " + name,
-      team = slug.some,
+      team = teamId.some,
       nbTopics = 0,
       nbPosts = 0,
       lastPostId = "",
@@ -31,7 +29,7 @@ final class CategApi(
     )
     val topic = Topic.make(
       categId = categ.slug,
-      slug = slug + "-forum",
+      slug = s"$teamId-forum",
       name = name + " forum",
       userId = User.lichessId,
       troll = false

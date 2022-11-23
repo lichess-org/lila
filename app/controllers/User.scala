@@ -589,7 +589,7 @@ final class User(
               case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
               case (_, Some(swissId), _) =>
                 env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-              case (_, _, Some(teamId)) => env.team.api.searchMembers(teamId, term, 10)
+              case (_, _, Some(teamId)) => env.team.api.searchMembers(TeamId(teamId), term, 10)
               case _ =>
                 ctx.me.ifTrue(getBool("friend")) match
                   case Some(follower) =>

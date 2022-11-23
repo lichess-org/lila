@@ -69,14 +69,7 @@ object PrivateMessage:
   case class Sender(value: String) extends AnyVal with StringValue
   case class Text(value: String)   extends AnyVal with StringValue
 
-case class TeamJoined(
-    id: TeamJoined.Id,
-    name: TeamJoined.Name
-) extends NotificationContent("teamJoined")
-
-object TeamJoined:
-  case class Id(value: String)   extends AnyVal with StringValue
-  case class Name(value: String) extends AnyVal with StringValue
+case class TeamJoined(id: TeamId, name: lila.hub.LightTeam.TeamName) extends NotificationContent("teamJoined")
 
 case class TitledTournamentInvitation(
     id: String,

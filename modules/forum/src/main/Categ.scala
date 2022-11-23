@@ -1,13 +1,12 @@
 package lila.forum
 
-import lila.hub.LightTeam.TeamID
 import lila.user.User
 
 case class Categ(
     _id: String, // slug
     name: String,
     desc: String,
-    team: Option[TeamID] = None,
+    team: Option[TeamId] = None,
     nbTopics: Int,
     nbPosts: Int,
     lastPostId: String,
@@ -46,4 +45,4 @@ object Categ:
 
   def isTeamSlug(slug: String) = slug.startsWith("team-")
 
-  def slugToTeamId(slug: String) = isTeamSlug(slug) option slug.drop(5)
+  def slugToTeamId(slug: String) = isTeamSlug(slug) option TeamId(slug.drop(5))

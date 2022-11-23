@@ -45,12 +45,11 @@ final class Env(
 
   private val teamSocket = wire[TeamSocket]
 
-  def version(teamId: Team.ID) =
-    teamSocket.rooms.ask[SocketVersion](RoomId(teamId))(GetVersion.apply)
+  def version(teamId: TeamId) = teamSocket.rooms.ask[SocketVersion](teamId into RoomId)(GetVersion.apply)
 
   private lazy val notifier = wire[Notifier]
 
-  lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
+  val getTeamName = GetTeamNameSync(cached.blockingTeamName)
 
   lazy val api = wire[TeamApi]
 
