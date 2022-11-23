@@ -240,7 +240,7 @@ final class RoundSocket(
       .grouped(1024)
       .map { ids =>
         roundDependencies.gameRepo
-          .byIdsCursor(ids map GameId.apply)
+          .byIdsCursor(ids map { GameId(_) })
           .foldWhile[Set[GameId]](Set.empty[GameId])(
             (ids, game) =>
               Cursor.Cont[Set[GameId]] {
@@ -377,7 +377,7 @@ object RoundSocket:
           case "r/flag" =>
             raw.get(3) { case Array(gameId, color, playerId) =>
               readColor(color) map {
-                Flag(GameId(gameId), _, P.In.optional(playerId) map GamePlayerId.apply)
+                Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
               }
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply

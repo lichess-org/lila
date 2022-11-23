@@ -7,16 +7,16 @@ import lila.puzzle.PuzzleTheme
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
 inline given gameId: Conversion[String, GameId]             = lila.game.Game.strToId(_)
-inline given gameFull: Conversion[String, GameFullId]       = GameFullId.apply
-inline given gameAny: Conversion[String, GameAnyId]         = GameAnyId.apply
-inline given Conversion[String, StudyId]                    = StudyId.apply
-inline given Conversion[String, StudyChapterId]             = StudyChapterId.apply
-inline given Conversion[String, PuzzleId]                   = PuzzleId.apply
-inline given Conversion[String, SimulId]                    = SimulId.apply
-inline given Conversion[String, SwissId]                    = SwissId.apply
-inline given Conversion[String, RelayRoundId]               = RelayRoundId.apply
-inline given perfKey: Conversion[String, Perf.Key]          = Perf.Key.apply
-inline given puzzleKey: Conversion[String, PuzzleTheme.Key] = PuzzleTheme.Key.apply
+inline given gameFull: Conversion[String, GameFullId]       = GameFullId(_)
+inline given gameAny: Conversion[String, GameAnyId]         = GameAnyId(_)
+inline given Conversion[String, StudyId]                    = StudyId(_)
+inline given Conversion[String, StudyChapterId]             = StudyChapterId(_)
+inline given Conversion[String, PuzzleId]                   = PuzzleId(_)
+inline given Conversion[String, SimulId]                    = SimulId(_)
+inline given Conversion[String, SwissId]                    = SwissId(_)
+inline given Conversion[String, RelayRoundId]               = RelayRoundId(_)
+inline given perfKey: Conversion[String, Perf.Key]          = Perf.Key(_)
+inline given puzzleKey: Conversion[String, PuzzleTheme.Key] = PuzzleTheme.Key(_)
 
 // Used when constructing URLs from routes
 // TODO actually use the types in the routes

@@ -17,8 +17,8 @@ import scala.collection.Factory
 trait Handlers:
 
   inline given [A, T](using
-      bts: BasicallyTheSame[A, T],
-      stb: BasicallyTheSame[T, A],
+      bts: SameRuntime[A, T],
+      stb: SameRuntime[T, A],
       handler: BSONHandler[A]
   ): BSONHandler[T] =
     handler.as(bts.apply, stb.apply)

@@ -46,7 +46,7 @@ final class AsyncActorSequencers[K](
     timeout: FiniteDuration,
     name: String,
     logging: Boolean = true
-)(using BasicallyString[K], akka.actor.Scheduler, ExecutionContext):
+)(using StringRuntime[K], akka.actor.Scheduler, ExecutionContext):
 
   def apply[A <: Matchable](key: K)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)

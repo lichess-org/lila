@@ -108,6 +108,6 @@ object Seek:
     b => LobbyPerf(b.abs, b < 0),
     x => x.rating * (if (x.provisional) -1 else 1)
   )
-  given (String => Perf.Key)                          = Perf.Key.apply
+  given (String => Perf.Key)                          = Perf.Key(_)
   private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler
   private[lobby] given BSONDocumentHandler[Seek]      = Macros.handler

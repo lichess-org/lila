@@ -84,7 +84,7 @@ final class Game(
             until = getTimestamp("until", req),
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
-            perfType = (~get("perfType", req) split "," map Perf.Key.apply flatMap PerfType.apply).toSet,
+            perfType = (~get("perfType", req) split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             flags = requestPgnFlags(req, extended = false),
@@ -147,7 +147,7 @@ final class Game(
   def exportByIds =
     Action.async(parse.tolerantText) { req =>
       val config = GameApiV2.ByIdsConfig(
-        ids = req.body.split(',').view.take(300).toSeq map GameId.apply,
+        ids = req.body.split(',').view.take(300).toSeq map { GameId(_) },
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
         perSecond = MaxPerSecond(30),

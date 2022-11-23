@@ -10,13 +10,13 @@ object Json:
   //   format.bimap(ev.apply, ev.flip.apply)
 
   inline given [A, T](using
-      bts: BasicallyTheSame[A, T],
-      stb: BasicallyTheSame[T, A],
+      bts: SameRuntime[A, T],
+      stb: SameRuntime[T, A],
       format: Format[A]
   ): Format[T] =
     format.bimap(bts.apply, stb.apply)
 
-  given [A](using bts: BasicallyTheSame[A, String]): KeyWrites[A] with
+  given [A](using bts: SameRuntime[A, String]): KeyWrites[A] with
     def writeKey(key: A) = bts(key)
 
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)

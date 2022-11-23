@@ -9,7 +9,7 @@ import lila.rating.PerfType
 
 final class PerfStatStorage(coll: AsyncCollFailingSilently)(using ec: scala.concurrent.ExecutionContext):
 
-  private given BSONHandler[UserId] = stringAnyValHandler[UserId](_.value, UserId.apply)
+  private given BSONHandler[UserId] = stringAnyValHandler[UserId](_.value, UserId(_))
   private given ratingAtHandler: BSONDocumentHandler[RatingAt] = Macros.handler
   private given BSONDocumentHandler[GameAt]                    = Macros.handler
   private given BSONDocumentHandler[Result]                    = Macros.handler

@@ -16,7 +16,7 @@ final class GameSearchApi(
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      gameRepo gamesFromSecondary res.ids.map(GameId.apply)
+      gameRepo gamesFromSecondary res.ids.map(GameId(_))
     }
 
   def count(query: Query) =

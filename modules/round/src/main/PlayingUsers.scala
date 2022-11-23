@@ -14,8 +14,8 @@ final class PlayingUsers:
   Bus.subscribeFun("startGame", "finishGame") {
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) map (_ map UserId.apply) foreach playing.removeAll
+      game.userIds.some.filter(_.nonEmpty) map (_ map { UserId(_) }) foreach playing.removeAll
 
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) map (_ map UserId.apply) foreach playing.putAll
+      game.userIds.some.filter(_.nonEmpty) map (_ map { UserId(_) }) foreach playing.putAll
   }

@@ -4,7 +4,7 @@ import scala.concurrent.duration.FiniteDuration
 
 object OnceEvery:
 
-  def apply[K](ttl: FiniteDuration)(using BasicallyTheSame[K, String]): K => Boolean =
+  def apply[K](ttl: FiniteDuration)(using SameRuntime[K, String]): K => Boolean =
 
     val cache = new ExpireSetMemo[K](ttl)
 

@@ -52,7 +52,7 @@ final class TextLpvExpand(
       .toList
       .flatMap { m => Option(m group 1) filterNot notGames.contains }
       .distinct
-      .map(GameId.apply)
+      .map(GameId(_))
     pgnCache getAll gameIds map {
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }

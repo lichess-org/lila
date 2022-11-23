@@ -25,7 +25,7 @@ given [A](using loader: ConfigLoader[A]): ConfigLoader[Seq[A]] =
 given [A: ConfigLoader]: ConfigLoader[List[A]] =
   summon[ConfigLoader[Seq[A]]].map(_.toList)
 
-given [A, B](using bts: BasicallyTheSame[A, B], loader: ConfigLoader[A]): ConfigLoader[B] =
+given [A, B](using bts: SameRuntime[A, B], loader: ConfigLoader[A]): ConfigLoader[B] =
   loader.map(bts.apply)
 
 def optionalConfig[A](using valueLoader: ConfigLoader[A]): ConfigLoader[Option[A]] = (config, path) =>

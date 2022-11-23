@@ -5,7 +5,7 @@ import com.github.benmanes.caffeine.cache.RemovalCause
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 
-final class SyncActorMap[Id: BasicallyString, T <: SyncActor](
+final class SyncActorMap[Id: StringRuntime, T <: SyncActor](
     mkActor: Id => T,
     accessTimeout: FiniteDuration
 ):
