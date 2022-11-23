@@ -31,6 +31,7 @@
   <string name="otherAmount">Ostatní</string>
   <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Platební karta</string>
+  <string name="logInToDonate">Pro přispění se přihlašte</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
   <string name="celebratedPatrons">Slavní Patroni, kteří umožňují fungování Lichess</string>
   <string name="whereMoneyGoes">Kam jdou ty peníze?</string>
@@ -45,6 +46,7 @@ Nebo můžete %s.</string>
   <string name="contactSupport">kontaktovat podporu Lichess</string>
   <string name="otherMethods">Jiné způsoby podpory?</string>
   <string name="bankTransfers">Přijímáme také bankovní převody</string>
+  <string name="onlyDonationFromAbove">Vezměte prosím na vědomí, že pouze příspěvek pomocí formuláře výše vám poskytne Patron status.</string>
   <string name="patronFeatures">Jsou některé funkce vyhrazeny pro Patrony?</string>
   <string name="noPatronFeatures">Ne, protože Lichess je zcela zdarma, navždy a pro všechny. To je slib.
 Patroni se však blýsknou novou cool ikonou profilu.</string>
@@ -65,7 +67,7 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="update">Aktualizovat</string>
   <string name="changeMonthlyAmount">Změnit měsíční částku (%s)</string>
   <string name="cancelSupport">zrušit svou podporu</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s nebo %2$s</string>
+  <string name="xOrY">%1$s nebo %2$s</string>
   <string name="decideHowMuch">Rozhodněte se, jakou má pro Vás Lichess hodnotu:</string>
   <string name="stopPayments">Odebrat kreditní kartu a zastavit platby:</string>
   <string name="stopPaymentsPayPal">Zrušit předplatné PayPal a zastavit platby:</string>

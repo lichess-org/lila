@@ -70,7 +70,7 @@
   <string name="update">تحديث</string>
   <string name="changeMonthlyAmount">تغيير المبلغ الشهري (%s)</string>
   <string name="cancelSupport">إلغاء دعمك</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s أو %2$s</string>
+  <string name="xOrY">%1$s أو %2$s</string>
   <string name="decideHowMuch">قرر ماذا يعني Lichess بالنسبة لك:</string>
   <string name="stopPayments">سحب بطاقة الائتمان الخاصة بك وإيقاف الدفع:</string>
   <string name="stopPaymentsPayPal">إلغاء الاشتراك  PayPal  وإيقاف الدفع:</string>

@@ -63,6 +63,7 @@ O movimento é descrito na seção 3. (d) do %2$s:
 Veja o %3$s sobre este movimento para praticá-lo.</string>
   <string name="goodIntroduction">boa introdução</string>
   <string name="lichessTraining">treino do Lichess</string>
+  <string name="watchIMRosenCheckmate">Assista ao Mestre Internacional Eric Rosen dar xeque-mate em %s.</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>

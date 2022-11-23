@@ -8,5 +8,12 @@
   <string name="whatTheTokenCanDo">Co token může udělat vaším jménem:</string>
   <string name="doNotShareIt">Token umožní přístup k vašemu účtu. NESDÍLEJTE jej s nikým!</string>
   <string name="copyTokenNow">Ujistěte se, že máte svůj nový osobní přístupový token uložený. Není možné ho znovu zobrazit!</string>
+  <string name="preferenceRead">Načíst nastavení</string>
+  <string name="preferenceWrite">Zapsat nastavení</string>
+  <string name="emailRead">Načíst e-mailovou adresu</string>
+  <string name="challengeRead">Načíst příchozí změny</string>
+  <string name="challengeWrite">Odeslat, potvrdit a odmítnout výzvy</string>
+  <string name="studyWrite">Vytvořit, upravit a smazat studie a vysílání</string>
+  <string name="tournamentWrite">Vytvořit, upravit a připojit k turnajům</string>
   <string name="teamLead">Spravovat týmy, které vedete: posílat soukromé zprávy, vykopávat členy</string>
 </resources>

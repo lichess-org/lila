@@ -28,6 +28,7 @@
   <string name="otherAmount">その他</string>
   <string name="pleaseEnterAmountInX">金額（%s）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
+  <string name="logInToDonate">ログインして寄付する</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
   <string name="celebratedPatrons">Lichess の実現に貢献しているパトロンのみなさん</string>
   <string name="whereMoneyGoes">このお金は何に使われますか？</string>
@@ -41,7 +42,9 @@
 あるいは %s を。</string>
   <string name="contactSupport">Lichess サポートに連絡</string>
   <string name="otherMethods">寄付するのにほかの方法は？</string>
+  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess は %s に登録しています。</string>
   <string name="bankTransfers">銀行振込もできます</string>
+  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">ただしパトロンの資格が得られるのは上の寄付フォームを使った場合だけなのでご注意を。</string>
   <string name="patronFeatures">パトロン限定の機能はありますか？</string>
   <string name="noPatronFeatures">いいえ、Lichess は誰に対しても永久に無料です。これは約束です。
 ただパトロンになるとプロフィールに翼マークがついて自慢できます。</string>
@@ -59,7 +62,7 @@
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>
   <string name="cancelSupport">サポートをキャンセル</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s または %2$s</string>
+  <string name="xOrY">%1$s または %2$s</string>
   <string name="decideHowMuch">Lichess の値打ちをご自分で決めてください：</string>
   <string name="stopPayments">クレジットカードでの支払いを止める：</string>
   <string name="stopPaymentsPayPal">PayPal のサブスクリプションをキャンセルして支払を停止：</string>

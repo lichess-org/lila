@@ -29,6 +29,7 @@
   <string name="otherAmount">Outro</string>
   <string name="pleaseEnterAmountInX">Por favor, insira um valor em %s</string>
   <string name="withCreditCard">Cartão de Crédito</string>
+  <string name="logInToDonate">Faça login para doar</string>
   <string name="weAreSmallTeam">Somos uma equipe pequena, então o seu apoio faz uma grande diferença!</string>
   <string name="celebratedPatrons">Os famosos Patronos que tornam o Lichess possível</string>
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
@@ -42,7 +43,9 @@ Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Liches
 Ou você pode %s.</string>
   <string name="contactSupport">entrar em contato com o suporte do Lichess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
+  <string name="lichessIsRegisteredWith">Lichess está registrado em %s.</string>
   <string name="bankTransfers">Também aceitamos transferências bancárias</string>
+  <string name="onlyDonationFromAbove">Somente doações pelo formulário acima lhe concedem o status de Patrono.</string>
   <string name="patronFeatures">Alguns recursos são exclusivos para Patronos?</string>
   <string name="noPatronFeatures">Não, porque o Lichess é totalmente gratuito, para sempre e para todos. É uma promessa.
 No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil.</string>
@@ -61,7 +64,7 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="update">Atualização</string>
   <string name="changeMonthlyAmount">Alterar o valor mensal (%s)</string>
   <string name="cancelSupport">cancelar seu apoio</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s ou %2$s</string>
+  <string name="xOrY">%1$s ou %2$s</string>
   <string name="decideHowMuch">Decida quanto Lichess vale para você:</string>
   <string name="stopPayments">Retire seu cartão de crédito e interrompa os pagamentos:</string>
   <string name="stopPaymentsPayPal">Cancelar assinatura PayPal e interromper pagamentos:</string>

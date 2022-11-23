@@ -29,6 +29,7 @@
   <string name="otherAmount">Ander</string>
   <string name="pleaseEnterAmountInX">Tik asseblief \'n hoeveelheid in %s</string>
   <string name="withCreditCard">Kredietkaart</string>
+  <string name="logInToDonate">Teken in om \'n bydrae te maak</string>
   <string name="weAreSmallTeam">Ons is \'n klein span, so jou ondersteuning maak \'n groot verskil!</string>
   <string name="celebratedPatrons">Die gevierde Beskermhere wat Lichess moontlik maak</string>
   <string name="whereMoneyGoes">Waarheen gaan my geld?</string>
@@ -42,7 +43,9 @@ Verder betaal ons \'n voltydse sagteware ontwikkelaar: %s, die stigter van Liceh
 Of jy kan %s.</string>
   <string name="contactSupport">Lichess ondersteuning kontak</string>
   <string name="otherMethods">Ander donasie metodes?</string>
+  <string name="lichessIsRegisteredWith">Lichess is by %s geregistreer.</string>
   <string name="bankTransfers">Ons aanvaar ook bank oordragte</string>
+  <string name="onlyDonationFromAbove">Let asb. daarop dat slegs die donasievorm hierbo gebruik mag word vir Patron-status.</string>
   <string name="patronFeatures">Is sekere kenmerke net vir Beskermhere voorbehou?</string>
   <string name="noPatronFeatures">Nee, want Lichess is heeltemal gratis, vir ewig en vir almal. Dis \'n belofte.
 Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
@@ -61,7 +64,7 @@ Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="update">Dateer Op</string>
   <string name="changeMonthlyAmount">Verander die maandelikse bedrag (%s)</string>
   <string name="cancelSupport">kanseleer jou ondersteuning</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s of %2$s</string>
+  <string name="xOrY">%1$s of %2$s</string>
   <string name="decideHowMuch">Besluit wat Lichess vir jou werd is:</string>
   <string name="stopPayments">Onttrek jou krediet kaart en kanseleer paaiemente:</string>
   <string name="stopPaymentsPayPal">Kanselleer PayPal-subskripsie en stop betalings:</string>

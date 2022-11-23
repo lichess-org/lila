@@ -61,7 +61,7 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
   <string name="cancelSupport">cancel your support</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s or %2$s</string>
+  <string name="xOrY">%1$s or %2$s</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>
   <string name="stopPaymentsPayPal">Cancel PayPal subscription and stop payments:</string>

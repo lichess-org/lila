@@ -31,6 +31,7 @@
   <string name="otherAmount">Другое</string>
   <string name="pleaseEnterAmountInX">Пожалуйста, укажите сумму в %s</string>
   <string name="withCreditCard">Кредитная карта</string>
+  <string name="logInToDonate">Войдите, чтобы внести пожертвование</string>
   <string name="weAreSmallTeam">Мы небольшая команда, поэтому ваша поддержка имеет огромное значение!</string>
   <string name="celebratedPatrons">Выдающиеся спонсоры, благодаря которым существует Lichess</string>
   <string name="whereMoneyGoes">Куда пойдут деньги от поддержки?</string>
@@ -44,7 +45,9 @@
 Или вы можете %s.</string>
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
+  <string name="lichessIsRegisteredWith">Lichess зарегистрирован на %s.</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>
+  <string name="onlyDonationFromAbove">Пожалуйста, обратите внимание, что только эта форма пожертвования предоставит статус Покровителя.</string>
   <string name="patronFeatures">Есть ли возможности только для спонсоров?</string>
   <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатен, навсегда и для всех. Обещаем.
 Однако, спонсор получает новую классную иконку профиля.</string>
@@ -65,7 +68,7 @@
   <string name="update">Обновить</string>
   <string name="changeMonthlyAmount">Изменить ежемесячную сумму (%s)</string>
   <string name="cancelSupport">отменить поддержку</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s или %2$s</string>
+  <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Решите, что для вас значит Lichess:</string>
   <string name="stopPayments">Отзовите кредитную карту и прекратите платежи:</string>
   <string name="stopPaymentsPayPal">Отменить подписку PayPal и остановить платежи:</string>
