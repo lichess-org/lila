@@ -28,13 +28,12 @@ object categ:
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
-        if (categs.exists(_.categ.isTeam))
-          frag(
-            boxTop(
-              h1("Your Team Boards")
-            ),
-            showCategs(categs.filter(_.categ.isTeam))
-          )
+        categs.exists(_.categ.isTeam) option frag(
+          boxTop(
+            h1("Your Team Boards")
+          ),
+          showCategs(categs.filter(_.categ.isTeam))
+        )
       )
     }
 
