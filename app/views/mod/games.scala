@@ -42,7 +42,7 @@ object games:
               form3.input(filterForm("opponents"))(placeholder  := "Opponents"),
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
-                filterForm("speed"),
+                filterForm("perf"),
                 PerfType.nonPuzzle.map { p =>
                   p.key -> p.trans
                 },

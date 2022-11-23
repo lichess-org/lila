@@ -82,7 +82,7 @@ case class Perf(
 
 case object Perf:
 
-  opaque type Key <: String = String
+  opaque type Key = String
   object Key extends OpaqueString[Key]
 
   type ID = Int

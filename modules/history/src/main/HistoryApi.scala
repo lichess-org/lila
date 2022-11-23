@@ -84,7 +84,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
     withColl(
       _.optionsByOrderedIds[Bdoc, User.ID](
         users.map(_.id),
-        $doc(perfType.key -> true).some
+        $doc(perfType.key.value -> true).some
       )(~_.string("_id")) map { hists =>
         import History.ratingsReader
         users zip hists map { case (user, doc) =>

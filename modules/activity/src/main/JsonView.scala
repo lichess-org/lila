@@ -32,7 +32,7 @@ final class JsonView(
     given OWrites[Games] = OWrites { games =>
       JsObject {
         games.value.toList.sortBy(-_._2.size).map { case (pt, score) =>
-          pt.key -> Json.toJson(score)
+          pt.key.value -> Json.toJson(score)
         }
       }
     }

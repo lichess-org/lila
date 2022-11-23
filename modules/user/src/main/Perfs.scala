@@ -121,8 +121,6 @@ case class Perfs(
     Perf.Key("puzzle")         -> puzzle
   )
 
-  def ratingMap: Map[String, Int] = perfsMap.view.map { (key, perf) => (key.value -> perf.intRating) }.toMap
-
   def ratingOf(pt: Perf.Key): Option[Int] = perfsMap get pt map (_.intRating)
 
   def apply(key: Perf.Key): Option[Perf] = perfsMap get key

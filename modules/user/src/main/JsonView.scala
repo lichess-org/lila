@@ -70,7 +70,7 @@ object JsonView:
         "id"       -> l.user.id,
         "username" -> l.user.name,
         "perfs" -> Json.obj(
-          l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
+          l.perfKey.value -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
         )
       )
       .add("title" -> l.user.title)
@@ -108,7 +108,7 @@ object JsonView:
   def perfs(u: User, onlyPerf: Option[PerfType] = None): JsObject =
     JsObject(u.perfs.perfsMap collect {
       case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
-        key -> perfWrites.writes(perf)
+        key.value -> perfWrites.writes(perf)
     }).add(
       "storm",
       u.perfs.storm.nonEmpty option Json.obj(
@@ -131,8 +131,14 @@ object JsonView:
 
   def perfs(u: User, onlyPerfs: List[PerfType]) =
     JsObject(onlyPerfs.map { perfType =>
-      perfType.key -> perfWrites.writes(u.perfs(perfType))
+      perfType.key.value -> perfWrites.writes(u.perfs(perfType))
     })
+
+  def ratingMap(u: User): JsObject =
+    Writes
+      .keyMapWrites[Perf.Key, Int, Map]
+      .writes(u.perfs.perfsMap.view.mapValues(_.intRating).toMap)
+      .pp
 
   def notes(ns: List[Note])(implicit lightUser: LightUserApi) =
     lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(

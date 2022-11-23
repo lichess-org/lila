@@ -50,7 +50,7 @@ object side:
                 " "
               ),
               span(
-                if (perfType.key == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                if (perfType.key.value == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
                 else trans.nbGames.plural(perf.nb, perf.nb.localize)
               )
             ),

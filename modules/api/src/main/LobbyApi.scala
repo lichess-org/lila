@@ -28,7 +28,7 @@ final class LobbyApi(
                 "rounds"  -> lobbySocket.counters.rounds
               )
             )
-            .add("ratingMap", ctx.me.map(_.perfs.ratingMap))
+            .add("ratingMap", ctx.me.map(lila.user.JsonView.ratingMap))
             .add(
               "me",
               ctx.me.map { u =>
