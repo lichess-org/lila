@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="preferenceRead">Lees voorkeure</string>
+  <string name="preferenceWrite">Skryf voorkeure</string>
+  <string name="emailRead">Lees e-pos adres</string>
+  <string name="challengeRead">Lees aankomende uitdagings</string>
+  <string name="challengeWrite">Stuur, aanvaar en weier uitdagings</string>
+  <string name="challengeBulk">Skep vele spelle op een slag vir ander spelers</string>
+</resources>
