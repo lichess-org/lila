@@ -42,7 +42,6 @@ final class StormJson(sign: StormSign):
     "days" -> days
   )
 
-
 object StormJson:
 
   import lila.puzzle.JsonView.given

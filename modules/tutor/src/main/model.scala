@@ -45,7 +45,6 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
       peer = number.mean(peer, other.peer).some.filter(_.count > 0)
     )
 
-
 sealed abstract class TutorMetric[V](val metric: InsightMetric)
 
 object TutorMetric:

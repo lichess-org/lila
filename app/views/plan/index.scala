@@ -289,7 +289,9 @@ object index:
         ),
         dt(otherMethods()),
         dd(
-          lichessIsRegisteredWith(a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")), 
+          lichessIsRegisteredWith(
+            a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")
+          ),
           br,
           views.html.site.contact.contactEmailLinkEmpty()(bankTransfers()),
           ".",

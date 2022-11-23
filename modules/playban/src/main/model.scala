@@ -74,7 +74,6 @@ case class TempBan(date: DateTime, mins: Int):
 
   def inEffect = endsAt.isAfterNow
 
-
 object TempBan:
 
   given Writes[TempBan] = Json.writes

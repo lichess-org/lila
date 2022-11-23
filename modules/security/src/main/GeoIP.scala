@@ -13,8 +13,7 @@ import com.maxmind.geoip2.model.CityResponse
 final class GeoIP(config: GeoIP.Config):
 
   val reader: Option[DatabaseReader] =
-    try
-      config.file.nonEmpty option new DatabaseReader.Builder(new java.io.File(config.file)).build
+    try config.file.nonEmpty option new DatabaseReader.Builder(new java.io.File(config.file)).build
     catch
       case e: Exception =>
         logger.error("MaxMindIpGeo couldn't load", e)

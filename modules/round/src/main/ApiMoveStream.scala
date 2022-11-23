@@ -64,7 +64,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 queue.complete()
               else
                 val chans = List(MoveGameEvent makeChan game.id, "finishGame")
-                val sub = Bus.subscribeFun(chans *) {
+                val sub = Bus.subscribeFun(chans*) {
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some)).unit
                   case FinishGame(g, _, _) if g.id == game.id =>

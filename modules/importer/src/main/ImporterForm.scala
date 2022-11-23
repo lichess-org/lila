@@ -25,8 +25,7 @@ final class ImporterForm:
 
 object ImporterForm:
 
-  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try
-    f()
+  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try f()
   catch
     case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
       Validated.Invalid("This PGN seems too long or too complex!")

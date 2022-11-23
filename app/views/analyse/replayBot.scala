@@ -14,7 +14,6 @@ object replayBot:
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(implicit ctx: Context) =
-
     views.html.analyse.bits.layout(
       title = replay titleOf pov,
       moreCss = cssTag("analyse.round"),

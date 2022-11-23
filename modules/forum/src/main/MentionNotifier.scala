@@ -21,10 +21,19 @@ final class MentionNotifier(
 
   def notifyMentionedUsers(post: Post, topic: Topic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
-      filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
-        val mentionedBy   = MentionedInThread.MentionedBy(author)
-        val notifications = validUsers.map(createMentionNotification(post, topic, _, mentionedBy))
-        notifyApi.addNotifications(notifications)
+      filterValidUsers(extractMentionedUsers(post), author) map { mentionedUsers =>
+        mentionedUsers foreach { user =>
+          notifyApi.notifyOne(
+            user,
+            lila.notify.MentionedInThread(
+              mentionedBy = author,
+              topic = topic.name,
+              topidId = topic.id,
+              category = post.categId,
+              postId = post.id
+            )
+          )
+        }
       }
     }
 
@@ -34,7 +43,7 @@ final class MentionNotifier(
   private def filterValidUsers(
       candidates: Set[User.ID],
       mentionedBy: User.ID
-  ): Fu[List[Notification.Notifies]] =
+  ): Fu[List[User.ID]] =
     for {
       existingUsers <-
         userRepo
@@ -42,23 +51,7 @@ final class MentionNotifier(
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield users.map(Notification.Notifies.apply)
-
-  private def createMentionNotification(
-      post: Post,
-      topic: Topic,
-      mentionedUser: Notification.Notifies,
-      mentionedBy: MentionedInThread.MentionedBy
-  ): Notification =
-    val notificationContent = MentionedInThread(
-      mentionedBy,
-      MentionedInThread.Topic(topic.name),
-      MentionedInThread.TopicId(topic.id),
-      MentionedInThread.Category(post.categId),
-      MentionedInThread.PostId(post.id)
-    )
-
-    Notification.make(mentionedUser, notificationContent)
+    } yield users
 
   private def extractMentionedUsers(post: Post): Set[User.ID] =
     post.text.contains('@') ?? {

@@ -51,7 +51,6 @@ final private class PoolActor(
             case m                => m
           }
         case _ => // no change
-
     case Leave(userId) =>
       members.find(_.userId == userId) foreach { member =>
         members = members.filter(member !=)

@@ -1,69 +1,36 @@
 package lila.notify
 
 import chess.Color
-import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl.{ *, given }
-import lila.notify.InvitedToStudy.InvitedBy
-import lila.notify.MentionedInThread.*
-import lila.notify.Notification.*
 import reactivemongo.api.bson.*
 
+import lila.db.BSON.{ Reader, Writer }
+import lila.db.dsl.{ *, given }
+import lila.db.{ dsl, BSON }
+
 private object BSONHandlers:
-
-  given BSONHandler[Notifies] = stringAnyValHandler[Notifies](_.value, Notifies.apply)
-
-  given BSONHandler[MentionedBy] = stringAnyValHandler[MentionedBy](_.value, MentionedBy.apply)
-  given BSONHandler[Topic]       = stringAnyValHandler[Topic](_.value, Topic.apply)
-  given BSONHandler[TopicId]     = stringAnyValHandler[TopicId](_.value, TopicId.apply)
-  given BSONHandler[Category]    = stringAnyValHandler[Category](_.value, Category.apply)
-  given BSONHandler[PostId]      = stringAnyValHandler[PostId](_.value, PostId.apply)
-
-  given BSONHandler[InvitedBy] = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
-  given BSONHandler[NotificationRead] =
-    booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
-
-  import PrivateMessage.*
-  given BSONHandler[Sender] = stringAnyValHandler[Sender](_.value, Sender.apply)
-  given BSONHandler[Text]   = stringAnyValHandler[Text](_.value, Text.apply)
-  private given PrivateMessageHandler: BSONDocumentHandler[PrivateMessage] = Macros.handler
-
-  given BSONHandler[TeamJoined.Id]   = stringAnyValHandler[TeamJoined.Id](_.value, TeamJoined.Id.apply)
-  given BSONHandler[TeamJoined.Name] = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
-  private given TeamJoinedHandler: BSONDocumentHandler[TeamJoined] = Macros.handler
-
-  given BSONHandler[GameEnd.GameId] = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
-  given BSONHandler[GameEnd.OpponentId] =
-    stringAnyValHandler[GameEnd.OpponentId](_.value, GameEnd.OpponentId.apply)
-  given BSONHandler[GameEnd.Win] = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
-  private given GameEndHandler: BSONDocumentHandler[GameEnd] = Macros.handler
-
+  private given PrivateMessageHandler: BSONDocumentHandler[PrivateMessage]       = Macros.handler
+  private given MentionedInThreadHandler: BSONDocumentHandler[MentionedInThread] = Macros.handler
+  private given InvitedToStudyHandler: BSONDocumentHandler[InvitedToStudy]       = Macros.handler
+  private given TeamJoinedHandler: BSONDocumentHandler[TeamJoined]               = Macros.handler
+  private given GameEndHandler: BSONDocumentHandler[GameEnd]                     = Macros.handler
   private given TitledTournamentInvitationHandler: BSONDocumentHandler[TitledTournamentInvitation] =
     Macros.handler
-
-  private given PlanStartHandler: BSONDocumentHandler[PlanStart]   = Macros.handler
-  private given PlanExpireHandler: BSONDocumentHandler[PlanExpire] = Macros.handler
-
+  private given PlanStartHandler: BSONDocumentHandler[PlanStart]       = Macros.handler
+  private given PlanExpireHandler: BSONDocumentHandler[PlanExpire]     = Macros.handler
   private given RatingRefundHandler: BSONDocumentHandler[RatingRefund] = Macros.handler
   private given CorresAlarmHandler: BSONDocumentHandler[CorresAlarm]   = Macros.handler
   private given IrwinDoneHandler: BSONDocumentHandler[IrwinDone]       = Macros.handler
   private given KaladinDoneHandler: BSONDocumentHandler[KaladinDone]   = Macros.handler
   private given GenericLinkHandler: BSONDocumentHandler[GenericLink]   = Macros.handler
+  private given StreamStartHandler: BSONDocumentHandler[StreamStart]   = Macros.handler
 
   given lila.db.BSON[NotificationContent] with
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match
-        case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>
-          $doc(
-            "mentionedBy" -> mentionedBy,
-            "topic"       -> topic,
-            "topicId"     -> topicId,
-            "category"    -> category,
-            "postId"      -> postId
-          )
-        case InvitedToStudy(invitedBy, studyName, studyId) =>
-          $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
-        case p: PrivateMessage             => PrivateMessageHandler.writeTry(p).get
-        case t: TeamJoined                 => TeamJoinedHandler.writeTry(t).get
+        case x: MentionedInThread          => MentionedInThreadHandler.writeTry(x).get
+        case x: InvitedToStudy             => InvitedToStudyHandler.writeTry(x).get
+        case x: PrivateMessage             => PrivateMessageHandler.writeTry(x).get
+        case x: TeamJoined                 => TeamJoinedHandler.writeTry(x).get
         case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.writeTry(x).get
         case x: GameEnd                    => GameEndHandler.writeTry(x).get
         case x: PlanStart                  => PlanStartHandler.writeTry(x).get
@@ -75,28 +42,13 @@ private object BSONHandlers:
         case x: IrwinDone                  => IrwinDoneHandler.writeTry(x).get
         case x: KaladinDone                => KaladinDoneHandler.writeTry(x).get
         case x: GenericLink                => GenericLinkHandler.writeTry(x).get
+        case x: StreamStart                => StreamStartHandler.writeTry(x).get
     } ++ $doc("type" -> notificationContent.key)
-
-    private def readMentionedNotification(reader: Reader): MentionedInThread =
-      val mentionedBy = reader.get[MentionedBy]("mentionedBy")
-      val topic       = reader.get[Topic]("topic")
-      val topicId     = reader.get[TopicId]("topicId")
-      val category    = reader.get[Category]("category")
-      val postNumber  = reader.get[PostId]("postId")
-
-      MentionedInThread(mentionedBy, topic, topicId, category, postNumber)
-
-    private def readInvitedStudyNotification(reader: Reader): NotificationContent =
-      val invitedBy = reader.get[InvitedBy]("invitedBy")
-      val studyName = reader.get[StudyName]("studyName")
-      val studyId   = reader.get[StudyId]("studyId")
-
-      InvitedToStudy(invitedBy, studyName, studyId)
 
     def reads(reader: Reader): NotificationContent =
       reader.str("type") match
-        case "mention"        => readMentionedNotification(reader)
-        case "invitedStudy"   => readInvitedStudyNotification(reader)
+        case "mention"        => MentionedInThreadHandler.readTry(reader.doc).get
+        case "invitedStudy"   => InvitedToStudyHandler.readTry(reader.doc).get
         case "privateMessage" => PrivateMessageHandler.readTry(reader.doc).get
         case "teamJoined"     => TeamJoinedHandler.readTry(reader.doc).get
         case "titledTourney"  => TitledTournamentInvitationHandler.readTry(reader.doc).get
@@ -110,7 +62,8 @@ private object BSONHandlers:
         case "irwinDone"      => IrwinDoneHandler.readTry(reader.doc).get
         case "kaladinDone"    => KaladinDoneHandler.readTry(reader.doc).get
         case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
+        case "streamStart"    => StreamStartHandler.readTry(reader.doc).get
 
     def writes(writer: Writer, n: NotificationContent): Bdoc = writeNotificationContent(n)
 
-  private[notify] given BSONDocumentHandler[Notification] = Macros.handler
+  given BSONDocumentHandler[Notification] = Macros.handler

@@ -94,4 +94,3 @@ final private class InsightIndexer(
         .toMat(Sink.ignore)(Keep.right)
         .run()
     } void
-

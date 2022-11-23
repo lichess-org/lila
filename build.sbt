@@ -363,7 +363,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(common, db, user, game, challenge, msg),
+  Seq(common, db, user, game, challenge, msg, pref, notifyModule),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
@@ -443,7 +443,7 @@ lazy val explorer = module("explorer",
 )
 
 lazy val notifyModule = module("notify",
-  Seq(common, db, game, user, hub, relation),
+  Seq(common, db, game, user, hub, relation, pref),
   reactivemongo.bundle
 )
 

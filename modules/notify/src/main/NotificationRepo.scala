@@ -1,82 +1,75 @@
 package lila.notify
 
-import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
+import reactivemongo.api.bson.ElementProducer
+import scala.concurrent.duration.{ Duration, DurationInt }
 
-final private class NotificationRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+import lila.db.dsl.{ *, given }
+import lila.user.User
+
+final private class NotificationRepo(
+    val coll: Coll,
+    val userRepo: lila.user.UserRepo,
+    val prefApi: lila.pref.PrefApi
+)(using ec: scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 
   def insert(notification: Notification) =
     coll.insert.one(notification).void
 
-  def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
+  def insertMany(notifications: Iterable[Notification]): Funit =
+    coll.insert.many(notifications).void
+
+  def remove(notifies: User.ID, selector: Bdoc): Funit =
     coll.delete.one(userNotificationsQuery(notifies) ++ selector).void
 
-  def markAllRead(notifies: Notification.Notifies): Funit =
+  def markAllRead(notifies: User.ID): Funit =
     markManyRead(unreadOnlyQuery(notifies))
 
-  def markAllRead(notifies: Iterable[Notification.Notifies]): Funit =
+  def markAllRead(notifies: Iterable[User.ID]): Funit =
     markManyRead(unreadOnlyQuery(notifies))
 
   def markManyRead(doc: Bdoc): Funit =
     coll.update.one(doc, $set("read" -> true), multi = true).void
 
-  def unreadNotificationsCount(userId: Notification.Notifies): Fu[Int] =
+  def unreadNotificationsCount(userId: User.ID): Fu[Int] =
     coll.countSel(unreadOnlyQuery(userId))
 
-  private def hasOld =
-    $doc(
-      "read" -> false,
-      "createdAt" $gt DateTime.now.minusDays(3)
-    )
-  private def hasUnread =
-    $doc( // recent, read
-      "createdAt" $gt DateTime.now.minusMinutes(10)
-    )
-  private def hasOldOrUnread =
-    $doc("$or" -> List(hasOld, hasUnread))
+  def hasRecent(note: Notification, criteria: ElementProducer, unreadSince: Duration): Fu[Boolean] =
+    hasFresh(note.to, note.content.key, criteria, matchRecentOrUnreadSince(unreadSince))
 
-  def hasRecentStudyInvitation(userId: Notification.Notifies, studyId: StudyId): Fu[Boolean] =
-    coll.exists(
-      $doc(
-        "notifies"        -> userId,
-        "content.type"    -> "invitedStudy",
-        "content.studyId" -> studyId
-      ) ++ hasOldOrUnread
-    )
+  def hasRecentPrivateMessageFrom(to: User.ID, from: String): Fu[Boolean] =
+    hasFresh(to, tpe = "privateMessage", criteria = "content.user" -> from, matchUnreadSince(3.days))
 
-  def hasRecentNotificationsInThread(
-      userId: Notification.Notifies,
-      topicId: MentionedInThread.TopicId
+  private def matchSince(since: Duration) =
+    $doc("createdAt" $gt DateTime.now.minus(since.toMillis))
+
+  private def matchUnreadSince(unreadSince: Duration) =
+    $doc("read" -> false, "createdAt" $gt DateTime.now.minus(unreadSince.toMillis))
+
+  private def matchRecentOrUnreadSince(since: Duration) =
+    $or(matchSince(10.minutes), matchUnreadSince(since))
+
+  private def hasFresh(
+      to: User.ID,
+      tpe: String,
+      criteria: ElementProducer,
+      freshnessSelector: Bdoc
   ): Fu[Boolean] =
-    coll.exists(
-      $doc(
-        "notifies"        -> userId,
-        "content.type"    -> "mention",
-        "content.topicId" -> topicId
-      ) ++ hasOldOrUnread
-    )
+    coll.exists($doc("notifies" -> to, "content.type" -> tpe, criteria) ++ freshnessSelector)
 
-  def hasRecentPrivateMessageFrom(
-      userId: Notification.Notifies,
-      sender: PrivateMessage.Sender
-  ): Fu[Boolean] =
-    coll.exists(
-      $doc(
-        "notifies"     -> userId,
-        "content.type" -> "privateMessage",
-        "content.user" -> sender
-      ) ++ hasOld
-    )
-
-  def exists(notifies: Notification.Notifies, selector: Bdoc): Fu[Boolean] =
+  def exists(notifies: User.ID, selector: Bdoc): Fu[Boolean] =
     coll.exists(userNotificationsQuery(notifies) ++ selector)
 
   val recentSort = $sort desc "createdAt"
 
-  def userNotificationsQuery(userId: Notification.Notifies) = $doc("notifies" -> userId)
+  def mostRecentUnread(userId: User.ID) =
+    coll.find($doc("notifies" -> userId, "read" -> false)).sort($sort.createdDesc).one[Notification]
 
-  private def unreadOnlyQuery(userId: Notification.Notifies) = $doc("notifies" -> userId, "read" -> false)
-  private def unreadOnlyQuery(userIds: Iterable[Notification.Notifies]) =
+  def userNotificationsQuery(userId: User.ID) = $doc("notifies" -> userId)
+
+  private def unreadOnlyQuery(userId: User.ID) = $doc("notifies" -> userId, "read" -> false)
+
+  private def unreadOnlyQuery(userIds: Iterable[User.ID]) =
     $doc("notifies" $in userIds, "read" -> false)

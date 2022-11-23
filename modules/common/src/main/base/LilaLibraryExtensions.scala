@@ -320,6 +320,9 @@ trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
 
+    def ifThen(fub: => Funit): Funit =
+      fua.flatMap { if (_) fub else funit }(EC.parasitic)
+
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
   extension [A](fua: Fu[Option[A]])

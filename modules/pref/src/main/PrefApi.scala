@@ -71,7 +71,7 @@ final class PrefApi(
   private def unmentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "_id",
-      $inIds(userIds) ++ $doc("mention" -> false)
+      $inIds(userIds) ++ $doc("notification.mention" -> 0)
     )
 
   def mentionableIds(userIds: Set[User.ID]): Fu[Set[User.ID]] =
@@ -106,3 +106,26 @@ final class PrefApi(
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref fromRequest req
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
+
+  def getNotificationPref(uid: User.ID): Fu[NotificationPref] =
+    cache.getIfPresent(uid) map (_ collect { case Some(pref) =>
+      pref.notification
+    }) getOrElse {
+      coll.find($id(uid), $doc("notification" -> true).some).one[NotificationPref] map {
+        case Some(notification) => notification
+        case None               => NotificationPref.default
+      }
+    }
+
+  def getNotifyAllows(userIds: Iterable[User.ID], event: String): Fu[List[NotifyAllows]] =
+    coll
+      .find($inIds(userIds), $doc(s"notification.$event" -> true).some)
+      .cursor[Bdoc]()
+      .list(-1) dmap { docs =>
+      for {
+        doc    <- docs
+        userId <- doc string "_id"
+        allowsOpt = doc child "notification" flatMap (_ int event) map Allows.fromCode
+        allows    = allowsOpt getOrElse NotificationPref.default.allows(event)
+      } yield NotifyAllows(userId, allows)
+    }

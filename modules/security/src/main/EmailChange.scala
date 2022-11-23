@@ -21,7 +21,7 @@ final class EmailChange(
       tokener make TokenPayload(user.id, email).some flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
-        val url           = s"$baseUrl/account/email/confirm/$token"
+        val url                  = s"$baseUrl/account/email/confirm/$token"
         lila.log("auth").info(s"Change email URL ${user.username} $email $url")
         mailer send Mailer.Message(
           to = email,

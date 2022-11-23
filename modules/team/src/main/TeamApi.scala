@@ -295,9 +295,7 @@ final class TeamApi(
            idsNoKids - User.lichessId
          else idsNoKids)
       _ <- ids.nonEmpty ?? {
-        if (
-          ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
-        )
+        if (ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod)
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
@@ -325,8 +323,7 @@ final class TeamApi(
           (indexer ! RemoveTeam(team.id))
       else
         teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
-    else
-      teamRepo.setLeaders(team.id, team.leaders - by.id)
+    else teamRepo.setLeaders(team.id, team.leaders - by.id)
 
   // delete for ever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit =

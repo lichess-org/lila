@@ -21,7 +21,7 @@ final class PuzzleSelector(
     case object PathMissing                        extends NextPuzzleResult("pathMissing")
     case object PathEnded                          extends NextPuzzleResult("pathEnded")
     case class WrongColor(puzzle: Puzzle)          extends NextPuzzleResult("wrongColor")
-    case class PuzzleMissing(id: PuzzleId)        extends NextPuzzleResult("puzzleMissing")
+    case class PuzzleMissing(id: PuzzleId)         extends NextPuzzleResult("puzzleMissing")
     case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
 

@@ -138,4 +138,3 @@ object bits:
     val blackTransformed = (blackPercent - lower) * factor + drawHalfSquished
     val whiteTransformed = (whitePercent - lower) * factor + drawHalfSquished
     (blackTransformed, drawTransformed, whiteTransformed)
-

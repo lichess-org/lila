@@ -311,4 +311,11 @@ trait SetupHelper { self: I18nHelper =>
       Pref.Blindfold.NO  -> trans.no.txt(),
       Pref.Blindfold.YES -> trans.yes.txt()
     )
+
+  def translatedBooleanIntChoices(using lang: Lang) =
+    List(
+      0 -> trans.no.txt(),
+      1 -> trans.yes.txt()
+    )
+
 }

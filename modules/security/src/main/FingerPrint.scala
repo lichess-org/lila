@@ -20,8 +20,7 @@ object FingerHash:
           Hex decodeHex normalize(print).toArray
         } take length
       } some
-    catch
-      case _: Exception => none
+    catch case _: Exception => none
 
   private def normalize(fp: FingerPrint): String =
     val str = fp.value.replace("-", "")

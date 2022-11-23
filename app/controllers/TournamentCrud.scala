@@ -64,4 +64,3 @@ final class TournamentCrud(env: Env) extends LilaController(env):
         Ok(html.tournament.crud.create(crud editForm tour)).toFuccess
       }
     }
-

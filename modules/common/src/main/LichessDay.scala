@@ -21,4 +21,3 @@ object LichessDay:
     (0 until nb).toList.map { delta =>
       LichessDay(Days.daysBetween(genesis, DateTime.now.minusDays(delta).withTimeAtStartOfDay).getDays)
     }
-

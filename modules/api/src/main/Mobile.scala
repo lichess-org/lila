@@ -17,7 +17,6 @@ object Mobile:
       "5.2.0"
     )
 
-
   object Api:
 
     val currentVersion = ApiVersion(6)

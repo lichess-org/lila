@@ -295,6 +295,7 @@ GET   /streamer/picture/edit           controllers.Streamer.picture
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
+POST  /streamer/subscribe/:streamerId  controllers.Streamer.subscribe(streamerId, set: Boolean)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId, color = "white")

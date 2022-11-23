@@ -119,7 +119,6 @@ object Post:
       troll: Boolean,
       modIcon: Option[Boolean] = None
   ): Post =
-
     Post(
       _id = lila.common.ThreadLocalRandom nextString idSize,
       topicId = topicId,

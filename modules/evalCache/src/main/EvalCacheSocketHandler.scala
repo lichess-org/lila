@@ -24,13 +24,13 @@ final private class EvalCacheSocketHandler(
       multiPv = (d int "mpv") | 1
       path <- d str "path"
     }
-      def pushData(data: JsObject) = push(Socket.makeMessage("evalHit", data))
-      api.getEvalJson(variant, fen, multiPv) foreach {
-        _ foreach { json =>
-          pushData(json + ("path" -> JsString(path)))
-        }
+    def pushData(data: JsObject) = push(Socket.makeMessage("evalHit", data))
+    api.getEvalJson(variant, fen, multiPv) foreach {
+      _ foreach { json =>
+        pushData(json + ("path" -> JsString(path)))
       }
-      if (d.value contains "up") upgrade.register(sri, variant, fen, multiPv, path)(pushData)
+    }
+    if (d.value contains "up") upgrade.register(sri, variant, fen, multiPv, path)(pushData)
 
   def untrustedEvalPut(sri: Socket.Sri, userId: User.ID, data: JsObject): Unit =
     truster cachedTrusted userId foreach {

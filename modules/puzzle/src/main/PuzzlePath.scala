@@ -72,4 +72,3 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using ec: ExecutionContext
   def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
     _.fold(true)(_ < DateTime.now.minusDays(1).getMillis)
   }
-

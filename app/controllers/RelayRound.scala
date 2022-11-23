@@ -244,7 +244,7 @@ final class RelayRound(
       ).enableSharedArrayBuffer
     }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))
 
-  implicit private def makeRelayId(id: String): RoundModel.Id           = RoundModel.Id(id)
+  implicit private def makeRelayId(id: String): RoundModel.Id               = RoundModel.Id(id)
   implicit private def makeChapterId(id: String): lila.study.StudyChapterId = lila.study.StudyChapterId(id)
 
   private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](

@@ -104,4 +104,3 @@ final private[team] class PaginatorBuilder(
           .list(length)
         users <- userRepo usersFromSecondary requests.map(_.user)
       } yield requests zip users map { case (request, user) => RequestWithUser(request, user) }
-

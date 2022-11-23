@@ -185,8 +185,8 @@ private object bits:
       tr(cls := "date")(
         th(label(trans.search.date())),
         td(cls := "two-columns")(
-          div(from(), " ", form3.input(form("dateMin"), "date")(dateMinMax *)),
-          div(to(), " ", form3.input(form("dateMax"), "date")(dateMinMax *))
+          div(from(), " ", form3.input(form("dateMin"), "date")(dateMinMax*)),
+          div(to(), " ", form3.input(form("dateMax"), "date")(dateMinMax*))
         )
       )
 
