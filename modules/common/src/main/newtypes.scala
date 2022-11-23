@@ -9,24 +9,22 @@ trait NewTypes:
 
   object SameRuntime:
     def apply[A, T](f: A => T): SameRuntime[A, T] = new:
-      override def apply(a: A): T = f(a)
+      def apply(a: A): T = f(a)
 
   type StringRuntime[A] = SameRuntime[A, String]
 
   trait TotalWrapper[Newtype, Impl](using ev: Newtype =:= Impl):
-    inline def raw(inline a: Newtype): Impl   = ev.apply(a)
-    inline def apply(inline s: Impl): Newtype = ev.flip.apply(s)
-
-    private val flipped = ev.flip
+    inline def raw(inline a: Newtype): Impl   = a.asInstanceOf[Impl]
+    inline def apply(inline s: Impl): Newtype = s.asInstanceOf[Newtype]
 
     given SameRuntime[Newtype, Impl] = new:
-      override def apply(a: Newtype): Impl = ev.apply(a)
+      def apply(a: Newtype): Impl = a.asInstanceOf[Impl]
 
     given SameRuntime[Impl, Newtype] = new:
-      override def apply(a: Impl): Newtype = flipped.apply(a)
+      def apply(a: Impl): Newtype = a.asInstanceOf[Newtype]
 
     extension (a: Newtype)
-      inline def value                                           = raw(a)
+      inline def value: Impl                                     = raw(a)
       inline def into[X](inline other: TotalWrapper[X, Impl]): X = other.apply(raw(a))
       inline def map(inline f: Impl => Impl): Newtype            = apply(f(raw(a)))
   end TotalWrapper
