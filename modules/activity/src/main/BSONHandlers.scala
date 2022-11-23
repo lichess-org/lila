@@ -66,8 +66,11 @@ private object BSONHandlers:
         rp   -> o.rp
       )
 
-  given (String => PerfType)                 = key => PerfType(Perf.Key(key)) err s"Bad perf $key"
-  private[activity] given BSONHandler[Games] = Macros.handler
+  given (String => PerfType) = key => PerfType(Perf.Key(key)) err s"Bad perf $key"
+
+  given Iso.StringIso[PerfType] =
+    Iso.string[PerfType](str => PerfType(Perf.Key(str)) err s"No such perf $str", _.key.value)
+  private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games.apply, _.value)
 
   private given BSONHandler[ForumPostId] = BSONStringHandler.as(ForumPostId.apply, _.value)
   given BSONHandler[ForumPosts] = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts.apply)
@@ -89,11 +92,11 @@ private object BSONHandlers:
     def reads(r: lila.db.BSON.Reader)             = Streak(r.intD("r"), r.intD("s"))
     def writes(w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
 
-  private given (String => Learn.Stage) = Learn.Stage.apply
-  given BSONHandler[Learn]              = Macros.handler
+  private given Iso.StringIso[Learn.Stage] = Iso.string(Learn.Stage.apply, _.value)
+  given BSONHandler[Learn]                 = typedMapHandler[Learn.Stage, Int].as(Learn.apply, _.value)
 
-  private given (String => StudyId) = StudyId.apply
-  given BSONHandler[Practice]       = Macros.handler
+  private given Iso.StringIso[StudyId] = Iso.string(StudyId.apply, _.value)
+  given BSONHandler[Practice]          = typedMapHandler[StudyId, Int].as[Practice](Practice.apply, _.value)
 
   given BSONHandler[SimulId] = BSONStringHandler.as(SimulId.apply, _.value)
   given BSONHandler[Simuls]  = isoHandler[Simuls, List[SimulId]](_.value, Simuls.apply)
