@@ -20,7 +20,7 @@ final class GameSearchApi(
     }
 
   def count(query: Query) =
-    client.count(query) dmap (_.count)
+    client.count(query).dmap(_.value)
 
   def ids(query: Query, max: Int): Fu[List[String]] =
     client.search(query, From(0), Size(max)).map(_.ids)

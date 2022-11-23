@@ -19,7 +19,7 @@ final class TeamSearchApi(
       teamRepo byOrderedIds res.ids
     }
 
-  def count(query: Query) = client.count(query) dmap (_.count)
+  def count(query: Query) = client.count(query).dmap(_.value)
 
   def store(team: Team) = client.store(Id(team.id), toDoc(team))
 

@@ -16,7 +16,7 @@ private class SearchConfig(
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 

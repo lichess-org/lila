@@ -27,7 +27,7 @@ final class StudySearchApi(
       studyRepo byOrderedIds res.ids.map(StudyId.apply)
     }
 
-  def count(query: Query) = client.count(query).dmap(_.count)
+  def count(query: Query) = client.count(query).dmap(_.value)
 
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
