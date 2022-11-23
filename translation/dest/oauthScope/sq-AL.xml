@@ -27,4 +27,6 @@
   <string name="botPlay">Të luajë lojëra me API roboti</string>
   <string name="engineRead">Të shohë dhe të përdorë platforma tuajat të jashtme</string>
   <string name="engineWrite">Të krijojë dhe përditësoje platforma të jashtme</string>
+  <string name="webLogin">Të krijojë sesioni të mirëfilltësuar të sajtit (të akordojë hyrje të plotë!)</string>
+  <string name="webMod">Të përdorë mjete moderatori (brenda kufijve të lejuar prej jush)</string>
 </resources>
