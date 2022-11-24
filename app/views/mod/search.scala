@@ -69,6 +69,7 @@ object search:
                 )(if (blocked) "Banned" else "Ban this print")
               )
             else if (blocked) div(cls := "banned")("BANNED")
+            else emptyFrag
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
@@ -110,6 +111,7 @@ object search:
                 )(if (blocked) "Banned" else "Ban this IP")
               )
             else if (blocked) div(cls := "banned")("BANNED")
+            else emptyFrag
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
