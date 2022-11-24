@@ -39,7 +39,7 @@ trait NewTypes:
 
   trait OpaqueInt[A](using A =:= Int) extends TotalWrapper[A, Int]:
     extension (inline a: A)
-      inline def unary_-  = apply(-raw(a))
+      inline def unary_-                                               = apply(-raw(a))
       inline def >(inline o: Int): Boolean                             = raw(a) > o
       inline def <(inline o: Int): Boolean                             = raw(a) < o
       inline def >=(inline o: Int): Boolean                            = raw(a) >= o
@@ -68,6 +68,8 @@ trait NewTypes:
     val Yes: A = ev.apply(true)
     val No: A  = ev.apply(false)
 
+    inline def from[M[_]](inline a: M[Boolean]): M[A] = a.asInstanceOf[M[A]]
+
     given SameRuntime[A, Boolean] = SameRuntime(_ == Yes)
     given SameRuntime[Boolean, A] = SameRuntime(if _ then Yes else No)
 
@@ -76,8 +78,8 @@ trait NewTypes:
     extension (inline a: A)
       inline def value: Boolean        = a == Yes
       inline def flip: A               = if value then No else Yes
-      inline def yes: Boolean = value
-      inline def no: Boolean = !value
+      inline def yes: Boolean          = value
+      inline def no: Boolean           = !value
       inline def &&(inline other: A)   = a.value && other.value
       inline def `||`(inline other: A) = a.value || other.value
   end YesNo

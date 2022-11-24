@@ -68,11 +68,11 @@ final private class StudyInvite(
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
         val notificationContent = InvitedToStudy(
-          InvitedToStudy.InvitedBy(inviter.id),
+          UserId(inviter.id),
           study.name,
           study.id
         )
-        val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
+        val notification = Notification.make(UserId(invited.id), notificationContent)
         notifyApi.addNotification(notification).void
       }(funit)
     } yield invited

@@ -75,11 +75,8 @@ final private class MsgNotify(
         val dest = thread other msg.user
         !thread.delBy(dest) ?? {
           notifyApi addNotification Notification.make(
-            Notification.Notifies(dest),
-            PrivateMessage(
-              PrivateMessage.Sender(msg.user),
-              PrivateMessage.Text(shorten(msg.text, 40))
-            )
+            UserId(dest),
+            PrivateMessage(UserId(msg.user), shorten(msg.text, 40))
           ) map (_ ?? lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread"))
         }
       }

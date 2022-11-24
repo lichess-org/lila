@@ -71,8 +71,7 @@ final class StreamerApi(
       }.sequenceFu
       _            <- elements.nonEmpty ?? update.many(elements).void
       candidateIds <- cache.candidateIds.getUnit
-    } yield
-      if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
+    } yield if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)
@@ -88,7 +87,7 @@ final class StreamerApi(
         ~modChange.list ?? {
           notifyApi.addNotification(
             Notification.make(
-              Notifies(streamer.userId),
+              UserId(streamer.userId),
               lila.notify.GenericLink(
                 url = "/streamer/edit",
                 title = "Listed on /streamer".some,

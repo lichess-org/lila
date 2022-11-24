@@ -3,19 +3,18 @@ package lila.notify
 import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-case class NewNotification(notification: Notification, unreadNotifications: Int)
+case class NewNotification(notification: Notification, unreadNotifications: Notification.UnreadCount)
 
 case class Notification(
-    _id: String,
+    @Key("_id") id: Notification.Id,
     notifies: Notification.Notifies,
     content: NotificationContent,
     read: Notification.NotificationRead,
     createdAt: DateTime
 ):
-  inline def id = _id
-
-  def unread = !read.value
+  def unread = read.no
 
   def isMsg =
     content match
@@ -24,20 +23,29 @@ case class Notification(
 
 object Notification:
 
-  case class UnreadCount(value: Int) extends AnyVal
-  case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
-  case class Notifies(value: String)          extends AnyVal with StringValue
-  case class NotificationRead(value: Boolean) extends AnyVal
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
-  def make(notifies: Notification.Notifies, content: NotificationContent): Notification =
+  opaque type UnreadCount = Int
+  object UnreadCount extends OpaqueInt[UnreadCount]
+
+  case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
+
+  opaque type Notifies = String // the user being notified
+  object Notifies extends OpaqueString[Notifies]
+
+  opaque type NotificationRead = Boolean
+  object NotificationRead extends YesNo[NotificationRead]
+
+  def make(notifies: UserId, content: NotificationContent): Notification =
     val idSize = 8
     val id     = lila.common.ThreadLocalRandom nextString idSize
-    new Notification(id, notifies, content, NotificationRead(false), DateTime.now)
+    Notification(Id(id), notifies into Notifies, content, NotificationRead(false), DateTime.now)
 
 sealed abstract class NotificationContent(val key: String)
 
 case class MentionedInThread(
-    mentionedBy: MentionedInThread.MentionedBy,
+    mentionedBy: UserId,
     topic: MentionedInThread.Topic,
     topidId: MentionedInThread.TopicId,
     category: MentionedInThread.Category,
@@ -45,46 +53,38 @@ case class MentionedInThread(
 ) extends NotificationContent("mention")
 
 object MentionedInThread:
-  case class MentionedBy(value: String) extends AnyVal with StringValue
-  case class Topic(value: String)       extends AnyVal with StringValue
-  case class TopicId(value: String)     extends AnyVal with StringValue
-  case class Category(value: String)    extends AnyVal with StringValue
-  case class PostId(value: String)      extends AnyVal with StringValue
+  opaque type Topic = String
+  object Topic extends OpaqueString[Topic]
+  opaque type TopicId = String
+  object TopicId extends OpaqueString[TopicId]
+  opaque type Category = String
+  object Category extends OpaqueString[Category]
+  opaque type PostId = String
+  object PostId extends OpaqueString[PostId]
 
 case class InvitedToStudy(
-    invitedBy: InvitedToStudy.InvitedBy,
+    invitedBy: UserId,
     studyName: StudyName,
     studyId: StudyId
 ) extends NotificationContent("invitedStudy")
 
-object InvitedToStudy:
-  case class InvitedBy(value: String) extends AnyVal with StringValue
-
 case class PrivateMessage(
-    user: PrivateMessage.Sender,
-    text: PrivateMessage.Text
+    user: UserId,
+    text: String
 ) extends NotificationContent("privateMessage")
-
-object PrivateMessage:
-  case class Sender(value: String) extends AnyVal with StringValue
-  case class Text(value: String)   extends AnyVal with StringValue
 
 case class TeamJoined(id: TeamId, name: lila.hub.LightTeam.TeamName) extends NotificationContent("teamJoined")
 
 case class TitledTournamentInvitation(
-    id: String,
+    id: TourId,
     text: String
 ) extends NotificationContent("titledTourney")
 
 case class GameEnd(
     fullId: GameFullId,
-    opponentId: Option[GameEnd.OpponentId],
-    win: Option[GameEnd.Win]
+    opponentId: Option[UserId],
+    win: Option[Win]
 ) extends NotificationContent("gameEnd")
-
-object GameEnd:
-  case class OpponentId(value: String) extends AnyVal
-  case class Win(value: Boolean)       extends AnyVal
 
 case object ReportedBanned extends NotificationContent("reportedBanned")
 

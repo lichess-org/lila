@@ -23,6 +23,9 @@ trait LilaModel extends NewTypes:
   opaque type GamePlayerId = String
   object GamePlayerId extends OpaqueString[GamePlayerId]
 
+  opaque type Win = Boolean
+  object Win extends YesNo[Win]
+
   opaque type TourPlayerId = String
   object TourPlayerId extends OpaqueString[TourPlayerId]
 

@@ -126,7 +126,7 @@ final class CoachApi(
           reviewColl.update.one($id(id), review, upsert = true) >>
             notifyApi.addNotification(
               Notification.make(
-                notifies = Notification.Notifies(coach.id.value),
+                notifies = UserId(coach.id.value),
                 content = lila.notify.CoachReview
               )
             ) >> refreshCoachNbReviews(coach.id) inject review

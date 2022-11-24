@@ -6,7 +6,7 @@ import lila.report.{ Mod, Suspect, Victim }
 final private class ModNotifier(
     notifyApi: NotifyApi,
     reportApi: lila.report.ReportApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   def reporters(mod: Mod, sus: Suspect): Funit =
     reportApi.recentReportersOf(sus) flatMap {
@@ -14,7 +14,7 @@ final private class ModNotifier(
         .map { reporterId =>
           notifyApi.addNotification(
             Notification.make(
-              notifies = Notification.Notifies(reporterId.value),
+              notifies = UserId(reporterId.value),
               content = lila.notify.ReportedBanned
             )
           )
@@ -27,7 +27,7 @@ final private class ModNotifier(
     notifyApi.addNotification {
       given play.api.i18n.Lang = victim.user.realLang | lila.i18n.defaultLang
       Notification.make(
-        notifies = Notification.Notifies(victim.user.id),
+        notifies = UserId(victim.user.id),
         content = lila.notify.RatingRefund(pt.trans, points)
       )
     }.void

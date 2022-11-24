@@ -28,11 +28,11 @@ final private class RoundNotifier(
         case false =>
           notifyApi.addNotification(
             Notification.make(
-              Notification.Notifies(userId),
+              UserId(userId),
               GameEnd(
                 game fullIdOf color,
-                game.opponent(color).userId map GameEnd.OpponentId.apply,
-                game.wonBy(color) map GameEnd.Win.apply
+                UserId from game.opponent(color).userId,
+                Win from game.wonBy(color)
               )
             )
           )

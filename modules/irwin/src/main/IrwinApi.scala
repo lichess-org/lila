@@ -157,7 +157,7 @@ final class IrwinApi(
         modIds
           .map { modId =>
             notifyApi.addNotification(
-              Notification.make(Notification.Notifies(modId.value), IrwinDone(report.suspectId.value))
+              Notification.make(UserId(modId.value), IrwinDone(report.suspectId.value))
             )
           }
           .sequenceFu

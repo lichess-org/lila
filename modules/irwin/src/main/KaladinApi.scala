@@ -149,7 +149,7 @@ final class KaladinApi(
         modIds
           .map { modId =>
             notifyApi.addNotification(
-              Notification.make(Notification.Notifies(modId.value), KaladinDone(user.suspectId.value))
+              Notification.make(UserId(modId.value), KaladinDone(user.suspectId.value))
             )
           }
           .sequenceFu

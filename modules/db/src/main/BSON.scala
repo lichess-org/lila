@@ -76,6 +76,8 @@ object BSON extends Handlers:
 
     inline def contains = doc.contains
 
+    inline def as[A](using r: BSONReader[A]) = r.readTry(doc).get
+
     def debug = BSON debug doc
 
   final class Writer:

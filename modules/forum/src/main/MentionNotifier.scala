@@ -22,8 +22,7 @@ final class MentionNotifier(
   def notifyMentionedUsers(post: Post, topic: Topic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
-        val mentionedBy   = MentionedInThread.MentionedBy(author)
-        val notifications = validUsers.map(createMentionNotification(post, topic, _, mentionedBy))
+        val notifications = validUsers.map(createMentionNotification(post, topic, _, UserId(author)))
         notifyApi.addNotifications(notifications)
       }
     }
@@ -42,13 +41,13 @@ final class MentionNotifier(
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield users.map(Notification.Notifies.apply)
+    } yield Notification.Notifies from users
 
   private def createMentionNotification(
       post: Post,
       topic: Topic,
       mentionedUser: Notification.Notifies,
-      mentionedBy: MentionedInThread.MentionedBy
+      mentionedBy: UserId
   ): Notification =
     val notificationContent = MentionedInThread(
       mentionedBy,
@@ -58,7 +57,7 @@ final class MentionNotifier(
       MentionedInThread.PostId(post.id)
     )
 
-    Notification.make(mentionedUser, notificationContent)
+    Notification.make(mentionedUser into UserId, notificationContent)
 
   private def extractMentionedUsers(post: Post): Set[User.ID] =
     post.text.contains('@') ?? {
