@@ -81,10 +81,6 @@ object Swiss:
   opaque type Round = Int
   object Round extends OpaqueInt[Round]
 
-  case class Points(double: Int) extends AnyVal:
-    def value: Float = double / 2f
-    def +(p: Points) = Points(double + p.double)
-
   opaque type TieBreak = Double
   object TieBreak extends OpaqueDouble[TieBreak]
 
@@ -125,7 +121,7 @@ object Swiss:
     val auto   = -1
     val manual = 99999999
 
-  def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) =
+  def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =
     Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
 
   def makeId = SwissId(lila.common.ThreadLocalRandom nextString 8)

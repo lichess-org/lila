@@ -13,7 +13,7 @@ object BsonHandlers:
 
   given BSONHandler[chess.variant.Variant] = variantByKeyHandler
   given BSONHandler[chess.Clock.Config]    = clockConfigHandler
-  given BSONHandler[Swiss.Points]          = intAnyValHandler(_.double, Swiss.Points.apply)
+  given BSONHandler[SwissPoints]           = intAnyValHandler(_.doubled, SwissPoints.fromDouble)
   given BSONHandler[SwissPlayer.Id]        = stringAnyValHandler(_.value, SwissPlayer.Id.apply)
 
   given BSON[SwissPlayer] with
@@ -25,7 +25,7 @@ object BsonHandlers:
         userId = r str userId,
         rating = r.get[IntRating](rating),
         provisional = r boolD provisional,
-        points = r.get[Swiss.Points](points),
+        points = r.get[SwissPoints](points),
         tieBreak = r.get[Swiss.TieBreak](tieBreak),
         performance = r.getO[Swiss.Performance](performance),
         score = r.get[Swiss.Score](score),

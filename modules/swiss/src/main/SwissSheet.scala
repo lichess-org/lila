@@ -11,10 +11,9 @@ import lila.db.dsl.{ *, given }
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
   import SwissSheet.*
 
-  def points =
-    Swiss.Points {
-      outcomes.foldLeft(0) { case (acc, out) => acc + pointsFor(out) }
-    }
+  def points = SwissPoints fromDouble {
+    outcomes.foldLeft(0) { case (acc, out) => acc + pointsFor(out).doubled }
+  }
 
 private object SwissSheet:
 
@@ -29,11 +28,12 @@ private object SwissSheet:
   case object ForfeitLoss extends Outcome
   case object ForfeitWin  extends Outcome
 
-  def pointsFor(outcome: Outcome) =
+  def pointsFor(outcome: Outcome) = SwissPoints fromDouble {
     outcome match
       case Win | Bye | ForfeitWin => 2
       case Late | Draw            => 1
       case _                      => 0
+  }
 
   def many(
       swiss: Swiss,

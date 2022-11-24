@@ -305,8 +305,8 @@ object SwissJson:
       "user"   -> player.user
     )
 
-  private given Writes[SwissRoundNumber] = Writes(n => JsNumber(n.value))
-  private given Writes[Swiss.Points]      = Writes(p => JsNumber(BigDecimal(p.value)))
+  private given Writes[SwissRoundNumber]  = Writes(n => JsNumber(n.value))
+  private given Writes[SwissPoints]       = Writes(p => JsNumber(BigDecimal(p.value)))
   private given Writes[Swiss.TieBreak]    = Writes(t => JsNumber(t.value))
   private given Writes[Swiss.Performance] = Writes(t => JsNumber(t.value.toInt))
 
