@@ -58,7 +58,7 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
 
 Het wordt beschreven in sectie 3. (d) van de %2$s:
 
-\"Een pion op een veld op dezelfde rij als een pion van een tegenstander op een naastgelegen rij die net twee velden van zijn beginpositie vooruit is gezet, kan de pion van de tegenstander slaan alsof die laatste slechts één veld is verplaatst. Deze manier van slaan is alleen geldig na deze voorgang en dit wordt \"en passant\" slaan genoemd.
+\"Een pion op een veld op dezelfde rij als een pion van een tegenstander op een naastgelegen rij die net twee velden van zijn beginpositie vooruit is gezet, kan de pion van de tegenstander slaan alsof die laatste slechts één veld is verplaatst. Deze manier van slaan is alleen geldig de zet nadat de pion van de tegenstander twee velden vooruitging en dit wordt \"en passant\" slaan genoemd.
 
 Zie de %3$s over deze zet om er wat mee te oefenen.</string>
   <string name="goodIntroduction">goede inleiding</string>
@@ -119,10 +119,10 @@ Een ander punt is dat naarmate de tijd verstrijkt het betrouwbaarheidsinterval g
   <string name="inOrderToAppearsYouMust">Om op de %1$s te komen moet je:</string>
   <string name="ratingLeaderboards">ranglijst</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 partijen hebben gespeeld met een gegeven rating,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">de afgelopen week een partij met rating gespeeld voor deze beoordeling,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">een ratingafwijking hebben van minder dan %1$s, in standaard schaak, en meer dan %2$s in varianten,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">de afgelopen week een partij met rating gespeeld voor deze rating,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">een ratingafwijking hebben van minder dan %1$s, in standaard schaak, en minder dan %2$s in varianten,</string>
   <string name="beInTopTen">deel uitmaken van de top 10 van deze rating.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">De tweede vereiste is dat spelers die hun accounts niet meer gebruiken, niet langer in de scoreborden worden vermeld.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">De tweede vereiste is dat spelers die hun accounts niet meer gebruiken, niet langer in de ranglijsten worden vermeld.</string>
   <string name="whyAreRatingHigher">Waarom zijn de ratings hoger dan bij andere sites en organisaties zoals FIDE, USCF en het ICC?</string>
   <string name="whyAreRatingHigherExplanation">Het beste is om ratings niet als absolute getallen te beschouwen of ze te vergelijken met die van andere organisaties. Verschillende organisaties hebben verschillende niveaus van spelers, verschillende ratingsystemen (Elo, Glicko, Glicko-2, of een aangepaste versie van voornoemde systemen). Deze factoren kunnen de absolute getallen (ratings) drastisch beïnvloeden.
 
@@ -134,7 +134,7 @@ Het is het beste om ratings te zien als \"relatieve\" getallen (in tegenstelling
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Helaas kunnen we de ratingpunten van partijen die verloren gaan door een trage of verbroken verbinding niet teruggeven, ongeacht of het probleem zich aan uw kant of aan onze kant voordeed. Dat laatste is echter zeer zeldzaam. Merk ook op dat wanneer Lichess herstart en je daardoor op tijd verliest, we de partij afbreken om oneerlijk verlies te voorkomen.</string>
   <string name="howToThreeDots">Hoe kan ik...</string>
   <string name="enableDisableNotificationPopUps">Pop-upmeldingen in- of uitschakelen?</string>
-  <string name="viewSiteInformationPopUp">Toon site informatie pop-up</string>
+  <string name="viewSiteInformationPopUp">Pop-up informatie bekijken van de site</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess kan optioneel pop-upmeldingen versturen, bijvoorbeeld wanneer het uw beurt is of wanneer u een privébericht heeft ontvangen.
 
 Klik op het slotje naast het lichess.org-adres in de adresbalk van uw browser.
