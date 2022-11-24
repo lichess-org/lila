@@ -158,6 +158,7 @@
   <string name="viewInFullSize">Tam ekran göster</string>
   <string name="logOut">Çıkış</string>
   <string name="signIn">Giriş</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Oturumumu açık bırak</string>
   <string name="youNeedAnAccountToDoThat">Bunu yapmanız için bir hesaba ihtiyacınız var</string>
   <string name="signUp">Kayıt Ol</string>
   <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncuların oynamasına izin yoktur. Lütfen maçlarda satranç motorlarından, veri tabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmanız kesinlikle önerilmez. Çok fazla hesap açmak, hesapların kapatılmasına neden olacaktır.</string>

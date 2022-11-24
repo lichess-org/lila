@@ -93,6 +93,7 @@
   </plurals>
   <string name="noGameFound">S’u gjet lojë</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
+  <string name="openings">Hapje</string>
   <string name="openingExplorer">Eksplorues hapjesh</string>
   <string name="openingEndgameExplorer">Eksplorues hapjesh/mbylljesh loje</string>
   <string name="xOpeningExplorer">Eksploruesi i hapjeve %s</string>
@@ -153,6 +154,7 @@
   <string name="viewInFullSize">Shiheni në madhësi të plotë</string>
   <string name="logOut">Dilni</string>
   <string name="signIn">Hyni</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Mbamë të futur</string>
   <string name="youNeedAnAccountToDoThat">Ju nevojitet një llogari për ta bërë këtë</string>
   <string name="signUp">Regjistrohuni</string>
   <string name="computersAreNotAllowedToPlay">Kompjuterat dhe lojtarët e ndihmuar nga kompjuteri nuk lejohet të luajnë. Ju lutemi, mos merrni ndihmë nga motorë shahu, baza të dhënash, apo nga lojtarët e tjerë, kur jeni duke luajtur. Vini re gjithashtu se nuk nxitet krijimi i disa llogarive dhe se teprimi në krijimin e disa llogarive do të sjellë dëbim.</string>
@@ -875,6 +877,8 @@ Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga p�
   <string name="cancelTournament">Anulojeni turneun</string>
   <string name="tournDescription">Përshkrim turneu</string>
   <string name="tournDescriptionHelp">Ndonjë gjë e veçantë që dëshironi t’u thoni pjesëmarrësve? Përpiquni të jetë me pak fjalë. Mund të përdoren lidhje Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Lojërat vlerësohen
+dhe ndikojnë te vlerësimet e lojëtarëve</string>
   <string name="onlyMembersOfTeam">Vetëm pjesëmarrës të ekipit</string>
   <string name="noRestriction">Pa kufizim</string>
   <string name="minimumRatedGames">Lojëra të vlerësuara në minimum</string>
@@ -922,6 +926,7 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="youCantStartNewGame">S’mund të filloni një lojë të re pa mbaruar këtë lojë.</string>
   <string name="since">Që nga</string>
   <string name="until">Deri më</string>
+  <string name="lichessDbExplanation">Lojëra me vlerësim, marrë nga krejt lojëtarët e Lichess-it</string>
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
 </resources>
