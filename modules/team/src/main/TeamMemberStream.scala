@@ -35,7 +35,7 @@ final class TeamMemberStream(
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true).some)
       .sort($sort desc "date")
       .batchSize(perSecond.value)
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](temporarilyPrimary)
       .documentSource()
       .grouped(perSecond.value)
       .map(_.flatMap(_.getAsOpt[User.ID]("user")))
