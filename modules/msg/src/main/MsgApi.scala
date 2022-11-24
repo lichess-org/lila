@@ -23,10 +23,7 @@ final class MsgApi(
     security: MsgSecurity,
     shutup: lila.hub.actors.Shutup,
     spam: lila.security.Spam
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
-):
+)(using scala.concurrent.ExecutionContext, akka.stream.Materializer):
 
   val msgsPerPage = MaxPerPage(100)
 
