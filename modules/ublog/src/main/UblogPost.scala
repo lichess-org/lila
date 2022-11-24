@@ -55,8 +55,8 @@ object UblogPost:
     val image: Option[UblogImage]
     val created: Recorded
     val lived: Option[Recorded]
-    def id   = _id
-    def slug = UblogPost slug title
+    inline def id = _id
+    def slug      = UblogPost slug title
 
   case class PreviewPost(
       _id: UblogPost.Id,

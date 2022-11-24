@@ -56,10 +56,10 @@ final class UblogApi(
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
-  def getPost(id: UblogPost.Id): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id.value)
+  def getPost(id: UblogPost.Id): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
   def findByUserBlogOrAdmin(id: UblogPost.Id, user: User): Fu[Option[UblogPost]] =
-    colls.post.byId[UblogPost](id.value) dmap {
+    colls.post.byId[UblogPost](id) dmap {
       _.filter(_.blog == UblogBlog.Id.User(user.id) || Granter(_.ModerateBlog)(user))
     }
 
@@ -99,7 +99,7 @@ final class UblogApi(
       .list(nb)
 
   def postPreview(id: UblogPost.Id) =
-    colls.post.byId[UblogPost.PreviewPost](id.value, previewPostProjection)
+    colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
 
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
 
