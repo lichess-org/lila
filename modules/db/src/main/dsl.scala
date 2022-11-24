@@ -429,7 +429,16 @@ object dsl extends dsl with Handlers:
       coll.find(selector, none[Bdoc]).cursor[D]().list(limit = limit)
 
     def byId[D](using BSONDocumentReader[D]): [I] => I => BSONWriter[I] ?=> Fu[Option[D]] =
-      [I] => (id: I) => one[D]($id(id))
+      [I] =>
+        (id: I) =>
+          // coll.byId[D](id, projection) is treated by scala as byId[D](id -> projection)
+          // because of reactivemongo given tuple2Writer
+          // so we need to check if the ID writes to an array,
+          // then the second value is probably a projection.
+          summon[BSONWriter[I]].writeOpt(id) ?? {
+            case BSONArray(Seq(id, proj: Bdoc)) => byIdProj[D](id, proj)
+            case id                             => one[D]($id(id))
+        }
 
     def byIdProj[D](using BSONDocumentReader[D]): [I] => (I, Bdoc) => BSONWriter[I] ?=> Fu[Option[D]] =
       [I] => (id: I, projection: Bdoc) => one[D]($id(id), projection)
