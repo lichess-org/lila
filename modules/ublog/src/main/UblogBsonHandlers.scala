@@ -19,17 +19,14 @@ private object UblogBsonHandlers:
   )
   given BSONDocumentHandler[UblogBlog] = Macros.handler
 
-  given postIdHandler: BSONHandler[UblogPost.Id] = stringAnyValHandler(_.value, UblogPost.Id.apply)
-  given topicHandler: BSONHandler[UblogTopic]    = stringAnyValHandler[UblogTopic](_.value, UblogTopic.apply)
-  given BSONHandler[Lang]                        = stringAnyValHandler(_.code, Lang.apply)
-  given BSONDocumentHandler[Recorded]            = Macros.handler
-  given BSONDocumentHandler[UblogImage]          = Macros.handler
-  given BSONHandler[Likes]                       = intAnyValHandler(_.value, Likes.apply)
-  given BSONHandler[Views]                       = intAnyValHandler(_.value, Views.apply)
-  given BSONHandler[Rank]                        = dateIsoHandler(Iso(Rank.apply, _.value))
-  given BSONDocumentHandler[UblogPost]           = Macros.handler
-  given BSONDocumentHandler[LightPost]           = Macros.handler
-  given BSONDocumentHandler[PreviewPost]         = Macros.handler
+  given BSONHandler[UblogTopic]          = stringAnyValHandler[UblogTopic](_.value, UblogTopic.apply)
+  given BSONHandler[Lang]                = stringAnyValHandler(_.code, Lang.apply)
+  given BSONDocumentHandler[Recorded]    = Macros.handler
+  given BSONDocumentHandler[UblogImage]  = Macros.handler
+  given BSONHandler[Rank]                = dateIsoHandler(Iso(Rank.apply, _.value))
+  given BSONDocumentHandler[UblogPost]   = Macros.handler
+  given BSONDocumentHandler[LightPost]   = Macros.handler
+  given BSONDocumentHandler[PreviewPost] = Macros.handler
 
   val lightPostProjection = $doc("title" -> true)
   val previewPostProjection =

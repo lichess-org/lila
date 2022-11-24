@@ -73,7 +73,7 @@ final class ActivityReadApi(
       )
       ublogPosts <- a.ublogPosts ?? { p =>
         ublogApi
-          .liveLightsByIds(p.value.map(_.value).map(UblogPost.Id.apply))
+          .liveLightsByIds(p.value)
           .mon(_.user segment "activity.ublogs")
           .dmap(_.some.filter(_.nonEmpty))
       }

@@ -36,7 +36,7 @@ final class UblogMarkup(
 
   def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map(scalatags.Text.all.raw)
 
-  private val cache = cacheApi[(UblogPost.Id, Markdown), Html](2048, "ublog.markup") {
+  private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup") {
     _.maximumSize(2048)
       .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
       .buildAsyncFuture { case (id, markdown) =>
@@ -46,7 +46,7 @@ final class UblogMarkup(
       }
   }
 
-  private def process(id: UblogPost.Id): Markdown => Html = replaceGameGifs.apply andThen
+  private def process(id: UblogPostId): Markdown => Html = replaceGameGifs.apply andThen
     unescapeAtUsername.apply andThen
     renderer(s"ublog:${id}") andThen
     imageParagraph andThen

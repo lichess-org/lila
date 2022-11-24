@@ -43,7 +43,7 @@ object atom:
 
   private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
     frag(
-      tag("id")(post._id),
+      tag("id")(post.id),
       tag("published")(post.lived.map(_.at) map atomDate),
       link(
         rel  := "alternate",

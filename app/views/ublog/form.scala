@@ -56,7 +56,7 @@ object form:
           inner(f, Right(post), none),
           postForm(
             cls    := "ublog-post-form__delete",
-            action := routes.Ublog.delete(post.id.value)
+            action := routes.Ublog.delete(post.id)
           )(
             form3.action(
               submitButton(
@@ -72,7 +72,7 @@ object form:
   private def imageForm(post: UblogPost)(implicit ctx: Context) =
     postForm(
       cls     := "ublog-post-form__image",
-      action  := routes.Ublog.image(post.id.value),
+      action  := routes.Ublog.image(post.id),
       enctype := "multipart/form-data"
     )(
       form3.split(

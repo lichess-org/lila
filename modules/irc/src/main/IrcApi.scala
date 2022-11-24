@@ -141,7 +141,7 @@ final class IrcApi(
 
   def ublogPost(
       user: User,
-      id: String,
+      id: UblogPostId,
       slug: String,
       title: String,
       intro: String

@@ -27,7 +27,6 @@ object activities:
 
   case class UblogPosts(value: List[UblogPostId]) extends AnyVal:
     def +(postId: UblogPostId) = UblogPosts(postId :: value)
-  case class UblogPostId(value: String) extends AnyVal
   given Zero[UblogPosts] = Zero(UblogPosts(Nil))
 
   case class Puzzles(score: Score):

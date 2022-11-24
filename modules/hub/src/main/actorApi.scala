@@ -130,7 +130,7 @@ package timeline:
   case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String)
       extends Atom(s"forum:${~topicId}", false):
     def userIds = List(userId)
-  case class UblogPost(userId: String, id: String, slug: String, title: String)
+  case class UblogPost(userId: String, id: UblogPostId, slug: String, title: String)
       extends Atom(s"ublog:$id", false):
     def userIds = List(userId)
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true):

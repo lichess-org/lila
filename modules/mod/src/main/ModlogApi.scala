@@ -38,7 +38,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     add {
       Modlog.make(mod, sus, Modlog.blogTier, tier.some)
     }
-  def blogPostEdit(mod: Mod, sus: Suspect, postId: String, postName: String, action: String) =
+  def blogPostEdit(mod: Mod, sus: Suspect, postId: UblogPostId, postName: String, action: String) =
     add {
       Modlog.make(mod, sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
     }

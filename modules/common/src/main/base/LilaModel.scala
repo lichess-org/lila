@@ -62,5 +62,8 @@ trait LilaModel extends NewTypes:
   opaque type RoomId = String
   object RoomId extends OpaqueString[RoomId]
 
+  opaque type UblogPostId = String
+  object UblogPostId extends OpaqueString[UblogPostId]
+
   opaque type CacheKey = String
   object CacheKey extends OpaqueString[CacheKey]

@@ -163,7 +163,7 @@ object activity:
         trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
         subTag(posts.map { post =>
           div(
-            a(href := routes.Ublog.post(user.username, post.slug, post.id.value))(shorten(post.title, 120))
+            a(href := routes.Ublog.post(user.username, post.slug, post.id))(shorten(post.title, 120))
           )
         })
       )

@@ -26,7 +26,7 @@ final class UblogRank(
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
-  def like(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
+  def like(postId: UblogPostId, user: User, v: Boolean): Fu[UblogPost.Likes] =
     colls.post.update.one(
       $id(postId),
       if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
@@ -52,7 +52,7 @@ final class UblogRank(
         .map { docOption =>
           for {
             doc      <- docOption
-            id       <- doc.getAsOpt[UblogPost.Id]("_id")
+            id       <- doc.getAsOpt[UblogPostId]("_id")
             likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
             topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
             liveAt   <- doc.getAsOpt[DateTime]("at")

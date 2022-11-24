@@ -75,7 +75,6 @@ private object BSONHandlers:
   private given BSONHandler[ForumPostId] = BSONStringHandler.as(ForumPostId.apply, _.value)
   given BSONHandler[ForumPosts] = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts.apply)
 
-  private given BSONHandler[UblogPostId] = BSONStringHandler.as(UblogPostId.apply, _.value)
   given BSONHandler[UblogPosts] = isoHandler[UblogPosts, List[UblogPostId]](_.value, UblogPosts.apply)
 
   given BSONHandler[Puzzles] = isoHandler[Puzzles, Score](_.score, Puzzles.apply)

@@ -40,11 +40,11 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def post(username: String, slug: String, id: String) = Open { implicit ctx =>
+  def post(username: String, slug: String, id: UblogPostId) = Open { implicit ctx =>
     NotForKids {
       OptionFuResult(env.user.repo named username) { user =>
         env.ublog.api.getUserBlog(user) flatMap { blog =>
-          env.ublog.api.findByIdAndBlog(UblogPost.Id(id), blog.id) flatMap {
+          env.ublog.api.findByIdAndBlog(id, blog.id) flatMap {
             _.filter(canViewPost(user, blog)).fold(notFound) { post =>
               if (slug != post.slug) Redirect(urlOfPost(post)).toFuccess
               else
@@ -62,7 +62,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def discuss(id: String) = Open { implicit ctx =>
+  def discuss(id: UblogPostId) = Open { implicit ctx =>
     NotForKids {
       import lila.forum.Categ.ublogSlug
       val topicSlug = s"ublog-${id}"
@@ -70,7 +70,7 @@ final class Ublog(env: Env) extends LilaController(env):
       env.forum.topicRepo.existsByTree(ublogSlug, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
-          env.ublog.api.getPost(UblogPost.Id(id)) flatMap {
+          env.ublog.api.getPost(id) flatMap {
             _ ?? { post =>
               env.forum.topicApi.makeUblogDiscuss(
                 slug = topicSlug,
@@ -128,17 +128,17 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def edit(id: String) = AuthBody { implicit ctx => me =>
+  def edit(id: UblogPostId) = AuthBody { implicit ctx => me =>
     NotForKids {
-      OptionOk(env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me)) { post =>
+      OptionOk(env.ublog.api.findByUserBlogOrAdmin(id, me)) { post =>
         html.ublog.form.edit(post, env.ublog.form.edit(post))
       }
     }
   }
 
-  def update(id: String) = AuthBody { implicit ctx => me =>
+  def update(id: UblogPostId) = AuthBody { implicit ctx => me =>
     NotForKids {
-      env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
+      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMap {
         _ ?? { prev =>
           env.ublog.form
             .edit(prev)
@@ -156,8 +156,8 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def delete(id: String) = AuthBody { implicit ctx => me =>
-    env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
+  def delete(id: UblogPostId) = AuthBody { implicit ctx => me =>
+    env.ublog.api.findByUserBlogOrAdmin(id, me) flatMap {
       _ ?? { post =>
         env.ublog.api.delete(post) >>
           logModAction(post, "delete") inject
@@ -171,24 +171,24 @@ final class Ublog(env: Env) extends LilaController(env):
       !me.is(post.created.by) ?? {
         env.user.repo.byId(post.created.by) flatMap {
           _ ?? { user =>
-            env.mod.logApi.blogPostEdit(lila.report.Mod(me), Suspect(user), post.id.value, post.title, action)
+            env.mod.logApi.blogPostEdit(lila.report.Mod(me), Suspect(user), post.id, post.title, action)
           }
         }
       }
     }
 
-  def like(id: String, v: Boolean) = Auth { implicit ctx => me =>
+  def like(id: UblogPostId, v: Boolean) = Auth { implicit ctx => me =>
     NoBot {
       NotForKids {
-        env.ublog.rank.like(UblogPost.Id(id), me, v) map { likes =>
+        env.ublog.rank.like(id, me, v) map { likes =>
           Ok(likes.value)
         }
       }
     }
   }
 
-  def redirect(id: String) = Open { implicit ctx =>
-    env.ublog.api.postPreview(UblogPost.Id(id)) flatMap {
+  def redirect(id: UblogPostId) = Open { implicit ctx =>
+    env.ublog.api.postPreview(id) flatMap {
       _.fold(notFound) { post =>
         Redirect(urlOfPost(post)).toFuccess
       }
@@ -223,9 +223,9 @@ final class Ublog(env: Env) extends LilaController(env):
     ("slow", 60, 1.day)
   )
 
-  def image(id: String) =
+  def image(id: UblogPostId) =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
-      env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
+      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMap {
         _ ?? { post =>
           ctx.body.body.file("image") match
             case Some(image) =>

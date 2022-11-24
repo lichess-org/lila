@@ -76,7 +76,7 @@ object UblogForm:
 
     def create(user: User) =
       UblogPost(
-        _id = UblogPost.Id(lila.common.ThreadLocalRandom nextString 8),
+        id = UblogPostId(lila.common.ThreadLocalRandom nextString 8),
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,

@@ -34,7 +34,7 @@ object post:
           `type` = "article",
           image = post.image.isDefined option thumbnail.url(post, _.Large),
           title = post.title,
-          url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id.value)}",
+          url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
           description = post.intro
         )
         .some,
@@ -107,7 +107,7 @@ object post:
           div(cls := "ublog-post__markup expand-text")(markup),
           div(cls := "ublog-post__footer")(
             post.live && ~post.discuss option a(
-              href     := routes.Ublog.discuss(post.id.value),
+              href     := routes.Ublog.discuss(post.id),
               cls      := "button text ublog-post__discuss",
               dataIcon := ""
             )("Discuss this blog post in the forum"),
@@ -139,7 +139,7 @@ object post:
         "ublog-post__like--big button button-big button-red" -> showText,
         "ublog-post__like--mini button-link"                 -> !showText
       ),
-      dataRel := post.id.value,
+      dataRel := post.id,
       title   := text
     )(
       span(cls := "ublog-post__like__nb")(post.likes.value.localize),
@@ -195,9 +195,9 @@ object post:
 
   def urlOfPost(post: UblogPost.BasePost) = post.blog match
     case UblogBlog.Id.User(userId) =>
-      routes.Ublog.post(usernameOrId(userId), post.slug, post.id.value)
+      routes.Ublog.post(usernameOrId(userId), post.slug, post.id)
 
-  def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
+  def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
   private[ublog] def newPostLink(using ctx: Context) = ctx.me map { u =>
     a(

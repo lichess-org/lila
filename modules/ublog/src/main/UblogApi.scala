@@ -43,7 +43,7 @@ final class UblogApi(
       lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
       if (blog.visible)
         timeline ! Propagate(
-          lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
+          lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
         ).toFollowersOf(user.id)
         if (blog.modTier.isEmpty) sendPostToZulip(user, blog, post).unit
     }
@@ -56,14 +56,14 @@ final class UblogApi(
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
-  def getPost(id: UblogPost.Id): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
+  def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
-  def findByUserBlogOrAdmin(id: UblogPost.Id, user: User): Fu[Option[UblogPost]] =
+  def findByUserBlogOrAdmin(id: UblogPostId, user: User): Fu[Option[UblogPost]] =
     colls.post.byId[UblogPost](id) dmap {
       _.filter(_.blog == UblogBlog.Id.User(user.id) || Granter(_.ModerateBlog)(user))
     }
 
-  def findByIdAndBlog(id: UblogPost.Id, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
+  def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
     colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
 
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
@@ -98,7 +98,7 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def postPreview(id: UblogPost.Id) =
+  def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
 
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
@@ -117,13 +117,13 @@ final class UblogApi(
   private def sendPostToZulip(user: User, blog: UblogBlog, post: UblogPost): Funit =
     irc.ublogPost(
       user,
-      id = post.id.value,
+      id = post.id,
       slug = post.slug,
       title = post.title,
       intro = post.intro
     )
 
-  def liveLightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
+  def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
       .find($inIds(ids) ++ $doc("live" -> true), lightPostProjection.some)
       .cursor[UblogPost.LightPost]()
