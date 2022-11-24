@@ -31,10 +31,10 @@ final class DisposableEmailAttempt(
     username <- form("username").value
     if email.domain.exists(disposableApi.apply)
   }
-  val id      = User normalize username
-  val attempt = Attempt(id, email, ip)
-  byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
-  byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
+    val id      = User normalize username
+    val attempt = Attempt(id, email, ip)
+    byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
+    byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
 
   def onSuccess(user: User, email: EmailAddress, ip: IpAddress) =
     val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)

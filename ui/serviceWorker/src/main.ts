@@ -37,7 +37,8 @@ async function handleNotificationClick(event: NotificationEvent) {
   else if (data.threadId) url = '/inbox/' + data.threadId;
   else if (data.challengeId) url = '/' + data.challengeId;
   else if (data.streamerId) url = `/streamer/${data.streamerId}/redirect`;
-  else if (data.forumMention) url = `/forum/redirect/post/${data.postId}`;
+  else if (data.mentionedBy) url = `/forum/redirect/post/${data.postId}`;
+  else if (data.invitedBy) url = `/study/${data.studyId}`;
 
   // focus open window with same url
   for (const client of windowClients) {
