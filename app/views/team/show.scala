@@ -64,7 +64,7 @@ object show:
       main(
         cls := "team-show box",
         socketVersion.map { v =>
-          data("socket-version") := (v: Int)
+          data("socket-version") := v
         }
       )(
         boxTop(
@@ -254,7 +254,7 @@ object show:
 
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =
-    t.id match
+    t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
       case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
       case _ =>

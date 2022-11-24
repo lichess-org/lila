@@ -3,6 +3,7 @@ package lila.racer
 import play.api.libs.json.*
 
 import lila.common.LightUser
+import lila.common.Json.given
 import lila.storm.StormJson
 import lila.storm.StormSign
 

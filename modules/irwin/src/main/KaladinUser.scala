@@ -17,7 +17,7 @@ case class KaladinUser(
     response: Option[KaladinUser.Response] = None
 ):
 
-  def id = _id
+  inline def id = _id
 
   def suspectId = SuspectId(_id)
 

@@ -78,7 +78,7 @@ final class Env(
   )
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id, _))
+    Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id.value, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 
@@ -108,7 +108,7 @@ final class Env(
       def receive = {
         case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
           analyser(
-            GameId(gameId),
+            gameId,
             Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
           ).unit
         case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit

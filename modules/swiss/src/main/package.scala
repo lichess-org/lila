@@ -3,7 +3,7 @@ package lila.swiss
 import lila.user.User
 export lila.Lila.{ *, given }
 
-val lichessTeamId = "lichess-swiss"
+val lichessTeamId = TeamId("lichess-swiss")
 
 type Ranking = Map[lila.user.User.ID, Int]
 

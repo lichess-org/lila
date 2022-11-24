@@ -78,7 +78,7 @@ final class GameStateStream(
         "finishGame",
         "abortGame",
         uniqChan(init.game pov as),
-        Chat chanOf ChatId(id)
+        Chat chanOf id.into(ChatId)
       ) :::
         user.isBot.option(Chat chanOf ChatId(s"$id/w")).toList
 
@@ -93,7 +93,7 @@ final class GameStateStream(
           else self ! SetOnline
         }
         lila.mon.bot.gameStream("start").increment()
-        Bus.publish(Tell(init.game.id, BotConnected(as, v = true)), "roundSocket")
+        Bus.publish(Tell(init.game.id.value, BotConnected(as, v = true)), "roundSocket")
 
       override def postStop(): Unit =
         super.postStop()
@@ -101,7 +101,7 @@ final class GameStateStream(
         // hang around if game is over
         // so the opponent has a chance to rematch
         context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
-          Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
+          Bus.publish(Tell(init.game.id.value, BotConnected(as, v = false)), "roundSocket")
         }
         queue.complete()
         lila.mon.bot.gameStream("stop").increment().unit
@@ -123,7 +123,7 @@ final class GameStateStream(
               // gotta send a message to check if the client has disconnected
               queue offer None
               self ! SetOnline
-              Bus.publish(Tell(id, QuietFlag), "roundSocket")
+              Bus.publish(Tell(id.value, QuietFlag), "roundSocket")
             }
             .unit
 

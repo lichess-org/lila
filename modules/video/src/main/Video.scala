@@ -15,7 +15,7 @@ case class Video(
     createdAt: DateTime
 ):
 
-  def id = _id
+  inline def id = _id
 
   def thumbnail = s"https://img.youtube.com/vi/$id/0.jpg"
 

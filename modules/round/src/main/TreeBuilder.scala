@@ -100,7 +100,7 @@ object TreeBuilder:
     )
 
   private def withAnalysisChild(
-      id: String,
+      id: GameId,
       root: Branch,
       variant: Variant,
       fromFen: FEN,
@@ -130,6 +130,6 @@ object TreeBuilder:
               }
               .setComp
 
-  private val logChessError = (id: String) =>
+  private val logChessError = (id: GameId) =>
     (err: String) =>
       logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")

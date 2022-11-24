@@ -71,11 +71,11 @@ package shutup:
 
   sealed abstract class PublicSource(val parentName: String)
   object PublicSource:
-    case class Tournament(id: String)  extends PublicSource("tournament")
+    case class Tournament(id: TourId)  extends PublicSource("tournament")
     case class Simul(id: SimulId)      extends PublicSource("simul")
     case class Study(id: StudyId)      extends PublicSource("study")
     case class Watcher(gameId: GameId) extends PublicSource("watcher")
-    case class Team(id: String)        extends PublicSource("team")
+    case class Team(id: TeamId)        extends PublicSource("team")
     case class Swiss(id: SwissId)      extends PublicSource("swiss")
 
 package mod:
@@ -123,9 +123,9 @@ package timeline:
     def userIds: List[String]
   case class Follow(u1: String, u2: String) extends Atom("follow", true):
     def userIds = List(u1, u2)
-  case class TeamJoin(userId: String, teamId: String) extends Atom("teamJoin", false):
+  case class TeamJoin(userId: String, teamId: TeamId) extends Atom("teamJoin", false):
     def userIds = List(userId)
-  case class TeamCreate(userId: String, teamId: String) extends Atom("teamCreate", false):
+  case class TeamCreate(userId: String, teamId: TeamId) extends Atom("teamCreate", false):
     def userIds = List(userId)
   case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String)
       extends Atom(s"forum:${~topicId}", false):
@@ -135,15 +135,16 @@ package timeline:
     def userIds = List(userId)
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true):
     def userIds = List(userId)
-  case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String)
+  case class GameEnd(fullId: GameFullId, opponent: Option[String], win: Option[Boolean], perf: String)
       extends Atom("gameEnd", true):
     def userIds = opponent.toList
-  case class SimulCreate(userId: String, simulId: String, simulName: String)
+  case class SimulCreate(userId: String, simulId: SimulId, simulName: String)
       extends Atom("simulCreate", true):
     def userIds = List(userId)
-  case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true):
+  case class SimulJoin(userId: String, simulId: SimulId, simulName: String) extends Atom("simulJoin", true):
     def userIds = List(userId)
-  case class StudyLike(userId: String, studyId: StudyId, studyName: String) extends Atom("studyLike", true):
+  case class StudyLike(userId: String, studyId: StudyId, studyName: StudyName)
+      extends Atom("studyLike", true):
     def userIds = List(userId)
   case class PlanStart(userId: String) extends Atom("planStart", true):
     def userIds = List(userId)
@@ -161,7 +162,7 @@ package timeline:
     case class Users(users: List[String]) extends Propagation
     case class Followers(user: String)    extends Propagation
     case class Friends(user: String)      extends Propagation
-    case class WithTeam(teamId: String)   extends Propagation
+    case class WithTeam(teamId: TeamId)   extends Propagation
     case class ExceptUser(user: String)   extends Propagation
     case class ModsOnly(value: Boolean)   extends Propagation
 
@@ -172,7 +173,7 @@ package timeline:
     def toUser(id: String)               = add(Users(List(id)))
     def toFollowersOf(id: String)        = add(Followers(id))
     def toFriendsOf(id: String)          = add(Friends(id))
-    def withTeam(teamId: Option[String]) = teamId.fold(this)(id => add(WithTeam(id)))
+    def withTeam(teamId: Option[TeamId]) = teamId.fold(this)(id => add(WithTeam(id)))
     def exceptUser(id: String)           = add(ExceptUser(id))
     def modsOnly(value: Boolean)         = add(ModsOnly(value))
     private def add(p: Propagation)      = copy(propagations = p :: propagations)
@@ -184,20 +185,20 @@ package notify:
   case class NotifiedBatch(userIds: Iterable[String])
 
 package team:
-  case class CreateTeam(id: String, name: String, userId: String)
-  case class JoinTeam(id: String, userId: String)
-  case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
+  case class CreateTeam(id: TeamId, name: String, userId: String)
+  case class JoinTeam(id: TeamId, userId: String)
+  case class IsLeader(id: TeamId, userId: String, promise: Promise[Boolean])
   case class IsLeaderOf(leaderId: String, memberId: String, promise: Promise[Boolean])
-  case class KickFromTeam(teamId: String, userId: String)
-  case class LeaveTeam(teamId: String, userId: String)
-  case class TeamIdsJoinedBy(userId: String, promise: Promise[List[LightTeam.TeamID]])
+  case class KickFromTeam(teamId: TeamId, userId: String)
+  case class LeaveTeam(teamId: TeamId, userId: String)
+  case class TeamIdsJoinedBy(userId: String, promise: Promise[List[TeamId]])
 
 package fishnet:
   case class AutoAnalyse(gameId: GameId)
   case class NewKey(userId: String, key: String)
   case class StudyChapterRequest(
       studyId: StudyId,
-      chapterId: String,
+      chapterId: StudyChapterId,
       initialFen: Option[chess.format.FEN],
       variant: chess.variant.Variant,
       moves: List[Uci],
@@ -231,11 +232,7 @@ package round:
   case class CorresTakebackOfferEvent(gameId: GameId)
   case class CorresDrawOfferEvent(gameId: GameId)
   case class BoardDrawEvent(gameId: GameId)
-  case class SimulMoveEvent(
-      move: MoveEvent,
-      simulId: String,
-      opponentUserId: String
-  )
+  case class SimulMoveEvent(move: MoveEvent, simulId: SimulId, opponentUserId: String)
   case class Berserk(gameId: GameId, userId: String)
   case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
   case class TourStandingOld(data: JsArray)

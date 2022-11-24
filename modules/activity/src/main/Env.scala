@@ -18,7 +18,7 @@ final class Env(
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
-    getTeamName: lila.team.GetTeamName,
+    getTeamName: lila.team.GetTeamNameSync,
     teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi,
     lightUserApi: lila.user.LightUserApi

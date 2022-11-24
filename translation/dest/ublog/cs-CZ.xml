@@ -27,6 +27,7 @@
   <string name="uploadAnImageForYourPost">Nahrát obrázek pro váš příspěvek</string>
   <string name="imageAlt">Alternativní text obrázku</string>
   <string name="imageCredit">Zdroj obrázku</string>
+  <string name="deleteBlog">Definitivně smazat tento blogový příspěvek</string>
   <string name="deleteImage">Smazat obrázek</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Je bezpečné používat obrázky z těchto stránek: </string>
 </resources>

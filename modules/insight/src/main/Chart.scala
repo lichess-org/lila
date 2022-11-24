@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.LightUser
+import lila.common.Json.given
 
 case class Chart(
     question: JsonQuestion,

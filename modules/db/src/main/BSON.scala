@@ -39,42 +39,42 @@ object BSON extends Handlers:
 
   final class Reader(val doc: Bdoc):
 
-    def get[A: BSONReader](k: String): A =
+    inline def get[A: BSONReader](k: String): A =
       doc.getAsTry[A](k).get
-    def getO[A: BSONReader](k: String): Option[A] =
+    inline def getO[A: BSONReader](k: String): Option[A] =
       doc.getAsOpt[A](k)
-    def getD[A](k: String)(using zero: Zero[A], reader: BSONReader[A]): A =
+    inline def getD[A](k: String)(using zero: Zero[A], reader: BSONReader[A]): A =
       doc.getAsOpt[A](k) getOrElse zero.zero
-    def getD[A: BSONReader](k: String, default: => A): A =
+    inline def getD[A: BSONReader](k: String, default: => A): A =
       doc.getAsOpt[A](k) getOrElse default
-    def getsD[A: BSONReader](k: String) =
+    inline def getsD[A: BSONReader](k: String) =
       doc.getAsOpt[List[A]](k) getOrElse Nil
 
-    def str(k: String)                         = get[String](k)(using BSONStringHandler)
-    def strO(k: String)                        = getO[String](k)(using BSONStringHandler)
-    def strD(k: String)                        = strO(k) getOrElse ""
-    def int(k: String)                         = get[Int](k)
-    def intO(k: String)                        = getO[Int](k)
-    def intD(k: String)                        = intO(k) getOrElse 0
-    def double(k: String)                      = get[Double](k)
-    def doubleO(k: String)                     = getO[Double](k)
-    def floatO(k: String)                      = getO[Float](k)
-    def bool(k: String)                        = get[Boolean](k)
-    def boolO(k: String)                       = getO[Boolean](k)
-    def boolD(k: String)                       = boolO(k) getOrElse false
-    def date(k: String)                        = get[DateTime](k)
-    def dateO(k: String)                       = getO[DateTime](k)
-    def dateD(k: String, default: => DateTime) = getD(k, default)
-    def bytes(k: String)                       = get[ByteArray](k)
-    def bytesO(k: String)                      = getO[ByteArray](k)
-    def bytesD(k: String)                      = bytesO(k) getOrElse ByteArray.empty
-    def nInt(k: String)                        = get[BSONNumberLike](k).toInt.get
-    def nIntO(k: String): Option[Int]          = getO[BSONNumberLike](k) flatMap (_.toInt.toOption)
-    def nIntD(k: String): Int                  = nIntO(k) getOrElse 0
-    def intsD(k: String)                       = getO[List[Int]](k) getOrElse Nil
-    def strsD(k: String)                       = getO[List[String]](k) getOrElse Nil
+    inline def str(k: String)                         = get[String](k)(using BSONStringHandler)
+    inline def strO(k: String)                        = getO[String](k)(using BSONStringHandler)
+    inline def strD(k: String)                        = strO(k) getOrElse ""
+    inline def int(k: String)                         = get[Int](k)
+    inline def intO(k: String)                        = getO[Int](k)
+    inline def intD(k: String)                        = intO(k) getOrElse 0
+    inline def double(k: String)                      = get[Double](k)
+    inline def doubleO(k: String)                     = getO[Double](k)
+    inline def floatO(k: String)                      = getO[Float](k)
+    inline def bool(k: String)                        = get[Boolean](k)
+    inline def boolO(k: String)                       = getO[Boolean](k)
+    inline def boolD(k: String)                       = boolO(k) getOrElse false
+    inline def date(k: String)                        = get[DateTime](k)
+    inline def dateO(k: String)                       = getO[DateTime](k)
+    inline def dateD(k: String, default: => DateTime) = getD(k, default)
+    inline def bytes(k: String)                       = get[ByteArray](k)
+    inline def bytesO(k: String)                      = getO[ByteArray](k)
+    inline def bytesD(k: String)                      = bytesO(k) getOrElse ByteArray.empty
+    inline def nInt(k: String)                        = get[BSONNumberLike](k).toInt.get
+    inline def nIntO(k: String): Option[Int]          = getO[BSONNumberLike](k) flatMap (_.toInt.toOption)
+    inline def nIntD(k: String): Int                  = nIntO(k) getOrElse 0
+    inline def intsD(k: String)                       = getO[List[Int]](k) getOrElse Nil
+    inline def strsD(k: String)                       = getO[List[String]](k) getOrElse Nil
 
-    def contains = doc.contains
+    inline def contains = doc.contains
 
     def debug = BSON debug doc
 

@@ -12,17 +12,11 @@ import lila.db.dsl.{ *, given }
 import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
-import lila.report.Mod
-import lila.report.ModId
-import lila.report.Report
-import lila.report.Reporter
-import lila.report.Suspect
-import lila.tournament.Tournament
-import lila.tournament.TournamentTop
-import lila.user.Holder
-import lila.user.User
-import lila.user.UserRepo
+import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
+import lila.tournament.{ Tournament, TournamentTop }
+import lila.user.{ User, Holder, UserRepo }
 import lila.report.SuspectId
+import lila.common.config.Max
 
 final class KaladinApi(
     coll: AsyncColl,
@@ -34,17 +28,14 @@ final class KaladinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   import BSONHandlers.given
 
   lazy val thresholds = IrwinThresholds.makeSetting("kaladin", settingStore)
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 512, timeout = 2 minutes, name = "kaladinApi")
+    lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 2 minutes, name = "kaladinApi")
 
   private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
     workQueue { coll(_.byId[KaladinUser](user.id.value)) flatMap f }

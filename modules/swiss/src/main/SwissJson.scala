@@ -61,7 +61,7 @@ final class SwissJson(
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)
       )
-      .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id)))
+      .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
       .add("me" -> myInfo.map(myInfoJson))
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
       .add("socketVersion" -> socketVersion)

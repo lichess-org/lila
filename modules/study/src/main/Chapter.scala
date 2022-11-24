@@ -105,7 +105,7 @@ object Chapter:
     val _id: StudyChapterId
     val name: StudyChapterName
     val setup: Chapter.Setup
-    def id = _id
+    inline def id = _id
 
     def initialPosition = Position.Ref(id, Path.root)
 
@@ -158,9 +158,9 @@ object Chapter:
   def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
 
   private val defaultNameRegex           = """Chapter \d+""".r
-  def isDefaultName(n: StudyChapterName) = n.isEmpty || defaultNameRegex.matches(n)
+  def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
-  def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n) take 80)
+  def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value) take 80)
 
   val idSize = 8
 

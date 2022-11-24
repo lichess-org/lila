@@ -238,7 +238,7 @@ final private class RelayFetch(
 
 private object RelayFetch:
 
-  case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[RelayRound.Id])
+  case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[RelayRoundId])
 
   def maxChapters(tour: RelayTour) =
     lila.study.Study.maxChapters * (if (tour.official) 2 else 1)

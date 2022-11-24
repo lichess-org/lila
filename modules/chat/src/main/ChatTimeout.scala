@@ -16,13 +16,13 @@ final class ChatTimeout(
 
   import ChatTimeout.*
 
-  private val global = new lila.memo.ExpireSetMemo[String](duration)
+  private val global = new lila.memo.ExpireSetMemo[UserId](duration)
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
     isActive(chat.id, user.id) flatMap {
       case true => fuccess(false)
       case false =>
-        if (scope == Scope.Global) global put user.id
+        if (scope == Scope.Global) global put UserId(user.id)
         coll.insert
           .one(
             $doc(
@@ -38,7 +38,7 @@ final class ChatTimeout(
     }
 
   def isActive(chatId: ChatId, userId: User.ID): Fu[Boolean] =
-    fuccess(global.get(userId)) >>| coll.exists(
+    fuccess(global.get(UserId(userId))) >>| coll.exists(
       $doc(
         "chat" -> chatId,
         "user" -> userId,

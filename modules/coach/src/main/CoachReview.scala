@@ -16,7 +16,7 @@ case class CoachReview(
     moddedAt: Option[DateTime] = None // a mod disapproved it
 ):
 
-  def id = _id
+  inline def id = _id
 
   def pendingApproval = !approved && moddedAt.isEmpty
 

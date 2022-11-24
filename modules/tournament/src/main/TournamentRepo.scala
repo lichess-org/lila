@@ -7,7 +7,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.common.config.CollName
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam.TeamID
 import lila.user.User
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
@@ -21,8 +20,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   private[tournament] val finishedSelect       = $doc("status" -> Status.Finished.id)
   private val unfinishedSelect                 = $doc("status" $ne Status.Finished.id)
   private[tournament] val scheduledSelect      = $doc("schedule" $exists true)
-  private def forTeamSelect(id: TeamID)        = $doc("forTeams" -> id)
-  private def forTeamsSelect(ids: Seq[TeamID]) = $doc("forTeams" $in ids)
+  private def forTeamSelect(id: TeamId)        = $doc("forTeams" -> id)
+  private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams" $in ids)
   private def sinceSelect(date: DateTime)      = $doc("startsAt" $gt date)
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
@@ -123,13 +122,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
 
-  def byTeamCursor(teamId: TeamID) =
+  def byTeamCursor(teamId: TeamId) =
     coll
       .find(forTeamSelect(teamId))
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
 
-  private[tournament] def upcomingByTeam(teamId: TeamID, nb: Int) =
+  private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) =
     (nb > 0) ?? coll
       .find(
         forTeamSelect(teamId) ++ enterableSelect ++ $doc(
@@ -140,22 +139,22 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       .cursor[Tournament]()
       .list(nb)
 
-  private[tournament] def finishedByTeam(teamId: TeamID, nb: Int) =
+  private[tournament] def finishedByTeam(teamId: TeamId, nb: Int) =
     (nb > 0) ?? coll
       .find(forTeamSelect(teamId) ++ finishedSelect)
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
       .list(nb)
 
-  private[tournament] def setForTeam(tourId: Tournament.ID, teamId: TeamID) =
+  private[tournament] def setForTeam(tourId: Tournament.ID, teamId: TeamId) =
     coll.update.one($id(tourId), $addToSet("forTeams" -> teamId))
 
-  def isForTeam(tourId: Tournament.ID, teamId: TeamID) =
+  def isForTeam(tourId: Tournament.ID, teamId: TeamId) =
     coll.exists($id(tourId) ++ $doc("forTeams" -> teamId))
 
   private[tournament] def withdrawableIds(
       userId: User.ID,
-      teamId: Option[TeamID] = None,
+      teamId: Option[TeamId] = None,
       reason: String
   ): Fu[List[Tournament.ID]] =
     coll
@@ -203,7 +202,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def scheduledStarted: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect)
 
-  def visibleForTeams(teamIds: Seq[TeamID], aheadMinutes: Int) =
+  def visibleForTeams(teamIds: Seq[TeamId], aheadMinutes: Int) =
     coll.list[Tournament](
       startingSoonSelect(aheadMinutes) ++ forTeamsSelect(teamIds),
       ReadPreference.secondaryPreferred

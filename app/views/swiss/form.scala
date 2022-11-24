@@ -6,13 +6,12 @@ import play.api.data.Form
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.LightTeam.TeamID
 import lila.swiss.{ Swiss, SwissCondition, SwissForm }
 import lila.tournament.TournamentForm
 
 object form:
 
-  def create(form: Form[?], teamId: TeamID)(implicit ctx: Context) =
+  def create(form: Form[?], teamId: TeamId)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),

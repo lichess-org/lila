@@ -57,7 +57,7 @@ private case class WaitingUsers(
   def hasUser(userId: User.ID) = hash contains userId
 
   def addApiUser(userId: User.ID) =
-    val memo = apiUsers | new ExpireSetMemo(70 seconds)
+    val memo = apiUsers | new ExpireSetMemo(70 seconds)(using stringIsString)
     memo put userId
     if (apiUsers.isEmpty) copy(apiUsers = memo.some) else this
 

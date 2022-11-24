@@ -8,15 +8,12 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 final private class ChallengeSocket(
     api: ChallengeApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode
-):
+)(using scala.concurrent.ExecutionContext, play.api.Mode):
 
   import ChallengeSocket.*
 
   def reload(challengeId: Challenge.ID): Unit =
-    rooms.tell(challengeId, NotifyVersion("reload", JsNull))
+    rooms.tell(RoomId(challengeId), NotifyVersion("reload", JsNull))
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply
 

@@ -12,6 +12,7 @@ import lila.common.Chronometer
 import lila.memo.FrequencyThreshold
 import lila.user.User
 import play.api.ConfigLoader
+import lila.common.config.Max
 
 final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
@@ -24,7 +25,7 @@ final private class FirebasePush(
 ):
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 512, timeout = 10 seconds, name = "firebasePush")
+    lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: User.ID, data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>
@@ -49,8 +50,9 @@ final private class FirebasePush(
       }
     }
 
-  private type StatusCode = Int
-  private val errorCounter = new FrequencyThreshold[StatusCode](50, 10 minutes)
+  opaque type StatusCode = Int
+  object StatusCode extends OpaqueInt[StatusCode]
+  private val errorCounter = FrequencyThreshold[StatusCode](50, 10 minutes)
 
   private def send(token: AccessToken, device: Device, data: => PushApi.Data): Funit =
     ws.url(config.url)

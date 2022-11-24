@@ -16,9 +16,9 @@ import lila.common.config.MaxPerSecond
 import lila.common.{ Bus, GreatPlayer, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
-import lila.hub.LightTeam.TeamID
 import lila.round.actorApi.round.QuietFlag
 import lila.user.{ User, UserRepo }
+import lila.common.config.Max
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -44,7 +44,7 @@ final class SwissApi(
 ):
 
   private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
-    maxSize = 1024, // queue many game finished events
+    maxSize = Max(1024), // queue many game finished events
     expiration = 20 minutes,
     timeout = 10 seconds,
     name = "swiss.api"
@@ -54,7 +54,7 @@ final class SwissApi(
 
   def fetchByIdNoCache(id: SwissId) = mongo.swiss.byId[Swiss](id)
 
-  def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] =
+  def create(data: SwissForm.SwissData, me: User, teamId: TeamId): Fu[Swiss] =
     val swiss = Swiss(
       _id = Swiss.makeId,
       name = data.name | GreatPlayer.randomName,
@@ -169,7 +169,7 @@ final class SwissApi(
       case None       => fuccess(swiss.settings.conditions.accepted)
       case Some(user) => verify(swiss, user)
 
-  def join(id: SwissId, me: User, isInTeam: TeamID => Boolean, password: Option[String]): Fu[Boolean] =
+  def join(id: SwissId, me: User, isInTeam: TeamId => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
       if (
         swiss.settings.password.forall(p =>
@@ -207,12 +207,12 @@ final class SwissApi(
         .mapConcat(_.getAsOpt[GameId]("_id").toList)
     }
 
-  def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
+  def featuredInTeam(teamId: TeamId): Fu[List[Swiss]] =
     cache.featuredInTeam.get(teamId) flatMap { ids =>
       mongo.swiss.byOrderedIds[Swiss, SwissId](ids)(_.id)
     }
 
-  def visibleByTeam(teamId: TeamID, nbPast: Int, nbSoon: Int): Fu[Swiss.PastAndNext] =
+  def visibleByTeam(teamId: TeamId, nbPast: Int, nbSoon: Int): Fu[Swiss.PastAndNext] =
     (nbPast > 0).?? {
       mongo.swiss
         .find($doc("teamId" -> teamId, "finishedAt" $exists true))
@@ -329,17 +329,17 @@ final class SwissApi(
       }
     }
 
-  private[swiss] def leaveTeam(teamId: TeamID, userId: User.ID) =
+  private[swiss] def leaveTeam(teamId: TeamId, userId: User.ID) =
     joinedPlayableSwissIds(userId, List(teamId))
       .flatMap { kickFromSwissIds(userId, _) }
 
   private[swiss] def kickLame(userId: User.ID) =
     Bus
-      .ask[List[TeamID]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
+      .ask[List[TeamId]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
       .flatMap { joinedPlayableSwissIds(userId, _) }
       .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 
-  def joinedPlayableSwissIds(userId: User.ID, teamIds: List[TeamID]): Fu[List[SwissId]] =
+  def joinedPlayableSwissIds(userId: User.ID, teamIds: List[TeamId]): Fu[List[SwissId]] =
     mongo.swiss
       .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
         import framework.*
@@ -514,14 +514,14 @@ final class SwissApi(
 
   def roundInfo = cache.roundInfo.get
 
-  def byTeamCursor(teamId: TeamID) =
+  def byTeamCursor(teamId: TeamId) =
     mongo.swiss
       .find($doc("teamId" -> teamId))
       .sort($sort desc "startsAt")
       .cursor[Swiss]()
 
-  def teamOf(id: SwissId): Fu[Option[TeamID]] =
-    mongo.swiss.primitiveOne[TeamID]($id(id), "teamId")
+  def teamOf(id: SwissId): Fu[Option[TeamId]] =
+    mongo.swiss.primitiveOne[TeamId]($id(id), "teamId")
 
   private def recomputeAndUpdateAll(id: SwissId): Funit =
     scoring(id).flatMap {
@@ -613,7 +613,7 @@ final class SwissApi(
               lila.mon.swiss.games("flagged").record(flagged.size)
               lila.mon.swiss.games("missing").record(missingIds.size)
               if (flagged.nonEmpty)
-                Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
+                Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag), "roundSocket")
               if (missingIds.nonEmpty)
                 mongo.pairing.delete.one($inIds(missingIds))
               finished
@@ -625,9 +625,9 @@ final class SwissApi(
       }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(ChatId(id), text, _.Swiss, isVolatile = volatile)
+    chatApi.userChat.service(id into ChatId, text, _.Swiss, isVolatile = volatile)
 
-  def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
+  def withdrawAll(user: User, teamIds: List[TeamId]): Funit =
     mongo.swiss
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*

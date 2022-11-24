@@ -9,6 +9,7 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.common.Iso
+import lila.common.config.Max
 
 case class StudyTopic(value: String) extends AnyVal with StringValue
 
@@ -137,8 +138,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   private def docTopic(doc: Bdoc): Option[StudyTopic] =
     doc.getAsOpt[StudyTopic]("_id")
 
-  private val recomputeWorkQueue = new lila.hub.AsyncActorSequencer(
-    maxSize = 1,
+  private val recomputeWorkQueue = lila.hub.AsyncActorSequencer(
+    maxSize = Max(1),
     timeout = 61 seconds,
     name = "studyTopicAggregation",
     logging = false

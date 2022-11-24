@@ -15,7 +15,7 @@ case class Patron(
     lastLevelUp: Option[DateTime] = None
 ):
 
-  def id = _id
+  inline def id = _id
 
   def userId = _id.value
 

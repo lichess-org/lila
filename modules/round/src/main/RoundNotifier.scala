@@ -16,10 +16,10 @@ final private class RoundNotifier(
       game.perfType foreach { perfType =>
         timeline ! (Propagate(
           TLGameEnd(
-            playerId = game fullIdOf color,
+            fullId = game fullIdOf color,
             opponent = game.player(!color).userId,
             win = game.winnerColor map (color ==),
-            perf = perfType.key
+            perf = perfType.key.value
           )
         ) toUser userId)
       }

@@ -13,7 +13,7 @@ object bits:
 
   import trans.team.*
 
-  def link(teamId: Team.ID): Frag =
+  def link(teamId: TeamId): Frag =
     a(href := routes.Team.show(teamId))(teamIdToName(teamId))
 
   def link(team: Team): Frag =

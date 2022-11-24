@@ -19,6 +19,7 @@ import lila.rating.PerfType
 import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame }
 import lila.user.User
 import chess.Clock
+import lila.common.config.Max
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
@@ -43,8 +44,8 @@ final class ChallengeBulkApi(
 
   private val coll = colls.bulk
 
-  private val workQueue = AsyncActorSequencers[User.ID](
-    maxSize = 16,
+  private val workQueue = AsyncActorSequencers[UserId](
+    maxSize = Max(16),
     expiration = 10 minutes,
     timeout = 10 seconds,
     name = "challenge.bulk"
@@ -61,7 +62,7 @@ final class ChallengeBulkApi(
       .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", DateTime.now)
       .map(_.n == 1)
 
-  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
+  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(UserId(bulk.by)) {
     coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
       val nbGames = bulks.map(_.games.size).sum
       if (bulks.sizeIs >= 10) fuccess(Left("Already too many bulks queued"))
@@ -78,7 +79,7 @@ final class ChallengeBulkApi(
   private def checkForPairing: Funit =
     coll.one[ScheduledBulk]($doc("pairAt" $lte DateTime.now, "pairedAt" $exists false)) flatMap {
       _ ?? { bulk =>
-        workQueue(bulk.by) {
+        workQueue(UserId(bulk.by)) {
           makePairings(bulk).void
         }
       }
@@ -87,14 +88,14 @@ final class ChallengeBulkApi(
   private def checkForClocks: Funit =
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte DateTime.now, "pairedAt" $exists true)) flatMap {
       _ ?? { bulk =>
-        workQueue(bulk.by) {
+        workQueue(UserId(bulk.by)) {
           startClocksNow(bulk)
         }
       }
     }
 
   private def startClocksNow(bulk: ScheduledBulk): Funit =
-    Bus.publish(TellMany(bulk.games.map(_.id), lila.round.actorApi.round.StartClock), "roundSocket")
+    Bus.publish(TellMany(bulk.games.map(_.id.value), lila.round.actorApi.round.StartClock), "roundSocket")
     coll.delete.one($id(bulk._id)).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =

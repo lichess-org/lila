@@ -164,12 +164,12 @@ final class Study(
     }
     Ok(Json.obj("paginator" -> PaginatorJson(pager))).toFuccess
 
-  private def orRelay(id: StudyId, chapterId: Option[String] = None)(
+  private def orRelay(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.RelayRound.Id(id)) flatMap {
+    if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(id into RelayRoundId) flatMap {
       _.fold(f) { rt =>
-        Redirect(chapterId.map(StudyChapterId.apply).fold(rt.path)(rt.path)).toFuccess
+        Redirect(chapterId.fold(rt.path)(rt.path)).toFuccess
       }
     }
     else f
@@ -247,14 +247,14 @@ final class Study(
       }
     }
 
-  def chapter(id: StudyId, chapterId: String) =
+  def chapter(id: StudyId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
       orRelay(id, chapterId.some) {
         showQuery(env.study.api.byIdWithChapter(id, chapterId))
       }
     }
 
-  def chapterMeta(id: StudyId, chapterId: String) =
+  def chapterMeta(id: StudyId, chapterId: StudyChapterId) =
     Open { _ =>
       env.study.chapterRepo.byId(chapterId).map {
         _.filter(_.studyId == id) ?? { chapter =>
@@ -319,7 +319,7 @@ final class Study(
     Auth { _ => me =>
       env.study.api.byIdAndOwnerOrAdmin(id, me) flatMap {
         _ ?? { study =>
-          env.study.api.delete(study) >> env.relay.api.deleteRound(lila.relay.RelayRound.Id(id)).map {
+          env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
             case None       => Redirect(routes.Study.mine("hot"))
             case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
           }
@@ -359,10 +359,10 @@ final class Study(
                                                 else Redirect(routes.Study.show(id)))
     }
 
-  def embed(id: StudyId, chapterId: String) =
+  def embed(id: StudyId, chapterId: StudyChapterId) =
     Action.async { implicit req =>
       val studyWithChapter =
-        if (chapterId == "autochap") env.study.api.byIdWithChapter(id)
+        if (chapterId.value == "autochap") env.study.api.byIdWithChapter(id)
         else env.study.api.byIdWithChapter(id, chapterId)
       studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
         _.fold(embedNotFound) { case WithChapter(study, chapter) =>
@@ -476,7 +476,7 @@ final class Study(
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
 
-  def chapterPgn(id: StudyId, chapterId: String) =
+  def chapterPgn(id: StudyId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
@@ -528,7 +528,7 @@ final class Study(
       clocks = getBoolOpt("clocks", req) | true
     )
 
-  def chapterGif(id: StudyId, chapterId: String, theme: Option[String], piece: Option[String]) =
+  def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>

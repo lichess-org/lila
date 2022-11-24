@@ -9,7 +9,6 @@ import scala.util.chaining.*
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
-import lila.hub.LightTeam.TeamID
 import lila.security.{ Granter as MasterGranter }
 import lila.user.User
 
@@ -176,7 +175,7 @@ final class PostApi(
 
   def nbByUser(userId: String) = postRepo.coll.countSel($doc("userId" -> userId))
 
-  def categsForUser(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
+  def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     for {
       categs <- categRepo visibleWithTeams teams
       views <- categs.map { categ =>
@@ -215,10 +214,10 @@ final class PostApi(
         indexer ! RemovePosts(ids)
       }
 
-  def teamIdOfPostId(postId: Post.ID): Fu[Option[TeamID]] =
+  def teamIdOfPostId(postId: Post.ID): Fu[Option[TeamId]] =
     postRepo.coll.byId[Post](postId) flatMap {
       _ ?? { post =>
-        categRepo.coll.primitiveOne[TeamID]($id(post.categId), "team")
+        categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
       }
     }
 

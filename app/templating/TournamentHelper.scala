@@ -27,14 +27,14 @@ trait TournamentHelper extends HasEnv:
       }
     }
 
-  def tournamentLink(tour: Tournament)(using lang: Lang): Frag =
+  def tournamentLink(tour: Tournament)(using Lang): Frag =
     a(
       dataIcon := "",
       cls      := (if (tour.isScheduled) "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id).url
     )(tour.name())
 
-  def tournamentLink(tourId: String)(using lang: Lang): Frag =
+  def tournamentLink(tourId: String)(using Lang): Frag =
     a(
       dataIcon := "",
       cls      := "text",

@@ -29,6 +29,7 @@
   <string name="otherAmount">Басқа</string>
   <string name="pleaseEnterAmountInX">Мөлшерін %s-мен жазыңыз</string>
   <string name="withCreditCard">Банк картасы</string>
+  <string name="logInToDonate">Тіркелгіге кіріңіз</string>
   <string name="weAreSmallTeam">Біз шағын ғана топпыз, сондықтан сіздің жәрдеміңіз зор пайда болады!</string>
   <string name="celebratedPatrons">Личесті жоқтан болдырған атақты Қамқоршыларымыз</string>
   <string name="whereMoneyGoes">Ақша қайда жұмсалады?</string>
@@ -42,7 +43,9 @@
 Немесе %s.</string>
   <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
   <string name="otherMethods">Демеу берудің басқа жолдары бар ма?</string>
+  <string name="lichessIsRegisteredWith">Личес %s-мен тіркелген.</string>
   <string name="bankTransfers">Сонымен қатар банк аударымдарын қабылдаймыз</string>
+  <string name="onlyDonationFromAbove">Ескерту: Қамқоршы мәртебесі тек осы демеушілік формасын толтыруымен ғана болады.</string>
   <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
   <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей, мәңгі тегін. Бұл біздің уәдеміз.
 Дегенмен, Қамқоршылар өз куәлігінде күшті таңбашаға ие болады.</string>
@@ -61,7 +64,7 @@
   <string name="update">Жаңарту</string>
   <string name="changeMonthlyAmount">Айлық мөлшерін өзгерту (%s)</string>
   <string name="cancelSupport">қолдауды тоқтату</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s немесе %2$s</string>
+  <string name="xOrY">%1$s немесе %2$s</string>
   <string name="decideHowMuch">Личес сізге қаншалықты бағалы:</string>
   <string name="stopPayments">Банк картасын ажыратып, төлемдерді тоқтату:</string>
   <string name="stopPaymentsPayPal">PayPal жазылым мен төлемдерін тоқтату:</string>

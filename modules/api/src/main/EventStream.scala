@@ -8,6 +8,7 @@ import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
 import lila.common.Bus
+import lila.common.Json.given
 import lila.game.actorApi.{ FinishGame, StartGame }
 import lila.game.{ Game, Pov, Rematches }
 import lila.user.{ LightUserApi, User, UserRepo }

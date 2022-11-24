@@ -7,6 +7,7 @@ import lila.hub.LightTeam.*
 import lila.i18n.I18nKeys as trans
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
+import lila.common.Json.given
 
 sealed trait Condition:
 
@@ -100,9 +101,9 @@ object Condition:
 
     def name(using lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
 
-  case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition:
+  case class TeamMember(teamId: TeamId, teamName: TeamName) extends Condition:
     def name(using lang: Lang) = trans.mustBeInTeam.txt(teamName)
-    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
+    def apply(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
         ec: scala.concurrent.ExecutionContext
     ) =
       getUserTeamIds(user) map { userTeamIds =>
@@ -144,7 +145,7 @@ object Condition:
 
     def withVerdicts(
         getMaxRating: GetMaxRating
-    )(user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
+    )(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       list.map {
@@ -153,7 +154,7 @@ object Condition:
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.sequenceFu dmap All.WithVerdicts.apply
 
-    def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
+    def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       list.map {
@@ -186,16 +187,16 @@ object Condition:
       def accepted = list.forall(_.verdict.accepted)
 
   final class Verify(historyApi: lila.history.HistoryApi):
-    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
+    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
-    def rejoin(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(using
+    def rejoin(all: All, user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       all.withRejoinVerdicts(user, getUserTeamIds)
-    def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
+    def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamId]])(
         tour: Tournament
     )(using ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
       apply(tour.conditions, user, getUserTeamIds).dmap(_.accepted)
@@ -298,10 +299,10 @@ object Condition:
     )(RatingSetup.apply)(unapply)
     def teamMember(leaderTeams: List[LeaderTeam]) =
       mapping(
-        "teamId" -> optional(text.verifying(id => leaderTeams.exists(_.id == id)))
+        "teamId" -> optional(of[TeamId].verifying(id => leaderTeams.exists(_.id == id)))
       )(TeamMemberSetup.apply)(_.teamId.some)
-    case class TeamMemberSetup(teamId: Option[TeamID]):
-      def convert(teams: Map[TeamID, TeamName]): Option[TeamMember] =
+    case class TeamMemberSetup(teamId: Option[TeamId]):
+      def convert(teams: Map[TeamId, TeamName]): Option[TeamMember] =
         teamId flatMap { id =>
           teams.get(id) map { TeamMember(id, _) }
         }
@@ -332,7 +333,7 @@ object Condition:
           case (Some(min), Some(max)) => min < max
           case _                      => true
 
-      def convert(perf: PerfType, teams: Map[String, String]) =
+      def convert(perf: PerfType, teams: Map[TeamId, TeamName]) =
         All(
           nbRatedGame.flatMap(_ convert perf),
           maxRating.convert(perf)(MaxRating.apply),

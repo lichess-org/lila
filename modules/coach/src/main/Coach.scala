@@ -17,7 +17,7 @@ case class Coach(
     updatedAt: DateTime
 ):
 
-  def id = _id
+  inline def id = _id
 
   def is(user: lila.user.User) = id.value == user.id
 

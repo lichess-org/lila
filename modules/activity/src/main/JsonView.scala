@@ -18,7 +18,7 @@ import model.*
 
 final class JsonView(
     getTourName: lila.tournament.GetTourName,
-    getTeamName: lila.team.GetTeamName
+    getTeamName: lila.team.GetTeamNameSync
 ):
 
   private object Writers:
@@ -32,7 +32,7 @@ final class JsonView(
     given OWrites[Games] = OWrites { games =>
       JsObject {
         games.value.toList.sortBy(-_._2.size).map { case (pt, score) =>
-          pt.key -> Json.toJson(score)
+          pt.key.value -> Json.toJson(score)
         }
       }
     }
@@ -89,7 +89,7 @@ final class JsonView(
     given Writes[Follows]    = Json.writes
     given Writes[Teams] = Writes { s =>
       JsArray(s.value.map { id =>
-        Json.obj("url" -> s"/team/$id", "name" -> getTeamName(id))
+        Json.obj("url" -> s"/team/$id", "name" -> getTeamName.value(id))
       })
     }
     given Writes[Patron] = Json.writes

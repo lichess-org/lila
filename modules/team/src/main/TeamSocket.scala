@@ -16,17 +16,16 @@ final private class TeamSocket(
 
   subscribeChat(rooms, _.Team)
 
-  private lazy val handler: Handler =
-    roomHandler(
-      rooms,
-      chat,
-      logger,
-      roomId => _.Team(roomId.value).some,
-      localTimeout = Some { (roomId, modId, suspectId) =>
-        cached.isLeader(roomId.value, modId) >>& !cached.isLeader(roomId.value, suspectId)
-      },
-      chatBusChan = _.Team
-    )
+  private lazy val handler: Handler = roomHandler(
+    rooms,
+    chat,
+    logger,
+    roomId => _.Team(roomId into TeamId).some,
+    localTimeout = Some { (roomId, modId, suspectId) =>
+      cached.isLeader(roomId into TeamId, modId) >>& !cached.isLeader(roomId into TeamId, suspectId)
+    },
+    chatBusChan = _.Team
+  )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("team-out").apply
 

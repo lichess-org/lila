@@ -39,7 +39,7 @@ final private class SwissNotify(mongo: SwissMongo)(using
               .distinctEasy[User.ID, List](f.userId, $doc(f.swissId -> swiss.id))
               .map { userIds =>
                 lila.common.Bus.publish(
-                  TourSoon(tourId = swiss.id, tourName = swiss.name, userIds, swiss = true),
+                  TourSoon(tourId = swiss.id.value, tourName = swiss.name, userIds, swiss = true),
                   "tourSoon"
                 )
               }

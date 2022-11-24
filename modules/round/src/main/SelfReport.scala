@@ -42,7 +42,7 @@ final class SelfReport(
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,
-              path = fullId,
+              path = fullId.value,
               user = u,
               ip = ip
             )

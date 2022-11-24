@@ -33,7 +33,7 @@ case class InsightEntry(
 
 case object InsightEntry:
 
-  def povToId(pov: Pov) = pov.gameId + pov.color.letter
+  def povToId(pov: Pov) = pov.gameId.value + pov.color.letter
 
   object BSONFields:
     val id                       = "_id"

@@ -21,10 +21,13 @@ object Iso:
   type FloatIso[B]      = Iso[Float, B]
   type BigDecimalIso[B] = Iso[BigDecimal, B]
 
-  def apply[A, B](f: A => B, t: B => A): Iso[A, B] =
-    new Iso[A, B]:
-      val from = f
-      val to   = t
+  given [A, B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Iso[A, B] with
+    val from = sr.apply
+    val to   = rs.apply
+
+  def apply[A, B](f: A => B, t: B => A): Iso[A, B] = new:
+    val from = f
+    val to   = t
 
   def string[B](from: String => B, to: B => String): StringIso[B] = apply(from, to)
   def int[B](from: Int => B, to: B => Int): IntIso[B]             = apply(from, to)
@@ -46,10 +49,6 @@ object Iso:
       str => Ints(str.split(sep).iterator.map(_.trim).flatMap(_.toIntOption).toList),
       strs => strs.value mkString sep
     )
-
-  def opaque[A <: String](from: String => A): StringIso[A] = apply(from, identity)
-
-  given isoIdentity[A]: Iso[A, A] = apply(identity[A], identity[A])
 
   given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
 

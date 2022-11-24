@@ -49,7 +49,7 @@ final class LobbySocket(
       case GetMember(sri, promise) => promise success members.getIfPresent(sri.value)
 
       case GetSrisP(promise) =>
-        promise success Sris(members.asMap().keySet.map(Sri.apply).toSet)
+        promise success Sris(members.asMap().keySet.map(Sri(_)).toSet)
         lila.mon.lobby.socket.idle.update(idleSris.size)
         lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size).unit
 
@@ -73,7 +73,7 @@ final class LobbySocket(
           P.Out.tellSris(
             hookSubscriberSris diff idleSris withFilter { sri =>
               members getIfPresent sri exists { biter.showHookTo(hook, _) }
-            } map Sri.apply,
+            } map { Sri(_) },
             makeMessage("had", hook.render)
           )
         )
@@ -121,23 +121,25 @@ final class LobbySocket(
     private def tellActive(msg: JsObject): Unit = send(Out.tellLobbyActive(msg))
 
     private def tellActiveHookSubscribers(msg: JsObject): Unit =
-      send(P.Out.tellSris(hookSubscriberSris diff idleSris map Sri.apply, msg))
+      send(P.Out.tellSris(hookSubscriberSris diff idleSris map { Sri(_) }, msg))
 
-    private def gameStartRedirect(pov: Pov) =
-      makeMessage(
-        "redirect",
-        Json
-          .obj(
-            "id"  -> pov.fullId,
-            "url" -> s"/${pov.fullId}"
-          )
-          .add("cookie" -> lila.game.AnonCookie.json(pov))
-      )
+    import lila.common.Json.given
+    private def gameStartRedirect(pov: Pov) = makeMessage(
+      "redirect",
+      Json
+        .obj(
+          "id"  -> pov.fullId,
+          "url" -> s"/${pov.fullId}"
+        )
+        .add("cookie" -> lila.game.AnonCookie.json(pov))
+    )
 
     private def quit(sri: Sri): Unit =
       members invalidate sri.value
       idleSris -= sri.value
       hookSubscriberSris -= sri.value
+
+  end actor
 
   // solve circular reference
   lobby ! LobbySyncActor.SetSocket(actor)

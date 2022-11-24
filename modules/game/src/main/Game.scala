@@ -256,7 +256,7 @@ case class Game(
 
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
-      val increment   = days * 24 * 60 * 60
+      val increment   = days.value * 24 * 60 * 60
       val secondsLeft = (movedAt.getSeconds + increment - nowSeconds).toInt max 0
       CorrespondenceClock(
         increment = increment,
@@ -695,10 +695,12 @@ object Game:
   def unplayedDate  = DateTime.now minusHours unplayedHours
 
   val abandonedDays = Days(21)
-  def abandonedDate = DateTime.now minusDays abandonedDays
+  def abandonedDate = DateTime.now minusDays abandonedDays.value
 
-  def takeGameId(fullId: String)   = GameId(fullId take gameIdSize)
-  def takePlayerId(fullId: String) = GamePlayerId(fullId drop gameIdSize)
+  inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
+  inline def anyToId(anyId: GameAnyId): GameId       = strToId(anyId.value)
+  inline def fullToId(fullId: GameFullId): GameId    = strToId(fullId.value)
+  def takePlayerId(fullId: GameFullId): GamePlayerId = GamePlayerId(fullId.value drop gameIdSize)
 
   private val idRegex     = """[\w-]{8}""".r
   def validId(id: GameId) = idRegex matches id.value

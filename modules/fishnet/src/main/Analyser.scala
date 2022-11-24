@@ -5,6 +5,7 @@ import scala.concurrent.duration.*
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
+import lila.common.config.Max
 
 final class Analyser(
     repo: FishnetRepo,
@@ -21,10 +22,10 @@ final class Analyser(
   val maxPlies = 300
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
+    new lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
-    (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
+    (game.metadata.analysed ?? analysisRepo.exists(game.id.value)) flatMap {
       case true                  => fuccess(Analyser.Result.AlreadyAnalysed)
       case _ if !game.analysable => fuccess(Analyser.Result.NotAnalysable)
       case _ =>
@@ -64,7 +65,7 @@ final class Analyser(
     }
 
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
-    analysisRepo exists req.chapterId flatMap {
+    analysisRepo exists req.chapterId.value flatMap {
       case true => fuccess(Analyser.Result.NoChapter)
       case _ =>
         import req.*
@@ -75,7 +76,7 @@ final class Analyser(
           result.ok ?? {
             val work = makeWork(
               game = Work.Game(
-                id = chapterId,
+                id = chapterId.value,
                 initialFen = initialFen,
                 studyId = studyId.some,
                 variant = variant,
@@ -104,7 +105,7 @@ final class Analyser(
     gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
       makeWork(
         game = Work.Game(
-          id = game.id,
+          id = game.id.value,
           initialFen = initialFen,
           studyId = none,
           variant = game.variant,

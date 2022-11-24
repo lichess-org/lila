@@ -44,7 +44,7 @@ case class Event(
 
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
 
-  def id = _id
+  inline def id = _id
 
 object Event:
 

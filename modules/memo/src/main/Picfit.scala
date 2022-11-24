@@ -25,7 +25,7 @@ case class PicfitImage(
     createdAt: DateTime
 ):
 
-  def id = _id
+  inline def id = _id
 
 object PicfitImage:
 

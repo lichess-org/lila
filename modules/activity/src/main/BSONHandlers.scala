@@ -66,8 +66,11 @@ private object BSONHandlers:
         rp   -> o.rp
       )
 
-  given (String => PerfType)                 = key => PerfType(Perf.Key(key)) err s"Bad perf $key"
-  private[activity] given BSONHandler[Games] = Macros.handler
+  given (String => PerfType) = key => PerfType(Perf.Key(key)) err s"Bad perf $key"
+
+  given Iso.StringIso[PerfType] =
+    Iso.string[PerfType](str => PerfType(Perf.Key(str)) err s"No such perf $str", _.key.value)
+  private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games.apply, _.value)
 
   private given BSONHandler[ForumPostId] = BSONStringHandler.as(ForumPostId.apply, _.value)
   given BSONHandler[ForumPosts] = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts.apply)
@@ -89,14 +92,11 @@ private object BSONHandlers:
     def reads(r: lila.db.BSON.Reader)             = Streak(r.intD("r"), r.intD("s"))
     def writes(w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
 
-  private given (String => Learn.Stage) = Learn.Stage.apply
-  given BSONHandler[Learn]              = Macros.handler
+  given BSONHandler[Learn] = typedMapHandler[Learn.Stage, Int].as(Learn.apply, _.value)
 
-  private given (String => StudyId) = StudyId.apply
-  given BSONHandler[Practice]       = Macros.handler
+  given BSONHandler[Practice] = typedMapHandler[StudyId, Int].as[Practice](Practice.apply, _.value)
 
-  given BSONHandler[SimulId] = BSONStringHandler.as(SimulId.apply, _.value)
-  given BSONHandler[Simuls]  = isoHandler[Simuls, List[SimulId]](_.value, Simuls.apply)
+  given BSONHandler[Simuls] = isoHandler[Simuls, List[SimulId]](_.value, Simuls.apply)
 
   given BSONDocumentHandler[Corres] = Macros.handler
   given BSONHandler[Patron]         = BSONIntegerHandler.as(Patron.apply, _.months)
@@ -116,7 +116,7 @@ private object BSONHandlers:
       )
 
   given BSONHandler[Studies] = isoHandler[Studies, List[StudyId]](_.value, Studies.apply)
-  given BSONHandler[Teams]   = isoHandler[Teams, List[String]](_.value, Teams.apply)
+  given BSONHandler[Teams]   = isoHandler[Teams, List[TeamId]](_.value, Teams.apply)
 
   given lila.db.BSON[SwissRank] with
     def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), r.intD("r"))

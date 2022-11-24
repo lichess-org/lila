@@ -1,10 +1,10 @@
 package lila.simul
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import scala.concurrent.duration.*
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
@@ -67,7 +67,7 @@ final class Env(
   )
 
   def version(simulId: SimulId) =
-    simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion.apply)
+    simulSocket.rooms.ask[SocketVersion](simulId into RoomId)(GetVersion.apply)
 
   Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
@@ -82,6 +82,7 @@ final class Env(
       promise completeWith api.currentHostIds
     },
     "moveEventSimul" -> { case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
+      import lila.common.Json.given
       Bus.publish(
         lila.hub.actorApi.socket.SendTo(
           opponentUserId,

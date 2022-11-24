@@ -6,7 +6,6 @@ import scala.concurrent.duration.*
 
 import lila.common.Heapsort
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
 
@@ -28,7 +27,7 @@ final class SwissFeature(
       }
   }
 
-  def get(teams: Seq[TeamID]) =
+  def get(teams: Seq[TeamId]) =
     cache.getUnit zip getForTeams(teams :+ lichessTeamId distinct) map { case (cached, teamed) =>
       FeaturedSwisses(
         created = (teamed.created ::: cached.created).distinctBy(_.id),
@@ -38,7 +37,7 @@ final class SwissFeature(
 
   private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.getMillis)
 
-  private def getForTeams(teams: Seq[TeamID]): Fu[FeaturedSwisses] =
+  private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).sequenceFu.dmap(_.flatten) flatMap { ids =>
       mongo.swiss.byIds[Swiss, SwissId](ids, ReadPreference.secondaryPreferred)
     } map {

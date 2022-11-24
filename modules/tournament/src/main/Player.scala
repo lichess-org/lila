@@ -1,7 +1,6 @@
 package lila.tournament
 
 import lila.common.LightUser
-import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
 
@@ -15,10 +14,10 @@ private[tournament] case class Player(
     score: Int = 0,
     fire: Boolean = false,
     performance: Int = 0,
-    team: Option[TeamID] = None
+    team: Option[TeamId] = None
 ):
 
-  def id = _id
+  inline def id = _id
 
   def active = !withdraw
 
@@ -43,7 +42,7 @@ private[tournament] object Player:
       tourId: Tournament.ID,
       user: User,
       perfType: PerfType,
-      team: Option[TeamID]
+      team: Option[TeamId]
   ): Player =
     new Player(
       _id = TourPlayerId(lila.common.ThreadLocalRandom.nextString(8)),

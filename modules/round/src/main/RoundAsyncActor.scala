@@ -187,7 +187,7 @@ final private[round] class RoundAsyncActor(
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
       fuccess {
-        socketSend(
+        socketSend.value(
           RP.Out.tellRoom(
             roomId,
             Socket.makeMessage(
@@ -220,7 +220,7 @@ final private[round] class RoundAsyncActor(
       }.chronometer.lap.addEffects(
         err => {
           p.promise.foreach(_ failure err)
-          socketSend(Protocol.Out.resyncPlayer(Game.fullId(gameId, p.playerId)))
+          socketSend.value(Protocol.Out.resyncPlayer(Game.fullId(gameId, p.playerId)))
         },
         lap => {
           p.promise.foreach(_ success {})
@@ -444,7 +444,7 @@ final private[round] class RoundAsyncActor(
         }
       } | funit
 
-    case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
+    case Stop => proxy.terminate() >>- socketSend.value(RP.Out.stop(roomId))
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
@@ -461,7 +461,7 @@ final private[round] class RoundAsyncActor(
   private def notifyGone(color: Color, gone: Boolean): Funit =
     proxy.withPov(color) { pov =>
       fuccess {
-        socketSend(Protocol.Out.gone(pov.fullId, gone))
+        socketSend.value(Protocol.Out.gone(pov.fullId, gone))
         publishBoardBotGone(pov, gone option 0L)
       }
     }
@@ -469,7 +469,7 @@ final private[round] class RoundAsyncActor(
   private def notifyGoneIn(color: Color, millis: Long): Funit =
     proxy.withPov(color) { pov =>
       fuccess {
-        socketSend(Protocol.Out.goneIn(pov.fullId, millis))
+        socketSend.value(Protocol.Out.goneIn(pov.fullId, millis))
         publishBoardBotGone(pov, millis.some)
       }
     }
@@ -512,7 +512,7 @@ final private[round] class RoundAsyncActor(
     if (events.nonEmpty)
       events foreach { e =>
         version = version.incVersion
-        socketSend {
+        socketSend.value {
           Protocol.Out.tellVersion(roomId, version, e)
         }
       }
@@ -534,7 +534,7 @@ final private[round] class RoundAsyncActor(
       logger.warn(s"$name: ${e.getMessage}")
       lila.mon.round.error.other.increment().unit
 
-  def roomId = RoomId(gameId)
+  def roomId = gameId into RoomId
 
 object RoundAsyncActor:
 

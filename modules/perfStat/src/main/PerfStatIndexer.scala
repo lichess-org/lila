@@ -6,6 +6,7 @@ import reactivemongo.api.ReadPreference
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
 import lila.user.User
+import lila.common.config.Max
 
 final class PerfStatIndexer(
     gameRepo: GameRepo,
@@ -16,7 +17,7 @@ final class PerfStatIndexer(
 ):
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 10 seconds, name = "perfStatIndexer")
+    lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 10 seconds, name = "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
     workQueue {

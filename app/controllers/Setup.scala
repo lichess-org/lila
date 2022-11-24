@@ -271,7 +271,7 @@ final class Setup(
     else
       redir withCookies env.lilaCookie.cookie(
         AnonCookie.name,
-        pov.playerId,
+        pov.playerId.value,
         maxAge = AnonCookie.maxAge.some,
         httpOnly = false.some
       )

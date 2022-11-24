@@ -15,7 +15,7 @@ case class PracticeProgress(
 
   import PracticeProgress.NbMoves
 
-  def id = _id
+  inline def id = _id
 
   def apply(chapterId: StudyChapterId): Option[NbMoves] =
     chapters get chapterId

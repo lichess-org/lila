@@ -23,7 +23,7 @@ case class Study(
 
   import Study.*
 
-  def id = _id
+  inline def id = _id
 
   def owner = members get ownerId
 
@@ -85,7 +85,7 @@ object Study:
   val previewNbChapters = 4
 
   case class IdName(_id: StudyId, name: StudyName):
-    def id = _id
+    inline def id = _id
 
   def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
 
@@ -113,12 +113,11 @@ object Study:
       if (likes.value < 1) 0
       else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
 
-  sealed trait From
-  object From:
-    case object Scratch                           extends From
-    case class Game(id: String)                   extends From
-    case class Study(id: StudyId)                 extends From
-    case class Relay(clonedFrom: Option[StudyId]) extends From
+  enum From:
+    case Scratch
+    case Game(id: GameId)
+    case Study(id: StudyId)
+    case Relay(clonedFrom: Option[StudyId])
 
   case class Data(
       name: String,

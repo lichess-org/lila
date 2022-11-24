@@ -21,9 +21,7 @@ object post:
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followed: Boolean
-  )(using
-      ctx: Context
-  ) =
+  )(using ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
@@ -108,14 +106,11 @@ object post:
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
           div(cls := "ublog-post__footer")(
-            if (post.live && ~post.discuss)
-              a(
-                href     := routes.Ublog.discuss(post.id.value),
-                cls      := "button text ublog-post__discuss",
-                dataIcon := ""
-              )(
-                "Discuss this blog post in the forum"
-              ),
+            post.live && ~post.discuss option a(
+              href     := routes.Ublog.discuss(post.id.value),
+              cls      := "button text ublog-post__discuss",
+              dataIcon := ""
+            )("Discuss this blog post in the forum"),
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
@@ -128,13 +123,13 @@ object post:
       )
     }
 
-  private def editButton(post: UblogPost)(implicit ctx: Context) = a(
+  private def editButton(post: UblogPost)(using Context) = a(
     href     := editUrlOfPost(post),
     cls      := "button button-empty text",
     dataIcon := ""
   )(trans.edit())
 
-  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(implicit ctx: Context) =
+  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
     val text = if (liked) trans.study.unlike.txt() else trans.study.like.txt()
     button(
       tpe := "button",
@@ -155,7 +150,7 @@ object post:
       )(text)
     )
 
-  private def followButton(user: User, post: UblogPost, followed: Boolean)(implicit ctx: Context) =
+  private def followButton(user: User, post: UblogPost, followed: Boolean)(using Context) =
     div(
       cls := List(
         "ublog-post__follow" -> true,
@@ -181,7 +176,7 @@ object post:
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false,
       showIntro: Boolean = true
-  )(implicit ctx: Context) =
+  )(using Context) =
     a(cls                          := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
@@ -192,7 +187,7 @@ object post:
       )
     )
 
-  def miniCard(post: UblogPost.BasePost)(implicit ctx: Context) =
+  def miniCard(post: UblogPost.BasePost)(using Context) =
     span(cls                       := "ublog-post-card ublog-post-card--mini")(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       h3(cls := "ublog-post-card__title")(post.title)
@@ -204,7 +199,7 @@ object post:
 
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
 
-  private[ublog] def newPostLink(implicit ctx: Context) = ctx.me map { u =>
+  private[ublog] def newPostLink(using ctx: Context) = ctx.me map { u =>
     a(
       href     := routes.Ublog.form(u.username),
       cls      := "button button-green",

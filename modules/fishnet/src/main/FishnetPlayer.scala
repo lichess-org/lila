@@ -26,7 +26,7 @@ final class FishnetPlayer(
         openingBook(game, level) flatMap {
           case Some(move) =>
             uciMemo sign game map { sign =>
-              Bus.publish(Tell(game.id, FishnetPlay(move, sign)), "roundSocket")
+              Bus.publish(Tell(game.id.value, FishnetPlay(move, sign)), "roundSocket")
             }
           case None => makeWork(game, level) addEffect redis.request void
         }
@@ -62,7 +62,7 @@ final class FishnetPlayer(
           Work.Move(
             _id = Work.makeId,
             game = Work.Game(
-              id = game.id,
+              id = game.id.value,
               initialFen = initialFen,
               studyId = none,
               variant = game.variant,

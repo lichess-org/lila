@@ -26,8 +26,6 @@ object UrlList:
 
     val max = 6
 
-    case class StudyId(value: String) extends AnyVal
-
     private val UrlRegex = """(?:lichess\.org)/study/(\w{8})""".r.unanchored
 
     def apply(text: String): List[StudyId] =

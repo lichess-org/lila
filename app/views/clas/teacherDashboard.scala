@@ -241,7 +241,7 @@ object teacherDashboard:
             PerfType.Puzzle
           ).map { pt =>
             a(
-              cls  := progress.map(_.perfType.key.active(pt.key)),
+              cls  := progress.map(_.perfType.key.value.active(pt.key.value)),
               href := clasRoutes.progress(c.id.value, pt.key, progress.fold(7)(_.days))
             )(pt.trans)
           },

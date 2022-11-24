@@ -43,9 +43,7 @@ final class BotPlayer(
     !spam.detect(d.text) ??
       fuccess {
         lila.mon.bot.chats(me.username).increment()
-        val chatId = ChatId {
-          if (d.room == "player") gameId else s"$gameId/w"
-        }
+        val chatId = ChatId(if (d.room == "player") gameId.value else s"$gameId/w")
         val source = d.room == "spectator" option {
           lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
         }
@@ -70,7 +68,7 @@ final class BotPlayer(
     }
 
   private def tellRound(id: GameId, msg: Any) =
-    Bus.publish(Tell(id, msg), "roundSocket")
+    Bus.publish(Tell(id.value, msg), "roundSocket")
 
   def abort(pov: Pov): Funit =
     if (!pov.game.abortableByUser) clientError("This game can no longer be aborted")

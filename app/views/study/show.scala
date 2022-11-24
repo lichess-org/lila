@@ -22,7 +22,7 @@ object show:
       streamers: List[lila.user.User.ID]
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s.name,
+      title = s.name.value,
       moreCss = cssTag("analyse.study"),
       moreJs = frag(
         analyseStudyTag,
@@ -59,7 +59,7 @@ object show:
       csp = analysisCsp.withPeer.withWikiBooks.some,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s.name,
+          title = s.name.value,
           url = s"$netBaseUrl${routes.Study.show(s.id).url}",
           description = s"A chess study by ${titleNameOrId(s.ownerId)}"
         )

@@ -9,6 +9,7 @@ import Client.Skill
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.game.Game
+import lila.common.config.Max
 
 final class FishnetApi(
     repo: FishnetRepo,
@@ -26,7 +27,7 @@ final class FishnetApi(
   import BSONHandlers.given
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, name = "fishnetApi")
+    new lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, name = "fishnetApi")
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 

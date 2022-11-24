@@ -26,7 +26,7 @@ object Title:
 
   val acronyms = all.map(_._1)
 
-  def titleName(title: UserTitle): String = names.getOrElse(title, title)
+  def titleName(title: UserTitle): String = names.getOrElse(title, title.value)
 
   def get(str: String): Option[UserTitle]      = UserTitle(str.toUpperCase).some filter names.contains
   def get(strs: List[String]): List[UserTitle] = strs flatMap { get(_) }

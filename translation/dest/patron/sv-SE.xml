@@ -61,7 +61,7 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="update">Uppdatera</string>
   <string name="changeMonthlyAmount">Ändra månadsbeloppet (%s)</string>
   <string name="cancelSupport">avbryt ditt stöd</string>
-  <string name="xOrY" comment="xOrY&#10;&#10;Appears on the patron page. Presents the user with 2 possible actions:&#10;- Change the monthly amount (string: changeMonthlyAmount)&#10;- Cancel your support (string: cancelSupport)">%1$s eller %2$s</string>
+  <string name="xOrY">%1$s eller %2$s</string>
   <string name="decideHowMuch">Bestäm hur mycket Lichess är värt för dig:</string>
   <string name="stopPayments">Dra tillbaka ditt kreditkort och stoppa betalningar:</string>
   <string name="stopPaymentsPayPal">Avbryt PayPal-prenumerationen och stoppa betalningar:</string>

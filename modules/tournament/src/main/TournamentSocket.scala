@@ -9,6 +9,7 @@ import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
+import lila.common.Json.given
 import lila.user.User
 
 final private class TournamentSocket(
@@ -62,7 +63,7 @@ final private class TournamentSocket(
       rooms,
       chat,
       logger,
-      roomId => _.Tournament(roomId.value).some,
+      roomId => _.Tournament(roomId into TourId).some,
       chatBusChan = _.Tournament,
       localTimeout = Some { (roomId, modId, _) =>
         repo.fetchCreatedBy(roomId.value).map(_ has modId)

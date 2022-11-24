@@ -6,7 +6,6 @@ import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
 
-import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
 
@@ -20,14 +19,14 @@ case class Swiss(
     nbOngoing: Int,
     createdAt: DateTime,
     createdBy: User.ID,
-    teamId: TeamID,
+    teamId: TeamId,
     startsAt: DateTime,
     settings: Swiss.Settings,
     nextRoundAt: Option[DateTime],
     finishedAt: Option[DateTime],
     winnerId: Option[User.ID] = None
 ):
-  def id = _id
+  inline def id = _id
 
   def isCreated          = round.value == 0
   def isStarted          = !isCreated && !isFinished
@@ -89,7 +88,7 @@ object Swiss:
   case class Score(value: Int)         extends AnyVal
 
   case class IdName(_id: SwissId, name: String):
-    def id = _id
+    inline def id = _id
 
   case class Settings(
       nbRounds: Int,
@@ -129,6 +128,6 @@ object Swiss:
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 
   case class RoundInfo(
-      teamId: TeamID,
+      teamId: TeamId,
       chatFor: ChatFor
   )

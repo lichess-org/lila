@@ -5,8 +5,8 @@ import akka.stream.scaladsl.*
 import chess.format.Forsyth
 import play.api.libs.json.*
 
-import lila.common.Bus
-import lila.common.LightUser
+import lila.common.{ Bus, LightUser }
+import lila.common.Json.given
 import lila.game.actorApi.MoveGameEvent
 import lila.game.Game
 import lila.socket.Socket

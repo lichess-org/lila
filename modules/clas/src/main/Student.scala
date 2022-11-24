@@ -17,7 +17,7 @@ case class Student(
     archived: Option[Clas.Recorded]
 ):
 
-  def id = _id
+  inline def id = _id
 
   def is(user: User)     = userId == user.id
   def is(other: Student) = id == other.id

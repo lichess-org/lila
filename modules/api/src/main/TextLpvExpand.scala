@@ -52,7 +52,7 @@ final class TextLpvExpand(
       .toList
       .flatMap { m => Option(m group 1) filterNot notGames.contains }
       .distinct
-      .map(GameId.apply)
+      .map(GameId(_))
     pgnCache getAll gameIds map {
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
@@ -78,7 +78,7 @@ final class TextLpvExpand(
   private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMap {
       _ ?? { g =>
-        analysisRepo.byId(id) flatMap { analysis =>
+        analysisRepo.byId(id.value) flatMap { analysis =>
           pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
         }
       }

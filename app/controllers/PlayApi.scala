@@ -20,12 +20,12 @@ final class PlayApi(
 
   // bot endpoints
 
-  def botGameStream(id: String) =
+  def botGameStream(id: GameAnyId) =
     Scoped(_.Bot.Play) { implicit req => me =>
       WithPovAsBot(id, me) { impl.gameStream(me, _) }
     }
 
-  def botMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+  def botMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Bot.Play) { _ => me =>
       WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
     }
@@ -52,12 +52,12 @@ final class PlayApi(
 
   // board endpoints
 
-  def boardGameStream(id: String) =
+  def boardGameStream(id: GameAnyId) =
     Scoped(_.Board.Play) { implicit req => me =>
       WithPovAsBoard(id, me) { impl.gameStream(me, _) }
     }
 
-  def boardMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+  def boardMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ => me =>
       WithPovAsBoard(id, me) {
         impl.move(me, _, uci, offeringDraw)
@@ -81,11 +81,11 @@ final class PlayApi(
       env.bot.player(pov, me, uci, offeringDraw) pipe toResult
 
     def command(me: UserModel, cmd: String)(
-        as: (String, UserModel) => (Pov => Fu[Result]) => Fu[Result]
+        as: (GameAnyId, UserModel) => (Pov => Fu[Result]) => Fu[Result]
     )(implicit req: Request[?]): Fu[Result] =
       cmd.split('/') match
         case Array("game", id, "chat") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.form.chat
               .bindFromRequest()
               .fold(
@@ -94,27 +94,27 @@ final class PlayApi(
               ) pipe catchClientError
           }
         case Array("game", id, "abort") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.player.abort(pov) pipe toResult
           }
         case Array("game", id, "resign") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.player.resign(pov) pipe toResult
           }
         case Array("game", id, "draw", bool) =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             fuccess(env.bot.player.setDraw(pov, lila.common.Form.trueish(bool))) pipe toResult
           }
         case Array("game", id, "takeback", bool) =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             fuccess(env.bot.player.setTakeback(pov, lila.common.Form.trueish(bool))) pipe toResult
           }
         case Array("game", id, "claim-victory") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             env.bot.player.claimVictory(pov) pipe toResult
           }
         case Array("game", id, "berserk") =>
-          as(id, me) { pov =>
+          as(GameAnyId(id), me) { pov =>
             fuccess {
               if (env.bot.player.berserk(pov.game, me)) jsonOkResult
               else JsonBadRequest(jsonError("Cannot berserk"))
@@ -125,14 +125,14 @@ final class PlayApi(
   def boardCommandGet(cmd: String) =
     ScopedBody(_.Board.Play) { implicit req => me =>
       cmd.split('/') match
-        case Array("game", id, "chat") => WithPovAsBoard(id, me)(getChat)
+        case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")
     }
 
   def botCommandGet(cmd: String) =
     ScopedBody(_.Bot.Play) { implicit req => me =>
       cmd.split('/') match
-        case Array("game", id, "chat") => WithPovAsBot(id, me)(getChat)
+        case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")
     }
 
@@ -147,7 +147,7 @@ final class PlayApi(
       BadRequest(jsonError(e.getMessage))
     }
 
-  private def WithPovAsBot(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
+  private def WithPovAsBot(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
       if (me.noBot)
         BadRequest(
@@ -160,7 +160,7 @@ final class PlayApi(
       else f(pov)
     }
 
-  private def WithPovAsBoard(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
+  private def WithPovAsBoard(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
       if (me.isBot) notForBotAccounts.toFuccess
       else if (!lila.game.Game.isBoardCompatible(pov.game))
@@ -168,8 +168,8 @@ final class PlayApi(
       else f(pov)
     }
 
-  private def WithPov(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
-    env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
+  private def WithPov(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
+    env.round.proxyRepo.game(lila.game.Game strToId anyId) flatMap {
       case None => NotFound(jsonError("No such game")).toFuccess
       case Some(game) =>
         Pov(game, me) match

@@ -257,7 +257,7 @@ final private class StudySocket(
   import lila.tree.Node.{ defaultNodeJsonWriter, given }
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
-    studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
+    studyId => rooms.tell(studyId into RoomId, NotifyVersion(tpe, data))
   private def notify[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => send(RP.Out.tellRoom(studyId, makeMessage(tpe, data)))
   private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy =
@@ -413,8 +413,8 @@ final private class StudySocket(
 
 object StudySocket:
 
-  given Conversion[RoomId, StudyId] = id => StudyId(id.value)
-  given Conversion[StudyId, RoomId] = id => RoomId(id)
+  inline given Conversion[RoomId, StudyId] = _ into StudyId
+  inline given Conversion[StudyId, RoomId] = _ into RoomId
 
   object Protocol:
 

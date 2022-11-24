@@ -38,9 +38,7 @@ final class Coach(env: Env) extends LilaController(env):
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
           for {
-            stu <- env.study.api.publicByIds {
-              c.coach.profile.studyIds.map(_.value).map(lila.study.StudyId.apply)
-            }
+            stu      <- env.study.api.publicByIds(c.coach.profile.studyIds)
             studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
             posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
             reviews  <- api.reviews.approvedByCoach(c.coach)

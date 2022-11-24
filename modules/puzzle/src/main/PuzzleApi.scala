@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration.*
 
 import lila.common.paginator.Paginator
-import lila.common.config.MaxPerPage
+import lila.common.config.{ Max, MaxPerPage }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
@@ -58,7 +58,7 @@ final class PuzzleApi(
   object vote:
 
     private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
-      maxSize = 32,
+      maxSize = Max(32),
       expiration = 1 minute,
       timeout = 3 seconds,
       name = "puzzle.vote",
@@ -158,7 +158,7 @@ final class PuzzleApi(
                     }
             update flatMap {
               _ ?? { up =>
-                lila.mon.puzzle.vote.theme(theme, vote, round.win).increment()
+                lila.mon.puzzle.vote.theme(theme.value, vote, round.win).increment()
                 colls.round(_.update.one($id(round.id), up)) zip
                   colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
               }
@@ -169,9 +169,9 @@ final class PuzzleApi(
 
   object casual:
 
-    private val store = lila.memo.ExpireSetMemo[String](30 minutes)
+    private val store = lila.memo.ExpireSetMemo[CacheKey](30 minutes)
 
-    private def key(user: User, id: PuzzleId) = s"${user.id}:${id}"
+    private def key(user: User, id: PuzzleId) = CacheKey(s"${user.id}:${id}")
 
     def setCasualIfNotYetPlayed(user: User, puzzle: Puzzle): Funit =
       !round.exists(user, puzzle.id) map {

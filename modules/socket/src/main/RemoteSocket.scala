@@ -240,7 +240,7 @@ object RemoteSocket:
                 (Sri(s(0)), s lift 1)
               }
             }.some
-          case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
+          case "disconnect/sris" => DisconnectSris(commas(raw.args) map { Sri(_) }).some
           case "notified/batch"  => NotifiedBatch(commas(raw.args)).some
           case "lag" =>
             raw.all pipe { s =>

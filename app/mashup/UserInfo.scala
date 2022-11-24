@@ -23,7 +23,7 @@ case class UserInfo(
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
-    teamIds: List[lila.team.Team.ID],
+    teamIds: List[lila.team.TeamId],
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean

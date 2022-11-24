@@ -109,7 +109,7 @@ object communication:
                 line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
                 line.from.map {
-                  case PublicSource.Tournament(id) => tournamentLink(id)
+                  case PublicSource.Tournament(id) => tournamentLink(id.value)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)

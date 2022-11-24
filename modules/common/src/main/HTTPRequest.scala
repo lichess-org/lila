@@ -106,7 +106,7 @@ object HTTPRequest:
 
   def apiVersion(req: RequestHeader): Option[ApiVersion] =
     req.headers.get(HeaderNames.ACCEPT) flatMap {
-      case ApiVersionHeaderPattern(v) => v.toIntOption map ApiVersion.apply
+      case ApiVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
       case _                          => none
     }
 

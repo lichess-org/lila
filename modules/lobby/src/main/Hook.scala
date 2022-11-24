@@ -60,23 +60,23 @@ case class Hook(
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
   def rating: Option[Int]          = perf.map(_.rating)
 
-  def render: JsObject =
-    Json
-      .obj(
-        "id"    -> id,
-        "sri"   -> sri,
-        "clock" -> clock.show,
-        "t"     -> clock.estimateTotalSeconds,
-        "s"     -> speed.id,
-        "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
-      )
-      .add("prov" -> perf.map(_.provisional).filter(identity))
-      .add("u" -> user.map(_.username))
-      .add("rating" -> rating)
-      .add("variant" -> realVariant.exotic.option(realVariant.key))
-      .add("ra" -> realMode.rated.option(1))
-      .add("c" -> chess.Color.fromName(color).map(_.name))
-      .add("perf" -> perfType.map(_.key))
+  import lila.common.Json.given
+  def render: JsObject = Json
+    .obj(
+      "id"    -> id,
+      "sri"   -> sri,
+      "clock" -> clock.show,
+      "t"     -> clock.estimateTotalSeconds,
+      "s"     -> speed.id,
+      "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
+    )
+    .add("prov" -> perf.map(_.provisional).filter(identity))
+    .add("u" -> user.map(_.username))
+    .add("rating" -> rating)
+    .add("variant" -> realVariant.exotic.option(realVariant.key))
+    .add("ra" -> realMode.rated.option(1))
+    .add("c" -> chess.Color.fromName(color).map(_.name))
+    .add("perf" -> perfType.map(_.key))
 
   def randomColor = color == "random"
 

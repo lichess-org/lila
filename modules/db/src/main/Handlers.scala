@@ -17,8 +17,8 @@ import scala.collection.Factory
 trait Handlers:
 
   inline given [A, T](using
-      bts: BasicallyTheSame[A, T],
-      stb: BasicallyTheSame[T, A],
+      bts: SameRuntime[A, T],
+      stb: SameRuntime[T, A],
       handler: BSONHandler[A]
   ): BSONHandler[T] =
     handler.as(bts.apply, stb.apply)
@@ -120,6 +120,12 @@ trait Handlers:
     new BSONHandler[Map[String, V]]:
       def readTry(bson: BSONValue)    = reader readTry bson
       def writeTry(v: Map[String, V]) = writer writeTry v
+
+  def typedMapHandler[K, V: BSONHandler](using keyIso: StringIso[K]) =
+    stringMapHandler[V].as[Map[K, V]](
+      _.map { case (k, v) => keyIso.from(k) -> v },
+      _.map { case (k, v) => keyIso.to(k) -> v }
+    )
 
   given [T: BSONHandler]: BSONHandler[NonEmptyList[T]] =
     def listWriter = BSONWriter.collectionWriter[T, List[T]]

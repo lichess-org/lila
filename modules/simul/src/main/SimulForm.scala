@@ -8,7 +8,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraint
 
-import lila.common.Form.*
+import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
 import lila.user.User
 
@@ -99,7 +99,7 @@ object SimulForm:
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "team"             -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
+        "team"             -> optional(of[TeamId].verifying(id => teams.exists(_.id == id))),
         "featured"         -> optional(boolean)
       )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
@@ -123,7 +123,7 @@ object SimulForm:
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,
-      team: Option[String],
+      team: Option[TeamId],
       featured: Option[Boolean]
   ):
 

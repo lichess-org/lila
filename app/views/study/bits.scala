@@ -71,7 +71,7 @@ object bits:
           s.chapters.map { name =>
             li(cls := "text", dataIcon := "")(
               if (ctx.userId.exists(s.study.isMember)) name
-              else removeMultibyteSymbols(name)
+              else removeMultibyteSymbols(name.value)
             )
           }
         ),

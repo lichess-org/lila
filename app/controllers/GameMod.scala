@@ -9,8 +9,9 @@ import lila.api.Context
 import lila.api.GameApiV2
 import lila.app.{ given, * }
 import lila.common.config
+import lila.common.Form.{ stringIn, given }
 import lila.db.dsl.{ *, given }
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.user.Holder
 
 final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
@@ -108,7 +109,7 @@ object GameMod:
   case class Filter(
       arena: Option[String],
       swiss: Option[String],
-      perf: Option[String],
+      perf: Option[Perf.Key],
       opponents: Option[String],
       nbGamesOpt: Option[Int]
   ):
@@ -147,14 +148,13 @@ object GameMod:
       mapping(
         "arena"      -> optional(nonEmptyText),
         "swiss"      -> optional(nonEmptyText),
-        "speed"      -> optional(nonEmptyText),
+        "perf"       -> optional(of[Perf.Key]),
         "opponents"  -> optional(nonEmptyText),
         "nbGamesOpt" -> optional(number(min = 1, max = 500))
       )(Filter.apply)(unapply)
     )
 
   val actionForm =
-    import lila.common.Form.{ stringIn, given }
     Form(
       tuple(
         "game"   -> formList(of[GameId]),

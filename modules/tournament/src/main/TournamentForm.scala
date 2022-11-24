@@ -10,7 +10,7 @@ import play.api.data.validation
 import play.api.data.validation.Constraint
 import scala.util.chaining.*
 
-import lila.common.Form.*
+import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
 import lila.hub.LightTeam.*
 import lila.user.User
@@ -19,7 +19,7 @@ final class TournamentForm:
 
   import TournamentForm.*
 
-  def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamID] = None) =
+  def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamId] = None) =
     form(user, leaderTeams, none) fill TournamentSetup(
       name = teamBattleId.isEmpty option user.titleUsername,
       clockTime = clockTimeDefault,
@@ -97,7 +97,7 @@ final class TournamentForm:
       "rated"       -> optional(boolean),
       "password"    -> optional(cleanNonEmptyText),
       "conditions"  -> Condition.DataForm.all(leaderTeams),
-      "teamBattleByTeam" -> optional(nonEmptyText.verifying(id => leaderTeams.exists(_.id == id))),
+      "teamBattleByTeam" -> optional(of[TeamId].verifying(id => leaderTeams.exists(_.id == id))),
       "berserkable"      -> optional(boolean),
       "streakable"       -> optional(boolean),
       "description"      -> optional(cleanNonEmptyText),
@@ -151,14 +151,14 @@ object TournamentForm:
   val joinForm =
     Form(
       mapping(
-        "team"       -> optional(nonEmptyText),
+        "team"       -> optional(nonEmptyText.into[TeamId]),
         "password"   -> optional(nonEmptyText),
         "pairMeAsap" -> optional(boolean)
       )(TournamentJoin.apply)(unapply)
     )
 
   case class TournamentJoin(
-      team: Option[String],
+      team: Option[TeamId],
       password: Option[String],
       pairMeAsap: Option[Boolean] = None
   )
@@ -176,7 +176,7 @@ private[tournament] case class TournamentSetup(
     rated: Option[Boolean],
     password: Option[String],
     conditions: Condition.DataForm.AllSetup,
-    teamBattleByTeam: Option[String],
+    teamBattleByTeam: Option[TeamId],
     berserkable: Option[Boolean],
     streakable: Option[Boolean],
     description: Option[String],

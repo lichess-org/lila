@@ -21,10 +21,9 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
 ):
   import EvalCacheUpgrade.*
 
-  private val members = mutable.AnyRefMap.empty[SriString, WatchingMember]
-  private val evals   = mutable.AnyRefMap.empty[SetupId, EvalState]
-  private val expirableSris =
-    new ExpireCallbackMemo(scheduler, 10 minutes, sri => expire(Socket.Sri(sri)))
+  private val members       = mutable.AnyRefMap.empty[SriString, WatchingMember]
+  private val evals         = mutable.AnyRefMap.empty[SetupId, EvalState]
+  private val expirableSris = ExpireCallbackMemo[Socket.Sri](scheduler, 10 minutes, expire)
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
@@ -36,7 +35,7 @@ final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: 
       val setupId = makeSetupId(variant, fen, multiPv)
       members += (sri.value -> WatchingMember(push, setupId, path))
       evals += (setupId     -> evals.get(setupId).fold(EvalState(Set(sri.value), 0))(_ addSri sri))
-      expirableSris put sri.value
+      expirableSris put sri
 
   def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = if (setting.get())
     (1 to input.eval.multiPv) flatMap { multiPv =>

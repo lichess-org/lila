@@ -40,7 +40,7 @@ final private class Streaming(
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
-        liveStreams.has(id) || isOnline(id.value)
+        liveStreams.has(id) || isOnline.value(id.value)
       }
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
@@ -63,7 +63,7 @@ final private class Streaming(
     } yield publishStreams(streamers, streams)
   }
 
-  private val streamStartMemo = lila.memo.ExpireSetMemo[User.ID](2 hour)
+  private val streamStartMemo = lila.memo.ExpireSetMemo[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     if (newStreams != liveStreams)

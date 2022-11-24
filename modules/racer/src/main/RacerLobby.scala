@@ -2,6 +2,7 @@ package lila.racer
 
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
+import lila.common.config.Max
 
 final class RacerLobby(api: RacerApi)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler):
 
@@ -16,12 +17,11 @@ final class RacerLobby(api: RacerApi)(using ec: ExecutionContext, scheduler: akk
     }
   }
 
-  private val workQueue =
-    new lila.hub.AsyncActorSequencer(
-      maxSize = 128,
-      timeout = 20 seconds,
-      name = "racer.lobby"
-    )
+  private val workQueue = lila.hub.AsyncActorSequencer(
+    maxSize = Max(128),
+    timeout = 20 seconds,
+    name = "racer.lobby"
+  )
 
   private val fallbackRace = RacerRace.make(RacerPlayer.lichess, Nil, 10)
 

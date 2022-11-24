@@ -4,14 +4,19 @@ import alleycats.Zero
 import scala.concurrent.duration.*
 
 import lila.hub.AsyncActorSequencers
+import lila.common.config.Max
 
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
 )(using scala.concurrent.ExecutionContext, akka.actor.Scheduler, play.api.Mode):
 
-  private val workQueue =
-    AsyncActorSequencers[StudyId](maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
+  private val workQueue = AsyncActorSequencers[StudyId](
+    maxSize = Max(64),
+    expiration = 1 minute,
+    timeout = 10 seconds,
+    name = "study"
+  )
 
   def sequenceStudy[A <: Matchable: Zero](studyId: StudyId)(f: Study => Fu[A]): Fu[A] =
     workQueue(studyId) {

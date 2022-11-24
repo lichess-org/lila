@@ -84,7 +84,7 @@ final class SeekApi(
   def remove(seek: Seek) =
     coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear()
 
-  def archive(seek: Seek, gameId: String) =
+  def archive(seek: Seek, gameId: GameId) =
     val archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
       "gameId"     -> gameId,
       "archivedAt" -> DateTime.now

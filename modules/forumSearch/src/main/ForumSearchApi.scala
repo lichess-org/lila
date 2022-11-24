@@ -22,7 +22,7 @@ final class ForumSearchApi(
     }
 
   def count(query: Query) =
-    client.count(query) dmap (_.count)
+    client.count(query).dmap(_.value)
 
   def store(post: Post) =
     postApi liteView post flatMap {

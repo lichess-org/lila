@@ -11,7 +11,7 @@ import lila.common.LightUser
 final class PgnDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.LightUserApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import PgnDump.*
 
@@ -19,7 +19,7 @@ final class PgnDump(
       game: Game,
       initialFen: Option[FEN],
       flags: WithFlags,
-      teams: Option[Color.Map[String]] = None
+      teams: Option[Color.Map[TeamId]] = None
   ): Fu[Pgn] =
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
@@ -87,7 +87,7 @@ final class PgnDump(
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,
-      teams: Option[Color.Map[String]] = None
+      teams: Option[Color.Map[TeamId]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {

@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
 import chess.Mode
+import lila.common.config.Max
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
@@ -22,7 +23,7 @@ final private[puzzle] class PuzzleFinisher(
   import BsonHandlers.given
 
   private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
-    maxSize = 64,
+    maxSize = Max(64),
     expiration = 5 minutes,
     timeout = 5 seconds,
     name = "puzzle.finish"

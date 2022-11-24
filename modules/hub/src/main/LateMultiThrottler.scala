@@ -9,7 +9,7 @@ import scala.concurrent.ExecutionContext
 final class LateMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
     logger: lila.log.Logger
-)(using ec: ExecutionContext)
+)(using ExecutionContext)
     extends Actor:
 
   import LateMultiThrottler.*
@@ -55,8 +55,8 @@ object LateMultiThrottler:
 
   case class Done(id: String)
 
-  def work[K <: String](
-      id: K,
+  def work(
+      id: String,
       run: => Funit,
       delay: Option[FiniteDuration] = None,
       timeout: Option[FiniteDuration] = None

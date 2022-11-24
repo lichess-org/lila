@@ -203,7 +203,7 @@ object header:
                   ),
                   div(cls := "teams col2")(
                     if (info.teamIds.nonEmpty) strong(trans.team.teams()),
-                    info.teamIds.sorted.map { t =>
+                    info.teamIds.sorted(stringOrdering).map { t =>
                       teamLink(t, withIcon = false)
                     }
                   )

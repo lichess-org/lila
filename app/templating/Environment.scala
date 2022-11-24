@@ -8,6 +8,7 @@ import lila.user.UserContext
 
 object Environment
     extends StringHelper
+    with RouterHelper
     with AssetHelper
     with DateHelper
     with NumberHelper

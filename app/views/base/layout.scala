@@ -194,7 +194,7 @@ object layout:
 
   private def hrefLangs(path: LangPath)(implicit ctx: Context) = raw {
     val pathEnd = if (path.value == "/") "" else path.value
-    hrefLang("x-default", path) + hrefLang("en", path.value) +
+    hrefLang("x-default", path.value) + hrefLang("en", path.value) +
       lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
         hrefLang(lang, s"/$lang$pathEnd")
       }.mkString

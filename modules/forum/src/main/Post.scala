@@ -29,13 +29,13 @@ case class Post(
   private val permitEditsFor  = 4 hours
   private val showEditFormFor = 3 hours
 
-  def id = _id
+  inline def id = _id
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | (if (~modIcon) User.anonymous else User.anonMod)
 
   def showUserIdOrAuthor = if (erased) "<erased>" else userId | showAuthor
 
-  def isTeam = categId startsWith teamSlug("")
+  def isTeam = categId startsWith teamSlug(TeamId(""))
 
   def isAnonModPost = !userId.isDefined && ~modIcon
 
