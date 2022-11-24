@@ -52,7 +52,7 @@ object history:
       ),
       span(cls := "puzzle-history__round__meta")(
         span(cls := "puzzle-history__round__result")(
-          if (r.round.win) goodTag(trans.puzzle.solved())
+          if (r.round.win.yes) goodTag(trans.puzzle.solved())
           else badTag(trans.puzzle.failed())
         ),
         span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id}")

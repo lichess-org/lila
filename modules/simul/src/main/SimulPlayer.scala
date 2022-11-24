@@ -7,7 +7,7 @@ import lila.user.User
 private[simul] case class SimulPlayer(
     user: User.ID,
     variant: Variant,
-    rating: Int,
+    rating: IntRating,
     provisional: Option[Boolean]
 ):
 

@@ -3,26 +3,25 @@ package lila.puzzle
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ numberIn, stringIn }
+import lila.common.Form.{ numberIn, stringIn, given }
 import chess.Color
 
 object PuzzleForm:
 
   case class RoundData(
-      win: Boolean,
+      win: PuzzleWin,
       rated: Boolean,
       replayDays: Option[Int],
       streakId: Option[String],
       streakScore: Option[Int],
       color: Option[Color]
   ):
-    def result         = PuzzleResult(win)
     def streakPuzzleId = streakId flatMap Puzzle.toId
     def mode           = chess.Mode(rated)
 
   val round = Form(
     mapping(
-      "win"         -> boolean,
+      "win"         -> of[PuzzleWin],
       "rated"       -> boolean,
       "replayDays"  -> optional(numberIn(PuzzleDashboard.dayChoices)),
       "streakId"    -> optional(nonEmptyText),
@@ -48,12 +47,12 @@ object PuzzleForm:
     val round = Form(
       mapping(
         "win" -> text
-      )(w => RoundData(win = w == "1" || w == "true", rated = true, none, none, none, none))(r => none)
+      )(w => RoundData(win = PuzzleWin(w == "1" || w == "true"), rated = true, none, none, none, none))(r =>
+        none
+      )
     )
 
-    val vote = Form(
-      single("vote" -> numberIn(Set(0, 1)))
-    )
+    val vote = Form(single("vote" -> numberIn(Set(0, 1))))
 
     import play.api.libs.json.*
 

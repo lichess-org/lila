@@ -15,15 +15,15 @@ case class InsightEntry(
     perf: PerfType,
     opening: Option[SimpleOpening],
     myCastling: Castling,
-    rating: Option[Int],
-    opponentRating: Option[Int],
+    rating: Option[IntRating],         // stable rating only
+    opponentRating: Option[IntRating], // stable rating only
     opponentStrength: Option[RelativeStrength],
     opponentCastling: Castling,
     moves: List[InsightMove],
     queenTrade: QueenTrade,
     result: Result,
     termination: Termination,
-    ratingDiff: Int,
+    ratingDiff: IntRatingDiff,
     analysed: Boolean,
     provisional: Boolean,
     date: DateTime

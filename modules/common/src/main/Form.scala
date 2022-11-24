@@ -217,7 +217,8 @@ object Form:
 
     val field = of[URL]
 
-  given Formatter[String] = stringFormat
+  given Formatter[String]  = stringFormat
+  given Formatter[Boolean] = booleanFormat
 
   given [A, T](using
       bts: SameRuntime[A, T],

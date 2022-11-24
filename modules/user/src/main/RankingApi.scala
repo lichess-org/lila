@@ -196,7 +196,7 @@ final class RankingApi(
                 } yield rating -> nb
               }
               .to(Map)
-            (Glicko.minRating to 2800 by Stat.group).map { r =>
+            (Glicko.minRating.value to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
           } addEffect monitorRatingDistribution(perfId)
@@ -215,7 +215,7 @@ final class RankingApi(
      */
     private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit =
       val total = nbUsersList.sum
-      (Stat.minRating to 2800 by Stat.group).toList
+      (Stat.minRating.value to 2800 by Stat.group).toList
         .zip(nbUsersList)
         .foldLeft(0) { case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
@@ -228,5 +228,5 @@ final class RankingApi(
 
 object RankingApi:
 
-  private case class Ranking(_id: String, rating: Int, prog: Option[Int]):
+  private case class Ranking(_id: String, rating: IntRating, prog: Option[IntRatingDiff]):
     def user = _id.takeWhile(':' !=)

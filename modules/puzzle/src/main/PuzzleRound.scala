@@ -6,7 +6,7 @@ import lila.user.User
 
 case class PuzzleRound(
     id: PuzzleRound.Id,
-    win: Boolean,              // last result
+    win: PuzzleWin,            // last result
     fixedAt: Option[DateTime], // date of first-replaying lost puzzle and winning it
     date: DateTime,            // date of first playing the puzzle
     vote: Option[Int] = None,
@@ -33,12 +33,12 @@ case class PuzzleRound(
 
   def nonEmptyThemes = themes.nonEmpty option themes
 
-  def updateWithWin(win: Boolean) = copy(
+  def updateWithWin(win: PuzzleWin) = copy(
     win = win,
-    fixedAt = fixedAt orElse win.option(DateTime.now)
+    fixedAt = fixedAt orElse win.yes.option(DateTime.now)
   )
 
-  def firstWin = win && fixedAt.isEmpty
+  def firstWin = win.yes && fixedAt.isEmpty
 
 object PuzzleRound:
 

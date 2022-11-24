@@ -8,14 +8,14 @@ case class SwissPlayer(
     id: SwissPlayer.Id, // swissId:userId
     swissId: SwissId,
     userId: User.ID,
-    rating: Int,
+    rating: IntRating,
     provisional: Boolean,
     points: Swiss.Points,
     tieBreak: Swiss.TieBreak,
     performance: Option[Swiss.Performance],
     score: Swiss.Score,
     absent: Boolean,
-    byes: Set[SwissRound.Number] // byes granted by the pairing system - the player was here
+    byes: Set[SwissRoundNumber] // byes granted by the pairing system - the player was here
 ):
   def is(uid: User.ID): Boolean       = uid == userId
   def is(user: User): Boolean         = is(user.id)
@@ -24,7 +24,7 @@ case class SwissPlayer(
 
   def recomputeScore =
     copy(
-      score = Swiss.makeScore(points, tieBreak, performance | Swiss.Performance(rating.toFloat))
+      score = Swiss.makeScore(points, tieBreak, performance | Swiss.Performance(rating.value.toFloat))
     )
 
 object SwissPlayer:
@@ -71,7 +71,7 @@ object SwissPlayer:
       player: SwissPlayer,
       rank: Int,
       user: lila.common.LightUser,
-      pairings: Map[SwissRound.Number, SwissPairing],
+      pairings: Map[SwissRoundNumber, SwissPairing],
       sheet: SwissSheet
   ) extends Viewish
 
@@ -79,7 +79,7 @@ object SwissPlayer:
       player: SwissPlayer,
       rank: Int,
       user: lila.common.LightUser,
-      pairings: Map[SwissRound.Number, SwissPairing.View],
+      pairings: Map[SwissRoundNumber, SwissPairing.View],
       sheet: SwissSheet
   ) extends Viewish
 

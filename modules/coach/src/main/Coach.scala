@@ -49,4 +49,4 @@ object Coach:
   case class Id(value: String)         extends AnyVal with StringValue
   case class Listed(value: Boolean)    extends AnyVal
   case class Available(value: Boolean) extends AnyVal
-  case class User(rating: Int, seenAt: DateTime)
+  case class User(rating: IntRating, seenAt: DateTime)

@@ -60,7 +60,7 @@ final class SwissApi(
       name = data.name | GreatPlayer.randomName,
       clock = data.clock,
       variant = data.realVariant,
-      round = SwissRound.Number(0),
+      round = SwissRoundNumber(0),
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = DateTime.now,
@@ -306,7 +306,7 @@ final class SwissApi(
   def pageOf(swiss: Swiss, userId: User.ID): Fu[Option[Int]] =
     rankingApi(swiss) map {
       _ get userId map { rank =>
-        (rank - 1) / 10 + 1
+        (rank - 1).value / 10 + 1
       }
     }
 

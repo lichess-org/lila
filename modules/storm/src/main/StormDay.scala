@@ -20,7 +20,7 @@ case class StormDay(
     errors: Int,
     combo: Int,
     time: Int,
-    highest: Int,
+    highest: IntRating,
     runs: Int
 ):
 
@@ -48,10 +48,10 @@ object StormDay:
     def lastMonth(userId: User.ID) = Id(userId, LichessDay daysAgo 30)
     def allTime(userId: User.ID)   = Id(userId, LichessDay(0))
 
-  def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0, 0)
+  def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, IntRating(0), 0)
 
 final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(using
-    ctx: ExecutionContext
+    ExecutionContext
 ):
 
   import StormDay.*

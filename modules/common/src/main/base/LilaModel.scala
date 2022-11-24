@@ -1,9 +1,15 @@
 package lila.base
 
+import alleycats.Zero
+
 trait LilaModel extends NewTypes:
 
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]
+
+  opaque type UserName = String
+  object UserName extends OpaqueString[UserName]:
+    extension (n: UserName) def id = UserId(n.value.toLowerCase)
 
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]
@@ -64,6 +70,16 @@ trait LilaModel extends NewTypes:
 
   opaque type UblogPostId = String
   object UblogPostId extends OpaqueString[UblogPostId]
+
+  opaque type IntRating = Int
+  object IntRating extends OpaqueInt[IntRating]
+
+  opaque type IntRatingDiff = Int
+  object IntRatingDiff extends OpaqueInt[IntRatingDiff]:
+    given Zero[IntRatingDiff] = Zero(apply(0))
+
+  opaque type Rank = Int
+  object Rank extends OpaqueInt[Rank]
 
   opaque type CacheKey = String
   object CacheKey extends OpaqueString[CacheKey]

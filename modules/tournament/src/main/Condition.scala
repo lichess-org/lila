@@ -21,7 +21,7 @@ object Condition:
 
     def apply(user: User): Condition.Verdict
 
-  type GetMaxRating = PerfType => Fu[Int]
+  type GetMaxRating = PerfType => Fu[IntRating]
 
   sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
   case object Accepted                        extends Verdict(true, none)

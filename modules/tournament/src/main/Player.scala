@@ -8,7 +8,7 @@ private[tournament] case class Player(
     _id: TourPlayerId, // random
     tourId: Tournament.ID,
     userId: User.ID,
-    rating: Int,
+    rating: IntRating,
     provisional: Boolean,
     withdraw: Boolean = false,
     score: Int = 0,
@@ -28,7 +28,7 @@ private[tournament] case class Player(
   def doWithdraw = copy(withdraw = true)
   def unWithdraw = copy(withdraw = false)
 
-  def magicScore = score * 10000 + (performanceOption | rating)
+  def magicScore = score * 10000 + (performanceOption | rating.value)
 
   def performanceOption = performance > 0 option performance
 

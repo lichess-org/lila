@@ -61,7 +61,7 @@ object BsonHandlers:
     import PuzzleRound.BSONFields.*
     def reads(r: BSON.Reader) = PuzzleRound(
       id = r.get[PuzzleRound.Id](id),
-      win = r.bool(win),
+      win = r.get[PuzzleWin](win),
       fixedAt = r.dateO(fixedAt),
       date = r.date(date),
       vote = r.intO(vote),

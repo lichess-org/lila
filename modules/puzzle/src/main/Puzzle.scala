@@ -79,8 +79,8 @@ object Puzzle:
   case class UserResult(
       puzzleId: PuzzleId,
       userId: lila.user.User.ID,
-      result: PuzzleResult,
-      rating: (Int, Int)
+      win: PuzzleWin,
+      rating: (IntRating, IntRating)
   )
 
   object BSONFields:

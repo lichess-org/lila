@@ -61,7 +61,7 @@ case class Perfs(
       case (ro, _) => ro
     }
 
-  private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating)
+  private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)
 
   def bestPerfs(nb: Int): List[(PerfType, Perf)] =
     val ps = PerfType.nonPuzzle map { pt =>
@@ -72,33 +72,33 @@ case class Perfs(
 
   def bestPerfType: Option[PerfType] = bestPerf.map(_._1)
 
-  def bestRating: Int = bestRatingIn(PerfType.leaderboardable)
+  def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
 
-  def bestStandardRating: Int = bestRatingIn(PerfType.standard)
+  def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
 
-  def bestRatingIn(types: List[PerfType]): Int =
+  def bestRatingIn(types: List[PerfType]): IntRating =
     val ps = types map apply match
       case Nil => List(standard)
       case x   => x
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
-    ps.foldLeft(none[Int]) {
+    ps.foldLeft(none[IntRating]) {
       case (ro, p) if p.nb >= minNb =>
-        ro.fold(p.intRating.some) { r =>
-          Some(if (p.intRating > r) p.intRating else r)
-        }
+        ro.fold(p.intRating) { r =>
+          if (p.intRating > r) p.intRating else r
+        }.some
       case (ro, _) => ro
     } | Perf.default.intRating
 
-  def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[Int] =
-    types.map(apply).foldLeft(none[Int]) {
+  def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
+    types.map(apply).foldLeft(none[IntRating]) {
       case (ro, p) if p.nb >= nbGames && ro.fold(true)(_ < p.intRating) => p.intRating.some
       case (ro, _)                                                      => ro
     }
 
-  def bestProgress: Int = bestProgressIn(PerfType.leaderboardable)
+  def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
-  def bestProgressIn(types: List[PerfType]): Int =
-    types.foldLeft(0) { case (max, t) =>
+  def bestProgressIn(types: List[PerfType]): IntRatingDiff =
+    types.foldLeft(IntRatingDiff(0)) { case (max, t) =>
       val p = apply(t).progress
       if (p > max) p else max
     }
@@ -121,7 +121,7 @@ case class Perfs(
     Perf.Key("puzzle")         -> puzzle
   )
 
-  def ratingOf(pt: Perf.Key): Option[Int] = perfsMap get pt map (_.intRating)
+  def ratingOf(pt: Perf.Key): Option[IntRating] = perfsMap get pt map (_.intRating)
 
   def apply(key: Perf.Key): Option[Perf] = perfsMap get key
 

@@ -4,5 +4,4 @@ export lila.Lila.{ *, given }
 
 private type ID         = String
 private type Date       = Int
-private type Rating     = Int
-private type RatingsMap = List[(Date, Rating)]
+private type RatingsMap = List[(Date, IntRating)]

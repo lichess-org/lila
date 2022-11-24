@@ -73,7 +73,7 @@ final class TournamentLilaHttp(
           json <- playerJson(
             tour,
             sheet,
-            RankedPlayer(index.toInt + 1, player),
+            RankedPlayer(Rank(index.toInt + 1), player),
             streakable = tour.streakable
           )
         } yield json

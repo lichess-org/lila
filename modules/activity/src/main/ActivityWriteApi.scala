@@ -48,8 +48,8 @@ final class ActivityWriteApi(
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = update(res.userId) { a =>
     $doc(ActivityFields.puzzles -> {
       ~a.puzzles + Score.make(
-        res = res.result.win.some,
-        rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+        res = res.win.yes.some,
+        rp = RatingProg(res.rating._1, res.rating._2).some
       )
     })
   }

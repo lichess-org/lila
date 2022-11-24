@@ -24,10 +24,10 @@ final class JsonView(
     for {
       games      <- fetchGames(simul)
       lightHost  <- getLightUser(simul.hostId)
-      applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
+      applicants <- simul.applicants.sortBy(-_.player.rating.value).map(applicantJson).sequenceFu
       pairingOptions <-
         simul.pairings
-          .sortBy(-_.player.rating)
+          .sortBy(-_.player.rating.value)
           .map(pairingJson(games, simul.hostId))
           .sequenceFu
       pairings = pairingOptions.flatten

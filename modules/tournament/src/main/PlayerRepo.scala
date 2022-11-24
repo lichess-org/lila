@@ -30,7 +30,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
   ): Fu[RankedPlayers] =
     coll.find($inIds(playerIds)).cursor[Player]().listAll() map { players =>
       playerIds.flatMap(id => players.find(_._id == id)).zipWithIndex.map { case (player, index) =>
-        RankedPlayer((page - 1) * 10 + index + 1, player)
+        RankedPlayer(Rank((page - 1) * 10 + index + 1), player)
       }
     }
 
@@ -45,7 +45,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
     bestByTour(tourId, nb, skip).map { res =>
       res
         .foldRight(List.empty[RankedPlayer] -> (res.size + skip)) { case (p, (res, rank)) =>
-          (RankedPlayer(rank, p) :: res, rank - 1)
+          (RankedPlayer(Rank(rank), p) :: res, rank - 1)
         }
         ._1
     }
@@ -263,20 +263,20 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
           .fold(FullRanking(Map.empty, Array.empty)) { all =>
             // mutable optimized implementation
             val playerIndex = new Array[TourPlayerId](all.size)
-            val ranking     = Map.newBuilder[User.ID, Int]
+            val ranking     = Map.newBuilder[User.ID, Rank]
             var r           = 0
             for (u <- all.values)
               val both   = u.asInstanceOf[BSONString].value
               val userId = both.drop(8)
               playerIndex(r) = TourPlayerId(both.take(8))
-              ranking += (userId -> r)
+              ranking += (userId -> Rank(r))
               r = r + 1
             FullRanking(ranking.result(), playerIndex)
           }
       }
 
-  def computeRankOf(player: Player): Fu[Int] =
-    coll.countSel(selectTour(player.tourId) ++ $doc("m" $gt player.magicScore))
+  def computeRankOf(player: Player): Fu[Rank] =
+    Rank from coll.countSel(selectTour(player.tourId) ++ $doc("m" $gt player.magicScore))
 
   // expensive, cache it
   private[tournament] def averageRating(tourId: Tournament.ID): Fu[Int] =
@@ -313,7 +313,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       .flatMap { p =>
         ranking get p.userId map { RankedPlayer(_, p) }
       }
-      .sortBy(_.rank)
+      .sortBy(_.rank)(using intOrdering)
 
   def rankedByTourAndUserIds(
       tourId: Tournament.ID,

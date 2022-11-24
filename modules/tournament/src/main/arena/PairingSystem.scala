@@ -100,7 +100,7 @@ private object PairingSystem:
   case class Data(
       tour: Tournament,
       lastOpponents: Pairing.LastOpponents,
-      ranking: Map[User.ID, Int],
+      ranking: Map[User.ID, Rank],
       onlyTwoActivePlayers: Boolean
   )
 
@@ -118,8 +118,8 @@ private object PairingSystem:
   def rankFactorFor(
       players: List[RankedPlayerWithColorHistory]
   ): (RankedPlayerWithColorHistory, RankedPlayerWithColorHistory) => Int =
-    val maxRank = players.maxBy(_.rank).rank
+    val maxRank = players.maxBy(_.rank.value).rank
     (a, b) => {
-      val rank = Math.min(a.rank, b.rank)
-      300 + 1700 * (maxRank - rank) / maxRank
+      val rank = a.rank atMost b.rank
+      300 + 1700 * (maxRank - rank).value / maxRank.value
     }

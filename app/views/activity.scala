@@ -292,7 +292,7 @@ object activity:
           tours.best.map { t =>
             div(
               cls := List(
-                "is-gold" -> (t.rank == 1),
+                "is-gold" -> (t.rank == Rank(1)),
                 "text"    -> (t.rank <= 3)
               ),
               dataIcon := (t.rank <= 3).option("")
@@ -311,7 +311,7 @@ object activity:
       )
     )
 
-  private def renderSwisses(swisses: List[(Swiss.IdName, Int)])(implicit ctx: Context) =
+  private def renderSwisses(swisses: List[(Swiss.IdName, Rank)])(implicit ctx: Context) =
     entryTag(
       iconTag(""),
       div(
@@ -320,7 +320,7 @@ object activity:
           swisses.map { case (swiss, rank) =>
             div(
               cls := List(
-                "is-gold" -> (rank == 1),
+                "is-gold" -> (rank == Rank(1)),
                 "text"    -> (rank <= 3)
               ),
               dataIcon := (rank <= 3).option("")

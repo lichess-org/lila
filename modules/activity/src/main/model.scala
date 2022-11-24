@@ -4,11 +4,10 @@ import alleycats.Zero
 
 object model:
 
-  case class Rating(value: Int) extends AnyVal
-  case class RatingProg(before: Rating, after: Rating):
+  case class RatingProg(before: IntRating, after: IntRating):
     def add(o: RatingProg) = copy(after = o.after)
-    def diff               = after.value - before.value
-    def isEmpty            = diff == 0
+    def diff               = IntRatingDiff(after.value - before.value)
+    def isEmpty            = diff == IntRatingDiff(0)
   object RatingProg:
     def add(rp1O: Option[RatingProg], rp2O: Option[RatingProg]) =
       (rp1O, rp2O) match
@@ -16,7 +15,7 @@ object model:
         case _                      => rp2O orElse rp1O
     def make(player: lila.game.Player) =
       player.rating map { rating =>
-        RatingProg(Rating(rating), Rating(rating + ~player.ratingDiff))
+        RatingProg(rating, rating + ~player.ratingDiff)
       }
 
   case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]):

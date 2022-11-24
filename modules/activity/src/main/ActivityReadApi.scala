@@ -157,7 +157,7 @@ final class ActivityReadApi(
       stream = a.stream
     )
 
-  def recentSwissRanks(userId: User.ID): Fu[List[(Swiss.IdName, Int)]] =
+  def recentSwissRanks(userId: User.ID): Fu[List[(Swiss.IdName, Rank)]] =
     coll(
       _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses $exists true))
         .sort($sort desc "_id")
@@ -167,7 +167,7 @@ final class ActivityReadApi(
       toSwissesView(activities.flatMap(_.swisses.??(_.value)))
     }
 
-  private def toSwissesView(swisses: List[activities.SwissRank]): Fu[List[(Swiss.IdName, Int)]] =
+  private def toSwissesView(swisses: List[activities.SwissRank]): Fu[List[(Swiss.IdName, Rank)]] =
     swissApi
       .idNames(swisses.map(_.id))
       .map {

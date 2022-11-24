@@ -32,9 +32,9 @@ case class StudentProgress(
     nb: Int,
     wins: Int,
     millis: Long,
-    rating: (Int, Int)
+    rating: (IntRating, IntRating)
 ):
-  def ratingProgress = rating._2 - rating._1
+  def ratingProgress = (rating._2 - rating._1) into IntRatingDiff
   def winRate        = if (nb > 0) wins * 100 / nb else 0
   def period         = new Period(millis)
 

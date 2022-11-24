@@ -101,14 +101,14 @@ final private[tv] class ChannelSyncActor(
   )
 
   private def ratingHeuristic(color: Color): Heuristic =
-    game => game.player(color).stableRating | 1300
+    game => game.player(color).stableRating.fold(1300)(_.value)
 
   private def titleHeuristic(color: Color): Heuristic = game =>
     ~game
       .player(color)
       .some
       .flatMap { p =>
-        p.stableRating.exists(2100 <) ?? p.userId
+        p.stableRating.exists(_ > 2100) ?? p.userId
       }
       .flatMap(lightUserSync)
       .flatMap(_.title)

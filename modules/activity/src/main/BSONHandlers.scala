@@ -33,12 +33,11 @@ private object BSONHandlers:
     id => BSONString(s"${id.userId}$idSep${id.day.value}")
   )
 
-  private given BSONHandler[Rating] = BSONIntegerHandler.as(Rating.apply, _.value)
   private given BSONHandler[RatingProg] = tryHandler(
     { case v: BSONArray =>
       for {
-        before <- v.getAsTry[Rating](0)
-        after  <- v.getAsTry[Rating](1)
+        before <- v.getAsTry[IntRating](0)
+        after  <- v.getAsTry[IntRating](1)
       } yield RatingProg(before, after)
     },
     o => BSONArray(o.before, o.after)
@@ -118,7 +117,7 @@ private object BSONHandlers:
   given BSONHandler[Teams]   = isoHandler[Teams, List[TeamId]](_.value, Teams.apply)
 
   given lila.db.BSON[SwissRank] with
-    def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), r.intD("r"))
+    def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), Rank(r.intD("r")))
     def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
 
   given BSONHandler[Swisses] = isoHandler[Swisses, List[SwissRank]](_.value, Swisses.apply)

@@ -104,7 +104,7 @@ object activities:
     def +(s: TeamId) = copy(value = (s :: value).distinct take maxSubEntries)
   given Zero[Teams] = Zero(Teams(Nil))
 
-  case class SwissRank(id: SwissId, rank: Int)
+  case class SwissRank(id: SwissId, rank: Rank)
   case class Swisses(value: List[SwissRank]) extends AnyVal:
     def +(s: SwissRank) = copy(value = (s :: value) take maxSubEntries)
   given Zero[Swisses] = Zero(Swisses(Nil))

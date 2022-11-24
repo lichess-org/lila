@@ -7,7 +7,7 @@ import lila.playban.RageSit
 case class PoolMember(
     userId: User.ID,
     sri: lila.socket.Socket.Sri,
-    rating: Int,
+    rating: IntRating,
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: PoolMember.BlockedUsers,
@@ -17,7 +17,7 @@ case class PoolMember(
 
   def incMisses = copy(misses = misses + 1)
 
-  def ratingDiff(other: PoolMember) = Math.abs(rating - other.rating)
+  def ratingDiff(other: PoolMember) = IntRatingDiff(Math.abs(rating.value - other.rating.value))
 
   def withRange(r: Option[RatingRange]) =
     if (r == ratingRange) this

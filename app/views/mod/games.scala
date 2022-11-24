@@ -25,7 +25,7 @@ object games:
       filterForm: Form[GameMod.Filter],
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
-      swisses: Seq[(Swiss.IdName, Int)]
+      swisses: Seq[(Swiss.IdName, Rank)]
   )(using
       ctx: Context
   ) =
@@ -115,7 +115,7 @@ object games:
                         st.value := pov.gameId
                       )
                     ),
-                    td(dataSort := ~pov.opponent.rating)(
+                    td(dataSort := pov.opponent.rating.fold(0)(_.value))(
                       playerLink(pov.opponent, withDiff = false)
                     ),
                     td(

@@ -10,31 +10,27 @@ case class Duel(
     gameId: GameId,
     p1: Duel.DuelPlayer,
     p2: Duel.DuelPlayer,
-    averageRating: Duel.Rating
+    averageRating: IntRating
 ):
 
-  def has(u: User) = p1.name.id == u.id || p2.name.id == u.id
+  def has(u: User) = p1.name.id == UserId(u.id) || p2.name.id == UserId(u.id)
 
   def userIds = List(p1.name.id, p2.name.id)
 
 object Duel:
 
-  type UsernameRating = (String, Int)
+  type UsernameRating = (String, IntRating)
 
-  case class DuelPlayer(name: Name, rating: Rating, rank: Rank)
-  case class Name(value: String) extends AnyVal with StringValue:
-    def id = User normalize value
-  case class Rating(value: Int) extends AnyVal with IntValue
-  case class Rank(value: Int)   extends AnyVal with IntValue
+  case class DuelPlayer(name: UserName, rating: IntRating, rank: Rank)
 
   def tbUser(p: UsernameRating, ranking: Ranking) =
-    ranking get User.normalize(p._1) map { rank =>
-      DuelPlayer(Name(p._1), Rating(p._2), Rank(rank + 1))
+    ranking get UserName(p._1).id.value map { rank =>
+      DuelPlayer(UserName(p._1), p._2, rank + 1)
     }
 
   private[tournament] val ratingOrdering              = Ordering.by[Duel, Int](_.averageRating.value)
   private[tournament] val gameIdOrdering              = Ordering.by[Duel, GameId](_.gameId)(stringOrdering)
-  private[tournament] def emptyGameId(gameId: GameId) = Duel(gameId, null, null, Rating(0))
+  private[tournament] def emptyGameId(gameId: GameId) = Duel(gameId, null, null, IntRating(0))
 
 final private class DuelStore:
 
@@ -60,7 +56,7 @@ final private class DuelStore:
         gameId = game.id,
         p1 = p1,
         p2 = p2,
-        averageRating = Rating((p1.rating.value + p2.rating.value) / 2)
+        averageRating = IntRating((p1.rating.value + p2.rating.value) / 2)
       )
     } byTourId.compute(
       tour.id,

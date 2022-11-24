@@ -2,6 +2,7 @@ package lila.storm
 
 import play.api.data.*
 import play.api.data.Forms.*
+import lila.common.Form.*
 
 object StormForm:
 
@@ -12,7 +13,7 @@ object StormForm:
       errors: Int,
       combo: Int,
       time: Int,
-      highest: Int,
+      highest: IntRating,
       notAnExploit: String,
       signed: Option[String]
   )
@@ -25,7 +26,7 @@ object StormForm:
       "errors"       -> number(min = 0, max = 50),
       "combo"        -> number(min = 1, max = 900),
       "time"         -> number(min = 1, max = 900),
-      "highest"      -> number(min = lila.rating.Glicko.minRating, max = 4000),
+      "highest"      -> lila.rating.formMapping,
       "notAnExploit" -> nonEmptyText.verifying(_ == notAnExploit),
       "signed"       -> optional(nonEmptyText)
     )(RunData.apply)(unapply)

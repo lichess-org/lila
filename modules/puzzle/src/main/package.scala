@@ -6,5 +6,5 @@ export lila.Lila.{ *, given }
 
 private val logger = lila.log("puzzle")
 
-case class PuzzleResult(win: Boolean) extends AnyVal:
-  def loss = !win
+opaque type PuzzleWin = Boolean
+object PuzzleWin extends YesNo[PuzzleWin]

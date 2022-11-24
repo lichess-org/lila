@@ -9,7 +9,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.swiss.{ Swiss, SwissCondition }
-import lila.swiss.SwissRound
+import lila.swiss.SwissRoundNumber
 import lila.common.paginator.Paginator
 import lila.swiss.SwissPairing
 
@@ -79,7 +79,7 @@ object show:
       )
     )
 
-  def round(s: Swiss, r: SwissRound.Number, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
+  def round(s: Swiss, r: SwissRoundNumber, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${fullName(s)} • Round $r/${s.round}",
       moreCss = cssTag("swiss.show")

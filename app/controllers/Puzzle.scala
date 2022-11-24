@@ -156,7 +156,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                   case Some(puzzle) =>
                     for {
                       score <- data.streakScore
-                      if !data.result.win
+                      if data.win.no
                       if score > 0
                       _ = lila.mon.streak.run.score(ctx.isAuth).record(score)
                       userId <- ctx.userId
@@ -172,7 +172,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated).increment()
                 ctx.me match {
                   case Some(me) =>
-                    env.puzzle.finisher(id, angle, me, data.result, data.mode) flatMap {
+                    env.puzzle.finisher(id, angle, me, data.win, data.mode) flatMap {
                       _ ?? { case (round, perf) =>
                         val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
                         for {
@@ -182,7 +182,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                               env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
                                 "round" -> Json.obj(
                                   "ratingDiff" -> 0,
-                                  "win"        -> data.result.win
+                                  "win"        -> data.win
                                 ),
                                 "voted" -> round.vote
                               )
@@ -478,50 +478,48 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   /* Mobile API: select a bunch of puzzles for offline use */
-  def mobileBcBatchSelect =
-    Auth { implicit ctx => me =>
-      negotiate(
-        html = notFound,
-        api = v => {
-          val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
-          env.puzzle.batch.nextFor(ctx.me, nb) flatMap { puzzles =>
-            env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
-          } dmap { Ok(_) }
-        }
-      )
-    }
+  def mobileBcBatchSelect = Auth { implicit ctx => me =>
+    negotiate(
+      html = notFound,
+      api = v => {
+        val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
+        env.puzzle.batch.nextFor(ctx.me, nb) flatMap { puzzles =>
+          env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
+        } dmap { Ok(_) }
+      }
+    )
+  }
 
   /* Mobile API: tell the server about puzzles solved while offline */
-  def mobileBcBatchSolve =
-    AuthBody(parse.json) { implicit ctx => me =>
-      negotiate(
-        html = notFound,
-        api = v => {
-          import lila.puzzle.PuzzleForm.bc.*
-          import lila.puzzle.PuzzleResult
-          ctx.body.body
-            .validate[SolveData]
-            .fold(
-              err => BadRequest(err.toString).toFuccess,
-              data =>
-                data.solutions.lastOption
-                  .flatMap { solution =>
-                    Puz
-                      .numericalId(solution.id)
-                      .map(_ -> PuzzleResult(solution.win))
-                  }
-                  .?? { case (id, solution) =>
-                    env.puzzle.finisher(id, PuzzleAngle.mix, me, PuzzleResult(solution.win), chess.Mode.Rated)
-                  } map {
-                  case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
-                  case Some((round, perf)) =>
-                    env.puzzle.session.onComplete(round, PuzzleAngle.mix)
-                    Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+  def mobileBcBatchSolve = AuthBody(parse.json) { implicit ctx => me =>
+    negotiate(
+      html = notFound,
+      api = v => {
+        import lila.puzzle.PuzzleForm.bc.*
+        import lila.puzzle.PuzzleWin
+        ctx.body.body
+          .validate[SolveData]
+          .fold(
+            err => BadRequest(err.toString).toFuccess,
+            data =>
+              data.solutions.lastOption
+                .flatMap { solution =>
+                  Puz
+                    .numericalId(solution.id)
+                    .map(_ -> PuzzleWin(solution.win))
                 }
-            )
-        }
-      )
-    }
+                .?? { (id, solution) =>
+                  env.puzzle.finisher(id, PuzzleAngle.mix, me, solution, chess.Mode.Rated)
+                } map {
+                case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
+                case Some((round, perf)) =>
+                  env.puzzle.session.onComplete(round, PuzzleAngle.mix)
+                  Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+              }
+          )
+      }
+    )
+  }
 
   def mobileBcVote(nid: Long) =
     AuthBody { implicit ctx => me =>

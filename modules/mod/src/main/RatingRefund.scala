@@ -54,9 +54,9 @@ final private class RatingRefund(
             } yield refs.add(victim, perf, -diff, rating)) | refs
           }
 
-        def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
-          ref.diff - (ref.diff + curRating - ref.topRating atLeast 0) / 2 atMost
-            perfs.highest.fold(100) { _.int - curRating + 20 }
+        def pointsToRefund(ref: Refund, curRating: IntRating, perfs: PerfStat): Int = {
+          ref.diff.value - (ref.diff + curRating - ref.topRating atLeast 0).value / 2 atMost
+            perfs.highest.fold(100) { _.int.value - curRating.value + 20 }
         }.squeeze(0, 150)
 
         def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit =
@@ -87,13 +87,13 @@ private object RatingRefund:
 
   val delay = 1 minute
 
-  case class Refund(victim: User.ID, perf: PerfType, diff: Int, topRating: Int):
+  case class Refund(victim: User.ID, perf: PerfType, diff: IntRatingDiff, topRating: IntRating):
     def is(v: User.ID, p: PerfType): Boolean = v == victim && p == perf
     def is(r: Refund): Boolean               = is(r.victim, r.perf)
-    def add(d: Int, r: Int)                  = copy(diff = diff + d, topRating = topRating max r)
+    def add(d: IntRatingDiff, r: IntRating)  = copy(diff = diff + d, topRating = topRating atLeast r)
 
   case class Refunds(all: List[Refund]):
-    def add(victim: User.ID, perf: PerfType, diff: Int, rating: Int) =
+    def add(victim: User.ID, perf: PerfType, diff: IntRatingDiff, rating: IntRating) =
       copy(all = all.find(_.is(victim, perf)) match {
         case None    => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_ is r)

@@ -176,7 +176,7 @@ final class TournamentApi(
     import cats.implicits.*
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
-        pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank) ?? {
+        pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank.value) ?? {
           bestCandidate =>
             def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
             curOption.filter(_.pairing.playing) match
@@ -247,7 +247,7 @@ final class TournamentApi(
       playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
         lila.common.Future
           .applySequentially(players) {
-            case rp if rp.rank == 1 =>
+            case rp if rp.rank.value == 1 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
             case rp if rp.rank <= 10 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopTen)
@@ -340,7 +340,7 @@ final class TournamentApi(
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
     cached ranking tour map {
       _.ranking get userId map { rank =>
-        rank / 10 + 1
+        rank.value / 10 + 1
       }
     }
 
@@ -370,9 +370,8 @@ final class TournamentApi(
         for {
           _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
-            if (isPause) cached.ranking(tour).map { _.ranking get userId exists (7 >) }
-            else
-              fuccess(isStalling)
+            if (isPause) cached.ranking(tour).map { _.ranking get userId exists (_ < 7) }
+            else fuccess(isStalling)
         } yield
           if (pausable) pause.add(userId)
           socket.reload(tour.id)
@@ -450,7 +449,7 @@ final class TournamentApi(
       opponent       <- g.opponentByUserId(userId)
       opponentRating <- opponent.rating
       multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
-    } yield opponentRating + 500 * multiplier
+    } yield opponentRating.value + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit =
     if (game.status == chess.Status.NoStart) for {

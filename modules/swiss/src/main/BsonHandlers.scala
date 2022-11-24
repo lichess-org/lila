@@ -14,10 +14,6 @@ object BsonHandlers:
   given BSONHandler[chess.variant.Variant] = variantByKeyHandler
   given BSONHandler[chess.Clock.Config]    = clockConfigHandler
   given BSONHandler[Swiss.Points]          = intAnyValHandler(_.double, Swiss.Points.apply)
-  given BSONHandler[Swiss.TieBreak]        = doubleAnyValHandler(_.value, Swiss.TieBreak.apply)
-  given BSONHandler[Swiss.Performance]     = floatAnyValHandler(_.value, Swiss.Performance.apply)
-  given BSONHandler[Swiss.Score]           = intAnyValHandler(_.value, Swiss.Score.apply)
-  given BSONHandler[SwissRound.Number]     = intAnyValHandler(_.value, SwissRound.Number.apply)
   given BSONHandler[SwissPlayer.Id]        = stringAnyValHandler(_.value, SwissPlayer.Id.apply)
 
   given BSON[SwissPlayer] with
@@ -27,14 +23,14 @@ object BsonHandlers:
         id = r.get[SwissPlayer.Id](id),
         swissId = r.get[SwissId](swissId),
         userId = r str userId,
-        rating = r int rating,
+        rating = r.get[IntRating](rating),
         provisional = r boolD provisional,
         points = r.get[Swiss.Points](points),
         tieBreak = r.get[Swiss.TieBreak](tieBreak),
         performance = r.getO[Swiss.Performance](performance),
         score = r.get[Swiss.Score](score),
         absent = r.boolD(absent),
-        byes = ~r.getO[Set[SwissRound.Number]](byes)
+        byes = ~r.getO[Set[SwissRoundNumber]](byes)
       )
     def writes(w: BSON.Writer, o: SwissPlayer) =
       $doc(
@@ -71,7 +67,7 @@ object BsonHandlers:
           SwissPairing(
             id = r.get[GameId](id),
             swissId = r.get[SwissId](swissId),
-            round = r.get[SwissRound.Number](round),
+            round = r.get[SwissRoundNumber](round),
             white = w,
             black = b,
             status = r.getO[SwissPairing.Status](status) | Right(none),

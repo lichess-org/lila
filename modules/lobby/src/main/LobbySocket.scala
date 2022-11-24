@@ -197,8 +197,9 @@ final class LobbySocket(
               PoolApi.Joiner(
                 userId = user.id,
                 sri = member.sri,
-                rating = glicko.establishedIntRating |
-                  lila.common.Maths.boxedNormalDistribution(glicko.intRating, glicko.intDeviation, 0.3),
+                rating = glicko.establishedIntRating | IntRating(
+                  lila.common.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
+                ),
                 ratingRange = ratingRange,
                 lame = user.lame,
                 blocking = user.blocking ++ blocking

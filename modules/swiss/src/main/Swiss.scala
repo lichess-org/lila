@@ -14,7 +14,7 @@ case class Swiss(
     name: String,
     clock: ClockConfig,
     variant: chess.variant.Variant,
-    round: SwissRound.Number, // ongoing round
+    round: SwissRoundNumber, // ongoing round
     nbPlayers: Int,
     nbOngoing: Int,
     createdAt: DateTime,
@@ -37,12 +37,12 @@ case class Swiss(
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
-  def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
-  def finishedRounds: List[SwissRound.Number] = (1 until round.value).toList.map(SwissRound.Number.apply)
+  def allRounds: List[SwissRoundNumber]      = SwissRoundNumber from (1 to round.value).toList
+  def finishedRounds: List[SwissRoundNumber] = SwissRoundNumber from (1 until round.value).toList
 
   def startRound =
     copy(
-      round = SwissRound.Number(round.value + 1),
+      round = SwissRoundNumber(round.value + 1),
       nextRoundAt = none
     )
 
@@ -78,14 +78,21 @@ object Swiss:
   val maxForbiddenPairings = 1000
   val maxManualPairings    = 10_000
 
-  case class Round(value: Int) extends AnyVal with IntValue
+  opaque type Round = Int
+  object Round extends OpaqueInt[Round]
 
   case class Points(double: Int) extends AnyVal:
     def value: Float = double / 2f
     def +(p: Points) = Points(double + p.double)
-  case class TieBreak(value: Double)   extends AnyVal
-  case class Performance(value: Float) extends AnyVal
-  case class Score(value: Int)         extends AnyVal
+
+  opaque type TieBreak = Double
+  object TieBreak extends OpaqueDouble[TieBreak]
+
+  opaque type Performance = Float
+  object Performance extends OpaqueFloat[Performance]
+
+  opaque type Score = Int
+  object Score extends OpaqueInt[Score]
 
   case class IdName(_id: SwissId, name: String):
     inline def id = _id
@@ -119,9 +126,7 @@ object Swiss:
     val manual = 99999999
 
   def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) =
-    Score(
-      (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt
-    )
+    Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
 
   def makeId = SwissId(lila.common.ThreadLocalRandom nextString 8)
 

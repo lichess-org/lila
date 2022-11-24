@@ -25,8 +25,8 @@ case class GameView(
 ):
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[GameId], teamId: Option[TeamId]):
-  def page = (rank + 9) / 10
+case class MyInfo(rank: Rank, withdraw: Boolean, gameId: Option[GameId], teamId: Option[TeamId]):
+  def page = (rank.value + 9) / 10
 
 case class VisibleTournaments(
     created: List[Tournament],
@@ -50,14 +50,13 @@ case class PlayerInfoExt(
     recentPovs: List[lila.game.LightPov]
 )
 
-case class FullRanking(ranking: Map[User.ID, Int], playerIndex: Array[TourPlayerId])
+case class FullRanking(ranking: Map[User.ID, Rank], playerIndex: Array[TourPlayerId])
 
-case class GameRanks(whiteRank: Int, blackRank: Int)
+case class GameRanks(whiteRank: Rank, blackRank: Rank)
 
-case class RankedPairing(pairing: Pairing, rank1: Int, rank2: Int):
+case class RankedPairing(pairing: Pairing, rank1: Rank, rank2: Rank):
 
-  def bestRank = rank1 min rank2
-  // def rankSum = rank1 + rank2
+  def bestRank = rank1 atLeast rank2
 
   def bestColor = chess.Color.fromWhite(rank1 < rank2)
 
@@ -69,7 +68,7 @@ object RankedPairing:
       r2 <- ranking get pairing.user2
     } yield RankedPairing(pairing, r1 + 1, r2 + 1)
 
-case class RankedPlayer(rank: Int, player: Player):
+case class RankedPlayer(rank: Rank, player: Player):
 
   def is(other: RankedPlayer) = player is other.player
 
@@ -85,7 +84,7 @@ object RankedPlayer:
       RankedPlayer(rank + 1, player)
     }
 
-case class RankedPlayerWithColorHistory(rank: Int, player: Player, colorHistory: ColorHistory):
+case class RankedPlayerWithColorHistory(rank: Rank, player: Player, colorHistory: ColorHistory):
 
   def is(other: RankedPlayer) = player is other.player
 

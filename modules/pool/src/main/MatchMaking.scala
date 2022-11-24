@@ -16,7 +16,7 @@ object MatchMaking:
       case (lames, fairs) => naive(lames) ++ (wmMatching(fairs) | naive(fairs))
 
   private def naive(members: Vector[PoolMember]): Vector[Couple] =
-    members.sortBy(-_.rating) grouped 2 collect { case Vector(p1, p2) =>
+    members.sortBy(_.rating)(using intOrdering[IntRating].reverse) grouped 2 collect { case Vector(p1, p2) =>
       Couple(p1, p2)
     } toVector
 
@@ -29,16 +29,16 @@ object MatchMaking:
     // 2000 ~> 133
     // 2500 ~> 166
     // 3000 ~> 200
-    private def ratingToMaxScore(rating: Int) =
+    private def ratingToMaxScore(rating: IntRating) =
       if (rating < 1000) 130
       else if (rating < 1500) 100
-      else rating / 15
+      else rating.value / 15
 
     // quality of a potential pairing. Lower is better.
     // None indicates a forbidden pairing
     private def pairScore(a: PoolMember, b: PoolMember): Option[Int] =
       !(rangeMalus(a, b) || rangeMalus(b, a) || blockMalus(a, b) || blockMalus(b, a)) ?? {
-        a.ratingDiff(b) - {
+        a.ratingDiff(b).value - {
           missBonus(a) atMost missBonus(b)
         } - {
           rangeBonus(a, b)

@@ -28,8 +28,8 @@ private object AntmaPairing:
         ) None
         else
           Some {
-            Math.abs(a.rank - b.rank) * rankFactor(a, b) +
-              Math.abs(a.player.rating - b.player.rating)
+            Math.abs(a.rank.value - b.rank.value) * rankFactor(a, b) +
+              Math.abs(a.player.rating.value - b.player.rating.value)
           }
 
       def battleScore(a: RPlayer, b: RPlayer): Option[Int] =

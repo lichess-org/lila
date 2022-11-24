@@ -206,7 +206,7 @@ final private class PovToEntry(
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       rating = myRating,
       opponentRating = opRating,
-      opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(o - m),
+      opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(m, o),
       opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),

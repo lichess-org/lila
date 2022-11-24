@@ -6,6 +6,7 @@ import scala.concurrent.duration.*
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
 import org.joda.time.DateTime
+import lila.common.Json.given
 
 final class RatingChartApi(
     historyApi: HistoryApi,

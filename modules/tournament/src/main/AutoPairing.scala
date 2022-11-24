@@ -5,6 +5,7 @@ import scala.util.chaining.*
 
 import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
 import lila.user.User
+import alleycats.Zero
 
 final class AutoPairing(
     gameRepo: GameRepo,
@@ -37,6 +38,7 @@ final class AutoPairing(
       .start
     (gameRepo insertDenormalized game) >>- {
       onStart(game.id)
+      import lila.rating.intZero
       duelStore.add(
         tour = tour,
         game = game,

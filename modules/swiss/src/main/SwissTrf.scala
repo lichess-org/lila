@@ -47,7 +47,7 @@ final class SwissTrf(
   private def playerLine(
       swiss: Swiss,
       playerIds: PlayerIds
-  )(p: SwissPlayer, pairings: Map[SwissRound.Number, SwissPairing], sheet: SwissSheet): Bits =
+  )(p: SwissPlayer, pairings: Map[SwissRoundNumber, SwissPairing], sheet: SwissSheet): Bits =
     List(
       3                    -> "001",
       8                    -> playerIds.getOrElse(p.userId, 0).toString,

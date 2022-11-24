@@ -58,7 +58,7 @@ case class Hook(
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
-  def rating: Option[Int]          = perf.map(_.rating)
+  def rating: Option[IntRating]    = perf.map(_.rating)
 
   import lila.common.Json.given
   def render: JsObject = Json

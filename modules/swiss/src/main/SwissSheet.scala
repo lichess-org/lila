@@ -46,7 +46,7 @@ private object SwissSheet:
 
   def one(
       swiss: Swiss,
-      pairingMap: Map[SwissRound.Number, SwissPairing],
+      pairingMap: Map[SwissRoundNumber, SwissPairing],
       player: SwissPlayer
   ): SwissSheet =
     SwissSheet {
@@ -73,7 +73,7 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
   def source(
       swiss: Swiss,
       sort: Bdoc
-  ): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), ?] =
+  ): Source[(SwissPlayer, Map[SwissRoundNumber, SwissPairing], SwissSheet), ?] =
     val readPreference =
       if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
         temporarilyPrimary

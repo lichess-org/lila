@@ -89,8 +89,8 @@ final class SwissJson(
                   .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
               }
               .flatMap { gameId =>
-                rankingApi(swiss).dmap(_ get player.userId) map2 { rank =>
-                  MyInfo(rank, gameId, me, player)
+                rankingApi(swiss).dmap(_ get player.userId) map2 {
+                  MyInfo(_, gameId, me, player)
                 }
               }
           }
@@ -305,7 +305,7 @@ object SwissJson:
       "user"   -> player.user
     )
 
-  private given Writes[SwissRound.Number] = Writes(n => JsNumber(n.value))
+  private given Writes[SwissRoundNumber] = Writes(n => JsNumber(n.value))
   private given Writes[Swiss.Points]      = Writes(p => JsNumber(BigDecimal(p.value)))
   private given Writes[Swiss.TieBreak]    = Writes(t => JsNumber(t.value))
   private given Writes[Swiss.Performance] = Writes(t => JsNumber(t.value.toInt))

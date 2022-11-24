@@ -53,7 +53,7 @@ object PoolApi:
   case class Joiner(
       userId: User.ID,
       sri: Sri,
-      rating: Int,
+      rating: IntRating,
       ratingRange: Option[RatingRange],
       lame: Boolean,
       blocking: Set[User.ID]

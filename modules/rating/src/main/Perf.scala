@@ -10,17 +10,19 @@ import reactivemongo.api.bson.BSONDocumentHandler
 case class Perf(
     glicko: Glicko,
     nb: Int,
-    recent: List[Int],
+    recent: List[IntRating],
     latest: Option[DateTime]
 ):
 
-  def intRating    = glicko.rating.toInt
+  def intRating    = IntRating(glicko.rating.toInt)
   def intDeviation = glicko.deviation.toInt
 
-  def progress: Int =
-    ~recent.headOption.flatMap { head =>
-      recent.lastOption map (head -)
-    }
+  def progress: IntRatingDiff = {
+    for
+      head <- recent.headOption
+      last <- recent.lastOption
+    yield IntRatingDiff(head.value - last.value)
+  } | IntRatingDiff(0)
 
   def add(g: Glicko, date: DateTime): Perf =
     val capped = g.cap
@@ -63,7 +65,7 @@ case class Perf(
 
   def toRating =
     glicko2.Rating(
-      math.max(Glicko.minRating, glicko.rating),
+      math.max(Glicko.minRating.value, glicko.rating),
       glicko.deviation,
       glicko.volatility,
       nb,
@@ -122,7 +124,7 @@ case object Perf:
         glicko = r.getO[Glicko]("gl") | Glicko.default,
         nb = r intD "nb",
         latest = r dateO "la",
-        recent = r intsD "re"
+        recent = ~r.getO[List[IntRating]]("re")
       )
       p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, reverse = false)))
 

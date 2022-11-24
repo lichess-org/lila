@@ -7,7 +7,7 @@ import lila.user.User
 case class SwissPairing(
     id: GameId,
     swissId: SwissId,
-    round: SwissRound.Number,
+    round: SwissRoundNumber,
     white: User.ID,
     black: User.ID,
     status: SwissPairing.Status,
@@ -41,7 +41,7 @@ object SwissPairing:
 
   type ByeOrPending = Either[Bye, Pending]
 
-  type PairingMap = Map[User.ID, Map[SwissRound.Number, SwissPairing]]
+  type PairingMap = Map[User.ID, Map[SwissRoundNumber, SwissPairing]]
 
   case class View(pairing: SwissPairing, player: SwissPlayer.WithUser)
 

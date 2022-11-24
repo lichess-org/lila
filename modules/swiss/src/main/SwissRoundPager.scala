@@ -14,7 +14,7 @@ final class SwissRoundPager(mongo: SwissMongo)(using ec: ExecutionContext):
 
   private val maxPerPage = config.MaxPerPage(50)
 
-  def apply(swiss: Swiss, round: SwissRound.Number, page: Int): Fu[Paginator[SwissPairing]] =
+  def apply(swiss: Swiss, round: SwissRoundNumber, page: Int): Fu[Paginator[SwissPairing]] =
     Paginator(
       adapter = new Adapter[SwissPairing](
         collection = mongo.pairing,

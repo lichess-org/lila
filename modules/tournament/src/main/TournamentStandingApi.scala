@@ -36,7 +36,7 @@ final class TournamentStandingApi(
           json <- JsonView.playerJson(
             lightUserApi,
             sheet.some,
-            RankedPlayer(index.toInt + 1, player),
+            RankedPlayer(Rank(index.toInt + 1), player),
             streakable = tour.streakable,
             withScores = true
           )

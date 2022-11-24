@@ -15,13 +15,15 @@ object RelativeStrength:
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def apply(diff: Int) =
-    diff match
-      case d if d < -200 => MuchWeaker
-      case d if d < -100 => Weaker
-      case d if d > 200  => MuchStronger
-      case d if d > 100  => Stronger
-      case _             => Similar
+  def apply(myRating: IntRating, opRating: IntRating): RelativeStrength = apply(
+    (opRating - myRating) into IntRatingDiff
+  )
+  def apply(diff: IntRatingDiff): RelativeStrength = diff match
+    case d if d < -200 => MuchWeaker
+    case d if d < -100 => Weaker
+    case d if d > 200  => MuchStronger
+    case d if d > 100  => Stronger
+    case _             => Similar
 
 sealed abstract class MovetimeRange(val id: Int, val name: String, val tenths: Int)
 object MovetimeRange:

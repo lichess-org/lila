@@ -33,13 +33,13 @@ final private[puzzle] class PuzzleFinisher(
       id: PuzzleId,
       angle: PuzzleAngle,
       user: User,
-      result: PuzzleResult,
+      win: PuzzleWin,
       mode: Mode
   ): Fu[Option[(PuzzleRound, Perf)]] =
     if (api.casual(user, id)) fuccess {
       PuzzleRound(
         id = PuzzleRound.Id(user.id, id),
-        win = result.win,
+        win = win,
         fixedAt = none,
         date = DateTime.now
       ) -> user.perfs.puzzle
@@ -55,14 +55,14 @@ final private[puzzle] class PuzzleFinisher(
               val (round, newPuzzleGlicko, userPerf) = prevRound match
                 case Some(prev) =>
                   (
-                    prev.updateWithWin(result.win),
+                    prev.updateWithWin(win),
                     none,
                     user.perfs.puzzle
                   )
                 case None if mode.casual =>
                   val round = PuzzleRound(
                     id = PuzzleRound.Id(user.id, puzzle.id),
-                    win = result.win,
+                    win = win,
                     fixedAt = none,
                     date = DateTime.now
                   )
@@ -70,17 +70,17 @@ final private[puzzle] class PuzzleFinisher(
                 case None =>
                   val userRating = user.perfs.puzzle.toRating
                   val puzzleRating = new glicko2.Rating(
-                    puzzle.glicko.rating atLeast Glicko.minRating,
+                    puzzle.glicko.rating atLeast Glicko.minRating.value,
                     puzzle.glicko.deviation,
                     puzzle.glicko.volatility,
                     puzzle.plays,
                     none
                   )
-                  updateRatings(userRating, puzzleRating, result)
+                  updateRatings(userRating, puzzleRating, win)
                   val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
                     .puzzle(
                       angle,
-                      result,
+                      win,
                       puzzle.glicko -> Glicko(
                         rating = puzzleRating.rating
                           .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
@@ -96,7 +96,7 @@ final private[puzzle] class PuzzleFinisher(
                   val round =
                     PuzzleRound(
                       id = PuzzleRound.Id(user.id, puzzle.id),
-                      win = result.win,
+                      win = win,
                       fixedAt = none,
                       date = DateTime.now
                     )
@@ -104,7 +104,7 @@ final private[puzzle] class PuzzleFinisher(
                     user.perfs.puzzle
                       .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe { p =>
                       p.copy(glicko =
-                        ponder.player(angle, result, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
+                        ponder.player(angle, win, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
                       )
                     }
                   (round, newPuzzleGlicko, userPerf)
@@ -125,7 +125,7 @@ final private[puzzle] class PuzzleFinisher(
                 } >>- {
                   if (prevRound.isEmpty)
                     Bus.publish(
-                      Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
+                      Puzzle.UserResult(puzzle.id, user.id, win, formerUserRating -> userPerf.intRating),
                       "finishPuzzle"
                     )
                 } inject (round -> userPerf).some
@@ -163,26 +163,26 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.castling
     ).map(_.key)
 
-    private def weightOf(angle: PuzzleAngle, result: PuzzleResult) =
+    private def weightOf(angle: PuzzleAngle, win: PuzzleWin) =
       angle.asTheme.fold(1f) { theme =>
         if (theme == PuzzleTheme.mix.key) 1
         else if (isObvious(theme))
-          if (result.win) 0.2f else 0.6f
+          if (win.yes) 0.2f else 0.6f
         else if (isHinting(theme))
-          if (result.win) 0.3f else 0.7f
-        else if (result.win) 0.7f
+          if (win.yes) 0.3f else 0.7f
+        else if (win.yes) 0.7f
         else 0.8f
       }
 
-    def player(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), puzzle: Glicko) =
+    def player(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), puzzle: Glicko) =
       val provisionalPuzzle = puzzle.provisional ?? {
-        if (result.win) -0.2f else -0.7f
+        if (win.yes) -0.2f else -0.7f
       }
-      glicko._1.average(glicko._2, (weightOf(angle, result) + provisionalPuzzle) atLeast 0.1f)
+      glicko._1.average(glicko._2, (weightOf(angle, win) + provisionalPuzzle) atLeast 0.1f)
 
-    def puzzle(angle: PuzzleAngle, result: PuzzleResult, glicko: (Glicko, Glicko), player: Glicko) =
+    def puzzle(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), player: Glicko) =
       if (player.clueless) glicko._1
-      else glicko._1.average(glicko._2, weightOf(angle, result))
+      else glicko._1.average(glicko._2, weightOf(angle, win))
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU        = 0.75d
@@ -191,10 +191,10 @@ final private[puzzle] class PuzzleFinisher(
   def incPuzzlePlays(puzzleId: PuzzleId): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
-  private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, result: PuzzleResult): Unit =
+  private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, win: PuzzleWin): Unit =
     val results = glicko2.GameRatingPeriodResults(
       List(
-        if result.win then glicko2.GameResult(u1, u2, false)
+        if win.yes then glicko2.GameResult(u1, u2, false)
         else glicko2.GameResult(u2, u1, false)
       )
     )

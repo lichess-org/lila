@@ -5,7 +5,7 @@ export lila.Lila.{ *, given }
 
 val lichessTeamId = TeamId("lichess-swiss")
 
-type Ranking = Map[lila.user.User.ID, Int]
+type Ranking = Map[lila.user.User.ID, Rank]
 
 private val logger = lila.log("swiss")
 

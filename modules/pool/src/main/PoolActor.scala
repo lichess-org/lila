@@ -51,7 +51,6 @@ final private class PoolActor(
             case m                => m
           }
         case _ => // no change
-
     case Leave(userId) =>
       members.find(_.userId == userId) foreach { member =>
         members = members.filter(member !=)
@@ -94,7 +93,7 @@ final private class PoolActor(
       monitor.paired(monId).record(pairedMembers.size)
       monitor.missed(monId).record(members.size)
       pairings.foreach { p =>
-        monitor.ratingDiff(monId).record(p.ratingDiff)
+        monitor.ratingDiff(monId).record(p.ratingDiff.value)
       }
 
       lastPairedUserIds = pairedMembers.view.map(_.userId).toSet

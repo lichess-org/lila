@@ -14,7 +14,7 @@ private[lobby] case class LobbyUser(
 
   def perfAt(pt: PerfType): LobbyPerf = perfMap.get(pt.key) | LobbyPerf.default
 
-  def ratingAt(pt: PerfType): Int = perfAt(pt).rating
+  def ratingAt(pt: PerfType): IntRating = perfAt(pt).rating
 
 private[lobby] object LobbyUser:
 
@@ -36,7 +36,7 @@ private[lobby] object LobbyUser:
         key -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
 
-case class LobbyPerf(rating: Int, provisional: Boolean)
+case class LobbyPerf(rating: IntRating, provisional: Boolean)
 
 object LobbyPerf:
 

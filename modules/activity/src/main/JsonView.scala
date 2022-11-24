@@ -26,7 +26,6 @@ final class JsonView(
       Json.obj("start" -> i.getStart, "end" -> i.getEnd)
     }
     given Writes[PerfType]   = writeAs(_.key)
-    given Writes[Rating]     = writeAs(_.value)
     given Writes[RatingProg] = Json.writes
     given Writes[Score]      = Json.writes
     given OWrites[Games] = OWrites { games =>
@@ -43,7 +42,7 @@ final class JsonView(
     given Writes[TourRatio] = Writes { r =>
       JsNumber((r.value * 100).toInt atLeast 1)
     }
-    given (using lang: Lang): OWrites[TourEntry] = OWrites { e =>
+    given (using Lang): OWrites[TourEntry] = OWrites { e =>
       val name = getTourName.sync(e.tourId).orZero
       Json.obj(
         "tournament" -> Json.obj(
@@ -56,11 +55,11 @@ final class JsonView(
         "rankPercent" -> e.rankRatio
       )
     }
-    given (using lang: Lang): Writes[ActivityView.Tours] = Json.writes
-    given Writes[Puzzles]                                = Json.writes
-    given Writes[Storm]                                  = Json.writes
-    given Writes[Racer]                                  = Json.writes
-    given Writes[Streak]                                 = Json.writes
+    given (using Lang): Writes[ActivityView.Tours] = Json.writes
+    given Writes[Puzzles]                          = Json.writes
+    given Writes[Storm]                            = Json.writes
+    given Writes[Racer]                            = Json.writes
+    given Writes[Streak]                           = Json.writes
     def simulWrites(user: User) = OWrites[Simul] { s =>
       Json.obj(
         "id"       -> s.id,

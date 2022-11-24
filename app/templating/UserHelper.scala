@@ -13,9 +13,9 @@ import lila.user.{ Title, User }
 
 trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper =>
 
-  def ratingProgress(progress: Int): Option[Frag] =
+  def ratingProgress(progress: IntRatingDiff): Option[Frag] =
     if (progress > 0) goodTag(cls := "rp")(progress).some
-    else if (progress < 0) badTag(cls := "rp")(math.abs(progress)).some
+    else if (progress < 0) badTag(cls := "rp")(math.abs(progress.value)).some
     else none
 
   val topBarSortedPerfTypes: List[PerfType] = List(
@@ -33,9 +33,14 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     PerfType.Crazyhouse
   )
 
-  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, clueless: Boolean, icon: Char)(
-      using lang: Lang
-  ): Frag =
+  def showPerfRating(
+      rating: IntRating,
+      name: String,
+      nb: Int,
+      provisional: Boolean,
+      clueless: Boolean,
+      icon: Char
+  )(using Lang): Frag =
     span(
       title    := s"$name rating over ${nb.localize} games",
       dataIcon := icon,
@@ -45,7 +50,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       else frag(rating, provisional option "?")
     )
 
-  def showPerfRating(perfType: PerfType, perf: Perf)(using lang: Lang): Frag =
+  def showPerfRating(perfType: PerfType, perf: Perf)(using Lang): Frag =
     showPerfRating(
       perf.intRating,
       perfType.trans,
@@ -55,26 +60,25 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       perfType.iconChar
     )
 
-  def showPerfRating(u: User, perfType: PerfType)(using lang: Lang): Frag =
+  def showPerfRating(u: User, perfType: PerfType)(using Lang): Frag =
     showPerfRating(perfType, u perfs perfType)
 
-  def showPerfRating(u: User, perfKey: Perf.Key)(using lang: Lang): Option[Frag] =
+  def showPerfRating(u: User, perfKey: Perf.Key)(using Lang): Option[Frag] =
     PerfType(perfKey) map { showPerfRating(u, _) }
 
-  def showBestPerf(u: User)(using lang: Lang): Option[Frag] =
+  def showBestPerf(u: User)(using Lang): Option[Frag] =
     u.perfs.bestPerf map { case (pt, perf) =>
       showPerfRating(pt, perf)
     }
-  def showBestPerfs(u: User, nb: Int)(using lang: Lang): List[Frag] =
+  def showBestPerfs(u: User, nb: Int)(using Lang): List[Frag] =
     u.perfs.bestPerfs(nb) map { case (pt, perf) =>
       showPerfRating(pt, perf)
     }
 
-  def showRatingDiff(diff: Int): Frag =
-    diff match
-      case 0          => span("±0")
-      case d if d > 0 => goodTag(s"+$d")
-      case d          => badTag(s"−${-d}")
+  def showRatingDiff(diff: IntRatingDiff): Frag = diff.value match
+    case 0          => span("±0")
+    case d if d > 0 => goodTag(s"+$d")
+    case d          => badTag(s"−${-d}")
 
   def lightUser = env.user.lightUserSync
 

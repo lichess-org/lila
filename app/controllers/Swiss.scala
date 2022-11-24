@@ -99,7 +99,7 @@ final class Swiss(
   def round(id: SwissId, round: Int) =
     Open { implicit ctx =>
       OptionFuResult(env.swiss.cache.swissCache byId SwissId(id)) { swiss =>
-        (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRound.Number(round)) ?? { r =>
+        (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRoundNumber(round)) ?? { r =>
           val page = getInt("page").filter(0.<)
           env.swiss.roundPager(swiss, r, page | 0) map { pager =>
             Ok(html.swiss.show.round(swiss, r, pager))

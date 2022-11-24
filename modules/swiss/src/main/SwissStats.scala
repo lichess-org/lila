@@ -13,7 +13,7 @@ case class SwissStats(
     draws: Int = 0,
     byes: Int = 0,
     absences: Int = 0,
-    averageRating: Int = 0
+    averageRating: IntRating = IntRating(0)
 )
 
 final class SwissStatsApi(
@@ -73,6 +73,8 @@ final class SwissStatsApi(
             }
           })(Keep.right)
           .run()
-          .dmap { s => s.copy(games = s.games / 2, averageRating = s.averageRating / swiss.nbPlayers) }
+          .dmap { s =>
+            s.copy(games = s.games / 2, averageRating = IntRating(s.averageRating.value / swiss.nbPlayers))
+          }
       }
     }

@@ -6,7 +6,7 @@ import scala.util.chaining.*
 
 import lila.user.User
 
-case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
+case class PlayerUser(id: String, rating: IntRating, ratingDiff: Option[IntRatingDiff])
 
 case class Player(
     id: GamePlayerId,
@@ -16,8 +16,8 @@ case class Player(
     isOfferingDraw: Boolean = false,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
     userId: Player.UserId = None,
-    rating: Option[Int] = None,
-    ratingDiff: Option[Int] = None,
+    rating: Option[IntRating] = None,
+    ratingDiff: Option[IntRatingDiff] = None,
     provisional: Boolean = false,
     blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
@@ -66,7 +66,7 @@ case class Player(
 
   def before(other: Player) =
     ((rating, id), (other.rating, other.id)) match
-      case ((Some(a), _), (Some(b), _)) if a != b => a > b
+      case ((Some(a), _), (Some(b), _)) if a != b => a.value > b.value
       case ((Some(_), _), (None, _))              => true
       case ((None, _), (Some(_), _))              => false
       case ((_, a), (_, b))                       => a.value < b.value
@@ -97,7 +97,7 @@ object Player:
   def make(
       color: Color,
       userId: User.ID,
-      rating: Int,
+      rating: IntRating,
       provisional: Boolean
   ): Player =
     Player(
@@ -121,7 +121,7 @@ object Player:
   def makeImported(
       color: Color,
       name: Option[String],
-      rating: Option[Int]
+      rating: Option[IntRating]
   ): Player =
     Player(
       id = IdGenerator.player(color),
@@ -139,7 +139,7 @@ object Player:
     def suspicious(ply: Int): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
 
-  case class UserInfo(id: String, rating: Int, provisional: Boolean)
+  case class UserInfo(id: String, rating: IntRating, provisional: Boolean)
 
   import reactivemongo.api.bson.*
   import lila.db.BSON
@@ -163,11 +163,12 @@ object Player:
   type Win                   = Option[Boolean]
   private[game] type Builder = Color => GamePlayerId => UserId => Win => Player
 
-  private def safeRange(range: Range)(v: Int): Option[Int] = range.contains(v) option v
-  private val ratingRange                                  = safeRange(0 to 4000)
-  private val ratingDiffRange                              = safeRange(-1000 to 1000)
+  private def safeRange[A](range: Range)(a: A)(using ir: IntRuntime[A]): Option[A] =
+    range.contains(ir(a)) option a
+  private val ratingRange     = safeRange[IntRating](0 to 4000)
+  private val ratingDiffRange = safeRange[IntRatingDiff](-1000 to 1000)
 
-  import lila.db.dsl.*
+  import lila.db.dsl.{ *, given }
 
   given playerReader: BSONDocumentReader[Builder] with
     import scala.util.{ Try, Success }
@@ -186,8 +187,8 @@ object Player:
             isOfferingDraw = doc booleanLike isOfferingDraw getOrElse false,
             proposeTakebackAt = doc int proposeTakebackAt getOrElse 0,
             userId = userId,
-            rating = doc int rating flatMap ratingRange,
-            ratingDiff = doc int ratingDiff flatMap ratingDiffRange,
+            rating = doc.getAsOpt[IntRating](rating) flatMap ratingRange,
+            ratingDiff = doc.getAsOpt[IntRatingDiff](ratingDiff) flatMap ratingDiffRange,
             provisional = doc booleanLike provisional getOrElse false,
             blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
             berserk = doc booleanLike berserk getOrElse false,

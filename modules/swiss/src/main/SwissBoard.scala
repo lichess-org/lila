@@ -12,7 +12,7 @@ private case class SwissBoard(
 )
 
 private object SwissBoard:
-  case class Player(user: LightUser, rank: Int, rating: Int)
+  case class Player(user: LightUser, rank: Rank, rating: IntRating)
   case class WithGame(board: SwissBoard, game: Game)
 
 final private class SwissBoardApi(

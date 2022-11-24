@@ -159,7 +159,7 @@ final class JsonView(
 
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
-  private def getOrGuessRank(tour: Tournament, player: Player): Fu[Int] =
+  private def getOrGuessRank(tour: Tournament, player: Player): Fu[Rank] =
     cached ranking tour flatMap {
       _.ranking get player.userId match
         case Some(rank) => fuccess(rank)
@@ -189,7 +189,7 @@ final class JsonView(
             )
             .add("title" -> user.title)
             .add("performance" -> player.performanceOption)
-            .add("rank" -> ranking.ranking.get(user.id).map(1 +))
+            .add("rank" -> ranking.ranking.get(user.id).map(_ + 1))
             .add("provisional" -> player.provisional)
             .add("withdraw" -> player.withdraw)
             .add("team" -> player.team),
@@ -251,7 +251,7 @@ final class JsonView(
             tour               <- cached.tourCache byId id
             (duels, jsonDuels) <- duelsJson(id)
             duelTeams <- tour.exists(_.isTeamBattle) ?? {
-              playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds)) map { teams =>
+              playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds).map(_.value)) map { teams =>
                 JsObject(teams map { (userId, teamId) =>
                   (userId, JsString(teamId.value))
                 }).some
@@ -308,7 +308,7 @@ final class JsonView(
       .add("gameId", i.gameId)
       .add("pauseDelay", delay.map(_.seconds))
 
-  private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject =
+  private def gameUserJson(userId: Option[String], rating: Option[IntRating]): JsObject =
     val light = userId flatMap lightUserApi.sync
     Json
       .obj("rating" -> rating)

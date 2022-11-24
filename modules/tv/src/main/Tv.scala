@@ -58,7 +58,7 @@ object Tv:
   import chess.{ variant as V, Speed as S }
   import lila.rating.{ PerfType as P }
 
-  case class Champion(user: LightUser, rating: Int, gameId: GameId)
+  case class Champion(user: LightUser, rating: IntRating, gameId: GameId)
   case class Champions(channels: Map[Channel, Champion]):
     def get = channels.get
 

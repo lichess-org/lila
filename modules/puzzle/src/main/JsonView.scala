@@ -73,7 +73,7 @@ final class JsonView(
     Json
       .obj(
         "win"        -> round.win,
-        "ratingDiff" -> (perf.intRating - u.perfs.puzzle.intRating)
+        "ratingDiff" -> (perf.intRating.value - u.perfs.puzzle.intRating.value)
       )
       .add("vote" -> round.vote)
       .add("themes" -> round.nonEmptyThemes.map { rt =>
@@ -148,7 +148,7 @@ final class JsonView(
       .obj("puzzles" -> jsons)
       .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))
 
-    def userJson(rating: Int) = Json.obj(
+    def userJson(rating: IntRating) = Json.obj(
       "rating" -> rating,
       "recent" -> Json.arr()
     )

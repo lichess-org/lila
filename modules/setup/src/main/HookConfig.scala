@@ -103,8 +103,8 @@ case class HookConfig(
     )
 
   def withRatingRange(ratingRange: String) = copy(ratingRange = RatingRange orDefault ratingRange)
-  def withRatingRange(rating: Option[Int], deltaMin: Option[String], deltaMax: Option[String]) =
-    copy(ratingRange = RatingRange orDefault (rating, deltaMin, deltaMax))
+  def withRatingRange(rating: Option[IntRating], deltaMin: Option[String], deltaMax: Option[String]) =
+    copy(ratingRange = RatingRange.orDefault(rating, deltaMin, deltaMax))
 
 object HookConfig extends BaseHumanConfig:
 

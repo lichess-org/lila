@@ -131,7 +131,7 @@ case class Count(
       draw = draw + (if (pov.win.isEmpty) 1 else 0),
       tour = tour + (if (pov.game.isTournament) 1 else 0),
       berserk = berserk + (if (pov.player.berserk) 1 else 0),
-      opAvg = pov.opponent.stableRating.fold(opAvg)(opAvg.agg),
+      opAvg = pov.opponent.stableRating.fold(opAvg)(r => opAvg agg r.value),
       seconds = seconds + (pov.game.durationSeconds match {
         case Some(s) if s <= 3 * 60 * 60 => s
         case _                           => 0
@@ -166,20 +166,20 @@ case class GameAt(at: DateTime, gameId: GameId)
 object GameAt:
   def agg(pov: Pov) = GameAt(pov.game.movedAt, pov.gameId)
 
-case class RatingAt(int: Int, at: DateTime, gameId: GameId)
+case class RatingAt(int: IntRating, at: DateTime, gameId: GameId)
 object RatingAt:
   def agg(cur: Option[RatingAt], pov: Pov, comp: Int) =
     pov.player.stableRatingAfter
       .filter { r =>
         cur.fold(true) { c =>
-          r.compare(c.int) == comp
+          r.value.compare(c.int.value) == comp
         }
       }
       .map {
         RatingAt(_, pov.game.movedAt, pov.gameId)
       } orElse cur
 
-case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: GameId)
+case class Result(opRating: IntRating, opId: UserId, at: DateTime, gameId: GameId)
 
 case class Results(results: List[Result]):
   def agg(pov: Pov, comp: Int) =
@@ -196,7 +196,7 @@ case class Results(results: List[Result]):
               pov.gameId
             ) :: results,
             Results.nb
-          )(using Ordering.by[Result, Int](_.opInt * comp))
+          )(using Ordering.by[Result, Int](_.opRating.value * comp))
         )
       }
   def userIds = results.map(_.opId)

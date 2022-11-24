@@ -51,8 +51,8 @@ object History:
       Success(
         doc.elements
           .flatMap {
-            case BSONElement(k, BSONInteger(v)) => k.toIntOption map (_ -> v)
-            case _                              => none[(Int, Int)]
+            case BSONElement(k, BSONInteger(v)) => k.toIntOption map (_ -> IntRating(v))
+            case _                              => none
           }
           .sortBy(_._1)
           .toList

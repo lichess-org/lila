@@ -12,12 +12,16 @@ trait NewTypes:
       def apply(a: A): T = f(a)
 
   type StringRuntime[A] = SameRuntime[A, String]
+  type IntRuntime[A]    = SameRuntime[A, Int]
 
   trait TotalWrapper[Newtype, Impl](using ev: Newtype =:= Impl):
-    inline def raw(inline a: Newtype): Impl         = a.asInstanceOf[Impl]
-    inline def apply(inline s: Impl): Newtype       = s.asInstanceOf[Newtype]
-    inline def from(a: Array[Impl]): Array[Newtype] = a.asInstanceOf[Array[Newtype]]
-    inline def from(a: List[Impl]): List[Newtype]   = a.asInstanceOf[List[Newtype]]
+    inline def raw(inline a: Newtype): Impl              = a.asInstanceOf[Impl]
+    inline def apply(inline s: Impl): Newtype            = s.asInstanceOf[Newtype]
+    inline def from[M[_]](inline a: M[Impl]): M[Newtype] = a.asInstanceOf[M[Newtype]]
+    // inline def from(inline a: List[Impl]): List[Newtype]     = a.asInstanceOf[List[Newtype]]
+    // inline def from(inline a: Option[Impl]): Option[Newtype] = a.asInstanceOf[Option[Newtype]]
+    // inline def from(inline a: scala.concurrent.Future[Impl]): scala.concurrent.Future[Newtype] =
+    //   a.asInstanceOf[scala.concurrent.Future[Newtype]]
 
     given SameRuntime[Newtype, Impl] = new:
       def apply(a: Newtype): Impl = a.asInstanceOf[Impl]
@@ -32,7 +36,27 @@ trait NewTypes:
   end TotalWrapper
 
   trait OpaqueString[A](using A =:= String) extends TotalWrapper[A, String]
-  trait OpaqueInt[A](using A =:= Int)       extends TotalWrapper[A, Int]
+
+  trait OpaqueInt[A](using A =:= Int) extends TotalWrapper[A, Int]:
+    extension (inline a: A)
+      inline def unary_-  = apply(-raw(a))
+      inline def >(inline o: Int): Boolean                             = raw(a) > o
+      inline def <(inline o: Int): Boolean                             = raw(a) < o
+      inline def >=(inline o: Int): Boolean                            = raw(a) >= o
+      inline def <=(inline o: Int): Boolean                            = raw(a) <= o
+      inline def +(inline o: Int): A                                   = apply(raw(a) + o)
+      inline def -(inline o: Int): A                                   = apply(raw(a) - o)
+      inline def atLeast(inline bot: Int): A                           = apply(math.max(raw(a), bot))
+      inline def atMost(inline top: Int): A                            = apply(math.min(raw(a), top))
+      inline def >[B](inline o: B)(using sr: IntRuntime[B]): Boolean   = >(sr(o))
+      inline def <[B](inline o: B)(using sr: IntRuntime[B]): Boolean   = <(sr(o))
+      inline def >=[B](inline o: B)(using sr: IntRuntime[B]): Boolean  = >=(sr(o))
+      inline def <=[B](inline o: B)(using sr: IntRuntime[B]): Boolean  = <=(sr(o))
+      inline def +[B](inline o: B)(using sr: IntRuntime[B]): A         = a + sr(o)
+      inline def -[B](inline o: B)(using sr: IntRuntime[B]): A         = a - sr(o)
+      inline def atLeast[B](inline bot: B)(using sr: IntRuntime[B]): A = atLeast(sr(bot))
+      inline def atMost[B](inline top: B)(using sr: IntRuntime[B]): A  = atMost(sr(top))
+
   trait OpaqueLong[A](using A =:= Long)     extends TotalWrapper[A, Long]
   trait OpaqueDouble[A](using A =:= Double) extends TotalWrapper[A, Double]
   trait OpaqueFloat[A](using A =:= Float)   extends TotalWrapper[A, Float]
@@ -52,6 +76,8 @@ trait NewTypes:
     extension (inline a: A)
       inline def value: Boolean        = a == Yes
       inline def flip: A               = if value then No else Yes
+      inline def yes: Boolean = value
+      inline def no: Boolean = !value
       inline def &&(inline other: A)   = a.value && other.value
       inline def `||`(inline other: A) = a.value || other.value
   end YesNo
@@ -59,8 +85,8 @@ trait NewTypes:
   inline def sameOrdering[A, T](using bts: SameRuntime[T, A], ord: Ordering[A]): Ordering[T] =
     Ordering.by(bts.apply(_))
 
-  inline def stringOrdering[T](using SameRuntime[T, String], Ordering[String]): Ordering[T] =
-    sameOrdering[String, T]
+  inline def stringOrdering[T: StringRuntime](using Ordering[String]): Ordering[T] = sameOrdering[String, T]
+  inline def intOrdering[T: IntRuntime](using Ordering[String]): Ordering[T]       = sameOrdering[Int, T]
 
   def stringIsString: StringRuntime[String] = new:
     def apply(a: String) = a

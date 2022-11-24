@@ -101,7 +101,7 @@ final private class ExplorerIndexer(
       blackRating <- stableRating(game.blackPlayer)
       if whiteRating >= 1501
       if blackRating >= 1501
-      averageRating = (whiteRating + blackRating) / 2
+      averageRating = (whiteRating + blackRating).value / 2
       if probability(game, averageRating) > (game.id.hashCode % 100)
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)

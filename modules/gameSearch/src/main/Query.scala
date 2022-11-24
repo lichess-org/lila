@@ -113,7 +113,7 @@ object Query:
     _.toString
   )
 
-  val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e =>
+  val averageRatings = (RatingRange.min.value to RatingRange.max.value by 100).toList map { e =>
     e -> e.toString
   }
 

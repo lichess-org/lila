@@ -66,10 +66,14 @@ final private[tv] class TvSyncActor(
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
       import cats.implicits.*
-      val player = game.players.sortBy { p =>
-        ~p.rating + ~p.userId.flatMap(lightUserApi.sync).flatMap(_.title).flatMap(Tv.titleScores.get)
-      }.lastOption | game.player(game.naturalOrientation)
-      val user = player.userId flatMap lightUserApi.sync
+      given Ordering[lila.game.Player] = Ordering.by { p =>
+        p.rating.fold(0)(_.value) + ~p.userId
+          .flatMap(lightUserApi.sync)
+          .flatMap(_.title)
+          .flatMap(Tv.titleScores.get)
+      }
+      val player = game.players.sorted.lastOption | game.player(game.naturalOrientation)
+      val user   = player.userId flatMap lightUserApi.sync
       (user, player.rating) mapN { (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }

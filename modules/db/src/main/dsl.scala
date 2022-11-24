@@ -52,9 +52,11 @@ trait dsl:
   def $inIds[T: BSONWriter](ids: Iterable[T]): Bdoc =
     $id($doc("$in" -> ids))
 
-  def $boolean(b: Boolean) = BSONBoolean(b)
-  def $string(s: String)   = BSONString(s)
-  def $int(i: Int)         = BSONInteger(i)
+  def $boolean(b: Boolean)                         = BSONBoolean(b)
+  def $string(s: String)                           = BSONString(s)
+  def $string[A](a: A)(using sr: StringRuntime[A]) = BSONString(sr(a))
+  def $int(i: Int)                                 = BSONInteger(i)
+  def $int[A](a: A)(using ir: IntRuntime[A])       = BSONInteger(ir(a))
 
   // End of Helpers
   // **********************************************************************************************//

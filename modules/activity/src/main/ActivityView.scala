@@ -30,7 +30,7 @@ case class ActivityView(
     studies: Option[List[Study.IdName]] = None,
     teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
-    swisses: Option[List[(Swiss.IdName, Int)]] = None,
+    swisses: Option[List[(Swiss.IdName, Rank)]] = None,
     stream: Boolean = false,
     signup: Boolean = false
 ):

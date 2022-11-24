@@ -105,8 +105,8 @@ object Seek:
   import reactivemongo.api.bson.*
   import lila.db.dsl.{ *, given }
   given BSONHandler[LobbyPerf] = BSONIntegerHandler.as[LobbyPerf](
-    b => LobbyPerf(b.abs, b < 0),
-    x => x.rating * (if (x.provisional) -1 else 1)
+    b => LobbyPerf(IntRating(b.abs), b < 0),
+    x => x.rating.value * (if (x.provisional) -1 else 1)
   )
   given (String => Perf.Key)                          = Perf.Key(_)
   private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler

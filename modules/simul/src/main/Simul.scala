@@ -21,7 +21,7 @@ case class Simul(
     createdAt: DateTime,
     estimatedStartAt: Option[DateTime] = None,
     hostId: User.ID,
-    hostRating: Int,
+    hostRating: IntRating,
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
@@ -156,34 +156,33 @@ object Simul:
       estimatedStartAt: Option[DateTime],
       team: Option[TeamId],
       featurable: Option[Boolean]
-  ): Simul =
-    Simul(
-      _id = SimulId(lila.common.ThreadLocalRandom nextString 8),
-      name = name,
-      status = SimulStatus.Created,
-      clock = clock,
-      hostId = host.id,
-      hostRating = host.perfs.bestRatingIn {
-        variants.flatMap { variant =>
-          lila.game.PerfPicker.perfType(
-            speed = Speed(clock.config.some),
-            variant = variant,
-            daysPerTurn = none
-          )
-        } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-      },
-      hostGameId = none,
-      createdAt = DateTime.now,
-      estimatedStartAt = estimatedStartAt,
-      variants = if (position.isDefined) List(chess.variant.Standard) else variants,
-      position = position,
-      applicants = Nil,
-      pairings = Nil,
-      startedAt = none,
-      finishedAt = none,
-      hostSeenAt = DateTime.now.some,
-      color = color.some,
-      text = text,
-      team = team,
-      featurable = featurable
-    )
+  ): Simul = Simul(
+    _id = SimulId(lila.common.ThreadLocalRandom nextString 8),
+    name = name,
+    status = SimulStatus.Created,
+    clock = clock,
+    hostId = host.id,
+    hostRating = host.perfs.bestRatingIn {
+      variants.flatMap { variant =>
+        lila.game.PerfPicker.perfType(
+          speed = Speed(clock.config.some),
+          variant = variant,
+          daysPerTurn = none
+        )
+      } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
+    },
+    hostGameId = none,
+    createdAt = DateTime.now,
+    estimatedStartAt = estimatedStartAt,
+    variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+    position = position,
+    applicants = Nil,
+    pairings = Nil,
+    startedAt = none,
+    finishedAt = none,
+    hostSeenAt = DateTime.now.some,
+    color = color.some,
+    text = text,
+    team = team,
+    featurable = featurable
+  )

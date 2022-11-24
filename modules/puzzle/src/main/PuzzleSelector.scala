@@ -21,7 +21,7 @@ final class PuzzleSelector(
     case object PathMissing                        extends NextPuzzleResult("pathMissing")
     case object PathEnded                          extends NextPuzzleResult("pathEnded")
     case class WrongColor(puzzle: Puzzle)          extends NextPuzzleResult("wrongColor")
-    case class PuzzleMissing(id: PuzzleId)        extends NextPuzzleResult("puzzleMissing")
+    case class PuzzleMissing(id: PuzzleId)         extends NextPuzzleResult("puzzleMissing")
     case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
 
@@ -46,7 +46,7 @@ final class PuzzleSelector(
           mon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
           mon
             .ratingDiff(angle.key, session.settings.difficulty.key)
-            .record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
+            .record(math.abs(puzzle.glicko.intRating.value - user.perfs.puzzle.intRating.value))
           mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment().unit
           puzzle

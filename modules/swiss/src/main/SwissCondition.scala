@@ -20,7 +20,7 @@ object SwissCondition:
 
     def apply(user: User, perf: PerfType): SwissCondition.Verdict
 
-  type GetMaxRating   = PerfType => Fu[Int]
+  type GetMaxRating   = PerfType => Fu[IntRating]
   type GetBannedUntil = User.ID => Fu[Option[DateTime]]
 
   sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])

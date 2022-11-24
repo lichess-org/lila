@@ -567,8 +567,8 @@ case class Game(
 
   def averageUsersRating =
     userRatings match
-      case a :: b :: Nil => Some((a + b) / 2)
-      case a :: Nil      => Some((a + 1500) / 2)
+      case a :: b :: Nil => Some((a + b).value / 2)
+      case a :: Nil      => Some((a + 1500).value / 2)
       case _             => None
 
   def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))

@@ -176,7 +176,7 @@ final class Setup(
                   hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
                   hookConfigWithRating = get("rr").fold(
                     hookConfig.withRatingRange(
-                      ctx.me.fold(Glicko.default.rating.toInt.some)(_.perfs.ratingOf(game.perfKey)),
+                      ctx.me.fold(Glicko.default.intRating.some)(_.perfs.ratingOf(game.perfKey)),
                       get("deltaMin"),
                       get("deltaMax")
                     )

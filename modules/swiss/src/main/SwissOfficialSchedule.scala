@@ -51,7 +51,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       name = config.name,
       clock = config.clock,
       variant = chess.variant.Standard,
-      round = SwissRound.Number(0),
+      round = SwissRoundNumber(0),
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = DateTime.now,

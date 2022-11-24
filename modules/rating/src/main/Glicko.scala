@@ -11,7 +11,7 @@ case class Glicko(
     volatility: Double
 ):
 
-  def intRating    = rating.toInt
+  def intRating    = IntRating(rating.toInt)
   def intDeviation = deviation.toInt
 
   def intervalMin = (rating - deviation * 2).toInt
@@ -41,7 +41,7 @@ case class Glicko(
 
   def cap =
     copy(
-      rating = rating atLeast Glicko.minRating,
+      rating = rating atLeast Glicko.minRating.value,
       deviation = deviation atLeast Glicko.minDeviation atMost Glicko.maxDeviation,
       volatility = volatility atMost Glicko.maxVolatility
     )
@@ -62,7 +62,8 @@ case class Glicko(
 
 case object Glicko:
 
-  val minRating = 600
+  val minRating = IntRating(600)
+  val maxRating = IntRating(4000)
 
   val minDeviation              = 45
   val variantRankableDeviation  = 65

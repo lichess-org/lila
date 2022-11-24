@@ -42,7 +42,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
                 val opponentPoints = opponent.??(_.points.value)
                 val result         = pairing.resultFor(p.userId)
                 val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ ?? opponentPoints }
-                val newPerf = perfSum + opponent.??(_.rating) + result.?? { win =>
+                val newPerf = perfSum + opponent.??(_.rating.value) + result.?? { win =>
                   if (win) 500 else -500
                 }
                 newTieBreak -> newPerf

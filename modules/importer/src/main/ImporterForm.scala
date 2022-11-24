@@ -25,8 +25,7 @@ final class ImporterForm:
 
 object ImporterForm:
 
-  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try
-    f()
+  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try f()
   catch
     case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
       Validated.Invalid("This PGN seems too long or too complex!")
@@ -92,12 +91,12 @@ case class ImportData(pgn: String, analyse: Option[String]):
             whitePlayer = Player.makeImported(
               chess.White,
               parsed.tags(_.White),
-              parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
+              IntRating from parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
             ),
             blackPlayer = Player.makeImported(
               chess.Black,
               parsed.tags(_.Black),
-              parsed.tags(_.BlackElo).flatMap(_.toIntOption)
+              IntRating from parsed.tags(_.BlackElo).flatMap(_.toIntOption)
             ),
             mode = Mode.Casual,
             source = Source.Import,
