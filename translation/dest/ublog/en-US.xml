@@ -36,6 +36,7 @@
   <string name="imageAlt">Image alternative text</string>
   <string name="imageCredit">Image credit</string>
   <string name="deleteBlog">Delete this blog post definitively</string>
+  <string name="deleteImage">Delete the image</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">It is safe to use images from the following websites: </string>
   <string name="selectPostTopics">Select the topics your post is about</string>
   <string name="useImagesYouMadeYourself">You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else.</string>
