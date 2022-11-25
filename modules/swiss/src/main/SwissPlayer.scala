@@ -29,7 +29,8 @@ case class SwissPlayer(
 
 object SwissPlayer:
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   def makeId(swissId: SwissId, userId: User.ID) = Id(s"$swissId:$userId")
 

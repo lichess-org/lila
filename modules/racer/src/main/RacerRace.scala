@@ -51,7 +51,8 @@ object RacerRace:
   val duration   = 90
   val maxPlayers = 10
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdownSeconds: Int) = RacerRace(
     _id = Id(lila.common.ThreadLocalRandom nextString 5),

@@ -152,8 +152,8 @@ object Chapter:
 
   case class IdName(id: StudyChapterId, name: StudyChapterName)
 
-  case class Ply(value: Int) extends AnyVal with Ordered[Ply]:
-    def compare(that: Ply) = Integer.compare(value, that.value)
+  opaque type Ply = Int
+  object Ply extends OpaqueInt[Ply]
 
   def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
 

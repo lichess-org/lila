@@ -253,8 +253,7 @@ object BSONHandlers:
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
   given BSONDocumentHandler[Chapter.Relay]                         = Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval]                    = Macros.handler
-  given BSONHandler[Chapter.Ply]     = intAnyValHandler(_.value, Chapter.Ply.apply)
-  given BSONDocumentHandler[Chapter] = Macros.handler
+  given BSONDocumentHandler[Chapter]                               = Macros.handler
 
   given BSONHandler[Position.Ref] = tryHandler(
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },

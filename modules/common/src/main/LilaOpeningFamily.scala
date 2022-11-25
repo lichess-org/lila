@@ -15,8 +15,10 @@ case class LilaOpeningFamily(ref: OpeningFamily, full: Option[FullOpening]):
 
 object LilaOpeningFamily:
 
-  case class Key(value: String)  extends AnyVal with StringValue
-  case class Name(value: String) extends AnyVal with StringValue
+  opaque type Key = String
+  object Key extends OpaqueString[Key]
+  opaque type Name = String
+  object Name extends OpaqueString[Name]
   case class AsColor(family: LilaOpeningFamily, color: Color)
 
   def apply(key: Key): Option[LilaOpeningFamily]   = families get key
@@ -32,5 +34,3 @@ object LilaOpeningFamily:
     }
 
   lazy val familyList = families.values.toList.sortBy(_.name.value)
-
-  given Iso.StringIso[Key] = Iso.string[Key](Key.apply, _.value)

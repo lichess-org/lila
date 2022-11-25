@@ -10,6 +10,7 @@ import scalatags.Text.all.*
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
@@ -337,8 +338,8 @@ object InsightDimension:
       case Result                  => JsString(v.name)
       case Termination             => JsString(v.name)
       case Color                   => JsString(v.toString)
-      case OpeningFamily           => JsString(v.name.value)
-      case OpeningVariation        => JsString(v.name.value)
+      case OpeningFamily           => Json.toJson(v.name)
+      case OpeningVariation        => Json.toJson(v.name)
       case OpponentStrength        => JsString(v.name)
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)

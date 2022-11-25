@@ -14,7 +14,6 @@ object BsonHandlers:
   given BSONHandler[chess.variant.Variant] = variantByKeyHandler
   given BSONHandler[chess.Clock.Config]    = clockConfigHandler
   given BSONHandler[SwissPoints]           = intAnyValHandler(_.doubled, SwissPoints.fromDouble)
-  given BSONHandler[SwissPlayer.Id]        = stringAnyValHandler(_.value, SwissPlayer.Id.apply)
 
   given BSON[SwissPlayer] with
     import SwissPlayer.Fields.*

@@ -33,7 +33,8 @@ object RelayTour:
 
   val maxRelays = 64
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   type Tier = Int
   object Tier:

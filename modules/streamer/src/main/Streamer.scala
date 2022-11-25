@@ -65,8 +65,10 @@ object Streamer:
       lastStreamLang = none
     )
 
-  case class Id(value: User.ID)     extends AnyVal with StringValue
-  case class Listed(value: Boolean) extends AnyVal
+  opaque type Id = String
+  object Id extends OpaqueUserId[Id]
+  opaque type Listed = Boolean
+  object Listed extends YesNo[Listed]
   case class Approval(
       requested: Boolean,   // user requests a mod to approve
       granted: Boolean,     // a mod approved
@@ -75,9 +77,12 @@ object Streamer:
       chatEnabled: Boolean, // embed chat inside lichess
       lastGrantedAt: Option[DateTime]
   )
-  case class Name(value: String)        extends AnyVal with StringValue
-  case class Headline(value: String)    extends AnyVal with StringValue
-  case class Description(value: String) extends AnyVal with StringValue
+  opaque type Name = String
+  object Name extends OpaqueString[Name]
+  opaque type Headline = String
+  object Headline extends OpaqueString[Headline]
+  opaque type Description = String
+  object Description extends OpaqueString[Description]
 
   case class Twitch(userId: String):
     def fullUrl = s"https://www.twitch.tv/$userId"

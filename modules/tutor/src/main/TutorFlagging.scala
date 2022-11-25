@@ -28,7 +28,7 @@ object TutorFlagging:
           case Cluster(res, Insight.Stacked(points), _, _) if res == result =>
             ValueCount(
               GoodPercent(~points.collectFirst {
-                case (valueName, point) if valueName == clockFlagValueName => point.y
+                case (valueName, point) if valueName == clockFlagValueName => point.value
               }),
               mine.totalSize
             )

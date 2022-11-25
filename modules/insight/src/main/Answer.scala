@@ -24,4 +24,5 @@ object Insight:
   case class Single(point: Point)                                          extends Insight
   case class Stacked(points: List[(InsightMetric.MetricValueName, Point)]) extends Insight
 
-case class Point(y: Double) extends AnyVal
+opaque type Point = Double
+object Point extends OpaqueDouble[Point]

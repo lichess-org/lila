@@ -152,7 +152,7 @@ final class PuzzleOpeningApi(
                 logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
               }
             case Some(o) =>
-              val keys = List(o.family.key, o.key).map(_.value)
+              val keys = List(o.family.key.value, o.key.value)
               colls.puzzle {
                 _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
               }

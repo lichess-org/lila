@@ -137,7 +137,7 @@ private object TutorBuilder:
 
     val list: List[(Dim, Pair)] =
       answer.clusters.view.collect { case Cluster(dimension, Insight.Single(point), nbGames, _) =>
-        (dimension, ValueCount(point.y, nbGames))
+        (dimension, ValueCount(point.value, nbGames))
       }.toList
 
     lazy val map: Map[Dim, Pair] = list.toMap

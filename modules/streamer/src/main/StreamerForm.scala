@@ -5,7 +5,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
-import lila.common.Form.{ constraint, formatter }
+import lila.common.Form.{ constraint, given }
 import play.api.data.format.Formatter
 
 object StreamerForm:
@@ -15,8 +15,8 @@ object StreamerForm:
   lazy val emptyUserForm = Form(
     mapping(
       "name"        -> nameField,
-      "headline"    -> optional(headlineField),
-      "description" -> optional(descriptionField),
+      "headline"    -> optional(of[Headline]),
+      "description" -> optional(of[Description]),
       "twitch" -> optional(
         text
           .verifying(
@@ -28,7 +28,7 @@ object StreamerForm:
       "youTube" -> optional(
         text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)
       ),
-      "listed" -> boolean,
+      "listed" -> of[Listed],
       "approval" -> optional(
         mapping(
           "granted"   -> boolean,
@@ -53,7 +53,7 @@ object StreamerForm:
       description = streamer.description,
       twitch = streamer.twitch.map(_.userId),
       youTube = streamer.youTube.map(_.channelId),
-      listed = streamer.listed.value,
+      listed = streamer.listed,
       approval = ApprovalData(
         granted = streamer.approval.granted,
         tier = streamer.approval.tier.some,
@@ -69,7 +69,7 @@ object StreamerForm:
       description: Option[Description],
       twitch: Option[String],
       youTube: Option[String],
-      listed: Boolean,
+      listed: Listed,
       approval: Option[ApprovalData]
   ):
 
@@ -80,7 +80,7 @@ object StreamerForm:
         description = description,
         twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
         youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply),
-        listed = Listed(listed),
+        listed = listed,
         updatedAt = DateTime.now
       )
       newStreamer.copy(
@@ -120,13 +120,7 @@ object StreamerForm:
         case "decline" => copy(granted = false, requested = false)
       }
 
-  private given Formatter[Headline]    = formatter.stringFormatter(_.value, Headline.apply)
-  private def headlineField            = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
-  private given Formatter[Description] = formatter.stringFormatter(_.value, Description.apply)
-  private def descriptionField  = of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
-  private given Formatter[Name] = formatter.stringFormatter(_.value, Name.apply)
-  private def nameField =
-    of[Name].verifying(
-      constraint.minLength[Name](_.value)(3),
-      constraint.maxLength[Name](_.value)(30)
-    )
+  private def nameField = of[Name].verifying(
+    constraint.minLength[Name](_.value)(3),
+    constraint.maxLength[Name](_.value)(30)
+  )

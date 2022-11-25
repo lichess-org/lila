@@ -72,9 +72,9 @@ object Chart:
                       name = metric.name,
                       dataType = metric.dataType.name,
                       stack = none,
-                      data = List(point.y)
+                      data = List(point.value)
                     )
-                  case Some(s) => s.copy(data = point.y :: s.data)
+                  case Some(s) => s.copy(data = point.value :: s.data)
                 }
               )
             case Insight.Stacked(points) =>
@@ -88,9 +88,9 @@ object Chart:
                         name = metricValueName.name,
                         dataType = metric.dataType.name,
                         stack = metric.name.some,
-                        data = List(point.y)
+                        data = List(point.value)
                       )
-                    case Some(s) => s.copy(data = point.y :: s.data)
+                    case Some(s) => s.copy(data = point.value :: s.data)
                   }
                 )
               }

@@ -40,7 +40,7 @@ object AggregationClusters:
         if (total == 0) points
         else
           points.map { case (n, p) =>
-            n -> Point(100 * p.y / total)
+            n -> Point(100 * p.value / total)
           }
       ids = ~doc.getAsOpt[List[String]]("ids")
     } yield Cluster(x, Insight.Stacked(percents), total, ids)

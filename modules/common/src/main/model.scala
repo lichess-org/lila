@@ -42,17 +42,18 @@ object IpAddress:
   def from(str: String): Option[IpAddress] = parse(str).toOption
   def unchecked(str: String): IpAddress    = parse(str).get
 
-case class Domain private (value: String) extends AnyVal with StringValue:
-  // heuristic to remove user controlled subdomain tails:
-  // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
-  def withoutSubdomain: Option[Domain] =
-    value.split('.').toList.reverse match
-      case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
-      case tld :: sld :: _                              => Domain from s"$sld.$tld"
-      case _                                            => none
-  def lower = Domain.Lower(value.toLowerCase)
+opaque type Domain = String
+object Domain extends OpaqueString[Domain]:
+  extension (a: Domain)
+    // heuristic to remove user controlled subdomain tails:
+    // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
+    def withoutSubdomain: Option[Domain] =
+      a.value.split('.').toList.reverse match
+        case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
+        case tld :: sld :: _                              => Domain from s"$sld.$tld"
+        case _                                            => none
+    def lower = Domain.Lower(a.value.toLowerCase)
 
-object Domain:
   // https://stackoverflow.com/a/26987741/1744715
   private val regex =
     """^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$""".r
@@ -60,8 +61,8 @@ object Domain:
   def from(str: String): Option[Domain] = isValid(str) option Domain(str)
   def unsafe(str: String): Domain       = Domain(str)
 
-  case class Lower(value: String) extends AnyVal with StringValue:
-    def domain = Domain(value)
+  opaque type Lower = String
+  object Lower extends OpaqueString[Lower]
 
 opaque type LangPath = String
 object LangPath extends OpaqueString[LangPath]:

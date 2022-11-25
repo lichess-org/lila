@@ -7,24 +7,19 @@ import scala.concurrent.duration.*
 
 import lila.base.LilaException
 import lila.common.Domain
-import lila.db.dsl.*
+import lila.db.dsl.{ *, given }
 
 final private class DnsApi(
     ws: StandaloneWSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-):
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   // only valid email domains that are not whitelisted should make it here
-  def mx(domain: Domain.Lower): Fu[List[Domain]] =
-    failsafe(domain, List(domain.domain)) {
-      mxCache get domain
+  def mx(lower: Domain.Lower): Fu[List[Domain]] =
+    failsafe(lower, List(lower into Domain)) {
+      mxCache get lower
     }
-
-  given reactivemongo.api.bson.BSONHandler[Domain] = stringAnyValHandler[Domain](_.value, Domain.unsafe)
 
   private val mxCache = mongoCache.noHeap[Domain.Lower, List[Domain]](
     "security.mx",
