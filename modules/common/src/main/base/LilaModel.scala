@@ -4,6 +4,11 @@ import alleycats.Zero
 
 trait LilaModel extends NewTypes:
 
+  trait Percent[A]:
+    def apply(a: A): Double
+  object Percent:
+    def toInt[A](a: A)(using p: Percent[A]) = Math.round(p(a)).toInt // round to closest
+
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]
 
@@ -84,6 +89,9 @@ trait LilaModel extends NewTypes:
   opaque type IntRatingDiff = Int
   object IntRatingDiff extends OpaqueInt[IntRatingDiff]:
     given Zero[IntRatingDiff] = Zero(apply(0))
+
+  opaque type Rating = Double
+  object Rating extends OpaqueDouble[Rating]
 
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]

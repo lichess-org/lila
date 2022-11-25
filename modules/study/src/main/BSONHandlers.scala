@@ -19,7 +19,6 @@ import chess.Outcome
 
 object BSONHandlers:
 
-  given topicHandler: BSONHandler[StudyTopic] = stringIsoHandler
   given (using listHandler: BSONHandler[List[StudyTopic]]): BSONHandler[StudyTopics] =
     listHandler.as[StudyTopics](StudyTopics.apply, _.value)
 

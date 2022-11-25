@@ -111,10 +111,10 @@ private object TutorPerfReport:
       } yield TutorPerfReport(
         user.perfType,
         user.perfStats,
-        accuracy = accuracy valueMetric user.perfType map AccuracyPercent.unsafe,
-        awareness = awareness valueMetric user.perfType map GoodPercent.apply,
-        globalClock = globalClock valueMetric user.perfType map ClockPercent.fromPercent,
-        clockUsage = clockUsage valueMetric user.perfType map ClockPercent.fromPercent,
+        accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
+        awareness = GoodPercent.from(awareness valueMetric user.perfType),
+        globalClock = ClockPercent.from(globalClock valueMetric user.perfType),
+        clockUsage = ClockPercent.from(clockUsage valueMetric user.perfType),
         openings,
         phases,
         flagging

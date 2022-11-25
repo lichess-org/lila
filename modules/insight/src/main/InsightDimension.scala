@@ -409,11 +409,11 @@ object InsightDimension:
               }
             )
       case InsightDimension.WinPercentRange =>
-        percentRange(lila.insight.WinPercentRange.toRange, WinPercent.fromPercent)
+        percentRange(lila.insight.WinPercentRange.toRange, WinPercent.fromPercent(_))
       case InsightDimension.AccuracyPercentRange =>
-        percentRange(lila.insight.AccuracyPercentRange.toRange, AccuracyPercent.fromPercent)
+        percentRange(lila.insight.AccuracyPercentRange.toRange, AccuracyPercent.fromPercent(_))
       case InsightDimension.ClockPercentRange =>
-        percentRange(lila.insight.ClockPercentRange.toRange, ClockPercent.fromPercent)
+        percentRange(lila.insight.ClockPercentRange.toRange, ClockPercent.fromPercent(_))
       case InsightDimension.TimeVariance =>
         selected match
           case Nil => $empty

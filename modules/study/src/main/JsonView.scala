@@ -188,7 +188,6 @@ object JsonView:
   }
 
   import StudyTopic.given
-  given Writes[StudyTopic] = stringIsoWriter
   given Writes[StudyTopics] = Writes { topics =>
     JsArray(topics.value map Json.toJson)
   }

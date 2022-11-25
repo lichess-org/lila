@@ -8,18 +8,19 @@ import lila.tree.Eval
 import lila.tree.Eval.{ Cp, Mate }
 
 // Quality of a move, based on previous and next WinPercent
-case class AccuracyPercent private (value: Double) extends AnyVal with Percent:
-  def *(weight: Double)            = copy(value * weight)
-  def mean(other: AccuracyPercent) = copy((value + other.value) / 2)
+opaque type AccuracyPercent = Double
+object AccuracyPercent extends OpaqueDouble[AccuracyPercent]:
 
-object AccuracyPercent:
+  given Percent[AccuracyPercent] = _.value
 
-  def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
-  def unsafe(value: Double) = AccuracyPercent(value)
+  extension (a: AccuracyPercent)
+    def *(weight: Double)            = apply(a.value * weight)
+    def mean(other: AccuracyPercent) = apply((a.value + other.value) / 2)
+    def toInt                        = Percent.toInt(a)
+
+  inline def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
 
   val perfect = fromPercent(100)
-
-  given Ordering[AccuracyPercent] = Ordering.by[AccuracyPercent, Double](_.value)
 
   /*
 from scipy.optimize import curve_fit

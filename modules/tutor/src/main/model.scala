@@ -10,10 +10,6 @@ import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats, MeanRating 
 import lila.rating.PerfType
 import lila.user.User
 
-case class Rating(value: Double) extends AnyVal
-object Rating:
-  given Ordering[Rating] = Ordering.by(_.value)
-
 case class ValueCount[V](value: V, count: Int):
   def map[B](f: V => B)      = copy(value = f(value))
   def reliableEnough         = count >= 50
@@ -45,7 +41,6 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
       peer = number.mean(peer, other.peer).some.filter(_.count > 0)
     )
 
-
 sealed abstract class TutorMetric[V](val metric: InsightMetric)
 
 object TutorMetric:
@@ -58,11 +53,11 @@ object TutorMetric:
   case object Performance extends TutorMetric[Rating](InsightMetric.Performance)
 
 // higher is better
-case class GoodPercent(value: Double) extends AnyVal with Percent
-
-object GoodPercent:
+opaque type GoodPercent = Double
+object GoodPercent extends OpaqueDouble[GoodPercent]:
+  given Percent[GoodPercent]                   = _.value
+  extension (a: GoodPercent) def toInt         = Percent.toInt(a)
   def apply(a: Double, b: Double): GoodPercent = GoodPercent(100 * a / b)
-  given Ordering[GoodPercent]                  = Ordering.by(_.value)
 
 // value from -1 (worse) to +1 (best)
 case class Grade private (value: Double):
@@ -77,8 +72,8 @@ case class Grade private (value: Double):
   val wording: Wording = Wording.list.find(_.top > value) | Wording.MuchBetter
 
 object Grade:
-  def percent[P <: Percent](a: P, b: P): Grade = apply((a.value - b.value) / 25)
-  def apply(value: Double): Grade              = new Grade(value atLeast -1 atMost 1)
+  def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p(a) - p(b)) / 25)
+  def apply(value: Double): Grade                        = new Grade(value atLeast -1 atMost 1)
 
   sealed abstract class Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording]:
     def compare(other: Wording) = top compare other.top

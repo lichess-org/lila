@@ -16,12 +16,12 @@ import scala.collection.Factory
 
 trait Handlers:
 
-  inline given [A, T](using
-      bts: SameRuntime[A, T],
-      stb: SameRuntime[T, A],
+  inline given opaqueHandler[T, A](using
+      sr: SameRuntime[A, T],
+      rs: SameRuntime[T, A],
       handler: BSONHandler[A]
   ): BSONHandler[T] =
-    handler.as(bts.apply, stb.apply)
+    handler.as(sr.apply, rs.apply)
 
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },

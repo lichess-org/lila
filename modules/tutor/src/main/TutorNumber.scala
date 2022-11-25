@@ -33,14 +33,14 @@ trait TutorNumber[V]:
 object TutorNumber:
 
   given TutorNumber[GoodPercent] with
-    val iso                                   = Iso.double[GoodPercent](GoodPercent.apply, _.value)
+    val iso                                   = Iso.double[GoodPercent](GoodPercent.apply(_), _.value)
     def grade(a: GoodPercent, b: GoodPercent) = Grade.percent(a, b)
   given TutorNumber[AccuracyPercent] with
-    val iso = Iso.double[AccuracyPercent](AccuracyPercent.unsafe, _.value)
+    val iso = Iso.double[AccuracyPercent](AccuracyPercent.apply(_), _.value)
     def grade(a: AccuracyPercent, b: AccuracyPercent) = Grade.percent(a, b)
   given TutorNumber[Rating] with
-    val iso                                  = Iso.double[Rating](Rating.apply, _.value)
+    val iso                                  = Iso.double[Rating](Rating.apply(_), _.value)
     override def grade(a: Rating, b: Rating) = Grade((a.value - b.value) / 150)
   given TutorNumber[ClockPercent] with
-    val iso                                     = Iso.double[ClockPercent](ClockPercent.fromPercent, _.value)
+    val iso = Iso.double[ClockPercent](ClockPercent.fromPercent(_), _.value)
     def grade(a: ClockPercent, b: ClockPercent) = Grade.percent(a, b)

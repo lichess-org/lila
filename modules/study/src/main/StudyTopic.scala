@@ -11,9 +11,8 @@ import lila.user.User
 import lila.common.Iso
 import lila.common.config.Max
 
-case class StudyTopic(value: String) extends AnyVal with StringValue
-
-object StudyTopic:
+opaque type StudyTopic = String
+object StudyTopic extends OpaqueString[StudyTopic]:
 
   val minLength = 2
   val maxLength = 50
@@ -22,8 +21,6 @@ object StudyTopic:
     str.trim match
       case s if s.lengthIs >= minLength && s.lengthIs <= maxLength => StudyTopic(s).some
       case _                                                       => none
-
-  given Iso.StringIso[StudyTopic] = Iso.string(StudyTopic.apply, _.value)
 
 case class StudyTopics(value: List[StudyTopic]) extends AnyVal:
 

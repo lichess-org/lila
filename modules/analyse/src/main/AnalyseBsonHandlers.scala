@@ -28,8 +28,4 @@ object AnalyseBsonHandlers:
         "fk"      -> a.fk
       )
 
-  given BSONHandler[WinPercent] = percentAsIntHandler[WinPercent](_.value, WinPercent.apply)
-
-  given BSONHandler[AccuracyPercent] = percentAsIntHandler[AccuracyPercent](_.value, AccuracyPercent.unsafe)
-
   given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler

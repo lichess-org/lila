@@ -32,14 +32,15 @@ case class InsightMove(
 )
 
 // time remaining on clock, accounting for increment via estimation
-case class ClockPercent private (value: Double) extends AnyVal with Percent
-
-object ClockPercent:
-  def apply(clock: Clock.Config, timeLeft: Centis) = new ClockPercent(
+opaque type ClockPercent = Double
+object ClockPercent extends OpaqueDouble[ClockPercent]:
+  given Percent[ClockPercent]           = _.value
+  extension (a: ClockPercent) def toInt = Percent.toInt(a)
+  def apply(clock: Clock.Config, timeLeft: Centis): ClockPercent = ClockPercent(
     (100 * timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 100
   )
-  def fromPercent(p: Double) = ClockPercent(p)
-  def fromPercent(p: Int)    = ClockPercent(p.toDouble)
+  inline def fromPercent(p: Double) = ClockPercent(p)
+  inline def fromPercent(p: Int)    = ClockPercent(p.toDouble)
 
 sealed abstract class Termination(val id: Int, val name: String)
 object Termination:

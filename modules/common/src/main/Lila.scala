@@ -47,9 +47,6 @@ trait Lila
   trait StringValue extends Any:
     def value: String
     override def toString = value
-  trait Percent extends Any:
-    def value: Double
-    def toInt = Math.round(value).toInt // round to closest
 
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =

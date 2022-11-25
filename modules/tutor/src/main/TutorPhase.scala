@@ -30,7 +30,7 @@ private object TutorPhases:
     } yield InsightDimension.valuesOf(InsightDimension.Phase).map { phase =>
       TutorPhase(
         phase,
-        accuracy = accuracy valueMetric phase map AccuracyPercent.unsafe,
-        awareness = awareness valueMetric phase map GoodPercent.apply
+        accuracy = AccuracyPercent.from(accuracy valueMetric phase),
+        awareness = GoodPercent.from(awareness valueMetric phase)
       )
     }

@@ -80,9 +80,9 @@ private case object TutorOpening:
       performances.mine.list.map { case (family, myPerformance) =>
         TutorOpeningFamily(
           family,
-          performance = performances.valueMetric(family, myPerformance) map Rating.apply,
-          accuracy = accuracy valueMetric family map AccuracyPercent.unsafe,
-          awareness = awareness valueMetric family map GoodPercent.apply
+          performance = Rating from performances.valueMetric(family, myPerformance),
+          accuracy = AccuracyPercent from accuracy.valueMetric(family),
+          awareness = GoodPercent from awareness.valueMetric(family)
         )
       }
     }

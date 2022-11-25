@@ -15,6 +15,7 @@ trait NewTypes:
 
   type StringRuntime[A] = SameRuntime[A, String]
   type IntRuntime[A]    = SameRuntime[A, Int]
+  type DoubleRuntime[A] = SameRuntime[A, Double]
 
   trait TotalWrapper[Newtype, Impl](using ev: Newtype =:= Impl):
     inline def raw(inline a: Newtype): Impl              = a.asInstanceOf[Impl]
@@ -59,8 +60,9 @@ trait NewTypes:
       inline def atLeast[B](inline bot: B)(using sr: IntRuntime[B]): A = atLeast(sr(bot))
       inline def atMost[B](inline top: B)(using sr: IntRuntime[B]): A  = atMost(sr(top))
 
-  trait OpaqueLong[A](using A =:= Long)     extends TotalWrapper[A, Long]
-  trait OpaqueDouble[A](using A =:= Double) extends TotalWrapper[A, Double]
+  trait OpaqueLong[A](using A =:= Long) extends TotalWrapper[A, Long]
+  trait OpaqueDouble[A](using A =:= Double) extends TotalWrapper[A, Double]:
+    extension (inline a: A) inline def +(inline o: Int): A = apply(raw(a) + o)
   trait OpaqueFloat[A](using A =:= Float)   extends TotalWrapper[A, Float]
   trait OpaqueDate[A](using A =:= DateTime) extends TotalWrapper[A, DateTime]
 
@@ -91,7 +93,8 @@ trait NewTypes:
     Ordering.by(bts.apply(_))
 
   inline def stringOrdering[T: StringRuntime](using Ordering[String]): Ordering[T] = sameOrdering[String, T]
-  inline def intOrdering[T: IntRuntime](using Ordering[String]): Ordering[T]       = sameOrdering[Int, T]
+  inline def intOrdering[T: IntRuntime](using Ordering[Int]): Ordering[T]          = sameOrdering[Int, T]
+  inline def doubleOrdering[T: DoubleRuntime](using Ordering[Double]): Ordering[T] = sameOrdering[Double, T]
 
   def stringIsString: StringRuntime[String] = new:
     def apply(a: String) = a
