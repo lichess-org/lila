@@ -320,11 +320,6 @@ object BSONHandlers:
     private val writer                 = Macros.writer[Settings]
     def writes(w: Writer, s: Settings) = writer.writeTry(s).get
 
-  import Study.Likes
-  given BSONHandler[Likes] = intAnyValHandler(_.value, Likes.apply)
-  import Study.Rank
-  private[study] given BSONHandler[Rank] = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
-
   given studyHandler: BSONDocumentHandler[Study] = Macros.handler
 
   given BSONDocumentReader[Study.LightStudy] with

@@ -1,5 +1,7 @@
 package lila.base
 
+import org.joda.time.DateTime
+
 // thanks Anton!
 // https://github.com/indoorvivants/opaque-newtypes/blob/main/modules/core/src/main/scala/OpaqueNewtypes.scala
 trait NewTypes:
@@ -60,6 +62,7 @@ trait NewTypes:
   trait OpaqueLong[A](using A =:= Long)     extends TotalWrapper[A, Long]
   trait OpaqueDouble[A](using A =:= Double) extends TotalWrapper[A, Double]
   trait OpaqueFloat[A](using A =:= Float)   extends TotalWrapper[A, Float]
+  trait OpaqueDate[A](using A =:= DateTime) extends TotalWrapper[A, DateTime]
 
   import scala.concurrent.duration.FiniteDuration
   trait OpaqueDuration[A](using A =:= FiniteDuration) extends TotalWrapper[A, FiniteDuration]

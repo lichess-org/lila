@@ -73,7 +73,7 @@ final class JsonView(
       "id"        -> s.study.id,
       "name"      -> s.study.name,
       "liked"     -> s.liked,
-      "likes"     -> s.study.likes.value,
+      "likes"     -> s.study.likes,
       "updatedAt" -> s.study.updatedAt,
       "owner"     -> lightUserApi.sync(s.study.ownerId),
       "chapters"  -> s.chapters.take(Study.previewNbChapters),
@@ -172,7 +172,6 @@ object JsonView:
   }
 
   private[study] given Writes[Position.Ref] = Json.writes
-  private given Writes[Study.Likes]         = Writes(p => JsNumber(p.value))
   private[study] given Writes[Study.Liking] = Json.writes
 
   given OWrites[Chapter.Relay] = OWrites { r =>

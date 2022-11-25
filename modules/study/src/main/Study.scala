@@ -99,19 +99,19 @@ object Study:
       v.key -> v
     }.toMap
 
-  case class Likes(value: Int) extends AnyVal
+  opaque type Likes = Int
+  object Likes extends OpaqueInt[Likes]
+
   case class Liking(likes: Likes, me: Boolean)
   val emptyLiking = Liking(Likes(0), me = false)
 
-  case class Rank(value: DateTime) extends AnyVal
-  object Rank:
+  opaque type Rank = DateTime
+  object Rank extends OpaqueDate[Rank]:
     def compute(likes: Likes, createdAt: DateTime) =
-      Rank {
-        createdAt plusHours likesToHours(likes)
-      }
+      Rank(createdAt plusHours likesToHours(likes))
     private def likesToHours(likes: Likes): Int =
-      if (likes.value < 1) 0
-      else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
+      if (likes < 1) 0
+      else (5 * math.log(likes) + 1).toInt.min(likes) * 24
 
   enum From:
     case Scratch
@@ -146,9 +146,7 @@ object Study:
 
   case class LightStudy(isPublic: Boolean, contributors: Set[User.ID])
 
-  val idSize = 8
-
-  def makeId = StudyId(lila.common.ThreadLocalRandom nextString idSize)
+  def makeId = StudyId(lila.common.ThreadLocalRandom nextString 8)
 
   def make(
       user: User,
