@@ -14,7 +14,7 @@ case class Eval(
 
   def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
 
-  def score: Option[Eval.Score] = cp.map(Eval.Score.cp) orElse mate.map(Eval.Score.mate)
+  def score: Option[Eval.Score] = cp.map(Eval.Score.cp(_)) orElse mate.map(Eval.Score.mate(_))
 
   def forceAsCp: Option[Eval.Cp] = cp orElse mate.map {
     case m if m.negative => Eval.Cp(Int.MinValue - m.value)
@@ -31,79 +31,64 @@ object Eval:
     def isCheckmate = value == Score.checkmate
     def mateFound   = value.isRight
 
-    def invert                  = copy(value = value.left.map(_.invert).map(_.invert))
+    def invert                  = copy(value = value.left.map(Cp.invert(_)).map(Mate.invert(_)))
     def invertIf(cond: Boolean) = if (cond) invert else this
 
     def eval = Eval(cp, mate, None)
 
   object Score:
 
-    def cp(x: Cp): Score     = Score(Left(x))
-    def mate(y: Mate): Score = Score(Right(y))
+    inline def cp(x: Cp): Score     = Score(Left(x))
+    inline def mate(y: Mate): Score = Score(Right(y))
 
     val checkmate: Either[Cp, Mate] = Right(Mate(0))
 
-  case class Cp(value: Int) extends AnyVal with Ordered[Cp]:
+  opaque type Cp = Int
+  object Cp extends OpaqueInt[Cp]:
+    val CEILING                               = Cp(1000)
+    val initial                               = Cp(15)
+    inline def ceilingWithSignum(signum: Int) = CEILING.invertIf(signum < 0)
 
-    def centipawns = value
+    extension (cp: Cp)
+      inline def centipawns = cp.value
 
-    def pawns: Float      = value / 100f
-    def showPawns: String = "%.2f" format pawns
+      inline def pawns: Float      = cp.value / 100f
+      inline def showPawns: String = "%.2f" format pawns
 
-    def ceiled =
-      if (value > Cp.CEILING) Cp(Cp.CEILING)
-      else if (value < -Cp.CEILING) Cp(-Cp.CEILING)
-      else this
+      inline def ceiled: Cp =
+        if (cp.value > Cp.CEILING) Cp.CEILING
+        else if (cp.value < -Cp.CEILING) -Cp.CEILING
+        else cp
 
-    def invert                  = Cp(value = -value)
-    def invertIf(cond: Boolean) = if (cond) invert else this
+      inline def invert: Cp                  = Cp(-cp.value)
+      inline def invertIf(cond: Boolean): Cp = if (cond) invert else cp
 
-    def compare(other: Cp) = Integer.compare(value, other.value)
+      def signum: Int = Math.signum(cp.value.toFloat).toInt
+  end Cp
 
-    def signum: Int = Math.signum(value.toFloat).toInt
+  opaque type Mate = Int
+  object Mate extends OpaqueInt[Mate]:
+    extension (mate: Mate)
+      inline def moves: Int = mate.value
 
-  object Cp:
+      inline def invert: Mate                  = Mate(-moves)
+      inline def invertIf(cond: Boolean): Mate = if (cond) invert else mate
 
-    val CEILING = 1000
+      inline def signum: Int = if (positive) 1 else -1
 
-    val initial = Cp(15)
-
-  case class Mate(value: Int) extends AnyVal with Ordered[Mate]:
-
-    def moves = value
-
-    def invert                  = Mate(value = -value)
-    def invertIf(cond: Boolean) = if (cond) invert else this
-
-    def compare(other: Mate) = Integer.compare(value, other.value)
-
-    def signum: Int = if (positive) 1 else -1
-
-    def positive = value > 0
-    def negative = value < 0
+      inline def positive = mate.value > 0
+      inline def negative = mate.value < 0
 
   val initial = Eval(Some(Cp.initial), None, None)
 
   val empty = Eval(None, None, None)
 
-  object JsonHandlers:
-    import play.api.libs.json.*
+object JsonHandlers:
+  import play.api.libs.json.*
+  import lila.common.Json.given
 
-    implicit private val uciWrites: Writes[Uci] = Writes { uci =>
-      JsString(uci.uci)
-    }
-    implicit val cpFormat: Format[Cp] = Format[Cp](
-      Reads.of[Int] map Cp.apply,
-      Writes { cp =>
-        JsNumber(cp.value)
-      }
-    )
+  private given Writes[Uci] = Writes { uci =>
+    JsString(uci.uci)
+  }
 
-    implicit val mateFormat: Format[Mate] = Format[Mate](
-      Reads.of[Int] map Mate.apply,
-      Writes { mate =>
-        JsNumber(mate.value)
-      }
-    )
-
-    given Writes[Eval] = Json.writes[Eval]
+  given Writes[Eval] = Json.writes[Eval]

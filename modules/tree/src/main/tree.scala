@@ -235,11 +235,9 @@ object Node:
   }
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
-  import Eval.JsonHandlers.given
 
-  import scala.language.implicitConversions
-  implicit private def toLilaJsObject(jo: JsObject): lila.base.LilaJsObject =
-    new lila.base.LilaJsObject(jo)
+  import lila.common.Json.given
+  import JsonHandlers.given
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 

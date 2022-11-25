@@ -65,7 +65,5 @@ object JsonHandlers:
             case _                 => None
           }
           .flatMap(_.reverse.toNel) map Moves.apply
-      cp   = d int "cp" map Cp.apply
-      mate = d int "mate" map Mate.apply
-      score <- cp.map(Score.cp) orElse mate.map(Score.mate)
+      score <- d.get[Cp]("cp").map(Score.cp(_)) orElse d.get[Mate]("mate").map(Score.mate(_))
     } yield Pv(score, moves)

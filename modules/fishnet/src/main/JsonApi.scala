@@ -8,7 +8,6 @@ import play.api.libs.json.*
 import lila.common.Json.{ *, given }
 import lila.common.{ IpAddress, Maths }
 import lila.fishnet.{ Work as W }
-import lila.tree.Eval.JsonHandlers.*
 import lila.tree.Eval.{ Cp, Mate }
 
 object JsonApi:

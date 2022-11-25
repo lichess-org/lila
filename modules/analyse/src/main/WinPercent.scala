@@ -10,7 +10,7 @@ object WinPercent:
   def fromEval(eval: Eval): Option[WinPercent] =
     eval.cp.map(fromCentiPawns) orElse eval.mate.map(fromMate)
 
-  def fromMate(mate: Eval.Mate) = fromCentiPawns(Eval.Cp(Eval.Cp.CEILING * mate.signum))
+  def fromMate(mate: Eval.Mate) = fromCentiPawns(Eval.Cp.ceilingWithSignum(mate.signum))
 
   // [0, 100]
   def fromCentiPawns(cp: Eval.Cp) = WinPercent {

@@ -8,14 +8,6 @@ import lila.tree.Eval.*
 
 object AccuracyCP:
 
-  private def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
-
-  private val makeDiff: PartialFunction[(Option[Cp], Option[Mate], Option[Cp], Option[Mate]), Int] =
-    case (Some(s1), _, Some(s2), _) => s2.ceiled.centipawns - s1.ceiled.centipawns
-    case (Some(s1), _, _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - s1.ceiled.centipawns
-    case (_, Some(m1), Some(s2), _) => s2.ceiled.centipawns - withSignOf(Cp.CEILING, m1.value)
-    case (_, Some(m1), _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - withSignOf(Cp.CEILING, m1.value)
-
   def diffsList(pov: SideAndStart, analysis: Analysis): List[Option[Int]] = {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
     else analysis.infos

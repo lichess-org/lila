@@ -16,7 +16,7 @@ object Json:
   ): Format[T] =
     format.bimap(bts.apply, stb.apply)
 
-  given [A](using bts: SameRuntime[A, String]): KeyWrites[A] with
+  inline given [A](using bts: SameRuntime[A, String]): KeyWrites[A] with
     def writeKey(key: A) = bts(key)
 
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
