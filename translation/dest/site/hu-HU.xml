@@ -59,6 +59,8 @@
   <string name="depthX">%s mélység</string>
   <string name="usingServerAnalysis">A szerver elemzését használja</string>
   <string name="loadingEngine">Motor betöltése ...</string>
+  <string name="calculatingMoves">Lépések kiszámítása...</string>
+  <string name="engineFailed">Hiba a motor betöltésekor</string>
   <string name="cloudAnalysis">Elemzés felhőben</string>
   <string name="goDeeper">Mélyebben</string>
   <string name="showThreat">Fenyegetés mutatása</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
+  <string name="openings">Megnyitások</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
   <string name="openingEndgameExplorer">Megnyitás/végjáték böngésző</string>
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
   <string name="signIn">Bejelentkezés</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">Maradjak bejelentkezve</string>
   <string name="youNeedAnAccountToDoThat">Ehhez szükséged van egy fiókra</string>
   <string name="signUp">Regisztráció</string>
   <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közben ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
@@ -196,14 +200,23 @@
   <string name="changeUsernameNotSame">Csak a kis-nagy betűket cserélheted a névben. Pl. \"johndoe\" - \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kisbetű-nagybetű váltás engedélyezett a felhasználónévben.</string>
   <string name="signupUsernameHint">Mindenképpen családbarát felhasználónevet válassz. Később már nem tudod megváltoztatni, a nem helyénvaló felhasználónevek fiókját zároljuk!</string>
+  <string name="signupEmailHint">Csak jelszó-visszaállításhoz használjuk.</string>
   <string name="password">Jelszó</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>
   <string name="email">E-mail cím</string>
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
+  <string name="emailConfirmHelp">Segítség az e-mail megerősítéshez</string>
+  <string name="emailConfirmNotReceived">Nem kaptad meg a megerősítő e-mailt a regisztráció után?</string>
   <string name="whatSignupUsername">Milyen felhasználónévvel regisztráltál?</string>
+  <string name="usernameNotFound">Nem találtunk ilyen nevű felhasználót: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Használhatod ezt a felhasználónevet új fiók létrehozásához</string>
   <string name="emailSent">Üzenetet küldtünk a %s címre.</string>
+  <string name="emailCanTakeSomeTime">Eltarthat egy ideig, amíg megérkezik.</string>
+  <string name="refreshInboxAfterFiveMinutes">Várj 5 percet, és frissítsd az e-mail postafiókodat.</string>
+  <string name="copyTextToEmail">Másold ki és illeszd be a fenti szöveget, és küld el a %s címre</string>
+  <string name="accountConfirmed">%s felhasználó sikeresen megerősítve.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Helyezés: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
