@@ -3,7 +3,7 @@
   <string name="moveToStart">सुरू करण्यासाठी सोंगटी हलवा</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">तुम्ही सर्व कोड्यांमध्ये पांढरे रंगाने खेळणार आहेत</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">तुम्ही सर्व कोड्यांमध्ये काळ्या रंगाने खेळणार आहेत</string>
-  <string name="puzzlesSolved">सोड्वलेली कोडी</string>
+  <string name="puzzlesSolved">कोडी सोडवली</string>
   <string name="newDailyHighscore">नवीन दैनिक उच्चांक!</string>
   <string name="newWeeklyHighscore">नवीन साप्ताहिक उच्चांक!</string>
   <string name="newMonthlyHighscore">नवीन मासिक उच्चांक!</string>
@@ -16,6 +16,7 @@
   <string name="moves">चाली</string>
   <string name="accuracy">अचूकता</string>
   <string name="time">वेळ</string>
+  <string name="skip">सोडा</string>
   <string name="thisWeek">या आठवड्यात</string>
   <string name="thisMonth">या महिन्यात</string>
 </resources>
