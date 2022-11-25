@@ -20,7 +20,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
 ):
 
   private val falsePositiveRate = 0.00003
-  private var bloomFilter       = BloomFilter[User.ID](10, 0.1) // temporary empty filter
+  private var bloomFilter       = BloomFilter[User.ID](100, falsePositiveRate) // temporary empty filter
 
   def isStudent(userId: User.ID) = bloomFilter mightContain userId
 
@@ -31,11 +31,13 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
       val nextBloom = BloomFilter[User.ID](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
-        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .cursor[Bdoc](temporarilyPrimary)
         .documentSource()
-        .toMat(Sink.fold[Int, Bdoc](0) { case (total, doc) =>
+        .throttle(300, 1.second)
+        .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>
+          if (counter % 500 == 0) logger.info(s"ClasStudentCache.rebuild $counter")
           doc string "userId" foreach nextBloom.add
-          total + 1
+          counter + 1
         })(Keep.right)
         .run()
         .addEffect { nb =>
@@ -47,4 +49,4 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
         .unit
     }
 
-  scheduler.scheduleWithFixedDelay(23 seconds, 1 hour) { (() => rebuildBloomFilter()) }.unit
+  scheduler.scheduleWithFixedDelay(23 seconds, 3 hours) { (() => rebuildBloomFilter()) }.unit
