@@ -49,6 +49,10 @@ object Coach:
   case class WithUser(coach: Coach, user: lila.user.User):
     def isListed = coach.listed.value && user.enabled && user.marks.clean
 
-  case class Listed(value: Boolean)    extends AnyVal
-  case class Available(value: Boolean) extends AnyVal
+  opaque type Listed = Boolean
+  object Listed extends YesNo[Listed]
+
+  opaque type Available = Boolean
+  object Available extends YesNo[Available]
+
   case class User(rating: IntRating, seenAt: DateTime)

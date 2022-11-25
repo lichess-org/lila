@@ -8,7 +8,7 @@ import lila.coach.CoachPager.Order.LichessRating
 import lila.coach.CoachPager.Order.Login
 import lila.coach.CoachPager.Order.NbReview
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl.*
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.security.Permission
 import lila.user.{ Country, User, UserMark, UserRepo }
@@ -16,7 +16,7 @@ import lila.user.{ Country, User, UserMark, UserRepo }
 final class CoachPager(
     userRepo: UserRepo,
     coll: Coll
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   val maxPerPage = lila.common.config.MaxPerPage(10)
 
@@ -91,8 +91,8 @@ final class CoachPager(
     )
 
   private val listableSelector = $doc(
-    "listed"    -> Coach.Listed(true),
-    "available" -> Coach.Available(true)
+    "listed"    -> Coach.Listed.Yes,
+    "available" -> Coach.Available.Yes
   )
 
   private def withUsers(coaches: Seq[Coach]): Fu[Seq[Coach.WithUser]] =
