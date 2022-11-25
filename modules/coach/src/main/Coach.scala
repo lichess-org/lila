@@ -5,7 +5,7 @@ import org.joda.time.{ DateTime, Days }
 import lila.memo.PicfitImage
 
 case class Coach(
-    _id: Coach.Id, // user ID
+    _id: UserId, // user ID
     listed: Coach.Listed,
     available: Coach.Available,
     profile: CoachProfile,
@@ -31,7 +31,7 @@ object Coach:
 
   def make(user: lila.user.User) =
     Coach(
-      _id = Id(user.id),
+      _id = UserId(user.id),
       listed = Listed(false),
       available = Available(true),
       profile = CoachProfile(),

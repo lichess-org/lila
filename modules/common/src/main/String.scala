@@ -104,10 +104,8 @@ object String:
   def softCleanUp(str: String) = removeChars(normalize(str.trim), isInvisibleChar)
 
   def decodeUriPath(input: String): Option[String] =
-    try
-      play.utils.UriEncoding.decodePath(input, "UTF-8").some
-    catch
-      case _: play.utils.InvalidUriEncodingException => None
+    try play.utils.UriEncoding.decodePath(input, "UTF-8").some
+    catch case _: play.utils.InvalidUriEncodingException => None
 
   private val onelineR = """\s+""".r
   def shorten(text: String, length: Int, sep: String = "…") =
@@ -136,10 +134,8 @@ object String:
     def encode(txt: String) =
       Base64.getEncoder.encodeToString(txt getBytes UTF_8)
     def decode(txt: String): Option[String] =
-      try
-        Some(new String(Base64.getDecoder decode txt, UTF_8))
-      catch
-        case _: java.lang.IllegalArgumentException => none
+      try Some(new String(Base64.getDecoder decode txt, UTF_8))
+      catch case _: java.lang.IllegalArgumentException => none
 
   val atUsernameRegex    = RawHtml.atUsernameRegex
   val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
@@ -147,7 +143,7 @@ object String:
   object html:
 
     def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using
-        netDomain: config.NetDomain
+        config.NetDomain
     ): Frag =
       raw {
         val withLinks = RawHtml.addLinks(rawText, expandImg)

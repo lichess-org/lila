@@ -65,7 +65,7 @@ object RawHtml:
       text: String,
       expandImg: Boolean = true,
       linkRender: Option[LinkRender] = None
-  )(implicit netDomain: config.NetDomain): String =
+  )(using netDomain: config.NetDomain): String =
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 

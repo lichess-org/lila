@@ -20,14 +20,14 @@ final class CoachApi(
 
   import BsonHandlers.given
 
-  def byId(id: Coach.Id): Fu[Option[Coach]] = coachColl.byId[Coach](id.value)
+  def byId(id: UserId): Fu[Option[Coach]] = coachColl.byId[Coach](id)
 
   def find(username: String): Fu[Option[Coach.WithUser]] =
     userRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     Granter(_.Coach)(user) ?? {
-      byId(Coach.Id(user.id)) dmap {
+      byId(UserId(user.id)) dmap {
         _ map withUser(user)
       }
     }
@@ -66,7 +66,7 @@ final class CoachApi(
       )
       .void
 
-  def setNbReviews(id: Coach.Id, nb: Int): Funit =
+  def setNbReviews(id: UserId, nb: Int): Funit =
     coachColl.update.one($id(id), $set("nbReviews" -> nb)).void
 
   def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
@@ -154,7 +154,7 @@ final class CoachApi(
         )
       ) >> refreshCoachNbReviews(r.coachId)
 
-    private def refreshCoachNbReviews(id: Coach.Id): Funit =
+    private def refreshCoachNbReviews(id: UserId): Funit =
       reviewColl.countSel($doc("coachId" -> id.value, "approved" -> true)) flatMap {
         setNbReviews(id, _)
       }

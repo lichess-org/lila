@@ -12,7 +12,7 @@ object show:
 
   import trans.coach.*
 
-  private def section(title: Frag, text: Option[lila.coach.CoachProfile.RichText]) =
+  private def section(title: Frag, text: Option[RichText]) =
     text.map { t =>
       st.section(
         h2(cls := "coach-show__title")(title),

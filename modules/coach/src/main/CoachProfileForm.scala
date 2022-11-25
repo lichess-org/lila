@@ -7,6 +7,8 @@ import play.api.i18n.Lang
 import play.api.libs.json.{ JsSuccess, Json }
 import play.api.libs.json.Reads
 
+import lila.common.Form.given
+
 object CoachProfileForm:
 
   def edit(coach: Coach) =
@@ -18,12 +20,12 @@ object CoachProfileForm:
         "profile" -> mapping(
           "headline"           -> optional(text(minLength = 5, maxLength = 170)),
           "hourlyRate"         -> optional(text(minLength = 3, maxLength = 140)),
-          "description"        -> optional(richText),
-          "playingExperience"  -> optional(richText),
-          "teachingExperience" -> optional(richText),
-          "otherExperience"    -> optional(richText),
-          "skills"             -> optional(richText),
-          "methodology"        -> optional(richText),
+          "description"        -> optional(of[RichText]),
+          "playingExperience"  -> optional(of[RichText]),
+          "teachingExperience" -> optional(of[RichText]),
+          "otherExperience"    -> optional(of[RichText]),
+          "skills"             -> optional(of[RichText]),
+          "methodology"        -> optional(of[RichText]),
           "youtubeVideos"      -> optional(nonEmptyText),
           "youtubeChannel"     -> optional(nonEmptyText),
           "publicStudies"      -> optional(nonEmptyText)
@@ -57,9 +59,3 @@ object CoachProfileForm:
         },
         updatedAt = DateTime.now
       )
-
-  import CoachProfile.RichText
-
-  private given format.Formatter[RichText] =
-    lila.common.Form.formatter.stringFormatter[RichText](_.value, RichText.apply)
-  private def richText = of[RichText]

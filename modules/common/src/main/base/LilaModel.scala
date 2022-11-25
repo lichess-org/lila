@@ -86,3 +86,6 @@ trait LilaModel extends NewTypes:
 
   opaque type CacheKey = String
   object CacheKey extends OpaqueString[CacheKey]
+
+  opaque type RichText = String
+  object RichText extends OpaqueString[RichText]
