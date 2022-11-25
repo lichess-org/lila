@@ -26,7 +26,7 @@ case class User(
     lang: Option[String],
     plan: Plan,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty
+    marks: UserMarks = UserMarks.empty: UserMarks
 ) extends Ordered[User]:
 
   override def equals(other: Any) =
@@ -291,7 +291,7 @@ object User:
   given BSONDocumentHandler[User] = new BSON[User]:
 
     import BSONFields.*
-    import UserMarks.given
+    import UserMark.given
     import Title.given
     import Count.given
     import Profile.given

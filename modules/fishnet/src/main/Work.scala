@@ -29,16 +29,15 @@ sealed trait Work:
 
 object Work:
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   case class Acquired(
       clientKey: Client.Key,
-      userId: Client.UserId,
+      userId: UserId,
       date: DateTime
   ):
-
-    def ageInMillis = nowMillis - date.getMillis
-
+    def ageInMillis       = nowMillis - date.getMillis
     override def toString = s"by $userId at $date"
 
   private[fishnet] case class Game(

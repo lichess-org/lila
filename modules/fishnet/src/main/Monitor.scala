@@ -117,7 +117,7 @@ object Monitor:
     logger.warn(s"Received invalid analysis ${work.id} for ${work.game.id} by ${client.fullId}", e)
     monResult.failure(client.userId.value).increment()
 
-  private[fishnet] def timeout(userId: Client.UserId) =
+  private[fishnet] def timeout(userId: UserId) =
     monResult.timeout(userId.value).increment()
 
   private[fishnet] def abort(client: Client) =

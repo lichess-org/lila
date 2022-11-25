@@ -120,24 +120,23 @@ final class Env(
   private def disable(username: String) =
     repo toKey username flatMap { repo.enableClient(_, v = false) }
 
-  def cli =
-    new lila.common.Cli:
-      def process =
-        case "fishnet" :: "client" :: "create" :: name :: Nil =>
-          val userId = lila.user.User normalize name
-          userRepo.enabledById(userId).map(_.exists(_.marks.clean)) flatMap {
-            case false => fuccess("User missing, closed, or banned")
-            case true =>
-              api.createClient(Client.UserId(userId)) map { client =>
-                Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
-                s"Created key: ${client.key.value} for: $userId"
-              }
-          }
-        case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-          repo toKey key flatMap repo.deleteClient inject "done!"
-        case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-          repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
-        case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
+  def cli = new lila.common.Cli:
+    def process =
+      case "fishnet" :: "client" :: "create" :: name :: Nil =>
+        val userId = lila.user.User normalize name
+        userRepo.enabledById(userId).map(_.exists(_.marks.clean)) flatMap {
+          case false => fuccess("User missing, closed, or banned")
+          case true =>
+            api.createClient(UserId(userId)) map { client =>
+              Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
+              s"Created key: ${client.key.value} for: $userId"
+            }
+        }
+      case "fishnet" :: "client" :: "delete" :: key :: Nil =>
+        repo toKey key flatMap repo.deleteClient inject "done!"
+      case "fishnet" :: "client" :: "enable" :: key :: Nil =>
+        repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
+      case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId).unit

@@ -18,7 +18,7 @@ final private class FishnetRepo(
   private val clientCache = cacheApi[Client.Key, Option[Client]](32, "fishnet.client") {
     _.expireAfterWrite(10 minutes)
       .buildAsyncFuture { key =>
-        clientColl.one[Client](selectClient(key))
+        clientColl.one[Client]($id(key))
       }
   }
 
@@ -28,13 +28,13 @@ final private class FishnetRepo(
     getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
-      clientColl.update.one(selectClient(client.key), $set("instance" -> updated.instance)) >>-
+      clientColl.update.one($id(client.key), $set("instance" -> updated.instance)) >>-
         clientCache.invalidate(client.key) inject updated
     }
   def addClient(client: Client)     = clientColl.insert.one(client)
-  def deleteClient(key: Client.Key) = clientColl.delete.one(selectClient(key)) >>- clientCache.invalidate(key)
+  def deleteClient(key: Client.Key) = clientColl.delete.one($id(key)) >>- clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update.one(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
+    clientColl.update.one($id(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
   def allRecentClients =
     clientColl.list[Client](
       $doc(
@@ -43,9 +43,9 @@ final private class FishnetRepo(
     )
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
-  def getAnalysis(id: Work.Id)           = analysisColl.find(selectWork(id)).one[Work.Analysis]
-  def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
-  def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
+  def getAnalysis(id: Work.Id)           = analysisColl.byId[Work.Analysis](id)
+  def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one($id(ana.id), ana).void
+  def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one($id(ana.id)).void
   def updateOrGiveUpAnalysis(ana: Work.Analysis, update: Work.Analysis => Work.Analysis) =
     if (ana.isOutOfTries)
       logger.warn(s"Give up on analysis $ana")
@@ -82,9 +82,6 @@ final private class FishnetRepo(
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.one[Work.Analysis]($doc("game.id" -> work.game.id))
 
-  def selectWork(id: Work.Id)       = $id(id.value)
-  def selectClient(key: Client.Key) = $id(key.value)
-
   private[fishnet] def toKey(keyOrUser: String): Fu[Client.Key] =
     clientColl.primitiveOne[String](
       $or(
@@ -92,4 +89,4 @@ final private class FishnetRepo(
         "userId" $eq lila.user.User.normalize(keyOrUser)
       ),
       "_id"
-    ) orFail "client not found" map Client.Key.apply
+    ) orFail "client not found" map { Client.Key(_) }

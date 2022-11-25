@@ -162,7 +162,7 @@ final class FishnetApi(
       )
     }
 
-  private[fishnet] def createClient(userId: Client.UserId): Fu[Client] =
+  private[fishnet] def createClient(userId: UserId): Fu[Client] =
     val client = Client(
       _id = Client.makeKey,
       userId = userId,

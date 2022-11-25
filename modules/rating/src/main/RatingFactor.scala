@@ -7,9 +7,8 @@ import lila.memo.SettingStore.{ Formable, StringReader }
 import reactivemongo.api.bson.BSONHandler
 import lila.common.Iso
 
-case class RatingFactor(value: Double) extends AnyVal with DoubleValue
-
-object RatingFactor:
+opaque type RatingFactor = Double
+object RatingFactor extends OpaqueDouble[RatingFactor]:
 
   private val separator = ","
 
