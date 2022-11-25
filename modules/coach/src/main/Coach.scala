@@ -5,7 +5,7 @@ import org.joda.time.{ DateTime, Days }
 import lila.memo.PicfitImage
 
 case class Coach(
-    _id: UserId, // user ID
+    _id: Coach.Id, // user ID
     listed: Coach.Listed,
     available: Coach.Available,
     profile: CoachProfile,
@@ -27,11 +27,14 @@ case class Coach(
 
 object Coach:
 
+  opaque type Id = String
+  object Id extends OpaqueUserId[Id]
+
   val imageSize = 350
 
   def make(user: lila.user.User) =
     Coach(
-      _id = UserId(user.id),
+      _id = Id(user.id),
       listed = Listed(false),
       available = Available(true),
       profile = CoachProfile(),
@@ -46,7 +49,6 @@ object Coach:
   case class WithUser(coach: Coach, user: lila.user.User):
     def isListed = coach.listed.value && user.enabled && user.marks.clean
 
-  case class Id(value: String)         extends AnyVal with StringValue
   case class Listed(value: Boolean)    extends AnyVal
   case class Available(value: Boolean) extends AnyVal
   case class User(rating: IntRating, seenAt: DateTime)

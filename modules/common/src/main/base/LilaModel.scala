@@ -7,6 +7,10 @@ trait LilaModel extends NewTypes:
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]
 
+  // specialized UserIds like Coach.Id
+  trait OpaqueUserId[A] extends OpaqueString[A]:
+    extension (a: A) inline def userId: UserId = a into UserId
+
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
     extension (n: UserName) def id = UserId(n.value.toLowerCase)
