@@ -14,8 +14,8 @@ final class MemoConfig(
 
 final class PicfitConfig(
     val collection: CollName,
-    val endpointGet: String,
-    val endpointPost: String,
+    val endpointGet: EndpointUrl,
+    val endpointPost: EndpointUrl,
     val secretKey: Secret
 )
 
@@ -27,7 +27,7 @@ final class Env(
     ws: play.api.libs.ws.StandaloneWSClient
 )(using ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem):
 
-  given ConfigLoader[PicfitConfig] = AutoConfig.loader[PicfitConfig]
+  given ConfigLoader[PicfitConfig] = AutoConfig.loader
   private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 
   lazy val configStore = wire[ConfigStore.Builder]

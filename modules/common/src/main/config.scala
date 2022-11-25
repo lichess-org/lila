@@ -44,6 +44,9 @@ object config:
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
 
+  opaque type EndpointUrl = String
+  object EndpointUrl extends OpaqueString[EndpointUrl]
+
   case class NetConfig(
       domain: NetDomain,
       prodDomain: NetDomain,

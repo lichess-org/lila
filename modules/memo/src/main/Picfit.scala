@@ -29,14 +29,13 @@ case class PicfitImage(
 
 object PicfitImage:
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
-  given BSONHandler[PicfitImage.Id] =
-    stringAnyValHandler[PicfitImage.Id](_.value, PicfitImage.Id.apply)
-  given BSONDocumentHandler[PicfitImage] = Macros.handler[PicfitImage]
+  given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
-    ec: ExecutionContext
+    ExecutionContext
 ):
 
   import PicfitApi.*
