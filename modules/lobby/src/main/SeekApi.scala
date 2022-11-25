@@ -13,7 +13,7 @@ final class SeekApi(
     biter: Biter,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
   import config.*
 
   private type CacheKey = Boolean
