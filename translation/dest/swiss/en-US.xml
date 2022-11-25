@@ -9,6 +9,10 @@
     <item quantity="one">%s rounds</item>
     <item quantity="other">%s rounds</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s round Swiss</item>
+    <item quantity="other">%s rounds Swiss</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">One round per day</item>
     <item quantity="other">One round every %s days</item>
@@ -101,4 +105,10 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="streaksAndBerserk">Streaks and Berserk</string>
   <string name="similarToOTB">Similar to OTB tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
+  <string name="predefinedUsers">Only allow pre-defined users to join</string>
+  <string name="forbiddedUsers">If this list is non-empty, then users absent from this list will be forbidden to join. One username per line.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s round Swiss</item>
+    <item quantity="other">%1$s / %2$s rounds Swiss</item>
+  </plurals>
 </resources>
