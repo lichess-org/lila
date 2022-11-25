@@ -3,7 +3,7 @@ package lila.forum
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.ReadPreference
 
-final class CategRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final private class ForumCategRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
 
   import BSONHandlers.given
 

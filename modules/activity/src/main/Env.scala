@@ -12,7 +12,7 @@ final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceApi: lila.practice.PracticeApi,
     gameRepo: lila.game.GameRepo,
-    forumPostApi: lila.forum.PostApi,
+    forumPostApi: lila.forum.ForumPostApi,
     ublogApi: lila.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,

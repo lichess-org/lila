@@ -59,11 +59,11 @@ final class Env(
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
 
-  lazy val categApi: CategApi = wire[CategApi]
+  lazy val categApi: ForumCategApi = wire[ForumCategApi]
 
-  lazy val topicApi: TopicApi = wire[TopicApi]
+  lazy val topicApi: ForumTopicApi = wire[ForumTopicApi]
 
-  lazy val postApi: PostApi = wire[PostApi]
+  lazy val postApi: ForumPostApi = wire[ForumPostApi]
 
   lazy val delete: ForumDelete = wire[ForumDelete]
 

@@ -18,8 +18,8 @@ private class ForumSearchConfig(
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
-    postApi: lila.forum.PostApi,
-    postRepo: lila.forum.PostRepo
+    postApi: lila.forum.ForumPostApi,
+    postRepo: lila.forum.ForumPostRepo
 )(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,

@@ -12,7 +12,7 @@ import lila.memo.CacheApi
 import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Holder, User }
 
-final private[forum] class TopicApi(
+final private class ForumTopicApi(
     postRepo: PostRepo,
     topicRepo: TopicRepo,
     categRepo: CategRepo,
@@ -54,9 +54,10 @@ final private[forum] class TopicApi(
     } yield res
 
   object findDuplicate:
-    private val cache = cacheApi.notLoadingSync[(User.ID, String), ForumTopic.ID](64, "forum.topic.duplicate") {
-      _.expireAfterWrite(1 hour).build()
-    }
+    private val cache =
+      cacheApi.notLoadingSync[(User.ID, String), ForumTopic.ID](64, "forum.topic.duplicate") {
+        _.expireAfterWrite(1 hour).build()
+      }
     def apply(topic: ForumTopic): Fu[Option[ForumTopic]] =
       val key = (~topic.userId, topic.name)
       cache.getIfPresent(key) ?? { topicRepo.coll.byId[ForumTopic](_) } orElse {

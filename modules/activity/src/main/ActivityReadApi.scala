@@ -18,7 +18,7 @@ final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
     gameRepo: lila.game.GameRepo,
     practiceApi: lila.practice.PracticeApi,
-    forumPostApi: lila.forum.PostApi,
+    forumPostApi: lila.forum.ForumPostApi,
     ublogApi: lila.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,

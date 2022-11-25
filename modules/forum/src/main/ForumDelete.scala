@@ -8,13 +8,13 @@ import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Holder, User }
 
 final class ForumDelete(
-    postRepo: PostRepo,
-    topicRepo: TopicRepo,
-    categRepo: CategRepo,
+    postRepo: ForumPostRepo,
+    topicRepo: ForumTopicRepo,
+    categRepo: ForumCategRepo,
     indexer: lila.hub.actors.ForumSearch,
-    postApi: PostApi,
-    topicApi: TopicApi,
-    categApi: CategApi,
+    postApi: ForumPostApi,
+    topicApi: ForumTopicApi,
+    categApi: ForumCategApi,
     modLog: lila.mod.ModlogApi
 )(using ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer):
 

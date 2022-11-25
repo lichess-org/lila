@@ -8,8 +8,8 @@ import lila.db.paginator.Adapter
 import lila.user.User
 
 final class ForumPaginator(
-    topicRepo: TopicRepo,
-    postRepo: PostRepo,
+    topicRepo: ForumTopicRepo,
+    postRepo: ForumPostRepo,
     config: ForumConfig,
     textExpand: ForumTextExpand
 )(using ec: ExecutionContext):

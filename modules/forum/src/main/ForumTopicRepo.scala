@@ -6,8 +6,8 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 import scala.concurrent.duration.*
 
-final class TopicRepo(val coll: Coll, filter: Filter = Safe)(using
-    ec: scala.concurrent.ExecutionContext
+final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
+    scala.concurrent.ExecutionContext
 ):
 
   import BSONHandlers.given
@@ -16,7 +16,7 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(using
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
       SafeAnd(u.id)
     })
-  def withFilter(f: Filter) = if (f == filter) this else new TopicRepo(coll, f)
+  def withFilter(f: Filter) = if (f == filter) this else new ForumTopicRepo(coll, f)
   def unsafe                = withFilter(Unsafe)
 
   private val noTroll = $doc("troll" -> false)

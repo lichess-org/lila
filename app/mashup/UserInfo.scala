@@ -5,7 +5,7 @@ import play.api.data.Form
 
 import lila.api.{ Context, UserApi }
 import lila.bookmark.BookmarkApi
-import lila.forum.PostApi
+import lila.forum.ForumPostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
@@ -105,7 +105,7 @@ object UserInfo:
 
   final class UserInfoApi(
       relationApi: RelationApi,
-      postApi: PostApi,
+      postApi: ForumPostApi,
       ublogApi: UblogApi,
       studyRepo: lila.study.StudyRepo,
       ratingChartApi: lila.history.RatingChartApi,

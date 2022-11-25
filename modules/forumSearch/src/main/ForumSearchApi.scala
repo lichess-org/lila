@@ -4,13 +4,13 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.forum.{ ForumPost, PostApi, PostLiteView, PostRepo, PostView }
+import lila.forum.{ ForumPost, ForumPostApi, PostLiteView, ForumPostRepo, PostView }
 import lila.search.*
 
 final class ForumSearchApi(
     client: ESClient,
-    postApi: PostApi,
-    postRepo: PostRepo
+    postApi: ForumPostApi,
+    postRepo: ForumPostRepo
 )(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer

@@ -8,15 +8,15 @@ import reactivemongo.api.ReadPreference
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
-    ec: scala.concurrent.ExecutionContext
+final private class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
+    scala.concurrent.ExecutionContext
 ):
 
   def forUser(user: Option[User]) =
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
       SafeAnd(u.id)
     })
-  def withFilter(f: Filter) = if (f == filter) this else new PostRepo(coll, f)
+  def withFilter(f: Filter) = if (f == filter) this else new ForumPostRepo(coll, f)
   def unsafe                = withFilter(Unsafe)
 
   import BSONHandlers.given

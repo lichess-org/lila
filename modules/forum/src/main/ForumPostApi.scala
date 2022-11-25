@@ -12,7 +12,7 @@ import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.{ Granter as MasterGranter }
 import lila.user.User
 
-final class PostApi(
+final class ForumPostApi(
     postRepo: PostRepo,
     topicRepo: TopicRepo,
     categRepo: CategRepo,

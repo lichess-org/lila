@@ -4,7 +4,7 @@ import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class CategApi(
+final class ForumCategApi(
     postRepo: PostRepo,
     topicRepo: TopicRepo,
     categRepo: CategRepo,
