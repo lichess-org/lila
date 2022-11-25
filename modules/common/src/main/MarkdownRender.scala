@@ -33,6 +33,9 @@ import chess.format.pgn.Pgn
 import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
+import lila.common.base.StringUtils.ignoreBetweenSquareBrackets
+import com.vladsch.flexmark.util.sequence.BasedSequence
+import lila.mon
 
 final case class Markdown(value: String) extends AnyVal with StringValue {
   def apply(f: String => String) = Markdown(f(value))
@@ -205,6 +208,9 @@ object MarkdownRender {
     private val gameRegex =
       s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r
 
+    private val gameInSiteHeader = 
+      s"""\\\\\\[Site "((?:https?://)?localhost:9663/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?)"\\\\\\]""".r
+
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
@@ -212,6 +218,12 @@ object MarkdownRender {
       else {
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLink(node, context, html, link)
+        
+        //ignore link in site headers in pgn (https://github.com/lichess-org/lila/issues/11450)
+        var linkInSiteHeader = gameInSiteHeader.findFirstMatchIn(Option(node.getParent()).get.getChars())
+        if(linkInSiteHeader.isDefined && linkInSiteHeader.get.subgroups(0) == link.getUrl)
+          return justAsLink()
+
         link.getUrl match {
           case gameRegex(id, color, ply) =>
             expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
@@ -230,6 +242,12 @@ object MarkdownRender {
       else {
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLink(node, context, html, link)
+
+        //ignore link in site headers in pgn (https://github.com/lichess-org/lila/issues/11450)
+        var linkInSiteHeader = gameInSiteHeader.findFirstMatchIn(Option(node.getParent()).get.getChars())
+        if(linkInSiteHeader.isDefined && linkInSiteHeader.get.subgroups(0) == link.getUrl)
+          return justAsLink()
+
         link.getUrl match {
           case gameRegex(id, color, ply) =>
             expander.getPgn(id).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
@@ -258,7 +276,12 @@ object MarkdownRender {
         pgn: String,
         color: String,
         ply: String
-    ) =
+    ) = {
+      //Ignoring links in square brackets for https://github.com/lichess-org/lila/issues/11450
+      def content : String = node.getChars().unescape()
+      println("Content: " + content)
+      println("link " + link)
+
       html
         .attr("data-pgn", pgn)
         .attr("data-orientation", Option(color) | "white")
@@ -270,6 +293,7 @@ object MarkdownRender {
         .text(link.getUrl)
         .tag("/div")
         .unit
+    }
   }
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension {
