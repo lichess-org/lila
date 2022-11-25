@@ -13,9 +13,9 @@ import lila.security.{ Granter as MasterGranter }
 import lila.user.User
 
 final class ForumPostApi(
-    postRepo: PostRepo,
-    topicRepo: TopicRepo,
-    categRepo: CategRepo,
+    postRepo: ForumPostRepo,
+    topicRepo: ForumTopicRepo,
+    categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
     indexer: lila.hub.actors.ForumSearch,
     config: ForumConfig,

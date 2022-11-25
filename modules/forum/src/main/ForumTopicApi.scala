@@ -13,9 +13,9 @@ import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Holder, User }
 
 final private class ForumTopicApi(
-    postRepo: PostRepo,
-    topicRepo: TopicRepo,
-    categRepo: CategRepo,
+    postRepo: ForumPostRepo,
+    topicRepo: ForumTopicRepo,
+    categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
     paginator: ForumPaginator,
     indexer: lila.hub.actors.ForumSearch,

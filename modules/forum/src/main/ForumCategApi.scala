@@ -5,9 +5,9 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class ForumCategApi(
-    postRepo: PostRepo,
-    topicRepo: TopicRepo,
-    categRepo: CategRepo,
+    postRepo: ForumPostRepo,
+    topicRepo: ForumTopicRepo,
+    categRepo: ForumCategRepo,
     paginator: ForumPaginator,
     config: ForumConfig
 )(using scala.concurrent.ExecutionContext):

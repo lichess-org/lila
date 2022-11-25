@@ -48,9 +48,9 @@ final class Env(
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
-  lazy val categRepo = new CategRepo(db(CollName("f_categ")))
-  lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
-  lazy val postRepo  = new PostRepo(db(CollName("f_post")))
+  lazy val categRepo = new ForumCategRepo(db(CollName("f_categ")))
+  lazy val topicRepo = new ForumTopicRepo(db(CollName("f_topic")))
+  lazy val postRepo  = new ForumPostRepo(db(CollName("f_post")))
 
   private lazy val detectLanguage =
     new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
