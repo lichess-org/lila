@@ -27,7 +27,6 @@ final class PlaybanApi(
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
     x => BSONInteger(x.id)
   )
-  private given BSONHandler[RageSit]            = intAnyValHandler(_.counter, RageSit.apply)
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 
@@ -49,14 +48,14 @@ final class PlaybanApi(
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
     IfBlameable(pov.game) {
       pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
-        save(Outcome.Abort, userId, RageSit.Reset, pov.game.source) >>- feedback.abort(pov)
+        save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source) >>- feedback.abort(pov)
       }
     }
 
   def noStart(pov: Pov): Funit =
     IfBlameable(pov.game) {
       pov.player.userId ?? { userId =>
-        save(Outcome.NoPlay, userId, RageSit.Reset, pov.game.source) >>- feedback.noStart(pov)
+        save(Outcome.NoPlay, userId, RageSit.Update.Reset, pov.game.source) >>- feedback.noStart(pov)
       }
     }
 
@@ -120,7 +119,7 @@ final class PlaybanApi(
         loserId <- loser.userId
       } yield {
         if (Status.NoStart is status)
-          save(Outcome.NoPlay, loserId, RageSit.Reset, game.source) >>- feedback.noStart(Pov(game, !w))
+          save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source) >>- feedback.noStart(Pov(game, !w))
         else
           game.clock
             .filter {
@@ -213,9 +212,9 @@ final class PlaybanApi(
           update = $doc(
             $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
               rsUpdate match {
-                case RageSit.Reset            => $min("c" -> 0)
-                case RageSit.Inc(v) if v != 0 => $inc("c" -> v)
-                case _                        => $empty
+                case RageSit.Update.Reset            => $min("c" -> 0)
+                case RageSit.Update.Inc(v) if v != 0 => $inc("c" -> v)
+                case _                               => $empty
               }
             }
           ),
@@ -261,7 +260,7 @@ final class PlaybanApi(
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
     update match
-      case RageSit.Inc(delta) =>
+      case RageSit.Update.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0 && record.rageSit.isVeryBad) ?? {
           messenger.postPreset(record.userId, MsgPreset.sittingAuto).void >>- {
