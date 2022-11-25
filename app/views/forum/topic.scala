@@ -12,7 +12,7 @@ import lila.common.paginator.Paginator
 
 object topic:
 
-  def form(categ: lila.forum.Categ, form: Form[?], captcha: lila.common.Captcha)(implicit ctx: Context) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -71,9 +71,9 @@ object topic:
     }
 
   def show(
-      categ: lila.forum.Categ,
-      topic: lila.forum.Topic,
-      posts: Paginator[lila.forum.Post.WithFrag],
+      categ: lila.forum.ForumCateg,
+      topic: lila.forum.ForumTopic,
+      posts: Paginator[lila.forum.ForumPost.WithFrag],
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean

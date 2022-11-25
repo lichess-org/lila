@@ -34,7 +34,7 @@ final class ActivityWriteApi(
       setGames ++ setCorres
     }).sequenceFu.void
 
-  def forumPost(post: lila.forum.Post): Funit =
+  def forumPost(post: lila.forum.ForumPost): Funit =
     post.userId.filter(User.lichessId !=) ?? { userId =>
       update(userId) { a =>
         $doc(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id)))

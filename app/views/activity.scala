@@ -132,7 +132,9 @@ object activity:
       )
     }
 
-  private def renderForumPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
+  private def renderForumPosts(posts: Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]])(implicit
+      ctx: Context
+  ) =
     ctx.noKid option entryTag(
       iconTag(""),
       div(

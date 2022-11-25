@@ -27,10 +27,10 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe     => $empty
 
-  def byIds(ids: Seq[Post.ID]) = coll.byStringIds[Post](ids)
+  def byIds(ids: Seq[ForumPost.ID]) = coll.byStringIds[ForumPost](ids)
 
-  def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
-    coll.one[Post](selectCateg(categSlug) ++ $id(id))
+  def byCategAndId(categSlug: String, id: String): Fu[Option[ForumPost]] =
+    coll.one[ForumPost](selectCateg(categSlug) ++ $id(id))
 
   def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
@@ -38,38 +38,38 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
     coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") dmap { _ contains postId }
 
-  def countByTopic(topic: Topic): Fu[Int] =
+  def countByTopic(topic: ForumTopic): Fu[Int] =
     coll.countSel(selectTopic(topic.id))
 
-  def lastByCateg(categ: Categ): Fu[Option[Post]] =
-    coll.find(selectCateg(categ.id)).sort($sort.createdDesc).one[Post]
+  def lastByCateg(categ: ForumCateg): Fu[Option[ForumPost]] =
+    coll.find(selectCateg(categ.id)).sort($sort.createdDesc).one[ForumPost]
 
-  def lastByTopic(topic: Topic): Fu[Option[Post]] =
-    coll.find(selectTopic(topic.id)).sort($sort.createdDesc).one[Post]
+  def lastByTopic(topic: ForumTopic): Fu[Option[ForumPost]] =
+    coll.find(selectTopic(topic.id)).sort($sort.createdDesc).one[ForumPost]
 
-  def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
+  def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[ForumPost]] =
     coll
       .find(selectCategs(categIds) ++ selectLangs(langs) ++ selectNotErased)
       .sort($sort.createdDesc)
-      .cursor[Post]()
+      .cursor[ForumPost]()
       .list(nb)
 
-  def recentInCateg(categId: String, nb: Int): Fu[List[Post]] =
+  def recentInCateg(categId: String, nb: Int): Fu[List[ForumPost]] =
     coll
       .find(selectCateg(categId) ++ selectNotErased)
       .sort($sort.createdDesc)
-      .cursor[Post]()
+      .cursor[ForumPost]()
       .list(nb)
 
-  def allByUserCursor(user: User): AkkaStreamCursor[Post] =
+  def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
     coll
       .find($doc("userId" -> user.id))
-      .cursor[Post](ReadPreference.secondaryPreferred)
+      .cursor[ForumPost](ReadPreference.secondaryPreferred)
 
-  def countByCateg(categ: Categ): Fu[Int] =
+  def countByCateg(categ: ForumCateg): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
 
-  def remove(post: Post): Funit =
+  def remove(post: ForumPost): Funit =
     coll.delete.one($id(post.id)).void
 
   def removeByTopic(topicId: String): Funit =
@@ -86,8 +86,8 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
     if (langs.isEmpty) $empty
     else $doc("lang" $in langs)
 
-  def findDuplicate(post: Post): Fu[Option[Post]] =
-    coll.one[Post](
+  def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
+    coll.one[ForumPost](
       $doc(
         "createdAt" $gt DateTime.now.minusHours(1),
         "userId" -> ~post.userId,
@@ -110,4 +110,4 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(using
   def nonGhostCursor =
     coll
       .find($doc("userId" $ne User.ghostId))
-      .cursor[Post](ReadPreference.secondaryPreferred)
+      .cursor[ForumPost](ReadPreference.secondaryPreferred)

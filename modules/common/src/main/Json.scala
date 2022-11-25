@@ -6,9 +6,6 @@ import chess.format.{ FEN, Uci }
 
 object Json:
 
-  // inline given [A, T](using ev: A =:= T, format: Format[A]): Format[T] =
-  //   format.bimap(ev.apply, ev.flip.apply)
-
   inline given opaqueFormat[A, T](using
       bts: SameRuntime[A, T],
       stb: SameRuntime[T, A],

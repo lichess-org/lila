@@ -5,8 +5,8 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class CategView(
-    categ: Categ,
-    lastPost: Option[(Topic, Post, Int)],
+    categ: ForumCateg,
+    lastPost: Option[(ForumTopic, ForumPost, Int)],
     forUser: Option[User]
 ):
 
@@ -20,9 +20,9 @@ case class CategView(
   def desc = categ.desc
 
 case class TopicView(
-    categ: Categ,
-    topic: Topic,
-    lastPost: Option[Post],
+    categ: ForumCateg,
+    topic: ForumTopic,
+    lastPost: Option[ForumPost],
     lastPage: Int,
     forUser: Option[User]
 ):
@@ -39,9 +39,9 @@ case class TopicView(
   def createdAt = topic.createdAt
 
 case class PostView(
-    post: Post,
-    topic: Topic,
-    categ: Categ
+    post: ForumPost,
+    topic: ForumTopic,
+    categ: ForumCateg
 ):
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
@@ -49,7 +49,7 @@ case class PostView(
 object PostView:
   case class WithReadPerm(view: PostView, canRead: Boolean)
 
-case class PostLiteView(post: Post, topic: Topic)
+case class PostLiteView(post: ForumPost, topic: ForumTopic)
 
 case class MiniForumPost(
     isTeam: Boolean,

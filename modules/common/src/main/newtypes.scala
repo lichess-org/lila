@@ -21,10 +21,6 @@ trait NewTypes:
     inline def raw(inline a: Newtype): Impl              = a.asInstanceOf[Impl]
     inline def apply(inline s: Impl): Newtype            = s.asInstanceOf[Newtype]
     inline def from[M[_]](inline a: M[Impl]): M[Newtype] = a.asInstanceOf[M[Newtype]]
-    // inline def from(inline a: List[Impl]): List[Newtype]     = a.asInstanceOf[List[Newtype]]
-    // inline def from(inline a: Option[Impl]): Option[Newtype] = a.asInstanceOf[Option[Newtype]]
-    // inline def from(inline a: scala.concurrent.Future[Impl]): scala.concurrent.Future[Newtype] =
-    //   a.asInstanceOf[scala.concurrent.Future[Newtype]]
 
     given SameRuntime[Newtype, Impl] = new:
       def apply(a: Newtype): Impl = a.asInstanceOf[Impl]

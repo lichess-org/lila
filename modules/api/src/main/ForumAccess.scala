@@ -1,6 +1,6 @@
 package lila.api
 
-import lila.forum.Categ
+import lila.forum.ForumCateg
 import lila.security.{ Granter, Permission }
 import lila.team.Team
 import lila.user.{ User, UserContext }
@@ -14,7 +14,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   case object Write extends Operation
 
   private def isGranted(categSlug: String, op: Operation)(using ctx: UserContext): Fu[Boolean] =
-    Categ.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
+    ForumCateg.slugToTeamId(categSlug).fold(fuTrue) { teamId =>
       teamCached.forumAccess get teamId flatMap {
         case Team.Access.NONE     => fuFalse
         case Team.Access.EVERYONE =>
@@ -45,7 +45,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   def isGrantedMod(categSlug: String)(using ctx: UserContext): Fu[Boolean] =
     if (ctx.me ?? Granter(Permission.ModerateForum)) fuTrue
     else
-      Categ.slugToTeamId(categSlug) ?? { teamId =>
+      ForumCateg.slugToTeamId(categSlug) ?? { teamId =>
         ctx.userId ?? {
           teamApi.leads(teamId, _)
         }

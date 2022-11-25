@@ -8,7 +8,7 @@ import lila.security.Granter
 
 case class OldVersion(text: String, createdAt: DateTime)
 
-case class Post(
+case class ForumPost(
     _id: String,
     topicId: String,
     categId: String,
@@ -23,7 +23,7 @@ case class Post(
     updatedAt: Option[DateTime] = None,
     erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean],
-    reactions: Option[Post.Reactions] = None
+    reactions: Option[ForumPost.Reactions] = None
 ):
 
   private val permitEditsFor  = 4 hours
@@ -56,7 +56,7 @@ case class Post(
     canBeEditedBy(editingUser) &&
       updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
 
-  def editPost(updated: DateTime, newText: String): Post =
+  def editPost(updated: DateTime, newText: String): ForumPost =
     val oldVersion = OldVersion(text, updatedOrCreatedAt)
 
     // We only store a maximum of 5 historical versions of the post to prevent abuse of storage space
@@ -66,7 +66,7 @@ case class Post(
       editHistory = history.some,
       text = newText,
       updatedAt = updated.some,
-      reactions = reactions.map(_.view.filterKeys(k => !Post.Reaction.positive(k)).toMap)
+      reactions = reactions.map(_.view.filterKeys(k => !ForumPost.Reaction.positive(k)).toMap)
     )
 
   def erase = editPost(DateTime.now, "").copy(erasedAt = DateTime.now.some)
@@ -82,7 +82,7 @@ case class Post(
 
   def isBy(u: User) = userId.exists(_ == u.id)
 
-object Post:
+object ForumPost:
 
   type ID        = String
   type Reactions = Map[String, Set[User.ID]]
@@ -106,7 +106,7 @@ object Post:
         case (reaction, users) if users(me.id) => reaction
       }.toSet
 
-  case class WithFrag(post: Post, body: scalatags.Text.all.Frag)
+  case class WithFrag(post: ForumPost, body: scalatags.Text.all.Frag)
 
   def make(
       topicId: String,
@@ -118,8 +118,8 @@ object Post:
       lang: Option[String],
       troll: Boolean,
       modIcon: Option[Boolean] = None
-  ): Post =
-    Post(
+  ): ForumPost =
+    ForumPost(
       _id = lila.common.ThreadLocalRandom nextString idSize,
       topicId = topicId,
       author = author,

@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.{ Granter as MasterGranter }
 import lila.user.User
 
@@ -30,16 +30,16 @@ final class PostApi(
   import BSONHandlers.given
 
   def makePost(
-      categ: Categ,
-      topic: Topic,
+      categ: ForumCateg,
+      topic: ForumTopic,
       data: ForumForm.PostData,
       me: User
-  ): Fu[Post] =
+  ): Fu[ForumPost] =
     detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
       val publicMod = MasterGranter(_.PublicMod)(me)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
       val anonMod   = modIcon && !publicMod
-      val post = Post.make(
+      val post = ForumPost.make(
         topicId = topic.id,
         author = none,
         userId = !anonMod option me.id,
@@ -64,7 +64,7 @@ final class PostApi(
               }
               if (anonMod) logAnonPost(me.id, post, edit = false)
               else if (!post.troll && !categ.quiet && !topic.isTooBig)
-                timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
+                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()
@@ -74,9 +74,9 @@ final class PostApi(
       }
     }
 
-  def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
+  def editPost(postId: ForumPost.ID, newText: String, user: User): Fu[ForumPost] =
     get(postId) flatMap { post =>
-      post.fold[Fu[Post]](fufail("Post no longer exists.")) {
+      post.fold[Fu[ForumPost]](fufail("Post no longer exists.")) {
         case (_, post) if !post.canBeEditedBy(user) =>
           fufail("You are not authorized to modify this post.")
         case (_, post) if !post.canStillBeEdited =>
@@ -91,7 +91,7 @@ final class PostApi(
       }
     }
 
-  def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
+  def urlData(postId: ForumPost.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId) flatMap {
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
@@ -102,21 +102,27 @@ final class PostApi(
       case _ => fuccess(none)
     }
 
-  def get(postId: Post.ID): Fu[Option[(Topic, Post)]] =
+  def get(postId: ForumPost.ID): Fu[Option[(ForumTopic, ForumPost)]] =
     getPost(postId) flatMap {
       _ ?? { post =>
         topicRepo.byId(post.topicId) dmap2 { _ -> post }
       }
     }
 
-  def getPost(postId: Post.ID): Fu[Option[Post]] =
-    postRepo.coll.byId[Post](postId)
+  def getPost(postId: ForumPost.ID): Fu[Option[ForumPost]] =
+    postRepo.coll.byId[ForumPost](postId)
 
-  def react(categSlug: String, postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
-    Post.Reaction.set(reaction) ?? {
+  def react(
+      categSlug: String,
+      postId: ForumPost.ID,
+      me: User,
+      reaction: String,
+      v: Boolean
+  ): Fu[Option[ForumPost]] =
+    ForumPost.Reaction.set(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
       postRepo.coll
-        .findAndUpdateSimplified[Post](
+        .findAndUpdateSimplified[ForumPost](
           selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
           update = {
             if (v) $addToSet(s"reactions.$reaction" -> me.id)
@@ -126,10 +132,10 @@ final class PostApi(
         )
     }
 
-  def views(posts: List[Post]): Fu[List[PostView]] =
+  def views(posts: List[ForumPost]): Fu[List[PostView]] =
     for {
-      topics <- topicRepo.coll.byStringIds[Topic](posts.map(_.topicId).distinct)
-      categs <- categRepo.coll.byStringIds[Categ](topics.map(_.categId).distinct)
+      topics <- topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId).distinct)
+      categs <- categRepo.coll.byStringIds[ForumCateg](topics.map(_.categId).distinct)
     } yield posts flatMap { post =>
       for {
         topic <- topics.find(_.id == post.topicId)
@@ -137,26 +143,26 @@ final class PostApi(
       } yield PostView(post, topic, categ)
     }
 
-  def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
-    postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
+  def viewsFromIds(postIds: Seq[ForumPost.ID]): Fu[List[PostView]] =
+    postRepo.coll.byOrderedIds[ForumPost, ForumPost.ID](postIds)(_.id) flatMap views
 
-  def viewOf(post: Post): Fu[Option[PostView]] =
+  def viewOf(post: ForumPost): Fu[Option[PostView]] =
     views(List(post)) dmap (_.headOption)
 
-  def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
-    topicRepo.coll.byStringIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+  def liteViews(posts: Seq[ForumPost]): Fu[Seq[PostLiteView]] =
+    topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId).distinct) map { topics =>
       posts flatMap { post =>
         topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
       }
     }
-  def liteViewsByIds(postIds: Seq[Post.ID]): Fu[Seq[PostLiteView]] =
+  def liteViewsByIds(postIds: Seq[ForumPost.ID]): Fu[Seq[PostLiteView]] =
     postRepo.byIds(postIds) flatMap liteViews
 
-  def liteView(post: Post): Fu[Option[PostLiteView]] =
+  def liteView(post: ForumPost): Fu[Option[PostLiteView]] =
     liteViews(List(post)) dmap (_.headOption)
 
-  def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] =
-    topicRepo.coll.byStringIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+  def miniPosts(posts: List[ForumPost]): Fu[List[MiniForumPost]] =
+    topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId).distinct) map { topics =>
       posts flatMap { post =>
         topics.find(_.id == post.topicId) map { topic =>
           MiniForumPost(
@@ -171,7 +177,7 @@ final class PostApi(
       }
     }
 
-  def allUserIds(topicId: Topic.ID) = postRepo allUserIdsByTopicId topicId
+  def allUserIds(topicId: ForumTopic.ID) = postRepo allUserIdsByTopicId topicId
 
   def nbByUser(userId: String) = postRepo.coll.countSel($doc("userId" -> userId))
 
@@ -191,7 +197,7 @@ final class PostApi(
       }.sequenceFu
     } yield views
 
-  private def recentUserIds(topic: Topic, newPostNumber: Int) =
+  private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
       .distinctEasy[User.ID, List](
         "userId",
@@ -203,25 +209,25 @@ final class PostApi(
         ReadPreference.secondaryPreferred
       )
 
-  def erasePost(post: Post) =
+  def erasePost(post: ForumPost) =
     postRepo.coll.update.one($id(post.id), post.erase).void >>-
       (indexer ! RemovePost(post.id))
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
-      .distinctEasy[Post.ID, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
+      .distinctEasy[ForumPost.ID, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
       .map { ids =>
         indexer ! RemovePosts(ids)
       }
 
-  def teamIdOfPostId(postId: Post.ID): Fu[Option[TeamId]] =
-    postRepo.coll.byId[Post](postId) flatMap {
+  def teamIdOfPostId(postId: ForumPost.ID): Fu[Option[TeamId]] =
+    postRepo.coll.byId[ForumPost](postId) flatMap {
       _ ?? { post =>
         categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
       }
     }
 
-  private def logAnonPost(userId: User.ID, post: Post, edit: Boolean): Funit =
+  private def logAnonPost(userId: User.ID, post: ForumPost, edit: Boolean): Funit =
     topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
         userId,

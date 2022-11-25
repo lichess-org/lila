@@ -7,9 +7,9 @@ final class CategRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContex
 
   import BSONHandlers.given
 
-  def bySlug(slug: String) = coll.byId[Categ](slug)
+  def bySlug(slug: String) = coll.byId[ForumCateg](slug)
 
-  def visibleWithTeams(teams: Iterable[TeamId]): Fu[List[Categ]] =
+  def visibleWithTeams(teams: Iterable[TeamId]): Fu[List[ForumCateg]] =
     coll
       .find(
         $or(
@@ -17,7 +17,7 @@ final class CategRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContex
           $doc("team" $in teams)
         )
       )
-      .cursor[Categ](ReadPreference.secondaryPreferred)
+      .cursor[ForumCateg](ReadPreference.secondaryPreferred)
       .list(100)
 
   def nbPosts(id: String): Fu[Int] =

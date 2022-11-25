@@ -15,7 +15,7 @@ final class CategApi(
   import BSONHandlers.given
 
   def makeTeam(teamId: TeamId, name: String): Funit =
-    val categ = Categ(
+    val categ = ForumCateg(
       _id = teamSlug(teamId),
       name = name,
       desc = "Forum of the team " + name,
@@ -27,14 +27,14 @@ final class CategApi(
       nbPostsTroll = 0,
       lastPostIdTroll = ""
     )
-    val topic = Topic.make(
+    val topic = ForumTopic.make(
       categId = categ.slug,
       slug = s"$teamId-forum",
       name = name + " forum",
       userId = User.lichessId,
       troll = false
     )
-    val post = Post.make(
+    val post = ForumPost.make(
       topicId = topic.id,
       author = none,
       userId = User.lichessId.some,
@@ -54,14 +54,14 @@ final class CategApi(
       slug: String,
       forUser: Option[User],
       page: Int
-  ): Fu[Option[(Categ, Paginator[TopicView])]] =
+  ): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
     categRepo bySlug slug flatMap {
       _ ?? { categ =>
         paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
       }
     }
 
-  def denormalize(categ: Categ): Funit =
+  def denormalize(categ: ForumCateg): Funit =
     for {
       nbTopics      <- topicRepo countByCateg categ
       nbPosts       <- postRepo countByCateg categ

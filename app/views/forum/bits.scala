@@ -6,7 +6,7 @@ import controllers.routes
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.forum.Post
+import lila.forum.ForumPost
 import lila.security.{ Granter, Permission }
 
 object bits:
@@ -18,7 +18,7 @@ object bits:
       )
     )
 
-  def authorLink(post: Post, cssClass: Option[String] = None, withOnline: Boolean = true)(using
+  def authorLink(post: ForumPost, cssClass: Option[String] = None, withOnline: Boolean = true)(using
       ctx: Context
   ): Frag =
     if (!(ctx.me ?? Granter(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")

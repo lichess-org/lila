@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.user.User
 
-case class Categ(
+case class ForumCateg(
     _id: String, // slug
     name: String,
     desc: String,
@@ -26,7 +26,7 @@ case class Categ(
 
   def isTeam = team.nonEmpty
 
-  def withPost(topic: Topic, post: Post): Categ =
+  def withPost(topic: ForumTopic, post: ForumPost): ForumCateg =
     copy(
       // the `Topic` object is created before adding the post, hence why nbPosts is compared to 0 and not to 1
       nbTopics = if (post.troll || topic.nbPosts > 0) nbTopics else nbTopics + 1,
@@ -39,7 +39,7 @@ case class Categ(
 
   def slug = id
 
-object Categ:
+object ForumCateg:
 
   val ublogSlug = "community-blog-discussions"
 

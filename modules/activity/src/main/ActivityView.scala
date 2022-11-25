@@ -22,7 +22,7 @@ case class ActivityView(
     practice: Option[Map[PracticeStudy, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
-    forumPosts: Option[Map[lila.forum.Topic, List[lila.forum.Post]]] = None,
+    forumPosts: Option[Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]]] = None,
     ublogPosts: Option[List[UblogPost.LightPost]] = None,
     corresMoves: Option[(Int, List[LightPov])] = None,
     corresEnds: Option[(Score, List[LightPov])] = None,

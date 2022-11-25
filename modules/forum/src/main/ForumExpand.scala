@@ -21,9 +21,9 @@ final class ForumTextExpand(using ec: scala.concurrent.ExecutionContext, schedul
   private def many(texts: Seq[String])(implicit netDomain: config.NetDomain): Fu[Seq[Frag]] =
     texts.map(one).sequenceFu
 
-  def manyPosts(posts: Seq[Post])(implicit netDomain: config.NetDomain): Fu[Seq[Post.WithFrag]] =
+  def manyPosts(posts: Seq[ForumPost])(implicit netDomain: config.NetDomain): Fu[Seq[ForumPost.WithFrag]] =
     many(posts.map(_.text)) map {
       _ zip posts map { case (body, post) =>
-        Post.WithFrag(post, body)
+        ForumPost.WithFrag(post, body)
       }
     }

@@ -7,8 +7,8 @@ import lila.common.config.MaxPerPage
 import lila.common.ThreadLocalRandom
 import lila.user.User
 
-case class Topic(
-    _id: Topic.ID,
+case class ForumTopic(
+    _id: ForumTopic.ID,
     categId: String,
     slug: String,
     name: String,
@@ -37,9 +37,9 @@ case class Topic(
 
   def open = !closed
 
-  def isTooBig = nbPosts > (if (Categ.isTeamSlug(categId)) 500 else 50)
+  def isTooBig = nbPosts > (if (ForumCateg.isTeamSlug(categId)) 500 else 50)
 
-  def possibleTeamId = Categ slugToTeamId categId
+  def possibleTeamId = ForumCateg slugToTeamId categId
 
   def isSticky = ~sticky
 
@@ -47,7 +47,7 @@ case class Topic(
   def isUblog                       = ublogId.isDefined
   def isUblogAuthor(user: User)     = isUblog && isAuthor(user)
 
-  def withPost(post: Post): Topic =
+  def withPost(post: ForumPost): ForumTopic =
     copy(
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
       lastPostId = if (post.troll) lastPostId else post.id,
@@ -64,7 +64,7 @@ case class Topic(
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value
 
-object Topic:
+object ForumTopic:
 
   type ID = String
 
@@ -83,8 +83,8 @@ object Topic:
       userId: User.ID,
       troll: Boolean,
       ublogId: Option[String] = None
-  ): Topic =
-    Topic(
+  ): ForumTopic =
+    ForumTopic(
       _id = ThreadLocalRandom nextString idSize,
       categId = categId,
       slug = slug,

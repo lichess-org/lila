@@ -38,7 +38,7 @@ object categ:
     }
 
   def show(
-      categ: lila.forum.Categ,
+      categ: lila.forum.ForumCateg,
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
       stickyPosts: List[lila.forum.TopicView]

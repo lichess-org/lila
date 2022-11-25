@@ -16,11 +16,11 @@ final class ForumPaginator(
 
   import BSONHandlers.given
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User])(using
+  def topicPosts(topic: ForumTopic, page: Int, me: Option[User])(using
       netDomain: lila.common.config.NetDomain
-  ): Fu[Paginator[Post.WithFrag]] =
+  ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(
-      new Adapter[Post](
+      new Adapter[ForumPost](
         collection = postRepo.coll,
         selector = postRepo.forUser(me) selectTopic topic.id,
         projection = none,
@@ -31,7 +31,7 @@ final class ForumPaginator(
     ).flatMap(_ mapFutureList textExpand.manyPosts)
 
   def categTopics(
-      categ: Categ,
+      categ: ForumCateg,
       forUser: Option[User],
       page: Int
   ): Fu[Paginator[TopicView]] =
@@ -65,8 +65,8 @@ final class ForumPaginator(
             .map { docs =>
               for {
                 doc   <- docs
-                topic <- doc.asOpt[Topic]
-                post = doc.getAsOpt[List[Post]]("post").flatMap(_.headOption)
+                topic <- doc.asOpt[ForumTopic]
+                post = doc.getAsOpt[List[ForumPost]]("post").flatMap(_.headOption)
               } yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
             }
 

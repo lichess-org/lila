@@ -5,9 +5,9 @@ import reactivemongo.api.bson.*
 
 private object BSONHandlers:
 
-  given BSONDocumentHandler[Categ] = Macros.handler
+  given BSONDocumentHandler[ForumCateg] = Macros.handler
 
   given BSONDocumentHandler[OldVersion] = Macros.handler
-  given BSONDocumentHandler[Post] = Macros.handler
+  given BSONDocumentHandler[ForumPost]  = Macros.handler
 
-  given BSONDocumentHandler[Topic] = Macros.handler
+  given BSONDocumentHandler[ForumTopic] = Macros.handler

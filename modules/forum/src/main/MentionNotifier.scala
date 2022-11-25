@@ -19,7 +19,7 @@ final class MentionNotifier(
     prefApi: PrefApi
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def notifyMentionedUsers(post: Post, topic: Topic): Funit =
+  def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
         val notifications = validUsers.map(createMentionNotification(post, topic, _, UserId(author)))
@@ -44,8 +44,8 @@ final class MentionNotifier(
     } yield Notification.Notifies from users
 
   private def createMentionNotification(
-      post: Post,
-      topic: Topic,
+      post: ForumPost,
+      topic: ForumTopic,
       mentionedUser: Notification.Notifies,
       mentionedBy: UserId
   ): Notification =
@@ -59,7 +59,7 @@ final class MentionNotifier(
 
     Notification.make(mentionedUser into UserId, notificationContent)
 
-  private def extractMentionedUsers(post: Post): Set[User.ID] =
+  private def extractMentionedUsers(post: ForumPost): Set[User.ID] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
       (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
