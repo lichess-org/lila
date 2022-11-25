@@ -81,7 +81,8 @@ case class MixedChat(
 
 object Chat:
 
-  case class ResourceId(value: String) extends AnyVal with StringValue
+  opaque type ResourceId = String
+  object ResourceId extends OpaqueString[ResourceId]
 
   case class Setup(id: ChatId, publicSource: PublicSource)
 

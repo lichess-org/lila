@@ -666,10 +666,11 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       case _          => none
     }
 
-  def isErased(user: User): Fu[User.Erased] =
+  def isErased(user: User): Fu[User.Erased] = User.Erased from {
     user.disabled ?? {
       coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
-    } map User.Erased.apply
+    }
+  }
 
   def byIdNotErased(id: ID): Fu[Option[User]] = coll.one[User]($id(id) ++ $doc(F.erasedAt $exists false))
 

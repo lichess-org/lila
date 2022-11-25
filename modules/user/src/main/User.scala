@@ -174,8 +174,9 @@ object User:
 
   val seenRecently = 2.minutes
 
-  case class GDPRErase(user: User)  extends AnyVal
-  case class Erased(value: Boolean) extends AnyVal
+  case class GDPRErase(user: User) extends AnyVal
+  opaque type Erased = Boolean
+  object Erased extends YesNo[Erased]
 
   case class LightPerf(user: LightUser, perfKey: Perf.Key, rating: IntRating, progress: IntRatingDiff)
   case class LightCount(user: LightUser, count: Int)

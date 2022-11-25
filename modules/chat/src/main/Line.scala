@@ -34,10 +34,8 @@ case class UserLine(
   def isVisible = !troll && !deleted
 
   def isLichess = userId == User.lichessId
-case class PlayerLine(
-    color: Color,
-    text: String
-) extends Line:
+
+case class PlayerLine(color: Color, text: String) extends Line:
   def deleted     = false
   def author      = color.name
   def troll       = false
