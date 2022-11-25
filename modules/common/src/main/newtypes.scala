@@ -20,7 +20,9 @@ trait NewTypes:
   trait TotalWrapper[Newtype, Impl](using ev: Newtype =:= Impl):
     inline def raw(inline a: Newtype): Impl              = a.asInstanceOf[Impl]
     inline def apply(inline s: Impl): Newtype            = s.asInstanceOf[Newtype]
-    inline def from[M[_]](inline a: M[Impl]): M[Newtype] = a.asInstanceOf[M[Newtype]]
+    inline def from[M[_]](inline f: M[Impl]): M[Newtype] = f.asInstanceOf[M[Newtype]]
+    inline def from[M[_], B](using sr: SameRuntime[B, Impl])(inline f: M[B]): M[Newtype] =
+      f.asInstanceOf[M[Newtype]]
 
     given SameRuntime[Newtype, Impl] = new:
       def apply(a: Newtype): Impl = a.asInstanceOf[Impl]
