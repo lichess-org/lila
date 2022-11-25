@@ -62,7 +62,7 @@ final class ActivityReadApi(
     for {
       allForumPosts <- a.forumPosts ?? { p =>
         forumPostApi
-          .liteViewsByIds(p.value.map(_.value))
+          .liteViewsByIds(p.value)
           .mon(_.user segment "activity.posts") dmap some
       }
       hiddenForumTeamIds <- teamRepo.filterHideForum(

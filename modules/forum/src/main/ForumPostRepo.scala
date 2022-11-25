@@ -8,9 +8,11 @@ import reactivemongo.api.ReadPreference
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
+final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     scala.concurrent.ExecutionContext
 ):
+
+  import ForumPost.Id
 
   def forUser(user: Option[User]) =
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
@@ -27,15 +29,15 @@ final private class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe     => $empty
 
-  def byIds(ids: Seq[ForumPost.ID]) = coll.byStringIds[ForumPost](ids)
+  def byIds(ids: Seq[Id]) = coll.byIds[ForumPost, ForumPost.Id](ids)
 
-  def byCategAndId(categSlug: String, id: String): Fu[Option[ForumPost]] =
+  def byCategAndId(categSlug: String, id: Id): Fu[Option[ForumPost]] =
     coll.one[ForumPost](selectCateg(categSlug) ++ $id(id))
 
   def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 
-  def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
+  def isFirstPost(topicId: String, postId: Id): Fu[Boolean] =
     coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") dmap { _ contains postId }
 
   def countByTopic(topic: ForumTopic): Fu[Int] =
@@ -97,8 +99,8 @@ final private class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
 
   def sortQuery = $sort.createdAsc
 
-  def idsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+  def idsByTopicId(topicId: String): Fu[List[Id]] =
+    coll.distinctEasy[Id, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
 
   def allUserIdsByTopicId(topicId: String): Fu[List[User.ID]] =
     coll.distinctEasy[User.ID, List](

@@ -18,7 +18,7 @@ final class ForumSearchApi(
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      postApi.viewsFromIds(res.ids)
+      postApi.viewsFromIds(ForumPost.Id from res.ids)
     }
 
   def count(query: Query) =
@@ -27,7 +27,7 @@ final class ForumSearchApi(
   def store(post: ForumPost) =
     postApi liteView post flatMap {
       _ ?? { view =>
-        client.store(Id(view.post.id), toDoc(view))
+        client.store(view.post.id into Id, toDoc(view))
       }
     }
 
@@ -51,7 +51,7 @@ final class ForumSearchApi(
             .via(lila.common.LilaStream.logRate[ForumPost]("forum index")(logger))
             .grouped(200)
             .mapAsync(1)(postApi.liteViews)
-            .map(_.map(v => Id(v.post.id) -> toDoc(v)))
+            .map(_.map(v => v.post.id.into(Id) -> toDoc(v)))
             .mapAsyncUnordered(2)(c.storeBulk)
             .toMat(Sink.ignore)(Keep.right)
             .run()

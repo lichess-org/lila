@@ -66,7 +66,7 @@ final class Env(
     "streamStart",
     "swissFinish"
   ) {
-    case lila.forum.actorApi.CreatePost(post)             => write.forumPost(post).unit
+    case lila.forum.CreatePost(post)                      => write.forumPost(post).unit
     case lila.ublog.UblogPost.Create(post)                => write.ublogPost(post).unit
     case prog: lila.practice.PracticeProgress.OnComplete  => write.practice(prog).unit
     case lila.simul.Simul.OnStart(simul)                  => write.simul(simul).unit

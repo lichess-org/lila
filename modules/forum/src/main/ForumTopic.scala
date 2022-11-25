@@ -15,10 +15,10 @@ case class ForumTopic(
     createdAt: DateTime,
     updatedAt: DateTime,
     nbPosts: Int,
-    lastPostId: String,
+    lastPostId: ForumPost.Id,
     updatedAtTroll: DateTime,
     nbPostsTroll: Int,
-    lastPostIdTroll: String,
+    lastPostIdTroll: ForumPost.Id,
     troll: Boolean,
     closed: Boolean,
     sticky: Option[Boolean],
@@ -32,7 +32,7 @@ case class ForumTopic(
     if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt
   def nbPosts(forUser: Option[User]): Int   = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
   def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
-  def lastPostId(forUser: Option[User]): String =
+  def lastPostId(forUser: Option[User]): ForumPost.Id =
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def open = !closed
@@ -83,22 +83,21 @@ object ForumTopic:
       userId: User.ID,
       troll: Boolean,
       ublogId: Option[String] = None
-  ): ForumTopic =
-    ForumTopic(
-      _id = ThreadLocalRandom nextString idSize,
-      categId = categId,
-      slug = slug,
-      name = name,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now,
-      nbPosts = 0,
-      lastPostId = "",
-      updatedAtTroll = DateTime.now,
-      nbPostsTroll = 0,
-      lastPostIdTroll = "",
-      troll = troll,
-      userId = userId.some,
-      closed = false,
-      sticky = None,
-      ublogId = ublogId
-    )
+  ): ForumTopic = ForumTopic(
+    _id = ThreadLocalRandom nextString idSize,
+    categId = categId,
+    slug = slug,
+    name = name,
+    createdAt = DateTime.now,
+    updatedAt = DateTime.now,
+    nbPosts = 0,
+    lastPostId = ForumPost.Id(""),
+    updatedAtTroll = DateTime.now,
+    nbPostsTroll = 0,
+    lastPostIdTroll = ForumPost.Id(""),
+    troll = troll,
+    userId = userId.some,
+    closed = false,
+    sticky = None,
+    ublogId = ublogId
+  )

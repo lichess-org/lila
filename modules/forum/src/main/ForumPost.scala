@@ -9,7 +9,7 @@ import lila.security.Granter
 case class OldVersion(text: String, createdAt: DateTime)
 
 case class ForumPost(
-    _id: String,
+    _id: ForumPost.Id,
     topicId: String,
     categId: String,
     author: Option[String],
@@ -84,7 +84,9 @@ case class ForumPost(
 
 object ForumPost:
 
-  type ID        = String
+  opaque type Id = String
+  object Id extends TotalWrapper[Id, String]
+
   type Reactions = Map[String, Set[User.ID]]
 
   val idSize = 8

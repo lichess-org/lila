@@ -1,6 +1,5 @@
 package lila.forum
 
-import actorApi.*
 import scala.concurrent.duration.*
 
 import lila.common.Bus
@@ -103,12 +102,12 @@ final private class ForumTopicApi(
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id))
+                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id.value))
                   .toFollowersOf(me.id)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
-              Bus.publish(actorApi.CreatePost(post), "forumPost")
+              Bus.publish(CreatePost(post), "forumPost")
             } inject topic
       }
     }
@@ -170,7 +169,7 @@ final private class ForumTopicApi(
       topicRepo.coll.insert.one(topic withPost post) >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
       (indexer ! InsertPost(post)) >>-
-      Bus.publish(actorApi.CreatePost(post), "forumPost") void
+      Bus.publish(CreatePost(post), "forumPost") void
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ) flatMap { topics =>
@@ -206,10 +205,10 @@ final private class ForumTopicApi(
             $id(topic.id),
             topic.copy(
               nbPosts = nbPosts,
-              lastPostId = lastPost ?? (_.id),
+              lastPostId = lastPost.fold(topic.lastPostId)(_.id),
               updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
               nbPostsTroll = nbPostsTroll,
-              lastPostIdTroll = lastPostTroll ?? (_.id),
+              lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
               updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
             )
           )

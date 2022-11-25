@@ -67,8 +67,8 @@ private object BSONHandlers:
     Iso.string[PerfType](str => PerfType(Perf.Key(str)) err s"No such perf $str", _.key.value)
   private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games.apply, _.value)
 
-  private given BSONHandler[ForumPostId] = BSONStringHandler.as(ForumPostId.apply, _.value)
-  given BSONHandler[ForumPosts] = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts.apply)
+  given BSONHandler[ForumPosts] =
+    isoHandler[ForumPosts, List[lila.forum.ForumPost.Id]](_.value, ForumPosts.apply)
 
   given BSONHandler[UblogPosts] = isoHandler[UblogPosts, List[UblogPostId]](_.value, UblogPosts.apply)
 

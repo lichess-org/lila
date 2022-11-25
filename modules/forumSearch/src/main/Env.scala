@@ -45,11 +45,11 @@ final class Env(
 
   system.actorOf(
     Props(new Actor {
-      import lila.forum.actorApi.*
+      import lila.forum.*
       def receive = {
         case InsertPost(post) => api.store(post).unit
-        case RemovePost(id)   => client.deleteById(Id(id)).unit
-        case RemovePosts(ids) => client.deleteByIds(ids map { Id(_) }).unit
+        case RemovePost(id)   => client.deleteById(id into Id).unit
+        case RemovePosts(ids) => client.deleteByIds(Id.from[List, ForumPost.Id](ids)).unit
       }
     }),
     name = config.actorName

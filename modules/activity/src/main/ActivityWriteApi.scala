@@ -37,7 +37,7 @@ final class ActivityWriteApi(
   def forumPost(post: lila.forum.ForumPost): Funit =
     post.userId.filter(User.lichessId !=) ?? { userId =>
       update(userId) { a =>
-        $doc(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id)))
+        $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))
       }
     }
 

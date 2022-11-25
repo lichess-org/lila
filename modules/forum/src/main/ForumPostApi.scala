@@ -1,6 +1,5 @@
 package lila.forum
 
-import actorApi.*
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
@@ -64,17 +63,17 @@ final class ForumPostApi(
               }
               if (anonMod) logAnonPost(me.id, post, edit = false)
               else if (!post.troll && !categ.quiet && !topic.isTooBig)
-                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id)).pipe {
+                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id.value)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
-              Bus.publish(actorApi.CreatePost(post), "forumPost")
+              Bus.publish(CreatePost(post), "forumPost")
             } inject post
       }
     }
 
-  def editPost(postId: ForumPost.ID, newText: String, user: User): Fu[ForumPost] =
+  def editPost(postId: ForumPost.Id, newText: String, user: User): Fu[ForumPost] =
     get(postId) flatMap { post =>
       post.fold[Fu[ForumPost]](fufail("Post no longer exists.")) {
         case (_, post) if !post.canBeEditedBy(user) =>
@@ -91,7 +90,7 @@ final class ForumPostApi(
       }
     }
 
-  def urlData(postId: ForumPost.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
+  def urlData(postId: ForumPost.Id, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId) flatMap {
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
@@ -102,19 +101,19 @@ final class ForumPostApi(
       case _ => fuccess(none)
     }
 
-  def get(postId: ForumPost.ID): Fu[Option[(ForumTopic, ForumPost)]] =
+  def get(postId: ForumPost.Id): Fu[Option[(ForumTopic, ForumPost)]] =
     getPost(postId) flatMap {
       _ ?? { post =>
         topicRepo.byId(post.topicId) dmap2 { _ -> post }
       }
     }
 
-  def getPost(postId: ForumPost.ID): Fu[Option[ForumPost]] =
+  def getPost(postId: ForumPost.Id): Fu[Option[ForumPost]] =
     postRepo.coll.byId[ForumPost](postId)
 
   def react(
       categSlug: String,
-      postId: ForumPost.ID,
+      postId: ForumPost.Id,
       me: User,
       reaction: String,
       v: Boolean
@@ -143,8 +142,8 @@ final class ForumPostApi(
       } yield PostView(post, topic, categ)
     }
 
-  def viewsFromIds(postIds: Seq[ForumPost.ID]): Fu[List[PostView]] =
-    postRepo.coll.byOrderedIds[ForumPost, ForumPost.ID](postIds)(_.id) flatMap views
+  def viewsFromIds(postIds: Seq[ForumPost.Id]): Fu[List[PostView]] =
+    postRepo.coll.byOrderedIds[ForumPost, ForumPost.Id](postIds)(_.id) flatMap views
 
   def viewOf(post: ForumPost): Fu[Option[PostView]] =
     views(List(post)) dmap (_.headOption)
@@ -155,7 +154,7 @@ final class ForumPostApi(
         topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
       }
     }
-  def liteViewsByIds(postIds: Seq[ForumPost.ID]): Fu[Seq[PostLiteView]] =
+  def liteViewsByIds(postIds: Seq[ForumPost.Id]): Fu[Seq[PostLiteView]] =
     postRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: ForumPost): Fu[Option[PostLiteView]] =
@@ -215,12 +214,12 @@ final class ForumPostApi(
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
-      .distinctEasy[ForumPost.ID, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
+      .distinctEasy[ForumPost.Id, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
       .map { ids =>
         indexer ! RemovePosts(ids)
       }
 
-  def teamIdOfPostId(postId: ForumPost.ID): Fu[Option[TeamId]] =
+  def teamIdOfPostId(postId: ForumPost.Id): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId) flatMap {
       _ ?? { post =>
         categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
@@ -233,7 +232,7 @@ final class ForumPostApi(
         userId,
         post.categId,
         topic.slug,
-        post.id,
+        post.id.value,
         post.text,
         edit
       )

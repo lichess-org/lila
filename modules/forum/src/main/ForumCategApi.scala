@@ -22,10 +22,10 @@ final class ForumCategApi(
       team = teamId.some,
       nbTopics = 0,
       nbPosts = 0,
-      lastPostId = "",
+      lastPostId = ForumPost.Id(""),
       nbTopicsTroll = 0,
       nbPostsTroll = 0,
-      lastPostIdTroll = ""
+      lastPostIdTroll = ForumPost.Id("")
     )
     val topic = ForumTopic.make(
       categId = categ.slug,
@@ -76,10 +76,10 @@ final class ForumCategApi(
             categ.copy(
               nbTopics = nbTopics,
               nbPosts = nbPosts,
-              lastPostId = lastPost ?? (_.id),
+              lastPostId = lastPost.fold(categ.lastPostId)(_.id),
               nbTopicsTroll = nbTopicsTroll,
               nbPostsTroll = nbPostsTroll,
-              lastPostIdTroll = lastPostTroll ?? (_.id)
+              lastPostIdTroll = lastPostTroll.fold(categ.lastPostIdTroll)(_.id)
             )
           )
           .void

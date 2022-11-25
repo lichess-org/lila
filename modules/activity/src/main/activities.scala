@@ -7,6 +7,7 @@ import lila.rating.PerfType
 import lila.study.Study
 import lila.swiss.Swiss
 import lila.user.User
+import lila.forum.ForumPost
 
 object activities:
 
@@ -20,9 +21,8 @@ object activities:
     def hasNonCorres = value.exists(_._1 != PerfType.Correspondence)
   given Zero[Games] = Zero(Games(Map.empty))
 
-  case class ForumPosts(value: List[ForumPostId]) extends AnyVal:
-    def +(postId: ForumPostId) = ForumPosts(postId :: value)
-  case class ForumPostId(value: String) extends AnyVal
+  case class ForumPosts(value: List[ForumPost.Id]) extends AnyVal:
+    def +(postId: ForumPost.Id) = ForumPosts(postId :: value)
   given Zero[ForumPosts] = Zero(ForumPosts(Nil))
 
   case class UblogPosts(value: List[UblogPostId]) extends AnyVal:

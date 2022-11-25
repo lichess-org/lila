@@ -54,7 +54,7 @@ final class MentionNotifier(
       MentionedInThread.Topic(topic.name),
       MentionedInThread.TopicId(topic.id),
       MentionedInThread.Category(post.categId),
-      MentionedInThread.PostId(post.id)
+      post.id into MentionedInThread.PostId
     )
 
     Notification.make(mentionedUser into UserId, notificationContent)
