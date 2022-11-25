@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="viewTheGames">खेळ पाहा</string>
+  <string name="provisional">तात्पुरते</string>
+  <string name="totalGames">एकूण खेळ</string>
+  <string name="ratedGames">औपचारिक खेळ</string>
+  <string name="tournamentGames">स्पर्धेतील खेळ</string>
+  <string name="timeSpentPlaying">खेळण्यात घालवलेला वेळ</string>
+  <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
+  <string name="victories">विजय</string>
+  <string name="defeats">पराभव</string>
+  <string name="disconnections">‍डिस्कनेक्षन्स</string>
+  <string name="notEnoughGames">पुरेसे खेळ नाहीत</string>
+  <string name="lowestRating">सर्वात कमी गुणांकन: %s</string>
+  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">%1$s पासून %2$s पर्यंत</string>
+  <string name="winningStreak">सलग विजय</string>
+  <string name="losingStreak">सलग पराभव</string>
+  <string name="bestRated">गुणांनुसार सर्वोच्च विजय</string>
+  <string name="worstRated">गुणांनुसार सर्वात वाईट पराभव</string>
+  <string name="gamesInARow">सलग खेळ</string>
+  <string name="maxTimePlaying">खेळण्यात घालवलेला सर्वाधिक वेळ</string>
+  <string name="now">आता</string>
+</resources>
