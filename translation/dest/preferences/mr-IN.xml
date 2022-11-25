@@ -31,6 +31,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">तीन पुनरावृतींनवर आपोआप सामना अनिर्णित घोषित करा</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">जेव्हा वेळ &lt; ३० सेकंद</string>
   <string name="moveConfirmation">चालींचे पुष्टीकरण</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">किल्लेकोट पद्धती</string>
   <string name="castleByMovingTwoSquares">राजा दोन घरे हालवून</string>
   <string name="castleByMovingOntoTheRook">राजा हत्तीवर हालवून</string>
   <string name="inputMovesWithTheKeyboard">कीबोर्ड वापरून चाल करा</string>
