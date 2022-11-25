@@ -179,7 +179,8 @@ object RatingAt:
         RatingAt(_, pov.game.movedAt, pov.gameId)
       } orElse cur
 
-case class Result(opRating: IntRating, opId: UserId, at: DateTime, gameId: GameId)
+import reactivemongo.api.bson.Macros.Annotations.Key
+case class Result(@Key("opInt") opRating: IntRating, opId: UserId, at: DateTime, gameId: GameId)
 
 case class Results(results: List[Result]):
   def agg(pov: Pov, comp: Int) =
