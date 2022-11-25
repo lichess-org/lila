@@ -23,25 +23,27 @@ case class Eval(
 
 object Eval:
 
-  case class Score(value: Either[Cp, Mate]) extends AnyVal:
-
-    def cp: Option[Cp]     = value.left.toOption
-    def mate: Option[Mate] = value.toOption
-
-    def isCheckmate = value == Score.checkmate
-    def mateFound   = value.isRight
-
-    def invert                  = copy(value = value.left.map(Cp.invert(_)).map(Mate.invert(_)))
-    def invertIf(cond: Boolean) = if (cond) invert else this
-
-    def eval = Eval(cp, mate, None)
-
-  object Score:
+  opaque type Score = Either[Cp, Mate]
+  object Score extends TotalWrapper[Score, Either[Cp, Mate]]:
 
     inline def cp(x: Cp): Score     = Score(Left(x))
     inline def mate(y: Mate): Score = Score(Right(y))
-
     val checkmate: Either[Cp, Mate] = Right(Mate(0))
+
+    extension (score: Score)
+
+      inline def cp: Option[Cp]     = score.value.left.toOption
+      inline def mate: Option[Mate] = score.value.toOption
+
+      inline def isCheckmate = score.value == Score.checkmate
+      inline def mateFound   = score.value.isRight
+
+      inline def invert = Score(score.value.left.map(Cp.invert(_)).map(Mate.invert(_)))
+      inline def invertIf(cond: Boolean): Score = if (cond) invert else score
+
+      def eval: Eval = Eval(cp, mate, None)
+
+  end Score
 
   opaque type Cp = Int
   object Cp extends OpaqueInt[Cp]:
