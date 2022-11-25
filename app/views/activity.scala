@@ -83,10 +83,10 @@ object activity:
   private def renderPuzzles(u: User)(p: Puzzles)(implicit ctx: Context) =
     entryTag(
       iconTag(""),
-      scoreFrag(p.score),
+      scoreFrag(p.value),
       div(
-        trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
-        p.score.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
+        trans.activity.solvedNbPuzzles.pluralSame(p.value.size),
+        p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
       )
     )
 

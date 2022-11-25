@@ -29,9 +29,10 @@ object activities:
     def +(postId: UblogPostId) = UblogPosts(postId :: value)
   given Zero[UblogPosts] = Zero(UblogPosts(Nil))
 
-  case class Puzzles(score: Score):
-    def +(s: Score) = Puzzles(score = score add s)
-  given Zero[Puzzles] = Zero(Puzzles(summon[Zero[Score]].zero))
+  opaque type Puzzles = Score
+  object Puzzles extends TotalWrapper[Puzzles, Score]:
+    extension (a: Puzzles) def +(s: Score) = Puzzles(a.value add s)
+    given Zero[Puzzles]                    = Zero(Puzzles(summon[Zero[Score]].zero))
 
   case class Storm(runs: Int, score: Int):
     def +(s: Int) = Storm(runs = runs + 1, score = score atLeast s)

@@ -43,29 +43,25 @@ private object BSONHandlers:
     o => BSONArray(o.before, o.after)
   )
 
-  private given lila.db.BSON[Score] with
+  private[activity] given lila.db.BSON[Score] with
     private val win  = "w"
     private val loss = "l"
     private val draw = "d"
     private val rp   = "r"
 
-    def reads(r: lila.db.BSON.Reader) =
-      Score(
-        win = r.intD(win),
-        loss = r.intD(loss),
-        draw = r.intD(draw),
-        rp = r.getO[RatingProg](rp)
-      )
+    def reads(r: lila.db.BSON.Reader) = Score(
+      win = r.intD(win),
+      loss = r.intD(loss),
+      draw = r.intD(draw),
+      rp = r.getO[RatingProg](rp)
+    )
 
-    def writes(w: lila.db.BSON.Writer, o: Score) =
-      BSONDocument(
-        win  -> w.intO(o.win),
-        loss -> w.intO(o.loss),
-        draw -> w.intO(o.draw),
-        rp   -> o.rp
-      )
-
-  given (String => PerfType) = key => PerfType(Perf.Key(key)) err s"Bad perf $key"
+    def writes(w: lila.db.BSON.Writer, o: Score) = BSONDocument(
+      win  -> w.intO(o.win),
+      loss -> w.intO(o.loss),
+      draw -> w.intO(o.draw),
+      rp   -> o.rp
+    )
 
   given Iso.StringIso[PerfType] =
     Iso.string[PerfType](str => PerfType(Perf.Key(str)) err s"No such perf $str", _.key.value)
@@ -75,8 +71,6 @@ private object BSONHandlers:
   given BSONHandler[ForumPosts] = isoHandler[ForumPosts, List[ForumPostId]](_.value, ForumPosts.apply)
 
   given BSONHandler[UblogPosts] = isoHandler[UblogPosts, List[UblogPostId]](_.value, UblogPosts.apply)
-
-  given BSONHandler[Puzzles] = isoHandler[Puzzles, Score](_.score, Puzzles.apply)
 
   given lila.db.BSON[Storm] with
     def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))

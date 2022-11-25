@@ -56,7 +56,7 @@ final class JsonView(
       )
     }
     given (using Lang): Writes[ActivityView.Tours] = Json.writes
-    given Writes[Puzzles]                          = Json.writes
+    given Writes[Puzzles]                          = writeWrap("score")(_.value)
     given Writes[Storm]                            = Json.writes
     given Writes[Racer]                            = Json.writes
     given Writes[Streak]                           = Json.writes

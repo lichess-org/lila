@@ -9,7 +9,7 @@ object Json:
   // inline given [A, T](using ev: A =:= T, format: Format[A]): Format[T] =
   //   format.bimap(ev.apply, ev.flip.apply)
 
-  inline given [A, T](using
+  inline given opaqueFormat[A, T](using
       bts: SameRuntime[A, T],
       stb: SameRuntime[T, A],
       format: Format[A]
@@ -26,6 +26,10 @@ object Json:
   def intFormat[A <: Int](f: Int => A): Format[A]          = intFormatBase.bimap(f, identity)
 
   def writeAs[O, A: Writes](f: O => A) = Writes[O](o => PlayJson toJson f(o))
+
+  def writeWrap[A, B](fieldName: String)(get: A => B)(using writes: Writes[B]): OWrites[A] = OWrites { a =>
+    PlayJson.obj(fieldName -> writes.writes(get(a)))
+  }
 
   def stringIsoWriter[O](using iso: Iso[String, O]): Writes[O] = writeAs[O, String](iso.to)
   def intIsoWriter[O](using iso: Iso[Int, O]): Writes[O]       = writeAs[O, Int](iso.to)
