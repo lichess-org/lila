@@ -235,7 +235,7 @@ object SecurityForm:
   ):
     def realEmail = EmailAddress(email)
 
-    def fingerPrint = fp.filter(_.nonEmpty) map FingerPrint.apply
+    def fingerPrint = FingerPrint from fp.filter(_.nonEmpty)
 
   case class MobileSignupData(
       username: String,

@@ -68,7 +68,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "date" -> DateTime.now,
           "up"   -> up,
           "api"  -> apiVersion.map(_.value),
-          "fp"   -> fp.flatMap(FingerHash.apply)
+          "fp"   -> fp.flatMap(FingerHash.from)
         )
       )
       .void
@@ -122,7 +122,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       .cursor[UserSession](ReadPreference.secondaryPreferred)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
-    FingerHash(fp) match
+    FingerHash.from(fp) match
       case None => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
         coll.updateField($id(id), "fp", hash) >>- {
@@ -211,7 +211,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
-    FingerHash(fp) ?? { hash =>
+    FingerHash.from(fp) ?? { hash =>
       coll.secondaryPreferred.exists(
         $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7))
       )
