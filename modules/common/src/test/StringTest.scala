@@ -120,14 +120,14 @@ class StringTest extends Specification {
       }
     }
 
-    "ignore between square brackets" should {
-      "return the string without the parts between square brackets" in {
+    "ignore between square brackets" >> {
+      "return the string without the parts between square brackets" >> {
         var s : String = "This is a post that has [ key = value ]a part"
-        ignoreBetweenSquareBrackets(s) must_== "This is a post that has a part"
+        ignoreBetweenSquareBrackets(s) === "This is a post that has a part"
       }
-      "doesn't care about nested square brackets, should ignore anyway" in {
+      "doesn't care about nested square brackets, should ignore anyway" >> {
         var s : String = "This is a post that has nested [ [key = value] ]brackets"
-        ignoreBetweenSquareBrackets(s) must_== "This is a post that has nested brackets"
+        ignoreBetweenSquareBrackets(s) === "This is a post that has nested brackets"
       }
     }
   }
