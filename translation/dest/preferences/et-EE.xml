@@ -6,7 +6,7 @@
   <string name="pieceAnimation">malendite liikumine</string>
   <string name="materialDifference">Materjal erinevus</string>
   <string name="boardHighlights">Laual rõhutatakse (viimast käiku ja tuld)</string>
-  <string name="pieceDestinations">malendi sihtkoht (kehtib käies ja ennetaval käigul)</string>
+  <string name="pieceDestinations">Malendi sihtkohad (reeglipärased käigud ja eelkäigud)</string>
   <string name="boardCoordinates">Laua koordinaadid (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">käikude loend mängides</string>
   <string name="pgnPieceNotation">Käikude notatsioon</string>
