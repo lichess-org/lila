@@ -12,7 +12,7 @@ class AccuracyPercentTest extends Specification {
   "game accuracy" >> {
 
     def compute(cps: List[Int]): Option[AccMap] =
-      gameAccuracy(Color.white, cps.map(Cp.apply))
+      gameAccuracy(Color.white, cps.map(Cp(_)))
 
     "empty game" >> {
       compute(Nil) must beNone
@@ -90,7 +90,7 @@ class AccuracyPercentTest extends Specification {
 
   "game accuracy, black moves first" >> {
 
-    def compute(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp.apply))
+    def compute(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)))
 
     "empty game" >> {
       compute(Nil) must beNone
