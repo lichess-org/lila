@@ -1,8 +1,8 @@
 package lila.tv
 
 import akka.actor.ActorSystem
-import com.softwaremill.macwire._
-import scala.concurrent.duration._
+import com.softwaremill.macwire.*
+import scala.concurrent.duration.*
 
 @Module
 final class Env(
@@ -14,7 +14,7 @@ final class Env(
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,
     rematches: lila.game.Rematches
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val tvSyncActor = wire[TvSyncActor]
 
@@ -23,4 +23,3 @@ final class Env(
   system.scheduler.scheduleWithFixedDelay(12 seconds, 3 seconds) { () =>
     tvSyncActor ! TvSyncActor.Select
   }
-}

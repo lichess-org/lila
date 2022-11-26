@@ -1,12 +1,13 @@
 package lila.push
 
-import akka.actor._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import akka.actor.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
 import lila.common.{ Future, LightUser }
+import lila.common.Json.given
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.push.TourSoon
@@ -20,10 +21,7 @@ final private class PushApi(
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -97,7 +95,7 @@ final private class PushApi(
       }
     }
 
-  def takebackOffer(gameId: Game.ID): Funit =
+  def takebackOffer(gameId: GameId): Funit =
     Future.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
@@ -129,7 +127,7 @@ final private class PushApi(
       }
     }
 
-  def drawOffer(gameId: Game.ID): Funit =
+  def drawOffer(gameId: GameId): Funit =
     Future.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).?? { game =>
@@ -294,8 +292,8 @@ final private class PushApi(
         monitor(lila.mon.push.send)("firebase", res.isSuccess)
       } void
 
-  private def describeChallenge(c: Challenge) = {
-    import lila.challenge.Challenge.TimeControl._
+  private def describeChallenge(c: Challenge) =
+    import lila.challenge.Challenge.TimeControl.*
     List(
       c.mode.fold("Casual", "Rated"),
       c.timeControl match {
@@ -305,20 +303,18 @@ final private class PushApi(
       },
       c.variant.name
     ) mkString " • "
-  }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus.ask[Boolean]("roundSocket") { p =>
-      Tell(pov.gameId, IsOnGame(pov.color, p))
+      Tell(pov.gameId.value, IsOnGame(pov.color, p))
     } flatMap {
       case true  => funit
       case false => f
     }
 
   private def asyncOpponentName(pov: Pov): Fu[String] = Namer playerText pov.opponent
-}
 
-private object PushApi {
+private object PushApi:
 
   case class Data(
       title: String,
@@ -327,4 +323,3 @@ private object PushApi {
       payload: JsObject,
       iosBadge: Option[Int] = None
   )
-}

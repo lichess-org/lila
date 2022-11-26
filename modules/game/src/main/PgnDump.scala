@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Forsyth
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
-import chess.format.{ pgn => chessPgn, FEN }
+import chess.format.{ pgn as chessPgn, FEN }
 import chess.{ Centis, Color, Outcome }
 
 import lila.common.config.BaseUrl
@@ -11,16 +11,16 @@ import lila.common.LightUser
 final class PgnDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
-  import PgnDump._
+  import PgnDump.*
 
   def apply(
       game: Game,
       initialFen: Option[FEN],
       flags: WithFlags,
-      teams: Option[Color.Map[String]] = None
-  ): Fu[Pgn] = {
+      teams: Option[Color.Map[TeamId]] = None
+  ): Fu[Pgn] =
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
@@ -50,9 +50,8 @@ final class PgnDump(
       }
       Pgn(ts, turns)
     }
-  }
 
-  private def gameUrl(id: String) = s"$baseUrl/$id"
+  private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)
@@ -67,8 +66,8 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
-  private def eventOf(game: Game) = {
-    val perf = game.perfType.fold("Standard")(_.trans(lila.i18n.defaultLang))
+  private def eventOf(game: Game) =
+    val perf = game.perfType.fold("Standard")(_.trans(using lila.i18n.defaultLang))
     game.tournamentId.map { id =>
       s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
     } orElse game.simulId.map { id =>
@@ -76,7 +75,6 @@ final class PgnDump(
     } getOrElse {
       s"${game.mode} $perf game"
     }
-  }
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
     p.ratingDiff.map { rd =>
@@ -89,7 +87,7 @@ final class PgnDump(
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,
-      teams: Option[Color.Map[String]] = None
+      teams: Option[Color.Map[TeamId]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {
@@ -131,7 +129,7 @@ final class PgnDump(
           withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
           Tag(
             _.Termination, {
-              import chess.Status._
+              import chess.Status.*
               game.status match {
                 case Created | Started                             => "Unterminated"
                 case Aborted | NoStart                             => "Abandoned"
@@ -177,9 +175,8 @@ final class PgnDump(
         }
       )
     } filterNot (_.isEmpty)
-}
 
-object PgnDump {
+object PgnDump:
 
   private val delayMovesBy         = 3
   private val delayKeepsFirstMoves = 5
@@ -194,14 +191,12 @@ object PgnDump {
       literate: Boolean = false,
       pgnInJson: Boolean = false,
       delayMoves: Boolean = false
-  ) {
+  ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
       if (!delayMoves) moves
       else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
 
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
-  }
 
   def result(game: Game) =
     Outcome.showResult(game.finished option Outcome(game.winnerColor))
-}

@@ -2,11 +2,11 @@ package views.html.site
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object page {
+object page:
 
   def lone(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
@@ -21,7 +21,7 @@ object page {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })""")
 
-  def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
+  def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using
       ctx: Context
   ) =
     layout(
@@ -42,7 +42,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     )
   )
 
-  def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = {
+  def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     val title = ~doc.getText("doc.title")
     layout(
       title = title,
@@ -89,9 +89,8 @@ $('#asset-version-message').text(lichess.info.message);"""
         st.section(cls := "box")(freeJs())
       )
     )
-  }
 
-  def webmasters(implicit ctx: Context) = {
+  def webmasters(implicit ctx: Context) =
     val parameters = frag(
       p("Parameters:"),
       ul(
@@ -196,7 +195,6 @@ $('#asset-version-message').text(lichess.info.message);"""
         }
       )
     )
-  }
 
   def layout(
       title: String,
@@ -237,4 +235,3 @@ $('#asset-version-message').text(lichess.info.message);"""
         div(cls := s"page-menu__content $contentCls")(body)
       )
     }
-}

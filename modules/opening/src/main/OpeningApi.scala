@@ -2,10 +2,10 @@ package lila.opening
 
 import chess.opening.FullOpeningDB
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.user.User
@@ -17,7 +17,7 @@ final class OpeningApi(
     pgnDump: PgnDump,
     explorer: OpeningExplorer,
     configStore: OpeningConfigStore
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   import OpeningQuery.Query
 
@@ -28,14 +28,13 @@ final class OpeningApi(
   def index(implicit req: RequestHeader): Fu[Option[OpeningPage]] =
     lookup(Query("", none), withWikiRevisions = false)
 
-  def lookup(q: Query, withWikiRevisions: Boolean)(implicit
+  def lookup(q: Query, withWikiRevisions: Boolean)(using
       req: RequestHeader
-  ): Fu[Option[OpeningPage]] = {
+  ): Fu[Option[OpeningPage]] =
     val config = readConfig
     if (config.isDefault && !withWikiRevisions)
       defaultCache.getFuture(q, _ => lookup(q, config, withWikiRevisions))
     else lookup(q, config, withWikiRevisions)
-  }
 
   private def lookup(
       q: Query,
@@ -56,7 +55,6 @@ final class OpeningApi(
               pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
             }.sequenceFu
           } yield OpeningPage(query, stats, withPgn, historyPercent(history, allHistory), wiki).some
-        case _ => fuccess(none)
       }
 
   def readConfig(implicit req: RequestHeader) = configStore.read
@@ -74,4 +72,3 @@ final class OpeningApi(
     cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory") {
       _.expireAfterWrite(1 hour).buildAsyncFuture(explorer.configHistory)
     }
-}

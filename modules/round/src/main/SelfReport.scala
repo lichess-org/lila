@@ -1,7 +1,7 @@
 package lila.round
 
-import com.softwaremill.tagging._
-import scala.concurrent.duration._
+import com.softwaremill.tagging.*
+import scala.concurrent.duration.*
 import scala.util.matching.Regex
 
 import lila.common.{ IpAddress, Strings }
@@ -18,14 +18,14 @@ final class SelfReport(
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
 
-  private val onceEvery = lila.memo.OnceEvery(1 hour)
+  private val onceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(
       userId: Option[User.ID],
       ip: IpAddress,
-      fullId: Game.FullId,
+      fullId: GameFullId,
       name: String
   ): Funit =
     userId ?? userRepo.named map { user =>
@@ -34,11 +34,11 @@ final class SelfReport(
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
       def doLog(): Unit =
-        if (name != "ceval") {
+        if (name != "ceval")
           lila.log("cheat").branch("jslog").info {
             s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
           }
-          user.filter(u => onceEvery(u.id)) foreach { u =>
+          user.filter(u => onceEvery(UserId(u.id))) foreach { u =>
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
             ircApi.selfReport(
               typ = name,
@@ -47,10 +47,9 @@ final class SelfReport(
               ip = ip
             )
           }
-        }
       if (fullId.value == "____________") doLog()
       else
-        proxyRepo.pov(fullId.value) foreach {
+        proxyRepo.pov(fullId) foreach {
           _ ?? { pov =>
             if (!known) doLog()
             user foreach { u =>
@@ -71,4 +70,3 @@ final class SelfReport(
           }
         }
     }
-}

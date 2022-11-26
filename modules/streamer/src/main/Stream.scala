@@ -1,13 +1,13 @@
 package lila.streamer
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import org.joda.time.DateTime
 
 import lila.user.User
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
 
-trait Stream {
+trait Stream:
   def serviceName: String
   val status: String
   val streamer: Streamer
@@ -21,35 +21,27 @@ trait Stream {
   lazy val cleanStatus = removeMultibyteSymbols(status).trim
 
   lazy val lang: String = (language.length == 2) ?? language.toLowerCase
-}
 
-object Stream {
+object Stream:
 
-  case class Keyword(value: String) extends AnyRef with StringValue {
+  case class Keyword(value: String) extends AnyRef with StringValue:
     def toLowerCase = value.toLowerCase
-  }
 
-  object Twitch {
-    case class TwitchStream(user_name: String, title: String, `type`: String, language: String) {
+  object Twitch:
+    case class TwitchStream(user_name: String, title: String, `type`: String, language: String):
       def name   = user_name
       def isLive = `type` == "live"
-    }
     case class Pagination(cursor: Option[String])
-    case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]) {
+    case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]):
       def liveStreams = (~data).filter(_.isLive)
-    }
     case class Stream(userId: String, status: String, streamer: Streamer, language: String)
-        extends lila.streamer.Stream {
+        extends lila.streamer.Stream:
       def serviceName = "twitch"
-    }
-    object Reads {
-      implicit private val twitchStreamReads = Json.reads[TwitchStream]
-      implicit private val paginationReads   = Json.reads[Pagination]
-      implicit val twitchResultReads         = Json.reads[Result]
-    }
-  }
+    private given Reads[TwitchStream] = Json.reads
+    private given Reads[Pagination]   = Json.reads
+    given Reads[Result]               = Json.reads
 
-  object YouTube {
+  object YouTube:
     case class Snippet(
         channelId: String,
         title: String,
@@ -58,7 +50,7 @@ object Stream {
     )
     case class Id(videoId: String)
     case class Item(id: Id, snippet: Snippet)
-    case class Result(items: List[Item]) {
+    case class Result(items: List[Item]):
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
         items
           .withFilter { item =>
@@ -76,26 +68,21 @@ object Stream {
               )
             }
           }
-    }
     case class Stream(
         channelId: String,
         status: String,
         videoId: String,
         streamer: Streamer,
         language: String
-    ) extends lila.streamer.Stream {
+    ) extends lila.streamer.Stream:
       def serviceName = "youTube"
-    }
 
-    object Reads {
-      implicit private val youtubeSnippetReads = Json.reads[Snippet]
-      implicit private val youtubeIdReads      = Json.reads[Id]
-      implicit private val youtubeItemReads    = Json.reads[Item]
-      implicit val youtubeResultReads          = Json.reads[Result]
-    }
+    private given Reads[Snippet] = Json.reads
+    private given Reads[Id]      = Json.reads
+    private given Reads[Item]    = Json.reads
+    given Reads[Result]          = Json.reads
 
     case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
-  }
 
   def toJson(stream: Stream) = Json.obj(
     "stream" -> Json.obj(
@@ -112,4 +99,3 @@ object Stream {
   )
 
   private val LangRegex = """\[(\w\w)\]""".r.unanchored
-}

@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 import lila.user.User
 
-final class ChatPanic {
+final class ChatPanic:
 
   private var until: Option[DateTime] = none
 
@@ -27,15 +27,12 @@ final class ChatPanic {
 
   def get = until
 
-  def start() = {
+  def start() =
     logger.warn("Chat Panic enabled")
     until = DateTime.now.plusMinutes(180).some
-  }
 
-  def stop() = {
+  def stop() =
     logger.warn("Chat Panic disabled")
     until = none
-  }
 
   def set(v: Boolean) = if (v) start() else stop()
-}

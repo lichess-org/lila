@@ -1,13 +1,13 @@
 package views.html.tournament
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TournamentShield
 
 import controllers.routes
 
-object shields {
+object shields:
 
   private val section = st.section(cls := "tournament-shields__item")
 
@@ -68,4 +68,3 @@ object shields {
         )
       )
     }
-}

@@ -4,52 +4,48 @@ import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
 import scala.concurrent.Promise
+import lila.common.config.Max
 
 /*
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = true)(
+final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = true)(
     process: AsyncActor.ReceiveAsync
-)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BoundedAsyncActor._
+  import BoundedAsyncActor.*
 
-  def !(msg: Any): Boolean =
+  def !(msg: Matchable): Boolean =
     stateRef.getAndUpdate { state =>
       Some {
         state.fold(emptyQueue) { q =>
-          if (q.size >= maxSize) q
+          if (q.size >= maxSize.value) q
           else q enqueue msg
         }
       }
-    } match {
+    } match
       case None => // previous state was idle, we can run immediately
         run(msg)
         true
       case Some(q) =>
-        val success = q.size < maxSize
-        if (!success) {
+        val success = q.size < maxSize.value
+        if (!success)
           lila.mon.asyncActor.overflow(name).increment()
           if (logging) lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
-        } else if (logging && q.size >= monitorQueueSize) {
+        else if (logging && q.size >= monitorQueueSize)
           lila.mon.asyncActor.queueSize(name).record(q.size)
-        }
         success
-    }
 
-  def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
+  def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
     val promise = Promise[A]()
     val success = this ! makeMsg(promise)
     if (!success) promise failure new EnqueueException(s"The $name asyncActor queue is full ($maxSize)")
     promise.future
-  }
 
   def queueSize = stateRef.get().fold(0)(_.size + 1)
 
-  private val monitorQueueSize = maxSize / 4
+  private val monitorQueueSize = maxSize.value / 4
 
   /*
    * Idle: None
@@ -58,33 +54,29 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
    */
   private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
 
-  private[this] def run(msg: Any): Unit =
+  private[this] def run(msg: Matchable): Unit =
     process.applyOrElse(msg, fallback) onComplete postRun
 
-  private[this] val postRun = (_: Any) =>
+  private[this] val postRun = (_: Matchable) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
-  private[this] lazy val fallback = { msg: Any =>
+  private[this] lazy val fallback = { (msg: Any) =>
     lila.log("asyncActor").warn(s"[$name] unhandled msg: $msg")
     funit
   }
-}
 
-object BoundedAsyncActor {
+object BoundedAsyncActor:
 
   final class EnqueueException(msg: String) extends Exception(msg)
 
-  private case class SizedQueue(queue: Queue[Any], size: Int) {
-    def enqueue(a: Any) = SizedQueue(queue enqueue a, size + 1)
-    def isEmpty         = size == 0
-    def tailOption      = !isEmpty option SizedQueue(queue.tail, size - 1)
-    def headOption      = queue.headOption
-  }
+  private case class SizedQueue(queue: Queue[Matchable], size: Int):
+    def enqueue(a: Matchable) = SizedQueue(queue enqueue a, size + 1)
+    def isEmpty               = size == 0
+    def tailOption            = !isEmpty option SizedQueue(queue.tail, size - 1)
+    def headOption            = queue.headOption
   private val emptyQueue = SizedQueue(Queue.empty, 0)
 
   private type State = Option[SizedQueue]
 
-  private val postRunUpdate = new UnaryOperator[State] {
+  private val postRunUpdate = new UnaryOperator[State]:
     override def apply(state: State): State = state.flatMap(_.tailOption)
-  }
-}

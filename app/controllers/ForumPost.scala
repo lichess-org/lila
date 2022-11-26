@@ -1,13 +1,15 @@
 package controllers
 
-import scala.concurrent.duration._
-import views._
+import scala.concurrent.duration.*
+import views.*
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.IpAddress
+import lila.forum.ForumPost.{ Id as PostId }
 import lila.msg.MsgPreset
+import router.ReverseRouterConversions.postId
 
-final class ForumPost(env: Env) extends LilaController(env) with ForumController {
+final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
     new lila.memo.RateLimit[IpAddress](
@@ -20,7 +22,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
       NotForKids {
-        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
+        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).toFuccess
         else
           for {
             paginator <- env.forumSearch(text, page, ctx.troll)
@@ -36,7 +38,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def create(categSlug: String, slug: String, page: Int) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
           if (topic.closed) fuccess(BadRequest("This topic is closed"))
           else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
@@ -71,9 +73,9 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def edit(postId: String) =
+  def edit(postId: PostId) =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
         teamId.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
           postApi getPost postId flatMap {
@@ -82,7 +84,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 .postEdit(me, inOwnTeam, post.text)
                 .bindFromRequest()
                 .fold(
-                  _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+                  _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
                   data =>
                     CreateRateLimit(ctx.ip) {
                       postApi.editPost(postId, data.changes, me).map { post =>
@@ -97,7 +99,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def delete(categSlug: String, id: String) =
+  def delete(categSlug: String, id: PostId) =
     AuthBody { implicit ctx => me =>
       postApi getPost id flatMap {
         _ ?? { post =>
@@ -106,7 +108,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
           else
             TopicGrantModById(categSlug, me, post.topicId) {
               env.forum.delete.post(categSlug, id, me) inject {
-                implicit val req = ctx.body
+                given play.api.mvc.Request[?] = ctx.body
                 for {
                   userId    <- post.userId
                   reasonOpt <- forms.deleteWithReason.bindFromRequest().value
@@ -125,7 +127,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def react(categSlug: String, id: String, reaction: String, v: Boolean) =
+  def react(categSlug: String, id: PostId, reaction: String, v: Boolean) =
     Auth { implicit ctx => me =>
       CategGrantWrite(categSlug) {
         postApi.react(categSlug, id, me, reaction, v) map {
@@ -136,11 +138,10 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def redirect(id: String) =
+  def redirect(id: PostId) =
     Open { implicit ctx =>
       OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
         val call = routes.ForumTopic.show(categ, topic, page)
         Redirect(s"$call#$number").withCanonical(call)
       }
     }
-}

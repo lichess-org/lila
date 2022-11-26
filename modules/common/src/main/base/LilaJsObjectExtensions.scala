@@ -1,8 +1,8 @@
 package lila.base
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-final class LilaJsObject(private val js: JsObject) extends AnyVal {
+final class LilaJsObject(private val js: JsObject) extends AnyVal:
 
   def str(key: String): Option[String] =
     (js \ key).asOpt[String]
@@ -60,9 +60,8 @@ final class LilaJsObject(private val js: JsObject) extends AnyVal {
     value.fold(js) { a =>
       js + (key -> Json.toJson(a))
     }
-}
 
-final class LilaJsValue(private val js: JsValue) extends AnyVal {
+final class LilaJsValue(private val js: JsValue) extends AnyVal:
 
   def str(key: String): Option[String] =
     js.asOpt[JsObject] flatMap { obj =>
@@ -98,4 +97,3 @@ final class LilaJsValue(private val js: JsValue) extends AnyVal {
     js.asOpt[JsObject] flatMap { obj =>
       (obj \ key).asOpt[JsArray]
     }
-}

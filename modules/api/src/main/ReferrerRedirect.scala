@@ -5,7 +5,7 @@ import scala.util.Try
 
 import lila.common.config.BaseUrl
 
-final class ReferrerRedirect(baseUrl: BaseUrl) {
+final class ReferrerRedirect(baseUrl: BaseUrl):
 
   private val sillyLoginReferrersSet   = Set("/login", "/signup", "/mobile")
   private val loginPattern             = """/\w\w/(login|signup|mobile)""".r.pattern
@@ -25,4 +25,3 @@ final class ReferrerRedirect(baseUrl: BaseUrl) {
         (url.scheme == parsedBaseUrl.scheme) && s".${url.host}".endsWith(s".${parsedBaseUrl.host}")
       }
       .map(_.toString)
-}

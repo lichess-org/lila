@@ -1,17 +1,17 @@
 package views.html.video
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object index {
+object index:
 
-  def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(implicit
+  def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(using
       ctx: Context
-  ) = {
+  ) =
 
     val tagString =
       s"${if (control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " • " else ""}"
@@ -60,5 +60,3 @@ object index {
         pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
       )
     )
-  }
-}

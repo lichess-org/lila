@@ -1,15 +1,16 @@
 package lila.report
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Heapsort }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.user.{ Holder, User, UserRepo }
+import lila.common.config.Max
 
 final class ReportApi(
     val coll: Coll,
@@ -25,15 +26,12 @@ final class ReportApi(
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     domain: lila.common.config.NetDomain
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
-  import BSONHandlers._
+  import BSONHandlers.given
   import Report.Candidate
 
-  private lazy val accuracyOf = accuracy.apply _
+  private lazy val accuracyOf = accuracy.apply
 
   private lazy val scorer = wire[ReportScore]
 
@@ -202,7 +200,7 @@ final class ReportApi(
           _ filter { case (_, bans) => bans > 4 }
         }
         .flatMap { bans =>
-          val topSum = Heapsort.topNToList(bans.values, 10, implicitly[Ordering[Int]]).sum
+          val topSum = Heapsort.topNToList(bans.values, 10).sum
           (topSum >= 80) ?? {
             userRepo.byId(userId) zip
               getLichessReporter zip
@@ -332,7 +330,7 @@ final class ReportApi(
             reason = Reason.Comm,
             text = text
           ),
-          score = _ * (if (critical) 2 else 1)
+          score = (_: Report.Score) * (if (critical) 2 else 1)
         )
       case _ => funit
     }
@@ -466,7 +464,7 @@ final class ReportApi(
       reports
         .flatMap { r =>
           users.find(_.id == r.user) map { u =>
-            Report.WithSuspect(r, Suspect(u), isOnline(u.id))
+            Report.WithSuspect(r, Suspect(u), isOnline.value(u.id))
           }
         }
         .sortBy(-_.urgency)
@@ -480,7 +478,7 @@ final class ReportApi(
       }
     }
 
-  object accuracy {
+  object accuracy:
 
     private val cache =
       cacheApi[User.ID, Option[Accuracy]](512, "report.accuracy") {
@@ -498,14 +496,13 @@ final class ReportApi(
               .cursor[Report](ReadPreference.secondaryPreferred)
               .list(20) flatMap { reports =>
               if (reports.sizeIs < 4) fuccess(none) // not enough data to know
-              else {
+              else
                 val userIds = reports.map(_.user).distinct
                 userRepo countEngines userIds map { nbEngines =>
                   Accuracy {
                     Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
                   }.some
                 }
-              }
             }
           }
       }
@@ -523,7 +520,6 @@ final class ReportApi(
           _ foreach cache.invalidate
         }
         .void
-  }
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
     (nb > 0) ?? coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
@@ -538,14 +534,13 @@ final class ReportApi(
       "reason" -> reason
     )
 
-  object inquiries {
+  object inquiries:
 
-    private val workQueue =
-      new lila.hub.AsyncActorSequencer(
-        maxSize = 32,
-        timeout = 20 seconds,
-        name = "report.inquiries"
-      )
+    private val workQueue = lila.hub.AsyncActorSequencer(
+      maxSize = Max(32),
+      timeout = 20 seconds,
+      name = "report.inquiries"
+    )
 
     def allBySuspect: Fu[Map[User.ID, Report.Inquiry]] =
       coll.list[Report]($doc("inquiry.mod" $exists true)) map {
@@ -657,5 +652,3 @@ final class ReportApi(
         coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
           coll.update.one(selector, $unset("inquiry"), multi = true).void
       }
-  }
-}

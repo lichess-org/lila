@@ -5,9 +5,9 @@ import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 
-object ResponseHeaders {
+object ResponseHeaders:
 
-  def headersForApiOrApp(req: RequestHeader) = {
+  def headersForApiOrApp(req: RequestHeader) =
     val appOrigin = HTTPRequest.appOrigin(req)
     List(
       "Access-Control-Allow-Origin"  -> appOrigin.getOrElse("*"),
@@ -27,7 +27,5 @@ object ResponseHeaders {
         "Access-Control-Allow-Credentials" -> "true"
       )
     )
-  }
 
   val allowMethods = List("OPTIONS", "GET", "POST", "DELETE") mkString ", "
-}

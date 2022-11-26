@@ -3,12 +3,12 @@ package views.html.swiss
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
-object home {
+object home:
 
   def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
     views.html.base.layout(
@@ -51,7 +51,7 @@ object home {
           tr(
             td(cls := "icon")(iconTag(bits.iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Swiss.show(s.id.value))(
+              a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
                 trans.by(span(cls := "team")(teamIdToName(s.teamId)))
               )
@@ -239,4 +239,3 @@ object home {
       )
     )
   )
-}

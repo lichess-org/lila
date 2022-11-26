@@ -1,18 +1,18 @@
 package views.html
 package game
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
 
-object widgets {
+object widgets:
 
   private val separator = " • "
 
   def apply(
       games: Seq[Game],
-      notes: Map[Game.ID, String] = Map(),
+      notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(implicit ctx: Context): Frag =
@@ -54,7 +54,7 @@ object widgets {
                   frag(separator, views.html.simul.bits.link(simulId))
                 } orElse
                 g.swissId.map { swissId =>
-                  frag(separator, views.html.swiss.bits.link(lila.swiss.Swiss.Id(swissId)))
+                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
                 }
             )
           ),
@@ -155,4 +155,3 @@ object widgets {
         }
       }
     )
-}

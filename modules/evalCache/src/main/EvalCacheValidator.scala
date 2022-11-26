@@ -1,6 +1,6 @@
 package lila.evalCache
 
-private object Validator {
+private object Validator:
 
   case class Error(message: String) extends AnyVal
 
@@ -16,4 +16,3 @@ private object Validator {
           .fold(err => Error(err).some, _ => none)
       case (error, _) => error
     }
-}

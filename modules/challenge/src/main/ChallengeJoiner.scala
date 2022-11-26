@@ -7,7 +7,7 @@ import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.variant.Variant
 import chess.{ Color, Mode, Situation }
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
@@ -16,10 +16,10 @@ final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(c: Challenge, destUser: Option[User]): Fu[Validated[String, Pov]] =
-    gameRepo exists c.id flatMap {
+    gameRepo exists GameId(c.id) flatMap {
       case true => fuccess(Invalid("The challenge has already been accepted"))
       case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { origUser =>
@@ -28,15 +28,14 @@ final private class ChallengeJoiner(
             Valid(Pov(game, !c.finalColor))
         }
     }
-}
 
-private object ChallengeJoiner {
+private object ChallengeJoiner:
 
   def createGame(
       c: Challenge,
       origUser: Option[User],
       destUser: Option[User]
-  ): Game = {
+  ): Game =
     val (chessGame, state) = gameSetup(c.variant, c.timeControl, c.initialFen)
     Game
       .make(
@@ -49,16 +48,15 @@ private object ChallengeJoiner {
         pgnImport = None,
         rules = c.rules
       )
-      .withId(c.id)
+      .withId(GameId(c.id))
       .pipe(addGameHistory(state))
       .start
-  }
 
   def gameSetup(
       variant: Variant,
       tc: Challenge.TimeControl,
       initialFen: Option[FEN]
-  ): (chess.Game, Option[SituationPlus]) = {
+  ): (chess.Game, Option[SituationPlus]) =
 
     def makeChess(variant: Variant): chess.Game =
       chess.Game(situation = Situation(variant), clock = tc.realTime.map(_.toClock))
@@ -78,7 +76,6 @@ private object ChallengeJoiner {
         makeChess(chess.variant.Standard) -> none
       else game                           -> baseState
     }
-  }
 
   def addGameHistory(position: Option[SituationPlus])(game: Game): Game =
     position.fold(game) { case sit @ SituationPlus(Situation(board, _), _) =>
@@ -91,4 +88,3 @@ private object ChallengeJoiner {
         )
       )
     }
-}

@@ -1,6 +1,6 @@
 package lila.analyse
 
-import cats.implicits._
+import cats.implicits.*
 import chess.Color
 import chess.format.Uci
 
@@ -11,7 +11,7 @@ case class Info(
     eval: Eval,
     // variation is first in UCI, then converted to PGN before storage
     variation: List[String] = Nil
-) {
+):
 
   def cp   = eval.cp
   def mate = eval.mate
@@ -47,9 +47,8 @@ case class Info(
 
   override def toString =
     s"Info $color [$ply] ${cp.fold("?")(_.showPawns)} ${mate.??(_.value)} $best"
-}
 
-object Info {
+object Info:
 
   import Eval.{ Cp, Mate }
 
@@ -60,11 +59,11 @@ object Info {
 
   def start(ply: Int) = Info(ply, Eval.initial, Nil)
 
-  private def strCp(s: String)   = s.toIntOption map Cp.apply
-  private def strMate(s: String) = s.toIntOption map Mate.apply
+  private def strCp(s: String)   = Cp from s.toIntOption
+  private def strMate(s: String) = Mate from s.toIntOption
 
   private def decode(ply: Int, str: String): Option[Info] =
-    str.split(separator) match {
+    str.split(separator) match
       case Array()           => Info(ply, Eval.empty).some
       case Array(cp)         => Info(ply, Eval(strCp(cp), None, None)).some
       case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
@@ -72,7 +71,6 @@ object Info {
       case Array(cp, ma, va, be) =>
         Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move piotr be), va.split(' ').toList).some
       case _ => none
-    }
 
   def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
     str.split(listSeparator).toList.zipWithIndex map { case (infoStr, index) =>
@@ -84,4 +82,3 @@ object Info {
 
   def apply(cp: Option[Cp], mate: Option[Mate], variation: List[String]): Int => Info =
     ply => Info(ply, Eval(cp, mate, None), variation)
-}

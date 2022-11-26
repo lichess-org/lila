@@ -1,21 +1,20 @@
 package lila.forum
 
-import actorApi._
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.Bus
-import lila.common.paginator._
+import lila.common.paginator.*
 import lila.common.String.noShouting
-import lila.db.dsl._
-import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.db.dsl.{ *, given }
+import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.memo.CacheApi
-import lila.security.{ Granter => MasterGranter }
+import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Holder, User }
 
-final private[forum] class TopicApi(
-    postRepo: PostRepo,
-    topicRepo: TopicRepo,
-    categRepo: CategRepo,
+final private class ForumTopicApi(
+    postRepo: ForumPostRepo,
+    topicRepo: ForumTopicRepo,
+    categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
     paginator: ForumPaginator,
     indexer: lila.hub.actors.ForumSearch,
@@ -27,16 +26,18 @@ final private[forum] class TopicApi(
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def show(
       categSlug: String,
       slug: String,
       page: Int,
       forUser: Option[User]
-  )(implicit netDomain: lila.common.config.NetDomain): Fu[Option[(Categ, Topic, Paginator[Post.WithFrag])]] =
+  )(implicit
+      netDomain: lila.common.config.NetDomain
+  ): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for {
       data <- categRepo bySlug categSlug flatMap {
         _ ?? { categ =>
@@ -51,33 +52,32 @@ final private[forum] class TopicApi(
       }
     } yield res
 
-  object findDuplicate {
-    private val cache = cacheApi.notLoadingSync[(User.ID, String), Topic.ID](64, "forum.topic.duplicate") {
-      _.expireAfterWrite(1 hour).build()
-    }
-    def apply(topic: Topic): Fu[Option[Topic]] = {
+  object findDuplicate:
+    private val cache =
+      cacheApi.notLoadingSync[(User.ID, String), ForumTopic.ID](64, "forum.topic.duplicate") {
+        _.expireAfterWrite(1 hour).build()
+      }
+    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] =
       val key = (~topic.userId, topic.name)
-      cache.getIfPresent(key) ?? topicRepo.coll.byId[Topic] orElse {
+      cache.getIfPresent(key) ?? { topicRepo.coll.byId[ForumTopic](_) } orElse {
         cache.put(key, topic.id)
         fuccess(none)
       }
-    }
-  }
 
   def makeTopic(
-      categ: Categ,
+      categ: ForumCateg,
       data: ForumForm.TopicData,
       me: User
-  ): Fu[Topic] =
+  ): Fu[ForumTopic] =
     topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
-      val topic = Topic.make(
+      val topic = ForumTopic.make(
         categId = categ.slug,
         slug = slug,
         name = noShouting(data.name),
         userId = me.id,
         troll = me.marks.troll
       )
-      val post = Post.make(
+      val post = ForumPost.make(
         topicId = topic.id,
         author = none,
         userId = me.id.some,
@@ -102,12 +102,12 @@ final private[forum] class TopicApi(
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id))
+                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id.value))
                   .toFollowersOf(me.id)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
-              Bus.publish(actorApi.CreatePost(post), "forumPost")
+              Bus.publish(CreatePost(post), "forumPost")
             } inject topic
       }
     }
@@ -119,9 +119,9 @@ final private[forum] class TopicApi(
       ublogId: String,
       authorId: User.ID
   ): Funit =
-    categRepo.bySlug(Categ.ublogSlug) flatMap {
+    categRepo.bySlug(ForumCateg.ublogSlug) flatMap {
       _ ?? { categ =>
-        val topic = Topic.make(
+        val topic = ForumTopic.make(
           categId = categ.slug,
           slug = slug,
           name = name,
@@ -129,7 +129,7 @@ final private[forum] class TopicApi(
           userId = authorId,
           ublogId = ublogId.some
         )
-        val post = Post.make(
+        val post = ForumPost.make(
           topicId = topic.id,
           author = none,
           userId = authorId.some,
@@ -143,15 +143,15 @@ final private[forum] class TopicApi(
       }
     }
 
-  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String) = {
-    val topic = Topic.make(
+  def makeBlogDiscuss(categ: ForumCateg, slug: String, name: String, url: String) =
+    val topic = ForumTopic.make(
       categId = categ.slug,
       slug = slug,
       name = name,
       troll = false,
       userId = User.lichessId
     )
-    val post = Post.make(
+    val post = ForumPost.make(
       topicId = topic.id,
       author = none,
       userId = User.lichessId.some,
@@ -163,39 +163,37 @@ final private[forum] class TopicApi(
       modIcon = true.some
     )
     makeNewTopic(categ, topic, post)
-  }
 
-  private def makeNewTopic(categ: Categ, topic: Topic, post: Post) = {
+  private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) =
     postRepo.coll.insert.one(post) >>
       topicRepo.coll.insert.one(topic withPost post) >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
       (indexer ! InsertPost(post)) >>-
-      Bus.publish(actorApi.CreatePost(post), "forumPost") void
-  }
+      Bus.publish(CreatePost(post), "forumPost") void
 
-  def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
+  def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
-        postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
+        postRepo.coll.byId[ForumPost](topic lastPostId forUser) map { post =>
           TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
         }
       }.sequenceFu
     }
 
-  def toggleClose(categ: Categ, topic: Topic, mod: Holder): Funit =
+  def toggleClose(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
     topicRepo.close(topic.id, topic.open) >> {
       (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) ?? {
         modLog.toggleCloseTopic(mod.id, categ.id, topic.slug, topic.open)
       }
     }
 
-  def toggleSticky(categ: Categ, topic: Topic, mod: Holder): Funit =
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
       MasterGranter.is(_.ModerateForum)(mod) ??
         modLog.toggleStickyTopic(mod.id, categ.id, topic.slug, !topic.isSticky)
     }
 
-  def denormalize(topic: Topic): Funit =
+  def denormalize(topic: ForumTopic): Funit =
     for {
       nbPosts       <- postRepo countByTopic topic
       lastPost      <- postRepo lastByTopic topic
@@ -207,13 +205,12 @@ final private[forum] class TopicApi(
             $id(topic.id),
             topic.copy(
               nbPosts = nbPosts,
-              lastPostId = lastPost ?? (_.id),
+              lastPostId = lastPost.fold(topic.lastPostId)(_.id),
               updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
               nbPostsTroll = nbPostsTroll,
-              lastPostIdTroll = lastPostTroll ?? (_.id),
+              lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
               updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
             )
           )
           .void
     } yield ()
-}

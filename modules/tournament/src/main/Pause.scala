@@ -1,7 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.user.User
 
@@ -12,9 +12,9 @@ import lila.user.User
  * (e.g. 20 seconds for second pause in 5+0) with maximum of 120 seconds.
  * After 20 minutes without any pause, the delay is reinitialized to 10s.
  */
-final private class Pause {
+final private class Pause:
 
-  import Pause._
+  import Pause.*
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(20 minutes)
@@ -46,19 +46,16 @@ final private class Pause {
 
   def canJoin(userId: User.ID, tour: Tournament): Boolean =
     remainingDelay(userId, tour).isEmpty
-}
 
-object Pause {
+object Pause:
 
-  case class Record(pauses: Int, pausedAt: DateTime) {
+  case class Record(pauses: Int, pausedAt: DateTime):
     def add =
       copy(
         pauses = pauses + 1,
         pausedAt = DateTime.now
       )
-  }
   val newRecord = Record(1, DateTime.now)
 
   // pause counter of a player
   case class Delay(seconds: Int) extends AnyVal
-}

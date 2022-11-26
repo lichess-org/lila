@@ -1,15 +1,15 @@
 package controllers
 
-import cats.implicits._
-import play.api.libs.json._
-import scala.concurrent.duration._
-import views._
+import cats.implicits.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
+import views.*
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.user.Holder
 
-final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
+final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
   private val CreateRateLimit =
     new lila.memo.RateLimit[IpAddress](
@@ -36,7 +36,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     AuthBody { implicit ctx => me =>
       NoBot {
         CategGrantWrite(categSlug) {
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
             categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
               forms
@@ -80,7 +80,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               if (canRead)
                 Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg))
                   .withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page))
-                  .fuccess
+                  .toFuccess
               else notFound
           } yield res
         }
@@ -116,4 +116,3 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         usernames <- env.user.repo usernamesByIds userIds
       } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
     }
-}

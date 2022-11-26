@@ -1,16 +1,16 @@
 package views
 package html.forum
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
-import lila.forum.Post
+import lila.forum.ForumPost
 
-object post {
+object post:
 
   def recent(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context) =
     ol(
@@ -33,15 +33,15 @@ object post {
     )
 
   def show(
-      categ: lila.forum.Categ,
-      topic: lila.forum.Topic,
-      postWithFrag: lila.forum.Post.WithFrag,
+      categ: lila.forum.ForumCateg,
+      topic: lila.forum.ForumTopic,
+      postWithFrag: lila.forum.ForumPost.WithFrag,
       url: String,
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
-  )(implicit ctx: Context) = postWithFrag match {
-    case Post.WithFrag(post, body) =>
+  )(implicit ctx: Context) = postWithFrag match
+    case ForumPost.WithFrag(post, body) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg) option div(
@@ -130,13 +130,12 @@ object post {
             )
           )
       )
-  }
 
-  def reactions(post: Post, canReact: Boolean)(implicit ctx: Context) = {
-    val mine             = ctx.me ?? { Post.Reaction.of(~post.reactions, _) }
+  def reactions(post: ForumPost, canReact: Boolean)(implicit ctx: Context) =
+    val mine             = ctx.me ?? { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
-      Post.Reaction.list.map { r =>
+      ForumPost.Reaction.list.map { r =>
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
@@ -156,5 +155,3 @@ object post {
         )
       }
     )
-  }
-}

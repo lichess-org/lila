@@ -1,16 +1,16 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.insight.InsightPosition
 import lila.tutor.{ TutorFullReport, TutorOpeningFamily, TutorPerfReport }
 
-object opening {
+object opening:
 
   def apply(
       full: TutorFullReport.Available,
@@ -19,7 +19,7 @@ object opening {
       as: chess.Color,
       user: lila.user.User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
     bits.layout(
       full,
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
@@ -89,5 +89,3 @@ object opening {
         grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
       )
     )
-  }
-}

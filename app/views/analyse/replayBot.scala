@@ -1,11 +1,11 @@
 package views.html.analyse
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
-object replayBot {
+object replayBot:
 
   def apply(
       pov: Pov,
@@ -13,7 +13,7 @@ object replayBot {
       pgn: String,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     views.html.analyse.bits.layout(
       title = replay titleOf pov,
@@ -45,5 +45,3 @@ object replayBot {
         )
       )
     }
-  }
-}

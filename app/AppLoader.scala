@@ -1,24 +1,24 @@
 package lila.app
 
-import akka.actor.CoordinatedShutdown
-import com.softwaremill.macwire._
-import play.api._
+import akka.actor.{ ActorSystem, CoordinatedShutdown }
+import com.softwaremill.macwire.*
+import play.api.*
 import play.api.http.HttpRequestHandler
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc._
-import play.api.mvc.request._
+import play.api.mvc.*
+import play.api.mvc.request.*
 import play.api.routing.Router
 import scala.annotation.nowarn
+import play.api.http.FileMimeTypes
 
-final class AppLoader extends ApplicationLoader {
+final class AppLoader extends ApplicationLoader:
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
-}
 
-final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx) {
+final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx):
 
   // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
-  implicit val ec: scala.concurrent.ExecutionContext =
+  given scala.concurrent.ExecutionContext =
     scala.concurrent.ExecutionContext.getClass
       .getDeclaredMethod("opportunistic")
       .invoke(scala.concurrent.ExecutionContext)
@@ -33,23 +33,22 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
     val mem              = Runtime.getRuntime.maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila ${ctx.environment.mode} $appVersionCommit $appVersionDate / java $java, memory: ${mem}MB"
+    s"lila ${ctx.environment.mode} $appVersionCommit $appVersionDate / scala 3 / java $java, memory: ${mem}MB"
   }
 
-  import _root_.controllers._
+  import _root_.controllers.*
 
   // we want to use the legacy session cookie baker
   // for compatibility with lila-ws
   def cookieBaker = new LegacySessionCookieBaker(httpConfiguration.session, cookieSigner)
 
-  override lazy val requestFactory: RequestFactory = {
+  override lazy val requestFactory: RequestFactory =
     val cookieSigner = new CookieSignerProvider(httpConfiguration.secret).get
     new DefaultRequestFactory(
       new DefaultCookieHeaderEncoding(httpConfiguration.cookies),
       cookieBaker,
       new LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
     )
-  }
 
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
@@ -71,9 +70,9 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
       controllerComponents
     )
 
-  implicit def system = actorSystem
+  given ActorSystem = actorSystem
 
-  implicit lazy val httpClient: StandaloneWSClient = {
+  implicit lazy val httpClient: StandaloneWSClient =
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
     import play.api.libs.ws.WSConfigParser
     import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
@@ -88,13 +87,12 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
         ).build()
       )
     )
-  }
 
   // dev assets
-  implicit def mimeTypes       = fileMimeTypes
+  given FileMimeTypes          = fileMimeTypes
   lazy val devAssetsController = wire[ExternalAssets]
 
-  lazy val shutdown = CoordinatedShutdown(system)
+  lazy val shutdown = CoordinatedShutdown
 
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env      = boot.env
@@ -169,13 +167,11 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val opening: Opening               = wire[Opening]
 
   // eagerly wire up all controllers
-  private val appealRouter: _root_.appeal.Routes = wire[_root_.appeal.Routes]
-  private val reportRouter: _root_.report.Routes = wire[_root_.report.Routes]
-  private val clasRouter: _root_.clas.Routes     = wire[_root_.clas.Routes]
-  val router: Router                             = wire[_root_.router.Routes]
+  private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]
+  private val reportRouter: _root_.router.report.Routes = wire[_root_.router.report.Routes]
+  private val clasRouter: _root_.router.clas.Routes     = wire[_root_.router.clas.Routes]
+  val router: Router                                    = wire[_root_.router.router.Routes]
 
-  if (configuration.get[Boolean]("kamon.enabled")) {
+  if (configuration.get[Boolean]("kamon.enabled"))
     lila.log("boot").info("Kamon is enabled")
     kamon.Kamon.init()
-  }
-}

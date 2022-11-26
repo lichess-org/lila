@@ -1,14 +1,15 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import views._
+import play.api.libs.json.*
+import play.api.mvc.*
+import views.*
 
-import lila.app._
+import lila.app.{ *, given }
 import lila.i18n.I18nLangPicker
 import lila.api.Context
+import lila.common.Json.given
 
-final class Lobby(env: Env) extends LilaController(env) {
+final class Lobby(env: Env) extends LilaController(env):
 
   private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
@@ -16,7 +17,7 @@ final class Lobby(env: Env) extends LilaController(env) {
       "pools"   -> lila.pool.PoolList.json
     ),
     "assets" -> Json.obj(
-      "domain" -> env.net.assetDomain.value
+      "domain" -> env.net.assetDomain
     )
   )
 
@@ -66,4 +67,3 @@ final class Lobby(env: Env) extends LilaController(env) {
         Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
       }
     }
-}

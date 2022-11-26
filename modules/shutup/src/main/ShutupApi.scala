@@ -1,9 +1,9 @@
 package lila.shutup
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
-import lila.game.GameRepo
+import lila.db.dsl.*
+import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.{ User, UserRepo }
 
@@ -13,10 +13,10 @@ final class ShutupApi(
     userRepo: UserRepo,
     relationApi: lila.relation.RelationApi,
     reporter: lila.hub.actors.Report
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val UserRecordBSONHandler = Macros.handler[UserRecord]
-  import PublicLine.PublicLineBSONHandler
+  private given BSONDocumentHandler[UserRecord] = Macros.handler
+  import PublicLine.given
 
   def getPublicLines(userId: User.ID): Fu[List[PublicLine]] =
     coll
@@ -32,7 +32,7 @@ final class ShutupApi(
     record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: User.ID, text: String) =
-    gameRepo.getSourceAndUserIds(chatId) flatMap {
+    gameRepo.getSourceAndUserIds(GameId(chatId)) flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
@@ -69,8 +69,8 @@ final class ShutupApi(
                 "$slice" -> -textType.rotation
               )
             ) ++ pushPublicLine
-            coll.ext
-              .findAndUpdate[UserRecord](
+            coll
+              .findAndUpdateSimplified[UserRecord](
                 selector = $id(userId),
                 update = $push(push),
                 fetchNewObject = true,
@@ -108,4 +108,3 @@ final class ShutupApi(
           s"${r.textType.name}: ${r.nbBad} dubious (out of ${r.ratios.size})"
       }
       .mkString("\n")
-}

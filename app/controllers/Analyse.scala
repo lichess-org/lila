@@ -2,11 +2,11 @@ package controllers
 
 import chess.format.FEN
 import play.api.libs.json.JsArray
-import play.api.mvc._
-import views._
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
@@ -16,9 +16,9 @@ final class Analyse(
     env: Env,
     gameC: => Game,
     roundC: => Round
-) extends LilaController(env) {
+) extends LilaController(env):
 
-  def requestAnalysis(id: String) =
+  def requestAnalysis(id: GameId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game id) { game =>
         env.fishnet.analyser(
@@ -30,10 +30,9 @@ final class Analyse(
             system = false
           )
         ) map { result =>
-          result.error match {
+          result.error match
             case None        => NoContent
             case Some(error) => BadRequest(error)
-          }
         }
       }
     }
@@ -93,11 +92,11 @@ final class Analyse(
         }
       }
 
-  def embed(gameId: String, color: String) = embedReplayGame(gameId, color)
+  def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)
 
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 
-  def embedReplayGame(gameId: String, color: String) =
+  def embedReplayGame(gameId: GameId, color: String) =
     Action.async { implicit req =>
       env.api.textLpvExpand.getPgn(gameId) map {
         case Some(pgn) =>
@@ -169,7 +168,7 @@ final class Analyse(
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
-            err => newJsonFormError(err)(me.realLang | reqLang),
+            err => newJsonFormError(err)(using me.realLang | reqLang),
             data =>
               env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
                 Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -185,7 +184,7 @@ final class Analyse(
           lila.analyse.ExternalEngine.form
             .bindFromRequest()
             .fold(
-              err => newJsonFormError(err)(me.realLang | reqLang),
+              err => newJsonFormError(err)(using me.realLang | reqLang),
               data =>
                 env.analyse.externalEngine.update(engine, data) map { engine =>
                   JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -201,4 +200,3 @@ final class Analyse(
         if (res) jsonOkResult else notFoundJsonSync()
       }
     }
-}

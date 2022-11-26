@@ -1,13 +1,13 @@
 package lila.analyse
 
 import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn }
-import chess.opening._
+import chess.opening.*
 import chess.{ Color, Status }
 
 import lila.game.GameDrawOffers
 import lila.game.Game
 
-final class Annotator(netDomain: lila.common.config.NetDomain) {
+final class Annotator(netDomain: lila.common.config.NetDomain):
 
   def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
     annotateStatus(game.winnerColor, game.status) {
@@ -40,18 +40,16 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
       )
     }
 
-  def toPgnString(pgn: Pgn) = {
+  def toPgnString(pgn: Pgn) =
     // merge analysis & eval comments
     // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
     // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
     s"$pgn\n\n\n".replaceIf("] } { [", "] [")
-  }
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
-    lila.game.StatusText(status, winner, chess.variant.Standard) match {
+    lila.game.StatusText(status, winner, chess.variant.Standard) match
       case ""   => p
       case text => p.updateLastPly(_.copy(result = text.some))
-    }
 
   private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) =
     opening.fold(p) { o =>
@@ -95,4 +93,3 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
       },
       turn plyOf advice.color
     )
-}

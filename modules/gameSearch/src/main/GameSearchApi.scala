@@ -1,26 +1,26 @@
 package lila.gameSearch
 
-import play.api.libs.json._
-import scala.concurrent.duration._
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.game.{ Game, GameRepo }
-import lila.search._
+import lila.search.*
 
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) extends SearchReadApi[Game, Query] {
+) extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      gameRepo gamesFromSecondary res.ids
+      gameRepo gamesFromSecondary res.ids.map(GameId(_))
     }
 
   def count(query: Query) =
-    client.count(query) dmap (_.count)
+    client.count(query).dmap(_.value)
 
   def ids(query: Query, max: Int): Fu[List[String]] =
     client.search(query, From(0), Size(max)).map(_.ids)
@@ -30,7 +30,7 @@ final class GameSearchApi(
       gameRepo isAnalysed game.id flatMap { analysed =>
         lila.common.Future
           .retry(
-            () => client.store(Id(game.id), toDoc(game, analysed)),
+            () => client.store(game.id into Id, toDoc(game, analysed)),
             delay = 20.seconds,
             retries = 2,
             logger.some
@@ -67,4 +67,3 @@ final class GameSearchApi(
         Fields.source        -> game.source.map(_.id)
       )
       .noNull
-}

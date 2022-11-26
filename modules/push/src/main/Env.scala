@@ -1,16 +1,16 @@
 package lila.push
 
-import akka.actor._
+import akka.actor.*
 import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import java.nio.charset.StandardCharsets.UTF_8
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
-import lila.common.config._
-import FirebasePush.configLoader
+import lila.common.config.*
+import FirebasePush.given
 
 @Module
 final private class PushConfig(
@@ -29,10 +29,10 @@ final class Env(
     getLightUser: lila.common.LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 
@@ -41,21 +41,20 @@ final class Env(
   private lazy val deviceApi  = new DeviceApi(db(config.deviceColl))
   lazy val webSubscriptionApi = new WebSubscriptionApi(db(config.subscriptionColl))
 
-  def registerDevice    = deviceApi.register _
-  def unregisterDevices = deviceApi.unregister _
+  def registerDevice    = deviceApi.register
+  def unregisterDevices = deviceApi.unregister
 
   private lazy val googleCredentials: Option[GoogleCredentials] =
-    try {
+    try
       config.firebase.json.value.some.filter(_.nonEmpty).map { json =>
         ServiceAccountCredentials
           .fromStream(new java.io.ByteArrayInputStream(json.getBytes(UTF_8)))
           .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
       }
-    } catch {
+    catch
       case e: Exception =>
         logger.warn("Failed to create google credentials", e)
         none
-    }
   if (googleCredentials.isDefined) logger.info("Firebase push notifications are enabled.")
 
   private lazy val firebasePush = wire[FirebasePush]
@@ -64,10 +63,9 @@ final class Env(
 
   private lazy val pushApi: PushApi = wire[PushApi]
 
-  private def logUnit(f: Fu[_]): Unit = {
+  private def logUnit(f: Fu[?]): Unit =
     f logFailure logger
     ()
-  }
   lila.common.Bus.subscribeFun(
     "finishGame",
     "moveEventCorres",
@@ -97,4 +95,3 @@ final class Env(
     case t: lila.hub.actorApi.push.TourSoon =>
       logUnit { pushApi tourSoon t }
   }
-}

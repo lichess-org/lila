@@ -2,12 +2,12 @@ package views.html
 package appeal
 
 import controllers.routes
-import controllers.appeal.routes.{ Appeal => appealRoutes }
+import controllers.appeal.routes.{ Appeal as appealRoutes }
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import views.html.appeal.tree
 import lila.appeal.Appeal
 import lila.common.String.html.richText
@@ -17,7 +17,7 @@ import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.{ Holder, User }
 
-object discussion {
+object discussion:
 
   case class ModData(
       mod: Holder,
@@ -100,7 +100,7 @@ object discussion {
       as.left.toOption map { m =>
         frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(ctx, m.renderIp)(
+          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(using ctx, m.renderIp)(
             cls := "mod-zone communication__logins"
           )
         )
@@ -133,7 +133,7 @@ object discussion {
       )
     )
 
-  private def renderMark(suspect: User)(implicit ctx: Context) = {
+  private def renderMark(suspect: User)(implicit ctx: Context) =
     val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
     if (suspect.disabled || query.contains("alt")) tree.closedByModerators
     else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
@@ -141,7 +141,6 @@ object discussion {
     else if (suspect.marks.troll || query.contains("shadowban")) tree.accountMuted
     else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
     else tree.cleanAllGood
-  }
 
   private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
     if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")
@@ -155,7 +154,7 @@ object discussion {
         )
       )
 
-  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
+  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(using
       ctx: Context
   ) =
     postForm(st.action := action)(
@@ -183,4 +182,3 @@ object discussion {
         )
       } getOrElse form3.submit(trans.send())
     )
-}

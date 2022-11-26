@@ -1,18 +1,18 @@
 package views.html.forum
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 import lila.team.Team
 
-object search {
+object search:
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(implicit
+  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using
       ctx: Context
-  ) = {
+  ) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -67,5 +67,3 @@ object search {
         )
       )
     )
-  }
-}

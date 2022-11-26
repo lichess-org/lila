@@ -2,16 +2,16 @@ package views.html.team
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.app.mashup.TeamInfo
 
 import controllers.routes
 
-object tournaments {
+object tournaments:
 
-  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(implicit ctx: Context) = {
+  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${t.name} • ${trans.tournaments.txt()}",
       openGraph = lila.app.ui
@@ -50,7 +50,6 @@ object tournaments {
         )
       )
     }
-  }
 
   def renderList(tours: List[TeamInfo.AnyTour])(implicit ctx: Context) =
     tbody(
@@ -79,7 +78,7 @@ object tournaments {
                   )
                 ),
               s =>
-                a(href := routes.Swiss.show(s.id.value))(
+                a(href := routes.Swiss.show(s.id))(
                   span(cls := "name")(s.name),
                   span(cls := "setup")(
                     s.clock.show,
@@ -118,4 +117,3 @@ object tournaments {
   private def renderStartsAt(any: TeamInfo.AnyTour)(implicit lang: Lang): Frag =
     if (any.isEnterable && any.startsAt.isBeforeNow) trans.playingRightNow()
     else momentFromNowOnce(any.startsAt)
-}

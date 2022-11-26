@@ -1,22 +1,22 @@
 package controllers
 
-import play.api.libs.json.Json
-import scala.concurrent.duration._
+import play.api.libs.json.{ Json, Writes }
+import scala.concurrent.duration.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
 import lila.relation.Related
-import lila.relation.RelationStream._
-import lila.user.{ User => UserModel }
-import views._
+import lila.relation.RelationStream.*
+import lila.user.{ User as UserModel }
+import views.*
 import lila.common.config
 
 final class Relation(
     env: Env,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   val api = env.relation.api
 
@@ -128,10 +128,10 @@ final class Relation(
             negotiate(
               html = {
                 if (ctx.is(user) || isGranted(_.CloseAccount))
-                  Ok(html.relation.bits.friends(user, pag)).fuccess
-                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).fuccess)
+                  Ok(html.relation.bits.friends(user, pag)).toFuccess
+                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).toFuccess)
               },
-              api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
+              api = _ => Ok(jsonRelatedPaginator(pag)).toFuccess
             )
           }
         }
@@ -145,7 +145,7 @@ final class Relation(
         api = _ =>
           Reasonable(page, config.Max(20)) {
             RelatedPager(api.followersPaginatorAdapter(UserModel normalize username), page) flatMap { pag =>
-              Ok(jsonRelatedPaginator(pag)).fuccess
+              Ok(jsonRelatedPaginator(pag)).toFuccess
             }
           }
       )
@@ -156,22 +156,21 @@ final class Relation(
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
         .map(env.api.userApi.one)
-    }.fuccess
+    }.toFuccess
   }
 
-  private def jsonRelatedPaginator(pag: Paginator[Related]) = {
-    import lila.user.JsonView.nameWrites
-    import lila.relation.JsonView.relatedWrites
+  private def jsonRelatedPaginator(pag: Paginator[Related]) =
+    given Writes[UserModel] = lila.user.JsonView.nameWrites
+    import lila.relation.JsonView.given
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
-      relatedWrites.writes(r) ++ Json
+      Json.toJsObject(r) ++ Json
         .obj(
           "perfs" -> r.user.perfs.bestPerfType.map { best =>
             lila.user.JsonView.perfs(r.user, best.some)
           }
         )
-        .add("online" -> env.socket.isOnline(r.user.id))
+        .add("online" -> env.socket.isOnline.value(r.user.id))
     }))
-  }
 
   def blocks(page: Int) =
     Auth { implicit ctx => me =>
@@ -199,4 +198,3 @@ final class Relation(
         }.sequenceFu
       }
     }
-}

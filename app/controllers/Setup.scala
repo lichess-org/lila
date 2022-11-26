@@ -3,18 +3,18 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Results
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import chess.format.FEN
 import lila.api.{ BodyContext, Context }
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
 import lila.rating.Glicko
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
-import views._
+import views.*
 
 final class Setup(
     env: Env,
@@ -22,7 +22,7 @@ final class Setup(
     challengeC: => Challenge,
     apiC: => Api
 ) extends LilaController(env)
-    with TheftPrevention {
+    with TheftPrevention:
 
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
@@ -52,13 +52,13 @@ final class Setup(
   def ai = OpenBody { implicit ctx =>
     BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         forms.ai
           .bindFromRequest()
           .fold(
             jsonFormError,
             config =>
-              processor.ai(config)(ctx) flatMap { pov =>
+              processor.ai(config) flatMap { pov =>
                 negotiate(
                   html = fuccess(redirectPov(pov)),
                   api = apiVersion =>
@@ -74,7 +74,7 @@ final class Setup(
 
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       PostRateLimit(ctx.ip) {
         forms
           .friend(ctx)
@@ -87,12 +87,12 @@ final class Setup(
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = Forbidden(jsonError(message)).fuccess,
+                      html = Forbidden(jsonError(message)).toFuccess,
                       // 403 tells setupCtrl.ts to close the setup modal
-                      api = _ => BadRequest(jsonError(message)).fuccess
+                      api = _ => BadRequest(jsonError(message)).toFuccess
                     )
                   case None =>
-                    import lila.challenge.Challenge._
+                    import lila.challenge.Challenge.*
                     val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
                     val challenge = lila.challenge.Challenge.make(
                       variant = config.variant,
@@ -100,7 +100,7 @@ final class Setup(
                       timeControl = timeControl,
                       mode = config.mode,
                       color = config.color.name,
-                      challenger = (ctx.me, HTTPRequest sid req) match {
+                      challenger = (ctx.me, HTTPRequest sid ctx.req) match {
                         case (Some(user), _) => toRegistered(config.variant, timeControl)(user)
                         case (_, Some(sid))  => Challenger.Anonymous(sid)
                         case _               => Challenger.Open
@@ -127,7 +127,7 @@ final class Setup(
     }
 
   private def hookResponse(res: HookResult) =
-    res match {
+    res match
       case HookResult.Created(id) =>
         JsonOk(
           Json.obj(
@@ -136,15 +136,13 @@ final class Setup(
           )
         )
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
-    }
 
   def hook(sri: String) =
     OpenBody { implicit ctx =>
       NoBot {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         NoPlaybanOrCurrent {
-          forms
-            .hook(ctx)
+          forms.hook
             .bindFromRequest()
             .fold(
               jsonFormError,
@@ -155,7 +153,7 @@ final class Setup(
                       processor.hook(
                         userConfig withinLimits ctx.me,
                         Sri(sri),
-                        HTTPRequest sid req,
+                        HTTPRequest sid ctx.req,
                         blocking
                       ) map hookResponse
                     }
@@ -166,7 +164,7 @@ final class Setup(
       }
     }
 
-  def like(sri: String, gameId: String) =
+  def like(sri: String, gameId: GameId) =
     Open { implicit ctx =>
       NoBot {
         PostRateLimit(ctx.ip) {
@@ -178,7 +176,7 @@ final class Setup(
                   hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
                   hookConfigWithRating = get("rr").fold(
                     hookConfig.withRatingRange(
-                      ctx.me.fold(Glicko.default.rating.toInt.some)(_.perfs.ratingOf(game.perfKey)),
+                      ctx.me.fold(Glicko.default.intRating.some)(_.perfs.ratingOf(game.perfKey)),
                       get("deltaMin"),
                       get("deltaMax")
                     )
@@ -208,8 +206,8 @@ final class Setup(
   )
   def boardApiHook =
     ScopedBody(_.Board.Play) { implicit req => me =>
-      implicit val lang = reqLang
-      if (me.isBot) notForBotAccounts.fuccess
+      given play.api.i18n.Lang = reqLang
+      if (me.isBot) notForBotAccounts.toFuccess
       else
         forms.boardApiHook
           .bindFromRequest()
@@ -223,7 +221,7 @@ final class Setup(
                     PostRateLimit(HTTPRequest ipAddress req) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(
                         env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                      )(apiC.sourceToNdJsonOption).fuccess
+                      )(apiC.sourceToNdJsonOption).toFuccess
                     }(rateLimitedFu)
                   case Right(Some(seek)) =>
                     env.setup.processor.createSeekIfAllowed(seek, me.id) map {
@@ -244,15 +242,14 @@ final class Setup(
 
   def validateFen =
     Open { implicit ctx =>
-      get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match {
-        case None    => BadRequest.fuccess
-        case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).fuccess
-      }
+      get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match
+        case None    => BadRequest.toFuccess
+        case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).toFuccess
     }
 
   def apiAi =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
-      implicit val lang = reqLang
+      given play.api.i18n.Lang = reqLang
       BotAiRateLimit(me.id, cost = me.isBot ?? 1) {
         PostRateLimit(HTTPRequest ipAddress req) {
           forms.api.ai
@@ -268,15 +265,13 @@ final class Setup(
       }(rateLimitedFu)
     }
 
-  private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
+  private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) =
     val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
     if (ctx.isAuth) redir
     else
       redir withCookies env.lilaCookie.cookie(
         AnonCookie.name,
-        pov.playerId,
+        pov.playerId.value,
         maxAge = AnonCookie.maxAge.some,
         httpOnly = false.some
       )
-  }
-}

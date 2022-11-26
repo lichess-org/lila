@@ -2,15 +2,15 @@ package controllers
 package appeal
 
 import play.api.mvc.Result
-import views._
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.report.Suspect
 import play.api.data.Form
 
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
-    extends LilaController(env) {
+    extends LilaController(env):
 
   private def form(implicit ctx: Context) =
     if (isGranted(_.Appeals)) lila.appeal.Appeal.modForm
@@ -23,12 +23,12 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def landing =
     Auth { implicit ctx => me =>
-      if (ctx.isAppealUser || isGranted(_.Appeals)) {
+      if (ctx.isAppealUser || isGranted(_.Appeals))
         pageHit
         OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
           views.html.site.page.lone(doc, resolver)
         }
-      } else notFound
+      else notFound
     }
 
   private def renderAppealOrTree(
@@ -44,7 +44,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def post =
     AuthBody { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       form
         .bindFromRequest()
         .fold(
@@ -78,7 +78,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   def reply(username: String) =
     SecureBody(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         form
           .bindFromRequest()
           .fold(
@@ -97,7 +97,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       }
     }
 
-  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(implicit
+  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(using
       ctx: Context
   ) =
     for {
@@ -158,4 +158,3 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     } flatMap {
       _.fold(notFound)(fuccess)
     }
-}

@@ -2,15 +2,15 @@ package views.html.streamer
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 
-object index {
+object index:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   private val dataDedup = attr("data-dedup")
 
@@ -18,7 +18,7 @@ object index {
       live: List[lila.streamer.Streamer.WithUserAndStream],
       pager: Paginator[lila.streamer.Streamer.WithUser],
       requests: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
 
@@ -67,7 +67,7 @@ object index {
       main(cls                                                          := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
-          boxTop(h1(dataIcon := "", cls := "text"))(title),
+          boxTop(h1(dataIcon := "", cls := "text")(title)),
           !requests option div(cls := "list live")(
             live.map { s =>
               st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
@@ -91,5 +91,3 @@ object index {
         )
       )
     }
-  }
-}

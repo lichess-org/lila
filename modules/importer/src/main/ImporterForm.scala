@@ -4,35 +4,31 @@ import cats.data.Validated
 import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Mode, Outcome, Replay, Status }
-import play.api.data._
-import play.api.data.Forms._
-import scala.util.chaining._
+import play.api.data.*
+import play.api.data.Forms.*
+import scala.util.chaining.*
 
-import lila.game._
+import lila.game.*
 
-final class ImporterForm {
+final class ImporterForm:
 
   lazy val importForm = Form(
     mapping(
       "pgn"     -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isValid),
       "analyse" -> optional(nonEmptyText)
-    )(ImportData.apply)(ImportData.unapply)
+    )(ImportData.apply)(unapply)
   )
 
   def checkPgn(pgn: String): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
     ImportData(pgn, none).preprocess(none)
   }
-}
 
-object ImporterForm {
+object ImporterForm:
 
-  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try {
-    f()
-  } catch {
+  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try f()
+  catch
     case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
       Validated.Invalid("This PGN seems too long or too complex!")
-  }
-}
 
 private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
@@ -42,17 +38,16 @@ case class Preprocessed(
     parsed: ParsedPgn
 )
 
-case class ImportData(pgn: String, analyse: Option[String]) {
+case class ImportData(pgn: String, analyse: Option[String]):
 
   private type TagPicker = Tag.type => TagType
 
   private val maxPlies = 600
 
   private def evenIncomplete(result: Reader.Result): Replay =
-    result match {
+    result match
       case Reader.Result.Complete(replay)      => replay
       case Reader.Result.Incomplete(replay, _) => replay
-    }
 
   def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
     Parser.full(pgn) map { parsed =>
@@ -96,12 +91,12 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             whitePlayer = Player.makeImported(
               chess.White,
               parsed.tags(_.White),
-              parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
+              IntRating from parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
             ),
             blackPlayer = Player.makeImported(
               chess.Black,
               parsed.tags(_.Black),
-              parsed.tags(_.BlackElo).flatMap(_.toIntOption)
+              IntRating from parsed.tags(_.BlackElo).flatMap(_.toIntOption)
             ),
             mode = Mode.Casual,
             source = Source.Import,
@@ -131,4 +126,3 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       }
     }
   )
-}

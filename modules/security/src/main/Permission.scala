@@ -1,15 +1,14 @@
 package lila.security
 
-sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String) {
+sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String):
 
   def this(key: String, name: String) = this(key, Nil, name)
 
   final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
 
   val dbKey = s"ROLE_$key"
-}
 
-object Permission {
+object Permission:
 
   type Selector = Permission.type => Permission
 
@@ -310,4 +309,3 @@ object Permission {
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)
   }.toMap
-}

@@ -2,16 +2,15 @@ package lila.common
 
 // children friendly names only
 // this is used by /class
-object CuteNameGenerator {
+object CuteNameGenerator:
 
   type CuteName = String
 
-  def make(maxSize: Int = 20, triesLeft: Int = 100): Option[CuteName] = {
+  def make(maxSize: Int = 20, triesLeft: Int = 100): Option[CuteName] =
     val name = makeForSure
     if (name.sizeIs <= maxSize) name.some
     else if (triesLeft <= 0) none
     else make(maxSize, triesLeft - 1)
-  }
 
   def makeForSure: CuteName = anyOf(combinations).map(anyOf).mkString
 
@@ -1266,4 +1265,3 @@ object CuteNameGenerator {
       "Wizard",
       "Writer"
     )
-}

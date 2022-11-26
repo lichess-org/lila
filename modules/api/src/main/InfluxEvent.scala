@@ -1,13 +1,13 @@
 package lila.api
 
-import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
 final class InfluxEvent(
     ws: StandaloneWSClient,
     endpoint: String,
     env: String
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val seed = lila.common.ThreadLocalRandom.nextString(6)
 
@@ -20,4 +20,3 @@ final class InfluxEvent(
         err => lila.log("influxEvent").error(endpoint, err),
         res => if (res.status != 204) lila.log("influxEvent").error(s"$endpoint ${res.status}")
       )
-}

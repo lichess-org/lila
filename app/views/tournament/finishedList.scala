@@ -1,13 +1,13 @@
 package views.html.tournament
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.Tournament
 
 import controllers.routes
 
-object finishedList {
+object finishedList:
 
   def apply(finished: List[Tournament])(implicit ctx: Context): Tag =
     tbody(finished map apply)
@@ -42,4 +42,3 @@ object finishedList {
         )
       )
     )
-}

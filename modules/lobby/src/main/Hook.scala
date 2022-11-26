@@ -3,7 +3,7 @@ package lila.lobby
 import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -23,7 +23,7 @@ case class Hook(
     ratingRange: String,
     createdAt: DateTime,
     boardApi: Boolean
-) {
+):
 
   val realColor = Color orDefault color
 
@@ -58,25 +58,25 @@ case class Hook(
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
-  def rating: Option[Int]          = perf.map(_.rating)
+  def rating: Option[IntRating]    = perf.map(_.rating)
 
-  def render: JsObject =
-    Json
-      .obj(
-        "id"    -> id,
-        "sri"   -> sri,
-        "clock" -> clock.show,
-        "t"     -> clock.estimateTotalSeconds,
-        "s"     -> speed.id,
-        "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
-      )
-      .add("prov" -> perf.map(_.provisional).filter(identity))
-      .add("u" -> user.map(_.username))
-      .add("rating" -> rating)
-      .add("variant" -> realVariant.exotic.option(realVariant.key))
-      .add("ra" -> realMode.rated.option(1))
-      .add("c" -> chess.Color.fromName(color).map(_.name))
-      .add("perf" -> perfType.map(_.key))
+  import lila.common.Json.given
+  def render: JsObject = Json
+    .obj(
+      "id"    -> id,
+      "sri"   -> sri,
+      "clock" -> clock.show,
+      "t"     -> clock.estimateTotalSeconds,
+      "s"     -> speed.id,
+      "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
+    )
+    .add("prov" -> perf.map(_.provisional).filter(identity))
+    .add("u" -> user.map(_.username))
+    .add("rating" -> rating)
+    .add("variant" -> realVariant.exotic.option(realVariant.key))
+    .add("ra" -> realMode.rated.option(1))
+    .add("c" -> chess.Color.fromName(color).map(_.name))
+    .add("perf" -> perfType.map(_.key))
 
   def randomColor = color == "random"
 
@@ -102,9 +102,8 @@ case class Hook(
     )
 
   private lazy val speed = Speed(clock)
-}
 
-object Hook {
+object Hook:
 
   val idSize = 8
 
@@ -133,4 +132,3 @@ object Hook {
       createdAt = DateTime.now,
       boardApi = boardApi
     )
-}

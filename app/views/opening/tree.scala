@@ -2,14 +2,14 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ Opening, OpeningConfig }
 
-object tree {
+object tree:
 
-  import bits._
+  import bits.*
 
   def apply(root: Opening.Tree, config: OpeningConfig)(implicit ctx: Context) =
     views.html.base.layout(
@@ -45,4 +45,3 @@ object tree {
       )
       if (fold) details(content) else content
     }
-}

@@ -4,15 +4,15 @@ package auth
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.HcaptchaForm
 import lila.user.User
 
-object bits {
+object bits:
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit
+  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(using
       ctx: Context
   ) =
     frag(
@@ -37,7 +37,7 @@ object bits {
       }
     )
 
-  def passwordReset(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
+  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
@@ -72,7 +72,7 @@ object bits {
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit
+  def passwordResetConfirm(u: User, token: String, form: Form[?], ok: Option[Boolean] = None)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -113,7 +113,7 @@ object bits {
       )
     }
 
-  def magicLink(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
+  def magicLink(form: HcaptchaForm[?], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
@@ -220,4 +220,3 @@ body { margin-top: 45px; }
         )
       )
     }
-}

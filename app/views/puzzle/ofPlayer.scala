@@ -3,14 +3,14 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.puzzle.Puzzle
 import lila.user.User
 
-object ofPlayer {
+object ofPlayer:
 
   def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: Context) =
     views.html.base.layout(
@@ -55,7 +55,7 @@ object ofPlayer {
                           )(
                             a(
                               cls  := s"puzzle-of-player__puzzle__board",
-                              href := routes.Puzzle.show(puzzle.id.value)
+                              href := routes.Puzzle.show(puzzle.id)
                             )
                           ),
                           span(cls   := "puzzle-of-player__puzzle__meta")(
@@ -73,4 +73,3 @@ object ofPlayer {
         )
       )
     )
-}

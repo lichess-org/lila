@@ -4,22 +4,23 @@ import org.joda.time.DateTime
 
 import lila.user.User
 import lila.study.{ Chapter, Study }
+import lila.common.Iso
 
 case class PracticeProgress(
     _id: PracticeProgress.Id,
     chapters: PracticeProgress.ChapterNbMoves,
     createdAt: DateTime,
     updatedAt: DateTime
-) {
+):
 
   import PracticeProgress.NbMoves
 
-  def id = _id
+  inline def id = _id
 
-  def apply(chapterId: Chapter.Id): Option[NbMoves] =
+  def apply(chapterId: StudyChapterId): Option[NbMoves] =
     chapters get chapterId
 
-  def withNbMoves(chapterId: Chapter.Id, nbMoves: PracticeProgress.NbMoves) =
+  def withNbMoves(chapterId: StudyChapterId, nbMoves: PracticeProgress.NbMoves) =
     copy(
       chapters = chapters - chapterId + {
         chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
@@ -27,7 +28,7 @@ case class PracticeProgress(
       updatedAt = DateTime.now
     )
 
-  def countDone(chapterIds: List[Chapter.Id]): Int =
+  def countDone(chapterIds: List[StudyChapterId]): Int =
     chapterIds count chapters.contains
 
   def firstOngoingIn(metas: List[Chapter.Metadata]): Option[Chapter.Metadata] =
@@ -36,18 +37,17 @@ case class PracticeProgress(
     } orElse metas.find { c =>
       !PracticeStructure.isChapterNameCommented(c.name)
     }
-}
 
-object PracticeProgress {
+object PracticeProgress:
 
   case class Id(value: String) extends AnyVal
 
-  case class NbMoves(value: Int) extends AnyVal
-  implicit val nbMovesIso = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
+  opaque type NbMoves = Int
+  object NbMoves extends OpaqueInt[NbMoves]
 
-  case class OnComplete(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id)
+  case class OnComplete(userId: User.ID, studyId: StudyId, chapterId: StudyChapterId)
 
-  type ChapterNbMoves = Map[Chapter.Id, NbMoves]
+  type ChapterNbMoves = Map[StudyChapterId, NbMoves]
 
   def empty(id: Id) =
     PracticeProgress(
@@ -58,4 +58,3 @@ object PracticeProgress {
     )
 
   def anon = empty(Id("anon"))
-}

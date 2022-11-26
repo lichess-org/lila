@@ -1,8 +1,8 @@
 package lila.evalCache
 
 import chess.variant.Variant
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 
 import lila.common.Bus
@@ -17,11 +17,11 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
-) {
+):
 
   private lazy val coll = yoloDb(CollName("eval_cache")).failingSilently()
 
@@ -53,11 +53,9 @@ final class Env(
   }
   // END remote socket support
 
-  def cli = new lila.common.Cli {
+  def cli = new lila.common.Cli:
     def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
       Variant(variantKey).fold(fufail[String]("Invalid variant")) { variant =>
         api.drop(variant, chess.format.FEN(fenParts mkString " ")) inject "done!"
       }
     }
-  }
-}

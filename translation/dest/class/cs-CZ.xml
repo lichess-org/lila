@@ -119,4 +119,5 @@ Zobrazí se vodorovná čára.</string>
   <string name="xisNowAStudentOfTheClass">%s je nyní student třídy</string>
   <string name="anInvitationHasBeenSentToX">Pozvánka byla odeslána uživateli %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s již má pozvánku</string>
+  <string name="xIsAKidAccountWarning">%1$s je dětský účet a nemůže přijmout tvojí zprávu. Musíš mu dát URL adresu pozvánky sám:%2$s</string>
 </resources>

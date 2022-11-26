@@ -5,12 +5,12 @@ import chess.format.{ FEN, Forsyth }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Black, Situation, White }
 import play.api.libs.json.Json
-import play.api.mvc._
-import scala.concurrent.duration._
-import views._
+import play.api.mvc.*
+import scala.concurrent.duration.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.Pov
 import lila.round.JsonView.WithFlags
 
@@ -18,22 +18,20 @@ final class UserAnalysis(
     env: Env,
     gameC: => Game
 ) extends LilaController(env)
-    with TheftPrevention {
+    with TheftPrevention:
 
   def index = load("", Standard)
 
   def parseArg(arg: String) =
-    arg.split("/", 2) match {
+    arg.split("/", 2) match
       case Array(key) => load("", Variant orDefault key)
       case Array(key, fen) =>
-        Variant.byKey get key match {
+        Variant.byKey get key match
           case Some(variant) if variant != Standard       => load(fen, variant)
           case _ if FEN.clean(fen) == Standard.initialFen => load("", Standard)
           case Some(Standard)                             => load(fen, FromPosition)
           case _                                          => load(arg, FromPosition)
-        }
       case _ => load("", Standard)
-    }
 
   def load(urlFen: String, variant: Variant) =
     Open { implicit ctx =>
@@ -82,19 +80,19 @@ final class UserAnalysis(
           source = lila.game.Source.Api,
           pgnImport = None
         )
-        .withId("synthetic"),
+        .withId(lila.game.Game.syntheticId),
       from.situation.color
     )
 
   // correspondence premove aka forecast
-  def game(id: String, color: String) =
+  def game(id: GameId, color: String) =
     Open { implicit ctx =>
       OptionFuResult(env.game.gameRepo game id) { g =>
         env.round.proxyRepo upgradeIfPresent g flatMap { game =>
           val pov = Pov(game, chess.Color.fromName(color) | White)
           negotiate(
             html =
-              if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
+              if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).toFuccess
               else {
                 val owner = isMyPov(pov)
                 for {
@@ -117,7 +115,7 @@ final class UserAnalysis(
       }
     }
 
-  private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit
+  private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(using
       ctx: Context
   ): Fu[Result] =
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
@@ -125,7 +123,7 @@ final class UserAnalysis(
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
         env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
-          import lila.game.JsonView.crosstableWrites
+          import lila.game.JsonView.given
           env.api.roundApi.review(
             pov,
             apiVersion,
@@ -148,7 +146,7 @@ final class UserAnalysis(
 
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
-  def forecasts(fullId: String) =
+  def forecasts(fullId: GameFullId) =
     AuthBody(parse.json) { implicit ctx => _ =>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
@@ -157,7 +155,7 @@ final class UserAnalysis(
           ctx.body.body
             .validate[Forecast.Steps]
             .fold(
-              err => BadRequest(err.toString).fuccess,
+              err => BadRequest(err.toString).toFuccess,
               forecasts =>
                 env.round.forecastApi.save(pov, forecasts) >>
                   env.round.forecastApi.loadForDisplay(pov) map {
@@ -170,7 +168,7 @@ final class UserAnalysis(
       }
     }
 
-  def forecastsOnMyTurn(fullId: String, uci: String) =
+  def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
     AuthBody(parse.json) { implicit ctx => _ =>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
@@ -179,7 +177,7 @@ final class UserAnalysis(
           ctx.body.body
             .validate[Forecast.Steps]
             .fold(
-              err => BadRequest(err.toString).fuccess,
+              err => BadRequest(err.toString).toFuccess,
               forecasts => {
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
                 env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
@@ -192,6 +190,5 @@ final class UserAnalysis(
 
   def help =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.analyse(getBool("study"))).fuccess
+      Ok(html.site.keyboardHelpModal.analyse(getBool("study"))).toFuccess
     }
-}

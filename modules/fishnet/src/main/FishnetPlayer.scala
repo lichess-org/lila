@@ -2,7 +2,7 @@ package lila.fishnet
 
 import chess.format.Uci
 import chess.{ Black, Clock, White }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ Bus, Future, ThreadLocalRandom }
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -15,10 +15,10 @@ final class FishnetPlayer(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
@@ -26,7 +26,7 @@ final class FishnetPlayer(
         openingBook(game, level) flatMap {
           case Some(move) =>
             uciMemo sign game map { sign =>
-              Bus.publish(Tell(game.id, FishnetPlay(move, sign)), "roundSocket")
+              Bus.publish(Tell(game.id.value, FishnetPlay(move, sign)), "roundSocket")
             }
           case None => makeWork(game, level) addEffect redis.request void
         }
@@ -62,7 +62,7 @@ final class FishnetPlayer(
           Work.Move(
             _id = Work.makeId,
             game = Work.Game(
-              id = game.id,
+              id = game.id.value,
               initialFen = initialFen,
               studyId = none,
               variant = game.variant,
@@ -82,4 +82,3 @@ final class FishnetPlayer(
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")
-}

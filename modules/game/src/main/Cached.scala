@@ -1,9 +1,9 @@
 package lila.game
 
 import com.github.blemale.scaffeine.LoadingCache
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.memo.{ CacheApi, MongoCache }
 import lila.user.User
 
@@ -11,18 +11,17 @@ final class Cached(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache.get(userId)
-  def clearNbImportedByCache                 = nbImportedCache invalidate _
+  export nbImportedCache.invalidate as clearNbImportedByCache
+  export nbPlayingCache.get as nbPlaying
 
   def nbTotal: Fu[Long] = nbTotalCache.get {}
 
-  def nbPlaying = nbPlayingCache.get _
+  def lastPlayedPlayingId(userId: User.ID): Fu[Option[GameId]] = lastPlayedPlayingIdCache get userId
 
-  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] = lastPlayedPlayingIdCache get userId
-
-  private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[Game.ID]]] =
+  private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[GameId]]] =
     CacheApi.scaffeineNoScheduler
       .expireAfterWrite(11 seconds)
       .build(gameRepo.lastPlayedPlayingId)
@@ -63,4 +62,3 @@ final class Cached(
         }
       }
   }
-}

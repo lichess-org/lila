@@ -2,20 +2,23 @@ package views.html.study
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       s: lila.study.Study,
       data: lila.study.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: lila.socket.Socket.SocketVersion,
+      socketVersion: SocketVersion,
       streamers: List[lila.user.User.ID]
   )(implicit ctx: Context) =
     views.html.base.layout(
@@ -45,8 +48,8 @@ object show {
                   localMod = ctx.userId exists s.canContribute
                 )
               },
-              "socketUrl"     -> socketUrl(s.id.value),
-              "socketVersion" -> socketVersion.value
+              "socketUrl"     -> socketUrl(s.id),
+              "socketVersion" -> socketVersion
             ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
@@ -57,7 +60,7 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,
-          url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
+          url = s"$netBaseUrl${routes.Study.show(s.id).url}",
           description = s"A chess study by ${titleNameOrId(s.ownerId)}"
         )
         .some
@@ -68,5 +71,4 @@ object show {
       )
     )
 
-  def socketUrl(id: String) = s"/study/$id/socket/v$apiVersion"
-}
+  def socketUrl(id: lila.study.StudyId) = s"/study/$id/socket/v$apiVersion"

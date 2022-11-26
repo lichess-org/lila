@@ -1,16 +1,16 @@
 package lila.challenge
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
+import scala.concurrent.duration.*
 
 import lila.common.Bus
 
-final class ChallengeKeepAliveStream(api: ChallengeApi)(implicit
+final class ChallengeKeepAliveStream(api: ChallengeApi)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
-  def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, _] =
+):
+  def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =
     Source(List(initialJson)) concat
       Source.queue[JsObject](1, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
         val keepAliveInterval = scheduler.scheduleWithFixedDelay(15 seconds, 15 seconds) { () =>
@@ -29,4 +29,3 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(implicit
           Bus.unsubscribe(sub, "challenge")
         }
       }
-}

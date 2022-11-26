@@ -2,17 +2,17 @@ package views.html.learn
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 import lila.common.LangPath
 
-object index {
+object index:
 
-  import trans.learn.{ play => _, _ }
+  import trans.learn.{ play as _, * }
 
   def apply(data: Option[play.api.libs.json.JsValue])(implicit ctx: Context) =
     views.html.base.layout(
@@ -218,4 +218,3 @@ object index {
       puzzleFailed,
       retry
     ).map(_.key)
-}

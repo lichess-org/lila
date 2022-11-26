@@ -1,10 +1,11 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
+import lila.common.config.Max
 
 final class Analyser(
     repo: FishnetRepo,
@@ -13,18 +14,18 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
   val maxPlies = 300
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
+    new lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
-    (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
+    (game.metadata.analysed ?? analysisRepo.exists(game.id.value)) flatMap {
       case true                  => fuccess(Analyser.Result.AlreadyAnalysed)
       case _ if !game.analysable => fuccess(Analyser.Result.NotAnalysable)
       case _ =>
@@ -58,16 +59,16 @@ final class Analyser(
         }
     }
 
-  def apply(gameId: String, sender: Work.Sender): Fu[Analyser.Result] =
+  def apply(gameId: GameId, sender: Work.Sender): Fu[Analyser.Result] =
     gameRepo game gameId flatMap {
       _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame))(apply(_, sender))
     }
 
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
-    analysisRepo exists req.chapterId flatMap {
+    analysisRepo exists req.chapterId.value flatMap {
       case true => fuccess(Analyser.Result.NoChapter)
       case _ =>
-        import req._
+        import req.*
         val sender = Work.Sender(req.userId, none, mod = false, system = false)
         (if (req.unlimited) fuccess(Analyser.Result.Ok)
          else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)) flatMap { result =>
@@ -75,7 +76,7 @@ final class Analyser(
           result.ok ?? {
             val work = makeWork(
               game = Work.Game(
-                id = chapterId,
+                id = chapterId.value,
                 initialFen = initialFen,
                 studyId = studyId.some,
                 variant = variant,
@@ -104,7 +105,7 @@ final class Analyser(
     gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
       makeWork(
         game = Work.Game(
-          id = game.id,
+          id = game.id.value,
           initialFen = initialFen,
           studyId = none,
           variant = game.variant,
@@ -127,14 +128,12 @@ final class Analyser(
       skipPositions = Nil,
       createdAt = DateTime.now
     )
-}
 
-object Analyser {
+object Analyser:
 
-  sealed abstract class Result(val error: Option[String]) {
+  sealed abstract class Result(val error: Option[String]):
     def ok = error.isEmpty
-  }
-  object Result {
+  object Result:
     case object Ok                 extends Result(none)
     case object NoGame             extends Result("Game not found".some)
     case object NoChapter          extends Result("Chapter not found".some)
@@ -144,5 +143,3 @@ object Analyser {
     case object WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
     case object DailyLimit         extends Result("You have reached the daily analysis limit".some)
     case object DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)
-  }
-}

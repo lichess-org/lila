@@ -4,7 +4,7 @@ import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
 
-object HTTPRequest {
+object HTTPRequest:
 
   def isXhr(req: RequestHeader): Boolean =
     req.headers get "X-Requested-With" contains "XMLHttpRequest"
@@ -66,11 +66,9 @@ object HTTPRequest {
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot"""
   }
 
-  case class UaMatcher(rStr: String) {
-    private val regex = rStr.r
-
-    def apply(req: RequestHeader): Boolean = userAgent(req) ?? regex.find
-  }
+  case class UaMatcher(rStr: String):
+    private val regex                      = rStr.r
+    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(regex.find)
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
 
@@ -106,12 +104,11 @@ object HTTPRequest {
 
   private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
 
-  def apiVersion(req: RequestHeader): Option[ApiVersion] = {
+  def apiVersion(req: RequestHeader): Option[ApiVersion] =
     req.headers.get(HeaderNames.ACCEPT) flatMap {
-      case ApiVersionHeaderPattern(v) => v.toIntOption map ApiVersion.apply
+      case ApiVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
       case _                          => none
     }
-  }
 
   private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
   private def isAppeal(req: RequestHeader)   = req.path.startsWith("/appeal")
@@ -138,4 +135,3 @@ object HTTPRequest {
     userAgent(req) exists { ua =>
       ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
     }
-}

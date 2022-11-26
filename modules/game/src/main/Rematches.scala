@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.Color
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 /* Prev game ID -> Next game ID
@@ -11,29 +11,29 @@ import scala.concurrent.ExecutionContext
  * That mechanism is used by bots/boards who receive
  * rematch offers as challenges.
  */
-final class Rematches(idGenerator: IdGenerator)(implicit ec: ExecutionContext) {
+final class Rematches(idGenerator: IdGenerator)(using ec: ExecutionContext):
 
-  import Rematches._
+  import Rematches.*
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(1 hour)
-    .build[Game.ID, NextGame]()
+    .build[GameId, NextGame]()
 
   // challengeId -> prevGameId
   private val offeredReverseLookup = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(1 hour)
-    .build[Game.ID, Game.ID]()
+    .build[GameId, GameId]()
 
-  def prevGameIdOffering = offeredReverseLookup.getIfPresent _
+  def prevGameIdOffering = offeredReverseLookup.getIfPresent
 
-  def get                          = cache.getIfPresent _
-  def getOffered(prev: Game.ID)    = get(prev) collect { case o: Offered => o }
-  def getAccepted(prev: Game.ID)   = get(prev) collect { case a: Accepted => a }
-  def getAcceptedId(prev: Game.ID) = getAccepted(prev).map(_.nextId)
+  def get                          = cache.getIfPresent
+  def getOffered(prev: GameId)    = get(prev) collect { case o: Offered => o }
+  def getAccepted(prev: GameId)   = get(prev) collect { case a: Accepted => a }
+  def getAcceptedId(prev: GameId) = getAccepted(prev).map(_.nextId)
 
   def isOffering(pov: PovRef) = getOffered(pov.gameId).exists(_.by == pov.color)
 
-  def offer(pov: PovRef): Fu[Game.ID] = (getOffered(pov.gameId) match {
+  def offer(pov: PovRef): Fu[GameId] = (getOffered(pov.gameId) match {
     case Some(existing) => fuccess(existing.copy(by = pov.color))
     case None           => idGenerator.game map { Offered(pov.color, _) }
   }) map { offer =>
@@ -42,20 +42,16 @@ final class Rematches(idGenerator: IdGenerator)(implicit ec: ExecutionContext) {
     offer.nextId
   }
 
-  def drop(prev: Game.ID) = {
+  def drop(prev: GameId) =
     get(prev) collect { case Offered(_, nextId) => nextId } foreach offeredReverseLookup.invalidate
     cache.invalidate(prev)
-  }
 
-  def accept(prev: Game.ID, next: Game.ID) = {
+  def accept(prev: GameId, next: GameId) =
     cache.put(prev, Accepted(next))
     offeredReverseLookup.invalidate(next)
-  }
-}
 
-object Rematches {
+object Rematches:
 
-  sealed trait NextGame { val nextId: Game.ID }
-  case class Offered(by: Color, nextId: Game.ID) extends NextGame // game doesn't yet exist
-  case class Accepted(nextId: Game.ID)           extends NextGame // game exists
-}
+  sealed trait NextGame { val nextId: GameId }
+  case class Offered(by: Color, nextId: GameId) extends NextGame // game doesn't yet exist
+  case class Accepted(nextId: GameId)           extends NextGame // game exists

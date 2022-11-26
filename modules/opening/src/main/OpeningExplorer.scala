@@ -3,9 +3,9 @@ package lila.opening
 import chess.format.FEN
 import chess.format.Forsyth
 import chess.opening.FullOpening
-import com.softwaremill.tagging._
-import play.api.libs.json.{ JsObject, JsValue, Json }
-import play.api.libs.ws.JsonBodyReadables._
+import com.softwaremill.tagging.*
+import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
 
@@ -14,13 +14,13 @@ import lila.game.Game
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
     explorerEndpoint: String @@ ExplorerEndpoint
-)(implicit ec: ExecutionContext) {
-  import OpeningExplorer._
+)(using ec: ExecutionContext):
+  import OpeningExplorer.*
 
   def stats(query: OpeningQuery): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        queryParameters(query) ::: List("moves" -> "12"): _*
+        queryParameters(query) ::: List("moves" -> "12")*
       )
       .get()
       .flatMap {
@@ -30,7 +30,7 @@ final private class OpeningExplorer(
         case res =>
           res
             .body[JsValue]
-            .validate[Position](positionReads)
+            .validate[Position]
             .fold(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.some)
@@ -63,7 +63,7 @@ final private class OpeningExplorer(
         case res =>
           res
             .body[JsValue]
-            .validate[Position](positionReads)
+            .validate[Position]
             .fold(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.sum.some)
@@ -76,7 +76,7 @@ final private class OpeningExplorer(
 
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
-      .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth): _*)
+      .withQueryStringParameters(params ::: List("since" -> OpeningQuery.firstMonth)*)
       .get()
       .flatMap {
         case res if res.status != 200 =>
@@ -108,9 +108,8 @@ final private class OpeningExplorer(
       "ratings" -> config.ratings.mkString(","),
       "speeds"  -> config.speeds.map(_.key).mkString(",")
     )
-}
 
-object OpeningExplorer {
+object OpeningExplorer:
 
   case class Position(
       white: Int,
@@ -119,19 +118,17 @@ object OpeningExplorer {
       moves: List[Move],
       topGames: List[GameRef],
       recentGames: List[GameRef]
-  ) {
+  ):
     val sum      = white + draws + black
     val movesSum = moves.foldLeft(0)(_ + _.sum)
     val games    = topGames ::: recentGames
-  }
 
-  case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int) {
+  case class Move(uci: String, san: String, averageRating: Int, white: Int, draws: Int, black: Int):
     def sum = white + draws + black
-  }
 
-  case class GameRef(id: Game.ID)
+  case class GameRef(id: GameId)
 
-  implicit private val moveReads     = Json.reads[Move]
-  implicit private val gameReads     = Json.reads[GameRef]
-  implicit private val positionReads = Json.reads[Position]
-}
+  import lila.common.Json.given
+  private given Reads[Move]     = Json.reads
+  private given Reads[GameRef]  = Json.reads
+  private given Reads[Position] = Json.reads

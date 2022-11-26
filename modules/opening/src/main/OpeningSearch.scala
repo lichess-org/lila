@@ -5,45 +5,42 @@ import java.text.Normalizer
 
 import lila.common.base.StringUtils.levenshtein
 import lila.common.Chronometer
-import lila.common.Heapsort.implicits._
+import lila.common.Heapsort.topN
 import lila.memo.CacheApi
 
-case class OpeningSearchResult(opening: FullOpening) {
+case class OpeningSearchResult(opening: FullOpening):
   def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
   def query = OpeningQuery.Query(opening.key, pgn.some)
-}
 
-final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer) {
+final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
 
   val max = 32
 
   private val cache = cacheApi.scaffeine
     .maximumSize(1024)
-    .build[String, List[OpeningSearchResult]](doSearch _)
+    .build[String, List[OpeningSearchResult]](doSearch)
 
   def apply(q: String): List[OpeningSearchResult] = cache get q
 
   def doSearch(q: String): List[OpeningSearchResult] =
-    OpeningSearch(q, max).map(OpeningSearchResult)
-}
+    OpeningSearch(q, max).map(OpeningSearchResult.apply)
 
 // linear performance but it's fine for 3,067 unique openings
-object OpeningSearch {
+object OpeningSearch:
 
-  object removePgnMoveNumbers {
+  object removePgnMoveNumbers:
     private val numbersRegex = """\d{1,2}\.{1,3}\s?""".r
     def apply(pgn: String)   = pgn.replaceAllIn(numbersRegex, "").trim
-  }
 
   private val openings: Vector[FullOpening] = FullOpeningDB.shortestLines.values.toVector
 
   private type Token = String
   private type Score = Int
 
-  private[opening] object tokenize {
+  private[opening] object tokenize:
     private val nonLetterRegex = """[^a-zA-Z0-9]+""".r
     private val exclude        = Set("opening", "variation")
-    def apply(str: String): Set[Token] = {
+    def apply(str: String): Set[Token] =
       str
         .take(200)
         .replace("_", " ")
@@ -61,22 +58,19 @@ object OpeningSearch {
         }
         .toSet
         .diff(exclude)
-    }
     def apply(opening: FullOpening): Set[Token] =
       opening.key.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
         opening.eco.toLowerCase ++
         opening.pgn.split(' ').take(6).toSet
-  }
 
   private case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
-  private def makeQuery(userInput: String) = {
+  private def makeQuery(userInput: String) =
     val clean = userInput.trim.toLowerCase
     val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
       clean.split(' ').toList.map(_.trim).filter(_.nonEmpty).grouped(2).toList.zipWithIndex.map {
         case (moves, index) => s"${index + 1}. ${moves mkString " "}"
       } mkString " "
     Query(clean, numberedPgn, tokenize(clean))
-  }
   private case class Entry(opening: FullOpening, tokens: Set[Token])
   private case class Match(opening: FullOpening, score: Score)
 
@@ -100,7 +94,7 @@ object OpeningSearch {
         .foldLeft((query.tokens, 0)) { case ((remaining, score), token) =>
           if (exactMatch(token)) (remaining - token, score + token.size * 100)
           else (remaining, score)
-        } match {
+        } match
         case (remaining, score) =>
           score + remaining.map { t =>
             entry.tokens.map { e =>
@@ -109,11 +103,9 @@ object OpeningSearch {
               else 0
             }.sum
           }.sum
-      }
   }.some.filter(0 <).map(_ - entry.opening.key.size)
 
-  private def searchOrdering =
-    Ordering.by[Match, Score] { case Match(_, score) => score }
+  private given Ordering[Match] = Ordering.by { case Match(_, score) => score }
 
   def apply(str: String, max: Int): List[FullOpening] = Chronometer.syncMon(_.opening.searchTime) {
     val query = makeQuery(str)
@@ -123,7 +115,6 @@ object OpeningSearch {
           Match(entry.opening, _)
         }
       }
-      .topN(max)(searchOrdering)
+      .topN(max)
       .map(_.opening)
   }
-}

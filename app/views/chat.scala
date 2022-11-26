@@ -2,12 +2,13 @@ package views.html
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKeys
+import lila.common.Json.given
 
-object chat {
+object chat:
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
@@ -16,7 +17,7 @@ object chat {
     div(cls := "mchat__content")
   )
 
-  import lila.chat.JsonView.writers.chatIdWrites
+  import lila.chat.JsonView.writers.given
 
   def restrictedJson(
       chat: lila.chat.Chat.Restricted,
@@ -103,4 +104,3 @@ object chat {
       aria.live     := "off",
       aria.relevant := "additions removals text"
     )
-}

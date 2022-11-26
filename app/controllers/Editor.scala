@@ -3,13 +3,13 @@ package controllers
 import chess.format.{ FEN, Forsyth }
 import chess.Situation
 import chess.variant.Variant
-import play.api.libs.json._
-import views._
+import play.api.libs.json.*
+import views.*
 
-import lila.app._
-import lila.common.Json._
+import lila.app.{ given, * }
+import lila.common.Json.given
 
-final class Editor(env: Env) extends LilaController(env) {
+final class Editor(env: Env) extends LilaController(env):
 
   private lazy val positionsJson = lila.common.String.html.safeJsonValue {
     JsArray(chess.StartingPosition.all map { p =>
@@ -58,7 +58,7 @@ final class Editor(env: Env) extends LilaController(env) {
       }
     }
 
-  def game(id: String) =
+  def game(id: GameId) =
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
@@ -70,8 +70,6 @@ final class Editor(env: Env) extends LilaController(env) {
 
   private[controllers] def editorUrl(fen: FEN, variant: Variant): String =
     if (fen == Forsyth.initial && variant.standard) routes.Editor.index.url
-    else {
+    else
       val params = variant.exotic ?? s"?variant=${variant.key}"
       routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params
-    }
-}

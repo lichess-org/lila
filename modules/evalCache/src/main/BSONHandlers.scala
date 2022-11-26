@@ -1,21 +1,21 @@
 package lila.evalCache
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 import cats.data.NonEmptyList
 
 import chess.format.Uci
-import lila.db.dsl._
-import lila.tree.Eval._
+import lila.db.dsl.{ *, given }
+import lila.tree.Eval.*
 
-private object BSONHandlers {
+private object BSONHandlers:
 
-  import EvalCacheEntry._
+  import EvalCacheEntry.*
 
-  implicit private val TrustBSONHandler  = doubleAnyValHandler[Trust](_.value, Trust.apply)
-  implicit private val KnodesBSONHandler = intAnyValHandler[Knodes](_.value, Knodes.apply)
+  private given BSONHandler[Trust]  = doubleAnyValHandler[Trust](_.value, Trust.apply)
+  private given BSONHandler[Knodes] = intAnyValHandler[Knodes](_.value, Knodes.apply)
 
-  implicit val PvsHandler = new BSONHandler[NonEmptyList[Pv]] {
+  given BSONHandler[NonEmptyList[Pv]] = new BSONHandler[NonEmptyList[Pv]]:
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
     private def scoreRead(str: String): Option[Score] =
       if (str startsWith "#") str.drop(1).toIntOption map { m =>
@@ -32,33 +32,30 @@ private object BSONHandlers {
     private val pvSeparator    = '/'
     private val pvSeparatorStr = pvSeparator.toString
     def readTry(bs: BSONValue) =
-      bs match {
+      bs match
         case BSONString(value) =>
           Try {
             value.split(pvSeparator).toList.map { pvStr =>
-              pvStr.split(scoreSeparator) match {
+              pvStr.split(scoreSeparator) match
                 case Array(score, moves) =>
                   Pv(
                     scoreRead(score) err s"Invalid score $score",
                     movesRead(moves) err s"Invalid moves $moves"
                   )
                 case x => sys error s"Invalid PV $pvStr: ${x.toList} (in $value)"
-              }
             }
           }.flatMap {
             _.toNel toTry s"Empty PVs $value"
           }
         case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
-      }
     def writeTry(x: NonEmptyList[Pv]) =
       Success(BSONString {
         x.toList.map { pv =>
           s"${scoreWrite(pv.score)}$scoreSeparator${movesWrite(pv.moves)}"
         } mkString pvSeparatorStr
       })
-  }
 
-  implicit val EntryIdHandler = tryHandler[Id](
+  given BSONHandler[Id] = tryHandler[Id](
     { case BSONString(value) =>
       value split ':' match {
         case Array(fen) => Success(Id(chess.variant.Standard, SmallFen raw fen))
@@ -79,6 +76,5 @@ private object BSONHandlers {
       }
   )
 
-  implicit val evalHandler  = Macros.handler[Eval]
-  implicit val entryHandler = Macros.handler[EvalCacheEntry]
-}
+  given BSONDocumentHandler[Eval]           = Macros.handler
+  given BSONDocumentHandler[EvalCacheEntry] = Macros.handler

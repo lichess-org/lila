@@ -1,11 +1,11 @@
 package lila.timeline
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 private class TimelineConfig(
@@ -24,10 +24,10 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     memberRepo: lila.team.MemberRepo,
     teamCache: lila.team.Cached
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
-) {
+):
 
   private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
 
@@ -57,4 +57,3 @@ final class Env(
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
     entryApi.removeRecentFollowsBy(userId).unit
   }
-}

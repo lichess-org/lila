@@ -1,18 +1,18 @@
 package lila.security
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Invalid, Valid => FormValid, ValidationError }
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
 import play.api.Mode
 import play.api.mvc.RequestHeader
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate
 import lila.user.{ User, UserRepo }
@@ -27,11 +27,11 @@ final class SecurityApi(
     emailValidator: EmailAddressValidator,
     oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: Mode
-) {
+):
 
   val AccessUri = "access_uri"
 
@@ -72,15 +72,13 @@ final class SecurityApi(
     )
 
   def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
-    emailValidator.validate(EmailAddress(str)) match {
+    emailValidator.validate(EmailAddress(str)) match
       case Some(EmailAddressValidator.Acceptable(email)) =>
         authenticator.loginCandidateByEmail(email.normalize)
       case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
       case _                                 => fuccess(none)
-    }
   } map loadedLoginForm
 
-  @nowarn("cat=unused")
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       _username: String,
       password: String,
@@ -90,7 +88,7 @@ final class SecurityApi(
       _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
     }
 
-  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit
+  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
@@ -101,14 +99,14 @@ final class SecurityApi(
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
-  ): Funit = {
+  ): Funit =
     val sessionId = SecureRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
-  }
 
-  def restoreUser(req: RequestHeader): Fu[Option[Either[AppealUser, FingerPrintedUser]]] =
+  private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
+  def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
       appeal.authenticate(sessionId) match {
         case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
@@ -120,7 +118,7 @@ final class SecurityApi(
               }
             }
           }
-      }
+      }: Fu[Option[AppealOrUser]]
     }
 
   def oauthScoped(
@@ -163,7 +161,7 @@ final class SecurityApi(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  def shareAnIpOrFp = store.shareAnIpOrFp _
+  def shareAnIpOrFp = store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
@@ -182,7 +180,7 @@ final class SecurityApi(
     )
 
   // special temporary auth for marked closed accounts so they can use appeal endpoints
-  object appeal {
+  object appeal:
 
     private type SessionId = String
 
@@ -195,16 +193,12 @@ final class SecurityApi(
     def authenticate(sessionId: SessionId): Option[User.ID] =
       sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
 
-    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] = {
+    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] =
       val sessionId = s"$prefix${SecureRandom nextString 22}"
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")
       fuccess(sessionId)
-    }
-  }
-}
 
-object SecurityApi {
+object SecurityApi:
 
   case class MustConfirmEmail(userId: User.ID) extends Exception
-}

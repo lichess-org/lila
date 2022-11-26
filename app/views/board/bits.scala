@@ -4,12 +4,12 @@ import chess.format.{ FEN, Forsyth }
 import controllers.routes
 import play.api.libs.json.{ JsObject, JsString, Json }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
-object bits {
+object bits:
 
   private val dataState = attr("data-state")
 
@@ -21,7 +21,7 @@ object bits {
       FEN(Forsyth.boardAndColor(pov.game.situation)),
       miniOrientation(pov),
       ~pov.game.lastMoveKeys
-    ) _
+    )
 
   def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
     tag(
@@ -74,4 +74,3 @@ object bits {
     trans.analysis,
     trans.toStudy
   ).map(_.key)
-}

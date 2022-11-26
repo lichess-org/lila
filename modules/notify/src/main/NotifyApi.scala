@@ -1,13 +1,13 @@
 package lila.notify
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.SendTo
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.user.UserRepo
 import lila.i18n.I18nLangPicker
 
@@ -17,12 +17,13 @@ final class NotifyApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using scala.concurrent.ExecutionContext):
 
-  import BSONHandlers.{ NotificationBSONHandler, NotifiesHandler }
-  import jsonHandlers._
+  import Notification.*
+  import BSONHandlers.given
+  import jsonHandlers.*
 
-  def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] =
+  def getNotifications(userId: Notifies, page: Int): Fu[Paginator[Notification]] =
     Paginator(
       adapter = new Adapter(
         collection = repo.coll,
@@ -34,24 +35,25 @@ final class NotifyApi(
       maxPerPage = maxPerPage
     )
 
-  def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
-    getNotifications(userId, page) zip unreadCount(userId) dmap (Notification.AndUnread.apply _).tupled
+  def getNotificationsAndCount(userId: Notifies, page: Int): Fu[AndUnread] =
+    getNotifications(userId, page) zip unreadCount(userId) dmap (AndUnread.apply).tupled
 
-  def markAllRead(userId: Notification.Notifies) =
-    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
+  def markAllRead(userId: Notifies) =
+    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(UnreadCount(0)))
 
-  def markAllRead(userIds: Iterable[Notification.Notifies]) =
+  def markAllRead(userIds: Iterable[Notifies]) =
     repo.markAllRead(userIds) >>- userIds.foreach {
-      unreadCountCache.put(_, fuccess(0))
+      unreadCountCache.put(_, fuccess(UnreadCount(0)))
     }
 
-  private val unreadCountCache = cacheApi[Notification.Notifies, Int](32768, "notify.unreadCountCache") {
-    _.expireAfterAccess(15 minutes)
-      .buildAsyncFuture(repo.unreadNotificationsCount)
-  }
+  private val unreadCountCache =
+    cacheApi[Notifies, UnreadCount](32768, "notify.unreadCountCache") {
+      _.expireAfterAccess(15 minutes)
+        .buildAsyncFuture(repo.unreadNotificationsCount)
+    }
 
-  def unreadCount(userId: Notification.Notifies): Fu[Notification.UnreadCount] =
-    unreadCountCache get userId dmap Notification.UnreadCount.apply
+  def unreadCount(userId: Notifies): Fu[UnreadCount] =
+    unreadCountCache get userId
 
   def addNotification(notification: Notification): Fu[Boolean] =
     // Add to database and then notify any connected clients of the new notification
@@ -68,24 +70,23 @@ final class NotifyApi(
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
 
-  def remove(notifies: Notification.Notifies, selector: Bdoc = $empty): Funit =
+  def remove(notifies: Notifies, selector: Bdoc = $empty): Funit =
     repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)
 
-  def markRead(notifies: Notification.Notifies, selector: Bdoc): Funit =
+  def markRead(notifies: Notifies, selector: Bdoc): Funit =
     repo.markManyRead(selector ++ $doc("notifies" -> notifies, "read" -> false)) >>-
       unreadCountCache.invalidate(notifies)
 
-  def exists = repo.exists _
+  def exists = repo.exists
 
   private def shouldSkip(notification: Notification) =
     (!notification.isMsg ?? userRepo.isKid(notification.notifies.value)) >>| {
-      notification.content match {
+      notification.content match
         case MentionedInThread(_, _, topicId, _, _) =>
           repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(_, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(sender, _)     => repo.hasRecentPrivateMessageFrom(notification.notifies, sender)
         case _                             => fuFalse
-      }
     }
 
   /** Inserts notification into the repository. If the user already has an unread notification on the topic,
@@ -98,19 +99,18 @@ final class NotifyApi(
       case false => fuccess(None)
     }
 
-  private def notifyUser(notifies: Notification.Notifies): Funit =
+  private def notifyUser(notifies: Notifies): Funit =
     getNotificationsAndCount(notifies, 1) map { msg =>
       Bus.publish(
         SendTo.async(
           notifies.value,
           "notifications",
           () => {
-            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { implicit lang =>
-              jsonHandlers(msg)
+            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { lang =>
+              jsonHandlers(msg)(using lang)
             }
           }
         ),
         "socketUsers"
       )
     }
-}

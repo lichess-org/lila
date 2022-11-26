@@ -1,13 +1,13 @@
 package lila.api
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.user.{ Trophy, User }
 import lila.rating.{ PerfType, UserRankMap }
 import play.api.i18n.Lang
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.security.Granter
 
 final class UserApi(
@@ -26,7 +26,7 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     net: NetConfig
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def one(u: User): JsObject =
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
@@ -37,7 +37,7 @@ final class UserApi(
       as: Option[User],
       withFollows: Boolean,
       withTrophies: Boolean
-  )(implicit lang: Lang): Fu[Option[JsObject]] =
+  )(using lang: Lang): Fu[Option[JsObject]] =
     userRepo named username flatMap {
       _ ?? { extended(_, as, withFollows, withTrophies) dmap some }
     }
@@ -47,7 +47,7 @@ final class UserApi(
       as: Option[User],
       withFollows: Boolean,
       withTrophies: Boolean
-  )(implicit lang: Lang): Fu[JsObject] =
+  )(using lang: Lang): Fu[JsObject] =
     if (u.disabled) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
@@ -116,7 +116,7 @@ final class UserApi(
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
     }
 
-  private def trophiesJson(all: UserApi.TrophiesAndAwards)(implicit lang: Lang): JsArray =
+  private def trophiesJson(all: UserApi.TrophiesAndAwards)(using lang: Lang): JsArray =
     JsArray {
       all.ranks.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
@@ -135,7 +135,7 @@ final class UserApi(
       }
     }
 
-  private def perfTopTrophy(perf: PerfType, top: Int, name: String)(implicit lang: Lang) = Json.obj(
+  private def perfTopTrophy(perf: PerfType, top: Int, name: String)(using lang: Lang) = Json.obj(
     "type" -> "perfTop",
     "perf" -> perf.key,
     "top"  -> top,
@@ -146,15 +146,12 @@ final class UserApi(
     js.add("streaming", liveStreamApi.isStreaming(id))
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
-}
 
-object UserApi {
+object UserApi:
   case class TrophiesAndAwards(
       ranks: UserRankMap,
       trophies: List[Trophy],
       shields: List[lila.tournament.TournamentShield.Award],
       revolutions: List[lila.tournament.Revolution.Award]
-  ) {
+  ):
     def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
-  }
-}

@@ -3,12 +3,12 @@ package lila.lobby
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.common.Days
-import lila.common.Json.daysFormat
+import lila.common.Json.given
 import lila.game.PerfPicker
-import lila.rating.RatingRange
+import lila.rating.{ Perf, RatingRange }
 import lila.user.User
 
 // correspondence chess, persistent
@@ -21,9 +21,9 @@ case class Seek(
     user: LobbyUser,
     ratingRange: String,
     createdAt: DateTime
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   val realColor = Color orDefault color
 
@@ -58,7 +58,7 @@ case class Seek(
         "rating"   -> rating,
         "variant"  -> Json.obj("key" -> realVariant.key),
         "mode"     -> realMode.id,
-        "color"    -> chess.Color.fromName(color).??(_.name)
+        "color"    -> (chess.Color.fromName(color).??(_.name): String)
       )
       .add("days" -> daysPerTurn)
       .add("perf" -> perfType.map { pt =>
@@ -67,9 +67,8 @@ case class Seek(
       .add("provisional" -> perf.exists(_.provisional))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
-}
 
-object Seek {
+object Seek:
 
   val idSize = 8
 
@@ -81,37 +80,34 @@ object Seek {
       user: User,
       ratingRange: RatingRange,
       blocking: Set[String]
-  ): Seek =
-    new Seek(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
-      variant = variant.id,
-      daysPerTurn = daysPerTurn,
-      mode = mode.id,
-      color = color,
-      user = LobbyUser.make(user, blocking),
-      ratingRange = ratingRange.toString,
-      createdAt = DateTime.now
-    )
+  ): Seek = Seek(
+    _id = lila.common.ThreadLocalRandom nextString idSize,
+    variant = variant.id,
+    daysPerTurn = daysPerTurn,
+    mode = mode.id,
+    color = color,
+    user = LobbyUser.make(user, blocking),
+    ratingRange = ratingRange.toString,
+    createdAt = DateTime.now
+  )
 
-  def renew(seek: Seek) =
-    new Seek(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
-      variant = seek.variant,
-      daysPerTurn = seek.daysPerTurn,
-      mode = seek.mode,
-      color = seek.color,
-      user = seek.user,
-      ratingRange = seek.ratingRange,
-      createdAt = DateTime.now
-    )
+  def renew(seek: Seek) = Seek(
+    _id = lila.common.ThreadLocalRandom nextString idSize,
+    variant = seek.variant,
+    daysPerTurn = seek.daysPerTurn,
+    mode = seek.mode,
+    color = seek.color,
+    user = seek.user,
+    ratingRange = seek.ratingRange,
+    createdAt = DateTime.now
+  )
 
-  import reactivemongo.api.bson._
-  import lila.db.BSON.{ daysHandler, jodaDateTimeHandler }
-  implicit val lobbyPerfBSONHandler =
-    BSONIntegerHandler.as[LobbyPerf](
-      b => LobbyPerf(b.abs, b < 0),
-      x => x.rating * (if (x.provisional) -1 else 1)
-    )
-  implicit private[lobby] val lobbyUserBSONHandler = Macros.handler[LobbyUser]
-  implicit private[lobby] val seekBSONHandler      = Macros.handler[Seek]
-}
+  import reactivemongo.api.bson.*
+  import lila.db.dsl.{ *, given }
+  given BSONHandler[LobbyPerf] = BSONIntegerHandler.as[LobbyPerf](
+    b => LobbyPerf(IntRating(b.abs), b < 0),
+    x => x.rating.value * (if (x.provisional) -1 else 1)
+  )
+  private given BSONHandler[Map[Perf.Key, LobbyPerf]] = typedMapHandler[Perf.Key, LobbyPerf]
+  private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler
+  private[lobby] given BSONDocumentHandler[Seek]      = Macros.handler

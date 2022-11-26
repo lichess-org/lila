@@ -4,16 +4,16 @@ package study
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
 import lila.user.User
 
-object list {
+object list:
 
   def all(pag: Paginator[WithChaptersAndLiked], order: Order)(implicit ctx: Context) =
     layout(
@@ -36,7 +36,7 @@ object list {
       url = o => routes.Study.byOwner(owner.username, o)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(using
       ctx: Context
   ) =
     layout(
@@ -62,7 +62,7 @@ object list {
       url = o => routes.Study.mineLikes(o)
     )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(using
       ctx: Context
   ) =
     layout(
@@ -141,9 +141,9 @@ object list {
         pagerNext(pager, np => addQueryParameter(url.url, "page", np))
       )
 
-  private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(implicit
+  private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(using
       ctx: Context
-  ) = {
+  ) =
     val nonMineOrder = if (order == Order.Mine) Order.Hot else order
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
@@ -161,7 +161,6 @@ object list {
         trans.study.whatAreStudies()
       )
     )
-  }
 
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls           := "search", action    := routes.Study.search(), method := "get")(
@@ -203,4 +202,3 @@ object list {
         )
       )
     }
-}

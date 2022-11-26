@@ -3,13 +3,13 @@ package html.swiss
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.swiss.{ Swiss, SwissCondition }
 
-object side {
+object side:
 
   private val separator = " • "
 
@@ -18,7 +18,7 @@ object side {
       verdicts: SwissCondition.All.WithVerdicts,
       streamers: List[lila.user.User.ID],
       chat: Boolean
-  )(implicit
+  )(using
       ctx: Context
   ) =
     frag(
@@ -40,7 +40,7 @@ object side {
               a(href := routes.Swiss.home)("Swiss"),
               (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
                 " ",
-                a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag(""))
+                a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(""))
               )
             ),
             bits.showInterval(s)
@@ -101,4 +101,3 @@ object side {
       ),
       chat option views.html.chat.frag
     )
-}

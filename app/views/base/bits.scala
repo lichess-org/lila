@@ -6,11 +6,11 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-object bits {
+object bits:
 
   def mselect(id: String, current: Frag, items: List[Frag]) =
     div(cls := "mselect")(
@@ -52,10 +52,10 @@ z-index: 99;
   def fenAnalysisLink(fen: FEN)(implicit lang: Lang) =
     a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.analysis())
 
-  def paginationByQuery(route: Call, pager: Paginator[_], showPost: Boolean): Option[Frag] =
+  def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)
 
-  def pagination(url: Int => String, pager: Paginator[_], showPost: Boolean): Option[Frag] =
+  def pagination(url: Int => String, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pager.hasToPaginate option pagination(url, pager.currentPage, pager.nbPages, showPost)
 
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
@@ -71,25 +71,22 @@ z-index: 99;
       else span(cls             := "disabled", dataIcon := "")
     )
 
-  private def sliding(pager: Paginator[_], length: Int, showPost: Boolean): List[Option[Int]] =
+  private def sliding(pager: Paginator[?], length: Int, showPost: Boolean): List[Option[Int]] =
     sliding(pager.currentPage, pager.nbPages, length, showPost)
 
-  private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] = {
+  private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =
     val fromPage = 1 max (page - length)
     val toPage   = nbPages.min(page + length)
-    val pre = fromPage match {
+    val pre = fromPage match
       case 1 => Nil
       case 2 => List(1.some)
       case _ => List(1.some, none)
-    }
-    val post = toPage match {
+    val post = toPage match
       case x if x == nbPages     => Nil
       case x if x == nbPages - 1 => List(nbPages.some)
       case _ if showPost         => List(none, nbPages.some)
       case _                     => List(none)
-    }
     pre ::: (fromPage to toPage).view.map(Some.apply).toList ::: post
-  }
 
   def ariaTabList(prefix: String, selected: String)(tabs: (String, String, Frag)*) = frag(
     div(cls := "tab-list", role := "tablist")(
@@ -116,4 +113,3 @@ z-index: 99;
       }
     )
   )
-}

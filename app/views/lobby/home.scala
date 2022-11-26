@@ -3,18 +3,18 @@ package views.html.lobby
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.Preload.Homepage
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object home {
+object home:
 
-  def apply(homepage: Homepage)(implicit ctx: Context) = {
-    import homepage._
+  def apply(homepage: Homepage)(implicit ctx: Context) =
+    import homepage.*
     views.html.base.layout(
       title = "",
       fullTitle = Some {
@@ -156,7 +156,6 @@ object home {
         )
       )
     }
-  }
 
   private val i18nKeys = List(
     trans.realTime,
@@ -201,4 +200,3 @@ object home {
     trans.randomColor,
     trans.black
   ).map(_.key)
-}

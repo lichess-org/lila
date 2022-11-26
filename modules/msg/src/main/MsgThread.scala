@@ -9,7 +9,7 @@ case class MsgThread(
     user2: User.ID,
     lastMsg: Msg.Last,
     del: Option[List[User.ID]] = None
-) {
+):
 
   def users = List(user1, user2)
 
@@ -23,9 +23,8 @@ case class MsgThread(
     !lastMsg.read && {
       user1 == User.lichessId || user2 == User.lichessId
     }
-}
 
-object MsgThread {
+object MsgThread:
 
   case class Id(value: String) extends AnyVal
 
@@ -39,13 +38,12 @@ object MsgThread {
 
   def id(u1: User.ID, u2: User.ID): Id =
     Id {
-      sortUsers(u1, u2) match {
+      sortUsers(u1, u2) match
         case (user1, user2) => s"$user1$idSep$user2"
-      }
     }
 
   def make(u1: User.ID, u2: User.ID, msg: Msg): MsgThread =
-    sortUsers(u1, u2) match {
+    sortUsers(u1, u2) match
       case (user1, user2) =>
         MsgThread(
           id = id(user1, user2),
@@ -53,8 +51,6 @@ object MsgThread {
           user2 = user2,
           lastMsg = msg.asLast
         )
-    }
 
   private def sortUsers(u1: User.ID, u2: User.ID): (User.ID, User.ID) =
     if (u1 < u2) (u1, u2) else (u2, u1)
-}

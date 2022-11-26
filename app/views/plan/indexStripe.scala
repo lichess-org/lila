@@ -2,14 +2,14 @@ package views.html.plan
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
-object indexStripe {
+object indexStripe:
 
-  import trans.patron._
+  import trans.patron.*
 
   private val dataForm = attr("data-form")
 
@@ -145,4 +145,3 @@ object indexStripe {
         )
       )
     }
-}

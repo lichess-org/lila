@@ -1,21 +1,21 @@
 package controllers
 
 import play.api.http.ContentTypes
-import scala.util.chaining._
-import views._
+import scala.util.chaining.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.game.Pov
 
 final class Tv(
     env: Env,
     apiC: => Api,
     gameC: => Game
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def index     = Open(serveIndex(_))
-  def indexLang = LangPage(routes.Tv.index)(serveIndex(_)) _
+  def indexLang = LangPage(routes.Tv.index)(serveIndex(_))
   private def serveIndex(implicit ctx: Context) =
     serveChannel(lila.tv.Tv.Channel.Best.key)
 
@@ -24,7 +24,7 @@ final class Tv(
   private def serveChannel(chanKey: String)(implicit ctx: Context) =
     lila.tv.Tv.Channel.byKey.get(chanKey) ?? lichessTv
 
-  def sides(gameId: String, color: String) =
+  def sides(gameId: GameId, color: String) =
     Open { implicit ctx =>
       OptionFuResult(chess.Color.fromName(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
         env.game.crosstableApi.withMatchup(pov.game) map { ct =>
@@ -33,10 +33,12 @@ final class Tv(
       }
     }
 
+  import play.api.libs.json.*
+  import lila.common.Json.given
+  given Writes[lila.tv.Tv.Champion] = Json.writes
+
   def channels =
     apiC.ApiRequest { _ =>
-      import play.api.libs.json._
-      implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
       } map { Json.toJson(_) } dmap Api.Data.apply
@@ -71,10 +73,10 @@ final class Tv(
       }
     }
 
-  def gameChannelReplacement(chanKey: String, gameId: String, exclude: List[String]) =
+  def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[String]) =
     Open { implicit ctx =>
       val gameFu = lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
-        env.tv.tv.getReplacementGame(channel, gameId, exclude)
+        env.tv.tv.getReplacementGame(channel, gameId, exclude map { GameId(_) })
       }
       OptionResult(gameFu) { game =>
         JsonOk {
@@ -123,4 +125,3 @@ final class Tv(
         case Some(game) => Ok(views.html.tv.embed(Pov naturalOrientation game))
       }
     }
-}

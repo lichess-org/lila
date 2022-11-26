@@ -2,16 +2,16 @@ package views.html.team
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.team.{ Team, TeamMember }
 import lila.relation.Relation
 
-object members {
+object members:
 
-  import trans.team._
+  import trans.team.*
 
   def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(implicit ctx: Context) =
     bits.layout(
@@ -45,4 +45,3 @@ object members {
         )
       )
     }
-}

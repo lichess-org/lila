@@ -2,11 +2,11 @@ package lila.streamer
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import play.api.i18n.Lang
 
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
 import lila.user.{ User, UserRepo }
 
@@ -16,14 +16,14 @@ final class StreamerApi(
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
   def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
-  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer](ids.map(_.value))
+  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byStringIds[Streamer](ids.map(_.value))
 
   def find(username: String): Fu[Option[Streamer.WithUser]] =
     userRepo named username flatMap { _ ?? find }
@@ -57,7 +57,7 @@ final class StreamerApi(
         coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
 
-  def setLangLiveNow(streams: List[Stream]): Funit = {
+  def setLangLiveNow(streams: List[Stream]): Funit =
     val update = coll.update(ordered = false)
     for {
       elements <- streams.map { s =>
@@ -71,12 +71,9 @@ final class StreamerApi(
       }.sequenceFu
       _            <- elements.nonEmpty ?? update.many(elements).void
       candidateIds <- cache.candidateIds.getUnit
-    } yield {
-      if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
-    }
-  }
+    } yield if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
 
-  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
+  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
       cache.listedIds.invalidateUnit() inject {
@@ -90,7 +87,7 @@ final class StreamerApi(
         ~modChange.list ?? {
           notifyApi.addNotification(
             Notification.make(
-              Notifies(streamer.userId),
+              UserId(streamer.userId),
               lila.notify.GenericLink(
                 url = "/streamer/edit",
                 title = "Listed on /streamer".some,
@@ -102,7 +99,6 @@ final class StreamerApi(
         }
         modChange
       }
-  }
 
   def demote(userId: User.ID): Funit =
     coll.update
@@ -153,7 +149,7 @@ final class StreamerApi(
       )
       .void
 
-  object approval {
+  object approval:
 
     def request(user: User) =
       find(user) flatMap {
@@ -169,7 +165,6 @@ final class StreamerApi(
           "approval.ignored"   -> false
         )
       )
-  }
 
   def sameChannels(streamer: Streamer): Fu[List[Streamer]] =
     coll
@@ -190,7 +185,7 @@ final class StreamerApi(
       .cursor[Streamer](readPreference = ReadPreference.secondaryPreferred)
       .list(10)
 
-  private object cache {
+  private object cache:
 
     private def selectListedApproved =
       $doc(
@@ -217,5 +212,3 @@ final class StreamerApi(
           )
         }
     }
-  }
-}

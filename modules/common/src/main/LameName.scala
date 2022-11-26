@@ -2,7 +2,7 @@ package lila.common
 
 import scala.util.matching.Regex
 
-object LameName {
+object LameName:
 
   def username(name: String): Boolean =
     usernameRegex.find(name.replaceIf('_', "")) || hasTitle(name)
@@ -86,7 +86,7 @@ object LameName {
 
   private val tournamentRegex = lameWords(baseWords)
 
-  private def lameWords(list: List[String]): Regex = {
+  private def lameWords(list: List[String]): Regex =
     val extras = Map(
       'a' -> "4",
       'e' -> "38",
@@ -99,9 +99,11 @@ object LameName {
       'z' -> "2"
     )
 
-    val subs = ('a' to 'z' map { c =>
-      c -> s"[$c${c.toUpper}${~extras.get(c)}]"
-    }) ++ Seq('0' -> "[0O]", '1' -> "[1Il]", '8' -> "[8B]") toMap
+    val subs = {
+      ('a' to 'z' map { c =>
+        c -> s"[$c${c.toUpper}${~extras.get(c)}]"
+      }) ++ Seq('0' -> "[0O]", '1' -> "[1Il]", '8' -> "[8B]")
+    }.toMap
 
     list
       .map {
@@ -109,5 +111,3 @@ object LameName {
       }
       .mkString("|")
       .r
-  }
-}

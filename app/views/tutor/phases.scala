@@ -1,18 +1,18 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.insight.Phase
 import lila.insight.InsightPosition
 
-object phases {
+object phases:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(implicit
+  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
       ctx: Context
   ) =
     bits.layout(full, menu = perf.menu(full, user, report, "phases"))(
@@ -48,4 +48,3 @@ object phases {
         }
       )
     )
-}

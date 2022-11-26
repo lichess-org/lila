@@ -1,13 +1,13 @@
 package views.html.video
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object search {
+object search:
 
   def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context) =
     layout(title = s"${control.query.getOrElse("Search")} • Free Chess Videos", control = control)(
@@ -28,4 +28,3 @@ object search {
         pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
       )
     )
-}

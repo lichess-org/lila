@@ -1,16 +1,16 @@
 package views.html.user.show
 
-import controllers.report.routes.{ Report => reportRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.Context
+import lila.api.{ Context, given }
 import lila.app.mashup.UserInfo.Angle
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.user.User
 
-object header {
+object header:
 
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
@@ -203,7 +203,7 @@ object header {
                   ),
                   div(cls := "teams col2")(
                     if (info.teamIds.nonEmpty) strong(trans.team.teams()),
-                    info.teamIds.sorted.map { t =>
+                    info.teamIds.sorted(stringOrdering).map { t =>
                       teamLink(t, withIcon = false)
                     }
                   )
@@ -298,4 +298,3 @@ object header {
       )
     }
   )
-}

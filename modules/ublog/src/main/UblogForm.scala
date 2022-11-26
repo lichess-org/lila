@@ -1,20 +1,20 @@
 package lila.ublog
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, toMarkdown, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
 import lila.common.Markdown
 
-final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(implicit
+final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
     ec: scala.concurrent.ExecutionContext
-) extends lila.hub.CaptchedForm {
+) extends lila.hub.CaptchedForm:
 
-  import UblogForm._
+  import UblogForm.*
 
   private val base =
     mapping(
@@ -27,12 +27,12 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "topics"      -> optional(text),
       "live"        -> boolean,
       "discuss"     -> boolean,
-      "gameId"      -> text,
+      "gameId"      -> of[GameId],
       "move"        -> text
-    )(UblogPostData.apply)(UblogPostData.unapply)
+    )(UblogPostData.apply)(unapply)
 
   val create = Form(
-    base.verifying(captchaFailMessage, validateCaptcha _)
+    base.verifying(captchaFailMessage, validateCaptcha)
   )
 
   def edit(post: UblogPost) =
@@ -47,7 +47,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         topics = post.topics.map(_.value).mkString(", ").some,
         live = post.live,
         discuss = ~post.discuss,
-        gameId = "",
+        gameId = GameId(""),
         move = ""
       )
     )
@@ -55,9 +55,8 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
   // $$something$$ breaks the TUI editor WYSIWYG
   private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
   private def removeLatex(markdown: Markdown) = markdown(m => latexRegex.replaceAllIn(m, """\$\$ $1 \$\$"""))
-}
 
-object UblogForm {
+object UblogForm:
 
   case class UblogPostData(
       title: String,
@@ -69,15 +68,15 @@ object UblogForm {
       topics: Option[String],
       live: Boolean,
       discuss: Boolean,
-      gameId: String,
+      gameId: GameId,
       move: String
-  ) {
+  ):
 
     def realLanguage = language flatMap Lang.get
 
     def create(user: User) =
       UblogPost(
-        _id = UblogPost.Id(lila.common.ThreadLocalRandom nextString 8),
+        id = UblogPostId(lila.common.ThreadLocalRandom nextString 8),
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
@@ -109,7 +108,5 @@ object UblogForm {
         updated = UblogPost.Recorded(user.id, DateTime.now).some,
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
       )
-  }
 
   val tier = Form(single("tier" -> number(min = UblogBlog.Tier.HIDDEN, max = UblogBlog.Tier.BEST)))
-}

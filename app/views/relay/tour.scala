@@ -2,17 +2,17 @@ package views.html.relay
 
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 import lila.relay.{ RelayRound, RelayTour }
 
-object tour {
+object tour:
 
-  import trans.broadcast._
+  import trans.broadcast.*
 
   def index(
       active: List[RelayTour.ActiveWithNextRound],
@@ -65,9 +65,9 @@ object tour {
       )
     }
 
-  def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(implicit
+  def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
       ctx: Context
-  ) = {
+  ) =
     val title = ~doc.getText("doc.title")
     views.html.base.layout(
       title = title,
@@ -81,7 +81,6 @@ object tour {
         )
       )
     }
-  }
 
   private def layout(title: String, active: String)(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
@@ -103,4 +102,3 @@ object tour {
     )
 
   private def tierClass(tour: RelayTour) = s"tour-tier--${tour.tier | RelayTour.Tier.NORMAL}"
-}

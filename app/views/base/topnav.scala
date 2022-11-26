@@ -1,13 +1,13 @@
 package views.html.base
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object topnav {
+object topnav:
 
   private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
     if (ctx.blind) h3(name) else a(href := url)(name)
@@ -96,4 +96,3 @@ object topnav {
         )
       )
     )
-}

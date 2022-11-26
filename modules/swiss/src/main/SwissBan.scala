@@ -1,12 +1,11 @@
 package lila.swiss
 
-import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
 import lila.user.User
-import lila.db.dsl._
-import lila.swiss.BsonHandlers.SwissBanBSONHandler
+import lila.db.dsl.{ *, given }
+import lila.swiss.BsonHandlers.given
 import lila.game.Game
 
 case class SwissBan(_id: User.ID, until: DateTime, hours: Int)
@@ -16,12 +15,12 @@ case class SwissBan(_id: User.ID, until: DateTime, hours: Int)
  * Consecutive failures result in doubling ban duration.
  * Playing a swiss game resets the duration.
  */
-final class SwissBanApi(coll: Coll @@ BanColl)(implicit ec: ExecutionContext) {
+final class SwissBanApi(mongo: SwissMongo)(using ec: ExecutionContext):
 
   def bannedUntil(user: User.ID): Fu[Option[DateTime]] =
-    coll.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt DateTime.now), "until")
+    mongo.ban.primitiveOne[DateTime]($id(user) ++ $doc("until" $gt DateTime.now), "until")
 
-  def get(user: User.ID): Fu[Option[SwissBan]] = coll.byId[SwissBan](user)
+  def get(user: User.ID): Fu[Option[SwissBan]] = mongo.ban.byId[SwissBan](user)
 
   def onGameFinish(game: Game) =
     game.userIds
@@ -34,7 +33,7 @@ final class SwissBanApi(coll: Coll @@ BanColl)(implicit ec: ExecutionContext) {
 
   private def onStall(user: User.ID): Funit = get(user) flatMap { prev =>
     val hours = prev.fold(24)(_.hours * 2)
-    coll.update
+    mongo.ban.update
       .one(
         $id(user),
         SwissBan(user, DateTime.now plusHours hours, hours),
@@ -43,5 +42,4 @@ final class SwissBanApi(coll: Coll @@ BanColl)(implicit ec: ExecutionContext) {
       .void
   }
 
-  private def onGoodGame(user: User.ID) = coll.delete.one($id(user))
-}
+  private def onGoodGame(user: User.ID) = mongo.ban.delete.one($id(user))

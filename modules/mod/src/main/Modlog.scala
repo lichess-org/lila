@@ -11,7 +11,7 @@ case class Modlog(
     details: Option[String] = None,
     date: DateTime = DateTime.now,
     index: Option[String] = None
-) {
+):
 
   def isLichess = mod == lila.user.User.lichessId
 
@@ -23,7 +23,7 @@ case class Modlog(
   def indexAs(i: String) = copy(index = i.some)
 
   def showAction =
-    action match {
+    action match
       case Modlog.alt                 => "mark as alt"
       case Modlog.unalt               => "un-mark as alt"
       case Modlog.engine              => "mark as engine"
@@ -78,12 +78,10 @@ case class Modlog(
       case Modlog.appealPost          => "posted in appeal"
       case Modlog.setKidMode          => "set kid mode"
       case a                          => a
-    }
 
   override def toString = s"$mod $showAction ${~user} $details"
-}
 
-object Modlog {
+object Modlog:
 
   def make(mod: Mod, sus: Suspect, action: String, details: Option[String] = None): Modlog =
     Modlog(
@@ -148,8 +146,6 @@ object Modlog {
   val setKidMode          = "setKidMode"
 
   private val explainRegex = """^[\w-]{3,}: (.+)$""".r
-  def explain(e: Modlog) = (e.index has "team") ?? ~e.details match {
+  def explain(e: Modlog) = (e.index has "team") ?? ~e.details match
     case explainRegex(explain) => explain.some
     case _                     => none
-  }
-}

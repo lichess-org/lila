@@ -8,18 +8,19 @@ import lila.tree.Eval
 import lila.tree.Eval.{ Cp, Mate }
 
 // Quality of a move, based on previous and next WinPercent
-case class AccuracyPercent private (value: Double) extends AnyVal with Percent {
-  def *(weight: Double)            = copy(value * weight)
-  def mean(other: AccuracyPercent) = copy((value + other.value) / 2)
-}
+opaque type AccuracyPercent = Double
+object AccuracyPercent extends OpaqueDouble[AccuracyPercent]:
 
-object AccuracyPercent {
+  given Percent[AccuracyPercent] = _.value
 
-  def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
+  extension (a: AccuracyPercent)
+    def *(weight: Double)            = apply(a.value * weight)
+    def mean(other: AccuracyPercent) = apply((a.value + other.value) / 2)
+    def toInt                        = Percent.toInt(a)
+
+  inline def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
 
   val perfect = fromPercent(100)
-
-  implicit val ordering = Ordering.by[AccuracyPercent, Double](_.value)
 
   /*
 from scipy.optimize import curve_fit
@@ -49,7 +50,7 @@ for x in xs:
       } atMost 100 atLeast 0
   }
 
-  def fromEvalsAndPov(pov: Game.SideAndStart, evals: List[Eval]): List[AccuracyPercent] = {
+  def fromEvalsAndPov(pov: Game.SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
     val alignedEvals = if (pov.color == pov.startColor) Eval.initial :: subjectiveEvals else subjectiveEvals
     alignedEvals
@@ -62,7 +63,6 @@ for x in xs:
       }
       .flatten
       .toList
-  }
 
   def fromAnalysisAndPov(pov: Game.SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
@@ -71,7 +71,7 @@ for x in xs:
     gameAccuracy(startColor, analysis.infos.map(_.eval).flatMap(_.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[Color.Map[AccuracyPercent]] = {
+  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[Color.Map[AccuracyPercent]] =
     val allWinPercents = (Cp.initial :: cps) map WinPercent.fromCentiPawns
     allWinPercents.headOption flatMap { firstWinPercent =>
       val windowSize          = (cps.size / 10) atLeast 2 atMost 8
@@ -115,5 +115,3 @@ for x in xs:
         ba <- colorAccuracy(Color.black)
       } yield Color.Map(wa, ba)
     }
-  }
-}

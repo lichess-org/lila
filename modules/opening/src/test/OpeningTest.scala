@@ -4,13 +4,13 @@ import org.specs2.mutable.Specification
 
 class OpeningTest extends Specification {
 
-  "next variation name" in {
+  "next variation name" >> {
     import Opening.variationName
 
     def vn(prev: String, next: String, expected: String) =
-      variationName(prev, next) must_== expected
+      variationName(prev, next) === expected
 
-    "actual progress (easy)" in {
+    "actual progress (easy)" >> {
       vn("A", "A", "A")
       vn("A", "A: B", "B")
       vn("A", "A: B, C", "B")
@@ -31,7 +31,7 @@ class OpeningTest extends Specification {
       )
     }
 
-    "change of family name" in {
+    "change of family name" >> {
       vn("A", "B", "B")
       vn("A:B", "Z", "Z")
       vn("A:B", "Z:B", "Z")
@@ -44,14 +44,14 @@ class OpeningTest extends Specification {
       vn("King's Knight Opening: Normal Variation", "Ruy Lopez", "Ruy Lopez")
     }
 
-    "change of variation" in {
+    "change of variation" >> {
       vn("A:B", "A:Z", "Z")
       vn("A:B,C", "A:Y,Z", "Y")
       vn("A:B,C", "A:B,Z", "Z")
       vn("A:B,C,D", "A:Z", "Z")
     }
 
-    "loss of variation" in {
+    "loss of variation" >> {
       vn("A:B", "A", "A")
       vn("A:B,C", "A:B", "B")
       vn("A:B,C,D", "A:B", "B")

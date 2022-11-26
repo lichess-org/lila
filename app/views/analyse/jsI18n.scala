@@ -2,11 +2,11 @@ package views.html.analyse
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans, MessageKey }
-import views.html.board.{ userAnalysisI18n => board }
+import lila.app.templating.Environment.{ given, * }
+import lila.i18n.{ I18nKeys as trans, MessageKey }
+import views.html.board.{ userAnalysisI18n as board }
 
-object jsI18n {
+object jsI18n:
 
   def apply()(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
@@ -125,4 +125,3 @@ object jsI18n {
         trans.reviewBlackMistakes
       ).map(_.key)
   }.distinct
-}

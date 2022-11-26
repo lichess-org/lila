@@ -1,14 +1,14 @@
 package lila.common
 
-import akka.actor._
+import akka.actor.*
 
-object Lilakka {
+object Lilakka:
 
   val logger = lila.log("shutdown")
 
   def shutdown(cs: CoordinatedShutdown, makePhase: CoordinatedShutdown.type => String, name: String)(
       f: () => Funit
-  ): Unit = {
+  ): Unit =
     val phase = makePhase(CoordinatedShutdown)
     val msg   = s"$phase $name"
     cs.addTask(phase, name) { () =>
@@ -17,5 +17,3 @@ object Lilakka {
         .log(logger)(_ => msg)
         .result inject akka.Done
     }
-  }
-}

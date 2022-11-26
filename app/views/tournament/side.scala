@@ -3,13 +3,13 @@ package html.tournament
 
 import chess.variant.{ FromPosition, Standard }
 import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
 
-object side {
+object side:
 
   private val separator = " • "
 
@@ -131,4 +131,3 @@ object side {
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag(""))
       )
     )
-}

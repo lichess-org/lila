@@ -9,7 +9,7 @@ import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-object PgnImport {
+object PgnImport:
 
   case class Result(
       root: Node.Root,
@@ -29,7 +29,7 @@ object PgnImport {
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
-        parseComments(parsedPgn.initialPosition.comments, annotator) match {
+        parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, comments) =>
             val sans = parsedPgn.sans.value take Node.MAX_PLIES
             val root = Node.Root(
@@ -70,7 +70,6 @@ object PgnImport {
               tags = PgnTags(parsedPgn.tags),
               end = end
             )
-        }
     }
 
   private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
@@ -83,12 +82,11 @@ object PgnImport {
       } getOrElse Comment.Author.External(a)
     }
 
-  private def endComment(end: End): Comment = {
+  private def endComment(end: End): Comment =
     import lila.tree.Node.Comment
-    import end._
+    import end.*
     val text = s"$resultText $statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
-  }
 
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
@@ -102,7 +100,7 @@ object PgnImport {
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Comments) =
     comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>
-      CommentParser(txt) match {
+      CommentParser(txt) match
         case CommentParser.ParsedComment(s, c, str) =>
           (
             (shapes ++ s),
@@ -113,12 +111,11 @@ object PgnImport {
                 comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
             })
           )
-      }
     }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
-    try {
-      sans match {
+    try
+      sans match
         case Nil => none
         case san :: rest =>
           san(prev.situation).fold(
@@ -151,12 +148,10 @@ object PgnImport {
               }
             }
           )
-      }
-    } catch {
+    catch
       case _: StackOverflowError =>
         logger.warn(s"study PgnImport.makeNode StackOverflowError")
         None
-    }
 
   /*
    * Fix bad PGN like this one found on reddit:
@@ -164,7 +159,7 @@ object PgnImport {
    * where 7. c4 appears three times
    */
   private def removeDuplicatedChildrenFirstNode(children: Node.Children): Node.Children =
-    children.first match {
+    children.first match
       case Some(main) if children.variations.exists(_.id == main.id) =>
         Node.Children {
           main +: children.variations.flatMap { node =>
@@ -173,5 +168,3 @@ object PgnImport {
           }
         }
       case _ => children
-    }
-}

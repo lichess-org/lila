@@ -7,26 +7,25 @@ import lila.playban.RageSit
 case class PoolMember(
     userId: User.ID,
     sri: lila.socket.Socket.Sri,
-    rating: Int,
+    rating: IntRating,
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: PoolMember.BlockedUsers,
     rageSitCounter: Int,
     misses: Int = 0 // how many waves they missed
-) {
+):
 
   def incMisses = copy(misses = misses + 1)
 
-  def ratingDiff(other: PoolMember) = Math.abs(rating - other.rating)
+  def ratingDiff(other: PoolMember) = IntRatingDiff(Math.abs(rating.value - other.rating.value))
 
   def withRange(r: Option[RatingRange]) =
     if (r == ratingRange) this
     else copy(ratingRange = r, misses = 0)
 
   def hasRange = ratingRange.isDefined
-}
 
-object PoolMember {
+object PoolMember:
 
   case class BlockedUsers(ids: Set[User.ID]) extends AnyVal
 
@@ -40,4 +39,3 @@ object PoolMember {
       blocking = BlockedUsers(joiner.blocking),
       rageSitCounter = rageSit.counter / 10
     )
-}

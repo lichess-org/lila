@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">संगणका बरोबर खेळा</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रित देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
-  <string name="waitingForOpponent">प्रतिस्पर्धीसाठी थांबलेले आहे</string>
+  <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
   <string name="waiting">वाट पाहत आहे</string>
   <string name="yourTurn">तुमची चाल</string>
   <string name="aiNameLevelAiLevel">%1$s, पातळी %2$s</string>
@@ -13,7 +13,7 @@
   <string name="toggleTheChat">गप्पा उघड/बंद करा</string>
   <string name="chat">गप्पा</string>
   <string name="resign">हार माना</string>
-  <string name="checkmate">शह देउन मात</string>
+  <string name="checkmate">शहमात</string>
   <string name="stalemate">अर्धवट मात</string>
   <string name="white">पांढरा</string>
   <string name="black">काळा</string>
@@ -92,6 +92,7 @@
   <string name="dtzWithRounding">गोलाकार सह, पुढील कॅप्चर किंवा प्यादे हलवण्यापर्यंत अर्ध्या हालचालींच्या संख्येवर आधारित</string>
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक गेम समाविष्ट कराल?</string>
+  <string name="openings">ओपनिंग</string>
   <string name="openingExplorer">ओपेनिग अन्वेषक</string>
   <string name="openingEndgameExplorer">ओपनिंग/एंडगेम एक्सप्लोरर</string>
   <string name="xOpeningExplorer">%s ओपेनिग अन्वेषक</string>

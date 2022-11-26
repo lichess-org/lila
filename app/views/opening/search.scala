@@ -3,14 +3,14 @@ package views.html.opening
 import chess.format.FEN
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningSearchResult }
 
-object search {
+object search:
 
-  import bits._
+  import bits.*
 
   def form(q: String, focus: Boolean = false)(implicit ctx: Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
@@ -38,7 +38,7 @@ object search {
       }
     )
 
-  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(implicit
+  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -53,4 +53,3 @@ object search {
         resultsList(results)
       )
     }
-}

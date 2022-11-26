@@ -2,10 +2,10 @@ package views.html.site
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object keyboardHelpModal {
+object keyboardHelpModal:
 
   private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
@@ -98,8 +98,8 @@ object keyboardHelpModal {
       )
     )
 
-  def keyboardMove(implicit lang: Lang) = {
-    import trans.keyboardMove._
+  def keyboardMove(implicit lang: Lang) =
+    import trans.keyboardMove.*
     frag(
       h2(keyboardInputCommands()),
       table(
@@ -143,5 +143,3 @@ object keyboardHelpModal {
         )
       )
     )
-  }
-}

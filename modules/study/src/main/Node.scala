@@ -8,7 +8,7 @@ import chess.Centis
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
-sealed trait RootOrNode {
+sealed trait RootOrNode:
   val ply: Int
   val fen: FEN
   val check: Boolean
@@ -25,7 +25,6 @@ sealed trait RootOrNode {
   def mainline: Vector[Node]
   def color = chess.Color.fromPly(ply)
   def moveOption: Option[Uci.WithSan]
-}
 
 case class Node(
     id: UciCharPair,
@@ -42,7 +41,7 @@ case class Node(
     crazyData: Option[Crazyhouse.Data],
     children: Node.Children,
     forceVariation: Boolean
-) extends RootOrNode {
+) extends RootOrNode:
 
   import Node.Children
 
@@ -53,7 +52,7 @@ case class Node(
 
   def withoutChildren = copy(children = Node.emptyChildren)
 
-  def addChild(child: Node) = copy(children = children addNode child)
+  def addChild(child: Node): Node = copy(children = children addNode child)
 
   def withClock(centis: Option[Centis])  = copy(clock = centis)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
@@ -107,13 +106,12 @@ case class Node(
   def moveOption = move.some
 
   override def toString = s"$ply.${move.san}"
-}
 
-object Node {
+object Node:
 
   val MAX_PLIES = 400
 
-  case class Children(nodes: Vector[Node]) extends AnyVal {
+  case class Children(nodes: Vector[Node]) extends AnyVal:
 
     def first      = nodes.headOption
     def variations = nodes drop 1
@@ -135,10 +133,9 @@ object Node {
       }
 
     def addNodeAt(node: Node, path: Path): Option[Children] =
-      path.split match {
+      path.split match
         case None               => addNode(node).some
         case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
-      }
 
     def addNode(node: Node): Children =
       get(node.id).fold(Children(nodes :+ node)) { prev =>
@@ -147,13 +144,13 @@ object Node {
 
     def deleteNodeAt(path: Path): Option[Children] =
       path.split flatMap {
-        case (head, Path(Nil)) if has(head) => Children(nodes.filterNot(_.id == head)).some
-        case (_, Path(Nil))                 => none
-        case (head, tail)                   => updateChildren(head, _.deleteNodeAt(tail))
+        case (head, Path(Vector())) if has(head) => Children(nodes.filterNot(_.id == head)).some
+        case (_, Path(Vector()))                 => none
+        case (head, tail)                        => updateChildren(head, _.deleteNodeAt(tail))
       }
 
     def promoteToMainlineAt(path: Path): Option[Children] =
-      path.split match {
+      path.split match
         case None => this.some
         case Some((head, tail)) =>
           get(head).flatMap { node =>
@@ -161,10 +158,9 @@ object Node {
               Children(promoted +: nodes.filterNot(node ==))
             }
           }
-      }
 
     def promoteUpAt(path: Path): Option[(Children, Boolean)] =
-      path.split match {
+      path.split match
         case None => Some(this -> false)
         case Some((head, tail)) =>
           for {
@@ -172,17 +168,15 @@ object Node {
             mainlineNode          <- nodes.headOption
             (newChildren, isDone) <- node.children promoteUpAt tail
             newNode = node.copy(children = newChildren)
-          } yield {
+          } yield
             if (isDone) update(newNode) -> true
             else if (newNode.id == mainlineNode.id) update(newNode) -> false
             else Children(newNode +: nodes.filterNot(newNode ==))   -> true
-          }
-      }
 
     def updateAt(path: Path, f: Node => Node): Option[Children] =
       path.split flatMap {
-        case (head, Path(Nil)) => updateWith(head, n => Some(f(n)))
-        case (head, tail)      => updateChildren(head, _.updateAt(tail, f))
+        case (head, Path(Vector())) => updateWith(head, n => Some(f(n)))
+        case (head, tail)           => updateChildren(head, _.updateAt(tail, f))
       }
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
@@ -240,7 +234,6 @@ object Node {
       }
 
     override def toString = nodes.mkString(", ")
-  }
   val emptyChildren = Children(Vector.empty)
 
   case class Root(
@@ -255,7 +248,7 @@ object Node {
       clock: Option[Centis],
       crazyData: Option[Crazyhouse.Data],
       children: Children
-  ) extends RootOrNode {
+  ) extends RootOrNode:
 
     def withChildren(f: Children => Option[Children]) =
       f(children) map { newChildren =>
@@ -343,9 +336,8 @@ object Node {
     def moveOption = none
 
     override def toString = "ROOT"
-  }
 
-  object Root {
+  object Root:
 
     def default(variant: chess.variant.Variant) =
       Root(
@@ -366,7 +358,6 @@ object Node {
         crazyData = b.crazyData,
         children = Children(b.children.view.map(fromBranch).toVector)
       )
-  }
 
   def fromBranch(b: lila.tree.Branch): Node =
     Node(
@@ -381,7 +372,7 @@ object Node {
       forceVariation = false
     )
 
-  object BsonFields {
+  object BsonFields:
     val ply            = "p"
     val uci            = "u"
     val san            = "s"
@@ -396,5 +387,3 @@ object Node {
     val crazy          = "z"
     val forceVariation = "fv"
     val order          = "o"
-  }
-}

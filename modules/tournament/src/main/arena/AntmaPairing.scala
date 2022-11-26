@@ -5,7 +5,7 @@ import lila.common.{ Chronometer, WMMatching }
 import lila.user.User
 import PairingSystem.Data
 
-private object AntmaPairing {
+private object AntmaPairing:
 
   private[this] val maxStrike = 3
 
@@ -13,7 +13,7 @@ private object AntmaPairing {
 
   def apply(data: Data, players: List[RPlayer]): List[Pairing.Prep] =
     players.nonEmpty ?? {
-      import data._
+      import data.*
 
       def rankFactor = PairingSystem.rankFactorFor(players)
 
@@ -28,8 +28,8 @@ private object AntmaPairing {
         ) None
         else
           Some {
-            Math.abs(a.rank - b.rank) * rankFactor(a, b) +
-              Math.abs(a.player.rating - b.player.rating)
+            Math.abs(a.rank.value - b.rank.value) * rankFactor(a, b) +
+              Math.abs(a.player.rating.value - b.player.rating.value)
           }
 
       def battleScore(a: RPlayer, b: RPlayer): Option[Int] =
@@ -54,4 +54,3 @@ private object AntmaPairing {
         )
       }
     }
-}

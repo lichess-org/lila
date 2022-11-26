@@ -1,13 +1,12 @@
 package lila.pref
 
-sealed class PieceSet private[pref] (val name: String) {
+sealed class PieceSet private[pref] (val name: String):
 
   override def toString = name
 
   def cssClass = name
-}
 
-sealed trait PieceSetObject {
+sealed trait PieceSetObject:
 
   val all: List[PieceSet]
 
@@ -21,9 +20,8 @@ sealed trait PieceSetObject {
   def apply(name: Option[String]): PieceSet = name.fold(default)(apply)
 
   def contains(name: String) = allByName contains name
-}
 
-object PieceSet extends PieceSetObject {
+object PieceSet extends PieceSetObject:
 
   val default = new PieceSet("cburnett")
 
@@ -58,9 +56,8 @@ object PieceSet extends PieceSetObject {
     "letter",
     "disguised"
   ) map { new PieceSet(_) }
-}
 
-object PieceSet3d extends PieceSetObject {
+object PieceSet3d extends PieceSetObject:
 
   val default = new PieceSet("Basic")
 
@@ -77,4 +74,3 @@ object PieceSet3d extends PieceSetObject {
     "Staunton",
     "CubesAndPi"
   ) map { new PieceSet(_) }
-}

@@ -1,7 +1,7 @@
 package lila.tournament
 
-import akka.stream.scaladsl._
-import scala.concurrent.duration._
+import akka.stream.scaladsl.*
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ LilaScheduler, LilaStream }
@@ -11,7 +11,7 @@ final private class StartedOrganizer(
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     socket: TournamentSocket
-)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer) {
+)(using ec: ExecutionContext, scheduler: akka.actor.Scheduler, mat: akka.stream.Materializer):
 
   var runCounter = 0
 
@@ -44,15 +44,15 @@ final private class StartedOrganizer(
 
   private def processTour(tour: Tournament): Funit =
     if (tour.secondsToFinish <= 0) api finish tour
-    else if (api.killSchedule contains tour.id) {
+    else if (api.killSchedule contains tour.id)
       api.killSchedule remove tour.id
       api finish tour
-    } else if (tour.nbPlayers < 2) funit
-    else if (tour.nbPlayers < 30) {
+    else if (tour.nbPlayers < 2) funit
+    else if (tour.nbPlayers < 30)
       playerRepo nbActivePlayers tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour, nb.some)
       }
-    } else startPairing(tour)
+    else startPairing(tour)
 
   private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Funit =
     !tour.pairingsClosed ??
@@ -63,4 +63,3 @@ final private class StartedOrganizer(
           lila.mon.tournament.waitingPlayers.record(waiting.size).unit
           api.makePairings(tour, waiting, smallTourNbActivePlayers)
         }
-}

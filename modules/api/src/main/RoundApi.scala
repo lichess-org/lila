@@ -2,10 +2,11 @@ package lila.api
 
 import chess.format.FEN
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.analyse.{ Analysis, JsonView => analysisJson }
+import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.ApiVersion
+import lila.common.Json.given
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
@@ -13,8 +14,8 @@ import lila.round.JsonView.WithFlags
 import lila.round.{ Forecast, JsonView }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.swiss.{ GameView => SwissView }
-import lila.tournament.{ GameView => TourView }
+import lila.swiss.{ GameView as SwissView }
+import lila.tournament.{ GameView as TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
 
@@ -29,17 +30,17 @@ final private[api] class RoundApi(
     simulApi: lila.simul.SimulApi,
     puzzleOpeningApi: lila.puzzle.PuzzleOpeningApi,
     externalEngineApi: lila.analyse.ExternalEngineApi,
-    getTeamName: lila.team.GetTeamName,
+    getTeamName: lila.team.GetTeamNameSync,
     getLightUser: lila.common.LightUser.GetterSync
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(implicit
+  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(using
       ctx: Context
   ): Fu[JsObject] =
     gameRepo
       .initialFen(pov.game)
       .flatMap { initialFen =>
-        implicit val lang = ctx.lang
+        given play.api.i18n.Lang = ctx.lang
         jsonView.playerJson(
           pov,
           ctx.pref,
@@ -56,7 +57,7 @@ final private[api] class RoundApi(
           bookmarkApi.exists(pov.game, ctx.me) map {
             case (((((json, simul), swiss), note), forecast), bookmarked) =>
               (
-                withTournament(pov, tour) _ compose
+                withTournament(pov, tour) compose
                   withSwiss(swiss) compose
                   withSimul(simul) compose
                   withSteps(pov, initialFen) compose
@@ -74,11 +75,11 @@ final private[api] class RoundApi(
       apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv],
       initialFenO: Option[Option[FEN]] = None
-  )(implicit ctx: Context): Fu[JsObject] =
+  )(using ctx: Context): Fu[JsObject] =
     initialFenO
       .fold(gameRepo initialFen pov.game)(fuccess)
       .flatMap { initialFen =>
-        implicit val lang = ctx.lang
+        given play.api.i18n.Lang = ctx.lang
         jsonView.watcherJson(
           pov,
           ctx.pref,
@@ -93,7 +94,7 @@ final private[api] class RoundApi(
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
           bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
-              withTournament(pov, tour) _ compose
+              withTournament(pov, tour) compose
                 withSwiss(swiss) compose
                 withSimul(simul) compose
                 withNote(note) compose
@@ -104,7 +105,7 @@ final private[api] class RoundApi(
       }
       .mon(_.round.api.watcher)
 
-  private def ctxFlags(implicit ctx: Context) =
+  private def ctxFlags(using ctx: Context) =
     WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs), rating = ctx.pref.showRatings)
 
   def review(
@@ -115,8 +116,8 @@ final private[api] class RoundApi(
       initialFen: Option[FEN],
       withFlags: WithFlags,
       owner: Boolean = false
-  )(implicit ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
-    implicit val lang = ctx.lang
+  )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
+    given play.api.i18n.Lang = ctx.lang
     jsonView.watcherJson(
       pov,
       ctx.pref,
@@ -137,7 +138,7 @@ final private[api] class RoundApi(
       bookmarkApi.exists(pov.game, ctx.me) map {
         case (((((((json, tour), simul), swiss), note), fco), puzzleOpening), bookmarked) =>
           (
-            withTournament(pov, tour) _ compose
+            withTournament(pov, tour) compose
               withSwiss(swiss) compose
               withSimul(simul) compose
               withNote(note) compose
@@ -221,7 +222,7 @@ final private[api] class RoundApi(
       json + (
         "forecast" -> {
           if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
-            import Forecast.forecastJsonWriter
+            import Forecast.given
             Json toJson fc
           }
           else Json.obj("onMyTurn" -> true)
@@ -245,7 +246,7 @@ final private[api] class RoundApi(
       json.add("externalEngines", engines.nonEmpty.option(engines))
     }
 
-  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(implicit lang: Lang) =
+  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using lang: Lang) =
     json.add("tournament" -> viewO.map { v =>
       Json
         .obj(
@@ -274,7 +275,7 @@ final private[api] class RoundApi(
         .add(
           "team",
           v.teamVs.map(_.teams(pov.color)) map { id =>
-            Json.obj("name" -> getTeamName(id))
+            Json.obj("name" -> getTeamName.value(id))
           }
         )
     })
@@ -283,7 +284,7 @@ final private[api] class RoundApi(
     json.add("swiss" -> sv.map { s =>
       Json
         .obj(
-          "id"      -> s.swiss.id.value,
+          "id"      -> s.swiss.id,
           "running" -> s.swiss.isStarted
         )
         .add("ranks" -> s.ranks.map { r =>
@@ -306,4 +307,3 @@ final private[api] class RoundApi(
         )
       }
     )
-}

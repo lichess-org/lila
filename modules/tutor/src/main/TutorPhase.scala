@@ -12,14 +12,13 @@ case class TutorPhase(
     phase: Phase,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent]
-) {
+):
 
   def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(a => GoodPercent(a.value)) mix awareness
-}
 
-private object TutorPhases {
+private object TutorPhases:
 
-  import TutorBuilder._
+  import TutorBuilder.*
 
   private val accuracyQuestion  = Question(InsightDimension.Phase, InsightMetric.MeanAccuracy)
   private val awarenessQuestion = Question(InsightDimension.Phase, InsightMetric.Awareness)
@@ -31,8 +30,7 @@ private object TutorPhases {
     } yield InsightDimension.valuesOf(InsightDimension.Phase).map { phase =>
       TutorPhase(
         phase,
-        accuracy = accuracy valueMetric phase map AccuracyPercent.apply,
-        awareness = awareness valueMetric phase map GoodPercent.apply
+        accuracy = AccuracyPercent.from(accuracy valueMetric phase),
+        awareness = GoodPercent.from(awareness valueMetric phase)
       )
     }
-}

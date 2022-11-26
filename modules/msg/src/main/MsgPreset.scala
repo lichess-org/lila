@@ -2,7 +2,7 @@ package lila.msg
 
 case class MsgPreset(name: String, text: String)
 
-object MsgPreset {
+object MsgPreset:
 
   type Username = String
 
@@ -46,7 +46,7 @@ To follow new players, you must first unfollow some on https://lichess.org/@/$us
 Thank you for your understanding."""
     )
 
-  object forumDeletion {
+  object forumDeletion:
 
     val presets = List(
       "public shaming",
@@ -55,13 +55,11 @@ Thank you for your understanding."""
       "inappropriate behavior"
     )
 
-    def byModerator = compose("A moderator") _
+    def byModerator = compose("A moderator")
 
-    def byTeamLeader(teamSlug: String) = compose(s"A team leader of https://lichess.org/forum/$teamSlug") _
+    def byTeamLeader(teamSlug: String) = compose(s"A team leader of https://lichess.org/forum/$teamSlug")
 
-    def byBlogAuthor(authorId: String) = compose(by = s"The community blog author $authorId") _
+    def byBlogAuthor(authorId: String) = compose(by = s"The community blog author $authorId")
 
     private def compose(by: String)(reason: String) =
       s"""$by deleted one of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
-  }
-}

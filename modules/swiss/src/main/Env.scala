@@ -1,13 +1,13 @@
 package lila.swiss
 
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.LilaScheduler
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.{ GetVersion, SocketVersion }
+import lila.db.dsl.Coll
 
 @Module
 final class Env(
@@ -25,19 +25,21 @@ final class Env(
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: lila.common.config.BaseUrl
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
     mode: play.api.Mode
-) {
+):
 
-  private val swissColl   = db(CollName("swiss")).taggedWith[SwissColl]
-  private val playerColl  = db(CollName("swiss_player")).taggedWith[PlayerColl]
-  private val pairingColl = db(CollName("swiss_pairing")).taggedWith[PairingColl]
-  private val banColl     = db(CollName("swiss_ban")).taggedWith[BanColl]
+  private val mongo = new SwissMongo(
+    swiss = db(CollName("swiss")),
+    player = db(CollName("swiss_player")),
+    pairing = db(CollName("swiss_pairing")),
+    ban = db(CollName("swiss_ban"))
+  )
 
   private val sheetApi = wire[SwissSheetApi]
 
@@ -65,12 +67,12 @@ final class Env(
 
   lazy val roundPager = wire[SwissRoundPager]
 
-  private def teamOf = api.teamOf _
+  private def teamOf = api.teamOf
 
   private lazy val socket = wire[SwissSocket]
 
-  def version(swissId: Swiss.Id): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](swissId.value)(GetVersion)
+  def version(swissId: SwissId): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](swissId into RoomId)(GetVersion.apply)
 
   lazy val standingApi = wire[SwissStandingApi]
 
@@ -105,9 +107,5 @@ final class Env(
   LilaScheduler(_.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(api.checkOngoingGames)
 
   LilaScheduler(_.Every(1 hour), _.AtMost(15 seconds), _.Delay(5 minutes))(officialSchedule.generate)
-}
 
-private trait SwissColl
-private trait PlayerColl
-private trait PairingColl
-private trait BanColl
+final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

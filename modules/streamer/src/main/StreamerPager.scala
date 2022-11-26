@@ -1,24 +1,24 @@
 package lila.streamer
 
-import reactivemongo.api._
+import reactivemongo.api.*
 
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 
 final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
     maxPerPage: lila.common.config.MaxPerPage
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def notLive(
       page: Int,
       live: LiveStreams,
       approvalRequested: Boolean = false
-  ): Fu[Paginator[Streamer.WithUser]] = {
+  ): Fu[Paginator[Streamer.WithUser]] =
     Paginator(
       currentPage = page,
       maxPerPage = maxPerPage,
@@ -40,7 +40,7 @@ final class StreamerPager(
         def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithUser]] =
           coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match(selector) -> List(
                 Sort(if (approvalRequested) Ascending("updatedAt") else Descending("liveAt")),
                 Skip(offset),
@@ -65,7 +65,6 @@ final class StreamerPager(
             }
       }
     )
-  }
 
   def nextRequestId: Fu[Option[Streamer.Id]] =
     coll.primitiveOne[Streamer.Id](
@@ -79,4 +78,3 @@ final class StreamerPager(
       "approval.requested" -> true,
       "approval.ignored"   -> false
     )
-}

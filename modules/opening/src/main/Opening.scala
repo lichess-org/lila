@@ -3,26 +3,25 @@ package lila.opening
 import chess.opening.{ FullOpening, FullOpeningDB }
 import cats.data.NonEmptyList
 
-object Opening {
+object Opening:
 
   type NameSection = String
   type PgnMove     = String
 
   case class Tree(children: List[(Tree.NameOrOpening, Tree)])
 
-  object Tree {
+  object Tree:
 
     type NameOrOpening = (NameSection, Option[FullOpening])
 
     private val emptyNode = TreeNode(Map.empty)
 
-    private case class TreeNode(children: Map[NameOrOpening, TreeNode]) {
-      def update(path: List[NameOrOpening]): TreeNode = path match {
+    private case class TreeNode(children: Map[NameOrOpening, TreeNode]):
+      def update(path: List[NameOrOpening]): TreeNode = path match
         case Nil         => this
         case last :: Nil => copy(children = children.updatedWith(last)(_ orElse emptyNode.some))
         case p :: rest =>
           copy(children = children.updatedWith(p)(node => (node | emptyNode).update(rest).some))
-      }
 
       def toTree: Tree = Tree(
         children.toList
@@ -31,7 +30,6 @@ object Opening {
             (op, node.toTree)
           }
       )
-    }
 
     lazy val compute: Tree =
       FullOpeningDB.shortestLines.values
@@ -44,7 +42,6 @@ object Opening {
         .toList
         .foldLeft(emptyNode)(_ update _)
         .toTree
-  }
 
   /*
    * Given 2 opening names separated by a move,
@@ -63,15 +60,12 @@ object Opening {
       .getOrElse(sectionsOf(next).last)
 
   def variationName(prev: Option[FullOpening], next: Option[FullOpening]): Option[NameSection] =
-    (prev, next) match {
+    (prev, next) match
       case (Some(p), Some(n)) => variationName(p.name, n.name).some
       case (None, Some(n))    => n.family.name.some
       case _                  => none
-    }
 
   def sectionsOf(openingName: String): NonEmptyList[NameSection] =
-    openingName.split(":", 2) match {
+    openingName.split(":", 2) match
       case Array(f, v) => NonEmptyList(f, v.split(",").toList.map(_.trim))
       case _           => NonEmptyList(openingName, Nil)
-    }
-}

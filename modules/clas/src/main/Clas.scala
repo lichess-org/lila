@@ -15,17 +15,16 @@ case class Clas(
     created: Clas.Recorded,
     viewedAt: DateTime,
     archived: Option[Clas.Recorded]
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 
   def isArchived = archived.isDefined
   def isActive   = !isArchived
-}
 
-object Clas {
+object Clas:
 
   val maxStudents = 100
 
@@ -45,4 +44,3 @@ object Clas {
   case class Recorded(by: User.ID, at: DateTime)
 
   case class WithStudents(clas: Clas, students: List[Student])
-}

@@ -4,18 +4,18 @@ package coach
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.Countries
 import lila.user.Country
 import lila.common.LangPath
 
-object index {
+object index:
 
-  import trans.coach._
+  import trans.coach.*
 
   def apply(
       pager: Paginator[lila.coach.Coach.WithUser],
@@ -24,7 +24,7 @@ object index {
       langCodes: Set[String],
       countryCodes: Set[String],
       country: Option[Country]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -112,4 +112,3 @@ object index {
         )
       )
     }
-}

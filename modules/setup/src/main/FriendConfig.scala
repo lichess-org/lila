@@ -18,7 +18,7 @@ case class FriendConfig(
     color: Color,
     fen: Option[FEN] = None
 ) extends HumanConfig
-    with Positional {
+    with Positional:
 
   val strictFen = false
 
@@ -27,9 +27,8 @@ case class FriendConfig(
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
-}
 
-object FriendConfig extends BaseHumanConfig {
+object FriendConfig extends BaseHumanConfig:
 
   def from(v: Int, tm: Int, t: Double, i: Int, d: Days, m: Option[Int], c: String, fen: Option[FEN]) =
     new FriendConfig(
@@ -54,9 +53,9 @@ object FriendConfig extends BaseHumanConfig {
   )
 
   import lila.db.BSON
-  import lila.db.dsl._
+  import lila.db.dsl.{ *, given }
 
-  implicit private[setup] val friendConfigBSONHandler = new BSON[FriendConfig] {
+  private[setup] given BSON[FriendConfig] with
 
     def reads(r: BSON.Reader): FriendConfig =
       FriendConfig(
@@ -80,5 +79,3 @@ object FriendConfig extends BaseHumanConfig {
         "m"  -> o.mode.id,
         "f"  -> o.fen
       )
-  }
-}

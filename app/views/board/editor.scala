@@ -2,12 +2,12 @@ package views.html.board
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-object editor {
+object editor:
 
   def apply(
       fen: Option[String],
@@ -42,4 +42,3 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
         )
       )
     )
-}

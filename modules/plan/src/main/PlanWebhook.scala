@@ -1,22 +1,24 @@
 package lila.plan
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionContext) {
+final class PlanWebhook(api: PlanApi)(using ec: scala.concurrent.ExecutionContext):
 
-  import JsonHandlers._
+  import JsonHandlers.given
+  import JsonHandlers.stripe.given
+  import JsonHandlers.payPal.given
 
   // Never trust an incoming webhook call.
   // Only read the Event ID from it,
   // then fetch the event from the stripe API.
-  def stripe(js: JsValue): Funit = {
+  def stripe(js: JsValue): Funit =
     def log = logger branch "stripe.webhook"
     js.str("id") ?? api.stripe.getEvent flatMap {
       case None =>
         log.warn(s"Forged $js")
         funit
       case Some(event) =>
-        import JsonHandlers.stripe._
+        import JsonHandlers.stripe.*
         ~(for {
           id   <- event str "id"
           name <- event str "type"
@@ -35,11 +37,10 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
           }
         })
     }
-  }
 
-  def payPal(js: JsValue): Funit = {
+  def payPal(js: JsValue): Funit =
     def log = logger branch "payPal.webhook"
-    import JsonHandlers.payPal._
+    import JsonHandlers.payPal.*
     js.get[PayPalEventId]("id") ?? api.payPal.getEvent flatMap {
       case None =>
         log.warn(s"Forged event ${js str "id"} ${Json stringify js take 2000}")
@@ -49,10 +50,10 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
         log.info(
           s"${event.tpe}: ${event.id} / ${event.resourceTpe}: ${event.resourceId} / ${Json.stringify(event.resource).take(2000)}"
         )
-        event.tpe match {
+        event.tpe match
           case "PAYMENT.CAPTURE.COMPLETED" =>
-            CaptureReads
-              .reads(event.resource)
+            Json
+              .fromJson[PayPalCapture](event.resource)
               .fold(
                 err => {
                   log.error(s"Unreadable PayPalCapture ${Json stringify event.resource take 2000}")
@@ -64,8 +65,8 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
                   }
               )
           case "PAYMENT.SALE.COMPLETED" =>
-            SaleReads
-              .reads(event.resource)
+            Json
+              .fromJson[PayPalSale](event.resource)
               .fold(
                 err => {
                   log.error(s"Unreadable PayPalSale ${Json stringify event.resource take 2000}")
@@ -78,12 +79,8 @@ final class PlanWebhook(api: PlanApi)(implicit ec: scala.concurrent.ExecutionCon
               )
           case "BILLING.SUBSCRIPTION.ACTIVATED" => funit
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
-            event.resourceId.map(PayPalSubscriptionId) ?? api.payPal.subscriptionUser flatMap {
+            event.resourceId.map(PayPalSubscriptionId.apply) ?? api.payPal.subscriptionUser flatMap {
               _ ?? api.cancel
             }
           case _ => funit
-        }
     }
-  }
-
-}

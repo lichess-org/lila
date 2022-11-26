@@ -1,6 +1,7 @@
 package lila.security
 
 import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.DefaultBodyReadables.*
 
 import lila.common.Domain
 
@@ -8,7 +9,7 @@ final class DisposableEmailDomain(
     ws: StandaloneWSClient,
     providerUrl: String,
     checkMailBlocked: () => Fu[List[String]]
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)
 
@@ -16,33 +17,30 @@ final class DisposableEmailDomain(
 
   private[security] def refresh(): Unit =
     for {
-      blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover { case e: Exception =>
+      blacklist <- ws.url(providerUrl).get().map(_.body[String].linesIterator) recover { case e: Exception =>
         logger.warn("DisposableEmailDomain.refresh", e)
         Iterator.empty
       }
       checked <- checkMailBlocked()
-    } {
+    }
       val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
       val nbDomains = regexStr.count('|' ==)
       lila.mon.email.disposableDomain.update(nbDomains)
       regex = finalizeRegex(s"$staticRegex|$regexStr")
-    }
 
   private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
 
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
-  def apply(domain: Domain): Boolean = {
+  def apply(domain: Domain): Boolean =
     val lower = domain.lower
     !DisposableEmailDomain.whitelisted(lower) && regex.find(lower.value)
-  }
 
   def isOk(domain: Domain) = !apply(domain)
 
-  def fromDomain(mixedCase: String): Boolean = apply(Domain(mixedCase.toLowerCase))
-}
+  def fromDomain(mixedCase: String): Boolean = Domain.from(mixedCase.toLowerCase).fold(true)(apply)
 
-private object DisposableEmailDomain {
+private object DisposableEmailDomain:
 
   def whitelisted(domain: Domain.Lower) = whitelist contains domain.value
 
@@ -211,4 +209,3 @@ private object DisposableEmailDomain {
     "live.nl",
     "startmail.com"
   )
-}

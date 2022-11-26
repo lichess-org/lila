@@ -1,12 +1,12 @@
 package lila.insight
 
 import chess.{ Centis, Color }
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.PerfType
 import lila.user.User
@@ -15,18 +15,16 @@ case class InsightPerfStats(
     rating: MeanRating,
     nbGames: Color.Map[Int],
     time: FiniteDuration
-) {
+):
   def totalNbGames = nbGames.white + nbGames.black
-}
 
-object InsightPerfStats {
-  case class WithGameIds(stats: InsightPerfStats, gameIds: List[Game.ID])
-}
+object InsightPerfStats:
+  case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])
 
 final class InsightPerfStatsApi(
     storage: InsightStorage,
     pipeline: AggregationPipeline
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   def apply(
       user: User,
@@ -35,8 +33,8 @@ final class InsightPerfStatsApi(
   ): Fu[Map[PerfType, InsightPerfStats.WithGameIds]] =
     storage.coll {
       _.aggregateList(perfTypes.size) { framework =>
-        import framework._
-        import InsightEntry.{ BSONFields => F }
+        import framework.*
+        import InsightEntry.{ BSONFields as F }
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
         Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
           Sort(Descending(F.date)),
@@ -74,11 +72,10 @@ final class InsightPerfStatsApi(
           nb = ~doc.int("nb")
           t   <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
-          gameIds = ids map Game.takeGameId
+          gameIds = ids map { Game.strToId(_) }
         } yield pt -> InsightPerfStats.WithGameIds(
           InsightPerfStats(MeanRating(ra.toInt), Color.Map(nw, nb), t.toDuration),
           gameIds
         )
       }.map(_.toMap)
     }
-}

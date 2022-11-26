@@ -10,25 +10,26 @@ import chess.opening.FullOpening.nameToKey
  * even tho there are multiple FullOpening with that name.
  */
 
-case class SimpleOpening(ref: FullOpening, name: SimpleOpening.Name, family: LilaOpeningFamily) {
-  import SimpleOpening._
+case class SimpleOpening(ref: FullOpening, name: SimpleOpening.Name, family: LilaOpeningFamily):
+  import SimpleOpening.*
   val key            = Key(nameToKey(name.value))
   def isFamily       = ref.variation.isEmpty
   def familyKeyOrKey = if (isFamily) Key(family.key.value) else key
   def variation      = ref.variation | otherVariations
-  lazy val nbMoves   = ref.uci.count(' ' ==) + 1
+  lazy val nbMoves   = ref.uci.count(' ' == _) + 1
   lazy val lastUci   = ref.uci.split(' ').lastOption
-}
 
-object SimpleOpening {
+object SimpleOpening:
 
-  case class Key(value: String)  extends AnyVal with StringValue
-  case class Name(value: String) extends AnyVal with StringValue
+  opaque type Key = String
+  object Key extends OpaqueString[Key]
+  opaque type Name = String
+  object Name extends OpaqueString[Name]
 
   val otherVariations = OpeningVariation("Other variations")
 
   def apply(key: Key): Option[SimpleOpening]         = openings get key
-  def apply(ref: FullOpening): Option[SimpleOpening] = openings get Key(nameToKey(nameOf(ref).value))
+  def apply(ref: FullOpening): Option[SimpleOpening] = openings get Key(nameToKey(nameOf(ref)))
 
   def find(key: String): Option[SimpleOpening] = apply(Key(key))
 
@@ -45,6 +46,3 @@ object SimpleOpening {
     }
 
   lazy val openingList = openings.values.toList.sortBy(_.name.value)
-
-  implicit val keyIso = Iso.string[Key](Key.apply, _.value)
-}

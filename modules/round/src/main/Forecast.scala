@@ -1,18 +1,14 @@
 package lila.round
 
 import org.joda.time.DateTime
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import chess.format.Uci
 import chess.Move
-import lila.common.Json.jodaWrites
+import lila.common.Json.given
 import lila.game.Game
 
-case class Forecast(
-    _id: String, // player full id
-    steps: Forecast.Steps,
-    date: DateTime
-) {
+case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: DateTime):
 
   def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
     nextMove(g, lastMove) map { move =>
@@ -34,9 +30,8 @@ case class Forecast(
       case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.uciMove
       case (move, _)                                                     => move
     }
-}
 
-object Forecast {
+object Forecast:
 
   type Steps = List[List[Step]]
 
@@ -48,19 +43,15 @@ object Forecast {
       san: String,
       fen: String,
       check: Option[Boolean]
-  ) {
+  ):
 
     def is(move: Move)     = move.toUci.uci == uci
     def is(move: Uci.Move) = move.uci == uci
 
     def uciMove = Uci.Move(uci)
-  }
 
-  implicit val forecastStepJsonFormat = Json.format[Step]
+  given Format[Step]     = Json.format
+  given Writes[Forecast] = Json.writes
 
-  implicit val forecastJsonWriter = Json.writes[Forecast]
-
-  case object OutOfSync extends lila.base.LilaException {
+  case object OutOfSync extends lila.base.LilaException:
     val message = "Forecast out of sync"
-  }
-}

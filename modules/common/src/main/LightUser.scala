@@ -1,29 +1,29 @@
 package lila.common
 
-import play.api.libs.json._
+import play.api.libs.json.*
+import lila.common.Json.given
 
 case class LightUser(
     id: String,
     name: String,
-    title: Option[String],
+    title: Option[UserTitle],
     isPatron: Boolean
-) {
+):
 
-  def titleName = title.fold(name)(_ + " " + name)
+  def titleName = title.fold(name)(_.value + " " + name)
 
   def isBot = title has "BOT"
 
   def is(name: String) = id == LightUser.normalize(name)
-}
 
-object LightUser {
+object LightUser:
 
   type Ghost          = LightUser
   private type UserID = String
 
   val ghost: Ghost = LightUser("ghost", "ghost", none, false)
 
-  implicit val lightUserWrites = OWrites[LightUser] { u =>
+  given lightUserWrites: OWrites[LightUser] = OWrites { u =>
     writeNoId(u) + ("id" -> JsString(u.id))
   }
 
@@ -33,25 +33,23 @@ object LightUser {
       .add("title" -> u.title)
       .add("patron" -> u.isPatron)
 
-  def fallback(name: String) =
-    LightUser(
-      id = normalize(name),
-      name = name,
-      title = None,
-      isPatron = false
-    )
+  def fallback(name: String) = LightUser(
+    id = normalize(name),
+    name = name,
+    title = None,
+    isPatron = false
+  )
 
   def normalize(name: String) = name.toLowerCase
 
-  final class Getter(f: UserID => Fu[Option[LightUser]]) extends (UserID => Fu[Option[LightUser]]) {
-    def apply(u: UserID) = f(u)
-  }
+  private type GetterType          = UserID => Fu[Option[LightUser]]
+  opaque type Getter <: GetterType = GetterType
+  object Getter extends TotalWrapper[Getter, GetterType]
 
-  final class GetterSync(f: UserID => Option[LightUser]) extends (UserID => Option[LightUser]) {
-    def apply(u: UserID) = f(u)
-  }
+  private type GetterSyncType              = UserID => Option[LightUser]
+  opaque type GetterSync <: GetterSyncType = GetterSyncType
+  object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
 
-  final class IsBotSync(f: UserID => Boolean) extends (UserID => Boolean) {
-    def apply(userId: UserID) = f(userId)
-  }
-}
+  private type IsBotSyncType             = UserID => Boolean
+  opaque type IsBotSync <: IsBotSyncType = IsBotSyncType
+  object IsBotSync extends TotalWrapper[IsBotSync, IsBotSyncType]

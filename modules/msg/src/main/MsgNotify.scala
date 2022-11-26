@@ -2,9 +2,9 @@ package lila.msg
 
 import akka.actor.Cancellable
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.notify.{ Notification, PrivateMessage }
 import lila.common.String.shorten
 import lila.user.User
@@ -12,12 +12,12 @@ import lila.user.User
 final private class MsgNotify(
     colls: MsgColls,
     notifyApi: lila.notify.NotifyApi
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler
-) {
+):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   private val delay = 5 seconds
 
@@ -25,7 +25,7 @@ final private class MsgNotify(
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
-  def onRead(threadId: MsgThread.Id, userId: User.ID, contactId: User.ID): Funit = {
+  def onRead(threadId: MsgThread.Id, userId: User.ID, contactId: User.ID): Funit =
     !cancel(threadId) ??
       notifyApi
         .markRead(
@@ -36,7 +36,6 @@ final private class MsgNotify(
           )
         )
         .void
-  }
 
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
     threads
@@ -76,13 +75,9 @@ final private class MsgNotify(
         val dest = thread other msg.user
         !thread.delBy(dest) ?? {
           notifyApi addNotification Notification.make(
-            Notification.Notifies(dest),
-            PrivateMessage(
-              PrivateMessage.Sender(msg.user),
-              PrivateMessage.Text(shorten(msg.text, 40))
-            )
+            UserId(dest),
+            PrivateMessage(UserId(msg.user), shorten(msg.text, 40))
           ) map (_ ?? lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread"))
         }
       }
     }
-}

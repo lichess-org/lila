@@ -1,18 +1,18 @@
 package lila.common
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 /* Schedules an async function to be run periodically
  * Prevents concurrent execution of the function
  * Guarantees next execution even if the function fails or never completes
  */
-object LilaScheduler {
+object LilaScheduler:
 
   def apply(
       every: config.type => config.Every,
       timeout: config.type => config.AtMost,
       initialDelay: config.type => config.Delay
-  )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler): Unit = {
+  )(f: => Funit)(using ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler): Unit =
 
     val run = () => f
 
@@ -29,5 +29,3 @@ object LilaScheduler {
         runAndScheduleNext()
       }
       .unit
-  }
-}

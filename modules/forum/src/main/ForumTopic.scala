@@ -1,45 +1,45 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.common.config.MaxPerPage
 import lila.common.ThreadLocalRandom
 import lila.user.User
 
-case class Topic(
-    _id: Topic.ID,
+case class ForumTopic(
+    _id: ForumTopic.ID,
     categId: String,
     slug: String,
     name: String,
     createdAt: DateTime,
     updatedAt: DateTime,
     nbPosts: Int,
-    lastPostId: String,
+    lastPostId: ForumPost.Id,
     updatedAtTroll: DateTime,
     nbPostsTroll: Int,
-    lastPostIdTroll: String,
+    lastPostIdTroll: ForumPost.Id,
     troll: Boolean,
     closed: Boolean,
     sticky: Option[Boolean],
     userId: Option[User.ID] = None, // only since SB mutes
     ublogId: Option[String] = None
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   def updatedAt(forUser: Option[User]): DateTime =
     if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt
   def nbPosts(forUser: Option[User]): Int   = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
   def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
-  def lastPostId(forUser: Option[User]): String =
+  def lastPostId(forUser: Option[User]): ForumPost.Id =
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def open = !closed
 
-  def isTooBig = nbPosts > (if (Categ.isTeamSlug(categId)) 500 else 50)
+  def isTooBig = nbPosts > (if (ForumCateg.isTeamSlug(categId)) 500 else 50)
 
-  def possibleTeamId = Categ slugToTeamId categId
+  def possibleTeamId = ForumCateg slugToTeamId categId
 
   def isSticky = ~sticky
 
@@ -47,7 +47,7 @@ case class Topic(
   def isUblog                       = ublogId.isDefined
   def isUblogAuthor(user: User)     = isUblog && isAuthor(user)
 
-  def withPost(post: Post): Topic =
+  def withPost(post: ForumPost): ForumTopic =
     copy(
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
       lastPostId = if (post.troll) lastPostId else post.id,
@@ -63,9 +63,8 @@ case class Topic(
 
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value
-}
 
-object Topic {
+object ForumTopic:
 
   type ID = String
 
@@ -84,23 +83,21 @@ object Topic {
       userId: User.ID,
       troll: Boolean,
       ublogId: Option[String] = None
-  ): Topic =
-    Topic(
-      _id = ThreadLocalRandom nextString idSize,
-      categId = categId,
-      slug = slug,
-      name = name,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now,
-      nbPosts = 0,
-      lastPostId = "",
-      updatedAtTroll = DateTime.now,
-      nbPostsTroll = 0,
-      lastPostIdTroll = "",
-      troll = troll,
-      userId = userId.some,
-      closed = false,
-      sticky = None,
-      ublogId = ublogId
-    )
-}
+  ): ForumTopic = ForumTopic(
+    _id = ThreadLocalRandom nextString idSize,
+    categId = categId,
+    slug = slug,
+    name = name,
+    createdAt = DateTime.now,
+    updatedAt = DateTime.now,
+    nbPosts = 0,
+    lastPostId = ForumPost.Id(""),
+    updatedAtTroll = DateTime.now,
+    nbPostsTroll = 0,
+    lastPostIdTroll = ForumPost.Id(""),
+    troll = troll,
+    userId = userId.some,
+    closed = false,
+    sticky = None,
+    ublogId = ublogId
+  )

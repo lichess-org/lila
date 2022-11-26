@@ -12,9 +12,9 @@ case class RacerRace(
     countdownSeconds: Int,
     startsAt: Option[DateTime],
     rematch: Option[RacerRace.Id]
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   def has(id: RacerPlayer.Id) = players.exists(_.id == id)
 
@@ -45,14 +45,14 @@ case class RacerRace(
   def finished = finishesAt.exists(_.isBeforeNow)
 
   def isLobby = owner == RacerPlayer.lichess
-}
 
-object RacerRace {
+object RacerRace:
 
   val duration   = 90
   val maxPlayers = 10
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdownSeconds: Int) = RacerRace(
     _id = Id(lila.common.ThreadLocalRandom nextString 5),
@@ -63,4 +63,3 @@ object RacerRace {
     startsAt = none,
     rematch = none
   )
-}

@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-private[gameSearch] object Fields {
+private[gameSearch] object Fields:
 
   val status        = "s"
   val turns         = "t"
@@ -20,4 +20,3 @@ private[gameSearch] object Fields {
   val whiteUser     = "wu"
   val blackUser     = "bu"
   val source        = "so"
-}

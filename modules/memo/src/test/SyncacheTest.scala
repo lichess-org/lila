@@ -23,7 +23,7 @@ class MySpec()
 
   "syncache" must {
 
-    "be thread safe" in {
+    "be thread safe" >> {
       var computeCount = 0
       val cache = new Syncache[Int, String](
         name = "test",

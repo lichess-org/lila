@@ -15,12 +15,11 @@ case class EmbedConfig(
     nonce: Nonce
 )
 
-object EmbedConfig {
+object EmbedConfig:
 
-  object implicits {
+  object implicits:
     implicit def configLang(implicit config: EmbedConfig): Lang         = config.lang
     implicit def configReq(implicit config: EmbedConfig): RequestHeader = config.req
-  }
 
   def apply(req: RequestHeader): EmbedConfig =
     EmbedConfig(
@@ -34,4 +33,3 @@ object EmbedConfig {
 
   private def get(name: String, req: RequestHeader): Option[String] =
     req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
-}

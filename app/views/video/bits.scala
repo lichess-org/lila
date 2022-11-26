@@ -1,13 +1,13 @@
 package views.html.video
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object bits {
+object bits:
 
   private[video] def card(vv: lila.video.VideoView, control: lila.video.UserControl) =
     a(cls := "card paginated", href := s"${routes.Video.show(vv.video.id)}?${control.queryStringUnlessBot}")(
@@ -29,7 +29,7 @@ object bits {
       )
     )
 
-  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit
+  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using
       ctx: Context
   ) =
     layout(
@@ -92,4 +92,3 @@ object bits {
         }
       )
     )
-}

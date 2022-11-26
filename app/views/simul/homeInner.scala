@@ -1,13 +1,13 @@
 package views.html.simul
 
-import lila.api.Context
-import lila.app.templating.Environment._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
 import play.api.i18n.Lang
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object homeInner {
+object homeInner:
 
   def apply(
       pendings: List[lila.simul.Simul],
@@ -113,4 +113,3 @@ object homeInner {
         strong(sim.hostRating)
       )
     )
-}

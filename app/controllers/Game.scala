@@ -2,46 +2,46 @@ package controllers
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.mvc._
-import scala.util.chaining._
+import play.api.mvc.*
+import scala.util.chaining.*
 
 import lila.api.GameApiV2
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
-import lila.game.{ Game => GameModel }
+import lila.game.{ Game as GameModel }
 
 final class Game(
     env: Env,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
-  def bookmark(gameId: String) =
+  def bookmark(gameId: GameId) =
     Auth { implicit ctx => me =>
       env.bookmark.api.toggle(gameId, me.id)
     }
 
-  def delete(gameId: String) =
+  def delete(gameId: GameId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game gameId) { game =>
-        if (game.pgnImport.flatMap(_.user) ?? (me.id.==)) {
+        if (game.pgnImport.flatMap(_.user) ?? (me.id.==))
           env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
           (env.game.gameRepo remove game.id) >>
             (env.analyse.analysisRepo remove game.id) >>
             env.game.cached.clearNbImportedByCache(me.id) inject
             Redirect(routes.User.show(me.username))
-        } else
+        else
           fuccess {
             Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
           }
       }
     }
 
-  def exportOne(id: String) = Action.async { exportGame(GameModel takeGameId id, _) }
+  def exportOne(id: GameAnyId) = Action.async { exportGame(GameModel anyToId id, _) }
 
-  private[controllers] def exportGame(gameId: GameModel.ID, req: RequestHeader): Fu[Result] =
+  private[controllers] def exportGame(gameId: GameId, req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
-      case None => NotFound.fuccess
+      case None => NotFound.toFuccess
       case Some(game) =>
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
@@ -54,7 +54,7 @@ final class Game(
             Ok(content)
               .pipe(asAttachment(filename))
               .withHeaders(
-                lila.app.http.ResponseHeaders.headersForApiOrApp(req): _*
+                lila.app.http.ResponseHeaders.headersForApiOrApp(req)*
               ) as gameContentType(config)
           }
         }
@@ -73,6 +73,7 @@ final class Game(
     env.user.repo named username flatMap {
       _.filter(u => u.enabled || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
+        import lila.rating.{ Perf, PerfType }
         WithVs(req) { vs =>
           val finished = getBoolOpt("finished", req) | true
           val config = GameApiV2.ByUserConfig(
@@ -83,7 +84,7 @@ final class Game(
             until = getTimestamp("until", req),
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
-            perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
+            perfType = (~get("perfType", req) split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             flags = requestPgnFlags(req, extended = false),
@@ -102,7 +103,7 @@ final class Game(
             Ok.chunked(env.api.gameApiV2.exportByUser(config))
               .pipe(noProxyBuffer)
               .as(gameContentType(config))
-              .fuccess
+              .toFuccess
           else
             apiC
               .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
@@ -115,7 +116,7 @@ final class Game(
                     )
                     .as(gameContentType(config))
               }
-              .fuccess
+              .toFuccess
 
         }
       }
@@ -146,7 +147,7 @@ final class Game(
   def exportByIds =
     Action.async(parse.tolerantText) { req =>
       val config = GameApiV2.ByIdsConfig(
-        ids = req.body.split(',').view.take(300).toSeq,
+        ids = req.body.split(',').view.take(300).toSeq map { GameId(_) },
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
         perSecond = MaxPerSecond(30),
@@ -158,18 +159,17 @@ final class Game(
         ) { source =>
           noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
         }
-        .fuccess
+        .toFuccess
     }
 
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
-    get("vs", req) match {
+    get("vs", req) match
       case None => f(none)
       case Some(name) =>
         env.user.repo named name flatMap {
           case None       => notFoundJson(s"No such opponent: $name")
           case Some(user) => f(user.some)
         }
-    }
 
   private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
     lila.game.PgnDump.WithFlags(
@@ -187,15 +187,12 @@ final class Game(
     !get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
-    config.format match {
+    config.format match
       case GameApiV2.Format.PGN => pgnContentType
       case GameApiV2.Format.JSON =>
-        config match {
+        config match
           case _: GameApiV2.OneConfig => JSON
           case _                      => ndJsonContentType
-        }
-    }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
     env.user.lightUserApi preloadMany game.userIds
-}

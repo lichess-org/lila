@@ -1,31 +1,30 @@
 package lila.swiss
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
-import com.softwaremill.tagging._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-final private class SwissScoring(
-    swissColl: Coll @@ SwissColl,
-    playerColl: Coll @@ PlayerColl,
-    pairingColl: Coll @@ PairingColl
-)(implicit scheduler: akka.actor.Scheduler, ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+final private class SwissScoring(mongo: SwissMongo)(using
+    scheduler: akka.actor.Scheduler,
+    ec: scala.concurrent.ExecutionContext,
+    mode: play.api.Mode
+):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
-  def apply(id: Swiss.Id): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
+  def apply(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
 
   private val sequencer =
-    new lila.hub.AskPipelines[Swiss.Id, Option[SwissScoring.Result]](
+    new lila.hub.AskPipelines[SwissId, Option[SwissScoring.Result]](
       compute = recompute,
       expiration = 1 minute,
       timeout = 10 seconds,
       name = "swiss.scoring"
     )
 
-  private def recompute(id: Swiss.Id): Fu[Option[SwissScoring.Result]] =
-    swissColl.byId[Swiss](id.value) flatMap {
+  private def recompute(id: SwissId): Fu[Option[SwissScoring.Result]] =
+    mongo.swiss.byId[Swiss](id) flatMap {
       _.?? { swiss =>
         for {
           (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
@@ -43,7 +42,7 @@ final private class SwissScoring(
                 val opponentPoints = opponent.??(_.points.value)
                 val result         = pairing.resultFor(p.userId)
                 val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ ?? opponentPoints }
-                val newPerf = perfSum + opponent.??(_.rating) + result.?? { win =>
+                val newPerf = perfSum + opponent.??(_.rating.value) + result.?? { win =>
                   if (win) 500 else -500
                 }
                 newTieBreak -> newPerf
@@ -60,7 +59,7 @@ final private class SwissScoring(
                 a != b
               }
               .map { case (_, player) =>
-                playerColl.update
+                mongo.player.update
                   .one(
                     $id(player.id),
                     $set(
@@ -88,20 +87,19 @@ final private class SwissScoring(
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields { f =>
-      playerColl
+      mongo.player
         .find($doc(f.swissId -> swiss.id))
         .sort($sort asc f.score)
         .cursor[SwissPlayer]()
-        .list()
+        .listAll()
     }
 
   private def fetchPairings(swiss: Swiss) =
     !swiss.isCreated ?? SwissPairing.fields { f =>
-      pairingColl.list[SwissPairing]($doc(f.swissId -> swiss.id))
+      mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
     }
-}
 
-private object SwissScoring {
+private object SwissScoring:
 
   case class Result(
       swiss: Swiss,
@@ -109,4 +107,3 @@ private object SwissScoring {
       playerMap: SwissPlayer.PlayerMap,
       pairings: SwissPairing.PairingMap
   )
-}

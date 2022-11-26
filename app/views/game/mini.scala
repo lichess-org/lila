@@ -4,13 +4,13 @@ import chess.format.Forsyth
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 import lila.i18n.defaultLang
 
-object mini {
+object mini:
 
   private val dataLive  = attr("data-live")
   private val dataState = attr("data-state")
@@ -22,7 +22,7 @@ object mini {
       ownerLink: Boolean = false,
       tv: Boolean = false,
       withLink: Boolean = true
-  )(implicit ctx: Context): Tag = {
+  )(implicit ctx: Context): Tag =
     val game   = pov.game
     val isLive = game.isBeingPlayed
     val tag    = if (withLink) a else span
@@ -36,9 +36,8 @@ object mini {
       cgWrap,
       renderPlayer(pov, withRating = ctx.pref.showRatings)
     )
-  }
 
-  def noCtx(pov: Pov, tv: Boolean = false): Tag = {
+  def noCtx(pov: Pov, tv: Boolean = false): Tag =
     val game   = pov.game
     val isLive = game.isBeingPlayed
     a(
@@ -51,7 +50,6 @@ object mini {
       cgWrap,
       renderPlayer(pov, withRating = true)(defaultLang)
     )
-  }
 
   def renderState(pov: Pov) =
     dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
@@ -73,7 +71,7 @@ object mini {
       }
     )
 
-  private def renderClock(clock: chess.Clock, color: chess.Color) = {
+  private def renderClock(clock: chess.Clock, color: chess.Color) =
     val s = clock.remainingTime(color).roundSeconds
     span(
       cls      := s"mini-game__clock mini-game__clock--${color.name}",
@@ -81,5 +79,3 @@ object mini {
     )(
       f"${s / 60}:${s % 60}%02d"
     )
-  }
-}

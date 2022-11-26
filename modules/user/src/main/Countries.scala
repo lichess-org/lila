@@ -1,6 +1,6 @@
 package lila.user
 
-import scala._
+import scala.*
 
 final class Country(
     val code: String,
@@ -8,7 +8,7 @@ final class Country(
     val shortName: String
 )
 
-object Countries {
+object Countries:
 
   @inline private def C(code: String, name: String)                    = new Country(code, name, name)
   @inline private def C(code: String, name: String, shortName: String) = new Country(code, name, shortName)
@@ -315,4 +315,3 @@ object Countries {
 
   def info(code: String): Option[Country] = map get code
   def name(country: Country): String      = nameMap.getOrElse(country, country.name)
-}

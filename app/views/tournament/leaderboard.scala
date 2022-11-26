@@ -2,14 +2,14 @@ package views.html.tournament
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 
 import controllers.routes
 
-object leaderboard {
+object leaderboard:
 
   private def freqWinner(w: lila.tournament.Winner, freq: String)(implicit lang: Lang) =
     li(
@@ -19,7 +19,7 @@ object leaderboard {
 
   private val section = st.section(cls := "tournament-leaderboards__item")
 
-  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(implicit
+  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(using
       lang: Lang
   ) =
     section(
@@ -96,4 +96,3 @@ object leaderboard {
         )
       )
     }
-}

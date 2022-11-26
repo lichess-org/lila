@@ -1,10 +1,10 @@
 package lila.pref
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
-object JsonView {
+object JsonView:
 
-  implicit val prefJsonWriter = OWrites[Pref] { p =>
+  given OWrites[Pref] = OWrites[Pref] { p =>
     Json.obj(
       "dark"             -> (p.bg != Pref.Bg.LIGHT),
       "transp"           -> (p.bg == Pref.Bg.TRANSPARENT),
@@ -44,4 +44,3 @@ object JsonView {
       "rookCastle"       -> p.rookCastle
     )
   }
-}

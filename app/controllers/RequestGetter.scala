@@ -4,10 +4,10 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 
 import lila.common.Form.trueish
-import lila.common.{ HTTPRequest, IsMobile }
+import lila.common.HTTPRequest
 import lila.user.UserContext
 
-trait RequestGetter {
+trait RequestGetter:
 
   protected def get(name: String)(implicit ctx: UserContext): Option[String] = get(name, ctx.req)
 
@@ -40,7 +40,3 @@ trait RequestGetter {
 
   protected def getBoolOpt(name: String, req: RequestHeader) =
     (getInt(name, req) map trueish) orElse (get(name, req) map trueish)
-
-  protected def getMobile(implicit ctx: UserContext) =
-    IsMobile(getBool("mobile"))
-}

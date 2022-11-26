@@ -22,7 +22,7 @@ final case class ApiConfig(
     message: Option[Template],
     keepAliveStream: Boolean,
     rules: Set[GameRule] = Set.empty
-) {
+):
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
 
@@ -40,11 +40,10 @@ final case class ApiConfig(
   def autoVariant =
     if (variant.standard && position.exists(!_.initial)) copy(variant = FromPosition)
     else this
-}
 
-object ApiConfig extends BaseHumanConfig {
+object ApiConfig extends BaseHumanConfig:
 
-  lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
+  lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(_ * 60).toSet
 
   def from(
       v: Option[String],
@@ -66,7 +65,7 @@ object ApiConfig extends BaseHumanConfig {
       color = Color.orDefault(~c),
       position = pos,
       acceptByToken = tok,
-      message = msg map Template,
+      message = msg map Template.apply,
       keepAliveStream = ~keepAliveStream,
       rules = ~rules
     ).autoVariant
@@ -78,4 +77,3 @@ object ApiConfig extends BaseHumanConfig {
         (Forsyth <<< f).exists(_.situation playable false)
       }
     else true
-}

@@ -1,28 +1,25 @@
 package lila.user
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 
 import lila.common.LightUser
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.db.dsl._
+import lila.db.dsl.{ given, * }
 import User.{ LightCount, LightPerf }
 
 final class Cached(
     userRepo: UserRepo,
-    onlineUserIds: () => Set[User.ID],
+    onlineUserIds: lila.socket.OnlineIds,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) {
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
 
-  implicit private val LightUserBSONHandler  = Macros.handler[LightUser]
-  implicit private val LightPerfBSONHandler  = Macros.handler[LightPerf]
-  implicit private val LightCountBSONHandler = Macros.handler[LightCount]
+  private given BSONDocumentHandler[LightUser]  = Macros.handler
+  private given BSONDocumentHandler[LightPerf]  = Macros.handler
+  private given BSONDocumentHandler[LightCount] = Macros.handler
 
   val top10 = cacheApi.unit[Perfs.Leaderboards] {
     _.refreshAfterWrite(2 minutes)
@@ -82,7 +79,7 @@ final class Cached(
   private val top50OnlineCache = cacheApi.unit[List[User]] {
     _.refreshAfterWrite(1 minute)
       .buildAsyncFuture { _ =>
-        userRepo.byIdsSortRatingNoBot(onlineUserIds(), 50)
+        userRepo.byIdsSortRatingNoBot(onlineUserIds.value(), 50)
       }
   }
 
@@ -102,8 +99,6 @@ final class Cached(
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
   }
 
-  def userIdsLike(text: String): Fu[List[User.ID]] = {
+  def userIdsLike(text: String): Fu[List[User.ID]] =
     if (text.lengthIs < 5) userIdsLikeCache get text
     else userIdsLikeFetch(text)
-  }
-}

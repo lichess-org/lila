@@ -6,7 +6,7 @@ import lila.game.Pov
 final private class PlaybanFeedback(
     chatApi: ChatApi,
     lightUser: lila.common.LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private val tempBan = "will result in a temporary ban."
 
@@ -23,7 +23,6 @@ final private class PlaybanFeedback(
     pov.player.userId foreach { userId =>
       lightUser(userId) foreach { light =>
         val message = template.replace("{user}", light.fold(userId)(_.name))
-        chatApi.userChat.volatile(Chat.Id(pov.gameId), message, _.Round)
+        chatApi.userChat.volatile(pov.gameId into ChatId, message, _.Round)
       }
     }
-}

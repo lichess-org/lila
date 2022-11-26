@@ -1,17 +1,17 @@
 package views.html
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
-import lila.i18n.I18nKeys.{ storm => s }
+import lila.i18n.I18nKeys.{ storm as s }
 import lila.racer.RacerRace
 
-object racer {
+object racer:
 
   def home(implicit ctx: Context) =
     views.html.base.layout(
@@ -63,7 +63,7 @@ object racer {
       )
     }
 
-  private val i18nKeys = {
+  private val i18nKeys =
     List(
       s.score,
       s.combo,
@@ -91,5 +91,3 @@ object racer {
       s.skippedPuzzle,
       trans.flipBoard
     ).map(_.key)
-  }
-}

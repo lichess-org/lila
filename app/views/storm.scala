@@ -2,18 +2,18 @@ package views.html
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User
 
-object storm {
+object storm:
 
   def home(data: JsObject, pref: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
     views.html.base.layout(
@@ -141,9 +141,9 @@ object storm {
       )
     )
 
-  private val i18nKeys = {
-    import lila.i18n.{ I18nKeys => trans }
-    import lila.i18n.I18nKeys.{ storm => s }
+  private val i18nKeys =
+    import lila.i18n.{ I18nKeys as trans }
+    import lila.i18n.I18nKeys.{ storm as s }
     List(
       s.moveToStart,
       s.puzzlesSolved,
@@ -175,5 +175,3 @@ object storm {
       s.thisRunWasOpenedInAnotherTab,
       trans.flipBoard
     ).map(_.key)
-  }
-}

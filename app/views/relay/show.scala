@@ -3,20 +3,23 @@ package relay
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       rt: lila.relay.RelayRound.WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: lila.socket.Socket.SocketVersion,
+      socketVersion: SocketVersion,
       streamers: List[lila.user.User.ID]
   )(implicit ctx: Context) =
     views.html.base.layout(
@@ -45,8 +48,8 @@ object show {
                   broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout)
                 )
               ),
-              "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
-              "socketVersion" -> socketVersion.value
+              "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id),
+              "socketVersion" -> socketVersion
             ) ++ views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
@@ -66,4 +69,3 @@ object show {
         views.html.study.bits.streamers(streamers)
       )
     )
-}

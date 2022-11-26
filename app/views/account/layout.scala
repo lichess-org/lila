@@ -1,12 +1,12 @@
 package views.html.account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object layout {
+object layout:
 
   def apply(
       title: String,
@@ -68,4 +68,3 @@ object layout {
         div(cls := "page-menu__content")(body)
       )
     }
-}

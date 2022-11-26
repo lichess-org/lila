@@ -6,11 +6,11 @@ import chess.format.{ FEN, Forsyth, Uci }
 import lila.puzzle.Puzzle
 
 case class StormPuzzle(
-    id: Puzzle.Id,
+    id: PuzzleId,
     fen: FEN,
     line: NonEmptyList[Uci.Move],
     rating: Int
-) {
+):
   // ply after "initial move" when we start solving
   def initialPly: Int =
     fen.fullMove ?? { fm =>
@@ -25,4 +25,3 @@ case class StormPuzzle(
   } err s"Can't apply puzzle $id first move"
 
   def color = fen.color.fold[chess.Color](chess.White)(!_)
-}

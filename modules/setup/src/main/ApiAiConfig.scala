@@ -17,7 +17,7 @@ final case class ApiAiConfig(
     level: Int,
     fen: Option[FEN] = None
 ) extends Config
-    with Positional {
+    with Positional:
 
   val strictFen = false
 
@@ -60,9 +60,8 @@ final case class ApiAiConfig(
   def autoVariant =
     if (variant.standard && fen.exists(!_.initial)) copy(variant = FromPosition)
     else this
-}
 
-object ApiAiConfig extends BaseConfig {
+object ApiAiConfig extends BaseConfig:
 
   // lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
 
@@ -82,4 +81,3 @@ object ApiAiConfig extends BaseConfig {
       level = l,
       fen = pos
     ).autoVariant
-}

@@ -1,16 +1,13 @@
 package lila.relation
 
-case class Follower(u1: String) extends AnyVal {
+case class Follower(u1: String):
   def userId = u1
-}
 
-case class Followed(u2: String) extends AnyVal {
+case class Followed(u2: String):
   def userId = u2
-}
 
-case class Blocked(u2: String) extends AnyVal {
+case class Blocked(u2: String):
   def userId = u2
-}
 
 case class Related(
     user: lila.user.User,
@@ -24,11 +21,10 @@ case class Relations(
     out: Option[Relation]
 )
 
-object BSONHandlers {
+object BSONHandlers:
 
-  import reactivemongo.api.bson._
+  import reactivemongo.api.bson.*
 
-  implicit private[relation] val followerBSONHandler = Macros.handler[Follower]
-  implicit private[relation] val followedBSONHandler = Macros.handler[Followed]
-  implicit private[relation] val blockedBSONHandler  = Macros.handler[Blocked]
-}
+  private[relation] given BSONDocumentHandler[Follower] = Macros.handler
+  private[relation] given BSONDocumentHandler[Followed] = Macros.handler
+  private[relation] given BSONDocumentHandler[Blocked]  = Macros.handler

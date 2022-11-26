@@ -1,15 +1,15 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object reopen {
+object reopen:
 
-  def form(form: lila.security.HcaptchaForm[_], error: Option[String] = None)(implicit
+  def form(form: lila.security.HcaptchaForm[?], error: Option[String] = None)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -49,4 +49,3 @@ object reopen {
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
     }
-}

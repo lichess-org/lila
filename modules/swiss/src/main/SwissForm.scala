@@ -1,32 +1,32 @@
 package lila.swiss
 
-import chess.Clock.{ Config => ClockConfig }
+import chess.Clock.{ Config as ClockConfig }
 import chess.Speed
 import chess.format.FEN
 import chess.variant.Variant
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.validation
 import play.api.data.validation.Constraint
 import play.api.Mode
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.common.Form._
+import lila.common.Form.*
 import lila.user.User
 
-final class SwissForm(implicit mode: Mode) {
+final class SwissForm(implicit mode: Mode):
 
-  import SwissForm._
+  import SwissForm.*
 
   def form(user: User, minRounds: Int = 3) =
     Form(
       mapping(
         "name" -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
         "clock" -> mapping(
-          "limit"     -> number.verifying(clockLimits.contains _),
+          "limit"     -> number.verifying(clockLimits.contains),
           "increment" -> number(min = 0, max = 120)
-        )(ClockConfig.apply)(ClockConfig.unapply)
+        )(ClockConfig.apply)(unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
         "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
@@ -52,10 +52,10 @@ final class SwissForm(implicit mode: Mode) {
             )
             .verifying(
               "Invalid pairings, maybe a player is paired twice?",
-              SwissManualPairing.validate _
+              SwissManualPairing.validate
             )
         )
-      )(SwissData.apply)(SwissData.unapply)
+      )(SwissData.apply)(unapply)
         .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
     )
 
@@ -103,9 +103,8 @@ final class SwissForm(implicit mode: Mode) {
         "date" -> inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)
       )
     )
-}
 
-object SwissForm {
+object SwissForm:
 
   val clockLimits: Seq[Int] = Seq(0, 15, 30, 45, 60, 90) ++ {
     (120 to 480 by 60) ++ (600 to 1800 by 300) ++ (2400 to 10800 by 600)
@@ -173,34 +172,30 @@ object SwissForm {
       conditions: SwissCondition.DataForm.AllSetup,
       forbiddenPairings: Option[String],
       manualPairings: Option[String]
-  ) {
+  ):
     def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
     def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
     def realChatFor  = chatFor | Swiss.ChatFor.default
     def realRoundInterval =
-      (roundInterval | Swiss.RoundInterval.auto) match {
+      (roundInterval | Swiss.RoundInterval.auto) match
         case Swiss.RoundInterval.auto => autoInterval(clock)
         case i                        => i.seconds
-      }
     def realPosition = position ifTrue realVariant.standard
 
     def isRated = rated | true
     def validRatedVariant =
       !isRated ||
         lila.game.Game.allowRated(realVariant, clock.some)
-  }
 
   def autoInterval(clock: ClockConfig) = {
-    import Speed._
-    Speed(clock) match {
+    import Speed.*
+    Speed(clock) match
       case UltraBullet                               => 5
       case Bullet                                    => 10
       case Blitz if clock.estimateTotalSeconds < 300 => 20
       case Blitz                                     => 30
       case Rapid                                     => 60
       case _                                         => 300
-    }
   }.seconds
 
   val joinForm = Form(single("password" -> optional(nonEmptyText)))
-}

@@ -1,23 +1,22 @@
 package lila.relay
 
-import play.api.data.Forms._
+import play.api.data.Forms.*
 import play.api.data.Mapping
 import chess.format.pgn.{ Tag, Tags }
 
 // used to change names and ratings of broadcast players
 case class RelayPlayer(name: String, rating: Option[Int])
 
-case class RelayPlayers(text: String) {
+case class RelayPlayers(text: String):
 
   lazy val players: Map[String, RelayPlayer] = text.linesIterator
     .take(1000)
     .toList
     .flatMap { line =>
-      line.split(';').map(_.trim) match {
+      line.split(';').map(_.trim) match
         case Array(id, name, rating) => Some(id -> RelayPlayer(name, rating.toIntOption))
         case Array(id, name)         => Some(id -> RelayPlayer(name, none))
         case _                       => none
-      }
     }
     .toMap
 
@@ -36,4 +35,3 @@ case class RelayPlayers(text: String) {
         }
       }
     }
-}

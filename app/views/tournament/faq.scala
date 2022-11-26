@@ -1,15 +1,15 @@
 package views.html
 package tournament
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object faq {
+object faq:
 
-  import trans.arena._
+  import trans.arena.*
 
   def page(implicit ctx: Context) =
     views.html.base.layout(
@@ -84,4 +84,3 @@ object faq {
         )
       )
     )
-}

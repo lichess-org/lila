@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.UciCharPair
 
-case class Path(ids: Vector[UciCharPair]) extends AnyVal {
+case class Path(ids: Vector[UciCharPair]) extends AnyVal:
 
   def head: Option[UciCharPair] = ids.headOption
 
@@ -34,9 +34,8 @@ case class Path(ids: Vector[UciCharPair]) extends AnyVal {
   def depth = ids.size
 
   override def toString = ids.mkString
-}
 
-object Path {
+object Path:
 
   def apply(str: String): Path =
     Path {
@@ -69,4 +68,3 @@ object Path {
         child.id == id && isMainline(child, rest)
       }
     }
-}

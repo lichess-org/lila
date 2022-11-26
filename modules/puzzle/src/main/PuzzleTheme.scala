@@ -1,13 +1,14 @@
 package lila.puzzle
 
-import lila.i18n.I18nKeys.{ puzzleTheme => i }
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.I18nKeys.{ puzzleTheme as i }
+import lila.i18n.{ I18nKey, I18nKeys as trans }
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
 
-object PuzzleTheme {
+object PuzzleTheme:
 
-  case class Key(value: String) extends AnyVal with StringValue
+  opaque type Key = String
+  object Key extends OpaqueString[Key]
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
@@ -235,9 +236,6 @@ object PuzzleTheme {
 
   def find(key: String) = byLowerKey get key.toLowerCase
 
-  def findOrMix(key: String) = find(key) | mix
+  def findOrMix(key: Key) = find(key) | mix
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
-
-  implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
-}

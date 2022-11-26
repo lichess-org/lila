@@ -1,9 +1,9 @@
 package lila.simul
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.common.LightUser
-import lila.common.Json._
+import lila.common.Json.given
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
@@ -12,11 +12,11 @@ final class JsonView(
     getLightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  implicit private val simulTeamWriter = Json.writes[SimulTeam]
+  private given Writes[SimulTeam] = Json.writes
 
-  private def fetchGames(simul: Simul) =
+  private def fetchGames(simul: Simul): Fu[List[Game]] =
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
     else simul.gameIds.map(proxyRepo.game).sequenceFu.dmap(_.flatten)
 
@@ -24,10 +24,10 @@ final class JsonView(
     for {
       games      <- fetchGames(simul)
       lightHost  <- getLightUser(simul.hostId)
-      applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
+      applicants <- simul.applicants.sortBy(-_.player.rating.value).map(applicantJson).sequenceFu
       pairingOptions <-
         simul.pairings
-          .sortBy(-_.player.rating)
+          .sortBy(-_.player.rating.value)
           .map(pairingJson(games, simul.hostId))
           .sequenceFu
       pairings = pairingOptions.flatten
@@ -37,7 +37,7 @@ final class JsonView(
         "pairings"   -> pairings
       )
       .add("team", team)
-      .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id)))
+      .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id.value)))
 
   def apiJson(simul: Simul): Fu[JsObject] =
     getLightUser(simul.hostId) map { lightHost =>
@@ -85,7 +85,7 @@ final class JsonView(
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("title" -> host.title)
           .add("patron" -> host.isPatron)
-          .add("online" -> isOnline(host.id))
+          .add("online" -> isOnline.value(host.id))
       },
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,
@@ -131,7 +131,7 @@ final class JsonView(
         "id"       -> g.id,
         "status"   -> g.status.id,
         "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
-        "lastMove" -> ~g.lastMoveKeys,
+        "lastMove" -> (g.lastMoveKeys.orZero: String),
         "orient"   -> g.playerByUserId(hostId).map(_.color)
       )
       .add(
@@ -157,4 +157,3 @@ final class JsonView(
           .some
       }
     }
-}

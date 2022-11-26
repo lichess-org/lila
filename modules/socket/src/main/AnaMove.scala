@@ -2,18 +2,17 @@ package lila.socket
 
 import cats.data.Validated
 import chess.format.{ FEN, Uci, UciCharPair }
-import chess.opening._
+import chess.opening.*
 import chess.variant.Variant
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.tree.Branch
 
-trait AnaAny {
+trait AnaAny:
 
   def branch: Validated[String, Branch]
   def chapterId: Option[String]
   def path: String
-}
 
 case class AnaMove(
     orig: chess.Pos,
@@ -23,7 +22,7 @@ case class AnaMove(
     path: String,
     chapterId: Option[String],
     promotion: Option[chess.PromotableRole]
-) extends AnaAny {
+) extends AnaAny:
 
   def branch: Validated[String, Branch] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap { case (game, move) =>
@@ -46,9 +45,8 @@ case class AnaMove(
         )
       }
     }
-}
 
-object AnaMove {
+object AnaMove:
 
   def parse(o: JsObject) =
     for {
@@ -66,4 +64,3 @@ object AnaMove {
       chapterId = d str "ch",
       promotion = d str "promotion" flatMap chess.Role.promotable
     )
-}

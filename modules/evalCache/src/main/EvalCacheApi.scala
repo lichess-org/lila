@@ -4,11 +4,11 @@ import chess.format.FEN
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.libs.json.JsObject
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.socket.Socket
 import lila.user.User
@@ -19,10 +19,10 @@ final class EvalCacheApi(
     upgrade: EvalCacheUpgrade,
     cacheApi: lila.memo.CacheApi,
     setting: SettingStore[Boolean]
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import EvalCacheEntry._
-  import BSONHandlers._
+  import EvalCacheEntry.*
+  import BSONHandlers.given
 
   def getEvalJson(variant: Variant, fen: FEN, multiPv: Int): Fu[Option[JsObject]] =
     getEval(
@@ -47,10 +47,9 @@ final class EvalCacheApi(
       multiPv = 1
     )
 
-  private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
+  private[evalCache] def drop(variant: Variant, fen: FEN): Funit =
     val id = Id(variant, SmallFen.make(variant, fen))
     coll(_.delete.one($id(id)).void) >>- cache.invalidate(id)
-  }
 
   private val cache = cacheApi[Id, Option[EvalCacheEntry]](65536, "evalCache") {
     _.expireAfterAccess(5 minutes)
@@ -71,7 +70,7 @@ final class EvalCacheApi(
   }
 
   private def put(trustedUser: TrustedUser, input: Input, sri: Socket.Sri): Funit = coll { c =>
-    Validator(input) match {
+    Validator(input) match
       case Some(error) =>
         logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
         funit
@@ -97,9 +96,7 @@ final class EvalCacheApi(
             }
 
         }
-    }
   }
 
   private def destSize(fen: FEN): Int =
     chess.Game(chess.variant.Standard.some, fen.some).situation.moves.view.map(_._2.size).sum
-}

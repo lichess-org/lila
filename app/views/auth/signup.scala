@@ -3,14 +3,14 @@ package auth
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ HTTPRequest, LangPath }
 
-object signup {
+object signup:
 
-  def apply(form: lila.security.HcaptchaForm[_])(implicit ctx: Context) =
+  def apply(form: lila.security.HcaptchaForm[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
@@ -72,4 +72,3 @@ object signup {
     "account"    -> trans.agreementMultipleAccounts(a(href := routes.Page.tos)(trans.termsOfService())),
     "policy"     -> trans.agreementPolicy()
   )
-}

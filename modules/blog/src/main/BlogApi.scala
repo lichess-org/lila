@@ -1,16 +1,16 @@
 package lila.blog
 
-import io.prismic._
+import io.prismic.*
 import play.api.mvc.RequestHeader
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.MaxPerPage
-import lila.common.paginator._
+import lila.common.paginator.*
 import scala.util.Try
 
 final class BlogApi(
     config: BlogConfig
-)(implicit ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient) {
+)(using ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient):
 
   import BlogApi.looksLikePrismicId
 
@@ -52,7 +52,7 @@ final class BlogApi(
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
 
-  def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] = {
+  def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] =
     prismic.api
       .forms(collection)
       .ref(prismic.ref)
@@ -61,11 +61,10 @@ final class BlogApi(
       .pageSize(100) // prismic max
       .submit()
       .fold(_ => Nil, _.results flatMap MiniPost.fromDocument(collection, "wide"))
-  }
 
   def context(
       req: RequestHeader
-  )(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] = {
+  )(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
     prismicApi map { api =>
       val ref = resolveRef(api) {
         req.cookies
@@ -75,15 +74,13 @@ final class BlogApi(
       }
       BlogApi.Context(api, ref | api.master.ref, linkResolver(api, ref))
     }
-  }
 
-  def masterContext(implicit
+  def masterContext(using
       linkResolver: (Api, Option[String]) => DocumentLinkResolver
-  ): Fu[BlogApi.Context] = {
+  ): Fu[BlogApi.Context] =
     prismicApi map { api =>
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))
     }
-  }
 
   def all(page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
     recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
@@ -99,9 +96,8 @@ final class BlogApi(
     }
 
   def prismicApi = (new Prismic).get(config.apiUrl)
-}
 
-object BlogApi {
+object BlogApi:
 
   def extract(body: Fragment.StructuredText): String =
     body.blocks
@@ -113,11 +109,9 @@ object BlogApi {
       }
       .mkString
 
-  case class Context(api: Api, ref: String, linkResolver: DocumentLinkResolver) {
+  case class Context(api: Api, ref: String, linkResolver: DocumentLinkResolver):
     def maybeRef = Option(ref).filterNot(_ == api.master.ref)
-  }
 
   private val idRegex = """^[\w-]{16}$""".r
 
   def looksLikePrismicId(id: String) = idRegex.matches(id)
-}

@@ -1,9 +1,9 @@
 package lila.activity
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.study.Study
 import lila.user.User
@@ -11,12 +11,12 @@ import lila.user.User
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
     studyApi: lila.study.StudyApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import Activity._
-  import BSONHandlers._
-  import activities._
-  import model._
+  import Activity.*
+  import BSONHandlers.{ *, given }
+  import activities.*
+  import model.*
 
   def game(game: Game): Funit =
     (for {
@@ -29,27 +29,27 @@ final class ActivityWriteApi(
           .add(pt, Score.make(game wonBy player.color, RatingProg make player))
       )
       val setCorres = game.hasCorrespondenceClock ?? $doc(
-        ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
+        ActivityFields.corres -> a.corres.orDefault.add(game.id, moved = false, ended = true)
       )
       setGames ++ setCorres
     }).sequenceFu.void
 
-  def forumPost(post: lila.forum.Post): Funit =
+  def forumPost(post: lila.forum.ForumPost): Funit =
     post.userId.filter(User.lichessId !=) ?? { userId =>
       update(userId) { a =>
-        $doc(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id)))
+        $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))
       }
     }
 
   def ublogPost(post: lila.ublog.UblogPost): Funit = update(post.created.by) { a =>
-    $doc(ActivityFields.ublogPosts -> (~a.ublogPosts + UblogPostId(post.id.value)))
+    $doc(ActivityFields.ublogPosts -> (~a.ublogPosts + post.id))
   }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = update(res.userId) { a =>
     $doc(ActivityFields.puzzles -> {
       ~a.puzzles + Score.make(
-        res = res.result.win.some,
-        rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+        res = res.win.yes.some,
+        rp = RatingProg(res.rating._1, res.rating._2).some
       )
     })
   }
@@ -79,8 +79,8 @@ final class ActivityWriteApi(
       simulParticipant(simul, _)
     }
 
-  def corresMove(gameId: Game.ID, userId: User.ID) = update(userId) { a =>
-    $doc(ActivityFields.corres -> { (~a.corres).add(GameId(gameId), moved = true, ended = false) })
+  def corresMove(gameId: GameId, userId: User.ID) = update(userId) { a =>
+    $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
   }
 
   def plan(userId: User.ID, months: Int) = update(userId) { a =>
@@ -117,7 +117,7 @@ final class ActivityWriteApi(
       }
     }
 
-  def study(id: Study.Id) =
+  def study(id: StudyId) =
     studyApi byId id flatMap {
       _.filter(_.isPublic) ?? { s =>
         update(s.ownerId) { a =>
@@ -126,7 +126,7 @@ final class ActivityWriteApi(
       }
     }
 
-  def team(id: String, userId: User.ID) =
+  def team(id: TeamId, userId: User.ID) =
     update(userId) { a =>
       $doc(ActivityFields.teams -> { ~a.teams + id })
     }
@@ -136,7 +136,7 @@ final class ActivityWriteApi(
       $doc(ActivityFields.stream -> true)
     }
 
-  def swiss(id: lila.swiss.Swiss.Id, ranking: lila.swiss.Ranking) =
+  def swiss(id: SwissId, ranking: lila.swiss.Ranking) =
     lila.common.Future.applySequentially(ranking.toList) { case (userId, rank) =>
       update(userId) { a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
@@ -144,12 +144,12 @@ final class ActivityWriteApi(
     }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: User.ID) = update(userId) { a =>
-    $doc(ActivityFields.simuls -> { ~a.simuls + SimulId(simul.id) })
+    $doc(ActivityFields.simuls -> { ~a.simuls + simul.id })
   }
 
   private def update(userId: User.ID)(makeSetters: Activity => Bdoc): Funit =
     withColl { coll =>
-      coll.byId[Activity, Id](Id today userId).dmap { _ | Activity.make(userId) } flatMap { activity =>
+      coll.byId[Activity](Id today userId).dmap { _ | Activity.make(userId) } flatMap { activity =>
         val setters = makeSetters(activity)
         !setters.isEmpty ?? {
           coll.update
@@ -184,4 +184,3 @@ final class ActivityWriteApi(
           .void
       }
     }
-}

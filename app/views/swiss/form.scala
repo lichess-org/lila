@@ -3,16 +3,15 @@ package views.html.swiss
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.hub.LightTeam.TeamID
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ Swiss, SwissCondition, SwissForm }
 import lila.tournament.TournamentForm
 
-object form {
+object form:
 
-  def create(form: Form[_], teamId: TeamID)(implicit ctx: Context) =
+  def create(form: Form[?], teamId: TeamId)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
@@ -44,7 +43,7 @@ object form {
       )
     }
 
-  def edit(swiss: Swiss, form: Form[_])(implicit ctx: Context) =
+  def edit(swiss: Swiss, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
@@ -54,7 +53,7 @@ object form {
       main(cls := "page-small")(
         div(cls := "swiss__form box box-pad")(
           h1(cls := "box__top")("Edit ", swiss.name),
-          postForm(cls := "form3", action := routes.Swiss.update(swiss.id.value))(
+          postForm(cls := "form3", action := routes.Swiss.update(swiss.id))(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.description, fields.rated),
             fields.clock,
@@ -68,11 +67,11 @@ object form {
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
+              a(href := routes.Swiss.show(swiss.id))(trans.cancel()),
               form3.submit(trans.save(), icon = "".some)
             )
           ),
-          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
+          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
             submitButton(dataIcon := "", cls := "text button button-red confirm")(
               trans.cancelTournament()
             )
@@ -84,7 +83,7 @@ object form {
   private def advancedSettings(settings: Frag*) =
     details(summary("Advanced settings"), settings)
 
-  private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
+  private def condition(form: Form[?], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
@@ -108,9 +107,8 @@ object form {
         )
       )
     )
-}
 
-final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ctx: Context) {
+final private class SwissFields(form: Form[?], swiss: Option[Swiss])(implicit ctx: Context):
 
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 
@@ -257,4 +255,3 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
     ),
     form3.hidden(form("conditions.playYourGames"), "false".some) // hack to allow disabling berserk
   )
-}

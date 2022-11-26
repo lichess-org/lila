@@ -1,9 +1,9 @@
 package lila.storm
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
 
@@ -11,14 +11,14 @@ import lila.puzzle.PuzzleColls
  * Be very careful when adjusting the selector.
  * Use the grafana average rating per slice chart.
  */
-final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using ec: ExecutionContext):
 
-  import StormBsonHandlers._
+  import StormBsonHandlers.given
   import lila.puzzle.PuzzlePath.sep
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
+  private val theme        = lila.puzzle.PuzzleTheme.mix.key
   private val tier         = lila.puzzle.PuzzleTier.Good.key
   private val maxDeviation = 85
 
@@ -50,7 +50,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
         colls
           .path {
             _.aggregateList(poolSize) { framework =>
-              import framework._
+              import framework.*
               val fenColorRegex = $doc(
                 "$regexMatch" -> $doc(
                   "input" -> "$fen",
@@ -109,7 +109,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                 Limit(poolSize)
               )
             }.map {
-              _.flatMap(StormPuzzleBSONReader.readOpt)
+              _.flatMap(puzzleReader.readOpt)
             }
           }
           .mon(_.storm.selector.time)
@@ -119,12 +119,12 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
       }
   }
 
-  private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit = {
+  private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit =
     val nb = puzzles.size
     lila.mon.storm.selector.count.record(nb)
     if (nb < poolSize * 0.9)
       logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
-    if (nb > 1) {
+    if (nb > 1)
       val rest = puzzles.toVector drop 1
       lila.common.Maths.mean(rest.map(_.rating)) foreach { r =>
         lila.mon.storm.selector.rating.record(r.toInt).unit
@@ -135,6 +135,3 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
           lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
         }
       }
-    }
-  }
-}

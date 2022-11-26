@@ -5,14 +5,14 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, Json }
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.MessageKey
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 import lila.user.User
 
-object bits {
+object bits:
 
   private val dataLastmove = attr("data-lastmove")
 
@@ -22,21 +22,20 @@ object bits {
   def jsI18n(streak: Boolean)(implicit lang: Lang) =
     if (streak) i18nJsObject(streakI18nKeys)
     else
-      i18nJsObject(trainingI18nKeys) + (PuzzleTheme.enPassant.key.value -> JsString(
-        PuzzleTheme.enPassant.name.txt()(lila.i18n.defaultLang)
-      ))
+      i18nJsObject(trainingI18nKeys) + {
+        PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt())
+      }
 
   lazy val jsonThemes = PuzzleTheme.visible
     .collect { case t if t != PuzzleTheme.mix => t.key }
-    .partition(PuzzleTheme.staticThemes.contains) match {
+    .partition(PuzzleTheme.staticThemes.contains) match
     case (static, dynamic) =>
       Json.obj(
         "dynamic" -> dynamic.map(_.value).sorted.mkString(" "),
-        "static"  -> static.map(_.value).mkString(" ")
+        "static"  -> static.mkString(" ")
       )
-  }
 
-  def pageMenu(active: String, user: Option[User], days: Int = 30)(implicit ctx: Context) = {
+  def pageMenu(active: String, user: Option[User], days: Int = 30)(implicit ctx: Context) =
     val u = user.filterNot(ctx.is).map(_.username)
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.Puzzle.home)(
@@ -67,7 +66,6 @@ object bits {
         trans.puzzle.fromMyGames()
       )
     )
-  }
 
   private val baseI18nKeys: List[MessageKey] =
     List(
@@ -136,4 +134,3 @@ object bits {
       trans.puzzle.continueTheStreak,
       trans.puzzle.newStreak
     ).map(_.key)
-}

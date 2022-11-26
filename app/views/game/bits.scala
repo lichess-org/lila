@@ -2,25 +2,24 @@ package views.html.game
 
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType.Correspondence
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def gameIcon(game: Game): Char =
-    game.perfType match {
+    game.perfType match
       case _ if game.fromPosition         => ''
       case _ if game.imported             => ''
       case Some(p) if game.variant.exotic => p.iconChar
       case _ if game.hasAi                => ''
       case Some(p)                        => p.iconChar
       case _                              => ''
-    }
 
   def sides(
       pov: Pov,
@@ -43,7 +42,7 @@ object bits {
       perfType: Option[lila.rating.PerfType] = None,
       initialFen: Option[chess.format.FEN] = None,
       shortName: Boolean = false
-  )(implicit lang: Lang): Frag = {
+  )(implicit lang: Lang): Frag =
     def link(
         href: String,
         title: String,
@@ -67,7 +66,7 @@ object bits {
                 else variant.name).toUpperCase
       )
     else
-      perfType match {
+      perfType match
         case Some(Correspondence) =>
           link(
             href = s"${routes.Main.faq}#correspondence",
@@ -76,6 +75,3 @@ object bits {
           )
         case Some(pt) => span(title := pt.desc)(pt.trans)
         case _        => variant.name.toUpperCase
-      }
-  }
-}

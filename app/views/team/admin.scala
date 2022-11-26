@@ -5,15 +5,15 @@ import play.api.data.Field
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object admin {
+object admin:
 
-  import trans.team._
+  import trans.team.*
 
-  def leaders(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
+  def leaders(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -36,9 +36,8 @@ object admin {
         )
       )
     }
-  }
 
-  def kick(t: lila.team.Team, form: Form[_])(implicit ctx: Context) =
+  def kick(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${t.name} • ${kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -62,7 +61,7 @@ object admin {
   private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
 
-  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament], unsubs: Int)(implicit
+  def pmAll(t: lila.team.Team, form: Form[?], tours: List[lila.tournament.Tournament], unsubs: Int)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -128,4 +127,3 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
     boxTop(
       h1(a(href := routes.Team.show(t.slug))(t.name), " • ", i18n())
     )
-}

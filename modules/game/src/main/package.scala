@@ -1,9 +1,8 @@
-package lila
+package lila.game
 
-package object game extends PackageObject {
+export lila.Lila.{ *, given }
 
-  type PgnMoves    = Vector[String]
-  type RatingDiffs = chess.Color.Map[Int]
+type PgnMoves    = Vector[String]
+type RatingDiffs = chess.Color.Map[IntRatingDiff]
 
-  private[game] def logger = lila.log("game")
-}
+private val logger = lila.log("game")

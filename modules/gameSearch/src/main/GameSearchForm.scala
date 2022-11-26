@@ -2,16 +2,16 @@ package lila.gameSearch
 
 import chess.Mode
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form._
+import lila.common.Form.*
 import lila.search.Range
 
-final private[gameSearch] class GameSearchForm {
+final private[gameSearch] class GameSearchForm:
 
-  def search(implicit lang: Lang) = Form(
+  def search(using lang: Lang) = Form(
     mapping(
       "players" -> mapping(
         "a"      -> optional(nonEmptyText),
@@ -20,7 +20,7 @@ final private[gameSearch] class GameSearchForm {
         "loser"  -> optional(nonEmptyText),
         "white"  -> optional(nonEmptyText),
         "black"  -> optional(nonEmptyText)
-      )(SearchPlayer.apply)(SearchPlayer.unapply),
+      )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
       "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
       "source"      -> optional(numberIn(Query.sources)),
@@ -39,7 +39,7 @@ final private[gameSearch] class GameSearchForm {
         "initMax" -> optional(numberIn(Query.clockInits)),
         "incMin"  -> optional(numberIn(Query.clockIncs)),
         "incMax"  -> optional(numberIn(Query.clockIncs))
-      )(SearchClock.apply)(SearchClock.unapply _),
+      )(SearchClock.apply)(unapply),
       "dateMin"  -> GameSearchForm.dateField,
       "dateMax"  -> GameSearchForm.dateField,
       "status"   -> optional(numberIn(Query.statuses)),
@@ -48,15 +48,13 @@ final private[gameSearch] class GameSearchForm {
         mapping(
           "field" -> stringIn(Sorting.fields),
           "order" -> stringIn(Sorting.orders)
-        )(SearchSort.apply)(SearchSort.unapply)
+        )(SearchSort.apply)(unapply)
       )
-    )(SearchData.apply)(SearchData.unapply _)
+    )(SearchData.apply)(unapply)
   ) fill SearchData()
-}
 
-private[gameSearch] object GameSearchForm {
+private[gameSearch] object GameSearchForm:
   val dateField = optional(ISODateOrTimestamp.isoDateOrTimestamp)
-}
 
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
@@ -79,7 +77,7 @@ private[gameSearch] case class SearchData(
     status: Option[Int] = None,
     analysed: Option[Int] = None,
     sort: Option[SearchSort] = None
-) {
+):
 
   def sortOrDefault = sort | SearchSort()
 
@@ -108,7 +106,6 @@ private[gameSearch] case class SearchData(
     )
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
-}
 
 private[gameSearch] case class SearchPlayer(
     a: Option[String] = None,
@@ -117,7 +114,7 @@ private[gameSearch] case class SearchPlayer(
     loser: Option[String] = None,
     white: Option[String] = None,
     black: Option[String] = None
-) {
+):
 
   lazy val cleanA = clean(a)
   lazy val cleanB = clean(b)
@@ -128,7 +125,6 @@ private[gameSearch] case class SearchPlayer(
 
   private def oneOf(s: Option[String]) = clean(s).filter(List(cleanA, cleanB).flatten.contains)
   private def clean(s: Option[String]) = s map (_.trim.toLowerCase) filter (_.nonEmpty)
-}
 
 private[gameSearch] case class SearchSort(
     field: String = Sorting.default.f,

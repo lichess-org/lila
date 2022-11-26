@@ -1,9 +1,10 @@
 package lila.mod
 
 import org.joda.time.DateTime
-import reactivemongo.api._
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.irc.IrcApi
 import lila.msg.MsgPreset
@@ -11,13 +12,13 @@ import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(implicit
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
   private def coll = repo.coll
 
-  implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
+  private given BSONDocumentHandler[Modlog] = Macros.handler[Modlog]
 
   private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
@@ -37,7 +38,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     add {
       Modlog.make(mod, sus, Modlog.blogTier, tier.some)
     }
-  def blogPostEdit(mod: Mod, sus: Suspect, postId: String, postName: String, action: String) =
+  def blogPostEdit(mod: Mod, sus: Suspect, postId: UblogPostId, postName: String, action: String) =
     add {
       Modlog.make(mod, sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
     }
@@ -260,12 +261,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
     }
 
-  def cheatDetected(user: User.ID, gameId: Game.ID) =
+  def cheatDetected(user: User.ID, gameId: GameId) =
     add {
       Modlog("lichess", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
     }
 
-  def cheatDetectedAndCount(user: User.ID, gameId: Game.ID): Fu[Int] = for {
+  def cheatDetectedAndCount(user: User.ID, gameId: GameId): Fu[Int] = for {
     prevCount <- countRecentCheatDetected(user)
     _         <- cheatDetected(user, gameId)
   } yield prevCount + 1
@@ -343,19 +344,18 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       .cursor[Modlog]()
       .list(100)
 
-  private def add(m: Modlog): Funit = {
+  private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
     m.notable ?? {
       coll.insert.one {
-        ModlogBSONHandler.writeTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
+        bsonWriteObjTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
       } >> (m.notableZulip ?? zulipMonitor(m))
     }
-  }
 
-  private def zulipMonitor(m: Modlog): Funit = {
-    import lila.mod.{ Modlog => M }
-    val icon = m.action match {
+  private def zulipMonitor(m: Modlog): Funit =
+    import lila.mod.{ Modlog as M }
+    val icon = m.action match
       case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
       case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
       case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
@@ -365,11 +365,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
       case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
-    }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
     userRepo.isMonitoredMod(m.mod) flatMap {
       _ ?? {
-        val monitorType = m.action match {
+        val monitorType = m.action match
           case M.closeAccount | M.alt => None
           case M.engine | M.unengine | M.reopenAccount | M.unalt =>
             Some(IrcApi.ModDomain.Cheat)
@@ -379,12 +378,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
               M.blogPostEdit =>
             Some(IrcApi.ModDomain.Comm)
           case _ => Some(IrcApi.ModDomain.Other)
-        }
         monitorType ?? {
           ircApi.monitorMod(m.mod, icon = icon, text = text, _)
         }
       }
     }
     ircApi.logMod(m.mod, icon = icon, text = text)
-  }
-}

@@ -2,12 +2,12 @@ package lila.mod
 
 import chess.{ Black, Color, White }
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.ThreadLocalRandom
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment }
 import lila.game.{ Game, Player, Pov, Source }
@@ -22,12 +22,12 @@ final class AssessApi(
     fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
     analysisRepo: AnalysisRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
-  import lila.evaluation.EvaluationBsonHandlers._
-  import lila.analyse.AnalyseBsonHandlers._
+  import lila.evaluation.EvaluationBsonHandlers.given
+  import lila.analyse.AnalyseBsonHandlers.given
 
   private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
@@ -61,14 +61,14 @@ final class AssessApi(
 
   private def buildMissing(povs: List[Pov]): Funit =
     assessRepo.coll
-      .distinctEasy[Game.ID, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}"))) flatMap {
+      .distinctEasy[GameId, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}"))) flatMap {
       existingIds =>
         val missing = povs collect {
           case pov if pov.game.metadata.analysed && !existingIds.contains(pov.gameId) => pov.gameId
         }
         missing.nonEmpty ??
           analysisRepo.coll
-            .idsMap[Analysis, Game.ID](missing)(_.id)
+            .idsMap[Analysis, GameId](missing)(x => GameId(x.id))
             .flatMap { ans =>
               povs
                 .flatMap { pov =>
@@ -89,19 +89,18 @@ final class AssessApi(
   ): Fu[List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]] =
     buildMissing(povs) >>
       assessRepo.coll
-        .idsMap[PlayerAssessment, Game.ID](
+        .idsMap[PlayerAssessment, String](
           ids = povs.map(p => s"${p.gameId}/${p.color.name}"),
           readPreference = ReadPreference.secondaryPreferred
-        )(_.gameId)
+        )(_.gameId.value)
         .flatMap { fulls =>
-          val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId))
+          val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId.value))
           gameRepo.holdAlert.povs(basicsPovs) map { holds =>
             povs map { pov =>
               pov -> {
-                fulls.get(pov.gameId) match {
+                fulls.get(pov.gameId.value) match
                   case Some(full) => Left(full)
                   case None       => Right(PlayerAssessment.makeBasics(pov, holds get pov.gameId))
-                }
               }
             }
           }
@@ -153,7 +152,7 @@ final class AssessApi(
   def assessUser(userId: User.ID): Funit =
     getPlayerAggregateAssessment(userId) flatMap {
       _ ?? { playerAggregateAssessment =>
-        playerAggregateAssessment.action match {
+        playerAggregateAssessment.action match
           case AccountAction.Engine | AccountAction.EngineAndBan =>
             userRepo.getTitle(userId).flatMap {
               case None =>
@@ -171,7 +170,6 @@ final class AssessApi(
           case AccountAction.Nothing =>
             // reporter ! lila.hub.actorApi.report.Clean(userId)
             funit
-        }
       }
     }
 
@@ -181,9 +179,9 @@ final class AssessApi(
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent
 
-  def onGameReady(game: Game, white: User, black: User): Funit = {
+  def onGameReady(game: Game, white: User, black: User): Funit =
 
-    import AutoAnalysis.Reason._
+    import AutoAnalysis.Reason.*
 
     def manyBlurs(player: Player) =
       game.playerBlurPercent(player.color) >= 70
@@ -204,10 +202,9 @@ final class AssessApi(
         perfType <- game.perfType
       } yield user.perfs(perfType).nb
 
-    def suspCoefVariation(c: Color) = {
+    def suspCoefVariation(c: Color) =
       val x = noFastCoefVariation(game player c)
       x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
-    }
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
@@ -261,5 +258,3 @@ final class AssessApi(
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
       }
     }
-  }
-}

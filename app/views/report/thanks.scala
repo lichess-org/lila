@@ -2,15 +2,15 @@ package views.html.report
 
 import scala.annotation.nowarn
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object thanks {
+object thanks:
 
-  def apply(userId: String, blocked: Boolean)(implicit ctx: Context) = {
+  def apply(userId: String, blocked: Boolean)(implicit ctx: Context) =
 
     val title = "Thanks for the report"
 
@@ -48,5 +48,3 @@ fetch($button.data('action'), {method:'post'})
       )
 
     }
-  }
-}

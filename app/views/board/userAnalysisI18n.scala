@@ -2,10 +2,10 @@ package views.html.board
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans, MessageKey }
+import lila.app.templating.Environment.{ given, * }
+import lila.i18n.{ I18nKeys as trans, MessageKey }
 
-object userAnalysisI18n {
+object userAnalysisI18n:
 
   def apply(
       withCeval: Boolean = true,
@@ -210,4 +210,3 @@ object userAnalysisI18n {
         trans.nbMistakes,
         trans.nbBlunders
       ).map(_.key)
-}

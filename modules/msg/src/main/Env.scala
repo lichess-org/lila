@@ -1,9 +1,9 @@
 package lila.msg
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
 import lila.user.User
 import lila.hub.actorApi.socket.remote.TellUserIn
 
@@ -23,11 +23,12 @@ final class Env(
     chatPanic: lila.chat.ChatPanic,
     shutup: lila.hub.actors.Shutup,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
-) {
+    scheduler: akka.actor.Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   private val colls = wire[MsgColls]
 
@@ -46,11 +47,10 @@ final class Env(
   lazy val twoFactorReminder = wire[TwoFactorReminder]
 
   def cli =
-    new lila.common.Cli {
+    new lila.common.Cli:
       def process = { case "msg" :: "multi" :: orig :: dests :: words =>
         api.cliMultiPost(orig, dests.map(_.toLower).split(',').toIndexedSeq, words mkString " ")
       }
-    }
 
   Bus.subscribeFuns(
     "msgSystemSend" -> { case lila.hub.actorApi.msg.SystemMsg(userId, text) =>
@@ -67,9 +67,7 @@ final class Env(
       } api.post(userId, dest, text)
     }
   )
-}
 
-private class MsgColls(db: lila.db.Db) {
+private class MsgColls(db: lila.db.Db):
   val thread = db(CollName("msg_thread"))
   val msg    = db(CollName("msg_msg"))
-}

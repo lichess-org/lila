@@ -4,15 +4,15 @@ import org.joda.time.DateTime
 import scala.annotation.nowarn
 
 import lila.common.config.Max
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class ChallengeRepo(colls: ChallengeColls)(implicit
+final private class ChallengeRepo(colls: ChallengeColls)(using
     ec: scala.concurrent.ExecutionContext
-) {
+):
 
-  import BSONHandlers._
-  import Challenge._
+  import BSONHandlers.given
+  import Challenge.*
 
   private val coll = colls.challenge
 
@@ -91,7 +91,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
 
-  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] = {
+  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll
       .find(
         $doc(
@@ -102,7 +102,6 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       )
       .cursor[Challenge]()
       .list(max)
-  }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
     coll.list[Challenge]("expiresAt" $lt DateTime.now, max)
@@ -156,4 +155,3 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
   private[challenge] def remove(id: Challenge.ID) = coll.delete.one($id(id)).void
 
   private val selectCreated = $doc("status" -> Status.Created.id)
-}

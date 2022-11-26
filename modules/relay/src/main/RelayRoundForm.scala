@@ -2,32 +2,32 @@ package lila.relay
 
 import io.mola.galimatias.URL
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import scala.util.Try
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
 import lila.user.User
 
-final class RelayRoundForm {
+final class RelayRoundForm:
 
-  import RelayRoundForm._
+  import RelayRoundForm.*
   import lila.common.Form.ISODateTimeOrTimestamp
 
   val roundMapping =
     mapping(
-      "name" -> cleanText(minLength = 3, maxLength = 80),
+      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
       "syncUrl" -> optional {
-        cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource _)
+        cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
-    )(Data.apply)(Data.unapply)
+    )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
   def create(trs: RelayTour.WithRounds) = Form {
@@ -36,19 +36,19 @@ final class RelayRoundForm {
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
-  }.fill(Data(name = s"Round ${trs.rounds.size + 1}", syncUrlRound = Some(trs.rounds.size + 1)))
+  }.fill(
+    Data(name = RelayRoundName(s"Round ${trs.rounds.size + 1}"), syncUrlRound = Some(trs.rounds.size + 1))
+  )
 
   def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
-}
 
-object RelayRoundForm {
+object RelayRoundForm:
 
-  case class GameIds(ids: List[Game.ID])
+  case class GameIds(ids: List[GameId])
 
-  private def toGameIds(ids: String): Option[GameIds] = {
-    val list = ids.split(' ').view.map(_.trim take Game.gameIdSize).filter(Game.validId).toList
+  private def toGameIds(ids: String): Option[GameIds] =
+    val list = ids.split(' ').view.map(i => Game strToId i.trim).filter(Game.validId).toList
     (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
-  }
 
   private def validSource(source: String): Boolean =
     cleanUrl(source).isDefined || toGameIds(source).isDefined
@@ -86,12 +86,12 @@ object RelayRoundForm {
   )
 
   case class Data(
-      name: String,
+      name: RelayRoundName,
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[DateTime] = None,
       throttle: Option[Int] = None
-  ) {
+  ):
 
     def requiresRound = syncUrl exists RelayRound.Sync.UpstreamUrl.LccRegex.matches
 
@@ -133,9 +133,8 @@ object RelayRoundForm {
         startsAt = startsAt,
         startedAt = none
       )
-  }
 
-  object Data {
+  object Data:
 
     def make(relay: RelayRound) =
       Data(
@@ -148,5 +147,3 @@ object RelayRoundForm {
         startsAt = relay.startsAt,
         throttle = relay.sync.delay
       )
-  }
-}

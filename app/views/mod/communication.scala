@@ -2,9 +2,9 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.hub.actorApi.shutup.PublicSource
@@ -13,7 +13,7 @@ import lila.relation.Follow
 import lila.user.{ Holder, User }
 import lila.shutup.Analyser
 
-object communication {
+object communication:
 
   def apply(
       mod: Holder,
@@ -63,7 +63,7 @@ object communication {
         ),
         isGranted(_.UserModView) option frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(mod, u, logins, appeals)(ctx, renderIp)(
+          views.html.user.mod.otherUsers(mod, u, logins, appeals)(using ctx, renderIp)(
             cls := "mod-zone communication__logins"
           )
         ),
@@ -109,12 +109,12 @@ object communication {
                 line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
                 line.from.map {
-                  case PublicSource.Tournament(id) => tournamentLink(id)
+                  case PublicSource.Tournament(id) => tournamentLink(id.value)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
                   case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id)   => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
+                  case PublicSource.Swiss(id)   => views.html.swiss.bits.link(SwissId(id))
                 },
                 nbsp,
                 span(cls := "message")(highlightBad(line.text))
@@ -190,15 +190,12 @@ object communication {
     }
 
   // incompatible with richText
-  def highlightBad(text: String): Frag = {
+  def highlightBad(text: String): Frag =
     val words = Analyser(text).badWords
     if (words.isEmpty) frag(text)
-    else {
+    else
       val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
-    }
-  }
 
   private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(""))
-}

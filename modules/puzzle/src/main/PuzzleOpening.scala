@@ -1,23 +1,23 @@
 package lila.puzzle
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.opening.{ FullOpening, FullOpeningDB, OpeningFamily, OpeningVariation }
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.memo.{ CacheApi, MongoCache }
 
 case class PuzzleOpeningCollection(
     families: List[PuzzleOpening.FamilyWithCount], // most popular first
     openings: List[PuzzleOpening.WithCount]        // most popular first
-) {
+):
 
-  import SimpleOpening._
-  import PuzzleOpening._
+  import SimpleOpening.*
+  import PuzzleOpening.*
 
   val familyMap  = families.view.map { fam => fam.family.key -> fam }.toMap
   val openingMap = openings.view.map { op => op.opening.key -> op }.toMap
@@ -44,36 +44,34 @@ case class PuzzleOpeningCollection(
     }
     .sortBy(_._1.family.name.value)
 
-  def treeList(order: Order) = order match {
+  def treeList(order: Order) = order match
     case Order.Popular      => treePopular
     case Order.Alphabetical => treeAlphabetical
-  }
 
   def makeMine(myFams: List[LilaOpeningFamily], myVars: List[SimpleOpening]) = Mine(
     families = myFams.filter(fam => familyMap.contains(fam.key)),
     variations = myVars.filter(op => openingMap.contains(op.key))
   )
-}
 
 final class PuzzleOpeningApi(
     colls: PuzzleColls,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(implicit
+)(using
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer
-) {
-  import BsonHandlers._
-  import SimpleOpening._
-  import PuzzleOpening._
+):
+  import BsonHandlers.given
+  import SimpleOpening.*
+  import PuzzleOpening.*
 
   private val countedCache = mongoCache.unitNoHeap[List[Bdoc]]("puzzle:opening:counted", 24 hours) { _ =>
-    import Puzzle.BSONFields._
+    import Puzzle.BSONFields.*
     colls.puzzle {
       _.aggregateList(maxOpenings) { framework =>
-        import framework._
+        import framework.*
         UnwindField(opening) -> List(
           PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
           Limit(maxOpenings)
@@ -90,7 +88,7 @@ final class PuzzleOpeningApi(
             _.foldLeft(PuzzleOpeningCollection(Nil, Nil)) { case (acc, obj) =>
               val count = ~obj.int("count")
               obj.string("_id").fold(acc) { keyStr =>
-                LilaOpeningFamily.find(keyStr) match {
+                LilaOpeningFamily.find(keyStr) match
                   case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
                   case None =>
                     SimpleOpening
@@ -99,7 +97,6 @@ final class PuzzleOpeningApi(
                       .fold(acc) { op =>
                         acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
                       }
-                }
               }
             }
           } map { case PuzzleOpeningCollection(families, openings) =>
@@ -149,23 +146,21 @@ final class PuzzleOpeningApi(
     (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
       gameRepo gameFromSecondary puzzle.gameId flatMap {
         _ ?? { game =>
-          FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(SimpleOpening.apply) match {
+          FullOpeningDB.search(game.pgnMoves).map(_.opening).flatMap(SimpleOpening.apply) match
             case None =>
               fuccess {
                 logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
               }
             case Some(o) =>
-              val keys = List(o.family.key, o.key).map(_.value)
+              val keys = List(o.family.key.value, o.key.value)
               colls.puzzle {
                 _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
               }
-          }
         }
       }
     }
-}
 
-object PuzzleOpening {
+object PuzzleOpening:
 
   val maxOpenings = 1000
 
@@ -178,14 +173,13 @@ object PuzzleOpening {
   type TreeMap  = Map[LilaOpeningFamily, (Count, Set[WithCount])]
   type TreeList = List[(FamilyWithCount, List[WithCount])]
 
-  case class Mine(families: List[LilaOpeningFamily], variations: List[SimpleOpening]) {
+  case class Mine(families: List[LilaOpeningFamily], variations: List[SimpleOpening]):
     lazy val familyKeys    = families.view.map(_.key).toSet
     lazy val variationKeys = variations.view.map(_.key).toSet
-  }
 
   sealed abstract class Order(val key: String, val name: I18nKey)
 
-  object Order {
+  object Order:
     case object Popular      extends Order("popular", trans.study.mostPopular)
     case object Alphabetical extends Order("alphabetical", trans.study.alphabetical)
 
@@ -195,5 +189,3 @@ object PuzzleOpening {
       o.key -> o
     }.toMap
     def apply(key: String): Order = byKey.getOrElse(key, default)
-  }
-}

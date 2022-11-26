@@ -10,16 +10,17 @@ object Dependencies {
       ("linux", "epoll")
 
   val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
+  val sonashots = "sonashots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "7.1.0"
-  val hasher      = "com.roundeights"              %% "hasher"                          % "1.2.1"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "8.1.4"
+  val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.1"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "10.6.4"
-  val compression = "org.lichess"                  %% "compression"                     % "1.6"
-  val maxmind     = "com.sanoma.cda"               %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
-  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19-THIB213"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "11.2.2"
+  val compression = "org.lichess"                  %% "compression"                     % "1.8"
+  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "3.0.2"
+  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.1" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.13.0"
@@ -28,16 +29,15 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.1.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.85.Final" classifier s"$os-$arch"
-  val autoconfig  = "io.methvin.play"            %% "autoconfig-macros" % "0.3.2"  % "provided"
-  val scalatest   = "org.scalatest"              %% "scalatest"         % "3.2.11" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"         % "0.14.0"
-  val apacheText  = "org.apache.commons"          % "commons-text"      % "1.10.0"
-  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"      % "0.13.1"
+  val scalatest   = "org.scalatest"              %% "scalatest"    % "3.2.11" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"    % "0.14.0"
+  val apacheText  = "org.apache.commons"          % "commons-text" % "1.10.0"
+  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
 
   object specs2 {
-    val version = "4.18.0"
-    val core    = "org.specs2" %% "specs2-core" % version % Test
-    val cats    = "org.specs2" %% "specs2-cats" % version % Test
+    val version = "5.2.0"
+    val core    = "org.specs2" %% "specs2-core" % version  % Test
+    val cats    = "org.specs2" %% "specs2-cats" % "4.19.0" % Test
     val bundle  = Seq(core, cats)
   }
 
@@ -59,24 +59,27 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.10"
+    val version = "1.1.0-275c4ca-RC7-SNAPSHOT"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
-    val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-$os-x86-64"
-    val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC6"
+    val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"1.1.0-RC6-$os-x86-64"
+    // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }
 
   object play {
-    val api      = "com.typesafe.play" %% "play"           % "2.8.16-lila_1.17"
-    val json     = "com.typesafe.play" %% "play-json"      % "2.9.3"
-    val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.3"
-    val mailer   = "com.typesafe.play" %% "play-mailer"    % "8.0.1"
+    val playVersion = "2.8.18-lila_3.4"
+    val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC7"
+    val jsonJoda    = "com.typesafe.play" %% "play-json-joda"    % "2.10.0-RC7"
+    val api         = "com.typesafe.play" %% "play"              % playVersion
+    val server      = "com.typesafe.play" %% "play-server"       % playVersion
+    val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
+    val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
   }
 
   object playWs {
-    val version = "2.2.0-M1"
+    val version = "2.2.0-M2_lila-1"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
@@ -91,11 +94,11 @@ object Dependencies {
   }
   object akka {
     val version    = "2.6.20"
-    val akka       = "com.typesafe.akka" %% "akka-actor"       % version
-    val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
+    val actor      = "com.typesafe.akka" %% "akka-actor"       % version
+    val actorTyped = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
     val akkaSlf4j  = "com.typesafe.akka" %% "akka-slf4j"       % version
     val testkit    = "com.typesafe.akka" %% "akka-testkit"     % version % Test
-    def bundle     = List(akka, akkaTyped, akkaStream, akkaSlf4j)
+    def bundle     = List(actor, actorTyped, akkaStream, akkaSlf4j)
   }
 }

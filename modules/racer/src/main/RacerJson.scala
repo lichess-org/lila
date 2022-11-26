@@ -1,16 +1,17 @@
 package lila.racer
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.common.LightUser
+import lila.common.Json.given
 import lila.storm.StormJson
 import lila.storm.StormSign
 
-final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: LightUser.GetterSync) {
+final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: LightUser.GetterSync):
 
-  import StormJson._
+  import StormJson.given
 
-  implicit private val playerWrites = OWrites[RacerPlayer] { p =>
+  given OWrites[RacerPlayer] = OWrites { p =>
     val user = p.userId flatMap lightUserSync
     Json
       .obj("name" -> p.name, "score" -> p.score)
@@ -32,8 +33,5 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
 
   // socket updates
   def state(race: RacerRace) = Json
-    .obj(
-      "players" -> race.players
-    )
+    .obj("players" -> race.players)
     .add("startsIn", race.startsInMillis)
-}

@@ -1,7 +1,7 @@
 package lila.hub
 
-import akka.actor._
-import scala.concurrent.duration._
+import akka.actor.*
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 /** Delays the work, only runs once at a time per id. Work is ran as late as possible.
@@ -9,14 +9,14 @@ import scala.concurrent.ExecutionContext
 final class LateMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
     logger: lila.log.Logger
-)(implicit ec: ExecutionContext)
-    extends Actor {
+)(using ExecutionContext)
+    extends Actor:
 
-  import LateMultiThrottler._
+  import LateMultiThrottler.*
 
   var executions = Set.empty[String]
 
-  def receive: Receive = {
+  def receive: Receive =
 
     case Work(id, run, delayOption, timeoutOption) if !executions.contains(id) =>
       implicit val scheduler = context.system.scheduler
@@ -37,15 +37,13 @@ final class LateMultiThrottler(
       executions = executions - id
 
     case x => logger.branch("LateMultiThrottler").warn(s"Unsupported message $x")
-  }
-}
 
-object LateMultiThrottler {
+object LateMultiThrottler:
 
   def apply(
       executionTimeout: Option[FiniteDuration] = None,
       logger: lila.log.Logger
-  )(implicit ec: ExecutionContext, system: ActorSystem) =
+  )(using ec: ExecutionContext, system: ActorSystem) =
     system.actorOf(Props(new LateMultiThrottler(executionTimeout, logger)))
 
   case class Work(
@@ -64,4 +62,3 @@ object LateMultiThrottler {
       timeout: Option[FiniteDuration] = None
   ) =
     Work(id, () => run, delay, timeout)
-}

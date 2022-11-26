@@ -1,3 +1,3 @@
-package lila
+package lila.api
 
-package object api extends PackageObject
+export lila.Lila.{ *, given }

@@ -3,17 +3,17 @@ package lila.puzzle
 import chess.format.{ Forsyth, Uci }
 import chess.{ Divider, Division }
 import reactivemongo.akkastream.cursorProducer
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.LilaStream
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(implicit
+final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(using
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
-) {
-  import BsonHandlers._
+):
+  import BsonHandlers.given
 
   private[puzzle] def addAllMissing: Funit =
     colls.puzzle {
@@ -32,13 +32,12 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
     }
 
   private def addPhase(puzzle: Puzzle): Funit =
-    puzzle.situationAfterInitialMove match {
+    puzzle.situationAfterInitialMove match
       case Some(sit) =>
-        val theme = Divider(List(sit.board)) match {
+        val theme = Divider(List(sit.board)) match
           case Division(None, Some(_), _) => PuzzleTheme.endgame
           case Division(Some(_), None, _) => PuzzleTheme.middlegame
           case _                          => PuzzleTheme.opening
-        }
         colls.puzzle {
           _.update
             .one(
@@ -50,7 +49,6 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
       case None =>
         logger.error(s"Can't compute phase of puzzle $puzzle")
         funit
-    }
 
   private def checkFirstTheme(puzzle: Puzzle): Funit = ~ {
     for {
@@ -73,4 +71,3 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
       )
     } void
   }
-}

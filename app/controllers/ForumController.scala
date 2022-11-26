@@ -1,10 +1,10 @@
 package controllers
 
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.api.Context
-import lila.app._
-import lila.forum.Topic
+import lila.app.{ given, * }
+import lila.forum.ForumTopic
 import lila.user.User
 
 private[controllers] trait ForumController { self: LilaController =>
@@ -46,7 +46,7 @@ private[controllers] trait ForumController { self: LilaController =>
   )(implicit ctx: Context): Fu[Result] =
     TopicGrantMod(categSlug, me)(topicRepo.forUser(me.some).byId(topicId))(a)
 
-  private def TopicGrantMod[A <: Result](categSlug: String, me: User)(getTopic: => Fu[Option[Topic]])(
+  private def TopicGrantMod[A <: Result](categSlug: String, me: User)(getTopic: => Fu[Option[ForumTopic]])(
       a: => Fu[A]
   )(implicit ctx: Context): Fu[Result] =
     access.isGrantedMod(categSlug) flatMap { granted =>

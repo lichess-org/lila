@@ -3,13 +3,13 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
 
-object theme {
+object theme:
 
   def list(all: PuzzleAngle.All)(implicit ctx: Context) =
     views.html.base.layout(
@@ -70,4 +70,3 @@ object theme {
           )
       )
     )
-}

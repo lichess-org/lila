@@ -1,6 +1,5 @@
-package lila
+package lila.lobby
 
-package object lobby extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[lobby] def logger = lila.log("lobby")
-}
+private val logger = lila.log("lobby")

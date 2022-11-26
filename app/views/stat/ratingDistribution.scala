@@ -3,16 +3,17 @@ package stat
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.User
 
 import controllers.routes
 
-object ratingDistribution {
+object ratingDistribution:
 
   def apply(perfType: PerfType, data: List[Int], otherUser: Option[User])(implicit ctx: Context) =
     views.html.base.layout(
@@ -90,4 +91,3 @@ object ratingDistribution {
       trans.cumulative,
       trans.glicko2Rating
     ).map(_.key)
-}

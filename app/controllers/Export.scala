@@ -1,20 +1,19 @@
 package controllers
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.Color
 import chess.format.{ FEN, Forsyth, Uci }
 import chess.variant.{ Standard, Variant }
 import play.api.mvc.{ RequestHeader, Result }
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }
-import lila.puzzle.Puzzle.Id
 
-final class Export(env: Env) extends LilaController(env) {
+final class Export(env: Env) extends LilaController(env):
 
   private val ExportImageRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 600,
@@ -40,7 +39,7 @@ final class Export(env: Env) extends LilaController(env) {
       }
     }
 
-  def gif(id: String, color: String, theme: Option[String], piece: Option[String]) =
+  def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
       env.game.gifExport.fromPov(
         Pov(g.game, Color.fromName(color) | Color.white),
@@ -51,19 +50,19 @@ final class Export(env: Env) extends LilaController(env) {
         stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
-  def legacyGameThumbnail(id: String, theme: Option[String], piece: Option[String]) =
+  def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     Action {
       MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
     }
 
-  def gameThumbnail(id: String, theme: Option[String], piece: Option[String]) =
+  def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>
       env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet(piece).name) map
         stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
     }
 
   def puzzleThumbnail(id: String, theme: Option[String], piece: Option[String]) =
-    exportImageOf(env.puzzle.api.puzzle find Id(id)) { puzzle =>
+    exportImageOf(env.puzzle.api.puzzle find PuzzleId(id)) { puzzle =>
       env.game.gifExport.thumbnail(
         fen = puzzle.fenAfterInitialMove,
         lastMove = puzzle.line.head.uci.some,
@@ -94,10 +93,9 @@ final class Export(env: Env) extends LilaController(env) {
     }
 
   private def stream(contentType: String = "image/gif", cacheSeconds: Int = 1209600)(
-      stream: Source[ByteString, _]
+      stream: Source[ByteString, ?]
   ) =
     Ok.chunked(stream)
       .withHeaders(noProxyBufferHeader)
       .withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
       .as(contentType)
-}

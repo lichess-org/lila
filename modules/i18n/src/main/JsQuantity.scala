@@ -2,9 +2,9 @@ package lila.i18n
 
 import play.api.i18n.Lang
 
-object JsQuantity {
+object JsQuantity:
   def apply(lang: Lang): String =
-    lang.language match {
+    lang.language match
       case "fr" | "ff" | "kab" | "co" | "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" |
           "nso" | "ti" | "wa" => // french
         """o=>o<=1?"one":"other""""
@@ -38,8 +38,6 @@ object JsQuantity {
         """o=>"other""""
       case _ => // other
         """o=>1==o?"one":"other""""
-    }
-}
 
 /*
 

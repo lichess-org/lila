@@ -9,7 +9,7 @@ import lila.user.User
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game, hostId: String)
 private[simul] case class StartSimul(firstGame: Game, hostId: String)
-private[simul] case class HostIsOn(gameId: String)
+private[simul] case class HostIsOn(gameId: GameId)
 private[simul] case object Reload
 private[simul] case object Aborted
 

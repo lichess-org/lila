@@ -1,22 +1,23 @@
 package lila.round
 
-import akka.actor._
-import akka.stream.scaladsl._
+import akka.actor.*
+import akka.stream.scaladsl.*
 import chess.format.Forsyth
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Bus
-import lila.common.LightUser
+import lila.common.{ Bus, LightUser }
+import lila.common.Json.given
 import lila.game.actorApi.MoveGameEvent
 import lila.game.Game
 import lila.socket.Socket
+import scala.concurrent.ExecutionContext
 
 final private class TvBroadcast(
     userJsonView: lila.user.JsonView,
     lightUserSync: LightUser.GetterSync
-) extends Actor {
+) extends Actor:
 
-  import TvBroadcast._
+  import TvBroadcast.*
 
   private var clients = Set.empty[Client]
 
@@ -24,14 +25,13 @@ final private class TvBroadcast(
 
   Bus.subscribe(self, "changeFeaturedGame")
 
-  implicit def system = context.dispatcher
+  given ExecutionContext = context.system.dispatcher
 
-  override def postStop() = {
+  override def postStop() =
     super.postStop()
     unsubscribeFromFeaturedId()
-  }
 
-  def receive = {
+  def receive =
 
     case TvBroadcast.Connect(compat) =>
       sender() ! Source
@@ -93,27 +93,23 @@ final private class TvBroadcast(
       featured foreach { f =>
         featured = f.copy(fen = fen).some
       }
-  }
 
   def unsubscribeFromFeaturedId() =
     featured foreach { previous =>
       Bus.unsubscribe(self, MoveGameEvent makeChan previous.id)
     }
-}
 
-object TvBroadcast {
+object TvBroadcast:
 
-  type SourceType = Source[JsValue, _]
+  type SourceType = Source[JsValue, ?]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case class Featured(id: Game.ID, data: JsObject, fen: String) {
+  case class Featured(id: GameId, data: JsObject, fen: String):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
     def socketMsg   = Socket.makeMessage("featured", dataWithFen)
-  }
 
   case class Connect(fromLichess: Boolean)
   case class Client(queue: Queue, fromLichess: Boolean)
 
   case class Add(c: Client)
   case class Remove(c: Client)
-}

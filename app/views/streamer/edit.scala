@@ -3,20 +3,20 @@ package views.html.streamer
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
-object edit {
+object edit:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
-      form: Form[_],
+      form: Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[lila.streamer.Streamer])]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
@@ -241,5 +241,3 @@ object edit {
         )
       )
     }
-  }
-}

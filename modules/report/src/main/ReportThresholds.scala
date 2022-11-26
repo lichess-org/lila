@@ -3,18 +3,19 @@ package lila.report
 import play.api.data.Form
 import play.api.data.Forms.{ single, text }
 
-import lila.common.Ints
+import lila.common.{ Ints, Iso }
 import lila.memo.SettingStore.{ Formable, StringReader }
+import reactivemongo.api.bson.BSONHandler
 
 case class ScoreThresholds(mid: Int, high: Int)
 
 private case class Thresholds(score: () => ScoreThresholds, discord: () => Int)
 
-private object ReportThresholds {
+private object ReportThresholds:
 
   private val defaultScoreThresholds = ScoreThresholds(40, 50)
 
-  val thresholdsIso = lila.common.Iso
+  given iso: Iso.StringIso[ScoreThresholds] = Iso
     .ints(",")
     .map[ScoreThresholds](
       {
@@ -24,10 +25,9 @@ private object ReportThresholds {
       t => Ints(List(t.mid, t.high))
     )
 
-  implicit val scoreThresholdsBsonHandler  = lila.db.dsl.isoHandler(thresholdsIso)
-  implicit val scoreThresholdsStringReader = StringReader.fromIso(thresholdsIso)
-  implicit val scoreThresholdsFormable =
-    new Formable[ScoreThresholds](t => Form(single("v" -> text)) fill thresholdsIso.to(t))
+  given BSONHandler[ScoreThresholds]  = lila.db.dsl.isoHandler
+  given StringReader[ScoreThresholds] = StringReader.fromIso
+  given Formable[ScoreThresholds]     = new Formable(t => Form(single("v" -> text)) fill iso.to(t))
 
   def makeScoreSetting(store: lila.memo.SettingStore.Builder) =
     store[ScoreThresholds](
@@ -42,4 +42,3 @@ private object ReportThresholds {
       default = 80,
       text = "Discord score threshold. Comm reports with higher scores are notified in Discord".some
     )
-}

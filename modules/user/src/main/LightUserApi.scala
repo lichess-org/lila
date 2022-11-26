@@ -1,41 +1,41 @@
 package lila.user
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
+import scala.concurrent.duration.*
 import scala.util.Success
 
 import lila.common.LightUser
-import lila.db.dsl._
+import lila.db.dsl.{ given, * }
 import lila.memo.{ CacheApi, Syncache }
-import User.{ BSONFields => F }
+import User.BSONFields as F
 
 final class LightUserApi(
     repo: UserRepo,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import LightUserApi._
+  import LightUserApi.{ *, given }
 
-  val async = new LightUser.Getter(id =>
-    if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id)
-  )
-  val sync = new LightUser.GetterSync(id => if (User isGhost id) LightUser.ghost.some else cache.sync(id))
+  val async = LightUser.Getter(id => if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id))
+  val sync  = LightUser.GetterSync(id => if (User isGhost id) LightUser.ghost.some else cache.sync(id))
+
+  def async(id: UserId) = if (User isGhost id.value) fuccess(LightUser.ghost.some) else cache.async(id.value)
 
   def syncFallback(id: User.ID)       = sync(id) | LightUser.fallback(id)
   def asyncFallback(id: User.ID)      = async(id) dmap (_ | LightUser.fallback(id))
   def asyncFallbackName(name: String) = async(User normalize name) dmap (_ | LightUser.fallback(name))
 
-  def asyncMany = cache.asyncMany _
+  def asyncMany = cache.asyncMany
 
   def asyncManyFallback(ids: Seq[User.ID]): Fu[Seq[LightUser]] =
     ids.map(asyncFallback).sequenceFu
 
-  val isBotSync = new LightUser.IsBotSync(id => sync(id).exists(_.isBot))
+  val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
-  def invalidate = cache invalidate _
+  def invalidate = cache.invalidate
 
-  def preloadOne                     = cache preloadOne _
-  def preloadMany                    = cache preloadMany _
+  def preloadOne                     = cache.preloadOne
+  def preloadMany                    = cache.preloadMany
   def preloadUser(user: User)        = cache.set(user.id, user.light.some)
   def preloadUsers(users: Seq[User]) = users.foreach(preloadUser)
 
@@ -52,22 +52,18 @@ final class LightUserApi(
     strategy = Syncache.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfterWrite(20 minutes)
   )
-}
 
-private object LightUserApi {
+private object LightUserApi:
 
-  implicit val lightUserBSONReader = new BSONDocumentReader[LightUser] {
-
+  given BSONDocumentReader[LightUser] with
     def readDocument(doc: BSONDocument) = for {
       id   <- doc.getAsTry[String](F.id)
       name <- doc.getAsTry[String](F.username)
     } yield LightUser(
       id = id,
       name = name,
-      title = doc.string(F.title),
+      title = doc.getAsOpt[UserTitle](F.title),
       isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
     )
-  }
 
   val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
-}

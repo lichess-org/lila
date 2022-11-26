@@ -2,29 +2,29 @@ package lila.tournament
 
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
 import lila.common.LilaScheduler
 import lila.hub.actorApi.push.TourSoon
 
-final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(implicit
-    ec: ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) {
+final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(using
+    ExecutionContext,
+    akka.actor.Scheduler
+):
 
-  private val doneMemo = new lila.memo.ExpireSetMemo(10 minutes)
+  private val doneMemo = lila.memo.ExpireSetMemo[TourId](10 minutes)
 
   LilaScheduler(_.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
     repo
-      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys)
+      .soonStarting(DateTime.now.plusMinutes(10), DateTime.now.plusMinutes(11), doneMemo.keys.map(_.value))
       .flatMap {
         _.map { tour =>
           lila.mon.tournament.notifier.tournaments.increment()
-          doneMemo put tour.id
+          doneMemo put TourId(tour.id)
           cached ranking tour map { ranking =>
-            if (ranking.ranking.nonEmpty) {
+            if (ranking.ranking.nonEmpty)
               Bus
                 .publish(
                   TourSoon(
@@ -36,9 +36,7 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
                   "tourSoon"
                 )
               lila.mon.tournament.notifier.tournaments.increment(ranking.playerIndex.size)
-            }
           }
         }.sequenceFu.void
       }
   }
-}

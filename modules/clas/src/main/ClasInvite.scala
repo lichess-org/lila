@@ -13,7 +13,7 @@ case class ClasInvite(
     accepted: Option[Boolean] = None
 )
 
-object ClasInvite {
+object ClasInvite:
 
   case class Id(value: String) extends AnyVal with StringValue
 
@@ -27,10 +27,8 @@ object ClasInvite {
     )
 
   sealed trait Feedback
-  object Feedback {
+  object Feedback:
     case object Already                extends Feedback
     case object Invited                extends Feedback
     case object Found                  extends Feedback
     case class CantMsgKid(url: String) extends Feedback
-  }
-}

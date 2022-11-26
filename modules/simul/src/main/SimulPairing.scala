@@ -4,11 +4,11 @@ import lila.game.IdGenerator
 
 final case class SimulPairing(
     player: SimulPlayer,
-    gameId: String,
+    gameId: GameId,
     status: chess.Status,
     wins: Option[Boolean],
     hostColor: chess.Color
-) {
+):
 
   def finished = status >= chess.Status.Aborted
   def ongoing  = !finished
@@ -26,9 +26,8 @@ final case class SimulPairing(
     wins.map { w =>
       if (w) !hostColor else hostColor
     }
-}
 
-private[simul] object SimulPairing {
+private[simul] object SimulPairing:
 
   def apply(player: SimulPlayer): SimulPairing =
     new SimulPairing(
@@ -38,4 +37,3 @@ private[simul] object SimulPairing {
       wins = none,
       hostColor = chess.White
     )
-}

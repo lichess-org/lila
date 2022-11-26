@@ -18,7 +18,7 @@ case class AiConfig(
     color: Color,
     fen: Option[FEN] = None
 ) extends Config
-    with Positional {
+    with Positional:
 
   val strictFen = true
 
@@ -54,9 +54,8 @@ case class AiConfig(
 
   def timeControlFromPosition =
     timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1
-}
 
-object AiConfig extends BaseConfig {
+object AiConfig extends BaseConfig:
 
   def from(v: Int, tm: Int, t: Double, i: Int, d: Days, level: Int, c: String, fen: Option[FEN]) =
     new AiConfig(
@@ -87,9 +86,9 @@ object AiConfig extends BaseConfig {
   }
 
   import lila.db.BSON
-  import lila.db.dsl._
+  import lila.db.dsl.{ *, given }
 
-  implicit private[setup] val aiConfigBSONHandler = new BSON[AiConfig] {
+  private[setup] given BSON[AiConfig] with
 
     def reads(r: BSON.Reader): AiConfig =
       AiConfig(
@@ -113,5 +112,3 @@ object AiConfig extends BaseConfig {
         "l"  -> o.level,
         "f"  -> o.fen
       )
-  }
-}

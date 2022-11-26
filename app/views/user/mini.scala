@@ -1,13 +1,13 @@
 package views.html.user
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 import controllers.routes
 
-object mini {
+object mini:
 
   def apply(
       u: User,
@@ -90,4 +90,3 @@ object mini {
         views.html.game.mini(_)
       }
     )
-}

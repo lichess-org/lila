@@ -1,7 +1,7 @@
 package lila.security
 
 import play.api.data.Form
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import lila.common.EmailAddress
 import lila.common.IpAddress
@@ -12,9 +12,9 @@ final class DisposableEmailAttempt(
     cacheApi: CacheApi,
     disposableApi: DisposableEmailDomain,
     irc: lila.irc.IrcApi
-) {
+):
 
-  import DisposableEmailAttempt._
+  import DisposableEmailAttempt.*
 
   private val byIp =
     cacheApi.notLoadingSync[IpAddress, Set[Attempt]](64, "security.disposableEmailAttempt.ip") {
@@ -26,28 +26,24 @@ final class DisposableEmailAttempt(
       _.expireAfterWrite(1 day).build()
     }
 
-  def onFail(form: Form[_], ip: IpAddress): Unit = for {
+  def onFail(form: Form[?], ip: IpAddress): Unit = for {
     email    <- form("email").value flatMap EmailAddress.from
     username <- form("username").value
     if email.domain.exists(disposableApi.apply)
-  } {
+  }
     val id      = User normalize username
     val attempt = Attempt(id, email, ip)
     byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
     byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
-  }
 
-  def onSuccess(user: User, email: EmailAddress, ip: IpAddress) = {
+  def onSuccess(user: User, email: EmailAddress, ip: IpAddress) =
     val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)
     if (
       attempts.sizeIs > 3 || (
         attempts.nonEmpty && email.domain.exists(d => !DisposableEmailDomain.whitelisted(d.lower))
       )
     ) irc.signupAfterTryingDisposableEmail(user, email, attempts.map(_.email))
-  }
-}
 
-private object DisposableEmailAttempt {
+private object DisposableEmailAttempt:
 
   case class Attempt(id: User.ID, email: EmailAddress, ip: IpAddress)
-}

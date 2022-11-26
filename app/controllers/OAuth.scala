@@ -3,19 +3,19 @@ package controllers
 import cats.data.Validated
 import org.joda.time.DateTime
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsString, JsValue, Json }
-import play.api.mvc._
-import scala.concurrent.duration._
+import play.api.mvc.*
+import scala.concurrent.duration.*
 import scalatags.Text.all.stringFrag
-import views._
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
 
-final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
+final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private def reqToAuthorizationRequest(req: RequestHeader) =
     AuthorizationRequest.Raw(
@@ -29,11 +29,10 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
     )
 
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(implicit ctx: Context) =
-    reqToAuthorizationRequest(ctx.req).prompt match {
+    reqToAuthorizationRequest(ctx.req).prompt match
       case Validated.Valid(prompt) => f(prompt)
       case Validated.Invalid(error) =>
-        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).fuccess
-    }
+        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).toFuccess
 
   def authorize =
     Open { implicit ctx =>
@@ -47,7 +46,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
     }
 
   def legacyAuthorize =
-    Action { req =>
+    Action { (req: RequestHeader) =>
       MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
     }
 
@@ -59,7 +58,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
             env.oAuth.authorizationApi.create(authorized) map { code =>
               SeeOther(authorized.redirectUrl(code))
             }
-          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).fuccess
+          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
         }
       }
     }
@@ -72,12 +71,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
       "client_id"     -> optional(text),
       "redirect_uri"  -> optional(text),
       "client_secret" -> optional(text)
-    )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
+    )(AccessTokenRequest.Raw.apply)(unapply)
   )
 
   def tokenApply =
     Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
-      req.body.prepare match {
+      req.body.prepare match
         case Validated.Valid(prepared) =>
           env.oAuth.authorizationApi.consume(prepared) flatMap {
             case Validated.Valid(granted) =>
@@ -91,15 +90,14 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
               }
-            case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+            case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
           }
-        case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
-      }
+        case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
     }
 
   def legacyTokenApply =
     Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
-      req.body.prepareLegacy(AccessTokenRequest.BasicAuth from req) match {
+      req.body.prepareLegacy(AccessTokenRequest.BasicAuth from req) match
         case Validated.Valid(prepared) =>
           env.oAuth.authorizationApi.consume(prepared) flatMap {
             case Validated.Valid(granted) =>
@@ -114,10 +112,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
               }
-            case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+            case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
           }
-        case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
-      }
+        case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
     }
 
   def tokenRevoke =
@@ -131,11 +128,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
 
   def revokeClient =
     AuthBody { implicit ctx => me =>
-      implicit def body = ctx.body
+      implicit def body: play.api.mvc.Request[?] = ctx.body
       revokeClientForm
         .bindFromRequest()
         .fold(
-          _ => BadRequest.fuccess,
+          _ => BadRequest.toFuccess,
           origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
         )
     }
@@ -146,13 +143,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
         lila.oauth.OAuthTokenForm.adminChallengeTokens
           .bindFromRequest()
           .fold(
-            err => BadRequest(apiFormError(err)).fuccess,
+            err => BadRequest(apiFormError(err)).toFuccess,
             data =>
               env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
                 JsonOk(tokens.view.mapValues(t => t.plain.secret).toMap)
               }
           )
-      else Unauthorized(jsonError("Missing permission")).fuccess
+      else Unauthorized(jsonError("Missing permission")).toFuccess
     }
 
   private val testTokenRateLimit = new lila.memo.RateLimit[IpAddress](
@@ -165,7 +162,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
       val bearers = req.body.split(',').view.take(1000).toList
       testTokenRateLimit[Fu[Api.ApiResult]](HTTPRequest ipAddress req, cost = bearers.size) {
         env.oAuth.tokenApi.test(bearers map lila.common.Bearer.apply) map { tokens =>
-          import lila.common.Json.jodaWrites
+          import lila.common.Json.given
           Api.Data(JsObject(tokens.map { case (bearer, token) =>
             bearer.secret -> token.fold[JsValue](JsNull) { t =>
               Json.obj(
@@ -178,4 +175,3 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env) {
         }
       }(fuccess(Api.Limited)) map apiC.toHttp
     }
-}

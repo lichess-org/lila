@@ -1,17 +1,17 @@
 package views.html
 package account
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object close {
+object close:
 
-  import trans.settings._
+  import trans.settings.*
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], managed: Boolean)(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${closeAccount.txt()}",
       active = "close"
@@ -38,4 +38,3 @@ object close {
           )
       )
     }
-}

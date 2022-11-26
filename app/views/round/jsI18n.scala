@@ -2,10 +2,10 @@ package views.html.round
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.templating.Environment.{ given, * }
+import lila.i18n.{ I18nKeys as trans }
 
-object jsI18n {
+object jsI18n:
 
   def apply(g: lila.game.Game)(implicit lang: Lang) =
     i18nJsObject {
@@ -107,4 +107,3 @@ object jsI18n {
     trans.youPlayTheBlackPieces,
     trans.itsYourTurn
   ).map(_.key)
-}

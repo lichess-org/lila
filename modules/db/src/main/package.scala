@@ -1,17 +1,15 @@
-package lila
+package lila.db
 
 import reactivemongo.api.commands.WriteResult
 
-package object db extends PackageObject {
+export lila.Lila.{ *, given }
 
-  def recoverDuplicateKey[A](f: WriteResult => A): PartialFunction[Throwable, A] = {
-    case wr: WriteResult if isDuplicateKey(wr) => f(wr)
-  }
-  def ignoreDuplicateKey: PartialFunction[Throwable, Unit] = {
-    case wr: WriteResult if isDuplicateKey(wr) => ()
-  }
+def recoverDuplicateKey[A](f: WriteResult => A): PartialFunction[Throwable, A] =
+  case wr: WriteResult if isDuplicateKey(wr) => f(wr)
 
-  def isDuplicateKey(wr: WriteResult) = wr.code.contains(11000)
+def ignoreDuplicateKey: PartialFunction[Throwable, Unit] =
+  case wr: WriteResult if isDuplicateKey(wr) => ()
 
-  private[db] def logger = lila.log("db")
-}
+def isDuplicateKey(wr: WriteResult) = wr.code.contains(11000)
+
+private val logger = lila.log("db")

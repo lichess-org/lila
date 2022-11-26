@@ -5,7 +5,7 @@ import cats.data.NonEmptyList
 import lila.analyse.{ AccuracyPercent, WinPercent }
 
 sealed abstract class RelativeStrength(val id: Int, val name: String)
-object RelativeStrength {
+object RelativeStrength:
   case object MuchWeaker   extends RelativeStrength(10, "Much weaker")
   case object Weaker       extends RelativeStrength(20, "Weaker")
   case object Similar      extends RelativeStrength(30, "Similar")
@@ -15,18 +15,18 @@ object RelativeStrength {
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def apply(diff: Int) =
-    diff match {
-      case d if d < -200 => MuchWeaker
-      case d if d < -100 => Weaker
-      case d if d > 200  => MuchStronger
-      case d if d > 100  => Stronger
-      case _             => Similar
-    }
-}
+  def apply(myRating: IntRating, opRating: IntRating): RelativeStrength = apply(
+    (opRating - myRating) into IntRatingDiff
+  )
+  def apply(diff: IntRatingDiff): RelativeStrength = diff match
+    case d if d < -200 => MuchWeaker
+    case d if d < -100 => Weaker
+    case d if d > 200  => MuchStronger
+    case d if d > 100  => Stronger
+    case _             => Similar
 
 sealed abstract class MovetimeRange(val id: Int, val name: String, val tenths: Int)
-object MovetimeRange {
+object MovetimeRange:
   case object MTR1   extends MovetimeRange(1, "0 to 1 second", 10)
   case object MTR3   extends MovetimeRange(3, "1 to 3 seconds", 30)
   case object MTR5   extends MovetimeRange(5, "3 to 5 seconds", 50)
@@ -43,12 +43,10 @@ object MovetimeRange {
       all.indexOption(mr).map(_ - 1).flatMap(all.lift).fold(0)(_.tenths),
       mr.tenths
     )
-}
 
-sealed abstract class MaterialRange(val id: Int, val name: String, val imbalance: Int) {
+sealed abstract class MaterialRange(val id: Int, val name: String, val imbalance: Int):
   def negative = imbalance <= 0
-}
-object MaterialRange {
+object MaterialRange:
   case object Down4 extends MaterialRange(1, "Less than -6", -6)
   case object Down3 extends MaterialRange(2, "-3 to -6", -3)
   case object Down2 extends MaterialRange(3, "-1 to -3", -1)
@@ -70,12 +68,10 @@ object MaterialRange {
         byId.get(mr.id - 1).fold(Int.MinValue)(_.imbalance),
         mr.imbalance
       )
-}
 
-sealed abstract class TimeVariance(val id: Float, val name: String) {
+sealed abstract class TimeVariance(val id: Float, val name: String):
   lazy val intFactored = (id * TimeVariance.intFactor).toInt
-}
-object TimeVariance {
+object TimeVariance:
   case object VeryConsistent  extends TimeVariance(0.25f, "Very consistent")
   case object QuiteConsistent extends TimeVariance(0.4f, "Quite consistent")
   case object Medium          extends TimeVariance(0.6f, "Medium")
@@ -94,10 +90,9 @@ object TimeVariance {
         all.indexOf(tv).some.filter(-1 !=).map(_ - 1).flatMap(all.lift).fold(0)(_.intFactored),
         tv.intFactored
       )
-}
 
 final class CplRange(val name: String, val cpl: Int)
-object CplRange {
+object CplRange:
   val all = List(0, 10, 25, 50, 100, 200, 500, 99999).map { cpl =>
     new CplRange(
       name =
@@ -111,10 +106,9 @@ object CplRange {
     (p.cpl, p)
   }.toMap
   val worse = all.last
-}
 
 sealed abstract class EvalRange(val id: Int, val name: String, val eval: Int)
-object EvalRange {
+object EvalRange:
   case object Down5 extends EvalRange(1, "Less than -600", -600)
   case object Down4 extends EvalRange(2, "-350 to -600", -350)
   case object Down3 extends EvalRange(3, "-175 to -350", -175)
@@ -135,28 +129,25 @@ object EvalRange {
     byId.get(er.id - 1).fold(Int.MinValue)(_.eval),
     er.eval
   )
-}
 
 final class AccuracyPercentRange(val name: String, val bottom: AccuracyPercent)
-object AccuracyPercentRange {
+object AccuracyPercentRange:
   val all: NonEmptyList[AccuracyPercentRange] = (0 to 90 by 10).toList.toNel.get.map { pc =>
-    new AccuracyPercentRange(s"$pc% to ${pc + 10}%", AccuracyPercent(pc))
+    new AccuracyPercentRange(s"$pc% to ${pc + 10}%", AccuracyPercent.fromPercent(pc))
   }
   val byPercent                             = all.toList map { p => (p.bottom.toInt, p) } toMap
-  def toRange(bottom: AccuracyPercentRange) = (bottom.bottom, AccuracyPercent(bottom.bottom.value + 10))
-}
+  def toRange(bottom: AccuracyPercentRange) = (bottom.bottom, bottom.bottom + 10)
 
 final class WinPercentRange(val name: String, val bottom: WinPercent)
-object WinPercentRange {
+object WinPercentRange:
   val all: NonEmptyList[WinPercentRange] = (0 to 90 by 10).toList.toNel.get.map { pc =>
     new WinPercentRange(s"$pc% to ${pc + 10}%", WinPercent(pc))
   }
   val byPercent                        = all.toList map { p => (p.bottom.toInt, p) } toMap
   def toRange(bottom: WinPercentRange) = (bottom.bottom, WinPercent(bottom.bottom.value + 10))
-}
 
 sealed class ClockPercentRange(val name: String, val bottom: ClockPercent)
-object ClockPercentRange {
+object ClockPercentRange:
   val all = NonEmptyList.of[ClockPercentRange](
     new ClockPercentRange("≤3% time left", ClockPercent fromPercent 0),
     new ClockPercentRange("3% to 10% time left", ClockPercent fromPercent 3),
@@ -167,6 +158,5 @@ object ClockPercentRange {
   val byPercent = all.toList map { p => (p.bottom.toInt, p) } toMap
   def toRange(x: ClockPercentRange): (ClockPercent, ClockPercent) = (
     x.bottom,
-    all.toList.next(x).fold(ClockPercent(100))(_.bottom)
+    all.toList.next(x).fold(ClockPercent.fromPercent(100))(_.bottom)
   )
-}

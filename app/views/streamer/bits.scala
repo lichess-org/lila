@@ -2,15 +2,15 @@ package views.html.streamer
 
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
 import lila.user.User
 
-object bits {
+object bits:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   def create(implicit ctx: Context) =
     views.html.site.message(
@@ -56,7 +56,7 @@ object bits {
     )
 
   def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
-    isStreaming match {
+    isStreaming match
       case Some(false) => a(href := routes.Streamer.show(username))
       case _ =>
         a(
@@ -64,7 +64,6 @@ object bits {
           targetBlank,
           noFollow
         )
-    }
 
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
@@ -108,4 +107,3 @@ object bits {
         span(cls := "streamer-lang")(LangList nameByStr language)
       }
     )
-}

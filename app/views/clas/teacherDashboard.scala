@@ -1,17 +1,17 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas => clasRoutes }
+import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText
 import lila.rating.PerfType
 import lila.user.User
 
-object teacherDashboard {
+object teacherDashboard:
 
   private[clas] def layout(
       c: Clas,
@@ -241,7 +241,7 @@ object teacherDashboard {
             PerfType.Puzzle
           ).map { pt =>
             a(
-              cls  := progress.map(_.perfType.key.active(pt.key)),
+              cls  := progress.map(_.perfType.key.value.active(pt.key.value)),
               href := clasRoutes.progress(c.id.value, pt.key, progress.fold(7)(_.days))
             )(pt.trans)
           },
@@ -311,4 +311,3 @@ object teacherDashboard {
         )
       )
     )
-}

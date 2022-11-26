@@ -1,10 +1,10 @@
 package views.html.analyse
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object bits {
+object bits:
 
   val dataPanel = attr("data-panel")
 
@@ -24,4 +24,3 @@ object bits {
       zoomable = true,
       csp = analysisCsp.withPeer.withInlineIconFont.some
     )(body)
-}

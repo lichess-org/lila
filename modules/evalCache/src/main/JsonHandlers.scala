@@ -1,25 +1,25 @@
 package lila.evalCache
 
-import cats.implicits._
+import cats.implicits.*
 import chess.format.{ FEN, Uci }
-import play.api.libs.json._
+import play.api.libs.json.*
 
-import lila.common.Json._
-import lila.evalCache.EvalCacheEntry._
-import lila.tree.Eval._
+import lila.common.Json.{ *, given }
+import lila.evalCache.EvalCacheEntry.*
+import lila.tree.Eval.*
 
-object JsonHandlers {
+object JsonHandlers:
 
-  implicit private val cpWriter     = intAnyValWriter[Cp](_.value)
-  implicit private val mateWriter   = intAnyValWriter[Mate](_.value)
-  implicit private val knodesWriter = intAnyValWriter[Knodes](_.value)
+  private given Writes[Cp]     = writeAs(_.value)
+  private given Writes[Mate]   = writeAs(_.value)
+  private given Writes[Knodes] = writeAs(_.value)
 
   def writeEval(e: Eval, fen: FEN) =
     Json.obj(
       "fen"    -> fen,
       "knodes" -> e.knodes,
       "depth"  -> e.depth,
-      "pvs"    -> e.pvs.toList.map(writePv)
+      "pvs"    -> JsArray(e.pvs.toList.map(writePv))
     )
 
   private def writePv(pv: Pv) =
@@ -65,8 +65,5 @@ object JsonHandlers {
             case _                 => None
           }
           .flatMap(_.reverse.toNel) map Moves.apply
-      cp   = d int "cp" map Cp.apply
-      mate = d int "mate" map Mate.apply
-      score <- cp.map(Score.cp) orElse mate.map(Score.mate)
+      score <- d.get[Cp]("cp").map(Score.cp(_)) orElse d.get[Mate]("mate").map(Score.mate(_))
     } yield Pv(score, moves)
-}

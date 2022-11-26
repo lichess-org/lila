@@ -1,18 +1,18 @@
 package lila.event
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form.UTCDate._
+import lila.common.Form.UTCDate.*
 import lila.common.Form.{ stringIn, toMarkdown }
 import lila.i18n.LangList
 import lila.user.User
 
-object EventForm {
+object EventForm:
 
-  object icon {
+  object icon:
     val default   = ""
     val broadcast = "broadcast.icon"
     val choices = List(
@@ -22,7 +22,6 @@ object EventForm {
       broadcast             -> "Broadcast",
       "offerspill.logo.png" -> "Offerspill"
     )
-  }
 
   val form = Form(
     mapping(
@@ -41,7 +40,7 @@ object EventForm {
       },
       "icon"      -> stringIn(icon.choices),
       "countdown" -> boolean
-    )(Data.apply)(Data.unapply)
+    )(Data.apply)(unapply)
   ) fill Data(
     title = "",
     headline = "",
@@ -68,7 +67,7 @@ object EventForm {
       hostedBy: Option[User.ID] = None,
       icon: String = "",
       countdown: Boolean
-  ) {
+  ):
 
     def update(event: Event, by: User) =
       event.copy(
@@ -108,9 +107,8 @@ object EventForm {
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown
       )
-  }
 
-  object Data {
+  object Data:
 
     def make(event: Event) =
       Data(
@@ -127,5 +125,3 @@ object EventForm {
         icon = ~event.icon,
         countdown = event.countdown
       )
-  }
-}

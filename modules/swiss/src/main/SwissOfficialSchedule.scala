@@ -1,15 +1,14 @@
 package lila.swiss
 
-import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: SwissCache)(implicit
+final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(using
     ec: ExecutionContext
-) {
-  import SwissOfficialSchedule._
+):
+  import SwissOfficialSchedule.*
 
   private val classical   = Config("Classical", 30, 0, 5, 5)
   private val rapid       = Config("Rapid", 10, 0, 7, 8)
@@ -31,21 +30,20 @@ final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: S
   private def daySchedule =
     (0 to 23).toList.flatMap(i => schedule.lift(i % schedule.length))
 
-  def generate: Funit = {
+  def generate: Funit =
     val dayStart = DateTime.now.plusDays(3).withTimeAtStartOfDay
     daySchedule.zipWithIndex
       .map { case (config, hour) =>
         val startAt = dayStart plusHours hour
-        swissColl.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
+        mongo.swiss.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
           case true => fuFalse
-          case _ => swissColl.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
+          case _ => mongo.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
         }
       }
       .sequenceFu
       .map { res =>
         if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
       }
-  }
 
   private def makeSwiss(config: Config, startAt: DateTime) =
     Swiss(
@@ -53,7 +51,7 @@ final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: S
       name = config.name,
       clock = config.clock,
       variant = chess.variant.Standard,
-      round = SwissRound.Number(0),
+      round = SwissRoundNumber(0),
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = DateTime.now,
@@ -76,16 +74,13 @@ final private class SwissOfficialSchedule(swissColl: Coll @@ SwissColl, cache: S
         manualPairings = ""
       )
     )
-}
 
-private object SwissOfficialSchedule {
+private object SwissOfficialSchedule:
   case class Config(
       name: String,
       clockMinutes: Double,
       clockSeconds: Int,
       nbRounds: Int,
       minGames: Int
-  ) {
+  ):
     def clock = chess.Clock.Config((clockMinutes * 60).toInt, clockSeconds)
-  }
-}

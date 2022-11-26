@@ -1,14 +1,14 @@
 package views.html
 package forum
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.api.{ Context, given }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
 
-object categ {
+object categ:
 
   def index(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     views.html.base.layout(
@@ -28,22 +28,21 @@ object categ {
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
-        if (categs.exists(_.categ.isTeam))
-          frag(
-            boxTop(
-              h1("Your Team Boards")
-            ),
-            showCategs(categs.filter(_.categ.isTeam))
-          )
+        categs.exists(_.categ.isTeam) option frag(
+          boxTop(
+            h1("Your Team Boards")
+          ),
+          showCategs(categs.filter(_.categ.isTeam))
+        )
       )
     }
 
   def show(
-      categ: lila.forum.Categ,
+      categ: lila.forum.ForumCateg,
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
       stickyPosts: List[lila.forum.TopicView]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
 
     val newTopicButton = canWrite option
       a(
@@ -115,7 +114,6 @@ object categ {
         )
       )
     }
-  }
 
   private def showCategs(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     table(cls := "categs slist slist-pad")(
@@ -151,4 +149,3 @@ object categ {
         }
       )
     )
-}

@@ -1,10 +1,10 @@
 package lila.mod
 
-object AutoAnalysis {
+object AutoAnalysis:
 
   sealed trait Reason
 
-  object Reason {
+  object Reason:
 
     case object Upset                extends Reason
     case object HoldAlert            extends Reason
@@ -14,5 +14,3 @@ object AutoAnalysis {
     case object WinnerRatingProgress extends Reason
     case object NewPlayerWin         extends Reason
     case object TitledPlayer         extends Reason
-  }
-}

@@ -1,11 +1,11 @@
 package lila.round
 
 import akka.stream.OverflowStrategy
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.Color
 import chess.format.Forsyth
 import chess.{ Centis, Replay }
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
@@ -13,11 +13,11 @@ import lila.game.actorApi.FinishGame
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, GameRepo }
 
-final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(implicit
+final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(using
     ec: ExecutionContext
-) {
+):
 
-  def apply(game: Game, delayMoves: Boolean): Source[JsObject, _] =
+  def apply(game: Game, delayMoves: Boolean): Source[JsObject, ?] =
     Source futureSource {
       val hasMoveDelay         = delayMoves && game.hasClock
       val delayMovesBy         = hasMoveDelay ?? 3
@@ -31,10 +31,9 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
             .statefulMapConcat { () => js =>
               moves += 1
               if (game.finished || moves <= delayKeepsFirstMoves) List(js)
-              else {
+              else
                 buffer.enqueue(js)
                 (buffer.size > delayMovesBy) ?? List(buffer.dequeue())
-              }
             }
             .mapMaterializedValue { queue =>
               val clocks = for {
@@ -60,12 +59,12 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                   )
                 }
               }
-              if (game.finished) {
+              if (game.finished)
                 queue offer gameJsonView(game, initialFen)
                 queue.complete()
-              } else {
+              else
                 val chans = List(MoveGameEvent makeChan game.id, "finishGame")
-                val sub = Bus.subscribeFun(chans: _*) {
+                val sub = Bus.subscribeFun(chans *) {
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some)).unit
                   case FinishGame(g, _, _) if g.id == game.id =>
@@ -76,7 +75,6 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
                 queue.watchCompletion() dforeach { _ =>
                   Bus.unsubscribe(sub, chans)
                 }
-              }
             }
       }
     }
@@ -104,4 +102,3 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
     ) { case (js, clk) =>
       js ++ Json.obj("wc" -> clk._1.roundSeconds, "bc" -> clk._2.roundSeconds)
     }
-}

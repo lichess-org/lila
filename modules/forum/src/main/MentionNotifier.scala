@@ -17,13 +17,12 @@ final class MentionNotifier(
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  def notifyMentionedUsers(post: Post, topic: Topic): Funit =
+  def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
-        val mentionedBy   = MentionedInThread.MentionedBy(author)
-        val notifications = validUsers.map(createMentionNotification(post, topic, _, mentionedBy))
+        val notifications = validUsers.map(createMentionNotification(post, topic, _, UserId(author)))
         notifyApi.addNotifications(notifications)
       }
     }
@@ -34,7 +33,7 @@ final class MentionNotifier(
   private def filterValidUsers(
       candidates: Set[User.ID],
       mentionedBy: User.ID
-  ): Fu[List[Notification.Notifies]] = {
+  ): Fu[List[Notification.Notifies]] =
     for {
       existingUsers <-
         userRepo
@@ -42,29 +41,26 @@ final class MentionNotifier(
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield users.map(Notification.Notifies.apply)
-  }
+    } yield Notification.Notifies from users
 
   private def createMentionNotification(
-      post: Post,
-      topic: Topic,
+      post: ForumPost,
+      topic: ForumTopic,
       mentionedUser: Notification.Notifies,
-      mentionedBy: MentionedInThread.MentionedBy
-  ): Notification = {
+      mentionedBy: UserId
+  ): Notification =
     val notificationContent = MentionedInThread(
       mentionedBy,
       MentionedInThread.Topic(topic.name),
       MentionedInThread.TopicId(topic.id),
       MentionedInThread.Category(post.categId),
-      MentionedInThread.PostId(post.id)
+      post.id into MentionedInThread.PostId
     )
 
-    Notification.make(mentionedUser, notificationContent)
-  }
+    Notification.make(mentionedUser into UserId, notificationContent)
 
-  private def extractMentionedUsers(post: Post): Set[User.ID] =
+  private def extractMentionedUsers(post: ForumPost): Set[User.ID] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
       (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
     }
-}

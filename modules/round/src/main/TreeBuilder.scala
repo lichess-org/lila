@@ -3,13 +3,13 @@ package lila.round
 import chess.{ Centis, Color }
 import chess.format.pgn.Glyphs
 import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
-import chess.opening._
+import chess.opening.*
 import chess.variant.Variant
 import JsonView.WithFlags
 import lila.analyse.{ Advice, Analysis, Info }
-import lila.tree._
+import lila.tree.*
 
-object TreeBuilder {
+object TreeBuilder:
 
   private type Ply       = Int
   private type OpeningOf = FEN => Option[FullOpening]
@@ -26,10 +26,10 @@ object TreeBuilder {
       analysis: Option[Analysis],
       initialFen: FEN,
       withFlags: WithFlags
-  ): Root = {
+  ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
-    chess.Replay.gameMoveWhileValid(game.pgnMoves, initialFen, game.variant) match {
+    chess.Replay.gameMoveWhileValid(game.pgnMoves, initialFen, game.variant) match
       case (init, games, error) =>
         error foreach logChessError(game.id)
         val openingOf: OpeningOf =
@@ -55,7 +55,7 @@ object TreeBuilder {
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
         )
-        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) =
           val fen    = Forsyth >> g
           val info   = infos lift (index - 1)
           val advice = advices get g.turns
@@ -85,16 +85,12 @@ object TreeBuilder {
               withAnalysisChild(game.id, branch, game.variant, Forsyth >> fromGame, openingOf)(adv.info)
             }
           } getOrElse branch
-        }
-        games.zipWithIndex.reverse match {
+        games.zipWithIndex.reverse match
           case Nil => root
           case ((g, m), i) :: rest =>
             root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
               makeBranch(i + 1, g, m) prependChild node
             }
-        }
-    }
-  }
 
   private def makeLichessComment(text: String) =
     Node.Comment(
@@ -104,13 +100,13 @@ object TreeBuilder {
     )
 
   private def withAnalysisChild(
-      id: String,
+      id: GameId,
       root: Branch,
       variant: Variant,
       fromFen: FEN,
       openingOf: OpeningOf
-  )(info: Info): Branch = {
-    def makeBranch(g: chess.Game, m: Uci.WithSan) = {
+  )(info: Info): Branch =
+    def makeBranch(g: chess.Game, m: Uci.WithSan) =
       val fen = Forsyth >> g
       Branch(
         id = UciCharPair(m.uci),
@@ -122,11 +118,10 @@ object TreeBuilder {
         crazyData = g.situation.board.crazyData,
         eval = none
       )
-    }
-    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match {
+    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match
       case (_, games, error) =>
         error foreach logChessError(id)
-        games.reverse match {
+        games.reverse match
           case Nil => root
           case (g, m) :: rest =>
             root addChild rest
@@ -134,11 +129,7 @@ object TreeBuilder {
                 makeBranch(g, m) addChild node
               }
               .setComp
-        }
-    }
-  }
 
-  private val logChessError = (id: String) =>
+  private val logChessError = (id: GameId) =>
     (err: String) =>
       logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
-}

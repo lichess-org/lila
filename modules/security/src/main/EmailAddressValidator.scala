@@ -1,7 +1,7 @@
 package lila.security
 
-import play.api.data.validation._
-import scala.concurrent.duration._
+import play.api.data.validation.*
+import scala.concurrent.duration.*
 
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
@@ -15,7 +15,7 @@ final class EmailAddressValidator(
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
     checkMail: CheckMail
-)(implicit ec: ExecutionContext) {
+)(using ec: ExecutionContext):
 
   private def isAcceptable(email: EmailAddress): Boolean =
     email.domain exists disposable.isOk
@@ -98,8 +98,6 @@ final class EmailAddressValidator(
     ) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
-}
 
-object EmailAddressValidator {
+object EmailAddressValidator:
   case class Acceptable(acceptable: EmailAddress)
-}

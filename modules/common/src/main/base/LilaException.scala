@@ -1,19 +1,16 @@
 package lila.base
 
-trait LilaException extends Exception {
+trait LilaException extends Exception:
   val message: String
 
   override def getMessage = message
   override def toString   = message
-}
 
 case class LilaInvalid(message: String) extends LilaException
 case class LilaTimeout(message: String) extends LilaException
 
-object LilaException {
+object LilaException:
 
   def apply(msg: String) =
-    new LilaException {
+    new LilaException:
       val message = msg
-    }
-}

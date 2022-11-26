@@ -1,42 +1,40 @@
 package lila.forum
 
-import lila.common.paginator._
-import lila.db.dsl._
+import lila.common.paginator.*
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class CategApi(
-    postRepo: PostRepo,
-    topicRepo: TopicRepo,
-    categRepo: CategRepo,
+final class ForumCategApi(
+    postRepo: ForumPostRepo,
+    topicRepo: ForumTopicRepo,
+    categRepo: ForumCategRepo,
     paginator: ForumPaginator,
     config: ForumConfig
-)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+)(using scala.concurrent.ExecutionContext):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
-  def makeTeam(slug: String, name: String): Funit = {
-    val categ = Categ(
-      _id = teamSlug(slug),
+  def makeTeam(teamId: TeamId, name: String): Funit =
+    val categ = ForumCateg(
+      _id = teamSlug(teamId),
       name = name,
       desc = "Forum of the team " + name,
-      team = slug.some,
+      team = teamId.some,
       nbTopics = 0,
       nbPosts = 0,
-      lastPostId = "",
+      lastPostId = ForumPost.Id(""),
       nbTopicsTroll = 0,
       nbPostsTroll = 0,
-      lastPostIdTroll = ""
+      lastPostIdTroll = ForumPost.Id("")
     )
-    val topic = Topic.make(
+    val topic = ForumTopic.make(
       categId = categ.slug,
-      slug = slug + "-forum",
+      slug = s"$teamId-forum",
       name = name + " forum",
       userId = User.lichessId,
       troll = false
     )
-    val post = Post.make(
+    val post = ForumPost.make(
       topicId = topic.id,
       author = none,
       userId = User.lichessId.some,
@@ -51,20 +49,19 @@ final class CategApi(
       postRepo.coll.insert.one(post).void >>
       topicRepo.coll.insert.one(topic withPost post).void >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
-  }
 
   def show(
       slug: String,
       forUser: Option[User],
       page: Int
-  ): Fu[Option[(Categ, Paginator[TopicView])]] =
+  ): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
     categRepo bySlug slug flatMap {
       _ ?? { categ =>
         paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
       }
     }
 
-  def denormalize(categ: Categ): Funit =
+  def denormalize(categ: ForumCateg): Funit =
     for {
       nbTopics      <- topicRepo countByCateg categ
       nbPosts       <- postRepo countByCateg categ
@@ -79,12 +76,11 @@ final class CategApi(
             categ.copy(
               nbTopics = nbTopics,
               nbPosts = nbPosts,
-              lastPostId = lastPost ?? (_.id),
+              lastPostId = lastPost.fold(categ.lastPostId)(_.id),
               nbTopicsTroll = nbTopicsTroll,
               nbPostsTroll = nbPostsTroll,
-              lastPostIdTroll = lastPostTroll ?? (_.id)
+              lastPostIdTroll = lastPostTroll.fold(categ.lastPostIdTroll)(_.id)
             )
           )
           .void
     } yield ()
-}

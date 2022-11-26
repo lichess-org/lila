@@ -1,9 +1,9 @@
 package controllers
 
-import lila.app._
-import views._
+import lila.app.{ given, * }
+import views.*
 
-final class TournamentCrud(env: Env) extends LilaController(env) {
+final class TournamentCrud(env: Env) extends LilaController(env):
 
   private def crud = env.tournament.crudApi
 
@@ -24,12 +24,12 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
   def update(id: String) =
     SecureBody(_.ManageTournament) { implicit ctx => _ =>
       OptionFuResult(crud one id) { tour =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         crud
           .editForm(tour)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.tournament.crud.edit(tour, err)).fuccess,
+            err => BadRequest(html.tournament.crud.edit(tour, err)).toFuccess,
             data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.edit(id)).flashSuccess
           )
       }
@@ -37,16 +37,16 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
 
   def form =
     Secure(_.ManageTournament) { implicit ctx => _ =>
-      Ok(html.tournament.crud.create(crud.createForm)).fuccess
+      Ok(html.tournament.crud.create(crud.createForm)).toFuccess
     }
 
   def create =
     SecureBody(_.ManageTournament) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       crud.createForm
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.tournament.crud.create(err)).fuccess,
+          err => BadRequest(html.tournament.crud.create(err)).toFuccess,
           data =>
             crud.create(data, me.user) map { tour =>
               Redirect {
@@ -61,8 +61,7 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
     Secure(_.ManageTournament) { implicit ctx => _ =>
       OptionFuResult(crud one id) { old =>
         val tour = crud clone old
-        Ok(html.tournament.crud.create(crud editForm tour)).fuccess
+        Ok(html.tournament.crud.create(crud editForm tour)).toFuccess
       }
     }
 
-}

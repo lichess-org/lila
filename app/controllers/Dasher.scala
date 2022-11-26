@@ -1,13 +1,13 @@
 package controllers
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
+import lila.i18n.{ enLang, I18nKeys as trans, I18nLangPicker, LangList }
 
-final class Dasher(env: Env) extends LilaController(env) {
+final class Dasher(env: Env) extends LilaController(env):
 
   private val translationsBase = List(
     trans.networkLagBetweenYouAndLichess,
@@ -104,4 +104,3 @@ final class Dasher(env: Env) extends LilaController(env) {
           }
       )
     }
-}

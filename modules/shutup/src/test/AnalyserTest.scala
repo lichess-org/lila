@@ -8,35 +8,35 @@ class AnalyserTest extends Specification {
   private def dirty(t: String) = Analyser(t).dirty
   private def ratio(t: String) = Analyser(t).ratio
 
-  "detector" should {
-    "find one bad word" in {
-      find("fuck") must_== List("fuck")
-      find("well fuck me") must_== List("fuck")
+  "detector" >> {
+    "find one bad word" >> {
+      find("fuck") === List("fuck")
+      find("well fuck me") === List("fuck")
     }
-    "find many bad words" in {
-      find("fucked that shit") must_== List("fucked", "shit")
-      find("Beat them cunting nigger faggots with a communist dick") must_==
+    "find many bad words" >> {
+      find("fucked that shit") === List("fucked", "shit")
+      find("Beat them cunting nigger faggots with a communist dick") ===
         List("cunting", "nigger", "faggots", "dick")
     }
-    "find no bad words" in {
-      find("") must_== Nil
-      find("hello there") must_== Nil
+    "find no bad words" >> {
+      find("") === Nil
+      find("hello there") === Nil
       find(
         "A sonnet is a poetic form which originated in Italy; Giacomo Da Lentini is credited with its invention."
-      ) must_== Nil
-      find("computer analysis") must_== Nil
+      ) === Nil
+      find("computer analysis") === Nil
     }
-    "find badly spelled words" in {
-      find("fuk") must_== List("fuk")
-      find("well fuk me") must_== List("fuk")
-      find("foo ashole bar fukd") must_== List("ashole", "fukd")
+    "find badly spelled words" >> {
+      find("fuk") === List("fuk")
+      find("well fuk me") === List("fuk")
+      find("foo ashole bar fukd") === List("ashole", "fukd")
     }
-    "find variants" in {
-      find("cunt kunt cunting kawa kunting") must_== List("cunt", "kunt", "cunting", "kunting")
-      find("ass as ashole") must_== List("ass", "ashole")
+    "find variants" >> {
+      find("cunt kunt cunting kawa kunting") === List("cunt", "kunt", "cunting", "kunting")
+      find("ass as ashole") === List("ass", "ashole")
     }
-    "find plurals" in {
-      find("asses cunts kunts cuntings kawas kuntings") must_== List(
+    "find plurals" >> {
+      find("asses cunts kunts cuntings kawas kuntings") === List(
         "asses",
         "cunts",
         "kunts",
@@ -44,37 +44,37 @@ class AnalyserTest extends Specification {
         "kuntings"
       )
     }
-    "find phrases" in {
-      find("I think you suck") must_== List("you suck")
-      find("you should suck my") must_== List("suck my")
+    "find phrases" >> {
+      find("I think you suck") === List("you suck")
+      find("you should suck my") === List("suck my")
     }
-    "50 shades of fuck" in {
-      find("fuck fffuuk fektard feak fak phuk") must_== List("fuck", "fffuuk", "fektard", "fak", "phuk")
+    "50 shades of fuck" >> {
+      find("fuck fffuuk fektard feak fak phuk") === List("fuck", "fffuuk", "fektard", "fak", "phuk")
     }
-    "compute ratio" in {
-      ratio("fuck that shit") must_== 2d / 3
-      ratio("Beat them cunting nigger faggots with a communist dick") must_== 4d / 9
-      ratio("hello there") must_== 0d
-      ratio("") must_== 0d
+    "compute ratio" >> {
+      ratio("fuck that shit") === 2d / 3
+      ratio("Beat them cunting nigger faggots with a communist dick") === 4d / 9
+      ratio("hello there") === 0d
+      ratio("") === 0d
     }
-    "chessbot variations" in {
-      find("foo chessbot bar") must_== List("chessbot")
-      find("foo chess-bot bar") must_== List("chess-bot")
-      find("foo chess_bot bar") must_== List("chess_bot")
-      find("foo chess-bot.com bar") must_== List("chess-bot.com")
-      find("foo chess_bot_com bar") must_== List("chess_bot_com")
-      find("foo chessbotcom bar") must_== List("chessbotcom")
-      find("foo http://chess-bot.com bar") must_== List("chess-bot.com")
+    "chessbot variations" >> {
+      find("foo chessbot bar") === List("chessbot")
+      find("foo chess-bot bar") === List("chess-bot")
+      find("foo chess_bot bar") === List("chess_bot")
+      find("foo chess-bot.com bar") === List("chess-bot.com")
+      find("foo chess_bot_com bar") === List("chess_bot_com")
+      find("foo chessbotcom bar") === List("chessbotcom")
+      find("foo http://chess-bot.com bar") === List("chess-bot.com")
     }
-    "russian chars" in {
-      find("sеx") must_== List("sex")
+    "russian chars" >> {
+      find("sеx") === List("sex")
     }
-    "russian" in {
-      find("сука пизда") must_== List("сука", "пизда")
+    "russian" >> {
+      find("сука пизда") === List("сука", "пизда")
     }
   }
-  "dirty" should {
-    "prod msg" in {
+  "dirty" >> {
+    "prod msg" >> {
       dirty(
         """Hello fucking arab. It's morning here I am getting ready to fuck your smelly mom and sister together today. Just wanna inform you ;)"""
       ) must beTrue

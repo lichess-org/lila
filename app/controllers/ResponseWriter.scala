@@ -1,11 +1,11 @@
 package controllers
 
-import lila.api._
+import lila.api.{ *, given }
 
-import play.api.http._
+import play.api.http.*
 import play.api.mvc.Codec
 
-trait ResponseWriter {
+trait ResponseWriter:
 
   implicit def wUnit(implicit codec: Codec): Writeable[Unit] =
     Writeable[Unit]((_: Unit) => codec encode "ok")
@@ -23,7 +23,6 @@ trait ResponseWriter {
     ContentTypeOf[Int](Some(ContentTypes.TEXT))
 
   implicit def wOptionString(implicit codec: Codec): Writeable[Option[String]] =
-    Writeable[Option[String]]((i: Option[String]) => codec encode ~i)
+    Writeable[Option[String]]((i: Option[String]) => codec encode i.orZero)
   implicit def ctoOptionString: ContentTypeOf[Option[String]] =
     ContentTypeOf[Option[String]](Some(ContentTypes.TEXT))
-}

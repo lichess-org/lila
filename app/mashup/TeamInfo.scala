@@ -17,27 +17,23 @@ case class TeamInfo(
     forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul]
-) {
+):
 
   def hasRequests = requests.nonEmpty
 
   def userIds = forum.??(_.flatMap(_.userId))
-}
 
-object TeamInfo {
-  case class AnyTour(any: Either[Tournament, Swiss]) extends AnyVal {
+object TeamInfo:
+  case class AnyTour(any: Either[Tournament, Swiss]) extends AnyVal:
     def isEnterable = any.fold(_.isEnterable, _.isEnterable)
     def startsAt    = any.fold(_.startsAt, _.startsAt)
     def isNowOrSoon = any.fold(_.isNowOrSoon, _.isNowOrSoon)
     def nbPlayers   = any.fold(_.nbPlayers, _.nbPlayers)
-  }
   def anyTour(tour: Tournament) = AnyTour(Left(tour))
   def anyTour(swiss: Swiss)     = AnyTour(Right(swiss))
 
-  case class PastAndNext(past: List[AnyTour], next: List[AnyTour]) {
+  case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty
-  }
-}
 
 final class TeamInfoApi(
     api: TeamApi,
@@ -46,9 +42,9 @@ final class TeamInfoApi(
     swissApi: SwissApi,
     simulApi: SimulApi,
     requestRepo: RequestRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
-  import TeamInfo._
+  import TeamInfo.*
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
@@ -82,4 +78,3 @@ final class TeamInfoApi(
           }.sortBy(_.startsAt.getSeconds)
         )
     }
-}

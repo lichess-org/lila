@@ -1,27 +1,24 @@
 package lila.swiss
 
 import chess.{ Black, Color, White }
-import com.softwaremill.tagging._
 import org.joda.time.DateTime
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.user.User
 
 final private class SwissDirector(
-    swissColl: Coll @@ SwissColl,
-    playerColl: Coll @@ PlayerColl,
-    pairingColl: Coll @@ PairingColl,
+    mongo: SwissMongo,
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
-    onStart: Game.ID => Unit
-)(implicit
+    onStart: GameId => Unit
+)(using
     ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator
-) {
-  import BsonHandlers._
+):
+  import BsonHandlers.given
 
   // sequenced by SwissApi
   private[swiss] def startRound(from: Swiss): Fu[Option[Swiss]] =
@@ -29,11 +26,11 @@ final private class SwissDirector(
       .flatMap { pendings =>
         val pendingPairings = pendings.collect { case Right(p) => p }
         if (pendingPairings.isEmpty) fuccess(none) // terminate
-        else {
+        else
           val swiss = from.startRound
           for {
             players <- SwissPlayer.fields { f =>
-              playerColl.list[SwissPlayer]($doc(f.swissId -> swiss.id))
+              mongo.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
             pairings = pendingPairings.zip(ids).map { case (SwissPairing.Pending(w, b), id) =>
@@ -47,7 +44,7 @@ final private class SwissDirector(
               )
             }
             _ <-
-              swissColl.update
+              mongo.swiss.update
                 .one(
                   $id(swiss.id),
                   $unset("nextRoundAt", "settings.mp") ++ $set(
@@ -60,7 +57,7 @@ final private class SwissDirector(
             date = DateTime.now
             byes = pendings.collect { case Left(bye) => bye.player }
             _ <- SwissPlayer.fields { f =>
-              playerColl.update
+              mongo.player.update
                 .one(
                   $doc(f.userId $in byes, f.swissId -> swiss.id),
                   $addToSet(f.byes                  -> swiss.round),
@@ -68,21 +65,19 @@ final private class SwissDirector(
                 )
                 .void
             }
-            _ <- pairingColl.insert.many(pairings).void
+            _ <- mongo.pairing.insert.many(pairings).void
             games = pairings.map(makeGame(swiss, SwissPlayer.toMap(players)))
             _ <- lila.common.Future.applySequentially(games) { game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
             }
           } yield swiss.some
-        }
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
         if (msg contains "The number of rounds is larger than the reported number of rounds.") none
-        else {
+        else
           logger.warn(s"BBPairing ${from.id} $msg")
           logger.info(s"BBPairing ${from.id} $input")
           from.some
-        }
       }
       .monSuccess(_.swiss.startRound)
 
@@ -107,9 +102,8 @@ final private class SwissDirector(
         pgnImport = None
       )
       .withId(pairing.gameId)
-      .withSwissId(swiss.id.value)
+      .withSwissId(swiss.id)
       .start
 
   private def makePlayer(color: Color, player: SwissPlayer) =
     lila.game.Player.make(color, player.userId, player.rating, player.provisional)
-}

@@ -1,9 +1,9 @@
 package controllers
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.notify.Notification.Notifies
 
-final class Notify(env: Env) extends LilaController(env) {
+final class Notify(env: Env) extends LilaController(env):
 
   def recent(page: Int) =
     Auth { implicit ctx => me =>
@@ -16,4 +16,3 @@ final class Notify(env: Env) extends LilaController(env) {
   def clear = Auth { implicit ctx => me =>
     env.notifyM.api.remove(Notifies(me.id))
   }
-}

@@ -1,16 +1,16 @@
 package lila.msg
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.user.User
-import lila.common.Json._
+import lila.common.Json.given
 import lila.common.LightUser
 import lila.relation.Relations
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using ec: scala.concurrent.ExecutionContext):
 
   implicit private val lastMsgWrites: OWrites[Msg.Last]    = Json.writes[Msg.Last]
   implicit private val relationsWrites: OWrites[Relations] = Json.writes[Relations]
@@ -62,5 +62,4 @@ final class MsgJson(
   private def renderContact(user: LightUser): JsObject =
     LightUser
       .writeNoId(user)
-      .add("online" -> isOnline(user.id))
-}
+      .add("online" -> isOnline.value(user.id))
