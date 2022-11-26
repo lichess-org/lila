@@ -109,12 +109,19 @@ object Streamer:
         case UrlRegex(c)       => c.some
         case _                 => none
 
-  case class WithUser(streamer: Streamer, user: User):
+  trait With:
+    def streamer: Streamer
+    def user: User
+    def subscribed: Boolean
     def titleName = s"${user.title.fold("")(t => s"$t ")}${streamer.name}"
-  case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream]):
-    def withoutStream = WithUser(streamer, user)
-    def titleName     = withoutStream.titleName
 
+  case class WithUser(streamer: Streamer, user: User, subscribed: Boolean = false) extends With
+  case class WithUserAndStream(
+      streamer: Streamer,
+      user: User,
+      stream: Option[Stream],
+      subscribed: Boolean = false
+  ) extends With:
     def redirectToLiveUrl: Option[String] =
       stream ?? { s =>
         streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse

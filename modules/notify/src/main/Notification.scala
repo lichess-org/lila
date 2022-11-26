@@ -1,10 +1,115 @@
 package lila.notify
 
-import lila.common.paginator.Paginator
-import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.common.paginator.Paginator
+import lila.notify.MentionedInThread.PostId
+import lila.pref.NotifyAllows
+import lila.user.User
+
+sealed abstract class NotificationContent(val key: String)
+
+case class MentionedInThread(
+    mentionedBy: UserId,
+    topic: String,
+    topidId: TopicId,
+    category: String,
+    postId: PostId
+) extends NotificationContent("mention")
+
+case class StreamStart(
+    streamerId: UserId,
+    streamerName: String
+) extends NotificationContent("streamStart")
+
+case class PrivateMessage(user: UserId, text: String) extends NotificationContent("privateMessage")
+
+case class InvitedToStudy(
+    invitedBy: UserId,
+    studyName: String,
+    studyId: StudyId
+) extends NotificationContent("invitedStudy")
+
+case class TeamJoined(
+    id: TeamId,
+    name: String
+) extends NotificationContent("teamJoined")
+
+case class TitledTournamentInvitation(
+    id: TourId,
+    text: String
+) extends NotificationContent("titledTourney")
+
+case class GameEnd(
+    gameId: GameFullId, // not sure it's safe to change this from GameId, could it
+    opponentId: Option[String], // break pre-scala3 notifications in the db?
+    win: Option[GameEnd.Win]
+) extends NotificationContent("gameEnd")
+
+object GameEnd:
+  type Win = Boolean
+
+case object ReportedBanned extends NotificationContent("reportedBanned")
+
+case class RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
+
+case object CoachReview extends NotificationContent("coachReview")
+
+case class PlanStart(userId: UserId) extends NotificationContent("planStart") // BC
+
+case class PlanExpire(userId: UserId) extends NotificationContent("planExpire") // BC
+
+case class CorresAlarm(
+    gameId: GameId,
+    opponent: String
+) extends NotificationContent("corresAlarm")
+
+case class IrwinDone(
+    userId: UserId
+) extends NotificationContent("irwinDone")
+
+case class KaladinDone(
+    userId: UserId
+) extends NotificationContent("kaladinDone")
+
+case class GenericLink(
+    url: String,
+    title: Option[String],
+    text: Option[String],
+    icon: String
+) extends NotificationContent("genericLink")
+
+case class PushNotification(
+    to: Iterable[NotifyAllows],
+    content: NotificationContent,
+    params: Iterable[(String, String)] = Nil
+)
+
+private[notify] case class Notification(
+    @Key("_id") id: Notification.Id,
+    notifies: UserId,
+    content: NotificationContent,
+    read: Boolean,
+    createdAt: DateTime
+):
+  def to = notifies
+
+object Notification:
+  val idSize = 8
+
+  case class AndUnread(pager: Paginator[Notification], unread: Int)
+  case class IncrementUnread()
+
+  def make(to: UserId, content: NotificationContent): Notification =
+    new Notification(
+      lila.common.ThreadLocalRandom nextString idSize,
+      notifies = to,
+      content = content,
+      read = false,
+      createdAt = DateTime.now
+    )
+/*
 case class NewNotification(notification: Notification, unreadNotifications: Notification.UnreadCount)
 
 case class Notification(
@@ -114,3 +219,4 @@ case class GenericLink(
     text: Option[String],
     icon: String
 ) extends NotificationContent("genericLink")
+*/

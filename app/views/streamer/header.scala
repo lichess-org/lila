@@ -10,11 +10,26 @@ object header:
 
   import trans.streamer.*
 
-  def apply(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context) =
+  def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(implicit
+      ctx: Context
+  ) =
     div(cls := "streamer-header")(
-      picture.thumbnail(s.streamer, s.user),
+      div(cls := "picture")(
+        picture.thumbnail(s.streamer, s.user),
+        (ctx.me.nonEmpty && !modView) option span(cls := "subscribe-ribbon-top-right")(
+          span(
+            input(
+              cls        := "std-toggle subscribe-switch",
+              tpe        := "checkbox",
+              formaction := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}",
+              s.subscribed option st.checked
+            ),
+            trans.subscribe()
+          )
+        )
+      ),
       div(cls := "overview")(
-        bits.streamerTitle(s.withoutStream),
+        bits.streamerTitle(s),
         s.streamer.headline.map(_.value).map { d =>
           p(cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}")(
             d

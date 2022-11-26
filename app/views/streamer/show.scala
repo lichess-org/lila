@@ -50,7 +50,7 @@ object show:
                 }
             }
           ),
-          bits.menu("show", s.withoutStream.some)
+          bits.menu("show", s.some)
         ),
         div(cls := "page-menu__content")(
           s.stream match {

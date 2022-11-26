@@ -22,22 +22,15 @@ private object BSONHandlers:
   private given BSONDocumentHandler[GenericLink]                = Macros.handler
   private given BSONReader[MentionedInThread]                   = Macros.reader
   private given BSONReader[InvitedToStudy]                      = Macros.reader
+  private given BSONDocumentHandler[StreamStart]                = Macros.handler
 
   given lila.db.BSON[NotificationContent] with
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match
-        case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>
-          $doc(
-            "mentionedBy" -> mentionedBy,
-            "topic"       -> topic,
-            "topicId"     -> topicId,
-            "category"    -> category,
-            "postId"      -> postId
-          )
-        case InvitedToStudy(invitedBy, studyName, studyId) =>
-          $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
-        case p: PrivateMessage             => summon[BSONHandler[PrivateMessage]].writeTry(p).get
-        case t: TeamJoined                 => summon[BSONHandler[TeamJoined]].writeTry(t).get
+        case x: MentionedInThread          => summon[BSONHandler[MentionedInThread]].writeTry(x).get 
+        case x: InvitedToStudy             => summon[BSONHandler[InvitedToStudy]].writeTry(x).get
+        case x: PrivateMessage             => summon[BSONHandler[PrivateMessage]].writeTry(x).get
+        case x: TeamJoined                 => summon[BSONHandler[TeamJoined]].writeTry(x).get
         case x: TitledTournamentInvitation => summon[BSONHandler[TitledTournamentInvitation]].writeTry(x).get
         case x: GameEnd                    => summon[BSONHandler[GameEnd]].writeTry(x).get
         case x: PlanStart                  => summon[BSONHandler[PlanStart]].writeTry(x).get
@@ -68,6 +61,7 @@ private object BSONHandlers:
         case "irwinDone"      => reader.as[IrwinDone]
         case "kaladinDone"    => reader.as[KaladinDone]
         case "genericLink"    => reader.as[GenericLink]
+        case "streamStart"    => reader.as[StreamStart]
 
     def writes(writer: Writer, n: NotificationContent): Bdoc = writeNotificationContent(n)
 

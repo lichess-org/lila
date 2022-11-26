@@ -28,7 +28,8 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
-    timeline: lila.hub.actors.Timeline,
+    subsRepo: lila.relation.SubscriptionRepo,
+    prefApi: lila.pref.PrefApi,
     db: lila.db.Db
 )(using
     ec: scala.concurrent.ExecutionContext,
@@ -67,11 +68,12 @@ final class Env(
     ws = ws,
     api = api,
     isOnline = isOnline,
-    timeline = timeline,
     keyword = config.keyword,
     alwaysFeatured = (() => alwaysFeaturedSetting.get()),
     googleApiKey = config.googleApiKey,
-    twitchApi = twitchApi
+    twitchApi = twitchApi,
+    notifyApi = notifyApi,
+    subsRepo = subsRepo
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]

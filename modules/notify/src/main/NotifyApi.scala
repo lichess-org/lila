@@ -1,29 +1,40 @@
 package lila.notify
 
+import play.api.libs.json.Json
 import scala.concurrent.duration.*
+import scala.concurrent.Future
+
 import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.hub.actorApi.socket.SendTo
+import lila.hub.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
-import lila.user.UserRepo
-import lila.i18n.I18nLangPicker
+import lila.pref.{ Allows, NotifyAllows }
+import lila.user.{ User, UserRepo }
+import lila.i18n.*
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    maxPerPage: MaxPerPage
+    maxPerPage: MaxPerPage,
+    prefApi: lila.pref.PrefApi,
+    getLightUser: lila.common.LightUser.Getter
 )(using scala.concurrent.ExecutionContext):
 
   import Notification.*
   import BSONHandlers.given
   import jsonHandlers.*
 
-  def getNotifications(userId: Notifies, page: Int): Fu[Paginator[Notification]] =
+  private val unreadCountCache = cacheApi[UserId, Int](32768, "notify.unreadCountCache") {
+    _.expireAfterAccess(15 minutes)
+      .buildAsyncFuture(repo.unreadNotificationsCount)
+  }
+
+  def getNotifications(userId: UserId, page: Int): Fu[Paginator[Notification]] =
     Paginator(
       adapter = new Adapter(
         collection = repo.coll,
@@ -35,82 +46,95 @@ final class NotifyApi(
       maxPerPage = maxPerPage
     )
 
-  def getNotificationsAndCount(userId: Notifies, page: Int): Fu[AndUnread] =
-    getNotifications(userId, page) zip unreadCount(userId) dmap (AndUnread.apply).tupled
+  def getNotificationsAndCount(userId: UserId, page: Int): Fu[Notification.AndUnread] =
+    getNotifications(userId, page) zip unreadCount(userId) map (AndUnread.apply _).tupled
 
-  def markAllRead(userId: Notifies) =
-    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(UnreadCount(0)))
+  def markAllRead(userId: UserId): Funit =
+    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
 
-  def markAllRead(userIds: Iterable[Notifies]) =
+  def markAllRead(userIds: Iterable[UserId]): Funit =
     repo.markAllRead(userIds) >>- userIds.foreach {
-      unreadCountCache.put(_, fuccess(UnreadCount(0)))
+      unreadCountCache.put(_, fuccess(0))
     }
 
-  private val unreadCountCache =
-    cacheApi[Notifies, UnreadCount](32768, "notify.unreadCountCache") {
-      _.expireAfterAccess(15 minutes)
-        .buildAsyncFuture(repo.unreadNotificationsCount)
-    }
-
-  def unreadCount(userId: Notifies): Fu[UnreadCount] =
+  def unreadCount(userId: UserId): Fu[Int] =
     unreadCountCache get userId
 
-  def addNotification(notification: Notification): Fu[Boolean] =
-    // Add to database and then notify any connected clients of the new notification
-    insertOrDiscardNotification(notification) map {
-      case Some(note) =>
-        notifyUser(note.notifies)
-        true
-      case None => false
-    }
+  def insertNotification(notification: Notification): Funit =
+    repo.insert(notification) >>- unreadCountCache.update(notification.to, _ + 1)
 
-  def addNotificationWithoutSkipOrEvent(notification: Notification): Funit =
-    repo.insert(notification) >>- unreadCountCache.update(notification.notifies, _ + 1)
+  def remove(to: UserId, selector: Bdoc = $empty): Funit =
+    repo.remove(to, selector) >>- unreadCountCache.invalidate(to)
 
-  def addNotifications(notifications: List[Notification]): Funit =
-    notifications.map(addNotification).sequenceFu.void
-
-  def remove(notifies: Notifies, selector: Bdoc = $empty): Funit =
-    repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)
-
-  def markRead(notifies: Notifies, selector: Bdoc): Funit =
-    repo.markManyRead(selector ++ $doc("notifies" -> notifies, "read" -> false)) >>-
-      unreadCountCache.invalidate(notifies)
+  def markRead(to: UserId, selector: Bdoc): Funit =
+    repo.markManyRead(selector ++ $doc("notifies" -> to.value, "read" -> false)) >>-
+      unreadCountCache.invalidate(to)
 
   def exists = repo.exists
 
-  private def shouldSkip(notification: Notification) =
-    (!notification.isMsg ?? userRepo.isKid(notification.notifies.value)) >>| {
-      notification.content match
-        case MentionedInThread(_, _, topicId, _, _) =>
-          repo.hasRecentNotificationsInThread(notification.notifies, topicId)
-        case InvitedToStudy(_, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
-        case PrivateMessage(sender, _)     => repo.hasRecentPrivateMessageFrom(notification.notifies, sender)
-        case _                             => fuFalse
+  def notifyOne(to: UserId, content: NotificationContent): Funit =
+    val note = Notification.make(to, content)
+    !shouldSkip(note) ifThen {
+      insertNotification(note) >> {
+        if (!Allows.canFilter(note.content.key)) bellOne(note.to)
+        else
+          prefApi.getNotificationPref(note.to) map (_ allows note.content.key) flatMap { allows =>
+            allows.bell ?? bellOne(note.to)
+            allows.push ?? fuccess(pushOne(NotifyAllows(note.to, allows), note.content))
+          }
+      }
     }
 
-  /** Inserts notification into the repository. If the user already has an unread notification on the topic,
-    * discard it. If the user does not already have an unread notification on the topic, returns it
-    * unmodified.
-    */
-  private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
-    !shouldSkip(notification) flatMap {
-      case true  => addNotificationWithoutSkipOrEvent(notification) inject notification.some
-      case false => fuccess(None)
+  // notifyMany tells clients that an update is available to bump their bell. there's no need
+  // to assemble full notification pages for all clients at once, let them initiate
+  def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
+    prefApi.getNotifyAllows(userIds, content.key) flatMap { recips =>
+      pushMany(recips filter (_.allows.push), content)
+      bellMany(recips, content)
     }
 
-  private def notifyUser(notifies: Notifies): Funit =
-    getNotificationsAndCount(notifies, 1) map { msg =>
+  private def bellOne(to: UserId): Funit =
+    getNotifications(to, 1) zip unreadCount(to) dmap (AndUnread.apply _).tupled map { msg =>
       Bus.publish(
         SendTo.async(
-          notifies.value,
+          to.value,
           "notifications",
-          () => {
-            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { lang =>
-              jsonHandlers(msg)(using lang)
-            }
-          }
+          () =>
+            (userRepo langOf to.value) map I18nLangPicker.byStrOrDefault map (lang => jsonHandlers(msg)(using lang))
         ),
         "socketUsers"
       )
     }
+
+  private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
+    val bells = recips filter (_.allows.bell) map (_.userId)
+    bells map unreadCountCache.invalidate // or maybe update only if getIfPresent?
+    repo.insertMany(bells map (to => Notification.make(to, content))) >>- {
+      Bus.publish(
+        SendTos(
+          bells map(_.value) toSet,
+          "notifications",
+          Json.obj("incrementUnread" -> true)
+        ),
+        "socketUsers"
+      )
+    }
+
+  private def pushOne(to: NotifyAllows, content: NotificationContent) =
+    pushMany(Seq(to), content)
+
+  private def pushMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
+    Bus.publish(PushNotification(recips, content), "notifyPush")
+
+  private def shouldSkip(note: Notification): Fu[Boolean] =
+    note.content match
+      case MentionedInThread(_, _, topicId, _, _) =>
+        userRepo.isKid(note.to.value) >>|
+          repo.hasRecent(note, "content.topicId" -> topicId.value, 3.days)
+      case InvitedToStudy(_, _, studyId) =>
+        userRepo.isKid(note.to.value) >>|
+          repo.hasRecent(note, "content.studyId" -> studyId.value, 3.days)
+      case PrivateMessage(sender, _) =>
+        repo.hasRecentPrivateMessageFrom(note.to, sender)
+      case _ => userRepo.isKid(note.to.value)
+    

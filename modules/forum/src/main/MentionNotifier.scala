@@ -21,9 +21,19 @@ final class MentionNotifier(
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
-      filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
-        val notifications = validUsers.map(createMentionNotification(post, topic, _, UserId(author)))
-        notifyApi.addNotifications(notifications)
+      filterValidUsers(extractMentionedUsers(post), author) map { mentionedUsers =>
+        mentionedUsers foreach { user =>
+          notifyApi.notifyOne(
+            user,
+            lila.notify.MentionedInThread(
+              mentionedBy = author,
+              topic = topic.name,
+              topidId = topic.id,
+              category = post.categId,
+              postId = post.id
+            )
+          )
+        }
       }
     }
 
@@ -33,7 +43,7 @@ final class MentionNotifier(
   private def filterValidUsers(
       candidates: Set[User.ID],
       mentionedBy: User.ID
-  ): Fu[List[Notification.Notifies]] =
+  ): Fu[List[User.ID]] =
     for {
       existingUsers <-
         userRepo
@@ -41,23 +51,7 @@ final class MentionNotifier(
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield Notification.Notifies from users
-
-  private def createMentionNotification(
-      post: ForumPost,
-      topic: ForumTopic,
-      mentionedUser: Notification.Notifies,
-      mentionedBy: UserId
-  ): Notification =
-    val notificationContent = MentionedInThread(
-      mentionedBy,
-      MentionedInThread.Topic(topic.name),
-      MentionedInThread.TopicId(topic.id),
-      MentionedInThread.Category(post.categId),
-      post.id into MentionedInThread.PostId
-    )
-
-    Notification.make(mentionedUser into UserId, notificationContent)
+    } yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[User.ID] =
     post.text.contains('@') ?? {

@@ -106,3 +106,26 @@ final class PrefApi(
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref fromRequest req
     (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
+
+  def getNotificationPref(uid: UserId): Fu[NotificationPref] =
+    cache.getIfPresent(uid.value) map (_ collect { case Some(pref) =>
+      pref.notification
+    }) getOrElse {
+      coll.find($id(uid.value), $doc("notification" -> true).some).one[NotificationPref] map {
+        case Some(notification) => notification
+        case None               => NotificationPref.default
+      }
+    }
+
+  def getNotifyAllows(userIds: Iterable[UserId], event: String): Fu[List[NotifyAllows]] =
+    coll
+      .find($inIds(userIds map(_ value)), $doc(s"notification.$event" -> true).some)
+      .cursor[Bdoc]()
+      .list(-1) dmap { docs =>
+      for {
+        doc    <- docs
+        userId <- doc string "_id"
+        allowsOpt = doc child "notification" flatMap (_ int event) map Allows.fromCode
+        allows    = allowsOpt getOrElse NotificationPref.default.allows(event)
+      } yield NotifyAllows(UserId(userId), allows)
+    }

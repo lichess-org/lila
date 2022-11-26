@@ -39,7 +39,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
         import framework.*
         // hit partial index
         List(
-          Match($doc("corresEmailNotif" -> true)),
+          Match($doc("notification.correspondenceEmail" -> true)),
           Project($id(true)),
           PipelineOperator(
             $lookup.pipeline(

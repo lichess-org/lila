@@ -75,6 +75,11 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
           "text"  -> text,
           "icon"  -> icon
         )
+        case StreamStart(streamerId, streamerName) =>
+          Json.obj(
+            "sid"  -> streamerId,
+            "name" -> streamerName
+          )
 
     def writes(notification: Notification) =
       Json.obj(
@@ -85,18 +90,14 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
       )
 
   import lila.common.paginator.PaginatorJson.given
-  given OWrites[Notification.AndUnread] = Json.writes
 
-  given OWrites[NewNotification] = OWrites { newNotification =>
-    Json.obj(
-      "notification" -> newNotification.notification,
-      "unread"       -> newNotification.unreadNotifications
-    )
-  }
+  given OWrites[Notification.AndUnread] = Json.writes
 
   private val i18nKeys: List[lila.i18n.MessageKey] = List(
     trans.mentionedYouInX,
     trans.xMentionedYouInY,
+    trans.startedStreaming,
+    trans.xStartedStreaming,
     trans.invitedYouToX,
     trans.xInvitedYouToY,
     trans.youAreNowPartOfTeam,

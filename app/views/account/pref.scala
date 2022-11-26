@@ -9,7 +9,7 @@ import lila.pref.PrefCateg
 import controllers.routes
 
 object pref:
-
+  import bits.*
   import trans.preferences.*
 
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
@@ -46,6 +46,7 @@ object pref:
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
+          notification.fieldSet(form, categ != PrefCateg.Notification),
           categFieldset(PrefCateg.Display, categ)(
             setting(
               pieceAnimation(),
@@ -153,12 +154,6 @@ object pref:
               castleByMovingTheKingTwoSquaresOrOntoTheRook(),
               radios(form("behavior.rookCastle"), translatedRookCastleChoices)
             ),
-            div(id := "correspondence-email-notif")(
-              setting(
-                correspondenceEmailNotification(),
-                radios(form("behavior.corresEmailNotif"), booleanChoices)
-              )
-            ),
             setting(
               inputMovesWithTheKeyboard(),
               radios(form("behavior.keyboardMove"), booleanChoices)
@@ -192,10 +187,6 @@ object pref:
             setting(
               trans.letOtherPlayersInviteYouToStudy(),
               radios(form("studyInvite"), translatedStudyInviteChoices)
-            ),
-            setting(
-              trans.receiveForumNotifications(),
-              radios(form("mention"), booleanChoices)
             ),
             setting(
               trans.shareYourInsightsData(),

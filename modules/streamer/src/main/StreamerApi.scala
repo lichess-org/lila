@@ -15,7 +15,8 @@ final class StreamerApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
-    notifyApi: lila.notify.NotifyApi
+    notifyApi: lila.notify.NotifyApi,
+    subsRepo: lila.relation.SubscriptionRepo
 )(using ec: scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
@@ -39,15 +40,30 @@ final class StreamerApi(
       coll.insert.one(s.streamer) inject s.some
     }
 
-  def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
-    userRepo named s.streamer.userId dmap {
-      _ map { user =>
-        Streamer.WithUserAndStream(s.streamer, user, s.some)
+  def withUsers(live: LiveStreams, userId: Option[User.ID]): Fu[List[Streamer.WithUserAndStream]] =
+    userRepo.coll
+      .aggregateList(100, readPreference = ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        Match($inIds(live.streams.map(_.streamer.userId))) -> List(
+          PipelineOperator(
+            $lookup.simple(
+              from = subsRepo.coll,
+              as = "subs",
+              local = "_id",
+              foreign = "s"
+            )
+          ),
+          AddFields($doc("subscribed" -> $doc("$in" -> List(~userId, "$subs.u"))))
+        )
       }
-    }
-
-  def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
-    live.streams.map(withUser).sequenceFu.dmap(_.flatten)
+      .map { docs =>
+        for {
+          doc        <- docs
+          user       <- doc.asOpt[User]
+          stream     <- live.streams.find(_.streamer.userId == user.id)
+          subscribed <- doc.getAsOpt[Boolean]("subscribed")
+        } yield Streamer.WithUserAndStream(stream.streamer, user, stream.some, subscribed)
+      }
 
   def allListedIds: Fu[Set[Streamer.Id]] = cache.listedIds.getUnit
 
@@ -82,18 +98,14 @@ final class StreamerApi(
           tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier,
           decline = !streamer.approval.granted && !streamer.approval.requested && prev.approval.requested
         )
-        import lila.notify.Notification.Notifies
-        import lila.notify.Notification
         ~modChange.list ?? {
-          notifyApi.addNotification(
-            Notification.make(
-              UserId(streamer.userId),
-              lila.notify.GenericLink(
-                url = "/streamer/edit",
-                title = "Listed on /streamer".some,
-                text = "Your streamer page is public".some,
-                icon = ""
-              )
+          notifyApi.notifyOne(
+            UserId(streamer.userId),
+            lila.notify.GenericLink(
+              url = "/streamer/edit",
+              title = "Listed on /streamer".some,
+              text = "Your streamer page is public".some,
+              icon = ""
             )
           ) >>- cache.candidateIds.invalidateUnit()
         }

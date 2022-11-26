@@ -10,11 +10,13 @@ import lila.db.dsl.*
 import lila.user.{ User, UserRepo }
 
 final class RelationStream(
-    coll: Coll,
+    colls: Colls,
     userRepo: UserRepo
 )(implicit mat: akka.stream.Materializer):
 
   import RelationStream.*
+
+  private val coll = colls.relation
 
   def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Source[User, ?] =
     coll
