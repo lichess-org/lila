@@ -33,7 +33,6 @@ import chess.format.pgn.Pgn
 import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
-import lila.common.base.StringUtils.ignoreBetweenSquareBrackets
 import com.vladsch.flexmark.util.sequence.BasedSequence
 import lila.mon
 
@@ -276,12 +275,7 @@ object MarkdownRender {
         pgn: String,
         color: String,
         ply: String
-    ) = {
-      //Ignoring links in square brackets for https://github.com/lichess-org/lila/issues/11450
-      def content : String = node.getChars().unescape()
-      println("Content: " + content)
-      println("link " + link)
-
+    ) = 
       html
         .attr("data-pgn", pgn)
         .attr("data-orientation", Option(color) | "white")
@@ -293,7 +287,7 @@ object MarkdownRender {
         .text(link.getUrl)
         .tag("/div")
         .unit
-    }
+    
   }
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension {
