@@ -681,7 +681,7 @@ final class SwissApi(
         .find($doc(f.swissId -> swiss.id))
         .sort($sort desc f.score)
         .batchSize(perSecond.value)
-        .cursor[SwissPlayer](ReadPreference.secondaryPreferred)
+        .cursor[SwissPlayer](temporarilyPrimary)
         .documentSource(nb)
         .throttle(perSecond.value, 1 second)
         .zipWithIndex
