@@ -102,7 +102,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
     coll
       .find(Query.user(user) ++ select)
       .sort(Query.sortCreated)
-      .cursor[Game](ReadPreference.secondaryPreferred)
+      .cursor[Game](temporarilyPrimary)
 
   def gamesForAssessment(userId: User.ID, nb: Int): Fu[List[Game]] =
     coll
@@ -115,7 +115,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
           ++ Query.clockHistory(true)
       )
       .sort($sort asc F.createdAt)
-      .cursor[Game](ReadPreference.secondaryPreferred)
+      .cursor[Game](temporarilyPrimary)
       .list(nb)
 
   def extraGamesForIrwin(userId: User.ID, nb: Int): Fu[List[Game]] =
