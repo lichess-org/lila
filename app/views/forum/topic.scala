@@ -46,8 +46,8 @@ object topic:
             )
           ),
           p(
-            "Make sure to read ",
-            strong(a(href := routes.Page.loneBookmark("forum-etiquette"))("the forum etiquette"))
+            trans.read(),
+            strong(a(href := routes.Page.loneBookmark("forum-etiquette"))(trans.etiquette()))
           )
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(

@@ -92,16 +92,16 @@ object contact:
               "dns",
               "\"This site can’t be reached\"",
               frag(
-                p("If you can't reach Lichess, and your browser says something like:"),
+                p(reachLichess()),
                 ul(
-                  li("This site can't be reached."),
-                  li(strong("lichess.org"), "’s server IP address could not be found."),
-                  li("We can’t connect to the server at lichess.org.")
+                  li(reachSite()),
+                  li(strong("lichess.org"), serverIp()),
+                  li(lichessServer())
                 ),
-                p("Then you have a ", strong("DNS issue"), "."),
+                p(haveA(), strong(dns()), "."),
                 p(
-                  "There's nothing we can do about it, but ",
-                  a("here's how you can fix it")(
+                  nothing(),
+                  a(fixIt())(
                     href := "https://www.wikihow.com/Fix-DNS-Server-Not-Responding-Problem"
                   ),
                   "."
@@ -220,26 +220,26 @@ object contact:
             ),
             Leaf(
               "security",
-              "Security vulnerability",
+              securityVul(),
               frag(
-                p("Please report security issues to ", contactEmailLink()),
+                p(reportSecurity(), contactEmailLink()),
                 p(
-                  "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that we do not currently pay cash bounties."
+                  contribution(),
+                  cashBounties()
                 ),
                 p(
-                  "Vulnerabilities are relevant even when they are not directly exploitable, ",
-                  "for example XSS mitigated by CSP."
+                  relevantVul(),
+                  vulExample()
                 ),
                 p(
-                  "When doing your research, please minimize negative impact for other users. ",
-                  "As long as you keep this in mind, testing should not require prior coordination. ",
-                  "Avoid spamming, DDoS and volumetric attacks."
+                  research(),
+                  testing(),
+                  spamming()
                 ),
                 p(
-                  "We believe transport encryption will probably be sufficient for all reports. ",
-                  "If you insist on using PGP, please clarify the nature of the message ",
-                  "in the plain-text subject and encrypt for ",
+                  encryption(),
+                  pgp(),
+                  plainText(),
                   a(href := "/.well-known/gpg.asc")("multiple recipients"),
                   "."
                 )
@@ -247,9 +247,9 @@ object contact:
             ),
             Leaf(
               "other-bug",
-              "Other bug",
+              otherBug(),
               frag(
-                p("If you found a new bug, you may report it:"),
+                p(bugReport()),
                 howToReportBugs
               )
             )
@@ -257,11 +257,11 @@ object contact:
         ),
         Leaf(
           "broadcast",
-          "I want to broadcast a tournament",
+          broadcast(),
           frag(
-            p(a(href := routes.RelayTour.help)("Learn how to make your own broadcasts on Lichess"), "."),
+            p(a(href := routes.RelayTour.help)(broadcastLearn()), "."),
             p(
-              "You can also contact the broadcast team about official broadcasts. ",
+              broadcastContact(),
               sendEmailAt(contactEmailLink("broadcast@lichess.org"))
             )
           )
@@ -307,22 +307,22 @@ object contact:
               "monetize",
               monetizing(),
               frag(
-                p("We are not interested in any way of monetizing Lichess."),
+                p(monetizingInterest()),
                 p(
-                  "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
+                  ads()
                 ),
-                p("Please do not email us about marketing, tracking, or advertising."),
+                p(marketing()),
                 br,
                 p(
-                  "We encourage everyone to ",
-                  a(href := "/ads")("block all ads and trackers.")
+                  encourage(),
+                  a(href := "/ads")(adsTrackers())
                 )
               )
             ),
             Leaf(
               "buy",
               buyingLichess(),
-              p("We are not selling, to anyone, for any price. Ever.")
+              p(selling())
             ),
             Leaf(
               "authorize",
@@ -337,16 +337,16 @@ object contact:
               "gdpr",
               "GDPR",
               frag(
-                p("You may request the deletion of your Lichess account."),
+                p(deleting()),
                 p(
                   "First, ",
-                  a(href := routes.Account.close)("close your account"),
+                  a(href := routes.Account.close)(closeAccount()),
                   "."
                 ),
                 p(
                   "Then send us an email at ",
                   contactEmailLink(),
-                  " to request the definitive erasure of all data linked to the account."
+                  erasure()
                 )
               )
             ),
@@ -356,7 +356,7 @@ object contact:
               p(
                 a(href := dmcaUrl)("Complete this form"),
                 " ",
-                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
+                copyright()
               )
             ),
             Leaf(
