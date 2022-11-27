@@ -116,7 +116,7 @@ final class LiveStreamApi(
   //     )
   //   )
 
-  def of(s: Streamer.With): Fu[Streamer.WithUserAndStream] =
+  def of(s: Streamer.Context): Fu[Streamer.WithUserAndStream] =
     all.map { live =>
       Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
     }

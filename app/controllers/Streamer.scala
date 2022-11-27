@@ -194,7 +194,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       fuccess(Ok)
     }
 
-  private def AsStreamer(f: StreamerModel.With => Fu[Result])(implicit ctx: Context) =
+  private def AsStreamer(f: StreamerModel.Context => Fu[Result])(implicit ctx: Context) =
     ctx.me.fold(notFound) { me =>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
@@ -208,7 +208,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         ).toFuccess
     }
 
-  private def WithVisibleStreamer(s: StreamerModel.With)(f: Fu[Result])(implicit ctx: Context) =
+  private def WithVisibleStreamer(s: StreamerModel.Context)(f: Fu[Result])(implicit ctx: Context) =
     ctx.noKid ?? {
       if (s.streamer.isListed || ctx.me.??(s.streamer.is) || isGranted(_.Admin)) f
       else notFound
