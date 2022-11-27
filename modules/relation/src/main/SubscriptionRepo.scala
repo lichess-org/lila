@@ -26,7 +26,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(implici
               local = "u",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $doc($doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(daysAgo))))),
+                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(daysAgo))))),
                 $doc("$project" -> $id(true))
               )
             )
