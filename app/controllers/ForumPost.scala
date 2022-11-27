@@ -5,7 +5,6 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.IpAddress
-import lila.forum.ForumPost.{ Id as PostId }
 import lila.msg.MsgPreset
 import router.ReverseRouterConversions.postId
 
@@ -73,7 +72,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def edit(postId: PostId) =
+  def edit(postId: ForumPostId) =
     AuthBody { implicit ctx => me =>
       given play.api.mvc.Request[?] = ctx.body
       env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
@@ -99,7 +98,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def delete(categSlug: String, id: PostId) =
+  def delete(categSlug: String, id: ForumPostId) =
     AuthBody { implicit ctx => me =>
       postApi getPost id flatMap {
         _ ?? { post =>
@@ -127,7 +126,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def react(categSlug: String, id: PostId, reaction: String, v: Boolean) =
+  def react(categSlug: String, id: ForumPostId, reaction: String, v: Boolean) =
     Auth { implicit ctx => me =>
       CategGrantWrite(categSlug) {
         postApi.react(categSlug, id, me, reaction, v) map {
@@ -138,7 +137,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def redirect(id: PostId) =
+  def redirect(id: ForumPostId) =
     Open { implicit ctx =>
       OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
         val call = routes.ForumTopic.show(categ, topic, page)

@@ -62,11 +62,11 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
         )
       case IrwinDone(userId) =>
         Json.obj(
-          "user" -> getLightUser(userId)
+          "user" -> getLightUser(userId.value)
         )
       case KaladinDone(userId) =>
         Json.obj(
-          "user" -> getLightUser(userId)
+          "user" -> getLightUser(userId.value)
         )
       case GenericLink(url, title, text, icon) =>
         Json.obj(
@@ -75,11 +75,11 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
           "text"  -> text,
           "icon"  -> icon
         )
-        case StreamStart(streamerId, streamerName) =>
-          Json.obj(
-            "sid"  -> streamerId,
-            "name" -> streamerName
-          )
+      case StreamStart(streamerId, streamerName) =>
+        Json.obj(
+          "sid"  -> streamerId,
+          "name" -> streamerName
+        )
 
     def writes(notification: Notification) =
       Json.obj(

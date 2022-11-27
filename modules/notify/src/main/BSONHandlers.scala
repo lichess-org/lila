@@ -8,7 +8,9 @@ import lila.notify.Notification.*
 import reactivemongo.api.bson.*
 
 private object BSONHandlers:
+/*
 
+*/
   private given BSONDocumentHandler[PrivateMessage]             = Macros.handler
   private given BSONDocumentHandler[TeamJoined]                 = Macros.handler
   private given BSONDocumentHandler[GameEnd]                    = Macros.handler
@@ -20,16 +22,17 @@ private object BSONHandlers:
   private given BSONDocumentHandler[IrwinDone]                  = Macros.handler
   private given BSONDocumentHandler[KaladinDone]                = Macros.handler
   private given BSONDocumentHandler[GenericLink]                = Macros.handler
-  private given BSONReader[MentionedInThread]                   = Macros.reader
-  private given BSONReader[InvitedToStudy]                      = Macros.reader
+  private given MentionedInThreadHandler: BSONDocumentHandler[MentionedInThread] = Macros.handler
+  private given InvitedToStudyHandler: BSONDocumentHandler[InvitedToStudy] = Macros.handler
   private given BSONDocumentHandler[StreamStart]                = Macros.handler
 
   given lila.db.BSON[NotificationContent] with
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match
-        case x: MentionedInThread          => summon[BSONHandler[MentionedInThread]].writeTry(x).get 
-        case x: InvitedToStudy             => summon[BSONHandler[InvitedToStudy]].writeTry(x).get
+        case x: MentionedInThread          => MentionedInThreadHandler.writeTry(x).get 
+        case x: InvitedToStudy             => InvitedToStudyHandler.writeTry(x).get
         case x: PrivateMessage             => summon[BSONHandler[PrivateMessage]].writeTry(x).get
+        case x: StreamStart                => summon[BSONHandler[StreamStart]].writeTry(x).get
         case x: TeamJoined                 => summon[BSONHandler[TeamJoined]].writeTry(x).get
         case x: TitledTournamentInvitation => summon[BSONHandler[TitledTournamentInvitation]].writeTry(x).get
         case x: GameEnd                    => summon[BSONHandler[GameEnd]].writeTry(x).get

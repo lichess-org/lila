@@ -68,7 +68,7 @@ private object BSONHandlers:
   private[activity] given BSONHandler[Games] = typedMapHandler[PerfType, Score].as(Games.apply, _.value)
 
   given BSONHandler[ForumPosts] =
-    isoHandler[ForumPosts, List[lila.forum.ForumPost.Id]](_.value, ForumPosts.apply)
+    isoHandler[ForumPosts, List[lila.forum.ForumPostId]](_.value, ForumPosts.apply)
 
   given BSONHandler[UblogPosts] = isoHandler[UblogPosts, List[UblogPostId]](_.value, UblogPosts.apply)
 

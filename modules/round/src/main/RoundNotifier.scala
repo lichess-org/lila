@@ -26,11 +26,11 @@ final private class RoundNotifier(
       isUserPresent(game, userId) foreach {
         case false =>
           notifyApi.notifyOne(
-            userId,
+            UserId(userId),
             GameEnd(
               game fullIdOf color,
-              game.opponent(color).userId,
-              game.wonBy(color)
+              UserId from game.opponent(color).userId,
+              Win from game.wonBy(color)
             )
           )
         case _ =>

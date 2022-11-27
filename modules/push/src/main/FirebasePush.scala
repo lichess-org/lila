@@ -27,7 +27,7 @@ final private class FirebasePush(
   private val workQueue =
     lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
-  def apply(userId: User.ID, data: => PushApi.Data): Funit =
+  def apply(userId: UserId, data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>
       deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap {
         case Nil => funit

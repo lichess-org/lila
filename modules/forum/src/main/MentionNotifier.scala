@@ -24,9 +24,9 @@ final class MentionNotifier(
       filterValidUsers(extractMentionedUsers(post), author) map { mentionedUsers =>
         mentionedUsers foreach { user =>
           notifyApi.notifyOne(
-            user,
+            UserId(user),
             lila.notify.MentionedInThread(
-              mentionedBy = author,
+              mentionedBy = UserId(author),
               topic = topic.name,
               topidId = topic.id,
               category = post.categId,

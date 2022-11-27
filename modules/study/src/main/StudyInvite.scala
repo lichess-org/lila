@@ -69,7 +69,7 @@ final private class StudyInvite(
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
         notifyApi
           .notifyOne(
-            invited.id,
+            UserId(invited.id),
             lila.notify.InvitedToStudy(
               invitedBy = UserId(inviter.id),
               studyName = study.name,

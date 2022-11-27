@@ -12,7 +12,7 @@ final private class ModNotifier(
     reportApi.recentReportersOf(sus) flatMap {
       _.filter(r => mod.user.id != r.value)
         .map { reporterId =>
-          notifyApi.notifyOne(reporterId.value, lila.notify.ReportedBanned)
+          notifyApi.notifyOne(UserId(reporterId.value), lila.notify.ReportedBanned)
         }
         .sequenceFu
         .void
@@ -20,4 +20,4 @@ final private class ModNotifier(
 
   def refund(victim: Victim, pt: lila.rating.PerfType, points: Int): Funit =
     given play.api.i18n.Lang = victim.user.realLang | lila.i18n.defaultLang
-    notifyApi.notifyOne(victim.user.id, lila.notify.RatingRefund(perf = pt.trans, points))
+    notifyApi.notifyOne(UserId(victim.user.id), lila.notify.RatingRefund(perf = pt.trans, points))

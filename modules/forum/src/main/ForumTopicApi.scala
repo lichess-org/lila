@@ -54,7 +54,7 @@ final private class ForumTopicApi(
 
   object findDuplicate:
     private val cache =
-      cacheApi.notLoadingSync[(User.ID, String), ForumTopic.ID](64, "forum.topic.duplicate") {
+      cacheApi.notLoadingSync[(User.ID, String), ForumTopicId](64, "forum.topic.duplicate") {
         _.expireAfterWrite(1 hour).build()
       }
     def apply(topic: ForumTopic): Fu[Option[ForumTopic]] =
@@ -102,7 +102,7 @@ final private class ForumTopicApi(
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id.some, topic.name, post.id.value))
+                timeline ! Propagate(TimelinePost(me.id, topic.id.value.some, topic.name, post.id.value))
                   .toFollowersOf(me.id)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()

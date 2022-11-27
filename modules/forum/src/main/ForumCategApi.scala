@@ -22,10 +22,10 @@ final class ForumCategApi(
       team = teamId.some,
       nbTopics = 0,
       nbPosts = 0,
-      lastPostId = ForumPost.Id(""),
+      lastPostId = ForumPostId(""),
       nbTopicsTroll = 0,
       nbPostsTroll = 0,
-      lastPostIdTroll = ForumPost.Id("")
+      lastPostIdTroll = ForumPostId("")
     )
     val topic = ForumTopic.make(
       categId = categ.slug,

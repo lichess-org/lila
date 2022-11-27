@@ -53,7 +53,7 @@ case class PostLiteView(post: ForumPost, topic: ForumTopic)
 
 case class MiniForumPost(
     isTeam: Boolean,
-    postId: ForumPost.Id,
+    postId: ForumPostId,
     topicName: String,
     userId: Option[String],
     text: String,
@@ -69,6 +69,6 @@ object Filter:
   case object Unsafe                 extends Filter
 
 case class InsertPost(post: ForumPost)
-case class RemovePost(id: ForumPost.Id)
-case class RemovePosts(ids: List[ForumPost.Id])
+case class RemovePost(id: ForumPostId)
+case class RemovePosts(ids: List[ForumPostId])
 case class CreatePost(post: ForumPost)

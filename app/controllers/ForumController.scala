@@ -41,7 +41,7 @@ private[controllers] trait ForumController { self: LilaController =>
   )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     TopicGrantMod(categSlug, me)(topicRepo.byTree(categSlug, topicSlug))(a)
 
-  protected def TopicGrantModById[A <: Result](categSlug: String, me: User, topicId: String)(
+  protected def TopicGrantModById[A <: Result](categSlug: String, me: User, topicId: ForumTopicId)(
       a: => Fu[A]
   )(implicit ctx: Context): Fu[Result] =
     TopicGrantMod(categSlug, me)(topicRepo.forUser(me.some).byId(topicId))(a)

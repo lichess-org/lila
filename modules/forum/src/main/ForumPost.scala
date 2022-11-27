@@ -9,8 +9,8 @@ import lila.security.Granter
 case class OldVersion(text: String, createdAt: DateTime)
 
 case class ForumPost(
-    _id: ForumPost.Id,
-    topicId: String,
+    _id: ForumPostId,
+    topicId: ForumTopicId,
     categId: String,
     author: Option[String],
     userId: Option[String],
@@ -84,9 +84,6 @@ case class ForumPost(
 
 object ForumPost:
 
-  opaque type Id = String
-  object Id extends TotalWrapper[Id, String]
-
   type Reactions = Map[String, Set[User.ID]]
 
   val idSize = 8
@@ -111,7 +108,7 @@ object ForumPost:
   case class WithFrag(post: ForumPost, body: scalatags.Text.all.Frag)
 
   def make(
-      topicId: String,
+      topicId: ForumTopicId,
       categId: String,
       author: Option[String],
       userId: Option[User.ID],
@@ -122,7 +119,7 @@ object ForumPost:
       modIcon: Option[Boolean] = None
   ): ForumPost =
     ForumPost(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
+      _id = ForumPostId(lila.common.ThreadLocalRandom nextString idSize),
       topicId = topicId,
       author = author,
       userId = userId,

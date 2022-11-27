@@ -31,7 +31,7 @@ final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionC
   def unsubscribeByUser(user: User): Funit =
     coll.delete.one($doc("userId" -> user.id)).void
 
-  private[push] def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
+  private[push] def getSubscriptions(max: Int)(userId: UserId): Fu[List[WebSubscription]] =
     coll
       .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
       .sort($doc("seenAt" -> -1))
@@ -39,7 +39,7 @@ final class WebSubscriptionApi(coll: Coll)(using ec: scala.concurrent.ExecutionC
       .list(max)
       .map(_ flatMap bsonToWebSub)
 
-  private[push] def getSubscriptions(userIds: Iterable[User.ID], maxPerUser: Int): Fu[List[WebSubscription]] =
+  private[push] def getSubscriptions(userIds: Iterable[UserId], maxPerUser: Int): Fu[List[WebSubscription]] =
     coll
       .aggregateList(100000, ReadPreference.secondaryPreferred) { framework =>
         import framework._

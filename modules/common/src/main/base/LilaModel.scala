@@ -19,7 +19,7 @@ trait LilaModel extends NewTypes:
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
     extension (n: UserName) def id = UserId(n.value.toLowerCase)
-
+  
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]
 
@@ -46,6 +46,12 @@ trait LilaModel extends NewTypes:
 
   opaque type StudyId = String
   object StudyId extends OpaqueString[StudyId]
+
+  opaque type ForumPostId = String
+  object ForumPostId extends OpaqueString[ForumPostId]
+
+  opaque type ForumTopicId = String
+  object ForumTopicId extends OpaqueString[ForumTopicId]
 
   opaque type StudyName = String
   object StudyName extends OpaqueString[StudyName]

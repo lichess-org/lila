@@ -28,15 +28,15 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   private lazy val notStickyQuery = $doc("sticky" $ne true)
   private lazy val stickyQuery    = $doc("sticky" -> true)
 
-  def byId(id: ForumTopic.ID): Fu[Option[ForumTopic]] = coll.byId[ForumTopic](id)
+  def byId(id: ForumTopicId): Fu[Option[ForumTopic]] = coll.byId[ForumTopic](id)
 
-  def close(id: String, value: Boolean): Funit =
+  def close(id: ForumTopicId, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void
 
   def remove(topic: ForumTopic): Funit =
     coll.delete.one($id(topic.id)).void
 
-  def sticky(id: String, value: Boolean): Funit =
+  def sticky(id: ForumTopicId, value: Boolean): Funit =
     coll.updateField($id(id), "sticky", value).void
 
   def byCateg(categ: ForumCateg): Fu[List[ForumTopic]] =

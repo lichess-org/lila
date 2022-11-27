@@ -31,7 +31,7 @@ final class Env(
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo,
     prefApi: lila.pref.PrefApi,
-    postApi: lila.forum.PostApi
+    postApi: lila.forum.ForumPostApi
 )(using
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler

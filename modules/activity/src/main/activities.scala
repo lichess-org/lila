@@ -21,8 +21,8 @@ object activities:
     def hasNonCorres = value.exists(_._1 != PerfType.Correspondence)
   given Zero[Games] = Zero(Games(Map.empty))
 
-  case class ForumPosts(value: List[ForumPost.Id]) extends AnyVal:
-    def +(postId: ForumPost.Id) = ForumPosts(postId :: value)
+  case class ForumPosts(value: List[ForumPostId]) extends AnyVal:
+    def +(postId: ForumPostId) = ForumPosts(postId :: value)
   given Zero[ForumPosts] = Zero(ForumPosts(Nil))
 
   case class UblogPosts(value: List[UblogPostId]) extends AnyVal:

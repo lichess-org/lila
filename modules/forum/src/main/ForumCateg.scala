@@ -9,10 +9,10 @@ case class ForumCateg(
     team: Option[TeamId] = None,
     nbTopics: Int,
     nbPosts: Int,
-    lastPostId: ForumPost.Id,
+    lastPostId: ForumPostId,
     nbTopicsTroll: Int,
     nbPostsTroll: Int,
-    lastPostIdTroll: ForumPost.Id,
+    lastPostIdTroll: ForumPostId,
     quiet: Boolean = false,
     hidden: Boolean = false
 ):
@@ -21,7 +21,7 @@ case class ForumCateg(
 
   def nbTopics(forUser: Option[User]): Int = if (forUser.exists(_.marks.troll)) nbTopicsTroll else nbTopics
   def nbPosts(forUser: Option[User]): Int  = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
-  def lastPostId(forUser: Option[User]): ForumPost.Id =
+  def lastPostId(forUser: Option[User]): ForumPostId =
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def isTeam = team.nonEmpty

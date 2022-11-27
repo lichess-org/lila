@@ -24,21 +24,21 @@ final private class PushApi(
     proxyRepo: lila.round.GameProxyRepo,
     gameRepo: lila.game.GameRepo,
     prefApi: lila.pref.PrefApi,
-    postApi: lila.forum.PostApi
-)(using scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler):
+    postApi: lila.forum.ForumPostApi
+)(using scala.concurrent.ExecutionContext, akka.actor.Scheduler):
   private[push] def notifyPush(
       to: Iterable[NotifyAllows],
       content: NotificationContent,
       params: Iterable[(String, String)]
   ): Funit = content match
     case PrivateMessage(sender, text) =>
-      lightUser(sender) flatMap (_ ?? (luser => privateMessage(to.head, sender, luser.titleName, text)))
+      lightUser(sender.value) flatMap (_ ?? (luser => privateMessage(to.head, sender, luser.titleName, text)))
     case MentionedInThread(mentioner, topic, _, _, postId) =>
-      lightUser(mentioner) flatMap (_ ?? (luser => forumMention(to.head, luser.titleName, topic, postId)))
+      lightUser(mentioner.value) flatMap (_ ?? (luser => forumMention(to.head, luser.titleName, topic, postId)))
     case StreamStart(streamerId, streamerName) =>
       streamStart(to, streamerId, streamerName)
     case InvitedToStudy(invitedBy, studyName, studyId) =>
-      lightUser(invitedBy) flatMap (_ ?? (luser =>
+      lightUser(invitedBy.value) flatMap (_ ?? (luser =>
         invitedToStudy(to.head, luser.titleName, studyName, studyId)
       ))
     case _ => funit
@@ -53,7 +53,7 @@ final private class PushApi(
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
-                    userId,
+                    UserId(userId),
                     _.finish,
                     NotificationPref.GameEvent,
                     PushApi.Data(
@@ -94,7 +94,7 @@ final private class PushApi(
                 asyncOpponentName(pov) flatMap { opponent =>
                   game.pgnMoves.lastOption ?? { sanMove =>
                     maybePush(
-                      userId,
+                      UserId(userId),
                       _.move,
                       NotificationPref.GameEvent,
                       PushApi.Data(
@@ -128,7 +128,7 @@ final private class PushApi(
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
-                    userId,
+                    UserId(userId),
                     _.takeback,
                     NotificationPref.GameEvent,
                     PushApi
@@ -161,7 +161,7 @@ final private class PushApi(
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
-                    userId,
+                    UserId(userId),
                     _.takeback,
                     NotificationPref.GameEvent,
                     PushApi.Data(
@@ -186,7 +186,7 @@ final private class PushApi(
     pov.player.userId ?? { userId =>
       asyncOpponentName(pov) flatMap { opponent =>
         maybePush(
-          userId,
+          UserId(userId),
           _.corresAlarm,
           NotificationPref.GameEvent,
           PushApi.Data(
@@ -209,8 +209,8 @@ final private class PushApi(
       "fullId" -> pov.fullId
     )
 
-  def privateMessage(to: NotifyAllows, senderId: String, senderName: String, text: String): Funit =
-    userRepo.isKid(to.userId) flatMap {
+  def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
+    userRepo.isKid(to.userId.value) flatMap {
       !_ ?? {
         filterPush(
           to,
@@ -231,12 +231,12 @@ final private class PushApi(
       }
     }
 
-  def invitedToStudy(to: NotifyAllows, invitedBy: String, studyName: String, studyId: String): Funit =
+  def invitedToStudy(to: NotifyAllows, invitedBy: String, studyName: StudyName, studyId: StudyId): Funit =
     filterPush(
       to,
       _.message,
       PushApi.Data(
-        title = studyName,
+        title = studyName.value,
         body = s"$invitedBy invited you to $studyName",
         stacking = Stacking.InvitedStudy,
         payload = Json.obj(
@@ -257,7 +257,7 @@ final private class PushApi(
         lightUser(challenger.id) flatMap {
           _ ?? { lightChallenger =>
             maybePush(
-              dest.id,
+              UserId(dest.id),
               _.challenge.create,
               NotificationPref.Challenge,
               PushApi.Data(
@@ -282,7 +282,7 @@ final private class PushApi(
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
       joinerId ?? lightUser flatMap { lightJoiner =>
         maybePush(
-          challenger.id,
+          UserId(challenger.id),
           _.challenge.accept,
           NotificationPref.Challenge,
           PushApi.Data(
@@ -304,7 +304,7 @@ final private class PushApi(
   def tourSoon(tour: TourSoon): Funit =
     lila.common.Future.applySequentially(tour.userIds.toList) { userId =>
       maybePush(
-        userId,
+        UserId(userId),
         _.tourSoon,
         NotificationPref.TournamentSoon,
         PushApi
@@ -326,22 +326,22 @@ final private class PushApi(
       )
     }
 
-  def forumMention(to: NotifyAllows, mentionedBy: String, topic: String, postId: String): Funit =
+  def forumMention(to: NotifyAllows, mentionedBy: String, topicName: String, postId: ForumPostId): Funit =
     postApi.getPost(postId) flatMap { post =>
       to.userId.pp("forumMention")
       filterPush(
         to,
         _.forumMention,
         PushApi.Data(
-          title = topic,
-          body = post.fold(topic)(p => shorten(p.text, 57 - 3, "...")),
+          title = topicName,
+          body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
           stacking = Stacking.ForumMention,
           payload = Json.obj(
             "userId" -> to.userId,
             "userData" -> Json.obj(
               "type"        -> "forumMention",
               "mentionedBy" -> mentionedBy,
-              "topic"       -> topic,
+              "topic"       -> topicName,
               "postId"      -> postId
             )
           )
@@ -349,7 +349,7 @@ final private class PushApi(
       )
     }
 
-  def streamStart(recips: Iterable[NotifyAllows], streamerId: User.ID, streamerName: String): Funit = {
+  def streamStart(recips: Iterable[NotifyAllows], streamerId: UserId, streamerName: String): Funit = {
     val pushData = PushApi.Data(
       title = streamerName,
       body = streamerName + " started streaming",
@@ -370,7 +370,7 @@ final private class PushApi(
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
 
   private def maybePush(
-      userId: User.ID,
+      userId: UserId,
       monitor: MonitorType,
       event: NotificationPref.Event,
       data: PushApi.Data

@@ -549,7 +549,7 @@ abstract private[controllers] class LilaController(val env: Env)
           val enabledId = me.enabled option me.id
           enabledId.??(env.team.api.nbRequests) zip
             enabledId.??(env.challenge.api.countInFor.get) zip
-            enabledId.??(id => env.notifyM.api.unreadCount(id)) zip
+            enabledId.??(id => env.notifyM.api.unreadCount(UserId(id))) zip
             env.mod.inquiryApi.forMod(me)
         else
           fuccess {

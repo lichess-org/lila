@@ -292,6 +292,7 @@ POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 GET   /streamer/picture/edit           controllers.Streamer.picture
+POST  /streamer/subscribe/:streamerId  controllers.Streamer.subscribe(streamerId, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)

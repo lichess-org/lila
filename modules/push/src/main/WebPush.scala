@@ -15,12 +15,12 @@ final private class WebPush(
     ws: StandaloneWSClient
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(userId: User.ID, data: => PushApi.Data): Funit =
+  def apply(userId: UserId, data: => PushApi.Data): Funit =
     webSubscriptionApi.getSubscriptions(5)(userId) flatMap { subscriptions =>
       subscriptions.toNel ?? send(data)
     }
 
-  def apply(userIds: Iterable[User.ID], data: => PushApi.Data): Funit =
+  def apply(userIds: Iterable[UserId], data: => PushApi.Data): Funit =
     webSubscriptionApi.getSubscriptions(userIds, 5) flatMap { subs =>
       subs.toNel ?? send(data)
     }

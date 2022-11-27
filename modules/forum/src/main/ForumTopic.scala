@@ -8,17 +8,17 @@ import lila.common.ThreadLocalRandom
 import lila.user.User
 
 case class ForumTopic(
-    _id: ForumTopic.ID,
+    _id: ForumTopicId,
     categId: String,
     slug: String,
     name: String,
     createdAt: DateTime,
     updatedAt: DateTime,
     nbPosts: Int,
-    lastPostId: ForumPost.Id,
+    lastPostId: ForumPostId,
     updatedAtTroll: DateTime,
     nbPostsTroll: Int,
-    lastPostIdTroll: ForumPost.Id,
+    lastPostIdTroll: ForumPostId,
     troll: Boolean,
     closed: Boolean,
     sticky: Option[Boolean],
@@ -32,7 +32,7 @@ case class ForumTopic(
     if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt
   def nbPosts(forUser: Option[User]): Int   = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
   def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
-  def lastPostId(forUser: Option[User]): ForumPost.Id =
+  def lastPostId(forUser: Option[User]): ForumPostId =
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def open = !closed
@@ -66,8 +66,6 @@ case class ForumTopic(
 
 object ForumTopic:
 
-  type ID = String
-
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>
       // if most chars are not latin, go for random slug
@@ -84,17 +82,17 @@ object ForumTopic:
       troll: Boolean,
       ublogId: Option[String] = None
   ): ForumTopic = ForumTopic(
-    _id = ThreadLocalRandom nextString idSize,
+    _id = ForumTopicId(ThreadLocalRandom nextString idSize),
     categId = categId,
     slug = slug,
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,
     nbPosts = 0,
-    lastPostId = ForumPost.Id(""),
+    lastPostId = ForumPostId(""),
     updatedAtTroll = DateTime.now,
     nbPostsTroll = 0,
-    lastPostIdTroll = ForumPost.Id(""),
+    lastPostIdTroll = ForumPostId(""),
     troll = troll,
     userId = userId.some,
     closed = false,
