@@ -468,6 +468,7 @@
   <string name="socialMediaLinks">सोशल मीडिया दुवे</string>
   <string name="oneUrlPerLine">एक ओळीत एक URL.</string>
   <string name="inlineNotation">इनलाइन संकेत</string>
+  <string name="clearSavedMoves">चाली  पुसा</string>
   <string name="previouslyOnLichessTV">यापूर्वी लिचेस चित्रफलकावर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
   <string name="activePlayers">सक्रिय बुद्धिबळपटू</string>
@@ -571,6 +572,7 @@
   <string name="community">समुदाय</string>
   <string name="tools">साधने</string>
   <string name="increment">वाढ</string>
+  <string name="error.unknown">अवैध मुल्य</string>
   <string name="error.required">ही माहिती अनिवार्य आहे</string>
   <string name="error.email">हा ईमेल पत्ता अवैध आहे</string>
   <string name="error.email_acceptable">हा ईमेल पत्ता स्वीकार्य नाही. कृपया ते पुन्हा तपासा आणि पुन्हा प्रयत्न करा.</string>
@@ -630,6 +632,7 @@
   <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
   <string name="timeBeforeTournamentStarts">क्रीडासत्र सुरू होण्यास बाकी वेळ</string>
   <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
+  <string name="accuracy">अचूकता</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
   <string name="keyGoToStartOrEnd">सुरवातीला/शेवटी जा</string>
@@ -740,6 +743,7 @@
   <string name="bestWasX">उत्तम चाल %s</string>
   <string name="youBrowsedAway">आपण पुनर्वलोकण पूर्ण केले</string>
   <string name="resumePractice">अभ्यास पुन्हा सुरू करा</string>
+  <string name="drawByFiftyMoves">पन्नास चालींच्या नियमानुसार डाब बरोबरीत सुटला.</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे.</string>
   <string name="computerThinking">संगणक विचार करत आहे...</string>
   <string name="seeBestMove">सर्वोत्तम चाल पहा</string>
