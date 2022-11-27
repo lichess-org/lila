@@ -59,6 +59,8 @@
   <string name="depthX">%s ची खोली</string>
   <string name="usingServerAnalysis">संगणक विश्लेषणाच्या वापराने</string>
   <string name="loadingEngine">इंजिन लोड करीत आहे ...</string>
+  <string name="calculatingMoves">चाली शोधत आहे...</string>
+  <string name="engineFailed">इंजिन लोड होताना त्रुटी</string>
   <string name="cloudAnalysis">क्लाऊड संगणक विश्लेषण</string>
   <string name="goDeeper">अजून गहन विश्लेषण</string>
   <string name="showThreat">धोका दाखवा</string>
@@ -156,6 +158,7 @@
   <string name="viewInFullSize">अधिकतम आकारात पाहा</string>
   <string name="logOut">बाहेर पडा</string>
   <string name="signIn">प्रवेश करा</string>
+  <string name="rememberMe" comment="Appears on the sign-in screen.">मला ल</string>
   <string name="youNeedAnAccountToDoThat">त्यासाठी तुम्हाला खातं लागेल</string>
   <string name="signUp">सदस्य खाते तयार करा</string>
   <string name="computersAreNotAllowedToPlay">संगणक आणि संगणक-सहाय्य केलेल्या खेळाडूंना खेळण्याची परवानगी नाही. कृपया बुद्धिबळ यंत्रांकडून, डेटाबेसमधून किंवा इतर खेळाडूंकडून मदत घेऊ नका. हे देखील लक्षात घ्या की एकापेक्षा जास्त खाती बनविणे अवैध आहे आणि त्यासाठी बंदी घातली जाईल.</string>
