@@ -748,6 +748,7 @@
   <string name="bestWasX">Най-добър ход е %s</string>
   <string name="youBrowsedAway">Навигирахте към друг изглед</string>
   <string name="resumePractice">Подновяване на упражнението</string>
+  <string name="drawByFiftyMoves">Играта е реми по правилото за петдесетте хода.</string>
   <string name="theGameIsADraw">Партията е реми.</string>
   <string name="computerThinking">Компютърът размишлява...</string>
   <string name="seeBestMove">Вижте най-добрия ход</string>
