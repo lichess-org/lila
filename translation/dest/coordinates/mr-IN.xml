@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="coordinateTraining">सहनिर्देशक प्रशिक्षण</string>
+  <string name="averageScoreAsWhiteX">पांढऱ्या सोंगट्या खेळताना सरासरी गुण: %s</string>
+  <string name="averageScoreAsBlackX">काळ्या सोंगट्या खेळताना सरासरी गुण: %s</string>
+  <string name="knowingTheChessBoard">बुद्धिबळ पटावरील सहनिर्देशक माहिती असणे हे एक महत्वाचे कौशल्य आहे:</string>
+  <string name="mostChessCourses"> सर्व अभ्यास बिजगणितीय सहनिर्देशक वापरतात.</string>
+</resources>
