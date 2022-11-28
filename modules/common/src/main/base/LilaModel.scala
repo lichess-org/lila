@@ -1,6 +1,7 @@
 package lila.base
 
 import alleycats.Zero
+import cats.Show
 
 trait LilaModel extends NewTypes:
 
@@ -11,21 +12,23 @@ trait LilaModel extends NewTypes:
 
   trait IsUserId[U]:
     def apply(a: U): UserId
-    extension (a: UserId) inline def is[U](other: U)(using uid: IsUserId[U]) = a == uid(other)
+    extension (a: UserId) inline def is[U](other: U)(using idOf: IsUserId[U]) = a == idOf(other)
 
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]:
-    given IsUserId[UserId]                                                   = _.value
-    extension (a: UserId) inline def is[U](other: U)(using uid: IsUserId[U]) = a == uid(other)
-    inline def fromStr(inline s: String): UserId                             = s.toLowerCase
+    given IsUserId[UserId]                                                    = _.value
+    extension (a: UserId) inline def is[U](other: U)(using idOf: IsUserId[U]) = a == idOf(other)
+    inline def fromStr(inline s: String): UserId                              = s.toLowerCase
 
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
+    given IsUserId[A]                          = _.value
     extension (a: A) inline def userId: UserId = a into UserId
 
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
     given IsUserId[UserName]              = _.id
+    given Show[UserName]                  = _.value
     extension (n: UserName) inline def id = UserId(n.value.toLowerCase)
 
   opaque type GameAnyId = String

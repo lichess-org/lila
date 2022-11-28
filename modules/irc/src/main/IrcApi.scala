@@ -7,6 +7,8 @@ import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
 import lila.user.Holder
 import lila.user.User
+import cats.Show
+import cats.syntax.show.*
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -74,7 +76,7 @@ final class IrcApi(
       s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.user.username)})"
     )
 
-  def userModNote(modName: String, username: String, note: String): Funit =
+  def userModNote(modName: UserName, username: UserName, note: String): Funit =
     !User.isLichess(modName) ??
       zulip(_.mod.adminLog, "notes")(
         s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
@@ -88,16 +90,16 @@ final class IrcApi(
 
   def commlog(mod: Holder, user: User, reportBy: Option[UserId]): Funit =
     zulip(_.mod.adminLog, "private comms checks")({
-      val finalS = if (user.username endsWith "s") "" else "s"
+      val finalS = if (user.username.value endsWith "s") "" else "s"
       s"**${markdown modLink mod.user}** checked out **${markdown userLink user.username}**'$finalS communications "
     } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
-      s"while investigating a report created by ${markdown.userLink(by)}"
+      s"while investigating a report created by ${markdown.userLink(by into UserName)}"
     })
 
   def monitorMod(modId: UserId, icon: String, text: String, tpe: ModDomain): Funit =
     lightUser(modId) flatMap {
       _ ?? { mod =>
-        zulip(_.mod.adminMonitor(tpe), mod.name)(
+        zulip(_.mod.adminMonitor(tpe), mod.name.value)(
           s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
         )
       }
@@ -107,7 +109,7 @@ final class IrcApi(
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.log, "actions")(
-          s"${markdown.modLink(modId)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
+          s"${markdown.modLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
         )
       }
     }
@@ -117,7 +119,7 @@ final class IrcApi(
       mod.id,
       "paw prints",
       s"${if (v) "Banned" else "Unbanned"} print ${markdown
-          .printLink(print)} of ${userIds.length} user(s): ${userIds map markdown.userLink mkString ", "}"
+          .printLink(print)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
     )
 
   def ipBan(mod: Holder, ip: String, v: Boolean, userIds: List[UserId]): Funit =
@@ -125,7 +127,7 @@ final class IrcApi(
       mod.id,
       "1234",
       s"${if (v) "Banned" else "Unbanned"} IP ${markdown
-          .ipLink(ip)} of ${userIds.length} user(s): ${userIds map markdown.userLink mkString ", "}"
+          .ipLink(ip)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
     )
 
   def chatPanic(mod: Holder, v: Boolean): Funit =
@@ -215,8 +217,8 @@ final class IrcApi(
     private def displayMessage(text: String) =
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
-    private def userAt(username: String) =
-      if (username == "Anonymous") "Anonymous"
+    private def userAt(username: UserName) =
+      if (username == UserName("Anonymous")) username
       else s"@$username"
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
@@ -235,20 +237,22 @@ object IrcApi:
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown:
-    def link(url: String, name: String)         = s"[$name]($url)"
-    def lichessLink(path: String, name: String) = s"[$name](https://lichess.org$path)"
-    def userLink(name: String): String          = lichessLink(s"/@/$name?mod&notes", name)
-    def userLink(user: User): String            = userLink(user.username)
-    def userLinkNoNotes(name: String): String   = lichessLink(s"/@/$name?mod", name)
-    def modLink(name: String): String           = lichessLink(s"/@/$name", name)
+    def link(url: String, name: String)             = s"[$name]($url)"
+    def lichessLink[N: Show](path: String, name: N) = show"[$name](https://lichess.org$path)"
+    def userLink(name: UserName): String            = lichessLink(s"/@/$name?mod&notes", name.value)
+    def userLink(user: User): String                = userLink(user.username)
+    def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)
+    def userIdLinks(ids: List[UserId]): String =
+      UserName.from[List, UserId](ids) map markdown.userLink mkString ", "
+    def modLink(name: UserName): String         = lichessLink(s"/@/$name", name.value)
     def modLink(user: User): String             = modLink(user.username)
     def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
     def printLink(print: String)                = lichessLink(s"/mod/print/$print", print)
     def ipLink(ip: String)                      = lichessLink(s"/mod/ip/$ip", ip)
-    def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
+    def userNotesLink(name: UserName)           = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
-    def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll (m => userLink(m.group(1)))
-    val postReplace                             = lichessLink("/forum/$1", "$1")
-    def linkifyPosts(msg: String)               = postRegex matcher msg replaceAll postReplace
-    def linkifyPostsAndUsers(msg: String)       = linkifyPosts(linkifyUsers(msg))
-    def fixImageUrl(url: String)                = url.replace("/display?", "/display.jpg?")
+    def linkifyUsers(msg: String) = userRegex matcher msg replaceAll (m => userLink(UserName(m.group(1))))
+    val postReplace               = lichessLink("/forum/$1", "$1")
+    def linkifyPosts(msg: String) = postRegex matcher msg replaceAll postReplace
+    def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
+    def fixImageUrl(url: String)          = url.replace("/display?", "/display.jpg?")
