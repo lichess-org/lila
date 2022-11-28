@@ -17,11 +17,12 @@ function formatSerieName(dt: string, n: number) {
   return n;
 }
 
-export function vert(ctrl: Ctrl) {
+export function vert(ctrl: Ctrl, attrs: any = null) {
   const answer = ctrl.vm.answer;
   if (!answer) return null;
   return h(
     'div.hscroll',
+    attrs,
     h('table.slist', [
       h(
         'thead',

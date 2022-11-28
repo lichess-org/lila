@@ -2,24 +2,44 @@
 
 #insight {
   --insight-header-height: 60px;
-  --hdr-drop-btn-width: 200px;
-  @include breakpoint($mq-not-xx-small) {
+  --chart-height: 550px;
+  @include breakpoint($mq-not-small) {
+    --insight-header-height: 50px;
+    --chart-height: 500px;
+  }
+  @include breakpoint($mq-not-x-small) {
     --insight-header-height: 40px;
-    --hdr-drop-btn-width: 140px; // 2x140 will fit into 320dp
+    --chart-height: 450px;
+  }
+  @include breakpoint($mq-not-xx-small) {
+    --insight-header-height: 30px;
+    --chart-height: 400px;
   }
 
+  --insight-drop-menu-width: 180px;
+  @include breakpoint($mq-less-than-400) {
+    --insight-drop-menu-width: 172px;
+    --chart-height: 350px;
+  }
+  @include breakpoint($mq-less-than-360) {
+    --insight-drop-menu-width: 154px;
+    --chart-height: 300px;
+  }
+  
   > div {
     display: grid;
     grid-template-columns: 280px auto;
+    grid-template-rows: var(--insight-header-height);
     grid-template-areas: 'side head' 'side main';
     grid-gap: 0 $block-gap;
 
     @include breakpoint($mq-not-small) {
+      // tablets can still get grid view
       grid-template-columns: 200px auto;
     }
     @include breakpoint($mq-not-x-small) {
-      display: flex;
-      flex-flow: column;
+      // phones in portrait do not
+      display: block;
     }
   }
 
@@ -77,7 +97,6 @@
     }
   }
 
-
   .crunching {
     margin: 3em 0 2em 0;
   }
@@ -92,7 +111,7 @@
 
       top: 0;
       #{$start-direction}: 0;
-      height: 550px;
+      height: var(--chart-height);
       opacity: 0.7;
 
       svg {
@@ -117,7 +136,7 @@
   }
 
   .chart {
-    height: 550px;
+    height: var(--chart-height);
   }
 
   .loading .chart {
@@ -148,14 +167,12 @@
 
   header {
     @extend %box-radius-top;
+    @extend %flex-around;
+    height: var(--insight-header-height);
     background: #333;
     color: #ddd;
-    height: 100%;
     grid-area: head;
     h2 {
-      @include breakpoint($mq-not-medium) {
-        display: none;
-      }
       font-size: 2em;
       line-height: var(--insight-header-height);
     }
@@ -186,23 +203,22 @@
   }
 
   .axis-form {
-    @include breakpoint($mq-medium) {
-      float: right;
-    }
-    @include breakpoint($mq-not-medium) {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: space-evenly;
-      align-items: center;
-    }
+    height: var(--insight-header-height);
+    display: flex;
+    flex: auto;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
   .axis-form .by {
-    padding: 0 4px;
+    @include breakpoint($mq-less-than-400) {
+      display: none;
+    }
   }
 
   .axis-form .ms-choice {
-    padding: calc(var(--insight-header-height)/2) 10px;
+    padding: calc(var(--insight-header-height) / 2) 10px;
     @include breakpoint($mq-not-xx-small) {
       padding-left: 2px;
       padding-right: 2px;
@@ -218,12 +234,12 @@
   }
 
   .axis-form .ms-choice div {
-    top: 18px;
+    top: calc(var(--insight-header-height) / 2 - 12px);
   }
 
   .axis-form .ms-drop {
     color: $c-font;
-    width: var(--hdr-drop-btn-width);
+    width: var(--insight-drop-menu-width);
 
     ul > li label input {
       display: none;
@@ -236,7 +252,6 @@
   }
 
   .hscroll {
-    width: 100vw;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
@@ -285,7 +300,7 @@
     margin-bottom: 0.5em;
   }
 
-  div.mobile-clear-container {
+  .center-clear {
     display: flex;
     height: 20px;
     flex-flow: row nowrap;

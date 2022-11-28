@@ -1,6 +1,7 @@
 import { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters } from './interfaces';
+import { isViewportAtLeastXSmall } from 'common/viewport';
 
 export default class {
   env: Env;
@@ -41,17 +42,13 @@ export default class {
       broken: false,
       answer: null,
       panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
-      view: this.isWide() ? 'combined' : 'questions',
+      view: isViewportAtLeastXSmall() ? 'combined' : 'questions',
     };
   }
 
   private findMetric = (key: string) => this.metrics.find(x => x.key === key);
 
   private findDimension = (key: string) => this.dimensions.find(x => x.key === key);
-
-  isWide() {
-    return Math.min(window.innerWidth, window.screen.width) >= 650;
-  }
 
   setPanel(p: 'filter' | 'preset') {
     this.vm.panel = p;

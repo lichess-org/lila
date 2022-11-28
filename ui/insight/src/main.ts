@@ -2,7 +2,7 @@ import { attributesModule, classModule, init } from 'snabbdom';
 
 import Ctrl from './ctrl';
 import { Env } from './interfaces';
-import view from './view';
+import { view } from './view';
 import { registerMultipleSelect } from './multiple-select';
 
 const patch = init([classModule, attributesModule]);
