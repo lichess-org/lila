@@ -32,7 +32,7 @@ object activities:
   opaque type Puzzles = Score
   object Puzzles extends TotalWrapper[Puzzles, Score]:
     extension (a: Puzzles) def +(s: Score) = Puzzles(a.value add s)
-    given Zero[Puzzles] = Zero(Score(0, 0, 0, none)) // Zero(Puzzles(summon[Zero[Score]].zero))
+    given Zero[Puzzles]                    = Zero(Score.empty)
 
   case class Storm(runs: Int, score: Int):
     def +(s: Int) = Storm(runs = runs + 1, score = score atLeast s)
