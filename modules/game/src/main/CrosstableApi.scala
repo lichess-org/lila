@@ -51,7 +51,7 @@ final class CrosstableApi(
     }
 
   def add(game: Game): Funit =
-    game.userIds.distinct.sorted match
+    game.userIds.distinct.sorted(using stringOrdering) match
       case List(u1, u2) =>
         val result     = Result(game.id, game.winnerUserId)
         val bsonResult = Crosstable.crosstableHandler.writeResult(result, u1)

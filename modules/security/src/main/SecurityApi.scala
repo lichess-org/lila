@@ -12,6 +12,7 @@ import scala.annotation.nowarn
 import scala.concurrent.duration.*
 
 import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
+import lila.common.Form.into
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate
@@ -36,12 +37,10 @@ final class SecurityApi(
   val AccessUri = "access_uri"
 
   private val usernameOrEmailMapping =
-    lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength)
+    lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
 
   lazy val usernameOrEmailForm = Form(
-    single(
-      "username" -> usernameOrEmailMapping
-    )
+    single("username" -> usernameOrEmailMapping)
   )
 
   lazy val loginForm = Form(
@@ -59,7 +58,7 @@ final class SecurityApi(
         "password" -> nonEmptyText,
         "token"    -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
-        case LoginCandidate.Success(user) => (user.username, "", none).some
+        case LoginCandidate.Success(user) => (user.username into UserStrOrEmail, "", none).some
         case _                            => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match {
@@ -71,16 +70,15 @@ final class SecurityApi(
       })
     )
 
-  def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
-    emailValidator.validate(EmailAddress(str)) match
+  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] = {
+    emailValidator.validate(EmailAddress(str.value)) match
       case Some(EmailAddressValidator.Acceptable(email)) =>
         authenticator.loginCandidateByEmail(email.normalize)
-      case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
-      case _                                 => fuccess(none)
+      case None => User.validateId(str into UserStr) ?? authenticator.loginCandidateById
   } map loadedLoginForm
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-      _username: String,
+      _str: UserStrOrEmail,
       password: String,
       token: Option[String]
   ): LoginCandidate.Result =

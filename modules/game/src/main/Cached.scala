@@ -11,7 +11,7 @@ final class Cached(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   def nbImportedBy(userId: UserId): Fu[Int] = nbImportedCache.get(userId)
   export nbImportedCache.invalidate as clearNbImportedByCache
@@ -41,7 +41,7 @@ final class Cached(
     4096,
     "game:imported",
     30 days,
-    identity
+    _.value
   ) { loader =>
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture {

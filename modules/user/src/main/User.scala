@@ -121,8 +121,6 @@ case class User(
 
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
-  def is[U: IsUserId](other: U) = id is other
-
   def isBot = title has Title.BOT
   def noBot = !isBot
 
@@ -138,7 +136,7 @@ case class User(
 
 object User:
 
-  given IsUserId[User] = _.id
+  given UserIdOf[User] = _.id
 
   opaque type KidId = String
   object KidId extends OpaqueUserId[KidId]
@@ -169,13 +167,15 @@ object User:
 
   val anonymous                        = UserName("Anonymous")
   val anonMod                          = "A Lichess Moderator"
-  val lichessId                        = UserId("lichess")
+  val lichessName                      = UserName("lichess")
+  val lichessId                        = lichessName.id
   val broadcasterId                    = UserId("broadcaster")
   val irwinId                          = UserId("irwin")
   val kaladinId                        = UserId("kaladin")
+  val explorerId                       = UserId("openingexplorer")
   val ghostId                          = UserId("ghost")
-  def isLichess[U: IsUserId](user: U)  = lichessId is user
-  def isOfficial[U: IsUserId](user: U) = isLichess(user) || broadcasterId.is(user)
+  def isLichess[U: UserIdOf](user: U)  = lichessId is user
+  def isOfficial[U: UserIdOf](user: U) = isLichess(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
 
@@ -243,9 +243,9 @@ object User:
   val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
   val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
 
-  def couldBeUsername(str: String) = noGhost(UserName(str).id) && historicalUsernameRegex.matches(str)
+  def couldBeUsername(str: UserStr) = noGhost(str.id) && historicalUsernameRegex.matches(str.value)
 
-  def validateId(name: String): Option[UserId] = couldBeUsername(name) option UserId.fromStr(name)
+  def validateId(str: UserStr): Option[UserId] = couldBeUsername(str) option str.id
 
   def isGhost(id: UserId) = id == ghostId || id.value.headOption.has('!')
 

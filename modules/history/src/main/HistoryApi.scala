@@ -75,7 +75,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   private def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
-  def get(userId: String): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
+  def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
@@ -85,7 +85,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
       _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
         $doc(perfType.key.value -> true).some
-      )(~_.string("_id")) map { hists =>
+      )(_.getAsTry[UserId]("_id").get) map { hists =>
         import History.ratingsReader
         users zip hists map { case (user, doc) =>
           val current      = user.perfs(perfType).intRating

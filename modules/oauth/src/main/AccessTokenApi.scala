@@ -57,7 +57,7 @@ final class AccessTokenApi(
       setup: OAuthTokenForm.AdminChallengeTokensData,
       admin: User
   ): Fu[Map[UserId, AccessToken]] =
-    userRepo.enabledNameds(setup.usernames) flatMap { users =>
+    userRepo.enabledByIds(setup.usernames) flatMap { users =>
       val scope = OAuthScope.Challenge.Write
       lila.common.Future
         .linear(users) { user =>

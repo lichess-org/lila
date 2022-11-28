@@ -7,6 +7,7 @@ import play.api.mvc.RequestHeader
 import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, Form as LilaForm, LameName }
+import lila.common.Form.into
 import lila.user.User.{ ClearPassword, TotpToken }
 import lila.user.{ TotpSecret, User, UserRepo }
 
@@ -66,10 +67,11 @@ final class SecurityForm(
           error = "usernameCharsInvalid"
         )
       )
+      .into[UserName]
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
       .verifying(
         "usernameAlreadyUsed",
-        u => !User.isGhost(u) && !userRepo.nameExists(u).await(3 seconds, "signupUsername")
+        u => !User.isGhost(u.id) && !userRepo.exists(u).await(3 seconds, "signupUsername")
       )
 
     private val agreementBool = boolean.verifying(b => b)
@@ -208,7 +210,7 @@ final class SecurityForm(
   def reopen(implicit req: RequestHeader) = hcaptcha.form(
     Form(
       mapping(
-        "username" -> LilaForm.cleanNonEmptyText,
+        "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
         "email"    -> sendableEmail // allow unacceptable emails for BC
       )(Reopen.apply)(_ => None)
     )
@@ -227,7 +229,7 @@ object SecurityForm:
   )
 
   case class SignupData(
-      username: String,
+      username: UserName,
       password: String,
       email: String,
       agreement: AgreementData,
@@ -238,7 +240,7 @@ object SecurityForm:
     def fingerPrint = FingerPrint from fp.filter(_.nonEmpty)
 
   case class MobileSignupData(
-      username: String,
+      username: UserName,
       password: String,
       email: String
   ):
@@ -255,7 +257,7 @@ object SecurityForm:
     def realEmail = EmailAddress(email)
 
   case class Reopen(
-      username: String,
+      username: UserStr,
       email: String
   ):
     def realEmail = EmailAddress(email)

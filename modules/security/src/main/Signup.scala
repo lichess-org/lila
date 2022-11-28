@@ -77,7 +77,7 @@ final class Signup(
               case Hcaptcha.Result.Fail           => fuccess(Signup.MissingCaptcha)
               case Hcaptcha.Result.Pass if !blind => fuccess(Signup.MissingCaptcha)
               case hcaptchaResult =>
-                signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
+                signupRateLimit(data.username.id, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
                   val email = emailAddressValidator
                     .validate(data.realEmail) err s"Invalid email ${data.email}"
                   MustConfirmEmail(data.fingerPrint, email.acceptable) flatMap { mustConfirm =>
@@ -133,7 +133,7 @@ final class Signup(
             Signup.Bad(err tap signupErrLog)
           },
         data =>
-          signupRateLimit(data.username, cost = 2) {
+          signupRateLimit(data.username.id, cost = 2) {
             val email = emailAddressValidator
               .validate(data.realEmail) err s"Invalid email ${data.email}"
             val mustConfirm = MustConfirmEmail.YesBecauseMobile
@@ -170,10 +170,10 @@ final class Signup(
 
   private val rateLimitDefault = fuccess(Signup.RateLimited)
 
-  private def signupRateLimit(username: String, cost: Int)(
+  private def signupRateLimit(id: UserId, cost: Int)(
       f: => Fu[Signup.Result]
   )(implicit req: RequestHeader): Fu[Signup.Result] =
-    HasherRateLimit(username, req) { _ =>
+    HasherRateLimit(id, req) { _ =>
       signupRateLimitPerIP(HTTPRequest ipAddress req, cost = cost)(f)(rateLimitDefault)
     }(rateLimitDefault)
 
@@ -187,7 +187,7 @@ final class Signup(
   ) =
     disposableEmailAttempt.onSuccess(user, email, HTTPRequest ipAddress req)
     authLog(
-      user.username,
+      user.username into UserStr,
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
           .??(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
@@ -202,9 +202,9 @@ final class Signup(
         err.errors.exists(_.messages.contains("error.email_acceptable")) &&
         err("email").value.exists(EmailAddress.isValid)
       )
-        authLog(username, email, "Signup with unacceptable email")
+        authLog(UserStr(username), email, "Signup with unacceptable email")
 
-  private def authLog(user: String, email: String, msg: String) =
+  private def authLog(user: UserStr, email: String, msg: String) =
     lila.log("auth").info(s"$user $email $msg")
 
 object Signup:

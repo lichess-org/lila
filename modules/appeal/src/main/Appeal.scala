@@ -83,7 +83,8 @@ object Appeal:
       single("text" -> lila.common.Form.cleanNonEmptyText)
     )
 
-  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: UserId) extends lila.memo.Snooze.Key
+  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: UserId)
+  private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
 case class AppealMsg(
     by: UserId,

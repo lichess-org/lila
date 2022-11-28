@@ -490,7 +490,7 @@ final class GameRepo(val coll: Coll)(using scala.concurrent.ExecutionContext):
         )
       }
       .map(_.flatMap { obj =>
-        obj.string(F.id) flatMap { id =>
+        obj.getAsOpt[UserId](F.id) flatMap { id =>
           obj.int("gs") map { id -> _ }
         }
       })

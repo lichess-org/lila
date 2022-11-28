@@ -85,7 +85,7 @@ object JsonView:
   given OWrites[Crosstable.Users] with
     def writes(users: Crosstable.Users) =
       JsObject(users.toList.map { u =>
-        u.id -> JsNumber(u.score / 10d)
+        u.id.value -> JsNumber(u.score / 10d)
       })
 
   given OWrites[Crosstable] with

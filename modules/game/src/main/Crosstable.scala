@@ -13,9 +13,9 @@ case class Crosstable(
 
   def nonEmpty = results.nonEmpty option this
 
-  def nbGames                            = users.nbGames
-  def showScore                          = users.showScore
-  def showOpponentScore                  = users.showOpponentScore
+  def nbGames                 = users.nbGames
+  def showScore               = users.showScore
+  def showOpponentScore       = users.showOpponentScore
   def fromPov(userId: UserId) = copy(users = users fromPov userId)
 
   lazy val size = results.size
@@ -68,7 +68,7 @@ object Crosstable:
 
   case class Matchup(users: Users): // score is x10
     def fromPov(userId: UserId) = copy(users = users fromPov userId)
-    def nonEmpty                           = users.nbGames > 0
+    def nonEmpty                = users.nbGames > 0
 
   case class WithMatchup(crosstable: Crosstable, matchup: Option[Matchup]):
     def fromPov(userId: UserId) =
@@ -78,7 +78,7 @@ object Crosstable:
       )
 
   private[game] def makeKey(u1: UserId, u2: UserId): String =
-    if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
+    if (u1.value < u2.value) s"$u1/$u2" else s"$u2/$u1"
 
   import reactivemongo.api.bson.*
   import lila.db.BSON
@@ -97,18 +97,18 @@ object Crosstable:
       r str id split '/' match
         case Array(u1Id, u2Id) =>
           Crosstable(
-            users = Users(User(u1Id, r intD score1), User(u2Id, r intD score2)),
+            users = Users(User(UserId(u1Id), r intD score1), User(UserId(u2Id), r intD score2)),
             results = r.get[List[String]](results).map { r =>
               r drop 8 match {
-                case ""  => Result(GameId(r), Some(u1Id))
-                case "-" => Result(GameId(r take 8), Some(u2Id))
+                case ""  => Result(GameId(r), Some(UserId(u1Id)))
+                case "-" => Result(GameId(r take 8), Some(UserId(u2Id)))
                 case "=" => Result(GameId(r take 8), none)
                 case _   => sys error s"Invalid result string $r"
               }
             }
           )
         case x => sys error s"Invalid crosstable id $x"
-    def writeResult(result: Result, u1: String): String =
+    def writeResult(result: Result, u1: UserId): String =
       val flag = result.winnerId match
         case Some(wid) if wid == u1 => ""
         case Some(_)                => "-"
@@ -129,6 +129,6 @@ object Crosstable:
       r str id split '/' match
         case Array(u1Id, u2Id) =>
           Success {
-            Matchup(Users(User(u1Id, r intD score1), User(u2Id, r intD score2)))
+            Matchup(Users(User(UserId(u1Id), r intD score1), User(UserId(u2Id), r intD score2)))
           }
         case x => lila.db.BSON.handlerBadValue(s"Invalid crosstable id $x")

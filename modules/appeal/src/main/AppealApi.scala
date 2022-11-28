@@ -2,7 +2,7 @@ package lila.appeal
 
 import org.joda.time.DateTime
 
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.user.{ Holder, NoteApi, User, UserRepo }
 import reactivemongo.api.ReadPreference
 
@@ -19,7 +19,7 @@ final class AppealApi(
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
-  def byUserIds(userIds: List[UserId]) = coll.byStringIds[Appeal](userIds)
+  def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
 
   def byId(appealId: UserId) = coll.byId[Appeal](appealId)
 

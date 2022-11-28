@@ -70,7 +70,7 @@ object AccessToken:
       AccessToken(
         id = r.get[Id](id),
         plain = r.get[Bearer](plain),
-        userId = r str userId,
+        userId = r.get[UserId](userId),
         createdAt = r.getO[DateTime](createdAt),
         description = r strO description,
         usedAt = r.getO[DateTime](usedAt),

@@ -150,12 +150,12 @@ object EmailConfirm:
 
   object Help:
 
-    sealed trait Status { val name: String }
-    case class NoSuchUser(name: String)                     extends Status
-    case class Closed(name: String)                         extends Status
-    case class Confirmed(name: String)                      extends Status
-    case class NoEmail(name: String)                        extends Status
-    case class EmailSent(name: String, email: EmailAddress) extends Status
+    sealed trait Status { val name: UserName }
+    case class NoSuchUser(name: UserName)                     extends Status
+    case class Closed(name: UserName)                         extends Status
+    case class Confirmed(name: UserName)                      extends Status
+    case class NoEmail(name: UserName)                        extends Status
+    case class EmailSent(name: UserName, email: EmailAddress) extends Status
 
     import play.api.data.*
     import play.api.data.validation.Constraints
@@ -171,13 +171,13 @@ object EmailConfirm:
       )
     )
 
-    def getStatus(userRepo: UserRepo, username: String)(using
+    def getStatus(userRepo: UserRepo, u: UserStr)(using
         ec: scala.concurrent.ExecutionContext
     ): Fu[Status] =
-      userRepo withEmails username flatMap {
-        case None => fuccess(NoSuchUser(username))
+      userRepo withEmails u flatMap {
+        case None => fuccess(NoSuchUser(u into UserName))
         case Some(User.WithEmails(user, emails)) =>
-          if (!user.enabled) fuccess(Closed(username))
+          if (!user.enabled) fuccess(Closed(user.username))
           else
             userRepo mustConfirmEmail user.id dmap {
               case true =>

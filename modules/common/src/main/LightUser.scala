@@ -10,17 +10,17 @@ case class LightUser(
     isPatron: Boolean
 ):
 
-  def titleName = title.fold(name)(_.value + " " + name)
+  def titleName: String = title.fold(name.value)(_.value + " " + name)
 
   def isBot = title has "BOT"
-
-  def is(name: String) = id == UserId.fromStr(name)
 
 object LightUser:
 
   type Ghost = LightUser
 
   val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), none, false)
+
+  given UserIdOf[LightUser] = _.id
 
   given lightUserWrites: OWrites[LightUser] = OWrites { u =>
     writeNoId(u) + ("id" -> JsString(u.id.value))

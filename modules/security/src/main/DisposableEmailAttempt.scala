@@ -27,14 +27,14 @@ final class DisposableEmailAttempt(
     }
 
   def onFail(form: Form[?], ip: IpAddress): Unit = for {
-    email    <- form("email").value flatMap EmailAddress.from
-    username <- form("username").value
+    email <- form("email").value flatMap EmailAddress.from
     if email.domain.exists(disposableApi.apply)
-  }
-    val id      = User normalize username
-    val attempt = Attempt(id, email, ip)
+    str <- form("username").value
+    u   <- UserStr read str
+  } yield
+    val attempt = Attempt(u.id, email, ip)
     byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
-    byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
+    byId.underlying.asMap.compute(u.id, (_, attempts) => ~Option(attempts) + attempt).unit
 
   def onSuccess(user: User, email: EmailAddress, ip: IpAddress) =
     val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)

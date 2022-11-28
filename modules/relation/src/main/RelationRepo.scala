@@ -13,12 +13,12 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
 
   import RelationRepo.*
 
-  def following(userId: ID) = relating(userId, Follow)
+  def following(userId: UserId) = relating(userId, Follow)
 
-  def blockers(userId: ID) = relaters(userId, Block)
-  def blocking(userId: ID) = relating(userId, Block)
+  def blockers(userId: UserId) = relaters(userId, Block)
+  def blocking(userId: UserId) = relating(userId, Block)
 
-  def freshFollowersFromSecondary(userId: ID): Fu[List[UserId]] =
+  def freshFollowersFromSecondary(userId: UserId): Fu[List[UserId]] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*
@@ -41,25 +41,25 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
       }
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
-  def followingLike(userId: ID, term: String): Fu[List[ID]] =
+  def followingLike(userId: UserId, term: UserStr): Fu[List[UserId]] =
     User.validateId(term) ?? { valid =>
-      coll.secondaryPreferred.distinctEasy[ID, List](
+      coll.secondaryPreferred.distinctEasy[UserId, List](
         "u2",
         $doc(
           "u1" -> userId,
-          "u2" $startsWith valid,
+          "u2" $startsWith valid.value,
           "r" -> Follow
         )
       )
     }
 
   private def relaters(
-      userId: ID,
+      userId: UserId,
       relation: Relation,
       rp: ReadPreference = ReadPreference.primary
-  ): Fu[Set[ID]] =
+  ): Fu[Set[UserId]] =
     coll
-      .distinctEasy[ID, Set](
+      .distinctEasy[UserId, Set](
         "u1",
         $doc(
           "u2" -> userId,
@@ -68,8 +68,8 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
         rp
       )
 
-  private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
-    coll.distinctEasy[ID, Set](
+  private def relating(userId: UserId, relation: Relation): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set](
       "u2",
       $doc(
         "u1" -> userId,
@@ -77,17 +77,17 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
       )
     )
 
-  def follow(u1: ID, u2: ID): Funit   = save(u1, u2, Follow)
-  def unfollow(u1: ID, u2: ID): Funit = remove(u1, u2)
-  def block(u1: ID, u2: ID): Funit    = save(u1, u2, Block)
-  def unblock(u1: ID, u2: ID): Funit  = remove(u1, u2)
+  def follow(u1: UserId, u2: UserId): Funit   = save(u1, u2, Follow)
+  def unfollow(u1: UserId, u2: UserId): Funit = remove(u1, u2)
+  def block(u1: UserId, u2: UserId): Funit    = save(u1, u2, Block)
+  def unblock(u1: UserId, u2: UserId): Funit  = remove(u1, u2)
 
-  def unfollowMany(u1: ID, u2s: Iterable[ID]): Funit =
+  def unfollowMany(u1: UserId, u2s: Iterable[UserId]): Funit =
     coll.delete.one($inIds(u2s map { makeId(u1, _) })).void
 
-  def unfollowAll(u1: ID): Funit = coll.delete.one($doc("u1" -> u1)).void
+  def unfollowAll(u1: UserId): Funit = coll.delete.one($doc("u1" -> u1)).void
 
-  private def save(u1: ID, u2: ID, relation: Relation): Funit =
+  private def save(u1: UserId, u2: UserId, relation: Relation): Funit =
     coll.update
       .one(
         $id(makeId(u1, u2)),
@@ -96,9 +96,9 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
       )
       .void
 
-  def remove(u1: ID, u2: ID): Funit = coll.delete.one($id(makeId(u1, u2))).void
+  def remove(u1: UserId, u2: UserId): Funit = coll.delete.one($id(makeId(u1, u2))).void
 
-  def drop(userId: ID, relation: Relation, nb: Int) =
+  def drop(userId: UserId, relation: Relation, nb: Int) =
     coll
       .find(
         $doc("u1" -> userId, "r" -> relation),
@@ -114,4 +114,4 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
 
 object RelationRepo:
 
-  def makeId(u1: ID, u2: ID) = s"$u1/$u2"
+  def makeId(u1: UserId, u2: UserId) = s"$u1/$u2"

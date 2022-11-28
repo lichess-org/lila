@@ -10,33 +10,6 @@ trait LilaModel extends NewTypes:
   object Percent:
     def toInt[A](a: A)(using p: Percent[A]) = Math.round(p(a)).toInt // round to closest
 
-  trait UserIdOf[U]:
-    def apply(a: U): UserId
-    extension (a: UserId) inline def is[U](other: U)(using idOf: UserIdOf[U]) = a == idOf(other)
-
-  opaque type UserId = String
-  object UserId extends OpaqueString[UserId]:
-    given UserIdOf[UserId]                                                    = _.value
-    extension (a: UserId) inline def is[U](other: U)(using idOf: UserIdOf[U]) = a == idOf(other)
-    inline def fromStr(inline s: String): UserId                              = s.toLowerCase
-
-  // specialized UserIds like Coach.Id
-  trait OpaqueUserId[A] extends OpaqueString[A]:
-    given UserIdOf[A]                          = _.value
-    extension (a: A) inline def userId: UserId = a into UserId
-
-  opaque type UserName = String
-  object UserName extends OpaqueString[UserName]:
-    given UserIdOf[UserName]              = _.id
-    given Show[UserName]                  = _.value
-    extension (n: UserName) inline def id = UserId(n.value.toLowerCase)
-
-  // maybe an Id, maybe a Name... something that's probably cased wrong
-  opaque type UserStr = String
-  object UserStr extends OpaqueString[UserStr]:
-    given UserIdOf[UserStr]              = _.id
-    extension (n: UserStr) inline def id = UserId(n.value.toLowerCase)
-
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]
 

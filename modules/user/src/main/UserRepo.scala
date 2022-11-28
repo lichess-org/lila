@@ -22,18 +22,23 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
 
-  def byId[U](u: U)(using idOf: IsUserId[U]): Fu[Option[User]] =
+  def byId[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
     User.noGhost(idOf(u)) ?? coll.byId[User](idOf(u)).recover {
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
-  def byIds[U](us: Iterable[U])(using idOf: IsUserId[U]): Fu[List[User]] = {
+  def byIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
     ids.nonEmpty ?? coll.byIds[User, UserId](ids)
   }
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, ReadPreference.secondaryPreferred)
+
+  def enabledByIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
+    val ids = us.map(idOf.apply).filter(User.noGhost)
+    coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
+  }
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
     if (User isGhost id) fuccess(Left(LightUser.ghost).some)
@@ -49,8 +54,8 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   ): Fu[List[User]] =
     coll.list[User]($doc(F.prevEmail -> email), readPreference)
 
-  def idByEmail(email: NormalizedEmailAddress): Fu[Option[String]] =
-    coll.primitiveOne[String]($doc(F.email -> email), "_id")
+  def idByEmail(email: NormalizedEmailAddress): Fu[Option[UserId]] =
+    coll.primitiveOne[UserId]($doc(F.email -> email), "_id")
 
   def countRecentByPrevEmail(email: NormalizedEmailAddress, since: DateTime): Fu[Int] =
     coll.countSel($doc(F.prevEmail -> email, F.createdAt $gt since))
@@ -82,9 +87,6 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def optionsByIds(userIds: Seq[UserId]): Fu[List[Option[User]]] =
     coll.optionsByOrderedIds[User, UserId](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
-  def enabledByIds(ids: Iterable[UserId]): Fu[List[User]] =
-    coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
-
   def enabledById(id: UserId): Fu[Option[User]] =
     User.noGhost(id) ?? coll.one[User](enabledSelect ++ $id(id))
 
@@ -93,12 +95,6 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   def disabledById(id: UserId): Fu[Option[User]] =
     User.noGhost(id) ?? coll.one[User](disabledSelect ++ $id(id))
-
-  def enabledNameds(names: List[UserName]): Fu[List[User]] =
-    coll
-      .find($inIds(names.map(_.id)) ++ enabledSelect)
-      .cursor[User](ReadPreference.secondaryPreferred)
-      .listAll()
 
   def enabledNamed(name: UserName): Fu[Option[User]] = enabledById(name.id)
 
@@ -318,7 +314,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       }
     }
 
-  def exists[U](id: U)(using uid: IsUserId[U]): Fu[Boolean] = coll exists $id(uid(id))
+  def exists[U](id: U)(using uid: UserIdOf[U]): Fu[Boolean] = coll exists $id(uid(id))
 
   /** Filters out invalid usernames and returns the UserIds for those usernames
     *
@@ -330,10 +326,10 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def existingUsernameIds(names: Set[UserName]): Fu[List[UserId]] =
     coll.primitive[UserId]($inIds(names.map(_.id)), F.id)
 
-  def userIdsLikeWithRole(text: String, role: String, max: Int = 10): Fu[List[UserId]] =
+  def userIdsLikeWithRole(text: UserStr, role: String, max: Int = 10): Fu[List[UserId]] =
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
 
-  private[user] def userIdsLikeFilter(text: String, filter: Bdoc, max: Int): Fu[List[UserId]] =
+  private[user] def userIdsLikeFilter(text: UserStr, filter: Bdoc, max: Int): Fu[List[UserId]] =
     User.validateId(text) ?? { id =>
       coll
         .find(
@@ -476,8 +472,8 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         }
       }
 
-  def withEmails(name: UserName)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    coll.find($id(name.id)).one[Bdoc].map {
+  def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
+    coll.find($id(u.id)).one[Bdoc].map {
       _ ?? { doc =>
         r readOpt doc map {
           User
@@ -492,7 +488,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       }
     }
 
-  def withEmails[U](users: List[U])(using uid: IsUserId[U], r: BSONHandler[User]): Fu[List[User.WithEmails]] =
+  def withEmails[U](users: List[U])(using uid: UserIdOf[U], r: BSONHandler[User]): Fu[List[User.WithEmails]] =
     coll
       .list[Bdoc]($inIds(users.map(uid.apply)), ReadPreference.secondaryPreferred)
       .map { docs =>
@@ -508,10 +504,10 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
         )
       }
 
-  def emailMap(names: List[UserName]): Fu[Map[UserId, EmailAddress]] =
+  def emailMap(ids: List[UserId]): Fu[Map[UserId, EmailAddress]] =
     coll
       .find(
-        $inIds(names.map(_.id)),
+        $inIds(ids),
         $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
@@ -658,8 +654,6 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
     }
   }
-
-  def byIdNotErased(id: UserId): Fu[Option[User]] = coll.one[User]($id(id) ++ $doc(F.erasedAt $exists false))
 
   def filterClosedOrInactiveIds(since: DateTime)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](

@@ -70,7 +70,7 @@ object Pov:
   def ofUserId(game: Game, userId: UserId): Option[Pov] =
     game playerByUserId userId map { apply(game, _) }
 
-  def opponentOfUserId(game: Game, userId: String): Option[Player] =
+  def opponentOfUserId(game: Game, userId: UserId): Option[Player] =
     ofUserId(game, userId) map (_.opponent)
 
   private def orInf(i: Option[Int])     = i getOrElse Int.MaxValue

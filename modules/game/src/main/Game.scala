@@ -39,7 +39,7 @@ case class Game(
   def clock     = chess.clock
   def pgnMoves  = chess.pgnMoves
 
-  val players = List(whitePlayer, blackPlayer)
+  val players = List[Player](whitePlayer, blackPlayer)
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
@@ -438,9 +438,9 @@ case class Game(
 
   def winnerColor: Option[Color] = winner map (_.color)
 
-  def winnerUserId: Option[String] = winner flatMap (_.userId)
+  def winnerUserId: Option[UserId] = winner flatMap (_.userId)
 
-  def loserUserId: Option[String] = loser flatMap (_.userId)
+  def loserUserId: Option[UserId] = loser flatMap (_.userId)
 
   def wonBy(c: Color): Option[Boolean] = winner map (_.color == c)
 
@@ -554,7 +554,7 @@ case class Game(
 
   def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
-  def userIds = playerMaps(_.userId)
+  def userIds = playerMaps[UserId](_.userId)
 
   def twoUserIds: Option[(UserId, UserId)] =
     for {
@@ -563,7 +563,7 @@ case class Game(
       if w != b
     } yield w -> b
 
-  def userRatings = playerMaps(_.rating)
+  def userRatings = playerMaps[IntRating](_.rating)
 
   def averageUsersRating =
     userRatings match

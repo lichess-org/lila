@@ -14,5 +14,4 @@ object BSONHandlers:
     StageProgress.apply
   )
 
-  given BSONHandler[LearnProgress.Id] = stringAnyValHandler[LearnProgress.Id](_.value, LearnProgress.Id.apply)
   given BSONDocumentHandler[LearnProgress] = Macros.handler

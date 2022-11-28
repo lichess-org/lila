@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.user.User
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import chess.Color
 
 final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionContext):
@@ -48,7 +48,7 @@ final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionC
       }
       .map {
         _.flatMap { doc =>
-          doc.string("_id") map {
+          doc.getAsOpt[UserId]("_id") map {
             _ -> Color.Map(
               ~doc.int("white"),
               ~doc.int("black")

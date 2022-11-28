@@ -175,7 +175,7 @@ case class CreatePayPalOrder(
     giftTo: Option[User],
     isLifetime: Boolean
 ):
-  def makeCustomId = giftTo.fold(user.id) { g => s"${user.id} ${g.id}" }
+  def makeCustomId = giftTo.fold(user.id.value) { g => s"${user.id} ${g.id}" }
 case class PayPalOrderCreated(id: PayPalOrderId)
 case class PayPalSubscriptionCreated(id: PayPalSubscriptionId)
 case class PayPalPurchaseUnit(amount: PayPalAmount, custom_id: Option[String])

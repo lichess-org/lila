@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 
 import User.ClearPassword
 import lila.common.LameName
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, trim, into, given }
 
 final class UserForm(authenticator: Authenticator):
 
@@ -87,4 +87,5 @@ object UserForm:
     Constraints maxLength 30,
     Constraints.pattern(regex = User.historicalUsernameRegex)
   )
-  lazy val historicalUsernameField = text.verifying(historicalUsernameConstraints*)
+  lazy val historicalUsernameField =
+    trim(text).verifying(historicalUsernameConstraints*).into[UserStr]

@@ -37,7 +37,7 @@ case class UserChat(
   def markDeleted(u: User) =
     copy(
       lines = lines.map { l =>
-        if (l.userId == u.id) l.delete else l
+        if (l.userId is u.id) l.delete else l
       }
     )
 

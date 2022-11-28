@@ -34,12 +34,9 @@ object EventForm:
       "enabled"       -> boolean,
       "startsAt"      -> utcDate,
       "finishesAt"    -> utcDate,
-      "hostedBy" -> optional {
-        lila.user.UserForm.historicalUsernameField
-          .transform[UserId](_.toLowerCase, identity)
-      },
-      "icon"      -> stringIn(icon.choices),
-      "countdown" -> boolean
+      "hostedBy"      -> optional(lila.user.UserForm.historicalUsernameField),
+      "icon"          -> stringIn(icon.choices),
+      "countdown"     -> boolean
     )(Data.apply)(unapply)
   ) fill Data(
     title = "",
@@ -64,7 +61,7 @@ object EventForm:
       enabled: Boolean,
       startsAt: DateTime,
       finishesAt: DateTime,
-      hostedBy: Option[UserId] = None,
+      hostedBy: Option[UserStr] = None,
       icon: String = "",
       countdown: Boolean
   ):
@@ -80,14 +77,14 @@ object EventForm:
         enabled = enabled,
         startsAt = startsAt,
         finishesAt = finishesAt,
-        hostedBy = hostedBy,
+        hostedBy = hostedBy.map(_.id),
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown,
         updatedAt = DateTime.now.some,
-        updatedBy = Event.UserId(by.id).some
+        updatedBy = by.id.some
       )
 
-    def make(userId: String) =
+    def make(userId: UserId) =
       Event(
         _id = Event.makeId,
         title = title,
@@ -99,11 +96,11 @@ object EventForm:
         enabled = enabled,
         startsAt = startsAt,
         finishesAt = finishesAt,
-        createdBy = Event.UserId(userId),
+        createdBy = userId,
         createdAt = DateTime.now,
         updatedAt = none,
         updatedBy = none,
-        hostedBy = hostedBy,
+        hostedBy = hostedBy.map(_.id),
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown
       )
@@ -121,7 +118,7 @@ object EventForm:
         enabled = event.enabled,
         startsAt = event.startsAt,
         finishesAt = event.finishesAt,
-        hostedBy = event.hostedBy,
+        hostedBy = event.hostedBy.map(_ into UserStr),
         icon = ~event.icon,
         countdown = event.countdown
       )

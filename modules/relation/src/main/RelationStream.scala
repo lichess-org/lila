@@ -6,13 +6,10 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration.*
 
 import lila.common.config.MaxPerSecond
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.user.{ User, UserRepo }
 
-final class RelationStream(
-    coll: Coll,
-    userRepo: UserRepo
-)(implicit mat: akka.stream.Materializer):
+final class RelationStream(coll: Coll, userRepo: UserRepo)(using akka.stream.Materializer):
 
   import RelationStream.*
 

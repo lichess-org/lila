@@ -14,9 +14,9 @@ case class Event(
     url: String,
     lang: Lang,
     enabled: Boolean,
-    createdBy: Event.UserId,
+    createdBy: UserId,
     createdAt: DateTime,
-    updatedBy: Option[Event.UserId],
+    updatedBy: Option[UserId],
     updatedAt: Option[DateTime],
     startsAt: DateTime,
     finishesAt: DateTime,
@@ -49,5 +49,3 @@ case class Event(
 object Event:
 
   def makeId = lila.common.ThreadLocalRandom nextString 8
-
-  case class UserId(value: String) extends AnyVal

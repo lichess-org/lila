@@ -8,7 +8,7 @@ final class FavoriteOpponents(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   private val userIdsCache = cacheApi[UserId, List[(UserId, Int)]](64, "favoriteOpponents") {
     _.expireAfterWrite(15 minutes)
@@ -18,7 +18,7 @@ final class FavoriteOpponents(
       }
   }
 
-  def apply(userId: String): Fu[List[(User, Int)]] =
+  def apply(userId: UserId): Fu[List[(User, Int)]] =
     userIdsCache get userId flatMap { opponents =>
       userRepo enabledByIds opponents.map(_._1) map {
         _ flatMap { user =>
