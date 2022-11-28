@@ -106,8 +106,8 @@ final private class StudySocket(
             who foreach api.setRole(studyId, d.userId, d.role)
           }
         case "kick" =>
-          o str "d" foreach { username =>
-            who foreach api.kick(studyId, username)
+          o.get[UserStr]("d") foreach { username =>
+            who foreach api.kick(studyId, username.id)
           }
         case "leave" =>
           who foreach { w =>
@@ -203,7 +203,7 @@ final private class StudySocket(
         case "invite" =>
           for {
             w        <- who
-            username <- o str "d"
+            username <- o.get[UserStr]("d")
           } InviteLimitPerUser(w.u, cost = 1) {
             api.invite(
               w.u,

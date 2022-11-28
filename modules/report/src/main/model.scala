@@ -1,16 +1,11 @@
 package lila.report
 
-import lila.user.User
-import lila.common.Iso
+import lila.user.{ User, Holder }
 
 case class Mod(user: User) extends AnyVal:
-  def id = ModId(user.id)
-
-case class ModId(value: UserId) extends AnyVal
-object ModId:
-  def lichess = ModId(User.lichessId)
-  def irwin   = ModId(User.irwinId)
-  def kaladin = ModId(User.kaladinId)
+  def id = user.id into ModId
+object Mod:
+  def holder(holder: Holder): Mod = Mod(holder.user)
 
 case class Suspect(user: User) extends AnyVal:
   def id                   = SuspectId(user.id)
@@ -30,4 +25,5 @@ object ReporterId extends OpaqueUserId[ReporterId]:
   def irwin   = User.irwinId into ReporterId
   def kaladin = User.kaladinId into ReporterId
 
-case class Accuracy(value: Int) extends AnyVal
+opaque type Accuracy = Int
+object Accuracy extends OpaqueInt[Accuracy]

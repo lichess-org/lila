@@ -6,16 +6,15 @@ import lila.game.{ Game, Pov }
 import lila.report.SuspectId
 
 case class IrwinReport(
-    _id: String,     // user id
+    _id: UserId,
     activation: Int, // 0 = clean, 100 = cheater
     games: List[IrwinReport.GameReport],
     owner: String, // thread sending the report, for monitoring
     date: DateTime
 ):
 
-  def userId = _id
-
-  def suspectId = SuspectId(userId)
+  inline def userId    = _id
+  inline def suspectId = SuspectId(userId)
 
   def note: String = games.sortBy(-_.activation).map { g =>
     s"#${g.gameId} = ${g.activation}"

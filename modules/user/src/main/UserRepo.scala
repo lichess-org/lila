@@ -122,7 +122,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
     coll.primitiveOne[UserName]($id(id), F.username)
 
   def usernamesByIds(ids: List[UserId]) =
-    coll.distinctEasy[String, List](F.username, $inIds(ids), ReadPreference.secondaryPreferred)
+    coll.distinctEasy[UserName, List](F.username, $inIds(ids), ReadPreference.secondaryPreferred)
 
   def createdAtById(id: UserId) =
     coll.primitiveOne[DateTime]($id(id), F.createdAt)
@@ -316,15 +316,8 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   def exists[U](id: U)(using uid: UserIdOf[U]): Fu[Boolean] = coll exists $id(uid(id))
 
-  /** Filters out invalid usernames and returns the UserIds for those usernames
-    *
-    * @param usernames
-    *   Usernames to filter out the non-existent usernames from, and return the UserIds for
-    * @return
-    *   A list of UserIds for the usernames that were given that were valid
-    */
-  def existingUsernameIds(names: Set[UserName]): Fu[List[UserId]] =
-    coll.primitive[UserId]($inIds(names.map(_.id)), F.id)
+  def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
+    coll.primitive[UserId]($inIds(ids), F.id)
 
   def userIdsLikeWithRole(text: UserStr, role: String, max: Int = 10): Fu[List[UserId]] =
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
@@ -407,8 +400,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       )
       .void
 
-  def isMonitoredMod(userId: UserId) =
-    coll.exists($id(userId) ++ $doc(F.roles -> "ROLE_MONITORED_MOD"))
+  def isMonitoredMod[U: UserIdOf](u: U) = coll.exists($id(u) ++ $doc(F.roles -> "ROLE_MONITORED_MOD"))
 
   import Authenticator.*
   def getPasswordHash(id: UserId): Fu[Option[String]] =
@@ -488,9 +480,11 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
       }
     }
 
-  def withEmails[U](users: List[U])(using uid: UserIdOf[U], r: BSONHandler[User]): Fu[List[User.WithEmails]] =
+  def withEmails[U](
+      users: List[U]
+  )(using idOf: UserIdOf[U], r: BSONHandler[User]): Fu[List[User.WithEmails]] =
     coll
-      .list[Bdoc]($inIds(users.map(uid.apply)), ReadPreference.secondaryPreferred)
+      .list[Bdoc]($inIds(users.map(idOf.apply)), ReadPreference.secondaryPreferred)
       .map { docs =>
         for {
           doc  <- docs

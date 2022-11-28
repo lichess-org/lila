@@ -40,7 +40,6 @@ final class ForumPostApi(
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
-        author = none,
         userId = !anonMod option me.id,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
@@ -229,7 +228,7 @@ final class ForumPostApi(
   private def logAnonPost(userId: UserId, post: ForumPost, edit: Boolean): Funit =
     topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
-        userId,
+        userId into ModId,
         post.categId,
         topic.slug,
         post.id.value,

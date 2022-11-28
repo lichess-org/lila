@@ -92,7 +92,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     coll.one[ForumPost](
       $doc(
         "createdAt" $gt DateTime.now.minusHours(1),
-        "userId" -> ~post.userId,
+        "userId" -> post.userId,
         "text"   -> post.text
       )
     )

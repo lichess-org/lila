@@ -93,7 +93,7 @@ final class PracticeApi(
 
     def get(user: User): Fu[PracticeProgress] =
       coll.one[PracticeProgress]($id(user.id)) dmap {
-        _ | PracticeProgress.empty(PracticeProgress.Id(user.id))
+        _ | PracticeProgress.empty(user.id)
       }
 
     private def save(p: PracticeProgress): Funit =
@@ -135,7 +135,7 @@ final class PracticeApi(
           _.view
             .flatMap { obj =>
               import cats.implicits.*
-              (obj.string("_id"), obj.int("nb")) mapN { (k, v) =>
+              (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN { (k, v) =>
                 k -> (v * 100f / PracticeStructure.totalChapters).toInt
               }
             }

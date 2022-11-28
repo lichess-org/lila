@@ -47,7 +47,7 @@ final private class SimulSocket(
   def filterPresent(simul: Simul, userIds: Set[UserId]): Fu[Seq[UserId]] =
     remoteSocketApi.request[Seq[UserId]](
       id => send(SimulSocket.Protocol.Out.filterPresent(id, simul.id, userIds)),
-      userIds => lila.socket.RemoteSocket.Protocol.In.commas(userIds).toSeq
+      userIds => UserId from lila.socket.RemoteSocket.Protocol.In.commas(userIds).toSeq
     )
 
   private def redirectPlayer(simul: Simul, pov: Pov): Unit =

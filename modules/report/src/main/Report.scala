@@ -68,7 +68,7 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      done = Report.Done(by.id, DateTime.now).some
+      done = Report.Done(by.id into ModId, DateTime.now).some
     )
 
   def userIds: List[UserId] = user :: atoms.toList.map(_.by.userId)
@@ -113,7 +113,7 @@ object Report:
 
     def byLichess = by == ReporterId.lichess
 
-  case class Done(by: UserId, at: DateTime)
+  case class Done(by: ModId, at: DateTime)
 
   case class Inquiry(mod: UserId, seenAt: DateTime)
 

@@ -109,8 +109,8 @@ final private class ExplorerIndexer(
       userRepo.usernamesByIds(game.userIds) map { usernames =>
         def username(color: chess.Color) =
           game.player(color).userId flatMap { id =>
-            usernames.find(_.toLowerCase == id)
-          } orElse game.player(color).userId getOrElse "?"
+            usernames.find(_.id == id)
+          } orElse game.player(color).userId.map(_ into UserName)
         Json
           .obj(
             "id"      -> game.id,

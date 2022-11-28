@@ -130,12 +130,11 @@ object Node:
       def removeMeta: Option[Text] =
         val v = metaReg.replaceAllIn(value, "").trim
         if (v.nonEmpty) Some(Text(v)) else None
-    sealed trait Author
-    object Author:
-      case class User(id: String, titleName: String) extends Author
-      case class External(name: String)              extends Author
-      case object Lichess                            extends Author
-      case object Unknown                            extends Author
+    enum Author:
+      case User(id: UserId, titleName: String)
+      case External(name: String)
+      case Lichess
+      case Unknown
     def sanitize(text: String) =
       Text {
         lila.common.String
@@ -228,7 +227,7 @@ object Node:
     JsString(text.value)
   }
   given Writes[Comment.Author] = Writes[Comment.Author] {
-    case Comment.Author.User(id, name) => Json.obj("id" -> id, "name" -> name)
+    case Comment.Author.User(id, name) => Json.obj("id" -> id.value, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
     case Comment.Author.Lichess        => JsString("lichess")
     case Comment.Author.Unknown        => JsNull

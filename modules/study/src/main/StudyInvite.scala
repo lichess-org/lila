@@ -29,7 +29,7 @@ final private class StudyInvite(
   def apply(
       byUserId: UserId,
       study: Study,
-      invitedUsername: String,
+      invitedUsername: UserStr,
       getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] =
     for {
@@ -40,7 +40,7 @@ final private class StudyInvite(
       )
       invited <-
         userRepo
-          .named(invitedUsername)
+          .byId(invitedUsername)
           .map(
             _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
           ) orFail "No such invited"
@@ -67,12 +67,7 @@ final private class StudyInvite(
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
-        val notificationContent = InvitedToStudy(
-          UserId(inviter.id),
-          study.name,
-          study.id
-        )
-        val notification = Notification.make(UserId(invited.id), notificationContent)
+        val notification = Notification.make(invited.id, InvitedToStudy(inviter.id, study.name, study.id))
         notifyApi.addNotification(notification).void
       }(funit)
     } yield invited

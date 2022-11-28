@@ -16,7 +16,7 @@ final case class SimulPairing(
   def is(userId: UserId): Boolean     = player is userId
   def is(other: SimulPlayer): Boolean = player is other
 
-  def finish(s: chess.Status, w: Option[String]) =
+  def finish(s: chess.Status, w: Option[UserId]) =
     copy(
       status = s,
       wins = w map player.is

@@ -53,7 +53,7 @@ object KaladinUser:
     def isMod = false
   object Requester:
     case class Mod(id: UserId) extends Requester(100):
-      override def name  = id
+      override def name  = id.value
       override def isMod = true
     case object TopOnline        extends Requester(10)
     case object TournamentLeader extends Requester(20)

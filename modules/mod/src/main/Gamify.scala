@@ -100,7 +100,7 @@ final class Gamify(
       $doc("$lt" -> to)
     }
 
-  private val hidden = List(User.lichessId, "irwin")
+  private val hidden = List(User.lichessId, User.irwinId)
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logRepo.coll
@@ -120,7 +120,7 @@ final class Gamify(
       .map {
         _.flatMap { obj =>
           import cats.implicits.*
-          (obj.string("_id"), obj.int("nb")) mapN ModCount.apply
+          (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN ModCount.apply
         }
       }
 
@@ -151,7 +151,7 @@ final class Gamify(
       .map { docs =>
         for {
           doc <- docs
-          id  <- doc.string("_id")
+          id  <- doc.getAsOpt[UserId]("_id")
           nb  <- doc.int("nb")
         } yield ModCount(id, nb)
       }

@@ -375,7 +375,7 @@ final class StudyApi(
   def invite(
       byUserId: UserId,
       studyId: StudyId,
-      username: String,
+      username: UserStr,
       isPresent: UserId => Fu[Boolean],
       onError: String => Unit
   ) =

@@ -46,10 +46,10 @@ object BSONHandlers:
       case BSONString("TournamentLeader") => Requester.TournamentLeader
       case BSONString("TopOnline")        => Requester.TopOnline
       case BSONString("Report")           => Requester.Report
-      case BSONString(modId)              => Requester.Mod(modId)
+      case BSONString(modId)              => Requester.Mod(UserId(modId))
     },
     {
-      case Requester.Mod(modId) => BSONString(modId)
+      case Requester.Mod(modId) => BSONString(modId.value)
       case other                => BSONString(other.name)
     }
   )

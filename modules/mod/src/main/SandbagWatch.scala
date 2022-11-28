@@ -59,7 +59,7 @@ final private class SandbagWatch(
       }
 
   private def sendMessage(userId: UserId, preset: MsgPreset): Funit =
-    messageOnceEvery(UserId(userId)) ?? {
+    messageOnceEvery(userId) ?? {
       lila.common.Bus.publish(lila.hub.actorApi.mod.AutoWarning(userId, preset.name), "autoWarning")
       messenger.postPreset(userId, preset).void
     }
@@ -93,7 +93,7 @@ final private class SandbagWatch(
 private object SandbagWatch:
 
   sealed trait Outcome
-  case object Good                      extends Outcome
+  case object Good                     extends Outcome
   case class Sandbag(opponent: UserId) extends Outcome
   case class Boost(opponent: UserId)   extends Outcome
 

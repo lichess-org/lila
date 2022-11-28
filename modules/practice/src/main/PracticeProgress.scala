@@ -7,7 +7,7 @@ import lila.study.{ Chapter, Study }
 import lila.common.Iso
 
 case class PracticeProgress(
-    _id: PracticeProgress.Id,
+    _id: UserId,
     chapters: PracticeProgress.ChapterNbMoves,
     createdAt: DateTime,
     updatedAt: DateTime
@@ -40,8 +40,6 @@ case class PracticeProgress(
 
 object PracticeProgress:
 
-  case class Id(value: String) extends AnyVal
-
   opaque type NbMoves = Int
   object NbMoves extends OpaqueInt[NbMoves]
 
@@ -49,7 +47,7 @@ object PracticeProgress:
 
   type ChapterNbMoves = Map[StudyChapterId, NbMoves]
 
-  def empty(id: Id) =
+  def empty(id: UserId) =
     PracticeProgress(
       _id = id,
       chapters = Map.empty,
@@ -57,4 +55,4 @@ object PracticeProgress:
       updatedAt = DateTime.now
     )
 
-  def anon = empty(Id("anon"))
+  def anon = empty(UserId("anon"))

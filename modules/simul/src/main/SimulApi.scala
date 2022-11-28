@@ -33,7 +33,7 @@ final class SimulApi(
     name = "simulApi"
   )
 
-  def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get {}
+  def currentHostIds: Fu[Set[UserId]] = currentHostIdsCache.get {}
 
   export repo.{ find, byIds, byTeamLeaders }
 

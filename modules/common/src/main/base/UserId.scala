@@ -34,3 +34,6 @@ trait LilaUserId extends NewTypes:
       val clean = str.trim.takeWhile(' ' !=)
       if clean.lengthIs > 1 then Some(UserStr(clean)) else None
     }
+
+  opaque type ModId = String
+  object ModId extends OpaqueUserId[ModId]

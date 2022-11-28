@@ -111,7 +111,7 @@ final class ReportApi(
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
       (candidate.isComm && candidate.suspect.user.marks.troll)
 
-  def getMod(id: UserId): Fu[Option[Mod]]         = userRepo byId id dmap2 Mod.apply
+  def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]  = userRepo byId u dmap2 Mod.apply
   def getSuspect(id: UserId): Fu[Option[Suspect]] = userRepo byId id dmap2 Suspect.apply
 
   def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
@@ -222,14 +222,14 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       open = all.filter(_.open)
-      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), ModId.lichess)
+      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId)
     } yield open
 
   def reopenReports(suspect: Suspect): Funit =
     for {
       all <- recent(suspect, 10)
       closed = all
-        .filter(_.done.map(_.by) has ModId.lichess.value)
+        .filter(_.done.map(_.by) has User.lichessId.into(ModId))
         .filterNot(_ isAlreadySlain suspect.user)
       _ <-
         coll.update
@@ -311,7 +311,7 @@ final class ReportApi(
         selector,
         $set(
           "open" -> false,
-          "done" -> Report.Done(by.value, DateTime.now)
+          "done" -> Report.Done(by, DateTime.now)
         ) ++ $unset("inquiry"),
         multi = true
       )

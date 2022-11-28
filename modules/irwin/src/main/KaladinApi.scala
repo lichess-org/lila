@@ -58,7 +58,7 @@ final class KaladinApi(
   } yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect, by: Holder) =
-    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, ModId(by.id))
+    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, by.id into ModId)
 
   def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot ??
     sequence(user) { prev =>
@@ -129,7 +129,7 @@ final class KaladinApi(
       userRepo.hasTitle(user.id) flatMap {
         case true => sendReport
         case false =>
-          modApi.autoMark(user.suspectId, ModId.kaladin, pred.note) >>-
+          modApi.autoMark(user.suspectId, User.kaladinId into ModId, pred.note) >>-
             lila.mon.mod.kaladin.mark.increment().unit
       }
     else if (pred.percent >= thresholds.get().report) sendReport
