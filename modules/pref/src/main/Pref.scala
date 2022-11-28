@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Pref(
-    _id: String, // user id
+    _id: UserId,
     bg: Int,
     bgImg: Option[String],
     is3d: Boolean,
@@ -416,7 +416,7 @@ object Pref:
   )
 
   lazy val default = Pref(
-    _id = "",
+    _id = UserId(""),
     bg = Bg.DARK,
     bgImg = none,
     is3d = false,
