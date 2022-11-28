@@ -75,7 +75,7 @@ final class UblogApi(
 
   def userBlogPreviewFor(user: User, nb: Int, forUser: Option[User]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
-    val canView = fuccess(forUser exists user.is) >>|
+    val canView = fuccess(forUser exists { user.is(_) }) >>|
       colls.blog.primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier").dmap(~_ >= UblogBlog.Tier.VISIBLE)
     canView flatMap { _ ?? blogPreview(blogId, nb).dmap(some) }
 

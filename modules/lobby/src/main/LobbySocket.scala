@@ -15,6 +15,7 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.user.User
 import lila.round.ChangeFeatured
+import lila.common.Json.given
 
 case class LobbyCounters(members: Int, rounds: Int)
 
@@ -188,7 +189,7 @@ final class LobbySocket(
           id       <- d str "id"
           perfType <- poolApi.poolPerfTypes get PoolConfig.Id(id)
           ratingRange = d str "range" flatMap RatingRange.apply
-          blocking    = d str "blocking"
+          blocking    = d.get[UserId]("blocking")
         } yield
           lobby ! CancelHook(member.sri) // in case there's one...
           userRepo.glicko(user.id, perfType) foreach { glicko =>

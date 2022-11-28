@@ -5,7 +5,7 @@ import lila.user.User
 
 private[lobby] case class LobbyUser(
     id: UserId,
-    username: String,
+    username: UserName,
     lame: Boolean,
     bot: Boolean,
     perfMap: LobbyUser.PerfMap,

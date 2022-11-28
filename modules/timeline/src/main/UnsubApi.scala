@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final class UnsubApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class UnsubApi(coll: Coll)(using scala.concurrent.ExecutionContext):
 
   private def makeId(channel: String, userId: UserId) = s"$userId@$channel"
 
@@ -23,10 +23,10 @@ final class UnsubApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private def canUnsub(channel: String) = channel startsWith "forum:"
 
-  def filterUnsub(channel: String, userIds: List[UserId]): Fu[List[String]] =
+  def filterUnsub(channel: String, userIds: List[UserId]): Fu[List[UserId]] =
     canUnsub(channel) ?? coll.distinctEasy[String, List](
       "_id",
       $inIds(userIds.map { makeId(channel, _) })
     ) dmap { unsubs =>
-      userIds diff unsubs.map(_ takeWhile ('@' !=))
+      userIds diff unsubs.map(id => UserId(id takeWhile ('@' !=)))
     }

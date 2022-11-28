@@ -20,13 +20,13 @@ private object BSONHandlers:
   import activities.*
   import model.*
 
-  val idSep                          = ':'
+  val idSep                         = ':'
   def regexId(userId: UserId): Bdoc = "_id" $startsWith s"$userId$idSep"
 
   given BSONHandler[Id] = tryHandler(
     { case BSONString(v) =>
       v split idSep match {
-        case Array(userId, dayStr) => Success(Id(userId, LichessDay(Integer.parseInt(dayStr))))
+        case Array(userId, dayStr) => Success(Id(UserId(userId), LichessDay(Integer.parseInt(dayStr))))
         case _                     => handlerBadValue(s"Invalid activity id $v")
       }
     },

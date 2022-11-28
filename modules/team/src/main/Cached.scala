@@ -14,7 +14,7 @@ final class Cached(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   val nameCache = cacheApi.sync[TeamId, Option[TeamName]](
     name = "team.name",
@@ -35,7 +35,7 @@ final class Cached(
         .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { framework =>
           import framework.*
           Match($doc("_id" $startsWith s"$u@")) -> List(
-            Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.size + 1, -1)))),
+            Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),
             PipelineOperator(
               $lookup.pipeline(
                 from = teamRepo.coll,
