@@ -21,7 +21,7 @@ object BsonHandlers:
       SwissPlayer(
         id = r.get[SwissPlayer.Id](id),
         swissId = r.get[SwissId](swissId),
-        userId = r str userId,
+        userId = r.get[UserId](userId),
         rating = r.get[IntRating](rating),
         provisional = r boolD provisional,
         points = r.get[SwissPoints](points),

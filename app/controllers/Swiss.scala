@@ -283,7 +283,7 @@ final class Swiss(
       }
     }
 
-  def pageOf(id: SwissId, userId: String) =
+  def pageOf(id: SwissId, userId: UserId) =
     Action.async {
       WithSwiss(id) { swiss =>
         env.swiss.api.pageOf(swiss, UserModel normalize userId) flatMap {
@@ -296,7 +296,7 @@ final class Swiss(
       }
     }
 
-  def player(id: SwissId, userId: String) =
+  def player(id: SwissId, userId: UserId) =
     Action.async {
       WithSwiss(id) { swiss =>
         env.swiss.api.playerInfo(swiss, userId) flatMap {

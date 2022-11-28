@@ -52,7 +52,7 @@ case class User(
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
-  def titleUsername = title.fold(username)(t => s"$t $username")
+  def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
   def hasVariantRating = PerfType.variants.exists(perfs.apply(_).nonEmpty)
 

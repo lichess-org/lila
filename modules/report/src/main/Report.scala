@@ -8,7 +8,7 @@ import lila.common.Iso
 
 case class Report(
     _id: Report.ID, // also the url slug
-    user: UserId,  // the reportee
+    user: UserId,   // the reportee
     reason: Reason,
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
@@ -71,7 +71,7 @@ case class Report(
       done = Report.Done(by.id, DateTime.now).some
     )
 
-  def userIds: List[UserId] = user :: atoms.toList.map(_.by.value)
+  def userIds: List[UserId] = user :: atoms.toList.map(_.by.userId)
 
   def isRecentComm                 = open && room == Room.Comm
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
@@ -172,4 +172,4 @@ object Report:
           )
         )(_ add c.atom)
 
-  private[report] case class SnoozeKey(snoozerId: UserId, reportId: Report.ID) extends lila.memo.Snooze.Key
+  private[report] case class SnoozeKey(snoozerId: UserId, reportId: Report.ID)

@@ -162,7 +162,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def pageOf(id: String, userId: String) =
+  def pageOf(id: String, userId: UserId) =
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
         api.pageOf(tour, UserModel normalize userId) flatMap {
@@ -175,7 +175,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def player(tourId: String, userId: String) =
+  def player(tourId: String, userId: UserId) =
     Action.async {
       cachedTour(tourId) flatMap {
         _ ?? { tour =>

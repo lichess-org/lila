@@ -106,12 +106,12 @@ object SwissCondition:
 
   case class AllowList(value: String) extends SwissCondition with FlatCond:
 
-    private lazy val segments = value.linesIterator.map(User.normalize).toSet
+    private lazy val segments = value.linesIterator.map(_.trim.toLowerCase).toSet
 
     private def allowAnyTitledUser = segments contains "%titled"
 
     def apply(user: User, perf: PerfType): SwissCondition.Verdict =
-      if (segments contains user.id) Accepted
+      if (segments contains user.id.value) Accepted
       else if (allowAnyTitledUser && user.hasTitle) Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
 

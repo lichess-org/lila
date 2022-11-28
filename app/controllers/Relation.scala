@@ -71,7 +71,7 @@ final class Relation(
       }(rateLimitedFu)
     }
 
-  def apiFollow(userId: String) =
+  def apiFollow(userId: UserId) =
     Scoped(_.Follow.Write) { _ => me =>
       FollowLimitPerUser[Fu[Api.ApiResult]](me.id) {
         api.reachedMaxFollowing(me.id) flatMap {
@@ -95,7 +95,7 @@ final class Relation(
       }(rateLimitedFu)
     }
 
-  def apiUnfollow(userId: String) =
+  def apiUnfollow(userId: UserId) =
     Scoped(_.Follow.Write) { _ => me =>
       FollowLimitPerUser[Fu[Api.ApiResult]](me.id) {
         api.unfollow(me.id, UserModel normalize userId) inject Api.Done

@@ -8,28 +8,26 @@ case class Mod(user: User) extends AnyVal:
 
 case class ModId(value: UserId) extends AnyVal
 object ModId:
-  def lichess                     = ModId(lila.user.User.lichessId)
-  def irwin                       = ModId("irwin")
-  def kaladin                     = ModId("kaladin")
-  def normalize(username: String) = ModId(User normalize username)
+  def lichess = ModId(User.lichessId)
+  def irwin   = ModId(User.irwinId)
+  def kaladin = ModId(User.kaladinId)
 
 case class Suspect(user: User) extends AnyVal:
   def id                   = SuspectId(user.id)
   def set(f: User => User) = Suspect(f(user))
 case class SuspectId(value: UserId) extends AnyVal
 object SuspectId:
-  def normalize(username: String) = SuspectId(User normalize username)
+  def of(u: UserStr) = SuspectId(u.id)
 
 case class Victim(user: User) extends AnyVal
 
 case class Reporter(user: User) extends AnyVal:
-  def id = ReporterId(user.id)
-case class ReporterId(value: UserId) extends AnyVal
+  def id = user.id into ReporterId
 
-object ReporterId:
-  def lichess                     = ReporterId(lila.user.User.lichessId)
-  def irwin                       = ReporterId("irwin")
-  def kaladin                     = ReporterId("kaladin")
-  given Iso.StringIso[ReporterId] = Iso.string[ReporterId](ReporterId.apply, _.value)
+opaque type ReporterId = String
+object ReporterId extends OpaqueUserId[ReporterId]:
+  def lichess = User.lichessId into ReporterId
+  def irwin   = User.irwinId into ReporterId
+  def kaladin = User.kaladinId into ReporterId
 
 case class Accuracy(value: Int) extends AnyVal

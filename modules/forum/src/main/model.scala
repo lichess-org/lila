@@ -65,7 +65,7 @@ case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
 object Filter:
   sealed trait Filter
   case object Safe                   extends Filter
-  case class SafeAnd(userId: String) extends Filter
+  case class SafeAnd(userId: UserId) extends Filter
   case object Unsafe                 extends Filter
 
 case class InsertPost(post: ForumPost)

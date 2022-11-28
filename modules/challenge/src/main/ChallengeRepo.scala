@@ -64,7 +64,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       )
       .void
 
-  private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
+  private[challenge] def allWithUserId(userId: UserId): Fu[List[Challenge]] =
     createdByChallengerId()(userId) zip createdByDestId()(userId) dmap { case (x, y) =>
       x ::: y
     }
@@ -88,7 +88,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     case None                                                 => insert(c)
   }
 
-  private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
+  private[challenge] def countCreatedByDestId(userId: UserId): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
 
   private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =

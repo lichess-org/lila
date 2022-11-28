@@ -11,7 +11,7 @@ import lila.user.User
 
 case class Winner(
     tourId: String,
-    userId: String,
+    userId: UserId,
     tourName: String,
     date: DateTime
 )

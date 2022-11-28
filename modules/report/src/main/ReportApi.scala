@@ -111,17 +111,14 @@ final class ReportApi(
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
       (candidate.isComm && candidate.suspect.user.marks.troll)
 
-  def getMod(username: String): Fu[Option[Mod]] =
-    userRepo byId username dmap2 Mod.apply
+  def getMod(id: UserId): Fu[Option[Mod]]         = userRepo byId id dmap2 Mod.apply
+  def getSuspect(id: UserId): Fu[Option[Suspect]] = userRepo byId id dmap2 Suspect.apply
 
   def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
   def getLichessReporter: Fu[Reporter] =
     getLichessMod map { l =>
       Reporter(l.user)
     }
-
-  def getSuspect(username: String): Fu[Option[Suspect]] =
-    userRepo byId username dmap2 Suspect.apply
 
   def autoAltPrintReport(userId: UserId): Funit =
     coll.exists(
@@ -481,7 +478,7 @@ final class ReportApi(
   object accuracy:
 
     private val cache =
-      cacheApi[UserId, Option[Accuracy]](512, "report.accuracy") {
+      cacheApi[ReporterId, Option[Accuracy]](512, "report.accuracy") {
         _.expireAfterWrite(24 hours)
           .buildAsyncFuture { reporterId =>
             coll
@@ -508,17 +505,15 @@ final class ReportApi(
       }
 
     private def of(reporter: ReporterId): Fu[Option[Accuracy]] =
-      cache get reporter.value
+      cache get reporter
 
     def apply(candidate: Candidate): Fu[Option[Accuracy]] =
       candidate.isCheat ?? of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
       coll
-        .distinctEasy[UserId, List]("atoms.by", selector, ReadPreference.secondaryPreferred)
-        .map {
-          _ foreach cache.invalidate
-        }
+        .distinctEasy[ReporterId, List]("atoms.by", selector, ReadPreference.secondaryPreferred)
+        .map(_ foreach cache.invalidate)
         .void
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =

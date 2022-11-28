@@ -291,7 +291,10 @@ final class TournamentApi(
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
                 // user-specific access code: HMAC-SHA256(access code, user id)
                 MessageDigest
-                  .isEqual(Algo.hmac(p).sha256(me.id).hex.getBytes(UTF_8), (~data.password).getBytes(UTF_8))
+                  .isEqual(
+                    Algo.hmac(p).sha256(me.id.value).hex.getBytes(UTF_8),
+                    (~data.password).getBytes(UTF_8)
+                  )
             )
           )
             getVerdicts(tour, me.some, getUserTeamIds, prevPlayer.isDefined) flatMap { verdicts =>
@@ -430,7 +433,7 @@ final class TournamentApi(
             provisional = perf.fold(player.provisional)(_.provisional),
             performance = {
               for {
-                performance <- performanceOf(game, userId).map(_.toDouble)
+                performance <- performanceOf(game, userId).map(_.value.toDouble)
                 nbGames = sheet.scores.size
                 if nbGames > 0
               } yield Math.round {
@@ -444,12 +447,12 @@ final class TournamentApi(
       }
     }
 
-  private def performanceOf(g: Game, userId: String): Option[Int] =
+  private def performanceOf(g: Game, userId: UserId): Option[IntRating] =
     for {
       opponent       <- g.opponentByUserId(userId)
       opponentRating <- opponent.rating
       multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
-    } yield opponentRating.value + 500 * multiplier
+    } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit =
     if (game.status == chess.Status.NoStart) for {
@@ -681,8 +684,8 @@ final class TournamentApi(
       .throttle(perSecond.value, 1 second)
       .zipWithIndex
       .mapAsync(8) { case (player, index) =>
-        lightUserApi.async(player.userId) map { lu =>
-          Player.Result(player, lu | LightUser.fallback(player.userId), index.toInt + 1)
+        lightUserApi.asyncFallback(player.userId) map {
+          Player.Result(player, _, index.toInt + 1)
         }
       }
 
@@ -786,7 +789,7 @@ final class TournamentApi(
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if (lastHash != top.hashCode)
           Bus.publish(
-            lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
+            lila.hub.actorApi.round.TourStanding(TourId(tourId), JsonView.top(top, lightUserApi.sync)),
             "tourStanding"
           )
           lastPublished.put(tourId, top.hashCode)

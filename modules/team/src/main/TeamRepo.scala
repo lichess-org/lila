@@ -68,7 +68,7 @@ final class TeamRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def mini(id: TeamId): Fu[Option[Team.Mini]] =
     name(id) map2 { Team.Mini(id, _) }
 
-  private[team] def countCreatedSince(userId: String, duration: Period): Fu[Int] =
+  private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
     coll.countSel(
       $doc(
         "createdAt" $gt DateTime.now.minus(duration),

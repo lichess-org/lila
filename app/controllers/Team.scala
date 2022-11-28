@@ -614,7 +614,7 @@ final class Team(
       }
     }
 
-  def apiRequestProcess(teamId: TeamId, userId: String, decision: String) =
+  def apiRequestProcess(teamId: TeamId, userId: UserId, decision: String) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api request lila.team.Request.makeId(team.id, UserModel normalize userId) flatMap {

@@ -178,7 +178,7 @@ final class ForumPostApi(
 
   def allUserIds(topicId: ForumTopic.ID) = postRepo allUserIdsByTopicId topicId
 
-  def nbByUser(userId: String) = postRepo.coll.countSel($doc("userId" -> userId))
+  def nbByUser(userId: UserId) = postRepo.coll.countSel($doc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     for {

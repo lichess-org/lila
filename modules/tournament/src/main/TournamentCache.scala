@@ -100,7 +100,7 @@ final class TournamentCache(
       cache.get(keyOf(tour, userId))
 
     /* This is not thread-safe! But only called from within a tournament sequencer. */
-    def addResult(tour: Tournament, userId: String, pairing: Pairing): Fu[Sheet] =
+    def addResult(tour: Tournament, userId: UserId, pairing: Pairing): Fu[Sheet] =
       val key = keyOf(tour, userId)
       cache.getIfPresent(key).fold(recompute(tour, userId)) { prev =>
         val next =

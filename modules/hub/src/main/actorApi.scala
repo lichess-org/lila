@@ -250,7 +250,7 @@ package evaluation:
   case class Refresh(userId: UserId)
 
 package bookmark:
-  case class Toggle(gameId: GameId, userId: String)
+  case class Toggle(gameId: GameId, userId: UserId)
   case class Remove(gameId: GameId)
 
 package relation:
@@ -270,7 +270,7 @@ package plan:
   case class PlanExpire(userId: UserId)
 
 package push:
-  case class TourSoon(tourId: TourId, tourName: String, userIds: Iterable[UserId], swiss: Boolean)
+  case class TourSoon(tourId: String, tourName: String, userIds: Iterable[UserId], swiss: Boolean)
 
 package oauth:
   case class TokenRevoke(id: String)

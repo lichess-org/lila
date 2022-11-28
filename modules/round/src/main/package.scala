@@ -16,4 +16,4 @@ case class GameIsFinishedError(pov: lila.game.Pov) extends BenignError:
 sealed trait OnTv
 
 case class OnLichessTv(channel: String, flip: Boolean) extends OnTv
-case class OnUserTv(userId: String)                    extends OnTv
+case class OnUserTv(userId: UserId)                    extends OnTv

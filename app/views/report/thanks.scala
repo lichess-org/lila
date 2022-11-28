@@ -10,7 +10,7 @@ import controllers.routes
 
 object thanks:
 
-  def apply(userId: String, blocked: Boolean)(implicit ctx: Context) =
+  def apply(userId: UserId, blocked: Boolean)(implicit ctx: Context) =
 
     val title = "Thanks for the report"
 

@@ -276,7 +276,7 @@ final class SwissApi(
         .flatMap { opponents =>
           lightUserApi asyncMany opponents.map(_.userId) map { users =>
             opponents.zip(users) map { case (o, u) =>
-              SwissPlayer.WithUser(o, u | LightUser.fallback(o.userId))
+              SwissPlayer.WithUser(o, u | LightUser.fallback(o.userId into UserName))
             }
           } map { opponents =>
             pairings flatMap { pairing =>
@@ -288,13 +288,13 @@ final class SwissApi(
         }
     }
 
-  def searchPlayers(id: SwissId, term: String, nb: Int): Fu[List[UserId]] =
+  def searchPlayers(id: SwissId, term: UserStr, nb: Int): Fu[List[UserId]] =
     User.validateId(term) ?? { valid =>
       SwissPlayer.fields { f =>
         mongo.player.primitive[UserId](
           selector = $doc(
             f.swissId -> id,
-            f.userId $startsWith valid
+            f.userId $startsWith valid.value
           ),
           sort = $sort desc f.score,
           nb = nb,

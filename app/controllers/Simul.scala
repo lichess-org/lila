@@ -109,14 +109,14 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  def accept(simulId: SimulId, userId: String) =
+  def accept(simulId: SimulId, userId: UserId) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api.accept(simul.id, userId, v = true) inject jsonOkResult
       }
     }
 
-  def reject(simulId: SimulId, userId: String) =
+  def reject(simulId: SimulId, userId: UserId) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
         env.simul.api.accept(simul.id, userId, v = false) inject jsonOkResult

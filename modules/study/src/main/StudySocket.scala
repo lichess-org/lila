@@ -432,7 +432,7 @@ object StudySocket:
         (__ \ "path").read[String] and
           (__ \ "ch").read[StudyChapterId]
       )(AtPosition.apply)
-      case class SetRole(userId: String, role: String)
+      case class SetRole(userId: UserId, role: String)
       given Reads[SetRole]                    = Json.reads
       given Reads[ChapterMaker.Mode]          = optRead(ChapterMaker.Mode.apply)
       given Reads[ChapterMaker.Orientation]   = stringRead(ChapterMaker.Orientation.apply)

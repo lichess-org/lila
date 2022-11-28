@@ -12,8 +12,8 @@ case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, score: Int):
     case Id.User(name) => name.id.some
     case _             => none
 
-  lazy val name: String = id match
-    case Id.User(n)  => n.value
+  lazy val name: UserName = id match
+    case Id.User(n)  => n
     case Id.Anon(id) => CuteNameGenerator fromSeed id.hashCode
 
 object RacerPlayer:

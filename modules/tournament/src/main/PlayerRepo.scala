@@ -267,7 +267,7 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
             var r           = 0
             for (u <- all.values)
               val both   = u.asInstanceOf[BSONString].value
-              val userId = both.drop(8)
+              val userId = UserId(both.drop(8))
               playerIndex(r) = TourPlayerId(both.take(8))
               ranking += (userId -> Rank(r))
               r = r + 1
@@ -328,12 +328,12 @@ final class PlayerRepo(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
       }
       .result
 
-  def searchPlayers(tourId: Tournament.ID, term: String, nb: Int): Fu[List[UserId]] =
+  def searchPlayers(tourId: Tournament.ID, term: UserStr, nb: Int): Fu[List[UserId]] =
     User.validateId(term) ?? { valid =>
       coll.primitive[UserId](
         selector = $doc(
           "tid" -> tourId,
-          "uid" $startsWith valid
+          "uid" $startsWith valid.value
         ),
         sort = $sort desc "m",
         nb = nb,

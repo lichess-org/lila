@@ -98,7 +98,7 @@ final class SimulApi(
   def removeApplicant(simulId: SimulId, user: User): Funit =
     WithSimul(repo.findCreated, simulId) { _ removeApplicant user.id }
 
-  def accept(simulId: SimulId, userId: String, v: Boolean): Funit =
+  def accept(simulId: SimulId, userId: UserId, v: Boolean): Funit =
     userRepo byId userId flatMap {
       _ ?? { user =>
         WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
@@ -184,7 +184,7 @@ final class SimulApi(
       "socketUsers"
     )
 
-  def ejectCheater(userId: String): Unit =
+  def ejectCheater(userId: UserId): Unit =
     repo.allNotFinished foreach {
       _ foreach { oldSimul =>
         workQueue(oldSimul.id) {

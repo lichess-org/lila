@@ -13,10 +13,10 @@ trait Stream:
   val streamer: Streamer
   val language: String
 
-  def is(s: Streamer): Boolean     = streamer.id == s.id
+  def is(s: Streamer): Boolean    = streamer.id == s.id
   def is(userId: UserId): Boolean = streamer.userId == userId
-  def twitch                       = serviceName == "twitch"
-  def youTube                      = serviceName == "youTube"
+  def twitch                      = serviceName == "twitch"
+  def youTube                     = serviceName == "youTube"
 
   lazy val cleanStatus = removeMultibyteSymbols(status).trim
 

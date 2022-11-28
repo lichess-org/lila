@@ -82,13 +82,13 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
 
   def lightUser = env.user.lightUserSync
 
-  def usernameOrId(userId: String)            = lightUser(userId).fold(userId)(_.name)
-  def titleNameOrId(userId: String)           = lightUser(userId).fold(userId)(_.titleName)
+  def usernameOrId(userId: UserId)            = lightUser(userId).fold(userId)(_.name)
+  def titleNameOrId(userId: UserId)           = lightUser(userId).fold(userId)(_.titleName)
   def titleNameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
 
-  def isOnline(userId: String) = env.socket.isOnline.value(userId)
+  def isOnline(userId: UserId) = env.socket.isOnline.value(userId)
 
-  def isStreaming(userId: String) = env.streamer.liveStreamApi isStreaming userId
+  def isStreaming(userId: UserId) = env.streamer.liveStreamApi isStreaming userId
 
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
     span(cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined))(
@@ -146,7 +146,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
   private def userIdNameLink(
-      userId: String,
+      userId: UserId,
       username: String,
       isPatron: Boolean,
       cssClass: Option[String],
@@ -206,7 +206,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       userRating(user, withPerfRating, withBestRating)
     )
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false)(using lang: Lang): Tag =
+  def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using lang: Lang): Tag =
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     span(
@@ -239,7 +239,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
 
   def userClass(
-      userId: String,
+      userId: UserId,
       cssClass: Option[String],
       withOnline: Boolean,
       withPowerTip: Boolean = true
