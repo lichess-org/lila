@@ -20,13 +20,13 @@
   <string name="giveMoreTime">अजून वेळ द्या</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">खेळ वर्तन</string>
   <string name="howDoYouMovePieces">सोंगट्या कशा हालवाल?</string>
-  <string name="clickTwoSquares">दोन चौरस क्लिक करा</string>
+  <string name="clickTwoSquares">दोन घरे क्लिक करा</string>
   <string name="dragPiece">मोहरा उचलून ठेवा</string>
   <string name="bothClicksAndDrag">दोन्हीही</string>
   <string name="premovesPlayingDuringOpponentTurn">प्रिमूव्ह (प्रतिस्पर्ध्याच्या वळणावर खेळणे)</string>
   <string name="takebacksWithOpponentApproval">चाल मागे घ्या (प्रतिस्पर्ध्याच्या मान्यतेने)</string>
   <string name="inCasualGamesOnly">मैत्री सामन्यात फक्त</string>
-  <string name="promoteToQueenAutomatically">आपोआप राणी बनवा</string>
+  <string name="promoteToQueenAutomatically">आपोआप वझीर बनवा</string>
   <string name="whenPremoving">फक्त प्रतिस्पर्ध्याच्या डावावर खेळताना</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">तीन पुनरावृतींनवर आपोआप सामना अनिर्णित घोषित करा</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&amp;lt; becomes &lt;.&#10;The &amp;lt; symbol is not required (you can write it as 'less than' in words), just do NOT use &lt; in its place.">जेव्हा वेळ &lt; ३० सेकंद</string>
