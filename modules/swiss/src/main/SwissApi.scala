@@ -232,7 +232,7 @@ final class SwissApi(
       (Swiss.PastAndNext.apply).tupled
 
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
-    userRepo named userId flatMap {
+    userRepo byId userId flatMap {
       _ ?? { user =>
         mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMap {
           _ ?? { player =>

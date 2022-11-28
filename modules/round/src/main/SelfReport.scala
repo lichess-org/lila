@@ -28,7 +28,7 @@ final class SelfReport(
       fullId: GameFullId,
       name: String
   ): Funit =
-    userId ?? userRepo.named map { user =>
+    userId ?? userRepo.byId map { user =>
       val known = user.exists(_.marks.engine)
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)

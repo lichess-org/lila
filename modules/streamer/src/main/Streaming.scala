@@ -37,7 +37,7 @@ final private class Streaming(
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
-        liveStreams.has(id) || isOnline.value(id.value)
+        liveStreams.has(id) || isOnline.value(id.userId)
       }
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
@@ -68,8 +68,8 @@ final private class Streaming(
         liveStreams has s.streamer
       } foreach { s =>
         import s.streamer.userId
-        if (!streamStartMemo.get(UserId(userId)))
-          streamStartMemo.put(UserId(userId))
+        if (!streamStartMemo.get(userId))
+          streamStartMemo.put(userId)
           timeline ! {
             import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
             Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId

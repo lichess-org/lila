@@ -10,7 +10,6 @@ import lila.msg.MsgApi
 import lila.security.Permission
 import lila.user.{ Authenticator, User, UserRepo }
 import lila.user.Holder
-import lila.hub.actorApi.user.KidId
 
 final class ClasApi(
     colls: ClasColls,
@@ -20,7 +19,7 @@ final class ClasApi(
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   import BsonHandlers.given
 
@@ -74,8 +73,8 @@ final class ClasApi(
     def isTeacherOf(teacher: User, clasId: Clas.Id): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
-    def areKidsInSameClass(kid1: KidId, kid2: KidId): Fu[Boolean] =
-      fuccess(studentCache.isStudent(kid1.id) && studentCache.isStudent(kid2.id)) >>&
+    def areKidsInSameClass(kid1: UserId, kid2: UserId): Fu[Boolean] =
+      fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
         colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred) {
           implicit framework =>
             import framework.*
@@ -219,15 +218,15 @@ final class ClasApi(
 
     def create(
         clas: Clas,
-        data: ClasForm.NewStudent,
+        data: ClasForm.CreateStudent,
         teacher: User
     ): Fu[Student.WithPassword] =
       val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
-      lila.mon.clas.student.create(teacher.id).increment()
+      lila.mon.clas.student.create(teacher.id.value).increment()
       userRepo
         .create(
-          username = data.username,
+          name = data.username,
           passwordHash = authenticator.passEnc(password),
           email = email,
           blind = false,
@@ -254,8 +253,8 @@ final class ClasApi(
       count(clas.id) flatMap { nbCurrentStudents =>
         lila.common.Future.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
           nameGenerator() flatMap { username =>
-            val data = ClasForm.NewStudent(
-              username = username | lila.common.ThreadLocalRandom.nextString(10),
+            val data = ClasForm.CreateStudent(
+              username = username | UserName(lila.common.ThreadLocalRandom.nextString(10)),
               realName = realName
             )
             create(clas, data, teacher)
@@ -303,7 +302,7 @@ ${clas.desc}""",
       student
         .archive(Student.id(user.id, clas.id), teacher, v = false)
         .map2[ClasInvite.Feedback](_ => Already) getOrElse {
-        lila.mon.clas.student.invite(teacher.id).increment()
+        lila.mon.clas.student.invite(teacher.id.value).increment()
         val invite = ClasInvite.make(clas, user, realName, teacher)
         colls.invite.insert
           .one(invite)

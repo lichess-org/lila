@@ -4,11 +4,11 @@ import org.joda.time.*
 import reactivemongo.api.bson.{ BSONBoolean, BSONInteger }
 import scala.concurrent.duration.*
 
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi
 import lila.user.User
 
-final class RequesterApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
+final class RequesterApi(coll: Coll)(using scala.concurrent.ExecutionContext):
 
   private val formatter = format.DateTimeFormat forPattern "yyyy-MM-dd"
 

@@ -43,8 +43,8 @@ final class MsgApi(
       case None        => threads
       case Some(found) => found :: threads.filterNot(_.isPriority)
 
-  def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
-    val userId   = User.normalize(username)
+  def convoWith(me: User, username: UserStr, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
+    val userId   = username.id
     val threadId = MsgThread.id(me.id, userId)
     val before = beforeMillis flatMap { millis =>
       Try(new DateTime(millis)).toOption
@@ -60,8 +60,8 @@ final class MsgApi(
       }
     }
 
-  def delete(me: User, username: String): Funit =
-    val threadId = MsgThread.id(me.id, User.normalize(username))
+  def delete(me: User, username: UserStr): Funit =
+    val threadId = MsgThread.id(me.id, username.id)
     colls.msg.update
       .one($doc("tid" -> threadId), $addToSet("del" -> me.id), multi = true) >>
       colls.thread.update
@@ -158,8 +158,8 @@ final class MsgApi(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
 
-  def cliMultiPost(orig: String, dests: Seq[UserId], text: String): Fu[String] =
-    userRepo named orig flatMap {
+  def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
+    userRepo byId orig flatMap {
       case None         => fuccess(s"Unknown sender $orig")
       case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
     }

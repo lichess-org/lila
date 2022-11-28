@@ -112,7 +112,7 @@ final class ReportApi(
       (candidate.isComm && candidate.suspect.user.marks.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
-    userRepo named username dmap2 Mod.apply
+    userRepo byId username dmap2 Mod.apply
 
   def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
   def getLichessReporter: Fu[Reporter] =
@@ -121,7 +121,7 @@ final class ReportApi(
     }
 
   def getSuspect(username: String): Fu[Option[Suspect]] =
-    userRepo named username dmap2 Suspect.apply
+    userRepo byId username dmap2 Suspect.apply
 
   def autoAltPrintReport(userId: UserId): Funit =
     coll.exists(

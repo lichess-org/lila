@@ -43,7 +43,7 @@ final private class TutorBuilder(
   val maxTime = fishnet.maxTime + 3.minutes
 
   def apply(userId: UserId): Fu[Option[TutorFullReport]] = for {
-    user <- userRepo named userId orFail s"No such user $userId"
+    user <- userRepo byId userId orFail s"No such user $userId"
     // hasFresh <- hasFreshReport(user)
     // hasFresh <- fuFalse
     // report <- !hasFresh ?? {

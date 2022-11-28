@@ -32,7 +32,7 @@ object Notification:
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
 
   opaque type Notifies = String // the user being notified
-  object Notifies extends OpaqueString[Notifies]
+  object Notifies extends OpaqueUserId[Notifies]
 
   opaque type NotificationRead = Boolean
   object NotificationRead extends YesNo[NotificationRead]

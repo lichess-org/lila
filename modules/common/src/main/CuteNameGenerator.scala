@@ -4,17 +4,15 @@ package lila.common
 // this is used by /class
 object CuteNameGenerator:
 
-  type CuteName = String
-
-  def make(maxSize: Int = 20, triesLeft: Int = 100): Option[CuteName] =
+  def make(maxSize: Int = 20, triesLeft: Int = 100): Option[UserName] =
     val name = makeForSure
-    if (name.sizeIs <= maxSize) name.some
+    if (name.value.sizeIs <= maxSize) name.some
     else if (triesLeft <= 0) none
     else make(maxSize, triesLeft - 1)
 
-  def makeForSure: CuteName = anyOf(combinations).map(anyOf).mkString
+  def makeForSure: UserName = UserName(anyOf(combinations).map(anyOf).mkString)
 
-  def fromSeed(seed: Int): CuteName = seedOf(seed)(combinations).map(seedOf(seed)).mkString
+  def fromSeed(seed: Int): UserName = UserName(seedOf(seed)(combinations).map(seedOf(seed)).mkString)
 
   private def anyOf[A](vec: Vector[A]): A =
     vec(lila.common.ThreadLocalRandom.nextInt(vec.size))

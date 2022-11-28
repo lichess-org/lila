@@ -150,7 +150,7 @@ object PlayerAssessment:
     PlayerAssessment(
       _id = s"${game.id}/${color.name}",
       gameId = game.id,
-      userId = ~game.player(color).userId,
+      userId = game.player(color).userId err s"PlayerAssessment $game $color no userId",
       color = color,
       assessment = assessment,
       date = DateTime.now,

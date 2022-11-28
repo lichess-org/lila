@@ -20,14 +20,14 @@ final class CoachApi(
 
   import BsonHandlers.given
 
-  def byId(id: Coach.Id): Fu[Option[Coach]] = coachColl.byId[Coach](id)
+  def byId[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Coach]] = coachColl.byId[Coach](idOf(u))
 
-  def find(username: String): Fu[Option[Coach.WithUser]] =
-    userRepo named username flatMap { _ ?? find }
+  def find(username: UserStr): Fu[Option[Coach.WithUser]] =
+    userRepo byId username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     Granter(_.Coach)(user) ?? {
-      byId(Coach.Id(user.id)) dmap {
+      byId(user.id) dmap {
         _ map withUser(user)
       }
     }

@@ -23,6 +23,8 @@ trait NewTypes:
     inline def from[M[_]](inline f: M[Impl]): M[Newtype] = f.asInstanceOf[M[Newtype]]
     inline def from[M[_], B](using sr: SameRuntime[B, Impl])(inline f: M[B]): M[Newtype] =
       f.asInstanceOf[M[Newtype]]
+    inline def from[M[_], B](inline other: TotalWrapper[B, Impl])(inline f: M[B]): M[Newtype] =
+      f.asInstanceOf[M[Newtype]]
 
     given SameRuntime[Newtype, Impl] = new:
       def apply(a: Newtype): Impl = a.asInstanceOf[Impl]

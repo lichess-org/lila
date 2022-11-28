@@ -86,7 +86,7 @@ final private class FishnetRepo(
     clientColl.primitiveOne[String](
       $or(
         "_id" $eq keyOrUser,
-        "userId" $eq lila.user.User.normalize(keyOrUser)
+        "userId" $eq UserStr(keyOrUser).id
       ),
       "_id"
     ) orFail "client not found" map { Client.Key(_) }

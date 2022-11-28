@@ -97,7 +97,7 @@ final class ClasProgressApi(
         )
       }.map {
         _.flatMap { obj =>
-          obj.string("_id") map { id =>
+          obj.getAsOpt[UserId]("_id") map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
               wins = ~obj.int("win"),
@@ -151,7 +151,7 @@ final class ClasProgressApi(
       }
       .map {
         _.flatMap { obj =>
-          obj.string(F.id) map { id =>
+          obj.getAsOpt[UserId](F.id) map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
               wins = ~obj.int("win"),

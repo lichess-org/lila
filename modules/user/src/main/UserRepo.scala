@@ -87,8 +87,8 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def optionsByIds(userIds: Seq[UserId]): Fu[List[Option[User]]] =
     coll.optionsByOrderedIds[User, UserId](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
-  def enabledById(id: UserId): Fu[Option[User]] =
-    User.noGhost(id) ?? coll.one[User](enabledSelect ++ $id(id))
+  def enabledById[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
+    User.noGhost(idOf(u)) ?? coll.one[User](enabledSelect ++ $id(u))
 
   def isEnabled(id: UserId): Fu[Boolean] =
     User.noGhost(id) ?? coll.exists(enabledSelect ++ $id(id))
@@ -195,7 +195,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def setManagedUserInitialPerfs(id: UserId) =
     coll.updateField($id(id), F.perfs, Perfs.defaultManaged).void
 
-  def setPerf(userId: String, pt: PerfType, perf: Perf) =
+  def setPerf(userId: UserId, pt: PerfType, perf: Perf) =
     coll.updateField($id(userId), s"${F.perfs}.${pt.key}", perf).void
 
   def addStormRun  = addStormLikeRun("storm")
@@ -356,7 +356,7 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 
-  def isKid(id: UserId) = coll.exists($id(id) ++ $doc(F.kid -> true))
+  def isKid[U: UserIdOf](id: U) = coll.exists($id(id) ++ $doc(F.kid -> true))
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 

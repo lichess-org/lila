@@ -10,6 +10,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.Bearer
 import lila.common.Form.*
+import lila.common.Json.given
 import lila.common.{ SecureRandom, ThreadLocalRandom }
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
@@ -25,7 +26,7 @@ case class ExternalEngine(
     officialStockfish: Boolean, // Admissible for cloud evals
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
-    userId: UserId,              // The user it has been registered for
+    userId: UserId,               // The user it has been registered for
     clientSecret: String          // Secret unique id of the registration
 ) {}
 

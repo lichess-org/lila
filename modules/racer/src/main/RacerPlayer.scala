@@ -9,22 +9,22 @@ case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, score: Int):
   import RacerPlayer.Id
 
   lazy val userId: Option[UserId] = id match
-    case Id.User(name) => User.normalize(name).some
+    case Id.User(name) => name.id.some
     case _             => none
 
   lazy val name: String = id match
-    case Id.User(n)  => n
+    case Id.User(n)  => n.value
     case Id.Anon(id) => CuteNameGenerator fromSeed id.hashCode
 
 object RacerPlayer:
   sealed trait Id
   object Id:
-    case class User(name: String)      extends Id
+    case class User(name: UserName)    extends Id
     case class Anon(sessionId: String) extends Id
     def apply(str: String) =
       if (str startsWith "@") Anon(str drop 1)
-      else User(str)
+      else User(UserName(str))
 
-  val lichess = Id.User("Lichess")
+  val lichess = Id.User(User.lichessName)
 
   def make(id: Id) = RacerPlayer(id = id, score = 0, createdAt = DateTime.now)

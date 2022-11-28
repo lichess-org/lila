@@ -24,6 +24,9 @@ trait Handlers:
   ): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
 
+  inline given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
+    inline def writeTry(u: U) = writer.writeTry(idOf(u))
+
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
     v => BSONDateTime(v.getMillis)

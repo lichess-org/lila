@@ -40,7 +40,7 @@ case class User(
 
   def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
-  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
+  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
   def realLang = lang flatMap Lang.get
 
@@ -138,11 +138,6 @@ object User:
 
   given UserIdOf[User] = _.id
 
-  opaque type KidId = String
-  object KidId extends OpaqueUserId[KidId]
-  opaque type NonKidId = String
-  object NonKidId extends OpaqueUserId[NonKidId]
-
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck):
     import LoginCandidate.*
@@ -214,15 +209,14 @@ object User:
       roles: Option[List[String]],
       createdAt: DateTime
   ):
-    def id                       = _id
-    def isKid                    = ~kid
-    def isTroll                  = marks.exists(_.troll)
-    def isVerified               = roles.exists(_ contains "ROLE_VERIFIED")
-    def isApiHog                 = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)     = createdAt isBefore DateTime.now.minusDays(days)
-    def isHoursOld(hours: Int)   = createdAt isBefore DateTime.now.minusHours(hours)
-    def clasId: KidId | NonKidId = if (isKid) id.into(KidId) else id.into(NonKidId)
-    def isLichess                = _id == User.lichessId
+    def id                     = _id
+    def isKid                  = ~kid
+    def isTroll                = marks.exists(_.troll)
+    def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
+    def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
+    def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
+    def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
+    def isLichess              = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
     def userIds = List(orig.id, dest.id)

@@ -120,7 +120,7 @@ final class LiveStreamApi(
     all.map { live =>
       Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
     }
-  def userIds                                       = userIdsCache
+  def userIds                                      = userIdsCache
   def isStreaming(userId: UserId)                  = userIdsCache contains userId
   def one(userId: UserId): Fu[Option[Stream]]      = all.map(_.streams.find(_ is userId))
   def many(userIds: Seq[UserId]): Fu[List[Stream]] = all.map(_.streams.filter(s => userIds.exists(s.is)))

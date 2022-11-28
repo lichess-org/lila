@@ -53,4 +53,4 @@ object RageSit extends OpaqueInt[RageSit]:
       case _                     => 2
   }
 
-case class SittingDetected(game: Game, userId: String)
+case class SittingDetected(game: Game, userId: UserId)
