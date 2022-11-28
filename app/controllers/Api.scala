@@ -337,7 +337,7 @@ final class Api(
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)() { req => me =>
       val max = me.fold(300) { u => if (u.id == "lichess4545") 900 else 500 }
-      withIdsFromReqBody[lila.user.User.ID](req, max, identity) { ids =>
+      withIdsFromReqBody[UserId](req, max, identity) { ids =>
         GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           addKeepAlive(
             env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
@@ -511,7 +511,7 @@ final class Api(
     ttl = 1.hour,
     maxConcurrency = 2
   )
-  private[controllers] val GlobalConcurrencyLimitUser = new lila.memo.ConcurrencyLimit[lila.user.User.ID](
+  private[controllers] val GlobalConcurrencyLimitUser = new lila.memo.ConcurrencyLimit[UserId](
     name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,

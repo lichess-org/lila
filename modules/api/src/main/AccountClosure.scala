@@ -65,7 +65,7 @@ final class AccountClosure(
       }
     } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
-  private def lichessClose(userId: User.ID) =
+  private def lichessClose(userId: UserId) =
     userRepo.lichessAnd(userId) flatMap {
       _ ?? { case (lichess, user) => close(user, lichess) }
     }

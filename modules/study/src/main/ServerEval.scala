@@ -24,7 +24,7 @@ object ServerEval:
 
     private val onceEvery = lila.memo.OnceEvery[StudyChapterId](5 minutes)
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID, unlimited: Boolean = false): Funit =
+    def apply(study: Study, chapter: Chapter, userId: UserId, unlimited: Boolean = false): Funit =
       chapter.serverEval.fold(true) { eval =>
         !eval.done && onceEvery(chapter.id)
       } ?? {

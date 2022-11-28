@@ -41,7 +41,7 @@ final class PoolApi(
       case _ =>
     }
 
-  def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
+  def leave(poolId: PoolConfig.Id, userId: UserId) = sendTo(poolId, Leave(userId))
 
   def socketIds(ids: Sris) = actors.values.foreach(_ ! ids)
 
@@ -51,12 +51,12 @@ final class PoolApi(
 object PoolApi:
 
   case class Joiner(
-      userId: User.ID,
+      userId: UserId,
       sri: Sri,
       rating: IntRating,
       ratingRange: Option[RatingRange],
       lame: Boolean,
-      blocking: Set[User.ID]
+      blocking: Set[UserId]
   ):
 
     def is(member: PoolMember) = userId == member.userId

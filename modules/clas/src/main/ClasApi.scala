@@ -86,7 +86,7 @@ final class ClasApi(
             )
         }
 
-    def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
+    def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
       studentCache.isStudent(student) ?? colls.student
         .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
           import framework.*
@@ -163,7 +163,7 @@ final class ClasApi(
         .cursor[Student]()
         .list(500)
 
-    def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
+    def clasIdsOfUser(userId: UserId): Fu[List[Clas.Id]] =
       coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
 
     def count(clasId: Clas.Id): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
@@ -184,7 +184,7 @@ final class ClasApi(
         }
       }
 
-    def get(clas: Clas, userId: User.ID): Fu[Option[Student]] =
+    def get(clas: Clas, userId: UserId): Fu[Option[Student]] =
       coll.one[Student]($id(Student.id(userId, clas.id)))
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
@@ -280,7 +280,7 @@ final class ClasApi(
     def closeAccount(s: Student.WithUser): Funit =
       coll.delete.one($id(s.student.id)).void
 
-    private[ClasApi] def sendWelcomeMessage(teacherId: User.ID, student: User, clas: Clas): Funit =
+    private[ClasApi] def sendWelcomeMessage(teacherId: UserId, student: User, clas: Clas): Funit =
       msgApi
         .post(
           orig = teacherId,

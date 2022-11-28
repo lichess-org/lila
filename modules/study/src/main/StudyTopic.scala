@@ -64,7 +64,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }
 
-  def findLike(str: String, myId: Option[User.ID], nb: Int = 10): Fu[StudyTopics] = {
+  def findLike(str: String, myId: Option[UserId], nb: Int = 10): Fu[StudyTopics] = {
     (str.lengthIs >= 2) ?? {
       val favsFu: Fu[List[StudyTopic]] =
         myId.?? { userId =>
@@ -86,7 +86,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     }
   } dmap StudyTopics.apply
 
-  def userTopics(userId: User.ID): Fu[StudyTopics] =
+  def userTopics(userId: UserId): Fu[StudyTopics] =
     userTopicRepo.coll {
       _.primitiveOne[List[StudyTopic]]($id(userId), "topics")
         .dmap(_.fold(StudyTopics.empty)(StudyTopics.apply))
@@ -110,7 +110,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       )
     }.void
 
-  def userTopicsAdd(userId: User.ID, topics: StudyTopics): Funit =
+  def userTopicsAdd(userId: UserId, topics: StudyTopics): Funit =
     topics.value.nonEmpty ?? userTopics(userId).flatMap { prev =>
       val newTopics = prev ++ topics
       (newTopics != prev) ??

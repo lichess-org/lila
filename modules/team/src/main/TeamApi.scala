@@ -201,7 +201,7 @@ final class TeamApi(
     cached.nbRequests invalidate team.createdBy
   }
 
-  def deleteRequestsByUserId(userId: User.ID) =
+  def deleteRequestsByUserId(userId: UserId) =
     requestRepo.getByUserId(userId) flatMap {
       _.map { request =>
         requestRepo.remove(request.id) >>
@@ -228,7 +228,7 @@ final class TeamApi(
       teamRepo.coll.byIds[Team, TeamId](_, ReadPreference.secondaryPreferred)
     }
 
-  def quit(team: Team, userId: User.ID): Funit =
+  def quit(team: Team, userId: UserId): Funit =
     memberRepo.remove(team.id, userId) flatMap { res =>
       (res.n == 1) ?? {
         teamRepo.incMembers(team.id, -1) >>
@@ -239,7 +239,7 @@ final class TeamApi(
       }
     }
 
-  def quitAllOnAccountClosure(userId: User.ID): Fu[List[TeamId]] =
+  def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] =
     cached.teamIdsList(userId) flatMap { teamIds =>
       memberRepo.removeByUser(userId) >>
         requestRepo.removeByUser(userId) >>
@@ -247,9 +247,9 @@ final class TeamApi(
         cached.invalidateTeamIds(userId) inject teamIds
     }
 
-  def searchMembers(teamId: TeamId, term: String, nb: Int): Fu[List[User.ID]] =
+  def searchMembers(teamId: TeamId, term: String, nb: Int): Fu[List[UserId]] =
     User.validateId(term) ?? { valid =>
-      memberRepo.coll.primitive[User.ID](
+      memberRepo.coll.primitive[UserId](
         selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith valid),
         sort = $sort desc "user",
         nb = nb,
@@ -257,7 +257,7 @@ final class TeamApi(
       )
     }
 
-  def kick(team: Team, userId: User.ID, me: User): Funit =
+  def kick(team: Team, userId: UserId, me: User): Funit =
     (userId != team.createdBy) ?? {
       quit(team, userId) >>
         (!team.leaders(me.id)).?? {
@@ -279,12 +279,12 @@ final class TeamApi(
           users
             .map(_.value.toLowerCase.trim)
             .toSet
-        case _ => Set.empty[User.ID]
+        case _ => Set.empty[UserId]
     }
   } getOrElse Set.empty
 
   def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit =
-    val leaders: Set[User.ID] = parseTagifyInput(json) take 30
+    val leaders: Set[UserId] = parseTagifyInput(json) take 30
     for {
       allIds               <- memberRepo.filterUserIdsInTeam(team.id, leaders)
       idsNoKids            <- userRepo.filterNotKid(allIds.toSeq)
@@ -304,7 +304,7 @@ final class TeamApi(
       }
     } yield ()
 
-  def isLeaderOf(leader: User.ID, member: User.ID) =
+  def isLeaderOf(leader: UserId, member: UserId) =
     cached.teamIdsList(member) flatMap { teamIds =>
       teamIds.nonEmpty ?? teamRepo.coll.exists($inIds(teamIds) ++ $doc("leaders" -> leader))
     }
@@ -332,13 +332,13 @@ final class TeamApi(
         (indexer ! RemoveTeam(team.id))
       }
 
-  def syncBelongsTo(teamId: TeamId, userId: User.ID): Boolean =
+  def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId) contains teamId
 
-  def belongsTo(teamId: TeamId, userId: User.ID): Fu[Boolean] =
+  def belongsTo(teamId: TeamId, userId: UserId): Fu[Boolean] =
     cached.teamIds(userId).dmap(_ contains teamId)
 
-  def leads(teamId: TeamId, userId: User.ID): Fu[Boolean] =
+  def leads(teamId: TeamId, userId: UserId): Fu[Boolean] =
     teamRepo.leads(teamId, userId)
 
   def filterExistingIds(ids: Set[TeamId]): Fu[Set[TeamId]] =

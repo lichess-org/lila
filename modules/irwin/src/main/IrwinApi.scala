@@ -49,7 +49,7 @@ final class IrwinApi(
     def get(user: User): Fu[Option[IrwinReport]] =
       get(user.id)
 
-    def get(userId: User.ID): Fu[Option[IrwinReport]] =
+    def get(userId: UserId): Fu[Option[IrwinReport]] =
       reportColl.byId[IrwinReport](userId)
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] =
@@ -64,7 +64,7 @@ final class IrwinApi(
         }
       }
 
-    private def getSuspect(suspectId: User.ID) =
+    private def getSuspect(suspectId: UserId) =
       userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =

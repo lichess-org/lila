@@ -100,7 +100,7 @@ final class StreamerApi(
         modChange
       }
 
-  def demote(userId: User.ID): Funit =
+  def demote(userId: UserId): Funit =
     coll.update
       .one(
         $id(userId),

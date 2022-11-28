@@ -89,7 +89,7 @@ $regards
 """
     )
 
-  def onFishnetKey(userId: User.ID, key: String): Funit =
+  def onFishnetKey(userId: UserId, key: String): Funit =
     sendAsPrivateMessageAndEmail(userId)(
       subject = _ => "Your private fishnet key",
       body = _ => s"""Hello,
@@ -137,7 +137,7 @@ $regards
       }
     }
 
-  def onPatronNew(userId: User.ID): Funit =
+  def onPatronNew(userId: UserId): Funit =
     userRepo named userId map {
       _ foreach { user =>
         alsoSendAsPrivateMessage(user)(
@@ -150,7 +150,7 @@ As a small token of our thanks, your account now has the awesome Patron wings!""
       }
     }
 
-  def onPatronStop(userId: User.ID): Funit =
+  def onPatronStop(userId: UserId): Funit =
     userRepo named userId map {
       _ foreach { user =>
         alsoSendAsPrivateMessage(user)(
@@ -164,7 +164,7 @@ To make a new donation, head to $baseUrl/patron"""
       }
     }
 
-  def onPatronGift(from: User.ID, to: User.ID, lifetime: Boolean): Funit =
+  def onPatronGift(from: UserId, to: UserId, lifetime: Boolean): Funit =
     userRepo.pair(from, to) map {
       _ foreach { case (from, to) =>
         val wings =
@@ -180,7 +180,7 @@ To make a new donation, head to $baseUrl/patron"""
     }
 
   private[mailer] def dailyCorrespondenceNotice(
-      userId: User.ID,
+      userId: UserId,
       opponents: List[CorrespondenceOpponent]
   ): Funit =
     userRepo withEmails userId flatMap {

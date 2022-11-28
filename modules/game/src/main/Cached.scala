@@ -13,15 +13,15 @@ final class Cached(
     mongoCache: MongoCache.Api
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache.get(userId)
+  def nbImportedBy(userId: UserId): Fu[Int] = nbImportedCache.get(userId)
   export nbImportedCache.invalidate as clearNbImportedByCache
   export nbPlayingCache.get as nbPlaying
 
   def nbTotal: Fu[Long] = nbTotalCache.get {}
 
-  def lastPlayedPlayingId(userId: User.ID): Fu[Option[GameId]] = lastPlayedPlayingIdCache get userId
+  def lastPlayedPlayingId(userId: UserId): Fu[Option[GameId]] = lastPlayedPlayingIdCache get userId
 
-  private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[GameId]]] =
+  private val lastPlayedPlayingIdCache: LoadingCache[UserId, Fu[Option[GameId]]] =
     CacheApi.scaffeineNoScheduler
       .expireAfterWrite(11 seconds)
       .build(gameRepo.lastPlayedPlayingId)
@@ -30,14 +30,14 @@ final class Cached(
     game.userIds foreach lastPlayedPlayingIdCache.invalidate
   }
 
-  private val nbPlayingCache = cacheApi[User.ID, Int](256, "game.nbPlaying") {
+  private val nbPlayingCache = cacheApi[UserId, Int](256, "game.nbPlaying") {
     _.expireAfterWrite(15 seconds)
       .buildAsyncFuture { userId =>
         gameRepo.coll.countSel(Query nowPlaying userId)
       }
   }
 
-  private val nbImportedCache = mongoCache[User.ID, Int](
+  private val nbImportedCache = mongoCache[UserId, Int](
     4096,
     "game:imported",
     30 days,

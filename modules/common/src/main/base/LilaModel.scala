@@ -9,8 +9,15 @@ trait LilaModel extends NewTypes:
   object Percent:
     def toInt[A](a: A)(using p: Percent[A]) = Math.round(p(a)).toInt // round to closest
 
+  trait IsUserId[U]:
+    def apply(a: U): UserId
+    extension (a: UserId) inline def is[U](other: U)(using uid: IsUserId[U]) = a == uid(other)
+
   opaque type UserId = String
-  object UserId extends OpaqueString[UserId]
+  object UserId extends OpaqueString[UserId]:
+    given IsUserId[UserId]                                                   = _.value
+    extension (a: UserId) inline def is[U](other: U)(using uid: IsUserId[U]) = a == uid(other)
+    inline def fromStr(inline s: String): UserId                             = s.toLowerCase
 
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
@@ -18,7 +25,8 @@ trait LilaModel extends NewTypes:
 
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
-    extension (n: UserName) def id = UserId(n.value.toLowerCase)
+    given IsUserId[UserName]              = _.id
+    extension (n: UserName) inline def id = UserId(n.value.toLowerCase)
 
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]

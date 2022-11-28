@@ -21,13 +21,13 @@ final class EntryApi(
 
   private val projection = $doc("users" -> false)
 
-  def userEntries(userId: User.ID): Fu[Vector[Entry]] =
+  def userEntries(userId: UserId): Fu[Vector[Entry]] =
     userEntries(userId, userMax) flatMap broadcast.interleave
 
-  def moreUserEntries(userId: User.ID, nb: Max): Fu[Vector[Entry]] =
+  def moreUserEntries(userId: UserId, nb: Max): Fu[Vector[Entry]] =
     userEntries(userId, nb) flatMap broadcast.interleave
 
-  private def userEntries(userId: User.ID, max: Max): Fu[Vector[Entry]] =
+  private def userEntries(userId: UserId, max: Max): Fu[Vector[Entry]] =
     (max.value > 0) ?? coll
       .find(
         $doc(
@@ -50,7 +50,7 @@ final class EntryApi(
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .vector(max.value)
 
-  def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
+  def channelUserIdRecentExists(channel: String, userId: UserId): Fu[Boolean] =
     coll.countSel(
       $doc(
         "users" -> userId,
@@ -64,7 +64,7 @@ final class EntryApi(
 
   // can't remove from capped collection,
   // so we set a date in the past instead.
-  private[timeline] def removeRecentFollowsBy(userId: User.ID): Funit =
+  private[timeline] def removeRecentFollowsBy(userId: UserId): Funit =
     coll.update
       .one(
         $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),

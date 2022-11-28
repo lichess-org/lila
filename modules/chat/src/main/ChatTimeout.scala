@@ -37,7 +37,7 @@ final class ChatTimeout(
           ) inject true
     }
 
-  def isActive(chatId: ChatId, userId: User.ID): Fu[Boolean] =
+  def isActive(chatId: ChatId, userId: UserId): Fu[Boolean] =
     fuccess(global.get(UserId(userId))) >>| coll.exists(
       $doc(
         "chat" -> chatId,
@@ -98,4 +98,4 @@ object ChatTimeout:
     )(TimeoutFormData.apply)(unapply)
   )
 
-  case class TimeoutFormData(roomId: RoomId, chan: String, userId: User.ID, reason: String, text: String)
+  case class TimeoutFormData(roomId: RoomId, chan: String, userId: UserId, reason: String, text: String)

@@ -55,7 +55,7 @@ ${trans.common_orPaste.txt()}
       }
     }
 
-  case class TokenPayload(userId: User.ID, email: EmailAddress)
+  case class TokenPayload(userId: UserId, email: EmailAddress)
 
   private given StringToken.Serializable[Option[TokenPayload]] with
     private val sep = ' '

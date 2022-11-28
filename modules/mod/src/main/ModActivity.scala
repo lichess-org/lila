@@ -149,7 +149,7 @@ object ModActivity:
 
   sealed abstract class Who(val key: String)
   object Who:
-    case class Me(userId: User.ID) extends Who("me")
+    case class Me(userId: UserId) extends Who("me")
     case object Team               extends Who("team")
     def apply(who: String, me: User) =
       if (who == "me") Me(me.id) else Team

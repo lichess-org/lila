@@ -146,4 +146,4 @@ final class GameStateStream(
 private object GameStateStream:
 
   private case object SetOnline
-  private case class User(id: lila.user.User.ID, isBot: Boolean)
+  private case class User(id: UserId, isBot: Boolean)

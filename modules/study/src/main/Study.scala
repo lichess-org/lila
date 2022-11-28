@@ -10,7 +10,7 @@ case class Study(
     name: StudyName,
     members: StudyMembers,
     position: Position.Ref,
-    ownerId: User.ID,
+    ownerId: UserId,
     visibility: Study.Visibility,
     settings: Settings,
     from: Study.From,
@@ -27,13 +27,13 @@ case class Study(
 
   def owner = members get ownerId
 
-  def isOwner(id: User.ID) = ownerId == id
+  def isOwner(id: UserId) = ownerId == id
 
-  def isMember(id: User.ID) = members contains id
+  def isMember(id: UserId) = members contains id
 
-  def canChat(id: User.ID) = Settings.UserSelection.allows(settings.chat, this, id.some)
+  def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
-  def canContribute(id: User.ID) =
+  def canContribute(id: UserId) =
     isOwner(id) || members.get(id).exists(_.canContribute) || id == User.lichessId
 
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
@@ -144,7 +144,7 @@ object Study:
 
   case class WithLiked(study: Study, liked: Boolean)
 
-  case class LightStudy(isPublic: Boolean, contributors: Set[User.ID])
+  case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
 
   def makeId = StudyId(lila.common.ThreadLocalRandom nextString 8)
 

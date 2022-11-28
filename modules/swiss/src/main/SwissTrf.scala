@@ -106,7 +106,7 @@ final class SwissTrf(
             )
           }
           .map {
-            ~_.flatMap(_.getAsOpt[List[User.ID]]("us"))
+            ~_.flatMap(_.getAsOpt[List[UserId]]("us"))
           }
           .map {
             _.view.zipWithIndex

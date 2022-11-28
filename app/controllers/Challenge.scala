@@ -270,7 +270,7 @@ final class Challenge(
     key = "challenge.bot.create.ip"
   )
 
-  private val ChallengeUserRateLimit = lila.memo.RateLimit.composite[lila.user.User.ID](
+  private val ChallengeUserRateLimit = lila.memo.RateLimit.composite[UserId](
     key = "challenge.create.user"
   )(
     ("fast", 5 * 5, 1.minute),

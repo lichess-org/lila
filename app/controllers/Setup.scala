@@ -43,7 +43,7 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[lila.user.User.ID](
+  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[UserId](
     50,
     1.day,
     key = "setup.post.bot.ai"

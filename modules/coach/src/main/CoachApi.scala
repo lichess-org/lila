@@ -174,7 +174,7 @@ final class CoachApi(
     def allByPoster(user: User): Fu[CoachReview.Reviews] =
       findRecent($doc("userId" -> user.id))
 
-    def deleteAllBy(userId: User.ID): Funit =
+    def deleteAllBy(userId: UserId): Funit =
       for {
         reviews <- reviewColl.list[CoachReview]($doc("userId" -> userId))
         _ <- reviews.map { review =>

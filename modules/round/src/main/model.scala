@@ -14,8 +14,8 @@ final class OnStart(f: GameId => Unit) extends (GameId => Unit):
 final class TellRound(f: (GameId, Any) => Unit) extends ((GameId, Any) => Unit):
   def apply(g: GameId, msg: Any) = f(g, msg)
 
-final class IsSimulHost(f: User.ID => Fu[Boolean]) extends (User.ID => Fu[Boolean]):
-  def apply(u: User.ID) = f(u)
+final class IsSimulHost(f: UserId => Fu[Boolean]) extends (UserId => Fu[Boolean]):
+  def apply(u: UserId) = f(u)
 
 final private class ScheduleExpiration(f: Game => Unit) extends (Game => Unit):
   def apply(g: Game) = f(g)

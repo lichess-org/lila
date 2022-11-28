@@ -414,7 +414,7 @@ final class Study(
       }
     }
 
-  private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CloneLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 10 * 3,
     duration = 24.hour,
     key = "study.clone.user"
@@ -620,7 +620,7 @@ final class Study(
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[lila.user.User.ID]](64, "study.streamers") {
+    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(512)
         .buildAsyncFuture { studyId =>

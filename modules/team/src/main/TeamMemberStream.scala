@@ -22,7 +22,7 @@ final class TeamMemberStream(
       .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)
 
-  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[User.ID, ?] =
+  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
     idsBatches(team, perSecond, $doc("unsub" $ne true))
       .mapConcat(identity)
 
@@ -30,7 +30,7 @@ final class TeamMemberStream(
       team: Team,
       perSecond: MaxPerSecond,
       selector: Bdoc = $empty
-  ): Source[Seq[User.ID], ?] =
+  ): Source[Seq[UserId], ?] =
     memberRepo.coll
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true).some)
       .sort($sort desc "date")
@@ -38,5 +38,5 @@ final class TeamMemberStream(
       .cursor[Bdoc](temporarilyPrimary)
       .documentSource()
       .grouped(perSecond.value)
-      .map(_.flatMap(_.getAsOpt[User.ID]("user")))
+      .map(_.flatMap(_.getAsOpt[UserId]("user")))
       .throttle(1, 1 second)

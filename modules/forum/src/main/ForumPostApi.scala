@@ -198,7 +198,7 @@ final class ForumPostApi(
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
-      .distinctEasy[User.ID, List](
+      .distinctEasy[UserId, List](
         "userId",
         $doc(
           "topicId" -> topic.id,
@@ -226,7 +226,7 @@ final class ForumPostApi(
       }
     }
 
-  private def logAnonPost(userId: User.ID, post: ForumPost, edit: Boolean): Funit =
+  private def logAnonPost(userId: UserId, post: ForumPost, edit: Boolean): Funit =
     topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
         userId,

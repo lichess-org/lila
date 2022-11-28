@@ -112,7 +112,7 @@ final class PracticeApi(
     def reset(user: User) =
       coll.delete.one($id(user.id)).void
 
-    def completionPercent(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
+    def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
       coll
         .aggregateList(
           maxDocs = Int.MaxValue,

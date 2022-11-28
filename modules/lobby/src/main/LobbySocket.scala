@@ -223,7 +223,7 @@ final class LobbySocket(
     // leaving the hooks view
     case ("hookOut", _) => actor ! HookSub(member, value = false)
 
-  private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
+  private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
       userOpt ?? userRepo.enabledById flatMap { user =>
         (user ?? { u =>
@@ -302,7 +302,7 @@ private object LobbySocket:
         s"lobby/pairings ${P.Out.commas(redirs)}"
       def tellLobby(payload: JsObject)       = s"tell/lobby ${Json stringify payload}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json stringify payload}"
-      def tellLobbyUsers(userIds: Iterable[User.ID], payload: JsObject) =
+      def tellLobbyUsers(userIds: Iterable[UserId], payload: JsObject) =
         s"tell/lobby/users ${P.Out.commas(userIds)} ${Json stringify payload}"
 
   case object Cleanup

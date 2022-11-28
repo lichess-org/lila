@@ -62,7 +62,7 @@ private object AuthorizationApi:
   case class PendingAuthorization(
       hashedCode: String,
       clientId: Protocol.ClientId,
-      userId: User.ID,
+      userId: UserId,
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
       scopes: List[OAuthScope],

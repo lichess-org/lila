@@ -185,9 +185,9 @@ object teacherDashboard:
   def learn(
       c: Clas,
       students: List[Student.WithUser],
-      basicCompletion: Map[User.ID, Int],
-      practiceCompletion: Map[User.ID, Int],
-      coordScores: Map[User.ID, chess.Color.Map[Int]]
+      basicCompletion: Map[UserId, Int],
+      practiceCompletion: Map[UserId, Int],
+      coordScores: Map[UserId, chess.Color.Map[Int]]
   )(implicit ctx: Context) =
     layout(c, students, "progress")(
       progressHeader(c, none),

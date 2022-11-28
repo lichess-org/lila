@@ -21,7 +21,7 @@ private object BSONHandlers:
   import model.*
 
   val idSep                          = ':'
-  def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId$idSep"
+  def regexId(userId: UserId): Bdoc = "_id" $startsWith s"$userId$idSep"
 
   given BSONHandler[Id] = tryHandler(
     { case BSONString(v) =>

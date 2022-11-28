@@ -16,7 +16,7 @@ object side:
   def apply(
       tour: Tournament,
       verdicts: lila.tournament.Condition.All.WithVerdicts,
-      streamers: List[lila.user.User.ID],
+      streamers: List[UserId],
       shieldOwner: Option[TournamentShield.OwnerId],
       chat: Boolean
   )(implicit ctx: Context) =

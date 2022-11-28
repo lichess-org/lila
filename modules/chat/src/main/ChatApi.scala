@@ -77,7 +77,7 @@ final class ChatApi(
 
     def write(
         chatId: ChatId,
-        userId: User.ID,
+        userId: UserId,
         text: String,
         publicSource: Option[PublicSource],
         busChan: BusChan.Select,
@@ -132,8 +132,8 @@ final class ChatApi(
 
     def timeout(
         chatId: ChatId,
-        modId: User.ID,
-        userId: User.ID,
+        modId: UserId,
+        userId: UserId,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
@@ -317,14 +317,14 @@ final class ChatApi(
 
     import java.util.regex.{ Matcher, Pattern }
 
-    def preprocessUserInput(in: String, username: Option[User.ID]): Option[String] =
+    def preprocessUserInput(in: String, username: Option[UserId]): Option[String] =
       val out1 = multiline(
         spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
       )
       val out2 = username.fold(out1) { removeSelfMention(out1, _) }
       out2.take(Line.textMaxSize).some.filter(_.nonEmpty)
 
-    private def removeSelfMention(in: String, username: User.ID) =
+    private def removeSelfMention(in: String, username: UserId) =
       if (in.contains('@'))
         ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username)
       else in

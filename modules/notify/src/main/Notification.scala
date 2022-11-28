@@ -101,11 +101,11 @@ case class CorresAlarm(
 ) extends NotificationContent("corresAlarm")
 
 case class IrwinDone(
-    userId: lila.user.User.ID
+    userId: UserId
 ) extends NotificationContent("irwinDone")
 
 case class KaladinDone(
-    userId: lila.user.User.ID
+    userId: UserId
 ) extends NotificationContent("kaladinDone")
 
 case class GenericLink(

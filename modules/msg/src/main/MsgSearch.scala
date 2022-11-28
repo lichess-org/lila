@@ -34,7 +34,7 @@ final class MsgSearch(
 
   private def forKid(me: User, q: String): Fu[MsgSearch.Result] = for {
     threads  <- searchThreads(me, q)
-    allMates <- Bus.ask[Set[User.ID]]("clas") { ClasMatesAndTeachers(KidId(me.id), _) }
+    allMates <- Bus.ask[Set[UserId]]("clas") { ClasMatesAndTeachers(KidId(me.id), _) }
     lower   = q.toLowerCase
     mateIds = allMates.view.filter(_ startsWith lower).toList take 15
     mates <- lightUserApi asyncMany mateIds

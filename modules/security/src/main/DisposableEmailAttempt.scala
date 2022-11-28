@@ -22,7 +22,7 @@ final class DisposableEmailAttempt(
     }
 
   private val byId =
-    cacheApi.notLoadingSync[User.ID, Set[Attempt]](64, "security.disposableEmailAttempt.id") {
+    cacheApi.notLoadingSync[UserId, Set[Attempt]](64, "security.disposableEmailAttempt.id") {
       _.expireAfterWrite(1 day).build()
     }
 
@@ -46,4 +46,4 @@ final class DisposableEmailAttempt(
 
 private object DisposableEmailAttempt:
 
-  case class Attempt(id: User.ID, email: EmailAddress, ip: IpAddress)
+  case class Attempt(id: UserId, email: EmailAddress, ip: IpAddress)

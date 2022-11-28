@@ -16,6 +16,7 @@ import scala.collection.Factory
 
 trait Handlers:
 
+  // free handlers for all types with TotalWrapper
   inline given opaqueHandler[T, A](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],

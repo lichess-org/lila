@@ -33,7 +33,7 @@ final class RelationApi(
     }
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
-  def fetchRelations(u1: User.ID, u2: User.ID): Fu[Relations] =
+  def fetchRelations(u1: UserId, u2: UserId): Fu[Relations] =
     fetchRelation(u2, u1) zip fetchRelation(u1, u2) dmap Relations.apply
 
   export repo.{ blocking as fetchBlocking, following as fetchFollowing, freshFollowersFromSecondary }
@@ -221,5 +221,5 @@ final class RelationApi(
       }
     }
 
-  def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
+  def searchFollowedBy(u: User, term: String, max: Int): Fu[List[UserId]] =
     repo.followingLike(u.id, term) map { _ botN max } // alphabetical order

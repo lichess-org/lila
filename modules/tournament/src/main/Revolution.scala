@@ -39,7 +39,7 @@ final class RevolutionApi(
           val awards =
             for {
               doc     <- docOpt
-              winner  <- doc.getAsOpt[User.ID]("winner")
+              winner  <- doc.getAsOpt[UserId]("winner")
               variant <- doc.int("variant") flatMap Variant.apply
               id      <- doc.getAsOpt[Tournament.ID]("_id")
             } yield Award(
@@ -60,10 +60,10 @@ object Revolution:
   def is(tour: Tournament) = tour.isUnique && nameRegex.pattern.matcher(tour.name).find
 
   case class Award(
-      owner: User.ID,
+      owner: UserId,
       variant: Variant,
       tourId: Tournament.ID
   ):
     val iconChar = lila.rating.PerfType iconByVariant variant
 
-  type PerOwner = Map[User.ID, List[Award]]
+  type PerOwner = Map[UserId, List[Award]]

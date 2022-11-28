@@ -12,7 +12,7 @@ import lila.game.{ Game, Pov }
 
 final private class CorresAlarm(
     coll: Coll,
-    hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
+    hasUserId: (Game, UserId) => Fu[Boolean],
     proxyGame: GameId => Fu[Option[Game]]
 )(using
     scala.concurrent.ExecutionContext,

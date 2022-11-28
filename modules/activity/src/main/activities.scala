@@ -77,9 +77,9 @@ object activities:
   given Zero[Corres] = Zero(Corres(0, Nil, Nil))
 
   case class Patron(months: Int)
-  case class FollowList(ids: List[User.ID], nb: Option[Int]):
+  case class FollowList(ids: List[UserId], nb: Option[Int]):
     def actualNb = nb | ids.size
-    def +(id: User.ID) =
+    def +(id: UserId) =
       if (ids contains id) this
       else
         val newIds = (id :: ids).distinct
@@ -92,8 +92,8 @@ object activities:
   given Zero[Follows]    = Zero(Follows(None, None))
 
   case class Follows(in: Option[FollowList], out: Option[FollowList]):
-    def addIn(id: User.ID)  = copy(in = Some(~in + id))
-    def addOut(id: User.ID) = copy(out = Some(~out + id))
+    def addIn(id: UserId)  = copy(in = Some(~in + id))
+    def addOut(id: UserId) = copy(out = Some(~out + id))
     def isEmpty             = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
     def allUserIds          = in.??(_.ids) ::: out.??(_.ids)
 

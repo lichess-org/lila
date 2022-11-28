@@ -18,7 +18,7 @@ final private class StudyInvite(
     relationApi: lila.relation.RelationApi
 )(using ec: scala.concurrent.ExecutionContext):
 
-  private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
+  private val notifyRateLimit = new lila.memo.RateLimit[UserId](
     credits = 500,
     duration = 1 day,
     key = "study.invite.user"
@@ -27,10 +27,10 @@ final private class StudyInvite(
   private val maxMembers = 30
 
   def apply(
-      byUserId: User.ID,
+      byUserId: UserId,
       study: Study,
       invitedUsername: String,
-      getIsPresent: User.ID => Fu[Boolean]
+      getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] =
     for {
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")

@@ -7,7 +7,7 @@ import lila.user.User
 case class SwissPlayer(
     id: SwissPlayer.Id, // swissId:userId
     swissId: SwissId,
-    userId: User.ID,
+    userId: UserId,
     rating: IntRating,
     provisional: Boolean,
     points: SwissPoints,
@@ -17,7 +17,7 @@ case class SwissPlayer(
     absent: Boolean,
     byes: Set[SwissRoundNumber] // byes granted by the pairing system - the player was here
 ):
-  def is(uid: User.ID): Boolean       = uid == userId
+  def is(uid: UserId): Boolean       = uid == userId
   def is(user: User): Boolean         = is(user.id)
   def is(other: SwissPlayer): Boolean = is(other.userId)
   def present                         = !absent
@@ -32,7 +32,7 @@ object SwissPlayer:
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
-  def makeId(swissId: SwissId, userId: User.ID) = Id(s"$swissId:$userId")
+  def makeId(swissId: SwissId, userId: UserId) = Id(s"$swissId:$userId")
 
   private[swiss] def make(
       swissId: SwissId,
@@ -84,7 +84,7 @@ object SwissPlayer:
       sheet: SwissSheet
   ) extends Viewish
 
-  type PlayerMap = Map[User.ID, SwissPlayer]
+  type PlayerMap = Map[UserId, SwissPlayer]
 
   def toMap(players: List[SwissPlayer]): PlayerMap =
     players.view.map(p => p.userId -> p).toMap

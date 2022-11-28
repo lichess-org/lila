@@ -35,7 +35,7 @@ final private[timeline] class TimelinePush(
     }
   }
 
-  private def propagate(propagations: List[Propagation]): Fu[List[User.ID]] =
+  private def propagate(propagations: List[Propagation]): Fu[List[UserId]] =
     scala.concurrent.Future.traverse(propagations) {
       case Users(ids)    => fuccess(ids)
       case Followers(id) => relationApi.freshFollowersFromSecondary(id)
@@ -75,5 +75,5 @@ final private[timeline] class TimelinePush(
       Permission.SuperAdmin
     )
 
-  private def insertEntry(users: List[User.ID], data: Atom): Funit =
+  private def insertEntry(users: List[UserId], data: Atom): Funit =
     entryApi insert Entry.ForUsers(Entry.make(data), users)

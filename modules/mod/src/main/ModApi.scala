@@ -85,7 +85,7 @@ final class ModApi(
         noteApi.lichessWrite(sus.user, note)
     }
 
-  def garbageCollect(userId: User.ID): Funit = for {
+  def garbageCollect(userId: UserId): Funit = for {
     sus <- reportApi getSuspect userId orFail s"No such suspect $userId"
     mod <- reportApi.getLichessMod
     _   <- setAlt(mod, sus, v = true)

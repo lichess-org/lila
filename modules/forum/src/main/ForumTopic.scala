@@ -22,7 +22,7 @@ case class ForumTopic(
     troll: Boolean,
     closed: Boolean,
     sticky: Option[Boolean],
-    userId: Option[User.ID] = None, // only since SB mutes
+    userId: Option[UserId] = None, // only since SB mutes
     ublogId: Option[String] = None
 ):
 
@@ -80,7 +80,7 @@ object ForumTopic:
       categId: String,
       slug: String,
       name: String,
-      userId: User.ID,
+      userId: UserId,
       troll: Boolean,
       ublogId: Option[String] = None
   ): ForumTopic = ForumTopic(

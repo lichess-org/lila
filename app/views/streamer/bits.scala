@@ -77,7 +77,7 @@ object bits:
       )
     }
 
-  def contextual(userId: User.ID)(implicit lang: Lang): Frag =
+  def contextual(userId: UserId)(implicit lang: Lang): Frag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
       xIsStreaming(titleNameOrId(userId))
     )

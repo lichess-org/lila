@@ -48,7 +48,7 @@ final private[setup] class Processor(
           case Some(userId) => createSeekIfAllowed(seek, userId)
       case _ => fuccess(Refused)
 
-  def createSeekIfAllowed(seek: Seek, userId: User.ID): Fu[Processor.HookResult] =
+  def createSeekIfAllowed(seek: Seek, userId: UserId): Fu[Processor.HookResult] =
     gameCache.nbPlaying(userId) map { nbPlaying =>
       import Processor.HookResult.*
       if (nbPlaying >= lila.game.Game.maxPlaying) Refused

@@ -183,7 +183,7 @@ final class KaladinApi(
         else if (speed == Speed.Rapid) copy(rapid = rapid + nb)
         else this
       def isEnough = blitz >= minMoves || rapid >= minMoves
-    private val cache = cacheApi[User.ID, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
+    private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
       _.expireAfterWrite(1 hour).buildAsyncFuture(userId =>
         {
           import lila.game.Query
@@ -223,7 +223,7 @@ final class KaladinApi(
   private[irwin] def topOnline(suspects: List[Suspect]): Funit =
     lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
 
-  private def getSuspect(suspectId: User.ID) =
+  private def getSuspect(suspectId: UserId) =
     userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>

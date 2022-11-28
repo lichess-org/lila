@@ -142,7 +142,7 @@ final class UserApi(
     "name" -> s"${perf.trans} $name"
   )
 
-  private def addStreaming(js: JsObject, id: User.ID) =
+  private def addStreaming(js: JsObject, id: UserId) =
     js.add("streaming", liveStreamApi.isStreaming(id))
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"

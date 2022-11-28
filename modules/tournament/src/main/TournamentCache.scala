@@ -90,13 +90,13 @@ final class TournamentCache(
 
     private case class SheetKey(
         tourId: Tournament.ID,
-        userId: User.ID,
+        userId: UserId,
         variant: Variant,
         version: Sheet.Version,
         streakable: Sheet.Streakable
     )
 
-    def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
+    def apply(tour: Tournament, userId: UserId): Fu[Sheet] =
       cache.get(keyOf(tour, userId))
 
     /* This is not thread-safe! But only called from within a tournament sequencer. */
@@ -109,12 +109,12 @@ final class TournamentCache(
         next
       }
 
-    def recompute(tour: Tournament, userId: User.ID): Fu[Sheet] =
+    def recompute(tour: Tournament, userId: UserId): Fu[Sheet] =
       val key = keyOf(tour, userId)
       cache.invalidate(key)
       cache.get(key)
 
-    private def keyOf(tour: Tournament, userId: User.ID) =
+    private def keyOf(tour: Tournament, userId: UserId) =
       SheetKey(
         tour.id,
         userId,

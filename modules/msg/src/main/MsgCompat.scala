@@ -53,9 +53,9 @@ final class MsgCompat(
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
-  private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
+  private val unreadCountCache = cacheApi[UserId, Int](256, "message.unreadCount") {
     _.expireAfterWrite(10 seconds)
-      .buildAsyncFuture[User.ID, Int] { userId =>
+      .buildAsyncFuture[UserId, Int] { userId =>
         colls.thread
           .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
             import framework.*
@@ -86,7 +86,7 @@ final class MsgCompat(
 
   def create(
       me: User
-  )(implicit req: play.api.mvc.Request[?], formBinding: FormBinding): Either[Form[?], Fu[User.ID]] =
+  )(implicit req: play.api.mvc.Request[?], formBinding: FormBinding): Either[Form[?], Fu[UserId]] =
     Form(
       mapping(
         "username" -> lila.user.UserForm.historicalUsernameField
@@ -111,7 +111,7 @@ final class MsgCompat(
         }
       )
 
-  def reply(me: User, userId: User.ID)(using
+  def reply(me: User, userId: UserId)(using
       req: play.api.mvc.Request[?],
       formBinding: FormBinding
   ): Either[Form[?], Funit] =

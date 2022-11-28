@@ -36,7 +36,7 @@ object EventForm:
       "finishesAt"    -> utcDate,
       "hostedBy" -> optional {
         lila.user.UserForm.historicalUsernameField
-          .transform[User.ID](_.toLowerCase, identity)
+          .transform[UserId](_.toLowerCase, identity)
       },
       "icon"      -> stringIn(icon.choices),
       "countdown" -> boolean
@@ -64,7 +64,7 @@ object EventForm:
       enabled: Boolean,
       startsAt: DateTime,
       finishesAt: DateTime,
-      hostedBy: Option[User.ID] = None,
+      hostedBy: Option[UserId] = None,
       icon: String = "",
       countdown: Boolean
   ):

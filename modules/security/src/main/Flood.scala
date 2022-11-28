@@ -13,11 +13,11 @@ final class Flood(duration: FiniteDuration):
 
   private val floodNumber = 4
 
-  private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache: Cache[UserId, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(duration)
-    .build[User.ID, Messages]()
+    .build[UserId, Messages]()
 
-  def allowMessage(uid: User.ID, text: String): Boolean =
+  def allowMessage(uid: UserId, text: String): Boolean =
     val msg  = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(uid)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {

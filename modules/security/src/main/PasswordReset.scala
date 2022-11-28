@@ -47,7 +47,7 @@ ${trans.common_orPaste.txt()}"""),
       _.filter(_.canFullyLogin)
     }
 
-  private val tokener = new StringToken[User.ID](
+  private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
     getCurrentValue = id =>
       for {

@@ -305,14 +305,14 @@ object RoundSocket:
       case class PlayerOnlines(onlines: Iterable[(GameId, Option[RoomCrowd])])             extends P.In
       case class PlayerDo(fullId: GameFullId, tpe: String)                                 extends P.In
       case class PlayerMove(fullId: GameFullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
-      case class PlayerChatSay(gameId: GameId, userIdOrColor: Either[User.ID, Color], msg: String)
+      case class PlayerChatSay(gameId: GameId, userIdOrColor: Either[UserId, Color], msg: String)
           extends P.In
-      case class WatcherChatSay(gameId: GameId, userId: User.ID, msg: String)           extends P.In
+      case class WatcherChatSay(gameId: GameId, userId: UserId, msg: String)           extends P.In
       case class Bye(fullId: GameFullId)                                                extends P.In
       case class HoldAlert(fullId: GameFullId, ip: IpAddress, mean: Int, sd: Int)       extends P.In
       case class Flag(gameId: GameId, color: Color, fromPlayerId: Option[GamePlayerId]) extends P.In
-      case class Berserk(gameId: GameId, userId: User.ID)                               extends P.In
-      case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[User.ID], name: String)
+      case class Berserk(gameId: GameId, userId: UserId)                               extends P.In
+      case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
       case class WsLatency(millis: Int) extends P.In
 
@@ -421,8 +421,8 @@ object RoundSocket:
       def tourStanding(tourId: String, data: JsValue) =
         s"r/tour/standing $tourId ${Json stringify data}"
 
-      def startGame(users: List[User.ID]) = s"r/start ${P.Out.commas(users)}"
-      def finishGame(gameId: GameId, winner: Option[Color], users: List[User.ID]) =
+      def startGame(users: List[UserId]) = s"r/start ${P.Out.commas(users)}"
+      def finishGame(gameId: GameId, winner: Option[Color], users: List[UserId]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
 
       def versioningReady = "r/versioning-ready"

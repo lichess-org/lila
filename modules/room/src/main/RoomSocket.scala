@@ -50,7 +50,7 @@ object RoomSocket:
       chat: ChatApi,
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
-      localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None,
+      localTimeout: Option[(RoomId, UserId, UserId) => Fu[Boolean]] = None,
       chatBusChan: BusChan.Select
   )(using ExecutionContext): Handler =
     ({
@@ -146,9 +146,9 @@ object RoomSocket:
         s"tell/room $roomId ${Json stringify payload}"
       def tellRoomVersion(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
         s"tell/room/version $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"
-      def tellRoomUser(roomId: RoomId, userId: User.ID, payload: JsObject) =
+      def tellRoomUser(roomId: RoomId, userId: UserId, payload: JsObject) =
         s"tell/room/user $roomId $userId ${Json stringify payload}"
-      def tellRoomUsers(roomId: RoomId, userIds: Iterable[User.ID], payload: JsObject) =
+      def tellRoomUsers(roomId: RoomId, userIds: Iterable[UserId], payload: JsObject) =
         s"tell/room/users $roomId ${P.Out.commas(userIds)} ${Json stringify payload}"
       def tellRoomChat(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
         s"tell/room/chat $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"

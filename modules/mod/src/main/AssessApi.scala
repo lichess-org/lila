@@ -32,10 +32,10 @@ final class AssessApi(
   private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
 
-  def getPlayerAssessmentById(id: User.ID) =
+  def getPlayerAssessmentById(id: UserId) =
     assessRepo.coll.byId[PlayerAssessment](id)
 
-  private def getPlayerAssessmentsByUserId(userId: User.ID, nb: Int) =
+  private def getPlayerAssessmentsByUserId(userId: UserId, nb: Int) =
     assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($sort desc "date")
@@ -43,7 +43,7 @@ final class AssessApi(
       .list(nb)
 
   private def getPlayerAggregateAssessment(
-      userId: User.ID,
+      userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
     userRepo byId userId flatMap {
@@ -107,7 +107,7 @@ final class AssessApi(
         }
 
   def getPlayerAggregateAssessmentWithGames(
-      userId: User.ID,
+      userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment.WithGames]] =
     getPlayerAggregateAssessment(userId, nb) flatMap {
@@ -149,7 +149,7 @@ final class AssessApi(
       }
     }
 
-  def assessUser(userId: User.ID): Funit =
+  def assessUser(userId: UserId): Funit =
     getPlayerAggregateAssessment(userId) flatMap {
       _ ?? { playerAggregateAssessment =>
         playerAggregateAssessment.action match

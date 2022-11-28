@@ -37,7 +37,7 @@ final class SimulApi(
 
   export repo.{ find, byIds, byTeamLeaders }
 
-  private val currentHostIdsCache = cacheApi.unit[Set[User.ID]] {
+  private val currentHostIdsCache = cacheApi.unit[Set[UserId]] {
     _.refreshAfterWrite(5 minutes)
       .buildAsyncFuture { _ =>
         repo.allStarted dmap (_.view.map(_.hostId).toSet)

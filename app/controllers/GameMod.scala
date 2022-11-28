@@ -113,7 +113,7 @@ object GameMod:
       opponents: Option[String],
       nbGamesOpt: Option[Int]
   ):
-    def opponentIds: List[lila.user.User.ID] =
+    def opponentIds: List[UserId] =
       (~opponents)
         .take(800)
         .replace(",", " ")

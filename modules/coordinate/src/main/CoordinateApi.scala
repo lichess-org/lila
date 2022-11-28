@@ -11,10 +11,10 @@ final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionC
 
   private given BSONDocumentHandler[Score] = Macros.handler[Score]
 
-  def getScore(userId: User.ID): Fu[Score] =
-    scoreColl.byId[Score](userId) map (_ | Score(userId))
+  def getScore(userId: UserId): Fu[Score] =
+    scoreColl.byId[Score](userId).dmap(_ | Score(userId))
 
-  def addScore(userId: User.ID, mode: CoordMode, color: Color, hits: Int): Funit =
+  def addScore(userId: UserId, mode: CoordMode, color: Color, hits: Int): Funit =
     scoreColl.update
       .one(
         $id(userId),
@@ -30,7 +30,7 @@ final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionC
       )
       .void
 
-  def bestScores(userIds: List[User.ID]): Fu[Map[User.ID, Color.Map[Int]]] =
+  def bestScores(userIds: List[UserId]): Fu[Map[UserId, Color.Map[Int]]] =
     scoreColl
       .aggregateList(
         maxDocs = Int.MaxValue,

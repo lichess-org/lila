@@ -7,7 +7,7 @@ import lila.user.User
 private[tournament] case class Player(
     _id: TourPlayerId, // random
     tourId: Tournament.ID,
-    userId: User.ID,
+    userId: UserId,
     rating: IntRating,
     provisional: Boolean,
     withdraw: Boolean = false,
@@ -21,7 +21,7 @@ private[tournament] case class Player(
 
   def active = !withdraw
 
-  def is(uid: User.ID): Boolean  = uid == userId
+  def is(uid: UserId): Boolean  = uid == userId
   def is(user: User): Boolean    = is(user.id)
   def is(other: Player): Boolean = is(other.userId)
 

@@ -13,7 +13,7 @@ import lila.user.User
 case class ClasProgress(
     perfType: PerfType,
     days: Int,
-    students: Map[User.ID, StudentProgress]
+    students: Map[UserId, StudentProgress]
 ):
   def apply(user: User) =
     students.getOrElse(
@@ -73,7 +73,7 @@ final class ClasProgressApi(
       )
     }
 
-  private def getPuzzleStats(userIds: List[User.ID], days: Int): Fu[Map[User.ID, PlayStats]] =
+  private def getPuzzleStats(userIds: List[UserId], days: Int): Fu[Map[UserId, PlayStats]] =
     puzzleColls.round {
       _.aggregateList(
         maxDocs = Int.MaxValue,
@@ -110,9 +110,9 @@ final class ClasProgressApi(
 
   private def getGameStats(
       perfType: PerfType,
-      userIds: List[User.ID],
+      userIds: List[UserId],
       days: Int
-  ): Fu[Map[User.ID, PlayStats]] =
+  ): Fu[Map[UserId, PlayStats]] =
     import Game.{ BSONFields as F }
     import lila.game.Query
     gameRepo.coll

@@ -7,8 +7,8 @@ import lila.user.User
 
 case class Charge(
     _id: String, // random
-    userId: Option[User.ID],
-    giftTo: Option[User.ID] = none,
+    userId: Option[UserId],
+    giftTo: Option[UserId] = none,
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPalLegacy] = none,
     payPalCheckout: Option[Charge.PayPalCheckout] = none,
@@ -34,8 +34,8 @@ case class Charge(
 object Charge:
 
   def make(
-      userId: Option[User.ID],
-      giftTo: Option[User.ID],
+      userId: Option[UserId],
+      giftTo: Option[UserId],
       stripe: Option[Charge.Stripe] = none,
       payPal: Option[Charge.PayPalLegacy] = none,
       payPalCheckout: Option[Charge.PayPalCheckout] = none,
@@ -73,4 +73,4 @@ object Charge:
       subscriptionId: Option[PayPalSubscriptionId]
   )
 
-  case class Gift(from: User.ID, to: User.ID, date: DateTime)
+  case class Gift(from: UserId, to: UserId, date: DateTime)

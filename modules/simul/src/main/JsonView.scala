@@ -125,7 +125,7 @@ final class JsonView(
       )
     }
 
-  private def gameJson(hostId: User.ID, g: Game) =
+  private def gameJson(hostId: UserId, g: Game) =
     Json
       .obj(
         "id"       -> g.id,

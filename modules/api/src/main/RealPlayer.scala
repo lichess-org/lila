@@ -53,7 +53,7 @@ final class RealPlayerApi(
       User.normalize(id) -> RealPlayer(name = n, rating = r)
     }
 
-case class RealPlayers(players: Map[User.ID, RealPlayer]):
+case class RealPlayers(players: Map[UserId, RealPlayer]):
 
   def update(game: lila.game.Game, pgn: Pgn) =
     pgn.copy(

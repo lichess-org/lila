@@ -10,7 +10,7 @@ final class FavoriteOpponents(
     cacheApi: lila.memo.CacheApi
 )(using ec: scala.concurrent.ExecutionContext):
 
-  private val userIdsCache = cacheApi[User.ID, List[(User.ID, Int)]](64, "favoriteOpponents") {
+  private val userIdsCache = cacheApi[UserId, List[(UserId, Int)]](64, "favoriteOpponents") {
     _.expireAfterWrite(15 minutes)
       .maximumSize(4096)
       .buildAsyncFuture {

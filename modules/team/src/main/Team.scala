@@ -21,8 +21,8 @@ case class Team(
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
-    createdBy: User.ID,
-    leaders: Set[User.ID],
+    createdBy: UserId,
+    leaders: Set[UserId],
     chat: Team.Access,
     forum: Team.Access,
     hideMembers: Option[Boolean]
@@ -43,7 +43,7 @@ case class Team(
   def passwordMatches(pw: String) =
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 
-  def isOnlyLeader(userId: User.ID) = leaders == Set(userId)
+  def isOnlyLeader(userId: UserId) = leaders == Set(userId)
 
 object Team:
 

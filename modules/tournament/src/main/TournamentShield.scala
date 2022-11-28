@@ -44,7 +44,7 @@ final class TournamentShieldApi(
 
   private[tournament] def clear(): Unit = cache.invalidateUnit().unit
 
-  private[tournament] def clearAfterMarking(userId: User.ID): Funit = cache.getUnit map { hist =>
+  private[tournament] def clearAfterMarking(userId: UserId): Funit = cache.getUnit map { hist =>
     import cats.implicits.*
     if (hist.value.exists(_._2.exists(_.owner.value === userId))) clear()
   }
@@ -98,7 +98,7 @@ object TournamentShield:
         categ -> ~(value get categ)
       }
 
-    def userIds: List[User.ID] = value.values.flatMap(_.map(_.owner.value)).toList
+    def userIds: List[UserId] = value.values.flatMap(_.map(_.owner.value)).toList
 
     def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
 

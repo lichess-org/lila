@@ -86,7 +86,7 @@ final class IrcApi(
       s"[**$typ**] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
     )
 
-  def commlog(mod: Holder, user: User, reportBy: Option[User.ID]): Funit =
+  def commlog(mod: Holder, user: User, reportBy: Option[UserId]): Funit =
     zulip(_.mod.adminLog, "private comms checks")({
       val finalS = if (user.username endsWith "s") "" else "s"
       s"**${markdown modLink mod.user}** checked out **${markdown userLink user.username}**'$finalS communications "
@@ -94,7 +94,7 @@ final class IrcApi(
       s"while investigating a report created by ${markdown.userLink(by)}"
     })
 
-  def monitorMod(modId: User.ID, icon: String, text: String, tpe: ModDomain): Funit =
+  def monitorMod(modId: UserId, icon: String, text: String, tpe: ModDomain): Funit =
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.adminMonitor(tpe), mod.name)(
@@ -103,7 +103,7 @@ final class IrcApi(
       }
     }
 
-  def logMod(modId: User.ID, icon: String, text: String): Funit =
+  def logMod(modId: UserId, icon: String, text: String): Funit =
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.log, "actions")(
@@ -112,7 +112,7 @@ final class IrcApi(
       }
     }
 
-  def printBan(mod: Holder, print: String, v: Boolean, userIds: List[User.ID]): Funit =
+  def printBan(mod: Holder, print: String, v: Boolean, userIds: List[UserId]): Funit =
     logMod(
       mod.id,
       "paw prints",
@@ -120,7 +120,7 @@ final class IrcApi(
           .printLink(print)} of ${userIds.length} user(s): ${userIds map markdown.userLink mkString ", "}"
     )
 
-  def ipBan(mod: Holder, ip: String, v: Boolean, userIds: List[User.ID]): Funit =
+  def ipBan(mod: Holder, ip: String, v: Boolean, userIds: List[UserId]): Funit =
     logMod(
       mod.id,
       "1234",

@@ -8,7 +8,7 @@ case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, score: Int):
 
   import RacerPlayer.Id
 
-  lazy val userId: Option[User.ID] = id match
+  lazy val userId: Option[UserId] = id match
     case Id.User(name) => User.normalize(name).some
     case _             => none
 

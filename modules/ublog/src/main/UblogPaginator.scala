@@ -117,7 +117,7 @@ final class UblogPaginator(
         maxPerPage = maxPerPage
       )
 
-    private val cache = cacheApi[(User.ID, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed")(
+    private val cache = cacheApi[(UserId, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed")(
       _.expireAfterWrite(15 seconds)
         .buildAsyncFuture { case (userId, offset, length) =>
           relationApi.coll

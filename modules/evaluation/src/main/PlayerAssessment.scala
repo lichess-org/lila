@@ -10,7 +10,7 @@ import lila.user.User
 case class PlayerAssessment(
     _id: String,
     gameId: GameId,
-    userId: User.ID,
+    userId: UserId,
     color: Color,
     assessment: GameAssessment,
     date: DateTime,

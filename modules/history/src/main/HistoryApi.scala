@@ -82,7 +82,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
   def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(IntRating, IntRating)]] =
     withColl(
-      _.optionsByOrderedIds[Bdoc, User.ID](
+      _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
         $doc(perfType.key.value -> true).some
       )(~_.string("_id")) map { hists =>
@@ -106,7 +106,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
     def apply(user: User, perf: PerfType): Fu[IntRating] = cache.get(user.id -> perf)
 
-    private val cache = cacheApi[(User.ID, PerfType), IntRating](1024, "lastWeekTopRating") {
+    private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating") {
       _.expireAfterAccess(20 minutes)
         .buildAsyncFuture { case (userId, perf) =>
           userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>

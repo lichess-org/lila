@@ -9,7 +9,7 @@ import lila.user.Holder
 import lila.rating.PerfType
 
 case class KaladinUser(
-    _id: User.ID,
+    _id: UserId,
     priority: Int,
     queuedAt: DateTime,
     queuedBy: KaladinUser.Requester,
@@ -52,7 +52,7 @@ object KaladinUser:
     def name  = Requester.this.toString
     def isMod = false
   object Requester:
-    case class Mod(id: User.ID) extends Requester(100):
+    case class Mod(id: UserId) extends Requester(100):
       override def name  = id
       override def isMod = true
     case object TopOnline        extends Requester(10)

@@ -20,15 +20,15 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
 ):
 
   private val falsePositiveRate = 0.00003
-  private var bloomFilter       = BloomFilter[User.ID](100, falsePositiveRate) // temporary empty filter
+  private var bloomFilter       = BloomFilter[UserId](100, falsePositiveRate) // temporary empty filter
 
-  def isStudent(userId: User.ID) = bloomFilter mightContain userId
+  def isStudent(userId: UserId) = bloomFilter mightContain userId
 
-  def addStudent(userId: User.ID): Unit = bloomFilter add userId
+  def addStudent(userId: UserId): Unit = bloomFilter add userId
 
   private def rebuildBloomFilter(): Unit =
     colls.student.countAll foreach { count =>
-      val nextBloom = BloomFilter[User.ID](count + 1, falsePositiveRate)
+      val nextBloom = BloomFilter[UserId](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
         .cursor[Bdoc](temporarilyPrimary)

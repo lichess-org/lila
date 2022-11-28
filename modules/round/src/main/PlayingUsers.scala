@@ -9,7 +9,7 @@ final class PlayingUsers:
 
   private val playing = lila.memo.ExpireSetMemo[UserId](4 hours)
 
-  def apply(userId: User.ID): Boolean = playing get UserId(userId)
+  def apply(userId: UserId): Boolean = playing get UserId(userId)
 
   Bus.subscribeFun("startGame", "finishGame") {
 

@@ -16,15 +16,15 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
     mode: Mode
 ):
 
-  def get(studentId: User.ID): Fu[Set[User.ID]] =
+  def get(studentId: UserId): Fu[Set[UserId]] =
     studentCache.isStudent(studentId) ?? cache.get(studentId)
 
-  private val cache = cacheApi[User.ID, Set[User.ID]](256, "clas.mates") {
+  private val cache = cacheApi[UserId, Set[UserId]](256, "clas.mates") {
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(fetchMatesAndTeachers)
   }
 
-  private def fetchMatesAndTeachers(studentId: User.ID): Fu[Set[User.ID]] =
+  private def fetchMatesAndTeachers(studentId: UserId): Fu[Set[UserId]] =
     colls.student
       .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
         import framework.*
@@ -93,8 +93,8 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
       .map { docO =>
         for {
           doc      <- docO
-          mates    <- doc.getAsOpt[Set[User.ID]]("mates")
-          teachers <- doc.getAsOpt[Set[User.ID]]("teachers")
+          mates    <- doc.getAsOpt[Set[UserId]]("mates")
+          teachers <- doc.getAsOpt[Set[UserId]]("teachers")
         } yield mates ++ teachers
       }
       .dmap(~_)

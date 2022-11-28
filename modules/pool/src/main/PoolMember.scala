@@ -5,7 +5,7 @@ import lila.user.User
 import lila.playban.RageSit
 
 case class PoolMember(
-    userId: User.ID,
+    userId: UserId,
     sri: lila.socket.Socket.Sri,
     rating: IntRating,
     ratingRange: Option[RatingRange],
@@ -27,7 +27,7 @@ case class PoolMember(
 
 object PoolMember:
 
-  case class BlockedUsers(ids: Set[User.ID]) extends AnyVal
+  case class BlockedUsers(ids: Set[UserId]) extends AnyVal
 
   def apply(joiner: PoolApi.Joiner, config: PoolConfig, rageSit: RageSit): PoolMember =
     PoolMember(

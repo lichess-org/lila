@@ -26,7 +26,7 @@ final class LearnApi(coll: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private val maxCompletion = 110
 
-  def completionPercent(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
+  def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
     coll
       .aggregateList(
         maxDocs = Int.MaxValue,

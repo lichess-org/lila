@@ -16,7 +16,7 @@ final case class OpenConfig(
     days: Option[Days],
     rated: Boolean,
     position: Option[FEN],
-    userIds: Option[(User.ID, User.ID)],
+    userIds: Option[(UserId, UserId)],
     rules: Set[GameRule] = Set.empty
 ):
 

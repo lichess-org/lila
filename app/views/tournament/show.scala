@@ -19,7 +19,7 @@ object show:
       verdicts: lila.tournament.Condition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
-      streamers: List[User.ID],
+      streamers: List[UserId],
       shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
   )(implicit ctx: Context) =
     views.html.base.layout(

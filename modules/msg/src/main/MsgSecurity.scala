@@ -41,13 +41,13 @@ final private class MsgSecurity(
       else if (u isHoursOld 12) normal * 2
       else normal * 4
 
-  private val CreateLimitPerUser = new RateLimit[User.ID](
+  private val CreateLimitPerUser = new RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 24 hour,
     key = "msg_create.user"
   )
 
-  private val ReplyLimitPerUser = new RateLimit[User.ID](
+  private val ReplyLimitPerUser = new RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 1 minute,
     key = "msg_reply.user"
@@ -127,7 +127,7 @@ final private class MsgSecurity(
 
   object may:
 
-    def post(orig: User.ID, dest: User.ID, isNew: Boolean): Fu[Boolean] =
+    def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
       userRepo.contacts(orig, dest) flatMap {
         _ ?? { post(_, isNew) }
       }
@@ -171,7 +171,7 @@ final private class MsgSecurity(
   private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
-  private def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
+  private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
     Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: User.Contacts) =

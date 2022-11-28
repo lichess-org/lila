@@ -19,7 +19,7 @@ final private class ChapterMaker(
 
   import ChapterMaker.*
 
-  def apply(study: Study, data: Data, order: Int, userId: User.ID, withRatings: Boolean): Fu[Chapter] =
+  def apply(study: Study, data: Data, order: Int, userId: UserId, withRatings: Boolean): Fu[Chapter] =
     data.game.??(parseGame) flatMap {
       case None =>
         data.game ?? pgnFetch.fromUrl flatMap {
@@ -31,12 +31,12 @@ final private class ChapterMaker(
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
-  def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     data.pgn.filter(_.trim.nonEmpty) match
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
       case None      => fuccess(fromFenOrBlank(study, data, order, userId))
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
       parsed <- PgnImport(pgn, contributors.flatten).toFuture recoverWith { case e: Exception =>
@@ -75,7 +75,7 @@ final private class ChapterMaker(
       case _ if data.isGamebook        => !root.lastMainlineNode.color
       case _                           => root.lastMainlineNode.color
 
-  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter =
+  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
     val (root, isFromFen) = data.fen.filterNot(_.initial).flatMap { Forsyth.<<<@(variant, _) } match
       case Some(sit) =>
@@ -119,7 +119,7 @@ final private class ChapterMaker(
       game: Game,
       data: Data,
       order: Int,
-      userId: User.ID,
+      userId: UserId,
       withRatings: Boolean,
       initialFen: Option[FEN] = None
   ): Fu[Chapter] =
@@ -151,7 +151,7 @@ final private class ChapterMaker(
       conceal = data.isConceal option Chapter.Ply(root.ply)
     )
 
-  def notifyChat(study: Study, game: Game, userId: User.ID) =
+  def notifyChat(study: Study, game: Game, userId: UserId) =
     if (study.isPublic)
       List(game hasUserId userId option game.id.value, s"${game.id}/w".some).flatten foreach { chatId =>
         chatApi.userChat.write(

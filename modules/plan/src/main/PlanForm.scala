@@ -46,6 +46,6 @@ object PlanForm:
     }
 
     val (userId, giftTo) = custom.??(_.trim) match
-      case s"$userId $giftTo" => (userId.some, giftTo.some)
-      case s"$userId"         => (userId.some, none)
+      case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
+      case s"$userId"         => (UserId(userId).some, none)
       case _                  => (none, none)

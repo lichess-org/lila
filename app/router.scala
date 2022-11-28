@@ -17,6 +17,7 @@ inline given Conversion[String, SwissId]                    = SwissId(_)
 inline given Conversion[String, TeamId]                     = TeamId(_)
 inline given Conversion[String, RelayRoundId]               = RelayRoundId(_)
 inline given Conversion[String, UblogPostId]                = UblogPostId(_)
+inline given Conversion[String, UserName]                   = UserName(_)
 inline given Conversion[String, lila.forum.ForumPost.Id]    = lila.forum.ForumPost.Id(_)
 inline given perfKey: Conversion[String, Perf.Key]          = Perf.Key(_)
 inline given puzzleKey: Conversion[String, PuzzleTheme.Key] = PuzzleTheme.Key(_)
@@ -35,6 +36,8 @@ object ReverseRouterConversions:
   inline given Conversion[TeamId, String]                          = _.value
   inline given Conversion[RelayRoundId, String]                    = _.value
   inline given Conversion[UblogPostId, String]                     = _.value
+  inline given Conversion[UserId, String]                          = _.value
+  inline given Conversion[UserName, String]                        = _.value
   inline given postId: Conversion[lila.forum.ForumPost.Id, String] = _.value
   inline given perfKey: Conversion[Perf.Key, String]               = _.value
   inline given puzzleKey: Conversion[PuzzleTheme.Key, String]      = _.value

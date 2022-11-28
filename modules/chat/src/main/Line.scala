@@ -12,7 +12,7 @@ sealed trait Line:
   def isHuman     = !isSystem
   def humanAuthor = isHuman option author
   def troll: Boolean
-  def userIdMaybe: Option[User.ID]
+  def userIdMaybe: Option[UserId]
 
 case class UserLine(
     username: String,

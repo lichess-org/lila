@@ -141,7 +141,7 @@ final class UblogApi(
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPreference.secondaryPreferred)
 
-  private[ublog] def setShadowban(userId: User.ID, v: Boolean) = {
+  private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if (v) fuccess(UblogBlog.Tier.HIDDEN)
     else userRepo.byId(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
   } flatMap {

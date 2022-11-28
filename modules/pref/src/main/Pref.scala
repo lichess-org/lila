@@ -407,7 +407,7 @@ object Pref:
 
   val darkByDefaultSince = new DateTime(2021, 11, 7, 8, 0)
 
-  def create(id: User.ID) = default.copy(_id = id)
+  def create(id: UserId) = default.copy(_id = id)
 
   def create(user: User) = default.copy(
     _id = user.id,

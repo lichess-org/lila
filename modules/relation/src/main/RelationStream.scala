@@ -26,7 +26,7 @@ final class RelationStream(
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .documentSource()
       .grouped(perSecond.value)
-      .map(_.flatMap(_.getAsOpt[User.ID](projectField(direction))))
+      .map(_.flatMap(_.getAsOpt[UserId](projectField(direction))))
       .throttle(1, 1 second)
       .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)

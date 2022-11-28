@@ -18,7 +18,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
   def blockers(userId: ID) = relaters(userId, Block)
   def blocking(userId: ID) = relating(userId, Block)
 
-  def freshFollowersFromSecondary(userId: ID): Fu[List[User.ID]] =
+  def freshFollowersFromSecondary(userId: ID): Fu[List[UserId]] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*
@@ -39,7 +39,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(using
           Group(BSONNull)("ids" -> PushField("u1"))
         )
       }
-      .map(~_.flatMap(_.getAsOpt[List[User.ID]]("ids")))
+      .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
   def followingLike(userId: ID, term: String): Fu[List[ID]] =
     User.validateId(term) ?? { valid =>

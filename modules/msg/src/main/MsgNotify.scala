@@ -25,7 +25,7 @@ final private class MsgNotify(
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
-  def onRead(threadId: MsgThread.Id, userId: User.ID, contactId: User.ID): Funit =
+  def onRead(threadId: MsgThread.Id, userId: UserId, contactId: UserId): Funit =
     !cancel(threadId) ??
       notifyApi
         .markRead(

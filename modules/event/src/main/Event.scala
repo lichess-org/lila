@@ -20,7 +20,7 @@ case class Event(
     updatedAt: Option[DateTime],
     startsAt: DateTime,
     finishesAt: DateTime,
-    hostedBy: Option[User.ID] = None,
+    hostedBy: Option[UserId] = None,
     icon: Option[String] = None,
     countdown: Boolean
 ):

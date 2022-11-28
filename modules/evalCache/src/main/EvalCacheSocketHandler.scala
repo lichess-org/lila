@@ -32,7 +32,7 @@ final private class EvalCacheSocketHandler(
       }
       if (d.value contains "up") upgrade.register(sri, variant, fen, multiPv, path)(pushData)
 
-  def untrustedEvalPut(sri: Socket.Sri, userId: User.ID, data: JsObject): Unit =
+  def untrustedEvalPut(sri: Socket.Sri, userId: UserId, data: JsObject): Unit =
     truster cachedTrusted userId foreach {
       _ foreach { tu =>
         JsonHandlers.readPutData(tu, data) foreach {

@@ -87,7 +87,7 @@ object ForumPost:
   opaque type Id = String
   object Id extends TotalWrapper[Id, String]
 
-  type Reactions = Map[String, Set[User.ID]]
+  type Reactions = Map[String, Set[UserId]]
 
   val idSize = 8
 
@@ -114,7 +114,7 @@ object ForumPost:
       topicId: String,
       categId: String,
       author: Option[String],
-      userId: Option[User.ID],
+      userId: Option[UserId],
       text: String,
       number: Int,
       lang: Option[String],

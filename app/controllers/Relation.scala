@@ -46,7 +46,7 @@ final class Relation(
         }
     }
 
-  private val FollowLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val FollowLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 150,
     duration = 72.hour,
     key = "follow.user"

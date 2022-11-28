@@ -27,7 +27,7 @@ final class Cached(
 
   export nameCache.{ preloadSet, sync as blockingTeamName }
 
-  private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
+  private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",
     initialCapacity = 131072,
     compute = u =>
@@ -62,25 +62,25 @@ final class Cached(
   )
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
-  def teamIdsList(userId: User.ID): Fu[List[TeamId]] = teamIds(userId).dmap(_.toList)
-  def teamIdsSet(userId: User.ID): Fu[Set[TeamId]]   = teamIds(userId).dmap(_.toSet)
+  def teamIdsList(userId: UserId): Fu[List[TeamId]] = teamIds(userId).dmap(_.toList)
+  def teamIdsSet(userId: UserId): Fu[Set[TeamId]]   = teamIds(userId).dmap(_.toSet)
 
-  val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
+  val nbRequests = cacheApi[UserId, Int](32768, "team.nbRequests") {
     _.expireAfterAccess(40 minutes)
       .maximumSize(131072)
-      .buildAsyncFuture[User.ID, Int] { userId =>
+      .buildAsyncFuture[UserId, Int] { userId =>
         teamIds(userId) flatMap { ids =>
           ids.value.nonEmpty ?? teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
         }
       }
   }
 
-  val leaders = cacheApi[TeamId, Set[User.ID]](128, "team.leaders") {
+  val leaders = cacheApi[TeamId, Set[UserId]](128, "team.leaders") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture(teamRepo.leadersOf)
   }
 
-  def isLeader(teamId: TeamId, userId: User.ID): Fu[Boolean] =
+  def isLeader(teamId: TeamId, userId: UserId): Fu[Boolean] =
     leaders.get(teamId).dmap(_ contains userId)
 
   val forumAccess = cacheApi[TeamId, Team.Access](1024, "team.forum.access") {

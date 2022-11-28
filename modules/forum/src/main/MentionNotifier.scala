@@ -31,8 +31,8 @@ final class MentionNotifier(
     * or block the mentioner from the returned list.
     */
   private def filterValidUsers(
-      candidates: Set[User.ID],
-      mentionedBy: User.ID
+      candidates: Set[UserId],
+      mentionedBy: UserId
   ): Fu[List[Notification.Notifies]] =
     for {
       existingUsers <-
@@ -59,7 +59,7 @@ final class MentionNotifier(
 
     Notification.make(mentionedUser into UserId, notificationContent)
 
-  private def extractMentionedUsers(post: ForumPost): Set[User.ID] =
+  private def extractMentionedUsers(post: ForumPost): Set[UserId] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
       (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }

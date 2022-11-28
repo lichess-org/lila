@@ -40,5 +40,5 @@ private object BsonHandlers:
       "tid" -> threadId
     )
 
-  def writeThread(thread: MsgThread, delBy: List[User.ID]): Bdoc =
+  def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
     threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)

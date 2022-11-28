@@ -40,13 +40,13 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   private def createdList(selector: Bdoc, max: Int): Fu[List[Challenge]] =
     coll.find(selectCreated ++ selector).sort($sort asc "createdAt").cursor[Challenge]().list(max)
 
-  def createdByChallengerId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+  def createdByChallengerId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList($doc("challenger.id" -> userId), max)
 
-  def createdByDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+  def createdByDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList($doc("destUser.id" -> userId), max)
 
-  def createdByPopularDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] = for {
+  def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for {
     realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l" $exists true), max)
     corres <- (realTime.sizeIs < max) ?? createdList(
       $doc($doc("destUser.id" -> userId), "timeControl.l" $exists false),

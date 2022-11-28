@@ -69,8 +69,8 @@ final class MsgApi(
         .void
 
   def post(
-      orig: User.ID,
-      dest: User.ID,
+      orig: UserId,
+      dest: UserId,
       text: String,
       multi: Boolean = false,
       ignoreSecurity: Boolean = false
@@ -131,7 +131,7 @@ final class MsgApi(
       } yield res
     }
 
-  def setRead(userId: User.ID, contactId: User.ID): Funit =
+  def setRead(userId: UserId, contactId: UserId): Funit =
     val threadId = MsgThread.id(userId, contactId)
     colls.thread
       .updateField(
@@ -143,13 +143,13 @@ final class MsgApi(
         (res.nModified > 0) ?? notifier.onRead(threadId, userId, contactId)
       }
 
-  def postPreset(destId: User.ID, preset: MsgPreset): Fu[PostResult] =
+  def postPreset(destId: UserId, preset: MsgPreset): Fu[PostResult] =
     systemPost(destId, preset.text)
 
-  def systemPost(destId: User.ID, text: String) =
+  def systemPost(destId: UserId, text: String) =
     post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
 
-  def multiPost(orig: Holder, destSource: Source[User.ID, ?], text: String): Fu[Int] =
+  def multiPost(orig: Holder, destSource: Source[UserId, ?], text: String): Fu[Int] =
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
@@ -158,7 +158,7 @@ final class MsgApi(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
 
-  def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =
+  def cliMultiPost(orig: String, dests: Seq[UserId], text: String): Fu[String] =
     userRepo named orig flatMap {
       case None         => fuccess(s"Unknown sender $orig")
       case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
@@ -228,11 +228,11 @@ final class MsgApi(
       .list(msgsPerPage.value)
       .map {
         _.flatMap { doc =>
-          doc.getAsOpt[List[User.ID]]("del").fold(true)(!_.has(me.id)) ?? doc.asOpt[Msg]
+          doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) ?? doc.asOpt[Msg]
         }
       }
 
-  private def setReadBy(threadId: MsgThread.Id, me: User, contactId: User.ID): Funit =
+  private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
     colls.thread.updateField(
       $id(threadId) ++ $doc(
         "lastMsg.user" $ne me.id,
@@ -244,11 +244,11 @@ final class MsgApi(
       (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
 
-  def hasUnreadLichessMessage(userId: User.ID): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
+  def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
     $id(MsgThread.id(userId, User.lichessId)) ++ $doc("lastMsg.read" -> false)
   )
 
-  def allMessagesOf(userId: User.ID): Source[(String, DateTime), ?] =
+  def allMessagesOf(userId: UserId): Source[(String, DateTime), ?] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred

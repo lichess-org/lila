@@ -10,9 +10,9 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, ap
     ec: ExecutionContext
 ):
 
-  def apply(userId: User.ID) = cache get userId
+  def apply(userId: UserId) = cache get userId
 
-  private val cache = mongoCache[User.ID, Boolean](1024, "security:2fa:reminder", 10 days, identity) {
+  private val cache = mongoCache[UserId, Boolean](1024, "security:2fa:reminder", 10 days, identity) {
     loader =>
       _.expireAfterWrite(11 days)
         .buildAsyncFuture {

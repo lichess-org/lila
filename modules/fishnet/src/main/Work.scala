@@ -51,7 +51,7 @@ object Work:
     def uciList: List[Uci] = ~(Uci readList moves)
 
   case class Sender(
-      userId: lila.user.User.ID,
+      userId: UserId,
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean

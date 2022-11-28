@@ -82,7 +82,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
       }
     }
 
-  private val tokener = new StringToken[User.ID](
+  private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
     getCurrentValue = id => userRepo email id dmap (_.??(_.value))
   )

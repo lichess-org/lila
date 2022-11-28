@@ -129,7 +129,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
 object OpeningWiki:
 
-  case class Revision(text: Markdown, by: User.ID, at: DateTime)
+  case class Revision(text: Markdown, by: UserId, at: DateTime)
 
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 

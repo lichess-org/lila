@@ -178,6 +178,6 @@ object Gamify:
         case Period.Week  => weekly
         case Period.Month => monthly
 
-  case class ModCount(modId: User.ID, count: Int)
-  case class ModMixed(modId: User.ID, action: Int, report: Int):
+  case class ModCount(modId: UserId, count: Int)
+  case class ModMixed(modId: UserId, action: Int, report: Int):
     def score = action + report

@@ -53,13 +53,13 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: User.ID): Option[Player]   = players.find(_.userId contains userId)
-  def opponentByUserId(userId: User.ID): Option[Player] = playerByUserId(userId) map opponent
+  def playerByUserId(userId: UserId): Option[Player]   = players.find(_.userId contains userId)
+  def opponentByUserId(userId: UserId): Option[Player] = playerByUserId(userId) map opponent
 
-  def hasUserIds(userId1: User.ID, userId2: User.ID) =
+  def hasUserIds(userId1: UserId, userId2: UserId) =
     playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
-  def hasUserId(userId: User.ID) = playerByUserId(userId).isDefined
+  def hasUserId(userId: UserId) = playerByUserId(userId).isDefined
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -556,7 +556,7 @@ case class Game(
 
   def userIds = playerMaps(_.userId)
 
-  def twoUserIds: Option[(User.ID, User.ID)] =
+  def twoUserIds: Option[(UserId, UserId)] =
     for {
       w <- whitePlayer.userId
       b <- blackPlayer.userId

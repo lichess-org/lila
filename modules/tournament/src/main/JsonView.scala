@@ -516,7 +516,7 @@ object JsonView:
 
   def playerJson(
       lightUserApi: LightUserApi,
-      sheets: Map[User.ID, arena.Sheet],
+      sheets: Map[UserId, arena.Sheet],
       streakable: Boolean,
       withScores: Boolean
   )(rankedPlayer: RankedPlayer)(using ec: ExecutionContext): Fu[JsObject] =

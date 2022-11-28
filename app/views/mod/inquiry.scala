@@ -277,7 +277,7 @@ object inquiry:
       report: Report,
       allReports: List[Report],
       reportee: User
-  ): Option[NonEmptyList[User.ID]] =
+  ): Option[NonEmptyList[UserId]] =
     (report.reason == Reason.Boost || reportee.marks.boost) ?? {
       allReports
         .filter(_.reason == Reason.Boost)

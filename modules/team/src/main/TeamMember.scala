@@ -8,12 +8,12 @@ import lila.user.User
 private[team] case class TeamMember(
     _id: String,
     team: TeamId,
-    user: User.ID,
+    user: UserId,
     date: DateTime
 ):
   inline def id = _id
 
-  def is(userId: User.ID): Boolean = user == userId
+  def is(userId: UserId): Boolean = user == userId
   def is(user: User): Boolean      = is(user.id)
 
 object TeamMember:

@@ -6,12 +6,11 @@ import scala.concurrent.duration.*
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
-import lila.hub.actorApi.user.{ ClasId, KidId, NonKidId }
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONHandler, Macros }
 
 case class User(
-    id: String,
-    username: String,
+    id: UserId,
+    username: UserName,
     perfs: Perfs,
     count: Count,
     enabled: Boolean,
@@ -45,7 +44,7 @@ case class User(
 
   def realLang = lang flatMap Lang.get
 
-  def compare(other: User) = id compareTo other.id
+  def compare(other: User) = id.value compareTo other.id.value
 
   def disabled = !enabled
 
@@ -122,8 +121,7 @@ case class User(
 
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
-  def is(name: String) = id == User.normalize(name)
-  def is(other: User)  = id == other.id
+  def is[U: IsUserId](other: U) = id is other
 
   def isBot = title has Title.BOT
   def noBot = !isBot
@@ -140,7 +138,12 @@ case class User(
 
 object User:
 
-  type ID = String
+  given IsUserId[User] = _.id
+
+  opaque type KidId = String
+  object KidId extends OpaqueUserId[KidId]
+  opaque type NonKidId = String
+  object NonKidId extends OpaqueUserId[NonKidId]
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck):
@@ -164,13 +167,15 @@ object User:
     case object MissingTotpToken          extends Result(none)
     case object InvalidTotpToken          extends Result(none)
 
-  val anonymous                    = "Anonymous"
-  val anonMod                      = "A Lichess Moderator"
-  val lichessId                    = "lichess"
-  val broadcasterId                = "broadcaster"
-  val ghostId                      = "ghost"
-  def isLichess(username: String)  = normalize(username) == lichessId
-  def isOfficial(username: String) = isLichess(username) || normalize(username) == broadcasterId
+  val anonymous                        = UserName("Anonymous")
+  val anonMod                          = "A Lichess Moderator"
+  val lichessId                        = UserId("lichess")
+  val broadcasterId                    = UserId("broadcaster")
+  val irwinId                          = UserId("irwin")
+  val kaladinId                        = UserId("kaladin")
+  val ghostId                          = UserId("ghost")
+  def isLichess[U: IsUserId](user: U)  = lichessId is user
+  def isOfficial[U: IsUserId](user: U) = isLichess(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
 
@@ -192,7 +197,7 @@ object User:
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
   case class Speaker(
-      username: String,
+      username: UserName,
       title: Option[UserTitle],
       enabled: Boolean,
       plan: Option[Plan],
@@ -203,21 +208,21 @@ object User:
     def isPatron = plan.exists(_.active)
 
   case class Contact(
-      _id: ID,
+      _id: UserId,
       kid: Option[Boolean],
       marks: Option[UserMarks],
       roles: Option[List[String]],
       createdAt: DateTime
   ):
-    def id                     = _id
-    def isKid                  = ~kid
-    def isTroll                = marks.exists(_.troll)
-    def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
-    def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
-    def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
-    def clasId: ClasId         = if (isKid) KidId(id) else NonKidId(id)
-    def isLichess              = _id == User.lichessId
+    def id                       = _id
+    def isKid                    = ~kid
+    def isTroll                  = marks.exists(_.troll)
+    def isVerified               = roles.exists(_ contains "ROLE_VERIFIED")
+    def isApiHog                 = roles.exists(_ contains "ROLE_API_HOG")
+    def isDaysOld(days: Int)     = createdAt isBefore DateTime.now.minusDays(days)
+    def isHoursOld(hours: Int)   = createdAt isBefore DateTime.now.minusHours(hours)
+    def clasId: KidId | NonKidId = if (isKid) id.into(KidId) else id.into(NonKidId)
+    def isLichess                = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
     def userIds = List(orig.id, dest.id)
@@ -238,15 +243,13 @@ object User:
   val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
   val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
 
-  def couldBeUsername(str: User.ID) = noGhost(str) && historicalUsernameRegex.matches(str)
+  def couldBeUsername(str: String) = noGhost(UserName(str).id) && historicalUsernameRegex.matches(str)
 
-  def normalize(username: String) = username.toLowerCase
+  def validateId(name: String): Option[UserId] = couldBeUsername(name) option UserId.fromStr(name)
 
-  def validateId(name: String): Option[User.ID] = couldBeUsername(name) option normalize(name)
+  def isGhost(id: UserId) = id == ghostId || id.value.headOption.has('!')
 
-  def isGhost(name: String) = normalize(name) == ghostId || name.headOption.has('!')
-
-  def noGhost(name: String) = !isGhost(name)
+  def noGhost(id: UserId) = !isGhost(id)
 
   object BSONFields:
     val id                    = "_id"
@@ -301,8 +304,8 @@ object User:
     def reads(r: BSON.Reader): User =
       val userTitle = r.getO[UserTitle](title)
       User(
-        id = r str id,
-        username = r str username,
+        id = r.get[UserId](id),
+        username = r.get[UserName](username),
         perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
           if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
           else perfs

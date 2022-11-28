@@ -54,7 +54,7 @@ final private class ForumTopicApi(
 
   object findDuplicate:
     private val cache =
-      cacheApi.notLoadingSync[(User.ID, String), ForumTopic.ID](64, "forum.topic.duplicate") {
+      cacheApi.notLoadingSync[(UserId, String), ForumTopic.ID](64, "forum.topic.duplicate") {
         _.expireAfterWrite(1 hour).build()
       }
     def apply(topic: ForumTopic): Fu[Option[ForumTopic]] =
@@ -117,7 +117,7 @@ final private class ForumTopicApi(
       name: String,
       url: String,
       ublogId: String,
-      authorId: User.ID
+      authorId: UserId
   ): Funit =
     categRepo.bySlug(ForumCateg.ublogSlug) flatMap {
       _ ?? { categ =>

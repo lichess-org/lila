@@ -23,7 +23,7 @@ final class SelfReport(
   private val onceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
   def apply(
-      userId: Option[User.ID],
+      userId: Option[UserId],
       ip: IpAddress,
       fullId: GameFullId,
       name: String

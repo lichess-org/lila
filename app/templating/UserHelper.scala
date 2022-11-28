@@ -97,7 +97,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     )
 
   def userIdLink(
-      userIdOption: Option[User.ID],
+      userIdOption: Option[UserId],
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,

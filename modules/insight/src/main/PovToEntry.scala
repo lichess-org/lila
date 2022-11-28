@@ -28,7 +28,7 @@ final private class PovToEntry(
     analysisRepo: lila.analyse.AnalysisRepo
 )(using ec: scala.concurrent.ExecutionContext):
 
-  def apply(game: Game, userId: User.ID, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
+  def apply(game: Game, userId: UserId, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
     enrich(game, userId, provisional) map
       (_ flatMap convert toRight game)
 
@@ -39,7 +39,7 @@ final private class PovToEntry(
       true
     else false
 
-  private def enrich(game: Game, userId: User.ID, provisional: Boolean): Fu[Option[RichPov]] =
+  private def enrich(game: Game, userId: UserId, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>

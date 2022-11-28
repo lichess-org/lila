@@ -95,7 +95,7 @@ final private class ExplorerIndexer(
       case _                   => 50  // noob variant games
     }
 
-  private def makeJson(game: Game, botUserIds: Set[User.ID]): Fu[Option[JsObject]] =
+  private def makeJson(game: Game, botUserIds: Set[UserId]): Fu[Option[JsObject]] =
     ~(for {
       whiteRating <- stableRating(game.whitePlayer)
       blackRating <- stableRating(game.blackPlayer)

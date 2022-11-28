@@ -21,7 +21,7 @@ final class UblogRank(
 
   import UblogBsonHandlers.given
 
-  private def selectLiker(userId: User.ID) = $doc("likers" -> userId)
+  private def selectLiker(userId: UserId) = $doc("likers" -> userId)
 
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
     colls.post.exists($id(post.id) ++ selectLiker(user.id))

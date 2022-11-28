@@ -18,7 +18,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
 
   private val chans = List("startGame", "finishGame")
 
-  def apply(userIds: Set[User.ID], withCurrentGames: Boolean): Source[JsValue, ?] =
+  def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
     val initialGames = if (withCurrentGames) currentGamesSource(userIds) else Source.empty
     val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
       queue =>
@@ -39,7 +39,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
       .mapAsync(1)(gameRepo.withInitialFen)
       .map(GameStream.gameWithInitialFenWriter.writes)
 
-  private def currentGamesSource(userIds: Set[User.ID]): Source[Game, ?] =
+  private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
     import lila.db.dsl.*
     import BSONHandlers.given
     import reactivemongo.api.ReadPreference

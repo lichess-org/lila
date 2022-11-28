@@ -36,7 +36,7 @@ final private class SwissNotify(mongo: SwissMongo)(using
           doneMemo put swiss.id
           SwissPlayer.fields { f =>
             mongo.player
-              .distinctEasy[User.ID, List](f.userId, $doc(f.swissId -> swiss.id))
+              .distinctEasy[UserId, List](f.userId, $doc(f.swissId -> swiss.id))
               .map { userIds =>
                 lila.common.Bus.publish(
                   TourSoon(tourId = swiss.id.value, tourName = swiss.name, userIds, swiss = true),
