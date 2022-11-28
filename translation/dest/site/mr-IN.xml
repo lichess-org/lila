@@ -38,7 +38,7 @@
   <string name="blackPlays">काळ्याची चाल</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">प्रतिस्पर्ध्याने खेळ सोडला आहे. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
-    <item quantity="other">प्रतिस्पर्ध्याने गेम सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
+    <item quantity="other">प्रतिस्पर्ध्याने खेळ सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
   </plurals>
   <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकतात, नाही तर त्यांची वाट पाहू शकतात.</string>
   <string name="forceResignation">विजयाचा दावा करा</string>
@@ -93,7 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">गोलाकार सह, पुढील कॅप्चर किंवा प्यादे हलवण्यापर्यंत अर्ध्या हालचालींच्या संख्येवर आधारित</string>
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक गेम समाविष्ट कराल?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक खेळ समाविष्ट कराल?</string>
   <string name="openings">ओपनिंग</string>
   <string name="openingExplorer">ओपेनिग अन्वेषक</string>
   <string name="openingEndgameExplorer">ओपनिंग/एंडगेम एक्सप्लोरर</string>
