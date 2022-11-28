@@ -2,6 +2,7 @@ package views.html.user.show
 
 import controllers.routes
 import play.api.data.Form
+import play.api.libs.json.Json
 
 import lila.api.{ Context, given }
 import lila.app.mashup.UserInfo
@@ -9,6 +10,7 @@ import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
+import lila.common.String.html.safeJsonValue
 import lila.game.Game
 import lila.user.User
 import lila.history.RatingChartApi
@@ -86,7 +88,7 @@ object page:
         frag(
           jsModule("chart.ratingHistory"),
           embedJsUnsafeLoadThen {
-            s"LichessChartRatingHistory($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
+            s"LichessChartRatingHistory($ratingChart,${safeJsonValue(Json.obj("perfIndex" -> RatingChartApi.bestPerfIndex(info.user)))})"
           }
         )
       },

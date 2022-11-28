@@ -1,10 +1,12 @@
 package views.html.user
 
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.String.html.safeJsonValue
 import lila.rating.{ Perf, PerfType }
 import lila.perfStat.{ PerfStat, PerfStatData }
 import lila.user.User
@@ -30,7 +32,7 @@ object perfStat:
           frag(
             jsModule("chart.ratingHistory"),
             embedJsUnsafeLoadThen {
-              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans}'});"
+              s"LichessChartRatingHistory($rc,${safeJsonValue(Json.obj("singlePerfName" -> perfType.trans))})"
             }
           )
         }
