@@ -307,8 +307,10 @@ object mon {
     def gameStream(event: String) = counter("bot.gameStream").withTag("event", event)
   }
   object cheat {
-    def selfReport(name: String, auth: Boolean) =
+    def selfReport(wildName: String, auth: Boolean) = {
+      val name = if (wildName startsWith "soc: ") "soc" else wildName.takeWhile(' ' != _)
       counter("cheat.selfReport").withTags(tags("name" -> name, "auth" -> auth))
+    }
     val holdAlert                    = counter("cheat.holdAlert").withoutTags()
     def autoAnalysis(reason: String) = counter("cheat.autoAnalysis").withTag("reason", reason)
     val autoMark                     = counter("cheat.autoMark.count").withoutTags()
