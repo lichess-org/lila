@@ -163,12 +163,10 @@ object Gamify:
   object HistoryMonth:
     def makeId(year: Int, month: Int) = s"$year/$month"
 
-  sealed trait Period:
-    def name = toString.toLowerCase
+  enum Period:
+    def name = Period.this.toString.toLowerCase
+    case Day, Week, Month
   object Period:
-    case object Day   extends Period
-    case object Week  extends Period
-    case object Month extends Period
     def apply(p: String) = List(Day, Week, Month).find(_.name == p)
 
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]):

@@ -21,8 +21,8 @@ final class Cached(
     initialCapacity = 32768,
     compute = teamRepo.name,
     default = _ => none,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(10 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfter.Access(10 minutes)
   )
 
   export nameCache.{ preloadSet, sync as blockingTeamName }
@@ -57,8 +57,8 @@ final class Cached(
           Team.IdsStr(~doc.flatMap(_.getAsOpt[List[TeamId]]("ids")))
         },
     default = _ => Team.IdsStr.empty,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(40 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfter.Write(40 minutes)
   )
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }

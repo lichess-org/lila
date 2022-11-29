@@ -368,13 +368,6 @@ trait dsl:
   implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): Bdoc =
     $doc(expression.field -> expression.value)
 
-// sealed trait LowPriorityDsl { self: dsl =>
-//   // Priority lower than toBSONDocument
-//   implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): ElementProducer = {
-//     BSONElement(expression.field, expression.value)
-//   }
-// }
-
 object dsl extends dsl with Handlers:
 
   extension [A](c: Cursor[A])(using ec: ExecutionContext)

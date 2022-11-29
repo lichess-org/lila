@@ -70,12 +70,12 @@ final class Signup(
           err =>
             fuccess {
               disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
-              Signup.Bad(err tap signupErrLog)
+              Signup.Result.Bad(err tap signupErrLog)
             },
           data =>
             hcaptcha.verify().flatMap {
-              case Hcaptcha.Result.Fail           => fuccess(Signup.MissingCaptcha)
-              case Hcaptcha.Result.Pass if !blind => fuccess(Signup.MissingCaptcha)
+              case Hcaptcha.Result.Fail           => fuccess(Signup.Result.MissingCaptcha)
+              case Hcaptcha.Result.Pass if !blind => fuccess(Signup.Result.MissingCaptcha)
               case hcaptchaResult =>
                 signupRateLimit(data.username.id, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
                   val email = emailAddressValidator
@@ -115,10 +115,10 @@ final class Signup(
         emailConfirm.send(user, email.acceptable) >> {
           if (emailConfirm.effective)
             api.saveSignup(user.id, apiVersion, fingerPrint) inject
-              Signup.ConfirmEmail(user, email.acceptable)
-          else fuccess(Signup.AllSet(user, email.acceptable))
+              Signup.Result.ConfirmEmail(user, email.acceptable)
+          else fuccess(Signup.Result.AllSet(user, email.acceptable))
         }
-      else fuccess(Signup.AllSet(user, email.acceptable))
+      else fuccess(Signup.Result.AllSet(user, email.acceptable))
     }
 
   def mobile(
@@ -130,7 +130,7 @@ final class Signup(
         err =>
           fuccess {
             disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
-            Signup.Bad(err tap signupErrLog)
+            Signup.Result.Bad(err tap signupErrLog)
           },
         data =>
           signupRateLimit(data.username.id, cost = 2) {
@@ -168,7 +168,7 @@ final class Signup(
     ("slow", 150, 1 day)
   )
 
-  private val rateLimitDefault = fuccess(Signup.RateLimited)
+  private val rateLimitDefault = fuccess(Signup.Result.RateLimited)
 
   private def signupRateLimit(id: UserId, cost: Int)(
       f: => Fu[Signup.Result]
@@ -209,9 +209,9 @@ final class Signup(
 
 object Signup:
 
-  sealed trait Result
-  case class Bad(err: Form[?])                             extends Result
-  case object MissingCaptcha                               extends Result
-  case object RateLimited                                  extends Result
-  case class ConfirmEmail(user: User, email: EmailAddress) extends Result
-  case class AllSet(user: User, email: EmailAddress)       extends Result
+  enum Result:
+    case Bad(err: Form[?])
+    case MissingCaptcha
+    case RateLimited
+    case ConfirmEmail(user: User, email: EmailAddress)
+    case AllSet(user: User, email: EmailAddress)

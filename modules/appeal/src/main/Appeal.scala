@@ -56,12 +56,10 @@ case class Appeal(
 
 object Appeal:
 
-  sealed trait Status:
-    val key = this.toString.toLowerCase
+  enum Status:
+    val key = Status.this.toString.toLowerCase
+    case Unread, Read, Muted
   object Status:
-    case object Unread extends Status
-    case object Read   extends Status
-    case object Muted  extends Status
     val all                = List[Status](Unread, Read, Muted)
     def apply(key: String) = all.find(_.key == key)
 

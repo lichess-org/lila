@@ -152,11 +152,10 @@ object Challenge:
   object Rating:
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
 
-  sealed trait Challenger
-  object Challenger:
-    case class Registered(id: UserId, rating: Rating) extends Challenger
-    case class Anonymous(secret: String)               extends Challenger
-    case object Open                                   extends Challenger
+  enum Challenger:
+    case Registered(id: UserId, rating: Rating)
+    case Anonymous(secret: String)
+    case Open
 
   sealed trait TimeControl:
     def realTime: Option[chess.Clock.Config] = none
@@ -216,7 +215,7 @@ object Challenge:
 
   private def randomId = lila.common.ThreadLocalRandom nextString idSize
 
-  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
+  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
   def randomColor = chess.Color.fromWhite(lila.common.ThreadLocalRandom.nextBoolean())

@@ -37,8 +37,5 @@ case class RequestWithUser(request: Request, user: User):
   def date    = request.date
   def team    = request.team
 
-sealed trait Requesting
-object Requesting:
-  case object Joined       extends Requesting
-  case object NeedRequest  extends Requesting
-  case object NeedPassword extends Requesting
+enum Requesting:
+  case Joined, NeedRequest, NeedPassword

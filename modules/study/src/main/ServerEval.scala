@@ -79,6 +79,7 @@ object ServerEval:
                       chapterRepo.addSubTree(subTree, newParent, path)(chapter)
                     } >> {
                       import BSONHandlers.given
+                      import lila.db.dsl.given
                       import Node.{ BsonFields as F }
                       ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
                         chapterRepo

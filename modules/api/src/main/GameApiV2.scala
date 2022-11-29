@@ -336,19 +336,18 @@ final class GameApiV2(
 
 object GameApiV2:
 
-  sealed trait Format
+  enum Format:
+    case PGN, JSON
   object Format:
-    case object PGN  extends Format
-    case object JSON extends Format
     def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else PGN
 
   sealed trait Config:
     val format: Format
     val flags: WithFlags
 
-  sealed abstract class GameSort(val bson: Bdoc)
-  case object DateAsc  extends GameSort(Query.sortChronological)
-  case object DateDesc extends GameSort(Query.sortAntiChronological)
+  enum GameSort(val bson: Bdoc):
+    case DateAsc  extends GameSort(Query.sortChronological)
+    case DateDesc extends GameSort(Query.sortAntiChronological)
 
   case class OneConfig(
       format: Format,

@@ -16,13 +16,9 @@ sealed abstract class InsightMetric(
 
 object InsightMetric:
 
-  sealed trait DataType:
+  enum DataType:
     def name = toString.toLowerCase
-  object DataType:
-    case object Seconds extends DataType
-    case object Count   extends DataType
-    case object Average extends DataType
-    case object Percent extends DataType
+    case Seconds, Count, Average, Percent
 
   import DataType.*
   import InsightPosition.*

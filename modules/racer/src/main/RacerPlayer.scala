@@ -17,10 +17,10 @@ case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, score: Int):
     case Id.Anon(id) => CuteNameGenerator fromSeed id.hashCode
 
 object RacerPlayer:
-  sealed trait Id
+  enum Id:
+    case User(name: UserName)
+    case Anon(sessionId: String)
   object Id:
-    case class User(name: UserName)    extends Id
-    case class Anon(sessionId: String) extends Id
     def apply(str: String) =
       if (str startsWith "@") Anon(str drop 1)
       else User(UserName(str))

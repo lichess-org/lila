@@ -297,11 +297,5 @@ final class MsgApi(
       }
 
 object MsgApi:
-
-  sealed trait PostResult
-
-  object PostResult:
-    case object Success extends PostResult
-    case object Invalid extends PostResult
-    case object Limited extends PostResult
-    case object Bounced extends PostResult
+  enum PostResult:
+    case Success, Invalid, Limited, Bounced

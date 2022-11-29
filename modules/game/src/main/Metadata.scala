@@ -51,14 +51,10 @@ case class GameDrawOffers(white: Set[Int], black: Set[Int]):
 object GameDrawOffers:
   val empty = GameDrawOffers(Set.empty, Set.empty)
 
-sealed trait GameRule:
+enum GameRule:
+  case NoAbort, NoRematch, NoGiveTime, NoClaimWin
   val key = lila.common.String lcfirst toString
-
 case object GameRule:
-  case object NoAbort    extends GameRule
-  case object NoRematch  extends GameRule
-  case object NoGiveTime extends GameRule
-  case object NoClaimWin extends GameRule
   val all   = List[GameRule](NoAbort, NoRematch, NoGiveTime, NoClaimWin)
   val byKey = all.map(r => r.key -> r).toMap
 

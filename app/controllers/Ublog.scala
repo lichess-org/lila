@@ -257,11 +257,12 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def communityLang(language: String, page: Int = 1) =
     Open { ctx =>
+      import I18nLangPicker.ByHref
       I18nLangPicker.byHref(language, ctx.req) match
-        case I18nLangPicker.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
-        case I18nLangPicker.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
-        case I18nLangPicker.Refused(lang) => communityIndex(lang.some, page)(ctx)
-        case I18nLangPicker.Found(lang) =>
+        case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
+        case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
+        case ByHref.Refused(lang) => communityIndex(lang.some, page)(ctx)
+        case ByHref.Found(lang) =>
           if (ctx.isAuth) communityIndex(lang.some, page)(ctx)
           else communityIndex(lang.some, page)(ctx withLang lang)
     }

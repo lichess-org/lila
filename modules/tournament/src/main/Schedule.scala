@@ -233,12 +233,8 @@ object Schedule:
         case Rapid                              => PerfType.Rapid
         case Classical                          => PerfType.Classical
 
-  sealed trait Season
-  object Season:
-    case object Spring extends Season
-    case object Summer extends Season
-    case object Autumn extends Season
-    case object Winter extends Season
+  enum Season:
+    case Spring, Summer, Autumn, Winter
 
   private[tournament] def durationFor(s: Schedule): Int =
     import Freq.*, Speed.*

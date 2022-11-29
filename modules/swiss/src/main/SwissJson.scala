@@ -242,10 +242,10 @@ object SwissJson:
 
   private def outcomeJson(outcome: SwissSheet.Outcome): String =
     outcome match
-      case SwissSheet.Absent => "absent"
-      case SwissSheet.Late   => "late"
-      case SwissSheet.Bye    => "bye"
-      case _                 => ""
+      case SwissSheet.Outcome.Absent => "absent"
+      case SwissSheet.Outcome.Late   => "late"
+      case SwissSheet.Outcome.Bye    => "bye"
+      case _                         => ""
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =

@@ -67,8 +67,5 @@ object UserAgent:
   given Iso.StringIso[UserAgent]                      = Iso.string[UserAgent](UserAgent.apply, _.value)
   given reactivemongo.api.bson.BSONHandler[UserAgent] = lila.db.BSON.stringIsoHandler
 
-  sealed trait Client
-  object Client:
-    case object PC  extends Client
-    case object Mob extends Client
-    case object App extends Client
+  enum Client:
+    case PC, Mob, App

@@ -59,7 +59,6 @@ final private[setup] class Processor(
 
 object Processor:
 
-  sealed trait HookResult
-  object HookResult:
-    case class Created(id: String) extends HookResult
-    case object Refused            extends HookResult
+  enum HookResult:
+    case Created(id: String)
+    case Refused

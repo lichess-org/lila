@@ -68,11 +68,6 @@ object BSONHandlers:
 
   import Uci.WithSan
 
-  given BSONHandler[Shapes] = isoHandler[Shapes, List[Shape]](_.value, Shapes.apply)
-
-  private given commentIdHandler: BSONHandler[Comment.Id] =
-    stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
-  private given BSONHandler[Comment.Text] = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
       case BSONString(n) if n == lila.user.User.lichessId.value || n == "l" => Comment.Author.Lichess
@@ -93,9 +88,7 @@ object BSONHandlers:
       case Comment.Author.Unknown        => BSONString("")
     }
   )
-  private given BSONDocumentHandler[Comment] = Macros.handler
-
-  given BSONHandler[Comments] = isoHandler[Comments, List[Comment]](_.value, Comments.apply)
+  given BSONDocumentHandler[Comment] = Macros.handler
 
   given BSONDocumentHandler[Gamebook] = Macros.handler
 

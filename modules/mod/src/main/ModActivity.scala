@@ -131,12 +131,10 @@ object ModActivity:
 
   val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
 
-  sealed trait Period:
+  enum Period:
     def key = toString.toLowerCase
+    case Week, Month, Year
   object Period:
-    case object Week  extends Period
-    case object Month extends Period
-    case object Year  extends Period
     val all = List(Period.Week, Period.Month, Period.Year)
     def apply(str: String): Period =
       if (str == "year") Year
@@ -154,19 +152,19 @@ object ModActivity:
     def apply(who: String, me: User) =
       if (who == "me") Me(me.id) else Team
 
-  sealed trait Action
+  enum Action:
+    case Message
+    case MarkCheat
+    case MarkTroll
+    case MarkBoost
+    case CloseAccount
+    case ChatTimeout
+    case Appeal
+    case SetEmail
+    case Streamer
+    case Blog
+    case ForumAdmin
   object Action:
-    case object Message      extends Action
-    case object MarkCheat    extends Action
-    case object MarkTroll    extends Action
-    case object MarkBoost    extends Action
-    case object CloseAccount extends Action
-    case object ChatTimeout  extends Action
-    case object Appeal       extends Action
-    case object SetEmail     extends Action
-    case object Streamer     extends Action
-    case object Blog         extends Action
-    case object ForumAdmin   extends Action
     val dbMap = Map(
       "modMessage"      -> Message,
       "engine"          -> MarkCheat,

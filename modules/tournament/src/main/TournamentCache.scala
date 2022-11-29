@@ -25,7 +25,7 @@ final class TournamentCache(
     }
     def clear(id: TourId) = cache.invalidate(id)
 
-    def byId                         = cache.get
+    def byId                  = cache.get
     def created(id: TourId)   = cache.get(id).dmap(_.filter(_.isCreated))
     def started(id: TourId)   = cache.get(id).dmap(_.filter(_.isStarted))
     def enterable(id: TourId) = cache.get(id).dmap(_.filter(_.isEnterable))
@@ -37,8 +37,8 @@ final class TournamentCache(
       tournamentRepo byId id dmap2 { _.name()(using lang) }
     },
     default = _ => none,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfter.Access(20 minutes)
   )
 
   val onHomepage = cacheApi.unit[List[Tournament]] {

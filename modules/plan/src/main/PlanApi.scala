@@ -126,11 +126,11 @@ final class PlanApi(
         customer.firstSubscription.??(stripeClient.getPaymentMethod) map {
           case (Some(nextInvoice), paymentMethod) =>
             customer.firstSubscription match
-              case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, paymentMethod).some
+              case Some(sub) => CustomerInfo.Monthly(sub, nextInvoice, paymentMethod).some
               case None =>
                 logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
                 none
-          case (None, _) => OneTimeCustomerInfo(customer).some
+          case (None, _) => CustomerInfo.OneTime(customer).some
         }
 
     private def saveCustomer(user: User, customerId: StripeCustomerId): Funit =
@@ -637,11 +637,10 @@ final class PlanApi(
 
 object PlanApi:
 
-  sealed trait SyncResult
-  object SyncResult:
-    case object ReloadUser extends SyncResult
-    case class Synced(
+  enum SyncResult:
+    case ReloadUser
+    case Synced(
         patron: Option[Patron],
         stripeCustomer: Option[StripeCustomer],
         payPalSubscription: Option[PayPalSubscription]
-    ) extends SyncResult
+    )

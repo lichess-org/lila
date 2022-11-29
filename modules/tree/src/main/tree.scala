@@ -101,72 +101,60 @@ case class Branch(
 
 object Node:
 
-  sealed trait Shape
+  enum Shape:
+    case Circle(brush: Shape.Brush, orig: Pos)
+    case Arrow(brush: Shape.Brush, orig: Pos, dest: Pos)
   object Shape:
-    type ID    = String
     type Brush = String
-    case class Circle(brush: Brush, orig: Pos)           extends Shape
-    case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
-  case class Shapes(value: List[Shape]) extends AnyVal:
-    def list = value
-    def ++(shapes: Shapes) =
-      Shapes {
-        (value ::: shapes.value).distinct
-      }
-  object Shapes:
-    val empty = Shapes(Nil)
+
+  opaque type Shapes = List[Shape]
+  object Shapes extends TotalWrapper[Shapes, List[Shape]]:
+    extension (a: Shapes) def ++(shapes: Shapes): Shapes = (a.value ::: shapes.value).distinct
+    val empty: Shapes                                    = Nil
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author):
-    def removeMeta =
-      text.removeMeta map { t =>
-        copy(text = t)
-      }
+    def removeMeta = text.removeMeta map { t => copy(text = t) }
   object Comment:
-    case class Id(value: String) extends AnyVal
-    object Id:
+    opaque type Id = String
+    object Id extends OpaqueString[Id]:
       def make = Id(lila.common.ThreadLocalRandom nextString 4)
     private val metaReg = """\[%[^\]]+\]""".r
-    case class Text(value: String) extends AnyVal:
-      def removeMeta: Option[Text] =
-        val v = metaReg.replaceAllIn(value, "").trim
-        if (v.nonEmpty) Some(Text(v)) else None
+    opaque type Text = String
+    object Text extends OpaqueString[Text]:
+      extension (a: Text)
+        def removeMeta: Option[Text] =
+          val v = metaReg.replaceAllIn(a.value, "").trim
+          v.nonEmpty option Text(v)
     enum Author:
       case User(id: UserId, titleName: String)
       case External(name: String)
       case Lichess
       case Unknown
-    def sanitize(text: String) =
-      Text {
-        lila.common.String
-          .softCleanUp(text)
-          .take(4000)
-          .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
-          .replaceAll("""(?m)(^ *| +(?= |$))""", "")
-          .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-          .replaceAll("[{}]", "") // {} are reserved in PGN comments
-      }
-  case class Comments(value: List[Comment]) extends AnyVal:
-    def list                           = value
-    def findBy(author: Comment.Author) = list.find(_.by == author)
-    def set(comment: Comment) =
-      Comments {
-        if (list.exists(_.by == comment.by)) list.map {
+    def sanitize(text: String) = Text {
+      lila.common.String
+        .softCleanUp(text)
+        .take(4000)
+        .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
+        .replaceAll("""(?m)(^ *| +(?= |$))""", "")
+        .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
+        .replaceAll("[{}]", "") // {} are reserved in PGN comments
+    }
+  opaque type Comments = List[Comment]
+  object Comments extends TotalWrapper[Comments, List[Comment]]:
+    extension (a: Comments)
+      def findBy(author: Comment.Author) = a.value.find(_.by == author)
+      def set(comment: Comment): Comments = {
+        if (a.value.exists(_.by == comment.by)) a.value.map {
           case c if c.by == comment.by => c.copy(text = comment.text)
           case c                       => c
         }
-        else list :+ comment
+        else a.value :+ comment
       }
-    def delete(commentId: Comment.Id) =
-      Comments {
-        value.filterNot(_.id == commentId)
-      }
-    def +(comment: Comment)    = Comments(comment :: value)
-    def ++(comments: Comments) = Comments(value ::: comments.value)
-
-    def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
-
-    def hasLichessComment = value.exists(_.by == Comment.Author.Lichess)
-  object Comments:
+      def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
+      def +(comment: Comment): Comments           = comment :: a.value
+      def ++(comments: Comments): Comments        = a.value ::: comments.value
+      def filterEmpty: Comments                   = a.value.filter(_.text.value.nonEmpty)
+      def hasLichessComment                       = a.value.exists(_.by == Comment.Author.Lichess)
     val empty = Comments(Nil)
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):
@@ -210,7 +198,7 @@ object Node:
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }
   given Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
-    JsArray(s.list.map(shapeWrites.writes))
+    JsArray(s.value.map(shapeWrites.writes))
   }
   given Writes[Glyph] = Json.writes[Glyph]
   given Writes[Glyphs] = Writes[Glyphs] { gs =>
@@ -252,7 +240,7 @@ object Node:
     Writes { node =>
       import node.*
       try
-        val comments = node.comments.list.flatMap(_.removeMeta)
+        val comments = node.comments.value.flatMap(_.removeMeta)
         Json
           .obj(
             "ply" -> ply,
@@ -266,7 +254,7 @@ object Node:
           .add("comments", if (comments.nonEmpty) Some(comments) else None)
           .add("gamebook", gamebook)
           .add("glyphs", glyphs.nonEmpty)
-          .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
+          .add("shapes", if (shapes.value.nonEmpty) Some(shapes.value) else None)
           .add("opening", opening)
           .add("dests", dests)
           .add(

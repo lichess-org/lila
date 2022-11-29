@@ -32,7 +32,7 @@ final class PgnDump(
         tags = makeTags(study, chapter),
         turns = toTurns(chapter.root)(flags).toList,
         initial = Initial(
-          chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+          chapter.root.comments.value.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
         )
       )
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
@@ -102,7 +102,7 @@ object PgnDump:
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
+        node.comments.value.map(_.text.value) ::: shapeComment(node.shapes).toList
       },
       opening = none,
       result = none,

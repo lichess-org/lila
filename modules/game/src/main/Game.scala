@@ -842,9 +842,5 @@ case class ClockHistory(
       firstMoveBy.fold(black, white)
     )
 
-sealed trait DrawReason
-object DrawReason:
-  case object MutualAgreement      extends DrawReason
-  case object FiftyMoves           extends DrawReason
-  case object ThreefoldRepetition  extends DrawReason
-  case object InsufficientMaterial extends DrawReason
+enum DrawReason:
+  case MutualAgreement, FiftyMoves, ThreefoldRepetition, InsufficientMaterial

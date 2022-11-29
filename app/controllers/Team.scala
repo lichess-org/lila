@@ -531,8 +531,8 @@ final class Team(
               _ map { res =>
                 Redirect(routes.Team.show(team.id))
                   .flashing(res match {
-                    case RateLimit.Through => "success" -> ""
-                    case RateLimit.Limited => "failure" -> rateLimitedMsg
+                    case RateLimit.Result.Through => "success" -> ""
+                    case RateLimit.Result.Limited => "failure" -> rateLimitedMsg
                   })
               }
             )
@@ -544,8 +544,8 @@ final class Team(
               doPmAll(team, me).fold(
                 err => BadRequest(errorsAsJson(err)(using reqLang)).toFuccess,
                 _ map {
-                  case RateLimit.Through => jsonOkResult
-                  case RateLimit.Limited => rateLimitedJson
+                  case RateLimit.Result.Through => jsonOkResult
+                  case RateLimit.Result.Limited => rateLimitedJson
                 }
               )
             }
@@ -648,8 +648,8 @@ You received this because you are subscribed to messages of the team $url."""
                   lila.mon.msg.teamBulk(team.id).record(nb).unit
                 }
               // we don't wait for the stream to complete, it would make lichess time out
-              fuccess(RateLimit.Through)
-            }(RateLimit.Limited)
+              fuccess(RateLimit.Result.Through)
+            }(RateLimit.Result.Limited)
           }
       )
 

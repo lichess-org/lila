@@ -37,7 +37,5 @@ final class RelationStream(coll: Coll, userRepo: UserRepo)(using akka.stream.Mat
 
 object RelationStream:
 
-  sealed trait Direction
-  object Direction:
-    case object Following extends Direction
-    case object Followers extends Direction
+  enum Direction:
+    case Following, Followers

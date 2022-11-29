@@ -13,9 +13,8 @@ import lila.plan.{
   CreateStripeSession,
   Freq,
   Money,
-  MonthlyCustomerInfo,
+  CustomerInfo,
   NextUrls,
-  OneTimeCustomerInfo,
   PayPalOrderId,
   PayPalSubscription,
   PayPalSubscriptionId,
@@ -95,10 +94,10 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     info    <- env.plan.api.stripe.customerInfo(me, customer)
     gifts   <- env.plan.api.giftsFrom(me)
     res <- info match
-      case Some(info: MonthlyCustomerInfo) =>
+      case Some(info: CustomerInfo.Monthly) =>
         Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).toFuccess
-      case Some(info: OneTimeCustomerInfo) =>
-        renderIndex(info.customer.email map EmailAddress.apply, patron.some)
+      case Some(CustomerInfo.OneTime(cus)) =>
+        renderIndex(cus.email map EmailAddress.apply, patron.some)
       case None =>
         env.user.repo email me.id flatMap { email =>
           renderIndex(email, patron.some)

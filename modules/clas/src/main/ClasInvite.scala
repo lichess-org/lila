@@ -27,9 +27,8 @@ object ClasInvite:
       created = Clas.Recorded(by = teacher.id, at = DateTime.now)
     )
 
-  sealed trait Feedback
-  object Feedback:
-    case object Already                extends Feedback
-    case object Invited                extends Feedback
-    case object Found                  extends Feedback
-    case class CantMsgKid(url: String) extends Feedback
+  enum Feedback:
+    case Already
+    case Invited
+    case Found
+    case CantMsgKid(url: String)

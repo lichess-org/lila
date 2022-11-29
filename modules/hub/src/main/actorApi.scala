@@ -110,11 +110,11 @@ package mailer:
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
 package irc:
-  sealed trait Event
-  case class Error(msg: String)   extends Event
-  case class Warning(msg: String) extends Event
-  case class Info(msg: String)    extends Event
-  case class Victory(msg: String) extends Event
+  enum Event:
+    case Error(msg: String)
+    case Warning(msg: String)
+    case Info(msg: String)
+    case Victory(msg: String)
 
 package timeline:
   case class ReloadTimelines(userIds: List[UserId])
@@ -157,16 +157,15 @@ package timeline:
   case class StreamStart(id: UserId, name: String) extends Atom("streamStart", false):
     def userIds = List(id)
 
-  object propagation:
-    sealed trait Propagation
-    case class Users(users: List[UserId]) extends Propagation
-    case class Followers(user: UserId)    extends Propagation
-    case class Friends(user: UserId)      extends Propagation
-    case class WithTeam(teamId: TeamId)   extends Propagation
-    case class ExceptUser(user: UserId)   extends Propagation
-    case class ModsOnly(value: Boolean)   extends Propagation
+  enum Propagation:
+    case Users(users: List[UserId])
+    case Followers(user: UserId)
+    case Friends(user: UserId)
+    case WithTeam(teamId: TeamId)
+    case ExceptUser(user: UserId)
+    case ModsOnly(value: Boolean)
 
-  import propagation.*
+  import Propagation.*
 
   case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
     def toUsers(ids: List[UserId])       = add(Users(ids))

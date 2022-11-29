@@ -192,13 +192,10 @@ private[study] object ChapterMaker:
 
   case class ValidationException(message: String) extends lila.base.LilaException
 
-  sealed trait Mode:
+  enum Mode:
     def key = toString.toLowerCase
+    case Normal, Practice, Gamebook, Conceal
   object Mode:
-    case object Normal   extends Mode
-    case object Practice extends Mode
-    case object Gamebook extends Mode
-    case object Conceal  extends Mode
     val all                = List(Normal, Practice, Gamebook, Conceal)
     def apply(key: String) = all.find(_.key == key)
 

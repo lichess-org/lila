@@ -140,10 +140,10 @@ object SetupBulk:
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty option rules
 
-  sealed trait ScheduleError
-  case class BadTokens(tokens: List[BadToken])   extends ScheduleError
-  case class DuplicateUsers(users: List[UserId]) extends ScheduleError
-  case object RateLimited                        extends ScheduleError
+  enum ScheduleError:
+    case BadTokens(tokens: List[BadToken])
+    case DuplicateUsers(users: List[UserId])
+    case RateLimited
 
   def toJson(bulk: ScheduledBulk) =
     import bulk.*
@@ -211,7 +211,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
         case (Right(users), Right(scoped)) => Right(scoped.user.id :: users)
       }
       .flatMap {
-        case Left(errors) => fuccess(Left(BadTokens(errors.reverse)))
+        case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
         case Right(allPlayers) =>
           lazy val dups = allPlayers
             .groupBy(identity)
@@ -221,7 +221,8 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               case (u, nb) if nb > 1 => u
             }
             .toList
-          if (!data.allowMultiplePairingsPerUser && dups.nonEmpty) fuccess(Left(DuplicateUsers(dups)))
+          if (!data.allowMultiplePairingsPerUser && dups.nonEmpty)
+            fuccess(Left(ScheduleError.DuplicateUsers(dups)))
           else
             val pairs = allPlayers.reverse
               .grouped(2)
@@ -258,5 +259,5 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                   )
                 }
                 .dmap(Right.apply)
-            }(fuccess(Left(RateLimited)))
+            }(fuccess(Left(ScheduleError.RateLimited)))
       }

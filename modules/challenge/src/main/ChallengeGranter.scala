@@ -12,17 +12,15 @@ case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 
 object ChallengeDenied:
 
-  sealed trait Reason
-
-  object Reason:
-    case object YouAreAnon                         extends Reason
-    case object YouAreBlocked                      extends Reason
-    case object TheyDontAcceptChallenges           extends Reason
-    case class RatingOutsideRange(perf: PerfType)  extends Reason
-    case class RatingIsProvisional(perf: PerfType) extends Reason
-    case object FriendsOnly                        extends Reason
-    case object BotUltraBullet                     extends Reason
-    case object SelfChallenge                      extends Reason
+  enum Reason:
+    case YouAreAnon
+    case YouAreBlocked
+    case TheyDontAcceptChallenges
+    case RatingOutsideRange(perf: PerfType)
+    case RatingIsProvisional(perf: PerfType)
+    case FriendsOnly
+    case BotUltraBullet
+    case SelfChallenge
 
   def translated(d: ChallengeDenied)(using lang: Lang): String =
     d.reason match

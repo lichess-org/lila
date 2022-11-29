@@ -120,13 +120,13 @@ final class StudyApi(
       user: User,
       withRatings: Boolean
   ): Fu[Option[Study.WithChapter]] = data.form.as match
-    case StudyForm.importGame.AsNewStudy =>
+    case StudyForm.importGame.As.NewStudy =>
       create(data, user, withRatings) addEffect {
         _ ?? { sc =>
           Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
         }
       }
-    case StudyForm.importGame.AsChapterOf(studyId) =>
+    case StudyForm.importGame.As.ChapterOf(studyId) =>
       byId(studyId) flatMap {
         case Some(study) if study.canContribute(user.id) =>
           addChapter(

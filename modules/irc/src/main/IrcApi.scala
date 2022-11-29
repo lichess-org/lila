@@ -172,10 +172,10 @@ final class IrcApi(
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
   def publishEvent(event: Event): Funit = event match
-    case Error(msg)   => publishError(msg)
-    case Warning(msg) => publishWarning(msg)
-    case Info(msg)    => publishInfo(msg)
-    case Victory(msg) => publishVictory(msg)
+    case Event.Error(msg)   => publishError(msg)
+    case Event.Warning(msg) => publishWarning(msg)
+    case Event.Info(msg)    => publishInfo(msg)
+    case Event.Victory(msg) => publishVictory(msg)
 
   def signupAfterTryingDisposableEmail(user: User, email: EmailAddress, previous: Set[EmailAddress]) =
     zulip(_.mod.adminLog, "disposable email")(
@@ -225,13 +225,8 @@ final class IrcApi(
 
 object IrcApi:
 
-  sealed trait ModDomain
-  object ModDomain:
-    case object Admin extends ModDomain
-    case object Cheat extends ModDomain
-    case object Boost extends ModDomain
-    case object Comm  extends ModDomain
-    case object Other extends ModDomain
+  enum ModDomain:
+    case Admin, Cheat, Boost, Comm, Other
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
   private val postRegex = lila.common.String.forumPostPathRegex.pattern

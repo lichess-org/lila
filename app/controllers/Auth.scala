@@ -202,33 +202,33 @@ final class Auth(
             html = env.security.signup
               .website(ctx.blind)
               .flatMap {
-                case Signup.RateLimited => limitedDefault.zero.toFuccess
-                case Signup.MissingCaptcha =>
+                case Signup.Result.RateLimited => limitedDefault.zero.toFuccess
+                case Signup.Result.MissingCaptcha =>
                   forms.signup.website map { form =>
                     BadRequest(html.auth.signup(form))
                   }
-                case Signup.Bad(err) =>
+                case Signup.Result.Bad(err) =>
                   forms.signup.website map { baseForm =>
                     BadRequest(html.auth.signup(baseForm withForm err))
                   }
-                case Signup.ConfirmEmail(user, email) =>
+                case Signup.Result.ConfirmEmail(user, email) =>
                   fuccess {
                     Redirect(routes.Auth.checkYourEmail) withCookies
                       lila.security.EmailConfirm.cookie
                         .make(env.lilaCookie, user, email)(ctx.req)
                   }
-                case Signup.AllSet(user, email) =>
+                case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
               },
             api = apiVersion =>
               env.security.signup
                 .mobile(apiVersion)
                 .flatMap {
-                  case Signup.RateLimited        => limitedDefault.zero.toFuccess
-                  case Signup.MissingCaptcha     => fuccess(BadRequest(jsonError("Missing captcha?!")))
-                  case Signup.Bad(err)           => jsonFormError(err)
-                  case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).toFuccess
-                  case Signup.AllSet(user, email) =>
+                  case Signup.Result.RateLimited        => limitedDefault.zero.toFuccess
+                  case Signup.Result.MissingCaptcha     => fuccess(BadRequest(jsonError("Missing captcha?!")))
+                  case Signup.Result.Bad(err)           => jsonFormError(err)
+                  case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).toFuccess
+                  case Signup.Result.AllSet(user, email) =>
                     welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user, remember = true)
                 }
           )

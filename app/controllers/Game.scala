@@ -93,7 +93,8 @@ final class Game(
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             flags = requestPgnFlags(req, extended = false),
-            sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
+            sort =
+              if (get("sort", req) has "dateAsc") GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
             perSecond = MaxPerSecond(me match {
               case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
               case Some(m) if m is user.id                   => 60

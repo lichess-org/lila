@@ -89,12 +89,10 @@ object Study:
 
   def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
 
-  sealed trait Visibility:
+  enum Visibility:
     lazy val key = Visibility.this.toString.toLowerCase
+    case Private, Unlisted, Public
   object Visibility:
-    case object Private  extends Visibility
-    case object Unlisted extends Visibility
-    case object Public   extends Visibility
     val byKey = List(Private, Unlisted, Public).map { v =>
       v.key -> v
     }.toMap

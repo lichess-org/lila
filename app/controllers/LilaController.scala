@@ -690,12 +690,13 @@ abstract private[controllers] class LilaController(val env: Env)
     Open { ctx =>
       if (ctx.isAuth) redirectWithQueryString(path)(ctx.req).toFuccess
       else
+        import I18nLangPicker.ByHref
         I18nLangPicker.byHref(langCode, ctx.req) match
-          case I18nLangPicker.NotFound => notFound(ctx)
-          case I18nLangPicker.Redir(code) =>
+          case ByHref.NotFound => notFound(ctx)
+          case ByHref.Redir(code) =>
             redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).toFuccess
-          case I18nLangPicker.Refused(_) => redirectWithQueryString(path)(ctx.req).toFuccess
-          case I18nLangPicker.Found(lang) =>
+          case ByHref.Refused(_) => redirectWithQueryString(path)(ctx.req).toFuccess
+          case ByHref.Found(lang) =>
             val langCtx = ctx withLang lang
             pageHit(langCtx)
             f(langCtx)

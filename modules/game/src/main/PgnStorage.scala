@@ -5,11 +5,9 @@ import chess.format.Uci
 
 import lila.db.ByteArray
 
-sealed trait PgnStorage
-
 private object PgnStorage:
 
-  case object OldBin extends PgnStorage:
+  case object OldBin:
 
     def encode(pgnMoves: PgnMoves) =
       ByteArray {
@@ -23,7 +21,7 @@ private object PgnStorage:
         format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
       }
 
-  case object Huffman extends PgnStorage:
+  case object Huffman:
 
     import org.lichess.compression.game.{ Encoder, Piece as JavaPiece, Role as JavaRole }
     import scala.jdk.CollectionConverters.*

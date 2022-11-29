@@ -17,6 +17,7 @@ final private class SandbagWatch(
 )(using scala.concurrent.ExecutionContext):
 
   import SandbagWatch.*
+  import Outcome.*
 
   private val messageOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
@@ -92,10 +93,10 @@ final private class SandbagWatch(
 
 private object SandbagWatch:
 
-  sealed trait Outcome
-  case object Good                     extends Outcome
-  case class Sandbag(opponent: UserId) extends Outcome
-  case class Boost(opponent: UserId)   extends Outcome
+  enum Outcome:
+    case Good
+    case Sandbag(opponent: UserId)
+    case Boost(opponent: UserId)
 
   val maxOutcomes = 7
 
@@ -107,27 +108,25 @@ private object SandbagWatch:
 
     def latest = outcomes.headOption
 
-    def immaculate = outcomes.sizeIs == maxOutcomes && outcomes.forall(Good ==)
+    def immaculate = outcomes.sizeIs == maxOutcomes && outcomes.forall(Outcome.Good ==)
 
     def latestIsSandbag = latest exists {
-      case Sandbag(_) => true
-      case _          => false
+      case Outcome.Sandbag(_) => true
+      case _                  => false
     }
 
     def countSandbagWithLatest: Int = latestIsSandbag ?? outcomes.count {
-      case Sandbag(_) => true
-      case _          => false
+      case Outcome.Sandbag(_) => true
+      case _                  => false
     }
 
-    def sandbagOpponents = outcomes.collect { case Sandbag(opponent) =>
-      opponent
-    }.distinct
+    def sandbagOpponents = outcomes.collect { case Outcome.Sandbag(opponent) => opponent }.distinct
 
     def samePlayerBoostCount = latest ?? {
-      case Boost(opponent) =>
+      case Outcome.Boost(opponent) =>
         outcomes.count {
-          case Boost(o) if o == opponent => true
-          case _                         => false
+          case Outcome.Boost(o) if o == opponent => true
+          case _                                 => false
         }
       case _ => 0
     }

@@ -166,7 +166,7 @@ final class Round(
                       tour,
                       lila.api.Mobile.Api.currentVersion,
                       tv = userTv.map { u =>
-                        lila.round.OnUserTv(u.id)
+                        lila.round.OnTv.User(u.id)
                       }
                     ) map { data =>
                       Ok(
