@@ -39,12 +39,6 @@ case class EvalCacheEntry(
 
 object EvalCacheEntry:
 
-  val MIN_KNODES   = 3000
-  val MIN_DEPTH    = 20
-  val MIN_PV_SIZE  = 6
-  val MAX_PV_SIZE  = 10
-  val MAX_MULTI_PV = 5
-
   case class Eval(
       pvs: NonEmptyList[Pv],
       knodes: Knodes,
@@ -61,7 +55,7 @@ object EvalCacheEntry:
 
     def looksValid =
       pvs.toList.forall(_.looksValid) && {
-        pvs.toList.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
+        pvs.toList.forall(_.score.mateFound) || (knodes >= MIN_KNODES || depth >= MIN_DEPTH)
       }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
@@ -73,14 +67,6 @@ object EvalCacheEntry:
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
 
-  case class Knodes(value: Int) extends AnyVal:
-
-    def intNodes: Int =
-      val nodes = value * 1000d
-      if (nodes.toInt == nodes) nodes.toInt
-      else if (nodes > 0) Integer.MAX_VALUE
-      else Integer.MIN_VALUE
-
   case class Pv(score: Score, moves: Moves):
 
     def looksValid =
@@ -88,32 +74,9 @@ object EvalCacheEntry:
         case None       => moves.value.toList.sizeIs > MIN_PV_SIZE
         case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
 
-    def truncate = copy(moves = moves.truncate)
-
-  case class Moves(value: NonEmptyList[Uci]) extends AnyVal:
-
-    def truncate = copy(value = NonEmptyList(value.head, value.tail.take(MAX_PV_SIZE - 1)))
-
-  case class Trust(value: Double) extends AnyVal:
-    def isTooLow = value <= 0
-    def isEnough = !isTooLow
+    def truncate = copy(moves = Moves truncate moves)
 
   case class TrustedUser(trust: Trust, user: User)
-
-  final class SmallFen private (val value: String) extends AnyVal with StringValue
-
-  object SmallFen:
-    private[evalCache] def raw(str: String) = new SmallFen(str)
-    def make(variant: Variant, fen: FEN): SmallFen =
-      val base = fen.value.split(' ').take(4).mkString("").filter { c =>
-        c != '/' && c != '-' && c != 'w'
-      }
-      val str = variant match
-        case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
-        case _                        => base
-      new SmallFen(str)
-    def validate(variant: Variant, fen: FEN): Option[SmallFen] =
-      Forsyth.<<@(variant, fen).exists(_ playable false) option make(variant, fen)
 
   case class Id(variant: Variant, smallFen: SmallFen)
 

@@ -91,3 +91,6 @@ trait LilaModel extends NewTypes:
 
   opaque type RichText = String
   object RichText extends OpaqueString[RichText]
+
+  opaque type Markdown = String
+  object Markdown extends OpaqueString[Markdown]

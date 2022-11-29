@@ -83,6 +83,6 @@ private object EvalCacheUpgrade:
     def addSri(sri: Socket.Sri) = copy(sris = sris + sri.value)
 
   private def makeSetupId(variant: Variant, fen: FEN, multiPv: Int): SetupId =
-    s"${variant.id}${EvalCacheEntry.SmallFen.make(variant, fen).value}^$multiPv"
+    s"${variant.id}${SmallFen.make(variant, fen)}^$multiPv"
 
   private case class WatchingMember(push: Push, setupId: SetupId, path: String)

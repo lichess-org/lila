@@ -272,5 +272,7 @@ object InsightMetric:
       }
     case _ => Nil
 
-  case class MetricValueName(name: String) extends AnyVal
+  opaque type MetricValueName = String
+  object MetricValueName extends OpaqueString[MetricValueName]
+
   case class MetricValue(key: BSONValue, name: MetricValueName)

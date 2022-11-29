@@ -249,8 +249,6 @@ object Form:
         .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
     )
 
-  def toMarkdown(m: Mapping[String]): Mapping[Markdown] = m.transform[Markdown](Markdown.apply, _.value)
-
   def allowList =
     nonEmptyText(maxLength = 100_1000)
       .transform[String](_.replace(',', '\n'), identity)

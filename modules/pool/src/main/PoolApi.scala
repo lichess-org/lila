@@ -21,7 +21,7 @@ final class PoolApi(
   private val actors: Map[PoolConfig.Id, ActorRef] = configs.map { config =>
     config.id -> system.actorOf(
       Props(new PoolActor(config, hookThieve, gameStarter)),
-      name = s"pool-${config.id.value}"
+      name = s"pool-${config.id}"
     )
   }.toMap
 

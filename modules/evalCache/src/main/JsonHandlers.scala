@@ -56,14 +56,14 @@ object JsonHandlers:
   private def parsePv(d: JsObject): Option[Pv] =
     for {
       movesStr <- d str "moves"
-      moves <-
+      moves <- Moves from
         movesStr
           .split(' ')
-          .take(EvalCacheEntry.MAX_PV_SIZE)
+          .take(MAX_PV_SIZE)
           .foldLeft(List.empty[Uci].some) {
             case (Some(ucis), str) => Uci(str) map (_ :: ucis)
             case _                 => None
           }
-          .flatMap(_.reverse.toNel) map Moves.apply
+          .flatMap(_.reverse.toNel)
       score <- d.get[Cp]("cp").map(Score.cp(_)) orElse d.get[Mate]("mate").map(Score.mate(_))
     } yield Pv(score, moves)

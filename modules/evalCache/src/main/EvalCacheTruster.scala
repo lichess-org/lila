@@ -11,7 +11,7 @@ final private class EvalCacheTruster(
     userRepo: UserRepo
 )(using ec: scala.concurrent.ExecutionContext):
 
-  import EvalCacheEntry.{ Trust, TrustedUser }
+  import EvalCacheEntry.TrustedUser
 
   private val LOWER  = Trust(-9999)
   private val HIGHER = Trust(9999)

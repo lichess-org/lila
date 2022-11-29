@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 import play.api.i18n.Lang
 
 import lila.common.Form.UTCDate.*
-import lila.common.Form.{ stringIn, toMarkdown }
+import lila.common.Form.{ stringIn, into }
 import lila.i18n.LangList
 import lila.user.User
 
@@ -27,7 +27,7 @@ object EventForm:
     mapping(
       "title"         -> text(minLength = 3, maxLength = 40),
       "headline"      -> text(minLength = 5, maxLength = 30),
-      "description"   -> optional(toMarkdown(text(minLength = 5, maxLength = 4000))),
+      "description"   -> optional(text(minLength = 5, maxLength = 4000).into[Markdown]),
       "homepageHours" -> bigDecimal(10, 2).verifying(d => d >= 0 && d <= 24),
       "url"           -> nonEmptyText,
       "lang"          -> text.verifying(l => LangList.allChoices.exists(_._1 == l)),

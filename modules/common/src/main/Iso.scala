@@ -62,5 +62,3 @@ object Iso:
   given StringIso[Lang] = string[Lang](Lang.apply, _.toString)
 
   given StringIso[FEN] = string[FEN](FEN.apply, _.value)
-
-  given StringIso[Markdown] = string[Markdown](Markdown.apply, _.value)
