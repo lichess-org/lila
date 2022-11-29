@@ -11,8 +11,6 @@ private object BsonHandlers:
   import Msg.Last
   given BSONDocumentHandler[Last] = Macros.handler
 
-  given BSONHandler[MsgThread.Id] = stringAnyValHandler[MsgThread.Id](_.value, MsgThread.Id.apply)
-
   given threadHandler: BSON[MsgThread] with
     def reads(r: BSON.Reader) =
       r.strsD("users") match

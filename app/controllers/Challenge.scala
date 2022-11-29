@@ -217,7 +217,7 @@ final class Challenge(
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
                   jsonOkResult.toFuccess
                 case Some(pov) if pov.game.playable =>
-                  get("opponentToken", req).map(Bearer.apply) match
+                  Bearer.from(get("opponentToken", req)) match
                     case None => BadRequest(jsonError("The game can no longer be aborted")).toFuccess
                     case Some(bearer) =>
                       env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
@@ -237,7 +237,7 @@ final class Challenge(
     Action.async { req =>
       import cats.implicits.*
       val scopes = List(OAuthScope.Challenge.Write)
-      (get("token1", req) map Bearer.apply, get("token2", req) map Bearer.apply).mapN {
+      (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
         env.oAuth.server.authBoth(scopes, req)
       } ?? {
         _ flatMap {

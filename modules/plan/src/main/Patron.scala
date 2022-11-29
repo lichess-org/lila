@@ -69,7 +69,9 @@ object Patron:
   ):
     def renew = subId.isDefined
   object PayPalLegacy:
-    case class Email(value: String) extends AnyVal
-    case class SubId(value: String) extends AnyVal
+    opaque type Email = String
+    object Email extends OpaqueString[Email]
+    opaque type SubId = String
+    object SubId extends OpaqueString[SubId]
 
   case class Free(at: DateTime, by: Option[UserId])

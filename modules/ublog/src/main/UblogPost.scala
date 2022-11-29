@@ -41,7 +41,8 @@ object UblogPost:
   opaque type Views = Int
   object Views extends OpaqueInt[Views]
 
-  case class Rank(value: DateTime) extends AnyVal
+  opaque type RankDate = DateTime
+  object RankDate extends OpaqueDate[RankDate]
 
   case class Create(post: UblogPost) extends AnyVal
 

@@ -219,8 +219,8 @@ final class PlanApi(
                   case None =>
                     val payPal =
                       Patron.PayPalLegacy(
-                        ipn.email map Patron.PayPalLegacy.Email.apply,
-                        ipn.subId map Patron.PayPalLegacy.SubId.apply,
+                        ipn.email,
+                        ipn.subId,
                         DateTime.now
                       )
                     userPatron(user).flatMap {

@@ -18,9 +18,8 @@ object AssetVersion extends OpaqueString[AssetVersion]:
   def change()       = { current = random }
   private def random = AssetVersion(SecureRandom nextString 6)
 
-case class Bearer(secret: String) extends AnyVal:
-  override def toString = "Bearer(***)"
-object Bearer:
+opaque type Bearer = String
+object Bearer extends OpaqueString[Bearer]:
   def random()         = Bearer(s"lio_${SecureRandom.nextString(32)}")
   def randomPersonal() = Bearer(s"lip_${SecureRandom.nextString(20)}")
 

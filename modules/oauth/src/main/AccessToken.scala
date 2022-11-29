@@ -24,9 +24,9 @@ case class AccessToken(
 
 object AccessToken:
 
-  case class Id(value: String) extends AnyVal
-  object Id:
-    def from(bearer: Bearer) = Id(Algo.sha256(bearer.secret).hex)
+  opaque type Id = String
+  object Id extends OpaqueString[Id]:
+    def from(bearer: Bearer) = Id(Algo.sha256(bearer.value).hex)
 
   case class ForAuth(userId: UserId, scopes: List[OAuthScope], clientOrigin: Option[String])
 
@@ -50,9 +50,6 @@ object AccessToken:
     BSONFields.scopes       -> true,
     BSONFields.clientOrigin -> true
   )
-
-  private[oauth] given idHandler: BSONHandler[Id] = stringAnyValHandler[Id](_.value, Id.apply)
-  private[oauth] given BSONHandler[Bearer]        = stringAnyValHandler[Bearer](_.secret, Bearer.apply)
 
   given BSONDocumentReader[ForAuth] = new BSONDocumentReader[ForAuth]:
     def readDocument(doc: BSONDocument) =

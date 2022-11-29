@@ -12,7 +12,8 @@ import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.{ HTTPRequest, IpAddress, Bearer }
+import lila.common.Json.given
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
 import Api.ApiResult
 
@@ -90,7 +91,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   Json
                     .obj(
                       "token_type"   -> "Bearer",
-                      "access_token" -> token.plain.secret
+                      "access_token" -> token.plain
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
@@ -111,7 +112,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   Json
                     .obj(
                       "token_type"    -> "Bearer",
-                      "access_token"  -> token.plain.secret,
+                      "access_token"  -> token.plain,
                       "refresh_token" -> s"invalid_for_bc_${lila.common.ThreadLocalRandom.nextString(17)}"
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
@@ -151,7 +152,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
             err => BadRequest(apiFormError(err)).toFuccess,
             data =>
               env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
-                JsonOk(tokens.view.mapValues(t => t.plain.secret).toMap)
+                JsonOk(tokens.view.mapValues(_.plain).toMap)
               }
           )
       else Unauthorized(jsonError("Missing permission")).toFuccess
@@ -164,12 +165,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   )
   def testTokens =
     Action.async(parse.tolerantText) { req =>
-      val bearers = req.body.split(',').view.take(1000).toList
+      val bearers = Bearer from req.body.split(',').view.take(1000).toList
       testTokenRateLimit[Fu[Api.ApiResult]](HTTPRequest ipAddress req, cost = bearers.size) {
-        env.oAuth.tokenApi.test(bearers map lila.common.Bearer.apply) map { tokens =>
+        env.oAuth.tokenApi.test(bearers) map { tokens =>
           import lila.common.Json.given
           ApiResult.Data(JsObject(tokens.map { case (bearer, token) =>
-            bearer.secret -> token.fold[JsValue](JsNull) { t =>
+            bearer.value -> token.fold[JsValue](JsNull) { t =>
               Json.obj(
                 "userId"  -> t.userId,
                 "scopes"  -> t.scopes.map(_.key).mkString(","),

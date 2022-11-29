@@ -62,9 +62,9 @@ object Charge:
   case class PayPalLegacy(
       ip: Option[String],
       name: Option[String],
-      email: Option[String],
+      email: Option[Patron.PayPalLegacy.Email],
       txnId: Option[String],
-      subId: Option[String]
+      subId: Option[Patron.PayPalLegacy.SubId]
   )
 
   case class PayPalCheckout(

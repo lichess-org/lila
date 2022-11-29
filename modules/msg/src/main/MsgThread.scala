@@ -26,7 +26,8 @@ case class MsgThread(
 
 object MsgThread:
 
-  case class Id(value: String) extends AnyVal
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   case class WithMsgs(thread: MsgThread, msgs: List[Msg])
 
@@ -36,11 +37,10 @@ object MsgThread:
 
   val idSep = '/'
 
-  def id(u1: UserId, u2: UserId): Id =
-    Id {
-      sortUsers(u1, u2) match
-        case (user1, user2) => s"$user1$idSep$user2"
-    }
+  def id(u1: UserId, u2: UserId): Id = Id {
+    sortUsers(u1, u2) match
+      case (user1, user2) => s"$user1$idSep$user2"
+  }
 
   def make(u1: UserId, u2: UserId, msg: Msg): MsgThread =
     sortUsers(u1, u2) match
