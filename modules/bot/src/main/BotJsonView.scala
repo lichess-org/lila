@@ -64,7 +64,7 @@ final class BotJsonView(
         .add("rematch" -> rematches.getAcceptedId(game.id))
     }
 
-  def chatLine(username: String, text: String, player: Boolean) =
+  def chatLine(username: UserName, text: String, player: Boolean) =
     Json.obj(
       "type"     -> "chatLine",
       "room"     -> (if (player) "player" else "spectator"),

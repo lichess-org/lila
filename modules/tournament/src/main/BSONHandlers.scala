@@ -89,9 +89,9 @@ object BSONHandlers:
         } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
-        createdBy = r strO "createdBy" getOrElse lichessId,
+        createdBy = r.getO[UserId]("createdBy") | lichessId,
         startsAt = startsAt,
-        winnerId = r strO "winner",
+        winnerId = r.getO[UserId]("winner"),
         featuredId = r strO "featured",
         spotlight = r.getO[Spotlight]("spotlight"),
         description = r strO "description",
@@ -129,7 +129,7 @@ object BSONHandlers:
       Player(
         _id = r.get[TourPlayerId]("_id"),
         tourId = r str "tid",
-        userId = r str "uid",
+        userId = r.get[UserId]("uid"),
         rating = r.get[IntRating]("r"),
         provisional = r boolD "pr",
         withdraw = r boolD "w",
@@ -156,8 +156,8 @@ object BSONHandlers:
   given pairingHandler: BSON[Pairing] with
     def reads(r: BSON.Reader) =
       val users = r strsD "u"
-      val user1 = users.headOption err "tournament pairing first user"
-      val user2 = users lift 1 err "tournament pairing second user"
+      val user1 = UserId(users.headOption err "tournament pairing first user")
+      val user2 = UserId(users lift 1 err "tournament pairing second user")
       Pairing(
         id = r.get[GameId]("_id"),
         tourId = r str "tid",
@@ -188,8 +188,8 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       LeaderboardApi.Entry(
         id = r.get[TourPlayerId]("_id"),
-        userId = r str "u",
-        tourId = r str "t",
+        userId = r.get[UserId]("u"),
+        tourId = r.get[Tournament.ID]("t"),
         nbGames = r int "g",
         score = r int "s",
         rank = r.get[Rank]("r"),

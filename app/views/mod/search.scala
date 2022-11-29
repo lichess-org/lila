@@ -146,7 +146,7 @@ object search:
       )
     }
 
-  def teacher(teacherId: User.ID, classes: List[lila.clas.Clas])(implicit ctx: Context) =
+  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Classes",
       moreCss = cssTag("mod.misc")
@@ -189,7 +189,7 @@ object search:
       )
     }
 
-  private def teacherLink(userId: User.ID)(implicit ctx: Context) =
+  private def teacherLink(userId: UserId)(implicit ctx: Context) =
     lightUser(userId).map { user =>
       a(
         href     := clasRoutes.teacher(user.name),

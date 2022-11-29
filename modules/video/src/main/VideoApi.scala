@@ -167,7 +167,7 @@ final private[video] class VideoApi(
 
   object view:
 
-    def find(videoId: Video.ID, userId: String): Fu[Option[View]] =
+    def find(videoId: Video.ID, userId: UserId): Fu[Option[View]] =
       viewColl
         .find(
           $doc(

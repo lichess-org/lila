@@ -5,8 +5,8 @@ import org.joda.time.DateTime
 
 case class Note(
     _id: String,
-    from: User.ID,
-    to: User.ID,
+    from: UserId,
+    to: UserId,
     text: String,
     mod: Boolean,
     dox: Boolean,
@@ -43,14 +43,14 @@ final class NoteApi(
       .cursor[Note]()
       .list(20)
 
-  def byUserForMod(id: User.ID): Fu[List[Note]] =
+  def byUserForMod(id: UserId): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()
       .list(50)
 
-  def byUsersForMod(ids: List[User.ID]): Fu[List[Note]] =
+  def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
     coll
       .find($doc("to" $in ids, "mod" -> true))
       .sort($sort desc "date")

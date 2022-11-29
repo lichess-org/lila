@@ -229,7 +229,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               data => {
                 val checkout = data.fixFreq
                 for {
-                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
+                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
                   customer <- env.plan.api.stripe.userCustomer(me)
                   session <- customer match {
                     case Some(customer) if checkout.freq == Freq.Onetime =>
@@ -301,7 +301,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
                 } yield JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
                 else
                   for {
-                    gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
+                    gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
                     // customer <- env.plan.api.userCustomer(me)
                     order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
                   } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))

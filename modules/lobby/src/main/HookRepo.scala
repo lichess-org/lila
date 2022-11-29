@@ -62,4 +62,4 @@ final private class HookRepo:
   // O(n)
   // invoked regularly when stealing hooks for pools
   def poolCandidates(clock: chess.Clock.Config): Vector[lila.pool.HookThieve.PoolHook] =
-    hooks.values.withFilter(_ compatibleWithPool clock).map(_.toPool).toVector
+    hooks.values.withFilter(_ compatibleWithPool clock).flatMap(_.toPool).toVector

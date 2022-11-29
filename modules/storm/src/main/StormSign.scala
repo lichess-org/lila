@@ -12,7 +12,7 @@ import lila.user.User
 
 final class StormSign(secret: Secret, cacheApi: CacheApi):
 
-  private val store: LoadingCache[User.ID, String] =
+  private val store: LoadingCache[UserId, String] =
     cacheApi.scaffeine
       .expireAfterAccess(24 hours)
       .build(_ => ThreadLocalRandom nextString 12)

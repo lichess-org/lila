@@ -10,7 +10,7 @@ import lila.user.User
 case class AccessToken(
     id: AccessToken.Id,
     plain: Bearer,
-    userId: User.ID,
+    userId: UserId,
     createdAt: Option[DateTime],
     description: Option[String], // for personal access tokens
     usedAt: Option[DateTime] = None,
@@ -28,7 +28,7 @@ object AccessToken:
   object Id:
     def from(bearer: Bearer) = Id(Algo.sha256(bearer.secret).hex)
 
-  case class ForAuth(userId: User.ID, scopes: List[OAuthScope], clientOrigin: Option[String])
+  case class ForAuth(userId: UserId, scopes: List[OAuthScope], clientOrigin: Option[String])
 
   object BSONFields:
     val id           = "_id"
@@ -57,7 +57,7 @@ object AccessToken:
   given BSONDocumentReader[ForAuth] = new BSONDocumentReader[ForAuth]:
     def readDocument(doc: BSONDocument) =
       for {
-        userId <- doc.getAsTry[User.ID](BSONFields.userId)
+        userId <- doc.getAsTry[UserId](BSONFields.userId)
         scopes <- doc.getAsTry[List[OAuthScope]](BSONFields.scopes)
         origin = doc.getAsOpt[String](BSONFields.clientOrigin)
       } yield ForAuth(userId, scopes, origin)
@@ -70,7 +70,7 @@ object AccessToken:
       AccessToken(
         id = r.get[Id](id),
         plain = r.get[Bearer](plain),
-        userId = r str userId,
+        userId = r.get[UserId](userId),
         createdAt = r.getO[DateTime](createdAt),
         description = r strO description,
         usedAt = r.getO[DateTime](usedAt),

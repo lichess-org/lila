@@ -7,6 +7,7 @@ import play.api.Configuration
 
 import lila.common.config.*
 import lila.user.User
+import lila.report.{ ModId, SuspectId }
 
 @Module
 final class Env(
@@ -89,8 +90,8 @@ final class Env(
               (count >= 3) ?? {
                 if (game.hasClock)
                   api.autoMark(
-                    lila.report.SuspectId(userId),
-                    lila.report.ModId.lichess,
+                    SuspectId(userId),
+                    User.lichessId into ModId,
                     s"Cheat detected during game, ${count} times"
                   )
                 else reportApi.autoCheatDetectedReport(userId, count)
@@ -105,14 +106,14 @@ final class Env(
       publicChat.deleteAll(userId).unit
     },
     "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
-      logApi.modMessage(User.lichessId, userId, subject).unit
+      logApi.modMessage(User.lichessId into ModId, userId, subject).unit
     },
     "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId, name) =>
       api
-        .autoMark(lila.report.SuspectId(suspectId), lila.report.ModId.lichess, s"Self report: ${name}")
+        .autoMark(SuspectId(suspectId), User.lichessId into ModId, s"Self report: ${name}")
         .unit
     },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
-      logApi.chatTimeout(mod, user, reason, text).unit
+      logApi.chatTimeout(mod into ModId, user, reason, text).unit
     }
   )

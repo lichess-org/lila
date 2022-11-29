@@ -133,7 +133,7 @@ final class SwissJson(
               top3.map { player =>
                 playerJsonBase(
                   player,
-                  lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
+                  lightUserApi.syncFallback(player.userId),
                   performance = true
                 ).add("lame", lame(player.userId))
               }

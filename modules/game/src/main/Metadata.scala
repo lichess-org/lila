@@ -63,7 +63,7 @@ case object GameRule:
   val byKey = all.map(r => r.key -> r).toMap
 
 case class PgnImport(
-    user: Option[String],
+    user: Option[UserId],
     date: Option[String],
     pgn: String,
     // hashed PGN for DB unicity
@@ -84,11 +84,7 @@ object PgnImport:
       } take 12
     }
 
-  def make(
-      user: Option[String],
-      date: Option[String],
-      pgn: String
-  ) =
+  def make(user: Option[UserId], date: Option[String], pgn: String) =
     PgnImport(
       user = user,
       date = date,
@@ -98,4 +94,5 @@ object PgnImport:
 
   import reactivemongo.api.bson.*
   import ByteArray.given
+  import lila.db.dsl.given
   given BSONDocumentHandler[PgnImport] = Macros.handler

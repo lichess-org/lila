@@ -20,7 +20,7 @@ private object LoginToken:
   import StringToken.DateStr
 
   def makeTokener(secret: Secret, lifetime: FiniteDuration)(using ec: scala.concurrent.ExecutionContext) =
-    new StringToken[User.ID](
+    new StringToken[UserId](
       secret = secret,
       getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
       currentValueHashSize = none,

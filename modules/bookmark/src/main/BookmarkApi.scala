@@ -16,7 +16,7 @@ final class BookmarkApi(
     paginator: PaginatorBuilder
 )(using scala.concurrent.ExecutionContext):
 
-  private def exists(gameId: GameId, userId: User.ID): Fu[Boolean] =
+  private def exists(gameId: GameId, userId: UserId): Fu[Boolean] =
     coll exists selectId(gameId, userId)
 
   def exists(game: Game, user: User): Fu[Boolean] =
@@ -40,9 +40,9 @@ final class BookmarkApi(
   def removeByGameIds(gameIds: List[GameId]): Funit =
     coll.delete.one($doc("g" $in gameIds)).void
 
-  def remove(gameId: GameId, userId: User.ID): Funit = coll.delete.one(selectId(gameId, userId)).void
+  def remove(gameId: GameId, userId: UserId): Funit = coll.delete.one(selectId(gameId, userId)).void
 
-  def toggle(gameId: GameId, userId: User.ID): Funit =
+  def toggle(gameId: GameId, userId: UserId): Funit =
     exists(gameId, userId) flatMap { e =>
       (if (e) remove(gameId, userId) else add(gameId, userId, DateTime.now)) inject !e
     } flatMap { bookmarked =>
@@ -56,7 +56,7 @@ final class BookmarkApi(
 
   def gamePaginatorByUser(user: User, page: Int) = paginator.byUser(user, page)
 
-  private def add(gameId: GameId, userId: User.ID, date: DateTime): Funit =
+  private def add(gameId: GameId, userId: UserId, date: DateTime): Funit =
     coll.insert
       .one(
         $doc(
@@ -68,6 +68,6 @@ final class BookmarkApi(
       )
       .void
 
-  private def userIdQuery(userId: User.ID)              = $doc("u" -> userId)
-  private def makeId(gameId: GameId, userId: User.ID)   = s"$gameId$userId"
-  private def selectId(gameId: GameId, userId: User.ID) = $id(makeId(gameId, userId))
+  private def userIdQuery(userId: UserId)              = $doc("u" -> userId)
+  private def makeId(gameId: GameId, userId: UserId)   = s"$gameId$userId"
+  private def selectId(gameId: GameId, userId: UserId) = $id(makeId(gameId, userId))

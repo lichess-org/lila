@@ -95,7 +95,7 @@ final private class ExplorerIndexer(
       case _                   => 50  // noob variant games
     }
 
-  private def makeJson(game: Game, botUserIds: Set[User.ID]): Fu[Option[JsObject]] =
+  private def makeJson(game: Game, botUserIds: Set[UserId]): Fu[Option[JsObject]] =
     ~(for {
       whiteRating <- stableRating(game.whitePlayer)
       blackRating <- stableRating(game.blackPlayer)
@@ -109,8 +109,8 @@ final private class ExplorerIndexer(
       userRepo.usernamesByIds(game.userIds) map { usernames =>
         def username(color: chess.Color) =
           game.player(color).userId flatMap { id =>
-            usernames.find(_.toLowerCase == id)
-          } orElse game.player(color).userId getOrElse "?"
+            usernames.find(_.id == id)
+          } orElse game.player(color).userId.map(_ into UserName)
         Json
           .obj(
             "id"      -> game.id,

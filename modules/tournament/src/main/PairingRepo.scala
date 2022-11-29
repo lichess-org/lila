@@ -15,8 +15,8 @@ import lila.user.User
 final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Materializer):
 
   def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
-  def selectUser(userId: User.ID)       = $doc("u" -> userId)
-  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
+  def selectUser(userId: UserId)       = $doc("u" -> userId)
+  private def selectTourUser(tourId: Tournament.ID, userId: UserId) =
     $doc(
       "tid" -> tourId,
       "u"   -> userId
@@ -30,7 +30,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
 
   private[tournament] def lastOpponents(
       tourId: Tournament.ID,
-      userIds: Set[User.ID],
+      userIds: Set[UserId],
       max: Int
   ): Fu[Pairing.LastOpponents] =
     userIds.nonEmpty.?? {
@@ -44,8 +44,8 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
         .batchSize(20)
         .cursor[Bdoc]()
         .documentSource(max)
-        .mapConcat(_.getAsOpt[List[User.ID]]("u").toList)
-        .scan(Map.empty[User.ID, User.ID]) {
+        .mapConcat(_.getAsOpt[List[UserId]]("u").toList)
+        .scan(Map.empty[UserId, UserId]) {
           case (acc, List(u1, u2)) =>
             val b1   = userIds.contains(u1)
             val b2   = !b1 || userIds.contains(u2)
@@ -62,7 +62,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
         .dmap(~_)
     } dmap Pairing.LastOpponents.apply
 
-  def opponentsOf(tourId: Tournament.ID, userId: User.ID): Fu[Set[User.ID]] =
+  def opponentsOf(tourId: Tournament.ID, userId: UserId): Fu[Set[UserId]] =
     coll
       .find(
         selectTourUser(tourId, userId),
@@ -73,12 +73,12 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
       .dmap {
         _.view
           .flatMap { doc =>
-            (~doc.getAsOpt[List[User.ID]]("u")).find(userId !=)
+            (~doc.getAsOpt[List[UserId]]("u")).find(userId !=)
           }
           .toSet
       }
 
-  def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[GameId]] =
+  def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: UserId, nb: Int): Fu[List[GameId]] =
     coll
       .find(
         selectTourUser(tourId, userId),
@@ -91,7 +91,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
         _.flatMap(_.getAsOpt[GameId]("_id"))
       }
 
-  def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[GameId]] =
+  def playingByTourAndUserId(tourId: Tournament.ID, userId: UserId): Fu[Option[GameId]] =
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectPlaying,
@@ -105,7 +105,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
 
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 
-  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Funit =
+  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: UserId): Funit =
     coll
       .list[Pairing](selectTourUser(tourId, userId))
       .flatMap {
@@ -125,7 +125,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
   def count(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId))
 
-  private[tournament] def countByTourIdAndUserIds(tourId: Tournament.ID): Fu[Map[User.ID, Int]] =
+  private[tournament] def countByTourIdAndUserIds(tourId: Tournament.ID): Fu[Map[UserId, Int]] =
     val max = 10_000
     coll
       .aggregateList(maxDocs = max, ReadPreference.secondaryPreferred) { framework =>
@@ -141,7 +141,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
       .map {
         _.view
           .flatMap { doc =>
-            doc.getAsOpt[User.ID]("_id") flatMap { uid =>
+            doc.getAsOpt[UserId]("_id") flatMap { uid =>
               doc.int("nb") map { uid -> _ }
             }
           }
@@ -150,15 +150,15 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
 
   def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
-  def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
+  def findPlaying(tourId: Tournament.ID, userId: UserId): Fu[Option[Pairing]] =
     coll.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 
-  def isPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+  def isPlaying(tourId: Tournament.ID, userId: UserId): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
 
   private[tournament] def finishedByPlayerChronological(
       tourId: Tournament.ID,
-      userId: User.ID
+      userId: UserId
   ): Fu[List[Pairing]] =
     coll
       .find(selectTourUser(tourId, userId) ++ selectFinished)
@@ -186,7 +186,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
         fetchNewObject = true
       )
 
-  def setBerserk(pairing: Pairing, userId: User.ID) = {
+  def setBerserk(pairing: Pairing, userId: UserId) = {
     if (pairing.user1 == userId) "b1".some
     else if (pairing.user2 == userId) "b2".some
     else none
@@ -201,7 +201,7 @@ final class PairingRepo(coll: Coll)(using scala.concurrent.ExecutionContext, Mat
 
   def sortedCursor(
       tournamentId: Tournament.ID,
-      userId: Option[User.ID],
+      userId: Option[UserId],
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Pairing] =

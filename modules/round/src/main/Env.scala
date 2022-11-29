@@ -66,7 +66,7 @@ final class Env(
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)
-  private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
+  private def goneWeight(userId: UserId): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
   private val goneWeightsFor = (game: Game) =>
     if (!game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1))
       fuccess(1f -> 1f)
@@ -75,7 +75,7 @@ final class Env(
         game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
   private val isSimulHost = new IsSimulHost(userId =>
-    Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId)
+    Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId)
   )
 
   private val scheduleExpiration = new ScheduleExpiration(game => {
@@ -92,7 +92,7 @@ final class Env(
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
-  private def resignAllGamesOf(userId: User.ID) =
+  private def resignAllGamesOf(userId: UserId) =
     gameRepo allPlaying userId foreach {
       _ foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
     }
@@ -183,7 +183,7 @@ final class Env(
   lazy val getSocketStatus = (game: Game) =>
     roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus.apply)
 
-  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
+  private def isUserPresent(game: Game, userId: UserId): Fu[Boolean] =
     roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundAsyncActor.HasUserId(userId, _))
 
   lazy val jsonView = wire[JsonView]

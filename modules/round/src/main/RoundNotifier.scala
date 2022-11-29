@@ -8,7 +8,7 @@ import lila.user.User
 
 final private class RoundNotifier(
     timeline: lila.hub.actors.Timeline,
-    isUserPresent: (Game, User.ID) => Fu[Boolean],
+    isUserPresent: (Game, UserId) => Fu[Boolean],
     notifyApi: NotifyApi
 )(using ec: scala.concurrent.ExecutionContext):
 
@@ -28,10 +28,10 @@ final private class RoundNotifier(
         case false =>
           notifyApi.addNotification(
             Notification.make(
-              UserId(userId),
+              userId,
               GameEnd(
                 game fullIdOf color,
-                UserId from game.opponent(color).userId,
+                game.opponent(color).userId,
                 Win from game.wonBy(color)
               )
             )

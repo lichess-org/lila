@@ -78,7 +78,7 @@ object Puzzle:
 
   case class UserResult(
       puzzleId: PuzzleId,
-      userId: lila.user.User.ID,
+      userId: UserId,
       win: PuzzleWin,
       rating: (IntRating, IntRating)
   )

@@ -24,7 +24,7 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = userId.value == lila.user.User.lichessId
+  def lichess = this is lila.user.User.lichessId
 
   def offline = key == Client.offline.key
 
@@ -33,6 +33,8 @@ case class Client(
   override def toString = s"$key by $userId"
 
 object Client:
+
+  given UserIdOf[Client] = _.userId
 
   val offline = Client(
     _id = Key("offline"),

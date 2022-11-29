@@ -39,7 +39,7 @@ case class Game(
   def clock     = chess.clock
   def pgnMoves  = chess.pgnMoves
 
-  val players = List(whitePlayer, blackPlayer)
+  val players = List[Player](whitePlayer, blackPlayer)
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
@@ -53,13 +53,13 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: User.ID): Option[Player]   = players.find(_.userId contains userId)
-  def opponentByUserId(userId: User.ID): Option[Player] = playerByUserId(userId) map opponent
+  def playerByUserId(userId: UserId): Option[Player]   = players.find(_.userId contains userId)
+  def opponentByUserId(userId: UserId): Option[Player] = playerByUserId(userId) map opponent
 
-  def hasUserIds(userId1: User.ID, userId2: User.ID) =
+  def hasUserIds(userId1: UserId, userId2: UserId) =
     playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
-  def hasUserId(userId: User.ID) = playerByUserId(userId).isDefined
+  def hasUserId(userId: UserId) = playerByUserId(userId).isDefined
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -438,9 +438,9 @@ case class Game(
 
   def winnerColor: Option[Color] = winner map (_.color)
 
-  def winnerUserId: Option[String] = winner flatMap (_.userId)
+  def winnerUserId: Option[UserId] = winner flatMap (_.userId)
 
-  def loserUserId: Option[String] = loser flatMap (_.userId)
+  def loserUserId: Option[UserId] = loser flatMap (_.userId)
 
   def wonBy(c: Color): Option[Boolean] = winner map (_.color == c)
 
@@ -554,16 +554,16 @@ case class Game(
 
   def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
-  def userIds = playerMaps(_.userId)
+  def userIds = playerMaps[UserId](_.userId)
 
-  def twoUserIds: Option[(User.ID, User.ID)] =
+  def twoUserIds: Option[(UserId, UserId)] =
     for {
       w <- whitePlayer.userId
       b <- blackPlayer.userId
       if w != b
     } yield w -> b
 
-  def userRatings = playerMaps(_.rating)
+  def userRatings = playerMaps[IntRating](_.rating)
 
   def averageUsersRating =
     userRatings match

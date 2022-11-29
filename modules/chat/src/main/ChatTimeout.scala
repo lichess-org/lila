@@ -22,7 +22,7 @@ final class ChatTimeout(
     isActive(chat.id, user.id) flatMap {
       case true => fuccess(false)
       case false =>
-        if (scope == Scope.Global) global put UserId(user.id)
+        if (scope == Scope.Global) global put user.id
         coll.insert
           .one(
             $doc(
@@ -37,8 +37,8 @@ final class ChatTimeout(
           ) inject true
     }
 
-  def isActive(chatId: ChatId, userId: User.ID): Fu[Boolean] =
-    fuccess(global.get(UserId(userId))) >>| coll.exists(
+  def isActive(chatId: ChatId, userId: UserId): Fu[Boolean] =
+    fuccess(global.get(userId)) >>| coll.exists(
       $doc(
         "chat" -> chatId,
         "user" -> userId,
@@ -78,11 +78,11 @@ object ChatTimeout:
     x => BSONString(x.key)
   )
 
-  case class Reinstate(_id: String, chat: String, user: String)
-  implicit val ReinstateBSONReader: BSONDocumentReader[Reinstate] = Macros.reader[Reinstate]
+  case class Reinstate(_id: String, chat: ChatId, user: UserId)
+  implicit val ReinstateBSONReader: BSONDocumentReader[Reinstate] = Macros.reader
 
-  case class UserEntry(mod: String, reason: Reason, createdAt: DateTime)
-  implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader[UserEntry]
+  case class UserEntry(mod: UserId, reason: Reason, createdAt: DateTime)
+  implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader
 
   enum Scope:
     case Local, Global
@@ -92,10 +92,10 @@ object ChatTimeout:
     mapping(
       "roomId" -> of[RoomId],
       "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "study")),
-      "userId" -> nonEmptyText,
+      "userId" -> lila.user.UserForm.historicalUsernameField,
       "reason" -> nonEmptyText,
       "text"   -> nonEmptyText
     )(TimeoutFormData.apply)(unapply)
   )
 
-  case class TimeoutFormData(roomId: RoomId, chan: String, userId: User.ID, reason: String, text: String)
+  case class TimeoutFormData(roomId: RoomId, chan: String, userId: UserStr, reason: String, text: String)

@@ -244,7 +244,7 @@ final class RelayRound(
       ).enableSharedArrayBuffer
     }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))
 
-  private val CreateLimitPerUser = lila.memo.RateLimit[UserModel.ID](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.user"

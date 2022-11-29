@@ -16,7 +16,7 @@ final case class OpenConfig(
     days: Option[Days],
     rated: Boolean,
     position: Option[FEN],
-    userIds: Option[(User.ID, User.ID)],
+    userIds: Option[(UserId, UserId)],
     rules: Set[GameRule] = Set.empty
 ):
 
@@ -37,7 +37,7 @@ object OpenConfig:
       days: Option[Days],
       rated: Boolean,
       pos: Option[FEN],
-      usernames: Option[List[String]],
+      usernames: Option[List[UserStr]],
       rules: Option[Set[GameRule]]
   ) =
     new OpenConfig(
@@ -47,7 +47,7 @@ object OpenConfig:
       days = days,
       rated = rated,
       position = pos,
-      userIds = usernames.map(_.map(User.normalize)) collect { case List(w, b) =>
+      userIds = usernames.map(_.map(_.id)) collect { case List(w, b) =>
         (w, b)
       },
       rules = ~rules

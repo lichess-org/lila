@@ -26,7 +26,7 @@ final class LeaderboardApi(
 
   def bestByUser(user: User, page: Int) = paginator(user, page, sortBest = true)
 
-  def timeRange(userId: User.ID, range: (DateTime, DateTime)): Fu[List[Entry]] =
+  def timeRange(userId: UserId, range: (DateTime, DateTime)): Fu[List[Entry]] =
     repo.coll
       .find(
         $doc(
@@ -68,7 +68,7 @@ final class LeaderboardApi(
         }
       }
 
-  def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
+  def getAndDeleteRecent(userId: UserId, since: DateTime): Fu[List[Tournament.ID]] =
     repo.coll.list[Entry](
       $doc(
         "u" -> userId,
@@ -125,7 +125,7 @@ object LeaderboardApi:
 
   case class Entry(
       id: TourPlayerId,
-      userId: User.ID,
+      userId: UserId,
       tourId: Tournament.ID,
       nbGames: Int,
       score: Int,

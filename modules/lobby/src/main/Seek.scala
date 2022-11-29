@@ -79,7 +79,7 @@ object Seek:
       color: String,
       user: User,
       ratingRange: RatingRange,
-      blocking: Set[String]
+      blocking: Set[UserId]
   ): Seek = Seek(
     _id = lila.common.ThreadLocalRandom nextString idSize,
     variant = variant.id,

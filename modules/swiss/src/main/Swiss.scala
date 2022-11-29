@@ -18,13 +18,13 @@ case class Swiss(
     nbPlayers: Int,
     nbOngoing: Int,
     createdAt: DateTime,
-    createdBy: User.ID,
+    createdBy: UserId,
     teamId: TeamId,
     startsAt: DateTime,
     settings: Swiss.Settings,
     nextRoundAt: Option[DateTime],
     finishedAt: Option[DateTime],
-    winnerId: Option[User.ID] = None
+    winnerId: Option[UserId] = None
 ):
   inline def id = _id
 

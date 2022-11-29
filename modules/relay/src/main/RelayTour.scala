@@ -9,7 +9,7 @@ case class RelayTour(
     name: String,
     description: String,
     markup: Option[lila.common.Markdown] = None,
-    ownerId: User.ID,
+    ownerId: UserId,
     createdAt: DateTime,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing

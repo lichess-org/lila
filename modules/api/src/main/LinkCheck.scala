@@ -101,7 +101,7 @@ final private class LinkCheck(
 private object LinkCheck:
 
   sealed trait FullSource:
-    def owners: Set[User.ID]
+    def owners: Set[UserId]
     def teamId: Option[TeamId]
 
   object FullSource:

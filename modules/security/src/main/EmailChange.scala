@@ -3,6 +3,7 @@ package lila.security
 import scalatags.Text.all.*
 import lila.common.config.*
 import lila.common.EmailAddress
+import lila.common.Iso
 import lila.i18n.I18nKeys.{ emails as trans }
 import lila.user.{ User, UserRepo }
 import lila.mailer.Mailer
@@ -21,7 +22,7 @@ final class EmailChange(
       tokener make TokenPayload(user.id, email).some flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
-        val url           = s"$baseUrl/account/email/confirm/$token"
+        val url                  = s"$baseUrl/account/email/confirm/$token"
         lila.log("auth").info(s"Change email URL ${user.username} $email $url")
         mailer send Mailer.Message(
           to = email,
@@ -55,15 +56,15 @@ ${trans.common_orPaste.txt()}
       }
     }
 
-  case class TokenPayload(userId: User.ID, email: EmailAddress)
+  case class TokenPayload(userId: UserId, email: EmailAddress)
 
-  private given StringToken.Serializable[Option[TokenPayload]] with
+  private given Iso.StringIso[Option[TokenPayload]] with
     private val sep = ' '
-    def read(str: String) =
+    val from = str =>
       str.split(sep) match
-        case Array(id, email) => EmailAddress from email map { TokenPayload(id, _) }
+        case Array(id, email) => EmailAddress from email map { TokenPayload(UserId(id), _) }
         case _                => none
-    def write(a: Option[TokenPayload]) =
+    val to = a =>
       a ?? { case TokenPayload(userId, EmailAddress(email)) =>
         s"$userId$sep$email"
       }

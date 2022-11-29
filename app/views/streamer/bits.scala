@@ -55,19 +55,14 @@ object bits:
       a(href := "/about")(downloadKit())
     )
 
-  def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
+  def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None) =
     isStreaming match
-      case Some(false) => a(href := routes.Streamer.show(username))
-      case _ =>
-        a(
-          href := routes.Streamer.redirect(username),
-          targetBlank,
-          noFollow
-        )
+      case Some(false) => a(href := routes.Streamer.show(username.value))
+      case _           => a(href := routes.Streamer.redirect(username.value), targetBlank, noFollow)
 
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      redirectLink(s.streamer.id.value)(
+      redirectLink(s.streamer.id into UserStr)(
         cls   := "stream highlight",
         title := s.status
       )(
@@ -77,7 +72,7 @@ object bits:
       )
     }
 
-  def contextual(userId: User.ID)(implicit lang: Lang): Frag =
+  def contextual(userId: UserId)(implicit lang: Lang): Frag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
       xIsStreaming(titleNameOrId(userId))
     )

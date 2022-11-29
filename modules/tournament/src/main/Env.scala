@@ -140,7 +140,7 @@ final class Env(
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+  def hasUser(tourId: Tournament.ID, userId: UserId): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
 
   def cli =

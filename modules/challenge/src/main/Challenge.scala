@@ -154,7 +154,7 @@ object Challenge:
 
   sealed trait Challenger
   object Challenger:
-    case class Registered(id: User.ID, rating: Rating) extends Challenger
+    case class Registered(id: UserId, rating: Rating) extends Challenger
     case class Anonymous(secret: String)               extends Challenger
     case object Open                                   extends Challenger
 
@@ -179,7 +179,7 @@ object Challenge:
     case object Black  extends ColorChoice(I18nKeys.black)
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
-  case class Open(userIds: Option[(User.ID, User.ID)]):
+  case class Open(userIds: Option[(UserId, UserId)]):
     def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
     def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
     def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
@@ -232,7 +232,7 @@ object Challenge:
       rematchOf: Option[GameId],
       name: Option[String] = None,
       id: Option[GameId] = None,
-      openToUserIds: Option[(User.ID, User.ID)] = None,
+      openToUserIds: Option[(UserId, UserId)] = None,
       rules: Set[GameRule] = Set.empty
   ): Challenge =
     val (colorChoice, finalColor) = color match

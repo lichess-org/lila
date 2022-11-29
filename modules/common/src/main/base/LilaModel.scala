@@ -1,6 +1,7 @@
 package lila.base
 
 import alleycats.Zero
+import cats.Show
 
 trait LilaModel extends NewTypes:
 
@@ -8,17 +9,6 @@ trait LilaModel extends NewTypes:
     def apply(a: A): Double
   object Percent:
     def toInt[A](a: A)(using p: Percent[A]) = Math.round(p(a)).toInt // round to closest
-
-  opaque type UserId = String
-  object UserId extends OpaqueString[UserId]
-
-  // specialized UserIds like Coach.Id
-  trait OpaqueUserId[A] extends OpaqueString[A]:
-    extension (a: A) inline def userId: UserId = a into UserId
-
-  opaque type UserName = String
-  object UserName extends OpaqueString[UserName]:
-    extension (n: UserName) def id = UserId(n.value.toLowerCase)
 
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]

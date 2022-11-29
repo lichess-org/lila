@@ -106,7 +106,7 @@ final class PlaybanApi(
         good(game, flaggerColor)
     }
 
-  private def propagateSitting(game: Game, userId: User.ID): Funit =
+  private def propagateSitting(game: Game, userId: UserId): Funit =
     rageSitCache get userId map { rageSit =>
       if (rageSit.isBad) Bus.publish(SittingDetected(game, userId), "playban")
     }
@@ -150,8 +150,8 @@ final class PlaybanApi(
   // memorize users without any ban to save DB reads
   private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
 
-  def currentBan(userId: User.ID): Fu[Option[TempBan]] =
-    !cleanUserIds.get(UserId(userId)) ?? {
+  def currentBan(userId: UserId): Fu[Option[TempBan]] =
+    !cleanUserIds.get(userId) ?? {
       coll
         .find(
           $doc("_id" -> userId, "b.0" $exists true),
@@ -161,13 +161,13 @@ final class PlaybanApi(
         .dmap {
           _.flatMap(_.getAsOpt[List[TempBan]]("b")).??(_.find(_.inEffect))
         } addEffect { ban =>
-        if (ban.isEmpty) cleanUserIds put UserId(userId)
+        if (ban.isEmpty) cleanUserIds put userId
       }
     }
 
-  def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
+  def hasCurrentBan(userId: UserId): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
-  def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
+  def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] =
     coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
       import framework.*
       Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
@@ -175,13 +175,13 @@ final class PlaybanApi(
       )
     } map {
       _.flatMap { obj =>
-        obj.getAsOpt[User.ID]("_id") flatMap { id =>
+        obj.getAsOpt[UserId]("_id") flatMap { id =>
           obj.getAsOpt[Int]("bans") map { id -> _ }
         }
       }.toMap
     }
 
-  def bans(userId: User.ID): Fu[Int] =
+  def bans(userId: UserId): Fu[Int] =
     coll.aggregateOne(ReadPreference.secondaryPreferred) { framework =>
       import framework.*
       Match($id(userId) ++ $doc("b" $exists true)) -> List(
@@ -189,9 +189,9 @@ final class PlaybanApi(
       )
     } map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
 
-  def getRageSit(userId: User.ID) = rageSitCache get userId
+  def getRageSit(userId: UserId) = rageSitCache get userId
 
-  private val rageSitCache = cacheApi[User.ID, RageSit](32768, "playban.ragesit") {
+  private val rageSitCache = cacheApi[UserId, RageSit](32768, "playban.ragesit") {
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture { userId =>
         coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty)
@@ -200,7 +200,7 @@ final class PlaybanApi(
 
   private def save(
       outcome: Outcome,
-      userId: User.ID,
+      userId: UserId,
       rsUpdate: RageSit.Update,
       source: Option[Source]
   ): Funit = {
@@ -256,7 +256,7 @@ final class PlaybanApi(
             fetchNewObject = true
           )
       }
-      .map(_ | record) >>- cleanUserIds.remove(UserId(record.userId))
+      .dmap(_ | record) >>- cleanUserIds.remove(record.userId)
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
     update match

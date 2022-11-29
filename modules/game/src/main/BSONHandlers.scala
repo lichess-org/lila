@@ -178,9 +178,13 @@ object BSONHandlers:
 
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
-        F.id            -> o.id,
-        F.playerIds     -> (o.whitePlayer.id.value + o.blackPlayer.id.value),
-        F.playerUids    -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
+        F.id        -> o.id,
+        F.playerIds -> (o.whitePlayer.id.value + o.blackPlayer.id.value),
+        F.playerUids -> ((o.whitePlayer.userId, o.blackPlayer.userId) match
+          case (None, None)    => None
+          case (Some(w), None) => Some(List(w.value))
+          case (wo, Some(b))   => Some(List(wo.??(_.value), b.value))
+        ),
         F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
         F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),
         F.status        -> o.status,
@@ -233,9 +237,9 @@ object BSONHandlers:
     def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame =
       val (whiteId, blackId)   = playerIds splitAt 4
       val winC                 = r boolO F.winnerColor map Color.fromWhite
-      val uids                 = ~r.getO[List[lila.user.User.ID]](F.playerUids)
-      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
-      def makePlayer(field: String, color: Color, id: String, uid: Player.UserId): Player =
+      val uids                 = ~r.getO[List[UserId]](F.playerUids)
+      val (whiteUid, blackUid) = (uids.headOption.filter(_.value.nonEmpty), uids.lift(1))
+      def makePlayer(field: String, color: Color, id: String, uid: Option[UserId]): Player =
         val builder = r.getO[Player.Builder](field)(using Player.playerReader) | emptyPlayerBuilder
         builder(color)(GamePlayerId(id))(uid)(winC map (_ == color))
       LightGame(

@@ -32,9 +32,9 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using ctx: ExecutionCon
   import StormBsonHandlers.given
   import StormHigh.NewHigh
 
-  def get(userId: User.ID): Fu[StormHigh] = cache get userId
+  def get(userId: UserId): Fu[StormHigh] = cache get userId
 
-  def update(userId: User.ID, prev: StormHigh, score: Int): Option[NewHigh] =
+  def update(userId: UserId, prev: StormHigh, score: Int): Option[NewHigh] =
     val high = prev update score
     (high != prev) ?? {
       cache.put(userId, fuccess(high))
@@ -45,15 +45,15 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using ctx: ExecutionCon
       else Day(prev.day).some
     }
 
-  private val cache = cacheApi[User.ID, StormHigh](8192, "storm.high") {
+  private val cache = cacheApi[UserId, StormHigh](8192, "storm.high") {
     _.expireAfterAccess(1 hour).buildAsyncFuture(compute)
   }
 
-  private def compute(userId: User.ID): Fu[StormHigh] =
+  private def compute(userId: UserId): Fu[StormHigh] =
     coll
       .aggregateOne() { framework =>
         import framework.*
-        def matchSince(sinceId: User.ID => StormDay.Id) = Match($doc("_id" $gte sinceId(userId)))
+        def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id" $gte sinceId(userId)))
         val scoreSort                                   = Sort(Descending("score"))
         Match($doc("_id" $lte StormDay.Id.today(userId) $gt StormDay.Id.allTime(userId))) -> List(
           Project($doc("score" -> true)),

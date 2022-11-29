@@ -75,17 +75,17 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   private def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
-  def get(userId: String): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
+  def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
 
   def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(IntRating, IntRating)]] =
     withColl(
-      _.optionsByOrderedIds[Bdoc, User.ID](
+      _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
         $doc(perfType.key.value -> true).some
-      )(~_.string("_id")) map { hists =>
+      )(_.getAsTry[UserId]("_id").get) map { hists =>
         import History.ratingsReader
         users zip hists map { case (user, doc) =>
           val current      = user.perfs(perfType).intRating
@@ -106,7 +106,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
     def apply(user: User, perf: PerfType): Fu[IntRating] = cache.get(user.id -> perf)
 
-    private val cache = cacheApi[(User.ID, PerfType), IntRating](1024, "lastWeekTopRating") {
+    private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating") {
       _.expireAfterAccess(20 minutes)
         .buildAsyncFuture { case (userId, perf) =>
           userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>

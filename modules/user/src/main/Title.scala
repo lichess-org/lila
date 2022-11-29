@@ -50,10 +50,10 @@ object Title:
         case NewFideProfileUrlRegex(id) => id.toIntOption
         case _                          => none
 
-    def apply(url: String)(implicit ws: StandaloneWSClient): Fu[Option[UserTitle]] =
+    def apply(url: String)(using ws: StandaloneWSClient): Fu[Option[UserTitle]] =
       toFideId(url) ?? fromFideProfile
 
-    private def fromFideProfile(id: Int)(implicit ws: StandaloneWSClient): Fu[Option[UserTitle]] =
+    private def fromFideProfile(id: Int)(using ws: StandaloneWSClient): Fu[Option[UserTitle]] =
       ws.url(s"""https://ratings.fide.com/profile/$id""").get().dmap(_.body) dmap {
         case FideProfileTitleRegex(name) => fromNames get name
         case _                           => none

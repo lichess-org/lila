@@ -99,17 +99,17 @@ final class TournamentLilaHttp(
       sheet: arena.Sheet,
       rankedPlayer: RankedPlayer,
       streakable: Boolean
-  )(using ec: ExecutionContext): Fu[JsObject] =
+  )(using ExecutionContext): Fu[JsObject] =
     val p = rankedPlayer.player
-    lightUserApi async p.userId map { light =>
+    lightUserApi asyncFallback p.userId map { light =>
       Json
         .obj(
-          "name"   -> light.fold(p.userId)(_.name),
+          "name"   -> light.name,
           "rating" -> p.rating,
           "score"  -> p.score,
           "sheet"  -> JsonView.scoresToString(sheet)
         )
-        .add("title" -> light.flatMap(_.title))
+        .add("title" -> light.title)
         .add("provisional" -> p.provisional)
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)

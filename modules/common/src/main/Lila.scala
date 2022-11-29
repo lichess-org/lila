@@ -28,6 +28,7 @@ trait Lila
     extends lila.base.LilaTypes
     with lila.base.NewTypes
     with lila.base.LilaModel
+    with lila.base.LilaUserId
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
     with ornicar.scalalib.Zeros

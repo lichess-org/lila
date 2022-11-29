@@ -11,7 +11,7 @@ case class Clas(
     name: String,
     desc: String,
     wall: Markdown = Markdown(""),
-    teachers: NonEmptyList[User.ID], // first is owner
+    teachers: NonEmptyList[UserId], // first is owner
     created: Clas.Recorded,
     viewedAt: DateTime,
     archived: Option[Clas.Recorded]
@@ -41,6 +41,6 @@ object Clas:
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  case class Recorded(by: User.ID, at: DateTime)
+  case class Recorded(by: UserId, at: DateTime)
 
   case class WithStudents(clas: Clas, students: List[Student])

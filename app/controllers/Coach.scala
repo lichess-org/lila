@@ -33,7 +33,7 @@ final class Coach(env: Env) extends LilaController(env):
       pager        <- env.coach.pager(lang, order, country, page)
     } yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
 
-  def show(username: String) =
+  def show(username: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
@@ -50,7 +50,7 @@ final class Coach(env: Env) extends LilaController(env):
       }
     }
 
-  def review(username: String) =
+  def review(username: UserStr) =
     AuthBody { implicit ctx => me =>
       OptionFuResult(api find username) { c =>
         NoBot {
@@ -92,13 +92,13 @@ final class Coach(env: Env) extends LilaController(env):
   def modReview(id: String) =
     SecureBody(_.DisapproveCoachReview) { implicit ctx => me =>
       OptionFuResult(api.reviews byId id) { review =>
-        env.mod.logApi.coachReview(me.id, review.coachId.value, review.userId) >>
+        env.mod.logApi.coachReview(me.id into ModId, review.coachId.userId, review.userId) >>
           api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
       }
     }
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
-    if (c.isListed || ctx.me.??(c.coach.is) || isGranted(_.Admin)) f
+    if (c.isListed || ctx.me.exists(_ is c.coach) || isGranted(_.Admin)) f
     else notFound
 
   def edit =

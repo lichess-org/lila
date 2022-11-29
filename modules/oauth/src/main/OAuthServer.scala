@@ -35,7 +35,7 @@ final class OAuthServer(
               at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
             andLogReq filter { req =>
               blocked || {
-                u.id != "openingexplorer" && !HTTPRequest.looksLikeLichessBot(req)
+                u.id != User.explorerId && !HTTPRequest.looksLikeLichessBot(req)
               }
             } foreach { req =>
               logger.debug(

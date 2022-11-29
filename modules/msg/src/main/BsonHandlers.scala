@@ -19,15 +19,15 @@ private object BsonHandlers:
         case List(u1, u2) =>
           MsgThread(
             id = r.get[MsgThread.Id]("_id"),
-            user1 = u1,
-            user2 = u2,
+            user1 = UserId(u1),
+            user2 = UserId(u2),
             lastMsg = r.get[Last]("lastMsg")
           )
         case x => sys error s"Invalid MsgThread users: $x"
     def writes(w: BSON.Writer, t: MsgThread) =
       $doc(
         "_id"     -> t.id,
-        "users"   -> t.users.sorted,
+        "users"   -> t.users.sorted(using stringOrdering),
         "lastMsg" -> t.lastMsg
       )
 
@@ -40,5 +40,5 @@ private object BsonHandlers:
       "tid" -> threadId
     )
 
-  def writeThread(thread: MsgThread, delBy: List[User.ID]): Bdoc =
+  def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
     threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)

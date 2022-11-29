@@ -14,11 +14,11 @@ object SocketVersion extends OpaqueInt[SocketVersion]:
 opaque type SocketSend = String => Unit
 object SocketSend extends TotalWrapper[SocketSend, String => Unit]
 
-opaque type IsOnline = String => Boolean
-object IsOnline extends TotalWrapper[IsOnline, String => Boolean]
+opaque type IsOnline = UserId => Boolean
+object IsOnline extends TotalWrapper[IsOnline, UserId => Boolean]
 
-opaque type OnlineIds = () => Set[String]
-object OnlineIds extends TotalWrapper[OnlineIds, () => Set[String]]
+opaque type OnlineIds = () => Set[UserId]
+object OnlineIds extends TotalWrapper[OnlineIds, () => Set[UserId]]
 
 case class GetVersion(promise: Promise[SocketVersion])
 case class SendToFlag(flag: String, message: JsObject)

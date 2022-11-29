@@ -47,7 +47,7 @@ final class EventApi(
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
 
-  def oneEnabled(id: String) = coll.byId[Event](id).map(_.filter(_.enabled))
+  def oneEnabled(id: String) = coll.byId[Event](id).dmap(_.filter(_.enabled))
 
   def one(id: String) = coll.byId[Event](id)
 
@@ -61,7 +61,7 @@ final class EventApi(
 
   def createForm = EventForm.form
 
-  def create(data: EventForm.Data, userId: String): Fu[Event] =
+  def create(data: EventForm.Data, userId: UserId): Fu[Event] =
     val event = data make userId
     coll.insert.one(event) >>- promotable.invalidateUnit() inject event
 

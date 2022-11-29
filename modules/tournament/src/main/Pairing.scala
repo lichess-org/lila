@@ -10,9 +10,9 @@ case class Pairing(
     id: GameId,
     tourId: Tournament.ID,
     status: chess.Status,
-    user1: User.ID,
-    user2: User.ID,
-    winner: Option[User.ID],
+    user1: UserId,
+    user2: UserId,
+    winner: Option[UserId],
     turns: Option[Int],
     berserk1: Boolean,
     berserk2: Boolean
@@ -22,11 +22,11 @@ case class Pairing(
 
   def users                                       = List(user1, user2)
   def usersPair                                   = user1 -> user2
-  def contains(user: User.ID): Boolean            = user1 == user || user2 == user
-  def contains(u1: User.ID, u2: User.ID): Boolean = contains(u1) && contains(u2)
-  def notContains(user: User.ID)                  = !contains(user)
+  def contains(user: UserId): Boolean            = user1 == user || user2 == user
+  def contains(u1: UserId, u2: UserId): Boolean = contains(u1) && contains(u2)
+  def notContains(user: UserId)                  = !contains(user)
 
-  def opponentOf(userId: User.ID) =
+  def opponentOf(userId: UserId) =
     if (userId == user1) user2.some
     else if (userId == user2) user1.some
     else none
@@ -44,17 +44,17 @@ case class Pairing(
     case ThreeCheck | Atomic         => 20
   }))
 
-  def wonBy(user: User.ID): Boolean     = winner.has(user)
-  def lostBy(user: User.ID): Boolean    = winner.exists(user !=)
-  def notLostBy(user: User.ID): Boolean = winner.fold(true)(user ==)
+  def wonBy(user: UserId): Boolean     = winner.has(user)
+  def lostBy(user: UserId): Boolean    = winner.exists(user !=)
+  def notLostBy(user: UserId): Boolean = winner.fold(true)(user ==)
   def draw: Boolean                     = finished && winner.isEmpty
 
-  def colorOf(userId: User.ID): Option[Color] =
+  def colorOf(userId: UserId): Option[Color] =
     if (userId == user1) Color.White.some
     else if (userId == user2) Color.Black.some
     else none
 
-  def berserkOf(userId: User.ID): Boolean =
+  def berserkOf(userId: UserId): Boolean =
     if (userId == user1) berserk1
     else if (userId == user2) berserk2
     else false
@@ -65,15 +65,15 @@ case class Pairing(
 
 private[tournament] object Pairing:
 
-  case class LastOpponents(hash: Map[User.ID, User.ID]) extends AnyVal
+  case class LastOpponents(hash: Map[UserId, UserId]) extends AnyVal
 
   case class WithPlayers(pairing: Pairing, player1: Player, player2: Player)
 
   private def make(
       gameId: GameId,
       tourId: Tournament.ID,
-      u1: User.ID,
-      u2: User.ID
+      u1: UserId,
+      u2: UserId
   ) =
     new Pairing(
       id = gameId,

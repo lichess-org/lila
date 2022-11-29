@@ -147,7 +147,7 @@ final class Account(
 
   def passwdApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) { _ =>
         given play.api.mvc.Request[?] = ctx.body
         env.user.forms passwd me flatMap { form =>
           FormFuResult(form) { err =>
@@ -196,7 +196,7 @@ final class Account(
 
   def emailApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) { _ =>
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
           FormFuResult(form) { err =>
@@ -269,7 +269,7 @@ final class Account(
 
   def setupTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) { _ =>
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.setupTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
@@ -284,7 +284,7 @@ final class Account(
 
   def disableTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      auth.HasherRateLimit(me.id, ctx.req) { _ =>
         given play.api.mvc.Request[?] = ctx.body
         env.security.forms.disableTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
@@ -310,7 +310,7 @@ final class Account(
     AuthBody { implicit ctx => me =>
       NotManaged {
         given play.api.mvc.Request[?] = ctx.body
-        auth.HasherRateLimit(me.username, ctx.req) { _ =>
+        auth.HasherRateLimit(me.id, ctx.req) { _ =>
           env.security.forms closeAccount me flatMap { form =>
             FormFuResult(form) { err =>
               fuccess(html.account.close(me, err, managed = false))
@@ -462,9 +462,9 @@ final class Account(
   }
 
   def data = Auth { implicit ctx => me =>
-    val userId = get("user")
-      .map(lila.user.User.normalize)
-      .filter(id => me.id == id || isGranted(_.Impersonate)) | me.id
+    val userId: UserId = getUserStr("user")
+      .map(_.id)
+      .filter(id => me == id || isGranted(_.Impersonate)) | me.id
     env.user.repo byId userId map {
       _ ?? { user =>
         if (getBool("text"))

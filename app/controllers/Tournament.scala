@@ -129,7 +129,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             tourOption
               .fold(notFoundJson("No such tournament")) { tour =>
                 for {
-                  playerInfoExt <- get("playerInfo").?? { api.playerInfo(tour, _) }
+                  playerInfoExt <- getUserStr("playerInfo").map(_.id).?? { api.playerInfo(tour, _) }
                   socketVersion <- getBool("socketVersion").??(env.tournament version tour.id dmap some)
                   partial = getBool("partial")
                   json <- jsonView(
@@ -162,10 +162,10 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def pageOf(id: String, userId: String) =
+  def pageOf(id: String, userId: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
-        api.pageOf(tour, UserModel normalize userId) flatMap {
+        api.pageOf(tour, userId.id) flatMap {
           _ ?? { page =>
             JsonOk {
               env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
@@ -175,12 +175,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def player(tourId: String, userId: String) =
+  def player(tourId: String, userId: UserStr) =
     Action.async {
       cachedTour(tourId) flatMap {
         _ ?? { tour =>
           JsonOk {
-            api.playerInfo(tour, userId) flatMap {
+            api.playerInfo(tour, userId.id) flatMap {
               _ ?? { jsonView.playerInfoExtended(tour, _) }
             }
           }
@@ -208,7 +208,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val JoinLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+  private val JoinLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 30,
     duration = 10 minutes,
     key = "tournament.user.join"
@@ -298,7 +298,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 240,
     duration = 24.hour,
     key = "tournament.user"
@@ -535,7 +535,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def categShields(k: String) =
     Open { implicit ctx =>
       OptionFuOk(env.tournament.shieldApi.byCategKey(k)) { case (categ, awards) =>
-        env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+        env.user.lightUserApi preloadMany awards.map(_.owner) inject
           html.tournament.shields.byCateg(categ, awards)
       }
     }
@@ -587,7 +587,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
-          env.mod.logApi.terminateTournament(me.id, tour.name())
+          env.mod.logApi.terminateTournament(me.id into ModId, tour.name())
           Redirect(routes.Tournament.home)
         }
       }
@@ -626,7 +626,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       case _       => notFound
     }
 
-  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
+  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserId]](64, "tournament.streamers") {
     _.refreshAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture { tourId =>

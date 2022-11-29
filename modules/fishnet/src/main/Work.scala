@@ -51,15 +51,15 @@ object Work:
     def uciList: List[Uci] = ~(Uci readList moves)
 
   case class Sender(
-      userId: lila.user.User.ID,
+      userId: UserId,
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
   ):
 
     override def toString =
-      if (system) lila.user.User.lichessId
-      else userId
+      if (system) lila.user.User.lichessId.value
+      else userId.value
 
   case class Clock(wtime: Int, btime: Int, inc: Int)
 

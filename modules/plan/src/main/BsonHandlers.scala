@@ -29,7 +29,6 @@ private object BsonHandlers:
     given BSONDocumentHandler[PayPalCheckout] = Macros.handler
     given BSONDocumentHandler[Stripe]         = Macros.handler
     given BSONDocumentHandler[Free]           = Macros.handler
-    given BSONHandler[UserId]                 = stringAnyValHandler[UserId](_.value, UserId.apply)
     given BSONDocumentHandler[Patron]         = Macros.handler
 
   object ChargeHandlers:

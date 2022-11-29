@@ -75,12 +75,12 @@ object BSONHandlers:
   private given BSONHandler[Comment.Text] = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
-      case BSONString(lila.user.User.lichessId | "l") => Comment.Author.Lichess
-      case BSONString(name)                           => Comment.Author.External(name)
+      case BSONString(n) if n == lila.user.User.lichessId.value || n == "l" => Comment.Author.Lichess
+      case BSONString(name)                                                 => Comment.Author.External(name)
       case doc: Bdoc =>
         {
           for {
-            id   <- doc.getAsOpt[String]("id")
+            id   <- doc.getAsOpt[UserId]("id")
             name <- doc.getAsOpt[String]("name")
           } yield Comment.Author.User(id, name)
         } err s"Invalid comment author $doc"
@@ -270,9 +270,9 @@ object BSONHandlers:
     handler.as[StudyMembers](
       members =>
         StudyMembers(members map { case (id, dbMember) =>
-          id -> StudyMember(id, dbMember.role)
+          UserId(id) -> StudyMember(UserId(id), dbMember.role)
         }),
-      _.members.view.mapValues(m => DbMember(m.role)).toMap
+      _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
   import Study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](

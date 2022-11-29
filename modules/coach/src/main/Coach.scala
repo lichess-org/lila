@@ -19,8 +19,6 @@ case class Coach(
 
   inline def id = _id
 
-  def is(user: lila.user.User) = id.value == user.id
-
   def hasPicture = picture.isDefined
 
   def daysOld = Days.daysBetween(createdAt, DateTime.now).getDays
@@ -30,11 +28,13 @@ object Coach:
   opaque type Id = String
   object Id extends OpaqueUserId[Id]
 
+  given UserIdOf[Coach] = _.id.userId
+
   val imageSize = 350
 
   def make(user: lila.user.User) =
     Coach(
-      _id = Id(user.id),
+      _id = user.id into Id,
       listed = Listed(false),
       available = Available(true),
       profile = CoachProfile(),

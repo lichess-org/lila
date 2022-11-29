@@ -25,11 +25,11 @@ final class StreamerApi(
   def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byStringIds[Streamer](ids.map(_.value))
 
-  def find(username: String): Fu[Option[Streamer.WithUser]] =
-    userRepo named username flatMap { _ ?? find }
+  def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
+    userRepo byId username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(Streamer.Id(user.id)) dmap {
+    byId(user.id into Streamer.Id) dmap {
       _ map { Streamer.WithUser(_, user) }
     }
 
@@ -40,7 +40,7 @@ final class StreamerApi(
     }
 
   def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
-    userRepo named s.streamer.userId dmap {
+    userRepo byId s.streamer.userId dmap {
       _ map { user =>
         Streamer.WithUserAndStream(s.streamer, user, s.some)
       }
@@ -53,7 +53,7 @@ final class StreamerApi(
 
   def setSeenAt(user: User): Funit =
     cache.listedIds.getUnit flatMap { ids =>
-      ids.contains(Streamer.Id(user.id)) ??
+      ids.contains(user.id into Streamer.Id) ??
         coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
 
@@ -87,7 +87,7 @@ final class StreamerApi(
         ~modChange.list ?? {
           notifyApi.addNotification(
             Notification.make(
-              UserId(streamer.userId),
+              streamer.userId,
               lila.notify.GenericLink(
                 url = "/streamer/edit",
                 title = "Listed on /streamer".some,
@@ -100,7 +100,7 @@ final class StreamerApi(
         modChange
       }
 
-  def demote(userId: User.ID): Funit =
+  def demote(userId: UserId): Funit =
     coll.update
       .one(
         $id(userId),
@@ -118,10 +118,10 @@ final class StreamerApi(
     coll.insert.one(Streamer make u).void.recover(lila.db.ignoreDuplicateKey)
 
   def isPotentialStreamer(user: User): Fu[Boolean] =
-    cache.listedIds.getUnit.dmap(_ contains Streamer.Id(user.id))
+    cache.listedIds.getUnit.dmap(_ contains user.id.into(Streamer.Id))
 
   def isCandidateStreamer(user: User): Fu[Boolean] =
-    cache.candidateIds.getUnit.dmap(_ contains Streamer.Id(user.id))
+    cache.candidateIds.getUnit.dmap(_ contains user.id.into(Streamer.Id))
 
   def isActualStreamer(user: User): Fu[Boolean] =
     isPotentialStreamer(user) >>& !isCandidateStreamer(user)

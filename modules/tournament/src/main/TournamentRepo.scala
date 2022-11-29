@@ -41,8 +41,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
 
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
-  def fetchCreatedBy(id: Tournament.ID): Fu[Option[User.ID]] =
-    coll.primitiveOne[User.ID]($id(id), "createdBy")
+  def fetchCreatedBy(id: Tournament.ID): Fu[Option[UserId]] =
+    coll.primitiveOne[UserId]($id(id), "createdBy")
 
   private[tournament] def startedCursorWithNbPlayersGte(nbPlayers: Option[Int]) =
     coll
@@ -78,7 +78,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       readPreference = ReadPreference.secondaryPreferred
     )
 
-  private def lookupPlayer(userId: User.ID, project: Option[Bdoc]) =
+  private def lookupPlayer(userId: UserId, project: Option[Bdoc]) =
     $lookup.pipelineFull(
       from = playerCollName.value,
       as = "player",
@@ -96,7 +96,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
       ).flatten
     )
 
-  private[tournament] def upcomingAdapterExpensiveCacheMe(userId: User.ID, max: Int) =
+  private[tournament] def upcomingAdapterExpensiveCacheMe(userId: UserId, max: Int) =
     coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework.*
@@ -153,7 +153,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
     coll.exists($id(tourId) ++ $doc("forTeams" -> teamId))
 
   private[tournament] def withdrawableIds(
-      userId: User.ID,
+      userId: UserId,
       teamId: Option[TeamId] = None,
       reason: String
   ): Fu[List[Tournament.ID]] =
@@ -175,7 +175,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using
   def setNbPlayers(tourId: Tournament.ID, nb: Int) =
     coll.updateField($id(tourId), "nbPlayers", nb).void
 
-  def setWinnerId(tourId: Tournament.ID, userId: User.ID) =
+  def setWinnerId(tourId: Tournament.ID, userId: UserId) =
     coll.updateField($id(tourId), "winner", userId).void
 
   def setFeaturedGameId(tourId: Tournament.ID, gameId: GameId) =

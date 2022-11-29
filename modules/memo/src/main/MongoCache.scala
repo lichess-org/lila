@@ -61,7 +61,7 @@ object MongoCache:
       config: MemoConfig,
       cacheApi: CacheApi,
       mode: play.api.Mode
-  )(using ec: scala.concurrent.ExecutionContext):
+  )(using scala.concurrent.ExecutionContext):
 
     private val coll = db(config.cacheColl)
 

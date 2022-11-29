@@ -62,7 +62,7 @@ private object AuthorizationApi:
   case class PendingAuthorization(
       hashedCode: String,
       clientId: Protocol.ClientId,
-      userId: User.ID,
+      userId: UserId,
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
       scopes: List[OAuthScope],
@@ -78,7 +78,7 @@ private object AuthorizationApi:
       PendingAuthorization(
         hashedCode = r.str(F.hashedCode),
         clientId = Protocol.ClientId(r.str(F.clientId)),
-        userId = r.str(F.userId),
+        userId = r.get[UserId](F.userId),
         redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
         challenge = r.strO(F.hashedClientSecret) match {
           case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))

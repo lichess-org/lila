@@ -11,7 +11,7 @@ import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 
-  def refresh(username: String) =
+  def refresh(username: UserStr) =
     OpenOrScoped()(
       open = implicit ctx =>
         Accessible(username) { user =>
@@ -24,7 +24,7 @@ final class Insight(env: Env) extends LilaController(env):
           }
     )
 
-  def index(username: String) =
+  def index(username: UserStr) =
     def jsonStatus(user: lila.user.User) =
       env.insight.api userStatus user map { status =>
         Ok(Json.obj("status" -> status.toString))
@@ -40,7 +40,7 @@ final class Insight(env: Env) extends LilaController(env):
       scoped = req => me => AccessibleApi(username)(me.some)(jsonStatus)
     )
 
-  def path(username: String, metric: String, dimension: String, filters: String) =
+  def path(username: UserStr, metric: String, dimension: String, filters: String) =
     Open { implicit ctx =>
       Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
     }
@@ -69,7 +69,7 @@ final class Insight(env: Env) extends LilaController(env):
         )
     }
 
-  def json(username: String) =
+  def json(username: UserStr) =
     OpenOrScopedBody(parse.json)(Nil)(
       open = implicit ctx => {
         AccessibleApi(username)(ctx.me) { user =>
@@ -96,8 +96,8 @@ final class Insight(env: Env) extends LilaController(env):
         }
       )
 
-  private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
-    env.user.repo named username flatMap {
+  private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
+    env.user.repo byId username flatMap {
       _.fold(notFound) { u =>
         env.insight.share.grant(u, ctx.me) flatMap {
           case true => f(u)
@@ -106,8 +106,8 @@ final class Insight(env: Env) extends LilaController(env):
       }
     }
 
-  private def AccessibleApi(username: String)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
-    env.user.repo named username flatMap {
+  private def AccessibleApi(username: UserStr)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
+    env.user.repo byId username flatMap {
       _ ?? { u =>
         env.insight.share.grant(u, me) flatMap {
           case true => f(u)

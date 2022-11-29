@@ -130,7 +130,7 @@ final private[api] class GameApi(
     }
 
   def byUsersVs(
-      userIds: Iterable[User.ID],
+      userIds: Iterable[UserId],
       rated: Option[Boolean],
       playing: Option[Boolean],
       analysed: Option[Boolean],

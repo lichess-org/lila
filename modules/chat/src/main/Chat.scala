@@ -16,7 +16,7 @@ sealed trait AnyChat:
 
   def isEmpty = lines.isEmpty
 
-  def userIds: List[User.ID]
+  def userIds: List[UserId]
 
 sealed trait Chat[L <: Line] extends AnyChat:
   def id: ChatId
@@ -37,7 +37,7 @@ case class UserChat(
   def markDeleted(u: User) =
     copy(
       lines = lines.map { l =>
-        if (l.userId == u.id) l.delete else l
+        if (l.userId is u.id) l.delete else l
       }
     )
 

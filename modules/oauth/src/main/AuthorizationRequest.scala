@@ -97,7 +97,7 @@ object AuthorizationRequest:
       clientId: ClientId,
       redirectUri: RedirectUri,
       state: Option[State],
-      user: User.ID,
+      user: UserId,
       scopes: List[OAuthScope],
       challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
   ):

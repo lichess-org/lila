@@ -13,19 +13,21 @@ case class Duel(
     averageRating: IntRating
 ):
 
-  def has(u: User) = p1.name.id == UserId(u.id) || p2.name.id == UserId(u.id)
+  def has(u: User) = u.is(p1) || u.is(p2)
 
-  def userIds = List(p1.name.id, p2.name.id)
+  def userIds = List[UserId](p1.name.id, p2.name.id)
 
 object Duel:
 
-  type UsernameRating = (String, IntRating)
+  type UsernameRating = (UserName, IntRating)
 
   case class DuelPlayer(name: UserName, rating: IntRating, rank: Rank)
+  object DuelPlayer:
+    given UserIdOf[DuelPlayer] = _.name.id
 
   def tbUser(p: UsernameRating, ranking: Ranking) =
-    ranking get UserName(p._1).id.value map { rank =>
-      DuelPlayer(UserName(p._1), p._2, rank + 1)
+    ranking get p._1.id map { rank =>
+      DuelPlayer(p._1, p._2, rank + 1)
     }
 
   private[tournament] val ratingOrdering              = Ordering.by[Duel, Int](_.averageRating.value)

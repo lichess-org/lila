@@ -91,7 +91,7 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
-  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(UserId(user.id)) ?? {
+  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id) ?? {
     hasBeenCollectedBefore(user) flatMap {
       case true => funit
       case _ =>

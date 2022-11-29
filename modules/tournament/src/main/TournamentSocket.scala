@@ -84,7 +84,7 @@ final private class TournamentSocket(
 
     object In:
 
-      case class WaitingUsers(roomId: RoomId, userIds: Set[User.ID]) extends P.In
+      case class WaitingUsers(roomId: RoomId, userIds: Set[UserId]) extends P.In
 
       val reader: P.In.Reader = raw => tourReader(raw) orElse RP.In.reader(raw)
 
@@ -92,7 +92,7 @@ final private class TournamentSocket(
         raw.path match
           case "tour/waiting" =>
             raw.get(2) { case Array(roomId, users) =>
-              WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
+              WaitingUsers(RoomId(roomId), UserId from P.In.commas(users).toSet).some
             }
           case _ => none
 

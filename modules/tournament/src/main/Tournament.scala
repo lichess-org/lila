@@ -30,9 +30,9 @@ case class Tournament(
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
-    createdBy: User.ID,
+    createdBy: UserId,
     startsAt: DateTime,
-    winnerId: Option[User.ID] = None,
+    winnerId: Option[UserId] = None,
     featuredId: Option[String] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
@@ -152,7 +152,7 @@ object Tournament:
   val minPlayers = 2
 
   def make(
-      by: Either[User.ID, User],
+      by: Either[UserId, User],
       name: Option[String],
       clock: ClockConfig,
       minutes: Int,

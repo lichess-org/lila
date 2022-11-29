@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Patron(
-    _id: Patron.UserId,
+    _id: UserId,
     stripe: Option[Patron.Stripe] = none,
     payPal: Option[Patron.PayPalLegacy] = none,
     payPalCheckout: Option[Patron.PayPalCheckout] = none,
@@ -15,9 +15,8 @@ case class Patron(
     lastLevelUp: Option[DateTime] = None
 ):
 
-  inline def id = _id
-
-  def userId = _id.value
+  inline def id     = _id
+  inline def userId = _id
 
   def canLevelUp = lastLevelUp.exists(_.isBefore(DateTime.now.minusDays(25)))
 
@@ -59,8 +58,6 @@ case class Patron(
 
 object Patron:
 
-  case class UserId(value: String) extends AnyVal
-
   case class Stripe(customerId: StripeCustomerId)
   case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId]):
     def renew = subscriptionId.isDefined
@@ -75,4 +72,4 @@ object Patron:
     case class Email(value: String) extends AnyVal
     case class SubId(value: String) extends AnyVal
 
-  case class Free(at: DateTime, by: Option[User.ID])
+  case class Free(at: DateTime, by: Option[UserId])

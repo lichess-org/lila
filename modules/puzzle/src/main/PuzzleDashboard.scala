@@ -93,13 +93,13 @@ final class PuzzleDashboardApi(
   def apply(u: User, days: Days): Fu[Option[PuzzleDashboard]] = cache.get(u.id -> days)
 
   private val cache =
-    cacheApi[(User.ID, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
+    cacheApi[(UserId, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
       _.expireAfterWrite(10 seconds).buildAsyncFuture { case (userId, days) =>
         compute(userId, days)
       }
     }
 
-  private def compute(userId: User.ID, days: Days): Fu[Option[PuzzleDashboard]] =
+  private def compute(userId: UserId, days: Days): Fu[Option[PuzzleDashboard]] =
     colls.round {
       _.aggregateOne() { framework =>
         import framework.*

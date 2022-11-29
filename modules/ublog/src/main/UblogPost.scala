@@ -34,7 +34,7 @@ case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Op
 
 object UblogPost:
 
-  case class Recorded(by: User.ID, at: DateTime)
+  case class Recorded(by: UserId, at: DateTime)
 
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]

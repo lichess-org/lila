@@ -22,7 +22,7 @@ object ApiConfig:
     val blindCookieMaxAge = 365 days
     def hash(using ctx: lila.user.UserContext) =
       import com.roundeights.hasher.Implicits.*
-      (ctx.userId | "anon").salt(blindCookieSalt.value).md5.hex
+      ctx.userId.fold("anon")(_.value).salt(blindCookieSalt.value).md5.hex
 
   final class PagerDuty(val serviceId: String, val apiKey: Secret)
 

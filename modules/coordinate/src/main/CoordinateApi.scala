@@ -4,17 +4,17 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.user.User
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import chess.Color
 
 final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionContext):
 
   private given BSONDocumentHandler[Score] = Macros.handler[Score]
 
-  def getScore(userId: User.ID): Fu[Score] =
-    scoreColl.byId[Score](userId) map (_ | Score(userId))
+  def getScore(userId: UserId): Fu[Score] =
+    scoreColl.byId[Score](userId).dmap(_ | Score(userId))
 
-  def addScore(userId: User.ID, mode: CoordMode, color: Color, hits: Int): Funit =
+  def addScore(userId: UserId, mode: CoordMode, color: Color, hits: Int): Funit =
     scoreColl.update
       .one(
         $id(userId),
@@ -30,7 +30,7 @@ final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionC
       )
       .void
 
-  def bestScores(userIds: List[User.ID]): Fu[Map[User.ID, Color.Map[Int]]] =
+  def bestScores(userIds: List[UserId]): Fu[Map[UserId, Color.Map[Int]]] =
     scoreColl
       .aggregateList(
         maxDocs = Int.MaxValue,
@@ -48,7 +48,7 @@ final class CoordinateApi(scoreColl: Coll)(using ec: scala.concurrent.ExecutionC
       }
       .map {
         _.flatMap { doc =>
-          doc.string("_id") map {
+          doc.getAsOpt[UserId]("_id") map {
             _ -> Color.Map(
               ~doc.int("white"),
               ~doc.int("black")

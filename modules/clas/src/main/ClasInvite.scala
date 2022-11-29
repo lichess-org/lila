@@ -6,7 +6,7 @@ import lila.user.{ Holder, User }
 
 case class ClasInvite(
     _id: ClasInvite.Id, // random
-    userId: User.ID,
+    userId: UserId,
     realName: String,
     clasId: Clas.Id,
     created: Clas.Recorded,

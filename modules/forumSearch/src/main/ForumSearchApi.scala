@@ -31,16 +31,14 @@ final class ForumSearchApi(
       }
     }
 
-  private def toDoc(view: PostLiteView) =
-    val author = ~(view.post.userId orElse view.post.author map (_.toLowerCase))
-    Json.obj(
-      Fields.body    -> view.post.text.take(10000),
-      Fields.topic   -> view.topic.name,
-      Fields.author  -> author,
-      Fields.topicId -> view.topic.id,
-      Fields.troll   -> view.post.troll,
-      Fields.date    -> view.post.createdAt
-    )
+  private def toDoc(view: PostLiteView) = Json.obj(
+    Fields.body    -> view.post.text.take(10000),
+    Fields.topic   -> view.topic.name,
+    Fields.author  -> view.post.userId,
+    Fields.topicId -> view.topic.id,
+    Fields.troll   -> view.post.troll,
+    Fields.date    -> view.post.createdAt
+  )
 
   def reset =
     client match

@@ -14,6 +14,7 @@ import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
+import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -163,7 +164,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       testTokenRateLimit[Fu[Api.ApiResult]](HTTPRequest ipAddress req, cost = bearers.size) {
         env.oAuth.tokenApi.test(bearers map lila.common.Bearer.apply) map { tokens =>
           import lila.common.Json.given
-          Api.Data(JsObject(tokens.map { case (bearer, token) =>
+          ApiResult.Data(JsObject(tokens.map { case (bearer, token) =>
             bearer.secret -> token.fold[JsValue](JsNull) { t =>
               Json.obj(
                 "userId"  -> t.userId,
@@ -173,5 +174,5 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
             }
           }))
         }
-      }(fuccess(Api.Limited)) map apiC.toHttp
+      }(fuccess(ApiResult.Limited)) map apiC.toHttp
     }

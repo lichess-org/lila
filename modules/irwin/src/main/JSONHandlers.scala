@@ -20,7 +20,7 @@ object JSONHandlers:
   private given Reads[GameReport] = Json.reads
 
   given Reads[IrwinReport] = (
-    (__ \ "userId").read[String] and
+    (__ \ "userId").read[UserId] and
       (__ \ "activation").read[Int] and
       (__ \ "games").read[List[GameReport]] and
       (__ \ "owner").read[String] and

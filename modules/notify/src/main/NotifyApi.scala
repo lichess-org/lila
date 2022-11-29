@@ -80,7 +80,7 @@ final class NotifyApi(
   def exists = repo.exists
 
   private def shouldSkip(notification: Notification) =
-    (!notification.isMsg ?? userRepo.isKid(notification.notifies.value)) >>| {
+    (!notification.isMsg ?? userRepo.isKid(notification.notifies)) >>| {
       notification.content match
         case MentionedInThread(_, _, topicId, _, _) =>
           repo.hasRecentNotificationsInThread(notification.notifies, topicId)
@@ -103,10 +103,10 @@ final class NotifyApi(
     getNotificationsAndCount(notifies, 1) map { msg =>
       Bus.publish(
         SendTo.async(
-          notifies.value,
+          notifies.id,
           "notifications",
           () => {
-            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { lang =>
+            userRepo langOf notifies.id map I18nLangPicker.byStrOrDefault map { lang =>
               jsonHandlers(msg)(using lang)
             }
           }

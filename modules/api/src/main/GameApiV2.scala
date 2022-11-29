@@ -149,7 +149,7 @@ final class GameApiV2(
       }
     }
 
-  def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[User.ID]): Source[String, ?] =
+  def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[UserId]): Source[String, ?] =
     Source futureSource {
       tournamentRepo.isTeamBattle(config.tournamentId) map { isTeamBattle =>
         pairingRepo

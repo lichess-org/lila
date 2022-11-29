@@ -6,11 +6,11 @@ import scala.concurrent.duration.*
 
 object UserLagCache:
 
-  private val cache: Cache[String, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache: Cache[UserId, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(15 minutes)
-    .build[String, Centis]()
+    .build[UserId, Centis]()
 
-  def put(userId: String, lag: Centis): Unit =
+  def put(userId: UserId, lag: Centis): Unit =
     if (lag.centis >= 0)
       cache.put(
         userId,
@@ -19,9 +19,9 @@ object UserLagCache:
         }
       )
 
-  def get(userId: String): Option[Centis] = cache.getIfPresent(userId)
+  def get(userId: UserId): Option[Centis] = cache.getIfPresent(userId)
 
-  def getLagRating(userId: String): Option[Int] =
+  def getLagRating(userId: UserId): Option[Int] =
     get(userId) map {
       case i if i <= Centis(15) => 4
       case i if i <= Centis(30) => 3

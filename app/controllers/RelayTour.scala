@@ -185,7 +185,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 10 * 10,
     duration = 24.hour,
     key = "broadcast.tournament.user"

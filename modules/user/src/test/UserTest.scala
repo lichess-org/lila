@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 
 class UserTest extends Specification {
 
-  def canSignup(str: User.ID) =
+  def canSignup(str: UserId) =
     User.newUsernamePrefix.pattern.matcher(str).matches && User.newUsernameSuffix.pattern
       .matcher(str)
       .matches &&

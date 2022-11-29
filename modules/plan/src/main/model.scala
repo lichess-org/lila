@@ -100,8 +100,8 @@ case class StripeCharge(
     billing_details: Option[StripeCharge.BillingDetails],
     metadata: Map[String, String]
 ):
-  def country                 = billing_details.flatMap(_.address).flatMap(_.country).map(Country.apply)
-  def giftTo: Option[User.ID] = metadata get "giftTo"
+  def country                = billing_details.flatMap(_.address).flatMap(_.country).map(Country.apply)
+  def giftTo: Option[UserId] = UserId.from(metadata get "giftTo")
 
 object StripeCharge:
   case class Address(country: Option[String])
@@ -128,9 +128,9 @@ case class StripeCompletedSession(
     amount_total: StripeAmount,
     currency: Currency
 ):
-  def freq                    = if (mode == "subscription") Freq.Monthly else Freq.Onetime
-  def money                   = amount_total toMoney currency
-  def giftTo: Option[User.ID] = metadata get "giftTo"
+  def freq                   = if (mode == "subscription") Freq.Monthly else Freq.Onetime
+  def money                  = amount_total toMoney currency
+  def giftTo: Option[UserId] = UserId.from(metadata get "giftTo")
 
 case class StripeSetupIntent(payment_method: String)
 
@@ -150,8 +150,8 @@ case class PayPalOrder(
     payer: PayPalPayer
 ):
   val (userId, giftTo) = purchase_units.headOption.flatMap(_.custom_id).??(_.trim) match
-    case s"$userId $giftTo" => (userId.some, giftTo.some)
-    case s"$userId"         => (userId.some, none)
+    case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
+    case s"$userId"         => (UserId(userId).some, none)
     case _                  => (none, none)
   def isCompleted        = status == "COMPLETED"
   def isCompletedCapture = isCompleted && intent == "CAPTURE"
@@ -175,7 +175,7 @@ case class CreatePayPalOrder(
     giftTo: Option[User],
     isLifetime: Boolean
 ):
-  def makeCustomId = giftTo.fold(user.id) { g => s"${user.id} ${g.id}" }
+  def makeCustomId = giftTo.fold(user.id.value) { g => s"${user.id} ${g.id}" }
 case class PayPalOrderCreated(id: PayPalOrderId)
 case class PayPalSubscriptionCreated(id: PayPalSubscriptionId)
 case class PayPalPurchaseUnit(amount: PayPalAmount, custom_id: Option[String])

@@ -16,7 +16,7 @@ final class PublicChat(
   def all: Fu[(List[(Tournament, UserChat)], List[(Swiss, UserChat)])] =
     tournamentChats zip swissChats
 
-  def deleteAll(userId: User.ID): Funit =
+  def deleteAll(userId: UserId): Funit =
     userRepo byId userId map2 Suspect.apply flatMap { _ ?? deleteAll }
 
   def deleteAll(suspect: Suspect): Funit =

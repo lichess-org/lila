@@ -22,19 +22,19 @@ final class DisposableEmailAttempt(
     }
 
   private val byId =
-    cacheApi.notLoadingSync[User.ID, Set[Attempt]](64, "security.disposableEmailAttempt.id") {
+    cacheApi.notLoadingSync[UserId, Set[Attempt]](64, "security.disposableEmailAttempt.id") {
       _.expireAfterWrite(1 day).build()
     }
 
   def onFail(form: Form[?], ip: IpAddress): Unit = for {
-    email    <- form("email").value flatMap EmailAddress.from
-    username <- form("username").value
+    email <- form("email").value flatMap EmailAddress.from
     if email.domain.exists(disposableApi.apply)
-  }
-    val id      = User normalize username
-    val attempt = Attempt(id, email, ip)
+    str <- form("username").value
+    u   <- UserStr read str
+  } yield
+    val attempt = Attempt(u.id, email, ip)
     byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
-    byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
+    byId.underlying.asMap.compute(u.id, (_, attempts) => ~Option(attempts) + attempt).unit
 
   def onSuccess(user: User, email: EmailAddress, ip: IpAddress) =
     val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)
@@ -46,4 +46,4 @@ final class DisposableEmailAttempt(
 
 private object DisposableEmailAttempt:
 
-  case class Attempt(id: User.ID, email: EmailAddress, ip: IpAddress)
+  case class Attempt(id: UserId, email: EmailAddress, ip: IpAddress)

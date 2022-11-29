@@ -6,7 +6,7 @@ import lila.user.User
 
 case class CoachReview(
     _id: String,     // user:coach
-    userId: User.ID, // reviewer
+    userId: UserId, // reviewer
     coachId: Coach.Id,
     score: Int,
     text: String,

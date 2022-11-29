@@ -62,9 +62,9 @@ final private[team] class PaginatorBuilder(
             .skip(offset)
             .cursor[Bdoc]()
             .list(length)
-        userIds = docs.flatMap(_ string "user")
-        users <- lightUserApi asyncMany userIds
-      } yield users.flatten
+        userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
+        users <- lightUserApi asyncManyFallback userIds
+      } yield users
 
   final private class TeamAdapterWithDate(val team: Team)
       extends AdapterLike[TeamMember.UserAndDate]
@@ -78,10 +78,10 @@ final private[team] class PaginatorBuilder(
             .skip(offset)
             .cursor[Bdoc]()
             .list(length)
-        userIds = docs.flatMap(_ string "user")
+        userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
         dates   = docs.flatMap(_.getAsOpt[DateTime]("date"))
-        users <- lightUserApi asyncMany userIds
-      } yield users.flatten.zip(dates) map { case (u, d) => TeamMember.UserAndDate(u, d) }
+        users <- lightUserApi asyncManyFallback userIds
+      } yield users.zip(dates) map TeamMember.UserAndDate.apply
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
     Paginator(
@@ -104,4 +104,3 @@ final private[team] class PaginatorBuilder(
           .list(length)
         users <- userRepo usersFromSecondary requests.map(_.user)
       } yield requests zip users map { case (request, user) => RequestWithUser(request, user) }
-

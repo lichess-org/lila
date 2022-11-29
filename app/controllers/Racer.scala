@@ -27,7 +27,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
 
   def apiCreate = Scoped(_.Racer.Write) { implicit req => me =>
     me.noBot ?? {
-      env.racer.api.createAndJoin(RacerPlayer.Id.User(me.id)) map { raceId =>
+      env.racer.api.createAndJoin(RacerPlayer.Id.User(me.username)) map { raceId =>
         JsonOk(
           Json.obj(
             "id"  -> raceId.value,

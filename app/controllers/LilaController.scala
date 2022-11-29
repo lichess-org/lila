@@ -345,7 +345,7 @@ abstract private[controllers] class LilaController(val env: Env)
         )
       }
     }
-  protected def NoPlayban(userId: Option[UserModel.ID])(a: => Fu[Result]): Fu[Result] =
+  protected def NoPlayban(userId: Option[UserId])(a: => Fu[Result]): Fu[Result] =
     userId.??(env.playban.api.currentBan) flatMap {
       _.fold(a)(playbanJsonError)
     }

@@ -56,7 +56,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               "open" -> false,
               who match {
                 case Who.Me(userId) => "done.by" -> userId
-                case Who.Team       => "done.by" $nin List(User.lichessId, "irwin")
+                case Who.Team       => "done.by" $nin List(User.lichessId, User.irwinId)
               },
               "done.at" $gt Period.dateSince(period)
             )
@@ -149,8 +149,8 @@ object ModActivity:
 
   sealed abstract class Who(val key: String)
   object Who:
-    case class Me(userId: User.ID) extends Who("me")
-    case object Team               extends Who("team")
+    case class Me(userId: UserId) extends Who("me")
+    case object Team              extends Who("team")
     def apply(who: String, me: User) =
       if (who == "me") Me(me.id) else Team
 

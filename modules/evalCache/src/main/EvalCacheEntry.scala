@@ -49,7 +49,7 @@ object EvalCacheEntry:
       pvs: NonEmptyList[Pv],
       knodes: Knodes,
       depth: Int,
-      by: User.ID,
+      by: UserId,
       trust: Trust
   ):
 

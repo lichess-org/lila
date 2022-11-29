@@ -38,7 +38,7 @@ final private class SwissRankingApi(
 
   private def computeRanking(id: SwissId): Fu[Ranking] =
     SwissPlayer.fields { f =>
-      mongo.player.primitive[User.ID]($doc(f.swissId -> id), $sort desc f.score, f.userId)
+      mongo.player.primitive[UserId]($doc(f.swissId -> id), $sort desc f.score, f.userId)
     } map {
       _.view.zipWithIndex
         .map { (user, i) =>

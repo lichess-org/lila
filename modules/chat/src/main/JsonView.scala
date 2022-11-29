@@ -45,25 +45,25 @@ object JsonView:
       OWrites[ChatTimeout.UserEntry] { e =>
         Json.obj(
           "reason" -> e.reason.key,
-          "mod"    -> lightUser(e.mod).fold("?")(_.name),
+          "mod"    -> lightUser(e.mod).fold(UserName("?"))(_.name),
           "date"   -> e.createdAt
         )
       }
 
-    given mixedChatWriter: Writes[MixedChat] = Writes[MixedChat] { c =>
+    given mixedChatWriter: Writes[MixedChat] = Writes { c =>
       JsArray(c.lines map lineWriter.writes)
     }
 
-    given userChatWriter: Writes[UserChat] = Writes[UserChat] { c =>
+    given userChatWriter: Writes[UserChat] = Writes { c =>
       JsArray(c.lines map userLineWriter.writes)
     }
 
-    private[chat] val lineWriter: OWrites[Line] = OWrites[Line] {
+    private[chat] val lineWriter: OWrites[Line] = OWrites {
       case l: UserLine   => userLineWriter writes l
       case l: PlayerLine => playerLineWriter writes l
     }
 
-    val userLineWriter: OWrites[UserLine] = OWrites[UserLine] { l =>
+    val userLineWriter: OWrites[UserLine] = OWrites { l =>
       Json
         .obj(
           "u" -> l.username,
@@ -75,7 +75,7 @@ object JsonView:
         .add("title" -> l.title)
     }
 
-    val playerLineWriter: OWrites[PlayerLine] = OWrites[PlayerLine] { l =>
+    val playerLineWriter: OWrites[PlayerLine] = OWrites { l =>
       Json.obj(
         "c" -> l.color.name,
         "t" -> l.text

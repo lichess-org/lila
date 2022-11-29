@@ -61,7 +61,7 @@ final class TutorApi(
 
   // we only wait for queue.start
   // NOT for builder
-  private def buildThenRemoveFromQueue(userId: User.ID) =
+  private def buildThenRemoveFromQueue(userId: UserId) =
     queue.start(userId) >>- {
       builder(userId) foreach { reportOpt =>
         cache.put(userId, fuccess(reportOpt))
@@ -69,13 +69,13 @@ final class TutorApi(
       }
     }
 
-  private val cache = cacheApi[User.ID, Option[TutorFullReport]](256, "tutor.report") {
+  private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report") {
     _.expireAfterAccess(if (mode == Mode.Prod) 5 minutes else 1 second)
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)
   }
 
-  private def findLatest(userId: User.ID) = reportColl
+  private def findLatest(userId: UserId) = reportColl
     .find($doc(TutorFullReport.F.user -> userId))
     .sort($sort desc TutorFullReport.F.at)
     .one[TutorFullReport]

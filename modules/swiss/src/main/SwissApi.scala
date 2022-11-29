@@ -231,8 +231,8 @@ final class SwissApi(
       } map
       (Swiss.PastAndNext.apply).tupled
 
-  def playerInfo(swiss: Swiss, userId: User.ID): Fu[Option[SwissPlayer.ViewExt]] =
-    userRepo named userId flatMap {
+  def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
+    userRepo byId userId flatMap {
       _ ?? { user =>
         mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMap {
           _ ?? { player =>
@@ -276,7 +276,7 @@ final class SwissApi(
         .flatMap { opponents =>
           lightUserApi asyncMany opponents.map(_.userId) map { users =>
             opponents.zip(users) map { case (o, u) =>
-              SwissPlayer.WithUser(o, u | LightUser.fallback(o.userId))
+              SwissPlayer.WithUser(o, u | LightUser.fallback(o.userId into UserName))
             }
           } map { opponents =>
             pairings flatMap { pairing =>
@@ -288,13 +288,13 @@ final class SwissApi(
         }
     }
 
-  def searchPlayers(id: SwissId, term: String, nb: Int): Fu[List[User.ID]] =
+  def searchPlayers(id: SwissId, term: UserStr, nb: Int): Fu[List[UserId]] =
     User.validateId(term) ?? { valid =>
       SwissPlayer.fields { f =>
-        mongo.player.primitive[User.ID](
+        mongo.player.primitive[UserId](
           selector = $doc(
             f.swissId -> id,
-            f.userId $startsWith valid
+            f.userId $startsWith valid.value
           ),
           sort = $sort desc f.score,
           nb = nb,
@@ -303,7 +303,7 @@ final class SwissApi(
       }
     }
 
-  def pageOf(swiss: Swiss, userId: User.ID): Fu[Option[Int]] =
+  def pageOf(swiss: Swiss, userId: UserId): Fu[Option[Int]] =
     rankingApi(swiss) map {
       _ get userId map { rank =>
         (rank - 1).value / 10 + 1
@@ -329,17 +329,17 @@ final class SwissApi(
       }
     }
 
-  private[swiss] def leaveTeam(teamId: TeamId, userId: User.ID) =
+  private[swiss] def leaveTeam(teamId: TeamId, userId: UserId) =
     joinedPlayableSwissIds(userId, List(teamId))
       .flatMap { kickFromSwissIds(userId, _) }
 
-  private[swiss] def kickLame(userId: User.ID) =
+  private[swiss] def kickLame(userId: UserId) =
     Bus
       .ask[List[TeamId]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
       .flatMap { joinedPlayableSwissIds(userId, _) }
       .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 
-  def joinedPlayableSwissIds(userId: User.ID, teamIds: List[TeamId]): Fu[List[SwissId]] =
+  def joinedPlayableSwissIds(userId: UserId, teamIds: List[TeamId]): Fu[List[SwissId]] =
     mongo.swiss
       .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
         import framework.*
@@ -360,10 +360,10 @@ final class SwissApi(
       }
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
 
-  private def kickFromSwissIds(userId: User.ID, swissIds: Seq[SwissId], forfeit: Boolean = false): Funit =
+  private def kickFromSwissIds(userId: UserId, swissIds: Seq[SwissId], forfeit: Boolean = false): Funit =
     swissIds.map { withdraw(_, userId, forfeit) }.sequenceFu.void
 
-  def withdraw(id: SwissId, userId: User.ID, forfeit: Boolean = false): Funit =
+  def withdraw(id: SwissId, userId: UserId, forfeit: Boolean = false): Funit =
     Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
       SwissPlayer.fields { f =>
         val selId = $id(SwissPlayer.makeId(swiss.id, userId))
@@ -380,7 +380,7 @@ final class SwissApi(
       }.void
     } >> recomputeAndUpdateAll(id)
 
-  private def forfeitPairings(swiss: Swiss, userId: User.ID): Funit =
+  private def forfeitPairings(swiss: Swiss, userId: UserId): Funit =
     SwissPairing.fields { F =>
       mongo.pairing
         .list[SwissPairing]($doc(F.swissId -> swiss.id, F.players -> userId))
@@ -469,7 +469,7 @@ final class SwissApi(
   private def doFinish(swiss: Swiss): Funit =
     SwissPlayer
       .fields { f =>
-        mongo.player.primitiveOne[User.ID]($doc(f.swissId -> swiss.id), $sort desc f.score, f.userId)
+        mongo.player.primitiveOne[UserId]($doc(f.swissId -> swiss.id), $sort desc f.score, f.userId)
       }
       .flatMap { winnerUserId =>
         mongo.swiss.update
@@ -661,11 +661,11 @@ final class SwissApi(
   def isUnfinished(id: SwissId): Fu[Boolean] =
     mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false))
 
-  def filterPlaying(id: SwissId, userIds: Seq[User.ID]): Fu[List[User.ID]] =
+  def filterPlaying(id: SwissId, userIds: Seq[UserId]): Fu[List[UserId]] =
     userIds.nonEmpty ??
       mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false)) flatMap {
         _ ?? SwissPlayer.fields { f =>
-          mongo.player.distinctEasy[User.ID, List](
+          mongo.player.distinctEasy[UserId, List](
             f.userId,
             $doc(
               f.id $in userIds.map(SwissPlayer.makeId(id, _)),
