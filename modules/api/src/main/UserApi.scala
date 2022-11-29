@@ -33,7 +33,7 @@ final class UserApi(
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
   def extended(
-      username: UserName,
+      username: UserStr,
       as: Option[User],
       withFollows: Boolean,
       withTrophies: Boolean

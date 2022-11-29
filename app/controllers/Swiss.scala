@@ -358,7 +358,7 @@ final class Swiss(
     }
 
   private val streamerCache =
-    env.memo.cacheApi[SwissId, List[UserModel.ID]](64, "swiss.streamers") {
+    env.memo.cacheApi[SwissId, List[UserId]](64, "swiss.streamers") {
       _.refreshAfterWrite(15.seconds)
         .maximumSize(64)
         .buildAsyncFuture { id =>

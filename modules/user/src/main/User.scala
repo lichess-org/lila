@@ -168,6 +168,8 @@ object User:
   val irwinId                          = UserId("irwin")
   val kaladinId                        = UserId("kaladin")
   val explorerId                       = UserId("openingexplorer")
+  val lichess4545Id                    = UserId("lichess4545")
+  val challengermodeId                 = UserId("challengermode")
   val ghostId                          = UserId("ghost")
   def isLichess[U: UserIdOf](user: U)  = lichessId is user
   def isOfficial[U: UserIdOf](user: U) = isLichess(user) || broadcasterId.is(user)

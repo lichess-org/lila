@@ -69,11 +69,11 @@ final class Study(
           }
     }
 
-  def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
+  def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default.key, page)
 
-  def byOwner(username: String, order: String, page: Int) =
+  def byOwner(username: UserStr, order: String, page: Int) =
     Open { implicit ctx =>
-      env.user.repo.named(username).flatMap {
+      env.user.repo.byId(username).flatMap {
         _.fold(notFound(ctx)) { owner =>
           env.study.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
@@ -491,21 +491,21 @@ final class Study(
       }
     }
 
-  def exportPgn(username: String) =
+  def exportPgn(username: UserStr) =
     OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
       scoped = req => me => handleExport(username, me.some, req)
     )
 
   private def handleExport(
-      username: String,
+      username: UserStr,
       me: Option[lila.user.User],
       req: RequestHeader
   ) =
     val name   = if (username == "me") me.fold("me")(_.username) else username
-    val userId = lila.user.User normalize name
+    val userId = name.id
     val flags  = requestPgnFlags(req)
-    val isMe   = me.exists(_.id == userId)
+    val isMe   = me.exists(_ is userId)
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me) {
         env.study.studyRepo

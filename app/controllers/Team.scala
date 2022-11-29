@@ -191,7 +191,7 @@ final class Team(
   )
   private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
-  def kickUser(teamId: TeamId, username: String) =
+  def kickUser(teamId: TeamId, username: UserStr) =
     Scoped(_.Team.Lead) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         val userId = UserModel.normalize(username)
@@ -269,7 +269,7 @@ final class Team(
       }
     }
 
-  private val OneAtATime = new lila.memo.FutureConcurrencyLimit[UserModel.ID](
+  private val OneAtATime = new lila.memo.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -595,7 +595,7 @@ final class Team(
       }
     }
 
-  def apiTeamsOf(username: String) =
+  def apiTeamsOf(username: UserStr) =
     Action.async {
       import env.team.jsonView.given
       JsonOk {

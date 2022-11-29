@@ -72,7 +72,7 @@ final class Setup(
     }(rateLimitedFu)
   }
 
-  def friend(userId: Option[String]) =
+  def friend(userId: Option[UserStr]) =
     OpenBody { implicit ctx =>
       given play.api.mvc.Request[?] = ctx.body
       PostRateLimit(ctx.ip) {
@@ -82,7 +82,7 @@ final class Setup(
           .fold(
             jsonFormError,
             config =>
-              userId ?? env.user.repo.enabledNamed flatMap { destUser =>
+              userId ?? env.user.repo.enabledById flatMap { destUser =>
                 destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)

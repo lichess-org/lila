@@ -132,7 +132,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def ofPlayer(name: Option[String], page: Int) =
     Open { implicit ctx =>
       val fixed = name.map(_.trim).filter(_.nonEmpty)
-      fixed.??(env.user.repo.enabledNamed) orElse fuccess(ctx.me) flatMap { user =>
+      fixed.??(env.user.repo.enabledById) orElse fuccess(ctx.me) flatMap { user =>
         user.?? { env.puzzle.api.puzzle.of(_, page) dmap some } map { puzzles =>
           Ok(views.html.puzzle.ofPlayer(~fixed, user, puzzles))
         }
@@ -548,7 +548,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def DashboardPage(username: Option[String])(f: Context => UserModel => Fu[Result]) =
     Auth { implicit ctx => me =>
       username
-        .??(env.user.repo.named)
+        .??(env.user.repo.byId)
         .flatMap {
           _ ?? { user =>
             (fuccess(isGranted(_.CheatHunter)) >>|

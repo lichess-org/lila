@@ -111,8 +111,8 @@ final class ReportApi(
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
       (candidate.isComm && candidate.suspect.user.marks.troll)
 
-  def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]  = userRepo byId u dmap2 Mod.apply
-  def getSuspect(id: UserId): Fu[Option[Suspect]] = userRepo byId id dmap2 Suspect.apply
+  def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userRepo byId u dmap2 Mod.apply
+  def getSuspect[U: UserIdOf](u: U): Fu[Option[Suspect]] = userRepo byId u dmap2 Suspect.apply
 
   def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
   def getLichessReporter: Fu[Reporter] =

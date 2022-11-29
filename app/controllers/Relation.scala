@@ -20,7 +20,7 @@ final class Relation(
 
   val api = env.relation.api
 
-  private def renderActions(username: String, mini: Boolean)(implicit ctx: Context) =
+  private def renderActions(username: UserStr, mini: Boolean)(implicit ctx: Context) =
     env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
       (ctx.userId ?? { api.fetchRelation(_, user.id) }) zip
         (ctx.isAuth ?? { env.pref.api followable user.id }) zip
@@ -52,7 +52,7 @@ final class Relation(
     key = "follow.user"
   )
 
-  def follow(username: String) =
+  def follow(username: UserStr) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
         api.reachedMaxFollowing(me.id) flatMap {
@@ -85,7 +85,7 @@ final class Relation(
       }(fuccess(Api.Limited)) map apiC.toHttp
     }
 
-  def unfollow(username: String) =
+  def unfollow(username: UserStr) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
         api.unfollow(me.id, UserModel normalize username).recoverDefault >> renderActions(
@@ -102,7 +102,7 @@ final class Relation(
       }(fuccess(Api.Limited)) map apiC.toHttp
     }
 
-  def block(username: String) =
+  def block(username: UserStr) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
         api.block(me.id, UserModel normalize username).recoverDefault >> renderActions(
@@ -112,7 +112,7 @@ final class Relation(
       }(rateLimitedFu)
     }
 
-  def unblock(username: String) =
+  def unblock(username: UserStr) =
     Auth { implicit ctx => me =>
       api.unblock(me.id, UserModel normalize username).recoverDefault >> renderActions(
         username,
@@ -120,10 +120,10 @@ final class Relation(
       )
     }
 
-  def following(username: String, page: Int) =
+  def following(username: UserStr, page: Int) =
     Open { implicit ctx =>
       Reasonable(page, config.Max(20)) {
-        OptionFuResult(env.user.repo named username) { user =>
+        OptionFuResult(env.user.repo byId username) { user =>
           RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
             negotiate(
               html = {
@@ -138,7 +138,7 @@ final class Relation(
       }
     }
 
-  def followers(username: String, page: Int) =
+  def followers(username: UserStr, page: Int) =
     Open { implicit ctx =>
       negotiate(
         html = notFound,

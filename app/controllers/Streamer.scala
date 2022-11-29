@@ -62,7 +62,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def show(username: String) =
+  def show(username: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(api find username) { s =>
         WithVisibleStreamer(s) {
@@ -74,7 +74,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def redirect(username: String) =
+  def redirect(username: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(api find username) { s =>
         WithVisibleStreamer(s) {

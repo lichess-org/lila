@@ -166,7 +166,7 @@ final class ChatApi(
         )
       }
 
-    def userModInfo(username: UserName): Fu[Option[UserModInfo]] =
+    def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
       userRepo byId username flatMap {
         _ ?? { user =>
           chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }

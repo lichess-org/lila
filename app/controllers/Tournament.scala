@@ -208,7 +208,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val JoinLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+  private val JoinLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 30,
     duration = 10 minutes,
     key = "tournament.user.join"
@@ -298,7 +298,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserId](
     credits = 240,
     duration = 24.hour,
     key = "tournament.user"
@@ -626,7 +626,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       case _       => notFound
     }
 
-  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
+  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserId]](64, "tournament.streamers") {
     _.refreshAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture { tourId =>

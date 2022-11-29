@@ -26,7 +26,7 @@ object Environment
     with ChessgroundHelper
     with UserContext.ToLang:
 
-  export lila.Lila.{ *, given }
+  export lila.Lila.{ id as _, *, given }
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = { envVar = Some(e) }

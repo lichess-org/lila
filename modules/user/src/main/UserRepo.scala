@@ -35,6 +35,9 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, ReadPreference.secondaryPreferred)
 
+  def enabledById[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
+    User.noGhost(idOf(u)) ?? coll.one[User](enabledSelect ++ $id(u))
+
   def enabledByIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
@@ -87,16 +90,11 @@ final class UserRepo(val coll: Coll)(using ec: scala.concurrent.ExecutionContext
   def optionsByIds(userIds: Seq[UserId]): Fu[List[Option[User]]] =
     coll.optionsByOrderedIds[User, UserId](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
-  def enabledById[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
-    User.noGhost(idOf(u)) ?? coll.one[User](enabledSelect ++ $id(u))
-
   def isEnabled(id: UserId): Fu[Boolean] =
     User.noGhost(id) ?? coll.exists(enabledSelect ++ $id(id))
 
   def disabledById(id: UserId): Fu[Option[User]] =
     User.noGhost(id) ?? coll.one[User](disabledSelect ++ $id(id))
-
-  def enabledNamed(name: UserName): Fu[Option[User]] = enabledById(name.id)
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User]] =

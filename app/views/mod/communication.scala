@@ -72,7 +72,7 @@ object communication:
           div(cls := "history")(
             history.map { e =>
               div(
-                userIdLink(e.mod.some),
+                userIdLink(e.mod.userId.some),
                 " ",
                 b(e.showAction),
                 " ",
@@ -143,7 +143,7 @@ object communication:
                     div(
                       cls := List(
                         "line"   -> true,
-                        "author" -> (line.author.toLowerCase == u.id)
+                        "author" -> (UserStr(line.author) is u)
                       )
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),

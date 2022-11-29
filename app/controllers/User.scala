@@ -35,9 +35,9 @@ final class User(
   private def relationApi    = env.relation.api
   private def userGameSearch = env.gameSearch.userGameSearch
 
-  def tv(username: String) =
+  def tv(username: UserStr) =
     Open { implicit ctx =>
-      OptionFuResult(env.user.repo named username) { user =>
+      OptionFuResult(env.user.repo byId username) { user =>
         currentlyPlaying(user) orElse lastPlayed(user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             ctx.me ifFalse pov.game.bothPlayersHaveMoved flatMap { Pov(pov.game, _) } match
@@ -48,7 +48,7 @@ final class User(
       }
     }
 
-  def tvExport(username: String) =
+  def tvExport(username: UserStr) =
     Action.async { req =>
       val userId = UserModel normalize username
       env.game.cached.lastPlayedPlayingId(userId) orElse
@@ -63,7 +63,7 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
-  def show(username: String) =
+  def show(username: UserStr) =
     OpenBody { implicit ctx =>
       EnabledUser(username) { u =>
         negotiate(
@@ -90,16 +90,16 @@ final class User(
         status(html.activity(u, as))
       }
 
-  def download(username: String) = OpenBody { implicit ctx =>
-    val userOption = if (username == "me") fuccess(ctx.me) else env.user.repo named username
+  def download(username: UserStr) = OpenBody { implicit ctx =>
+    val userOption = if (username == "me") fuccess(ctx.me) else env.user.repo byId username
     OptionOk(userOption.dmap(_.filter(u => u.enabled || ctx.is(u) || isGranted(_.GamesModView)))) { user =>
       html.user.download(user)
     }
   }
 
-  def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)
+  def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.All.name, page)
 
-  def games(username: String, filter: String, page: Int) =
+  def games(username: UserStr, filter: String, page: Int) =
     OpenBody { implicit ctx =>
       Reasonable(page) {
         EnabledUser(username) { u =>
@@ -144,14 +144,14 @@ final class User(
       }
     }
 
-  private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     if (UserModel.isGhost(username))
       negotiate(
         html = Ok(html.site.bits.ghost).toFuccess,
         api = _ => notFoundJson("Deleted user")
       )
     else
-      env.user.repo named username flatMap {
+      env.user.repo byId username flatMap {
         case None if isGranted(_.UserModView) =>
           ctx.me.map(Holder.apply) ?? { modC.searchTerm(_, username.trim) }
         case None                                             => notFound
@@ -165,9 +165,9 @@ final class User(
             api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
           )
       }
-  def showMini(username: String) =
+  def showMini(username: UserStr) =
     Open { implicit ctx =>
-      OptionFuResult(env.user.repo named username) { user =>
+      OptionFuResult(env.user.repo byId username) { user =>
         if (user.enabled || isGranted(_.UserModView))
           ctx.userId.?? { relationApi.fetchBlocks(user.id, _) } zip
             ctx.userId.?? { env.game.crosstableApi(user.id, _) dmap some } zip
@@ -215,7 +215,7 @@ final class User(
       )
     }
 
-  def ratingHistory(username: String) =
+  def ratingHistory(username: UserStr) =
     OpenBody { implicit ctx =>
       EnabledUser(username) { u =>
         env.history
@@ -341,12 +341,12 @@ final class User(
       )
     }
 
-  def mod(username: String) =
+  def mod(username: UserStr) =
     Secure(_.UserModView) { implicit ctx => holder =>
       modZoneOrRedirect(holder, username)
     }
 
-  protected[controllers] def modZoneOrRedirect(holder: Holder, username: String)(using
+  protected[controllers] def modZoneOrRedirect(holder: Holder, username: UserStr)(using
       ctx: Context
   ): Fu[Result] =
     if (HTTPRequest isEventSource ctx.req) renderModZone(holder, username)
@@ -372,7 +372,7 @@ final class User(
           UserLogins.TableData(userLogins, othersWithEmail, notes, bans, max)
       }
 
-  protected[controllers] def renderModZone(holder: Holder, username: String)(using
+  protected[controllers] def renderModZone(holder: Holder, username: UserStr)(using
       ctx: Context
   ): Fu[Result] =
     env.user.repo withEmails username orFail s"No such user $username" map {
@@ -461,7 +461,7 @@ final class User(
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
-  protected[controllers] def renderModZoneActions(username: String)(implicit ctx: Context) =
+  protected[controllers] def renderModZoneActions(username: UserStr)(implicit ctx: Context) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
@@ -469,7 +469,7 @@ final class User(
         }
     }
 
-  def writeNote(username: String) =
+  def writeNote(username: UserStr) =
     AuthBody { implicit ctx => me =>
       doWriteNote(username, me)(
         err => BadRequest(err.errors.toString).toFuccess,
@@ -484,9 +484,9 @@ final class User(
       )(ctx.body)
     }
 
-  def apiReadNote(username: String) =
+  def apiReadNote(username: UserStr) =
     Scoped() { implicit req => me =>
-      env.user.repo named username flatMap {
+      env.user.repo byId username flatMap {
         _ ?? {
           env.socialInfo.fetchNotes(_, me) flatMap {
             lila.user.JsonView.notes(_)(env.user.lightUserApi)
@@ -495,7 +495,7 @@ final class User(
       }
     }
 
-  def apiWriteNote(username: String) =
+  def apiWriteNote(username: UserStr) =
     ScopedBody() { implicit req => me =>
       doWriteNote(username, me)(
         jsonFormErrorDefaultLang,
@@ -504,10 +504,10 @@ final class User(
     }
 
   private def doWriteNote(
-      username: String,
+      username: UserStr,
       me: UserModel
   )(err: Form[?] => Fu[Result], suc: UserModel => Fu[Result])(implicit req: Request[?]) =
-    env.user.repo named username flatMap {
+    env.user.repo byId username flatMap {
       _ ?? { user =>
         lila.user.UserForm.note
           .bindFromRequest()
@@ -535,7 +535,7 @@ final class User(
     Auth { implicit ctx => me =>
       get("u")
         .ifTrue(isGranted(_.BoostHunter))
-        .??(env.user.repo.named)
+        .??(env.user.repo.byId)
         .map(_ | me)
         .flatMap { user =>
           for {
@@ -554,7 +554,7 @@ final class User(
         }
     }
 
-  def perfStat(username: String, perfKey: Perf.Key) =
+  def perfStat(username: UserStr, perfKey: Perf.Key) =
     Open { implicit ctx =>
       env.perfStat.api.data(username, perfKey, ctx.me) flatMap {
         _ ?? { data =>
@@ -637,15 +637,15 @@ final class User(
       fuccess(Redirect(routes.User.show(me.username)))
     }
 
-  def redirect(username: String) =
+  def redirect(username: UserStr) =
     Open { implicit ctx =>
       staticRedirect(username) | {
         tryRedirect(username) getOrElse notFound
       }
     }
 
-  def tryRedirect(username: String)(implicit ctx: Context): Fu[Option[Result]] =
-    env.user.repo named username map {
+  def tryRedirect(username: UserStr)(implicit ctx: Context): Fu[Option[Result]] =
+    env.user.repo byId username map {
       _.filter(_.enabled || isGranted(_.SeeReport)) map { user =>
         Redirect(routes.User.show(user.username))
       }

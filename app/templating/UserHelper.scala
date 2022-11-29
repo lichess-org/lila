@@ -82,9 +82,10 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
 
   def lightUser = env.user.lightUserSync
 
-  def usernameOrId(userId: UserId)            = lightUser(userId).fold(userId)(_.name)
-  def titleNameOrId(userId: UserId)           = lightUser(userId).fold(userId)(_.titleName)
-  def titleNameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
+  def usernameOrId(userId: UserId): String  = lightUser(userId).fold(userId.value)(_.name.value)
+  def titleNameOrId(userId: UserId): String = lightUser(userId).fold(userId.value)(_.titleName)
+  def titleNameOrAnon(userId: Option[UserId]): String =
+    userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
 
   def isOnline(userId: UserId) = env.socket.isOnline.value(userId)
 
@@ -104,7 +105,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
-  )(using ctx: Lang): Tag =
+  )(using Lang): Tag =
     userIdOption.flatMap(lightUser).fold[Tag](anonUserSpan(cssClass, modIcon)) { user =>
       userIdNameLink(
         userId = user.id,
@@ -147,7 +148,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
 
   private def userIdNameLink(
       userId: UserId,
-      username: String,
+      username: UserName,
       isPatron: Boolean,
       cssClass: Option[String],
       withOnline: Boolean,
@@ -235,7 +236,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
         }
       case _ => ""
 
-  private def userUrl(username: String, params: String = ""): Option[String] =
+  private def userUrl(username: UserName, params: String = ""): Option[String] =
     (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
 
   def userClass(
