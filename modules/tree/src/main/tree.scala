@@ -244,7 +244,7 @@ object Node:
         Json
           .obj(
             "ply" -> ply,
-            "fen" -> lila.common.Json.given_Format_FEN.writes(fen)
+            "fen" -> fen
           )
           .add("id", idOption.map(_.toString))
           .add("uci", moveOption.map(_.uci.uci))
@@ -283,11 +283,11 @@ object Node:
   def destString(dests: Map[Pos, List[Pos]]): String =
     val sb    = new java.lang.StringBuilder(80)
     var first = true
-    dests foreach { case (orig, dests) =>
+    dests foreach { (orig, dests) =>
       if (first) first = false
       else sb append " "
-      sb append orig.piotr
-      dests foreach { sb append _.piotr }
+      sb append orig.toChar
+      dests foreach { sb append _.toChar }
     }
     sb.toString
 

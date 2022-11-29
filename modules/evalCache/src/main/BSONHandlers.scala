@@ -22,9 +22,9 @@ private object BSONHandlers:
         str.toIntOption map { c =>
           Score cp Cp(c)
         }
-    private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.toList
+    private def movesWrite(moves: Moves): String = Uci writeListChars moves.value.toList
     private def movesRead(str: String): Option[Moves] = Moves from {
-      Uci readListPiotr str flatMap (_.toNel)
+      Uci readListChars str flatMap (_.toNel)
     }
     private val scoreSeparator = ':'
     private val pvSeparator    = '/'

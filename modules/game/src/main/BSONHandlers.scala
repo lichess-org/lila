@@ -54,7 +54,7 @@ object BSONHandlers:
             black = Pocket(black.map(_.role))
           )
         },
-        promoted = r.str("t").view.flatMap(chess.Pos.piotr).to(Set)
+        promoted = r.str("t").view.flatMap(chess.Pos.fromChar(_)).to(Set)
       )
     def writes(w: BSON.Writer, o: Crazyhouse.Data) =
       BSONDocument(
@@ -62,7 +62,7 @@ object BSONHandlers:
           o.pockets.white.roles.map(_.forsythUpper).mkString +
             o.pockets.black.roles.map(_.forsyth).mkString
         },
-        "t" -> o.promoted.map(_.piotr).mkString
+        "t" -> o.promoted.map(_.toChar).mkString
       )
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](

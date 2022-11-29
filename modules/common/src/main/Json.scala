@@ -82,8 +82,6 @@ object Json:
     JsString(c.name)
   }
 
-  given Format[FEN] = stringIsoFormat[FEN]
-
   given Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")
   }

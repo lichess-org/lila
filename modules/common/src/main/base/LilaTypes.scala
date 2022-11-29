@@ -30,8 +30,3 @@ trait LilaTypes:
     def zero = Duration.Zero
   given Zero[JsObject] with
     def zero = JsObject(Seq.empty)
-  // given Zero[JsResult] with
-  //   def zero = JsError(Seq.empty)
-
-  // given Ordering[DateTime] with
-  //   def compare = Ordering.fromLessThan[DateTime](_ isBefore _)

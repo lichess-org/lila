@@ -26,7 +26,6 @@ object Lila extends Lila:
 
 trait Lila
     extends lila.base.LilaTypes
-    with lila.base.NewTypes
     with lila.base.LilaModel
     with lila.base.LilaUserId
     with cats.syntax.OptionSyntax
@@ -34,6 +33,7 @@ trait Lila
     with ornicar.scalalib.Zeros
     with lila.base.LilaLibraryExtensions:
 
+  export ornicar.scalalib.newtypes.*
   export ornicar.scalalib.OrnicarBooleanWrapper
 
   trait IntValue extends Any:

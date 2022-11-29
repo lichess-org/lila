@@ -7,6 +7,7 @@ import chess.variant.Variant
 import play.api.libs.json.JsObject
 
 import lila.tree.Branch
+import lila.common.Json.given
 
 case class AnaDrop(
     role: chess.Role,
@@ -18,7 +19,7 @@ case class AnaDrop(
 ) extends AnaAny:
 
   def branch: Validated[String, Branch] =
-    chess.Game(variant.some, fen.some).drop(role, pos) flatMap { case (game, drop) =>
+    chess.Game(variant.some, fen.some).drop(role, pos) andThen { (game, drop) =>
       game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
@@ -45,9 +46,9 @@ object AnaDrop:
     for {
       d    <- o obj "d"
       role <- d str "role" flatMap chess.Role.allByName.get
-      pos  <- d str "pos" flatMap chess.Pos.fromKey
+      pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
       variant = chess.variant.Variant orDefault ~d.str("variant")
-      fen  <- d str "fen" map FEN.apply
+      fen  <- d.get[FEN]("fen")
       path <- d str "path"
     } yield AnaDrop(
       role = role,

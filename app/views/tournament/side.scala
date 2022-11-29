@@ -36,7 +36,7 @@ object side:
               separator,
               tour.durationString
             ),
-            tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+            if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
             "Arena",
             (isGranted(_.ManageTournament) || (ctx.userId

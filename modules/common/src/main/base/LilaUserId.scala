@@ -1,8 +1,9 @@
 package lila.base
 
 import cats.Show
+import ornicar.scalalib.newtypes.*
 
-trait LilaUserId extends NewTypes:
+trait LilaUserId:
 
   trait UserIdOf[U]:
     def apply(a: U): UserId

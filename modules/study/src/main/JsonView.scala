@@ -125,7 +125,7 @@ object JsonView:
   }
 
   private given Reads[Pos] = Reads { v =>
-    (v.asOpt[String] flatMap Pos.fromKey).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String] flatMap { Pos.fromKey(_) }).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
   private[study] given Writes[Path]             = Writes(p => JsString(p.toString))
   private[study] given Writes[Sri]              = Writes(s => JsString(s.value))

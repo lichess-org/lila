@@ -2,8 +2,12 @@ package lila.base
 
 import alleycats.Zero
 import cats.Show
+import org.joda.time.DateTime
+import ornicar.scalalib.newtypes.*
 
-trait LilaModel extends NewTypes:
+trait LilaModel:
+
+  trait OpaqueDate[A](using A =:= DateTime) extends TotalWrapper[A, DateTime]
 
   trait Percent[A]:
     def apply(a: A): Double

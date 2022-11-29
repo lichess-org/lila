@@ -60,5 +60,3 @@ object Iso:
   given IntIso[Centis] = int[Centis](Centis.apply, _.centis)
 
   given StringIso[Lang] = string[Lang](Lang.apply, _.toString)
-
-  given StringIso[FEN] = string[FEN](FEN.apply, _.value)

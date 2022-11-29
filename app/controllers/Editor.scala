@@ -63,7 +63,7 @@ final class Editor(env: Env) extends LilaController(env):
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "white").url
-          else editorUrl(get("fen").fold(Forsyth >> game.chess)(FEN.apply), game.variant)
+          else editorUrl(get("fen").fold(Forsyth >> game.chess)(FEN(_)), game.variant)
         }
       }
     }
