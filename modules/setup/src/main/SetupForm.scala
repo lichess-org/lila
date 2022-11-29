@@ -171,7 +171,7 @@ object SetupForm:
           LilaForm.strings
             .separator(",")
             .verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
-            .transform[List[UserStr]](_ map { UserStr(_) }, _.map(_.value))
+            .transform[List[UserStr]](UserStr.from(_), UserStr.raw(_))
         ),
         "rules" -> optional(gameRules)
       )(OpenConfig.from)(_ => none)

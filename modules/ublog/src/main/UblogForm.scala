@@ -45,7 +45,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         imageAlt = post.image.flatMap(_.alt),
         imageCredit = post.image.flatMap(_.credit),
         language = post.language.code.some,
-        topics = post.topics.map(_.value).mkString(", ").some,
+        topics = post.topics.mkString(", ").some,
         live = post.live,
         discuss = ~post.discuss,
         gameId = GameId(""),

@@ -46,7 +46,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
         Json.obj(
           "id"       -> gameId.value,
           "opponent" -> opponentId.flatMap(getLightUser),
-          "win"      -> win.map(_.value)
+          "win"      -> win
         )
       case _: PlanStart  => Json.obj()
       case _: PlanExpire => Json.obj()

@@ -19,7 +19,6 @@ private object UblogBsonHandlers:
   )
   given BSONDocumentHandler[UblogBlog] = Macros.handler
 
-  given BSONHandler[UblogTopic]          = stringAnyValHandler[UblogTopic](_.value, UblogTopic.apply)
   given BSONHandler[Lang]                = stringAnyValHandler(_.code, Lang.apply)
   given BSONDocumentHandler[Recorded]    = Macros.handler
   given BSONDocumentHandler[UblogImage]  = Macros.handler

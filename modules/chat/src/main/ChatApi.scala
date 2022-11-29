@@ -58,7 +58,7 @@ final class ChatApi(
       findOption(chatId) dmap (_ | Chat.makeUser(chatId))
 
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
-      coll.byStringIds[UserChat](chatIds.map(_.value), ReadPreference.secondaryPreferred)
+      coll.byStringIds[UserChat](ChatId raw chatIds, ReadPreference.secondaryPreferred)
 
     def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, cond = true)
 

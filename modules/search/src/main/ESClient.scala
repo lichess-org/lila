@@ -5,6 +5,8 @@ import play.api.libs.ws.*
 import play.api.libs.ws.JsonBodyWritables.*
 import scala.annotation.nowarn
 
+import lila.common.Json.given
+
 sealed trait ESClient:
 
   def search[Q: Writes](query: Q, from: From, size: Size): Fu[SearchResponse]
@@ -47,7 +49,7 @@ final class ESClientHttp(
     config.writeable ?? HTTP(s"delete/id/$index/${id.value}", Json.obj())
 
   def deleteByIds(ids: List[lila.search.Id]) =
-    config.writeable ?? HTTP(s"delete/ids/$index", Json.obj("ids" -> ids.map(_.value)))
+    config.writeable ?? HTTP(s"delete/ids/$index", Json.obj("ids" -> ids))
 
   def putMapping =
     HTTP(s"mapping/$index", Json.obj())

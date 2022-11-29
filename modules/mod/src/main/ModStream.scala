@@ -22,7 +22,7 @@ final class ModStream:
           "ip"          -> HTTPRequest.ipAddress(req).value,
           "suspIp"      -> suspIp,
           "userAgent"   -> HTTPRequest.userAgent(req),
-          "fingerPrint" -> fp.map(_.value)
+          "fingerPrint" -> fp
         )
       }
       .map { js =>

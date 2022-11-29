@@ -179,7 +179,7 @@ final class IrcApi(
 
   def signupAfterTryingDisposableEmail(user: User, email: EmailAddress, previous: Set[EmailAddress]) =
     zulip(_.mod.adminLog, "disposable email")(
-      s"${markdown userLink user} signed up with ${email.value} after trying: ${previous.map(_.value) mkString ", "}"
+      s"${markdown userLink user} signed up with ${email.value} after trying: ${previous mkString ", "}"
     )
 
   private def publishError(msg: String): Funit =

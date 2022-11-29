@@ -210,7 +210,7 @@ final class PersonalDataExport(
               "intro"  -> post.intro,
               "body"   -> post.markdown,
               "image"  -> post.image.??(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
-              "topics" -> post.topics.map(_.value).mkString(", ")
+              "topics" -> post.topics.mkString(", ")
             ).map { case (k, v) =>
               s"$k: $v"
             }.mkString("\n") + bigSep

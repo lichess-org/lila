@@ -105,7 +105,7 @@ object BSONHandlers:
         "clock"       -> o.clock,
         "minutes"     -> o.minutes,
         "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"         -> o.position.map(_.value),
+        "fen"         -> o.position,
         "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"    -> o.password,
         "conditions"  -> o.conditions.ifNonEmpty,

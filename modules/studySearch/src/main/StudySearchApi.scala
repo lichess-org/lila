@@ -58,7 +58,7 @@ final class StudySearchApi(
           (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
         }
       },
-      Fields.topics -> s.study.topicsOrEmpty.value.map(_.value),
+      Fields.topics -> s.study.topicsOrEmpty.value,
       // Fields.createdAt -> study.createdAt)
       // Fields.updatedAt -> study.updatedAt,
       Fields.likes  -> s.study.likes.value,

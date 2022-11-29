@@ -94,7 +94,7 @@ private object AuthorizationApi:
         F.clientId           -> o.clientId.value,
         F.userId             -> o.userId,
         F.redirectUri        -> o.redirectUri.value.toString,
-        F.codeChallenge      -> o.challenge.toOption.map(_.value),
+        F.codeChallenge      -> o.challenge.toOption,
         F.hashedClientSecret -> o.challenge.swap.toOption.map(_.value),
         F.scopes             -> o.scopes,
         F.expires            -> o.expires

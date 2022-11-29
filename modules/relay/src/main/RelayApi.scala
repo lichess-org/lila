@@ -336,6 +336,7 @@ final class RelayApi(
     studyApi members StudyId(id.value) map {
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
+        import lila.common.Json.given
         import JsonView.given
         import lila.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))

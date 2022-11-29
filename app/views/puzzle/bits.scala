@@ -31,7 +31,7 @@ object bits:
     .partition(PuzzleTheme.staticThemes.contains) match
     case (static, dynamic) =>
       Json.obj(
-        "dynamic" -> dynamic.map(_.value).sorted.mkString(" "),
+        "dynamic" -> dynamic.sorted(stringOrdering).mkString(" "),
         "static"  -> static.mkString(" ")
       )
 

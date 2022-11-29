@@ -386,7 +386,7 @@ final private class StudySocket(
       "conceal",
       Json.obj(
         "p"   -> pos,
-        "ply" -> ply.map(_.value)
+        "ply" -> ply
       )
     )
   def setTags(chapterId: StudyChapterId, tags: chess.format.pgn.Tags, who: Who) =

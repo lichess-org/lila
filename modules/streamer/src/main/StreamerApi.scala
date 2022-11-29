@@ -23,7 +23,7 @@ final class StreamerApi(
   def withColl[A](f: Coll => A): A = f(coll)
 
   def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
-  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byStringIds[Streamer](ids.map(_.value))
+  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
   def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
     userRepo byId username flatMap { _ ?? find }
