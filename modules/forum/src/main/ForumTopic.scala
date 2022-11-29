@@ -2,9 +2,9 @@ package lila.forum
 
 import org.joda.time.DateTime
 import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config.MaxPerPage
-import lila.common.ThreadLocalRandom
 import lila.user.User
 
 case class ForumTopic(

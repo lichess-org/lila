@@ -5,6 +5,7 @@ import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.Variant
 import chess.{ Centis, Color, Outcome }
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
@@ -164,7 +165,7 @@ object Chapter:
 
   val idSize = 8
 
-  def makeId = StudyChapterId(lila.common.ThreadLocalRandom nextString idSize)
+  def makeId = StudyChapterId(ThreadLocalRandom nextString idSize)
 
   def make(
       studyId: StudyId,

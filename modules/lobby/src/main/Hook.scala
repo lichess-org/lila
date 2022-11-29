@@ -4,6 +4,7 @@ import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -121,7 +122,7 @@ object Hook:
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = lila.common.ThreadLocalRandom nextString idSize,
+      id = ThreadLocalRandom nextString idSize,
       sri = sri,
       variant = variant.id,
       clock = clock,

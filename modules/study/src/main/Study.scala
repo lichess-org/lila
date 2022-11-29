@@ -1,9 +1,9 @@
 package lila.study
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
-import lila.common.Iso
 
 case class Study(
     _id: StudyId,
@@ -144,7 +144,7 @@ object Study:
 
   case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
 
-  def makeId = StudyId(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = StudyId(ThreadLocalRandom nextString 8)
 
   def make(
       user: User,

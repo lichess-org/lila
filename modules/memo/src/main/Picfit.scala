@@ -10,6 +10,7 @@ import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
 import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config
 import lila.db.dsl.{ *, given }
@@ -56,7 +57,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
         case Some(extension) => {
           val image = PicfitImage(
-            _id = PicfitImage.Id(s"$userId:$rel:${lila.common.ThreadLocalRandom nextString 8}.$extension"),
+            _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom nextString 8}.$extension"),
             user = userId,
             rel = rel,
             name = part.filename,

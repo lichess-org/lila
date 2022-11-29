@@ -16,10 +16,10 @@ import java.util.Base64
 import akka.actor.Scheduler
 import lila.common.Chronometer
 import scala.collection.BuildFrom
-import ornicar.scalalib.ScalalibExtensions
+import ornicar.scalalib.extensions.*
 import scala.annotation.targetName
 
-trait LilaLibraryExtensions extends LilaTypes with ScalalibExtensions:
+trait LilaLibraryExtensions extends LilaTypes:
 
   extension [A](self: A)
     def unit: Unit          = ()

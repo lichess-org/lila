@@ -2,6 +2,10 @@ package lila
 
 object Lila extends Lila:
 
+  export ornicar.scalalib.newtypes.{ given, * }
+  export ornicar.scalalib.zeros.given
+  export ornicar.scalalib.extensions.{ given, * }
+
   def nowNanos: Long  = System.nanoTime()
   def nowMillis: Long = System.currentTimeMillis()
   def nowCentis: Long = nowMillis / 10
@@ -30,11 +34,7 @@ trait Lila
     with lila.base.LilaUserId
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
-    with ornicar.scalalib.Zeros
     with lila.base.LilaLibraryExtensions:
-
-  export ornicar.scalalib.newtypes.*
-  export ornicar.scalalib.OrnicarBooleanWrapper
 
   trait IntValue extends Any:
     def value: Int

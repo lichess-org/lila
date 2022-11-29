@@ -7,11 +7,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Bearer
 import lila.common.Form.*
 import lila.common.Json.given
-import lila.common.{ SecureRandom, ThreadLocalRandom }
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
 import lila.user.User

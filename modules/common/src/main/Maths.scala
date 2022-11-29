@@ -3,6 +3,7 @@ package lila.common
 import scala.Numeric.Implicits.*
 import scala.reflect.ClassTag
 import scala.util.Sorting
+import ornicar.scalalib.ThreadLocalRandom
 
 object Maths:
 

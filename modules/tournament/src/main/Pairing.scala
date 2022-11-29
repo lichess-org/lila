@@ -1,10 +1,11 @@
 package lila.tournament
 
+import ornicar.scalalib.ThreadLocalRandom
+
 import chess.Color
 import chess.variant.*
 import lila.game.Game
 import lila.user.User
-import lila.common.ThreadLocalRandom
 
 case class Pairing(
     id: GameId,
@@ -20,11 +21,11 @@ case class Pairing(
 
   def gameId = id
 
-  def users                                       = List(user1, user2)
-  def usersPair                                   = user1 -> user2
-  def contains(user: UserId): Boolean            = user1 == user || user2 == user
+  def users                                     = List(user1, user2)
+  def usersPair                                 = user1 -> user2
+  def contains(user: UserId): Boolean           = user1 == user || user2 == user
   def contains(u1: UserId, u2: UserId): Boolean = contains(u1) && contains(u2)
-  def notContains(user: UserId)                  = !contains(user)
+  def notContains(user: UserId)                 = !contains(user)
 
   def opponentOf(userId: UserId) =
     if (userId == user1) user2.some
@@ -47,7 +48,7 @@ case class Pairing(
   def wonBy(user: UserId): Boolean     = winner.has(user)
   def lostBy(user: UserId): Boolean    = winner.exists(user !=)
   def notLostBy(user: UserId): Boolean = winner.fold(true)(user ==)
-  def draw: Boolean                     = finished && winner.isEmpty
+  def draw: Boolean                    = finished && winner.isEmpty
 
   def colorOf(userId: UserId): Option[Color] =
     if (userId == user1) Color.White.some

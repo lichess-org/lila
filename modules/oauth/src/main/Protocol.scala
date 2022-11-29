@@ -6,8 +6,8 @@ import cats.data.Validated
 import play.api.libs.json.Json
 import com.roundeights.hasher.Algo
 import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+import ornicar.scalalib.SecureRandom
 
-import lila.common.SecureRandom
 import lila.common.String.urlencode
 
 object Protocol:

@@ -7,6 +7,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration.*
 import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.common.config.Secret
@@ -52,7 +53,7 @@ final private class Streaming(
           }.flatten
         } zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
-        lila.common.ThreadLocalRandom.shuffle {
+        ThreadLocalRandom.shuffle {
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }

@@ -3,6 +3,7 @@ package lila.ublog
 import org.joda.time.DateTime
 import play.api.data.*
 import play.api.data.Forms.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, into, given }
 import lila.i18n.{ defaultLang, LangList }
@@ -76,7 +77,7 @@ object UblogForm:
 
     def create(user: User) =
       UblogPost(
-        id = UblogPostId(lila.common.ThreadLocalRandom nextString 8),
+        id = UblogPostId(ThreadLocalRandom nextString 8),
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,

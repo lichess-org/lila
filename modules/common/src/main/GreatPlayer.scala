@@ -1,5 +1,7 @@
 package lila.common
 
+import ornicar.scalalib.ThreadLocalRandom
+
 object GreatPlayer:
 
   val all: Map[String, String] = Map(
@@ -605,7 +607,7 @@ object GreatPlayer:
     k
   }.toVector
 
-  def randomName: String = names(lila.common.ThreadLocalRandom nextInt size)
+  def randomName: String = names(ThreadLocalRandom nextInt size)
 
   def wikiUrl(name: String) =
     all get name map { s =>

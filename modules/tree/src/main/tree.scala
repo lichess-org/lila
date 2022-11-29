@@ -7,6 +7,7 @@ import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.*
 
@@ -117,7 +118,7 @@ object Node:
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
-      def make = Id(lila.common.ThreadLocalRandom nextString 4)
+      def make = Id(ThreadLocalRandom nextString 4)
     private val metaReg = """\[%[^\]]+\]""".r
     opaque type Text = String
     object Text extends OpaqueString[Text]:

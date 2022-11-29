@@ -5,6 +5,7 @@ import chess.format.FEN
 import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User
@@ -124,7 +125,7 @@ object Swiss:
   def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =
     Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
 
-  def makeId = SwissId(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = SwissId(ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 

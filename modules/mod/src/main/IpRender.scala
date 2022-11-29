@@ -3,13 +3,13 @@ package lila.mod
 import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration.*
 import scala.jdk.CollectionConverters.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.CuteNameGenerator
 import lila.common.IpAddress
 import lila.memo.CacheApi
 import lila.security.Granter
 import lila.user.Holder
-import lila.common.ThreadLocalRandom
 
 object IpRender:
 

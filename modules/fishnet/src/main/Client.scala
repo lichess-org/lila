@@ -1,8 +1,9 @@
 package lila.fishnet
 
 import com.gilt.gfc.semver.SemVer
-import lila.common.{ IpAddress, SecureRandom }
+import lila.common.IpAddress
 import scala.util.{ Failure, Success, Try }
+import ornicar.scalalib.SecureRandom
 
 import org.joda.time.DateTime
 

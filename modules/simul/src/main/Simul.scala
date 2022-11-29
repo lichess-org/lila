@@ -1,5 +1,6 @@
 package lila.simul
 
+import ornicar.scalalib.ThreadLocalRandom
 import chess.Color
 import chess.format.FEN
 import chess.variant.Variant
@@ -157,7 +158,7 @@ object Simul:
       team: Option[TeamId],
       featurable: Option[Boolean]
   ): Simul = Simul(
-    _id = SimulId(lila.common.ThreadLocalRandom nextString 8),
+    _id = SimulId(ThreadLocalRandom nextString 8),
     name = name,
     status = SimulStatus.Created,
     clock = clock,

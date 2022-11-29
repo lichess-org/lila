@@ -2,6 +2,7 @@ package lila.playban
 
 import chess.{ Color, Speed }
 import scala.math.{ log10, sqrt }
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.game.Game
 
@@ -48,7 +49,7 @@ object RageSit extends OpaqueInt[RageSit]:
   def redeem(game: Game) = Update.Inc {
     game.speed match
       case s if s < Speed.Bullet => 0
-      case Speed.Bullet          => lila.common.ThreadLocalRandom.nextInt(2)
+      case Speed.Bullet          => ThreadLocalRandom.nextInt(2)
       case Speed.Blitz           => 1
       case _                     => 2
   }

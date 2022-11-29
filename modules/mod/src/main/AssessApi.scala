@@ -4,9 +4,9 @@ import chess.{ Black, Color, White }
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.common.ThreadLocalRandom
 import lila.db.dsl.{ *, given }
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment }

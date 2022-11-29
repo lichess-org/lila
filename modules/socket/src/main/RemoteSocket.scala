@@ -10,7 +10,8 @@ import play.api.libs.json.*
 import scala.concurrent.duration.*
 import scala.concurrent.{ Future, Promise }
 import scala.util.chaining.*
-import Socket.Sri
+import lila.socket.Socket.Sri
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
@@ -23,10 +24,7 @@ import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToAsync, SendTos 
 final class RemoteSocket(
     redisClient: RedisClient,
     shutdown: CoordinatedShutdown
-)(using
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: Scheduler
-):
+)(using scala.concurrent.ExecutionContext, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 
@@ -37,7 +35,7 @@ final class RemoteSocket(
   private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
   def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
-    val id = lila.common.ThreadLocalRandom.nextInt()
+    val id = ThreadLocalRandom.nextInt()
     sendReq(id)
     val promise = Promise[String]()
     requests.put(id, promise)

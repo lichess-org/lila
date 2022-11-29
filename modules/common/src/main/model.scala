@@ -7,6 +7,7 @@ import scala.concurrent.duration.*
 import scala.util.Try
 import lila.base.LilaTypes
 import java.net.InetAddress
+import ornicar.scalalib.SecureRandom
 
 opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:

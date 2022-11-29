@@ -5,10 +5,9 @@ import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.chat.Chat
-import lila.chat.UserLine
-import lila.common.Bus
+import lila.chat.{ Chat, UserLine }
 import lila.game.actorApi.{
   AbortedBy,
   BoardDrawOffer,
@@ -23,7 +22,7 @@ import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
 import play.api.mvc.RequestHeader
-import lila.common.HTTPRequest
+import lila.common.{ Bus, HTTPRequest }
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -48,7 +47,7 @@ final class GameStateStream(
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
         Props(mkActor(init, as, User(u.id, u.isBot), queue)),
-        name = s"GameStateStream:${init.game.id}:${lila.common.ThreadLocalRandom nextString 8}"
+        name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom nextString 8}"
       )
       queue.watchCompletion().foreach { _ =>
         actor ! PoisonPill

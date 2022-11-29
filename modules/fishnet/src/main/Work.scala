@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import chess.format.{ FEN, Uci }
 import chess.variant.Variant
@@ -107,4 +108,4 @@ object Work:
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = Id(ThreadLocalRandom nextString 8)

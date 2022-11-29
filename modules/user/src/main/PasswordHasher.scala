@@ -5,8 +5,8 @@ import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits.*
+import ornicar.scalalib.SecureRandom
 
-import lila.common.SecureRandom
 import lila.common.config.Secret
 
 /** Encryption for bcrypt hashes.
@@ -23,7 +23,7 @@ final private class Aes(secret: Secret):
         throw new IllegalStateException(s"$kBits bit AES unavailable")
     new SecretKeySpec(sk, "AES")
 
-  @inline private def run(mode: Int, iv: Aes.InitVector, b: Array[Byte]) =
+  private def run(mode: Int, iv: Aes.InitVector, b: Array[Byte]) =
     val c = Cipher.getInstance("AES/CTS/NoPadding")
     c.init(mode, sKey, iv)
     c.doFinal(b)

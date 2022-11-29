@@ -2,6 +2,7 @@ package lila.event
 
 import org.joda.time.DateTime
 import play.api.i18n.Lang
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 
@@ -48,4 +49,4 @@ case class Event(
 
 object Event:
 
-  def makeId = lila.common.ThreadLocalRandom nextString 8
+  def makeId = ThreadLocalRandom nextString 8

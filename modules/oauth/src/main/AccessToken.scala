@@ -3,8 +3,9 @@ package lila.oauth
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import com.roundeights.hasher.Algo
+import ornicar.scalalib.SecureRandom
 
-import lila.common.{ Bearer, SecureRandom }
+import lila.common.Bearer
 import lila.user.User
 
 case class AccessToken(

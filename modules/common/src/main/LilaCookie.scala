@@ -2,6 +2,7 @@ package lila.common
 
 import play.api.mvc.*
 import scala.concurrent.ExecutionContext
+import ornicar.scalalib.SecureRandom
 
 import lila.common.config.NetDomain
 

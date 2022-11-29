@@ -5,12 +5,13 @@ import lila.memo.*
 import org.joda.time.DateTime
 import reactivemongo.api.bson.*
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(using ec: scala.concurrent.ExecutionContext):
+)(using scala.concurrent.ExecutionContext):
 
   val kindCache =
     cacheApi.sync[String, TrophyKind](
@@ -74,7 +75,7 @@ final class TrophyApi(
     coll.insert
       .one(
         $doc(
-          "_id"  -> lila.common.ThreadLocalRandom.nextString(8),
+          "_id"  -> ThreadLocalRandom.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,
           "url"  -> trophyUrl,

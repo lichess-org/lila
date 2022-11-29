@@ -2,6 +2,7 @@ package lila.user
 
 import lila.db.dsl.{ *, given }
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 case class Note(
     _id: String,
@@ -60,7 +61,7 @@ final class NoteApi(
   def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
     val note = Note(
-      _id = lila.common.ThreadLocalRandom nextString 8,
+      _id = ThreadLocalRandom nextString 8,
       from = from.id,
       to = to.id,
       text = text,

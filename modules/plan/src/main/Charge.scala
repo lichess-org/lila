@@ -2,6 +2,7 @@ package lila.plan
 
 import org.joda.time.DateTime
 import cats.implicits.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 
@@ -43,7 +44,7 @@ object Charge:
       usd: Usd
   ) =
     Charge(
-      _id = lila.common.ThreadLocalRandom nextString 8,
+      _id = ThreadLocalRandom nextString 8,
       userId = userId,
       giftTo = giftTo,
       stripe = stripe,

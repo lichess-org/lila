@@ -2,6 +2,7 @@ package lila.report
 
 import org.joda.time.DateTime
 import cats.data.NonEmptyList
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import lila.common.Iso
@@ -160,7 +161,7 @@ object Report:
       case c @ Candidate.Scored(candidate, score) =>
         existing.fold(
           Report(
-            _id = lila.common.ThreadLocalRandom nextString 8,
+            _id = ThreadLocalRandom nextString 8,
             user = candidate.suspect.user.id,
             reason = candidate.reason,
             room = Room(candidate.reason),

@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import java.security.MessageDigest
 import java.nio.charset.StandardCharsets.UTF_8
 import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import org.joda.time.Days
@@ -128,4 +129,4 @@ object Team:
       if (slug.lengthIs > (name.length / 2)) TeamId(slug) else randomId()
     }
 
-  private[team] def randomId() = TeamId(lila.common.ThreadLocalRandom nextString 8)
+  private[team] def randomId() = TeamId(ThreadLocalRandom nextString 8)

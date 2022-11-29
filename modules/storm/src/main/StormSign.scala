@@ -3,9 +3,9 @@ package lila.storm
 import com.github.blemale.scaffeine.LoadingCache
 import com.roundeights.hasher.Algo
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config.Secret
-import lila.common.ThreadLocalRandom
 import lila.common.Uptime
 import lila.memo.CacheApi
 import lila.user.User

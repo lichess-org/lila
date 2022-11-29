@@ -1,10 +1,9 @@
 package lila.clas
 
-import lila.user.User
-
 import org.joda.time.DateTime
+import ornicar.scalalib.SecureRandom
 
-import lila.common.SecureRandom
+import lila.user.User
 
 case class Student(
     _id: Student.Id, // userId:clasId

@@ -1,6 +1,7 @@
 package lila.relay
 
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 
@@ -59,4 +60,4 @@ object RelayTour:
 
   case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = Id(ThreadLocalRandom nextString 8)

@@ -8,8 +8,8 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.ThreadLocalRandom
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User

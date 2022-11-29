@@ -9,6 +9,7 @@ import play.api.mvc.*
 import scala.concurrent.duration.*
 import scalatags.Text.all.stringFrag
 import views.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -113,7 +114,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                     .obj(
                       "token_type"    -> "Bearer",
                       "access_token"  -> token.plain,
-                      "refresh_token" -> s"invalid_for_bc_${lila.common.ThreadLocalRandom.nextString(17)}"
+                      "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )

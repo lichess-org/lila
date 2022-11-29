@@ -3,12 +3,12 @@ package lila.round
 import com.softwaremill.tagging.*
 import scala.concurrent.duration.*
 import scala.util.matching.Regex
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ IpAddress, Strings }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
-import lila.common.ThreadLocalRandom
 
 final class SelfReport(
     tellRound: TellRound,

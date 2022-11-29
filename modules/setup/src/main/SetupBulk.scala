@@ -9,6 +9,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.*
 import lila.common.{ Bearer, Days, Template }
@@ -244,7 +245,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                 }
                 .dmap {
                   ScheduledBulk(
-                    _id = lila.common.ThreadLocalRandom nextString 8,
+                    _id = ThreadLocalRandom nextString 8,
                     by = me.id,
                     _,
                     data.variant,

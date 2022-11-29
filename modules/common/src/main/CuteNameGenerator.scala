@@ -1,5 +1,7 @@
 package lila.common
 
+import ornicar.scalalib.ThreadLocalRandom
+
 // children friendly names only
 // this is used by /class
 object CuteNameGenerator:
@@ -15,7 +17,7 @@ object CuteNameGenerator:
   def fromSeed(seed: Int): UserName = UserName(seedOf(seed)(combinations).map(seedOf(seed)).mkString)
 
   private def anyOf[A](vec: Vector[A]): A =
-    vec(lila.common.ThreadLocalRandom.nextInt(vec.size))
+    vec(ThreadLocalRandom.nextInt(vec.size))
 
   private def seedOf[A](seed: Int)(vec: Vector[A]): A =
     vec(Math.abs(seed) % vec.size)

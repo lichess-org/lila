@@ -4,6 +4,7 @@ import chess.format.FEN
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
 import lila.game.{ Game, GameRule, PerfPicker }
@@ -213,12 +214,12 @@ object Challenge:
 
   private val idSize = 8
 
-  private def randomId = lila.common.ThreadLocalRandom nextString idSize
+  private def randomId = ThreadLocalRandom nextString idSize
 
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color.fromWhite(lila.common.ThreadLocalRandom.nextBoolean())
+  def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,

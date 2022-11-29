@@ -10,8 +10,9 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 import scala.concurrent.duration.*
+import ornicar.scalalib.SecureRandom
 
-import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
+import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }
 import lila.common.Form.into
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }

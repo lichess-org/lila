@@ -1,6 +1,7 @@
 package lila.msg
 
 import reactivemongo.api.bson.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import lila.db.dsl.{ *, given }
@@ -34,7 +35,7 @@ private object BsonHandlers:
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =
     msgHandler.writeTry(msg).get ++ $doc(
-      "_id" -> lila.common.ThreadLocalRandom.nextString(10),
+      "_id" -> ThreadLocalRandom.nextString(10),
       "tid" -> threadId
     )
 

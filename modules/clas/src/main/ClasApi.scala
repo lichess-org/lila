@@ -2,6 +2,7 @@ package lila.clas
 
 import org.joda.time.DateTime
 import reactivemongo.api.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
@@ -254,7 +255,7 @@ final class ClasApi(
         lila.common.Future.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
           nameGenerator() flatMap { username =>
             val data = ClasForm.CreateStudent(
-              username = username | UserName(lila.common.ThreadLocalRandom.nextString(10)),
+              username = username | UserName(ThreadLocalRandom.nextString(10)),
               realName = realName
             )
             create(clas, data, teacher)

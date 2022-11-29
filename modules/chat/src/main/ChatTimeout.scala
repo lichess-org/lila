@@ -5,6 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -26,7 +27,7 @@ final class ChatTimeout(
         coll.insert
           .one(
             $doc(
-              "_id"       -> (lila.common.ThreadLocalRandom nextString 8),
+              "_id"       -> ThreadLocalRandom.nextString(8),
               "chat"      -> chat.id,
               "mod"       -> mod.id,
               "user"      -> user.id,

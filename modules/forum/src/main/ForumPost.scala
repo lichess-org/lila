@@ -2,6 +2,7 @@ package lila.forum
 
 import org.joda.time.DateTime
 import scala.concurrent.duration.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
 import lila.security.Granter
@@ -122,7 +123,7 @@ object ForumPost:
       modIcon: Option[Boolean] = None
   ): ForumPost =
     ForumPost(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
+      _id = ThreadLocalRandom nextString idSize,
       topicId = topicId,
       author = none,
       userId = userId,
