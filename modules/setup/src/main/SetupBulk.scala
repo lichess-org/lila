@@ -141,9 +141,9 @@ object SetupBulk:
     def nonEmptyRules = rules.nonEmpty option rules
 
   sealed trait ScheduleError
-  case class BadTokens(tokens: List[BadToken])    extends ScheduleError
+  case class BadTokens(tokens: List[BadToken])   extends ScheduleError
   case class DuplicateUsers(users: List[UserId]) extends ScheduleError
-  case object RateLimited                         extends ScheduleError
+  case object RateLimited                        extends ScheduleError
 
   def toJson(bulk: ScheduledBulk) =
     import bulk.*
@@ -230,7 +230,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
             val nbGames = pairs.size
             val cost    = nbGames * (if (me.isVerified || me.isApiHog) 1 else 3)
             rateLimit[Fu[Result]](me.id, cost = nbGames) {
-              lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames).unit
+              lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames).unit
               idGenerator
                 .games(nbGames)
                 .map {

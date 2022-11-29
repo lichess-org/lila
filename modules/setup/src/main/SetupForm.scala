@@ -168,7 +168,10 @@ object SetupForm:
         "rated" -> boolean,
         "fen"   -> fenField,
         "users" -> optional(
-          LilaForm.strings.separator(",").verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
+          LilaForm.strings
+            .separator(",")
+            .verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
+            .transform[List[UserStr]](_ map { UserStr(_) }, _.map(_.value))
         ),
         "rules" -> optional(gameRules)
       )(OpenConfig.from)(_ => none)

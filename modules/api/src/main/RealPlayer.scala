@@ -48,9 +48,9 @@ final class RealPlayerApi(
   }
 
   private def make(id: String, name: Option[String], rating: Option[String]) =
-    val (n, r) = name.filter(_.nonEmpty) -> rating.flatMap(_.toIntOption)
+    val (n, r) = UserName.from(name.filter(_.nonEmpty)) -> rating.flatMap(_.toIntOption)
     (n.isDefined || r.isDefined) option {
-      User.normalize(id) -> RealPlayer(name = n, rating = r)
+      UserStr(id).id -> RealPlayer(name = n, rating = IntRating from r)
     }
 
 case class RealPlayers(players: Map[UserId, RealPlayer]):
@@ -61,7 +61,7 @@ case class RealPlayers(players: Map[UserId, RealPlayer]):
         game.players.flatMap { player =>
           player.userId.flatMap(players.get) ?? { rp =>
             List(
-              rp.name.map { name => Tag(player.color.fold(Tag.White, Tag.Black), name) },
+              rp.name.map { name => Tag(player.color.fold(Tag.White, Tag.Black), name.value) },
               rp.rating.map { rating => Tag(player.color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) }
             ).flatten
           }
@@ -69,4 +69,4 @@ case class RealPlayers(players: Map[UserId, RealPlayer]):
       }
     )
 
-case class RealPlayer(name: Option[String], rating: Option[Int])
+case class RealPlayer(name: Option[UserName], rating: Option[IntRating])

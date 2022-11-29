@@ -21,7 +21,7 @@ final class JsonView(
     Json
       .obj(
         "id"     -> r.id,
-        "name"   -> light.fold(r.id)(_.name),
+        "name"   -> light.fold(r.id into UserName)(_.name),
         "title"  -> light.map(_.title),
         "rating" -> r.rating.int
       )

@@ -130,7 +130,7 @@ final class GameStateStream(
       def pushState(g: Game): Funit =
         jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer void
 
-      def pushChatLine(username: String, text: String, player: Boolean) =
+      def pushChatLine(username: UserName, text: String, player: Boolean) =
         queue offer jsonView.chatLine(username, text, player).some
 
       def opponentGone(claimInSeconds: Option[Int]) = queue offer {

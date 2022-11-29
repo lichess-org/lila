@@ -58,7 +58,9 @@ final class AccountClosure(
       _       <- pushEnv.unregisterDevices(u)
       _       <- streamerApi.demote(u.id)
       reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
-      _ <- if (selfClose) modLogApi.selfCloseAccount(u.id, reports) else modLogApi.closeAccount(by.id, u.id)
+      _ <-
+        if (selfClose) modLogApi.selfCloseAccount(u.id, reports)
+        else modLogApi.closeAccount(by.id into ModId, u.id)
       _ <- appealApi.onAccountClose(u)
       _ <- u.marks.troll ?? relationApi.fetchFollowing(u.id).flatMap {
         activityWrite.unfollowAll(u, _)
@@ -70,7 +72,7 @@ final class AccountClosure(
       _ ?? { case (lichess, user) => close(user, lichess) }
     }
 
-  def eraseClosed(username: String): Fu[Either[String, String]] =
+  def eraseClosed(username: UserId): Fu[Either[String, String]] =
     userRepo byId username map {
       case None => Left("No such user.")
       case Some(user) =>
@@ -80,8 +82,8 @@ final class AccountClosure(
         Right(s"Erasing all data about $username in 24h")
     }
 
-  def closeThenErase(username: String, by: Holder): Fu[Either[String, String]] =
+  def closeThenErase(username: UserStr, by: Holder): Fu[Either[String, String]] =
     userRepo byId username flatMap {
       case None    => fuccess(Left("No such user."))
-      case Some(u) => (u.enabled ?? close(u, by)) >> eraseClosed(u.username)
+      case Some(u) => (u.enabled ?? close(u, by)) >> eraseClosed(u.id)
     }

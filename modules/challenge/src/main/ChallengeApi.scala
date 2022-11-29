@@ -176,13 +176,13 @@ final class ChallengeApi(
     socket.foreach(_ reload id)
 
   private object notifyUser:
-    private val throttler = new lila.hub.EarlyMultiThrottler(logger)
+    private val throttler = new lila.hub.EarlyMultiThrottler[UserId](logger)
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds) {
-      for {
+      for
         all  <- allFor(userId)
         lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
-      } yield Bus.publish(
+      yield Bus.publish(
         SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(using lang))),
         "socketUsers"
       )
