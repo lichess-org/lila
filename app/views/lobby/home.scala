@@ -122,7 +122,7 @@ object home:
           )
         },
         puzzle map { p =>
-          views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
+          views.html.puzzle.dailyEmbed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         bits.lastPosts(lastPost, ublogPosts),
