@@ -7,7 +7,7 @@ import lila.api.{ Context, given }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
-import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
+import lila.tournament.{ TeamBattle, Tournament }
 
 object side:
 
@@ -17,9 +17,9 @@ object side:
       tour: Tournament,
       verdicts: lila.tournament.Condition.All.WithVerdicts,
       streamers: List[UserId],
-      shieldOwner: Option[TournamentShield.OwnerId],
+      shieldOwner: Option[UserId],
       chat: Boolean
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     frag(
       div(cls := "tour__meta")(
         st.section(dataIcon := tour.perfType.iconChar.toString)(
@@ -53,7 +53,7 @@ object side:
             shieldOwner map { owner =>
               p(cls := "defender", dataIcon := "")(
                 "Defender:",
-                userIdLink(owner.value.some)
+                userIdLink(owner.some)
               )
             }
           )

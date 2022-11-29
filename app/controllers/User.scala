@@ -39,7 +39,7 @@ final class User(
     Open { implicit ctx =>
       OptionFuResult(env.user.repo byId username) { user =>
         currentlyPlaying(user) orElse lastPlayed(user) flatMap {
-          _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
+          _.fold(fuccess(Redirect(routes.User.show(username.value)))) { pov =>
             ctx.me ifFalse pov.game.bothPlayersHaveMoved flatMap { Pov(pov.game, _) } match
               case Some(mine) => Redirect(routes.Round.player(mine.fullId)).toFuccess
               case _          => roundC.watch(pov, userTv = user.some)
@@ -50,9 +50,8 @@ final class User(
 
   def tvExport(username: UserStr) =
     Action.async { req =>
-      val userId = UserModel normalize username
-      env.game.cached.lastPlayedPlayingId(userId) orElse
-        env.game.gameRepo.quickLastPlayedId(userId) flatMap {
+      env.game.cached.lastPlayedPlayingId(username.id) orElse
+        env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
           case None         => NotFound("No ongoing game").toFuccess
           case Some(gameId) => gameC.exportGame(gameId, req)
         }
@@ -91,7 +90,7 @@ final class User(
       }
 
   def download(username: UserStr) = OpenBody { implicit ctx =>
-    val userOption = if (username == "me") fuccess(ctx.me) else env.user.repo byId username
+    val userOption = if (username.value == "me") fuccess(ctx.me) else env.user.repo byId username
     OptionOk(userOption.dmap(_.filter(u => u.enabled || ctx.is(u) || isGranted(_.GamesModView)))) { user =>
       html.user.download(user)
     }
@@ -145,7 +144,7 @@ final class User(
     }
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    if (UserModel.isGhost(username))
+    if (UserModel.isGhost(username.id))
       negotiate(
         html = Ok(html.site.bits.ghost).toFuccess,
         api = _ => notFoundJson("Deleted user")
@@ -153,7 +152,7 @@ final class User(
     else
       env.user.repo byId username flatMap {
         case None if isGranted(_.UserModView) =>
-          ctx.me.map(Holder.apply) ?? { modC.searchTerm(_, username.trim) }
+          ctx.me.map(Holder.apply) ?? { modC.searchTerm(_, username.value) }
         case None                                             => notFound
         case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
         case Some(u) =>
@@ -533,7 +532,7 @@ final class User(
 
   def opponents =
     Auth { implicit ctx => me =>
-      get("u")
+      getUserStr("u")
         .ifTrue(isGranted(_.BoostHunter))
         .??(env.user.repo.byId)
         .map(_ | me)
@@ -577,10 +576,10 @@ final class User(
 
   def autocomplete =
     Open { implicit ctx =>
-      get("term", ctx.req).filter(_.nonEmpty).filter(lila.user.User.couldBeUsername) match
+      getUserStr("term", ctx.req).flatMap(UserModel.validateId) match
         case None => BadRequest("No search term provided").toFuccess
-        case Some(term) if getBool("exists") =>
-          env.user.repo nameExists term map { r =>
+        case Some(id) if getBool("exists") =>
+          env.user.repo exists id map { r =>
             Ok(JsBoolean(r))
           }
         case Some(term) =>
@@ -617,7 +616,7 @@ final class User(
           } map JsonOk
     }
 
-  def ratingDistribution(perfKey: lila.rating.Perf.Key, username: Option[String] = None) =
+  def ratingDistribution(perfKey: lila.rating.Perf.Key, username: Option[UserStr] = None) =
     Open { implicit ctx =>
       lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match
         case Some(perfType) =>
@@ -639,7 +638,7 @@ final class User(
 
   def redirect(username: UserStr) =
     Open { implicit ctx =>
-      staticRedirect(username) | {
+      staticRedirect(username.value) | {
         tryRedirect(username) getOrElse notFound
       }
     }

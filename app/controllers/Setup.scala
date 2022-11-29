@@ -50,7 +50,7 @@ final class Setup(
   )
 
   def ai = OpenBody { implicit ctx =>
-    BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
+    BotAiRateLimit(ctx.userId | UserId(""), cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(ctx.ip) {
         given play.api.mvc.Request[?] = ctx.body
         forms.ai

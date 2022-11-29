@@ -20,8 +20,8 @@ object show:
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],
-      shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
-  )(implicit ctx: Context) =
+      shieldOwner: Option[UserId]
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(

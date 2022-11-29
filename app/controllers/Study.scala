@@ -502,7 +502,7 @@ final class Study(
       me: Option[lila.user.User],
       req: RequestHeader
   ) =
-    val name   = if (username == "me") me.fold("me")(_.username) else username
+    val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
     val userId = name.id
     val flags  = requestPgnFlags(req)
     val isMe   = me.exists(_ is userId)
@@ -560,7 +560,7 @@ final class Study(
         case None => BadRequest("No search term provided").toFuccess
         case Some(term) =>
           import lila.study.JsonView.given
-          env.study.topicApi.findLike(term, get("user", req)) map { JsonOk(_) }
+          env.study.topicApi.findLike(term, getUserStr("user", req).map(_.id)) map { JsonOk(_) }
     }
 
   def topics =

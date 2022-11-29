@@ -7,6 +7,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.game.Pov
+import Api.ApiResult
 
 final class Tv(
     env: Env,
@@ -41,7 +42,7 @@ final class Tv(
     apiC.ApiRequest { _ =>
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
-      } map { Json.toJson(_) } dmap Api.Data.apply
+      } map { Json.toJson(_) } dmap ApiResult.Data.apply
     }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =

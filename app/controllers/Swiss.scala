@@ -68,7 +68,9 @@ final class Swiss(
                 isInTeam      <- ctx.me.??(isUserInTheTeam(swiss.teamId))
                 verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
                 socketVersion <- getBool("socketVersion", ctx.req).??(env.swiss version swiss.id dmap some)
-                playerInfo    <- get("playerInfo", ctx.req).?? { env.swiss.api.playerInfo(swiss, _) }
+                playerInfo <- getUserStr("playerInfo", ctx.req).map(_.id).?? {
+                  env.swiss.api.playerInfo(swiss, _)
+                }
                 page = getInt("page", ctx.req).filter(0.<)
                 json <- env.swiss.json(
                   swiss = swiss,
@@ -283,10 +285,10 @@ final class Swiss(
       }
     }
 
-  def pageOf(id: SwissId, userId: UserId) =
+  def pageOf(id: SwissId, userId: UserStr) =
     Action.async {
       WithSwiss(id) { swiss =>
-        env.swiss.api.pageOf(swiss, UserModel normalize userId) flatMap {
+        env.swiss.api.pageOf(swiss, userId.id) flatMap {
           _ ?? { page =>
             JsonOk {
               env.swiss.standingApi(swiss, page)
@@ -296,10 +298,10 @@ final class Swiss(
       }
     }
 
-  def player(id: SwissId, userId: UserId) =
+  def player(id: SwissId, userId: UserStr) =
     Action.async {
       WithSwiss(id) { swiss =>
-        env.swiss.api.playerInfo(swiss, userId) flatMap {
+        env.swiss.api.playerInfo(swiss, userId.id) flatMap {
           _.fold(notFoundJson()) { player =>
             JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
           }

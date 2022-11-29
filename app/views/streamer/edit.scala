@@ -17,7 +17,6 @@ object edit:
       form: Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[lila.streamer.Streamer])]
   )(implicit ctx: Context) =
-
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       moreCss = cssTag("streamer.form")
@@ -97,7 +96,7 @@ object edit:
                   log.nonEmpty option ul(
                     log.map { e =>
                       li(
-                        userIdLink(e.mod.some, withTitle = false),
+                        userIdLink(e.mod.userId.some, withTitle = false),
                         " ",
                         b(e.showAction),
                         " ",

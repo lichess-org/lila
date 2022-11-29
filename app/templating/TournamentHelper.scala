@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
+import lila.common.Json.given
 
 trait TournamentHelper extends HasEnv:
   self: I18nHelper with DateHelper with UserHelper with StringHelper with NumberHelper =>

@@ -129,7 +129,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             tourOption
               .fold(notFoundJson("No such tournament")) { tour =>
                 for {
-                  playerInfoExt <- get("playerInfo").?? { api.playerInfo(tour, _) }
+                  playerInfoExt <- getUserStr("playerInfo").map(_.id).?? { api.playerInfo(tour, _) }
                   socketVersion <- getBool("socketVersion").??(env.tournament version tour.id dmap some)
                   partial = getBool("partial")
                   json <- jsonView(
@@ -162,10 +162,10 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def pageOf(id: String, userId: UserId) =
+  def pageOf(id: String, userId: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
-        api.pageOf(tour, UserModel normalize userId) flatMap {
+        api.pageOf(tour, userId.id) flatMap {
           _ ?? { page =>
             JsonOk {
               env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
@@ -175,12 +175,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def player(tourId: String, userId: UserId) =
+  def player(tourId: String, userId: UserStr) =
     Action.async {
       cachedTour(tourId) flatMap {
         _ ?? { tour =>
           JsonOk {
-            api.playerInfo(tour, userId) flatMap {
+            api.playerInfo(tour, userId.id) flatMap {
               _ ?? { jsonView.playerInfoExtended(tour, _) }
             }
           }
@@ -535,7 +535,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def categShields(k: String) =
     Open { implicit ctx =>
       OptionFuOk(env.tournament.shieldApi.byCategKey(k)) { case (categ, awards) =>
-        env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+        env.user.lightUserApi preloadMany awards.map(_.owner) inject
           html.tournament.shields.byCateg(categ, awards)
       }
     }
@@ -587,7 +587,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
-          env.mod.logApi.terminateTournament(me.id, tour.name())
+          env.mod.logApi.terminateTournament(me.id into ModId, tour.name())
           Redirect(routes.Tournament.home)
         }
       }

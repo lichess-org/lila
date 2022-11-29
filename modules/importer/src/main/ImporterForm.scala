@@ -49,7 +49,7 @@ case class ImportData(pgn: String, analyse: Option[String]):
       case Reader.Result.Complete(replay)      => replay
       case Reader.Result.Incomplete(replay, _) => replay
 
-  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
+  def preprocess(user: Option[UserId]): Validated[String, Preprocessed] = ImporterForm.catchOverflow(() =>
     Parser.full(pgn) map { parsed =>
       Reader.fullWithSans(
         parsed,

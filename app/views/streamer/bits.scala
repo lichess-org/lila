@@ -62,7 +62,7 @@ object bits:
 
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      redirectLink(s.streamer.id.value)(
+      redirectLink(s.streamer.id into UserStr)(
         cls   := "stream highlight",
         title := s.status
       )(

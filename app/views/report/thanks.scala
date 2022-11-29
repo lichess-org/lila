@@ -36,9 +36,7 @@ fetch($button.data('action'), {method:'post'})
             attr("data-action") := routes.Relation.block(userId),
             cls                 := "report-block button",
             st.title            := trans.block.txt()
-          )(
-            span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId))
-          )
+          )(span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId)))
         ),
         br,
         br,
