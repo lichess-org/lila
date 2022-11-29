@@ -16,10 +16,7 @@ import lila.common.config
 import Api.ApiResult
 import lila.common.LightUser
 
-final class Relation(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env):
+final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 

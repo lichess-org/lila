@@ -128,7 +128,7 @@ object games:
                       },
                       shortClockName(pov.game)
                     ),
-                    td(dataSort := ~pov.game.tournamentId)(
+                    td(dataSort := pov.game.tournamentId.??(_.value))(
                       pov.game.tournamentId map { tourId =>
                         a(
                           dataIcon := "",

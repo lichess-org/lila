@@ -585,7 +585,7 @@ final class User(
         case Some(term) =>
           {
             (get("tour"), get("swiss"), get("team")) match
-              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
+              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
               case (_, Some(swissId), _) =>
                 env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
               case (_, _, Some(teamId)) => env.team.api.searchMembers(TeamId(teamId), term, 10)

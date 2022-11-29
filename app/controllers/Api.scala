@@ -203,7 +203,7 @@ final class Api(
         env.tournament.apiJsonView.apply map ApiResult.Data.apply
     }
 
-  def tournament(id: String) =
+  def tournament(id: TourId) =
     ApiRequest { implicit req =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
@@ -223,7 +223,7 @@ final class Api(
       } map toApiResult
     }
 
-  def tournamentGames(id: String) =
+  def tournamentGames(id: TourId) =
     AnonOrScoped() { req => me =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
@@ -246,7 +246,7 @@ final class Api(
       }
     }
 
-  def tournamentResults(id: String) =
+  def tournamentResults(id: TourId) =
     Action.async { implicit req =>
       val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
       env.tournament.tournamentRepo byId id map {
@@ -263,7 +263,7 @@ final class Api(
       }
     }
 
-  def tournamentTeams(id: String) =
+  def tournamentTeams(id: TourId) =
     Action.async {
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
@@ -294,9 +294,9 @@ final class Api(
       }
     }
 
-  def swissGames(id: String) =
+  def swissGames(id: SwissId) =
     AnonOrScoped() { req => me =>
-      env.swiss.cache.swissCache byId SwissId(id) flatMap {
+      env.swiss.cache.swissCache byId id flatMap {
         _ ?? { swiss =>
           val config = GameApiV2.BySwissConfig(
             swissId = swiss.id,
@@ -316,9 +316,9 @@ final class Api(
       }
     }
 
-  def swissResults(id: String) = Action.async { implicit req =>
+  def swissResults(id: SwissId) = Action.async { implicit req =>
     val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
-    env.swiss.cache.swissCache byId SwissId(id) map {
+    env.swiss.cache.swissCache byId id map {
       _ ?? { swiss =>
         val source = env.swiss.api
           .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)

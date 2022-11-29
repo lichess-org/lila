@@ -67,28 +67,28 @@ private case class WaitingUsers(
 
 final private class WaitingUsersApi:
 
-  private val store = new java.util.concurrent.ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
+  private val store = new java.util.concurrent.ConcurrentHashMap[TourId, WaitingUsers.WithNext](64)
 
-  def hasUser(tourId: Tournament.ID, userId: UserId): Boolean =
+  def hasUser(tourId: TourId, userId: UserId): Boolean =
     Option(store get tourId).exists(_.waiting hasUser userId)
 
   def registerNextPromise(tour: Tournament, promise: Promise[WaitingUsers]) =
     updateOrCreate(tour)(_.copy(next = promise.some))
 
-  def registerWaitingUsers(tourId: Tournament.ID, users: Set[UserId]) =
+  def registerWaitingUsers(tourId: TourId, users: Set[UserId]) =
     store.computeIfPresent(
       tourId,
-      (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
+      (_: TourId, cur: WaitingUsers.WithNext) => {
         val newWaiting = cur.waiting.update(users)
         cur.next.foreach(_ success newWaiting)
         WaitingUsers.WithNext(newWaiting, none)
       }
     )
 
-  def registerPairedUsers(tourId: Tournament.ID, users: Set[UserId]) =
+  def registerPairedUsers(tourId: TourId, users: Set[UserId]) =
     store.computeIfPresent(
       tourId,
-      (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
+      (_: TourId, cur: WaitingUsers.WithNext) =>
         cur.copy(waiting = cur.waiting removePairedUsers users)
     )
 
@@ -96,12 +96,12 @@ final private class WaitingUsersApi:
     w.copy(waiting = w.waiting addApiUser user.id)
   }
 
-  def remove(id: Tournament.ID) = store remove id
+  def remove(id: TourId) = store remove id
 
   private def updateOrCreate(tour: Tournament)(f: WaitingUsers.WithNext => WaitingUsers.WithNext) =
     store.compute(
       tour.id,
-      (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
+      (_: TourId, cur: WaitingUsers.WithNext) =>
         f(
           Option(cur) | WaitingUsers.WithNext(
             WaitingUsers(Map.empty, None, tour.clock, DateTime.now),

@@ -68,7 +68,7 @@ final class LeaderboardApi(
         }
       }
 
-  def getAndDeleteRecent(userId: UserId, since: DateTime): Fu[List[Tournament.ID]] =
+  def getAndDeleteRecent(userId: UserId, since: DateTime): Fu[List[TourId]] =
     repo.coll.list[Entry](
       $doc(
         "u" -> userId,
@@ -126,7 +126,7 @@ object LeaderboardApi:
   case class Entry(
       id: TourPlayerId,
       userId: UserId,
-      tourId: Tournament.ID,
+      tourId: TourId,
       nbGames: Int,
       score: Int,
       rank: Rank,

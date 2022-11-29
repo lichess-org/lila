@@ -8,7 +8,7 @@ import chess.Color
 private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
-    tournamentId: Option[String],
+    tournamentId: Option[TourId],
     swissId: Option[SwissId],
     simulId: Option[SimulId],
     analysed: Boolean,

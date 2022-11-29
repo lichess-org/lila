@@ -167,7 +167,7 @@ object BSONHandlers:
         metadata = Metadata(
           source = r intO F.source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](F.pgnImport),
-          tournamentId = r strO F.tournamentId,
+          tournamentId = r.getO[TourId](F.tournamentId),
           swissId = r.getO[SwissId](F.swissId),
           simulId = r.getO[SimulId](F.simulId),
           analysed = r boolD F.analysed,

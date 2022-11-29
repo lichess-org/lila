@@ -26,31 +26,33 @@ final private class TournamentSocket(
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
 
-  def reload(tourId: Tournament.ID): Unit =
+  def reload(tourId: TourId): Unit =
     reloadThrottler ! LateMultiThrottler.work(
       id = tourId,
       run = fuccess {
-        send(RP.Out.tellRoom(RoomId(tourId), makeMessage("reload")))
+        send(RP.Out.tellRoom(tourId into RoomId, makeMessage("reload")))
       },
       delay = 1.seconds.some
     )
 
-  def startGame(tourId: Tournament.ID, game: Game): Unit =
+  def startGame(tourId: TourId, game: Game): Unit =
     game.players foreach { player =>
       player.userId foreach { userId =>
-        send(RP.Out.tellRoomUser(RoomId(tourId), userId, makeMessage("redirect", game fullIdOf player.color)))
+        send(
+          RP.Out.tellRoomUser(tourId into RoomId, userId, makeMessage("redirect", game fullIdOf player.color))
+        )
       }
     }
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.name()(using lila.i18n.defaultLang)))
+    send(Protocol.Out.getWaitingUsers(tour.id into RoomId, tour.name()(using lila.i18n.defaultLang)))
     val promise = Promise[WaitingUsers]()
     waitingUsers.registerNextPromise(tour, promise)
     promise.future.withTimeout(2.seconds, lila.base.LilaException("getWaitingUsers timeout"))
 
   def hasUser = waitingUsers.hasUser
 
-  def finish(tourId: Tournament.ID): Unit =
+  def finish(tourId: TourId): Unit =
     waitingUsers remove tourId
     reload(tourId)
 
@@ -66,12 +68,12 @@ final private class TournamentSocket(
       roomId => _.Tournament(roomId into TourId).some,
       chatBusChan = _.Tournament,
       localTimeout = Some { (roomId, modId, _) =>
-        repo.fetchCreatedBy(roomId.value).map(_ has modId)
+        repo.fetchCreatedBy(roomId into TourId).map(_ has modId)
       }
     )
 
   private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>
-    waitingUsers.registerWaitingUsers(roomId.value, users).unit
+    waitingUsers.registerWaitingUsers(roomId into TourId, users).unit
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply

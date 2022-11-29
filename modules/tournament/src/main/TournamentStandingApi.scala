@@ -52,13 +52,13 @@ final class TournamentStandingApi(
     else if (page > 50 && tour.isCreated) createdCache.get(tour.id -> page)
     else compute(tour, page, withScores)
 
-  private val first = cacheApi[Tournament.ID, JsObject](64, "tournament.page.first") {
+  private val first = cacheApi[TourId, JsObject](64, "tournament.page.first") {
     _.expireAfterWrite(1 second)
       .buildAsyncFuture { compute(_, 1, withScores = true) }
   }
 
   // useful for highly anticipated, highly populated tournaments
-  private val createdCache = cacheApi[(Tournament.ID, Int), JsObject](64, "tournament.page.createdCache") {
+  private val createdCache = cacheApi[(TourId, Int), JsObject](64, "tournament.page.createdCache") {
     _.expireAfterWrite(15 second)
       .buildAsyncFuture { case (tourId, page) =>
         compute(tourId, page, withScores = true)
@@ -69,7 +69,7 @@ final class TournamentStandingApi(
     first invalidate tour.id
     // no need to invalidate createdCache, these are only cached when tour.isCreated
 
-  private def compute(id: Tournament.ID, page: Int, withScores: Boolean): Fu[JsObject] =
+  private def compute(id: TourId, page: Int, withScores: Boolean): Fu[JsObject] =
     cached.tourCache.byId(id) orFail s"No such tournament: $id" flatMap { compute(_, page, withScores) }
 
   private def playerIdsOnPage(tour: Tournament, page: Int): Fu[List[TourPlayerId]] =

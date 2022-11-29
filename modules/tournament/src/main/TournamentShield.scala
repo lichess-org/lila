@@ -86,7 +86,7 @@ object TournamentShield:
       categ: Category,
       owner: UserId,
       date: DateTime,
-      tourId: Tournament.ID
+      tourId: TourId
   )
   // newer entry first
   case class History(value: Map[Category, List[Award]]):

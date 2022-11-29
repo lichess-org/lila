@@ -571,7 +571,7 @@ case class Game(
       case a :: Nil      => Some((a + 1500).value / 2)
       case _             => None
 
-  def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
+  def withTournamentId(id: TourId) = copy(metadata = metadata.copy(tournamentId = id.some))
   def withSwissId(id: SwissId)     = copy(metadata = metadata.copy(swissId = id.some))
   def withSimulId(id: SimulId)     = copy(metadata = metadata.copy(simulId = id.some))
 

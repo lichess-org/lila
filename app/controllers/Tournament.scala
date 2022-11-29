@@ -84,7 +84,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
-  def show(id: String) =
+  def show(id: TourId) =
     Open { implicit ctx =>
       val page = getInt("page")
       cachedTour(id) flatMap { tourOption =>
@@ -153,7 +153,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def standing(id: String, page: Int) =
+  def standing(id: TourId, page: Int) =
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
         JsonOk {
@@ -162,7 +162,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def pageOf(id: String, userId: UserStr) =
+  def pageOf(id: TourId, userId: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
         api.pageOf(tour, userId.id) flatMap {
@@ -175,7 +175,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def player(tourId: String, userId: UserStr) =
+  def player(tourId: TourId, userId: UserStr) =
     Action.async {
       cachedTour(tourId) flatMap {
         _ ?? { tour =>
@@ -188,7 +188,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def teamInfo(tourId: String, teamId: TeamId) =
+  def teamInfo(tourId: TourId, teamId: TeamId) =
     Open { implicit ctx =>
       cachedTour(tourId) flatMap {
         _ ?? { tour =>
@@ -214,7 +214,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     key = "tournament.user.join"
   )
 
-  def join(id: String) =
+  def join(id: TourId) =
     AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {
         NoPlayban {
@@ -232,7 +232,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def apiJoin(id: String) =
+  def apiJoin(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.lame || me.isBot)
         Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
@@ -251,14 +251,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         }
     }
 
-  private def doJoin(tourId: Tour.ID, data: TournamentForm.TournamentJoin, me: UserModel) =
+  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin, me: UserModel) =
     data.team
       .?? { env.team.cached.isLeader(_, me.id) }
       .flatMap { isLeader =>
         api.joinWithResult(tourId, me, data = data, getUserTeamIds, isLeader)
       }
 
-  def pause(id: String) =
+  def pause(id: TourId) =
     Auth { implicit ctx => me =>
       OptionResult(cachedTour(id)) { tour =>
         api.selfPause(tour.id, me.id)
@@ -267,7 +267,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def apiWithdraw(id: String) =
+  def apiWithdraw(id: TourId) =
     ScopedBody(_.Tournament.Write) { _ => me =>
       cachedTour(id) flatMap {
         _ ?? { tour =>
@@ -393,7 +393,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         )
     }
 
-  def apiUpdate(id: String) =
+  def apiUpdate(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
       cachedTour(id) flatMap {
@@ -424,7 +424,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def apiTerminate(id: String) =
+  def apiTerminate(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       cachedTour(id) flatMap {
         _ ?? {
@@ -437,7 +437,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def teamBattleEdit(id: String) =
+  def teamBattleEdit(id: TourId) =
     Auth { implicit ctx => me =>
       cachedTour(id) flatMap {
         _ ?? {
@@ -462,7 +462,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def teamBattleUpdate(id: String) =
+  def teamBattleUpdate(id: TourId) =
     AuthBody { implicit ctx => me =>
       cachedTour(id) flatMap {
         _ ?? {
@@ -481,7 +481,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def apiTeamBattleUpdate(id: String) =
+  def apiTeamBattleUpdate(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
       cachedTour(id) flatMap {
@@ -557,7 +557,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def edit(id: String) =
+  def edit(id: TourId) =
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         env.team.api.lightsByLeader(me.id) map { teams =>
@@ -567,7 +567,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def update(id: String) =
+  def update(id: TourId) =
     AuthBody { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         given play.api.mvc.Request[?] = ctx.body
@@ -583,7 +583,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def terminate(id: String) =
+  def terminate(id: TourId) =
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
@@ -605,7 +605,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }.toFuccess
     }
 
-  def battleTeams(id: String) =
+  def battleTeams(id: TourId) =
     Open { implicit ctx =>
       cachedTour(id) flatMap {
         _.filter(_.isTeamBattle) ?? { tour =>
@@ -616,7 +616,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  private def WithEditableTournament(id: String, me: UserModel)(
+  private def WithEditableTournament(id: TourId, me: UserModel)(
       f: Tour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     cachedTour(id) flatMap {
@@ -626,7 +626,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       case _       => notFound
     }
 
-  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserId]](64, "tournament.streamers") {
+  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](64, "tournament.streamers") {
     _.refreshAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture { tourId =>

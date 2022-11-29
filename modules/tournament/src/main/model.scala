@@ -96,7 +96,7 @@ case class FeaturedGame(
     black: RankedPlayer
 )
 
-final class GetTourName(cache: lila.memo.Syncache[(Tournament.ID, Lang), Option[String]]):
-  def sync(id: Tournament.ID)(using lang: Lang)               = cache.sync(id -> lang)
-  def async(id: Tournament.ID)(using lang: Lang)              = cache.async(id -> lang)
-  def preload(ids: Iterable[Tournament.ID])(using lang: Lang) = cache.preloadMany(ids.map(_ -> lang).toSeq)
+final class GetTourName(cache: lila.memo.Syncache[(TourId, Lang), Option[String]]):
+  def sync(id: TourId)(using lang: Lang)               = cache.sync(id -> lang)
+  def async(id: TourId)(using lang: Lang)              = cache.async(id -> lang)
+  def preload(ids: Iterable[TourId])(using lang: Lang) = cache.preloadMany(ids.map(_ -> lang).toSeq)

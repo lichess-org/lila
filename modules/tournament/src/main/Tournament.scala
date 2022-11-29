@@ -14,7 +14,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Tournament(
-    id: Tournament.ID,
+    id: TourId,
     name: String,
     status: Status,
     clock: ClockConfig,
@@ -33,7 +33,7 @@ case class Tournament(
     createdBy: UserId,
     startsAt: DateTime,
     winnerId: Option[UserId] = None,
-    featuredId: Option[String] = None,
+    featuredId: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
@@ -147,8 +147,6 @@ case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournam
 
 object Tournament:
 
-  type ID = String
-
   val minPlayers = 2
 
   def make(
@@ -212,9 +210,9 @@ object Tournament:
       startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
     )
 
-  def tournamentUrl(tourId: String): String = s"https://lichess.org/tournament/$tourId"
+  def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"
 
-  def makeId = ThreadLocalRandom nextString 8
+  def makeId = TourId(ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 

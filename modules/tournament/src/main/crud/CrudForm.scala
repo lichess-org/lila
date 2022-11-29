@@ -17,7 +17,7 @@ final class CrudForm(repo: TournamentRepo):
 
   def apply(tour: Option[Tournament]) = Form(
     mapping(
-      "id"             -> id(8, tour.map(_.id))(repo.exists),
+      "id"             -> id[TourId](8, tour.map(_.id))(repo.exists),
       "name"           -> text(minLength = 3, maxLength = 40),
       "homepageHours"  -> number(min = 0, max = maxHomepageHours),
       "clockTime"      -> numberInDouble(clockTimeChoices),
@@ -62,7 +62,7 @@ object CrudForm:
   val maxHomepageHours = 24
 
   case class Data(
-      id: String,
+      id: TourId,
       name: String,
       homepageHours: Int,
       clockTime: Double,

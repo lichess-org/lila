@@ -6,7 +6,7 @@ import lila.user.User
 
 private[tournament] case class Player(
     _id: TourPlayerId, // random
-    tourId: Tournament.ID,
+    tourId: TourId,
     userId: UserId,
     rating: IntRating,
     provisional: Boolean,
@@ -39,7 +39,7 @@ private[tournament] object Player:
   case class Result(player: Player, lightUser: LightUser, rank: Int)
 
   private[tournament] def make(
-      tourId: Tournament.ID,
+      tourId: TourId,
       user: User,
       perfType: PerfType,
       team: Option[TeamId]

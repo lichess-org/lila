@@ -62,17 +62,18 @@ object Form:
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
-  def id(size: Int, fixed: Option[String])(exists: String => Fu[Boolean]) =
+  def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
+      sr: StringRuntime[Id],
+      rs: SameRuntime[String, Id]
+  ): Mapping[Id] =
     val field = text(minLength = size, maxLength = size)
       .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r matches id)
+      .into[Id]
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
       case None =>
         import scala.concurrent.duration.*
-        field.verifying(
-          "This ID is already in use",
-          id => !exists(id).await(1.second, "tour crud unique ID")
-        )
+        field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 

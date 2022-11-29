@@ -41,7 +41,7 @@ final class RevolutionApi(
               doc     <- docOpt
               winner  <- doc.getAsOpt[UserId]("winner")
               variant <- doc.int("variant") flatMap Variant.apply
-              id      <- doc.getAsOpt[Tournament.ID]("_id")
+              id      <- doc.getAsOpt[TourId]("_id")
             } yield Award(
               owner = winner,
               variant = variant,
@@ -62,7 +62,7 @@ object Revolution:
   case class Award(
       owner: UserId,
       variant: Variant,
-      tourId: Tournament.ID
+      tourId: TourId
   ):
     val iconChar = lila.rating.PerfType iconByVariant variant
 

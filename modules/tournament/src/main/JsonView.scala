@@ -113,7 +113,7 @@ final class JsonView(
           .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
-          .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)))
+          .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id.value)))
           .add("defender" -> shieldOwner.map(_.value))
           .add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
             Json.obj("name" -> tour.name, "url" -> url)
@@ -140,7 +140,7 @@ final class JsonView(
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
     js + ("reloadEndpoint" -> JsString({
       if (useLilaHttp(tour)) reloadEndpointSetting.get() else reloadEndpointSetting.default
-    }.replace("{id}", tour.id)))
+    }.replace("{id}", tour.id.value)))
 
   def clearCache(tour: Tournament): Unit =
     standingApi clearCache tour
@@ -237,14 +237,14 @@ final class JsonView(
       "win"     -> s.scores.count(_.res == arena.Sheet.Result.Win)
     )
 
-  private def duelsJson(tourId: Tournament.ID): Fu[(List[Duel], JsArray)] =
+  private def duelsJson(tourId: TourId): Fu[(List[Duel], JsArray)] =
     val duels = duelStore.bestRated(tourId, 6)
     (duels.map(duelJson).sequenceFu: Fu[List[JsObject]]) map { jsons =>
       (duels, JsArray(jsons))
     }
 
   private[tournament] val cachableData =
-    cacheApi[Tournament.ID, CachableData](64, "tournament.json.cachable") {
+    cacheApi[TourId, CachableData](64, "tournament.json.cachable") {
       _.expireAfterWrite(1 second)
         .buildAsyncFuture { id =>
           for {
@@ -315,7 +315,7 @@ final class JsonView(
       .add("name" -> light.map(_.name))
       .add("title" -> light.flatMap(_.title))
 
-  private val podiumJsonCache = cacheApi[Tournament.ID, Option[JsArray]](32, "tournament.podiumJson") {
+  private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](32, "tournament.podiumJson") {
     _.expireAfterAccess(15 seconds)
       .expireAfterWrite(1 minute)
       .maximumSize(256)
@@ -380,17 +380,17 @@ final class JsonView(
       else teamStandingJsonCache get tour.id dmap some
     }
 
-  private val teamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding") {
+  private val teamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding") {
     _.expireAfterWrite(500 millis)
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.displayTeams))
   }
 
-  private val bigTeamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding.big") {
+  private val bigTeamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding.big") {
     _.expireAfterWrite(2 seconds)
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
   }
 
-  private[tournament] def fetchAndRenderTeamStandingJson(max: Int)(id: Tournament.ID) =
+  private[tournament] def fetchAndRenderTeamStandingJson(max: Int)(id: TourId) =
     cached.battle.teamStanding.get(id) map { ranked =>
       JsArray(ranked take max map teamBattleRankedWrites.writes)
     }
@@ -416,7 +416,7 @@ final class JsonView(
       }
 
   private val teamInfoCache =
-    cacheApi[(Tournament.ID, TeamId), Option[JsObject]](16, "tournament.teamInfo.json") {
+    cacheApi[(TourId, TeamId), Option[JsObject]](16, "tournament.teamInfo.json") {
       _.expireAfterWrite(5 seconds)
         .maximumSize(32)
         .buildAsyncFuture { case (tourId, teamId) =>

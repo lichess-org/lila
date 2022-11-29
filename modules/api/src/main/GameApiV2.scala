@@ -391,7 +391,7 @@ object GameApiV2:
   ) extends Config
 
   case class ByTournamentConfig(
-      tournamentId: Tournament.ID,
+      tournamentId: TourId,
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond

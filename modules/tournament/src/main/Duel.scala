@@ -38,11 +38,11 @@ final private class DuelStore:
 
   import Duel.*
 
-  private val byTourId = new ConcurrentHashMap[Tournament.ID, TreeSet[Duel]](256)
+  private val byTourId = new ConcurrentHashMap[TourId, TreeSet[Duel]](256)
 
-  def get(tourId: Tournament.ID): Option[TreeSet[Duel]] = Option(byTourId get tourId)
+  def get(tourId: TourId): Option[TreeSet[Duel]] = Option(byTourId get tourId)
 
-  def bestRated(tourId: Tournament.ID, nb: Int): List[Duel] =
+  def bestRated(tourId: TourId, nb: Int): List[Duel] =
     get(tourId) ?? {
       lila.common.Heapsort.topNToList(_, nb)(using ratingOrdering)
     }
@@ -62,7 +62,7 @@ final private class DuelStore:
       )
     } byTourId.compute(
       tour.id,
-      (_: Tournament.ID, v: TreeSet[Duel]) => {
+      (_: TourId, v: TreeSet[Duel]) => {
         if (v == null) TreeSet(tb)(gameIdOrdering)
         else v + tb
       }
@@ -72,7 +72,7 @@ final private class DuelStore:
     game.tournamentId foreach { tourId =>
       byTourId.computeIfPresent(
         tourId,
-        (_: Tournament.ID, tb: TreeSet[Duel]) => {
+        (_: TourId, tb: TreeSet[Duel]) => {
           val w = tb - emptyGameId(game.id)
           if (w.isEmpty) null else w
         }

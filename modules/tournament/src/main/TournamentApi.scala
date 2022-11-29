@@ -133,7 +133,7 @@ final class TournamentApi(
       smallTourNbActivePlayers: Option[Int]
   ): Funit =
     (users.size > 1 && (
-      !hadPairings.get(TourId(forTour.id)) ||
+      !hadPairings.get(forTour.id) ||
         users.haveWaitedEnough ||
         smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
     )) ??
@@ -161,7 +161,7 @@ final class TournamentApi(
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
                       waitingUsers.registerPairedUsers(tour.id, pairings.view.flatMap(_.pairing.users).toSet)
                       socket.reload(tour.id)
-                      hadPairings put TourId(tour.id)
+                      hadPairings put tour.id
                       featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
                     }
               }
@@ -233,7 +233,7 @@ final class TournamentApi(
       }
     }
 
-  private[tournament] val killSchedule = scala.collection.mutable.Set.empty[Tournament.ID]
+  private[tournament] val killSchedule = scala.collection.mutable.Set.empty[TourId]
 
   def kill(tour: Tournament): Funit =
     if (tour.isStarted) fuccess(killSchedule add tour.id).void
@@ -274,7 +274,7 @@ final class TournamentApi(
         else verify(tour.conditions, user, getUserTeamIds)
 
   private[tournament] def join(
-      tourId: Tournament.ID,
+      tourId: TourId,
       me: User,
       data: TournamentForm.TournamentJoin,
       getUserTeamIds: User => Fu[List[TeamId]],
@@ -330,7 +330,7 @@ final class TournamentApi(
     }
 
   def joinWithResult(
-      tourId: Tournament.ID,
+      tourId: TourId,
       me: User,
       data: TournamentForm.TournamentJoin,
       getUserTeamIds: User => Fu[List[TeamId]],
@@ -349,20 +349,20 @@ final class TournamentApi(
 
   private object updateNbPlayers:
     private val onceEvery = lila.memo.OnceEvery[TourId](1 second)
-    def apply(tourId: Tournament.ID): Funit = onceEvery(TourId(tourId)) ?? {
+    def apply(tourId: TourId): Funit = onceEvery(tourId) ?? {
       playerRepo count tourId flatMap { tournamentRepo.setNbPlayers(tourId, _) }
     }
 
-  def selfPause(tourId: Tournament.ID, userId: UserId): Funit =
+  def selfPause(tourId: TourId, userId: UserId): Funit =
     withdraw(tourId, userId, isPause = true, isStalling = false)
 
-  private def stallPause(tourId: Tournament.ID, userId: UserId): Funit =
+  private def stallPause(tourId: TourId, userId: UserId): Funit =
     withdraw(tourId, userId, isPause = false, isStalling = true)
 
   private[tournament] def sittingDetected(game: Game, player: UserId): Funit =
     game.tournamentId ?? { stallPause(_, player) }
 
-  private def withdraw(tourId: Tournament.ID, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
+  private def withdraw(tourId: TourId, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
     Parallel(tourId, "withdraw")(cached.tourCache.enterable) {
       case tour if tour.isCreated =>
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- {
@@ -481,7 +481,7 @@ final class TournamentApi(
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
-  private[tournament] def ejectLameFromEnterable(tourId: Tournament.ID, userId: UserId): Funit =
+  private[tournament] def ejectLameFromEnterable(tourId: TourId, userId: UserId): Funit =
     Parallel(tourId, "ejectLameFromEnterable")(cached.tourCache.enterable) { tour =>
       if (tour.isCreated)
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
@@ -516,7 +516,7 @@ final class TournamentApi(
       }
     }
 
-  private[tournament] def recomputeEntireTournament(id: Tournament.ID): Funit =
+  private[tournament] def recomputeEntireTournament(id: TourId): Funit =
     tournamentRepo.byId(id) flatMap {
       _ ?? { tour =>
         import lila.db.dsl.{ *, given }
@@ -542,7 +542,7 @@ final class TournamentApi(
     }
 
   // erases player from tournament and reassigns winner
-  private[tournament] def removePlayerAndRewriteHistory(tourId: Tournament.ID, userId: UserId): Funit =
+  private[tournament] def removePlayerAndRewriteHistory(tourId: TourId, userId: UserId): Funit =
     Parallel(tourId, "removePlayerAndRewriteHistory")(tournamentRepo.finishedById) { tour =>
       playerRepo.remove(tourId, userId) >> {
         tour.winnerId.contains(userId) ?? {
@@ -556,7 +556,7 @@ final class TournamentApi(
     }
 
   private val tournamentTopNb = 20
-  private val tournamentTopCache = cacheApi[Tournament.ID, TournamentTop](16, "tournament.top") {
+  private val tournamentTopCache = cacheApi[TourId, TournamentTop](16, "tournament.top") {
     _.refreshAfterWrite(3 second)
       .expireAfterAccess(5 minutes)
       .maximumSize(64)
@@ -565,7 +565,7 @@ final class TournamentApi(
       }
   }
 
-  def tournamentTop(tourId: Tournament.ID): Fu[TournamentTop] =
+  def tournamentTop(tourId: TourId): Fu[TournamentTop] =
     tournamentTopCache get tourId
 
   object gameView:
@@ -733,7 +733,7 @@ final class TournamentApi(
       tournamentRepo.upcomingByTeam(teamId, nbNext) map
       (Tournament.PastAndNext.apply).tupled
 
-  def toggleFeaturing(tourId: Tournament.ID, v: Boolean): Funit =
+  def toggleFeaturing(tourId: TourId, v: Boolean): Funit =
     if (v)
       tournamentRepo.byId(tourId) flatMap {
         _ ?? { tour =>
@@ -749,13 +749,13 @@ final class TournamentApi(
         _ flatMap { LightPov.ofUserId(_, userId) }
       }
 
-  private def Parallel(tourId: Tournament.ID, action: String)(
-      fetch: Tournament.ID => Fu[Option[Tournament]]
+  private def Parallel(tourId: TourId, action: String)(
+      fetch: TourId => Fu[Option[Tournament]]
   )(run: Tournament => Funit): Funit =
     fetch(tourId) flatMap {
       _ ?? { tour =>
         if (tour.nbPlayers > 1000)
-          run(tour).chronometer.mon(_.tournament.action(tourId, action)).result
+          run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
         else
           run(tour)
       }
@@ -782,14 +782,14 @@ final class TournamentApi(
     private val lastPublished = lila.memo.CacheApi.scaffeineNoScheduler
       .initialCapacity(16)
       .expireAfterWrite(2 minute)
-      .build[Tournament.ID, Int]()
+      .build[TourId, Int]()
 
-    private def publishNow(tourId: Tournament.ID) =
+    private def publishNow(tourId: TourId) =
       tournamentTop(tourId) map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if (lastHash != top.hashCode)
           Bus.publish(
-            lila.hub.actorApi.round.TourStanding(TourId(tourId), JsonView.top(top, lightUserApi.sync)),
+            lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
             "tourStanding"
           )
           lastPublished.put(tourId, top.hashCode)
@@ -798,7 +798,7 @@ final class TournamentApi(
     private val throttler = new lila.hub.EarlyMultiThrottler[TourId](logger)
 
     def apply(tour: Tournament): Unit =
-      if (!tour.isTeamBattle) throttler(TourId(tour.id), 15.seconds) { publishNow(tour.id) }
+      if (!tour.isTeamBattle) throttler(tour.id, 15.seconds) { publishNow(tour.id) }
 
 private object TournamentApi:
 

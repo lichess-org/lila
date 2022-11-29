@@ -10,7 +10,7 @@ import Schedule.{ Freq, Speed }
 import lila.user.User
 
 case class Winner(
-    tourId: String,
+    tourId: TourId,
     userId: UserId,
     tourName: String,
     date: DateTime
