@@ -2,34 +2,84 @@ package views.html.puzzle
 
 import controllers.routes
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsObject, Json }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.api.Context
+import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.puzzle.DailyPuzzle
+import lila.app.ui.ScalatagsTemplate._
+import lila.common.Json.colorWrites
+import lila.common.String.html.safeJsonValue
 
-object embed:
+object embed {
 
-  import EmbedConfig.implicits.*
+  import EmbedConfig.implicits._
 
-  def apply(daily: DailyPuzzle.WithHtml)(implicit config: EmbedConfig) =
-    views.html.base.embed(
-      title = "lichess.org chess puzzle",
-      cssModule = "tv.embed"
-    )(
-      dailyLink(daily)(config.lang)(
-        targetBlank,
-        id  := "daily-puzzle",
-        cls := "embedded"
+  def apply(
+      puzzle: lila.puzzle.Puzzle,
+      data: JsObject,
+      pref: JsObject,
+      settings: lila.puzzle.PuzzleSettings,
+      langPath: Option[lila.common.LangPath] = None
+  )(implicit ctx: Context) = {
+    val isStreak = data.value.contains("streak")
+    views.html.base.layout(
+      title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
+      zen = true,
+      moreCss = frag(
+        cssTag("puzzle"),
+        ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
+        ctx.blind option cssTag("round.nvui")
       ),
-      jsModule("puzzle.embed")
-    )
-
-  def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(
-    href  := routes.Puzzle.daily,
-    title := trans.puzzle.clickToSolve.txt()
-  )(
-    span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
-    raw(daily.html),
-    span(cls := "text")(daily.puzzle.color.fold(trans.whitePlays, trans.blackPlays)())
-  )
+      moreJs = frag(
+        puzzleTag,
+        puzzleNvuiTag,
+        embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
+            Json
+              .obj(
+                "data"        -> data,
+                "pref"        -> pref,
+                "i18n"        -> bits.jsI18n(streak = isStreak),
+                "showRatings" -> ctx.pref.showRatings,
+                "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
+              )
+              .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+          )})""")
+      ),
+      csp = analysisCsp.some,
+      chessground = false,
+      openGraph = lila.app.ui
+        .OpenGraph(
+          image = cdnUrl(
+            routes.Export.puzzleThumbnail(puzzle.id.value, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+          ).some,
+          title =
+            if (isStreak) "Puzzle Streak"
+            else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
+          description =
+            if (isStreak) trans.puzzle.streakDescription.txt()
+            else
+              s"Lichess tactic trainer: ${puzzle.color
+                  .fold(
+                    trans.puzzle.findTheBestMoveForWhite,
+                    trans.puzzle.findTheBestMoveForBlack
+                  )
+                  .txt()}. Played by ${puzzle.plays} players."
+        )
+        .some,
+      zoomable = true,
+      zenable = true,
+      withHrefLangs = langPath
+    ) {
+      main(cls := "puzzle")(
+        st.aside(cls := "puzzle__side")(
+          div(cls    := "puzzle__side__metas")
+        ),
+        div(cls := "puzzle__board main-board")(chessgroundBoard),
+        div(cls := "puzzle__tools"),
+        div(cls := "puzzle__controls")
+      )
+    }
+  }
+}
