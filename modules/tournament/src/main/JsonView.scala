@@ -306,7 +306,7 @@ final class JsonView(
       .obj("rank" -> i.rank)
       .add("withdraw", i.withdraw)
       .add("gameId", i.gameId)
-      .add("pauseDelay", delay.map(_.seconds))
+      .add("pauseDelay", delay)
 
   private def gameUserJson(userId: Option[UserId], rating: Option[IntRating]): JsObject =
     val light = userId flatMap lightUserApi.sync

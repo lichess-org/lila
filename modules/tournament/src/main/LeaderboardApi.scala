@@ -120,8 +120,9 @@ object LeaderboardApi:
 
   case class TourEntry(tour: Tournament, entry: Entry)
 
-  case class Ratio(value: Double) extends AnyVal:
-    def percent = (value * 100).toInt atLeast 1
+  opaque type Ratio = Double
+  object Ratio extends OpaqueDouble[Ratio]:
+    extension (a: Ratio) def percent = (a.value * 100).toInt atLeast 1
 
   case class Entry(
       id: TourPlayerId,

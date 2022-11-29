@@ -26,7 +26,7 @@ case class User(
     plan: Plan,
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty: UserMarks
-) extends Ordered[User]:
+):
 
   override def equals(other: Any) =
     other match
@@ -43,8 +43,6 @@ case class User(
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
   def realLang = lang flatMap Lang.get
-
-  def compare(other: User) = id.value compareTo other.id.value
 
   def disabled = !enabled
 

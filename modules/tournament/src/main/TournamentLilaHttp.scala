@@ -115,6 +115,6 @@ final class TournamentLilaHttp(
         .add("team" -> p.team)
         .add("fire" -> p.fire)
         .add("pause" -> {
-          p.withdraw ?? pause.remainingDelay(p.userId, tour).map(_.seconds)
+          p.withdraw ?? pause.remainingDelay(p.userId, tour)
         })
     }
