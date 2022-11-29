@@ -187,7 +187,7 @@ case class Game(
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
-          } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
+          } :+ Centis.ofLong(nowCentis - movedAt.getCentis).nonNeg
         }
       },
       loadClockHistory = _ => newClockHistory,

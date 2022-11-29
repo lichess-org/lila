@@ -242,7 +242,7 @@ object RemoteSocket:
           case "notified/batch"  => NotifiedBatch(UserId from commas(raw.args)).some
           case "lag" =>
             raw.all pipe { s =>
-              s lift 1 flatMap (_.toIntOption) map Centis.apply map { Lag(UserId(s(0)), _) }
+              Centis.from(s lift 1 flatMap (_.toIntOption)) map { Lag(UserId(s(0)), _) }
             }
           case "lags" =>
             Lags(commas(raw.args).flatMap {

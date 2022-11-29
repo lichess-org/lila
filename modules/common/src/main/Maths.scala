@@ -10,7 +10,7 @@ object Maths:
   def mean[T](a: Iterable[T])(implicit n: Numeric[T]): Option[Double] =
     a.nonEmpty option (n.toDouble(a.sum) / a.size)
 
-  def median[T: ClassTag](a: Iterable[T])(implicit n: Numeric[T]) =
+  def median[T: ClassTag](a: Iterable[T])(implicit n: Numeric[T]): Option[Double] =
     a.nonEmpty option {
       val arr = a.toArray
       Sorting.stableSort(arr)

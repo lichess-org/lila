@@ -67,8 +67,6 @@ object Json:
     Writes[O](o => JsString(to(o)))
   )
 
-  given Reads[chess.Centis] = Reads.of[Int] map chess.Centis.apply
-
   given userStrReads: Reads[UserStr] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(UserStr.read(str) toTry s"Invalid username: $str")
   }

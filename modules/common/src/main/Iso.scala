@@ -57,6 +57,4 @@ object Iso:
   given StringIso[NormalizedEmailAddress] =
     string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)
 
-  given IntIso[Centis] = int[Centis](Centis.apply, _.centis)
-
   given StringIso[Lang] = string[Lang](Lang.apply, _.toString)

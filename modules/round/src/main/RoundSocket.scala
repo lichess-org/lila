@@ -385,7 +385,7 @@ object RoundSocket:
 
       private def centis(s: String): Option[Centis] =
         if (s == "-") none
-        else s.toIntOption map Centis.apply
+        else Centis from s.toIntOption
 
       private def readColor(s: String) =
         if (s == "w") Some(White)
